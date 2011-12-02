@@ -55,5 +55,10 @@ public enum PacketTypes
 	ChestUnlock,
 	NpcAddBuff,
 	NpcUpdateBuff,
-	PlayerAddBuff
+	PlayerAddBuff,
+    UpdateNPCName,
+    UpdateGoodEvil,
+    PlayHarp,
+    HitSwitch,
+    KickNPC
 }
