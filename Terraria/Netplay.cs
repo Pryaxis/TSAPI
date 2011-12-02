@@ -15,8 +15,8 @@ namespace Terraria
 		public static ServerSock[] serverSock = new ServerSock[256];
 		public static ClientSock clientSock = new ClientSock();
 		public static TcpListener tcpListener;
-		public static IPAddress serverListenIP;
-		public static IPAddress serverIP;
+        public static IPAddress serverListenIP = serverIP;
+        public static IPAddress serverIP = IPAddress.Any;
 		public static int serverPort = 7777;
 		public static bool disconnect = false;
 		public static string password = "";
@@ -294,8 +294,8 @@ namespace Terraria
 				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
 			}
 			Main.myPlayer = 255;
-			Netplay.serverIP = IPAddress.Any;
-			Netplay.serverListenIP = Netplay.serverIP;
+			//Netplay.serverIP = IPAddress.Any;
+			//Netplay.serverListenIP = Netplay.serverIP;
 			Main.menuMode = 14;
 			Main.statusText = "Starting server...";
 			Main.netMode = 2;
