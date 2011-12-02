@@ -1337,11 +1337,6 @@ namespace Terraria
 																											NetMessage.SendData(25, this.whoAmI, -1, "You are not in a party!", 255, 255f, 240f, 20f, 0);
 																											return;
 																										}
-                                                                                                        if (text2 == "HARDMODE")
-                                                                                                        {
-                                                                                                            WorldGen.StartHardmode();
-                                                                                                            return;
-                                                                                                        }
                                                                                                         else
                                                                                                         {
                                                                                                             if (Main.player[this.whoAmI].difficulty == 2)
