@@ -5,7 +5,7 @@ namespace Terraria
 {
 	public class Tile
 	{
-		/*public bool active;
+		public bool active;
 		public byte type;
 		public byte wall;
 		//public byte wallFrameX;
@@ -18,11 +18,11 @@ namespace Terraria
 		public bool lava;
 		public byte frameNumber;
 		public short frameX;
-		public short frameY;*/
+		public short frameY;
         private readonly TileCollection Tiles;
         private readonly int X;
         private readonly int Y;
-        public bool active
+        /*public bool active
         {
             get
             {
@@ -154,7 +154,7 @@ namespace Terraria
             {
                 this.Tiles.Datas[this.X, this.Y] = value;
             }
-        }
+        }*/
         public Tile(TileCollection tiles, int x, int y)
         {
             this.Tiles = tiles;
@@ -212,7 +212,7 @@ namespace Terraria
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct TileData
     {
-        /*public bool active;
+        public bool active;
         public bool checkingLiquid;
         public byte frameNumber;
         public short frameX;
@@ -222,8 +222,9 @@ namespace Terraria
         public byte liquid;
         public bool skipLiquid;
         public byte type;
-        public byte wall;*/
-        private TileFlag Flags;
+        public byte wall;
+        public bool wire;
+        /*private TileFlag Flags;
         private ushort frame;
         public byte liquid;
         public byte type;
@@ -328,7 +329,7 @@ namespace Terraria
                 return;
             }
             this.Flags &= ~flag;
-        }
+        }*/
     }
 
     public enum TileFlag : byte
