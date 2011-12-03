@@ -5,7 +5,7 @@ namespace Terraria
 {
 	public class Tile
 	{
-		public bool active;
+		/*public bool active;
 		public byte type;
 		public byte wall;
 		//public byte wallFrameX;
@@ -18,11 +18,11 @@ namespace Terraria
 		public bool lava;
 		public byte frameNumber;
 		public short frameX;
-		public short frameY;
+		public short frameY;*/
         private readonly TileCollection Tiles;
         private readonly int X;
         private readonly int Y;
-        /*public bool active
+        public bool active
         {
             get
             {
@@ -143,7 +143,11 @@ namespace Terraria
                 this.Tiles.Datas[this.X, this.Y].lighted = value;
             }
         }
-	    public bool wire;
+	    public bool wire
+	    {
+	        get { return this.Tiles.Datas[this.X, this.Y].wire; }
+	        set { this.Tiles.Datas[this.X, this.Y].wire = value; }
+	    }
         public TileData Data
         {
             get
@@ -154,7 +158,7 @@ namespace Terraria
             {
                 this.Tiles.Datas[this.X, this.Y] = value;
             }
-        }*/
+        }
         public Tile(TileCollection tiles, int x, int y)
         {
             this.Tiles = tiles;
