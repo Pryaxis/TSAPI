@@ -1932,6 +1932,8 @@ namespace Terraria
 		}
 		public static void greetPlayer(int plr)
 		{
+            if (NetHooks.OnGreetPlayer(plr))
+                return;
 			if (Main.motd == "")
 			{
 				NetMessage.SendData(25, plr, -1, "Welcome to " + Main.worldName + "!", 255, 255f, 240f, 20f, 0);

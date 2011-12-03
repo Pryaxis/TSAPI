@@ -1373,8 +1373,8 @@ namespace Terraria
             {
                 var Npc = new Terraria.NPC();
                 Npc.netDefaults(i);
-                npcstring += string.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}\t{13}\t{14}\t{15}\t{16}\n",
-                    Npc.type, Npc.name, Npc.life, Npc.damage, Npc.defense, Npc.knockBackResist, Npc.noGravity, Npc.value,
+                npcstring += string.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}\t{13}\t{14}\t{15}\t{16}\t{17}\n",
+                    Npc.type, Npc.netID, Npc.name, Npc.life, Npc.damage, Npc.defense, Npc.knockBackResist, Npc.noGravity, Npc.value,
                     Npc.friendly, Npc.noTileCollide, Npc.aiStyle, Npc.scale, Npc.boss, Npc.lavaImmune, Npc.townNPC,
                     Npc.height, Npc.width);
             }
@@ -1386,264 +1386,273 @@ namespace Terraria
                 item.netDefaults(i);
                 itemstring += item.type + "\t" + item.name + "\n";
             }
-            File.WriteAllText("item.txt", itemstring);*/
+            File.WriteAllText("item.txt", itemstring);
+            var prefixstring = "";
+            for (int i = 1; i < 84; i++)
+            {
+                Item item = new Item();
+                item.SetDefaults(0);
+                item.prefix = (byte)i;
+                prefixstring += i + "\t" + item.AffixName() + "\n";
+            }
+		    File.WriteAllText("prefix.txt", prefixstring);*/
 			for (int i = 0; i < 142; i++)
 			{
 				NPC nPC = new NPC();
 				nPC.SetDefaults(i, -1f);
 				Main.npcName[i] = nPC.name;
 			}
-			while (Main.worldPathName == null || Main.worldPathName == "")
-			{
-				Main.LoadWorlds();
-				bool flag = true;
-				while (flag)
-				{
-					Console.WriteLine("Terraria Server " + Main.versionNumber2);
-					Console.WriteLine("");
-					for (int j = 0; j < Main.numLoadWorlds; j++)
-					{
-						Console.WriteLine(string.Concat(new object[]
-						{
-							j + 1, 
-							'\t', 
-							'\t', 
-							Main.loadWorld[j]
-						}));
-					}
-					Console.WriteLine(string.Concat(new object[]
-					{
-						"n", 
-						'\t', 
-						'\t', 
-						"New World"
-					}));
-					Console.WriteLine("d <number>" + '\t' + "Delete World");
-					Console.WriteLine("");
-					Console.Write("Choose World: ");
-					string text2 = Console.ReadLine();
-					try
-					{
-						Console.Clear();
-					}
-					catch
-					{
-					}
-					if (text2.Length >= 2 && text2.Substring(0, 2).ToLower() == "d ")
-					{
-						try
-						{
-							int num = Convert.ToInt32(text2.Substring(2)) - 1;
-							if (num < Main.numLoadWorlds)
-							{
-								Console.WriteLine("Terraria Server " + Main.versionNumber2);
-								Console.WriteLine("");
-								Console.WriteLine("Really delete " + Main.loadWorld[num] + "?");
-								Console.Write("(y/n): ");
-								string text3 = Console.ReadLine();
-								if (text3.ToLower() == "y")
-								{
-									Main.EraseWorld(num);
-								}
-							}
-						}
-						catch
-						{
-						}
-						try
-						{
-							Console.Clear();
-							continue;
-						}
-						catch
-						{
-							continue;
-						}
-					}
-					if (text2 == "n" || text2 == "N")
-					{
-						bool flag2 = true;
-						while (flag2)
-						{
-							Console.WriteLine("Terraria Server " + Main.versionNumber2);
-							Console.WriteLine("");
-							Console.WriteLine("1" + '\t' + "Small");
-							Console.WriteLine("2" + '\t' + "Medium");
-							Console.WriteLine("3" + '\t' + "Large");
-							Console.WriteLine("");
-							Console.Write("Choose size: ");
-							string value = Console.ReadLine();
-							try
-							{
-								int num2 = Convert.ToInt32(value);
-								if (num2 == 1)
-								{
-									Main.maxTilesX = 4200;
-									Main.maxTilesY = 1200;
-									flag2 = false;
-								}
-								else
-								{
-									if (num2 == 2)
-									{
-										Main.maxTilesX = 6300;
-										Main.maxTilesY = 1800;
-										flag2 = false;
-									}
-									else
-									{
-										if (num2 == 3)
-										{
-											Main.maxTilesX = 8400;
-											Main.maxTilesY = 2400;
-											flag2 = false;
-										}
-									}
-								}
-							}
-							catch
-							{
-							}
-							try
-							{
-								Console.Clear();
-							}
-							catch
-							{
-							}
-						}
-						flag2 = true;
-						while (flag2)
-						{
-							Console.WriteLine("Terraria Server " + Main.versionNumber2);
-							Console.WriteLine("");
-							Console.Write("Enter world name: ");
-							Main.newWorldName = Console.ReadLine();
-							if (Main.newWorldName != "" && Main.newWorldName != " " && Main.newWorldName != null)
-							{
-								flag2 = false;
-							}
-							try
-							{
-								Console.Clear();
-							}
-							catch
-							{
-							}
-						}
-						Main.worldName = Main.newWorldName;
-						Main.worldPathName = Main.nextLoadWorld();
-						Main.menuMode = 10;
-						WorldGen.CreateNewWorld();
-						flag2 = false;
-						while (Main.menuMode == 10)
-						{
-							if (Main.oldStatusText != Main.statusText)
-							{
-								Main.oldStatusText = Main.statusText;
-								Console.WriteLine(Main.statusText);
-							}
-						}
-						try
-						{
-							Console.Clear();
-							continue;
-						}
-						catch
-						{
-							continue;
-						}
-					}
-					try
-					{
-						int num3 = Convert.ToInt32(text2);
-						num3--;
-						if (num3 >= 0 && num3 < Main.numLoadWorlds)
-						{
-							bool flag3 = true;
-							while (flag3)
-							{
-								Console.WriteLine("Terraria Server " + Main.versionNumber2);
-								Console.WriteLine("");
-								Console.Write("Max players (press enter for 8): ");
-								string text4 = Console.ReadLine();
-								try
-								{
-									if (text4 == "")
-									{
-										text4 = "8";
-									}
-									int num4 = Convert.ToInt32(text4);
-									if (num4 <= 255 && num4 >= 1)
-									{
-										Main.maxNetPlayers = num4;
-										flag3 = false;
-									}
-									flag3 = false;
-								}
-								catch
-								{
-								}
-								try
-								{
-									Console.Clear();
-								}
-								catch
-								{
-								}
-							}
-							flag3 = true;
-							while (flag3)
-							{
-								Console.WriteLine("Terraria Server " + Main.versionNumber2);
-								Console.WriteLine("");
-								Console.Write("Server port (press enter for 7777): ");
-								string text5 = Console.ReadLine();
-								try
-								{
-									if (text5 == "")
-									{
-										text5 = "7777";
-									}
-									int num5 = Convert.ToInt32(text5);
-									if (num5 <= 65535)
-									{
-										Netplay.serverPort = num5;
-										flag3 = false;
-									}
-								}
-								catch
-								{
-								}
-								try
-								{
-									Console.Clear();
-								}
-								catch
-								{
-								}
-							}
-							Console.WriteLine("Terraria Server " + Main.versionNumber2);
-							Console.WriteLine("");
-							Console.Write("Server password (press enter for none): ");
-							Netplay.password = Console.ReadLine();
-							Main.worldPathName = Main.loadWorldPath[num3];
-							flag = false;
-							try
-							{
-								Console.Clear();
-							}
-							catch
-							{
-							}
-						}
-					}
-					catch
-					{
-					}
-				}
-			}
-			try
+            while (Main.worldPathName == null || Main.worldPathName == "")
+            {
+                Main.LoadWorlds();
+                bool flag = true;
+                while (flag)
+                {
+                    Console.WriteLine("Terraria Server " + Main.versionNumber2);
+                    Console.WriteLine("");
+                    for (int j = 0; j < Main.numLoadWorlds; j++)
+                    {
+                        Console.WriteLine(string.Concat(new object[]
+                                                            {
+                                                                j + 1,
+                                                                '\t',
+                                                                '\t',
+                                                                Main.loadWorld[j]
+                                                            }));
+                    }
+                    Console.WriteLine(string.Concat(new object[]
+                                                        {
+                                                            "n",
+                                                            '\t',
+                                                            '\t',
+                                                            "New World"
+                                                        }));
+                    Console.WriteLine("d <number>" + '\t' + "Delete World");
+                    Console.WriteLine("");
+                    Console.Write("Choose World: ");
+                    string text2 = Console.ReadLine();
+                    try
+                    {
+                        Console.Clear();
+                    }
+                    catch
+                    {
+                    }
+                    if (text2.Length >= 2 && text2.Substring(0, 2).ToLower() == "d ")
+                    {
+                        try
+                        {
+                            int num = Convert.ToInt32(text2.Substring(2)) - 1;
+                            if (num < Main.numLoadWorlds)
+                            {
+                                Console.WriteLine("Terraria Server " + Main.versionNumber2);
+                                Console.WriteLine("");
+                                Console.WriteLine("Really delete " + Main.loadWorld[num] + "?");
+                                Console.Write("(y/n): ");
+                                string text3 = Console.ReadLine();
+                                if (text3.ToLower() == "y")
+                                {
+                                    Main.EraseWorld(num);
+                                }
+                            }
+                        }
+                        catch
+                        {
+                        }
+                        try
+                        {
+                            Console.Clear();
+                            continue;
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+                    if (text2 == "n" || text2 == "N")
+                    {
+                        bool flag2 = true;
+                        while (flag2)
+                        {
+                            Console.WriteLine("Terraria Server " + Main.versionNumber2);
+                            Console.WriteLine("");
+                            Console.WriteLine("1" + '\t' + "Small");
+                            Console.WriteLine("2" + '\t' + "Medium");
+                            Console.WriteLine("3" + '\t' + "Large");
+                            Console.WriteLine("");
+                            Console.Write("Choose size: ");
+                            string value = Console.ReadLine();
+                            try
+                            {
+                                int num2 = Convert.ToInt32(value);
+                                if (num2 == 1)
+                                {
+                                    Main.maxTilesX = 4200;
+                                    Main.maxTilesY = 1200;
+                                    flag2 = false;
+                                }
+                                else
+                                {
+                                    if (num2 == 2)
+                                    {
+                                        Main.maxTilesX = 6300;
+                                        Main.maxTilesY = 1800;
+                                        flag2 = false;
+                                    }
+                                    else
+                                    {
+                                        if (num2 == 3)
+                                        {
+                                            Main.maxTilesX = 8400;
+                                            Main.maxTilesY = 2400;
+                                            flag2 = false;
+                                        }
+                                    }
+                                }
+                            }
+                            catch
+                            {
+                            }
+                            try
+                            {
+                                Console.Clear();
+                            }
+                            catch
+                            {
+                            }
+                        }
+                        flag2 = true;
+                        while (flag2)
+                        {
+                            Console.WriteLine("Terraria Server " + Main.versionNumber2);
+                            Console.WriteLine("");
+                            Console.Write("Enter world name: ");
+                            Main.newWorldName = Console.ReadLine();
+                            if (Main.newWorldName != "" && Main.newWorldName != " " && Main.newWorldName != null)
+                            {
+                                flag2 = false;
+                            }
+                            try
+                            {
+                                Console.Clear();
+                            }
+                            catch
+                            {
+                            }
+                        }
+                        Main.worldName = Main.newWorldName;
+                        Main.worldPathName = Main.nextLoadWorld();
+                        Main.menuMode = 10;
+                        WorldGen.CreateNewWorld();
+                        flag2 = false;
+                        while (Main.menuMode == 10)
+                        {
+                            if (Main.oldStatusText != Main.statusText)
+                            {
+                                Main.oldStatusText = Main.statusText;
+                                Console.WriteLine(Main.statusText);
+                            }
+                        }
+                        try
+                        {
+                            Console.Clear();
+                            continue;
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+                    try
+                    {
+                        int num3 = Convert.ToInt32(text2);
+                        num3--;
+                        if (num3 >= 0 && num3 < Main.numLoadWorlds)
+                        {
+                            bool flag3 = true;
+                            while (flag3)
+                            {
+                                Console.WriteLine("Terraria Server " + Main.versionNumber2);
+                                Console.WriteLine("");
+                                Console.Write("Max players (press enter for 8): ");
+                                string text4 = Console.ReadLine();
+                                try
+                                {
+                                    if (text4 == "")
+                                    {
+                                        text4 = "8";
+                                    }
+                                    int num4 = Convert.ToInt32(text4);
+                                    if (num4 <= 255 && num4 >= 1)
+                                    {
+                                        Main.maxNetPlayers = num4;
+                                        flag3 = false;
+                                    }
+                                    flag3 = false;
+                                }
+                                catch
+                                {
+                                }
+                                try
+                                {
+                                    Console.Clear();
+                                }
+                                catch
+                                {
+                                }
+                            }
+                            flag3 = true;
+                            while (flag3)
+                            {
+                                Console.WriteLine("Terraria Server " + Main.versionNumber2);
+                                Console.WriteLine("");
+                                Console.Write("Server port (press enter for 7777): ");
+                                string text5 = Console.ReadLine();
+                                try
+                                {
+                                    if (text5 == "")
+                                    {
+                                        text5 = "7777";
+                                    }
+                                    int num5 = Convert.ToInt32(text5);
+                                    if (num5 <= 65535)
+                                    {
+                                        Netplay.serverPort = num5;
+                                        flag3 = false;
+                                    }
+                                }
+                                catch
+                                {
+                                }
+                                try
+                                {
+                                    Console.Clear();
+                                }
+                                catch
+                                {
+                                }
+                            }
+                            Console.WriteLine("Terraria Server " + Main.versionNumber2);
+                            Console.WriteLine("");
+                            Console.Write("Server password (press enter for none): ");
+                            Netplay.password = Console.ReadLine();
+                            Main.worldPathName = Main.loadWorldPath[num3];
+                            flag = false;
+                            try
+                            {
+                                Console.Clear();
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+		    try
 			{
 				Console.Clear();
 			}
