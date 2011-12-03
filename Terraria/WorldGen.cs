@@ -1197,7 +1197,7 @@ namespace Terraria
 					Main.statusText = "Resetting game objects: " + (int)(num2 * 100f + 1f) + "%";
 					for (int l = 0; l < Main.maxTilesY; l++)
 					{
-
+					    Main.tile[k, l].Data = new TileData();
 					}
 				}
 			}
