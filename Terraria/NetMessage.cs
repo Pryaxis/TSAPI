@@ -7,6 +7,14 @@ namespace Terraria
 	public class NetMessage
 	{
 		public static messageBuffer[] buffer = new messageBuffer[257];
+        public static void SendBytes(ServerSock sock, byte[] buffer, int offset, int count, AsyncCallback callback, object state)
+        {
+            if (NetHooks.OnSendBytes(sock, buffer, offset, count))
+            {
+                return;
+            }
+            sock.networkStream.BeginWrite(buffer, offset, count, callback, state);
+        }
 		public static void SendData(int msgType, int remoteClient = -1, int ignoreClient = -1, string text = "", int number = 0, float number2 = 0f, float number3 = 0f, float number4 = 0f, int number5 = 0)
 		{
 			int num = 256;
@@ -16,7 +24,7 @@ namespace Terraria
 			}
 			lock (NetMessage.buffer[num])
 			{
-                if (!NetHooks.OnSendData(ref msgType, ref remoteClient, ref ignoreClient, ref text, ref number, ref number2, ref number3, ref number4))
+                if (!NetHooks.OnSendData(ref msgType, ref remoteClient, ref ignoreClient, ref text, ref number, ref number2, ref number3, ref number4, ref number5))
                 {
                     int num2 = 5;
                     int num3 = num2;

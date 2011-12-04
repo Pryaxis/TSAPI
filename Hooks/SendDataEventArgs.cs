@@ -44,5 +44,10 @@ namespace Hooks
 			get;
 			set;
 		}
+        public int number5
+        {
+            get; 
+            set; 
+        }
 	}
 }

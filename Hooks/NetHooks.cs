@@ -13,7 +13,7 @@ namespace Hooks
 		public static event NetHooks.GetDataD GetData;
 		public static event NetHooks.GreetPlayerD GreetPlayer;
 		public static event NetHooks.SendBytesD SendBytes;
-		public static bool OnSendData(ref int msgType, ref int remoteClient, ref int ignoreClient, ref string text, ref int number, ref float number2, ref float number3, ref float number4)
+		public static bool OnSendData(ref int msgType, ref int remoteClient, ref int ignoreClient, ref string text, ref int number, ref float number2, ref float number3, ref float number4, ref int number5)
 		{
 			if (NetHooks.SendData == null)
 			{
