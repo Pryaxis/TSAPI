@@ -25,10 +25,20 @@ namespace Hooks
 			get;
 			set;
 		}
-		public double ReturnDamage
+		public bool Critical
 		{
 			get;
 			set;
 		}
+        public bool NoEffect 
+        { 
+            get; 
+            set; 
+        }
+        public double ReturnDamage
+        {
+            get; 
+            set; 
+        }
 	}
 }
