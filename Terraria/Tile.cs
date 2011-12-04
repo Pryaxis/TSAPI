@@ -216,7 +216,7 @@ namespace Terraria
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct TileData
     {
-        public bool active;
+        /*public bool active;
         public bool checkingLiquid;
         public byte frameNumber;
         public short frameX;
@@ -227,8 +227,8 @@ namespace Terraria
         public bool skipLiquid;
         public byte type;
         public byte wall;
-        public bool wire;
-        /*private TileFlag Flags;
+        public bool wire;*/
+        private TileFlag Flags;
         private ushort frame;
         public byte liquid;
         public byte type;
@@ -323,8 +323,18 @@ namespace Terraria
                 this.SetFlag(TileFlag.SkipLiquid, value);
             }
         }
+        public bool wire
+        {
+            get
+            {
+                return (byte)(this.Flags & TileFlag.Wire) != 0;
+            } 
+            set
+            {
+                this.SetFlag(TileFlag.Wire, value);
+            }
+        }
 
-        public bool wire;
         private void SetFlag(TileFlag flag, bool set)
         {
             if (set)
@@ -333,14 +343,14 @@ namespace Terraria
                 return;
             }
             this.Flags &= ~flag;
-        }*/
+        }
     }
 
     public enum TileFlag : byte
     {
         Unknown,
         Reserved1,
-        Reserved2,
+        Wire = 4,
         Active = 8,
         SkipLiquid = 16,
         Lighted = 32,
