@@ -64,6 +64,7 @@
     <Compile Include="Hooks\NpcHooks.cs" />
     <Compile Include="Hooks\NpcStrikeEventArgs.cs" />
     <Compile Include="Hooks\PlayerHooks.cs" />
+    <Compile Include="Hooks\ProjectileHooks.cs" />
     <Compile Include="Hooks\SendDataEventArgs.cs" />
     <Compile Include="Hooks\ServerHooks.cs" />
     <Compile Include="Hooks\SetDefaultsD.cs" />
