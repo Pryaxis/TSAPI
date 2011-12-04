@@ -28,7 +28,8 @@ namespace Hooks
 				number = number, 
 				number2 = number2, 
 				number3 = number3, 
-				number4 = number4
+				number4 = number4,
+                number5 = number5
 			};
 			NetHooks.SendData(sendDataEventArgs);
 			msgType = (int)sendDataEventArgs.MsgID;
