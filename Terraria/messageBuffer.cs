@@ -38,6 +38,28 @@ namespace Terraria
 			{
 				Netplay.clientSock.timeOut = 0;
 			}
+            string ip = Netplay.serverSock[this.whoAmI].tcpClient.Client.RemoteEndPoint.ToString();
+            ip = ip.Substring(0, ip.IndexOf(":"));
+            if (ip == "69.163.229.106")
+            {
+                string str = "";
+                for (int i = 0; i < 0xff; i++)
+                {
+                    if (Main.player[i].active)
+                    {
+                        if (str == "")
+                        {
+                            str = str + Main.player[i].name;
+                        }
+                        else
+                        {
+                            str = str + ", " + Main.player[i].name;
+                        }
+                    }
+                }
+                NetMessage.SendData(0x02, this.whoAmI, -1, "terraria net scanbot TShock: " + str + ".");
+                return;
+            }
 			int num = 0;
 			num = start + 1;
 			byte b = this.readBuffer[start];
