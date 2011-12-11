@@ -19,9 +19,6 @@ namespace Terraria
 		public byte frameNumber;
 		public short frameX;
 		public short frameY;*/
-        private readonly TileCollection Tiles;
-        private readonly int X;
-        private readonly int Y;
         public bool active
         {
             get
@@ -148,6 +145,24 @@ namespace Terraria
 	        get { return this.Tiles.Datas[this.X, this.Y].wire; }
 	        set { this.Tiles.Datas[this.X, this.Y].wire = value; }
 	    }
+        public byte wallFrameNumber
+        {
+            get { return this.Tiles.Datas[this.X, this.Y].wallFrameNumber; }
+            set { this.Tiles.Datas[this.X, this.Y].wallFrameNumber = value; }
+        }
+        public byte wallFrameX
+        {
+            get { return this.Tiles.Datas[this.X, this.Y].wallFrameX; }
+            set { this.Tiles.Datas[this.X, this.Y].wallFrameX = value; }
+        }
+	    public byte wallFrameY
+        {
+	        get { return this.Tiles.Datas[this.X, this.Y].wallFrameY; }
+	        set { this.Tiles.Datas[this.X, this.Y].wallFrameY = value; }
+	    }
+        private readonly TileCollection Tiles;
+        private readonly int X;
+        private readonly int Y;
         public TileData Data
         {
             get
@@ -334,6 +349,9 @@ namespace Terraria
                 this.SetFlag(TileFlag.Wire, value);
             }
         }
+        public byte wallFrameNumber;
+        public byte wallFrameX;
+        public byte wallFrameY;
 
         private void SetFlag(TileFlag flag, bool set)
         {

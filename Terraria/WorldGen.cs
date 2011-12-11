@@ -20279,8 +20279,8 @@ namespace Terraria
 				{
 					return;
 				}
-				//byte arg_89_0 = Main.tile[i, j].wallFrameX;
-				//byte arg_9B_0 = Main.tile[i, j].wallFrameY;
+				byte arg_89_0 = Main.tile[i, j].wallFrameX;
+				byte arg_9B_0 = Main.tile[i, j].wallFrameY;
 				Microsoft.Xna.Framework.Rectangle rectangle;
 				rectangle.X = -1;
 				rectangle.Y = -1;
@@ -20399,11 +20399,11 @@ namespace Terraria
 				if (resetFrame)
 				{
 					num9 = WorldGen.genRand.Next(0, 3);
-					//Main.tile[i, j].wallFrameNumber = (byte)num9;
+					Main.tile[i, j].wallFrameNumber = (byte)num9;
 				}
 				else
 				{
-					//num9 = (int)Main.tile[i, j].wallFrameNumber;
+					num9 = (int)Main.tile[i, j].wallFrameNumber;
 				}
 				if (rectangle.X < 0 || rectangle.Y < 0)
 				{
@@ -20843,8 +20843,8 @@ namespace Terraria
 						rectangle.Y = 18;
 					}
 				}
-				//Main.tile[i, j].wallFrameX = (byte)rectangle.X;
-				//Main.tile[i, j].wallFrameY = (byte)rectangle.Y;
+				Main.tile[i, j].wallFrameX = (byte)rectangle.X;
+				Main.tile[i, j].wallFrameY = (byte)rectangle.Y;
 			}
 		}
 		public static void TileFrame(int i, int j, bool resetFrame = false, bool noBreak = false)
