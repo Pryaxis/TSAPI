@@ -1,5 +1,3 @@
-
-
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -765,35 +763,7 @@ namespace Terraria
 			this.controlDown = false;
 			this.controlRight = false;
 			this.controlJump = false;
-			if (Main.hasFocus && !Main.chatMode && !Main.editSign)
-			{
-				Keys[] pressedKeys = Main.keyState.GetPressedKeys();
-				for (int i = 0; i < pressedKeys.Length; i++)
-				{
-					string a = string.Concat(pressedKeys[i]);
-					if (a == Main.cUp)
-					{
-						this.controlUp = true;
-					}
-					if (a == Main.cLeft)
-					{
-						this.controlLeft = true;
-					}
-					if (a == Main.cDown)
-					{
-						this.controlDown = true;
-					}
-					if (a == Main.cRight)
-					{
-						this.controlRight = true;
-					}
-					if (a == Main.cJump)
-					{
-						this.controlJump = true;
-					}
-				}
-			}
-			if (this.controlUp || this.controlJump)
+            if (this.controlUp || this.controlJump)
 			{
 				if (this.velocity.Y > 0f)
 				{
@@ -1050,276 +1020,6 @@ namespace Terraria
 						this.controlInv = false;
 						this.controlHook = false;
 						this.controlTorch = false;
-						if (Main.hasFocus)
-						{
-							if (!Main.chatMode && !Main.editSign)
-							{
-								Keys[] pressedKeys = Main.keyState.GetPressedKeys();
-								bool flag = false;
-								bool flag2 = false;
-								for (int j = 0; j < pressedKeys.Length; j++)
-								{
-									string a = string.Concat(pressedKeys[j]);
-									if (a == Main.cUp)
-									{
-										this.controlUp = true;
-									}
-									if (a == Main.cLeft)
-									{
-										this.controlLeft = true;
-									}
-									if (a == Main.cDown)
-									{
-										this.controlDown = true;
-									}
-									if (a == Main.cRight)
-									{
-										this.controlRight = true;
-									}
-									if (a == Main.cJump)
-									{
-										this.controlJump = true;
-									}
-									if (a == Main.cThrowItem)
-									{
-										this.controlThrow = true;
-									}
-									if (a == Main.cInv)
-									{
-										this.controlInv = true;
-									}
-									if (a == Main.cBuff)
-									{
-										this.QuickBuff();
-									}
-									if (a == Main.cHeal)
-									{
-										flag2 = true;
-									}
-									if (a == Main.cMana)
-									{
-										flag = true;
-									}
-									if (a == Main.cHook)
-									{
-										this.controlHook = true;
-									}
-									if (a == Main.cTorch)
-									{
-										this.controlTorch = true;
-									}
-								}
-								if (Main.gamePad)
-								{
-									GamePadState state = GamePad.GetState(PlayerIndex.One);
-									GamePadDPad dPad = state.DPad;
-									if (dPad.Up == ButtonState.Pressed)
-									{
-										this.controlUp = true;
-									}
-									dPad = state.DPad;
-									if (dPad.Down == ButtonState.Pressed)
-									{
-										this.controlDown = true;
-									}
-									dPad = state.DPad;
-									if (dPad.Left == ButtonState.Pressed)
-									{
-										this.controlLeft = true;
-									}
-									dPad = state.DPad;
-									if (dPad.Right == ButtonState.Pressed)
-									{
-										this.controlRight = true;
-									}
-									GamePadTriggers triggers = state.Triggers;
-									if (triggers.Left > 0f)
-									{
-										this.controlJump = true;
-									}
-									triggers = state.Triggers;
-									if (triggers.Right > 0f)
-									{
-										this.controlUseItem = true;
-									}
-									float arg_846_0 = (float)(Main.screenWidth / 2);
-									GamePadThumbSticks thumbSticks = state.ThumbSticks;
-									Main.mouseX = (int)(arg_846_0 + thumbSticks.Right.X * (float)Player.tileRangeX * 16f);
-									float arg_877_0 = (float)(Main.screenHeight / 2);
-									thumbSticks = state.ThumbSticks;
-									Main.mouseY = (int)(arg_877_0 - thumbSticks.Right.Y * (float)Player.tileRangeX * 16f);
-									thumbSticks = state.ThumbSticks;
-									if (thumbSticks.Right.X == 0f)
-									{
-										Main.mouseX = Main.screenWidth / 2 + this.direction * 2;
-									}
-								}
-								if (flag2)
-								{
-									if (this.releaseQuickHeal)
-									{
-										this.QuickHeal();
-									}
-									this.releaseQuickHeal = false;
-								}
-								else
-								{
-									this.releaseQuickHeal = true;
-								}
-								if (flag)
-								{
-									if (this.releaseQuickMana)
-									{
-										this.QuickMana();
-									}
-									this.releaseQuickMana = false;
-								}
-								else
-								{
-									this.releaseQuickMana = true;
-								}
-								if (this.controlLeft && this.controlRight)
-								{
-									this.controlLeft = false;
-									this.controlRight = false;
-								}
-							}
-							if (this.confused)
-							{
-								bool flag3 = this.controlLeft;
-								bool flag4 = this.controlUp;
-								this.controlLeft = this.controlRight;
-								this.controlRight = flag3;
-								this.controlUp = this.controlRight;
-								this.controlDown = flag4;
-							}
-							if (Main.mouseLeft && !this.mouseInterface)
-							{
-								this.controlUseItem = true;
-							}
-							if (Main.mouseRight && !this.mouseInterface)
-							{
-								this.controlUseTile = true;
-							}
-							if (this.controlInv)
-							{
-								if (this.releaseInventory)
-								{
-									this.toggleInv();
-								}
-								this.releaseInventory = false;
-							}
-							else
-							{
-								this.releaseInventory = true;
-							}
-							if (this.delayUseItem)
-							{
-								if (!this.controlUseItem)
-								{
-									this.delayUseItem = false;
-								}
-								this.controlUseItem = false;
-							}
-							if (this.itemAnimation == 0 && this.itemTime == 0)
-							{
-								this.dropItemCheck();
-								int num11 = this.selectedItem;
-								if (!Main.chatMode && this.selectedItem != 48)
-								{
-									if (Main.keyState.IsKeyDown(Keys.D1))
-									{
-										this.selectedItem = 0;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D2))
-									{
-										this.selectedItem = 1;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D3))
-									{
-										this.selectedItem = 2;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D4))
-									{
-										this.selectedItem = 3;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D5))
-									{
-										this.selectedItem = 4;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D6))
-									{
-										this.selectedItem = 5;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D7))
-									{
-										this.selectedItem = 6;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D8))
-									{
-										this.selectedItem = 7;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D9))
-									{
-										this.selectedItem = 8;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D0))
-									{
-										this.selectedItem = 9;
-									}
-								}
-								if (num11 != this.selectedItem)
-								{
-									Main.PlaySound(12, -1, -1, 1);
-								}
-								if (!Main.playerInventory)
-								{
-									int k;
-									for (k = (Main.mouseState.ScrollWheelValue - Main.oldMouseState.ScrollWheelValue) / 120; k > 9; k -= 10)
-									{
-									}
-									while (k < 0)
-									{
-										k += 10;
-									}
-									this.selectedItem -= k;
-									if (k != 0)
-									{
-										Main.PlaySound(12, -1, -1, 1);
-									}
-									if (this.changeItem >= 0)
-									{
-										if (this.selectedItem != this.changeItem)
-										{
-											Main.PlaySound(12, -1, -1, 1);
-										}
-										this.selectedItem = this.changeItem;
-										this.changeItem = -1;
-									}
-									while (this.selectedItem > 9)
-									{
-										this.selectedItem -= 10;
-									}
-									while (this.selectedItem < 0)
-									{
-										this.selectedItem += 10;
-									}
-								}
-								else
-								{
-									int num12 = (Main.mouseState.ScrollWheelValue - Main.oldMouseState.ScrollWheelValue) / 120;
-									Main.focusRecipe += num12;
-									if (Main.focusRecipe > Main.numAvailableRecipes - 1)
-									{
-										Main.focusRecipe = Main.numAvailableRecipes - 1;
-									}
-									if (Main.focusRecipe < 0)
-									{
-										Main.focusRecipe = 0;
-									}
-								}
-							}
-						}
 						if (this.selectedItem == 48)
 						{
 							this.nonTorch = -1;
@@ -4435,7 +4135,6 @@ namespace Terraria
 							}
 							else
 							{
-								Main.npcChatText = Main.GetInputText(Main.npcChatText);
 								if (Main.inputTextEnter)
 								{
 									byte[] bytes = new byte[]
@@ -7515,8 +7214,8 @@ namespace Terraria
 				}
 				else
 				{
-					this.itemHeight = Main.itemTexture[this.inventory[this.selectedItem].type].Height;
-					this.itemWidth = Main.itemTexture[this.inventory[this.selectedItem].type].Width;
+
+
 				}
 				this.itemAnimation--;
 				if (!Main.dedServ)
@@ -7526,15 +7225,15 @@ namespace Terraria
 						if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.333)
 						{
 							float num12 = 10f;
-							if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 32)
+
 							{
 								num12 = 14f;
 							}
-							if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 64)
+
 							{
 								num12 = 28f;
 							}
-							this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - num12) * (float)this.direction;
+
 							this.itemLocation.Y = this.position.Y + 24f;
 						}
 						else
@@ -7542,21 +7241,21 @@ namespace Terraria
 							if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.666)
 							{
 								float num13 = 10f;
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 32)
+
 								{
 									num13 = 18f;
 								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 64)
+
 								{
 									num13 = 28f;
 								}
-								this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - num13) * (float)this.direction;
+
 								num13 = 10f;
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 32)
+
 								{
 									num13 = 8f;
 								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 64)
+
 								{
 									num13 = 14f;
 								}
@@ -7565,21 +7264,21 @@ namespace Terraria
 							else
 							{
 								float num14 = 6f;
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 32)
+
 								{
 									num14 = 14f;
 								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 64)
+
 								{
 									num14 = 28f;
 								}
-								this.itemLocation.X = this.position.X + (float)this.width * 0.5f - ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - num14) * (float)this.direction;
+
 								num14 = 10f;
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 32)
+
 								{
 									num14 = 10f;
 								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 64)
+
 								{
 									num14 = 14f;
 								}
@@ -7600,12 +7299,12 @@ namespace Terraria
 							this.itemRotation = (float)this.itemAnimation / (float)this.itemAnimationMax * (float)this.direction * 2f + -1.4f * (float)this.direction;
 							if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.5)
 							{
-								this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - 9f - this.itemRotation * 12f * (float)this.direction) * (float)this.direction;
+
 								this.itemLocation.Y = this.position.Y + 38f + this.itemRotation * (float)this.direction * 4f;
 							}
 							else
 							{
-								this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - 9f - this.itemRotation * 16f * (float)this.direction) * (float)this.direction;
+
 								this.itemLocation.Y = this.position.Y + 38f + this.itemRotation * (float)this.direction;
 							}
 							if (this.gravDir == -1f)
@@ -7626,18 +7325,8 @@ namespace Terraria
 								}
 								else
 								{
-									this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - 4f) * (float)this.direction;
+
 									this.itemLocation.Y = this.position.Y + 24f;
-									float num15 = (float)this.itemAnimation / (float)this.itemAnimationMax * (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * (float)this.direction * this.inventory[this.selectedItem].scale * 1.2f - (float)(10 * this.direction);
-									if (num15 > -4f && this.direction == -1)
-									{
-										num15 = -8f;
-									}
-									if (num15 < 4f && this.direction == 1)
-									{
-										num15 = 8f;
-									}
-									this.itemLocation.X = this.itemLocation.X - num15;
 									this.itemRotation = 0.8f * (float)this.direction;
 								}
 								if (this.gravDir == -1f)
@@ -7651,8 +7340,8 @@ namespace Terraria
 								if (this.inventory[this.selectedItem].useStyle == 4)
 								{
 									this.itemRotation = 0f;
-									this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - 9f - this.itemRotation * 14f * (float)this.direction - 4f) * (float)this.direction;
-									this.itemLocation.Y = this.position.Y + (float)Main.itemTexture[this.inventory[this.selectedItem].type].Height * 0.5f + 4f;
+
+
 									if (this.gravDir == -1f)
 									{
 										this.itemRotation = -this.itemRotation;
@@ -7663,8 +7352,8 @@ namespace Terraria
 								{
 									if (this.inventory[this.selectedItem].useStyle == 5)
 									{
-										this.itemLocation.X = this.position.X + (float)this.width * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - (float)(this.direction * 2);
-										this.itemLocation.Y = this.position.Y + (float)this.height * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Height * 0.5f;
+
+
 									}
 								}
 							}
@@ -7682,7 +7371,7 @@ namespace Terraria
 					}
 					else
 					{
-						this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f + 2f) * (float)this.direction;
+
 						if (this.inventory[this.selectedItem].type == 282 || this.inventory[this.selectedItem].type == 286)
 						{
 							this.itemLocation.X = this.itemLocation.X - (float)(this.direction * 2);
@@ -7714,8 +7403,8 @@ namespace Terraria
 					{
 						if (this.inventory[this.selectedItem].holdStyle == 3 && !Main.dedServ)
 						{
-							this.itemLocation.X = this.position.X + (float)this.width * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - (float)(this.direction * 2);
-							this.itemLocation.Y = this.position.Y + (float)this.height * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Height * 0.5f;
+
+
 							this.itemRotation = 0f;
 						}
 					}
@@ -8929,7 +8618,7 @@ namespace Terraria
 				Rectangle rectangle = new Rectangle((int)this.itemLocation.X, (int)this.itemLocation.Y, 32, 32);
 				if (!Main.dedServ)
 				{
-					rectangle = new Rectangle((int)this.itemLocation.X, (int)this.itemLocation.Y, Main.itemTexture[this.inventory[this.selectedItem].type].Width, Main.itemTexture[this.inventory[this.selectedItem].type].Height);
+
 				}
 				rectangle.Width = (int)((float)rectangle.Width * this.inventory[this.selectedItem].scale);
 				rectangle.Height = (int)((float)rectangle.Height * this.inventory[this.selectedItem].scale);
