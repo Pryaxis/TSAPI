@@ -5,20 +5,6 @@ namespace Terraria
 {
 	public class Tile
 	{
-		/*public bool active;
-		public byte type;
-		public byte wall;
-		//public byte wallFrameX;
-		//public byte wallFrameY;
-		//public byte wallFrameNumber;
-		public bool wire;
-		public byte liquid;
-		public bool checkingLiquid;
-		public bool skipLiquid;
-		public bool lava;
-		public byte frameNumber;
-		public short frameX;
-		public short frameY;*/
         public bool active
         {
             get
@@ -160,6 +146,22 @@ namespace Terraria
 	        get { return this.Tiles.Datas[this.X, this.Y].wallFrameY; }
 	        set { this.Tiles.Datas[this.X, this.Y].wallFrameY = value; }
 	    }
+        /*		
+        public bool active;
+		public byte type;
+		public byte wall;
+		public byte wallFrameX;
+		public byte wallFrameY;
+		public byte wallFrameNumber;
+		public bool wire;
+		public byte liquid;
+		public bool checkingLiquid;
+		public bool skipLiquid;
+		public bool lava;
+		public byte frameNumber;
+		public short frameX;
+		public short frameY;
+        */
         private readonly TileCollection Tiles;
         private readonly int X;
         private readonly int Y;
@@ -231,127 +233,72 @@ namespace Terraria
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct TileData
     {
-        /*public bool active;
-        public bool checkingLiquid;
-        public byte frameNumber;
-        public short frameX;
-        public short frameY;
-        public bool lava;
-        public bool lighted;
-        public byte liquid;
-        public bool skipLiquid;
-        public byte type;
-        public byte wall;
-        public bool wire;*/
-        private TileFlag Flags;
-        private ushort frame;
         public byte liquid;
         public byte type;
         public byte wall;
+
+#if TILE_BITPACK
         public bool active
         {
-            get
-            {
-                return (byte)(this.Flags & TileFlag.Active) != 0;
-            }
-            set
-            {
-                this.SetFlag(TileFlag.Active, value);
-            }
+            get { return (byte) (this.Flags & TileFlag.Active) != 0; }
+            set { this.SetFlag(TileFlag.Active, value); }
         }
+
         public bool checkingLiquid
         {
-            get
-            {
-                return (byte)(this.Flags & TileFlag.CheckingLiquid) != 0;
-            }
-            set
-            {
-                this.SetFlag(TileFlag.CheckingLiquid, value);
-            }
+            get { return (byte) (this.Flags & TileFlag.CheckingLiquid) != 0; }
+            set { this.SetFlag(TileFlag.CheckingLiquid, value); }
         }
+
         public byte frameNumber
         {
-            get
-            {
-                return (byte)(this.Flags & (TileFlag)3);
-            }
-            set
-            {
-                this.Flags = ((this.Flags & (TileFlag)252) | (TileFlag)value);
-            }
+            get { return (byte) (this.Flags & (TileFlag) 3); }
+            set { this.Flags = ((this.Flags & (TileFlag) 252) | (TileFlag) value); }
         }
+
         public short frameX
         {
             get
             {
                 int num = this.frame >> 8;
-                return (short)((num != 255) ? ((short)(num << 1)) : -1);
+                return (short) ((num != 255) ? ((short) (num << 1)) : -1);
             }
-            set
-            {
-                this.frame = (ushort)(value >> 1 << 8 | (int)(this.frame & 255));
-            }
+            set { this.frame = (ushort) (value >> 1 << 8 | (int) (this.frame & 255)); }
         }
+
         public short frameY
         {
             get
             {
-                int num = (int)(this.frame & 255);
-                return (short)((num != 255) ? ((short)(num << 1)) : -1);
+                int num = (int) (this.frame & 255);
+                return (short) ((num != 255) ? ((short) (num << 1)) : -1);
             }
-            set
-            {
-                this.frame = (ushort)(value >> 1 | (int)(this.frame & 65280));
-            }
+            set { this.frame = (ushort) (value >> 1 | (int) (this.frame & 65280)); }
         }
+
         public bool lava
         {
-            get
-            {
-                return (byte)(this.Flags & TileFlag.Lava) != 0;
-            }
-            set
-            {
-                this.SetFlag(TileFlag.Lava, value);
-            }
+            get { return (byte) (this.Flags & TileFlag.Lava) != 0; }
+            set { this.SetFlag(TileFlag.Lava, value); }
         }
+
         public bool lighted
         {
-            get
-            {
-                return (byte)(this.Flags & TileFlag.Lighted) != 0;
-            }
-            set
-            {
-                this.SetFlag(TileFlag.Lighted, value);
-            }
+            get { return (byte) (this.Flags & TileFlag.Lighted) != 0; }
+            set { this.SetFlag(TileFlag.Lighted, value); }
         }
+
         public bool skipLiquid
         {
-            get
-            {
-                return (byte)(this.Flags & TileFlag.SkipLiquid) != 0;
-            }
-            set
-            {
-                this.SetFlag(TileFlag.SkipLiquid, value);
-            }
+            get { return (byte) (this.Flags & TileFlag.SkipLiquid) != 0; }
+            set { this.SetFlag(TileFlag.SkipLiquid, value); }
         }
+
         public bool wire
         {
-            get
-            {
-                return (byte)(this.Flags & TileFlag.Wire) != 0;
-            } 
-            set
-            {
-                this.SetFlag(TileFlag.Wire, value);
-            }
+            get { return (byte) (this.Flags & TileFlag.Wire) != 0; }
+            set { this.SetFlag(TileFlag.Wire, value); }
         }
-        public byte wallFrameNumber;
-        public byte wallFrameX;
-        public byte wallFrameY;
 
         private void SetFlag(TileFlag flag, bool set)
         {
@@ -362,6 +309,24 @@ namespace Terraria
             }
             this.Flags &= ~flag;
         }
+
+        private TileFlag Flags;
+        private ushort frame;
+#else
+
+        public bool active;
+        public bool checkingLiquid;
+        public byte frameNumber;
+        public short frameX;
+        public short frameY;
+        public bool lava;
+        public bool lighted;
+        public bool skipLiquid;
+        public bool wire;
+        public byte wallFrameNumber;
+        public byte wallFrameX;
+        public byte wallFrameY;
+#endif
     }
 
     public enum TileFlag : byte
