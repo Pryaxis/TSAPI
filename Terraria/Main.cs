@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 namespace Terraria
 {
-	public class Main : Game
+	public class Main
 	{
 		private const int MF_BYPOSITION = 1024;
 		public const int sectionWidth = 200;
@@ -381,8 +381,6 @@ namespace Terraria
 		public static string PlayerPath = Main.SavePath + "\\Players";
 		public static string[] itemName = new string[586];
 		public static string[] npcName = new string[142];
-		private static KeyboardState inputText;
-		private static KeyboardState oldInputText;
 		public static int invasionType = 0;
 		public static double invasionX = 0.0;
 		public static int invasionSize = 0;
@@ -3020,7 +3018,7 @@ namespace Terraria
 			Main.fpsTimer.Start();
 			Main.updateTimer.Start();
 		}
-		protected override void Update(GameTime gameTime)
+		protected void Update()
 		{
 			Stopwatch stopwatch = new Stopwatch();
 			stopwatch.Start();
