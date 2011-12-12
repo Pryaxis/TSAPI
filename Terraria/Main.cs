@@ -1122,10 +1122,6 @@ namespace Terraria
 		{
 			Main.autoShutdown = true;
 		}
-		[DllImport("user32.dll")]
-		public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-		[DllImport("user32.dll")]
-		private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 		public void AutoPass()
 		{
 			Main.autoPass = true;
@@ -4653,8 +4649,6 @@ namespace Terraria
 				}
 			}
 		}
-		[DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-		public static extern short GetKeyState(int keyCode);
 		public static string GetInputText(string oldString)
 		{
 			if (!Main.hasFocus)
