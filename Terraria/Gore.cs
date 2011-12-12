@@ -5,8 +5,8 @@ namespace Terraria
 	public class Gore
 	{
 		public static int goreTime = 600;
-		public Microsoft.Xna.Framework.Vector2 position;
-		public Microsoft.Xna.Framework.Vector2 velocity;
+		public Vector2 position;
+		public Vector2 velocity;
 		public float rotation;
 		public float scale;
 		public int alpha;
@@ -110,7 +110,7 @@ namespace Terraria
 				}
 			}
 		}
-		public static int NewGore(Microsoft.Xna.Framework.Vector2 Position, Microsoft.Xna.Framework.Vector2 Velocity, int Type, float Scale = 1f)
+		public static int NewGore(Vector2 Position, Vector2 Velocity, int Type, float Scale = 1f)
 		{
 			if (Main.rand == null)
 			{
@@ -162,7 +162,7 @@ namespace Terraria
 			}
 			return num;
 		}
-		public Microsoft.Xna.Framework.Color GetAlpha(Microsoft.Xna.Framework.Color newColor)
+		public Color GetAlpha(Color newColor)
 		{
 			float num = (float)(255 - this.alpha) / 255f;
 			int r;
@@ -189,7 +189,7 @@ namespace Terraria
 			{
 				num2 = 255;
 			}
-			return new Microsoft.Xna.Framework.Color(r, g, b, num2);
+			return new Color(r, g, b, num2);
 		}
 	}
 }

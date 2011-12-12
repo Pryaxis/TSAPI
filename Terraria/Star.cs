@@ -4,7 +4,7 @@ namespace Terraria
 {
 	public class Star
 	{
-		public Microsoft.Xna.Framework.Vector2 position;
+		public Vector2 position;
 		public float scale;
 		public float rotation;
 		public int type;

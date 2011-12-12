@@ -4,18 +4,18 @@ namespace Terraria
 {
 	public class CombatText
 	{
-		public Microsoft.Xna.Framework.Vector2 position;
-		public Microsoft.Xna.Framework.Vector2 velocity;
+		public Vector2 position;
+		public Vector2 velocity;
 		public float alpha;
 		public int alphaDir = 1;
 		public string text;
 		public float scale = 1f;
 		public float rotation;
-		public Microsoft.Xna.Framework.Color color;
+		public Color color;
 		public bool active;
 		public int lifeTime;
 		public bool crit;
-		public static void NewText(Microsoft.Xna.Framework.Rectangle location, Microsoft.Xna.Framework.Color color, string text, bool Crit = false)
+		public static void NewText(Rectangle location, Color color, string text, bool Crit = false)
 		{
 			if (Main.netMode == 2)
 			{
@@ -31,7 +31,7 @@ namespace Terraria
 					{
 						num = 1;
 					}
-					Microsoft.Xna.Framework.Vector2 vector = Main.fontCombatText[num].MeasureString(text);
+					Vector2 vector = Main.fontCombatText[num].MeasureString(text);
 					Main.combatText[i].alpha = 1f;
 					Main.combatText[i].alphaDir = -1;
 					Main.combatText[i].active = true;
@@ -53,7 +53,7 @@ namespace Terraria
 						break;
 					}
 					Main.combatText[i].text = text;
-					Main.combatText[i].color = new Microsoft.Xna.Framework.Color(255, 100, 30, 255);
+					Main.combatText[i].color = new Color(255, 100, 30, 255);
 					Main.combatText[i].lifeTime *= 2;
 					CombatText expr_224_cp_0 = Main.combatText[i];
 					expr_224_cp_0.velocity.Y = expr_224_cp_0.velocity.Y * 2f;
