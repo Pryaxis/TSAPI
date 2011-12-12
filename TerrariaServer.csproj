@@ -101,7 +101,6 @@
     <Compile Include="Terraria\ServerSock.cs" />
     <Compile Include="Terraria\Sign.cs" />
     <Compile Include="Terraria\Star.cs" />
-    <Compile Include="Terraria\Steam.cs" />
     <Compile Include="Terraria\Tile.cs" />
     <Compile Include="Terraria\WorldGen.cs" />
     <Compile Include="TileCommand.cs" />
