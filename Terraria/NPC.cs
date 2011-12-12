@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+
 using System;
 using Hooks;
 namespace Terraria
