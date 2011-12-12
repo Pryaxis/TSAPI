@@ -55,13 +55,6 @@ namespace Terraria
 				this.rotation += this.velocity.X * 0.1f;
 				if (this.sticky)
 				{
-					int num = Main.goreTexture[this.type].Width;
-					if (Main.goreTexture[this.type].Height < num)
-					{
-						num = Main.goreTexture[this.type].Height;
-					}
-					num = (int)((float)num * 0.9f);
-					this.velocity = Collision.TileCollision(this.position, this.velocity, (int)((float)num * this.scale), (int)((float)num * this.scale), false, false);
 					if (this.velocity.Y == 0f)
 					{
 						this.velocity.X = this.velocity.X * 0.97f;
@@ -106,7 +99,7 @@ namespace Terraria
 							num2 *= 0.3f;
 						}
 					}
-					Lighting.addLight((int)((this.position.X + (float)Main.goreTexture[this.type].Width * this.scale / 2f) / 16f), (int)((this.position.Y + (float)Main.goreTexture[this.type].Height * this.scale / 2f) / 16f), num2, num3, num4);
+
 				}
 			}
 		}
