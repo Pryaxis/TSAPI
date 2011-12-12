@@ -46,11 +46,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Xna.Framework.Game" />
     <Reference Include="System" />
-    <Reference Include="Microsoft.Xna.Framework" />
-    <Reference Include="Microsoft.Xna.Framework.Graphics" />
-    <Reference Include="Microsoft.Xna.Framework.Xact" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIVersionAttribute.cs" />
