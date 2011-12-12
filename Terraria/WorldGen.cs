@@ -5862,6 +5862,8 @@ namespace Terraria
 			{
 				return;
 			}
+            if (WorldHooks.OnStartHardMode())
+                return;
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.smCallBack), 1);
 		}
 		public static bool PlaceDoor(int i, int j, int type)
