@@ -846,57 +846,60 @@ namespace Terraria
 							}
 							if (text.Length > 11 && text.Substring(0, 9).ToLower() == "priority=")
 							{
-								string value3 = text.Substring(9);
-								try
-								{
-									int num2 = Convert.ToInt32(value3);
-									if (num2 >= 0 && num2 <= 5)
-									{
-										Process currentProcess = Process.GetCurrentProcess();
-										if (num2 == 0)
-										{
-											currentProcess.PriorityClass = ProcessPriorityClass.RealTime;
-										}
-										else
-										{
-											if (num2 == 1)
-											{
-												currentProcess.PriorityClass = ProcessPriorityClass.High;
-											}
-											else
-											{
-												if (num2 == 2)
-												{
-													currentProcess.PriorityClass = ProcessPriorityClass.AboveNormal;
-												}
-												else
-												{
-													if (num2 == 3)
-													{
-														currentProcess.PriorityClass = ProcessPriorityClass.Normal;
-													}
-													else
-													{
-														if (num2 == 4)
-														{
-															currentProcess.PriorityClass = ProcessPriorityClass.BelowNormal;
-														}
-														else
-														{
-															if (num2 == 5)
-															{
-																currentProcess.PriorityClass = ProcessPriorityClass.Idle;
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-								catch
-								{
-								}
+                                if (Environment.OSVersion.Platform == PlatformID.Win32NT) // Unix systems require root to change priority
+                                {
+                                    string value3 = text.Substring(9);
+                                    try
+                                    {
+                                        int num2 = Convert.ToInt32(value3);
+                                        if (num2 >= 0 && num2 <= 5)
+                                        {
+                                            Process currentProcess = Process.GetCurrentProcess();
+                                            if (num2 == 0)
+                                            {
+                                                currentProcess.PriorityClass = ProcessPriorityClass.RealTime;
+                                            }
+                                            else
+                                            {
+                                                if (num2 == 1)
+                                                {
+                                                    currentProcess.PriorityClass = ProcessPriorityClass.High;
+                                                }
+                                                else
+                                                {
+                                                    if (num2 == 2)
+                                                    {
+                                                        currentProcess.PriorityClass = ProcessPriorityClass.AboveNormal;
+                                                    }
+                                                    else
+                                                    {
+                                                        if (num2 == 3)
+                                                        {
+                                                            currentProcess.PriorityClass = ProcessPriorityClass.Normal;
+                                                        }
+                                                        else
+                                                        {
+                                                            if (num2 == 4)
+                                                            {
+                                                                currentProcess.PriorityClass = ProcessPriorityClass.BelowNormal;
+                                                            }
+                                                            else
+                                                            {
+                                                                if (num2 == 5)
+                                                                {
+                                                                    currentProcess.PriorityClass = ProcessPriorityClass.Idle;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    catch
+                                    {
+                                    }
+                                }
 							}
 							if (text.Length > 9 && text.Substring(0, 9).ToLower() == "password=")
 							{
@@ -2499,41 +2502,26 @@ namespace Terraria
 			Main.wallHouse[27] = true;
 			for (int k = 0; k < 29; k++)
 			{
-				if (k == 20)
+				switch (k)
 				{
-					Main.wallBlend[k] = 14;
-				}
-				else
-				{
-					if (k == 19)
-					{
-						Main.wallBlend[k] = 9;
-					}
-					else
-					{
-						if (k == 18)
-						{
-							Main.wallBlend[k] = 8;
-						}
-						else
-						{
-							if (k == 17)
-							{
-								Main.wallBlend[k] = 7;
-							}
-							else
-							{
-								if (k == 16)
-								{
-									Main.wallBlend[k] = 2;
-								}
-								else
-								{
-									Main.wallBlend[k] = k;
-								}
-							}
-						}
-					}
+				    case 20:
+				        Main.wallBlend[k] = 14;
+				        break;
+				    case 19:
+				        Main.wallBlend[k] = 9;
+				        break;
+				    case 18:
+				        Main.wallBlend[k] = 8;
+				        break;
+				    case 17:
+				        Main.wallBlend[k] = 7;
+				        break;
+				    case 16:
+				        Main.wallBlend[k] = 2;
+				        break;
+				    default:
+				        Main.wallBlend[k] = k;
+				        break;
 				}
 			}
 			Main.tileNoFail[32] = true;
@@ -2671,10 +2659,6 @@ namespace Terraria
 			Main.teamColor[2] = new Color(20, 200, 30);
 			Main.teamColor[3] = new Color(75, 90, 255);
 			Main.teamColor[4] = new Color(200, 180, 0);
-			if (Main.menuMode == 1)
-			{
-				Main.LoadPlayers();
-			}
 			Netplay.Init();
 			if (Main.dedServ)
 			{

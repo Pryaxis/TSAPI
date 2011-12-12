@@ -138,7 +138,7 @@ namespace Terraria
                     for (int j = 0; j < types.Length; j++)
                     {
                         Type type = types[j];
-                        if (type.BaseType == typeof(TerrariaPlugin))
+                        if (type.BaseType == typeof(TerrariaPlugin)) // Mono has this as a TODO.
                         {
                             if (Program.Compatible(type))
                             {
