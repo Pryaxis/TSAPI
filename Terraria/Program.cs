@@ -88,12 +88,6 @@ namespace Terraria
 						string newOpt = args[i];
 						Program.Game.autoCreate(newOpt);
 					}
-					if (args[i].ToLower() == "-loadlib")
-					{
-						i++;
-						string path = args[i];
-						Program.Game.loadLib(path);
-					}
 				}
 			    Initialize(Game);
 				Program.Game.DedServ();
