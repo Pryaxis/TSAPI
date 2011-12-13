@@ -14,7 +14,7 @@ namespace Terraria
 		public int statusCount;
 		public int statusMax;
 		public bool[,] tileSection = new bool[Main.maxTilesX / 200 + 1, Main.maxTilesY / 150 + 1];
-		public string statusText = "";
+		//public string statusText = "";
 		public bool active;
 		public bool locked;
 		public bool kill;
@@ -133,7 +133,7 @@ namespace Terraria
 			this.statusCount = 0;
 			this.statusMax = 0;
 			this.statusText2 = "";
-			this.statusText = "";
+			//this.statusText = "";
 			this.name = "Anonymous";
 			this.state = 0;
 			this.locked = false;

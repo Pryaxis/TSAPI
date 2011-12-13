@@ -1291,6 +1291,7 @@ namespace Terraria
 					Main.oldStatusText = Main.statusText;
 					Console.WriteLine(Main.statusText);
 				}
+                Thread.Sleep(100);
 			}
 			try
 			{
