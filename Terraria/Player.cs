@@ -7224,16 +7224,6 @@ namespace Terraria
 					{
 						if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.333)
 						{
-							float num12 = 10f;
-
-							{
-								num12 = 14f;
-							}
-
-							{
-								num12 = 28f;
-							}
-
 							this.itemLocation.Y = this.position.Y + 24f;
 						}
 						else

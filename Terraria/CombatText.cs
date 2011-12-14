@@ -29,7 +29,7 @@ namespace Terraria
 					int num = 0;
 					if (Crit)
 					{
-						num = 1;
+					    num = 1;
 					}
 					Main.combatText[i].alpha = 1f;
 					Main.combatText[i].alphaDir = -1;
