@@ -1,4 +1,4 @@
-
+using Microsoft.Xna.Framework;
 using System;
 using System.Diagnostics;
 namespace Terraria
@@ -262,7 +262,7 @@ namespace Terraria
 						{
 							if (Main.tile[num15, num16] == null)
 							{
-
+								Main.tile[num15, num16] = new Tile();
 							}
 							if ((!Main.tile[num15, num16].active || !Main.tileNoSunLight[(int)Main.tile[num15, num16].type]) && Lighting.color[num15 - Lighting.firstToLightX, num16 - Lighting.firstToLightY] < Lighting.skyColor && (Main.tile[num15, num16].wall == 0 || Main.tile[num15, num16].wall == 21) && (double)num16 < Main.worldSurface && Main.tile[num15, num16].liquid < 200)
 							{
@@ -396,6 +396,7 @@ namespace Terraria
 			}
 			Main.sandTiles = 0;
 			Main.evilTiles = 0;
+			Main.snowTiles = 0;
 			Main.holyTiles = 0;
 			Main.meteorTiles = 0;
 			Main.jungleTiles = 0;
@@ -411,7 +412,7 @@ namespace Terraria
 				{
 					if (Main.tile[num35, num36] == null)
 					{
-
+						Main.tile[num35, num36] = new Tile();
 					}
 					if ((!Main.tile[num35, num36].active || !Main.tileNoSunLight[(int)Main.tile[num35, num36].type]) && Lighting.color2[num35 - Lighting.firstToLightX, num36 - Lighting.firstToLightY] < Lighting.skyColor && (Main.tile[num35, num36].wall == 0 || Main.tile[num35, num36].wall == 21) && (double)num36 < Main.worldSurface && Main.tile[num35, num36].liquid < 200)
 					{
@@ -438,7 +439,7 @@ namespace Terraria
 					int num40 = num38 - Lighting.firstToLightY;
 					if (Main.tile[num37, num38] == null)
 					{
-
+						Main.tile[num37, num38] = new Tile();
 					}
 					int zoneX = Main.zoneX;
 					int zoneY = Main.zoneY;
@@ -449,7 +450,7 @@ namespace Terraria
 						if (num37 > num17 + num41 && num37 < num18 - num41 && num38 > num19 + num42 && num38 < num20 - num42)
 						{
 							byte type = Main.tile[num37, num38].type;
-							if (type <= 44)
+							if (type <= 53)
 							{
 								if (type <= 32)
 								{
@@ -463,18 +464,18 @@ namespace Terraria
 										}
 										case 26:
 										{
-											goto IL_1203;
+											goto IL_122F;
 										}
 										case 27:
 										{
 											Main.evilTiles -= 5;
-											goto IL_1203;
+											goto IL_122F;
 										}
 										default:
 										{
 											if (type != 32)
 											{
-												goto IL_1203;
+												goto IL_122F;
 											}
 											break;
 										}
@@ -494,6 +495,18 @@ namespace Terraria
 												Main.dungeonTiles++;
 												break;
 											}
+											case 42:
+											{
+												break;
+											}
+											default:
+											{
+												if (type == 53)
+												{
+													Main.sandTiles++;
+												}
+												break;
+											}
 										}
 									}
 									else
@@ -504,13 +517,8 @@ namespace Terraria
 							}
 							else
 							{
-								if (type <= 62)
+								if (type <= 84)
 								{
-									if (type == 53)
-									{
-										Main.sandTiles++;
-										goto IL_1203;
-									}
 									switch (type)
 									{
 										case 60:
@@ -521,48 +529,61 @@ namespace Terraria
 										}
 										default:
 										{
-											goto IL_1203;
+											if (type != 84)
+											{
+												goto IL_122F;
+											}
+											break;
 										}
 									}
+									Main.jungleTiles++;
 								}
 								else
 								{
-									if (type != 84)
+									switch (type)
 									{
-										switch (type)
+										case 109:
+										case 110:
+										case 113:
+										case 117:
 										{
-											case 109:
-											case 110:
-											case 113:
-											case 117:
+											Main.holyTiles++;
+											break;
+										}
+										case 111:
+										case 114:
+										case 115:
+										{
+											break;
+										}
+										case 112:
+										{
+											Main.sandTiles++;
+											Main.evilTiles++;
+											break;
+										}
+										case 116:
+										{
+											Main.sandTiles++;
+											Main.holyTiles++;
+											break;
+										}
+										default:
+										{
+											if (type != 139)
 											{
-												Main.holyTiles++;
-												goto IL_1203;
-											}
-											case 111:
-											case 114:
-											case 115:
-											{
-												goto IL_1203;
-											}
-											case 112:
-											{
-												Main.sandTiles++;
-												Main.evilTiles++;
-												goto IL_1203;
-											}
-											case 116:
-											{
-												Main.sandTiles++;
-												Main.holyTiles++;
-												goto IL_1203;
-											}
-											default:
-											{
-												if (type != 139)
+												switch (type)
 												{
-													goto IL_1203;
+													case 147:
+													case 148:
+													{
+														Main.snowTiles++;
+														break;
+													}
 												}
+											}
+											else
+											{
 												if (Main.tile[num37, num38].frameX >= 36)
 												{
 													int num43 = 0;
@@ -571,17 +592,15 @@ namespace Terraria
 														num43++;
 													}
 													Main.musicBox = num43;
-													goto IL_1203;
 												}
-												goto IL_1203;
 											}
+											break;
 										}
 									}
 								}
-								Main.jungleTiles++;
 							}
 						}
-						IL_1203:
+						IL_122F:
 						if (Main.tileBlockLight[(int)Main.tile[num37, num38].type] && Main.tile[num37, num38].type != 131)
 						{
 							Lighting.stopLight[num39, num40] = true;
@@ -601,9 +620,9 @@ namespace Terraria
 											{
 												if (type != 22)
 												{
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
-												goto IL_1C6B;
+												goto IL_1CAE;
 											}
 										}
 										else
@@ -613,7 +632,7 @@ namespace Terraria
 											float num47 = 0.8f;
 											if (Main.tile[num37, num38].frameX >= 66)
 											{
-												goto IL_2B7C;
+												goto IL_2DE7;
 											}
 											int num48 = (int)(Main.tile[num37, num38].frameY / 22);
 											if (num48 == 1)
@@ -696,9 +715,9 @@ namespace Terraria
 											if (Lighting.colorB2[num39, num40] < num47)
 											{
 												Lighting.colorB2[num39, num40] = num47;
-												goto IL_2B7C;
+												goto IL_2DE7;
 											}
-											goto IL_2B7C;
+											goto IL_2DE7;
 										}
 									}
 									else
@@ -722,9 +741,9 @@ namespace Terraria
 													if (Lighting.colorB2[num39, num40] < 0.44f + num49 * 2f)
 													{
 														Lighting.colorB2[num39, num40] = 0.44f + num49 * 2f;
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
 												case 27:
 												case 28:
@@ -732,13 +751,13 @@ namespace Terraria
 												case 30:
 												case 32:
 												{
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
 												case 33:
 												{
 													if (Main.tile[num37, num38].frameX != 0)
 													{
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
 													if (Lighting.color2[num39, num40] < 1f)
 													{
@@ -751,16 +770,16 @@ namespace Terraria
 													if ((double)Lighting.colorB2[num39, num40] < 0.65)
 													{
 														Lighting.colorB2[num39, num40] = 0.65f;
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
 												case 34:
 												case 35:
 												{
 													if (Main.tile[num37, num38].frameX >= 54)
 													{
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
 													if (Lighting.color2[num39, num40] < 1f)
 													{
@@ -773,15 +792,15 @@ namespace Terraria
 													if ((double)Lighting.colorB2[num39, num40] < 0.8)
 													{
 														Lighting.colorB2[num39, num40] = 0.8f;
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
 												case 36:
 												{
 													if (Main.tile[num37, num38].frameX >= 54)
 													{
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
 													if (Lighting.color2[num39, num40] < 1f)
 													{
@@ -794,9 +813,9 @@ namespace Terraria
 													if ((double)Lighting.colorB2[num39, num40] < 0.65)
 													{
 														Lighting.colorB2[num39, num40] = 0.65f;
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
 												case 37:
 												{
@@ -811,19 +830,19 @@ namespace Terraria
 													if ((double)Lighting.colorB2[num39, num40] < 0.15)
 													{
 														Lighting.colorB2[num39, num40] = 0.15f;
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
 												default:
 												{
 													if (type != 42)
 													{
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
 													if (Main.tile[num37, num38].frameX != 0)
 													{
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
 													if (Lighting.color2[num39, num40] < 0.65f)
 													{
@@ -836,9 +855,9 @@ namespace Terraria
 													if (Lighting.colorB2[num39, num40] < 0.54f)
 													{
 														Lighting.colorB2[num39, num40] = 0.54f;
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
 											}
 										}
@@ -848,11 +867,11 @@ namespace Terraria
 											{
 												if (type != 61)
 												{
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
 												if (Main.tile[num37, num38].frameX != 144)
 												{
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
 												if (Lighting.color2[num39, num40] < 0.42f)
 												{
@@ -865,9 +884,9 @@ namespace Terraria
 												if (Lighting.colorB2[num39, num40] < 0.52f)
 												{
 													Lighting.colorB2[num39, num40] = 0.52f;
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
-												goto IL_2B7C;
+												goto IL_2DE7;
 											}
 											else
 											{
@@ -882,130 +901,48 @@ namespace Terraria
 												if (Lighting.colorB2[num39, num40] < 0.75f)
 												{
 													Lighting.colorB2[num39, num40] = 0.75f;
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
-												goto IL_2B7C;
+												goto IL_2DE7;
 											}
 										}
 									}
 								}
 								else
 								{
-									if (type <= 84)
+									if (type <= 100)
 									{
-										switch (type)
+										if (type <= 77)
 										{
-											case 70:
-											case 71:
-											case 72:
+											switch (type)
 											{
-												float num50 = (float)Main.rand.Next(28, 42) * 0.005f;
-												num50 += (float)(270 - (int)Main.mouseTextColor) / 500f;
-												if (Lighting.color2[num39, num40] < 0.1f + num50)
+												case 70:
+												case 71:
+												case 72:
 												{
-													Lighting.color2[num39, num40] = 0.1f;
-												}
-												if (Lighting.colorG2[num39, num40] < 0.3f + num50 / 2f)
-												{
-													Lighting.colorG2[num39, num40] = 0.3f + num50 / 2f;
-												}
-												if (Lighting.colorB2[num39, num40] < 0.6f + num50)
-												{
-													Lighting.colorB2[num39, num40] = 0.6f + num50;
-													goto IL_2B7C;
-												}
-												goto IL_2B7C;
-											}
-											default:
-											{
-												if (type != 77)
-												{
-													switch (type)
+													float num50 = (float)Main.rand.Next(28, 42) * 0.005f;
+													num50 += (float)(270 - (int)Main.mouseTextColor) / 500f;
+													if (Lighting.color2[num39, num40] < 0.1f + num50)
 													{
-														case 83:
-														{
-															if (Main.tile[num37, num38].frameX != 18 || Main.dayTime)
-															{
-																goto IL_2B7C;
-															}
-															if ((double)Lighting.color2[num39, num40] < 0.1)
-															{
-																Lighting.color2[num39, num40] = 0.1f;
-															}
-															if ((double)Lighting.colorG2[num39, num40] < 0.4)
-															{
-																Lighting.colorG2[num39, num40] = 0.4f;
-															}
-															if ((double)Lighting.colorB2[num39, num40] < 0.6)
-															{
-																Lighting.colorB2[num39, num40] = 0.6f;
-																goto IL_2B7C;
-															}
-															goto IL_2B7C;
-														}
-														case 84:
-														{
-															int num51 = (int)(Main.tile[num37, num38].frameX / 18);
-															if (num51 == 2)
-															{
-																float num52 = (float)(270 - (int)Main.mouseTextColor);
-																num52 /= 800f;
-																if (num52 > 1f)
-																{
-																	num52 = 1f;
-																}
-																if (num52 < 0f)
-																{
-																	num52 = 0f;
-																}
-																float num53 = num52;
-																if (Lighting.color2[num39, num40] < num53 * 0.7f)
-																{
-																	Lighting.color2[num39, num40] = num53 * 0.7f;
-																}
-																if (Lighting.colorG2[num39, num40] < num53)
-																{
-																	Lighting.colorG2[num39, num40] = num53;
-																}
-																if (Lighting.colorB2[num39, num40] < num53 * 0.1f)
-																{
-																	Lighting.colorB2[num39, num40] = num53 * 0.1f;
-																	goto IL_2B7C;
-																}
-																goto IL_2B7C;
-															}
-															else
-															{
-																if (num51 != 5)
-																{
-																	goto IL_2B7C;
-																}
-																float num53 = 0.9f;
-																if (Lighting.color2[num39, num40] < num53)
-																{
-																	Lighting.color2[num39, num40] = num53;
-																}
-																if (Lighting.colorG2[num39, num40] < num53 * 0.8f)
-																{
-																	Lighting.colorG2[num39, num40] = num53 * 0.8f;
-																}
-																if (Lighting.colorB2[num39, num40] < num53 * 0.2f)
-																{
-																	Lighting.colorB2[num39, num40] = num53 * 0.2f;
-																	goto IL_2B7C;
-																}
-																goto IL_2B7C;
-															}
-															break;
-														}
-														default:
-														{
-															goto IL_2B7C;
-														}
+														Lighting.color2[num39, num40] = 0.1f;
 													}
+													if (Lighting.colorG2[num39, num40] < 0.3f + num50 / 2f)
+													{
+														Lighting.colorG2[num39, num40] = 0.3f + num50 / 2f;
+													}
+													if (Lighting.colorB2[num39, num40] < 0.6f + num50)
+													{
+														Lighting.colorB2[num39, num40] = 0.6f + num50;
+														goto IL_2DE7;
+													}
+													goto IL_2DE7;
 												}
-												else
+												default:
 												{
+													if (type != 77)
+													{
+														goto IL_2DE7;
+													}
 													if (Lighting.color2[num39, num40] < 0.75f)
 													{
 														Lighting.color2[num39, num40] = 0.75f;
@@ -1017,222 +954,311 @@ namespace Terraria
 													if (Lighting.colorB2[num39, num40] < 0.25f)
 													{
 														Lighting.colorB2[num39, num40] = 0.25f;
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
-												break;
 											}
 										}
-									}
-									else
-									{
-										if (type <= 129)
+										else
 										{
 											switch (type)
 											{
-												case 92:
+												case 83:
 												{
-													if (Main.tile[num37, num38].frameY > 18 || Main.tile[num37, num38].frameX != 0)
+													if (Main.tile[num37, num38].frameX != 18 || Main.dayTime)
 													{
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
-													if (Lighting.color2[num39, num40] < 1f)
+													if ((double)Lighting.color2[num39, num40] < 0.1)
 													{
-														Lighting.color2[num39, num40] = 1f;
+														Lighting.color2[num39, num40] = 0.1f;
 													}
-													if (Lighting.colorG2[num39, num40] < 1f)
+													if ((double)Lighting.colorG2[num39, num40] < 0.4)
 													{
-														Lighting.colorG2[num39, num40] = 1f;
+														Lighting.colorG2[num39, num40] = 0.4f;
 													}
-													if (Lighting.colorB2[num39, num40] < 1f)
+													if ((double)Lighting.colorB2[num39, num40] < 0.6)
 													{
-														Lighting.colorB2[num39, num40] = 1f;
-														goto IL_2B7C;
+														Lighting.colorB2[num39, num40] = 0.6f;
+														goto IL_2DE7;
 													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
-												case 93:
+												case 84:
 												{
-													if (Main.tile[num37, num38].frameY != 0 || Main.tile[num37, num38].frameX != 0)
+													int num51 = (int)(Main.tile[num37, num38].frameX / 18);
+													if (num51 == 2)
 													{
-														goto IL_2B7C;
+														float num52 = (float)(270 - (int)Main.mouseTextColor);
+														num52 /= 800f;
+														if (num52 > 1f)
+														{
+															num52 = 1f;
+														}
+														if (num52 < 0f)
+														{
+															num52 = 0f;
+														}
+														float num53 = num52;
+														if (Lighting.color2[num39, num40] < num53 * 0.7f)
+														{
+															Lighting.color2[num39, num40] = num53 * 0.7f;
+														}
+														if (Lighting.colorG2[num39, num40] < num53)
+														{
+															Lighting.colorG2[num39, num40] = num53;
+														}
+														if (Lighting.colorB2[num39, num40] < num53 * 0.1f)
+														{
+															Lighting.colorB2[num39, num40] = num53 * 0.1f;
+															goto IL_2DE7;
+														}
+														goto IL_2DE7;
 													}
-													if (Lighting.color2[num39, num40] < 1f)
+													else
 													{
-														Lighting.color2[num39, num40] = 1f;
+														if (num51 != 5)
+														{
+															goto IL_2DE7;
+														}
+														float num53 = 0.9f;
+														if (Lighting.color2[num39, num40] < num53)
+														{
+															Lighting.color2[num39, num40] = num53;
+														}
+														if (Lighting.colorG2[num39, num40] < num53 * 0.8f)
+														{
+															Lighting.colorG2[num39, num40] = num53 * 0.8f;
+														}
+														if (Lighting.colorB2[num39, num40] < num53 * 0.2f)
+														{
+															Lighting.colorB2[num39, num40] = num53 * 0.2f;
+															goto IL_2DE7;
+														}
+														goto IL_2DE7;
 													}
-													if ((double)Lighting.colorG2[num39, num40] < 0.97)
-													{
-														Lighting.colorG2[num39, num40] = 0.97f;
-													}
-													if ((double)Lighting.colorB2[num39, num40] < 0.85)
-													{
-														Lighting.colorB2[num39, num40] = 0.85f;
-														goto IL_2B7C;
-													}
-													goto IL_2B7C;
-												}
-												case 94:
-												case 96:
-												case 97:
-												case 99:
-												{
-													goto IL_2B7C;
-												}
-												case 95:
-												{
-													if (Main.tile[num37, num38].frameX >= 36)
-													{
-														goto IL_2B7C;
-													}
-													if (Lighting.color2[num39, num40] < 1f)
-													{
-														Lighting.color2[num39, num40] = 1f;
-													}
-													if ((double)Lighting.colorG2[num39, num40] < 0.95)
-													{
-														Lighting.colorG2[num39, num40] = 0.95f;
-													}
-													if ((double)Lighting.colorB2[num39, num40] < 0.8)
-													{
-														Lighting.colorB2[num39, num40] = 0.8f;
-														goto IL_2B7C;
-													}
-													goto IL_2B7C;
-												}
-												case 98:
-												{
-													if (Main.tile[num37, num38].frameY != 0)
-													{
-														goto IL_2B7C;
-													}
-													if (Lighting.color2[num39, num40] < 1f)
-													{
-														Lighting.color2[num39, num40] = 1f;
-													}
-													if ((double)Lighting.colorG2[num39, num40] < 0.97)
-													{
-														Lighting.colorG2[num39, num40] = 0.97f;
-													}
-													if ((double)Lighting.colorB2[num39, num40] < 0.85)
-													{
-														Lighting.colorB2[num39, num40] = 0.85f;
-														goto IL_2B7C;
-													}
-													goto IL_2B7C;
-												}
-												case 100:
-												{
-													if (Main.tile[num37, num38].frameX >= 36)
-													{
-														goto IL_2B7C;
-													}
-													if (Lighting.color2[num39, num40] < 1f)
-													{
-														Lighting.color2[num39, num40] = 1f;
-													}
-													if ((double)Lighting.colorG2[num39, num40] < 0.95)
-													{
-														Lighting.colorG2[num39, num40] = 0.95f;
-													}
-													if ((double)Lighting.colorB2[num39, num40] < 0.65)
-													{
-														Lighting.colorB2[num39, num40] = 0.65f;
-														goto IL_2B7C;
-													}
-													goto IL_2B7C;
+													break;
 												}
 												default:
 												{
 													switch (type)
 													{
-														case 125:
+														case 92:
 														{
-															float num54 = (float)Main.rand.Next(28, 42) * 0.01f;
-															num54 += (float)(270 - (int)Main.mouseTextColor) / 800f;
-															if ((double)Lighting.colorG2[num39, num40] < 0.1 * (double)num54)
+															if (Main.tile[num37, num38].frameY > 18 || Main.tile[num37, num38].frameX != 0)
 															{
-																Lighting.colorG2[num39, num40] = 0.3f * num54;
+																goto IL_2DE7;
 															}
-															if ((double)Lighting.colorB2[num39, num40] < 0.3 * (double)num54)
+															if (Lighting.color2[num39, num40] < 1f)
 															{
-																Lighting.colorB2[num39, num40] = 0.6f * num54;
-																goto IL_2B7C;
+																Lighting.color2[num39, num40] = 1f;
 															}
-															goto IL_2B7C;
+															if (Lighting.colorG2[num39, num40] < 1f)
+															{
+																Lighting.colorG2[num39, num40] = 1f;
+															}
+															if (Lighting.colorB2[num39, num40] < 1f)
+															{
+																Lighting.colorB2[num39, num40] = 1f;
+																goto IL_2DE7;
+															}
+															goto IL_2DE7;
 														}
-														case 126:
+														case 93:
+														{
+															if (Main.tile[num37, num38].frameY != 0 || Main.tile[num37, num38].frameX != 0)
+															{
+																goto IL_2DE7;
+															}
+															if (Lighting.color2[num39, num40] < 1f)
+															{
+																Lighting.color2[num39, num40] = 1f;
+															}
+															if ((double)Lighting.colorG2[num39, num40] < 0.97)
+															{
+																Lighting.colorG2[num39, num40] = 0.97f;
+															}
+															if ((double)Lighting.colorB2[num39, num40] < 0.85)
+															{
+																Lighting.colorB2[num39, num40] = 0.85f;
+																goto IL_2DE7;
+															}
+															goto IL_2DE7;
+														}
+														case 94:
+														case 96:
+														case 97:
+														case 99:
+														{
+															goto IL_2DE7;
+														}
+														case 95:
 														{
 															if (Main.tile[num37, num38].frameX >= 36)
 															{
-																goto IL_2B7C;
+																goto IL_2DE7;
 															}
-															if (Lighting.color2[num39, num40] < (float)Main.DiscoR / 255f)
+															if (Lighting.color2[num39, num40] < 1f)
 															{
-																Lighting.color2[num39, num40] = (float)Main.DiscoR / 255f;
+																Lighting.color2[num39, num40] = 1f;
 															}
-															if (Lighting.colorG2[num39, num40] < (float)Main.DiscoG / 255f)
+															if ((double)Lighting.colorG2[num39, num40] < 0.95)
 															{
-																Lighting.colorG2[num39, num40] = (float)Main.DiscoG / 255f;
+																Lighting.colorG2[num39, num40] = 0.95f;
 															}
-															if (Lighting.colorB2[num39, num40] < (float)Main.DiscoB / 255f)
+															if ((double)Lighting.colorB2[num39, num40] < 0.8)
 															{
-																Lighting.colorB2[num39, num40] = (float)Main.DiscoB / 255f;
-																goto IL_2B7C;
+																Lighting.colorB2[num39, num40] = 0.8f;
+																goto IL_2DE7;
 															}
-															goto IL_2B7C;
+															goto IL_2DE7;
 														}
-														case 127:
-														case 128:
+														case 98:
 														{
-															goto IL_2B7C;
+															if (Main.tile[num37, num38].frameY != 0)
+															{
+																goto IL_2DE7;
+															}
+															if (Lighting.color2[num39, num40] < 1f)
+															{
+																Lighting.color2[num39, num40] = 1f;
+															}
+															if ((double)Lighting.colorG2[num39, num40] < 0.97)
+															{
+																Lighting.colorG2[num39, num40] = 0.97f;
+															}
+															if ((double)Lighting.colorB2[num39, num40] < 0.85)
+															{
+																Lighting.colorB2[num39, num40] = 0.85f;
+																goto IL_2DE7;
+															}
+															goto IL_2DE7;
 														}
-														case 129:
+														case 100:
 														{
-															float num45;
-															float num46;
-															float num47;
-															if (Main.tile[num37, num38].frameX == 0 || Main.tile[num37, num38].frameX == 54 || Main.tile[num37, num38].frameX == 108)
+															if (Main.tile[num37, num38].frameX >= 36)
 															{
-																num46 = 0.05f;
-																num47 = 0.25f;
-																num45 = 0f;
+																goto IL_2DE7;
 															}
-															else
+															if (Lighting.color2[num39, num40] < 1f)
 															{
-																if (Main.tile[num37, num38].frameX == 18 || Main.tile[num37, num38].frameX == 72 || Main.tile[num37, num38].frameX == 126)
-																{
-																	num45 = 0.2f;
-																	num47 = 0.15f;
-																	num46 = 0f;
-																}
-																else
-																{
-																	num47 = 0.2f;
-																	num45 = 0.1f;
-																	num46 = 0f;
-																}
+																Lighting.color2[num39, num40] = 1f;
 															}
-															if (Lighting.color2[num39, num40] < num45)
+															if ((double)Lighting.colorG2[num39, num40] < 0.95)
 															{
-																Lighting.color2[num39, num40] = num45 * (float)Main.rand.Next(970, 1031) * 0.001f;
+																Lighting.colorG2[num39, num40] = 0.95f;
 															}
-															if (Lighting.colorG2[num39, num40] < num46)
+															if ((double)Lighting.colorB2[num39, num40] < 0.65)
 															{
-																Lighting.colorG2[num39, num40] = num46 * (float)Main.rand.Next(970, 1031) * 0.001f;
+																Lighting.colorB2[num39, num40] = 0.65f;
+																goto IL_2DE7;
 															}
-															if (Lighting.colorB2[num39, num40] < num47)
-															{
-																Lighting.colorB2[num39, num40] = num47 * (float)Main.rand.Next(970, 1031) * 0.001f;
-																goto IL_2B7C;
-															}
-															goto IL_2B7C;
+															goto IL_2DE7;
 														}
 														default:
 														{
-															goto IL_2B7C;
+															goto IL_2DE7;
 														}
+													}
+													break;
+												}
+											}
+										}
+									}
+									else
+									{
+										if (type <= 133)
+										{
+											switch (type)
+											{
+												case 125:
+												{
+													float num54 = (float)Main.rand.Next(28, 42) * 0.01f;
+													num54 += (float)(270 - (int)Main.mouseTextColor) / 800f;
+													if ((double)Lighting.colorG2[num39, num40] < 0.1 * (double)num54)
+													{
+														Lighting.colorG2[num39, num40] = 0.3f * num54;
+													}
+													if ((double)Lighting.colorB2[num39, num40] < 0.3 * (double)num54)
+													{
+														Lighting.colorB2[num39, num40] = 0.6f * num54;
+														goto IL_2DE7;
+													}
+													goto IL_2DE7;
+												}
+												case 126:
+												{
+													if (Main.tile[num37, num38].frameX >= 36)
+													{
+														goto IL_2DE7;
+													}
+													if (Lighting.color2[num39, num40] < (float)Main.DiscoR / 255f)
+													{
+														Lighting.color2[num39, num40] = (float)Main.DiscoR / 255f;
+													}
+													if (Lighting.colorG2[num39, num40] < (float)Main.DiscoG / 255f)
+													{
+														Lighting.colorG2[num39, num40] = (float)Main.DiscoG / 255f;
+													}
+													if (Lighting.colorB2[num39, num40] < (float)Main.DiscoB / 255f)
+													{
+														Lighting.colorB2[num39, num40] = (float)Main.DiscoB / 255f;
+														goto IL_2DE7;
+													}
+													goto IL_2DE7;
+												}
+												case 127:
+												case 128:
+												{
+													goto IL_2DE7;
+												}
+												case 129:
+												{
+													float num45;
+													float num46;
+													float num47;
+													if (Main.tile[num37, num38].frameX == 0 || Main.tile[num37, num38].frameX == 54 || Main.tile[num37, num38].frameX == 108)
+													{
+														num46 = 0.05f;
+														num47 = 0.25f;
+														num45 = 0f;
+													}
+													else
+													{
+														if (Main.tile[num37, num38].frameX == 18 || Main.tile[num37, num38].frameX == 72 || Main.tile[num37, num38].frameX == 126)
+														{
+															num45 = 0.2f;
+															num47 = 0.15f;
+															num46 = 0f;
+														}
+														else
+														{
+															num47 = 0.2f;
+															num45 = 0.1f;
+															num46 = 0f;
+														}
+													}
+													if (Lighting.color2[num39, num40] < num45)
+													{
+														Lighting.color2[num39, num40] = num45 * (float)Main.rand.Next(970, 1031) * 0.001f;
+													}
+													if (Lighting.colorG2[num39, num40] < num46)
+													{
+														Lighting.colorG2[num39, num40] = num46 * (float)Main.rand.Next(970, 1031) * 0.001f;
+													}
+													if (Lighting.colorB2[num39, num40] < num47)
+													{
+														Lighting.colorB2[num39, num40] = num47 * (float)Main.rand.Next(970, 1031) * 0.001f;
+														goto IL_2DE7;
+													}
+													goto IL_2DE7;
+												}
+												default:
+												{
+													if (type != 133)
+													{
+														goto IL_2DE7;
 													}
 													break;
 												}
@@ -1240,14 +1266,56 @@ namespace Terraria
 										}
 										else
 										{
-											if (type != 133)
+											if (type == 140)
 											{
-												if (type != 140)
-												{
-													goto IL_2B7C;
-												}
-												goto IL_1C6B;
+												goto IL_1CAE;
 											}
+											if (type != 149)
+											{
+												goto IL_2DE7;
+											}
+											float num45;
+											float num46;
+											float num47;
+											if (Main.tile[num37, num38].frameX == 0)
+											{
+												num46 = 0.2f;
+												num47 = 0.5f;
+												num45 = 0.1f;
+											}
+											else
+											{
+												if (Main.tile[num37, num38].frameX == 18)
+												{
+													num45 = 0.5f;
+													num47 = 0.1f;
+													num46 = 0.1f;
+												}
+												else
+												{
+													num47 = 0.1f;
+													num45 = 0.2f;
+													num46 = 0.5f;
+												}
+											}
+											if (Main.tile[num37, num38].frameX > 36)
+											{
+												goto IL_2DE7;
+											}
+											if (Lighting.color2[num39, num40] < num45)
+											{
+												Lighting.color2[num39, num40] = num45 * (float)Main.rand.Next(970, 1031) * 0.001f;
+											}
+											if (Lighting.colorG2[num39, num40] < num46)
+											{
+												Lighting.colorG2[num39, num40] = num46 * (float)Main.rand.Next(970, 1031) * 0.001f;
+											}
+											if (Lighting.colorB2[num39, num40] < num47)
+											{
+												Lighting.colorB2[num39, num40] = num47 * (float)Main.rand.Next(970, 1031) * 0.001f;
+												goto IL_2DE7;
+											}
+											goto IL_2DE7;
 										}
 									}
 								}
@@ -1262,10 +1330,10 @@ namespace Terraria
 								if (Lighting.colorB2[num39, num40] < 0.5f)
 								{
 									Lighting.colorB2[num39, num40] = 0.5f;
-									goto IL_2B7C;
+									goto IL_2DE7;
 								}
-								goto IL_2B7C;
-								IL_1C6B:
+								goto IL_2DE7;
+								IL_1CAE:
 								if ((double)Lighting.color2[num39, num40] < 0.12)
 								{
 									Lighting.color2[num39, num40] = 0.12f;
@@ -1282,7 +1350,7 @@ namespace Terraria
 							else
 							{
 								byte type = Main.tile[num37, num38].type;
-								if (type <= 49)
+								if (type <= 61)
 								{
 									if (type <= 22)
 									{
@@ -1292,14 +1360,14 @@ namespace Terraria
 											{
 												if (type != 22)
 												{
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
 												if (Lighting.color2[num39, num40] < 0.2f)
 												{
 													Lighting.color2[num39, num40] = 0.2f;
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
-												goto IL_2B7C;
+												goto IL_2DE7;
 											}
 										}
 										else
@@ -1307,268 +1375,301 @@ namespace Terraria
 											if (Main.tile[num37, num38].frameX < 66)
 											{
 												Lighting.color2[num39, num40] = 1f;
-												goto IL_2B7C;
+												goto IL_2DE7;
 											}
-											goto IL_2B7C;
+											goto IL_2DE7;
 										}
 									}
 									else
 									{
-										switch (type)
+										if (type <= 42)
 										{
-											case 26:
-											case 31:
+											switch (type)
 											{
-												float num55 = (float)Main.rand.Next(-5, 6) * 0.01f;
-												if (Lighting.color2[num39, num40] < 0.4f + num55)
+												case 26:
+												case 31:
 												{
-													Lighting.color2[num39, num40] = 0.4f + num55;
-													goto IL_2B7C;
-												}
-												goto IL_2B7C;
-											}
-											case 27:
-											case 28:
-											case 29:
-											case 30:
-											case 32:
-											{
-												goto IL_2B7C;
-											}
-											case 33:
-											{
-												if (Main.tile[num37, num38].frameX == 0)
-												{
-													Lighting.color2[num39, num40] = 1f;
-													goto IL_2B7C;
-												}
-												goto IL_2B7C;
-											}
-											case 34:
-											case 35:
-											case 36:
-											{
-												if (Main.tile[num37, num38].frameX < 54)
-												{
-													Lighting.color2[num39, num40] = 1f;
-													goto IL_2B7C;
-												}
-												goto IL_2B7C;
-											}
-											case 37:
-											{
-												if (Lighting.color2[num39, num40] < 0.5f)
-												{
-													Lighting.color2[num39, num40] = 0.5f;
-													goto IL_2B7C;
-												}
-												goto IL_2B7C;
-											}
-											default:
-											{
-												if (type != 42)
-												{
-													if (type != 49)
+													float num55 = (float)Main.rand.Next(-5, 6) * 0.01f;
+													if (Lighting.color2[num39, num40] < 0.4f + num55)
 													{
-														goto IL_2B7C;
+														Lighting.color2[num39, num40] = 0.4f + num55;
+														goto IL_2DE7;
 													}
-													if (Lighting.color2[num39, num40] < 0.1f)
-													{
-														Lighting.color2[num39, num40] = 0.7f;
-														goto IL_2B7C;
-													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
-												else
+												case 27:
+												case 28:
+												case 29:
+												case 30:
+												case 32:
+												{
+													goto IL_2DE7;
+												}
+												case 33:
 												{
 													if (Main.tile[num37, num38].frameX == 0)
 													{
-														Lighting.color2[num39, num40] = 0.75f;
-														goto IL_2B7C;
+														Lighting.color2[num39, num40] = 1f;
+														goto IL_2DE7;
 													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
-												break;
+												case 34:
+												case 35:
+												case 36:
+												{
+													if (Main.tile[num37, num38].frameX < 54)
+													{
+														Lighting.color2[num39, num40] = 1f;
+														goto IL_2DE7;
+													}
+													goto IL_2DE7;
+												}
+												case 37:
+												{
+													if (Lighting.color2[num39, num40] < 0.5f)
+													{
+														Lighting.color2[num39, num40] = 0.5f;
+														goto IL_2DE7;
+													}
+													goto IL_2DE7;
+												}
+												default:
+												{
+													if (type != 42)
+													{
+														goto IL_2DE7;
+													}
+													if (Main.tile[num37, num38].frameX == 0)
+													{
+														Lighting.color2[num39, num40] = 0.75f;
+														goto IL_2DE7;
+													}
+													goto IL_2DE7;
+												}
+											}
+										}
+										else
+										{
+											if (type != 49)
+											{
+												if (type != 61)
+												{
+													goto IL_2DE7;
+												}
+												if (Main.tile[num37, num38].frameX == 144 && Lighting.color2[num39, num40] < 0.75f)
+												{
+													Lighting.color2[num39, num40] = 0.75f;
+													goto IL_2DE7;
+												}
+												goto IL_2DE7;
+											}
+											else
+											{
+												if (Lighting.color2[num39, num40] < 0.1f)
+												{
+													Lighting.color2[num39, num40] = 0.7f;
+													goto IL_2DE7;
+												}
+												goto IL_2DE7;
 											}
 										}
 									}
 								}
 								else
 								{
-									if (type <= 77)
+									if (type <= 84)
 									{
-										if (type != 61)
+										switch (type)
 										{
-											switch (type)
+											case 70:
+											case 71:
+											case 72:
 											{
-												case 70:
-												case 71:
-												case 72:
+												float num56 = (float)Main.rand.Next(38, 43) * 0.01f;
+												if (Lighting.color2[num39, num40] < num56)
 												{
-													float num56 = (float)Main.rand.Next(38, 43) * 0.01f;
-													if (Lighting.color2[num39, num40] < num56)
-													{
-														Lighting.color2[num39, num40] = num56;
-														goto IL_2B7C;
-													}
-													goto IL_2B7C;
+													Lighting.color2[num39, num40] = num56;
+													goto IL_2DE7;
 												}
-												default:
+												goto IL_2DE7;
+											}
+											default:
+											{
+												if (type != 77)
 												{
-													if (type != 77)
+													if (type != 84)
 													{
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
+													int num57 = (int)(Main.tile[num37, num38].frameX / 18);
+													float num58 = 0f;
+													if (num57 == 2)
+													{
+														float num59 = (float)(270 - (int)Main.mouseTextColor);
+														num59 /= 500f;
+														if (num59 > 1f)
+														{
+															num59 = 1f;
+														}
+														if (num59 < 0f)
+														{
+															num59 = 0f;
+														}
+														num58 = num59;
+													}
+													else
+													{
+														if (num57 == 5)
+														{
+															num58 = 0.7f;
+														}
+													}
+													if (Lighting.color2[num39, num40] < num58)
+													{
+														Lighting.color2[num39, num40] = num58;
+														goto IL_2DE7;
+													}
+													goto IL_2DE7;
+												}
+												else
+												{
 													if (Lighting.color2[num39, num40] < 0.6f)
 													{
 														Lighting.color2[num39, num40] = 0.6f;
-														goto IL_2B7C;
+														goto IL_2DE7;
 													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
+												break;
 											}
-										}
-										else
-										{
-											if (Main.tile[num37, num38].frameX == 144 && Lighting.color2[num39, num40] < 0.75f)
-											{
-												Lighting.color2[num39, num40] = 0.75f;
-												goto IL_2B7C;
-											}
-											goto IL_2B7C;
 										}
 									}
 									else
 									{
-										if (type <= 100)
+										if (type <= 129)
 										{
-											if (type != 84)
+											switch (type)
 											{
-												switch (type)
+												case 92:
 												{
-													case 92:
+													if (Main.tile[num37, num38].frameY <= 18 && Main.tile[num37, num38].frameX == 0)
 													{
-														if (Main.tile[num37, num38].frameY <= 18 && Main.tile[num37, num38].frameX == 0)
-														{
-															Lighting.color2[num39, num40] = 1f;
-															goto IL_2B7C;
-														}
-														goto IL_2B7C;
+														Lighting.color2[num39, num40] = 1f;
+														goto IL_2DE7;
 													}
-													case 93:
-													{
-														if (Main.tile[num37, num38].frameY == 0 && Main.tile[num37, num38].frameX == 0)
-														{
-															Lighting.color2[num39, num40] = 1f;
-															goto IL_2B7C;
-														}
-														goto IL_2B7C;
-													}
-													case 94:
-													case 96:
-													case 97:
-													case 99:
-													{
-														goto IL_2B7C;
-													}
-													case 95:
-													{
-														if (Main.tile[num37, num38].frameX < 36 && Lighting.color2[num39, num40] < 0.85f)
-														{
-															Lighting.color2[num39, num40] = 0.9f;
-															goto IL_2B7C;
-														}
-														goto IL_2B7C;
-													}
-													case 98:
-													{
-														if (Main.tile[num37, num38].frameY == 0)
-														{
-															Lighting.color2[num39, num40] = 1f;
-															goto IL_2B7C;
-														}
-														goto IL_2B7C;
-													}
-													case 100:
-													{
-														if (Main.tile[num37, num38].frameX < 36)
-														{
-															Lighting.color2[num39, num40] = 1f;
-															goto IL_2B7C;
-														}
-														goto IL_2B7C;
-													}
-													default:
-													{
-														goto IL_2B7C;
-													}
+													goto IL_2DE7;
 												}
-											}
-											else
-											{
-												int num57 = (int)(Main.tile[num37, num38].frameX / 18);
-												float num58 = 0f;
-												if (num57 == 2)
+												case 93:
 												{
-													float num59 = (float)(270 - (int)Main.mouseTextColor);
-													num59 /= 500f;
-													if (num59 > 1f)
+													if (Main.tile[num37, num38].frameY == 0 && Main.tile[num37, num38].frameX == 0)
 													{
-														num59 = 1f;
+														Lighting.color2[num39, num40] = 1f;
+														goto IL_2DE7;
 													}
-													if (num59 < 0f)
-													{
-														num59 = 0f;
-													}
-													num58 = num59;
+													goto IL_2DE7;
 												}
-												else
+												case 94:
+												case 96:
+												case 97:
+												case 99:
 												{
-													if (num57 == 5)
-													{
-														num58 = 0.7f;
-													}
+													goto IL_2DE7;
 												}
-												if (Lighting.color2[num39, num40] < num58)
+												case 95:
 												{
-													Lighting.color2[num39, num40] = num58;
-													goto IL_2B7C;
+													if (Main.tile[num37, num38].frameX < 36 && Lighting.color2[num39, num40] < 0.85f)
+													{
+														Lighting.color2[num39, num40] = 0.9f;
+														goto IL_2DE7;
+													}
+													goto IL_2DE7;
 												}
-												goto IL_2B7C;
+												case 98:
+												{
+													if (Main.tile[num37, num38].frameY == 0)
+													{
+														Lighting.color2[num39, num40] = 1f;
+														goto IL_2DE7;
+													}
+													goto IL_2DE7;
+												}
+												case 100:
+												{
+													if (Main.tile[num37, num38].frameX < 36)
+													{
+														Lighting.color2[num39, num40] = 1f;
+														goto IL_2DE7;
+													}
+													goto IL_2DE7;
+												}
+												default:
+												{
+													switch (type)
+													{
+														case 125:
+														{
+															float num60 = (float)Main.rand.Next(28, 42) * 0.007f;
+															num60 += (float)(270 - (int)Main.mouseTextColor) / 900f;
+															if ((double)Lighting.color2[num39, num40] < 0.5 * (double)num60)
+															{
+																Lighting.color2[num39, num40] = 0.3f * num60;
+																goto IL_2DE7;
+															}
+															goto IL_2DE7;
+														}
+														case 126:
+														{
+															if (Main.tile[num37, num38].frameX < 36 && Lighting.color2[num39, num40] < 0.3f)
+															{
+																Lighting.color2[num39, num40] = 0.3f;
+																goto IL_2DE7;
+															}
+															goto IL_2DE7;
+														}
+														case 127:
+														case 128:
+														{
+															goto IL_2DE7;
+														}
+														case 129:
+														{
+															float num61 = 0.08f;
+															if (Lighting.color2[num39, num40] < num61)
+															{
+																Lighting.color2[num39, num40] = num61 * (float)Main.rand.Next(970, 1031) * 0.001f;
+																goto IL_2DE7;
+															}
+															goto IL_2DE7;
+														}
+														default:
+														{
+															goto IL_2DE7;
+														}
+													}
+													break;
+												}
 											}
 										}
 										else
 										{
-											switch (type)
+											if (type != 133)
 											{
-												case 125:
+												if (type != 149)
 												{
-													float num60 = (float)Main.rand.Next(28, 42) * 0.007f;
-													num60 += (float)(270 - (int)Main.mouseTextColor) / 900f;
-													if ((double)Lighting.color2[num39, num40] < 0.5 * (double)num60)
-													{
-														Lighting.color2[num39, num40] = 0.3f * num60;
-														goto IL_2B7C;
-													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
-												case 126:
+												if (Main.tile[num37, num38].frameX > 36)
 												{
-													if (Main.tile[num37, num38].frameX < 36 && Lighting.color2[num39, num40] < 0.3f)
-													{
-														Lighting.color2[num39, num40] = 0.3f;
-														goto IL_2B7C;
-													}
-													goto IL_2B7C;
+													goto IL_2DE7;
 												}
-												default:
+												float num61 = 0.4f;
+												if (Lighting.color2[num39, num40] < num61)
 												{
-													if (type != 133)
-													{
-														goto IL_2B7C;
-													}
-													break;
+													Lighting.color2[num39, num40] = num61 * (float)Main.rand.Next(970, 1031) * 0.001f;
+													goto IL_2DE7;
 												}
+												goto IL_2DE7;
 											}
 										}
 									}
@@ -1580,34 +1681,34 @@ namespace Terraria
 							}
 						}
 					}
-					IL_2B7C:
+					IL_2DE7:
 					if (Main.tile[num37, num38].lava && Main.tile[num37, num38].liquid > 0)
 					{
 						if (Lighting.RGB)
 						{
-							float num61 = (float)(Main.tile[num37, num38].liquid / 255) * 0.41f + 0.14f;
-							num61 = 0.55f;
-							num61 += (float)(270 - (int)Main.mouseTextColor) / 900f;
-							if (Lighting.color2[num39, num40] < num61)
+							float num62 = (float)(Main.tile[num37, num38].liquid / 255) * 0.41f + 0.14f;
+							num62 = 0.55f;
+							num62 += (float)(270 - (int)Main.mouseTextColor) / 900f;
+							if (Lighting.color2[num39, num40] < num62)
 							{
-								Lighting.color2[num39, num40] = num61;
+								Lighting.color2[num39, num40] = num62;
 							}
-							if (Lighting.colorG2[num39, num40] < num61)
+							if (Lighting.colorG2[num39, num40] < num62)
 							{
-								Lighting.colorG2[num39, num40] = num61 * 0.6f;
+								Lighting.colorG2[num39, num40] = num62 * 0.6f;
 							}
-							if (Lighting.colorB2[num39, num40] < num61)
+							if (Lighting.colorB2[num39, num40] < num62)
 							{
-								Lighting.colorB2[num39, num40] = num61 * 0.2f;
+								Lighting.colorB2[num39, num40] = num62 * 0.2f;
 							}
 						}
 						else
 						{
-							float num62 = (float)(Main.tile[num37, num38].liquid / 255) * 0.38f + 0.08f;
-							num62 += (float)(270 - (int)Main.mouseTextColor) / 2000f;
-							if (Lighting.color2[num39, num40] < num62)
+							float num63 = (float)(Main.tile[num37, num38].liquid / 255) * 0.38f + 0.08f;
+							num63 += (float)(270 - (int)Main.mouseTextColor) / 2000f;
+							if (Lighting.color2[num39, num40] < num63)
 							{
-								Lighting.color2[num39, num40] = num62;
+								Lighting.color2[num39, num40] = num63;
 							}
 						}
 					}

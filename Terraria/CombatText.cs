@@ -1,4 +1,4 @@
-
+using Microsoft.Xna.Framework;
 using System;
 namespace Terraria
 {
@@ -29,13 +29,16 @@ namespace Terraria
 					int num = 0;
 					if (Crit)
 					{
-					    num = 1;
+						num = 1;
 					}
+					Vector2 vector = Main.fontCombatText[num].MeasureString(text);
 					Main.combatText[i].alpha = 1f;
 					Main.combatText[i].alphaDir = -1;
 					Main.combatText[i].active = true;
 					Main.combatText[i].scale = 0f;
 					Main.combatText[i].rotation = 0f;
+					Main.combatText[i].position.X = (float)location.X + (float)location.Width * 0.5f - vector.X * 0.5f;
+					Main.combatText[i].position.Y = (float)location.Y + (float)location.Height * 0.25f - vector.Y * 0.5f;
 					CombatText expr_FB_cp_0 = Main.combatText[i];
 					expr_FB_cp_0.position.X = expr_FB_cp_0.position.X + (float)Main.rand.Next(-(int)((double)location.Width * 0.5), (int)((double)location.Width * 0.5) + 1);
 					CombatText expr_147_cp_0 = Main.combatText[i];

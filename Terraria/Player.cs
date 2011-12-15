@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -206,8 +208,8 @@ namespace Terraria
 		private static float jumpSpeed = 5.01f;
 		public bool adjWater;
 		public bool oldAdjWater;
-		public bool[] adjTile = new bool[145];
-		public bool[] oldAdjTile = new bool[145];
+		public bool[] adjTile = new bool[150];
+		public bool[] oldAdjTile = new bool[150];
 		private static int itemGrabRange = 38;
 		private static float itemGrabSpeed = 0.45f;
 		private static float itemGrabSpeedMax = 4f;
@@ -763,7 +765,35 @@ namespace Terraria
 			this.controlDown = false;
 			this.controlRight = false;
 			this.controlJump = false;
-            if (this.controlUp || this.controlJump)
+			if (Main.hasFocus && !Main.chatMode && !Main.editSign)
+			{
+				Keys[] pressedKeys = Main.keyState.GetPressedKeys();
+				for (int i = 0; i < pressedKeys.Length; i++)
+				{
+					string a = string.Concat(pressedKeys[i]);
+					if (a == Main.cUp)
+					{
+						this.controlUp = true;
+					}
+					if (a == Main.cLeft)
+					{
+						this.controlLeft = true;
+					}
+					if (a == Main.cDown)
+					{
+						this.controlDown = true;
+					}
+					if (a == Main.cRight)
+					{
+						this.controlRight = true;
+					}
+					if (a == Main.cJump)
+					{
+						this.controlJump = true;
+					}
+				}
+			}
+			if (this.controlUp || this.controlJump)
 			{
 				if (this.velocity.Y > 0f)
 				{
@@ -1020,6 +1050,276 @@ namespace Terraria
 						this.controlInv = false;
 						this.controlHook = false;
 						this.controlTorch = false;
+						if (Main.hasFocus)
+						{
+							if (!Main.chatMode && !Main.editSign)
+							{
+								Keys[] pressedKeys = Main.keyState.GetPressedKeys();
+								bool flag = false;
+								bool flag2 = false;
+								for (int j = 0; j < pressedKeys.Length; j++)
+								{
+									string a = string.Concat(pressedKeys[j]);
+									if (a == Main.cUp)
+									{
+										this.controlUp = true;
+									}
+									if (a == Main.cLeft)
+									{
+										this.controlLeft = true;
+									}
+									if (a == Main.cDown)
+									{
+										this.controlDown = true;
+									}
+									if (a == Main.cRight)
+									{
+										this.controlRight = true;
+									}
+									if (a == Main.cJump)
+									{
+										this.controlJump = true;
+									}
+									if (a == Main.cThrowItem)
+									{
+										this.controlThrow = true;
+									}
+									if (a == Main.cInv)
+									{
+										this.controlInv = true;
+									}
+									if (a == Main.cBuff)
+									{
+										this.QuickBuff();
+									}
+									if (a == Main.cHeal)
+									{
+										flag2 = true;
+									}
+									if (a == Main.cMana)
+									{
+										flag = true;
+									}
+									if (a == Main.cHook)
+									{
+										this.controlHook = true;
+									}
+									if (a == Main.cTorch)
+									{
+										this.controlTorch = true;
+									}
+								}
+								if (Main.gamePad)
+								{
+									GamePadState state = GamePad.GetState(PlayerIndex.One);
+									GamePadDPad dPad = state.DPad;
+									if (dPad.Up == ButtonState.Pressed)
+									{
+										this.controlUp = true;
+									}
+									dPad = state.DPad;
+									if (dPad.Down == ButtonState.Pressed)
+									{
+										this.controlDown = true;
+									}
+									dPad = state.DPad;
+									if (dPad.Left == ButtonState.Pressed)
+									{
+										this.controlLeft = true;
+									}
+									dPad = state.DPad;
+									if (dPad.Right == ButtonState.Pressed)
+									{
+										this.controlRight = true;
+									}
+									GamePadTriggers triggers = state.Triggers;
+									if (triggers.Left > 0f)
+									{
+										this.controlJump = true;
+									}
+									triggers = state.Triggers;
+									if (triggers.Right > 0f)
+									{
+										this.controlUseItem = true;
+									}
+									float arg_846_0 = (float)(Main.screenWidth / 2);
+									GamePadThumbSticks thumbSticks = state.ThumbSticks;
+									Main.mouseX = (int)(arg_846_0 + thumbSticks.Right.X * (float)Player.tileRangeX * 16f);
+									float arg_877_0 = (float)(Main.screenHeight / 2);
+									thumbSticks = state.ThumbSticks;
+									Main.mouseY = (int)(arg_877_0 - thumbSticks.Right.Y * (float)Player.tileRangeX * 16f);
+									thumbSticks = state.ThumbSticks;
+									if (thumbSticks.Right.X == 0f)
+									{
+										Main.mouseX = Main.screenWidth / 2 + this.direction * 2;
+									}
+								}
+								if (flag2)
+								{
+									if (this.releaseQuickHeal)
+									{
+										this.QuickHeal();
+									}
+									this.releaseQuickHeal = false;
+								}
+								else
+								{
+									this.releaseQuickHeal = true;
+								}
+								if (flag)
+								{
+									if (this.releaseQuickMana)
+									{
+										this.QuickMana();
+									}
+									this.releaseQuickMana = false;
+								}
+								else
+								{
+									this.releaseQuickMana = true;
+								}
+								if (this.controlLeft && this.controlRight)
+								{
+									this.controlLeft = false;
+									this.controlRight = false;
+								}
+							}
+							if (this.confused)
+							{
+								bool flag3 = this.controlLeft;
+								bool flag4 = this.controlUp;
+								this.controlLeft = this.controlRight;
+								this.controlRight = flag3;
+								this.controlUp = this.controlRight;
+								this.controlDown = flag4;
+							}
+							if (Main.mouseLeft && !this.mouseInterface)
+							{
+								this.controlUseItem = true;
+							}
+							if (Main.mouseRight && !this.mouseInterface)
+							{
+								this.controlUseTile = true;
+							}
+							if (this.controlInv)
+							{
+								if (this.releaseInventory)
+								{
+									this.toggleInv();
+								}
+								this.releaseInventory = false;
+							}
+							else
+							{
+								this.releaseInventory = true;
+							}
+							if (this.delayUseItem)
+							{
+								if (!this.controlUseItem)
+								{
+									this.delayUseItem = false;
+								}
+								this.controlUseItem = false;
+							}
+							if (this.itemAnimation == 0 && this.itemTime == 0)
+							{
+								this.dropItemCheck();
+								int num11 = this.selectedItem;
+								if (!Main.chatMode && this.selectedItem != 48)
+								{
+									if (Main.keyState.IsKeyDown(Keys.D1))
+									{
+										this.selectedItem = 0;
+									}
+									if (Main.keyState.IsKeyDown(Keys.D2))
+									{
+										this.selectedItem = 1;
+									}
+									if (Main.keyState.IsKeyDown(Keys.D3))
+									{
+										this.selectedItem = 2;
+									}
+									if (Main.keyState.IsKeyDown(Keys.D4))
+									{
+										this.selectedItem = 3;
+									}
+									if (Main.keyState.IsKeyDown(Keys.D5))
+									{
+										this.selectedItem = 4;
+									}
+									if (Main.keyState.IsKeyDown(Keys.D6))
+									{
+										this.selectedItem = 5;
+									}
+									if (Main.keyState.IsKeyDown(Keys.D7))
+									{
+										this.selectedItem = 6;
+									}
+									if (Main.keyState.IsKeyDown(Keys.D8))
+									{
+										this.selectedItem = 7;
+									}
+									if (Main.keyState.IsKeyDown(Keys.D9))
+									{
+										this.selectedItem = 8;
+									}
+									if (Main.keyState.IsKeyDown(Keys.D0))
+									{
+										this.selectedItem = 9;
+									}
+								}
+								if (num11 != this.selectedItem)
+								{
+									Main.PlaySound(12, -1, -1, 1);
+								}
+								if (!Main.playerInventory)
+								{
+									int k;
+									for (k = (Main.mouseState.ScrollWheelValue - Main.oldMouseState.ScrollWheelValue) / 120; k > 9; k -= 10)
+									{
+									}
+									while (k < 0)
+									{
+										k += 10;
+									}
+									this.selectedItem -= k;
+									if (k != 0)
+									{
+										Main.PlaySound(12, -1, -1, 1);
+									}
+									if (this.changeItem >= 0)
+									{
+										if (this.selectedItem != this.changeItem)
+										{
+											Main.PlaySound(12, -1, -1, 1);
+										}
+										this.selectedItem = this.changeItem;
+										this.changeItem = -1;
+									}
+									while (this.selectedItem > 9)
+									{
+										this.selectedItem -= 10;
+									}
+									while (this.selectedItem < 0)
+									{
+										this.selectedItem += 10;
+									}
+								}
+								else
+								{
+									int num12 = (Main.mouseState.ScrollWheelValue - Main.oldMouseState.ScrollWheelValue) / 120;
+									Main.focusRecipe += num12;
+									if (Main.focusRecipe > Main.numAvailableRecipes - 1)
+									{
+										Main.focusRecipe = Main.numAvailableRecipes - 1;
+									}
+									if (Main.focusRecipe < 0)
+									{
+										Main.focusRecipe = 0;
+									}
+								}
+							}
+						}
 						if (this.selectedItem == 48)
 						{
 							this.nonTorch = -1;
@@ -1868,6 +2168,10 @@ namespace Terraria
 							this.meleeCrit += 3;
 							this.rangedCrit += 3;
 						}
+						if (this.armor[num25].type == 268)
+						{
+							this.accDivingHelm = true;
+						}
 						if (this.armor[num25].type == 400)
 						{
 							this.magicDamage += 0.11f;
@@ -2088,10 +2392,6 @@ namespace Terraria
 						if (this.armor[num26].type == 193)
 						{
 							this.fireWalk = true;
-						}
-						if (this.armor[num26].type == 268)
-						{
-							this.accDivingHelm = true;
 						}
 						if (this.armor[num26].type == 485)
 						{
@@ -3371,7 +3671,7 @@ namespace Terraria
 					{
 						if (Main.tile[Player.tileTargetX, Player.tileTargetY] == null)
 						{
-
+							Main.tile[Player.tileTargetX, Player.tileTargetY] = new Tile();
 						}
 						if (Main.tile[Player.tileTargetX, Player.tileTargetY].active)
 						{
@@ -4135,6 +4435,7 @@ namespace Terraria
 							}
 							else
 							{
+								Main.npcChatText = Main.GetInputText(Main.npcChatText);
 								if (Main.inputTextEnter)
 								{
 									byte[] bytes = new byte[]
@@ -4393,7 +4694,7 @@ namespace Terraria
 							{
 								if (Main.tile[num117, num119] == null)
 								{
-
+									Main.tile[num117, num119] = new Tile();
 								}
 								if (!Main.tile[num117, num119].active || !Main.tileSolid[(int)Main.tile[num117, num119].type] || Main.tileSolidTop[(int)Main.tile[num117, num119].type])
 								{
@@ -5231,7 +5532,7 @@ namespace Terraria
 		{
 			int num = 4;
 			int num2 = 3;
-			for (int i = 0; i < 145; i++)
+			for (int i = 0; i < 150; i++)
 			{
 				this.oldAdjTile[i] = this.adjTile[i];
 				this.adjTile[i] = false;
@@ -5270,7 +5571,7 @@ namespace Terraria
 			if (Main.playerInventory)
 			{
 				bool flag = false;
-				for (int l = 0; l < 145; l++)
+				for (int l = 0; l < 150; l++)
 				{
 					if (this.oldAdjTile[l] != this.adjTile[l])
 					{
@@ -7214,8 +7515,8 @@ namespace Terraria
 				}
 				else
 				{
-
-
+					this.itemHeight = Main.itemTexture[this.inventory[this.selectedItem].type].Height;
+					this.itemWidth = Main.itemTexture[this.inventory[this.selectedItem].type].Width;
 				}
 				this.itemAnimation--;
 				if (!Main.dedServ)
@@ -7224,6 +7525,16 @@ namespace Terraria
 					{
 						if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.333)
 						{
+							float num12 = 10f;
+							if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 32)
+							{
+								num12 = 14f;
+							}
+							if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 64)
+							{
+								num12 = 28f;
+							}
+							this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - num12) * (float)this.direction;
 							this.itemLocation.Y = this.position.Y + 24f;
 						}
 						else
@@ -7231,21 +7542,21 @@ namespace Terraria
 							if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.666)
 							{
 								float num13 = 10f;
-
+								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 32)
 								{
 									num13 = 18f;
 								}
-
+								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 64)
 								{
 									num13 = 28f;
 								}
-
+								this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - num13) * (float)this.direction;
 								num13 = 10f;
-
+								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 32)
 								{
 									num13 = 8f;
 								}
-
+								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 64)
 								{
 									num13 = 14f;
 								}
@@ -7254,21 +7565,21 @@ namespace Terraria
 							else
 							{
 								float num14 = 6f;
-
+								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 32)
 								{
 									num14 = 14f;
 								}
-
+								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 64)
 								{
 									num14 = 28f;
 								}
-
+								this.itemLocation.X = this.position.X + (float)this.width * 0.5f - ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - num14) * (float)this.direction;
 								num14 = 10f;
-
+								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 32)
 								{
 									num14 = 10f;
 								}
-
+								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 64)
 								{
 									num14 = 14f;
 								}
@@ -7289,12 +7600,12 @@ namespace Terraria
 							this.itemRotation = (float)this.itemAnimation / (float)this.itemAnimationMax * (float)this.direction * 2f + -1.4f * (float)this.direction;
 							if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.5)
 							{
-
+								this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - 9f - this.itemRotation * 12f * (float)this.direction) * (float)this.direction;
 								this.itemLocation.Y = this.position.Y + 38f + this.itemRotation * (float)this.direction * 4f;
 							}
 							else
 							{
-
+								this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - 9f - this.itemRotation * 16f * (float)this.direction) * (float)this.direction;
 								this.itemLocation.Y = this.position.Y + 38f + this.itemRotation * (float)this.direction;
 							}
 							if (this.gravDir == -1f)
@@ -7315,8 +7626,18 @@ namespace Terraria
 								}
 								else
 								{
-
+									this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - 4f) * (float)this.direction;
 									this.itemLocation.Y = this.position.Y + 24f;
+									float num15 = (float)this.itemAnimation / (float)this.itemAnimationMax * (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * (float)this.direction * this.inventory[this.selectedItem].scale * 1.2f - (float)(10 * this.direction);
+									if (num15 > -4f && this.direction == -1)
+									{
+										num15 = -8f;
+									}
+									if (num15 < 4f && this.direction == 1)
+									{
+										num15 = 8f;
+									}
+									this.itemLocation.X = this.itemLocation.X - num15;
 									this.itemRotation = 0.8f * (float)this.direction;
 								}
 								if (this.gravDir == -1f)
@@ -7330,8 +7651,8 @@ namespace Terraria
 								if (this.inventory[this.selectedItem].useStyle == 4)
 								{
 									this.itemRotation = 0f;
-
-
+									this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - 9f - this.itemRotation * 14f * (float)this.direction - 4f) * (float)this.direction;
+									this.itemLocation.Y = this.position.Y + (float)Main.itemTexture[this.inventory[this.selectedItem].type].Height * 0.5f + 4f;
 									if (this.gravDir == -1f)
 									{
 										this.itemRotation = -this.itemRotation;
@@ -7342,8 +7663,8 @@ namespace Terraria
 								{
 									if (this.inventory[this.selectedItem].useStyle == 5)
 									{
-
-
+										this.itemLocation.X = this.position.X + (float)this.width * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - (float)(this.direction * 2);
+										this.itemLocation.Y = this.position.Y + (float)this.height * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Height * 0.5f;
 									}
 								}
 							}
@@ -7361,7 +7682,7 @@ namespace Terraria
 					}
 					else
 					{
-
+						this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f + 2f) * (float)this.direction;
 						if (this.inventory[this.selectedItem].type == 282 || this.inventory[this.selectedItem].type == 286)
 						{
 							this.itemLocation.X = this.itemLocation.X - (float)(this.direction * 2);
@@ -7393,8 +7714,8 @@ namespace Terraria
 					{
 						if (this.inventory[this.selectedItem].holdStyle == 3 && !Main.dedServ)
 						{
-
-
+							this.itemLocation.X = this.position.X + (float)this.width * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - (float)(this.direction * 2);
+							this.itemLocation.Y = this.position.Y + (float)this.height * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Height * 0.5f;
 							this.itemRotation = 0f;
 						}
 					}
@@ -8608,7 +8929,7 @@ namespace Terraria
 				Rectangle rectangle = new Rectangle((int)this.itemLocation.X, (int)this.itemLocation.Y, 32, 32);
 				if (!Main.dedServ)
 				{
-
+					rectangle = new Rectangle((int)this.itemLocation.X, (int)this.itemLocation.Y, Main.itemTexture[this.inventory[this.selectedItem].type].Width, Main.itemTexture[this.inventory[this.selectedItem].type].Height);
 				}
 				rectangle.Width = (int)((float)rectangle.Width * this.inventory[this.selectedItem].scale);
 				rectangle.Height = (int)((float)rectangle.Height * this.inventory[this.selectedItem].scale);
@@ -9016,7 +9337,17 @@ namespace Terraria
 				if (Main.netMode != 1 && Main.invasionType == 0)
 				{
 					Main.invasionDelay = 0;
-					Main.StartInvasion();
+					Main.StartInvasion(1);
+				}
+			}
+			if (this.itemTime == 0 && this.itemAnimation > 0 && this.inventory[this.selectedItem].type == 602)
+			{
+				this.itemTime = this.inventory[this.selectedItem].useTime;
+				Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
+				if (Main.netMode != 1 && Main.invasionType == 0)
+				{
+					Main.invasionDelay = 0;
+					Main.StartInvasion(2);
 				}
 			}
 			if (this.itemTime == 0 && this.itemAnimation > 0 && (this.inventory[this.selectedItem].type == 43 || this.inventory[this.selectedItem].type == 70 || this.inventory[this.selectedItem].type == 544 || this.inventory[this.selectedItem].type == 556 || this.inventory[this.selectedItem].type == 557 || this.inventory[this.selectedItem].type == 560))
@@ -9128,15 +9459,15 @@ namespace Terraria
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Vector2 arg_68C5_0 = this.position;
-					int arg_68C5_1 = this.width;
-					int arg_68C5_2 = this.height;
-					int arg_68C5_3 = 15;
-					float arg_68C5_4 = 0f;
-					float arg_68C5_5 = 0f;
-					int arg_68C5_6 = 150;
+					Vector2 arg_6943_0 = this.position;
+					int arg_6943_1 = this.width;
+					int arg_6943_2 = this.height;
+					int arg_6943_3 = 15;
+					float arg_6943_4 = 0f;
+					float arg_6943_5 = 0f;
+					int arg_6943_6 = 150;
 					Color newColor = default(Color);
-					Dust.NewDust(arg_68C5_0, arg_68C5_1, arg_68C5_2, arg_68C5_3, arg_68C5_4, arg_68C5_5, arg_68C5_6, newColor, 1.1f);
+					Dust.NewDust(arg_6943_0, arg_6943_1, arg_6943_2, arg_6943_3, arg_6943_4, arg_6943_5, arg_6943_6, newColor, 1.1f);
 				}
 				if (this.itemTime == 0)
 				{
@@ -9148,15 +9479,15 @@ namespace Terraria
 					{
 						for (int num89 = 0; num89 < 70; num89++)
 						{
-							Vector2 arg_695E_0 = this.position;
-							int arg_695E_1 = this.width;
-							int arg_695E_2 = this.height;
-							int arg_695E_3 = 15;
-							float arg_695E_4 = this.velocity.X * 0.5f;
-							float arg_695E_5 = this.velocity.Y * 0.5f;
-							int arg_695E_6 = 150;
+							Vector2 arg_69DC_0 = this.position;
+							int arg_69DC_1 = this.width;
+							int arg_69DC_2 = this.height;
+							int arg_69DC_3 = 15;
+							float arg_69DC_4 = this.velocity.X * 0.5f;
+							float arg_69DC_5 = this.velocity.Y * 0.5f;
+							int arg_69DC_6 = 150;
 							Color newColor = default(Color);
-							Dust.NewDust(arg_695E_0, arg_695E_1, arg_695E_2, arg_695E_3, arg_695E_4, arg_695E_5, arg_695E_6, newColor, 1.5f);
+							Dust.NewDust(arg_69DC_0, arg_69DC_1, arg_69DC_2, arg_69DC_3, arg_69DC_4, arg_69DC_5, arg_69DC_6, newColor, 1.5f);
 						}
 						this.grappling[0] = -1;
 						this.grapCount = 0;
@@ -9170,15 +9501,15 @@ namespace Terraria
 						this.Spawn();
 						for (int num91 = 0; num91 < 70; num91++)
 						{
-							Vector2 arg_6A0D_0 = this.position;
-							int arg_6A0D_1 = this.width;
-							int arg_6A0D_2 = this.height;
-							int arg_6A0D_3 = 15;
-							float arg_6A0D_4 = 0f;
-							float arg_6A0D_5 = 0f;
-							int arg_6A0D_6 = 150;
+							Vector2 arg_6A8B_0 = this.position;
+							int arg_6A8B_1 = this.width;
+							int arg_6A8B_2 = this.height;
+							int arg_6A8B_3 = 15;
+							float arg_6A8B_4 = 0f;
+							float arg_6A8B_5 = 0f;
+							int arg_6A8B_6 = 150;
 							Color newColor = default(Color);
-							Dust.NewDust(arg_6A0D_0, arg_6A0D_1, arg_6A0D_2, arg_6A0D_3, arg_6A0D_4, arg_6A0D_5, arg_6A0D_6, newColor, 1.5f);
+							Dust.NewDust(arg_6A8B_0, arg_6A8B_1, arg_6A8B_2, arg_6A8B_3, arg_6A8B_4, arg_6A8B_5, arg_6A8B_6, newColor, 1.5f);
 						}
 					}
 				}
@@ -9309,17 +9640,22 @@ namespace Terraria
 					{
 						NetMessage.SendData(21, -1, -1, "", num, 0f, 0f, 0f, 0);
 					}
+					if (i == 48)
+					{
+						Main.mouseItem = (Item)this.inventory[i].Clone();
+					}
 				}
 			}
 		}
 		public void DropItems()
 		{
-			for (int i = 0; i < 48; i++)
+			for (int i = 0; i < 49; i++)
 			{
 				if (this.inventory[i].stack > 0 && this.inventory[i].name != "Copper Pickaxe" && this.inventory[i].name != "Copper Axe" && this.inventory[i].name != "Copper Shortsword")
 				{
 					int num = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, this.inventory[i].type, 1, false, 0);
 					Main.item[num].SetDefaults(this.inventory[i].name);
+					Main.item[num].Prefix((int)this.inventory[i].prefix);
 					Main.item[num].stack = this.inventory[i].stack;
 					Main.item[num].velocity.Y = (float)Main.rand.Next(-20, 1) * 0.2f;
 					Main.item[num].velocity.X = (float)Main.rand.Next(-20, 21) * 0.2f;
@@ -9336,6 +9672,7 @@ namespace Terraria
 					{
 						int num2 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, this.armor[i].type, 1, false, 0);
 						Main.item[num2].SetDefaults(this.armor[i].name);
+						Main.item[num2].Prefix((int)this.armor[i].prefix);
 						Main.item[num2].stack = this.armor[i].stack;
 						Main.item[num2].velocity.Y = (float)Main.rand.Next(-20, 1) * 0.2f;
 						Main.item[num2].velocity.X = (float)Main.rand.Next(-20, 21) * 0.2f;
@@ -9354,6 +9691,7 @@ namespace Terraria
 			this.inventory[1].Prefix(-1);
 			this.inventory[2].SetDefaults("Copper Axe");
 			this.inventory[2].Prefix(-1);
+			Main.mouseItem = new Item();
 		}
 		public object Clone()
 		{
@@ -9751,7 +10089,7 @@ namespace Terraria
 									}
 								}
 							}
-							for (int k = 0; k < 48; k++)
+							for (int k = 0; k < 44; k++)
 							{
 								player.inventory[k].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
 								player.inventory[k].stack = binaryReader.ReadInt32();
@@ -9760,46 +10098,58 @@ namespace Terraria
 									player.inventory[k].Prefix((int)binaryReader.ReadByte());
 								}
 							}
-							for (int l = 0; l < Chest.maxItems; l++)
+							if (num >= 15)
 							{
-								player.bank[l].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-								player.bank[l].stack = binaryReader.ReadInt32();
+								for (int l = 44; l < 48; l++)
+								{
+									player.inventory[l].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
+									player.inventory[l].stack = binaryReader.ReadInt32();
+									if (num >= 36)
+									{
+										player.inventory[l].Prefix((int)binaryReader.ReadByte());
+									}
+								}
+							}
+							for (int m = 0; m < Chest.maxItems; m++)
+							{
+								player.bank[m].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
+								player.bank[m].stack = binaryReader.ReadInt32();
 								if (num >= 36)
 								{
-									player.bank[l].Prefix((int)binaryReader.ReadByte());
+									player.bank[m].Prefix((int)binaryReader.ReadByte());
 								}
 							}
 							if (num >= 20)
 							{
-								for (int m = 0; m < Chest.maxItems; m++)
+								for (int n = 0; n < Chest.maxItems; n++)
 								{
-									player.bank2[m].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-									player.bank2[m].stack = binaryReader.ReadInt32();
+									player.bank2[n].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
+									player.bank2[n].stack = binaryReader.ReadInt32();
 									if (num >= 36)
 									{
-										player.bank2[m].Prefix((int)binaryReader.ReadByte());
+										player.bank2[n].Prefix((int)binaryReader.ReadByte());
 									}
 								}
 							}
 							if (num >= 11)
 							{
-								for (int n = 0; n < 10; n++)
+								for (int num2 = 0; num2 < 10; num2++)
 								{
-									player.buffType[n] = binaryReader.ReadInt32();
-									player.buffTime[n] = binaryReader.ReadInt32();
+									player.buffType[num2] = binaryReader.ReadInt32();
+									player.buffTime[num2] = binaryReader.ReadInt32();
 								}
 							}
-							for (int num2 = 0; num2 < 200; num2++)
+							for (int num3 = 0; num3 < 200; num3++)
 							{
-								int num3 = binaryReader.ReadInt32();
-								if (num3 == -1)
+								int num4 = binaryReader.ReadInt32();
+								if (num4 == -1)
 								{
 									break;
 								}
-								player.spX[num2] = num3;
-								player.spY[num2] = binaryReader.ReadInt32();
-								player.spI[num2] = binaryReader.ReadInt32();
-								player.spN[num2] = binaryReader.ReadString();
+								player.spX[num3] = num4;
+								player.spY[num3] = binaryReader.ReadInt32();
+								player.spI[num3] = binaryReader.ReadInt32();
+								player.spN[num3] = binaryReader.ReadString();
 							}
 							if (num >= 16)
 							{
@@ -9818,16 +10168,27 @@ namespace Terraria
 			{
 				flag = true;
 			}
-			if (!flag)
+			if (flag)
 			{
-				return new Player();
-			}
-			string text2 = playerPath + ".bak";
-			if (File.Exists(text2))
-			{
-				File.Delete(playerPath);
-				File.Move(text2, playerPath);
-				return Player.LoadPlayer(playerPath);
+				try
+				{
+					string text2 = playerPath + ".bak";
+					Player result;
+					if (File.Exists(text2))
+					{
+						File.Delete(playerPath);
+						File.Move(text2, playerPath);
+						result = Player.LoadPlayer(playerPath);
+						return result;
+					}
+					result = new Player();
+					return result;
+				}
+				catch
+				{
+					Player result = new Player();
+					return result;
+				}
 			}
 			return new Player();
 		}
@@ -9959,7 +10320,7 @@ namespace Terraria
 			this.inventory[0].SetDefaults("Copper Shortsword");
 			this.inventory[1].SetDefaults("Copper Pickaxe");
 			this.inventory[2].SetDefaults("Copper Axe");
-			for (int k = 0; k < 145; k++)
+			for (int k = 0; k < 150; k++)
 			{
 				this.adjTile[k] = false;
 				this.oldAdjTile[k] = false;

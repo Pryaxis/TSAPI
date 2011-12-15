@@ -1,7 +1,5 @@
 using System;
 using System.Net.Sockets;
-using Hooks;
-
 namespace Terraria
 {
 	public class ServerSock
@@ -14,7 +12,7 @@ namespace Terraria
 		public int statusCount;
 		public int statusMax;
 		public bool[,] tileSection = new bool[Main.maxTilesX / 200 + 1, Main.maxTilesY / 150 + 1];
-		//public string statusText = "";
+		public string statusText = "";
 		public bool active;
 		public bool locked;
 		public bool kill;
@@ -117,7 +115,6 @@ namespace Terraria
 		}
 		public void Reset()
 		{
-            ServerHooks.OnSocketReset(this);
 			for (int i = 0; i < Main.maxSectionsX; i++)
 			{
 				for (int j = 0; j < Main.maxSectionsY; j++)
@@ -133,7 +130,7 @@ namespace Terraria
 			this.statusCount = 0;
 			this.statusMax = 0;
 			this.statusText2 = "";
-			//this.statusText = "";
+			this.statusText = "";
 			this.name = "Anonymous";
 			this.state = 0;
 			this.locked = false;

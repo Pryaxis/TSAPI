@@ -1,6 +1,5 @@
-
+using Microsoft.Xna.Framework;
 using System;
-using Hooks;
 namespace Terraria
 {
 	public class NPC
@@ -9,29 +8,29 @@ namespace Terraria
 		public static int immuneTime = 20;
 		public static int maxAI = 4;
 		public int netSpam;
-		public static int spawnSpaceX = 3;
-		public static int spawnSpaceY = 3;
-		public static int maxAttack = 20;
-		public static int[] attackNPC = new int[NPC.maxAttack];
+		private static int spawnSpaceX = 3;
+		private static int spawnSpaceY = 3;
+		private static int maxAttack = 20;
+		private static int[] attackNPC = new int[NPC.maxAttack];
 		public Vector2[] oldPos = new Vector2[10];
 		public int netSkip;
 		public bool netAlways;
 		public int realLife = -1;
 		public static int sWidth = 1920;
 		public static int sHeight = 1080;
-		public static int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
-		public static int spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
+		private static int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
+		private static int spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
 		public static int safeRangeX = (int)((double)(NPC.sWidth / 16) * 0.52);
 		public static int safeRangeY = (int)((double)(NPC.sHeight / 16) * 0.52);
-		public static int activeRangeX = (int)((double)NPC.sWidth * 1.7);
-		public static int activeRangeY = (int)((double)NPC.sHeight * 1.7);
-		public static int townRangeX = NPC.sWidth;
-		public static int townRangeY = NPC.sHeight;
+		private static int activeRangeX = (int)((double)NPC.sWidth * 1.7);
+		private static int activeRangeY = (int)((double)NPC.sHeight * 1.7);
+		private static int townRangeX = NPC.sWidth;
+		private static int townRangeY = NPC.sHeight;
 		public float npcSlots = 1f;
-		public static bool noSpawnCycle = false;
-		public static int activeTime = 750;
-		public static int defaultSpawnRate = 600;
-		public static int defaultMaxSpawns = 5;
+		private static bool noSpawnCycle = false;
+		private static int activeTime = 750;
+		private static int defaultSpawnRate = 600;
+		private static int defaultMaxSpawns = 5;
 		public bool wet;
 		public byte wetCount;
 		public bool lavaWet;
@@ -51,9 +50,10 @@ namespace Terraria
 		public static bool savedWizard = false;
 		public static bool savedMech = false;
 		public static bool downedGoblins = false;
+		public static bool downedFrost = false;
 		public static bool downedClown = false;
-		public static int spawnRate = NPC.defaultSpawnRate;
-		public static int maxSpawns = NPC.defaultMaxSpawns;
+		private static int spawnRate = NPC.defaultSpawnRate;
+		private static int maxSpawns = NPC.defaultMaxSpawns;
 		public int soundDelay;
 		public Vector2 position;
 		public Vector2 velocity;
@@ -122,7 +122,7 @@ namespace Terraria
 		public int friendlyRegen;
 		public static void clrNames()
 		{
-			for (int i = 0; i < 142; i++)
+			for (int i = 0; i < 147; i++)
 			{
 				Main.chrName[i] = "";
 			}
@@ -135,77 +135,160 @@ namespace Terraria
 			}
 			int num = WorldGen.genRand.Next(23);
 			string text = "";
-			switch (num)
+			if (num == 0)
 			{
-			    case 0:
-			        text = "Molly";
-			        break;
-			    case 1:
-			        text = "Amy";
-			        break;
-			    case 2:
-			        text = "Claire";
-			        break;
-			    case 3:
-			        text = "Emily";
-			        break;
-			    case 4:
-			        text = "Katie";
-			        break;
-			    case 5:
-			        text = "Madeline";
-			        break;
-			    case 6:
-			        text = "Katelyn";
-			        break;
-			    case 7:
-			        text = "Emma";
-			        break;
-			    case 8:
-			        text = "Abigail";
-			        break;
-			    case 9:
-			        text = "Carly";
-			        break;
-			    case 10:
-			        text = "Jenna";
-			        break;
-			    case 11:
-			        text = "Heather";
-			        break;
-			    case 12:
-			        text = "Katherine";
-			        break;
-			    case 13:
-			        text = "Caitlin";
-			        break;
-			    case 14:
-			        text = "Kaitlin";
-			        break;
-			    case 15:
-			        text = "Holly";
-			        break;
-			    case 16:
-			        text = "Kaitlyn";
-			        break;
-			    case 17:
-			        text = "Hannah";
-			        break;
-			    case 18:
-			        text = "Kathryn";
-			        break;
-			    case 19:
-			        text = "Lorraine";
-			        break;
-			    case 20:
-			        text = "Helen";
-			        break;
-			    case 21:
-			        text = "Kayla";
-			        break;
-			    default:
-			        text = "Allison";
-			        break;
+				text = "Molly";
+			}
+			else
+			{
+				if (num == 1)
+				{
+					text = "Amy";
+				}
+				else
+				{
+					if (num == 2)
+					{
+						text = "Claire";
+					}
+					else
+					{
+						if (num == 3)
+						{
+							text = "Emily";
+						}
+						else
+						{
+							if (num == 4)
+							{
+								text = "Katie";
+							}
+							else
+							{
+								if (num == 5)
+								{
+									text = "Madeline";
+								}
+								else
+								{
+									if (num == 6)
+									{
+										text = "Katelyn";
+									}
+									else
+									{
+										if (num == 7)
+										{
+											text = "Emma";
+										}
+										else
+										{
+											if (num == 8)
+											{
+												text = "Abigail";
+											}
+											else
+											{
+												if (num == 9)
+												{
+													text = "Carly";
+												}
+												else
+												{
+													if (num == 10)
+													{
+														text = "Jenna";
+													}
+													else
+													{
+														if (num == 11)
+														{
+															text = "Heather";
+														}
+														else
+														{
+															if (num == 12)
+															{
+																text = "Katherine";
+															}
+															else
+															{
+																if (num == 13)
+																{
+																	text = "Caitlin";
+																}
+																else
+																{
+																	if (num == 14)
+																	{
+																		text = "Kaitlin";
+																	}
+																	else
+																	{
+																		if (num == 15)
+																		{
+																			text = "Holly";
+																		}
+																		else
+																		{
+																			if (num == 16)
+																			{
+																				text = "Kaitlyn";
+																			}
+																			else
+																			{
+																				if (num == 17)
+																				{
+																					text = "Hannah";
+																				}
+																				else
+																				{
+																					if (num == 18)
+																					{
+																						text = "Kathryn";
+																					}
+																					else
+																					{
+																						if (num == 19)
+																						{
+																							text = "Lorraine";
+																						}
+																						else
+																						{
+																							if (num == 20)
+																							{
+																								text = "Helen";
+																							}
+																							else
+																							{
+																								if (num == 21)
+																								{
+																									text = "Kayla";
+																								}
+																								else
+																								{
+																									text = "Allison";
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (Main.chrName[18] == "")
 			{
@@ -213,80 +296,167 @@ namespace Terraria
 			}
 			num = WorldGen.genRand.Next(24);
 			text = "";
-			switch (num)
+			if (num == 0)
 			{
-			    case 0:
-			        text = "Shayna";
-			        break;
-			    case 1:
-			        text = "Korrie";
-			        break;
-			    case 2:
-			        text = "Ginger";
-			        break;
-			    case 3:
-			        text = "Brooke";
-			        break;
-			    case 4:
-			        text = "Jenny";
-			        break;
-			    case 5:
-			        text = "Autumn";
-			        break;
-			    case 6:
-			        text = "Nancy";
-			        break;
-			    case 7:
-			        text = "Ella";
-			        break;
-			    case 8:
-			        text = "Kayla";
-			        break;
-			    case 9:
-			        text = "Beth";
-			        break;
-			    case 10:
-			        text = "Sophia";
-			        break;
-			    case 11:
-			        text = "Marshanna";
-			        break;
-			    case 12:
-			        text = "Lauren";
-			        break;
-			    case 13:
-			        text = "Trisha";
-			        break;
-			    case 14:
-			        text = "Shirlena";
-			        break;
-			    case 15:
-			        text = "Sheena";
-			        break;
-			    case 16:
-			        text = "Ellen";
-			        break;
-			    case 17:
-			        text = "Amy";
-			        break;
-			    case 18:
-			        text = "Dawn";
-			        break;
-			    case 19:
-			        text = "Susana";
-			        break;
-			    case 20:
-			        text = "Meredith";
-			        break;
-			    case 21:
-			        text = "Selene";
-			        break;
-			    case 22:
-			        text = "Terra";
-			        break;
-			    default:
-			        text = "Sally";
-			        break;
+				text = "Shayna";
+			}
+			else
+			{
+				if (num == 1)
+				{
+					text = "Korrie";
+				}
+				else
+				{
+					if (num == 2)
+					{
+						text = "Ginger";
+					}
+					else
+					{
+						if (num == 3)
+						{
+							text = "Brooke";
+						}
+						else
+						{
+							if (num == 4)
+							{
+								text = "Jenny";
+							}
+							else
+							{
+								if (num == 5)
+								{
+									text = "Autumn";
+								}
+								else
+								{
+									if (num == 6)
+									{
+										text = "Nancy";
+									}
+									else
+									{
+										if (num == 7)
+										{
+											text = "Ella";
+										}
+										else
+										{
+											if (num == 8)
+											{
+												text = "Kayla";
+											}
+											else
+											{
+												if (num == 9)
+												{
+													text = "Beth";
+												}
+												else
+												{
+													if (num == 10)
+													{
+														text = "Sophia";
+													}
+													else
+													{
+														if (num == 11)
+														{
+															text = "Marshanna";
+														}
+														else
+														{
+															if (num == 12)
+															{
+																text = "Lauren";
+															}
+															else
+															{
+																if (num == 13)
+																{
+																	text = "Trisha";
+																}
+																else
+																{
+																	if (num == 14)
+																	{
+																		text = "Shirlena";
+																	}
+																	else
+																	{
+																		if (num == 15)
+																		{
+																			text = "Sheena";
+																		}
+																		else
+																		{
+																			if (num == 16)
+																			{
+																				text = "Ellen";
+																			}
+																			else
+																			{
+																				if (num == 17)
+																				{
+																					text = "Amy";
+																				}
+																				else
+																				{
+																					if (num == 18)
+																					{
+																						text = "Dawn";
+																					}
+																					else
+																					{
+																						if (num == 19)
+																						{
+																							text = "Susana";
+																						}
+																						else
+																						{
+																							if (num == 20)
+																							{
+																								text = "Meredith";
+																							}
+																							else
+																							{
+																								if (num == 21)
+																								{
+																									text = "Selene";
+																								}
+																								else
+																								{
+																									if (num == 22)
+																									{
+																										text = "Terra";
+																									}
+																									else
+																									{
+																										text = "Sally";
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (Main.chrName[124] == "")
 			{
@@ -294,77 +464,160 @@ namespace Terraria
 			}
 			num = WorldGen.genRand.Next(23);
 			text = "";
-			switch (num)
+			if (num == 0)
 			{
-			    case 0:
-			        text = "DeShawn";
-			        break;
-			    case 1:
-			        text = "DeAndre";
-			        break;
-			    case 2:
-			        text = "Marquis";
-			        break;
-			    case 3:
-			        text = "Darnell";
-			        break;
-			    case 4:
-			        text = "Terrell";
-			        break;
-			    case 5:
-			        text = "Malik";
-			        break;
-			    case 6:
-			        text = "Trevon";
-			        break;
-			    case 7:
-			        text = "Tyrone";
-			        break;
-			    case 8:
-			        text = "Willie";
-			        break;
-			    case 9:
-			        text = "Dominique";
-			        break;
-			    case 10:
-			        text = "Demetrius";
-			        break;
-			    case 11:
-			        text = "Reginald";
-			        break;
-			    case 12:
-			        text = "Jamal";
-			        break;
-			    case 13:
-			        text = "Maurice";
-			        break;
-			    case 14:
-			        text = "Jalen";
-			        break;
-			    case 15:
-			        text = "Darius";
-			        break;
-			    case 16:
-			        text = "Xavier";
-			        break;
-			    case 17:
-			        text = "Terrance";
-			        break;
-			    case 18:
-			        text = "Andre";
-			        break;
-			    case 19:
-			        text = "Dante";
-			        break;
-			    case 20:
-			        text = "Brimst";
-			        break;
-			    case 21:
-			        text = "Bronson";
-			        break;
-			    default:
-			        text = "Darryl";
-			        break;
+				text = "DeShawn";
+			}
+			else
+			{
+				if (num == 1)
+				{
+					text = "DeAndre";
+				}
+				else
+				{
+					if (num == 2)
+					{
+						text = "Marquis";
+					}
+					else
+					{
+						if (num == 3)
+						{
+							text = "Darnell";
+						}
+						else
+						{
+							if (num == 4)
+							{
+								text = "Terrell";
+							}
+							else
+							{
+								if (num == 5)
+								{
+									text = "Malik";
+								}
+								else
+								{
+									if (num == 6)
+									{
+										text = "Trevon";
+									}
+									else
+									{
+										if (num == 7)
+										{
+											text = "Tyrone";
+										}
+										else
+										{
+											if (num == 8)
+											{
+												text = "Willie";
+											}
+											else
+											{
+												if (num == 9)
+												{
+													text = "Dominique";
+												}
+												else
+												{
+													if (num == 10)
+													{
+														text = "Demetrius";
+													}
+													else
+													{
+														if (num == 11)
+														{
+															text = "Reginald";
+														}
+														else
+														{
+															if (num == 12)
+															{
+																text = "Jamal";
+															}
+															else
+															{
+																if (num == 13)
+																{
+																	text = "Maurice";
+																}
+																else
+																{
+																	if (num == 14)
+																	{
+																		text = "Jalen";
+																	}
+																	else
+																	{
+																		if (num == 15)
+																		{
+																			text = "Darius";
+																		}
+																		else
+																		{
+																			if (num == 16)
+																			{
+																				text = "Xavier";
+																			}
+																			else
+																			{
+																				if (num == 17)
+																				{
+																					text = "Terrance";
+																				}
+																				else
+																				{
+																					if (num == 18)
+																					{
+																						text = "Andre";
+																					}
+																					else
+																					{
+																						if (num == 19)
+																						{
+																							text = "Dante";
+																						}
+																						else
+																						{
+																							if (num == 20)
+																							{
+																								text = "Brimst";
+																							}
+																							else
+																							{
+																								if (num == 21)
+																								{
+																									text = "Bronson";
+																								}
+																								else
+																								{
+																									text = "Darryl";
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (Main.chrName[19] == "")
 			{
@@ -372,113 +625,244 @@ namespace Terraria
 			}
 			num = WorldGen.genRand.Next(35);
 			text = "";
-			switch (num)
+			if (num == 0)
 			{
-			    case 0:
-			        text = "Jake";
-			        break;
-			    case 1:
-			        text = "Connor";
-			        break;
-			    case 2:
-			        text = "Tanner";
-			        break;
-			    case 3:
-			        text = "Wyatt";
-			        break;
-			    case 4:
-			        text = "Cody";
-			        break;
-			    case 5:
-			        text = "Dustin";
-			        break;
-			    case 6:
-			        text = "Luke";
-			        break;
-			    case 7:
-			        text = "Jack";
-			        break;
-			    case 8:
-			        text = "Scott";
-			        break;
-			    case 9:
-			        text = "Logan";
-			        break;
-			    case 10:
-			        text = "Cole";
-			        break;
-			    case 11:
-			        text = "Lucas";
-			        break;
-			    case 12:
-			        text = "Bradley";
-			        break;
-			    case 13:
-			        text = "Jacob";
-			        break;
-			    case 14:
-			        text = "Garrett";
-			        break;
-			    case 15:
-			        text = "Dylan";
-			        break;
-			    case 16:
-			        text = "Maxwell";
-			        break;
-			    case 17:
-			        text = "Steve";
-			        break;
-			    case 18:
-			        text = "Brett";
-			        break;
-			    case 19:
-			        text = "Andrew";
-			        break;
-			    case 20:
-			        text = "Harley";
-			        break;
-			    case 21:
-			        text = "Kyle";
-			        break;
-			    case 22:
-			        text = "Jake";
-			        break;
-			    case 23:
-			        text = "Ryan";
-			        break;
-			    case 24:
-			        text = "Jeffrey";
-			        break;
-			    case 25:
-			        text = "Seth";
-			        break;
-			    case 26:
-			        text = "Marty";
-			        break;
-			    case 27:
-			        text = "Brandon";
-			        break;
-			    case 28:
-			        text = "Zach";
-			        break;
-			    case 29:
-			        text = "Jeff";
-			        break;
-			    case 30:
-			        text = "Daniel";
-			        break;
-			    case 31:
-			        text = "Trent";
-			        break;
-			    case 32:
-			        text = "Kevin";
-			        break;
-			    case 33:
-			        text = "Brian";
-			        break;
-			    default:
-			        text = "Colin";
-			        break;
+				text = "Jake";
+			}
+			else
+			{
+				if (num == 1)
+				{
+					text = "Connor";
+				}
+				else
+				{
+					if (num == 2)
+					{
+						text = "Tanner";
+					}
+					else
+					{
+						if (num == 3)
+						{
+							text = "Wyatt";
+						}
+						else
+						{
+							if (num == 4)
+							{
+								text = "Cody";
+							}
+							else
+							{
+								if (num == 5)
+								{
+									text = "Dustin";
+								}
+								else
+								{
+									if (num == 6)
+									{
+										text = "Luke";
+									}
+									else
+									{
+										if (num == 7)
+										{
+											text = "Jack";
+										}
+										else
+										{
+											if (num == 8)
+											{
+												text = "Scott";
+											}
+											else
+											{
+												if (num == 9)
+												{
+													text = "Logan";
+												}
+												else
+												{
+													if (num == 10)
+													{
+														text = "Cole";
+													}
+													else
+													{
+														if (num == 11)
+														{
+															text = "Lucas";
+														}
+														else
+														{
+															if (num == 12)
+															{
+																text = "Bradley";
+															}
+															else
+															{
+																if (num == 13)
+																{
+																	text = "Jacob";
+																}
+																else
+																{
+																	if (num == 14)
+																	{
+																		text = "Garrett";
+																	}
+																	else
+																	{
+																		if (num == 15)
+																		{
+																			text = "Dylan";
+																		}
+																		else
+																		{
+																			if (num == 16)
+																			{
+																				text = "Maxwell";
+																			}
+																			else
+																			{
+																				if (num == 17)
+																				{
+																					text = "Steve";
+																				}
+																				else
+																				{
+																					if (num == 18)
+																					{
+																						text = "Brett";
+																					}
+																					else
+																					{
+																						if (num == 19)
+																						{
+																							text = "Andrew";
+																						}
+																						else
+																						{
+																							if (num == 20)
+																							{
+																								text = "Harley";
+																							}
+																							else
+																							{
+																								if (num == 21)
+																								{
+																									text = "Kyle";
+																								}
+																								else
+																								{
+																									if (num == 22)
+																									{
+																										text = "Jake";
+																									}
+																									else
+																									{
+																										if (num == 23)
+																										{
+																											text = "Ryan";
+																										}
+																										else
+																										{
+																											if (num == 24)
+																											{
+																												text = "Jeffrey";
+																											}
+																											else
+																											{
+																												if (num == 25)
+																												{
+																													text = "Seth";
+																												}
+																												else
+																												{
+																													if (num == 26)
+																													{
+																														text = "Marty";
+																													}
+																													else
+																													{
+																														if (num == 27)
+																														{
+																															text = "Brandon";
+																														}
+																														else
+																														{
+																															if (num == 28)
+																															{
+																																text = "Zach";
+																															}
+																															else
+																															{
+																																if (num == 29)
+																																{
+																																	text = "Jeff";
+																																}
+																																else
+																																{
+																																	if (num == 30)
+																																	{
+																																		text = "Daniel";
+																																	}
+																																	else
+																																	{
+																																		if (num == 31)
+																																		{
+																																			text = "Trent";
+																																		}
+																																		else
+																																		{
+																																			if (num == 32)
+																																			{
+																																				text = "Kevin";
+																																			}
+																																			else
+																																			{
+																																				if (num == 33)
+																																				{
+																																					text = "Brian";
+																																				}
+																																				else
+																																				{
+																																					text = "Colin";
+																																				}
+																																			}
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																													}
+																												}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (Main.chrName[22] == "")
 			{
@@ -486,74 +870,153 @@ namespace Terraria
 			}
 			num = WorldGen.genRand.Next(22);
 			text = "";
-			switch (num)
+			if (num == 0)
 			{
-			    case 0:
-			        text = "Alalia";
-			        break;
-			    case 1:
-			        text = "Alalia";
-			        break;
-			    case 2:
-			        text = "Alura";
-			        break;
-			    case 3:
-			        text = "Ariella";
-			        break;
-			    case 4:
-			        text = "Caelia";
-			        break;
-			    case 5:
-			        text = "Calista";
-			        break;
-			    case 6:
-			        text = "Chryseis";
-			        break;
-			    case 7:
-			        text = "Emerenta";
-			        break;
-			    case 8:
-			        text = "Elysia";
-			        break;
-			    case 9:
-			        text = "Evvie";
-			        break;
-			    case 10:
-			        text = "Faye";
-			        break;
-			    case 11:
-			        text = "Felicitae";
-			        break;
-			    case 12:
-			        text = "Lunette";
-			        break;
-			    case 13:
-			        text = "Nata";
-			        break;
-			    case 14:
-			        text = "Nissa";
-			        break;
-			    case 15:
-			        text = "Tatiana";
-			        break;
-			    case 16:
-			        text = "Rosalva";
-			        break;
-			    case 17:
-			        text = "Shea";
-			        break;
-			    case 18:
-			        text = "Tania";
-			        break;
-			    case 19:
-			        text = "Isis";
-			        break;
-			    case 20:
-			        text = "Celestia";
-			        break;
-			    default:
-			        text = "Xylia";
-			        break;
+				text = "Alalia";
+			}
+			else
+			{
+				if (num == 1)
+				{
+					text = "Alalia";
+				}
+				else
+				{
+					if (num == 2)
+					{
+						text = "Alura";
+					}
+					else
+					{
+						if (num == 3)
+						{
+							text = "Ariella";
+						}
+						else
+						{
+							if (num == 4)
+							{
+								text = "Caelia";
+							}
+							else
+							{
+								if (num == 5)
+								{
+									text = "Calista";
+								}
+								else
+								{
+									if (num == 6)
+									{
+										text = "Chryseis";
+									}
+									else
+									{
+										if (num == 7)
+										{
+											text = "Emerenta";
+										}
+										else
+										{
+											if (num == 8)
+											{
+												text = "Elysia";
+											}
+											else
+											{
+												if (num == 9)
+												{
+													text = "Evvie";
+												}
+												else
+												{
+													if (num == 10)
+													{
+														text = "Faye";
+													}
+													else
+													{
+														if (num == 11)
+														{
+															text = "Felicitae";
+														}
+														else
+														{
+															if (num == 12)
+															{
+																text = "Lunette";
+															}
+															else
+															{
+																if (num == 13)
+																{
+																	text = "Nata";
+																}
+																else
+																{
+																	if (num == 14)
+																	{
+																		text = "Nissa";
+																	}
+																	else
+																	{
+																		if (num == 15)
+																		{
+																			text = "Tatiana";
+																		}
+																		else
+																		{
+																			if (num == 16)
+																			{
+																				text = "Rosalva";
+																			}
+																			else
+																			{
+																				if (num == 17)
+																				{
+																					text = "Shea";
+																				}
+																				else
+																				{
+																					if (num == 18)
+																					{
+																						text = "Tania";
+																					}
+																					else
+																					{
+																						if (num == 19)
+																						{
+																							text = "Isis";
+																						}
+																						else
+																						{
+																							if (num == 20)
+																							{
+																								text = "Celestia";
+																							}
+																							else
+																							{
+																								text = "Xylia";
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (Main.chrName[20] == "")
 			{
@@ -561,74 +1024,153 @@ namespace Terraria
 			}
 			num = WorldGen.genRand.Next(22);
 			text = "";
-			switch (num)
+			if (num == 0)
 			{
-			    case 0:
-			        text = "Dolbere";
-			        break;
-			    case 1:
-			        text = "Bazdin";
-			        break;
-			    case 2:
-			        text = "Durim";
-			        break;
-			    case 3:
-			        text = "Tordak";
-			        break;
-			    case 4:
-			        text = "Garval";
-			        break;
-			    case 5:
-			        text = "Morthal";
-			        break;
-			    case 6:
-			        text = "Oten";
-			        break;
-			    case 7:
-			        text = "Dolgen";
-			        break;
-			    case 8:
-			        text = "Gimli";
-			        break;
-			    case 9:
-			        text = "Gimut";
-			        break;
-			    case 10:
-			        text = "Duerthen";
-			        break;
-			    case 11:
-			        text = "Beldin";
-			        break;
-			    case 12:
-			        text = "Jarut";
-			        break;
-			    case 13:
-			        text = "Ovbere";
-			        break;
-			    case 14:
-			        text = "Norkas";
-			        break;
-			    case 15:
-			        text = "Dolgrim";
-			        break;
-			    case 16:
-			        text = "Boften";
-			        break;
-			    case 17:
-			        text = "Norsun";
-			        break;
-			    case 18:
-			        text = "Dias";
-			        break;
-			    case 19:
-			        text = "Fikod";
-			        break;
-			    case 20:
-			        text = "Urist";
-			        break;
-			    default:
-			        text = "Darur";
-			        break;
+				text = "Dolbere";
+			}
+			else
+			{
+				if (num == 1)
+				{
+					text = "Bazdin";
+				}
+				else
+				{
+					if (num == 2)
+					{
+						text = "Durim";
+					}
+					else
+					{
+						if (num == 3)
+						{
+							text = "Tordak";
+						}
+						else
+						{
+							if (num == 4)
+							{
+								text = "Garval";
+							}
+							else
+							{
+								if (num == 5)
+								{
+									text = "Morthal";
+								}
+								else
+								{
+									if (num == 6)
+									{
+										text = "Oten";
+									}
+									else
+									{
+										if (num == 7)
+										{
+											text = "Dolgen";
+										}
+										else
+										{
+											if (num == 8)
+											{
+												text = "Gimli";
+											}
+											else
+											{
+												if (num == 9)
+												{
+													text = "Gimut";
+												}
+												else
+												{
+													if (num == 10)
+													{
+														text = "Duerthen";
+													}
+													else
+													{
+														if (num == 11)
+														{
+															text = "Beldin";
+														}
+														else
+														{
+															if (num == 12)
+															{
+																text = "Jarut";
+															}
+															else
+															{
+																if (num == 13)
+																{
+																	text = "Ovbere";
+																}
+																else
+																{
+																	if (num == 14)
+																	{
+																		text = "Norkas";
+																	}
+																	else
+																	{
+																		if (num == 15)
+																		{
+																			text = "Dolgrim";
+																		}
+																		else
+																		{
+																			if (num == 16)
+																			{
+																				text = "Boften";
+																			}
+																			else
+																			{
+																				if (num == 17)
+																				{
+																					text = "Norsun";
+																				}
+																				else
+																				{
+																					if (num == 18)
+																					{
+																						text = "Dias";
+																					}
+																					else
+																					{
+																						if (num == 19)
+																						{
+																							text = "Fikod";
+																						}
+																						else
+																						{
+																							if (num == 20)
+																							{
+																								text = "Urist";
+																							}
+																							else
+																							{
+																								text = "Darur";
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (Main.chrName[38] == "")
 			{
@@ -636,71 +1178,146 @@ namespace Terraria
 			}
 			num = WorldGen.genRand.Next(21);
 			text = "";
-			switch (num)
+			if (num == 0)
 			{
-			    case 0:
-			        text = "Dalamar";
-			        break;
-			    case 1:
-			        text = "Dulais";
-			        break;
-			    case 2:
-			        text = "Elric";
-			        break;
-			    case 3:
-			        text = "Arddun";
-			        break;
-			    case 4:
-			        text = "Maelor";
-			        break;
-			    case 5:
-			        text = "Leomund";
-			        break;
-			    case 6:
-			        text = "Hirael";
-			        break;
-			    case 7:
-			        text = "Gwentor";
-			        break;
-			    case 8:
-			        text = "Greum";
-			        break;
-			    case 9:
-			        text = "Gearroid";
-			        break;
-			    case 10:
-			        text = "Fizban";
-			        break;
-			    case 11:
-			        text = "Ningauble";
-			        break;
-			    case 12:
-			        text = "Seonag";
-			        break;
-			    case 13:
-			        text = "Sargon";
-			        break;
-			    case 14:
-			        text = "Merlyn";
-			        break;
-			    case 15:
-			        text = "Magius";
-			        break;
-			    case 16:
-			        text = "Berwyn";
-			        break;
-			    case 17:
-			        text = "Arwyn";
-			        break;
-			    case 18:
-			        text = "Alasdair";
-			        break;
-			    case 19:
-			        text = "Tagar";
-			        break;
-			    default:
-			        text = "Xanadu";
-			        break;
+				text = "Dalamar";
+			}
+			else
+			{
+				if (num == 1)
+				{
+					text = "Dulais";
+				}
+				else
+				{
+					if (num == 2)
+					{
+						text = "Elric";
+					}
+					else
+					{
+						if (num == 3)
+						{
+							text = "Arddun";
+						}
+						else
+						{
+							if (num == 4)
+							{
+								text = "Maelor";
+							}
+							else
+							{
+								if (num == 5)
+								{
+									text = "Leomund";
+								}
+								else
+								{
+									if (num == 6)
+									{
+										text = "Hirael";
+									}
+									else
+									{
+										if (num == 7)
+										{
+											text = "Gwentor";
+										}
+										else
+										{
+											if (num == 8)
+											{
+												text = "Greum";
+											}
+											else
+											{
+												if (num == 9)
+												{
+													text = "Gearroid";
+												}
+												else
+												{
+													if (num == 10)
+													{
+														text = "Fizban";
+													}
+													else
+													{
+														if (num == 11)
+														{
+															text = "Ningauble";
+														}
+														else
+														{
+															if (num == 12)
+															{
+																text = "Seonag";
+															}
+															else
+															{
+																if (num == 13)
+																{
+																	text = "Sargon";
+																}
+																else
+																{
+																	if (num == 14)
+																	{
+																		text = "Merlyn";
+																	}
+																	else
+																	{
+																		if (num == 15)
+																		{
+																			text = "Magius";
+																		}
+																		else
+																		{
+																			if (num == 16)
+																			{
+																				text = "Berwyn";
+																			}
+																			else
+																			{
+																				if (num == 17)
+																				{
+																					text = "Arwyn";
+																				}
+																				else
+																				{
+																					if (num == 18)
+																					{
+																						text = "Alasdair";
+																					}
+																					else
+																					{
+																						if (num == 19)
+																						{
+																							text = "Tagar";
+																						}
+																						else
+																						{
+																							text = "Xanadu";
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (Main.chrName[108] == "")
 			{
@@ -708,77 +1325,160 @@ namespace Terraria
 			}
 			num = WorldGen.genRand.Next(23);
 			text = "";
-			switch (num)
+			if (num == 0)
 			{
-			    case 0:
-			        text = "Alfred";
-			        break;
-			    case 1:
-			        text = "Barney";
-			        break;
-			    case 2:
-			        text = "Calvin";
-			        break;
-			    case 3:
-			        text = "Edmund";
-			        break;
-			    case 4:
-			        text = "Edwin";
-			        break;
-			    case 5:
-			        text = "Eugene";
-			        break;
-			    case 6:
-			        text = "Frank";
-			        break;
-			    case 7:
-			        text = "Frederick";
-			        break;
-			    case 8:
-			        text = "Gilbert";
-			        break;
-			    case 9:
-			        text = "Gus";
-			        break;
-			    case 10:
-			        text = "Wilbur";
-			        break;
-			    case 11:
-			        text = "Seymour";
-			        break;
-			    case 12:
-			        text = "Louis";
-			        break;
-			    case 13:
-			        text = "Humphrey";
-			        break;
-			    case 14:
-			        text = "Harold";
-			        break;
-			    case 15:
-			        text = "Milton";
-			        break;
-			    case 16:
-			        text = "Mortimer";
-			        break;
-			    case 17:
-			        text = "Howard";
-			        break;
-			    case 18:
-			        text = "Walter";
-			        break;
-			    case 19:
-			        text = "Finn";
-			        break;
-			    case 20:
-			        text = "Isacc";
-			        break;
-			    case 21:
-			        text = "Joseph";
-			        break;
-			    default:
-			        text = "Ralph";
-			        break;
+				text = "Alfred";
+			}
+			else
+			{
+				if (num == 1)
+				{
+					text = "Barney";
+				}
+				else
+				{
+					if (num == 2)
+					{
+						text = "Calvin";
+					}
+					else
+					{
+						if (num == 3)
+						{
+							text = "Edmund";
+						}
+						else
+						{
+							if (num == 4)
+							{
+								text = "Edwin";
+							}
+							else
+							{
+								if (num == 5)
+								{
+									text = "Eugene";
+								}
+								else
+								{
+									if (num == 6)
+									{
+										text = "Frank";
+									}
+									else
+									{
+										if (num == 7)
+										{
+											text = "Frederick";
+										}
+										else
+										{
+											if (num == 8)
+											{
+												text = "Gilbert";
+											}
+											else
+											{
+												if (num == 9)
+												{
+													text = "Gus";
+												}
+												else
+												{
+													if (num == 10)
+													{
+														text = "Wilbur";
+													}
+													else
+													{
+														if (num == 11)
+														{
+															text = "Seymour";
+														}
+														else
+														{
+															if (num == 12)
+															{
+																text = "Louis";
+															}
+															else
+															{
+																if (num == 13)
+																{
+																	text = "Humphrey";
+																}
+																else
+																{
+																	if (num == 14)
+																	{
+																		text = "Harold";
+																	}
+																	else
+																	{
+																		if (num == 15)
+																		{
+																			text = "Milton";
+																		}
+																		else
+																		{
+																			if (num == 16)
+																			{
+																				text = "Mortimer";
+																			}
+																			else
+																			{
+																				if (num == 17)
+																				{
+																					text = "Howard";
+																				}
+																				else
+																				{
+																					if (num == 18)
+																					{
+																						text = "Walter";
+																					}
+																					else
+																					{
+																						if (num == 19)
+																						{
+																							text = "Finn";
+																						}
+																						else
+																						{
+																							if (num == 20)
+																							{
+																								text = "Isacc";
+																							}
+																							else
+																							{
+																								if (num == 21)
+																								{
+																									text = "Joseph";
+																								}
+																								else
+																								{
+																									text = "Ralph";
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (Main.chrName[17] == "")
 			{
@@ -786,80 +1486,167 @@ namespace Terraria
 			}
 			num = WorldGen.genRand.Next(24);
 			text = "";
-			switch (num)
+			if (num == 0)
 			{
-			    case 0:
-			        text = "Sebastian";
-			        break;
-			    case 1:
-			        text = "Rupert";
-			        break;
-			    case 2:
-			        text = "Clive";
-			        break;
-			    case 3:
-			        text = "Nigel";
-			        break;
-			    case 4:
-			        text = "Mervyn";
-			        break;
-			    case 5:
-			        text = "Cedric";
-			        break;
-			    case 6:
-			        text = "Pip";
-			        break;
-			    case 7:
-			        text = "Cyril";
-			        break;
-			    case 8:
-			        text = "Fitz";
-			        break;
-			    case 9:
-			        text = "Lloyd";
-			        break;
-			    case 10:
-			        text = "Arthur";
-			        break;
-			    case 11:
-			        text = "Rodney";
-			        break;
-			    case 12:
-			        text = "Graham";
-			        break;
-			    case 13:
-			        text = "Edward";
-			        break;
-			    case 14:
-			        text = "Alfred";
-			        break;
-			    case 15:
-			        text = "Edmund";
-			        break;
-			    case 16:
-			        text = "Henry";
-			        break;
-			    case 17:
-			        text = "Herald";
-			        break;
-			    case 18:
-			        text = "Roland";
-			        break;
-			    case 19:
-			        text = "Lincoln";
-			        break;
-			    case 20:
-			        text = "Lloyd";
-			        break;
-			    case 21:
-			        text = "Edgar";
-			        break;
-			    case 22:
-			        text = "Eustace";
-			        break;
-			    default:
-			        text = "Rodrick";
-			        break;
+				text = "Sebastian";
+			}
+			else
+			{
+				if (num == 1)
+				{
+					text = "Rupert";
+				}
+				else
+				{
+					if (num == 2)
+					{
+						text = "Clive";
+					}
+					else
+					{
+						if (num == 3)
+						{
+							text = "Nigel";
+						}
+						else
+						{
+							if (num == 4)
+							{
+								text = "Mervyn";
+							}
+							else
+							{
+								if (num == 5)
+								{
+									text = "Cedric";
+								}
+								else
+								{
+									if (num == 6)
+									{
+										text = "Pip";
+									}
+									else
+									{
+										if (num == 7)
+										{
+											text = "Cyril";
+										}
+										else
+										{
+											if (num == 8)
+											{
+												text = "Fitz";
+											}
+											else
+											{
+												if (num == 9)
+												{
+													text = "Lloyd";
+												}
+												else
+												{
+													if (num == 10)
+													{
+														text = "Arthur";
+													}
+													else
+													{
+														if (num == 11)
+														{
+															text = "Rodney";
+														}
+														else
+														{
+															if (num == 12)
+															{
+																text = "Graham";
+															}
+															else
+															{
+																if (num == 13)
+																{
+																	text = "Edward";
+																}
+																else
+																{
+																	if (num == 14)
+																	{
+																		text = "Alfred";
+																	}
+																	else
+																	{
+																		if (num == 15)
+																		{
+																			text = "Edmund";
+																		}
+																		else
+																		{
+																			if (num == 16)
+																			{
+																				text = "Henry";
+																			}
+																			else
+																			{
+																				if (num == 17)
+																				{
+																					text = "Herald";
+																				}
+																				else
+																				{
+																					if (num == 18)
+																					{
+																						text = "Roland";
+																					}
+																					else
+																					{
+																						if (num == 19)
+																						{
+																							text = "Lincoln";
+																						}
+																						else
+																						{
+																							if (num == 20)
+																							{
+																								text = "Lloyd";
+																							}
+																							else
+																							{
+																								if (num == 21)
+																								{
+																									text = "Edgar";
+																								}
+																								else
+																								{
+																									if (num == 22)
+																									{
+																										text = "Eustace";
+																									}
+																									else
+																									{
+																										text = "Rodrick";
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (Main.chrName[54] == "")
 			{
@@ -867,83 +1654,174 @@ namespace Terraria
 			}
 			num = WorldGen.genRand.Next(25);
 			text = "";
-			switch (num)
+			if (num == 0)
 			{
-			    case 0:
-			        text = "Grodax";
-			        break;
-			    case 1:
-			        text = "Sarx";
-			        break;
-			    case 2:
-			        text = "Xon";
-			        break;
-			    case 3:
-			        text = "Mrunok";
-			        break;
-			    case 4:
-			        text = "Nuxatk";
-			        break;
-			    case 5:
-			        text = "Tgerd";
-			        break;
-			    case 6:
-			        text = "Darz";
-			        break;
-			    case 7:
-			        text = "Smador";
-			        break;
-			    case 8:
-			        text = "Stazen";
-			        break;
-			    case 9:
-			        text = "Mobart";
-			        break;
-			    case 10:
-			        text = "Knogs";
-			        break;
-			    case 11:
-			        text = "Tkanus";
-			        break;
-			    case 12:
-			        text = "Negurk";
-			        break;
-			    case 13:
-			        text = "Nort";
-			        break;
-			    case 14:
-			        text = "Durnok";
-			        break;
-			    case 15:
-			        text = "Trogem";
-			        break;
-			    case 16:
-			        text = "Stezom";
-			        break;
-			    case 17:
-			        text = "Gnudar";
-			        break;
-			    case 18:
-			        text = "Ragz";
-			        break;
-			    case 19:
-			        text = "Fahd";
-			        break;
-			    case 20:
-			        text = "Xanos";
-			        break;
-			    case 21:
-			        text = "Arback";
-			        break;
-			    case 22:
-			        text = "Fjell";
-			        break;
-			    case 23:
-			        text = "Dalek";
-			        break;
-			    default:
-			        text = "Knub";
-			        break;
+				text = "Grodax";
+			}
+			else
+			{
+				if (num == 1)
+				{
+					text = "Sarx";
+				}
+				else
+				{
+					if (num == 2)
+					{
+						text = "Xon";
+					}
+					else
+					{
+						if (num == 3)
+						{
+							text = "Mrunok";
+						}
+						else
+						{
+							if (num == 4)
+							{
+								text = "Nuxatk";
+							}
+							else
+							{
+								if (num == 5)
+								{
+									text = "Tgerd";
+								}
+								else
+								{
+									if (num == 6)
+									{
+										text = "Darz";
+									}
+									else
+									{
+										if (num == 7)
+										{
+											text = "Smador";
+										}
+										else
+										{
+											if (num == 8)
+											{
+												text = "Stazen";
+											}
+											else
+											{
+												if (num == 9)
+												{
+													text = "Mobart";
+												}
+												else
+												{
+													if (num == 10)
+													{
+														text = "Knogs";
+													}
+													else
+													{
+														if (num == 11)
+														{
+															text = "Tkanus";
+														}
+														else
+														{
+															if (num == 12)
+															{
+																text = "Negurk";
+															}
+															else
+															{
+																if (num == 13)
+																{
+																	text = "Nort";
+																}
+																else
+																{
+																	if (num == 14)
+																	{
+																		text = "Durnok";
+																	}
+																	else
+																	{
+																		if (num == 15)
+																		{
+																			text = "Trogem";
+																		}
+																		else
+																		{
+																			if (num == 16)
+																			{
+																				text = "Stezom";
+																			}
+																			else
+																			{
+																				if (num == 17)
+																				{
+																					text = "Gnudar";
+																				}
+																				else
+																				{
+																					if (num == 18)
+																					{
+																						text = "Ragz";
+																					}
+																					else
+																					{
+																						if (num == 19)
+																						{
+																							text = "Fahd";
+																						}
+																						else
+																						{
+																							if (num == 20)
+																							{
+																								text = "Xanos";
+																							}
+																							else
+																							{
+																								if (num == 21)
+																								{
+																									text = "Arback";
+																								}
+																								else
+																								{
+																									if (num == 22)
+																									{
+																										text = "Fjell";
+																									}
+																									else
+																									{
+																										if (num == 23)
+																										{
+																											text = "Dalek";
+																										}
+																										else
+																										{
+																											text = "Knub";
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (Main.chrName[107] == "")
 			{
@@ -957,318 +1835,363 @@ namespace Terraria
 				if (type == -1)
 				{
 					this.SetDefaults("Slimeling");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -2)
 				{
 					this.SetDefaults("Slimer2");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -3)
 				{
 					this.SetDefaults("Green Slime");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -4)
 				{
 					this.SetDefaults("Pinky");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -5)
 				{
 					this.SetDefaults("Baby Slime");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -6)
 				{
 					this.SetDefaults("Black Slime");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -7)
 				{
 					this.SetDefaults("Purple Slime");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -8)
 				{
 					this.SetDefaults("Red Slime");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -9)
 				{
 					this.SetDefaults("Yellow Slime");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -10)
 				{
 					this.SetDefaults("Jungle Slime");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -11)
 				{
 					this.SetDefaults("Little Eater");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -12)
 				{
 					this.SetDefaults("Big Eater");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -13)
 				{
 					this.SetDefaults("Short Bones");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -14)
 				{
 					this.SetDefaults("Big Boned");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -15)
 				{
 					this.SetDefaults("Heavy Skeleton");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -16)
 				{
 					this.SetDefaults("Little Stinger");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 				if (type == -17)
 				{
 					this.SetDefaults("Big Stinger");
-                    NpcHooks.OnNetDefaults(ref type, this);
 					return;
 				}
 			}
 			else
 			{
 				this.SetDefaults(type, -1f);
-                NpcHooks.OnNetDefaults(ref type, this);
 			}
 		}
 		public void SetDefaults(string Name)
 		{
 			this.SetDefaults(0, -1f);
-			switch (Name)
+			if (Name == "Slimeling")
 			{
-			    case "Slimeling":
-			        this.SetDefaults(81, 0.6f);
-			        this.name = Name;
-			        this.damage = 45;
-			        this.defense = 10;
-			        this.life = 90;
-			        this.knockBackResist = 1.2f;
-			        this.value = 100f;
-			        this.netID = -1;
-			        break;
-			    case "Slimer2":
-			        this.SetDefaults(81, 0.9f);
-			        this.displayName = "Slimer";
-			        this.name = Name;
-			        this.damage = 45;
-			        this.defense = 20;
-			        this.life = 90;
-			        this.knockBackResist = 1.2f;
-			        this.value = 100f;
-			        this.netID = -2;
-			        break;
-			    case "Green Slime":
-			        this.SetDefaults(1, 0.9f);
-			        this.name = Name;
-			        this.damage = 6;
-			        this.defense = 0;
-			        this.life = 14;
-			        this.knockBackResist = 1.2f;
-			        this.color = new Color(0, 220, 40, 100);
-			        this.value = 3f;
-			        this.netID = -3;
-			        break;
-			    case "Pinky":
-			        this.SetDefaults(1, 0.6f);
-			        this.name = Name;
-			        this.damage = 5;
-			        this.defense = 5;
-			        this.life = 150;
-			        this.knockBackResist = 1.4f;
-			        this.color = new Color(250, 30, 90, 90);
-			        this.value = 10000f;
-			        this.netID = -4;
-			        break;
-			    case "Baby Slime":
-			        this.SetDefaults(1, 0.9f);
-			        this.name = Name;
-			        this.damage = 13;
-			        this.defense = 4;
-			        this.life = 30;
-			        this.knockBackResist = 0.95f;
-			        this.alpha = 120;
-			        this.color = new Color(0, 0, 0, 50);
-			        this.value = 10f;
-			        this.netID = -5;
-			        break;
-			    case "Black Slime":
-			        this.SetDefaults(1, -1f);
-			        this.name = Name;
-			        this.damage = 15;
-			        this.defense = 4;
-			        this.life = 45;
-			        this.color = new Color(0, 0, 0, 50);
-			        this.value = 20f;
-			        this.netID = -6;
-			        break;
-			    case "Purple Slime":
-			        this.SetDefaults(1, 1.2f);
-			        this.name = Name;
-			        this.damage = 12;
-			        this.defense = 6;
-			        this.life = 40;
-			        this.knockBackResist = 0.9f;
-			        this.color = new Color(200, 0, 255, 150);
-			        this.value = 10f;
-			        this.netID = -7;
-			        break;
-			    case "Red Slime":
-			        this.SetDefaults(1, -1f);
-			        this.name = Name;
-			        this.damage = 12;
-			        this.defense = 4;
-			        this.life = 35;
-			        this.color = new Color(255, 30, 0, 100);
-			        this.value = 8f;
-			        this.netID = -8;
-			        break;
-			    case "Yellow Slime":
-			        this.SetDefaults(1, 1.2f);
-			        this.name = Name;
-			        this.damage = 15;
-			        this.defense = 7;
-			        this.life = 45;
-			        this.color = new Color(255, 255, 0, 100);
-			        this.value = 10f;
-			        this.netID = -9;
-			        break;
-			    case "Jungle Slime":
-			        this.SetDefaults(1, 1.1f);
-			        this.name = Name;
-			        this.damage = 18;
-			        this.defense = 6;
-			        this.life = 60;
-			        this.color = new Color(143, 215, 93, 100);
-			        this.value = 500f;
-			        this.netID = -10;
-			        break;
-			    case "Little Eater":
-			        this.SetDefaults(6, 0.85f);
-			        this.name = Name;
-			        this.defense = (int)((float)this.defense * this.scale);
-			        this.damage = (int)((float)this.damage * this.scale);
-			        this.life = (int)((float)this.life * this.scale);
-			        this.value = (float)((int)(this.value * this.scale));
-			        this.npcSlots *= this.scale;
-			        this.knockBackResist *= 2f - this.scale;
-			        this.netID = -11;
-			        break;
-			    case "Big Eater":
-			        this.SetDefaults(6, 1.15f);
-			        this.name = Name;
-			        this.defense = (int)((float)this.defense * this.scale);
-			        this.damage = (int)((float)this.damage * this.scale);
-			        this.life = (int)((float)this.life * this.scale);
-			        this.value = (float)((int)(this.value * this.scale));
-			        this.npcSlots *= this.scale;
-			        this.knockBackResist *= 2f - this.scale;
-			        this.netID = -12;
-			        break;
-			    case "Short Bones":
-			        this.SetDefaults(31, 0.9f);
-			        this.name = Name;
-			        this.defense = (int)((float)this.defense * this.scale);
-			        this.damage = (int)((float)this.damage * this.scale);
-			        this.life = (int)((float)this.life * this.scale);
-			        this.value = (float)((int)(this.value * this.scale));
-			        this.netID = -13;
-			        break;
-			    case "Big Boned":
-			        this.SetDefaults(31, 1.15f);
-			        this.name = Name;
-			        this.defense = (int)((float)this.defense * this.scale);
-			        this.damage = (int)((double)((float)this.damage * this.scale) * 1.1);
-			        this.life = (int)((double)((float)this.life * this.scale) * 1.1);
-			        this.value = (float)((int)(this.value * this.scale));
-			        this.npcSlots = 2f;
-			        this.knockBackResist *= 2f - this.scale;
-			        this.netID = -14;
-			        break;
-			    case "Heavy Skeleton":
-			        this.SetDefaults(77, 1.15f);
-			        this.name = Name;
-			        this.defense = (int)((float)this.defense * this.scale);
-			        this.damage = (int)((double)((float)this.damage * this.scale) * 1.1);
-			        this.life = 400;
-			        this.value = (float)((int)(this.value * this.scale));
-			        this.npcSlots = 2f;
-			        this.knockBackResist *= 2f - this.scale;
-			        this.height = 44;
-			        this.netID = -15;
-			        break;
-			    case "Little Stinger":
-			        this.SetDefaults(42, 0.85f);
-			        this.name = Name;
-			        this.defense = (int)((float)this.defense * this.scale);
-			        this.damage = (int)((float)this.damage * this.scale);
-			        this.life = (int)((float)this.life * this.scale);
-			        this.value = (float)((int)(this.value * this.scale));
-			        this.npcSlots *= this.scale;
-			        this.knockBackResist *= 2f - this.scale;
-			        this.netID = -16;
-			        break;
-			    case "Big Stinger":
-			        this.SetDefaults(42, 1.2f);
-			        this.name = Name;
-			        this.defense = (int)((float)this.defense * this.scale);
-			        this.damage = (int)((float)this.damage * this.scale);
-			        this.life = (int)((float)this.life * this.scale);
-			        this.value = (float)((int)(this.value * this.scale));
-			        this.npcSlots *= this.scale;
-			        this.knockBackResist *= 2f - this.scale;
-			        this.netID = -17;
-			        break;
-			    default:
-			        if (Name != "")
-			        {
-			            for (int i = 1; i < 142; i++)
-			            {
-			                if (Main.npcName[i] == Name)
-			                {
-			                    this.SetDefaults(i, -1f);
-			                    return;
-			                }
-			            }
-			            this.SetDefaults(0, -1f);
-			            this.active = false;
-			        }
-			        else
-			        {
-			            this.active = false;
-			        }
-			        break;
+				this.SetDefaults(81, 0.6f);
+				this.name = Name;
+				this.damage = 45;
+				this.defense = 10;
+				this.life = 90;
+				this.knockBackResist = 1.2f;
+				this.value = 100f;
+				this.netID = -1;
+			}
+			else
+			{
+				if (Name == "Slimer2")
+				{
+					this.SetDefaults(81, 0.9f);
+					this.displayName = "Slimer";
+					this.name = Name;
+					this.damage = 45;
+					this.defense = 20;
+					this.life = 90;
+					this.knockBackResist = 1.2f;
+					this.value = 100f;
+					this.netID = -2;
+				}
+				else
+				{
+					if (Name == "Green Slime")
+					{
+						this.SetDefaults(1, 0.9f);
+						this.name = Name;
+						this.damage = 6;
+						this.defense = 0;
+						this.life = 14;
+						this.knockBackResist = 1.2f;
+						this.color = new Color(0, 220, 40, 100);
+						this.value = 3f;
+						this.netID = -3;
+					}
+					else
+					{
+						if (Name == "Pinky")
+						{
+							this.SetDefaults(1, 0.6f);
+							this.name = Name;
+							this.damage = 5;
+							this.defense = 5;
+							this.life = 150;
+							this.knockBackResist = 1.4f;
+							this.color = new Color(250, 30, 90, 90);
+							this.value = 10000f;
+							this.netID = -4;
+						}
+						else
+						{
+							if (Name == "Baby Slime")
+							{
+								this.SetDefaults(1, 0.9f);
+								this.name = Name;
+								this.damage = 13;
+								this.defense = 4;
+								this.life = 30;
+								this.knockBackResist = 0.95f;
+								this.alpha = 120;
+								this.color = new Color(0, 0, 0, 50);
+								this.value = 10f;
+								this.netID = -5;
+							}
+							else
+							{
+								if (Name == "Black Slime")
+								{
+									this.SetDefaults(1, -1f);
+									this.name = Name;
+									this.damage = 15;
+									this.defense = 4;
+									this.life = 45;
+									this.color = new Color(0, 0, 0, 50);
+									this.value = 20f;
+									this.netID = -6;
+								}
+								else
+								{
+									if (Name == "Purple Slime")
+									{
+										this.SetDefaults(1, 1.2f);
+										this.name = Name;
+										this.damage = 12;
+										this.defense = 6;
+										this.life = 40;
+										this.knockBackResist = 0.9f;
+										this.color = new Color(200, 0, 255, 150);
+										this.value = 10f;
+										this.netID = -7;
+									}
+									else
+									{
+										if (Name == "Red Slime")
+										{
+											this.SetDefaults(1, -1f);
+											this.name = Name;
+											this.damage = 12;
+											this.defense = 4;
+											this.life = 35;
+											this.color = new Color(255, 30, 0, 100);
+											this.value = 8f;
+											this.netID = -8;
+										}
+										else
+										{
+											if (Name == "Yellow Slime")
+											{
+												this.SetDefaults(1, 1.2f);
+												this.name = Name;
+												this.damage = 15;
+												this.defense = 7;
+												this.life = 45;
+												this.color = new Color(255, 255, 0, 100);
+												this.value = 10f;
+												this.netID = -9;
+											}
+											else
+											{
+												if (Name == "Jungle Slime")
+												{
+													this.SetDefaults(1, 1.1f);
+													this.name = Name;
+													this.damage = 18;
+													this.defense = 6;
+													this.life = 60;
+													this.color = new Color(143, 215, 93, 100);
+													this.value = 500f;
+													this.netID = -10;
+												}
+												else
+												{
+													if (Name == "Little Eater")
+													{
+														this.SetDefaults(6, 0.85f);
+														this.name = Name;
+														this.defense = (int)((float)this.defense * this.scale);
+														this.damage = (int)((float)this.damage * this.scale);
+														this.life = (int)((float)this.life * this.scale);
+														this.value = (float)((int)(this.value * this.scale));
+														this.npcSlots *= this.scale;
+														this.knockBackResist *= 2f - this.scale;
+														this.netID = -11;
+													}
+													else
+													{
+														if (Name == "Big Eater")
+														{
+															this.SetDefaults(6, 1.15f);
+															this.name = Name;
+															this.defense = (int)((float)this.defense * this.scale);
+															this.damage = (int)((float)this.damage * this.scale);
+															this.life = (int)((float)this.life * this.scale);
+															this.value = (float)((int)(this.value * this.scale));
+															this.npcSlots *= this.scale;
+															this.knockBackResist *= 2f - this.scale;
+															this.netID = -12;
+														}
+														else
+														{
+															if (Name == "Short Bones")
+															{
+																this.SetDefaults(31, 0.9f);
+																this.name = Name;
+																this.defense = (int)((float)this.defense * this.scale);
+																this.damage = (int)((float)this.damage * this.scale);
+																this.life = (int)((float)this.life * this.scale);
+																this.value = (float)((int)(this.value * this.scale));
+																this.netID = -13;
+															}
+															else
+															{
+																if (Name == "Big Boned")
+																{
+																	this.SetDefaults(31, 1.15f);
+																	this.name = Name;
+																	this.defense = (int)((float)this.defense * this.scale);
+																	this.damage = (int)((double)((float)this.damage * this.scale) * 1.1);
+																	this.life = (int)((double)((float)this.life * this.scale) * 1.1);
+																	this.value = (float)((int)(this.value * this.scale));
+																	this.npcSlots = 2f;
+																	this.knockBackResist *= 2f - this.scale;
+																	this.netID = -14;
+																}
+																else
+																{
+																	if (Name == "Heavy Skeleton")
+																	{
+																		this.SetDefaults(77, 1.15f);
+																		this.name = Name;
+																		this.defense = (int)((float)this.defense * this.scale);
+																		this.damage = (int)((double)((float)this.damage * this.scale) * 1.1);
+																		this.life = 400;
+																		this.value = (float)((int)(this.value * this.scale));
+																		this.npcSlots = 2f;
+																		this.knockBackResist *= 2f - this.scale;
+																		this.height = 44;
+																		this.netID = -15;
+																	}
+																	else
+																	{
+																		if (Name == "Little Stinger")
+																		{
+																			this.SetDefaults(42, 0.85f);
+																			this.name = Name;
+																			this.defense = (int)((float)this.defense * this.scale);
+																			this.damage = (int)((float)this.damage * this.scale);
+																			this.life = (int)((float)this.life * this.scale);
+																			this.value = (float)((int)(this.value * this.scale));
+																			this.npcSlots *= this.scale;
+																			this.knockBackResist *= 2f - this.scale;
+																			this.netID = -16;
+																		}
+																		else
+																		{
+																			if (Name == "Big Stinger")
+																			{
+																				this.SetDefaults(42, 1.2f);
+																				this.name = Name;
+																				this.defense = (int)((float)this.defense * this.scale);
+																				this.damage = (int)((float)this.damage * this.scale);
+																				this.life = (int)((float)this.life * this.scale);
+																				this.value = (float)((int)(this.value * this.scale));
+																				this.npcSlots *= this.scale;
+																				this.knockBackResist *= 2f - this.scale;
+																				this.netID = -17;
+																			}
+																			else
+																			{
+																				if (Name != "")
+																				{
+																					for (int i = 1; i < 147; i++)
+																					{
+																						if (Main.npcName[i] == Name)
+																						{
+																							this.SetDefaults(i, -1f);
+																							return;
+																						}
+																					}
+																					this.SetDefaults(0, -1f);
+																					this.active = false;
+																				}
+																				else
+																				{
+																					this.active = false;
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (this.displayName == null || this.displayName == "")
 			{
@@ -1277,7 +2200,6 @@ namespace Terraria
 			this.lifeMax = this.life;
 			this.defDamage = this.damage;
 			this.defDefense = this.defense;
-            NpcHooks.OnSetDefaultsString(ref Name, this);
 		}
 		public static bool MechSpawn(float x, float y, int type)
 		{
@@ -1347,6 +2269,10 @@ namespace Terraria
 			{
 				return 8;
 			}
+			if (type == 142)
+			{
+				return 11;
+			}
 			return -1;
 		}
 		public static int NumToType(int type)
@@ -1390,6 +2316,10 @@ namespace Terraria
 			if (type == 8)
 			{
 				return 124;
+			}
+			if (type == 11)
+			{
+				return 142;
 			}
 			return -1;
 		}
@@ -1469,2314 +2399,2953 @@ namespace Terraria
 			{
 				this.localAI[m] = 0f;
 			}
-			switch (this.type)
+			if (this.type == 1)
 			{
-			    case 1:
-			        this.name = "Blue Slime";
-			        this.width = 24;
-			        this.height = 18;
-			        this.aiStyle = 1;
-			        this.damage = 7;
-			        this.defense = 2;
-			        this.lifeMax = 25;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.alpha = 175;
-			        this.color = new Color(0, 80, 255, 100);
-			        this.value = 25f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 2:
-			        this.name = "Demon Eye";
-			        this.width = 30;
-			        this.height = 32;
-			        this.aiStyle = 2;
-			        this.damage = 18;
-			        this.defense = 2;
-			        this.lifeMax = 60;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.8f;
-			        this.soundKilled = 1;
-			        this.value = 75f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 3:
-			        this.name = "Zombie";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 14;
-			        this.defense = 6;
-			        this.lifeMax = 45;
-			        this.soundHit = 1;
-			        this.soundKilled = 2;
-			        this.knockBackResist = 0.5f;
-			        this.value = 60f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 4:
-			        this.name = "Eye of Cthulhu";
-			        this.width = 100;
-			        this.height = 110;
-			        this.aiStyle = 4;
-			        this.damage = 15;
-			        this.defense = 12;
-			        this.lifeMax = 2800;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0f;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.timeLeft = NPC.activeTime * 30;
-			        this.boss = true;
-			        this.value = 30000f;
-			        this.npcSlots = 5f;
-			        break;
-			    case 5:
-			        this.name = "Servant of Cthulhu";
-			        this.width = 20;
-			        this.height = 20;
-			        this.aiStyle = 5;
-			        this.damage = 12;
-			        this.defense = 0;
-			        this.lifeMax = 8;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        break;
-			    case 6:
-			        this.npcSlots = 1f;
-			        this.name = "Eater of Souls";
-			        this.width = 30;
-			        this.height = 30;
-			        this.aiStyle = 5;
-			        this.damage = 22;
-			        this.defense = 8;
-			        this.lifeMax = 40;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.knockBackResist = 0.5f;
-			        this.value = 90f;
-			        break;
-			    case 7:
-			        this.displayName = "Devourer";
-			        this.npcSlots = 3.5f;
-			        this.name = "Devourer Head";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 6;
-			        this.damage = 31;
-			        this.defense = 2;
-			        this.lifeMax = 100;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 140f;
-			        this.netAlways = true;
-			        break;
-			    case 8:
-			        this.displayName = "Devourer";
-			        this.name = "Devourer Body";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 16;
-			        this.defense = 6;
-			        this.lifeMax = 100;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 140f;
-			        break;
-			    case 9:
-			        this.displayName = "Devourer";
-			        this.name = "Devourer Tail";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 13;
-			        this.defense = 10;
-			        this.lifeMax = 100;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 140f;
-			        break;
-			    case 10:
-			        this.displayName = "Giant Worm";
-			        this.name = "Giant Worm Head";
-			        this.width = 14;
-			        this.height = 14;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 8;
-			        this.defense = 0;
-			        this.lifeMax = 30;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 40f;
-			        break;
-			    case 11:
-			        this.displayName = "Giant Worm";
-			        this.name = "Giant Worm Body";
-			        this.width = 14;
-			        this.height = 14;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 4;
-			        this.defense = 4;
-			        this.lifeMax = 30;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 40f;
-			        break;
-			    case 12:
-			        this.displayName = "Giant Worm";
-			        this.name = "Giant Worm Tail";
-			        this.width = 14;
-			        this.height = 14;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 4;
-			        this.defense = 6;
-			        this.lifeMax = 30;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 40f;
-			        break;
-			    case 13:
-			        this.displayName = "Eater of Worlds";
-			        this.npcSlots = 5f;
-			        this.name = "Eater of Worlds Head";
-			        this.width = 38;
-			        this.height = 38;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 22;
-			        this.defense = 2;
-			        this.lifeMax = 65;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 300f;
-			        this.scale = 1f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 14:
-			        this.displayName = "Eater of Worlds";
-			        this.name = "Eater of Worlds Body";
-			        this.width = 38;
-			        this.height = 38;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 13;
-			        this.defense = 4;
-			        this.lifeMax = 150;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 300f;
-			        this.scale = 1f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 15:
-			        this.displayName = "Eater of Worlds";
-			        this.name = "Eater of Worlds Tail";
-			        this.width = 38;
-			        this.height = 38;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 11;
-			        this.defense = 8;
-			        this.lifeMax = 220;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 300f;
-			        this.scale = 1f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 16:
-			        this.npcSlots = 2f;
-			        this.name = "Mother Slime";
-			        this.width = 36;
-			        this.height = 24;
-			        this.aiStyle = 1;
-			        this.damage = 20;
-			        this.defense = 7;
-			        this.lifeMax = 90;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.alpha = 120;
-			        this.color = new Color(0, 0, 0, 50);
-			        this.value = 75f;
-			        this.scale = 1.25f;
-			        this.knockBackResist = 0.6f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 17:
-			        this.townNPC = true;
-			        this.friendly = true;
-			        this.name = "Merchant";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 7;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        break;
-			    case 18:
-			        this.townNPC = true;
-			        this.friendly = true;
-			        this.name = "Nurse";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 7;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        break;
-			    case 19:
-			        this.townNPC = true;
-			        this.friendly = true;
-			        this.name = "Arms Dealer";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 7;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        break;
-			    case 20:
-			        this.townNPC = true;
-			        this.friendly = true;
-			        this.name = "Dryad";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 7;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        break;
-			    case 21:
-			        this.name = "Skeleton";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 20;
-			        this.defense = 8;
-			        this.lifeMax = 60;
-			        this.soundHit = 2;
-			        this.soundKilled = 2;
-			        this.knockBackResist = 0.5f;
-			        this.value = 100f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 22:
-			        this.townNPC = true;
-			        this.friendly = true;
-			        this.name = "Guide";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 7;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        break;
-			    case 23:
-			        this.name = "Meteor Head";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 5;
-			        this.damage = 40;
-			        this.defense = 6;
-			        this.lifeMax = 26;
-			        this.soundHit = 3;
-			        this.soundKilled = 3;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.value = 80f;
-			        this.knockBackResist = 0.4f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 24:
-			        this.npcSlots = 3f;
-			        this.name = "Fire Imp";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 8;
-			        this.damage = 30;
-			        this.defense = 16;
-			        this.lifeMax = 70;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        this.lavaImmune = true;
-			        this.value = 350f;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 25:
-			        this.name = "Burning Sphere";
-			        this.width = 16;
-			        this.height = 16;
-			        this.aiStyle = 9;
-			        this.damage = 30;
-			        this.defense = 0;
-			        this.lifeMax = 1;
-			        this.soundHit = 3;
-			        this.soundKilled = 3;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.alpha = 100;
-			        break;
-			    case 26:
-			        this.name = "Goblin Peon";
-			        this.scale = 0.9f;
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 12;
-			        this.defense = 4;
-			        this.lifeMax = 60;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.8f;
-			        this.value = 100f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 27:
-			        this.name = "Goblin Thief";
-			        this.scale = 0.95f;
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 20;
-			        this.defense = 6;
-			        this.lifeMax = 80;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.7f;
-			        this.value = 200f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 28:
-			        this.name = "Goblin Warrior";
-			        this.scale = 1.1f;
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 25;
-			        this.defense = 8;
-			        this.lifeMax = 110;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        this.value = 150f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 29:
-			        this.name = "Goblin Sorcerer";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 8;
-			        this.damage = 20;
-			        this.defense = 2;
-			        this.lifeMax = 40;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.6f;
-			        this.value = 200f;
-			        break;
-			    case 30:
-			        this.name = "Chaos Ball";
-			        this.width = 16;
-			        this.height = 16;
-			        this.aiStyle = 9;
-			        this.damage = 20;
-			        this.defense = 0;
-			        this.lifeMax = 1;
-			        this.soundHit = 3;
-			        this.soundKilled = 3;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.alpha = 100;
-			        this.knockBackResist = 0f;
-			        break;
-			    case 31:
-			        this.name = "Angry Bones";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 26;
-			        this.defense = 8;
-			        this.lifeMax = 80;
-			        this.soundHit = 2;
-			        this.soundKilled = 2;
-			        this.knockBackResist = 0.8f;
-			        this.value = 130f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 32:
-			        this.name = "Dark Caster";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 8;
-			        this.damage = 20;
-			        this.defense = 2;
-			        this.lifeMax = 50;
-			        this.soundHit = 2;
-			        this.soundKilled = 2;
-			        this.knockBackResist = 0.6f;
-			        this.value = 140f;
-			        this.npcSlots = 2f;
-			        this.buffImmune[20] = true;
-			        break;
-			    case 33:
-			        this.name = "Water Sphere";
-			        this.width = 16;
-			        this.height = 16;
-			        this.aiStyle = 9;
-			        this.damage = 20;
-			        this.defense = 0;
-			        this.lifeMax = 1;
-			        this.soundHit = 3;
-			        this.soundKilled = 3;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.alpha = 100;
-			        this.knockBackResist = 0f;
-			        break;
-			    case 34:
-			        this.name = "Cursed Skull";
-			        this.width = 26;
-			        this.height = 28;
-			        this.aiStyle = 10;
-			        this.damage = 35;
-			        this.defense = 6;
-			        this.lifeMax = 40;
-			        this.soundHit = 2;
-			        this.soundKilled = 2;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.value = 150f;
-			        this.knockBackResist = 0.2f;
-			        this.npcSlots = 0.75f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 35:
-			        this.displayName = "Skeletron";
-			        this.name = "Skeletron Head";
-			        this.width = 80;
-			        this.height = 102;
-			        this.aiStyle = 11;
-			        this.damage = 32;
-			        this.defense = 10;
-			        this.lifeMax = 4400;
-			        this.soundHit = 2;
-			        this.soundKilled = 2;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.value = 50000f;
-			        this.knockBackResist = 0f;
-			        this.boss = true;
-			        this.npcSlots = 6f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 36:
-			        this.displayName = "Skeletron";
-			        this.name = "Skeletron Hand";
-			        this.width = 52;
-			        this.height = 52;
-			        this.aiStyle = 12;
-			        this.damage = 20;
-			        this.defense = 14;
-			        this.lifeMax = 600;
-			        this.soundHit = 2;
-			        this.soundKilled = 2;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 37:
-			        this.townNPC = true;
-			        this.friendly = true;
-			        this.name = "Old Man";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 7;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        break;
-			    case 38:
-			        this.townNPC = true;
-			        this.friendly = true;
-			        this.name = "Demolitionist";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 7;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        break;
-			    case 39:
-			        this.npcSlots = 6f;
-			        this.name = "Bone Serpent Head";
-			        this.displayName = "Bone Serpent";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 30;
-			        this.defense = 10;
-			        this.lifeMax = 250;
-			        this.soundHit = 2;
-			        this.soundKilled = 5;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 1200f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 40:
-			        this.name = "Bone Serpent Body";
-			        this.displayName = "Bone Serpent";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 15;
-			        this.defense = 12;
-			        this.lifeMax = 250;
-			        this.soundHit = 2;
-			        this.soundKilled = 5;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 1200f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 41:
-			        this.name = "Bone Serpent Tail";
-			        this.displayName = "Bone Serpent";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 10;
-			        this.defense = 18;
-			        this.lifeMax = 250;
-			        this.soundHit = 2;
-			        this.soundKilled = 5;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 1200f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 42:
-			        this.name = "Hornet";
-			        this.width = 34;
-			        this.height = 32;
-			        this.aiStyle = 5;
-			        this.damage = 34;
-			        this.defense = 12;
-			        this.lifeMax = 50;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.5f;
-			        this.soundKilled = 1;
-			        this.value = 200f;
-			        this.noGravity = true;
-			        this.buffImmune[20] = true;
-			        break;
-			    case 43:
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.name = "Man Eater";
-			        this.width = 30;
-			        this.height = 30;
-			        this.aiStyle = 13;
-			        this.damage = 42;
-			        this.defense = 14;
-			        this.lifeMax = 130;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0f;
-			        this.soundKilled = 1;
-			        this.value = 350f;
-			        this.buffImmune[20] = true;
-			        break;
-			    case 44:
-			        this.name = "Undead Miner";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 22;
-			        this.defense = 9;
-			        this.lifeMax = 70;
-			        this.soundHit = 2;
-			        this.soundKilled = 2;
-			        this.knockBackResist = 0.5f;
-			        this.value = 250f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 45:
-			        this.name = "Tim";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 8;
-			        this.damage = 20;
-			        this.defense = 4;
-			        this.lifeMax = 200;
-			        this.soundHit = 2;
-			        this.soundKilled = 2;
-			        this.knockBackResist = 0.6f;
-			        this.value = 5000f;
-			        this.buffImmune[20] = true;
-			        break;
-			    case 46:
-			        this.name = "Bunny";
-			        this.width = 18;
-			        this.height = 20;
-			        this.aiStyle = 7;
-			        this.damage = 0;
-			        this.defense = 0;
-			        this.lifeMax = 5;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        break;
-			    case 47:
-			        this.name = "Corrupt Bunny";
-			        this.width = 18;
-			        this.height = 20;
-			        this.aiStyle = 3;
-			        this.damage = 20;
-			        this.defense = 4;
-			        this.lifeMax = 70;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.value = 500f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 48:
-			        this.name = "Harpy";
-			        this.width = 24;
-			        this.height = 34;
-			        this.aiStyle = 14;
-			        this.damage = 25;
-			        this.defense = 8;
-			        this.lifeMax = 100;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.6f;
-			        this.soundKilled = 1;
-			        this.value = 300f;
-			        break;
-			    case 49:
-			        this.npcSlots = 0.5f;
-			        this.name = "Cave Bat";
-			        this.width = 22;
-			        this.height = 18;
-			        this.aiStyle = 14;
-			        this.damage = 13;
-			        this.defense = 2;
-			        this.lifeMax = 16;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.8f;
-			        this.soundKilled = 4;
-			        this.value = 90f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 50:
-			        this.boss = true;
-			        this.name = "King Slime";
-			        this.width = 98;
-			        this.height = 92;
-			        this.aiStyle = 15;
-			        this.damage = 40;
-			        this.defense = 10;
-			        this.lifeMax = 2000;
-			        this.knockBackResist = 0f;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.alpha = 30;
-			        this.value = 10000f;
-			        this.scale = 1.25f;
-			        this.buffImmune[20] = true;
-			        break;
-			    case 51:
-			        this.npcSlots = 0.5f;
-			        this.name = "Jungle Bat";
-			        this.width = 22;
-			        this.height = 18;
-			        this.aiStyle = 14;
-			        this.damage = 20;
-			        this.defense = 4;
-			        this.lifeMax = 34;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.8f;
-			        this.soundKilled = 4;
-			        this.value = 80f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 52:
-			        this.name = "Doctor Bones";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 20;
-			        this.defense = 10;
-			        this.lifeMax = 500;
-			        this.soundHit = 1;
-			        this.soundKilled = 2;
-			        this.knockBackResist = 0.5f;
-			        this.value = 1000f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 53:
-			        this.name = "The Groom";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 14;
-			        this.defense = 8;
-			        this.lifeMax = 200;
-			        this.soundHit = 1;
-			        this.soundKilled = 2;
-			        this.knockBackResist = 0.5f;
-			        this.value = 1000f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 54:
-			        this.townNPC = true;
-			        this.friendly = true;
-			        this.name = "Clothier";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 7;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        break;
-			    case 55:
-			        this.noGravity = true;
-			        this.name = "Goldfish";
-			        this.width = 20;
-			        this.height = 18;
-			        this.aiStyle = 16;
-			        this.damage = 0;
-			        this.defense = 0;
-			        this.lifeMax = 5;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        break;
-			    case 56:
-			        this.noTileCollide = true;
-			        this.noGravity = true;
-			        this.name = "Snatcher";
-			        this.width = 30;
-			        this.height = 30;
-			        this.aiStyle = 13;
-			        this.damage = 25;
-			        this.defense = 10;
-			        this.lifeMax = 60;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0f;
-			        this.soundKilled = 1;
-			        this.value = 90f;
-			        this.buffImmune[20] = true;
-			        break;
-			    case 57:
-			        this.noGravity = true;
-			        this.name = "Corrupt Goldfish";
-			        this.width = 18;
-			        this.height = 20;
-			        this.aiStyle = 16;
-			        this.damage = 30;
-			        this.defense = 6;
-			        this.lifeMax = 100;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.value = 500f;
-			        break;
-			    case 58:
-			        this.npcSlots = 0.5f;
-			        this.noGravity = true;
-			        this.name = "Piranha";
-			        this.width = 18;
-			        this.height = 20;
-			        this.aiStyle = 16;
-			        this.damage = 25;
-			        this.defense = 2;
-			        this.lifeMax = 30;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.value = 50f;
-			        break;
-			    case 59:
-			        this.name = "Lava Slime";
-			        this.width = 24;
-			        this.height = 18;
-			        this.aiStyle = 1;
-			        this.damage = 15;
-			        this.defense = 10;
-			        this.lifeMax = 50;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.scale = 1.1f;
-			        this.alpha = 50;
-			        this.lavaImmune = true;
-			        this.value = 120f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 60:
-			        this.npcSlots = 0.5f;
-			        this.name = "Hellbat";
-			        this.width = 22;
-			        this.height = 18;
-			        this.aiStyle = 14;
-			        this.damage = 35;
-			        this.defense = 8;
-			        this.lifeMax = 46;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.8f;
-			        this.soundKilled = 4;
-			        this.value = 120f;
-			        this.scale = 1.1f;
-			        this.lavaImmune = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 61:
-			        this.name = "Vulture";
-			        this.width = 36;
-			        this.height = 36;
-			        this.aiStyle = 17;
-			        this.damage = 15;
-			        this.defense = 4;
-			        this.lifeMax = 40;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.8f;
-			        this.soundKilled = 1;
-			        this.value = 60f;
-			        break;
-			    case 62:
-			        this.npcSlots = 2f;
-			        this.name = "Demon";
-			        this.width = 28;
-			        this.height = 48;
-			        this.aiStyle = 14;
-			        this.damage = 32;
-			        this.defense = 8;
-			        this.lifeMax = 120;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.8f;
-			        this.soundKilled = 1;
-			        this.value = 300f;
-			        this.lavaImmune = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 63:
-			        this.noGravity = true;
-			        this.name = "Blue Jellyfish";
-			        this.width = 26;
-			        this.height = 26;
-			        this.aiStyle = 18;
-			        this.damage = 20;
-			        this.defense = 2;
-			        this.lifeMax = 30;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.value = 100f;
-			        this.alpha = 20;
-			        break;
-			    case 64:
-			        this.noGravity = true;
-			        this.name = "Pink Jellyfish";
-			        this.width = 26;
-			        this.height = 26;
-			        this.aiStyle = 18;
-			        this.damage = 30;
-			        this.defense = 6;
-			        this.lifeMax = 70;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.value = 100f;
-			        this.alpha = 20;
-			        break;
-			    case 65:
-			        this.noGravity = true;
-			        this.name = "Shark";
-			        this.width = 100;
-			        this.height = 24;
-			        this.aiStyle = 16;
-			        this.damage = 40;
-			        this.defense = 2;
-			        this.lifeMax = 300;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.value = 400f;
-			        this.knockBackResist = 0.7f;
-			        break;
-			    case 66:
-			        this.npcSlots = 2f;
-			        this.name = "Voodoo Demon";
-			        this.width = 28;
-			        this.height = 48;
-			        this.aiStyle = 14;
-			        this.damage = 32;
-			        this.defense = 8;
-			        this.lifeMax = 140;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.8f;
-			        this.soundKilled = 1;
-			        this.value = 1000f;
-			        this.lavaImmune = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 67:
-			        this.name = "Crab";
-			        this.width = 28;
-			        this.height = 20;
-			        this.aiStyle = 3;
-			        this.damage = 20;
-			        this.defense = 10;
-			        this.lifeMax = 40;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.value = 60f;
-			        break;
-			    case 68:
-			        this.name = "Dungeon Guardian";
-			        this.width = 80;
-			        this.height = 102;
-			        this.aiStyle = 11;
-			        this.damage = 9000;
-			        this.defense = 9000;
-			        this.lifeMax = 9999;
-			        this.soundHit = 2;
-			        this.soundKilled = 2;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 69:
-			        this.name = "Antlion";
-			        this.width = 24;
-			        this.height = 24;
-			        this.aiStyle = 19;
-			        this.damage = 10;
-			        this.defense = 6;
-			        this.lifeMax = 45;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0f;
-			        this.value = 60f;
-			        this.behindTiles = true;
-			        break;
-			    case 70:
-			        this.npcSlots = 0.3f;
-			        this.name = "Spike Ball";
-			        this.width = 34;
-			        this.height = 34;
-			        this.aiStyle = 20;
-			        this.damage = 32;
-			        this.defense = 100;
-			        this.lifeMax = 100;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0f;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.dontTakeDamage = true;
-			        this.scale = 1.5f;
-			        break;
-			    case 71:
-			        this.npcSlots = 2f;
-			        this.name = "Dungeon Slime";
-			        this.width = 36;
-			        this.height = 24;
-			        this.aiStyle = 1;
-			        this.damage = 30;
-			        this.defense = 7;
-			        this.lifeMax = 150;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.alpha = 60;
-			        this.value = 150f;
-			        this.scale = 1.25f;
-			        this.knockBackResist = 0.6f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 72:
-			        this.npcSlots = 0.3f;
-			        this.name = "Blazing Wheel";
-			        this.width = 34;
-			        this.height = 34;
-			        this.aiStyle = 21;
-			        this.damage = 24;
-			        this.defense = 100;
-			        this.lifeMax = 100;
-			        this.alpha = 100;
-			        this.behindTiles = true;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0f;
-			        this.noGravity = true;
-			        this.dontTakeDamage = true;
-			        this.scale = 1.2f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 73:
-			        this.name = "Goblin Scout";
-			        this.scale = 0.95f;
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 20;
-			        this.defense = 6;
-			        this.lifeMax = 80;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.7f;
-			        this.value = 200f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 74:
-			        this.name = "Bird";
-			        this.width = 14;
-			        this.height = 14;
-			        this.aiStyle = 24;
-			        this.damage = 0;
-			        this.defense = 0;
-			        this.lifeMax = 5;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.8f;
-			        this.soundKilled = 1;
-			        break;
-			    case 75:
-			        this.noGravity = true;
-			        this.name = "Pixie";
-			        this.width = 20;
-			        this.height = 20;
-			        this.aiStyle = 22;
-			        this.damage = 55;
-			        this.defense = 20;
-			        this.lifeMax = 150;
-			        this.soundHit = 5;
-			        this.knockBackResist = 0.6f;
-			        this.soundKilled = 7;
-			        this.value = 350f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 77:
-			        this.name = "Armored Skeleton";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 60;
-			        this.defense = 36;
-			        this.lifeMax = 340;
-			        this.soundHit = 2;
-			        this.soundKilled = 2;
-			        this.knockBackResist = 0.4f;
-			        this.value = 400f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 78:
-			        this.name = "Mummy";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 50;
-			        this.defense = 16;
-			        this.lifeMax = 130;
-			        this.soundHit = 1;
-			        this.soundKilled = 6;
-			        this.knockBackResist = 0.6f;
-			        this.value = 600f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 79:
-			        this.name = "Dark Mummy";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 60;
-			        this.defense = 18;
-			        this.lifeMax = 180;
-			        this.soundHit = 1;
-			        this.soundKilled = 6;
-			        this.knockBackResist = 0.5f;
-			        this.value = 700f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 80:
-			        this.name = "Light Mummy";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 55;
-			        this.defense = 18;
-			        this.lifeMax = 200;
-			        this.soundHit = 1;
-			        this.soundKilled = 6;
-			        this.knockBackResist = 0.55f;
-			        this.value = 700f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 81:
-			        this.name = "Corrupt Slime";
-			        this.width = 40;
-			        this.height = 30;
-			        this.aiStyle = 1;
-			        this.damage = 55;
-			        this.defense = 20;
-			        this.lifeMax = 170;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.alpha = 55;
-			        this.value = 400f;
-			        this.scale = 1.1f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 82:
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.name = "Wraith";
-			        this.width = 24;
-			        this.height = 44;
-			        this.aiStyle = 22;
-			        this.damage = 75;
-			        this.defense = 18;
-			        this.lifeMax = 200;
-			        this.soundHit = 1;
-			        this.soundKilled = 6;
-			        this.alpha = 100;
-			        this.value = 500f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        this.knockBackResist = 0.7f;
-			        break;
-			    case 83:
-			        this.name = "Cursed Hammer";
-			        this.width = 40;
-			        this.height = 40;
-			        this.aiStyle = 23;
-			        this.damage = 80;
-			        this.defense = 18;
-			        this.lifeMax = 200;
-			        this.soundHit = 4;
-			        this.soundKilled = 6;
-			        this.value = 1000f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        this.knockBackResist = 0.4f;
-			        break;
-			    case 84:
-			        this.name = "Enchanted Sword";
-			        this.width = 40;
-			        this.height = 40;
-			        this.aiStyle = 23;
-			        this.damage = 80;
-			        this.defense = 18;
-			        this.lifeMax = 200;
-			        this.soundHit = 4;
-			        this.soundKilled = 6;
-			        this.value = 1000f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        this.knockBackResist = 0.4f;
-			        break;
-			    case 85:
-			        this.name = "Mimic";
-			        this.width = 24;
-			        this.height = 24;
-			        this.aiStyle = 25;
-			        this.damage = 80;
-			        this.defense = 30;
-			        this.lifeMax = 500;
-			        this.soundHit = 4;
-			        this.soundKilled = 6;
-			        this.value = 100000f;
-			        this.knockBackResist = 0.3f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 86:
-			        this.name = "Unicorn";
-			        this.width = 46;
-			        this.height = 42;
-			        this.aiStyle = 26;
-			        this.damage = 65;
-			        this.defense = 30;
-			        this.lifeMax = 400;
-			        this.soundHit = 10;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.3f;
-			        this.value = 1000f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 87:
-			        this.displayName = "Wyvern";
-			        this.noTileCollide = true;
-			        this.npcSlots = 5f;
-			        this.name = "Wyvern Head";
-			        this.width = 32;
-			        this.height = 32;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 80;
-			        this.defense = 10;
-			        this.lifeMax = 4000;
-			        this.soundHit = 7;
-			        this.soundKilled = 8;
-			        this.noGravity = true;
-			        this.knockBackResist = 0f;
-			        this.value = 10000f;
-			        this.scale = 1f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 88:
-			        this.displayName = "Wyvern";
-			        this.noTileCollide = true;
-			        this.name = "Wyvern Legs";
-			        this.width = 32;
-			        this.height = 32;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 40;
-			        this.defense = 20;
-			        this.lifeMax = 4000;
-			        this.soundHit = 7;
-			        this.soundKilled = 8;
-			        this.noGravity = true;
-			        this.knockBackResist = 0f;
-			        this.value = 10000f;
-			        this.scale = 1f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 89:
-			        this.displayName = "Wyvern";
-			        this.noTileCollide = true;
-			        this.name = "Wyvern Body";
-			        this.width = 32;
-			        this.height = 32;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 40;
-			        this.defense = 20;
-			        this.lifeMax = 4000;
-			        this.soundHit = 7;
-			        this.soundKilled = 8;
-			        this.noGravity = true;
-			        this.knockBackResist = 0f;
-			        this.value = 2000f;
-			        this.scale = 1f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 90:
-			        this.displayName = "Wyvern";
-			        this.noTileCollide = true;
-			        this.name = "Wyvern Body 2";
-			        this.width = 32;
-			        this.height = 32;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 40;
-			        this.defense = 20;
-			        this.lifeMax = 4000;
-			        this.soundHit = 7;
-			        this.soundKilled = 8;
-			        this.noGravity = true;
-			        this.knockBackResist = 0f;
-			        this.value = 10000f;
-			        this.scale = 1f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 91:
-			        this.displayName = "Wyvern";
-			        this.noTileCollide = true;
-			        this.name = "Wyvern Body 3";
-			        this.width = 32;
-			        this.height = 32;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 40;
-			        this.defense = 20;
-			        this.lifeMax = 4000;
-			        this.soundHit = 7;
-			        this.soundKilled = 8;
-			        this.noGravity = true;
-			        this.knockBackResist = 0f;
-			        this.value = 10000f;
-			        this.scale = 1f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 92:
-			        this.displayName = "Wyvern";
-			        this.noTileCollide = true;
-			        this.name = "Wyvern Tail";
-			        this.width = 32;
-			        this.height = 32;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 40;
-			        this.defense = 20;
-			        this.lifeMax = 4000;
-			        this.soundHit = 7;
-			        this.soundKilled = 8;
-			        this.noGravity = true;
-			        this.knockBackResist = 0f;
-			        this.value = 10000f;
-			        this.scale = 1f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 93:
-			        this.npcSlots = 0.5f;
-			        this.name = "Giant Bat";
-			        this.width = 26;
-			        this.height = 20;
-			        this.aiStyle = 14;
-			        this.damage = 70;
-			        this.defense = 20;
-			        this.lifeMax = 160;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.75f;
-			        this.soundKilled = 4;
-			        this.value = 400f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 94:
-			        this.npcSlots = 1f;
-			        this.name = "Corruptor";
-			        this.width = 44;
-			        this.height = 44;
-			        this.aiStyle = 5;
-			        this.damage = 60;
-			        this.defense = 32;
-			        this.lifeMax = 230;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.knockBackResist = 0.55f;
-			        this.value = 500f;
-			        break;
-			    case 95:
-			        this.displayName = "Digger";
-			        this.name = "Digger Head";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 45;
-			        this.defense = 10;
-			        this.lifeMax = 200;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.scale = 0.9f;
-			        this.value = 300f;
-			        break;
-			    case 96:
-			        this.displayName = "Digger";
-			        this.name = "Digger Body";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 28;
-			        this.defense = 20;
-			        this.lifeMax = 200;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.scale = 0.9f;
-			        this.value = 300f;
-			        break;
-			    case 97:
-			        this.displayName = "Digger";
-			        this.name = "Digger Tail";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 26;
-			        this.defense = 30;
-			        this.lifeMax = 200;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.scale = 0.9f;
-			        this.value = 300f;
-			        break;
-			    case 98:
-			        this.displayName = "World Feeder";
-			        this.npcSlots = 3.5f;
-			        this.name = "Seeker Head";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 70;
-			        this.defense = 36;
-			        this.lifeMax = 500;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 700f;
-			        break;
-			    case 99:
-			        this.displayName = "World Feeder";
-			        this.name = "Seeker Body";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 55;
-			        this.defense = 40;
-			        this.lifeMax = 500;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 700f;
-			        break;
-			    case 100:
-			        this.displayName = "World Feeder";
-			        this.name = "Seeker Tail";
-			        this.width = 22;
-			        this.height = 22;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 40;
-			        this.defense = 44;
-			        this.lifeMax = 500;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 700f;
-			        break;
-			    case 101:
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.behindTiles = true;
-			        this.name = "Clinger";
-			        this.width = 30;
-			        this.height = 30;
-			        this.aiStyle = 13;
-			        this.damage = 70;
-			        this.defense = 30;
-			        this.lifeMax = 320;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.2f;
-			        this.soundKilled = 1;
-			        this.value = 600f;
-			        break;
-			    case 102:
-			        this.npcSlots = 0.5f;
-			        this.noGravity = true;
-			        this.name = "Angler Fish";
-			        this.width = 18;
-			        this.height = 20;
-			        this.aiStyle = 16;
-			        this.damage = 80;
-			        this.defense = 22;
-			        this.lifeMax = 90;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.value = 500f;
-			        break;
-			    case 103:
-			        this.noGravity = true;
-			        this.name = "Green Jellyfish";
-			        this.width = 26;
-			        this.height = 26;
-			        this.aiStyle = 18;
-			        this.damage = 80;
-			        this.defense = 30;
-			        this.lifeMax = 120;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.value = 800f;
-			        this.alpha = 20;
-			        break;
-			    case 104:
-			        this.name = "Werewolf";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 70;
-			        this.defense = 40;
-			        this.lifeMax = 400;
-			        this.soundHit = 6;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.4f;
-			        this.value = 1000f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 105:
-			        this.friendly = true;
-			        this.name = "Bound Goblin";
-			        this.width = 18;
-			        this.height = 34;
-			        this.aiStyle = 0;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        this.scale = 0.9f;
-			        break;
-			    case 106:
-			        this.friendly = true;
-			        this.name = "Bound Wizard";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 0;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        break;
-			    case 107:
-			        this.townNPC = true;
-			        this.friendly = true;
-			        this.name = "Goblin Tinkerer";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 7;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        this.scale = 0.9f;
-			        break;
-			    case 108:
-			        this.townNPC = true;
-			        this.friendly = true;
-			        this.name = "Wizard";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 7;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        break;
-			    case 109:
-			        this.name = "Clown";
-			        this.width = 34;
-			        this.height = 78;
-			        this.aiStyle = 3;
-			        this.damage = 50;
-			        this.defense = 20;
-			        this.lifeMax = 400;
-			        this.soundHit = 1;
-			        this.soundKilled = 2;
-			        this.knockBackResist = 0.4f;
-			        this.value = 8000f;
-			        break;
-			    case 110:
-			        this.name = "Skeleton Archer";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 55;
-			        this.defense = 28;
-			        this.lifeMax = 260;
-			        this.soundHit = 2;
-			        this.soundKilled = 2;
-			        this.knockBackResist = 0.55f;
-			        this.value = 400f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 111:
-			        this.name = "Goblin Archer";
-			        this.scale = 0.95f;
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 20;
-			        this.defense = 6;
-			        this.lifeMax = 80;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.7f;
-			        this.value = 200f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 112:
-			        this.name = "Vile Spit";
-			        this.width = 16;
-			        this.height = 16;
-			        this.aiStyle = 9;
-			        this.damage = 65;
-			        this.defense = 0;
-			        this.lifeMax = 1;
-			        this.soundHit = 0;
-			        this.soundKilled = 9;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.scale = 0.9f;
-			        this.alpha = 80;
-			        break;
-			    case 113:
-			        this.npcSlots = 10f;
-			        this.name = "Wall of Flesh";
-			        this.width = 100;
-			        this.height = 100;
-			        this.aiStyle = 27;
-			        this.damage = 50;
-			        this.defense = 12;
-			        this.lifeMax = 8000;
-			        this.soundHit = 8;
-			        this.soundKilled = 10;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.behindTiles = true;
-			        this.knockBackResist = 0f;
-			        this.scale = 1.2f;
-			        this.boss = true;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        this.value = 80000f;
-			        break;
-			    case 114:
-			        this.name = "Wall of Flesh Eye";
-			        this.displayName = "Wall of Flesh";
-			        this.width = 100;
-			        this.height = 100;
-			        this.aiStyle = 28;
-			        this.damage = 50;
-			        this.defense = 0;
-			        this.lifeMax = 8000;
-			        this.soundHit = 8;
-			        this.soundKilled = 10;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.behindTiles = true;
-			        this.knockBackResist = 0f;
-			        this.scale = 1.2f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        this.value = 80000f;
-			        break;
-			    case 115:
-			        this.name = "The Hungry";
-			        this.width = 30;
-			        this.height = 30;
-			        this.aiStyle = 29;
-			        this.damage = 30;
-			        this.defense = 10;
-			        this.lifeMax = 240;
-			        this.soundHit = 9;
-			        this.soundKilled = 11;
-			        this.noGravity = true;
-			        this.behindTiles = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 1.1f;
-			        break;
-			    case 116:
-			        this.name = "The Hungry II";
-			        this.displayName = "The Hungry";
-			        this.width = 30;
-			        this.height = 32;
-			        this.aiStyle = 2;
-			        this.damage = 30;
-			        this.defense = 6;
-			        this.lifeMax = 80;
-			        this.soundHit = 9;
-			        this.knockBackResist = 0.8f;
-			        this.soundKilled = 12;
-			        break;
-			    case 117:
-			        this.displayName = "Leech";
-			        this.name = "Leech Head";
-			        this.width = 14;
-			        this.height = 14;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 26;
-			        this.defense = 2;
-			        this.lifeMax = 60;
-			        this.soundHit = 9;
-			        this.soundKilled = 12;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        break;
-			    case 118:
-			        this.displayName = "Leech";
-			        this.name = "Leech Body";
-			        this.width = 14;
-			        this.height = 14;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 22;
-			        this.defense = 6;
-			        this.lifeMax = 60;
-			        this.soundHit = 9;
-			        this.soundKilled = 12;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        break;
-			    case 119:
-			        this.displayName = "Leech";
-			        this.name = "Leech Tail";
-			        this.width = 14;
-			        this.height = 14;
-			        this.aiStyle = 6;
-			        this.netAlways = true;
-			        this.damage = 18;
-			        this.defense = 10;
-			        this.lifeMax = 60;
-			        this.soundHit = 9;
-			        this.soundKilled = 12;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        break;
-			    case 120:
-			        this.name = "Chaos Elemental";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 40;
-			        this.defense = 30;
-			        this.lifeMax = 370;
-			        this.soundHit = 1;
-			        this.soundKilled = 6;
-			        this.knockBackResist = 0.4f;
-			        this.value = 600f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 121:
-			        this.name = "Slimer";
-			        this.width = 40;
-			        this.height = 30;
-			        this.aiStyle = 14;
-			        this.damage = 45;
-			        this.defense = 20;
-			        this.lifeMax = 60;
-			        this.soundHit = 1;
-			        this.alpha = 55;
-			        this.knockBackResist = 0.8f;
-			        this.scale = 1.1f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 122:
-			        this.noGravity = true;
-			        this.name = "Gastropod";
-			        this.width = 20;
-			        this.height = 20;
-			        this.aiStyle = 22;
-			        this.damage = 60;
-			        this.defense = 22;
-			        this.lifeMax = 220;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.8f;
-			        this.soundKilled = 1;
-			        this.value = 600f;
-			        this.buffImmune[20] = true;
-			        break;
-			    case 123:
-			        this.friendly = true;
-			        this.name = "Bound Mechanic";
-			        this.width = 18;
-			        this.height = 34;
-			        this.aiStyle = 0;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        this.scale = 0.9f;
-			        break;
-			    case 124:
-			        this.townNPC = true;
-			        this.friendly = true;
-			        this.name = "Mechanic";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 7;
-			        this.damage = 10;
-			        this.defense = 15;
-			        this.lifeMax = 250;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.knockBackResist = 0.5f;
-			        break;
-			    case 125:
-			        this.name = "Retinazer";
-			        this.width = 100;
-			        this.height = 110;
-			        this.aiStyle = 30;
-			        this.damage = 50;
-			        this.defense = 10;
-			        this.lifeMax = 24000;
-			        this.soundHit = 1;
-			        this.soundKilled = 14;
-			        this.knockBackResist = 0f;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.timeLeft = NPC.activeTime * 30;
-			        this.boss = true;
-			        this.value = 120000f;
-			        this.npcSlots = 5f;
-			        this.boss = true;
-			        break;
-			    case 126:
-			        this.name = "Spazmatism";
-			        this.width = 100;
-			        this.height = 110;
-			        this.aiStyle = 31;
-			        this.damage = 50;
-			        this.defense = 10;
-			        this.lifeMax = 24000;
-			        this.soundHit = 1;
-			        this.soundKilled = 14;
-			        this.knockBackResist = 0f;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.timeLeft = NPC.activeTime * 30;
-			        this.boss = true;
-			        this.value = 120000f;
-			        this.npcSlots = 5f;
-			        this.boss = true;
-			        break;
-			    case 127:
-			        this.name = "Skeletron Prime";
-			        this.width = 80;
-			        this.height = 102;
-			        this.aiStyle = 32;
-			        this.damage = 50;
-			        this.defense = 25;
-			        this.lifeMax = 30000;
-			        this.soundHit = 4;
-			        this.soundKilled = 14;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.value = 120000f;
-			        this.knockBackResist = 0f;
-			        this.boss = true;
-			        this.npcSlots = 6f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        this.boss = true;
-			        break;
-			    case 128:
-			        this.name = "Prime Cannon";
-			        this.width = 52;
-			        this.height = 52;
-			        this.aiStyle = 35;
-			        this.damage = 30;
-			        this.defense = 25;
-			        this.lifeMax = 7000;
-			        this.soundHit = 4;
-			        this.soundKilled = 14;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.netAlways = true;
-			        break;
-			    case 129:
-			        this.name = "Prime Saw";
-			        this.width = 52;
-			        this.height = 52;
-			        this.aiStyle = 33;
-			        this.damage = 52;
-			        this.defense = 40;
-			        this.lifeMax = 10000;
-			        this.soundHit = 4;
-			        this.soundKilled = 14;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.netAlways = true;
-			        break;
-			    case 130:
-			        this.name = "Prime Vice";
-			        this.width = 52;
-			        this.height = 52;
-			        this.aiStyle = 34;
-			        this.damage = 45;
-			        this.defense = 35;
-			        this.lifeMax = 10000;
-			        this.soundHit = 4;
-			        this.soundKilled = 14;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.netAlways = true;
-			        break;
-			    case 131:
-			        this.name = "Prime Laser";
-			        this.width = 52;
-			        this.height = 52;
-			        this.aiStyle = 36;
-			        this.damage = 29;
-			        this.defense = 20;
-			        this.lifeMax = 6000;
-			        this.soundHit = 4;
-			        this.soundKilled = 14;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.netAlways = true;
-			        break;
-			    case 132:
-			        this.displayName = "Zombie";
-			        this.name = "Bald Zombie";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 14;
-			        this.defense = 6;
-			        this.lifeMax = 45;
-			        this.soundHit = 1;
-			        this.soundKilled = 2;
-			        this.knockBackResist = 0.5f;
-			        this.value = 60f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 133:
-			        this.name = "Wandering Eye";
-			        this.width = 30;
-			        this.height = 32;
-			        this.aiStyle = 2;
-			        this.damage = 40;
-			        this.defense = 20;
-			        this.lifeMax = 300;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.8f;
-			        this.soundKilled = 1;
-			        this.value = 500f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 134:
-			        this.displayName = "The Destroyer";
-			        this.npcSlots = 5f;
-			        this.name = "The Destroyer";
-			        this.width = 38;
-			        this.height = 38;
-			        this.aiStyle = 37;
-			        this.damage = 60;
-			        this.defense = 0;
-			        this.lifeMax = 80000;
-			        this.soundHit = 4;
-			        this.soundKilled = 14;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.value = 120000f;
-			        this.scale = 1.25f;
-			        this.boss = true;
-			        this.netAlways = true;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 135:
-			        this.displayName = "The Destroyer";
-			        this.npcSlots = 5f;
-			        this.name = "The Destroyer Body";
-			        this.width = 38;
-			        this.height = 38;
-			        this.aiStyle = 37;
-			        this.damage = 40;
-			        this.defense = 30;
-			        this.lifeMax = 80000;
-			        this.soundHit = 4;
-			        this.soundKilled = 14;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.netAlways = true;
-			        this.scale = 1.25f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 136:
-			        this.displayName = "The Destroyer";
-			        this.npcSlots = 5f;
-			        this.name = "The Destroyer Tail";
-			        this.width = 38;
-			        this.height = 38;
-			        this.aiStyle = 37;
-			        this.damage = 20;
-			        this.defense = 35;
-			        this.lifeMax = 80000;
-			        this.soundHit = 4;
-			        this.soundKilled = 14;
-			        this.noGravity = true;
-			        this.noTileCollide = true;
-			        this.knockBackResist = 0f;
-			        this.behindTiles = true;
-			        this.scale = 1.25f;
-			        this.netAlways = true;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        break;
-			    case 137:
-			        this.name = "Illuminant Bat";
-			        this.width = 26;
-			        this.height = 20;
-			        this.aiStyle = 14;
-			        this.damage = 75;
-			        this.defense = 30;
-			        this.lifeMax = 200;
-			        this.soundHit = 1;
-			        this.knockBackResist = 0.75f;
-			        this.soundKilled = 6;
-			        this.value = 500f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 138:
-			        this.name = "Illuminant Slime";
-			        this.width = 24;
-			        this.height = 18;
-			        this.aiStyle = 1;
-			        this.damage = 70;
-			        this.defense = 30;
-			        this.lifeMax = 180;
-			        this.soundHit = 1;
-			        this.soundKilled = 6;
-			        this.alpha = 100;
-			        this.value = 400f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[24] = true;
-			        this.buffImmune[39] = true;
-			        this.knockBackResist = 0.85f;
-			        this.scale = 1.05f;
-			        this.buffImmune[31] = false;
-			        break;
-			    case 139:
-			        this.npcSlots = 1f;
-			        this.name = "Probe";
-			        this.width = 30;
-			        this.height = 30;
-			        this.aiStyle = 5;
-			        this.damage = 50;
-			        this.defense = 20;
-			        this.lifeMax = 200;
-			        this.soundHit = 4;
-			        this.soundKilled = 14;
-			        this.noGravity = true;
-			        this.knockBackResist = 0.8f;
-			        this.noTileCollide = true;
-			        break;
-			    case 140:
-			        this.name = "Possessed Armor";
-			        this.width = 18;
-			        this.height = 40;
-			        this.aiStyle = 3;
-			        this.damage = 55;
-			        this.defense = 28;
-			        this.lifeMax = 260;
-			        this.soundHit = 4;
-			        this.soundKilled = 6;
-			        this.knockBackResist = 0.4f;
-			        this.value = 400f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[31] = false;
-			        this.buffImmune[24] = true;
-			        break;
-			    case 141:
-			        this.name = "Toxic Sludge";
-			        this.width = 34;
-			        this.height = 28;
-			        this.aiStyle = 1;
-			        this.damage = 50;
-			        this.defense = 18;
-			        this.lifeMax = 150;
-			        this.soundHit = 1;
-			        this.soundKilled = 1;
-			        this.alpha = 55;
-			        this.value = 400f;
-			        this.scale = 1.1f;
-			        this.buffImmune[20] = true;
-			        this.buffImmune[31] = false;
-			        this.knockBackResist = 0.8f;
-			        break;
+				this.name = "Blue Slime";
+				this.width = 24;
+				this.height = 18;
+				this.aiStyle = 1;
+				this.damage = 7;
+				this.defense = 2;
+				this.lifeMax = 25;
+				this.soundHit = 1;
+				this.soundKilled = 1;
+				this.alpha = 175;
+				this.color = new Color(0, 80, 255, 100);
+				this.value = 25f;
+				this.buffImmune[20] = true;
+				this.buffImmune[31] = false;
+			}
+			else
+			{
+				if (this.type == 2)
+				{
+					this.name = "Demon Eye";
+					this.width = 30;
+					this.height = 32;
+					this.aiStyle = 2;
+					this.damage = 18;
+					this.defense = 2;
+					this.lifeMax = 60;
+					this.soundHit = 1;
+					this.knockBackResist = 0.8f;
+					this.soundKilled = 1;
+					this.value = 75f;
+					this.buffImmune[31] = false;
+				}
+				else
+				{
+					if (this.type == 3)
+					{
+						this.name = "Zombie";
+						this.width = 18;
+						this.height = 40;
+						this.aiStyle = 3;
+						this.damage = 14;
+						this.defense = 6;
+						this.lifeMax = 45;
+						this.soundHit = 1;
+						this.soundKilled = 2;
+						this.knockBackResist = 0.5f;
+						this.value = 60f;
+						this.buffImmune[31] = false;
+					}
+					else
+					{
+						if (this.type == 4)
+						{
+							this.name = "Eye of Cthulhu";
+							this.width = 100;
+							this.height = 110;
+							this.aiStyle = 4;
+							this.damage = 15;
+							this.defense = 12;
+							this.lifeMax = 2800;
+							this.soundHit = 1;
+							this.soundKilled = 1;
+							this.knockBackResist = 0f;
+							this.noGravity = true;
+							this.noTileCollide = true;
+							this.timeLeft = NPC.activeTime * 30;
+							this.boss = true;
+							this.value = 30000f;
+							this.npcSlots = 5f;
+						}
+						else
+						{
+							if (this.type == 5)
+							{
+								this.name = "Servant of Cthulhu";
+								this.width = 20;
+								this.height = 20;
+								this.aiStyle = 5;
+								this.damage = 12;
+								this.defense = 0;
+								this.lifeMax = 8;
+								this.soundHit = 1;
+								this.soundKilled = 1;
+								this.noGravity = true;
+								this.noTileCollide = true;
+							}
+							else
+							{
+								if (this.type == 6)
+								{
+									this.npcSlots = 1f;
+									this.name = "Eater of Souls";
+									this.width = 30;
+									this.height = 30;
+									this.aiStyle = 5;
+									this.damage = 22;
+									this.defense = 8;
+									this.lifeMax = 40;
+									this.soundHit = 1;
+									this.soundKilled = 1;
+									this.noGravity = true;
+									this.knockBackResist = 0.5f;
+									this.value = 90f;
+								}
+								else
+								{
+									if (this.type == 7)
+									{
+										this.displayName = "Devourer";
+										this.npcSlots = 3.5f;
+										this.name = "Devourer Head";
+										this.width = 22;
+										this.height = 22;
+										this.aiStyle = 6;
+										this.damage = 31;
+										this.defense = 2;
+										this.lifeMax = 100;
+										this.soundHit = 1;
+										this.soundKilled = 1;
+										this.noGravity = true;
+										this.noTileCollide = true;
+										this.knockBackResist = 0f;
+										this.behindTiles = true;
+										this.value = 140f;
+										this.netAlways = true;
+									}
+									else
+									{
+										if (this.type == 8)
+										{
+											this.displayName = "Devourer";
+											this.name = "Devourer Body";
+											this.width = 22;
+											this.height = 22;
+											this.aiStyle = 6;
+											this.netAlways = true;
+											this.damage = 16;
+											this.defense = 6;
+											this.lifeMax = 100;
+											this.soundHit = 1;
+											this.soundKilled = 1;
+											this.noGravity = true;
+											this.noTileCollide = true;
+											this.knockBackResist = 0f;
+											this.behindTiles = true;
+											this.value = 140f;
+										}
+										else
+										{
+											if (this.type == 9)
+											{
+												this.displayName = "Devourer";
+												this.name = "Devourer Tail";
+												this.width = 22;
+												this.height = 22;
+												this.aiStyle = 6;
+												this.netAlways = true;
+												this.damage = 13;
+												this.defense = 10;
+												this.lifeMax = 100;
+												this.soundHit = 1;
+												this.soundKilled = 1;
+												this.noGravity = true;
+												this.noTileCollide = true;
+												this.knockBackResist = 0f;
+												this.behindTiles = true;
+												this.value = 140f;
+											}
+											else
+											{
+												if (this.type == 10)
+												{
+													this.displayName = "Giant Worm";
+													this.name = "Giant Worm Head";
+													this.width = 14;
+													this.height = 14;
+													this.aiStyle = 6;
+													this.netAlways = true;
+													this.damage = 8;
+													this.defense = 0;
+													this.lifeMax = 30;
+													this.soundHit = 1;
+													this.soundKilled = 1;
+													this.noGravity = true;
+													this.noTileCollide = true;
+													this.knockBackResist = 0f;
+													this.behindTiles = true;
+													this.value = 40f;
+												}
+												else
+												{
+													if (this.type == 11)
+													{
+														this.displayName = "Giant Worm";
+														this.name = "Giant Worm Body";
+														this.width = 14;
+														this.height = 14;
+														this.aiStyle = 6;
+														this.netAlways = true;
+														this.damage = 4;
+														this.defense = 4;
+														this.lifeMax = 30;
+														this.soundHit = 1;
+														this.soundKilled = 1;
+														this.noGravity = true;
+														this.noTileCollide = true;
+														this.knockBackResist = 0f;
+														this.behindTiles = true;
+														this.value = 40f;
+													}
+													else
+													{
+														if (this.type == 12)
+														{
+															this.displayName = "Giant Worm";
+															this.name = "Giant Worm Tail";
+															this.width = 14;
+															this.height = 14;
+															this.aiStyle = 6;
+															this.netAlways = true;
+															this.damage = 4;
+															this.defense = 6;
+															this.lifeMax = 30;
+															this.soundHit = 1;
+															this.soundKilled = 1;
+															this.noGravity = true;
+															this.noTileCollide = true;
+															this.knockBackResist = 0f;
+															this.behindTiles = true;
+															this.value = 40f;
+														}
+														else
+														{
+															if (this.type == 13)
+															{
+																this.displayName = "Eater of Worlds";
+																this.npcSlots = 5f;
+																this.name = "Eater of Worlds Head";
+																this.width = 38;
+																this.height = 38;
+																this.aiStyle = 6;
+																this.netAlways = true;
+																this.damage = 22;
+																this.defense = 2;
+																this.lifeMax = 65;
+																this.soundHit = 1;
+																this.soundKilled = 1;
+																this.noGravity = true;
+																this.noTileCollide = true;
+																this.knockBackResist = 0f;
+																this.behindTiles = true;
+																this.value = 300f;
+																this.scale = 1f;
+																this.buffImmune[20] = true;
+																this.buffImmune[24] = true;
+																this.buffImmune[39] = true;
+															}
+															else
+															{
+																if (this.type == 14)
+																{
+																	this.displayName = "Eater of Worlds";
+																	this.name = "Eater of Worlds Body";
+																	this.width = 38;
+																	this.height = 38;
+																	this.aiStyle = 6;
+																	this.netAlways = true;
+																	this.damage = 13;
+																	this.defense = 4;
+																	this.lifeMax = 150;
+																	this.soundHit = 1;
+																	this.soundKilled = 1;
+																	this.noGravity = true;
+																	this.noTileCollide = true;
+																	this.knockBackResist = 0f;
+																	this.behindTiles = true;
+																	this.value = 300f;
+																	this.scale = 1f;
+																	this.buffImmune[20] = true;
+																	this.buffImmune[24] = true;
+																	this.buffImmune[39] = true;
+																}
+																else
+																{
+																	if (this.type == 15)
+																	{
+																		this.displayName = "Eater of Worlds";
+																		this.name = "Eater of Worlds Tail";
+																		this.width = 38;
+																		this.height = 38;
+																		this.aiStyle = 6;
+																		this.netAlways = true;
+																		this.damage = 11;
+																		this.defense = 8;
+																		this.lifeMax = 220;
+																		this.soundHit = 1;
+																		this.soundKilled = 1;
+																		this.noGravity = true;
+																		this.noTileCollide = true;
+																		this.knockBackResist = 0f;
+																		this.behindTiles = true;
+																		this.value = 300f;
+																		this.scale = 1f;
+																		this.buffImmune[20] = true;
+																		this.buffImmune[24] = true;
+																		this.buffImmune[39] = true;
+																	}
+																	else
+																	{
+																		if (this.type == 16)
+																		{
+																			this.npcSlots = 2f;
+																			this.name = "Mother Slime";
+																			this.width = 36;
+																			this.height = 24;
+																			this.aiStyle = 1;
+																			this.damage = 20;
+																			this.defense = 7;
+																			this.lifeMax = 90;
+																			this.soundHit = 1;
+																			this.soundKilled = 1;
+																			this.alpha = 120;
+																			this.color = new Color(0, 0, 0, 50);
+																			this.value = 75f;
+																			this.scale = 1.25f;
+																			this.knockBackResist = 0.6f;
+																			this.buffImmune[20] = true;
+																			this.buffImmune[31] = false;
+																		}
+																		else
+																		{
+																			if (this.type == 17)
+																			{
+																				this.townNPC = true;
+																				this.friendly = true;
+																				this.name = "Merchant";
+																				this.width = 18;
+																				this.height = 40;
+																				this.aiStyle = 7;
+																				this.damage = 10;
+																				this.defense = 15;
+																				this.lifeMax = 250;
+																				this.soundHit = 1;
+																				this.soundKilled = 1;
+																				this.knockBackResist = 0.5f;
+																			}
+																			else
+																			{
+																				if (this.type == 18)
+																				{
+																					this.townNPC = true;
+																					this.friendly = true;
+																					this.name = "Nurse";
+																					this.width = 18;
+																					this.height = 40;
+																					this.aiStyle = 7;
+																					this.damage = 10;
+																					this.defense = 15;
+																					this.lifeMax = 250;
+																					this.soundHit = 1;
+																					this.soundKilled = 1;
+																					this.knockBackResist = 0.5f;
+																				}
+																				else
+																				{
+																					if (this.type == 19)
+																					{
+																						this.townNPC = true;
+																						this.friendly = true;
+																						this.name = "Arms Dealer";
+																						this.width = 18;
+																						this.height = 40;
+																						this.aiStyle = 7;
+																						this.damage = 10;
+																						this.defense = 15;
+																						this.lifeMax = 250;
+																						this.soundHit = 1;
+																						this.soundKilled = 1;
+																						this.knockBackResist = 0.5f;
+																					}
+																					else
+																					{
+																						if (this.type == 20)
+																						{
+																							this.townNPC = true;
+																							this.friendly = true;
+																							this.name = "Dryad";
+																							this.width = 18;
+																							this.height = 40;
+																							this.aiStyle = 7;
+																							this.damage = 10;
+																							this.defense = 15;
+																							this.lifeMax = 250;
+																							this.soundHit = 1;
+																							this.soundKilled = 1;
+																							this.knockBackResist = 0.5f;
+																						}
+																						else
+																						{
+																							if (this.type == 21)
+																							{
+																								this.name = "Skeleton";
+																								this.width = 18;
+																								this.height = 40;
+																								this.aiStyle = 3;
+																								this.damage = 20;
+																								this.defense = 8;
+																								this.lifeMax = 60;
+																								this.soundHit = 2;
+																								this.soundKilled = 2;
+																								this.knockBackResist = 0.5f;
+																								this.value = 100f;
+																								this.buffImmune[20] = true;
+																								this.buffImmune[31] = false;
+																							}
+																							else
+																							{
+																								if (this.type == 22)
+																								{
+																									this.townNPC = true;
+																									this.friendly = true;
+																									this.name = "Guide";
+																									this.width = 18;
+																									this.height = 40;
+																									this.aiStyle = 7;
+																									this.damage = 10;
+																									this.defense = 15;
+																									this.lifeMax = 250;
+																									this.soundHit = 1;
+																									this.soundKilled = 1;
+																									this.knockBackResist = 0.5f;
+																								}
+																								else
+																								{
+																									if (this.type == 23)
+																									{
+																										this.name = "Meteor Head";
+																										this.width = 22;
+																										this.height = 22;
+																										this.aiStyle = 5;
+																										this.damage = 40;
+																										this.defense = 6;
+																										this.lifeMax = 26;
+																										this.soundHit = 3;
+																										this.soundKilled = 3;
+																										this.noGravity = true;
+																										this.noTileCollide = true;
+																										this.value = 80f;
+																										this.knockBackResist = 0.4f;
+																										this.buffImmune[20] = true;
+																										this.buffImmune[24] = true;
+																										this.buffImmune[39] = true;
+																									}
+																									else
+																									{
+																										if (this.type == 24)
+																										{
+																											this.npcSlots = 3f;
+																											this.name = "Fire Imp";
+																											this.width = 18;
+																											this.height = 40;
+																											this.aiStyle = 8;
+																											this.damage = 30;
+																											this.defense = 16;
+																											this.lifeMax = 70;
+																											this.soundHit = 1;
+																											this.soundKilled = 1;
+																											this.knockBackResist = 0.5f;
+																											this.lavaImmune = true;
+																											this.value = 350f;
+																											this.buffImmune[24] = true;
+																											this.buffImmune[39] = true;
+																										}
+																										else
+																										{
+																											if (this.type == 25)
+																											{
+																												this.name = "Burning Sphere";
+																												this.width = 16;
+																												this.height = 16;
+																												this.aiStyle = 9;
+																												this.damage = 30;
+																												this.defense = 0;
+																												this.lifeMax = 1;
+																												this.soundHit = 3;
+																												this.soundKilled = 3;
+																												this.noGravity = true;
+																												this.noTileCollide = true;
+																												this.knockBackResist = 0f;
+																												this.alpha = 100;
+																											}
+																											else
+																											{
+																												if (this.type == 26)
+																												{
+																													this.name = "Goblin Peon";
+																													this.scale = 0.9f;
+																													this.width = 18;
+																													this.height = 40;
+																													this.aiStyle = 3;
+																													this.damage = 12;
+																													this.defense = 4;
+																													this.lifeMax = 60;
+																													this.soundHit = 1;
+																													this.soundKilled = 1;
+																													this.knockBackResist = 0.8f;
+																													this.value = 100f;
+																													this.buffImmune[31] = false;
+																												}
+																												else
+																												{
+																													if (this.type == 27)
+																													{
+																														this.name = "Goblin Thief";
+																														this.scale = 0.95f;
+																														this.width = 18;
+																														this.height = 40;
+																														this.aiStyle = 3;
+																														this.damage = 20;
+																														this.defense = 6;
+																														this.lifeMax = 80;
+																														this.soundHit = 1;
+																														this.soundKilled = 1;
+																														this.knockBackResist = 0.7f;
+																														this.value = 200f;
+																														this.buffImmune[31] = false;
+																													}
+																													else
+																													{
+																														if (this.type == 28)
+																														{
+																															this.name = "Goblin Warrior";
+																															this.scale = 1.1f;
+																															this.width = 18;
+																															this.height = 40;
+																															this.aiStyle = 3;
+																															this.damage = 25;
+																															this.defense = 8;
+																															this.lifeMax = 110;
+																															this.soundHit = 1;
+																															this.soundKilled = 1;
+																															this.knockBackResist = 0.5f;
+																															this.value = 150f;
+																															this.buffImmune[31] = false;
+																														}
+																														else
+																														{
+																															if (this.type == 29)
+																															{
+																																this.name = "Goblin Sorcerer";
+																																this.width = 18;
+																																this.height = 40;
+																																this.aiStyle = 8;
+																																this.damage = 20;
+																																this.defense = 2;
+																																this.lifeMax = 40;
+																																this.soundHit = 1;
+																																this.soundKilled = 1;
+																																this.knockBackResist = 0.6f;
+																																this.value = 200f;
+																															}
+																															else
+																															{
+																																if (this.type == 30)
+																																{
+																																	this.name = "Chaos Ball";
+																																	this.width = 16;
+																																	this.height = 16;
+																																	this.aiStyle = 9;
+																																	this.damage = 20;
+																																	this.defense = 0;
+																																	this.lifeMax = 1;
+																																	this.soundHit = 3;
+																																	this.soundKilled = 3;
+																																	this.noGravity = true;
+																																	this.noTileCollide = true;
+																																	this.alpha = 100;
+																																	this.knockBackResist = 0f;
+																																}
+																																else
+																																{
+																																	if (this.type == 31)
+																																	{
+																																		this.name = "Angry Bones";
+																																		this.width = 18;
+																																		this.height = 40;
+																																		this.aiStyle = 3;
+																																		this.damage = 26;
+																																		this.defense = 8;
+																																		this.lifeMax = 80;
+																																		this.soundHit = 2;
+																																		this.soundKilled = 2;
+																																		this.knockBackResist = 0.8f;
+																																		this.value = 130f;
+																																		this.buffImmune[20] = true;
+																																		this.buffImmune[31] = false;
+																																	}
+																																	else
+																																	{
+																																		if (this.type == 32)
+																																		{
+																																			this.name = "Dark Caster";
+																																			this.width = 18;
+																																			this.height = 40;
+																																			this.aiStyle = 8;
+																																			this.damage = 20;
+																																			this.defense = 2;
+																																			this.lifeMax = 50;
+																																			this.soundHit = 2;
+																																			this.soundKilled = 2;
+																																			this.knockBackResist = 0.6f;
+																																			this.value = 140f;
+																																			this.npcSlots = 2f;
+																																			this.buffImmune[20] = true;
+																																		}
+																																		else
+																																		{
+																																			if (this.type == 33)
+																																			{
+																																				this.name = "Water Sphere";
+																																				this.width = 16;
+																																				this.height = 16;
+																																				this.aiStyle = 9;
+																																				this.damage = 20;
+																																				this.defense = 0;
+																																				this.lifeMax = 1;
+																																				this.soundHit = 3;
+																																				this.soundKilled = 3;
+																																				this.noGravity = true;
+																																				this.noTileCollide = true;
+																																				this.alpha = 100;
+																																				this.knockBackResist = 0f;
+																																			}
+																																			else
+																																			{
+																																				if (this.type == 34)
+																																				{
+																																					this.name = "Cursed Skull";
+																																					this.width = 26;
+																																					this.height = 28;
+																																					this.aiStyle = 10;
+																																					this.damage = 35;
+																																					this.defense = 6;
+																																					this.lifeMax = 40;
+																																					this.soundHit = 2;
+																																					this.soundKilled = 2;
+																																					this.noGravity = true;
+																																					this.noTileCollide = true;
+																																					this.value = 150f;
+																																					this.knockBackResist = 0.2f;
+																																					this.npcSlots = 0.75f;
+																																					this.buffImmune[20] = true;
+																																					this.buffImmune[24] = true;
+																																					this.buffImmune[39] = true;
+																																				}
+																																				else
+																																				{
+																																					if (this.type == 35)
+																																					{
+																																						this.displayName = "Skeletron";
+																																						this.name = "Skeletron Head";
+																																						this.width = 80;
+																																						this.height = 102;
+																																						this.aiStyle = 11;
+																																						this.damage = 32;
+																																						this.defense = 10;
+																																						this.lifeMax = 4400;
+																																						this.soundHit = 2;
+																																						this.soundKilled = 2;
+																																						this.noGravity = true;
+																																						this.noTileCollide = true;
+																																						this.value = 50000f;
+																																						this.knockBackResist = 0f;
+																																						this.boss = true;
+																																						this.npcSlots = 6f;
+																																						this.buffImmune[20] = true;
+																																						this.buffImmune[24] = true;
+																																						this.buffImmune[39] = true;
+																																					}
+																																					else
+																																					{
+																																						if (this.type == 36)
+																																						{
+																																							this.displayName = "Skeletron";
+																																							this.name = "Skeletron Hand";
+																																							this.width = 52;
+																																							this.height = 52;
+																																							this.aiStyle = 12;
+																																							this.damage = 20;
+																																							this.defense = 14;
+																																							this.lifeMax = 600;
+																																							this.soundHit = 2;
+																																							this.soundKilled = 2;
+																																							this.noGravity = true;
+																																							this.noTileCollide = true;
+																																							this.knockBackResist = 0f;
+																																							this.buffImmune[20] = true;
+																																							this.buffImmune[24] = true;
+																																							this.buffImmune[39] = true;
+																																						}
+																																						else
+																																						{
+																																							if (this.type == 37)
+																																							{
+																																								this.townNPC = true;
+																																								this.friendly = true;
+																																								this.name = "Old Man";
+																																								this.width = 18;
+																																								this.height = 40;
+																																								this.aiStyle = 7;
+																																								this.damage = 10;
+																																								this.defense = 15;
+																																								this.lifeMax = 250;
+																																								this.soundHit = 1;
+																																								this.soundKilled = 1;
+																																								this.knockBackResist = 0.5f;
+																																							}
+																																							else
+																																							{
+																																								if (this.type == 38)
+																																								{
+																																									this.townNPC = true;
+																																									this.friendly = true;
+																																									this.name = "Demolitionist";
+																																									this.width = 18;
+																																									this.height = 40;
+																																									this.aiStyle = 7;
+																																									this.damage = 10;
+																																									this.defense = 15;
+																																									this.lifeMax = 250;
+																																									this.soundHit = 1;
+																																									this.soundKilled = 1;
+																																									this.knockBackResist = 0.5f;
+																																								}
+																																								else
+																																								{
+																																									if (this.type == 39)
+																																									{
+																																										this.npcSlots = 6f;
+																																										this.name = "Bone Serpent Head";
+																																										this.displayName = "Bone Serpent";
+																																										this.width = 22;
+																																										this.height = 22;
+																																										this.aiStyle = 6;
+																																										this.netAlways = true;
+																																										this.damage = 30;
+																																										this.defense = 10;
+																																										this.lifeMax = 250;
+																																										this.soundHit = 2;
+																																										this.soundKilled = 5;
+																																										this.noGravity = true;
+																																										this.noTileCollide = true;
+																																										this.knockBackResist = 0f;
+																																										this.behindTiles = true;
+																																										this.value = 1200f;
+																																										this.buffImmune[20] = true;
+																																										this.buffImmune[24] = true;
+																																										this.buffImmune[39] = true;
+																																									}
+																																									else
+																																									{
+																																										if (this.type == 40)
+																																										{
+																																											this.name = "Bone Serpent Body";
+																																											this.displayName = "Bone Serpent";
+																																											this.width = 22;
+																																											this.height = 22;
+																																											this.aiStyle = 6;
+																																											this.netAlways = true;
+																																											this.damage = 15;
+																																											this.defense = 12;
+																																											this.lifeMax = 250;
+																																											this.soundHit = 2;
+																																											this.soundKilled = 5;
+																																											this.noGravity = true;
+																																											this.noTileCollide = true;
+																																											this.knockBackResist = 0f;
+																																											this.behindTiles = true;
+																																											this.value = 1200f;
+																																											this.buffImmune[20] = true;
+																																											this.buffImmune[24] = true;
+																																											this.buffImmune[39] = true;
+																																										}
+																																										else
+																																										{
+																																											if (this.type == 41)
+																																											{
+																																												this.name = "Bone Serpent Tail";
+																																												this.displayName = "Bone Serpent";
+																																												this.width = 22;
+																																												this.height = 22;
+																																												this.aiStyle = 6;
+																																												this.netAlways = true;
+																																												this.damage = 10;
+																																												this.defense = 18;
+																																												this.lifeMax = 250;
+																																												this.soundHit = 2;
+																																												this.soundKilled = 5;
+																																												this.noGravity = true;
+																																												this.noTileCollide = true;
+																																												this.knockBackResist = 0f;
+																																												this.behindTiles = true;
+																																												this.value = 1200f;
+																																												this.buffImmune[20] = true;
+																																												this.buffImmune[24] = true;
+																																												this.buffImmune[39] = true;
+																																											}
+																																											else
+																																											{
+																																												if (this.type == 42)
+																																												{
+																																													this.name = "Hornet";
+																																													this.width = 34;
+																																													this.height = 32;
+																																													this.aiStyle = 5;
+																																													this.damage = 34;
+																																													this.defense = 12;
+																																													this.lifeMax = 50;
+																																													this.soundHit = 1;
+																																													this.knockBackResist = 0.5f;
+																																													this.soundKilled = 1;
+																																													this.value = 200f;
+																																													this.noGravity = true;
+																																													this.buffImmune[20] = true;
+																																												}
+																																												else
+																																												{
+																																													if (this.type == 43)
+																																													{
+																																														this.noGravity = true;
+																																														this.noTileCollide = true;
+																																														this.name = "Man Eater";
+																																														this.width = 30;
+																																														this.height = 30;
+																																														this.aiStyle = 13;
+																																														this.damage = 42;
+																																														this.defense = 14;
+																																														this.lifeMax = 130;
+																																														this.soundHit = 1;
+																																														this.knockBackResist = 0f;
+																																														this.soundKilled = 1;
+																																														this.value = 350f;
+																																														this.buffImmune[20] = true;
+																																													}
+																																													else
+																																													{
+																																														if (this.type == 44)
+																																														{
+																																															this.name = "Undead Miner";
+																																															this.width = 18;
+																																															this.height = 40;
+																																															this.aiStyle = 3;
+																																															this.damage = 22;
+																																															this.defense = 9;
+																																															this.lifeMax = 70;
+																																															this.soundHit = 2;
+																																															this.soundKilled = 2;
+																																															this.knockBackResist = 0.5f;
+																																															this.value = 250f;
+																																															this.buffImmune[20] = true;
+																																															this.buffImmune[31] = false;
+																																														}
+																																														else
+																																														{
+																																															if (this.type == 45)
+																																															{
+																																																this.name = "Tim";
+																																																this.width = 18;
+																																																this.height = 40;
+																																																this.aiStyle = 8;
+																																																this.damage = 20;
+																																																this.defense = 4;
+																																																this.lifeMax = 200;
+																																																this.soundHit = 2;
+																																																this.soundKilled = 2;
+																																																this.knockBackResist = 0.6f;
+																																																this.value = 5000f;
+																																																this.buffImmune[20] = true;
+																																															}
+																																															else
+																																															{
+																																																if (this.type == 46)
+																																																{
+																																																	this.name = "Bunny";
+																																																	this.width = 18;
+																																																	this.height = 20;
+																																																	this.aiStyle = 7;
+																																																	this.damage = 0;
+																																																	this.defense = 0;
+																																																	this.lifeMax = 5;
+																																																	this.soundHit = 1;
+																																																	this.soundKilled = 1;
+																																																}
+																																																else
+																																																{
+																																																	if (this.type == 47)
+																																																	{
+																																																		this.name = "Corrupt Bunny";
+																																																		this.width = 18;
+																																																		this.height = 20;
+																																																		this.aiStyle = 3;
+																																																		this.damage = 20;
+																																																		this.defense = 4;
+																																																		this.lifeMax = 70;
+																																																		this.soundHit = 1;
+																																																		this.soundKilled = 1;
+																																																		this.value = 500f;
+																																																		this.buffImmune[31] = false;
+																																																	}
+																																																	else
+																																																	{
+																																																		if (this.type == 48)
+																																																		{
+																																																			this.name = "Harpy";
+																																																			this.width = 24;
+																																																			this.height = 34;
+																																																			this.aiStyle = 14;
+																																																			this.damage = 25;
+																																																			this.defense = 8;
+																																																			this.lifeMax = 100;
+																																																			this.soundHit = 1;
+																																																			this.knockBackResist = 0.6f;
+																																																			this.soundKilled = 1;
+																																																			this.value = 300f;
+																																																		}
+																																																		else
+																																																		{
+																																																			if (this.type == 49)
+																																																			{
+																																																				this.npcSlots = 0.5f;
+																																																				this.name = "Cave Bat";
+																																																				this.width = 22;
+																																																				this.height = 18;
+																																																				this.aiStyle = 14;
+																																																				this.damage = 13;
+																																																				this.defense = 2;
+																																																				this.lifeMax = 16;
+																																																				this.soundHit = 1;
+																																																				this.knockBackResist = 0.8f;
+																																																				this.soundKilled = 4;
+																																																				this.value = 90f;
+																																																				this.buffImmune[31] = false;
+																																																			}
+																																																			else
+																																																			{
+																																																				if (this.type == 50)
+																																																				{
+																																																					this.boss = true;
+																																																					this.name = "King Slime";
+																																																					this.width = 98;
+																																																					this.height = 92;
+																																																					this.aiStyle = 15;
+																																																					this.damage = 40;
+																																																					this.defense = 10;
+																																																					this.lifeMax = 2000;
+																																																					this.knockBackResist = 0f;
+																																																					this.soundHit = 1;
+																																																					this.soundKilled = 1;
+																																																					this.alpha = 30;
+																																																					this.value = 10000f;
+																																																					this.scale = 1.25f;
+																																																					this.buffImmune[20] = true;
+																																																				}
+																																																				else
+																																																				{
+																																																					if (this.type == 51)
+																																																					{
+																																																						this.npcSlots = 0.5f;
+																																																						this.name = "Jungle Bat";
+																																																						this.width = 22;
+																																																						this.height = 18;
+																																																						this.aiStyle = 14;
+																																																						this.damage = 20;
+																																																						this.defense = 4;
+																																																						this.lifeMax = 34;
+																																																						this.soundHit = 1;
+																																																						this.knockBackResist = 0.8f;
+																																																						this.soundKilled = 4;
+																																																						this.value = 80f;
+																																																						this.buffImmune[31] = false;
+																																																					}
+																																																					else
+																																																					{
+																																																						if (this.type == 52)
+																																																						{
+																																																							this.name = "Doctor Bones";
+																																																							this.width = 18;
+																																																							this.height = 40;
+																																																							this.aiStyle = 3;
+																																																							this.damage = 20;
+																																																							this.defense = 10;
+																																																							this.lifeMax = 500;
+																																																							this.soundHit = 1;
+																																																							this.soundKilled = 2;
+																																																							this.knockBackResist = 0.5f;
+																																																							this.value = 1000f;
+																																																							this.buffImmune[31] = false;
+																																																						}
+																																																						else
+																																																						{
+																																																							if (this.type == 53)
+																																																							{
+																																																								this.name = "The Groom";
+																																																								this.width = 18;
+																																																								this.height = 40;
+																																																								this.aiStyle = 3;
+																																																								this.damage = 14;
+																																																								this.defense = 8;
+																																																								this.lifeMax = 200;
+																																																								this.soundHit = 1;
+																																																								this.soundKilled = 2;
+																																																								this.knockBackResist = 0.5f;
+																																																								this.value = 1000f;
+																																																								this.buffImmune[31] = false;
+																																																							}
+																																																							else
+																																																							{
+																																																								if (this.type == 54)
+																																																								{
+																																																									this.townNPC = true;
+																																																									this.friendly = true;
+																																																									this.name = "Clothier";
+																																																									this.width = 18;
+																																																									this.height = 40;
+																																																									this.aiStyle = 7;
+																																																									this.damage = 10;
+																																																									this.defense = 15;
+																																																									this.lifeMax = 250;
+																																																									this.soundHit = 1;
+																																																									this.soundKilled = 1;
+																																																									this.knockBackResist = 0.5f;
+																																																								}
+																																																								else
+																																																								{
+																																																									if (this.type == 55)
+																																																									{
+																																																										this.noGravity = true;
+																																																										this.name = "Goldfish";
+																																																										this.width = 20;
+																																																										this.height = 18;
+																																																										this.aiStyle = 16;
+																																																										this.damage = 0;
+																																																										this.defense = 0;
+																																																										this.lifeMax = 5;
+																																																										this.soundHit = 1;
+																																																										this.soundKilled = 1;
+																																																										this.knockBackResist = 0.5f;
+																																																									}
+																																																									else
+																																																									{
+																																																										if (this.type == 56)
+																																																										{
+																																																											this.noTileCollide = true;
+																																																											this.noGravity = true;
+																																																											this.name = "Snatcher";
+																																																											this.width = 30;
+																																																											this.height = 30;
+																																																											this.aiStyle = 13;
+																																																											this.damage = 25;
+																																																											this.defense = 10;
+																																																											this.lifeMax = 60;
+																																																											this.soundHit = 1;
+																																																											this.knockBackResist = 0f;
+																																																											this.soundKilled = 1;
+																																																											this.value = 90f;
+																																																											this.buffImmune[20] = true;
+																																																										}
+																																																										else
+																																																										{
+																																																											if (this.type == 57)
+																																																											{
+																																																												this.noGravity = true;
+																																																												this.name = "Corrupt Goldfish";
+																																																												this.width = 18;
+																																																												this.height = 20;
+																																																												this.aiStyle = 16;
+																																																												this.damage = 30;
+																																																												this.defense = 6;
+																																																												this.lifeMax = 100;
+																																																												this.soundHit = 1;
+																																																												this.soundKilled = 1;
+																																																												this.value = 500f;
+																																																											}
+																																																											else
+																																																											{
+																																																												if (this.type == 58)
+																																																												{
+																																																													this.npcSlots = 0.5f;
+																																																													this.noGravity = true;
+																																																													this.name = "Piranha";
+																																																													this.width = 18;
+																																																													this.height = 20;
+																																																													this.aiStyle = 16;
+																																																													this.damage = 25;
+																																																													this.defense = 2;
+																																																													this.lifeMax = 30;
+																																																													this.soundHit = 1;
+																																																													this.soundKilled = 1;
+																																																													this.value = 50f;
+																																																												}
+																																																												else
+																																																												{
+																																																													if (this.type == 59)
+																																																													{
+																																																														this.name = "Lava Slime";
+																																																														this.width = 24;
+																																																														this.height = 18;
+																																																														this.aiStyle = 1;
+																																																														this.damage = 15;
+																																																														this.defense = 10;
+																																																														this.lifeMax = 50;
+																																																														this.soundHit = 1;
+																																																														this.soundKilled = 1;
+																																																														this.scale = 1.1f;
+																																																														this.alpha = 50;
+																																																														this.lavaImmune = true;
+																																																														this.value = 120f;
+																																																														this.buffImmune[20] = true;
+																																																														this.buffImmune[24] = true;
+																																																														this.buffImmune[39] = true;
+																																																														this.buffImmune[31] = false;
+																																																													}
+																																																													else
+																																																													{
+																																																														if (this.type == 60)
+																																																														{
+																																																															this.npcSlots = 0.5f;
+																																																															this.name = "Hellbat";
+																																																															this.width = 22;
+																																																															this.height = 18;
+																																																															this.aiStyle = 14;
+																																																															this.damage = 35;
+																																																															this.defense = 8;
+																																																															this.lifeMax = 46;
+																																																															this.soundHit = 1;
+																																																															this.knockBackResist = 0.8f;
+																																																															this.soundKilled = 4;
+																																																															this.value = 120f;
+																																																															this.scale = 1.1f;
+																																																															this.lavaImmune = true;
+																																																															this.buffImmune[24] = true;
+																																																															this.buffImmune[39] = true;
+																																																															this.buffImmune[31] = false;
+																																																														}
+																																																														else
+																																																														{
+																																																															if (this.type == 61)
+																																																															{
+																																																																this.name = "Vulture";
+																																																																this.width = 36;
+																																																																this.height = 36;
+																																																																this.aiStyle = 17;
+																																																																this.damage = 15;
+																																																																this.defense = 4;
+																																																																this.lifeMax = 40;
+																																																																this.soundHit = 1;
+																																																																this.knockBackResist = 0.8f;
+																																																																this.soundKilled = 1;
+																																																																this.value = 60f;
+																																																															}
+																																																															else
+																																																															{
+																																																																if (this.type == 62)
+																																																																{
+																																																																	this.npcSlots = 2f;
+																																																																	this.name = "Demon";
+																																																																	this.width = 28;
+																																																																	this.height = 48;
+																																																																	this.aiStyle = 14;
+																																																																	this.damage = 32;
+																																																																	this.defense = 8;
+																																																																	this.lifeMax = 120;
+																																																																	this.soundHit = 1;
+																																																																	this.knockBackResist = 0.8f;
+																																																																	this.soundKilled = 1;
+																																																																	this.value = 300f;
+																																																																	this.lavaImmune = true;
+																																																																	this.buffImmune[24] = true;
+																																																																	this.buffImmune[39] = true;
+																																																																}
+																																																																else
+																																																																{
+																																																																	if (this.type == 63)
+																																																																	{
+																																																																		this.noGravity = true;
+																																																																		this.name = "Blue Jellyfish";
+																																																																		this.width = 26;
+																																																																		this.height = 26;
+																																																																		this.aiStyle = 18;
+																																																																		this.damage = 20;
+																																																																		this.defense = 2;
+																																																																		this.lifeMax = 30;
+																																																																		this.soundHit = 1;
+																																																																		this.soundKilled = 1;
+																																																																		this.value = 100f;
+																																																																		this.alpha = 20;
+																																																																	}
+																																																																	else
+																																																																	{
+																																																																		if (this.type == 64)
+																																																																		{
+																																																																			this.noGravity = true;
+																																																																			this.name = "Pink Jellyfish";
+																																																																			this.width = 26;
+																																																																			this.height = 26;
+																																																																			this.aiStyle = 18;
+																																																																			this.damage = 30;
+																																																																			this.defense = 6;
+																																																																			this.lifeMax = 70;
+																																																																			this.soundHit = 1;
+																																																																			this.soundKilled = 1;
+																																																																			this.value = 100f;
+																																																																			this.alpha = 20;
+																																																																		}
+																																																																		else
+																																																																		{
+																																																																			if (this.type == 65)
+																																																																			{
+																																																																				this.noGravity = true;
+																																																																				this.name = "Shark";
+																																																																				this.width = 100;
+																																																																				this.height = 24;
+																																																																				this.aiStyle = 16;
+																																																																				this.damage = 40;
+																																																																				this.defense = 2;
+																																																																				this.lifeMax = 300;
+																																																																				this.soundHit = 1;
+																																																																				this.soundKilled = 1;
+																																																																				this.value = 400f;
+																																																																				this.knockBackResist = 0.7f;
+																																																																			}
+																																																																			else
+																																																																			{
+																																																																				if (this.type == 66)
+																																																																				{
+																																																																					this.npcSlots = 2f;
+																																																																					this.name = "Voodoo Demon";
+																																																																					this.width = 28;
+																																																																					this.height = 48;
+																																																																					this.aiStyle = 14;
+																																																																					this.damage = 32;
+																																																																					this.defense = 8;
+																																																																					this.lifeMax = 140;
+																																																																					this.soundHit = 1;
+																																																																					this.knockBackResist = 0.8f;
+																																																																					this.soundKilled = 1;
+																																																																					this.value = 1000f;
+																																																																					this.lavaImmune = true;
+																																																																					this.buffImmune[24] = true;
+																																																																					this.buffImmune[39] = true;
+																																																																				}
+																																																																				else
+																																																																				{
+																																																																					if (this.type == 67)
+																																																																					{
+																																																																						this.name = "Crab";
+																																																																						this.width = 28;
+																																																																						this.height = 20;
+																																																																						this.aiStyle = 3;
+																																																																						this.damage = 20;
+																																																																						this.defense = 10;
+																																																																						this.lifeMax = 40;
+																																																																						this.soundHit = 1;
+																																																																						this.soundKilled = 1;
+																																																																						this.value = 60f;
+																																																																					}
+																																																																					else
+																																																																					{
+																																																																						if (this.type == 68)
+																																																																						{
+																																																																							this.name = "Dungeon Guardian";
+																																																																							this.width = 80;
+																																																																							this.height = 102;
+																																																																							this.aiStyle = 11;
+																																																																							this.damage = 9000;
+																																																																							this.defense = 9000;
+																																																																							this.lifeMax = 9999;
+																																																																							this.soundHit = 2;
+																																																																							this.soundKilled = 2;
+																																																																							this.noGravity = true;
+																																																																							this.noTileCollide = true;
+																																																																							this.knockBackResist = 0f;
+																																																																							this.buffImmune[20] = true;
+																																																																							this.buffImmune[24] = true;
+																																																																							this.buffImmune[39] = true;
+																																																																						}
+																																																																						else
+																																																																						{
+																																																																							if (this.type == 69)
+																																																																							{
+																																																																								this.name = "Antlion";
+																																																																								this.width = 24;
+																																																																								this.height = 24;
+																																																																								this.aiStyle = 19;
+																																																																								this.damage = 10;
+																																																																								this.defense = 6;
+																																																																								this.lifeMax = 45;
+																																																																								this.soundHit = 1;
+																																																																								this.soundKilled = 1;
+																																																																								this.knockBackResist = 0f;
+																																																																								this.value = 60f;
+																																																																								this.behindTiles = true;
+																																																																							}
+																																																																							else
+																																																																							{
+																																																																								if (this.type == 70)
+																																																																								{
+																																																																									this.npcSlots = 0.3f;
+																																																																									this.name = "Spike Ball";
+																																																																									this.width = 34;
+																																																																									this.height = 34;
+																																																																									this.aiStyle = 20;
+																																																																									this.damage = 32;
+																																																																									this.defense = 100;
+																																																																									this.lifeMax = 100;
+																																																																									this.soundHit = 1;
+																																																																									this.soundKilled = 1;
+																																																																									this.knockBackResist = 0f;
+																																																																									this.noGravity = true;
+																																																																									this.noTileCollide = true;
+																																																																									this.dontTakeDamage = true;
+																																																																									this.scale = 1.5f;
+																																																																								}
+																																																																								else
+																																																																								{
+																																																																									if (this.type == 71)
+																																																																									{
+																																																																										this.npcSlots = 2f;
+																																																																										this.name = "Dungeon Slime";
+																																																																										this.width = 36;
+																																																																										this.height = 24;
+																																																																										this.aiStyle = 1;
+																																																																										this.damage = 30;
+																																																																										this.defense = 7;
+																																																																										this.lifeMax = 150;
+																																																																										this.soundHit = 1;
+																																																																										this.soundKilled = 1;
+																																																																										this.alpha = 60;
+																																																																										this.value = 150f;
+																																																																										this.scale = 1.25f;
+																																																																										this.knockBackResist = 0.6f;
+																																																																										this.buffImmune[20] = true;
+																																																																										this.buffImmune[31] = false;
+																																																																									}
+																																																																									else
+																																																																									{
+																																																																										if (this.type == 72)
+																																																																										{
+																																																																											this.npcSlots = 0.3f;
+																																																																											this.name = "Blazing Wheel";
+																																																																											this.width = 34;
+																																																																											this.height = 34;
+																																																																											this.aiStyle = 21;
+																																																																											this.damage = 24;
+																																																																											this.defense = 100;
+																																																																											this.lifeMax = 100;
+																																																																											this.alpha = 100;
+																																																																											this.behindTiles = true;
+																																																																											this.soundHit = 1;
+																																																																											this.soundKilled = 1;
+																																																																											this.knockBackResist = 0f;
+																																																																											this.noGravity = true;
+																																																																											this.dontTakeDamage = true;
+																																																																											this.scale = 1.2f;
+																																																																											this.buffImmune[20] = true;
+																																																																											this.buffImmune[24] = true;
+																																																																											this.buffImmune[39] = true;
+																																																																										}
+																																																																										else
+																																																																										{
+																																																																											if (this.type == 73)
+																																																																											{
+																																																																												this.name = "Goblin Scout";
+																																																																												this.scale = 0.95f;
+																																																																												this.width = 18;
+																																																																												this.height = 40;
+																																																																												this.aiStyle = 3;
+																																																																												this.damage = 20;
+																																																																												this.defense = 6;
+																																																																												this.lifeMax = 80;
+																																																																												this.soundHit = 1;
+																																																																												this.soundKilled = 1;
+																																																																												this.knockBackResist = 0.7f;
+																																																																												this.value = 200f;
+																																																																												this.buffImmune[31] = false;
+																																																																											}
+																																																																											else
+																																																																											{
+																																																																												if (this.type == 74)
+																																																																												{
+																																																																													this.name = "Bird";
+																																																																													this.width = 14;
+																																																																													this.height = 14;
+																																																																													this.aiStyle = 24;
+																																																																													this.damage = 0;
+																																																																													this.defense = 0;
+																																																																													this.lifeMax = 5;
+																																																																													this.soundHit = 1;
+																																																																													this.knockBackResist = 0.8f;
+																																																																													this.soundKilled = 1;
+																																																																												}
+																																																																												else
+																																																																												{
+																																																																													if (this.type == 75)
+																																																																													{
+																																																																														this.noGravity = true;
+																																																																														this.name = "Pixie";
+																																																																														this.width = 20;
+																																																																														this.height = 20;
+																																																																														this.aiStyle = 22;
+																																																																														this.damage = 55;
+																																																																														this.defense = 20;
+																																																																														this.lifeMax = 150;
+																																																																														this.soundHit = 5;
+																																																																														this.knockBackResist = 0.6f;
+																																																																														this.soundKilled = 7;
+																																																																														this.value = 350f;
+																																																																														this.buffImmune[20] = true;
+																																																																														this.buffImmune[24] = true;
+																																																																														this.buffImmune[39] = true;
+																																																																														this.buffImmune[31] = false;
+																																																																													}
+																																																																													else
+																																																																													{
+																																																																														if (this.type == 77)
+																																																																														{
+																																																																															this.name = "Armored Skeleton";
+																																																																															this.width = 18;
+																																																																															this.height = 40;
+																																																																															this.aiStyle = 3;
+																																																																															this.damage = 60;
+																																																																															this.defense = 36;
+																																																																															this.lifeMax = 340;
+																																																																															this.soundHit = 2;
+																																																																															this.soundKilled = 2;
+																																																																															this.knockBackResist = 0.4f;
+																																																																															this.value = 400f;
+																																																																															this.buffImmune[20] = true;
+																																																																															this.buffImmune[31] = false;
+																																																																														}
+																																																																														else
+																																																																														{
+																																																																															if (this.type == 78)
+																																																																															{
+																																																																																this.name = "Mummy";
+																																																																																this.width = 18;
+																																																																																this.height = 40;
+																																																																																this.aiStyle = 3;
+																																																																																this.damage = 50;
+																																																																																this.defense = 16;
+																																																																																this.lifeMax = 130;
+																																																																																this.soundHit = 1;
+																																																																																this.soundKilled = 6;
+																																																																																this.knockBackResist = 0.6f;
+																																																																																this.value = 600f;
+																																																																																this.buffImmune[31] = false;
+																																																																															}
+																																																																															else
+																																																																															{
+																																																																																if (this.type == 79)
+																																																																																{
+																																																																																	this.name = "Dark Mummy";
+																																																																																	this.width = 18;
+																																																																																	this.height = 40;
+																																																																																	this.aiStyle = 3;
+																																																																																	this.damage = 60;
+																																																																																	this.defense = 18;
+																																																																																	this.lifeMax = 180;
+																																																																																	this.soundHit = 1;
+																																																																																	this.soundKilled = 6;
+																																																																																	this.knockBackResist = 0.5f;
+																																																																																	this.value = 700f;
+																																																																																	this.buffImmune[31] = false;
+																																																																																}
+																																																																																else
+																																																																																{
+																																																																																	if (this.type == 80)
+																																																																																	{
+																																																																																		this.name = "Light Mummy";
+																																																																																		this.width = 18;
+																																																																																		this.height = 40;
+																																																																																		this.aiStyle = 3;
+																																																																																		this.damage = 55;
+																																																																																		this.defense = 18;
+																																																																																		this.lifeMax = 200;
+																																																																																		this.soundHit = 1;
+																																																																																		this.soundKilled = 6;
+																																																																																		this.knockBackResist = 0.55f;
+																																																																																		this.value = 700f;
+																																																																																		this.buffImmune[31] = false;
+																																																																																	}
+																																																																																	else
+																																																																																	{
+																																																																																		if (this.type == 81)
+																																																																																		{
+																																																																																			this.name = "Corrupt Slime";
+																																																																																			this.width = 40;
+																																																																																			this.height = 30;
+																																																																																			this.aiStyle = 1;
+																																																																																			this.damage = 55;
+																																																																																			this.defense = 20;
+																																																																																			this.lifeMax = 170;
+																																																																																			this.soundHit = 1;
+																																																																																			this.soundKilled = 1;
+																																																																																			this.alpha = 55;
+																																																																																			this.value = 400f;
+																																																																																			this.scale = 1.1f;
+																																																																																			this.buffImmune[20] = true;
+																																																																																			this.buffImmune[31] = false;
+																																																																																		}
+																																																																																		else
+																																																																																		{
+																																																																																			if (this.type == 82)
+																																																																																			{
+																																																																																				this.noGravity = true;
+																																																																																				this.noTileCollide = true;
+																																																																																				this.name = "Wraith";
+																																																																																				this.width = 24;
+																																																																																				this.height = 44;
+																																																																																				this.aiStyle = 22;
+																																																																																				this.damage = 75;
+																																																																																				this.defense = 18;
+																																																																																				this.lifeMax = 200;
+																																																																																				this.soundHit = 1;
+																																																																																				this.soundKilled = 6;
+																																																																																				this.alpha = 100;
+																																																																																				this.value = 500f;
+																																																																																				this.buffImmune[20] = true;
+																																																																																				this.buffImmune[24] = true;
+																																																																																				this.buffImmune[39] = true;
+																																																																																				this.knockBackResist = 0.7f;
+																																																																																			}
+																																																																																			else
+																																																																																			{
+																																																																																				if (this.type == 83)
+																																																																																				{
+																																																																																					this.name = "Cursed Hammer";
+																																																																																					this.width = 40;
+																																																																																					this.height = 40;
+																																																																																					this.aiStyle = 23;
+																																																																																					this.damage = 80;
+																																																																																					this.defense = 18;
+																																																																																					this.lifeMax = 200;
+																																																																																					this.soundHit = 4;
+																																																																																					this.soundKilled = 6;
+																																																																																					this.value = 1000f;
+																																																																																					this.buffImmune[20] = true;
+																																																																																					this.buffImmune[24] = true;
+																																																																																					this.buffImmune[39] = true;
+																																																																																					this.knockBackResist = 0.4f;
+																																																																																				}
+																																																																																				else
+																																																																																				{
+																																																																																					if (this.type == 84)
+																																																																																					{
+																																																																																						this.name = "Enchanted Sword";
+																																																																																						this.width = 40;
+																																																																																						this.height = 40;
+																																																																																						this.aiStyle = 23;
+																																																																																						this.damage = 80;
+																																																																																						this.defense = 18;
+																																																																																						this.lifeMax = 200;
+																																																																																						this.soundHit = 4;
+																																																																																						this.soundKilled = 6;
+																																																																																						this.value = 1000f;
+																																																																																						this.buffImmune[20] = true;
+																																																																																						this.buffImmune[24] = true;
+																																																																																						this.buffImmune[39] = true;
+																																																																																						this.knockBackResist = 0.4f;
+																																																																																					}
+																																																																																					else
+																																																																																					{
+																																																																																						if (this.type == 85)
+																																																																																						{
+																																																																																							this.name = "Mimic";
+																																																																																							this.width = 24;
+																																																																																							this.height = 24;
+																																																																																							this.aiStyle = 25;
+																																																																																							this.damage = 80;
+																																																																																							this.defense = 30;
+																																																																																							this.lifeMax = 500;
+																																																																																							this.soundHit = 4;
+																																																																																							this.soundKilled = 6;
+																																																																																							this.value = 100000f;
+																																																																																							this.knockBackResist = 0.3f;
+																																																																																							this.buffImmune[20] = true;
+																																																																																							this.buffImmune[24] = true;
+																																																																																							this.buffImmune[39] = true;
+																																																																																						}
+																																																																																						else
+																																																																																						{
+																																																																																							if (this.type == 86)
+																																																																																							{
+																																																																																								this.name = "Unicorn";
+																																																																																								this.width = 46;
+																																																																																								this.height = 42;
+																																																																																								this.aiStyle = 26;
+																																																																																								this.damage = 65;
+																																																																																								this.defense = 30;
+																																																																																								this.lifeMax = 400;
+																																																																																								this.soundHit = 10;
+																																																																																								this.soundKilled = 1;
+																																																																																								this.knockBackResist = 0.3f;
+																																																																																								this.value = 1000f;
+																																																																																								this.buffImmune[31] = false;
+																																																																																							}
+																																																																																							else
+																																																																																							{
+																																																																																								if (this.type == 87)
+																																																																																								{
+																																																																																									this.displayName = "Wyvern";
+																																																																																									this.noTileCollide = true;
+																																																																																									this.npcSlots = 5f;
+																																																																																									this.name = "Wyvern Head";
+																																																																																									this.width = 32;
+																																																																																									this.height = 32;
+																																																																																									this.aiStyle = 6;
+																																																																																									this.netAlways = true;
+																																																																																									this.damage = 80;
+																																																																																									this.defense = 10;
+																																																																																									this.lifeMax = 4000;
+																																																																																									this.soundHit = 7;
+																																																																																									this.soundKilled = 8;
+																																																																																									this.noGravity = true;
+																																																																																									this.knockBackResist = 0f;
+																																																																																									this.value = 10000f;
+																																																																																									this.scale = 1f;
+																																																																																									this.buffImmune[20] = true;
+																																																																																									this.buffImmune[24] = true;
+																																																																																									this.buffImmune[39] = true;
+																																																																																								}
+																																																																																								else
+																																																																																								{
+																																																																																									if (this.type == 88)
+																																																																																									{
+																																																																																										this.displayName = "Wyvern";
+																																																																																										this.noTileCollide = true;
+																																																																																										this.name = "Wyvern Legs";
+																																																																																										this.width = 32;
+																																																																																										this.height = 32;
+																																																																																										this.aiStyle = 6;
+																																																																																										this.netAlways = true;
+																																																																																										this.damage = 40;
+																																																																																										this.defense = 20;
+																																																																																										this.lifeMax = 4000;
+																																																																																										this.soundHit = 7;
+																																																																																										this.soundKilled = 8;
+																																																																																										this.noGravity = true;
+																																																																																										this.knockBackResist = 0f;
+																																																																																										this.value = 10000f;
+																																																																																										this.scale = 1f;
+																																																																																										this.buffImmune[20] = true;
+																																																																																										this.buffImmune[24] = true;
+																																																																																										this.buffImmune[39] = true;
+																																																																																									}
+																																																																																									else
+																																																																																									{
+																																																																																										if (this.type == 89)
+																																																																																										{
+																																																																																											this.displayName = "Wyvern";
+																																																																																											this.noTileCollide = true;
+																																																																																											this.name = "Wyvern Body";
+																																																																																											this.width = 32;
+																																																																																											this.height = 32;
+																																																																																											this.aiStyle = 6;
+																																																																																											this.netAlways = true;
+																																																																																											this.damage = 40;
+																																																																																											this.defense = 20;
+																																																																																											this.lifeMax = 4000;
+																																																																																											this.soundHit = 7;
+																																																																																											this.soundKilled = 8;
+																																																																																											this.noGravity = true;
+																																																																																											this.knockBackResist = 0f;
+																																																																																											this.value = 2000f;
+																																																																																											this.scale = 1f;
+																																																																																											this.buffImmune[20] = true;
+																																																																																											this.buffImmune[24] = true;
+																																																																																											this.buffImmune[39] = true;
+																																																																																										}
+																																																																																										else
+																																																																																										{
+																																																																																											if (this.type == 90)
+																																																																																											{
+																																																																																												this.displayName = "Wyvern";
+																																																																																												this.noTileCollide = true;
+																																																																																												this.name = "Wyvern Body 2";
+																																																																																												this.width = 32;
+																																																																																												this.height = 32;
+																																																																																												this.aiStyle = 6;
+																																																																																												this.netAlways = true;
+																																																																																												this.damage = 40;
+																																																																																												this.defense = 20;
+																																																																																												this.lifeMax = 4000;
+																																																																																												this.soundHit = 7;
+																																																																																												this.soundKilled = 8;
+																																																																																												this.noGravity = true;
+																																																																																												this.knockBackResist = 0f;
+																																																																																												this.value = 10000f;
+																																																																																												this.scale = 1f;
+																																																																																												this.buffImmune[20] = true;
+																																																																																												this.buffImmune[24] = true;
+																																																																																												this.buffImmune[39] = true;
+																																																																																											}
+																																																																																											else
+																																																																																											{
+																																																																																												if (this.type == 91)
+																																																																																												{
+																																																																																													this.displayName = "Wyvern";
+																																																																																													this.noTileCollide = true;
+																																																																																													this.name = "Wyvern Body 3";
+																																																																																													this.width = 32;
+																																																																																													this.height = 32;
+																																																																																													this.aiStyle = 6;
+																																																																																													this.netAlways = true;
+																																																																																													this.damage = 40;
+																																																																																													this.defense = 20;
+																																																																																													this.lifeMax = 4000;
+																																																																																													this.soundHit = 7;
+																																																																																													this.soundKilled = 8;
+																																																																																													this.noGravity = true;
+																																																																																													this.knockBackResist = 0f;
+																																																																																													this.value = 10000f;
+																																																																																													this.scale = 1f;
+																																																																																													this.buffImmune[20] = true;
+																																																																																													this.buffImmune[24] = true;
+																																																																																													this.buffImmune[39] = true;
+																																																																																												}
+																																																																																												else
+																																																																																												{
+																																																																																													if (this.type == 92)
+																																																																																													{
+																																																																																														this.displayName = "Wyvern";
+																																																																																														this.noTileCollide = true;
+																																																																																														this.name = "Wyvern Tail";
+																																																																																														this.width = 32;
+																																																																																														this.height = 32;
+																																																																																														this.aiStyle = 6;
+																																																																																														this.netAlways = true;
+																																																																																														this.damage = 40;
+																																																																																														this.defense = 20;
+																																																																																														this.lifeMax = 4000;
+																																																																																														this.soundHit = 7;
+																																																																																														this.soundKilled = 8;
+																																																																																														this.noGravity = true;
+																																																																																														this.knockBackResist = 0f;
+																																																																																														this.value = 10000f;
+																																																																																														this.scale = 1f;
+																																																																																														this.buffImmune[20] = true;
+																																																																																														this.buffImmune[24] = true;
+																																																																																														this.buffImmune[39] = true;
+																																																																																													}
+																																																																																													else
+																																																																																													{
+																																																																																														if (this.type == 93)
+																																																																																														{
+																																																																																															this.npcSlots = 0.5f;
+																																																																																															this.name = "Giant Bat";
+																																																																																															this.width = 26;
+																																																																																															this.height = 20;
+																																																																																															this.aiStyle = 14;
+																																																																																															this.damage = 70;
+																																																																																															this.defense = 20;
+																																																																																															this.lifeMax = 160;
+																																																																																															this.soundHit = 1;
+																																																																																															this.knockBackResist = 0.75f;
+																																																																																															this.soundKilled = 4;
+																																																																																															this.value = 400f;
+																																																																																															this.buffImmune[31] = false;
+																																																																																														}
+																																																																																														else
+																																																																																														{
+																																																																																															if (this.type == 94)
+																																																																																															{
+																																																																																																this.npcSlots = 1f;
+																																																																																																this.name = "Corruptor";
+																																																																																																this.width = 44;
+																																																																																																this.height = 44;
+																																																																																																this.aiStyle = 5;
+																																																																																																this.damage = 60;
+																																																																																																this.defense = 32;
+																																																																																																this.lifeMax = 230;
+																																																																																																this.soundHit = 1;
+																																																																																																this.soundKilled = 1;
+																																																																																																this.noGravity = true;
+																																																																																																this.knockBackResist = 0.55f;
+																																																																																																this.value = 500f;
+																																																																																															}
+																																																																																															else
+																																																																																															{
+																																																																																																if (this.type == 95)
+																																																																																																{
+																																																																																																	this.displayName = "Digger";
+																																																																																																	this.name = "Digger Head";
+																																																																																																	this.width = 22;
+																																																																																																	this.height = 22;
+																																																																																																	this.aiStyle = 6;
+																																																																																																	this.netAlways = true;
+																																																																																																	this.damage = 45;
+																																																																																																	this.defense = 10;
+																																																																																																	this.lifeMax = 200;
+																																																																																																	this.soundHit = 1;
+																																																																																																	this.soundKilled = 1;
+																																																																																																	this.noGravity = true;
+																																																																																																	this.noTileCollide = true;
+																																																																																																	this.knockBackResist = 0f;
+																																																																																																	this.behindTiles = true;
+																																																																																																	this.scale = 0.9f;
+																																																																																																	this.value = 300f;
+																																																																																																}
+																																																																																																else
+																																																																																																{
+																																																																																																	if (this.type == 96)
+																																																																																																	{
+																																																																																																		this.displayName = "Digger";
+																																																																																																		this.name = "Digger Body";
+																																																																																																		this.width = 22;
+																																																																																																		this.height = 22;
+																																																																																																		this.aiStyle = 6;
+																																																																																																		this.netAlways = true;
+																																																																																																		this.damage = 28;
+																																																																																																		this.defense = 20;
+																																																																																																		this.lifeMax = 200;
+																																																																																																		this.soundHit = 1;
+																																																																																																		this.soundKilled = 1;
+																																																																																																		this.noGravity = true;
+																																																																																																		this.noTileCollide = true;
+																																																																																																		this.knockBackResist = 0f;
+																																																																																																		this.behindTiles = true;
+																																																																																																		this.scale = 0.9f;
+																																																																																																		this.value = 300f;
+																																																																																																	}
+																																																																																																	else
+																																																																																																	{
+																																																																																																		if (this.type == 97)
+																																																																																																		{
+																																																																																																			this.displayName = "Digger";
+																																																																																																			this.name = "Digger Tail";
+																																																																																																			this.width = 22;
+																																																																																																			this.height = 22;
+																																																																																																			this.aiStyle = 6;
+																																																																																																			this.netAlways = true;
+																																																																																																			this.damage = 26;
+																																																																																																			this.defense = 30;
+																																																																																																			this.lifeMax = 200;
+																																																																																																			this.soundHit = 1;
+																																																																																																			this.soundKilled = 1;
+																																																																																																			this.noGravity = true;
+																																																																																																			this.noTileCollide = true;
+																																																																																																			this.knockBackResist = 0f;
+																																																																																																			this.behindTiles = true;
+																																																																																																			this.scale = 0.9f;
+																																																																																																			this.value = 300f;
+																																																																																																		}
+																																																																																																		else
+																																																																																																		{
+																																																																																																			if (this.type == 98)
+																																																																																																			{
+																																																																																																				this.displayName = "World Feeder";
+																																																																																																				this.npcSlots = 3.5f;
+																																																																																																				this.name = "Seeker Head";
+																																																																																																				this.width = 22;
+																																																																																																				this.height = 22;
+																																																																																																				this.aiStyle = 6;
+																																																																																																				this.netAlways = true;
+																																																																																																				this.damage = 70;
+																																																																																																				this.defense = 36;
+																																																																																																				this.lifeMax = 500;
+																																																																																																				this.soundHit = 1;
+																																																																																																				this.soundKilled = 1;
+																																																																																																				this.noGravity = true;
+																																																																																																				this.noTileCollide = true;
+																																																																																																				this.knockBackResist = 0f;
+																																																																																																				this.behindTiles = true;
+																																																																																																				this.value = 700f;
+																																																																																																			}
+																																																																																																			else
+																																																																																																			{
+																																																																																																				if (this.type == 99)
+																																																																																																				{
+																																																																																																					this.displayName = "World Feeder";
+																																																																																																					this.name = "Seeker Body";
+																																																																																																					this.width = 22;
+																																																																																																					this.height = 22;
+																																																																																																					this.aiStyle = 6;
+																																																																																																					this.netAlways = true;
+																																																																																																					this.damage = 55;
+																																																																																																					this.defense = 40;
+																																																																																																					this.lifeMax = 500;
+																																																																																																					this.soundHit = 1;
+																																																																																																					this.soundKilled = 1;
+																																																																																																					this.noGravity = true;
+																																																																																																					this.noTileCollide = true;
+																																																																																																					this.knockBackResist = 0f;
+																																																																																																					this.behindTiles = true;
+																																																																																																					this.value = 700f;
+																																																																																																				}
+																																																																																																				else
+																																																																																																				{
+																																																																																																					if (this.type == 100)
+																																																																																																					{
+																																																																																																						this.displayName = "World Feeder";
+																																																																																																						this.name = "Seeker Tail";
+																																																																																																						this.width = 22;
+																																																																																																						this.height = 22;
+																																																																																																						this.aiStyle = 6;
+																																																																																																						this.netAlways = true;
+																																																																																																						this.damage = 40;
+																																																																																																						this.defense = 44;
+																																																																																																						this.lifeMax = 500;
+																																																																																																						this.soundHit = 1;
+																																																																																																						this.soundKilled = 1;
+																																																																																																						this.noGravity = true;
+																																																																																																						this.noTileCollide = true;
+																																																																																																						this.knockBackResist = 0f;
+																																																																																																						this.behindTiles = true;
+																																																																																																						this.value = 700f;
+																																																																																																					}
+																																																																																																					else
+																																																																																																					{
+																																																																																																						if (this.type == 101)
+																																																																																																						{
+																																																																																																							this.noGravity = true;
+																																																																																																							this.noTileCollide = true;
+																																																																																																							this.behindTiles = true;
+																																																																																																							this.name = "Clinger";
+																																																																																																							this.width = 30;
+																																																																																																							this.height = 30;
+																																																																																																							this.aiStyle = 13;
+																																																																																																							this.damage = 70;
+																																																																																																							this.defense = 30;
+																																																																																																							this.lifeMax = 320;
+																																																																																																							this.soundHit = 1;
+																																																																																																							this.knockBackResist = 0.2f;
+																																																																																																							this.soundKilled = 1;
+																																																																																																							this.value = 600f;
+																																																																																																						}
+																																																																																																						else
+																																																																																																						{
+																																																																																																							if (this.type == 102)
+																																																																																																							{
+																																																																																																								this.npcSlots = 0.5f;
+																																																																																																								this.noGravity = true;
+																																																																																																								this.name = "Angler Fish";
+																																																																																																								this.width = 18;
+																																																																																																								this.height = 20;
+																																																																																																								this.aiStyle = 16;
+																																																																																																								this.damage = 80;
+																																																																																																								this.defense = 22;
+																																																																																																								this.lifeMax = 90;
+																																																																																																								this.soundHit = 1;
+																																																																																																								this.soundKilled = 1;
+																																																																																																								this.value = 500f;
+																																																																																																							}
+																																																																																																							else
+																																																																																																							{
+																																																																																																								if (this.type == 103)
+																																																																																																								{
+																																																																																																									this.noGravity = true;
+																																																																																																									this.name = "Green Jellyfish";
+																																																																																																									this.width = 26;
+																																																																																																									this.height = 26;
+																																																																																																									this.aiStyle = 18;
+																																																																																																									this.damage = 80;
+																																																																																																									this.defense = 30;
+																																																																																																									this.lifeMax = 120;
+																																																																																																									this.soundHit = 1;
+																																																																																																									this.soundKilled = 1;
+																																																																																																									this.value = 800f;
+																																																																																																									this.alpha = 20;
+																																																																																																								}
+																																																																																																								else
+																																																																																																								{
+																																																																																																									if (this.type == 104)
+																																																																																																									{
+																																																																																																										this.name = "Werewolf";
+																																																																																																										this.width = 18;
+																																																																																																										this.height = 40;
+																																																																																																										this.aiStyle = 3;
+																																																																																																										this.damage = 70;
+																																																																																																										this.defense = 40;
+																																																																																																										this.lifeMax = 400;
+																																																																																																										this.soundHit = 6;
+																																																																																																										this.soundKilled = 1;
+																																																																																																										this.knockBackResist = 0.4f;
+																																																																																																										this.value = 1000f;
+																																																																																																										this.buffImmune[31] = false;
+																																																																																																									}
+																																																																																																									else
+																																																																																																									{
+																																																																																																										if (this.type == 105)
+																																																																																																										{
+																																																																																																											this.friendly = true;
+																																																																																																											this.name = "Bound Goblin";
+																																																																																																											this.width = 18;
+																																																																																																											this.height = 34;
+																																																																																																											this.aiStyle = 0;
+																																																																																																											this.damage = 10;
+																																																																																																											this.defense = 15;
+																																																																																																											this.lifeMax = 250;
+																																																																																																											this.soundHit = 1;
+																																																																																																											this.soundKilled = 1;
+																																																																																																											this.knockBackResist = 0.5f;
+																																																																																																											this.scale = 0.9f;
+																																																																																																										}
+																																																																																																										else
+																																																																																																										{
+																																																																																																											if (this.type == 106)
+																																																																																																											{
+																																																																																																												this.friendly = true;
+																																																																																																												this.name = "Bound Wizard";
+																																																																																																												this.width = 18;
+																																																																																																												this.height = 40;
+																																																																																																												this.aiStyle = 0;
+																																																																																																												this.damage = 10;
+																																																																																																												this.defense = 15;
+																																																																																																												this.lifeMax = 250;
+																																																																																																												this.soundHit = 1;
+																																																																																																												this.soundKilled = 1;
+																																																																																																												this.knockBackResist = 0.5f;
+																																																																																																											}
+																																																																																																											else
+																																																																																																											{
+																																																																																																												if (this.type == 107)
+																																																																																																												{
+																																																																																																													this.townNPC = true;
+																																																																																																													this.friendly = true;
+																																																																																																													this.name = "Goblin Tinkerer";
+																																																																																																													this.width = 18;
+																																																																																																													this.height = 40;
+																																																																																																													this.aiStyle = 7;
+																																																																																																													this.damage = 10;
+																																																																																																													this.defense = 15;
+																																																																																																													this.lifeMax = 250;
+																																																																																																													this.soundHit = 1;
+																																																																																																													this.soundKilled = 1;
+																																																																																																													this.knockBackResist = 0.5f;
+																																																																																																													this.scale = 0.9f;
+																																																																																																												}
+																																																																																																												else
+																																																																																																												{
+																																																																																																													if (this.type == 108)
+																																																																																																													{
+																																																																																																														this.townNPC = true;
+																																																																																																														this.friendly = true;
+																																																																																																														this.name = "Wizard";
+																																																																																																														this.width = 18;
+																																																																																																														this.height = 40;
+																																																																																																														this.aiStyle = 7;
+																																																																																																														this.damage = 10;
+																																																																																																														this.defense = 15;
+																																																																																																														this.lifeMax = 250;
+																																																																																																														this.soundHit = 1;
+																																																																																																														this.soundKilled = 1;
+																																																																																																														this.knockBackResist = 0.5f;
+																																																																																																													}
+																																																																																																													else
+																																																																																																													{
+																																																																																																														if (this.type == 109)
+																																																																																																														{
+																																																																																																															this.name = "Clown";
+																																																																																																															this.width = 34;
+																																																																																																															this.height = 78;
+																																																																																																															this.aiStyle = 3;
+																																																																																																															this.damage = 50;
+																																																																																																															this.defense = 20;
+																																																																																																															this.lifeMax = 400;
+																																																																																																															this.soundHit = 1;
+																																																																																																															this.soundKilled = 2;
+																																																																																																															this.knockBackResist = 0.4f;
+																																																																																																															this.value = 8000f;
+																																																																																																														}
+																																																																																																														else
+																																																																																																														{
+																																																																																																															if (this.type == 110)
+																																																																																																															{
+																																																																																																																this.name = "Skeleton Archer";
+																																																																																																																this.width = 18;
+																																																																																																																this.height = 40;
+																																																																																																																this.aiStyle = 3;
+																																																																																																																this.damage = 55;
+																																																																																																																this.defense = 28;
+																																																																																																																this.lifeMax = 260;
+																																																																																																																this.soundHit = 2;
+																																																																																																																this.soundKilled = 2;
+																																																																																																																this.knockBackResist = 0.55f;
+																																																																																																																this.value = 400f;
+																																																																																																																this.buffImmune[20] = true;
+																																																																																																																this.buffImmune[31] = false;
+																																																																																																															}
+																																																																																																															else
+																																																																																																															{
+																																																																																																																if (this.type == 111)
+																																																																																																																{
+																																																																																																																	this.name = "Goblin Archer";
+																																																																																																																	this.scale = 0.95f;
+																																																																																																																	this.width = 18;
+																																																																																																																	this.height = 40;
+																																																																																																																	this.aiStyle = 3;
+																																																																																																																	this.damage = 20;
+																																																																																																																	this.defense = 6;
+																																																																																																																	this.lifeMax = 80;
+																																																																																																																	this.soundHit = 1;
+																																																																																																																	this.soundKilled = 1;
+																																																																																																																	this.knockBackResist = 0.7f;
+																																																																																																																	this.value = 200f;
+																																																																																																																	this.buffImmune[31] = false;
+																																																																																																																}
+																																																																																																																else
+																																																																																																																{
+																																																																																																																	if (this.type == 112)
+																																																																																																																	{
+																																																																																																																		this.name = "Vile Spit";
+																																																																																																																		this.width = 16;
+																																																																																																																		this.height = 16;
+																																																																																																																		this.aiStyle = 9;
+																																																																																																																		this.damage = 65;
+																																																																																																																		this.defense = 0;
+																																																																																																																		this.lifeMax = 1;
+																																																																																																																		this.soundHit = 0;
+																																																																																																																		this.soundKilled = 9;
+																																																																																																																		this.noGravity = true;
+																																																																																																																		this.noTileCollide = true;
+																																																																																																																		this.knockBackResist = 0f;
+																																																																																																																		this.scale = 0.9f;
+																																																																																																																		this.alpha = 80;
+																																																																																																																	}
+																																																																																																																	else
+																																																																																																																	{
+																																																																																																																		if (this.type == 113)
+																																																																																																																		{
+																																																																																																																			this.npcSlots = 10f;
+																																																																																																																			this.name = "Wall of Flesh";
+																																																																																																																			this.width = 100;
+																																																																																																																			this.height = 100;
+																																																																																																																			this.aiStyle = 27;
+																																																																																																																			this.damage = 50;
+																																																																																																																			this.defense = 12;
+																																																																																																																			this.lifeMax = 8000;
+																																																																																																																			this.soundHit = 8;
+																																																																																																																			this.soundKilled = 10;
+																																																																																																																			this.noGravity = true;
+																																																																																																																			this.noTileCollide = true;
+																																																																																																																			this.behindTiles = true;
+																																																																																																																			this.knockBackResist = 0f;
+																																																																																																																			this.scale = 1.2f;
+																																																																																																																			this.boss = true;
+																																																																																																																			this.buffImmune[20] = true;
+																																																																																																																			this.buffImmune[24] = true;
+																																																																																																																			this.buffImmune[39] = true;
+																																																																																																																			this.value = 80000f;
+																																																																																																																		}
+																																																																																																																		else
+																																																																																																																		{
+																																																																																																																			if (this.type == 114)
+																																																																																																																			{
+																																																																																																																				this.name = "Wall of Flesh Eye";
+																																																																																																																				this.displayName = "Wall of Flesh";
+																																																																																																																				this.width = 100;
+																																																																																																																				this.height = 100;
+																																																																																																																				this.aiStyle = 28;
+																																																																																																																				this.damage = 50;
+																																																																																																																				this.defense = 0;
+																																																																																																																				this.lifeMax = 8000;
+																																																																																																																				this.soundHit = 8;
+																																																																																																																				this.soundKilled = 10;
+																																																																																																																				this.noGravity = true;
+																																																																																																																				this.noTileCollide = true;
+																																																																																																																				this.behindTiles = true;
+																																																																																																																				this.knockBackResist = 0f;
+																																																																																																																				this.scale = 1.2f;
+																																																																																																																				this.buffImmune[20] = true;
+																																																																																																																				this.buffImmune[24] = true;
+																																																																																																																				this.buffImmune[39] = true;
+																																																																																																																				this.value = 80000f;
+																																																																																																																			}
+																																																																																																																			else
+																																																																																																																			{
+																																																																																																																				if (this.type == 115)
+																																																																																																																				{
+																																																																																																																					this.name = "The Hungry";
+																																																																																																																					this.width = 30;
+																																																																																																																					this.height = 30;
+																																																																																																																					this.aiStyle = 29;
+																																																																																																																					this.damage = 30;
+																																																																																																																					this.defense = 10;
+																																																																																																																					this.lifeMax = 240;
+																																																																																																																					this.soundHit = 9;
+																																																																																																																					this.soundKilled = 11;
+																																																																																																																					this.noGravity = true;
+																																																																																																																					this.behindTiles = true;
+																																																																																																																					this.noTileCollide = true;
+																																																																																																																					this.knockBackResist = 1.1f;
+																																																																																																																				}
+																																																																																																																				else
+																																																																																																																				{
+																																																																																																																					if (this.type == 116)
+																																																																																																																					{
+																																																																																																																						this.name = "The Hungry II";
+																																																																																																																						this.displayName = "The Hungry";
+																																																																																																																						this.width = 30;
+																																																																																																																						this.height = 32;
+																																																																																																																						this.aiStyle = 2;
+																																																																																																																						this.damage = 30;
+																																																																																																																						this.defense = 6;
+																																																																																																																						this.lifeMax = 80;
+																																																																																																																						this.soundHit = 9;
+																																																																																																																						this.knockBackResist = 0.8f;
+																																																																																																																						this.soundKilled = 12;
+																																																																																																																					}
+																																																																																																																					else
+																																																																																																																					{
+																																																																																																																						if (this.type == 117)
+																																																																																																																						{
+																																																																																																																							this.displayName = "Leech";
+																																																																																																																							this.name = "Leech Head";
+																																																																																																																							this.width = 14;
+																																																																																																																							this.height = 14;
+																																																																																																																							this.aiStyle = 6;
+																																																																																																																							this.netAlways = true;
+																																																																																																																							this.damage = 26;
+																																																																																																																							this.defense = 2;
+																																																																																																																							this.lifeMax = 60;
+																																																																																																																							this.soundHit = 9;
+																																																																																																																							this.soundKilled = 12;
+																																																																																																																							this.noGravity = true;
+																																																																																																																							this.noTileCollide = true;
+																																																																																																																							this.knockBackResist = 0f;
+																																																																																																																							this.behindTiles = true;
+																																																																																																																						}
+																																																																																																																						else
+																																																																																																																						{
+																																																																																																																							if (this.type == 118)
+																																																																																																																							{
+																																																																																																																								this.displayName = "Leech";
+																																																																																																																								this.name = "Leech Body";
+																																																																																																																								this.width = 14;
+																																																																																																																								this.height = 14;
+																																																																																																																								this.aiStyle = 6;
+																																																																																																																								this.netAlways = true;
+																																																																																																																								this.damage = 22;
+																																																																																																																								this.defense = 6;
+																																																																																																																								this.lifeMax = 60;
+																																																																																																																								this.soundHit = 9;
+																																																																																																																								this.soundKilled = 12;
+																																																																																																																								this.noGravity = true;
+																																																																																																																								this.noTileCollide = true;
+																																																																																																																								this.knockBackResist = 0f;
+																																																																																																																								this.behindTiles = true;
+																																																																																																																							}
+																																																																																																																							else
+																																																																																																																							{
+																																																																																																																								if (this.type == 119)
+																																																																																																																								{
+																																																																																																																									this.displayName = "Leech";
+																																																																																																																									this.name = "Leech Tail";
+																																																																																																																									this.width = 14;
+																																																																																																																									this.height = 14;
+																																																																																																																									this.aiStyle = 6;
+																																																																																																																									this.netAlways = true;
+																																																																																																																									this.damage = 18;
+																																																																																																																									this.defense = 10;
+																																																																																																																									this.lifeMax = 60;
+																																																																																																																									this.soundHit = 9;
+																																																																																																																									this.soundKilled = 12;
+																																																																																																																									this.noGravity = true;
+																																																																																																																									this.noTileCollide = true;
+																																																																																																																									this.knockBackResist = 0f;
+																																																																																																																									this.behindTiles = true;
+																																																																																																																								}
+																																																																																																																								else
+																																																																																																																								{
+																																																																																																																									if (this.type == 120)
+																																																																																																																									{
+																																																																																																																										this.name = "Chaos Elemental";
+																																																																																																																										this.width = 18;
+																																																																																																																										this.height = 40;
+																																																																																																																										this.aiStyle = 3;
+																																																																																																																										this.damage = 40;
+																																																																																																																										this.defense = 30;
+																																																																																																																										this.lifeMax = 370;
+																																																																																																																										this.soundHit = 1;
+																																																																																																																										this.soundKilled = 6;
+																																																																																																																										this.knockBackResist = 0.4f;
+																																																																																																																										this.value = 600f;
+																																																																																																																										this.buffImmune[20] = true;
+																																																																																																																										this.buffImmune[24] = true;
+																																																																																																																										this.buffImmune[39] = true;
+																																																																																																																										this.buffImmune[31] = false;
+																																																																																																																									}
+																																																																																																																									else
+																																																																																																																									{
+																																																																																																																										if (this.type == 121)
+																																																																																																																										{
+																																																																																																																											this.name = "Slimer";
+																																																																																																																											this.width = 40;
+																																																																																																																											this.height = 30;
+																																																																																																																											this.aiStyle = 14;
+																																																																																																																											this.damage = 45;
+																																																																																																																											this.defense = 20;
+																																																																																																																											this.lifeMax = 60;
+																																																																																																																											this.soundHit = 1;
+																																																																																																																											this.alpha = 55;
+																																																																																																																											this.knockBackResist = 0.8f;
+																																																																																																																											this.scale = 1.1f;
+																																																																																																																											this.buffImmune[20] = true;
+																																																																																																																											this.buffImmune[31] = false;
+																																																																																																																										}
+																																																																																																																										else
+																																																																																																																										{
+																																																																																																																											if (this.type == 122)
+																																																																																																																											{
+																																																																																																																												this.noGravity = true;
+																																																																																																																												this.name = "Gastropod";
+																																																																																																																												this.width = 20;
+																																																																																																																												this.height = 20;
+																																																																																																																												this.aiStyle = 22;
+																																																																																																																												this.damage = 60;
+																																																																																																																												this.defense = 22;
+																																																																																																																												this.lifeMax = 220;
+																																																																																																																												this.soundHit = 1;
+																																																																																																																												this.knockBackResist = 0.8f;
+																																																																																																																												this.soundKilled = 1;
+																																																																																																																												this.value = 600f;
+																																																																																																																												this.buffImmune[20] = true;
+																																																																																																																											}
+																																																																																																																											else
+																																																																																																																											{
+																																																																																																																												if (this.type == 123)
+																																																																																																																												{
+																																																																																																																													this.friendly = true;
+																																																																																																																													this.name = "Bound Mechanic";
+																																																																																																																													this.width = 18;
+																																																																																																																													this.height = 34;
+																																																																																																																													this.aiStyle = 0;
+																																																																																																																													this.damage = 10;
+																																																																																																																													this.defense = 15;
+																																																																																																																													this.lifeMax = 250;
+																																																																																																																													this.soundHit = 1;
+																																																																																																																													this.soundKilled = 1;
+																																																																																																																													this.knockBackResist = 0.5f;
+																																																																																																																													this.scale = 0.9f;
+																																																																																																																												}
+																																																																																																																												else
+																																																																																																																												{
+																																																																																																																													if (this.type == 124)
+																																																																																																																													{
+																																																																																																																														this.townNPC = true;
+																																																																																																																														this.friendly = true;
+																																																																																																																														this.name = "Mechanic";
+																																																																																																																														this.width = 18;
+																																																																																																																														this.height = 40;
+																																																																																																																														this.aiStyle = 7;
+																																																																																																																														this.damage = 10;
+																																																																																																																														this.defense = 15;
+																																																																																																																														this.lifeMax = 250;
+																																																																																																																														this.soundHit = 1;
+																																																																																																																														this.soundKilled = 1;
+																																																																																																																														this.knockBackResist = 0.5f;
+																																																																																																																													}
+																																																																																																																													else
+																																																																																																																													{
+																																																																																																																														if (this.type == 125)
+																																																																																																																														{
+																																																																																																																															this.name = "Retinazer";
+																																																																																																																															this.width = 100;
+																																																																																																																															this.height = 110;
+																																																																																																																															this.aiStyle = 30;
+																																																																																																																															this.damage = 50;
+																																																																																																																															this.defense = 10;
+																																																																																																																															this.lifeMax = 24000;
+																																																																																																																															this.soundHit = 1;
+																																																																																																																															this.soundKilled = 14;
+																																																																																																																															this.knockBackResist = 0f;
+																																																																																																																															this.noGravity = true;
+																																																																																																																															this.noTileCollide = true;
+																																																																																																																															this.timeLeft = NPC.activeTime * 30;
+																																																																																																																															this.boss = true;
+																																																																																																																															this.value = 120000f;
+																																																																																																																															this.npcSlots = 5f;
+																																																																																																																															this.boss = true;
+																																																																																																																														}
+																																																																																																																														else
+																																																																																																																														{
+																																																																																																																															if (this.type == 126)
+																																																																																																																															{
+																																																																																																																																this.name = "Spazmatism";
+																																																																																																																																this.width = 100;
+																																																																																																																																this.height = 110;
+																																																																																																																																this.aiStyle = 31;
+																																																																																																																																this.damage = 50;
+																																																																																																																																this.defense = 10;
+																																																																																																																																this.lifeMax = 24000;
+																																																																																																																																this.soundHit = 1;
+																																																																																																																																this.soundKilled = 14;
+																																																																																																																																this.knockBackResist = 0f;
+																																																																																																																																this.noGravity = true;
+																																																																																																																																this.noTileCollide = true;
+																																																																																																																																this.timeLeft = NPC.activeTime * 30;
+																																																																																																																																this.boss = true;
+																																																																																																																																this.value = 120000f;
+																																																																																																																																this.npcSlots = 5f;
+																																																																																																																																this.boss = true;
+																																																																																																																															}
+																																																																																																																															else
+																																																																																																																															{
+																																																																																																																																if (this.type == 127)
+																																																																																																																																{
+																																																																																																																																	this.name = "Skeletron Prime";
+																																																																																																																																	this.width = 80;
+																																																																																																																																	this.height = 102;
+																																																																																																																																	this.aiStyle = 32;
+																																																																																																																																	this.damage = 50;
+																																																																																																																																	this.defense = 25;
+																																																																																																																																	this.lifeMax = 30000;
+																																																																																																																																	this.soundHit = 4;
+																																																																																																																																	this.soundKilled = 14;
+																																																																																																																																	this.noGravity = true;
+																																																																																																																																	this.noTileCollide = true;
+																																																																																																																																	this.value = 120000f;
+																																																																																																																																	this.knockBackResist = 0f;
+																																																																																																																																	this.boss = true;
+																																																																																																																																	this.npcSlots = 6f;
+																																																																																																																																	this.buffImmune[20] = true;
+																																																																																																																																	this.buffImmune[24] = true;
+																																																																																																																																	this.buffImmune[39] = true;
+																																																																																																																																	this.boss = true;
+																																																																																																																																}
+																																																																																																																																else
+																																																																																																																																{
+																																																																																																																																	if (this.type == 128)
+																																																																																																																																	{
+																																																																																																																																		this.name = "Prime Cannon";
+																																																																																																																																		this.width = 52;
+																																																																																																																																		this.height = 52;
+																																																																																																																																		this.aiStyle = 35;
+																																																																																																																																		this.damage = 30;
+																																																																																																																																		this.defense = 25;
+																																																																																																																																		this.lifeMax = 7000;
+																																																																																																																																		this.soundHit = 4;
+																																																																																																																																		this.soundKilled = 14;
+																																																																																																																																		this.noGravity = true;
+																																																																																																																																		this.noTileCollide = true;
+																																																																																																																																		this.knockBackResist = 0f;
+																																																																																																																																		this.buffImmune[20] = true;
+																																																																																																																																		this.buffImmune[24] = true;
+																																																																																																																																		this.netAlways = true;
+																																																																																																																																	}
+																																																																																																																																	else
+																																																																																																																																	{
+																																																																																																																																		if (this.type == 129)
+																																																																																																																																		{
+																																																																																																																																			this.name = "Prime Saw";
+																																																																																																																																			this.width = 52;
+																																																																																																																																			this.height = 52;
+																																																																																																																																			this.aiStyle = 33;
+																																																																																																																																			this.damage = 52;
+																																																																																																																																			this.defense = 40;
+																																																																																																																																			this.lifeMax = 10000;
+																																																																																																																																			this.soundHit = 4;
+																																																																																																																																			this.soundKilled = 14;
+																																																																																																																																			this.noGravity = true;
+																																																																																																																																			this.noTileCollide = true;
+																																																																																																																																			this.knockBackResist = 0f;
+																																																																																																																																			this.buffImmune[20] = true;
+																																																																																																																																			this.buffImmune[24] = true;
+																																																																																																																																			this.netAlways = true;
+																																																																																																																																		}
+																																																																																																																																		else
+																																																																																																																																		{
+																																																																																																																																			if (this.type == 130)
+																																																																																																																																			{
+																																																																																																																																				this.name = "Prime Vice";
+																																																																																																																																				this.width = 52;
+																																																																																																																																				this.height = 52;
+																																																																																																																																				this.aiStyle = 34;
+																																																																																																																																				this.damage = 45;
+																																																																																																																																				this.defense = 35;
+																																																																																																																																				this.lifeMax = 10000;
+																																																																																																																																				this.soundHit = 4;
+																																																																																																																																				this.soundKilled = 14;
+																																																																																																																																				this.noGravity = true;
+																																																																																																																																				this.noTileCollide = true;
+																																																																																																																																				this.knockBackResist = 0f;
+																																																																																																																																				this.buffImmune[20] = true;
+																																																																																																																																				this.buffImmune[24] = true;
+																																																																																																																																				this.netAlways = true;
+																																																																																																																																			}
+																																																																																																																																			else
+																																																																																																																																			{
+																																																																																																																																				if (this.type == 131)
+																																																																																																																																				{
+																																																																																																																																					this.name = "Prime Laser";
+																																																																																																																																					this.width = 52;
+																																																																																																																																					this.height = 52;
+																																																																																																																																					this.aiStyle = 36;
+																																																																																																																																					this.damage = 29;
+																																																																																																																																					this.defense = 20;
+																																																																																																																																					this.lifeMax = 6000;
+																																																																																																																																					this.soundHit = 4;
+																																																																																																																																					this.soundKilled = 14;
+																																																																																																																																					this.noGravity = true;
+																																																																																																																																					this.noTileCollide = true;
+																																																																																																																																					this.knockBackResist = 0f;
+																																																																																																																																					this.buffImmune[20] = true;
+																																																																																																																																					this.buffImmune[24] = true;
+																																																																																																																																					this.netAlways = true;
+																																																																																																																																				}
+																																																																																																																																				else
+																																																																																																																																				{
+																																																																																																																																					if (this.type == 132)
+																																																																																																																																					{
+																																																																																																																																						this.displayName = "Zombie";
+																																																																																																																																						this.name = "Bald Zombie";
+																																																																																																																																						this.width = 18;
+																																																																																																																																						this.height = 40;
+																																																																																																																																						this.aiStyle = 3;
+																																																																																																																																						this.damage = 14;
+																																																																																																																																						this.defense = 6;
+																																																																																																																																						this.lifeMax = 45;
+																																																																																																																																						this.soundHit = 1;
+																																																																																																																																						this.soundKilled = 2;
+																																																																																																																																						this.knockBackResist = 0.5f;
+																																																																																																																																						this.value = 60f;
+																																																																																																																																						this.buffImmune[31] = false;
+																																																																																																																																					}
+																																																																																																																																					else
+																																																																																																																																					{
+																																																																																																																																						if (this.type == 133)
+																																																																																																																																						{
+																																																																																																																																							this.name = "Wandering Eye";
+																																																																																																																																							this.width = 30;
+																																																																																																																																							this.height = 32;
+																																																																																																																																							this.aiStyle = 2;
+																																																																																																																																							this.damage = 40;
+																																																																																																																																							this.defense = 20;
+																																																																																																																																							this.lifeMax = 300;
+																																																																																																																																							this.soundHit = 1;
+																																																																																																																																							this.knockBackResist = 0.8f;
+																																																																																																																																							this.soundKilled = 1;
+																																																																																																																																							this.value = 500f;
+																																																																																																																																							this.buffImmune[31] = false;
+																																																																																																																																						}
+																																																																																																																																						else
+																																																																																																																																						{
+																																																																																																																																							if (this.type == 134)
+																																																																																																																																							{
+																																																																																																																																								this.displayName = "The Destroyer";
+																																																																																																																																								this.npcSlots = 5f;
+																																																																																																																																								this.name = "The Destroyer";
+																																																																																																																																								this.width = 38;
+																																																																																																																																								this.height = 38;
+																																																																																																																																								this.aiStyle = 37;
+																																																																																																																																								this.damage = 60;
+																																																																																																																																								this.defense = 0;
+																																																																																																																																								this.lifeMax = 80000;
+																																																																																																																																								this.soundHit = 4;
+																																																																																																																																								this.soundKilled = 14;
+																																																																																																																																								this.noGravity = true;
+																																																																																																																																								this.noTileCollide = true;
+																																																																																																																																								this.knockBackResist = 0f;
+																																																																																																																																								this.behindTiles = true;
+																																																																																																																																								this.value = 120000f;
+																																																																																																																																								this.scale = 1.25f;
+																																																																																																																																								this.boss = true;
+																																																																																																																																								this.netAlways = true;
+																																																																																																																																								this.buffImmune[20] = true;
+																																																																																																																																								this.buffImmune[24] = true;
+																																																																																																																																								this.buffImmune[39] = true;
+																																																																																																																																							}
+																																																																																																																																							else
+																																																																																																																																							{
+																																																																																																																																								if (this.type == 135)
+																																																																																																																																								{
+																																																																																																																																									this.displayName = "The Destroyer";
+																																																																																																																																									this.npcSlots = 5f;
+																																																																																																																																									this.name = "The Destroyer Body";
+																																																																																																																																									this.width = 38;
+																																																																																																																																									this.height = 38;
+																																																																																																																																									this.aiStyle = 37;
+																																																																																																																																									this.damage = 40;
+																																																																																																																																									this.defense = 30;
+																																																																																																																																									this.lifeMax = 80000;
+																																																																																																																																									this.soundHit = 4;
+																																																																																																																																									this.soundKilled = 14;
+																																																																																																																																									this.noGravity = true;
+																																																																																																																																									this.noTileCollide = true;
+																																																																																																																																									this.knockBackResist = 0f;
+																																																																																																																																									this.behindTiles = true;
+																																																																																																																																									this.netAlways = true;
+																																																																																																																																									this.scale = 1.25f;
+																																																																																																																																									this.buffImmune[20] = true;
+																																																																																																																																									this.buffImmune[24] = true;
+																																																																																																																																									this.buffImmune[39] = true;
+																																																																																																																																								}
+																																																																																																																																								else
+																																																																																																																																								{
+																																																																																																																																									if (this.type == 136)
+																																																																																																																																									{
+																																																																																																																																										this.displayName = "The Destroyer";
+																																																																																																																																										this.npcSlots = 5f;
+																																																																																																																																										this.name = "The Destroyer Tail";
+																																																																																																																																										this.width = 38;
+																																																																																																																																										this.height = 38;
+																																																																																																																																										this.aiStyle = 37;
+																																																																																																																																										this.damage = 20;
+																																																																																																																																										this.defense = 35;
+																																																																																																																																										this.lifeMax = 80000;
+																																																																																																																																										this.soundHit = 4;
+																																																																																																																																										this.soundKilled = 14;
+																																																																																																																																										this.noGravity = true;
+																																																																																																																																										this.noTileCollide = true;
+																																																																																																																																										this.knockBackResist = 0f;
+																																																																																																																																										this.behindTiles = true;
+																																																																																																																																										this.scale = 1.25f;
+																																																																																																																																										this.netAlways = true;
+																																																																																																																																										this.buffImmune[20] = true;
+																																																																																																																																										this.buffImmune[24] = true;
+																																																																																																																																										this.buffImmune[39] = true;
+																																																																																																																																									}
+																																																																																																																																									else
+																																																																																																																																									{
+																																																																																																																																										if (this.type == 137)
+																																																																																																																																										{
+																																																																																																																																											this.name = "Illuminant Bat";
+																																																																																																																																											this.width = 26;
+																																																																																																																																											this.height = 20;
+																																																																																																																																											this.aiStyle = 14;
+																																																																																																																																											this.damage = 75;
+																																																																																																																																											this.defense = 30;
+																																																																																																																																											this.lifeMax = 200;
+																																																																																																																																											this.soundHit = 1;
+																																																																																																																																											this.knockBackResist = 0.75f;
+																																																																																																																																											this.soundKilled = 6;
+																																																																																																																																											this.value = 500f;
+																																																																																																																																											this.buffImmune[20] = true;
+																																																																																																																																											this.buffImmune[24] = true;
+																																																																																																																																											this.buffImmune[39] = true;
+																																																																																																																																											this.buffImmune[31] = false;
+																																																																																																																																										}
+																																																																																																																																										else
+																																																																																																																																										{
+																																																																																																																																											if (this.type == 138)
+																																																																																																																																											{
+																																																																																																																																												this.name = "Illuminant Slime";
+																																																																																																																																												this.width = 24;
+																																																																																																																																												this.height = 18;
+																																																																																																																																												this.aiStyle = 1;
+																																																																																																																																												this.damage = 70;
+																																																																																																																																												this.defense = 30;
+																																																																																																																																												this.lifeMax = 180;
+																																																																																																																																												this.soundHit = 1;
+																																																																																																																																												this.soundKilled = 6;
+																																																																																																																																												this.alpha = 100;
+																																																																																																																																												this.value = 400f;
+																																																																																																																																												this.buffImmune[20] = true;
+																																																																																																																																												this.buffImmune[24] = true;
+																																																																																																																																												this.buffImmune[39] = true;
+																																																																																																																																												this.knockBackResist = 0.85f;
+																																																																																																																																												this.scale = 1.05f;
+																																																																																																																																												this.buffImmune[31] = false;
+																																																																																																																																											}
+																																																																																																																																											else
+																																																																																																																																											{
+																																																																																																																																												if (this.type == 139)
+																																																																																																																																												{
+																																																																																																																																													this.npcSlots = 1f;
+																																																																																																																																													this.name = "Probe";
+																																																																																																																																													this.width = 30;
+																																																																																																																																													this.height = 30;
+																																																																																																																																													this.aiStyle = 5;
+																																																																																																																																													this.damage = 50;
+																																																																																																																																													this.defense = 20;
+																																																																																																																																													this.lifeMax = 200;
+																																																																																																																																													this.soundHit = 4;
+																																																																																																																																													this.soundKilled = 14;
+																																																																																																																																													this.noGravity = true;
+																																																																																																																																													this.knockBackResist = 0.8f;
+																																																																																																																																													this.noTileCollide = true;
+																																																																																																																																												}
+																																																																																																																																												else
+																																																																																																																																												{
+																																																																																																																																													if (this.type == 140)
+																																																																																																																																													{
+																																																																																																																																														this.name = "Possessed Armor";
+																																																																																																																																														this.width = 18;
+																																																																																																																																														this.height = 40;
+																																																																																																																																														this.aiStyle = 3;
+																																																																																																																																														this.damage = 55;
+																																																																																																																																														this.defense = 28;
+																																																																																																																																														this.lifeMax = 260;
+																																																																																																																																														this.soundHit = 4;
+																																																																																																																																														this.soundKilled = 6;
+																																																																																																																																														this.knockBackResist = 0.4f;
+																																																																																																																																														this.value = 400f;
+																																																																																																																																														this.buffImmune[20] = true;
+																																																																																																																																														this.buffImmune[31] = false;
+																																																																																																																																														this.buffImmune[24] = true;
+																																																																																																																																													}
+																																																																																																																																													else
+																																																																																																																																													{
+																																																																																																																																														if (this.type == 141)
+																																																																																																																																														{
+																																																																																																																																															this.name = "Toxic Sludge";
+																																																																																																																																															this.width = 34;
+																																																																																																																																															this.height = 28;
+																																																																																																																																															this.aiStyle = 1;
+																																																																																																																																															this.damage = 50;
+																																																																																																																																															this.defense = 18;
+																																																																																																																																															this.lifeMax = 150;
+																																																																																																																																															this.soundHit = 1;
+																																																																																																																																															this.soundKilled = 1;
+																																																																																																																																															this.alpha = 55;
+																																																																																																																																															this.value = 400f;
+																																																																																																																																															this.scale = 1.1f;
+																																																																																																																																															this.buffImmune[20] = true;
+																																																																																																																																															this.buffImmune[31] = false;
+																																																																																																																																															this.knockBackResist = 0.8f;
+																																																																																																																																														}
+																																																																																																																																														else
+																																																																																																																																														{
+																																																																																																																																															if (this.type == 142)
+																																																																																																																																															{
+																																																																																																																																																this.townNPC = true;
+																																																																																																																																																this.friendly = true;
+																																																																																																																																																this.name = "Santa Claus";
+																																																																																																																																																this.width = 18;
+																																																																																																																																																this.height = 40;
+																																																																																																																																																this.aiStyle = 7;
+																																																																																																																																																this.damage = 10;
+																																																																																																																																																this.defense = 15;
+																																																																																																																																																this.lifeMax = 250;
+																																																																																																																																																this.soundHit = 1;
+																																																																																																																																																this.soundKilled = 1;
+																																																																																																																																																this.knockBackResist = 0.5f;
+																																																																																																																																															}
+																																																																																																																																															else
+																																																																																																																																															{
+																																																																																																																																																if (this.type == 143)
+																																																																																																																																																{
+																																																																																																																																																	this.name = "Snowman Gangsta";
+																																																																																																																																																	this.width = 26;
+																																																																																																																																																	this.height = 40;
+																																																																																																																																																	this.aiStyle = 38;
+																																																																																																																																																	this.damage = 50;
+																																																																																																																																																	this.defense = 20;
+																																																																																																																																																	this.lifeMax = 200;
+																																																																																																																																																	this.soundHit = 11;
+																																																																																																																																																	this.soundKilled = 15;
+																																																																																																																																																	this.knockBackResist = 0.6f;
+																																																																																																																																																	this.value = 400f;
+																																																																																																																																																	this.buffImmune[20] = true;
+																																																																																																																																																	this.buffImmune[31] = false;
+																																																																																																																																																	this.buffImmune[24] = true;
+																																																																																																																																																	this.buffImmune[39] = true;
+																																																																																																																																																}
+																																																																																																																																																else
+																																																																																																																																																{
+																																																																																																																																																	if (this.type == 144)
+																																																																																																																																																	{
+																																																																																																																																																		this.name = "Mister Stabby";
+																																																																																																																																																		this.width = 26;
+																																																																																																																																																		this.height = 40;
+																																																																																																																																																		this.aiStyle = 38;
+																																																																																																																																																		this.damage = 65;
+																																																																																																																																																		this.defense = 26;
+																																																																																																																																																		this.lifeMax = 240;
+																																																																																																																																																		this.soundHit = 11;
+																																																																																																																																																		this.soundKilled = 15;
+																																																																																																																																																		this.knockBackResist = 0.6f;
+																																																																																																																																																		this.value = 400f;
+																																																																																																																																																		this.buffImmune[20] = true;
+																																																																																																																																																		this.buffImmune[31] = false;
+																																																																																																																																																		this.buffImmune[24] = true;
+																																																																																																																																																		this.buffImmune[39] = true;
+																																																																																																																																																	}
+																																																																																																																																																	else
+																																																																																																																																																	{
+																																																																																																																																																		if (this.type == 145)
+																																																																																																																																																		{
+																																																																																																																																																			this.name = "Snow Balla";
+																																																																																																																																																			this.width = 26;
+																																																																																																																																																			this.height = 40;
+																																																																																																																																																			this.aiStyle = 38;
+																																																																																																																																																			this.damage = 55;
+																																																																																																																																																			this.defense = 22;
+																																																																																																																																																			this.lifeMax = 220;
+																																																																																																																																																			this.soundHit = 11;
+																																																																																																																																																			this.soundKilled = 15;
+																																																																																																																																																			this.knockBackResist = 0.6f;
+																																																																																																																																																			this.value = 400f;
+																																																																																																																																																			this.buffImmune[20] = true;
+																																																																																																																																																			this.buffImmune[31] = false;
+																																																																																																																																																			this.buffImmune[24] = true;
+																																																																																																																																																			this.buffImmune[39] = true;
+																																																																																																																																																		}
+																																																																																																																																																	}
+																																																																																																																																																}
+																																																																																																																																															}
+																																																																																																																																														}
+																																																																																																																																													}
+																																																																																																																																												}
+																																																																																																																																											}
+																																																																																																																																										}
+																																																																																																																																									}
+																																																																																																																																								}
+																																																																																																																																							}
+																																																																																																																																						}
+																																																																																																																																					}
+																																																																																																																																				}
+																																																																																																																																			}
+																																																																																																																																		}
+																																																																																																																																	}
+																																																																																																																																}
+																																																																																																																															}
+																																																																																																																														}
+																																																																																																																													}
+																																																																																																																												}
+																																																																																																																											}
+																																																																																																																										}
+																																																																																																																									}
+																																																																																																																								}
+																																																																																																																							}
+																																																																																																																						}
+																																																																																																																					}
+																																																																																																																				}
+																																																																																																																			}
+																																																																																																																		}
+																																																																																																																	}
+																																																																																																																}
+																																																																																																															}
+																																																																																																														}
+																																																																																																													}
+																																																																																																												}
+																																																																																																											}
+																																																																																																										}
+																																																																																																									}
+																																																																																																								}
+																																																																																																							}
+																																																																																																						}
+																																																																																																					}
+																																																																																																				}
+																																																																																																			}
+																																																																																																		}
+																																																																																																	}
+																																																																																																}
+																																																																																															}
+																																																																																														}
+																																																																																													}
+																																																																																												}
+																																																																																											}
+																																																																																										}
+																																																																																									}
+																																																																																								}
+																																																																																							}
+																																																																																						}
+																																																																																					}
+																																																																																				}
+																																																																																			}
+																																																																																		}
+																																																																																	}
+																																																																																}
+																																																																															}
+																																																																														}
+																																																																													}
+																																																																												}
+																																																																											}
+																																																																										}
+																																																																									}
+																																																																								}
+																																																																							}
+																																																																						}
+																																																																					}
+																																																																				}
+																																																																			}
+																																																																		}
+																																																																	}
+																																																																}
+																																																															}
+																																																														}
+																																																													}
+																																																												}
+																																																											}
+																																																										}
+																																																									}
+																																																								}
+																																																							}
+																																																						}
+																																																					}
+																																																				}
+																																																			}
+																																																		}
+																																																	}
+																																																}
+																																															}
+																																														}
+																																													}
+																																												}
+																																											}
+																																										}
+																																									}
+																																								}
+																																							}
+																																						}
+																																					}
+																																				}
+																																			}
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																													}
+																												}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			if (Main.dedServ)
 			{
 				this.frame = default(Rectangle);
+			}
+			else
+			{
+				this.frame = new Rectangle(0, 0, Main.npcTexture[this.type].Width, Main.npcTexture[this.type].Height / Main.npcFrameCount[this.type]);
 			}
 			if (scaleOverride > 0f)
 			{
@@ -3803,7 +5372,6 @@ namespace Terraria
 			this.defDamage = this.damage;
 			this.defDefense = this.defense;
 			this.netID = this.type;
-		    NpcHooks.OnSetDefaultsInt(ref Type, this);
 		}
 		public void AI()
 		{
@@ -5058,7 +6626,7 @@ namespace Terraria
 								}
 							}
 						}
-						if (this.type == 109 && Main.netMode != 1)
+						if (this.type == 109 && Main.netMode != 1 && !Main.player[this.target].dead)
 						{
 							if (this.justHit)
 							{
@@ -5104,31 +6672,31 @@ namespace Terraria
 							}
 							if (Main.tile[num32, num33] == null)
 							{
-
+								Main.tile[num32, num33] = new Tile();
 							}
 							if (Main.tile[num32, num33 - 1] == null)
 							{
-
+								Main.tile[num32, num33 - 1] = new Tile();
 							}
 							if (Main.tile[num32, num33 - 2] == null)
 							{
-
+								Main.tile[num32, num33 - 2] = new Tile();
 							}
 							if (Main.tile[num32, num33 - 3] == null)
 							{
-
+								Main.tile[num32, num33 - 3] = new Tile();
 							}
 							if (Main.tile[num32, num33 + 1] == null)
 							{
-
+								Main.tile[num32, num33 + 1] = new Tile();
 							}
 							if (Main.tile[num32 + this.direction, num33 - 1] == null)
 							{
-
+								Main.tile[num32 + this.direction, num33 - 1] = new Tile();
 							}
 							if (Main.tile[num32 + this.direction, num33 + 1] == null)
 							{
-
+								Main.tile[num32 + this.direction, num33 + 1] = new Tile();
 							}
 							if (Main.tile[num32, num33 - 1].active && Main.tile[num32, num33 - 1].type == 10 && flag3)
 							{
@@ -5400,19 +6968,19 @@ namespace Terraria
 							}
 							if (Main.rand.Next(5) == 0)
 							{
-								Vector2 arg_3DBF_0 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
-								int arg_3DBF_1 = this.width;
-								int arg_3DBF_2 = (int)((float)this.height * 0.5f);
-								int arg_3DBF_3 = 5;
-								float arg_3DBF_4 = this.velocity.X;
-								float arg_3DBF_5 = 2f;
-								int arg_3DBF_6 = 0;
+								Vector2 arg_3DD5_0 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
+								int arg_3DD5_1 = this.width;
+								int arg_3DD5_2 = (int)((float)this.height * 0.5f);
+								int arg_3DD5_3 = 5;
+								float arg_3DD5_4 = this.velocity.X;
+								float arg_3DD5_5 = 2f;
+								int arg_3DD5_6 = 0;
 								Color newColor = default(Color);
-								int num46 = Dust.NewDust(arg_3DBF_0, arg_3DBF_1, arg_3DBF_2, arg_3DBF_3, arg_3DBF_4, arg_3DBF_5, arg_3DBF_6, newColor, 1f);
-								Dust expr_3DD3_cp_0 = Main.dust[num46];
-								expr_3DD3_cp_0.velocity.X = expr_3DD3_cp_0.velocity.X * 0.5f;
-								Dust expr_3DF1_cp_0 = Main.dust[num46];
-								expr_3DF1_cp_0.velocity.Y = expr_3DF1_cp_0.velocity.Y * 0.1f;
+								int num46 = Dust.NewDust(arg_3DD5_0, arg_3DD5_1, arg_3DD5_2, arg_3DD5_3, arg_3DD5_4, arg_3DD5_5, arg_3DD5_6, newColor, 1f);
+								Dust expr_3DE9_cp_0 = Main.dust[num46];
+								expr_3DE9_cp_0.velocity.X = expr_3DE9_cp_0.velocity.X * 0.5f;
+								Dust expr_3E07_cp_0 = Main.dust[num46];
+								expr_3E07_cp_0.velocity.Y = expr_3E07_cp_0.velocity.Y * 0.1f;
 							}
 							if (Main.dayTime || dead)
 							{
@@ -5522,15 +7090,15 @@ namespace Terraria
 													Main.PlaySound(3, (int)vector6.X, (int)vector6.Y, 1);
 													for (int n = 0; n < 10; n++)
 													{
-														Vector2 arg_433C_0 = vector6;
-														int arg_433C_1 = 20;
-														int arg_433C_2 = 20;
-														int arg_433C_3 = 5;
-														float arg_433C_4 = vector7.X * 0.4f;
-														float arg_433C_5 = vector7.Y * 0.4f;
-														int arg_433C_6 = 0;
+														Vector2 arg_4352_0 = vector6;
+														int arg_4352_1 = 20;
+														int arg_4352_2 = 20;
+														int arg_4352_3 = 5;
+														float arg_4352_4 = vector7.X * 0.4f;
+														float arg_4352_5 = vector7.Y * 0.4f;
+														int arg_4352_6 = 0;
 														Color newColor = default(Color);
-														Dust.NewDust(arg_433C_0, arg_433C_1, arg_433C_2, arg_433C_3, arg_433C_4, arg_433C_5, arg_433C_6, newColor, 1f);
+														Dust.NewDust(arg_4352_0, arg_4352_1, arg_4352_2, arg_4352_3, arg_4352_4, arg_4352_5, arg_4352_6, newColor, 1f);
 													}
 												}
 											}
@@ -5644,28 +7212,28 @@ namespace Terraria
 												}
 												for (int num63 = 0; num63 < 20; num63++)
 												{
-													Vector2 arg_48DE_0 = this.position;
-													int arg_48DE_1 = this.width;
-													int arg_48DE_2 = this.height;
-													int arg_48DE_3 = 5;
-													float arg_48DE_4 = (float)Main.rand.Next(-30, 31) * 0.2f;
-													float arg_48DE_5 = (float)Main.rand.Next(-30, 31) * 0.2f;
-													int arg_48DE_6 = 0;
+													Vector2 arg_48F4_0 = this.position;
+													int arg_48F4_1 = this.width;
+													int arg_48F4_2 = this.height;
+													int arg_48F4_3 = 5;
+													float arg_48F4_4 = (float)Main.rand.Next(-30, 31) * 0.2f;
+													float arg_48F4_5 = (float)Main.rand.Next(-30, 31) * 0.2f;
+													int arg_48F4_6 = 0;
 													newColor = default(Color);
-													Dust.NewDust(arg_48DE_0, arg_48DE_1, arg_48DE_2, arg_48DE_3, arg_48DE_4, arg_48DE_5, arg_48DE_6, newColor, 1f);
+													Dust.NewDust(arg_48F4_0, arg_48F4_1, arg_48F4_2, arg_48F4_3, arg_48F4_4, arg_48F4_5, arg_48F4_6, newColor, 1f);
 												}
 												Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 											}
 										}
-										Vector2 arg_4961_0 = this.position;
-										int arg_4961_1 = this.width;
-										int arg_4961_2 = this.height;
-										int arg_4961_3 = 5;
-										float arg_4961_4 = (float)Main.rand.Next(-30, 31) * 0.2f;
-										float arg_4961_5 = (float)Main.rand.Next(-30, 31) * 0.2f;
-										int arg_4961_6 = 0;
+										Vector2 arg_4977_0 = this.position;
+										int arg_4977_1 = this.width;
+										int arg_4977_2 = this.height;
+										int arg_4977_3 = 5;
+										float arg_4977_4 = (float)Main.rand.Next(-30, 31) * 0.2f;
+										float arg_4977_5 = (float)Main.rand.Next(-30, 31) * 0.2f;
+										int arg_4977_6 = 0;
 										newColor = default(Color);
-										Dust.NewDust(arg_4961_0, arg_4961_1, arg_4961_2, arg_4961_3, arg_4961_4, arg_4961_5, arg_4961_6, newColor, 1f);
+										Dust.NewDust(arg_4977_0, arg_4977_1, arg_4977_2, arg_4977_3, arg_4977_4, arg_4977_5, arg_4977_6, newColor, 1f);
 										this.velocity.X = this.velocity.X * 0.98f;
 										this.velocity.Y = this.velocity.Y * 0.98f;
 										if ((double)this.velocity.X > -0.1 && (double)this.velocity.X < 0.1)
@@ -6065,30 +7633,30 @@ namespace Terraria
 									}
 									if (this.type == 23)
 									{
-										Vector2 arg_5A46_0 = new Vector2(this.position.X - this.velocity.X, this.position.Y - this.velocity.Y);
-										int arg_5A46_1 = this.width;
-										int arg_5A46_2 = this.height;
-										int arg_5A46_3 = 6;
-										float arg_5A46_4 = this.velocity.X * 0.2f;
-										float arg_5A46_5 = this.velocity.Y * 0.2f;
-										int arg_5A46_6 = 100;
+										Vector2 arg_5A5C_0 = new Vector2(this.position.X - this.velocity.X, this.position.Y - this.velocity.Y);
+										int arg_5A5C_1 = this.width;
+										int arg_5A5C_2 = this.height;
+										int arg_5A5C_3 = 6;
+										float arg_5A5C_4 = this.velocity.X * 0.2f;
+										float arg_5A5C_5 = this.velocity.Y * 0.2f;
+										int arg_5A5C_6 = 100;
 										Color newColor = default(Color);
-										int num84 = Dust.NewDust(arg_5A46_0, arg_5A46_1, arg_5A46_2, arg_5A46_3, arg_5A46_4, arg_5A46_5, arg_5A46_6, newColor, 2f);
+										int num84 = Dust.NewDust(arg_5A5C_0, arg_5A5C_1, arg_5A5C_2, arg_5A5C_3, arg_5A5C_4, arg_5A5C_5, arg_5A5C_6, newColor, 2f);
 										Main.dust[num84].noGravity = true;
-										Dust expr_5A68_cp_0 = Main.dust[num84];
-										expr_5A68_cp_0.velocity.X = expr_5A68_cp_0.velocity.X * 0.3f;
-										Dust expr_5A86_cp_0 = Main.dust[num84];
-										expr_5A86_cp_0.velocity.Y = expr_5A86_cp_0.velocity.Y * 0.3f;
+										Dust expr_5A7E_cp_0 = Main.dust[num84];
+										expr_5A7E_cp_0.velocity.X = expr_5A7E_cp_0.velocity.X * 0.3f;
+										Dust expr_5A9C_cp_0 = Main.dust[num84];
+										expr_5A9C_cp_0.velocity.Y = expr_5A9C_cp_0.velocity.Y * 0.3f;
 									}
 									else
 									{
 										if (this.type != 42 && this.type != 139 && Main.rand.Next(20) == 0)
 										{
 											int num85 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f), this.width, (int)((float)this.height * 0.5f), 18, this.velocity.X, 2f, 75, this.color, this.scale);
-											Dust expr_5B3B_cp_0 = Main.dust[num85];
-											expr_5B3B_cp_0.velocity.X = expr_5B3B_cp_0.velocity.X * 0.5f;
-											Dust expr_5B59_cp_0 = Main.dust[num85];
-											expr_5B59_cp_0.velocity.Y = expr_5B59_cp_0.velocity.Y * 0.1f;
+											Dust expr_5B51_cp_0 = Main.dust[num85];
+											expr_5B51_cp_0.velocity.X = expr_5B51_cp_0.velocity.X * 0.5f;
+											Dust expr_5B6F_cp_0 = Main.dust[num85];
+											expr_5B6F_cp_0.velocity.Y = expr_5B6F_cp_0.velocity.Y * 0.1f;
 										}
 									}
 								}
@@ -6096,19 +7664,19 @@ namespace Terraria
 								{
 									if (Main.rand.Next(40) == 0)
 									{
-										Vector2 arg_5BE2_0 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
-										int arg_5BE2_1 = this.width;
-										int arg_5BE2_2 = (int)((float)this.height * 0.5f);
-										int arg_5BE2_3 = 5;
-										float arg_5BE2_4 = this.velocity.X;
-										float arg_5BE2_5 = 2f;
-										int arg_5BE2_6 = 0;
+										Vector2 arg_5BF8_0 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
+										int arg_5BF8_1 = this.width;
+										int arg_5BF8_2 = (int)((float)this.height * 0.5f);
+										int arg_5BF8_3 = 5;
+										float arg_5BF8_4 = this.velocity.X;
+										float arg_5BF8_5 = 2f;
+										int arg_5BF8_6 = 0;
 										Color newColor = default(Color);
-										int num86 = Dust.NewDust(arg_5BE2_0, arg_5BE2_1, arg_5BE2_2, arg_5BE2_3, arg_5BE2_4, arg_5BE2_5, arg_5BE2_6, newColor, 1f);
-										Dust expr_5BF6_cp_0 = Main.dust[num86];
-										expr_5BF6_cp_0.velocity.X = expr_5BF6_cp_0.velocity.X * 0.5f;
-										Dust expr_5C14_cp_0 = Main.dust[num86];
-										expr_5C14_cp_0.velocity.Y = expr_5C14_cp_0.velocity.Y * 0.1f;
+										int num86 = Dust.NewDust(arg_5BF8_0, arg_5BF8_1, arg_5BF8_2, arg_5BF8_3, arg_5BF8_4, arg_5BF8_5, arg_5BF8_6, newColor, 1f);
+										Dust expr_5C0C_cp_0 = Main.dust[num86];
+										expr_5C0C_cp_0.velocity.X = expr_5C0C_cp_0.velocity.X * 0.5f;
+										Dust expr_5C2A_cp_0 = Main.dust[num86];
+										expr_5C2A_cp_0.velocity.Y = expr_5C2A_cp_0.velocity.Y * 0.1f;
 									}
 								}
 								if ((this.type == 6 || this.type == 94) && this.wet)
@@ -6238,15 +7806,15 @@ namespace Terraria
 										}
 										for (int num95 = 0; num95 < 20; num95++)
 										{
-											Vector2 arg_6338_0 = new Vector2(this.position.X - 20f, this.position.Y - 20f);
-											int arg_6338_1 = this.width + 40;
-											int arg_6338_2 = this.height + 40;
-											int arg_6338_3 = 5;
-											float arg_6338_4 = (float)(num94 * 8);
-											float arg_6338_5 = -1f;
-											int arg_6338_6 = 0;
+											Vector2 arg_634E_0 = new Vector2(this.position.X - 20f, this.position.Y - 20f);
+											int arg_634E_1 = this.width + 40;
+											int arg_634E_2 = this.height + 40;
+											int arg_634E_3 = 5;
+											float arg_634E_4 = (float)(num94 * 8);
+											float arg_634E_5 = -1f;
+											int arg_634E_6 = 0;
 											Color newColor = default(Color);
-											Dust.NewDust(arg_6338_0, arg_6338_1, arg_6338_2, arg_6338_3, arg_6338_4, arg_6338_5, arg_6338_6, newColor, 1f);
+											Dust.NewDust(arg_634E_0, arg_634E_1, arg_634E_2, arg_634E_3, arg_634E_4, arg_634E_5, arg_634E_6, newColor, 1f);
 										}
 									}
 									if (this.type >= 13 && this.type <= 15)
@@ -6493,7 +8061,7 @@ namespace Terraria
 														}
 														if (Main.netMode != 1 && Main.tile[num111, num112].type == 2)
 														{
-															byte arg_6FCC_0 = Main.tile[num111, num112 - 1].type;
+															byte arg_6FE2_0 = Main.tile[num111, num112 - 1].type;
 														}
 													}
 												}
@@ -6902,6 +8470,14 @@ namespace Terraria
 								{
 									if (this.aiStyle == 7)
 									{
+										if (this.type == 142 && Main.netMode != 1 && !Main.xMas)
+										{
+											this.StrikeNPC(9999, 0f, 0, false, false);
+											if (Main.netMode == 2)
+											{
+												NetMessage.SendData(28, -1, -1, "", this.whoAmI, 9999f, 0f, 0f, 0);
+											}
+										}
 										int num129 = (int)(this.position.X + (float)(this.width / 2)) / 16;
 										int num130 = (int)(this.position.Y + (float)this.height + 1f) / 16;
 										if (this.type == 107)
@@ -7232,31 +8808,31 @@ namespace Terraria
 													int num136 = (int)((this.position.Y + (float)this.height - 16f) / 16f);
 													if (Main.tile[num135, num136] == null)
 													{
-
+														Main.tile[num135, num136] = new Tile();
 													}
 													if (Main.tile[num135, num136 - 1] == null)
 													{
-
+														Main.tile[num135, num136 - 1] = new Tile();
 													}
 													if (Main.tile[num135, num136 - 2] == null)
 													{
-
+														Main.tile[num135, num136 - 2] = new Tile();
 													}
 													if (Main.tile[num135, num136 - 3] == null)
 													{
-
+														Main.tile[num135, num136 - 3] = new Tile();
 													}
 													if (Main.tile[num135, num136 + 1] == null)
 													{
-
+														Main.tile[num135, num136 + 1] = new Tile();
 													}
 													if (Main.tile[num135 + this.direction, num136 - 1] == null)
 													{
-
+														Main.tile[num135 + this.direction, num136 - 1] = new Tile();
 													}
 													if (Main.tile[num135 + this.direction, num136 + 1] == null)
 													{
-
+														Main.tile[num135 + this.direction, num136 + 1] = new Tile();
 													}
 													if (this.townNPC && Main.tile[num135, num136 - 2].active && Main.tile[num135, num136 - 2].type == 10 && (Main.rand.Next(10) == 0 || !Main.dayTime))
 													{
@@ -7357,35 +8933,35 @@ namespace Terraria
 															{
 																if (Main.tile[num135, num136 + 1] == null)
 																{
-
+																	Main.tile[num135, num136 + 1] = new Tile();
 																}
 																if (Main.tile[num135 - this.direction, num136 + 1] == null)
 																{
-
+																	Main.tile[num135 - this.direction, num136 + 1] = new Tile();
 																}
 																if (Main.tile[num135, num136 + 2] == null)
 																{
-
+																	Main.tile[num135, num136 + 2] = new Tile();
 																}
 																if (Main.tile[num135 - this.direction, num136 + 2] == null)
 																{
-
+																	Main.tile[num135 - this.direction, num136 + 2] = new Tile();
 																}
 																if (Main.tile[num135, num136 + 3] == null)
 																{
-
+																	Main.tile[num135, num136 + 3] = new Tile();
 																}
 																if (Main.tile[num135 - this.direction, num136 + 3] == null)
 																{
-
+																	Main.tile[num135 - this.direction, num136 + 3] = new Tile();
 																}
 																if (Main.tile[num135, num136 + 4] == null)
 																{
-
+																	Main.tile[num135, num136 + 4] = new Tile();
 																}
 																if (Main.tile[num135 - this.direction, num136 + 4] == null)
 																{
-
+																	Main.tile[num135 - this.direction, num136 + 4] = new Tile();
 																}
 																else
 																{
@@ -7440,17 +9016,17 @@ namespace Terraria
 												{
 													if (this.type == 29 || this.type == 45)
 													{
-														Vector2 arg_97B4_0 = new Vector2(this.position.X, this.position.Y);
-														int arg_97B4_1 = this.width;
-														int arg_97B4_2 = this.height;
-														int arg_97B4_3 = 27;
-														float arg_97B4_4 = 0f;
-														float arg_97B4_5 = 0f;
-														int arg_97B4_6 = 100;
+														Vector2 arg_9826_0 = new Vector2(this.position.X, this.position.Y);
+														int arg_9826_1 = this.width;
+														int arg_9826_2 = this.height;
+														int arg_9826_3 = 27;
+														float arg_9826_4 = 0f;
+														float arg_9826_5 = 0f;
+														int arg_9826_6 = 100;
 														Color newColor = default(Color);
-														int num138 = Dust.NewDust(arg_97B4_0, arg_97B4_1, arg_97B4_2, arg_97B4_3, arg_97B4_4, arg_97B4_5, arg_97B4_6, newColor, (float)Main.rand.Next(1, 3));
-														Dust expr_97C3 = Main.dust[num138];
-														expr_97C3.velocity *= 3f;
+														int num138 = Dust.NewDust(arg_9826_0, arg_9826_1, arg_9826_2, arg_9826_3, arg_9826_4, arg_9826_5, arg_9826_6, newColor, (float)Main.rand.Next(1, 3));
+														Dust expr_9835 = Main.dust[num138];
+														expr_9835.velocity *= 3f;
 														if (Main.dust[num138].scale > 1f)
 														{
 															Main.dust[num138].noGravity = true;
@@ -7460,32 +9036,32 @@ namespace Terraria
 													{
 														if (this.type == 32)
 														{
-															Vector2 arg_9854_0 = new Vector2(this.position.X, this.position.Y);
-															int arg_9854_1 = this.width;
-															int arg_9854_2 = this.height;
-															int arg_9854_3 = 29;
-															float arg_9854_4 = 0f;
-															float arg_9854_5 = 0f;
-															int arg_9854_6 = 100;
+															Vector2 arg_98C6_0 = new Vector2(this.position.X, this.position.Y);
+															int arg_98C6_1 = this.width;
+															int arg_98C6_2 = this.height;
+															int arg_98C6_3 = 29;
+															float arg_98C6_4 = 0f;
+															float arg_98C6_5 = 0f;
+															int arg_98C6_6 = 100;
 															Color newColor = default(Color);
-															int num139 = Dust.NewDust(arg_9854_0, arg_9854_1, arg_9854_2, arg_9854_3, arg_9854_4, arg_9854_5, arg_9854_6, newColor, 2.5f);
-															Dust expr_9863 = Main.dust[num139];
-															expr_9863.velocity *= 3f;
+															int num139 = Dust.NewDust(arg_98C6_0, arg_98C6_1, arg_98C6_2, arg_98C6_3, arg_98C6_4, arg_98C6_5, arg_98C6_6, newColor, 2.5f);
+															Dust expr_98D5 = Main.dust[num139];
+															expr_98D5.velocity *= 3f;
 															Main.dust[num139].noGravity = true;
 														}
 														else
 														{
-															Vector2 arg_98CF_0 = new Vector2(this.position.X, this.position.Y);
-															int arg_98CF_1 = this.width;
-															int arg_98CF_2 = this.height;
-															int arg_98CF_3 = 6;
-															float arg_98CF_4 = 0f;
-															float arg_98CF_5 = 0f;
-															int arg_98CF_6 = 100;
+															Vector2 arg_9941_0 = new Vector2(this.position.X, this.position.Y);
+															int arg_9941_1 = this.width;
+															int arg_9941_2 = this.height;
+															int arg_9941_3 = 6;
+															float arg_9941_4 = 0f;
+															float arg_9941_5 = 0f;
+															int arg_9941_6 = 100;
 															Color newColor = default(Color);
-															int num140 = Dust.NewDust(arg_98CF_0, arg_98CF_1, arg_98CF_2, arg_98CF_3, arg_98CF_4, arg_98CF_5, arg_98CF_6, newColor, 2.5f);
-															Dust expr_98DE = Main.dust[num140];
-															expr_98DE.velocity *= 3f;
+															int num140 = Dust.NewDust(arg_9941_0, arg_9941_1, arg_9941_2, arg_9941_3, arg_9941_4, arg_9941_5, arg_9941_6, newColor, 2.5f);
+															Dust expr_9950 = Main.dust[num140];
+															expr_9950.velocity *= 3f;
 															Main.dust[num140].noGravity = true;
 														}
 													}
@@ -7501,17 +9077,17 @@ namespace Terraria
 												{
 													if (this.type == 29 || this.type == 45)
 													{
-														Vector2 arg_9A22_0 = new Vector2(this.position.X, this.position.Y);
-														int arg_9A22_1 = this.width;
-														int arg_9A22_2 = this.height;
-														int arg_9A22_3 = 27;
-														float arg_9A22_4 = 0f;
-														float arg_9A22_5 = 0f;
-														int arg_9A22_6 = 100;
+														Vector2 arg_9A94_0 = new Vector2(this.position.X, this.position.Y);
+														int arg_9A94_1 = this.width;
+														int arg_9A94_2 = this.height;
+														int arg_9A94_3 = 27;
+														float arg_9A94_4 = 0f;
+														float arg_9A94_5 = 0f;
+														int arg_9A94_6 = 100;
 														Color newColor = default(Color);
-														int num142 = Dust.NewDust(arg_9A22_0, arg_9A22_1, arg_9A22_2, arg_9A22_3, arg_9A22_4, arg_9A22_5, arg_9A22_6, newColor, (float)Main.rand.Next(1, 3));
-														Dust expr_9A31 = Main.dust[num142];
-														expr_9A31.velocity *= 3f;
+														int num142 = Dust.NewDust(arg_9A94_0, arg_9A94_1, arg_9A94_2, arg_9A94_3, arg_9A94_4, arg_9A94_5, arg_9A94_6, newColor, (float)Main.rand.Next(1, 3));
+														Dust expr_9AA3 = Main.dust[num142];
+														expr_9AA3.velocity *= 3f;
 														if (Main.dust[num142].scale > 1f)
 														{
 															Main.dust[num142].noGravity = true;
@@ -7521,32 +9097,32 @@ namespace Terraria
 													{
 														if (this.type == 32)
 														{
-															Vector2 arg_9AC2_0 = new Vector2(this.position.X, this.position.Y);
-															int arg_9AC2_1 = this.width;
-															int arg_9AC2_2 = this.height;
-															int arg_9AC2_3 = 29;
-															float arg_9AC2_4 = 0f;
-															float arg_9AC2_5 = 0f;
-															int arg_9AC2_6 = 100;
+															Vector2 arg_9B34_0 = new Vector2(this.position.X, this.position.Y);
+															int arg_9B34_1 = this.width;
+															int arg_9B34_2 = this.height;
+															int arg_9B34_3 = 29;
+															float arg_9B34_4 = 0f;
+															float arg_9B34_5 = 0f;
+															int arg_9B34_6 = 100;
 															Color newColor = default(Color);
-															int num143 = Dust.NewDust(arg_9AC2_0, arg_9AC2_1, arg_9AC2_2, arg_9AC2_3, arg_9AC2_4, arg_9AC2_5, arg_9AC2_6, newColor, 2.5f);
-															Dust expr_9AD1 = Main.dust[num143];
-															expr_9AD1.velocity *= 3f;
+															int num143 = Dust.NewDust(arg_9B34_0, arg_9B34_1, arg_9B34_2, arg_9B34_3, arg_9B34_4, arg_9B34_5, arg_9B34_6, newColor, 2.5f);
+															Dust expr_9B43 = Main.dust[num143];
+															expr_9B43.velocity *= 3f;
 															Main.dust[num143].noGravity = true;
 														}
 														else
 														{
-															Vector2 arg_9B3D_0 = new Vector2(this.position.X, this.position.Y);
-															int arg_9B3D_1 = this.width;
-															int arg_9B3D_2 = this.height;
-															int arg_9B3D_3 = 6;
-															float arg_9B3D_4 = 0f;
-															float arg_9B3D_5 = 0f;
-															int arg_9B3D_6 = 100;
+															Vector2 arg_9BAF_0 = new Vector2(this.position.X, this.position.Y);
+															int arg_9BAF_1 = this.width;
+															int arg_9BAF_2 = this.height;
+															int arg_9BAF_3 = 6;
+															float arg_9BAF_4 = 0f;
+															float arg_9BAF_5 = 0f;
+															int arg_9BAF_6 = 100;
 															Color newColor = default(Color);
-															int num144 = Dust.NewDust(arg_9B3D_0, arg_9B3D_1, arg_9B3D_2, arg_9B3D_3, arg_9B3D_4, arg_9B3D_5, arg_9B3D_6, newColor, 2.5f);
-															Dust expr_9B4C = Main.dust[num144];
-															expr_9B4C.velocity *= 3f;
+															int num144 = Dust.NewDust(arg_9BAF_0, arg_9BAF_1, arg_9BAF_2, arg_9BAF_3, arg_9BAF_4, arg_9BAF_5, arg_9BAF_6, newColor, 2.5f);
+															Dust expr_9BBE = Main.dust[num144];
+															expr_9BBE.velocity *= 3f;
 															Main.dust[num144].noGravity = true;
 														}
 													}
@@ -7640,18 +9216,18 @@ namespace Terraria
 											{
 												if (Main.rand.Next(5) == 0)
 												{
-													Vector2 arg_9FDC_0 = new Vector2(this.position.X, this.position.Y + 2f);
-													int arg_9FDC_1 = this.width;
-													int arg_9FDC_2 = this.height;
-													int arg_9FDC_3 = 27;
-													float arg_9FDC_4 = this.velocity.X * 0.2f;
-													float arg_9FDC_5 = this.velocity.Y * 0.2f;
-													int arg_9FDC_6 = 100;
+													Vector2 arg_A04E_0 = new Vector2(this.position.X, this.position.Y + 2f);
+													int arg_A04E_1 = this.width;
+													int arg_A04E_2 = this.height;
+													int arg_A04E_3 = 27;
+													float arg_A04E_4 = this.velocity.X * 0.2f;
+													float arg_A04E_5 = this.velocity.Y * 0.2f;
+													int arg_A04E_6 = 100;
 													Color newColor = default(Color);
-													int num154 = Dust.NewDust(arg_9FDC_0, arg_9FDC_1, arg_9FDC_2, arg_9FDC_3, arg_9FDC_4, arg_9FDC_5, arg_9FDC_6, newColor, 1.5f);
+													int num154 = Dust.NewDust(arg_A04E_0, arg_A04E_1, arg_A04E_2, arg_A04E_3, arg_A04E_4, arg_A04E_5, arg_A04E_6, newColor, 1.5f);
 													Main.dust[num154].noGravity = true;
-													Dust expr_9FFE_cp_0 = Main.dust[num154];
-													expr_9FFE_cp_0.velocity.X = expr_9FFE_cp_0.velocity.X * 0.5f;
+													Dust expr_A070_cp_0 = Main.dust[num154];
+													expr_A070_cp_0.velocity.X = expr_A070_cp_0.velocity.X * 0.5f;
 													Main.dust[num154].velocity.Y = -2f;
 													return;
 												}
@@ -7662,20 +9238,20 @@ namespace Terraria
 												{
 													if (Main.rand.Next(2) == 0)
 													{
-														Vector2 arg_A0AA_0 = new Vector2(this.position.X, this.position.Y + 2f);
-														int arg_A0AA_1 = this.width;
-														int arg_A0AA_2 = this.height;
-														int arg_A0AA_3 = 29;
-														float arg_A0AA_4 = this.velocity.X * 0.2f;
-														float arg_A0AA_5 = this.velocity.Y * 0.2f;
-														int arg_A0AA_6 = 100;
+														Vector2 arg_A11C_0 = new Vector2(this.position.X, this.position.Y + 2f);
+														int arg_A11C_1 = this.width;
+														int arg_A11C_2 = this.height;
+														int arg_A11C_3 = 29;
+														float arg_A11C_4 = this.velocity.X * 0.2f;
+														float arg_A11C_5 = this.velocity.Y * 0.2f;
+														int arg_A11C_6 = 100;
 														Color newColor = default(Color);
-														int num155 = Dust.NewDust(arg_A0AA_0, arg_A0AA_1, arg_A0AA_2, arg_A0AA_3, arg_A0AA_4, arg_A0AA_5, arg_A0AA_6, newColor, 2f);
+														int num155 = Dust.NewDust(arg_A11C_0, arg_A11C_1, arg_A11C_2, arg_A11C_3, arg_A11C_4, arg_A11C_5, arg_A11C_6, newColor, 2f);
 														Main.dust[num155].noGravity = true;
-														Dust expr_A0CC_cp_0 = Main.dust[num155];
-														expr_A0CC_cp_0.velocity.X = expr_A0CC_cp_0.velocity.X * 1f;
-														Dust expr_A0EA_cp_0 = Main.dust[num155];
-														expr_A0EA_cp_0.velocity.Y = expr_A0EA_cp_0.velocity.Y * 1f;
+														Dust expr_A13E_cp_0 = Main.dust[num155];
+														expr_A13E_cp_0.velocity.X = expr_A13E_cp_0.velocity.X * 1f;
+														Dust expr_A15C_cp_0 = Main.dust[num155];
+														expr_A15C_cp_0.velocity.Y = expr_A15C_cp_0.velocity.Y * 1f;
 														return;
 													}
 												}
@@ -7683,20 +9259,20 @@ namespace Terraria
 												{
 													if (Main.rand.Next(2) == 0)
 													{
-														Vector2 arg_A171_0 = new Vector2(this.position.X, this.position.Y + 2f);
-														int arg_A171_1 = this.width;
-														int arg_A171_2 = this.height;
-														int arg_A171_3 = 6;
-														float arg_A171_4 = this.velocity.X * 0.2f;
-														float arg_A171_5 = this.velocity.Y * 0.2f;
-														int arg_A171_6 = 100;
+														Vector2 arg_A1E3_0 = new Vector2(this.position.X, this.position.Y + 2f);
+														int arg_A1E3_1 = this.width;
+														int arg_A1E3_2 = this.height;
+														int arg_A1E3_3 = 6;
+														float arg_A1E3_4 = this.velocity.X * 0.2f;
+														float arg_A1E3_5 = this.velocity.Y * 0.2f;
+														int arg_A1E3_6 = 100;
 														Color newColor = default(Color);
-														int num156 = Dust.NewDust(arg_A171_0, arg_A171_1, arg_A171_2, arg_A171_3, arg_A171_4, arg_A171_5, arg_A171_6, newColor, 2f);
+														int num156 = Dust.NewDust(arg_A1E3_0, arg_A1E3_1, arg_A1E3_2, arg_A1E3_3, arg_A1E3_4, arg_A1E3_5, arg_A1E3_6, newColor, 2f);
 														Main.dust[num156].noGravity = true;
-														Dust expr_A193_cp_0 = Main.dust[num156];
-														expr_A193_cp_0.velocity.X = expr_A193_cp_0.velocity.X * 1f;
-														Dust expr_A1B1_cp_0 = Main.dust[num156];
-														expr_A1B1_cp_0.velocity.Y = expr_A1B1_cp_0.velocity.Y * 1f;
+														Dust expr_A205_cp_0 = Main.dust[num156];
+														expr_A205_cp_0.velocity.X = expr_A205_cp_0.velocity.X * 1f;
+														Dust expr_A223_cp_0 = Main.dust[num156];
+														expr_A223_cp_0.velocity.Y = expr_A223_cp_0.velocity.Y * 1f;
 														return;
 													}
 												}
@@ -7739,19 +9315,19 @@ namespace Terraria
 														Main.PlaySound(4, (int)this.position.X, (int)this.position.Y, 9);
 														for (int num161 = 0; num161 < 20; num161++)
 														{
-															Vector2 arg_A3D3_0 = new Vector2(this.position.X, this.position.Y + 2f);
-															int arg_A3D3_1 = this.width;
-															int arg_A3D3_2 = this.height;
-															int arg_A3D3_3 = 18;
-															float arg_A3D3_4 = 0f;
-															float arg_A3D3_5 = 0f;
-															int arg_A3D3_6 = 100;
+															Vector2 arg_A445_0 = new Vector2(this.position.X, this.position.Y + 2f);
+															int arg_A445_1 = this.width;
+															int arg_A445_2 = this.height;
+															int arg_A445_3 = 18;
+															float arg_A445_4 = 0f;
+															float arg_A445_5 = 0f;
+															int arg_A445_6 = 100;
 															Color newColor = default(Color);
-															int num162 = Dust.NewDust(arg_A3D3_0, arg_A3D3_1, arg_A3D3_2, arg_A3D3_3, arg_A3D3_4, arg_A3D3_5, arg_A3D3_6, newColor, 1.8f);
-															Dust expr_A3E2 = Main.dust[num162];
-															expr_A3E2.velocity *= 1.3f;
-															Dust expr_A3FF = Main.dust[num162];
-															expr_A3FF.velocity += this.velocity;
+															int num162 = Dust.NewDust(arg_A445_0, arg_A445_1, arg_A445_2, arg_A445_3, arg_A445_4, arg_A445_5, arg_A445_6, newColor, 1.8f);
+															Dust expr_A454 = Main.dust[num162];
+															expr_A454.velocity *= 1.3f;
+															Dust expr_A471 = Main.dust[num162];
+															expr_A471.velocity += this.velocity;
 															Main.dust[num162].noGravity = true;
 														}
 													}
@@ -7852,76 +9428,76 @@ namespace Terraria
 												{
 													if (this.type == 30)
 													{
-														Vector2 arg_A77A_0 = new Vector2(this.position.X, this.position.Y + 2f);
-														int arg_A77A_1 = this.width;
-														int arg_A77A_2 = this.height;
-														int arg_A77A_3 = 27;
-														float arg_A77A_4 = this.velocity.X * 0.2f;
-														float arg_A77A_5 = this.velocity.Y * 0.2f;
-														int arg_A77A_6 = 100;
+														Vector2 arg_A7EC_0 = new Vector2(this.position.X, this.position.Y + 2f);
+														int arg_A7EC_1 = this.width;
+														int arg_A7EC_2 = this.height;
+														int arg_A7EC_3 = 27;
+														float arg_A7EC_4 = this.velocity.X * 0.2f;
+														float arg_A7EC_5 = this.velocity.Y * 0.2f;
+														int arg_A7EC_6 = 100;
 														Color newColor = default(Color);
-														int num169 = Dust.NewDust(arg_A77A_0, arg_A77A_1, arg_A77A_2, arg_A77A_3, arg_A77A_4, arg_A77A_5, arg_A77A_6, newColor, 2f);
+														int num169 = Dust.NewDust(arg_A7EC_0, arg_A7EC_1, arg_A7EC_2, arg_A7EC_3, arg_A7EC_4, arg_A7EC_5, arg_A7EC_6, newColor, 2f);
 														Main.dust[num169].noGravity = true;
-														Dust expr_A797 = Main.dust[num169];
-														expr_A797.velocity *= 0.3f;
-														Dust expr_A7B9_cp_0 = Main.dust[num169];
-														expr_A7B9_cp_0.velocity.X = expr_A7B9_cp_0.velocity.X - this.velocity.X * 0.2f;
-														Dust expr_A7E3_cp_0 = Main.dust[num169];
-														expr_A7E3_cp_0.velocity.Y = expr_A7E3_cp_0.velocity.Y - this.velocity.Y * 0.2f;
+														Dust expr_A809 = Main.dust[num169];
+														expr_A809.velocity *= 0.3f;
+														Dust expr_A82B_cp_0 = Main.dust[num169];
+														expr_A82B_cp_0.velocity.X = expr_A82B_cp_0.velocity.X - this.velocity.X * 0.2f;
+														Dust expr_A855_cp_0 = Main.dust[num169];
+														expr_A855_cp_0.velocity.Y = expr_A855_cp_0.velocity.Y - this.velocity.Y * 0.2f;
 													}
 													else
 													{
 														if (this.type == 33)
 														{
-															Vector2 arg_A878_0 = new Vector2(this.position.X, this.position.Y + 2f);
-															int arg_A878_1 = this.width;
-															int arg_A878_2 = this.height;
-															int arg_A878_3 = 29;
-															float arg_A878_4 = this.velocity.X * 0.2f;
-															float arg_A878_5 = this.velocity.Y * 0.2f;
-															int arg_A878_6 = 100;
+															Vector2 arg_A8EA_0 = new Vector2(this.position.X, this.position.Y + 2f);
+															int arg_A8EA_1 = this.width;
+															int arg_A8EA_2 = this.height;
+															int arg_A8EA_3 = 29;
+															float arg_A8EA_4 = this.velocity.X * 0.2f;
+															float arg_A8EA_5 = this.velocity.Y * 0.2f;
+															int arg_A8EA_6 = 100;
 															Color newColor = default(Color);
-															int num170 = Dust.NewDust(arg_A878_0, arg_A878_1, arg_A878_2, arg_A878_3, arg_A878_4, arg_A878_5, arg_A878_6, newColor, 2f);
+															int num170 = Dust.NewDust(arg_A8EA_0, arg_A8EA_1, arg_A8EA_2, arg_A8EA_3, arg_A8EA_4, arg_A8EA_5, arg_A8EA_6, newColor, 2f);
 															Main.dust[num170].noGravity = true;
-															Dust expr_A89A_cp_0 = Main.dust[num170];
-															expr_A89A_cp_0.velocity.X = expr_A89A_cp_0.velocity.X * 0.3f;
-															Dust expr_A8B8_cp_0 = Main.dust[num170];
-															expr_A8B8_cp_0.velocity.Y = expr_A8B8_cp_0.velocity.Y * 0.3f;
+															Dust expr_A90C_cp_0 = Main.dust[num170];
+															expr_A90C_cp_0.velocity.X = expr_A90C_cp_0.velocity.X * 0.3f;
+															Dust expr_A92A_cp_0 = Main.dust[num170];
+															expr_A92A_cp_0.velocity.Y = expr_A92A_cp_0.velocity.Y * 0.3f;
 														}
 														else
 														{
 															if (this.type == 112)
 															{
-																Vector2 arg_A941_0 = new Vector2(this.position.X, this.position.Y + 2f);
-																int arg_A941_1 = this.width;
-																int arg_A941_2 = this.height;
-																int arg_A941_3 = 18;
-																float arg_A941_4 = this.velocity.X * 0.1f;
-																float arg_A941_5 = this.velocity.Y * 0.1f;
-																int arg_A941_6 = 80;
+																Vector2 arg_A9B3_0 = new Vector2(this.position.X, this.position.Y + 2f);
+																int arg_A9B3_1 = this.width;
+																int arg_A9B3_2 = this.height;
+																int arg_A9B3_3 = 18;
+																float arg_A9B3_4 = this.velocity.X * 0.1f;
+																float arg_A9B3_5 = this.velocity.Y * 0.1f;
+																int arg_A9B3_6 = 80;
 																Color newColor = default(Color);
-																int num171 = Dust.NewDust(arg_A941_0, arg_A941_1, arg_A941_2, arg_A941_3, arg_A941_4, arg_A941_5, arg_A941_6, newColor, 1.3f);
-																Dust expr_A950 = Main.dust[num171];
-																expr_A950.velocity *= 0.3f;
+																int num171 = Dust.NewDust(arg_A9B3_0, arg_A9B3_1, arg_A9B3_2, arg_A9B3_3, arg_A9B3_4, arg_A9B3_5, arg_A9B3_6, newColor, 1.3f);
+																Dust expr_A9C2 = Main.dust[num171];
+																expr_A9C2.velocity *= 0.3f;
 																Main.dust[num171].noGravity = true;
 															}
 															else
 															{
 																Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.3f, 0.1f);
-																Vector2 arg_AA29_0 = new Vector2(this.position.X, this.position.Y + 2f);
-																int arg_AA29_1 = this.width;
-																int arg_AA29_2 = this.height;
-																int arg_AA29_3 = 6;
-																float arg_AA29_4 = this.velocity.X * 0.2f;
-																float arg_AA29_5 = this.velocity.Y * 0.2f;
-																int arg_AA29_6 = 100;
+																Vector2 arg_AA9B_0 = new Vector2(this.position.X, this.position.Y + 2f);
+																int arg_AA9B_1 = this.width;
+																int arg_AA9B_2 = this.height;
+																int arg_AA9B_3 = 6;
+																float arg_AA9B_4 = this.velocity.X * 0.2f;
+																float arg_AA9B_5 = this.velocity.Y * 0.2f;
+																int arg_AA9B_6 = 100;
 																Color newColor = default(Color);
-																int num172 = Dust.NewDust(arg_AA29_0, arg_AA29_1, arg_AA29_2, arg_AA29_3, arg_AA29_4, arg_AA29_5, arg_AA29_6, newColor, 2f);
+																int num172 = Dust.NewDust(arg_AA9B_0, arg_AA9B_1, arg_AA9B_2, arg_AA9B_3, arg_AA9B_4, arg_AA9B_5, arg_AA9B_6, newColor, 2f);
 																Main.dust[num172].noGravity = true;
-																Dust expr_AA4B_cp_0 = Main.dust[num172];
-																expr_AA4B_cp_0.velocity.X = expr_AA4B_cp_0.velocity.X * 0.3f;
-																Dust expr_AA69_cp_0 = Main.dust[num172];
-																expr_AA69_cp_0.velocity.Y = expr_AA69_cp_0.velocity.Y * 0.3f;
+																Dust expr_AABD_cp_0 = Main.dust[num172];
+																expr_AABD_cp_0.velocity.X = expr_AABD_cp_0.velocity.X * 0.3f;
+																Dust expr_AADB_cp_0 = Main.dust[num172];
+																expr_AADB_cp_0.velocity.Y = expr_AADB_cp_0.velocity.Y * 0.3f;
 															}
 														}
 													}
@@ -8203,38 +9779,38 @@ namespace Terraria
 													}
 													if (this.ai[1] != 2f && this.ai[1] != 3f && this.type != 68)
 													{
-														Vector2 arg_B7F7_0 = new Vector2(this.position.X + (float)(this.width / 2) - 15f - this.velocity.X * 5f, this.position.Y + (float)this.height - 2f);
-														int arg_B7F7_1 = 30;
-														int arg_B7F7_2 = 10;
-														int arg_B7F7_3 = 5;
-														float arg_B7F7_4 = -this.velocity.X * 0.2f;
-														float arg_B7F7_5 = 3f;
-														int arg_B7F7_6 = 0;
+														Vector2 arg_B869_0 = new Vector2(this.position.X + (float)(this.width / 2) - 15f - this.velocity.X * 5f, this.position.Y + (float)this.height - 2f);
+														int arg_B869_1 = 30;
+														int arg_B869_2 = 10;
+														int arg_B869_3 = 5;
+														float arg_B869_4 = -this.velocity.X * 0.2f;
+														float arg_B869_5 = 3f;
+														int arg_B869_6 = 0;
 														Color newColor = default(Color);
-														int num186 = Dust.NewDust(arg_B7F7_0, arg_B7F7_1, arg_B7F7_2, arg_B7F7_3, arg_B7F7_4, arg_B7F7_5, arg_B7F7_6, newColor, 2f);
+														int num186 = Dust.NewDust(arg_B869_0, arg_B869_1, arg_B869_2, arg_B869_3, arg_B869_4, arg_B869_5, arg_B869_6, newColor, 2f);
 														Main.dust[num186].noGravity = true;
-														Dust expr_B819_cp_0 = Main.dust[num186];
-														expr_B819_cp_0.velocity.X = expr_B819_cp_0.velocity.X * 1.3f;
-														Dust expr_B837_cp_0 = Main.dust[num186];
-														expr_B837_cp_0.velocity.X = expr_B837_cp_0.velocity.X + this.velocity.X * 0.4f;
-														Dust expr_B861_cp_0 = Main.dust[num186];
-														expr_B861_cp_0.velocity.Y = expr_B861_cp_0.velocity.Y + (2f + this.velocity.Y);
+														Dust expr_B88B_cp_0 = Main.dust[num186];
+														expr_B88B_cp_0.velocity.X = expr_B88B_cp_0.velocity.X * 1.3f;
+														Dust expr_B8A9_cp_0 = Main.dust[num186];
+														expr_B8A9_cp_0.velocity.X = expr_B8A9_cp_0.velocity.X + this.velocity.X * 0.4f;
+														Dust expr_B8D3_cp_0 = Main.dust[num186];
+														expr_B8D3_cp_0.velocity.Y = expr_B8D3_cp_0.velocity.Y + (2f + this.velocity.Y);
 														for (int num187 = 0; num187 < 2; num187++)
 														{
-															Vector2 arg_B8DA_0 = new Vector2(this.position.X, this.position.Y + 120f);
-															int arg_B8DA_1 = this.width;
-															int arg_B8DA_2 = 60;
-															int arg_B8DA_3 = 5;
-															float arg_B8DA_4 = this.velocity.X;
-															float arg_B8DA_5 = this.velocity.Y;
-															int arg_B8DA_6 = 0;
+															Vector2 arg_B94C_0 = new Vector2(this.position.X, this.position.Y + 120f);
+															int arg_B94C_1 = this.width;
+															int arg_B94C_2 = 60;
+															int arg_B94C_3 = 5;
+															float arg_B94C_4 = this.velocity.X;
+															float arg_B94C_5 = this.velocity.Y;
+															int arg_B94C_6 = 0;
 															newColor = default(Color);
-															num186 = Dust.NewDust(arg_B8DA_0, arg_B8DA_1, arg_B8DA_2, arg_B8DA_3, arg_B8DA_4, arg_B8DA_5, arg_B8DA_6, newColor, 2f);
+															num186 = Dust.NewDust(arg_B94C_0, arg_B94C_1, arg_B94C_2, arg_B94C_3, arg_B94C_4, arg_B94C_5, arg_B94C_6, newColor, 2f);
 															Main.dust[num186].noGravity = true;
-															Dust expr_B8F7 = Main.dust[num186];
-															expr_B8F7.velocity -= this.velocity;
-															Dust expr_B91A_cp_0 = Main.dust[num186];
-															expr_B91A_cp_0.velocity.Y = expr_B91A_cp_0.velocity.Y + 5f;
+															Dust expr_B969 = Main.dust[num186];
+															expr_B969.velocity -= this.velocity;
+															Dust expr_B98C_cp_0 = Main.dust[num186];
+															expr_B98C_cp_0.velocity.Y = expr_B98C_cp_0.velocity.Y + 5f;
 														}
 														return;
 													}
@@ -8471,7 +10047,7 @@ namespace Terraria
 														{
 															if (Main.tile[(int)this.ai[0], (int)this.ai[1]] == null)
 															{
-
+																Main.tile[(int)this.ai[0], (int)this.ai[1]] = new Tile();
 															}
 															if (!Main.tile[(int)this.ai[0], (int)this.ai[1]].active)
 															{
@@ -8659,15 +10235,15 @@ namespace Terraria
 															{
 																if (this.type == 60)
 																{
-																	Vector2 arg_D045_0 = new Vector2(this.position.X, this.position.Y);
-																	int arg_D045_1 = this.width;
-																	int arg_D045_2 = this.height;
-																	int arg_D045_3 = 6;
-																	float arg_D045_4 = this.velocity.X * 0.2f;
-																	float arg_D045_5 = this.velocity.Y * 0.2f;
-																	int arg_D045_6 = 100;
+																	Vector2 arg_D0B7_0 = new Vector2(this.position.X, this.position.Y);
+																	int arg_D0B7_1 = this.width;
+																	int arg_D0B7_2 = this.height;
+																	int arg_D0B7_3 = 6;
+																	float arg_D0B7_4 = this.velocity.X * 0.2f;
+																	float arg_D0B7_5 = this.velocity.Y * 0.2f;
+																	int arg_D0B7_6 = 100;
 																	Color newColor = default(Color);
-																	int num205 = Dust.NewDust(arg_D045_0, arg_D045_1, arg_D045_2, arg_D045_3, arg_D045_4, arg_D045_5, arg_D045_6, newColor, 2f);
+																	int num205 = Dust.NewDust(arg_D0B7_0, arg_D0B7_1, arg_D0B7_2, arg_D0B7_3, arg_D0B7_4, arg_D0B7_5, arg_D0B7_6, newColor, 2f);
 																	Main.dust[num205].noGravity = true;
 																}
 																this.noGravity = true;
@@ -9180,8 +10756,8 @@ namespace Terraria
 																	}
 																	int num224 = Dust.NewDust(this.position, this.width, this.height, 4, this.velocity.X, this.velocity.Y, 255, new Color(0, 80, 255, 80), this.scale * 1.2f);
 																	Main.dust[num224].noGravity = true;
-																	Dust expr_E6A4 = Main.dust[num224];
-																	expr_E6A4.velocity *= 0.5f;
+																	Dust expr_E716 = Main.dust[num224];
+																	expr_E716.velocity *= 0.5f;
 																	if (this.life > 0)
 																	{
 																		float num225 = (float)this.life / (float)this.lifeMax;
@@ -9346,15 +10922,15 @@ namespace Terraria
 																				int num231 = (int)(this.position.Y + (float)(this.height / 2)) / 16;
 																				if (Main.tile[num230, num231 - 1] == null)
 																				{
-
+																					Main.tile[num230, num231 - 1] = new Tile();
 																				}
 																				if (Main.tile[num230, num231 + 1] == null)
 																				{
-
+																					Main.tile[num230, num231 + 1] = new Tile();
 																				}
 																				if (Main.tile[num230, num231 + 2] == null)
 																				{
-
+																					Main.tile[num230, num231 + 2] = new Tile();
 																				}
 																				if (Main.tile[num230, num231 - 1].liquid > 128)
 																				{
@@ -9694,15 +11270,15 @@ namespace Terraria
 																					int num240 = (int)(this.position.Y + (float)(this.height / 2)) / 16;
 																					if (Main.tile[num239, num240 - 1] == null)
 																					{
-
+																						Main.tile[num239, num240 - 1] = new Tile();
 																					}
 																					if (Main.tile[num239, num240 + 1] == null)
 																					{
-
+																						Main.tile[num239, num240 + 1] = new Tile();
 																					}
 																					if (Main.tile[num239, num240 + 2] == null)
 																					{
-
+																						Main.tile[num239, num240 + 2] = new Tile();
 																					}
 																					if (Main.tile[num239, num240 - 1].liquid > 128)
 																					{
@@ -9797,15 +11373,15 @@ namespace Terraria
 																						bool flag24 = false;
 																						if (Main.tile[num248, num251] == null)
 																						{
-
+																							Main.tile[num248, num251] = new Tile();
 																						}
 																						if (Main.tile[num249, num251] == null)
 																						{
-
+																							Main.tile[num248, num251] = new Tile();
 																						}
 																						if (Main.tile[num250, num251] == null)
 																						{
-
+																							Main.tile[num248, num251] = new Tile();
 																						}
 																						if ((Main.tile[num248, num251].active && Main.tileSolid[(int)Main.tile[num248, num251].type]) || (Main.tile[num249, num251].active && Main.tileSolid[(int)Main.tile[num249, num251].type]) || (Main.tile[num250, num251].active && Main.tileSolid[(int)Main.tile[num250, num251].type]))
 																						{
@@ -9823,19 +11399,19 @@ namespace Terraria
 																							this.noTileCollide = false;
 																							if (Main.rand.Next(2) == 0)
 																							{
-																								Vector2 arg_1037D_0 = new Vector2(this.position.X - 4f, this.position.Y + (float)this.height - 8f);
-																								int arg_1037D_1 = this.width + 8;
-																								int arg_1037D_2 = 24;
-																								int arg_1037D_3 = 32;
-																								float arg_1037D_4 = 0f;
-																								float arg_1037D_5 = this.velocity.Y / 2f;
-																								int arg_1037D_6 = 0;
+																								Vector2 arg_103EF_0 = new Vector2(this.position.X - 4f, this.position.Y + (float)this.height - 8f);
+																								int arg_103EF_1 = this.width + 8;
+																								int arg_103EF_2 = 24;
+																								int arg_103EF_3 = 32;
+																								float arg_103EF_4 = 0f;
+																								float arg_103EF_5 = this.velocity.Y / 2f;
+																								int arg_103EF_6 = 0;
 																								Color newColor = default(Color);
-																								int num252 = Dust.NewDust(arg_1037D_0, arg_1037D_1, arg_1037D_2, arg_1037D_3, arg_1037D_4, arg_1037D_5, arg_1037D_6, newColor, 1f);
-																								Dust expr_10395_cp_0 = Main.dust[num252];
-																								expr_10395_cp_0.velocity.X = expr_10395_cp_0.velocity.X * 0.4f;
-																								Dust expr_103B5_cp_0 = Main.dust[num252];
-																								expr_103B5_cp_0.velocity.Y = expr_103B5_cp_0.velocity.Y * -1f;
+																								int num252 = Dust.NewDust(arg_103EF_0, arg_103EF_1, arg_103EF_2, arg_103EF_3, arg_103EF_4, arg_103EF_5, arg_103EF_6, newColor, 1f);
+																								Dust expr_10407_cp_0 = Main.dust[num252];
+																								expr_10407_cp_0.velocity.X = expr_10407_cp_0.velocity.X * 0.4f;
+																								Dust expr_10427_cp_0 = Main.dust[num252];
+																								expr_10427_cp_0.velocity.Y = expr_10427_cp_0.velocity.Y * -1f;
 																								if (Main.rand.Next(2) == 0)
 																								{
 																									Main.dust[num252].noGravity = true;
@@ -10110,8 +11686,8 @@ namespace Terraria
 																								if (Main.rand.Next(6) == 0)
 																								{
 																									int num268 = Dust.NewDust(this.position, this.width, this.height, 55, 0f, 0f, 200, this.color, 1f);
-																									Dust expr_10F12 = Main.dust[num268];
-																									expr_10F12.velocity *= 0.3f;
+																									Dust expr_10F84 = Main.dust[num268];
+																									expr_10F84.velocity *= 0.3f;
 																								}
 																								if (Main.rand.Next(40) == 0)
 																								{
@@ -10123,7 +11699,7 @@ namespace Terraria
 																						{
 																							if (Main.tile[num259, num269] == null)
 																							{
-
+																								Main.tile[num259, num269] = new Tile();
 																							}
 																							if ((Main.tile[num259, num269].active && Main.tileSolid[(int)Main.tile[num259, num269].type]) || Main.tile[num259, num269].liquid > 0)
 																							{
@@ -10489,7 +12065,7 @@ namespace Terraria
 																										{
 																											if (Main.tile[num276, num279] == null)
 																											{
-
+																												Main.tile[num276, num279] = new Tile();
 																											}
 																											if ((Main.tile[num276, num279].active && Main.tileSolid[(int)Main.tile[num276, num279].type]) || Main.tile[num276, num279].liquid > 0)
 																											{
@@ -10732,31 +12308,31 @@ namespace Terraria
 																											int num284 = (int)((this.position.Y + (float)this.height - 15f) / 16f);
 																											if (Main.tile[num283, num284] == null)
 																											{
-
+																												Main.tile[num283, num284] = new Tile();
 																											}
 																											if (Main.tile[num283, num284 - 1] == null)
 																											{
-
+																												Main.tile[num283, num284 - 1] = new Tile();
 																											}
 																											if (Main.tile[num283, num284 - 2] == null)
 																											{
-
+																												Main.tile[num283, num284 - 2] = new Tile();
 																											}
 																											if (Main.tile[num283, num284 - 3] == null)
 																											{
-
+																												Main.tile[num283, num284 - 3] = new Tile();
 																											}
 																											if (Main.tile[num283, num284 + 1] == null)
 																											{
-
+																												Main.tile[num283, num284 + 1] = new Tile();
 																											}
 																											if (Main.tile[num283 + this.direction, num284 - 1] == null)
 																											{
-
+																												Main.tile[num283 + this.direction, num284 - 1] = new Tile();
 																											}
 																											if (Main.tile[num283 + this.direction, num284 + 1] == null)
 																											{
-
+																												Main.tile[num283 + this.direction, num284 + 1] = new Tile();
 																											}
 																											if ((this.velocity.X < 0f && this.spriteDirection == -1) || (this.velocity.X > 0f && this.spriteDirection == 1))
 																											{
@@ -11417,19 +12993,19 @@ namespace Terraria
 																														}
 																														if (Main.rand.Next(5) == 0)
 																														{
-																															Vector2 arg_1462C_0 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
-																															int arg_1462C_1 = this.width;
-																															int arg_1462C_2 = (int)((float)this.height * 0.5f);
-																															int arg_1462C_3 = 5;
-																															float arg_1462C_4 = this.velocity.X;
-																															float arg_1462C_5 = 2f;
-																															int arg_1462C_6 = 0;
+																															Vector2 arg_1469E_0 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
+																															int arg_1469E_1 = this.width;
+																															int arg_1469E_2 = (int)((float)this.height * 0.5f);
+																															int arg_1469E_3 = 5;
+																															float arg_1469E_4 = this.velocity.X;
+																															float arg_1469E_5 = 2f;
+																															int arg_1469E_6 = 0;
 																															Color newColor = default(Color);
-																															int num321 = Dust.NewDust(arg_1462C_0, arg_1462C_1, arg_1462C_2, arg_1462C_3, arg_1462C_4, arg_1462C_5, arg_1462C_6, newColor, 1f);
-																															Dust expr_14644_cp_0 = Main.dust[num321];
-																															expr_14644_cp_0.velocity.X = expr_14644_cp_0.velocity.X * 0.5f;
-																															Dust expr_14664_cp_0 = Main.dust[num321];
-																															expr_14664_cp_0.velocity.Y = expr_14664_cp_0.velocity.Y * 0.1f;
+																															int num321 = Dust.NewDust(arg_1469E_0, arg_1469E_1, arg_1469E_2, arg_1469E_3, arg_1469E_4, arg_1469E_5, arg_1469E_6, newColor, 1f);
+																															Dust expr_146B6_cp_0 = Main.dust[num321];
+																															expr_146B6_cp_0.velocity.X = expr_146B6_cp_0.velocity.X * 0.5f;
+																															Dust expr_146D6_cp_0 = Main.dust[num321];
+																															expr_146D6_cp_0.velocity.Y = expr_146D6_cp_0.velocity.Y * 0.1f;
 																														}
 																														if (Main.dayTime || dead2)
 																														{
@@ -11649,28 +13225,28 @@ namespace Terraria
 																																			}
 																																			for (int num337 = 0; num337 < 20; num337++)
 																																			{
-																																				Vector2 arg_15216_0 = this.position;
-																																				int arg_15216_1 = this.width;
-																																				int arg_15216_2 = this.height;
-																																				int arg_15216_3 = 5;
-																																				float arg_15216_4 = (float)Main.rand.Next(-30, 31) * 0.2f;
-																																				float arg_15216_5 = (float)Main.rand.Next(-30, 31) * 0.2f;
-																																				int arg_15216_6 = 0;
+																																				Vector2 arg_15288_0 = this.position;
+																																				int arg_15288_1 = this.width;
+																																				int arg_15288_2 = this.height;
+																																				int arg_15288_3 = 5;
+																																				float arg_15288_4 = (float)Main.rand.Next(-30, 31) * 0.2f;
+																																				float arg_15288_5 = (float)Main.rand.Next(-30, 31) * 0.2f;
+																																				int arg_15288_6 = 0;
 																																				newColor = default(Color);
-																																				Dust.NewDust(arg_15216_0, arg_15216_1, arg_15216_2, arg_15216_3, arg_15216_4, arg_15216_5, arg_15216_6, newColor, 1f);
+																																				Dust.NewDust(arg_15288_0, arg_15288_1, arg_15288_2, arg_15288_3, arg_15288_4, arg_15288_5, arg_15288_6, newColor, 1f);
 																																			}
 																																			Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 																																		}
 																																	}
-																																	Vector2 arg_1529F_0 = this.position;
-																																	int arg_1529F_1 = this.width;
-																																	int arg_1529F_2 = this.height;
-																																	int arg_1529F_3 = 5;
-																																	float arg_1529F_4 = (float)Main.rand.Next(-30, 31) * 0.2f;
-																																	float arg_1529F_5 = (float)Main.rand.Next(-30, 31) * 0.2f;
-																																	int arg_1529F_6 = 0;
+																																	Vector2 arg_15311_0 = this.position;
+																																	int arg_15311_1 = this.width;
+																																	int arg_15311_2 = this.height;
+																																	int arg_15311_3 = 5;
+																																	float arg_15311_4 = (float)Main.rand.Next(-30, 31) * 0.2f;
+																																	float arg_15311_5 = (float)Main.rand.Next(-30, 31) * 0.2f;
+																																	int arg_15311_6 = 0;
 																																	newColor = default(Color);
-																																	Dust.NewDust(arg_1529F_0, arg_1529F_1, arg_1529F_2, arg_1529F_3, arg_1529F_4, arg_1529F_5, arg_1529F_6, newColor, 1f);
+																																	Dust.NewDust(arg_15311_0, arg_15311_1, arg_15311_2, arg_15311_3, arg_15311_4, arg_15311_5, arg_15311_6, newColor, 1f);
 																																	this.velocity.X = this.velocity.X * 0.98f;
 																																	this.velocity.Y = this.velocity.Y * 0.98f;
 																																	if ((double)this.velocity.X > -0.1 && (double)this.velocity.X < 0.1)
@@ -11963,19 +13539,19 @@ namespace Terraria
 																															}
 																															if (Main.rand.Next(5) == 0)
 																															{
-																																Vector2 arg_1627D_0 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
-																																int arg_1627D_1 = this.width;
-																																int arg_1627D_2 = (int)((float)this.height * 0.5f);
-																																int arg_1627D_3 = 5;
-																																float arg_1627D_4 = this.velocity.X;
-																																float arg_1627D_5 = 2f;
-																																int arg_1627D_6 = 0;
+																																Vector2 arg_162EF_0 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
+																																int arg_162EF_1 = this.width;
+																																int arg_162EF_2 = (int)((float)this.height * 0.5f);
+																																int arg_162EF_3 = 5;
+																																float arg_162EF_4 = this.velocity.X;
+																																float arg_162EF_5 = 2f;
+																																int arg_162EF_6 = 0;
 																																Color newColor = default(Color);
-																																int num359 = Dust.NewDust(arg_1627D_0, arg_1627D_1, arg_1627D_2, arg_1627D_3, arg_1627D_4, arg_1627D_5, arg_1627D_6, newColor, 1f);
-																																Dust expr_16295_cp_0 = Main.dust[num359];
-																																expr_16295_cp_0.velocity.X = expr_16295_cp_0.velocity.X * 0.5f;
-																																Dust expr_162B5_cp_0 = Main.dust[num359];
-																																expr_162B5_cp_0.velocity.Y = expr_162B5_cp_0.velocity.Y * 0.1f;
+																																int num359 = Dust.NewDust(arg_162EF_0, arg_162EF_1, arg_162EF_2, arg_162EF_3, arg_162EF_4, arg_162EF_5, arg_162EF_6, newColor, 1f);
+																																Dust expr_16307_cp_0 = Main.dust[num359];
+																																expr_16307_cp_0.velocity.X = expr_16307_cp_0.velocity.X * 0.5f;
+																																Dust expr_16327_cp_0 = Main.dust[num359];
+																																expr_16327_cp_0.velocity.Y = expr_16327_cp_0.velocity.Y * 0.1f;
 																															}
 																															if (Main.dayTime || dead3)
 																															{
@@ -12192,28 +13768,28 @@ namespace Terraria
 																																				}
 																																				for (int num374 = 0; num374 < 20; num374++)
 																																				{
-																																					Vector2 arg_16E24_0 = this.position;
-																																					int arg_16E24_1 = this.width;
-																																					int arg_16E24_2 = this.height;
-																																					int arg_16E24_3 = 5;
-																																					float arg_16E24_4 = (float)Main.rand.Next(-30, 31) * 0.2f;
-																																					float arg_16E24_5 = (float)Main.rand.Next(-30, 31) * 0.2f;
-																																					int arg_16E24_6 = 0;
+																																					Vector2 arg_16E96_0 = this.position;
+																																					int arg_16E96_1 = this.width;
+																																					int arg_16E96_2 = this.height;
+																																					int arg_16E96_3 = 5;
+																																					float arg_16E96_4 = (float)Main.rand.Next(-30, 31) * 0.2f;
+																																					float arg_16E96_5 = (float)Main.rand.Next(-30, 31) * 0.2f;
+																																					int arg_16E96_6 = 0;
 																																					newColor = default(Color);
-																																					Dust.NewDust(arg_16E24_0, arg_16E24_1, arg_16E24_2, arg_16E24_3, arg_16E24_4, arg_16E24_5, arg_16E24_6, newColor, 1f);
+																																					Dust.NewDust(arg_16E96_0, arg_16E96_1, arg_16E96_2, arg_16E96_3, arg_16E96_4, arg_16E96_5, arg_16E96_6, newColor, 1f);
 																																				}
 																																				Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 																																			}
 																																		}
-																																		Vector2 arg_16EAD_0 = this.position;
-																																		int arg_16EAD_1 = this.width;
-																																		int arg_16EAD_2 = this.height;
-																																		int arg_16EAD_3 = 5;
-																																		float arg_16EAD_4 = (float)Main.rand.Next(-30, 31) * 0.2f;
-																																		float arg_16EAD_5 = (float)Main.rand.Next(-30, 31) * 0.2f;
-																																		int arg_16EAD_6 = 0;
+																																		Vector2 arg_16F1F_0 = this.position;
+																																		int arg_16F1F_1 = this.width;
+																																		int arg_16F1F_2 = this.height;
+																																		int arg_16F1F_3 = 5;
+																																		float arg_16F1F_4 = (float)Main.rand.Next(-30, 31) * 0.2f;
+																																		float arg_16F1F_5 = (float)Main.rand.Next(-30, 31) * 0.2f;
+																																		int arg_16F1F_6 = 0;
 																																		newColor = default(Color);
-																																		Dust.NewDust(arg_16EAD_0, arg_16EAD_1, arg_16EAD_2, arg_16EAD_3, arg_16EAD_4, arg_16EAD_5, arg_16EAD_6, newColor, 1f);
+																																		Dust.NewDust(arg_16F1F_0, arg_16F1F_1, arg_16F1F_2, arg_16F1F_3, arg_16F1F_4, arg_16F1F_5, arg_16F1F_6, newColor, 1f);
 																																		this.velocity.X = this.velocity.X * 0.98f;
 																																		this.velocity.Y = this.velocity.Y * 0.98f;
 																																		if ((double)this.velocity.X > -0.1 && (double)this.velocity.X < 0.1)
@@ -14144,6 +15720,155 @@ namespace Terraria
 																																						if (((this.velocity.X > 0f && this.oldVelocity.X < 0f) || (this.velocity.X < 0f && this.oldVelocity.X > 0f) || (this.velocity.Y > 0f && this.oldVelocity.Y < 0f) || (this.velocity.Y < 0f && this.oldVelocity.Y > 0f)) && !this.justHit)
 																																						{
 																																							this.netUpdate = true;
+																																							return;
+																																						}
+																																					}
+																																				}
+																																				else
+																																				{
+																																					if (this.aiStyle == 38)
+																																					{
+																																						float num479 = 4f;
+																																						float num480 = 1f;
+																																						if (this.type == 143)
+																																						{
+																																							num479 = 3f;
+																																							num480 = 0.7f;
+																																						}
+																																						if (this.type == 145)
+																																						{
+																																							num479 = 3.5f;
+																																							num480 = 0.8f;
+																																						}
+																																						if (this.type == 143)
+																																						{
+																																							this.ai[2] += 1f;
+																																							if (this.ai[2] >= 120f)
+																																							{
+																																								this.ai[2] = 0f;
+																																								if (Main.netMode != 1)
+																																								{
+																																									Vector2 vector59 = new Vector2(this.position.X + (float)this.width * 0.5f - (float)(this.direction * 12), this.position.Y + (float)this.height * 0.5f);
+																																									float speedX = (float)(12 * this.spriteDirection);
+																																									float speedY = 0f;
+																																									if (Main.netMode != 1)
+																																									{
+																																										int num481 = 25;
+																																										int num482 = 110;
+																																										int num483 = Projectile.NewProjectile(vector59.X, vector59.Y, speedX, speedY, num482, num481, 0f, Main.myPlayer);
+																																										Main.projectile[num483].ai[0] = 2f;
+																																										Main.projectile[num483].timeLeft = 300;
+																																										Main.projectile[num483].friendly = false;
+																																										NetMessage.SendData(27, -1, -1, "", num483, 0f, 0f, 0f, 0);
+																																										this.netUpdate = true;
+																																									}
+																																								}
+																																							}
+																																						}
+																																						if (this.type == 144 && this.ai[1] >= 3f)
+																																						{
+																																							this.TargetClosest(true);
+																																							this.spriteDirection = this.direction;
+																																							if (this.velocity.Y == 0f)
+																																							{
+																																								this.velocity.X = this.velocity.X * 0.9f;
+																																								this.ai[2] += 1f;
+																																								if ((double)this.velocity.X > -0.3 && (double)this.velocity.X < 0.3)
+																																								{
+																																									this.velocity.X = 0f;
+																																								}
+																																								if (this.ai[2] >= 200f)
+																																								{
+																																									this.ai[2] = 0f;
+																																									this.ai[1] = 0f;
+																																								}
+																																							}
+																																						}
+																																						else
+																																						{
+																																							if (this.type == 145 && this.ai[1] >= 3f)
+																																							{
+																																								this.TargetClosest(true);
+																																								if (this.velocity.Y == 0f)
+																																								{
+																																									this.velocity.X = this.velocity.X * 0.9f;
+																																									this.ai[2] += 1f;
+																																									if ((double)this.velocity.X > -0.3 && (double)this.velocity.X < 0.3)
+																																									{
+																																										this.velocity.X = 0f;
+																																									}
+																																									if (this.ai[2] >= 16f)
+																																									{
+																																										this.ai[2] = 0f;
+																																										this.ai[1] = 0f;
+																																									}
+																																								}
+																																								if (this.velocity.X == 0f && this.velocity.Y == 0f && this.ai[2] == 8f)
+																																								{
+																																									float num484 = 10f;
+																																									Vector2 vector60 = new Vector2(this.position.X + (float)this.width * 0.5f - (float)(this.direction * 12), this.position.Y + (float)this.height * 0.25f);
+																																									float num485 = Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) - vector60.X;
+																																									float num486 = Main.player[this.target].position.Y - vector60.Y;
+																																									float num487 = (float)Math.Sqrt((double)(num485 * num485 + num486 * num486));
+																																									num487 = num484 / num487;
+																																									num485 *= num487;
+																																									num486 *= num487;
+																																									if (Main.netMode != 1)
+																																									{
+																																										int num488 = 35;
+																																										int num489 = 109;
+																																										int num490 = Projectile.NewProjectile(vector60.X, vector60.Y, num485, num486, num489, num488, 0f, Main.myPlayer);
+																																										Main.projectile[num490].ai[0] = 2f;
+																																										Main.projectile[num490].timeLeft = 300;
+																																										Main.projectile[num490].friendly = false;
+																																										NetMessage.SendData(27, -1, -1, "", num490, 0f, 0f, 0f, 0);
+																																										this.netUpdate = true;
+																																									}
+																																								}
+																																							}
+																																							else
+																																							{
+																																								if (this.velocity.Y == 0f)
+																																								{
+																																									if (this.localAI[2] == this.position.X)
+																																									{
+																																										this.direction *= -1;
+																																										this.ai[3] = 60f;
+																																									}
+																																									this.localAI[2] = this.position.X;
+																																									if (this.ai[3] == 0f)
+																																									{
+																																										this.TargetClosest(true);
+																																									}
+																																									this.ai[0] += 1f;
+																																									if (this.ai[0] > 2f)
+																																									{
+																																										this.ai[0] = 0f;
+																																										this.ai[1] += 1f;
+																																										this.velocity.Y = -8.2f;
+																																										this.velocity.X = this.velocity.X + (float)this.direction * num480 * 1.1f;
+																																									}
+																																									else
+																																									{
+																																										this.velocity.Y = -6f;
+																																										this.velocity.X = this.velocity.X + (float)this.direction * num480 * 0.9f;
+																																									}
+																																									this.spriteDirection = this.direction;
+																																								}
+																																								this.velocity.X = this.velocity.X + (float)this.direction * num480 * 0.01f;
+																																							}
+																																						}
+																																						if (this.ai[3] > 0f)
+																																						{
+																																							this.ai[3] -= 1f;
+																																						}
+																																						if (this.velocity.X > num479 && this.direction > 0)
+																																						{
+																																							this.velocity.X = 4f;
+																																						}
+																																						if (this.velocity.X < -num479 && this.direction < 0)
+																																						{
+																																							this.velocity.X = -4f;
 																																						}
 																																					}
 																																				}
@@ -14184,6 +15909,10 @@ namespace Terraria
 		public void FindFrame()
 		{
 			int num = 1;
+			if (!Main.dedServ)
+			{
+				num = Main.npcTexture[this.type].Height / Main.npcFrameCount[this.type];
+			}
 			int num2 = 0;
 			if (this.aiAction == 0)
 			{
@@ -14256,6 +15985,179 @@ namespace Terraria
 					if (this.frame.Y > num)
 					{
 						this.frame.Y = 0;
+					}
+				}
+			}
+			if (this.type == 143)
+			{
+				if (this.velocity.Y > 0f)
+				{
+					this.frameCounter += 1.0;
+				}
+				else
+				{
+					if (this.velocity.Y < 0f)
+					{
+						this.frameCounter -= 1.0;
+					}
+				}
+				if (this.frameCounter < 6.0)
+				{
+					this.frame.Y = num;
+				}
+				else
+				{
+					if (this.frameCounter < 12.0)
+					{
+						this.frame.Y = num * 2;
+					}
+					else
+					{
+						if (this.frameCounter < 18.0)
+						{
+							this.frame.Y = num * 3;
+						}
+					}
+				}
+				if (this.frameCounter < 0.0)
+				{
+					this.frameCounter = 0.0;
+				}
+				if (this.frameCounter > 17.0)
+				{
+					this.frameCounter = 17.0;
+				}
+			}
+			if (this.type == 144)
+			{
+				if (this.velocity.X == 0f && this.velocity.Y == 0f)
+				{
+					this.localAI[3] += 1f;
+					if (this.localAI[3] < 6f)
+					{
+						this.frame.Y = 0;
+					}
+					else
+					{
+						if (this.localAI[3] < 12f)
+						{
+							this.frame.Y = num;
+						}
+					}
+					if (this.localAI[3] >= 11f)
+					{
+						this.localAI[3] = 0f;
+					}
+				}
+				else
+				{
+					if (this.velocity.Y > 0f)
+					{
+						this.frameCounter += 1.0;
+					}
+					else
+					{
+						if (this.velocity.Y < 0f)
+						{
+							this.frameCounter -= 1.0;
+						}
+					}
+					if (this.frameCounter < 6.0)
+					{
+						this.frame.Y = num * 2;
+					}
+					else
+					{
+						if (this.frameCounter < 12.0)
+						{
+							this.frame.Y = num * 3;
+						}
+						else
+						{
+							if (this.frameCounter < 18.0)
+							{
+								this.frame.Y = num * 4;
+							}
+						}
+					}
+					if (this.frameCounter < 0.0)
+					{
+						this.frameCounter = 0.0;
+					}
+					if (this.frameCounter > 17.0)
+					{
+						this.frameCounter = 17.0;
+					}
+				}
+			}
+			if (this.type == 145)
+			{
+				if (this.velocity.X == 0f && this.velocity.Y == 0f)
+				{
+					if (this.ai[2] < 4f)
+					{
+						this.frame.Y = 0;
+					}
+					else
+					{
+						if (this.ai[2] < 8f)
+						{
+							this.frame.Y = num;
+						}
+						else
+						{
+							if (this.ai[2] < 12f)
+							{
+								this.frame.Y = num * 2;
+							}
+							else
+							{
+								if (this.ai[2] < 16f)
+								{
+									this.frame.Y = num * 3;
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					if (this.velocity.Y > 0f)
+					{
+						this.frameCounter += 1.0;
+					}
+					else
+					{
+						if (this.velocity.Y < 0f)
+						{
+							this.frameCounter -= 1.0;
+						}
+					}
+					if (this.frameCounter < 6.0)
+					{
+						this.frame.Y = num * 4;
+					}
+					else
+					{
+						if (this.frameCounter < 12.0)
+						{
+							this.frame.Y = num * 5;
+						}
+						else
+						{
+							if (this.frameCounter < 18.0)
+							{
+								this.frame.Y = num * 6;
+							}
+						}
+					}
+					if (this.frameCounter < 0.0)
+					{
+						this.frameCounter = 0.0;
+					}
+					if (this.frameCounter > 17.0)
+					{
+						this.frameCounter = 17.0;
 					}
 				}
 			}
@@ -15091,7 +16993,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type == 17 || this.type == 18 || this.type == 19 || this.type == 20 || this.type == 22 || this.type == 38 || this.type == 26 || this.type == 27 || this.type == 28 || this.type == 31 || this.type == 21 || this.type == 44 || this.type == 54 || this.type == 37 || this.type == 73 || this.type == 77 || this.type == 78 || this.type == 79 || this.type == 80 || this.type == 104 || this.type == 107 || this.type == 108 || this.type == 120 || this.type == 124 || this.type == 140)
+			if (this.type == 17 || this.type == 18 || this.type == 19 || this.type == 20 || this.type == 22 || this.type == 142 || this.type == 38 || this.type == 26 || this.type == 27 || this.type == 28 || this.type == 31 || this.type == 21 || this.type == 44 || this.type == 54 || this.type == 37 || this.type == 73 || this.type == 77 || this.type == 78 || this.type == 79 || this.type == 80 || this.type == 104 || this.type == 107 || this.type == 108 || this.type == 120 || this.type == 124 || this.type == 140)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -15971,7 +17873,7 @@ namespace Terraria
 							int num14 = Main.rand.Next(num7, num8);
 							if (Main.tile[num13, num14].active && Main.tileSolid[(int)Main.tile[num13, num14].type])
 							{
-								goto IL_C33;
+								goto IL_C34;
 							}
 							if (!Main.wallHouse[(int)Main.tile[num13, num14].wall])
 							{
@@ -15985,9 +17887,9 @@ namespace Terraria
 								}
 								else
 								{
-									if (!flag4 && (double)num14 < Main.worldSurface * 0.44999998807907104 && !flag6 && Main.hardMode && Main.rand.Next(4) == 0)
+									if (!flag4 && (double)num14 < Main.worldSurface * 0.44999998807907104 && !flag6 && Main.hardMode && Main.rand.Next(10) == 0)
 									{
-										byte arg_AEB_0 = Main.tile[num13, num14].type;
+										byte arg_AEC_0 = Main.tile[num13, num14].type;
 										num = num13;
 										num2 = num14;
 										flag = true;
@@ -16002,7 +17904,7 @@ namespace Terraria
 											{
 												if (num13 < num9 || num13 > num10 || l < num11 || l > num12)
 												{
-													byte arg_B59_0 = Main.tile[num13, l].type;
+													byte arg_B5A_0 = Main.tile[num13, l].type;
 													num = num13;
 													num2 = l;
 													flag = true;
@@ -16019,7 +17921,7 @@ namespace Terraria
 								}
 								if (!flag)
 								{
-									goto IL_C33;
+									goto IL_C34;
 								}
 								int num15 = num - NPC.spawnSpaceX / 2;
 								int num16 = num + NPC.spawnSpaceX / 2;
@@ -16059,17 +17961,17 @@ namespace Terraria
 											}
 										}
 									}
-									goto IL_C33;
+									goto IL_C34;
 								}
-								goto IL_C33;
+								goto IL_C34;
 							}
-							IL_C39:
+							IL_C3A:
 							k++;
 							continue;
-							IL_C33:
+							IL_C34:
 							if (!flag && !flag)
 							{
-								goto IL_C39;
+								goto IL_C3A;
 							}
 							break;
 						}
@@ -16107,7 +18009,7 @@ namespace Terraria
 						int num21 = 200;
 						if (flag2)
 						{
-							if (Main.hardMode && Main.rand.Next(4) == 0 && !NPC.AnyNPCs(87))
+							if (Main.hardMode && Main.rand.Next(10) == 0 && !NPC.AnyNPCs(87))
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 87, 1);
 							}
@@ -16120,31 +18022,55 @@ namespace Terraria
 						{
 							if (flag4)
 							{
-								if (Main.rand.Next(9) == 0)
+								if (Main.invasionType == 1)
 								{
-									NPC.NewNPC(num * 16 + 8, num2 * 16, 29, 0);
-								}
-								else
-								{
-									if (Main.rand.Next(5) == 0)
+									if (Main.rand.Next(9) == 0)
 									{
-										NPC.NewNPC(num * 16 + 8, num2 * 16, 26, 0);
+										NPC.NewNPC(num * 16 + 8, num2 * 16, 29, 0);
 									}
 									else
 									{
-										if (Main.rand.Next(3) == 0)
+										if (Main.rand.Next(5) == 0)
 										{
-											NPC.NewNPC(num * 16 + 8, num2 * 16, 111, 0);
+											NPC.NewNPC(num * 16 + 8, num2 * 16, 26, 0);
 										}
 										else
 										{
 											if (Main.rand.Next(3) == 0)
 											{
-												NPC.NewNPC(num * 16 + 8, num2 * 16, 27, 0);
+												NPC.NewNPC(num * 16 + 8, num2 * 16, 111, 0);
 											}
 											else
 											{
-												NPC.NewNPC(num * 16 + 8, num2 * 16, 28, 0);
+												if (Main.rand.Next(3) == 0)
+												{
+													NPC.NewNPC(num * 16 + 8, num2 * 16, 27, 0);
+												}
+												else
+												{
+													NPC.NewNPC(num * 16 + 8, num2 * 16, 28, 0);
+												}
+											}
+										}
+									}
+								}
+								else
+								{
+									if (Main.invasionType == 2)
+									{
+										if (Main.rand.Next(7) == 0)
+										{
+											NPC.NewNPC(num * 16 + 8, num2 * 16, 145, 0);
+										}
+										else
+										{
+											if (Main.rand.Next(3) == 0)
+											{
+												NPC.NewNPC(num * 16 + 8, num2 * 16, 143, 0);
+											}
+											else
+											{
+												NPC.NewNPC(num * 16 + 8, num2 * 16, 144, 0);
 											}
 										}
 									}
@@ -16228,7 +18154,7 @@ namespace Terraria
 															}
 															else
 															{
-																if (num20 != 2 && num20 != 109 && (double)num2 <= Main.worldSurface)
+																if (num20 != 2 && num20 != 109 && num20 != 147 && (double)num2 <= Main.worldSurface)
 																{
 																	return;
 																}
@@ -16499,13 +18425,13 @@ namespace Terraria
 																																if (Main.dayTime)
 																																{
 																																	int num22 = Math.Abs(num - Main.spawnTileX);
-																																	if (num22 < Main.maxTilesX / 3 && Main.rand.Next(15) == 0 && (num20 == 2 || num20 == 109))
+																																	if (num22 < Main.maxTilesX / 3 && Main.rand.Next(15) == 0 && (num20 == 2 || num20 == 109 || num20 == 147))
 																																	{
 																																		NPC.NewNPC(num * 16 + 8, num2 * 16, 46, 0);
 																																	}
 																																	else
 																																	{
-																																		if (num22 < Main.maxTilesX / 3 && Main.rand.Next(15) == 0 && (num20 == 2 || num20 == 109))
+																																		if (num22 < Main.maxTilesX / 3 && Main.rand.Next(15) == 0 && (num20 == 2 || num20 == 109 || num20 == 147))
 																																		{
 																																			NPC.NewNPC(num * 16 + 8, num2 * 16, 74, 0);
 																																		}
@@ -16944,10 +18870,10 @@ namespace Terraria
 			bool flag = false;
 			int num = 0;
 			int num2 = 0;
-			int num3 = (int)(Main.player[plr].position.X / 16f) - NPC.spawnRangeX * 3;
-			int num4 = (int)(Main.player[plr].position.X / 16f) + NPC.spawnRangeX * 3;
-			int num5 = (int)(Main.player[plr].position.Y / 16f) - NPC.spawnRangeY * 3;
-			int num6 = (int)(Main.player[plr].position.Y / 16f) + NPC.spawnRangeY * 3;
+			int num3 = (int)(Main.player[plr].position.X / 16f) - NPC.spawnRangeX * 2;
+			int num4 = (int)(Main.player[plr].position.X / 16f) + NPC.spawnRangeX * 2;
+			int num5 = (int)(Main.player[plr].position.Y / 16f) - NPC.spawnRangeY * 2;
+			int num6 = (int)(Main.player[plr].position.Y / 16f) + NPC.spawnRangeY * 2;
 			int num7 = (int)(Main.player[plr].position.X / 16f) - NPC.safeRangeX;
 			int num8 = (int)(Main.player[plr].position.X / 16f) + NPC.safeRangeX;
 			int num9 = (int)(Main.player[plr].position.Y / 16f) - NPC.safeRangeY;
@@ -16977,18 +18903,18 @@ namespace Terraria
 					int num12 = Main.rand.Next(num5, num6);
 					if (Main.tile[num11, num12].active && Main.tileSolid[(int)Main.tile[num11, num12].type])
 					{
-						goto IL_2E1;
+						goto IL_304;
 					}
-					if (Main.tile[num11, num12].wall != 1)
+					if (!Main.wallHouse[(int)Main.tile[num11, num12].wall] || i >= 999)
 					{
 						int k = num12;
 						while (k < Main.maxTilesY)
 						{
 							if (Main.tile[num11, k].active && Main.tileSolid[(int)Main.tile[num11, k].type])
 							{
-								if (num11 < num7 || num11 > num8 || k < num9 || k > num10)
+								if (num11 < num7 || num11 > num8 || k < num9 || k > num10 || i == 999)
 								{
-									byte arg_220_0 = Main.tile[num11, k].type;
+									byte arg_237_0 = Main.tile[num11, k].type;
 									num = num11;
 									num2 = k;
 									flag = true;
@@ -17001,9 +18927,9 @@ namespace Terraria
 								k++;
 							}
 						}
-						if (!flag)
+						if (!flag || i >= 999)
 						{
-							goto IL_2E1;
+							goto IL_304;
 						}
 						int num13 = num - NPC.spawnSpaceX / 2;
 						int num14 = num + NPC.spawnSpaceX / 2;
@@ -17038,21 +18964,21 @@ namespace Terraria
 									}
 								}
 							}
-							goto IL_2E1;
+							goto IL_304;
 						}
-						goto IL_2E1;
+						goto IL_304;
 					}
-					IL_2E7:
+					IL_30A:
 					j++;
 					continue;
-					IL_2E1:
+					IL_304:
 					if (!flag && !flag)
 					{
-						goto IL_2E7;
+						goto IL_30A;
 					}
 					break;
 				}
-				if (flag)
+				if (flag && i < 999)
 				{
 					Rectangle rectangle = new Rectangle(num * 16, num2 * 16, 16, 16);
 					for (int n = 0; n < 255; n++)
@@ -17080,7 +19006,7 @@ namespace Terraria
 					return;
 				}
 				Main.npc[num17].target = plr;
-				Main.npc[num17].timeLeft *= 5;
+				Main.npc[num17].timeLeft *= 20;
 				string str = Main.npc[num17].name;
 				if (Main.npc[num17].type == 13)
 				{
@@ -17189,10 +19115,6 @@ namespace Terraria
 		}
 		public double StrikeNPC(int Damage, float knockBack, int hitDirection, bool crit = false, bool noEffect = false)
 		{
-		    double retdmg = 0.0;
-            if (NpcHooks.OnStrikeNpc(this, ref Damage, ref knockBack, ref hitDirection, ref crit, ref noEffect, ref retdmg))
-                return retdmg;
-
 			if (!this.active || this.life <= 0)
 			{
 				return 0.0;
@@ -17388,7 +19310,7 @@ namespace Terraria
 				}
 				this.NPCLoot();
 				this.active = false;
-				if (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 29 || this.type == 111)
+				if (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 29 || this.type == 111 || this.type == 143 || this.type == 144 || this.type == 145)
 				{
 					Main.invasionSize--;
 				}
@@ -17406,6 +19328,10 @@ namespace Terraria
 				{
 					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 520, 1, false, 0);
 				}
+			}
+			if (Main.xMas && this.lifeMax > 1 && this.damage > 0 && !this.friendly && this.type != 121 && this.value > 0f && Main.rand.Next(13) == 0)
+			{
+				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(599, 602), 1, false, 0);
 			}
 			if (this.type == 109 && !NPC.downedClown)
 			{
@@ -17450,6 +19376,10 @@ namespace Terraria
 			if (this.type == 87)
 			{
 				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 575, Main.rand.Next(5, 11), false, 0);
+			}
+			if (this.type == 143 || this.type == 144 || this.type == 145)
+			{
+				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 593, Main.rand.Next(5, 11), false, 0);
 			}
 			if (this.type == 79)
 			{
@@ -18034,14 +19964,23 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 141)
+			if (this.type == 143 || this.type == 144 || this.type == 145)
 			{
 				if (this.life > 0)
 				{
 					int num4 = 0;
 					while ((double)num4 < dmg / (double)this.lifeMax * 100.0)
 					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, this.alpha, new Color(210, 230, 140), 1f);
+						Vector2 arg_297_0 = this.position;
+						int arg_297_1 = this.width;
+						int arg_297_2 = this.height;
+						int arg_297_3 = 76;
+						float arg_297_4 = (float)hitDirection;
+						float arg_297_5 = -1f;
+						int arg_297_6 = 0;
+						Color newColor = default(Color);
+						int num5 = Dust.NewDust(arg_297_0, arg_297_1, arg_297_2, arg_297_3, arg_297_4, arg_297_5, arg_297_6, newColor, 1f);
+						Main.dust[num5].noGravity = true;
 						num4++;
 					}
 				}
@@ -18049,32 +19988,61 @@ namespace Terraria
 				{
 					for (int k = 0; k < 50; k++)
 					{
+						Vector2 arg_2FC_0 = this.position;
+						int arg_2FC_1 = this.width;
+						int arg_2FC_2 = this.height;
+						int arg_2FC_3 = 76;
+						float arg_2FC_4 = (float)hitDirection;
+						float arg_2FC_5 = -1f;
+						int arg_2FC_6 = 0;
+						Color newColor = default(Color);
+						int num6 = Dust.NewDust(arg_2FC_0, arg_2FC_1, arg_2FC_2, arg_2FC_3, arg_2FC_4, arg_2FC_5, arg_2FC_6, newColor, 1f);
+						Main.dust[num6].noGravity = true;
+						Main.dust[num6].scale *= 1.2f;
+					}
+				}
+			}
+			if (this.type == 141)
+			{
+				if (this.life > 0)
+				{
+					int num7 = 0;
+					while ((double)num7 < dmg / (double)this.lifeMax * 100.0)
+					{
+						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, this.alpha, new Color(210, 230, 140), 1f);
+						num7++;
+					}
+				}
+				else
+				{
+					for (int l = 0; l < 50; l++)
+					{
 						Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, this.alpha, new Color(210, 230, 140), 1f);
 					}
 				}
 			}
 			if (this.type == 112)
 			{
-				for (int l = 0; l < 20; l++)
+				for (int m = 0; m < 20; m++)
 				{
-					Vector2 arg_362_0 = new Vector2(this.position.X, this.position.Y + 2f);
-					int arg_362_1 = this.width;
-					int arg_362_2 = this.height;
-					int arg_362_3 = 18;
-					float arg_362_4 = 0f;
-					float arg_362_5 = 0f;
-					int arg_362_6 = 100;
+					Vector2 arg_464_0 = new Vector2(this.position.X, this.position.Y + 2f);
+					int arg_464_1 = this.width;
+					int arg_464_2 = this.height;
+					int arg_464_3 = 18;
+					float arg_464_4 = 0f;
+					float arg_464_5 = 0f;
+					int arg_464_6 = 100;
 					Color newColor = default(Color);
-					int num5 = Dust.NewDust(arg_362_0, arg_362_1, arg_362_2, arg_362_3, arg_362_4, arg_362_5, arg_362_6, newColor, 2f);
+					int num8 = Dust.NewDust(arg_464_0, arg_464_1, arg_464_2, arg_464_3, arg_464_4, arg_464_5, arg_464_6, newColor, 2f);
 					if (Main.rand.Next(2) == 0)
 					{
-						Main.dust[num5].scale *= 0.6f;
+						Main.dust[num8].scale *= 0.6f;
 					}
 					else
 					{
-						Dust expr_399 = Main.dust[num5];
-						expr_399.velocity *= 1.4f;
-						Main.dust[num5].noGravity = true;
+						Dust expr_49B = Main.dust[num8];
+						expr_49B.velocity *= 1.4f;
+						Main.dust[num8].noGravity = true;
 					}
 				}
 			}
@@ -18082,54 +20050,54 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num6 = 0;
-					while ((double)num6 < dmg / (double)this.lifeMax * 100.0)
+					int num9 = 0;
+					while ((double)num9 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 14, 0f, 0f, this.alpha, this.color, 1f);
-						num6++;
+						num9++;
 					}
 				}
 				else
 				{
-					for (int m = 0; m < 50; m++)
+					for (int n = 0; n < 50; n++)
 					{
-						int num7 = Dust.NewDust(this.position, this.width, this.height, 14, (float)hitDirection, 0f, this.alpha, this.color, 1f);
-						Dust expr_488 = Main.dust[num7];
-						expr_488.velocity *= 2f;
+						int num10 = Dust.NewDust(this.position, this.width, this.height, 14, (float)hitDirection, 0f, this.alpha, this.color, 1f);
+						Dust expr_58A = Main.dust[num10];
+						expr_58A.velocity *= 2f;
 					}
 					if (Main.netMode != 1)
 					{
 						if (this.type == 121)
 						{
-							int num8 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 81, 0);
-							Main.npc[num8].SetDefaults("Slimer2");
-							Main.npc[num8].velocity.X = this.velocity.X;
-							Main.npc[num8].velocity.Y = this.velocity.Y;
+							int num11 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 81, 0);
+							Main.npc[num11].SetDefaults("Slimer2");
+							Main.npc[num11].velocity.X = this.velocity.X;
+							Main.npc[num11].velocity.Y = this.velocity.Y;
 							Gore.NewGore(this.position, this.velocity, 94, this.scale);
-							if (Main.netMode == 2 && num8 < 200)
+							if (Main.netMode == 2 && num11 < 200)
 							{
-								NetMessage.SendData(23, -1, -1, "", num8, 0f, 0f, 0f, 0);
+								NetMessage.SendData(23, -1, -1, "", num11, 0f, 0f, 0f, 0);
 							}
 						}
 						else
 						{
 							if (this.scale >= 1f)
 							{
-								int num9 = Main.rand.Next(2) + 2;
-								for (int n = 0; n < num9; n++)
+								int num12 = Main.rand.Next(2) + 2;
+								for (int num13 = 0; num13 < num12; num13++)
 								{
-									int num10 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 1, 0);
-									Main.npc[num10].SetDefaults("Slimeling");
-									Main.npc[num10].velocity.X = this.velocity.X * 3f;
-									Main.npc[num10].velocity.Y = this.velocity.Y;
-									NPC expr_650_cp_0 = Main.npc[num10];
-									expr_650_cp_0.velocity.X = expr_650_cp_0.velocity.X + ((float)Main.rand.Next(-10, 10) * 0.1f + (float)(n * this.direction) * 0.3f);
-									NPC expr_68F_cp_0 = Main.npc[num10];
-									expr_68F_cp_0.velocity.Y = expr_68F_cp_0.velocity.Y - ((float)Main.rand.Next(0, 10) * 0.1f + (float)n);
-									Main.npc[num10].ai[1] = (float)n;
-									if (Main.netMode == 2 && num10 < 200)
+									int num14 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 1, 0);
+									Main.npc[num14].SetDefaults("Slimeling");
+									Main.npc[num14].velocity.X = this.velocity.X * 3f;
+									Main.npc[num14].velocity.Y = this.velocity.Y;
+									NPC expr_752_cp_0 = Main.npc[num14];
+									expr_752_cp_0.velocity.X = expr_752_cp_0.velocity.X + ((float)Main.rand.Next(-10, 10) * 0.1f + (float)(num13 * this.direction) * 0.3f);
+									NPC expr_791_cp_0 = Main.npc[num14];
+									expr_791_cp_0.velocity.Y = expr_791_cp_0.velocity.Y - ((float)Main.rand.Next(0, 10) * 0.1f + (float)num13);
+									Main.npc[num14].ai[1] = (float)num13;
+									if (Main.netMode == 2 && num14 < 200)
 									{
-										NetMessage.SendData(23, -1, -1, "", num10, 0f, 0f, 0f, 0);
+										NetMessage.SendData(23, -1, -1, "", num14, 0f, 0f, 0f, 0);
 									}
 								}
 							}
@@ -18141,59 +20109,20 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num11 = 0;
-					while ((double)num11 < dmg / (double)this.lifeMax * 50.0)
-					{
-						Vector2 arg_76C_0 = this.position;
-						int arg_76C_1 = this.width;
-						int arg_76C_2 = this.height;
-						int arg_76C_3 = 71;
-						float arg_76C_4 = 0f;
-						float arg_76C_5 = 0f;
-						int arg_76C_6 = 200;
-						Color newColor = default(Color);
-						int num12 = Dust.NewDust(arg_76C_0, arg_76C_1, arg_76C_2, arg_76C_3, arg_76C_4, arg_76C_5, arg_76C_6, newColor, 1f);
-						Dust expr_77B = Main.dust[num12];
-						expr_77B.velocity *= 1.5f;
-						num11++;
-					}
-				}
-				else
-				{
-					for (int num13 = 0; num13 < 50; num13++)
-					{
-						Vector2 arg_7E4_0 = this.position;
-						int arg_7E4_1 = this.width;
-						int arg_7E4_2 = this.height;
-						int arg_7E4_3 = 71;
-						float arg_7E4_4 = (float)hitDirection;
-						float arg_7E4_5 = 0f;
-						int arg_7E4_6 = 200;
-						Color newColor = default(Color);
-						int num14 = Dust.NewDust(arg_7E4_0, arg_7E4_1, arg_7E4_2, arg_7E4_3, arg_7E4_4, arg_7E4_5, arg_7E4_6, newColor, 1f);
-						Dust expr_7F3 = Main.dust[num14];
-						expr_7F3.velocity *= 1.5f;
-					}
-				}
-			}
-			if (this.type == 122)
-			{
-				if (this.life > 0)
-				{
 					int num15 = 0;
 					while ((double)num15 < dmg / (double)this.lifeMax * 50.0)
 					{
-						Vector2 arg_861_0 = this.position;
-						int arg_861_1 = this.width;
-						int arg_861_2 = this.height;
-						int arg_861_3 = 72;
-						float arg_861_4 = 0f;
-						float arg_861_5 = 0f;
-						int arg_861_6 = 200;
+						Vector2 arg_86E_0 = this.position;
+						int arg_86E_1 = this.width;
+						int arg_86E_2 = this.height;
+						int arg_86E_3 = 71;
+						float arg_86E_4 = 0f;
+						float arg_86E_5 = 0f;
+						int arg_86E_6 = 200;
 						Color newColor = default(Color);
-						int num16 = Dust.NewDust(arg_861_0, arg_861_1, arg_861_2, arg_861_3, arg_861_4, arg_861_5, arg_861_6, newColor, 1f);
-						Dust expr_870 = Main.dust[num16];
-						expr_870.velocity *= 1.5f;
+						int num16 = Dust.NewDust(arg_86E_0, arg_86E_1, arg_86E_2, arg_86E_3, arg_86E_4, arg_86E_5, arg_86E_6, newColor, 1f);
+						Dust expr_87D = Main.dust[num16];
+						expr_87D.velocity *= 1.5f;
 						num15++;
 					}
 				}
@@ -18201,17 +20130,56 @@ namespace Terraria
 				{
 					for (int num17 = 0; num17 < 50; num17++)
 					{
-						Vector2 arg_8D9_0 = this.position;
-						int arg_8D9_1 = this.width;
-						int arg_8D9_2 = this.height;
-						int arg_8D9_3 = 72;
-						float arg_8D9_4 = (float)hitDirection;
-						float arg_8D9_5 = 0f;
-						int arg_8D9_6 = 200;
+						Vector2 arg_8E6_0 = this.position;
+						int arg_8E6_1 = this.width;
+						int arg_8E6_2 = this.height;
+						int arg_8E6_3 = 71;
+						float arg_8E6_4 = (float)hitDirection;
+						float arg_8E6_5 = 0f;
+						int arg_8E6_6 = 200;
 						Color newColor = default(Color);
-						int num18 = Dust.NewDust(arg_8D9_0, arg_8D9_1, arg_8D9_2, arg_8D9_3, arg_8D9_4, arg_8D9_5, arg_8D9_6, newColor, 1f);
-						Dust expr_8E8 = Main.dust[num18];
-						expr_8E8.velocity *= 1.5f;
+						int num18 = Dust.NewDust(arg_8E6_0, arg_8E6_1, arg_8E6_2, arg_8E6_3, arg_8E6_4, arg_8E6_5, arg_8E6_6, newColor, 1f);
+						Dust expr_8F5 = Main.dust[num18];
+						expr_8F5.velocity *= 1.5f;
+					}
+				}
+			}
+			if (this.type == 122)
+			{
+				if (this.life > 0)
+				{
+					int num19 = 0;
+					while ((double)num19 < dmg / (double)this.lifeMax * 50.0)
+					{
+						Vector2 arg_963_0 = this.position;
+						int arg_963_1 = this.width;
+						int arg_963_2 = this.height;
+						int arg_963_3 = 72;
+						float arg_963_4 = 0f;
+						float arg_963_5 = 0f;
+						int arg_963_6 = 200;
+						Color newColor = default(Color);
+						int num20 = Dust.NewDust(arg_963_0, arg_963_1, arg_963_2, arg_963_3, arg_963_4, arg_963_5, arg_963_6, newColor, 1f);
+						Dust expr_972 = Main.dust[num20];
+						expr_972.velocity *= 1.5f;
+						num19++;
+					}
+				}
+				else
+				{
+					for (int num21 = 0; num21 < 50; num21++)
+					{
+						Vector2 arg_9DB_0 = this.position;
+						int arg_9DB_1 = this.width;
+						int arg_9DB_2 = this.height;
+						int arg_9DB_3 = 72;
+						float arg_9DB_4 = (float)hitDirection;
+						float arg_9DB_5 = 0f;
+						int arg_9DB_6 = 200;
+						Color newColor = default(Color);
+						int num22 = Dust.NewDust(arg_9DB_0, arg_9DB_1, arg_9DB_2, arg_9DB_3, arg_9DB_4, arg_9DB_5, arg_9DB_6, newColor, 1f);
+						Dust expr_9EA = Main.dust[num22];
+						expr_9EA.velocity *= 1.5f;
 					}
 				}
 			}
@@ -18219,20 +20187,20 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num19 = 0;
-					while ((double)num19 < dmg / (double)this.lifeMax * 50.0)
+					int num23 = 0;
+					while ((double)num23 < dmg / (double)this.lifeMax * 50.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 55, 0f, 0f, 200, this.color, 1f);
-						num19++;
+						num23++;
 					}
 				}
 				else
 				{
-					for (int num20 = 0; num20 < 50; num20++)
+					for (int num24 = 0; num24 < 50; num24++)
 					{
-						int num21 = Dust.NewDust(this.position, this.width, this.height, 55, (float)hitDirection, 0f, 200, this.color, 1f);
-						Dust expr_9B7 = Main.dust[num21];
-						expr_9B7.velocity *= 2f;
+						int num25 = Dust.NewDust(this.position, this.width, this.height, 55, (float)hitDirection, 0f, 200, this.color, 1f);
+						Dust expr_AB9 = Main.dust[num25];
+						expr_AB9.velocity *= 2f;
 					}
 				}
 			}
@@ -18249,15 +20217,15 @@ namespace Terraria
 				}
 				if (this.life > 0)
 				{
-					int num22 = 0;
-					while ((double)num22 < dmg / (double)this.lifeMax * 50.0)
+					int num26 = 0;
+					while ((double)num26 < dmg / (double)this.lifeMax * 50.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 0, newColor2, 1f);
-						num22++;
+						num26++;
 					}
 					return;
 				}
-				for (int num23 = 0; num23 < 25; num23++)
+				for (int num27 = 0; num27 < 25; num27++)
 				{
 					Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, 0, newColor2, 1f);
 				}
@@ -18271,33 +20239,33 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num24 = 0;
-							while ((double)num24 < dmg / (double)this.lifeMax * 300.0)
+							int num28 = 0;
+							while ((double)num28 < dmg / (double)this.lifeMax * 300.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 175, new Color(0, 80, 255, 100), 1f);
-								num24++;
+								num28++;
 							}
 							return;
 						}
-						for (int num25 = 0; num25 < 200; num25++)
+						for (int num29 = 0; num29 < 200; num29++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, 175, new Color(0, 80, 255, 100), 1f);
 						}
 						if (Main.netMode != 1)
 						{
-							int num26 = Main.rand.Next(4) + 4;
-							for (int num27 = 0; num27 < num26; num27++)
+							int num30 = Main.rand.Next(4) + 4;
+							for (int num31 = 0; num31 < num30; num31++)
 							{
 								int x = (int)(this.position.X + (float)Main.rand.Next(this.width - 32));
 								int y = (int)(this.position.Y + (float)Main.rand.Next(this.height - 32));
-								int num28 = NPC.NewNPC(x, y, 1, 0);
-								Main.npc[num28].SetDefaults(1, -1f);
-								Main.npc[num28].velocity.X = (float)Main.rand.Next(-15, 16) * 0.1f;
-								Main.npc[num28].velocity.Y = (float)Main.rand.Next(-30, 1) * 0.1f;
-								Main.npc[num28].ai[1] = (float)Main.rand.Next(3);
-								if (Main.netMode == 2 && num28 < 200)
+								int num32 = NPC.NewNPC(x, y, 1, 0);
+								Main.npc[num32].SetDefaults(1, -1f);
+								Main.npc[num32].velocity.X = (float)Main.rand.Next(-15, 16) * 0.1f;
+								Main.npc[num32].velocity.Y = (float)Main.rand.Next(-30, 1) * 0.1f;
+								Main.npc[num32].ai[1] = (float)Main.rand.Next(3);
+								if (Main.netMode == 2 && num32 < 200)
 								{
-									NetMessage.SendData(23, -1, -1, "", num28, 0f, 0f, 0f, 0);
+									NetMessage.SendData(23, -1, -1, "", num32, 0f, 0f, 0f, 0);
 								}
 							}
 							return;
@@ -18309,33 +20277,33 @@ namespace Terraria
 						{
 							if (this.life > 0)
 							{
-								int num29 = 0;
-								while ((double)num29 < dmg / (double)this.lifeMax * 30.0)
+								int num33 = 0;
+								while ((double)num33 < dmg / (double)this.lifeMax * 30.0)
 								{
-									Vector2 arg_DEA_0 = this.position;
-									int arg_DEA_1 = this.width;
-									int arg_DEA_2 = this.height;
-									int arg_DEA_3 = 5;
-									float arg_DEA_4 = (float)hitDirection;
-									float arg_DEA_5 = -1f;
-									int arg_DEA_6 = 0;
+									Vector2 arg_EEC_0 = this.position;
+									int arg_EEC_1 = this.width;
+									int arg_EEC_2 = this.height;
+									int arg_EEC_3 = 5;
+									float arg_EEC_4 = (float)hitDirection;
+									float arg_EEC_5 = -1f;
+									int arg_EEC_6 = 0;
 									Color newColor = default(Color);
-									Dust.NewDust(arg_DEA_0, arg_DEA_1, arg_DEA_2, arg_DEA_3, arg_DEA_4, arg_DEA_5, arg_DEA_6, newColor, 1f);
-									num29++;
+									Dust.NewDust(arg_EEC_0, arg_EEC_1, arg_EEC_2, arg_EEC_3, arg_EEC_4, arg_EEC_5, arg_EEC_6, newColor, 1f);
+									num33++;
 								}
 								return;
 							}
-							for (int num30 = 0; num30 < 15; num30++)
+							for (int num34 = 0; num34 < 15; num34++)
 							{
-								Vector2 arg_E40_0 = this.position;
-								int arg_E40_1 = this.width;
-								int arg_E40_2 = this.height;
-								int arg_E40_3 = 5;
-								float arg_E40_4 = (float)(2 * hitDirection);
-								float arg_E40_5 = -2f;
-								int arg_E40_6 = 0;
+								Vector2 arg_F42_0 = this.position;
+								int arg_F42_1 = this.width;
+								int arg_F42_2 = this.height;
+								int arg_F42_3 = 5;
+								float arg_F42_4 = (float)(2 * hitDirection);
+								float arg_F42_5 = -2f;
+								int arg_F42_6 = 0;
 								Color newColor = default(Color);
-								Dust.NewDust(arg_E40_0, arg_E40_1, arg_E40_2, arg_E40_3, arg_E40_4, arg_E40_5, arg_E40_6, newColor, 1f);
+								Dust.NewDust(arg_F42_0, arg_F42_1, arg_F42_2, arg_F42_3, arg_F42_4, arg_F42_5, arg_F42_6, newColor, 1f);
 							}
 							if (this.type == 51)
 							{
@@ -18356,33 +20324,33 @@ namespace Terraria
 							{
 								if (this.life > 0)
 								{
-									int num31 = 0;
-									while ((double)num31 < dmg / (double)this.lifeMax * 20.0)
+									int num35 = 0;
+									while ((double)num35 < dmg / (double)this.lifeMax * 20.0)
 									{
-										Vector2 arg_F21_0 = this.position;
-										int arg_F21_1 = this.width;
-										int arg_F21_2 = this.height;
-										int arg_F21_3 = 5;
-										float arg_F21_4 = (float)hitDirection;
-										float arg_F21_5 = -1f;
-										int arg_F21_6 = 0;
+										Vector2 arg_1023_0 = this.position;
+										int arg_1023_1 = this.width;
+										int arg_1023_2 = this.height;
+										int arg_1023_3 = 5;
+										float arg_1023_4 = (float)hitDirection;
+										float arg_1023_5 = -1f;
+										int arg_1023_6 = 0;
 										Color newColor = default(Color);
-										Dust.NewDust(arg_F21_0, arg_F21_1, arg_F21_2, arg_F21_3, arg_F21_4, arg_F21_5, arg_F21_6, newColor, 1f);
-										num31++;
+										Dust.NewDust(arg_1023_0, arg_1023_1, arg_1023_2, arg_1023_3, arg_1023_4, arg_1023_5, arg_1023_6, newColor, 1f);
+										num35++;
 									}
 									return;
 								}
-								for (int num32 = 0; num32 < 10; num32++)
+								for (int num36 = 0; num36 < 10; num36++)
 								{
-									Vector2 arg_F77_0 = this.position;
-									int arg_F77_1 = this.width;
-									int arg_F77_2 = this.height;
-									int arg_F77_3 = 5;
-									float arg_F77_4 = (float)(2 * hitDirection);
-									float arg_F77_5 = -2f;
-									int arg_F77_6 = 0;
+									Vector2 arg_1079_0 = this.position;
+									int arg_1079_1 = this.width;
+									int arg_1079_2 = this.height;
+									int arg_1079_3 = 5;
+									float arg_1079_4 = (float)(2 * hitDirection);
+									float arg_1079_5 = -2f;
+									int arg_1079_6 = 0;
 									Color newColor = default(Color);
-									Dust.NewDust(arg_F77_0, arg_F77_1, arg_F77_2, arg_F77_3, arg_F77_4, arg_F77_5, arg_F77_6, newColor, 1f);
+									Dust.NewDust(arg_1079_0, arg_1079_1, arg_1079_2, arg_1079_3, arg_1079_4, arg_1079_5, arg_1079_6, newColor, 1f);
 								}
 								if (this.type == 46)
 								{
@@ -18414,33 +20382,33 @@ namespace Terraria
 								{
 									if (this.life > 0)
 									{
-										int num33 = 0;
-										while ((double)num33 < dmg / (double)this.lifeMax * 20.0)
+										int num37 = 0;
+										while ((double)num37 < dmg / (double)this.lifeMax * 20.0)
 										{
-											Vector2 arg_10D5_0 = this.position;
-											int arg_10D5_1 = this.width;
-											int arg_10D5_2 = this.height;
-											int arg_10D5_3 = 5;
-											float arg_10D5_4 = (float)hitDirection;
-											float arg_10D5_5 = -1f;
-											int arg_10D5_6 = 0;
+											Vector2 arg_11D7_0 = this.position;
+											int arg_11D7_1 = this.width;
+											int arg_11D7_2 = this.height;
+											int arg_11D7_3 = 5;
+											float arg_11D7_4 = (float)hitDirection;
+											float arg_11D7_5 = -1f;
+											int arg_11D7_6 = 0;
 											Color newColor = default(Color);
-											Dust.NewDust(arg_10D5_0, arg_10D5_1, arg_10D5_2, arg_10D5_3, arg_10D5_4, arg_10D5_5, arg_10D5_6, newColor, 1f);
-											num33++;
+											Dust.NewDust(arg_11D7_0, arg_11D7_1, arg_11D7_2, arg_11D7_3, arg_11D7_4, arg_11D7_5, arg_11D7_6, newColor, 1f);
+											num37++;
 										}
 										return;
 									}
-									for (int num34 = 0; num34 < 10; num34++)
+									for (int num38 = 0; num38 < 10; num38++)
 									{
-										Vector2 arg_112B_0 = this.position;
-										int arg_112B_1 = this.width;
-										int arg_112B_2 = this.height;
-										int arg_112B_3 = 5;
-										float arg_112B_4 = (float)(2 * hitDirection);
-										float arg_112B_5 = -2f;
-										int arg_112B_6 = 0;
+										Vector2 arg_122D_0 = this.position;
+										int arg_122D_1 = this.width;
+										int arg_122D_2 = this.height;
+										int arg_122D_3 = 5;
+										float arg_122D_4 = (float)(2 * hitDirection);
+										float arg_122D_5 = -2f;
+										int arg_122D_6 = 0;
 										Color newColor = default(Color);
-										Dust.NewDust(arg_112B_0, arg_112B_1, arg_112B_2, arg_112B_3, arg_112B_4, arg_112B_5, arg_112B_6, newColor, 1f);
+										Dust.NewDust(arg_122D_0, arg_122D_1, arg_122D_2, arg_122D_3, arg_122D_4, arg_122D_5, arg_122D_6, newColor, 1f);
 									}
 									if (this.type == 57)
 									{
@@ -18462,33 +20430,33 @@ namespace Terraria
 									{
 										if (this.life > 0)
 										{
-											int num35 = 0;
-											while ((double)num35 < dmg / (double)this.lifeMax * 100.0)
+											int num39 = 0;
+											while ((double)num39 < dmg / (double)this.lifeMax * 100.0)
 											{
-												Vector2 arg_123B_0 = this.position;
-												int arg_123B_1 = this.width;
-												int arg_123B_2 = this.height;
-												int arg_123B_3 = 5;
-												float arg_123B_4 = (float)hitDirection;
-												float arg_123B_5 = -1f;
-												int arg_123B_6 = 0;
+												Vector2 arg_133D_0 = this.position;
+												int arg_133D_1 = this.width;
+												int arg_133D_2 = this.height;
+												int arg_133D_3 = 5;
+												float arg_133D_4 = (float)hitDirection;
+												float arg_133D_5 = -1f;
+												int arg_133D_6 = 0;
 												Color newColor = default(Color);
-												Dust.NewDust(arg_123B_0, arg_123B_1, arg_123B_2, arg_123B_3, arg_123B_4, arg_123B_5, arg_123B_6, newColor, 1f);
-												num35++;
+												Dust.NewDust(arg_133D_0, arg_133D_1, arg_133D_2, arg_133D_3, arg_133D_4, arg_133D_5, arg_133D_6, newColor, 1f);
+												num39++;
 											}
 											return;
 										}
-										for (int num36 = 0; num36 < 50; num36++)
+										for (int num40 = 0; num40 < 50; num40++)
 										{
-											Vector2 arg_1291_0 = this.position;
-											int arg_1291_1 = this.width;
-											int arg_1291_2 = this.height;
-											int arg_1291_3 = 5;
-											float arg_1291_4 = (float)(2 * hitDirection);
-											float arg_1291_5 = -2f;
-											int arg_1291_6 = 0;
+											Vector2 arg_1393_0 = this.position;
+											int arg_1393_1 = this.width;
+											int arg_1393_2 = this.height;
+											int arg_1393_3 = 5;
+											float arg_1393_4 = (float)(2 * hitDirection);
+											float arg_1393_5 = -2f;
+											int arg_1393_6 = 0;
 											Color newColor = default(Color);
-											Dust.NewDust(arg_1291_0, arg_1291_1, arg_1291_2, arg_1291_3, arg_1291_4, arg_1291_5, arg_1291_6, newColor, 1f);
+											Dust.NewDust(arg_1393_0, arg_1393_1, arg_1393_2, arg_1393_3, arg_1393_4, arg_1393_5, arg_1393_6, newColor, 1f);
 										}
 										Gore.NewGore(this.position, this.velocity, 1, 1f);
 										Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 2, 1f);
@@ -18500,35 +20468,35 @@ namespace Terraria
 										{
 											if (this.life <= 0)
 											{
-												for (int num37 = 0; num37 < 50; num37++)
+												for (int num41 = 0; num41 < 50; num41++)
 												{
-													Vector2 arg_13E0_0 = this.position;
-													int arg_13E0_1 = this.width;
-													int arg_13E0_2 = this.height;
-													int arg_13E0_3 = 5;
-													float arg_13E0_4 = (float)(2 * hitDirection);
-													float arg_13E0_5 = -2f;
-													int arg_13E0_6 = 0;
+													Vector2 arg_14E2_0 = this.position;
+													int arg_14E2_1 = this.width;
+													int arg_14E2_2 = this.height;
+													int arg_14E2_3 = 5;
+													float arg_14E2_4 = (float)(2 * hitDirection);
+													float arg_14E2_5 = -2f;
+													int arg_14E2_6 = 0;
 													Color newColor = default(Color);
-													Dust.NewDust(arg_13E0_0, arg_13E0_1, arg_13E0_2, arg_13E0_3, arg_13E0_4, arg_13E0_5, arg_13E0_6, newColor, 1f);
+													Dust.NewDust(arg_14E2_0, arg_14E2_1, arg_14E2_2, arg_14E2_3, arg_14E2_4, arg_14E2_5, arg_14E2_6, newColor, 1f);
 												}
 												Gore.NewGore(this.position, this.velocity, 155, 1f);
 												Gore.NewGore(new Vector2(this.position.X, this.position.Y + 14f), this.velocity, 155, 1f);
 												return;
 											}
-											int num38 = 0;
-											while ((double)num38 < dmg / (double)this.lifeMax * 100.0)
+											int num42 = 0;
+											while ((double)num42 < dmg / (double)this.lifeMax * 100.0)
 											{
-												Vector2 arg_133A_0 = this.position;
-												int arg_133A_1 = this.width;
-												int arg_133A_2 = this.height;
-												int arg_133A_3 = 5;
-												float arg_133A_4 = (float)hitDirection;
-												float arg_133A_5 = -1f;
-												int arg_133A_6 = 0;
+												Vector2 arg_143C_0 = this.position;
+												int arg_143C_1 = this.width;
+												int arg_143C_2 = this.height;
+												int arg_143C_3 = 5;
+												float arg_143C_4 = (float)hitDirection;
+												float arg_143C_5 = -1f;
+												int arg_143C_6 = 0;
 												Color newColor = default(Color);
-												Dust.NewDust(arg_133A_0, arg_133A_1, arg_133A_2, arg_133A_3, arg_133A_4, arg_133A_5, arg_133A_6, newColor, 1f);
-												num38++;
+												Dust.NewDust(arg_143C_0, arg_143C_1, arg_143C_2, arg_143C_3, arg_143C_4, arg_143C_5, arg_143C_6, newColor, 1f);
+												num42++;
 											}
 											if ((float)this.life < (float)this.lifeMax * 0.5f && this.localAI[0] == 0f)
 											{
@@ -18543,33 +20511,33 @@ namespace Terraria
 											{
 												if (this.life > 0)
 												{
-													int num39 = 0;
-													while ((double)num39 < dmg / (double)this.lifeMax * 100.0)
+													int num43 = 0;
+													while ((double)num43 < dmg / (double)this.lifeMax * 100.0)
 													{
-														Vector2 arg_148B_0 = this.position;
-														int arg_148B_1 = this.width;
-														int arg_148B_2 = this.height;
-														int arg_148B_3 = 5;
-														float arg_148B_4 = (float)hitDirection;
-														float arg_148B_5 = -1f;
-														int arg_148B_6 = 0;
+														Vector2 arg_158D_0 = this.position;
+														int arg_158D_1 = this.width;
+														int arg_158D_2 = this.height;
+														int arg_158D_3 = 5;
+														float arg_158D_4 = (float)hitDirection;
+														float arg_158D_5 = -1f;
+														int arg_158D_6 = 0;
 														Color newColor = default(Color);
-														Dust.NewDust(arg_148B_0, arg_148B_1, arg_148B_2, arg_148B_3, arg_148B_4, arg_148B_5, arg_148B_6, newColor, 1f);
-														num39++;
+														Dust.NewDust(arg_158D_0, arg_158D_1, arg_158D_2, arg_158D_3, arg_158D_4, arg_158D_5, arg_158D_6, newColor, 1f);
+														num43++;
 													}
 													return;
 												}
-												for (int num40 = 0; num40 < 50; num40++)
+												for (int num44 = 0; num44 < 50; num44++)
 												{
-													Vector2 arg_14E1_0 = this.position;
-													int arg_14E1_1 = this.width;
-													int arg_14E1_2 = this.height;
-													int arg_14E1_3 = 5;
-													float arg_14E1_4 = (float)(2 * hitDirection);
-													float arg_14E1_5 = -2f;
-													int arg_14E1_6 = 0;
+													Vector2 arg_15E3_0 = this.position;
+													int arg_15E3_1 = this.width;
+													int arg_15E3_2 = this.height;
+													int arg_15E3_3 = 5;
+													float arg_15E3_4 = (float)(2 * hitDirection);
+													float arg_15E3_5 = -2f;
+													int arg_15E3_6 = 0;
 													Color newColor = default(Color);
-													Dust.NewDust(arg_14E1_0, arg_14E1_1, arg_14E1_2, arg_14E1_3, arg_14E1_4, arg_14E1_5, arg_14E1_6, newColor, 1f);
+													Dust.NewDust(arg_15E3_0, arg_15E3_1, arg_15E3_2, arg_15E3_3, arg_15E3_4, arg_15E3_5, arg_15E3_6, newColor, 1f);
 												}
 												Gore.NewGore(this.position, this.velocity, 97, 1f);
 												Gore.NewGore(this.position, this.velocity, 98, 1f);
@@ -18581,33 +20549,33 @@ namespace Terraria
 												{
 													if (this.life > 0)
 													{
-														int num41 = 0;
-														while ((double)num41 < dmg / (double)this.lifeMax * 100.0)
+														int num45 = 0;
+														while ((double)num45 < dmg / (double)this.lifeMax * 100.0)
 														{
-															Vector2 arg_156B_0 = this.position;
-															int arg_156B_1 = this.width;
-															int arg_156B_2 = this.height;
-															int arg_156B_3 = 5;
-															float arg_156B_4 = (float)hitDirection;
-															float arg_156B_5 = -1f;
-															int arg_156B_6 = 0;
+															Vector2 arg_166D_0 = this.position;
+															int arg_166D_1 = this.width;
+															int arg_166D_2 = this.height;
+															int arg_166D_3 = 5;
+															float arg_166D_4 = (float)hitDirection;
+															float arg_166D_5 = -1f;
+															int arg_166D_6 = 0;
 															Color newColor = default(Color);
-															Dust.NewDust(arg_156B_0, arg_156B_1, arg_156B_2, arg_156B_3, arg_156B_4, arg_156B_5, arg_156B_6, newColor, 1f);
-															num41++;
+															Dust.NewDust(arg_166D_0, arg_166D_1, arg_166D_2, arg_166D_3, arg_166D_4, arg_166D_5, arg_166D_6, newColor, 1f);
+															num45++;
 														}
 														return;
 													}
-													for (int num42 = 0; num42 < 50; num42++)
+													for (int num46 = 0; num46 < 50; num46++)
 													{
-														Vector2 arg_15C1_0 = this.position;
-														int arg_15C1_1 = this.width;
-														int arg_15C1_2 = this.height;
-														int arg_15C1_3 = 5;
-														float arg_15C1_4 = (float)(2 * hitDirection);
-														float arg_15C1_5 = -2f;
-														int arg_15C1_6 = 0;
+														Vector2 arg_16C3_0 = this.position;
+														int arg_16C3_1 = this.width;
+														int arg_16C3_2 = this.height;
+														int arg_16C3_3 = 5;
+														float arg_16C3_4 = (float)(2 * hitDirection);
+														float arg_16C3_5 = -2f;
+														int arg_16C3_6 = 0;
 														Color newColor = default(Color);
-														Dust.NewDust(arg_15C1_0, arg_15C1_1, arg_15C1_2, arg_15C1_3, arg_15C1_4, arg_15C1_5, arg_15C1_6, newColor, 1f);
+														Dust.NewDust(arg_16C3_0, arg_16C3_1, arg_16C3_2, arg_16C3_3, arg_16C3_4, arg_16C3_5, arg_16C3_6, newColor, 1f);
 													}
 													Gore.NewGore(this.position, this.velocity, 86, 1f);
 													Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 87, 1f);
@@ -18620,33 +20588,33 @@ namespace Terraria
 													{
 														if (this.life > 0)
 														{
-															int num43 = 0;
-															while ((double)num43 < dmg / (double)this.lifeMax * 150.0)
+															int num47 = 0;
+															while ((double)num47 < dmg / (double)this.lifeMax * 150.0)
 															{
-																Vector2 arg_169A_0 = this.position;
-																int arg_169A_1 = this.width;
-																int arg_169A_2 = this.height;
-																int arg_169A_3 = 5;
-																float arg_169A_4 = (float)hitDirection;
-																float arg_169A_5 = -1f;
-																int arg_169A_6 = 0;
+																Vector2 arg_179C_0 = this.position;
+																int arg_179C_1 = this.width;
+																int arg_179C_2 = this.height;
+																int arg_179C_3 = 5;
+																float arg_179C_4 = (float)hitDirection;
+																float arg_179C_5 = -1f;
+																int arg_179C_6 = 0;
 																Color newColor = default(Color);
-																Dust.NewDust(arg_169A_0, arg_169A_1, arg_169A_2, arg_169A_3, arg_169A_4, arg_169A_5, arg_169A_6, newColor, 1f);
-																num43++;
+																Dust.NewDust(arg_179C_0, arg_179C_1, arg_179C_2, arg_179C_3, arg_179C_4, arg_179C_5, arg_179C_6, newColor, 1f);
+																num47++;
 															}
 															return;
 														}
-														for (int num44 = 0; num44 < 75; num44++)
+														for (int num48 = 0; num48 < 75; num48++)
 														{
-															Vector2 arg_16F0_0 = this.position;
-															int arg_16F0_1 = this.width;
-															int arg_16F0_2 = this.height;
-															int arg_16F0_3 = 5;
-															float arg_16F0_4 = (float)(2 * hitDirection);
-															float arg_16F0_5 = -2f;
-															int arg_16F0_6 = 0;
+															Vector2 arg_17F2_0 = this.position;
+															int arg_17F2_1 = this.width;
+															int arg_17F2_2 = this.height;
+															int arg_17F2_3 = 5;
+															float arg_17F2_4 = (float)(2 * hitDirection);
+															float arg_17F2_5 = -2f;
+															int arg_17F2_6 = 0;
 															Color newColor = default(Color);
-															Dust.NewDust(arg_16F0_0, arg_16F0_1, arg_16F0_2, arg_16F0_3, arg_16F0_4, arg_16F0_5, arg_16F0_6, newColor, 1f);
+															Dust.NewDust(arg_17F2_0, arg_17F2_1, arg_17F2_2, arg_17F2_3, arg_17F2_4, arg_17F2_5, arg_17F2_6, newColor, 1f);
 														}
 														Gore.NewGore(this.position, this.velocity * 0.8f, 89, 1f);
 														Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity * 0.8f, 90, 1f);
@@ -18660,33 +20628,33 @@ namespace Terraria
 														{
 															if (this.life > 0)
 															{
-																int num45 = 0;
-																while ((double)num45 < dmg / (double)this.lifeMax * 100.0)
+																int num49 = 0;
+																while ((double)num49 < dmg / (double)this.lifeMax * 100.0)
 																{
-																	Vector2 arg_1859_0 = this.position;
-																	int arg_1859_1 = this.width;
-																	int arg_1859_2 = this.height;
-																	int arg_1859_3 = 5;
-																	float arg_1859_4 = (float)hitDirection;
-																	float arg_1859_5 = -1f;
-																	int arg_1859_6 = 0;
+																	Vector2 arg_195B_0 = this.position;
+																	int arg_195B_1 = this.width;
+																	int arg_195B_2 = this.height;
+																	int arg_195B_3 = 5;
+																	float arg_195B_4 = (float)hitDirection;
+																	float arg_195B_5 = -1f;
+																	int arg_195B_6 = 0;
 																	Color newColor = default(Color);
-																	Dust.NewDust(arg_1859_0, arg_1859_1, arg_1859_2, arg_1859_3, arg_1859_4, arg_1859_5, arg_1859_6, newColor, 1f);
-																	num45++;
+																	Dust.NewDust(arg_195B_0, arg_195B_1, arg_195B_2, arg_195B_3, arg_195B_4, arg_195B_5, arg_195B_6, newColor, 1f);
+																	num49++;
 																}
 																return;
 															}
-															for (int num46 = 0; num46 < 50; num46++)
+															for (int num50 = 0; num50 < 50; num50++)
 															{
-																Vector2 arg_18B3_0 = this.position;
-																int arg_18B3_1 = this.width;
-																int arg_18B3_2 = this.height;
-																int arg_18B3_3 = 5;
-																float arg_18B3_4 = 2.5f * (float)hitDirection;
-																float arg_18B3_5 = -2.5f;
-																int arg_18B3_6 = 0;
+																Vector2 arg_19B5_0 = this.position;
+																int arg_19B5_1 = this.width;
+																int arg_19B5_2 = this.height;
+																int arg_19B5_3 = 5;
+																float arg_19B5_4 = 2.5f * (float)hitDirection;
+																float arg_19B5_5 = -2.5f;
+																int arg_19B5_6 = 0;
 																Color newColor = default(Color);
-																Dust.NewDust(arg_18B3_0, arg_18B3_1, arg_18B3_2, arg_18B3_3, arg_18B3_4, arg_18B3_5, arg_18B3_6, newColor, 1f);
+																Dust.NewDust(arg_19B5_0, arg_19B5_1, arg_19B5_2, arg_19B5_3, arg_19B5_4, arg_19B5_5, arg_19B5_6, newColor, 1f);
 															}
 															if (this.type == 104)
 															{
@@ -18727,47 +20695,47 @@ namespace Terraria
 															{
 																if (this.life > 0)
 																{
-																	int num47 = 0;
-																	while ((double)num47 < dmg / (double)this.lifeMax * 50.0)
+																	int num51 = 0;
+																	while ((double)num51 < dmg / (double)this.lifeMax * 50.0)
 																	{
-																		Vector2 arg_1C4A_0 = this.position;
-																		int arg_1C4A_1 = this.width;
-																		int arg_1C4A_2 = this.height;
-																		int arg_1C4A_3 = 31;
-																		float arg_1C4A_4 = 0f;
-																		float arg_1C4A_5 = 0f;
-																		int arg_1C4A_6 = 0;
+																		Vector2 arg_1D4C_0 = this.position;
+																		int arg_1D4C_1 = this.width;
+																		int arg_1D4C_2 = this.height;
+																		int arg_1D4C_3 = 31;
+																		float arg_1D4C_4 = 0f;
+																		float arg_1D4C_5 = 0f;
+																		int arg_1D4C_6 = 0;
 																		Color newColor = default(Color);
-																		int num48 = Dust.NewDust(arg_1C4A_0, arg_1C4A_1, arg_1C4A_2, arg_1C4A_3, arg_1C4A_4, arg_1C4A_5, arg_1C4A_6, newColor, 1.5f);
-																		Main.dust[num48].noGravity = true;
-																		num47++;
+																		int num52 = Dust.NewDust(arg_1D4C_0, arg_1D4C_1, arg_1D4C_2, arg_1D4C_3, arg_1D4C_4, arg_1D4C_5, arg_1D4C_6, newColor, 1.5f);
+																		Main.dust[num52].noGravity = true;
+																		num51++;
 																	}
 																	return;
 																}
-																for (int num49 = 0; num49 < 20; num49++)
+																for (int num53 = 0; num53 < 20; num53++)
 																{
-																	Vector2 arg_1CB1_0 = this.position;
-																	int arg_1CB1_1 = this.width;
-																	int arg_1CB1_2 = this.height;
-																	int arg_1CB1_3 = 31;
-																	float arg_1CB1_4 = 0f;
-																	float arg_1CB1_5 = 0f;
-																	int arg_1CB1_6 = 0;
+																	Vector2 arg_1DB3_0 = this.position;
+																	int arg_1DB3_1 = this.width;
+																	int arg_1DB3_2 = this.height;
+																	int arg_1DB3_3 = 31;
+																	float arg_1DB3_4 = 0f;
+																	float arg_1DB3_5 = 0f;
+																	int arg_1DB3_6 = 0;
 																	Color newColor = default(Color);
-																	int num50 = Dust.NewDust(arg_1CB1_0, arg_1CB1_1, arg_1CB1_2, arg_1CB1_3, arg_1CB1_4, arg_1CB1_5, arg_1CB1_6, newColor, 1.5f);
-																	Dust expr_1CC0 = Main.dust[num50];
-																	expr_1CC0.velocity *= 2f;
-																	Main.dust[num50].noGravity = true;
+																	int num54 = Dust.NewDust(arg_1DB3_0, arg_1DB3_1, arg_1DB3_2, arg_1DB3_3, arg_1DB3_4, arg_1DB3_5, arg_1DB3_6, newColor, 1.5f);
+																	Dust expr_1DC2 = Main.dust[num54];
+																	expr_1DC2.velocity *= 2f;
+																	Main.dust[num54].noGravity = true;
 																}
-																int num51 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
-																Gore expr_1D52 = Main.gore[num51];
-																expr_1D52.velocity *= 0.5f;
-																num51 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
-																Gore expr_1DCA = Main.gore[num51];
-																expr_1DCA.velocity *= 0.5f;
-																num51 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
-																Gore expr_1E42 = Main.gore[num51];
-																expr_1E42.velocity *= 0.5f;
+																int num55 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
+																Gore expr_1E54 = Main.gore[num55];
+																expr_1E54.velocity *= 0.5f;
+																num55 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
+																Gore expr_1ECC = Main.gore[num55];
+																expr_1ECC.velocity *= 0.5f;
+																num55 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
+																Gore expr_1F44 = Main.gore[num55];
+																expr_1F44.velocity *= 0.5f;
 																return;
 															}
 															else
@@ -18776,35 +20744,35 @@ namespace Terraria
 																{
 																	if (this.life > 0)
 																	{
-																		int num52 = 0;
-																		while ((double)num52 < dmg / (double)this.lifeMax * 100.0)
+																		int num56 = 0;
+																		while ((double)num56 < dmg / (double)this.lifeMax * 100.0)
 																		{
-																			Vector2 arg_1EB0_0 = this.position;
-																			int arg_1EB0_1 = this.width;
-																			int arg_1EB0_2 = this.height;
-																			int arg_1EB0_3 = 5;
-																			float arg_1EB0_4 = (float)hitDirection;
-																			float arg_1EB0_5 = -1f;
-																			int arg_1EB0_6 = 0;
+																			Vector2 arg_1FB2_0 = this.position;
+																			int arg_1FB2_1 = this.width;
+																			int arg_1FB2_2 = this.height;
+																			int arg_1FB2_3 = 5;
+																			float arg_1FB2_4 = (float)hitDirection;
+																			float arg_1FB2_5 = -1f;
+																			int arg_1FB2_6 = 0;
 																			Color newColor = default(Color);
-																			Dust.NewDust(arg_1EB0_0, arg_1EB0_1, arg_1EB0_2, arg_1EB0_3, arg_1EB0_4, arg_1EB0_5, arg_1EB0_6, newColor, 1f);
-																			num52++;
+																			Dust.NewDust(arg_1FB2_0, arg_1FB2_1, arg_1FB2_2, arg_1FB2_3, arg_1FB2_4, arg_1FB2_5, arg_1FB2_6, newColor, 1f);
+																			num56++;
 																		}
 																		return;
 																	}
-																	for (int num53 = 0; num53 < 150; num53++)
+																	for (int num57 = 0; num57 < 150; num57++)
 																	{
-																		Vector2 arg_1F06_0 = this.position;
-																		int arg_1F06_1 = this.width;
-																		int arg_1F06_2 = this.height;
-																		int arg_1F06_3 = 5;
-																		float arg_1F06_4 = (float)(2 * hitDirection);
-																		float arg_1F06_5 = -2f;
-																		int arg_1F06_6 = 0;
+																		Vector2 arg_2008_0 = this.position;
+																		int arg_2008_1 = this.width;
+																		int arg_2008_2 = this.height;
+																		int arg_2008_3 = 5;
+																		float arg_2008_4 = (float)(2 * hitDirection);
+																		float arg_2008_5 = -2f;
+																		int arg_2008_6 = 0;
 																		Color newColor = default(Color);
-																		Dust.NewDust(arg_1F06_0, arg_1F06_1, arg_1F06_2, arg_1F06_3, arg_1F06_4, arg_1F06_5, arg_1F06_6, newColor, 1f);
+																		Dust.NewDust(arg_2008_0, arg_2008_1, arg_2008_2, arg_2008_3, arg_2008_4, arg_2008_5, arg_2008_6, newColor, 1f);
 																	}
-																	for (int num54 = 0; num54 < 2; num54++)
+																	for (int num58 = 0; num58 < 2; num58++)
 																	{
 																		Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 2, 1f);
 																		Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 7, 1f);
@@ -18831,82 +20799,82 @@ namespace Terraria
 																	}
 																	if (this.type == 125 || this.type == 126)
 																	{
-																		for (int num55 = 0; num55 < 10; num55++)
+																		for (int num59 = 0; num59 < 10; num59++)
 																		{
-																			Vector2 arg_2165_0 = new Vector2(this.position.X, this.position.Y);
-																			int arg_2165_1 = this.width;
-																			int arg_2165_2 = this.height;
-																			int arg_2165_3 = 31;
-																			float arg_2165_4 = 0f;
-																			float arg_2165_5 = 0f;
-																			int arg_2165_6 = 100;
+																			Vector2 arg_2267_0 = new Vector2(this.position.X, this.position.Y);
+																			int arg_2267_1 = this.width;
+																			int arg_2267_2 = this.height;
+																			int arg_2267_3 = 31;
+																			float arg_2267_4 = 0f;
+																			float arg_2267_5 = 0f;
+																			int arg_2267_6 = 100;
 																			Color newColor = default(Color);
-																			int num56 = Dust.NewDust(arg_2165_0, arg_2165_1, arg_2165_2, arg_2165_3, arg_2165_4, arg_2165_5, arg_2165_6, newColor, 1.5f);
-																			Dust expr_2174 = Main.dust[num56];
-																			expr_2174.velocity *= 1.4f;
+																			int num60 = Dust.NewDust(arg_2267_0, arg_2267_1, arg_2267_2, arg_2267_3, arg_2267_4, arg_2267_5, arg_2267_6, newColor, 1.5f);
+																			Dust expr_2276 = Main.dust[num60];
+																			expr_2276.velocity *= 1.4f;
 																		}
-																		for (int num57 = 0; num57 < 5; num57++)
+																		for (int num61 = 0; num61 < 5; num61++)
 																		{
-																			Vector2 arg_21E0_0 = new Vector2(this.position.X, this.position.Y);
-																			int arg_21E0_1 = this.width;
-																			int arg_21E0_2 = this.height;
-																			int arg_21E0_3 = 6;
-																			float arg_21E0_4 = 0f;
-																			float arg_21E0_5 = 0f;
-																			int arg_21E0_6 = 100;
+																			Vector2 arg_22E2_0 = new Vector2(this.position.X, this.position.Y);
+																			int arg_22E2_1 = this.width;
+																			int arg_22E2_2 = this.height;
+																			int arg_22E2_3 = 6;
+																			float arg_22E2_4 = 0f;
+																			float arg_22E2_5 = 0f;
+																			int arg_22E2_6 = 100;
 																			Color newColor = default(Color);
-																			int num58 = Dust.NewDust(arg_21E0_0, arg_21E0_1, arg_21E0_2, arg_21E0_3, arg_21E0_4, arg_21E0_5, arg_21E0_6, newColor, 2.5f);
-																			Main.dust[num58].noGravity = true;
-																			Dust expr_21FD = Main.dust[num58];
-																			expr_21FD.velocity *= 5f;
-																			Vector2 arg_2255_0 = new Vector2(this.position.X, this.position.Y);
-																			int arg_2255_1 = this.width;
-																			int arg_2255_2 = this.height;
-																			int arg_2255_3 = 6;
-																			float arg_2255_4 = 0f;
-																			float arg_2255_5 = 0f;
-																			int arg_2255_6 = 100;
+																			int num62 = Dust.NewDust(arg_22E2_0, arg_22E2_1, arg_22E2_2, arg_22E2_3, arg_22E2_4, arg_22E2_5, arg_22E2_6, newColor, 2.5f);
+																			Main.dust[num62].noGravity = true;
+																			Dust expr_22FF = Main.dust[num62];
+																			expr_22FF.velocity *= 5f;
+																			Vector2 arg_2357_0 = new Vector2(this.position.X, this.position.Y);
+																			int arg_2357_1 = this.width;
+																			int arg_2357_2 = this.height;
+																			int arg_2357_3 = 6;
+																			float arg_2357_4 = 0f;
+																			float arg_2357_5 = 0f;
+																			int arg_2357_6 = 100;
 																			newColor = default(Color);
-																			num58 = Dust.NewDust(arg_2255_0, arg_2255_1, arg_2255_2, arg_2255_3, arg_2255_4, arg_2255_5, arg_2255_6, newColor, 1.5f);
-																			Dust expr_2264 = Main.dust[num58];
-																			expr_2264.velocity *= 3f;
+																			num62 = Dust.NewDust(arg_2357_0, arg_2357_1, arg_2357_2, arg_2357_3, arg_2357_4, arg_2357_5, arg_2357_6, newColor, 1.5f);
+																			Dust expr_2366 = Main.dust[num62];
+																			expr_2366.velocity *= 3f;
 																		}
-																		Vector2 arg_22BF_0 = new Vector2(this.position.X, this.position.Y);
+																		Vector2 arg_23C1_0 = new Vector2(this.position.X, this.position.Y);
 																		Vector2 vector = default(Vector2);
-																		int num59 = Gore.NewGore(arg_22BF_0, vector, Main.rand.Next(61, 64), 1f);
-																		Gore expr_22CE = Main.gore[num59];
-																		expr_22CE.velocity *= 0.4f;
-																		Gore expr_22F0_cp_0 = Main.gore[num59];
-																		expr_22F0_cp_0.velocity.X = expr_22F0_cp_0.velocity.X + 1f;
-																		Gore expr_230E_cp_0 = Main.gore[num59];
-																		expr_230E_cp_0.velocity.Y = expr_230E_cp_0.velocity.Y + 1f;
-																		Vector2 arg_2357_0 = new Vector2(this.position.X, this.position.Y);
+																		int num63 = Gore.NewGore(arg_23C1_0, vector, Main.rand.Next(61, 64), 1f);
+																		Gore expr_23D0 = Main.gore[num63];
+																		expr_23D0.velocity *= 0.4f;
+																		Gore expr_23F2_cp_0 = Main.gore[num63];
+																		expr_23F2_cp_0.velocity.X = expr_23F2_cp_0.velocity.X + 1f;
+																		Gore expr_2410_cp_0 = Main.gore[num63];
+																		expr_2410_cp_0.velocity.Y = expr_2410_cp_0.velocity.Y + 1f;
+																		Vector2 arg_2459_0 = new Vector2(this.position.X, this.position.Y);
 																		vector = default(Vector2);
-																		num59 = Gore.NewGore(arg_2357_0, vector, Main.rand.Next(61, 64), 1f);
-																		Gore expr_2366 = Main.gore[num59];
-																		expr_2366.velocity *= 0.4f;
-																		Gore expr_2388_cp_0 = Main.gore[num59];
-																		expr_2388_cp_0.velocity.X = expr_2388_cp_0.velocity.X - 1f;
-																		Gore expr_23A6_cp_0 = Main.gore[num59];
-																		expr_23A6_cp_0.velocity.Y = expr_23A6_cp_0.velocity.Y + 1f;
-																		Vector2 arg_23EF_0 = new Vector2(this.position.X, this.position.Y);
+																		num63 = Gore.NewGore(arg_2459_0, vector, Main.rand.Next(61, 64), 1f);
+																		Gore expr_2468 = Main.gore[num63];
+																		expr_2468.velocity *= 0.4f;
+																		Gore expr_248A_cp_0 = Main.gore[num63];
+																		expr_248A_cp_0.velocity.X = expr_248A_cp_0.velocity.X - 1f;
+																		Gore expr_24A8_cp_0 = Main.gore[num63];
+																		expr_24A8_cp_0.velocity.Y = expr_24A8_cp_0.velocity.Y + 1f;
+																		Vector2 arg_24F1_0 = new Vector2(this.position.X, this.position.Y);
 																		vector = default(Vector2);
-																		num59 = Gore.NewGore(arg_23EF_0, vector, Main.rand.Next(61, 64), 1f);
-																		Gore expr_23FE = Main.gore[num59];
-																		expr_23FE.velocity *= 0.4f;
-																		Gore expr_2420_cp_0 = Main.gore[num59];
-																		expr_2420_cp_0.velocity.X = expr_2420_cp_0.velocity.X + 1f;
-																		Gore expr_243E_cp_0 = Main.gore[num59];
-																		expr_243E_cp_0.velocity.Y = expr_243E_cp_0.velocity.Y - 1f;
-																		Vector2 arg_2487_0 = new Vector2(this.position.X, this.position.Y);
+																		num63 = Gore.NewGore(arg_24F1_0, vector, Main.rand.Next(61, 64), 1f);
+																		Gore expr_2500 = Main.gore[num63];
+																		expr_2500.velocity *= 0.4f;
+																		Gore expr_2522_cp_0 = Main.gore[num63];
+																		expr_2522_cp_0.velocity.X = expr_2522_cp_0.velocity.X + 1f;
+																		Gore expr_2540_cp_0 = Main.gore[num63];
+																		expr_2540_cp_0.velocity.Y = expr_2540_cp_0.velocity.Y - 1f;
+																		Vector2 arg_2589_0 = new Vector2(this.position.X, this.position.Y);
 																		vector = default(Vector2);
-																		num59 = Gore.NewGore(arg_2487_0, vector, Main.rand.Next(61, 64), 1f);
-																		Gore expr_2496 = Main.gore[num59];
-																		expr_2496.velocity *= 0.4f;
-																		Gore expr_24B8_cp_0 = Main.gore[num59];
-																		expr_24B8_cp_0.velocity.X = expr_24B8_cp_0.velocity.X - 1f;
-																		Gore expr_24D6_cp_0 = Main.gore[num59];
-																		expr_24D6_cp_0.velocity.Y = expr_24D6_cp_0.velocity.Y - 1f;
+																		num63 = Gore.NewGore(arg_2589_0, vector, Main.rand.Next(61, 64), 1f);
+																		Gore expr_2598 = Main.gore[num63];
+																		expr_2598.velocity *= 0.4f;
+																		Gore expr_25BA_cp_0 = Main.gore[num63];
+																		expr_25BA_cp_0.velocity.X = expr_25BA_cp_0.velocity.X - 1f;
+																		Gore expr_25D8_cp_0 = Main.gore[num63];
+																		expr_25D8_cp_0.velocity.Y = expr_25D8_cp_0.velocity.Y - 1f;
 																		return;
 																	}
 																}
@@ -18916,33 +20884,33 @@ namespace Terraria
 																	{
 																		if (this.life > 0)
 																		{
-																			int num60 = 0;
-																			while ((double)num60 < dmg / (double)this.lifeMax * 50.0)
+																			int num64 = 0;
+																			while ((double)num64 < dmg / (double)this.lifeMax * 50.0)
 																			{
-																				Vector2 arg_252C_0 = this.position;
-																				int arg_252C_1 = this.width;
-																				int arg_252C_2 = this.height;
-																				int arg_252C_3 = 5;
-																				float arg_252C_4 = (float)hitDirection;
-																				float arg_252C_5 = -1f;
-																				int arg_252C_6 = 0;
+																				Vector2 arg_262E_0 = this.position;
+																				int arg_262E_1 = this.width;
+																				int arg_262E_2 = this.height;
+																				int arg_262E_3 = 5;
+																				float arg_262E_4 = (float)hitDirection;
+																				float arg_262E_5 = -1f;
+																				int arg_262E_6 = 0;
 																				Color newColor = default(Color);
-																				Dust.NewDust(arg_252C_0, arg_252C_1, arg_252C_2, arg_252C_3, arg_252C_4, arg_252C_5, arg_252C_6, newColor, 1f);
-																				num60++;
+																				Dust.NewDust(arg_262E_0, arg_262E_1, arg_262E_2, arg_262E_3, arg_262E_4, arg_262E_5, arg_262E_6, newColor, 1f);
+																				num64++;
 																			}
 																			return;
 																		}
-																		for (int num61 = 0; num61 < 20; num61++)
+																		for (int num65 = 0; num65 < 20; num65++)
 																		{
-																			Vector2 arg_2582_0 = this.position;
-																			int arg_2582_1 = this.width;
-																			int arg_2582_2 = this.height;
-																			int arg_2582_3 = 5;
-																			float arg_2582_4 = (float)(2 * hitDirection);
-																			float arg_2582_5 = -2f;
-																			int arg_2582_6 = 0;
+																			Vector2 arg_2684_0 = this.position;
+																			int arg_2684_1 = this.width;
+																			int arg_2684_2 = this.height;
+																			int arg_2684_3 = 5;
+																			float arg_2684_4 = (float)(2 * hitDirection);
+																			float arg_2684_5 = -2f;
+																			int arg_2684_6 = 0;
 																			Color newColor = default(Color);
-																			Dust.NewDust(arg_2582_0, arg_2582_1, arg_2582_2, arg_2582_3, arg_2582_4, arg_2582_5, arg_2582_6, newColor, 1f);
+																			Dust.NewDust(arg_2684_0, arg_2684_1, arg_2684_2, arg_2684_3, arg_2684_4, arg_2684_5, arg_2684_6, newColor, 1f);
 																		}
 																		Gore.NewGore(this.position, this.velocity, 6, 1f);
 																		Gore.NewGore(this.position, this.velocity, 7, 1f);
@@ -18954,31 +20922,31 @@ namespace Terraria
 																		{
 																			if (this.life > 0)
 																			{
-																				for (int num62 = 0; num62 < 20; num62++)
+																				for (int num66 = 0; num66 < 20; num66++)
 																				{
-																					Vector2 arg_2614_0 = this.position;
-																					int arg_2614_1 = this.width;
-																					int arg_2614_2 = this.height;
-																					int arg_2614_3 = 5;
-																					float arg_2614_4 = (float)hitDirection;
-																					float arg_2614_5 = -1f;
-																					int arg_2614_6 = 0;
+																					Vector2 arg_2716_0 = this.position;
+																					int arg_2716_1 = this.width;
+																					int arg_2716_2 = this.height;
+																					int arg_2716_3 = 5;
+																					float arg_2716_4 = (float)hitDirection;
+																					float arg_2716_5 = -1f;
+																					int arg_2716_6 = 0;
 																					Color newColor = default(Color);
-																					Dust.NewDust(arg_2614_0, arg_2614_1, arg_2614_2, arg_2614_3, arg_2614_4, arg_2614_5, arg_2614_6, newColor, 1f);
+																					Dust.NewDust(arg_2716_0, arg_2716_1, arg_2716_2, arg_2716_3, arg_2716_4, arg_2716_5, arg_2716_6, newColor, 1f);
 																				}
 																				return;
 																			}
-																			for (int num63 = 0; num63 < 50; num63++)
+																			for (int num67 = 0; num67 < 50; num67++)
 																			{
-																				Vector2 arg_2658_0 = this.position;
-																				int arg_2658_1 = this.width;
-																				int arg_2658_2 = this.height;
-																				int arg_2658_3 = 5;
-																				float arg_2658_4 = (float)(2 * hitDirection);
-																				float arg_2658_5 = -1f;
-																				int arg_2658_6 = 0;
+																				Vector2 arg_275A_0 = this.position;
+																				int arg_275A_1 = this.width;
+																				int arg_275A_2 = this.height;
+																				int arg_275A_3 = 5;
+																				float arg_275A_4 = (float)(2 * hitDirection);
+																				float arg_275A_5 = -1f;
+																				int arg_275A_6 = 0;
 																				Color newColor = default(Color);
-																				Dust.NewDust(arg_2658_0, arg_2658_1, arg_2658_2, arg_2658_3, arg_2658_4, arg_2658_5, arg_2658_6, newColor, 1f);
+																				Dust.NewDust(arg_275A_0, arg_275A_1, arg_275A_2, arg_275A_3, arg_275A_4, arg_275A_5, arg_275A_6, newColor, 1f);
 																			}
 																			if (this.type == 114)
 																			{
@@ -18994,36 +20962,36 @@ namespace Terraria
 																			Gore.NewGore(new Vector2(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2)), this.velocity, 137, this.scale);
 																			if (Main.player[Main.myPlayer].position.Y / 16f > (float)(Main.maxTilesY - 250))
 																			{
-																				int num64 = (int)Main.screenPosition.Y;
-																				int num65 = num64 + Main.screenWidth;
-																				int num66 = (int)this.position.X;
+																				int num68 = (int)Main.screenPosition.Y;
+																				int num69 = num68 + Main.screenWidth;
+																				int num70 = (int)this.position.X;
 																				if (this.direction > 0)
 																				{
-																					num66 -= 80;
+																					num70 -= 80;
 																				}
-																				int num67 = num66 + 140;
-																				int num68 = num66;
-																				for (int num69 = num64; num69 < num65; num69 += 50)
+																				int num71 = num70 + 140;
+																				int num72 = num70;
+																				for (int num73 = num68; num73 < num69; num73 += 50)
 																				{
-																					while (num68 < num67)
+																					while (num72 < num71)
 																					{
-																						for (int num70 = 0; num70 < 5; num70++)
+																						for (int num74 = 0; num74 < 5; num74++)
 																						{
-																							Vector2 arg_291F_0 = new Vector2((float)num68, (float)num69);
-																							int arg_291F_1 = 32;
-																							int arg_291F_2 = 32;
-																							int arg_291F_3 = 5;
-																							float arg_291F_4 = (float)Main.rand.Next(-60, 61) * 0.1f;
-																							float arg_291F_5 = (float)Main.rand.Next(-60, 61) * 0.1f;
-																							int arg_291F_6 = 0;
+																							Vector2 arg_2A21_0 = new Vector2((float)num72, (float)num73);
+																							int arg_2A21_1 = 32;
+																							int arg_2A21_2 = 32;
+																							int arg_2A21_3 = 5;
+																							float arg_2A21_4 = (float)Main.rand.Next(-60, 61) * 0.1f;
+																							float arg_2A21_5 = (float)Main.rand.Next(-60, 61) * 0.1f;
+																							int arg_2A21_6 = 0;
 																							Color newColor = default(Color);
-																							Dust.NewDust(arg_291F_0, arg_291F_1, arg_291F_2, arg_291F_3, arg_291F_4, arg_291F_5, arg_291F_6, newColor, 1f);
+																							Dust.NewDust(arg_2A21_0, arg_2A21_1, arg_2A21_2, arg_2A21_3, arg_2A21_4, arg_2A21_5, arg_2A21_6, newColor, 1f);
 																						}
 																						Vector2 vector2 = new Vector2((float)Main.rand.Next(-80, 81) * 0.1f, (float)Main.rand.Next(-60, 21) * 0.1f);
-																						Gore.NewGore(new Vector2((float)num68, (float)num69), vector2, Main.rand.Next(140, 143), 1f);
-																						num68 += 46;
+																						Gore.NewGore(new Vector2((float)num72, (float)num73), vector2, Main.rand.Next(140, 143), 1f);
+																						num72 += 46;
 																					}
-																					num68 = num66;
+																					num72 = num70;
 																				}
 																				return;
 																			}
@@ -19034,48 +21002,48 @@ namespace Terraria
 																			{
 																				if (this.life > 0)
 																				{
-																					for (int num71 = 0; num71 < 5; num71++)
+																					for (int num75 = 0; num75 < 5; num75++)
 																					{
-																						Vector2 arg_29FE_0 = this.position;
-																						int arg_29FE_1 = this.width;
-																						int arg_29FE_2 = this.height;
-																						int arg_29FE_3 = 5;
-																						float arg_29FE_4 = (float)hitDirection;
-																						float arg_29FE_5 = -1f;
-																						int arg_29FE_6 = 0;
+																						Vector2 arg_2B00_0 = this.position;
+																						int arg_2B00_1 = this.width;
+																						int arg_2B00_2 = this.height;
+																						int arg_2B00_3 = 5;
+																						float arg_2B00_4 = (float)hitDirection;
+																						float arg_2B00_5 = -1f;
+																						int arg_2B00_6 = 0;
 																						Color newColor = default(Color);
-																						Dust.NewDust(arg_29FE_0, arg_29FE_1, arg_29FE_2, arg_29FE_3, arg_29FE_4, arg_29FE_5, arg_29FE_6, newColor, 1f);
+																						Dust.NewDust(arg_2B00_0, arg_2B00_1, arg_2B00_2, arg_2B00_3, arg_2B00_4, arg_2B00_5, arg_2B00_6, newColor, 1f);
 																					}
 																					return;
 																				}
 																				if (this.type == 115 && Main.netMode != 1)
 																				{
 																					NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 116, 0);
-																					for (int num72 = 0; num72 < 10; num72++)
+																					for (int num76 = 0; num76 < 10; num76++)
 																					{
-																						Vector2 arg_2A84_0 = this.position;
-																						int arg_2A84_1 = this.width;
-																						int arg_2A84_2 = this.height;
-																						int arg_2A84_3 = 5;
-																						float arg_2A84_4 = (float)hitDirection;
-																						float arg_2A84_5 = -1f;
-																						int arg_2A84_6 = 0;
+																						Vector2 arg_2B86_0 = this.position;
+																						int arg_2B86_1 = this.width;
+																						int arg_2B86_2 = this.height;
+																						int arg_2B86_3 = 5;
+																						float arg_2B86_4 = (float)hitDirection;
+																						float arg_2B86_5 = -1f;
+																						int arg_2B86_6 = 0;
 																						Color newColor = default(Color);
-																						Dust.NewDust(arg_2A84_0, arg_2A84_1, arg_2A84_2, arg_2A84_3, arg_2A84_4, arg_2A84_5, arg_2A84_6, newColor, 1f);
+																						Dust.NewDust(arg_2B86_0, arg_2B86_1, arg_2B86_2, arg_2B86_3, arg_2B86_4, arg_2B86_5, arg_2B86_6, newColor, 1f);
 																					}
 																					return;
 																				}
-																				for (int num73 = 0; num73 < 20; num73++)
+																				for (int num77 = 0; num77 < 20; num77++)
 																				{
-																					Vector2 arg_2AC6_0 = this.position;
-																					int arg_2AC6_1 = this.width;
-																					int arg_2AC6_2 = this.height;
-																					int arg_2AC6_3 = 5;
-																					float arg_2AC6_4 = (float)hitDirection;
-																					float arg_2AC6_5 = -1f;
-																					int arg_2AC6_6 = 0;
+																					Vector2 arg_2BC8_0 = this.position;
+																					int arg_2BC8_1 = this.width;
+																					int arg_2BC8_2 = this.height;
+																					int arg_2BC8_3 = 5;
+																					float arg_2BC8_4 = (float)hitDirection;
+																					float arg_2BC8_5 = -1f;
+																					int arg_2BC8_6 = 0;
 																					Color newColor = default(Color);
-																					Dust.NewDust(arg_2AC6_0, arg_2AC6_1, arg_2AC6_2, arg_2AC6_3, arg_2AC6_4, arg_2AC6_5, arg_2AC6_6, newColor, 1f);
+																					Dust.NewDust(arg_2BC8_0, arg_2BC8_1, arg_2BC8_2, arg_2BC8_3, arg_2BC8_4, arg_2BC8_5, arg_2BC8_6, newColor, 1f);
 																				}
 																				Gore.NewGore(this.position, this.velocity, 132, this.scale);
 																				Gore.NewGore(this.position, this.velocity, 133, this.scale);
@@ -19087,31 +21055,31 @@ namespace Terraria
 																				{
 																					if (this.life > 0)
 																					{
-																						for (int num74 = 0; num74 < 5; num74++)
+																						for (int num78 = 0; num78 < 5; num78++)
 																						{
-																							Vector2 arg_2B65_0 = this.position;
-																							int arg_2B65_1 = this.width;
-																							int arg_2B65_2 = this.height;
-																							int arg_2B65_3 = 5;
-																							float arg_2B65_4 = (float)hitDirection;
-																							float arg_2B65_5 = -1f;
-																							int arg_2B65_6 = 0;
+																							Vector2 arg_2C67_0 = this.position;
+																							int arg_2C67_1 = this.width;
+																							int arg_2C67_2 = this.height;
+																							int arg_2C67_3 = 5;
+																							float arg_2C67_4 = (float)hitDirection;
+																							float arg_2C67_5 = -1f;
+																							int arg_2C67_6 = 0;
 																							Color newColor = default(Color);
-																							Dust.NewDust(arg_2B65_0, arg_2B65_1, arg_2B65_2, arg_2B65_3, arg_2B65_4, arg_2B65_5, arg_2B65_6, newColor, 1f);
+																							Dust.NewDust(arg_2C67_0, arg_2C67_1, arg_2C67_2, arg_2C67_3, arg_2C67_4, arg_2C67_5, arg_2C67_6, newColor, 1f);
 																						}
 																						return;
 																					}
-																					for (int num75 = 0; num75 < 10; num75++)
+																					for (int num79 = 0; num79 < 10; num79++)
 																					{
-																						Vector2 arg_2BA6_0 = this.position;
-																						int arg_2BA6_1 = this.width;
-																						int arg_2BA6_2 = this.height;
-																						int arg_2BA6_3 = 5;
-																						float arg_2BA6_4 = (float)hitDirection;
-																						float arg_2BA6_5 = -1f;
-																						int arg_2BA6_6 = 0;
+																						Vector2 arg_2CA8_0 = this.position;
+																						int arg_2CA8_1 = this.width;
+																						int arg_2CA8_2 = this.height;
+																						int arg_2CA8_3 = 5;
+																						float arg_2CA8_4 = (float)hitDirection;
+																						float arg_2CA8_5 = -1f;
+																						int arg_2CA8_6 = 0;
 																						Color newColor = default(Color);
-																						Dust.NewDust(arg_2BA6_0, arg_2BA6_1, arg_2BA6_2, arg_2BA6_3, arg_2BA6_4, arg_2BA6_5, arg_2BA6_6, newColor, 1f);
+																						Dust.NewDust(arg_2CA8_0, arg_2CA8_1, arg_2CA8_2, arg_2CA8_3, arg_2CA8_4, arg_2CA8_5, arg_2CA8_6, newColor, 1f);
 																					}
 																					Gore.NewGore(this.position, this.velocity, 134 + this.type - 117, this.scale);
 																					return;
@@ -19122,31 +21090,31 @@ namespace Terraria
 																					{
 																						if (this.life > 0)
 																						{
-																							int num76 = 0;
-																							while ((double)num76 < dmg / (double)this.lifeMax * 100.0)
+																							int num80 = 0;
+																							while ((double)num80 < dmg / (double)this.lifeMax * 100.0)
 																							{
 																								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-																								num76++;
+																								num80++;
 																							}
 																							return;
 																						}
-																						for (int num77 = 0; num77 < 50; num77++)
+																						for (int num81 = 0; num81 < 50; num81++)
 																						{
 																							Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 																						}
-																						int num78;
+																						int num82;
 																						if (this.type == 94)
 																						{
-																							num78 = Gore.NewGore(this.position, this.velocity, 108, this.scale);
-																							num78 = Gore.NewGore(this.position, this.velocity, 108, this.scale);
-																							num78 = Gore.NewGore(this.position, this.velocity, 109, this.scale);
-																							num78 = Gore.NewGore(this.position, this.velocity, 110, this.scale);
+																							num82 = Gore.NewGore(this.position, this.velocity, 108, this.scale);
+																							num82 = Gore.NewGore(this.position, this.velocity, 108, this.scale);
+																							num82 = Gore.NewGore(this.position, this.velocity, 109, this.scale);
+																							num82 = Gore.NewGore(this.position, this.velocity, 110, this.scale);
 																							return;
 																						}
-																						num78 = Gore.NewGore(this.position, this.velocity, 14, this.scale);
-																						Main.gore[num78].alpha = this.alpha;
-																						num78 = Gore.NewGore(this.position, this.velocity, 15, this.scale);
-																						Main.gore[num78].alpha = this.alpha;
+																						num82 = Gore.NewGore(this.position, this.velocity, 14, this.scale);
+																						Main.gore[num82].alpha = this.alpha;
+																						num82 = Gore.NewGore(this.position, this.velocity, 15, this.scale);
+																						Main.gore[num82].alpha = this.alpha;
 																						return;
 																					}
 																					else
@@ -19155,15 +21123,15 @@ namespace Terraria
 																						{
 																							if (this.life > 0)
 																							{
-																								int num79 = 0;
-																								while ((double)num79 < dmg / (double)this.lifeMax * 100.0)
+																								int num83 = 0;
+																								while ((double)num83 < dmg / (double)this.lifeMax * 100.0)
 																								{
 																									Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-																									num79++;
+																									num83++;
 																								}
 																								return;
 																							}
-																							for (int num80 = 0; num80 < 50; num80++)
+																							for (int num84 = 0; num84 < 50; num84++)
 																							{
 																								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 																							}
@@ -19179,20 +21147,20 @@ namespace Terraria
 																							{
 																								if (this.life > 0)
 																								{
-																									int num81 = 0;
-																									while ((double)num81 < dmg / (double)this.lifeMax * 100.0)
+																									int num85 = 0;
+																									while ((double)num85 < dmg / (double)this.lifeMax * 100.0)
 																									{
 																										Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-																										num81++;
+																										num85++;
 																									}
 																									return;
 																								}
-																								for (int num82 = 0; num82 < 50; num82++)
+																								for (int num86 = 0; num86 < 50; num86++)
 																								{
 																									Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 																								}
-																								int num83 = Gore.NewGore(this.position, this.velocity, this.type - 7 + 18, 1f);
-																								Main.gore[num83].alpha = this.alpha;
+																								int num87 = Gore.NewGore(this.position, this.velocity, this.type - 7 + 18, 1f);
+																								Main.gore[num87].alpha = this.alpha;
 																								return;
 																							}
 																							else
@@ -19201,20 +21169,20 @@ namespace Terraria
 																								{
 																									if (this.life > 0)
 																									{
-																										int num84 = 0;
-																										while ((double)num84 < dmg / (double)this.lifeMax * 100.0)
+																										int num88 = 0;
+																										while ((double)num88 < dmg / (double)this.lifeMax * 100.0)
 																										{
 																											Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-																											num84++;
+																											num88++;
 																										}
 																										return;
 																									}
-																									for (int num85 = 0; num85 < 50; num85++)
+																									for (int num89 = 0; num89 < 50; num89++)
 																									{
 																										Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 																									}
-																									int num86 = Gore.NewGore(this.position, this.velocity, 110, 1f);
-																									Main.gore[num86].alpha = this.alpha;
+																									int num90 = Gore.NewGore(this.position, this.velocity, 110, 1f);
+																									Main.gore[num90].alpha = this.alpha;
 																									return;
 																								}
 																								else
@@ -19223,33 +21191,33 @@ namespace Terraria
 																									{
 																										if (this.life > 0)
 																										{
-																											int num87 = 0;
-																											while ((double)num87 < dmg / (double)this.lifeMax * 50.0)
+																											int num91 = 0;
+																											while ((double)num91 < dmg / (double)this.lifeMax * 50.0)
 																											{
-																												Vector2 arg_30CE_0 = this.position;
-																												int arg_30CE_1 = this.width;
-																												int arg_30CE_2 = this.height;
-																												int arg_30CE_3 = 5;
-																												float arg_30CE_4 = (float)hitDirection;
-																												float arg_30CE_5 = -1f;
-																												int arg_30CE_6 = 0;
+																												Vector2 arg_31D0_0 = this.position;
+																												int arg_31D0_1 = this.width;
+																												int arg_31D0_2 = this.height;
+																												int arg_31D0_3 = 5;
+																												float arg_31D0_4 = (float)hitDirection;
+																												float arg_31D0_5 = -1f;
+																												int arg_31D0_6 = 0;
 																												Color newColor = default(Color);
-																												Dust.NewDust(arg_30CE_0, arg_30CE_1, arg_30CE_2, arg_30CE_3, arg_30CE_4, arg_30CE_5, arg_30CE_6, newColor, 1f);
-																												num87++;
+																												Dust.NewDust(arg_31D0_0, arg_31D0_1, arg_31D0_2, arg_31D0_3, arg_31D0_4, arg_31D0_5, arg_31D0_6, newColor, 1f);
+																												num91++;
 																											}
 																											return;
 																										}
-																										for (int num88 = 0; num88 < 10; num88++)
+																										for (int num92 = 0; num92 < 10; num92++)
 																										{
-																											Vector2 arg_3128_0 = this.position;
-																											int arg_3128_1 = this.width;
-																											int arg_3128_2 = this.height;
-																											int arg_3128_3 = 5;
-																											float arg_3128_4 = 2.5f * (float)hitDirection;
-																											float arg_3128_5 = -2.5f;
-																											int arg_3128_6 = 0;
+																											Vector2 arg_322A_0 = this.position;
+																											int arg_322A_1 = this.width;
+																											int arg_322A_2 = this.height;
+																											int arg_322A_3 = 5;
+																											float arg_322A_4 = 2.5f * (float)hitDirection;
+																											float arg_322A_5 = -2.5f;
+																											int arg_322A_6 = 0;
 																											Color newColor = default(Color);
-																											Dust.NewDust(arg_3128_0, arg_3128_1, arg_3128_2, arg_3128_3, arg_3128_4, arg_3128_5, arg_3128_6, newColor, 1f);
+																											Dust.NewDust(arg_322A_0, arg_322A_1, arg_322A_2, arg_322A_3, arg_322A_4, arg_322A_5, arg_322A_6, newColor, 1f);
 																										}
 																										Gore.NewGore(this.position, this.velocity, this.type - 7 + 18, 1f);
 																										return;
@@ -19260,33 +21228,33 @@ namespace Terraria
 																										{
 																											if (this.life > 0)
 																											{
-																												int num89 = 0;
-																												while ((double)num89 < dmg / (double)this.lifeMax * 50.0)
+																												int num93 = 0;
+																												while ((double)num93 < dmg / (double)this.lifeMax * 50.0)
 																												{
-																													Vector2 arg_31B6_0 = this.position;
-																													int arg_31B6_1 = this.width;
-																													int arg_31B6_2 = this.height;
-																													int arg_31B6_3 = 5;
-																													float arg_31B6_4 = (float)hitDirection;
-																													float arg_31B6_5 = -1f;
-																													int arg_31B6_6 = 0;
+																													Vector2 arg_32B8_0 = this.position;
+																													int arg_32B8_1 = this.width;
+																													int arg_32B8_2 = this.height;
+																													int arg_32B8_3 = 5;
+																													float arg_32B8_4 = (float)hitDirection;
+																													float arg_32B8_5 = -1f;
+																													int arg_32B8_6 = 0;
 																													Color newColor = default(Color);
-																													Dust.NewDust(arg_31B6_0, arg_31B6_1, arg_31B6_2, arg_31B6_3, arg_31B6_4, arg_31B6_5, arg_31B6_6, newColor, 1f);
-																													num89++;
+																													Dust.NewDust(arg_32B8_0, arg_32B8_1, arg_32B8_2, arg_32B8_3, arg_32B8_4, arg_32B8_5, arg_32B8_6, newColor, 1f);
+																													num93++;
 																												}
 																												return;
 																											}
-																											for (int num90 = 0; num90 < 10; num90++)
+																											for (int num94 = 0; num94 < 10; num94++)
 																											{
-																												Vector2 arg_3210_0 = this.position;
-																												int arg_3210_1 = this.width;
-																												int arg_3210_2 = this.height;
-																												int arg_3210_3 = 5;
-																												float arg_3210_4 = 2.5f * (float)hitDirection;
-																												float arg_3210_5 = -2.5f;
-																												int arg_3210_6 = 0;
+																												Vector2 arg_3312_0 = this.position;
+																												int arg_3312_1 = this.width;
+																												int arg_3312_2 = this.height;
+																												int arg_3312_3 = 5;
+																												float arg_3312_4 = 2.5f * (float)hitDirection;
+																												float arg_3312_5 = -2.5f;
+																												int arg_3312_6 = 0;
 																												Color newColor = default(Color);
-																												Dust.NewDust(arg_3210_0, arg_3210_1, arg_3210_2, arg_3210_3, arg_3210_4, arg_3210_5, arg_3210_6, newColor, 1f);
+																												Dust.NewDust(arg_3312_0, arg_3312_1, arg_3312_2, arg_3312_3, arg_3312_4, arg_3312_5, arg_3312_6, newColor, 1f);
 																											}
 																											Gore.NewGore(this.position, this.velocity, this.type - 95 + 111, 1f);
 																											return;
@@ -19297,15 +21265,15 @@ namespace Terraria
 																											{
 																												if (this.life > 0)
 																												{
-																													int num91 = 0;
-																													while ((double)num91 < dmg / (double)this.lifeMax * 100.0)
+																													int num95 = 0;
+																													while ((double)num95 < dmg / (double)this.lifeMax * 100.0)
 																													{
 																														Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-																														num91++;
+																														num95++;
 																													}
 																													return;
 																												}
-																												for (int num92 = 0; num92 < 50; num92++)
+																												for (int num96 = 0; num96 < 50; num96++)
 																												{
 																													Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 																												}
@@ -19331,33 +21299,33 @@ namespace Terraria
 																												{
 																													if (this.life > 0)
 																													{
-																														int num93 = 0;
-																														while ((double)num93 < dmg / (double)this.lifeMax * 100.0)
+																														int num97 = 0;
+																														while ((double)num97 < dmg / (double)this.lifeMax * 100.0)
 																														{
-																															Vector2 arg_33FD_0 = this.position;
-																															int arg_33FD_1 = this.width;
-																															int arg_33FD_2 = this.height;
-																															int arg_33FD_3 = 5;
-																															float arg_33FD_4 = (float)hitDirection;
-																															float arg_33FD_5 = -1f;
-																															int arg_33FD_6 = 0;
+																															Vector2 arg_34FF_0 = this.position;
+																															int arg_34FF_1 = this.width;
+																															int arg_34FF_2 = this.height;
+																															int arg_34FF_3 = 5;
+																															float arg_34FF_4 = (float)hitDirection;
+																															float arg_34FF_5 = -1f;
+																															int arg_34FF_6 = 0;
 																															Color newColor = default(Color);
-																															Dust.NewDust(arg_33FD_0, arg_33FD_1, arg_33FD_2, arg_33FD_3, arg_33FD_4, arg_33FD_5, arg_33FD_6, newColor, 1f);
-																															num93++;
+																															Dust.NewDust(arg_34FF_0, arg_34FF_1, arg_34FF_2, arg_34FF_3, arg_34FF_4, arg_34FF_5, arg_34FF_6, newColor, 1f);
+																															num97++;
 																														}
 																														return;
 																													}
-																													for (int num94 = 0; num94 < 50; num94++)
+																													for (int num98 = 0; num98 < 50; num98++)
 																													{
-																														Vector2 arg_3457_0 = this.position;
-																														int arg_3457_1 = this.width;
-																														int arg_3457_2 = this.height;
-																														int arg_3457_3 = 5;
-																														float arg_3457_4 = 2.5f * (float)hitDirection;
-																														float arg_3457_5 = -2.5f;
-																														int arg_3457_6 = 0;
+																														Vector2 arg_3559_0 = this.position;
+																														int arg_3559_1 = this.width;
+																														int arg_3559_2 = this.height;
+																														int arg_3559_3 = 5;
+																														float arg_3559_4 = 2.5f * (float)hitDirection;
+																														float arg_3559_5 = -2.5f;
+																														int arg_3559_6 = 0;
 																														Color newColor = default(Color);
-																														Dust.NewDust(arg_3457_0, arg_3457_1, arg_3457_2, arg_3457_3, arg_3457_4, arg_3457_5, arg_3457_6, newColor, 1f);
+																														Dust.NewDust(arg_3559_0, arg_3559_1, arg_3559_2, arg_3559_3, arg_3559_4, arg_3559_5, arg_3559_6, newColor, 1f);
 																													}
 																													Gore.NewGore(this.position, this.velocity, 30, 1f);
 																													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 31, 1f);
@@ -19372,33 +21340,33 @@ namespace Terraria
 																													{
 																														if (this.life > 0)
 																														{
-																															int num95 = 0;
-																															while ((double)num95 < dmg / (double)this.lifeMax * 100.0)
+																															int num99 = 0;
+																															while ((double)num99 < dmg / (double)this.lifeMax * 100.0)
 																															{
-																																Vector2 arg_3598_0 = this.position;
-																																int arg_3598_1 = this.width;
-																																int arg_3598_2 = this.height;
-																																int arg_3598_3 = 5;
-																																float arg_3598_4 = (float)hitDirection;
-																																float arg_3598_5 = -1f;
-																																int arg_3598_6 = 0;
+																																Vector2 arg_369A_0 = this.position;
+																																int arg_369A_1 = this.width;
+																																int arg_369A_2 = this.height;
+																																int arg_369A_3 = 5;
+																																float arg_369A_4 = (float)hitDirection;
+																																float arg_369A_5 = -1f;
+																																int arg_369A_6 = 0;
 																																Color newColor = default(Color);
-																																Dust.NewDust(arg_3598_0, arg_3598_1, arg_3598_2, arg_3598_3, arg_3598_4, arg_3598_5, arg_3598_6, newColor, 1f);
-																																num95++;
+																																Dust.NewDust(arg_369A_0, arg_369A_1, arg_369A_2, arg_369A_3, arg_369A_4, arg_369A_5, arg_369A_6, newColor, 1f);
+																																num99++;
 																															}
 																															return;
 																														}
-																														for (int num96 = 0; num96 < 50; num96++)
+																														for (int num100 = 0; num100 < 50; num100++)
 																														{
-																															Vector2 arg_35F2_0 = this.position;
-																															int arg_35F2_1 = this.width;
-																															int arg_35F2_2 = this.height;
-																															int arg_35F2_3 = 5;
-																															float arg_35F2_4 = 2.5f * (float)hitDirection;
-																															float arg_35F2_5 = -2.5f;
-																															int arg_35F2_6 = 0;
+																															Vector2 arg_36F4_0 = this.position;
+																															int arg_36F4_1 = this.width;
+																															int arg_36F4_2 = this.height;
+																															int arg_36F4_3 = 5;
+																															float arg_36F4_4 = 2.5f * (float)hitDirection;
+																															float arg_36F4_5 = -2.5f;
+																															int arg_36F4_6 = 0;
 																															Color newColor = default(Color);
-																															Dust.NewDust(arg_35F2_0, arg_35F2_1, arg_35F2_2, arg_35F2_3, arg_35F2_4, arg_35F2_5, arg_35F2_6, newColor, 1f);
+																															Dust.NewDust(arg_36F4_0, arg_36F4_1, arg_36F4_2, arg_36F4_3, arg_36F4_4, arg_36F4_5, arg_36F4_6, newColor, 1f);
 																														}
 																														Gore.NewGore(this.position, this.velocity, 101, 1f);
 																														Gore.NewGore(this.position, this.velocity, 102, 1f);
@@ -19415,33 +21383,33 @@ namespace Terraria
 																														{
 																															if (this.life > 0)
 																															{
-																																int num97 = 0;
-																																while ((double)num97 < dmg / (double)this.lifeMax * 100.0)
+																																int num101 = 0;
+																																while ((double)num101 < dmg / (double)this.lifeMax * 100.0)
 																																{
-																																	Vector2 arg_3706_0 = this.position;
-																																	int arg_3706_1 = this.width;
-																																	int arg_3706_2 = this.height;
-																																	int arg_3706_3 = 5;
-																																	float arg_3706_4 = (float)hitDirection;
-																																	float arg_3706_5 = -1f;
-																																	int arg_3706_6 = 0;
+																																	Vector2 arg_3808_0 = this.position;
+																																	int arg_3808_1 = this.width;
+																																	int arg_3808_2 = this.height;
+																																	int arg_3808_3 = 5;
+																																	float arg_3808_4 = (float)hitDirection;
+																																	float arg_3808_5 = -1f;
+																																	int arg_3808_6 = 0;
 																																	Color newColor = default(Color);
-																																	Dust.NewDust(arg_3706_0, arg_3706_1, arg_3706_2, arg_3706_3, arg_3706_4, arg_3706_5, arg_3706_6, newColor, 1f);
-																																	num97++;
+																																	Dust.NewDust(arg_3808_0, arg_3808_1, arg_3808_2, arg_3808_3, arg_3808_4, arg_3808_5, arg_3808_6, newColor, 1f);
+																																	num101++;
 																																}
 																																return;
 																															}
-																															for (int num98 = 0; num98 < 50; num98++)
+																															for (int num102 = 0; num102 < 50; num102++)
 																															{
-																																Vector2 arg_3760_0 = this.position;
-																																int arg_3760_1 = this.width;
-																																int arg_3760_2 = this.height;
-																																int arg_3760_3 = 5;
-																																float arg_3760_4 = 2.5f * (float)hitDirection;
-																																float arg_3760_5 = -2.5f;
-																																int arg_3760_6 = 0;
+																																Vector2 arg_3862_0 = this.position;
+																																int arg_3862_1 = this.width;
+																																int arg_3862_2 = this.height;
+																																int arg_3862_3 = 5;
+																																float arg_3862_4 = 2.5f * (float)hitDirection;
+																																float arg_3862_5 = -2.5f;
+																																int arg_3862_6 = 0;
 																																Color newColor = default(Color);
-																																Dust.NewDust(arg_3760_0, arg_3760_1, arg_3760_2, arg_3760_3, arg_3760_4, arg_3760_5, arg_3760_6, newColor, 1f);
+																																Dust.NewDust(arg_3862_0, arg_3862_1, arg_3862_2, arg_3862_3, arg_3862_4, arg_3862_5, arg_3862_6, newColor, 1f);
 																															}
 																															if (this.type == 105 || this.type == 107)
 																															{
@@ -19465,33 +21433,33 @@ namespace Terraria
 																															{
 																																if (this.life > 0)
 																																{
-																																	int num99 = 0;
-																																	while ((double)num99 < dmg / (double)this.lifeMax * 100.0)
+																																	int num103 = 0;
+																																	while ((double)num103 < dmg / (double)this.lifeMax * 100.0)
 																																	{
-																																		Vector2 arg_39B8_0 = this.position;
-																																		int arg_39B8_1 = this.width;
-																																		int arg_39B8_2 = this.height;
-																																		int arg_39B8_3 = 5;
-																																		float arg_39B8_4 = (float)hitDirection;
-																																		float arg_39B8_5 = -1f;
-																																		int arg_39B8_6 = 0;
+																																		Vector2 arg_3ABA_0 = this.position;
+																																		int arg_3ABA_1 = this.width;
+																																		int arg_3ABA_2 = this.height;
+																																		int arg_3ABA_3 = 5;
+																																		float arg_3ABA_4 = (float)hitDirection;
+																																		float arg_3ABA_5 = -1f;
+																																		int arg_3ABA_6 = 0;
 																																		Color newColor = default(Color);
-																																		Dust.NewDust(arg_39B8_0, arg_39B8_1, arg_39B8_2, arg_39B8_3, arg_39B8_4, arg_39B8_5, arg_39B8_6, newColor, 1f);
-																																		num99++;
+																																		Dust.NewDust(arg_3ABA_0, arg_3ABA_1, arg_3ABA_2, arg_3ABA_3, arg_3ABA_4, arg_3ABA_5, arg_3ABA_6, newColor, 1f);
+																																		num103++;
 																																	}
 																																	return;
 																																}
-																																for (int num100 = 0; num100 < 50; num100++)
+																																for (int num104 = 0; num104 < 50; num104++)
 																																{
-																																	Vector2 arg_3A12_0 = this.position;
-																																	int arg_3A12_1 = this.width;
-																																	int arg_3A12_2 = this.height;
-																																	int arg_3A12_3 = 5;
-																																	float arg_3A12_4 = 2.5f * (float)hitDirection;
-																																	float arg_3A12_5 = -2.5f;
-																																	int arg_3A12_6 = 0;
+																																	Vector2 arg_3B14_0 = this.position;
+																																	int arg_3B14_1 = this.width;
+																																	int arg_3B14_2 = this.height;
+																																	int arg_3B14_3 = 5;
+																																	float arg_3B14_4 = 2.5f * (float)hitDirection;
+																																	float arg_3B14_5 = -2.5f;
+																																	int arg_3B14_6 = 0;
 																																	Color newColor = default(Color);
-																																	Dust.NewDust(arg_3A12_0, arg_3A12_1, arg_3A12_2, arg_3A12_3, arg_3A12_4, arg_3A12_5, arg_3A12_6, newColor, 1f);
+																																	Dust.NewDust(arg_3B14_0, arg_3B14_1, arg_3B14_2, arg_3B14_3, arg_3B14_4, arg_3B14_5, arg_3B14_6, newColor, 1f);
 																																}
 																																Gore.NewGore(this.position, this.velocity, 151, 1f);
 																																Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 152, 1f);
@@ -19506,33 +21474,33 @@ namespace Terraria
 																																{
 																																	if (this.life > 0)
 																																	{
-																																		int num101 = 0;
-																																		while ((double)num101 < dmg / (double)this.lifeMax * 100.0)
+																																		int num105 = 0;
+																																		while ((double)num105 < dmg / (double)this.lifeMax * 100.0)
 																																		{
-																																			Vector2 arg_3B62_0 = this.position;
-																																			int arg_3B62_1 = this.width;
-																																			int arg_3B62_2 = this.height;
-																																			int arg_3B62_3 = 5;
-																																			float arg_3B62_4 = (float)hitDirection;
-																																			float arg_3B62_5 = -1f;
-																																			int arg_3B62_6 = 0;
+																																			Vector2 arg_3C64_0 = this.position;
+																																			int arg_3C64_1 = this.width;
+																																			int arg_3C64_2 = this.height;
+																																			int arg_3C64_3 = 5;
+																																			float arg_3C64_4 = (float)hitDirection;
+																																			float arg_3C64_5 = -1f;
+																																			int arg_3C64_6 = 0;
 																																			Color newColor = default(Color);
-																																			Dust.NewDust(arg_3B62_0, arg_3B62_1, arg_3B62_2, arg_3B62_3, arg_3B62_4, arg_3B62_5, arg_3B62_6, newColor, 1f);
-																																			num101++;
+																																			Dust.NewDust(arg_3C64_0, arg_3C64_1, arg_3C64_2, arg_3C64_3, arg_3C64_4, arg_3C64_5, arg_3C64_6, newColor, 1f);
+																																			num105++;
 																																		}
 																																		return;
 																																	}
-																																	for (int num102 = 0; num102 < 50; num102++)
+																																	for (int num106 = 0; num106 < 50; num106++)
 																																	{
-																																		Vector2 arg_3BBC_0 = this.position;
-																																		int arg_3BBC_1 = this.width;
-																																		int arg_3BBC_2 = this.height;
-																																		int arg_3BBC_3 = 5;
-																																		float arg_3BBC_4 = 2.5f * (float)hitDirection;
-																																		float arg_3BBC_5 = -2.5f;
-																																		int arg_3BBC_6 = 0;
+																																		Vector2 arg_3CBE_0 = this.position;
+																																		int arg_3CBE_1 = this.width;
+																																		int arg_3CBE_2 = this.height;
+																																		int arg_3CBE_3 = 5;
+																																		float arg_3CBE_4 = 2.5f * (float)hitDirection;
+																																		float arg_3CBE_5 = -2.5f;
+																																		int arg_3CBE_6 = 0;
 																																		Color newColor = default(Color);
-																																		Dust.NewDust(arg_3BBC_0, arg_3BBC_1, arg_3BBC_2, arg_3BBC_3, arg_3BBC_4, arg_3BBC_5, arg_3BBC_6, newColor, 1f);
+																																		Dust.NewDust(arg_3CBE_0, arg_3CBE_1, arg_3CBE_2, arg_3CBE_3, arg_3CBE_4, arg_3CBE_5, arg_3CBE_6, newColor, 1f);
 																																	}
 																																	Gore.NewGore(this.position, this.velocity, 73, 1f);
 																																	Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 74, 1f);
@@ -19543,1382 +21511,1424 @@ namespace Terraria
 																																}
 																																else
 																																{
-																																	if (this.type == 37 || this.type == 54)
+																																	if (this.type == 142)
 																																	{
 																																		if (this.life > 0)
 																																		{
-																																			int num103 = 0;
-																																			while ((double)num103 < dmg / (double)this.lifeMax * 100.0)
+																																			int num107 = 0;
+																																			while ((double)num107 < dmg / (double)this.lifeMax * 100.0)
 																																			{
-																																				Vector2 arg_3D07_0 = this.position;
-																																				int arg_3D07_1 = this.width;
-																																				int arg_3D07_2 = this.height;
-																																				int arg_3D07_3 = 5;
-																																				float arg_3D07_4 = (float)hitDirection;
-																																				float arg_3D07_5 = -1f;
-																																				int arg_3D07_6 = 0;
+																																				Vector2 arg_3E02_0 = this.position;
+																																				int arg_3E02_1 = this.width;
+																																				int arg_3E02_2 = this.height;
+																																				int arg_3E02_3 = 5;
+																																				float arg_3E02_4 = (float)hitDirection;
+																																				float arg_3E02_5 = -1f;
+																																				int arg_3E02_6 = 0;
 																																				Color newColor = default(Color);
-																																				Dust.NewDust(arg_3D07_0, arg_3D07_1, arg_3D07_2, arg_3D07_3, arg_3D07_4, arg_3D07_5, arg_3D07_6, newColor, 1f);
-																																				num103++;
+																																				Dust.NewDust(arg_3E02_0, arg_3E02_1, arg_3E02_2, arg_3E02_3, arg_3E02_4, arg_3E02_5, arg_3E02_6, newColor, 1f);
+																																				num107++;
 																																			}
 																																			return;
 																																		}
-																																		for (int num104 = 0; num104 < 50; num104++)
+																																		for (int num108 = 0; num108 < 50; num108++)
 																																		{
-																																			Vector2 arg_3D61_0 = this.position;
-																																			int arg_3D61_1 = this.width;
-																																			int arg_3D61_2 = this.height;
-																																			int arg_3D61_3 = 5;
-																																			float arg_3D61_4 = 2.5f * (float)hitDirection;
-																																			float arg_3D61_5 = -2.5f;
-																																			int arg_3D61_6 = 0;
+																																			Vector2 arg_3E5C_0 = this.position;
+																																			int arg_3E5C_1 = this.width;
+																																			int arg_3E5C_2 = this.height;
+																																			int arg_3E5C_3 = 5;
+																																			float arg_3E5C_4 = 2.5f * (float)hitDirection;
+																																			float arg_3E5C_5 = -2.5f;
+																																			int arg_3E5C_6 = 0;
 																																			Color newColor = default(Color);
-																																			Dust.NewDust(arg_3D61_0, arg_3D61_1, arg_3D61_2, arg_3D61_3, arg_3D61_4, arg_3D61_5, arg_3D61_6, newColor, 1f);
+																																			Dust.NewDust(arg_3E5C_0, arg_3E5C_1, arg_3E5C_2, arg_3E5C_3, arg_3E5C_4, arg_3E5C_5, arg_3E5C_6, newColor, 1f);
 																																		}
-																																		Gore.NewGore(this.position, this.velocity, 58, 1f);
-																																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 59, 1f);
-																																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 59, 1f);
-																																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 60, 1f);
-																																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 60, 1f);
+																																		Gore.NewGore(this.position, this.velocity, 157, 1f);
+																																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 158, 1f);
+																																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 158, 1f);
+																																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 159, 1f);
+																																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 159, 1f);
 																																		return;
 																																	}
 																																	else
 																																	{
-																																		if (this.type == 18)
+																																		if (this.type == 37 || this.type == 54)
 																																		{
 																																			if (this.life > 0)
 																																			{
-																																				int num105 = 0;
-																																				while ((double)num105 < dmg / (double)this.lifeMax * 100.0)
+																																				int num109 = 0;
+																																				while ((double)num109 < dmg / (double)this.lifeMax * 100.0)
 																																				{
-																																					Vector2 arg_3EA2_0 = this.position;
-																																					int arg_3EA2_1 = this.width;
-																																					int arg_3EA2_2 = this.height;
-																																					int arg_3EA2_3 = 5;
-																																					float arg_3EA2_4 = (float)hitDirection;
-																																					float arg_3EA2_5 = -1f;
-																																					int arg_3EA2_6 = 0;
+																																					Vector2 arg_3FB6_0 = this.position;
+																																					int arg_3FB6_1 = this.width;
+																																					int arg_3FB6_2 = this.height;
+																																					int arg_3FB6_3 = 5;
+																																					float arg_3FB6_4 = (float)hitDirection;
+																																					float arg_3FB6_5 = -1f;
+																																					int arg_3FB6_6 = 0;
 																																					Color newColor = default(Color);
-																																					Dust.NewDust(arg_3EA2_0, arg_3EA2_1, arg_3EA2_2, arg_3EA2_3, arg_3EA2_4, arg_3EA2_5, arg_3EA2_6, newColor, 1f);
-																																					num105++;
+																																					Dust.NewDust(arg_3FB6_0, arg_3FB6_1, arg_3FB6_2, arg_3FB6_3, arg_3FB6_4, arg_3FB6_5, arg_3FB6_6, newColor, 1f);
+																																					num109++;
 																																				}
 																																				return;
 																																			}
-																																			for (int num106 = 0; num106 < 50; num106++)
+																																			for (int num110 = 0; num110 < 50; num110++)
 																																			{
-																																				Vector2 arg_3EFC_0 = this.position;
-																																				int arg_3EFC_1 = this.width;
-																																				int arg_3EFC_2 = this.height;
-																																				int arg_3EFC_3 = 5;
-																																				float arg_3EFC_4 = 2.5f * (float)hitDirection;
-																																				float arg_3EFC_5 = -2.5f;
-																																				int arg_3EFC_6 = 0;
+																																				Vector2 arg_4010_0 = this.position;
+																																				int arg_4010_1 = this.width;
+																																				int arg_4010_2 = this.height;
+																																				int arg_4010_3 = 5;
+																																				float arg_4010_4 = 2.5f * (float)hitDirection;
+																																				float arg_4010_5 = -2.5f;
+																																				int arg_4010_6 = 0;
 																																				Color newColor = default(Color);
-																																				Dust.NewDust(arg_3EFC_0, arg_3EFC_1, arg_3EFC_2, arg_3EFC_3, arg_3EFC_4, arg_3EFC_5, arg_3EFC_6, newColor, 1f);
+																																				Dust.NewDust(arg_4010_0, arg_4010_1, arg_4010_2, arg_4010_3, arg_4010_4, arg_4010_5, arg_4010_6, newColor, 1f);
 																																			}
-																																			Gore.NewGore(this.position, this.velocity, 33, 1f);
-																																			Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 34, 1f);
-																																			Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 34, 1f);
-																																			Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 35, 1f);
-																																			Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 35, 1f);
+																																			Gore.NewGore(this.position, this.velocity, 58, 1f);
+																																			Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 59, 1f);
+																																			Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 59, 1f);
+																																			Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 60, 1f);
+																																			Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 60, 1f);
 																																			return;
 																																		}
 																																		else
 																																		{
-																																			if (this.type == 19)
+																																			if (this.type == 18)
 																																			{
 																																				if (this.life > 0)
 																																				{
-																																					int num107 = 0;
-																																					while ((double)num107 < dmg / (double)this.lifeMax * 100.0)
+																																					int num111 = 0;
+																																					while ((double)num111 < dmg / (double)this.lifeMax * 100.0)
 																																					{
-																																						Vector2 arg_403D_0 = this.position;
-																																						int arg_403D_1 = this.width;
-																																						int arg_403D_2 = this.height;
-																																						int arg_403D_3 = 5;
-																																						float arg_403D_4 = (float)hitDirection;
-																																						float arg_403D_5 = -1f;
-																																						int arg_403D_6 = 0;
+																																						Vector2 arg_4151_0 = this.position;
+																																						int arg_4151_1 = this.width;
+																																						int arg_4151_2 = this.height;
+																																						int arg_4151_3 = 5;
+																																						float arg_4151_4 = (float)hitDirection;
+																																						float arg_4151_5 = -1f;
+																																						int arg_4151_6 = 0;
 																																						Color newColor = default(Color);
-																																						Dust.NewDust(arg_403D_0, arg_403D_1, arg_403D_2, arg_403D_3, arg_403D_4, arg_403D_5, arg_403D_6, newColor, 1f);
-																																						num107++;
+																																						Dust.NewDust(arg_4151_0, arg_4151_1, arg_4151_2, arg_4151_3, arg_4151_4, arg_4151_5, arg_4151_6, newColor, 1f);
+																																						num111++;
 																																					}
 																																					return;
 																																				}
-																																				for (int num108 = 0; num108 < 50; num108++)
+																																				for (int num112 = 0; num112 < 50; num112++)
 																																				{
-																																					Vector2 arg_4097_0 = this.position;
-																																					int arg_4097_1 = this.width;
-																																					int arg_4097_2 = this.height;
-																																					int arg_4097_3 = 5;
-																																					float arg_4097_4 = 2.5f * (float)hitDirection;
-																																					float arg_4097_5 = -2.5f;
-																																					int arg_4097_6 = 0;
+																																					Vector2 arg_41AB_0 = this.position;
+																																					int arg_41AB_1 = this.width;
+																																					int arg_41AB_2 = this.height;
+																																					int arg_41AB_3 = 5;
+																																					float arg_41AB_4 = 2.5f * (float)hitDirection;
+																																					float arg_41AB_5 = -2.5f;
+																																					int arg_41AB_6 = 0;
 																																					Color newColor = default(Color);
-																																					Dust.NewDust(arg_4097_0, arg_4097_1, arg_4097_2, arg_4097_3, arg_4097_4, arg_4097_5, arg_4097_6, newColor, 1f);
+																																					Dust.NewDust(arg_41AB_0, arg_41AB_1, arg_41AB_2, arg_41AB_3, arg_41AB_4, arg_41AB_5, arg_41AB_6, newColor, 1f);
 																																				}
-																																				Gore.NewGore(this.position, this.velocity, 36, 1f);
-																																				Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 37, 1f);
-																																				Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 37, 1f);
-																																				Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 38, 1f);
-																																				Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 38, 1f);
+																																				Gore.NewGore(this.position, this.velocity, 33, 1f);
+																																				Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 34, 1f);
+																																				Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 34, 1f);
+																																				Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 35, 1f);
+																																				Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 35, 1f);
 																																				return;
 																																			}
 																																			else
 																																			{
-																																				if (this.type == 38)
+																																				if (this.type == 19)
 																																				{
 																																					if (this.life > 0)
 																																					{
-																																						int num109 = 0;
-																																						while ((double)num109 < dmg / (double)this.lifeMax * 100.0)
+																																						int num113 = 0;
+																																						while ((double)num113 < dmg / (double)this.lifeMax * 100.0)
 																																						{
-																																							Vector2 arg_41D8_0 = this.position;
-																																							int arg_41D8_1 = this.width;
-																																							int arg_41D8_2 = this.height;
-																																							int arg_41D8_3 = 5;
-																																							float arg_41D8_4 = (float)hitDirection;
-																																							float arg_41D8_5 = -1f;
-																																							int arg_41D8_6 = 0;
+																																							Vector2 arg_42EC_0 = this.position;
+																																							int arg_42EC_1 = this.width;
+																																							int arg_42EC_2 = this.height;
+																																							int arg_42EC_3 = 5;
+																																							float arg_42EC_4 = (float)hitDirection;
+																																							float arg_42EC_5 = -1f;
+																																							int arg_42EC_6 = 0;
 																																							Color newColor = default(Color);
-																																							Dust.NewDust(arg_41D8_0, arg_41D8_1, arg_41D8_2, arg_41D8_3, arg_41D8_4, arg_41D8_5, arg_41D8_6, newColor, 1f);
-																																							num109++;
+																																							Dust.NewDust(arg_42EC_0, arg_42EC_1, arg_42EC_2, arg_42EC_3, arg_42EC_4, arg_42EC_5, arg_42EC_6, newColor, 1f);
+																																							num113++;
 																																						}
 																																						return;
 																																					}
-																																					for (int num110 = 0; num110 < 50; num110++)
+																																					for (int num114 = 0; num114 < 50; num114++)
 																																					{
-																																						Vector2 arg_4232_0 = this.position;
-																																						int arg_4232_1 = this.width;
-																																						int arg_4232_2 = this.height;
-																																						int arg_4232_3 = 5;
-																																						float arg_4232_4 = 2.5f * (float)hitDirection;
-																																						float arg_4232_5 = -2.5f;
-																																						int arg_4232_6 = 0;
+																																						Vector2 arg_4346_0 = this.position;
+																																						int arg_4346_1 = this.width;
+																																						int arg_4346_2 = this.height;
+																																						int arg_4346_3 = 5;
+																																						float arg_4346_4 = 2.5f * (float)hitDirection;
+																																						float arg_4346_5 = -2.5f;
+																																						int arg_4346_6 = 0;
 																																						Color newColor = default(Color);
-																																						Dust.NewDust(arg_4232_0, arg_4232_1, arg_4232_2, arg_4232_3, arg_4232_4, arg_4232_5, arg_4232_6, newColor, 1f);
+																																						Dust.NewDust(arg_4346_0, arg_4346_1, arg_4346_2, arg_4346_3, arg_4346_4, arg_4346_5, arg_4346_6, newColor, 1f);
 																																					}
-																																					Gore.NewGore(this.position, this.velocity, 64, 1f);
-																																					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 65, 1f);
-																																					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 65, 1f);
-																																					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 66, 1f);
-																																					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 66, 1f);
+																																					Gore.NewGore(this.position, this.velocity, 36, 1f);
+																																					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 37, 1f);
+																																					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 37, 1f);
+																																					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 38, 1f);
+																																					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 38, 1f);
 																																					return;
 																																				}
 																																				else
 																																				{
-																																					if (this.type == 20)
+																																					if (this.type == 38)
 																																					{
 																																						if (this.life > 0)
 																																						{
-																																							int num111 = 0;
-																																							while ((double)num111 < dmg / (double)this.lifeMax * 100.0)
+																																							int num115 = 0;
+																																							while ((double)num115 < dmg / (double)this.lifeMax * 100.0)
 																																							{
-																																								Vector2 arg_4373_0 = this.position;
-																																								int arg_4373_1 = this.width;
-																																								int arg_4373_2 = this.height;
-																																								int arg_4373_3 = 5;
-																																								float arg_4373_4 = (float)hitDirection;
-																																								float arg_4373_5 = -1f;
-																																								int arg_4373_6 = 0;
+																																								Vector2 arg_4487_0 = this.position;
+																																								int arg_4487_1 = this.width;
+																																								int arg_4487_2 = this.height;
+																																								int arg_4487_3 = 5;
+																																								float arg_4487_4 = (float)hitDirection;
+																																								float arg_4487_5 = -1f;
+																																								int arg_4487_6 = 0;
 																																								Color newColor = default(Color);
-																																								Dust.NewDust(arg_4373_0, arg_4373_1, arg_4373_2, arg_4373_3, arg_4373_4, arg_4373_5, arg_4373_6, newColor, 1f);
-																																								num111++;
+																																								Dust.NewDust(arg_4487_0, arg_4487_1, arg_4487_2, arg_4487_3, arg_4487_4, arg_4487_5, arg_4487_6, newColor, 1f);
+																																								num115++;
 																																							}
 																																							return;
 																																						}
-																																						for (int num112 = 0; num112 < 50; num112++)
+																																						for (int num116 = 0; num116 < 50; num116++)
 																																						{
-																																							Vector2 arg_43CD_0 = this.position;
-																																							int arg_43CD_1 = this.width;
-																																							int arg_43CD_2 = this.height;
-																																							int arg_43CD_3 = 5;
-																																							float arg_43CD_4 = 2.5f * (float)hitDirection;
-																																							float arg_43CD_5 = -2.5f;
-																																							int arg_43CD_6 = 0;
+																																							Vector2 arg_44E1_0 = this.position;
+																																							int arg_44E1_1 = this.width;
+																																							int arg_44E1_2 = this.height;
+																																							int arg_44E1_3 = 5;
+																																							float arg_44E1_4 = 2.5f * (float)hitDirection;
+																																							float arg_44E1_5 = -2.5f;
+																																							int arg_44E1_6 = 0;
 																																							Color newColor = default(Color);
-																																							Dust.NewDust(arg_43CD_0, arg_43CD_1, arg_43CD_2, arg_43CD_3, arg_43CD_4, arg_43CD_5, arg_43CD_6, newColor, 1f);
+																																							Dust.NewDust(arg_44E1_0, arg_44E1_1, arg_44E1_2, arg_44E1_3, arg_44E1_4, arg_44E1_5, arg_44E1_6, newColor, 1f);
 																																						}
-																																						Gore.NewGore(this.position, this.velocity, 39, 1f);
-																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 40, 1f);
-																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 40, 1f);
-																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 41, 1f);
-																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 41, 1f);
+																																						Gore.NewGore(this.position, this.velocity, 64, 1f);
+																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 65, 1f);
+																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 65, 1f);
+																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 66, 1f);
+																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 66, 1f);
 																																						return;
 																																					}
 																																					else
 																																					{
-																																						if (this.type == 21 || this.type == 31 || this.type == 32 || this.type == 44 || this.type == 45 || this.type == 77 || this.type == 110)
+																																						if (this.type == 20)
 																																						{
 																																							if (this.life > 0)
 																																							{
-																																								int num113 = 0;
-																																								while ((double)num113 < dmg / (double)this.lifeMax * 50.0)
+																																								int num117 = 0;
+																																								while ((double)num117 < dmg / (double)this.lifeMax * 100.0)
 																																								{
-																																									Vector2 arg_454B_0 = this.position;
-																																									int arg_454B_1 = this.width;
-																																									int arg_454B_2 = this.height;
-																																									int arg_454B_3 = 26;
-																																									float arg_454B_4 = (float)hitDirection;
-																																									float arg_454B_5 = -1f;
-																																									int arg_454B_6 = 0;
+																																									Vector2 arg_4622_0 = this.position;
+																																									int arg_4622_1 = this.width;
+																																									int arg_4622_2 = this.height;
+																																									int arg_4622_3 = 5;
+																																									float arg_4622_4 = (float)hitDirection;
+																																									float arg_4622_5 = -1f;
+																																									int arg_4622_6 = 0;
 																																									Color newColor = default(Color);
-																																									Dust.NewDust(arg_454B_0, arg_454B_1, arg_454B_2, arg_454B_3, arg_454B_4, arg_454B_5, arg_454B_6, newColor, 1f);
-																																									num113++;
+																																									Dust.NewDust(arg_4622_0, arg_4622_1, arg_4622_2, arg_4622_3, arg_4622_4, arg_4622_5, arg_4622_6, newColor, 1f);
+																																									num117++;
 																																								}
 																																								return;
 																																							}
-																																							for (int num114 = 0; num114 < 20; num114++)
+																																							for (int num118 = 0; num118 < 50; num118++)
 																																							{
-																																								Vector2 arg_45A6_0 = this.position;
-																																								int arg_45A6_1 = this.width;
-																																								int arg_45A6_2 = this.height;
-																																								int arg_45A6_3 = 26;
-																																								float arg_45A6_4 = 2.5f * (float)hitDirection;
-																																								float arg_45A6_5 = -2.5f;
-																																								int arg_45A6_6 = 0;
+																																								Vector2 arg_467C_0 = this.position;
+																																								int arg_467C_1 = this.width;
+																																								int arg_467C_2 = this.height;
+																																								int arg_467C_3 = 5;
+																																								float arg_467C_4 = 2.5f * (float)hitDirection;
+																																								float arg_467C_5 = -2.5f;
+																																								int arg_467C_6 = 0;
 																																								Color newColor = default(Color);
-																																								Dust.NewDust(arg_45A6_0, arg_45A6_1, arg_45A6_2, arg_45A6_3, arg_45A6_4, arg_45A6_5, arg_45A6_6, newColor, 1f);
+																																								Dust.NewDust(arg_467C_0, arg_467C_1, arg_467C_2, arg_467C_3, arg_467C_4, arg_467C_5, arg_467C_6, newColor, 1f);
 																																							}
-																																							Gore.NewGore(this.position, this.velocity, 42, this.scale);
-																																							if (this.type == 77)
-																																							{
-																																								Gore.NewGore(this.position, this.velocity, 106, this.scale);
-																																							}
-																																							if (this.type == 110)
-																																							{
-																																								Gore.NewGore(this.position, this.velocity, 130, this.scale);
-																																							}
-																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-																																							if (this.type == 110)
-																																							{
-																																								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 131, this.scale);
-																																							}
-																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 44, this.scale);
-																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 44, this.scale);
+																																							Gore.NewGore(this.position, this.velocity, 39, 1f);
+																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 40, 1f);
+																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 40, 1f);
+																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 41, 1f);
+																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 41, 1f);
 																																							return;
 																																						}
 																																						else
 																																						{
-																																							if (this.type == 85)
+																																							if (this.type == 21 || this.type == 31 || this.type == 32 || this.type == 44 || this.type == 45 || this.type == 77 || this.type == 110)
 																																							{
-																																								int num115 = 7;
-																																								if (this.ai[3] == 2f)
-																																								{
-																																									num115 = 10;
-																																								}
-																																								if (this.ai[3] == 3f)
-																																								{
-																																									num115 = 37;
-																																								}
 																																								if (this.life > 0)
 																																								{
-																																									int num116 = 0;
-																																									while ((double)num116 < dmg / (double)this.lifeMax * 50.0)
+																																									int num119 = 0;
+																																									while ((double)num119 < dmg / (double)this.lifeMax * 50.0)
 																																									{
-																																										Vector2 arg_47A6_0 = this.position;
-																																										int arg_47A6_1 = this.width;
-																																										int arg_47A6_2 = this.height;
-																																										int arg_47A6_3 = num115;
-																																										float arg_47A6_4 = 0f;
-																																										float arg_47A6_5 = 0f;
-																																										int arg_47A6_6 = 0;
+																																										Vector2 arg_47FA_0 = this.position;
+																																										int arg_47FA_1 = this.width;
+																																										int arg_47FA_2 = this.height;
+																																										int arg_47FA_3 = 26;
+																																										float arg_47FA_4 = (float)hitDirection;
+																																										float arg_47FA_5 = -1f;
+																																										int arg_47FA_6 = 0;
 																																										Color newColor = default(Color);
-																																										Dust.NewDust(arg_47A6_0, arg_47A6_1, arg_47A6_2, arg_47A6_3, arg_47A6_4, arg_47A6_5, arg_47A6_6, newColor, 1f);
-																																										num116++;
+																																										Dust.NewDust(arg_47FA_0, arg_47FA_1, arg_47FA_2, arg_47FA_3, arg_47FA_4, arg_47FA_5, arg_47FA_6, newColor, 1f);
+																																										num119++;
 																																									}
 																																									return;
 																																								}
-																																								for (int num117 = 0; num117 < 20; num117++)
+																																								for (int num120 = 0; num120 < 20; num120++)
 																																								{
-																																									Vector2 arg_47FE_0 = this.position;
-																																									int arg_47FE_1 = this.width;
-																																									int arg_47FE_2 = this.height;
-																																									int arg_47FE_3 = num115;
-																																									float arg_47FE_4 = 0f;
-																																									float arg_47FE_5 = 0f;
-																																									int arg_47FE_6 = 0;
+																																									Vector2 arg_4855_0 = this.position;
+																																									int arg_4855_1 = this.width;
+																																									int arg_4855_2 = this.height;
+																																									int arg_4855_3 = 26;
+																																									float arg_4855_4 = 2.5f * (float)hitDirection;
+																																									float arg_4855_5 = -2.5f;
+																																									int arg_4855_6 = 0;
 																																									Color newColor = default(Color);
-																																									Dust.NewDust(arg_47FE_0, arg_47FE_1, arg_47FE_2, arg_47FE_3, arg_47FE_4, arg_47FE_5, arg_47FE_6, newColor, 1f);
+																																									Dust.NewDust(arg_4855_0, arg_4855_1, arg_4855_2, arg_4855_3, arg_4855_4, arg_4855_5, arg_4855_6, newColor, 1f);
 																																								}
-																																								int num118 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 61, this.scale);
-																																								Gore expr_4854 = Main.gore[num118];
-																																								expr_4854.velocity *= 0.3f;
-																																								num118 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 62, this.scale);
-																																								Gore expr_48B7 = Main.gore[num118];
-																																								expr_48B7.velocity *= 0.3f;
-																																								num118 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), new Vector2((float)hitDirection, 0f), 63, this.scale);
-																																								Gore expr_4918 = Main.gore[num118];
-																																								expr_4918.velocity *= 0.3f;
+																																								Gore.NewGore(this.position, this.velocity, 42, this.scale);
+																																								if (this.type == 77)
+																																								{
+																																									Gore.NewGore(this.position, this.velocity, 106, this.scale);
+																																								}
+																																								if (this.type == 110)
+																																								{
+																																									Gore.NewGore(this.position, this.velocity, 130, this.scale);
+																																								}
+																																								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
+																																								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
+																																								if (this.type == 110)
+																																								{
+																																									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 131, this.scale);
+																																								}
+																																								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 44, this.scale);
+																																								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 44, this.scale);
 																																								return;
 																																							}
 																																							else
 																																							{
-																																								if (this.type >= 87 && this.type <= 92)
+																																								if (this.type == 85)
 																																								{
+																																									int num121 = 7;
+																																									if (this.ai[3] == 2f)
+																																									{
+																																										num121 = 10;
+																																									}
+																																									if (this.ai[3] == 3f)
+																																									{
+																																										num121 = 37;
+																																									}
 																																									if (this.life > 0)
 																																									{
-																																										int num119 = 0;
-																																										while ((double)num119 < dmg / (double)this.lifeMax * 50.0)
+																																										int num122 = 0;
+																																										while ((double)num122 < dmg / (double)this.lifeMax * 50.0)
 																																										{
-																																											Vector2 arg_4987_0 = this.position;
-																																											int arg_4987_1 = this.width;
-																																											int arg_4987_2 = this.height;
-																																											int arg_4987_3 = 16;
-																																											float arg_4987_4 = 0f;
-																																											float arg_4987_5 = 0f;
-																																											int arg_4987_6 = 0;
+																																											Vector2 arg_4A55_0 = this.position;
+																																											int arg_4A55_1 = this.width;
+																																											int arg_4A55_2 = this.height;
+																																											int arg_4A55_3 = num121;
+																																											float arg_4A55_4 = 0f;
+																																											float arg_4A55_5 = 0f;
+																																											int arg_4A55_6 = 0;
 																																											Color newColor = default(Color);
-																																											int num120 = Dust.NewDust(arg_4987_0, arg_4987_1, arg_4987_2, arg_4987_3, arg_4987_4, arg_4987_5, arg_4987_6, newColor, 1.5f);
-																																											Dust expr_4996 = Main.dust[num120];
-																																											expr_4996.velocity *= 1.5f;
-																																											Main.dust[num120].noGravity = true;
-																																											num119++;
+																																											Dust.NewDust(arg_4A55_0, arg_4A55_1, arg_4A55_2, arg_4A55_3, arg_4A55_4, arg_4A55_5, arg_4A55_6, newColor, 1f);
+																																											num122++;
 																																										}
 																																										return;
 																																									}
-																																									for (int num121 = 0; num121 < 10; num121++)
+																																									for (int num123 = 0; num123 < 20; num123++)
 																																									{
-																																										Vector2 arg_4A0B_0 = this.position;
-																																										int arg_4A0B_1 = this.width;
-																																										int arg_4A0B_2 = this.height;
-																																										int arg_4A0B_3 = 16;
-																																										float arg_4A0B_4 = 0f;
-																																										float arg_4A0B_5 = 0f;
-																																										int arg_4A0B_6 = 0;
+																																										Vector2 arg_4AAD_0 = this.position;
+																																										int arg_4AAD_1 = this.width;
+																																										int arg_4AAD_2 = this.height;
+																																										int arg_4AAD_3 = num121;
+																																										float arg_4AAD_4 = 0f;
+																																										float arg_4AAD_5 = 0f;
+																																										int arg_4AAD_6 = 0;
 																																										Color newColor = default(Color);
-																																										int num122 = Dust.NewDust(arg_4A0B_0, arg_4A0B_1, arg_4A0B_2, arg_4A0B_3, arg_4A0B_4, arg_4A0B_5, arg_4A0B_6, newColor, 1.5f);
-																																										Dust expr_4A1A = Main.dust[num122];
-																																										expr_4A1A.velocity *= 2f;
-																																										Main.dust[num122].noGravity = true;
+																																										Dust.NewDust(arg_4AAD_0, arg_4AAD_1, arg_4AAD_2, arg_4AAD_3, arg_4AAD_4, arg_4AAD_5, arg_4AAD_6, newColor, 1f);
 																																									}
-																																									int num123 = Main.rand.Next(1, 4);
-																																									for (int num124 = 0; num124 < num123; num124++)
-																																									{
-																																										int num125 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), Main.rand.Next(11, 14), this.scale);
-																																										Gore expr_4AB6 = Main.gore[num125];
-																																										expr_4AB6.velocity *= 0.8f;
-																																									}
+																																									int num124 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 61, this.scale);
+																																									Gore expr_4B03 = Main.gore[num124];
+																																									expr_4B03.velocity *= 0.3f;
+																																									num124 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 62, this.scale);
+																																									Gore expr_4B66 = Main.gore[num124];
+																																									expr_4B66.velocity *= 0.3f;
+																																									num124 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), new Vector2((float)hitDirection, 0f), 63, this.scale);
+																																									Gore expr_4BC7 = Main.gore[num124];
+																																									expr_4BC7.velocity *= 0.3f;
 																																									return;
 																																								}
 																																								else
 																																								{
-																																									if (this.type == 78 || this.type == 79 || this.type == 80)
+																																									if (this.type >= 87 && this.type <= 92)
 																																									{
 																																										if (this.life > 0)
 																																										{
-																																											int num126 = 0;
-																																											while ((double)num126 < dmg / (double)this.lifeMax * 50.0)
+																																											int num125 = 0;
+																																											while ((double)num125 < dmg / (double)this.lifeMax * 50.0)
 																																											{
-																																												Vector2 arg_4B38_0 = this.position;
-																																												int arg_4B38_1 = this.width;
-																																												int arg_4B38_2 = this.height;
-																																												int arg_4B38_3 = 31;
-																																												float arg_4B38_4 = 0f;
-																																												float arg_4B38_5 = 0f;
-																																												int arg_4B38_6 = 0;
+																																												Vector2 arg_4C36_0 = this.position;
+																																												int arg_4C36_1 = this.width;
+																																												int arg_4C36_2 = this.height;
+																																												int arg_4C36_3 = 16;
+																																												float arg_4C36_4 = 0f;
+																																												float arg_4C36_5 = 0f;
+																																												int arg_4C36_6 = 0;
 																																												Color newColor = default(Color);
-																																												int num127 = Dust.NewDust(arg_4B38_0, arg_4B38_1, arg_4B38_2, arg_4B38_3, arg_4B38_4, arg_4B38_5, arg_4B38_6, newColor, 1.5f);
-																																												Dust expr_4B47 = Main.dust[num127];
-																																												expr_4B47.velocity *= 2f;
-																																												Main.dust[num127].noGravity = true;
-																																												num126++;
+																																												int num126 = Dust.NewDust(arg_4C36_0, arg_4C36_1, arg_4C36_2, arg_4C36_3, arg_4C36_4, arg_4C36_5, arg_4C36_6, newColor, 1.5f);
+																																												Dust expr_4C45 = Main.dust[num126];
+																																												expr_4C45.velocity *= 1.5f;
+																																												Main.dust[num126].noGravity = true;
+																																												num125++;
 																																											}
 																																											return;
 																																										}
-																																										for (int num128 = 0; num128 < 20; num128++)
+																																										for (int num127 = 0; num127 < 10; num127++)
 																																										{
-																																											Vector2 arg_4BBC_0 = this.position;
-																																											int arg_4BBC_1 = this.width;
-																																											int arg_4BBC_2 = this.height;
-																																											int arg_4BBC_3 = 31;
-																																											float arg_4BBC_4 = 0f;
-																																											float arg_4BBC_5 = 0f;
-																																											int arg_4BBC_6 = 0;
+																																											Vector2 arg_4CBA_0 = this.position;
+																																											int arg_4CBA_1 = this.width;
+																																											int arg_4CBA_2 = this.height;
+																																											int arg_4CBA_3 = 16;
+																																											float arg_4CBA_4 = 0f;
+																																											float arg_4CBA_5 = 0f;
+																																											int arg_4CBA_6 = 0;
 																																											Color newColor = default(Color);
-																																											int num129 = Dust.NewDust(arg_4BBC_0, arg_4BBC_1, arg_4BBC_2, arg_4BBC_3, arg_4BBC_4, arg_4BBC_5, arg_4BBC_6, newColor, 1.5f);
-																																											Dust expr_4BCB = Main.dust[num129];
-																																											expr_4BCB.velocity *= 2f;
-																																											Main.dust[num129].noGravity = true;
+																																											int num128 = Dust.NewDust(arg_4CBA_0, arg_4CBA_1, arg_4CBA_2, arg_4CBA_3, arg_4CBA_4, arg_4CBA_5, arg_4CBA_6, newColor, 1.5f);
+																																											Dust expr_4CC9 = Main.dust[num128];
+																																											expr_4CC9.velocity *= 2f;
+																																											Main.dust[num128].noGravity = true;
 																																										}
-																																										int num130 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 61, this.scale);
-																																										Gore expr_4C3E = Main.gore[num130];
-																																										expr_4C3E.velocity *= 0.3f;
-																																										num130 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 62, this.scale);
-																																										Gore expr_4CA1 = Main.gore[num130];
-																																										expr_4CA1.velocity *= 0.3f;
-																																										num130 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), new Vector2((float)hitDirection, 0f), 63, this.scale);
-																																										Gore expr_4D02 = Main.gore[num130];
-																																										expr_4D02.velocity *= 0.3f;
+																																										int num129 = Main.rand.Next(1, 4);
+																																										for (int num130 = 0; num130 < num129; num130++)
+																																										{
+																																											int num131 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), Main.rand.Next(11, 14), this.scale);
+																																											Gore expr_4D65 = Main.gore[num131];
+																																											expr_4D65.velocity *= 0.8f;
+																																										}
 																																										return;
 																																									}
 																																									else
 																																									{
-																																										if (this.type == 82)
+																																										if (this.type == 78 || this.type == 79 || this.type == 80)
 																																										{
 																																											if (this.life > 0)
 																																											{
-																																												int num131 = 0;
-																																												while ((double)num131 < dmg / (double)this.lifeMax * 50.0)
+																																												int num132 = 0;
+																																												while ((double)num132 < dmg / (double)this.lifeMax * 50.0)
 																																												{
-																																													Vector2 arg_4D65_0 = this.position;
-																																													int arg_4D65_1 = this.width;
-																																													int arg_4D65_2 = this.height;
-																																													int arg_4D65_3 = 54;
-																																													float arg_4D65_4 = 0f;
-																																													float arg_4D65_5 = 0f;
-																																													int arg_4D65_6 = 50;
+																																													Vector2 arg_4DE7_0 = this.position;
+																																													int arg_4DE7_1 = this.width;
+																																													int arg_4DE7_2 = this.height;
+																																													int arg_4DE7_3 = 31;
+																																													float arg_4DE7_4 = 0f;
+																																													float arg_4DE7_5 = 0f;
+																																													int arg_4DE7_6 = 0;
 																																													Color newColor = default(Color);
-																																													int num132 = Dust.NewDust(arg_4D65_0, arg_4D65_1, arg_4D65_2, arg_4D65_3, arg_4D65_4, arg_4D65_5, arg_4D65_6, newColor, 1.5f);
-																																													Dust expr_4D74 = Main.dust[num132];
-																																													expr_4D74.velocity *= 2f;
-																																													Main.dust[num132].noGravity = true;
-																																													num131++;
+																																													int num133 = Dust.NewDust(arg_4DE7_0, arg_4DE7_1, arg_4DE7_2, arg_4DE7_3, arg_4DE7_4, arg_4DE7_5, arg_4DE7_6, newColor, 1.5f);
+																																													Dust expr_4DF6 = Main.dust[num133];
+																																													expr_4DF6.velocity *= 2f;
+																																													Main.dust[num133].noGravity = true;
+																																													num132++;
 																																												}
 																																												return;
 																																											}
-																																											for (int num133 = 0; num133 < 20; num133++)
+																																											for (int num134 = 0; num134 < 20; num134++)
 																																											{
-																																												Vector2 arg_4DEA_0 = this.position;
-																																												int arg_4DEA_1 = this.width;
-																																												int arg_4DEA_2 = this.height;
-																																												int arg_4DEA_3 = 54;
-																																												float arg_4DEA_4 = 0f;
-																																												float arg_4DEA_5 = 0f;
-																																												int arg_4DEA_6 = 50;
+																																												Vector2 arg_4E6B_0 = this.position;
+																																												int arg_4E6B_1 = this.width;
+																																												int arg_4E6B_2 = this.height;
+																																												int arg_4E6B_3 = 31;
+																																												float arg_4E6B_4 = 0f;
+																																												float arg_4E6B_5 = 0f;
+																																												int arg_4E6B_6 = 0;
 																																												Color newColor = default(Color);
-																																												int num134 = Dust.NewDust(arg_4DEA_0, arg_4DEA_1, arg_4DEA_2, arg_4DEA_3, arg_4DEA_4, arg_4DEA_5, arg_4DEA_6, newColor, 1.5f);
-																																												Dust expr_4DF9 = Main.dust[num134];
-																																												expr_4DF9.velocity *= 2f;
-																																												Main.dust[num134].noGravity = true;
+																																												int num135 = Dust.NewDust(arg_4E6B_0, arg_4E6B_1, arg_4E6B_2, arg_4E6B_3, arg_4E6B_4, arg_4E6B_5, arg_4E6B_6, newColor, 1.5f);
+																																												Dust expr_4E7A = Main.dust[num135];
+																																												expr_4E7A.velocity *= 2f;
+																																												Main.dust[num135].noGravity = true;
 																																											}
-																																											int num135 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																																											Gore expr_4E6C = Main.gore[num135];
-																																											expr_4E6C.velocity *= 0.3f;
-																																											num135 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																																											Gore expr_4ECF = Main.gore[num135];
-																																											expr_4ECF.velocity *= 0.3f;
-																																											num135 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																																											Gore expr_4F30 = Main.gore[num135];
-																																											expr_4F30.velocity *= 0.3f;
+																																											int num136 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 61, this.scale);
+																																											Gore expr_4EED = Main.gore[num136];
+																																											expr_4EED.velocity *= 0.3f;
+																																											num136 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 62, this.scale);
+																																											Gore expr_4F50 = Main.gore[num136];
+																																											expr_4F50.velocity *= 0.3f;
+																																											num136 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), new Vector2((float)hitDirection, 0f), 63, this.scale);
+																																											Gore expr_4FB1 = Main.gore[num136];
+																																											expr_4FB1.velocity *= 0.3f;
 																																											return;
 																																										}
 																																										else
 																																										{
-																																											if (this.type == 140)
+																																											if (this.type == 82)
 																																											{
-																																												if (this.life <= 0)
+																																												if (this.life > 0)
 																																												{
-																																													for (int num136 = 0; num136 < 20; num136++)
+																																													int num137 = 0;
+																																													while ((double)num137 < dmg / (double)this.lifeMax * 50.0)
 																																													{
-																																														Vector2 arg_4F96_0 = this.position;
-																																														int arg_4F96_1 = this.width;
-																																														int arg_4F96_2 = this.height;
-																																														int arg_4F96_3 = 54;
-																																														float arg_4F96_4 = 0f;
-																																														float arg_4F96_5 = 0f;
-																																														int arg_4F96_6 = 50;
+																																														Vector2 arg_5014_0 = this.position;
+																																														int arg_5014_1 = this.width;
+																																														int arg_5014_2 = this.height;
+																																														int arg_5014_3 = 54;
+																																														float arg_5014_4 = 0f;
+																																														float arg_5014_5 = 0f;
+																																														int arg_5014_6 = 50;
 																																														Color newColor = default(Color);
-																																														int num137 = Dust.NewDust(arg_4F96_0, arg_4F96_1, arg_4F96_2, arg_4F96_3, arg_4F96_4, arg_4F96_5, arg_4F96_6, newColor, 1.5f);
-																																														Dust expr_4FA5 = Main.dust[num137];
-																																														expr_4FA5.velocity *= 2f;
-																																														Main.dust[num137].noGravity = true;
+																																														int num138 = Dust.NewDust(arg_5014_0, arg_5014_1, arg_5014_2, arg_5014_3, arg_5014_4, arg_5014_5, arg_5014_6, newColor, 1.5f);
+																																														Dust expr_5023 = Main.dust[num138];
+																																														expr_5023.velocity *= 2f;
+																																														Main.dust[num138].noGravity = true;
+																																														num137++;
 																																													}
-																																													int num138 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																																													Gore expr_5018 = Main.gore[num138];
-																																													expr_5018.velocity *= 0.3f;
-																																													num138 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																																													Gore expr_507B = Main.gore[num138];
-																																													expr_507B.velocity *= 0.3f;
-																																													num138 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																																													Gore expr_50DC = Main.gore[num138];
-																																													expr_50DC.velocity *= 0.3f;
 																																													return;
 																																												}
+																																												for (int num139 = 0; num139 < 20; num139++)
+																																												{
+																																													Vector2 arg_5099_0 = this.position;
+																																													int arg_5099_1 = this.width;
+																																													int arg_5099_2 = this.height;
+																																													int arg_5099_3 = 54;
+																																													float arg_5099_4 = 0f;
+																																													float arg_5099_5 = 0f;
+																																													int arg_5099_6 = 50;
+																																													Color newColor = default(Color);
+																																													int num140 = Dust.NewDust(arg_5099_0, arg_5099_1, arg_5099_2, arg_5099_3, arg_5099_4, arg_5099_5, arg_5099_6, newColor, 1.5f);
+																																													Dust expr_50A8 = Main.dust[num140];
+																																													expr_50A8.velocity *= 2f;
+																																													Main.dust[num140].noGravity = true;
+																																												}
+																																												int num141 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+																																												Gore expr_511B = Main.gore[num141];
+																																												expr_511B.velocity *= 0.3f;
+																																												num141 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+																																												Gore expr_517E = Main.gore[num141];
+																																												expr_517E.velocity *= 0.3f;
+																																												num141 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+																																												Gore expr_51DF = Main.gore[num141];
+																																												expr_51DF.velocity *= 0.3f;
+																																												return;
 																																											}
 																																											else
 																																											{
-																																												if (this.type == 39 || this.type == 40 || this.type == 41)
+																																												if (this.type == 140)
 																																												{
-																																													if (this.life > 0)
+																																													if (this.life <= 0)
 																																													{
-																																														int num139 = 0;
-																																														while ((double)num139 < dmg / (double)this.lifeMax * 50.0)
+																																														for (int num142 = 0; num142 < 20; num142++)
 																																														{
-																																															Vector2 arg_514C_0 = this.position;
-																																															int arg_514C_1 = this.width;
-																																															int arg_514C_2 = this.height;
-																																															int arg_514C_3 = 26;
-																																															float arg_514C_4 = (float)hitDirection;
-																																															float arg_514C_5 = -1f;
-																																															int arg_514C_6 = 0;
+																																															Vector2 arg_5245_0 = this.position;
+																																															int arg_5245_1 = this.width;
+																																															int arg_5245_2 = this.height;
+																																															int arg_5245_3 = 54;
+																																															float arg_5245_4 = 0f;
+																																															float arg_5245_5 = 0f;
+																																															int arg_5245_6 = 50;
 																																															Color newColor = default(Color);
-																																															Dust.NewDust(arg_514C_0, arg_514C_1, arg_514C_2, arg_514C_3, arg_514C_4, arg_514C_5, arg_514C_6, newColor, 1f);
-																																															num139++;
+																																															int num143 = Dust.NewDust(arg_5245_0, arg_5245_1, arg_5245_2, arg_5245_3, arg_5245_4, arg_5245_5, arg_5245_6, newColor, 1.5f);
+																																															Dust expr_5254 = Main.dust[num143];
+																																															expr_5254.velocity *= 2f;
+																																															Main.dust[num143].noGravity = true;
 																																														}
+																																														int num144 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+																																														Gore expr_52C7 = Main.gore[num144];
+																																														expr_52C7.velocity *= 0.3f;
+																																														num144 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+																																														Gore expr_532A = Main.gore[num144];
+																																														expr_532A.velocity *= 0.3f;
+																																														num144 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+																																														Gore expr_538B = Main.gore[num144];
+																																														expr_538B.velocity *= 0.3f;
 																																														return;
 																																													}
-																																													for (int num140 = 0; num140 < 20; num140++)
-																																													{
-																																														Vector2 arg_51A7_0 = this.position;
-																																														int arg_51A7_1 = this.width;
-																																														int arg_51A7_2 = this.height;
-																																														int arg_51A7_3 = 26;
-																																														float arg_51A7_4 = 2.5f * (float)hitDirection;
-																																														float arg_51A7_5 = -2.5f;
-																																														int arg_51A7_6 = 0;
-																																														Color newColor = default(Color);
-																																														Dust.NewDust(arg_51A7_0, arg_51A7_1, arg_51A7_2, arg_51A7_3, arg_51A7_4, arg_51A7_5, arg_51A7_6, newColor, 1f);
-																																													}
-																																													Gore.NewGore(this.position, this.velocity, this.type - 39 + 67, 1f);
-																																													return;
 																																												}
 																																												else
 																																												{
-																																													if (this.type == 34)
+																																													if (this.type == 39 || this.type == 40 || this.type == 41)
 																																													{
 																																														if (this.life > 0)
 																																														{
-																																															int num141 = 0;
-																																															while ((double)num141 < dmg / (double)this.lifeMax * 30.0)
+																																															int num145 = 0;
+																																															while ((double)num145 < dmg / (double)this.lifeMax * 50.0)
 																																															{
-																																																Vector2 arg_525C_0 = new Vector2(this.position.X, this.position.Y);
-																																																int arg_525C_1 = this.width;
-																																																int arg_525C_2 = this.height;
-																																																int arg_525C_3 = 15;
-																																																float arg_525C_4 = -this.velocity.X * 0.2f;
-																																																float arg_525C_5 = -this.velocity.Y * 0.2f;
-																																																int arg_525C_6 = 100;
+																																																Vector2 arg_53FB_0 = this.position;
+																																																int arg_53FB_1 = this.width;
+																																																int arg_53FB_2 = this.height;
+																																																int arg_53FB_3 = 26;
+																																																float arg_53FB_4 = (float)hitDirection;
+																																																float arg_53FB_5 = -1f;
+																																																int arg_53FB_6 = 0;
 																																																Color newColor = default(Color);
-																																																int num142 = Dust.NewDust(arg_525C_0, arg_525C_1, arg_525C_2, arg_525C_3, arg_525C_4, arg_525C_5, arg_525C_6, newColor, 1.8f);
-																																																Main.dust[num142].noLight = true;
-																																																Main.dust[num142].noGravity = true;
-																																																Dust expr_5287 = Main.dust[num142];
-																																																expr_5287.velocity *= 1.3f;
-																																																Vector2 arg_52F9_0 = new Vector2(this.position.X, this.position.Y);
-																																																int arg_52F9_1 = this.width;
-																																																int arg_52F9_2 = this.height;
-																																																int arg_52F9_3 = 26;
-																																																float arg_52F9_4 = -this.velocity.X * 0.2f;
-																																																float arg_52F9_5 = -this.velocity.Y * 0.2f;
-																																																int arg_52F9_6 = 0;
-																																																newColor = default(Color);
-																																																num142 = Dust.NewDust(arg_52F9_0, arg_52F9_1, arg_52F9_2, arg_52F9_3, arg_52F9_4, arg_52F9_5, arg_52F9_6, newColor, 0.9f);
-																																																Main.dust[num142].noLight = true;
-																																																Dust expr_5316 = Main.dust[num142];
-																																																expr_5316.velocity *= 1.3f;
-																																																num141++;
+																																																Dust.NewDust(arg_53FB_0, arg_53FB_1, arg_53FB_2, arg_53FB_3, arg_53FB_4, arg_53FB_5, arg_53FB_6, newColor, 1f);
+																																																num145++;
 																																															}
 																																															return;
 																																														}
-																																														for (int num143 = 0; num143 < 15; num143++)
+																																														for (int num146 = 0; num146 < 20; num146++)
 																																														{
-																																															Vector2 arg_53B3_0 = new Vector2(this.position.X, this.position.Y);
-																																															int arg_53B3_1 = this.width;
-																																															int arg_53B3_2 = this.height;
-																																															int arg_53B3_3 = 15;
-																																															float arg_53B3_4 = -this.velocity.X * 0.2f;
-																																															float arg_53B3_5 = -this.velocity.Y * 0.2f;
-																																															int arg_53B3_6 = 100;
+																																															Vector2 arg_5456_0 = this.position;
+																																															int arg_5456_1 = this.width;
+																																															int arg_5456_2 = this.height;
+																																															int arg_5456_3 = 26;
+																																															float arg_5456_4 = 2.5f * (float)hitDirection;
+																																															float arg_5456_5 = -2.5f;
+																																															int arg_5456_6 = 0;
 																																															Color newColor = default(Color);
-																																															int num144 = Dust.NewDust(arg_53B3_0, arg_53B3_1, arg_53B3_2, arg_53B3_3, arg_53B3_4, arg_53B3_5, arg_53B3_6, newColor, 1.8f);
-																																															Main.dust[num144].noLight = true;
-																																															Main.dust[num144].noGravity = true;
-																																															Dust expr_53DE = Main.dust[num144];
-																																															expr_53DE.velocity *= 1.3f;
-																																															Vector2 arg_5450_0 = new Vector2(this.position.X, this.position.Y);
-																																															int arg_5450_1 = this.width;
-																																															int arg_5450_2 = this.height;
-																																															int arg_5450_3 = 26;
-																																															float arg_5450_4 = -this.velocity.X * 0.2f;
-																																															float arg_5450_5 = -this.velocity.Y * 0.2f;
-																																															int arg_5450_6 = 0;
-																																															newColor = default(Color);
-																																															num144 = Dust.NewDust(arg_5450_0, arg_5450_1, arg_5450_2, arg_5450_3, arg_5450_4, arg_5450_5, arg_5450_6, newColor, 0.9f);
-																																															Main.dust[num144].noLight = true;
-																																															Dust expr_546D = Main.dust[num144];
-																																															expr_546D.velocity *= 1.3f;
+																																															Dust.NewDust(arg_5456_0, arg_5456_1, arg_5456_2, arg_5456_3, arg_5456_4, arg_5456_5, arg_5456_6, newColor, 1f);
 																																														}
+																																														Gore.NewGore(this.position, this.velocity, this.type - 39 + 67, 1f);
 																																														return;
 																																													}
 																																													else
 																																													{
-																																														if (this.type == 35 || this.type == 36)
+																																														if (this.type == 34)
 																																														{
 																																															if (this.life > 0)
 																																															{
-																																																int num145 = 0;
-																																																while ((double)num145 < dmg / (double)this.lifeMax * 100.0)
+																																																int num147 = 0;
+																																																while ((double)num147 < dmg / (double)this.lifeMax * 30.0)
 																																																{
-																																																	Vector2 arg_54E2_0 = this.position;
-																																																	int arg_54E2_1 = this.width;
-																																																	int arg_54E2_2 = this.height;
-																																																	int arg_54E2_3 = 26;
-																																																	float arg_54E2_4 = (float)hitDirection;
-																																																	float arg_54E2_5 = -1f;
-																																																	int arg_54E2_6 = 0;
+																																																	Vector2 arg_550B_0 = new Vector2(this.position.X, this.position.Y);
+																																																	int arg_550B_1 = this.width;
+																																																	int arg_550B_2 = this.height;
+																																																	int arg_550B_3 = 15;
+																																																	float arg_550B_4 = -this.velocity.X * 0.2f;
+																																																	float arg_550B_5 = -this.velocity.Y * 0.2f;
+																																																	int arg_550B_6 = 100;
 																																																	Color newColor = default(Color);
-																																																	Dust.NewDust(arg_54E2_0, arg_54E2_1, arg_54E2_2, arg_54E2_3, arg_54E2_4, arg_54E2_5, arg_54E2_6, newColor, 1f);
-																																																	num145++;
+																																																	int num148 = Dust.NewDust(arg_550B_0, arg_550B_1, arg_550B_2, arg_550B_3, arg_550B_4, arg_550B_5, arg_550B_6, newColor, 1.8f);
+																																																	Main.dust[num148].noLight = true;
+																																																	Main.dust[num148].noGravity = true;
+																																																	Dust expr_5536 = Main.dust[num148];
+																																																	expr_5536.velocity *= 1.3f;
+																																																	Vector2 arg_55A8_0 = new Vector2(this.position.X, this.position.Y);
+																																																	int arg_55A8_1 = this.width;
+																																																	int arg_55A8_2 = this.height;
+																																																	int arg_55A8_3 = 26;
+																																																	float arg_55A8_4 = -this.velocity.X * 0.2f;
+																																																	float arg_55A8_5 = -this.velocity.Y * 0.2f;
+																																																	int arg_55A8_6 = 0;
+																																																	newColor = default(Color);
+																																																	num148 = Dust.NewDust(arg_55A8_0, arg_55A8_1, arg_55A8_2, arg_55A8_3, arg_55A8_4, arg_55A8_5, arg_55A8_6, newColor, 0.9f);
+																																																	Main.dust[num148].noLight = true;
+																																																	Dust expr_55C5 = Main.dust[num148];
+																																																	expr_55C5.velocity *= 1.3f;
+																																																	num147++;
 																																																}
 																																																return;
 																																															}
-																																															for (int num146 = 0; num146 < 150; num146++)
+																																															for (int num149 = 0; num149 < 15; num149++)
 																																															{
-																																																Vector2 arg_553D_0 = this.position;
-																																																int arg_553D_1 = this.width;
-																																																int arg_553D_2 = this.height;
-																																																int arg_553D_3 = 26;
-																																																float arg_553D_4 = 2.5f * (float)hitDirection;
-																																																float arg_553D_5 = -2.5f;
-																																																int arg_553D_6 = 0;
+																																																Vector2 arg_5662_0 = new Vector2(this.position.X, this.position.Y);
+																																																int arg_5662_1 = this.width;
+																																																int arg_5662_2 = this.height;
+																																																int arg_5662_3 = 15;
+																																																float arg_5662_4 = -this.velocity.X * 0.2f;
+																																																float arg_5662_5 = -this.velocity.Y * 0.2f;
+																																																int arg_5662_6 = 100;
 																																																Color newColor = default(Color);
-																																																Dust.NewDust(arg_553D_0, arg_553D_1, arg_553D_2, arg_553D_3, arg_553D_4, arg_553D_5, arg_553D_6, newColor, 1f);
+																																																int num150 = Dust.NewDust(arg_5662_0, arg_5662_1, arg_5662_2, arg_5662_3, arg_5662_4, arg_5662_5, arg_5662_6, newColor, 1.8f);
+																																																Main.dust[num150].noLight = true;
+																																																Main.dust[num150].noGravity = true;
+																																																Dust expr_568D = Main.dust[num150];
+																																																expr_568D.velocity *= 1.3f;
+																																																Vector2 arg_56FF_0 = new Vector2(this.position.X, this.position.Y);
+																																																int arg_56FF_1 = this.width;
+																																																int arg_56FF_2 = this.height;
+																																																int arg_56FF_3 = 26;
+																																																float arg_56FF_4 = -this.velocity.X * 0.2f;
+																																																float arg_56FF_5 = -this.velocity.Y * 0.2f;
+																																																int arg_56FF_6 = 0;
+																																																newColor = default(Color);
+																																																num150 = Dust.NewDust(arg_56FF_0, arg_56FF_1, arg_56FF_2, arg_56FF_3, arg_56FF_4, arg_56FF_5, arg_56FF_6, newColor, 0.9f);
+																																																Main.dust[num150].noLight = true;
+																																																Dust expr_571C = Main.dust[num150];
+																																																expr_571C.velocity *= 1.3f;
 																																															}
-																																															if (this.type == 35)
-																																															{
-																																																Gore.NewGore(this.position, this.velocity, 54, 1f);
-																																																Gore.NewGore(this.position, this.velocity, 55, 1f);
-																																																return;
-																																															}
-																																															Gore.NewGore(this.position, this.velocity, 56, 1f);
-																																															Gore.NewGore(this.position, this.velocity, 57, 1f);
-																																															Gore.NewGore(this.position, this.velocity, 57, 1f);
-																																															Gore.NewGore(this.position, this.velocity, 57, 1f);
 																																															return;
 																																														}
 																																														else
 																																														{
-																																															if (this.type == 139)
+																																															if (this.type == 35 || this.type == 36)
 																																															{
-																																																if (this.life <= 0)
+																																																if (this.life > 0)
 																																																{
-																																																	for (int num147 = 0; num147 < 10; num147++)
+																																																	int num151 = 0;
+																																																	while ((double)num151 < dmg / (double)this.lifeMax * 100.0)
 																																																	{
-																																																		Vector2 arg_5659_0 = new Vector2(this.position.X, this.position.Y);
-																																																		int arg_5659_1 = this.width;
-																																																		int arg_5659_2 = this.height;
-																																																		int arg_5659_3 = 31;
-																																																		float arg_5659_4 = 0f;
-																																																		float arg_5659_5 = 0f;
-																																																		int arg_5659_6 = 100;
+																																																		Vector2 arg_5791_0 = this.position;
+																																																		int arg_5791_1 = this.width;
+																																																		int arg_5791_2 = this.height;
+																																																		int arg_5791_3 = 26;
+																																																		float arg_5791_4 = (float)hitDirection;
+																																																		float arg_5791_5 = -1f;
+																																																		int arg_5791_6 = 0;
 																																																		Color newColor = default(Color);
-																																																		int num148 = Dust.NewDust(arg_5659_0, arg_5659_1, arg_5659_2, arg_5659_3, arg_5659_4, arg_5659_5, arg_5659_6, newColor, 1.5f);
-																																																		Dust expr_5668 = Main.dust[num148];
-																																																		expr_5668.velocity *= 1.4f;
+																																																		Dust.NewDust(arg_5791_0, arg_5791_1, arg_5791_2, arg_5791_3, arg_5791_4, arg_5791_5, arg_5791_6, newColor, 1f);
+																																																		num151++;
 																																																	}
-																																																	for (int num149 = 0; num149 < 5; num149++)
-																																																	{
-																																																		Vector2 arg_56D4_0 = new Vector2(this.position.X, this.position.Y);
-																																																		int arg_56D4_1 = this.width;
-																																																		int arg_56D4_2 = this.height;
-																																																		int arg_56D4_3 = 6;
-																																																		float arg_56D4_4 = 0f;
-																																																		float arg_56D4_5 = 0f;
-																																																		int arg_56D4_6 = 100;
-																																																		Color newColor = default(Color);
-																																																		int num150 = Dust.NewDust(arg_56D4_0, arg_56D4_1, arg_56D4_2, arg_56D4_3, arg_56D4_4, arg_56D4_5, arg_56D4_6, newColor, 2.5f);
-																																																		Main.dust[num150].noGravity = true;
-																																																		Dust expr_56F1 = Main.dust[num150];
-																																																		expr_56F1.velocity *= 5f;
-																																																		Vector2 arg_5749_0 = new Vector2(this.position.X, this.position.Y);
-																																																		int arg_5749_1 = this.width;
-																																																		int arg_5749_2 = this.height;
-																																																		int arg_5749_3 = 6;
-																																																		float arg_5749_4 = 0f;
-																																																		float arg_5749_5 = 0f;
-																																																		int arg_5749_6 = 100;
-																																																		newColor = default(Color);
-																																																		num150 = Dust.NewDust(arg_5749_0, arg_5749_1, arg_5749_2, arg_5749_3, arg_5749_4, arg_5749_5, arg_5749_6, newColor, 1.5f);
-																																																		Dust expr_5758 = Main.dust[num150];
-																																																		expr_5758.velocity *= 3f;
-																																																	}
-																																																	Vector2 arg_57B3_0 = new Vector2(this.position.X, this.position.Y);
-																																																	Vector2 vector = default(Vector2);
-																																																	int num151 = Gore.NewGore(arg_57B3_0, vector, Main.rand.Next(61, 64), 1f);
-																																																	Gore expr_57C2 = Main.gore[num151];
-																																																	expr_57C2.velocity *= 0.4f;
-																																																	Gore expr_57E4_cp_0 = Main.gore[num151];
-																																																	expr_57E4_cp_0.velocity.X = expr_57E4_cp_0.velocity.X + 1f;
-																																																	Gore expr_5802_cp_0 = Main.gore[num151];
-																																																	expr_5802_cp_0.velocity.Y = expr_5802_cp_0.velocity.Y + 1f;
-																																																	Vector2 arg_584B_0 = new Vector2(this.position.X, this.position.Y);
-																																																	vector = default(Vector2);
-																																																	num151 = Gore.NewGore(arg_584B_0, vector, Main.rand.Next(61, 64), 1f);
-																																																	Gore expr_585A = Main.gore[num151];
-																																																	expr_585A.velocity *= 0.4f;
-																																																	Gore expr_587C_cp_0 = Main.gore[num151];
-																																																	expr_587C_cp_0.velocity.X = expr_587C_cp_0.velocity.X - 1f;
-																																																	Gore expr_589A_cp_0 = Main.gore[num151];
-																																																	expr_589A_cp_0.velocity.Y = expr_589A_cp_0.velocity.Y + 1f;
-																																																	Vector2 arg_58E3_0 = new Vector2(this.position.X, this.position.Y);
-																																																	vector = default(Vector2);
-																																																	num151 = Gore.NewGore(arg_58E3_0, vector, Main.rand.Next(61, 64), 1f);
-																																																	Gore expr_58F2 = Main.gore[num151];
-																																																	expr_58F2.velocity *= 0.4f;
-																																																	Gore expr_5914_cp_0 = Main.gore[num151];
-																																																	expr_5914_cp_0.velocity.X = expr_5914_cp_0.velocity.X + 1f;
-																																																	Gore expr_5932_cp_0 = Main.gore[num151];
-																																																	expr_5932_cp_0.velocity.Y = expr_5932_cp_0.velocity.Y - 1f;
-																																																	Vector2 arg_597B_0 = new Vector2(this.position.X, this.position.Y);
-																																																	vector = default(Vector2);
-																																																	num151 = Gore.NewGore(arg_597B_0, vector, Main.rand.Next(61, 64), 1f);
-																																																	Gore expr_598A = Main.gore[num151];
-																																																	expr_598A.velocity *= 0.4f;
-																																																	Gore expr_59AC_cp_0 = Main.gore[num151];
-																																																	expr_59AC_cp_0.velocity.X = expr_59AC_cp_0.velocity.X - 1f;
-																																																	Gore expr_59CA_cp_0 = Main.gore[num151];
-																																																	expr_59CA_cp_0.velocity.Y = expr_59CA_cp_0.velocity.Y - 1f;
 																																																	return;
 																																																}
+																																																for (int num152 = 0; num152 < 150; num152++)
+																																																{
+																																																	Vector2 arg_57EC_0 = this.position;
+																																																	int arg_57EC_1 = this.width;
+																																																	int arg_57EC_2 = this.height;
+																																																	int arg_57EC_3 = 26;
+																																																	float arg_57EC_4 = 2.5f * (float)hitDirection;
+																																																	float arg_57EC_5 = -2.5f;
+																																																	int arg_57EC_6 = 0;
+																																																	Color newColor = default(Color);
+																																																	Dust.NewDust(arg_57EC_0, arg_57EC_1, arg_57EC_2, arg_57EC_3, arg_57EC_4, arg_57EC_5, arg_57EC_6, newColor, 1f);
+																																																}
+																																																if (this.type == 35)
+																																																{
+																																																	Gore.NewGore(this.position, this.velocity, 54, 1f);
+																																																	Gore.NewGore(this.position, this.velocity, 55, 1f);
+																																																	return;
+																																																}
+																																																Gore.NewGore(this.position, this.velocity, 56, 1f);
+																																																Gore.NewGore(this.position, this.velocity, 57, 1f);
+																																																Gore.NewGore(this.position, this.velocity, 57, 1f);
+																																																Gore.NewGore(this.position, this.velocity, 57, 1f);
+																																																return;
 																																															}
 																																															else
 																																															{
-																																																if (this.type >= 134 && this.type <= 136)
+																																																if (this.type == 139)
 																																																{
-																																																	if (this.type == 135 && this.life > 0 && Main.netMode != 1 && this.ai[2] == 0f && Main.rand.Next(25) == 0)
-																																																	{
-																																																		this.ai[2] = 1f;
-																																																		int num152 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 139, 0);
-																																																		if (Main.netMode == 2 && num152 < 200)
-																																																		{
-																																																			NetMessage.SendData(23, -1, -1, "", num152, 0f, 0f, 0f, 0);
-																																																		}
-																																																		this.netUpdate = true;
-																																																	}
 																																																	if (this.life <= 0)
 																																																	{
-																																																		Gore.NewGore(this.position, this.velocity, 156, 1f);
-																																																		if (Main.rand.Next(2) == 0)
+																																																		for (int num153 = 0; num153 < 10; num153++)
 																																																		{
-																																																			for (int num153 = 0; num153 < 10; num153++)
-																																																			{
-																																																				Vector2 arg_5B40_0 = new Vector2(this.position.X, this.position.Y);
-																																																				int arg_5B40_1 = this.width;
-																																																				int arg_5B40_2 = this.height;
-																																																				int arg_5B40_3 = 31;
-																																																				float arg_5B40_4 = 0f;
-																																																				float arg_5B40_5 = 0f;
-																																																				int arg_5B40_6 = 100;
-																																																				Color newColor = default(Color);
-																																																				int num154 = Dust.NewDust(arg_5B40_0, arg_5B40_1, arg_5B40_2, arg_5B40_3, arg_5B40_4, arg_5B40_5, arg_5B40_6, newColor, 1.5f);
-																																																				Dust expr_5B4F = Main.dust[num154];
-																																																				expr_5B4F.velocity *= 1.4f;
-																																																			}
-																																																			for (int num155 = 0; num155 < 5; num155++)
-																																																			{
-																																																				Vector2 arg_5BBB_0 = new Vector2(this.position.X, this.position.Y);
-																																																				int arg_5BBB_1 = this.width;
-																																																				int arg_5BBB_2 = this.height;
-																																																				int arg_5BBB_3 = 6;
-																																																				float arg_5BBB_4 = 0f;
-																																																				float arg_5BBB_5 = 0f;
-																																																				int arg_5BBB_6 = 100;
-																																																				Color newColor = default(Color);
-																																																				int num156 = Dust.NewDust(arg_5BBB_0, arg_5BBB_1, arg_5BBB_2, arg_5BBB_3, arg_5BBB_4, arg_5BBB_5, arg_5BBB_6, newColor, 2.5f);
-																																																				Main.dust[num156].noGravity = true;
-																																																				Dust expr_5BD8 = Main.dust[num156];
-																																																				expr_5BD8.velocity *= 5f;
-																																																				Vector2 arg_5C30_0 = new Vector2(this.position.X, this.position.Y);
-																																																				int arg_5C30_1 = this.width;
-																																																				int arg_5C30_2 = this.height;
-																																																				int arg_5C30_3 = 6;
-																																																				float arg_5C30_4 = 0f;
-																																																				float arg_5C30_5 = 0f;
-																																																				int arg_5C30_6 = 100;
-																																																				newColor = default(Color);
-																																																				num156 = Dust.NewDust(arg_5C30_0, arg_5C30_1, arg_5C30_2, arg_5C30_3, arg_5C30_4, arg_5C30_5, arg_5C30_6, newColor, 1.5f);
-																																																				Dust expr_5C3F = Main.dust[num156];
-																																																				expr_5C3F.velocity *= 3f;
-																																																			}
-																																																			Vector2 arg_5C9A_0 = new Vector2(this.position.X, this.position.Y);
-																																																			Vector2 vector = default(Vector2);
-																																																			int num157 = Gore.NewGore(arg_5C9A_0, vector, Main.rand.Next(61, 64), 1f);
-																																																			Gore expr_5CA9 = Main.gore[num157];
-																																																			expr_5CA9.velocity *= 0.4f;
-																																																			Gore expr_5CCB_cp_0 = Main.gore[num157];
-																																																			expr_5CCB_cp_0.velocity.X = expr_5CCB_cp_0.velocity.X + 1f;
-																																																			Gore expr_5CE9_cp_0 = Main.gore[num157];
-																																																			expr_5CE9_cp_0.velocity.Y = expr_5CE9_cp_0.velocity.Y + 1f;
-																																																			Vector2 arg_5D32_0 = new Vector2(this.position.X, this.position.Y);
-																																																			vector = default(Vector2);
-																																																			num157 = Gore.NewGore(arg_5D32_0, vector, Main.rand.Next(61, 64), 1f);
-																																																			Gore expr_5D41 = Main.gore[num157];
-																																																			expr_5D41.velocity *= 0.4f;
-																																																			Gore expr_5D63_cp_0 = Main.gore[num157];
-																																																			expr_5D63_cp_0.velocity.X = expr_5D63_cp_0.velocity.X - 1f;
-																																																			Gore expr_5D81_cp_0 = Main.gore[num157];
-																																																			expr_5D81_cp_0.velocity.Y = expr_5D81_cp_0.velocity.Y + 1f;
-																																																			Vector2 arg_5DCA_0 = new Vector2(this.position.X, this.position.Y);
-																																																			vector = default(Vector2);
-																																																			num157 = Gore.NewGore(arg_5DCA_0, vector, Main.rand.Next(61, 64), 1f);
-																																																			Gore expr_5DD9 = Main.gore[num157];
-																																																			expr_5DD9.velocity *= 0.4f;
-																																																			Gore expr_5DFB_cp_0 = Main.gore[num157];
-																																																			expr_5DFB_cp_0.velocity.X = expr_5DFB_cp_0.velocity.X + 1f;
-																																																			Gore expr_5E19_cp_0 = Main.gore[num157];
-																																																			expr_5E19_cp_0.velocity.Y = expr_5E19_cp_0.velocity.Y - 1f;
-																																																			Vector2 arg_5E62_0 = new Vector2(this.position.X, this.position.Y);
-																																																			vector = default(Vector2);
-																																																			num157 = Gore.NewGore(arg_5E62_0, vector, Main.rand.Next(61, 64), 1f);
-																																																			Gore expr_5E71 = Main.gore[num157];
-																																																			expr_5E71.velocity *= 0.4f;
-																																																			Gore expr_5E93_cp_0 = Main.gore[num157];
-																																																			expr_5E93_cp_0.velocity.X = expr_5E93_cp_0.velocity.X - 1f;
-																																																			Gore expr_5EB1_cp_0 = Main.gore[num157];
-																																																			expr_5EB1_cp_0.velocity.Y = expr_5EB1_cp_0.velocity.Y - 1f;
-																																																			return;
+																																																			Vector2 arg_5908_0 = new Vector2(this.position.X, this.position.Y);
+																																																			int arg_5908_1 = this.width;
+																																																			int arg_5908_2 = this.height;
+																																																			int arg_5908_3 = 31;
+																																																			float arg_5908_4 = 0f;
+																																																			float arg_5908_5 = 0f;
+																																																			int arg_5908_6 = 100;
+																																																			Color newColor = default(Color);
+																																																			int num154 = Dust.NewDust(arg_5908_0, arg_5908_1, arg_5908_2, arg_5908_3, arg_5908_4, arg_5908_5, arg_5908_6, newColor, 1.5f);
+																																																			Dust expr_5917 = Main.dust[num154];
+																																																			expr_5917.velocity *= 1.4f;
 																																																		}
+																																																		for (int num155 = 0; num155 < 5; num155++)
+																																																		{
+																																																			Vector2 arg_5983_0 = new Vector2(this.position.X, this.position.Y);
+																																																			int arg_5983_1 = this.width;
+																																																			int arg_5983_2 = this.height;
+																																																			int arg_5983_3 = 6;
+																																																			float arg_5983_4 = 0f;
+																																																			float arg_5983_5 = 0f;
+																																																			int arg_5983_6 = 100;
+																																																			Color newColor = default(Color);
+																																																			int num156 = Dust.NewDust(arg_5983_0, arg_5983_1, arg_5983_2, arg_5983_3, arg_5983_4, arg_5983_5, arg_5983_6, newColor, 2.5f);
+																																																			Main.dust[num156].noGravity = true;
+																																																			Dust expr_59A0 = Main.dust[num156];
+																																																			expr_59A0.velocity *= 5f;
+																																																			Vector2 arg_59F8_0 = new Vector2(this.position.X, this.position.Y);
+																																																			int arg_59F8_1 = this.width;
+																																																			int arg_59F8_2 = this.height;
+																																																			int arg_59F8_3 = 6;
+																																																			float arg_59F8_4 = 0f;
+																																																			float arg_59F8_5 = 0f;
+																																																			int arg_59F8_6 = 100;
+																																																			newColor = default(Color);
+																																																			num156 = Dust.NewDust(arg_59F8_0, arg_59F8_1, arg_59F8_2, arg_59F8_3, arg_59F8_4, arg_59F8_5, arg_59F8_6, newColor, 1.5f);
+																																																			Dust expr_5A07 = Main.dust[num156];
+																																																			expr_5A07.velocity *= 3f;
+																																																		}
+																																																		Vector2 arg_5A62_0 = new Vector2(this.position.X, this.position.Y);
+																																																		Vector2 vector = default(Vector2);
+																																																		int num157 = Gore.NewGore(arg_5A62_0, vector, Main.rand.Next(61, 64), 1f);
+																																																		Gore expr_5A71 = Main.gore[num157];
+																																																		expr_5A71.velocity *= 0.4f;
+																																																		Gore expr_5A93_cp_0 = Main.gore[num157];
+																																																		expr_5A93_cp_0.velocity.X = expr_5A93_cp_0.velocity.X + 1f;
+																																																		Gore expr_5AB1_cp_0 = Main.gore[num157];
+																																																		expr_5AB1_cp_0.velocity.Y = expr_5AB1_cp_0.velocity.Y + 1f;
+																																																		Vector2 arg_5AFA_0 = new Vector2(this.position.X, this.position.Y);
+																																																		vector = default(Vector2);
+																																																		num157 = Gore.NewGore(arg_5AFA_0, vector, Main.rand.Next(61, 64), 1f);
+																																																		Gore expr_5B09 = Main.gore[num157];
+																																																		expr_5B09.velocity *= 0.4f;
+																																																		Gore expr_5B2B_cp_0 = Main.gore[num157];
+																																																		expr_5B2B_cp_0.velocity.X = expr_5B2B_cp_0.velocity.X - 1f;
+																																																		Gore expr_5B49_cp_0 = Main.gore[num157];
+																																																		expr_5B49_cp_0.velocity.Y = expr_5B49_cp_0.velocity.Y + 1f;
+																																																		Vector2 arg_5B92_0 = new Vector2(this.position.X, this.position.Y);
+																																																		vector = default(Vector2);
+																																																		num157 = Gore.NewGore(arg_5B92_0, vector, Main.rand.Next(61, 64), 1f);
+																																																		Gore expr_5BA1 = Main.gore[num157];
+																																																		expr_5BA1.velocity *= 0.4f;
+																																																		Gore expr_5BC3_cp_0 = Main.gore[num157];
+																																																		expr_5BC3_cp_0.velocity.X = expr_5BC3_cp_0.velocity.X + 1f;
+																																																		Gore expr_5BE1_cp_0 = Main.gore[num157];
+																																																		expr_5BE1_cp_0.velocity.Y = expr_5BE1_cp_0.velocity.Y - 1f;
+																																																		Vector2 arg_5C2A_0 = new Vector2(this.position.X, this.position.Y);
+																																																		vector = default(Vector2);
+																																																		num157 = Gore.NewGore(arg_5C2A_0, vector, Main.rand.Next(61, 64), 1f);
+																																																		Gore expr_5C39 = Main.gore[num157];
+																																																		expr_5C39.velocity *= 0.4f;
+																																																		Gore expr_5C5B_cp_0 = Main.gore[num157];
+																																																		expr_5C5B_cp_0.velocity.X = expr_5C5B_cp_0.velocity.X - 1f;
+																																																		Gore expr_5C79_cp_0 = Main.gore[num157];
+																																																		expr_5C79_cp_0.velocity.Y = expr_5C79_cp_0.velocity.Y - 1f;
+																																																		return;
 																																																	}
 																																																}
 																																																else
 																																																{
-																																																	if (this.type == 127)
+																																																	if (this.type >= 134 && this.type <= 136)
 																																																	{
+																																																		if (this.type == 135 && this.life > 0 && Main.netMode != 1 && this.ai[2] == 0f && Main.rand.Next(25) == 0)
+																																																		{
+																																																			this.ai[2] = 1f;
+																																																			int num158 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 139, 0);
+																																																			if (Main.netMode == 2 && num158 < 200)
+																																																			{
+																																																				NetMessage.SendData(23, -1, -1, "", num158, 0f, 0f, 0f, 0);
+																																																			}
+																																																			this.netUpdate = true;
+																																																		}
 																																																		if (this.life <= 0)
 																																																		{
-																																																			Gore.NewGore(this.position, this.velocity, 149, 1f);
-																																																			Gore.NewGore(this.position, this.velocity, 150, 1f);
-																																																			for (int num158 = 0; num158 < 10; num158++)
+																																																			Gore.NewGore(this.position, this.velocity, 156, 1f);
+																																																			if (Main.rand.Next(2) == 0)
 																																																			{
-																																																				Vector2 arg_5F5D_0 = new Vector2(this.position.X, this.position.Y);
-																																																				int arg_5F5D_1 = this.width;
-																																																				int arg_5F5D_2 = this.height;
-																																																				int arg_5F5D_3 = 31;
-																																																				float arg_5F5D_4 = 0f;
-																																																				float arg_5F5D_5 = 0f;
-																																																				int arg_5F5D_6 = 100;
-																																																				Color newColor = default(Color);
-																																																				int num159 = Dust.NewDust(arg_5F5D_0, arg_5F5D_1, arg_5F5D_2, arg_5F5D_3, arg_5F5D_4, arg_5F5D_5, arg_5F5D_6, newColor, 1.5f);
-																																																				Dust expr_5F6C = Main.dust[num159];
-																																																				expr_5F6C.velocity *= 1.4f;
+																																																				for (int num159 = 0; num159 < 10; num159++)
+																																																				{
+																																																					Vector2 arg_5DEF_0 = new Vector2(this.position.X, this.position.Y);
+																																																					int arg_5DEF_1 = this.width;
+																																																					int arg_5DEF_2 = this.height;
+																																																					int arg_5DEF_3 = 31;
+																																																					float arg_5DEF_4 = 0f;
+																																																					float arg_5DEF_5 = 0f;
+																																																					int arg_5DEF_6 = 100;
+																																																					Color newColor = default(Color);
+																																																					int num160 = Dust.NewDust(arg_5DEF_0, arg_5DEF_1, arg_5DEF_2, arg_5DEF_3, arg_5DEF_4, arg_5DEF_5, arg_5DEF_6, newColor, 1.5f);
+																																																					Dust expr_5DFE = Main.dust[num160];
+																																																					expr_5DFE.velocity *= 1.4f;
+																																																				}
+																																																				for (int num161 = 0; num161 < 5; num161++)
+																																																				{
+																																																					Vector2 arg_5E6A_0 = new Vector2(this.position.X, this.position.Y);
+																																																					int arg_5E6A_1 = this.width;
+																																																					int arg_5E6A_2 = this.height;
+																																																					int arg_5E6A_3 = 6;
+																																																					float arg_5E6A_4 = 0f;
+																																																					float arg_5E6A_5 = 0f;
+																																																					int arg_5E6A_6 = 100;
+																																																					Color newColor = default(Color);
+																																																					int num162 = Dust.NewDust(arg_5E6A_0, arg_5E6A_1, arg_5E6A_2, arg_5E6A_3, arg_5E6A_4, arg_5E6A_5, arg_5E6A_6, newColor, 2.5f);
+																																																					Main.dust[num162].noGravity = true;
+																																																					Dust expr_5E87 = Main.dust[num162];
+																																																					expr_5E87.velocity *= 5f;
+																																																					Vector2 arg_5EDF_0 = new Vector2(this.position.X, this.position.Y);
+																																																					int arg_5EDF_1 = this.width;
+																																																					int arg_5EDF_2 = this.height;
+																																																					int arg_5EDF_3 = 6;
+																																																					float arg_5EDF_4 = 0f;
+																																																					float arg_5EDF_5 = 0f;
+																																																					int arg_5EDF_6 = 100;
+																																																					newColor = default(Color);
+																																																					num162 = Dust.NewDust(arg_5EDF_0, arg_5EDF_1, arg_5EDF_2, arg_5EDF_3, arg_5EDF_4, arg_5EDF_5, arg_5EDF_6, newColor, 1.5f);
+																																																					Dust expr_5EEE = Main.dust[num162];
+																																																					expr_5EEE.velocity *= 3f;
+																																																				}
+																																																				Vector2 arg_5F49_0 = new Vector2(this.position.X, this.position.Y);
+																																																				Vector2 vector = default(Vector2);
+																																																				int num163 = Gore.NewGore(arg_5F49_0, vector, Main.rand.Next(61, 64), 1f);
+																																																				Gore expr_5F58 = Main.gore[num163];
+																																																				expr_5F58.velocity *= 0.4f;
+																																																				Gore expr_5F7A_cp_0 = Main.gore[num163];
+																																																				expr_5F7A_cp_0.velocity.X = expr_5F7A_cp_0.velocity.X + 1f;
+																																																				Gore expr_5F98_cp_0 = Main.gore[num163];
+																																																				expr_5F98_cp_0.velocity.Y = expr_5F98_cp_0.velocity.Y + 1f;
+																																																				Vector2 arg_5FE1_0 = new Vector2(this.position.X, this.position.Y);
+																																																				vector = default(Vector2);
+																																																				num163 = Gore.NewGore(arg_5FE1_0, vector, Main.rand.Next(61, 64), 1f);
+																																																				Gore expr_5FF0 = Main.gore[num163];
+																																																				expr_5FF0.velocity *= 0.4f;
+																																																				Gore expr_6012_cp_0 = Main.gore[num163];
+																																																				expr_6012_cp_0.velocity.X = expr_6012_cp_0.velocity.X - 1f;
+																																																				Gore expr_6030_cp_0 = Main.gore[num163];
+																																																				expr_6030_cp_0.velocity.Y = expr_6030_cp_0.velocity.Y + 1f;
+																																																				Vector2 arg_6079_0 = new Vector2(this.position.X, this.position.Y);
+																																																				vector = default(Vector2);
+																																																				num163 = Gore.NewGore(arg_6079_0, vector, Main.rand.Next(61, 64), 1f);
+																																																				Gore expr_6088 = Main.gore[num163];
+																																																				expr_6088.velocity *= 0.4f;
+																																																				Gore expr_60AA_cp_0 = Main.gore[num163];
+																																																				expr_60AA_cp_0.velocity.X = expr_60AA_cp_0.velocity.X + 1f;
+																																																				Gore expr_60C8_cp_0 = Main.gore[num163];
+																																																				expr_60C8_cp_0.velocity.Y = expr_60C8_cp_0.velocity.Y - 1f;
+																																																				Vector2 arg_6111_0 = new Vector2(this.position.X, this.position.Y);
+																																																				vector = default(Vector2);
+																																																				num163 = Gore.NewGore(arg_6111_0, vector, Main.rand.Next(61, 64), 1f);
+																																																				Gore expr_6120 = Main.gore[num163];
+																																																				expr_6120.velocity *= 0.4f;
+																																																				Gore expr_6142_cp_0 = Main.gore[num163];
+																																																				expr_6142_cp_0.velocity.X = expr_6142_cp_0.velocity.X - 1f;
+																																																				Gore expr_6160_cp_0 = Main.gore[num163];
+																																																				expr_6160_cp_0.velocity.Y = expr_6160_cp_0.velocity.Y - 1f;
+																																																				return;
 																																																			}
-																																																			for (int num160 = 0; num160 < 5; num160++)
-																																																			{
-																																																				Vector2 arg_5FD8_0 = new Vector2(this.position.X, this.position.Y);
-																																																				int arg_5FD8_1 = this.width;
-																																																				int arg_5FD8_2 = this.height;
-																																																				int arg_5FD8_3 = 6;
-																																																				float arg_5FD8_4 = 0f;
-																																																				float arg_5FD8_5 = 0f;
-																																																				int arg_5FD8_6 = 100;
-																																																				Color newColor = default(Color);
-																																																				int num161 = Dust.NewDust(arg_5FD8_0, arg_5FD8_1, arg_5FD8_2, arg_5FD8_3, arg_5FD8_4, arg_5FD8_5, arg_5FD8_6, newColor, 2.5f);
-																																																				Main.dust[num161].noGravity = true;
-																																																				Dust expr_5FF5 = Main.dust[num161];
-																																																				expr_5FF5.velocity *= 5f;
-																																																				Vector2 arg_604D_0 = new Vector2(this.position.X, this.position.Y);
-																																																				int arg_604D_1 = this.width;
-																																																				int arg_604D_2 = this.height;
-																																																				int arg_604D_3 = 6;
-																																																				float arg_604D_4 = 0f;
-																																																				float arg_604D_5 = 0f;
-																																																				int arg_604D_6 = 100;
-																																																				newColor = default(Color);
-																																																				num161 = Dust.NewDust(arg_604D_0, arg_604D_1, arg_604D_2, arg_604D_3, arg_604D_4, arg_604D_5, arg_604D_6, newColor, 1.5f);
-																																																				Dust expr_605C = Main.dust[num161];
-																																																				expr_605C.velocity *= 3f;
-																																																			}
-																																																			Vector2 arg_60B7_0 = new Vector2(this.position.X, this.position.Y);
-																																																			Vector2 vector = default(Vector2);
-																																																			int num162 = Gore.NewGore(arg_60B7_0, vector, Main.rand.Next(61, 64), 1f);
-																																																			Gore expr_60C6 = Main.gore[num162];
-																																																			expr_60C6.velocity *= 0.4f;
-																																																			Gore expr_60E8_cp_0 = Main.gore[num162];
-																																																			expr_60E8_cp_0.velocity.X = expr_60E8_cp_0.velocity.X + 1f;
-																																																			Gore expr_6106_cp_0 = Main.gore[num162];
-																																																			expr_6106_cp_0.velocity.Y = expr_6106_cp_0.velocity.Y + 1f;
-																																																			Vector2 arg_614F_0 = new Vector2(this.position.X, this.position.Y);
-																																																			vector = default(Vector2);
-																																																			num162 = Gore.NewGore(arg_614F_0, vector, Main.rand.Next(61, 64), 1f);
-																																																			Gore expr_615E = Main.gore[num162];
-																																																			expr_615E.velocity *= 0.4f;
-																																																			Gore expr_6180_cp_0 = Main.gore[num162];
-																																																			expr_6180_cp_0.velocity.X = expr_6180_cp_0.velocity.X - 1f;
-																																																			Gore expr_619E_cp_0 = Main.gore[num162];
-																																																			expr_619E_cp_0.velocity.Y = expr_619E_cp_0.velocity.Y + 1f;
-																																																			Vector2 arg_61E7_0 = new Vector2(this.position.X, this.position.Y);
-																																																			vector = default(Vector2);
-																																																			num162 = Gore.NewGore(arg_61E7_0, vector, Main.rand.Next(61, 64), 1f);
-																																																			Gore expr_61F6 = Main.gore[num162];
-																																																			expr_61F6.velocity *= 0.4f;
-																																																			Gore expr_6218_cp_0 = Main.gore[num162];
-																																																			expr_6218_cp_0.velocity.X = expr_6218_cp_0.velocity.X + 1f;
-																																																			Gore expr_6236_cp_0 = Main.gore[num162];
-																																																			expr_6236_cp_0.velocity.Y = expr_6236_cp_0.velocity.Y - 1f;
-																																																			Vector2 arg_627F_0 = new Vector2(this.position.X, this.position.Y);
-																																																			vector = default(Vector2);
-																																																			num162 = Gore.NewGore(arg_627F_0, vector, Main.rand.Next(61, 64), 1f);
-																																																			Gore expr_628E = Main.gore[num162];
-																																																			expr_628E.velocity *= 0.4f;
-																																																			Gore expr_62B0_cp_0 = Main.gore[num162];
-																																																			expr_62B0_cp_0.velocity.X = expr_62B0_cp_0.velocity.X - 1f;
-																																																			Gore expr_62CE_cp_0 = Main.gore[num162];
-																																																			expr_62CE_cp_0.velocity.Y = expr_62CE_cp_0.velocity.Y - 1f;
-																																																			return;
 																																																		}
 																																																	}
 																																																	else
 																																																	{
-																																																		if (this.type >= 128 && this.type <= 131)
+																																																		if (this.type == 127)
 																																																		{
 																																																			if (this.life <= 0)
 																																																			{
-																																																				Gore.NewGore(this.position, this.velocity, 147, 1f);
-																																																				Gore.NewGore(this.position, this.velocity, 148, 1f);
-																																																				for (int num163 = 0; num163 < 10; num163++)
+																																																				Gore.NewGore(this.position, this.velocity, 149, 1f);
+																																																				Gore.NewGore(this.position, this.velocity, 150, 1f);
+																																																				for (int num164 = 0; num164 < 10; num164++)
 																																																				{
-																																																					Vector2 arg_638D_0 = new Vector2(this.position.X, this.position.Y);
-																																																					int arg_638D_1 = this.width;
-																																																					int arg_638D_2 = this.height;
-																																																					int arg_638D_3 = 31;
-																																																					float arg_638D_4 = 0f;
-																																																					float arg_638D_5 = 0f;
-																																																					int arg_638D_6 = 100;
+																																																					Vector2 arg_620C_0 = new Vector2(this.position.X, this.position.Y);
+																																																					int arg_620C_1 = this.width;
+																																																					int arg_620C_2 = this.height;
+																																																					int arg_620C_3 = 31;
+																																																					float arg_620C_4 = 0f;
+																																																					float arg_620C_5 = 0f;
+																																																					int arg_620C_6 = 100;
 																																																					Color newColor = default(Color);
-																																																					int num164 = Dust.NewDust(arg_638D_0, arg_638D_1, arg_638D_2, arg_638D_3, arg_638D_4, arg_638D_5, arg_638D_6, newColor, 1.5f);
-																																																					Dust expr_639C = Main.dust[num164];
-																																																					expr_639C.velocity *= 1.4f;
+																																																					int num165 = Dust.NewDust(arg_620C_0, arg_620C_1, arg_620C_2, arg_620C_3, arg_620C_4, arg_620C_5, arg_620C_6, newColor, 1.5f);
+																																																					Dust expr_621B = Main.dust[num165];
+																																																					expr_621B.velocity *= 1.4f;
 																																																				}
-																																																				for (int num165 = 0; num165 < 5; num165++)
+																																																				for (int num166 = 0; num166 < 5; num166++)
 																																																				{
-																																																					Vector2 arg_6408_0 = new Vector2(this.position.X, this.position.Y);
-																																																					int arg_6408_1 = this.width;
-																																																					int arg_6408_2 = this.height;
-																																																					int arg_6408_3 = 6;
-																																																					float arg_6408_4 = 0f;
-																																																					float arg_6408_5 = 0f;
-																																																					int arg_6408_6 = 100;
+																																																					Vector2 arg_6287_0 = new Vector2(this.position.X, this.position.Y);
+																																																					int arg_6287_1 = this.width;
+																																																					int arg_6287_2 = this.height;
+																																																					int arg_6287_3 = 6;
+																																																					float arg_6287_4 = 0f;
+																																																					float arg_6287_5 = 0f;
+																																																					int arg_6287_6 = 100;
 																																																					Color newColor = default(Color);
-																																																					int num166 = Dust.NewDust(arg_6408_0, arg_6408_1, arg_6408_2, arg_6408_3, arg_6408_4, arg_6408_5, arg_6408_6, newColor, 2.5f);
-																																																					Main.dust[num166].noGravity = true;
-																																																					Dust expr_6425 = Main.dust[num166];
-																																																					expr_6425.velocity *= 5f;
-																																																					Vector2 arg_647D_0 = new Vector2(this.position.X, this.position.Y);
-																																																					int arg_647D_1 = this.width;
-																																																					int arg_647D_2 = this.height;
-																																																					int arg_647D_3 = 6;
-																																																					float arg_647D_4 = 0f;
-																																																					float arg_647D_5 = 0f;
-																																																					int arg_647D_6 = 100;
+																																																					int num167 = Dust.NewDust(arg_6287_0, arg_6287_1, arg_6287_2, arg_6287_3, arg_6287_4, arg_6287_5, arg_6287_6, newColor, 2.5f);
+																																																					Main.dust[num167].noGravity = true;
+																																																					Dust expr_62A4 = Main.dust[num167];
+																																																					expr_62A4.velocity *= 5f;
+																																																					Vector2 arg_62FC_0 = new Vector2(this.position.X, this.position.Y);
+																																																					int arg_62FC_1 = this.width;
+																																																					int arg_62FC_2 = this.height;
+																																																					int arg_62FC_3 = 6;
+																																																					float arg_62FC_4 = 0f;
+																																																					float arg_62FC_5 = 0f;
+																																																					int arg_62FC_6 = 100;
 																																																					newColor = default(Color);
-																																																					num166 = Dust.NewDust(arg_647D_0, arg_647D_1, arg_647D_2, arg_647D_3, arg_647D_4, arg_647D_5, arg_647D_6, newColor, 1.5f);
-																																																					Dust expr_648C = Main.dust[num166];
-																																																					expr_648C.velocity *= 3f;
+																																																					num167 = Dust.NewDust(arg_62FC_0, arg_62FC_1, arg_62FC_2, arg_62FC_3, arg_62FC_4, arg_62FC_5, arg_62FC_6, newColor, 1.5f);
+																																																					Dust expr_630B = Main.dust[num167];
+																																																					expr_630B.velocity *= 3f;
 																																																				}
-																																																				Vector2 arg_64E7_0 = new Vector2(this.position.X, this.position.Y);
+																																																				Vector2 arg_6366_0 = new Vector2(this.position.X, this.position.Y);
 																																																				Vector2 vector = default(Vector2);
-																																																				int num167 = Gore.NewGore(arg_64E7_0, vector, Main.rand.Next(61, 64), 1f);
-																																																				Gore expr_64F6 = Main.gore[num167];
-																																																				expr_64F6.velocity *= 0.4f;
-																																																				Gore expr_6518_cp_0 = Main.gore[num167];
-																																																				expr_6518_cp_0.velocity.X = expr_6518_cp_0.velocity.X + 1f;
-																																																				Gore expr_6536_cp_0 = Main.gore[num167];
-																																																				expr_6536_cp_0.velocity.Y = expr_6536_cp_0.velocity.Y + 1f;
-																																																				Vector2 arg_657F_0 = new Vector2(this.position.X, this.position.Y);
+																																																				int num168 = Gore.NewGore(arg_6366_0, vector, Main.rand.Next(61, 64), 1f);
+																																																				Gore expr_6375 = Main.gore[num168];
+																																																				expr_6375.velocity *= 0.4f;
+																																																				Gore expr_6397_cp_0 = Main.gore[num168];
+																																																				expr_6397_cp_0.velocity.X = expr_6397_cp_0.velocity.X + 1f;
+																																																				Gore expr_63B5_cp_0 = Main.gore[num168];
+																																																				expr_63B5_cp_0.velocity.Y = expr_63B5_cp_0.velocity.Y + 1f;
+																																																				Vector2 arg_63FE_0 = new Vector2(this.position.X, this.position.Y);
 																																																				vector = default(Vector2);
-																																																				num167 = Gore.NewGore(arg_657F_0, vector, Main.rand.Next(61, 64), 1f);
-																																																				Gore expr_658E = Main.gore[num167];
-																																																				expr_658E.velocity *= 0.4f;
-																																																				Gore expr_65B0_cp_0 = Main.gore[num167];
-																																																				expr_65B0_cp_0.velocity.X = expr_65B0_cp_0.velocity.X - 1f;
-																																																				Gore expr_65CE_cp_0 = Main.gore[num167];
-																																																				expr_65CE_cp_0.velocity.Y = expr_65CE_cp_0.velocity.Y + 1f;
-																																																				Vector2 arg_6617_0 = new Vector2(this.position.X, this.position.Y);
+																																																				num168 = Gore.NewGore(arg_63FE_0, vector, Main.rand.Next(61, 64), 1f);
+																																																				Gore expr_640D = Main.gore[num168];
+																																																				expr_640D.velocity *= 0.4f;
+																																																				Gore expr_642F_cp_0 = Main.gore[num168];
+																																																				expr_642F_cp_0.velocity.X = expr_642F_cp_0.velocity.X - 1f;
+																																																				Gore expr_644D_cp_0 = Main.gore[num168];
+																																																				expr_644D_cp_0.velocity.Y = expr_644D_cp_0.velocity.Y + 1f;
+																																																				Vector2 arg_6496_0 = new Vector2(this.position.X, this.position.Y);
 																																																				vector = default(Vector2);
-																																																				num167 = Gore.NewGore(arg_6617_0, vector, Main.rand.Next(61, 64), 1f);
-																																																				Gore expr_6626 = Main.gore[num167];
-																																																				expr_6626.velocity *= 0.4f;
-																																																				Gore expr_6648_cp_0 = Main.gore[num167];
-																																																				expr_6648_cp_0.velocity.X = expr_6648_cp_0.velocity.X + 1f;
-																																																				Gore expr_6666_cp_0 = Main.gore[num167];
-																																																				expr_6666_cp_0.velocity.Y = expr_6666_cp_0.velocity.Y - 1f;
-																																																				Vector2 arg_66AF_0 = new Vector2(this.position.X, this.position.Y);
+																																																				num168 = Gore.NewGore(arg_6496_0, vector, Main.rand.Next(61, 64), 1f);
+																																																				Gore expr_64A5 = Main.gore[num168];
+																																																				expr_64A5.velocity *= 0.4f;
+																																																				Gore expr_64C7_cp_0 = Main.gore[num168];
+																																																				expr_64C7_cp_0.velocity.X = expr_64C7_cp_0.velocity.X + 1f;
+																																																				Gore expr_64E5_cp_0 = Main.gore[num168];
+																																																				expr_64E5_cp_0.velocity.Y = expr_64E5_cp_0.velocity.Y - 1f;
+																																																				Vector2 arg_652E_0 = new Vector2(this.position.X, this.position.Y);
 																																																				vector = default(Vector2);
-																																																				num167 = Gore.NewGore(arg_66AF_0, vector, Main.rand.Next(61, 64), 1f);
-																																																				Gore expr_66BE = Main.gore[num167];
-																																																				expr_66BE.velocity *= 0.4f;
-																																																				Gore expr_66E0_cp_0 = Main.gore[num167];
-																																																				expr_66E0_cp_0.velocity.X = expr_66E0_cp_0.velocity.X - 1f;
-																																																				Gore expr_66FE_cp_0 = Main.gore[num167];
-																																																				expr_66FE_cp_0.velocity.Y = expr_66FE_cp_0.velocity.Y - 1f;
+																																																				num168 = Gore.NewGore(arg_652E_0, vector, Main.rand.Next(61, 64), 1f);
+																																																				Gore expr_653D = Main.gore[num168];
+																																																				expr_653D.velocity *= 0.4f;
+																																																				Gore expr_655F_cp_0 = Main.gore[num168];
+																																																				expr_655F_cp_0.velocity.X = expr_655F_cp_0.velocity.X - 1f;
+																																																				Gore expr_657D_cp_0 = Main.gore[num168];
+																																																				expr_657D_cp_0.velocity.Y = expr_657D_cp_0.velocity.Y - 1f;
 																																																				return;
 																																																			}
 																																																		}
 																																																		else
 																																																		{
-																																																			if (this.type == 23)
+																																																			if (this.type >= 128 && this.type <= 131)
 																																																			{
-																																																				if (this.life > 0)
+																																																				if (this.life <= 0)
 																																																				{
-																																																					int num168 = 0;
-																																																					while ((double)num168 < dmg / (double)this.lifeMax * 100.0)
+																																																					Gore.NewGore(this.position, this.velocity, 147, 1f);
+																																																					Gore.NewGore(this.position, this.velocity, 148, 1f);
+																																																					for (int num169 = 0; num169 < 10; num169++)
 																																																					{
-																																																						int num169 = 25;
-																																																						if (Main.rand.Next(2) == 0)
-																																																						{
-																																																							num169 = 6;
-																																																						}
-																																																						Vector2 arg_6770_0 = this.position;
-																																																						int arg_6770_1 = this.width;
-																																																						int arg_6770_2 = this.height;
-																																																						int arg_6770_3 = num169;
-																																																						float arg_6770_4 = (float)hitDirection;
-																																																						float arg_6770_5 = -1f;
-																																																						int arg_6770_6 = 0;
+																																																						Vector2 arg_663C_0 = new Vector2(this.position.X, this.position.Y);
+																																																						int arg_663C_1 = this.width;
+																																																						int arg_663C_2 = this.height;
+																																																						int arg_663C_3 = 31;
+																																																						float arg_663C_4 = 0f;
+																																																						float arg_663C_5 = 0f;
+																																																						int arg_663C_6 = 100;
 																																																						Color newColor = default(Color);
-																																																						Dust.NewDust(arg_6770_0, arg_6770_1, arg_6770_2, arg_6770_3, arg_6770_4, arg_6770_5, arg_6770_6, newColor, 1f);
-																																																						Vector2 arg_67D1_0 = new Vector2(this.position.X, this.position.Y);
-																																																						int arg_67D1_1 = this.width;
-																																																						int arg_67D1_2 = this.height;
-																																																						int arg_67D1_3 = 6;
-																																																						float arg_67D1_4 = this.velocity.X * 0.2f;
-																																																						float arg_67D1_5 = this.velocity.Y * 0.2f;
-																																																						int arg_67D1_6 = 100;
-																																																						newColor = default(Color);
-																																																						int num170 = Dust.NewDust(arg_67D1_0, arg_67D1_1, arg_67D1_2, arg_67D1_3, arg_67D1_4, arg_67D1_5, arg_67D1_6, newColor, 2f);
-																																																						Main.dust[num170].noGravity = true;
-																																																						num168++;
+																																																						int num170 = Dust.NewDust(arg_663C_0, arg_663C_1, arg_663C_2, arg_663C_3, arg_663C_4, arg_663C_5, arg_663C_6, newColor, 1.5f);
+																																																						Dust expr_664B = Main.dust[num170];
+																																																						expr_664B.velocity *= 1.4f;
 																																																					}
+																																																					for (int num171 = 0; num171 < 5; num171++)
+																																																					{
+																																																						Vector2 arg_66B7_0 = new Vector2(this.position.X, this.position.Y);
+																																																						int arg_66B7_1 = this.width;
+																																																						int arg_66B7_2 = this.height;
+																																																						int arg_66B7_3 = 6;
+																																																						float arg_66B7_4 = 0f;
+																																																						float arg_66B7_5 = 0f;
+																																																						int arg_66B7_6 = 100;
+																																																						Color newColor = default(Color);
+																																																						int num172 = Dust.NewDust(arg_66B7_0, arg_66B7_1, arg_66B7_2, arg_66B7_3, arg_66B7_4, arg_66B7_5, arg_66B7_6, newColor, 2.5f);
+																																																						Main.dust[num172].noGravity = true;
+																																																						Dust expr_66D4 = Main.dust[num172];
+																																																						expr_66D4.velocity *= 5f;
+																																																						Vector2 arg_672C_0 = new Vector2(this.position.X, this.position.Y);
+																																																						int arg_672C_1 = this.width;
+																																																						int arg_672C_2 = this.height;
+																																																						int arg_672C_3 = 6;
+																																																						float arg_672C_4 = 0f;
+																																																						float arg_672C_5 = 0f;
+																																																						int arg_672C_6 = 100;
+																																																						newColor = default(Color);
+																																																						num172 = Dust.NewDust(arg_672C_0, arg_672C_1, arg_672C_2, arg_672C_3, arg_672C_4, arg_672C_5, arg_672C_6, newColor, 1.5f);
+																																																						Dust expr_673B = Main.dust[num172];
+																																																						expr_673B.velocity *= 3f;
+																																																					}
+																																																					Vector2 arg_6796_0 = new Vector2(this.position.X, this.position.Y);
+																																																					Vector2 vector = default(Vector2);
+																																																					int num173 = Gore.NewGore(arg_6796_0, vector, Main.rand.Next(61, 64), 1f);
+																																																					Gore expr_67A5 = Main.gore[num173];
+																																																					expr_67A5.velocity *= 0.4f;
+																																																					Gore expr_67C7_cp_0 = Main.gore[num173];
+																																																					expr_67C7_cp_0.velocity.X = expr_67C7_cp_0.velocity.X + 1f;
+																																																					Gore expr_67E5_cp_0 = Main.gore[num173];
+																																																					expr_67E5_cp_0.velocity.Y = expr_67E5_cp_0.velocity.Y + 1f;
+																																																					Vector2 arg_682E_0 = new Vector2(this.position.X, this.position.Y);
+																																																					vector = default(Vector2);
+																																																					num173 = Gore.NewGore(arg_682E_0, vector, Main.rand.Next(61, 64), 1f);
+																																																					Gore expr_683D = Main.gore[num173];
+																																																					expr_683D.velocity *= 0.4f;
+																																																					Gore expr_685F_cp_0 = Main.gore[num173];
+																																																					expr_685F_cp_0.velocity.X = expr_685F_cp_0.velocity.X - 1f;
+																																																					Gore expr_687D_cp_0 = Main.gore[num173];
+																																																					expr_687D_cp_0.velocity.Y = expr_687D_cp_0.velocity.Y + 1f;
+																																																					Vector2 arg_68C6_0 = new Vector2(this.position.X, this.position.Y);
+																																																					vector = default(Vector2);
+																																																					num173 = Gore.NewGore(arg_68C6_0, vector, Main.rand.Next(61, 64), 1f);
+																																																					Gore expr_68D5 = Main.gore[num173];
+																																																					expr_68D5.velocity *= 0.4f;
+																																																					Gore expr_68F7_cp_0 = Main.gore[num173];
+																																																					expr_68F7_cp_0.velocity.X = expr_68F7_cp_0.velocity.X + 1f;
+																																																					Gore expr_6915_cp_0 = Main.gore[num173];
+																																																					expr_6915_cp_0.velocity.Y = expr_6915_cp_0.velocity.Y - 1f;
+																																																					Vector2 arg_695E_0 = new Vector2(this.position.X, this.position.Y);
+																																																					vector = default(Vector2);
+																																																					num173 = Gore.NewGore(arg_695E_0, vector, Main.rand.Next(61, 64), 1f);
+																																																					Gore expr_696D = Main.gore[num173];
+																																																					expr_696D.velocity *= 0.4f;
+																																																					Gore expr_698F_cp_0 = Main.gore[num173];
+																																																					expr_698F_cp_0.velocity.X = expr_698F_cp_0.velocity.X - 1f;
+																																																					Gore expr_69AD_cp_0 = Main.gore[num173];
+																																																					expr_69AD_cp_0.velocity.Y = expr_69AD_cp_0.velocity.Y - 1f;
 																																																					return;
 																																																				}
-																																																				for (int num171 = 0; num171 < 50; num171++)
-																																																				{
-																																																					int num172 = 25;
-																																																					if (Main.rand.Next(2) == 0)
-																																																					{
-																																																						num172 = 6;
-																																																					}
-																																																					Vector2 arg_684E_0 = this.position;
-																																																					int arg_684E_1 = this.width;
-																																																					int arg_684E_2 = this.height;
-																																																					int arg_684E_3 = num172;
-																																																					float arg_684E_4 = (float)(2 * hitDirection);
-																																																					float arg_684E_5 = -2f;
-																																																					int arg_684E_6 = 0;
-																																																					Color newColor = default(Color);
-																																																					Dust.NewDust(arg_684E_0, arg_684E_1, arg_684E_2, arg_684E_3, arg_684E_4, arg_684E_5, arg_684E_6, newColor, 1f);
-																																																				}
-																																																				for (int num173 = 0; num173 < 50; num173++)
-																																																				{
-																																																					Vector2 arg_68C3_0 = new Vector2(this.position.X, this.position.Y);
-																																																					int arg_68C3_1 = this.width;
-																																																					int arg_68C3_2 = this.height;
-																																																					int arg_68C3_3 = 6;
-																																																					float arg_68C3_4 = this.velocity.X * 0.2f;
-																																																					float arg_68C3_5 = this.velocity.Y * 0.2f;
-																																																					int arg_68C3_6 = 100;
-																																																					Color newColor = default(Color);
-																																																					int num174 = Dust.NewDust(arg_68C3_0, arg_68C3_1, arg_68C3_2, arg_68C3_3, arg_68C3_4, arg_68C3_5, arg_68C3_6, newColor, 2.5f);
-																																																					Dust expr_68D2 = Main.dust[num174];
-																																																					expr_68D2.velocity *= 6f;
-																																																					Main.dust[num174].noGravity = true;
-																																																				}
-																																																				return;
 																																																			}
 																																																			else
 																																																			{
-																																																				if (this.type == 24)
+																																																				if (this.type == 23)
 																																																				{
 																																																					if (this.life > 0)
 																																																					{
-																																																						int num175 = 0;
-																																																						while ((double)num175 < dmg / (double)this.lifeMax * 100.0)
+																																																						int num174 = 0;
+																																																						while ((double)num174 < dmg / (double)this.lifeMax * 100.0)
 																																																						{
-																																																							Vector2 arg_6972_0 = new Vector2(this.position.X, this.position.Y);
-																																																							int arg_6972_1 = this.width;
-																																																							int arg_6972_2 = this.height;
-																																																							int arg_6972_3 = 6;
-																																																							float arg_6972_4 = this.velocity.X;
-																																																							float arg_6972_5 = this.velocity.Y;
-																																																							int arg_6972_6 = 100;
+																																																							int num175 = 25;
+																																																							if (Main.rand.Next(2) == 0)
+																																																							{
+																																																								num175 = 6;
+																																																							}
+																																																							Vector2 arg_6A1F_0 = this.position;
+																																																							int arg_6A1F_1 = this.width;
+																																																							int arg_6A1F_2 = this.height;
+																																																							int arg_6A1F_3 = num175;
+																																																							float arg_6A1F_4 = (float)hitDirection;
+																																																							float arg_6A1F_5 = -1f;
+																																																							int arg_6A1F_6 = 0;
 																																																							Color newColor = default(Color);
-																																																							int num176 = Dust.NewDust(arg_6972_0, arg_6972_1, arg_6972_2, arg_6972_3, arg_6972_4, arg_6972_5, arg_6972_6, newColor, 2.5f);
+																																																							Dust.NewDust(arg_6A1F_0, arg_6A1F_1, arg_6A1F_2, arg_6A1F_3, arg_6A1F_4, arg_6A1F_5, arg_6A1F_6, newColor, 1f);
+																																																							Vector2 arg_6A80_0 = new Vector2(this.position.X, this.position.Y);
+																																																							int arg_6A80_1 = this.width;
+																																																							int arg_6A80_2 = this.height;
+																																																							int arg_6A80_3 = 6;
+																																																							float arg_6A80_4 = this.velocity.X * 0.2f;
+																																																							float arg_6A80_5 = this.velocity.Y * 0.2f;
+																																																							int arg_6A80_6 = 100;
+																																																							newColor = default(Color);
+																																																							int num176 = Dust.NewDust(arg_6A80_0, arg_6A80_1, arg_6A80_2, arg_6A80_3, arg_6A80_4, arg_6A80_5, arg_6A80_6, newColor, 2f);
 																																																							Main.dust[num176].noGravity = true;
-																																																							num175++;
+																																																							num174++;
 																																																						}
 																																																						return;
 																																																					}
 																																																					for (int num177 = 0; num177 < 50; num177++)
 																																																					{
-																																																						Vector2 arg_6A00_0 = new Vector2(this.position.X, this.position.Y);
-																																																						int arg_6A00_1 = this.width;
-																																																						int arg_6A00_2 = this.height;
-																																																						int arg_6A00_3 = 6;
-																																																						float arg_6A00_4 = this.velocity.X;
-																																																						float arg_6A00_5 = this.velocity.Y;
-																																																						int arg_6A00_6 = 100;
+																																																						int num178 = 25;
+																																																						if (Main.rand.Next(2) == 0)
+																																																						{
+																																																							num178 = 6;
+																																																						}
+																																																						Vector2 arg_6AFD_0 = this.position;
+																																																						int arg_6AFD_1 = this.width;
+																																																						int arg_6AFD_2 = this.height;
+																																																						int arg_6AFD_3 = num178;
+																																																						float arg_6AFD_4 = (float)(2 * hitDirection);
+																																																						float arg_6AFD_5 = -2f;
+																																																						int arg_6AFD_6 = 0;
 																																																						Color newColor = default(Color);
-																																																						int num178 = Dust.NewDust(arg_6A00_0, arg_6A00_1, arg_6A00_2, arg_6A00_3, arg_6A00_4, arg_6A00_5, arg_6A00_6, newColor, 2.5f);
-																																																						Main.dust[num178].noGravity = true;
-																																																						Dust expr_6A1D = Main.dust[num178];
-																																																						expr_6A1D.velocity *= 2f;
+																																																						Dust.NewDust(arg_6AFD_0, arg_6AFD_1, arg_6AFD_2, arg_6AFD_3, arg_6AFD_4, arg_6AFD_5, arg_6AFD_6, newColor, 1f);
 																																																					}
-																																																					Gore.NewGore(this.position, this.velocity, 45, 1f);
-																																																					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 46, 1f);
-																																																					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 46, 1f);
-																																																					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 47, 1f);
-																																																					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 47, 1f);
+																																																					for (int num179 = 0; num179 < 50; num179++)
+																																																					{
+																																																						Vector2 arg_6B72_0 = new Vector2(this.position.X, this.position.Y);
+																																																						int arg_6B72_1 = this.width;
+																																																						int arg_6B72_2 = this.height;
+																																																						int arg_6B72_3 = 6;
+																																																						float arg_6B72_4 = this.velocity.X * 0.2f;
+																																																						float arg_6B72_5 = this.velocity.Y * 0.2f;
+																																																						int arg_6B72_6 = 100;
+																																																						Color newColor = default(Color);
+																																																						int num180 = Dust.NewDust(arg_6B72_0, arg_6B72_1, arg_6B72_2, arg_6B72_3, arg_6B72_4, arg_6B72_5, arg_6B72_6, newColor, 2.5f);
+																																																						Dust expr_6B81 = Main.dust[num180];
+																																																						expr_6B81.velocity *= 6f;
+																																																						Main.dust[num180].noGravity = true;
+																																																					}
 																																																					return;
 																																																				}
 																																																				else
 																																																				{
-																																																					if (this.type == 25)
-																																																					{
-																																																						Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
-																																																						for (int num179 = 0; num179 < 20; num179++)
-																																																						{
-																																																							Vector2 arg_6BBD_0 = new Vector2(this.position.X, this.position.Y);
-																																																							int arg_6BBD_1 = this.width;
-																																																							int arg_6BBD_2 = this.height;
-																																																							int arg_6BBD_3 = 6;
-																																																							float arg_6BBD_4 = -this.velocity.X * 0.2f;
-																																																							float arg_6BBD_5 = -this.velocity.Y * 0.2f;
-																																																							int arg_6BBD_6 = 100;
-																																																							Color newColor = default(Color);
-																																																							int num180 = Dust.NewDust(arg_6BBD_0, arg_6BBD_1, arg_6BBD_2, arg_6BBD_3, arg_6BBD_4, arg_6BBD_5, arg_6BBD_6, newColor, 2f);
-																																																							Main.dust[num180].noGravity = true;
-																																																							Dust expr_6BDA = Main.dust[num180];
-																																																							expr_6BDA.velocity *= 2f;
-																																																							Vector2 arg_6C4C_0 = new Vector2(this.position.X, this.position.Y);
-																																																							int arg_6C4C_1 = this.width;
-																																																							int arg_6C4C_2 = this.height;
-																																																							int arg_6C4C_3 = 6;
-																																																							float arg_6C4C_4 = -this.velocity.X * 0.2f;
-																																																							float arg_6C4C_5 = -this.velocity.Y * 0.2f;
-																																																							int arg_6C4C_6 = 100;
-																																																							newColor = default(Color);
-																																																							num180 = Dust.NewDust(arg_6C4C_0, arg_6C4C_1, arg_6C4C_2, arg_6C4C_3, arg_6C4C_4, arg_6C4C_5, arg_6C4C_6, newColor, 1f);
-																																																							Dust expr_6C5B = Main.dust[num180];
-																																																							expr_6C5B.velocity *= 2f;
-																																																						}
-																																																						return;
-																																																					}
-																																																					if (this.type == 33)
-																																																					{
-																																																						Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
-																																																						for (int num181 = 0; num181 < 20; num181++)
-																																																						{
-																																																							Vector2 arg_6D13_0 = new Vector2(this.position.X, this.position.Y);
-																																																							int arg_6D13_1 = this.width;
-																																																							int arg_6D13_2 = this.height;
-																																																							int arg_6D13_3 = 29;
-																																																							float arg_6D13_4 = -this.velocity.X * 0.2f;
-																																																							float arg_6D13_5 = -this.velocity.Y * 0.2f;
-																																																							int arg_6D13_6 = 100;
-																																																							Color newColor = default(Color);
-																																																							int num182 = Dust.NewDust(arg_6D13_0, arg_6D13_1, arg_6D13_2, arg_6D13_3, arg_6D13_4, arg_6D13_5, arg_6D13_6, newColor, 2f);
-																																																							Main.dust[num182].noGravity = true;
-																																																							Dust expr_6D30 = Main.dust[num182];
-																																																							expr_6D30.velocity *= 2f;
-																																																							Vector2 arg_6DA3_0 = new Vector2(this.position.X, this.position.Y);
-																																																							int arg_6DA3_1 = this.width;
-																																																							int arg_6DA3_2 = this.height;
-																																																							int arg_6DA3_3 = 29;
-																																																							float arg_6DA3_4 = -this.velocity.X * 0.2f;
-																																																							float arg_6DA3_5 = -this.velocity.Y * 0.2f;
-																																																							int arg_6DA3_6 = 100;
-																																																							newColor = default(Color);
-																																																							num182 = Dust.NewDust(arg_6DA3_0, arg_6DA3_1, arg_6DA3_2, arg_6DA3_3, arg_6DA3_4, arg_6DA3_5, arg_6DA3_6, newColor, 1f);
-																																																							Dust expr_6DB2 = Main.dust[num182];
-																																																							expr_6DB2.velocity *= 2f;
-																																																						}
-																																																						return;
-																																																					}
-																																																					if (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 29 || this.type == 73 || this.type == 111)
+																																																					if (this.type == 24)
 																																																					{
 																																																						if (this.life > 0)
 																																																						{
-																																																							int num183 = 0;
-																																																							while ((double)num183 < dmg / (double)this.lifeMax * 100.0)
+																																																							int num181 = 0;
+																																																							while ((double)num181 < dmg / (double)this.lifeMax * 100.0)
 																																																							{
-																																																								Vector2 arg_6E4E_0 = this.position;
-																																																								int arg_6E4E_1 = this.width;
-																																																								int arg_6E4E_2 = this.height;
-																																																								int arg_6E4E_3 = 5;
-																																																								float arg_6E4E_4 = (float)hitDirection;
-																																																								float arg_6E4E_5 = -1f;
-																																																								int arg_6E4E_6 = 0;
+																																																								Vector2 arg_6C21_0 = new Vector2(this.position.X, this.position.Y);
+																																																								int arg_6C21_1 = this.width;
+																																																								int arg_6C21_2 = this.height;
+																																																								int arg_6C21_3 = 6;
+																																																								float arg_6C21_4 = this.velocity.X;
+																																																								float arg_6C21_5 = this.velocity.Y;
+																																																								int arg_6C21_6 = 100;
 																																																								Color newColor = default(Color);
-																																																								Dust.NewDust(arg_6E4E_0, arg_6E4E_1, arg_6E4E_2, arg_6E4E_3, arg_6E4E_4, arg_6E4E_5, arg_6E4E_6, newColor, 1f);
-																																																								num183++;
+																																																								int num182 = Dust.NewDust(arg_6C21_0, arg_6C21_1, arg_6C21_2, arg_6C21_3, arg_6C21_4, arg_6C21_5, arg_6C21_6, newColor, 2.5f);
+																																																								Main.dust[num182].noGravity = true;
+																																																								num181++;
 																																																							}
 																																																							return;
 																																																						}
-																																																						for (int num184 = 0; num184 < 50; num184++)
+																																																						for (int num183 = 0; num183 < 50; num183++)
 																																																						{
-																																																							Vector2 arg_6EA8_0 = this.position;
-																																																							int arg_6EA8_1 = this.width;
-																																																							int arg_6EA8_2 = this.height;
-																																																							int arg_6EA8_3 = 5;
-																																																							float arg_6EA8_4 = 2.5f * (float)hitDirection;
-																																																							float arg_6EA8_5 = -2.5f;
-																																																							int arg_6EA8_6 = 0;
+																																																							Vector2 arg_6CAF_0 = new Vector2(this.position.X, this.position.Y);
+																																																							int arg_6CAF_1 = this.width;
+																																																							int arg_6CAF_2 = this.height;
+																																																							int arg_6CAF_3 = 6;
+																																																							float arg_6CAF_4 = this.velocity.X;
+																																																							float arg_6CAF_5 = this.velocity.Y;
+																																																							int arg_6CAF_6 = 100;
 																																																							Color newColor = default(Color);
-																																																							Dust.NewDust(arg_6EA8_0, arg_6EA8_1, arg_6EA8_2, arg_6EA8_3, arg_6EA8_4, arg_6EA8_5, arg_6EA8_6, newColor, 1f);
+																																																							int num184 = Dust.NewDust(arg_6CAF_0, arg_6CAF_1, arg_6CAF_2, arg_6CAF_3, arg_6CAF_4, arg_6CAF_5, arg_6CAF_6, newColor, 2.5f);
+																																																							Main.dust[num184].noGravity = true;
+																																																							Dust expr_6CCC = Main.dust[num184];
+																																																							expr_6CCC.velocity *= 2f;
 																																																						}
-																																																						Gore.NewGore(this.position, this.velocity, 48, this.scale);
-																																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 49, this.scale);
-																																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 49, this.scale);
-																																																						if (this.type == 111)
-																																																						{
-																																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 131, this.scale);
-																																																						}
-																																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 50, this.scale);
-																																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 50, this.scale);
+																																																						Gore.NewGore(this.position, this.velocity, 45, 1f);
+																																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 46, 1f);
+																																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 46, 1f);
+																																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 47, 1f);
+																																																						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 47, 1f);
 																																																						return;
 																																																					}
 																																																					else
 																																																					{
-																																																						if (this.type == 30)
+																																																						if (this.type == 25)
 																																																						{
 																																																							Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
 																																																							for (int num185 = 0; num185 < 20; num185++)
 																																																							{
-																																																								Vector2 arg_707E_0 = new Vector2(this.position.X, this.position.Y);
-																																																								int arg_707E_1 = this.width;
-																																																								int arg_707E_2 = this.height;
-																																																								int arg_707E_3 = 27;
-																																																								float arg_707E_4 = -this.velocity.X * 0.2f;
-																																																								float arg_707E_5 = -this.velocity.Y * 0.2f;
-																																																								int arg_707E_6 = 100;
+																																																								Vector2 arg_6E6C_0 = new Vector2(this.position.X, this.position.Y);
+																																																								int arg_6E6C_1 = this.width;
+																																																								int arg_6E6C_2 = this.height;
+																																																								int arg_6E6C_3 = 6;
+																																																								float arg_6E6C_4 = -this.velocity.X * 0.2f;
+																																																								float arg_6E6C_5 = -this.velocity.Y * 0.2f;
+																																																								int arg_6E6C_6 = 100;
 																																																								Color newColor = default(Color);
-																																																								int num186 = Dust.NewDust(arg_707E_0, arg_707E_1, arg_707E_2, arg_707E_3, arg_707E_4, arg_707E_5, arg_707E_6, newColor, 2f);
+																																																								int num186 = Dust.NewDust(arg_6E6C_0, arg_6E6C_1, arg_6E6C_2, arg_6E6C_3, arg_6E6C_4, arg_6E6C_5, arg_6E6C_6, newColor, 2f);
 																																																								Main.dust[num186].noGravity = true;
-																																																								Dust expr_709B = Main.dust[num186];
-																																																								expr_709B.velocity *= 2f;
-																																																								Vector2 arg_710E_0 = new Vector2(this.position.X, this.position.Y);
-																																																								int arg_710E_1 = this.width;
-																																																								int arg_710E_2 = this.height;
-																																																								int arg_710E_3 = 27;
-																																																								float arg_710E_4 = -this.velocity.X * 0.2f;
-																																																								float arg_710E_5 = -this.velocity.Y * 0.2f;
-																																																								int arg_710E_6 = 100;
+																																																								Dust expr_6E89 = Main.dust[num186];
+																																																								expr_6E89.velocity *= 2f;
+																																																								Vector2 arg_6EFB_0 = new Vector2(this.position.X, this.position.Y);
+																																																								int arg_6EFB_1 = this.width;
+																																																								int arg_6EFB_2 = this.height;
+																																																								int arg_6EFB_3 = 6;
+																																																								float arg_6EFB_4 = -this.velocity.X * 0.2f;
+																																																								float arg_6EFB_5 = -this.velocity.Y * 0.2f;
+																																																								int arg_6EFB_6 = 100;
 																																																								newColor = default(Color);
-																																																								num186 = Dust.NewDust(arg_710E_0, arg_710E_1, arg_710E_2, arg_710E_3, arg_710E_4, arg_710E_5, arg_710E_6, newColor, 1f);
-																																																								Dust expr_711D = Main.dust[num186];
-																																																								expr_711D.velocity *= 2f;
+																																																								num186 = Dust.NewDust(arg_6EFB_0, arg_6EFB_1, arg_6EFB_2, arg_6EFB_3, arg_6EFB_4, arg_6EFB_5, arg_6EFB_6, newColor, 1f);
+																																																								Dust expr_6F0A = Main.dust[num186];
+																																																								expr_6F0A.velocity *= 2f;
 																																																							}
 																																																							return;
 																																																						}
-																																																						if (this.type == 42)
+																																																						if (this.type == 33)
+																																																						{
+																																																							Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
+																																																							for (int num187 = 0; num187 < 20; num187++)
+																																																							{
+																																																								Vector2 arg_6FC2_0 = new Vector2(this.position.X, this.position.Y);
+																																																								int arg_6FC2_1 = this.width;
+																																																								int arg_6FC2_2 = this.height;
+																																																								int arg_6FC2_3 = 29;
+																																																								float arg_6FC2_4 = -this.velocity.X * 0.2f;
+																																																								float arg_6FC2_5 = -this.velocity.Y * 0.2f;
+																																																								int arg_6FC2_6 = 100;
+																																																								Color newColor = default(Color);
+																																																								int num188 = Dust.NewDust(arg_6FC2_0, arg_6FC2_1, arg_6FC2_2, arg_6FC2_3, arg_6FC2_4, arg_6FC2_5, arg_6FC2_6, newColor, 2f);
+																																																								Main.dust[num188].noGravity = true;
+																																																								Dust expr_6FDF = Main.dust[num188];
+																																																								expr_6FDF.velocity *= 2f;
+																																																								Vector2 arg_7052_0 = new Vector2(this.position.X, this.position.Y);
+																																																								int arg_7052_1 = this.width;
+																																																								int arg_7052_2 = this.height;
+																																																								int arg_7052_3 = 29;
+																																																								float arg_7052_4 = -this.velocity.X * 0.2f;
+																																																								float arg_7052_5 = -this.velocity.Y * 0.2f;
+																																																								int arg_7052_6 = 100;
+																																																								newColor = default(Color);
+																																																								num188 = Dust.NewDust(arg_7052_0, arg_7052_1, arg_7052_2, arg_7052_3, arg_7052_4, arg_7052_5, arg_7052_6, newColor, 1f);
+																																																								Dust expr_7061 = Main.dust[num188];
+																																																								expr_7061.velocity *= 2f;
+																																																							}
+																																																							return;
+																																																						}
+																																																						if (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 29 || this.type == 73 || this.type == 111)
 																																																						{
 																																																							if (this.life > 0)
 																																																							{
-																																																								int num187 = 0;
-																																																								while ((double)num187 < dmg / (double)this.lifeMax * 100.0)
+																																																								int num189 = 0;
+																																																								while ((double)num189 < dmg / (double)this.lifeMax * 100.0)
 																																																								{
-																																																									Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-																																																									num187++;
+																																																									Vector2 arg_70FD_0 = this.position;
+																																																									int arg_70FD_1 = this.width;
+																																																									int arg_70FD_2 = this.height;
+																																																									int arg_70FD_3 = 5;
+																																																									float arg_70FD_4 = (float)hitDirection;
+																																																									float arg_70FD_5 = -1f;
+																																																									int arg_70FD_6 = 0;
+																																																									Color newColor = default(Color);
+																																																									Dust.NewDust(arg_70FD_0, arg_70FD_1, arg_70FD_2, arg_70FD_3, arg_70FD_4, arg_70FD_5, arg_70FD_6, newColor, 1f);
+																																																									num189++;
 																																																								}
 																																																								return;
 																																																							}
-																																																							for (int num188 = 0; num188 < 50; num188++)
+																																																							for (int num190 = 0; num190 < 50; num190++)
 																																																							{
-																																																								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
+																																																								Vector2 arg_7157_0 = this.position;
+																																																								int arg_7157_1 = this.width;
+																																																								int arg_7157_2 = this.height;
+																																																								int arg_7157_3 = 5;
+																																																								float arg_7157_4 = 2.5f * (float)hitDirection;
+																																																								float arg_7157_5 = -2.5f;
+																																																								int arg_7157_6 = 0;
+																																																								Color newColor = default(Color);
+																																																								Dust.NewDust(arg_7157_0, arg_7157_1, arg_7157_2, arg_7157_3, arg_7157_4, arg_7157_5, arg_7157_6, newColor, 1f);
 																																																							}
-																																																							Gore.NewGore(this.position, this.velocity, 70, this.scale);
-																																																							Gore.NewGore(this.position, this.velocity, 71, this.scale);
+																																																							Gore.NewGore(this.position, this.velocity, 48, this.scale);
+																																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 49, this.scale);
+																																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 49, this.scale);
+																																																							if (this.type == 111)
+																																																							{
+																																																								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 131, this.scale);
+																																																							}
+																																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 50, this.scale);
+																																																							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 50, this.scale);
 																																																							return;
 																																																						}
 																																																						else
 																																																						{
-																																																							if (this.type == 43 || this.type == 56)
+																																																							if (this.type == 30)
+																																																							{
+																																																								Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
+																																																								for (int num191 = 0; num191 < 20; num191++)
+																																																								{
+																																																									Vector2 arg_732D_0 = new Vector2(this.position.X, this.position.Y);
+																																																									int arg_732D_1 = this.width;
+																																																									int arg_732D_2 = this.height;
+																																																									int arg_732D_3 = 27;
+																																																									float arg_732D_4 = -this.velocity.X * 0.2f;
+																																																									float arg_732D_5 = -this.velocity.Y * 0.2f;
+																																																									int arg_732D_6 = 100;
+																																																									Color newColor = default(Color);
+																																																									int num192 = Dust.NewDust(arg_732D_0, arg_732D_1, arg_732D_2, arg_732D_3, arg_732D_4, arg_732D_5, arg_732D_6, newColor, 2f);
+																																																									Main.dust[num192].noGravity = true;
+																																																									Dust expr_734A = Main.dust[num192];
+																																																									expr_734A.velocity *= 2f;
+																																																									Vector2 arg_73BD_0 = new Vector2(this.position.X, this.position.Y);
+																																																									int arg_73BD_1 = this.width;
+																																																									int arg_73BD_2 = this.height;
+																																																									int arg_73BD_3 = 27;
+																																																									float arg_73BD_4 = -this.velocity.X * 0.2f;
+																																																									float arg_73BD_5 = -this.velocity.Y * 0.2f;
+																																																									int arg_73BD_6 = 100;
+																																																									newColor = default(Color);
+																																																									num192 = Dust.NewDust(arg_73BD_0, arg_73BD_1, arg_73BD_2, arg_73BD_3, arg_73BD_4, arg_73BD_5, arg_73BD_6, newColor, 1f);
+																																																									Dust expr_73CC = Main.dust[num192];
+																																																									expr_73CC.velocity *= 2f;
+																																																								}
+																																																								return;
+																																																							}
+																																																							if (this.type == 42)
 																																																							{
 																																																								if (this.life > 0)
 																																																								{
-																																																									int num189 = 0;
-																																																									while ((double)num189 < dmg / (double)this.lifeMax * 100.0)
+																																																									int num193 = 0;
+																																																									while ((double)num193 < dmg / (double)this.lifeMax * 100.0)
 																																																									{
-																																																										Dust.NewDust(this.position, this.width, this.height, 40, (float)hitDirection, -1f, this.alpha, this.color, 1.2f);
-																																																										num189++;
+																																																										Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
+																																																										num193++;
 																																																									}
 																																																									return;
 																																																								}
-																																																								for (int num190 = 0; num190 < 50; num190++)
+																																																								for (int num194 = 0; num194 < 50; num194++)
 																																																								{
-																																																									Dust.NewDust(this.position, this.width, this.height, 40, (float)hitDirection, -2f, this.alpha, this.color, 1.2f);
+																																																									Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 																																																								}
-																																																								Gore.NewGore(this.position, this.velocity, 72, 1f);
-																																																								Gore.NewGore(this.position, this.velocity, 72, 1f);
+																																																								Gore.NewGore(this.position, this.velocity, 70, this.scale);
+																																																								Gore.NewGore(this.position, this.velocity, 71, this.scale);
 																																																								return;
 																																																							}
 																																																							else
 																																																							{
-																																																								if (this.type == 48)
+																																																								if (this.type == 43 || this.type == 56)
 																																																								{
 																																																									if (this.life > 0)
 																																																									{
-																																																										int num191 = 0;
-																																																										while ((double)num191 < dmg / (double)this.lifeMax * 100.0)
+																																																										int num195 = 0;
+																																																										while ((double)num195 < dmg / (double)this.lifeMax * 100.0)
 																																																										{
-																																																											Vector2 arg_7359_0 = this.position;
-																																																											int arg_7359_1 = this.width;
-																																																											int arg_7359_2 = this.height;
-																																																											int arg_7359_3 = 5;
-																																																											float arg_7359_4 = (float)hitDirection;
-																																																											float arg_7359_5 = -1f;
-																																																											int arg_7359_6 = 0;
-																																																											Color newColor = default(Color);
-																																																											Dust.NewDust(arg_7359_0, arg_7359_1, arg_7359_2, arg_7359_3, arg_7359_4, arg_7359_5, arg_7359_6, newColor, 1f);
-																																																											num191++;
+																																																											Dust.NewDust(this.position, this.width, this.height, 40, (float)hitDirection, -1f, this.alpha, this.color, 1.2f);
+																																																											num195++;
 																																																										}
 																																																										return;
 																																																									}
-																																																									for (int num192 = 0; num192 < 50; num192++)
+																																																									for (int num196 = 0; num196 < 50; num196++)
 																																																									{
-																																																										Vector2 arg_73AF_0 = this.position;
-																																																										int arg_73AF_1 = this.width;
-																																																										int arg_73AF_2 = this.height;
-																																																										int arg_73AF_3 = 5;
-																																																										float arg_73AF_4 = (float)(2 * hitDirection);
-																																																										float arg_73AF_5 = -2f;
-																																																										int arg_73AF_6 = 0;
-																																																										Color newColor = default(Color);
-																																																										Dust.NewDust(arg_73AF_0, arg_73AF_1, arg_73AF_2, arg_73AF_3, arg_73AF_4, arg_73AF_5, arg_73AF_6, newColor, 1f);
+																																																										Dust.NewDust(this.position, this.width, this.height, 40, (float)hitDirection, -2f, this.alpha, this.color, 1.2f);
 																																																									}
-																																																									Gore.NewGore(this.position, this.velocity, 80, 1f);
-																																																									Gore.NewGore(this.position, this.velocity, 81, 1f);
+																																																									Gore.NewGore(this.position, this.velocity, 72, 1f);
+																																																									Gore.NewGore(this.position, this.velocity, 72, 1f);
 																																																									return;
 																																																								}
 																																																								else
 																																																								{
-																																																									if (this.type == 62 || this.type == 66)
+																																																									if (this.type == 48)
 																																																									{
 																																																										if (this.life > 0)
 																																																										{
-																																																											int num193 = 0;
-																																																											while ((double)num193 < dmg / (double)this.lifeMax * 100.0)
+																																																											int num197 = 0;
+																																																											while ((double)num197 < dmg / (double)this.lifeMax * 100.0)
 																																																											{
-																																																												Vector2 arg_7443_0 = this.position;
-																																																												int arg_7443_1 = this.width;
-																																																												int arg_7443_2 = this.height;
-																																																												int arg_7443_3 = 5;
-																																																												float arg_7443_4 = (float)hitDirection;
-																																																												float arg_7443_5 = -1f;
-																																																												int arg_7443_6 = 0;
+																																																												Vector2 arg_7608_0 = this.position;
+																																																												int arg_7608_1 = this.width;
+																																																												int arg_7608_2 = this.height;
+																																																												int arg_7608_3 = 5;
+																																																												float arg_7608_4 = (float)hitDirection;
+																																																												float arg_7608_5 = -1f;
+																																																												int arg_7608_6 = 0;
 																																																												Color newColor = default(Color);
-																																																												Dust.NewDust(arg_7443_0, arg_7443_1, arg_7443_2, arg_7443_3, arg_7443_4, arg_7443_5, arg_7443_6, newColor, 1f);
-																																																												num193++;
+																																																												Dust.NewDust(arg_7608_0, arg_7608_1, arg_7608_2, arg_7608_3, arg_7608_4, arg_7608_5, arg_7608_6, newColor, 1f);
+																																																												num197++;
 																																																											}
 																																																											return;
 																																																										}
-																																																										for (int num194 = 0; num194 < 50; num194++)
+																																																										for (int num198 = 0; num198 < 50; num198++)
 																																																										{
-																																																											Vector2 arg_7499_0 = this.position;
-																																																											int arg_7499_1 = this.width;
-																																																											int arg_7499_2 = this.height;
-																																																											int arg_7499_3 = 5;
-																																																											float arg_7499_4 = (float)(2 * hitDirection);
-																																																											float arg_7499_5 = -2f;
-																																																											int arg_7499_6 = 0;
+																																																											Vector2 arg_765E_0 = this.position;
+																																																											int arg_765E_1 = this.width;
+																																																											int arg_765E_2 = this.height;
+																																																											int arg_765E_3 = 5;
+																																																											float arg_765E_4 = (float)(2 * hitDirection);
+																																																											float arg_765E_5 = -2f;
+																																																											int arg_765E_6 = 0;
 																																																											Color newColor = default(Color);
-																																																											Dust.NewDust(arg_7499_0, arg_7499_1, arg_7499_2, arg_7499_3, arg_7499_4, arg_7499_5, arg_7499_6, newColor, 1f);
+																																																											Dust.NewDust(arg_765E_0, arg_765E_1, arg_765E_2, arg_765E_3, arg_765E_4, arg_765E_5, arg_765E_6, newColor, 1f);
 																																																										}
-																																																										Gore.NewGore(this.position, this.velocity, 93, 1f);
-																																																										Gore.NewGore(this.position, this.velocity, 94, 1f);
-																																																										Gore.NewGore(this.position, this.velocity, 94, 1f);
+																																																										Gore.NewGore(this.position, this.velocity, 80, 1f);
+																																																										Gore.NewGore(this.position, this.velocity, 81, 1f);
+																																																										return;
+																																																									}
+																																																									else
+																																																									{
+																																																										if (this.type == 62 || this.type == 66)
+																																																										{
+																																																											if (this.life > 0)
+																																																											{
+																																																												int num199 = 0;
+																																																												while ((double)num199 < dmg / (double)this.lifeMax * 100.0)
+																																																												{
+																																																													Vector2 arg_76F2_0 = this.position;
+																																																													int arg_76F2_1 = this.width;
+																																																													int arg_76F2_2 = this.height;
+																																																													int arg_76F2_3 = 5;
+																																																													float arg_76F2_4 = (float)hitDirection;
+																																																													float arg_76F2_5 = -1f;
+																																																													int arg_76F2_6 = 0;
+																																																													Color newColor = default(Color);
+																																																													Dust.NewDust(arg_76F2_0, arg_76F2_1, arg_76F2_2, arg_76F2_3, arg_76F2_4, arg_76F2_5, arg_76F2_6, newColor, 1f);
+																																																													num199++;
+																																																												}
+																																																												return;
+																																																											}
+																																																											for (int num200 = 0; num200 < 50; num200++)
+																																																											{
+																																																												Vector2 arg_7748_0 = this.position;
+																																																												int arg_7748_1 = this.width;
+																																																												int arg_7748_2 = this.height;
+																																																												int arg_7748_3 = 5;
+																																																												float arg_7748_4 = (float)(2 * hitDirection);
+																																																												float arg_7748_5 = -2f;
+																																																												int arg_7748_6 = 0;
+																																																												Color newColor = default(Color);
+																																																												Dust.NewDust(arg_7748_0, arg_7748_1, arg_7748_2, arg_7748_3, arg_7748_4, arg_7748_5, arg_7748_6, newColor, 1f);
+																																																											}
+																																																											Gore.NewGore(this.position, this.velocity, 93, 1f);
+																																																											Gore.NewGore(this.position, this.velocity, 94, 1f);
+																																																											Gore.NewGore(this.position, this.velocity, 94, 1f);
+																																																										}
 																																																									}
 																																																								}
 																																																							}
@@ -20976,33 +22986,33 @@ namespace Terraria
 				}
 				if (this.life > 0)
 				{
-					int num195 = 0;
-					while ((double)num195 < dmg / (double)this.lifeMax * 80.0)
+					int num201 = 0;
+					while ((double)num201 < dmg / (double)this.lifeMax * 80.0)
 					{
-						Vector2 arg_B30_0 = this.position;
-						int arg_B30_1 = this.width;
-						int arg_B30_2 = this.height;
-						int arg_B30_3 = 6;
-						float arg_B30_4 = (float)(hitDirection * 2);
-						float arg_B30_5 = -1f;
-						int arg_B30_6 = this.alpha;
+						Vector2 arg_C32_0 = this.position;
+						int arg_C32_1 = this.width;
+						int arg_C32_2 = this.height;
+						int arg_C32_3 = 6;
+						float arg_C32_4 = (float)(hitDirection * 2);
+						float arg_C32_5 = -1f;
+						int arg_C32_6 = this.alpha;
 						Color newColor = default(Color);
-						Dust.NewDust(arg_B30_0, arg_B30_1, arg_B30_2, arg_B30_3, arg_B30_4, arg_B30_5, arg_B30_6, newColor, 1.5f);
-						num195++;
+						Dust.NewDust(arg_C32_0, arg_C32_1, arg_C32_2, arg_C32_3, arg_C32_4, arg_C32_5, arg_C32_6, newColor, 1.5f);
+						num201++;
 					}
 					return;
 				}
-				for (int num196 = 0; num196 < 40; num196++)
+				for (int num202 = 0; num202 < 40; num202++)
 				{
-					Vector2 arg_B8B_0 = this.position;
-					int arg_B8B_1 = this.width;
-					int arg_B8B_2 = this.height;
-					int arg_B8B_3 = 6;
-					float arg_B8B_4 = (float)(hitDirection * 2);
-					float arg_B8B_5 = -1f;
-					int arg_B8B_6 = this.alpha;
+					Vector2 arg_C8D_0 = this.position;
+					int arg_C8D_1 = this.width;
+					int arg_C8D_2 = this.height;
+					int arg_C8D_3 = 6;
+					float arg_C8D_4 = (float)(hitDirection * 2);
+					float arg_C8D_5 = -1f;
+					int arg_C8D_6 = this.alpha;
 					Color newColor = default(Color);
-					Dust.NewDust(arg_B8B_0, arg_B8B_1, arg_B8B_2, arg_B8B_3, arg_B8B_4, arg_B8B_5, arg_B8B_6, newColor, 1.5f);
+					Dust.NewDust(arg_C8D_0, arg_C8D_1, arg_C8D_2, arg_C8D_3, arg_C8D_4, arg_C8D_5, arg_C8D_6, newColor, 1.5f);
 				}
 				return;
 			}
@@ -21814,1223 +23824,1328 @@ namespace Terraria
 			{
 				if (Main.npc[i].active)
 				{
-					switch (Main.npc[i].type)
+					if (Main.npc[i].type == 17)
 					{
-					    case 17:
-					        flag = true;
-					        break;
-					    case 18:
-					        flag2 = true;
-					        break;
-					    case 19:
-					        flag3 = true;
-					        break;
-					    case 20:
-					        flag4 = true;
-					        break;
-					    case 37:
-					        flag5 = true;
-					        break;
-					    case 38:
-					        flag6 = true;
-					        break;
-					    case 124:
-					        flag7 = true;
-					        break;
-					    case 107:
-					        flag8 = true;
-					        break;
-					    case 2:
-					        flag9 = true;
-					        break;
+						flag = true;
+					}
+					else
+					{
+						if (Main.npc[i].type == 18)
+						{
+							flag2 = true;
+						}
+						else
+						{
+							if (Main.npc[i].type == 19)
+							{
+								flag3 = true;
+							}
+							else
+							{
+								if (Main.npc[i].type == 20)
+								{
+									flag4 = true;
+								}
+								else
+								{
+									if (Main.npc[i].type == 37)
+									{
+										flag5 = true;
+									}
+									else
+									{
+										if (Main.npc[i].type == 38)
+										{
+											flag6 = true;
+										}
+										else
+										{
+											if (Main.npc[i].type == 124)
+											{
+												flag7 = true;
+											}
+											else
+											{
+												if (Main.npc[i].type == 107)
+												{
+													flag8 = true;
+												}
+												else
+												{
+													if (Main.npc[i].type == 2)
+													{
+														flag9 = true;
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
 					}
 				}
 			}
 			string result = "";
-			switch (this.type)
+			if (this.type == 17)
 			{
-			    case 17:
-			        if (!NPC.downedBoss1 && Main.rand.Next(3) == 0)
-			        {
-			            if (Main.player[Main.myPlayer].statLifeMax < 200)
-			            {
-			                result = "I hope a scrawny kid like you isn't all that is standing between us and Cthulu's Eye.";
-			            }
-			            else
-			            {
-			                if (Main.player[Main.myPlayer].statDefense <= 10)
-			                {
-			                    result = "Look at that shoddy armor you're wearing. Better buy some more healing potions.";
-			                }
-			                else
-			                {
-			                    result = "I feel like an evil presence is watching me.";
-			                }
-			            }
-			        }
-			        else
-			        {
-			            if (Main.dayTime)
-			            {
-			                if (Main.time < 16200.0)
-			                {
-			                    int num = Main.rand.Next(3);
-			                    if (num == 0)
-			                    {
-			                        result = "Sword beats paper! Get one today.";
-			                    }
-			                    else
-			                    {
-			                        if (num == 1)
-			                        {
-			                            result = "You want apples? You want carrots? You want pineapples? We got torches.";
-			                        }
-			                        else
-			                        {
-			                            result = "Lovely morning, wouldn't you say? Was there something you needed?";
-			                        }
-			                    }
-			                }
-			                else
-			                {
-			                    if (Main.time > 37800.0)
-			                    {
-			                        int num2 = Main.rand.Next(3);
-			                        if (num2 == 0)
-			                        {
-			                            result = "Night will be upon us soon, friend. Make your choices while you can.";
-			                        }
-			                        else
-			                        {
-			                            if (num2 == 1)
-			                            {
-			                                result = "You have no idea how much Dirt Blocks sell for overseas.";
-			                            }
-			                            else
-			                            {
-			                                result = "Ah, they will tell tales of " + Main.player[Main.myPlayer].name + " some day... good ones I'm sure.";
-			                            }
-			                        }
-			                    }
-			                    else
-			                    {
-			                        int num3 = Main.rand.Next(3);
-			                        if (num3 == 0)
-			                        {
-			                            result = "Check out my dirt blocks; they are extra dirty.";
-			                        }
-			                        else
-			                        {
-			                            if (num3 == 1)
-			                            {
-			                                result = "Boy, that sun is hot! I do have some perfectly ventilated armor.";
-			                            }
-			                            else
-			                            {
-			                                result = "The sun is high, but my prices are not.";
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			            else
-			            {
-			                if (Main.bloodMoon)
-			                {
-			                    if (flag2 && flag7 && Main.rand.Next(3) == 0)
-			                    {
-			                        result = string.Concat(new string[]
-			                                                   {
-			                                                       "Oh, great. I can hear ", 
-			                                                       text5, 
-			                                                       " and ", 
-			                                                       text, 
-			                                                       " arguing from here."
-			                                                   });
-			                    }
-			                    else
-			                    {
-			                        int num4 = Main.rand.Next(4);
-			                        if (num4 == 0)
-			                        {
-			                            result = "Have you seen Chith...Shith.. Chat... The big eye?";
-			                        }
-			                        else
-			                        {
-			                            if (num4 == 1)
-			                            {
-			                                result = "Hey, this house is secure, right? Right? " + Main.player[Main.myPlayer].name + "?";
-			                            }
-			                            else
-			                            {
-			                                if (num4 == 2)
-			                                {
-			                                    result = "Not even a blood moon can stop capitalism. Let's do some business.";
-			                                }
-			                                else
-			                                {
-			                                    result = "Keep your eye on the prize, buy a lense!";
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			                else
-			                {
-			                    if (Main.time < 9720.0)
-			                    {
-			                        if (Main.rand.Next(2) == 0)
-			                        {
-			                            result = "Kosh, kapleck Mog. Oh sorry, that's klingon for 'Buy something or die.'";
-			                        }
-			                        else
-			                        {
-			                            result = Main.player[Main.myPlayer].name + " is it? I've heard good things, friend!";
-			                        }
-			                    }
-			                    else
-			                    {
-			                        if (Main.time > 22680.0)
-			                        {
-			                            if (Main.rand.Next(2) == 0)
-			                            {
-			                                result = "I hear there's a secret treasure... oh never mind.";
-			                            }
-			                            else
-			                            {
-			                                result = "Angel Statue you say? I'm sorry, I'm not a junk dealer.";
-			                            }
-			                        }
-			                        else
-			                        {
-			                            int num5 = Main.rand.Next(3);
-			                            if (num5 == 0)
-			                            {
-			                                result = "The last guy who was here left me some junk... er I mean... treasures!";
-			                            }
-			                            else
-			                            {
-			                                if (num5 == 1)
-			                                {
-			                                    result = "I wonder if the moon is made of cheese...huh, what? Oh yes, buy something!";
-			                                }
-			                                else
-			                                {
-			                                    result = "Did you say gold?  I'll take that off of ya.";
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 18:
-			        if (Main.bloodMoon)
-			        {
-			            if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax * 0.66)
-			            {
-			                int num6 = Main.rand.Next(3);
-			                if (num6 == 0)
-			                {
-			                    result = "You better not get blood on me.";
-			                }
-			                else
-			                {
-			                    if (num6 == 1)
-			                    {
-			                        result = "Hurry up and stop bleeding.";
-			                    }
-			                    else
-			                    {
-			                        result = "If you're going to die, do it outside.";
-			                    }
-			                }
-			            }
-			            else
-			            {
-			                int num7 = Main.rand.Next(4);
-			                if (num7 == 0)
-			                {
-			                    result = "What is that supposed to mean?!";
-			                }
-			                else
-			                {
-			                    if (num7 == 1)
-			                    {
-			                        result = "I don't think I like your tone.";
-			                    }
-			                    else
-			                    {
-			                        if (num7 == 2)
-			                        {
-			                            result = "Why are you even here? If you aren't bleeding, you don't need to be here. Get out.";
-			                        }
-			                        else
-			                        {
-			                            result = "WHAT?!";
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        else
-			        {
-			            if (Main.rand.Next(3) == 0 && !NPC.downedBoss3)
-			            {
-			                result = "Have you seen that old man pacing around the dungeon? He looks troubled.";
-			            }
-			            else
-			            {
-			                if (flag6 && Main.rand.Next(4) == 0)
-			                {
-			                    result = "I wish " + str2 + " would be more careful.  I'm getting tired of having to sew his limbs back on every day.";
-			                }
-			                else
-			                {
-			                    if (flag3 && Main.rand.Next(4) == 0)
-			                    {
-			                        result = "Hey, has " + text2 + " mentioned needing to go to the doctor for any reason? Just wondering.";
-			                    }
-			                    else
-			                    {
-			                        if (flag9 && Main.rand.Next(4) == 0)
-			                        {
-			                            result = "I need to have a serious talk with " + str3 + ". How many times a week can you come in with severe lava burns?";
-			                        }
-			                        else
-			                        {
-			                            if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax * 0.33)
-			                            {
-			                                int num8 = Main.rand.Next(5);
-			                                if (num8 == 0)
-			                                {
-			                                    result = "I think you look better this way.";
-			                                }
-			                                else
-			                                {
-			                                    if (num8 == 1)
-			                                    {
-			                                        result = "Eww... What happened to your face?";
-			                                    }
-			                                    else
-			                                    {
-			                                        if (num8 == 2)
-			                                        {
-			                                            result = "MY GOODNESS! I'm good, but I'm not THAT good.";
-			                                        }
-			                                        else
-			                                        {
-			                                            if (num8 == 3)
-			                                            {
-			                                                result = "Dear friends we are gathered here today to bid farewell... Oh, you'll be fine.";
-			                                            }
-			                                            else
-			                                            {
-			                                                result = "You left your arm over there. Let me get that for you...";
-			                                            }
-			                                        }
-			                                    }
-			                                }
-			                            }
-			                            else
-			                            {
-			                                if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax * 0.66)
-			                                {
-			                                    int num9 = Main.rand.Next(7);
-			                                    if (num9 == 0)
-			                                    {
-			                                        result = "Quit being such a baby! I've seen worse.";
-			                                    }
-			                                    else
-			                                    {
-			                                        if (num9 == 1)
-			                                        {
-			                                            result = "That's gonna need stitches!";
-			                                        }
-			                                        else
-			                                        {
-			                                            if (num9 == 2)
-			                                            {
-			                                                result = "Trouble with those bullies again?";
-			                                            }
-			                                            else
-			                                            {
-			                                                if (num9 == 3)
-			                                                {
-			                                                    result = "Hold on, I've got some cartoon bandages around here somewhere.";
-			                                                }
-			                                                else
-			                                                {
-			                                                    if (num9 == 4)
-			                                                    {
-			                                                        result = "Walk it off, " + Main.player[Main.myPlayer].name + ", you'll be fine. Sheesh.";
-			                                                    }
-			                                                    else
-			                                                    {
-			                                                        if (num9 == 5)
-			                                                        {
-			                                                            result = "Does it hurt when you do that? Don't do that.";
-			                                                        }
-			                                                        else
-			                                                        {
-			                                                            result = "You look half digested. Have you been chasing slimes again?";
-			                                                        }
-			                                                    }
-			                                                }
-			                                            }
-			                                        }
-			                                    }
-			                                }
-			                                else
-			                                {
-			                                    int num10 = Main.rand.Next(4);
-			                                    if (num10 == 0)
-			                                    {
-			                                        result = "Turn your head and cough.";
-			                                    }
-			                                    else
-			                                    {
-			                                        if (num10 == 1)
-			                                        {
-			                                            result = "That's not the biggest I've ever seen... Yes, I've seen bigger wounds for sure.";
-			                                        }
-			                                        else
-			                                        {
-			                                            if (num10 == 2)
-			                                            {
-			                                                result = "Would you like a lollipop?";
-			                                            }
-			                                            else
-			                                            {
-			                                                result = "Show me where it hurts.";
-			                                            }
-			                                        }
-			                                    }
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 19:
-			        if (NPC.downedBoss3 && !Main.hardMode)
-			        {
-			            result = "I heard there is a doll that looks very similar to " + str3 + " somewhere in the underworld.  I'd like to put a few rounds in it.";
-			        }
-			        else
-			        {
-			            if (flag2 && Main.rand.Next(5) == 0)
-			            {
-			                result = "Make it quick! I've got a date with " + text + " in an hour.";
-			            }
-			            else
-			            {
-			                if (flag2 && Main.rand.Next(5) == 0)
-			                {
-			                    result = "I want what " + text + " is sellin'. What do you mean, she doesn't sell anything?";
-			                }
-			                else
-			                {
-			                    if (flag4 && Main.rand.Next(5) == 0)
-			                    {
-			                        result = text3 + " is a looker.  Too bad she's such a prude.";
-			                    }
-			                    else
-			                    {
-			                        if (flag6 && Main.rand.Next(5) == 0)
-			                        {
-			                            result = "Don't bother with " + str2 + ", I've got all you need right here.";
-			                        }
-			                        else
-			                        {
-			                            if (flag6 && Main.rand.Next(5) == 0)
-			                            {
-			                                result = "What's " + str2 + "'s problem? Does he even realize we sell completely different stuff?";
-			                            }
-			                            else
-			                            {
-			                                if (Main.bloodMoon)
-			                                {
-			                                    if (Main.rand.Next(2) == 0)
-			                                    {
-			                                        result = "Man, it's a good night not to talk to anybody, don't you think, " + Main.player[Main.myPlayer].name + "?";
-			                                    }
-			                                    else
-			                                    {
-			                                        result = "I love nights like tonight.  There is never a shortage of things to kill!";
-			                                    }
-			                                }
-			                                else
-			                                {
-			                                    int num11 = Main.rand.Next(3);
-			                                    if (num11 == 0)
-			                                    {
-			                                        result = "I see you're eyeballin' the Minishark.. You really don't want to know how it was made.";
-			                                    }
-			                                    else
-			                                    {
-			                                        if (num11 == 1)
-			                                        {
-			                                            result = "Hey, this ain't a movie, pal. Ammo is extra.";
-			                                        }
-			                                        else
-			                                        {
-			                                            result = "Keep your hands off my gun, buddy!";
-			                                        }
-			                                    }
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 20:
-			        if (!NPC.downedBoss2 && Main.rand.Next(3) == 0)
-			        {
-			            result = "Have you tried using purification powder on the ebonstone of the corruption?";
-			        }
-			        else
-			        {
-			            if (flag3 && Main.rand.Next(4) == 0)
-			            {
-			                result = "I wish " + text2 + " would stop flirting with me. Doesn't he realize I'm 500 years old?";
-			            }
-			            else
-			            {
-			                if (flag && Main.rand.Next(4) == 0)
-			                {
-			                    result = "Why does " + str + " keep trying to sell me an angel statues? Everyone knows that they don't do anything.";
-			                }
-			                else
-			                {
-			                    if (flag5 && Main.rand.Next(4) == 0)
-			                    {
-			                        result = "Have you seen the old man walking around the dungeon? He doesn't look well at all...";
-			                    }
-			                    else
-			                    {
-			                        if (Main.bloodMoon)
-			                        {
-			                            int num12 = Main.rand.Next(4);
-			                            if (num12 == 0)
-			                            {
-			                                result = "I sell what I want! If you don't like it, too bad.";
-			                            }
-			                            else
-			                            {
-			                                if (num12 == 1)
-			                                {
-			                                    result = "Why do you have to be so confrontational during a time like this?";
-			                                }
-			                                else
-			                                {
-			                                    if (num12 == 2)
-			                                    {
-			                                        result = "I don't want you to buy my stuff. I want you to want to buy my stuff, ok?";
-			                                    }
-			                                    else
-			                                    {
-			                                        result = "Dude, is it just me or is there like a million zombies out tonight?";
-			                                    }
-			                                }
-			                            }
-			                        }
-			                        else
-			                        {
-			                            int num13 = Main.rand.Next(5);
-			                            if (num13 == 0)
-			                            {
-			                                result = "You must cleanse the world of this corruption.";
-			                            }
-			                            else
-			                            {
-			                                if (num13 == 1)
-			                                {
-			                                    result = "Be safe; Terraria needs you!";
-			                                }
-			                                else
-			                                {
-			                                    if (num13 == 2)
-			                                    {
-			                                        result = "The sands of time are flowing. And well, you are not aging very gracefully.";
-			                                    }
-			                                    else
-			                                    {
-			                                        if (num13 == 3)
-			                                        {
-			                                            result = "What's this about me having more 'bark' than bite?";
-			                                        }
-			                                        else
-			                                        {
-			                                            result = "So two goblins walk into a bar, and one says to the other, 'Want to get a Goblet of beer?!'";
-			                                        }
-			                                    }
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 22:
-			        if (Main.bloodMoon)
-			        {
-			            int num14 = Main.rand.Next(3);
-			            if (num14 == 0)
-			            {
-			                result = "You can tell a Blood Moon is out when the sky turns red. There is something about it that causes monsters to swarm.";
-			            }
-			            else
-			            {
-			                if (num14 == 1)
-			                {
-			                    result = "Hey, buddy, do you know where any deathweed is? Oh, no reason; just wondering, is all.";
-			                }
-			                else
-			                {
-			                    result = "If you were to look up, you'd see that the moon is red right now.";
-			                }
-			            }
-			        }
-			        else
-			        {
-			            if (!Main.dayTime)
-			            {
-			                result = "You should stay indoors at night. It is very dangerous to be wandering around in the dark.";
-			            }
-			            else
-			            {
-			                int num15 = Main.rand.Next(3);
-			                if (num15 == 0)
-			                {
-			                    result = "Greetings, " + Main.player[Main.myPlayer].name + ". Is there something I can help you with?";
-			                }
-			                else
-			                {
-			                    if (num15 == 1)
-			                    {
-			                        result = "I am here to give you advice on what to do next.  It is recommended that you talk with me anytime you get stuck.";
-			                    }
-			                    else
-			                    {
-			                        result = "They say there is a person who will tell you how to survive in this land... oh wait. That's me.";
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 37:
-			        if (Main.dayTime)
-			        {
-			            int num16 = Main.rand.Next(3);
-			            if (num16 == 0)
-			            {
-			                result = "I cannot let you enter until you free me of my curse.";
-			            }
-			            else
-			            {
-			                if (num16 == 1)
-			                {
-			                    result = "Come back at night if you wish to enter.";
-			                }
-			                else
-			                {
-			                    result = "My master cannot be summoned under the light of day.";
-			                }
-			            }
-			        }
-			        else
-			        {
-			            if (Main.player[Main.myPlayer].statLifeMax < 300 || Main.player[Main.myPlayer].statDefense < 10)
-			            {
-			                int num17 = Main.rand.Next(4);
-			                if (num17 == 0)
-			                {
-			                    result = "You are far too weak to defeat my curse.  Come back when you aren't so worthless.";
-			                }
-			                else
-			                {
-			                    if (num17 == 1)
-			                    {
-			                        result = "You pathetic fool.  You cannot hope to face my master as you are now.";
-			                    }
-			                    else
-			                    {
-			                        if (num17 == 2)
-			                        {
-			                            result = "I hope you have like six friends standing around behind you.";
-			                        }
-			                        else
-			                        {
-			                            result = "Please, no, stranger. You'll only get yourself killed.";
-			                        }
-			                    }
-			                }
-			            }
-			            else
-			            {
-			                int num18 = Main.rand.Next(4);
-			                if (num18 == 0)
-			                {
-			                    result = "You just might be strong enough to free me from my curse...";
-			                }
-			                else
-			                {
-			                    if (num18 == 1)
-			                    {
-			                        result = "Stranger, do you possess the strength to defeat my master?";
-			                    }
-			                    else
-			                    {
-			                        if (num18 == 2)
-			                        {
-			                            result = "Please! Battle my captor and free me! I beg you!";
-			                        }
-			                        else
-			                        {
-			                            result = "Defeat my master, and I will grant you passage into the Dungeon.";
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 38:
-			        if (!NPC.downedBoss2 && Main.rand.Next(3) == 0)
-			        {
-			            result = "Trying to get past that ebonrock, eh?  Why not introduce it to one of these explosives!";
-			        }
-			        if (Main.bloodMoon)
-			        {
-			            int num19 = Main.rand.Next(3);
-			            if (num19 == 0)
-			            {
-			                result = "Hey, have you seen a clown around?";
-			            }
-			            else
-			            {
-			                if (num19 == 1)
-			                {
-			                    result = "There was a bomb sitting right here, and now I can't seem to find it...";
-			                }
-			                else
-			                {
-			                    result = "I've got something for them zombies alright!";
-			                }
-			            }
-			        }
-			        else
-			        {
-			            if (flag3 && Main.rand.Next(5) == 0)
-			            {
-			                result = "Even " + text2 + " wants what I'm selling!";
-			            }
-			            else
-			            {
-			                if (flag3 && Main.rand.Next(5) == 0)
-			                {
-			                    result = "Would you rather have a bullet hole or a grenade hole? That's what I thought.";
-			                }
-			                else
-			                {
-			                    if (flag2 && Main.rand.Next(4) == 0)
-			                    {
-			                        result = "I'm sure " + text + " will help if you accidentally lose a limb to these.";
-			                    }
-			                    else
-			                    {
-			                        if (flag4 && Main.rand.Next(4) == 0)
-			                        {
-			                            result = "Why purify the world when you can just blow it up?";
-			                        }
-			                        else
-			                        {
-			                            if (!Main.dayTime)
-			                            {
-			                                int num20 = Main.rand.Next(4);
-			                                if (num20 == 0)
-			                                {
-			                                    result = "If you throw this one in the bathtub and close all the windows, it'll clear your sinuses and pop your ears!";
-			                                }
-			                                else
-			                                {
-			                                    if (num20 == 1)
-			                                    {
-			                                        result = "Wanna play Fuse Chicken?";
-			                                    }
-			                                    else
-			                                    {
-			                                        if (num20 == 2)
-			                                        {
-			                                            result = "Hey, could you sign this Griefing Waiver?";
-			                                        }
-			                                        else
-			                                        {
-			                                            result = "NO SMOKING IN HERE!!";
-			                                        }
-			                                    }
-			                                }
-			                            }
-			                            else
-			                            {
-			                                int num21 = Main.rand.Next(5);
-			                                if (num21 == 0)
-			                                {
-			                                    result = "Explosives are da' bomb these days.  Buy some now!";
-			                                }
-			                                else
-			                                {
-			                                    if (num21 == 1)
-			                                    {
-			                                        result = "It's a good day to die!";
-			                                    }
-			                                    else
-			                                    {
-			                                        if (num21 == 2)
-			                                        {
-			                                            result = "I wonder what happens if I... (BOOM!)... Oh, sorry, did you need that leg?";
-			                                        }
-			                                        else
-			                                        {
-			                                            if (num21 == 3)
-			                                            {
-			                                                result = "Dynamite, my own special cure-all for what ails ya.";
-			                                            }
-			                                            else
-			                                            {
-			                                                result = "Check out my goods; they have explosive prices!";
-			                                            }
-			                                        }
-			                                    }
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 54:
-			        if (!flag7 && Main.rand.Next(2) == 0)
-			        {
-			            result = "I keep having vague memories of tying up a woman and throwing her in a dungeon.";
-			        }
-			        else
-			        {
-			            if (Main.bloodMoon)
-			            {
-			                result = Main.player[Main.myPlayer].name + "... we have a problem! Its a blood moon out there!";
-			            }
-			            else
-			            {
-			                if (flag2 && Main.rand.Next(4) == 0)
-			                {
-			                    result = "T'were I younger, I would ask " + text + " out. I used to be quite the lady killer.";
-			                }
-			                else
-			                {
-			                    if (Main.player[Main.myPlayer].head == 24)
-			                    {
-			                        result = "That Red Hat of yours looks familiar...";
-			                    }
-			                    else
-			                    {
-			                        int num22 = Main.rand.Next(6);
-			                        if (num22 == 0)
-			                        {
-			                            result = "Thanks again for freeing me from my curse. Felt like something jumped up and bit me";
-			                        }
-			                        else
-			                        {
-			                            if (num22 == 1)
-			                            {
-			                                result = "Mama always said I would make a great tailor.";
-			                            }
-			                            else
-			                            {
-			                                if (num22 == 2)
-			                                {
-			                                    result = "Life's like a box of clothes; you never know what you are gonna wear!";
-			                                }
-			                                else
-			                                {
-			                                    if (num22 == 3)
-			                                    {
-			                                        result = "Of course embroidery is hard! If it wasn't hard, no one would do it! That's what makes it great.";
-			                                    }
-			                                    else
-			                                    {
-			                                        if (num22 == 4)
-			                                        {
-			                                            result = "I know everything they is to know about the clothierin' business.";
-			                                        }
-			                                        else
-			                                        {
-			                                            result = "Being cursed was lonely, so I once made a friend out of leather. I named him Wilson.";
-			                                        }
-			                                    }
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 105:
-			        result = "Thank you for freeing me, human.  I was tied up and left here by the other goblins.  You could say that we didn't get along very well.";
-			        break;
-			    case 106:
-			        result = "Thanks for saving me, friend!  This bondage was starting to chafe.";
-			        break;
-			    case 107:
-			        if (this.homeless)
-			        {
-			            int num23 = Main.rand.Next(5);
-			            if (num23 == 0)
-			            {
-			                result = "I can't believe they tied me up and left me here just for pointing out that they weren't going east!";
-			            }
-			            else
-			            {
-			                if (num23 == 1)
-			                {
-			                    result = "Now that I'm an outcast, can I throw away the spiked balls? My pockets hurt.";
-			                }
-			                else
-			                {
-			                    if (num23 == 2)
-			                    {
-			                        result = "Looking for a gadgets expert? I'm your goblin!";
-			                    }
-			                    else
-			                    {
-			                        if (num23 == 3)
-			                        {
-			                            result = "Thanks for your help. Now, I have to finish pacing around aimlessly here. I'm sure we'll meet again.";
-			                        }
-			                        else
-			                        {
-			                            result = "I thought you'd be taller.";
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        else
-			        {
-			            if (flag7 && Main.rand.Next(4) == 0)
-			            {
-			                result = "Hey...what's " + text5 + " up to? Have you...have you talked to her, by chance?";
-			            }
-			            else
-			            {
-			                if (!Main.dayTime)
-			                {
-			                    int num24 = Main.rand.Next(5);
-			                    if (num24 == 0)
-			                    {
-			                        result = "Hey, does your hat need a motor? I think I have a motor that would fit exactly in that hat.";
-			                    }
-			                    else
-			                    {
-			                        if (num24 == 1)
-			                        {
-			                            result = "Yo, I heard you like rockets and running boots, so I put some rockets in your running boots.";
-			                        }
-			                        else
-			                        {
-			                            if (num24 == 2)
-			                            {
-			                                result = "Silence is golden. Duct tape is silver.";
-			                            }
-			                            else
-			                            {
-			                                if (num24 == 3)
-			                                {
-			                                    result = "YES, gold is stronger than iron. What are they teaching these humans nowadays?";
-			                                }
-			                                else
-			                                {
-			                                    result = "You know, that mining helmet-flipper combination was a much better idea on paper.";
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			                else
-			                {
-			                    int num25 = Main.rand.Next(5);
-			                    if (num25 == 0)
-			                    {
-			                        result = "Goblins are surprisingly easy to anger. In fact, they could start a war over cloth!";
-			                    }
-			                    else
-			                    {
-			                        if (num25 == 1)
-			                        {
-			                            result = "To be honest, most goblins aren't exactly rocket scientists. Well, some are.";
-			                        }
-			                        else
-			                        {
-			                            if (num25 == 2)
-			                            {
-			                                result = "Do you know why we all carry around these spiked balls? Because I don't.";
-			                            }
-			                            else
-			                            {
-			                                if (num25 == 3)
-			                                {
-			                                    result = "I just finished my newest creation! This version doesn't explode violently if you breathe on it too hard.";
-			                                }
-			                                else
-			                                {
-			                                    result = "Goblin thieves aren't very good at their job. They can't even steal from an unlocked chest!";
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 108:
-			        if (this.homeless)
-			        {
-			            int num26 = Main.rand.Next(3);
-			            if (num26 == 0)
-			            {
-			                result = "Ohh, my hero!";
-			            }
-			            else
-			            {
-			                if (num26 == 1 && !Main.player[Main.myPlayer].male)
-			                {
-			                    result = "Oh, how heroic! Thank you for saving me, young lady!";
-			                }
-			                else
-			                {
-			                    if (num26 == 1)
-			                    {
-			                        result = "Oh, how heroic! Thank you for saving me, young man!";
-			                    }
-			                    else
-			                    {
-			                        if (num26 == 2)
-			                        {
-			                            result = "Now that we know each other, I can move in with you, right?";
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        else
-			        {
-			            if (Main.player[Main.myPlayer].male && flag9 && Main.rand.Next(6) == 0)
-			            {
-			                result = "Well, hi there, " + str3 + "! What can I do for you today?";
-			            }
-			            else
-			            {
-			                if (Main.player[Main.myPlayer].male && flag6 && Main.rand.Next(6) == 0)
-			                {
-			                    result = "Well, hi there, " + str2 + "! What can I do for you today?";
-			                }
-			                else
-			                {
-			                    if (Main.player[Main.myPlayer].male && flag8 && Main.rand.Next(6) == 0)
-			                    {
-			                        result = "Well, hi there, " + text4 + "! What can I do for you today?";
-			                    }
-			                    else
-			                    {
-			                        if (!Main.player[Main.myPlayer].male && flag2 && Main.rand.Next(6) == 0)
-			                        {
-			                            result = "Well, hi there, " + text + "! What can I do for you today?";
-			                        }
-			                        else
-			                        {
-			                            if (!Main.player[Main.myPlayer].male && flag7 && Main.rand.Next(6) == 0)
-			                            {
-			                                result = "Well, hi there, " + text5 + "! What can I do for you today?";
-			                            }
-			                            else
-			                            {
-			                                if (!Main.player[Main.myPlayer].male && flag4 && Main.rand.Next(6) == 0)
-			                                {
-			                                    result = "Well, hi there, " + text3 + "! What can I do for you today?";
-			                                }
-			                                else
-			                                {
-			                                    if (!Main.dayTime)
-			                                    {
-			                                        int num27 = Main.rand.Next(3);
-			                                        if (num27 == 0)
-			                                        {
-			                                            result = "Want me to pull a coin from behind your ear? No? Ok.";
-			                                        }
-			                                        else
-			                                        {
-			                                            if (num27 == 1)
-			                                            {
-			                                                result = "Do you want some magic candy? No? Ok.";
-			                                            }
-			                                            else
-			                                            {
-			                                                if (num27 == 2)
-			                                                {
-			                                                    result = "I make a rather enchanting hot chocolate if you'd be inter...No? Ok.";
-			                                                }
-			                                            }
-			                                        }
-			                                    }
-			                                    else
-			                                    {
-			                                        int num28 = Main.rand.Next(5);
-			                                        if (num28 == 0)
-			                                        {
-			                                            result = "Are you here for a peek at my crystal ball?";
-			                                        }
-			                                        else
-			                                        {
-			                                            if (num28 == 1)
-			                                            {
-			                                                result = "Ever wanted an enchanted ring that turns rocks into slimes? Well neither did I.";
-			                                            }
-			                                            else
-			                                            {
-			                                                if (num28 == 2)
-			                                                {
-			                                                    result = "Someone once told me friendship is magic. That's ridiculous. You can't turn people into frogs with friendship.";
-			                                                }
-			                                                else
-			                                                {
-			                                                    if (num28 == 3)
-			                                                    {
-			                                                        result = "I can see your future now... You will buy a lot of items from me!";
-			                                                    }
-			                                                    else
-			                                                    {
-			                                                        result = "I once tried to bring an Angel Statue to life. It didn't do anything.";
-			                                                    }
-			                                                }
-			                                            }
-			                                        }
-			                                    }
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 123:
-			        result = "Thanks!  It was just a matter of time before I ended up like the rest of the skeletons down here.";
-			        break;
-			    case 124:
-			        if (this.homeless)
-			        {
-			            int num29 = Main.rand.Next(4);
-			            if (num29 == 0)
-			            {
-			                result = "Hey, watch where you're going! I was over there a little while ago!";
-			            }
-			            else
-			            {
-			                if (num29 == 1)
-			                {
-			                    result = "Hold on, I've almost got wifi going down here.";
-			                }
-			                else
-			                {
-			                    if (num29 == 2)
-			                    {
-			                        result = "But I was almost done putting blinking lights up here!";
-			                    }
-			                    else
-			                    {
-			                        result = "DON'T MOVE. I DROPPED MY CONTACT.";
-			                    }
-			                }
-			            }
-			        }
-			        else
-			        {
-			            if (Main.bloodMoon)
-			            {
-			                int num30 = Main.rand.Next(4);
-			                if (num30 == 0)
-			                {
-			                    result = "All I want is for the switch to make the... What?!";
-			                }
-			                else
-			                {
-			                    if (num30 == 1)
-			                    {
-			                        result = "Oh, let me guess. Didn't buy enough wire. Idiot.";
-			                    }
-			                    else
-			                    {
-			                        if (num30 == 2)
-			                        {
-			                            result = "Just-could you just... Please? Ok? Ok. Ugh.";
-			                        }
-			                        else
-			                        {
-			                            result = "I don't appreciate the way you're looking at me. I am WORKING right now.";
-			                        }
-			                    }
-			                }
-			            }
-			            else
-			            {
-			                if (flag8 && Main.rand.Next(6) == 0)
-			                {
-			                    result = string.Concat(new string[]
-			                                               {
-			                                                   "Hey, ", 
-			                                                   Main.player[Main.myPlayer].name, 
-			                                                   ", did you just come from ", 
-			                                                   text4, 
-			                                                   "'s? Did he say anything about me by chance?"
-			                                               });
-			                }
-			                else
-			                {
-			                    if (flag3 && Main.rand.Next(6) == 0)
-			                    {
-			                        result = text2 + " keeps talking about pressing my pressure plate. I told him it was for stepping on.";
-			                    }
-			                    else
-			                    {
-			                        int num31 = Main.rand.Next(3);
-			                        if (num31 == 0)
-			                        {
-			                            result = "Always buy more wire than you need!";
-			                        }
-			                        else
-			                        {
-			                            if (num31 == 1)
-			                            {
-			                                result = "Did you make sure your device was plugged in?";
-			                            }
-			                            else
-			                            {
-			                                result = "Oh, you know what this house needs? More blinking lights.";
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
+				if (!NPC.downedBoss1 && Main.rand.Next(3) == 0)
+				{
+					if (Main.player[Main.myPlayer].statLifeMax < 200)
+					{
+						result = "I hope a scrawny kid like you isn't all that is standing between us and Cthulu's Eye.";
+					}
+					else
+					{
+						if (Main.player[Main.myPlayer].statDefense <= 10)
+						{
+							result = "Look at that shoddy armor you're wearing. Better buy some more healing potions.";
+						}
+						else
+						{
+							result = "I feel like an evil presence is watching me.";
+						}
+					}
+				}
+				else
+				{
+					if (Main.dayTime)
+					{
+						if (Main.time < 16200.0)
+						{
+							int num = Main.rand.Next(3);
+							if (num == 0)
+							{
+								result = "Sword beats paper! Get one today.";
+							}
+							else
+							{
+								if (num == 1)
+								{
+									result = "You want apples? You want carrots? You want pineapples? We got torches.";
+								}
+								else
+								{
+									result = "Lovely morning, wouldn't you say? Was there something you needed?";
+								}
+							}
+						}
+						else
+						{
+							if (Main.time > 37800.0)
+							{
+								int num2 = Main.rand.Next(3);
+								if (num2 == 0)
+								{
+									result = "Night will be upon us soon, friend. Make your choices while you can.";
+								}
+								else
+								{
+									if (num2 == 1)
+									{
+										result = "You have no idea how much Dirt Blocks sell for overseas.";
+									}
+									else
+									{
+										result = "Ah, they will tell tales of " + Main.player[Main.myPlayer].name + " some day... good ones I'm sure.";
+									}
+								}
+							}
+							else
+							{
+								int num3 = Main.rand.Next(3);
+								if (num3 == 0)
+								{
+									result = "Check out my dirt blocks; they are extra dirty.";
+								}
+								else
+								{
+									if (num3 == 1)
+									{
+										result = "Boy, that sun is hot! I do have some perfectly ventilated armor.";
+									}
+									else
+									{
+										result = "The sun is high, but my prices are not.";
+									}
+								}
+							}
+						}
+					}
+					else
+					{
+						if (Main.bloodMoon)
+						{
+							if (flag2 && flag7 && Main.rand.Next(3) == 0)
+							{
+								result = string.Concat(new string[]
+								{
+									"Oh, great. I can hear ", 
+									text5, 
+									" and ", 
+									text, 
+									" arguing from here."
+								});
+							}
+							else
+							{
+								int num4 = Main.rand.Next(4);
+								if (num4 == 0)
+								{
+									result = "Have you seen Chith...Shith.. Chat... The big eye?";
+								}
+								else
+								{
+									if (num4 == 1)
+									{
+										result = "Hey, this house is secure, right? Right? " + Main.player[Main.myPlayer].name + "?";
+									}
+									else
+									{
+										if (num4 == 2)
+										{
+											result = "Not even a blood moon can stop capitalism. Let's do some business.";
+										}
+										else
+										{
+											result = "Keep your eye on the prize, buy a lense!";
+										}
+									}
+								}
+							}
+						}
+						else
+						{
+							if (Main.time < 9720.0)
+							{
+								if (Main.rand.Next(2) == 0)
+								{
+									result = "Kosh, kapleck Mog. Oh sorry, that's klingon for 'Buy something or die.'";
+								}
+								else
+								{
+									result = Main.player[Main.myPlayer].name + " is it? I've heard good things, friend!";
+								}
+							}
+							else
+							{
+								if (Main.time > 22680.0)
+								{
+									if (Main.rand.Next(2) == 0)
+									{
+										result = "I hear there's a secret treasure... oh never mind.";
+									}
+									else
+									{
+										result = "Angel Statue you say? I'm sorry, I'm not a junk dealer.";
+									}
+								}
+								else
+								{
+									int num5 = Main.rand.Next(3);
+									if (num5 == 0)
+									{
+										result = "The last guy who was here left me some junk... er I mean... treasures!";
+									}
+									else
+									{
+										if (num5 == 1)
+										{
+											result = "I wonder if the moon is made of cheese...huh, what? Oh yes, buy something!";
+										}
+										else
+										{
+											result = "Did you say gold?  I'll take that off of ya.";
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				if (this.type == 18)
+				{
+					if (Main.bloodMoon)
+					{
+						if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax * 0.66)
+						{
+							int num6 = Main.rand.Next(3);
+							if (num6 == 0)
+							{
+								result = "You better not get blood on me.";
+							}
+							else
+							{
+								if (num6 == 1)
+								{
+									result = "Hurry up and stop bleeding.";
+								}
+								else
+								{
+									result = "If you're going to die, do it outside.";
+								}
+							}
+						}
+						else
+						{
+							int num7 = Main.rand.Next(4);
+							if (num7 == 0)
+							{
+								result = "What is that supposed to mean?!";
+							}
+							else
+							{
+								if (num7 == 1)
+								{
+									result = "I don't think I like your tone.";
+								}
+								else
+								{
+									if (num7 == 2)
+									{
+										result = "Why are you even here? If you aren't bleeding, you don't need to be here. Get out.";
+									}
+									else
+									{
+										result = "WHAT?!";
+									}
+								}
+							}
+						}
+					}
+					else
+					{
+						if (Main.rand.Next(3) == 0 && !NPC.downedBoss3)
+						{
+							result = "Have you seen that old man pacing around the dungeon? He looks troubled.";
+						}
+						else
+						{
+							if (flag6 && Main.rand.Next(4) == 0)
+							{
+								result = "I wish " + str2 + " would be more careful.  I'm getting tired of having to sew his limbs back on every day.";
+							}
+							else
+							{
+								if (flag3 && Main.rand.Next(4) == 0)
+								{
+									result = "Hey, has " + text2 + " mentioned needing to go to the doctor for any reason? Just wondering.";
+								}
+								else
+								{
+									if (flag9 && Main.rand.Next(4) == 0)
+									{
+										result = "I need to have a serious talk with " + str3 + ". How many times a week can you come in with severe lava burns?";
+									}
+									else
+									{
+										if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax * 0.33)
+										{
+											int num8 = Main.rand.Next(5);
+											if (num8 == 0)
+											{
+												result = "I think you look better this way.";
+											}
+											else
+											{
+												if (num8 == 1)
+												{
+													result = "Eww... What happened to your face?";
+												}
+												else
+												{
+													if (num8 == 2)
+													{
+														result = "MY GOODNESS! I'm good, but I'm not THAT good.";
+													}
+													else
+													{
+														if (num8 == 3)
+														{
+															result = "Dear friends we are gathered here today to bid farewell... Oh, you'll be fine.";
+														}
+														else
+														{
+															result = "You left your arm over there. Let me get that for you...";
+														}
+													}
+												}
+											}
+										}
+										else
+										{
+											if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax * 0.66)
+											{
+												int num9 = Main.rand.Next(7);
+												if (num9 == 0)
+												{
+													result = "Quit being such a baby! I've seen worse.";
+												}
+												else
+												{
+													if (num9 == 1)
+													{
+														result = "That's gonna need stitches!";
+													}
+													else
+													{
+														if (num9 == 2)
+														{
+															result = "Trouble with those bullies again?";
+														}
+														else
+														{
+															if (num9 == 3)
+															{
+																result = "Hold on, I've got some cartoon bandages around here somewhere.";
+															}
+															else
+															{
+																if (num9 == 4)
+																{
+																	result = "Walk it off, " + Main.player[Main.myPlayer].name + ", you'll be fine. Sheesh.";
+																}
+																else
+																{
+																	if (num9 == 5)
+																	{
+																		result = "Does it hurt when you do that? Don't do that.";
+																	}
+																	else
+																	{
+																		result = "You look half digested. Have you been chasing slimes again?";
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+											else
+											{
+												int num10 = Main.rand.Next(4);
+												if (num10 == 0)
+												{
+													result = "Turn your head and cough.";
+												}
+												else
+												{
+													if (num10 == 1)
+													{
+														result = "That's not the biggest I've ever seen... Yes, I've seen bigger wounds for sure.";
+													}
+													else
+													{
+														if (num10 == 2)
+														{
+															result = "Would you like a lollipop?";
+														}
+														else
+														{
+															result = "Show me where it hurts.";
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					if (this.type == 19)
+					{
+						if (NPC.downedBoss3 && !Main.hardMode)
+						{
+							result = "I heard there is a doll that looks very similar to " + str3 + " somewhere in the underworld.  I'd like to put a few rounds in it.";
+						}
+						else
+						{
+							if (flag2 && Main.rand.Next(5) == 0)
+							{
+								result = "Make it quick! I've got a date with " + text + " in an hour.";
+							}
+							else
+							{
+								if (flag2 && Main.rand.Next(5) == 0)
+								{
+									result = "I want what " + text + " is sellin'. What do you mean, she doesn't sell anything?";
+								}
+								else
+								{
+									if (flag4 && Main.rand.Next(5) == 0)
+									{
+										result = text3 + " is a looker.  Too bad she's such a prude.";
+									}
+									else
+									{
+										if (flag6 && Main.rand.Next(5) == 0)
+										{
+											result = "Don't bother with " + str2 + ", I've got all you need right here.";
+										}
+										else
+										{
+											if (flag6 && Main.rand.Next(5) == 0)
+											{
+												result = "What's " + str2 + "'s problem? Does he even realize we sell completely different stuff?";
+											}
+											else
+											{
+												if (Main.bloodMoon)
+												{
+													if (Main.rand.Next(2) == 0)
+													{
+														result = "Man, it's a good night not to talk to anybody, don't you think, " + Main.player[Main.myPlayer].name + "?";
+													}
+													else
+													{
+														result = "I love nights like tonight.  There is never a shortage of things to kill!";
+													}
+												}
+												else
+												{
+													int num11 = Main.rand.Next(3);
+													if (num11 == 0)
+													{
+														result = "I see you're eyeballin' the Minishark.. You really don't want to know how it was made.";
+													}
+													else
+													{
+														if (num11 == 1)
+														{
+															result = "Hey, this ain't a movie, pal. Ammo is extra.";
+														}
+														else
+														{
+															result = "Keep your hands off my gun, buddy!";
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					else
+					{
+						if (this.type == 20)
+						{
+							if (!NPC.downedBoss2 && Main.rand.Next(3) == 0)
+							{
+								result = "Have you tried using purification powder on the ebonstone of the corruption?";
+							}
+							else
+							{
+								if (flag3 && Main.rand.Next(4) == 0)
+								{
+									result = "I wish " + text2 + " would stop flirting with me. Doesn't he realize I'm 500 years old?";
+								}
+								else
+								{
+									if (flag && Main.rand.Next(4) == 0)
+									{
+										result = "Why does " + str + " keep trying to sell me an angel statues? Everyone knows that they don't do anything.";
+									}
+									else
+									{
+										if (flag5 && Main.rand.Next(4) == 0)
+										{
+											result = "Have you seen the old man walking around the dungeon? He doesn't look well at all...";
+										}
+										else
+										{
+											if (Main.bloodMoon)
+											{
+												int num12 = Main.rand.Next(4);
+												if (num12 == 0)
+												{
+													result = "I sell what I want! If you don't like it, too bad.";
+												}
+												else
+												{
+													if (num12 == 1)
+													{
+														result = "Why do you have to be so confrontational during a time like this?";
+													}
+													else
+													{
+														if (num12 == 2)
+														{
+															result = "I don't want you to buy my stuff. I want you to want to buy my stuff, ok?";
+														}
+														else
+														{
+															result = "Dude, is it just me or is there like a million zombies out tonight?";
+														}
+													}
+												}
+											}
+											else
+											{
+												int num13 = Main.rand.Next(5);
+												if (num13 == 0)
+												{
+													result = "You must cleanse the world of this corruption.";
+												}
+												else
+												{
+													if (num13 == 1)
+													{
+														result = "Be safe; Terraria needs you!";
+													}
+													else
+													{
+														if (num13 == 2)
+														{
+															result = "The sands of time are flowing. And well, you are not aging very gracefully.";
+														}
+														else
+														{
+															if (num13 == 3)
+															{
+																result = "What's this about me having more 'bark' than bite?";
+															}
+															else
+															{
+																result = "So two goblins walk into a bar, and one says to the other, 'Want to get a Goblet of beer?!'";
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						else
+						{
+							if (this.type == 22)
+							{
+								if (Main.bloodMoon)
+								{
+									int num14 = Main.rand.Next(3);
+									if (num14 == 0)
+									{
+										result = "You can tell a Blood Moon is out when the sky turns red. There is something about it that causes monsters to swarm.";
+									}
+									else
+									{
+										if (num14 == 1)
+										{
+											result = "Hey, buddy, do you know where any deathweed is? Oh, no reason; just wondering, is all.";
+										}
+										else
+										{
+											result = "If you were to look up, you'd see that the moon is red right now.";
+										}
+									}
+								}
+								else
+								{
+									if (!Main.dayTime)
+									{
+										result = "You should stay indoors at night. It is very dangerous to be wandering around in the dark.";
+									}
+									else
+									{
+										int num15 = Main.rand.Next(3);
+										if (num15 == 0)
+										{
+											result = "Greetings, " + Main.player[Main.myPlayer].name + ". Is there something I can help you with?";
+										}
+										else
+										{
+											if (num15 == 1)
+											{
+												result = "I am here to give you advice on what to do next.  It is recommended that you talk with me anytime you get stuck.";
+											}
+											else
+											{
+												result = "They say there is a person who will tell you how to survive in this land... oh wait. That's me.";
+											}
+										}
+									}
+								}
+							}
+							else
+							{
+								if (this.type == 37)
+								{
+									if (Main.dayTime)
+									{
+										int num16 = Main.rand.Next(3);
+										if (num16 == 0)
+										{
+											result = "I cannot let you enter until you free me of my curse.";
+										}
+										else
+										{
+											if (num16 == 1)
+											{
+												result = "Come back at night if you wish to enter.";
+											}
+											else
+											{
+												result = "My master cannot be summoned under the light of day.";
+											}
+										}
+									}
+									else
+									{
+										if (Main.player[Main.myPlayer].statLifeMax < 300 || Main.player[Main.myPlayer].statDefense < 10)
+										{
+											int num17 = Main.rand.Next(4);
+											if (num17 == 0)
+											{
+												result = "You are far too weak to defeat my curse.  Come back when you aren't so worthless.";
+											}
+											else
+											{
+												if (num17 == 1)
+												{
+													result = "You pathetic fool.  You cannot hope to face my master as you are now.";
+												}
+												else
+												{
+													if (num17 == 2)
+													{
+														result = "I hope you have like six friends standing around behind you.";
+													}
+													else
+													{
+														result = "Please, no, stranger. You'll only get yourself killed.";
+													}
+												}
+											}
+										}
+										else
+										{
+											int num18 = Main.rand.Next(4);
+											if (num18 == 0)
+											{
+												result = "You just might be strong enough to free me from my curse...";
+											}
+											else
+											{
+												if (num18 == 1)
+												{
+													result = "Stranger, do you possess the strength to defeat my master?";
+												}
+												else
+												{
+													if (num18 == 2)
+													{
+														result = "Please! Battle my captor and free me! I beg you!";
+													}
+													else
+													{
+														result = "Defeat my master, and I will grant you passage into the Dungeon.";
+													}
+												}
+											}
+										}
+									}
+								}
+								else
+								{
+									if (this.type == 38)
+									{
+										if (!NPC.downedBoss2 && Main.rand.Next(3) == 0)
+										{
+											result = "Trying to get past that ebonrock, eh?  Why not introduce it to one of these explosives!";
+										}
+										if (Main.bloodMoon)
+										{
+											int num19 = Main.rand.Next(3);
+											if (num19 == 0)
+											{
+												result = "Hey, have you seen a clown around?";
+											}
+											else
+											{
+												if (num19 == 1)
+												{
+													result = "There was a bomb sitting right here, and now I can't seem to find it...";
+												}
+												else
+												{
+													result = "I've got something for them zombies alright!";
+												}
+											}
+										}
+										else
+										{
+											if (flag3 && Main.rand.Next(5) == 0)
+											{
+												result = "Even " + text2 + " wants what I'm selling!";
+											}
+											else
+											{
+												if (flag3 && Main.rand.Next(5) == 0)
+												{
+													result = "Would you rather have a bullet hole or a grenade hole? That's what I thought.";
+												}
+												else
+												{
+													if (flag2 && Main.rand.Next(4) == 0)
+													{
+														result = "I'm sure " + text + " will help if you accidentally lose a limb to these.";
+													}
+													else
+													{
+														if (flag4 && Main.rand.Next(4) == 0)
+														{
+															result = "Why purify the world when you can just blow it up?";
+														}
+														else
+														{
+															if (!Main.dayTime)
+															{
+																int num20 = Main.rand.Next(4);
+																if (num20 == 0)
+																{
+																	result = "If you throw this one in the bathtub and close all the windows, it'll clear your sinuses and pop your ears!";
+																}
+																else
+																{
+																	if (num20 == 1)
+																	{
+																		result = "Wanna play Fuse Chicken?";
+																	}
+																	else
+																	{
+																		if (num20 == 2)
+																		{
+																			result = "Hey, could you sign this Griefing Waiver?";
+																		}
+																		else
+																		{
+																			result = "NO SMOKING IN HERE!!";
+																		}
+																	}
+																}
+															}
+															else
+															{
+																int num21 = Main.rand.Next(5);
+																if (num21 == 0)
+																{
+																	result = "Explosives are da' bomb these days.  Buy some now!";
+																}
+																else
+																{
+																	if (num21 == 1)
+																	{
+																		result = "It's a good day to die!";
+																	}
+																	else
+																	{
+																		if (num21 == 2)
+																		{
+																			result = "I wonder what happens if I... (BOOM!)... Oh, sorry, did you need that leg?";
+																		}
+																		else
+																		{
+																			if (num21 == 3)
+																			{
+																				result = "Dynamite, my own special cure-all for what ails ya.";
+																			}
+																			else
+																			{
+																				result = "Check out my goods; they have explosive prices!";
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									else
+									{
+										if (this.type == 54)
+										{
+											if (!flag7 && Main.rand.Next(2) == 0)
+											{
+												result = "I keep having vague memories of tying up a woman and throwing her in a dungeon.";
+											}
+											else
+											{
+												if (Main.bloodMoon)
+												{
+													result = Main.player[Main.myPlayer].name + "... we have a problem! Its a blood moon out there!";
+												}
+												else
+												{
+													if (flag2 && Main.rand.Next(4) == 0)
+													{
+														result = "T'were I younger, I would ask " + text + " out. I used to be quite the lady killer.";
+													}
+													else
+													{
+														if (Main.player[Main.myPlayer].head == 24)
+														{
+															result = "That Red Hat of yours looks familiar...";
+														}
+														else
+														{
+															int num22 = Main.rand.Next(6);
+															if (num22 == 0)
+															{
+																result = "Thanks again for freeing me from my curse. Felt like something jumped up and bit me";
+															}
+															else
+															{
+																if (num22 == 1)
+																{
+																	result = "Mama always said I would make a great tailor.";
+																}
+																else
+																{
+																	if (num22 == 2)
+																	{
+																		result = "Life's like a box of clothes; you never know what you are gonna wear!";
+																	}
+																	else
+																	{
+																		if (num22 == 3)
+																		{
+																			result = "Of course embroidery is hard! If it wasn't hard, no one would do it! That's what makes it great.";
+																		}
+																		else
+																		{
+																			if (num22 == 4)
+																			{
+																				result = "I know everything they is to know about the clothierin' business.";
+																			}
+																			else
+																			{
+																				result = "Being cursed was lonely, so I once made a friend out of leather. I named him Wilson.";
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+										else
+										{
+											if (this.type == 105)
+											{
+												result = "Thank you for freeing me, human.  I was tied up and left here by the other goblins.  You could say that we didn't get along very well.";
+											}
+											else
+											{
+												if (this.type == 106)
+												{
+													result = "Thanks for saving me, friend!  This bondage was starting to chafe.";
+												}
+												else
+												{
+													if (this.type == 107)
+													{
+														if (this.homeless)
+														{
+															int num23 = Main.rand.Next(5);
+															if (num23 == 0)
+															{
+																result = "I can't believe they tied me up and left me here just for pointing out that they weren't going east!";
+															}
+															else
+															{
+																if (num23 == 1)
+																{
+																	result = "Now that I'm an outcast, can I throw away the spiked balls? My pockets hurt.";
+																}
+																else
+																{
+																	if (num23 == 2)
+																	{
+																		result = "Looking for a gadgets expert? I'm your goblin!";
+																	}
+																	else
+																	{
+																		if (num23 == 3)
+																		{
+																			result = "Thanks for your help. Now, I have to finish pacing around aimlessly here. I'm sure we'll meet again.";
+																		}
+																		else
+																		{
+																			result = "I thought you'd be taller.";
+																		}
+																	}
+																}
+															}
+														}
+														else
+														{
+															if (flag7 && Main.rand.Next(4) == 0)
+															{
+																result = "Hey...what's " + text5 + " up to? Have you...have you talked to her, by chance?";
+															}
+															else
+															{
+																if (!Main.dayTime)
+																{
+																	int num24 = Main.rand.Next(5);
+																	if (num24 == 0)
+																	{
+																		result = "Hey, does your hat need a motor? I think I have a motor that would fit exactly in that hat.";
+																	}
+																	else
+																	{
+																		if (num24 == 1)
+																		{
+																			result = "Yo, I heard you like rockets and running boots, so I put some rockets in your running boots.";
+																		}
+																		else
+																		{
+																			if (num24 == 2)
+																			{
+																				result = "Silence is golden. Duct tape is silver.";
+																			}
+																			else
+																			{
+																				if (num24 == 3)
+																				{
+																					result = "YES, gold is stronger than iron. What are they teaching these humans nowadays?";
+																				}
+																				else
+																				{
+																					result = "You know, that mining helmet-flipper combination was a much better idea on paper.";
+																				}
+																			}
+																		}
+																	}
+																}
+																else
+																{
+																	int num25 = Main.rand.Next(5);
+																	if (num25 == 0)
+																	{
+																		result = "Goblins are surprisingly easy to anger. In fact, they could start a war over cloth!";
+																	}
+																	else
+																	{
+																		if (num25 == 1)
+																		{
+																			result = "To be honest, most goblins aren't exactly rocket scientists. Well, some are.";
+																		}
+																		else
+																		{
+																			if (num25 == 2)
+																			{
+																				result = "Do you know why we all carry around these spiked balls? Because I don't.";
+																			}
+																			else
+																			{
+																				if (num25 == 3)
+																				{
+																					result = "I just finished my newest creation! This version doesn't explode violently if you breathe on it too hard.";
+																				}
+																				else
+																				{
+																					result = "Goblin thieves aren't very good at their job. They can't even steal from an unlocked chest!";
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+													else
+													{
+														if (this.type == 108)
+														{
+															if (this.homeless)
+															{
+																int num26 = Main.rand.Next(3);
+																if (num26 == 0)
+																{
+																	result = "Ohh, my hero!";
+																}
+																else
+																{
+																	if (num26 == 1 && !Main.player[Main.myPlayer].male)
+																	{
+																		result = "Oh, how heroic! Thank you for saving me, young lady!";
+																	}
+																	else
+																	{
+																		if (num26 == 1)
+																		{
+																			result = "Oh, how heroic! Thank you for saving me, young man!";
+																		}
+																		else
+																		{
+																			if (num26 == 2)
+																			{
+																				result = "Now that we know each other, I can move in with you, right?";
+																			}
+																		}
+																	}
+																}
+															}
+															else
+															{
+																if (Main.player[Main.myPlayer].male && flag9 && Main.rand.Next(6) == 0)
+																{
+																	result = "Well, hi there, " + str3 + "! What can I do for you today?";
+																}
+																else
+																{
+																	if (Main.player[Main.myPlayer].male && flag6 && Main.rand.Next(6) == 0)
+																	{
+																		result = "Well, hi there, " + str2 + "! What can I do for you today?";
+																	}
+																	else
+																	{
+																		if (Main.player[Main.myPlayer].male && flag8 && Main.rand.Next(6) == 0)
+																		{
+																			result = "Well, hi there, " + text4 + "! What can I do for you today?";
+																		}
+																		else
+																		{
+																			if (!Main.player[Main.myPlayer].male && flag2 && Main.rand.Next(6) == 0)
+																			{
+																				result = "Well, hi there, " + text + "! What can I do for you today?";
+																			}
+																			else
+																			{
+																				if (!Main.player[Main.myPlayer].male && flag7 && Main.rand.Next(6) == 0)
+																				{
+																					result = "Well, hi there, " + text5 + "! What can I do for you today?";
+																				}
+																				else
+																				{
+																					if (!Main.player[Main.myPlayer].male && flag4 && Main.rand.Next(6) == 0)
+																					{
+																						result = "Well, hi there, " + text3 + "! What can I do for you today?";
+																					}
+																					else
+																					{
+																						if (!Main.dayTime)
+																						{
+																							int num27 = Main.rand.Next(3);
+																							if (num27 == 0)
+																							{
+																								result = "Want me to pull a coin from behind your ear? No? Ok.";
+																							}
+																							else
+																							{
+																								if (num27 == 1)
+																								{
+																									result = "Do you want some magic candy? No? Ok.";
+																								}
+																								else
+																								{
+																									if (num27 == 2)
+																									{
+																										result = "I make a rather enchanting hot chocolate if you'd be inter...No? Ok.";
+																									}
+																								}
+																							}
+																						}
+																						else
+																						{
+																							int num28 = Main.rand.Next(5);
+																							if (num28 == 0)
+																							{
+																								result = "Are you here for a peek at my crystal ball?";
+																							}
+																							else
+																							{
+																								if (num28 == 1)
+																								{
+																									result = "Ever wanted an enchanted ring that turns rocks into slimes? Well neither did I.";
+																								}
+																								else
+																								{
+																									if (num28 == 2)
+																									{
+																										result = "Someone once told me friendship is magic. That's ridiculous. You can't turn people into frogs with friendship.";
+																									}
+																									else
+																									{
+																										if (num28 == 3)
+																										{
+																											result = "I can see your future now... You will buy a lot of items from me!";
+																										}
+																										else
+																										{
+																											result = "I once tried to bring an Angel Statue to life. It didn't do anything.";
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+														else
+														{
+															if (this.type == 123)
+															{
+																result = "Thanks!  It was just a matter of time before I ended up like the rest of the skeletons down here.";
+															}
+															else
+															{
+																if (this.type == 124)
+																{
+																	if (this.homeless)
+																	{
+																		int num29 = Main.rand.Next(4);
+																		if (num29 == 0)
+																		{
+																			result = "Hey, watch where you're going! I was over there a little while ago!";
+																		}
+																		else
+																		{
+																			if (num29 == 1)
+																			{
+																				result = "Hold on, I've almost got wifi going down here.";
+																			}
+																			else
+																			{
+																				if (num29 == 2)
+																				{
+																					result = "But I was almost done putting blinking lights up here!";
+																				}
+																				else
+																				{
+																					result = "DON'T MOVE. I DROPPED MY CONTACT.";
+																				}
+																			}
+																		}
+																	}
+																	else
+																	{
+																		if (Main.bloodMoon)
+																		{
+																			int num30 = Main.rand.Next(4);
+																			if (num30 == 0)
+																			{
+																				result = "All I want is for the switch to make the... What?!";
+																			}
+																			else
+																			{
+																				if (num30 == 1)
+																				{
+																					result = "Oh, let me guess. Didn't buy enough wire. Idiot.";
+																				}
+																				else
+																				{
+																					if (num30 == 2)
+																					{
+																						result = "Just-could you just... Please? Ok? Ok. Ugh.";
+																					}
+																					else
+																					{
+																						result = "I don't appreciate the way you're looking at me. I am WORKING right now.";
+																					}
+																				}
+																			}
+																		}
+																		else
+																		{
+																			if (flag8 && Main.rand.Next(6) == 0)
+																			{
+																				result = string.Concat(new string[]
+																				{
+																					"Hey, ", 
+																					Main.player[Main.myPlayer].name, 
+																					", did you just come from ", 
+																					text4, 
+																					"'s? Did he say anything about me by chance?"
+																				});
+																			}
+																			else
+																			{
+																				if (flag3 && Main.rand.Next(6) == 0)
+																				{
+																					result = text2 + " keeps talking about pressing my pressure plate. I told him it was for stepping on.";
+																				}
+																				else
+																				{
+																					int num31 = Main.rand.Next(3);
+																					if (num31 == 0)
+																					{
+																						result = "Always buy more wire than you need!";
+																					}
+																					else
+																					{
+																						if (num31 == 1)
+																						{
+																							result = "Did you make sure your device was plugged in?";
+																						}
+																						else
+																						{
+																							result = "Oh, you know what this house needs? More blinking lights.";
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+																else
+																{
+																	if (this.type == 142)
+																	{
+																		int num32 = Main.rand.Next(3);
+																		if (num32 == 0)
+																		{
+																			result = "Ho ho ho, and a bottle of... Egg Nog!";
+																		}
+																		else
+																		{
+																			if (num32 == 1)
+																			{
+																				result = "Care to bake me some cookies?";
+																			}
+																			else
+																			{
+																				if (num32 == 2)
+																				{
+																					result = "What? You thought I wasn't real?";
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			return result;
 		}

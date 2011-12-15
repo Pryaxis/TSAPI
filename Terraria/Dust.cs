@@ -1,4 +1,4 @@
-
+using Microsoft.Xna.Framework;
 using System;
 namespace Terraria
 {
@@ -124,6 +124,7 @@ namespace Terraria
 		public static void UpdateDust()
 		{
 			Dust.lavaBubbles = 0;
+			Main.snowDust = 0;
 			for (int i = 0; i < 2000; i++)
 			{
 				if (i < Main.numDust)
@@ -134,14 +135,14 @@ namespace Terraria
 						{
 							Dust.lavaBubbles++;
 						}
-						Dust expr_4C = Main.dust[i];
-						expr_4C.position += Main.dust[i].velocity;
+						Dust expr_52 = Main.dust[i];
+						expr_52.position += Main.dust[i].velocity;
 						if (Main.dust[i].type == 6 || Main.dust[i].type == 75 || Main.dust[i].type == 29 || (Main.dust[i].type >= 59 && Main.dust[i].type <= 65))
 						{
 							if (!Main.dust[i].noGravity)
 							{
-								Dust expr_D7_cp_0 = Main.dust[i];
-								expr_D7_cp_0.velocity.Y = expr_D7_cp_0.velocity.Y + 0.05f;
+								Dust expr_DD_cp_0 = Main.dust[i];
+								expr_DD_cp_0.velocity.Y = expr_DD_cp_0.velocity.Y + 0.05f;
 							}
 							if (!Main.dust[i].noLight)
 							{
@@ -251,14 +252,14 @@ namespace Terraria
 						{
 							if (Main.dust[i].type == 14 || Main.dust[i].type == 16 || Main.dust[i].type == 31 || Main.dust[i].type == 46)
 							{
-								Dust expr_405_cp_0 = Main.dust[i];
-								expr_405_cp_0.velocity.Y = expr_405_cp_0.velocity.Y * 0.98f;
-								Dust expr_422_cp_0 = Main.dust[i];
-								expr_422_cp_0.velocity.X = expr_422_cp_0.velocity.X * 0.98f;
+								Dust expr_40B_cp_0 = Main.dust[i];
+								expr_40B_cp_0.velocity.Y = expr_40B_cp_0.velocity.Y * 0.98f;
+								Dust expr_428_cp_0 = Main.dust[i];
+								expr_428_cp_0.velocity.X = expr_428_cp_0.velocity.X * 0.98f;
 								if (Main.dust[i].type == 31 && Main.dust[i].noGravity)
 								{
-									Dust expr_45E = Main.dust[i];
-									expr_45E.velocity *= 1.02f;
+									Dust expr_464 = Main.dust[i];
+									expr_464.velocity *= 1.02f;
 									Main.dust[i].scale += 0.02f;
 									Main.dust[i].alpha += 4;
 									if (Main.dust[i].alpha > 255)
@@ -273,10 +274,10 @@ namespace Terraria
 								if (Main.dust[i].type == 32)
 								{
 									Main.dust[i].scale -= 0.01f;
-									Dust expr_510_cp_0 = Main.dust[i];
-									expr_510_cp_0.velocity.X = expr_510_cp_0.velocity.X * 0.96f;
-									Dust expr_52D_cp_0 = Main.dust[i];
-									expr_52D_cp_0.velocity.Y = expr_52D_cp_0.velocity.Y + 0.1f;
+									Dust expr_516_cp_0 = Main.dust[i];
+									expr_516_cp_0.velocity.X = expr_516_cp_0.velocity.X * 0.96f;
+									Dust expr_533_cp_0 = Main.dust[i];
+									expr_533_cp_0.velocity.Y = expr_533_cp_0.velocity.Y + 0.1f;
 								}
 								else
 								{
@@ -323,10 +324,10 @@ namespace Terraria
 									{
 										if (Main.dust[i].type == 15 || Main.dust[i].type == 57 || Main.dust[i].type == 58)
 										{
-											Dust expr_7A7_cp_0 = Main.dust[i];
-											expr_7A7_cp_0.velocity.Y = expr_7A7_cp_0.velocity.Y * 0.98f;
-											Dust expr_7C4_cp_0 = Main.dust[i];
-											expr_7C4_cp_0.velocity.X = expr_7C4_cp_0.velocity.X * 0.98f;
+											Dust expr_7AD_cp_0 = Main.dust[i];
+											expr_7AD_cp_0.velocity.Y = expr_7AD_cp_0.velocity.Y * 0.98f;
+											Dust expr_7CA_cp_0 = Main.dust[i];
+											expr_7CA_cp_0.velocity.X = expr_7CA_cp_0.velocity.X * 0.98f;
 											float num9 = Main.dust[i].scale;
 											if (Main.dust[i].type != 15)
 											{
@@ -334,8 +335,8 @@ namespace Terraria
 											}
 											if (Main.dust[i].noLight)
 											{
-												Dust expr_81C = Main.dust[i];
-												expr_81C.velocity *= 0.95f;
+												Dust expr_822 = Main.dust[i];
+												expr_822.velocity *= 0.95f;
 											}
 											if (num9 > 1f)
 											{
@@ -372,10 +373,10 @@ namespace Terraria
 												{
 													Main.dust[i].rotation += 1f;
 												}
-												Dust expr_9C7_cp_0 = Main.dust[i];
-												expr_9C7_cp_0.velocity.Y = expr_9C7_cp_0.velocity.Y * 0.98f;
-												Dust expr_9E4_cp_0 = Main.dust[i];
-												expr_9E4_cp_0.velocity.X = expr_9E4_cp_0.velocity.X * 0.98f;
+												Dust expr_9CD_cp_0 = Main.dust[i];
+												expr_9CD_cp_0.velocity.Y = expr_9CD_cp_0.velocity.Y * 0.98f;
+												Dust expr_9EA_cp_0 = Main.dust[i];
+												expr_9EA_cp_0.velocity.X = expr_9EA_cp_0.velocity.X * 0.98f;
 												Main.dust[i].scale += 0.02f;
 												float num10 = Main.dust[i].scale;
 												if (Main.dust[i].type != 15)
@@ -393,10 +394,10 @@ namespace Terraria
 												if (Main.dust[i].type == 20 || Main.dust[i].type == 21)
 												{
 													Main.dust[i].scale += 0.005f;
-													Dust expr_B21_cp_0 = Main.dust[i];
-													expr_B21_cp_0.velocity.Y = expr_B21_cp_0.velocity.Y * 0.94f;
-													Dust expr_B3E_cp_0 = Main.dust[i];
-													expr_B3E_cp_0.velocity.X = expr_B3E_cp_0.velocity.X * 0.94f;
+													Dust expr_B27_cp_0 = Main.dust[i];
+													expr_B27_cp_0.velocity.Y = expr_B27_cp_0.velocity.Y * 0.94f;
+													Dust expr_B44_cp_0 = Main.dust[i];
+													expr_B44_cp_0.velocity.X = expr_B44_cp_0.velocity.X * 0.94f;
 													float num11 = Main.dust[i].scale * 0.8f;
 													if (num11 > 1f)
 													{
@@ -416,8 +417,8 @@ namespace Terraria
 												{
 													if (Main.dust[i].type == 27 || Main.dust[i].type == 45)
 													{
-														Dust expr_C59 = Main.dust[i];
-														expr_C59.velocity *= 0.94f;
+														Dust expr_C5F = Main.dust[i];
+														expr_C5F.velocity *= 0.94f;
 														Main.dust[i].scale += 0.002f;
 														float num12 = Main.dust[i].scale;
 														if (Main.dust[i].noLight)
@@ -430,13 +431,13 @@ namespace Terraria
 															}
 															if (Main.player[Main.myPlayer].wet)
 															{
-																Dust expr_D0B = Main.dust[i];
-																expr_D0B.position += Main.player[Main.myPlayer].velocity * 0.5f;
+																Dust expr_D11 = Main.dust[i];
+																expr_D11.position += Main.player[Main.myPlayer].velocity * 0.5f;
 															}
 															else
 															{
-																Dust expr_D3E = Main.dust[i];
-																expr_D3E.position += Main.player[Main.myPlayer].velocity;
+																Dust expr_D44 = Main.dust[i];
+																expr_D44.position += Main.player[Main.myPlayer].velocity;
 															}
 														}
 														if (num12 > 1f)
@@ -449,8 +450,8 @@ namespace Terraria
 													{
 														if (Main.dust[i].type == 55 || Main.dust[i].type == 56 || Main.dust[i].type == 73 || Main.dust[i].type == 74)
 														{
-															Dust expr_E04 = Main.dust[i];
-															expr_E04.velocity *= 0.98f;
+															Dust expr_E0A = Main.dust[i];
+															expr_E0A.velocity *= 0.98f;
 															float num13 = Main.dust[i].scale * 0.8f;
 															if (Main.dust[i].type == 55)
 															{
@@ -496,8 +497,8 @@ namespace Terraria
 														{
 															if (Main.dust[i].type == 71 || Main.dust[i].type == 72)
 															{
-																Dust expr_1005 = Main.dust[i];
-																expr_1005.velocity *= 0.98f;
+																Dust expr_100B = Main.dust[i];
+																expr_100B.velocity *= 0.98f;
 																float num14 = Main.dust[i].scale;
 																if (num14 > 1f)
 																{
@@ -507,10 +508,20 @@ namespace Terraria
 															}
 															else
 															{
-																if (!Main.dust[i].noGravity && Main.dust[i].type != 41 && Main.dust[i].type != 44)
+																if (Main.dust[i].type == 76)
 																{
-																	Dust expr_10BE_cp_0 = Main.dust[i];
-																	expr_10BE_cp_0.velocity.Y = expr_10BE_cp_0.velocity.Y + 0.1f;
+																	Main.snowDust++;
+																	Main.dust[i].scale += 0.009f;
+																	Dust expr_10C8 = Main.dust[i];
+																	expr_10C8.position += Main.player[Main.myPlayer].velocity * 0.2f;
+																}
+																else
+																{
+																	if (!Main.dust[i].noGravity && Main.dust[i].type != 41 && Main.dust[i].type != 44)
+																	{
+																		Dust expr_112E_cp_0 = Main.dust[i];
+																		expr_112E_cp_0.velocity.Y = expr_112E_cp_0.velocity.Y + 0.1f;
+																	}
 																}
 															}
 														}
@@ -549,8 +560,8 @@ namespace Terraria
 							{
 								Main.dust[i].scale = 0f;
 							}
-							Dust expr_1252_cp_0 = Main.dust[i];
-							expr_1252_cp_0.velocity.X = expr_1252_cp_0.velocity.X * 0.93f;
+							Dust expr_12C2_cp_0 = Main.dust[i];
+							expr_12C2_cp_0.velocity.X = expr_12C2_cp_0.velocity.X * 0.93f;
 							if (Main.dust[i].velocity.Y > 4f)
 							{
 								Main.dust[i].velocity.Y = 4f;
@@ -566,10 +577,10 @@ namespace Terraria
 									Main.dust[i].rotation += 0.2f;
 								}
 								Main.dust[i].scale += 0.03f;
-								Dust expr_1310_cp_0 = Main.dust[i];
-								expr_1310_cp_0.velocity.X = expr_1310_cp_0.velocity.X * 1.05f;
-								Dust expr_132D_cp_0 = Main.dust[i];
-								expr_132D_cp_0.velocity.Y = expr_132D_cp_0.velocity.Y + 0.15f;
+								Dust expr_1380_cp_0 = Main.dust[i];
+								expr_1380_cp_0.velocity.X = expr_1380_cp_0.velocity.X * 1.05f;
+								Dust expr_139D_cp_0 = Main.dust[i];
+								expr_139D_cp_0.velocity.Y = expr_139D_cp_0.velocity.Y + 0.15f;
 							}
 						}
 						if (Main.dust[i].type == 35 && Main.dust[i].noGravity)
@@ -577,11 +588,11 @@ namespace Terraria
 							Main.dust[i].scale += 0.03f;
 							if (Main.dust[i].scale < 1f)
 							{
-								Dust expr_1399_cp_0 = Main.dust[i];
-								expr_1399_cp_0.velocity.Y = expr_1399_cp_0.velocity.Y + 0.075f;
+								Dust expr_1409_cp_0 = Main.dust[i];
+								expr_1409_cp_0.velocity.Y = expr_1409_cp_0.velocity.Y + 0.075f;
 							}
-							Dust expr_13B6_cp_0 = Main.dust[i];
-							expr_13B6_cp_0.velocity.X = expr_13B6_cp_0.velocity.X * 1.08f;
+							Dust expr_1426_cp_0 = Main.dust[i];
+							expr_1426_cp_0.velocity.X = expr_1426_cp_0.velocity.X * 1.08f;
 							if (Main.dust[i].velocity.X > 0f)
 							{
 								Main.dust[i].rotation += 0.01f;
@@ -634,8 +645,8 @@ namespace Terraria
 											Main.dust[i].scale -= 0.01f;
 											Main.dust[i].velocity.Y = -0.2f;
 										}
-										Dust expr_1641_cp_0 = Main.dust[i];
-										expr_1641_cp_0.velocity.X = expr_1641_cp_0.velocity.X + (float)Main.rand.Next(-10, 10) * 0.002f;
+										Dust expr_16B1_cp_0 = Main.dust[i];
+										expr_16B1_cp_0.velocity.X = expr_16B1_cp_0.velocity.X + (float)Main.rand.Next(-10, 10) * 0.002f;
 										if ((double)Main.dust[i].velocity.X < -0.25)
 										{
 											Main.dust[i].velocity.X = -0.25f;
@@ -677,10 +688,10 @@ namespace Terraria
 						}
 						if (Main.dust[i].type == 41)
 						{
-							Dust expr_185B_cp_0 = Main.dust[i];
-							expr_185B_cp_0.velocity.X = expr_185B_cp_0.velocity.X + (float)Main.rand.Next(-10, 11) * 0.01f;
-							Dust expr_1888_cp_0 = Main.dust[i];
-							expr_1888_cp_0.velocity.Y = expr_1888_cp_0.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.01f;
+							Dust expr_18CB_cp_0 = Main.dust[i];
+							expr_18CB_cp_0.velocity.X = expr_18CB_cp_0.velocity.X + (float)Main.rand.Next(-10, 11) * 0.01f;
+							Dust expr_18F8_cp_0 = Main.dust[i];
+							expr_18F8_cp_0.velocity.Y = expr_18F8_cp_0.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.01f;
 							if ((double)Main.dust[i].velocity.X > 0.75)
 							{
 								Main.dust[i].velocity.X = 0.75f;
@@ -709,10 +720,10 @@ namespace Terraria
 						{
 							if (Main.dust[i].type == 44)
 							{
-								Dust expr_1A1C_cp_0 = Main.dust[i];
-								expr_1A1C_cp_0.velocity.X = expr_1A1C_cp_0.velocity.X + (float)Main.rand.Next(-10, 11) * 0.003f;
-								Dust expr_1A49_cp_0 = Main.dust[i];
-								expr_1A49_cp_0.velocity.Y = expr_1A49_cp_0.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.003f;
+								Dust expr_1A8C_cp_0 = Main.dust[i];
+								expr_1A8C_cp_0.velocity.X = expr_1A8C_cp_0.velocity.X + (float)Main.rand.Next(-10, 11) * 0.003f;
+								Dust expr_1AB9_cp_0 = Main.dust[i];
+								expr_1AB9_cp_0.velocity.Y = expr_1AB9_cp_0.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.003f;
 								if ((double)Main.dust[i].velocity.X > 0.35)
 								{
 									Main.dust[i].velocity.X = 0.35f;
@@ -739,8 +750,8 @@ namespace Terraria
 							}
 							else
 							{
-								Dust expr_1BC7_cp_0 = Main.dust[i];
-								expr_1BC7_cp_0.velocity.X = expr_1BC7_cp_0.velocity.X * 0.99f;
+								Dust expr_1C37_cp_0 = Main.dust[i];
+								expr_1C37_cp_0.velocity.X = expr_1C37_cp_0.velocity.X * 0.99f;
 							}
 						}
 						if (Main.dust[i].type != 79)
@@ -768,8 +779,8 @@ namespace Terraria
 						}
 						if (Main.dust[i].noGravity)
 						{
-							Dust expr_1CC1 = Main.dust[i];
-							expr_1CC1.velocity *= 0.92f;
+							Dust expr_1D31 = Main.dust[i];
+							expr_1D31.velocity *= 0.92f;
 							if (Main.dust[i].fadeIn == 0f)
 							{
 								Main.dust[i].scale -= 0.04f;

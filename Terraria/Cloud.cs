@@ -1,4 +1,4 @@
-
+using Microsoft.Xna.Framework;
 using System;
 namespace Terraria
 {
@@ -66,8 +66,8 @@ namespace Terraria
 				Main.cloud[num].type = Cloud.rand.Next(4);
 				Main.cloud[num].scale = (float)Cloud.rand.Next(70, 131) * 0.01f;
 				Main.cloud[num].rotation = (float)Cloud.rand.Next(-10, 11) * 0.01f;
-
-
+				Main.cloud[num].width = (int)((float)Main.cloudTexture[Main.cloud[num].type].Width * Main.cloud[num].scale);
+				Main.cloud[num].height = (int)((float)Main.cloudTexture[Main.cloud[num].type].Height * Main.cloud[num].scale);
 				float num2 = Main.windSpeed;
 				if (!Main.gameMenu)
 				{
@@ -75,11 +75,11 @@ namespace Terraria
 				}
 				if (num2 > 0f)
 				{
-
+					Main.cloud[num].position.X = (float)(-(float)Main.cloud[num].width - Main.cloudTexture[Main.cloud[num].type].Width - Cloud.rand.Next(Main.screenWidth * 2));
 				}
 				else
 				{
-
+					Main.cloud[num].position.X = (float)(Main.screenWidth + Main.cloudTexture[Main.cloud[num].type].Width + Cloud.rand.Next(Main.screenWidth * 2));
 				}
 				Main.cloud[num].position.Y = (float)Cloud.rand.Next((int)((float)(-(float)Main.screenHeight) * 0.25f), (int)((float)Main.screenHeight * 0.25f));
 				Cloud expr_210_cp_0 = Main.cloud[num];
@@ -196,14 +196,14 @@ namespace Terraria
 			}
 			if (Main.windSpeed > 0f)
 			{
-
+				if (this.position.X - (float)Main.cloudTexture[this.type].Width > (float)(Main.screenWidth + 200))
 				{
 					this.active = false;
 				}
 			}
 			else
 			{
-
+				if (this.position.X + (float)this.width + (float)Main.cloudTexture[this.type].Width < -200f)
 				{
 					this.active = false;
 				}
@@ -226,8 +226,8 @@ namespace Terraria
 				this.rotation = -0.05f;
 			}
 			this.rotation += this.rSpeed;
-
-
+			this.width = (int)((float)Main.cloudTexture[this.type].Width * this.scale);
+			this.height = (int)((float)Main.cloudTexture[this.type].Height * this.scale);
 		}
 	}
 }

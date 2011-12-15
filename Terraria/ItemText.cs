@@ -1,4 +1,4 @@
-
+using Microsoft.Xna.Framework;
 using System;
 namespace Terraria
 {
@@ -54,8 +54,8 @@ namespace Terraria
 							")"
 						});
 					}
-
-
+					Vector2 vector = Main.fontMouseText.MeasureString(text2);
+					vector = Main.fontMouseText.MeasureString(text);
 					if (Main.itemText[i].lifeTime < 0)
 					{
 						Main.itemText[i].scale = 1f;
@@ -64,6 +64,8 @@ namespace Terraria
 					Main.itemText[i].stack += stack;
 					Main.itemText[i].scale = 0f;
 					Main.itemText[i].rotation = 0f;
+					Main.itemText[i].position.X = newItem.position.X + (float)newItem.width * 0.5f - vector.X * 0.5f;
+					Main.itemText[i].position.Y = newItem.position.Y + (float)newItem.height * 0.25f - vector.Y * 0.5f;
 					Main.itemText[i].velocity.Y = -7f;
 					return;
 				}
@@ -103,12 +105,14 @@ namespace Terraria
 						")"
 					});
 				}
-
+				Vector2 vector2 = Main.fontMouseText.MeasureString(text3);
 				Main.itemText[num].alpha = 1f;
 				Main.itemText[num].alphaDir = -1;
 				Main.itemText[num].active = true;
 				Main.itemText[num].scale = 0f;
 				Main.itemText[num].rotation = 0f;
+				Main.itemText[num].position.X = newItem.position.X + (float)newItem.width * 0.5f - vector2.X * 0.5f;
+				Main.itemText[num].position.Y = newItem.position.Y + (float)newItem.height * 0.25f - vector2.Y * 0.5f;
 				Main.itemText[num].color = Color.White;
 				if (newItem.rare == 1)
 				{
@@ -190,6 +194,10 @@ namespace Terraria
 						")"
 					});
 				}
+				Vector2 value = Main.fontMouseText.MeasureString(text);
+				value *= this.scale;
+				value.Y *= 0.8f;
+				Rectangle rectangle = new Rectangle((int)(this.position.X - value.X / 2f), (int)(this.position.Y - value.Y / 2f), (int)value.X, (int)value.Y);
 				for (int i = 0; i < 20; i++)
 				{
 					if (Main.itemText[i].active && i != whoAmI)
@@ -205,6 +213,21 @@ namespace Terraria
 								Main.itemText[i].stack, 
 								")"
 							});
+						}
+						Vector2 value2 = Main.fontMouseText.MeasureString(text2);
+						value2 *= Main.itemText[i].scale;
+						value2.Y *= 0.8f;
+						Rectangle value3 = new Rectangle((int)(Main.itemText[i].position.X - value2.X / 2f), (int)(Main.itemText[i].position.Y - value2.Y / 2f), (int)value2.X, (int)value2.Y);
+						if (rectangle.Intersects(value3) && (this.position.Y < Main.itemText[i].position.Y || (this.position.Y == Main.itemText[i].position.Y && whoAmI < i)))
+						{
+							flag = true;
+							int num = ItemText.numActive;
+							if (num > 3)
+							{
+								num = 3;
+							}
+							Main.itemText[i].lifeTime = ItemText.activeTime + 15 * num;
+							this.lifeTime = ItemText.activeTime + 15 * num;
 						}
 					}
 				}
