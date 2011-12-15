@@ -121,7 +121,6 @@ namespace Terraria
 			Main.recentIP[0] = Netplay.serverIP.ToString();
 			Main.recentPort[0] = Netplay.serverPort;
 			Main.recentWorld[0] = Main.worldName;
-			Main.SaveRecent();
 		}
 		public static void ClientLoop(object threadContext)
 		{

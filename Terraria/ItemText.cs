@@ -4,15 +4,15 @@ namespace Terraria
 {
 	public class ItemText
 	{
-		public Vector2 position;
-		public Vector2 velocity;
+		public Microsoft.Xna.Framework.Vector2 position;
+		public Microsoft.Xna.Framework.Vector2 velocity;
 		public float alpha;
 		public int alphaDir = 1;
 		public string name;
 		public int stack;
 		public float scale = 1f;
 		public float rotation;
-		public Color color;
+		public Microsoft.Xna.Framework.Color color;
 		public bool active;
 		public int lifeTime;
 		public static int activeTime = 60;
@@ -54,7 +54,7 @@ namespace Terraria
 							")"
 						});
 					}
-					Vector2 vector = Main.fontMouseText.MeasureString(text2);
+					Microsoft.Xna.Framework.Vector2 vector = Main.fontMouseText.MeasureString(text2);
 					vector = Main.fontMouseText.MeasureString(text);
 					if (Main.itemText[i].lifeTime < 0)
 					{
@@ -105,7 +105,7 @@ namespace Terraria
 						")"
 					});
 				}
-				Vector2 vector2 = Main.fontMouseText.MeasureString(text3);
+				Microsoft.Xna.Framework.Vector2 vector2 = Main.fontMouseText.MeasureString(text3);
 				Main.itemText[num].alpha = 1f;
 				Main.itemText[num].alphaDir = -1;
 				Main.itemText[num].active = true;
@@ -113,46 +113,46 @@ namespace Terraria
 				Main.itemText[num].rotation = 0f;
 				Main.itemText[num].position.X = newItem.position.X + (float)newItem.width * 0.5f - vector2.X * 0.5f;
 				Main.itemText[num].position.Y = newItem.position.Y + (float)newItem.height * 0.25f - vector2.Y * 0.5f;
-				Main.itemText[num].color = Color.White;
+				Main.itemText[num].color = Microsoft.Xna.Framework.Color.White;
 				if (newItem.rare == 1)
 				{
-					Main.itemText[num].color = new Color(150, 150, 255);
+					Main.itemText[num].color = new Microsoft.Xna.Framework.Color(150, 150, 255);
 				}
 				else
 				{
 					if (newItem.rare == 2)
 					{
-						Main.itemText[num].color = new Color(150, 255, 150);
+						Main.itemText[num].color = new Microsoft.Xna.Framework.Color(150, 255, 150);
 					}
 					else
 					{
 						if (newItem.rare == 3)
 						{
-							Main.itemText[num].color = new Color(255, 200, 150);
+							Main.itemText[num].color = new Microsoft.Xna.Framework.Color(255, 200, 150);
 						}
 						else
 						{
 							if (newItem.rare == 4)
 							{
-								Main.itemText[num].color = new Color(255, 150, 150);
+								Main.itemText[num].color = new Microsoft.Xna.Framework.Color(255, 150, 150);
 							}
 							else
 							{
 								if (newItem.rare == 5)
 								{
-									Main.itemText[num].color = new Color(255, 150, 255);
+									Main.itemText[num].color = new Microsoft.Xna.Framework.Color(255, 150, 255);
 								}
 								else
 								{
 									if (newItem.rare == -1)
 									{
-										Main.itemText[num].color = new Color(130, 130, 130);
+										Main.itemText[num].color = new Microsoft.Xna.Framework.Color(130, 130, 130);
 									}
 									else
 									{
 										if (newItem.rare == 6)
 										{
-											Main.itemText[num].color = new Color(210, 160, 255);
+											Main.itemText[num].color = new Microsoft.Xna.Framework.Color(210, 160, 255);
 										}
 									}
 								}
@@ -194,10 +194,10 @@ namespace Terraria
 						")"
 					});
 				}
-				Vector2 value = Main.fontMouseText.MeasureString(text);
+				Microsoft.Xna.Framework.Vector2 value = Main.fontMouseText.MeasureString(text);
 				value *= this.scale;
 				value.Y *= 0.8f;
-				Rectangle rectangle = new Rectangle((int)(this.position.X - value.X / 2f), (int)(this.position.Y - value.Y / 2f), (int)value.X, (int)value.Y);
+				Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle((int)(this.position.X - value.X / 2f), (int)(this.position.Y - value.Y / 2f), (int)value.X, (int)value.Y);
 				for (int i = 0; i < 20; i++)
 				{
 					if (Main.itemText[i].active && i != whoAmI)
@@ -214,10 +214,10 @@ namespace Terraria
 								")"
 							});
 						}
-						Vector2 value2 = Main.fontMouseText.MeasureString(text2);
+						Microsoft.Xna.Framework.Vector2 value2 = Main.fontMouseText.MeasureString(text2);
 						value2 *= Main.itemText[i].scale;
 						value2.Y *= 0.8f;
-						Rectangle value3 = new Rectangle((int)(Main.itemText[i].position.X - value2.X / 2f), (int)(Main.itemText[i].position.Y - value2.Y / 2f), (int)value2.X, (int)value2.Y);
+						Microsoft.Xna.Framework.Rectangle value3 = new Microsoft.Xna.Framework.Rectangle((int)(Main.itemText[i].position.X - value2.X / 2f), (int)(Main.itemText[i].position.Y - value2.Y / 2f), (int)value2.X, (int)value2.Y);
 						if (rectangle.Intersects(value3) && (this.position.Y < Main.itemText[i].position.Y || (this.position.Y == Main.itemText[i].position.Y && whoAmI < i)))
 						{
 							flag = true;

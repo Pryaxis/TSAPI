@@ -1638,8 +1638,8 @@ namespace Terraria
 								}
 								else
 								{
-									Rectangle rectangle = new Rectangle((int)Main.player[num15].position.X, (int)Main.player[num15].position.Y, Main.player[num15].width, Main.player[num15].height);
-									Rectangle value2 = new Rectangle((int)Main.npc[number].position.X, (int)Main.npc[number].position.Y, Main.npc[number].width, Main.npc[number].height);
+									Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle((int)Main.player[num15].position.X, (int)Main.player[num15].position.Y, Main.player[num15].width, Main.player[num15].height);
+									Microsoft.Xna.Framework.Rectangle value2 = new Microsoft.Xna.Framework.Rectangle((int)Main.npc[number].position.X, (int)Main.npc[number].position.Y, Main.npc[number].width, Main.npc[number].height);
 									value2.X -= 3000;
 									value2.Y -= 3000;
 									value2.Width += 6000;
@@ -1677,8 +1677,8 @@ namespace Terraria
 								bool flag3 = false;
 								if (Main.player[number].netSkip > 0)
 								{
-									Rectangle rectangle2 = new Rectangle((int)Main.player[num16].position.X, (int)Main.player[num16].position.Y, Main.player[num16].width, Main.player[num16].height);
-									Rectangle value3 = new Rectangle((int)Main.player[number].position.X, (int)Main.player[number].position.Y, Main.player[number].width, Main.player[number].height);
+									Microsoft.Xna.Framework.Rectangle rectangle2 = new Microsoft.Xna.Framework.Rectangle((int)Main.player[num16].position.X, (int)Main.player[num16].position.Y, Main.player[num16].width, Main.player[num16].height);
+									Microsoft.Xna.Framework.Rectangle value3 = new Microsoft.Xna.Framework.Rectangle((int)Main.player[number].position.X, (int)Main.player[number].position.Y, Main.player[number].width, Main.player[number].height);
 									value3.X -= 2500;
 									value3.Y -= 2500;
 									value3.Width += 5000;
@@ -1732,8 +1732,8 @@ namespace Terraria
 									}
 									else
 									{
-										Rectangle rectangle3 = new Rectangle((int)Main.player[num17].position.X, (int)Main.player[num17].position.Y, Main.player[num17].width, Main.player[num17].height);
-										Rectangle value4 = new Rectangle((int)Main.projectile[number].position.X, (int)Main.projectile[number].position.Y, Main.projectile[number].width, Main.projectile[number].height);
+										Microsoft.Xna.Framework.Rectangle rectangle3 = new Microsoft.Xna.Framework.Rectangle((int)Main.player[num17].position.X, (int)Main.player[num17].position.Y, Main.player[num17].width, Main.player[num17].height);
+										Microsoft.Xna.Framework.Rectangle value4 = new Microsoft.Xna.Framework.Rectangle((int)Main.projectile[number].position.X, (int)Main.projectile[number].position.Y, Main.projectile[number].width, Main.projectile[number].height);
 										value4.X -= 5000;
 										value4.Y -= 5000;
 										value4.Width += 10000;

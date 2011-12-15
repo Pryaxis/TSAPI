@@ -95,7 +95,7 @@ namespace Terraria
 		public static int hiScore = 0;
 		public static int dungeonX;
 		public static int dungeonY;
-		public static Vector2 lastDungeonHall = default(Vector2);
+		public static Microsoft.Xna.Framework.Vector2 lastDungeonHall = default(Microsoft.Xna.Framework.Vector2);
 		public static int maxDRooms = 100;
 		public static int numDRooms = 0;
 		public static int[] dRoomX = new int[WorldGen.maxDRooms];
@@ -278,12 +278,12 @@ namespace Terraria
 					if (!flag)
 					{
 						flag = true;
-						Rectangle value = new Rectangle(num2 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num3 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+						Microsoft.Xna.Framework.Rectangle value = new Microsoft.Xna.Framework.Rectangle(num2 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num3 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
 						for (int j = 0; j < 255; j++)
 						{
 							if (Main.player[j].active)
 							{
-								Rectangle rectangle = new Rectangle((int)Main.player[j].position.X, (int)Main.player[j].position.Y, Main.player[j].width, Main.player[j].height);
+								Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle((int)Main.player[j].position.X, (int)Main.player[j].position.Y, Main.player[j].width, Main.player[j].height);
 								if (rectangle.Intersects(value))
 								{
 									flag = false;
@@ -327,12 +327,12 @@ namespace Terraria
 											if (!Collision.SolidTiles(num2 - 1, num2 + 1, num3 - 3, num3 - 1))
 											{
 												flag = true;
-												Rectangle value2 = new Rectangle(num2 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num3 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+												Microsoft.Xna.Framework.Rectangle value2 = new Microsoft.Xna.Framework.Rectangle(num2 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num3 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
 												for (int m = 0; m < 255; m++)
 												{
 													if (Main.player[m].active)
 													{
-														Rectangle rectangle2 = new Rectangle((int)Main.player[m].position.X, (int)Main.player[m].position.Y, Main.player[m].width, Main.player[m].height);
+														Microsoft.Xna.Framework.Rectangle rectangle2 = new Microsoft.Xna.Framework.Rectangle((int)Main.player[m].position.X, (int)Main.player[m].position.Y, Main.player[m].width, Main.player[m].height);
 														if (rectangle2.Intersects(value2))
 														{
 															flag = false;
@@ -826,12 +826,12 @@ namespace Terraria
 				return false;
 			}
 			int num = 25;
-			Rectangle rectangle = new Rectangle((i - num) * 16, (j - num) * 16, num * 2 * 16, num * 2 * 16);
+			Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle((i - num) * 16, (j - num) * 16, num * 2 * 16, num * 2 * 16);
 			for (int k = 0; k < 255; k++)
 			{
 				if (Main.player[k].active)
 				{
-					Rectangle value = new Rectangle((int)(Main.player[k].position.X + (float)(Main.player[k].width / 2) - (float)(NPC.sWidth / 2) - (float)NPC.safeRangeX), (int)(Main.player[k].position.Y + (float)(Main.player[k].height / 2) - (float)(NPC.sHeight / 2) - (float)NPC.safeRangeY), NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+					Microsoft.Xna.Framework.Rectangle value = new Microsoft.Xna.Framework.Rectangle((int)(Main.player[k].position.X + (float)(Main.player[k].width / 2) - (float)(NPC.sWidth / 2) - (float)NPC.safeRangeX), (int)(Main.player[k].position.Y + (float)(Main.player[k].height / 2) - (float)(NPC.sHeight / 2) - (float)NPC.safeRangeY), NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
 					if (rectangle.Intersects(value))
 					{
 						return false;
@@ -842,7 +842,7 @@ namespace Terraria
 			{
 				if (Main.npc[l].active)
 				{
-					Rectangle value2 = new Rectangle((int)Main.npc[l].position.X, (int)Main.npc[l].position.Y, Main.npc[l].width, Main.npc[l].height);
+					Microsoft.Xna.Framework.Rectangle value2 = new Microsoft.Xna.Framework.Rectangle((int)Main.npc[l].position.X, (int)Main.npc[l].position.Y, Main.npc[l].width, Main.npc[l].height);
 					if (rectangle.Intersects(value2))
 					{
 						return false;
@@ -7199,7 +7199,7 @@ namespace Terraria
 								{
 									int num88 = num82 + WorldGen.genRand.Next(-12, 13);
 									int num89 = num84 + WorldGen.genRand.Next(3, 21);
-									if (!Main.tile[num88, num89].active && !Main.tile[num88, num89 + 1].active && Main.tile[num88 - 1, num89].type != 48 && Main.tile[num88 + 1, num89].type != 48 && Collision.CanHit(new Vector2((float)(num88 * 16), (float)(num89 * 16)), 16, 16, new Vector2((float)(num82 * 16), (float)(num84 * 16 + 1)), 16, 16))
+									if (!Main.tile[num88, num89].active && !Main.tile[num88, num89 + 1].active && Main.tile[num88 - 1, num89].type != 48 && Main.tile[num88 + 1, num89].type != 48 && Collision.CanHit(new Microsoft.Xna.Framework.Vector2((float)(num88 * 16), (float)(num89 * 16)), 16, 16, new Microsoft.Xna.Framework.Vector2((float)(num82 * 16), (float)(num84 * 16 + 1)), 16, 16))
 									{
 										WorldGen.PlaceTile(num88, num89, 136, true, false, -1, 0);
 										if (Main.tile[num88, num89].active)
@@ -7273,10 +7273,10 @@ namespace Terraria
 		}
 		public static void DungeonStairs(int i, int j, int tileType, int wallType)
 		{
-			Vector2 value = default(Vector2);
+			Microsoft.Xna.Framework.Vector2 value = default(Microsoft.Xna.Framework.Vector2);
 			double num = (double)WorldGen.genRand.Next(5, 9);
 			int num2 = 1;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)i;
 			value2.Y = (float)j;
 			int k = WorldGen.genRand.Next(10, 30);
@@ -7411,19 +7411,19 @@ namespace Terraria
 		}
 		public static void DungeonHalls(int i, int j, int tileType, int wallType, bool forceX = false)
 		{
-			Vector2 value = default(Vector2);
+			Microsoft.Xna.Framework.Vector2 value = default(Microsoft.Xna.Framework.Vector2);
 			double num = (double)WorldGen.genRand.Next(4, 6);
-			Vector2 vector = default(Vector2);
-			Vector2 value2 = default(Vector2);
+			Microsoft.Xna.Framework.Vector2 vector = default(Microsoft.Xna.Framework.Vector2);
+			Microsoft.Xna.Framework.Vector2 value2 = default(Microsoft.Xna.Framework.Vector2);
 			int num2 = 1;
-			Vector2 value3;
+			Microsoft.Xna.Framework.Vector2 value3;
 			value3.X = (float)i;
 			value3.Y = (float)j;
 			int k = WorldGen.genRand.Next(35, 80);
 			if (forceX)
 			{
 				k += 20;
-				WorldGen.lastDungeonHall = default(Vector2);
+				WorldGen.lastDungeonHall = default(Microsoft.Xna.Framework.Vector2);
 			}
 			else
 			{
@@ -7784,10 +7784,10 @@ namespace Terraria
 		public static void DungeonRoom(int i, int j, int tileType, int wallType)
 		{
 			double num = (double)WorldGen.genRand.Next(15, 30);
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			value.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)i;
 			value2.Y = (float)j - (float)num / 2f;
 			int k = WorldGen.genRand.Next(10, 20);
@@ -7924,7 +7924,7 @@ namespace Terraria
 			}
 			double num2 = WorldGen.dxStrength1;
 			double num3 = WorldGen.dyStrength1;
-			Vector2 vector;
+			Microsoft.Xna.Framework.Vector2 vector;
 			vector.X = (float)i;
 			vector.Y = (float)j - (float)num3 / 2f;
 			WorldGen.dMinY = (int)vector.Y;
@@ -9200,7 +9200,7 @@ namespace Terraria
 				Main.tile[num2 + 1, num].active = true;
 				Main.tile[num2 + 1, num].type = 11;
 				Main.tile[num2 + 1, num].frameY = 0;
-				Main.tile[num2 + 1, num].frameX = num3 + 18;
+				Main.tile[num2 + 1, num].frameX = (short)(num3 + 18);
 				if (Main.tile[num2, num + 1] == null)
 				{
 					Main.tile[num2, num + 1] = new Tile();
@@ -9216,7 +9216,7 @@ namespace Terraria
 				Main.tile[num2 + 1, num + 1].active = true;
 				Main.tile[num2 + 1, num + 1].type = 11;
 				Main.tile[num2 + 1, num + 1].frameY = 18;
-				Main.tile[num2 + 1, num + 1].frameX = num3 + 18;
+				Main.tile[num2 + 1, num + 1].frameX = (short)(num3 + 18);
 				if (Main.tile[num2, num + 2] == null)
 				{
 					Main.tile[num2, num + 2] = new Tile();
@@ -9232,7 +9232,7 @@ namespace Terraria
 				Main.tile[num2 + 1, num + 2].active = true;
 				Main.tile[num2 + 1, num + 2].type = 11;
 				Main.tile[num2 + 1, num + 2].frameY = 36;
-				Main.tile[num2 + 1, num + 2].frameX = num3 + 18;
+				Main.tile[num2 + 1, num + 2].frameX = (short)(num3 + 18);
 				for (int n = num2 - 1; n <= num2 + 2; n++)
 				{
 					for (int num5 = num - 1; num5 <= num + 2; num5++)
@@ -10549,7 +10549,7 @@ namespace Terraria
 				Main.tile[x, y - 1].frameX = frameX;
 				Main.tile[x, y - 1].type = (byte)type;
 				Main.tile[x, y].active = true;
-				Main.tile[x, y].frameY = num + 18;
+				Main.tile[x, y].frameY = (byte)(num + 18);
 				Main.tile[x, y].frameX = frameX;
 				Main.tile[x, y].type = (byte)type;
 			}
@@ -10981,10 +10981,10 @@ namespace Terraria
 		{
 			double num = strength;
 			float num2 = (float)steps;
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			value2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			while (num > 0.0 && num2 > 0f)
@@ -11161,7 +11161,7 @@ namespace Terraria
 				int num10 = Main.rand.Next(2) + 1;
 				for (int k = 0; k < num10; k++)
 				{
-					NPC.SpawnOnPlayer((int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16), 82);
+					NPC.SpawnOnPlayer((int)Player.FindClosest(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), 16, 16), 82);
 				}
 			}
 			WorldGen.altarCount++;
@@ -11397,15 +11397,15 @@ namespace Terraria
 				Main.tile[x - 1, y - 1].type = (byte)type;
 				Main.tile[x, y - 1].active = true;
 				Main.tile[x, y - 1].frameY = 0;
-				Main.tile[x, y - 1].frameX = 18 + num;
+				Main.tile[x, y - 1].frameX = (byte)(18 + num);
 				Main.tile[x, y - 1].type = (byte)type;
 				Main.tile[x + 1, y - 1].active = true;
 				Main.tile[x + 1, y - 1].frameY = 0;
-				Main.tile[x + 1, y - 1].frameX = 36 + num;
+				Main.tile[x + 1, y - 1].frameX = (byte)(36 + num);
 				Main.tile[x + 1, y - 1].type = (byte)type;
 				Main.tile[x + 2, y - 1].active = true;
 				Main.tile[x + 2, y - 1].frameY = 0;
-				Main.tile[x + 2, y - 1].frameX = 54 + num;
+				Main.tile[x + 2, y - 1].frameX = (byte)(54 + num);
 				Main.tile[x + 2, y - 1].type = (byte)type;
 				Main.tile[x - 1, y].active = true;
 				Main.tile[x - 1, y].frameY = 18;
@@ -11413,15 +11413,15 @@ namespace Terraria
 				Main.tile[x - 1, y].type = (byte)type;
 				Main.tile[x, y].active = true;
 				Main.tile[x, y].frameY = 18;
-				Main.tile[x, y].frameX = 18 + num;
+				Main.tile[x, y].frameX = (byte)(18 + num);
 				Main.tile[x, y].type = (byte)type;
 				Main.tile[x + 1, y].active = true;
 				Main.tile[x + 1, y].frameY = 18;
-				Main.tile[x + 1, y].frameX = 36 + num;
+				Main.tile[x + 1, y].frameX = (byte)(36 + num);
 				Main.tile[x + 1, y].type = (byte)type;
 				Main.tile[x + 2, y].active = true;
 				Main.tile[x + 2, y].frameY = 18;
-				Main.tile[x + 2, y].frameX = 54 + num;
+				Main.tile[x + 2, y].frameX = (byte)(54 + num);
 				Main.tile[x + 2, y].type = (byte)type;
 			}
 		}
@@ -13276,9 +13276,9 @@ namespace Terraria
 						}
 					}
 				}
-				Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 51, 1f);
-				Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 52, 1f);
-				Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 53, 1f);
+				Gore.NewGore(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), default(Microsoft.Xna.Framework.Vector2), 51, 1f);
+				Gore.NewGore(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), default(Microsoft.Xna.Framework.Vector2), 52, 1f);
+				Gore.NewGore(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), default(Microsoft.Xna.Framework.Vector2), 53, 1f);
 				if (WorldGen.genRand.Next(40) == 0 && (Main.tile[k, num].wall == 7 || Main.tile[k, num].wall == 8 || Main.tile[k, num].wall == 9))
 				{
 					Item.NewItem(i * 16, j * 16, 16, 16, 327, 1, false, 0);
@@ -13445,13 +13445,13 @@ namespace Terraria
 					else
 					{
 						int num8 = Main.rand.Next(8);
-						if (num8 == 0 && Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statLife < Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statLifeMax)
+						if (num8 == 0 && Main.player[(int)Player.FindClosest(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statLife < Main.player[(int)Player.FindClosest(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statLifeMax)
 						{
 							Item.NewItem(i * 16, j * 16, 16, 16, 58, 1, false, 0);
 						}
 						else
 						{
-							if (num8 == 1 && Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statMana < Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statManaMax)
+							if (num8 == 1 && Main.player[(int)Player.FindClosest(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statMana < Main.player[(int)Player.FindClosest(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statManaMax)
 							{
 								Item.NewItem(i * 16, j * 16, 16, 16, 184, 1, false, 0);
 							}
@@ -13833,7 +13833,7 @@ namespace Terraria
 				}
 				for (int k = 0; k < 5; k++)
 				{
-					Dust.NewDust(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16, 50, 0f, 0f, 0, default(Color), 1f);
+					Dust.NewDust(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), 16, 16, 50, 0f, 0f, 0, default(Microsoft.Xna.Framework.Color), 1f);
 				}
 				return true;
 			}
@@ -14384,7 +14384,7 @@ namespace Terraria
 						{
 							for (int k = 0; k < 3; k++)
 							{
-								Dust.NewDust(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16, 14, 0f, 0f, 0, default(Color), 1f);
+								Dust.NewDust(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), 16, 16, 14, 0f, 0f, 0, default(Microsoft.Xna.Framework.Color), 1f);
 							}
 						}
 					}
@@ -14893,7 +14893,7 @@ namespace Terraria
 																			float speedX = (float)(12 * num15);
 																			int damage = 20;
 																			int type2 = 98;
-																			Vector2 vector = new Vector2((float)(i * 16 + 8), (float)(j * 16 + 7));
+																			Microsoft.Xna.Framework.Vector2 vector = new Microsoft.Xna.Framework.Vector2((float)(i * 16 + 8), (float)(j * 16 + 7));
 																			vector.X += (float)(10 * num15);
 																			vector.Y += 2f;
 																			Projectile.NewProjectile((float)((int)vector.X), (float)((int)vector.Y), speedX, 0f, type2, damage, 2f, Main.myPlayer);
@@ -15346,7 +15346,7 @@ namespace Terraria
 								type = 1;
 							}
 						}
-						Dust.NewDust(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16, type, 0f, 0f, 0, default(Color), 1f);
+						Dust.NewDust(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), 16, 16, type, 0f, 0f, 0, default(Microsoft.Xna.Framework.Color), 1f);
 					}
 					if (fail)
 					{
@@ -15942,7 +15942,7 @@ namespace Terraria
 						}
 						if (num5 >= 0)
 						{
-							Dust.NewDust(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16, num5, 0f, 0f, 0, default(Color), 1f);
+							Dust.NewDust(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), 16, 16, num5, 0f, 0f, 0, default(Microsoft.Xna.Framework.Color), 1f);
 						}
 					}
 					if (effectOnly)
@@ -15993,7 +15993,7 @@ namespace Terraria
 							{
 								if (Main.tile[i, j].type == 3 || Main.tile[i, j].type == 73)
 								{
-									if (Main.rand.Next(2) == 0 && Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].HasItem(281))
+									if (Main.rand.Next(2) == 0 && Main.player[(int)Player.FindClosest(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].HasItem(281))
 									{
 										num8 = 283;
 									}
@@ -16701,12 +16701,12 @@ namespace Terraria
 		}
 		public static bool PlayerLOS(int x, int y)
 		{
-			Rectangle rectangle = new Rectangle(x * 16, y * 16, 16, 16);
+			Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle(x * 16, y * 16, 16, 16);
 			for (int i = 0; i < 255; i++)
 			{
 				if (Main.player[i].active)
 				{
-					Rectangle value = new Rectangle((int)((double)Main.player[i].position.X + (double)Main.player[i].width * 0.5 - (double)NPC.sWidth * 0.6), (int)((double)Main.player[i].position.Y + (double)Main.player[i].height * 0.5 - (double)NPC.sHeight * 0.6), (int)((double)NPC.sWidth * 1.2), (int)((double)NPC.sHeight * 1.2));
+					Microsoft.Xna.Framework.Rectangle value = new Microsoft.Xna.Framework.Rectangle((int)((double)Main.player[i].position.X + (double)Main.player[i].width * 0.5 - (double)NPC.sWidth * 0.6), (int)((double)Main.player[i].position.Y + (double)Main.player[i].height * 0.5 - (double)NPC.sHeight * 0.6), (int)((double)NPC.sWidth * 1.2), (int)((double)NPC.sHeight * 1.2));
 					if (rectangle.Intersects(value))
 					{
 						return true;
@@ -18242,7 +18242,7 @@ namespace Terraria
 					num68 *= 16;
 					int num69 = Main.rand.Next((int)((double)Main.maxTilesY * 0.05));
 					num69 *= 16;
-					Vector2 vector = new Vector2((float)num68, (float)num69);
+					Microsoft.Xna.Framework.Vector2 vector = new Microsoft.Xna.Framework.Vector2((float)num68, (float)num69);
 					float num70 = (float)Main.rand.Next(-100, 101);
 					float num71 = (float)(Main.rand.Next(200) + 100);
 					float num72 = (float)Math.Sqrt((double)(num70 * num70 + num71 * num71));
@@ -18375,10 +18375,10 @@ namespace Terraria
 		public static void ChasmRunnerSideways(int i, int j, int direction, int steps)
 		{
 			float num = (float)steps;
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)WorldGen.genRand.Next(10, 21) * 0.1f * (float)direction;
 			value2.Y = (float)WorldGen.genRand.Next(-10, 10) * 0.01f;
 			double num2 = (double)(WorldGen.genRand.Next(5) + 7);
@@ -18563,10 +18563,10 @@ namespace Terraria
 				flag2 = true;
 			}
 			float num = (float)steps;
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			value2.Y = (float)WorldGen.genRand.Next(11) * 0.2f + 0.5f;
 			int num2 = 5;
@@ -18788,10 +18788,10 @@ namespace Terraria
 		public static void JungleRunner(int i, int j)
 		{
 			double num = (double)WorldGen.genRand.Next(5, 11);
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			value2.Y = (float)WorldGen.genRand.Next(10, 20) * 0.1f;
 			int num2 = 0;
@@ -18893,10 +18893,10 @@ namespace Terraria
 			float num2 = (float)(Main.maxTilesX / 4200);
 			num = (int)((float)num * num2);
 			double num3 = (double)num;
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			value2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			if (speedX != 0f || speedY != 0f)
@@ -19056,10 +19056,10 @@ namespace Terraria
 		{
 			double num = strength;
 			float num2 = (float)steps;
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			value2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			if (speedX != 0f || speedY != 0f)
@@ -19298,10 +19298,10 @@ namespace Terraria
 			double num = (double)WorldGen.genRand.Next(5, 15);
 			float num2 = (float)WorldGen.genRand.Next(5, 20);
 			float num3 = num2;
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			value2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			while (num > 0.0 && num3 > 0f)
@@ -19363,10 +19363,10 @@ namespace Terraria
 		{
 			double num = (double)WorldGen.genRand.Next(80, 120);
 			float num2 = (float)WorldGen.genRand.Next(20, 25);
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
 			while (value2.X > -2f && value2.X < 2f)
 			{
@@ -19505,7 +19505,7 @@ namespace Terraria
 				{
 					num4 = -num4;
 				}
-				Vector2 vector = new Vector2((float)X, (float)Y);
+				Microsoft.Xna.Framework.Vector2 vector = new Microsoft.Xna.Framework.Vector2((float)X, (float)Y);
 				for (int i = 0; i < num2; i++)
 				{
 					vector = WorldGen.digTunnel(vector.X, vector.Y, num3, num4, WorldGen.genRand.Next(6, 20), WorldGen.genRand.Next(4, 9), false);
@@ -19537,7 +19537,7 @@ namespace Terraria
 					{
 						num6 = -num6;
 					}
-					Vector2 vector2 = WorldGen.digTunnel(vector.X, vector.Y, num5, num6, WorldGen.genRand.Next(30, 50), WorldGen.genRand.Next(3, 6), false);
+					Microsoft.Xna.Framework.Vector2 vector2 = WorldGen.digTunnel(vector.X, vector.Y, num5, num6, WorldGen.genRand.Next(30, 50), WorldGen.genRand.Next(3, 6), false);
 					WorldGen.TileRunner((int)vector2.X, (int)vector2.Y, (double)WorldGen.genRand.Next(10, 20), WorldGen.genRand.Next(5, 10), -1, false, 0f, 0f, false, true);
 				}
 				return;
@@ -19555,7 +19555,7 @@ namespace Terraria
 				{
 					num9 = -num9;
 				}
-				Vector2 vector3 = new Vector2((float)X, (float)Y);
+				Microsoft.Xna.Framework.Vector2 vector3 = new Microsoft.Xna.Framework.Vector2((float)X, (float)Y);
 				for (int j = 0; j < num7; j++)
 				{
 					vector3 = WorldGen.digTunnel(vector3.X, vector3.Y, num8, num9, WorldGen.genRand.Next(5, 15), WorldGen.genRand.Next(2, 6), true);
@@ -19580,7 +19580,7 @@ namespace Terraria
 				}
 			}
 		}
-		public static Vector2 digTunnel(float X, float Y, float xDir, float yDir, int Steps, int Size, bool Wet = false)
+		public static Microsoft.Xna.Framework.Vector2 digTunnel(float X, float Y, float xDir, float yDir, int Steps, int Size, bool Wet = false)
 		{
 			float num = X;
 			float num2 = Y;
@@ -19643,13 +19643,13 @@ namespace Terraria
 			catch
 			{
 			}
-			return new Vector2(num, num2);
+			return new Microsoft.Xna.Framework.Vector2(num, num2);
 		}
 		public static void IslandHouse(int i, int j)
 		{
 			byte type = (byte)WorldGen.genRand.Next(45, 48);
 			byte wall = (byte)WorldGen.genRand.Next(10, 13);
-			Vector2 vector = new Vector2((float)i, (float)j);
+			Microsoft.Xna.Framework.Vector2 vector = new Microsoft.Xna.Framework.Vector2((float)i, (float)j);
 			int num = 1;
 			if (WorldGen.genRand.Next(2) == 0)
 			{
@@ -19767,10 +19767,10 @@ namespace Terraria
 		{
 			double num = (double)WorldGen.genRand.Next(80, 120);
 			float num2 = (float)WorldGen.genRand.Next(40, 55);
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j + num2 / 2f;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			value2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.1f;
 			while (num > 0.0 && num2 > 0f)
@@ -19844,10 +19844,10 @@ namespace Terraria
 				num2 *= 1.5;
 				num3 *= 1.2f;
 			}
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j - num3 * 0.3f;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			value2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.1f;
 			while (num > 0.0 && num3 > 0f)
@@ -19928,10 +19928,10 @@ namespace Terraria
 				num2 *= 1.5;
 				num3 *= 1.2f;
 			}
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j - num3 * 0.3f;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			value2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.1f;
 			while (num > 0.0 && num3 > 0f)
@@ -20042,11 +20042,11 @@ namespace Terraria
 			{
 				num2 = -1;
 			}
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j;
 			int k = WorldGen.genRand.Next(20, 40);
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.Y = (float)WorldGen.genRand.Next(10, 20) * 0.01f;
 			value2.X = (float)num2;
 			while (k > 0)
@@ -20119,11 +20119,11 @@ namespace Terraria
 			{
 				num2 = -1;
 			}
-			Vector2 value;
+			Microsoft.Xna.Framework.Vector2 value;
 			value.X = (float)i;
 			value.Y = (float)j;
 			int k = 100;
-			Vector2 value2;
+			Microsoft.Xna.Framework.Vector2 value2;
 			value2.Y = 0f;
 			value2.X = (float)num2;
 			while (k > 0)
@@ -20475,7 +20475,7 @@ namespace Terraria
 				}
 				byte arg_89_0 = Main.tile[i, j].wallFrameX;
 				byte arg_9B_0 = Main.tile[i, j].wallFrameY;
-				Rectangle rectangle;
+				Microsoft.Xna.Framework.Rectangle rectangle;
 				rectangle.X = -1;
 				rectangle.Y = -1;
 				if (i - 1 < 0)
@@ -21062,7 +21062,7 @@ namespace Terraria
 							}
 							int frameX = (int)Main.tile[i, j].frameX;
 							int frameY = (int)Main.tile[i, j].frameY;
-							Rectangle rectangle = new Rectangle(-1, -1, 0, 0);
+							Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle(-1, -1, 0, 0);
 							if (Main.tileFrameImportant[(int)Main.tile[i, j].type])
 							{
 								if (num == 4)
@@ -21119,13 +21119,13 @@ namespace Terraria
 									{
 										if ((num4 >= 0 && Main.tileSolid[num4] && !Main.tileNoAttach[num4]) || num4 == 124 || (num4 == 5 && num8 == 5 && num6 == 5))
 										{
-											Main.tile[i, j].frameX = 22 + num2;
+											Main.tile[i, j].frameX = (byte)(22 + num2);
 										}
 										else
 										{
 											if ((num5 >= 0 && Main.tileSolid[num5] && !Main.tileNoAttach[num5]) || num5 == 124 || (num5 == 5 && num9 == 5 && num7 == 5))
 											{
-												Main.tile[i, j].frameX = 44 + num2;
+												Main.tile[i, j].frameX = (byte)(44 + num2);
 											}
 											else
 											{

@@ -511,7 +511,7 @@ namespace Terraria
 												{
 													Main.tile[num19, num18].active = false;
 												}
-												byte arg_1551_0 = b5 & 2;
+												byte arg_1551_0 = (byte)(b5 & 2);
 												if ((b5 & 4) == 4)
 												{
 													Main.tile[num19, num18].wall = 1;
@@ -990,7 +990,7 @@ namespace Terraria
 																							{
 																								Main.tile[num39, num40].active = false;
 																							}
-																							byte arg_22BD_0 = b11 & 2;
+																							byte arg_22BD_0 = (byte)(b11 & 2);
 																							if ((b11 & 4) == 4)
 																							{
 																								Main.tile[num39, num40].wall = 1;

@@ -142,7 +142,7 @@ namespace Terraria
 			Main.renderCount++;
 			int num5 = Main.screenWidth / 16 + Lighting.offScreenTiles * 2;
 			int num6 = Main.screenHeight / 16 + Lighting.offScreenTiles * 2;
-			Vector2 vector = Main.screenLastPosition;
+			Microsoft.Xna.Framework.Vector2 vector = Main.screenLastPosition;
 			Lighting.doColors();
 			if (Main.renderCount == 2)
 			{
@@ -2614,7 +2614,7 @@ namespace Terraria
 			}
 			return lightY;
 		}
-		public static Color GetColor(int x, int y, Color oldColor)
+		public static Microsoft.Xna.Framework.Color GetColor(int x, int y, Microsoft.Xna.Framework.Color oldColor)
 		{
 			int num = x - Lighting.firstTileX + Lighting.offScreenTiles;
 			int num2 = y - Lighting.firstTileY + Lighting.offScreenTiles;
@@ -2624,9 +2624,9 @@ namespace Terraria
 			}
 			if (num < 0 || num2 < 0 || num >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 || num2 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10)
 			{
-				return Color.Black;
+				return Microsoft.Xna.Framework.Color.Black;
 			}
-			Color white = Color.White;
+			Microsoft.Xna.Framework.Color white = Microsoft.Xna.Framework.Color.White;
 			int num3 = (int)((float)oldColor.R * Lighting.color[num, num2] * Lighting.brightness);
 			int num4 = (int)((float)oldColor.G * Lighting.colorG[num, num2] * Lighting.brightness);
 			int num5 = (int)((float)oldColor.B * Lighting.colorB[num, num2] * Lighting.brightness);
@@ -2647,13 +2647,13 @@ namespace Terraria
 			white.B = (byte)num5;
 			return white;
 		}
-		public static Color GetColor(int x, int y)
+		public static Microsoft.Xna.Framework.Color GetColor(int x, int y)
 		{
 			int num = x - Lighting.firstTileX + Lighting.offScreenTiles;
 			int num2 = y - Lighting.firstTileY + Lighting.offScreenTiles;
 			if (num < 0 || num2 < 0 || num >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 || num2 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2)
 			{
-				return Color.Black;
+				return Microsoft.Xna.Framework.Color.Black;
 			}
 			int num3 = (int)(255f * Lighting.color[num, num2] * Lighting.brightness);
 			int num4 = (int)(255f * Lighting.colorG[num, num2] * Lighting.brightness);
@@ -2670,18 +2670,18 @@ namespace Terraria
 			{
 				num5 = 255;
 			}
-			Color result = new Color((int)((byte)num3), (int)((byte)num4), (int)((byte)num5), 255);
+			Microsoft.Xna.Framework.Color result = new Microsoft.Xna.Framework.Color((int)((byte)num3), (int)((byte)num4), (int)((byte)num5), 255);
 			return result;
 		}
-		public static Color GetBlackness(int x, int y)
+		public static Microsoft.Xna.Framework.Color GetBlackness(int x, int y)
 		{
 			int num = x - Lighting.firstTileX + Lighting.offScreenTiles;
 			int num2 = y - Lighting.firstTileY + Lighting.offScreenTiles;
 			if (num < 0 || num2 < 0 || num >= Main.screenWidth / 16 + Lighting.offScreenTiles * 2 + 10 || num2 >= Main.screenHeight / 16 + Lighting.offScreenTiles * 2 + 10)
 			{
-				return Color.Black;
+				return Microsoft.Xna.Framework.Color.Black;
 			}
-			Color result = new Color(0, 0, 0, (int)((byte)(255f - 255f * Lighting.color[num, num2])));
+			Microsoft.Xna.Framework.Color result = new Microsoft.Xna.Framework.Color(0, 0, 0, (int)((byte)(255f - 255f * Lighting.color[num, num2])));
 			return result;
 		}
 		public static float Brightness(int x, int y)

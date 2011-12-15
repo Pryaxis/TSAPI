@@ -4,7 +4,7 @@ namespace Terraria
 {
 	public class Cloud
 	{
-		public Vector2 position;
+		public Microsoft.Xna.Framework.Vector2 position;
 		public float scale;
 		public float rotation;
 		public float rSpeed;
@@ -95,12 +95,12 @@ namespace Terraria
 					Main.cloud[num].scale = 0.7f;
 				}
 				Main.cloud[num].active = true;
-				Rectangle rectangle = new Rectangle((int)Main.cloud[num].position.X, (int)Main.cloud[num].position.Y, Main.cloud[num].width, Main.cloud[num].height);
+				Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle((int)Main.cloud[num].position.X, (int)Main.cloud[num].position.Y, Main.cloud[num].width, Main.cloud[num].height);
 				for (int j = 0; j < 100; j++)
 				{
 					if (num != j && Main.cloud[j].active)
 					{
-						Rectangle value = new Rectangle((int)Main.cloud[j].position.X, (int)Main.cloud[j].position.Y, Main.cloud[j].width, Main.cloud[j].height);
+						Microsoft.Xna.Framework.Rectangle value = new Microsoft.Xna.Framework.Rectangle((int)Main.cloud[j].position.X, (int)Main.cloud[j].position.Y, Main.cloud[j].width, Main.cloud[j].height);
 						if (rectangle.Intersects(value))
 						{
 							Main.cloud[num].active = false;
@@ -109,7 +109,7 @@ namespace Terraria
 				}
 			}
 		}
-		public Color cloudColor(Color bgColor)
+		public Microsoft.Xna.Framework.Color cloudColor(Microsoft.Xna.Framework.Color bgColor)
 		{
 			float num = (this.scale - 0.4f) * 0.9f;
 			float num2 = 1.1f;
@@ -137,7 +137,7 @@ namespace Terraria
 			{
 				num6 = 0f;
 			}
-			return new Color((int)((byte)num3), (int)((byte)num4), (int)((byte)num5), (int)((byte)num6));
+			return new Microsoft.Xna.Framework.Color((int)((byte)num3), (int)((byte)num4), (int)((byte)num5), (int)((byte)num6));
 		}
 		public object Clone()
 		{
