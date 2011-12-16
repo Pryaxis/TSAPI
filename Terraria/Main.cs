@@ -1247,7 +1247,8 @@ namespace Terraria
 			}
 			Console.WriteLine("Terraria Server " + Main.versionNumber);
 			Console.WriteLine("");
-			Console.WriteLine("Listening on port " + Netplay.serverPort);
+            Console.WriteLine("Listening on {0}:{1}", 
+                Netplay.serverListenIP != System.Net.IPAddress.Any ? Netplay.serverListenIP.ToString() : "*", Netplay.serverPort);
 			Console.WriteLine("Type 'help' for a list of commands.");
 			Console.WriteLine("");
 			Console.Title = "Terraria Server: " + Main.worldName;

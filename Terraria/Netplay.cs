@@ -3,6 +3,8 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using Hooks;
+
 namespace Terraria
 {
 	public class Netplay
@@ -367,6 +369,7 @@ namespace Terraria
                     }
                     if (Netplay.serverSock[k].kill)
                     {
+                        ServerHooks.OnLeave(serverSock[k].whoAmI);
                         Netplay.serverSock[k].Reset();
                         NetMessage.syncPlayers();
                     }
@@ -408,27 +411,6 @@ namespace Terraria
                         }
                         else
                         {
-                            if (Netplay.serverSock[k].state == 0)
-                            {
-                            }
-                            else
-                            {
-                                if (Netplay.serverSock[k].state == 1)
-                                {
-                                }
-                                else
-                                {
-                                    if (Netplay.serverSock[k].state == 2)
-                                    {
-                                    }
-                                    else
-                                    {
-                                        if (Netplay.serverSock[k].state != 3 && Netplay.serverSock[k].state == 10)
-                                        {
-                                        }
-                                    }
-                                }
-                            }
                         }
                     }
                     else if (Netplay.serverSock[k].active)
