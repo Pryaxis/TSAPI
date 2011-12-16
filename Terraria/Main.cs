@@ -939,10 +939,6 @@ namespace Terraria
 		{
 			Main.autoShutdown = true;
 		}
-		[DllImport("user32.dll")]
-		public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-		[DllImport("user32.dll")]
-		private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 		public void AutoPass()
 		{
 			Main.autoPass = true;
