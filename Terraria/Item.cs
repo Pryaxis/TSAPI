@@ -1,4 +1,4 @@
-
+using Hooks;
 using System;
 namespace Terraria
 {
@@ -1683,7 +1683,7 @@ namespace Terraria
 			}
 			return result;
 		}
-		public void SetDefaults(string ItemName)
+		public void RealSetDefaults(string ItemName)
 		{
 			this.name = "";
 			bool flag = false;
@@ -2076,7 +2076,7 @@ namespace Terraria
 			this.material = false;
 			return false;
 		}
-		public void netDefaults(int type)
+		public void RealnetDefaults(int type)
 		{
 			if (type < 0)
 			{
@@ -2206,7 +2206,7 @@ namespace Terraria
 				this.SetDefaults(type, false);
 			}
 		}
-		public void SetDefaults(int Type, bool noMatCheck = false)
+		public void RealSetDefaults(int Type, bool noMatCheck = false)
 		{
 			if (Main.netMode == 1 || Main.netMode == 2)
 			{
@@ -12666,6 +12666,21 @@ namespace Terraria
 			}
 			this.netID = this.type;
 		}
+        public void netDefaults(int Type)
+        {
+            RealnetDefaults(Type);
+            ItemHooks.OnNetDefaults(ref Type, this);
+        }
+        public void SetDefaults(int Type, bool noMatCheck = false)
+        {
+            RealSetDefaults(Type, noMatCheck);
+            ItemHooks.OnSetDefaultsInt(ref Type, this);
+        }
+        public void SetDefaults(string ItemName)
+        {
+            RealSetDefaults(ItemName);
+            ItemHooks.OnSetDefaultsString(ref ItemName, this);
+        }
 		public static string VersionName(string oldName, int release)
 		{
 			string result = oldName;

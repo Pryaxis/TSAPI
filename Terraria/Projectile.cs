@@ -1,5 +1,7 @@
 
 using System;
+using Hooks;
+
 namespace Terraria
 {
 	public class Projectile
@@ -106,1606 +108,1192 @@ namespace Terraria
 			this.damage = 0;
 			this.knockBack = 0f;
 			this.miscText = "";
-			if (this.type == 1)
+			switch (this.type)
 			{
-				this.name = "Wooden Arrow";
-				this.width = 10;
-				this.height = 10;
-				this.aiStyle = 1;
-				this.friendly = true;
-				this.ranged = true;
-			}
-			else
-			{
-				if (this.type == 2)
-				{
-					this.name = "Fire Arrow";
-					this.width = 10;
-					this.height = 10;
-					this.aiStyle = 1;
-					this.friendly = true;
-					this.light = 1f;
-					this.ranged = true;
-				}
-				else
-				{
-					if (this.type == 3)
-					{
-						this.name = "Shuriken";
-						this.width = 22;
-						this.height = 22;
-						this.aiStyle = 2;
-						this.friendly = true;
-						this.penetrate = 4;
-						this.ranged = true;
-					}
-					else
-					{
-						if (this.type == 4)
-						{
-							this.name = "Unholy Arrow";
-							this.width = 10;
-							this.height = 10;
-							this.aiStyle = 1;
-							this.friendly = true;
-							this.light = 0.35f;
-							this.penetrate = 5;
-							this.ranged = true;
-						}
-						else
-						{
-							if (this.type == 5)
-							{
-								this.name = "Jester's Arrow";
-								this.width = 10;
-								this.height = 10;
-								this.aiStyle = 1;
-								this.friendly = true;
-								this.light = 0.4f;
-								this.penetrate = -1;
-								this.timeLeft = 40;
-								this.alpha = 100;
-								this.ignoreWater = true;
-								this.ranged = true;
-							}
-							else
-							{
-								if (this.type == 6)
-								{
-									this.name = "Enchanted Boomerang";
-									this.width = 22;
-									this.height = 22;
-									this.aiStyle = 3;
-									this.friendly = true;
-									this.penetrate = -1;
-									this.melee = true;
-									this.light = 0.4f;
-								}
-								else
-								{
-									if (this.type == 7 || this.type == 8)
-									{
-										this.name = "Vilethorn";
-										this.width = 28;
-										this.height = 28;
-										this.aiStyle = 4;
-										this.friendly = true;
-										this.penetrate = -1;
-										this.tileCollide = false;
-										this.alpha = 255;
-										this.ignoreWater = true;
-										this.magic = true;
-									}
-									else
-									{
-										if (this.type == 9)
-										{
-											this.name = "Starfury";
-											this.width = 24;
-											this.height = 24;
-											this.aiStyle = 5;
-											this.friendly = true;
-											this.penetrate = 2;
-											this.alpha = 50;
-											this.scale = 0.8f;
-											this.tileCollide = false;
-											this.magic = true;
-										}
-										else
-										{
-											if (this.type == 10)
-											{
-												this.name = "Purification Powder";
-												this.width = 64;
-												this.height = 64;
-												this.aiStyle = 6;
-												this.friendly = true;
-												this.tileCollide = false;
-												this.penetrate = -1;
-												this.alpha = 255;
-												this.ignoreWater = true;
-											}
-											else
-											{
-												if (this.type == 11)
-												{
-													this.name = "Vile Powder";
-													this.width = 48;
-													this.height = 48;
-													this.aiStyle = 6;
-													this.friendly = true;
-													this.tileCollide = false;
-													this.penetrate = -1;
-													this.alpha = 255;
-													this.ignoreWater = true;
-												}
-												else
-												{
-													if (this.type == 12)
-													{
-														this.name = "Falling Star";
-														this.width = 16;
-														this.height = 16;
-														this.aiStyle = 5;
-														this.friendly = true;
-														this.penetrate = -1;
-														this.alpha = 50;
-														this.light = 1f;
-													}
-													else
-													{
-														if (this.type == 13)
-														{
-															this.name = "Hook";
-															this.width = 18;
-															this.height = 18;
-															this.aiStyle = 7;
-															this.friendly = true;
-															this.penetrate = -1;
-															this.tileCollide = false;
-															this.timeLeft *= 10;
-														}
-														else
-														{
-															if (this.type == 14)
-															{
-																this.name = "Bullet";
-																this.width = 4;
-																this.height = 4;
-																this.aiStyle = 1;
-																this.friendly = true;
-																this.penetrate = 1;
-																this.light = 0.5f;
-																this.alpha = 255;
-																this.maxUpdates = 1;
-																this.scale = 1.2f;
-																this.timeLeft = 600;
-																this.ranged = true;
-															}
-															else
-															{
-																if (this.type == 15)
-																{
-																	this.name = "Ball of Fire";
-																	this.width = 16;
-																	this.height = 16;
-																	this.aiStyle = 8;
-																	this.friendly = true;
-																	this.light = 0.8f;
-																	this.alpha = 100;
-																	this.magic = true;
-																}
-																else
-																{
-																	if (this.type == 16)
-																	{
-																		this.name = "Magic Missile";
-																		this.width = 10;
-																		this.height = 10;
-																		this.aiStyle = 9;
-																		this.friendly = true;
-																		this.light = 0.8f;
-																		this.alpha = 100;
-																		this.magic = true;
-																	}
-																	else
-																	{
-																		if (this.type == 17)
-																		{
-																			this.name = "Dirt Ball";
-																			this.width = 10;
-																			this.height = 10;
-																			this.aiStyle = 10;
-																			this.friendly = true;
-																		}
-																		else
-																		{
-																			if (this.type == 18)
-																			{
-																				this.name = "Orb of Light";
-																				this.width = 32;
-																				this.height = 32;
-																				this.aiStyle = 11;
-																				this.friendly = true;
-																				this.light = 0.45f;
-																				this.alpha = 150;
-																				this.tileCollide = false;
-																				this.penetrate = -1;
-																				this.timeLeft *= 5;
-																				this.ignoreWater = true;
-																				this.scale = 0.8f;
-																			}
-																			else
-																			{
-																				if (this.type == 19)
-																				{
-																					this.name = "Flamarang";
-																					this.width = 22;
-																					this.height = 22;
-																					this.aiStyle = 3;
-																					this.friendly = true;
-																					this.penetrate = -1;
-																					this.light = 1f;
-																					this.melee = true;
-																				}
-																				else
-																				{
-																					if (this.type == 20)
-																					{
-																						this.name = "Green Laser";
-																						this.width = 4;
-																						this.height = 4;
-																						this.aiStyle = 1;
-																						this.friendly = true;
-																						this.penetrate = 3;
-																						this.light = 0.75f;
-																						this.alpha = 255;
-																						this.maxUpdates = 2;
-																						this.scale = 1.4f;
-																						this.timeLeft = 600;
-																						this.magic = true;
-																					}
-																					else
-																					{
-																						if (this.type == 21)
-																						{
-																							this.name = "Bone";
-																							this.width = 16;
-																							this.height = 16;
-																							this.aiStyle = 2;
-																							this.scale = 1.2f;
-																							this.friendly = true;
-																							this.ranged = true;
-																						}
-																						else
-																						{
-																							if (this.type == 22)
-																							{
-																								this.name = "Water Stream";
-																								this.width = 18;
-																								this.height = 18;
-																								this.aiStyle = 12;
-																								this.friendly = true;
-																								this.alpha = 255;
-																								this.penetrate = -1;
-																								this.maxUpdates = 2;
-																								this.ignoreWater = true;
-																								this.magic = true;
-																							}
-																							else
-																							{
-																								if (this.type == 23)
-																								{
-																									this.name = "Harpoon";
-																									this.width = 4;
-																									this.height = 4;
-																									this.aiStyle = 13;
-																									this.friendly = true;
-																									this.penetrate = -1;
-																									this.alpha = 255;
-																									this.ranged = true;
-																								}
-																								else
-																								{
-																									if (this.type == 24)
-																									{
-																										this.name = "Spiky Ball";
-																										this.width = 14;
-																										this.height = 14;
-																										this.aiStyle = 14;
-																										this.friendly = true;
-																										this.penetrate = 6;
-																										this.ranged = true;
-																									}
-																									else
-																									{
-																										if (this.type == 25)
-																										{
-																											this.name = "Ball 'O Hurt";
-																											this.width = 22;
-																											this.height = 22;
-																											this.aiStyle = 15;
-																											this.friendly = true;
-																											this.penetrate = -1;
-																											this.melee = true;
-																											this.scale = 0.8f;
-																										}
-																										else
-																										{
-																											if (this.type == 26)
-																											{
-																												this.name = "Blue Moon";
-																												this.width = 22;
-																												this.height = 22;
-																												this.aiStyle = 15;
-																												this.friendly = true;
-																												this.penetrate = -1;
-																												this.melee = true;
-																												this.scale = 0.8f;
-																											}
-																											else
-																											{
-																												if (this.type == 27)
-																												{
-																													this.name = "Water Bolt";
-																													this.width = 16;
-																													this.height = 16;
-																													this.aiStyle = 8;
-																													this.friendly = true;
-																													this.light = 0.8f;
-																													this.alpha = 200;
-																													this.timeLeft /= 2;
-																													this.penetrate = 10;
-																													this.magic = true;
-																												}
-																												else
-																												{
-																													if (this.type == 28)
-																													{
-																														this.name = "Bomb";
-																														this.width = 22;
-																														this.height = 22;
-																														this.aiStyle = 16;
-																														this.friendly = true;
-																														this.penetrate = -1;
-																													}
-																													else
-																													{
-																														if (this.type == 29)
-																														{
-																															this.name = "Dynamite";
-																															this.width = 10;
-																															this.height = 10;
-																															this.aiStyle = 16;
-																															this.friendly = true;
-																															this.penetrate = -1;
-																														}
-																														else
-																														{
-																															if (this.type == 30)
-																															{
-																																this.name = "Grenade";
-																																this.width = 14;
-																																this.height = 14;
-																																this.aiStyle = 16;
-																																this.friendly = true;
-																																this.penetrate = -1;
-																																this.ranged = true;
-																															}
-																															else
-																															{
-																																if (this.type == 31)
-																																{
-																																	this.name = "Sand Ball";
-																																	this.knockBack = 6f;
-																																	this.width = 10;
-																																	this.height = 10;
-																																	this.aiStyle = 10;
-																																	this.friendly = true;
-																																	this.hostile = true;
-																																	this.penetrate = -1;
-																																}
-																																else
-																																{
-																																	if (this.type == 32)
-																																	{
-																																		this.name = "Ivy Whip";
-																																		this.width = 18;
-																																		this.height = 18;
-																																		this.aiStyle = 7;
-																																		this.friendly = true;
-																																		this.penetrate = -1;
-																																		this.tileCollide = false;
-																																		this.timeLeft *= 10;
-																																	}
-																																	else
-																																	{
-																																		if (this.type == 33)
-																																		{
-																																			this.name = "Thorn Chakrum";
-																																			this.width = 28;
-																																			this.height = 28;
-																																			this.aiStyle = 3;
-																																			this.friendly = true;
-																																			this.scale = 0.9f;
-																																			this.penetrate = -1;
-																																			this.melee = true;
-																																		}
-																																		else
-																																		{
-																																			if (this.type == 34)
-																																			{
-																																				this.name = "Flamelash";
-																																				this.width = 14;
-																																				this.height = 14;
-																																				this.aiStyle = 9;
-																																				this.friendly = true;
-																																				this.light = 0.8f;
-																																				this.alpha = 100;
-																																				this.penetrate = 1;
-																																				this.magic = true;
-																																			}
-																																			else
-																																			{
-																																				if (this.type == 35)
-																																				{
-																																					this.name = "Sunfury";
-																																					this.width = 22;
-																																					this.height = 22;
-																																					this.aiStyle = 15;
-																																					this.friendly = true;
-																																					this.penetrate = -1;
-																																					this.melee = true;
-																																					this.scale = 0.8f;
-																																				}
-																																				else
-																																				{
-																																					if (this.type == 36)
-																																					{
-																																						this.name = "Meteor Shot";
-																																						this.width = 4;
-																																						this.height = 4;
-																																						this.aiStyle = 1;
-																																						this.friendly = true;
-																																						this.penetrate = 2;
-																																						this.light = 0.6f;
-																																						this.alpha = 255;
-																																						this.maxUpdates = 1;
-																																						this.scale = 1.4f;
-																																						this.timeLeft = 600;
-																																						this.ranged = true;
-																																					}
-																																					else
-																																					{
-																																						if (this.type == 37)
-																																						{
-																																							this.name = "Sticky Bomb";
-																																							this.width = 22;
-																																							this.height = 22;
-																																							this.aiStyle = 16;
-																																							this.friendly = true;
-																																							this.penetrate = -1;
-																																							this.tileCollide = false;
-																																						}
-																																						else
-																																						{
-																																							if (this.type == 38)
-																																							{
-																																								this.name = "Harpy Feather";
-																																								this.width = 14;
-																																								this.height = 14;
-																																								this.aiStyle = 0;
-																																								this.hostile = true;
-																																								this.penetrate = -1;
-																																								this.aiStyle = 1;
-																																								this.tileCollide = true;
-																																							}
-																																							else
-																																							{
-																																								if (this.type == 39)
-																																								{
-																																									this.name = "Mud Ball";
-																																									this.knockBack = 6f;
-																																									this.width = 10;
-																																									this.height = 10;
-																																									this.aiStyle = 10;
-																																									this.friendly = true;
-																																									this.hostile = true;
-																																									this.penetrate = -1;
-																																								}
-																																								else
-																																								{
-																																									if (this.type == 40)
-																																									{
-																																										this.name = "Ash Ball";
-																																										this.knockBack = 6f;
-																																										this.width = 10;
-																																										this.height = 10;
-																																										this.aiStyle = 10;
-																																										this.friendly = true;
-																																										this.hostile = true;
-																																										this.penetrate = -1;
-																																									}
-																																									else
-																																									{
-																																										if (this.type == 41)
-																																										{
-																																											this.name = "Hellfire Arrow";
-																																											this.width = 10;
-																																											this.height = 10;
-																																											this.aiStyle = 1;
-																																											this.friendly = true;
-																																											this.penetrate = -1;
-																																											this.ranged = true;
-																																											this.light = 0.3f;
-																																										}
-																																										else
-																																										{
-																																											if (this.type == 42)
-																																											{
-																																												this.name = "Sand Ball";
-																																												this.knockBack = 8f;
-																																												this.width = 10;
-																																												this.height = 10;
-																																												this.aiStyle = 10;
-																																												this.friendly = true;
-																																												this.maxUpdates = 1;
-																																											}
-																																											else
-																																											{
-																																												if (this.type == 43)
-																																												{
-																																													this.name = "Tombstone";
-																																													this.knockBack = 12f;
-																																													this.width = 24;
-																																													this.height = 24;
-																																													this.aiStyle = 17;
-																																													this.penetrate = -1;
-																																												}
-																																												else
-																																												{
-																																													if (this.type == 44)
-																																													{
-																																														this.name = "Demon Sickle";
-																																														this.width = 48;
-																																														this.height = 48;
-																																														this.alpha = 100;
-																																														this.light = 0.2f;
-																																														this.aiStyle = 18;
-																																														this.hostile = true;
-																																														this.penetrate = -1;
-																																														this.tileCollide = true;
-																																														this.scale = 0.9f;
-																																													}
-																																													else
-																																													{
-																																														if (this.type == 45)
-																																														{
-																																															this.name = "Demon Scythe";
-																																															this.width = 48;
-																																															this.height = 48;
-																																															this.alpha = 100;
-																																															this.light = 0.2f;
-																																															this.aiStyle = 18;
-																																															this.friendly = true;
-																																															this.penetrate = 5;
-																																															this.tileCollide = true;
-																																															this.scale = 0.9f;
-																																															this.magic = true;
-																																														}
-																																														else
-																																														{
-																																															if (this.type == 46)
-																																															{
-																																																this.name = "Dark Lance";
-																																																this.width = 20;
-																																																this.height = 20;
-																																																this.aiStyle = 19;
-																																																this.friendly = true;
-																																																this.penetrate = -1;
-																																																this.tileCollide = false;
-																																																this.scale = 1.1f;
-																																																this.hide = true;
-																																																this.ownerHitCheck = true;
-																																																this.melee = true;
-																																															}
-																																															else
-																																															{
-																																																if (this.type == 47)
-																																																{
-																																																	this.name = "Trident";
-																																																	this.width = 18;
-																																																	this.height = 18;
-																																																	this.aiStyle = 19;
-																																																	this.friendly = true;
-																																																	this.penetrate = -1;
-																																																	this.tileCollide = false;
-																																																	this.scale = 1.1f;
-																																																	this.hide = true;
-																																																	this.ownerHitCheck = true;
-																																																	this.melee = true;
-																																																}
-																																																else
-																																																{
-																																																	if (this.type == 48)
-																																																	{
-																																																		this.name = "Throwing Knife";
-																																																		this.width = 12;
-																																																		this.height = 12;
-																																																		this.aiStyle = 2;
-																																																		this.friendly = true;
-																																																		this.penetrate = 2;
-																																																		this.ranged = true;
-																																																	}
-																																																	else
-																																																	{
-																																																		if (this.type == 49)
-																																																		{
-																																																			this.name = "Spear";
-																																																			this.width = 18;
-																																																			this.height = 18;
-																																																			this.aiStyle = 19;
-																																																			this.friendly = true;
-																																																			this.penetrate = -1;
-																																																			this.tileCollide = false;
-																																																			this.scale = 1.2f;
-																																																			this.hide = true;
-																																																			this.ownerHitCheck = true;
-																																																			this.melee = true;
-																																																		}
-																																																		else
-																																																		{
-																																																			if (this.type == 50)
-																																																			{
-																																																				this.name = "Glowstick";
-																																																				this.width = 6;
-																																																				this.height = 6;
-																																																				this.aiStyle = 14;
-																																																				this.penetrate = -1;
-																																																				this.alpha = 75;
-																																																				this.light = 1f;
-																																																				this.timeLeft *= 5;
-																																																			}
-																																																			else
-																																																			{
-																																																				if (this.type == 51)
-																																																				{
-																																																					this.name = "Seed";
-																																																					this.width = 8;
-																																																					this.height = 8;
-																																																					this.aiStyle = 1;
-																																																					this.friendly = true;
-																																																				}
-																																																				else
-																																																				{
-																																																					if (this.type == 52)
-																																																					{
-																																																						this.name = "Wooden Boomerang";
-																																																						this.width = 22;
-																																																						this.height = 22;
-																																																						this.aiStyle = 3;
-																																																						this.friendly = true;
-																																																						this.penetrate = -1;
-																																																						this.melee = true;
-																																																					}
-																																																					else
-																																																					{
-																																																						if (this.type == 53)
-																																																						{
-																																																							this.name = "Sticky Glowstick";
-																																																							this.width = 6;
-																																																							this.height = 6;
-																																																							this.aiStyle = 14;
-																																																							this.penetrate = -1;
-																																																							this.alpha = 75;
-																																																							this.light = 1f;
-																																																							this.timeLeft *= 5;
-																																																							this.tileCollide = false;
-																																																						}
-																																																						else
-																																																						{
-																																																							if (this.type == 54)
-																																																							{
-																																																								this.name = "Poisoned Knife";
-																																																								this.width = 12;
-																																																								this.height = 12;
-																																																								this.aiStyle = 2;
-																																																								this.friendly = true;
-																																																								this.penetrate = 2;
-																																																								this.ranged = true;
-																																																							}
-																																																							else
-																																																							{
-																																																								if (this.type == 55)
-																																																								{
-																																																									this.name = "Stinger";
-																																																									this.width = 10;
-																																																									this.height = 10;
-																																																									this.aiStyle = 0;
-																																																									this.hostile = true;
-																																																									this.penetrate = -1;
-																																																									this.aiStyle = 1;
-																																																									this.tileCollide = true;
-																																																								}
-																																																								else
-																																																								{
-																																																									if (this.type == 56)
-																																																									{
-																																																										this.name = "Ebonsand Ball";
-																																																										this.knockBack = 6f;
-																																																										this.width = 10;
-																																																										this.height = 10;
-																																																										this.aiStyle = 10;
-																																																										this.friendly = true;
-																																																										this.hostile = true;
-																																																										this.penetrate = -1;
-																																																									}
-																																																									else
-																																																									{
-																																																										if (this.type == 57)
-																																																										{
-																																																											this.name = "Cobalt Chainsaw";
-																																																											this.width = 18;
-																																																											this.height = 18;
-																																																											this.aiStyle = 20;
-																																																											this.friendly = true;
-																																																											this.penetrate = -1;
-																																																											this.tileCollide = false;
-																																																											this.hide = true;
-																																																											this.ownerHitCheck = true;
-																																																											this.melee = true;
-																																																										}
-																																																										else
-																																																										{
-																																																											if (this.type == 58)
-																																																											{
-																																																												this.name = "Mythril Chainsaw";
-																																																												this.width = 18;
-																																																												this.height = 18;
-																																																												this.aiStyle = 20;
-																																																												this.friendly = true;
-																																																												this.penetrate = -1;
-																																																												this.tileCollide = false;
-																																																												this.hide = true;
-																																																												this.ownerHitCheck = true;
-																																																												this.melee = true;
-																																																												this.scale = 1.08f;
-																																																											}
-																																																											else
-																																																											{
-																																																												if (this.type == 59)
-																																																												{
-																																																													this.name = "Cobalt Drill";
-																																																													this.width = 22;
-																																																													this.height = 22;
-																																																													this.aiStyle = 20;
-																																																													this.friendly = true;
-																																																													this.penetrate = -1;
-																																																													this.tileCollide = false;
-																																																													this.hide = true;
-																																																													this.ownerHitCheck = true;
-																																																													this.melee = true;
-																																																													this.scale = 0.9f;
-																																																												}
-																																																												else
-																																																												{
-																																																													if (this.type == 60)
-																																																													{
-																																																														this.name = "Mythril Drill";
-																																																														this.width = 22;
-																																																														this.height = 22;
-																																																														this.aiStyle = 20;
-																																																														this.friendly = true;
-																																																														this.penetrate = -1;
-																																																														this.tileCollide = false;
-																																																														this.hide = true;
-																																																														this.ownerHitCheck = true;
-																																																														this.melee = true;
-																																																														this.scale = 0.9f;
-																																																													}
-																																																													else
-																																																													{
-																																																														if (this.type == 61)
-																																																														{
-																																																															this.name = "Adamantite Chainsaw";
-																																																															this.width = 18;
-																																																															this.height = 18;
-																																																															this.aiStyle = 20;
-																																																															this.friendly = true;
-																																																															this.penetrate = -1;
-																																																															this.tileCollide = false;
-																																																															this.hide = true;
-																																																															this.ownerHitCheck = true;
-																																																															this.melee = true;
-																																																															this.scale = 1.16f;
-																																																														}
-																																																														else
-																																																														{
-																																																															if (this.type == 62)
-																																																															{
-																																																																this.name = "Adamantite Drill";
-																																																																this.width = 22;
-																																																																this.height = 22;
-																																																																this.aiStyle = 20;
-																																																																this.friendly = true;
-																																																																this.penetrate = -1;
-																																																																this.tileCollide = false;
-																																																																this.hide = true;
-																																																																this.ownerHitCheck = true;
-																																																																this.melee = true;
-																																																																this.scale = 0.9f;
-																																																															}
-																																																															else
-																																																															{
-																																																																if (this.type == 63)
-																																																																{
-																																																																	this.name = "The Dao of Pow";
-																																																																	this.width = 22;
-																																																																	this.height = 22;
-																																																																	this.aiStyle = 15;
-																																																																	this.friendly = true;
-																																																																	this.penetrate = -1;
-																																																																	this.melee = true;
-																																																																}
-																																																																else
-																																																																{
-																																																																	if (this.type == 64)
-																																																																	{
-																																																																		this.name = "Mythril Halberd";
-																																																																		this.width = 18;
-																																																																		this.height = 18;
-																																																																		this.aiStyle = 19;
-																																																																		this.friendly = true;
-																																																																		this.penetrate = -1;
-																																																																		this.tileCollide = false;
-																																																																		this.scale = 1.25f;
-																																																																		this.hide = true;
-																																																																		this.ownerHitCheck = true;
-																																																																		this.melee = true;
-																																																																	}
-																																																																	else
-																																																																	{
-																																																																		if (this.type == 65)
-																																																																		{
-																																																																			this.name = "Ebonsand Ball";
-																																																																			this.knockBack = 6f;
-																																																																			this.width = 10;
-																																																																			this.height = 10;
-																																																																			this.aiStyle = 10;
-																																																																			this.friendly = true;
-																																																																			this.penetrate = -1;
-																																																																			this.maxUpdates = 1;
-																																																																		}
-																																																																		else
-																																																																		{
-																																																																			if (this.type == 66)
-																																																																			{
-																																																																				this.name = "Adamantite Glaive";
-																																																																				this.width = 18;
-																																																																				this.height = 18;
-																																																																				this.aiStyle = 19;
-																																																																				this.friendly = true;
-																																																																				this.penetrate = -1;
-																																																																				this.tileCollide = false;
-																																																																				this.scale = 1.27f;
-																																																																				this.hide = true;
-																																																																				this.ownerHitCheck = true;
-																																																																				this.melee = true;
-																																																																			}
-																																																																			else
-																																																																			{
-																																																																				if (this.type == 67)
-																																																																				{
-																																																																					this.name = "Pearl Sand Ball";
-																																																																					this.knockBack = 6f;
-																																																																					this.width = 10;
-																																																																					this.height = 10;
-																																																																					this.aiStyle = 10;
-																																																																					this.friendly = true;
-																																																																					this.hostile = true;
-																																																																					this.penetrate = -1;
-																																																																				}
-																																																																				else
-																																																																				{
-																																																																					if (this.type == 68)
-																																																																					{
-																																																																						this.name = "Pearl Sand Ball";
-																																																																						this.knockBack = 6f;
-																																																																						this.width = 10;
-																																																																						this.height = 10;
-																																																																						this.aiStyle = 10;
-																																																																						this.friendly = true;
-																																																																						this.penetrate = -1;
-																																																																						this.maxUpdates = 1;
-																																																																					}
-																																																																					else
-																																																																					{
-																																																																						if (this.type == 69)
-																																																																						{
-																																																																							this.name = "Holy Water";
-																																																																							this.width = 14;
-																																																																							this.height = 14;
-																																																																							this.aiStyle = 2;
-																																																																							this.friendly = true;
-																																																																							this.penetrate = 1;
-																																																																						}
-																																																																						else
-																																																																						{
-																																																																							if (this.type == 70)
-																																																																							{
-																																																																								this.name = "Unholy Water";
-																																																																								this.width = 14;
-																																																																								this.height = 14;
-																																																																								this.aiStyle = 2;
-																																																																								this.friendly = true;
-																																																																								this.penetrate = 1;
-																																																																							}
-																																																																							else
-																																																																							{
-																																																																								if (this.type == 71)
-																																																																								{
-																																																																									this.name = "Gravel Ball";
-																																																																									this.knockBack = 6f;
-																																																																									this.width = 10;
-																																																																									this.height = 10;
-																																																																									this.aiStyle = 10;
-																																																																									this.friendly = true;
-																																																																									this.hostile = true;
-																																																																									this.penetrate = -1;
-																																																																								}
-																																																																								else
-																																																																								{
-																																																																									if (this.type == 72)
-																																																																									{
-																																																																										this.name = "Blue Fairy";
-																																																																										this.width = 18;
-																																																																										this.height = 18;
-																																																																										this.aiStyle = 11;
-																																																																										this.friendly = true;
-																																																																										this.light = 0.9f;
-																																																																										this.tileCollide = false;
-																																																																										this.penetrate = -1;
-																																																																										this.timeLeft *= 5;
-																																																																										this.ignoreWater = true;
-																																																																										this.scale = 0.8f;
-																																																																									}
-																																																																									else
-																																																																									{
-																																																																										if (this.type == 73 || this.type == 74)
-																																																																										{
-																																																																											this.name = "Hook";
-																																																																											this.width = 18;
-																																																																											this.height = 18;
-																																																																											this.aiStyle = 7;
-																																																																											this.friendly = true;
-																																																																											this.penetrate = -1;
-																																																																											this.tileCollide = false;
-																																																																											this.timeLeft *= 10;
-																																																																											this.light = 0.4f;
-																																																																										}
-																																																																										else
-																																																																										{
-																																																																											if (this.type == 75)
-																																																																											{
-																																																																												this.name = "Happy Bomb";
-																																																																												this.width = 22;
-																																																																												this.height = 22;
-																																																																												this.aiStyle = 16;
-																																																																												this.hostile = true;
-																																																																												this.penetrate = -1;
-																																																																											}
-																																																																											else
-																																																																											{
-																																																																												if (this.type == 76 || this.type == 77 || this.type == 78)
-																																																																												{
-																																																																													if (this.type == 76)
-																																																																													{
-																																																																														this.width = 10;
-																																																																														this.height = 22;
-																																																																													}
-																																																																													else
-																																																																													{
-																																																																														if (this.type == 77)
-																																																																														{
-																																																																															this.width = 18;
-																																																																															this.height = 24;
-																																																																														}
-																																																																														else
-																																																																														{
-																																																																															this.width = 22;
-																																																																															this.height = 24;
-																																																																														}
-																																																																													}
-																																																																													this.name = "Note";
-																																																																													this.aiStyle = 21;
-																																																																													this.friendly = true;
-																																																																													this.ranged = true;
-																																																																													this.alpha = 100;
-																																																																													this.light = 0.3f;
-																																																																													this.penetrate = -1;
-																																																																													this.timeLeft = 180;
-																																																																												}
-																																																																												else
-																																																																												{
-																																																																													if (this.type == 79)
-																																																																													{
-																																																																														this.name = "Rainbow";
-																																																																														this.width = 10;
-																																																																														this.height = 10;
-																																																																														this.aiStyle = 9;
-																																																																														this.friendly = true;
-																																																																														this.light = 0.8f;
-																																																																														this.alpha = 255;
-																																																																														this.magic = true;
-																																																																													}
-																																																																													else
-																																																																													{
-																																																																														if (this.type == 80)
-																																																																														{
-																																																																															this.name = "Ice Block";
-																																																																															this.width = 16;
-																																																																															this.height = 16;
-																																																																															this.aiStyle = 22;
-																																																																															this.friendly = true;
-																																																																															this.magic = true;
-																																																																															this.tileCollide = false;
-																																																																															this.light = 0.5f;
-																																																																														}
-																																																																														else
-																																																																														{
-																																																																															if (this.type == 81)
-																																																																															{
-																																																																																this.name = "Wooden Arrow";
-																																																																																this.width = 10;
-																																																																																this.height = 10;
-																																																																																this.aiStyle = 1;
-																																																																																this.hostile = true;
-																																																																																this.ranged = true;
-																																																																															}
-																																																																															else
-																																																																															{
-																																																																																if (this.type == 82)
-																																																																																{
-																																																																																	this.name = "Flaming Arrow";
-																																																																																	this.width = 10;
-																																																																																	this.height = 10;
-																																																																																	this.aiStyle = 1;
-																																																																																	this.hostile = true;
-																																																																																	this.ranged = true;
-																																																																																}
-																																																																																else
-																																																																																{
-																																																																																	if (this.type == 83)
-																																																																																	{
-																																																																																		this.name = "Eye Laser";
-																																																																																		this.width = 4;
-																																																																																		this.height = 4;
-																																																																																		this.aiStyle = 1;
-																																																																																		this.hostile = true;
-																																																																																		this.penetrate = 3;
-																																																																																		this.light = 0.75f;
-																																																																																		this.alpha = 255;
-																																																																																		this.maxUpdates = 2;
-																																																																																		this.scale = 1.7f;
-																																																																																		this.timeLeft = 600;
-																																																																																		this.magic = true;
-																																																																																	}
-																																																																																	else
-																																																																																	{
-																																																																																		if (this.type == 84)
-																																																																																		{
-																																																																																			this.name = "Pink Laser";
-																																																																																			this.width = 4;
-																																																																																			this.height = 4;
-																																																																																			this.aiStyle = 1;
-																																																																																			this.hostile = true;
-																																																																																			this.penetrate = 3;
-																																																																																			this.light = 0.75f;
-																																																																																			this.alpha = 255;
-																																																																																			this.maxUpdates = 2;
-																																																																																			this.scale = 1.2f;
-																																																																																			this.timeLeft = 600;
-																																																																																			this.magic = true;
-																																																																																		}
-																																																																																		else
-																																																																																		{
-																																																																																			if (this.type == 85)
-																																																																																			{
-																																																																																				this.name = "Flames";
-																																																																																				this.width = 6;
-																																																																																				this.height = 6;
-																																																																																				this.aiStyle = 23;
-																																																																																				this.friendly = true;
-																																																																																				this.alpha = 255;
-																																																																																				this.penetrate = 3;
-																																																																																				this.maxUpdates = 2;
-																																																																																				this.magic = true;
-																																																																																			}
-																																																																																			else
-																																																																																			{
-																																																																																				if (this.type == 86)
-																																																																																				{
-																																																																																					this.name = "Pink Fairy";
-																																																																																					this.width = 18;
-																																																																																					this.height = 18;
-																																																																																					this.aiStyle = 11;
-																																																																																					this.friendly = true;
-																																																																																					this.light = 0.9f;
-																																																																																					this.tileCollide = false;
-																																																																																					this.penetrate = -1;
-																																																																																					this.timeLeft *= 5;
-																																																																																					this.ignoreWater = true;
-																																																																																					this.scale = 0.8f;
-																																																																																				}
-																																																																																				else
-																																																																																				{
-																																																																																					if (this.type == 87)
-																																																																																					{
-																																																																																						this.name = "Pink Fairy";
-																																																																																						this.width = 18;
-																																																																																						this.height = 18;
-																																																																																						this.aiStyle = 11;
-																																																																																						this.friendly = true;
-																																																																																						this.light = 0.9f;
-																																																																																						this.tileCollide = false;
-																																																																																						this.penetrate = -1;
-																																																																																						this.timeLeft *= 5;
-																																																																																						this.ignoreWater = true;
-																																																																																						this.scale = 0.8f;
-																																																																																					}
-																																																																																					else
-																																																																																					{
-																																																																																						if (this.type == 88)
-																																																																																						{
-																																																																																							this.name = "Purple Laser";
-																																																																																							this.width = 6;
-																																																																																							this.height = 6;
-																																																																																							this.aiStyle = 1;
-																																																																																							this.friendly = true;
-																																																																																							this.penetrate = 3;
-																																																																																							this.light = 0.75f;
-																																																																																							this.alpha = 255;
-																																																																																							this.maxUpdates = 4;
-																																																																																							this.scale = 1.4f;
-																																																																																							this.timeLeft = 600;
-																																																																																							this.magic = true;
-																																																																																						}
-																																																																																						else
-																																																																																						{
-																																																																																							if (this.type == 89)
-																																																																																							{
-																																																																																								this.name = "Crystal Bullet";
-																																																																																								this.width = 4;
-																																																																																								this.height = 4;
-																																																																																								this.aiStyle = 1;
-																																																																																								this.friendly = true;
-																																																																																								this.penetrate = 1;
-																																																																																								this.light = 0.5f;
-																																																																																								this.alpha = 255;
-																																																																																								this.maxUpdates = 1;
-																																																																																								this.scale = 1.2f;
-																																																																																								this.timeLeft = 600;
-																																																																																								this.ranged = true;
-																																																																																							}
-																																																																																							else
-																																																																																							{
-																																																																																								if (this.type == 90)
-																																																																																								{
-																																																																																									this.name = "Crystal Shard";
-																																																																																									this.width = 6;
-																																																																																									this.height = 6;
-																																																																																									this.aiStyle = 24;
-																																																																																									this.friendly = true;
-																																																																																									this.penetrate = 1;
-																																																																																									this.light = 0.5f;
-																																																																																									this.alpha = 50;
-																																																																																									this.scale = 1.2f;
-																																																																																									this.timeLeft = 600;
-																																																																																									this.ranged = true;
-																																																																																									this.tileCollide = false;
-																																																																																								}
-																																																																																								else
-																																																																																								{
-																																																																																									if (this.type == 91)
-																																																																																									{
-																																																																																										this.name = "Holy Arrow";
-																																																																																										this.width = 10;
-																																																																																										this.height = 10;
-																																																																																										this.aiStyle = 1;
-																																																																																										this.friendly = true;
-																																																																																										this.ranged = true;
-																																																																																									}
-																																																																																									else
-																																																																																									{
-																																																																																										if (this.type == 92)
-																																																																																										{
-																																																																																											this.name = "Hallow Star";
-																																																																																											this.width = 24;
-																																																																																											this.height = 24;
-																																																																																											this.aiStyle = 5;
-																																																																																											this.friendly = true;
-																																																																																											this.penetrate = 2;
-																																																																																											this.alpha = 50;
-																																																																																											this.scale = 0.8f;
-																																																																																											this.tileCollide = false;
-																																																																																											this.magic = true;
-																																																																																										}
-																																																																																										else
-																																																																																										{
-																																																																																											if (this.type == 93)
-																																																																																											{
-																																																																																												this.light = 0.15f;
-																																																																																												this.name = "Magic Dagger";
-																																																																																												this.width = 12;
-																																																																																												this.height = 12;
-																																																																																												this.aiStyle = 2;
-																																																																																												this.friendly = true;
-																																																																																												this.penetrate = 2;
-																																																																																												this.magic = true;
-																																																																																											}
-																																																																																											else
-																																																																																											{
-																																																																																												if (this.type == 94)
-																																																																																												{
-																																																																																													this.ignoreWater = true;
-																																																																																													this.name = "Crystal Storm";
-																																																																																													this.width = 8;
-																																																																																													this.height = 8;
-																																																																																													this.aiStyle = 24;
-																																																																																													this.friendly = true;
-																																																																																													this.light = 0.5f;
-																																																																																													this.alpha = 50;
-																																																																																													this.scale = 1.2f;
-																																																																																													this.timeLeft = 600;
-																																																																																													this.magic = true;
-																																																																																													this.tileCollide = true;
-																																																																																													this.penetrate = 1;
-																																																																																												}
-																																																																																												else
-																																																																																												{
-																																																																																													if (this.type == 95)
-																																																																																													{
-																																																																																														this.name = "Cursed Flame";
-																																																																																														this.width = 16;
-																																																																																														this.height = 16;
-																																																																																														this.aiStyle = 8;
-																																																																																														this.friendly = true;
-																																																																																														this.light = 0.8f;
-																																																																																														this.alpha = 100;
-																																																																																														this.magic = true;
-																																																																																														this.penetrate = 2;
-																																																																																													}
-																																																																																													else
-																																																																																													{
-																																																																																														if (this.type == 96)
-																																																																																														{
-																																																																																															this.name = "Cursed Flame";
-																																																																																															this.width = 16;
-																																																																																															this.height = 16;
-																																																																																															this.aiStyle = 8;
-																																																																																															this.hostile = true;
-																																																																																															this.light = 0.8f;
-																																																																																															this.alpha = 100;
-																																																																																															this.magic = true;
-																																																																																															this.penetrate = -1;
-																																																																																															this.scale = 0.9f;
-																																																																																															this.scale = 1.3f;
-																																																																																														}
-																																																																																														else
-																																																																																														{
-																																																																																															if (this.type == 97)
-																																																																																															{
-																																																																																																this.name = "Cobalt Naginata";
-																																																																																																this.width = 18;
-																																																																																																this.height = 18;
-																																																																																																this.aiStyle = 19;
-																																																																																																this.friendly = true;
-																																																																																																this.penetrate = -1;
-																																																																																																this.tileCollide = false;
-																																																																																																this.scale = 1.1f;
-																																																																																																this.hide = true;
-																																																																																																this.ownerHitCheck = true;
-																																																																																																this.melee = true;
-																																																																																															}
-																																																																																															else
-																																																																																															{
-																																																																																																if (this.type == 98)
-																																																																																																{
-																																																																																																	this.name = "Poison Dart";
-																																																																																																	this.width = 10;
-																																																																																																	this.height = 10;
-																																																																																																	this.aiStyle = 1;
-																																																																																																	this.friendly = true;
-																																																																																																	this.hostile = true;
-																																																																																																	this.ranged = true;
-																																																																																																	this.penetrate = -1;
-																																																																																																}
-																																																																																																else
-																																																																																																{
-																																																																																																	if (this.type == 99)
-																																																																																																	{
-																																																																																																		this.name = "Boulder";
-																																																																																																		this.width = 31;
-																																																																																																		this.height = 31;
-																																																																																																		this.aiStyle = 25;
-																																																																																																		this.friendly = true;
-																																																																																																		this.hostile = true;
-																																																																																																		this.ranged = true;
-																																																																																																		this.penetrate = -1;
-																																																																																																	}
-																																																																																																	else
-																																																																																																	{
-																																																																																																		if (this.type == 100)
-																																																																																																		{
-																																																																																																			this.name = "Death Laser";
-																																																																																																			this.width = 4;
-																																																																																																			this.height = 4;
-																																																																																																			this.aiStyle = 1;
-																																																																																																			this.hostile = true;
-																																																																																																			this.penetrate = 3;
-																																																																																																			this.light = 0.75f;
-																																																																																																			this.alpha = 255;
-																																																																																																			this.maxUpdates = 2;
-																																																																																																			this.scale = 1.8f;
-																																																																																																			this.timeLeft = 1200;
-																																																																																																			this.magic = true;
-																																																																																																		}
-																																																																																																		else
-																																																																																																		{
-																																																																																																			if (this.type == 101)
-																																																																																																			{
-																																																																																																				this.name = "Eye Fire";
-																																																																																																				this.width = 6;
-																																																																																																				this.height = 6;
-																																																																																																				this.aiStyle = 23;
-																																																																																																				this.hostile = true;
-																																																																																																				this.alpha = 255;
-																																																																																																				this.penetrate = -1;
-																																																																																																				this.maxUpdates = 3;
-																																																																																																				this.magic = true;
-																																																																																																			}
-																																																																																																			else
-																																																																																																			{
-																																																																																																				if (this.type == 102)
-																																																																																																				{
-																																																																																																					this.name = "Bomb";
-																																																																																																					this.width = 22;
-																																																																																																					this.height = 22;
-																																																																																																					this.aiStyle = 16;
-																																																																																																					this.hostile = true;
-																																																																																																					this.penetrate = -1;
-																																																																																																					this.ranged = true;
-																																																																																																				}
-																																																																																																				else
-																																																																																																				{
-																																																																																																					if (this.type == 103)
-																																																																																																					{
-																																																																																																						this.name = "Cursed Arrow";
-																																																																																																						this.width = 10;
-																																																																																																						this.height = 10;
-																																																																																																						this.aiStyle = 1;
-																																																																																																						this.friendly = true;
-																																																																																																						this.light = 1f;
-																																																																																																						this.ranged = true;
-																																																																																																					}
-																																																																																																					else
-																																																																																																					{
-																																																																																																						if (this.type == 104)
-																																																																																																						{
-																																																																																																							this.name = "Cursed Bullet";
-																																																																																																							this.width = 4;
-																																																																																																							this.height = 4;
-																																																																																																							this.aiStyle = 1;
-																																																																																																							this.friendly = true;
-																																																																																																							this.penetrate = 1;
-																																																																																																							this.light = 0.5f;
-																																																																																																							this.alpha = 255;
-																																																																																																							this.maxUpdates = 1;
-																																																																																																							this.scale = 1.2f;
-																																																																																																							this.timeLeft = 600;
-																																																																																																							this.ranged = true;
-																																																																																																						}
-																																																																																																						else
-																																																																																																						{
-																																																																																																							if (this.type == 105)
-																																																																																																							{
-																																																																																																								this.name = "Gungnir";
-																																																																																																								this.width = 18;
-																																																																																																								this.height = 18;
-																																																																																																								this.aiStyle = 19;
-																																																																																																								this.friendly = true;
-																																																																																																								this.penetrate = -1;
-																																																																																																								this.tileCollide = false;
-																																																																																																								this.scale = 1.3f;
-																																																																																																								this.hide = true;
-																																																																																																								this.ownerHitCheck = true;
-																																																																																																								this.melee = true;
-																																																																																																							}
-																																																																																																							else
-																																																																																																							{
-																																																																																																								if (this.type == 106)
-																																																																																																								{
-																																																																																																									this.name = "Light Disc";
-																																																																																																									this.width = 32;
-																																																																																																									this.height = 32;
-																																																																																																									this.aiStyle = 3;
-																																																																																																									this.friendly = true;
-																																																																																																									this.penetrate = -1;
-																																																																																																									this.melee = true;
-																																																																																																									this.light = 0.4f;
-																																																																																																								}
-																																																																																																								else
-																																																																																																								{
-																																																																																																									if (this.type == 107)
-																																																																																																									{
-																																																																																																										this.name = "Hamdrax";
-																																																																																																										this.width = 22;
-																																																																																																										this.height = 22;
-																																																																																																										this.aiStyle = 20;
-																																																																																																										this.friendly = true;
-																																																																																																										this.penetrate = -1;
-																																																																																																										this.tileCollide = false;
-																																																																																																										this.hide = true;
-																																																																																																										this.ownerHitCheck = true;
-																																																																																																										this.melee = true;
-																																																																																																										this.scale = 1.1f;
-																																																																																																									}
-																																																																																																									else
-																																																																																																									{
-																																																																																																										if (this.type == 108)
-																																																																																																										{
-																																																																																																											this.name = "Explosives";
-																																																																																																											this.width = 260;
-																																																																																																											this.height = 260;
-																																																																																																											this.aiStyle = 16;
-																																																																																																											this.friendly = true;
-																																																																																																											this.hostile = true;
-																																																																																																											this.penetrate = -1;
-																																																																																																											this.tileCollide = false;
-																																																																																																											this.alpha = 255;
-																																																																																																											this.timeLeft = 2;
-																																																																																																										}
-																																																																																																										else
-																																																																																																										{
-																																																																																																											if (this.type == 109)
-																																																																																																											{
-																																																																																																												this.name = "Sand Ball";
-																																																																																																												this.knockBack = 6f;
-																																																																																																												this.width = 10;
-																																																																																																												this.height = 10;
-																																																																																																												this.aiStyle = 10;
-																																																																																																												this.hostile = true;
-																																																																																																												this.scale = 0.9f;
-																																																																																																												this.penetrate = -1;
-																																																																																																											}
-																																																																																																											else
-																																																																																																											{
-																																																																																																												if (this.type == 110)
-																																																																																																												{
-																																																																																																													this.name = "Bullet";
-																																																																																																													this.width = 4;
-																																																																																																													this.height = 4;
-																																																																																																													this.aiStyle = 1;
-																																																																																																													this.hostile = true;
-																																																																																																													this.penetrate = -1;
-																																																																																																													this.light = 0.5f;
-																																																																																																													this.alpha = 255;
-																																																																																																													this.maxUpdates = 1;
-																																																																																																													this.scale = 1.2f;
-																																																																																																													this.timeLeft = 600;
-																																																																																																													this.ranged = true;
-																																																																																																												}
-																																																																																																												else
-																																																																																																												{
-																																																																																																													this.active = false;
-																																																																																																												}
-																																																																																																											}
-																																																																																																										}
-																																																																																																									}
-																																																																																																								}
-																																																																																																							}
-																																																																																																						}
-																																																																																																					}
-																																																																																																				}
-																																																																																																			}
-																																																																																																		}
-																																																																																																	}
-																																																																																																}
-																																																																																															}
-																																																																																														}
-																																																																																													}
-																																																																																												}
-																																																																																											}
-																																																																																										}
-																																																																																									}
-																																																																																								}
-																																																																																							}
-																																																																																						}
-																																																																																					}
-																																																																																				}
-																																																																																			}
-																																																																																		}
-																																																																																	}
-																																																																																}
-																																																																															}
-																																																																														}
-																																																																													}
-																																																																												}
-																																																																											}
-																																																																										}
-																																																																									}
-																																																																								}
-																																																																							}
-																																																																						}
-																																																																					}
-																																																																				}
-																																																																			}
-																																																																		}
-																																																																	}
-																																																																}
-																																																															}
-																																																														}
-																																																													}
-																																																												}
-																																																											}
-																																																										}
-																																																									}
-																																																								}
-																																																							}
-																																																						}
-																																																					}
-																																																				}
-																																																			}
-																																																		}
-																																																	}
-																																																}
-																																															}
-																																														}
-																																													}
-																																												}
-																																											}
-																																										}
-																																									}
-																																								}
-																																							}
-																																						}
-																																					}
-																																				}
-																																			}
-																																		}
-																																	}
-																																}
-																															}
-																														}
-																													}
-																												}
-																											}
-																										}
-																									}
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+			    case 1:
+			        this.name = "Wooden Arrow";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.ranged = true;
+			        break;
+			    case 2:
+			        this.name = "Fire Arrow";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.light = 1f;
+			        this.ranged = true;
+			        break;
+			    case 3:
+			        this.name = "Shuriken";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 2;
+			        this.friendly = true;
+			        this.penetrate = 4;
+			        this.ranged = true;
+			        break;
+			    case 4:
+			        this.name = "Unholy Arrow";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.light = 0.35f;
+			        this.penetrate = 5;
+			        this.ranged = true;
+			        break;
+			    case 5:
+			        this.name = "Jester's Arrow";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.light = 0.4f;
+			        this.penetrate = -1;
+			        this.timeLeft = 40;
+			        this.alpha = 100;
+			        this.ignoreWater = true;
+			        this.ranged = true;
+			        break;
+			    case 6:
+			        this.name = "Enchanted Boomerang";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 3;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.melee = true;
+			        this.light = 0.4f;
+			        break;
+			    case 8:
+			    case 7:
+			        this.name = "Vilethorn";
+			        this.width = 28;
+			        this.height = 28;
+			        this.aiStyle = 4;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.alpha = 255;
+			        this.ignoreWater = true;
+			        this.magic = true;
+			        break;
+			    case 9:
+			        this.name = "Starfury";
+			        this.width = 24;
+			        this.height = 24;
+			        this.aiStyle = 5;
+			        this.friendly = true;
+			        this.penetrate = 2;
+			        this.alpha = 50;
+			        this.scale = 0.8f;
+			        this.tileCollide = false;
+			        this.magic = true;
+			        break;
+			    case 10:
+			        this.name = "Purification Powder";
+			        this.width = 64;
+			        this.height = 64;
+			        this.aiStyle = 6;
+			        this.friendly = true;
+			        this.tileCollide = false;
+			        this.penetrate = -1;
+			        this.alpha = 255;
+			        this.ignoreWater = true;
+			        break;
+			    case 11:
+			        this.name = "Vile Powder";
+			        this.width = 48;
+			        this.height = 48;
+			        this.aiStyle = 6;
+			        this.friendly = true;
+			        this.tileCollide = false;
+			        this.penetrate = -1;
+			        this.alpha = 255;
+			        this.ignoreWater = true;
+			        break;
+			    case 12:
+			        this.name = "Falling Star";
+			        this.width = 16;
+			        this.height = 16;
+			        this.aiStyle = 5;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.alpha = 50;
+			        this.light = 1f;
+			        break;
+			    case 13:
+			        this.name = "Hook";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 7;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.timeLeft *= 10;
+			        break;
+			    case 14:
+			        this.name = "Bullet";
+			        this.width = 4;
+			        this.height = 4;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.penetrate = 1;
+			        this.light = 0.5f;
+			        this.alpha = 255;
+			        this.maxUpdates = 1;
+			        this.scale = 1.2f;
+			        this.timeLeft = 600;
+			        this.ranged = true;
+			        break;
+			    case 15:
+			        this.name = "Ball of Fire";
+			        this.width = 16;
+			        this.height = 16;
+			        this.aiStyle = 8;
+			        this.friendly = true;
+			        this.light = 0.8f;
+			        this.alpha = 100;
+			        this.magic = true;
+			        break;
+			    case 16:
+			        this.name = "Magic Missile";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 9;
+			        this.friendly = true;
+			        this.light = 0.8f;
+			        this.alpha = 100;
+			        this.magic = true;
+			        break;
+			    case 17:
+			        this.name = "Dirt Ball";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 10;
+			        this.friendly = true;
+			        break;
+			    case 18:
+			        this.name = "Orb of Light";
+			        this.width = 32;
+			        this.height = 32;
+			        this.aiStyle = 11;
+			        this.friendly = true;
+			        this.light = 0.45f;
+			        this.alpha = 150;
+			        this.tileCollide = false;
+			        this.penetrate = -1;
+			        this.timeLeft *= 5;
+			        this.ignoreWater = true;
+			        this.scale = 0.8f;
+			        break;
+			    case 19:
+			        this.name = "Flamarang";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 3;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.light = 1f;
+			        this.melee = true;
+			        break;
+			    case 20:
+			        this.name = "Green Laser";
+			        this.width = 4;
+			        this.height = 4;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.penetrate = 3;
+			        this.light = 0.75f;
+			        this.alpha = 255;
+			        this.maxUpdates = 2;
+			        this.scale = 1.4f;
+			        this.timeLeft = 600;
+			        this.magic = true;
+			        break;
+			    case 21:
+			        this.name = "Bone";
+			        this.width = 16;
+			        this.height = 16;
+			        this.aiStyle = 2;
+			        this.scale = 1.2f;
+			        this.friendly = true;
+			        this.ranged = true;
+			        break;
+			    case 22:
+			        this.name = "Water Stream";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 12;
+			        this.friendly = true;
+			        this.alpha = 255;
+			        this.penetrate = -1;
+			        this.maxUpdates = 2;
+			        this.ignoreWater = true;
+			        this.magic = true;
+			        break;
+			    case 23:
+			        this.name = "Harpoon";
+			        this.width = 4;
+			        this.height = 4;
+			        this.aiStyle = 13;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.alpha = 255;
+			        this.ranged = true;
+			        break;
+			    case 24:
+			        this.name = "Spiky Ball";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 14;
+			        this.friendly = true;
+			        this.penetrate = 6;
+			        this.ranged = true;
+			        break;
+			    case 25:
+			        this.name = "Ball 'O Hurt";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 15;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.melee = true;
+			        this.scale = 0.8f;
+			        break;
+			    case 26:
+			        this.name = "Blue Moon";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 15;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.melee = true;
+			        this.scale = 0.8f;
+			        break;
+			    case 27:
+			        this.name = "Water Bolt";
+			        this.width = 16;
+			        this.height = 16;
+			        this.aiStyle = 8;
+			        this.friendly = true;
+			        this.light = 0.8f;
+			        this.alpha = 200;
+			        this.timeLeft /= 2;
+			        this.penetrate = 10;
+			        this.magic = true;
+			        break;
+			    case 28:
+			        this.name = "Bomb";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 16;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        break;
+			    case 29:
+			        this.name = "Dynamite";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 16;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        break;
+			    case 30:
+			        this.name = "Grenade";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 16;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.ranged = true;
+			        break;
+			    case 31:
+			        this.name = "Sand Ball";
+			        this.knockBack = 6f;
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 10;
+			        this.friendly = true;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        break;
+			    case 32:
+			        this.name = "Ivy Whip";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 7;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.timeLeft *= 10;
+			        break;
+			    case 33:
+			        this.name = "Thorn Chakrum";
+			        this.width = 28;
+			        this.height = 28;
+			        this.aiStyle = 3;
+			        this.friendly = true;
+			        this.scale = 0.9f;
+			        this.penetrate = -1;
+			        this.melee = true;
+			        break;
+			    case 34:
+			        this.name = "Flamelash";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 9;
+			        this.friendly = true;
+			        this.light = 0.8f;
+			        this.alpha = 100;
+			        this.penetrate = 1;
+			        this.magic = true;
+			        break;
+			    case 35:
+			        this.name = "Sunfury";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 15;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.melee = true;
+			        this.scale = 0.8f;
+			        break;
+			    case 36:
+			        this.name = "Meteor Shot";
+			        this.width = 4;
+			        this.height = 4;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.penetrate = 2;
+			        this.light = 0.6f;
+			        this.alpha = 255;
+			        this.maxUpdates = 1;
+			        this.scale = 1.4f;
+			        this.timeLeft = 600;
+			        this.ranged = true;
+			        break;
+			    case 37:
+			        this.name = "Sticky Bomb";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 16;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        break;
+			    case 38:
+			        this.name = "Harpy Feather";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 0;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        this.aiStyle = 1;
+			        this.tileCollide = true;
+			        break;
+			    case 39:
+			        this.name = "Mud Ball";
+			        this.knockBack = 6f;
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 10;
+			        this.friendly = true;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        break;
+			    case 40:
+			        this.name = "Ash Ball";
+			        this.knockBack = 6f;
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 10;
+			        this.friendly = true;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        break;
+			    case 41:
+			        this.name = "Hellfire Arrow";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.ranged = true;
+			        this.light = 0.3f;
+			        break;
+			    case 42:
+			        this.name = "Sand Ball";
+			        this.knockBack = 8f;
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 10;
+			        this.friendly = true;
+			        this.maxUpdates = 1;
+			        break;
+			    case 43:
+			        this.name = "Tombstone";
+			        this.knockBack = 12f;
+			        this.width = 24;
+			        this.height = 24;
+			        this.aiStyle = 17;
+			        this.penetrate = -1;
+			        break;
+			    case 44:
+			        this.name = "Demon Sickle";
+			        this.width = 48;
+			        this.height = 48;
+			        this.alpha = 100;
+			        this.light = 0.2f;
+			        this.aiStyle = 18;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        this.tileCollide = true;
+			        this.scale = 0.9f;
+			        break;
+			    case 45:
+			        this.name = "Demon Scythe";
+			        this.width = 48;
+			        this.height = 48;
+			        this.alpha = 100;
+			        this.light = 0.2f;
+			        this.aiStyle = 18;
+			        this.friendly = true;
+			        this.penetrate = 5;
+			        this.tileCollide = true;
+			        this.scale = 0.9f;
+			        this.magic = true;
+			        break;
+			    case 46:
+			        this.name = "Dark Lance";
+			        this.width = 20;
+			        this.height = 20;
+			        this.aiStyle = 19;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.scale = 1.1f;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        break;
+			    case 47:
+			        this.name = "Trident";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 19;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.scale = 1.1f;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        break;
+			    case 48:
+			        this.name = "Throwing Knife";
+			        this.width = 12;
+			        this.height = 12;
+			        this.aiStyle = 2;
+			        this.friendly = true;
+			        this.penetrate = 2;
+			        this.ranged = true;
+			        break;
+			    case 49:
+			        this.name = "Spear";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 19;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.scale = 1.2f;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        break;
+			    case 50:
+			        this.name = "Glowstick";
+			        this.width = 6;
+			        this.height = 6;
+			        this.aiStyle = 14;
+			        this.penetrate = -1;
+			        this.alpha = 75;
+			        this.light = 1f;
+			        this.timeLeft *= 5;
+			        break;
+			    case 51:
+			        this.name = "Seed";
+			        this.width = 8;
+			        this.height = 8;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        break;
+			    case 52:
+			        this.name = "Wooden Boomerang";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 3;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.melee = true;
+			        break;
+			    case 53:
+			        this.name = "Sticky Glowstick";
+			        this.width = 6;
+			        this.height = 6;
+			        this.aiStyle = 14;
+			        this.penetrate = -1;
+			        this.alpha = 75;
+			        this.light = 1f;
+			        this.timeLeft *= 5;
+			        this.tileCollide = false;
+			        break;
+			    case 54:
+			        this.name = "Poisoned Knife";
+			        this.width = 12;
+			        this.height = 12;
+			        this.aiStyle = 2;
+			        this.friendly = true;
+			        this.penetrate = 2;
+			        this.ranged = true;
+			        break;
+			    case 55:
+			        this.name = "Stinger";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 0;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        this.aiStyle = 1;
+			        this.tileCollide = true;
+			        break;
+			    case 56:
+			        this.name = "Ebonsand Ball";
+			        this.knockBack = 6f;
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 10;
+			        this.friendly = true;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        break;
+			    case 57:
+			        this.name = "Cobalt Chainsaw";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 20;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        break;
+			    case 58:
+			        this.name = "Mythril Chainsaw";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 20;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        this.scale = 1.08f;
+			        break;
+			    case 59:
+			        this.name = "Cobalt Drill";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 20;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        this.scale = 0.9f;
+			        break;
+			    case 60:
+			        this.name = "Mythril Drill";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 20;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        this.scale = 0.9f;
+			        break;
+			    case 61:
+			        this.name = "Adamantite Chainsaw";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 20;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        this.scale = 1.16f;
+			        break;
+			    case 62:
+			        this.name = "Adamantite Drill";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 20;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        this.scale = 0.9f;
+			        break;
+			    case 63:
+			        this.name = "The Dao of Pow";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 15;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.melee = true;
+			        break;
+			    case 64:
+			        this.name = "Mythril Halberd";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 19;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.scale = 1.25f;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        break;
+			    case 65:
+			        this.name = "Ebonsand Ball";
+			        this.knockBack = 6f;
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 10;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.maxUpdates = 1;
+			        break;
+			    case 66:
+			        this.name = "Adamantite Glaive";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 19;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.scale = 1.27f;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        break;
+			    case 67:
+			        this.name = "Pearl Sand Ball";
+			        this.knockBack = 6f;
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 10;
+			        this.friendly = true;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        break;
+			    case 68:
+			        this.name = "Pearl Sand Ball";
+			        this.knockBack = 6f;
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 10;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.maxUpdates = 1;
+			        break;
+			    case 69:
+			        this.name = "Holy Water";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 2;
+			        this.friendly = true;
+			        this.penetrate = 1;
+			        break;
+			    case 70:
+			        this.name = "Unholy Water";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 2;
+			        this.friendly = true;
+			        this.penetrate = 1;
+			        break;
+			    case 71:
+			        this.name = "Gravel Ball";
+			        this.knockBack = 6f;
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 10;
+			        this.friendly = true;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        break;
+			    case 72:
+			        this.name = "Blue Fairy";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 11;
+			        this.friendly = true;
+			        this.light = 0.9f;
+			        this.tileCollide = false;
+			        this.penetrate = -1;
+			        this.timeLeft *= 5;
+			        this.ignoreWater = true;
+			        this.scale = 0.8f;
+			        break;
+			    case 74:
+			    case 73:
+			        this.name = "Hook";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 7;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.timeLeft *= 10;
+			        this.light = 0.4f;
+			        break;
+			    case 75:
+			        this.name = "Happy Bomb";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 16;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        break;
+			    case 78:
+			    case 77:
+			    case 76:
+			        if (this.type == 76)
+			        {
+			            this.width = 10;
+			            this.height = 22;
+			        }
+			        else
+			        {
+			            if (this.type == 77)
+			            {
+			                this.width = 18;
+			                this.height = 24;
+			            }
+			            else
+			            {
+			                this.width = 22;
+			                this.height = 24;
+			            }
+			        }
+			        this.name = "Note";
+			        this.aiStyle = 21;
+			        this.friendly = true;
+			        this.ranged = true;
+			        this.alpha = 100;
+			        this.light = 0.3f;
+			        this.penetrate = -1;
+			        this.timeLeft = 180;
+			        break;
+			    case 79:
+			        this.name = "Rainbow";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 9;
+			        this.friendly = true;
+			        this.light = 0.8f;
+			        this.alpha = 255;
+			        this.magic = true;
+			        break;
+			    case 80:
+			        this.name = "Ice Block";
+			        this.width = 16;
+			        this.height = 16;
+			        this.aiStyle = 22;
+			        this.friendly = true;
+			        this.magic = true;
+			        this.tileCollide = false;
+			        this.light = 0.5f;
+			        break;
+			    case 81:
+			        this.name = "Wooden Arrow";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 1;
+			        this.hostile = true;
+			        this.ranged = true;
+			        break;
+			    case 82:
+			        this.name = "Flaming Arrow";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 1;
+			        this.hostile = true;
+			        this.ranged = true;
+			        break;
+			    case 83:
+			        this.name = "Eye Laser";
+			        this.width = 4;
+			        this.height = 4;
+			        this.aiStyle = 1;
+			        this.hostile = true;
+			        this.penetrate = 3;
+			        this.light = 0.75f;
+			        this.alpha = 255;
+			        this.maxUpdates = 2;
+			        this.scale = 1.7f;
+			        this.timeLeft = 600;
+			        this.magic = true;
+			        break;
+			    case 84:
+			        this.name = "Pink Laser";
+			        this.width = 4;
+			        this.height = 4;
+			        this.aiStyle = 1;
+			        this.hostile = true;
+			        this.penetrate = 3;
+			        this.light = 0.75f;
+			        this.alpha = 255;
+			        this.maxUpdates = 2;
+			        this.scale = 1.2f;
+			        this.timeLeft = 600;
+			        this.magic = true;
+			        break;
+			    case 85:
+			        this.name = "Flames";
+			        this.width = 6;
+			        this.height = 6;
+			        this.aiStyle = 23;
+			        this.friendly = true;
+			        this.alpha = 255;
+			        this.penetrate = 3;
+			        this.maxUpdates = 2;
+			        this.magic = true;
+			        break;
+			    case 86:
+			        this.name = "Pink Fairy";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 11;
+			        this.friendly = true;
+			        this.light = 0.9f;
+			        this.tileCollide = false;
+			        this.penetrate = -1;
+			        this.timeLeft *= 5;
+			        this.ignoreWater = true;
+			        this.scale = 0.8f;
+			        break;
+			    case 87:
+			        this.name = "Pink Fairy";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 11;
+			        this.friendly = true;
+			        this.light = 0.9f;
+			        this.tileCollide = false;
+			        this.penetrate = -1;
+			        this.timeLeft *= 5;
+			        this.ignoreWater = true;
+			        this.scale = 0.8f;
+			        break;
+			    case 88:
+			        this.name = "Purple Laser";
+			        this.width = 6;
+			        this.height = 6;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.penetrate = 3;
+			        this.light = 0.75f;
+			        this.alpha = 255;
+			        this.maxUpdates = 4;
+			        this.scale = 1.4f;
+			        this.timeLeft = 600;
+			        this.magic = true;
+			        break;
+			    case 89:
+			        this.name = "Crystal Bullet";
+			        this.width = 4;
+			        this.height = 4;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.penetrate = 1;
+			        this.light = 0.5f;
+			        this.alpha = 255;
+			        this.maxUpdates = 1;
+			        this.scale = 1.2f;
+			        this.timeLeft = 600;
+			        this.ranged = true;
+			        break;
+			    case 90:
+			        this.name = "Crystal Shard";
+			        this.width = 6;
+			        this.height = 6;
+			        this.aiStyle = 24;
+			        this.friendly = true;
+			        this.penetrate = 1;
+			        this.light = 0.5f;
+			        this.alpha = 50;
+			        this.scale = 1.2f;
+			        this.timeLeft = 600;
+			        this.ranged = true;
+			        this.tileCollide = false;
+			        break;
+			    case 91:
+			        this.name = "Holy Arrow";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.ranged = true;
+			        break;
+			    case 92:
+			        this.name = "Hallow Star";
+			        this.width = 24;
+			        this.height = 24;
+			        this.aiStyle = 5;
+			        this.friendly = true;
+			        this.penetrate = 2;
+			        this.alpha = 50;
+			        this.scale = 0.8f;
+			        this.tileCollide = false;
+			        this.magic = true;
+			        break;
+			    case 93:
+			        this.light = 0.15f;
+			        this.name = "Magic Dagger";
+			        this.width = 12;
+			        this.height = 12;
+			        this.aiStyle = 2;
+			        this.friendly = true;
+			        this.penetrate = 2;
+			        this.magic = true;
+			        break;
+			    case 94:
+			        this.ignoreWater = true;
+			        this.name = "Crystal Storm";
+			        this.width = 8;
+			        this.height = 8;
+			        this.aiStyle = 24;
+			        this.friendly = true;
+			        this.light = 0.5f;
+			        this.alpha = 50;
+			        this.scale = 1.2f;
+			        this.timeLeft = 600;
+			        this.magic = true;
+			        this.tileCollide = true;
+			        this.penetrate = 1;
+			        break;
+			    case 95:
+			        this.name = "Cursed Flame";
+			        this.width = 16;
+			        this.height = 16;
+			        this.aiStyle = 8;
+			        this.friendly = true;
+			        this.light = 0.8f;
+			        this.alpha = 100;
+			        this.magic = true;
+			        this.penetrate = 2;
+			        break;
+			    case 96:
+			        this.name = "Cursed Flame";
+			        this.width = 16;
+			        this.height = 16;
+			        this.aiStyle = 8;
+			        this.hostile = true;
+			        this.light = 0.8f;
+			        this.alpha = 100;
+			        this.magic = true;
+			        this.penetrate = -1;
+			        this.scale = 0.9f;
+			        this.scale = 1.3f;
+			        break;
+			    case 97:
+			        this.name = "Cobalt Naginata";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 19;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.scale = 1.1f;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        break;
+			    case 98:
+			        this.name = "Poison Dart";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.hostile = true;
+			        this.ranged = true;
+			        this.penetrate = -1;
+			        break;
+			    case 99:
+			        this.name = "Boulder";
+			        this.width = 31;
+			        this.height = 31;
+			        this.aiStyle = 25;
+			        this.friendly = true;
+			        this.hostile = true;
+			        this.ranged = true;
+			        this.penetrate = -1;
+			        break;
+			    case 100:
+			        this.name = "Death Laser";
+			        this.width = 4;
+			        this.height = 4;
+			        this.aiStyle = 1;
+			        this.hostile = true;
+			        this.penetrate = 3;
+			        this.light = 0.75f;
+			        this.alpha = 255;
+			        this.maxUpdates = 2;
+			        this.scale = 1.8f;
+			        this.timeLeft = 1200;
+			        this.magic = true;
+			        break;
+			    case 101:
+			        this.name = "Eye Fire";
+			        this.width = 6;
+			        this.height = 6;
+			        this.aiStyle = 23;
+			        this.hostile = true;
+			        this.alpha = 255;
+			        this.penetrate = -1;
+			        this.maxUpdates = 3;
+			        this.magic = true;
+			        break;
+			    case 102:
+			        this.name = "Bomb";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 16;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        this.ranged = true;
+			        break;
+			    case 103:
+			        this.name = "Cursed Arrow";
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.light = 1f;
+			        this.ranged = true;
+			        break;
+			    case 104:
+			        this.name = "Cursed Bullet";
+			        this.width = 4;
+			        this.height = 4;
+			        this.aiStyle = 1;
+			        this.friendly = true;
+			        this.penetrate = 1;
+			        this.light = 0.5f;
+			        this.alpha = 255;
+			        this.maxUpdates = 1;
+			        this.scale = 1.2f;
+			        this.timeLeft = 600;
+			        this.ranged = true;
+			        break;
+			    case 105:
+			        this.name = "Gungnir";
+			        this.width = 18;
+			        this.height = 18;
+			        this.aiStyle = 19;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.scale = 1.3f;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        break;
+			    case 106:
+			        this.name = "Light Disc";
+			        this.width = 32;
+			        this.height = 32;
+			        this.aiStyle = 3;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.melee = true;
+			        this.light = 0.4f;
+			        break;
+			    case 107:
+			        this.name = "Hamdrax";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 20;
+			        this.friendly = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.hide = true;
+			        this.ownerHitCheck = true;
+			        this.melee = true;
+			        this.scale = 1.1f;
+			        break;
+			    case 108:
+			        this.name = "Explosives";
+			        this.width = 260;
+			        this.height = 260;
+			        this.aiStyle = 16;
+			        this.friendly = true;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        this.tileCollide = false;
+			        this.alpha = 255;
+			        this.timeLeft = 2;
+			        break;
+			    case 109:
+			        this.name = "Sand Ball";
+			        this.knockBack = 6f;
+			        this.width = 10;
+			        this.height = 10;
+			        this.aiStyle = 10;
+			        this.hostile = true;
+			        this.scale = 0.9f;
+			        this.penetrate = -1;
+			        break;
+			    case 110:
+			        this.name = "Bullet";
+			        this.width = 4;
+			        this.height = 4;
+			        this.aiStyle = 1;
+			        this.hostile = true;
+			        this.penetrate = -1;
+			        this.light = 0.5f;
+			        this.alpha = 255;
+			        this.maxUpdates = 1;
+			        this.scale = 1.2f;
+			        this.timeLeft = 600;
+			        this.ranged = true;
+			        break;
+			    default:
+			        this.active = false;
+			        break;
 			}
 			this.width = (int)((float)this.width * this.scale);
 			this.height = (int)((float)this.height * this.scale);
+            ProjectileHooks.OnSetDefaults(ref Type, this);
 		}
 		public static int NewProjectile(float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner = 255)
 		{
@@ -3223,2885 +2811,2848 @@ namespace Terraria
 		}
 		public void AI()
 		{
-			if (this.aiStyle == 1)
-			{
-				if (this.type == 83 && this.ai[1] == 0f)
-				{
-					this.ai[1] = 1f;
-					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 33);
-				}
-				if (this.type == 110 && this.ai[1] == 0f)
-				{
-					this.ai[1] = 1f;
-					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 11);
-				}
-				if (this.type == 84 && this.ai[1] == 0f)
-				{
-					this.ai[1] = 1f;
-					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 12);
-				}
-				if (this.type == 100 && this.ai[1] == 0f)
-				{
-					this.ai[1] = 1f;
-					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 33);
-				}
-				if (this.type == 98 && this.ai[1] == 0f)
-				{
-					this.ai[1] = 1f;
-					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 17);
-				}
-				if ((this.type == 81 || this.type == 82) && this.ai[1] == 0f)
-				{
-					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 5);
-					this.ai[1] = 1f;
-				}
-				if (this.type == 41)
-				{
-					Vector2 arg_20A_0 = new Vector2(this.position.X, this.position.Y);
-					int arg_20A_1 = this.width;
-					int arg_20A_2 = this.height;
-					int arg_20A_3 = 31;
-					float arg_20A_4 = 0f;
-					float arg_20A_5 = 0f;
-					int arg_20A_6 = 100;
-					Color newColor = default(Color);
-					int num = Dust.NewDust(arg_20A_0, arg_20A_1, arg_20A_2, arg_20A_3, arg_20A_4, arg_20A_5, arg_20A_6, newColor, 1.6f);
-					Main.dust[num].noGravity = true;
-					Vector2 arg_260_0 = new Vector2(this.position.X, this.position.Y);
-					int arg_260_1 = this.width;
-					int arg_260_2 = this.height;
-					int arg_260_3 = 6;
-					float arg_260_4 = 0f;
-					float arg_260_5 = 0f;
-					int arg_260_6 = 100;
-					newColor = default(Color);
-					num = Dust.NewDust(arg_260_0, arg_260_1, arg_260_2, arg_260_3, arg_260_4, arg_260_5, arg_260_6, newColor, 2f);
-					Main.dust[num].noGravity = true;
-				}
-				else
-				{
-					if (this.type == 55)
-					{
-						Vector2 arg_2C5_0 = new Vector2(this.position.X, this.position.Y);
-						int arg_2C5_1 = this.width;
-						int arg_2C5_2 = this.height;
-						int arg_2C5_3 = 18;
-						float arg_2C5_4 = 0f;
-						float arg_2C5_5 = 0f;
-						int arg_2C5_6 = 0;
-						Color newColor = default(Color);
-						int num2 = Dust.NewDust(arg_2C5_0, arg_2C5_1, arg_2C5_2, arg_2C5_3, arg_2C5_4, arg_2C5_5, arg_2C5_6, newColor, 0.9f);
-						Main.dust[num2].noGravity = true;
-					}
-					else
-					{
-						if (this.type == 91 && Main.rand.Next(2) == 0)
-						{
-							int num3 = Main.rand.Next(2);
-							if (num3 == 0)
-							{
-								num3 = 15;
-							}
-							else
-							{
-								num3 = 58;
-							}
-							Vector2 arg_35A_0 = this.position;
-							int arg_35A_1 = this.width;
-							int arg_35A_2 = this.height;
-							int arg_35A_3 = num3;
-							float arg_35A_4 = this.velocity.X * 0.25f;
-							float arg_35A_5 = this.velocity.Y * 0.25f;
-							int arg_35A_6 = 150;
-							Color newColor = default(Color);
-							int num4 = Dust.NewDust(arg_35A_0, arg_35A_1, arg_35A_2, arg_35A_3, arg_35A_4, arg_35A_5, arg_35A_6, newColor, 0.9f);
-							Dust expr_367 = Main.dust[num4];
-							expr_367.velocity *= 0.25f;
-						}
-					}
-				}
-				if (this.type == 20 || this.type == 14 || this.type == 36 || this.type == 83 || this.type == 84 || this.type == 89 || this.type == 100 || this.type == 104 || this.type == 110)
-				{
-					if (this.alpha > 0)
-					{
-						this.alpha -= 15;
-					}
-					if (this.alpha < 0)
-					{
-						this.alpha = 0;
-					}
-				}
-				if (this.type == 88)
-				{
-					if (this.alpha > 0)
-					{
-						this.alpha -= 10;
-					}
-					if (this.alpha < 0)
-					{
-						this.alpha = 0;
-					}
-				}
-				if (this.type != 5 && this.type != 14 && this.type != 20 && this.type != 36 && this.type != 38 && this.type != 55 && this.type != 83 && this.type != 84 && this.type != 88 && this.type != 89 && this.type != 98 && this.type != 100 && this.type != 104 && this.type != 110)
-				{
-					this.ai[0] += 1f;
-				}
-				if (this.type == 81 || this.type == 91)
-				{
-					if (this.ai[0] >= 20f)
-					{
-						this.ai[0] = 20f;
-						this.velocity.Y = this.velocity.Y + 0.07f;
-					}
-				}
-				else
-				{
-					if (this.ai[0] >= 15f)
-					{
-						this.ai[0] = 15f;
-						this.velocity.Y = this.velocity.Y + 0.1f;
-					}
-				}
-				this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
-				if (this.velocity.Y > 16f)
-				{
-					this.velocity.Y = 16f;
-					return;
-				}
-			}
-			else
-			{
-				if (this.aiStyle == 2)
-				{
-					if (this.type == 93 && Main.rand.Next(5) == 0)
-					{
-						Vector2 arg_62A_0 = this.position;
-						int arg_62A_1 = this.width;
-						int arg_62A_2 = this.height;
-						int arg_62A_3 = 57;
-						float arg_62A_4 = this.velocity.X * 0.2f + (float)(this.direction * 3);
-						float arg_62A_5 = this.velocity.Y * 0.2f;
-						int arg_62A_6 = 100;
-						Color newColor = default(Color);
-						int num5 = Dust.NewDust(arg_62A_0, arg_62A_1, arg_62A_2, arg_62A_3, arg_62A_4, arg_62A_5, arg_62A_6, newColor, 0.3f);
-						Dust expr_63E_cp_0 = Main.dust[num5];
-						expr_63E_cp_0.velocity.X = expr_63E_cp_0.velocity.X * 0.3f;
-						Dust expr_65C_cp_0 = Main.dust[num5];
-						expr_65C_cp_0.velocity.Y = expr_65C_cp_0.velocity.Y * 0.3f;
-					}
-					this.rotation += (Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y)) * 0.03f * (float)this.direction;
-					if (this.type == 69 || this.type == 70)
-					{
-						this.ai[0] += 1f;
-						if (this.ai[0] >= 10f)
-						{
-							this.velocity.Y = this.velocity.Y + 0.25f;
-							this.velocity.X = this.velocity.X * 0.99f;
-						}
-					}
-					else
-					{
-						this.ai[0] += 1f;
-						if (this.ai[0] >= 20f)
-						{
-							this.velocity.Y = this.velocity.Y + 0.4f;
-							this.velocity.X = this.velocity.X * 0.97f;
-						}
-						else
-						{
-							if (this.type == 48 || this.type == 54 || this.type == 93)
-							{
-								this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
-							}
-						}
-					}
-					if (this.velocity.Y > 16f)
-					{
-						this.velocity.Y = 16f;
-					}
-					if (this.type == 54 && Main.rand.Next(20) == 0)
-					{
-						Vector2 arg_85E_0 = new Vector2(this.position.X, this.position.Y);
-						int arg_85E_1 = this.width;
-						int arg_85E_2 = this.height;
-						int arg_85E_3 = 40;
-						float arg_85E_4 = this.velocity.X * 0.1f;
-						float arg_85E_5 = this.velocity.Y * 0.1f;
-						int arg_85E_6 = 0;
-						Color newColor = default(Color);
-						Dust.NewDust(arg_85E_0, arg_85E_1, arg_85E_2, arg_85E_3, arg_85E_4, arg_85E_5, arg_85E_6, newColor, 0.75f);
-						return;
-					}
-				}
-				else
-				{
-					if (this.aiStyle == 3)
-					{
-						if (this.soundDelay == 0)
-						{
-							this.soundDelay = 8;
-							Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 7);
-						}
-						if (this.type == 19)
-						{
-							for (int i = 0; i < 2; i++)
-							{
-								Vector2 arg_90F_0 = new Vector2(this.position.X, this.position.Y);
-								int arg_90F_1 = this.width;
-								int arg_90F_2 = this.height;
-								int arg_90F_3 = 6;
-								float arg_90F_4 = this.velocity.X * 0.2f;
-								float arg_90F_5 = this.velocity.Y * 0.2f;
-								int arg_90F_6 = 100;
-								Color newColor = default(Color);
-								int num6 = Dust.NewDust(arg_90F_0, arg_90F_1, arg_90F_2, arg_90F_3, arg_90F_4, arg_90F_5, arg_90F_6, newColor, 2f);
-								Main.dust[num6].noGravity = true;
-								Dust expr_931_cp_0 = Main.dust[num6];
-								expr_931_cp_0.velocity.X = expr_931_cp_0.velocity.X * 0.3f;
-								Dust expr_94F_cp_0 = Main.dust[num6];
-								expr_94F_cp_0.velocity.Y = expr_94F_cp_0.velocity.Y * 0.3f;
-							}
-						}
-						else
-						{
-							if (this.type == 33)
-							{
-								if (Main.rand.Next(1) == 0)
-								{
-									Vector2 arg_9D3_0 = this.position;
-									int arg_9D3_1 = this.width;
-									int arg_9D3_2 = this.height;
-									int arg_9D3_3 = 40;
-									float arg_9D3_4 = this.velocity.X * 0.25f;
-									float arg_9D3_5 = this.velocity.Y * 0.25f;
-									int arg_9D3_6 = 0;
-									Color newColor = default(Color);
-									int num7 = Dust.NewDust(arg_9D3_0, arg_9D3_1, arg_9D3_2, arg_9D3_3, arg_9D3_4, arg_9D3_5, arg_9D3_6, newColor, 1.4f);
-									Main.dust[num7].noGravity = true;
-								}
-							}
-							else
-							{
-								if (this.type == 6 && Main.rand.Next(5) == 0)
-								{
-									int num8 = Main.rand.Next(3);
-									if (num8 == 0)
-									{
-										num8 = 15;
-									}
-									else
-									{
-										if (num8 == 1)
-										{
-											num8 = 57;
-										}
-										else
-										{
-											num8 = 58;
-										}
-									}
-									Vector2 arg_A76_0 = this.position;
-									int arg_A76_1 = this.width;
-									int arg_A76_2 = this.height;
-									int arg_A76_3 = num8;
-									float arg_A76_4 = this.velocity.X * 0.25f;
-									float arg_A76_5 = this.velocity.Y * 0.25f;
-									int arg_A76_6 = 150;
-									Color newColor = default(Color);
-									Dust.NewDust(arg_A76_0, arg_A76_1, arg_A76_2, arg_A76_3, arg_A76_4, arg_A76_5, arg_A76_6, newColor, 0.7f);
-								}
-							}
-						}
-						if (this.ai[0] == 0f)
-						{
-							this.ai[1] += 1f;
-							if (this.type == 106)
-							{
-								if (this.ai[1] >= 45f)
-								{
-									this.ai[0] = 1f;
-									this.ai[1] = 0f;
-									this.netUpdate = true;
-								}
-							}
-							else
-							{
-								if (this.ai[1] >= 30f)
-								{
-									this.ai[0] = 1f;
-									this.ai[1] = 0f;
-									this.netUpdate = true;
-								}
-							}
-						}
-						else
-						{
-							this.tileCollide = false;
-							float num9 = 9f;
-							float num10 = 0.4f;
-							if (this.type == 19)
-							{
-								num9 = 13f;
-								num10 = 0.6f;
-							}
-							else
-							{
-								if (this.type == 33)
-								{
-									num9 = 15f;
-									num10 = 0.8f;
-								}
-								else
-								{
-									if (this.type == 106)
-									{
-										num9 = 16f;
-										num10 = 1.2f;
-									}
-								}
-							}
-							Vector2 vector = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-							float num11 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector.X;
-							float num12 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector.Y;
-							float num13 = (float)Math.Sqrt((double)(num11 * num11 + num12 * num12));
-							if (num13 > 3000f)
-							{
-								this.Kill();
-							}
-							num13 = num9 / num13;
-							num11 *= num13;
-							num12 *= num13;
-							if (this.velocity.X < num11)
-							{
-								this.velocity.X = this.velocity.X + num10;
-								if (this.velocity.X < 0f && num11 > 0f)
-								{
-									this.velocity.X = this.velocity.X + num10;
-								}
-							}
-							else
-							{
-								if (this.velocity.X > num11)
-								{
-									this.velocity.X = this.velocity.X - num10;
-									if (this.velocity.X > 0f && num11 < 0f)
-									{
-										this.velocity.X = this.velocity.X - num10;
-									}
-								}
-							}
-							if (this.velocity.Y < num12)
-							{
-								this.velocity.Y = this.velocity.Y + num10;
-								if (this.velocity.Y < 0f && num12 > 0f)
-								{
-									this.velocity.Y = this.velocity.Y + num10;
-								}
-							}
-							else
-							{
-								if (this.velocity.Y > num12)
-								{
-									this.velocity.Y = this.velocity.Y - num10;
-									if (this.velocity.Y > 0f && num12 < 0f)
-									{
-										this.velocity.Y = this.velocity.Y - num10;
-									}
-								}
-							}
-							if (Main.myPlayer == this.owner)
-							{
-								Rectangle rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
-								Rectangle value = new Rectangle((int)Main.player[this.owner].position.X, (int)Main.player[this.owner].position.Y, Main.player[this.owner].width, Main.player[this.owner].height);
-								if (rectangle.Intersects(value))
-								{
-									this.Kill();
-								}
-							}
-						}
-						if (this.type == 106)
-						{
-							this.rotation += 0.3f * (float)this.direction;
-							return;
-						}
-						this.rotation += 0.4f * (float)this.direction;
-						return;
-					}
-					else
-					{
-						if (this.aiStyle == 4)
-						{
-							this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
-							if (this.ai[0] == 0f)
-							{
-								this.alpha -= 50;
-								if (this.alpha <= 0)
-								{
-									this.alpha = 0;
-									this.ai[0] = 1f;
-									if (this.ai[1] == 0f)
-									{
-										this.ai[1] += 1f;
-										this.position += this.velocity * 1f;
-									}
-									if (this.type == 7 && Main.myPlayer == this.owner)
-									{
-										int num14 = this.type;
-										if (this.ai[1] >= 6f)
-										{
-											num14++;
-										}
-										int num15 = Projectile.NewProjectile(this.position.X + this.velocity.X + (float)(this.width / 2), this.position.Y + this.velocity.Y + (float)(this.height / 2), this.velocity.X, this.velocity.Y, num14, this.damage, this.knockBack, this.owner);
-										Main.projectile[num15].damage = this.damage;
-										Main.projectile[num15].ai[1] = this.ai[1] + 1f;
-										NetMessage.SendData(27, -1, -1, "", num15, 0f, 0f, 0f, 0);
-										return;
-									}
-								}
-							}
-							else
-							{
-								if (this.alpha < 170 && this.alpha + 5 >= 170)
-								{
-									Color newColor;
-									for (int j = 0; j < 3; j++)
-									{
-										Vector2 arg_10C2_0 = this.position;
-										int arg_10C2_1 = this.width;
-										int arg_10C2_2 = this.height;
-										int arg_10C2_3 = 18;
-										float arg_10C2_4 = this.velocity.X * 0.025f;
-										float arg_10C2_5 = this.velocity.Y * 0.025f;
-										int arg_10C2_6 = 170;
-										newColor = default(Color);
-										Dust.NewDust(arg_10C2_0, arg_10C2_1, arg_10C2_2, arg_10C2_3, arg_10C2_4, arg_10C2_5, arg_10C2_6, newColor, 1.2f);
-									}
-									Vector2 arg_1105_0 = this.position;
-									int arg_1105_1 = this.width;
-									int arg_1105_2 = this.height;
-									int arg_1105_3 = 14;
-									float arg_1105_4 = 0f;
-									float arg_1105_5 = 0f;
-									int arg_1105_6 = 170;
-									newColor = default(Color);
-									Dust.NewDust(arg_1105_0, arg_1105_1, arg_1105_2, arg_1105_3, arg_1105_4, arg_1105_5, arg_1105_6, newColor, 1.1f);
-								}
-								this.alpha += 5;
-								if (this.alpha >= 255)
-								{
-									this.Kill();
-									return;
-								}
-							}
-						}
-						else
-						{
-							if (this.aiStyle == 5)
-							{
-								if (this.type == 92)
-								{
-									if (this.position.Y > this.ai[1])
-									{
-										this.tileCollide = true;
-									}
-								}
-								else
-								{
-									if (this.ai[1] == 0f && !Collision.SolidCollision(this.position, this.width, this.height))
-									{
-										this.ai[1] = 1f;
-										this.netUpdate = true;
-									}
-									if (this.ai[1] != 0f)
-									{
-										this.tileCollide = true;
-									}
-								}
-								if (this.soundDelay == 0)
-								{
-									this.soundDelay = 20 + Main.rand.Next(40);
-									Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 9);
-								}
-								if (this.localAI[0] == 0f)
-								{
-									this.localAI[0] = 1f;
-								}
-								this.alpha += (int)(25f * this.localAI[0]);
-								if (this.alpha > 200)
-								{
-									this.alpha = 200;
-									this.localAI[0] = -1f;
-								}
-								if (this.alpha < 0)
-								{
-									this.alpha = 0;
-									this.localAI[0] = 1f;
-								}
-								this.rotation += (Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y)) * 0.01f * (float)this.direction;
-								if (this.ai[1] == 1f || this.type == 92)
-								{
-									this.light = 0.9f;
-									if (Main.rand.Next(10) == 0)
-									{
-										Vector2 arg_1328_0 = this.position;
-										int arg_1328_1 = this.width;
-										int arg_1328_2 = this.height;
-										int arg_1328_3 = 58;
-										float arg_1328_4 = this.velocity.X * 0.5f;
-										float arg_1328_5 = this.velocity.Y * 0.5f;
-										int arg_1328_6 = 150;
-										Color newColor = default(Color);
-										Dust.NewDust(arg_1328_0, arg_1328_1, arg_1328_2, arg_1328_3, arg_1328_4, arg_1328_5, arg_1328_6, newColor, 1.2f);
-									}
-									if (Main.rand.Next(20) == 0)
-									{
-										Gore.NewGore(this.position, new Vector2(this.velocity.X * 0.2f, this.velocity.Y * 0.2f), Main.rand.Next(16, 18), 1f);
-										return;
-									}
-								}
-							}
-							else
-							{
-								if (this.aiStyle == 6)
-								{
-									this.velocity *= 0.95f;
-									this.ai[0] += 1f;
-									if (this.ai[0] == 180f)
-									{
-										this.Kill();
-									}
-									if (this.ai[1] == 0f)
-									{
-										this.ai[1] = 1f;
-										for (int k = 0; k < 30; k++)
-										{
-											Vector2 arg_143D_0 = this.position;
-											int arg_143D_1 = this.width;
-											int arg_143D_2 = this.height;
-											int arg_143D_3 = 10 + this.type;
-											float arg_143D_4 = this.velocity.X;
-											float arg_143D_5 = this.velocity.Y;
-											int arg_143D_6 = 50;
-											Color newColor = default(Color);
-											Dust.NewDust(arg_143D_0, arg_143D_1, arg_143D_2, arg_143D_3, arg_143D_4, arg_143D_5, arg_143D_6, newColor, 1f);
-										}
-									}
-									if (this.type == 10 || this.type == 11)
-									{
-										int num16 = (int)(this.position.X / 16f) - 1;
-										int num17 = (int)((this.position.X + (float)this.width) / 16f) + 2;
-										int num18 = (int)(this.position.Y / 16f) - 1;
-										int num19 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
-										if (num16 < 0)
-										{
-											num16 = 0;
-										}
-										if (num17 > Main.maxTilesX)
-										{
-											num17 = Main.maxTilesX;
-										}
-										if (num18 < 0)
-										{
-											num18 = 0;
-										}
-										if (num19 > Main.maxTilesY)
-										{
-											num19 = Main.maxTilesY;
-										}
-										for (int l = num16; l < num17; l++)
-										{
-											for (int m = num18; m < num19; m++)
-											{
-												Vector2 vector2;
-												vector2.X = (float)(l * 16);
-												vector2.Y = (float)(m * 16);
-												if (this.position.X + (float)this.width > vector2.X && this.position.X < vector2.X + 16f && this.position.Y + (float)this.height > vector2.Y && this.position.Y < vector2.Y + 16f && Main.myPlayer == this.owner && Main.tile[l, m].active)
-												{
-													if (this.type == 10)
-													{
-														if (Main.tile[l, m].type == 23)
-														{
-															Main.tile[l, m].type = 2;
-															WorldGen.SquareTileFrame(l, m, true);
-															if (Main.netMode == 1)
-															{
-																NetMessage.SendTileSquare(-1, l, m, 1);
-															}
-														}
-														if (Main.tile[l, m].type == 25)
-														{
-															Main.tile[l, m].type = 1;
-															WorldGen.SquareTileFrame(l, m, true);
-															if (Main.netMode == 1)
-															{
-																NetMessage.SendTileSquare(-1, l, m, 1);
-															}
-														}
-														if (Main.tile[l, m].type == 112)
-														{
-															Main.tile[l, m].type = 53;
-															WorldGen.SquareTileFrame(l, m, true);
-															if (Main.netMode == 1)
-															{
-																NetMessage.SendTileSquare(-1, l, m, 1);
-															}
-														}
-													}
-													else
-													{
-														if (this.type == 11)
-														{
-															if (Main.tile[l, m].type == 109)
-															{
-																Main.tile[l, m].type = 2;
-																WorldGen.SquareTileFrame(l, m, true);
-																if (Main.netMode == 1)
-																{
-																	NetMessage.SendTileSquare(-1, l, m, 1);
-																}
-															}
-															if (Main.tile[l, m].type == 116)
-															{
-																Main.tile[l, m].type = 53;
-																WorldGen.SquareTileFrame(l, m, true);
-																if (Main.netMode == 1)
-																{
-																	NetMessage.SendTileSquare(-1, l, m, 1);
-																}
-															}
-															if (Main.tile[l, m].type == 117)
-															{
-																Main.tile[l, m].type = 1;
-																WorldGen.SquareTileFrame(l, m, true);
-																if (Main.netMode == 1)
-																{
-																	NetMessage.SendTileSquare(-1, l, m, 1);
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-										return;
-									}
-								}
-								else
-								{
-									if (this.aiStyle == 7)
-									{
-										if (Main.player[this.owner].dead)
-										{
-											this.Kill();
-											return;
-										}
-										Vector2 vector3 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-										float num20 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector3.X;
-										float num21 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector3.Y;
-										float num22 = (float)Math.Sqrt((double)(num20 * num20 + num21 * num21));
-										this.rotation = (float)Math.Atan2((double)num21, (double)num20) - 1.57f;
-										if (this.ai[0] == 0f)
-										{
-											if ((num22 > 300f && this.type == 13) || (num22 > 400f && this.type == 32) || (num22 > 440f && this.type == 73) || (num22 > 440f && this.type == 74))
-											{
-												this.ai[0] = 1f;
-											}
-											int num23 = (int)(this.position.X / 16f) - 1;
-											int num24 = (int)((this.position.X + (float)this.width) / 16f) + 2;
-											int num25 = (int)(this.position.Y / 16f) - 1;
-											int num26 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
-											if (num23 < 0)
-											{
-												num23 = 0;
-											}
-											if (num24 > Main.maxTilesX)
-											{
-												num24 = Main.maxTilesX;
-											}
-											if (num25 < 0)
-											{
-												num25 = 0;
-											}
-											if (num26 > Main.maxTilesY)
-											{
-												num26 = Main.maxTilesY;
-											}
-											for (int n = num23; n < num24; n++)
-											{
-												int num27 = num25;
-												while (num27 < num26)
-												{
-													if (Main.tile[n, num27] == null)
-													{
-														Main.tile[n, num27] = new Tile();
-													}
-													Vector2 vector4;
-													vector4.X = (float)(n * 16);
-													vector4.Y = (float)(num27 * 16);
-													if (this.position.X + (float)this.width > vector4.X && this.position.X < vector4.X + 16f && this.position.Y + (float)this.height > vector4.Y && this.position.Y < vector4.Y + 16f && Main.tile[n, num27].active && Main.tileSolid[(int)Main.tile[n, num27].type])
-													{
-														if (Main.player[this.owner].grapCount < 10)
-														{
-															Main.player[this.owner].grappling[Main.player[this.owner].grapCount] = this.whoAmI;
-															Main.player[this.owner].grapCount++;
-														}
-														if (Main.myPlayer == this.owner)
-														{
-															int num28 = 0;
-															int num29 = -1;
-															int num30 = 100000;
-															if (this.type == 73 || this.type == 74)
-															{
-																for (int num31 = 0; num31 < 1000; num31++)
-																{
-																	if (num31 != this.whoAmI && Main.projectile[num31].active && Main.projectile[num31].owner == this.owner && Main.projectile[num31].aiStyle == 7 && Main.projectile[num31].ai[0] == 2f)
-																	{
-																		Main.projectile[num31].Kill();
-																	}
-																}
-															}
-															else
-															{
-																for (int num32 = 0; num32 < 1000; num32++)
-																{
-																	if (Main.projectile[num32].active && Main.projectile[num32].owner == this.owner && Main.projectile[num32].aiStyle == 7)
-																	{
-																		if (Main.projectile[num32].timeLeft < num30)
-																		{
-																			num29 = num32;
-																			num30 = Main.projectile[num32].timeLeft;
-																		}
-																		num28++;
-																	}
-																}
-																if (num28 > 3)
-																{
-																	Main.projectile[num29].Kill();
-																}
-															}
-														}
-														WorldGen.KillTile(n, num27, true, true, false);
-														Main.PlaySound(0, n * 16, num27 * 16, 1);
-														this.velocity.X = 0f;
-														this.velocity.Y = 0f;
-														this.ai[0] = 2f;
-														this.position.X = (float)(n * 16 + 8 - this.width / 2);
-														this.position.Y = (float)(num27 * 16 + 8 - this.height / 2);
-														this.damage = 0;
-														this.netUpdate = true;
-														if (Main.myPlayer == this.owner)
-														{
-															NetMessage.SendData(13, -1, -1, "", this.owner, 0f, 0f, 0f, 0);
-															break;
-														}
-														break;
-													}
-													else
-													{
-														num27++;
-													}
-												}
-												if (this.ai[0] == 2f)
-												{
-													return;
-												}
-											}
-											return;
-										}
-										if (this.ai[0] == 1f)
-										{
-											float num33 = 11f;
-											if (this.type == 32)
-											{
-												num33 = 15f;
-											}
-											if (this.type == 73 || this.type == 74)
-											{
-												num33 = 17f;
-											}
-											if (num22 < 24f)
-											{
-												this.Kill();
-											}
-											num22 = num33 / num22;
-											num20 *= num22;
-											num21 *= num22;
-											this.velocity.X = num20;
-											this.velocity.Y = num21;
-											return;
-										}
-										if (this.ai[0] == 2f)
-										{
-											int num34 = (int)(this.position.X / 16f) - 1;
-											int num35 = (int)((this.position.X + (float)this.width) / 16f) + 2;
-											int num36 = (int)(this.position.Y / 16f) - 1;
-											int num37 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
-											if (num34 < 0)
-											{
-												num34 = 0;
-											}
-											if (num35 > Main.maxTilesX)
-											{
-												num35 = Main.maxTilesX;
-											}
-											if (num36 < 0)
-											{
-												num36 = 0;
-											}
-											if (num37 > Main.maxTilesY)
-											{
-												num37 = Main.maxTilesY;
-											}
-											bool flag = true;
-											for (int num38 = num34; num38 < num35; num38++)
-											{
-												for (int num39 = num36; num39 < num37; num39++)
-												{
-													if (Main.tile[num38, num39] == null)
-													{
-														Main.tile[num38, num39] = new Tile();
-													}
-													Vector2 vector5;
-													vector5.X = (float)(num38 * 16);
-													vector5.Y = (float)(num39 * 16);
-													if (this.position.X + (float)(this.width / 2) > vector5.X && this.position.X + (float)(this.width / 2) < vector5.X + 16f && this.position.Y + (float)(this.height / 2) > vector5.Y && this.position.Y + (float)(this.height / 2) < vector5.Y + 16f && Main.tile[num38, num39].active && Main.tileSolid[(int)Main.tile[num38, num39].type])
-													{
-														flag = false;
-													}
-												}
-											}
-											if (flag)
-											{
-												this.ai[0] = 1f;
-												return;
-											}
-											if (Main.player[this.owner].grapCount < 10)
-											{
-												Main.player[this.owner].grappling[Main.player[this.owner].grapCount] = this.whoAmI;
-												Main.player[this.owner].grapCount++;
-												return;
-											}
-										}
-									}
-									else
-									{
-										if (this.aiStyle == 8)
-										{
-											if (this.type == 96 && this.localAI[0] == 0f)
-											{
-												this.localAI[0] = 1f;
-												Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 20);
-											}
-											if (this.type == 27)
-											{
-												Vector2 arg_20B6_0 = new Vector2(this.position.X + this.velocity.X, this.position.Y + this.velocity.Y);
-												int arg_20B6_1 = this.width;
-												int arg_20B6_2 = this.height;
-												int arg_20B6_3 = 29;
-												float arg_20B6_4 = this.velocity.X;
-												float arg_20B6_5 = this.velocity.Y;
-												int arg_20B6_6 = 100;
-												Color newColor = default(Color);
-												int num40 = Dust.NewDust(arg_20B6_0, arg_20B6_1, arg_20B6_2, arg_20B6_3, arg_20B6_4, arg_20B6_5, arg_20B6_6, newColor, 3f);
-												Main.dust[num40].noGravity = true;
-												if (Main.rand.Next(10) == 0)
-												{
-													Vector2 arg_212C_0 = new Vector2(this.position.X, this.position.Y);
-													int arg_212C_1 = this.width;
-													int arg_212C_2 = this.height;
-													int arg_212C_3 = 29;
-													float arg_212C_4 = this.velocity.X;
-													float arg_212C_5 = this.velocity.Y;
-													int arg_212C_6 = 100;
-													newColor = default(Color);
-													num40 = Dust.NewDust(arg_212C_0, arg_212C_1, arg_212C_2, arg_212C_3, arg_212C_4, arg_212C_5, arg_212C_6, newColor, 1.4f);
-												}
-											}
-											else
-											{
-												if (this.type == 95 || this.type == 96)
-												{
-													Vector2 arg_21BE_0 = new Vector2(this.position.X + this.velocity.X, this.position.Y + this.velocity.Y);
-													int arg_21BE_1 = this.width;
-													int arg_21BE_2 = this.height;
-													int arg_21BE_3 = 75;
-													float arg_21BE_4 = this.velocity.X;
-													float arg_21BE_5 = this.velocity.Y;
-													int arg_21BE_6 = 100;
-													Color newColor = default(Color);
-													int num41 = Dust.NewDust(arg_21BE_0, arg_21BE_1, arg_21BE_2, arg_21BE_3, arg_21BE_4, arg_21BE_5, arg_21BE_6, newColor, 3f * this.scale);
-													Main.dust[num41].noGravity = true;
-												}
-												else
-												{
-													for (int num42 = 0; num42 < 2; num42++)
-													{
-														Vector2 arg_223B_0 = new Vector2(this.position.X, this.position.Y);
-														int arg_223B_1 = this.width;
-														int arg_223B_2 = this.height;
-														int arg_223B_3 = 6;
-														float arg_223B_4 = this.velocity.X * 0.2f;
-														float arg_223B_5 = this.velocity.Y * 0.2f;
-														int arg_223B_6 = 100;
-														Color newColor = default(Color);
-														int num43 = Dust.NewDust(arg_223B_0, arg_223B_1, arg_223B_2, arg_223B_3, arg_223B_4, arg_223B_5, arg_223B_6, newColor, 2f);
-														Main.dust[num43].noGravity = true;
-														Dust expr_225D_cp_0 = Main.dust[num43];
-														expr_225D_cp_0.velocity.X = expr_225D_cp_0.velocity.X * 0.3f;
-														Dust expr_227B_cp_0 = Main.dust[num43];
-														expr_227B_cp_0.velocity.Y = expr_227B_cp_0.velocity.Y * 0.3f;
-													}
-												}
-											}
-											if (this.type != 27 && this.type != 96)
-											{
-												this.ai[1] += 1f;
-											}
-											if (this.ai[1] >= 20f)
-											{
-												this.velocity.Y = this.velocity.Y + 0.2f;
-											}
-											this.rotation += 0.3f * (float)this.direction;
-											if (this.velocity.Y > 16f)
-											{
-												this.velocity.Y = 16f;
-												return;
-											}
-										}
-										else
-										{
-											if (this.aiStyle == 9)
-											{
-												if (this.type == 34)
-												{
-													Vector2 arg_23A6_0 = new Vector2(this.position.X, this.position.Y);
-													int arg_23A6_1 = this.width;
-													int arg_23A6_2 = this.height;
-													int arg_23A6_3 = 6;
-													float arg_23A6_4 = this.velocity.X * 0.2f;
-													float arg_23A6_5 = this.velocity.Y * 0.2f;
-													int arg_23A6_6 = 100;
-													Color newColor = default(Color);
-													int num44 = Dust.NewDust(arg_23A6_0, arg_23A6_1, arg_23A6_2, arg_23A6_3, arg_23A6_4, arg_23A6_5, arg_23A6_6, newColor, 3.5f);
-													Main.dust[num44].noGravity = true;
-													Dust expr_23C3 = Main.dust[num44];
-													expr_23C3.velocity *= 1.4f;
-													Vector2 arg_2433_0 = new Vector2(this.position.X, this.position.Y);
-													int arg_2433_1 = this.width;
-													int arg_2433_2 = this.height;
-													int arg_2433_3 = 6;
-													float arg_2433_4 = this.velocity.X * 0.2f;
-													float arg_2433_5 = this.velocity.Y * 0.2f;
-													int arg_2433_6 = 100;
-													newColor = default(Color);
-													num44 = Dust.NewDust(arg_2433_0, arg_2433_1, arg_2433_2, arg_2433_3, arg_2433_4, arg_2433_5, arg_2433_6, newColor, 1.5f);
-												}
-												else
-												{
-													if (this.type == 79)
-													{
-														if (this.soundDelay == 0 && Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y) > 2f)
-														{
-															this.soundDelay = 10;
-															Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 9);
-														}
-														for (int num45 = 0; num45 < 1; num45++)
-														{
-															int num46 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 66, 0f, 0f, 100, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 2.5f);
-															Dust expr_2509 = Main.dust[num46];
-															expr_2509.velocity *= 0.1f;
-															Dust expr_2526 = Main.dust[num46];
-															expr_2526.velocity += this.velocity * 0.2f;
-															Main.dust[num46].position.X = this.position.X + (float)(this.width / 2) + 4f + (float)Main.rand.Next(-2, 3);
-															Main.dust[num46].position.Y = this.position.Y + (float)(this.height / 2) + (float)Main.rand.Next(-2, 3);
-															Main.dust[num46].noGravity = true;
-														}
-													}
-													else
-													{
-														if (this.soundDelay == 0 && Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y) > 2f)
-														{
-															this.soundDelay = 10;
-															Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 9);
-														}
-														Vector2 arg_2675_0 = new Vector2(this.position.X, this.position.Y);
-														int arg_2675_1 = this.width;
-														int arg_2675_2 = this.height;
-														int arg_2675_3 = 15;
-														float arg_2675_4 = 0f;
-														float arg_2675_5 = 0f;
-														int arg_2675_6 = 100;
-														Color newColor = default(Color);
-														int num47 = Dust.NewDust(arg_2675_0, arg_2675_1, arg_2675_2, arg_2675_3, arg_2675_4, arg_2675_5, arg_2675_6, newColor, 2f);
-														Dust expr_2684 = Main.dust[num47];
-														expr_2684.velocity *= 0.3f;
-														Main.dust[num47].position.X = this.position.X + (float)(this.width / 2) + 4f + (float)Main.rand.Next(-4, 5);
-														Main.dust[num47].position.Y = this.position.Y + (float)(this.height / 2) + (float)Main.rand.Next(-4, 5);
-														Main.dust[num47].noGravity = true;
-													}
-												}
-												if (Main.myPlayer == this.owner && this.ai[0] == 0f)
-												{
-													if (Main.player[this.owner].channel)
-													{
-														float num48 = 12f;
-														if (this.type == 16)
-														{
-															num48 = 15f;
-														}
-														Vector2 vector6 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-														float num49 = (float)Main.mouseX + Main.screenPosition.X - vector6.X;
-														float num50 = (float)Main.mouseY + Main.screenPosition.Y - vector6.Y;
-														float num51 = (float)Math.Sqrt((double)(num49 * num49 + num50 * num50));
-														num51 = (float)Math.Sqrt((double)(num49 * num49 + num50 * num50));
-														if (num51 > num48)
-														{
-															num51 = num48 / num51;
-															num49 *= num51;
-															num50 *= num51;
-															int num52 = (int)(num49 * 1000f);
-															int num53 = (int)(this.velocity.X * 1000f);
-															int num54 = (int)(num50 * 1000f);
-															int num55 = (int)(this.velocity.Y * 1000f);
-															if (num52 != num53 || num54 != num55)
-															{
-																this.netUpdate = true;
-															}
-															this.velocity.X = num49;
-															this.velocity.Y = num50;
-														}
-														else
-														{
-															int num56 = (int)(num49 * 1000f);
-															int num57 = (int)(this.velocity.X * 1000f);
-															int num58 = (int)(num50 * 1000f);
-															int num59 = (int)(this.velocity.Y * 1000f);
-															if (num56 != num57 || num58 != num59)
-															{
-																this.netUpdate = true;
-															}
-															this.velocity.X = num49;
-															this.velocity.Y = num50;
-														}
-													}
-													else
-													{
-														if (this.ai[0] == 0f)
-														{
-															this.ai[0] = 1f;
-															this.netUpdate = true;
-															float num60 = 12f;
-															Vector2 vector7 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-															float num61 = (float)Main.mouseX + Main.screenPosition.X - vector7.X;
-															float num62 = (float)Main.mouseY + Main.screenPosition.Y - vector7.Y;
-															float num63 = (float)Math.Sqrt((double)(num61 * num61 + num62 * num62));
-															if (num63 == 0f)
-															{
-																vector7 = new Vector2(Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2), Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2));
-																num61 = this.position.X + (float)this.width * 0.5f - vector7.X;
-																num62 = this.position.Y + (float)this.height * 0.5f - vector7.Y;
-																num63 = (float)Math.Sqrt((double)(num61 * num61 + num62 * num62));
-															}
-															num63 = num60 / num63;
-															num61 *= num63;
-															num62 *= num63;
-															this.velocity.X = num61;
-															this.velocity.Y = num62;
-															if (this.velocity.X == 0f && this.velocity.Y == 0f)
-															{
-																this.Kill();
-															}
-														}
-													}
-												}
-												if (this.type == 34)
-												{
-													this.rotation += 0.3f * (float)this.direction;
-												}
-												else
-												{
-													if (this.velocity.X != 0f || this.velocity.Y != 0f)
-													{
-														this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) - 2.355f;
-													}
-												}
-												if (this.velocity.Y > 16f)
-												{
-													this.velocity.Y = 16f;
-													return;
-												}
-											}
-											else
-											{
-												if (this.aiStyle == 10)
-												{
-													if (this.type == 31 && this.ai[0] != 2f)
-													{
-														if (Main.rand.Next(2) == 0)
-														{
-															Vector2 arg_2BEF_0 = new Vector2(this.position.X, this.position.Y);
-															int arg_2BEF_1 = this.width;
-															int arg_2BEF_2 = this.height;
-															int arg_2BEF_3 = 32;
-															float arg_2BEF_4 = 0f;
-															float arg_2BEF_5 = this.velocity.Y / 2f;
-															int arg_2BEF_6 = 0;
-															Color newColor = default(Color);
-															int num64 = Dust.NewDust(arg_2BEF_0, arg_2BEF_1, arg_2BEF_2, arg_2BEF_3, arg_2BEF_4, arg_2BEF_5, arg_2BEF_6, newColor, 1f);
-															Dust expr_2C03_cp_0 = Main.dust[num64];
-															expr_2C03_cp_0.velocity.X = expr_2C03_cp_0.velocity.X * 0.4f;
-														}
-													}
-													else
-													{
-														if (this.type == 39)
-														{
-															if (Main.rand.Next(2) == 0)
-															{
-																Vector2 arg_2C85_0 = new Vector2(this.position.X, this.position.Y);
-																int arg_2C85_1 = this.width;
-																int arg_2C85_2 = this.height;
-																int arg_2C85_3 = 38;
-																float arg_2C85_4 = 0f;
-																float arg_2C85_5 = this.velocity.Y / 2f;
-																int arg_2C85_6 = 0;
-																Color newColor = default(Color);
-																int num65 = Dust.NewDust(arg_2C85_0, arg_2C85_1, arg_2C85_2, arg_2C85_3, arg_2C85_4, arg_2C85_5, arg_2C85_6, newColor, 1f);
-																Dust expr_2C99_cp_0 = Main.dust[num65];
-																expr_2C99_cp_0.velocity.X = expr_2C99_cp_0.velocity.X * 0.4f;
-															}
-														}
-														else
-														{
-															if (this.type == 40)
-															{
-																if (Main.rand.Next(2) == 0)
-																{
-																	Vector2 arg_2D1B_0 = new Vector2(this.position.X, this.position.Y);
-																	int arg_2D1B_1 = this.width;
-																	int arg_2D1B_2 = this.height;
-																	int arg_2D1B_3 = 36;
-																	float arg_2D1B_4 = 0f;
-																	float arg_2D1B_5 = this.velocity.Y / 2f;
-																	int arg_2D1B_6 = 0;
-																	Color newColor = default(Color);
-																	int num66 = Dust.NewDust(arg_2D1B_0, arg_2D1B_1, arg_2D1B_2, arg_2D1B_3, arg_2D1B_4, arg_2D1B_5, arg_2D1B_6, newColor, 1f);
-																	Dust expr_2D2A = Main.dust[num66];
-																	expr_2D2A.velocity *= 0.4f;
-																}
-															}
-															else
-															{
-																if (this.type == 42 || this.type == 31)
-																{
-																	if (Main.rand.Next(2) == 0)
-																	{
-																		Vector2 arg_2DAB_0 = new Vector2(this.position.X, this.position.Y);
-																		int arg_2DAB_1 = this.width;
-																		int arg_2DAB_2 = this.height;
-																		int arg_2DAB_3 = 32;
-																		float arg_2DAB_4 = 0f;
-																		float arg_2DAB_5 = 0f;
-																		int arg_2DAB_6 = 0;
-																		Color newColor = default(Color);
-																		int num67 = Dust.NewDust(arg_2DAB_0, arg_2DAB_1, arg_2DAB_2, arg_2DAB_3, arg_2DAB_4, arg_2DAB_5, arg_2DAB_6, newColor, 1f);
-																		Dust expr_2DBF_cp_0 = Main.dust[num67];
-																		expr_2DBF_cp_0.velocity.X = expr_2DBF_cp_0.velocity.X * 0.4f;
-																	}
-																}
-																else
-																{
-																	if (this.type == 56 || this.type == 65)
-																	{
-																		if (Main.rand.Next(2) == 0)
-																		{
-																			Vector2 arg_2E3C_0 = new Vector2(this.position.X, this.position.Y);
-																			int arg_2E3C_1 = this.width;
-																			int arg_2E3C_2 = this.height;
-																			int arg_2E3C_3 = 14;
-																			float arg_2E3C_4 = 0f;
-																			float arg_2E3C_5 = 0f;
-																			int arg_2E3C_6 = 0;
-																			Color newColor = default(Color);
-																			int num68 = Dust.NewDust(arg_2E3C_0, arg_2E3C_1, arg_2E3C_2, arg_2E3C_3, arg_2E3C_4, arg_2E3C_5, arg_2E3C_6, newColor, 1f);
-																			Dust expr_2E50_cp_0 = Main.dust[num68];
-																			expr_2E50_cp_0.velocity.X = expr_2E50_cp_0.velocity.X * 0.4f;
-																		}
-																	}
-																	else
-																	{
-																		if (this.type == 67 || this.type == 68)
-																		{
-																			if (Main.rand.Next(2) == 0)
-																			{
-																				Vector2 arg_2ECD_0 = new Vector2(this.position.X, this.position.Y);
-																				int arg_2ECD_1 = this.width;
-																				int arg_2ECD_2 = this.height;
-																				int arg_2ECD_3 = 51;
-																				float arg_2ECD_4 = 0f;
-																				float arg_2ECD_5 = 0f;
-																				int arg_2ECD_6 = 0;
-																				Color newColor = default(Color);
-																				int num69 = Dust.NewDust(arg_2ECD_0, arg_2ECD_1, arg_2ECD_2, arg_2ECD_3, arg_2ECD_4, arg_2ECD_5, arg_2ECD_6, newColor, 1f);
-																				Dust expr_2EE1_cp_0 = Main.dust[num69];
-																				expr_2EE1_cp_0.velocity.X = expr_2EE1_cp_0.velocity.X * 0.4f;
-																			}
-																		}
-																		else
-																		{
-																			if (this.type == 71)
-																			{
-																				if (Main.rand.Next(2) == 0)
-																				{
-																					Vector2 arg_2F54_0 = new Vector2(this.position.X, this.position.Y);
-																					int arg_2F54_1 = this.width;
-																					int arg_2F54_2 = this.height;
-																					int arg_2F54_3 = 53;
-																					float arg_2F54_4 = 0f;
-																					float arg_2F54_5 = 0f;
-																					int arg_2F54_6 = 0;
-																					Color newColor = default(Color);
-																					int num70 = Dust.NewDust(arg_2F54_0, arg_2F54_1, arg_2F54_2, arg_2F54_3, arg_2F54_4, arg_2F54_5, arg_2F54_6, newColor, 1f);
-																					Dust expr_2F68_cp_0 = Main.dust[num70];
-																					expr_2F68_cp_0.velocity.X = expr_2F68_cp_0.velocity.X * 0.4f;
-																				}
-																			}
-																			else
-																			{
-																				if (this.type != 109 && Main.rand.Next(20) == 0)
-																				{
-																					Vector2 arg_2FD5_0 = new Vector2(this.position.X, this.position.Y);
-																					int arg_2FD5_1 = this.width;
-																					int arg_2FD5_2 = this.height;
-																					int arg_2FD5_3 = 0;
-																					float arg_2FD5_4 = 0f;
-																					float arg_2FD5_5 = 0f;
-																					int arg_2FD5_6 = 0;
-																					Color newColor = default(Color);
-																					Dust.NewDust(arg_2FD5_0, arg_2FD5_1, arg_2FD5_2, arg_2FD5_3, arg_2FD5_4, arg_2FD5_5, arg_2FD5_6, newColor, 1f);
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-													if (Main.myPlayer == this.owner && this.ai[0] == 0f)
-													{
-														if (Main.player[this.owner].channel)
-														{
-															float num71 = 12f;
-															Vector2 vector8 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-															float num72 = (float)Main.mouseX + Main.screenPosition.X - vector8.X;
-															float num73 = (float)Main.mouseY + Main.screenPosition.Y - vector8.Y;
-															float num74 = (float)Math.Sqrt((double)(num72 * num72 + num73 * num73));
-															num74 = (float)Math.Sqrt((double)(num72 * num72 + num73 * num73));
-															if (num74 > num71)
-															{
-																num74 = num71 / num74;
-																num72 *= num74;
-																num73 *= num74;
-																if (num72 != this.velocity.X || num73 != this.velocity.Y)
-																{
-																	this.netUpdate = true;
-																}
-																this.velocity.X = num72;
-																this.velocity.Y = num73;
-															}
-															else
-															{
-																if (num72 != this.velocity.X || num73 != this.velocity.Y)
-																{
-																	this.netUpdate = true;
-																}
-																this.velocity.X = num72;
-																this.velocity.Y = num73;
-															}
-														}
-														else
-														{
-															this.ai[0] = 1f;
-															this.netUpdate = true;
-														}
-													}
-													if (this.ai[0] == 1f && this.type != 109)
-													{
-														if (this.type == 42 || this.type == 65 || this.type == 68)
-														{
-															this.ai[1] += 1f;
-															if (this.ai[1] >= 60f)
-															{
-																this.ai[1] = 60f;
-																this.velocity.Y = this.velocity.Y + 0.2f;
-															}
-														}
-														else
-														{
-															this.velocity.Y = this.velocity.Y + 0.41f;
-														}
-													}
-													else
-													{
-														if (this.ai[0] == 2f && this.type != 109)
-														{
-															this.velocity.Y = this.velocity.Y + 0.2f;
-															if ((double)this.velocity.X < -0.04)
-															{
-																this.velocity.X = this.velocity.X + 0.04f;
-															}
-															else
-															{
-																if ((double)this.velocity.X > 0.04)
-																{
-																	this.velocity.X = this.velocity.X - 0.04f;
-																}
-																else
-																{
-																	this.velocity.X = 0f;
-																}
-															}
-														}
-													}
-													this.rotation += 0.1f;
-													if (this.velocity.Y > 10f)
-													{
-														this.velocity.Y = 10f;
-														return;
-													}
-												}
-												else
-												{
-													if (this.aiStyle == 11)
-													{
-														if (this.type == 72 || this.type == 86 || this.type == 87)
-														{
-															if (this.velocity.X > 0f)
-															{
-																this.spriteDirection = -1;
-															}
-															else
-															{
-																if (this.velocity.X < 0f)
-																{
-																	this.spriteDirection = 1;
-																}
-															}
-															this.rotation = this.velocity.X * 0.1f;
-															this.frameCounter++;
-															if (this.frameCounter >= 4)
-															{
-																this.frame++;
-																this.frameCounter = 0;
-															}
-															if (this.frame >= 4)
-															{
-																this.frame = 0;
-															}
-															if (Main.rand.Next(6) == 0)
-															{
-																int num75 = 56;
-																if (this.type == 86)
-																{
-																	num75 = 73;
-																}
-																else
-																{
-																	if (this.type == 87)
-																	{
-																		num75 = 74;
-																	}
-																}
-																Vector2 arg_340A_0 = this.position;
-																int arg_340A_1 = this.width;
-																int arg_340A_2 = this.height;
-																int arg_340A_3 = num75;
-																float arg_340A_4 = 0f;
-																float arg_340A_5 = 0f;
-																int arg_340A_6 = 200;
-																Color newColor = default(Color);
-																int num76 = Dust.NewDust(arg_340A_0, arg_340A_1, arg_340A_2, arg_340A_3, arg_340A_4, arg_340A_5, arg_340A_6, newColor, 0.8f);
-																Dust expr_3419 = Main.dust[num76];
-																expr_3419.velocity *= 0.3f;
-															}
-														}
-														else
-														{
-															this.rotation += 0.02f;
-														}
-														if (Main.myPlayer == this.owner)
-														{
-															if (this.type == 72 || this.type == 86 || this.type == 87)
-															{
-																if (Main.player[Main.myPlayer].fairy)
-																{
-																	this.timeLeft = 2;
-																}
-															}
-															else
-															{
-																if (Main.player[Main.myPlayer].lightOrb)
-																{
-																	this.timeLeft = 2;
-																}
-															}
-														}
-														if (Main.player[this.owner].dead)
-														{
-															this.Kill();
-															return;
-														}
-														float num77 = 2.5f;
-														if (this.type == 72 || this.type == 86 || this.type == 87)
-														{
-															num77 = 3.5f;
-														}
-														Vector2 vector9 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-														float num78 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector9.X;
-														float num79 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector9.Y;
-														float num80 = (float)Math.Sqrt((double)(num78 * num78 + num79 * num79));
-														num80 = (float)Math.Sqrt((double)(num78 * num78 + num79 * num79));
-														int num81 = 70;
-														if (this.type == 72 || this.type == 86 || this.type == 87)
-														{
-															num81 = 40;
-														}
-														if (num80 > 800f)
-														{
-															this.position.X = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - (float)(this.width / 2);
-															this.position.Y = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - (float)(this.height / 2);
-															return;
-														}
-														if (num80 > (float)num81)
-														{
-															num80 = num77 / num80;
-															num78 *= num80;
-															num79 *= num80;
-															this.velocity.X = num78;
-															this.velocity.Y = num79;
-															return;
-														}
-														this.velocity.X = 0f;
-														this.velocity.Y = 0f;
-														return;
-													}
-													else
-													{
-														if (this.aiStyle == 12)
-														{
-															this.scale -= 0.04f;
-															if (this.scale <= 0f)
-															{
-																this.Kill();
-															}
-															if (this.ai[0] > 4f)
-															{
-																this.alpha = 150;
-																this.light = 0.8f;
-																Vector2 arg_376A_0 = new Vector2(this.position.X, this.position.Y);
-																int arg_376A_1 = this.width;
-																int arg_376A_2 = this.height;
-																int arg_376A_3 = 29;
-																float arg_376A_4 = this.velocity.X;
-																float arg_376A_5 = this.velocity.Y;
-																int arg_376A_6 = 100;
-																Color newColor = default(Color);
-																int num82 = Dust.NewDust(arg_376A_0, arg_376A_1, arg_376A_2, arg_376A_3, arg_376A_4, arg_376A_5, arg_376A_6, newColor, 2.5f);
-																Main.dust[num82].noGravity = true;
-																Vector2 arg_37CF_0 = new Vector2(this.position.X, this.position.Y);
-																int arg_37CF_1 = this.width;
-																int arg_37CF_2 = this.height;
-																int arg_37CF_3 = 29;
-																float arg_37CF_4 = this.velocity.X;
-																float arg_37CF_5 = this.velocity.Y;
-																int arg_37CF_6 = 100;
-																newColor = default(Color);
-																Dust.NewDust(arg_37CF_0, arg_37CF_1, arg_37CF_2, arg_37CF_3, arg_37CF_4, arg_37CF_5, arg_37CF_6, newColor, 1.5f);
-															}
-															else
-															{
-																this.ai[0] += 1f;
-															}
-															this.rotation += 0.3f * (float)this.direction;
-															return;
-														}
-														if (this.aiStyle == 13)
-														{
-															if (Main.player[this.owner].dead)
-															{
-																this.Kill();
-																return;
-															}
-															Main.player[this.owner].itemAnimation = 5;
-															Main.player[this.owner].itemTime = 5;
-															if (this.position.X + (float)(this.width / 2) > Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2))
-															{
-																Main.player[this.owner].direction = 1;
-															}
-															else
-															{
-																Main.player[this.owner].direction = -1;
-															}
-															Vector2 vector10 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-															float num83 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector10.X;
-															float num84 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector10.Y;
-															float num85 = (float)Math.Sqrt((double)(num83 * num83 + num84 * num84));
-															if (this.ai[0] == 0f)
-															{
-																if (num85 > 700f)
-																{
-																	this.ai[0] = 1f;
-																}
-																this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
-																this.ai[1] += 1f;
-																if (this.ai[1] > 2f)
-																{
-																	this.alpha = 0;
-																}
-																if (this.ai[1] >= 10f)
-																{
-																	this.ai[1] = 15f;
-																	this.velocity.Y = this.velocity.Y + 0.3f;
-																	return;
-																}
-															}
-															else
-															{
-																if (this.ai[0] == 1f)
-																{
-																	this.tileCollide = false;
-																	this.rotation = (float)Math.Atan2((double)num84, (double)num83) - 1.57f;
-																	float num86 = 20f;
-																	if (num85 < 50f)
-																	{
-																		this.Kill();
-																	}
-																	num85 = num86 / num85;
-																	num83 *= num85;
-																	num84 *= num85;
-																	this.velocity.X = num83;
-																	this.velocity.Y = num84;
-																	return;
-																}
-															}
-														}
-														else
-														{
-															if (this.aiStyle == 14)
-															{
-																if (this.type == 53)
-																{
-																	try
-																	{
-																		Vector2 value2 = Collision.TileCollision(this.position, this.velocity, this.width, this.height, false, false);
-																		int num87 = (int)(this.position.X / 16f) - 1;
-																		int num88 = (int)((this.position.X + (float)this.width) / 16f) + 2;
-																		int num89 = (int)(this.position.Y / 16f) - 1;
-																		int num90 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
-																		if (num87 < 0)
-																		{
-																			num87 = 0;
-																		}
-																		if (num88 > Main.maxTilesX)
-																		{
-																			num88 = Main.maxTilesX;
-																		}
-																		if (num89 < 0)
-																		{
-																			num89 = 0;
-																		}
-																		if (num90 > Main.maxTilesY)
-																		{
-																			num90 = Main.maxTilesY;
-																		}
-																		for (int num91 = num87; num91 < num88; num91++)
-																		{
-																			for (int num92 = num89; num92 < num90; num92++)
-																			{
-																				if (Main.tile[num91, num92] != null && Main.tile[num91, num92].active && (Main.tileSolid[(int)Main.tile[num91, num92].type] || (Main.tileSolidTop[(int)Main.tile[num91, num92].type] && Main.tile[num91, num92].frameY == 0)))
-																				{
-																					Vector2 vector11;
-																					vector11.X = (float)(num91 * 16);
-																					vector11.Y = (float)(num92 * 16);
-																					if (this.position.X + (float)this.width > vector11.X && this.position.X < vector11.X + 16f && this.position.Y + (float)this.height > vector11.Y && this.position.Y < vector11.Y + 16f)
-																					{
-																						this.velocity.X = 0f;
-																						this.velocity.Y = -0.2f;
-																					}
-																				}
-																			}
-																		}
-																	}
-																	catch
-																	{
-																	}
-																}
-																this.ai[0] += 1f;
-																if (this.ai[0] > 5f)
-																{
-																	this.ai[0] = 5f;
-																	if (this.velocity.Y == 0f && this.velocity.X != 0f)
-																	{
-																		this.velocity.X = this.velocity.X * 0.97f;
-																		if ((double)this.velocity.X > -0.01 && (double)this.velocity.X < 0.01)
-																		{
-																			this.velocity.X = 0f;
-																			this.netUpdate = true;
-																		}
-																	}
-																	this.velocity.Y = this.velocity.Y + 0.2f;
-																}
-																this.rotation += this.velocity.X * 0.1f;
-																if (this.velocity.Y > 16f)
-																{
-																	this.velocity.Y = 16f;
-																	return;
-																}
-															}
-															else
-															{
-																if (this.aiStyle == 15)
-																{
-																	if (this.type == 25)
-																	{
-																		if (Main.rand.Next(15) == 0)
-																		{
-																			Vector2 arg_3E55_0 = this.position;
-																			int arg_3E55_1 = this.width;
-																			int arg_3E55_2 = this.height;
-																			int arg_3E55_3 = 14;
-																			float arg_3E55_4 = 0f;
-																			float arg_3E55_5 = 0f;
-																			int arg_3E55_6 = 150;
-																			Color newColor = default(Color);
-																			Dust.NewDust(arg_3E55_0, arg_3E55_1, arg_3E55_2, arg_3E55_3, arg_3E55_4, arg_3E55_5, arg_3E55_6, newColor, 1.3f);
-																		}
-																	}
-																	else
-																	{
-																		if (this.type == 26)
-																		{
-																			Vector2 arg_3EB4_0 = this.position;
-																			int arg_3EB4_1 = this.width;
-																			int arg_3EB4_2 = this.height;
-																			int arg_3EB4_3 = 29;
-																			float arg_3EB4_4 = this.velocity.X * 0.4f;
-																			float arg_3EB4_5 = this.velocity.Y * 0.4f;
-																			int arg_3EB4_6 = 100;
-																			Color newColor = default(Color);
-																			int num93 = Dust.NewDust(arg_3EB4_0, arg_3EB4_1, arg_3EB4_2, arg_3EB4_3, arg_3EB4_4, arg_3EB4_5, arg_3EB4_6, newColor, 2.5f);
-																			Main.dust[num93].noGravity = true;
-																			Dust expr_3ED6_cp_0 = Main.dust[num93];
-																			expr_3ED6_cp_0.velocity.X = expr_3ED6_cp_0.velocity.X / 2f;
-																			Dust expr_3EF4_cp_0 = Main.dust[num93];
-																			expr_3EF4_cp_0.velocity.Y = expr_3EF4_cp_0.velocity.Y / 2f;
-																		}
-																		else
-																		{
-																			if (this.type == 35)
-																			{
-																				Vector2 arg_3F5D_0 = this.position;
-																				int arg_3F5D_1 = this.width;
-																				int arg_3F5D_2 = this.height;
-																				int arg_3F5D_3 = 6;
-																				float arg_3F5D_4 = this.velocity.X * 0.4f;
-																				float arg_3F5D_5 = this.velocity.Y * 0.4f;
-																				int arg_3F5D_6 = 100;
-																				Color newColor = default(Color);
-																				int num94 = Dust.NewDust(arg_3F5D_0, arg_3F5D_1, arg_3F5D_2, arg_3F5D_3, arg_3F5D_4, arg_3F5D_5, arg_3F5D_6, newColor, 3f);
-																				Main.dust[num94].noGravity = true;
-																				Dust expr_3F7F_cp_0 = Main.dust[num94];
-																				expr_3F7F_cp_0.velocity.X = expr_3F7F_cp_0.velocity.X * 2f;
-																				Dust expr_3F9D_cp_0 = Main.dust[num94];
-																				expr_3F9D_cp_0.velocity.Y = expr_3F9D_cp_0.velocity.Y * 2f;
-																			}
-																		}
-																	}
-																	if (Main.player[this.owner].dead)
-																	{
-																		this.Kill();
-																		return;
-																	}
-																	Main.player[this.owner].itemAnimation = 10;
-																	Main.player[this.owner].itemTime = 10;
-																	if (this.position.X + (float)(this.width / 2) > Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2))
-																	{
-																		Main.player[this.owner].direction = 1;
-																		this.direction = 1;
-																	}
-																	else
-																	{
-																		Main.player[this.owner].direction = -1;
-																		this.direction = -1;
-																	}
-																	Vector2 vector12 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-																	float num95 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector12.X;
-																	float num96 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector12.Y;
-																	float num97 = (float)Math.Sqrt((double)(num95 * num95 + num96 * num96));
-																	if (this.ai[0] == 0f)
-																	{
-																		float num98 = 160f;
-																		if (this.type == 63)
-																		{
-																			num98 *= 1.5f;
-																		}
-																		this.tileCollide = true;
-																		if (num97 > num98)
-																		{
-																			this.ai[0] = 1f;
-																			this.netUpdate = true;
-																		}
-																		else
-																		{
-																			if (!Main.player[this.owner].channel)
-																			{
-																				if (this.velocity.Y < 0f)
-																				{
-																					this.velocity.Y = this.velocity.Y * 0.9f;
-																				}
-																				this.velocity.Y = this.velocity.Y + 1f;
-																				this.velocity.X = this.velocity.X * 0.9f;
-																			}
-																		}
-																	}
-																	else
-																	{
-																		if (this.ai[0] == 1f)
-																		{
-																			float num99 = 14f / Main.player[this.owner].meleeSpeed;
-																			float num100 = 0.9f / Main.player[this.owner].meleeSpeed;
-																			float num101 = 300f;
-																			if (this.type == 63)
-																			{
-																				num101 *= 1.5f;
-																				num99 *= 1.5f;
-																				num100 *= 1.5f;
-																			}
-																			Math.Abs(num95);
-																			Math.Abs(num96);
-																			if (this.ai[1] == 1f)
-																			{
-																				this.tileCollide = false;
-																			}
-																			if (!Main.player[this.owner].channel || num97 > num101 || !this.tileCollide)
-																			{
-																				this.ai[1] = 1f;
-																				if (this.tileCollide)
-																				{
-																					this.netUpdate = true;
-																				}
-																				this.tileCollide = false;
-																				if (num97 < 20f)
-																				{
-																					this.Kill();
-																				}
-																			}
-																			if (!this.tileCollide)
-																			{
-																				num100 *= 2f;
-																			}
-																			if (num97 > 60f || !this.tileCollide)
-																			{
-																				num97 = num99 / num97;
-																				num95 *= num97;
-																				num96 *= num97;
-																				new Vector2(this.velocity.X, this.velocity.Y);
-																				float num102 = num95 - this.velocity.X;
-																				float num103 = num96 - this.velocity.Y;
-																				float num104 = (float)Math.Sqrt((double)(num102 * num102 + num103 * num103));
-																				num104 = num100 / num104;
-																				num102 *= num104;
-																				num103 *= num104;
-																				this.velocity.X = this.velocity.X * 0.98f;
-																				this.velocity.Y = this.velocity.Y * 0.98f;
-																				this.velocity.X = this.velocity.X + num102;
-																				this.velocity.Y = this.velocity.Y + num103;
-																			}
-																			else
-																			{
-																				if (Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y) < 6f)
-																				{
-																					this.velocity.X = this.velocity.X * 0.96f;
-																					this.velocity.Y = this.velocity.Y + 0.2f;
-																				}
-																				if (Main.player[this.owner].velocity.X == 0f)
-																				{
-																					this.velocity.X = this.velocity.X * 0.96f;
-																				}
-																			}
-																		}
-																	}
-																	this.rotation = (float)Math.Atan2((double)num96, (double)num95) - this.velocity.X * 0.1f;
-																	return;
-																}
-																else
-																{
-																	if (this.aiStyle == 16)
-																	{
-																		if (this.type == 108)
-																		{
-																			this.ai[0] += 1f;
-																			if (this.ai[0] > 3f)
-																			{
-																				this.Kill();
-																			}
-																		}
-																		if (this.type == 37)
-																		{
-																			try
-																			{
-																				int num105 = (int)(this.position.X / 16f) - 1;
-																				int num106 = (int)((this.position.X + (float)this.width) / 16f) + 2;
-																				int num107 = (int)(this.position.Y / 16f) - 1;
-																				int num108 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
-																				if (num105 < 0)
-																				{
-																					num105 = 0;
-																				}
-																				if (num106 > Main.maxTilesX)
-																				{
-																					num106 = Main.maxTilesX;
-																				}
-																				if (num107 < 0)
-																				{
-																					num107 = 0;
-																				}
-																				if (num108 > Main.maxTilesY)
-																				{
-																					num108 = Main.maxTilesY;
-																				}
-																				for (int num109 = num105; num109 < num106; num109++)
-																				{
-																					for (int num110 = num107; num110 < num108; num110++)
-																					{
-																						if (Main.tile[num109, num110] != null && Main.tile[num109, num110].active && (Main.tileSolid[(int)Main.tile[num109, num110].type] || (Main.tileSolidTop[(int)Main.tile[num109, num110].type] && Main.tile[num109, num110].frameY == 0)))
-																						{
-																							Vector2 vector13;
-																							vector13.X = (float)(num109 * 16);
-																							vector13.Y = (float)(num110 * 16);
-																							if (this.position.X + (float)this.width - 4f > vector13.X && this.position.X + 4f < vector13.X + 16f && this.position.Y + (float)this.height - 4f > vector13.Y && this.position.Y + 4f < vector13.Y + 16f)
-																							{
-																								this.velocity.X = 0f;
-																								this.velocity.Y = -0.2f;
-																							}
-																						}
-																					}
-																				}
-																			}
-																			catch
-																			{
-																			}
-																		}
-																		if (this.type == 102)
-																		{
-																			if (this.velocity.Y > 10f)
-																			{
-																				this.velocity.Y = 10f;
-																			}
-																			if (this.localAI[0] == 0f)
-																			{
-																				this.localAI[0] = 1f;
-																				Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
-																			}
-																			this.frameCounter++;
-																			if (this.frameCounter > 3)
-																			{
-																				this.frame++;
-																				this.frameCounter = 0;
-																			}
-																			if (this.frame > 1)
-																			{
-																				this.frame = 0;
-																			}
-																			if (this.velocity.Y == 0f)
-																			{
-																				this.position.X = this.position.X + (float)(this.width / 2);
-																				this.position.Y = this.position.Y + (float)(this.height / 2);
-																				this.width = 128;
-																				this.height = 128;
-																				this.position.X = this.position.X - (float)(this.width / 2);
-																				this.position.Y = this.position.Y - (float)(this.height / 2);
-																				this.damage = 40;
-																				this.knockBack = 8f;
-																				this.timeLeft = 3;
-																				this.netUpdate = true;
-																			}
-																		}
-																		if (this.owner == Main.myPlayer && this.timeLeft <= 3)
-																		{
-																			this.ai[1] = 0f;
-																			this.alpha = 255;
-																			if (this.type == 28 || this.type == 37 || this.type == 75)
-																			{
-																				this.position.X = this.position.X + (float)(this.width / 2);
-																				this.position.Y = this.position.Y + (float)(this.height / 2);
-																				this.width = 128;
-																				this.height = 128;
-																				this.position.X = this.position.X - (float)(this.width / 2);
-																				this.position.Y = this.position.Y - (float)(this.height / 2);
-																				this.damage = 100;
-																				this.knockBack = 8f;
-																			}
-																			else
-																			{
-																				if (this.type == 29)
-																				{
-																					this.position.X = this.position.X + (float)(this.width / 2);
-																					this.position.Y = this.position.Y + (float)(this.height / 2);
-																					this.width = 250;
-																					this.height = 250;
-																					this.position.X = this.position.X - (float)(this.width / 2);
-																					this.position.Y = this.position.Y - (float)(this.height / 2);
-																					this.damage = 250;
-																					this.knockBack = 10f;
-																				}
-																				else
-																				{
-																					if (this.type == 30)
-																					{
-																						this.position.X = this.position.X + (float)(this.width / 2);
-																						this.position.Y = this.position.Y + (float)(this.height / 2);
-																						this.width = 128;
-																						this.height = 128;
-																						this.position.X = this.position.X - (float)(this.width / 2);
-																						this.position.Y = this.position.Y - (float)(this.height / 2);
-																						this.knockBack = 8f;
-																					}
-																				}
-																			}
-																		}
-																		else
-																		{
-																			if (this.type != 30 && this.type != 108)
-																			{
-																				this.damage = 0;
-																			}
-																			if (this.type != 30 && Main.rand.Next(4) == 0)
-																			{
-																				Vector2 arg_4ADF_0 = new Vector2(this.position.X, this.position.Y);
-																				int arg_4ADF_1 = this.width;
-																				int arg_4ADF_2 = this.height;
-																				int arg_4ADF_3 = 6;
-																				float arg_4ADF_4 = 0f;
-																				float arg_4ADF_5 = 0f;
-																				int arg_4ADF_6 = 100;
-																				Color newColor = default(Color);
-																				Dust.NewDust(arg_4ADF_0, arg_4ADF_1, arg_4ADF_2, arg_4ADF_3, arg_4ADF_4, arg_4ADF_5, arg_4ADF_6, newColor, 1f);
-																			}
-																		}
-																		this.ai[0] += 1f;
-																		if ((this.type == 30 && this.ai[0] > 10f) || (this.type != 30 && this.ai[0] > 5f))
-																		{
-																			this.ai[0] = 10f;
-																			if (this.velocity.Y == 0f && this.velocity.X != 0f)
-																			{
-																				this.velocity.X = this.velocity.X * 0.97f;
-																				if (this.type == 29)
-																				{
-																					this.velocity.X = this.velocity.X * 0.99f;
-																				}
-																				if ((double)this.velocity.X > -0.01 && (double)this.velocity.X < 0.01)
-																				{
-																					this.velocity.X = 0f;
-																					this.netUpdate = true;
-																				}
-																			}
-																			this.velocity.Y = this.velocity.Y + 0.2f;
-																		}
-																		this.rotation += this.velocity.X * 0.1f;
-																		return;
-																	}
-																	if (this.aiStyle == 17)
-																	{
-																		if (this.velocity.Y == 0f)
-																		{
-																			this.velocity.X = this.velocity.X * 0.98f;
-																		}
-																		this.rotation += this.velocity.X * 0.1f;
-																		this.velocity.Y = this.velocity.Y + 0.2f;
-																		if (this.owner == Main.myPlayer)
-																		{
-																			int num111 = (int)((this.position.X + (float)(this.width / 2)) / 16f);
-																			int num112 = (int)((this.position.Y + (float)this.height - 4f) / 16f);
-																			if (Main.tile[num111, num112] != null && !Main.tile[num111, num112].active)
-																			{
-																				WorldGen.PlaceTile(num111, num112, 85, false, false, -1, 0);
-																				if (Main.tile[num111, num112].active)
-																				{
-																					if (Main.netMode != 0)
-																					{
-																						NetMessage.SendData(17, -1, -1, "", 1, (float)num111, (float)num112, 85f, 0);
-																					}
-																					int num113 = Sign.ReadSign(num111, num112);
-																					if (num113 >= 0)
-																					{
-																						Sign.TextSign(num113, this.miscText);
-																					}
-																					this.Kill();
-																					return;
-																				}
-																			}
-																		}
-																	}
-																	else
-																	{
-																		if (this.aiStyle == 18)
-																		{
-																			if (this.ai[1] == 0f && this.type == 44)
-																			{
-																				this.ai[1] = 1f;
-																				Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 8);
-																			}
-																			this.rotation += (float)this.direction * 0.8f;
-																			this.ai[0] += 1f;
-																			if (this.ai[0] >= 30f)
-																			{
-																				if (this.ai[0] < 100f)
-																				{
-																					this.velocity *= 1.06f;
-																				}
-																				else
-																				{
-																					this.ai[0] = 200f;
-																				}
-																			}
-																			for (int num114 = 0; num114 < 2; num114++)
-																			{
-																				Vector2 arg_4E8A_0 = new Vector2(this.position.X, this.position.Y);
-																				int arg_4E8A_1 = this.width;
-																				int arg_4E8A_2 = this.height;
-																				int arg_4E8A_3 = 27;
-																				float arg_4E8A_4 = 0f;
-																				float arg_4E8A_5 = 0f;
-																				int arg_4E8A_6 = 100;
-																				Color newColor = default(Color);
-																				int num115 = Dust.NewDust(arg_4E8A_0, arg_4E8A_1, arg_4E8A_2, arg_4E8A_3, arg_4E8A_4, arg_4E8A_5, arg_4E8A_6, newColor, 1f);
-																				Main.dust[num115].noGravity = true;
-																			}
-																			return;
-																		}
-																		if (this.aiStyle == 19)
-																		{
-																			this.direction = Main.player[this.owner].direction;
-																			Main.player[this.owner].heldProj = this.whoAmI;
-																			Main.player[this.owner].itemTime = Main.player[this.owner].itemAnimation;
-																			this.position.X = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - (float)(this.width / 2);
-																			this.position.Y = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - (float)(this.height / 2);
-																			if (this.type == 46)
-																			{
-																				if (this.ai[0] == 0f)
-																				{
-																					this.ai[0] = 3f;
-																					this.netUpdate = true;
-																				}
-																				if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
-																				{
-																					this.ai[0] -= 1.6f;
-																				}
-																				else
-																				{
-																					this.ai[0] += 1.4f;
-																				}
-																			}
-																			else
-																			{
-																				if (this.type == 105)
-																				{
-																					if (this.ai[0] == 0f)
-																					{
-																						this.ai[0] = 3f;
-																						this.netUpdate = true;
-																					}
-																					if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
-																					{
-																						this.ai[0] -= 2.4f;
-																					}
-																					else
-																					{
-																						this.ai[0] += 2.1f;
-																					}
-																				}
-																				else
-																				{
-																					if (this.type == 47)
-																					{
-																						if (this.ai[0] == 0f)
-																						{
-																							this.ai[0] = 4f;
-																							this.netUpdate = true;
-																						}
-																						if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
-																						{
-																							this.ai[0] -= 1.2f;
-																						}
-																						else
-																						{
-																							this.ai[0] += 0.9f;
-																						}
-																					}
-																					else
-																					{
-																						if (this.type == 49)
-																						{
-																							if (this.ai[0] == 0f)
-																							{
-																								this.ai[0] = 4f;
-																								this.netUpdate = true;
-																							}
-																							if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
-																							{
-																								this.ai[0] -= 1.1f;
-																							}
-																							else
-																							{
-																								this.ai[0] += 0.85f;
-																							}
-																						}
-																						else
-																						{
-																							if (this.type == 64)
-																							{
-																								this.spriteDirection = -this.direction;
-																								if (this.ai[0] == 0f)
-																								{
-																									this.ai[0] = 3f;
-																									this.netUpdate = true;
-																								}
-																								if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
-																								{
-																									this.ai[0] -= 1.9f;
-																								}
-																								else
-																								{
-																									this.ai[0] += 1.7f;
-																								}
-																							}
-																							else
-																							{
-																								if (this.type == 66 || this.type == 97)
-																								{
-																									this.spriteDirection = -this.direction;
-																									if (this.ai[0] == 0f)
-																									{
-																										this.ai[0] = 3f;
-																										this.netUpdate = true;
-																									}
-																									if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
-																									{
-																										this.ai[0] -= 2.1f;
-																									}
-																									else
-																									{
-																										this.ai[0] += 1.9f;
-																									}
-																								}
-																								else
-																								{
-																									if (this.type == 97)
-																									{
-																										this.spriteDirection = -this.direction;
-																										if (this.ai[0] == 0f)
-																										{
-																											this.ai[0] = 3f;
-																											this.netUpdate = true;
-																										}
-																										if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
-																										{
-																											this.ai[0] -= 1.6f;
-																										}
-																										else
-																										{
-																											this.ai[0] += 1.4f;
-																										}
-																									}
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																			this.position += this.velocity * this.ai[0];
-																			if (Main.player[this.owner].itemAnimation == 0)
-																			{
-																				this.Kill();
-																			}
-																			this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 2.355f;
-																			if (this.spriteDirection == -1)
-																			{
-																				this.rotation -= 1.57f;
-																			}
-																			if (this.type == 46)
-																			{
-																				Color newColor;
-																				if (Main.rand.Next(5) == 0)
-																				{
-																					Vector2 arg_54B5_0 = this.position;
-																					int arg_54B5_1 = this.width;
-																					int arg_54B5_2 = this.height;
-																					int arg_54B5_3 = 14;
-																					float arg_54B5_4 = 0f;
-																					float arg_54B5_5 = 0f;
-																					int arg_54B5_6 = 150;
-																					newColor = default(Color);
-																					Dust.NewDust(arg_54B5_0, arg_54B5_1, arg_54B5_2, arg_54B5_3, arg_54B5_4, arg_54B5_5, arg_54B5_6, newColor, 1.4f);
-																				}
-																				Vector2 arg_550C_0 = this.position;
-																				int arg_550C_1 = this.width;
-																				int arg_550C_2 = this.height;
-																				int arg_550C_3 = 27;
-																				float arg_550C_4 = this.velocity.X * 0.2f + (float)(this.direction * 3);
-																				float arg_550C_5 = this.velocity.Y * 0.2f;
-																				int arg_550C_6 = 100;
-																				newColor = default(Color);
-																				int num116 = Dust.NewDust(arg_550C_0, arg_550C_1, arg_550C_2, arg_550C_3, arg_550C_4, arg_550C_5, arg_550C_6, newColor, 1.2f);
-																				Main.dust[num116].noGravity = true;
-																				Dust expr_552E_cp_0 = Main.dust[num116];
-																				expr_552E_cp_0.velocity.X = expr_552E_cp_0.velocity.X / 2f;
-																				Dust expr_554C_cp_0 = Main.dust[num116];
-																				expr_554C_cp_0.velocity.Y = expr_554C_cp_0.velocity.Y / 2f;
-																				Vector2 arg_55A4_0 = this.position - this.velocity * 2f;
-																				int arg_55A4_1 = this.width;
-																				int arg_55A4_2 = this.height;
-																				int arg_55A4_3 = 27;
-																				float arg_55A4_4 = 0f;
-																				float arg_55A4_5 = 0f;
-																				int arg_55A4_6 = 150;
-																				newColor = default(Color);
-																				num116 = Dust.NewDust(arg_55A4_0, arg_55A4_1, arg_55A4_2, arg_55A4_3, arg_55A4_4, arg_55A4_5, arg_55A4_6, newColor, 1.4f);
-																				Dust expr_55B8_cp_0 = Main.dust[num116];
-																				expr_55B8_cp_0.velocity.X = expr_55B8_cp_0.velocity.X / 5f;
-																				Dust expr_55D6_cp_0 = Main.dust[num116];
-																				expr_55D6_cp_0.velocity.Y = expr_55D6_cp_0.velocity.Y / 5f;
-																				return;
-																			}
-																			if (this.type == 105)
-																			{
-																				if (Main.rand.Next(3) == 0)
-																				{
-																					Vector2 arg_5664_0 = new Vector2(this.position.X, this.position.Y);
-																					int arg_5664_1 = this.width;
-																					int arg_5664_2 = this.height;
-																					int arg_5664_3 = 57;
-																					float arg_5664_4 = this.velocity.X * 0.2f;
-																					float arg_5664_5 = this.velocity.Y * 0.2f;
-																					int arg_5664_6 = 200;
-																					Color newColor = default(Color);
-																					int num117 = Dust.NewDust(arg_5664_0, arg_5664_1, arg_5664_2, arg_5664_3, arg_5664_4, arg_5664_5, arg_5664_6, newColor, 1.2f);
-																					Dust expr_5673 = Main.dust[num117];
-																					expr_5673.velocity += this.velocity * 0.3f;
-																					Dust expr_569B = Main.dust[num117];
-																					expr_569B.velocity *= 0.2f;
-																				}
-																				if (Main.rand.Next(4) == 0)
-																				{
-																					Vector2 arg_5707_0 = new Vector2(this.position.X, this.position.Y);
-																					int arg_5707_1 = this.width;
-																					int arg_5707_2 = this.height;
-																					int arg_5707_3 = 43;
-																					float arg_5707_4 = 0f;
-																					float arg_5707_5 = 0f;
-																					int arg_5707_6 = 254;
-																					Color newColor = default(Color);
-																					int num118 = Dust.NewDust(arg_5707_0, arg_5707_1, arg_5707_2, arg_5707_3, arg_5707_4, arg_5707_5, arg_5707_6, newColor, 0.3f);
-																					Dust expr_5716 = Main.dust[num118];
-																					expr_5716.velocity += this.velocity * 0.5f;
-																					Dust expr_573E = Main.dust[num118];
-																					expr_573E.velocity *= 0.5f;
-																					return;
-																				}
-																			}
-																		}
-																		else
-																		{
-																			if (this.aiStyle == 20)
-																			{
-																				if (this.soundDelay <= 0)
-																				{
-																					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 22);
-																					this.soundDelay = 30;
-																				}
-																				if (Main.myPlayer == this.owner)
-																				{
-																					if (Main.player[this.owner].channel)
-																					{
-																						float num119 = Main.player[this.owner].inventory[Main.player[this.owner].selectedItem].shootSpeed * this.scale;
-																						Vector2 vector14 = new Vector2(Main.player[this.owner].position.X + (float)Main.player[this.owner].width * 0.5f, Main.player[this.owner].position.Y + (float)Main.player[this.owner].height * 0.5f);
-																						float num120 = (float)Main.mouseX + Main.screenPosition.X - vector14.X;
-																						float num121 = (float)Main.mouseY + Main.screenPosition.Y - vector14.Y;
-																						float num122 = (float)Math.Sqrt((double)(num120 * num120 + num121 * num121));
-																						num122 = (float)Math.Sqrt((double)(num120 * num120 + num121 * num121));
-																						num122 = num119 / num122;
-																						num120 *= num122;
-																						num121 *= num122;
-																						if (num120 != this.velocity.X || num121 != this.velocity.Y)
-																						{
-																							this.netUpdate = true;
-																						}
-																						this.velocity.X = num120;
-																						this.velocity.Y = num121;
-																					}
-																					else
-																					{
-																						this.Kill();
-																					}
-																				}
-																				if (this.velocity.X > 0f)
-																				{
-																					Main.player[this.owner].direction = 1;
-																				}
-																				else
-																				{
-																					if (this.velocity.X < 0f)
-																					{
-																						Main.player[this.owner].direction = -1;
-																					}
-																				}
-																				this.spriteDirection = this.direction;
-																				Main.player[this.owner].direction = this.direction;
-																				Main.player[this.owner].heldProj = this.whoAmI;
-																				Main.player[this.owner].itemTime = 2;
-																				Main.player[this.owner].itemAnimation = 2;
-																				this.position.X = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - (float)(this.width / 2);
-																				this.position.Y = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - (float)(this.height / 2);
-																				this.rotation = (float)(Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.5700000524520874);
-																				if (Main.player[this.owner].direction == 1)
-																				{
-																					Main.player[this.owner].itemRotation = (float)Math.Atan2((double)(this.velocity.Y * (float)this.direction), (double)(this.velocity.X * (float)this.direction));
-																				}
-																				else
-																				{
-																					Main.player[this.owner].itemRotation = (float)Math.Atan2((double)(this.velocity.Y * (float)this.direction), (double)(this.velocity.X * (float)this.direction));
-																				}
-																				this.velocity.X = this.velocity.X * (1f + (float)Main.rand.Next(-3, 4) * 0.01f);
-																				if (Main.rand.Next(6) == 0)
-																				{
-																					Vector2 arg_5B85_0 = this.position + this.velocity * (float)Main.rand.Next(6, 10) * 0.1f;
-																					int arg_5B85_1 = this.width;
-																					int arg_5B85_2 = this.height;
-																					int arg_5B85_3 = 31;
-																					float arg_5B85_4 = 0f;
-																					float arg_5B85_5 = 0f;
-																					int arg_5B85_6 = 80;
-																					Color newColor = default(Color);
-																					int num123 = Dust.NewDust(arg_5B85_0, arg_5B85_1, arg_5B85_2, arg_5B85_3, arg_5B85_4, arg_5B85_5, arg_5B85_6, newColor, 1.4f);
-																					Dust expr_5B99_cp_0 = Main.dust[num123];
-																					expr_5B99_cp_0.position.X = expr_5B99_cp_0.position.X - 4f;
-																					Main.dust[num123].noGravity = true;
-																					Dust expr_5BC0 = Main.dust[num123];
-																					expr_5BC0.velocity *= 0.2f;
-																					Main.dust[num123].velocity.Y = (float)(-(float)Main.rand.Next(7, 13)) * 0.15f;
-																					return;
-																				}
-																			}
-																			else
-																			{
-																				if (this.aiStyle == 21)
-																				{
-																					this.rotation = this.velocity.X * 0.1f;
-																					this.spriteDirection = -this.direction;
-																					if (Main.rand.Next(3) == 0)
-																					{
-																						Vector2 arg_5C6A_0 = this.position;
-																						int arg_5C6A_1 = this.width;
-																						int arg_5C6A_2 = this.height;
-																						int arg_5C6A_3 = 27;
-																						float arg_5C6A_4 = 0f;
-																						float arg_5C6A_5 = 0f;
-																						int arg_5C6A_6 = 80;
-																						Color newColor = default(Color);
-																						int num124 = Dust.NewDust(arg_5C6A_0, arg_5C6A_1, arg_5C6A_2, arg_5C6A_3, arg_5C6A_4, arg_5C6A_5, arg_5C6A_6, newColor, 1f);
-																						Main.dust[num124].noGravity = true;
-																						Dust expr_5C87 = Main.dust[num124];
-																						expr_5C87.velocity *= 0.2f;
-																					}
-																					if (this.ai[1] == 1f)
-																					{
-																						this.ai[1] = 0f;
-																						Main.harpNote = this.ai[0];
-																						Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 26);
-																						return;
-																					}
-																				}
-																				else
-																				{
-																					if (this.aiStyle == 22)
-																					{
-																						if (this.velocity.X == 0f && this.velocity.Y == 0f)
-																						{
-																							this.alpha = 255;
-																						}
-																						if (this.ai[1] < 0f)
-																						{
-																							if (this.velocity.X > 0f)
-																							{
-																								this.rotation += 0.3f;
-																							}
-																							else
-																							{
-																								this.rotation -= 0.3f;
-																							}
-																							int num125 = (int)(this.position.X / 16f) - 1;
-																							int num126 = (int)((this.position.X + (float)this.width) / 16f) + 2;
-																							int num127 = (int)(this.position.Y / 16f) - 1;
-																							int num128 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
-																							if (num125 < 0)
-																							{
-																								num125 = 0;
-																							}
-																							if (num126 > Main.maxTilesX)
-																							{
-																								num126 = Main.maxTilesX;
-																							}
-																							if (num127 < 0)
-																							{
-																								num127 = 0;
-																							}
-																							if (num128 > Main.maxTilesY)
-																							{
-																								num128 = Main.maxTilesY;
-																							}
-																							int num129 = (int)this.position.X + 4;
-																							int num130 = (int)this.position.Y + 4;
-																							for (int num131 = num125; num131 < num126; num131++)
-																							{
-																								for (int num132 = num127; num132 < num128; num132++)
-																								{
-																									if (Main.tile[num131, num132] != null && Main.tile[num131, num132].active && Main.tile[num131, num132].type != 127 && Main.tileSolid[(int)Main.tile[num131, num132].type] && !Main.tileSolidTop[(int)Main.tile[num131, num132].type])
-																									{
-																										Vector2 vector15;
-																										vector15.X = (float)(num131 * 16);
-																										vector15.Y = (float)(num132 * 16);
-																										if ((float)(num129 + 8) > vector15.X && (float)num129 < vector15.X + 16f && (float)(num130 + 8) > vector15.Y && (float)num130 < vector15.Y + 16f)
-																										{
-																											this.Kill();
-																										}
-																									}
-																								}
-																							}
-																							Vector2 arg_5F75_0 = new Vector2(this.position.X, this.position.Y);
-																							int arg_5F75_1 = this.width;
-																							int arg_5F75_2 = this.height;
-																							int arg_5F75_3 = 67;
-																							float arg_5F75_4 = 0f;
-																							float arg_5F75_5 = 0f;
-																							int arg_5F75_6 = 0;
-																							Color newColor = default(Color);
-																							int num133 = Dust.NewDust(arg_5F75_0, arg_5F75_1, arg_5F75_2, arg_5F75_3, arg_5F75_4, arg_5F75_5, arg_5F75_6, newColor, 1f);
-																							Main.dust[num133].noGravity = true;
-																							Dust expr_5F92 = Main.dust[num133];
-																							expr_5F92.velocity *= 0.3f;
-																							return;
-																						}
-																						if (this.ai[0] < 0f)
-																						{
-																							if (this.ai[0] == -1f)
-																							{
-																								for (int num134 = 0; num134 < 10; num134++)
-																								{
-																									Vector2 arg_6014_0 = new Vector2(this.position.X, this.position.Y);
-																									int arg_6014_1 = this.width;
-																									int arg_6014_2 = this.height;
-																									int arg_6014_3 = 67;
-																									float arg_6014_4 = 0f;
-																									float arg_6014_5 = 0f;
-																									int arg_6014_6 = 0;
-																									Color newColor = default(Color);
-																									int num135 = Dust.NewDust(arg_6014_0, arg_6014_1, arg_6014_2, arg_6014_3, arg_6014_4, arg_6014_5, arg_6014_6, newColor, 1.1f);
-																									Main.dust[num135].noGravity = true;
-																									Dust expr_6031 = Main.dust[num135];
-																									expr_6031.velocity *= 1.3f;
-																								}
-																							}
-																							else
-																							{
-																								if (Main.rand.Next(30) == 0)
-																								{
-																									Vector2 arg_60A9_0 = new Vector2(this.position.X, this.position.Y);
-																									int arg_60A9_1 = this.width;
-																									int arg_60A9_2 = this.height;
-																									int arg_60A9_3 = 67;
-																									float arg_60A9_4 = 0f;
-																									float arg_60A9_5 = 0f;
-																									int arg_60A9_6 = 100;
-																									Color newColor = default(Color);
-																									int num136 = Dust.NewDust(arg_60A9_0, arg_60A9_1, arg_60A9_2, arg_60A9_3, arg_60A9_4, arg_60A9_5, arg_60A9_6, newColor, 1f);
-																									Dust expr_60B8 = Main.dust[num136];
-																									expr_60B8.velocity *= 0.2f;
-																								}
-																							}
-																							int num137 = (int)this.position.X / 16;
-																							int num138 = (int)this.position.Y / 16;
-																							if (Main.tile[num137, num138] == null || !Main.tile[num137, num138].active)
-																							{
-																								this.Kill();
-																							}
-																							this.ai[0] -= 1f;
-																							if (this.ai[0] <= -300f && (Main.myPlayer == this.owner || Main.netMode == 2) && Main.tile[num137, num138].active && Main.tile[num137, num138].type == 127)
-																							{
-																								WorldGen.KillTile(num137, num138, false, false, false);
-																								if (Main.netMode == 1)
-																								{
-																									NetMessage.SendData(17, -1, -1, "", 0, (float)num137, (float)num138, 0f, 0);
-																								}
-																								this.Kill();
-																								return;
-																							}
-																						}
-																						else
-																						{
-																							int num139 = (int)(this.position.X / 16f) - 1;
-																							int num140 = (int)((this.position.X + (float)this.width) / 16f) + 2;
-																							int num141 = (int)(this.position.Y / 16f) - 1;
-																							int num142 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
-																							if (num139 < 0)
-																							{
-																								num139 = 0;
-																							}
-																							if (num140 > Main.maxTilesX)
-																							{
-																								num140 = Main.maxTilesX;
-																							}
-																							if (num141 < 0)
-																							{
-																								num141 = 0;
-																							}
-																							if (num142 > Main.maxTilesY)
-																							{
-																								num142 = Main.maxTilesY;
-																							}
-																							int num143 = (int)this.position.X + 4;
-																							int num144 = (int)this.position.Y + 4;
-																							for (int num145 = num139; num145 < num140; num145++)
-																							{
-																								for (int num146 = num141; num146 < num142; num146++)
-																								{
-																									if (Main.tile[num145, num146] != null && Main.tile[num145, num146].active && Main.tile[num145, num146].type != 127 && Main.tileSolid[(int)Main.tile[num145, num146].type] && !Main.tileSolidTop[(int)Main.tile[num145, num146].type])
-																									{
-																										Vector2 vector16;
-																										vector16.X = (float)(num145 * 16);
-																										vector16.Y = (float)(num146 * 16);
-																										if ((float)(num143 + 8) > vector16.X && (float)num143 < vector16.X + 16f && (float)(num144 + 8) > vector16.Y && (float)num144 < vector16.Y + 16f)
-																										{
-																											this.Kill();
-																										}
-																									}
-																								}
-																							}
-																							if (this.lavaWet)
-																							{
-																								this.Kill();
-																							}
-																							if (this.active)
-																							{
-																								Vector2 arg_63E8_0 = new Vector2(this.position.X, this.position.Y);
-																								int arg_63E8_1 = this.width;
-																								int arg_63E8_2 = this.height;
-																								int arg_63E8_3 = 67;
-																								float arg_63E8_4 = 0f;
-																								float arg_63E8_5 = 0f;
-																								int arg_63E8_6 = 0;
-																								Color newColor = default(Color);
-																								int num147 = Dust.NewDust(arg_63E8_0, arg_63E8_1, arg_63E8_2, arg_63E8_3, arg_63E8_4, arg_63E8_5, arg_63E8_6, newColor, 1f);
-																								Main.dust[num147].noGravity = true;
-																								Dust expr_6405 = Main.dust[num147];
-																								expr_6405.velocity *= 0.3f;
-																								int num148 = (int)this.ai[0];
-																								int num149 = (int)this.ai[1];
-																								if (this.velocity.X > 0f)
-																								{
-																									this.rotation += 0.3f;
-																								}
-																								else
-																								{
-																									this.rotation -= 0.3f;
-																								}
-																								if (Main.myPlayer == this.owner)
-																								{
-																									int num150 = (int)((this.position.X + (float)(this.width / 2)) / 16f);
-																									int num151 = (int)((this.position.Y + (float)(this.height / 2)) / 16f);
-																									bool flag2 = false;
-																									if (num150 == num148 && num151 == num149)
-																									{
-																										flag2 = true;
-																									}
-																									if (((this.velocity.X <= 0f && num150 <= num148) || (this.velocity.X >= 0f && num150 >= num148)) && ((this.velocity.Y <= 0f && num151 <= num149) || (this.velocity.Y >= 0f && num151 >= num149)))
-																									{
-																										flag2 = true;
-																									}
-																									if (flag2)
-																									{
-																										if (WorldGen.PlaceTile(num148, num149, 127, false, false, this.owner, 0))
-																										{
-																											if (Main.netMode == 1)
-																											{
-																												NetMessage.SendData(17, -1, -1, "", 1, (float)((int)this.ai[0]), (float)((int)this.ai[1]), 127f, 0);
-																											}
-																											this.damage = 0;
-																											this.ai[0] = -1f;
-																											this.velocity *= 0f;
-																											this.alpha = 255;
-																											this.position.X = (float)(num148 * 16);
-																											this.position.Y = (float)(num149 * 16);
-																											this.netUpdate = true;
-																											return;
-																										}
-																										this.ai[1] = -1f;
-																										return;
-																									}
-																								}
-																							}
-																						}
-																					}
-																					else
-																					{
-																						if (this.aiStyle == 23)
-																						{
-																							if (this.timeLeft > 60)
-																							{
-																								this.timeLeft = 60;
-																							}
-																							if (this.ai[0] > 7f)
-																							{
-																								float num152 = 1f;
-																								if (this.ai[0] == 8f)
-																								{
-																									num152 = 0.25f;
-																								}
-																								else
-																								{
-																									if (this.ai[0] == 9f)
-																									{
-																										num152 = 0.5f;
-																									}
-																									else
-																									{
-																										if (this.ai[0] == 10f)
-																										{
-																											num152 = 0.75f;
-																										}
-																									}
-																								}
-																								this.ai[0] += 1f;
-																								int num153 = 6;
-																								if (this.type == 101)
-																								{
-																									num153 = 75;
-																								}
-																								if (num153 == 6 || Main.rand.Next(2) == 0)
-																								{
-																									for (int num154 = 0; num154 < 1; num154++)
-																									{
-																										Vector2 arg_670C_0 = new Vector2(this.position.X, this.position.Y);
-																										int arg_670C_1 = this.width;
-																										int arg_670C_2 = this.height;
-																										int arg_670C_3 = num153;
-																										float arg_670C_4 = this.velocity.X * 0.2f;
-																										float arg_670C_5 = this.velocity.Y * 0.2f;
-																										int arg_670C_6 = 100;
-																										Color newColor = default(Color);
-																										int num155 = Dust.NewDust(arg_670C_0, arg_670C_1, arg_670C_2, arg_670C_3, arg_670C_4, arg_670C_5, arg_670C_6, newColor, 1f);
-																										if (Main.rand.Next(3) != 0 || (num153 == 75 && Main.rand.Next(3) == 0))
-																										{
-																											Main.dust[num155].noGravity = true;
-																											Main.dust[num155].scale *= 3f;
-																											Dust expr_6767_cp_0 = Main.dust[num155];
-																											expr_6767_cp_0.velocity.X = expr_6767_cp_0.velocity.X * 2f;
-																											Dust expr_6785_cp_0 = Main.dust[num155];
-																											expr_6785_cp_0.velocity.Y = expr_6785_cp_0.velocity.Y * 2f;
-																										}
-																										Main.dust[num155].scale *= 1.5f;
-																										Dust expr_67BC_cp_0 = Main.dust[num155];
-																										expr_67BC_cp_0.velocity.X = expr_67BC_cp_0.velocity.X * 1.2f;
-																										Dust expr_67DA_cp_0 = Main.dust[num155];
-																										expr_67DA_cp_0.velocity.Y = expr_67DA_cp_0.velocity.Y * 1.2f;
-																										Main.dust[num155].scale *= num152;
-																										if (num153 == 75)
-																										{
-																											Dust expr_680F = Main.dust[num155];
-																											expr_680F.velocity += this.velocity;
-																											if (!Main.dust[num155].noGravity)
-																											{
-																												Dust expr_683C = Main.dust[num155];
-																												expr_683C.velocity *= 0.5f;
-																											}
-																										}
-																									}
-																								}
-																							}
-																							else
-																							{
-																								this.ai[0] += 1f;
-																							}
-																							this.rotation += 0.3f * (float)this.direction;
-																							return;
-																						}
-																						if (this.aiStyle == 24)
-																						{
-																							this.light = this.scale * 0.5f;
-																							this.rotation += this.velocity.X * 0.2f;
-																							this.ai[1] += 1f;
-																							if (this.type == 94)
-																							{
-																								if (Main.rand.Next(4) == 0)
-																								{
-																									Vector2 arg_6953_0 = new Vector2(this.position.X, this.position.Y);
-																									int arg_6953_1 = this.width;
-																									int arg_6953_2 = this.height;
-																									int arg_6953_3 = 70;
-																									float arg_6953_4 = 0f;
-																									float arg_6953_5 = 0f;
-																									int arg_6953_6 = 0;
-																									Color newColor = default(Color);
-																									int num156 = Dust.NewDust(arg_6953_0, arg_6953_1, arg_6953_2, arg_6953_3, arg_6953_4, arg_6953_5, arg_6953_6, newColor, 1f);
-																									Main.dust[num156].noGravity = true;
-																									Dust expr_6970 = Main.dust[num156];
-																									expr_6970.velocity *= 0.5f;
-																									Main.dust[num156].scale *= 0.9f;
-																								}
-																								this.velocity *= 0.985f;
-																								if (this.ai[1] > 130f)
-																								{
-																									this.scale -= 0.05f;
-																									if ((double)this.scale <= 0.2)
-																									{
-																										this.scale = 0.2f;
-																										this.Kill();
-																										return;
-																									}
-																								}
-																							}
-																							else
-																							{
-																								this.velocity *= 0.96f;
-																								if (this.ai[1] > 15f)
-																								{
-																									this.scale -= 0.05f;
-																									if ((double)this.scale <= 0.2)
-																									{
-																										this.scale = 0.2f;
-																										this.Kill();
-																										return;
-																									}
-																								}
-																							}
-																						}
-																						else
-																						{
-																							if (this.aiStyle == 25)
-																							{
-																								if (this.ai[0] != 0f && this.velocity.Y <= 0f && this.velocity.X == 0f)
-																								{
-																									float num157 = 0.5f;
-																									int i2 = (int)((this.position.X - 8f) / 16f);
-																									int num158 = (int)(this.position.Y / 16f);
-																									bool flag3 = false;
-																									bool flag4 = false;
-																									if (WorldGen.SolidTile(i2, num158) || WorldGen.SolidTile(i2, num158 + 1))
-																									{
-																										flag3 = true;
-																									}
-																									i2 = (int)((this.position.X + (float)this.width + 8f) / 16f);
-																									if (WorldGen.SolidTile(i2, num158) || WorldGen.SolidTile(i2, num158 + 1))
-																									{
-																										flag4 = true;
-																									}
-																									if (flag3)
-																									{
-																										this.velocity.X = num157;
-																									}
-																									else
-																									{
-																										if (flag4)
-																										{
-																											this.velocity.X = -num157;
-																										}
-																										else
-																										{
-																											i2 = (int)((this.position.X - 8f - 16f) / 16f);
-																											num158 = (int)(this.position.Y / 16f);
-																											flag3 = false;
-																											flag4 = false;
-																											if (WorldGen.SolidTile(i2, num158) || WorldGen.SolidTile(i2, num158 + 1))
-																											{
-																												flag3 = true;
-																											}
-																											i2 = (int)((this.position.X + (float)this.width + 8f + 16f) / 16f);
-																											if (WorldGen.SolidTile(i2, num158) || WorldGen.SolidTile(i2, num158 + 1))
-																											{
-																												flag4 = true;
-																											}
-																											if (flag3)
-																											{
-																												this.velocity.X = num157;
-																											}
-																											else
-																											{
-																												if (flag4)
-																												{
-																													this.velocity.X = -num157;
-																												}
-																												else
-																												{
-																													i2 = (int)((this.position.X + 4f) / 16f);
-																													num158 = (int)((this.position.Y + (float)this.height + 8f) / 16f);
-																													if (WorldGen.SolidTile(i2, num158) || WorldGen.SolidTile(i2, num158 + 1))
-																													{
-																														flag3 = true;
-																													}
-																													if (!flag3)
-																													{
-																														this.velocity.X = num157;
-																													}
-																													else
-																													{
-																														this.velocity.X = -num157;
-																													}
-																												}
-																											}
-																										}
-																									}
-																								}
-																								this.rotation += this.velocity.X * 0.06f;
-																								this.ai[0] = 1f;
-																								if (this.velocity.Y > 16f)
-																								{
-																									this.velocity.Y = 16f;
-																								}
-																								if (this.velocity.Y <= 6f)
-																								{
-																									if (this.velocity.X > 0f && this.velocity.X < 7f)
-																									{
-																										this.velocity.X = this.velocity.X + 0.05f;
-																									}
-																									if (this.velocity.X < 0f && this.velocity.X > -7f)
-																									{
-																										this.velocity.X = this.velocity.X - 0.05f;
-																									}
-																								}
-																								this.velocity.Y = this.velocity.Y + 0.3f;
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+		    switch (this.aiStyle)
+		    {
+		        case 1:
+		            if (this.type == 83 && this.ai[1] == 0f)
+		            {
+		                this.ai[1] = 1f;
+		                Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 33);
+		            }
+		            if (this.type == 110 && this.ai[1] == 0f)
+		            {
+		                this.ai[1] = 1f;
+		                Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 11);
+		            }
+		            if (this.type == 84 && this.ai[1] == 0f)
+		            {
+		                this.ai[1] = 1f;
+		                Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 12);
+		            }
+		            if (this.type == 100 && this.ai[1] == 0f)
+		            {
+		                this.ai[1] = 1f;
+		                Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 33);
+		            }
+		            if (this.type == 98 && this.ai[1] == 0f)
+		            {
+		                this.ai[1] = 1f;
+		                Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 17);
+		            }
+		            if ((this.type == 81 || this.type == 82) && this.ai[1] == 0f)
+		            {
+		                Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 5);
+		                this.ai[1] = 1f;
+		            }
+		            if (this.type == 41)
+		            {
+		                Vector2 arg_20A_0 = new Vector2(this.position.X, this.position.Y);
+		                int arg_20A_1 = this.width;
+		                int arg_20A_2 = this.height;
+		                int arg_20A_3 = 31;
+		                float arg_20A_4 = 0f;
+		                float arg_20A_5 = 0f;
+		                int arg_20A_6 = 100;
+		                Color newColor = default(Color);
+		                int num = Dust.NewDust(arg_20A_0, arg_20A_1, arg_20A_2, arg_20A_3, arg_20A_4, arg_20A_5, arg_20A_6, newColor, 1.6f);
+		                Main.dust[num].noGravity = true;
+		                Vector2 arg_260_0 = new Vector2(this.position.X, this.position.Y);
+		                int arg_260_1 = this.width;
+		                int arg_260_2 = this.height;
+		                int arg_260_3 = 6;
+		                float arg_260_4 = 0f;
+		                float arg_260_5 = 0f;
+		                int arg_260_6 = 100;
+		                newColor = default(Color);
+		                num = Dust.NewDust(arg_260_0, arg_260_1, arg_260_2, arg_260_3, arg_260_4, arg_260_5, arg_260_6, newColor, 2f);
+		                Main.dust[num].noGravity = true;
+		            }
+		            else
+		            {
+		                if (this.type == 55)
+		                {
+		                    Vector2 arg_2C5_0 = new Vector2(this.position.X, this.position.Y);
+		                    int arg_2C5_1 = this.width;
+		                    int arg_2C5_2 = this.height;
+		                    int arg_2C5_3 = 18;
+		                    float arg_2C5_4 = 0f;
+		                    float arg_2C5_5 = 0f;
+		                    int arg_2C5_6 = 0;
+		                    Color newColor = default(Color);
+		                    int num2 = Dust.NewDust(arg_2C5_0, arg_2C5_1, arg_2C5_2, arg_2C5_3, arg_2C5_4, arg_2C5_5, arg_2C5_6, newColor, 0.9f);
+		                    Main.dust[num2].noGravity = true;
+		                }
+		                else
+		                {
+		                    if (this.type == 91 && Main.rand.Next(2) == 0)
+		                    {
+		                        int num3 = Main.rand.Next(2);
+		                        if (num3 == 0)
+		                        {
+		                            num3 = 15;
+		                        }
+		                        else
+		                        {
+		                            num3 = 58;
+		                        }
+		                        Vector2 arg_35A_0 = this.position;
+		                        int arg_35A_1 = this.width;
+		                        int arg_35A_2 = this.height;
+		                        int arg_35A_3 = num3;
+		                        float arg_35A_4 = this.velocity.X * 0.25f;
+		                        float arg_35A_5 = this.velocity.Y * 0.25f;
+		                        int arg_35A_6 = 150;
+		                        Color newColor = default(Color);
+		                        int num4 = Dust.NewDust(arg_35A_0, arg_35A_1, arg_35A_2, arg_35A_3, arg_35A_4, arg_35A_5, arg_35A_6, newColor, 0.9f);
+		                        Dust expr_367 = Main.dust[num4];
+		                        expr_367.velocity *= 0.25f;
+		                    }
+		                }
+		            }
+		            if (this.type == 20 || this.type == 14 || this.type == 36 || this.type == 83 || this.type == 84 || this.type == 89 || this.type == 100 || this.type == 104 || this.type == 110)
+		            {
+		                if (this.alpha > 0)
+		                {
+		                    this.alpha -= 15;
+		                }
+		                if (this.alpha < 0)
+		                {
+		                    this.alpha = 0;
+		                }
+		            }
+		            if (this.type == 88)
+		            {
+		                if (this.alpha > 0)
+		                {
+		                    this.alpha -= 10;
+		                }
+		                if (this.alpha < 0)
+		                {
+		                    this.alpha = 0;
+		                }
+		            }
+		            if (this.type != 5 && this.type != 14 && this.type != 20 && this.type != 36 && this.type != 38 && this.type != 55 && this.type != 83 && this.type != 84 && this.type != 88 && this.type != 89 && this.type != 98 && this.type != 100 && this.type != 104 && this.type != 110)
+		            {
+		                this.ai[0] += 1f;
+		            }
+		            if (this.type == 81 || this.type == 91)
+		            {
+		                if (this.ai[0] >= 20f)
+		                {
+		                    this.ai[0] = 20f;
+		                    this.velocity.Y = this.velocity.Y + 0.07f;
+		                }
+		            }
+		            else
+		            {
+		                if (this.ai[0] >= 15f)
+		                {
+		                    this.ai[0] = 15f;
+		                    this.velocity.Y = this.velocity.Y + 0.1f;
+		                }
+		            }
+		            this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
+		            if (this.velocity.Y > 16f)
+		            {
+		                this.velocity.Y = 16f;
+		                return;
+		            }
+		            break;
+		        case 2:
+		            if (this.type == 93 && Main.rand.Next(5) == 0)
+		            {
+		                Vector2 arg_62A_0 = this.position;
+		                int arg_62A_1 = this.width;
+		                int arg_62A_2 = this.height;
+		                int arg_62A_3 = 57;
+		                float arg_62A_4 = this.velocity.X * 0.2f + (float)(this.direction * 3);
+		                float arg_62A_5 = this.velocity.Y * 0.2f;
+		                int arg_62A_6 = 100;
+		                Color newColor = default(Color);
+		                int num5 = Dust.NewDust(arg_62A_0, arg_62A_1, arg_62A_2, arg_62A_3, arg_62A_4, arg_62A_5, arg_62A_6, newColor, 0.3f);
+		                Dust expr_63E_cp_0 = Main.dust[num5];
+		                expr_63E_cp_0.velocity.X = expr_63E_cp_0.velocity.X * 0.3f;
+		                Dust expr_65C_cp_0 = Main.dust[num5];
+		                expr_65C_cp_0.velocity.Y = expr_65C_cp_0.velocity.Y * 0.3f;
+		            }
+		            this.rotation += (Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y)) * 0.03f * (float)this.direction;
+		            if (this.type == 69 || this.type == 70)
+		            {
+		                this.ai[0] += 1f;
+		                if (this.ai[0] >= 10f)
+		                {
+		                    this.velocity.Y = this.velocity.Y + 0.25f;
+		                    this.velocity.X = this.velocity.X * 0.99f;
+		                }
+		            }
+		            else
+		            {
+		                this.ai[0] += 1f;
+		                if (this.ai[0] >= 20f)
+		                {
+		                    this.velocity.Y = this.velocity.Y + 0.4f;
+		                    this.velocity.X = this.velocity.X * 0.97f;
+		                }
+		                else
+		                {
+		                    if (this.type == 48 || this.type == 54 || this.type == 93)
+		                    {
+		                        this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
+		                    }
+		                }
+		            }
+		            if (this.velocity.Y > 16f)
+		            {
+		                this.velocity.Y = 16f;
+		            }
+		            if (this.type == 54 && Main.rand.Next(20) == 0)
+		            {
+		                Vector2 arg_85E_0 = new Vector2(this.position.X, this.position.Y);
+		                int arg_85E_1 = this.width;
+		                int arg_85E_2 = this.height;
+		                int arg_85E_3 = 40;
+		                float arg_85E_4 = this.velocity.X * 0.1f;
+		                float arg_85E_5 = this.velocity.Y * 0.1f;
+		                int arg_85E_6 = 0;
+		                Color newColor = default(Color);
+		                Dust.NewDust(arg_85E_0, arg_85E_1, arg_85E_2, arg_85E_3, arg_85E_4, arg_85E_5, arg_85E_6, newColor, 0.75f);
+		                return;
+		            }
+		            break;
+		        case 3:
+		            if (this.soundDelay == 0)
+		            {
+		                this.soundDelay = 8;
+		                Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 7);
+		            }
+		            if (this.type == 19)
+		            {
+		                for (int i = 0; i < 2; i++)
+		                {
+		                    Vector2 arg_90F_0 = new Vector2(this.position.X, this.position.Y);
+		                    int arg_90F_1 = this.width;
+		                    int arg_90F_2 = this.height;
+		                    int arg_90F_3 = 6;
+		                    float arg_90F_4 = this.velocity.X * 0.2f;
+		                    float arg_90F_5 = this.velocity.Y * 0.2f;
+		                    int arg_90F_6 = 100;
+		                    Color newColor = default(Color);
+		                    int num6 = Dust.NewDust(arg_90F_0, arg_90F_1, arg_90F_2, arg_90F_3, arg_90F_4, arg_90F_5, arg_90F_6, newColor, 2f);
+		                    Main.dust[num6].noGravity = true;
+		                    Dust expr_931_cp_0 = Main.dust[num6];
+		                    expr_931_cp_0.velocity.X = expr_931_cp_0.velocity.X * 0.3f;
+		                    Dust expr_94F_cp_0 = Main.dust[num6];
+		                    expr_94F_cp_0.velocity.Y = expr_94F_cp_0.velocity.Y * 0.3f;
+		                }
+		            }
+		            else
+		            {
+		                if (this.type == 33)
+		                {
+		                    if (Main.rand.Next(1) == 0)
+		                    {
+		                        Vector2 arg_9D3_0 = this.position;
+		                        int arg_9D3_1 = this.width;
+		                        int arg_9D3_2 = this.height;
+		                        int arg_9D3_3 = 40;
+		                        float arg_9D3_4 = this.velocity.X * 0.25f;
+		                        float arg_9D3_5 = this.velocity.Y * 0.25f;
+		                        int arg_9D3_6 = 0;
+		                        Color newColor = default(Color);
+		                        int num7 = Dust.NewDust(arg_9D3_0, arg_9D3_1, arg_9D3_2, arg_9D3_3, arg_9D3_4, arg_9D3_5, arg_9D3_6, newColor, 1.4f);
+		                        Main.dust[num7].noGravity = true;
+		                    }
+		                }
+		                else
+		                {
+		                    if (this.type == 6 && Main.rand.Next(5) == 0)
+		                    {
+		                        int num8 = Main.rand.Next(3);
+		                        if (num8 == 0)
+		                        {
+		                            num8 = 15;
+		                        }
+		                        else
+		                        {
+		                            if (num8 == 1)
+		                            {
+		                                num8 = 57;
+		                            }
+		                            else
+		                            {
+		                                num8 = 58;
+		                            }
+		                        }
+		                        Vector2 arg_A76_0 = this.position;
+		                        int arg_A76_1 = this.width;
+		                        int arg_A76_2 = this.height;
+		                        int arg_A76_3 = num8;
+		                        float arg_A76_4 = this.velocity.X * 0.25f;
+		                        float arg_A76_5 = this.velocity.Y * 0.25f;
+		                        int arg_A76_6 = 150;
+		                        Color newColor = default(Color);
+		                        Dust.NewDust(arg_A76_0, arg_A76_1, arg_A76_2, arg_A76_3, arg_A76_4, arg_A76_5, arg_A76_6, newColor, 0.7f);
+		                    }
+		                }
+		            }
+		            if (this.ai[0] == 0f)
+		            {
+		                this.ai[1] += 1f;
+		                if (this.type == 106)
+		                {
+		                    if (this.ai[1] >= 45f)
+		                    {
+		                        this.ai[0] = 1f;
+		                        this.ai[1] = 0f;
+		                        this.netUpdate = true;
+		                    }
+		                }
+		                else
+		                {
+		                    if (this.ai[1] >= 30f)
+		                    {
+		                        this.ai[0] = 1f;
+		                        this.ai[1] = 0f;
+		                        this.netUpdate = true;
+		                    }
+		                }
+		            }
+		            else
+		            {
+		                this.tileCollide = false;
+		                float num9 = 9f;
+		                float num10 = 0.4f;
+		                if (this.type == 19)
+		                {
+		                    num9 = 13f;
+		                    num10 = 0.6f;
+		                }
+		                else
+		                {
+		                    if (this.type == 33)
+		                    {
+		                        num9 = 15f;
+		                        num10 = 0.8f;
+		                    }
+		                    else
+		                    {
+		                        if (this.type == 106)
+		                        {
+		                            num9 = 16f;
+		                            num10 = 1.2f;
+		                        }
+		                    }
+		                }
+		                Vector2 vector = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+		                float num11 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector.X;
+		                float num12 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector.Y;
+		                float num13 = (float)Math.Sqrt((double)(num11 * num11 + num12 * num12));
+		                if (num13 > 3000f)
+		                {
+		                    this.Kill();
+		                }
+		                num13 = num9 / num13;
+		                num11 *= num13;
+		                num12 *= num13;
+		                if (this.velocity.X < num11)
+		                {
+		                    this.velocity.X = this.velocity.X + num10;
+		                    if (this.velocity.X < 0f && num11 > 0f)
+		                    {
+		                        this.velocity.X = this.velocity.X + num10;
+		                    }
+		                }
+		                else
+		                {
+		                    if (this.velocity.X > num11)
+		                    {
+		                        this.velocity.X = this.velocity.X - num10;
+		                        if (this.velocity.X > 0f && num11 < 0f)
+		                        {
+		                            this.velocity.X = this.velocity.X - num10;
+		                        }
+		                    }
+		                }
+		                if (this.velocity.Y < num12)
+		                {
+		                    this.velocity.Y = this.velocity.Y + num10;
+		                    if (this.velocity.Y < 0f && num12 > 0f)
+		                    {
+		                        this.velocity.Y = this.velocity.Y + num10;
+		                    }
+		                }
+		                else
+		                {
+		                    if (this.velocity.Y > num12)
+		                    {
+		                        this.velocity.Y = this.velocity.Y - num10;
+		                        if (this.velocity.Y > 0f && num12 < 0f)
+		                        {
+		                            this.velocity.Y = this.velocity.Y - num10;
+		                        }
+		                    }
+		                }
+		                if (Main.myPlayer == this.owner)
+		                {
+		                    Rectangle rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
+		                    Rectangle value = new Rectangle((int)Main.player[this.owner].position.X, (int)Main.player[this.owner].position.Y, Main.player[this.owner].width, Main.player[this.owner].height);
+		                    if (rectangle.Intersects(value))
+		                    {
+		                        this.Kill();
+		                    }
+		                }
+		            }
+		            if (this.type == 106)
+		            {
+		                this.rotation += 0.3f * (float)this.direction;
+		                return;
+		            }
+		            this.rotation += 0.4f * (float)this.direction;
+		            return;
+		        case 4:
+		            this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
+		            if (this.ai[0] == 0f)
+		            {
+		                this.alpha -= 50;
+		                if (this.alpha <= 0)
+		                {
+		                    this.alpha = 0;
+		                    this.ai[0] = 1f;
+		                    if (this.ai[1] == 0f)
+		                    {
+		                        this.ai[1] += 1f;
+		                        this.position += this.velocity * 1f;
+		                    }
+		                    if (this.type == 7 && Main.myPlayer == this.owner)
+		                    {
+		                        int num14 = this.type;
+		                        if (this.ai[1] >= 6f)
+		                        {
+		                            num14++;
+		                        }
+		                        int num15 = Projectile.NewProjectile(this.position.X + this.velocity.X + (float)(this.width / 2), this.position.Y + this.velocity.Y + (float)(this.height / 2), this.velocity.X, this.velocity.Y, num14, this.damage, this.knockBack, this.owner);
+		                        Main.projectile[num15].damage = this.damage;
+		                        Main.projectile[num15].ai[1] = this.ai[1] + 1f;
+		                        NetMessage.SendData(27, -1, -1, "", num15, 0f, 0f, 0f, 0);
+		                        return;
+		                    }
+		                }
+		            }
+		            else
+		            {
+		                if (this.alpha < 170 && this.alpha + 5 >= 170)
+		                {
+		                    Color newColor;
+		                    for (int j = 0; j < 3; j++)
+		                    {
+		                        Vector2 arg_10C2_0 = this.position;
+		                        int arg_10C2_1 = this.width;
+		                        int arg_10C2_2 = this.height;
+		                        int arg_10C2_3 = 18;
+		                        float arg_10C2_4 = this.velocity.X * 0.025f;
+		                        float arg_10C2_5 = this.velocity.Y * 0.025f;
+		                        int arg_10C2_6 = 170;
+		                        newColor = default(Color);
+		                        Dust.NewDust(arg_10C2_0, arg_10C2_1, arg_10C2_2, arg_10C2_3, arg_10C2_4, arg_10C2_5, arg_10C2_6, newColor, 1.2f);
+		                    }
+		                    Vector2 arg_1105_0 = this.position;
+		                    int arg_1105_1 = this.width;
+		                    int arg_1105_2 = this.height;
+		                    int arg_1105_3 = 14;
+		                    float arg_1105_4 = 0f;
+		                    float arg_1105_5 = 0f;
+		                    int arg_1105_6 = 170;
+		                    newColor = default(Color);
+		                    Dust.NewDust(arg_1105_0, arg_1105_1, arg_1105_2, arg_1105_3, arg_1105_4, arg_1105_5, arg_1105_6, newColor, 1.1f);
+		                }
+		                this.alpha += 5;
+		                if (this.alpha >= 255)
+		                {
+		                    this.Kill();
+		                    return;
+		                }
+		            }
+		            break;
+		        case 5:
+		            if (this.type == 92)
+		            {
+		                if (this.position.Y > this.ai[1])
+		                {
+		                    this.tileCollide = true;
+		                }
+		            }
+		            else
+		            {
+		                if (this.ai[1] == 0f && !Collision.SolidCollision(this.position, this.width, this.height))
+		                {
+		                    this.ai[1] = 1f;
+		                    this.netUpdate = true;
+		                }
+		                if (this.ai[1] != 0f)
+		                {
+		                    this.tileCollide = true;
+		                }
+		            }
+		            if (this.soundDelay == 0)
+		            {
+		                this.soundDelay = 20 + Main.rand.Next(40);
+		                Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 9);
+		            }
+		            if (this.localAI[0] == 0f)
+		            {
+		                this.localAI[0] = 1f;
+		            }
+		            this.alpha += (int)(25f * this.localAI[0]);
+		            if (this.alpha > 200)
+		            {
+		                this.alpha = 200;
+		                this.localAI[0] = -1f;
+		            }
+		            if (this.alpha < 0)
+		            {
+		                this.alpha = 0;
+		                this.localAI[0] = 1f;
+		            }
+		            this.rotation += (Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y)) * 0.01f * (float)this.direction;
+		            if (this.ai[1] == 1f || this.type == 92)
+		            {
+		                this.light = 0.9f;
+		                if (Main.rand.Next(10) == 0)
+		                {
+		                    Vector2 arg_1328_0 = this.position;
+		                    int arg_1328_1 = this.width;
+		                    int arg_1328_2 = this.height;
+		                    int arg_1328_3 = 58;
+		                    float arg_1328_4 = this.velocity.X * 0.5f;
+		                    float arg_1328_5 = this.velocity.Y * 0.5f;
+		                    int arg_1328_6 = 150;
+		                    Color newColor = default(Color);
+		                    Dust.NewDust(arg_1328_0, arg_1328_1, arg_1328_2, arg_1328_3, arg_1328_4, arg_1328_5, arg_1328_6, newColor, 1.2f);
+		                }
+		                if (Main.rand.Next(20) == 0)
+		                {
+		                    Gore.NewGore(this.position, new Vector2(this.velocity.X * 0.2f, this.velocity.Y * 0.2f), Main.rand.Next(16, 18), 1f);
+		                    return;
+		                }
+		            }
+		            break;
+		        case 6:
+		            this.velocity *= 0.95f;
+		            this.ai[0] += 1f;
+		            if (this.ai[0] == 180f)
+		            {
+		                this.Kill();
+		            }
+		            if (this.ai[1] == 0f)
+		            {
+		                this.ai[1] = 1f;
+		                for (int k = 0; k < 30; k++)
+		                {
+		                    Vector2 arg_143D_0 = this.position;
+		                    int arg_143D_1 = this.width;
+		                    int arg_143D_2 = this.height;
+		                    int arg_143D_3 = 10 + this.type;
+		                    float arg_143D_4 = this.velocity.X;
+		                    float arg_143D_5 = this.velocity.Y;
+		                    int arg_143D_6 = 50;
+		                    Color newColor = default(Color);
+		                    Dust.NewDust(arg_143D_0, arg_143D_1, arg_143D_2, arg_143D_3, arg_143D_4, arg_143D_5, arg_143D_6, newColor, 1f);
+		                }
+		            }
+		            if (this.type == 10 || this.type == 11)
+		            {
+		                int num16 = (int)(this.position.X / 16f) - 1;
+		                int num17 = (int)((this.position.X + (float)this.width) / 16f) + 2;
+		                int num18 = (int)(this.position.Y / 16f) - 1;
+		                int num19 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
+		                if (num16 < 0)
+		                {
+		                    num16 = 0;
+		                }
+		                if (num17 > Main.maxTilesX)
+		                {
+		                    num17 = Main.maxTilesX;
+		                }
+		                if (num18 < 0)
+		                {
+		                    num18 = 0;
+		                }
+		                if (num19 > Main.maxTilesY)
+		                {
+		                    num19 = Main.maxTilesY;
+		                }
+		                for (int l = num16; l < num17; l++)
+		                {
+		                    for (int m = num18; m < num19; m++)
+		                    {
+		                        Vector2 vector2;
+		                        vector2.X = (float)(l * 16);
+		                        vector2.Y = (float)(m * 16);
+		                        if (this.position.X + (float)this.width > vector2.X && this.position.X < vector2.X + 16f && this.position.Y + (float)this.height > vector2.Y && this.position.Y < vector2.Y + 16f && Main.myPlayer == this.owner && Main.tile[l, m].active)
+		                        {
+		                            if (this.type == 10)
+		                            {
+		                                if (Main.tile[l, m].type == 23)
+		                                {
+		                                    Main.tile[l, m].type = 2;
+		                                    WorldGen.SquareTileFrame(l, m, true);
+		                                    if (Main.netMode == 1)
+		                                    {
+		                                        NetMessage.SendTileSquare(-1, l, m, 1);
+		                                    }
+		                                }
+		                                if (Main.tile[l, m].type == 25)
+		                                {
+		                                    Main.tile[l, m].type = 1;
+		                                    WorldGen.SquareTileFrame(l, m, true);
+		                                    if (Main.netMode == 1)
+		                                    {
+		                                        NetMessage.SendTileSquare(-1, l, m, 1);
+		                                    }
+		                                }
+		                                if (Main.tile[l, m].type == 112)
+		                                {
+		                                    Main.tile[l, m].type = 53;
+		                                    WorldGen.SquareTileFrame(l, m, true);
+		                                    if (Main.netMode == 1)
+		                                    {
+		                                        NetMessage.SendTileSquare(-1, l, m, 1);
+		                                    }
+		                                }
+		                            }
+		                            else
+		                            {
+		                                if (this.type == 11)
+		                                {
+		                                    if (Main.tile[l, m].type == 109)
+		                                    {
+		                                        Main.tile[l, m].type = 2;
+		                                        WorldGen.SquareTileFrame(l, m, true);
+		                                        if (Main.netMode == 1)
+		                                        {
+		                                            NetMessage.SendTileSquare(-1, l, m, 1);
+		                                        }
+		                                    }
+		                                    if (Main.tile[l, m].type == 116)
+		                                    {
+		                                        Main.tile[l, m].type = 53;
+		                                        WorldGen.SquareTileFrame(l, m, true);
+		                                        if (Main.netMode == 1)
+		                                        {
+		                                            NetMessage.SendTileSquare(-1, l, m, 1);
+		                                        }
+		                                    }
+		                                    if (Main.tile[l, m].type == 117)
+		                                    {
+		                                        Main.tile[l, m].type = 1;
+		                                        WorldGen.SquareTileFrame(l, m, true);
+		                                        if (Main.netMode == 1)
+		                                        {
+		                                            NetMessage.SendTileSquare(-1, l, m, 1);
+		                                        }
+		                                    }
+		                                }
+		                            }
+		                        }
+		                    }
+		                }
+		                return;
+		            }
+		            break;
+		        case 7:
+		            {
+		                if (Main.player[this.owner].dead)
+		                {
+		                    this.Kill();
+		                    return;
+		                }
+		                Vector2 vector3 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+		                float num20 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector3.X;
+		                float num21 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector3.Y;
+		                float num22 = (float)Math.Sqrt((double)(num20 * num20 + num21 * num21));
+		                this.rotation = (float)Math.Atan2((double)num21, (double)num20) - 1.57f;
+		                if (this.ai[0] == 0f)
+		                {
+		                    if ((num22 > 300f && this.type == 13) || (num22 > 400f && this.type == 32) || (num22 > 440f && this.type == 73) || (num22 > 440f && this.type == 74))
+		                    {
+		                        this.ai[0] = 1f;
+		                    }
+		                    int num23 = (int)(this.position.X / 16f) - 1;
+		                    int num24 = (int)((this.position.X + (float)this.width) / 16f) + 2;
+		                    int num25 = (int)(this.position.Y / 16f) - 1;
+		                    int num26 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
+		                    if (num23 < 0)
+		                    {
+		                        num23 = 0;
+		                    }
+		                    if (num24 > Main.maxTilesX)
+		                    {
+		                        num24 = Main.maxTilesX;
+		                    }
+		                    if (num25 < 0)
+		                    {
+		                        num25 = 0;
+		                    }
+		                    if (num26 > Main.maxTilesY)
+		                    {
+		                        num26 = Main.maxTilesY;
+		                    }
+		                    for (int n = num23; n < num24; n++)
+		                    {
+		                        int num27 = num25;
+		                        while (num27 < num26)
+		                        {
+		                            if (Main.tile[n, num27] == null)
+		                            {
+		                                Main.tile[n, num27] = new Tile();
+		                            }
+		                            Vector2 vector4;
+		                            vector4.X = (float)(n * 16);
+		                            vector4.Y = (float)(num27 * 16);
+		                            if (this.position.X + (float)this.width > vector4.X && this.position.X < vector4.X + 16f && this.position.Y + (float)this.height > vector4.Y && this.position.Y < vector4.Y + 16f && Main.tile[n, num27].active && Main.tileSolid[(int)Main.tile[n, num27].type])
+		                            {
+		                                if (Main.player[this.owner].grapCount < 10)
+		                                {
+		                                    Main.player[this.owner].grappling[Main.player[this.owner].grapCount] = this.whoAmI;
+		                                    Main.player[this.owner].grapCount++;
+		                                }
+		                                if (Main.myPlayer == this.owner)
+		                                {
+		                                    int num28 = 0;
+		                                    int num29 = -1;
+		                                    int num30 = 100000;
+		                                    if (this.type == 73 || this.type == 74)
+		                                    {
+		                                        for (int num31 = 0; num31 < 1000; num31++)
+		                                        {
+		                                            if (num31 != this.whoAmI && Main.projectile[num31].active && Main.projectile[num31].owner == this.owner && Main.projectile[num31].aiStyle == 7 && Main.projectile[num31].ai[0] == 2f)
+		                                            {
+		                                                Main.projectile[num31].Kill();
+		                                            }
+		                                        }
+		                                    }
+		                                    else
+		                                    {
+		                                        for (int num32 = 0; num32 < 1000; num32++)
+		                                        {
+		                                            if (Main.projectile[num32].active && Main.projectile[num32].owner == this.owner && Main.projectile[num32].aiStyle == 7)
+		                                            {
+		                                                if (Main.projectile[num32].timeLeft < num30)
+		                                                {
+		                                                    num29 = num32;
+		                                                    num30 = Main.projectile[num32].timeLeft;
+		                                                }
+		                                                num28++;
+		                                            }
+		                                        }
+		                                        if (num28 > 3)
+		                                        {
+		                                            Main.projectile[num29].Kill();
+		                                        }
+		                                    }
+		                                }
+		                                WorldGen.KillTile(n, num27, true, true, false);
+		                                Main.PlaySound(0, n * 16, num27 * 16, 1);
+		                                this.velocity.X = 0f;
+		                                this.velocity.Y = 0f;
+		                                this.ai[0] = 2f;
+		                                this.position.X = (float)(n * 16 + 8 - this.width / 2);
+		                                this.position.Y = (float)(num27 * 16 + 8 - this.height / 2);
+		                                this.damage = 0;
+		                                this.netUpdate = true;
+		                                if (Main.myPlayer == this.owner)
+		                                {
+		                                    NetMessage.SendData(13, -1, -1, "", this.owner, 0f, 0f, 0f, 0);
+		                                    break;
+		                                }
+		                                break;
+		                            }
+		                            else
+		                            {
+		                                num27++;
+		                            }
+		                        }
+		                        if (this.ai[0] == 2f)
+		                        {
+		                            return;
+		                        }
+		                    }
+		                    return;
+		                }
+		                if (this.ai[0] == 1f)
+		                {
+		                    float num33 = 11f;
+		                    if (this.type == 32)
+		                    {
+		                        num33 = 15f;
+		                    }
+		                    if (this.type == 73 || this.type == 74)
+		                    {
+		                        num33 = 17f;
+		                    }
+		                    if (num22 < 24f)
+		                    {
+		                        this.Kill();
+		                    }
+		                    num22 = num33 / num22;
+		                    num20 *= num22;
+		                    num21 *= num22;
+		                    this.velocity.X = num20;
+		                    this.velocity.Y = num21;
+		                    return;
+		                }
+		                if (this.ai[0] == 2f)
+		                {
+		                    int num34 = (int)(this.position.X / 16f) - 1;
+		                    int num35 = (int)((this.position.X + (float)this.width) / 16f) + 2;
+		                    int num36 = (int)(this.position.Y / 16f) - 1;
+		                    int num37 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
+		                    if (num34 < 0)
+		                    {
+		                        num34 = 0;
+		                    }
+		                    if (num35 > Main.maxTilesX)
+		                    {
+		                        num35 = Main.maxTilesX;
+		                    }
+		                    if (num36 < 0)
+		                    {
+		                        num36 = 0;
+		                    }
+		                    if (num37 > Main.maxTilesY)
+		                    {
+		                        num37 = Main.maxTilesY;
+		                    }
+		                    bool flag = true;
+		                    for (int num38 = num34; num38 < num35; num38++)
+		                    {
+		                        for (int num39 = num36; num39 < num37; num39++)
+		                        {
+		                            if (Main.tile[num38, num39] == null)
+		                            {
+		                                Main.tile[num38, num39] = new Tile();
+		                            }
+		                            Vector2 vector5;
+		                            vector5.X = (float)(num38 * 16);
+		                            vector5.Y = (float)(num39 * 16);
+		                            if (this.position.X + (float)(this.width / 2) > vector5.X && this.position.X + (float)(this.width / 2) < vector5.X + 16f && this.position.Y + (float)(this.height / 2) > vector5.Y && this.position.Y + (float)(this.height / 2) < vector5.Y + 16f && Main.tile[num38, num39].active && Main.tileSolid[(int)Main.tile[num38, num39].type])
+		                            {
+		                                flag = false;
+		                            }
+		                        }
+		                    }
+		                    if (flag)
+		                    {
+		                        this.ai[0] = 1f;
+		                        return;
+		                    }
+		                    if (Main.player[this.owner].grapCount < 10)
+		                    {
+		                        Main.player[this.owner].grappling[Main.player[this.owner].grapCount] = this.whoAmI;
+		                        Main.player[this.owner].grapCount++;
+		                        return;
+		                    }
+		                }
+		            }
+		            break;
+		        case 8:
+		            if (this.type == 96 && this.localAI[0] == 0f)
+		            {
+		                this.localAI[0] = 1f;
+		                Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 20);
+		            }
+		            if (this.type == 27)
+		            {
+		                Vector2 arg_20B6_0 = new Vector2(this.position.X + this.velocity.X, this.position.Y + this.velocity.Y);
+		                int arg_20B6_1 = this.width;
+		                int arg_20B6_2 = this.height;
+		                int arg_20B6_3 = 29;
+		                float arg_20B6_4 = this.velocity.X;
+		                float arg_20B6_5 = this.velocity.Y;
+		                int arg_20B6_6 = 100;
+		                Color newColor = default(Color);
+		                int num40 = Dust.NewDust(arg_20B6_0, arg_20B6_1, arg_20B6_2, arg_20B6_3, arg_20B6_4, arg_20B6_5, arg_20B6_6, newColor, 3f);
+		                Main.dust[num40].noGravity = true;
+		                if (Main.rand.Next(10) == 0)
+		                {
+		                    Vector2 arg_212C_0 = new Vector2(this.position.X, this.position.Y);
+		                    int arg_212C_1 = this.width;
+		                    int arg_212C_2 = this.height;
+		                    int arg_212C_3 = 29;
+		                    float arg_212C_4 = this.velocity.X;
+		                    float arg_212C_5 = this.velocity.Y;
+		                    int arg_212C_6 = 100;
+		                    newColor = default(Color);
+		                    num40 = Dust.NewDust(arg_212C_0, arg_212C_1, arg_212C_2, arg_212C_3, arg_212C_4, arg_212C_5, arg_212C_6, newColor, 1.4f);
+		                }
+		            }
+		            else
+		            {
+		                if (this.type == 95 || this.type == 96)
+		                {
+		                    Vector2 arg_21BE_0 = new Vector2(this.position.X + this.velocity.X, this.position.Y + this.velocity.Y);
+		                    int arg_21BE_1 = this.width;
+		                    int arg_21BE_2 = this.height;
+		                    int arg_21BE_3 = 75;
+		                    float arg_21BE_4 = this.velocity.X;
+		                    float arg_21BE_5 = this.velocity.Y;
+		                    int arg_21BE_6 = 100;
+		                    Color newColor = default(Color);
+		                    int num41 = Dust.NewDust(arg_21BE_0, arg_21BE_1, arg_21BE_2, arg_21BE_3, arg_21BE_4, arg_21BE_5, arg_21BE_6, newColor, 3f * this.scale);
+		                    Main.dust[num41].noGravity = true;
+		                }
+		                else
+		                {
+		                    for (int num42 = 0; num42 < 2; num42++)
+		                    {
+		                        Vector2 arg_223B_0 = new Vector2(this.position.X, this.position.Y);
+		                        int arg_223B_1 = this.width;
+		                        int arg_223B_2 = this.height;
+		                        int arg_223B_3 = 6;
+		                        float arg_223B_4 = this.velocity.X * 0.2f;
+		                        float arg_223B_5 = this.velocity.Y * 0.2f;
+		                        int arg_223B_6 = 100;
+		                        Color newColor = default(Color);
+		                        int num43 = Dust.NewDust(arg_223B_0, arg_223B_1, arg_223B_2, arg_223B_3, arg_223B_4, arg_223B_5, arg_223B_6, newColor, 2f);
+		                        Main.dust[num43].noGravity = true;
+		                        Dust expr_225D_cp_0 = Main.dust[num43];
+		                        expr_225D_cp_0.velocity.X = expr_225D_cp_0.velocity.X * 0.3f;
+		                        Dust expr_227B_cp_0 = Main.dust[num43];
+		                        expr_227B_cp_0.velocity.Y = expr_227B_cp_0.velocity.Y * 0.3f;
+		                    }
+		                }
+		            }
+		            if (this.type != 27 && this.type != 96)
+		            {
+		                this.ai[1] += 1f;
+		            }
+		            if (this.ai[1] >= 20f)
+		            {
+		                this.velocity.Y = this.velocity.Y + 0.2f;
+		            }
+		            this.rotation += 0.3f * (float)this.direction;
+		            if (this.velocity.Y > 16f)
+		            {
+		                this.velocity.Y = 16f;
+		                return;
+		            }
+		            break;
+		        case 9:
+		            if (this.type == 34)
+		            {
+		                Vector2 arg_23A6_0 = new Vector2(this.position.X, this.position.Y);
+		                int arg_23A6_1 = this.width;
+		                int arg_23A6_2 = this.height;
+		                int arg_23A6_3 = 6;
+		                float arg_23A6_4 = this.velocity.X * 0.2f;
+		                float arg_23A6_5 = this.velocity.Y * 0.2f;
+		                int arg_23A6_6 = 100;
+		                Color newColor = default(Color);
+		                int num44 = Dust.NewDust(arg_23A6_0, arg_23A6_1, arg_23A6_2, arg_23A6_3, arg_23A6_4, arg_23A6_5, arg_23A6_6, newColor, 3.5f);
+		                Main.dust[num44].noGravity = true;
+		                Dust expr_23C3 = Main.dust[num44];
+		                expr_23C3.velocity *= 1.4f;
+		                Vector2 arg_2433_0 = new Vector2(this.position.X, this.position.Y);
+		                int arg_2433_1 = this.width;
+		                int arg_2433_2 = this.height;
+		                int arg_2433_3 = 6;
+		                float arg_2433_4 = this.velocity.X * 0.2f;
+		                float arg_2433_5 = this.velocity.Y * 0.2f;
+		                int arg_2433_6 = 100;
+		                newColor = default(Color);
+		                num44 = Dust.NewDust(arg_2433_0, arg_2433_1, arg_2433_2, arg_2433_3, arg_2433_4, arg_2433_5, arg_2433_6, newColor, 1.5f);
+		            }
+		            else
+		            {
+		                if (this.type == 79)
+		                {
+		                    if (this.soundDelay == 0 && Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y) > 2f)
+		                    {
+		                        this.soundDelay = 10;
+		                        Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 9);
+		                    }
+		                    for (int num45 = 0; num45 < 1; num45++)
+		                    {
+		                        int num46 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 66, 0f, 0f, 100, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 2.5f);
+		                        Dust expr_2509 = Main.dust[num46];
+		                        expr_2509.velocity *= 0.1f;
+		                        Dust expr_2526 = Main.dust[num46];
+		                        expr_2526.velocity += this.velocity * 0.2f;
+		                        Main.dust[num46].position.X = this.position.X + (float)(this.width / 2) + 4f + (float)Main.rand.Next(-2, 3);
+		                        Main.dust[num46].position.Y = this.position.Y + (float)(this.height / 2) + (float)Main.rand.Next(-2, 3);
+		                        Main.dust[num46].noGravity = true;
+		                    }
+		                }
+		                else
+		                {
+		                    if (this.soundDelay == 0 && Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y) > 2f)
+		                    {
+		                        this.soundDelay = 10;
+		                        Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 9);
+		                    }
+		                    Vector2 arg_2675_0 = new Vector2(this.position.X, this.position.Y);
+		                    int arg_2675_1 = this.width;
+		                    int arg_2675_2 = this.height;
+		                    int arg_2675_3 = 15;
+		                    float arg_2675_4 = 0f;
+		                    float arg_2675_5 = 0f;
+		                    int arg_2675_6 = 100;
+		                    Color newColor = default(Color);
+		                    int num47 = Dust.NewDust(arg_2675_0, arg_2675_1, arg_2675_2, arg_2675_3, arg_2675_4, arg_2675_5, arg_2675_6, newColor, 2f);
+		                    Dust expr_2684 = Main.dust[num47];
+		                    expr_2684.velocity *= 0.3f;
+		                    Main.dust[num47].position.X = this.position.X + (float)(this.width / 2) + 4f + (float)Main.rand.Next(-4, 5);
+		                    Main.dust[num47].position.Y = this.position.Y + (float)(this.height / 2) + (float)Main.rand.Next(-4, 5);
+		                    Main.dust[num47].noGravity = true;
+		                }
+		            }
+		            if (Main.myPlayer == this.owner && this.ai[0] == 0f)
+		            {
+		                if (Main.player[this.owner].channel)
+		                {
+		                    float num48 = 12f;
+		                    if (this.type == 16)
+		                    {
+		                        num48 = 15f;
+		                    }
+		                    Vector2 vector6 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+		                    float num49 = (float)Main.mouseX + Main.screenPosition.X - vector6.X;
+		                    float num50 = (float)Main.mouseY + Main.screenPosition.Y - vector6.Y;
+		                    float num51 = (float)Math.Sqrt((double)(num49 * num49 + num50 * num50));
+		                    num51 = (float)Math.Sqrt((double)(num49 * num49 + num50 * num50));
+		                    if (num51 > num48)
+		                    {
+		                        num51 = num48 / num51;
+		                        num49 *= num51;
+		                        num50 *= num51;
+		                        int num52 = (int)(num49 * 1000f);
+		                        int num53 = (int)(this.velocity.X * 1000f);
+		                        int num54 = (int)(num50 * 1000f);
+		                        int num55 = (int)(this.velocity.Y * 1000f);
+		                        if (num52 != num53 || num54 != num55)
+		                        {
+		                            this.netUpdate = true;
+		                        }
+		                        this.velocity.X = num49;
+		                        this.velocity.Y = num50;
+		                    }
+		                    else
+		                    {
+		                        int num56 = (int)(num49 * 1000f);
+		                        int num57 = (int)(this.velocity.X * 1000f);
+		                        int num58 = (int)(num50 * 1000f);
+		                        int num59 = (int)(this.velocity.Y * 1000f);
+		                        if (num56 != num57 || num58 != num59)
+		                        {
+		                            this.netUpdate = true;
+		                        }
+		                        this.velocity.X = num49;
+		                        this.velocity.Y = num50;
+		                    }
+		                }
+		                else
+		                {
+		                    if (this.ai[0] == 0f)
+		                    {
+		                        this.ai[0] = 1f;
+		                        this.netUpdate = true;
+		                        float num60 = 12f;
+		                        Vector2 vector7 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+		                        float num61 = (float)Main.mouseX + Main.screenPosition.X - vector7.X;
+		                        float num62 = (float)Main.mouseY + Main.screenPosition.Y - vector7.Y;
+		                        float num63 = (float)Math.Sqrt((double)(num61 * num61 + num62 * num62));
+		                        if (num63 == 0f)
+		                        {
+		                            vector7 = new Vector2(Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2), Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2));
+		                            num61 = this.position.X + (float)this.width * 0.5f - vector7.X;
+		                            num62 = this.position.Y + (float)this.height * 0.5f - vector7.Y;
+		                            num63 = (float)Math.Sqrt((double)(num61 * num61 + num62 * num62));
+		                        }
+		                        num63 = num60 / num63;
+		                        num61 *= num63;
+		                        num62 *= num63;
+		                        this.velocity.X = num61;
+		                        this.velocity.Y = num62;
+		                        if (this.velocity.X == 0f && this.velocity.Y == 0f)
+		                        {
+		                            this.Kill();
+		                        }
+		                    }
+		                }
+		            }
+		            if (this.type == 34)
+		            {
+		                this.rotation += 0.3f * (float)this.direction;
+		            }
+		            else
+		            {
+		                if (this.velocity.X != 0f || this.velocity.Y != 0f)
+		                {
+		                    this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) - 2.355f;
+		                }
+		            }
+		            if (this.velocity.Y > 16f)
+		            {
+		                this.velocity.Y = 16f;
+		                return;
+		            }
+		            break;
+		        case 10:
+		            if (this.type == 31 && this.ai[0] != 2f)
+		            {
+		                if (Main.rand.Next(2) == 0)
+		                {
+		                    Vector2 arg_2BEF_0 = new Vector2(this.position.X, this.position.Y);
+		                    int arg_2BEF_1 = this.width;
+		                    int arg_2BEF_2 = this.height;
+		                    int arg_2BEF_3 = 32;
+		                    float arg_2BEF_4 = 0f;
+		                    float arg_2BEF_5 = this.velocity.Y / 2f;
+		                    int arg_2BEF_6 = 0;
+		                    Color newColor = default(Color);
+		                    int num64 = Dust.NewDust(arg_2BEF_0, arg_2BEF_1, arg_2BEF_2, arg_2BEF_3, arg_2BEF_4, arg_2BEF_5, arg_2BEF_6, newColor, 1f);
+		                    Dust expr_2C03_cp_0 = Main.dust[num64];
+		                    expr_2C03_cp_0.velocity.X = expr_2C03_cp_0.velocity.X * 0.4f;
+		                }
+		            }
+		            else
+		            {
+		                if (this.type == 39)
+		                {
+		                    if (Main.rand.Next(2) == 0)
+		                    {
+		                        Vector2 arg_2C85_0 = new Vector2(this.position.X, this.position.Y);
+		                        int arg_2C85_1 = this.width;
+		                        int arg_2C85_2 = this.height;
+		                        int arg_2C85_3 = 38;
+		                        float arg_2C85_4 = 0f;
+		                        float arg_2C85_5 = this.velocity.Y / 2f;
+		                        int arg_2C85_6 = 0;
+		                        Color newColor = default(Color);
+		                        int num65 = Dust.NewDust(arg_2C85_0, arg_2C85_1, arg_2C85_2, arg_2C85_3, arg_2C85_4, arg_2C85_5, arg_2C85_6, newColor, 1f);
+		                        Dust expr_2C99_cp_0 = Main.dust[num65];
+		                        expr_2C99_cp_0.velocity.X = expr_2C99_cp_0.velocity.X * 0.4f;
+		                    }
+		                }
+		                else
+		                {
+		                    if (this.type == 40)
+		                    {
+		                        if (Main.rand.Next(2) == 0)
+		                        {
+		                            Vector2 arg_2D1B_0 = new Vector2(this.position.X, this.position.Y);
+		                            int arg_2D1B_1 = this.width;
+		                            int arg_2D1B_2 = this.height;
+		                            int arg_2D1B_3 = 36;
+		                            float arg_2D1B_4 = 0f;
+		                            float arg_2D1B_5 = this.velocity.Y / 2f;
+		                            int arg_2D1B_6 = 0;
+		                            Color newColor = default(Color);
+		                            int num66 = Dust.NewDust(arg_2D1B_0, arg_2D1B_1, arg_2D1B_2, arg_2D1B_3, arg_2D1B_4, arg_2D1B_5, arg_2D1B_6, newColor, 1f);
+		                            Dust expr_2D2A = Main.dust[num66];
+		                            expr_2D2A.velocity *= 0.4f;
+		                        }
+		                    }
+		                    else
+		                    {
+		                        if (this.type == 42 || this.type == 31)
+		                        {
+		                            if (Main.rand.Next(2) == 0)
+		                            {
+		                                Vector2 arg_2DAB_0 = new Vector2(this.position.X, this.position.Y);
+		                                int arg_2DAB_1 = this.width;
+		                                int arg_2DAB_2 = this.height;
+		                                int arg_2DAB_3 = 32;
+		                                float arg_2DAB_4 = 0f;
+		                                float arg_2DAB_5 = 0f;
+		                                int arg_2DAB_6 = 0;
+		                                Color newColor = default(Color);
+		                                int num67 = Dust.NewDust(arg_2DAB_0, arg_2DAB_1, arg_2DAB_2, arg_2DAB_3, arg_2DAB_4, arg_2DAB_5, arg_2DAB_6, newColor, 1f);
+		                                Dust expr_2DBF_cp_0 = Main.dust[num67];
+		                                expr_2DBF_cp_0.velocity.X = expr_2DBF_cp_0.velocity.X * 0.4f;
+		                            }
+		                        }
+		                        else
+		                        {
+		                            if (this.type == 56 || this.type == 65)
+		                            {
+		                                if (Main.rand.Next(2) == 0)
+		                                {
+		                                    Vector2 arg_2E3C_0 = new Vector2(this.position.X, this.position.Y);
+		                                    int arg_2E3C_1 = this.width;
+		                                    int arg_2E3C_2 = this.height;
+		                                    int arg_2E3C_3 = 14;
+		                                    float arg_2E3C_4 = 0f;
+		                                    float arg_2E3C_5 = 0f;
+		                                    int arg_2E3C_6 = 0;
+		                                    Color newColor = default(Color);
+		                                    int num68 = Dust.NewDust(arg_2E3C_0, arg_2E3C_1, arg_2E3C_2, arg_2E3C_3, arg_2E3C_4, arg_2E3C_5, arg_2E3C_6, newColor, 1f);
+		                                    Dust expr_2E50_cp_0 = Main.dust[num68];
+		                                    expr_2E50_cp_0.velocity.X = expr_2E50_cp_0.velocity.X * 0.4f;
+		                                }
+		                            }
+		                            else
+		                            {
+		                                if (this.type == 67 || this.type == 68)
+		                                {
+		                                    if (Main.rand.Next(2) == 0)
+		                                    {
+		                                        Vector2 arg_2ECD_0 = new Vector2(this.position.X, this.position.Y);
+		                                        int arg_2ECD_1 = this.width;
+		                                        int arg_2ECD_2 = this.height;
+		                                        int arg_2ECD_3 = 51;
+		                                        float arg_2ECD_4 = 0f;
+		                                        float arg_2ECD_5 = 0f;
+		                                        int arg_2ECD_6 = 0;
+		                                        Color newColor = default(Color);
+		                                        int num69 = Dust.NewDust(arg_2ECD_0, arg_2ECD_1, arg_2ECD_2, arg_2ECD_3, arg_2ECD_4, arg_2ECD_5, arg_2ECD_6, newColor, 1f);
+		                                        Dust expr_2EE1_cp_0 = Main.dust[num69];
+		                                        expr_2EE1_cp_0.velocity.X = expr_2EE1_cp_0.velocity.X * 0.4f;
+		                                    }
+		                                }
+		                                else
+		                                {
+		                                    if (this.type == 71)
+		                                    {
+		                                        if (Main.rand.Next(2) == 0)
+		                                        {
+		                                            Vector2 arg_2F54_0 = new Vector2(this.position.X, this.position.Y);
+		                                            int arg_2F54_1 = this.width;
+		                                            int arg_2F54_2 = this.height;
+		                                            int arg_2F54_3 = 53;
+		                                            float arg_2F54_4 = 0f;
+		                                            float arg_2F54_5 = 0f;
+		                                            int arg_2F54_6 = 0;
+		                                            Color newColor = default(Color);
+		                                            int num70 = Dust.NewDust(arg_2F54_0, arg_2F54_1, arg_2F54_2, arg_2F54_3, arg_2F54_4, arg_2F54_5, arg_2F54_6, newColor, 1f);
+		                                            Dust expr_2F68_cp_0 = Main.dust[num70];
+		                                            expr_2F68_cp_0.velocity.X = expr_2F68_cp_0.velocity.X * 0.4f;
+		                                        }
+		                                    }
+		                                    else
+		                                    {
+		                                        if (this.type != 109 && Main.rand.Next(20) == 0)
+		                                        {
+		                                            Vector2 arg_2FD5_0 = new Vector2(this.position.X, this.position.Y);
+		                                            int arg_2FD5_1 = this.width;
+		                                            int arg_2FD5_2 = this.height;
+		                                            int arg_2FD5_3 = 0;
+		                                            float arg_2FD5_4 = 0f;
+		                                            float arg_2FD5_5 = 0f;
+		                                            int arg_2FD5_6 = 0;
+		                                            Color newColor = default(Color);
+		                                            Dust.NewDust(arg_2FD5_0, arg_2FD5_1, arg_2FD5_2, arg_2FD5_3, arg_2FD5_4, arg_2FD5_5, arg_2FD5_6, newColor, 1f);
+		                                        }
+		                                    }
+		                                }
+		                            }
+		                        }
+		                    }
+		                }
+		            }
+		            if (Main.myPlayer == this.owner && this.ai[0] == 0f)
+		            {
+		                if (Main.player[this.owner].channel)
+		                {
+		                    float num71 = 12f;
+		                    Vector2 vector8 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+		                    float num72 = (float)Main.mouseX + Main.screenPosition.X - vector8.X;
+		                    float num73 = (float)Main.mouseY + Main.screenPosition.Y - vector8.Y;
+		                    float num74 = (float)Math.Sqrt((double)(num72 * num72 + num73 * num73));
+		                    num74 = (float)Math.Sqrt((double)(num72 * num72 + num73 * num73));
+		                    if (num74 > num71)
+		                    {
+		                        num74 = num71 / num74;
+		                        num72 *= num74;
+		                        num73 *= num74;
+		                        if (num72 != this.velocity.X || num73 != this.velocity.Y)
+		                        {
+		                            this.netUpdate = true;
+		                        }
+		                        this.velocity.X = num72;
+		                        this.velocity.Y = num73;
+		                    }
+		                    else
+		                    {
+		                        if (num72 != this.velocity.X || num73 != this.velocity.Y)
+		                        {
+		                            this.netUpdate = true;
+		                        }
+		                        this.velocity.X = num72;
+		                        this.velocity.Y = num73;
+		                    }
+		                }
+		                else
+		                {
+		                    this.ai[0] = 1f;
+		                    this.netUpdate = true;
+		                }
+		            }
+		            if (this.ai[0] == 1f && this.type != 109)
+		            {
+		                if (this.type == 42 || this.type == 65 || this.type == 68)
+		                {
+		                    this.ai[1] += 1f;
+		                    if (this.ai[1] >= 60f)
+		                    {
+		                        this.ai[1] = 60f;
+		                        this.velocity.Y = this.velocity.Y + 0.2f;
+		                    }
+		                }
+		                else
+		                {
+		                    this.velocity.Y = this.velocity.Y + 0.41f;
+		                }
+		            }
+		            else
+		            {
+		                if (this.ai[0] == 2f && this.type != 109)
+		                {
+		                    this.velocity.Y = this.velocity.Y + 0.2f;
+		                    if ((double)this.velocity.X < -0.04)
+		                    {
+		                        this.velocity.X = this.velocity.X + 0.04f;
+		                    }
+		                    else
+		                    {
+		                        if ((double)this.velocity.X > 0.04)
+		                        {
+		                            this.velocity.X = this.velocity.X - 0.04f;
+		                        }
+		                        else
+		                        {
+		                            this.velocity.X = 0f;
+		                        }
+		                    }
+		                }
+		            }
+		            this.rotation += 0.1f;
+		            if (this.velocity.Y > 10f)
+		            {
+		                this.velocity.Y = 10f;
+		                return;
+		            }
+		            break;
+		        case 11:
+		            {
+		                if (this.type == 72 || this.type == 86 || this.type == 87)
+		                {
+		                    if (this.velocity.X > 0f)
+		                    {
+		                        this.spriteDirection = -1;
+		                    }
+		                    else
+		                    {
+		                        if (this.velocity.X < 0f)
+		                        {
+		                            this.spriteDirection = 1;
+		                        }
+		                    }
+		                    this.rotation = this.velocity.X * 0.1f;
+		                    this.frameCounter++;
+		                    if (this.frameCounter >= 4)
+		                    {
+		                        this.frame++;
+		                        this.frameCounter = 0;
+		                    }
+		                    if (this.frame >= 4)
+		                    {
+		                        this.frame = 0;
+		                    }
+		                    if (Main.rand.Next(6) == 0)
+		                    {
+		                        int num75 = 56;
+		                        if (this.type == 86)
+		                        {
+		                            num75 = 73;
+		                        }
+		                        else
+		                        {
+		                            if (this.type == 87)
+		                            {
+		                                num75 = 74;
+		                            }
+		                        }
+		                        Vector2 arg_340A_0 = this.position;
+		                        int arg_340A_1 = this.width;
+		                        int arg_340A_2 = this.height;
+		                        int arg_340A_3 = num75;
+		                        float arg_340A_4 = 0f;
+		                        float arg_340A_5 = 0f;
+		                        int arg_340A_6 = 200;
+		                        Color newColor = default(Color);
+		                        int num76 = Dust.NewDust(arg_340A_0, arg_340A_1, arg_340A_2, arg_340A_3, arg_340A_4, arg_340A_5, arg_340A_6, newColor, 0.8f);
+		                        Dust expr_3419 = Main.dust[num76];
+		                        expr_3419.velocity *= 0.3f;
+		                    }
+		                }
+		                else
+		                {
+		                    this.rotation += 0.02f;
+		                }
+		                if (Main.myPlayer == this.owner)
+		                {
+		                    if (this.type == 72 || this.type == 86 || this.type == 87)
+		                    {
+		                        if (Main.player[Main.myPlayer].fairy)
+		                        {
+		                            this.timeLeft = 2;
+		                        }
+		                    }
+		                    else
+		                    {
+		                        if (Main.player[Main.myPlayer].lightOrb)
+		                        {
+		                            this.timeLeft = 2;
+		                        }
+		                    }
+		                }
+		                if (Main.player[this.owner].dead)
+		                {
+		                    this.Kill();
+		                    return;
+		                }
+		                float num77 = 2.5f;
+		                if (this.type == 72 || this.type == 86 || this.type == 87)
+		                {
+		                    num77 = 3.5f;
+		                }
+		                Vector2 vector9 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+		                float num78 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector9.X;
+		                float num79 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector9.Y;
+		                float num80 = (float)Math.Sqrt((double)(num78 * num78 + num79 * num79));
+		                num80 = (float)Math.Sqrt((double)(num78 * num78 + num79 * num79));
+		                int num81 = 70;
+		                if (this.type == 72 || this.type == 86 || this.type == 87)
+		                {
+		                    num81 = 40;
+		                }
+		                if (num80 > 800f)
+		                {
+		                    this.position.X = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - (float)(this.width / 2);
+		                    this.position.Y = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - (float)(this.height / 2);
+		                    return;
+		                }
+		                if (num80 > (float)num81)
+		                {
+		                    num80 = num77 / num80;
+		                    num78 *= num80;
+		                    num79 *= num80;
+		                    this.velocity.X = num78;
+		                    this.velocity.Y = num79;
+		                    return;
+		                }
+		                this.velocity.X = 0f;
+		                this.velocity.Y = 0f;
+		                return;
+		            }
+		        default:
+		            if (this.aiStyle == 12)
+		            {
+		                this.scale -= 0.04f;
+		                if (this.scale <= 0f)
+		                {
+		                    this.Kill();
+		                }
+		                if (this.ai[0] > 4f)
+		                {
+		                    this.alpha = 150;
+		                    this.light = 0.8f;
+		                    Vector2 arg_376A_0 = new Vector2(this.position.X, this.position.Y);
+		                    int arg_376A_1 = this.width;
+		                    int arg_376A_2 = this.height;
+		                    int arg_376A_3 = 29;
+		                    float arg_376A_4 = this.velocity.X;
+		                    float arg_376A_5 = this.velocity.Y;
+		                    int arg_376A_6 = 100;
+		                    Color newColor = default(Color);
+		                    int num82 = Dust.NewDust(arg_376A_0, arg_376A_1, arg_376A_2, arg_376A_3, arg_376A_4, arg_376A_5, arg_376A_6, newColor, 2.5f);
+		                    Main.dust[num82].noGravity = true;
+		                    Vector2 arg_37CF_0 = new Vector2(this.position.X, this.position.Y);
+		                    int arg_37CF_1 = this.width;
+		                    int arg_37CF_2 = this.height;
+		                    int arg_37CF_3 = 29;
+		                    float arg_37CF_4 = this.velocity.X;
+		                    float arg_37CF_5 = this.velocity.Y;
+		                    int arg_37CF_6 = 100;
+		                    newColor = default(Color);
+		                    Dust.NewDust(arg_37CF_0, arg_37CF_1, arg_37CF_2, arg_37CF_3, arg_37CF_4, arg_37CF_5, arg_37CF_6, newColor, 1.5f);
+		                }
+		                else
+		                {
+		                    this.ai[0] += 1f;
+		                }
+		                this.rotation += 0.3f * (float)this.direction;
+		                return;
+		            }
+		            if (this.aiStyle == 13)
+		            {
+		                if (Main.player[this.owner].dead)
+		                {
+		                    this.Kill();
+		                    return;
+		                }
+		                Main.player[this.owner].itemAnimation = 5;
+		                Main.player[this.owner].itemTime = 5;
+		                if (this.position.X + (float)(this.width / 2) > Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2))
+		                {
+		                    Main.player[this.owner].direction = 1;
+		                }
+		                else
+		                {
+		                    Main.player[this.owner].direction = -1;
+		                }
+		                Vector2 vector10 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+		                float num83 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector10.X;
+		                float num84 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector10.Y;
+		                float num85 = (float)Math.Sqrt((double)(num83 * num83 + num84 * num84));
+		                if (this.ai[0] == 0f)
+		                {
+		                    if (num85 > 700f)
+		                    {
+		                        this.ai[0] = 1f;
+		                    }
+		                    this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
+		                    this.ai[1] += 1f;
+		                    if (this.ai[1] > 2f)
+		                    {
+		                        this.alpha = 0;
+		                    }
+		                    if (this.ai[1] >= 10f)
+		                    {
+		                        this.ai[1] = 15f;
+		                        this.velocity.Y = this.velocity.Y + 0.3f;
+		                        return;
+		                    }
+		                }
+		                else
+		                {
+		                    if (this.ai[0] == 1f)
+		                    {
+		                        this.tileCollide = false;
+		                        this.rotation = (float)Math.Atan2((double)num84, (double)num83) - 1.57f;
+		                        float num86 = 20f;
+		                        if (num85 < 50f)
+		                        {
+		                            this.Kill();
+		                        }
+		                        num85 = num86 / num85;
+		                        num83 *= num85;
+		                        num84 *= num85;
+		                        this.velocity.X = num83;
+		                        this.velocity.Y = num84;
+		                        return;
+		                    }
+		                }
+		            }
+		            else
+		            {
+		                if (this.aiStyle == 14)
+		                {
+		                    if (this.type == 53)
+		                    {
+		                        try
+		                        {
+		                            Vector2 value2 = Collision.TileCollision(this.position, this.velocity, this.width, this.height, false, false);
+		                            int num87 = (int)(this.position.X / 16f) - 1;
+		                            int num88 = (int)((this.position.X + (float)this.width) / 16f) + 2;
+		                            int num89 = (int)(this.position.Y / 16f) - 1;
+		                            int num90 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
+		                            if (num87 < 0)
+		                            {
+		                                num87 = 0;
+		                            }
+		                            if (num88 > Main.maxTilesX)
+		                            {
+		                                num88 = Main.maxTilesX;
+		                            }
+		                            if (num89 < 0)
+		                            {
+		                                num89 = 0;
+		                            }
+		                            if (num90 > Main.maxTilesY)
+		                            {
+		                                num90 = Main.maxTilesY;
+		                            }
+		                            for (int num91 = num87; num91 < num88; num91++)
+		                            {
+		                                for (int num92 = num89; num92 < num90; num92++)
+		                                {
+		                                    if (Main.tile[num91, num92] != null && Main.tile[num91, num92].active && (Main.tileSolid[(int)Main.tile[num91, num92].type] || (Main.tileSolidTop[(int)Main.tile[num91, num92].type] && Main.tile[num91, num92].frameY == 0)))
+		                                    {
+		                                        Vector2 vector11;
+		                                        vector11.X = (float)(num91 * 16);
+		                                        vector11.Y = (float)(num92 * 16);
+		                                        if (this.position.X + (float)this.width > vector11.X && this.position.X < vector11.X + 16f && this.position.Y + (float)this.height > vector11.Y && this.position.Y < vector11.Y + 16f)
+		                                        {
+		                                            this.velocity.X = 0f;
+		                                            this.velocity.Y = -0.2f;
+		                                        }
+		                                    }
+		                                }
+		                            }
+		                        }
+		                        catch
+		                        {
+		                        }
+		                    }
+		                    this.ai[0] += 1f;
+		                    if (this.ai[0] > 5f)
+		                    {
+		                        this.ai[0] = 5f;
+		                        if (this.velocity.Y == 0f && this.velocity.X != 0f)
+		                        {
+		                            this.velocity.X = this.velocity.X * 0.97f;
+		                            if ((double)this.velocity.X > -0.01 && (double)this.velocity.X < 0.01)
+		                            {
+		                                this.velocity.X = 0f;
+		                                this.netUpdate = true;
+		                            }
+		                        }
+		                        this.velocity.Y = this.velocity.Y + 0.2f;
+		                    }
+		                    this.rotation += this.velocity.X * 0.1f;
+		                    if (this.velocity.Y > 16f)
+		                    {
+		                        this.velocity.Y = 16f;
+		                        return;
+		                    }
+		                }
+		                else
+		                {
+		                    if (this.aiStyle == 15)
+		                    {
+		                        if (this.type == 25)
+		                        {
+		                            if (Main.rand.Next(15) == 0)
+		                            {
+		                                Vector2 arg_3E55_0 = this.position;
+		                                int arg_3E55_1 = this.width;
+		                                int arg_3E55_2 = this.height;
+		                                int arg_3E55_3 = 14;
+		                                float arg_3E55_4 = 0f;
+		                                float arg_3E55_5 = 0f;
+		                                int arg_3E55_6 = 150;
+		                                Color newColor = default(Color);
+		                                Dust.NewDust(arg_3E55_0, arg_3E55_1, arg_3E55_2, arg_3E55_3, arg_3E55_4, arg_3E55_5, arg_3E55_6, newColor, 1.3f);
+		                            }
+		                        }
+		                        else
+		                        {
+		                            if (this.type == 26)
+		                            {
+		                                Vector2 arg_3EB4_0 = this.position;
+		                                int arg_3EB4_1 = this.width;
+		                                int arg_3EB4_2 = this.height;
+		                                int arg_3EB4_3 = 29;
+		                                float arg_3EB4_4 = this.velocity.X * 0.4f;
+		                                float arg_3EB4_5 = this.velocity.Y * 0.4f;
+		                                int arg_3EB4_6 = 100;
+		                                Color newColor = default(Color);
+		                                int num93 = Dust.NewDust(arg_3EB4_0, arg_3EB4_1, arg_3EB4_2, arg_3EB4_3, arg_3EB4_4, arg_3EB4_5, arg_3EB4_6, newColor, 2.5f);
+		                                Main.dust[num93].noGravity = true;
+		                                Dust expr_3ED6_cp_0 = Main.dust[num93];
+		                                expr_3ED6_cp_0.velocity.X = expr_3ED6_cp_0.velocity.X / 2f;
+		                                Dust expr_3EF4_cp_0 = Main.dust[num93];
+		                                expr_3EF4_cp_0.velocity.Y = expr_3EF4_cp_0.velocity.Y / 2f;
+		                            }
+		                            else
+		                            {
+		                                if (this.type == 35)
+		                                {
+		                                    Vector2 arg_3F5D_0 = this.position;
+		                                    int arg_3F5D_1 = this.width;
+		                                    int arg_3F5D_2 = this.height;
+		                                    int arg_3F5D_3 = 6;
+		                                    float arg_3F5D_4 = this.velocity.X * 0.4f;
+		                                    float arg_3F5D_5 = this.velocity.Y * 0.4f;
+		                                    int arg_3F5D_6 = 100;
+		                                    Color newColor = default(Color);
+		                                    int num94 = Dust.NewDust(arg_3F5D_0, arg_3F5D_1, arg_3F5D_2, arg_3F5D_3, arg_3F5D_4, arg_3F5D_5, arg_3F5D_6, newColor, 3f);
+		                                    Main.dust[num94].noGravity = true;
+		                                    Dust expr_3F7F_cp_0 = Main.dust[num94];
+		                                    expr_3F7F_cp_0.velocity.X = expr_3F7F_cp_0.velocity.X * 2f;
+		                                    Dust expr_3F9D_cp_0 = Main.dust[num94];
+		                                    expr_3F9D_cp_0.velocity.Y = expr_3F9D_cp_0.velocity.Y * 2f;
+		                                }
+		                            }
+		                        }
+		                        if (Main.player[this.owner].dead)
+		                        {
+		                            this.Kill();
+		                            return;
+		                        }
+		                        Main.player[this.owner].itemAnimation = 10;
+		                        Main.player[this.owner].itemTime = 10;
+		                        if (this.position.X + (float)(this.width / 2) > Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2))
+		                        {
+		                            Main.player[this.owner].direction = 1;
+		                            this.direction = 1;
+		                        }
+		                        else
+		                        {
+		                            Main.player[this.owner].direction = -1;
+		                            this.direction = -1;
+		                        }
+		                        Vector2 vector12 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+		                        float num95 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector12.X;
+		                        float num96 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector12.Y;
+		                        float num97 = (float)Math.Sqrt((double)(num95 * num95 + num96 * num96));
+		                        if (this.ai[0] == 0f)
+		                        {
+		                            float num98 = 160f;
+		                            if (this.type == 63)
+		                            {
+		                                num98 *= 1.5f;
+		                            }
+		                            this.tileCollide = true;
+		                            if (num97 > num98)
+		                            {
+		                                this.ai[0] = 1f;
+		                                this.netUpdate = true;
+		                            }
+		                            else
+		                            {
+		                                if (!Main.player[this.owner].channel)
+		                                {
+		                                    if (this.velocity.Y < 0f)
+		                                    {
+		                                        this.velocity.Y = this.velocity.Y * 0.9f;
+		                                    }
+		                                    this.velocity.Y = this.velocity.Y + 1f;
+		                                    this.velocity.X = this.velocity.X * 0.9f;
+		                                }
+		                            }
+		                        }
+		                        else
+		                        {
+		                            if (this.ai[0] == 1f)
+		                            {
+		                                float num99 = 14f / Main.player[this.owner].meleeSpeed;
+		                                float num100 = 0.9f / Main.player[this.owner].meleeSpeed;
+		                                float num101 = 300f;
+		                                if (this.type == 63)
+		                                {
+		                                    num101 *= 1.5f;
+		                                    num99 *= 1.5f;
+		                                    num100 *= 1.5f;
+		                                }
+		                                Math.Abs(num95);
+		                                Math.Abs(num96);
+		                                if (this.ai[1] == 1f)
+		                                {
+		                                    this.tileCollide = false;
+		                                }
+		                                if (!Main.player[this.owner].channel || num97 > num101 || !this.tileCollide)
+		                                {
+		                                    this.ai[1] = 1f;
+		                                    if (this.tileCollide)
+		                                    {
+		                                        this.netUpdate = true;
+		                                    }
+		                                    this.tileCollide = false;
+		                                    if (num97 < 20f)
+		                                    {
+		                                        this.Kill();
+		                                    }
+		                                }
+		                                if (!this.tileCollide)
+		                                {
+		                                    num100 *= 2f;
+		                                }
+		                                if (num97 > 60f || !this.tileCollide)
+		                                {
+		                                    num97 = num99 / num97;
+		                                    num95 *= num97;
+		                                    num96 *= num97;
+		                                    new Vector2(this.velocity.X, this.velocity.Y);
+		                                    float num102 = num95 - this.velocity.X;
+		                                    float num103 = num96 - this.velocity.Y;
+		                                    float num104 = (float)Math.Sqrt((double)(num102 * num102 + num103 * num103));
+		                                    num104 = num100 / num104;
+		                                    num102 *= num104;
+		                                    num103 *= num104;
+		                                    this.velocity.X = this.velocity.X * 0.98f;
+		                                    this.velocity.Y = this.velocity.Y * 0.98f;
+		                                    this.velocity.X = this.velocity.X + num102;
+		                                    this.velocity.Y = this.velocity.Y + num103;
+		                                }
+		                                else
+		                                {
+		                                    if (Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y) < 6f)
+		                                    {
+		                                        this.velocity.X = this.velocity.X * 0.96f;
+		                                        this.velocity.Y = this.velocity.Y + 0.2f;
+		                                    }
+		                                    if (Main.player[this.owner].velocity.X == 0f)
+		                                    {
+		                                        this.velocity.X = this.velocity.X * 0.96f;
+		                                    }
+		                                }
+		                            }
+		                        }
+		                        this.rotation = (float)Math.Atan2((double)num96, (double)num95) - this.velocity.X * 0.1f;
+		                        return;
+		                    }
+		                    else
+		                    {
+		                        if (this.aiStyle == 16)
+		                        {
+		                            if (this.type == 108)
+		                            {
+		                                this.ai[0] += 1f;
+		                                if (this.ai[0] > 3f)
+		                                {
+		                                    this.Kill();
+		                                }
+		                            }
+		                            if (this.type == 37)
+		                            {
+		                                try
+		                                {
+		                                    int num105 = (int)(this.position.X / 16f) - 1;
+		                                    int num106 = (int)((this.position.X + (float)this.width) / 16f) + 2;
+		                                    int num107 = (int)(this.position.Y / 16f) - 1;
+		                                    int num108 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
+		                                    if (num105 < 0)
+		                                    {
+		                                        num105 = 0;
+		                                    }
+		                                    if (num106 > Main.maxTilesX)
+		                                    {
+		                                        num106 = Main.maxTilesX;
+		                                    }
+		                                    if (num107 < 0)
+		                                    {
+		                                        num107 = 0;
+		                                    }
+		                                    if (num108 > Main.maxTilesY)
+		                                    {
+		                                        num108 = Main.maxTilesY;
+		                                    }
+		                                    for (int num109 = num105; num109 < num106; num109++)
+		                                    {
+		                                        for (int num110 = num107; num110 < num108; num110++)
+		                                        {
+		                                            if (Main.tile[num109, num110] != null && Main.tile[num109, num110].active && (Main.tileSolid[(int)Main.tile[num109, num110].type] || (Main.tileSolidTop[(int)Main.tile[num109, num110].type] && Main.tile[num109, num110].frameY == 0)))
+		                                            {
+		                                                Vector2 vector13;
+		                                                vector13.X = (float)(num109 * 16);
+		                                                vector13.Y = (float)(num110 * 16);
+		                                                if (this.position.X + (float)this.width - 4f > vector13.X && this.position.X + 4f < vector13.X + 16f && this.position.Y + (float)this.height - 4f > vector13.Y && this.position.Y + 4f < vector13.Y + 16f)
+		                                                {
+		                                                    this.velocity.X = 0f;
+		                                                    this.velocity.Y = -0.2f;
+		                                                }
+		                                            }
+		                                        }
+		                                    }
+		                                }
+		                                catch
+		                                {
+		                                }
+		                            }
+		                            if (this.type == 102)
+		                            {
+		                                if (this.velocity.Y > 10f)
+		                                {
+		                                    this.velocity.Y = 10f;
+		                                }
+		                                if (this.localAI[0] == 0f)
+		                                {
+		                                    this.localAI[0] = 1f;
+		                                    Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
+		                                }
+		                                this.frameCounter++;
+		                                if (this.frameCounter > 3)
+		                                {
+		                                    this.frame++;
+		                                    this.frameCounter = 0;
+		                                }
+		                                if (this.frame > 1)
+		                                {
+		                                    this.frame = 0;
+		                                }
+		                                if (this.velocity.Y == 0f)
+		                                {
+		                                    this.position.X = this.position.X + (float)(this.width / 2);
+		                                    this.position.Y = this.position.Y + (float)(this.height / 2);
+		                                    this.width = 128;
+		                                    this.height = 128;
+		                                    this.position.X = this.position.X - (float)(this.width / 2);
+		                                    this.position.Y = this.position.Y - (float)(this.height / 2);
+		                                    this.damage = 40;
+		                                    this.knockBack = 8f;
+		                                    this.timeLeft = 3;
+		                                    this.netUpdate = true;
+		                                }
+		                            }
+		                            if (this.owner == Main.myPlayer && this.timeLeft <= 3)
+		                            {
+		                                this.ai[1] = 0f;
+		                                this.alpha = 255;
+		                                if (this.type == 28 || this.type == 37 || this.type == 75)
+		                                {
+		                                    this.position.X = this.position.X + (float)(this.width / 2);
+		                                    this.position.Y = this.position.Y + (float)(this.height / 2);
+		                                    this.width = 128;
+		                                    this.height = 128;
+		                                    this.position.X = this.position.X - (float)(this.width / 2);
+		                                    this.position.Y = this.position.Y - (float)(this.height / 2);
+		                                    this.damage = 100;
+		                                    this.knockBack = 8f;
+		                                }
+		                                else
+		                                {
+		                                    if (this.type == 29)
+		                                    {
+		                                        this.position.X = this.position.X + (float)(this.width / 2);
+		                                        this.position.Y = this.position.Y + (float)(this.height / 2);
+		                                        this.width = 250;
+		                                        this.height = 250;
+		                                        this.position.X = this.position.X - (float)(this.width / 2);
+		                                        this.position.Y = this.position.Y - (float)(this.height / 2);
+		                                        this.damage = 250;
+		                                        this.knockBack = 10f;
+		                                    }
+		                                    else
+		                                    {
+		                                        if (this.type == 30)
+		                                        {
+		                                            this.position.X = this.position.X + (float)(this.width / 2);
+		                                            this.position.Y = this.position.Y + (float)(this.height / 2);
+		                                            this.width = 128;
+		                                            this.height = 128;
+		                                            this.position.X = this.position.X - (float)(this.width / 2);
+		                                            this.position.Y = this.position.Y - (float)(this.height / 2);
+		                                            this.knockBack = 8f;
+		                                        }
+		                                    }
+		                                }
+		                            }
+		                            else
+		                            {
+		                                if (this.type != 30 && this.type != 108)
+		                                {
+		                                    this.damage = 0;
+		                                }
+		                                if (this.type != 30 && Main.rand.Next(4) == 0)
+		                                {
+		                                    Vector2 arg_4ADF_0 = new Vector2(this.position.X, this.position.Y);
+		                                    int arg_4ADF_1 = this.width;
+		                                    int arg_4ADF_2 = this.height;
+		                                    int arg_4ADF_3 = 6;
+		                                    float arg_4ADF_4 = 0f;
+		                                    float arg_4ADF_5 = 0f;
+		                                    int arg_4ADF_6 = 100;
+		                                    Color newColor = default(Color);
+		                                    Dust.NewDust(arg_4ADF_0, arg_4ADF_1, arg_4ADF_2, arg_4ADF_3, arg_4ADF_4, arg_4ADF_5, arg_4ADF_6, newColor, 1f);
+		                                }
+		                            }
+		                            this.ai[0] += 1f;
+		                            if ((this.type == 30 && this.ai[0] > 10f) || (this.type != 30 && this.ai[0] > 5f))
+		                            {
+		                                this.ai[0] = 10f;
+		                                if (this.velocity.Y == 0f && this.velocity.X != 0f)
+		                                {
+		                                    this.velocity.X = this.velocity.X * 0.97f;
+		                                    if (this.type == 29)
+		                                    {
+		                                        this.velocity.X = this.velocity.X * 0.99f;
+		                                    }
+		                                    if ((double)this.velocity.X > -0.01 && (double)this.velocity.X < 0.01)
+		                                    {
+		                                        this.velocity.X = 0f;
+		                                        this.netUpdate = true;
+		                                    }
+		                                }
+		                                this.velocity.Y = this.velocity.Y + 0.2f;
+		                            }
+		                            this.rotation += this.velocity.X * 0.1f;
+		                            return;
+		                        }
+		                        if (this.aiStyle == 17)
+		                        {
+		                            if (this.velocity.Y == 0f)
+		                            {
+		                                this.velocity.X = this.velocity.X * 0.98f;
+		                            }
+		                            this.rotation += this.velocity.X * 0.1f;
+		                            this.velocity.Y = this.velocity.Y + 0.2f;
+		                            if (this.owner == Main.myPlayer)
+		                            {
+		                                int num111 = (int)((this.position.X + (float)(this.width / 2)) / 16f);
+		                                int num112 = (int)((this.position.Y + (float)this.height - 4f) / 16f);
+		                                if (Main.tile[num111, num112] != null && !Main.tile[num111, num112].active)
+		                                {
+		                                    WorldGen.PlaceTile(num111, num112, 85, false, false, -1, 0);
+		                                    if (Main.tile[num111, num112].active)
+		                                    {
+		                                        if (Main.netMode != 0)
+		                                        {
+		                                            NetMessage.SendData(17, -1, -1, "", 1, (float)num111, (float)num112, 85f, 0);
+		                                        }
+		                                        int num113 = Sign.ReadSign(num111, num112);
+		                                        if (num113 >= 0)
+		                                        {
+		                                            Sign.TextSign(num113, this.miscText);
+		                                        }
+		                                        this.Kill();
+		                                        return;
+		                                    }
+		                                }
+		                            }
+		                        }
+		                        else
+		                        {
+		                            if (this.aiStyle == 18)
+		                            {
+		                                if (this.ai[1] == 0f && this.type == 44)
+		                                {
+		                                    this.ai[1] = 1f;
+		                                    Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 8);
+		                                }
+		                                this.rotation += (float)this.direction * 0.8f;
+		                                this.ai[0] += 1f;
+		                                if (this.ai[0] >= 30f)
+		                                {
+		                                    if (this.ai[0] < 100f)
+		                                    {
+		                                        this.velocity *= 1.06f;
+		                                    }
+		                                    else
+		                                    {
+		                                        this.ai[0] = 200f;
+		                                    }
+		                                }
+		                                for (int num114 = 0; num114 < 2; num114++)
+		                                {
+		                                    Vector2 arg_4E8A_0 = new Vector2(this.position.X, this.position.Y);
+		                                    int arg_4E8A_1 = this.width;
+		                                    int arg_4E8A_2 = this.height;
+		                                    int arg_4E8A_3 = 27;
+		                                    float arg_4E8A_4 = 0f;
+		                                    float arg_4E8A_5 = 0f;
+		                                    int arg_4E8A_6 = 100;
+		                                    Color newColor = default(Color);
+		                                    int num115 = Dust.NewDust(arg_4E8A_0, arg_4E8A_1, arg_4E8A_2, arg_4E8A_3, arg_4E8A_4, arg_4E8A_5, arg_4E8A_6, newColor, 1f);
+		                                    Main.dust[num115].noGravity = true;
+		                                }
+		                                return;
+		                            }
+		                            if (this.aiStyle == 19)
+		                            {
+		                                this.direction = Main.player[this.owner].direction;
+		                                Main.player[this.owner].heldProj = this.whoAmI;
+		                                Main.player[this.owner].itemTime = Main.player[this.owner].itemAnimation;
+		                                this.position.X = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - (float)(this.width / 2);
+		                                this.position.Y = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - (float)(this.height / 2);
+		                                if (this.type == 46)
+		                                {
+		                                    if (this.ai[0] == 0f)
+		                                    {
+		                                        this.ai[0] = 3f;
+		                                        this.netUpdate = true;
+		                                    }
+		                                    if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
+		                                    {
+		                                        this.ai[0] -= 1.6f;
+		                                    }
+		                                    else
+		                                    {
+		                                        this.ai[0] += 1.4f;
+		                                    }
+		                                }
+		                                else
+		                                {
+		                                    if (this.type == 105)
+		                                    {
+		                                        if (this.ai[0] == 0f)
+		                                        {
+		                                            this.ai[0] = 3f;
+		                                            this.netUpdate = true;
+		                                        }
+		                                        if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
+		                                        {
+		                                            this.ai[0] -= 2.4f;
+		                                        }
+		                                        else
+		                                        {
+		                                            this.ai[0] += 2.1f;
+		                                        }
+		                                    }
+		                                    else
+		                                    {
+		                                        if (this.type == 47)
+		                                        {
+		                                            if (this.ai[0] == 0f)
+		                                            {
+		                                                this.ai[0] = 4f;
+		                                                this.netUpdate = true;
+		                                            }
+		                                            if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
+		                                            {
+		                                                this.ai[0] -= 1.2f;
+		                                            }
+		                                            else
+		                                            {
+		                                                this.ai[0] += 0.9f;
+		                                            }
+		                                        }
+		                                        else
+		                                        {
+		                                            if (this.type == 49)
+		                                            {
+		                                                if (this.ai[0] == 0f)
+		                                                {
+		                                                    this.ai[0] = 4f;
+		                                                    this.netUpdate = true;
+		                                                }
+		                                                if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
+		                                                {
+		                                                    this.ai[0] -= 1.1f;
+		                                                }
+		                                                else
+		                                                {
+		                                                    this.ai[0] += 0.85f;
+		                                                }
+		                                            }
+		                                            else
+		                                            {
+		                                                if (this.type == 64)
+		                                                {
+		                                                    this.spriteDirection = -this.direction;
+		                                                    if (this.ai[0] == 0f)
+		                                                    {
+		                                                        this.ai[0] = 3f;
+		                                                        this.netUpdate = true;
+		                                                    }
+		                                                    if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
+		                                                    {
+		                                                        this.ai[0] -= 1.9f;
+		                                                    }
+		                                                    else
+		                                                    {
+		                                                        this.ai[0] += 1.7f;
+		                                                    }
+		                                                }
+		                                                else
+		                                                {
+		                                                    if (this.type == 66 || this.type == 97)
+		                                                    {
+		                                                        this.spriteDirection = -this.direction;
+		                                                        if (this.ai[0] == 0f)
+		                                                        {
+		                                                            this.ai[0] = 3f;
+		                                                            this.netUpdate = true;
+		                                                        }
+		                                                        if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
+		                                                        {
+		                                                            this.ai[0] -= 2.1f;
+		                                                        }
+		                                                        else
+		                                                        {
+		                                                            this.ai[0] += 1.9f;
+		                                                        }
+		                                                    }
+		                                                    else
+		                                                    {
+		                                                        if (this.type == 97)
+		                                                        {
+		                                                            this.spriteDirection = -this.direction;
+		                                                            if (this.ai[0] == 0f)
+		                                                            {
+		                                                                this.ai[0] = 3f;
+		                                                                this.netUpdate = true;
+		                                                            }
+		                                                            if (Main.player[this.owner].itemAnimation < Main.player[this.owner].itemAnimationMax / 3)
+		                                                            {
+		                                                                this.ai[0] -= 1.6f;
+		                                                            }
+		                                                            else
+		                                                            {
+		                                                                this.ai[0] += 1.4f;
+		                                                            }
+		                                                        }
+		                                                    }
+		                                                }
+		                                            }
+		                                        }
+		                                    }
+		                                }
+		                                this.position += this.velocity * this.ai[0];
+		                                if (Main.player[this.owner].itemAnimation == 0)
+		                                {
+		                                    this.Kill();
+		                                }
+		                                this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 2.355f;
+		                                if (this.spriteDirection == -1)
+		                                {
+		                                    this.rotation -= 1.57f;
+		                                }
+		                                if (this.type == 46)
+		                                {
+		                                    Color newColor;
+		                                    if (Main.rand.Next(5) == 0)
+		                                    {
+		                                        Vector2 arg_54B5_0 = this.position;
+		                                        int arg_54B5_1 = this.width;
+		                                        int arg_54B5_2 = this.height;
+		                                        int arg_54B5_3 = 14;
+		                                        float arg_54B5_4 = 0f;
+		                                        float arg_54B5_5 = 0f;
+		                                        int arg_54B5_6 = 150;
+		                                        newColor = default(Color);
+		                                        Dust.NewDust(arg_54B5_0, arg_54B5_1, arg_54B5_2, arg_54B5_3, arg_54B5_4, arg_54B5_5, arg_54B5_6, newColor, 1.4f);
+		                                    }
+		                                    Vector2 arg_550C_0 = this.position;
+		                                    int arg_550C_1 = this.width;
+		                                    int arg_550C_2 = this.height;
+		                                    int arg_550C_3 = 27;
+		                                    float arg_550C_4 = this.velocity.X * 0.2f + (float)(this.direction * 3);
+		                                    float arg_550C_5 = this.velocity.Y * 0.2f;
+		                                    int arg_550C_6 = 100;
+		                                    newColor = default(Color);
+		                                    int num116 = Dust.NewDust(arg_550C_0, arg_550C_1, arg_550C_2, arg_550C_3, arg_550C_4, arg_550C_5, arg_550C_6, newColor, 1.2f);
+		                                    Main.dust[num116].noGravity = true;
+		                                    Dust expr_552E_cp_0 = Main.dust[num116];
+		                                    expr_552E_cp_0.velocity.X = expr_552E_cp_0.velocity.X / 2f;
+		                                    Dust expr_554C_cp_0 = Main.dust[num116];
+		                                    expr_554C_cp_0.velocity.Y = expr_554C_cp_0.velocity.Y / 2f;
+		                                    Vector2 arg_55A4_0 = this.position - this.velocity * 2f;
+		                                    int arg_55A4_1 = this.width;
+		                                    int arg_55A4_2 = this.height;
+		                                    int arg_55A4_3 = 27;
+		                                    float arg_55A4_4 = 0f;
+		                                    float arg_55A4_5 = 0f;
+		                                    int arg_55A4_6 = 150;
+		                                    newColor = default(Color);
+		                                    num116 = Dust.NewDust(arg_55A4_0, arg_55A4_1, arg_55A4_2, arg_55A4_3, arg_55A4_4, arg_55A4_5, arg_55A4_6, newColor, 1.4f);
+		                                    Dust expr_55B8_cp_0 = Main.dust[num116];
+		                                    expr_55B8_cp_0.velocity.X = expr_55B8_cp_0.velocity.X / 5f;
+		                                    Dust expr_55D6_cp_0 = Main.dust[num116];
+		                                    expr_55D6_cp_0.velocity.Y = expr_55D6_cp_0.velocity.Y / 5f;
+		                                    return;
+		                                }
+		                                if (this.type == 105)
+		                                {
+		                                    if (Main.rand.Next(3) == 0)
+		                                    {
+		                                        Vector2 arg_5664_0 = new Vector2(this.position.X, this.position.Y);
+		                                        int arg_5664_1 = this.width;
+		                                        int arg_5664_2 = this.height;
+		                                        int arg_5664_3 = 57;
+		                                        float arg_5664_4 = this.velocity.X * 0.2f;
+		                                        float arg_5664_5 = this.velocity.Y * 0.2f;
+		                                        int arg_5664_6 = 200;
+		                                        Color newColor = default(Color);
+		                                        int num117 = Dust.NewDust(arg_5664_0, arg_5664_1, arg_5664_2, arg_5664_3, arg_5664_4, arg_5664_5, arg_5664_6, newColor, 1.2f);
+		                                        Dust expr_5673 = Main.dust[num117];
+		                                        expr_5673.velocity += this.velocity * 0.3f;
+		                                        Dust expr_569B = Main.dust[num117];
+		                                        expr_569B.velocity *= 0.2f;
+		                                    }
+		                                    if (Main.rand.Next(4) == 0)
+		                                    {
+		                                        Vector2 arg_5707_0 = new Vector2(this.position.X, this.position.Y);
+		                                        int arg_5707_1 = this.width;
+		                                        int arg_5707_2 = this.height;
+		                                        int arg_5707_3 = 43;
+		                                        float arg_5707_4 = 0f;
+		                                        float arg_5707_5 = 0f;
+		                                        int arg_5707_6 = 254;
+		                                        Color newColor = default(Color);
+		                                        int num118 = Dust.NewDust(arg_5707_0, arg_5707_1, arg_5707_2, arg_5707_3, arg_5707_4, arg_5707_5, arg_5707_6, newColor, 0.3f);
+		                                        Dust expr_5716 = Main.dust[num118];
+		                                        expr_5716.velocity += this.velocity * 0.5f;
+		                                        Dust expr_573E = Main.dust[num118];
+		                                        expr_573E.velocity *= 0.5f;
+		                                        return;
+		                                    }
+		                                }
+		                            }
+		                            else
+		                            {
+		                                if (this.aiStyle == 20)
+		                                {
+		                                    if (this.soundDelay <= 0)
+		                                    {
+		                                        Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 22);
+		                                        this.soundDelay = 30;
+		                                    }
+		                                    if (Main.myPlayer == this.owner)
+		                                    {
+		                                        if (Main.player[this.owner].channel)
+		                                        {
+		                                            float num119 = Main.player[this.owner].inventory[Main.player[this.owner].selectedItem].shootSpeed * this.scale;
+		                                            Vector2 vector14 = new Vector2(Main.player[this.owner].position.X + (float)Main.player[this.owner].width * 0.5f, Main.player[this.owner].position.Y + (float)Main.player[this.owner].height * 0.5f);
+		                                            float num120 = (float)Main.mouseX + Main.screenPosition.X - vector14.X;
+		                                            float num121 = (float)Main.mouseY + Main.screenPosition.Y - vector14.Y;
+		                                            float num122 = (float)Math.Sqrt((double)(num120 * num120 + num121 * num121));
+		                                            num122 = (float)Math.Sqrt((double)(num120 * num120 + num121 * num121));
+		                                            num122 = num119 / num122;
+		                                            num120 *= num122;
+		                                            num121 *= num122;
+		                                            if (num120 != this.velocity.X || num121 != this.velocity.Y)
+		                                            {
+		                                                this.netUpdate = true;
+		                                            }
+		                                            this.velocity.X = num120;
+		                                            this.velocity.Y = num121;
+		                                        }
+		                                        else
+		                                        {
+		                                            this.Kill();
+		                                        }
+		                                    }
+		                                    if (this.velocity.X > 0f)
+		                                    {
+		                                        Main.player[this.owner].direction = 1;
+		                                    }
+		                                    else
+		                                    {
+		                                        if (this.velocity.X < 0f)
+		                                        {
+		                                            Main.player[this.owner].direction = -1;
+		                                        }
+		                                    }
+		                                    this.spriteDirection = this.direction;
+		                                    Main.player[this.owner].direction = this.direction;
+		                                    Main.player[this.owner].heldProj = this.whoAmI;
+		                                    Main.player[this.owner].itemTime = 2;
+		                                    Main.player[this.owner].itemAnimation = 2;
+		                                    this.position.X = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - (float)(this.width / 2);
+		                                    this.position.Y = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - (float)(this.height / 2);
+		                                    this.rotation = (float)(Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.5700000524520874);
+		                                    if (Main.player[this.owner].direction == 1)
+		                                    {
+		                                        Main.player[this.owner].itemRotation = (float)Math.Atan2((double)(this.velocity.Y * (float)this.direction), (double)(this.velocity.X * (float)this.direction));
+		                                    }
+		                                    else
+		                                    {
+		                                        Main.player[this.owner].itemRotation = (float)Math.Atan2((double)(this.velocity.Y * (float)this.direction), (double)(this.velocity.X * (float)this.direction));
+		                                    }
+		                                    this.velocity.X = this.velocity.X * (1f + (float)Main.rand.Next(-3, 4) * 0.01f);
+		                                    if (Main.rand.Next(6) == 0)
+		                                    {
+		                                        Vector2 arg_5B85_0 = this.position + this.velocity * (float)Main.rand.Next(6, 10) * 0.1f;
+		                                        int arg_5B85_1 = this.width;
+		                                        int arg_5B85_2 = this.height;
+		                                        int arg_5B85_3 = 31;
+		                                        float arg_5B85_4 = 0f;
+		                                        float arg_5B85_5 = 0f;
+		                                        int arg_5B85_6 = 80;
+		                                        Color newColor = default(Color);
+		                                        int num123 = Dust.NewDust(arg_5B85_0, arg_5B85_1, arg_5B85_2, arg_5B85_3, arg_5B85_4, arg_5B85_5, arg_5B85_6, newColor, 1.4f);
+		                                        Dust expr_5B99_cp_0 = Main.dust[num123];
+		                                        expr_5B99_cp_0.position.X = expr_5B99_cp_0.position.X - 4f;
+		                                        Main.dust[num123].noGravity = true;
+		                                        Dust expr_5BC0 = Main.dust[num123];
+		                                        expr_5BC0.velocity *= 0.2f;
+		                                        Main.dust[num123].velocity.Y = (float)(-(float)Main.rand.Next(7, 13)) * 0.15f;
+		                                        return;
+		                                    }
+		                                }
+		                                else
+		                                {
+		                                    if (this.aiStyle == 21)
+		                                    {
+		                                        this.rotation = this.velocity.X * 0.1f;
+		                                        this.spriteDirection = -this.direction;
+		                                        if (Main.rand.Next(3) == 0)
+		                                        {
+		                                            Vector2 arg_5C6A_0 = this.position;
+		                                            int arg_5C6A_1 = this.width;
+		                                            int arg_5C6A_2 = this.height;
+		                                            int arg_5C6A_3 = 27;
+		                                            float arg_5C6A_4 = 0f;
+		                                            float arg_5C6A_5 = 0f;
+		                                            int arg_5C6A_6 = 80;
+		                                            Color newColor = default(Color);
+		                                            int num124 = Dust.NewDust(arg_5C6A_0, arg_5C6A_1, arg_5C6A_2, arg_5C6A_3, arg_5C6A_4, arg_5C6A_5, arg_5C6A_6, newColor, 1f);
+		                                            Main.dust[num124].noGravity = true;
+		                                            Dust expr_5C87 = Main.dust[num124];
+		                                            expr_5C87.velocity *= 0.2f;
+		                                        }
+		                                        if (this.ai[1] == 1f)
+		                                        {
+		                                            this.ai[1] = 0f;
+		                                            Main.harpNote = this.ai[0];
+		                                            Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 26);
+		                                            return;
+		                                        }
+		                                    }
+		                                    else
+		                                    {
+		                                        if (this.aiStyle == 22)
+		                                        {
+		                                            if (this.velocity.X == 0f && this.velocity.Y == 0f)
+		                                            {
+		                                                this.alpha = 255;
+		                                            }
+		                                            if (this.ai[1] < 0f)
+		                                            {
+		                                                if (this.velocity.X > 0f)
+		                                                {
+		                                                    this.rotation += 0.3f;
+		                                                }
+		                                                else
+		                                                {
+		                                                    this.rotation -= 0.3f;
+		                                                }
+		                                                int num125 = (int)(this.position.X / 16f) - 1;
+		                                                int num126 = (int)((this.position.X + (float)this.width) / 16f) + 2;
+		                                                int num127 = (int)(this.position.Y / 16f) - 1;
+		                                                int num128 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
+		                                                if (num125 < 0)
+		                                                {
+		                                                    num125 = 0;
+		                                                }
+		                                                if (num126 > Main.maxTilesX)
+		                                                {
+		                                                    num126 = Main.maxTilesX;
+		                                                }
+		                                                if (num127 < 0)
+		                                                {
+		                                                    num127 = 0;
+		                                                }
+		                                                if (num128 > Main.maxTilesY)
+		                                                {
+		                                                    num128 = Main.maxTilesY;
+		                                                }
+		                                                int num129 = (int)this.position.X + 4;
+		                                                int num130 = (int)this.position.Y + 4;
+		                                                for (int num131 = num125; num131 < num126; num131++)
+		                                                {
+		                                                    for (int num132 = num127; num132 < num128; num132++)
+		                                                    {
+		                                                        if (Main.tile[num131, num132] != null && Main.tile[num131, num132].active && Main.tile[num131, num132].type != 127 && Main.tileSolid[(int)Main.tile[num131, num132].type] && !Main.tileSolidTop[(int)Main.tile[num131, num132].type])
+		                                                        {
+		                                                            Vector2 vector15;
+		                                                            vector15.X = (float)(num131 * 16);
+		                                                            vector15.Y = (float)(num132 * 16);
+		                                                            if ((float)(num129 + 8) > vector15.X && (float)num129 < vector15.X + 16f && (float)(num130 + 8) > vector15.Y && (float)num130 < vector15.Y + 16f)
+		                                                            {
+		                                                                this.Kill();
+		                                                            }
+		                                                        }
+		                                                    }
+		                                                }
+		                                                Vector2 arg_5F75_0 = new Vector2(this.position.X, this.position.Y);
+		                                                int arg_5F75_1 = this.width;
+		                                                int arg_5F75_2 = this.height;
+		                                                int arg_5F75_3 = 67;
+		                                                float arg_5F75_4 = 0f;
+		                                                float arg_5F75_5 = 0f;
+		                                                int arg_5F75_6 = 0;
+		                                                Color newColor = default(Color);
+		                                                int num133 = Dust.NewDust(arg_5F75_0, arg_5F75_1, arg_5F75_2, arg_5F75_3, arg_5F75_4, arg_5F75_5, arg_5F75_6, newColor, 1f);
+		                                                Main.dust[num133].noGravity = true;
+		                                                Dust expr_5F92 = Main.dust[num133];
+		                                                expr_5F92.velocity *= 0.3f;
+		                                                return;
+		                                            }
+		                                            if (this.ai[0] < 0f)
+		                                            {
+		                                                if (this.ai[0] == -1f)
+		                                                {
+		                                                    for (int num134 = 0; num134 < 10; num134++)
+		                                                    {
+		                                                        Vector2 arg_6014_0 = new Vector2(this.position.X, this.position.Y);
+		                                                        int arg_6014_1 = this.width;
+		                                                        int arg_6014_2 = this.height;
+		                                                        int arg_6014_3 = 67;
+		                                                        float arg_6014_4 = 0f;
+		                                                        float arg_6014_5 = 0f;
+		                                                        int arg_6014_6 = 0;
+		                                                        Color newColor = default(Color);
+		                                                        int num135 = Dust.NewDust(arg_6014_0, arg_6014_1, arg_6014_2, arg_6014_3, arg_6014_4, arg_6014_5, arg_6014_6, newColor, 1.1f);
+		                                                        Main.dust[num135].noGravity = true;
+		                                                        Dust expr_6031 = Main.dust[num135];
+		                                                        expr_6031.velocity *= 1.3f;
+		                                                    }
+		                                                }
+		                                                else
+		                                                {
+		                                                    if (Main.rand.Next(30) == 0)
+		                                                    {
+		                                                        Vector2 arg_60A9_0 = new Vector2(this.position.X, this.position.Y);
+		                                                        int arg_60A9_1 = this.width;
+		                                                        int arg_60A9_2 = this.height;
+		                                                        int arg_60A9_3 = 67;
+		                                                        float arg_60A9_4 = 0f;
+		                                                        float arg_60A9_5 = 0f;
+		                                                        int arg_60A9_6 = 100;
+		                                                        Color newColor = default(Color);
+		                                                        int num136 = Dust.NewDust(arg_60A9_0, arg_60A9_1, arg_60A9_2, arg_60A9_3, arg_60A9_4, arg_60A9_5, arg_60A9_6, newColor, 1f);
+		                                                        Dust expr_60B8 = Main.dust[num136];
+		                                                        expr_60B8.velocity *= 0.2f;
+		                                                    }
+		                                                }
+		                                                int num137 = (int)this.position.X / 16;
+		                                                int num138 = (int)this.position.Y / 16;
+		                                                if (Main.tile[num137, num138] == null || !Main.tile[num137, num138].active)
+		                                                {
+		                                                    this.Kill();
+		                                                }
+		                                                this.ai[0] -= 1f;
+		                                                if (this.ai[0] <= -300f && (Main.myPlayer == this.owner || Main.netMode == 2) && Main.tile[num137, num138].active && Main.tile[num137, num138].type == 127)
+		                                                {
+		                                                    WorldGen.KillTile(num137, num138, false, false, false);
+		                                                    if (Main.netMode == 1)
+		                                                    {
+		                                                        NetMessage.SendData(17, -1, -1, "", 0, (float)num137, (float)num138, 0f, 0);
+		                                                    }
+		                                                    this.Kill();
+		                                                    return;
+		                                                }
+		                                            }
+		                                            else
+		                                            {
+		                                                int num139 = (int)(this.position.X / 16f) - 1;
+		                                                int num140 = (int)((this.position.X + (float)this.width) / 16f) + 2;
+		                                                int num141 = (int)(this.position.Y / 16f) - 1;
+		                                                int num142 = (int)((this.position.Y + (float)this.height) / 16f) + 2;
+		                                                if (num139 < 0)
+		                                                {
+		                                                    num139 = 0;
+		                                                }
+		                                                if (num140 > Main.maxTilesX)
+		                                                {
+		                                                    num140 = Main.maxTilesX;
+		                                                }
+		                                                if (num141 < 0)
+		                                                {
+		                                                    num141 = 0;
+		                                                }
+		                                                if (num142 > Main.maxTilesY)
+		                                                {
+		                                                    num142 = Main.maxTilesY;
+		                                                }
+		                                                int num143 = (int)this.position.X + 4;
+		                                                int num144 = (int)this.position.Y + 4;
+		                                                for (int num145 = num139; num145 < num140; num145++)
+		                                                {
+		                                                    for (int num146 = num141; num146 < num142; num146++)
+		                                                    {
+		                                                        if (Main.tile[num145, num146] != null && Main.tile[num145, num146].active && Main.tile[num145, num146].type != 127 && Main.tileSolid[(int)Main.tile[num145, num146].type] && !Main.tileSolidTop[(int)Main.tile[num145, num146].type])
+		                                                        {
+		                                                            Vector2 vector16;
+		                                                            vector16.X = (float)(num145 * 16);
+		                                                            vector16.Y = (float)(num146 * 16);
+		                                                            if ((float)(num143 + 8) > vector16.X && (float)num143 < vector16.X + 16f && (float)(num144 + 8) > vector16.Y && (float)num144 < vector16.Y + 16f)
+		                                                            {
+		                                                                this.Kill();
+		                                                            }
+		                                                        }
+		                                                    }
+		                                                }
+		                                                if (this.lavaWet)
+		                                                {
+		                                                    this.Kill();
+		                                                }
+		                                                if (this.active)
+		                                                {
+		                                                    Vector2 arg_63E8_0 = new Vector2(this.position.X, this.position.Y);
+		                                                    int arg_63E8_1 = this.width;
+		                                                    int arg_63E8_2 = this.height;
+		                                                    int arg_63E8_3 = 67;
+		                                                    float arg_63E8_4 = 0f;
+		                                                    float arg_63E8_5 = 0f;
+		                                                    int arg_63E8_6 = 0;
+		                                                    Color newColor = default(Color);
+		                                                    int num147 = Dust.NewDust(arg_63E8_0, arg_63E8_1, arg_63E8_2, arg_63E8_3, arg_63E8_4, arg_63E8_5, arg_63E8_6, newColor, 1f);
+		                                                    Main.dust[num147].noGravity = true;
+		                                                    Dust expr_6405 = Main.dust[num147];
+		                                                    expr_6405.velocity *= 0.3f;
+		                                                    int num148 = (int)this.ai[0];
+		                                                    int num149 = (int)this.ai[1];
+		                                                    if (this.velocity.X > 0f)
+		                                                    {
+		                                                        this.rotation += 0.3f;
+		                                                    }
+		                                                    else
+		                                                    {
+		                                                        this.rotation -= 0.3f;
+		                                                    }
+		                                                    if (Main.myPlayer == this.owner)
+		                                                    {
+		                                                        int num150 = (int)((this.position.X + (float)(this.width / 2)) / 16f);
+		                                                        int num151 = (int)((this.position.Y + (float)(this.height / 2)) / 16f);
+		                                                        bool flag2 = false;
+		                                                        if (num150 == num148 && num151 == num149)
+		                                                        {
+		                                                            flag2 = true;
+		                                                        }
+		                                                        if (((this.velocity.X <= 0f && num150 <= num148) || (this.velocity.X >= 0f && num150 >= num148)) && ((this.velocity.Y <= 0f && num151 <= num149) || (this.velocity.Y >= 0f && num151 >= num149)))
+		                                                        {
+		                                                            flag2 = true;
+		                                                        }
+		                                                        if (flag2)
+		                                                        {
+		                                                            if (WorldGen.PlaceTile(num148, num149, 127, false, false, this.owner, 0))
+		                                                            {
+		                                                                if (Main.netMode == 1)
+		                                                                {
+		                                                                    NetMessage.SendData(17, -1, -1, "", 1, (float)((int)this.ai[0]), (float)((int)this.ai[1]), 127f, 0);
+		                                                                }
+		                                                                this.damage = 0;
+		                                                                this.ai[0] = -1f;
+		                                                                this.velocity *= 0f;
+		                                                                this.alpha = 255;
+		                                                                this.position.X = (float)(num148 * 16);
+		                                                                this.position.Y = (float)(num149 * 16);
+		                                                                this.netUpdate = true;
+		                                                                return;
+		                                                            }
+		                                                            this.ai[1] = -1f;
+		                                                            return;
+		                                                        }
+		                                                    }
+		                                                }
+		                                            }
+		                                        }
+		                                        else
+		                                        {
+		                                            if (this.aiStyle == 23)
+		                                            {
+		                                                if (this.timeLeft > 60)
+		                                                {
+		                                                    this.timeLeft = 60;
+		                                                }
+		                                                if (this.ai[0] > 7f)
+		                                                {
+		                                                    float num152 = 1f;
+		                                                    if (this.ai[0] == 8f)
+		                                                    {
+		                                                        num152 = 0.25f;
+		                                                    }
+		                                                    else
+		                                                    {
+		                                                        if (this.ai[0] == 9f)
+		                                                        {
+		                                                            num152 = 0.5f;
+		                                                        }
+		                                                        else
+		                                                        {
+		                                                            if (this.ai[0] == 10f)
+		                                                            {
+		                                                                num152 = 0.75f;
+		                                                            }
+		                                                        }
+		                                                    }
+		                                                    this.ai[0] += 1f;
+		                                                    int num153 = 6;
+		                                                    if (this.type == 101)
+		                                                    {
+		                                                        num153 = 75;
+		                                                    }
+		                                                    if (num153 == 6 || Main.rand.Next(2) == 0)
+		                                                    {
+		                                                        for (int num154 = 0; num154 < 1; num154++)
+		                                                        {
+		                                                            Vector2 arg_670C_0 = new Vector2(this.position.X, this.position.Y);
+		                                                            int arg_670C_1 = this.width;
+		                                                            int arg_670C_2 = this.height;
+		                                                            int arg_670C_3 = num153;
+		                                                            float arg_670C_4 = this.velocity.X * 0.2f;
+		                                                            float arg_670C_5 = this.velocity.Y * 0.2f;
+		                                                            int arg_670C_6 = 100;
+		                                                            Color newColor = default(Color);
+		                                                            int num155 = Dust.NewDust(arg_670C_0, arg_670C_1, arg_670C_2, arg_670C_3, arg_670C_4, arg_670C_5, arg_670C_6, newColor, 1f);
+		                                                            if (Main.rand.Next(3) != 0 || (num153 == 75 && Main.rand.Next(3) == 0))
+		                                                            {
+		                                                                Main.dust[num155].noGravity = true;
+		                                                                Main.dust[num155].scale *= 3f;
+		                                                                Dust expr_6767_cp_0 = Main.dust[num155];
+		                                                                expr_6767_cp_0.velocity.X = expr_6767_cp_0.velocity.X * 2f;
+		                                                                Dust expr_6785_cp_0 = Main.dust[num155];
+		                                                                expr_6785_cp_0.velocity.Y = expr_6785_cp_0.velocity.Y * 2f;
+		                                                            }
+		                                                            Main.dust[num155].scale *= 1.5f;
+		                                                            Dust expr_67BC_cp_0 = Main.dust[num155];
+		                                                            expr_67BC_cp_0.velocity.X = expr_67BC_cp_0.velocity.X * 1.2f;
+		                                                            Dust expr_67DA_cp_0 = Main.dust[num155];
+		                                                            expr_67DA_cp_0.velocity.Y = expr_67DA_cp_0.velocity.Y * 1.2f;
+		                                                            Main.dust[num155].scale *= num152;
+		                                                            if (num153 == 75)
+		                                                            {
+		                                                                Dust expr_680F = Main.dust[num155];
+		                                                                expr_680F.velocity += this.velocity;
+		                                                                if (!Main.dust[num155].noGravity)
+		                                                                {
+		                                                                    Dust expr_683C = Main.dust[num155];
+		                                                                    expr_683C.velocity *= 0.5f;
+		                                                                }
+		                                                            }
+		                                                        }
+		                                                    }
+		                                                }
+		                                                else
+		                                                {
+		                                                    this.ai[0] += 1f;
+		                                                }
+		                                                this.rotation += 0.3f * (float)this.direction;
+		                                                return;
+		                                            }
+		                                            if (this.aiStyle == 24)
+		                                            {
+		                                                this.light = this.scale * 0.5f;
+		                                                this.rotation += this.velocity.X * 0.2f;
+		                                                this.ai[1] += 1f;
+		                                                if (this.type == 94)
+		                                                {
+		                                                    if (Main.rand.Next(4) == 0)
+		                                                    {
+		                                                        Vector2 arg_6953_0 = new Vector2(this.position.X, this.position.Y);
+		                                                        int arg_6953_1 = this.width;
+		                                                        int arg_6953_2 = this.height;
+		                                                        int arg_6953_3 = 70;
+		                                                        float arg_6953_4 = 0f;
+		                                                        float arg_6953_5 = 0f;
+		                                                        int arg_6953_6 = 0;
+		                                                        Color newColor = default(Color);
+		                                                        int num156 = Dust.NewDust(arg_6953_0, arg_6953_1, arg_6953_2, arg_6953_3, arg_6953_4, arg_6953_5, arg_6953_6, newColor, 1f);
+		                                                        Main.dust[num156].noGravity = true;
+		                                                        Dust expr_6970 = Main.dust[num156];
+		                                                        expr_6970.velocity *= 0.5f;
+		                                                        Main.dust[num156].scale *= 0.9f;
+		                                                    }
+		                                                    this.velocity *= 0.985f;
+		                                                    if (this.ai[1] > 130f)
+		                                                    {
+		                                                        this.scale -= 0.05f;
+		                                                        if ((double)this.scale <= 0.2)
+		                                                        {
+		                                                            this.scale = 0.2f;
+		                                                            this.Kill();
+		                                                            return;
+		                                                        }
+		                                                    }
+		                                                }
+		                                                else
+		                                                {
+		                                                    this.velocity *= 0.96f;
+		                                                    if (this.ai[1] > 15f)
+		                                                    {
+		                                                        this.scale -= 0.05f;
+		                                                        if ((double)this.scale <= 0.2)
+		                                                        {
+		                                                            this.scale = 0.2f;
+		                                                            this.Kill();
+		                                                            return;
+		                                                        }
+		                                                    }
+		                                                }
+		                                            }
+		                                            else
+		                                            {
+		                                                if (this.aiStyle == 25)
+		                                                {
+		                                                    if (this.ai[0] != 0f && this.velocity.Y <= 0f && this.velocity.X == 0f)
+		                                                    {
+		                                                        float num157 = 0.5f;
+		                                                        int i2 = (int)((this.position.X - 8f) / 16f);
+		                                                        int num158 = (int)(this.position.Y / 16f);
+		                                                        bool flag3 = false;
+		                                                        bool flag4 = false;
+		                                                        if (WorldGen.SolidTile(i2, num158) || WorldGen.SolidTile(i2, num158 + 1))
+		                                                        {
+		                                                            flag3 = true;
+		                                                        }
+		                                                        i2 = (int)((this.position.X + (float)this.width + 8f) / 16f);
+		                                                        if (WorldGen.SolidTile(i2, num158) || WorldGen.SolidTile(i2, num158 + 1))
+		                                                        {
+		                                                            flag4 = true;
+		                                                        }
+		                                                        if (flag3)
+		                                                        {
+		                                                            this.velocity.X = num157;
+		                                                        }
+		                                                        else
+		                                                        {
+		                                                            if (flag4)
+		                                                            {
+		                                                                this.velocity.X = -num157;
+		                                                            }
+		                                                            else
+		                                                            {
+		                                                                i2 = (int)((this.position.X - 8f - 16f) / 16f);
+		                                                                num158 = (int)(this.position.Y / 16f);
+		                                                                flag3 = false;
+		                                                                flag4 = false;
+		                                                                if (WorldGen.SolidTile(i2, num158) || WorldGen.SolidTile(i2, num158 + 1))
+		                                                                {
+		                                                                    flag3 = true;
+		                                                                }
+		                                                                i2 = (int)((this.position.X + (float)this.width + 8f + 16f) / 16f);
+		                                                                if (WorldGen.SolidTile(i2, num158) || WorldGen.SolidTile(i2, num158 + 1))
+		                                                                {
+		                                                                    flag4 = true;
+		                                                                }
+		                                                                if (flag3)
+		                                                                {
+		                                                                    this.velocity.X = num157;
+		                                                                }
+		                                                                else
+		                                                                {
+		                                                                    if (flag4)
+		                                                                    {
+		                                                                        this.velocity.X = -num157;
+		                                                                    }
+		                                                                    else
+		                                                                    {
+		                                                                        i2 = (int)((this.position.X + 4f) / 16f);
+		                                                                        num158 = (int)((this.position.Y + (float)this.height + 8f) / 16f);
+		                                                                        if (WorldGen.SolidTile(i2, num158) || WorldGen.SolidTile(i2, num158 + 1))
+		                                                                        {
+		                                                                            flag3 = true;
+		                                                                        }
+		                                                                        if (!flag3)
+		                                                                        {
+		                                                                            this.velocity.X = num157;
+		                                                                        }
+		                                                                        else
+		                                                                        {
+		                                                                            this.velocity.X = -num157;
+		                                                                        }
+		                                                                    }
+		                                                                }
+		                                                            }
+		                                                        }
+		                                                    }
+		                                                    this.rotation += this.velocity.X * 0.06f;
+		                                                    this.ai[0] = 1f;
+		                                                    if (this.velocity.Y > 16f)
+		                                                    {
+		                                                        this.velocity.Y = 16f;
+		                                                    }
+		                                                    if (this.velocity.Y <= 6f)
+		                                                    {
+		                                                        if (this.velocity.X > 0f && this.velocity.X < 7f)
+		                                                        {
+		                                                            this.velocity.X = this.velocity.X + 0.05f;
+		                                                        }
+		                                                        if (this.velocity.X < 0f && this.velocity.X > -7f)
+		                                                        {
+		                                                            this.velocity.X = this.velocity.X - 0.05f;
+		                                                        }
+		                                                    }
+		                                                    this.velocity.Y = this.velocity.Y + 0.3f;
+		                                                }
+		                                            }
+		                                        }
+		                                    }
+		                                }
+		                            }
+		                        }
+		                    }
+		                }
+		            }
+		            break;
+		    }
 		}
-		public void Kill()
+	    public void Kill()
 		{
 			if (!this.active)
 			{

@@ -3,6 +3,8 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using Hooks;
+
 namespace Terraria
 {
 	internal class WorldGen
@@ -1240,6 +1242,10 @@ namespace Terraria
 		}
 		public static void saveWorld(bool resetTime = false)
 		{
+            if (WorldHooks.OnSaveWorld(resetTime))
+            {
+                return;
+            }
 			if (Main.worldName == "")
 			{
 				Main.worldName = "World";
@@ -5943,6 +5949,8 @@ namespace Terraria
 			{
 				return;
 			}
+            if (WorldHooks.OnStartHardMode())
+                return;
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.smCallBack), 1);
 		}
 		public static bool PlaceDoor(int i, int j, int type)

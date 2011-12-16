@@ -1,5 +1,7 @@
 
 using System;
+using Hooks;
+
 namespace Terraria
 {
 	public class NPC
@@ -8,29 +10,29 @@ namespace Terraria
 		public static int immuneTime = 20;
 		public static int maxAI = 4;
 		public int netSpam;
-		private static int spawnSpaceX = 3;
-		private static int spawnSpaceY = 3;
-		private static int maxAttack = 20;
-		private static int[] attackNPC = new int[NPC.maxAttack];
+		public static int spawnSpaceX = 3;
+		public static int spawnSpaceY = 3;
+		public static int maxAttack = 20;
+		public static int[] attackNPC = new int[NPC.maxAttack];
 		public Vector2[] oldPos = new Vector2[10];
 		public int netSkip;
 		public bool netAlways;
 		public int realLife = -1;
 		public static int sWidth = 1920;
 		public static int sHeight = 1080;
-		private static int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
-		private static int spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
+		public static int spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
+		public static int spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
 		public static int safeRangeX = (int)((double)(NPC.sWidth / 16) * 0.52);
 		public static int safeRangeY = (int)((double)(NPC.sHeight / 16) * 0.52);
-		private static int activeRangeX = (int)((double)NPC.sWidth * 1.7);
-		private static int activeRangeY = (int)((double)NPC.sHeight * 1.7);
-		private static int townRangeX = NPC.sWidth;
-		private static int townRangeY = NPC.sHeight;
+		public static int activeRangeX = (int)((double)NPC.sWidth * 1.7);
+		public static int activeRangeY = (int)((double)NPC.sHeight * 1.7);
+		public static int townRangeX = NPC.sWidth;
+		public static int townRangeY = NPC.sHeight;
 		public float npcSlots = 1f;
-		private static bool noSpawnCycle = false;
-		private static int activeTime = 750;
-		private static int defaultSpawnRate = 600;
-		private static int defaultMaxSpawns = 5;
+		public static bool noSpawnCycle = false;
+		public static int activeTime = 750;
+		public static int defaultSpawnRate = 600;
+		public static int defaultMaxSpawns = 5;
 		public bool wet;
 		public byte wetCount;
 		public bool lavaWet;
@@ -52,8 +54,8 @@ namespace Terraria
 		public static bool downedGoblins = false;
 		public static bool downedFrost = false;
 		public static bool downedClown = false;
-		private static int spawnRate = NPC.defaultSpawnRate;
-		private static int maxSpawns = NPC.defaultMaxSpawns;
+		public static int spawnRate = NPC.defaultSpawnRate;
+		public static int maxSpawns = NPC.defaultMaxSpawns;
 		public int soundDelay;
 		public Vector2 position;
 		public Vector2 velocity;
@@ -135,160 +137,77 @@ namespace Terraria
 			}
 			int num = WorldGen.genRand.Next(23);
 			string text = "";
-			if (num == 0)
+			switch (num)
 			{
-				text = "Molly";
-			}
-			else
-			{
-				if (num == 1)
-				{
-					text = "Amy";
-				}
-				else
-				{
-					if (num == 2)
-					{
-						text = "Claire";
-					}
-					else
-					{
-						if (num == 3)
-						{
-							text = "Emily";
-						}
-						else
-						{
-							if (num == 4)
-							{
-								text = "Katie";
-							}
-							else
-							{
-								if (num == 5)
-								{
-									text = "Madeline";
-								}
-								else
-								{
-									if (num == 6)
-									{
-										text = "Katelyn";
-									}
-									else
-									{
-										if (num == 7)
-										{
-											text = "Emma";
-										}
-										else
-										{
-											if (num == 8)
-											{
-												text = "Abigail";
-											}
-											else
-											{
-												if (num == 9)
-												{
-													text = "Carly";
-												}
-												else
-												{
-													if (num == 10)
-													{
-														text = "Jenna";
-													}
-													else
-													{
-														if (num == 11)
-														{
-															text = "Heather";
-														}
-														else
-														{
-															if (num == 12)
-															{
-																text = "Katherine";
-															}
-															else
-															{
-																if (num == 13)
-																{
-																	text = "Caitlin";
-																}
-																else
-																{
-																	if (num == 14)
-																	{
-																		text = "Kaitlin";
-																	}
-																	else
-																	{
-																		if (num == 15)
-																		{
-																			text = "Holly";
-																		}
-																		else
-																		{
-																			if (num == 16)
-																			{
-																				text = "Kaitlyn";
-																			}
-																			else
-																			{
-																				if (num == 17)
-																				{
-																					text = "Hannah";
-																				}
-																				else
-																				{
-																					if (num == 18)
-																					{
-																						text = "Kathryn";
-																					}
-																					else
-																					{
-																						if (num == 19)
-																						{
-																							text = "Lorraine";
-																						}
-																						else
-																						{
-																							if (num == 20)
-																							{
-																								text = "Helen";
-																							}
-																							else
-																							{
-																								if (num == 21)
-																								{
-																									text = "Kayla";
-																								}
-																								else
-																								{
-																									text = "Allison";
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+			    case 0:
+			        text = "Molly";
+			        break;
+			    case 1:
+			        text = "Amy";
+			        break;
+			    case 2:
+			        text = "Claire";
+			        break;
+			    case 3:
+			        text = "Emily";
+			        break;
+			    case 4:
+			        text = "Katie";
+			        break;
+			    case 5:
+			        text = "Madeline";
+			        break;
+			    case 6:
+			        text = "Katelyn";
+			        break;
+			    case 7:
+			        text = "Emma";
+			        break;
+			    case 8:
+			        text = "Abigail";
+			        break;
+			    case 9:
+			        text = "Carly";
+			        break;
+			    case 10:
+			        text = "Jenna";
+			        break;
+			    case 11:
+			        text = "Heather";
+			        break;
+			    case 12:
+			        text = "Katherine";
+			        break;
+			    case 13:
+			        text = "Caitlin";
+			        break;
+			    case 14:
+			        text = "Kaitlin";
+			        break;
+			    case 15:
+			        text = "Holly";
+			        break;
+			    case 16:
+			        text = "Kaitlyn";
+			        break;
+			    case 17:
+			        text = "Hannah";
+			        break;
+			    case 18:
+			        text = "Kathryn";
+			        break;
+			    case 19:
+			        text = "Lorraine";
+			        break;
+			    case 20:
+			        text = "Helen";
+			        break;
+			    case 21:
+			        text = "Kayla";
+			        break;
+			    default:
+			        text = "Allison";
+			        break;
 			}
 			if (Main.chrName[18] == "")
 			{
@@ -1832,90 +1751,76 @@ namespace Terraria
 		{
 			if (type < 0)
 			{
-				if (type == -1)
+				switch (type)
 				{
-					this.SetDefaults("Slimeling");
-					return;
-				}
-				if (type == -2)
-				{
-					this.SetDefaults("Slimer2");
-					return;
-				}
-				if (type == -3)
-				{
-					this.SetDefaults("Green Slime");
-					return;
-				}
-				if (type == -4)
-				{
-					this.SetDefaults("Pinky");
-					return;
-				}
-				if (type == -5)
-				{
-					this.SetDefaults("Baby Slime");
-					return;
-				}
-				if (type == -6)
-				{
-					this.SetDefaults("Black Slime");
-					return;
-				}
-				if (type == -7)
-				{
-					this.SetDefaults("Purple Slime");
-					return;
-				}
-				if (type == -8)
-				{
-					this.SetDefaults("Red Slime");
-					return;
-				}
-				if (type == -9)
-				{
-					this.SetDefaults("Yellow Slime");
-					return;
-				}
-				if (type == -10)
-				{
-					this.SetDefaults("Jungle Slime");
-					return;
-				}
-				if (type == -11)
-				{
-					this.SetDefaults("Little Eater");
-					return;
-				}
-				if (type == -12)
-				{
-					this.SetDefaults("Big Eater");
-					return;
-				}
-				if (type == -13)
-				{
-					this.SetDefaults("Short Bones");
-					return;
-				}
-				if (type == -14)
-				{
-					this.SetDefaults("Big Boned");
-					return;
-				}
-				if (type == -15)
-				{
-					this.SetDefaults("Heavy Skeleton");
-					return;
-				}
-				if (type == -16)
-				{
-					this.SetDefaults("Little Stinger");
-					return;
-				}
-				if (type == -17)
-				{
-					this.SetDefaults("Big Stinger");
-					return;
+				    case -1:
+				        this.SetDefaults("Slimeling");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -2:
+				        this.SetDefaults("Slimer2");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -3:
+				        this.SetDefaults("Green Slime");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -4:
+				        this.SetDefaults("Pinky");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -5:
+				        this.SetDefaults("Baby Slime");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -6:
+				        this.SetDefaults("Black Slime");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -7:
+				        this.SetDefaults("Purple Slime");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -8:
+				        this.SetDefaults("Red Slime");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -9:
+				        this.SetDefaults("Yellow Slime");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -10:
+				        this.SetDefaults("Jungle Slime");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -11:
+				        this.SetDefaults("Little Eater");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -12:
+				        this.SetDefaults("Big Eater");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -13:
+				        this.SetDefaults("Short Bones");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -14:
+				        this.SetDefaults("Big Boned");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -15:
+				        this.SetDefaults("Heavy Skeleton");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -16:
+				        this.SetDefaults("Little Stinger");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
+				    case -17:
+				        this.SetDefaults("Big Stinger");
+				        NpcHooks.OnNetDefaults(ref type, this);
+				        return;
 				}
 			}
 			else
@@ -1926,272 +1831,209 @@ namespace Terraria
 		public void SetDefaults(string Name)
 		{
 			this.SetDefaults(0, -1f);
-			if (Name == "Slimeling")
+			switch (Name)
 			{
-				this.SetDefaults(81, 0.6f);
-				this.name = Name;
-				this.damage = 45;
-				this.defense = 10;
-				this.life = 90;
-				this.knockBackResist = 1.2f;
-				this.value = 100f;
-				this.netID = -1;
-			}
-			else
-			{
-				if (Name == "Slimer2")
-				{
-					this.SetDefaults(81, 0.9f);
-					this.displayName = "Slimer";
-					this.name = Name;
-					this.damage = 45;
-					this.defense = 20;
-					this.life = 90;
-					this.knockBackResist = 1.2f;
-					this.value = 100f;
-					this.netID = -2;
-				}
-				else
-				{
-					if (Name == "Green Slime")
-					{
-						this.SetDefaults(1, 0.9f);
-						this.name = Name;
-						this.damage = 6;
-						this.defense = 0;
-						this.life = 14;
-						this.knockBackResist = 1.2f;
-						this.color = new Color(0, 220, 40, 100);
-						this.value = 3f;
-						this.netID = -3;
-					}
-					else
-					{
-						if (Name == "Pinky")
-						{
-							this.SetDefaults(1, 0.6f);
-							this.name = Name;
-							this.damage = 5;
-							this.defense = 5;
-							this.life = 150;
-							this.knockBackResist = 1.4f;
-							this.color = new Color(250, 30, 90, 90);
-							this.value = 10000f;
-							this.netID = -4;
-						}
-						else
-						{
-							if (Name == "Baby Slime")
-							{
-								this.SetDefaults(1, 0.9f);
-								this.name = Name;
-								this.damage = 13;
-								this.defense = 4;
-								this.life = 30;
-								this.knockBackResist = 0.95f;
-								this.alpha = 120;
-								this.color = new Color(0, 0, 0, 50);
-								this.value = 10f;
-								this.netID = -5;
-							}
-							else
-							{
-								if (Name == "Black Slime")
-								{
-									this.SetDefaults(1, -1f);
-									this.name = Name;
-									this.damage = 15;
-									this.defense = 4;
-									this.life = 45;
-									this.color = new Color(0, 0, 0, 50);
-									this.value = 20f;
-									this.netID = -6;
-								}
-								else
-								{
-									if (Name == "Purple Slime")
-									{
-										this.SetDefaults(1, 1.2f);
-										this.name = Name;
-										this.damage = 12;
-										this.defense = 6;
-										this.life = 40;
-										this.knockBackResist = 0.9f;
-										this.color = new Color(200, 0, 255, 150);
-										this.value = 10f;
-										this.netID = -7;
-									}
-									else
-									{
-										if (Name == "Red Slime")
-										{
-											this.SetDefaults(1, -1f);
-											this.name = Name;
-											this.damage = 12;
-											this.defense = 4;
-											this.life = 35;
-											this.color = new Color(255, 30, 0, 100);
-											this.value = 8f;
-											this.netID = -8;
-										}
-										else
-										{
-											if (Name == "Yellow Slime")
-											{
-												this.SetDefaults(1, 1.2f);
-												this.name = Name;
-												this.damage = 15;
-												this.defense = 7;
-												this.life = 45;
-												this.color = new Color(255, 255, 0, 100);
-												this.value = 10f;
-												this.netID = -9;
-											}
-											else
-											{
-												if (Name == "Jungle Slime")
-												{
-													this.SetDefaults(1, 1.1f);
-													this.name = Name;
-													this.damage = 18;
-													this.defense = 6;
-													this.life = 60;
-													this.color = new Color(143, 215, 93, 100);
-													this.value = 500f;
-													this.netID = -10;
-												}
-												else
-												{
-													if (Name == "Little Eater")
-													{
-														this.SetDefaults(6, 0.85f);
-														this.name = Name;
-														this.defense = (int)((float)this.defense * this.scale);
-														this.damage = (int)((float)this.damage * this.scale);
-														this.life = (int)((float)this.life * this.scale);
-														this.value = (float)((int)(this.value * this.scale));
-														this.npcSlots *= this.scale;
-														this.knockBackResist *= 2f - this.scale;
-														this.netID = -11;
-													}
-													else
-													{
-														if (Name == "Big Eater")
-														{
-															this.SetDefaults(6, 1.15f);
-															this.name = Name;
-															this.defense = (int)((float)this.defense * this.scale);
-															this.damage = (int)((float)this.damage * this.scale);
-															this.life = (int)((float)this.life * this.scale);
-															this.value = (float)((int)(this.value * this.scale));
-															this.npcSlots *= this.scale;
-															this.knockBackResist *= 2f - this.scale;
-															this.netID = -12;
-														}
-														else
-														{
-															if (Name == "Short Bones")
-															{
-																this.SetDefaults(31, 0.9f);
-																this.name = Name;
-																this.defense = (int)((float)this.defense * this.scale);
-																this.damage = (int)((float)this.damage * this.scale);
-																this.life = (int)((float)this.life * this.scale);
-																this.value = (float)((int)(this.value * this.scale));
-																this.netID = -13;
-															}
-															else
-															{
-																if (Name == "Big Boned")
-																{
-																	this.SetDefaults(31, 1.15f);
-																	this.name = Name;
-																	this.defense = (int)((float)this.defense * this.scale);
-																	this.damage = (int)((double)((float)this.damage * this.scale) * 1.1);
-																	this.life = (int)((double)((float)this.life * this.scale) * 1.1);
-																	this.value = (float)((int)(this.value * this.scale));
-																	this.npcSlots = 2f;
-																	this.knockBackResist *= 2f - this.scale;
-																	this.netID = -14;
-																}
-																else
-																{
-																	if (Name == "Heavy Skeleton")
-																	{
-																		this.SetDefaults(77, 1.15f);
-																		this.name = Name;
-																		this.defense = (int)((float)this.defense * this.scale);
-																		this.damage = (int)((double)((float)this.damage * this.scale) * 1.1);
-																		this.life = 400;
-																		this.value = (float)((int)(this.value * this.scale));
-																		this.npcSlots = 2f;
-																		this.knockBackResist *= 2f - this.scale;
-																		this.height = 44;
-																		this.netID = -15;
-																	}
-																	else
-																	{
-																		if (Name == "Little Stinger")
-																		{
-																			this.SetDefaults(42, 0.85f);
-																			this.name = Name;
-																			this.defense = (int)((float)this.defense * this.scale);
-																			this.damage = (int)((float)this.damage * this.scale);
-																			this.life = (int)((float)this.life * this.scale);
-																			this.value = (float)((int)(this.value * this.scale));
-																			this.npcSlots *= this.scale;
-																			this.knockBackResist *= 2f - this.scale;
-																			this.netID = -16;
-																		}
-																		else
-																		{
-																			if (Name == "Big Stinger")
-																			{
-																				this.SetDefaults(42, 1.2f);
-																				this.name = Name;
-																				this.defense = (int)((float)this.defense * this.scale);
-																				this.damage = (int)((float)this.damage * this.scale);
-																				this.life = (int)((float)this.life * this.scale);
-																				this.value = (float)((int)(this.value * this.scale));
-																				this.npcSlots *= this.scale;
-																				this.knockBackResist *= 2f - this.scale;
-																				this.netID = -17;
-																			}
-																			else
-																			{
-																				if (Name != "")
-																				{
-																					for (int i = 1; i < 147; i++)
-																					{
-																						if (Main.npcName[i] == Name)
-																						{
-																							this.SetDefaults(i, -1f);
-																							return;
-																						}
-																					}
-																					this.SetDefaults(0, -1f);
-																					this.active = false;
-																				}
-																				else
-																				{
-																					this.active = false;
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+			    case "Slimeling":
+			        this.SetDefaults(81, 0.6f);
+			        this.name = Name;
+			        this.damage = 45;
+			        this.defense = 10;
+			        this.life = 90;
+			        this.knockBackResist = 1.2f;
+			        this.value = 100f;
+			        this.netID = -1;
+			        break;
+			    case "Slimer2":
+			        this.SetDefaults(81, 0.9f);
+			        this.displayName = "Slimer";
+			        this.name = Name;
+			        this.damage = 45;
+			        this.defense = 20;
+			        this.life = 90;
+			        this.knockBackResist = 1.2f;
+			        this.value = 100f;
+			        this.netID = -2;
+			        break;
+			    case "Green Slime":
+			        this.SetDefaults(1, 0.9f);
+			        this.name = Name;
+			        this.damage = 6;
+			        this.defense = 0;
+			        this.life = 14;
+			        this.knockBackResist = 1.2f;
+			        this.color = new Color(0, 220, 40, 100);
+			        this.value = 3f;
+			        this.netID = -3;
+			        break;
+			    case "Pinky":
+			        this.SetDefaults(1, 0.6f);
+			        this.name = Name;
+			        this.damage = 5;
+			        this.defense = 5;
+			        this.life = 150;
+			        this.knockBackResist = 1.4f;
+			        this.color = new Color(250, 30, 90, 90);
+			        this.value = 10000f;
+			        this.netID = -4;
+			        break;
+			    case "Baby Slime":
+			        this.SetDefaults(1, 0.9f);
+			        this.name = Name;
+			        this.damage = 13;
+			        this.defense = 4;
+			        this.life = 30;
+			        this.knockBackResist = 0.95f;
+			        this.alpha = 120;
+			        this.color = new Color(0, 0, 0, 50);
+			        this.value = 10f;
+			        this.netID = -5;
+			        break;
+			    case "Black Slime":
+			        this.SetDefaults(1, -1f);
+			        this.name = Name;
+			        this.damage = 15;
+			        this.defense = 4;
+			        this.life = 45;
+			        this.color = new Color(0, 0, 0, 50);
+			        this.value = 20f;
+			        this.netID = -6;
+			        break;
+			    case "Purple Slime":
+			        this.SetDefaults(1, 1.2f);
+			        this.name = Name;
+			        this.damage = 12;
+			        this.defense = 6;
+			        this.life = 40;
+			        this.knockBackResist = 0.9f;
+			        this.color = new Color(200, 0, 255, 150);
+			        this.value = 10f;
+			        this.netID = -7;
+			        break;
+			    case "Red Slime":
+			        this.SetDefaults(1, -1f);
+			        this.name = Name;
+			        this.damage = 12;
+			        this.defense = 4;
+			        this.life = 35;
+			        this.color = new Color(255, 30, 0, 100);
+			        this.value = 8f;
+			        this.netID = -8;
+			        break;
+			    case "Yellow Slime":
+			        this.SetDefaults(1, 1.2f);
+			        this.name = Name;
+			        this.damage = 15;
+			        this.defense = 7;
+			        this.life = 45;
+			        this.color = new Color(255, 255, 0, 100);
+			        this.value = 10f;
+			        this.netID = -9;
+			        break;
+			    case "Jungle Slime":
+			        this.SetDefaults(1, 1.1f);
+			        this.name = Name;
+			        this.damage = 18;
+			        this.defense = 6;
+			        this.life = 60;
+			        this.color = new Color(143, 215, 93, 100);
+			        this.value = 500f;
+			        this.netID = -10;
+			        break;
+			    case "Little Eater":
+			        this.SetDefaults(6, 0.85f);
+			        this.name = Name;
+			        this.defense = (int)((float)this.defense * this.scale);
+			        this.damage = (int)((float)this.damage * this.scale);
+			        this.life = (int)((float)this.life * this.scale);
+			        this.value = (float)((int)(this.value * this.scale));
+			        this.npcSlots *= this.scale;
+			        this.knockBackResist *= 2f - this.scale;
+			        this.netID = -11;
+			        break;
+			    case "Big Eater":
+			        this.SetDefaults(6, 1.15f);
+			        this.name = Name;
+			        this.defense = (int)((float)this.defense * this.scale);
+			        this.damage = (int)((float)this.damage * this.scale);
+			        this.life = (int)((float)this.life * this.scale);
+			        this.value = (float)((int)(this.value * this.scale));
+			        this.npcSlots *= this.scale;
+			        this.knockBackResist *= 2f - this.scale;
+			        this.netID = -12;
+			        break;
+			    case "Short Bones":
+			        this.SetDefaults(31, 0.9f);
+			        this.name = Name;
+			        this.defense = (int)((float)this.defense * this.scale);
+			        this.damage = (int)((float)this.damage * this.scale);
+			        this.life = (int)((float)this.life * this.scale);
+			        this.value = (float)((int)(this.value * this.scale));
+			        this.netID = -13;
+			        break;
+			    case "Big Boned":
+			        this.SetDefaults(31, 1.15f);
+			        this.name = Name;
+			        this.defense = (int)((float)this.defense * this.scale);
+			        this.damage = (int)((double)((float)this.damage * this.scale) * 1.1);
+			        this.life = (int)((double)((float)this.life * this.scale) * 1.1);
+			        this.value = (float)((int)(this.value * this.scale));
+			        this.npcSlots = 2f;
+			        this.knockBackResist *= 2f - this.scale;
+			        this.netID = -14;
+			        break;
+			    case "Heavy Skeleton":
+			        this.SetDefaults(77, 1.15f);
+			        this.name = Name;
+			        this.defense = (int)((float)this.defense * this.scale);
+			        this.damage = (int)((double)((float)this.damage * this.scale) * 1.1);
+			        this.life = 400;
+			        this.value = (float)((int)(this.value * this.scale));
+			        this.npcSlots = 2f;
+			        this.knockBackResist *= 2f - this.scale;
+			        this.height = 44;
+			        this.netID = -15;
+			        break;
+			    case "Little Stinger":
+			        this.SetDefaults(42, 0.85f);
+			        this.name = Name;
+			        this.defense = (int)((float)this.defense * this.scale);
+			        this.damage = (int)((float)this.damage * this.scale);
+			        this.life = (int)((float)this.life * this.scale);
+			        this.value = (float)((int)(this.value * this.scale));
+			        this.npcSlots *= this.scale;
+			        this.knockBackResist *= 2f - this.scale;
+			        this.netID = -16;
+			        break;
+			    case "Big Stinger":
+			        this.SetDefaults(42, 1.2f);
+			        this.name = Name;
+			        this.defense = (int)((float)this.defense * this.scale);
+			        this.damage = (int)((float)this.damage * this.scale);
+			        this.life = (int)((float)this.life * this.scale);
+			        this.value = (float)((int)(this.value * this.scale));
+			        this.npcSlots *= this.scale;
+			        this.knockBackResist *= 2f - this.scale;
+			        this.netID = -17;
+			        break;
+			    default:
+			        if (Name != "")
+			        {
+			            for (int i = 1; i < 147; i++)
+			            {
+			                if (Main.npcName[i] == Name)
+			                {
+			                    this.SetDefaults(i, -1f);
+			                    return;
+			                }
+			            }
+			            this.SetDefaults(0, -1f);
+			            this.active = false;
+			        }
+			        else
+			        {
+			            this.active = false;
+			        }
+			        break;
 			}
 			if (this.displayName == null || this.displayName == "")
 			{
@@ -2200,6 +2042,7 @@ namespace Terraria
 			this.lifeMax = this.life;
 			this.defDamage = this.damage;
 			this.defDefense = this.defense;
+            NpcHooks.OnSetDefaultsString(ref Name, this);
 		}
 		public static bool MechSpawn(float x, float y, int type)
 		{
@@ -2399,2945 +2242,2375 @@ namespace Terraria
 			{
 				this.localAI[m] = 0f;
 			}
-			if (this.type == 1)
+			switch (this.type)
 			{
-				this.name = "Blue Slime";
-				this.width = 24;
-				this.height = 18;
-				this.aiStyle = 1;
-				this.damage = 7;
-				this.defense = 2;
-				this.lifeMax = 25;
-				this.soundHit = 1;
-				this.soundKilled = 1;
-				this.alpha = 175;
-				this.color = new Color(0, 80, 255, 100);
-				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
-			}
-			else
-			{
-				if (this.type == 2)
-				{
-					this.name = "Demon Eye";
-					this.width = 30;
-					this.height = 32;
-					this.aiStyle = 2;
-					this.damage = 18;
-					this.defense = 2;
-					this.lifeMax = 60;
-					this.soundHit = 1;
-					this.knockBackResist = 0.8f;
-					this.soundKilled = 1;
-					this.value = 75f;
-					this.buffImmune[31] = false;
-				}
-				else
-				{
-					if (this.type == 3)
-					{
-						this.name = "Zombie";
-						this.width = 18;
-						this.height = 40;
-						this.aiStyle = 3;
-						this.damage = 14;
-						this.defense = 6;
-						this.lifeMax = 45;
-						this.soundHit = 1;
-						this.soundKilled = 2;
-						this.knockBackResist = 0.5f;
-						this.value = 60f;
-						this.buffImmune[31] = false;
-					}
-					else
-					{
-						if (this.type == 4)
-						{
-							this.name = "Eye of Cthulhu";
-							this.width = 100;
-							this.height = 110;
-							this.aiStyle = 4;
-							this.damage = 15;
-							this.defense = 12;
-							this.lifeMax = 2800;
-							this.soundHit = 1;
-							this.soundKilled = 1;
-							this.knockBackResist = 0f;
-							this.noGravity = true;
-							this.noTileCollide = true;
-							this.timeLeft = NPC.activeTime * 30;
-							this.boss = true;
-							this.value = 30000f;
-							this.npcSlots = 5f;
-						}
-						else
-						{
-							if (this.type == 5)
-							{
-								this.name = "Servant of Cthulhu";
-								this.width = 20;
-								this.height = 20;
-								this.aiStyle = 5;
-								this.damage = 12;
-								this.defense = 0;
-								this.lifeMax = 8;
-								this.soundHit = 1;
-								this.soundKilled = 1;
-								this.noGravity = true;
-								this.noTileCollide = true;
-							}
-							else
-							{
-								if (this.type == 6)
-								{
-									this.npcSlots = 1f;
-									this.name = "Eater of Souls";
-									this.width = 30;
-									this.height = 30;
-									this.aiStyle = 5;
-									this.damage = 22;
-									this.defense = 8;
-									this.lifeMax = 40;
-									this.soundHit = 1;
-									this.soundKilled = 1;
-									this.noGravity = true;
-									this.knockBackResist = 0.5f;
-									this.value = 90f;
-								}
-								else
-								{
-									if (this.type == 7)
-									{
-										this.displayName = "Devourer";
-										this.npcSlots = 3.5f;
-										this.name = "Devourer Head";
-										this.width = 22;
-										this.height = 22;
-										this.aiStyle = 6;
-										this.damage = 31;
-										this.defense = 2;
-										this.lifeMax = 100;
-										this.soundHit = 1;
-										this.soundKilled = 1;
-										this.noGravity = true;
-										this.noTileCollide = true;
-										this.knockBackResist = 0f;
-										this.behindTiles = true;
-										this.value = 140f;
-										this.netAlways = true;
-									}
-									else
-									{
-										if (this.type == 8)
-										{
-											this.displayName = "Devourer";
-											this.name = "Devourer Body";
-											this.width = 22;
-											this.height = 22;
-											this.aiStyle = 6;
-											this.netAlways = true;
-											this.damage = 16;
-											this.defense = 6;
-											this.lifeMax = 100;
-											this.soundHit = 1;
-											this.soundKilled = 1;
-											this.noGravity = true;
-											this.noTileCollide = true;
-											this.knockBackResist = 0f;
-											this.behindTiles = true;
-											this.value = 140f;
-										}
-										else
-										{
-											if (this.type == 9)
-											{
-												this.displayName = "Devourer";
-												this.name = "Devourer Tail";
-												this.width = 22;
-												this.height = 22;
-												this.aiStyle = 6;
-												this.netAlways = true;
-												this.damage = 13;
-												this.defense = 10;
-												this.lifeMax = 100;
-												this.soundHit = 1;
-												this.soundKilled = 1;
-												this.noGravity = true;
-												this.noTileCollide = true;
-												this.knockBackResist = 0f;
-												this.behindTiles = true;
-												this.value = 140f;
-											}
-											else
-											{
-												if (this.type == 10)
-												{
-													this.displayName = "Giant Worm";
-													this.name = "Giant Worm Head";
-													this.width = 14;
-													this.height = 14;
-													this.aiStyle = 6;
-													this.netAlways = true;
-													this.damage = 8;
-													this.defense = 0;
-													this.lifeMax = 30;
-													this.soundHit = 1;
-													this.soundKilled = 1;
-													this.noGravity = true;
-													this.noTileCollide = true;
-													this.knockBackResist = 0f;
-													this.behindTiles = true;
-													this.value = 40f;
-												}
-												else
-												{
-													if (this.type == 11)
-													{
-														this.displayName = "Giant Worm";
-														this.name = "Giant Worm Body";
-														this.width = 14;
-														this.height = 14;
-														this.aiStyle = 6;
-														this.netAlways = true;
-														this.damage = 4;
-														this.defense = 4;
-														this.lifeMax = 30;
-														this.soundHit = 1;
-														this.soundKilled = 1;
-														this.noGravity = true;
-														this.noTileCollide = true;
-														this.knockBackResist = 0f;
-														this.behindTiles = true;
-														this.value = 40f;
-													}
-													else
-													{
-														if (this.type == 12)
-														{
-															this.displayName = "Giant Worm";
-															this.name = "Giant Worm Tail";
-															this.width = 14;
-															this.height = 14;
-															this.aiStyle = 6;
-															this.netAlways = true;
-															this.damage = 4;
-															this.defense = 6;
-															this.lifeMax = 30;
-															this.soundHit = 1;
-															this.soundKilled = 1;
-															this.noGravity = true;
-															this.noTileCollide = true;
-															this.knockBackResist = 0f;
-															this.behindTiles = true;
-															this.value = 40f;
-														}
-														else
-														{
-															if (this.type == 13)
-															{
-																this.displayName = "Eater of Worlds";
-																this.npcSlots = 5f;
-																this.name = "Eater of Worlds Head";
-																this.width = 38;
-																this.height = 38;
-																this.aiStyle = 6;
-																this.netAlways = true;
-																this.damage = 22;
-																this.defense = 2;
-																this.lifeMax = 65;
-																this.soundHit = 1;
-																this.soundKilled = 1;
-																this.noGravity = true;
-																this.noTileCollide = true;
-																this.knockBackResist = 0f;
-																this.behindTiles = true;
-																this.value = 300f;
-																this.scale = 1f;
-																this.buffImmune[20] = true;
-																this.buffImmune[24] = true;
-																this.buffImmune[39] = true;
-															}
-															else
-															{
-																if (this.type == 14)
-																{
-																	this.displayName = "Eater of Worlds";
-																	this.name = "Eater of Worlds Body";
-																	this.width = 38;
-																	this.height = 38;
-																	this.aiStyle = 6;
-																	this.netAlways = true;
-																	this.damage = 13;
-																	this.defense = 4;
-																	this.lifeMax = 150;
-																	this.soundHit = 1;
-																	this.soundKilled = 1;
-																	this.noGravity = true;
-																	this.noTileCollide = true;
-																	this.knockBackResist = 0f;
-																	this.behindTiles = true;
-																	this.value = 300f;
-																	this.scale = 1f;
-																	this.buffImmune[20] = true;
-																	this.buffImmune[24] = true;
-																	this.buffImmune[39] = true;
-																}
-																else
-																{
-																	if (this.type == 15)
-																	{
-																		this.displayName = "Eater of Worlds";
-																		this.name = "Eater of Worlds Tail";
-																		this.width = 38;
-																		this.height = 38;
-																		this.aiStyle = 6;
-																		this.netAlways = true;
-																		this.damage = 11;
-																		this.defense = 8;
-																		this.lifeMax = 220;
-																		this.soundHit = 1;
-																		this.soundKilled = 1;
-																		this.noGravity = true;
-																		this.noTileCollide = true;
-																		this.knockBackResist = 0f;
-																		this.behindTiles = true;
-																		this.value = 300f;
-																		this.scale = 1f;
-																		this.buffImmune[20] = true;
-																		this.buffImmune[24] = true;
-																		this.buffImmune[39] = true;
-																	}
-																	else
-																	{
-																		if (this.type == 16)
-																		{
-																			this.npcSlots = 2f;
-																			this.name = "Mother Slime";
-																			this.width = 36;
-																			this.height = 24;
-																			this.aiStyle = 1;
-																			this.damage = 20;
-																			this.defense = 7;
-																			this.lifeMax = 90;
-																			this.soundHit = 1;
-																			this.soundKilled = 1;
-																			this.alpha = 120;
-																			this.color = new Color(0, 0, 0, 50);
-																			this.value = 75f;
-																			this.scale = 1.25f;
-																			this.knockBackResist = 0.6f;
-																			this.buffImmune[20] = true;
-																			this.buffImmune[31] = false;
-																		}
-																		else
-																		{
-																			if (this.type == 17)
-																			{
-																				this.townNPC = true;
-																				this.friendly = true;
-																				this.name = "Merchant";
-																				this.width = 18;
-																				this.height = 40;
-																				this.aiStyle = 7;
-																				this.damage = 10;
-																				this.defense = 15;
-																				this.lifeMax = 250;
-																				this.soundHit = 1;
-																				this.soundKilled = 1;
-																				this.knockBackResist = 0.5f;
-																			}
-																			else
-																			{
-																				if (this.type == 18)
-																				{
-																					this.townNPC = true;
-																					this.friendly = true;
-																					this.name = "Nurse";
-																					this.width = 18;
-																					this.height = 40;
-																					this.aiStyle = 7;
-																					this.damage = 10;
-																					this.defense = 15;
-																					this.lifeMax = 250;
-																					this.soundHit = 1;
-																					this.soundKilled = 1;
-																					this.knockBackResist = 0.5f;
-																				}
-																				else
-																				{
-																					if (this.type == 19)
-																					{
-																						this.townNPC = true;
-																						this.friendly = true;
-																						this.name = "Arms Dealer";
-																						this.width = 18;
-																						this.height = 40;
-																						this.aiStyle = 7;
-																						this.damage = 10;
-																						this.defense = 15;
-																						this.lifeMax = 250;
-																						this.soundHit = 1;
-																						this.soundKilled = 1;
-																						this.knockBackResist = 0.5f;
-																					}
-																					else
-																					{
-																						if (this.type == 20)
-																						{
-																							this.townNPC = true;
-																							this.friendly = true;
-																							this.name = "Dryad";
-																							this.width = 18;
-																							this.height = 40;
-																							this.aiStyle = 7;
-																							this.damage = 10;
-																							this.defense = 15;
-																							this.lifeMax = 250;
-																							this.soundHit = 1;
-																							this.soundKilled = 1;
-																							this.knockBackResist = 0.5f;
-																						}
-																						else
-																						{
-																							if (this.type == 21)
-																							{
-																								this.name = "Skeleton";
-																								this.width = 18;
-																								this.height = 40;
-																								this.aiStyle = 3;
-																								this.damage = 20;
-																								this.defense = 8;
-																								this.lifeMax = 60;
-																								this.soundHit = 2;
-																								this.soundKilled = 2;
-																								this.knockBackResist = 0.5f;
-																								this.value = 100f;
-																								this.buffImmune[20] = true;
-																								this.buffImmune[31] = false;
-																							}
-																							else
-																							{
-																								if (this.type == 22)
-																								{
-																									this.townNPC = true;
-																									this.friendly = true;
-																									this.name = "Guide";
-																									this.width = 18;
-																									this.height = 40;
-																									this.aiStyle = 7;
-																									this.damage = 10;
-																									this.defense = 15;
-																									this.lifeMax = 250;
-																									this.soundHit = 1;
-																									this.soundKilled = 1;
-																									this.knockBackResist = 0.5f;
-																								}
-																								else
-																								{
-																									if (this.type == 23)
-																									{
-																										this.name = "Meteor Head";
-																										this.width = 22;
-																										this.height = 22;
-																										this.aiStyle = 5;
-																										this.damage = 40;
-																										this.defense = 6;
-																										this.lifeMax = 26;
-																										this.soundHit = 3;
-																										this.soundKilled = 3;
-																										this.noGravity = true;
-																										this.noTileCollide = true;
-																										this.value = 80f;
-																										this.knockBackResist = 0.4f;
-																										this.buffImmune[20] = true;
-																										this.buffImmune[24] = true;
-																										this.buffImmune[39] = true;
-																									}
-																									else
-																									{
-																										if (this.type == 24)
-																										{
-																											this.npcSlots = 3f;
-																											this.name = "Fire Imp";
-																											this.width = 18;
-																											this.height = 40;
-																											this.aiStyle = 8;
-																											this.damage = 30;
-																											this.defense = 16;
-																											this.lifeMax = 70;
-																											this.soundHit = 1;
-																											this.soundKilled = 1;
-																											this.knockBackResist = 0.5f;
-																											this.lavaImmune = true;
-																											this.value = 350f;
-																											this.buffImmune[24] = true;
-																											this.buffImmune[39] = true;
-																										}
-																										else
-																										{
-																											if (this.type == 25)
-																											{
-																												this.name = "Burning Sphere";
-																												this.width = 16;
-																												this.height = 16;
-																												this.aiStyle = 9;
-																												this.damage = 30;
-																												this.defense = 0;
-																												this.lifeMax = 1;
-																												this.soundHit = 3;
-																												this.soundKilled = 3;
-																												this.noGravity = true;
-																												this.noTileCollide = true;
-																												this.knockBackResist = 0f;
-																												this.alpha = 100;
-																											}
-																											else
-																											{
-																												if (this.type == 26)
-																												{
-																													this.name = "Goblin Peon";
-																													this.scale = 0.9f;
-																													this.width = 18;
-																													this.height = 40;
-																													this.aiStyle = 3;
-																													this.damage = 12;
-																													this.defense = 4;
-																													this.lifeMax = 60;
-																													this.soundHit = 1;
-																													this.soundKilled = 1;
-																													this.knockBackResist = 0.8f;
-																													this.value = 100f;
-																													this.buffImmune[31] = false;
-																												}
-																												else
-																												{
-																													if (this.type == 27)
-																													{
-																														this.name = "Goblin Thief";
-																														this.scale = 0.95f;
-																														this.width = 18;
-																														this.height = 40;
-																														this.aiStyle = 3;
-																														this.damage = 20;
-																														this.defense = 6;
-																														this.lifeMax = 80;
-																														this.soundHit = 1;
-																														this.soundKilled = 1;
-																														this.knockBackResist = 0.7f;
-																														this.value = 200f;
-																														this.buffImmune[31] = false;
-																													}
-																													else
-																													{
-																														if (this.type == 28)
-																														{
-																															this.name = "Goblin Warrior";
-																															this.scale = 1.1f;
-																															this.width = 18;
-																															this.height = 40;
-																															this.aiStyle = 3;
-																															this.damage = 25;
-																															this.defense = 8;
-																															this.lifeMax = 110;
-																															this.soundHit = 1;
-																															this.soundKilled = 1;
-																															this.knockBackResist = 0.5f;
-																															this.value = 150f;
-																															this.buffImmune[31] = false;
-																														}
-																														else
-																														{
-																															if (this.type == 29)
-																															{
-																																this.name = "Goblin Sorcerer";
-																																this.width = 18;
-																																this.height = 40;
-																																this.aiStyle = 8;
-																																this.damage = 20;
-																																this.defense = 2;
-																																this.lifeMax = 40;
-																																this.soundHit = 1;
-																																this.soundKilled = 1;
-																																this.knockBackResist = 0.6f;
-																																this.value = 200f;
-																															}
-																															else
-																															{
-																																if (this.type == 30)
-																																{
-																																	this.name = "Chaos Ball";
-																																	this.width = 16;
-																																	this.height = 16;
-																																	this.aiStyle = 9;
-																																	this.damage = 20;
-																																	this.defense = 0;
-																																	this.lifeMax = 1;
-																																	this.soundHit = 3;
-																																	this.soundKilled = 3;
-																																	this.noGravity = true;
-																																	this.noTileCollide = true;
-																																	this.alpha = 100;
-																																	this.knockBackResist = 0f;
-																																}
-																																else
-																																{
-																																	if (this.type == 31)
-																																	{
-																																		this.name = "Angry Bones";
-																																		this.width = 18;
-																																		this.height = 40;
-																																		this.aiStyle = 3;
-																																		this.damage = 26;
-																																		this.defense = 8;
-																																		this.lifeMax = 80;
-																																		this.soundHit = 2;
-																																		this.soundKilled = 2;
-																																		this.knockBackResist = 0.8f;
-																																		this.value = 130f;
-																																		this.buffImmune[20] = true;
-																																		this.buffImmune[31] = false;
-																																	}
-																																	else
-																																	{
-																																		if (this.type == 32)
-																																		{
-																																			this.name = "Dark Caster";
-																																			this.width = 18;
-																																			this.height = 40;
-																																			this.aiStyle = 8;
-																																			this.damage = 20;
-																																			this.defense = 2;
-																																			this.lifeMax = 50;
-																																			this.soundHit = 2;
-																																			this.soundKilled = 2;
-																																			this.knockBackResist = 0.6f;
-																																			this.value = 140f;
-																																			this.npcSlots = 2f;
-																																			this.buffImmune[20] = true;
-																																		}
-																																		else
-																																		{
-																																			if (this.type == 33)
-																																			{
-																																				this.name = "Water Sphere";
-																																				this.width = 16;
-																																				this.height = 16;
-																																				this.aiStyle = 9;
-																																				this.damage = 20;
-																																				this.defense = 0;
-																																				this.lifeMax = 1;
-																																				this.soundHit = 3;
-																																				this.soundKilled = 3;
-																																				this.noGravity = true;
-																																				this.noTileCollide = true;
-																																				this.alpha = 100;
-																																				this.knockBackResist = 0f;
-																																			}
-																																			else
-																																			{
-																																				if (this.type == 34)
-																																				{
-																																					this.name = "Cursed Skull";
-																																					this.width = 26;
-																																					this.height = 28;
-																																					this.aiStyle = 10;
-																																					this.damage = 35;
-																																					this.defense = 6;
-																																					this.lifeMax = 40;
-																																					this.soundHit = 2;
-																																					this.soundKilled = 2;
-																																					this.noGravity = true;
-																																					this.noTileCollide = true;
-																																					this.value = 150f;
-																																					this.knockBackResist = 0.2f;
-																																					this.npcSlots = 0.75f;
-																																					this.buffImmune[20] = true;
-																																					this.buffImmune[24] = true;
-																																					this.buffImmune[39] = true;
-																																				}
-																																				else
-																																				{
-																																					if (this.type == 35)
-																																					{
-																																						this.displayName = "Skeletron";
-																																						this.name = "Skeletron Head";
-																																						this.width = 80;
-																																						this.height = 102;
-																																						this.aiStyle = 11;
-																																						this.damage = 32;
-																																						this.defense = 10;
-																																						this.lifeMax = 4400;
-																																						this.soundHit = 2;
-																																						this.soundKilled = 2;
-																																						this.noGravity = true;
-																																						this.noTileCollide = true;
-																																						this.value = 50000f;
-																																						this.knockBackResist = 0f;
-																																						this.boss = true;
-																																						this.npcSlots = 6f;
-																																						this.buffImmune[20] = true;
-																																						this.buffImmune[24] = true;
-																																						this.buffImmune[39] = true;
-																																					}
-																																					else
-																																					{
-																																						if (this.type == 36)
-																																						{
-																																							this.displayName = "Skeletron";
-																																							this.name = "Skeletron Hand";
-																																							this.width = 52;
-																																							this.height = 52;
-																																							this.aiStyle = 12;
-																																							this.damage = 20;
-																																							this.defense = 14;
-																																							this.lifeMax = 600;
-																																							this.soundHit = 2;
-																																							this.soundKilled = 2;
-																																							this.noGravity = true;
-																																							this.noTileCollide = true;
-																																							this.knockBackResist = 0f;
-																																							this.buffImmune[20] = true;
-																																							this.buffImmune[24] = true;
-																																							this.buffImmune[39] = true;
-																																						}
-																																						else
-																																						{
-																																							if (this.type == 37)
-																																							{
-																																								this.townNPC = true;
-																																								this.friendly = true;
-																																								this.name = "Old Man";
-																																								this.width = 18;
-																																								this.height = 40;
-																																								this.aiStyle = 7;
-																																								this.damage = 10;
-																																								this.defense = 15;
-																																								this.lifeMax = 250;
-																																								this.soundHit = 1;
-																																								this.soundKilled = 1;
-																																								this.knockBackResist = 0.5f;
-																																							}
-																																							else
-																																							{
-																																								if (this.type == 38)
-																																								{
-																																									this.townNPC = true;
-																																									this.friendly = true;
-																																									this.name = "Demolitionist";
-																																									this.width = 18;
-																																									this.height = 40;
-																																									this.aiStyle = 7;
-																																									this.damage = 10;
-																																									this.defense = 15;
-																																									this.lifeMax = 250;
-																																									this.soundHit = 1;
-																																									this.soundKilled = 1;
-																																									this.knockBackResist = 0.5f;
-																																								}
-																																								else
-																																								{
-																																									if (this.type == 39)
-																																									{
-																																										this.npcSlots = 6f;
-																																										this.name = "Bone Serpent Head";
-																																										this.displayName = "Bone Serpent";
-																																										this.width = 22;
-																																										this.height = 22;
-																																										this.aiStyle = 6;
-																																										this.netAlways = true;
-																																										this.damage = 30;
-																																										this.defense = 10;
-																																										this.lifeMax = 250;
-																																										this.soundHit = 2;
-																																										this.soundKilled = 5;
-																																										this.noGravity = true;
-																																										this.noTileCollide = true;
-																																										this.knockBackResist = 0f;
-																																										this.behindTiles = true;
-																																										this.value = 1200f;
-																																										this.buffImmune[20] = true;
-																																										this.buffImmune[24] = true;
-																																										this.buffImmune[39] = true;
-																																									}
-																																									else
-																																									{
-																																										if (this.type == 40)
-																																										{
-																																											this.name = "Bone Serpent Body";
-																																											this.displayName = "Bone Serpent";
-																																											this.width = 22;
-																																											this.height = 22;
-																																											this.aiStyle = 6;
-																																											this.netAlways = true;
-																																											this.damage = 15;
-																																											this.defense = 12;
-																																											this.lifeMax = 250;
-																																											this.soundHit = 2;
-																																											this.soundKilled = 5;
-																																											this.noGravity = true;
-																																											this.noTileCollide = true;
-																																											this.knockBackResist = 0f;
-																																											this.behindTiles = true;
-																																											this.value = 1200f;
-																																											this.buffImmune[20] = true;
-																																											this.buffImmune[24] = true;
-																																											this.buffImmune[39] = true;
-																																										}
-																																										else
-																																										{
-																																											if (this.type == 41)
-																																											{
-																																												this.name = "Bone Serpent Tail";
-																																												this.displayName = "Bone Serpent";
-																																												this.width = 22;
-																																												this.height = 22;
-																																												this.aiStyle = 6;
-																																												this.netAlways = true;
-																																												this.damage = 10;
-																																												this.defense = 18;
-																																												this.lifeMax = 250;
-																																												this.soundHit = 2;
-																																												this.soundKilled = 5;
-																																												this.noGravity = true;
-																																												this.noTileCollide = true;
-																																												this.knockBackResist = 0f;
-																																												this.behindTiles = true;
-																																												this.value = 1200f;
-																																												this.buffImmune[20] = true;
-																																												this.buffImmune[24] = true;
-																																												this.buffImmune[39] = true;
-																																											}
-																																											else
-																																											{
-																																												if (this.type == 42)
-																																												{
-																																													this.name = "Hornet";
-																																													this.width = 34;
-																																													this.height = 32;
-																																													this.aiStyle = 5;
-																																													this.damage = 34;
-																																													this.defense = 12;
-																																													this.lifeMax = 50;
-																																													this.soundHit = 1;
-																																													this.knockBackResist = 0.5f;
-																																													this.soundKilled = 1;
-																																													this.value = 200f;
-																																													this.noGravity = true;
-																																													this.buffImmune[20] = true;
-																																												}
-																																												else
-																																												{
-																																													if (this.type == 43)
-																																													{
-																																														this.noGravity = true;
-																																														this.noTileCollide = true;
-																																														this.name = "Man Eater";
-																																														this.width = 30;
-																																														this.height = 30;
-																																														this.aiStyle = 13;
-																																														this.damage = 42;
-																																														this.defense = 14;
-																																														this.lifeMax = 130;
-																																														this.soundHit = 1;
-																																														this.knockBackResist = 0f;
-																																														this.soundKilled = 1;
-																																														this.value = 350f;
-																																														this.buffImmune[20] = true;
-																																													}
-																																													else
-																																													{
-																																														if (this.type == 44)
-																																														{
-																																															this.name = "Undead Miner";
-																																															this.width = 18;
-																																															this.height = 40;
-																																															this.aiStyle = 3;
-																																															this.damage = 22;
-																																															this.defense = 9;
-																																															this.lifeMax = 70;
-																																															this.soundHit = 2;
-																																															this.soundKilled = 2;
-																																															this.knockBackResist = 0.5f;
-																																															this.value = 250f;
-																																															this.buffImmune[20] = true;
-																																															this.buffImmune[31] = false;
-																																														}
-																																														else
-																																														{
-																																															if (this.type == 45)
-																																															{
-																																																this.name = "Tim";
-																																																this.width = 18;
-																																																this.height = 40;
-																																																this.aiStyle = 8;
-																																																this.damage = 20;
-																																																this.defense = 4;
-																																																this.lifeMax = 200;
-																																																this.soundHit = 2;
-																																																this.soundKilled = 2;
-																																																this.knockBackResist = 0.6f;
-																																																this.value = 5000f;
-																																																this.buffImmune[20] = true;
-																																															}
-																																															else
-																																															{
-																																																if (this.type == 46)
-																																																{
-																																																	this.name = "Bunny";
-																																																	this.width = 18;
-																																																	this.height = 20;
-																																																	this.aiStyle = 7;
-																																																	this.damage = 0;
-																																																	this.defense = 0;
-																																																	this.lifeMax = 5;
-																																																	this.soundHit = 1;
-																																																	this.soundKilled = 1;
-																																																}
-																																																else
-																																																{
-																																																	if (this.type == 47)
-																																																	{
-																																																		this.name = "Corrupt Bunny";
-																																																		this.width = 18;
-																																																		this.height = 20;
-																																																		this.aiStyle = 3;
-																																																		this.damage = 20;
-																																																		this.defense = 4;
-																																																		this.lifeMax = 70;
-																																																		this.soundHit = 1;
-																																																		this.soundKilled = 1;
-																																																		this.value = 500f;
-																																																		this.buffImmune[31] = false;
-																																																	}
-																																																	else
-																																																	{
-																																																		if (this.type == 48)
-																																																		{
-																																																			this.name = "Harpy";
-																																																			this.width = 24;
-																																																			this.height = 34;
-																																																			this.aiStyle = 14;
-																																																			this.damage = 25;
-																																																			this.defense = 8;
-																																																			this.lifeMax = 100;
-																																																			this.soundHit = 1;
-																																																			this.knockBackResist = 0.6f;
-																																																			this.soundKilled = 1;
-																																																			this.value = 300f;
-																																																		}
-																																																		else
-																																																		{
-																																																			if (this.type == 49)
-																																																			{
-																																																				this.npcSlots = 0.5f;
-																																																				this.name = "Cave Bat";
-																																																				this.width = 22;
-																																																				this.height = 18;
-																																																				this.aiStyle = 14;
-																																																				this.damage = 13;
-																																																				this.defense = 2;
-																																																				this.lifeMax = 16;
-																																																				this.soundHit = 1;
-																																																				this.knockBackResist = 0.8f;
-																																																				this.soundKilled = 4;
-																																																				this.value = 90f;
-																																																				this.buffImmune[31] = false;
-																																																			}
-																																																			else
-																																																			{
-																																																				if (this.type == 50)
-																																																				{
-																																																					this.boss = true;
-																																																					this.name = "King Slime";
-																																																					this.width = 98;
-																																																					this.height = 92;
-																																																					this.aiStyle = 15;
-																																																					this.damage = 40;
-																																																					this.defense = 10;
-																																																					this.lifeMax = 2000;
-																																																					this.knockBackResist = 0f;
-																																																					this.soundHit = 1;
-																																																					this.soundKilled = 1;
-																																																					this.alpha = 30;
-																																																					this.value = 10000f;
-																																																					this.scale = 1.25f;
-																																																					this.buffImmune[20] = true;
-																																																				}
-																																																				else
-																																																				{
-																																																					if (this.type == 51)
-																																																					{
-																																																						this.npcSlots = 0.5f;
-																																																						this.name = "Jungle Bat";
-																																																						this.width = 22;
-																																																						this.height = 18;
-																																																						this.aiStyle = 14;
-																																																						this.damage = 20;
-																																																						this.defense = 4;
-																																																						this.lifeMax = 34;
-																																																						this.soundHit = 1;
-																																																						this.knockBackResist = 0.8f;
-																																																						this.soundKilled = 4;
-																																																						this.value = 80f;
-																																																						this.buffImmune[31] = false;
-																																																					}
-																																																					else
-																																																					{
-																																																						if (this.type == 52)
-																																																						{
-																																																							this.name = "Doctor Bones";
-																																																							this.width = 18;
-																																																							this.height = 40;
-																																																							this.aiStyle = 3;
-																																																							this.damage = 20;
-																																																							this.defense = 10;
-																																																							this.lifeMax = 500;
-																																																							this.soundHit = 1;
-																																																							this.soundKilled = 2;
-																																																							this.knockBackResist = 0.5f;
-																																																							this.value = 1000f;
-																																																							this.buffImmune[31] = false;
-																																																						}
-																																																						else
-																																																						{
-																																																							if (this.type == 53)
-																																																							{
-																																																								this.name = "The Groom";
-																																																								this.width = 18;
-																																																								this.height = 40;
-																																																								this.aiStyle = 3;
-																																																								this.damage = 14;
-																																																								this.defense = 8;
-																																																								this.lifeMax = 200;
-																																																								this.soundHit = 1;
-																																																								this.soundKilled = 2;
-																																																								this.knockBackResist = 0.5f;
-																																																								this.value = 1000f;
-																																																								this.buffImmune[31] = false;
-																																																							}
-																																																							else
-																																																							{
-																																																								if (this.type == 54)
-																																																								{
-																																																									this.townNPC = true;
-																																																									this.friendly = true;
-																																																									this.name = "Clothier";
-																																																									this.width = 18;
-																																																									this.height = 40;
-																																																									this.aiStyle = 7;
-																																																									this.damage = 10;
-																																																									this.defense = 15;
-																																																									this.lifeMax = 250;
-																																																									this.soundHit = 1;
-																																																									this.soundKilled = 1;
-																																																									this.knockBackResist = 0.5f;
-																																																								}
-																																																								else
-																																																								{
-																																																									if (this.type == 55)
-																																																									{
-																																																										this.noGravity = true;
-																																																										this.name = "Goldfish";
-																																																										this.width = 20;
-																																																										this.height = 18;
-																																																										this.aiStyle = 16;
-																																																										this.damage = 0;
-																																																										this.defense = 0;
-																																																										this.lifeMax = 5;
-																																																										this.soundHit = 1;
-																																																										this.soundKilled = 1;
-																																																										this.knockBackResist = 0.5f;
-																																																									}
-																																																									else
-																																																									{
-																																																										if (this.type == 56)
-																																																										{
-																																																											this.noTileCollide = true;
-																																																											this.noGravity = true;
-																																																											this.name = "Snatcher";
-																																																											this.width = 30;
-																																																											this.height = 30;
-																																																											this.aiStyle = 13;
-																																																											this.damage = 25;
-																																																											this.defense = 10;
-																																																											this.lifeMax = 60;
-																																																											this.soundHit = 1;
-																																																											this.knockBackResist = 0f;
-																																																											this.soundKilled = 1;
-																																																											this.value = 90f;
-																																																											this.buffImmune[20] = true;
-																																																										}
-																																																										else
-																																																										{
-																																																											if (this.type == 57)
-																																																											{
-																																																												this.noGravity = true;
-																																																												this.name = "Corrupt Goldfish";
-																																																												this.width = 18;
-																																																												this.height = 20;
-																																																												this.aiStyle = 16;
-																																																												this.damage = 30;
-																																																												this.defense = 6;
-																																																												this.lifeMax = 100;
-																																																												this.soundHit = 1;
-																																																												this.soundKilled = 1;
-																																																												this.value = 500f;
-																																																											}
-																																																											else
-																																																											{
-																																																												if (this.type == 58)
-																																																												{
-																																																													this.npcSlots = 0.5f;
-																																																													this.noGravity = true;
-																																																													this.name = "Piranha";
-																																																													this.width = 18;
-																																																													this.height = 20;
-																																																													this.aiStyle = 16;
-																																																													this.damage = 25;
-																																																													this.defense = 2;
-																																																													this.lifeMax = 30;
-																																																													this.soundHit = 1;
-																																																													this.soundKilled = 1;
-																																																													this.value = 50f;
-																																																												}
-																																																												else
-																																																												{
-																																																													if (this.type == 59)
-																																																													{
-																																																														this.name = "Lava Slime";
-																																																														this.width = 24;
-																																																														this.height = 18;
-																																																														this.aiStyle = 1;
-																																																														this.damage = 15;
-																																																														this.defense = 10;
-																																																														this.lifeMax = 50;
-																																																														this.soundHit = 1;
-																																																														this.soundKilled = 1;
-																																																														this.scale = 1.1f;
-																																																														this.alpha = 50;
-																																																														this.lavaImmune = true;
-																																																														this.value = 120f;
-																																																														this.buffImmune[20] = true;
-																																																														this.buffImmune[24] = true;
-																																																														this.buffImmune[39] = true;
-																																																														this.buffImmune[31] = false;
-																																																													}
-																																																													else
-																																																													{
-																																																														if (this.type == 60)
-																																																														{
-																																																															this.npcSlots = 0.5f;
-																																																															this.name = "Hellbat";
-																																																															this.width = 22;
-																																																															this.height = 18;
-																																																															this.aiStyle = 14;
-																																																															this.damage = 35;
-																																																															this.defense = 8;
-																																																															this.lifeMax = 46;
-																																																															this.soundHit = 1;
-																																																															this.knockBackResist = 0.8f;
-																																																															this.soundKilled = 4;
-																																																															this.value = 120f;
-																																																															this.scale = 1.1f;
-																																																															this.lavaImmune = true;
-																																																															this.buffImmune[24] = true;
-																																																															this.buffImmune[39] = true;
-																																																															this.buffImmune[31] = false;
-																																																														}
-																																																														else
-																																																														{
-																																																															if (this.type == 61)
-																																																															{
-																																																																this.name = "Vulture";
-																																																																this.width = 36;
-																																																																this.height = 36;
-																																																																this.aiStyle = 17;
-																																																																this.damage = 15;
-																																																																this.defense = 4;
-																																																																this.lifeMax = 40;
-																																																																this.soundHit = 1;
-																																																																this.knockBackResist = 0.8f;
-																																																																this.soundKilled = 1;
-																																																																this.value = 60f;
-																																																															}
-																																																															else
-																																																															{
-																																																																if (this.type == 62)
-																																																																{
-																																																																	this.npcSlots = 2f;
-																																																																	this.name = "Demon";
-																																																																	this.width = 28;
-																																																																	this.height = 48;
-																																																																	this.aiStyle = 14;
-																																																																	this.damage = 32;
-																																																																	this.defense = 8;
-																																																																	this.lifeMax = 120;
-																																																																	this.soundHit = 1;
-																																																																	this.knockBackResist = 0.8f;
-																																																																	this.soundKilled = 1;
-																																																																	this.value = 300f;
-																																																																	this.lavaImmune = true;
-																																																																	this.buffImmune[24] = true;
-																																																																	this.buffImmune[39] = true;
-																																																																}
-																																																																else
-																																																																{
-																																																																	if (this.type == 63)
-																																																																	{
-																																																																		this.noGravity = true;
-																																																																		this.name = "Blue Jellyfish";
-																																																																		this.width = 26;
-																																																																		this.height = 26;
-																																																																		this.aiStyle = 18;
-																																																																		this.damage = 20;
-																																																																		this.defense = 2;
-																																																																		this.lifeMax = 30;
-																																																																		this.soundHit = 1;
-																																																																		this.soundKilled = 1;
-																																																																		this.value = 100f;
-																																																																		this.alpha = 20;
-																																																																	}
-																																																																	else
-																																																																	{
-																																																																		if (this.type == 64)
-																																																																		{
-																																																																			this.noGravity = true;
-																																																																			this.name = "Pink Jellyfish";
-																																																																			this.width = 26;
-																																																																			this.height = 26;
-																																																																			this.aiStyle = 18;
-																																																																			this.damage = 30;
-																																																																			this.defense = 6;
-																																																																			this.lifeMax = 70;
-																																																																			this.soundHit = 1;
-																																																																			this.soundKilled = 1;
-																																																																			this.value = 100f;
-																																																																			this.alpha = 20;
-																																																																		}
-																																																																		else
-																																																																		{
-																																																																			if (this.type == 65)
-																																																																			{
-																																																																				this.noGravity = true;
-																																																																				this.name = "Shark";
-																																																																				this.width = 100;
-																																																																				this.height = 24;
-																																																																				this.aiStyle = 16;
-																																																																				this.damage = 40;
-																																																																				this.defense = 2;
-																																																																				this.lifeMax = 300;
-																																																																				this.soundHit = 1;
-																																																																				this.soundKilled = 1;
-																																																																				this.value = 400f;
-																																																																				this.knockBackResist = 0.7f;
-																																																																			}
-																																																																			else
-																																																																			{
-																																																																				if (this.type == 66)
-																																																																				{
-																																																																					this.npcSlots = 2f;
-																																																																					this.name = "Voodoo Demon";
-																																																																					this.width = 28;
-																																																																					this.height = 48;
-																																																																					this.aiStyle = 14;
-																																																																					this.damage = 32;
-																																																																					this.defense = 8;
-																																																																					this.lifeMax = 140;
-																																																																					this.soundHit = 1;
-																																																																					this.knockBackResist = 0.8f;
-																																																																					this.soundKilled = 1;
-																																																																					this.value = 1000f;
-																																																																					this.lavaImmune = true;
-																																																																					this.buffImmune[24] = true;
-																																																																					this.buffImmune[39] = true;
-																																																																				}
-																																																																				else
-																																																																				{
-																																																																					if (this.type == 67)
-																																																																					{
-																																																																						this.name = "Crab";
-																																																																						this.width = 28;
-																																																																						this.height = 20;
-																																																																						this.aiStyle = 3;
-																																																																						this.damage = 20;
-																																																																						this.defense = 10;
-																																																																						this.lifeMax = 40;
-																																																																						this.soundHit = 1;
-																																																																						this.soundKilled = 1;
-																																																																						this.value = 60f;
-																																																																					}
-																																																																					else
-																																																																					{
-																																																																						if (this.type == 68)
-																																																																						{
-																																																																							this.name = "Dungeon Guardian";
-																																																																							this.width = 80;
-																																																																							this.height = 102;
-																																																																							this.aiStyle = 11;
-																																																																							this.damage = 9000;
-																																																																							this.defense = 9000;
-																																																																							this.lifeMax = 9999;
-																																																																							this.soundHit = 2;
-																																																																							this.soundKilled = 2;
-																																																																							this.noGravity = true;
-																																																																							this.noTileCollide = true;
-																																																																							this.knockBackResist = 0f;
-																																																																							this.buffImmune[20] = true;
-																																																																							this.buffImmune[24] = true;
-																																																																							this.buffImmune[39] = true;
-																																																																						}
-																																																																						else
-																																																																						{
-																																																																							if (this.type == 69)
-																																																																							{
-																																																																								this.name = "Antlion";
-																																																																								this.width = 24;
-																																																																								this.height = 24;
-																																																																								this.aiStyle = 19;
-																																																																								this.damage = 10;
-																																																																								this.defense = 6;
-																																																																								this.lifeMax = 45;
-																																																																								this.soundHit = 1;
-																																																																								this.soundKilled = 1;
-																																																																								this.knockBackResist = 0f;
-																																																																								this.value = 60f;
-																																																																								this.behindTiles = true;
-																																																																							}
-																																																																							else
-																																																																							{
-																																																																								if (this.type == 70)
-																																																																								{
-																																																																									this.npcSlots = 0.3f;
-																																																																									this.name = "Spike Ball";
-																																																																									this.width = 34;
-																																																																									this.height = 34;
-																																																																									this.aiStyle = 20;
-																																																																									this.damage = 32;
-																																																																									this.defense = 100;
-																																																																									this.lifeMax = 100;
-																																																																									this.soundHit = 1;
-																																																																									this.soundKilled = 1;
-																																																																									this.knockBackResist = 0f;
-																																																																									this.noGravity = true;
-																																																																									this.noTileCollide = true;
-																																																																									this.dontTakeDamage = true;
-																																																																									this.scale = 1.5f;
-																																																																								}
-																																																																								else
-																																																																								{
-																																																																									if (this.type == 71)
-																																																																									{
-																																																																										this.npcSlots = 2f;
-																																																																										this.name = "Dungeon Slime";
-																																																																										this.width = 36;
-																																																																										this.height = 24;
-																																																																										this.aiStyle = 1;
-																																																																										this.damage = 30;
-																																																																										this.defense = 7;
-																																																																										this.lifeMax = 150;
-																																																																										this.soundHit = 1;
-																																																																										this.soundKilled = 1;
-																																																																										this.alpha = 60;
-																																																																										this.value = 150f;
-																																																																										this.scale = 1.25f;
-																																																																										this.knockBackResist = 0.6f;
-																																																																										this.buffImmune[20] = true;
-																																																																										this.buffImmune[31] = false;
-																																																																									}
-																																																																									else
-																																																																									{
-																																																																										if (this.type == 72)
-																																																																										{
-																																																																											this.npcSlots = 0.3f;
-																																																																											this.name = "Blazing Wheel";
-																																																																											this.width = 34;
-																																																																											this.height = 34;
-																																																																											this.aiStyle = 21;
-																																																																											this.damage = 24;
-																																																																											this.defense = 100;
-																																																																											this.lifeMax = 100;
-																																																																											this.alpha = 100;
-																																																																											this.behindTiles = true;
-																																																																											this.soundHit = 1;
-																																																																											this.soundKilled = 1;
-																																																																											this.knockBackResist = 0f;
-																																																																											this.noGravity = true;
-																																																																											this.dontTakeDamage = true;
-																																																																											this.scale = 1.2f;
-																																																																											this.buffImmune[20] = true;
-																																																																											this.buffImmune[24] = true;
-																																																																											this.buffImmune[39] = true;
-																																																																										}
-																																																																										else
-																																																																										{
-																																																																											if (this.type == 73)
-																																																																											{
-																																																																												this.name = "Goblin Scout";
-																																																																												this.scale = 0.95f;
-																																																																												this.width = 18;
-																																																																												this.height = 40;
-																																																																												this.aiStyle = 3;
-																																																																												this.damage = 20;
-																																																																												this.defense = 6;
-																																																																												this.lifeMax = 80;
-																																																																												this.soundHit = 1;
-																																																																												this.soundKilled = 1;
-																																																																												this.knockBackResist = 0.7f;
-																																																																												this.value = 200f;
-																																																																												this.buffImmune[31] = false;
-																																																																											}
-																																																																											else
-																																																																											{
-																																																																												if (this.type == 74)
-																																																																												{
-																																																																													this.name = "Bird";
-																																																																													this.width = 14;
-																																																																													this.height = 14;
-																																																																													this.aiStyle = 24;
-																																																																													this.damage = 0;
-																																																																													this.defense = 0;
-																																																																													this.lifeMax = 5;
-																																																																													this.soundHit = 1;
-																																																																													this.knockBackResist = 0.8f;
-																																																																													this.soundKilled = 1;
-																																																																												}
-																																																																												else
-																																																																												{
-																																																																													if (this.type == 75)
-																																																																													{
-																																																																														this.noGravity = true;
-																																																																														this.name = "Pixie";
-																																																																														this.width = 20;
-																																																																														this.height = 20;
-																																																																														this.aiStyle = 22;
-																																																																														this.damage = 55;
-																																																																														this.defense = 20;
-																																																																														this.lifeMax = 150;
-																																																																														this.soundHit = 5;
-																																																																														this.knockBackResist = 0.6f;
-																																																																														this.soundKilled = 7;
-																																																																														this.value = 350f;
-																																																																														this.buffImmune[20] = true;
-																																																																														this.buffImmune[24] = true;
-																																																																														this.buffImmune[39] = true;
-																																																																														this.buffImmune[31] = false;
-																																																																													}
-																																																																													else
-																																																																													{
-																																																																														if (this.type == 77)
-																																																																														{
-																																																																															this.name = "Armored Skeleton";
-																																																																															this.width = 18;
-																																																																															this.height = 40;
-																																																																															this.aiStyle = 3;
-																																																																															this.damage = 60;
-																																																																															this.defense = 36;
-																																																																															this.lifeMax = 340;
-																																																																															this.soundHit = 2;
-																																																																															this.soundKilled = 2;
-																																																																															this.knockBackResist = 0.4f;
-																																																																															this.value = 400f;
-																																																																															this.buffImmune[20] = true;
-																																																																															this.buffImmune[31] = false;
-																																																																														}
-																																																																														else
-																																																																														{
-																																																																															if (this.type == 78)
-																																																																															{
-																																																																																this.name = "Mummy";
-																																																																																this.width = 18;
-																																																																																this.height = 40;
-																																																																																this.aiStyle = 3;
-																																																																																this.damage = 50;
-																																																																																this.defense = 16;
-																																																																																this.lifeMax = 130;
-																																																																																this.soundHit = 1;
-																																																																																this.soundKilled = 6;
-																																																																																this.knockBackResist = 0.6f;
-																																																																																this.value = 600f;
-																																																																																this.buffImmune[31] = false;
-																																																																															}
-																																																																															else
-																																																																															{
-																																																																																if (this.type == 79)
-																																																																																{
-																																																																																	this.name = "Dark Mummy";
-																																																																																	this.width = 18;
-																																																																																	this.height = 40;
-																																																																																	this.aiStyle = 3;
-																																																																																	this.damage = 60;
-																																																																																	this.defense = 18;
-																																																																																	this.lifeMax = 180;
-																																																																																	this.soundHit = 1;
-																																																																																	this.soundKilled = 6;
-																																																																																	this.knockBackResist = 0.5f;
-																																																																																	this.value = 700f;
-																																																																																	this.buffImmune[31] = false;
-																																																																																}
-																																																																																else
-																																																																																{
-																																																																																	if (this.type == 80)
-																																																																																	{
-																																																																																		this.name = "Light Mummy";
-																																																																																		this.width = 18;
-																																																																																		this.height = 40;
-																																																																																		this.aiStyle = 3;
-																																																																																		this.damage = 55;
-																																																																																		this.defense = 18;
-																																																																																		this.lifeMax = 200;
-																																																																																		this.soundHit = 1;
-																																																																																		this.soundKilled = 6;
-																																																																																		this.knockBackResist = 0.55f;
-																																																																																		this.value = 700f;
-																																																																																		this.buffImmune[31] = false;
-																																																																																	}
-																																																																																	else
-																																																																																	{
-																																																																																		if (this.type == 81)
-																																																																																		{
-																																																																																			this.name = "Corrupt Slime";
-																																																																																			this.width = 40;
-																																																																																			this.height = 30;
-																																																																																			this.aiStyle = 1;
-																																																																																			this.damage = 55;
-																																																																																			this.defense = 20;
-																																																																																			this.lifeMax = 170;
-																																																																																			this.soundHit = 1;
-																																																																																			this.soundKilled = 1;
-																																																																																			this.alpha = 55;
-																																																																																			this.value = 400f;
-																																																																																			this.scale = 1.1f;
-																																																																																			this.buffImmune[20] = true;
-																																																																																			this.buffImmune[31] = false;
-																																																																																		}
-																																																																																		else
-																																																																																		{
-																																																																																			if (this.type == 82)
-																																																																																			{
-																																																																																				this.noGravity = true;
-																																																																																				this.noTileCollide = true;
-																																																																																				this.name = "Wraith";
-																																																																																				this.width = 24;
-																																																																																				this.height = 44;
-																																																																																				this.aiStyle = 22;
-																																																																																				this.damage = 75;
-																																																																																				this.defense = 18;
-																																																																																				this.lifeMax = 200;
-																																																																																				this.soundHit = 1;
-																																																																																				this.soundKilled = 6;
-																																																																																				this.alpha = 100;
-																																																																																				this.value = 500f;
-																																																																																				this.buffImmune[20] = true;
-																																																																																				this.buffImmune[24] = true;
-																																																																																				this.buffImmune[39] = true;
-																																																																																				this.knockBackResist = 0.7f;
-																																																																																			}
-																																																																																			else
-																																																																																			{
-																																																																																				if (this.type == 83)
-																																																																																				{
-																																																																																					this.name = "Cursed Hammer";
-																																																																																					this.width = 40;
-																																																																																					this.height = 40;
-																																																																																					this.aiStyle = 23;
-																																																																																					this.damage = 80;
-																																																																																					this.defense = 18;
-																																																																																					this.lifeMax = 200;
-																																																																																					this.soundHit = 4;
-																																																																																					this.soundKilled = 6;
-																																																																																					this.value = 1000f;
-																																																																																					this.buffImmune[20] = true;
-																																																																																					this.buffImmune[24] = true;
-																																																																																					this.buffImmune[39] = true;
-																																																																																					this.knockBackResist = 0.4f;
-																																																																																				}
-																																																																																				else
-																																																																																				{
-																																																																																					if (this.type == 84)
-																																																																																					{
-																																																																																						this.name = "Enchanted Sword";
-																																																																																						this.width = 40;
-																																																																																						this.height = 40;
-																																																																																						this.aiStyle = 23;
-																																																																																						this.damage = 80;
-																																																																																						this.defense = 18;
-																																																																																						this.lifeMax = 200;
-																																																																																						this.soundHit = 4;
-																																																																																						this.soundKilled = 6;
-																																																																																						this.value = 1000f;
-																																																																																						this.buffImmune[20] = true;
-																																																																																						this.buffImmune[24] = true;
-																																																																																						this.buffImmune[39] = true;
-																																																																																						this.knockBackResist = 0.4f;
-																																																																																					}
-																																																																																					else
-																																																																																					{
-																																																																																						if (this.type == 85)
-																																																																																						{
-																																																																																							this.name = "Mimic";
-																																																																																							this.width = 24;
-																																																																																							this.height = 24;
-																																																																																							this.aiStyle = 25;
-																																																																																							this.damage = 80;
-																																																																																							this.defense = 30;
-																																																																																							this.lifeMax = 500;
-																																																																																							this.soundHit = 4;
-																																																																																							this.soundKilled = 6;
-																																																																																							this.value = 100000f;
-																																																																																							this.knockBackResist = 0.3f;
-																																																																																							this.buffImmune[20] = true;
-																																																																																							this.buffImmune[24] = true;
-																																																																																							this.buffImmune[39] = true;
-																																																																																						}
-																																																																																						else
-																																																																																						{
-																																																																																							if (this.type == 86)
-																																																																																							{
-																																																																																								this.name = "Unicorn";
-																																																																																								this.width = 46;
-																																																																																								this.height = 42;
-																																																																																								this.aiStyle = 26;
-																																																																																								this.damage = 65;
-																																																																																								this.defense = 30;
-																																																																																								this.lifeMax = 400;
-																																																																																								this.soundHit = 10;
-																																																																																								this.soundKilled = 1;
-																																																																																								this.knockBackResist = 0.3f;
-																																																																																								this.value = 1000f;
-																																																																																								this.buffImmune[31] = false;
-																																																																																							}
-																																																																																							else
-																																																																																							{
-																																																																																								if (this.type == 87)
-																																																																																								{
-																																																																																									this.displayName = "Wyvern";
-																																																																																									this.noTileCollide = true;
-																																																																																									this.npcSlots = 5f;
-																																																																																									this.name = "Wyvern Head";
-																																																																																									this.width = 32;
-																																																																																									this.height = 32;
-																																																																																									this.aiStyle = 6;
-																																																																																									this.netAlways = true;
-																																																																																									this.damage = 80;
-																																																																																									this.defense = 10;
-																																																																																									this.lifeMax = 4000;
-																																																																																									this.soundHit = 7;
-																																																																																									this.soundKilled = 8;
-																																																																																									this.noGravity = true;
-																																																																																									this.knockBackResist = 0f;
-																																																																																									this.value = 10000f;
-																																																																																									this.scale = 1f;
-																																																																																									this.buffImmune[20] = true;
-																																																																																									this.buffImmune[24] = true;
-																																																																																									this.buffImmune[39] = true;
-																																																																																								}
-																																																																																								else
-																																																																																								{
-																																																																																									if (this.type == 88)
-																																																																																									{
-																																																																																										this.displayName = "Wyvern";
-																																																																																										this.noTileCollide = true;
-																																																																																										this.name = "Wyvern Legs";
-																																																																																										this.width = 32;
-																																																																																										this.height = 32;
-																																																																																										this.aiStyle = 6;
-																																																																																										this.netAlways = true;
-																																																																																										this.damage = 40;
-																																																																																										this.defense = 20;
-																																																																																										this.lifeMax = 4000;
-																																																																																										this.soundHit = 7;
-																																																																																										this.soundKilled = 8;
-																																																																																										this.noGravity = true;
-																																																																																										this.knockBackResist = 0f;
-																																																																																										this.value = 10000f;
-																																																																																										this.scale = 1f;
-																																																																																										this.buffImmune[20] = true;
-																																																																																										this.buffImmune[24] = true;
-																																																																																										this.buffImmune[39] = true;
-																																																																																									}
-																																																																																									else
-																																																																																									{
-																																																																																										if (this.type == 89)
-																																																																																										{
-																																																																																											this.displayName = "Wyvern";
-																																																																																											this.noTileCollide = true;
-																																																																																											this.name = "Wyvern Body";
-																																																																																											this.width = 32;
-																																																																																											this.height = 32;
-																																																																																											this.aiStyle = 6;
-																																																																																											this.netAlways = true;
-																																																																																											this.damage = 40;
-																																																																																											this.defense = 20;
-																																																																																											this.lifeMax = 4000;
-																																																																																											this.soundHit = 7;
-																																																																																											this.soundKilled = 8;
-																																																																																											this.noGravity = true;
-																																																																																											this.knockBackResist = 0f;
-																																																																																											this.value = 2000f;
-																																																																																											this.scale = 1f;
-																																																																																											this.buffImmune[20] = true;
-																																																																																											this.buffImmune[24] = true;
-																																																																																											this.buffImmune[39] = true;
-																																																																																										}
-																																																																																										else
-																																																																																										{
-																																																																																											if (this.type == 90)
-																																																																																											{
-																																																																																												this.displayName = "Wyvern";
-																																																																																												this.noTileCollide = true;
-																																																																																												this.name = "Wyvern Body 2";
-																																																																																												this.width = 32;
-																																																																																												this.height = 32;
-																																																																																												this.aiStyle = 6;
-																																																																																												this.netAlways = true;
-																																																																																												this.damage = 40;
-																																																																																												this.defense = 20;
-																																																																																												this.lifeMax = 4000;
-																																																																																												this.soundHit = 7;
-																																																																																												this.soundKilled = 8;
-																																																																																												this.noGravity = true;
-																																																																																												this.knockBackResist = 0f;
-																																																																																												this.value = 10000f;
-																																																																																												this.scale = 1f;
-																																																																																												this.buffImmune[20] = true;
-																																																																																												this.buffImmune[24] = true;
-																																																																																												this.buffImmune[39] = true;
-																																																																																											}
-																																																																																											else
-																																																																																											{
-																																																																																												if (this.type == 91)
-																																																																																												{
-																																																																																													this.displayName = "Wyvern";
-																																																																																													this.noTileCollide = true;
-																																																																																													this.name = "Wyvern Body 3";
-																																																																																													this.width = 32;
-																																																																																													this.height = 32;
-																																																																																													this.aiStyle = 6;
-																																																																																													this.netAlways = true;
-																																																																																													this.damage = 40;
-																																																																																													this.defense = 20;
-																																																																																													this.lifeMax = 4000;
-																																																																																													this.soundHit = 7;
-																																																																																													this.soundKilled = 8;
-																																																																																													this.noGravity = true;
-																																																																																													this.knockBackResist = 0f;
-																																																																																													this.value = 10000f;
-																																																																																													this.scale = 1f;
-																																																																																													this.buffImmune[20] = true;
-																																																																																													this.buffImmune[24] = true;
-																																																																																													this.buffImmune[39] = true;
-																																																																																												}
-																																																																																												else
-																																																																																												{
-																																																																																													if (this.type == 92)
-																																																																																													{
-																																																																																														this.displayName = "Wyvern";
-																																																																																														this.noTileCollide = true;
-																																																																																														this.name = "Wyvern Tail";
-																																																																																														this.width = 32;
-																																																																																														this.height = 32;
-																																																																																														this.aiStyle = 6;
-																																																																																														this.netAlways = true;
-																																																																																														this.damage = 40;
-																																																																																														this.defense = 20;
-																																																																																														this.lifeMax = 4000;
-																																																																																														this.soundHit = 7;
-																																																																																														this.soundKilled = 8;
-																																																																																														this.noGravity = true;
-																																																																																														this.knockBackResist = 0f;
-																																																																																														this.value = 10000f;
-																																																																																														this.scale = 1f;
-																																																																																														this.buffImmune[20] = true;
-																																																																																														this.buffImmune[24] = true;
-																																																																																														this.buffImmune[39] = true;
-																																																																																													}
-																																																																																													else
-																																																																																													{
-																																																																																														if (this.type == 93)
-																																																																																														{
-																																																																																															this.npcSlots = 0.5f;
-																																																																																															this.name = "Giant Bat";
-																																																																																															this.width = 26;
-																																																																																															this.height = 20;
-																																																																																															this.aiStyle = 14;
-																																																																																															this.damage = 70;
-																																																																																															this.defense = 20;
-																																																																																															this.lifeMax = 160;
-																																																																																															this.soundHit = 1;
-																																																																																															this.knockBackResist = 0.75f;
-																																																																																															this.soundKilled = 4;
-																																																																																															this.value = 400f;
-																																																																																															this.buffImmune[31] = false;
-																																																																																														}
-																																																																																														else
-																																																																																														{
-																																																																																															if (this.type == 94)
-																																																																																															{
-																																																																																																this.npcSlots = 1f;
-																																																																																																this.name = "Corruptor";
-																																																																																																this.width = 44;
-																																																																																																this.height = 44;
-																																																																																																this.aiStyle = 5;
-																																																																																																this.damage = 60;
-																																																																																																this.defense = 32;
-																																																																																																this.lifeMax = 230;
-																																																																																																this.soundHit = 1;
-																																																																																																this.soundKilled = 1;
-																																																																																																this.noGravity = true;
-																																																																																																this.knockBackResist = 0.55f;
-																																																																																																this.value = 500f;
-																																																																																															}
-																																																																																															else
-																																																																																															{
-																																																																																																if (this.type == 95)
-																																																																																																{
-																																																																																																	this.displayName = "Digger";
-																																																																																																	this.name = "Digger Head";
-																																																																																																	this.width = 22;
-																																																																																																	this.height = 22;
-																																																																																																	this.aiStyle = 6;
-																																																																																																	this.netAlways = true;
-																																																																																																	this.damage = 45;
-																																																																																																	this.defense = 10;
-																																																																																																	this.lifeMax = 200;
-																																																																																																	this.soundHit = 1;
-																																																																																																	this.soundKilled = 1;
-																																																																																																	this.noGravity = true;
-																																																																																																	this.noTileCollide = true;
-																																																																																																	this.knockBackResist = 0f;
-																																																																																																	this.behindTiles = true;
-																																																																																																	this.scale = 0.9f;
-																																																																																																	this.value = 300f;
-																																																																																																}
-																																																																																																else
-																																																																																																{
-																																																																																																	if (this.type == 96)
-																																																																																																	{
-																																																																																																		this.displayName = "Digger";
-																																																																																																		this.name = "Digger Body";
-																																																																																																		this.width = 22;
-																																																																																																		this.height = 22;
-																																																																																																		this.aiStyle = 6;
-																																																																																																		this.netAlways = true;
-																																																																																																		this.damage = 28;
-																																																																																																		this.defense = 20;
-																																																																																																		this.lifeMax = 200;
-																																																																																																		this.soundHit = 1;
-																																																																																																		this.soundKilled = 1;
-																																																																																																		this.noGravity = true;
-																																																																																																		this.noTileCollide = true;
-																																																																																																		this.knockBackResist = 0f;
-																																																																																																		this.behindTiles = true;
-																																																																																																		this.scale = 0.9f;
-																																																																																																		this.value = 300f;
-																																																																																																	}
-																																																																																																	else
-																																																																																																	{
-																																																																																																		if (this.type == 97)
-																																																																																																		{
-																																																																																																			this.displayName = "Digger";
-																																																																																																			this.name = "Digger Tail";
-																																																																																																			this.width = 22;
-																																																																																																			this.height = 22;
-																																																																																																			this.aiStyle = 6;
-																																																																																																			this.netAlways = true;
-																																																																																																			this.damage = 26;
-																																																																																																			this.defense = 30;
-																																																																																																			this.lifeMax = 200;
-																																																																																																			this.soundHit = 1;
-																																																																																																			this.soundKilled = 1;
-																																																																																																			this.noGravity = true;
-																																																																																																			this.noTileCollide = true;
-																																																																																																			this.knockBackResist = 0f;
-																																																																																																			this.behindTiles = true;
-																																																																																																			this.scale = 0.9f;
-																																																																																																			this.value = 300f;
-																																																																																																		}
-																																																																																																		else
-																																																																																																		{
-																																																																																																			if (this.type == 98)
-																																																																																																			{
-																																																																																																				this.displayName = "World Feeder";
-																																																																																																				this.npcSlots = 3.5f;
-																																																																																																				this.name = "Seeker Head";
-																																																																																																				this.width = 22;
-																																																																																																				this.height = 22;
-																																																																																																				this.aiStyle = 6;
-																																																																																																				this.netAlways = true;
-																																																																																																				this.damage = 70;
-																																																																																																				this.defense = 36;
-																																																																																																				this.lifeMax = 500;
-																																																																																																				this.soundHit = 1;
-																																																																																																				this.soundKilled = 1;
-																																																																																																				this.noGravity = true;
-																																																																																																				this.noTileCollide = true;
-																																																																																																				this.knockBackResist = 0f;
-																																																																																																				this.behindTiles = true;
-																																																																																																				this.value = 700f;
-																																																																																																			}
-																																																																																																			else
-																																																																																																			{
-																																																																																																				if (this.type == 99)
-																																																																																																				{
-																																																																																																					this.displayName = "World Feeder";
-																																																																																																					this.name = "Seeker Body";
-																																																																																																					this.width = 22;
-																																																																																																					this.height = 22;
-																																																																																																					this.aiStyle = 6;
-																																																																																																					this.netAlways = true;
-																																																																																																					this.damage = 55;
-																																																																																																					this.defense = 40;
-																																																																																																					this.lifeMax = 500;
-																																																																																																					this.soundHit = 1;
-																																																																																																					this.soundKilled = 1;
-																																																																																																					this.noGravity = true;
-																																																																																																					this.noTileCollide = true;
-																																																																																																					this.knockBackResist = 0f;
-																																																																																																					this.behindTiles = true;
-																																																																																																					this.value = 700f;
-																																																																																																				}
-																																																																																																				else
-																																																																																																				{
-																																																																																																					if (this.type == 100)
-																																																																																																					{
-																																																																																																						this.displayName = "World Feeder";
-																																																																																																						this.name = "Seeker Tail";
-																																																																																																						this.width = 22;
-																																																																																																						this.height = 22;
-																																																																																																						this.aiStyle = 6;
-																																																																																																						this.netAlways = true;
-																																																																																																						this.damage = 40;
-																																																																																																						this.defense = 44;
-																																																																																																						this.lifeMax = 500;
-																																																																																																						this.soundHit = 1;
-																																																																																																						this.soundKilled = 1;
-																																																																																																						this.noGravity = true;
-																																																																																																						this.noTileCollide = true;
-																																																																																																						this.knockBackResist = 0f;
-																																																																																																						this.behindTiles = true;
-																																																																																																						this.value = 700f;
-																																																																																																					}
-																																																																																																					else
-																																																																																																					{
-																																																																																																						if (this.type == 101)
-																																																																																																						{
-																																																																																																							this.noGravity = true;
-																																																																																																							this.noTileCollide = true;
-																																																																																																							this.behindTiles = true;
-																																																																																																							this.name = "Clinger";
-																																																																																																							this.width = 30;
-																																																																																																							this.height = 30;
-																																																																																																							this.aiStyle = 13;
-																																																																																																							this.damage = 70;
-																																																																																																							this.defense = 30;
-																																																																																																							this.lifeMax = 320;
-																																																																																																							this.soundHit = 1;
-																																																																																																							this.knockBackResist = 0.2f;
-																																																																																																							this.soundKilled = 1;
-																																																																																																							this.value = 600f;
-																																																																																																						}
-																																																																																																						else
-																																																																																																						{
-																																																																																																							if (this.type == 102)
-																																																																																																							{
-																																																																																																								this.npcSlots = 0.5f;
-																																																																																																								this.noGravity = true;
-																																																																																																								this.name = "Angler Fish";
-																																																																																																								this.width = 18;
-																																																																																																								this.height = 20;
-																																																																																																								this.aiStyle = 16;
-																																																																																																								this.damage = 80;
-																																																																																																								this.defense = 22;
-																																																																																																								this.lifeMax = 90;
-																																																																																																								this.soundHit = 1;
-																																																																																																								this.soundKilled = 1;
-																																																																																																								this.value = 500f;
-																																																																																																							}
-																																																																																																							else
-																																																																																																							{
-																																																																																																								if (this.type == 103)
-																																																																																																								{
-																																																																																																									this.noGravity = true;
-																																																																																																									this.name = "Green Jellyfish";
-																																																																																																									this.width = 26;
-																																																																																																									this.height = 26;
-																																																																																																									this.aiStyle = 18;
-																																																																																																									this.damage = 80;
-																																																																																																									this.defense = 30;
-																																																																																																									this.lifeMax = 120;
-																																																																																																									this.soundHit = 1;
-																																																																																																									this.soundKilled = 1;
-																																																																																																									this.value = 800f;
-																																																																																																									this.alpha = 20;
-																																																																																																								}
-																																																																																																								else
-																																																																																																								{
-																																																																																																									if (this.type == 104)
-																																																																																																									{
-																																																																																																										this.name = "Werewolf";
-																																																																																																										this.width = 18;
-																																																																																																										this.height = 40;
-																																																																																																										this.aiStyle = 3;
-																																																																																																										this.damage = 70;
-																																																																																																										this.defense = 40;
-																																																																																																										this.lifeMax = 400;
-																																																																																																										this.soundHit = 6;
-																																																																																																										this.soundKilled = 1;
-																																																																																																										this.knockBackResist = 0.4f;
-																																																																																																										this.value = 1000f;
-																																																																																																										this.buffImmune[31] = false;
-																																																																																																									}
-																																																																																																									else
-																																																																																																									{
-																																																																																																										if (this.type == 105)
-																																																																																																										{
-																																																																																																											this.friendly = true;
-																																																																																																											this.name = "Bound Goblin";
-																																																																																																											this.width = 18;
-																																																																																																											this.height = 34;
-																																																																																																											this.aiStyle = 0;
-																																																																																																											this.damage = 10;
-																																																																																																											this.defense = 15;
-																																																																																																											this.lifeMax = 250;
-																																																																																																											this.soundHit = 1;
-																																																																																																											this.soundKilled = 1;
-																																																																																																											this.knockBackResist = 0.5f;
-																																																																																																											this.scale = 0.9f;
-																																																																																																										}
-																																																																																																										else
-																																																																																																										{
-																																																																																																											if (this.type == 106)
-																																																																																																											{
-																																																																																																												this.friendly = true;
-																																																																																																												this.name = "Bound Wizard";
-																																																																																																												this.width = 18;
-																																																																																																												this.height = 40;
-																																																																																																												this.aiStyle = 0;
-																																																																																																												this.damage = 10;
-																																																																																																												this.defense = 15;
-																																																																																																												this.lifeMax = 250;
-																																																																																																												this.soundHit = 1;
-																																																																																																												this.soundKilled = 1;
-																																																																																																												this.knockBackResist = 0.5f;
-																																																																																																											}
-																																																																																																											else
-																																																																																																											{
-																																																																																																												if (this.type == 107)
-																																																																																																												{
-																																																																																																													this.townNPC = true;
-																																																																																																													this.friendly = true;
-																																																																																																													this.name = "Goblin Tinkerer";
-																																																																																																													this.width = 18;
-																																																																																																													this.height = 40;
-																																																																																																													this.aiStyle = 7;
-																																																																																																													this.damage = 10;
-																																																																																																													this.defense = 15;
-																																																																																																													this.lifeMax = 250;
-																																																																																																													this.soundHit = 1;
-																																																																																																													this.soundKilled = 1;
-																																																																																																													this.knockBackResist = 0.5f;
-																																																																																																													this.scale = 0.9f;
-																																																																																																												}
-																																																																																																												else
-																																																																																																												{
-																																																																																																													if (this.type == 108)
-																																																																																																													{
-																																																																																																														this.townNPC = true;
-																																																																																																														this.friendly = true;
-																																																																																																														this.name = "Wizard";
-																																																																																																														this.width = 18;
-																																																																																																														this.height = 40;
-																																																																																																														this.aiStyle = 7;
-																																																																																																														this.damage = 10;
-																																																																																																														this.defense = 15;
-																																																																																																														this.lifeMax = 250;
-																																																																																																														this.soundHit = 1;
-																																																																																																														this.soundKilled = 1;
-																																																																																																														this.knockBackResist = 0.5f;
-																																																																																																													}
-																																																																																																													else
-																																																																																																													{
-																																																																																																														if (this.type == 109)
-																																																																																																														{
-																																																																																																															this.name = "Clown";
-																																																																																																															this.width = 34;
-																																																																																																															this.height = 78;
-																																																																																																															this.aiStyle = 3;
-																																																																																																															this.damage = 50;
-																																																																																																															this.defense = 20;
-																																																																																																															this.lifeMax = 400;
-																																																																																																															this.soundHit = 1;
-																																																																																																															this.soundKilled = 2;
-																																																																																																															this.knockBackResist = 0.4f;
-																																																																																																															this.value = 8000f;
-																																																																																																														}
-																																																																																																														else
-																																																																																																														{
-																																																																																																															if (this.type == 110)
-																																																																																																															{
-																																																																																																																this.name = "Skeleton Archer";
-																																																																																																																this.width = 18;
-																																																																																																																this.height = 40;
-																																																																																																																this.aiStyle = 3;
-																																																																																																																this.damage = 55;
-																																																																																																																this.defense = 28;
-																																																																																																																this.lifeMax = 260;
-																																																																																																																this.soundHit = 2;
-																																																																																																																this.soundKilled = 2;
-																																																																																																																this.knockBackResist = 0.55f;
-																																																																																																																this.value = 400f;
-																																																																																																																this.buffImmune[20] = true;
-																																																																																																																this.buffImmune[31] = false;
-																																																																																																															}
-																																																																																																															else
-																																																																																																															{
-																																																																																																																if (this.type == 111)
-																																																																																																																{
-																																																																																																																	this.name = "Goblin Archer";
-																																																																																																																	this.scale = 0.95f;
-																																																																																																																	this.width = 18;
-																																																																																																																	this.height = 40;
-																																																																																																																	this.aiStyle = 3;
-																																																																																																																	this.damage = 20;
-																																																																																																																	this.defense = 6;
-																																																																																																																	this.lifeMax = 80;
-																																																																																																																	this.soundHit = 1;
-																																																																																																																	this.soundKilled = 1;
-																																																																																																																	this.knockBackResist = 0.7f;
-																																																																																																																	this.value = 200f;
-																																																																																																																	this.buffImmune[31] = false;
-																																																																																																																}
-																																																																																																																else
-																																																																																																																{
-																																																																																																																	if (this.type == 112)
-																																																																																																																	{
-																																																																																																																		this.name = "Vile Spit";
-																																																																																																																		this.width = 16;
-																																																																																																																		this.height = 16;
-																																																																																																																		this.aiStyle = 9;
-																																																																																																																		this.damage = 65;
-																																																																																																																		this.defense = 0;
-																																																																																																																		this.lifeMax = 1;
-																																																																																																																		this.soundHit = 0;
-																																																																																																																		this.soundKilled = 9;
-																																																																																																																		this.noGravity = true;
-																																																																																																																		this.noTileCollide = true;
-																																																																																																																		this.knockBackResist = 0f;
-																																																																																																																		this.scale = 0.9f;
-																																																																																																																		this.alpha = 80;
-																																																																																																																	}
-																																																																																																																	else
-																																																																																																																	{
-																																																																																																																		if (this.type == 113)
-																																																																																																																		{
-																																																																																																																			this.npcSlots = 10f;
-																																																																																																																			this.name = "Wall of Flesh";
-																																																																																																																			this.width = 100;
-																																																																																																																			this.height = 100;
-																																																																																																																			this.aiStyle = 27;
-																																																																																																																			this.damage = 50;
-																																																																																																																			this.defense = 12;
-																																																																																																																			this.lifeMax = 8000;
-																																																																																																																			this.soundHit = 8;
-																																																																																																																			this.soundKilled = 10;
-																																																																																																																			this.noGravity = true;
-																																																																																																																			this.noTileCollide = true;
-																																																																																																																			this.behindTiles = true;
-																																																																																																																			this.knockBackResist = 0f;
-																																																																																																																			this.scale = 1.2f;
-																																																																																																																			this.boss = true;
-																																																																																																																			this.buffImmune[20] = true;
-																																																																																																																			this.buffImmune[24] = true;
-																																																																																																																			this.buffImmune[39] = true;
-																																																																																																																			this.value = 80000f;
-																																																																																																																		}
-																																																																																																																		else
-																																																																																																																		{
-																																																																																																																			if (this.type == 114)
-																																																																																																																			{
-																																																																																																																				this.name = "Wall of Flesh Eye";
-																																																																																																																				this.displayName = "Wall of Flesh";
-																																																																																																																				this.width = 100;
-																																																																																																																				this.height = 100;
-																																																																																																																				this.aiStyle = 28;
-																																																																																																																				this.damage = 50;
-																																																																																																																				this.defense = 0;
-																																																																																																																				this.lifeMax = 8000;
-																																																																																																																				this.soundHit = 8;
-																																																																																																																				this.soundKilled = 10;
-																																																																																																																				this.noGravity = true;
-																																																																																																																				this.noTileCollide = true;
-																																																																																																																				this.behindTiles = true;
-																																																																																																																				this.knockBackResist = 0f;
-																																																																																																																				this.scale = 1.2f;
-																																																																																																																				this.buffImmune[20] = true;
-																																																																																																																				this.buffImmune[24] = true;
-																																																																																																																				this.buffImmune[39] = true;
-																																																																																																																				this.value = 80000f;
-																																																																																																																			}
-																																																																																																																			else
-																																																																																																																			{
-																																																																																																																				if (this.type == 115)
-																																																																																																																				{
-																																																																																																																					this.name = "The Hungry";
-																																																																																																																					this.width = 30;
-																																																																																																																					this.height = 30;
-																																																																																																																					this.aiStyle = 29;
-																																																																																																																					this.damage = 30;
-																																																																																																																					this.defense = 10;
-																																																																																																																					this.lifeMax = 240;
-																																																																																																																					this.soundHit = 9;
-																																																																																																																					this.soundKilled = 11;
-																																																																																																																					this.noGravity = true;
-																																																																																																																					this.behindTiles = true;
-																																																																																																																					this.noTileCollide = true;
-																																																																																																																					this.knockBackResist = 1.1f;
-																																																																																																																				}
-																																																																																																																				else
-																																																																																																																				{
-																																																																																																																					if (this.type == 116)
-																																																																																																																					{
-																																																																																																																						this.name = "The Hungry II";
-																																																																																																																						this.displayName = "The Hungry";
-																																																																																																																						this.width = 30;
-																																																																																																																						this.height = 32;
-																																																																																																																						this.aiStyle = 2;
-																																																																																																																						this.damage = 30;
-																																																																																																																						this.defense = 6;
-																																																																																																																						this.lifeMax = 80;
-																																																																																																																						this.soundHit = 9;
-																																																																																																																						this.knockBackResist = 0.8f;
-																																																																																																																						this.soundKilled = 12;
-																																																																																																																					}
-																																																																																																																					else
-																																																																																																																					{
-																																																																																																																						if (this.type == 117)
-																																																																																																																						{
-																																																																																																																							this.displayName = "Leech";
-																																																																																																																							this.name = "Leech Head";
-																																																																																																																							this.width = 14;
-																																																																																																																							this.height = 14;
-																																																																																																																							this.aiStyle = 6;
-																																																																																																																							this.netAlways = true;
-																																																																																																																							this.damage = 26;
-																																																																																																																							this.defense = 2;
-																																																																																																																							this.lifeMax = 60;
-																																																																																																																							this.soundHit = 9;
-																																																																																																																							this.soundKilled = 12;
-																																																																																																																							this.noGravity = true;
-																																																																																																																							this.noTileCollide = true;
-																																																																																																																							this.knockBackResist = 0f;
-																																																																																																																							this.behindTiles = true;
-																																																																																																																						}
-																																																																																																																						else
-																																																																																																																						{
-																																																																																																																							if (this.type == 118)
-																																																																																																																							{
-																																																																																																																								this.displayName = "Leech";
-																																																																																																																								this.name = "Leech Body";
-																																																																																																																								this.width = 14;
-																																																																																																																								this.height = 14;
-																																																																																																																								this.aiStyle = 6;
-																																																																																																																								this.netAlways = true;
-																																																																																																																								this.damage = 22;
-																																																																																																																								this.defense = 6;
-																																																																																																																								this.lifeMax = 60;
-																																																																																																																								this.soundHit = 9;
-																																																																																																																								this.soundKilled = 12;
-																																																																																																																								this.noGravity = true;
-																																																																																																																								this.noTileCollide = true;
-																																																																																																																								this.knockBackResist = 0f;
-																																																																																																																								this.behindTiles = true;
-																																																																																																																							}
-																																																																																																																							else
-																																																																																																																							{
-																																																																																																																								if (this.type == 119)
-																																																																																																																								{
-																																																																																																																									this.displayName = "Leech";
-																																																																																																																									this.name = "Leech Tail";
-																																																																																																																									this.width = 14;
-																																																																																																																									this.height = 14;
-																																																																																																																									this.aiStyle = 6;
-																																																																																																																									this.netAlways = true;
-																																																																																																																									this.damage = 18;
-																																																																																																																									this.defense = 10;
-																																																																																																																									this.lifeMax = 60;
-																																																																																																																									this.soundHit = 9;
-																																																																																																																									this.soundKilled = 12;
-																																																																																																																									this.noGravity = true;
-																																																																																																																									this.noTileCollide = true;
-																																																																																																																									this.knockBackResist = 0f;
-																																																																																																																									this.behindTiles = true;
-																																																																																																																								}
-																																																																																																																								else
-																																																																																																																								{
-																																																																																																																									if (this.type == 120)
-																																																																																																																									{
-																																																																																																																										this.name = "Chaos Elemental";
-																																																																																																																										this.width = 18;
-																																																																																																																										this.height = 40;
-																																																																																																																										this.aiStyle = 3;
-																																																																																																																										this.damage = 40;
-																																																																																																																										this.defense = 30;
-																																																																																																																										this.lifeMax = 370;
-																																																																																																																										this.soundHit = 1;
-																																																																																																																										this.soundKilled = 6;
-																																																																																																																										this.knockBackResist = 0.4f;
-																																																																																																																										this.value = 600f;
-																																																																																																																										this.buffImmune[20] = true;
-																																																																																																																										this.buffImmune[24] = true;
-																																																																																																																										this.buffImmune[39] = true;
-																																																																																																																										this.buffImmune[31] = false;
-																																																																																																																									}
-																																																																																																																									else
-																																																																																																																									{
-																																																																																																																										if (this.type == 121)
-																																																																																																																										{
-																																																																																																																											this.name = "Slimer";
-																																																																																																																											this.width = 40;
-																																																																																																																											this.height = 30;
-																																																																																																																											this.aiStyle = 14;
-																																																																																																																											this.damage = 45;
-																																																																																																																											this.defense = 20;
-																																																																																																																											this.lifeMax = 60;
-																																																																																																																											this.soundHit = 1;
-																																																																																																																											this.alpha = 55;
-																																																																																																																											this.knockBackResist = 0.8f;
-																																																																																																																											this.scale = 1.1f;
-																																																																																																																											this.buffImmune[20] = true;
-																																																																																																																											this.buffImmune[31] = false;
-																																																																																																																										}
-																																																																																																																										else
-																																																																																																																										{
-																																																																																																																											if (this.type == 122)
-																																																																																																																											{
-																																																																																																																												this.noGravity = true;
-																																																																																																																												this.name = "Gastropod";
-																																																																																																																												this.width = 20;
-																																																																																																																												this.height = 20;
-																																																																																																																												this.aiStyle = 22;
-																																																																																																																												this.damage = 60;
-																																																																																																																												this.defense = 22;
-																																																																																																																												this.lifeMax = 220;
-																																																																																																																												this.soundHit = 1;
-																																																																																																																												this.knockBackResist = 0.8f;
-																																																																																																																												this.soundKilled = 1;
-																																																																																																																												this.value = 600f;
-																																																																																																																												this.buffImmune[20] = true;
-																																																																																																																											}
-																																																																																																																											else
-																																																																																																																											{
-																																																																																																																												if (this.type == 123)
-																																																																																																																												{
-																																																																																																																													this.friendly = true;
-																																																																																																																													this.name = "Bound Mechanic";
-																																																																																																																													this.width = 18;
-																																																																																																																													this.height = 34;
-																																																																																																																													this.aiStyle = 0;
-																																																																																																																													this.damage = 10;
-																																																																																																																													this.defense = 15;
-																																																																																																																													this.lifeMax = 250;
-																																																																																																																													this.soundHit = 1;
-																																																																																																																													this.soundKilled = 1;
-																																																																																																																													this.knockBackResist = 0.5f;
-																																																																																																																													this.scale = 0.9f;
-																																																																																																																												}
-																																																																																																																												else
-																																																																																																																												{
-																																																																																																																													if (this.type == 124)
-																																																																																																																													{
-																																																																																																																														this.townNPC = true;
-																																																																																																																														this.friendly = true;
-																																																																																																																														this.name = "Mechanic";
-																																																																																																																														this.width = 18;
-																																																																																																																														this.height = 40;
-																																																																																																																														this.aiStyle = 7;
-																																																																																																																														this.damage = 10;
-																																																																																																																														this.defense = 15;
-																																																																																																																														this.lifeMax = 250;
-																																																																																																																														this.soundHit = 1;
-																																																																																																																														this.soundKilled = 1;
-																																																																																																																														this.knockBackResist = 0.5f;
-																																																																																																																													}
-																																																																																																																													else
-																																																																																																																													{
-																																																																																																																														if (this.type == 125)
-																																																																																																																														{
-																																																																																																																															this.name = "Retinazer";
-																																																																																																																															this.width = 100;
-																																																																																																																															this.height = 110;
-																																																																																																																															this.aiStyle = 30;
-																																																																																																																															this.damage = 50;
-																																																																																																																															this.defense = 10;
-																																																																																																																															this.lifeMax = 24000;
-																																																																																																																															this.soundHit = 1;
-																																																																																																																															this.soundKilled = 14;
-																																																																																																																															this.knockBackResist = 0f;
-																																																																																																																															this.noGravity = true;
-																																																																																																																															this.noTileCollide = true;
-																																																																																																																															this.timeLeft = NPC.activeTime * 30;
-																																																																																																																															this.boss = true;
-																																																																																																																															this.value = 120000f;
-																																																																																																																															this.npcSlots = 5f;
-																																																																																																																															this.boss = true;
-																																																																																																																														}
-																																																																																																																														else
-																																																																																																																														{
-																																																																																																																															if (this.type == 126)
-																																																																																																																															{
-																																																																																																																																this.name = "Spazmatism";
-																																																																																																																																this.width = 100;
-																																																																																																																																this.height = 110;
-																																																																																																																																this.aiStyle = 31;
-																																																																																																																																this.damage = 50;
-																																																																																																																																this.defense = 10;
-																																																																																																																																this.lifeMax = 24000;
-																																																																																																																																this.soundHit = 1;
-																																																																																																																																this.soundKilled = 14;
-																																																																																																																																this.knockBackResist = 0f;
-																																																																																																																																this.noGravity = true;
-																																																																																																																																this.noTileCollide = true;
-																																																																																																																																this.timeLeft = NPC.activeTime * 30;
-																																																																																																																																this.boss = true;
-																																																																																																																																this.value = 120000f;
-																																																																																																																																this.npcSlots = 5f;
-																																																																																																																																this.boss = true;
-																																																																																																																															}
-																																																																																																																															else
-																																																																																																																															{
-																																																																																																																																if (this.type == 127)
-																																																																																																																																{
-																																																																																																																																	this.name = "Skeletron Prime";
-																																																																																																																																	this.width = 80;
-																																																																																																																																	this.height = 102;
-																																																																																																																																	this.aiStyle = 32;
-																																																																																																																																	this.damage = 50;
-																																																																																																																																	this.defense = 25;
-																																																																																																																																	this.lifeMax = 30000;
-																																																																																																																																	this.soundHit = 4;
-																																																																																																																																	this.soundKilled = 14;
-																																																																																																																																	this.noGravity = true;
-																																																																																																																																	this.noTileCollide = true;
-																																																																																																																																	this.value = 120000f;
-																																																																																																																																	this.knockBackResist = 0f;
-																																																																																																																																	this.boss = true;
-																																																																																																																																	this.npcSlots = 6f;
-																																																																																																																																	this.buffImmune[20] = true;
-																																																																																																																																	this.buffImmune[24] = true;
-																																																																																																																																	this.buffImmune[39] = true;
-																																																																																																																																	this.boss = true;
-																																																																																																																																}
-																																																																																																																																else
-																																																																																																																																{
-																																																																																																																																	if (this.type == 128)
-																																																																																																																																	{
-																																																																																																																																		this.name = "Prime Cannon";
-																																																																																																																																		this.width = 52;
-																																																																																																																																		this.height = 52;
-																																																																																																																																		this.aiStyle = 35;
-																																																																																																																																		this.damage = 30;
-																																																																																																																																		this.defense = 25;
-																																																																																																																																		this.lifeMax = 7000;
-																																																																																																																																		this.soundHit = 4;
-																																																																																																																																		this.soundKilled = 14;
-																																																																																																																																		this.noGravity = true;
-																																																																																																																																		this.noTileCollide = true;
-																																																																																																																																		this.knockBackResist = 0f;
-																																																																																																																																		this.buffImmune[20] = true;
-																																																																																																																																		this.buffImmune[24] = true;
-																																																																																																																																		this.netAlways = true;
-																																																																																																																																	}
-																																																																																																																																	else
-																																																																																																																																	{
-																																																																																																																																		if (this.type == 129)
-																																																																																																																																		{
-																																																																																																																																			this.name = "Prime Saw";
-																																																																																																																																			this.width = 52;
-																																																																																																																																			this.height = 52;
-																																																																																																																																			this.aiStyle = 33;
-																																																																																																																																			this.damage = 52;
-																																																																																																																																			this.defense = 40;
-																																																																																																																																			this.lifeMax = 10000;
-																																																																																																																																			this.soundHit = 4;
-																																																																																																																																			this.soundKilled = 14;
-																																																																																																																																			this.noGravity = true;
-																																																																																																																																			this.noTileCollide = true;
-																																																																																																																																			this.knockBackResist = 0f;
-																																																																																																																																			this.buffImmune[20] = true;
-																																																																																																																																			this.buffImmune[24] = true;
-																																																																																																																																			this.netAlways = true;
-																																																																																																																																		}
-																																																																																																																																		else
-																																																																																																																																		{
-																																																																																																																																			if (this.type == 130)
-																																																																																																																																			{
-																																																																																																																																				this.name = "Prime Vice";
-																																																																																																																																				this.width = 52;
-																																																																																																																																				this.height = 52;
-																																																																																																																																				this.aiStyle = 34;
-																																																																																																																																				this.damage = 45;
-																																																																																																																																				this.defense = 35;
-																																																																																																																																				this.lifeMax = 10000;
-																																																																																																																																				this.soundHit = 4;
-																																																																																																																																				this.soundKilled = 14;
-																																																																																																																																				this.noGravity = true;
-																																																																																																																																				this.noTileCollide = true;
-																																																																																																																																				this.knockBackResist = 0f;
-																																																																																																																																				this.buffImmune[20] = true;
-																																																																																																																																				this.buffImmune[24] = true;
-																																																																																																																																				this.netAlways = true;
-																																																																																																																																			}
-																																																																																																																																			else
-																																																																																																																																			{
-																																																																																																																																				if (this.type == 131)
-																																																																																																																																				{
-																																																																																																																																					this.name = "Prime Laser";
-																																																																																																																																					this.width = 52;
-																																																																																																																																					this.height = 52;
-																																																																																																																																					this.aiStyle = 36;
-																																																																																																																																					this.damage = 29;
-																																																																																																																																					this.defense = 20;
-																																																																																																																																					this.lifeMax = 6000;
-																																																																																																																																					this.soundHit = 4;
-																																																																																																																																					this.soundKilled = 14;
-																																																																																																																																					this.noGravity = true;
-																																																																																																																																					this.noTileCollide = true;
-																																																																																																																																					this.knockBackResist = 0f;
-																																																																																																																																					this.buffImmune[20] = true;
-																																																																																																																																					this.buffImmune[24] = true;
-																																																																																																																																					this.netAlways = true;
-																																																																																																																																				}
-																																																																																																																																				else
-																																																																																																																																				{
-																																																																																																																																					if (this.type == 132)
-																																																																																																																																					{
-																																																																																																																																						this.displayName = "Zombie";
-																																																																																																																																						this.name = "Bald Zombie";
-																																																																																																																																						this.width = 18;
-																																																																																																																																						this.height = 40;
-																																																																																																																																						this.aiStyle = 3;
-																																																																																																																																						this.damage = 14;
-																																																																																																																																						this.defense = 6;
-																																																																																																																																						this.lifeMax = 45;
-																																																																																																																																						this.soundHit = 1;
-																																																																																																																																						this.soundKilled = 2;
-																																																																																																																																						this.knockBackResist = 0.5f;
-																																																																																																																																						this.value = 60f;
-																																																																																																																																						this.buffImmune[31] = false;
-																																																																																																																																					}
-																																																																																																																																					else
-																																																																																																																																					{
-																																																																																																																																						if (this.type == 133)
-																																																																																																																																						{
-																																																																																																																																							this.name = "Wandering Eye";
-																																																																																																																																							this.width = 30;
-																																																																																																																																							this.height = 32;
-																																																																																																																																							this.aiStyle = 2;
-																																																																																																																																							this.damage = 40;
-																																																																																																																																							this.defense = 20;
-																																																																																																																																							this.lifeMax = 300;
-																																																																																																																																							this.soundHit = 1;
-																																																																																																																																							this.knockBackResist = 0.8f;
-																																																																																																																																							this.soundKilled = 1;
-																																																																																																																																							this.value = 500f;
-																																																																																																																																							this.buffImmune[31] = false;
-																																																																																																																																						}
-																																																																																																																																						else
-																																																																																																																																						{
-																																																																																																																																							if (this.type == 134)
-																																																																																																																																							{
-																																																																																																																																								this.displayName = "The Destroyer";
-																																																																																																																																								this.npcSlots = 5f;
-																																																																																																																																								this.name = "The Destroyer";
-																																																																																																																																								this.width = 38;
-																																																																																																																																								this.height = 38;
-																																																																																																																																								this.aiStyle = 37;
-																																																																																																																																								this.damage = 60;
-																																																																																																																																								this.defense = 0;
-																																																																																																																																								this.lifeMax = 80000;
-																																																																																																																																								this.soundHit = 4;
-																																																																																																																																								this.soundKilled = 14;
-																																																																																																																																								this.noGravity = true;
-																																																																																																																																								this.noTileCollide = true;
-																																																																																																																																								this.knockBackResist = 0f;
-																																																																																																																																								this.behindTiles = true;
-																																																																																																																																								this.value = 120000f;
-																																																																																																																																								this.scale = 1.25f;
-																																																																																																																																								this.boss = true;
-																																																																																																																																								this.netAlways = true;
-																																																																																																																																								this.buffImmune[20] = true;
-																																																																																																																																								this.buffImmune[24] = true;
-																																																																																																																																								this.buffImmune[39] = true;
-																																																																																																																																							}
-																																																																																																																																							else
-																																																																																																																																							{
-																																																																																																																																								if (this.type == 135)
-																																																																																																																																								{
-																																																																																																																																									this.displayName = "The Destroyer";
-																																																																																																																																									this.npcSlots = 5f;
-																																																																																																																																									this.name = "The Destroyer Body";
-																																																																																																																																									this.width = 38;
-																																																																																																																																									this.height = 38;
-																																																																																																																																									this.aiStyle = 37;
-																																																																																																																																									this.damage = 40;
-																																																																																																																																									this.defense = 30;
-																																																																																																																																									this.lifeMax = 80000;
-																																																																																																																																									this.soundHit = 4;
-																																																																																																																																									this.soundKilled = 14;
-																																																																																																																																									this.noGravity = true;
-																																																																																																																																									this.noTileCollide = true;
-																																																																																																																																									this.knockBackResist = 0f;
-																																																																																																																																									this.behindTiles = true;
-																																																																																																																																									this.netAlways = true;
-																																																																																																																																									this.scale = 1.25f;
-																																																																																																																																									this.buffImmune[20] = true;
-																																																																																																																																									this.buffImmune[24] = true;
-																																																																																																																																									this.buffImmune[39] = true;
-																																																																																																																																								}
-																																																																																																																																								else
-																																																																																																																																								{
-																																																																																																																																									if (this.type == 136)
-																																																																																																																																									{
-																																																																																																																																										this.displayName = "The Destroyer";
-																																																																																																																																										this.npcSlots = 5f;
-																																																																																																																																										this.name = "The Destroyer Tail";
-																																																																																																																																										this.width = 38;
-																																																																																																																																										this.height = 38;
-																																																																																																																																										this.aiStyle = 37;
-																																																																																																																																										this.damage = 20;
-																																																																																																																																										this.defense = 35;
-																																																																																																																																										this.lifeMax = 80000;
-																																																																																																																																										this.soundHit = 4;
-																																																																																																																																										this.soundKilled = 14;
-																																																																																																																																										this.noGravity = true;
-																																																																																																																																										this.noTileCollide = true;
-																																																																																																																																										this.knockBackResist = 0f;
-																																																																																																																																										this.behindTiles = true;
-																																																																																																																																										this.scale = 1.25f;
-																																																																																																																																										this.netAlways = true;
-																																																																																																																																										this.buffImmune[20] = true;
-																																																																																																																																										this.buffImmune[24] = true;
-																																																																																																																																										this.buffImmune[39] = true;
-																																																																																																																																									}
-																																																																																																																																									else
-																																																																																																																																									{
-																																																																																																																																										if (this.type == 137)
-																																																																																																																																										{
-																																																																																																																																											this.name = "Illuminant Bat";
-																																																																																																																																											this.width = 26;
-																																																																																																																																											this.height = 20;
-																																																																																																																																											this.aiStyle = 14;
-																																																																																																																																											this.damage = 75;
-																																																																																																																																											this.defense = 30;
-																																																																																																																																											this.lifeMax = 200;
-																																																																																																																																											this.soundHit = 1;
-																																																																																																																																											this.knockBackResist = 0.75f;
-																																																																																																																																											this.soundKilled = 6;
-																																																																																																																																											this.value = 500f;
-																																																																																																																																											this.buffImmune[20] = true;
-																																																																																																																																											this.buffImmune[24] = true;
-																																																																																																																																											this.buffImmune[39] = true;
-																																																																																																																																											this.buffImmune[31] = false;
-																																																																																																																																										}
-																																																																																																																																										else
-																																																																																																																																										{
-																																																																																																																																											if (this.type == 138)
-																																																																																																																																											{
-																																																																																																																																												this.name = "Illuminant Slime";
-																																																																																																																																												this.width = 24;
-																																																																																																																																												this.height = 18;
-																																																																																																																																												this.aiStyle = 1;
-																																																																																																																																												this.damage = 70;
-																																																																																																																																												this.defense = 30;
-																																																																																																																																												this.lifeMax = 180;
-																																																																																																																																												this.soundHit = 1;
-																																																																																																																																												this.soundKilled = 6;
-																																																																																																																																												this.alpha = 100;
-																																																																																																																																												this.value = 400f;
-																																																																																																																																												this.buffImmune[20] = true;
-																																																																																																																																												this.buffImmune[24] = true;
-																																																																																																																																												this.buffImmune[39] = true;
-																																																																																																																																												this.knockBackResist = 0.85f;
-																																																																																																																																												this.scale = 1.05f;
-																																																																																																																																												this.buffImmune[31] = false;
-																																																																																																																																											}
-																																																																																																																																											else
-																																																																																																																																											{
-																																																																																																																																												if (this.type == 139)
-																																																																																																																																												{
-																																																																																																																																													this.npcSlots = 1f;
-																																																																																																																																													this.name = "Probe";
-																																																																																																																																													this.width = 30;
-																																																																																																																																													this.height = 30;
-																																																																																																																																													this.aiStyle = 5;
-																																																																																																																																													this.damage = 50;
-																																																																																																																																													this.defense = 20;
-																																																																																																																																													this.lifeMax = 200;
-																																																																																																																																													this.soundHit = 4;
-																																																																																																																																													this.soundKilled = 14;
-																																																																																																																																													this.noGravity = true;
-																																																																																																																																													this.knockBackResist = 0.8f;
-																																																																																																																																													this.noTileCollide = true;
-																																																																																																																																												}
-																																																																																																																																												else
-																																																																																																																																												{
-																																																																																																																																													if (this.type == 140)
-																																																																																																																																													{
-																																																																																																																																														this.name = "Possessed Armor";
-																																																																																																																																														this.width = 18;
-																																																																																																																																														this.height = 40;
-																																																																																																																																														this.aiStyle = 3;
-																																																																																																																																														this.damage = 55;
-																																																																																																																																														this.defense = 28;
-																																																																																																																																														this.lifeMax = 260;
-																																																																																																																																														this.soundHit = 4;
-																																																																																																																																														this.soundKilled = 6;
-																																																																																																																																														this.knockBackResist = 0.4f;
-																																																																																																																																														this.value = 400f;
-																																																																																																																																														this.buffImmune[20] = true;
-																																																																																																																																														this.buffImmune[31] = false;
-																																																																																																																																														this.buffImmune[24] = true;
-																																																																																																																																													}
-																																																																																																																																													else
-																																																																																																																																													{
-																																																																																																																																														if (this.type == 141)
-																																																																																																																																														{
-																																																																																																																																															this.name = "Toxic Sludge";
-																																																																																																																																															this.width = 34;
-																																																																																																																																															this.height = 28;
-																																																																																																																																															this.aiStyle = 1;
-																																																																																																																																															this.damage = 50;
-																																																																																																																																															this.defense = 18;
-																																																																																																																																															this.lifeMax = 150;
-																																																																																																																																															this.soundHit = 1;
-																																																																																																																																															this.soundKilled = 1;
-																																																																																																																																															this.alpha = 55;
-																																																																																																																																															this.value = 400f;
-																																																																																																																																															this.scale = 1.1f;
-																																																																																																																																															this.buffImmune[20] = true;
-																																																																																																																																															this.buffImmune[31] = false;
-																																																																																																																																															this.knockBackResist = 0.8f;
-																																																																																																																																														}
-																																																																																																																																														else
-																																																																																																																																														{
-																																																																																																																																															if (this.type == 142)
-																																																																																																																																															{
-																																																																																																																																																this.townNPC = true;
-																																																																																																																																																this.friendly = true;
-																																																																																																																																																this.name = "Santa Claus";
-																																																																																																																																																this.width = 18;
-																																																																																																																																																this.height = 40;
-																																																																																																																																																this.aiStyle = 7;
-																																																																																																																																																this.damage = 10;
-																																																																																																																																																this.defense = 15;
-																																																																																																																																																this.lifeMax = 250;
-																																																																																																																																																this.soundHit = 1;
-																																																																																																																																																this.soundKilled = 1;
-																																																																																																																																																this.knockBackResist = 0.5f;
-																																																																																																																																															}
-																																																																																																																																															else
-																																																																																																																																															{
-																																																																																																																																																if (this.type == 143)
-																																																																																																																																																{
-																																																																																																																																																	this.name = "Snowman Gangsta";
-																																																																																																																																																	this.width = 26;
-																																																																																																																																																	this.height = 40;
-																																																																																																																																																	this.aiStyle = 38;
-																																																																																																																																																	this.damage = 50;
-																																																																																																																																																	this.defense = 20;
-																																																																																																																																																	this.lifeMax = 200;
-																																																																																																																																																	this.soundHit = 11;
-																																																																																																																																																	this.soundKilled = 15;
-																																																																																																																																																	this.knockBackResist = 0.6f;
-																																																																																																																																																	this.value = 400f;
-																																																																																																																																																	this.buffImmune[20] = true;
-																																																																																																																																																	this.buffImmune[31] = false;
-																																																																																																																																																	this.buffImmune[24] = true;
-																																																																																																																																																	this.buffImmune[39] = true;
-																																																																																																																																																}
-																																																																																																																																																else
-																																																																																																																																																{
-																																																																																																																																																	if (this.type == 144)
-																																																																																																																																																	{
-																																																																																																																																																		this.name = "Mister Stabby";
-																																																																																																																																																		this.width = 26;
-																																																																																																																																																		this.height = 40;
-																																																																																																																																																		this.aiStyle = 38;
-																																																																																																																																																		this.damage = 65;
-																																																																																																																																																		this.defense = 26;
-																																																																																																																																																		this.lifeMax = 240;
-																																																																																																																																																		this.soundHit = 11;
-																																																																																																																																																		this.soundKilled = 15;
-																																																																																																																																																		this.knockBackResist = 0.6f;
-																																																																																																																																																		this.value = 400f;
-																																																																																																																																																		this.buffImmune[20] = true;
-																																																																																																																																																		this.buffImmune[31] = false;
-																																																																																																																																																		this.buffImmune[24] = true;
-																																																																																																																																																		this.buffImmune[39] = true;
-																																																																																																																																																	}
-																																																																																																																																																	else
-																																																																																																																																																	{
-																																																																																																																																																		if (this.type == 145)
-																																																																																																																																																		{
-																																																																																																																																																			this.name = "Snow Balla";
-																																																																																																																																																			this.width = 26;
-																																																																																																																																																			this.height = 40;
-																																																																																																																																																			this.aiStyle = 38;
-																																																																																																																																																			this.damage = 55;
-																																																																																																																																																			this.defense = 22;
-																																																																																																																																																			this.lifeMax = 220;
-																																																																																																																																																			this.soundHit = 11;
-																																																																																																																																																			this.soundKilled = 15;
-																																																																																																																																																			this.knockBackResist = 0.6f;
-																																																																																																																																																			this.value = 400f;
-																																																																																																																																																			this.buffImmune[20] = true;
-																																																																																																																																																			this.buffImmune[31] = false;
-																																																																																																																																																			this.buffImmune[24] = true;
-																																																																																																																																																			this.buffImmune[39] = true;
-																																																																																																																																																		}
-																																																																																																																																																	}
-																																																																																																																																																}
-																																																																																																																																															}
-																																																																																																																																														}
-																																																																																																																																													}
-																																																																																																																																												}
-																																																																																																																																											}
-																																																																																																																																										}
-																																																																																																																																									}
-																																																																																																																																								}
-																																																																																																																																							}
-																																																																																																																																						}
-																																																																																																																																					}
-																																																																																																																																				}
-																																																																																																																																			}
-																																																																																																																																		}
-																																																																																																																																	}
-																																																																																																																																}
-																																																																																																																															}
-																																																																																																																														}
-																																																																																																																													}
-																																																																																																																												}
-																																																																																																																											}
-																																																																																																																										}
-																																																																																																																									}
-																																																																																																																								}
-																																																																																																																							}
-																																																																																																																						}
-																																																																																																																					}
-																																																																																																																				}
-																																																																																																																			}
-																																																																																																																		}
-																																																																																																																	}
-																																																																																																																}
-																																																																																																															}
-																																																																																																														}
-																																																																																																													}
-																																																																																																												}
-																																																																																																											}
-																																																																																																										}
-																																																																																																									}
-																																																																																																								}
-																																																																																																							}
-																																																																																																						}
-																																																																																																					}
-																																																																																																				}
-																																																																																																			}
-																																																																																																		}
-																																																																																																	}
-																																																																																																}
-																																																																																															}
-																																																																																														}
-																																																																																													}
-																																																																																												}
-																																																																																											}
-																																																																																										}
-																																																																																									}
-																																																																																								}
-																																																																																							}
-																																																																																						}
-																																																																																					}
-																																																																																				}
-																																																																																			}
-																																																																																		}
-																																																																																	}
-																																																																																}
-																																																																															}
-																																																																														}
-																																																																													}
-																																																																												}
-																																																																											}
-																																																																										}
-																																																																									}
-																																																																								}
-																																																																							}
-																																																																						}
-																																																																					}
-																																																																				}
-																																																																			}
-																																																																		}
-																																																																	}
-																																																																}
-																																																															}
-																																																														}
-																																																													}
-																																																												}
-																																																											}
-																																																										}
-																																																									}
-																																																								}
-																																																							}
-																																																						}
-																																																					}
-																																																				}
-																																																			}
-																																																		}
-																																																	}
-																																																}
-																																															}
-																																														}
-																																													}
-																																												}
-																																											}
-																																										}
-																																									}
-																																								}
-																																							}
-																																						}
-																																					}
-																																				}
-																																			}
-																																		}
-																																	}
-																																}
-																															}
-																														}
-																													}
-																												}
-																											}
-																										}
-																									}
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+			    case 1:
+			        this.name = "Blue Slime";
+			        this.width = 24;
+			        this.height = 18;
+			        this.aiStyle = 1;
+			        this.damage = 7;
+			        this.defense = 2;
+			        this.lifeMax = 25;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.alpha = 175;
+			        this.color = new Color(0, 80, 255, 100);
+			        this.value = 25f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 2:
+			        this.name = "Demon Eye";
+			        this.width = 30;
+			        this.height = 32;
+			        this.aiStyle = 2;
+			        this.damage = 18;
+			        this.defense = 2;
+			        this.lifeMax = 60;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.8f;
+			        this.soundKilled = 1;
+			        this.value = 75f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 3:
+			        this.name = "Zombie";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 14;
+			        this.defense = 6;
+			        this.lifeMax = 45;
+			        this.soundHit = 1;
+			        this.soundKilled = 2;
+			        this.knockBackResist = 0.5f;
+			        this.value = 60f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 4:
+			        this.name = "Eye of Cthulhu";
+			        this.width = 100;
+			        this.height = 110;
+			        this.aiStyle = 4;
+			        this.damage = 15;
+			        this.defense = 12;
+			        this.lifeMax = 2800;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0f;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.timeLeft = NPC.activeTime * 30;
+			        this.boss = true;
+			        this.value = 30000f;
+			        this.npcSlots = 5f;
+			        break;
+			    case 5:
+			        this.name = "Servant of Cthulhu";
+			        this.width = 20;
+			        this.height = 20;
+			        this.aiStyle = 5;
+			        this.damage = 12;
+			        this.defense = 0;
+			        this.lifeMax = 8;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        break;
+			    case 6:
+			        this.npcSlots = 1f;
+			        this.name = "Eater of Souls";
+			        this.width = 30;
+			        this.height = 30;
+			        this.aiStyle = 5;
+			        this.damage = 22;
+			        this.defense = 8;
+			        this.lifeMax = 40;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.knockBackResist = 0.5f;
+			        this.value = 90f;
+			        break;
+			    case 7:
+			        this.displayName = "Devourer";
+			        this.npcSlots = 3.5f;
+			        this.name = "Devourer Head";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 6;
+			        this.damage = 31;
+			        this.defense = 2;
+			        this.lifeMax = 100;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 140f;
+			        this.netAlways = true;
+			        break;
+			    case 8:
+			        this.displayName = "Devourer";
+			        this.name = "Devourer Body";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 16;
+			        this.defense = 6;
+			        this.lifeMax = 100;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 140f;
+			        break;
+			    case 9:
+			        this.displayName = "Devourer";
+			        this.name = "Devourer Tail";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 13;
+			        this.defense = 10;
+			        this.lifeMax = 100;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 140f;
+			        break;
+			    case 10:
+			        this.displayName = "Giant Worm";
+			        this.name = "Giant Worm Head";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 8;
+			        this.defense = 0;
+			        this.lifeMax = 30;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 40f;
+			        break;
+			    case 11:
+			        this.displayName = "Giant Worm";
+			        this.name = "Giant Worm Body";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 4;
+			        this.defense = 4;
+			        this.lifeMax = 30;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 40f;
+			        break;
+			    case 12:
+			        this.displayName = "Giant Worm";
+			        this.name = "Giant Worm Tail";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 4;
+			        this.defense = 6;
+			        this.lifeMax = 30;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 40f;
+			        break;
+			    case 13:
+			        this.displayName = "Eater of Worlds";
+			        this.npcSlots = 5f;
+			        this.name = "Eater of Worlds Head";
+			        this.width = 38;
+			        this.height = 38;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 22;
+			        this.defense = 2;
+			        this.lifeMax = 65;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 300f;
+			        this.scale = 1f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 14:
+			        this.displayName = "Eater of Worlds";
+			        this.name = "Eater of Worlds Body";
+			        this.width = 38;
+			        this.height = 38;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 13;
+			        this.defense = 4;
+			        this.lifeMax = 150;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 300f;
+			        this.scale = 1f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 15:
+			        this.displayName = "Eater of Worlds";
+			        this.name = "Eater of Worlds Tail";
+			        this.width = 38;
+			        this.height = 38;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 11;
+			        this.defense = 8;
+			        this.lifeMax = 220;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 300f;
+			        this.scale = 1f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 16:
+			        this.npcSlots = 2f;
+			        this.name = "Mother Slime";
+			        this.width = 36;
+			        this.height = 24;
+			        this.aiStyle = 1;
+			        this.damage = 20;
+			        this.defense = 7;
+			        this.lifeMax = 90;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.alpha = 120;
+			        this.color = new Color(0, 0, 0, 50);
+			        this.value = 75f;
+			        this.scale = 1.25f;
+			        this.knockBackResist = 0.6f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 17:
+			        this.townNPC = true;
+			        this.friendly = true;
+			        this.name = "Merchant";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 7;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 18:
+			        this.townNPC = true;
+			        this.friendly = true;
+			        this.name = "Nurse";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 7;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 19:
+			        this.townNPC = true;
+			        this.friendly = true;
+			        this.name = "Arms Dealer";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 7;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 20:
+			        this.townNPC = true;
+			        this.friendly = true;
+			        this.name = "Dryad";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 7;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 21:
+			        this.name = "Skeleton";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 20;
+			        this.defense = 8;
+			        this.lifeMax = 60;
+			        this.soundHit = 2;
+			        this.soundKilled = 2;
+			        this.knockBackResist = 0.5f;
+			        this.value = 100f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 22:
+			        this.townNPC = true;
+			        this.friendly = true;
+			        this.name = "Guide";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 7;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 23:
+			        this.name = "Meteor Head";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 5;
+			        this.damage = 40;
+			        this.defense = 6;
+			        this.lifeMax = 26;
+			        this.soundHit = 3;
+			        this.soundKilled = 3;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.value = 80f;
+			        this.knockBackResist = 0.4f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 24:
+			        this.npcSlots = 3f;
+			        this.name = "Fire Imp";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 8;
+			        this.damage = 30;
+			        this.defense = 16;
+			        this.lifeMax = 70;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        this.lavaImmune = true;
+			        this.value = 350f;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 25:
+			        this.name = "Burning Sphere";
+			        this.width = 16;
+			        this.height = 16;
+			        this.aiStyle = 9;
+			        this.damage = 30;
+			        this.defense = 0;
+			        this.lifeMax = 1;
+			        this.soundHit = 3;
+			        this.soundKilled = 3;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.alpha = 100;
+			        break;
+			    case 26:
+			        this.name = "Goblin Peon";
+			        this.scale = 0.9f;
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 12;
+			        this.defense = 4;
+			        this.lifeMax = 60;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.8f;
+			        this.value = 100f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 27:
+			        this.name = "Goblin Thief";
+			        this.scale = 0.95f;
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 20;
+			        this.defense = 6;
+			        this.lifeMax = 80;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.7f;
+			        this.value = 200f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 28:
+			        this.name = "Goblin Warrior";
+			        this.scale = 1.1f;
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 25;
+			        this.defense = 8;
+			        this.lifeMax = 110;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        this.value = 150f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 29:
+			        this.name = "Goblin Sorcerer";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 8;
+			        this.damage = 20;
+			        this.defense = 2;
+			        this.lifeMax = 40;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.6f;
+			        this.value = 200f;
+			        break;
+			    case 30:
+			        this.name = "Chaos Ball";
+			        this.width = 16;
+			        this.height = 16;
+			        this.aiStyle = 9;
+			        this.damage = 20;
+			        this.defense = 0;
+			        this.lifeMax = 1;
+			        this.soundHit = 3;
+			        this.soundKilled = 3;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.alpha = 100;
+			        this.knockBackResist = 0f;
+			        break;
+			    case 31:
+			        this.name = "Angry Bones";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 26;
+			        this.defense = 8;
+			        this.lifeMax = 80;
+			        this.soundHit = 2;
+			        this.soundKilled = 2;
+			        this.knockBackResist = 0.8f;
+			        this.value = 130f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 32:
+			        this.name = "Dark Caster";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 8;
+			        this.damage = 20;
+			        this.defense = 2;
+			        this.lifeMax = 50;
+			        this.soundHit = 2;
+			        this.soundKilled = 2;
+			        this.knockBackResist = 0.6f;
+			        this.value = 140f;
+			        this.npcSlots = 2f;
+			        this.buffImmune[20] = true;
+			        break;
+			    case 33:
+			        this.name = "Water Sphere";
+			        this.width = 16;
+			        this.height = 16;
+			        this.aiStyle = 9;
+			        this.damage = 20;
+			        this.defense = 0;
+			        this.lifeMax = 1;
+			        this.soundHit = 3;
+			        this.soundKilled = 3;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.alpha = 100;
+			        this.knockBackResist = 0f;
+			        break;
+			    case 34:
+			        this.name = "Cursed Skull";
+			        this.width = 26;
+			        this.height = 28;
+			        this.aiStyle = 10;
+			        this.damage = 35;
+			        this.defense = 6;
+			        this.lifeMax = 40;
+			        this.soundHit = 2;
+			        this.soundKilled = 2;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.value = 150f;
+			        this.knockBackResist = 0.2f;
+			        this.npcSlots = 0.75f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 35:
+			        this.displayName = "Skeletron";
+			        this.name = "Skeletron Head";
+			        this.width = 80;
+			        this.height = 102;
+			        this.aiStyle = 11;
+			        this.damage = 32;
+			        this.defense = 10;
+			        this.lifeMax = 4400;
+			        this.soundHit = 2;
+			        this.soundKilled = 2;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.value = 50000f;
+			        this.knockBackResist = 0f;
+			        this.boss = true;
+			        this.npcSlots = 6f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 36:
+			        this.displayName = "Skeletron";
+			        this.name = "Skeletron Hand";
+			        this.width = 52;
+			        this.height = 52;
+			        this.aiStyle = 12;
+			        this.damage = 20;
+			        this.defense = 14;
+			        this.lifeMax = 600;
+			        this.soundHit = 2;
+			        this.soundKilled = 2;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 37:
+			        this.townNPC = true;
+			        this.friendly = true;
+			        this.name = "Old Man";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 7;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 38:
+			        this.townNPC = true;
+			        this.friendly = true;
+			        this.name = "Demolitionist";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 7;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 39:
+			        this.npcSlots = 6f;
+			        this.name = "Bone Serpent Head";
+			        this.displayName = "Bone Serpent";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 30;
+			        this.defense = 10;
+			        this.lifeMax = 250;
+			        this.soundHit = 2;
+			        this.soundKilled = 5;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 1200f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 40:
+			        this.name = "Bone Serpent Body";
+			        this.displayName = "Bone Serpent";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 15;
+			        this.defense = 12;
+			        this.lifeMax = 250;
+			        this.soundHit = 2;
+			        this.soundKilled = 5;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 1200f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 41:
+			        this.name = "Bone Serpent Tail";
+			        this.displayName = "Bone Serpent";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 10;
+			        this.defense = 18;
+			        this.lifeMax = 250;
+			        this.soundHit = 2;
+			        this.soundKilled = 5;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 1200f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 42:
+			        this.name = "Hornet";
+			        this.width = 34;
+			        this.height = 32;
+			        this.aiStyle = 5;
+			        this.damage = 34;
+			        this.defense = 12;
+			        this.lifeMax = 50;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.5f;
+			        this.soundKilled = 1;
+			        this.value = 200f;
+			        this.noGravity = true;
+			        this.buffImmune[20] = true;
+			        break;
+			    case 43:
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.name = "Man Eater";
+			        this.width = 30;
+			        this.height = 30;
+			        this.aiStyle = 13;
+			        this.damage = 42;
+			        this.defense = 14;
+			        this.lifeMax = 130;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0f;
+			        this.soundKilled = 1;
+			        this.value = 350f;
+			        this.buffImmune[20] = true;
+			        break;
+			    case 44:
+			        this.name = "Undead Miner";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 22;
+			        this.defense = 9;
+			        this.lifeMax = 70;
+			        this.soundHit = 2;
+			        this.soundKilled = 2;
+			        this.knockBackResist = 0.5f;
+			        this.value = 250f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 45:
+			        this.name = "Tim";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 8;
+			        this.damage = 20;
+			        this.defense = 4;
+			        this.lifeMax = 200;
+			        this.soundHit = 2;
+			        this.soundKilled = 2;
+			        this.knockBackResist = 0.6f;
+			        this.value = 5000f;
+			        this.buffImmune[20] = true;
+			        break;
+			    case 46:
+			        this.name = "Bunny";
+			        this.width = 18;
+			        this.height = 20;
+			        this.aiStyle = 7;
+			        this.damage = 0;
+			        this.defense = 0;
+			        this.lifeMax = 5;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        break;
+			    case 47:
+			        this.name = "Corrupt Bunny";
+			        this.width = 18;
+			        this.height = 20;
+			        this.aiStyle = 3;
+			        this.damage = 20;
+			        this.defense = 4;
+			        this.lifeMax = 70;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.value = 500f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 48:
+			        this.name = "Harpy";
+			        this.width = 24;
+			        this.height = 34;
+			        this.aiStyle = 14;
+			        this.damage = 25;
+			        this.defense = 8;
+			        this.lifeMax = 100;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.6f;
+			        this.soundKilled = 1;
+			        this.value = 300f;
+			        break;
+			    case 49:
+			        this.npcSlots = 0.5f;
+			        this.name = "Cave Bat";
+			        this.width = 22;
+			        this.height = 18;
+			        this.aiStyle = 14;
+			        this.damage = 13;
+			        this.defense = 2;
+			        this.lifeMax = 16;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.8f;
+			        this.soundKilled = 4;
+			        this.value = 90f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 50:
+			        this.boss = true;
+			        this.name = "King Slime";
+			        this.width = 98;
+			        this.height = 92;
+			        this.aiStyle = 15;
+			        this.damage = 40;
+			        this.defense = 10;
+			        this.lifeMax = 2000;
+			        this.knockBackResist = 0f;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.alpha = 30;
+			        this.value = 10000f;
+			        this.scale = 1.25f;
+			        this.buffImmune[20] = true;
+			        break;
+			    case 51:
+			        this.npcSlots = 0.5f;
+			        this.name = "Jungle Bat";
+			        this.width = 22;
+			        this.height = 18;
+			        this.aiStyle = 14;
+			        this.damage = 20;
+			        this.defense = 4;
+			        this.lifeMax = 34;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.8f;
+			        this.soundKilled = 4;
+			        this.value = 80f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 52:
+			        this.name = "Doctor Bones";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 20;
+			        this.defense = 10;
+			        this.lifeMax = 500;
+			        this.soundHit = 1;
+			        this.soundKilled = 2;
+			        this.knockBackResist = 0.5f;
+			        this.value = 1000f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 53:
+			        this.name = "The Groom";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 14;
+			        this.defense = 8;
+			        this.lifeMax = 200;
+			        this.soundHit = 1;
+			        this.soundKilled = 2;
+			        this.knockBackResist = 0.5f;
+			        this.value = 1000f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 54:
+			        this.townNPC = true;
+			        this.friendly = true;
+			        this.name = "Clothier";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 7;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 55:
+			        this.noGravity = true;
+			        this.name = "Goldfish";
+			        this.width = 20;
+			        this.height = 18;
+			        this.aiStyle = 16;
+			        this.damage = 0;
+			        this.defense = 0;
+			        this.lifeMax = 5;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 56:
+			        this.noTileCollide = true;
+			        this.noGravity = true;
+			        this.name = "Snatcher";
+			        this.width = 30;
+			        this.height = 30;
+			        this.aiStyle = 13;
+			        this.damage = 25;
+			        this.defense = 10;
+			        this.lifeMax = 60;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0f;
+			        this.soundKilled = 1;
+			        this.value = 90f;
+			        this.buffImmune[20] = true;
+			        break;
+			    case 57:
+			        this.noGravity = true;
+			        this.name = "Corrupt Goldfish";
+			        this.width = 18;
+			        this.height = 20;
+			        this.aiStyle = 16;
+			        this.damage = 30;
+			        this.defense = 6;
+			        this.lifeMax = 100;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.value = 500f;
+			        break;
+			    case 58:
+			        this.npcSlots = 0.5f;
+			        this.noGravity = true;
+			        this.name = "Piranha";
+			        this.width = 18;
+			        this.height = 20;
+			        this.aiStyle = 16;
+			        this.damage = 25;
+			        this.defense = 2;
+			        this.lifeMax = 30;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.value = 50f;
+			        break;
+			    case 59:
+			        this.name = "Lava Slime";
+			        this.width = 24;
+			        this.height = 18;
+			        this.aiStyle = 1;
+			        this.damage = 15;
+			        this.defense = 10;
+			        this.lifeMax = 50;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.scale = 1.1f;
+			        this.alpha = 50;
+			        this.lavaImmune = true;
+			        this.value = 120f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 60:
+			        this.npcSlots = 0.5f;
+			        this.name = "Hellbat";
+			        this.width = 22;
+			        this.height = 18;
+			        this.aiStyle = 14;
+			        this.damage = 35;
+			        this.defense = 8;
+			        this.lifeMax = 46;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.8f;
+			        this.soundKilled = 4;
+			        this.value = 120f;
+			        this.scale = 1.1f;
+			        this.lavaImmune = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 61:
+			        this.name = "Vulture";
+			        this.width = 36;
+			        this.height = 36;
+			        this.aiStyle = 17;
+			        this.damage = 15;
+			        this.defense = 4;
+			        this.lifeMax = 40;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.8f;
+			        this.soundKilled = 1;
+			        this.value = 60f;
+			        break;
+			    case 62:
+			        this.npcSlots = 2f;
+			        this.name = "Demon";
+			        this.width = 28;
+			        this.height = 48;
+			        this.aiStyle = 14;
+			        this.damage = 32;
+			        this.defense = 8;
+			        this.lifeMax = 120;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.8f;
+			        this.soundKilled = 1;
+			        this.value = 300f;
+			        this.lavaImmune = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 63:
+			        this.noGravity = true;
+			        this.name = "Blue Jellyfish";
+			        this.width = 26;
+			        this.height = 26;
+			        this.aiStyle = 18;
+			        this.damage = 20;
+			        this.defense = 2;
+			        this.lifeMax = 30;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.value = 100f;
+			        this.alpha = 20;
+			        break;
+			    case 64:
+			        this.noGravity = true;
+			        this.name = "Pink Jellyfish";
+			        this.width = 26;
+			        this.height = 26;
+			        this.aiStyle = 18;
+			        this.damage = 30;
+			        this.defense = 6;
+			        this.lifeMax = 70;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.value = 100f;
+			        this.alpha = 20;
+			        break;
+			    case 65:
+			        this.noGravity = true;
+			        this.name = "Shark";
+			        this.width = 100;
+			        this.height = 24;
+			        this.aiStyle = 16;
+			        this.damage = 40;
+			        this.defense = 2;
+			        this.lifeMax = 300;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.value = 400f;
+			        this.knockBackResist = 0.7f;
+			        break;
+			    case 66:
+			        this.npcSlots = 2f;
+			        this.name = "Voodoo Demon";
+			        this.width = 28;
+			        this.height = 48;
+			        this.aiStyle = 14;
+			        this.damage = 32;
+			        this.defense = 8;
+			        this.lifeMax = 140;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.8f;
+			        this.soundKilled = 1;
+			        this.value = 1000f;
+			        this.lavaImmune = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 67:
+			        this.name = "Crab";
+			        this.width = 28;
+			        this.height = 20;
+			        this.aiStyle = 3;
+			        this.damage = 20;
+			        this.defense = 10;
+			        this.lifeMax = 40;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.value = 60f;
+			        break;
+			    case 68:
+			        this.name = "Dungeon Guardian";
+			        this.width = 80;
+			        this.height = 102;
+			        this.aiStyle = 11;
+			        this.damage = 9000;
+			        this.defense = 9000;
+			        this.lifeMax = 9999;
+			        this.soundHit = 2;
+			        this.soundKilled = 2;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 69:
+			        this.name = "Antlion";
+			        this.width = 24;
+			        this.height = 24;
+			        this.aiStyle = 19;
+			        this.damage = 10;
+			        this.defense = 6;
+			        this.lifeMax = 45;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0f;
+			        this.value = 60f;
+			        this.behindTiles = true;
+			        break;
+			    case 70:
+			        this.npcSlots = 0.3f;
+			        this.name = "Spike Ball";
+			        this.width = 34;
+			        this.height = 34;
+			        this.aiStyle = 20;
+			        this.damage = 32;
+			        this.defense = 100;
+			        this.lifeMax = 100;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0f;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.dontTakeDamage = true;
+			        this.scale = 1.5f;
+			        break;
+			    case 71:
+			        this.npcSlots = 2f;
+			        this.name = "Dungeon Slime";
+			        this.width = 36;
+			        this.height = 24;
+			        this.aiStyle = 1;
+			        this.damage = 30;
+			        this.defense = 7;
+			        this.lifeMax = 150;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.alpha = 60;
+			        this.value = 150f;
+			        this.scale = 1.25f;
+			        this.knockBackResist = 0.6f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 72:
+			        this.npcSlots = 0.3f;
+			        this.name = "Blazing Wheel";
+			        this.width = 34;
+			        this.height = 34;
+			        this.aiStyle = 21;
+			        this.damage = 24;
+			        this.defense = 100;
+			        this.lifeMax = 100;
+			        this.alpha = 100;
+			        this.behindTiles = true;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0f;
+			        this.noGravity = true;
+			        this.dontTakeDamage = true;
+			        this.scale = 1.2f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 73:
+			        this.name = "Goblin Scout";
+			        this.scale = 0.95f;
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 20;
+			        this.defense = 6;
+			        this.lifeMax = 80;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.7f;
+			        this.value = 200f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 74:
+			        this.name = "Bird";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 24;
+			        this.damage = 0;
+			        this.defense = 0;
+			        this.lifeMax = 5;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.8f;
+			        this.soundKilled = 1;
+			        break;
+			    case 75:
+			        this.noGravity = true;
+			        this.name = "Pixie";
+			        this.width = 20;
+			        this.height = 20;
+			        this.aiStyle = 22;
+			        this.damage = 55;
+			        this.defense = 20;
+			        this.lifeMax = 150;
+			        this.soundHit = 5;
+			        this.knockBackResist = 0.6f;
+			        this.soundKilled = 7;
+			        this.value = 350f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 77:
+			        this.name = "Armored Skeleton";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 60;
+			        this.defense = 36;
+			        this.lifeMax = 340;
+			        this.soundHit = 2;
+			        this.soundKilled = 2;
+			        this.knockBackResist = 0.4f;
+			        this.value = 400f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 78:
+			        this.name = "Mummy";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 50;
+			        this.defense = 16;
+			        this.lifeMax = 130;
+			        this.soundHit = 1;
+			        this.soundKilled = 6;
+			        this.knockBackResist = 0.6f;
+			        this.value = 600f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 79:
+			        this.name = "Dark Mummy";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 60;
+			        this.defense = 18;
+			        this.lifeMax = 180;
+			        this.soundHit = 1;
+			        this.soundKilled = 6;
+			        this.knockBackResist = 0.5f;
+			        this.value = 700f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 80:
+			        this.name = "Light Mummy";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 55;
+			        this.defense = 18;
+			        this.lifeMax = 200;
+			        this.soundHit = 1;
+			        this.soundKilled = 6;
+			        this.knockBackResist = 0.55f;
+			        this.value = 700f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 81:
+			        this.name = "Corrupt Slime";
+			        this.width = 40;
+			        this.height = 30;
+			        this.aiStyle = 1;
+			        this.damage = 55;
+			        this.defense = 20;
+			        this.lifeMax = 170;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.alpha = 55;
+			        this.value = 400f;
+			        this.scale = 1.1f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 82:
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.name = "Wraith";
+			        this.width = 24;
+			        this.height = 44;
+			        this.aiStyle = 22;
+			        this.damage = 75;
+			        this.defense = 18;
+			        this.lifeMax = 200;
+			        this.soundHit = 1;
+			        this.soundKilled = 6;
+			        this.alpha = 100;
+			        this.value = 500f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        this.knockBackResist = 0.7f;
+			        break;
+			    case 83:
+			        this.name = "Cursed Hammer";
+			        this.width = 40;
+			        this.height = 40;
+			        this.aiStyle = 23;
+			        this.damage = 80;
+			        this.defense = 18;
+			        this.lifeMax = 200;
+			        this.soundHit = 4;
+			        this.soundKilled = 6;
+			        this.value = 1000f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        this.knockBackResist = 0.4f;
+			        break;
+			    case 84:
+			        this.name = "Enchanted Sword";
+			        this.width = 40;
+			        this.height = 40;
+			        this.aiStyle = 23;
+			        this.damage = 80;
+			        this.defense = 18;
+			        this.lifeMax = 200;
+			        this.soundHit = 4;
+			        this.soundKilled = 6;
+			        this.value = 1000f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        this.knockBackResist = 0.4f;
+			        break;
+			    case 85:
+			        this.name = "Mimic";
+			        this.width = 24;
+			        this.height = 24;
+			        this.aiStyle = 25;
+			        this.damage = 80;
+			        this.defense = 30;
+			        this.lifeMax = 500;
+			        this.soundHit = 4;
+			        this.soundKilled = 6;
+			        this.value = 100000f;
+			        this.knockBackResist = 0.3f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 86:
+			        this.name = "Unicorn";
+			        this.width = 46;
+			        this.height = 42;
+			        this.aiStyle = 26;
+			        this.damage = 65;
+			        this.defense = 30;
+			        this.lifeMax = 400;
+			        this.soundHit = 10;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.3f;
+			        this.value = 1000f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 87:
+			        this.displayName = "Wyvern";
+			        this.noTileCollide = true;
+			        this.npcSlots = 5f;
+			        this.name = "Wyvern Head";
+			        this.width = 32;
+			        this.height = 32;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 80;
+			        this.defense = 10;
+			        this.lifeMax = 4000;
+			        this.soundHit = 7;
+			        this.soundKilled = 8;
+			        this.noGravity = true;
+			        this.knockBackResist = 0f;
+			        this.value = 10000f;
+			        this.scale = 1f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 88:
+			        this.displayName = "Wyvern";
+			        this.noTileCollide = true;
+			        this.name = "Wyvern Legs";
+			        this.width = 32;
+			        this.height = 32;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 40;
+			        this.defense = 20;
+			        this.lifeMax = 4000;
+			        this.soundHit = 7;
+			        this.soundKilled = 8;
+			        this.noGravity = true;
+			        this.knockBackResist = 0f;
+			        this.value = 10000f;
+			        this.scale = 1f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 89:
+			        this.displayName = "Wyvern";
+			        this.noTileCollide = true;
+			        this.name = "Wyvern Body";
+			        this.width = 32;
+			        this.height = 32;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 40;
+			        this.defense = 20;
+			        this.lifeMax = 4000;
+			        this.soundHit = 7;
+			        this.soundKilled = 8;
+			        this.noGravity = true;
+			        this.knockBackResist = 0f;
+			        this.value = 2000f;
+			        this.scale = 1f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 90:
+			        this.displayName = "Wyvern";
+			        this.noTileCollide = true;
+			        this.name = "Wyvern Body 2";
+			        this.width = 32;
+			        this.height = 32;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 40;
+			        this.defense = 20;
+			        this.lifeMax = 4000;
+			        this.soundHit = 7;
+			        this.soundKilled = 8;
+			        this.noGravity = true;
+			        this.knockBackResist = 0f;
+			        this.value = 10000f;
+			        this.scale = 1f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 91:
+			        this.displayName = "Wyvern";
+			        this.noTileCollide = true;
+			        this.name = "Wyvern Body 3";
+			        this.width = 32;
+			        this.height = 32;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 40;
+			        this.defense = 20;
+			        this.lifeMax = 4000;
+			        this.soundHit = 7;
+			        this.soundKilled = 8;
+			        this.noGravity = true;
+			        this.knockBackResist = 0f;
+			        this.value = 10000f;
+			        this.scale = 1f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 92:
+			        this.displayName = "Wyvern";
+			        this.noTileCollide = true;
+			        this.name = "Wyvern Tail";
+			        this.width = 32;
+			        this.height = 32;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 40;
+			        this.defense = 20;
+			        this.lifeMax = 4000;
+			        this.soundHit = 7;
+			        this.soundKilled = 8;
+			        this.noGravity = true;
+			        this.knockBackResist = 0f;
+			        this.value = 10000f;
+			        this.scale = 1f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 93:
+			        this.npcSlots = 0.5f;
+			        this.name = "Giant Bat";
+			        this.width = 26;
+			        this.height = 20;
+			        this.aiStyle = 14;
+			        this.damage = 70;
+			        this.defense = 20;
+			        this.lifeMax = 160;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.75f;
+			        this.soundKilled = 4;
+			        this.value = 400f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 94:
+			        this.npcSlots = 1f;
+			        this.name = "Corruptor";
+			        this.width = 44;
+			        this.height = 44;
+			        this.aiStyle = 5;
+			        this.damage = 60;
+			        this.defense = 32;
+			        this.lifeMax = 230;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.knockBackResist = 0.55f;
+			        this.value = 500f;
+			        break;
+			    case 95:
+			        this.displayName = "Digger";
+			        this.name = "Digger Head";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 45;
+			        this.defense = 10;
+			        this.lifeMax = 200;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.scale = 0.9f;
+			        this.value = 300f;
+			        break;
+			    case 96:
+			        this.displayName = "Digger";
+			        this.name = "Digger Body";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 28;
+			        this.defense = 20;
+			        this.lifeMax = 200;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.scale = 0.9f;
+			        this.value = 300f;
+			        break;
+			    case 97:
+			        this.displayName = "Digger";
+			        this.name = "Digger Tail";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 26;
+			        this.defense = 30;
+			        this.lifeMax = 200;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.scale = 0.9f;
+			        this.value = 300f;
+			        break;
+			    case 98:
+			        this.displayName = "World Feeder";
+			        this.npcSlots = 3.5f;
+			        this.name = "Seeker Head";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 70;
+			        this.defense = 36;
+			        this.lifeMax = 500;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 700f;
+			        break;
+			    case 99:
+			        this.displayName = "World Feeder";
+			        this.name = "Seeker Body";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 55;
+			        this.defense = 40;
+			        this.lifeMax = 500;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 700f;
+			        break;
+			    case 100:
+			        this.displayName = "World Feeder";
+			        this.name = "Seeker Tail";
+			        this.width = 22;
+			        this.height = 22;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 40;
+			        this.defense = 44;
+			        this.lifeMax = 500;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 700f;
+			        break;
+			    case 101:
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.behindTiles = true;
+			        this.name = "Clinger";
+			        this.width = 30;
+			        this.height = 30;
+			        this.aiStyle = 13;
+			        this.damage = 70;
+			        this.defense = 30;
+			        this.lifeMax = 320;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.2f;
+			        this.soundKilled = 1;
+			        this.value = 600f;
+			        break;
+			    case 102:
+			        this.npcSlots = 0.5f;
+			        this.noGravity = true;
+			        this.name = "Angler Fish";
+			        this.width = 18;
+			        this.height = 20;
+			        this.aiStyle = 16;
+			        this.damage = 80;
+			        this.defense = 22;
+			        this.lifeMax = 90;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.value = 500f;
+			        break;
+			    case 103:
+			        this.noGravity = true;
+			        this.name = "Green Jellyfish";
+			        this.width = 26;
+			        this.height = 26;
+			        this.aiStyle = 18;
+			        this.damage = 80;
+			        this.defense = 30;
+			        this.lifeMax = 120;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.value = 800f;
+			        this.alpha = 20;
+			        break;
+			    case 104:
+			        this.name = "Werewolf";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 70;
+			        this.defense = 40;
+			        this.lifeMax = 400;
+			        this.soundHit = 6;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.4f;
+			        this.value = 1000f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 105:
+			        this.friendly = true;
+			        this.name = "Bound Goblin";
+			        this.width = 18;
+			        this.height = 34;
+			        this.aiStyle = 0;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        this.scale = 0.9f;
+			        break;
+			    case 106:
+			        this.friendly = true;
+			        this.name = "Bound Wizard";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 0;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 107:
+			        this.townNPC = true;
+			        this.friendly = true;
+			        this.name = "Goblin Tinkerer";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 7;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        this.scale = 0.9f;
+			        break;
+			    case 108:
+			        this.townNPC = true;
+			        this.friendly = true;
+			        this.name = "Wizard";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 7;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 109:
+			        this.name = "Clown";
+			        this.width = 34;
+			        this.height = 78;
+			        this.aiStyle = 3;
+			        this.damage = 50;
+			        this.defense = 20;
+			        this.lifeMax = 400;
+			        this.soundHit = 1;
+			        this.soundKilled = 2;
+			        this.knockBackResist = 0.4f;
+			        this.value = 8000f;
+			        break;
+			    case 110:
+			        this.name = "Skeleton Archer";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 55;
+			        this.defense = 28;
+			        this.lifeMax = 260;
+			        this.soundHit = 2;
+			        this.soundKilled = 2;
+			        this.knockBackResist = 0.55f;
+			        this.value = 400f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 111:
+			        this.name = "Goblin Archer";
+			        this.scale = 0.95f;
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 20;
+			        this.defense = 6;
+			        this.lifeMax = 80;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.7f;
+			        this.value = 200f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 112:
+			        this.name = "Vile Spit";
+			        this.width = 16;
+			        this.height = 16;
+			        this.aiStyle = 9;
+			        this.damage = 65;
+			        this.defense = 0;
+			        this.lifeMax = 1;
+			        this.soundHit = 0;
+			        this.soundKilled = 9;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.scale = 0.9f;
+			        this.alpha = 80;
+			        break;
+			    case 113:
+			        this.npcSlots = 10f;
+			        this.name = "Wall of Flesh";
+			        this.width = 100;
+			        this.height = 100;
+			        this.aiStyle = 27;
+			        this.damage = 50;
+			        this.defense = 12;
+			        this.lifeMax = 8000;
+			        this.soundHit = 8;
+			        this.soundKilled = 10;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.behindTiles = true;
+			        this.knockBackResist = 0f;
+			        this.scale = 1.2f;
+			        this.boss = true;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        this.value = 80000f;
+			        break;
+			    case 114:
+			        this.name = "Wall of Flesh Eye";
+			        this.displayName = "Wall of Flesh";
+			        this.width = 100;
+			        this.height = 100;
+			        this.aiStyle = 28;
+			        this.damage = 50;
+			        this.defense = 0;
+			        this.lifeMax = 8000;
+			        this.soundHit = 8;
+			        this.soundKilled = 10;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.behindTiles = true;
+			        this.knockBackResist = 0f;
+			        this.scale = 1.2f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        this.value = 80000f;
+			        break;
+			    case 115:
+			        this.name = "The Hungry";
+			        this.width = 30;
+			        this.height = 30;
+			        this.aiStyle = 29;
+			        this.damage = 30;
+			        this.defense = 10;
+			        this.lifeMax = 240;
+			        this.soundHit = 9;
+			        this.soundKilled = 11;
+			        this.noGravity = true;
+			        this.behindTiles = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 1.1f;
+			        break;
+			    case 116:
+			        this.name = "The Hungry II";
+			        this.displayName = "The Hungry";
+			        this.width = 30;
+			        this.height = 32;
+			        this.aiStyle = 2;
+			        this.damage = 30;
+			        this.defense = 6;
+			        this.lifeMax = 80;
+			        this.soundHit = 9;
+			        this.knockBackResist = 0.8f;
+			        this.soundKilled = 12;
+			        break;
+			    case 117:
+			        this.displayName = "Leech";
+			        this.name = "Leech Head";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 26;
+			        this.defense = 2;
+			        this.lifeMax = 60;
+			        this.soundHit = 9;
+			        this.soundKilled = 12;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        break;
+			    case 118:
+			        this.displayName = "Leech";
+			        this.name = "Leech Body";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 22;
+			        this.defense = 6;
+			        this.lifeMax = 60;
+			        this.soundHit = 9;
+			        this.soundKilled = 12;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        break;
+			    case 119:
+			        this.displayName = "Leech";
+			        this.name = "Leech Tail";
+			        this.width = 14;
+			        this.height = 14;
+			        this.aiStyle = 6;
+			        this.netAlways = true;
+			        this.damage = 18;
+			        this.defense = 10;
+			        this.lifeMax = 60;
+			        this.soundHit = 9;
+			        this.soundKilled = 12;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        break;
+			    case 120:
+			        this.name = "Chaos Elemental";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 40;
+			        this.defense = 30;
+			        this.lifeMax = 370;
+			        this.soundHit = 1;
+			        this.soundKilled = 6;
+			        this.knockBackResist = 0.4f;
+			        this.value = 600f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 121:
+			        this.name = "Slimer";
+			        this.width = 40;
+			        this.height = 30;
+			        this.aiStyle = 14;
+			        this.damage = 45;
+			        this.defense = 20;
+			        this.lifeMax = 60;
+			        this.soundHit = 1;
+			        this.alpha = 55;
+			        this.knockBackResist = 0.8f;
+			        this.scale = 1.1f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 122:
+			        this.noGravity = true;
+			        this.name = "Gastropod";
+			        this.width = 20;
+			        this.height = 20;
+			        this.aiStyle = 22;
+			        this.damage = 60;
+			        this.defense = 22;
+			        this.lifeMax = 220;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.8f;
+			        this.soundKilled = 1;
+			        this.value = 600f;
+			        this.buffImmune[20] = true;
+			        break;
+			    case 123:
+			        this.friendly = true;
+			        this.name = "Bound Mechanic";
+			        this.width = 18;
+			        this.height = 34;
+			        this.aiStyle = 0;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        this.scale = 0.9f;
+			        break;
+			    case 124:
+			        this.townNPC = true;
+			        this.friendly = true;
+			        this.name = "Mechanic";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 7;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 125:
+			        this.name = "Retinazer";
+			        this.width = 100;
+			        this.height = 110;
+			        this.aiStyle = 30;
+			        this.damage = 50;
+			        this.defense = 10;
+			        this.lifeMax = 24000;
+			        this.soundHit = 1;
+			        this.soundKilled = 14;
+			        this.knockBackResist = 0f;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.timeLeft = NPC.activeTime * 30;
+			        this.boss = true;
+			        this.value = 120000f;
+			        this.npcSlots = 5f;
+			        this.boss = true;
+			        break;
+			    case 126:
+			        this.name = "Spazmatism";
+			        this.width = 100;
+			        this.height = 110;
+			        this.aiStyle = 31;
+			        this.damage = 50;
+			        this.defense = 10;
+			        this.lifeMax = 24000;
+			        this.soundHit = 1;
+			        this.soundKilled = 14;
+			        this.knockBackResist = 0f;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.timeLeft = NPC.activeTime * 30;
+			        this.boss = true;
+			        this.value = 120000f;
+			        this.npcSlots = 5f;
+			        this.boss = true;
+			        break;
+			    case 127:
+			        this.name = "Skeletron Prime";
+			        this.width = 80;
+			        this.height = 102;
+			        this.aiStyle = 32;
+			        this.damage = 50;
+			        this.defense = 25;
+			        this.lifeMax = 30000;
+			        this.soundHit = 4;
+			        this.soundKilled = 14;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.value = 120000f;
+			        this.knockBackResist = 0f;
+			        this.boss = true;
+			        this.npcSlots = 6f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        this.boss = true;
+			        break;
+			    case 128:
+			        this.name = "Prime Cannon";
+			        this.width = 52;
+			        this.height = 52;
+			        this.aiStyle = 35;
+			        this.damage = 30;
+			        this.defense = 25;
+			        this.lifeMax = 7000;
+			        this.soundHit = 4;
+			        this.soundKilled = 14;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.netAlways = true;
+			        break;
+			    case 129:
+			        this.name = "Prime Saw";
+			        this.width = 52;
+			        this.height = 52;
+			        this.aiStyle = 33;
+			        this.damage = 52;
+			        this.defense = 40;
+			        this.lifeMax = 10000;
+			        this.soundHit = 4;
+			        this.soundKilled = 14;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.netAlways = true;
+			        break;
+			    case 130:
+			        this.name = "Prime Vice";
+			        this.width = 52;
+			        this.height = 52;
+			        this.aiStyle = 34;
+			        this.damage = 45;
+			        this.defense = 35;
+			        this.lifeMax = 10000;
+			        this.soundHit = 4;
+			        this.soundKilled = 14;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.netAlways = true;
+			        break;
+			    case 131:
+			        this.name = "Prime Laser";
+			        this.width = 52;
+			        this.height = 52;
+			        this.aiStyle = 36;
+			        this.damage = 29;
+			        this.defense = 20;
+			        this.lifeMax = 6000;
+			        this.soundHit = 4;
+			        this.soundKilled = 14;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.netAlways = true;
+			        break;
+			    case 132:
+			        this.displayName = "Zombie";
+			        this.name = "Bald Zombie";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 14;
+			        this.defense = 6;
+			        this.lifeMax = 45;
+			        this.soundHit = 1;
+			        this.soundKilled = 2;
+			        this.knockBackResist = 0.5f;
+			        this.value = 60f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 133:
+			        this.name = "Wandering Eye";
+			        this.width = 30;
+			        this.height = 32;
+			        this.aiStyle = 2;
+			        this.damage = 40;
+			        this.defense = 20;
+			        this.lifeMax = 300;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.8f;
+			        this.soundKilled = 1;
+			        this.value = 500f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 134:
+			        this.displayName = "The Destroyer";
+			        this.npcSlots = 5f;
+			        this.name = "The Destroyer";
+			        this.width = 38;
+			        this.height = 38;
+			        this.aiStyle = 37;
+			        this.damage = 60;
+			        this.defense = 0;
+			        this.lifeMax = 80000;
+			        this.soundHit = 4;
+			        this.soundKilled = 14;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.value = 120000f;
+			        this.scale = 1.25f;
+			        this.boss = true;
+			        this.netAlways = true;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 135:
+			        this.displayName = "The Destroyer";
+			        this.npcSlots = 5f;
+			        this.name = "The Destroyer Body";
+			        this.width = 38;
+			        this.height = 38;
+			        this.aiStyle = 37;
+			        this.damage = 40;
+			        this.defense = 30;
+			        this.lifeMax = 80000;
+			        this.soundHit = 4;
+			        this.soundKilled = 14;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.netAlways = true;
+			        this.scale = 1.25f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 136:
+			        this.displayName = "The Destroyer";
+			        this.npcSlots = 5f;
+			        this.name = "The Destroyer Tail";
+			        this.width = 38;
+			        this.height = 38;
+			        this.aiStyle = 37;
+			        this.damage = 20;
+			        this.defense = 35;
+			        this.lifeMax = 80000;
+			        this.soundHit = 4;
+			        this.soundKilled = 14;
+			        this.noGravity = true;
+			        this.noTileCollide = true;
+			        this.knockBackResist = 0f;
+			        this.behindTiles = true;
+			        this.scale = 1.25f;
+			        this.netAlways = true;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 137:
+			        this.name = "Illuminant Bat";
+			        this.width = 26;
+			        this.height = 20;
+			        this.aiStyle = 14;
+			        this.damage = 75;
+			        this.defense = 30;
+			        this.lifeMax = 200;
+			        this.soundHit = 1;
+			        this.knockBackResist = 0.75f;
+			        this.soundKilled = 6;
+			        this.value = 500f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 138:
+			        this.name = "Illuminant Slime";
+			        this.width = 24;
+			        this.height = 18;
+			        this.aiStyle = 1;
+			        this.damage = 70;
+			        this.defense = 30;
+			        this.lifeMax = 180;
+			        this.soundHit = 1;
+			        this.soundKilled = 6;
+			        this.alpha = 100;
+			        this.value = 400f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        this.knockBackResist = 0.85f;
+			        this.scale = 1.05f;
+			        this.buffImmune[31] = false;
+			        break;
+			    case 139:
+			        this.npcSlots = 1f;
+			        this.name = "Probe";
+			        this.width = 30;
+			        this.height = 30;
+			        this.aiStyle = 5;
+			        this.damage = 50;
+			        this.defense = 20;
+			        this.lifeMax = 200;
+			        this.soundHit = 4;
+			        this.soundKilled = 14;
+			        this.noGravity = true;
+			        this.knockBackResist = 0.8f;
+			        this.noTileCollide = true;
+			        break;
+			    case 140:
+			        this.name = "Possessed Armor";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 3;
+			        this.damage = 55;
+			        this.defense = 28;
+			        this.lifeMax = 260;
+			        this.soundHit = 4;
+			        this.soundKilled = 6;
+			        this.knockBackResist = 0.4f;
+			        this.value = 400f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        this.buffImmune[24] = true;
+			        break;
+			    case 141:
+			        this.name = "Toxic Sludge";
+			        this.width = 34;
+			        this.height = 28;
+			        this.aiStyle = 1;
+			        this.damage = 50;
+			        this.defense = 18;
+			        this.lifeMax = 150;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.alpha = 55;
+			        this.value = 400f;
+			        this.scale = 1.1f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        this.knockBackResist = 0.8f;
+			        break;
+			    case 142:
+			        this.townNPC = true;
+			        this.friendly = true;
+			        this.name = "Santa Claus";
+			        this.width = 18;
+			        this.height = 40;
+			        this.aiStyle = 7;
+			        this.damage = 10;
+			        this.defense = 15;
+			        this.lifeMax = 250;
+			        this.soundHit = 1;
+			        this.soundKilled = 1;
+			        this.knockBackResist = 0.5f;
+			        break;
+			    case 143:
+			        this.name = "Snowman Gangsta";
+			        this.width = 26;
+			        this.height = 40;
+			        this.aiStyle = 38;
+			        this.damage = 50;
+			        this.defense = 20;
+			        this.lifeMax = 200;
+			        this.soundHit = 11;
+			        this.soundKilled = 15;
+			        this.knockBackResist = 0.6f;
+			        this.value = 400f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 144:
+			        this.name = "Mister Stabby";
+			        this.width = 26;
+			        this.height = 40;
+			        this.aiStyle = 38;
+			        this.damage = 65;
+			        this.defense = 26;
+			        this.lifeMax = 240;
+			        this.soundHit = 11;
+			        this.soundKilled = 15;
+			        this.knockBackResist = 0.6f;
+			        this.value = 400f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
+			    case 145:
+			        this.name = "Snow Balla";
+			        this.width = 26;
+			        this.height = 40;
+			        this.aiStyle = 38;
+			        this.damage = 55;
+			        this.defense = 22;
+			        this.lifeMax = 220;
+			        this.soundHit = 11;
+			        this.soundKilled = 15;
+			        this.knockBackResist = 0.6f;
+			        this.value = 400f;
+			        this.buffImmune[20] = true;
+			        this.buffImmune[31] = false;
+			        this.buffImmune[24] = true;
+			        this.buffImmune[39] = true;
+			        break;
 			}
 			if (Main.dedServ)
 			{
@@ -5372,6 +4645,7 @@ namespace Terraria
 			this.defDamage = this.damage;
 			this.defDefense = this.defense;
 			this.netID = this.type;
+            NpcHooks.OnSetDefaultsInt(ref Type, this);
 		}
 		public void AI()
 		{
