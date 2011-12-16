@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+
 using System;
 namespace Terraria
 {
@@ -9,9 +9,9 @@ namespace Terraria
 		public bool lavaWet;
 		public int whoAmI;
 		public static int maxAI = 2;
-		public Microsoft.Xna.Framework.Vector2 position;
-		public Microsoft.Xna.Framework.Vector2 lastPosition;
-		public Microsoft.Xna.Framework.Vector2 velocity;
+		public Vector2 position;
+		public Vector2 lastPosition;
+		public Vector2 velocity;
 		public int width;
 		public int height;
 		public float scale = 1f;
@@ -38,7 +38,7 @@ namespace Terraria
 		public bool netUpdate;
 		public bool netUpdate2;
 		public int netSpam;
-		public Microsoft.Xna.Framework.Vector2[] oldPos = new Microsoft.Xna.Framework.Vector2[10];
+		public Vector2[] oldPos = new Vector2[10];
 		public int restrikeDelay;
 		public bool tileCollide;
 		public int maxUpdates;
@@ -91,8 +91,8 @@ namespace Terraria
 			this.light = 0f;
 			this.penetrate = 1;
 			this.tileCollide = true;
-			this.position = default(Microsoft.Xna.Framework.Vector2);
-			this.velocity = default(Microsoft.Xna.Framework.Vector2);
+			this.position = default(Vector2);
+			this.velocity = default(Vector2);
 			this.aiStyle = 0;
 			this.alpha = 0;
 			this.type = Type;
@@ -1995,7 +1995,7 @@ namespace Terraria
 			{
 				return;
 			}
-			Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
+			Rectangle rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
 			if (this.type == 85 || this.type == 101)
 			{
 				int num = 30;
@@ -2011,7 +2011,7 @@ namespace Terraria
 					int myPlayer = Main.myPlayer;
 					if (Main.player[myPlayer].active && !Main.player[myPlayer].dead && !Main.player[myPlayer].immune && (!this.ownerHitCheck || Collision.CanHit(Main.player[this.owner].position, Main.player[this.owner].width, Main.player[this.owner].height, Main.player[myPlayer].position, Main.player[myPlayer].width, Main.player[myPlayer].height)))
 					{
-						Microsoft.Xna.Framework.Rectangle value = new Microsoft.Xna.Framework.Rectangle((int)Main.player[myPlayer].position.X, (int)Main.player[myPlayer].position.Y, Main.player[myPlayer].width, Main.player[myPlayer].height);
+						Rectangle value = new Rectangle((int)Main.player[myPlayer].position.X, (int)Main.player[myPlayer].position.Y, Main.player[myPlayer].width, Main.player[myPlayer].height);
 						if (rectangle.Intersects(value))
 						{
 							if (Main.player[myPlayer].position.X + (float)(Main.player[myPlayer].width / 2) < this.position.X + (float)(this.width / 2))
@@ -2092,7 +2092,7 @@ namespace Terraria
 							}
 							if (!flag && (Main.npc[k].noTileCollide || !this.ownerHitCheck || Collision.CanHit(Main.player[this.owner].position, Main.player[this.owner].width, Main.player[this.owner].height, Main.npc[k].position, Main.npc[k].width, Main.npc[k].height)))
 							{
-								Microsoft.Xna.Framework.Rectangle value2 = new Microsoft.Xna.Framework.Rectangle((int)Main.npc[k].position.X, (int)Main.npc[k].position.Y, Main.npc[k].width, Main.npc[k].height);
+								Rectangle value2 = new Rectangle((int)Main.npc[k].position.X, (int)Main.npc[k].position.Y, Main.npc[k].width, Main.npc[k].height);
 								if (rectangle.Intersects(value2))
 								{
 									if (this.aiStyle == 3)
@@ -2191,7 +2191,7 @@ namespace Terraria
 					{
 						if (l != this.owner && Main.player[l].active && !Main.player[l].dead && !Main.player[l].immune && Main.player[l].hostile && this.playerImmune[l] <= 0 && (Main.player[Main.myPlayer].team == 0 || Main.player[Main.myPlayer].team != Main.player[l].team) && (!this.ownerHitCheck || Collision.CanHit(Main.player[this.owner].position, Main.player[this.owner].width, Main.player[this.owner].height, Main.player[l].position, Main.player[l].width, Main.player[l].height)))
 						{
-							Microsoft.Xna.Framework.Rectangle value3 = new Microsoft.Xna.Framework.Rectangle((int)Main.player[l].position.X, (int)Main.player[l].position.Y, Main.player[l].width, Main.player[l].height);
+							Rectangle value3 = new Rectangle((int)Main.player[l].position.X, (int)Main.player[l].position.Y, Main.player[l].width, Main.player[l].height);
 							if (rectangle.Intersects(value3))
 							{
 								if (this.aiStyle == 3)
@@ -2284,7 +2284,7 @@ namespace Terraria
 					{
 						if (Main.npc[m].type == 46)
 						{
-							Microsoft.Xna.Framework.Rectangle value4 = new Microsoft.Xna.Framework.Rectangle((int)Main.npc[m].position.X, (int)Main.npc[m].position.Y, Main.npc[m].width, Main.npc[m].height);
+							Rectangle value4 = new Rectangle((int)Main.npc[m].position.X, (int)Main.npc[m].position.Y, Main.npc[m].width, Main.npc[m].height);
 							if (rectangle.Intersects(value4))
 							{
 								Main.npc[m].Transform(47);
@@ -2294,7 +2294,7 @@ namespace Terraria
 						{
 							if (Main.npc[m].type == 55)
 							{
-								Microsoft.Xna.Framework.Rectangle value5 = new Microsoft.Xna.Framework.Rectangle((int)Main.npc[m].position.X, (int)Main.npc[m].position.Y, Main.npc[m].width, Main.npc[m].height);
+								Rectangle value5 = new Rectangle((int)Main.npc[m].position.X, (int)Main.npc[m].position.Y, Main.npc[m].width, Main.npc[m].height);
 								if (rectangle.Intersects(value5))
 								{
 									Main.npc[m].Transform(57);
@@ -2309,7 +2309,7 @@ namespace Terraria
 				int myPlayer2 = Main.myPlayer;
 				if (Main.player[myPlayer2].active && !Main.player[myPlayer2].dead && !Main.player[myPlayer2].immune)
 				{
-					Microsoft.Xna.Framework.Rectangle value6 = new Microsoft.Xna.Framework.Rectangle((int)Main.player[myPlayer2].position.X, (int)Main.player[myPlayer2].position.Y, Main.player[myPlayer2].width, Main.player[myPlayer2].height);
+					Rectangle value6 = new Rectangle((int)Main.player[myPlayer2].position.X, (int)Main.player[myPlayer2].position.Y, Main.player[myPlayer2].width, Main.player[myPlayer2].height);
 					if (rectangle.Intersects(value6))
 					{
 						int hitDirection = this.direction;
@@ -2335,7 +2335,7 @@ namespace Terraria
 		{
 			if (this.active)
 			{
-				Microsoft.Xna.Framework.Vector2 value = this.velocity;
+				Vector2 value = this.velocity;
 				if (this.position.X <= Main.leftWorld || this.position.X + (float)this.width >= Main.rightWorld || this.position.Y <= Main.topWorld || this.position.Y + (float)this.height >= Main.bottomWorld)
 				{
 					this.active = false;
@@ -2409,7 +2409,7 @@ namespace Terraria
 								{
 									for (int k = 0; k < 10; k++)
 									{
-										int num = Dust.NewDust(new Microsoft.Xna.Framework.Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 33, 0f, 0f, 0, default(Microsoft.Xna.Framework.Color), 1f);
+										int num = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 33, 0f, 0f, 0, default(Color), 1f);
 										Dust expr_263_cp_0 = Main.dust[num];
 										expr_263_cp_0.velocity.Y = expr_263_cp_0.velocity.Y - 4f;
 										Dust expr_281_cp_0 = Main.dust[num];
@@ -2424,7 +2424,7 @@ namespace Terraria
 								{
 									for (int l = 0; l < 10; l++)
 									{
-										int num2 = Dust.NewDust(new Microsoft.Xna.Framework.Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Microsoft.Xna.Framework.Color), 1f);
+										int num2 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
 										Dust expr_369_cp_0 = Main.dust[num2];
 										expr_369_cp_0.velocity.Y = expr_369_cp_0.velocity.Y - 1.5f;
 										Dust expr_387_cp_0 = Main.dust[num2];
@@ -2451,7 +2451,7 @@ namespace Terraria
 								{
 									for (int m = 0; m < 10; m++)
 									{
-										int num3 = Dust.NewDust(new Microsoft.Xna.Framework.Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2)), this.width + 12, 24, 33, 0f, 0f, 0, default(Microsoft.Xna.Framework.Color), 1f);
+										int num3 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2)), this.width + 12, 24, 33, 0f, 0f, 0, default(Color), 1f);
 										Dust expr_4A0_cp_0 = Main.dust[num3];
 										expr_4A0_cp_0.velocity.Y = expr_4A0_cp_0.velocity.Y - 4f;
 										Dust expr_4BE_cp_0 = Main.dust[num3];
@@ -2466,7 +2466,7 @@ namespace Terraria
 								{
 									for (int n = 0; n < 10; n++)
 									{
-										int num4 = Dust.NewDust(new Microsoft.Xna.Framework.Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Microsoft.Xna.Framework.Color), 1f);
+										int num4 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
 										Dust expr_5A6_cp_0 = Main.dust[num4];
 										expr_5A6_cp_0.velocity.Y = expr_5A6_cp_0.velocity.Y - 1.5f;
 										Dust expr_5C4_cp_0 = Main.dust[num4];
@@ -2492,7 +2492,7 @@ namespace Terraria
 				this.lastPosition = this.position;
 				if (this.tileCollide)
 				{
-					Microsoft.Xna.Framework.Vector2 value2 = this.velocity;
+					Vector2 value2 = this.velocity;
 					bool flag3 = true;
 					if (this.type == 9 || this.type == 12 || this.type == 15 || this.type == 13 || this.type == 31 || this.type == 39 || this.type == 40)
 					{
@@ -2515,14 +2515,14 @@ namespace Terraria
 						{
 							int num5 = this.width - 36;
 							int num6 = this.height - 36;
-							Microsoft.Xna.Framework.Vector2 vector = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)(this.width / 2) - (float)(num5 / 2), this.position.Y + (float)(this.height / 2) - (float)(num6 / 2));
+							Vector2 vector = new Vector2(this.position.X + (float)(this.width / 2) - (float)(num5 / 2), this.position.Y + (float)(this.height / 2) - (float)(num6 / 2));
 							this.velocity = Collision.TileCollision(vector, this.velocity, num5, num6, flag3, flag3);
 						}
 						else
 						{
 							if (this.wet)
 							{
-								Microsoft.Xna.Framework.Vector2 vector2 = this.velocity;
+								Vector2 vector2 = this.velocity;
 								this.velocity = Collision.TileCollision(this.position, this.velocity, this.width, this.height, flag3, flag3);
 								value = this.velocity * 0.5f;
 								if (this.velocity.X != vector2.X)
@@ -3109,13 +3109,13 @@ namespace Terraria
 				}
 				if (this.type == 2 || this.type == 82)
 				{
-					Dust.NewDust(new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Microsoft.Xna.Framework.Color), 1f);
+					Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1f);
 				}
 				else
 				{
 					if (this.type == 103)
 					{
-						int num10 = Dust.NewDust(new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y), this.width, this.height, 75, 0f, 0f, 100, default(Microsoft.Xna.Framework.Color), 1f);
+						int num10 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 75, 0f, 0f, 100, default(Color), 1f);
 						if (Main.rand.Next(2) == 0)
 						{
 							Main.dust[num10].noGravity = true;
@@ -3128,7 +3128,7 @@ namespace Terraria
 						{
 							if (Main.rand.Next(5) == 0)
 							{
-								Dust.NewDust(new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y), this.width, this.height, 14, 0f, 0f, 150, default(Microsoft.Xna.Framework.Color), 1.1f);
+								Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 14, 0f, 0f, 150, default(Color), 1.1f);
 							}
 						}
 						else
@@ -3151,7 +3151,7 @@ namespace Terraria
 										num11 = 58;
 									}
 								}
-								Dust.NewDust(this.position, this.width, this.height, num11, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 150, default(Microsoft.Xna.Framework.Color), 1.2f);
+								Dust.NewDust(this.position, this.width, this.height, num11, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 150, default(Color), 1.2f);
 							}
 						}
 					}
@@ -3257,24 +3257,24 @@ namespace Terraria
 				}
 				if (this.type == 41)
 				{
-					Microsoft.Xna.Framework.Vector2 arg_20A_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+					Vector2 arg_20A_0 = new Vector2(this.position.X, this.position.Y);
 					int arg_20A_1 = this.width;
 					int arg_20A_2 = this.height;
 					int arg_20A_3 = 31;
 					float arg_20A_4 = 0f;
 					float arg_20A_5 = 0f;
 					int arg_20A_6 = 100;
-					Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+					Color newColor = default(Color);
 					int num = Dust.NewDust(arg_20A_0, arg_20A_1, arg_20A_2, arg_20A_3, arg_20A_4, arg_20A_5, arg_20A_6, newColor, 1.6f);
 					Main.dust[num].noGravity = true;
-					Microsoft.Xna.Framework.Vector2 arg_260_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+					Vector2 arg_260_0 = new Vector2(this.position.X, this.position.Y);
 					int arg_260_1 = this.width;
 					int arg_260_2 = this.height;
 					int arg_260_3 = 6;
 					float arg_260_4 = 0f;
 					float arg_260_5 = 0f;
 					int arg_260_6 = 100;
-					newColor = default(Microsoft.Xna.Framework.Color);
+					newColor = default(Color);
 					num = Dust.NewDust(arg_260_0, arg_260_1, arg_260_2, arg_260_3, arg_260_4, arg_260_5, arg_260_6, newColor, 2f);
 					Main.dust[num].noGravity = true;
 				}
@@ -3282,14 +3282,14 @@ namespace Terraria
 				{
 					if (this.type == 55)
 					{
-						Microsoft.Xna.Framework.Vector2 arg_2C5_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+						Vector2 arg_2C5_0 = new Vector2(this.position.X, this.position.Y);
 						int arg_2C5_1 = this.width;
 						int arg_2C5_2 = this.height;
 						int arg_2C5_3 = 18;
 						float arg_2C5_4 = 0f;
 						float arg_2C5_5 = 0f;
 						int arg_2C5_6 = 0;
-						Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+						Color newColor = default(Color);
 						int num2 = Dust.NewDust(arg_2C5_0, arg_2C5_1, arg_2C5_2, arg_2C5_3, arg_2C5_4, arg_2C5_5, arg_2C5_6, newColor, 0.9f);
 						Main.dust[num2].noGravity = true;
 					}
@@ -3306,14 +3306,14 @@ namespace Terraria
 							{
 								num3 = 58;
 							}
-							Microsoft.Xna.Framework.Vector2 arg_35A_0 = this.position;
+							Vector2 arg_35A_0 = this.position;
 							int arg_35A_1 = this.width;
 							int arg_35A_2 = this.height;
 							int arg_35A_3 = num3;
 							float arg_35A_4 = this.velocity.X * 0.25f;
 							float arg_35A_5 = this.velocity.Y * 0.25f;
 							int arg_35A_6 = 150;
-							Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+							Color newColor = default(Color);
 							int num4 = Dust.NewDust(arg_35A_0, arg_35A_1, arg_35A_2, arg_35A_3, arg_35A_4, arg_35A_5, arg_35A_6, newColor, 0.9f);
 							Dust expr_367 = Main.dust[num4];
 							expr_367.velocity *= 0.25f;
@@ -3375,14 +3375,14 @@ namespace Terraria
 				{
 					if (this.type == 93 && Main.rand.Next(5) == 0)
 					{
-						Microsoft.Xna.Framework.Vector2 arg_62A_0 = this.position;
+						Vector2 arg_62A_0 = this.position;
 						int arg_62A_1 = this.width;
 						int arg_62A_2 = this.height;
 						int arg_62A_3 = 57;
 						float arg_62A_4 = this.velocity.X * 0.2f + (float)(this.direction * 3);
 						float arg_62A_5 = this.velocity.Y * 0.2f;
 						int arg_62A_6 = 100;
-						Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+						Color newColor = default(Color);
 						int num5 = Dust.NewDust(arg_62A_0, arg_62A_1, arg_62A_2, arg_62A_3, arg_62A_4, arg_62A_5, arg_62A_6, newColor, 0.3f);
 						Dust expr_63E_cp_0 = Main.dust[num5];
 						expr_63E_cp_0.velocity.X = expr_63E_cp_0.velocity.X * 0.3f;
@@ -3421,14 +3421,14 @@ namespace Terraria
 					}
 					if (this.type == 54 && Main.rand.Next(20) == 0)
 					{
-						Microsoft.Xna.Framework.Vector2 arg_85E_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+						Vector2 arg_85E_0 = new Vector2(this.position.X, this.position.Y);
 						int arg_85E_1 = this.width;
 						int arg_85E_2 = this.height;
 						int arg_85E_3 = 40;
 						float arg_85E_4 = this.velocity.X * 0.1f;
 						float arg_85E_5 = this.velocity.Y * 0.1f;
 						int arg_85E_6 = 0;
-						Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+						Color newColor = default(Color);
 						Dust.NewDust(arg_85E_0, arg_85E_1, arg_85E_2, arg_85E_3, arg_85E_4, arg_85E_5, arg_85E_6, newColor, 0.75f);
 						return;
 					}
@@ -3446,14 +3446,14 @@ namespace Terraria
 						{
 							for (int i = 0; i < 2; i++)
 							{
-								Microsoft.Xna.Framework.Vector2 arg_90F_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+								Vector2 arg_90F_0 = new Vector2(this.position.X, this.position.Y);
 								int arg_90F_1 = this.width;
 								int arg_90F_2 = this.height;
 								int arg_90F_3 = 6;
 								float arg_90F_4 = this.velocity.X * 0.2f;
 								float arg_90F_5 = this.velocity.Y * 0.2f;
 								int arg_90F_6 = 100;
-								Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+								Color newColor = default(Color);
 								int num6 = Dust.NewDust(arg_90F_0, arg_90F_1, arg_90F_2, arg_90F_3, arg_90F_4, arg_90F_5, arg_90F_6, newColor, 2f);
 								Main.dust[num6].noGravity = true;
 								Dust expr_931_cp_0 = Main.dust[num6];
@@ -3468,14 +3468,14 @@ namespace Terraria
 							{
 								if (Main.rand.Next(1) == 0)
 								{
-									Microsoft.Xna.Framework.Vector2 arg_9D3_0 = this.position;
+									Vector2 arg_9D3_0 = this.position;
 									int arg_9D3_1 = this.width;
 									int arg_9D3_2 = this.height;
 									int arg_9D3_3 = 40;
 									float arg_9D3_4 = this.velocity.X * 0.25f;
 									float arg_9D3_5 = this.velocity.Y * 0.25f;
 									int arg_9D3_6 = 0;
-									Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+									Color newColor = default(Color);
 									int num7 = Dust.NewDust(arg_9D3_0, arg_9D3_1, arg_9D3_2, arg_9D3_3, arg_9D3_4, arg_9D3_5, arg_9D3_6, newColor, 1.4f);
 									Main.dust[num7].noGravity = true;
 								}
@@ -3500,14 +3500,14 @@ namespace Terraria
 											num8 = 58;
 										}
 									}
-									Microsoft.Xna.Framework.Vector2 arg_A76_0 = this.position;
+									Vector2 arg_A76_0 = this.position;
 									int arg_A76_1 = this.width;
 									int arg_A76_2 = this.height;
 									int arg_A76_3 = num8;
 									float arg_A76_4 = this.velocity.X * 0.25f;
 									float arg_A76_5 = this.velocity.Y * 0.25f;
 									int arg_A76_6 = 150;
-									Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+									Color newColor = default(Color);
 									Dust.NewDust(arg_A76_0, arg_A76_1, arg_A76_2, arg_A76_3, arg_A76_4, arg_A76_5, arg_A76_6, newColor, 0.7f);
 								}
 							}
@@ -3560,7 +3560,7 @@ namespace Terraria
 									}
 								}
 							}
-							Microsoft.Xna.Framework.Vector2 vector = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+							Vector2 vector = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 							float num11 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector.X;
 							float num12 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector.Y;
 							float num13 = (float)Math.Sqrt((double)(num11 * num11 + num12 * num12));
@@ -3611,8 +3611,8 @@ namespace Terraria
 							}
 							if (Main.myPlayer == this.owner)
 							{
-								Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
-								Microsoft.Xna.Framework.Rectangle value = new Microsoft.Xna.Framework.Rectangle((int)Main.player[this.owner].position.X, (int)Main.player[this.owner].position.Y, Main.player[this.owner].width, Main.player[this.owner].height);
+								Rectangle rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
+								Rectangle value = new Rectangle((int)Main.player[this.owner].position.X, (int)Main.player[this.owner].position.Y, Main.player[this.owner].width, Main.player[this.owner].height);
 								if (rectangle.Intersects(value))
 								{
 									this.Kill();
@@ -3663,27 +3663,27 @@ namespace Terraria
 							{
 								if (this.alpha < 170 && this.alpha + 5 >= 170)
 								{
-									Microsoft.Xna.Framework.Color newColor;
+									Color newColor;
 									for (int j = 0; j < 3; j++)
 									{
-										Microsoft.Xna.Framework.Vector2 arg_10C2_0 = this.position;
+										Vector2 arg_10C2_0 = this.position;
 										int arg_10C2_1 = this.width;
 										int arg_10C2_2 = this.height;
 										int arg_10C2_3 = 18;
 										float arg_10C2_4 = this.velocity.X * 0.025f;
 										float arg_10C2_5 = this.velocity.Y * 0.025f;
 										int arg_10C2_6 = 170;
-										newColor = default(Microsoft.Xna.Framework.Color);
+										newColor = default(Color);
 										Dust.NewDust(arg_10C2_0, arg_10C2_1, arg_10C2_2, arg_10C2_3, arg_10C2_4, arg_10C2_5, arg_10C2_6, newColor, 1.2f);
 									}
-									Microsoft.Xna.Framework.Vector2 arg_1105_0 = this.position;
+									Vector2 arg_1105_0 = this.position;
 									int arg_1105_1 = this.width;
 									int arg_1105_2 = this.height;
 									int arg_1105_3 = 14;
 									float arg_1105_4 = 0f;
 									float arg_1105_5 = 0f;
 									int arg_1105_6 = 170;
-									newColor = default(Microsoft.Xna.Framework.Color);
+									newColor = default(Color);
 									Dust.NewDust(arg_1105_0, arg_1105_1, arg_1105_2, arg_1105_3, arg_1105_4, arg_1105_5, arg_1105_6, newColor, 1.1f);
 								}
 								this.alpha += 5;
@@ -3743,19 +3743,19 @@ namespace Terraria
 									this.light = 0.9f;
 									if (Main.rand.Next(10) == 0)
 									{
-										Microsoft.Xna.Framework.Vector2 arg_1328_0 = this.position;
+										Vector2 arg_1328_0 = this.position;
 										int arg_1328_1 = this.width;
 										int arg_1328_2 = this.height;
 										int arg_1328_3 = 58;
 										float arg_1328_4 = this.velocity.X * 0.5f;
 										float arg_1328_5 = this.velocity.Y * 0.5f;
 										int arg_1328_6 = 150;
-										Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+										Color newColor = default(Color);
 										Dust.NewDust(arg_1328_0, arg_1328_1, arg_1328_2, arg_1328_3, arg_1328_4, arg_1328_5, arg_1328_6, newColor, 1.2f);
 									}
 									if (Main.rand.Next(20) == 0)
 									{
-										Gore.NewGore(this.position, new Microsoft.Xna.Framework.Vector2(this.velocity.X * 0.2f, this.velocity.Y * 0.2f), Main.rand.Next(16, 18), 1f);
+										Gore.NewGore(this.position, new Vector2(this.velocity.X * 0.2f, this.velocity.Y * 0.2f), Main.rand.Next(16, 18), 1f);
 										return;
 									}
 								}
@@ -3775,14 +3775,14 @@ namespace Terraria
 										this.ai[1] = 1f;
 										for (int k = 0; k < 30; k++)
 										{
-											Microsoft.Xna.Framework.Vector2 arg_143D_0 = this.position;
+											Vector2 arg_143D_0 = this.position;
 											int arg_143D_1 = this.width;
 											int arg_143D_2 = this.height;
 											int arg_143D_3 = 10 + this.type;
 											float arg_143D_4 = this.velocity.X;
 											float arg_143D_5 = this.velocity.Y;
 											int arg_143D_6 = 50;
-											Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+											Color newColor = default(Color);
 											Dust.NewDust(arg_143D_0, arg_143D_1, arg_143D_2, arg_143D_3, arg_143D_4, arg_143D_5, arg_143D_6, newColor, 1f);
 										}
 									}
@@ -3812,7 +3812,7 @@ namespace Terraria
 										{
 											for (int m = num18; m < num19; m++)
 											{
-												Microsoft.Xna.Framework.Vector2 vector2;
+												Vector2 vector2;
 												vector2.X = (float)(l * 16);
 												vector2.Y = (float)(m * 16);
 												if (this.position.X + (float)this.width > vector2.X && this.position.X < vector2.X + 16f && this.position.Y + (float)this.height > vector2.Y && this.position.Y < vector2.Y + 16f && Main.myPlayer == this.owner && Main.tile[l, m].active)
@@ -3895,7 +3895,7 @@ namespace Terraria
 											this.Kill();
 											return;
 										}
-										Microsoft.Xna.Framework.Vector2 vector3 = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+										Vector2 vector3 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 										float num20 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector3.X;
 										float num21 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector3.Y;
 										float num22 = (float)Math.Sqrt((double)(num20 * num20 + num21 * num21));
@@ -3935,7 +3935,7 @@ namespace Terraria
 													{
 														Main.tile[n, num27] = new Tile();
 													}
-													Microsoft.Xna.Framework.Vector2 vector4;
+													Vector2 vector4;
 													vector4.X = (float)(n * 16);
 													vector4.Y = (float)(num27 * 16);
 													if (this.position.X + (float)this.width > vector4.X && this.position.X < vector4.X + 16f && this.position.Y + (float)this.height > vector4.Y && this.position.Y < vector4.Y + 16f && Main.tile[n, num27].active && Main.tileSolid[(int)Main.tile[n, num27].type])
@@ -4061,7 +4061,7 @@ namespace Terraria
 													{
 														Main.tile[num38, num39] = new Tile();
 													}
-													Microsoft.Xna.Framework.Vector2 vector5;
+													Vector2 vector5;
 													vector5.X = (float)(num38 * 16);
 													vector5.Y = (float)(num39 * 16);
 													if (this.position.X + (float)(this.width / 2) > vector5.X && this.position.X + (float)(this.width / 2) < vector5.X + 16f && this.position.Y + (float)(this.height / 2) > vector5.Y && this.position.Y + (float)(this.height / 2) < vector5.Y + 16f && Main.tile[num38, num39].active && Main.tileSolid[(int)Main.tile[num38, num39].type])
@@ -4094,26 +4094,26 @@ namespace Terraria
 											}
 											if (this.type == 27)
 											{
-												Microsoft.Xna.Framework.Vector2 arg_20B6_0 = new Microsoft.Xna.Framework.Vector2(this.position.X + this.velocity.X, this.position.Y + this.velocity.Y);
+												Vector2 arg_20B6_0 = new Vector2(this.position.X + this.velocity.X, this.position.Y + this.velocity.Y);
 												int arg_20B6_1 = this.width;
 												int arg_20B6_2 = this.height;
 												int arg_20B6_3 = 29;
 												float arg_20B6_4 = this.velocity.X;
 												float arg_20B6_5 = this.velocity.Y;
 												int arg_20B6_6 = 100;
-												Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+												Color newColor = default(Color);
 												int num40 = Dust.NewDust(arg_20B6_0, arg_20B6_1, arg_20B6_2, arg_20B6_3, arg_20B6_4, arg_20B6_5, arg_20B6_6, newColor, 3f);
 												Main.dust[num40].noGravity = true;
 												if (Main.rand.Next(10) == 0)
 												{
-													Microsoft.Xna.Framework.Vector2 arg_212C_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+													Vector2 arg_212C_0 = new Vector2(this.position.X, this.position.Y);
 													int arg_212C_1 = this.width;
 													int arg_212C_2 = this.height;
 													int arg_212C_3 = 29;
 													float arg_212C_4 = this.velocity.X;
 													float arg_212C_5 = this.velocity.Y;
 													int arg_212C_6 = 100;
-													newColor = default(Microsoft.Xna.Framework.Color);
+													newColor = default(Color);
 													num40 = Dust.NewDust(arg_212C_0, arg_212C_1, arg_212C_2, arg_212C_3, arg_212C_4, arg_212C_5, arg_212C_6, newColor, 1.4f);
 												}
 											}
@@ -4121,14 +4121,14 @@ namespace Terraria
 											{
 												if (this.type == 95 || this.type == 96)
 												{
-													Microsoft.Xna.Framework.Vector2 arg_21BE_0 = new Microsoft.Xna.Framework.Vector2(this.position.X + this.velocity.X, this.position.Y + this.velocity.Y);
+													Vector2 arg_21BE_0 = new Vector2(this.position.X + this.velocity.X, this.position.Y + this.velocity.Y);
 													int arg_21BE_1 = this.width;
 													int arg_21BE_2 = this.height;
 													int arg_21BE_3 = 75;
 													float arg_21BE_4 = this.velocity.X;
 													float arg_21BE_5 = this.velocity.Y;
 													int arg_21BE_6 = 100;
-													Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+													Color newColor = default(Color);
 													int num41 = Dust.NewDust(arg_21BE_0, arg_21BE_1, arg_21BE_2, arg_21BE_3, arg_21BE_4, arg_21BE_5, arg_21BE_6, newColor, 3f * this.scale);
 													Main.dust[num41].noGravity = true;
 												}
@@ -4136,14 +4136,14 @@ namespace Terraria
 												{
 													for (int num42 = 0; num42 < 2; num42++)
 													{
-														Microsoft.Xna.Framework.Vector2 arg_223B_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+														Vector2 arg_223B_0 = new Vector2(this.position.X, this.position.Y);
 														int arg_223B_1 = this.width;
 														int arg_223B_2 = this.height;
 														int arg_223B_3 = 6;
 														float arg_223B_4 = this.velocity.X * 0.2f;
 														float arg_223B_5 = this.velocity.Y * 0.2f;
 														int arg_223B_6 = 100;
-														Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+														Color newColor = default(Color);
 														int num43 = Dust.NewDust(arg_223B_0, arg_223B_1, arg_223B_2, arg_223B_3, arg_223B_4, arg_223B_5, arg_223B_6, newColor, 2f);
 														Main.dust[num43].noGravity = true;
 														Dust expr_225D_cp_0 = Main.dust[num43];
@@ -4174,26 +4174,26 @@ namespace Terraria
 											{
 												if (this.type == 34)
 												{
-													Microsoft.Xna.Framework.Vector2 arg_23A6_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+													Vector2 arg_23A6_0 = new Vector2(this.position.X, this.position.Y);
 													int arg_23A6_1 = this.width;
 													int arg_23A6_2 = this.height;
 													int arg_23A6_3 = 6;
 													float arg_23A6_4 = this.velocity.X * 0.2f;
 													float arg_23A6_5 = this.velocity.Y * 0.2f;
 													int arg_23A6_6 = 100;
-													Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+													Color newColor = default(Color);
 													int num44 = Dust.NewDust(arg_23A6_0, arg_23A6_1, arg_23A6_2, arg_23A6_3, arg_23A6_4, arg_23A6_5, arg_23A6_6, newColor, 3.5f);
 													Main.dust[num44].noGravity = true;
 													Dust expr_23C3 = Main.dust[num44];
 													expr_23C3.velocity *= 1.4f;
-													Microsoft.Xna.Framework.Vector2 arg_2433_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+													Vector2 arg_2433_0 = new Vector2(this.position.X, this.position.Y);
 													int arg_2433_1 = this.width;
 													int arg_2433_2 = this.height;
 													int arg_2433_3 = 6;
 													float arg_2433_4 = this.velocity.X * 0.2f;
 													float arg_2433_5 = this.velocity.Y * 0.2f;
 													int arg_2433_6 = 100;
-													newColor = default(Microsoft.Xna.Framework.Color);
+													newColor = default(Color);
 													num44 = Dust.NewDust(arg_2433_0, arg_2433_1, arg_2433_2, arg_2433_3, arg_2433_4, arg_2433_5, arg_2433_6, newColor, 1.5f);
 												}
 												else
@@ -4207,7 +4207,7 @@ namespace Terraria
 														}
 														for (int num45 = 0; num45 < 1; num45++)
 														{
-															int num46 = Dust.NewDust(new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y), this.width, this.height, 66, 0f, 0f, 100, new Microsoft.Xna.Framework.Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 2.5f);
+															int num46 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 66, 0f, 0f, 100, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 2.5f);
 															Dust expr_2509 = Main.dust[num46];
 															expr_2509.velocity *= 0.1f;
 															Dust expr_2526 = Main.dust[num46];
@@ -4224,14 +4224,14 @@ namespace Terraria
 															this.soundDelay = 10;
 															Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 9);
 														}
-														Microsoft.Xna.Framework.Vector2 arg_2675_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+														Vector2 arg_2675_0 = new Vector2(this.position.X, this.position.Y);
 														int arg_2675_1 = this.width;
 														int arg_2675_2 = this.height;
 														int arg_2675_3 = 15;
 														float arg_2675_4 = 0f;
 														float arg_2675_5 = 0f;
 														int arg_2675_6 = 100;
-														Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+														Color newColor = default(Color);
 														int num47 = Dust.NewDust(arg_2675_0, arg_2675_1, arg_2675_2, arg_2675_3, arg_2675_4, arg_2675_5, arg_2675_6, newColor, 2f);
 														Dust expr_2684 = Main.dust[num47];
 														expr_2684.velocity *= 0.3f;
@@ -4249,7 +4249,7 @@ namespace Terraria
 														{
 															num48 = 15f;
 														}
-														Microsoft.Xna.Framework.Vector2 vector6 = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+														Vector2 vector6 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 														float num49 = (float)Main.mouseX + Main.screenPosition.X - vector6.X;
 														float num50 = (float)Main.mouseY + Main.screenPosition.Y - vector6.Y;
 														float num51 = (float)Math.Sqrt((double)(num49 * num49 + num50 * num50));
@@ -4291,13 +4291,13 @@ namespace Terraria
 															this.ai[0] = 1f;
 															this.netUpdate = true;
 															float num60 = 12f;
-															Microsoft.Xna.Framework.Vector2 vector7 = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+															Vector2 vector7 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 															float num61 = (float)Main.mouseX + Main.screenPosition.X - vector7.X;
 															float num62 = (float)Main.mouseY + Main.screenPosition.Y - vector7.Y;
 															float num63 = (float)Math.Sqrt((double)(num61 * num61 + num62 * num62));
 															if (num63 == 0f)
 															{
-																vector7 = new Microsoft.Xna.Framework.Vector2(Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2), Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2));
+																vector7 = new Vector2(Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2), Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2));
 																num61 = this.position.X + (float)this.width * 0.5f - vector7.X;
 																num62 = this.position.Y + (float)this.height * 0.5f - vector7.Y;
 																num63 = (float)Math.Sqrt((double)(num61 * num61 + num62 * num62));
@@ -4339,14 +4339,14 @@ namespace Terraria
 													{
 														if (Main.rand.Next(2) == 0)
 														{
-															Microsoft.Xna.Framework.Vector2 arg_2BEF_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+															Vector2 arg_2BEF_0 = new Vector2(this.position.X, this.position.Y);
 															int arg_2BEF_1 = this.width;
 															int arg_2BEF_2 = this.height;
 															int arg_2BEF_3 = 32;
 															float arg_2BEF_4 = 0f;
 															float arg_2BEF_5 = this.velocity.Y / 2f;
 															int arg_2BEF_6 = 0;
-															Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+															Color newColor = default(Color);
 															int num64 = Dust.NewDust(arg_2BEF_0, arg_2BEF_1, arg_2BEF_2, arg_2BEF_3, arg_2BEF_4, arg_2BEF_5, arg_2BEF_6, newColor, 1f);
 															Dust expr_2C03_cp_0 = Main.dust[num64];
 															expr_2C03_cp_0.velocity.X = expr_2C03_cp_0.velocity.X * 0.4f;
@@ -4358,14 +4358,14 @@ namespace Terraria
 														{
 															if (Main.rand.Next(2) == 0)
 															{
-																Microsoft.Xna.Framework.Vector2 arg_2C85_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																Vector2 arg_2C85_0 = new Vector2(this.position.X, this.position.Y);
 																int arg_2C85_1 = this.width;
 																int arg_2C85_2 = this.height;
 																int arg_2C85_3 = 38;
 																float arg_2C85_4 = 0f;
 																float arg_2C85_5 = this.velocity.Y / 2f;
 																int arg_2C85_6 = 0;
-																Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																Color newColor = default(Color);
 																int num65 = Dust.NewDust(arg_2C85_0, arg_2C85_1, arg_2C85_2, arg_2C85_3, arg_2C85_4, arg_2C85_5, arg_2C85_6, newColor, 1f);
 																Dust expr_2C99_cp_0 = Main.dust[num65];
 																expr_2C99_cp_0.velocity.X = expr_2C99_cp_0.velocity.X * 0.4f;
@@ -4377,14 +4377,14 @@ namespace Terraria
 															{
 																if (Main.rand.Next(2) == 0)
 																{
-																	Microsoft.Xna.Framework.Vector2 arg_2D1B_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																	Vector2 arg_2D1B_0 = new Vector2(this.position.X, this.position.Y);
 																	int arg_2D1B_1 = this.width;
 																	int arg_2D1B_2 = this.height;
 																	int arg_2D1B_3 = 36;
 																	float arg_2D1B_4 = 0f;
 																	float arg_2D1B_5 = this.velocity.Y / 2f;
 																	int arg_2D1B_6 = 0;
-																	Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																	Color newColor = default(Color);
 																	int num66 = Dust.NewDust(arg_2D1B_0, arg_2D1B_1, arg_2D1B_2, arg_2D1B_3, arg_2D1B_4, arg_2D1B_5, arg_2D1B_6, newColor, 1f);
 																	Dust expr_2D2A = Main.dust[num66];
 																	expr_2D2A.velocity *= 0.4f;
@@ -4396,14 +4396,14 @@ namespace Terraria
 																{
 																	if (Main.rand.Next(2) == 0)
 																	{
-																		Microsoft.Xna.Framework.Vector2 arg_2DAB_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																		Vector2 arg_2DAB_0 = new Vector2(this.position.X, this.position.Y);
 																		int arg_2DAB_1 = this.width;
 																		int arg_2DAB_2 = this.height;
 																		int arg_2DAB_3 = 32;
 																		float arg_2DAB_4 = 0f;
 																		float arg_2DAB_5 = 0f;
 																		int arg_2DAB_6 = 0;
-																		Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																		Color newColor = default(Color);
 																		int num67 = Dust.NewDust(arg_2DAB_0, arg_2DAB_1, arg_2DAB_2, arg_2DAB_3, arg_2DAB_4, arg_2DAB_5, arg_2DAB_6, newColor, 1f);
 																		Dust expr_2DBF_cp_0 = Main.dust[num67];
 																		expr_2DBF_cp_0.velocity.X = expr_2DBF_cp_0.velocity.X * 0.4f;
@@ -4415,14 +4415,14 @@ namespace Terraria
 																	{
 																		if (Main.rand.Next(2) == 0)
 																		{
-																			Microsoft.Xna.Framework.Vector2 arg_2E3C_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																			Vector2 arg_2E3C_0 = new Vector2(this.position.X, this.position.Y);
 																			int arg_2E3C_1 = this.width;
 																			int arg_2E3C_2 = this.height;
 																			int arg_2E3C_3 = 14;
 																			float arg_2E3C_4 = 0f;
 																			float arg_2E3C_5 = 0f;
 																			int arg_2E3C_6 = 0;
-																			Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																			Color newColor = default(Color);
 																			int num68 = Dust.NewDust(arg_2E3C_0, arg_2E3C_1, arg_2E3C_2, arg_2E3C_3, arg_2E3C_4, arg_2E3C_5, arg_2E3C_6, newColor, 1f);
 																			Dust expr_2E50_cp_0 = Main.dust[num68];
 																			expr_2E50_cp_0.velocity.X = expr_2E50_cp_0.velocity.X * 0.4f;
@@ -4434,14 +4434,14 @@ namespace Terraria
 																		{
 																			if (Main.rand.Next(2) == 0)
 																			{
-																				Microsoft.Xna.Framework.Vector2 arg_2ECD_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																				Vector2 arg_2ECD_0 = new Vector2(this.position.X, this.position.Y);
 																				int arg_2ECD_1 = this.width;
 																				int arg_2ECD_2 = this.height;
 																				int arg_2ECD_3 = 51;
 																				float arg_2ECD_4 = 0f;
 																				float arg_2ECD_5 = 0f;
 																				int arg_2ECD_6 = 0;
-																				Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																				Color newColor = default(Color);
 																				int num69 = Dust.NewDust(arg_2ECD_0, arg_2ECD_1, arg_2ECD_2, arg_2ECD_3, arg_2ECD_4, arg_2ECD_5, arg_2ECD_6, newColor, 1f);
 																				Dust expr_2EE1_cp_0 = Main.dust[num69];
 																				expr_2EE1_cp_0.velocity.X = expr_2EE1_cp_0.velocity.X * 0.4f;
@@ -4453,14 +4453,14 @@ namespace Terraria
 																			{
 																				if (Main.rand.Next(2) == 0)
 																				{
-																					Microsoft.Xna.Framework.Vector2 arg_2F54_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																					Vector2 arg_2F54_0 = new Vector2(this.position.X, this.position.Y);
 																					int arg_2F54_1 = this.width;
 																					int arg_2F54_2 = this.height;
 																					int arg_2F54_3 = 53;
 																					float arg_2F54_4 = 0f;
 																					float arg_2F54_5 = 0f;
 																					int arg_2F54_6 = 0;
-																					Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																					Color newColor = default(Color);
 																					int num70 = Dust.NewDust(arg_2F54_0, arg_2F54_1, arg_2F54_2, arg_2F54_3, arg_2F54_4, arg_2F54_5, arg_2F54_6, newColor, 1f);
 																					Dust expr_2F68_cp_0 = Main.dust[num70];
 																					expr_2F68_cp_0.velocity.X = expr_2F68_cp_0.velocity.X * 0.4f;
@@ -4470,14 +4470,14 @@ namespace Terraria
 																			{
 																				if (this.type != 109 && Main.rand.Next(20) == 0)
 																				{
-																					Microsoft.Xna.Framework.Vector2 arg_2FD5_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																					Vector2 arg_2FD5_0 = new Vector2(this.position.X, this.position.Y);
 																					int arg_2FD5_1 = this.width;
 																					int arg_2FD5_2 = this.height;
 																					int arg_2FD5_3 = 0;
 																					float arg_2FD5_4 = 0f;
 																					float arg_2FD5_5 = 0f;
 																					int arg_2FD5_6 = 0;
-																					Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																					Color newColor = default(Color);
 																					Dust.NewDust(arg_2FD5_0, arg_2FD5_1, arg_2FD5_2, arg_2FD5_3, arg_2FD5_4, arg_2FD5_5, arg_2FD5_6, newColor, 1f);
 																				}
 																			}
@@ -4492,7 +4492,7 @@ namespace Terraria
 														if (Main.player[this.owner].channel)
 														{
 															float num71 = 12f;
-															Microsoft.Xna.Framework.Vector2 vector8 = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+															Vector2 vector8 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 															float num72 = (float)Main.mouseX + Main.screenPosition.X - vector8.X;
 															float num73 = (float)Main.mouseY + Main.screenPosition.Y - vector8.Y;
 															float num74 = (float)Math.Sqrt((double)(num72 * num72 + num73 * num73));
@@ -4612,14 +4612,14 @@ namespace Terraria
 																		num75 = 74;
 																	}
 																}
-																Microsoft.Xna.Framework.Vector2 arg_340A_0 = this.position;
+																Vector2 arg_340A_0 = this.position;
 																int arg_340A_1 = this.width;
 																int arg_340A_2 = this.height;
 																int arg_340A_3 = num75;
 																float arg_340A_4 = 0f;
 																float arg_340A_5 = 0f;
 																int arg_340A_6 = 200;
-																Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																Color newColor = default(Color);
 																int num76 = Dust.NewDust(arg_340A_0, arg_340A_1, arg_340A_2, arg_340A_3, arg_340A_4, arg_340A_5, arg_340A_6, newColor, 0.8f);
 																Dust expr_3419 = Main.dust[num76];
 																expr_3419.velocity *= 0.3f;
@@ -4656,7 +4656,7 @@ namespace Terraria
 														{
 															num77 = 3.5f;
 														}
-														Microsoft.Xna.Framework.Vector2 vector9 = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+														Vector2 vector9 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 														float num78 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector9.X;
 														float num79 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector9.Y;
 														float num80 = (float)Math.Sqrt((double)(num78 * num78 + num79 * num79));
@@ -4698,24 +4698,24 @@ namespace Terraria
 															{
 																this.alpha = 150;
 																this.light = 0.8f;
-																Microsoft.Xna.Framework.Vector2 arg_376A_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																Vector2 arg_376A_0 = new Vector2(this.position.X, this.position.Y);
 																int arg_376A_1 = this.width;
 																int arg_376A_2 = this.height;
 																int arg_376A_3 = 29;
 																float arg_376A_4 = this.velocity.X;
 																float arg_376A_5 = this.velocity.Y;
 																int arg_376A_6 = 100;
-																Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																Color newColor = default(Color);
 																int num82 = Dust.NewDust(arg_376A_0, arg_376A_1, arg_376A_2, arg_376A_3, arg_376A_4, arg_376A_5, arg_376A_6, newColor, 2.5f);
 																Main.dust[num82].noGravity = true;
-																Microsoft.Xna.Framework.Vector2 arg_37CF_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																Vector2 arg_37CF_0 = new Vector2(this.position.X, this.position.Y);
 																int arg_37CF_1 = this.width;
 																int arg_37CF_2 = this.height;
 																int arg_37CF_3 = 29;
 																float arg_37CF_4 = this.velocity.X;
 																float arg_37CF_5 = this.velocity.Y;
 																int arg_37CF_6 = 100;
-																newColor = default(Microsoft.Xna.Framework.Color);
+																newColor = default(Color);
 																Dust.NewDust(arg_37CF_0, arg_37CF_1, arg_37CF_2, arg_37CF_3, arg_37CF_4, arg_37CF_5, arg_37CF_6, newColor, 1.5f);
 															}
 															else
@@ -4742,7 +4742,7 @@ namespace Terraria
 															{
 																Main.player[this.owner].direction = -1;
 															}
-															Microsoft.Xna.Framework.Vector2 vector10 = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+															Vector2 vector10 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 															float num83 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector10.X;
 															float num84 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector10.Y;
 															float num85 = (float)Math.Sqrt((double)(num83 * num83 + num84 * num84));
@@ -4793,7 +4793,7 @@ namespace Terraria
 																{
 																	try
 																	{
-																		Microsoft.Xna.Framework.Vector2 value2 = Collision.TileCollision(this.position, this.velocity, this.width, this.height, false, false);
+																		Vector2 value2 = Collision.TileCollision(this.position, this.velocity, this.width, this.height, false, false);
 																		int num87 = (int)(this.position.X / 16f) - 1;
 																		int num88 = (int)((this.position.X + (float)this.width) / 16f) + 2;
 																		int num89 = (int)(this.position.Y / 16f) - 1;
@@ -4820,7 +4820,7 @@ namespace Terraria
 																			{
 																				if (Main.tile[num91, num92] != null && Main.tile[num91, num92].active && (Main.tileSolid[(int)Main.tile[num91, num92].type] || (Main.tileSolidTop[(int)Main.tile[num91, num92].type] && Main.tile[num91, num92].frameY == 0)))
 																				{
-																					Microsoft.Xna.Framework.Vector2 vector11;
+																					Vector2 vector11;
 																					vector11.X = (float)(num91 * 16);
 																					vector11.Y = (float)(num92 * 16);
 																					if (this.position.X + (float)this.width > vector11.X && this.position.X < vector11.X + 16f && this.position.Y + (float)this.height > vector11.Y && this.position.Y < vector11.Y + 16f)
@@ -4866,14 +4866,14 @@ namespace Terraria
 																	{
 																		if (Main.rand.Next(15) == 0)
 																		{
-																			Microsoft.Xna.Framework.Vector2 arg_3E55_0 = this.position;
+																			Vector2 arg_3E55_0 = this.position;
 																			int arg_3E55_1 = this.width;
 																			int arg_3E55_2 = this.height;
 																			int arg_3E55_3 = 14;
 																			float arg_3E55_4 = 0f;
 																			float arg_3E55_5 = 0f;
 																			int arg_3E55_6 = 150;
-																			Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																			Color newColor = default(Color);
 																			Dust.NewDust(arg_3E55_0, arg_3E55_1, arg_3E55_2, arg_3E55_3, arg_3E55_4, arg_3E55_5, arg_3E55_6, newColor, 1.3f);
 																		}
 																	}
@@ -4881,14 +4881,14 @@ namespace Terraria
 																	{
 																		if (this.type == 26)
 																		{
-																			Microsoft.Xna.Framework.Vector2 arg_3EB4_0 = this.position;
+																			Vector2 arg_3EB4_0 = this.position;
 																			int arg_3EB4_1 = this.width;
 																			int arg_3EB4_2 = this.height;
 																			int arg_3EB4_3 = 29;
 																			float arg_3EB4_4 = this.velocity.X * 0.4f;
 																			float arg_3EB4_5 = this.velocity.Y * 0.4f;
 																			int arg_3EB4_6 = 100;
-																			Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																			Color newColor = default(Color);
 																			int num93 = Dust.NewDust(arg_3EB4_0, arg_3EB4_1, arg_3EB4_2, arg_3EB4_3, arg_3EB4_4, arg_3EB4_5, arg_3EB4_6, newColor, 2.5f);
 																			Main.dust[num93].noGravity = true;
 																			Dust expr_3ED6_cp_0 = Main.dust[num93];
@@ -4900,14 +4900,14 @@ namespace Terraria
 																		{
 																			if (this.type == 35)
 																			{
-																				Microsoft.Xna.Framework.Vector2 arg_3F5D_0 = this.position;
+																				Vector2 arg_3F5D_0 = this.position;
 																				int arg_3F5D_1 = this.width;
 																				int arg_3F5D_2 = this.height;
 																				int arg_3F5D_3 = 6;
 																				float arg_3F5D_4 = this.velocity.X * 0.4f;
 																				float arg_3F5D_5 = this.velocity.Y * 0.4f;
 																				int arg_3F5D_6 = 100;
-																				Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																				Color newColor = default(Color);
 																				int num94 = Dust.NewDust(arg_3F5D_0, arg_3F5D_1, arg_3F5D_2, arg_3F5D_3, arg_3F5D_4, arg_3F5D_5, arg_3F5D_6, newColor, 3f);
 																				Main.dust[num94].noGravity = true;
 																				Dust expr_3F7F_cp_0 = Main.dust[num94];
@@ -4934,7 +4934,7 @@ namespace Terraria
 																		Main.player[this.owner].direction = -1;
 																		this.direction = -1;
 																	}
-																	Microsoft.Xna.Framework.Vector2 vector12 = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+																	Vector2 vector12 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 																	float num95 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector12.X;
 																	float num96 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector12.Y;
 																	float num97 = (float)Math.Sqrt((double)(num95 * num95 + num96 * num96));
@@ -5005,7 +5005,7 @@ namespace Terraria
 																				num97 = num99 / num97;
 																				num95 *= num97;
 																				num96 *= num97;
-																				new Microsoft.Xna.Framework.Vector2(this.velocity.X, this.velocity.Y);
+																				new Vector2(this.velocity.X, this.velocity.Y);
 																				float num102 = num95 - this.velocity.X;
 																				float num103 = num96 - this.velocity.Y;
 																				float num104 = (float)Math.Sqrt((double)(num102 * num102 + num103 * num103));
@@ -5076,7 +5076,7 @@ namespace Terraria
 																					{
 																						if (Main.tile[num109, num110] != null && Main.tile[num109, num110].active && (Main.tileSolid[(int)Main.tile[num109, num110].type] || (Main.tileSolidTop[(int)Main.tile[num109, num110].type] && Main.tile[num109, num110].frameY == 0)))
 																						{
-																							Microsoft.Xna.Framework.Vector2 vector13;
+																							Vector2 vector13;
 																							vector13.X = (float)(num109 * 16);
 																							vector13.Y = (float)(num110 * 16);
 																							if (this.position.X + (float)this.width - 4f > vector13.X && this.position.X + 4f < vector13.X + 16f && this.position.Y + (float)this.height - 4f > vector13.Y && this.position.Y + 4f < vector13.Y + 16f)
@@ -5178,14 +5178,14 @@ namespace Terraria
 																			}
 																			if (this.type != 30 && Main.rand.Next(4) == 0)
 																			{
-																				Microsoft.Xna.Framework.Vector2 arg_4ADF_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																				Vector2 arg_4ADF_0 = new Vector2(this.position.X, this.position.Y);
 																				int arg_4ADF_1 = this.width;
 																				int arg_4ADF_2 = this.height;
 																				int arg_4ADF_3 = 6;
 																				float arg_4ADF_4 = 0f;
 																				float arg_4ADF_5 = 0f;
 																				int arg_4ADF_6 = 100;
-																				Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																				Color newColor = default(Color);
 																				Dust.NewDust(arg_4ADF_0, arg_4ADF_1, arg_4ADF_2, arg_4ADF_3, arg_4ADF_4, arg_4ADF_5, arg_4ADF_6, newColor, 1f);
 																			}
 																		}
@@ -5267,14 +5267,14 @@ namespace Terraria
 																			}
 																			for (int num114 = 0; num114 < 2; num114++)
 																			{
-																				Microsoft.Xna.Framework.Vector2 arg_4E8A_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																				Vector2 arg_4E8A_0 = new Vector2(this.position.X, this.position.Y);
 																				int arg_4E8A_1 = this.width;
 																				int arg_4E8A_2 = this.height;
 																				int arg_4E8A_3 = 27;
 																				float arg_4E8A_4 = 0f;
 																				float arg_4E8A_5 = 0f;
 																				int arg_4E8A_6 = 100;
-																				Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																				Color newColor = default(Color);
 																				int num115 = Dust.NewDust(arg_4E8A_0, arg_4E8A_1, arg_4E8A_2, arg_4E8A_3, arg_4E8A_4, arg_4E8A_5, arg_4E8A_6, newColor, 1f);
 																				Main.dust[num115].noGravity = true;
 																			}
@@ -5432,41 +5432,41 @@ namespace Terraria
 																			}
 																			if (this.type == 46)
 																			{
-																				Microsoft.Xna.Framework.Color newColor;
+																				Color newColor;
 																				if (Main.rand.Next(5) == 0)
 																				{
-																					Microsoft.Xna.Framework.Vector2 arg_54B5_0 = this.position;
+																					Vector2 arg_54B5_0 = this.position;
 																					int arg_54B5_1 = this.width;
 																					int arg_54B5_2 = this.height;
 																					int arg_54B5_3 = 14;
 																					float arg_54B5_4 = 0f;
 																					float arg_54B5_5 = 0f;
 																					int arg_54B5_6 = 150;
-																					newColor = default(Microsoft.Xna.Framework.Color);
+																					newColor = default(Color);
 																					Dust.NewDust(arg_54B5_0, arg_54B5_1, arg_54B5_2, arg_54B5_3, arg_54B5_4, arg_54B5_5, arg_54B5_6, newColor, 1.4f);
 																				}
-																				Microsoft.Xna.Framework.Vector2 arg_550C_0 = this.position;
+																				Vector2 arg_550C_0 = this.position;
 																				int arg_550C_1 = this.width;
 																				int arg_550C_2 = this.height;
 																				int arg_550C_3 = 27;
 																				float arg_550C_4 = this.velocity.X * 0.2f + (float)(this.direction * 3);
 																				float arg_550C_5 = this.velocity.Y * 0.2f;
 																				int arg_550C_6 = 100;
-																				newColor = default(Microsoft.Xna.Framework.Color);
+																				newColor = default(Color);
 																				int num116 = Dust.NewDust(arg_550C_0, arg_550C_1, arg_550C_2, arg_550C_3, arg_550C_4, arg_550C_5, arg_550C_6, newColor, 1.2f);
 																				Main.dust[num116].noGravity = true;
 																				Dust expr_552E_cp_0 = Main.dust[num116];
 																				expr_552E_cp_0.velocity.X = expr_552E_cp_0.velocity.X / 2f;
 																				Dust expr_554C_cp_0 = Main.dust[num116];
 																				expr_554C_cp_0.velocity.Y = expr_554C_cp_0.velocity.Y / 2f;
-																				Microsoft.Xna.Framework.Vector2 arg_55A4_0 = this.position - this.velocity * 2f;
+																				Vector2 arg_55A4_0 = this.position - this.velocity * 2f;
 																				int arg_55A4_1 = this.width;
 																				int arg_55A4_2 = this.height;
 																				int arg_55A4_3 = 27;
 																				float arg_55A4_4 = 0f;
 																				float arg_55A4_5 = 0f;
 																				int arg_55A4_6 = 150;
-																				newColor = default(Microsoft.Xna.Framework.Color);
+																				newColor = default(Color);
 																				num116 = Dust.NewDust(arg_55A4_0, arg_55A4_1, arg_55A4_2, arg_55A4_3, arg_55A4_4, arg_55A4_5, arg_55A4_6, newColor, 1.4f);
 																				Dust expr_55B8_cp_0 = Main.dust[num116];
 																				expr_55B8_cp_0.velocity.X = expr_55B8_cp_0.velocity.X / 5f;
@@ -5478,14 +5478,14 @@ namespace Terraria
 																			{
 																				if (Main.rand.Next(3) == 0)
 																				{
-																					Microsoft.Xna.Framework.Vector2 arg_5664_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																					Vector2 arg_5664_0 = new Vector2(this.position.X, this.position.Y);
 																					int arg_5664_1 = this.width;
 																					int arg_5664_2 = this.height;
 																					int arg_5664_3 = 57;
 																					float arg_5664_4 = this.velocity.X * 0.2f;
 																					float arg_5664_5 = this.velocity.Y * 0.2f;
 																					int arg_5664_6 = 200;
-																					Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																					Color newColor = default(Color);
 																					int num117 = Dust.NewDust(arg_5664_0, arg_5664_1, arg_5664_2, arg_5664_3, arg_5664_4, arg_5664_5, arg_5664_6, newColor, 1.2f);
 																					Dust expr_5673 = Main.dust[num117];
 																					expr_5673.velocity += this.velocity * 0.3f;
@@ -5494,14 +5494,14 @@ namespace Terraria
 																				}
 																				if (Main.rand.Next(4) == 0)
 																				{
-																					Microsoft.Xna.Framework.Vector2 arg_5707_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																					Vector2 arg_5707_0 = new Vector2(this.position.X, this.position.Y);
 																					int arg_5707_1 = this.width;
 																					int arg_5707_2 = this.height;
 																					int arg_5707_3 = 43;
 																					float arg_5707_4 = 0f;
 																					float arg_5707_5 = 0f;
 																					int arg_5707_6 = 254;
-																					Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																					Color newColor = default(Color);
 																					int num118 = Dust.NewDust(arg_5707_0, arg_5707_1, arg_5707_2, arg_5707_3, arg_5707_4, arg_5707_5, arg_5707_6, newColor, 0.3f);
 																					Dust expr_5716 = Main.dust[num118];
 																					expr_5716.velocity += this.velocity * 0.5f;
@@ -5525,7 +5525,7 @@ namespace Terraria
 																					if (Main.player[this.owner].channel)
 																					{
 																						float num119 = Main.player[this.owner].inventory[Main.player[this.owner].selectedItem].shootSpeed * this.scale;
-																						Microsoft.Xna.Framework.Vector2 vector14 = new Microsoft.Xna.Framework.Vector2(Main.player[this.owner].position.X + (float)Main.player[this.owner].width * 0.5f, Main.player[this.owner].position.Y + (float)Main.player[this.owner].height * 0.5f);
+																						Vector2 vector14 = new Vector2(Main.player[this.owner].position.X + (float)Main.player[this.owner].width * 0.5f, Main.player[this.owner].position.Y + (float)Main.player[this.owner].height * 0.5f);
 																						float num120 = (float)Main.mouseX + Main.screenPosition.X - vector14.X;
 																						float num121 = (float)Main.mouseY + Main.screenPosition.Y - vector14.Y;
 																						float num122 = (float)Math.Sqrt((double)(num120 * num120 + num121 * num121));
@@ -5575,14 +5575,14 @@ namespace Terraria
 																				this.velocity.X = this.velocity.X * (1f + (float)Main.rand.Next(-3, 4) * 0.01f);
 																				if (Main.rand.Next(6) == 0)
 																				{
-																					Microsoft.Xna.Framework.Vector2 arg_5B85_0 = this.position + this.velocity * (float)Main.rand.Next(6, 10) * 0.1f;
+																					Vector2 arg_5B85_0 = this.position + this.velocity * (float)Main.rand.Next(6, 10) * 0.1f;
 																					int arg_5B85_1 = this.width;
 																					int arg_5B85_2 = this.height;
 																					int arg_5B85_3 = 31;
 																					float arg_5B85_4 = 0f;
 																					float arg_5B85_5 = 0f;
 																					int arg_5B85_6 = 80;
-																					Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																					Color newColor = default(Color);
 																					int num123 = Dust.NewDust(arg_5B85_0, arg_5B85_1, arg_5B85_2, arg_5B85_3, arg_5B85_4, arg_5B85_5, arg_5B85_6, newColor, 1.4f);
 																					Dust expr_5B99_cp_0 = Main.dust[num123];
 																					expr_5B99_cp_0.position.X = expr_5B99_cp_0.position.X - 4f;
@@ -5601,14 +5601,14 @@ namespace Terraria
 																					this.spriteDirection = -this.direction;
 																					if (Main.rand.Next(3) == 0)
 																					{
-																						Microsoft.Xna.Framework.Vector2 arg_5C6A_0 = this.position;
+																						Vector2 arg_5C6A_0 = this.position;
 																						int arg_5C6A_1 = this.width;
 																						int arg_5C6A_2 = this.height;
 																						int arg_5C6A_3 = 27;
 																						float arg_5C6A_4 = 0f;
 																						float arg_5C6A_5 = 0f;
 																						int arg_5C6A_6 = 80;
-																						Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																						Color newColor = default(Color);
 																						int num124 = Dust.NewDust(arg_5C6A_0, arg_5C6A_1, arg_5C6A_2, arg_5C6A_3, arg_5C6A_4, arg_5C6A_5, arg_5C6A_6, newColor, 1f);
 																						Main.dust[num124].noGravity = true;
 																						Dust expr_5C87 = Main.dust[num124];
@@ -5668,7 +5668,7 @@ namespace Terraria
 																								{
 																									if (Main.tile[num131, num132] != null && Main.tile[num131, num132].active && Main.tile[num131, num132].type != 127 && Main.tileSolid[(int)Main.tile[num131, num132].type] && !Main.tileSolidTop[(int)Main.tile[num131, num132].type])
 																									{
-																										Microsoft.Xna.Framework.Vector2 vector15;
+																										Vector2 vector15;
 																										vector15.X = (float)(num131 * 16);
 																										vector15.Y = (float)(num132 * 16);
 																										if ((float)(num129 + 8) > vector15.X && (float)num129 < vector15.X + 16f && (float)(num130 + 8) > vector15.Y && (float)num130 < vector15.Y + 16f)
@@ -5678,14 +5678,14 @@ namespace Terraria
 																									}
 																								}
 																							}
-																							Microsoft.Xna.Framework.Vector2 arg_5F75_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																							Vector2 arg_5F75_0 = new Vector2(this.position.X, this.position.Y);
 																							int arg_5F75_1 = this.width;
 																							int arg_5F75_2 = this.height;
 																							int arg_5F75_3 = 67;
 																							float arg_5F75_4 = 0f;
 																							float arg_5F75_5 = 0f;
 																							int arg_5F75_6 = 0;
-																							Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																							Color newColor = default(Color);
 																							int num133 = Dust.NewDust(arg_5F75_0, arg_5F75_1, arg_5F75_2, arg_5F75_3, arg_5F75_4, arg_5F75_5, arg_5F75_6, newColor, 1f);
 																							Main.dust[num133].noGravity = true;
 																							Dust expr_5F92 = Main.dust[num133];
@@ -5698,14 +5698,14 @@ namespace Terraria
 																							{
 																								for (int num134 = 0; num134 < 10; num134++)
 																								{
-																									Microsoft.Xna.Framework.Vector2 arg_6014_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																									Vector2 arg_6014_0 = new Vector2(this.position.X, this.position.Y);
 																									int arg_6014_1 = this.width;
 																									int arg_6014_2 = this.height;
 																									int arg_6014_3 = 67;
 																									float arg_6014_4 = 0f;
 																									float arg_6014_5 = 0f;
 																									int arg_6014_6 = 0;
-																									Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																									Color newColor = default(Color);
 																									int num135 = Dust.NewDust(arg_6014_0, arg_6014_1, arg_6014_2, arg_6014_3, arg_6014_4, arg_6014_5, arg_6014_6, newColor, 1.1f);
 																									Main.dust[num135].noGravity = true;
 																									Dust expr_6031 = Main.dust[num135];
@@ -5716,14 +5716,14 @@ namespace Terraria
 																							{
 																								if (Main.rand.Next(30) == 0)
 																								{
-																									Microsoft.Xna.Framework.Vector2 arg_60A9_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																									Vector2 arg_60A9_0 = new Vector2(this.position.X, this.position.Y);
 																									int arg_60A9_1 = this.width;
 																									int arg_60A9_2 = this.height;
 																									int arg_60A9_3 = 67;
 																									float arg_60A9_4 = 0f;
 																									float arg_60A9_5 = 0f;
 																									int arg_60A9_6 = 100;
-																									Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																									Color newColor = default(Color);
 																									int num136 = Dust.NewDust(arg_60A9_0, arg_60A9_1, arg_60A9_2, arg_60A9_3, arg_60A9_4, arg_60A9_5, arg_60A9_6, newColor, 1f);
 																									Dust expr_60B8 = Main.dust[num136];
 																									expr_60B8.velocity *= 0.2f;
@@ -5777,7 +5777,7 @@ namespace Terraria
 																								{
 																									if (Main.tile[num145, num146] != null && Main.tile[num145, num146].active && Main.tile[num145, num146].type != 127 && Main.tileSolid[(int)Main.tile[num145, num146].type] && !Main.tileSolidTop[(int)Main.tile[num145, num146].type])
 																									{
-																										Microsoft.Xna.Framework.Vector2 vector16;
+																										Vector2 vector16;
 																										vector16.X = (float)(num145 * 16);
 																										vector16.Y = (float)(num146 * 16);
 																										if ((float)(num143 + 8) > vector16.X && (float)num143 < vector16.X + 16f && (float)(num144 + 8) > vector16.Y && (float)num144 < vector16.Y + 16f)
@@ -5793,14 +5793,14 @@ namespace Terraria
 																							}
 																							if (this.active)
 																							{
-																								Microsoft.Xna.Framework.Vector2 arg_63E8_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																								Vector2 arg_63E8_0 = new Vector2(this.position.X, this.position.Y);
 																								int arg_63E8_1 = this.width;
 																								int arg_63E8_2 = this.height;
 																								int arg_63E8_3 = 67;
 																								float arg_63E8_4 = 0f;
 																								float arg_63E8_5 = 0f;
 																								int arg_63E8_6 = 0;
-																								Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																								Color newColor = default(Color);
 																								int num147 = Dust.NewDust(arg_63E8_0, arg_63E8_1, arg_63E8_2, arg_63E8_3, arg_63E8_4, arg_63E8_5, arg_63E8_6, newColor, 1f);
 																								Main.dust[num147].noGravity = true;
 																								Dust expr_6405 = Main.dust[num147];
@@ -5891,14 +5891,14 @@ namespace Terraria
 																								{
 																									for (int num154 = 0; num154 < 1; num154++)
 																									{
-																										Microsoft.Xna.Framework.Vector2 arg_670C_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																										Vector2 arg_670C_0 = new Vector2(this.position.X, this.position.Y);
 																										int arg_670C_1 = this.width;
 																										int arg_670C_2 = this.height;
 																										int arg_670C_3 = num153;
 																										float arg_670C_4 = this.velocity.X * 0.2f;
 																										float arg_670C_5 = this.velocity.Y * 0.2f;
 																										int arg_670C_6 = 100;
-																										Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																										Color newColor = default(Color);
 																										int num155 = Dust.NewDust(arg_670C_0, arg_670C_1, arg_670C_2, arg_670C_3, arg_670C_4, arg_670C_5, arg_670C_6, newColor, 1f);
 																										if (Main.rand.Next(3) != 0 || (num153 == 75 && Main.rand.Next(3) == 0))
 																										{
@@ -5944,14 +5944,14 @@ namespace Terraria
 																							{
 																								if (Main.rand.Next(4) == 0)
 																								{
-																									Microsoft.Xna.Framework.Vector2 arg_6953_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																									Vector2 arg_6953_0 = new Vector2(this.position.X, this.position.Y);
 																									int arg_6953_1 = this.width;
 																									int arg_6953_2 = this.height;
 																									int arg_6953_3 = 70;
 																									float arg_6953_4 = 0f;
 																									float arg_6953_5 = 0f;
 																									int arg_6953_6 = 0;
-																									Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																									Color newColor = default(Color);
 																									int num156 = Dust.NewDust(arg_6953_0, arg_6953_1, arg_6953_2, arg_6953_3, arg_6953_4, arg_6953_5, arg_6953_6, newColor, 1f);
 																									Main.dust[num156].noGravity = true;
 																									Dust expr_6970 = Main.dust[num156];
@@ -6113,14 +6113,14 @@ namespace Terraria
 				Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 				for (int i = 0; i < 10; i++)
 				{
-					Microsoft.Xna.Framework.Vector2 arg_92_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+					Vector2 arg_92_0 = new Vector2(this.position.X, this.position.Y);
 					int arg_92_1 = this.width;
 					int arg_92_2 = this.height;
 					int arg_92_3 = 7;
 					float arg_92_4 = 0f;
 					float arg_92_5 = 0f;
 					int arg_92_6 = 0;
-					Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+					Color newColor = default(Color);
 					Dust.NewDust(arg_92_0, arg_92_1, arg_92_2, arg_92_3, arg_92_4, arg_92_5, arg_92_6, newColor, 1f);
 				}
 			}
@@ -6131,14 +6131,14 @@ namespace Terraria
 					Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 					for (int j = 0; j < 10; j++)
 					{
-						Microsoft.Xna.Framework.Vector2 arg_105_0 = this.position;
+						Vector2 arg_105_0 = this.position;
 						int arg_105_1 = this.width;
 						int arg_105_2 = this.height;
 						int arg_105_3 = 57;
 						float arg_105_4 = 0f;
 						float arg_105_5 = 0f;
 						int arg_105_6 = 100;
-						Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+						Color newColor = default(Color);
 						int num = Dust.NewDust(arg_105_0, arg_105_1, arg_105_2, arg_105_3, arg_105_4, arg_105_5, arg_105_6, newColor, 0.5f);
 						Dust expr_117_cp_0 = Main.dust[num];
 						expr_117_cp_0.velocity.X = expr_117_cp_0.velocity.X * 2f;
@@ -6153,14 +6153,14 @@ namespace Terraria
 						Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 						for (int k = 0; k < 30; k++)
 						{
-							Microsoft.Xna.Framework.Vector2 arg_1B0_0 = this.position;
+							Vector2 arg_1B0_0 = this.position;
 							int arg_1B0_1 = this.width;
 							int arg_1B0_2 = this.height;
 							int arg_1B0_3 = 1;
 							float arg_1B0_4 = 0f;
 							float arg_1B0_5 = 0f;
 							int arg_1B0_6 = 0;
-							Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+							Color newColor = default(Color);
 							int num2 = Dust.NewDust(arg_1B0_0, arg_1B0_1, arg_1B0_2, arg_1B0_3, arg_1B0_4, arg_1B0_5, arg_1B0_6, newColor, 1f);
 							if (Main.rand.Next(2) == 0)
 							{
@@ -6176,44 +6176,44 @@ namespace Terraria
 							Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
 							for (int l = 0; l < 10; l++)
 							{
-								Microsoft.Xna.Framework.Vector2 arg_287_0 = this.position;
+								Vector2 arg_287_0 = this.position;
 								int arg_287_1 = this.width;
 								int arg_287_2 = this.height;
 								int arg_287_3 = 58;
 								float arg_287_4 = this.velocity.X * 0.1f;
 								float arg_287_5 = this.velocity.Y * 0.1f;
 								int arg_287_6 = 150;
-								Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+								Color newColor = default(Color);
 								Dust.NewDust(arg_287_0, arg_287_1, arg_287_2, arg_287_3, arg_287_4, arg_287_5, arg_287_6, newColor, 1.2f);
 							}
 							for (int m = 0; m < 3; m++)
 							{
-								Gore.NewGore(this.position, new Microsoft.Xna.Framework.Vector2(this.velocity.X * 0.05f, this.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
+								Gore.NewGore(this.position, new Vector2(this.velocity.X * 0.05f, this.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
 							}
 							if (this.type == 12 && this.damage < 500)
 							{
 								for (int n = 0; n < 10; n++)
 								{
-									Microsoft.Xna.Framework.Vector2 arg_35B_0 = this.position;
+									Vector2 arg_35B_0 = this.position;
 									int arg_35B_1 = this.width;
 									int arg_35B_2 = this.height;
 									int arg_35B_3 = 57;
 									float arg_35B_4 = this.velocity.X * 0.1f;
 									float arg_35B_5 = this.velocity.Y * 0.1f;
 									int arg_35B_6 = 150;
-									Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+									Color newColor = default(Color);
 									Dust.NewDust(arg_35B_0, arg_35B_1, arg_35B_2, arg_35B_3, arg_35B_4, arg_35B_5, arg_35B_6, newColor, 1.2f);
 								}
 								for (int num3 = 0; num3 < 3; num3++)
 								{
-									Gore.NewGore(this.position, new Microsoft.Xna.Framework.Vector2(this.velocity.X * 0.05f, this.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
+									Gore.NewGore(this.position, new Vector2(this.velocity.X * 0.05f, this.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
 								}
 							}
 							if ((this.type == 91 || (this.type == 92 && this.ai[0] > 0f)) && this.owner == Main.myPlayer)
 							{
 								float x = this.position.X + (float)Main.rand.Next(-400, 400);
 								float y = this.position.Y - (float)Main.rand.Next(600, 900);
-								Microsoft.Xna.Framework.Vector2 vector = new Microsoft.Xna.Framework.Vector2(x, y);
+								Vector2 vector = new Vector2(x, y);
 								float num4 = this.position.X + (float)(this.width / 2) - vector.X;
 								float num5 = this.position.Y + (float)(this.height / 2) - vector.Y;
 								int num6 = 22;
@@ -6245,14 +6245,14 @@ namespace Terraria
 								Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 								for (int num10 = 0; num10 < 5; num10++)
 								{
-									Microsoft.Xna.Framework.Vector2 arg_5C9_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+									Vector2 arg_5C9_0 = new Vector2(this.position.X, this.position.Y);
 									int arg_5C9_1 = this.width;
 									int arg_5C9_2 = this.height;
 									int arg_5C9_3 = 68;
 									float arg_5C9_4 = 0f;
 									float arg_5C9_5 = 0f;
 									int arg_5C9_6 = 0;
-									Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+									Color newColor = default(Color);
 									int num11 = Dust.NewDust(arg_5C9_0, arg_5C9_1, arg_5C9_2, arg_5C9_3, arg_5C9_4, arg_5C9_5, arg_5C9_6, newColor, 1f);
 									Main.dust[num11].noGravity = true;
 									Dust expr_5E6 = Main.dust[num11];
@@ -6278,14 +6278,14 @@ namespace Terraria
 										Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 27);
 										for (int num15 = 0; num15 < 10; num15++)
 										{
-											Microsoft.Xna.Framework.Vector2 arg_797_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+											Vector2 arg_797_0 = new Vector2(this.position.X, this.position.Y);
 											int arg_797_1 = this.width;
 											int arg_797_2 = this.height;
 											int arg_797_3 = 67;
 											float arg_797_4 = 0f;
 											float arg_797_5 = 0f;
 											int arg_797_6 = 0;
-											Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+											Color newColor = default(Color);
 											Dust.NewDust(arg_797_0, arg_797_1, arg_797_2, arg_797_3, arg_797_4, arg_797_5, arg_797_6, newColor, 1f);
 										}
 									}
@@ -6306,14 +6306,14 @@ namespace Terraria
 									{
 										for (int num18 = 0; num18 < 5; num18++)
 										{
-											Microsoft.Xna.Framework.Vector2 arg_883_0 = this.position;
+											Vector2 arg_883_0 = this.position;
 											int arg_883_1 = this.width;
 											int arg_883_2 = this.height;
 											int arg_883_3 = 27;
 											float arg_883_4 = 0f;
 											float arg_883_5 = 0f;
 											int arg_883_6 = 80;
-											Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+											Color newColor = default(Color);
 											int num19 = Dust.NewDust(arg_883_0, arg_883_1, arg_883_2, arg_883_3, arg_883_4, arg_883_5, arg_883_6, newColor, 1.5f);
 											Main.dust[num19].noGravity = true;
 										}
@@ -6324,14 +6324,14 @@ namespace Terraria
 										{
 											for (int num20 = 0; num20 < 5; num20++)
 											{
-												Microsoft.Xna.Framework.Vector2 arg_8FA_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+												Vector2 arg_8FA_0 = new Vector2(this.position.X, this.position.Y);
 												int arg_8FA_1 = this.width;
 												int arg_8FA_2 = this.height;
 												int arg_8FA_3 = 18;
 												float arg_8FA_4 = 0f;
 												float arg_8FA_5 = 0f;
 												int arg_8FA_6 = 0;
-												Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+												Color newColor = default(Color);
 												int num21 = Dust.NewDust(arg_8FA_0, arg_8FA_1, arg_8FA_2, arg_8FA_3, arg_8FA_4, arg_8FA_5, arg_8FA_6, newColor, 1.5f);
 												Main.dust[num21].noGravity = true;
 											}
@@ -6343,14 +6343,14 @@ namespace Terraria
 												Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 												for (int num22 = 0; num22 < 5; num22++)
 												{
-													Microsoft.Xna.Framework.Vector2 arg_98F_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+													Vector2 arg_98F_0 = new Vector2(this.position.X, this.position.Y);
 													int arg_98F_1 = this.width;
 													int arg_98F_2 = this.height;
 													int arg_98F_3 = 0;
 													float arg_98F_4 = 0f;
 													float arg_98F_5 = 0f;
 													int arg_98F_6 = 0;
-													Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+													Color newColor = default(Color);
 													Dust.NewDust(arg_98F_0, arg_98F_1, arg_98F_2, arg_98F_3, arg_98F_4, arg_98F_5, arg_98F_6, newColor, 0.7f);
 												}
 											}
@@ -6361,14 +6361,14 @@ namespace Terraria
 													Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 													for (int num23 = 0; num23 < 20; num23++)
 													{
-														Microsoft.Xna.Framework.Vector2 arg_A1F_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+														Vector2 arg_A1F_0 = new Vector2(this.position.X, this.position.Y);
 														int arg_A1F_1 = this.width;
 														int arg_A1F_2 = this.height;
 														int arg_A1F_3 = 6;
 														float arg_A1F_4 = 0f;
 														float arg_A1F_5 = 0f;
 														int arg_A1F_6 = 100;
-														Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+														Color newColor = default(Color);
 														Dust.NewDust(arg_A1F_0, arg_A1F_1, arg_A1F_2, arg_A1F_3, arg_A1F_4, arg_A1F_5, arg_A1F_6, newColor, 1f);
 													}
 												}
@@ -6379,14 +6379,14 @@ namespace Terraria
 														Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 														for (int num24 = 0; num24 < 20; num24++)
 														{
-															Microsoft.Xna.Framework.Vector2 arg_AAE_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+															Vector2 arg_AAE_0 = new Vector2(this.position.X, this.position.Y);
 															int arg_AAE_1 = this.width;
 															int arg_AAE_2 = this.height;
 															int arg_AAE_3 = 75;
 															float arg_AAE_4 = 0f;
 															float arg_AAE_5 = 0f;
 															int arg_AAE_6 = 100;
-															Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+															Color newColor = default(Color);
 															int num25 = Dust.NewDust(arg_AAE_0, arg_AAE_1, arg_AAE_2, arg_AAE_3, arg_AAE_4, arg_AAE_5, arg_AAE_6, newColor, 1f);
 															if (Main.rand.Next(2) == 0)
 															{
@@ -6404,14 +6404,14 @@ namespace Terraria
 															Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 															for (int num26 = 0; num26 < 10; num26++)
 															{
-																Microsoft.Xna.Framework.Vector2 arg_BB8_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																Vector2 arg_BB8_0 = new Vector2(this.position.X, this.position.Y);
 																int arg_BB8_1 = this.width;
 																int arg_BB8_2 = this.height;
 																int arg_BB8_3 = 1;
 																float arg_BB8_4 = this.velocity.X * 0.1f;
 																float arg_BB8_5 = this.velocity.Y * 0.1f;
 																int arg_BB8_6 = 0;
-																Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																Color newColor = default(Color);
 																Dust.NewDust(arg_BB8_0, arg_BB8_1, arg_BB8_2, arg_BB8_3, arg_BB8_4, arg_BB8_5, arg_BB8_6, newColor, 0.75f);
 															}
 														}
@@ -6422,14 +6422,14 @@ namespace Terraria
 																Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 																for (int num27 = 0; num27 < 10; num27++)
 																{
-																	Microsoft.Xna.Framework.Vector2 arg_C46_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																	Vector2 arg_C46_0 = new Vector2(this.position.X, this.position.Y);
 																	int arg_C46_1 = this.width;
 																	int arg_C46_2 = this.height;
 																	int arg_C46_3 = 14;
 																	float arg_C46_4 = 0f;
 																	float arg_C46_5 = 0f;
 																	int arg_C46_6 = 150;
-																	Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																	Color newColor = default(Color);
 																	Dust.NewDust(arg_C46_0, arg_C46_1, arg_C46_2, arg_C46_3, arg_C46_4, arg_C46_5, arg_C46_6, newColor, 1.1f);
 																}
 															}
@@ -6456,14 +6456,14 @@ namespace Terraria
 																				num29 = 58;
 																			}
 																		}
-																		Microsoft.Xna.Framework.Vector2 arg_CFE_0 = this.position;
+																		Vector2 arg_CFE_0 = this.position;
 																		int arg_CFE_1 = this.width;
 																		int arg_CFE_2 = this.height;
 																		int arg_CFE_3 = num29;
 																		float arg_CFE_4 = this.velocity.X * 0.5f;
 																		float arg_CFE_5 = this.velocity.Y * 0.5f;
 																		int arg_CFE_6 = 150;
-																		Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																		Color newColor = default(Color);
 																		Dust.NewDust(arg_CFE_0, arg_CFE_1, arg_CFE_2, arg_CFE_3, arg_CFE_4, arg_CFE_5, arg_CFE_6, newColor, 1.5f);
 																	}
 																}
@@ -6474,37 +6474,37 @@ namespace Terraria
 																		Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
 																		for (int num30 = 0; num30 < 10; num30++)
 																		{
-																			Microsoft.Xna.Framework.Vector2 arg_D9E_0 = this.position;
+																			Vector2 arg_D9E_0 = this.position;
 																			int arg_D9E_1 = this.width;
 																			int arg_D9E_2 = this.height;
 																			int arg_D9E_3 = 58;
 																			float arg_D9E_4 = this.velocity.X * 0.1f;
 																			float arg_D9E_5 = this.velocity.Y * 0.1f;
 																			int arg_D9E_6 = 150;
-																			Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																			Color newColor = default(Color);
 																			Dust.NewDust(arg_D9E_0, arg_D9E_1, arg_D9E_2, arg_D9E_3, arg_D9E_4, arg_D9E_5, arg_D9E_6, newColor, 1.2f);
 																		}
 																		for (int num31 = 0; num31 < 3; num31++)
 																		{
-																			Gore.NewGore(this.position, new Microsoft.Xna.Framework.Vector2(this.velocity.X * 0.05f, this.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
+																			Gore.NewGore(this.position, new Vector2(this.velocity.X * 0.05f, this.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
 																		}
 																		if (this.type == 12 && this.damage < 100)
 																		{
 																			for (int num32 = 0; num32 < 10; num32++)
 																			{
-																				Microsoft.Xna.Framework.Vector2 arg_E6F_0 = this.position;
+																				Vector2 arg_E6F_0 = this.position;
 																				int arg_E6F_1 = this.width;
 																				int arg_E6F_2 = this.height;
 																				int arg_E6F_3 = 57;
 																				float arg_E6F_4 = this.velocity.X * 0.1f;
 																				float arg_E6F_5 = this.velocity.Y * 0.1f;
 																				int arg_E6F_6 = 150;
-																				Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																				Color newColor = default(Color);
 																				Dust.NewDust(arg_E6F_0, arg_E6F_1, arg_E6F_2, arg_E6F_3, arg_E6F_4, arg_E6F_5, arg_E6F_6, newColor, 1.2f);
 																			}
 																			for (int num33 = 0; num33 < 3; num33++)
 																			{
-																				Gore.NewGore(this.position, new Microsoft.Xna.Framework.Vector2(this.velocity.X * 0.05f, this.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
+																				Gore.NewGore(this.position, new Vector2(this.velocity.X * 0.05f, this.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
 																			}
 																		}
 																	}
@@ -6522,26 +6522,26 @@ namespace Terraria
 																				Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
 																				for (int num34 = 0; num34 < 20; num34++)
 																				{
-																					Microsoft.Xna.Framework.Vector2 arg_1000_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																					Vector2 arg_1000_0 = new Vector2(this.position.X, this.position.Y);
 																					int arg_1000_1 = this.width;
 																					int arg_1000_2 = this.height;
 																					int arg_1000_3 = 6;
 																					float arg_1000_4 = -this.velocity.X * 0.2f;
 																					float arg_1000_5 = -this.velocity.Y * 0.2f;
 																					int arg_1000_6 = 100;
-																					Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																					Color newColor = default(Color);
 																					int num35 = Dust.NewDust(arg_1000_0, arg_1000_1, arg_1000_2, arg_1000_3, arg_1000_4, arg_1000_5, arg_1000_6, newColor, 2f);
 																					Main.dust[num35].noGravity = true;
 																					Dust expr_101D = Main.dust[num35];
 																					expr_101D.velocity *= 2f;
-																					Microsoft.Xna.Framework.Vector2 arg_108F_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																					Vector2 arg_108F_0 = new Vector2(this.position.X, this.position.Y);
 																					int arg_108F_1 = this.width;
 																					int arg_108F_2 = this.height;
 																					int arg_108F_3 = 6;
 																					float arg_108F_4 = -this.velocity.X * 0.2f;
 																					float arg_108F_5 = -this.velocity.Y * 0.2f;
 																					int arg_108F_6 = 100;
-																					newColor = default(Microsoft.Xna.Framework.Color);
+																					newColor = default(Color);
 																					num35 = Dust.NewDust(arg_108F_0, arg_108F_1, arg_108F_2, arg_108F_3, arg_108F_4, arg_108F_5, arg_108F_6, newColor, 1f);
 																					Dust expr_109E = Main.dust[num35];
 																					expr_109E.velocity *= 2f;
@@ -6554,26 +6554,26 @@ namespace Terraria
 																					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
 																					for (int num36 = 0; num36 < 20; num36++)
 																					{
-																						Microsoft.Xna.Framework.Vector2 arg_116B_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																						Vector2 arg_116B_0 = new Vector2(this.position.X, this.position.Y);
 																						int arg_116B_1 = this.width;
 																						int arg_116B_2 = this.height;
 																						int arg_116B_3 = 75;
 																						float arg_116B_4 = -this.velocity.X * 0.2f;
 																						float arg_116B_5 = -this.velocity.Y * 0.2f;
 																						int arg_116B_6 = 100;
-																						Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																						Color newColor = default(Color);
 																						int num37 = Dust.NewDust(arg_116B_0, arg_116B_1, arg_116B_2, arg_116B_3, arg_116B_4, arg_116B_5, arg_116B_6, newColor, 2f * this.scale);
 																						Main.dust[num37].noGravity = true;
 																						Dust expr_1188 = Main.dust[num37];
 																						expr_1188.velocity *= 2f;
-																						Microsoft.Xna.Framework.Vector2 arg_1202_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																						Vector2 arg_1202_0 = new Vector2(this.position.X, this.position.Y);
 																						int arg_1202_1 = this.width;
 																						int arg_1202_2 = this.height;
 																						int arg_1202_3 = 75;
 																						float arg_1202_4 = -this.velocity.X * 0.2f;
 																						float arg_1202_5 = -this.velocity.Y * 0.2f;
 																						int arg_1202_6 = 100;
-																						newColor = default(Microsoft.Xna.Framework.Color);
+																						newColor = default(Color);
 																						num37 = Dust.NewDust(arg_1202_0, arg_1202_1, arg_1202_2, arg_1202_3, arg_1202_4, arg_1202_5, arg_1202_6, newColor, 1f * this.scale);
 																						Dust expr_1211 = Main.dust[num37];
 																						expr_1211.velocity *= 2f;
@@ -6586,7 +6586,7 @@ namespace Terraria
 																						Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
 																						for (int num38 = 0; num38 < 20; num38++)
 																						{
-																							int num39 = Dust.NewDust(new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y), this.width, this.height, 66, 0f, 0f, 100, new Microsoft.Xna.Framework.Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 2f);
+																							int num39 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 66, 0f, 0f, 100, new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB), 2f);
 																							Main.dust[num39].noGravity = true;
 																							Dust expr_12DA = Main.dust[num39];
 																							expr_12DA.velocity *= 4f;
@@ -6599,26 +6599,26 @@ namespace Terraria
 																							Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
 																							for (int num40 = 0; num40 < 20; num40++)
 																							{
-																								Microsoft.Xna.Framework.Vector2 arg_1394_0 = new Microsoft.Xna.Framework.Vector2(this.position.X - this.velocity.X, this.position.Y - this.velocity.Y);
+																								Vector2 arg_1394_0 = new Vector2(this.position.X - this.velocity.X, this.position.Y - this.velocity.Y);
 																								int arg_1394_1 = this.width;
 																								int arg_1394_2 = this.height;
 																								int arg_1394_3 = 15;
 																								float arg_1394_4 = 0f;
 																								float arg_1394_5 = 0f;
 																								int arg_1394_6 = 100;
-																								Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																								Color newColor = default(Color);
 																								int num41 = Dust.NewDust(arg_1394_0, arg_1394_1, arg_1394_2, arg_1394_3, arg_1394_4, arg_1394_5, arg_1394_6, newColor, 2f);
 																								Main.dust[num41].noGravity = true;
 																								Dust expr_13B1 = Main.dust[num41];
 																								expr_13B1.velocity *= 2f;
-																								Microsoft.Xna.Framework.Vector2 arg_1422_0 = new Microsoft.Xna.Framework.Vector2(this.position.X - this.velocity.X, this.position.Y - this.velocity.Y);
+																								Vector2 arg_1422_0 = new Vector2(this.position.X - this.velocity.X, this.position.Y - this.velocity.Y);
 																								int arg_1422_1 = this.width;
 																								int arg_1422_2 = this.height;
 																								int arg_1422_3 = 15;
 																								float arg_1422_4 = 0f;
 																								float arg_1422_5 = 0f;
 																								int arg_1422_6 = 100;
-																								newColor = default(Microsoft.Xna.Framework.Color);
+																								newColor = default(Color);
 																								num41 = Dust.NewDust(arg_1422_0, arg_1422_1, arg_1422_2, arg_1422_3, arg_1422_4, arg_1422_5, arg_1422_6, newColor, 1f);
 																							}
 																						}
@@ -6629,14 +6629,14 @@ namespace Terraria
 																								Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 																								for (int num42 = 0; num42 < 5; num42++)
 																								{
-																									Microsoft.Xna.Framework.Vector2 arg_14AD_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																									Vector2 arg_14AD_0 = new Vector2(this.position.X, this.position.Y);
 																									int arg_14AD_1 = this.width;
 																									int arg_14AD_2 = this.height;
 																									int arg_14AD_3 = 0;
 																									float arg_14AD_4 = 0f;
 																									float arg_14AD_5 = 0f;
 																									int arg_14AD_6 = 0;
-																									Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																									Color newColor = default(Color);
 																									Dust.NewDust(arg_14AD_0, arg_14AD_1, arg_14AD_2, arg_14AD_3, arg_14AD_4, arg_14AD_5, arg_14AD_6, newColor, 1f);
 																								}
 																							}
@@ -6647,14 +6647,14 @@ namespace Terraria
 																									Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 																									for (int num43 = 0; num43 < 5; num43++)
 																									{
-																										Microsoft.Xna.Framework.Vector2 arg_1541_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																										Vector2 arg_1541_0 = new Vector2(this.position.X, this.position.Y);
 																										int arg_1541_1 = this.width;
 																										int arg_1541_2 = this.height;
 																										int arg_1541_3 = 32;
 																										float arg_1541_4 = 0f;
 																										float arg_1541_5 = 0f;
 																										int arg_1541_6 = 0;
-																										Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																										Color newColor = default(Color);
 																										int num44 = Dust.NewDust(arg_1541_0, arg_1541_1, arg_1541_2, arg_1541_3, arg_1541_4, arg_1541_5, arg_1541_6, newColor, 1f);
 																										Dust expr_1550 = Main.dust[num44];
 																										expr_1550.velocity *= 0.6f;
@@ -6667,14 +6667,14 @@ namespace Terraria
 																										Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 																										for (int num45 = 0; num45 < 5; num45++)
 																										{
-																											Microsoft.Xna.Framework.Vector2 arg_15E9_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																											Vector2 arg_15E9_0 = new Vector2(this.position.X, this.position.Y);
 																											int arg_15E9_1 = this.width;
 																											int arg_15E9_2 = this.height;
 																											int arg_15E9_3 = 51;
 																											float arg_15E9_4 = 0f;
 																											float arg_15E9_5 = 0f;
 																											int arg_15E9_6 = 0;
-																											Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																											Color newColor = default(Color);
 																											int num46 = Dust.NewDust(arg_15E9_0, arg_15E9_1, arg_15E9_2, arg_15E9_3, arg_15E9_4, arg_15E9_5, arg_15E9_6, newColor, 0.6f);
 																											Dust expr_15F8 = Main.dust[num46];
 																											expr_15F8.velocity *= 0.6f;
@@ -6687,14 +6687,14 @@ namespace Terraria
 																											Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 																											for (int num47 = 0; num47 < 5; num47++)
 																											{
-																												Microsoft.Xna.Framework.Vector2 arg_1691_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																												Vector2 arg_1691_0 = new Vector2(this.position.X, this.position.Y);
 																												int arg_1691_1 = this.width;
 																												int arg_1691_2 = this.height;
 																												int arg_1691_3 = 38;
 																												float arg_1691_4 = 0f;
 																												float arg_1691_5 = 0f;
 																												int arg_1691_6 = 0;
-																												Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																												Color newColor = default(Color);
 																												int num48 = Dust.NewDust(arg_1691_0, arg_1691_1, arg_1691_2, arg_1691_3, arg_1691_4, arg_1691_5, arg_1691_6, newColor, 1f);
 																												Dust expr_16A0 = Main.dust[num48];
 																												expr_16A0.velocity *= 0.6f;
@@ -6707,14 +6707,14 @@ namespace Terraria
 																												Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 																												for (int num49 = 0; num49 < 5; num49++)
 																												{
-																													Microsoft.Xna.Framework.Vector2 arg_1739_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																													Vector2 arg_1739_0 = new Vector2(this.position.X, this.position.Y);
 																													int arg_1739_1 = this.width;
 																													int arg_1739_2 = this.height;
 																													int arg_1739_3 = 53;
 																													float arg_1739_4 = 0f;
 																													float arg_1739_5 = 0f;
 																													int arg_1739_6 = 0;
-																													Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																													Color newColor = default(Color);
 																													int num50 = Dust.NewDust(arg_1739_0, arg_1739_1, arg_1739_2, arg_1739_3, arg_1739_4, arg_1739_5, arg_1739_6, newColor, 1f);
 																													Dust expr_1748 = Main.dust[num50];
 																													expr_1748.velocity *= 0.6f;
@@ -6727,14 +6727,14 @@ namespace Terraria
 																													Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 																													for (int num51 = 0; num51 < 5; num51++)
 																													{
-																														Microsoft.Xna.Framework.Vector2 arg_17E1_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																														Vector2 arg_17E1_0 = new Vector2(this.position.X, this.position.Y);
 																														int arg_17E1_1 = this.width;
 																														int arg_17E1_2 = this.height;
 																														int arg_17E1_3 = 36;
 																														float arg_17E1_4 = 0f;
 																														float arg_17E1_5 = 0f;
 																														int arg_17E1_6 = 0;
-																														Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																														Color newColor = default(Color);
 																														int num52 = Dust.NewDust(arg_17E1_0, arg_17E1_1, arg_17E1_2, arg_17E1_3, arg_17E1_4, arg_17E1_5, arg_17E1_6, newColor, 1f);
 																														Dust expr_17F0 = Main.dust[num52];
 																														expr_17F0.velocity *= 0.6f;
@@ -6747,14 +6747,14 @@ namespace Terraria
 																														Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 																														for (int num53 = 0; num53 < 10; num53++)
 																														{
-																															Microsoft.Xna.Framework.Vector2 arg_1886_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																															Vector2 arg_1886_0 = new Vector2(this.position.X, this.position.Y);
 																															int arg_1886_1 = this.width;
 																															int arg_1886_2 = this.height;
 																															int arg_1886_3 = 26;
 																															float arg_1886_4 = 0f;
 																															float arg_1886_5 = 0f;
 																															int arg_1886_6 = 0;
-																															Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																															Color newColor = default(Color);
 																															Dust.NewDust(arg_1886_0, arg_1886_1, arg_1886_2, arg_1886_3, arg_1886_4, arg_1886_5, arg_1886_6, newColor, 0.8f);
 																														}
 																													}
@@ -6764,14 +6764,14 @@ namespace Terraria
 																														{
 																															for (int num54 = 0; num54 < 10; num54++)
 																															{
-																																Microsoft.Xna.Framework.Vector2 arg_1906_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																Vector2 arg_1906_0 = new Vector2(this.position.X, this.position.Y);
 																																int arg_1906_1 = this.width;
 																																int arg_1906_2 = this.height;
 																																int arg_1906_3 = 1;
 																																float arg_1906_4 = this.velocity.X * 0.1f;
 																																float arg_1906_5 = this.velocity.Y * 0.1f;
 																																int arg_1906_6 = 0;
-																																Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																Color newColor = default(Color);
 																																Dust.NewDust(arg_1906_0, arg_1906_1, arg_1906_2, arg_1906_3, arg_1906_4, arg_1906_5, arg_1906_6, newColor, 0.75f);
 																															}
 																														}
@@ -6782,24 +6782,24 @@ namespace Terraria
 																																Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
 																																for (int num55 = 0; num55 < 30; num55++)
 																																{
-																																	Microsoft.Xna.Framework.Vector2 arg_19AE_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																	Vector2 arg_19AE_0 = new Vector2(this.position.X, this.position.Y);
 																																	int arg_19AE_1 = this.width;
 																																	int arg_19AE_2 = this.height;
 																																	int arg_19AE_3 = 29;
 																																	float arg_19AE_4 = this.velocity.X * 0.1f;
 																																	float arg_19AE_5 = this.velocity.Y * 0.1f;
 																																	int arg_19AE_6 = 100;
-																																	Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																	Color newColor = default(Color);
 																																	int num56 = Dust.NewDust(arg_19AE_0, arg_19AE_1, arg_19AE_2, arg_19AE_3, arg_19AE_4, arg_19AE_5, arg_19AE_6, newColor, 3f);
 																																	Main.dust[num56].noGravity = true;
-																																	Microsoft.Xna.Framework.Vector2 arg_1A1F_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																	Vector2 arg_1A1F_0 = new Vector2(this.position.X, this.position.Y);
 																																	int arg_1A1F_1 = this.width;
 																																	int arg_1A1F_2 = this.height;
 																																	int arg_1A1F_3 = 29;
 																																	float arg_1A1F_4 = this.velocity.X * 0.1f;
 																																	float arg_1A1F_5 = this.velocity.Y * 0.1f;
 																																	int arg_1A1F_6 = 100;
-																																	newColor = default(Microsoft.Xna.Framework.Color);
+																																	newColor = default(Color);
 																																	Dust.NewDust(arg_1A1F_0, arg_1A1F_1, arg_1A1F_2, arg_1A1F_3, arg_1A1F_4, arg_1A1F_5, arg_1A1F_6, newColor, 2f);
 																																}
 																															}
@@ -6809,14 +6809,14 @@ namespace Terraria
 																																{
 																																	for (int num57 = 0; num57 < 10; num57++)
 																																	{
-																																		Microsoft.Xna.Framework.Vector2 arg_1AA3_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																		Vector2 arg_1AA3_0 = new Vector2(this.position.X, this.position.Y);
 																																		int arg_1AA3_1 = this.width;
 																																		int arg_1AA3_2 = this.height;
 																																		int arg_1AA3_3 = 42;
 																																		float arg_1AA3_4 = this.velocity.X * 0.1f;
 																																		float arg_1AA3_5 = this.velocity.Y * 0.1f;
 																																		int arg_1AA3_6 = 0;
-																																		Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																		Color newColor = default(Color);
 																																		Dust.NewDust(arg_1AA3_0, arg_1AA3_1, arg_1AA3_2, arg_1AA3_3, arg_1AA3_4, arg_1AA3_5, arg_1AA3_6, newColor, 1f);
 																																	}
 																																}
@@ -6827,24 +6827,24 @@ namespace Terraria
 																																		Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
 																																		for (int num58 = 0; num58 < 30; num58++)
 																																		{
-																																			Microsoft.Xna.Framework.Vector2 arg_1B49_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																			Vector2 arg_1B49_0 = new Vector2(this.position.X, this.position.Y);
 																																			int arg_1B49_1 = this.width;
 																																			int arg_1B49_2 = this.height;
 																																			int arg_1B49_3 = 27;
 																																			float arg_1B49_4 = this.velocity.X;
 																																			float arg_1B49_5 = this.velocity.Y;
 																																			int arg_1B49_6 = 100;
-																																			Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																			Color newColor = default(Color);
 																																			int num59 = Dust.NewDust(arg_1B49_0, arg_1B49_1, arg_1B49_2, arg_1B49_3, arg_1B49_4, arg_1B49_5, arg_1B49_6, newColor, 1.7f);
 																																			Main.dust[num59].noGravity = true;
-																																			Microsoft.Xna.Framework.Vector2 arg_1BAE_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																			Vector2 arg_1BAE_0 = new Vector2(this.position.X, this.position.Y);
 																																			int arg_1BAE_1 = this.width;
 																																			int arg_1BAE_2 = this.height;
 																																			int arg_1BAE_3 = 27;
 																																			float arg_1BAE_4 = this.velocity.X;
 																																			float arg_1BAE_5 = this.velocity.Y;
 																																			int arg_1BAE_6 = 100;
-																																			newColor = default(Microsoft.Xna.Framework.Color);
+																																			newColor = default(Color);
 																																			Dust.NewDust(arg_1BAE_0, arg_1BAE_1, arg_1BAE_2, arg_1BAE_3, arg_1BAE_4, arg_1BAE_5, arg_1BAE_6, newColor, 1f);
 																																		}
 																																	}
@@ -6855,44 +6855,44 @@ namespace Terraria
 																																			Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 14);
 																																			for (int num60 = 0; num60 < 10; num60++)
 																																			{
-																																				Microsoft.Xna.Framework.Vector2 arg_1C3E_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																				Vector2 arg_1C3E_0 = new Vector2(this.position.X, this.position.Y);
 																																				int arg_1C3E_1 = this.width;
 																																				int arg_1C3E_2 = this.height;
 																																				int arg_1C3E_3 = 31;
 																																				float arg_1C3E_4 = 0f;
 																																				float arg_1C3E_5 = 0f;
 																																				int arg_1C3E_6 = 100;
-																																				Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																				Color newColor = default(Color);
 																																				Dust.NewDust(arg_1C3E_0, arg_1C3E_1, arg_1C3E_2, arg_1C3E_3, arg_1C3E_4, arg_1C3E_5, arg_1C3E_6, newColor, 1.5f);
 																																			}
 																																			for (int num61 = 0; num61 < 5; num61++)
 																																			{
-																																				Microsoft.Xna.Framework.Vector2 arg_1C9B_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																				Vector2 arg_1C9B_0 = new Vector2(this.position.X, this.position.Y);
 																																				int arg_1C9B_1 = this.width;
 																																				int arg_1C9B_2 = this.height;
 																																				int arg_1C9B_3 = 6;
 																																				float arg_1C9B_4 = 0f;
 																																				float arg_1C9B_5 = 0f;
 																																				int arg_1C9B_6 = 100;
-																																				Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																				Color newColor = default(Color);
 																																				int num62 = Dust.NewDust(arg_1C9B_0, arg_1C9B_1, arg_1C9B_2, arg_1C9B_3, arg_1C9B_4, arg_1C9B_5, arg_1C9B_6, newColor, 2.5f);
 																																				Main.dust[num62].noGravity = true;
 																																				Dust expr_1CB8 = Main.dust[num62];
 																																				expr_1CB8.velocity *= 3f;
-																																				Microsoft.Xna.Framework.Vector2 arg_1D10_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																				Vector2 arg_1D10_0 = new Vector2(this.position.X, this.position.Y);
 																																				int arg_1D10_1 = this.width;
 																																				int arg_1D10_2 = this.height;
 																																				int arg_1D10_3 = 6;
 																																				float arg_1D10_4 = 0f;
 																																				float arg_1D10_5 = 0f;
 																																				int arg_1D10_6 = 100;
-																																				newColor = default(Microsoft.Xna.Framework.Color);
+																																				newColor = default(Color);
 																																				num62 = Dust.NewDust(arg_1D10_0, arg_1D10_1, arg_1D10_2, arg_1D10_3, arg_1D10_4, arg_1D10_5, arg_1D10_6, newColor, 1.5f);
 																																				Dust expr_1D1F = Main.dust[num62];
 																																				expr_1D1F.velocity *= 2f;
 																																			}
-																																			Microsoft.Xna.Framework.Vector2 arg_1D7A_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
-																																			Microsoft.Xna.Framework.Vector2 vector2 = default(Microsoft.Xna.Framework.Vector2);
+																																			Vector2 arg_1D7A_0 = new Vector2(this.position.X, this.position.Y);
+																																			Vector2 vector2 = default(Vector2);
 																																			int num63 = Gore.NewGore(arg_1D7A_0, vector2, Main.rand.Next(61, 64), 1f);
 																																			Gore expr_1D89 = Main.gore[num63];
 																																			expr_1D89.velocity *= 0.4f;
@@ -6900,8 +6900,8 @@ namespace Terraria
 																																			expr_1DAB_cp_0.velocity.X = expr_1DAB_cp_0.velocity.X + (float)Main.rand.Next(-10, 11) * 0.1f;
 																																			Gore expr_1DD9_cp_0 = Main.gore[num63];
 																																			expr_1DD9_cp_0.velocity.Y = expr_1DD9_cp_0.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.1f;
-																																			Microsoft.Xna.Framework.Vector2 arg_1E32_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
-																																			vector2 = default(Microsoft.Xna.Framework.Vector2);
+																																			Vector2 arg_1E32_0 = new Vector2(this.position.X, this.position.Y);
+																																			vector2 = default(Vector2);
 																																			num63 = Gore.NewGore(arg_1E32_0, vector2, Main.rand.Next(61, 64), 1f);
 																																			Gore expr_1E41 = Main.gore[num63];
 																																			expr_1E41.velocity *= 0.4f;
@@ -6934,46 +6934,46 @@ namespace Terraria
 																																				this.position.Y = this.position.Y - (float)(this.height / 2);
 																																				for (int num64 = 0; num64 < 20; num64++)
 																																				{
-																																					Microsoft.Xna.Framework.Vector2 arg_206A_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																					Vector2 arg_206A_0 = new Vector2(this.position.X, this.position.Y);
 																																					int arg_206A_1 = this.width;
 																																					int arg_206A_2 = this.height;
 																																					int arg_206A_3 = 31;
 																																					float arg_206A_4 = 0f;
 																																					float arg_206A_5 = 0f;
 																																					int arg_206A_6 = 100;
-																																					Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																					Color newColor = default(Color);
 																																					int num65 = Dust.NewDust(arg_206A_0, arg_206A_1, arg_206A_2, arg_206A_3, arg_206A_4, arg_206A_5, arg_206A_6, newColor, 1.5f);
 																																					Dust expr_2079 = Main.dust[num65];
 																																					expr_2079.velocity *= 1.4f;
 																																				}
 																																				for (int num66 = 0; num66 < 10; num66++)
 																																				{
-																																					Microsoft.Xna.Framework.Vector2 arg_20E5_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																					Vector2 arg_20E5_0 = new Vector2(this.position.X, this.position.Y);
 																																					int arg_20E5_1 = this.width;
 																																					int arg_20E5_2 = this.height;
 																																					int arg_20E5_3 = 6;
 																																					float arg_20E5_4 = 0f;
 																																					float arg_20E5_5 = 0f;
 																																					int arg_20E5_6 = 100;
-																																					Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																					Color newColor = default(Color);
 																																					int num67 = Dust.NewDust(arg_20E5_0, arg_20E5_1, arg_20E5_2, arg_20E5_3, arg_20E5_4, arg_20E5_5, arg_20E5_6, newColor, 2.5f);
 																																					Main.dust[num67].noGravity = true;
 																																					Dust expr_2102 = Main.dust[num67];
 																																					expr_2102.velocity *= 5f;
-																																					Microsoft.Xna.Framework.Vector2 arg_215A_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																					Vector2 arg_215A_0 = new Vector2(this.position.X, this.position.Y);
 																																					int arg_215A_1 = this.width;
 																																					int arg_215A_2 = this.height;
 																																					int arg_215A_3 = 6;
 																																					float arg_215A_4 = 0f;
 																																					float arg_215A_5 = 0f;
 																																					int arg_215A_6 = 100;
-																																					newColor = default(Microsoft.Xna.Framework.Color);
+																																					newColor = default(Color);
 																																					num67 = Dust.NewDust(arg_215A_0, arg_215A_1, arg_215A_2, arg_215A_3, arg_215A_4, arg_215A_5, arg_215A_6, newColor, 1.5f);
 																																					Dust expr_2169 = Main.dust[num67];
 																																					expr_2169.velocity *= 3f;
 																																				}
-																																				Microsoft.Xna.Framework.Vector2 arg_21C5_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
-																																				Microsoft.Xna.Framework.Vector2 vector2 = default(Microsoft.Xna.Framework.Vector2);
+																																				Vector2 arg_21C5_0 = new Vector2(this.position.X, this.position.Y);
+																																				Vector2 vector2 = default(Vector2);
 																																				int num68 = Gore.NewGore(arg_21C5_0, vector2, Main.rand.Next(61, 64), 1f);
 																																				Gore expr_21D4 = Main.gore[num68];
 																																				expr_21D4.velocity *= 0.4f;
@@ -6981,8 +6981,8 @@ namespace Terraria
 																																				expr_21F6_cp_0.velocity.X = expr_21F6_cp_0.velocity.X + 1f;
 																																				Gore expr_2214_cp_0 = Main.gore[num68];
 																																				expr_2214_cp_0.velocity.Y = expr_2214_cp_0.velocity.Y + 1f;
-																																				Microsoft.Xna.Framework.Vector2 arg_225D_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
-																																				vector2 = default(Microsoft.Xna.Framework.Vector2);
+																																				Vector2 arg_225D_0 = new Vector2(this.position.X, this.position.Y);
+																																				vector2 = default(Vector2);
 																																				num68 = Gore.NewGore(arg_225D_0, vector2, Main.rand.Next(61, 64), 1f);
 																																				Gore expr_226C = Main.gore[num68];
 																																				expr_226C.velocity *= 0.4f;
@@ -6990,8 +6990,8 @@ namespace Terraria
 																																				expr_228E_cp_0.velocity.X = expr_228E_cp_0.velocity.X - 1f;
 																																				Gore expr_22AC_cp_0 = Main.gore[num68];
 																																				expr_22AC_cp_0.velocity.Y = expr_22AC_cp_0.velocity.Y + 1f;
-																																				Microsoft.Xna.Framework.Vector2 arg_22F5_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
-																																				vector2 = default(Microsoft.Xna.Framework.Vector2);
+																																				Vector2 arg_22F5_0 = new Vector2(this.position.X, this.position.Y);
+																																				vector2 = default(Vector2);
 																																				num68 = Gore.NewGore(arg_22F5_0, vector2, Main.rand.Next(61, 64), 1f);
 																																				Gore expr_2304 = Main.gore[num68];
 																																				expr_2304.velocity *= 0.4f;
@@ -6999,8 +6999,8 @@ namespace Terraria
 																																				expr_2326_cp_0.velocity.X = expr_2326_cp_0.velocity.X + 1f;
 																																				Gore expr_2344_cp_0 = Main.gore[num68];
 																																				expr_2344_cp_0.velocity.Y = expr_2344_cp_0.velocity.Y - 1f;
-																																				Microsoft.Xna.Framework.Vector2 arg_238D_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
-																																				vector2 = default(Microsoft.Xna.Framework.Vector2);
+																																				Vector2 arg_238D_0 = new Vector2(this.position.X, this.position.Y);
+																																				vector2 = default(Vector2);
 																																				num68 = Gore.NewGore(arg_238D_0, vector2, Main.rand.Next(61, 64), 1f);
 																																				Gore expr_239C = Main.gore[num68];
 																																				expr_239C.velocity *= 0.4f;
@@ -7025,72 +7025,72 @@ namespace Terraria
 																																					}
 																																					for (int num69 = 0; num69 < 50; num69++)
 																																					{
-																																						Microsoft.Xna.Framework.Vector2 arg_2501_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																						Vector2 arg_2501_0 = new Vector2(this.position.X, this.position.Y);
 																																						int arg_2501_1 = this.width;
 																																						int arg_2501_2 = this.height;
 																																						int arg_2501_3 = 31;
 																																						float arg_2501_4 = 0f;
 																																						float arg_2501_5 = 0f;
 																																						int arg_2501_6 = 100;
-																																						Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																						Color newColor = default(Color);
 																																						int num70 = Dust.NewDust(arg_2501_0, arg_2501_1, arg_2501_2, arg_2501_3, arg_2501_4, arg_2501_5, arg_2501_6, newColor, 2f);
 																																						Dust expr_2510 = Main.dust[num70];
 																																						expr_2510.velocity *= 1.4f;
 																																					}
 																																					for (int num71 = 0; num71 < 80; num71++)
 																																					{
-																																						Microsoft.Xna.Framework.Vector2 arg_257C_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																						Vector2 arg_257C_0 = new Vector2(this.position.X, this.position.Y);
 																																						int arg_257C_1 = this.width;
 																																						int arg_257C_2 = this.height;
 																																						int arg_257C_3 = 6;
 																																						float arg_257C_4 = 0f;
 																																						float arg_257C_5 = 0f;
 																																						int arg_257C_6 = 100;
-																																						Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																						Color newColor = default(Color);
 																																						int num72 = Dust.NewDust(arg_257C_0, arg_257C_1, arg_257C_2, arg_257C_3, arg_257C_4, arg_257C_5, arg_257C_6, newColor, 3f);
 																																						Main.dust[num72].noGravity = true;
 																																						Dust expr_2599 = Main.dust[num72];
 																																						expr_2599.velocity *= 5f;
-																																						Microsoft.Xna.Framework.Vector2 arg_25F1_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																						Vector2 arg_25F1_0 = new Vector2(this.position.X, this.position.Y);
 																																						int arg_25F1_1 = this.width;
 																																						int arg_25F1_2 = this.height;
 																																						int arg_25F1_3 = 6;
 																																						float arg_25F1_4 = 0f;
 																																						float arg_25F1_5 = 0f;
 																																						int arg_25F1_6 = 100;
-																																						newColor = default(Microsoft.Xna.Framework.Color);
+																																						newColor = default(Color);
 																																						num72 = Dust.NewDust(arg_25F1_0, arg_25F1_1, arg_25F1_2, arg_25F1_3, arg_25F1_4, arg_25F1_5, arg_25F1_6, newColor, 2f);
 																																						Dust expr_2600 = Main.dust[num72];
 																																						expr_2600.velocity *= 3f;
 																																					}
 																																					for (int num73 = 0; num73 < 2; num73++)
 																																					{
-																																						Microsoft.Xna.Framework.Vector2 arg_2684_0 = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)(this.width / 2) - 24f, this.position.Y + (float)(this.height / 2) - 24f);
-																																						Microsoft.Xna.Framework.Vector2 vector2 = default(Microsoft.Xna.Framework.Vector2);
+																																						Vector2 arg_2684_0 = new Vector2(this.position.X + (float)(this.width / 2) - 24f, this.position.Y + (float)(this.height / 2) - 24f);
+																																						Vector2 vector2 = default(Vector2);
 																																						int num74 = Gore.NewGore(arg_2684_0, vector2, Main.rand.Next(61, 64), 1f);
 																																						Main.gore[num74].scale = 1.5f;
 																																						Gore expr_26AA_cp_0 = Main.gore[num74];
 																																						expr_26AA_cp_0.velocity.X = expr_26AA_cp_0.velocity.X + 1.5f;
 																																						Gore expr_26C8_cp_0 = Main.gore[num74];
 																																						expr_26C8_cp_0.velocity.Y = expr_26C8_cp_0.velocity.Y + 1.5f;
-																																						Microsoft.Xna.Framework.Vector2 arg_2731_0 = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)(this.width / 2) - 24f, this.position.Y + (float)(this.height / 2) - 24f);
-																																						vector2 = default(Microsoft.Xna.Framework.Vector2);
+																																						Vector2 arg_2731_0 = new Vector2(this.position.X + (float)(this.width / 2) - 24f, this.position.Y + (float)(this.height / 2) - 24f);
+																																						vector2 = default(Vector2);
 																																						num74 = Gore.NewGore(arg_2731_0, vector2, Main.rand.Next(61, 64), 1f);
 																																						Main.gore[num74].scale = 1.5f;
 																																						Gore expr_2757_cp_0 = Main.gore[num74];
 																																						expr_2757_cp_0.velocity.X = expr_2757_cp_0.velocity.X - 1.5f;
 																																						Gore expr_2775_cp_0 = Main.gore[num74];
 																																						expr_2775_cp_0.velocity.Y = expr_2775_cp_0.velocity.Y + 1.5f;
-																																						Microsoft.Xna.Framework.Vector2 arg_27DE_0 = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)(this.width / 2) - 24f, this.position.Y + (float)(this.height / 2) - 24f);
-																																						vector2 = default(Microsoft.Xna.Framework.Vector2);
+																																						Vector2 arg_27DE_0 = new Vector2(this.position.X + (float)(this.width / 2) - 24f, this.position.Y + (float)(this.height / 2) - 24f);
+																																						vector2 = default(Vector2);
 																																						num74 = Gore.NewGore(arg_27DE_0, vector2, Main.rand.Next(61, 64), 1f);
 																																						Main.gore[num74].scale = 1.5f;
 																																						Gore expr_2804_cp_0 = Main.gore[num74];
 																																						expr_2804_cp_0.velocity.X = expr_2804_cp_0.velocity.X + 1.5f;
 																																						Gore expr_2822_cp_0 = Main.gore[num74];
 																																						expr_2822_cp_0.velocity.Y = expr_2822_cp_0.velocity.Y - 1.5f;
-																																						Microsoft.Xna.Framework.Vector2 arg_288B_0 = new Microsoft.Xna.Framework.Vector2(this.position.X + (float)(this.width / 2) - 24f, this.position.Y + (float)(this.height / 2) - 24f);
-																																						vector2 = default(Microsoft.Xna.Framework.Vector2);
+																																						Vector2 arg_288B_0 = new Vector2(this.position.X + (float)(this.width / 2) - 24f, this.position.Y + (float)(this.height / 2) - 24f);
+																																						vector2 = default(Vector2);
 																																						num74 = Gore.NewGore(arg_288B_0, vector2, Main.rand.Next(61, 64), 1f);
 																																						Main.gore[num74].scale = 1.5f;
 																																						Gore expr_28B1_cp_0 = Main.gore[num74];
@@ -7112,26 +7112,26 @@ namespace Terraria
 																																						Main.PlaySound(13, (int)this.position.X, (int)this.position.Y, 1);
 																																						for (int num75 = 0; num75 < 5; num75++)
 																																						{
-																																							Microsoft.Xna.Framework.Vector2 arg_29E4_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																							Vector2 arg_29E4_0 = new Vector2(this.position.X, this.position.Y);
 																																							int arg_29E4_1 = this.width;
 																																							int arg_29E4_2 = this.height;
 																																							int arg_29E4_3 = 13;
 																																							float arg_29E4_4 = 0f;
 																																							float arg_29E4_5 = 0f;
 																																							int arg_29E4_6 = 0;
-																																							Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																							Color newColor = default(Color);
 																																							Dust.NewDust(arg_29E4_0, arg_29E4_1, arg_29E4_2, arg_29E4_3, arg_29E4_4, arg_29E4_5, arg_29E4_6, newColor, 1f);
 																																						}
 																																						for (int num76 = 0; num76 < 30; num76++)
 																																						{
-																																							Microsoft.Xna.Framework.Vector2 arg_2A40_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																							Vector2 arg_2A40_0 = new Vector2(this.position.X, this.position.Y);
 																																							int arg_2A40_1 = this.width;
 																																							int arg_2A40_2 = this.height;
 																																							int arg_2A40_3 = 33;
 																																							float arg_2A40_4 = 0f;
 																																							float arg_2A40_5 = -2f;
 																																							int arg_2A40_6 = 0;
-																																							Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																							Color newColor = default(Color);
 																																							int num77 = Dust.NewDust(arg_2A40_0, arg_2A40_1, arg_2A40_2, arg_2A40_3, arg_2A40_4, arg_2A40_5, arg_2A40_6, newColor, 1.1f);
 																																							Main.dust[num77].alpha = 100;
 																																							Dust expr_2A63_cp_0 = Main.dust[num77];
@@ -7147,26 +7147,26 @@ namespace Terraria
 																																							Main.PlaySound(13, (int)this.position.X, (int)this.position.Y, 1);
 																																							for (int num78 = 0; num78 < 5; num78++)
 																																							{
-																																								Microsoft.Xna.Framework.Vector2 arg_2B1A_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																								Vector2 arg_2B1A_0 = new Vector2(this.position.X, this.position.Y);
 																																								int arg_2B1A_1 = this.width;
 																																								int arg_2B1A_2 = this.height;
 																																								int arg_2B1A_3 = 13;
 																																								float arg_2B1A_4 = 0f;
 																																								float arg_2B1A_5 = 0f;
 																																								int arg_2B1A_6 = 0;
-																																								Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																								Color newColor = default(Color);
 																																								Dust.NewDust(arg_2B1A_0, arg_2B1A_1, arg_2B1A_2, arg_2B1A_3, arg_2B1A_4, arg_2B1A_5, arg_2B1A_6, newColor, 1f);
 																																							}
 																																							for (int num79 = 0; num79 < 30; num79++)
 																																							{
-																																								Microsoft.Xna.Framework.Vector2 arg_2B76_0 = new Microsoft.Xna.Framework.Vector2(this.position.X, this.position.Y);
+																																								Vector2 arg_2B76_0 = new Vector2(this.position.X, this.position.Y);
 																																								int arg_2B76_1 = this.width;
 																																								int arg_2B76_2 = this.height;
 																																								int arg_2B76_3 = 52;
 																																								float arg_2B76_4 = 0f;
 																																								float arg_2B76_5 = -2f;
 																																								int arg_2B76_6 = 0;
-																																								Microsoft.Xna.Framework.Color newColor = default(Microsoft.Xna.Framework.Color);
+																																								Color newColor = default(Color);
 																																								int num80 = Dust.NewDust(arg_2B76_0, arg_2B76_1, arg_2B76_2, arg_2B76_3, arg_2B76_4, arg_2B76_5, arg_2B76_6, newColor, 1.1f);
 																																								Main.dust[num80].alpha = 100;
 																																								Dust expr_2B99_cp_0 = Main.dust[num80];
@@ -7584,25 +7584,25 @@ namespace Terraria
 			}
 			this.active = false;
 		}
-		public Microsoft.Xna.Framework.Color GetAlpha(Microsoft.Xna.Framework.Color newColor)
+		public Color GetAlpha(Color newColor)
 		{
 			if (this.type == 34 || this.type == 15 || this.type == 93 || this.type == 94 || this.type == 95 || this.type == 96 || (this.type == 102 && this.alpha < 255))
 			{
-				return new Microsoft.Xna.Framework.Color(200, 200, 200, 25);
+				return new Color(200, 200, 200, 25);
 			}
 			if (this.type == 83 || this.type == 88 || this.type == 89 || this.type == 90 || this.type == 100 || this.type == 104)
 			{
 				if (this.alpha < 200)
 				{
-					return new Microsoft.Xna.Framework.Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 0);
+					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 0);
 				}
-				return new Microsoft.Xna.Framework.Color(0, 0, 0, 0);
+				return new Color(0, 0, 0, 0);
 			}
 			else
 			{
 				if (this.type == 34 || this.type == 35 || this.type == 15 || this.type == 19 || this.type == 44 || this.type == 45)
 				{
-					return Microsoft.Xna.Framework.Color.White;
+					return Color.White;
 				}
 				int r;
 				int g;
@@ -7612,7 +7612,7 @@ namespace Terraria
 					r = Main.DiscoR;
 					g = Main.DiscoG;
 					b = Main.DiscoB;
-					return default(Microsoft.Xna.Framework.Color);
+					return default(Color);
 				}
 				if (this.type == 9 || this.type == 15 || this.type == 34 || this.type == 50 || this.type == 53 || this.type == 76 || this.type == 77 || this.type == 78 || this.type == 92 || this.type == 91)
 				{
@@ -7632,7 +7632,7 @@ namespace Terraria
 					{
 						if (this.type == 12 || this.type == 72 || this.type == 86 || this.type == 87)
 						{
-							return new Microsoft.Xna.Framework.Color(255, 255, 255, (int)newColor.A - this.alpha);
+							return new Color(255, 255, 255, (int)newColor.A - this.alpha);
 						}
 						r = (int)newColor.R - this.alpha;
 						g = (int)newColor.G - this.alpha;
@@ -7648,7 +7648,7 @@ namespace Terraria
 				{
 					num = 255;
 				}
-				return new Microsoft.Xna.Framework.Color(r, g, b, num);
+				return new Color(r, g, b, num);
 			}
 		}
 	}

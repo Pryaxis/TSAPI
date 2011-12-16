@@ -6,7 +6,7 @@ namespace Hooks
 {
 	public static class ClientHooks
 	{
-		public delegate void ChatReceivedEventHandler(byte playerID, Microsoft.Xna.Framework.Color color, string message);
+		public delegate void ChatReceivedEventHandler(byte playerID, Color color, string message);
 		public delegate void OnChatD(ref string msg, HandledEventArgs e);
 		public static event ClientHooks.ChatReceivedEventHandler ChatReceived;
 		public static event ClientHooks.OnChatD Chat;
@@ -20,12 +20,12 @@ namespace Hooks
 			if (Main.netMode != 2 && e.MsgID == PacketTypes.ChatText && e.Length > 3)
 			{
 				byte playerID = e.Msg.readBuffer[e.Index];
-				Microsoft.Xna.Framework.Color color = new Microsoft.Xna.Framework.Color((int)e.Msg.readBuffer[e.Index + 1] << 16, (int)e.Msg.readBuffer[e.Index + 2] << 8, (int)e.Msg.readBuffer[e.Index + 3]);
+				Color color = new Color((int)e.Msg.readBuffer[e.Index + 1] << 16, (int)e.Msg.readBuffer[e.Index + 2] << 8, (int)e.Msg.readBuffer[e.Index + 3]);
 				string @string = Encoding.ASCII.GetString(e.Msg.readBuffer, e.Index + 4, e.Length - 5);
 				ClientHooks.OnChatReceived(playerID, color, @string);
 			}
 		}
-		public static void OnChatReceived(byte playerID, Microsoft.Xna.Framework.Color color, string message)
+		public static void OnChatReceived(byte playerID, Color color, string message)
 		{
 			if (ClientHooks.ChatReceived != null)
 			{

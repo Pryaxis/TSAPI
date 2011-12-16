@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+
 using System;
 namespace Terraria
 {
@@ -29,7 +29,7 @@ namespace Terraria
 						expr_A3.frameX -= 36;
 						for (int k = 0; k < 4; k++)
 						{
-							Dust.NewDust(new Microsoft.Xna.Framework.Vector2((float)(i * 16), (float)(j * 16)), 16, 16, 11, 0f, 0f, 0, default(Microsoft.Xna.Framework.Color), 1f);
+							Dust.NewDust(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16, 11, 0f, 0f, 0, default(Color), 1f);
 						}
 					}
 				}

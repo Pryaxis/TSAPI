@@ -1,10 +1,10 @@
-using Microsoft.Xna.Framework;
+
 using System;
 namespace Terraria
 {
 	public class Cloud
 	{
-		public Microsoft.Xna.Framework.Vector2 position;
+		public Vector2 position;
 		public float scale;
 		public float rotation;
 		public float rSpeed;
@@ -66,8 +66,6 @@ namespace Terraria
 				Main.cloud[num].type = Cloud.rand.Next(4);
 				Main.cloud[num].scale = (float)Cloud.rand.Next(70, 131) * 0.01f;
 				Main.cloud[num].rotation = (float)Cloud.rand.Next(-10, 11) * 0.01f;
-				Main.cloud[num].width = (int)((float)Main.cloudTexture[Main.cloud[num].type].Width * Main.cloud[num].scale);
-				Main.cloud[num].height = (int)((float)Main.cloudTexture[Main.cloud[num].type].Height * Main.cloud[num].scale);
 				float num2 = Main.windSpeed;
 				if (!Main.gameMenu)
 				{
@@ -75,11 +73,11 @@ namespace Terraria
 				}
 				if (num2 > 0f)
 				{
-					Main.cloud[num].position.X = (float)(-(float)Main.cloud[num].width - Main.cloudTexture[Main.cloud[num].type].Width - Cloud.rand.Next(Main.screenWidth * 2));
+				
 				}
 				else
 				{
-					Main.cloud[num].position.X = (float)(Main.screenWidth + Main.cloudTexture[Main.cloud[num].type].Width + Cloud.rand.Next(Main.screenWidth * 2));
+				
 				}
 				Main.cloud[num].position.Y = (float)Cloud.rand.Next((int)((float)(-(float)Main.screenHeight) * 0.25f), (int)((float)Main.screenHeight * 0.25f));
 				Cloud expr_210_cp_0 = Main.cloud[num];
@@ -95,12 +93,12 @@ namespace Terraria
 					Main.cloud[num].scale = 0.7f;
 				}
 				Main.cloud[num].active = true;
-				Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle((int)Main.cloud[num].position.X, (int)Main.cloud[num].position.Y, Main.cloud[num].width, Main.cloud[num].height);
+				Rectangle rectangle = new Rectangle((int)Main.cloud[num].position.X, (int)Main.cloud[num].position.Y, Main.cloud[num].width, Main.cloud[num].height);
 				for (int j = 0; j < 100; j++)
 				{
 					if (num != j && Main.cloud[j].active)
 					{
-						Microsoft.Xna.Framework.Rectangle value = new Microsoft.Xna.Framework.Rectangle((int)Main.cloud[j].position.X, (int)Main.cloud[j].position.Y, Main.cloud[j].width, Main.cloud[j].height);
+						Rectangle value = new Rectangle((int)Main.cloud[j].position.X, (int)Main.cloud[j].position.Y, Main.cloud[j].width, Main.cloud[j].height);
 						if (rectangle.Intersects(value))
 						{
 							Main.cloud[num].active = false;
@@ -109,7 +107,7 @@ namespace Terraria
 				}
 			}
 		}
-		public Microsoft.Xna.Framework.Color cloudColor(Microsoft.Xna.Framework.Color bgColor)
+		public Color cloudColor(Color bgColor)
 		{
 			float num = (this.scale - 0.4f) * 0.9f;
 			float num2 = 1.1f;
@@ -137,7 +135,7 @@ namespace Terraria
 			{
 				num6 = 0f;
 			}
-			return new Microsoft.Xna.Framework.Color((int)((byte)num3), (int)((byte)num4), (int)((byte)num5), (int)((byte)num6));
+			return new Color((int)((byte)num3), (int)((byte)num4), (int)((byte)num5), (int)((byte)num6));
 		}
 		public object Clone()
 		{
@@ -178,56 +176,8 @@ namespace Terraria
 				Cloud.addCloud();
 			}
 		}
-		public void Update()
-		{
-			if (Main.gameMenu)
-			{
-				this.position.X = this.position.X + Main.windSpeed * this.scale * 3f;
-			}
-			else
-			{
-				float num = Main.player[Main.myPlayer].velocity.X * 0.18f;
-				num = (Main.screenPosition.X - Main.screenLastPosition.X) * 0.18f;
-				if (Main.player[Main.myPlayer].dead)
-				{
-					num = 0f;
-				}
-				this.position.X = this.position.X + (Main.windSpeed - num) * this.scale;
-			}
-			if (Main.windSpeed > 0f)
-			{
-				if (this.position.X - (float)Main.cloudTexture[this.type].Width > (float)(Main.screenWidth + 200))
-				{
-					this.active = false;
-				}
-			}
-			else
-			{
-				if (this.position.X + (float)this.width + (float)Main.cloudTexture[this.type].Width < -200f)
-				{
-					this.active = false;
-				}
-			}
-			this.rSpeed += (float)Cloud.rand.Next(-10, 11) * 2E-05f;
-			if ((double)this.rSpeed > 0.0007)
-			{
-				this.rSpeed = 0.0007f;
-			}
-			if ((double)this.rSpeed < -0.0007)
-			{
-				this.rSpeed = -0.0007f;
-			}
-			if ((double)this.rotation > 0.05)
-			{
-				this.rotation = 0.05f;
-			}
-			if ((double)this.rotation < -0.05)
-			{
-				this.rotation = -0.05f;
-			}
-			this.rotation += this.rSpeed;
-			this.width = (int)((float)Main.cloudTexture[this.type].Width * this.scale);
-			this.height = (int)((float)Main.cloudTexture[this.type].Height * this.scale);
-		}
+        public void Update()
+        {
+        }
 	}
 }

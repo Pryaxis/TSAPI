@@ -1,12 +1,12 @@
-using Microsoft.Xna.Framework;
+
 using System;
 namespace Terraria
 {
 	public class Gore
 	{
 		public static int goreTime = 600;
-		public Microsoft.Xna.Framework.Vector2 position;
-		public Microsoft.Xna.Framework.Vector2 velocity;
+		public Vector2 position;
+		public Vector2 velocity;
 		public float rotation;
 		public float scale;
 		public int alpha;
@@ -16,101 +16,9 @@ namespace Terraria
 		public bool sticky = true;
 		public int timeLeft = Gore.goreTime;
 		public void Update()
-		{
-			if (Main.netMode == 2)
-			{
-				return;
-			}
-			if (this.active)
-			{
-				if (this.type == 11 || this.type == 12 || this.type == 13 || this.type == 61 || this.type == 62 || this.type == 63 || this.type == 99)
-				{
-					this.velocity.Y = this.velocity.Y * 0.98f;
-					this.velocity.X = this.velocity.X * 0.98f;
-					this.scale -= 0.007f;
-					if ((double)this.scale < 0.1)
-					{
-						this.scale = 0.1f;
-						this.alpha = 255;
-					}
-				}
-				else
-				{
-					if (this.type == 16 || this.type == 17)
-					{
-						this.velocity.Y = this.velocity.Y * 0.98f;
-						this.velocity.X = this.velocity.X * 0.98f;
-						this.scale -= 0.01f;
-						if ((double)this.scale < 0.1)
-						{
-							this.scale = 0.1f;
-							this.alpha = 255;
-						}
-					}
-					else
-					{
-						this.velocity.Y = this.velocity.Y + 0.2f;
-					}
-				}
-				this.rotation += this.velocity.X * 0.1f;
-				if (this.sticky)
-				{
-					int num = Main.goreTexture[this.type].Width;
-					if (Main.goreTexture[this.type].Height < num)
-					{
-						num = Main.goreTexture[this.type].Height;
-					}
-					num = (int)((float)num * 0.9f);
-					this.velocity = Collision.TileCollision(this.position, this.velocity, (int)((float)num * this.scale), (int)((float)num * this.scale), false, false);
-					if (this.velocity.Y == 0f)
-					{
-						this.velocity.X = this.velocity.X * 0.97f;
-						if ((double)this.velocity.X > -0.01 && (double)this.velocity.X < 0.01)
-						{
-							this.velocity.X = 0f;
-						}
-					}
-					if (this.timeLeft > 0)
-					{
-						this.timeLeft--;
-					}
-					else
-					{
-						this.alpha++;
-					}
-				}
-				else
-				{
-					this.alpha += 2;
-				}
-				this.position += this.velocity;
-				if (this.alpha >= 255)
-				{
-					this.active = false;
-				}
-				if (this.light > 0f)
-				{
-					float num2 = this.light * this.scale;
-					float num3 = this.light * this.scale;
-					float num4 = this.light * this.scale;
-					if (this.type == 16)
-					{
-						num4 *= 0.3f;
-						num3 *= 0.8f;
-					}
-					else
-					{
-						if (this.type == 17)
-						{
-							num3 *= 0.6f;
-							num2 *= 0.3f;
-						}
-					}
-					Lighting.addLight((int)((this.position.X + (float)Main.goreTexture[this.type].Width * this.scale / 2f) / 16f), (int)((this.position.Y + (float)Main.goreTexture[this.type].Height * this.scale / 2f) / 16f), num2, num3, num4);
-				}
-			}
+        {
 		}
-		public static int NewGore(Microsoft.Xna.Framework.Vector2 Position, Microsoft.Xna.Framework.Vector2 Velocity, int Type, float Scale = 1f)
+		public static int NewGore(Vector2 Position, Vector2 Velocity, int Type, float Scale = 1f)
 		{
 			if (Main.rand == null)
 			{
@@ -162,7 +70,7 @@ namespace Terraria
 			}
 			return num;
 		}
-		public Microsoft.Xna.Framework.Color GetAlpha(Microsoft.Xna.Framework.Color newColor)
+		public Color GetAlpha(Color newColor)
 		{
 			float num = (float)(255 - this.alpha) / 255f;
 			int r;
@@ -189,7 +97,7 @@ namespace Terraria
 			{
 				num2 = 255;
 			}
-			return new Microsoft.Xna.Framework.Color(r, g, b, num2);
+			return new Color(r, g, b, num2);
 		}
 	}
 }

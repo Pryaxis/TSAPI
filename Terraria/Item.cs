@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+
 using System;
 namespace Terraria
 {
@@ -12,8 +12,8 @@ namespace Terraria
 		public bool wet;
 		public byte wetCount;
 		public bool lavaWet;
-		public Microsoft.Xna.Framework.Vector2 position;
-		public Microsoft.Xna.Framework.Vector2 velocity;
+		public Vector2 position;
+		public Vector2 velocity;
 		public int width;
 		public int height;
 		public bool active;
@@ -49,7 +49,7 @@ namespace Terraria
 		public bool consumable;
 		public bool autoReuse;
 		public bool useTurn;
-		public Microsoft.Xna.Framework.Color color;
+		public Color color;
 		public int alpha;
 		public float scale = 1f;
 		public int useSound;
@@ -1690,7 +1690,7 @@ namespace Terraria
 			if (ItemName == "Gold Pickaxe")
 			{
 				this.SetDefaults(1, false);
-				this.color = new Microsoft.Xna.Framework.Color(210, 190, 0, 100);
+				this.color = new Color(210, 190, 0, 100);
 				this.useTime = 17;
 				this.pick = 55;
 				this.useAnimation = 20;
@@ -1705,7 +1705,7 @@ namespace Terraria
 				if (ItemName == "Gold Broadsword")
 				{
 					this.SetDefaults(4, false);
-					this.color = new Microsoft.Xna.Framework.Color(210, 190, 0, 100);
+					this.color = new Color(210, 190, 0, 100);
 					this.useAnimation = 20;
 					this.damage = 13;
 					this.scale = 1.05f;
@@ -1717,7 +1717,7 @@ namespace Terraria
 					if (ItemName == "Gold Shortsword")
 					{
 						this.SetDefaults(6, false);
-						this.color = new Microsoft.Xna.Framework.Color(210, 190, 0, 100);
+						this.color = new Color(210, 190, 0, 100);
 						this.damage = 11;
 						this.useAnimation = 11;
 						this.scale = 0.95f;
@@ -1729,7 +1729,7 @@ namespace Terraria
 						if (ItemName == "Gold Axe")
 						{
 							this.SetDefaults(10, false);
-							this.color = new Microsoft.Xna.Framework.Color(210, 190, 0, 100);
+							this.color = new Color(210, 190, 0, 100);
 							this.useTime = 18;
 							this.axe = 11;
 							this.useAnimation = 26;
@@ -1743,7 +1743,7 @@ namespace Terraria
 							if (ItemName == "Gold Hammer")
 							{
 								this.SetDefaults(7, false);
-								this.color = new Microsoft.Xna.Framework.Color(210, 190, 0, 100);
+								this.color = new Color(210, 190, 0, 100);
 								this.useAnimation = 28;
 								this.useTime = 23;
 								this.scale = 1.25f;
@@ -1759,7 +1759,7 @@ namespace Terraria
 									this.SetDefaults(99, false);
 									this.useAnimation = 26;
 									this.useTime = 26;
-									this.color = new Microsoft.Xna.Framework.Color(210, 190, 0, 100);
+									this.color = new Color(210, 190, 0, 100);
 									this.damage = 11;
 									this.value = 7000;
 									this.netID = -6;
@@ -1769,7 +1769,7 @@ namespace Terraria
 									if (ItemName == "Silver Pickaxe")
 									{
 										this.SetDefaults(1, false);
-										this.color = new Microsoft.Xna.Framework.Color(180, 180, 180, 100);
+										this.color = new Color(180, 180, 180, 100);
 										this.useTime = 11;
 										this.pick = 45;
 										this.useAnimation = 19;
@@ -1783,7 +1783,7 @@ namespace Terraria
 										if (ItemName == "Silver Broadsword")
 										{
 											this.SetDefaults(4, false);
-											this.color = new Microsoft.Xna.Framework.Color(180, 180, 180, 100);
+											this.color = new Color(180, 180, 180, 100);
 											this.useAnimation = 21;
 											this.damage = 11;
 											this.value = 4500;
@@ -1794,7 +1794,7 @@ namespace Terraria
 											if (ItemName == "Silver Shortsword")
 											{
 												this.SetDefaults(6, false);
-												this.color = new Microsoft.Xna.Framework.Color(180, 180, 180, 100);
+												this.color = new Color(180, 180, 180, 100);
 												this.damage = 9;
 												this.useAnimation = 12;
 												this.scale = 0.95f;
@@ -1806,7 +1806,7 @@ namespace Terraria
 												if (ItemName == "Silver Axe")
 												{
 													this.SetDefaults(10, false);
-													this.color = new Microsoft.Xna.Framework.Color(180, 180, 180, 100);
+													this.color = new Color(180, 180, 180, 100);
 													this.useTime = 18;
 													this.axe = 10;
 													this.useAnimation = 26;
@@ -1820,7 +1820,7 @@ namespace Terraria
 													if (ItemName == "Silver Hammer")
 													{
 														this.SetDefaults(7, false);
-														this.color = new Microsoft.Xna.Framework.Color(180, 180, 180, 100);
+														this.color = new Color(180, 180, 180, 100);
 														this.useAnimation = 29;
 														this.useTime = 19;
 														this.scale = 1.25f;
@@ -1836,7 +1836,7 @@ namespace Terraria
 															this.SetDefaults(99, false);
 															this.useAnimation = 27;
 															this.useTime = 27;
-															this.color = new Microsoft.Xna.Framework.Color(180, 180, 180, 100);
+															this.color = new Color(180, 180, 180, 100);
 															this.damage = 9;
 															this.value = 3500;
 															this.netID = -12;
@@ -1846,7 +1846,7 @@ namespace Terraria
 															if (ItemName == "Copper Pickaxe")
 															{
 																this.SetDefaults(1, false);
-																this.color = new Microsoft.Xna.Framework.Color(180, 100, 45, 80);
+																this.color = new Color(180, 100, 45, 80);
 																this.useTime = 15;
 																this.pick = 35;
 																this.useAnimation = 23;
@@ -1861,7 +1861,7 @@ namespace Terraria
 																if (ItemName == "Copper Broadsword")
 																{
 																	this.SetDefaults(4, false);
-																	this.color = new Microsoft.Xna.Framework.Color(180, 100, 45, 80);
+																	this.color = new Color(180, 100, 45, 80);
 																	this.useAnimation = 23;
 																	this.damage = 8;
 																	this.value = 450;
@@ -1872,7 +1872,7 @@ namespace Terraria
 																	if (ItemName == "Copper Shortsword")
 																	{
 																		this.SetDefaults(6, false);
-																		this.color = new Microsoft.Xna.Framework.Color(180, 100, 45, 80);
+																		this.color = new Color(180, 100, 45, 80);
 																		this.damage = 5;
 																		this.useAnimation = 13;
 																		this.scale = 0.8f;
@@ -1884,7 +1884,7 @@ namespace Terraria
 																		if (ItemName == "Copper Axe")
 																		{
 																			this.SetDefaults(10, false);
-																			this.color = new Microsoft.Xna.Framework.Color(180, 100, 45, 80);
+																			this.color = new Color(180, 100, 45, 80);
 																			this.useTime = 21;
 																			this.axe = 7;
 																			this.useAnimation = 30;
@@ -1899,7 +1899,7 @@ namespace Terraria
 																			if (ItemName == "Copper Hammer")
 																			{
 																				this.SetDefaults(7, false);
-																				this.color = new Microsoft.Xna.Framework.Color(180, 100, 45, 80);
+																				this.color = new Color(180, 100, 45, 80);
 																				this.useAnimation = 33;
 																				this.useTime = 23;
 																				this.scale = 1.1f;
@@ -1916,7 +1916,7 @@ namespace Terraria
 																					this.SetDefaults(99, false);
 																					this.useAnimation = 29;
 																					this.useTime = 29;
-																					this.color = new Microsoft.Xna.Framework.Color(180, 100, 45, 80);
+																					this.color = new Color(180, 100, 45, 80);
 																					this.damage = 6;
 																					this.value = 350;
 																					this.netID = -18;
@@ -2253,7 +2253,7 @@ namespace Terraria
 			this.legSlot = -1;
 			this.headSlot = -1;
 			this.potion = false;
-			this.color = default(Microsoft.Xna.Framework.Color);
+			this.color = default(Color);
 			this.consumable = false;
 			this.createTile = -1;
 			this.createWall = -1;
@@ -2631,7 +2631,7 @@ namespace Terraria
 																											this.maxStack = 250;
 																											this.alpha = 175;
 																											this.ammo = 23;
-																											this.color = new Microsoft.Xna.Framework.Color(0, 80, 255, 100);
+																											this.color = new Color(0, 80, 255, 100);
 																											this.toolTip = "'Both tasty and flammable'";
 																											this.value = 5;
 																										}
@@ -3315,7 +3315,7 @@ namespace Terraria
 																																																																					this.mana = 16;
 																																																																					this.knockBack = 5f;
 																																																																					this.alpha = 100;
-																																																																					this.color = new Microsoft.Xna.Framework.Color(150, 150, 150, 0);
+																																																																					this.color = new Color(150, 150, 150, 0);
 																																																																					this.damage = 16;
 																																																																					this.useStyle = 1;
 																																																																					this.scale = 1.15f;
@@ -12717,27 +12717,27 @@ namespace Terraria
 			}
 			return result;
 		}
-		public Microsoft.Xna.Framework.Color GetAlpha(Microsoft.Xna.Framework.Color newColor)
+		public Color GetAlpha(Color newColor)
 		{
 			if (this.type == 75)
 			{
-				return new Microsoft.Xna.Framework.Color(255, 255, 255, (int)newColor.A - this.alpha);
+				return new Color(255, 255, 255, (int)newColor.A - this.alpha);
 			}
 			if (this.type == 121 || this.type == 122 || this.type == 217 || this.type == 218 || this.type == 219 || this.type == 220 || this.type == 120 || this.type == 119)
 			{
-				return new Microsoft.Xna.Framework.Color(255, 255, 255, 255);
+				return new Color(255, 255, 255, 255);
 			}
 			if (this.type == 501)
 			{
-				return new Microsoft.Xna.Framework.Color(200, 200, 200, 50);
+				return new Color(200, 200, 200, 50);
 			}
 			if (this.type == 520 || this.type == 521 || this.type == 522 || this.type == 547 || this.type == 548 || this.type == 549 || this.type == 575)
 			{
-				return new Microsoft.Xna.Framework.Color(255, 255, 255, 50);
+				return new Color(255, 255, 255, 50);
 			}
 			if (this.type == 58 || this.type == 184)
 			{
-				return new Microsoft.Xna.Framework.Color(200, 200, 200, 2000);
+				return new Color(200, 200, 200, 2000);
 			}
 			float num = (float)(255 - this.alpha) / 255f;
 			int r = (int)((float)newColor.R * num);
@@ -12754,11 +12754,11 @@ namespace Terraria
 			}
 			if (this.type >= 198 && this.type <= 203)
 			{
-				return Microsoft.Xna.Framework.Color.White;
+				return Color.White;
 			}
-			return new Microsoft.Xna.Framework.Color(r, g, b, num2);
+			return new Color(r, g, b, num2);
 		}
-		public Microsoft.Xna.Framework.Color GetColor(Microsoft.Xna.Framework.Color newColor)
+		public Color GetColor(Color newColor)
 		{
 			int num = (int)(this.color.R - (255 - newColor.R));
 			int num2 = (int)(this.color.G - (255 - newColor.G));
@@ -12796,7 +12796,7 @@ namespace Terraria
 			{
 				num4 = 255;
 			}
-			return new Microsoft.Xna.Framework.Color(num, num2, num3, num4);
+			return new Color(num, num2, num3, num4);
 		}
 		public static bool MechSpawn(float x, float y, int type)
 		{
@@ -12808,7 +12808,7 @@ namespace Terraria
 				if (Main.item[i].active && Main.item[i].type == type)
 				{
 					num++;
-					Microsoft.Xna.Framework.Vector2 vector = new Microsoft.Xna.Framework.Vector2(x, y);
+					Vector2 vector = new Vector2(x, y);
 					float num4 = Main.item[i].position.X - vector.X;
 					float num5 = Main.item[i].position.Y - vector.Y;
 					float num6 = (float)Math.Sqrt((double)(num4 * num4 + num5 * num5));
@@ -12847,7 +12847,7 @@ namespace Terraria
 					num2 = 5f;
 					num = 0.08f;
 				}
-				Microsoft.Xna.Framework.Vector2 value = this.velocity * 0.5f;
+				Vector2 value = this.velocity * 0.5f;
 				if (this.ownTime > 0)
 				{
 					this.ownTime--;
@@ -12905,7 +12905,7 @@ namespace Terraria
 								{
 									for (int j = 0; j < 10; j++)
 									{
-										int num5 = Dust.NewDust(new Microsoft.Xna.Framework.Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 33, 0f, 0f, 0, default(Microsoft.Xna.Framework.Color), 1f);
+										int num5 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 33, 0f, 0f, 0, default(Color), 1f);
 										Dust expr_35E_cp_0 = Main.dust[num5];
 										expr_35E_cp_0.velocity.Y = expr_35E_cp_0.velocity.Y - 4f;
 										Dust expr_37C_cp_0 = Main.dust[num5];
@@ -12920,7 +12920,7 @@ namespace Terraria
 								{
 									for (int k = 0; k < 5; k++)
 									{
-										int num6 = Dust.NewDust(new Microsoft.Xna.Framework.Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Microsoft.Xna.Framework.Color), 1f);
+										int num6 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
 										Dust expr_464_cp_0 = Main.dust[num6];
 										expr_464_cp_0.velocity.Y = expr_464_cp_0.velocity.Y - 1.5f;
 										Dust expr_482_cp_0 = Main.dust[num6];
@@ -12954,7 +12954,7 @@ namespace Terraria
 					{
 						if (this.wet)
 						{
-							Microsoft.Xna.Framework.Vector2 vector = this.velocity;
+							Vector2 vector = this.velocity;
 							this.velocity = Collision.TileCollision(this.position, this.velocity, this.width, this.height, false, false);
 							if (this.velocity.X != vector.X)
 							{
@@ -13092,11 +13092,11 @@ namespace Terraria
 					{
 						for (int m = 0; m < 10; m++)
 						{
-							Dust.NewDust(this.position, this.width, this.height, 15, this.velocity.X, this.velocity.Y, 150, default(Microsoft.Xna.Framework.Color), 1.2f);
+							Dust.NewDust(this.position, this.width, this.height, 15, this.velocity.X, this.velocity.Y, 150, default(Color), 1.2f);
 						}
 						for (int n = 0; n < 3; n++)
 						{
-							Gore.NewGore(this.position, new Microsoft.Xna.Framework.Vector2(this.velocity.X, this.velocity.Y), Main.rand.Next(16, 18), 1f);
+							Gore.NewGore(this.position, new Vector2(this.velocity.X, this.velocity.Y), Main.rand.Next(16, 18), 1f);
 						}
 						this.active = false;
 						this.type = 0;
@@ -13237,11 +13237,11 @@ namespace Terraria
 				{
 					if (Main.rand.Next(25) == 0)
 					{
-						Dust.NewDust(this.position, this.width, this.height, 58, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 150, default(Microsoft.Xna.Framework.Color), 1.2f);
+						Dust.NewDust(this.position, this.width, this.height, 58, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 150, default(Color), 1.2f);
 					}
 					if (Main.rand.Next(50) == 0)
 					{
-						Gore.NewGore(this.position, new Microsoft.Xna.Framework.Vector2(this.velocity.X * 0.2f, this.velocity.Y * 0.2f), Main.rand.Next(16, 18), 1f);
+						Gore.NewGore(this.position, new Vector2(this.velocity.X * 0.2f, this.velocity.Y * 0.2f), Main.rand.Next(16, 18), 1f);
 					}
 				}
 				if (this.spawnTime < 2147483646)
