@@ -50,30 +50,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIVersionAttribute.cs" />
-    <Compile Include="Color.cs" />
-    <Compile Include="Hooks.Classes\MethodHookAttribute.cs" />
+    <Compile Include="XNA\Color.cs" />
+    <Compile Include="Hooks\Classes\MethodHookAttribute.cs" />
     <Compile Include="Hooks\ClientHooks.cs" />
     <Compile Include="Hooks\GameHooks.cs" />
-    <Compile Include="Hooks\GetDataEventArgs.cs" />
+    <Compile Include="Hooks\Classes\GetDataEventArgs.cs" />
     <Compile Include="Hooks\ItemHooks.cs" />
     <Compile Include="Hooks\NetHooks.cs" />
     <Compile Include="Hooks\NpcHooks.cs" />
-    <Compile Include="Hooks\NpcStrikeEventArgs.cs" />
+    <Compile Include="Hooks\Classes\NpcStrikeEventArgs.cs" />
     <Compile Include="Hooks\PlayerHooks.cs" />
     <Compile Include="Hooks\ProjectileHooks.cs" />
-    <Compile Include="Hooks\SendDataEventArgs.cs" />
+    <Compile Include="Hooks\Classes\SendDataEventArgs.cs" />
     <Compile Include="Hooks\ServerHooks.cs" />
-    <Compile Include="Hooks\SetDefaultsD.cs" />
-    <Compile Include="Hooks\SetDefaultsEventArgs.cs" />
+    <Compile Include="Hooks\Classes\SetDefaultsD.cs" />
+    <Compile Include="Hooks\Classes\SetDefaultsEventArgs.cs" />
     <Compile Include="Hooks\WorldHooks.cs" />
     <Compile Include="IPackedVector.cs" />
     <Compile Include="PacketTypes.cs" />
-    <Compile Include="PackUtils.cs" />
+    <Compile Include="XNA\PackUtils.cs" />
     <Compile Include="PluginContainer.cs" />
-    <Compile Include="Point.cs" />
-    <Compile Include="Rectangle.cs" />
-    <Compile Include="System.IO.Streams.Generic\StreamGenericExt.cs" />
-    <Compile Include="System.IO.Streams\StreamExt.cs" />
+    <Compile Include="XNA\Point.cs" />
+    <Compile Include="XNA\Rectangle.cs" />
+    <Compile Include="Terraria\StreamGenericExt.cs" />
+    <Compile Include="Terraria\StreamExt.cs" />
     <Compile Include="Terraria.Properties\Settings.cs" />
     <Compile Include="TerrariaPlugin.cs" />
     <Compile Include="Terraria\ChatLine.cs" />
@@ -104,8 +104,8 @@
     <Compile Include="Terraria\Tile.cs" />
     <Compile Include="Terraria\WorldGen.cs" />
     <Compile Include="TileCommand.cs" />
-    <Compile Include="Vector2.cs" />
-    <Compile Include="Vector4.cs" />
+    <Compile Include="XNA\Vector2.cs" />
+    <Compile Include="XNA\Vector4.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
