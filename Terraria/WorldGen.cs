@@ -7,7 +7,7 @@ using Hooks;
 
 namespace Terraria
 {
-	internal class WorldGen
+	public class WorldGen
 	{
 		public static int c = 0;
 		public static int m = 0;
