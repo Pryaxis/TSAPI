@@ -6428,27 +6428,23 @@ namespace Terraria
 		{
 			int num = WorldGen.genRand.Next(3);
 			int num2 = WorldGen.genRand.Next(3);
-			if (num == 1)
+			switch (num)
 			{
-				tileType = 43;
+			    case 1:
+			        tileType = 43;
+			        break;
+			    case 2:
+			        tileType = 44;
+			        break;
 			}
-			else
+			switch (num2)
 			{
-				if (num == 2)
-				{
-					tileType = 44;
-				}
-			}
-			if (num2 == 1)
-			{
-				wallType = 8;
-			}
-			else
-			{
-				if (num2 == 2)
-				{
-					wallType = 9;
-				}
+			    case 1:
+			        wallType = 8;
+			        break;
+			    case 2:
+			        wallType = 9;
+			        break;
 			}
 			WorldGen.numDDoors = 0;
 			WorldGen.numDPlats = 0;
@@ -7072,57 +7068,34 @@ namespace Terraria
 					int num81 = 0;
 					num76++;
 					int style = 2;
-					if (num76 == 1)
+					switch (num76)
 					{
-						num81 = 329;
-					}
-					else
-					{
-						if (num76 == 2)
-						{
-							num81 = 155;
-						}
-						else
-						{
-							if (num76 == 3)
-							{
-								num81 = 156;
-							}
-							else
-							{
-								if (num76 == 4)
-								{
-									num81 = 157;
-								}
-								else
-								{
-									if (num76 == 5)
-									{
-										num81 = 163;
-									}
-									else
-									{
-										if (num76 == 6)
-										{
-											num81 = 113;
-										}
-										else
-										{
-											if (num76 == 7)
-											{
-												num81 = 327;
-												style = 0;
-											}
-											else
-											{
-												num81 = 164;
-												num76 = 0;
-											}
-										}
-									}
-								}
-							}
-						}
+					    case 1:
+					        num81 = 329;
+					        break;
+					    case 2:
+					        num81 = 155;
+					        break;
+					    case 3:
+					        num81 = 156;
+					        break;
+					    case 4:
+					        num81 = 157;
+					        break;
+					    case 5:
+					        num81 = 163;
+					        break;
+					    case 6:
+					        num81 = 113;
+					        break;
+					    case 7:
+					        num81 = 327;
+					        style = 0;
+					        break;
+					    default:
+					        num81 = 164;
+					        num76 = 0;
+					        break;
 					}
 					if ((double)num80 < Main.worldSurface + 50.0)
 					{
