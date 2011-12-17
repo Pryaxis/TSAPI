@@ -604,6 +604,7 @@ namespace Terraria
 		private int bgScroll;
 		public static bool autoPass = false;
 		public static int menuFocus = 0;
+	    public static bool runningMono = false;
 		public static void LoadWorlds()
 		{
 			Directory.CreateDirectory(Main.WorldPath);
@@ -958,6 +959,8 @@ namespace Terraria
 		}
 		public void DedServ()
 		{
+            Type t = Type.GetType("Mono.Runtime");
+		    Main.runningMono = (t != null);
             GameHooks.OnInitialize(true);
 			Main.rand = new Random();
 			Console.Title = "Terraria Server " + Main.versionNumber2;

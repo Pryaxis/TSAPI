@@ -12,8 +12,10 @@ namespace Terraria
             {
                 return;
             }
-            //sock.networkStream.BeginWrite(buffer, offset, count, callback, state);
-            sock.networkStream.Write(buffer, offset, count);
+            if (Main.runningMono)
+                sock.networkStream.Write(buffer, offset, count);
+            else
+                sock.networkStream.BeginWrite(buffer, offset, count, callback, state);
         }
         public static void SendData(int msgType, int remoteClient = -1, int ignoreClient = -1, string text = "", int number = 0, float number2 = 0f, float number3 = 0f, float number4 = 0f, int number5 = 0)
         {
