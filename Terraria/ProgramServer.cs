@@ -90,6 +90,12 @@ namespace Terraria
                         Game.autoCreate(newOpt);
                     }
                 }
+                if (Environment.OSVersion.Platform == PlatformID.Unix)
+                    Terraria.Main.SavePath = "~/.terraria";
+                else
+                    Terraria.Main.SavePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/My Games/Terraria";
+                Terraria.Main.WorldPath = Terraria.Main.SavePath + "/Worlds";
+                Terraria.Main.PlayerPath = Terraria.Main.SavePath + "/Players";
                 Initialize(Game);
                 Game.DedServ();
                 DeInitialize();

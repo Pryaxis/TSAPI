@@ -376,9 +376,9 @@ namespace Terraria
 		public static string[] loadWorldPath = new string[999];
 		private static int numLoadWorlds = 0;
 		public static string worldPathName;
-		public static string SavePath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "\\My Games\\Terraria";
-		public static string WorldPath = Main.SavePath + "\\Worlds";
-		public static string PlayerPath = Main.SavePath + "\\Players";
+		public static string SavePath;
+		public static string WorldPath;
+		public static string PlayerPath;
 		public static string[] itemName = new string[603];
 		public static string[] npcName = new string[147];
 		public static int invasionType = 0;
@@ -686,7 +686,7 @@ namespace Terraria
 			while (File.Exists(string.Concat(new object[]
 			{
 				Main.PlayerPath, 
-				"\\player", 
+				"/player", 
 				num, 
 				".plr"
 			})))
@@ -696,7 +696,7 @@ namespace Terraria
 			return string.Concat(new object[]
 			{
 				Main.PlayerPath, 
-				"\\player", 
+				"/player", 
 				num, 
 				".plr"
 			});
@@ -707,7 +707,7 @@ namespace Terraria
 			while (File.Exists(string.Concat(new object[]
 			{
 				Main.WorldPath, 
-				"\\world", 
+				"/world", 
 				num, 
 				".wld"
 			})))
@@ -717,7 +717,7 @@ namespace Terraria
 			return string.Concat(new object[]
 			{
 				Main.WorldPath, 
-				"\\world", 
+				"/world", 
 				num, 
 				".wld"
 			});

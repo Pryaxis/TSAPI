@@ -1477,7 +1477,7 @@ namespace Terraria
 			{
 				for (int i = Main.worldPathName.Length - 1; i >= 0; i--)
 				{
-					if (Main.worldPathName.Substring(i, 1) == "\\")
+                    if (Main.worldPathName.Substring(i, 1) == "\\" || Main.worldPathName.Substring(i, 1) == "/")
 					{
 						string path = Main.worldPathName.Substring(0, i);
 						Directory.CreateDirectory(path);
