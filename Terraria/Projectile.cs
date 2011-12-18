@@ -3504,7 +3504,7 @@ namespace Terraria
 		                        {
 		                            if (Main.tile[n, num27] == null)
 		                            {
-		                                Main.tile[n, num27] = new Tile();
+
 		                            }
 		                            Vector2 vector4;
 		                            vector4.X = (float)(n * 16);
@@ -3630,7 +3630,7 @@ namespace Terraria
 		                        {
 		                            if (Main.tile[num38, num39] == null)
 		                            {
-		                                Main.tile[num38, num39] = new Tile();
+
 		                            }
 		                            Vector2 vector5;
 		                            vector5.X = (float)(num38 * 16);
@@ -5844,7 +5844,7 @@ namespace Terraria
 									int num17 = (int)this.position.Y / 16;
 									if (Main.tile[num16, num17] == null)
 									{
-										Main.tile[num16, num17] = new Tile();
+
 									}
 									if (Main.tile[num16, num17].type == 127 && Main.tile[num16, num17].active)
 									{
