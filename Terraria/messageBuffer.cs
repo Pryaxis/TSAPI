@@ -526,7 +526,7 @@ namespace Terraria
 											{
 												if (Main.tile[num19, num18] == null)
 												{
-
+													Main.tile[num19, num18] = new Tile();
 												}
 												byte b5 = this.readBuffer[num];
 												num++;
@@ -614,7 +614,7 @@ namespace Terraria
 													num20 -= 1;
 													if (Main.tile[num21, num18] == null)
 													{
-
+														Main.tile[num21, num18] = new Tile();
 													}
 													Main.tile[num21, num18].active = Main.tile[num19, num18].active;
 													Main.tile[num21, num18].type = Main.tile[num19, num18].type;
@@ -847,7 +847,7 @@ namespace Terraria
 																		}
 																		if (Main.tile[num29, num30] == null)
 																		{
-
+																			Main.tile[num29, num30] = new Tile();
 																		}
 																		if (Main.netMode == 2)
 																		{
@@ -1005,7 +1005,7 @@ namespace Terraria
 																						{
 																							if (Main.tile[num39, num40] == null)
 																							{
-
+																								Main.tile[num39, num40] = new Tile();
 																							}
 																							byte b11 = this.readBuffer[num];
 																							num++;
@@ -2085,7 +2085,7 @@ namespace Terraria
 																																														}
 																																														if (Main.tile[num96, num97] == null)
 																																														{
-
+																																															Main.tile[num96, num97] = new Tile();
 																																														}
 																																														lock (Main.tile[num96, num97])
 																																														{

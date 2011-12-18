@@ -3373,7 +3373,7 @@ namespace Terraria
 					{
 						if (Main.tile[Player.tileTargetX, Player.tileTargetY] == null)
 						{
-
+							Main.tile[Player.tileTargetX, Player.tileTargetY] = new Tile();
 						}
 						if (Main.tile[Player.tileTargetX, Player.tileTargetY].active)
 						{
@@ -4395,7 +4395,7 @@ namespace Terraria
 							{
 								if (Main.tile[num117, num119] == null)
 								{
-
+									Main.tile[num117, num119] = new Tile();
 								}
 								if (!Main.tile[num117, num119].active || !Main.tileSolid[(int)Main.tile[num117, num119].type] || Main.tileSolidTop[(int)Main.tile[num117, num119].type])
 								{
@@ -7976,7 +7976,8 @@ namespace Terraria
 												num53 = 255 - num50;
 											}
 											num50 += num53;
-                                            Main.tile[num51, num52].liquid -= (byte)num53;
+											Tile expr_3919 = Main.tile[num51, num52];
+											expr_3919.liquid -= (byte)num53;
 											Main.tile[num51, num52].lava = lava2;
 											if (Main.tile[num51, num52].liquid == 0)
 											{
