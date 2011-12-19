@@ -128,8 +128,9 @@ namespace Terraria
                 Directory.CreateDirectory("ServerPlugins");
             }
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-            FileInfo[] files = new DirectoryInfo("ServerPlugins").GetFiles("*.dll");
-            for (int i = 0; i < files.Length; i++)
+            List<FileInfo> files = new DirectoryInfo("ServerPlugins").GetFiles("*.dll").ToList();
+            files.AddRange(new DirectoryInfo("ServerPlugins").GetFiles("*.dll-plugin"));
+            for (int i = 0; i < files.Count; i++)
             {
                 FileInfo fileInfo = files[i];
                 try
