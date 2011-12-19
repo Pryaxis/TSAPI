@@ -1396,6 +1396,13 @@ namespace Terraria
                                                                         '\t',
                                                                         " Settle all water."
                                                                     }));
+                                Console.WriteLine(string.Concat(new object[]
+                                                                    {
+                                                                        "reload",
+                                                                        '\t',
+                                                                        '\t',
+                                                                        " Reloads plugins."
+                                                                    }));
                                 break;
                             case "settle":
                                 if (!Liquid.panicMode)
@@ -1491,6 +1498,17 @@ namespace Terraria
                                 break;
                             case "version":
                                 Console.WriteLine("Terraria Server " + Main.versionNumber);
+                                break;
+                            case "reload":
+                                Console.WriteLine("Reloading plugins");
+                                try
+                                {
+                                    ProgramServer.ReloadPlugins();
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex);
+                                }
                                 break;
                             default:
                                 if (text == "clear")

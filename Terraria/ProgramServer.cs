@@ -10,7 +10,7 @@ namespace Terraria
     internal class ProgramServer
     {
         public const string PluginsPath = "ServerPlugins";
-        public static readonly Version ApiVersion = new Version(1, 10, 0, 1);
+        public static readonly Version ApiVersion = new Version(1, 10, 0, 2);
         public static List<PluginContainer> Plugins = new List<PluginContainer>();
         public static Dictionary<string, Assembly> LoadedAssemblies = new Dictionary<string, Assembly>();
         private static Main Game;
@@ -177,10 +177,8 @@ namespace Terraria
                     else if (innerException is ReflectionTypeLoadException)
                     {
                         var exception = (ReflectionTypeLoadException) innerException;
-                        foreach (var ex in exception.LoaderExceptions)
-                            File.AppendAllText("ErrorLog.txt", ex.ToString() + "\n");
                     }
-                    File.AppendAllText("ErrorLog.txt", innerException.ToString() + "\n");
+                    AppendLog(fileInfo.Name, innerException);
                     Console.WriteLine("Plugin {0} failed to load", fileInfo.Name);
                 }
             }
@@ -222,6 +220,44 @@ namespace Terraria
             return null;
         }
 
+        private static void AppendLog(string format, params object[] args)
+        {
+            string text = string.Format(format, args);
+            Console.WriteLine(text);
+            File.AppendAllText("ErrorLog.txt", text + Environment.NewLine);
+        }
+
+        private static void AppendLog(string name, Exception e)
+        {
+            AppendLog("Exception while trying to load: {0}\r\n{1}\r\nStack trace:\r\n{2}\r\n", name, e.Message, e.StackTrace);
+        }
+
+        /*private static Assembly Compile(string name, string data, bool addfail = true)
+        {
+            var prov = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v4.0" } });
+            var cp = new CompilerParameters();
+            cp.GenerateInMemory = true;
+            cp.GenerateExecutable = false;
+            cp.CompilerOptions = "/d:TERRARIA_API /unsafe";
+
+            foreach (var a in Assemblies)
+            {
+                if (!cp.ReferencedAssemblies.Contains(a.Location))
+                    cp.ReferencedAssemblies.Add(a.Location);
+            }
+            var r = prov.CompileAssemblyFromSource(cp, data);
+            if (r.Errors.Count > 0)
+            {
+                for (int i = 0; i < r.Errors.Count; i++)
+                {
+                    AppendLog("Error compiling: {0}\r\nLine number: {1}, Error number: {2}, Error text: {3}\r\n",
+                        name, r.Errors[i].Line, r.Errors[i].ErrorNumber, r.Errors[i].ErrorText);
+                }
+                return null;
+            }
+            return r.CompiledAssembly;
+        }*/
+
         private static bool Compatible(Type type)
         {
             object[] customAttributes = type.GetCustomAttributes(typeof (APIVersionAttribute), false);
@@ -244,6 +280,19 @@ namespace Terraria
             {
                 current2.Dispose();
             }
+        }
+
+        public static void ReloadPlugins()
+        {
+            for (int index = 0; index < Plugins.Count; index++)
+            {
+                var p = Plugins[index];
+                p.DeInitialize();
+                p.Dispose();
+                Plugins.RemoveAt(index);
+            }
+            LoadedAssemblies.Clear();
+            Initialize(Game);
         }
     }
 }
