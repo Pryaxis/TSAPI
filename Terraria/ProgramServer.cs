@@ -157,6 +157,7 @@ namespace Terraria
                             else
                             {
                                 Console.WriteLine("Outdated plugin: {0} ({1})", fileInfo.Name, type);
+                                File.AppendAllText("ErrorLog.txt", string.Format("Outdated plugin: {0} ({1})\n", fileInfo.Name, type));
                             }
                         }
                     }
@@ -167,6 +168,13 @@ namespace Terraria
                     {
                         innerException = (innerException).InnerException;
                     }
+                    else if (innerException is ReflectionTypeLoadException)
+                    {
+                        var exception = (ReflectionTypeLoadException) innerException;
+                        foreach (var ex in exception.LoaderExceptions)
+                            File.AppendAllText("ErrorLog.txt", ex.ToString() + "\n");
+                    }
+                    File.AppendAllText("ErrorLog.txt", innerException.ToString() + "\n");
                     Console.WriteLine("Plugin {0} failed to load", fileInfo.Name);
                 }
             }
