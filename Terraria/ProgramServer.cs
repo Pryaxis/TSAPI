@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 
 namespace Terraria
@@ -21,73 +22,77 @@ namespace Terraria
                 Game = new Main();
                 for (int i = 0; i < args.Length; i++)
                 {
-                    if (args[i].ToLower() == "-config")
+                    switch (args[i].ToLower())
                     {
-                        i++;
-                        Game.LoadDedConfig(args[i]);
-                    }
-                    if (args[i].ToLower() == "-port")
-                    {
-                        i++;
-                        try
-                        {
-                            int serverPort = Convert.ToInt32(args[i]);
-                            Netplay.serverPort = serverPort;
-                        }
-                        catch
-                        {
-                        }
-                    }
-                    if (args[i].ToLower() == "-players" || args[i].ToLower() == "-maxplayers")
-                    {
-                        i++;
-                        try
-                        {
-                            int netPlayers = Convert.ToInt32(args[i]);
-                            Game.SetNetPlayers(netPlayers);
-                        }
-                        catch
-                        {
-                        }
-                    }
-                    if (args[i].ToLower() == "-pass" || args[i].ToLower() == "-password")
-                    {
-                        i++;
-                        Netplay.password = args[i];
-                    }
-                    if (args[i].ToLower() == "-world")
-                    {
-                        i++;
-                        Game.SetWorld(args[i]);
-                    }
-                    if (args[i].ToLower() == "-worldname")
-                    {
-                        i++;
-                        Game.SetWorldName(args[i]);
-                    }
-                    if (args[i].ToLower() == "-motd")
-                    {
-                        i++;
-                        Game.NewMOTD(args[i]);
-                    }
-                    if (args[i].ToLower() == "-banlist")
-                    {
-                        i++;
-                        Netplay.banFile = args[i];
-                    }
-                    if (args[i].ToLower() == "-autoshutdown")
-                    {
-                        Game.autoShut();
-                    }
-                    if (args[i].ToLower() == "-secure")
-                    {
-                        Netplay.spamCheck = true;
-                    }
-                    if (args[i].ToLower() == "-autocreate")
-                    {
-                        i++;
-                        string newOpt = args[i];
-                        Game.autoCreate(newOpt);
+                        case "-config":
+                            i++;
+                            Game.LoadDedConfig(args[i]);
+                            break;
+                        case "-port":
+                            i++;
+                            try
+                            {
+                                int serverPort = Convert.ToInt32(args[i]);
+                                Netplay.serverPort = serverPort;
+                            }
+                            catch
+                            {
+                            }
+                            break;
+                        case "-players":
+                        case "-maxplayers":
+                            i++;
+                            try
+                            {
+                                int netPlayers = Convert.ToInt32(args[i]);
+                                Game.SetNetPlayers(netPlayers);
+                            }
+                            catch
+                            {
+                            }
+                            break;
+                        case "-pass":
+                        case "-password":
+                            i++;
+                            Netplay.password = args[i];
+                            break;
+                        case "-world":
+                            i++;
+                            Game.SetWorld(args[i]);
+                            break;
+                        case "-worldname":
+                            i++;
+                            Game.SetWorldName(args[i]);
+                            break;
+                        case "-motd":
+                            i++;
+                            Game.NewMOTD(args[i]);
+                            break;
+                        case "-banlist":
+                            i++;
+                            Netplay.banFile = args[i];
+                            break;
+                        case "-autoshutdown":
+                            Game.autoShut();
+                            break;
+                        case "-secure":
+                            Netplay.spamCheck = true;
+                            break;
+                        case "-autocreate":
+                            i++;
+                            string newOpt = args[i];
+                            Game.autoCreate(newOpt);
+                            break;
+                        case "-ip":
+                            IPAddress ip;
+                            if (IPAddress.TryParse(args[++i], out ip))
+                            {
+                                Netplay.serverListenIP = ip;
+                                Console.Write("Using IP: {0}", ip);
+                            }
+                            else
+                                Console.WriteLine("Bad IP: {0}", args[i]);
+                            break;
                     }
                 }
                 if (Environment.OSVersion.Platform == PlatformID.Unix)

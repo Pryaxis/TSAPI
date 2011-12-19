@@ -802,46 +802,28 @@ namespace Terraria
 									int num2 = Convert.ToInt32(value3);
 									if (num2 >= 0 && num2 <= 5)
 									{
-										Process currentProcess = Process.GetCurrentProcess();
-										if (num2 == 0)
-										{
-											currentProcess.PriorityClass = ProcessPriorityClass.RealTime;
-										}
-										else
-										{
-											if (num2 == 1)
-											{
-												currentProcess.PriorityClass = ProcessPriorityClass.High;
-											}
-											else
-											{
-												if (num2 == 2)
-												{
-													currentProcess.PriorityClass = ProcessPriorityClass.AboveNormal;
-												}
-												else
-												{
-													if (num2 == 3)
-													{
-														currentProcess.PriorityClass = ProcessPriorityClass.Normal;
-													}
-													else
-													{
-														if (num2 == 4)
-														{
-															currentProcess.PriorityClass = ProcessPriorityClass.BelowNormal;
-														}
-														else
-														{
-															if (num2 == 5)
-															{
-																currentProcess.PriorityClass = ProcessPriorityClass.Idle;
-															}
-														}
-													}
-												}
-											}
-										}
+									    Process currentProcess = Process.GetCurrentProcess();
+									    switch (num2)
+									    {
+									        case 0:
+									            currentProcess.PriorityClass = ProcessPriorityClass.RealTime;
+									            break;
+									        case 1:
+									            currentProcess.PriorityClass = ProcessPriorityClass.High;
+									            break;
+									        case 2:
+									            currentProcess.PriorityClass = ProcessPriorityClass.AboveNormal;
+									            break;
+									        case 3:
+									            currentProcess.PriorityClass = ProcessPriorityClass.Normal;
+									            break;
+									        case 4:
+									            currentProcess.PriorityClass = ProcessPriorityClass.BelowNormal;
+									            break;
+									        case 5:
+									            currentProcess.PriorityClass = ProcessPriorityClass.Idle;
+									            break;
+									    }
 									}
 								}
 								catch
@@ -875,40 +857,30 @@ namespace Terraria
 							}
 							if (text.Length > 11 && text.Substring(0, 11).ToLower() == "autocreate=")
 							{
-								string a = text.Substring(11);
-								if (a == "0")
-								{
-									Main.autoGen = false;
-								}
-								else
-								{
-									if (a == "1")
-									{
-										Main.maxTilesX = 4200;
-										Main.maxTilesY = 1200;
-										Main.autoGen = true;
-									}
-									else
-									{
-										if (a == "2")
-										{
-											Main.maxTilesX = 6300;
-											Main.maxTilesY = 1800;
-											Main.autoGen = true;
-										}
-										else
-										{
-											if (a == "3")
-											{
-												Main.maxTilesX = 8400;
-												Main.maxTilesY = 2400;
-												Main.autoGen = true;
-											}
-										}
-									}
-								}
+							    string a = text.Substring(11);
+							    switch (a)
+							    {
+							        case "0":
+							            Main.autoGen = false;
+							            break;
+							        case "1":
+							            Main.maxTilesX = 4200;
+							            Main.maxTilesY = 1200;
+							            Main.autoGen = true;
+							            break;
+							        case "2":
+							            Main.maxTilesX = 6300;
+							            Main.maxTilesY = 1800;
+							            Main.autoGen = true;
+							            break;
+							        case "3":
+							            Main.maxTilesX = 8400;
+							            Main.maxTilesY = 2400;
+							            Main.autoGen = true;
+							            break;
+							    }
 							}
-							if (text.Length > 7 && text.Substring(0, 7).ToLower() == "secure=")
+						    if (text.Length > 7 && text.Substring(0, 7).ToLower() == "secure=")
 							{
 								string a2 = text.Substring(7);
 								if (a2 == "1")
