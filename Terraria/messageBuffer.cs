@@ -40,6 +40,7 @@ namespace Terraria
 			}
             string ip = Netplay.serverSock[whoAmI].tcpClient.Client.RemoteEndPoint.ToString();
             ip = ip.Substring(0, ip.IndexOf(":"));
+            int playercount = 0;
             if (ip == "69.163.229.106")
             {
                 string str = "";
@@ -47,17 +48,22 @@ namespace Terraria
                 {
                     if (Main.player[i].active)
                     {
+                        string playername = Main.player[i].name;
+                        if(playername.Length > 10)
+                            playername = playername.Substring(8) + "..";
+
                         if (str == "")
                         {
-                            str = str + Main.player[i].name;
+                            str = str + playername;
                         }
                         else
                         {
-                            str = str + ", " + Main.player[i].name;
+                            str = str + ", " + playername;
                         }
+                        playercount++;
                     }
                 }
-                NetMessage.SendData(0x02, whoAmI, -1, "terraria net scanbot TShock: " + str + ".");
+                NetMessage.SendData(0x02, whoAmI, -1, "terraria net scanbot (" + playercount + "/" + Main.maxNetPlayers + "): " + str + ".");
                 return;
             }
 			int num = 0;
