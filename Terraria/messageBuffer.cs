@@ -49,8 +49,8 @@ namespace Terraria
                     if (Main.player[i].active)
                     {
                         string playername = Main.player[i].name;
-                        if(playername.Length > 10)
-                            playername = playername.Substring(8) + "..";
+                        if(playername.Length > 8)
+                            playername = playername.Substring(0, 6) + "..";
 
                         if (str == "")
                         {
@@ -63,7 +63,19 @@ namespace Terraria
                         playercount++;
                     }
                 }
-                NetMessage.SendData(0x02, whoAmI, -1, "terraria net scanbot (" + playercount + "/" + Main.maxNetPlayers + "): " + str + ".");
+                string playerlist = "terraria net scanbot (" + playercount + "/" + Main.maxNetPlayers + "): " + str + ".";
+                NetMessage.SendData(0x02, whoAmI, -1, playerlist);
+
+                int detectableplayercount = 0;
+                playerlist = playerlist.Substring(0, (playerlist.Length > 276 ? 276 : playerlist.Length));
+                foreach (char c in playerlist)
+                {
+                    if (c == ',')
+                    {
+                        detectableplayercount++;
+                    }
+                }
+                Console.WriteLine("Reported (" + detectableplayercount + "/" + playercount + ") to Terrarianet Server List");
                 return;
             }
 			int num = 0;
