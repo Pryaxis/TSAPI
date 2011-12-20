@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerrariaServer", "TerrariaServer.csproj", "{549A7941-D9C9-4544-BAC8-D9EEEAB4D777}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TerrariaAPI-Server", "TerrariaAPI-Server.csproj", "{549A7941-D9C9-4544-BAC8-D9EEEAB4D777}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
