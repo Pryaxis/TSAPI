@@ -683,9 +683,9 @@ namespace Terraria
 		private static string nextLoadPlayer()
 		{
 			int num = 1;
-            while (File.Exists(Path.Combine(
+            while (File.Exists(string.Concat(
                 Main.PlayerPath,
-                "player",
+                "/player",
                 num.ToString(),
                 ".plr")))
 			{
@@ -693,24 +693,24 @@ namespace Terraria
 			}
             return Path.Combine(
                 Main.PlayerPath,
-                "player",
+                "/player",
                 num.ToString(),
                 ".plr");
 		}
 		private static string nextLoadWorld()
 		{
 			int num = 1;
-            while (File.Exists(Path.Combine(
+            while (File.Exists(string.Concat(
                 Main.WorldPath,
-                "world",
+                "/world",
                 num.ToString(),
                 ".wld")))
 			{
 				num++;
 			}
-            return Path.Combine(
+            return string.Concat(
                 Main.WorldPath,
-                "world",
+                "/world",
                 num.ToString(),
                 ".wld");
 		}
