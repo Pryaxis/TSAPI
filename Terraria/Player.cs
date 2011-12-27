@@ -6713,10 +6713,8 @@ namespace Terraria
 							{
 								if (this.direction == 1)
 								{
-									Tile expr_C51 = Main.tile[Player.tileTargetX, Player.tileTargetY];
-									expr_C51.frameX += 18;
-									Tile expr_C76 = Main.tile[Player.tileTargetX, Player.tileTargetY - 1];
-									expr_C76.frameX += 18;
+                                    Main.tile[Player.tileTargetX, Player.tileTargetY].frameX += 18;
+                                    Main.tile[Player.tileTargetX, Player.tileTargetY - 1].frameX += 18;
 								}
 								if (Main.netMode == 1)
 								{
@@ -7976,8 +7974,7 @@ namespace Terraria
 												num53 = 255 - num50;
 											}
 											num50 += num53;
-											Tile expr_3919 = Main.tile[num51, num52];
-											expr_3919.liquid -= (byte)num53;
+											Main.tile[num51, num52].liquid -= (byte)num53;
 											Main.tile[num51, num52].lava = lava2;
 											if (Main.tile[num51, num52].liquid == 0)
 											{

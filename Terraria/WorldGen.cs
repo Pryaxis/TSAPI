@@ -1342,7 +1342,7 @@ namespace Terraria
 												NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0);
 											}
 										}
-										Tile tile = (Tile)Main.tile[i, j].Clone();
+										//Tile tile = (Tile)Main.tile[i, j].Clone();
 										binaryWriter.Write(tile.active);
 										if (tile.active)
 										{
@@ -11413,13 +11413,11 @@ namespace Terraria
 					{
 						if (Main.tile[l, m].frameX < 36)
 						{
-							Tile expr_D2 = Main.tile[l, m];
-							expr_D2.frameX += 36;
+                            Main.tile[l, m].frameX += 36;
 						}
 						else
 						{
-							Tile expr_F1 = Main.tile[l, m];
-							expr_F1.frameX -= 36;
+                            Main.tile[l, m].frameX -= 36;
 						}
 						WorldGen.noWireX[WorldGen.numNoWire] = l;
 						WorldGen.noWireY[WorldGen.numNoWire] = m;
@@ -14492,8 +14490,7 @@ namespace Terraria
 					{
 						if (Main.tile[k, l].type == 132)
 						{
-							Tile expr_1B3 = Main.tile[k, l];
-							expr_1B3.frameX += num2;
+                            Main.tile[k, l].frameX += num2;
 						}
 					}
 				}
@@ -14663,26 +14660,22 @@ namespace Terraria
 				    case 4:
 				        if (Main.tile[i, j].frameX < 66)
 				        {
-				            Tile expr_20F = Main.tile[i, j];
-				            expr_20F.frameX += 66;
+                            Main.tile[i, j].frameX += 66;
 				        }
 				        else
 				        {
-				            Tile expr_22C = Main.tile[i, j];
-				            expr_22C.frameX -= 66;
+                            Main.tile[i, j].frameX -= 66;
 				        }
 				        NetMessage.SendTileSquare(-1, i, j, 1);
 				        break;
 				    case 149:
 				        if (Main.tile[i, j].frameX < 54)
 				        {
-				            Tile expr_272 = Main.tile[i, j];
-				            expr_272.frameX += 54;
+                            Main.tile[i, j].frameX += 54;
 				        }
 				        else
 				        {
-				            Tile expr_28F = Main.tile[i, j];
-				            expr_28F.frameX -= 54;
+                            Main.tile[i, j].frameX -= 54;
 				        }
 				        NetMessage.SendTileSquare(-1, i, j, 1);
 				        break;
@@ -14694,10 +14687,8 @@ namespace Terraria
 				            {
 				                num3 = -18;
 				            }
-				            Tile expr_2F5 = Main.tile[i, num2];
-				            expr_2F5.frameX += num3;
-				            Tile expr_313 = Main.tile[i, num2 + 1];
-				            expr_313.frameX += num3;
+                            Main.tile[i, num2].frameX += num3;
+                            Main.tile[i, num2 + 1].frameX += num3;
 				            WorldGen.noWire(i, num2);
 				            WorldGen.noWire(i, num2 + 1);
 				            NetMessage.SendTileSquare(-1, i, j, 2);
@@ -14711,12 +14702,9 @@ namespace Terraria
 				            {
 				                num5 = -18;
 				            }
-				            Tile expr_38B = Main.tile[i, num4];
-				            expr_38B.frameX += num5;
-				            Tile expr_3A9 = Main.tile[i, num4 + 1];
-				            expr_3A9.frameX += num5;
-				            Tile expr_3C7 = Main.tile[i, num4 + 2];
-				            expr_3C7.frameX += num5;
+                            Main.tile[i, num4].frameX += num5;
+                            Main.tile[i, num4 + 1].frameX += num5;
+                            Main.tile[i, num4 + 2].frameX += num5;
 				            WorldGen.noWire(i, num4);
 				            WorldGen.noWire(i, num4 + 1);
 				            WorldGen.noWire(i, num4 + 2);
@@ -14739,14 +14727,10 @@ namespace Terraria
 				            {
 				                num8 = -36;
 				            }
-				            Tile expr_480 = Main.tile[num7, num6];
-				            expr_480.frameX += num8;
-				            Tile expr_49F = Main.tile[num7, num6 + 1];
-				            expr_49F.frameX += num8;
-				            Tile expr_4BE = Main.tile[num7 + 1, num6];
-				            expr_4BE.frameX += num8;
-				            Tile expr_4DF = Main.tile[num7 + 1, num6 + 1];
-				            expr_4DF.frameX += num8;
+                            Main.tile[num7, num6].frameX += num8;
+                            Main.tile[num7, num6 + 1].frameX += num8;
+                            Main.tile[num7 + 1, num6].frameX += num8;
+                            Main.tile[num7 + 1, num6 + 1].frameX += num8;
 				            WorldGen.noWire(num7, num6);
 				            WorldGen.noWire(num7, num6 + 1);
 				            WorldGen.noWire(num7 + 1, num6);
@@ -14774,8 +14758,7 @@ namespace Terraria
 				            {
 				                for (int n = num9; n < num9 + 3; n++)
 				                {
-				                    Tile expr_5B3 = Main.tile[m, n];
-				                    expr_5B3.frameX += num11;
+                                    Main.tile[m, n].frameX += num11;
 				                    WorldGen.noWire(m, n);
 				                }
 				            }
@@ -14789,8 +14772,7 @@ namespace Terraria
 				            {
 				                num12 = -18;
 				            }
-				            Tile expr_628 = Main.tile[i, j];
-				            expr_628.frameX += num12;
+                            Main.tile[i, j].frameX += num12;
 				            NetMessage.SendTileSquare(-1, i, j, 3);
 				        }
 				        break;
@@ -14802,18 +14784,12 @@ namespace Terraria
 				            {
 				                num14 = -18;
 				            }
-				            Tile expr_68E = Main.tile[i, num13];
-				            expr_68E.frameX += num14;
-				            Tile expr_6AC = Main.tile[i, num13 + 1];
-				            expr_6AC.frameX += num14;
-				            Tile expr_6CA = Main.tile[i, num13 + 2];
-				            expr_6CA.frameX += num14;
-				            Tile expr_6E8 = Main.tile[i, num13 + 3];
-				            expr_6E8.frameX += num14;
-				            Tile expr_706 = Main.tile[i, num13 + 4];
-				            expr_706.frameX += num14;
-				            Tile expr_724 = Main.tile[i, num13 + 5];
-				            expr_724.frameX += num14;
+                            Main.tile[i, num13].frameX += num14;
+                            Main.tile[i, num13 + 1].frameX += num14;
+                            Main.tile[i, num13 + 2].frameX += num14;
+                            Main.tile[i, num13 + 3].frameX += num14;
+                            Main.tile[i, num13 + 4].frameX += num14;
+                            Main.tile[i, num13 + 5].frameX += num14;
 				            WorldGen.noWire(i, num13);
 				            WorldGen.noWire(i, num13 + 1);
 				            WorldGen.noWire(i, num13 + 2);
@@ -14906,31 +14882,24 @@ namespace Terraria
 				                    {
 				                        break;
 				                    }
-				                    if (num23 == 0)
+				                    switch (num23)
 				                    {
-				                        num21 = num17;
-				                        num22 = num16 + 1;
-				                    }
-				                    else
-				                    {
-				                        if (num23 == 1)
-				                        {
+				                        case 0:
+				                            num21 = num17;
+				                            num22 = num16 + 1;
+				                            break;
+				                        case 1:
 				                            num21 = num17 + 1;
 				                            num22 = num16 + 1;
-				                        }
-				                        else
-				                        {
-				                            if (num23 == 2)
-				                            {
-				                                num21 = num17;
-				                                num22 = num16;
-				                            }
-				                            else
-				                            {
-				                                num21 = num17 + 1;
-				                                num22 = num16;
-				                            }
-				                        }
+				                            break;
+				                        case 2:
+				                            num21 = num17;
+				                            num22 = num16;
+				                            break;
+				                        default:
+				                            num21 = num17 + 1;
+				                            num22 = num16;
+				                            break;
 				                    }
 				                    WorldGen.outPumpX[WorldGen.numOutPump] = num21;
 				                    WorldGen.outPumpY[WorldGen.numOutPump] = num22;
