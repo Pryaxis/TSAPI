@@ -3373,7 +3373,7 @@ namespace Terraria
 					{
 						if (Main.tile[Player.tileTargetX, Player.tileTargetY] == null)
 						{
-							Main.tile[Player.tileTargetX, Player.tileTargetY] = new Tile();
+
 						}
 						if (Main.tile[Player.tileTargetX, Player.tileTargetY].active)
 						{
@@ -4395,7 +4395,7 @@ namespace Terraria
 							{
 								if (Main.tile[num117, num119] == null)
 								{
-									Main.tile[num117, num119] = new Tile();
+
 								}
 								if (!Main.tile[num117, num119].active || !Main.tileSolid[(int)Main.tile[num117, num119].type] || Main.tileSolidTop[(int)Main.tile[num117, num119].type])
 								{

@@ -1197,7 +1197,7 @@ namespace Terraria
 					Main.statusText = "Resetting game objects: " + (int)(num2 * 100f + 1f) + "%";
 					for (int l = 0; l < Main.maxTilesY; l++)
 					{
-						Main.tile[k, l] = new Tile();
+
 					}
 				}
 			}
@@ -5974,7 +5974,7 @@ namespace Terraria
 			int num3 = j;
 			if (Main.tile[i, j] == null)
 			{
-				Main.tile[i, j] = new Tile();
+
 			}
 			int frameX = (int)Main.tile[i, j].frameX;
 			int frameY = (int)Main.tile[i, j].frameY;
@@ -6048,7 +6048,7 @@ namespace Terraria
 					{
 						if (Main.tile[l, m] == null)
 						{
-							Main.tile[l, m] = new Tile();
+
 						}
 						Main.tile[l, m].type = 10;
 						Main.tile[l, m].frameX = (short)(WorldGen.genRand.Next(3) * 18);
@@ -6057,7 +6057,7 @@ namespace Terraria
 					{
 						if (Main.tile[l, m] == null)
 						{
-							Main.tile[l, m] = new Tile();
+
 						}
 						Main.tile[l, m].active = false;
 					}
@@ -9067,19 +9067,19 @@ namespace Terraria
 			int num = 0;
 			if (Main.tile[i, j - 1] == null)
 			{
-				Main.tile[i, j - 1] = new Tile();
+
 			}
 			if (Main.tile[i, j - 2] == null)
 			{
-				Main.tile[i, j - 2] = new Tile();
+
 			}
 			if (Main.tile[i, j + 1] == null)
 			{
-				Main.tile[i, j + 1] = new Tile();
+
 			}
 			if (Main.tile[i, j] == null)
 			{
-				Main.tile[i, j] = new Tile();
+
 			}
 			if (Main.tile[i, j - 1].frameY == 0 && Main.tile[i, j - 1].type == Main.tile[i, j].type)
 			{
@@ -9122,7 +9122,7 @@ namespace Terraria
 			{
 				if (Main.tile[num4, k] == null)
 				{
-					Main.tile[num4, k] = new Tile();
+
 				}
 				if (Main.tile[num4, k].active)
 				{
@@ -9158,7 +9158,7 @@ namespace Terraria
 				Main.tile[num2, num].frameX = num3;
 				if (Main.tile[num2 + 1, num] == null)
 				{
-					Main.tile[num2 + 1, num] = new Tile();
+
 				}
 				Main.tile[num2 + 1, num].active = true;
 				Main.tile[num2 + 1, num].type = 11;
@@ -9166,7 +9166,7 @@ namespace Terraria
 				Main.tile[num2 + 1, num].frameX = (short)(num3 + 18);
 				if (Main.tile[num2, num + 1] == null)
 				{
-					Main.tile[num2, num + 1] = new Tile();
+
 				}
 				Main.tile[num2, num + 1].active = true;
 				Main.tile[num2, num + 1].type = 11;
@@ -9174,7 +9174,7 @@ namespace Terraria
 				Main.tile[num2, num + 1].frameX = num3;
 				if (Main.tile[num2 + 1, num + 1] == null)
 				{
-					Main.tile[num2 + 1, num + 1] = new Tile();
+
 				}
 				Main.tile[num2 + 1, num + 1].active = true;
 				Main.tile[num2 + 1, num + 1].type = 11;
@@ -9182,7 +9182,7 @@ namespace Terraria
 				Main.tile[num2 + 1, num + 1].frameX = (short)(num3 + 18);
 				if (Main.tile[num2, num + 2] == null)
 				{
-					Main.tile[num2, num + 2] = new Tile();
+
 				}
 				Main.tile[num2, num + 2].active = true;
 				Main.tile[num2, num + 2].type = 11;
@@ -9190,7 +9190,7 @@ namespace Terraria
 				Main.tile[num2, num + 2].frameX = num3;
 				if (Main.tile[num2 + 1, num + 2] == null)
 				{
-					Main.tile[num2 + 1, num + 2] = new Tile();
+
 				}
 				Main.tile[num2 + 1, num + 2].active = true;
 				Main.tile[num2 + 1, num + 2].type = 11;
@@ -9224,7 +9224,7 @@ namespace Terraria
 			{
 				if (Main.tile[x, num + i] == null)
 				{
-					Main.tile[x, num + i] = new Tile();
+
 				}
 				if (!Main.tile[x, num + i].active)
 				{
@@ -9254,7 +9254,7 @@ namespace Terraria
 			}
 			if (Main.tile[x, num + num2] == null)
 			{
-				Main.tile[x, num + num2] = new Tile();
+
 			}
 			if (!Main.tile[x, num + num2].active)
 			{
@@ -9302,12 +9302,12 @@ namespace Terraria
 			}
 			if (Main.tile[num, j] == null)
 			{
-				Main.tile[num, j] = new Tile();
+
 			}
 			int num2 = j - (int)(Main.tile[num, j].frameY / 18);
 			if (Main.tile[num, num2] == null)
 			{
-				Main.tile[num, num2] = new Tile();
+
 			}
 			int frameX = (int)Main.tile[num, j].frameX;
 			int num3 = 3;
@@ -9320,7 +9320,7 @@ namespace Terraria
 			{
 				if (Main.tile[num, num2 + l] == null)
 				{
-					Main.tile[num, num2 + l] = new Tile();
+
 				}
 				if (!Main.tile[num, num2 + l].active)
 				{
@@ -9349,7 +9349,7 @@ namespace Terraria
 				}
 				if (Main.tile[num + 1, num2 + l] == null)
 				{
-					Main.tile[num + 1, num2 + l] = new Tile();
+
 				}
 				if (!Main.tile[num + 1, num2 + l].active)
 				{
@@ -9379,7 +9379,7 @@ namespace Terraria
 			}
 			if (Main.tile[num, num2 + num3] == null)
 			{
-				Main.tile[num, num2 + num3] = new Tile();
+
 			}
 			if (!Main.tile[num, num2 + num3].active)
 			{
@@ -9391,7 +9391,7 @@ namespace Terraria
 			}
 			if (Main.tile[num + 1, num2 + num3] == null)
 			{
-				Main.tile[num + 1, num2 + num3] = new Tile();
+
 			}
 			if (!Main.tile[num + 1, num2 + num3].active)
 			{
@@ -9455,7 +9455,7 @@ namespace Terraria
 			{
 				if (Main.tile[x, i] == null)
 				{
-					Main.tile[x, i] = new Tile();
+
 				}
 				if (Main.tile[x, i].active)
 				{
@@ -9490,7 +9490,7 @@ namespace Terraria
 			{
 				if (Main.tile[x, i] == null)
 				{
-					Main.tile[x, i] = new Tile();
+
 				}
 				if (Main.tile[x, i].active)
 				{
@@ -9498,7 +9498,7 @@ namespace Terraria
 				}
 				if (Main.tile[x + 1, i] == null)
 				{
-					Main.tile[x + 1, i] = new Tile();
+
 				}
 				if (Main.tile[x + 1, i].active)
 				{
@@ -9530,11 +9530,11 @@ namespace Terraria
 			bool flag = true;
 			if (Main.tile[x, num] == null)
 			{
-				Main.tile[x, num] = new Tile();
+
 			}
 			if (Main.tile[x, num + 1] == null)
 			{
-				Main.tile[x, num + 1] = new Tile();
+
 			}
 			int i = (int)Main.tile[x, num].frameY;
 			int num2 = 0;
@@ -9549,7 +9549,7 @@ namespace Terraria
 			}
 			if (Main.tile[x, num] == null)
 			{
-				Main.tile[x, num] = new Tile();
+
 			}
 			if ((int)Main.tile[x, num].frameY == 40 * num2 && (int)Main.tile[x, num + 1].frameY == 40 * num2 + 18 && Main.tile[x, num].type == type && Main.tile[x, num + 1].type == type)
 			{
@@ -9557,7 +9557,7 @@ namespace Terraria
 			}
 			if (Main.tile[x, num + 2] == null)
 			{
-				Main.tile[x, num + 2] = new Tile();
+
 			}
 			if (!Main.tile[x, num + 2].active || !Main.tileSolid[(int)Main.tile[x, num + 2].type])
 			{
@@ -9650,7 +9650,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] == null)
 					{
-						Main.tile[i, j] = new Tile();
+
 					}
 				}
 			}
@@ -9798,7 +9798,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] == null)
 					{
-						Main.tile[i, j] = new Tile();
+
 					}
 				}
 			}
@@ -9869,11 +9869,11 @@ namespace Terraria
 		{
 			if (Main.tile[x, y] == null)
 			{
-				Main.tile[x, y] = new Tile();
+
 			}
 			if (Main.tile[x, y + 1] == null)
 			{
-				Main.tile[x, y + 1] = new Tile();
+
 			}
 			if (WorldGen.SolidTile(x, y + 1) && !Main.tile[x, y].active)
 			{
@@ -9900,11 +9900,11 @@ namespace Terraria
 			bool flag = false;
 			if (Main.tile[x, y] == null)
 			{
-				Main.tile[x, y] = new Tile();
+
 			}
 			if (Main.tile[x, y + 1] == null)
 			{
-				Main.tile[x, y + 1] = new Tile();
+
 			}
 			if (!Main.tile[x, y].active && Main.tile[x, y + 1].active && Main.tileTable[(int)Main.tile[x, y + 1].type])
 			{
@@ -9930,11 +9930,11 @@ namespace Terraria
 		{
 			if (Main.tile[x, y] == null)
 			{
-				Main.tile[x, y] = new Tile();
+
 			}
 			if (Main.tile[x, y + 1] == null)
 			{
-				Main.tile[x, y + 1] = new Tile();
+
 			}
 			if (!Main.tile[x, y].active && Main.tile[x, y + 1].active)
 			{
@@ -10121,11 +10121,11 @@ namespace Terraria
 		{
 			if (Main.tile[x, y] == null)
 			{
-				Main.tile[x, y] = new Tile();
+
 			}
 			if (Main.tile[x, y + 1] == null)
 			{
-				Main.tile[x, y + 1] = new Tile();
+
 			}
 			bool flag = false;
 			if (!Main.tile[x, y + 1].active)
@@ -10286,7 +10286,7 @@ namespace Terraria
 			{
 				if (Main.tile[x, num + i] == null)
 				{
-					Main.tile[x, num + i] = new Tile();
+
 				}
 				if (!Main.tile[x, num + i].active)
 				{
@@ -10316,7 +10316,7 @@ namespace Terraria
 			}
 			if (Main.tile[x, num - 1] == null)
 			{
-				Main.tile[x, num - 1] = new Tile();
+
 			}
 			if (!Main.tile[x, num - 1].active)
 			{
@@ -10353,19 +10353,19 @@ namespace Terraria
 			int num = style * 18;
 			if (Main.tile[x, y - 1] == null)
 			{
-				Main.tile[x, y - 1] = new Tile();
+
 			}
 			if (Main.tile[x, y] == null)
 			{
-				Main.tile[x, y] = new Tile();
+
 			}
 			if (Main.tile[x, y + 1] == null)
 			{
-				Main.tile[x, y + 1] = new Tile();
+
 			}
 			if (Main.tile[x, y + 2] == null)
 			{
-				Main.tile[x, y + 2] = new Tile();
+
 			}
 			if (Main.tile[x, y - 1].active && Main.tileSolid[(int)Main.tile[x, y - 1].type] && !Main.tileSolidTop[(int)Main.tile[x, y - 1].type] && !Main.tile[x, y].active && !Main.tile[x, y + 1].active && !Main.tile[x, y + 2].active)
 			{
@@ -10498,11 +10498,11 @@ namespace Terraria
 			}
 			if (Main.tile[x, y - 1] == null)
 			{
-				Main.tile[x, y - 1] = new Tile();
+
 			}
 			if (Main.tile[x, y + 1] == null)
 			{
-				Main.tile[x, y + 1] = new Tile();
+
 			}
 			if (Main.tile[x, y + 1].active && Main.tileSolid[(int)Main.tile[x, y + 1].type] && !Main.tile[x, y - 1].active)
 			{
@@ -10522,11 +10522,11 @@ namespace Terraria
 			short frameX = 0;
 			if (Main.tile[x, y - 1] == null)
 			{
-				Main.tile[x, y - 1] = new Tile();
+
 			}
 			if (Main.tile[x, y + 1] == null)
 			{
-				Main.tile[x, y + 1] = new Tile();
+
 			}
 			if (Main.tile[x, y - 1].active && Main.tileSolid[(int)Main.tile[x, y - 1].type] && !Main.tileSolidTop[(int)Main.tile[x, y - 1].type] && !Main.tile[x, y + 1].active)
 			{
@@ -10550,11 +10550,11 @@ namespace Terraria
 			bool flag = true;
 			if (Main.tile[x, num] == null)
 			{
-				Main.tile[x, num] = new Tile();
+
 			}
 			if (Main.tile[x, num + 1] == null)
 			{
-				Main.tile[x, num + 1] = new Tile();
+
 			}
 			if (Main.tile[x, num].frameY == 18)
 			{
@@ -10562,7 +10562,7 @@ namespace Terraria
 			}
 			if (Main.tile[x, num] == null)
 			{
-				Main.tile[x, num] = new Tile();
+
 			}
 			if (Main.tile[x, num].frameY == 0 && Main.tile[x, num + 1].frameY == 18 && Main.tile[x, num].type == type && Main.tile[x, num + 1].type == type)
 			{
@@ -10570,7 +10570,7 @@ namespace Terraria
 			}
 			if (Main.tile[x, num - 1] == null)
 			{
-				Main.tile[x, num - 1] = new Tile();
+
 			}
 			if (!Main.tile[x, num - 1].active || !Main.tileSolid[(int)Main.tile[x, num - 1].type] || Main.tileSolidTop[(int)Main.tile[x, num - 1].type])
 			{
@@ -10604,19 +10604,19 @@ namespace Terraria
 			bool flag = true;
 			if (Main.tile[num, y] == null)
 			{
-				Main.tile[num, y] = new Tile();
+
 			}
 			if (Main.tile[num + 1, y] == null)
 			{
-				Main.tile[num + 1, y] = new Tile();
+
 			}
 			if (Main.tile[num, y + 1] == null)
 			{
-				Main.tile[num, y + 1] = new Tile();
+
 			}
 			if (Main.tile[num + 1, y + 1] == null)
 			{
-				Main.tile[num + 1, y + 1] = new Tile();
+
 			}
 			if (Main.tile[num, y].frameX == 18)
 			{
@@ -10690,19 +10690,19 @@ namespace Terraria
 		{
 			if (Main.tile[x, y] == null)
 			{
-				Main.tile[x, y] = new Tile();
+
 			}
 			if (Main.tile[x + 1, y] == null)
 			{
-				Main.tile[x + 1, y] = new Tile();
+
 			}
 			if (Main.tile[x, y + 1] == null)
 			{
-				Main.tile[x, y + 1] = new Tile();
+
 			}
 			if (Main.tile[x + 1, y + 1] == null)
 			{
-				Main.tile[x + 1, y + 1] = new Tile();
+
 			}
 			bool flag = false;
 			if (type != 29 && type != 103 && Main.tile[x, y + 1].active && Main.tile[x + 1, y + 1].active && Main.tileSolid[(int)Main.tile[x, y + 1].type] && Main.tileSolid[(int)Main.tile[x + 1, y + 1].type] && !Main.tile[x, y].active && !Main.tile[x + 1, y].active)
@@ -10753,7 +10753,7 @@ namespace Terraria
 					}
 					if (Main.tile[k, l] == null)
 					{
-						Main.tile[k, l] = new Tile();
+
 					}
 					if (!Main.tile[k, l].active || (int)Main.tile[k, l].type != type || (int)Main.tile[k, l].frameX != num3 || (int)Main.tile[k, l].frameY != (l - num2) * 18)
 					{
@@ -10762,7 +10762,7 @@ namespace Terraria
 				}
 				if (Main.tile[k, num2 + 2] == null)
 				{
-					Main.tile[k, num2 + 2] = new Tile();
+
 				}
 				if (!Main.tile[k, num2 + 2].active || !Main.tileSolid[(int)Main.tile[k, num2 + 2].type])
 				{
@@ -10824,7 +10824,7 @@ namespace Terraria
 				{
 					if (Main.tile[k, l] == null)
 					{
-						Main.tile[k, l] = new Tile();
+
 					}
 					if (!Main.tile[k, l].active || (int)Main.tile[k, l].type != type || (int)Main.tile[k, l].frameX != (k - num) * 18 + num2 || (int)Main.tile[k, l].frameY != (l - num3) * 18)
 					{
@@ -10835,7 +10835,7 @@ namespace Terraria
 				{
 					if (Main.tile[k, num3 - 1] == null)
 					{
-						Main.tile[k, num3 - 1] = new Tile();
+
 					}
 					if (!Main.tile[k, num3 - 1].active || !Main.tileSolid[(int)Main.tile[k, num3 - 1].type] || Main.tileSolidTop[(int)Main.tile[k, num3 - 1].type])
 					{
@@ -10848,7 +10848,7 @@ namespace Terraria
 					{
 						if (Main.tile[k, num3 + 2] == null)
 						{
-							Main.tile[k, num3 + 2] = new Tile();
+
 						}
 						if (!Main.tile[k, num3 + 2].active || (!Main.tileSolid[(int)Main.tile[k, num3 + 2].type] && !Main.tileTable[(int)Main.tile[k, num3 + 2].type]))
 						{
@@ -11144,7 +11144,7 @@ namespace Terraria
 				{
 					if (Main.tile[k, l] == null)
 					{
-						Main.tile[k, l] = new Tile();
+
 					}
 					if (!Main.tile[k, l].active || (int)Main.tile[k, l].type != type || (int)Main.tile[k, l].frameX != (k - num) * 18 || (int)Main.tile[k, l].frameY != (l - num2) * 18)
 					{
@@ -11153,7 +11153,7 @@ namespace Terraria
 				}
 				if (Main.tile[k, num2 + 2] == null)
 				{
-					Main.tile[k, num2 + 2] = new Tile();
+
 				}
 				if (!Main.tile[k, num2 + 2].active || !Main.tileSolid[(int)Main.tile[k, num2 + 2].type])
 				{
@@ -11268,7 +11268,7 @@ namespace Terraria
 				{
 					if (Main.tile[k, l] == null)
 					{
-						Main.tile[k, l] = new Tile();
+
 					}
 					if (!Main.tile[k, l].active || (int)Main.tile[k, l].type != type || (int)Main.tile[k, l].frameX != (k - num) * 18 || (int)Main.tile[k, l].frameY != (l - num2) * 18)
 					{
@@ -11277,7 +11277,7 @@ namespace Terraria
 				}
 				if (Main.tile[k, num2 + 4] == null)
 				{
-					Main.tile[k, num2 + 4] = new Tile();
+
 				}
 				if (!Main.tile[k, num2 + 4].active || !Main.tileSolid[(int)Main.tile[k, num2 + 4].type])
 				{
@@ -11331,7 +11331,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] == null)
 					{
-						Main.tile[i, j] = new Tile();
+
 					}
 					if (Main.tile[i, j].active)
 					{
@@ -11340,7 +11340,7 @@ namespace Terraria
 				}
 				if (Main.tile[i, y + 1] == null)
 				{
-					Main.tile[i, y + 1] = new Tile();
+
 				}
 				if (!Main.tile[i, y + 1].active || !Main.tileSolid[(int)Main.tile[i, y + 1].type])
 				{
@@ -11407,7 +11407,7 @@ namespace Terraria
 				{
 					if (Main.tile[l, m] == null)
 					{
-						Main.tile[l, m] = new Tile();
+
 					}
 					if (Main.tile[l, m].active && Main.tile[l, m].type == 139)
 					{
@@ -11457,7 +11457,7 @@ namespace Terraria
 				{
 					if (Main.tile[l, m] == null)
 					{
-						Main.tile[l, m] = new Tile();
+
 					}
 					if (!Main.tile[l, m].active || (int)Main.tile[l, m].type != type || (int)Main.tile[l, m].frameX != (l - num4) * 18 + num3 * 36 || (int)Main.tile[l, m].frameY != (m - num5) * 18 + num * 36)
 					{
@@ -11507,7 +11507,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] == null)
 					{
-						Main.tile[i, j] = new Tile();
+
 					}
 					if (Main.tile[i, j].active)
 					{
@@ -11516,7 +11516,7 @@ namespace Terraria
 				}
 				if (Main.tile[i, y + 1] == null)
 				{
-					Main.tile[i, y + 1] = new Tile();
+
 				}
 				if (!Main.tile[i, y + 1].active || (!Main.tileSolid[(int)Main.tile[i, y + 1].type] && !Main.tileTable[(int)Main.tile[i, y + 1].type]))
 				{
@@ -11561,7 +11561,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] == null)
 					{
-						Main.tile[i, j] = new Tile();
+
 					}
 					if (Main.tile[i, j].active)
 					{
@@ -11576,7 +11576,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, num - 2] == null)
 					{
-						Main.tile[i, num - 2] = new Tile();
+
 					}
 					if (!Main.tile[i, num - 2].active || !Main.tileSolid[(int)Main.tile[i, num - 2].type] || Main.tileSolidTop[(int)Main.tile[i, num - 2].type])
 					{
@@ -11587,7 +11587,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, num + 1] == null)
 					{
-						Main.tile[i, num + 1] = new Tile();
+
 					}
 					if (!Main.tile[i, num + 1].active || (!Main.tileSolid[(int)Main.tile[i, num + 1].type] && !Main.tileTable[(int)Main.tile[i, num + 1].type]))
 					{
@@ -11628,7 +11628,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] == null)
 					{
-						Main.tile[i, j] = new Tile();
+
 					}
 					if (Main.tile[i, j].active)
 					{
@@ -11637,7 +11637,7 @@ namespace Terraria
 				}
 				if (Main.tile[i, y + 1] == null)
 				{
-					Main.tile[i, y + 1] = new Tile();
+
 				}
 				if (!Main.tile[i, y + 1].active || !Main.tileSolid[(int)Main.tile[i, y + 1].type])
 				{
@@ -11677,7 +11677,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] == null)
 					{
-						Main.tile[i, j] = new Tile();
+
 					}
 					if (Main.tile[i, j].active)
 					{
@@ -11686,7 +11686,7 @@ namespace Terraria
 				}
 				if (Main.tile[i, y + 1] == null)
 				{
-					Main.tile[i, y + 1] = new Tile();
+
 				}
 				if (!Main.tile[i, y + 1].active || !Main.tileSolid[(int)Main.tile[i, y + 1].type])
 				{
@@ -11743,7 +11743,7 @@ namespace Terraria
 				{
 					if (Main.tile[k, l] == null)
 					{
-						Main.tile[k, l] = new Tile();
+
 					}
 					if (!Main.tile[k, l].active || (int)Main.tile[k, l].type != type || (int)Main.tile[k, l].frameX != (k - num2) * 18 || (int)Main.tile[k, l].frameY != (l - num3) * 18)
 					{
@@ -11757,7 +11757,7 @@ namespace Terraria
 				{
 					if (Main.tile[m, num3 + 3] == null)
 					{
-						Main.tile[m, num3 + 3] = new Tile();
+
 					}
 					if (!Main.tile[m, num3 + 3].active || !Main.tileSolid[(int)Main.tile[m, num3 + 3].type])
 					{
@@ -11770,7 +11770,7 @@ namespace Terraria
 			{
 				if (Main.tile[num + 1, num3 - 1] == null)
 				{
-					Main.tile[num + 1, num3 - 1] = new Tile();
+
 				}
 				if (!Main.tile[num + 1, num3 - 1].active || !Main.tileSolid[(int)Main.tile[num + 1, num3 - 1].type] || Main.tileSolidTop[(int)Main.tile[num + 1, num3 - 1].type])
 				{
@@ -11838,7 +11838,7 @@ namespace Terraria
 					{
 						if (Main.tile[i, j] == null)
 						{
-							Main.tile[i, j] = new Tile();
+
 						}
 						if (Main.tile[i, j].active)
 						{
@@ -11850,7 +11850,7 @@ namespace Terraria
 				{
 					if (Main.tile[k, y + 1] == null)
 					{
-						Main.tile[k, y + 1] = new Tile();
+
 					}
 					if (!Main.tile[k, y + 1].active || !Main.tileSolid[(int)Main.tile[k, y + 1].type])
 					{
@@ -11867,7 +11867,7 @@ namespace Terraria
 					{
 						if (Main.tile[l, m] == null)
 						{
-							Main.tile[l, m] = new Tile();
+
 						}
 						if (Main.tile[l, m].active)
 						{
@@ -11877,7 +11877,7 @@ namespace Terraria
 				}
 				if (Main.tile[x, y - 1] == null)
 				{
-					Main.tile[x, y - 1] = new Tile();
+
 				}
 				if (!Main.tile[x, y - 1].active || !Main.tileSolid[(int)Main.tile[x, y - 1].type] || Main.tileSolidTop[(int)Main.tile[x, y - 1].type])
 				{
@@ -11937,7 +11937,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] == null)
 					{
-						Main.tile[i, j] = new Tile();
+
 					}
 					if (Main.tile[i, j].active || Main.tile[i, j].wall > 0)
 					{
@@ -11946,7 +11946,7 @@ namespace Terraria
 				}
 				if (Main.tile[i, y + 1] == null)
 				{
-					Main.tile[i, y + 1] = new Tile();
+
 				}
 				if (!Main.tile[i, y + 1].active || (Main.tile[i, y + 1].type != 2 && Main.tile[i, y + 1].type != 109))
 				{
@@ -11991,7 +11991,7 @@ namespace Terraria
 				{
 					if (Main.tile[l, m] == null)
 					{
-						Main.tile[l, m] = new Tile();
+
 					}
 					int n;
 					for (n = (int)(Main.tile[l, m].frameX / 18); n > 1; n -= 2)
@@ -12004,7 +12004,7 @@ namespace Terraria
 				}
 				if (Main.tile[l, num + 4] == null)
 				{
-					Main.tile[l, num + 4] = new Tile();
+
 				}
 				if (!Main.tile[l, num + 4].active || (Main.tile[l, num + 4].type != 2 && Main.tile[l, num + 4].type != 109))
 				{
@@ -12037,7 +12037,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] == null)
 					{
-						Main.tile[i, j] = new Tile();
+
 					}
 					if (Main.tile[i, j].active)
 					{
@@ -12046,7 +12046,7 @@ namespace Terraria
 				}
 				if (Main.tile[i, y + 1] == null)
 				{
-					Main.tile[i, y + 1] = new Tile();
+
 				}
 				if (!Main.tile[i, y + 1].active || !Main.tileSolid[(int)Main.tile[i, y + 1].type])
 				{
@@ -13205,7 +13205,7 @@ namespace Terraria
 				{
 					if (Main.tile[l, m] == null)
 					{
-						Main.tile[l, m] = new Tile();
+
 					}
 					int n;
 					for (n = (int)(Main.tile[l, m].frameX / 18); n > 1; n -= 2)
@@ -13218,7 +13218,7 @@ namespace Terraria
 				}
 				if (Main.tile[l, num + 2] == null)
 				{
-					Main.tile[l, num + 2] = new Tile();
+
 				}
 				if (!Main.tile[l, num + 2].active || !Main.tileSolid[(int)Main.tile[l, num + 2].type])
 				{
@@ -13619,7 +13619,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] == null)
 					{
-						Main.tile[i, j] = new Tile();
+
 					}
 					if (Main.tile[i, j].active)
 					{
@@ -13632,7 +13632,7 @@ namespace Terraria
 				}
 				if (Main.tile[i, y + 1] == null)
 				{
-					Main.tile[i, y + 1] = new Tile();
+
 				}
 				if (!Main.tile[i, y + 1].active || !Main.tileSolid[(int)Main.tile[i, y + 1].type])
 				{
@@ -13710,7 +13710,7 @@ namespace Terraria
 				{
 					if (Main.tile[l, m] == null)
 					{
-						Main.tile[l, m] = new Tile();
+
 					}
 					int n;
 					for (n = (int)(Main.tile[l, m].frameX / 18); n > 1; n -= 2)
@@ -13723,7 +13723,7 @@ namespace Terraria
 				}
 				if (Main.tile[l, num + 2] == null)
 				{
-					Main.tile[l, num + 2] = new Tile();
+
 				}
 				if (!Main.tile[l, num + 2].active || !Main.tileSolid[(int)Main.tile[l, num + 2].type])
 				{
@@ -13813,7 +13813,7 @@ namespace Terraria
 			{
 				if (Main.tile[i, j] == null)
 				{
-					Main.tile[i, j] = new Tile();
+
 				}
 				if (forced || Collision.EmptyTile(i, j, false) || !Main.tileSolid[type] || (type == 23 && Main.tile[i, j].type == 0 && Main.tile[i, j].active) || (type == 2 && Main.tile[i, j].type == 0 && Main.tile[i, j].active) || (type == 109 && Main.tile[i, j].type == 0 && Main.tile[i, j].active) || (type == 60 && Main.tile[i, j].type == 59 && Main.tile[i, j].active) || (type == 70 && Main.tile[i, j].type == 59 && Main.tile[i, j].active))
 				{
@@ -13837,19 +13837,19 @@ namespace Terraria
 					{
 						if (Main.tile[i - 1, j] == null)
 						{
-							Main.tile[i - 1, j] = new Tile();
+
 						}
 						if (Main.tile[i + 1, j] == null)
 						{
-							Main.tile[i + 1, j] = new Tile();
+
 						}
 						if (Main.tile[i, j - 1] == null)
 						{
-							Main.tile[i, j - 1] = new Tile();
+
 						}
 						if (Main.tile[i, j + 1] == null)
 						{
-							Main.tile[i, j + 1] = new Tile();
+
 						}
 						if (Main.tile[i - 1, j].active || Main.tile[i + 1, j].active || Main.tile[i, j - 1].active)
 						{
@@ -14020,15 +14020,15 @@ namespace Terraria
 											{
 												if (Main.tile[i - 1, j] == null)
 												{
-													Main.tile[i - 1, j] = new Tile();
+
 												}
 												if (Main.tile[i + 1, j] == null)
 												{
-													Main.tile[i + 1, j] = new Tile();
+
 												}
 												if (Main.tile[i, j + 1] == null)
 												{
-													Main.tile[i, j + 1] = new Tile();
+
 												}
 												if ((Main.tile[i - 1, j].active && (Main.tileSolid[(int)Main.tile[i - 1, j].type] || Main.tile[i - 1, j].type == 124 || (Main.tile[i - 1, j].type == 5 && Main.tile[i - 1, j - 1].type == 5 && Main.tile[i - 1, j + 1].type == 5))) || (Main.tile[i + 1, j].active && (Main.tileSolid[(int)Main.tile[i + 1, j].type] || Main.tile[i + 1, j].type == 124 || (Main.tile[i + 1, j].type == 5 && Main.tile[i + 1, j - 1].type == 5 && Main.tile[i + 1, j + 1].type == 5))) || (Main.tile[i, j + 1].active && Main.tileSolid[(int)Main.tile[i, j + 1].type]))
 												{
@@ -14043,15 +14043,15 @@ namespace Terraria
 												{
 													if (Main.tile[i - 1, j] == null)
 													{
-														Main.tile[i - 1, j] = new Tile();
+
 													}
 													if (Main.tile[i + 1, j] == null)
 													{
-														Main.tile[i + 1, j] = new Tile();
+
 													}
 													if (Main.tile[i, j + 1] == null)
 													{
-														Main.tile[i, j + 1] = new Tile();
+
 													}
 													if ((Main.tile[i - 1, j].active && (Main.tileSolid[(int)Main.tile[i - 1, j].type] || Main.tile[i - 1, j].type == 124 || (Main.tile[i - 1, j].type == 5 && Main.tile[i - 1, j - 1].type == 5 && Main.tile[i - 1, j + 1].type == 5))) || (Main.tile[i + 1, j].active && (Main.tileSolid[(int)Main.tile[i + 1, j].type] || Main.tile[i + 1, j].type == 124 || (Main.tile[i + 1, j].type == 5 && Main.tile[i + 1, j - 1].type == 5 && Main.tile[i + 1, j + 1].type == 5))) || (Main.tile[i, j + 1].active && Main.tileSolid[(int)Main.tile[i, j + 1].type]))
 													{
@@ -14067,27 +14067,27 @@ namespace Terraria
 													{
 														if (Main.tile[i, j - 1] == null)
 														{
-															Main.tile[i, j - 1] = new Tile();
+
 														}
 														if (Main.tile[i, j - 2] == null)
 														{
-															Main.tile[i, j - 2] = new Tile();
+
 														}
 														if (Main.tile[i, j - 3] == null)
 														{
-															Main.tile[i, j - 3] = new Tile();
+
 														}
 														if (Main.tile[i, j + 1] == null)
 														{
-															Main.tile[i, j + 1] = new Tile();
+
 														}
 														if (Main.tile[i, j + 2] == null)
 														{
-															Main.tile[i, j + 2] = new Tile();
+
 														}
 														if (Main.tile[i, j + 3] == null)
 														{
-															Main.tile[i, j + 3] = new Tile();
+
 														}
 														if (!Main.tile[i, j - 1].active && !Main.tile[i, j - 2].active && Main.tile[i, j - 3].active && Main.tileSolid[(int)Main.tile[i, j - 3].type])
 														{
@@ -14157,7 +14157,7 @@ namespace Terraria
 																				{
 																					if (Main.tile[i, j + 1] == null)
 																					{
-																						Main.tile[i, j + 1] = new Tile();
+
 																					}
 																					if (Main.tile[i, j + 1].active && (Main.tile[i, j + 1].type == 2 || Main.tile[i, j + 1].type == 109 || Main.tile[i, j + 1].type == 147))
 																					{
@@ -14171,11 +14171,11 @@ namespace Terraria
 																					{
 																						if (Main.tile[i, j - 1] == null)
 																						{
-																							Main.tile[i, j - 1] = new Tile();
+
 																						}
 																						if (Main.tile[i, j] == null)
 																						{
-																							Main.tile[i, j] = new Tile();
+
 																						}
 																						WorldGen.Place1x2(i, j, type, style);
 																						WorldGen.SquareTileFrame(i, j, true);
@@ -15112,7 +15112,7 @@ namespace Terraria
 			{
 				if (Main.tile[i, j] == null)
 				{
-					Main.tile[i, j] = new Tile();
+
 				}
 				if (Main.tile[i, j].wall > 0)
 				{
@@ -15333,13 +15333,13 @@ namespace Terraria
 			{
 				if (Main.tile[i, j] == null)
 				{
-					Main.tile[i, j] = new Tile();
+
 				}
 				if (Main.tile[i, j].active)
 				{
 					if (j >= 1 && Main.tile[i, j - 1] == null)
 					{
-						Main.tile[i, j - 1] = new Tile();
+
 					}
 					if (j >= 1 && Main.tile[i, j - 1].active && ((Main.tile[i, j - 1].type == 5 && Main.tile[i, j].type != 5) || (Main.tile[i, j - 1].type == 21 && Main.tile[i, j].type != 21) || (Main.tile[i, j - 1].type == 26 && Main.tile[i, j].type != 26) || (Main.tile[i, j - 1].type == 72 && Main.tile[i, j].type != 72) || (Main.tile[i, j - 1].type == 12 && Main.tile[i, j].type != 12)) && (Main.tile[i, j - 1].type != 5 || ((Main.tile[i, j - 1].frameX != 66 || Main.tile[i, j - 1].frameY < 0 || Main.tile[i, j - 1].frameY > 44) && (Main.tile[i, j - 1].frameX != 88 || Main.tile[i, j - 1].frameY < 66 || Main.tile[i, j - 1].frameY > 110) && Main.tile[i, j - 1].frameY < 198)))
 					{
@@ -18121,7 +18121,7 @@ namespace Terraria
 			}
 			if (Main.tile[i, j] == null)
 			{
-				Main.tile[i, j] = new Tile();
+
 			}
 			if (Main.tile[i, j].wall == 0)
 			{
@@ -20100,7 +20100,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] == null)
 					{
-						Main.tile[i, j] = new Tile();
+
 					}
 					WorldGen.TileFrame(i, j, true, true);
 					WorldGen.WallFrame(i, j, true);
@@ -21129,23 +21129,23 @@ namespace Terraria
 															}
 															if (Main.tile[i, num17 - 1] == null)
 															{
-																Main.tile[i, num17 - 1] = new Tile();
+
 															}
 															if (Main.tile[i, num17 + 3] == null)
 															{
-																Main.tile[i, num17 + 3] = new Tile();
+
 															}
 															if (Main.tile[i, num17 + 2] == null)
 															{
-																Main.tile[i, num17 + 2] = new Tile();
+
 															}
 															if (Main.tile[i, num17 + 1] == null)
 															{
-																Main.tile[i, num17 + 1] = new Tile();
+
 															}
 															if (Main.tile[i, num17] == null)
 															{
-																Main.tile[i, num17] = new Tile();
+
 															}
 															if (!Main.tile[i, num17 - 1].active || !Main.tileSolid[(int)Main.tile[i, num17 - 1].type])
 															{
@@ -21239,11 +21239,11 @@ namespace Terraria
 																}
 																if (Main.tile[num19, num20 + 3] == null)
 																{
-																	Main.tile[num19, num20 + 3] = new Tile();
+
 																}
 																if (Main.tile[num19, num20 - 1] == null)
 																{
-																	Main.tile[num19, num20 - 1] = new Tile();
+
 																}
 																if (!Main.tile[num19, num20 - 1].active || !Main.tileSolid[(int)Main.tile[num19, num20 - 1].type] || !Main.tile[num19, num20 + 3].active || !Main.tileSolid[(int)Main.tile[num19, num20 + 3].type])
 																{

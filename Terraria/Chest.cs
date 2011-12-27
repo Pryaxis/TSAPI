@@ -21,7 +21,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] == null)
 					{
-						Main.tile[i, j] = new Tile();
+
 					}
 					if ((Main.tile[i, j].frameX >= 72 && Main.tile[i, j].frameX <= 106) || (Main.tile[i, j].frameX >= 144 && Main.tile[i, j].frameX <= 178))
 					{
