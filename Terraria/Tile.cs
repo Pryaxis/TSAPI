@@ -1,3 +1,4 @@
+#define TILE_BITPACK
 using System;
 using System.Runtime.InteropServices;
 
@@ -220,6 +221,9 @@ namespace Terraria
         public byte liquid;
         public byte type;
         public byte wall;
+        public byte wallFrameNumber;
+        public byte wallFrameX;
+        public byte wallFrameY;
 
 #if TILE_BITPACK
         public bool active
@@ -307,9 +311,6 @@ namespace Terraria
         public bool lighted;
         public bool skipLiquid;
         public bool wire;
-        public byte wallFrameNumber;
-        public byte wallFrameX;
-        public byte wallFrameY;
 #endif
     }
 
