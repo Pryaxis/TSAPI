@@ -1175,6 +1175,7 @@ namespace Terraria
 			WorldGen.noLiquidCheck = false;
 			Liquid.numLiquid = 0;
 			LiquidBuffer.numLiquidBuffer = 0;
+            Main.tile.SetSize(Main.maxTilesX + 10, Main.maxTilesY + 10);
 			if (Main.netMode == 1 || WorldGen.lastMaxTilesX > Main.maxTilesX || WorldGen.lastMaxTilesY > Main.maxTilesY)
 			{
 				for (int i = 0; i < WorldGen.lastMaxTilesX; i++)
@@ -1183,7 +1184,7 @@ namespace Terraria
 					Main.statusText = "Freeing unused resources: " + (int)(num * 100f + 1f) + "%";
 					for (int j = 0; j < WorldGen.lastMaxTilesY; j++)
 					{
-						Main.tile[i, j] = null;
+						Main.tile[i, j].Data = new TileData();
 					}
 				}
 			}
@@ -1342,39 +1343,39 @@ namespace Terraria
 												NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0);
 											}
 										}
-										//Tile tile = (Tile)Main.tile[i, j].Clone();
-										binaryWriter.Write(tile.active);
-										if (tile.active)
+										TileData tiledata = Main.tile[i, j].Data;
+										binaryWriter.Write(tiledata.active);
+										if (tiledata.active)
 										{
-											binaryWriter.Write(tile.type);
-											if (Main.tileFrameImportant[(int)tile.type])
+											binaryWriter.Write(tiledata.type);
+											if (Main.tileFrameImportant[(int)tiledata.type])
 											{
-												binaryWriter.Write(tile.frameX);
-												binaryWriter.Write(tile.frameY);
+												binaryWriter.Write(tiledata.frameX);
+												binaryWriter.Write(tiledata.frameY);
 											}
 										}
 										if (Main.tile[i, j].wall > 0)
 										{
 											binaryWriter.Write(true);
-											binaryWriter.Write(tile.wall);
+											binaryWriter.Write(tiledata.wall);
 										}
 										else
 										{
 											binaryWriter.Write(false);
 										}
-										if (tile.liquid > 0)
+										if (tiledata.liquid > 0)
 										{
 											binaryWriter.Write(true);
-											binaryWriter.Write(tile.liquid);
-											binaryWriter.Write(tile.lava);
+											binaryWriter.Write(tiledata.liquid);
+											binaryWriter.Write(tiledata.lava);
 										}
 										else
 										{
 											binaryWriter.Write(false);
 										}
-										binaryWriter.Write(tile.wire);
+										binaryWriter.Write(tiledata.wire);
 										int num2 = 1;
-										while (j + num2 < Main.maxTilesY && tile.isTheSameAs(Main.tile[i, j + num2]))
+                                        while (j + num2 < Main.maxTilesY && Main.tile[i, j].isTheSameAs(Main.tile[i, j + num2]))
 										{
 											num2++;
 										}
