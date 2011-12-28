@@ -3895,44 +3895,26 @@ namespace Terraria
 			for (int num215 = 63; num215 <= 68; num215++)
 			{
 				float num216 = 0f;
-				if (num215 == 67)
+				switch (num215)
 				{
-					num216 = (float)Main.maxTilesX * 0.5f;
-				}
-				else
-				{
-					if (num215 == 66)
-					{
-						num216 = (float)Main.maxTilesX * 0.45f;
-					}
-					else
-					{
-						if (num215 == 63)
-						{
-							num216 = (float)Main.maxTilesX * 0.3f;
-						}
-						else
-						{
-							if (num215 == 65)
-							{
-								num216 = (float)Main.maxTilesX * 0.25f;
-							}
-							else
-							{
-								if (num215 == 64)
-								{
-									num216 = (float)Main.maxTilesX * 0.1f;
-								}
-								else
-								{
-									if (num215 == 68)
-									{
-										num216 = (float)Main.maxTilesX * 0.05f;
-									}
-								}
-							}
-						}
-					}
+				    case 67:
+				        num216 = (float)Main.maxTilesX * 0.5f;
+				        break;
+				    case 66:
+				        num216 = (float)Main.maxTilesX * 0.45f;
+				        break;
+				    case 63:
+				        num216 = (float)Main.maxTilesX * 0.3f;
+				        break;
+				    case 65:
+				        num216 = (float)Main.maxTilesX * 0.25f;
+				        break;
+				    case 64:
+				        num216 = (float)Main.maxTilesX * 0.1f;
+				        break;
+				    case 68:
+				        num216 = (float)Main.maxTilesX * 0.05f;
+				        break;
 				}
 				num216 *= 0.2f;
 				int num217 = 0;
@@ -14551,20 +14533,20 @@ namespace Terraria
 		{
 			for (int i = 0; i < WorldGen.numInPump; i++)
 			{
-				int num = WorldGen.inPumpX[i];
-				int num2 = WorldGen.inPumpY[i];
-				int liquid = (int)Main.tile[num, num2].liquid;
+				int inX = WorldGen.inPumpX[i];
+				int inY = WorldGen.inPumpY[i];
+				int liquid = (int)Main.tile[inX, inY].liquid;
 				if (liquid > 0)
 				{
-					bool lava = Main.tile[num, num2].lava;
+                    bool lava = Main.tile[inX, inY].lava;
 					for (int j = 0; j < WorldGen.numOutPump; j++)
 					{
-						int num3 = WorldGen.outPumpX[j];
-						int num4 = WorldGen.outPumpY[j];
-						int liquid2 = (int)Main.tile[num3, num4].liquid;
+						int outX = WorldGen.outPumpX[j];
+						int outY = WorldGen.outPumpY[j];
+						int liquid2 = (int)Main.tile[outX, outY].liquid;
 						if (liquid2 < 255)
 						{
-							bool flag = Main.tile[num3, num4].lava;
+							bool flag = Main.tile[outX, outY].lava;
 							if (liquid2 == 0)
 							{
 								flag = lava;
@@ -14576,23 +14558,21 @@ namespace Terraria
 								{
 									num5 = 255 - liquid2;
 								}
-								Tile expr_CD = Main.tile[num3, num4];
-								expr_CD.liquid += (byte)num5;
-								Tile expr_E9 = Main.tile[num, num2];
-								expr_E9.liquid -= (byte)num5;
-								liquid = (int)Main.tile[num, num2].liquid;
-								Main.tile[num3, num4].lava = lava;
-								WorldGen.SquareTileFrame(num3, num4, true);
-								if (Main.tile[num, num2].liquid == 0)
+                                Main.tile[outX, outY].liquid += (byte)num5;
+                                Main.tile[inX, inY].liquid -= (byte)num5;
+                                liquid = (int)Main.tile[inX, inY].liquid;
+								Main.tile[outX, outY].lava = lava;
+								WorldGen.SquareTileFrame(outX, outY, true);
+                                if (Main.tile[inX, inY].liquid == 0)
 								{
-									Main.tile[num, num2].lava = false;
-									WorldGen.SquareTileFrame(num, num2, true);
+									Main.tile[inX, inY].lava = false;
+                                    WorldGen.SquareTileFrame(inX, inY, true);
 									break;
 								}
 							}
 						}
 					}
-					WorldGen.SquareTileFrame(num, num2, true);
+                    WorldGen.SquareTileFrame(inX, inY, true);
 				}
 			}
 		}

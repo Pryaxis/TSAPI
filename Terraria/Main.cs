@@ -683,44 +683,36 @@ namespace Terraria
 		private static string nextLoadPlayer()
 		{
 			int num = 1;
-			while (File.Exists(string.Concat(new object[]
-			{
-				Main.PlayerPath, 
-				"/player", 
-				num, 
-				".plr"
-			})))
+            while (File.Exists(Path.Combine(
+                Main.PlayerPath,
+                "player",
+                num.ToString(),
+                ".plr")))
 			{
 				num++;
 			}
-			return string.Concat(new object[]
-			{
-				Main.PlayerPath, 
-				"/player", 
-				num, 
-				".plr"
-			});
+            return Path.Combine(
+                Main.PlayerPath,
+                "player",
+                num.ToString(),
+                ".plr");
 		}
 		private static string nextLoadWorld()
 		{
 			int num = 1;
-			while (File.Exists(string.Concat(new object[]
-			{
-				Main.WorldPath, 
-				"/world", 
-				num, 
-				".wld"
-			})))
+            while (File.Exists(Path.Combine(
+                Main.WorldPath,
+                "world",
+                num.ToString(),
+                ".wld")))
 			{
 				num++;
 			}
-			return string.Concat(new object[]
-			{
-				Main.WorldPath, 
-				"/world", 
-				num, 
-				".wld"
-			});
+            return Path.Combine(
+                Main.WorldPath,
+                "world",
+                num.ToString(),
+                ".wld");
 		}
 		public void autoCreate(string newOpt)
 		{
