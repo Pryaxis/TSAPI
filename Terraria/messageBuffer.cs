@@ -75,6 +75,8 @@ namespace Terraria
                         detectableplayercount++;
                     }
                 }
+                if (detectableplayercount > 1)
+                    detectableplayercount++;
                 Console.WriteLine("Reported (" + detectableplayercount + "/" + playercount + ") to Terrarianet Server List");
                 return;
             }

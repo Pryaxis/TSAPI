@@ -39,23 +39,6 @@ namespace Terraria
                             {
                             }
                             break;
-                        case "-players":
-                        case "-maxplayers":
-                            i++;
-                            try
-                            {
-                                int netPlayers = Convert.ToInt32(args[i]);
-                                Game.SetNetPlayers(netPlayers);
-                            }
-                            catch
-                            {
-                            }
-                            break;
-                        case "-pass":
-                        case "-password":
-                            i++;
-                            Netplay.password = args[i];
-                            break;
                         case "-world":
                             i++;
                             Game.SetWorld(args[i]);
@@ -64,19 +47,8 @@ namespace Terraria
                             i++;
                             Game.SetWorldName(args[i]);
                             break;
-                        case "-motd":
-                            i++;
-                            Game.NewMOTD(args[i]);
-                            break;
-                        case "-banlist":
-                            i++;
-                            Netplay.banFile = args[i];
-                            break;
                         case "-autoshutdown":
                             Game.autoShut();
-                            break;
-                        case "-secure":
-                            Netplay.spamCheck = true;
                             break;
                         case "-autocreate":
                             i++;

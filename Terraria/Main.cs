@@ -782,18 +782,6 @@ namespace Terraria
 								{
 								}
 							}
-							if (text.Length > 11 && text.Substring(0, 11).ToLower() == "maxplayers=")
-							{
-								string value2 = text.Substring(11);
-								try
-								{
-									int num = Convert.ToInt32(value2);
-									Main.maxNetPlayers = num;
-								}
-								catch
-								{
-								}
-							}
 							if (text.Length > 11 && text.Substring(0, 9).ToLower() == "priority=")
 							{
 								string value3 = text.Substring(9);
@@ -830,16 +818,6 @@ namespace Terraria
 								{
 								}
 							}
-							if (text.Length > 9 && text.Substring(0, 9).ToLower() == "password=")
-							{
-								string password = text.Substring(9);
-								Netplay.password = password;
-							}
-							if (text.Length > 5 && text.Substring(0, 5).ToLower() == "motd=")
-							{
-								string text3 = text.Substring(5);
-								Main.motd = text3;
-							}
 							if (text.Length >= 10 && text.Substring(0, 10).ToLower() == "worldpath=")
 							{
 								string worldPath = text.Substring(10);
@@ -849,11 +827,6 @@ namespace Terraria
 							{
 								string text4 = text.Substring(10);
 								Main.worldName = text4;
-							}
-							if (text.Length > 8 && text.Substring(0, 8).ToLower() == "banlist=")
-							{
-								string banFile = text.Substring(8);
-								Netplay.banFile = banFile;
 							}
 							if (text.Length > 11 && text.Substring(0, 11).ToLower() == "autocreate=")
 							{
@@ -880,14 +853,6 @@ namespace Terraria
 							            break;
 							    }
 							}
-						    if (text.Length > 7 && text.Substring(0, 7).ToLower() == "secure=")
-							{
-								string a2 = text.Substring(7);
-								if (a2 == "1")
-								{
-									Netplay.spamCheck = true;
-								}
-							}
 						}
 						catch
 						{
@@ -895,10 +860,6 @@ namespace Terraria
 					}
 				}
 			}
-		}
-		public void SetNetPlayers(int mPlayers)
-		{
-			Main.maxNetPlayers = mPlayers;
 		}
 		public void SetWorld(string wrold)
 		{
@@ -1117,38 +1078,6 @@ namespace Terraria
 							{
 								Console.WriteLine("Terraria Server " + Main.versionNumber2);
 								Console.WriteLine("");
-								Console.Write("Max players (press enter for 8): ");
-								string text4 = Console.ReadLine();
-								try
-								{
-									if (text4 == "")
-									{
-										text4 = "8";
-									}
-									int num4 = Convert.ToInt32(text4);
-									if (num4 <= 255 && num4 >= 1)
-									{
-										Main.maxNetPlayers = num4;
-										flag3 = false;
-									}
-									flag3 = false;
-								}
-								catch
-								{
-								}
-								try
-								{
-									Console.Clear();
-								}
-								catch
-								{
-								}
-							}
-							flag3 = true;
-							while (flag3)
-							{
-								Console.WriteLine("Terraria Server " + Main.versionNumber2);
-								Console.WriteLine("");
 								Console.Write("Server port (press enter for 7777): ");
 								string text5 = Console.ReadLine();
 								try
@@ -1175,10 +1104,6 @@ namespace Terraria
 								{
 								}
 							}
-							Console.WriteLine("Terraria Server " + Main.versionNumber2);
-							Console.WriteLine("");
-							Console.Write("Server password (press enter for none): ");
-							Netplay.password = Console.ReadLine();
 							Main.worldPathName = Main.loadWorldPath[num3];
 							flag = false;
 							try
