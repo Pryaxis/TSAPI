@@ -9,6 +9,7 @@ namespace Hooks
 		public delegate void CommandD(string cmd, HandledEventArgs e);
 		public delegate void SocketResetD(ServerSock socket);
 		public static event ServerHooks.CommandD Command;
+        public static event Action<int, HandledEventArgs> Connect;
 		public static event Action<int, HandledEventArgs> Join;
 		public static event Action<int> Leave;
 		public static event Action<messageBuffer, int, string, HandledEventArgs> Chat;
@@ -23,7 +24,16 @@ namespace Hooks
 			{
 				return;
 			}
-			if (e.MsgID == PacketTypes.ConnectRequest)
+            if (e.MsgID == PacketTypes.ConnectRequest)
+            {
+                e.Handled = ServerHooks.OnConnect(e.Msg.whoAmI);
+                if (e.Handled)
+                {
+                    Netplay.serverSock[e.Msg.whoAmI].kill = true;
+                    return;
+                }
+            }
+			else if (e.MsgID == PacketTypes.ContinueConnecting2)
 			{
 				e.Handled = ServerHooks.OnJoin(e.Msg.whoAmI);
 				if (e.Handled)
@@ -51,6 +61,16 @@ namespace Hooks
 			ServerHooks.Command(cmd, handledEventArgs);
 			return handledEventArgs.Handled;
 		}
+        public static bool OnConnect(int whoami)
+        {
+            if (ServerHooks.Connect == null)
+            {
+                return false;
+            }
+            HandledEventArgs handledEventArgs = new HandledEventArgs();
+            ServerHooks.Connect(whoami, handledEventArgs);
+            return handledEventArgs.Handled;
+        }
 		public static bool OnJoin(int whoami)
 		{
 			if (ServerHooks.Join == null)
