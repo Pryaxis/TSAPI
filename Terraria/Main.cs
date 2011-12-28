@@ -702,17 +702,13 @@ namespace Terraria
 			int num = 1;
             while (File.Exists(Path.Combine(
                 Main.WorldPath,
-                "world",
-                num.ToString(),
-                ".wld")))
+                "world" + num.ToString() + ".wld")))
 			{
 				num++;
 			}
             return Path.Combine(
-                Main.WorldPath,
-                "world",
-                num.ToString(),
-                ".wld");
+		        Main.WorldPath,
+		        "world" + num.ToString() + ".wld");
 		}
 		public void autoCreate(string newOpt)
 		{

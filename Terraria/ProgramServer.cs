@@ -70,7 +70,7 @@ namespace Terraria
                 if (Environment.OSVersion.Platform == PlatformID.Unix)
                     Terraria.Main.SavePath = ".terraria";
                 else
-                    Terraria.Main.SavePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "/My Games/Terraria");
+                    Terraria.Main.SavePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "My Games", "Terraria");
                 Terraria.Main.WorldPath = Path.Combine(Terraria.Main.SavePath, "Worlds");
                 Terraria.Main.PlayerPath = Path.Combine(Terraria.Main.SavePath, "Players");
                 Initialize(Game);
