@@ -3371,10 +3371,6 @@ namespace Terraria
 					}
 					if (this.position.X / 16f - (float)Player.tileRangeX <= (float)Player.tileTargetX && (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX - 1f >= (float)Player.tileTargetX && this.position.Y / 16f - (float)Player.tileRangeY <= (float)Player.tileTargetY && (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY - 2f >= (float)Player.tileTargetY)
 					{
-						if (Main.tile[Player.tileTargetX, Player.tileTargetY] == null)
-						{
-
-						}
 						if (Main.tile[Player.tileTargetX, Player.tileTargetY].active)
 						{
 							if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 104)
@@ -4393,10 +4389,6 @@ namespace Terraria
 							int num119 = (int)((this.position.Y + (float)num118 - 44f * this.gravDir) / 16f);
 							if (Main.tile[num117, num119].liquid < 128)
 							{
-								if (Main.tile[num117, num119] == null)
-								{
-
-								}
 								if (!Main.tile[num117, num119].active || !Main.tileSolid[(int)Main.tile[num117, num119].type] || Main.tileSolidTop[(int)Main.tile[num117, num119].type])
 								{
 									flag14 = false;

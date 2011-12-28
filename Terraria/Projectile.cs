@@ -3502,10 +3502,6 @@ namespace Terraria
 		                        int num27 = num25;
 		                        while (num27 < num26)
 		                        {
-		                            if (Main.tile[n, num27] == null)
-		                            {
-
-		                            }
 		                            Vector2 vector4;
 		                            vector4.X = (float)(n * 16);
 		                            vector4.Y = (float)(num27 * 16);
@@ -3628,10 +3624,6 @@ namespace Terraria
 		                    {
 		                        for (int num39 = num36; num39 < num37; num39++)
 		                        {
-		                            if (Main.tile[num38, num39] == null)
-		                            {
-
-		                            }
 		                            Vector2 vector5;
 		                            vector5.X = (float)(num38 * 16);
 		                            vector5.Y = (float)(num39 * 16);
@@ -5842,10 +5834,6 @@ namespace Terraria
 									}
 									int num16 = (int)this.position.X / 16;
 									int num17 = (int)this.position.Y / 16;
-									if (Main.tile[num16, num17] == null)
-									{
-
-									}
 									if (Main.tile[num16, num17].type == 127 && Main.tile[num16, num17].active)
 									{
 										WorldGen.KillTile(num16, num17, false, false, false);

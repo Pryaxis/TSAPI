@@ -19,10 +19,6 @@ namespace Terraria
 			{
 				for (int j = Y; j <= Y + 1; j++)
 				{
-					if (Main.tile[i, j] == null)
-					{
-
-					}
 					if ((Main.tile[i, j].frameX >= 72 && Main.tile[i, j].frameX <= 106) || (Main.tile[i, j].frameX >= 144 && Main.tile[i, j].frameX <= 178))
 					{
                         Main.tile[i, j].frameX -= 36;

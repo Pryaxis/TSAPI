@@ -260,10 +260,6 @@ namespace Terraria
 					{
 						for (int num16 = Lighting.firstToLightY; num16 < Lighting.lastToLightY; num16++)
 						{
-							if (Main.tile[num15, num16] == null)
-							{
-
-							}
 							if ((!Main.tile[num15, num16].active || !Main.tileNoSunLight[(int)Main.tile[num15, num16].type]) && Lighting.color[num15 - Lighting.firstToLightX, num16 - Lighting.firstToLightY] < Lighting.skyColor && (Main.tile[num15, num16].wall == 0 || Main.tile[num15, num16].wall == 21) && (double)num16 < Main.worldSurface && Main.tile[num15, num16].liquid < 200)
 							{
 								if (Lighting.color[num15 - Lighting.firstToLightX, num16 - Lighting.firstToLightY] < Lighting.skyColor)
@@ -410,10 +406,6 @@ namespace Terraria
 			{
 				for (int num36 = num19; num36 < num20; num36++)
 				{
-					if (Main.tile[num35, num36] == null)
-					{
-
-					}
 					if ((!Main.tile[num35, num36].active || !Main.tileNoSunLight[(int)Main.tile[num35, num36].type]) && Lighting.color2[num35 - Lighting.firstToLightX, num36 - Lighting.firstToLightY] < Lighting.skyColor && (Main.tile[num35, num36].wall == 0 || Main.tile[num35, num36].wall == 21) && (double)num36 < Main.worldSurface && Main.tile[num35, num36].liquid < 200)
 					{
 						if (Lighting.color2[num35 - Lighting.firstToLightX, num36 - Lighting.firstToLightY] < Lighting.skyColor)
@@ -437,10 +429,6 @@ namespace Terraria
 				{
 					int num39 = num37 - Lighting.firstToLightX;
 					int num40 = num38 - Lighting.firstToLightY;
-					if (Main.tile[num37, num38] == null)
-					{
-
-					}
 					int zoneX = Main.zoneX;
 					int zoneY = Main.zoneY;
 					int num41 = (num18 - num17 - zoneX) / 2;

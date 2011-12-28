@@ -5944,34 +5944,6 @@ namespace Terraria
 							{
 								num32 = (int)((this.position.X + (float)(this.width / 2) + (float)((this.width / 2 + 16) * this.direction)) / 16f);
 							}
-							if (Main.tile[num32, num33] == null)
-							{
-
-							}
-							if (Main.tile[num32, num33 - 1] == null)
-							{
-
-							}
-							if (Main.tile[num32, num33 - 2] == null)
-							{
-
-							}
-							if (Main.tile[num32, num33 - 3] == null)
-							{
-
-							}
-							if (Main.tile[num32, num33 + 1] == null)
-							{
-
-							}
-							if (Main.tile[num32 + this.direction, num33 - 1] == null)
-							{
-
-							}
-							if (Main.tile[num32 + this.direction, num33 + 1] == null)
-							{
-
-							}
 							if (Main.tile[num32, num33 - 1].active && Main.tile[num32, num33 - 1].type == 10 && flag3)
 							{
 								this.ai[2] += 1f;
@@ -8080,34 +8052,6 @@ namespace Terraria
 													this.ai[2] = -1f;
 													int num135 = (int)((this.position.X + (float)(this.width / 2) + (float)(15 * this.direction)) / 16f);
 													int num136 = (int)((this.position.Y + (float)this.height - 16f) / 16f);
-													if (Main.tile[num135, num136] == null)
-													{
-
-													}
-													if (Main.tile[num135, num136 - 1] == null)
-													{
-
-													}
-													if (Main.tile[num135, num136 - 2] == null)
-													{
-
-													}
-													if (Main.tile[num135, num136 - 3] == null)
-													{
-
-													}
-													if (Main.tile[num135, num136 + 1] == null)
-													{
-
-													}
-													if (Main.tile[num135 + this.direction, num136 - 1] == null)
-													{
-
-													}
-													if (Main.tile[num135 + this.direction, num136 + 1] == null)
-													{
-
-													}
 													if (this.townNPC && Main.tile[num135, num136 - 2].active && Main.tile[num135, num136 - 2].type == 10 && (Main.rand.Next(10) == 0 || !Main.dayTime))
 													{
 														if (Main.netMode != 1)
@@ -8205,46 +8149,11 @@ namespace Terraria
 															}
 															try
 															{
-																if (Main.tile[num135, num136 + 1] == null)
+																if (num129 >= this.homeTileX - 35 && num129 <= this.homeTileX + 35 && (!Main.tile[num135, num136 + 1].active || !Main.tileSolid[(int)Main.tile[num135, num136 + 1].type]) && (!Main.tile[num135 - this.direction, num136 + 1].active || !Main.tileSolid[(int)Main.tile[num135 - this.direction, num136 + 1].type]) && (!Main.tile[num135, num136 + 2].active || !Main.tileSolid[(int)Main.tile[num135, num136 + 2].type]) && (!Main.tile[num135 - this.direction, num136 + 2].active || !Main.tileSolid[(int)Main.tile[num135 - this.direction, num136 + 2].type]) && (!Main.tile[num135, num136 + 3].active || !Main.tileSolid[(int)Main.tile[num135, num136 + 3].type]) && (!Main.tile[num135 - this.direction, num136 + 3].active || !Main.tileSolid[(int)Main.tile[num135 - this.direction, num136 + 3].type]) && (!Main.tile[num135, num136 + 4].active || !Main.tileSolid[(int)Main.tile[num135, num136 + 4].type]) && (!Main.tile[num135 - this.direction, num136 + 4].active || !Main.tileSolid[(int)Main.tile[num135 - this.direction, num136 + 4].type]) && this.type != 46)
 																{
-
-																}
-																if (Main.tile[num135 - this.direction, num136 + 1] == null)
-																{
-
-																}
-																if (Main.tile[num135, num136 + 2] == null)
-																{
-
-																}
-																if (Main.tile[num135 - this.direction, num136 + 2] == null)
-																{
-
-																}
-																if (Main.tile[num135, num136 + 3] == null)
-																{
-
-																}
-																if (Main.tile[num135 - this.direction, num136 + 3] == null)
-																{
-
-																}
-																if (Main.tile[num135, num136 + 4] == null)
-																{
-
-																}
-																if (Main.tile[num135 - this.direction, num136 + 4] == null)
-																{
-
-																}
-																else
-																{
-																	if (num129 >= this.homeTileX - 35 && num129 <= this.homeTileX + 35 && (!Main.tile[num135, num136 + 1].active || !Main.tileSolid[(int)Main.tile[num135, num136 + 1].type]) && (!Main.tile[num135 - this.direction, num136 + 1].active || !Main.tileSolid[(int)Main.tile[num135 - this.direction, num136 + 1].type]) && (!Main.tile[num135, num136 + 2].active || !Main.tileSolid[(int)Main.tile[num135, num136 + 2].type]) && (!Main.tile[num135 - this.direction, num136 + 2].active || !Main.tileSolid[(int)Main.tile[num135 - this.direction, num136 + 2].type]) && (!Main.tile[num135, num136 + 3].active || !Main.tileSolid[(int)Main.tile[num135, num136 + 3].type]) && (!Main.tile[num135 - this.direction, num136 + 3].active || !Main.tileSolid[(int)Main.tile[num135 - this.direction, num136 + 3].type]) && (!Main.tile[num135, num136 + 4].active || !Main.tileSolid[(int)Main.tile[num135, num136 + 4].type]) && (!Main.tile[num135 - this.direction, num136 + 4].active || !Main.tileSolid[(int)Main.tile[num135 - this.direction, num136 + 4].type]) && this.type != 46)
-																	{
-																		this.direction *= -1;
-																		this.velocity.X = this.velocity.X * -1f;
-																		this.netUpdate = true;
-																	}
+																	this.direction *= -1;
+																	this.velocity.X = this.velocity.X * -1f;
+																	this.netUpdate = true;
 																}
 															}
 															catch
@@ -9319,10 +9228,6 @@ namespace Terraria
 													{
 														if (this.aiStyle == 13)
 														{
-															if (Main.tile[(int)this.ai[0], (int)this.ai[1]] == null)
-															{
-
-															}
 															if (!Main.tile[(int)this.ai[0], (int)this.ai[1]].active)
 															{
 																this.life = -1;
@@ -10194,18 +10099,6 @@ namespace Terraria
 																				}
 																				int num230 = (int)(this.position.X + (float)(this.width / 2)) / 16;
 																				int num231 = (int)(this.position.Y + (float)(this.height / 2)) / 16;
-																				if (Main.tile[num230, num231 - 1] == null)
-																				{
-
-																				}
-																				if (Main.tile[num230, num231 + 1] == null)
-																				{
-
-																				}
-																				if (Main.tile[num230, num231 + 2] == null)
-																				{
-
-																				}
 																				if (Main.tile[num230, num231 - 1].liquid > 128)
 																				{
 																					if (Main.tile[num230, num231 + 1].active)
@@ -10542,18 +10435,6 @@ namespace Terraria
 																					}
 																					int num239 = (int)(this.position.X + (float)(this.width / 2)) / 16;
 																					int num240 = (int)(this.position.Y + (float)(this.height / 2)) / 16;
-																					if (Main.tile[num239, num240 - 1] == null)
-																					{
-
-																					}
-																					if (Main.tile[num239, num240 + 1] == null)
-																					{
-
-																					}
-																					if (Main.tile[num239, num240 + 2] == null)
-																					{
-
-																					}
 																					if (Main.tile[num239, num240 - 1].liquid > 128)
 																					{
 																						if (Main.tile[num239, num240 + 1].active)
@@ -10645,18 +10526,6 @@ namespace Terraria
 																						int num250 = (int)(this.position.X + (float)this.width) / 16;
 																						int num251 = (int)(this.position.Y + (float)this.height) / 16;
 																						bool flag24 = false;
-																						if (Main.tile[num248, num251] == null)
-																						{
-
-																						}
-																						if (Main.tile[num249, num251] == null)
-																						{
-
-																						}
-																						if (Main.tile[num250, num251] == null)
-																						{
-
-																						}
 																						if ((Main.tile[num248, num251].active && Main.tileSolid[(int)Main.tile[num248, num251].type]) || (Main.tile[num249, num251].active && Main.tileSolid[(int)Main.tile[num249, num251].type]) || (Main.tile[num250, num251].active && Main.tileSolid[(int)Main.tile[num250, num251].type]))
 																						{
 																							flag24 = true;
@@ -10971,10 +10840,6 @@ namespace Terraria
 																						}
 																						for (int num269 = num260; num269 < num260 + num261; num269++)
 																						{
-																							if (Main.tile[num259, num269] == null)
-																							{
-
-																							}
 																							if ((Main.tile[num259, num269].active && Main.tileSolid[(int)Main.tile[num259, num269].type]) || Main.tile[num259, num269].liquid > 0)
 																							{
 																								if (num269 <= num260 + 1)
@@ -11337,10 +11202,6 @@ namespace Terraria
 																										bool flag31 = false;
 																										for (int num279 = num277; num279 < num277 + num278; num279++)
 																										{
-																											if (Main.tile[num276, num279] == null)
-																											{
-
-																											}
 																											if ((Main.tile[num276, num279].active && Main.tileSolid[(int)Main.tile[num276, num279].type]) || Main.tile[num276, num279].liquid > 0)
 																											{
 																												if (num279 < num277 + 5)
@@ -11580,34 +11441,6 @@ namespace Terraria
 																										{
 																											int num283 = (int)((this.position.X + (float)(this.width / 2) + (float)((this.width / 2 + 2) * this.direction) + this.velocity.X * 5f) / 16f);
 																											int num284 = (int)((this.position.Y + (float)this.height - 15f) / 16f);
-																											if (Main.tile[num283, num284] == null)
-																											{
-
-																											}
-																											if (Main.tile[num283, num284 - 1] == null)
-																											{
-
-																											}
-																											if (Main.tile[num283, num284 - 2] == null)
-																											{
-
-																											}
-																											if (Main.tile[num283, num284 - 3] == null)
-																											{
-
-																											}
-																											if (Main.tile[num283, num284 + 1] == null)
-																											{
-
-																											}
-																											if (Main.tile[num283 + this.direction, num284 - 1] == null)
-																											{
-
-																											}
-																											if (Main.tile[num283 + this.direction, num284 + 1] == null)
-																											{
-
-																											}
 																											if ((this.velocity.X < 0f && this.spriteDirection == -1) || (this.velocity.X > 0f && this.spriteDirection == 1))
 																											{
 																												if (Main.tile[num283, num284 - 2].active && Main.tileSolid[(int)Main.tile[num283, num284 - 2].type])
