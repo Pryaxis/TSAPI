@@ -544,10 +544,6 @@ namespace Terraria
 											num = start + 11;
 											for (int num19 = num17; num19 < num17 + (int)num16; num19++)
 											{
-												if (Main.tile[num19, num18] == null)
-												{
-													Main.tile[num19, num18] = new Tile();
-												}
 												byte b5 = this.readBuffer[num];
 												num++;
 												bool active = Main.tile[num19, num18].active;
@@ -632,10 +628,6 @@ namespace Terraria
 												{
 													num21++;
 													num20 -= 1;
-													if (Main.tile[num21, num18] == null)
-													{
-														Main.tile[num21, num18] = new Tile();
-													}
 													Main.tile[num21, num18].active = Main.tile[num19, num18].active;
 													Main.tile[num21, num18].type = Main.tile[num19, num18].type;
 													Main.tile[num21, num18].wall = Main.tile[num19, num18].wall;
@@ -865,10 +857,6 @@ namespace Terraria
 																		{
 																			flag4 = true;
 																		}
-																		if (Main.tile[num29, num30] == null)
-																		{
-																			Main.tile[num29, num30] = new Tile();
-																		}
 																		if (Main.netMode == 2)
 																		{
 																			if (!flag4)
@@ -1023,10 +1011,6 @@ namespace Terraria
 																					{
 																						for (int num40 = num38; num40 < num38 + (int)num36; num40++)
 																						{
-																							if (Main.tile[num39, num40] == null)
-																							{
-																								Main.tile[num39, num40] = new Tile();
-																							}
 																							byte b11 = this.readBuffer[num];
 																							num++;
 																							bool active2 = Main.tile[num39, num40].active;
@@ -2102,10 +2086,6 @@ namespace Terraria
 																																																NetMessage.BootPlayer(this.whoAmI, "Cheating attempt detected: Liquid spam");
 																																																return;
 																																															}
-																																														}
-																																														if (Main.tile[num96, num97] == null)
-																																														{
-																																															Main.tile[num96, num97] = new Tile();
 																																														}
 																																														lock (Main.tile[num96, num97])
 																																														{

@@ -3371,10 +3371,6 @@ namespace Terraria
 					}
 					if (this.position.X / 16f - (float)Player.tileRangeX <= (float)Player.tileTargetX && (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX - 1f >= (float)Player.tileTargetX && this.position.Y / 16f - (float)Player.tileRangeY <= (float)Player.tileTargetY && (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY - 2f >= (float)Player.tileTargetY)
 					{
-						if (Main.tile[Player.tileTargetX, Player.tileTargetY] == null)
-						{
-							Main.tile[Player.tileTargetX, Player.tileTargetY] = new Tile();
-						}
 						if (Main.tile[Player.tileTargetX, Player.tileTargetY].active)
 						{
 							if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 104)
@@ -4393,10 +4389,6 @@ namespace Terraria
 							int num119 = (int)((this.position.Y + (float)num118 - 44f * this.gravDir) / 16f);
 							if (Main.tile[num117, num119].liquid < 128)
 							{
-								if (Main.tile[num117, num119] == null)
-								{
-									Main.tile[num117, num119] = new Tile();
-								}
 								if (!Main.tile[num117, num119].active || !Main.tileSolid[(int)Main.tile[num117, num119].type] || Main.tileSolidTop[(int)Main.tile[num117, num119].type])
 								{
 									flag14 = false;
@@ -6713,10 +6705,8 @@ namespace Terraria
 							{
 								if (this.direction == 1)
 								{
-									Tile expr_C51 = Main.tile[Player.tileTargetX, Player.tileTargetY];
-									expr_C51.frameX += 18;
-									Tile expr_C76 = Main.tile[Player.tileTargetX, Player.tileTargetY - 1];
-									expr_C76.frameX += 18;
+                                    Main.tile[Player.tileTargetX, Player.tileTargetY].frameX += 18;
+                                    Main.tile[Player.tileTargetX, Player.tileTargetY - 1].frameX += 18;
 								}
 								if (Main.netMode == 1)
 								{
@@ -7976,8 +7966,7 @@ namespace Terraria
 												num53 = 255 - num50;
 											}
 											num50 += num53;
-											Tile expr_3919 = Main.tile[num51, num52];
-											expr_3919.liquid -= (byte)num53;
+											Main.tile[num51, num52].liquid -= (byte)num53;
 											Main.tile[num51, num52].lava = lava2;
 											if (Main.tile[num51, num52].liquid == 0)
 											{

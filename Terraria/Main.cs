@@ -292,7 +292,7 @@ namespace Terraria
 		public static int[] backgroundWidth = new int[32];
 		public static int[] backgroundHeight = new int[32];
 		public static bool tilesLoaded = false;
-		public static Tile[,] tile = new Tile[Main.maxTilesX, Main.maxTilesY];
+		public static TileCollection tile = new TileCollection();
 		public static Dust[] dust = new Dust[2001];
 		public static Star[] star = new Star[130];
 		public static Item[] item = new Item[201];
@@ -685,16 +685,16 @@ namespace Terraria
 			int num = 1;
             while (File.Exists(Path.Combine(
                 Main.PlayerPath,
-                "player",
-                num.ToString(),
+                "player" +
+                num.ToString() +
                 ".plr")))
 			{
 				num++;
 			}
             return Path.Combine(
                 Main.PlayerPath,
-                "player",
-                num.ToString(),
+                "player" +
+                num.ToString() +
                 ".plr");
 		}
 		private static string nextLoadWorld()

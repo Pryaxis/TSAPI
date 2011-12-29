@@ -10,7 +10,7 @@ namespace Terraria
     internal class ProgramServer
     {
         public const string PluginsPath = "ServerPlugins";
-        public static readonly Version ApiVersion = new Version(1, 10, 0, 2);
+        public static readonly Version ApiVersion = new Version(1, 10, 0, 3);
         public static List<PluginContainer> Plugins = new List<PluginContainer>();
         public static Dictionary<string, Assembly> LoadedAssemblies = new Dictionary<string, Assembly>();
         private static Main Game;
@@ -68,7 +68,7 @@ namespace Terraria
                     }
                 }
                 if (Environment.OSVersion.Platform == PlatformID.Unix)
-                    Terraria.Main.SavePath = ".terraria";
+                    Terraria.Main.SavePath = "Terraria";
                 else
                     Terraria.Main.SavePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "My Games", "Terraria");
                 Terraria.Main.WorldPath = Path.Combine(Terraria.Main.SavePath, "Worlds");
