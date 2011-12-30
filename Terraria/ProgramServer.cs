@@ -65,6 +65,19 @@ namespace Terraria
                             else
                                 Console.WriteLine("Bad IP: {0}", args[i]);
                             break;
+                        case "-connperip":
+                            int limit;
+                            if (int.TryParse(args[++i], out limit))
+                            {
+                                Netplay.connectionLimit = limit;
+                                Console.WriteLine("Each IP is now limited to {0} connections", limit);
+                            }
+                            else
+                            Console.WriteLine("Bad int for -connperip");
+                            break;
+                        case "-killinactivesocket":
+                            Netplay.killInactive = true;
+                            break;
                     }
                 }
                 if (Environment.OSVersion.Platform == PlatformID.Unix)

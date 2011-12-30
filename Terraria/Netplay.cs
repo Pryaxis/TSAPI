@@ -24,6 +24,8 @@ namespace Terraria
         public static bool spamCheck = false;
         public static bool anyClients = false;
         public static bool ServerUp = false;
+        public static int connectionLimit = 0;
+        public static bool killInactive = false;
         public static void ResetNetDiag()
         {
             Main.rxMsg = 0;
@@ -211,6 +213,9 @@ namespace Terraria
                     {
                         NetMessage.CheckBytes(k);
                     }
+                    if (killInactive && serverSock[k].active && serverSock[k].state == 0 && (DateTime.UtcNow - serverSock[k].connectTime).TotalSeconds > 5)
+                        Netplay.serverSock[k].kill = true;
+
                     if (Netplay.serverSock[k].kill)
                     {
                         ServerHooks.OnLeave(Netplay.serverSock[k].whoAmI);
@@ -255,34 +260,12 @@ namespace Terraria
                         }
                         else
                         {
-                            if (Netplay.serverSock[k].state == 0)
-                            {
-                            }
-                            else
-                            {
-                                if (Netplay.serverSock[k].state == 1)
-                                {
-                                }
-                                else
-                                {
-                                    if (Netplay.serverSock[k].state == 2)
-                                    {
-                                    }
-                                    else
-                                    {
-                                        if (Netplay.serverSock[k].state != 3 && Netplay.serverSock[k].state == 10)
-                                        {
-                                        }
-                                    }
-                                }
-                            }
                         }
                     }
                     else if (Netplay.serverSock[k].active)
                     {
                         Netplay.serverSock[k].kill = true;
                     }
-
                     else
                     {
                         Netplay.serverSock[k].statusText2 = "";
@@ -301,17 +284,6 @@ namespace Terraria
                 else
                 {
                     Thread.Sleep(0);
-                }
-                if (!WorldGen.saveLock && !Main.dedServ)
-                {
-                    if (num3 == 0)
-                    {
-                        Main.statusText = "Waiting for clients...";
-                    }
-                    else
-                    {
-                        Main.statusText = num3 + " clients connected";
-                    }
                 }
                 if (num3 == 0)
                 {
@@ -363,7 +335,11 @@ namespace Terraria
                     {
                         Netplay.serverSock[num].tcpClient = Netplay.tcpListener.AcceptTcpClient();
                         Netplay.serverSock[num].tcpClient.NoDelay = true;
+                        Netplay.serverSock[num].connectTime = DateTime.UtcNow;
                         Console.WriteLine(Netplay.serverSock[num].tcpClient.Client.RemoteEndPoint + " is connecting...");
+                        if (connectionLimit > 0 &&
+                            CheckExistingIP(Netplay.serverSock[num].tcpClient.Client.RemoteEndPoint.ToString().Split(':')[0]) > connectionLimit)
+                            serverSock[num].kill = true;
                         continue;
                     }
                     catch (Exception ex)
@@ -380,6 +356,15 @@ namespace Terraria
                 Netplay.stopListen = true;
                 Netplay.tcpListener.Stop();
             }
+        }
+        public static int CheckExistingIP(string IP)
+        {
+            int hit = 0;
+            for (int i = 0; i < Main.maxNetPlayers; i++)
+                if (serverSock[i] != null && serverSock[i].tcpClient.Connected &&
+                    serverSock[i].tcpClient.Client.RemoteEndPoint.ToString().Split(':')[0] == IP)
+                    hit++;
+            return hit;
         }
         public static void StartServer()
         {
