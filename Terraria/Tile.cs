@@ -224,6 +224,8 @@ namespace Terraria
         public byte wallFrameNumber;
         public byte wallFrameX;
         public byte wallFrameY;
+        public short frameX;
+        public short frameY;
 
 #if TILE_BITPACK
         public bool active
@@ -244,6 +246,8 @@ namespace Terraria
             set { this.Flags = ((this.Flags & (TileFlag) 252) | (TileFlag) value); }
         }
 
+        //Perhaps this is causing statue/mannequin issues.
+        /*
         public short frameX
         {
             get
@@ -262,7 +266,7 @@ namespace Terraria
                 return (short) ((num != 255) ? ((short) (num << 1)) : -1);
             }
             set { this.frame = (ushort) (value >> 1 | (int) (this.frame & 65280)); }
-        }
+        }*/
 
         public bool lava
         {
