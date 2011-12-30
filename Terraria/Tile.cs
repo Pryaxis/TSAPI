@@ -303,7 +303,7 @@ namespace Terraria
         }
 
         private TileFlag Flags;
-        private ushort frame;
+        //private ushort frame;
 #else
 
         public bool active;
