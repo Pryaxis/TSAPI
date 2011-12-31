@@ -4083,7 +4083,7 @@ namespace Terraria
 							{
 								WorldGen.spawnNPC = 124;
 							}
-							if (WorldGen.spawnNPC == 0 && NPC.downedFrost && num14 < 1)
+							if (WorldGen.spawnNPC == 0 && NPC.downedFrost && num14 < 1 && Main.xMas)
 							{
 								WorldGen.spawnNPC = 142;
 							}
