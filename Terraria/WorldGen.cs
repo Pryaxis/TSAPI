@@ -1241,12 +1241,16 @@ namespace Terraria
 			WorldGen.setWorldSize();
 			WorldGen.worldCleared = true;
 		}
-		public static void saveWorld(bool resetTime = false)
-		{
+        public static void saveWorld(bool resetTime = false)
+        {
             if (WorldHooks.OnSaveWorld(resetTime))
             {
                 return;
             }
+            realsaveWorld(resetTime);
+        }
+		public static void realsaveWorld(bool resetTime = false)
+		{
 			if (Main.worldName == "")
 			{
 				Main.worldName = "World";
