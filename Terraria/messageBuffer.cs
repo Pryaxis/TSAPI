@@ -878,51 +878,29 @@ namespace Terraria
 																				flag4 = true;
 																			}
 																		}
-																		if (b7 == 0)
+																		switch (b7)
 																		{
-																			WorldGen.KillTile(num29, num30, flag4, false, false);
-																		}
-																		else
-																		{
-																			if (b7 == 1)
-																			{
-																				WorldGen.PlaceTile(num29, num30, (int)b8, false, true, -1, num31);
-																			}
-																			else
-																			{
-																				if (b7 == 2)
-																				{
-																					WorldGen.KillWall(num29, num30, flag4);
-																				}
-																				else
-																				{
-																					if (b7 == 3)
-																					{
-																						WorldGen.PlaceWall(num29, num30, (int)b8, false);
-																					}
-																					else
-																					{
-																						if (b7 == 4)
-																						{
-																							WorldGen.KillTile(num29, num30, flag4, false, true);
-																						}
-																						else
-																						{
-																							if (b7 == 5)
-																							{
-																								WorldGen.PlaceWire(num29, num30);
-																							}
-																							else
-																							{
-																								if (b7 == 6)
-																								{
-																									WorldGen.KillWire(num29, num30);
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
+																		    case 0:
+																		        WorldGen.KillTile(num29, num30, flag4, false, false);
+																		        break;
+																		    case 1:
+																		        WorldGen.PlaceTile(num29, num30, (int)b8, false, true, -1, num31);
+																		        break;
+																		    case 2:
+																		        WorldGen.KillWall(num29, num30, flag4);
+																		        break;
+																		    case 3:
+																		        WorldGen.PlaceWall(num29, num30, (int)b8, false);
+																		        break;
+																		    case 4:
+																		        WorldGen.KillTile(num29, num30, flag4, false, true);
+																		        break;
+																		    case 5:
+																		        WorldGen.PlaceWire(num29, num30);
+																		        break;
+																		    case 6:
+																		        WorldGen.KillWire(num29, num30);
+																		        break;
 																		}
 																		if (Main.netMode == 2)
 																		{
