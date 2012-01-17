@@ -1062,265 +1062,887 @@ namespace Terraria
 		}
 		public string AffixName()
 		{
-			string text = "";
-			switch (this.prefix)
-			{
-			    case 1:
-			        text = "Large";
-			        break;
-			    case 2:
-			        text = "Massive";
-			        break;
-			    case 3:
-			        text = "Dangerous";
-			        break;
-			    case 4:
-			        text = "Savage";
-			        break;
-			    case 5:
-			        text = "Sharp";
-			        break;
-			    case 6:
-			        text = "Pointy";
-			        break;
-			    case 7:
-			        text = "Tiny";
-			        break;
-			    case 8:
-			        text = "Terrible";
-			        break;
-			    case 9:
-			        text = "Small";
-			        break;
-			    case 10:
-			        text = "Dull";
-			        break;
-			    case 11:
-			        text = "Unhappy";
-			        break;
-			    case 12:
-			        text = "Bulky";
-			        break;
-			    case 13:
-			        text = "Shameful";
-			        break;
-			    case 14:
-			        text = "Heavy";
-			        break;
-			    case 15:
-			        text = "Light";
-			        break;
-			    case 16:
-			        text = "Sighted";
-			        break;
-			    case 17:
-			        text = "Rapid";
-			        break;
-			    case 18:
-			        text = "Hasty";
-			        break;
-			    case 19:
-			        text = "Intimidating";
-			        break;
-			    case 20:
-			        text = "Deadly";
-			        break;
-			    case 21:
-			        text = "Staunch";
-			        break;
-			    case 22:
-			        text = "Awful";
-			        break;
-			    case 23:
-			        text = "Lethargic";
-			        break;
-			    case 24:
-			        text = "Awkward";
-			        break;
-			    case 25:
-			        text = "Powerful";
-			        break;
-			    case 58:
-			        text = "Frenzying";
-			        break;
-			    case 26:
-			        text = "Mystic";
-			        break;
-			    case 27:
-			        text = "Adept";
-			        break;
-			    case 28:
-			        text = "Masterful";
-			        break;
-			    case 29:
-			        text = "Inept";
-			        break;
-			    case 30:
-			        text = "Ignorant";
-			        break;
-			    case 31:
-			        text = "Deranged";
-			        break;
-			    case 32:
-			        text = "Intense";
-			        break;
-			    case 33:
-			        text = "Taboo";
-			        break;
-			    case 34:
-			        text = "Celestial";
-			        break;
-			    case 35:
-			        text = "Furious";
-			        break;
-			    case 52:
-			        text = "Manic";
-			        break;
-			    case 36:
-			        text = "Keen";
-			        break;
-			    case 37:
-			        text = "Superior";
-			        break;
-			    case 38:
-			        text = "Forceful";
-			        break;
-			    case 53:
-			        text = "Hurtful";
-			        break;
-			    case 54:
-			        text = "Strong";
-			        break;
-			    case 55:
-			        text = "Unpleasant";
-			        break;
-			    case 39:
-			        text = "Broken";
-			        break;
-			    case 40:
-			        text = "Damaged";
-			        break;
-			    case 56:
-			        text = "Weak";
-			        break;
-			    case 41:
-			        text = "Shoddy";
-			        break;
-			    case 57:
-			        text = "Ruthless";
-			        break;
-			    case 42:
-			        text = "Quick";
-			        break;
-			    case 43:
-			        text = "Deadly";
-			        break;
-			    case 44:
-			        text = "Agile";
-			        break;
-			    case 45:
-			        text = "Nimble";
-			        break;
-			    case 46:
-			        text = "Murderous";
-			        break;
-			    case 47:
-			        text = "Slow";
-			        break;
-			    case 48:
-			        text = "Sluggish";
-			        break;
-			    case 49:
-			        text = "Lazy";
-			        break;
-			    case 50:
-			        text = "Annoying";
-			        break;
-			    case 51:
-			        text = "Nasty";
-			        break;
-			    case 59:
-			        text = "Godly";
-			        break;
-			    case 60:
-			        text = "Demonic";
-			        break;
-			    case 61:
-			        text = "Zealous";
-			        break;
-			    case 62:
-			        text = "Hard";
-			        break;
-			    case 63:
-			        text = "Guarding";
-			        break;
-			    case 64:
-			        text = "Armored";
-			        break;
-			    case 65:
-			        text = "Warding";
-			        break;
-			    case 66:
-			        text = "Arcane";
-			        break;
-			    case 67:
-			        text = "Precise";
-			        break;
-			    case 68:
-			        text = "Lucky";
-			        break;
-			    case 69:
-			        text = "Jagged";
-			        break;
-			    case 70:
-			        text = "Spiked";
-			        break;
-			    case 71:
-			        text = "Angry";
-			        break;
-			    case 72:
-			        text = "Menacing";
-			        break;
-			    case 73:
-			        text = "Brisk";
-			        break;
-			    case 74:
-			        text = "Fleeting";
-			        break;
-			    case 75:
-			        text = "Hasty";
-			        break;
-			    case 76:
-			        text = "Quick";
-			        break;
-			    case 77:
-			        text = "Wild";
-			        break;
-			    case 78:
-			        text = "Rash";
-			        break;
-			    case 79:
-			        text = "Intrepid";
-			        break;
-			    case 80:
-			        text = "Violent";
-			        break;
-			    case 81:
-			        text = "Legendary";
-			        break;
-			    case 82:
-			        text = "Unreal";
-			        break;
-			    case 83:
-			        text = "Mythical";
-			        break;
-			}
-			string result = this.name;
-			if (text != "")
-			{
-				result = text + " " + this.name;
-			}
-			return result;
+            string str1 = "";
+            if (Lang.lang <= 1)
+            {
+                if ((int)this.prefix == 1)
+                    str1 = "Large";
+                if ((int)this.prefix == 2)
+                    str1 = "Massive";
+                if ((int)this.prefix == 3)
+                    str1 = "Dangerous";
+                if ((int)this.prefix == 4)
+                    str1 = "Savage";
+                if ((int)this.prefix == 5)
+                    str1 = "Sharp";
+                if ((int)this.prefix == 6)
+                    str1 = "Pointy";
+                if ((int)this.prefix == 7)
+                    str1 = "Tiny";
+                if ((int)this.prefix == 8)
+                    str1 = "Terrible";
+                if ((int)this.prefix == 9)
+                    str1 = "Small";
+                if ((int)this.prefix == 10)
+                    str1 = "Dull";
+                if ((int)this.prefix == 11)
+                    str1 = "Unhappy";
+                if ((int)this.prefix == 12)
+                    str1 = "Bulky";
+                if ((int)this.prefix == 13)
+                    str1 = "Shameful";
+                if ((int)this.prefix == 14)
+                    str1 = "Heavy";
+                if ((int)this.prefix == 15)
+                    str1 = "Light";
+                if ((int)this.prefix == 16)
+                    str1 = "Sighted";
+                if ((int)this.prefix == 17)
+                    str1 = "Rapid";
+                if ((int)this.prefix == 18)
+                    str1 = "Hasty";
+                if ((int)this.prefix == 19)
+                    str1 = "Intimidating";
+                if ((int)this.prefix == 20)
+                    str1 = "Deadly";
+                if ((int)this.prefix == 21)
+                    str1 = "Staunch";
+                if ((int)this.prefix == 22)
+                    str1 = "Awful";
+                if ((int)this.prefix == 23)
+                    str1 = "Lethargic";
+                if ((int)this.prefix == 24)
+                    str1 = "Awkward";
+                if ((int)this.prefix == 25)
+                    str1 = "Powerful";
+                if ((int)this.prefix == 58)
+                    str1 = "Frenzying";
+                if ((int)this.prefix == 26)
+                    str1 = "Mystic";
+                if ((int)this.prefix == 27)
+                    str1 = "Adept";
+                if ((int)this.prefix == 28)
+                    str1 = "Masterful";
+                if ((int)this.prefix == 29)
+                    str1 = "Inept";
+                if ((int)this.prefix == 30)
+                    str1 = "Ignorant";
+                if ((int)this.prefix == 31)
+                    str1 = "Deranged";
+                if ((int)this.prefix == 32)
+                    str1 = "Intense";
+                if ((int)this.prefix == 33)
+                    str1 = "Taboo";
+                if ((int)this.prefix == 34)
+                    str1 = "Celestial";
+                if ((int)this.prefix == 35)
+                    str1 = "Furious";
+                if ((int)this.prefix == 52)
+                    str1 = "Manic";
+                if ((int)this.prefix == 36)
+                    str1 = "Keen";
+                if ((int)this.prefix == 37)
+                    str1 = "Superior";
+                if ((int)this.prefix == 38)
+                    str1 = "Forceful";
+                if ((int)this.prefix == 53)
+                    str1 = "Hurtful";
+                if ((int)this.prefix == 54)
+                    str1 = "Strong";
+                if ((int)this.prefix == 55)
+                    str1 = "Unpleasant";
+                if ((int)this.prefix == 39)
+                    str1 = "Broken";
+                if ((int)this.prefix == 40)
+                    str1 = "Damaged";
+                if ((int)this.prefix == 56)
+                    str1 = "Weak";
+                if ((int)this.prefix == 41)
+                    str1 = "Shoddy";
+                if ((int)this.prefix == 57)
+                    str1 = "Ruthless";
+                if ((int)this.prefix == 42)
+                    str1 = "Quick";
+                if ((int)this.prefix == 43)
+                    str1 = "Deadly";
+                if ((int)this.prefix == 44)
+                    str1 = "Agile";
+                if ((int)this.prefix == 45)
+                    str1 = "Nimble";
+                if ((int)this.prefix == 46)
+                    str1 = "Murderous";
+                if ((int)this.prefix == 47)
+                    str1 = "Slow";
+                if ((int)this.prefix == 48)
+                    str1 = "Sluggish";
+                if ((int)this.prefix == 49)
+                    str1 = "Lazy";
+                if ((int)this.prefix == 50)
+                    str1 = "Annoying";
+                if ((int)this.prefix == 51)
+                    str1 = "Nasty";
+                if ((int)this.prefix == 59)
+                    str1 = "Godly";
+                if ((int)this.prefix == 60)
+                    str1 = "Demonic";
+                if ((int)this.prefix == 61)
+                    str1 = "Zealous";
+                if ((int)this.prefix == 62)
+                    str1 = "Hard";
+                if ((int)this.prefix == 63)
+                    str1 = "Guarding";
+                if ((int)this.prefix == 64)
+                    str1 = "Armored";
+                if ((int)this.prefix == 65)
+                    str1 = "Warding";
+                if ((int)this.prefix == 66)
+                    str1 = "Arcane";
+                if ((int)this.prefix == 67)
+                    str1 = "Precise";
+                if ((int)this.prefix == 68)
+                    str1 = "Lucky";
+                if ((int)this.prefix == 69)
+                    str1 = "Jagged";
+                if ((int)this.prefix == 70)
+                    str1 = "Spiked";
+                if ((int)this.prefix == 71)
+                    str1 = "Angry";
+                if ((int)this.prefix == 72)
+                    str1 = "Menacing";
+                if ((int)this.prefix == 73)
+                    str1 = "Brisk";
+                if ((int)this.prefix == 74)
+                    str1 = "Fleeting";
+                if ((int)this.prefix == 75)
+                    str1 = "Hasty";
+                if ((int)this.prefix == 76)
+                    str1 = "Quick";
+                if ((int)this.prefix == 77)
+                    str1 = "Wild";
+                if ((int)this.prefix == 78)
+                    str1 = "Rash";
+                if ((int)this.prefix == 79)
+                    str1 = "Intrepid";
+                if ((int)this.prefix == 80)
+                    str1 = "Violent";
+                if ((int)this.prefix == 81)
+                    str1 = "Legendary";
+                if ((int)this.prefix == 82)
+                    str1 = "Unreal";
+                if ((int)this.prefix == 83)
+                    str1 = "Mythical";
+            }
+            else if (Lang.lang == 2)
+            {
+                if ((int)this.prefix == 1)
+                    str1 = "Gross";
+                if ((int)this.prefix == 2)
+                    str1 = "Massiv";
+                if ((int)this.prefix == 3)
+                    str1 = "Gefährlich";
+                if ((int)this.prefix == 4)
+                    str1 = "Barbarisch";
+                if ((int)this.prefix == 5)
+                    str1 = "Scharf";
+                if ((int)this.prefix == 6)
+                    str1 = "Spitze";
+                if ((int)this.prefix == 7)
+                    str1 = "Winzig";
+                if ((int)this.prefix == 8)
+                    str1 = "Schrecklicher";
+                if ((int)this.prefix == 9)
+                    str1 = "Klein";
+                if ((int)this.prefix == 10)
+                    str1 = "Stumpf";
+                if ((int)this.prefix == 11)
+                    str1 = "Unglücklich";
+                if ((int)this.prefix == 12)
+                    str1 = "Sperrig";
+                if ((int)this.prefix == 13)
+                    str1 = "Beschämend";
+                if ((int)this.prefix == 14)
+                    str1 = "Schwer";
+                if ((int)this.prefix == 15)
+                    str1 = "Locker";
+                if ((int)this.prefix == 16)
+                    str1 = "Gesichtet";
+                if ((int)this.prefix == 17)
+                    str1 = "Schnell";
+                if ((int)this.prefix == 18)
+                    str1 = "Hastig";
+                if ((int)this.prefix == 19)
+                    str1 = "Einschüchternd";
+                if ((int)this.prefix == 20)
+                    str1 = "Tödlich";
+                if ((int)this.prefix == 21)
+                    str1 = "Stillen";
+                if ((int)this.prefix == 22)
+                    str1 = "Schrecklich";
+                if ((int)this.prefix == 23)
+                    str1 = "Lethargisch";
+                if ((int)this.prefix == 24)
+                    str1 = "Unbeholfen";
+                if ((int)this.prefix == 25)
+                    str1 = "Mächtig";
+                if ((int)this.prefix == 26)
+                    str1 = "Mystisch";
+                if ((int)this.prefix == 27)
+                    str1 = "Geschickt";
+                if ((int)this.prefix == 28)
+                    str1 = "Meisterhaft";
+                if ((int)this.prefix == 29)
+                    str1 = "Ungeschickt";
+                if ((int)this.prefix == 30)
+                    str1 = "Unwissend";
+                if ((int)this.prefix == 31)
+                    str1 = "Gestört";
+                if ((int)this.prefix == 32)
+                    str1 = "Intensiv";
+                if ((int)this.prefix == 33)
+                    str1 = "Tabu";
+                if ((int)this.prefix == 34)
+                    str1 = "Himmlisch";
+                if ((int)this.prefix == 35)
+                    str1 = "Wütend";
+                if ((int)this.prefix == 36)
+                    str1 = "Scharf";
+                if ((int)this.prefix == 37)
+                    str1 = "Überlegen";
+                if ((int)this.prefix == 38)
+                    str1 = "Kraftvoll";
+                if ((int)this.prefix == 39)
+                    str1 = "Gebrochen";
+                if ((int)this.prefix == 40)
+                    str1 = "Beschädigt";
+                if ((int)this.prefix == 41)
+                    str1 = "Schäbig";
+                if ((int)this.prefix == 42)
+                    str1 = "Rasch";
+                if ((int)this.prefix == 43)
+                    str1 = "Tödlich";
+                if ((int)this.prefix == 44)
+                    str1 = "Agil";
+                if ((int)this.prefix == 45)
+                    str1 = "Wendig";
+                if ((int)this.prefix == 46)
+                    str1 = "Mörderisch";
+                if ((int)this.prefix == 47)
+                    str1 = "Langsam";
+                if ((int)this.prefix == 48)
+                    str1 = "Träge";
+                if ((int)this.prefix == 49)
+                    str1 = "Faul";
+                if ((int)this.prefix == 50)
+                    str1 = "Lästig";
+                if ((int)this.prefix == 51)
+                    str1 = "Böse";
+                if ((int)this.prefix == 52)
+                    str1 = "Manisch";
+                if ((int)this.prefix == 53)
+                    str1 = "Verletzend";
+                if ((int)this.prefix == 54)
+                    str1 = "Stark";
+                if ((int)this.prefix == 55)
+                    str1 = "Unangenehm";
+                if ((int)this.prefix == 56)
+                    str1 = "Schwach";
+                if ((int)this.prefix == 57)
+                    str1 = "Rücksichtslos";
+                if ((int)this.prefix == 58)
+                    str1 = "Rasend";
+                if ((int)this.prefix == 59)
+                    str1 = "Fromm";
+                if ((int)this.prefix == 60)
+                    str1 = "Dämonisch";
+                if ((int)this.prefix == 61)
+                    str1 = "Eifrig";
+                if ((int)this.prefix == 62)
+                    str1 = "Schwer";
+                if ((int)this.prefix == 63)
+                    str1 = "Schutz-";
+                if ((int)this.prefix == 64)
+                    str1 = "Gepanzert";
+                if ((int)this.prefix == 65)
+                    str1 = "Defensiv";
+                if ((int)this.prefix == 66)
+                    str1 = "Geheimnisvoll";
+                if ((int)this.prefix == 67)
+                    str1 = "Präzise";
+                if ((int)this.prefix == 68)
+                    str1 = "Glücklich";
+                if ((int)this.prefix == 69)
+                    str1 = "Gezackt";
+                if ((int)this.prefix == 70)
+                    str1 = "Spike";
+                if ((int)this.prefix == 71)
+                    str1 = "Wütend";
+                if ((int)this.prefix == 72)
+                    str1 = "Bedrohlich";
+                if ((int)this.prefix == 73)
+                    str1 = "Rege";
+                if ((int)this.prefix == 74)
+                    str1 = "Flüchtig";
+                if ((int)this.prefix == 75)
+                    str1 = "Hastig";
+                if ((int)this.prefix == 76)
+                    str1 = "Rasch";
+                if ((int)this.prefix == 77)
+                    str1 = "Wild";
+                if ((int)this.prefix == 78)
+                    str1 = "Voreilig";
+                if ((int)this.prefix == 79)
+                    str1 = "Unerschrocken";
+                if ((int)this.prefix == 80)
+                    str1 = "Gewalttätig";
+                if ((int)this.prefix == 81)
+                    str1 = "Legendär";
+                if ((int)this.prefix == 82)
+                    str1 = "Unwirklich";
+                if ((int)this.prefix == 83)
+                    str1 = "Mythisch";
+            }
+            else if (Lang.lang == 3)
+            {
+                if ((int)this.prefix == 1)
+                    str1 = "Grande";
+                if ((int)this.prefix == 2)
+                    str1 = "Massiccio";
+                if ((int)this.prefix == 3)
+                    str1 = "Pericoloso";
+                if ((int)this.prefix == 4)
+                    str1 = "Selvaggio";
+                if ((int)this.prefix == 5)
+                    str1 = "Appuntito";
+                if ((int)this.prefix == 6)
+                    str1 = "Tagliente";
+                if ((int)this.prefix == 7)
+                    str1 = "Minuto";
+                if ((int)this.prefix == 8)
+                    str1 = "Terribile";
+                if ((int)this.prefix == 9)
+                    str1 = "Piccolo";
+                if ((int)this.prefix == 10)
+                    str1 = "Opaco";
+                if ((int)this.prefix == 11)
+                    str1 = "Infelice";
+                if ((int)this.prefix == 12)
+                    str1 = "Ingombrante";
+                if ((int)this.prefix == 13)
+                    str1 = "Vergognoso";
+                if ((int)this.prefix == 14)
+                    str1 = "Pesante";
+                if ((int)this.prefix == 15)
+                    str1 = "Luce";
+                if ((int)this.prefix == 16)
+                    str1 = "Avvistato";
+                if ((int)this.prefix == 17)
+                    str1 = "Rapido";
+                if ((int)this.prefix == 18)
+                    str1 = "Frettoloso";
+                if ((int)this.prefix == 19)
+                    str1 = "Intimidatorio";
+                if ((int)this.prefix == 20)
+                    str1 = "Mortale";
+                if ((int)this.prefix == 21)
+                    str1 = "Convinto";
+                if ((int)this.prefix == 22)
+                    str1 = "Orribile";
+                if ((int)this.prefix == 23)
+                    str1 = "Letargico";
+                if ((int)this.prefix == 24)
+                    str1 = "Scomodo";
+                if ((int)this.prefix == 25)
+                    str1 = "Potente";
+                if ((int)this.prefix == 26)
+                    str1 = "Mistico";
+                if ((int)this.prefix == 27)
+                    str1 = "Esperto";
+                if ((int)this.prefix == 28)
+                    str1 = "Magistrale";
+                if ((int)this.prefix == 29)
+                    str1 = "Inetto";
+                if ((int)this.prefix == 30)
+                    str1 = "Ignorante";
+                if ((int)this.prefix == 31)
+                    str1 = "Squilibrato";
+                if ((int)this.prefix == 32)
+                    str1 = "Intenso";
+                if ((int)this.prefix == 33)
+                    str1 = "Tabù";
+                if ((int)this.prefix == 34)
+                    str1 = "Celeste";
+                if ((int)this.prefix == 35)
+                    str1 = "Furioso";
+                if ((int)this.prefix == 36)
+                    str1 = "Appassionato";
+                if ((int)this.prefix == 37)
+                    str1 = "Superiore";
+                if ((int)this.prefix == 38)
+                    str1 = "Forte";
+                if ((int)this.prefix == 39)
+                    str1 = "Rotto";
+                if ((int)this.prefix == 40)
+                    str1 = "Danneggiato";
+                if ((int)this.prefix == 41)
+                    str1 = "Scadente";
+                if ((int)this.prefix == 42)
+                    str1 = "Veloce";
+                if ((int)this.prefix == 43)
+                    str1 = "Mortale";
+                if ((int)this.prefix == 44)
+                    str1 = "Agile";
+                if ((int)this.prefix == 45)
+                    str1 = "Lesto";
+                if ((int)this.prefix == 46)
+                    str1 = "Omicida";
+                if ((int)this.prefix == 47)
+                    str1 = "Lento";
+                if ((int)this.prefix == 48)
+                    str1 = "Pigro";
+                if ((int)this.prefix == 49)
+                    str1 = "Indolente";
+                if ((int)this.prefix == 50)
+                    str1 = "Fastidioso";
+                if ((int)this.prefix == 51)
+                    str1 = "Brutto";
+                if ((int)this.prefix == 52)
+                    str1 = "Maniaco";
+                if ((int)this.prefix == 53)
+                    str1 = "Offensivo";
+                if ((int)this.prefix == 54)
+                    str1 = "Robusto";
+                if ((int)this.prefix == 55)
+                    str1 = "Sgradevole";
+                if ((int)this.prefix == 56)
+                    str1 = "Debole";
+                if ((int)this.prefix == 57)
+                    str1 = "Spietato";
+                if ((int)this.prefix == 58)
+                    str1 = "Frenetico";
+                if ((int)this.prefix == 59)
+                    str1 = "Devoto";
+                if ((int)this.prefix == 60)
+                    str1 = "Demonico";
+                if ((int)this.prefix == 61)
+                    str1 = "Zelante";
+                if ((int)this.prefix == 62)
+                    str1 = "Duro";
+                if ((int)this.prefix == 63)
+                    str1 = "Protettivo";
+                if ((int)this.prefix == 64)
+                    str1 = "Corazzato";
+                if ((int)this.prefix == 65)
+                    str1 = "Difensivo";
+                if ((int)this.prefix == 66)
+                    str1 = "Arcano";
+                if ((int)this.prefix == 67)
+                    str1 = "Preciso";
+                if ((int)this.prefix == 68)
+                    str1 = "Fortunato";
+                if ((int)this.prefix == 69)
+                    str1 = "Frastagliato";
+                if ((int)this.prefix == 70)
+                    str1 = "Spillo";
+                if ((int)this.prefix == 71)
+                    str1 = "Arrabbiato";
+                if ((int)this.prefix == 72)
+                    str1 = "Minaccioso";
+                if ((int)this.prefix == 73)
+                    str1 = "Vivace";
+                if ((int)this.prefix == 74)
+                    str1 = "Fugace";
+                if ((int)this.prefix == 75)
+                    str1 = "Frettoloso";
+                if ((int)this.prefix == 76)
+                    str1 = "Veloce";
+                if ((int)this.prefix == 77)
+                    str1 = "Selvaggio";
+                if ((int)this.prefix == 78)
+                    str1 = "Temerario";
+                if ((int)this.prefix == 79)
+                    str1 = "Intrepido";
+                if ((int)this.prefix == 80)
+                    str1 = "Violento";
+                if ((int)this.prefix == 81)
+                    str1 = "Leggendario";
+                if ((int)this.prefix == 82)
+                    str1 = "Irreale";
+                if ((int)this.prefix == 83)
+                    str1 = "Mitico";
+            }
+            else if (Lang.lang == 4)
+            {
+                if ((int)this.prefix == 1)
+                    str1 = "Grand";
+                if ((int)this.prefix == 2)
+                    str1 = "Massif";
+                if ((int)this.prefix == 3)
+                    str1 = "Dangereuses";
+                if ((int)this.prefix == 4)
+                    str1 = "Sauvages";
+                if ((int)this.prefix == 5)
+                    str1 = "Coupante";
+                if ((int)this.prefix == 6)
+                    str1 = "Pointues";
+                if ((int)this.prefix == 7)
+                    str1 = "Minuscules";
+                if ((int)this.prefix == 8)
+                    str1 = "Terrible";
+                if ((int)this.prefix == 9)
+                    str1 = "Petit";
+                if ((int)this.prefix == 10)
+                    str1 = "Terne";
+                if ((int)this.prefix == 11)
+                    str1 = "Malheureux";
+                if ((int)this.prefix == 12)
+                    str1 = "Volumineux";
+                if ((int)this.prefix == 13)
+                    str1 = "Honteux";
+                if ((int)this.prefix == 14)
+                    str1 = "Lourds";
+                if ((int)this.prefix == 15)
+                    str1 = "Léger";
+                if ((int)this.prefix == 16)
+                    str1 = "Voyants";
+                if ((int)this.prefix == 17)
+                    str1 = "Rapide";
+                if ((int)this.prefix == 18)
+                    str1 = "Hâtif";
+                if ((int)this.prefix == 19)
+                    str1 = "Intimidant";
+                if ((int)this.prefix == 20)
+                    str1 = "Mortelle";
+                if ((int)this.prefix == 21)
+                    str1 = "Dévoué";
+                if ((int)this.prefix == 22)
+                    str1 = "Affreux";
+                if ((int)this.prefix == 23)
+                    str1 = "Léthargique";
+                if ((int)this.prefix == 24)
+                    str1 = "Scomodo";
+                if ((int)this.prefix == 25)
+                    str1 = "Puissante";
+                if ((int)this.prefix == 26)
+                    str1 = "Mystique";
+                if ((int)this.prefix == 27)
+                    str1 = "Expert";
+                if ((int)this.prefix == 28)
+                    str1 = "Magistrale";
+                if ((int)this.prefix == 29)
+                    str1 = "Inepte";
+                if ((int)this.prefix == 30)
+                    str1 = "Ignorants";
+                if ((int)this.prefix == 31)
+                    str1 = "Dérangé";
+                if ((int)this.prefix == 32)
+                    str1 = "Intenses";
+                if ((int)this.prefix == 33)
+                    str1 = "Tabou";
+                if ((int)this.prefix == 34)
+                    str1 = "Célestes";
+                if ((int)this.prefix == 35)
+                    str1 = "Furieux";
+                if ((int)this.prefix == 36)
+                    str1 = "Vif";
+                if ((int)this.prefix == 37)
+                    str1 = "Supérieure";
+                if ((int)this.prefix == 38)
+                    str1 = "Énergique";
+                if ((int)this.prefix == 39)
+                    str1 = "Rompu";
+                if ((int)this.prefix == 40)
+                    str1 = "Endommagés";
+                if ((int)this.prefix == 41)
+                    str1 = "Mesquin";
+                if ((int)this.prefix == 42)
+                    str1 = "Prompt";
+                if ((int)this.prefix == 43)
+                    str1 = "Mortelle";
+                if ((int)this.prefix == 44)
+                    str1 = "Agile";
+                if ((int)this.prefix == 45)
+                    str1 = "Leste";
+                if ((int)this.prefix == 46)
+                    str1 = "Meurtrier";
+                if ((int)this.prefix == 47)
+                    str1 = "Lente";
+                if ((int)this.prefix == 48)
+                    str1 = "Paresseux";
+                if ((int)this.prefix == 49)
+                    str1 = "Fainéant";
+                if ((int)this.prefix == 50)
+                    str1 = "Ennuyeux";
+                if ((int)this.prefix == 51)
+                    str1 = "Méchant";
+                if ((int)this.prefix == 52)
+                    str1 = "Maniaco";
+                if ((int)this.prefix == 53)
+                    str1 = "Blessant";
+                if ((int)this.prefix == 54)
+                    str1 = "Robuste";
+                if ((int)this.prefix == 55)
+                    str1 = "Désagréables";
+                if ((int)this.prefix == 56)
+                    str1 = "Faibles";
+                if ((int)this.prefix == 57)
+                    str1 = "Impitoyable";
+                if ((int)this.prefix == 58)
+                    str1 = "Frénétique";
+                if ((int)this.prefix == 59)
+                    str1 = "Pieux";
+                if ((int)this.prefix == 60)
+                    str1 = "Démoniaque";
+                if ((int)this.prefix == 61)
+                    str1 = "Zélé";
+                if ((int)this.prefix == 62)
+                    str1 = "Durs";
+                if ((int)this.prefix == 63)
+                    str1 = "Protecteur";
+                if ((int)this.prefix == 64)
+                    str1 = "Blindés";
+                if ((int)this.prefix == 65)
+                    str1 = "Défensif";
+                if ((int)this.prefix == 66)
+                    str1 = "Ésotérique";
+                if ((int)this.prefix == 67)
+                    str1 = "Précise";
+                if ((int)this.prefix == 68)
+                    str1 = "Chanceux";
+                if ((int)this.prefix == 69)
+                    str1 = "Déchiqueté";
+                if ((int)this.prefix == 70)
+                    str1 = "Pointes";
+                if ((int)this.prefix == 71)
+                    str1 = "Fâché";
+                if ((int)this.prefix == 72)
+                    str1 = "Menaçant";
+                if ((int)this.prefix == 73)
+                    str1 = "Brusque";
+                if ((int)this.prefix == 74)
+                    str1 = "Fugace";
+                if ((int)this.prefix == 75)
+                    str1 = "Hâtif";
+                if ((int)this.prefix == 76)
+                    str1 = "Prompt";
+                if ((int)this.prefix == 77)
+                    str1 = "Sauvages";
+                if ((int)this.prefix == 78)
+                    str1 = "Téméraire";
+                if ((int)this.prefix == 79)
+                    str1 = "Intrépide";
+                if ((int)this.prefix == 80)
+                    str1 = "Violent";
+                if ((int)this.prefix == 81)
+                    str1 = "Légendaire";
+                if ((int)this.prefix == 82)
+                    str1 = "Irréel";
+                if ((int)this.prefix == 83)
+                    str1 = "Mythique";
+            }
+            else if (Lang.lang == 5)
+            {
+                if ((int)this.prefix == 1)
+                    str1 = "Grande";
+                if ((int)this.prefix == 2)
+                    str1 = "Masivo";
+                if ((int)this.prefix == 3)
+                    str1 = "Peligroso";
+                if ((int)this.prefix == 4)
+                    str1 = "Salvaje";
+                if ((int)this.prefix == 5)
+                    str1 = "Puntiagudo";
+                if ((int)this.prefix == 6)
+                    str1 = "Agudo";
+                if ((int)this.prefix == 7)
+                    str1 = "Diminuto";
+                if ((int)this.prefix == 8)
+                    str1 = "Mala ";
+                if ((int)this.prefix == 9)
+                    str1 = "Pequeño";
+                if ((int)this.prefix == 10)
+                    str1 = "Aburrido";
+                if ((int)this.prefix == 11)
+                    str1 = "Infeliz";
+                if ((int)this.prefix == 12)
+                    str1 = "Voluminoso";
+                if ((int)this.prefix == 13)
+                    str1 = "Vergonzoso";
+                if ((int)this.prefix == 14)
+                    str1 = "Pesado";
+                if ((int)this.prefix == 15)
+                    str1 = "Ligero";
+                if ((int)this.prefix == 16)
+                    str1 = "Ámbito";
+                if ((int)this.prefix == 17)
+                    str1 = "Rápido";
+                if ((int)this.prefix == 18)
+                    str1 = "Precipitado";
+                if ((int)this.prefix == 19)
+                    str1 = "Intimidante";
+                if ((int)this.prefix == 20)
+                    str1 = "Mortal";
+                if ((int)this.prefix == 21)
+                    str1 = "Firme";
+                if ((int)this.prefix == 22)
+                    str1 = "Atroz";
+                if ((int)this.prefix == 23)
+                    str1 = "Letárgico";
+                if ((int)this.prefix == 24)
+                    str1 = "Torpe";
+                if ((int)this.prefix == 25)
+                    str1 = "Poderoso";
+                if ((int)this.prefix == 26)
+                    str1 = "Místico";
+                if ((int)this.prefix == 27)
+                    str1 = "Experto";
+                if ((int)this.prefix == 28)
+                    str1 = "Maestro";
+                if ((int)this.prefix == 29)
+                    str1 = "Inepto";
+                if ((int)this.prefix == 30)
+                    str1 = "Ignorante";
+                if ((int)this.prefix == 31)
+                    str1 = "Trastornado";
+                if ((int)this.prefix == 32)
+                    str1 = "Intenso";
+                if ((int)this.prefix == 33)
+                    str1 = "Tabú";
+                if ((int)this.prefix == 34)
+                    str1 = "Celeste";
+                if ((int)this.prefix == 35)
+                    str1 = "Furioso";
+                if ((int)this.prefix == 36)
+                    str1 = "Afilado";
+                if ((int)this.prefix == 37)
+                    str1 = "Superior";
+                if ((int)this.prefix == 38)
+                    str1 = "Fuerte";
+                if ((int)this.prefix == 39)
+                    str1 = "Roto";
+                if ((int)this.prefix == 40)
+                    str1 = "Estropeado";
+                if ((int)this.prefix == 41)
+                    str1 = "Regenerado";
+                if ((int)this.prefix == 42)
+                    str1 = "Pronto";
+                if ((int)this.prefix == 43)
+                    str1 = "Mortal";
+                if ((int)this.prefix == 44)
+                    str1 = "Ágil";
+                if ((int)this.prefix == 45)
+                    str1 = "Listo";
+                if ((int)this.prefix == 46)
+                    str1 = "Asesino";
+                if ((int)this.prefix == 47)
+                    str1 = "Lento";
+                if ((int)this.prefix == 48)
+                    str1 = "Perezoso";
+                if ((int)this.prefix == 49)
+                    str1 = "Gandul";
+                if ((int)this.prefix == 50)
+                    str1 = "Molesto";
+                if ((int)this.prefix == 51)
+                    str1 = "Feo";
+                if ((int)this.prefix == 52)
+                    str1 = "Maníacos";
+                if ((int)this.prefix == 53)
+                    str1 = "Hiriente";
+                if ((int)this.prefix == 54)
+                    str1 = "Vigoroso";
+                if ((int)this.prefix == 55)
+                    str1 = "Desagradable";
+                if ((int)this.prefix == 56)
+                    str1 = "Débil";
+                if ((int)this.prefix == 57)
+                    str1 = "Despiadado";
+                if ((int)this.prefix == 58)
+                    str1 = "Frenético";
+                if ((int)this.prefix == 59)
+                    str1 = "Piadoso";
+                if ((int)this.prefix == 60)
+                    str1 = "Demoníaco";
+                if ((int)this.prefix == 61)
+                    str1 = "Celoso";
+                if ((int)this.prefix == 62)
+                    str1 = "Duro";
+                if ((int)this.prefix == 63)
+                    str1 = "Protector";
+                if ((int)this.prefix == 64)
+                    str1 = "Blindado";
+                if ((int)this.prefix == 65)
+                    str1 = "Defensivo";
+                if ((int)this.prefix == 66)
+                    str1 = "Arcano";
+                if ((int)this.prefix == 67)
+                    str1 = "Preciso";
+                if ((int)this.prefix == 68)
+                    str1 = "Afortunado";
+                if ((int)this.prefix == 69)
+                    str1 = "Dentado";
+                if ((int)this.prefix == 70)
+                    str1 = "Claveteado";
+                if ((int)this.prefix == 71)
+                    str1 = "Enojado";
+                if ((int)this.prefix == 72)
+                    str1 = "Amenazador";
+                if ((int)this.prefix == 73)
+                    str1 = "Enérgico";
+                if ((int)this.prefix == 74)
+                    str1 = "Fugaz";
+                if ((int)this.prefix == 75)
+                    str1 = "Precipitado";
+                if ((int)this.prefix == 76)
+                    str1 = "Pronto";
+                if ((int)this.prefix == 77)
+                    str1 = "Salvaje";
+                if ((int)this.prefix == 78)
+                    str1 = "Temerario";
+                if ((int)this.prefix == 79)
+                    str1 = "Intrépido";
+                if ((int)this.prefix == 80)
+                    str1 = "Violento";
+                if ((int)this.prefix == 81)
+                    str1 = "Legendario";
+                if ((int)this.prefix == 82)
+                    str1 = "Irreal";
+                if ((int)this.prefix == 83)
+                    str1 = "Mítico";
+            }
+            if (Lang.lang <= 1)
+            {
+                string str2 = this.name;
+                if (str1 != "")
+                    str2 = str1 + " " + this.name;
+                return str2;
+            }
+            else if (Lang.lang == 2)
+            {
+                string str2 = this.name;
+                if (str1 != "")
+                    str2 = this.name + " (" + str1 + ")";
+                return str2;
+            }
+            else if (Lang.lang == 3)
+            {
+                string str2 = this.name;
+                if (str1 != "")
+                    str2 = this.name + " (" + str1 + ")";
+                return str2;
+            }
+            else if (Lang.lang == 4)
+            {
+                string str2 = this.name;
+                if (str1 != "")
+                    str2 = this.name + " (" + str1 + ")";
+                return str2;
+            }
+            else
+            {
+                string str2 = this.name;
+                if (str1 != "")
+                    str2 = this.name + " (" + str1 + ")";
+                return str2;
+            }
 		}
 		public void RealSetDefaults(string ItemName)
 		{
@@ -1613,7 +2235,7 @@ namespace Terraria
 				int num = 0;
 				while (Main.recipe[i].requiredItem[num].type > 0)
 				{
-					if (this.name == Main.recipe[i].requiredItem[num].name)
+					if (this.netID == Main.recipe[i].requiredItem[num].netID)
 					{
 						this.material = true;
 						return true;
@@ -10520,11 +11142,12 @@ namespace Terraria
 		}
 		public bool IsTheSameAs(Item compareItem)
 		{
-			return this.name == compareItem.name;
+		    return this.netID == compareItem.netID;
 		}
-		public bool IsNotTheSameAs(Item compareItem)
-		{
-			return this.name != compareItem.name || this.stack != compareItem.stack || this.prefix != compareItem.prefix;
-		}
+
+	    public bool IsNotTheSameAs(Item compareItem)
+	    {
+	        return this.netID != compareItem.netID || this.stack != compareItem.stack || (int) this.prefix != (int) compareItem.prefix;
+	    }
 	}
 }
