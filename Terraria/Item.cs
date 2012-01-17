@@ -2195,7 +2195,7 @@ namespace Terraria
 			    default:
 			        if (ItemName != "")
 			        {
-			            for (int i = 0; i < 603; i++)
+			            for (int i = 0; i < 604; i++)
 			            {
 			                if (Main.itemName[i] == ItemName)
 			                {
@@ -2220,7 +2220,9 @@ namespace Terraria
 				{
 					this.checkMat();
 				}
-				this.name = ItemName;
+                this.name = ItemName;
+                this.name = Lang.itemName(this.netID);
+                this.CheckTip();
 			}
 		}
 		public bool checkMat()
