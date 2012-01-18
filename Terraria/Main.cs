@@ -2319,6 +2319,8 @@ namespace Terraria
                 Main.combatText[index] = new CombatText();
             for (int index = 0; index < 20; ++index)
                 Main.itemText[index] = new ItemText();
+            var orilang = Lang.lang;
+            Lang.lang = 1;
             for (int Type = 0; Type < 604; ++Type)
             {
                 Item obj = new Item();
@@ -2331,6 +2333,7 @@ namespace Terraria
                 if (obj.legSlot > 0)
                     Item.legType[obj.legSlot] = obj.type;
             }
+            Lang.lang = orilang;
             for (int index = 0; index < Recipe.maxRecipes; ++index)
             {
                 Main.recipe[index] = new Recipe();
