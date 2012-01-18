@@ -61,5 +61,5 @@ public enum PacketTypes
     PlayHarp,
     HitSwitch,
     UpdateNPCHome,
-    SpawnNPCorInvasion
+    SpawnBossorInvasion
 }
