@@ -21,7 +21,7 @@ namespace Hooks
 			{
 				byte playerID = e.Msg.readBuffer[e.Index];
 				Color color = new Color((int)e.Msg.readBuffer[e.Index + 1] << 16, (int)e.Msg.readBuffer[e.Index + 2] << 8, (int)e.Msg.readBuffer[e.Index + 3]);
-				string @string = Encoding.ASCII.GetString(e.Msg.readBuffer, e.Index + 4, e.Length - 5);
+				string @string = Encoding.UTF8.GetString(e.Msg.readBuffer, e.Index + 4, e.Length - 5);
 				ClientHooks.OnChatReceived(playerID, color, @string);
 			}
 		}

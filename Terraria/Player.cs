@@ -263,6 +263,7 @@ namespace Terraria
 		public int fallStart;
 		public int slowCount;
 		public int potionDelayTime = Item.potionDelay;
+	    public bool bunny;
 		public void HealEffect(int healAmount)
 		{
 			CombatText.NewText(new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height), new Color(100, 255, 100, 255), string.Concat(healAmount), false);
@@ -1288,7 +1289,7 @@ namespace Terraria
 							{
 								int damage = (int)((float)num21 * this.gravDir - 25f) * 10;
 								this.immune = false;
-								this.Hurt(damage, 0, false, false, Player.getDeathMessage(-1, -1, -1, 0), false);
+								this.Hurt(damage, 0, false, false, Lang.deathMsg(-1, -1, -1, 0), false);
 							}
 							this.fallStart = (int)(this.position.Y / 16f);
 						}
@@ -4139,7 +4140,7 @@ namespace Terraria
 									{
 										10
 									};
-									Main.npcChatText += Encoding.ASCII.GetString(bytes);
+									Main.npcChatText += Encoding.UTF8.GetString(bytes);
 								}
 							}
 						}
@@ -4213,7 +4214,7 @@ namespace Terraria
 											this.AddBuff(20, 600, true);
 										}
 									}
-									this.Hurt(num101, num100, false, false, Player.getDeathMessage(-1, num99, -1, -1), false);
+                                    this.Hurt(num101, num100, false, false, Lang.deathMsg(-1, num99, -1, -1), false);
 								}
 							}
 						}
@@ -4221,7 +4222,7 @@ namespace Terraria
 						if (vector3.Y != 0f)
 						{
 							int damage2 = Main.DamageVar(vector3.Y);
-							this.Hurt(damage2, 0, false, false, Player.getDeathMessage(-1, -1, -1, 3), false);
+                            this.Hurt(damage2, 0, false, false, Lang.deathMsg(-1, -1, -1, 3), false);
 						}
 					}
 					if (this.grappling[0] >= 0)
@@ -4437,7 +4438,7 @@ namespace Terraria
 									if (this.statLife <= 0)
 									{
 										this.statLife = 0;
-										this.KillMe(10.0, 0, false, Player.getDeathMessage(-1, -1, -1, 1));
+                                        this.KillMe(10.0, 0, false, Lang.deathMsg(-1, -1, -1, 1));
 									}
 								}
 							}
@@ -4495,7 +4496,7 @@ namespace Terraria
 						if (!this.lavaImmune && Main.myPlayer == i && !this.immune)
 						{
 							this.AddBuff(24, 420, true);
-							this.Hurt(80, 0, false, false, Player.getDeathMessage(-1, -1, -1, 2), false);
+                            this.Hurt(80, 0, false, false, Lang.deathMsg(-1, -1, -1, 2), false);
 						}
 						this.lavaWet = true;
 					}
@@ -5742,333 +5743,6 @@ namespace Terraria
 				Main.screenPosition.Y = this.position.Y + (float)(this.height / 2) - (float)(Main.screenHeight / 2);
 			}
 		}
-		public static string getDeathMessage(int plr = -1, int npc = -1, int proj = -1, int other = -1)
-		{
-			string str = "their";
-			if (plr >= 0)
-			{
-				if (Main.player[plr].male)
-				{
-					str = "his";
-				}
-				else
-				{
-					str = "her";
-				}
-			}
-			string result = "";
-			int num = Main.rand.Next(26);
-			string text = "";
-			if (num == 0)
-			{
-				text = " was slain";
-			}
-			else
-			{
-				if (num == 1)
-				{
-					text = " was eviscerated";
-				}
-				else
-				{
-					if (num == 2)
-					{
-						text = " was murdered";
-					}
-					else
-					{
-						if (num == 3)
-						{
-							text = "'s face was torn off";
-						}
-						else
-						{
-							if (num == 4)
-							{
-								text = "'s entrails were ripped out";
-							}
-							else
-							{
-								if (num == 5)
-								{
-									text = " was destroyed";
-								}
-								else
-								{
-									if (num == 6)
-									{
-										text = "'s skull was crushed";
-									}
-									else
-									{
-										if (num == 7)
-										{
-											text = " got massacred";
-										}
-										else
-										{
-											if (num == 8)
-											{
-												text = " got impaled";
-											}
-											else
-											{
-												if (num == 9)
-												{
-													text = " was torn in half";
-												}
-												else
-												{
-													if (num == 10)
-													{
-														text = " was decapitated";
-													}
-													else
-													{
-														if (num == 11)
-														{
-															text = " let " + str + " arms get torn off";
-														}
-														else
-														{
-															if (num == 12)
-															{
-																text = " watched " + str + " innards become outards";
-															}
-															else
-															{
-																if (num == 13)
-																{
-																	text = " was brutally dissected";
-																}
-																else
-																{
-																	if (num == 14)
-																	{
-																		text = "'s extremities were detached";
-																	}
-																	else
-																	{
-																		if (num == 15)
-																		{
-																			text = "'s body was mangled";
-																		}
-																		else
-																		{
-																			if (num == 16)
-																			{
-																				text = "'s vital organs were ruptured";
-																			}
-																			else
-																			{
-																				if (num == 17)
-																				{
-																					text = " was turned into a pile of flesh";
-																				}
-																				else
-																				{
-																					if (num == 18)
-																					{
-																						text = " was removed from " + Main.worldName;
-																					}
-																					else
-																					{
-																						if (num == 19)
-																						{
-																							text = " got snapped in half";
-																						}
-																						else
-																						{
-																							if (num == 20)
-																							{
-																								text = " was cut down the middle";
-																							}
-																							else
-																							{
-																								if (num == 21)
-																								{
-																									text = " was chopped up";
-																								}
-																								else
-																								{
-																									if (num == 22)
-																									{
-																										text = "'s plead for death was answered";
-																									}
-																									else
-																									{
-																										if (num == 23)
-																										{
-																											text = "'s meat was ripped off the bone";
-																										}
-																										else
-																										{
-																											if (num == 24)
-																											{
-																												text = "'s flailing about was finally stopped";
-																											}
-																											else
-																											{
-																												if (num == 25)
-																												{
-																													text = " had " + str + " head removed";
-																												}
-																											}
-																										}
-																									}
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			if (plr >= 0 && plr < 255)
-			{
-				if (proj >= 0 && Main.projectile[proj].name != "")
-				{
-					result = string.Concat(new string[]
-					{
-						text, 
-						" by ", 
-						Main.player[plr].name, 
-						"'s ", 
-						Main.projectile[proj].name, 
-						"."
-					});
-				}
-				else
-				{
-					result = string.Concat(new string[]
-					{
-						text, 
-						" by ", 
-						Main.player[plr].name, 
-						"'s ", 
-						Main.player[plr].inventory[Main.player[plr].selectedItem].name, 
-						"."
-					});
-				}
-			}
-			else
-			{
-				if (npc >= 0 && Main.npc[npc].displayName != "")
-				{
-					result = text + " by " + Main.npc[npc].displayName + ".";
-				}
-				else
-				{
-					if (proj >= 0 && Main.projectile[proj].name != "")
-					{
-						result = text + " by " + Main.projectile[proj].name + ".";
-					}
-					else
-					{
-						if (other >= 0)
-						{
-							if (other == 0)
-							{
-								if (Main.rand.Next(2) == 0)
-								{
-									result = " fell to " + str + " death.";
-								}
-								else
-								{
-									result = " didn't bounce.";
-								}
-							}
-							else
-							{
-								if (other == 1)
-								{
-									int num2 = Main.rand.Next(4);
-									if (num2 == 0)
-									{
-										result = " forgot to breathe.";
-									}
-									else
-									{
-										if (num2 == 1)
-										{
-											result = " is sleeping with the fish.";
-										}
-										else
-										{
-											if (num2 == 2)
-											{
-												result = " drowned.";
-											}
-											else
-											{
-												if (num2 == 3)
-												{
-													result = " is shark food.";
-												}
-											}
-										}
-									}
-								}
-								else
-								{
-									if (other == 2)
-									{
-										int num3 = Main.rand.Next(4);
-										if (num3 == 0)
-										{
-											result = " got melted.";
-										}
-										else
-										{
-											if (num3 == 1)
-											{
-												result = " was incinerated.";
-											}
-											else
-											{
-												if (num3 == 2)
-												{
-													result = " tried to swim in lava.";
-												}
-												else
-												{
-													if (num3 == 3)
-													{
-														result = " likes to play in magma.";
-													}
-												}
-											}
-										}
-									}
-									else
-									{
-										if (other == 3)
-										{
-											result = text + ".";
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			return result;
-		}
 		public double Hurt(int Damage, int hitDirection, bool pvp = false, bool quiet = false, string deathText = " was slain...", bool Crit = false)
 		{
 			if (!this.immune)
@@ -6811,2271 +6485,1550 @@ namespace Terraria
 				}
 			}
 		}
-		public void ItemCheck(int i)
-		{
-			int num = this.inventory[this.selectedItem].damage;
-			if (num > 0)
-			{
-				if (this.inventory[this.selectedItem].melee)
-				{
-					num = (int)((float)num * this.meleeDamage);
-				}
-				else
-				{
-					if (this.inventory[this.selectedItem].ranged)
-					{
-						num = (int)((float)num * this.rangedDamage);
-					}
-					else
-					{
-						if (this.inventory[this.selectedItem].magic)
-						{
-							num = (int)((float)num * this.magicDamage);
-						}
-					}
-				}
-			}
-			if (this.inventory[this.selectedItem].autoReuse && !this.noItems)
-			{
-				this.releaseUseItem = true;
-				if (this.itemAnimation == 1 && this.inventory[this.selectedItem].stack > 0)
-				{
-					if (this.inventory[this.selectedItem].shoot > 0 && this.whoAmi != Main.myPlayer && this.controlUseItem)
-					{
-						this.itemAnimation = 2;
-					}
-					else
-					{
-						this.itemAnimation = 0;
-					}
-				}
-			}
-			if (this.itemAnimation == 0 && this.reuseDelay > 0)
-			{
-				this.itemAnimation = this.reuseDelay;
-				this.itemTime = this.reuseDelay;
-				this.reuseDelay = 0;
-			}
-			if (this.controlUseItem && this.releaseUseItem && (this.inventory[this.selectedItem].headSlot > 0 || this.inventory[this.selectedItem].bodySlot > 0 || this.inventory[this.selectedItem].legSlot > 0))
-			{
-				if (this.inventory[this.selectedItem].useStyle == 0)
-				{
-					this.releaseUseItem = false;
-				}
-				if (this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost <= (float)Player.tileTargetX && (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f >= (float)Player.tileTargetX && this.position.Y / 16f - (float)Player.tileRangeY - (float)this.inventory[this.selectedItem].tileBoost <= (float)Player.tileTargetY && (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)this.inventory[this.selectedItem].tileBoost - 2f >= (float)Player.tileTargetY)
-				{
-					int num2 = Player.tileTargetX;
-					int num3 = Player.tileTargetY;
-					if (Main.tile[num2, num3].active && Main.tile[num2, num3].type == 128)
-					{
-						int num4 = (int)Main.tile[num2, num3].frameY;
-						int j = 0;
-						if (this.inventory[this.selectedItem].bodySlot >= 0)
-						{
-							j = 1;
-						}
-						if (this.inventory[this.selectedItem].legSlot >= 0)
-						{
-							j = 2;
-						}
-						num4 /= 18;
-						while (j > num4)
-						{
-							num3++;
-							num4 = (int)Main.tile[num2, num3].frameY;
-							num4 /= 18;
-						}
-						while (j < num4)
-						{
-							num3--;
-							num4 = (int)Main.tile[num2, num3].frameY;
-							num4 /= 18;
-						}
-						int k;
-						for (k = (int)Main.tile[num2, num3].frameX; k >= 100; k -= 100)
-						{
-						}
-						if (k >= 36)
-						{
-							k -= 36;
-						}
-						num2 -= k / 18;
-						int l = (int)Main.tile[num2, num3].frameX;
-						WorldGen.KillTile(num2, num3, true, false, false);
-						if (Main.netMode == 1)
-						{
-							NetMessage.SendData(17, -1, -1, "", 0, (float)num2, (float)num3, 1f, 0);
-						}
-						while (l >= 100)
-						{
-							l -= 100;
-						}
-						if (num4 == 0 && this.inventory[this.selectedItem].headSlot >= 0)
-						{
-							Main.tile[num2, num3].frameX = (short)(l + this.inventory[this.selectedItem].headSlot * 100);
-							if (Main.netMode == 1)
-							{
-								NetMessage.SendTileSquare(-1, num2, num3, 1);
-							}
-							this.inventory[this.selectedItem].SetDefaults(0, false);
-							Main.mouseItem.SetDefaults(0, false);
-							this.releaseUseItem = false;
-							this.mouseInterface = true;
-						}
-						else
-						{
-							if (num4 == 1 && this.inventory[this.selectedItem].bodySlot >= 0)
-							{
-								Main.tile[num2, num3].frameX = (short)(l + this.inventory[this.selectedItem].bodySlot * 100);
-								if (Main.netMode == 1)
-								{
-									NetMessage.SendTileSquare(-1, num2, num3, 1);
-								}
-								this.inventory[this.selectedItem].SetDefaults(0, false);
-								Main.mouseItem.SetDefaults(0, false);
-								this.releaseUseItem = false;
-								this.mouseInterface = true;
-							}
-							else
-							{
-								if (num4 == 2 && this.inventory[this.selectedItem].legSlot >= 0)
-								{
-									Main.tile[num2, num3].frameX = (short)(l + this.inventory[this.selectedItem].legSlot * 100);
-									if (Main.netMode == 1)
-									{
-										NetMessage.SendTileSquare(-1, num2, num3, 1);
-									}
-									this.inventory[this.selectedItem].SetDefaults(0, false);
-									Main.mouseItem.SetDefaults(0, false);
-									this.releaseUseItem = false;
-									this.mouseInterface = true;
-								}
-							}
-						}
-					}
-				}
-			}
-			if (this.controlUseItem && this.itemAnimation == 0 && this.releaseUseItem && this.inventory[this.selectedItem].useStyle > 0)
-			{
-				bool flag = true;
-				if (this.inventory[this.selectedItem].shoot == 0)
-				{
-					this.itemRotation = 0f;
-				}
-				if (this.wet && (this.inventory[this.selectedItem].shoot == 85 || this.inventory[this.selectedItem].shoot == 15 || this.inventory[this.selectedItem].shoot == 34))
-				{
-					flag = false;
-				}
-				if (this.noItems)
-				{
-					flag = false;
-				}
-				if (this.inventory[this.selectedItem].shoot == 6 || this.inventory[this.selectedItem].shoot == 19 || this.inventory[this.selectedItem].shoot == 33 || this.inventory[this.selectedItem].shoot == 52)
-				{
-					for (int m = 0; m < 1000; m++)
-					{
-						if (Main.projectile[m].active && Main.projectile[m].owner == Main.myPlayer && Main.projectile[m].type == this.inventory[this.selectedItem].shoot)
-						{
-							flag = false;
-						}
-					}
-				}
-				if (this.inventory[this.selectedItem].shoot == 106)
-				{
-					int num5 = 0;
-					for (int n = 0; n < 1000; n++)
-					{
-						if (Main.projectile[n].active && Main.projectile[n].owner == Main.myPlayer && Main.projectile[n].type == this.inventory[this.selectedItem].shoot)
-						{
-							num5++;
-						}
-					}
-					if (num5 >= this.inventory[this.selectedItem].stack)
-					{
-						flag = false;
-					}
-				}
-				if (this.inventory[this.selectedItem].shoot == 13 || this.inventory[this.selectedItem].shoot == 32)
-				{
-					for (int num6 = 0; num6 < 1000; num6++)
-					{
-						if (Main.projectile[num6].active && Main.projectile[num6].owner == Main.myPlayer && Main.projectile[num6].type == this.inventory[this.selectedItem].shoot && Main.projectile[num6].ai[0] != 2f)
-						{
-							flag = false;
-						}
-					}
-				}
-				if (this.inventory[this.selectedItem].shoot == 73)
-				{
-					for (int num7 = 0; num7 < 1000; num7++)
-					{
-						if (Main.projectile[num7].active && Main.projectile[num7].owner == Main.myPlayer && Main.projectile[num7].type == 74)
-						{
-							flag = false;
-						}
-					}
-				}
-				if (this.inventory[this.selectedItem].potion && flag)
-				{
-					if (this.potionDelay <= 0)
-					{
-						this.potionDelay = this.potionDelayTime;
-						this.AddBuff(21, this.potionDelay, true);
-					}
-					else
-					{
-						flag = false;
-					}
-				}
-				if (this.inventory[this.selectedItem].mana > 0 && this.silence)
-				{
-					flag = false;
-				}
-				if (this.inventory[this.selectedItem].mana > 0 && flag)
-				{
-					if (this.inventory[this.selectedItem].type != 127 || !this.spaceGun)
-					{
-						if (this.statMana >= (int)((float)this.inventory[this.selectedItem].mana * this.manaCost))
-						{
-							this.statMana -= (int)((float)this.inventory[this.selectedItem].mana * this.manaCost);
-						}
-						else
-						{
-							if (this.manaFlower)
-							{
-								this.QuickMana();
-								if (this.statMana >= (int)((float)this.inventory[this.selectedItem].mana * this.manaCost))
-								{
-									this.statMana -= (int)((float)this.inventory[this.selectedItem].mana * this.manaCost);
-								}
-								else
-								{
-									flag = false;
-								}
-							}
-							else
-							{
-								flag = false;
-							}
-						}
-					}
-					if (this.whoAmi == Main.myPlayer && this.inventory[this.selectedItem].buffType != 0)
-					{
-						this.AddBuff(this.inventory[this.selectedItem].buffType, this.inventory[this.selectedItem].buffTime, true);
-					}
-				}
-				if (this.inventory[this.selectedItem].type == 43 && Main.dayTime)
-				{
-					flag = false;
-				}
-				if (this.inventory[this.selectedItem].type == 544 && Main.dayTime)
-				{
-					flag = false;
-				}
-				if (this.inventory[this.selectedItem].type == 556 && Main.dayTime)
-				{
-					flag = false;
-				}
-				if (this.inventory[this.selectedItem].type == 557 && Main.dayTime)
-				{
-					flag = false;
-				}
-				if (this.inventory[this.selectedItem].type == 70 && !this.zoneEvil)
-				{
-					flag = false;
-				}
-				if (this.inventory[this.selectedItem].shoot == 17 && flag && i == Main.myPlayer)
-				{
-					int num8 = (int)((float)Main.mouseX + Main.screenPosition.X) / 16;
-					int num9 = (int)((float)Main.mouseY + Main.screenPosition.Y) / 16;
-					if (Main.tile[num8, num9].active && (Main.tile[num8, num9].type == 0 || Main.tile[num8, num9].type == 2 || Main.tile[num8, num9].type == 23))
-					{
-						WorldGen.KillTile(num8, num9, false, false, true);
-						if (!Main.tile[num8, num9].active)
-						{
-							if (Main.netMode == 1)
-							{
-								NetMessage.SendData(17, -1, -1, "", 4, (float)num8, (float)num9, 0f, 0);
-							}
-						}
-						else
-						{
-							flag = false;
-						}
-					}
-					else
-					{
-						flag = false;
-					}
-				}
-				if (flag && this.inventory[this.selectedItem].useAmmo > 0)
-				{
-					flag = false;
-					for (int num10 = 0; num10 < 48; num10++)
-					{
-						if (this.inventory[num10].ammo == this.inventory[this.selectedItem].useAmmo && this.inventory[num10].stack > 0)
-						{
-							flag = true;
-							break;
-						}
-					}
-				}
-				if (flag)
-				{
-					if (this.inventory[this.selectedItem].pick > 0 || this.inventory[this.selectedItem].axe > 0 || this.inventory[this.selectedItem].hammer > 0)
-					{
-						this.toolTime = 1;
-					}
-					if (this.grappling[0] > -1)
-					{
-						if (this.controlRight)
-						{
-							this.direction = 1;
-						}
-						else
-						{
-							if (this.controlLeft)
-							{
-								this.direction = -1;
-							}
-						}
-					}
-					this.channel = this.inventory[this.selectedItem].channel;
-					this.attackCD = 0;
-					if (this.inventory[this.selectedItem].melee)
-					{
-						this.itemAnimation = (int)((float)this.inventory[this.selectedItem].useAnimation * this.meleeSpeed);
-						this.itemAnimationMax = (int)((float)this.inventory[this.selectedItem].useAnimation * this.meleeSpeed);
-					}
-					else
-					{
-						this.itemAnimation = this.inventory[this.selectedItem].useAnimation;
-						this.itemAnimationMax = this.inventory[this.selectedItem].useAnimation;
-						this.reuseDelay = this.inventory[this.selectedItem].reuseDelay;
-					}
-					if (this.inventory[this.selectedItem].useSound > 0)
-					{
-						Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, this.inventory[this.selectedItem].useSound);
-					}
-				}
-				if (flag && (this.inventory[this.selectedItem].shoot == 18 || this.inventory[this.selectedItem].shoot == 72 || this.inventory[this.selectedItem].shoot == 86 || this.inventory[this.selectedItem].shoot == 86))
-				{
-					for (int num11 = 0; num11 < 1000; num11++)
-					{
-						if (Main.projectile[num11].active && Main.projectile[num11].owner == i && Main.projectile[num11].type == this.inventory[this.selectedItem].shoot)
-						{
-							Main.projectile[num11].Kill();
-						}
-						if (this.inventory[this.selectedItem].shoot == 72)
-						{
-							if (Main.projectile[num11].active && Main.projectile[num11].owner == i && Main.projectile[num11].type == 86)
-							{
-								Main.projectile[num11].Kill();
-							}
-							if (Main.projectile[num11].active && Main.projectile[num11].owner == i && Main.projectile[num11].type == 87)
-							{
-								Main.projectile[num11].Kill();
-							}
-						}
-					}
-				}
-			}
-			if (!this.controlUseItem)
-			{
-				bool arg_EF5_0 = this.channel;
-				this.channel = false;
-			}
-			if (this.itemAnimation > 0)
-			{
-				if (this.inventory[this.selectedItem].melee)
-				{
-					this.itemAnimationMax = (int)((float)this.inventory[this.selectedItem].useAnimation * this.meleeSpeed);
-				}
-				else
-				{
-					this.itemAnimationMax = this.inventory[this.selectedItem].useAnimation;
-				}
-				if (this.inventory[this.selectedItem].mana > 0)
-				{
-					this.manaRegenDelay = (int)this.maxRegenDelay;
-				}
-				if (Main.dedServ)
-				{
-					this.itemHeight = this.inventory[this.selectedItem].height;
-					this.itemWidth = this.inventory[this.selectedItem].width;
-				}
-				else
-				{
-				}
-				this.itemAnimation--;
-			}
-			else
-			{
-				if (this.inventory[this.selectedItem].holdStyle == 1)
-				{
-					if (Main.dedServ)
-					{
-						this.itemLocation.X = this.position.X + (float)this.width * 0.5f + 20f * (float)this.direction;
-					}
-					else
-					{
-					}
-					this.itemLocation.Y = this.position.Y + 24f;
-					this.itemRotation = 0f;
-					if (this.gravDir == -1f)
-					{
-						this.itemRotation = -this.itemRotation;
-						this.itemLocation.Y = this.position.Y + (float)this.height + (this.position.Y - this.itemLocation.Y);
-					}
-				}
-				else
-				{
-					if (this.inventory[this.selectedItem].holdStyle == 2)
-					{
-						this.itemLocation.X = this.position.X + (float)this.width * 0.5f + (float)(6 * this.direction);
-						this.itemLocation.Y = this.position.Y + 16f;
-						this.itemRotation = 0.79f * (float)(-(float)this.direction);
-						if (this.gravDir == -1f)
-						{
-							this.itemRotation = -this.itemRotation;
-							this.itemLocation.Y = this.position.Y + (float)this.height + (this.position.Y - this.itemLocation.Y);
-						}
-					}
-					else
-					{
-					}
-				}
-			}
-			if (((this.inventory[this.selectedItem].type == 8 || (this.inventory[this.selectedItem].type >= 427 && this.inventory[this.selectedItem].type <= 433)) && !this.wet) || this.inventory[this.selectedItem].type == 523)
-			{
-				float r = 1f;
-				float g = 0.95f;
-				float b = 0.8f;
-				int num16 = 0;
-				if (this.inventory[this.selectedItem].type == 523)
-				{
-					num16 = 8;
-				}
-				else
-				{
-					if (this.inventory[this.selectedItem].type >= 427)
-					{
-						num16 = this.inventory[this.selectedItem].type - 426;
-					}
-				}
-				if (num16 == 1)
-				{
-					r = 0f;
-					g = 0.1f;
-					b = 1.3f;
-				}
-				else
-				{
-					if (num16 == 2)
-					{
-						r = 1f;
-						g = 0.1f;
-						b = 0.1f;
-					}
-					else
-					{
-						if (num16 == 3)
-						{
-							r = 0f;
-							g = 1f;
-							b = 0.1f;
-						}
-						else
-						{
-							if (num16 == 4)
-							{
-								r = 0.9f;
-								g = 0f;
-								b = 0.9f;
-							}
-							else
-							{
-								if (num16 == 5)
-								{
-									r = 1.3f;
-									g = 1.3f;
-									b = 1.3f;
-								}
-								else
-								{
-									if (num16 == 6)
-									{
-										r = 0.9f;
-										g = 0.9f;
-										b = 0f;
-									}
-									else
-									{
-										if (num16 == 7)
-										{
-											r = 0.5f * Main.demonTorch + 1f * (1f - Main.demonTorch);
-											g = 0.3f;
-											b = 1f * Main.demonTorch + 0.5f * (1f - Main.demonTorch);
-										}
-										else
-										{
-											if (num16 == 8)
-											{
-												b = 0.7f;
-												r = 0.85f;
-												g = 1f;
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				int num17 = num16;
-				if (num17 == 0)
-				{
-					num17 = 6;
-				}
-				else
-				{
-					if (num17 == 8)
-					{
-						num17 = 75;
-					}
-					else
-					{
-						num17 = 58 + num17;
-					}
-				}
-				int maxValue = 20;
-				if (this.itemAnimation > 0)
-				{
-					maxValue = 7;
-				}
-				if (this.direction == -1)
-				{
-					if (Main.rand.Next(maxValue) == 0)
-					{
-						Vector2 arg_1F70_0 = new Vector2(this.itemLocation.X - 16f, this.itemLocation.Y - 14f * this.gravDir);
-						int arg_1F70_1 = 4;
-						int arg_1F70_2 = 4;
-						int arg_1F70_3 = num17;
-						float arg_1F70_4 = 0f;
-						float arg_1F70_5 = 0f;
-						int arg_1F70_6 = 100;
-						Color newColor = default(Color);
-						Dust.NewDust(arg_1F70_0, arg_1F70_1, arg_1F70_2, arg_1F70_3, arg_1F70_4, arg_1F70_5, arg_1F70_6, newColor, 1f);
-					}
-					Lighting.addLight((int)((this.itemLocation.X - 12f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f + this.velocity.Y) / 16f), r, g, b);
-				}
-				else
-				{
-					if (Main.rand.Next(maxValue) == 0)
-					{
-						Vector2 arg_2029_0 = new Vector2(this.itemLocation.X + 6f, this.itemLocation.Y - 14f * this.gravDir);
-						int arg_2029_1 = 4;
-						int arg_2029_2 = 4;
-						int arg_2029_3 = num17;
-						float arg_2029_4 = 0f;
-						float arg_2029_5 = 0f;
-						int arg_2029_6 = 100;
-						Color newColor = default(Color);
-						Dust.NewDust(arg_2029_0, arg_2029_1, arg_2029_2, arg_2029_3, arg_2029_4, arg_2029_5, arg_2029_6, newColor, 1f);
-					}
-					Lighting.addLight((int)((this.itemLocation.X + 12f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f + this.velocity.Y) / 16f), r, g, b);
-				}
-			}
-			if (this.inventory[this.selectedItem].type == 105 && !this.wet)
-			{
-				int maxValue2 = 20;
-				if (this.itemAnimation > 0)
-				{
-					maxValue2 = 7;
-				}
-				if (this.direction == -1)
-				{
-					if (Main.rand.Next(maxValue2) == 0)
-					{
-						Vector2 arg_211C_0 = new Vector2(this.itemLocation.X - 12f, this.itemLocation.Y - 20f * this.gravDir);
-						int arg_211C_1 = 4;
-						int arg_211C_2 = 4;
-						int arg_211C_3 = 6;
-						float arg_211C_4 = 0f;
-						float arg_211C_5 = 0f;
-						int arg_211C_6 = 100;
-						Color newColor = default(Color);
-						Dust.NewDust(arg_211C_0, arg_211C_1, arg_211C_2, arg_211C_3, arg_211C_4, arg_211C_5, arg_211C_6, newColor, 1f);
-					}
-					Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 1f, 0.95f, 0.8f);
-				}
-				else
-				{
-					if (Main.rand.Next(maxValue2) == 0)
-					{
-						Vector2 arg_21D1_0 = new Vector2(this.itemLocation.X + 4f, this.itemLocation.Y - 20f * this.gravDir);
-						int arg_21D1_1 = 4;
-						int arg_21D1_2 = 4;
-						int arg_21D1_3 = 6;
-						float arg_21D1_4 = 0f;
-						float arg_21D1_5 = 0f;
-						int arg_21D1_6 = 100;
-						Color newColor = default(Color);
-						Dust.NewDust(arg_21D1_0, arg_21D1_1, arg_21D1_2, arg_21D1_3, arg_21D1_4, arg_21D1_5, arg_21D1_6, newColor, 1f);
-					}
-					Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 1f, 0.95f, 0.8f);
-				}
-			}
-			else
-			{
-				if (this.inventory[this.selectedItem].type == 148 && !this.wet)
-				{
-					int maxValue3 = 10;
-					if (this.itemAnimation > 0)
-					{
-						maxValue3 = 7;
-					}
-					if (this.direction == -1)
-					{
-						if (Main.rand.Next(maxValue3) == 0)
-						{
-							Vector2 arg_22CA_0 = new Vector2(this.itemLocation.X - 12f, this.itemLocation.Y - 20f * this.gravDir);
-							int arg_22CA_1 = 4;
-							int arg_22CA_2 = 4;
-							int arg_22CA_3 = 29;
-							float arg_22CA_4 = 0f;
-							float arg_22CA_5 = 0f;
-							int arg_22CA_6 = 100;
-							Color newColor = default(Color);
-							Dust.NewDust(arg_22CA_0, arg_22CA_1, arg_22CA_2, arg_22CA_3, arg_22CA_4, arg_22CA_5, arg_22CA_6, newColor, 1f);
-						}
-						Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.3f, 0.3f, 0.75f);
-					}
-					else
-					{
-						if (Main.rand.Next(maxValue3) == 0)
-						{
-							Vector2 arg_2380_0 = new Vector2(this.itemLocation.X + 4f, this.itemLocation.Y - 20f * this.gravDir);
-							int arg_2380_1 = 4;
-							int arg_2380_2 = 4;
-							int arg_2380_3 = 29;
-							float arg_2380_4 = 0f;
-							float arg_2380_5 = 0f;
-							int arg_2380_6 = 100;
-							Color newColor = default(Color);
-							Dust.NewDust(arg_2380_0, arg_2380_1, arg_2380_2, arg_2380_3, arg_2380_4, arg_2380_5, arg_2380_6, newColor, 1f);
-						}
-						Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.3f, 0.3f, 0.75f);
-					}
-				}
-			}
-			if (this.inventory[this.selectedItem].type == 282)
-			{
-				if (this.direction == -1)
-				{
-					Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 1f, 0.8f);
-				}
-				else
-				{
-					Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 1f, 0.8f);
-				}
-			}
-			if (this.inventory[this.selectedItem].type == 286)
-			{
-				if (this.direction == -1)
-				{
-					Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 0.8f, 1f);
-				}
-				else
-				{
-					Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 0.8f, 1f);
-				}
-			}
-			if (this.controlUseItem)
-			{
-				this.releaseUseItem = false;
-			}
-			else
-			{
-				this.releaseUseItem = true;
-			}
-			if (this.itemTime > 0)
-			{
-				this.itemTime--;
-			}
-			if (i == Main.myPlayer)
-			{
-				if (this.inventory[this.selectedItem].shoot > 0 && this.itemAnimation > 0 && this.itemTime == 0)
-				{
-					int num18 = this.inventory[this.selectedItem].shoot;
-					float num19 = this.inventory[this.selectedItem].shootSpeed;
-					if (this.inventory[this.selectedItem].melee && num18 != 25 && num18 != 26 && num18 != 35)
-					{
-						num19 /= this.meleeSpeed;
-					}
-					bool flag2 = false;
-					int num20 = num;
-					float num21 = this.inventory[this.selectedItem].knockBack;
-					if (num18 == 13 || num18 == 32)
-					{
-						this.grappling[0] = -1;
-						this.grapCount = 0;
-						for (int num22 = 0; num22 < 1000; num22++)
-						{
-							if (Main.projectile[num22].active && Main.projectile[num22].owner == i && Main.projectile[num22].type == 13)
-							{
-								Main.projectile[num22].Kill();
-							}
-						}
-					}
-					if (this.inventory[this.selectedItem].useAmmo > 0)
-					{
-						Item item = new Item();
-						bool flag3 = false;
-						for (int num23 = 44; num23 < 48; num23++)
-						{
-							if (this.inventory[num23].ammo == this.inventory[this.selectedItem].useAmmo && this.inventory[num23].stack > 0)
-							{
-								item = this.inventory[num23];
-								flag2 = true;
-								flag3 = true;
-								break;
-							}
-						}
-						if (!flag3)
-						{
-							for (int num24 = 0; num24 < 44; num24++)
-							{
-								if (this.inventory[num24].ammo == this.inventory[this.selectedItem].useAmmo && this.inventory[num24].stack > 0)
-								{
-									item = this.inventory[num24];
-									flag2 = true;
-									break;
-								}
-							}
-						}
-						if (flag2)
-						{
-							if (item.shoot > 0)
-							{
-								num18 = item.shoot;
-							}
-							if (num18 == 42)
-							{
-								if (item.type == 370)
-								{
-									num18 = 65;
-									num20 += 5;
-								}
-								else
-								{
-									if (item.type == 408)
-									{
-										num18 = 68;
-										num20 += 5;
-									}
-								}
-							}
-							num19 += item.shootSpeed;
-							if (item.ranged)
-							{
-								if (item.damage > 0)
-								{
-									num20 += (int)((float)item.damage * this.rangedDamage);
-								}
-							}
-							else
-							{
-								num20 += item.damage;
-							}
-							if (this.inventory[this.selectedItem].useAmmo == 1 && this.archery)
-							{
-								if (num19 < 20f)
-								{
-									num19 *= 1.2f;
-									if (num19 > 20f)
-									{
-										num19 = 20f;
-									}
-								}
-								num20 = (int)((double)((float)num20) * 1.2);
-							}
-							num21 += item.knockBack;
-							bool flag4 = false;
-							if (this.inventory[this.selectedItem].type == 98 && Main.rand.Next(3) == 0)
-							{
-								flag4 = true;
-							}
-							if (this.inventory[this.selectedItem].type == 533 && Main.rand.Next(2) == 0)
-							{
-								flag4 = true;
-							}
-							if (this.inventory[this.selectedItem].type == 434 && this.itemAnimation < this.inventory[this.selectedItem].useAnimation - 2)
-							{
-								flag4 = true;
-							}
-							if (this.ammoCost80 && Main.rand.Next(5) == 0)
-							{
-								flag4 = true;
-							}
-							if (this.ammoCost75 && Main.rand.Next(4) == 0)
-							{
-								flag4 = true;
-							}
-							if (num18 == 85 && this.itemAnimation < this.itemAnimationMax - 6)
-							{
-								flag4 = true;
-							}
-							if (!flag4)
-							{
-								item.stack--;
-								if (item.stack <= 0)
-								{
-									item.active = false;
-									item.name = "";
-									item.type = 0;
-								}
-							}
-						}
-					}
-					else
-					{
-						flag2 = true;
-					}
-					if (num18 == 72)
-					{
-						int num25 = Main.rand.Next(3);
-						if (num25 == 0)
-						{
-							num18 = 72;
-						}
-						else
-						{
-							if (num25 == 1)
-							{
-								num18 = 86;
-							}
-							else
-							{
-								if (num25 == 2)
-								{
-									num18 = 87;
-								}
-							}
-						}
-					}
-					if (num18 == 73)
-					{
-						for (int num26 = 0; num26 < 1000; num26++)
-						{
-							if (Main.projectile[num26].active && Main.projectile[num26].owner == i)
-							{
-								if (Main.projectile[num26].type == 73)
-								{
-									num18 = 74;
-								}
-								if (Main.projectile[num26].type == 74)
-								{
-									flag2 = false;
-								}
-							}
-						}
-					}
-					if (flag2)
-					{
-						if (this.inventory[this.selectedItem].mech && this.kbGlove)
-						{
-							num21 *= 1.7f;
-						}
-						if (num18 == 1 && this.inventory[this.selectedItem].type == 120)
-						{
-							num18 = 2;
-						}
-						this.itemTime = this.inventory[this.selectedItem].useTime;
-						if ((float)Main.mouseX + Main.screenPosition.X > this.position.X + (float)this.width * 0.5f)
-						{
-							this.direction = 1;
-						}
-						else
-						{
-							this.direction = -1;
-						}
-						Vector2 vector = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-						if (num18 == 9)
-						{
-							vector = new Vector2(this.position.X + (float)this.width * 0.5f + (float)(Main.rand.Next(601) * -(float)this.direction), this.position.Y + (float)this.height * 0.5f - 300f - (float)Main.rand.Next(100));
-							num21 = 0f;
-						}
-						else
-						{
-							if (num18 == 51)
-							{
-								vector.Y -= 6f * this.gravDir;
-							}
-						}
-						float num27 = (float)Main.mouseX + Main.screenPosition.X - vector.X;
-						float num28 = (float)Main.mouseY + Main.screenPosition.Y - vector.Y;
-						float num29 = (float)Math.Sqrt((double)(num27 * num27 + num28 * num28));
-						float num30 = num29;
-						num29 = num19 / num29;
-						num27 *= num29;
-						num28 *= num29;
-						if (num18 == 12)
-						{
-							vector.X += num27 * 3f;
-							vector.Y += num28 * 3f;
-						}
-						if (this.inventory[this.selectedItem].useStyle == 5)
-						{
-							this.itemRotation = (float)Math.Atan2((double)(num28 * (float)this.direction), (double)(num27 * (float)this.direction));
-							NetMessage.SendData(13, -1, -1, "", this.whoAmi, 0f, 0f, 0f, 0);
-							NetMessage.SendData(41, -1, -1, "", this.whoAmi, 0f, 0f, 0f, 0);
-						}
-						if (num18 == 17)
-						{
-							vector.X = (float)Main.mouseX + Main.screenPosition.X;
-							vector.Y = (float)Main.mouseY + Main.screenPosition.Y;
-						}
-						if (num18 == 76)
-						{
-							num18 += Main.rand.Next(3);
-							num30 /= (float)(Main.screenHeight / 2);
-							if (num30 > 1f)
-							{
-								num30 = 1f;
-							}
-							float num31 = num27 + (float)Main.rand.Next(-40, 41) * 0.01f;
-							float num32 = num28 + (float)Main.rand.Next(-40, 41) * 0.01f;
-							num31 *= num30 + 0.25f;
-							num32 *= num30 + 0.25f;
-							int num33 = Projectile.NewProjectile(vector.X, vector.Y, num31, num32, num18, num20, num21, i);
-							Main.projectile[num33].ai[1] = 1f;
-							num30 = num30 * 2f - 1f;
-							if (num30 < -1f)
-							{
-								num30 = -1f;
-							}
-							if (num30 > 1f)
-							{
-								num30 = 1f;
-							}
-							Main.projectile[num33].ai[0] = num30;
-							NetMessage.SendData(27, -1, -1, "", num33, 0f, 0f, 0f, 0);
-						}
-						else
-						{
-							if (this.inventory[this.selectedItem].type == 98 || this.inventory[this.selectedItem].type == 533)
-							{
-								float speedX = num27 + (float)Main.rand.Next(-40, 41) * 0.01f;
-								float speedY = num28 + (float)Main.rand.Next(-40, 41) * 0.01f;
-								Projectile.NewProjectile(vector.X, vector.Y, speedX, speedY, num18, num20, num21, i);
-							}
-							else
-							{
-								if (this.inventory[this.selectedItem].type == 518)
-								{
-									float num34 = num27;
-									float num35 = num28;
-									num34 += (float)Main.rand.Next(-40, 41) * 0.04f;
-									num35 += (float)Main.rand.Next(-40, 41) * 0.04f;
-									Projectile.NewProjectile(vector.X, vector.Y, num34, num35, num18, num20, num21, i);
-								}
-								else
-								{
-									if (this.inventory[this.selectedItem].type == 534)
-									{
-										for (int num36 = 0; num36 < 4; num36++)
-										{
-											float num37 = num27;
-											float num38 = num28;
-											num37 += (float)Main.rand.Next(-40, 41) * 0.05f;
-											num38 += (float)Main.rand.Next(-40, 41) * 0.05f;
-											Projectile.NewProjectile(vector.X, vector.Y, num37, num38, num18, num20, num21, i);
-										}
-									}
-									else
-									{
-										if (this.inventory[this.selectedItem].type == 434)
-										{
-											float num39 = num27;
-											float num40 = num28;
-											if (this.itemAnimation < 5)
-											{
-												num39 += (float)Main.rand.Next(-40, 41) * 0.01f;
-												num40 += (float)Main.rand.Next(-40, 41) * 0.01f;
-												num39 *= 1.1f;
-												num40 *= 1.1f;
-											}
-											else
-											{
-												if (this.itemAnimation < 10)
-												{
-													num39 += (float)Main.rand.Next(-20, 21) * 0.01f;
-													num40 += (float)Main.rand.Next(-20, 21) * 0.01f;
-													num39 *= 1.05f;
-													num40 *= 1.05f;
-												}
-											}
-											Projectile.NewProjectile(vector.X, vector.Y, num39, num40, num18, num20, num21, i);
-										}
-										else
-										{
-											int num41 = Projectile.NewProjectile(vector.X, vector.Y, num27, num28, num18, num20, num21, i);
-											if (num18 == 80)
-											{
-												Main.projectile[num41].ai[0] = (float)Player.tileTargetX;
-												Main.projectile[num41].ai[1] = (float)Player.tileTargetY;
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-					else
-					{
-						if (this.inventory[this.selectedItem].useStyle == 5)
-						{
-							this.itemRotation = 0f;
-							NetMessage.SendData(41, -1, -1, "", this.whoAmi, 0f, 0f, 0f, 0);
-						}
-					}
-				}
-				if (this.whoAmi == Main.myPlayer && (this.inventory[this.selectedItem].type == 509 || this.inventory[this.selectedItem].type == 510) && this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetX && (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f + (float)this.blockRange >= (float)Player.tileTargetX && this.position.Y / 16f - (float)Player.tileRangeY - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetY && (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)this.inventory[this.selectedItem].tileBoost - 2f + (float)this.blockRange >= (float)Player.tileTargetY)
-				{
-					this.showItemIcon = true;
-					if (this.itemAnimation > 0 && this.itemTime == 0 && this.controlUseItem)
-					{
-						int i2 = Player.tileTargetX;
-						int j2 = Player.tileTargetY;
-						if (this.inventory[this.selectedItem].type == 509)
-						{
-							int num42 = -1;
-							for (int num43 = 0; num43 < 48; num43++)
-							{
-								if (this.inventory[num43].stack > 0 && this.inventory[num43].type == 530)
-								{
-									num42 = num43;
-									break;
-								}
-							}
-							if (num42 >= 0 && WorldGen.PlaceWire(i2, j2))
-							{
-								this.inventory[num42].stack--;
-								if (this.inventory[num42].stack <= 0)
-								{
-									this.inventory[num42].SetDefaults(0, false);
-								}
-								this.itemTime = this.inventory[this.selectedItem].useTime;
-								NetMessage.SendData(17, -1, -1, "", 5, (float)Player.tileTargetX, (float)Player.tileTargetY, 0f, 0);
-							}
-						}
-						else
-						{
-							if (WorldGen.KillWire(i2, j2))
-							{
-								this.itemTime = this.inventory[this.selectedItem].useTime;
-								NetMessage.SendData(17, -1, -1, "", 6, (float)Player.tileTargetX, (float)Player.tileTargetY, 0f, 0);
-							}
-						}
-					}
-				}
-				if (this.itemAnimation > 0 && this.itemTime == 0 && (this.inventory[this.selectedItem].type == 507 || this.inventory[this.selectedItem].type == 508))
-				{
-					this.itemTime = this.inventory[this.selectedItem].useTime;
-					Vector2 vector2 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-					float num44 = (float)Main.mouseX + Main.screenPosition.X - vector2.X;
-					float num45 = (float)Main.mouseY + Main.screenPosition.Y - vector2.Y;
-					float num46 = (float)Math.Sqrt((double)(num44 * num44 + num45 * num45));
-					num46 /= (float)(Main.screenHeight / 2);
-					if (num46 > 1f)
-					{
-						num46 = 1f;
-					}
-					num46 = num46 * 2f - 1f;
-					if (num46 < -1f)
-					{
-						num46 = -1f;
-					}
-					if (num46 > 1f)
-					{
-						num46 = 1f;
-					}
-					Main.harpNote = num46;
-					int style = 26;
-					if (this.inventory[this.selectedItem].type == 507)
-					{
-						style = 35;
-					}
-					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, style);
-					NetMessage.SendData(58, -1, -1, "", this.whoAmi, num46, 0f, 0f, 0);
-				}
-				if (this.inventory[this.selectedItem].type >= 205 && this.inventory[this.selectedItem].type <= 207 && this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost <= (float)Player.tileTargetX && (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f >= (float)Player.tileTargetX && this.position.Y / 16f - (float)Player.tileRangeY - (float)this.inventory[this.selectedItem].tileBoost <= (float)Player.tileTargetY && (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)this.inventory[this.selectedItem].tileBoost - 2f >= (float)Player.tileTargetY)
-				{
-					this.showItemIcon = true;
-					if (this.itemTime == 0 && this.itemAnimation > 0 && this.controlUseItem)
-					{
-						if (this.inventory[this.selectedItem].type == 205)
-						{
-							bool lava = Main.tile[Player.tileTargetX, Player.tileTargetY].lava;
-							int num47 = 0;
-							for (int num48 = Player.tileTargetX - 1; num48 <= Player.tileTargetX + 1; num48++)
-							{
-								for (int num49 = Player.tileTargetY - 1; num49 <= Player.tileTargetY + 1; num49++)
-								{
-									if (Main.tile[num48, num49].lava == lava)
-									{
-										num47 += (int)Main.tile[num48, num49].liquid;
-									}
-								}
-							}
-							if (Main.tile[Player.tileTargetX, Player.tileTargetY].liquid > 0 && num47 > 100)
-							{
-								bool lava2 = Main.tile[Player.tileTargetX, Player.tileTargetY].lava;
-								if (!Main.tile[Player.tileTargetX, Player.tileTargetY].lava)
-								{
-									this.inventory[this.selectedItem].SetDefaults(206, false);
-								}
-								else
-								{
-									this.inventory[this.selectedItem].SetDefaults(207, false);
-								}
-								Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
-								this.itemTime = this.inventory[this.selectedItem].useTime;
-								int num50 = (int)Main.tile[Player.tileTargetX, Player.tileTargetY].liquid;
-								Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 0;
-								Main.tile[Player.tileTargetX, Player.tileTargetY].lava = false;
-								WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, false);
-								if (Main.netMode == 1)
-								{
-									NetMessage.sendWater(Player.tileTargetX, Player.tileTargetY);
-								}
-								else
-								{
-									Liquid.AddWater(Player.tileTargetX, Player.tileTargetY);
-								}
-								for (int num51 = Player.tileTargetX - 1; num51 <= Player.tileTargetX + 1; num51++)
-								{
-									for (int num52 = Player.tileTargetY - 1; num52 <= Player.tileTargetY + 1; num52++)
-									{
-										if (num50 < 256 && Main.tile[num51, num52].lava == lava)
-										{
-											int num53 = (int)Main.tile[num51, num52].liquid;
-											if (num53 + num50 > 255)
-											{
-												num53 = 255 - num50;
-											}
-											num50 += num53;
-											Main.tile[num51, num52].liquid -= (byte)num53;
-											Main.tile[num51, num52].lava = lava2;
-											if (Main.tile[num51, num52].liquid == 0)
-											{
-												Main.tile[num51, num52].lava = false;
-											}
-											WorldGen.SquareTileFrame(num51, num52, false);
-											if (Main.netMode == 1)
-											{
-												NetMessage.sendWater(num51, num52);
-											}
-											else
-											{
-												Liquid.AddWater(num51, num52);
-											}
-										}
-									}
-								}
-							}
-						}
-						else
-						{
-							if (Main.tile[Player.tileTargetX, Player.tileTargetY].liquid < 200 && (!Main.tile[Player.tileTargetX, Player.tileTargetY].active || !Main.tileSolid[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] || Main.tileSolidTop[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]))
-							{
-								if (this.inventory[this.selectedItem].type == 207)
-								{
-									if (Main.tile[Player.tileTargetX, Player.tileTargetY].liquid == 0 || Main.tile[Player.tileTargetX, Player.tileTargetY].lava)
-									{
-										Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
-										Main.tile[Player.tileTargetX, Player.tileTargetY].lava = true;
-										Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 255;
-										WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
-										this.inventory[this.selectedItem].SetDefaults(205, false);
-										this.itemTime = this.inventory[this.selectedItem].useTime;
-										if (Main.netMode == 1)
-										{
-											NetMessage.sendWater(Player.tileTargetX, Player.tileTargetY);
-										}
-									}
-								}
-								else
-								{
-									if (Main.tile[Player.tileTargetX, Player.tileTargetY].liquid == 0 || !Main.tile[Player.tileTargetX, Player.tileTargetY].lava)
-									{
-										Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
-										Main.tile[Player.tileTargetX, Player.tileTargetY].lava = false;
-										Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 255;
-										WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
-										this.inventory[this.selectedItem].SetDefaults(205, false);
-										this.itemTime = this.inventory[this.selectedItem].useTime;
-										if (Main.netMode == 1)
-										{
-											NetMessage.sendWater(Player.tileTargetX, Player.tileTargetY);
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				if (!this.channel)
-				{
-					this.toolTime = this.itemTime;
-				}
-				else
-				{
-					this.toolTime--;
-					if (this.toolTime < 0)
-					{
-						if (this.inventory[this.selectedItem].pick > 0)
-						{
-							this.toolTime = this.inventory[this.selectedItem].useTime;
-						}
-						else
-						{
-							this.toolTime = (int)((float)this.inventory[this.selectedItem].useTime * this.pickSpeed);
-						}
-					}
-				}
-				if ((this.inventory[this.selectedItem].pick > 0 || this.inventory[this.selectedItem].axe > 0 || this.inventory[this.selectedItem].hammer > 0) && this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost <= (float)Player.tileTargetX && (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f >= (float)Player.tileTargetX && this.position.Y / 16f - (float)Player.tileRangeY - (float)this.inventory[this.selectedItem].tileBoost <= (float)Player.tileTargetY && (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)this.inventory[this.selectedItem].tileBoost - 2f >= (float)Player.tileTargetY)
-				{
-					bool flag5 = true;
-					this.showItemIcon = true;
-					if (Main.tile[Player.tileTargetX, Player.tileTargetY].active)
-					{
-						if ((this.inventory[this.selectedItem].pick > 0 && !Main.tileAxe[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] && !Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]) || (this.inventory[this.selectedItem].axe > 0 && Main.tileAxe[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]) || (this.inventory[this.selectedItem].hammer > 0 && Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]))
-						{
-							flag5 = false;
-						}
-						if (this.toolTime == 0 && this.itemAnimation > 0 && this.controlUseItem)
-						{
-							if (this.hitTileX != Player.tileTargetX || this.hitTileY != Player.tileTargetY)
-							{
-								this.hitTile = 0;
-								this.hitTileX = Player.tileTargetX;
-								this.hitTileY = Player.tileTargetY;
-							}
-							if (Main.tileNoFail[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type])
-							{
-								this.hitTile = 100;
-							}
-							if (Main.tile[Player.tileTargetX, Player.tileTargetY].type != 27)
-							{
-								if (Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type])
-								{
-									flag5 = false;
-									if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 48)
-									{
-										this.hitTile += this.inventory[this.selectedItem].hammer / 2;
-									}
-									else
-									{
-										if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 129)
-										{
-											this.hitTile += this.inventory[this.selectedItem].hammer * 2;
-										}
-										else
-										{
-											this.hitTile += this.inventory[this.selectedItem].hammer;
-										}
-									}
-									if ((double)Player.tileTargetY > Main.rockLayer && Main.tile[Player.tileTargetX, Player.tileTargetY].type == 77 && this.inventory[this.selectedItem].hammer < 60)
-									{
-										this.hitTile = 0;
-									}
-									if (this.inventory[this.selectedItem].hammer > 0)
-									{
-										if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 26 && (this.inventory[this.selectedItem].hammer < 80 || !Main.hardMode))
-										{
-											this.hitTile = 0;
-											this.Hurt(this.statLife / 2, -this.direction, false, false, Player.getDeathMessage(-1, -1, -1, 4), false);
-											WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
-											if (Main.netMode == 1)
-											{
-												NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0);
-											}
-										}
-										if (this.hitTile >= 100)
-										{
-											if (Main.netMode == 1 && Main.tile[Player.tileTargetX, Player.tileTargetY].type == 21)
-											{
-												WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
-												NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0);
-												NetMessage.SendData(34, -1, -1, "", Player.tileTargetX, (float)Player.tileTargetY, 0f, 0f, 0);
-											}
-											else
-											{
-												this.hitTile = 0;
-												WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, false, false, false);
-												if (Main.netMode == 1)
-												{
-													NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 0f, 0);
-												}
-											}
-										}
-										else
-										{
-											WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
-											if (Main.netMode == 1)
-											{
-												NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0);
-											}
-										}
-										this.itemTime = this.inventory[this.selectedItem].useTime;
-									}
-								}
-								else
-								{
-									if (Main.tileAxe[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type])
-									{
-										if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 30 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 124)
-										{
-											this.hitTile += this.inventory[this.selectedItem].axe * 5;
-										}
-										else
-										{
-											if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 80)
-											{
-												this.hitTile += this.inventory[this.selectedItem].axe * 3;
-											}
-											else
-											{
-												this.hitTile += this.inventory[this.selectedItem].axe;
-											}
-										}
-										if (this.inventory[this.selectedItem].axe > 0)
-										{
-											if (this.hitTile >= 100)
-											{
-												this.hitTile = 0;
-												WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, false, false, false);
-												if (Main.netMode == 1)
-												{
-													NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 0f, 0);
-												}
-											}
-											else
-											{
-												WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
-												if (Main.netMode == 1)
-												{
-													NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0);
-												}
-											}
-											this.itemTime = this.inventory[this.selectedItem].useTime;
-										}
-									}
-									else
-									{
-										if (this.inventory[this.selectedItem].pick > 0)
-										{
-											if (Main.tileDungeon[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 37 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 25 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 58 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 117)
-											{
-												this.hitTile += this.inventory[this.selectedItem].pick / 2;
-											}
-											else
-											{
-												if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 107)
-												{
-													this.hitTile += this.inventory[this.selectedItem].pick / 2;
-												}
-												else
-												{
-													if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 108)
-													{
-														this.hitTile += this.inventory[this.selectedItem].pick / 3;
-													}
-													else
-													{
-														if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 111)
-														{
-															this.hitTile += this.inventory[this.selectedItem].pick / 4;
-														}
-														else
-														{
-															this.hitTile += this.inventory[this.selectedItem].pick;
-														}
-													}
-												}
-											}
-											if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 25 && this.inventory[this.selectedItem].pick < 65)
-											{
-												this.hitTile = 0;
-											}
-											else
-											{
-												if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 117 && this.inventory[this.selectedItem].pick < 65)
-												{
-													this.hitTile = 0;
-												}
-												else
-												{
-													if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 37 && this.inventory[this.selectedItem].pick < 55)
-													{
-														this.hitTile = 0;
-													}
-													else
-													{
-														if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 22 && (double)Player.tileTargetY > Main.worldSurface && this.inventory[this.selectedItem].pick < 55)
-														{
-															this.hitTile = 0;
-														}
-														else
-														{
-															if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 56 && this.inventory[this.selectedItem].pick < 65)
-															{
-																this.hitTile = 0;
-															}
-															else
-															{
-																if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 58 && this.inventory[this.selectedItem].pick < 65)
-																{
-																	this.hitTile = 0;
-																}
-																else
-																{
-																	if (Main.tileDungeon[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] && this.inventory[this.selectedItem].pick < 65)
-																	{
-																		if ((double)Player.tileTargetX < (double)Main.maxTilesX * 0.25 || (double)Player.tileTargetX > (double)Main.maxTilesX * 0.75)
-																		{
-																			this.hitTile = 0;
-																		}
-																	}
-																	else
-																	{
-																		if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 107 && this.inventory[this.selectedItem].pick < 100)
-																		{
-																			this.hitTile = 0;
-																		}
-																		else
-																		{
-																			if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 108 && this.inventory[this.selectedItem].pick < 110)
-																			{
-																				this.hitTile = 0;
-																			}
-																			else
-																			{
-																				if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 111 && this.inventory[this.selectedItem].pick < 120)
-																				{
-																					this.hitTile = 0;
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-											if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 0 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 40 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 53 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 57 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 59 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 123)
-											{
-												this.hitTile += this.inventory[this.selectedItem].pick;
-											}
-											if (this.hitTile >= 100 && (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 2 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 23 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 60 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 70 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 109))
-											{
-												this.hitTile = 0;
-											}
-											if (this.hitTile >= 100)
-											{
-												this.hitTile = 0;
-												WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, false, false, false);
-												if (Main.netMode == 1)
-												{
-													NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 0f, 0);
-												}
-											}
-											else
-											{
-												WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
-												if (Main.netMode == 1)
-												{
-													NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0);
-												}
-											}
-											this.itemTime = (int)((float)this.inventory[this.selectedItem].useTime * this.pickSpeed);
-										}
-									}
-								}
-							}
-						}
-					}
-					int num54 = Player.tileTargetX;
-					int num55 = Player.tileTargetY;
-					bool flag6 = true;
-					if (Main.tile[num54, num55].wall > 0)
-					{
-						if (!Main.wallHouse[(int)Main.tile[num54, num55].wall])
-						{
-							for (int num56 = num54 - 1; num56 < num54 + 2; num56++)
-							{
-								for (int num57 = num55 - 1; num57 < num55 + 2; num57++)
-								{
-									if (Main.tile[num56, num57].wall != Main.tile[num54, num55].wall)
-									{
-										flag6 = false;
-										break;
-									}
-								}
-							}
-						}
-						else
-						{
-							flag6 = false;
-						}
-					}
-					if (flag6 && !Main.tile[num54, num55].active)
-					{
-						int num58 = -1;
-						if ((double)(((float)Main.mouseX + Main.screenPosition.X) / 16f) < Math.Round((double)(((float)Main.mouseX + Main.screenPosition.X) / 16f)))
-						{
-							num58 = 0;
-						}
-						int num59 = -1;
-						if ((double)(((float)Main.mouseY + Main.screenPosition.Y) / 16f) < Math.Round((double)(((float)Main.mouseY + Main.screenPosition.Y) / 16f)))
-						{
-							num59 = 0;
-						}
-						for (int num60 = Player.tileTargetX + num58; num60 <= Player.tileTargetX + num58 + 1; num60++)
-						{
-							for (int num61 = Player.tileTargetY + num59; num61 <= Player.tileTargetY + num59 + 1; num61++)
-							{
-								if (flag6)
-								{
-									num54 = num60;
-									num55 = num61;
-									if (Main.tile[num54, num55].wall > 0)
-									{
-										if (!Main.wallHouse[(int)Main.tile[num54, num55].wall])
-										{
-											for (int num62 = num54 - 1; num62 < num54 + 2; num62++)
-											{
-												for (int num63 = num55 - 1; num63 < num55 + 2; num63++)
-												{
-													if (Main.tile[num62, num63].wall != Main.tile[num54, num55].wall)
-													{
-														flag6 = false;
-														break;
-													}
-												}
-											}
-										}
-										else
-										{
-											flag6 = false;
-										}
-									}
-								}
-							}
-						}
-					}
-					if (flag5 && Main.tile[num54, num55].wall > 0 && this.toolTime == 0 && this.itemAnimation > 0 && this.controlUseItem && this.inventory[this.selectedItem].hammer > 0)
-					{
-						bool flag7 = true;
-						if (!Main.wallHouse[(int)Main.tile[num54, num55].wall])
-						{
-							flag7 = false;
-							for (int num64 = num54 - 1; num64 < num54 + 2; num64++)
-							{
-								for (int num65 = num55 - 1; num65 < num55 + 2; num65++)
-								{
-									if (Main.tile[num64, num65].wall != Main.tile[num54, num55].wall)
-									{
-										flag7 = true;
-										break;
-									}
-								}
-							}
-						}
-						if (flag7)
-						{
-							if (this.hitTileX != num54 || this.hitTileY != num55)
-							{
-								this.hitTile = 0;
-								this.hitTileX = num54;
-								this.hitTileY = num55;
-							}
-							this.hitTile += (int)((float)this.inventory[this.selectedItem].hammer * 1.5f);
-							if (this.hitTile >= 100)
-							{
-								this.hitTile = 0;
-								WorldGen.KillWall(num54, num55, false);
-								if (Main.netMode == 1)
-								{
-									NetMessage.SendData(17, -1, -1, "", 2, (float)num54, (float)num55, 0f, 0);
-								}
-							}
-							else
-							{
-								WorldGen.KillWall(num54, num55, true);
-								if (Main.netMode == 1)
-								{
-									NetMessage.SendData(17, -1, -1, "", 2, (float)num54, (float)num55, 1f, 0);
-								}
-							}
-							this.itemTime = this.inventory[this.selectedItem].useTime / 2;
-						}
-					}
-				}
-				if (this.inventory[this.selectedItem].type == 29 && this.itemAnimation > 0 && this.statLifeMax < 400 && this.itemTime == 0)
-				{
-					this.itemTime = this.inventory[this.selectedItem].useTime;
-					this.statLifeMax += 20;
-					this.statLife += 20;
-					if (Main.myPlayer == this.whoAmi)
-					{
-						this.HealEffect(20);
-					}
-				}
-				if (this.inventory[this.selectedItem].type == 109 && this.itemAnimation > 0 && this.statManaMax < 200 && this.itemTime == 0)
-				{
-					this.itemTime = this.inventory[this.selectedItem].useTime;
-					this.statManaMax += 20;
-					this.statMana += 20;
-					if (Main.myPlayer == this.whoAmi)
-					{
-						this.ManaEffect(20);
-					}
-				}
-				this.PlaceThing();
-			}
-			if (this.inventory[this.selectedItem].damage >= 0 && this.inventory[this.selectedItem].type > 0 && !this.inventory[this.selectedItem].noMelee && this.itemAnimation > 0)
-			{
-				bool flag8 = false;
-				Rectangle rectangle = new Rectangle((int)this.itemLocation.X, (int)this.itemLocation.Y, 32, 32);
-				rectangle.Width = (int)((float)rectangle.Width * this.inventory[this.selectedItem].scale);
-				rectangle.Height = (int)((float)rectangle.Height * this.inventory[this.selectedItem].scale);
-				if (this.direction == -1)
-				{
-					rectangle.X -= rectangle.Width;
-				}
-				if (this.gravDir == 1f)
-				{
-					rectangle.Y -= rectangle.Height;
-				}
-				if (this.inventory[this.selectedItem].useStyle == 1)
-				{
-					if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.333)
-					{
-						if (this.direction == -1)
-						{
-							rectangle.X -= (int)((double)rectangle.Width * 1.4 - (double)rectangle.Width);
-						}
-						rectangle.Width = (int)((double)rectangle.Width * 1.4);
-						rectangle.Y += (int)((double)rectangle.Height * 0.5 * (double)this.gravDir);
-						rectangle.Height = (int)((double)rectangle.Height * 1.1);
-					}
-					else
-					{
-						if ((double)this.itemAnimation >= (double)this.itemAnimationMax * 0.666)
-						{
-							if (this.direction == 1)
-							{
-								rectangle.X -= (int)((double)rectangle.Width * 1.2);
-							}
-							rectangle.Width *= 2;
-							rectangle.Y -= (int)(((double)rectangle.Height * 1.4 - (double)rectangle.Height) * (double)this.gravDir);
-							rectangle.Height = (int)((double)rectangle.Height * 1.4);
-						}
-					}
-				}
-				else
-				{
-					if (this.inventory[this.selectedItem].useStyle == 3)
-					{
-						if ((double)this.itemAnimation > (double)this.itemAnimationMax * 0.666)
-						{
-							flag8 = true;
-						}
-						else
-						{
-							if (this.direction == -1)
-							{
-								rectangle.X -= (int)((double)rectangle.Width * 1.4 - (double)rectangle.Width);
-							}
-							rectangle.Width = (int)((double)rectangle.Width * 1.4);
-							rectangle.Y += (int)((double)rectangle.Height * 0.6);
-							rectangle.Height = (int)((double)rectangle.Height * 0.6);
-						}
-					}
-				}
-				float arg_5300_0 = this.gravDir;
-				if (!flag8)
-				{
-					if ((this.inventory[this.selectedItem].type == 44 || this.inventory[this.selectedItem].type == 45 || this.inventory[this.selectedItem].type == 46 || this.inventory[this.selectedItem].type == 103 || this.inventory[this.selectedItem].type == 104) && Main.rand.Next(15) == 0)
-					{
-						Vector2 arg_53CB_0 = new Vector2((float)rectangle.X, (float)rectangle.Y);
-						int arg_53CB_1 = rectangle.Width;
-						int arg_53CB_2 = rectangle.Height;
-						int arg_53CB_3 = 14;
-						float arg_53CB_4 = (float)(this.direction * 2);
-						float arg_53CB_5 = 0f;
-						int arg_53CB_6 = 150;
-						Color newColor = default(Color);
-						Dust.NewDust(arg_53CB_0, arg_53CB_1, arg_53CB_2, arg_53CB_3, arg_53CB_4, arg_53CB_5, arg_53CB_6, newColor, 1.3f);
-					}
-					if (this.inventory[this.selectedItem].type == 273)
-					{
-						Color newColor;
-						if (Main.rand.Next(5) == 0)
-						{
-							Vector2 arg_5441_0 = new Vector2((float)rectangle.X, (float)rectangle.Y);
-							int arg_5441_1 = rectangle.Width;
-							int arg_5441_2 = rectangle.Height;
-							int arg_5441_3 = 14;
-							float arg_5441_4 = (float)(this.direction * 2);
-							float arg_5441_5 = 0f;
-							int arg_5441_6 = 150;
-							newColor = default(Color);
-							Dust.NewDust(arg_5441_0, arg_5441_1, arg_5441_2, arg_5441_3, arg_5441_4, arg_5441_5, arg_5441_6, newColor, 1.4f);
-						}
-						Vector2 arg_54A9_0 = new Vector2((float)rectangle.X, (float)rectangle.Y);
-						int arg_54A9_1 = rectangle.Width;
-						int arg_54A9_2 = rectangle.Height;
-						int arg_54A9_3 = 27;
-						float arg_54A9_4 = this.velocity.X * 0.2f + (float)(this.direction * 3);
-						float arg_54A9_5 = this.velocity.Y * 0.2f;
-						int arg_54A9_6 = 100;
-						newColor = default(Color);
-						int num66 = Dust.NewDust(arg_54A9_0, arg_54A9_1, arg_54A9_2, arg_54A9_3, arg_54A9_4, arg_54A9_5, arg_54A9_6, newColor, 1.2f);
-						Main.dust[num66].noGravity = true;
-						Dust expr_54CB_cp_0 = Main.dust[num66];
-						expr_54CB_cp_0.velocity.X = expr_54CB_cp_0.velocity.X / 2f;
-						Dust expr_54E9_cp_0 = Main.dust[num66];
-						expr_54E9_cp_0.velocity.Y = expr_54E9_cp_0.velocity.Y / 2f;
-					}
-					if (this.inventory[this.selectedItem].type == 65)
-					{
-						if (Main.rand.Next(5) == 0)
-						{
-							Vector2 arg_5563_0 = new Vector2((float)rectangle.X, (float)rectangle.Y);
-							int arg_5563_1 = rectangle.Width;
-							int arg_5563_2 = rectangle.Height;
-							int arg_5563_3 = 58;
-							float arg_5563_4 = 0f;
-							float arg_5563_5 = 0f;
-							int arg_5563_6 = 150;
-							Color newColor = default(Color);
-							Dust.NewDust(arg_5563_0, arg_5563_1, arg_5563_2, arg_5563_3, arg_5563_4, arg_5563_5, arg_5563_6, newColor, 1.2f);
-						}
-						if (Main.rand.Next(10) == 0)
-						{
-							Gore.NewGore(new Vector2((float)rectangle.X, (float)rectangle.Y), default(Vector2), Main.rand.Next(16, 18), 1f);
-						}
-					}
-					if (this.inventory[this.selectedItem].type == 190 || this.inventory[this.selectedItem].type == 213)
-					{
-						Vector2 arg_5642_0 = new Vector2((float)rectangle.X, (float)rectangle.Y);
-						int arg_5642_1 = rectangle.Width;
-						int arg_5642_2 = rectangle.Height;
-						int arg_5642_3 = 40;
-						float arg_5642_4 = this.velocity.X * 0.2f + (float)(this.direction * 3);
-						float arg_5642_5 = this.velocity.Y * 0.2f;
-						int arg_5642_6 = 0;
-						Color newColor = default(Color);
-						int num67 = Dust.NewDust(arg_5642_0, arg_5642_1, arg_5642_2, arg_5642_3, arg_5642_4, arg_5642_5, arg_5642_6, newColor, 1.2f);
-						Main.dust[num67].noGravity = true;
-					}
-					if (this.inventory[this.selectedItem].type == 121)
-					{
-						for (int num68 = 0; num68 < 2; num68++)
-						{
-							Vector2 arg_56D9_0 = new Vector2((float)rectangle.X, (float)rectangle.Y);
-							int arg_56D9_1 = rectangle.Width;
-							int arg_56D9_2 = rectangle.Height;
-							int arg_56D9_3 = 6;
-							float arg_56D9_4 = this.velocity.X * 0.2f + (float)(this.direction * 3);
-							float arg_56D9_5 = this.velocity.Y * 0.2f;
-							int arg_56D9_6 = 100;
-							Color newColor = default(Color);
-							int num69 = Dust.NewDust(arg_56D9_0, arg_56D9_1, arg_56D9_2, arg_56D9_3, arg_56D9_4, arg_56D9_5, arg_56D9_6, newColor, 2.5f);
-							Main.dust[num69].noGravity = true;
-							Dust expr_56FB_cp_0 = Main.dust[num69];
-							expr_56FB_cp_0.velocity.X = expr_56FB_cp_0.velocity.X * 2f;
-							Dust expr_5719_cp_0 = Main.dust[num69];
-							expr_5719_cp_0.velocity.Y = expr_5719_cp_0.velocity.Y * 2f;
-						}
-					}
-					if (this.inventory[this.selectedItem].type == 122 || this.inventory[this.selectedItem].type == 217)
-					{
-						Vector2 arg_57C8_0 = new Vector2((float)rectangle.X, (float)rectangle.Y);
-						int arg_57C8_1 = rectangle.Width;
-						int arg_57C8_2 = rectangle.Height;
-						int arg_57C8_3 = 6;
-						float arg_57C8_4 = this.velocity.X * 0.2f + (float)(this.direction * 3);
-						float arg_57C8_5 = this.velocity.Y * 0.2f;
-						int arg_57C8_6 = 100;
-						Color newColor = default(Color);
-						int num70 = Dust.NewDust(arg_57C8_0, arg_57C8_1, arg_57C8_2, arg_57C8_3, arg_57C8_4, arg_57C8_5, arg_57C8_6, newColor, 1.9f);
-						Main.dust[num70].noGravity = true;
-					}
-					if (this.inventory[this.selectedItem].type == 155)
-					{
-						Vector2 arg_585B_0 = new Vector2((float)rectangle.X, (float)rectangle.Y);
-						int arg_585B_1 = rectangle.Width;
-						int arg_585B_2 = rectangle.Height;
-						int arg_585B_3 = 29;
-						float arg_585B_4 = this.velocity.X * 0.2f + (float)(this.direction * 3);
-						float arg_585B_5 = this.velocity.Y * 0.2f;
-						int arg_585B_6 = 100;
-						Color newColor = default(Color);
-						int num71 = Dust.NewDust(arg_585B_0, arg_585B_1, arg_585B_2, arg_585B_3, arg_585B_4, arg_585B_5, arg_585B_6, newColor, 2f);
-						Main.dust[num71].noGravity = true;
-						Dust expr_587D_cp_0 = Main.dust[num71];
-						expr_587D_cp_0.velocity.X = expr_587D_cp_0.velocity.X / 2f;
-						Dust expr_589B_cp_0 = Main.dust[num71];
-						expr_589B_cp_0.velocity.Y = expr_589B_cp_0.velocity.Y / 2f;
-					}
-					if (this.inventory[this.selectedItem].type == 367 || this.inventory[this.selectedItem].type == 368)
-					{
-						if (Main.rand.Next(3) == 0)
-						{
-							Vector2 arg_5956_0 = new Vector2((float)rectangle.X, (float)rectangle.Y);
-							int arg_5956_1 = rectangle.Width;
-							int arg_5956_2 = rectangle.Height;
-							int arg_5956_3 = 57;
-							float arg_5956_4 = this.velocity.X * 0.2f + (float)(this.direction * 3);
-							float arg_5956_5 = this.velocity.Y * 0.2f;
-							int arg_5956_6 = 100;
-							Color newColor = default(Color);
-							int num72 = Dust.NewDust(arg_5956_0, arg_5956_1, arg_5956_2, arg_5956_3, arg_5956_4, arg_5956_5, arg_5956_6, newColor, 1.1f);
-							Main.dust[num72].noGravity = true;
-							Dust expr_5978_cp_0 = Main.dust[num72];
-							expr_5978_cp_0.velocity.X = expr_5978_cp_0.velocity.X / 2f;
-							Dust expr_5996_cp_0 = Main.dust[num72];
-							expr_5996_cp_0.velocity.Y = expr_5996_cp_0.velocity.Y / 2f;
-							Dust expr_59B4_cp_0 = Main.dust[num72];
-							expr_59B4_cp_0.velocity.X = expr_59B4_cp_0.velocity.X + (float)(this.direction * 2);
-						}
-						if (Main.rand.Next(4) == 0)
-						{
-							Vector2 arg_5A19_0 = new Vector2((float)rectangle.X, (float)rectangle.Y);
-							int arg_5A19_1 = rectangle.Width;
-							int arg_5A19_2 = rectangle.Height;
-							int arg_5A19_3 = 43;
-							float arg_5A19_4 = 0f;
-							float arg_5A19_5 = 0f;
-							int arg_5A19_6 = 254;
-							Color newColor = default(Color);
-							int num72 = Dust.NewDust(arg_5A19_0, arg_5A19_1, arg_5A19_2, arg_5A19_3, arg_5A19_4, arg_5A19_5, arg_5A19_6, newColor, 0.3f);
-							Dust expr_5A28 = Main.dust[num72];
-							expr_5A28.velocity *= 0f;
-						}
-					}
-					if (this.inventory[this.selectedItem].type >= 198 && this.inventory[this.selectedItem].type <= 203)
-					{
-						float num73 = 0.5f;
-						float num74 = 0.5f;
-						float num75 = 0.5f;
-						if (this.inventory[this.selectedItem].type == 198)
-						{
-							num73 *= 0.1f;
-							num74 *= 0.5f;
-							num75 *= 1.2f;
-						}
-						else
-						{
-							if (this.inventory[this.selectedItem].type == 199)
-							{
-								num73 *= 1f;
-								num74 *= 0.2f;
-								num75 *= 0.1f;
-							}
-							else
-							{
-								if (this.inventory[this.selectedItem].type == 200)
-								{
-									num73 *= 0.1f;
-									num74 *= 1f;
-									num75 *= 0.2f;
-								}
-								else
-								{
-									if (this.inventory[this.selectedItem].type == 201)
-									{
-										num73 *= 0.8f;
-										num74 *= 0.1f;
-										num75 *= 1f;
-									}
-									else
-									{
-										if (this.inventory[this.selectedItem].type == 202)
-										{
-											num73 *= 0.8f;
-											num74 *= 0.9f;
-											num75 *= 1f;
-										}
-										else
-										{
-											if (this.inventory[this.selectedItem].type == 203)
-											{
-												num73 *= 0.9f;
-												num74 *= 0.9f;
-												num75 *= 0.1f;
-											}
-										}
-									}
-								}
-							}
-						}
-						Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), num73, num74, num75);
-					}
-					if (Main.myPlayer == i)
-					{
-						int num76 = (int)((float)this.inventory[this.selectedItem].damage * this.meleeDamage);
-						float num77 = this.inventory[this.selectedItem].knockBack;
-						if (this.kbGlove)
-						{
-							num77 *= 2f;
-						}
-						int num78 = rectangle.X / 16;
-						int num79 = (rectangle.X + rectangle.Width) / 16 + 1;
-						int num80 = rectangle.Y / 16;
-						int num81 = (rectangle.Y + rectangle.Height) / 16 + 1;
-						for (int num82 = num78; num82 < num79; num82++)
-						{
-							for (int num83 = num80; num83 < num81; num83++)
-							{
-								if (Main.tile[num82, num83] != null && Main.tileCut[(int)Main.tile[num82, num83].type] && Main.tile[num82, num83 + 1] != null && Main.tile[num82, num83 + 1].type != 78)
-								{
-									WorldGen.KillTile(num82, num83, false, false, false);
-									if (Main.netMode == 1)
-									{
-										NetMessage.SendData(17, -1, -1, "", 0, (float)num82, (float)num83, 0f, 0);
-									}
-								}
-							}
-						}
-						for (int num84 = 0; num84 < 200; num84++)
-						{
-							if (Main.npc[num84].active && Main.npc[num84].immune[i] == 0 && this.attackCD == 0 && !Main.npc[num84].dontTakeDamage && (!Main.npc[num84].friendly || (Main.npc[num84].type == 22 && this.killGuide)))
-							{
-								Rectangle value = new Rectangle((int)Main.npc[num84].position.X, (int)Main.npc[num84].position.Y, Main.npc[num84].width, Main.npc[num84].height);
-								if (rectangle.Intersects(value) && (Main.npc[num84].noTileCollide || Collision.CanHit(this.position, this.width, this.height, Main.npc[num84].position, Main.npc[num84].width, Main.npc[num84].height)))
-								{
-									bool flag9 = false;
-									if (Main.rand.Next(1, 101) <= this.meleeCrit)
-									{
-										flag9 = true;
-									}
-									int num85 = Main.DamageVar((float)num76);
-									this.StatusNPC(this.inventory[this.selectedItem].type, num84);
-									Main.npc[num84].StrikeNPC(num85, num77, this.direction, flag9, false);
-									if (Main.netMode != 0)
-									{
-										if (flag9)
-										{
-											NetMessage.SendData(28, -1, -1, "", num84, (float)num85, num77, (float)this.direction, 1);
-										}
-										else
-										{
-											NetMessage.SendData(28, -1, -1, "", num84, (float)num85, num77, (float)this.direction, 0);
-										}
-									}
-									Main.npc[num84].immune[i] = this.itemAnimation;
-									this.attackCD = (int)((double)this.itemAnimationMax * 0.33);
-								}
-							}
-						}
-						if (this.hostile)
-						{
-							for (int num86 = 0; num86 < 255; num86++)
-							{
-								if (num86 != i && Main.player[num86].active && Main.player[num86].hostile && !Main.player[num86].immune && !Main.player[num86].dead && (Main.player[i].team == 0 || Main.player[i].team != Main.player[num86].team))
-								{
-									Rectangle value2 = new Rectangle((int)Main.player[num86].position.X, (int)Main.player[num86].position.Y, Main.player[num86].width, Main.player[num86].height);
-									if (rectangle.Intersects(value2) && Collision.CanHit(this.position, this.width, this.height, Main.player[num86].position, Main.player[num86].width, Main.player[num86].height))
-									{
-										bool flag10 = false;
-										if (Main.rand.Next(1, 101) <= 10)
-										{
-											flag10 = true;
-										}
-										int num87 = Main.DamageVar((float)num76);
-										this.StatusPvP(this.inventory[this.selectedItem].type, num86);
-										Main.player[num86].Hurt(num87, this.direction, true, false, "", flag10);
-										if (Main.netMode != 0)
-										{
-											if (flag10)
-											{
-												NetMessage.SendData(26, -1, -1, Player.getDeathMessage(this.whoAmi, -1, -1, -1), num86, (float)this.direction, (float)num87, 1f, 1);
-											}
-											else
-											{
-												NetMessage.SendData(26, -1, -1, Player.getDeathMessage(this.whoAmi, -1, -1, -1), num86, (float)this.direction, (float)num87, 1f, 0);
-											}
-										}
-										this.attackCD = (int)((double)this.itemAnimationMax * 0.33);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			if (this.itemTime == 0 && this.itemAnimation > 0)
-			{
-				if (this.inventory[this.selectedItem].healLife > 0)
-				{
-					this.statLife += this.inventory[this.selectedItem].healLife;
-					this.itemTime = this.inventory[this.selectedItem].useTime;
-					if (Main.myPlayer == this.whoAmi)
-					{
-						this.HealEffect(this.inventory[this.selectedItem].healLife);
-					}
-				}
-				if (this.inventory[this.selectedItem].healMana > 0)
-				{
-					this.statMana += this.inventory[this.selectedItem].healMana;
-					this.itemTime = this.inventory[this.selectedItem].useTime;
-					if (Main.myPlayer == this.whoAmi)
-					{
-						this.ManaEffect(this.inventory[this.selectedItem].healMana);
-					}
-				}
-				if (this.inventory[this.selectedItem].buffType > 0)
-				{
-					if (this.whoAmi == Main.myPlayer)
-					{
-						this.AddBuff(this.inventory[this.selectedItem].buffType, this.inventory[this.selectedItem].buffTime, true);
-					}
-					this.itemTime = this.inventory[this.selectedItem].useTime;
-				}
-			}
-			if (this.itemTime == 0 && this.itemAnimation > 0 && this.inventory[this.selectedItem].type == 361)
-			{
-				this.itemTime = this.inventory[this.selectedItem].useTime;
-				Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
-				if (Main.netMode != 1 && Main.invasionType == 0)
-				{
-					Main.invasionDelay = 0;
-					Main.StartInvasion(1);
-				}
-			}
-			if (this.itemTime == 0 && this.itemAnimation > 0 && this.inventory[this.selectedItem].type == 602)
-			{
-				this.itemTime = this.inventory[this.selectedItem].useTime;
-				Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
-				if (Main.netMode != 1 && Main.invasionType == 0)
-				{
-					Main.invasionDelay = 0;
-					Main.StartInvasion(2);
-				}
-			}
-			if (this.itemTime == 0 && this.itemAnimation > 0 && (this.inventory[this.selectedItem].type == 43 || this.inventory[this.selectedItem].type == 70 || this.inventory[this.selectedItem].type == 544 || this.inventory[this.selectedItem].type == 556 || this.inventory[this.selectedItem].type == 557 || this.inventory[this.selectedItem].type == 560))
-			{
-				bool flag11 = false;
-				for (int num88 = 0; num88 < 200; num88++)
-				{
-					if (Main.npc[num88].active && ((this.inventory[this.selectedItem].type == 43 && Main.npc[num88].type == 4) || (this.inventory[this.selectedItem].type == 70 && Main.npc[num88].type == 13) || ((this.inventory[this.selectedItem].type == 560 & Main.npc[num88].type == 50) || (this.inventory[this.selectedItem].type == 544 && Main.npc[num88].type == 125)) || (this.inventory[this.selectedItem].type == 544 && Main.npc[num88].type == 126) || (this.inventory[this.selectedItem].type == 556 && Main.npc[num88].type == 134) || (this.inventory[this.selectedItem].type == 557 && Main.npc[num88].type == 128)))
-					{
-						flag11 = true;
-						break;
-					}
-				}
-				if (flag11)
-				{
-					this.itemTime = this.inventory[this.selectedItem].useTime;
-					if (Main.myPlayer == this.whoAmi)
-					{
-						this.Hurt(this.statLife * (this.statDefense + 1), -this.direction, false, false, Player.getDeathMessage(-1, -1, -1, 3), false);
-					}
-				}
-				else
-				{
-					if (this.inventory[this.selectedItem].type == 560)
-					{
-						this.itemTime = this.inventory[this.selectedItem].useTime;
-						Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
-						if (Main.netMode != 1)
-						{
-							NPC.SpawnOnPlayer(i, 50);
-						}
-					}
-					else
-					{
-						if (this.inventory[this.selectedItem].type == 43)
-						{
-							if (!Main.dayTime)
-							{
-								this.itemTime = this.inventory[this.selectedItem].useTime;
-								Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
-								if (Main.netMode != 1)
-								{
-									NPC.SpawnOnPlayer(i, 4);
-								}
-							}
-						}
-						else
-						{
-							if (this.inventory[this.selectedItem].type == 70)
-							{
-								if (this.zoneEvil)
-								{
-									this.itemTime = this.inventory[this.selectedItem].useTime;
-									Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
-									if (Main.netMode != 1)
-									{
-										NPC.SpawnOnPlayer(i, 13);
-									}
-								}
-							}
-							else
-							{
-								if (this.inventory[this.selectedItem].type == 544)
-								{
-									if (!Main.dayTime)
-									{
-										this.itemTime = this.inventory[this.selectedItem].useTime;
-										Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
-										if (Main.netMode != 1)
-										{
-											NPC.SpawnOnPlayer(i, 125);
-											NPC.SpawnOnPlayer(i, 126);
-										}
-									}
-								}
-								else
-								{
-									if (this.inventory[this.selectedItem].type == 556)
-									{
-										if (!Main.dayTime)
-										{
-											this.itemTime = this.inventory[this.selectedItem].useTime;
-											Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
-											if (Main.netMode != 1)
-											{
-												NPC.SpawnOnPlayer(i, 134);
-											}
-										}
-									}
-									else
-									{
-										if (this.inventory[this.selectedItem].type == 557 && !Main.dayTime)
-										{
-											this.itemTime = this.inventory[this.selectedItem].useTime;
-											Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
-											if (Main.netMode != 1)
-											{
-												NPC.SpawnOnPlayer(i, 127);
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			if (this.inventory[this.selectedItem].type == 50 && this.itemAnimation > 0)
-			{
-				if (Main.rand.Next(2) == 0)
-				{
-					Vector2 arg_6943_0 = this.position;
-					int arg_6943_1 = this.width;
-					int arg_6943_2 = this.height;
-					int arg_6943_3 = 15;
-					float arg_6943_4 = 0f;
-					float arg_6943_5 = 0f;
-					int arg_6943_6 = 150;
-					Color newColor = default(Color);
-					Dust.NewDust(arg_6943_0, arg_6943_1, arg_6943_2, arg_6943_3, arg_6943_4, arg_6943_5, arg_6943_6, newColor, 1.1f);
-				}
-				if (this.itemTime == 0)
-				{
-					this.itemTime = this.inventory[this.selectedItem].useTime;
-				}
-				else
-				{
-					if (this.itemTime == this.inventory[this.selectedItem].useTime / 2)
-					{
-						for (int num89 = 0; num89 < 70; num89++)
-						{
-							Vector2 arg_69DC_0 = this.position;
-							int arg_69DC_1 = this.width;
-							int arg_69DC_2 = this.height;
-							int arg_69DC_3 = 15;
-							float arg_69DC_4 = this.velocity.X * 0.5f;
-							float arg_69DC_5 = this.velocity.Y * 0.5f;
-							int arg_69DC_6 = 150;
-							Color newColor = default(Color);
-							Dust.NewDust(arg_69DC_0, arg_69DC_1, arg_69DC_2, arg_69DC_3, arg_69DC_4, arg_69DC_5, arg_69DC_6, newColor, 1.5f);
-						}
-						this.grappling[0] = -1;
-						this.grapCount = 0;
-						for (int num90 = 0; num90 < 1000; num90++)
-						{
-							if (Main.projectile[num90].active && Main.projectile[num90].owner == i && Main.projectile[num90].aiStyle == 7)
-							{
-								Main.projectile[num90].Kill();
-							}
-						}
-						this.Spawn();
-						for (int num91 = 0; num91 < 70; num91++)
-						{
-							Vector2 arg_6A8B_0 = this.position;
-							int arg_6A8B_1 = this.width;
-							int arg_6A8B_2 = this.height;
-							int arg_6A8B_3 = 15;
-							float arg_6A8B_4 = 0f;
-							float arg_6A8B_5 = 0f;
-							int arg_6A8B_6 = 150;
-							Color newColor = default(Color);
-							Dust.NewDust(arg_6A8B_0, arg_6A8B_1, arg_6A8B_2, arg_6A8B_3, arg_6A8B_4, arg_6A8B_5, arg_6A8B_6, newColor, 1.5f);
-						}
-					}
-				}
-			}
-			if (i == Main.myPlayer)
-			{
-				if (this.itemTime == this.inventory[this.selectedItem].useTime && this.inventory[this.selectedItem].consumable)
-				{
-					bool flag12 = true;
-					if (this.inventory[this.selectedItem].ranged)
-					{
-						if (this.ammoCost80 && Main.rand.Next(5) == 0)
-						{
-							flag12 = false;
-						}
-						if (this.ammoCost75 && Main.rand.Next(4) == 0)
-						{
-							flag12 = false;
-						}
-					}
-					if (flag12)
-					{
-						if (this.inventory[this.selectedItem].stack > 0)
-						{
-							this.inventory[this.selectedItem].stack--;
-						}
-						if (this.inventory[this.selectedItem].stack <= 0)
-						{
-							this.itemTime = this.itemAnimation;
-						}
-					}
-				}
-				if (this.inventory[this.selectedItem].stack <= 0 && this.itemAnimation == 0)
-				{
-					this.inventory[this.selectedItem] = new Item();
-				}
-				if (this.selectedItem == 48)
-				{
-					if (this.itemAnimation == 0)
-					{
-						return;
-					}
-					Main.mouseItem = (Item)this.inventory[this.selectedItem].Clone();
-				}
-			}
-		}
+        public void ItemCheck(int i)
+        {
+            int num1 = this.inventory[this.selectedItem].damage;
+            if (num1 > 0)
+            {
+                if (this.inventory[this.selectedItem].melee)
+                    num1 = (int)((double)num1 * (double)this.meleeDamage);
+                else if (this.inventory[this.selectedItem].ranged)
+                    num1 = (int)((double)num1 * (double)this.rangedDamage);
+                else if (this.inventory[this.selectedItem].magic)
+                    num1 = (int)((double)num1 * (double)this.magicDamage);
+            }
+            if (this.inventory[this.selectedItem].autoReuse && !this.noItems)
+            {
+                this.releaseUseItem = true;
+                if (this.itemAnimation == 1 && this.inventory[this.selectedItem].stack > 0)
+                    this.itemAnimation = this.inventory[this.selectedItem].shoot <= 0 || this.whoAmi == Main.myPlayer || !this.controlUseItem ? 0 : 2;
+            }
+            if (this.itemAnimation == 0 && this.reuseDelay > 0)
+            {
+                this.itemAnimation = this.reuseDelay;
+                this.itemTime = this.reuseDelay;
+                this.reuseDelay = 0;
+            }
+            if (this.controlUseItem && this.releaseUseItem && (this.inventory[this.selectedItem].headSlot > 0 || this.inventory[this.selectedItem].bodySlot > 0 || this.inventory[this.selectedItem].legSlot > 0))
+            {
+                if (this.inventory[this.selectedItem].useStyle == 0)
+                    this.releaseUseItem = false;
+                if ((double)this.position.X / 16.0 - (double)Player.tileRangeX - (double)this.inventory[this.selectedItem].tileBoost <= (double)Player.tileTargetX && ((double)this.position.X + (double)this.width) / 16.0 + (double)Player.tileRangeX + (double)this.inventory[this.selectedItem].tileBoost - 1.0 >= (double)Player.tileTargetX && ((double)this.position.Y / 16.0 - (double)Player.tileRangeY - (double)this.inventory[this.selectedItem].tileBoost <= (double)Player.tileTargetY && ((double)this.position.Y + (double)this.height) / 16.0 + (double)Player.tileRangeY + (double)this.inventory[this.selectedItem].tileBoost - 2.0 >= (double)Player.tileTargetY))
+                {
+                    int index1 = Player.tileTargetX;
+                    int index2 = Player.tileTargetY;
+                    if (Main.tile[index1, index2].active && (int)Main.tile[index1, index2].type == 128)
+                    {
+                        int num2 = (int)Main.tile[index1, index2].frameY;
+                        int num3 = 0;
+                        if (this.inventory[this.selectedItem].bodySlot >= 0)
+                            num3 = 1;
+                        if (this.inventory[this.selectedItem].legSlot >= 0)
+                            num3 = 2;
+                        int num4;
+                        for (num4 = num2 / 18; num3 > num4; num4 = (int)Main.tile[index1, index2].frameY / 18)
+                            ++index2;
+                        for (; num3 < num4; num4 = (int)Main.tile[index1, index2].frameY / 18)
+                            --index2;
+                        int num5 = (int)Main.tile[index1, index2].frameX;
+                        while (num5 >= 100)
+                            num5 -= 100;
+                        if (num5 >= 36)
+                            num5 -= 36;
+                        int index3 = index1 - num5 / 18;
+                        int num6 = (int)Main.tile[index3, index2].frameX;
+                        WorldGen.KillTile(index3, index2, true, false, false);
+                        if (Main.netMode == 1)
+                            NetMessage.SendData(17, -1, -1, "", 0, (float)index3, (float)index2, 1f, 0);
+                        while (num6 >= 100)
+                            num6 -= 100;
+                        if (num4 == 0 && this.inventory[this.selectedItem].headSlot >= 0)
+                        {
+                            Main.tile[index3, index2].frameX = (short)(num6 + this.inventory[this.selectedItem].headSlot * 100);
+                            if (Main.netMode == 1)
+                                NetMessage.SendTileSquare(-1, index3, index2, 1);
+                            this.inventory[this.selectedItem].SetDefaults(0, false);
+                            Main.mouseItem.SetDefaults(0, false);
+                            this.releaseUseItem = false;
+                            this.mouseInterface = true;
+                        }
+                        else if (num4 == 1 && this.inventory[this.selectedItem].bodySlot >= 0)
+                        {
+                            Main.tile[index3, index2].frameX = (short)(num6 + this.inventory[this.selectedItem].bodySlot * 100);
+                            if (Main.netMode == 1)
+                                NetMessage.SendTileSquare(-1, index3, index2, 1);
+                            this.inventory[this.selectedItem].SetDefaults(0, false);
+                            Main.mouseItem.SetDefaults(0, false);
+                            this.releaseUseItem = false;
+                            this.mouseInterface = true;
+                        }
+                        else if (num4 == 2 && this.inventory[this.selectedItem].legSlot >= 0)
+                        {
+                            Main.tile[index3, index2].frameX = (short)(num6 + this.inventory[this.selectedItem].legSlot * 100);
+                            if (Main.netMode == 1)
+                                NetMessage.SendTileSquare(-1, index3, index2, 1);
+                            this.inventory[this.selectedItem].SetDefaults(0, false);
+                            Main.mouseItem.SetDefaults(0, false);
+                            this.releaseUseItem = false;
+                            this.mouseInterface = true;
+                        }
+                    }
+                }
+            }
+            if (this.controlUseItem && this.itemAnimation == 0 && (this.releaseUseItem && this.inventory[this.selectedItem].useStyle > 0))
+            {
+                bool flag = true;
+                if (this.inventory[this.selectedItem].shoot == 0)
+                    this.itemRotation = 0.0f;
+                if (this.wet && (this.inventory[this.selectedItem].shoot == 85 || this.inventory[this.selectedItem].shoot == 15 || this.inventory[this.selectedItem].shoot == 34))
+                    flag = false;
+                if (this.whoAmi == Main.myPlayer && this.inventory[this.selectedItem].type == 603 && !Main.cEd)
+                    flag = false;
+                if (this.noItems)
+                    flag = false;
+                if (this.inventory[this.selectedItem].shoot == 6 || this.inventory[this.selectedItem].shoot == 19 || (this.inventory[this.selectedItem].shoot == 33 || this.inventory[this.selectedItem].shoot == 52))
+                {
+                    for (int index = 0; index < 1000; ++index)
+                    {
+                        if (Main.projectile[index].active && Main.projectile[index].owner == Main.myPlayer && Main.projectile[index].type == this.inventory[this.selectedItem].shoot)
+                            flag = false;
+                    }
+                }
+                if (this.inventory[this.selectedItem].shoot == 106)
+                {
+                    int num2 = 0;
+                    for (int index = 0; index < 1000; ++index)
+                    {
+                        if (Main.projectile[index].active && Main.projectile[index].owner == Main.myPlayer && Main.projectile[index].type == this.inventory[this.selectedItem].shoot)
+                            ++num2;
+                    }
+                    if (num2 >= this.inventory[this.selectedItem].stack)
+                        flag = false;
+                }
+                if (this.inventory[this.selectedItem].shoot == 13 || this.inventory[this.selectedItem].shoot == 32)
+                {
+                    for (int index = 0; index < 1000; ++index)
+                    {
+                        if (Main.projectile[index].active && Main.projectile[index].owner == Main.myPlayer && (Main.projectile[index].type == this.inventory[this.selectedItem].shoot && (double)Main.projectile[index].ai[0] != 2.0))
+                            flag = false;
+                    }
+                }
+                if (this.inventory[this.selectedItem].shoot == 73)
+                {
+                    for (int index = 0; index < 1000; ++index)
+                    {
+                        if (Main.projectile[index].active && Main.projectile[index].owner == Main.myPlayer && Main.projectile[index].type == 74)
+                            flag = false;
+                    }
+                }
+                if (this.inventory[this.selectedItem].potion && flag)
+                {
+                    if (this.potionDelay <= 0)
+                    {
+                        this.potionDelay = this.potionDelayTime;
+                        this.AddBuff(21, this.potionDelay, true);
+                    }
+                    else
+                        flag = false;
+                }
+                if (this.inventory[this.selectedItem].mana > 0 && this.silence)
+                    flag = false;
+                if (this.inventory[this.selectedItem].mana > 0 && flag)
+                {
+                    if (this.inventory[this.selectedItem].type != (int)sbyte.MaxValue || !this.spaceGun)
+                    {
+                        if (this.statMana >= (int)((double)this.inventory[this.selectedItem].mana * (double)this.manaCost))
+                            this.statMana -= (int)((double)this.inventory[this.selectedItem].mana * (double)this.manaCost);
+                        else if (this.manaFlower)
+                        {
+                            this.QuickMana();
+                            if (this.statMana >= (int)((double)this.inventory[this.selectedItem].mana * (double)this.manaCost))
+                                this.statMana -= (int)((double)this.inventory[this.selectedItem].mana * (double)this.manaCost);
+                            else
+                                flag = false;
+                        }
+                        else
+                            flag = false;
+                    }
+                    if (this.whoAmi == Main.myPlayer && this.inventory[this.selectedItem].buffType != 0)
+                        this.AddBuff(this.inventory[this.selectedItem].buffType, this.inventory[this.selectedItem].buffTime, true);
+                }
+                if (this.whoAmi == Main.myPlayer && this.inventory[this.selectedItem].type == 603 && Main.cEd)
+                    this.AddBuff(this.inventory[this.selectedItem].buffType, 3600, true);
+                if (this.inventory[this.selectedItem].type == 43 && Main.dayTime)
+                    flag = false;
+                if (this.inventory[this.selectedItem].type == 544 && Main.dayTime)
+                    flag = false;
+                if (this.inventory[this.selectedItem].type == 556 && Main.dayTime)
+                    flag = false;
+                if (this.inventory[this.selectedItem].type == 557 && Main.dayTime)
+                    flag = false;
+                if (this.inventory[this.selectedItem].type == 70 && !this.zoneEvil)
+                    flag = false;
+                if (this.inventory[this.selectedItem].shoot == 17 && flag && i == Main.myPlayer)
+                {
+                    int i1 = (int)((double)Main.mouseX + (double)Main.screenPosition.X) / 16;
+                    int j = (int)((double)Main.mouseY + (double)Main.screenPosition.Y) / 16;
+                    if (Main.tile[i1, j].active && ((int)Main.tile[i1, j].type == 0 || (int)Main.tile[i1, j].type == 2 || (int)Main.tile[i1, j].type == 23))
+                    {
+                        WorldGen.KillTile(i1, j, false, false, true);
+                        if (!Main.tile[i1, j].active)
+                        {
+                            if (Main.netMode == 1)
+                                NetMessage.SendData(17, -1, -1, "", 4, (float)i1, (float)j, 0.0f, 0);
+                        }
+                        else
+                            flag = false;
+                    }
+                    else
+                        flag = false;
+                }
+                if (flag && this.inventory[this.selectedItem].useAmmo > 0)
+                {
+                    flag = false;
+                    for (int index = 0; index < 48; ++index)
+                    {
+                        if (this.inventory[index].ammo == this.inventory[this.selectedItem].useAmmo && this.inventory[index].stack > 0)
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
+                }
+                if (flag)
+                {
+                    if (this.inventory[this.selectedItem].pick > 0 || this.inventory[this.selectedItem].axe > 0 || this.inventory[this.selectedItem].hammer > 0)
+                        this.toolTime = 1;
+                    if (this.grappling[0] > -1)
+                    {
+                        if (this.controlRight)
+                            this.direction = 1;
+                        else if (this.controlLeft)
+                            this.direction = -1;
+                    }
+                    this.channel = this.inventory[this.selectedItem].channel;
+                    this.attackCD = 0;
+                    if (this.inventory[this.selectedItem].melee)
+                    {
+                        this.itemAnimation = (int)((double)this.inventory[this.selectedItem].useAnimation * (double)this.meleeSpeed);
+                        this.itemAnimationMax = (int)((double)this.inventory[this.selectedItem].useAnimation * (double)this.meleeSpeed);
+                    }
+                    else
+                    {
+                        this.itemAnimation = this.inventory[this.selectedItem].useAnimation;
+                        this.itemAnimationMax = this.inventory[this.selectedItem].useAnimation;
+                        this.reuseDelay = this.inventory[this.selectedItem].reuseDelay;
+                    }
+                    if (this.inventory[this.selectedItem].useSound > 0)
+                        Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, this.inventory[this.selectedItem].useSound);
+                }
+                if (flag && (this.inventory[this.selectedItem].shoot == 18 || this.inventory[this.selectedItem].shoot == 72 || (this.inventory[this.selectedItem].shoot == 86 || this.inventory[this.selectedItem].shoot == 86) || this.inventory[this.selectedItem].shoot == 111))
+                {
+                    for (int index = 0; index < 1000; ++index)
+                    {
+                        if (Main.projectile[index].active && Main.projectile[index].owner == i && Main.projectile[index].type == this.inventory[this.selectedItem].shoot)
+                            Main.projectile[index].Kill();
+                        if (this.inventory[this.selectedItem].shoot == 72)
+                        {
+                            if (Main.projectile[index].active && Main.projectile[index].owner == i && Main.projectile[index].type == 86)
+                                Main.projectile[index].Kill();
+                            if (Main.projectile[index].active && Main.projectile[index].owner == i && Main.projectile[index].type == 87)
+                                Main.projectile[index].Kill();
+                        }
+                    }
+                }
+            }
+            if (!this.controlUseItem)
+            {
+                int num2 = this.channel ? 1 : 0;
+                this.channel = false;
+            }
+            if (this.itemAnimation > 0)
+            {
+                this.itemAnimationMax = !this.inventory[this.selectedItem].melee ? this.inventory[this.selectedItem].useAnimation : (int)((double)this.inventory[this.selectedItem].useAnimation * (double)this.meleeSpeed);
+                if (this.inventory[this.selectedItem].mana > 0)
+                    this.manaRegenDelay = (int)this.maxRegenDelay;
+                if (Main.dedServ)
+                {
+                    this.itemHeight = this.inventory[this.selectedItem].height;
+                    this.itemWidth = this.inventory[this.selectedItem].width;
+                }
+                --this.itemAnimation;
+            }
+            else if (this.inventory[this.selectedItem].holdStyle == 1)
+            {
+                if (Main.dedServ)
+                {
+                    this.itemLocation.X = (float)((double)this.position.X + (double)this.width * 0.5 + 20.0 * (double)this.direction);
+                }
+                this.itemLocation.Y = this.position.Y + 24f;
+                this.itemRotation = 0.0f;
+                if ((double)this.gravDir == -1.0)
+                {
+                    this.itemRotation = -this.itemRotation;
+                    this.itemLocation.Y = (float)((double)this.position.Y + (double)this.height + ((double)this.position.Y - (double)this.itemLocation.Y));
+                }
+            }
+            else if (this.inventory[this.selectedItem].holdStyle == 2)
+            {
+                this.itemLocation.X = this.position.X + (float)this.width * 0.5f + (float)(6 * this.direction);
+                this.itemLocation.Y = this.position.Y + 16f;
+                this.itemRotation = 0.79f * (float)-this.direction;
+                if ((double)this.gravDir == -1.0)
+                {
+                    this.itemRotation = -this.itemRotation;
+                    this.itemLocation.Y = (float)((double)this.position.Y + (double)this.height + ((double)this.position.Y - (double)this.itemLocation.Y));
+                }
+            }
+            else if (this.inventory[this.selectedItem].holdStyle == 3 && !Main.dedServ)
+            {
+            }
+            if ((this.inventory[this.selectedItem].type == 8 || this.inventory[this.selectedItem].type >= 427 && this.inventory[this.selectedItem].type <= 433) && !this.wet || this.inventory[this.selectedItem].type == 523)
+            {
+                float R = 1f;
+                float G = 0.95f;
+                float B = 0.8f;
+                int num2 = 0;
+                if (this.inventory[this.selectedItem].type == 523)
+                    num2 = 8;
+                else if (this.inventory[this.selectedItem].type >= 427)
+                    num2 = this.inventory[this.selectedItem].type - 426;
+                if (num2 == 1)
+                {
+                    R = 0.0f;
+                    G = 0.1f;
+                    B = 1.3f;
+                }
+                else if (num2 == 2)
+                {
+                    R = 1f;
+                    G = 0.1f;
+                    B = 0.1f;
+                }
+                else if (num2 == 3)
+                {
+                    R = 0.0f;
+                    G = 1f;
+                    B = 0.1f;
+                }
+                else if (num2 == 4)
+                {
+                    R = 0.9f;
+                    G = 0.0f;
+                    B = 0.9f;
+                }
+                else if (num2 == 5)
+                {
+                    R = 1.3f;
+                    G = 1.3f;
+                    B = 1.3f;
+                }
+                else if (num2 == 6)
+                {
+                    R = 0.9f;
+                    G = 0.9f;
+                    B = 0.0f;
+                }
+                else if (num2 == 7)
+                {
+                    R = (float)(0.5 * (double)Main.demonTorch + 1.0 * (1.0 - (double)Main.demonTorch));
+                    G = 0.3f;
+                    B = (float)(1.0 * (double)Main.demonTorch + 0.5 * (1.0 - (double)Main.demonTorch));
+                }
+                else if (num2 == 8)
+                {
+                    B = 0.7f;
+                    R = 0.85f;
+                    G = 1f;
+                }
+                int num3 = num2;
+                int Type;
+                switch (num3)
+                {
+                    case 0:
+                        Type = 6;
+                        break;
+                    case 8:
+                        Type = 75;
+                        break;
+                    default:
+                        Type = 58 + num3;
+                        break;
+                }
+                int maxValue = 20;
+                if (this.itemAnimation > 0)
+                    maxValue = 7;
+                if (this.direction == -1)
+                {
+                    if (Main.rand.Next(maxValue) == 0)
+                        Dust.NewDust(new Vector2(this.itemLocation.X - 16f, this.itemLocation.Y - 14f * this.gravDir), 4, 4, Type, 0.0f, 0.0f, 100, new Color(), 1f);
+                    Lighting.addLight((int)(((double)this.itemLocation.X - 12.0 + (double)this.velocity.X) / 16.0), (int)(((double)this.itemLocation.Y - 14.0 + (double)this.velocity.Y) / 16.0), R, G, B);
+                }
+                else
+                {
+                    if (Main.rand.Next(maxValue) == 0)
+                        Dust.NewDust(new Vector2(this.itemLocation.X + 6f, this.itemLocation.Y - 14f * this.gravDir), 4, 4, Type, 0.0f, 0.0f, 100, new Color(), 1f);
+                    Lighting.addLight((int)(((double)this.itemLocation.X + 12.0 + (double)this.velocity.X) / 16.0), (int)(((double)this.itemLocation.Y - 14.0 + (double)this.velocity.Y) / 16.0), R, G, B);
+                }
+            }
+            if (this.inventory[this.selectedItem].type == 105 && !this.wet)
+            {
+                int maxValue = 20;
+                if (this.itemAnimation > 0)
+                    maxValue = 7;
+                if (this.direction == -1)
+                {
+                    if (Main.rand.Next(maxValue) == 0)
+                        Dust.NewDust(new Vector2(this.itemLocation.X - 12f, this.itemLocation.Y - 20f * this.gravDir), 4, 4, 6, 0.0f, 0.0f, 100, new Color(), 1f);
+                    Lighting.addLight((int)(((double)this.itemLocation.X - 16.0 + (double)this.velocity.X) / 16.0), (int)(((double)this.itemLocation.Y - 14.0) / 16.0), 1f, 0.95f, 0.8f);
+                }
+                else
+                {
+                    if (Main.rand.Next(maxValue) == 0)
+                        Dust.NewDust(new Vector2(this.itemLocation.X + 4f, this.itemLocation.Y - 20f * this.gravDir), 4, 4, 6, 0.0f, 0.0f, 100, new Color(), 1f);
+                    Lighting.addLight((int)(((double)this.itemLocation.X + 6.0 + (double)this.velocity.X) / 16.0), (int)(((double)this.itemLocation.Y - 14.0) / 16.0), 1f, 0.95f, 0.8f);
+                }
+            }
+            else if (this.inventory[this.selectedItem].type == 148 && !this.wet)
+            {
+                int maxValue = 10;
+                if (this.itemAnimation > 0)
+                    maxValue = 7;
+                if (this.direction == -1)
+                {
+                    if (Main.rand.Next(maxValue) == 0)
+                        Dust.NewDust(new Vector2(this.itemLocation.X - 12f, this.itemLocation.Y - 20f * this.gravDir), 4, 4, 29, 0.0f, 0.0f, 100, new Color(), 1f);
+                    Lighting.addLight((int)(((double)this.itemLocation.X - 16.0 + (double)this.velocity.X) / 16.0), (int)(((double)this.itemLocation.Y - 14.0) / 16.0), 0.3f, 0.3f, 0.75f);
+                }
+                else
+                {
+                    if (Main.rand.Next(maxValue) == 0)
+                        Dust.NewDust(new Vector2(this.itemLocation.X + 4f, this.itemLocation.Y - 20f * this.gravDir), 4, 4, 29, 0.0f, 0.0f, 100, new Color(), 1f);
+                    Lighting.addLight((int)(((double)this.itemLocation.X + 6.0 + (double)this.velocity.X) / 16.0), (int)(((double)this.itemLocation.Y - 14.0) / 16.0), 0.3f, 0.3f, 0.75f);
+                }
+            }
+            if (this.inventory[this.selectedItem].type == 282)
+            {
+                if (this.direction == -1)
+                    Lighting.addLight((int)(((double)this.itemLocation.X - 16.0 + (double)this.velocity.X) / 16.0), (int)(((double)this.itemLocation.Y - 14.0) / 16.0), 0.7f, 1f, 0.8f);
+                else
+                    Lighting.addLight((int)(((double)this.itemLocation.X + 6.0 + (double)this.velocity.X) / 16.0), (int)(((double)this.itemLocation.Y - 14.0) / 16.0), 0.7f, 1f, 0.8f);
+            }
+            if (this.inventory[this.selectedItem].type == 286)
+            {
+                if (this.direction == -1)
+                    Lighting.addLight((int)(((double)this.itemLocation.X - 16.0 + (double)this.velocity.X) / 16.0), (int)(((double)this.itemLocation.Y - 14.0) / 16.0), 0.7f, 0.8f, 1f);
+                else
+                    Lighting.addLight((int)(((double)this.itemLocation.X + 6.0 + (double)this.velocity.X) / 16.0), (int)(((double)this.itemLocation.Y - 14.0) / 16.0), 0.7f, 0.8f, 1f);
+            }
+            this.releaseUseItem = !this.controlUseItem && true;
+            if (this.itemTime > 0)
+                --this.itemTime;
+            if (i == Main.myPlayer)
+            {
+                if (this.inventory[this.selectedItem].shoot > 0 && this.itemAnimation > 0 && this.itemTime == 0)
+                {
+                    int Type1 = this.inventory[this.selectedItem].shoot;
+                    float num2 = this.inventory[this.selectedItem].shootSpeed;
+                    if (this.inventory[this.selectedItem].melee && Type1 != 25 && (Type1 != 26 && Type1 != 35))
+                        num2 /= this.meleeSpeed;
+                    bool flag1 = false;
+                    int Damage = num1;
+                    float KnockBack = this.inventory[this.selectedItem].knockBack;
+                    if (Type1 == 13 || Type1 == 32)
+                    {
+                        this.grappling[0] = -1;
+                        this.grapCount = 0;
+                        for (int index = 0; index < 1000; ++index)
+                        {
+                            if (Main.projectile[index].active && Main.projectile[index].owner == i && Main.projectile[index].type == 13)
+                                Main.projectile[index].Kill();
+                        }
+                    }
+                    if (this.inventory[this.selectedItem].useAmmo > 0)
+                    {
+                        Item obj = new Item();
+                        bool flag2 = false;
+                        for (int index = 44; index < 48; ++index)
+                        {
+                            if (this.inventory[index].ammo == this.inventory[this.selectedItem].useAmmo && this.inventory[index].stack > 0)
+                            {
+                                obj = this.inventory[index];
+                                flag1 = true;
+                                flag2 = true;
+                                break;
+                            }
+                        }
+                        if (!flag2)
+                        {
+                            for (int index = 0; index < 44; ++index)
+                            {
+                                if (this.inventory[index].ammo == this.inventory[this.selectedItem].useAmmo && this.inventory[index].stack > 0)
+                                {
+                                    obj = this.inventory[index];
+                                    flag1 = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (flag1)
+                        {
+                            if (obj.shoot > 0)
+                                Type1 = obj.shoot;
+                            if (Type1 == 42)
+                            {
+                                if (obj.type == 370)
+                                {
+                                    Type1 = 65;
+                                    Damage += 5;
+                                }
+                                else if (obj.type == 408)
+                                {
+                                    Type1 = 68;
+                                    Damage += 5;
+                                }
+                            }
+                            num2 += obj.shootSpeed;
+                            if (obj.ranged)
+                            {
+                                if (obj.damage > 0)
+                                    Damage += (int)((double)obj.damage * (double)this.rangedDamage);
+                            }
+                            else
+                                Damage += obj.damage;
+                            if (this.inventory[this.selectedItem].useAmmo == 1 && this.archery)
+                            {
+                                if ((double)num2 < 20.0)
+                                {
+                                    num2 *= 1.2f;
+                                    if ((double)num2 > 20.0)
+                                        num2 = 20f;
+                                }
+                                Damage = (int)((double)Damage * 1.2);
+                            }
+                            KnockBack += obj.knockBack;
+                            bool flag3 = false;
+                            if (this.inventory[this.selectedItem].type == 98 && Main.rand.Next(3) == 0)
+                                flag3 = true;
+                            if (this.inventory[this.selectedItem].type == 533 && Main.rand.Next(2) == 0)
+                                flag3 = true;
+                            if (this.inventory[this.selectedItem].type == 434 && this.itemAnimation < this.inventory[this.selectedItem].useAnimation - 2)
+                                flag3 = true;
+                            if (this.ammoCost80 && Main.rand.Next(5) == 0)
+                                flag3 = true;
+                            if (this.ammoCost75 && Main.rand.Next(4) == 0)
+                                flag3 = true;
+                            if (Type1 == 85 && this.itemAnimation < this.itemAnimationMax - 6)
+                                flag3 = true;
+                            if (!flag3)
+                            {
+                                --obj.stack;
+                                if (obj.stack <= 0)
+                                {
+                                    obj.active = false;
+                                    obj.name = "";
+                                    obj.type = 0;
+                                }
+                            }
+                        }
+                    }
+                    else
+                        flag1 = true;
+                    if (Type1 == 72)
+                    {
+                        switch (Main.rand.Next(3))
+                        {
+                            case 0:
+                                Type1 = 72;
+                                break;
+                            case 1:
+                                Type1 = 86;
+                                break;
+                            case 2:
+                                Type1 = 87;
+                                break;
+                        }
+                    }
+                    if (Type1 == 73)
+                    {
+                        for (int index = 0; index < 1000; ++index)
+                        {
+                            if (Main.projectile[index].active && Main.projectile[index].owner == i)
+                            {
+                                if (Main.projectile[index].type == 73)
+                                    Type1 = 74;
+                                if (Main.projectile[index].type == 74)
+                                    flag1 = false;
+                            }
+                        }
+                    }
+                    if (flag1)
+                    {
+                        if (this.inventory[this.selectedItem].mech && this.kbGlove)
+                            KnockBack *= 1.7f;
+                        if (Type1 == 1 && this.inventory[this.selectedItem].type == 120)
+                            Type1 = 2;
+                        this.itemTime = this.inventory[this.selectedItem].useTime;
+                        this.direction = (double)Main.mouseX + (double)Main.screenPosition.X <= (double)this.position.X + (double)this.width * 0.5 ? -1 : 1;
+                        Vector2 vector2 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+                        if (Type1 == 9)
+                        {
+                            vector2 = new Vector2(this.position.X + (float)this.width * 0.5f + (float)(Main.rand.Next(601) * -this.direction), (float)((double)this.position.Y + (double)this.height * 0.5 - 300.0) - (float)Main.rand.Next(100));
+                            KnockBack = 0.0f;
+                        }
+                        else if (Type1 == 51)
+                            vector2.Y -= 6f * this.gravDir;
+                        float num3 = (float)Main.mouseX + Main.screenPosition.X - vector2.X;
+                        float num4 = (float)Main.mouseY + Main.screenPosition.Y - vector2.Y;
+                        float num5 = (float)Math.Sqrt((double)num3 * (double)num3 + (double)num4 * (double)num4);
+                        float num6 = num5;
+                        float num7 = num2 / num5;
+                        float SpeedX1 = num3 * num7;
+                        float SpeedY1 = num4 * num7;
+                        if (Type1 == 12)
+                        {
+                            vector2.X += SpeedX1 * 3f;
+                            vector2.Y += SpeedY1 * 3f;
+                        }
+                        if (this.inventory[this.selectedItem].useStyle == 5)
+                        {
+                            this.itemRotation = (float)Math.Atan2((double)SpeedY1 * (double)this.direction, (double)SpeedX1 * (double)this.direction);
+                            NetMessage.SendData(13, -1, -1, "", this.whoAmi, 0.0f, 0.0f, 0.0f, 0);
+                            NetMessage.SendData(41, -1, -1, "", this.whoAmi, 0.0f, 0.0f, 0.0f, 0);
+                        }
+                        if (Type1 == 17)
+                        {
+                            vector2.X = (float)Main.mouseX + Main.screenPosition.X;
+                            vector2.Y = (float)Main.mouseY + Main.screenPosition.Y;
+                        }
+                        if (Type1 == 76)
+                        {
+                            int Type2 = Type1 + Main.rand.Next(3);
+                            float num8 = num6 / (float)(Main.screenHeight / 2);
+                            if ((double)num8 > 1.0)
+                                num8 = 1f;
+                            float num9 = SpeedX1 + (float)Main.rand.Next(-40, 41) * 0.01f;
+                            float num10 = SpeedY1 + (float)Main.rand.Next(-40, 41) * 0.01f;
+                            float SpeedX2 = num9 * (num8 + 0.25f);
+                            float SpeedY2 = num10 * (num8 + 0.25f);
+                            int number = Projectile.NewProjectile(vector2.X, vector2.Y, SpeedX2, SpeedY2, Type2, Damage, KnockBack, i);
+                            Main.projectile[number].ai[1] = 1f;
+                            float num11 = (float)((double)num8 * 2.0 - 1.0);
+                            if ((double)num11 < -1.0)
+                                num11 = -1f;
+                            if ((double)num11 > 1.0)
+                                num11 = 1f;
+                            Main.projectile[number].ai[0] = num11;
+                            NetMessage.SendData(27, -1, -1, "", number, 0.0f, 0.0f, 0.0f, 0);
+                        }
+                        else if (this.inventory[this.selectedItem].type == 98 || this.inventory[this.selectedItem].type == 533)
+                        {
+                            float SpeedX2 = SpeedX1 + (float)Main.rand.Next(-40, 41) * 0.01f;
+                            float SpeedY2 = SpeedY1 + (float)Main.rand.Next(-40, 41) * 0.01f;
+                            Projectile.NewProjectile(vector2.X, vector2.Y, SpeedX2, SpeedY2, Type1, Damage, KnockBack, i);
+                        }
+                        else if (this.inventory[this.selectedItem].type == 518)
+                        {
+                            float num8 = SpeedX1;
+                            float num9 = SpeedY1;
+                            float SpeedX2 = num8 + (float)Main.rand.Next(-40, 41) * 0.04f;
+                            float SpeedY2 = num9 + (float)Main.rand.Next(-40, 41) * 0.04f;
+                            Projectile.NewProjectile(vector2.X, vector2.Y, SpeedX2, SpeedY2, Type1, Damage, KnockBack, i);
+                        }
+                        else if (this.inventory[this.selectedItem].type == 534)
+                        {
+                            for (int index = 0; index < 4; ++index)
+                            {
+                                float num8 = SpeedX1;
+                                float num9 = SpeedY1;
+                                float SpeedX2 = num8 + (float)Main.rand.Next(-40, 41) * 0.05f;
+                                float SpeedY2 = num9 + (float)Main.rand.Next(-40, 41) * 0.05f;
+                                Projectile.NewProjectile(vector2.X, vector2.Y, SpeedX2, SpeedY2, Type1, Damage, KnockBack, i);
+                            }
+                        }
+                        else if (this.inventory[this.selectedItem].type == 434)
+                        {
+                            float SpeedX2 = SpeedX1;
+                            float SpeedY2 = SpeedY1;
+                            if (this.itemAnimation < 5)
+                            {
+                                float num8 = SpeedX2 + (float)Main.rand.Next(-40, 41) * 0.01f;
+                                float num9 = SpeedY2 + (float)Main.rand.Next(-40, 41) * 0.01f;
+                                SpeedX2 = num8 * 1.1f;
+                                SpeedY2 = num9 * 1.1f;
+                            }
+                            else if (this.itemAnimation < 10)
+                            {
+                                float num8 = SpeedX2 + (float)Main.rand.Next(-20, 21) * 0.01f;
+                                float num9 = SpeedY2 + (float)Main.rand.Next(-20, 21) * 0.01f;
+                                SpeedX2 = num8 * 1.05f;
+                                SpeedY2 = num9 * 1.05f;
+                            }
+                            Projectile.NewProjectile(vector2.X, vector2.Y, SpeedX2, SpeedY2, Type1, Damage, KnockBack, i);
+                        }
+                        else
+                        {
+                            int index = Projectile.NewProjectile(vector2.X, vector2.Y, SpeedX1, SpeedY1, Type1, Damage, KnockBack, i);
+                            if (Type1 == 80)
+                            {
+                                Main.projectile[index].ai[0] = (float)Player.tileTargetX;
+                                Main.projectile[index].ai[1] = (float)Player.tileTargetY;
+                            }
+                        }
+                    }
+                    else if (this.inventory[this.selectedItem].useStyle == 5)
+                    {
+                        this.itemRotation = 0.0f;
+                        NetMessage.SendData(41, -1, -1, "", this.whoAmi, 0.0f, 0.0f, 0.0f, 0);
+                    }
+                }
+                if (this.whoAmi == Main.myPlayer && (this.inventory[this.selectedItem].type == 509 || this.inventory[this.selectedItem].type == 510) && ((double)this.position.X / 16.0 - (double)Player.tileRangeX - (double)this.inventory[this.selectedItem].tileBoost - (double)this.blockRange <= (double)Player.tileTargetX && ((double)this.position.X + (double)this.width) / 16.0 + (double)Player.tileRangeX + (double)this.inventory[this.selectedItem].tileBoost - 1.0 + (double)this.blockRange >= (double)Player.tileTargetX && ((double)this.position.Y / 16.0 - (double)Player.tileRangeY - (double)this.inventory[this.selectedItem].tileBoost - (double)this.blockRange <= (double)Player.tileTargetY && ((double)this.position.Y + (double)this.height) / 16.0 + (double)Player.tileRangeY + (double)this.inventory[this.selectedItem].tileBoost - 2.0 + (double)this.blockRange >= (double)Player.tileTargetY)))
+                {
+                    this.showItemIcon = true;
+                    if (this.itemAnimation > 0 && this.itemTime == 0 && this.controlUseItem)
+                    {
+                        int i1 = Player.tileTargetX;
+                        int j = Player.tileTargetY;
+                        if (this.inventory[this.selectedItem].type == 509)
+                        {
+                            int index1 = -1;
+                            for (int index2 = 0; index2 < 48; ++index2)
+                            {
+                                if (this.inventory[index2].stack > 0 && this.inventory[index2].type == 530)
+                                {
+                                    index1 = index2;
+                                    break;
+                                }
+                            }
+                            if (index1 >= 0 && WorldGen.PlaceWire(i1, j))
+                            {
+                                --this.inventory[index1].stack;
+                                if (this.inventory[index1].stack <= 0)
+                                    this.inventory[index1].SetDefaults(0, false);
+                                this.itemTime = this.inventory[this.selectedItem].useTime;
+                                NetMessage.SendData(17, -1, -1, "", 5, (float)Player.tileTargetX, (float)Player.tileTargetY, 0.0f, 0);
+                            }
+                        }
+                        else if (WorldGen.KillWire(i1, j))
+                        {
+                            this.itemTime = this.inventory[this.selectedItem].useTime;
+                            NetMessage.SendData(17, -1, -1, "", 6, (float)Player.tileTargetX, (float)Player.tileTargetY, 0.0f, 0);
+                        }
+                    }
+                }
+                if (this.itemAnimation > 0 && this.itemTime == 0 && (this.inventory[this.selectedItem].type == 507 || this.inventory[this.selectedItem].type == 508))
+                {
+                    this.itemTime = this.inventory[this.selectedItem].useTime;
+                    Vector2 vector2 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+                    float num2 = (float)Main.mouseX + Main.screenPosition.X - vector2.X;
+                    float num3 = (float)Main.mouseY + Main.screenPosition.Y - vector2.Y;
+                    float num4 = (float)Math.Sqrt((double)num2 * (double)num2 + (double)num3 * (double)num3) / (float)(Main.screenHeight / 2);
+                    if ((double)num4 > 1.0)
+                        num4 = 1f;
+                    float number2 = (float)((double)num4 * 2.0 - 1.0);
+                    if ((double)number2 < -1.0)
+                        number2 = -1f;
+                    if ((double)number2 > 1.0)
+                        number2 = 1f;
+                    Main.harpNote = number2;
+                    int Style = 26;
+                    if (this.inventory[this.selectedItem].type == 507)
+                        Style = 35;
+                    Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, Style);
+                    NetMessage.SendData(58, -1, -1, "", this.whoAmi, number2, 0.0f, 0.0f, 0);
+                }
+                if (this.inventory[this.selectedItem].type >= 205 && this.inventory[this.selectedItem].type <= 207 && ((double)this.position.X / 16.0 - (double)Player.tileRangeX - (double)this.inventory[this.selectedItem].tileBoost <= (double)Player.tileTargetX && ((double)this.position.X + (double)this.width) / 16.0 + (double)Player.tileRangeX + (double)this.inventory[this.selectedItem].tileBoost - 1.0 >= (double)Player.tileTargetX) && ((double)this.position.Y / 16.0 - (double)Player.tileRangeY - (double)this.inventory[this.selectedItem].tileBoost <= (double)Player.tileTargetY && ((double)this.position.Y + (double)this.height) / 16.0 + (double)Player.tileRangeY + (double)this.inventory[this.selectedItem].tileBoost - 2.0 >= (double)Player.tileTargetY))
+                {
+                    this.showItemIcon = true;
+                    if (this.itemTime == 0 && this.itemAnimation > 0 && this.controlUseItem)
+                    {
+                        if (this.inventory[this.selectedItem].type == 205)
+                        {
+                            bool flag1 = Main.tile[Player.tileTargetX, Player.tileTargetY].lava;
+                            int num2 = 0;
+                            for (int index1 = Player.tileTargetX - 1; index1 <= Player.tileTargetX + 1; ++index1)
+                            {
+                                for (int index2 = Player.tileTargetY - 1; index2 <= Player.tileTargetY + 1; ++index2)
+                                {
+                                    if (Main.tile[index1, index2].lava == flag1)
+                                        num2 += (int)Main.tile[index1, index2].liquid;
+                                }
+                            }
+                            if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].liquid > 0 && num2 > 100)
+                            {
+                                bool flag2 = Main.tile[Player.tileTargetX, Player.tileTargetY].lava;
+                                if (!Main.tile[Player.tileTargetX, Player.tileTargetY].lava)
+                                    this.inventory[this.selectedItem].SetDefaults(206, false);
+                                else
+                                    this.inventory[this.selectedItem].SetDefaults(207, false);
+                                Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
+                                this.itemTime = this.inventory[this.selectedItem].useTime;
+                                int num3 = (int)Main.tile[Player.tileTargetX, Player.tileTargetY].liquid;
+                                Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = (byte)0;
+                                Main.tile[Player.tileTargetX, Player.tileTargetY].lava = false;
+                                WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, false);
+                                if (Main.netMode == 1)
+                                    NetMessage.sendWater(Player.tileTargetX, Player.tileTargetY);
+                                else
+                                    Liquid.AddWater(Player.tileTargetX, Player.tileTargetY);
+                                for (int index1 = Player.tileTargetX - 1; index1 <= Player.tileTargetX + 1; ++index1)
+                                {
+                                    for (int index2 = Player.tileTargetY - 1; index2 <= Player.tileTargetY + 1; ++index2)
+                                    {
+                                        if (num3 < 256 && Main.tile[index1, index2].lava == flag1)
+                                        {
+                                            int num4 = (int)Main.tile[index1, index2].liquid;
+                                            if (num4 + num3 > (int)byte.MaxValue)
+                                                num4 = (int)byte.MaxValue - num3;
+                                            num3 += num4;
+                                            Main.tile[index1, index2].liquid -= (byte)num4;
+                                            Main.tile[index1, index2].lava = flag2;
+                                            if ((int)Main.tile[index1, index2].liquid == 0)
+                                                Main.tile[index1, index2].lava = false;
+                                            WorldGen.SquareTileFrame(index1, index2, false);
+                                            if (Main.netMode == 1)
+                                                NetMessage.sendWater(index1, index2);
+                                            else
+                                                Liquid.AddWater(index1, index2);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].liquid < 200 && (!Main.tile[Player.tileTargetX, Player.tileTargetY].active || !Main.tileSolid[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] || Main.tileSolidTop[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]))
+                        {
+                            if (this.inventory[this.selectedItem].type == 207)
+                            {
+                                if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].liquid == 0 || Main.tile[Player.tileTargetX, Player.tileTargetY].lava)
+                                {
+                                    Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
+                                    Main.tile[Player.tileTargetX, Player.tileTargetY].lava = true;
+                                    Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = byte.MaxValue;
+                                    WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
+                                    this.inventory[this.selectedItem].SetDefaults(205, false);
+                                    this.itemTime = this.inventory[this.selectedItem].useTime;
+                                    if (Main.netMode == 1)
+                                        NetMessage.sendWater(Player.tileTargetX, Player.tileTargetY);
+                                }
+                            }
+                            else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].liquid == 0 || !Main.tile[Player.tileTargetX, Player.tileTargetY].lava)
+                            {
+                                Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
+                                Main.tile[Player.tileTargetX, Player.tileTargetY].lava = false;
+                                Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = byte.MaxValue;
+                                WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
+                                this.inventory[this.selectedItem].SetDefaults(205, false);
+                                this.itemTime = this.inventory[this.selectedItem].useTime;
+                                if (Main.netMode == 1)
+                                    NetMessage.sendWater(Player.tileTargetX, Player.tileTargetY);
+                            }
+                        }
+                    }
+                }
+                if (!this.channel)
+                {
+                    this.toolTime = this.itemTime;
+                }
+                else
+                {
+                    --this.toolTime;
+                    if (this.toolTime < 0)
+                        this.toolTime = this.inventory[this.selectedItem].pick <= 0 ? (int)((double)this.inventory[this.selectedItem].useTime * (double)this.pickSpeed) : this.inventory[this.selectedItem].useTime;
+                }
+                if ((this.inventory[this.selectedItem].pick > 0 || this.inventory[this.selectedItem].axe > 0 || this.inventory[this.selectedItem].hammer > 0) && ((double)this.position.X / 16.0 - (double)Player.tileRangeX - (double)this.inventory[this.selectedItem].tileBoost <= (double)Player.tileTargetX && ((double)this.position.X + (double)this.width) / 16.0 + (double)Player.tileRangeX + (double)this.inventory[this.selectedItem].tileBoost - 1.0 >= (double)Player.tileTargetX && ((double)this.position.Y / 16.0 - (double)Player.tileRangeY - (double)this.inventory[this.selectedItem].tileBoost <= (double)Player.tileTargetY && ((double)this.position.Y + (double)this.height) / 16.0 + (double)Player.tileRangeY + (double)this.inventory[this.selectedItem].tileBoost - 2.0 >= (double)Player.tileTargetY)))
+                {
+                    bool flag1 = true;
+                    this.showItemIcon = true;
+                    if (Main.tile[Player.tileTargetX, Player.tileTargetY].active)
+                    {
+                        if (this.inventory[this.selectedItem].pick > 0 && !Main.tileAxe[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] && !Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] || (this.inventory[this.selectedItem].axe > 0 && Main.tileAxe[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] || this.inventory[this.selectedItem].hammer > 0 && Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type]))
+                            flag1 = false;
+                        if (this.toolTime == 0 && this.itemAnimation > 0 && this.controlUseItem)
+                        {
+                            if (this.hitTileX != Player.tileTargetX || this.hitTileY != Player.tileTargetY)
+                            {
+                                this.hitTile = 0;
+                                this.hitTileX = Player.tileTargetX;
+                                this.hitTileY = Player.tileTargetY;
+                            }
+                            if (Main.tileNoFail[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type])
+                                this.hitTile = 100;
+                            if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type != 27)
+                            {
+                                if (Main.tileHammer[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type])
+                                {
+                                    flag1 = false;
+                                    if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 48)
+                                        this.hitTile += this.inventory[this.selectedItem].hammer / 2;
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 129)
+                                        this.hitTile += this.inventory[this.selectedItem].hammer * 2;
+                                    else
+                                        this.hitTile += this.inventory[this.selectedItem].hammer;
+                                    if ((double)Player.tileTargetY > Main.rockLayer && (int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 77 && this.inventory[this.selectedItem].hammer < 60)
+                                        this.hitTile = 0;
+                                    if (this.inventory[this.selectedItem].hammer > 0)
+                                    {
+                                        if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 26 && (this.inventory[this.selectedItem].hammer < 80 || !Main.hardMode))
+                                        {
+                                            this.hitTile = 0;
+                                            this.Hurt(this.statLife / 2, -this.direction, false, false, Lang.deathMsg(-1, -1, -1, 4), false);
+                                            WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
+                                            if (Main.netMode == 1)
+                                                NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0);
+                                        }
+                                        if (this.hitTile >= 100)
+                                        {
+                                            if (Main.netMode == 1 && (int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 21)
+                                            {
+                                                WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
+                                                NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0);
+                                                NetMessage.SendData(34, -1, -1, "", Player.tileTargetX, (float)Player.tileTargetY, 0.0f, 0.0f, 0);
+                                            }
+                                            else
+                                            {
+                                                this.hitTile = 0;
+                                                WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, false, false, false);
+                                                if (Main.netMode == 1)
+                                                    NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 0.0f, 0);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
+                                            if (Main.netMode == 1)
+                                                NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0);
+                                        }
+                                        this.itemTime = this.inventory[this.selectedItem].useTime;
+                                    }
+                                }
+                                else if (Main.tileAxe[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type])
+                                {
+                                    if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 30 || (int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 124)
+                                        this.hitTile += this.inventory[this.selectedItem].axe * 5;
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 80)
+                                        this.hitTile += this.inventory[this.selectedItem].axe * 3;
+                                    else
+                                        this.hitTile += this.inventory[this.selectedItem].axe;
+                                    if (this.inventory[this.selectedItem].axe > 0)
+                                    {
+                                        if (this.hitTile >= 100)
+                                        {
+                                            this.hitTile = 0;
+                                            WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, false, false, false);
+                                            if (Main.netMode == 1)
+                                                NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 0.0f, 0);
+                                        }
+                                        else
+                                        {
+                                            WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
+                                            if (Main.netMode == 1)
+                                                NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0);
+                                        }
+                                        this.itemTime = this.inventory[this.selectedItem].useTime;
+                                    }
+                                }
+                                else if (this.inventory[this.selectedItem].pick > 0)
+                                {
+                                    if (Main.tileDungeon[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] || (int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 37 || ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 25 || (int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 58) || (int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 117)
+                                        this.hitTile += this.inventory[this.selectedItem].pick / 2;
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 107)
+                                        this.hitTile += this.inventory[this.selectedItem].pick / 2;
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 108)
+                                        this.hitTile += this.inventory[this.selectedItem].pick / 3;
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 111)
+                                        this.hitTile += this.inventory[this.selectedItem].pick / 4;
+                                    else
+                                        this.hitTile += this.inventory[this.selectedItem].pick;
+                                    if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 25 && this.inventory[this.selectedItem].pick < 65)
+                                        this.hitTile = 0;
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 117 && this.inventory[this.selectedItem].pick < 65)
+                                        this.hitTile = 0;
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 37 && this.inventory[this.selectedItem].pick < 55)
+                                        this.hitTile = 0;
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 22 && (double)Player.tileTargetY > Main.worldSurface && this.inventory[this.selectedItem].pick < 55)
+                                        this.hitTile = 0;
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 56 && this.inventory[this.selectedItem].pick < 65)
+                                        this.hitTile = 0;
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 58 && this.inventory[this.selectedItem].pick < 65)
+                                        this.hitTile = 0;
+                                    else if (Main.tileDungeon[(int)Main.tile[Player.tileTargetX, Player.tileTargetY].type] && this.inventory[this.selectedItem].pick < 65)
+                                    {
+                                        if ((double)Player.tileTargetX < (double)Main.maxTilesX * 0.25 || (double)Player.tileTargetX > (double)Main.maxTilesX * 0.75)
+                                            this.hitTile = 0;
+                                    }
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 107 && this.inventory[this.selectedItem].pick < 100)
+                                        this.hitTile = 0;
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 108 && this.inventory[this.selectedItem].pick < 110)
+                                        this.hitTile = 0;
+                                    else if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 111 && this.inventory[this.selectedItem].pick < 120)
+                                        this.hitTile = 0;
+                                    if ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 0 || (int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 40 || ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 53 || (int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 57) || ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 59 || (int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 123))
+                                        this.hitTile += this.inventory[this.selectedItem].pick;
+                                    if (this.hitTile >= 100 && ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 2 || (int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 23 || ((int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 60 || (int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 70) || (int)Main.tile[Player.tileTargetX, Player.tileTargetY].type == 109))
+                                        this.hitTile = 0;
+                                    if (this.hitTile >= 100)
+                                    {
+                                        this.hitTile = 0;
+                                        WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, false, false, false);
+                                        if (Main.netMode == 1)
+                                            NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 0.0f, 0);
+                                    }
+                                    else
+                                    {
+                                        WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
+                                        if (Main.netMode == 1)
+                                            NetMessage.SendData(17, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0);
+                                    }
+                                    this.itemTime = (int)((double)this.inventory[this.selectedItem].useTime * (double)this.pickSpeed);
+                                }
+                            }
+                        }
+                    }
+                    int i1 = Player.tileTargetX;
+                    int j = Player.tileTargetY;
+                    bool flag2 = true;
+                    if ((int)Main.tile[i1, j].wall > 0)
+                    {
+                        if (!Main.wallHouse[(int)Main.tile[i1, j].wall])
+                        {
+                            for (int index1 = i1 - 1; index1 < i1 + 2; ++index1)
+                            {
+                                for (int index2 = j - 1; index2 < j + 2; ++index2)
+                                {
+                                    if ((int)Main.tile[index1, index2].wall != (int)Main.tile[i1, j].wall)
+                                    {
+                                        flag2 = false;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                            flag2 = false;
+                    }
+                    if (flag2 && !Main.tile[i1, j].active)
+                    {
+                        int num2 = -1;
+                        if (((double)Main.mouseX + (double)Main.screenPosition.X) / 16.0 < Math.Round(((double)Main.mouseX + (double)Main.screenPosition.X) / 16.0))
+                            num2 = 0;
+                        int num3 = -1;
+                        if (((double)Main.mouseY + (double)Main.screenPosition.Y) / 16.0 < Math.Round(((double)Main.mouseY + (double)Main.screenPosition.Y) / 16.0))
+                            num3 = 0;
+                        for (int index1 = Player.tileTargetX + num2; index1 <= Player.tileTargetX + num2 + 1; ++index1)
+                        {
+                            for (int index2 = Player.tileTargetY + num3; index2 <= Player.tileTargetY + num3 + 1; ++index2)
+                            {
+                                if (flag2)
+                                {
+                                    i1 = index1;
+                                    j = index2;
+                                    if ((int)Main.tile[i1, j].wall > 0)
+                                    {
+                                        if (!Main.wallHouse[(int)Main.tile[i1, j].wall])
+                                        {
+                                            for (int index3 = i1 - 1; index3 < i1 + 2; ++index3)
+                                            {
+                                                for (int index4 = j - 1; index4 < j + 2; ++index4)
+                                                {
+                                                    if ((int)Main.tile[index3, index4].wall != (int)Main.tile[i1, j].wall)
+                                                    {
+                                                        flag2 = false;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else
+                                            flag2 = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (flag1 && (int)Main.tile[i1, j].wall > 0 && (this.toolTime == 0 && this.itemAnimation > 0) && (this.controlUseItem && this.inventory[this.selectedItem].hammer > 0))
+                    {
+                        bool flag3 = true;
+                        if (!Main.wallHouse[(int)Main.tile[i1, j].wall])
+                        {
+                            flag3 = false;
+                            for (int index1 = i1 - 1; index1 < i1 + 2; ++index1)
+                            {
+                                for (int index2 = j - 1; index2 < j + 2; ++index2)
+                                {
+                                    if ((int)Main.tile[index1, index2].wall != (int)Main.tile[i1, j].wall)
+                                    {
+                                        flag3 = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        if (flag3)
+                        {
+                            if (this.hitTileX != i1 || this.hitTileY != j)
+                            {
+                                this.hitTile = 0;
+                                this.hitTileX = i1;
+                                this.hitTileY = j;
+                            }
+                            this.hitTile += (int)((double)this.inventory[this.selectedItem].hammer * 1.5);
+                            if (this.hitTile >= 100)
+                            {
+                                this.hitTile = 0;
+                                WorldGen.KillWall(i1, j, false);
+                                if (Main.netMode == 1)
+                                    NetMessage.SendData(17, -1, -1, "", 2, (float)i1, (float)j, 0.0f, 0);
+                            }
+                            else
+                            {
+                                WorldGen.KillWall(i1, j, true);
+                                if (Main.netMode == 1)
+                                    NetMessage.SendData(17, -1, -1, "", 2, (float)i1, (float)j, 1f, 0);
+                            }
+                            this.itemTime = this.inventory[this.selectedItem].useTime / 2;
+                        }
+                    }
+                }
+                if (this.inventory[this.selectedItem].type == 29 && this.itemAnimation > 0 && (this.statLifeMax < 400 && this.itemTime == 0))
+                {
+                    this.itemTime = this.inventory[this.selectedItem].useTime;
+                    this.statLifeMax += 20;
+                    this.statLife += 20;
+                    if (Main.myPlayer == this.whoAmi)
+                        this.HealEffect(20);
+                }
+                if (this.inventory[this.selectedItem].type == 109 && this.itemAnimation > 0 && (this.statManaMax < 200 && this.itemTime == 0))
+                {
+                    this.itemTime = this.inventory[this.selectedItem].useTime;
+                    this.statManaMax += 20;
+                    this.statMana += 20;
+                    if (Main.myPlayer == this.whoAmi)
+                        this.ManaEffect(20);
+                }
+                this.PlaceThing();
+            }
+            if (this.inventory[this.selectedItem].damage >= 0 && this.inventory[this.selectedItem].type > 0 && (!this.inventory[this.selectedItem].noMelee && this.itemAnimation > 0))
+            {
+                bool flag = false;
+                Rectangle rectangle1 = new Rectangle((int)this.itemLocation.X, (int)this.itemLocation.Y, 32, 32);
+                rectangle1.Width = (int)((double)rectangle1.Width * (double)this.inventory[this.selectedItem].scale);
+                rectangle1.Height = (int)((double)rectangle1.Height * (double)this.inventory[this.selectedItem].scale);
+                if (this.direction == -1)
+                    rectangle1.X -= rectangle1.Width;
+                if ((double)this.gravDir == 1.0)
+                    rectangle1.Y -= rectangle1.Height;
+                if (this.inventory[this.selectedItem].useStyle == 1)
+                {
+                    if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.333)
+                    {
+                        if (this.direction == -1)
+                            rectangle1.X -= (int)((double)rectangle1.Width * 1.4 - (double)rectangle1.Width);
+                        rectangle1.Width = (int)((double)rectangle1.Width * 1.4);
+                        rectangle1.Y += (int)((double)rectangle1.Height * 0.5 * (double)this.gravDir);
+                        rectangle1.Height = (int)((double)rectangle1.Height * 1.1);
+                    }
+                    else if ((double)this.itemAnimation >= (double)this.itemAnimationMax * 0.666)
+                    {
+                        if (this.direction == 1)
+                            rectangle1.X -= (int)((double)rectangle1.Width * 1.2);
+                        rectangle1.Width = rectangle1.Width * 2;
+                        rectangle1.Y -= (int)(((double)rectangle1.Height * 1.4 - (double)rectangle1.Height) * (double)this.gravDir);
+                        rectangle1.Height = (int)((double)rectangle1.Height * 1.4);
+                    }
+                }
+                else if (this.inventory[this.selectedItem].useStyle == 3)
+                {
+                    if ((double)this.itemAnimation > (double)this.itemAnimationMax * 0.666)
+                    {
+                        flag = true;
+                    }
+                    else
+                    {
+                        if (this.direction == -1)
+                            rectangle1.X -= (int)((double)rectangle1.Width * 1.4 - (double)rectangle1.Width);
+                        rectangle1.Width = (int)((double)rectangle1.Width * 1.4);
+                        rectangle1.Y += (int)((double)rectangle1.Height * 0.6);
+                        rectangle1.Height = (int)((double)rectangle1.Height * 0.6);
+                    }
+                }
+                double num2 = (double)this.gravDir;
+                if (!flag)
+                {
+                    if ((this.inventory[this.selectedItem].type == 44 || this.inventory[this.selectedItem].type == 45 || (this.inventory[this.selectedItem].type == 46 || this.inventory[this.selectedItem].type == 103) || this.inventory[this.selectedItem].type == 104) && Main.rand.Next(15) == 0)
+                        Dust.NewDust(new Vector2((float)rectangle1.X, (float)rectangle1.Y), rectangle1.Width, rectangle1.Height, 14, (float)(this.direction * 2), 0.0f, 150, new Color(), 1.3f);
+                    if (this.inventory[this.selectedItem].type == 273)
+                    {
+                        if (Main.rand.Next(5) == 0)
+                            Dust.NewDust(new Vector2((float)rectangle1.X, (float)rectangle1.Y), rectangle1.Width, rectangle1.Height, 14, (float)(this.direction * 2), 0.0f, 150, new Color(), 1.4f);
+                        int index = Dust.NewDust(new Vector2((float)rectangle1.X, (float)rectangle1.Y), rectangle1.Width, rectangle1.Height, 27, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, new Color(), 1.2f);
+                        Main.dust[index].noGravity = true;
+                        Main.dust[index].velocity.X /= 2f;
+                        Main.dust[index].velocity.Y /= 2f;
+                    }
+                    if (this.inventory[this.selectedItem].type == 65)
+                    {
+                        if (Main.rand.Next(5) == 0)
+                            Dust.NewDust(new Vector2((float)rectangle1.X, (float)rectangle1.Y), rectangle1.Width, rectangle1.Height, 58, 0.0f, 0.0f, 150, new Color(), 1.2f);
+                        if (Main.rand.Next(10) == 0)
+                            Gore.NewGore(new Vector2((float)rectangle1.X, (float)rectangle1.Y), new Vector2(), Main.rand.Next(16, 18), 1f);
+                    }
+                    if (this.inventory[this.selectedItem].type == 190 || this.inventory[this.selectedItem].type == 213)
+                    {
+                        int index = Dust.NewDust(new Vector2((float)rectangle1.X, (float)rectangle1.Y), rectangle1.Width, rectangle1.Height, 40, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 0, new Color(), 1.2f);
+                        Main.dust[index].noGravity = true;
+                    }
+                    if (this.inventory[this.selectedItem].type == 121)
+                    {
+                        for (int index1 = 0; index1 < 2; ++index1)
+                        {
+                            int index2 = Dust.NewDust(new Vector2((float)rectangle1.X, (float)rectangle1.Y), rectangle1.Width, rectangle1.Height, 6, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, new Color(), 2.5f);
+                            Main.dust[index2].noGravity = true;
+                            Main.dust[index2].velocity.X *= 2f;
+                            Main.dust[index2].velocity.Y *= 2f;
+                        }
+                    }
+                    if (this.inventory[this.selectedItem].type == 122 || this.inventory[this.selectedItem].type == 217)
+                    {
+                        int index = Dust.NewDust(new Vector2((float)rectangle1.X, (float)rectangle1.Y), rectangle1.Width, rectangle1.Height, 6, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, new Color(), 1.9f);
+                        Main.dust[index].noGravity = true;
+                    }
+                    if (this.inventory[this.selectedItem].type == 155)
+                    {
+                        int index = Dust.NewDust(new Vector2((float)rectangle1.X, (float)rectangle1.Y), rectangle1.Width, rectangle1.Height, 29, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, new Color(), 2f);
+                        Main.dust[index].noGravity = true;
+                        Main.dust[index].velocity.X /= 2f;
+                        Main.dust[index].velocity.Y /= 2f;
+                    }
+                    if (this.inventory[this.selectedItem].type == 367 || this.inventory[this.selectedItem].type == 368)
+                    {
+                        if (Main.rand.Next(3) == 0)
+                        {
+                            int index = Dust.NewDust(new Vector2((float)rectangle1.X, (float)rectangle1.Y), rectangle1.Width, rectangle1.Height, 57, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, new Color(), 1.1f);
+                            Main.dust[index].noGravity = true;
+                            Main.dust[index].velocity.X /= 2f;
+                            Main.dust[index].velocity.Y /= 2f;
+                            Main.dust[index].velocity.X += (float)(this.direction * 2);
+                        }
+                        if (Main.rand.Next(4) == 0)
+                        {
+                            int index = Dust.NewDust(new Vector2((float)rectangle1.X, (float)rectangle1.Y), rectangle1.Width, rectangle1.Height, 43, 0.0f, 0.0f, 254, new Color(), 0.3f);
+                            Main.dust[index].velocity *= 0.0f;
+                        }
+                    }
+                    if (this.inventory[this.selectedItem].type >= 198 && this.inventory[this.selectedItem].type <= 203)
+                    {
+                        float R = 0.5f;
+                        float G = 0.5f;
+                        float B = 0.5f;
+                        if (this.inventory[this.selectedItem].type == 198)
+                        {
+                            R *= 0.1f;
+                            G *= 0.5f;
+                            B *= 1.2f;
+                        }
+                        else if (this.inventory[this.selectedItem].type == 199)
+                        {
+                            R *= 1f;
+                            G *= 0.2f;
+                            B *= 0.1f;
+                        }
+                        else if (this.inventory[this.selectedItem].type == 200)
+                        {
+                            R *= 0.1f;
+                            G *= 1f;
+                            B *= 0.2f;
+                        }
+                        else if (this.inventory[this.selectedItem].type == 201)
+                        {
+                            R *= 0.8f;
+                            G *= 0.1f;
+                            B *= 1f;
+                        }
+                        else if (this.inventory[this.selectedItem].type == 202)
+                        {
+                            R *= 0.8f;
+                            G *= 0.9f;
+                            B *= 1f;
+                        }
+                        else if (this.inventory[this.selectedItem].type == 203)
+                        {
+                            R *= 0.9f;
+                            G *= 0.9f;
+                            B *= 0.1f;
+                        }
+                        Lighting.addLight((int)(((double)this.itemLocation.X + 6.0 + (double)this.velocity.X) / 16.0), (int)(((double)this.itemLocation.Y - 14.0) / 16.0), R, G, B);
+                    }
+                    if (Main.myPlayer == i)
+                    {
+                        int num3 = (int)((double)this.inventory[this.selectedItem].damage * (double)this.meleeDamage);
+                        float num4 = this.inventory[this.selectedItem].knockBack;
+                        if (this.kbGlove)
+                            num4 *= 2f;
+                        int num5 = rectangle1.X / 16;
+                        int num6 = (rectangle1.X + rectangle1.Width) / 16 + 1;
+                        int num7 = rectangle1.Y / 16;
+                        int num8 = (rectangle1.Y + rectangle1.Height) / 16 + 1;
+                        for (int i1 = num5; i1 < num6; ++i1)
+                        {
+                            for (int j = num7; j < num8; ++j)
+                            {
+                                if (Main.tile[i1, j] != null && Main.tileCut[(int)Main.tile[i1, j].type] && (Main.tile[i1, j + 1] != null && (int)Main.tile[i1, j + 1].type != 78))
+                                {
+                                    WorldGen.KillTile(i1, j, false, false, false);
+                                    if (Main.netMode == 1)
+                                        NetMessage.SendData(17, -1, -1, "", 0, (float)i1, (float)j, 0.0f, 0);
+                                }
+                            }
+                        }
+                        for (int index = 0; index < 200; ++index)
+                        {
+                            if (Main.npc[index].active && Main.npc[index].immune[i] == 0 && (this.attackCD == 0 && !Main.npc[index].dontTakeDamage) && (!Main.npc[index].friendly || Main.npc[index].type == 22 && this.killGuide))
+                            {
+                                Rectangle rectangle2 = new Rectangle((int)Main.npc[index].position.X, (int)Main.npc[index].position.Y, Main.npc[index].width, Main.npc[index].height);
+                                if (rectangle1.Intersects(rectangle2) && (Main.npc[index].noTileCollide || Collision.CanHit(this.position, this.width, this.height, Main.npc[index].position, Main.npc[index].width, Main.npc[index].height)))
+                                {
+                                    bool crit = false;
+                                    if (Main.rand.Next(1, 101) <= this.meleeCrit)
+                                        crit = true;
+                                    int Damage = Main.DamageVar((float)num3);
+                                    this.StatusNPC(this.inventory[this.selectedItem].type, index);
+                                    Main.npc[index].StrikeNPC(Damage, num4, this.direction, crit, false);
+                                    if (Main.netMode != 0)
+                                    {
+                                        if (crit)
+                                            NetMessage.SendData(28, -1, -1, "", index, (float)Damage, num4, (float)this.direction, 1);
+                                        else
+                                            NetMessage.SendData(28, -1, -1, "", index, (float)Damage, num4, (float)this.direction, 0);
+                                    }
+                                    Main.npc[index].immune[i] = this.itemAnimation;
+                                    this.attackCD = (int)((double)this.itemAnimationMax * 0.33);
+                                }
+                            }
+                        }
+                        if (this.hostile)
+                        {
+                            for (int index = 0; index < (int)byte.MaxValue; ++index)
+                            {
+                                if (index != i && Main.player[index].active && (Main.player[index].hostile && !Main.player[index].immune) && (!Main.player[index].dead && (Main.player[i].team == 0 || Main.player[i].team != Main.player[index].team)))
+                                {
+                                    Rectangle rectangle2 = new Rectangle((int)Main.player[index].position.X, (int)Main.player[index].position.Y, Main.player[index].width, Main.player[index].height);
+                                    if (rectangle1.Intersects(rectangle2) && Collision.CanHit(this.position, this.width, this.height, Main.player[index].position, Main.player[index].width, Main.player[index].height))
+                                    {
+                                        bool Crit = false;
+                                        if (Main.rand.Next(1, 101) <= 10)
+                                            Crit = true;
+                                        int Damage = Main.DamageVar((float)num3);
+                                        this.StatusPvP(this.inventory[this.selectedItem].type, index);
+                                        Main.player[index].Hurt(Damage, this.direction, true, false, "", Crit);
+                                        if (Main.netMode != 0)
+                                        {
+                                            if (Crit)
+                                                NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.whoAmi, -1, -1, -1), index, (float)this.direction, (float)Damage, 1f, 1);
+                                            else
+                                                NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.whoAmi, -1, -1, -1), index, (float)this.direction, (float)Damage, 1f, 0);
+                                        }
+                                        this.attackCD = (int)((double)this.itemAnimationMax * 0.33);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (this.itemTime == 0 && this.itemAnimation > 0)
+            {
+                if (this.inventory[this.selectedItem].healLife > 0)
+                {
+                    this.statLife += this.inventory[this.selectedItem].healLife;
+                    this.itemTime = this.inventory[this.selectedItem].useTime;
+                    if (Main.myPlayer == this.whoAmi)
+                        this.HealEffect(this.inventory[this.selectedItem].healLife);
+                }
+                if (this.inventory[this.selectedItem].healMana > 0)
+                {
+                    this.statMana += this.inventory[this.selectedItem].healMana;
+                    this.itemTime = this.inventory[this.selectedItem].useTime;
+                    if (Main.myPlayer == this.whoAmi)
+                        this.ManaEffect(this.inventory[this.selectedItem].healMana);
+                }
+                if (this.inventory[this.selectedItem].buffType > 0)
+                {
+                    if (this.whoAmi == Main.myPlayer)
+                        this.AddBuff(this.inventory[this.selectedItem].buffType, this.inventory[this.selectedItem].buffTime, true);
+                    this.itemTime = this.inventory[this.selectedItem].useTime;
+                }
+            }
+            if (this.whoAmi == Main.myPlayer)
+            {
+                if (this.itemTime == 0 && this.itemAnimation > 0 && this.inventory[this.selectedItem].type == 361)
+                {
+                    this.itemTime = this.inventory[this.selectedItem].useTime;
+                    Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
+                    if (Main.netMode != 1)
+                    {
+                        if (Main.invasionType == 0)
+                        {
+                            Main.invasionDelay = 0;
+                            Main.StartInvasion(1);
+                        }
+                    }
+                    else
+                        NetMessage.SendData(61, -1, -1, "", this.whoAmi, -1f, 0.0f, 0.0f, 0);
+                }
+                if (this.itemTime == 0 && this.itemAnimation > 0 && this.inventory[this.selectedItem].type == 602)
+                {
+                    this.itemTime = this.inventory[this.selectedItem].useTime;
+                    Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
+                    if (Main.netMode != 1)
+                    {
+                        if (Main.invasionType == 0)
+                        {
+                            Main.invasionDelay = 0;
+                            Main.StartInvasion(2);
+                        }
+                    }
+                    else
+                        NetMessage.SendData(61, -1, -1, "", this.whoAmi, -2f, 0.0f, 0.0f, 0);
+                }
+                if (this.itemTime == 0 && this.itemAnimation > 0 && (this.inventory[this.selectedItem].type == 43 || this.inventory[this.selectedItem].type == 70 || (this.inventory[this.selectedItem].type == 544 || this.inventory[this.selectedItem].type == 556) || (this.inventory[this.selectedItem].type == 557 || this.inventory[this.selectedItem].type == 560)))
+                {
+                    bool flag = false;
+                    for (int index = 0; index < 200; ++index)
+                    {
+                        if (Main.npc[index].active && (this.inventory[this.selectedItem].type == 43 && Main.npc[index].type == 4 || this.inventory[this.selectedItem].type == 70 && Main.npc[index].type == 13 || (this.inventory[this.selectedItem].type == 560 & Main.npc[index].type == 50 || this.inventory[this.selectedItem].type == 544 && Main.npc[index].type == 125) || (this.inventory[this.selectedItem].type == 544 && Main.npc[index].type == 126 || this.inventory[this.selectedItem].type == 556 && Main.npc[index].type == 134 || this.inventory[this.selectedItem].type == 557 && Main.npc[index].type == 128)))
+                        {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (flag)
+                    {
+                        this.itemTime = this.inventory[this.selectedItem].useTime;
+                        if (Main.myPlayer != this.whoAmi)
+                            ;
+                    }
+                    else if (this.inventory[this.selectedItem].type == 560)
+                    {
+                        this.itemTime = this.inventory[this.selectedItem].useTime;
+                        Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
+                        if (Main.netMode != 1)
+                            NPC.SpawnOnPlayer(i, 50);
+                        else
+                            NetMessage.SendData(61, -1, -1, "", this.whoAmi, 50f, 0.0f, 0.0f, 0);
+                    }
+                    else if (this.inventory[this.selectedItem].type == 43)
+                    {
+                        if (!Main.dayTime)
+                        {
+                            this.itemTime = this.inventory[this.selectedItem].useTime;
+                            Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
+                            if (Main.netMode != 1)
+                                NPC.SpawnOnPlayer(i, 4);
+                            else
+                                NetMessage.SendData(61, -1, -1, "", this.whoAmi, 4f, 0.0f, 0.0f, 0);
+                        }
+                    }
+                    else if (this.inventory[this.selectedItem].type == 70)
+                    {
+                        if (this.zoneEvil)
+                        {
+                            this.itemTime = this.inventory[this.selectedItem].useTime;
+                            Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
+                            if (Main.netMode != 1)
+                                NPC.SpawnOnPlayer(i, 13);
+                            else
+                                NetMessage.SendData(61, -1, -1, "", this.whoAmi, 13f, 0.0f, 0.0f, 0);
+                        }
+                    }
+                    else if (this.inventory[this.selectedItem].type == 544)
+                    {
+                        if (!Main.dayTime)
+                        {
+                            this.itemTime = this.inventory[this.selectedItem].useTime;
+                            Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
+                            if (Main.netMode != 1)
+                            {
+                                NPC.SpawnOnPlayer(i, 125);
+                                NPC.SpawnOnPlayer(i, 126);
+                            }
+                            else
+                            {
+                                NetMessage.SendData(61, -1, -1, "", this.whoAmi, 125f, 0.0f, 0.0f, 0);
+                                NetMessage.SendData(61, -1, -1, "", this.whoAmi, 126f, 0.0f, 0.0f, 0);
+                            }
+                        }
+                    }
+                    else if (this.inventory[this.selectedItem].type == 556)
+                    {
+                        if (!Main.dayTime)
+                        {
+                            this.itemTime = this.inventory[this.selectedItem].useTime;
+                            Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
+                            if (Main.netMode != 1)
+                                NPC.SpawnOnPlayer(i, 134);
+                            else
+                                NetMessage.SendData(61, -1, -1, "", this.whoAmi, 134f, 0.0f, 0.0f, 0);
+                        }
+                    }
+                    else if (this.inventory[this.selectedItem].type == 557 && !Main.dayTime)
+                    {
+                        this.itemTime = this.inventory[this.selectedItem].useTime;
+                        Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
+                        if (Main.netMode != 1)
+                            NPC.SpawnOnPlayer(i, (int)sbyte.MaxValue);
+                        else
+                            NetMessage.SendData(61, -1, -1, "", this.whoAmi, (float)sbyte.MaxValue, 0.0f, 0.0f, 0);
+                    }
+                }
+            }
+            if (this.inventory[this.selectedItem].type == 50 && this.itemAnimation > 0)
+            {
+                if (Main.rand.Next(2) == 0)
+                    Dust.NewDust(this.position, this.width, this.height, 15, 0.0f, 0.0f, 150, new Color(), 1.1f);
+                if (this.itemTime == 0)
+                    this.itemTime = this.inventory[this.selectedItem].useTime;
+                else if (this.itemTime == this.inventory[this.selectedItem].useTime / 2)
+                {
+                    for (int index = 0; index < 70; ++index)
+                        Dust.NewDust(this.position, this.width, this.height, 15, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 150, new Color(), 1.5f);
+                    this.grappling[0] = -1;
+                    this.grapCount = 0;
+                    for (int index = 0; index < 1000; ++index)
+                    {
+                        if (Main.projectile[index].active && Main.projectile[index].owner == i && Main.projectile[index].aiStyle == 7)
+                            Main.projectile[index].Kill();
+                    }
+                    this.Spawn();
+                    for (int index = 0; index < 70; ++index)
+                        Dust.NewDust(this.position, this.width, this.height, 15, 0.0f, 0.0f, 150, new Color(), 1.5f);
+                }
+            }
+            if (i != Main.myPlayer)
+                return;
+            if (this.itemTime == this.inventory[this.selectedItem].useTime && this.inventory[this.selectedItem].consumable)
+            {
+                bool flag = true;
+                if (this.inventory[this.selectedItem].ranged)
+                {
+                    if (this.ammoCost80 && Main.rand.Next(5) == 0)
+                        flag = false;
+                    if (this.ammoCost75 && Main.rand.Next(4) == 0)
+                        flag = false;
+                }
+                if (flag)
+                {
+                    if (this.inventory[this.selectedItem].stack > 0)
+                        --this.inventory[this.selectedItem].stack;
+                    if (this.inventory[this.selectedItem].stack <= 0)
+                        this.itemTime = this.itemAnimation;
+                }
+            }
+            if (this.inventory[this.selectedItem].stack <= 0 && this.itemAnimation == 0)
+                this.inventory[this.selectedItem] = new Item();
+            if (this.selectedItem != 48 || this.itemAnimation == 0)
+                return;
+            Main.mouseItem = (Item)this.inventory[this.selectedItem].Clone();
+        }
 		public Color GetImmuneAlpha(Color newColor)
 		{
 			float num = (float)(255 - this.immuneAlpha) / 255f;
@@ -9387,331 +8340,305 @@ namespace Terraria
 			this.spX[0] = x;
 			this.spY[0] = y;
 		}
-		public static void SavePlayer(Player newPlayer, string playerPath)
-		{
-			try
-			{
-				Directory.CreateDirectory(Main.PlayerPath);
-			}
-			catch
-			{
-			}
-			if (playerPath == null || playerPath == "")
-			{
-				return;
-			}
-			string destFileName = playerPath + ".bak";
-			if (File.Exists(playerPath))
-			{
-				File.Copy(playerPath, destFileName, true);
-			}
-			string text = playerPath + ".dat";
-			using (FileStream fileStream = new FileStream(text, FileMode.Create))
-			{
-				using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
-				{
-					binaryWriter.Write(Main.curRelease);
-					binaryWriter.Write(newPlayer.name);
-					binaryWriter.Write(newPlayer.difficulty);
-					binaryWriter.Write(newPlayer.hair);
-					binaryWriter.Write(newPlayer.male);
-					binaryWriter.Write(newPlayer.statLife);
-					binaryWriter.Write(newPlayer.statLifeMax);
-					binaryWriter.Write(newPlayer.statMana);
-					binaryWriter.Write(newPlayer.statManaMax);
-					binaryWriter.Write(newPlayer.hairColor.R);
-					binaryWriter.Write(newPlayer.hairColor.G);
-					binaryWriter.Write(newPlayer.hairColor.B);
-					binaryWriter.Write(newPlayer.skinColor.R);
-					binaryWriter.Write(newPlayer.skinColor.G);
-					binaryWriter.Write(newPlayer.skinColor.B);
-					binaryWriter.Write(newPlayer.eyeColor.R);
-					binaryWriter.Write(newPlayer.eyeColor.G);
-					binaryWriter.Write(newPlayer.eyeColor.B);
-					binaryWriter.Write(newPlayer.shirtColor.R);
-					binaryWriter.Write(newPlayer.shirtColor.G);
-					binaryWriter.Write(newPlayer.shirtColor.B);
-					binaryWriter.Write(newPlayer.underShirtColor.R);
-					binaryWriter.Write(newPlayer.underShirtColor.G);
-					binaryWriter.Write(newPlayer.underShirtColor.B);
-					binaryWriter.Write(newPlayer.pantsColor.R);
-					binaryWriter.Write(newPlayer.pantsColor.G);
-					binaryWriter.Write(newPlayer.pantsColor.B);
-					binaryWriter.Write(newPlayer.shoeColor.R);
-					binaryWriter.Write(newPlayer.shoeColor.G);
-					binaryWriter.Write(newPlayer.shoeColor.B);
-					for (int i = 0; i < 11; i++)
-					{
-						if (newPlayer.armor[i].name == null)
-						{
-							newPlayer.armor[i].name = "";
-						}
-						binaryWriter.Write(newPlayer.armor[i].name);
-						binaryWriter.Write(newPlayer.armor[i].prefix);
-					}
-					for (int j = 0; j < 48; j++)
-					{
-						if (newPlayer.inventory[j].name == null)
-						{
-							newPlayer.inventory[j].name = "";
-						}
-						binaryWriter.Write(newPlayer.inventory[j].name);
-						binaryWriter.Write(newPlayer.inventory[j].stack);
-						binaryWriter.Write(newPlayer.inventory[j].prefix);
-					}
-					for (int k = 0; k < Chest.maxItems; k++)
-					{
-						if (newPlayer.bank[k].name == null)
-						{
-							newPlayer.bank[k].name = "";
-						}
-						binaryWriter.Write(newPlayer.bank[k].name);
-						binaryWriter.Write(newPlayer.bank[k].stack);
-						binaryWriter.Write(newPlayer.bank[k].prefix);
-					}
-					for (int l = 0; l < Chest.maxItems; l++)
-					{
-						if (newPlayer.bank2[l].name == null)
-						{
-							newPlayer.bank2[l].name = "";
-						}
-						binaryWriter.Write(newPlayer.bank2[l].name);
-						binaryWriter.Write(newPlayer.bank2[l].stack);
-						binaryWriter.Write(newPlayer.bank2[l].prefix);
-					}
-					for (int m = 0; m < 10; m++)
-					{
-						binaryWriter.Write(newPlayer.buffType[m]);
-						binaryWriter.Write(newPlayer.buffTime[m]);
-					}
-					for (int n = 0; n < 200; n++)
-					{
-						if (newPlayer.spN[n] == null)
-						{
-							binaryWriter.Write(-1);
-							break;
-						}
-						binaryWriter.Write(newPlayer.spX[n]);
-						binaryWriter.Write(newPlayer.spY[n]);
-						binaryWriter.Write(newPlayer.spI[n]);
-						binaryWriter.Write(newPlayer.spN[n]);
-					}
-					binaryWriter.Write(newPlayer.hbLocked);
-					binaryWriter.Close();
-				}
-			}
-			Player.EncryptFile(text, playerPath);
-			File.Delete(text);
-		}
-		public static Player LoadPlayer(string playerPath)
-		{
-			bool flag = false;
-			if (Main.rand == null)
-			{
-				Main.rand = new Random((int)DateTime.Now.Ticks);
-			}
-			Player player = new Player();
-			try
-			{
-				string text = playerPath + ".dat";
-				flag = Player.DecryptFile(playerPath, text);
-				if (!flag)
-				{
-					using (FileStream fileStream = new FileStream(text, FileMode.Open))
-					{
-						using (BinaryReader binaryReader = new BinaryReader(fileStream))
-						{
-							int num = binaryReader.ReadInt32();
-							player.name = binaryReader.ReadString();
-							if (num >= 10)
-							{
-								if (num >= 17)
-								{
-									player.difficulty = binaryReader.ReadByte();
-								}
-								else
-								{
-									bool flag2 = binaryReader.ReadBoolean();
-									if (flag2)
-									{
-										player.difficulty = 2;
-									}
-								}
-							}
-							player.hair = binaryReader.ReadInt32();
-							if (num <= 17)
-							{
-								if (player.hair == 5 || player.hair == 6 || player.hair == 9 || player.hair == 11)
-								{
-									player.male = false;
-								}
-								else
-								{
-									player.male = true;
-								}
-							}
-							else
-							{
-								player.male = binaryReader.ReadBoolean();
-							}
-							player.statLife = binaryReader.ReadInt32();
-							player.statLifeMax = binaryReader.ReadInt32();
-							if (player.statLife > player.statLifeMax)
-							{
-								player.statLife = player.statLifeMax;
-							}
-							player.statMana = binaryReader.ReadInt32();
-							player.statManaMax = binaryReader.ReadInt32();
-							if (player.statMana > 400)
-							{
-								player.statMana = 400;
-							}
-							player.hairColor.R = binaryReader.ReadByte();
-							player.hairColor.G = binaryReader.ReadByte();
-							player.hairColor.B = binaryReader.ReadByte();
-							player.skinColor.R = binaryReader.ReadByte();
-							player.skinColor.G = binaryReader.ReadByte();
-							player.skinColor.B = binaryReader.ReadByte();
-							player.eyeColor.R = binaryReader.ReadByte();
-							player.eyeColor.G = binaryReader.ReadByte();
-							player.eyeColor.B = binaryReader.ReadByte();
-							player.shirtColor.R = binaryReader.ReadByte();
-							player.shirtColor.G = binaryReader.ReadByte();
-							player.shirtColor.B = binaryReader.ReadByte();
-							player.underShirtColor.R = binaryReader.ReadByte();
-							player.underShirtColor.G = binaryReader.ReadByte();
-							player.underShirtColor.B = binaryReader.ReadByte();
-							player.pantsColor.R = binaryReader.ReadByte();
-							player.pantsColor.G = binaryReader.ReadByte();
-							player.pantsColor.B = binaryReader.ReadByte();
-							player.shoeColor.R = binaryReader.ReadByte();
-							player.shoeColor.G = binaryReader.ReadByte();
-							player.shoeColor.B = binaryReader.ReadByte();
-							Main.player[Main.myPlayer].shirtColor = player.shirtColor;
-							Main.player[Main.myPlayer].pantsColor = player.pantsColor;
-							Main.player[Main.myPlayer].hairColor = player.hairColor;
-							for (int i = 0; i < 8; i++)
-							{
-								player.armor[i].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-								if (num >= 36)
-								{
-									player.armor[i].Prefix((int)binaryReader.ReadByte());
-								}
-							}
-							if (num >= 6)
-							{
-								for (int j = 8; j < 11; j++)
-								{
-									player.armor[j].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-									if (num >= 36)
-									{
-										player.armor[j].Prefix((int)binaryReader.ReadByte());
-									}
-								}
-							}
-							for (int k = 0; k < 44; k++)
-							{
-								player.inventory[k].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-								player.inventory[k].stack = binaryReader.ReadInt32();
-								if (num >= 36)
-								{
-									player.inventory[k].Prefix((int)binaryReader.ReadByte());
-								}
-							}
-							if (num >= 15)
-							{
-								for (int l = 44; l < 48; l++)
-								{
-									player.inventory[l].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-									player.inventory[l].stack = binaryReader.ReadInt32();
-									if (num >= 36)
-									{
-										player.inventory[l].Prefix((int)binaryReader.ReadByte());
-									}
-								}
-							}
-							for (int m = 0; m < Chest.maxItems; m++)
-							{
-								player.bank[m].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-								player.bank[m].stack = binaryReader.ReadInt32();
-								if (num >= 36)
-								{
-									player.bank[m].Prefix((int)binaryReader.ReadByte());
-								}
-							}
-							if (num >= 20)
-							{
-								for (int n = 0; n < Chest.maxItems; n++)
-								{
-									player.bank2[n].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-									player.bank2[n].stack = binaryReader.ReadInt32();
-									if (num >= 36)
-									{
-										player.bank2[n].Prefix((int)binaryReader.ReadByte());
-									}
-								}
-							}
-							if (num >= 11)
-							{
-								for (int num2 = 0; num2 < 10; num2++)
-								{
-									player.buffType[num2] = binaryReader.ReadInt32();
-									player.buffTime[num2] = binaryReader.ReadInt32();
-								}
-							}
-							for (int num3 = 0; num3 < 200; num3++)
-							{
-								int num4 = binaryReader.ReadInt32();
-								if (num4 == -1)
-								{
-									break;
-								}
-								player.spX[num3] = num4;
-								player.spY[num3] = binaryReader.ReadInt32();
-								player.spI[num3] = binaryReader.ReadInt32();
-								player.spN[num3] = binaryReader.ReadString();
-							}
-							if (num >= 16)
-							{
-								player.hbLocked = binaryReader.ReadBoolean();
-							}
-							binaryReader.Close();
-						}
-					}
-					player.PlayerFrame();
-					File.Delete(text);
-					Player result = player;
-					return result;
-				}
-			}
-			catch
-			{
-				flag = true;
-			}
-			if (flag)
-			{
-				try
-				{
-					string text2 = playerPath + ".bak";
-					Player result;
-					if (File.Exists(text2))
-					{
-						File.Delete(playerPath);
-						File.Move(text2, playerPath);
-						result = Player.LoadPlayer(playerPath);
-						return result;
-					}
-					result = new Player();
-					return result;
-				}
-				catch
-				{
-					Player result = new Player();
-					return result;
-				}
-			}
-			return new Player();
-		}
+        public static void SavePlayer(Player newPlayer, string playerPath)
+        {
+            try
+            {
+                Directory.CreateDirectory(Main.PlayerPath);
+            }
+            catch
+            {
+            }
+            if (playerPath == null || playerPath == "")
+                return;
+            string destFileName = playerPath + ".bak";
+            if (File.Exists(playerPath))
+                File.Copy(playerPath, destFileName, true);
+            string str = playerPath + ".dat";
+            using (FileStream fileStream = new FileStream(str, FileMode.Create))
+            {
+                using (BinaryWriter binaryWriter = new BinaryWriter((Stream)fileStream))
+                {
+                    binaryWriter.Write(Main.curRelease);
+                    binaryWriter.Write(newPlayer.name);
+                    binaryWriter.Write(newPlayer.difficulty);
+                    binaryWriter.Write(newPlayer.hair);
+                    binaryWriter.Write(newPlayer.male);
+                    binaryWriter.Write(newPlayer.statLife);
+                    binaryWriter.Write(newPlayer.statLifeMax);
+                    binaryWriter.Write(newPlayer.statMana);
+                    binaryWriter.Write(newPlayer.statManaMax);
+                    binaryWriter.Write(newPlayer.hairColor.R);
+                    binaryWriter.Write(newPlayer.hairColor.G);
+                    binaryWriter.Write(newPlayer.hairColor.B);
+                    binaryWriter.Write(newPlayer.skinColor.R);
+                    binaryWriter.Write(newPlayer.skinColor.G);
+                    binaryWriter.Write(newPlayer.skinColor.B);
+                    binaryWriter.Write(newPlayer.eyeColor.R);
+                    binaryWriter.Write(newPlayer.eyeColor.G);
+                    binaryWriter.Write(newPlayer.eyeColor.B);
+                    binaryWriter.Write(newPlayer.shirtColor.R);
+                    binaryWriter.Write(newPlayer.shirtColor.G);
+                    binaryWriter.Write(newPlayer.shirtColor.B);
+                    binaryWriter.Write(newPlayer.underShirtColor.R);
+                    binaryWriter.Write(newPlayer.underShirtColor.G);
+                    binaryWriter.Write(newPlayer.underShirtColor.B);
+                    binaryWriter.Write(newPlayer.pantsColor.R);
+                    binaryWriter.Write(newPlayer.pantsColor.G);
+                    binaryWriter.Write(newPlayer.pantsColor.B);
+                    binaryWriter.Write(newPlayer.shoeColor.R);
+                    binaryWriter.Write(newPlayer.shoeColor.G);
+                    binaryWriter.Write(newPlayer.shoeColor.B);
+                    for (int index = 0; index < 11; ++index)
+                    {
+                        if (newPlayer.armor[index].name == null)
+                            newPlayer.armor[index].name = "";
+                        binaryWriter.Write(newPlayer.armor[index].netID);
+                        binaryWriter.Write(newPlayer.armor[index].prefix);
+                    }
+                    for (int index = 0; index < 48; ++index)
+                    {
+                        if (newPlayer.inventory[index].name == null)
+                            newPlayer.inventory[index].name = "";
+                        binaryWriter.Write(newPlayer.inventory[index].netID);
+                        binaryWriter.Write(newPlayer.inventory[index].stack);
+                        binaryWriter.Write(newPlayer.inventory[index].prefix);
+                    }
+                    for (int index = 0; index < Chest.maxItems; ++index)
+                    {
+                        if (newPlayer.bank[index].name == null)
+                            newPlayer.bank[index].name = "";
+                        binaryWriter.Write(newPlayer.bank[index].netID);
+                        binaryWriter.Write(newPlayer.bank[index].stack);
+                        binaryWriter.Write(newPlayer.bank[index].prefix);
+                    }
+                    for (int index = 0; index < Chest.maxItems; ++index)
+                    {
+                        if (newPlayer.bank2[index].name == null)
+                            newPlayer.bank2[index].name = "";
+                        binaryWriter.Write(newPlayer.bank2[index].netID);
+                        binaryWriter.Write(newPlayer.bank2[index].stack);
+                        binaryWriter.Write(newPlayer.bank2[index].prefix);
+                    }
+                    for (int index = 0; index < 10; ++index)
+                    {
+                        binaryWriter.Write(newPlayer.buffType[index]);
+                        binaryWriter.Write(newPlayer.buffTime[index]);
+                    }
+                    for (int index = 0; index < 200; ++index)
+                    {
+                        if (newPlayer.spN[index] == null)
+                        {
+                            binaryWriter.Write(-1);
+                            break;
+                        }
+                        else
+                        {
+                            binaryWriter.Write(newPlayer.spX[index]);
+                            binaryWriter.Write(newPlayer.spY[index]);
+                            binaryWriter.Write(newPlayer.spI[index]);
+                            binaryWriter.Write(newPlayer.spN[index]);
+                        }
+                    }
+                    binaryWriter.Write(newPlayer.hbLocked);
+                    binaryWriter.Close();
+                }
+            }
+            Player.EncryptFile(str, playerPath);
+            File.Delete(str);
+        }
+        public static Player LoadPlayer(string playerPath)
+        {
+            if (Main.rand == null)
+                Main.rand = new Random((int)DateTime.Now.Ticks);
+            Player player = new Player();
+            bool flag;
+            try
+            {
+                string str = playerPath + ".dat";
+                flag = Player.DecryptFile(playerPath, str);
+                if (!flag)
+                {
+                    using (FileStream fileStream = new FileStream(str, FileMode.Open))
+                    {
+                        using (BinaryReader binaryReader = new BinaryReader((Stream)fileStream))
+                        {
+                            int release = binaryReader.ReadInt32();
+                            player.name = binaryReader.ReadString();
+                            if (release >= 10)
+                            {
+                                if (release >= 17)
+                                    player.difficulty = binaryReader.ReadByte();
+                                else if (binaryReader.ReadBoolean())
+                                    player.difficulty = (byte)2;
+                            }
+                            player.hair = binaryReader.ReadInt32();
+                            player.male = release > 17 ? binaryReader.ReadBoolean() : player.hair != 5 && player.hair != 6 && (player.hair != 9 && player.hair != 11) || false;
+                            player.statLife = binaryReader.ReadInt32();
+                            player.statLifeMax = binaryReader.ReadInt32();
+                            if (player.statLifeMax > 400)
+                                player.statLifeMax = 400;
+                            if (player.statLife > player.statLifeMax)
+                                player.statLife = player.statLifeMax;
+                            player.statMana = binaryReader.ReadInt32();
+                            player.statManaMax = binaryReader.ReadInt32();
+                            if (player.statManaMax > 200)
+                                player.statManaMax = 200;
+                            if (player.statMana > 400)
+                                player.statMana = 400;
+                            player.hairColor.R = binaryReader.ReadByte();
+                            player.hairColor.G = binaryReader.ReadByte();
+                            player.hairColor.B = binaryReader.ReadByte();
+                            player.skinColor.R = binaryReader.ReadByte();
+                            player.skinColor.G = binaryReader.ReadByte();
+                            player.skinColor.B = binaryReader.ReadByte();
+                            player.eyeColor.R = binaryReader.ReadByte();
+                            player.eyeColor.G = binaryReader.ReadByte();
+                            player.eyeColor.B = binaryReader.ReadByte();
+                            player.shirtColor.R = binaryReader.ReadByte();
+                            player.shirtColor.G = binaryReader.ReadByte();
+                            player.shirtColor.B = binaryReader.ReadByte();
+                            player.underShirtColor.R = binaryReader.ReadByte();
+                            player.underShirtColor.G = binaryReader.ReadByte();
+                            player.underShirtColor.B = binaryReader.ReadByte();
+                            player.pantsColor.R = binaryReader.ReadByte();
+                            player.pantsColor.G = binaryReader.ReadByte();
+                            player.pantsColor.B = binaryReader.ReadByte();
+                            player.shoeColor.R = binaryReader.ReadByte();
+                            player.shoeColor.G = binaryReader.ReadByte();
+                            player.shoeColor.B = binaryReader.ReadByte();
+                            Main.player[Main.myPlayer].shirtColor = player.shirtColor;
+                            Main.player[Main.myPlayer].pantsColor = player.pantsColor;
+                            Main.player[Main.myPlayer].hairColor = player.hairColor;
+                            if (release >= 38)
+                            {
+                                for (int index = 0; index < 11; ++index)
+                                {
+                                    player.armor[index].netDefaults(binaryReader.ReadInt32());
+                                    player.armor[index].Prefix((int)binaryReader.ReadByte());
+                                }
+                                for (int index = 0; index < 48; ++index)
+                                {
+                                    player.inventory[index].netDefaults(binaryReader.ReadInt32());
+                                    player.inventory[index].stack = binaryReader.ReadInt32();
+                                    player.inventory[index].Prefix((int)binaryReader.ReadByte());
+                                }
+                                for (int index = 0; index < Chest.maxItems; ++index)
+                                {
+                                    player.bank[index].netDefaults(binaryReader.ReadInt32());
+                                    player.bank[index].stack = binaryReader.ReadInt32();
+                                    player.bank[index].Prefix((int)binaryReader.ReadByte());
+                                }
+                                for (int index = 0; index < Chest.maxItems; ++index)
+                                {
+                                    player.bank2[index].netDefaults(binaryReader.ReadInt32());
+                                    player.bank2[index].stack = binaryReader.ReadInt32();
+                                    player.bank2[index].Prefix((int)binaryReader.ReadByte());
+                                }
+                            }
+                            else
+                            {
+                                for (int index = 0; index < 8; ++index)
+                                {
+                                    player.armor[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
+                                    if (release >= 36)
+                                        player.armor[index].Prefix((int)binaryReader.ReadByte());
+                                }
+                                if (release >= 6)
+                                {
+                                    for (int index = 8; index < 11; ++index)
+                                    {
+                                        player.armor[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
+                                        if (release >= 36)
+                                            player.armor[index].Prefix((int)binaryReader.ReadByte());
+                                    }
+                                }
+                                for (int index = 0; index < 44; ++index)
+                                {
+                                    player.inventory[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
+                                    player.inventory[index].stack = binaryReader.ReadInt32();
+                                    if (release >= 36)
+                                        player.inventory[index].Prefix((int)binaryReader.ReadByte());
+                                }
+                                if (release >= 15)
+                                {
+                                    for (int index = 44; index < 48; ++index)
+                                    {
+                                        player.inventory[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
+                                        player.inventory[index].stack = binaryReader.ReadInt32();
+                                        if (release >= 36)
+                                            player.inventory[index].Prefix((int)binaryReader.ReadByte());
+                                    }
+                                }
+                                for (int index = 0; index < Chest.maxItems; ++index)
+                                {
+                                    player.bank[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
+                                    player.bank[index].stack = binaryReader.ReadInt32();
+                                    if (release >= 36)
+                                        player.bank[index].Prefix((int)binaryReader.ReadByte());
+                                }
+                                if (release >= 20)
+                                {
+                                    for (int index = 0; index < Chest.maxItems; ++index)
+                                    {
+                                        player.bank2[index].SetDefaults(Item.VersionName(binaryReader.ReadString(), release));
+                                        player.bank2[index].stack = binaryReader.ReadInt32();
+                                        if (release >= 36)
+                                            player.bank2[index].Prefix((int)binaryReader.ReadByte());
+                                    }
+                                }
+                            }
+                            if (release >= 11)
+                            {
+                                for (int index = 0; index < 10; ++index)
+                                {
+                                    player.buffType[index] = binaryReader.ReadInt32();
+                                    player.buffTime[index] = binaryReader.ReadInt32();
+                                }
+                            }
+                            for (int index = 0; index < 200; ++index)
+                            {
+                                int num = binaryReader.ReadInt32();
+                                if (num != -1)
+                                {
+                                    player.spX[index] = num;
+                                    player.spY[index] = binaryReader.ReadInt32();
+                                    player.spI[index] = binaryReader.ReadInt32();
+                                    player.spN[index] = binaryReader.ReadString();
+                                }
+                                else
+                                    break;
+                            }
+                            if (release >= 16)
+                                player.hbLocked = binaryReader.ReadBoolean();
+                            binaryReader.Close();
+                        }
+                    }
+                    player.PlayerFrame();
+                    File.Delete(str);
+                    return player;
+                }
+            }
+            catch
+            {
+                flag = true;
+            }
+            if (!flag)
+                return new Player();
+            try
+            {
+                string str = playerPath + ".bak";
+                if (!File.Exists(str))
+                    return new Player();
+                File.Delete(playerPath);
+                File.Move(str, playerPath);
+                return Player.LoadPlayer(playerPath);
+            }
+            catch
+            {
+                return new Player();
+            }
+        }
 		public bool HasItem(int type)
 		{
 			for (int i = 0; i < 48; i++)

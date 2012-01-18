@@ -73,10 +73,13 @@ namespace Terraria
                                 Console.WriteLine("Each IP is now limited to {0} connections", limit);
                             }
                             else
-                            Console.WriteLine("Bad int for -connperip");
+                                Console.WriteLine("Bad int for -connperip");
                             break;
                         case "-killinactivesocket":
                             Netplay.killInactive = true;
+                            break;
+                        case "-lang":
+                            Lang.lang = Convert.ToInt32(args[++i]);
                             break;
                     }
                 }

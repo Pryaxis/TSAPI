@@ -44,7 +44,7 @@ namespace Terraria
                         case 1:
                             {
                                 byte[] bytes = BitConverter.GetBytes(msgType);
-                                byte[] bytes2 = Encoding.ASCII.GetBytes("Terraria" + Main.curRelease);
+                                byte[] bytes2 = Encoding.UTF8.GetBytes("Terraria" + Main.curRelease);
                                 num2 += bytes2.Length;
                                 byte[] bytes3 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes3, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -55,7 +55,7 @@ namespace Terraria
                         case 2:
                             {
                                 byte[] bytes4 = BitConverter.GetBytes(msgType);
-                                byte[] bytes5 = Encoding.ASCII.GetBytes(text);
+                                byte[] bytes5 = Encoding.UTF8.GetBytes(text);
                                 num2 += bytes5.Length;
                                 byte[] bytes6 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes6, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -81,14 +81,14 @@ namespace Terraria
                         case 4:
                             {
                                 byte[] bytes10 = BitConverter.GetBytes(msgType);
-                                byte b = (byte)number;
-                                byte b2 = (byte)Main.player[(int)b].hair;
+                                byte b = (byte) number;
+                                byte b2 = (byte) Main.player[(int) b].hair;
                                 byte b3 = 0;
-                                if (Main.player[(int)b].male)
+                                if (Main.player[(int) b].male)
                                 {
                                     b3 = 1;
                                 }
-                                byte[] bytes11 = Encoding.ASCII.GetBytes(text);
+                                byte[] bytes11 = Encoding.UTF8.GetBytes(text);
                                 num2 += 24 + bytes11.Length + 1;
                                 byte[] bytes12 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes12, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -99,49 +99,49 @@ namespace Terraria
                                 num3++;
                                 NetMessage.buffer[num].writeBuffer[7] = b3;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].hairColor.R;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].hairColor.R;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].hairColor.G;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].hairColor.G;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].hairColor.B;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].hairColor.B;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].skinColor.R;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].skinColor.R;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].skinColor.G;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].skinColor.G;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].skinColor.B;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].skinColor.B;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].eyeColor.R;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].eyeColor.R;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].eyeColor.G;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].eyeColor.G;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].eyeColor.B;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].eyeColor.B;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].shirtColor.R;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].shirtColor.R;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].shirtColor.G;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].shirtColor.G;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].shirtColor.B;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].shirtColor.B;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].underShirtColor.R;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].underShirtColor.R;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].underShirtColor.G;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].underShirtColor.G;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].underShirtColor.B;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].underShirtColor.B;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].pantsColor.R;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].pantsColor.R;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].pantsColor.G;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].pantsColor.G;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].pantsColor.B;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].pantsColor.B;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].shoeColor.R;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].shoeColor.R;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].shoeColor.G;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].shoeColor.G;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].shoeColor.B;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].shoeColor.B;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int)b].difficulty;
+                                NetMessage.buffer[num].writeBuffer[num3] = Main.player[(int) b].difficulty;
                                 num3++;
                                 Buffer.BlockCopy(bytes11, 0, NetMessage.buffer[num].writeBuffer, num3, bytes11.Length);
                             }
@@ -149,37 +149,37 @@ namespace Terraria
                         case 5:
                             {
                                 byte[] bytes13 = BitConverter.GetBytes(msgType);
-                                byte b4 = (byte)number;
-                                byte b5 = (byte)number2;
+                                byte b4 = (byte) number;
+                                byte b5 = (byte) number2;
                                 byte b6;
                                 byte[] bytes14;
                                 if (number2 < 49f)
                                 {
-                                    if (Main.player[number].inventory[(int)number2].name == "" || Main.player[number].inventory[(int)number2].stack == 0 || Main.player[number].inventory[(int)number2].type == 0)
+                                    if (Main.player[number].inventory[(int) number2].name == "" || Main.player[number].inventory[(int) number2].stack == 0 || Main.player[number].inventory[(int) number2].type == 0)
                                     {
-                                        Main.player[number].inventory[(int)number2].netID = 0;
+                                        Main.player[number].inventory[(int) number2].netID = 0;
                                     }
-                                    b6 = (byte)Main.player[number].inventory[(int)number2].stack;
-                                    bytes14 = BitConverter.GetBytes((short)Main.player[number].inventory[(int)number2].netID);
-                                    if (Main.player[number].inventory[(int)number2].stack < 0)
+                                    b6 = (byte) Main.player[number].inventory[(int) number2].stack;
+                                    bytes14 = BitConverter.GetBytes((short) Main.player[number].inventory[(int) number2].netID);
+                                    if (Main.player[number].inventory[(int) number2].stack < 0)
                                     {
                                         b6 = 0;
                                     }
                                 }
                                 else
                                 {
-                                    if (Main.player[number].armor[(int)number2 - 48 - 1].name == "" || Main.player[number].armor[(int)number2 - 48 - 1].stack == 0 || Main.player[number].armor[(int)number2 - 48 - 1].type == 0)
+                                    if (Main.player[number].armor[(int) number2 - 48 - 1].name == "" || Main.player[number].armor[(int) number2 - 48 - 1].stack == 0 || Main.player[number].armor[(int) number2 - 48 - 1].type == 0)
                                     {
-                                        Main.player[number].armor[(int)number2 - 48 - 1].SetDefaults(0, false);
+                                        Main.player[number].armor[(int) number2 - 48 - 1].SetDefaults(0, false);
                                     }
-                                    b6 = (byte)Main.player[number].armor[(int)number2 - 48 - 1].stack;
-                                    bytes14 = BitConverter.GetBytes((short)Main.player[number].armor[(int)number2 - 48 - 1].netID);
-                                    if (Main.player[number].armor[(int)number2 - 48 - 1].stack < 0)
+                                    b6 = (byte) Main.player[number].armor[(int) number2 - 48 - 1].stack;
+                                    bytes14 = BitConverter.GetBytes((short) Main.player[number].armor[(int) number2 - 48 - 1].netID);
+                                    if (Main.player[number].armor[(int) number2 - 48 - 1].stack < 0)
                                     {
                                         b6 = 0;
                                     }
                                 }
-                                byte b7 = (byte)number3;
+                                byte b7 = (byte) number3;
                                 num2 += 4 + bytes14.Length;
                                 byte[] bytes15 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes15, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -206,13 +206,13 @@ namespace Terraria
                         case 7:
                             {
                                 byte[] bytes18 = BitConverter.GetBytes(msgType);
-                                byte[] bytes19 = BitConverter.GetBytes((int)Main.time);
+                                byte[] bytes19 = BitConverter.GetBytes((int) Main.time);
                                 byte b8 = 0;
                                 if (Main.dayTime)
                                 {
                                     b8 = 1;
                                 }
-                                byte b9 = (byte)Main.moonPhase;
+                                byte b9 = (byte) Main.moonPhase;
                                 byte b10 = 0;
                                 if (Main.bloodMoon)
                                 {
@@ -222,10 +222,10 @@ namespace Terraria
                                 byte[] bytes21 = BitConverter.GetBytes(Main.maxTilesY);
                                 byte[] bytes22 = BitConverter.GetBytes(Main.spawnTileX);
                                 byte[] bytes23 = BitConverter.GetBytes(Main.spawnTileY);
-                                byte[] bytes24 = BitConverter.GetBytes((int)Main.worldSurface);
-                                byte[] bytes25 = BitConverter.GetBytes((int)Main.rockLayer);
+                                byte[] bytes24 = BitConverter.GetBytes((int) Main.worldSurface);
+                                byte[] bytes25 = BitConverter.GetBytes((int) Main.rockLayer);
                                 byte[] bytes26 = BitConverter.GetBytes(Main.worldID);
-                                byte[] bytes27 = Encoding.ASCII.GetBytes(Main.worldName);
+                                byte[] bytes27 = Encoding.UTF8.GetBytes(Main.worldName);
                                 byte b11 = 0;
                                 if (WorldGen.shadowOrbSmashed)
                                 {
@@ -287,7 +287,7 @@ namespace Terraria
                             {
                                 byte[] bytes29 = BitConverter.GetBytes(msgType);
                                 byte[] bytes30 = BitConverter.GetBytes(number);
-                                byte[] bytes31 = BitConverter.GetBytes((int)number2);
+                                byte[] bytes31 = BitConverter.GetBytes((int) number2);
                                 num2 += bytes30.Length + bytes31.Length;
                                 byte[] bytes32 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes32, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -301,7 +301,7 @@ namespace Terraria
                             {
                                 byte[] bytes33 = BitConverter.GetBytes(msgType);
                                 byte[] bytes34 = BitConverter.GetBytes(number);
-                                byte[] bytes35 = Encoding.ASCII.GetBytes(text);
+                                byte[] bytes35 = Encoding.UTF8.GetBytes(text);
                                 num2 += bytes34.Length + bytes35.Length;
                                 byte[] bytes36 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes36, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -313,9 +313,9 @@ namespace Terraria
                             break;
                         case 10:
                             {
-                                short num4 = (short)number;
-                                int num5 = (int)number2;
-                                int num6 = (int)number3;
+                                short num4 = (short) number;
+                                int num5 = (int) number2;
+                                int num6 = (int) number3;
                                 byte[] bytes37 = BitConverter.GetBytes(msgType);
                                 Buffer.BlockCopy(bytes37, 0, NetMessage.buffer[num].writeBuffer, 4, 1);
                                 byte[] bytes38 = BitConverter.GetBytes(num4);
@@ -327,7 +327,7 @@ namespace Terraria
                                 byte[] bytes40 = BitConverter.GetBytes(num6);
                                 Buffer.BlockCopy(bytes40, 0, NetMessage.buffer[num].writeBuffer, num3, 4);
                                 num3 += 4;
-                                for (int i = num5; i < num5 + (int)num4; i++)
+                                for (int i = num5; i < num5 + (int) num4; i++)
                                 {
                                     byte b12 = 0;
                                     if (Main.tile[i, num6].active)
@@ -355,7 +355,7 @@ namespace Terraria
                                     {
                                         NetMessage.buffer[num].writeBuffer[num3] = Main.tile[i, num6].type;
                                         num3++;
-                                        if (Main.tileFrameImportant[(int)Main.tile[i, num6].type])
+                                        if (Main.tileFrameImportant[(int) Main.tile[i, num6].type])
                                         {
                                             Buffer.BlockCopy(bytes41, 0, NetMessage.buffer[num].writeBuffer, num3, 2);
                                             num3 += 2;
@@ -381,7 +381,7 @@ namespace Terraria
                                         num3++;
                                     }
                                     short num7 = 1;
-                                    while (i + (int)num7 < num5 + (int)num4 && Main.tile[i, num6].isTheSameAs(Main.tile[i + (int)num7, num6]))
+                                    while (i + (int) num7 < num5 + (int) num4 && Main.tile[i, num6].isTheSameAs(Main.tile[i + (int) num7, num6]))
                                     {
                                         num7 += 1;
                                     }
@@ -389,7 +389,7 @@ namespace Terraria
                                     byte[] bytes43 = BitConverter.GetBytes(num7);
                                     Buffer.BlockCopy(bytes43, 0, NetMessage.buffer[num].writeBuffer, num3, 2);
                                     num3 += 2;
-                                    i += (int)num7;
+                                    i += (int) num7;
                                 }
                                 byte[] bytes44 = BitConverter.GetBytes(num3 - 4);
                                 Buffer.BlockCopy(bytes44, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -400,9 +400,9 @@ namespace Terraria
                             {
                                 byte[] bytes45 = BitConverter.GetBytes(msgType);
                                 byte[] bytes46 = BitConverter.GetBytes(number);
-                                byte[] bytes47 = BitConverter.GetBytes((int)number2);
-                                byte[] bytes48 = BitConverter.GetBytes((int)number3);
-                                byte[] bytes49 = BitConverter.GetBytes((int)number4);
+                                byte[] bytes47 = BitConverter.GetBytes((int) number2);
+                                byte[] bytes48 = BitConverter.GetBytes((int) number3);
+                                byte[] bytes49 = BitConverter.GetBytes((int) number4);
                                 num2 += bytes46.Length + bytes47.Length + bytes48.Length + bytes49.Length;
                                 byte[] bytes50 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes50, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -420,9 +420,9 @@ namespace Terraria
                         case 12:
                             {
                                 byte[] bytes51 = BitConverter.GetBytes(msgType);
-                                byte b14 = (byte)number;
-                                byte[] bytes52 = BitConverter.GetBytes(Main.player[(int)b14].SpawnX);
-                                byte[] bytes53 = BitConverter.GetBytes(Main.player[(int)b14].SpawnY);
+                                byte b14 = (byte) number;
+                                byte[] bytes52 = BitConverter.GetBytes(Main.player[(int) b14].SpawnX);
+                                byte[] bytes53 = BitConverter.GetBytes(Main.player[(int) b14].SpawnY);
                                 num2 += 1 + bytes52.Length + bytes53.Length;
                                 byte[] bytes54 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes54, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -438,37 +438,37 @@ namespace Terraria
                         case 13:
                             {
                                 byte[] bytes55 = BitConverter.GetBytes(msgType);
-                                byte b15 = (byte)number;
+                                byte b15 = (byte) number;
                                 byte b16 = 0;
-                                if (Main.player[(int)b15].controlUp)
+                                if (Main.player[(int) b15].controlUp)
                                 {
                                     b16 += 1;
                                 }
-                                if (Main.player[(int)b15].controlDown)
+                                if (Main.player[(int) b15].controlDown)
                                 {
                                     b16 += 2;
                                 }
-                                if (Main.player[(int)b15].controlLeft)
+                                if (Main.player[(int) b15].controlLeft)
                                 {
                                     b16 += 4;
                                 }
-                                if (Main.player[(int)b15].controlRight)
+                                if (Main.player[(int) b15].controlRight)
                                 {
                                     b16 += 8;
                                 }
-                                if (Main.player[(int)b15].controlJump)
+                                if (Main.player[(int) b15].controlJump)
                                 {
                                     b16 += 16;
                                 }
-                                if (Main.player[(int)b15].controlUseItem)
+                                if (Main.player[(int) b15].controlUseItem)
                                 {
                                     b16 += 32;
                                 }
-                                if (Main.player[(int)b15].direction == 1)
+                                if (Main.player[(int) b15].direction == 1)
                                 {
                                     b16 += 64;
                                 }
-                                byte b17 = (byte)Main.player[(int)b15].selectedItem;
+                                byte b17 = (byte) Main.player[(int) b15].selectedItem;
                                 byte[] bytes56 = BitConverter.GetBytes(Main.player[number].position.X);
                                 byte[] bytes57 = BitConverter.GetBytes(Main.player[number].position.Y);
                                 byte[] bytes58 = BitConverter.GetBytes(Main.player[number].velocity.X);
@@ -495,8 +495,8 @@ namespace Terraria
                         case 14:
                             {
                                 byte[] bytes61 = BitConverter.GetBytes(msgType);
-                                byte b18 = (byte)number;
-                                byte b19 = (byte)number2;
+                                byte b18 = (byte) number;
+                                byte b19 = (byte) number2;
                                 num2 += 2;
                                 byte[] bytes62 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes62, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -516,9 +516,9 @@ namespace Terraria
                         case 16:
                             {
                                 byte[] bytes65 = BitConverter.GetBytes(msgType);
-                                byte b20 = (byte)number;
-                                byte[] bytes66 = BitConverter.GetBytes((short)Main.player[(int)b20].statLife);
-                                byte[] bytes67 = BitConverter.GetBytes((short)Main.player[(int)b20].statLifeMax);
+                                byte b20 = (byte) number;
+                                byte[] bytes66 = BitConverter.GetBytes((short) Main.player[(int) b20].statLife);
+                                byte[] bytes67 = BitConverter.GetBytes((short) Main.player[(int) b20].statLifeMax);
                                 num2 += 1 + bytes66.Length + bytes67.Length;
                                 byte[] bytes68 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes68, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -533,10 +533,10 @@ namespace Terraria
                         case 17:
                             {
                                 byte[] bytes69 = BitConverter.GetBytes(msgType);
-                                byte b21 = (byte)number;
-                                byte[] bytes70 = BitConverter.GetBytes((int)number2);
-                                byte[] bytes71 = BitConverter.GetBytes((int)number3);
-                                byte b22 = (byte)number4;
+                                byte b21 = (byte) number;
+                                byte[] bytes70 = BitConverter.GetBytes((int) number2);
+                                byte[] bytes71 = BitConverter.GetBytes((int) number3);
+                                byte b22 = (byte) number4;
                                 num2 += 1 + bytes70.Length + bytes71.Length + 1 + 1;
                                 byte[] bytes72 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes72, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -549,19 +549,19 @@ namespace Terraria
                                 num3 += 4;
                                 NetMessage.buffer[num].writeBuffer[num3] = b22;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = (byte)number5;
+                                NetMessage.buffer[num].writeBuffer[num3] = (byte) number5;
                             }
                             break;
                         case 18:
                             {
                                 byte[] bytes73 = BitConverter.GetBytes(msgType);
-                                BitConverter.GetBytes((int)Main.time);
+                                BitConverter.GetBytes((int) Main.time);
                                 byte b23 = 0;
                                 if (Main.dayTime)
                                 {
                                     b23 = 1;
                                 }
-                                byte[] bytes74 = BitConverter.GetBytes((int)Main.time);
+                                byte[] bytes74 = BitConverter.GetBytes((int) Main.time);
                                 byte[] bytes75 = BitConverter.GetBytes(Main.sunModY);
                                 byte[] bytes76 = BitConverter.GetBytes(Main.moonModY);
                                 num2 += 1 + bytes74.Length + bytes75.Length + bytes76.Length;
@@ -581,9 +581,9 @@ namespace Terraria
                         case 19:
                             {
                                 byte[] bytes78 = BitConverter.GetBytes(msgType);
-                                byte b24 = (byte)number;
-                                byte[] bytes79 = BitConverter.GetBytes((int)number2);
-                                byte[] bytes80 = BitConverter.GetBytes((int)number3);
+                                byte b24 = (byte) number;
+                                byte[] bytes79 = BitConverter.GetBytes((int) number2);
+                                byte[] bytes80 = BitConverter.GetBytes((int) number3);
                                 byte b25 = 0;
                                 if (number4 == 1f)
                                 {
@@ -604,9 +604,9 @@ namespace Terraria
                             break;
                         case 20:
                             {
-                                short num8 = (short)number;
-                                int num9 = (int)number2;
-                                int num10 = (int)number3;
+                                short num8 = (short) number;
+                                int num9 = (int) number2;
+                                int num10 = (int) number3;
                                 byte[] bytes82 = BitConverter.GetBytes(msgType);
                                 Buffer.BlockCopy(bytes82, 0, NetMessage.buffer[num].writeBuffer, 4, 1);
                                 byte[] bytes83 = BitConverter.GetBytes(num8);
@@ -618,9 +618,9 @@ namespace Terraria
                                 byte[] bytes85 = BitConverter.GetBytes(num10);
                                 Buffer.BlockCopy(bytes85, 0, NetMessage.buffer[num].writeBuffer, num3, 4);
                                 num3 += 4;
-                                for (int j = num9; j < num9 + (int)num8; j++)
+                                for (int j = num9; j < num9 + (int) num8; j++)
                                 {
-                                    for (int k = num10; k < num10 + (int)num8; k++)
+                                    for (int k = num10; k < num10 + (int) num8; k++)
                                     {
                                         byte b26 = 0;
                                         if (Main.tile[j, k].active)
@@ -648,7 +648,7 @@ namespace Terraria
                                         {
                                             NetMessage.buffer[num].writeBuffer[num3] = Main.tile[j, k].type;
                                             num3++;
-                                            if (Main.tileFrameImportant[(int)Main.tile[j, k].type])
+                                            if (Main.tileFrameImportant[(int) Main.tile[j, k].type])
                                             {
                                                 Buffer.BlockCopy(bytes86, 0, NetMessage.buffer[num].writeBuffer, num3, 2);
                                                 num3 += 2;
@@ -683,17 +683,17 @@ namespace Terraria
                         case 21:
                             {
                                 byte[] bytes89 = BitConverter.GetBytes(msgType);
-                                byte[] bytes90 = BitConverter.GetBytes((short)number);
+                                byte[] bytes90 = BitConverter.GetBytes((short) number);
                                 byte[] bytes91 = BitConverter.GetBytes(Main.item[number].position.X);
                                 byte[] bytes92 = BitConverter.GetBytes(Main.item[number].position.Y);
                                 byte[] bytes93 = BitConverter.GetBytes(Main.item[number].velocity.X);
                                 byte[] bytes94 = BitConverter.GetBytes(Main.item[number].velocity.Y);
-                                byte b28 = (byte)Main.item[number].stack;
+                                byte b28 = (byte) Main.item[number].stack;
                                 byte prefix = Main.item[number].prefix;
                                 short value = 0;
                                 if (Main.item[number].active && Main.item[number].stack > 0)
                                 {
-                                    value = (short)Main.item[number].netID;
+                                    value = (short) Main.item[number].netID;
                                 }
                                 byte[] bytes95 = BitConverter.GetBytes(value);
                                 num2 += bytes90.Length + bytes91.Length + bytes92.Length + bytes93.Length + bytes94.Length + 1 + bytes95.Length + 1;
@@ -720,8 +720,8 @@ namespace Terraria
                         case 22:
                             {
                                 byte[] bytes97 = BitConverter.GetBytes(msgType);
-                                byte[] bytes98 = BitConverter.GetBytes((short)number);
-                                byte b29 = (byte)Main.item[number].owner;
+                                byte[] bytes98 = BitConverter.GetBytes((short) number);
+                                byte b29 = (byte) Main.item[number].owner;
                                 num2 += bytes98.Length + 1;
                                 byte[] bytes99 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes99, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -734,12 +734,12 @@ namespace Terraria
                         case 23:
                             {
                                 byte[] bytes100 = BitConverter.GetBytes(msgType);
-                                byte[] bytes101 = BitConverter.GetBytes((short)number);
+                                byte[] bytes101 = BitConverter.GetBytes((short) number);
                                 byte[] bytes102 = BitConverter.GetBytes(Main.npc[number].position.X);
                                 byte[] bytes103 = BitConverter.GetBytes(Main.npc[number].position.Y);
                                 byte[] bytes104 = BitConverter.GetBytes(Main.npc[number].velocity.X);
                                 byte[] bytes105 = BitConverter.GetBytes(Main.npc[number].velocity.Y);
-                                byte[] bytes106 = BitConverter.GetBytes((short)Main.npc[number].target);
+                                byte[] bytes106 = BitConverter.GetBytes((short) Main.npc[number].target);
                                 byte[] bytes107 = BitConverter.GetBytes(Main.npc[number].life);
                                 if (!Main.npc[number].active)
                                 {
@@ -753,8 +753,8 @@ namespace Terraria
                                 {
                                     Main.npc[number].name = "";
                                 }
-                                byte[] bytes108 = BitConverter.GetBytes((short)Main.npc[number].netID);
-                                num2 += bytes101.Length + bytes102.Length + bytes103.Length + bytes104.Length + bytes105.Length + bytes106.Length + bytes107.Length + NPC.maxAI * 4 + bytes108.Length + 1 + 1;
+                                byte[] bytes108 = BitConverter.GetBytes((short) Main.npc[number].netID);
+                                num2 += bytes101.Length + bytes102.Length + bytes103.Length + bytes104.Length + bytes105.Length + bytes106.Length + bytes107.Length + NPC.maxAI*4 + bytes108.Length + 1 + 1;
                                 byte[] bytes109 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes109, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
                                 Buffer.BlockCopy(bytes100, 0, NetMessage.buffer[num].writeBuffer, 4, 1);
@@ -770,9 +770,9 @@ namespace Terraria
                                 num3 += 4;
                                 Buffer.BlockCopy(bytes106, 0, NetMessage.buffer[num].writeBuffer, num3, bytes106.Length);
                                 num3 += 2;
-                                NetMessage.buffer[num].writeBuffer[num3] = (byte)(Main.npc[number].direction + 1);
+                                NetMessage.buffer[num].writeBuffer[num3] = (byte) (Main.npc[number].direction + 1);
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = (byte)(Main.npc[number].directionY + 1);
+                                NetMessage.buffer[num].writeBuffer[num3] = (byte) (Main.npc[number].directionY + 1);
                                 num3++;
                                 Buffer.BlockCopy(bytes107, 0, NetMessage.buffer[num].writeBuffer, num3, bytes107.Length);
                                 num3 += 4;
@@ -788,8 +788,8 @@ namespace Terraria
                         case 24:
                             {
                                 byte[] bytes111 = BitConverter.GetBytes(msgType);
-                                byte[] bytes112 = BitConverter.GetBytes((short)number);
-                                byte b30 = (byte)number2;
+                                byte[] bytes112 = BitConverter.GetBytes((short) number);
+                                byte b30 = (byte) number2;
                                 num2 += bytes112.Length + 1;
                                 byte[] bytes113 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes113, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -802,11 +802,11 @@ namespace Terraria
                         case 25:
                             {
                                 byte[] bytes114 = BitConverter.GetBytes(msgType);
-                                byte b31 = (byte)number;
-                                byte[] bytes115 = Encoding.ASCII.GetBytes(text);
-                                byte b32 = (byte)number2;
-                                byte b33 = (byte)number3;
-                                byte b34 = (byte)number4;
+                                byte b31 = (byte) number;
+                                byte[] bytes115 = Encoding.UTF8.GetBytes(text);
+                                byte b32 = (byte) number2;
+                                byte b33 = (byte) number3;
+                                byte b34 = (byte) number4;
                                 num2 += 1 + bytes115.Length + 3;
                                 byte[] bytes116 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes116, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -825,12 +825,12 @@ namespace Terraria
                         case 26:
                             {
                                 byte[] bytes117 = BitConverter.GetBytes(msgType);
-                                byte b35 = (byte)number;
-                                byte b36 = (byte)(number2 + 1f);
-                                byte[] bytes118 = BitConverter.GetBytes((short)number3);
-                                byte[] bytes119 = Encoding.ASCII.GetBytes(text);
-                                byte b37 = (byte)number4;
-                                byte b38 = (byte)number5;
+                                byte b35 = (byte) number;
+                                byte b36 = (byte) (number2 + 1f);
+                                byte[] bytes118 = BitConverter.GetBytes((short) number3);
+                                byte[] bytes119 = Encoding.UTF8.GetBytes(text);
+                                byte b37 = (byte) number4;
+                                byte b38 = (byte) number5;
                                 num2 += 2 + bytes118.Length + 1 + bytes119.Length + 1;
                                 byte[] bytes120 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes120, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -851,13 +851,13 @@ namespace Terraria
                         case 27:
                             {
                                 byte[] bytes121 = BitConverter.GetBytes(msgType);
-                                byte[] bytes122 = BitConverter.GetBytes((short)Main.projectile[number].identity);
+                                byte[] bytes122 = BitConverter.GetBytes((short) Main.projectile[number].identity);
                                 byte[] bytes123 = BitConverter.GetBytes(Main.projectile[number].position.X);
                                 byte[] bytes124 = BitConverter.GetBytes(Main.projectile[number].position.Y);
                                 byte[] bytes125 = BitConverter.GetBytes(Main.projectile[number].velocity.X);
                                 byte[] bytes126 = BitConverter.GetBytes(Main.projectile[number].velocity.Y);
                                 byte[] bytes127 = BitConverter.GetBytes(Main.projectile[number].knockBack);
-                                byte[] bytes128 = BitConverter.GetBytes((short)Main.projectile[number].damage);
+                                byte[] bytes128 = BitConverter.GetBytes((short) Main.projectile[number].damage);
                                 Buffer.BlockCopy(bytes121, 0, NetMessage.buffer[num].writeBuffer, 4, 1);
                                 Buffer.BlockCopy(bytes122, 0, NetMessage.buffer[num].writeBuffer, num3, bytes122.Length);
                                 num3 += 2;
@@ -873,9 +873,9 @@ namespace Terraria
                                 num3 += 4;
                                 Buffer.BlockCopy(bytes128, 0, NetMessage.buffer[num].writeBuffer, num3, bytes128.Length);
                                 num3 += 2;
-                                NetMessage.buffer[num].writeBuffer[num3] = (byte)Main.projectile[number].owner;
+                                NetMessage.buffer[num].writeBuffer[num3] = (byte) Main.projectile[number].owner;
                                 num3++;
-                                NetMessage.buffer[num].writeBuffer[num3] = (byte)Main.projectile[number].type;
+                                NetMessage.buffer[num].writeBuffer[num3] = (byte) Main.projectile[number].type;
                                 num3++;
                                 for (int m = 0; m < Projectile.maxAI; m++)
                                 {
@@ -891,11 +891,11 @@ namespace Terraria
                         case 28:
                             {
                                 byte[] bytes131 = BitConverter.GetBytes(msgType);
-                                byte[] bytes132 = BitConverter.GetBytes((short)number);
-                                byte[] bytes133 = BitConverter.GetBytes((short)number2);
+                                byte[] bytes132 = BitConverter.GetBytes((short) number);
+                                byte[] bytes133 = BitConverter.GetBytes((short) number2);
                                 byte[] bytes134 = BitConverter.GetBytes(number3);
-                                byte b39 = (byte)(number4 + 1f);
-                                byte b40 = (byte)number5;
+                                byte b39 = (byte) (number4 + 1f);
+                                byte b40 = (byte) number5;
                                 num2 += bytes132.Length + bytes133.Length + bytes134.Length + 1 + 1;
                                 byte[] bytes135 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes135, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -914,8 +914,8 @@ namespace Terraria
                         case 29:
                             {
                                 byte[] bytes136 = BitConverter.GetBytes(msgType);
-                                byte[] bytes137 = BitConverter.GetBytes((short)number);
-                                byte b41 = (byte)number2;
+                                byte[] bytes137 = BitConverter.GetBytes((short) number);
+                                byte b41 = (byte) number2;
                                 num2 += bytes137.Length + 1;
                                 byte[] bytes138 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes138, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -928,9 +928,9 @@ namespace Terraria
                         case 30:
                             {
                                 byte[] bytes139 = BitConverter.GetBytes(msgType);
-                                byte b42 = (byte)number;
+                                byte b42 = (byte) number;
                                 byte b43 = 0;
-                                if (Main.player[(int)b42].hostile)
+                                if (Main.player[(int) b42].hostile)
                                 {
                                     b43 = 1;
                                 }
@@ -947,7 +947,7 @@ namespace Terraria
                             {
                                 byte[] bytes141 = BitConverter.GetBytes(msgType);
                                 byte[] bytes142 = BitConverter.GetBytes(number);
-                                byte[] bytes143 = BitConverter.GetBytes((int)number2);
+                                byte[] bytes143 = BitConverter.GetBytes((int) number2);
                                 num2 += bytes142.Length + bytes143.Length;
                                 byte[] bytes144 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes144, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -960,18 +960,18 @@ namespace Terraria
                         case 32:
                             {
                                 byte[] bytes145 = BitConverter.GetBytes(msgType);
-                                byte[] bytes146 = BitConverter.GetBytes((short)number);
-                                byte b44 = (byte)number2;
-                                byte b45 = (byte)Main.chest[number].item[(int)number2].stack;
-                                byte prefix2 = Main.chest[number].item[(int)number2].prefix;
+                                byte[] bytes146 = BitConverter.GetBytes((short) number);
+                                byte b44 = (byte) number2;
+                                byte b45 = (byte) Main.chest[number].item[(int) number2].stack;
+                                byte prefix2 = Main.chest[number].item[(int) number2].prefix;
                                 byte[] bytes147;
-                                if (Main.chest[number].item[(int)number2].name == null)
+                                if (Main.chest[number].item[(int) number2].name == null)
                                 {
                                     bytes147 = BitConverter.GetBytes(0);
                                 }
                                 else
                                 {
-                                    bytes147 = BitConverter.GetBytes((short)Main.chest[number].item[(int)number2].netID);
+                                    bytes147 = BitConverter.GetBytes((short) Main.chest[number].item[(int) number2].netID);
                                 }
                                 num2 += bytes146.Length + 1 + 1 + 1 + bytes147.Length;
                                 byte[] bytes148 = BitConverter.GetBytes(num2 - 4);
@@ -991,7 +991,7 @@ namespace Terraria
                         case 33:
                             {
                                 byte[] bytes149 = BitConverter.GetBytes(msgType);
-                                byte[] bytes150 = BitConverter.GetBytes((short)number);
+                                byte[] bytes150 = BitConverter.GetBytes((short) number);
                                 byte[] bytes151;
                                 byte[] bytes152;
                                 if (number > -1)
@@ -1019,7 +1019,7 @@ namespace Terraria
                             {
                                 byte[] bytes154 = BitConverter.GetBytes(msgType);
                                 byte[] bytes155 = BitConverter.GetBytes(number);
-                                byte[] bytes156 = BitConverter.GetBytes((int)number2);
+                                byte[] bytes156 = BitConverter.GetBytes((int) number2);
                                 num2 += bytes155.Length + bytes156.Length;
                                 byte[] bytes157 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes157, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1032,8 +1032,8 @@ namespace Terraria
                         case 35:
                             {
                                 byte[] bytes158 = BitConverter.GetBytes(msgType);
-                                byte b46 = (byte)number;
-                                byte[] bytes159 = BitConverter.GetBytes((short)number2);
+                                byte b46 = (byte) number;
+                                byte[] bytes159 = BitConverter.GetBytes((short) number2);
                                 num2 += 1 + bytes159.Length;
                                 byte[] bytes160 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes160, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1046,29 +1046,29 @@ namespace Terraria
                         case 36:
                             {
                                 byte[] bytes161 = BitConverter.GetBytes(msgType);
-                                byte b47 = (byte)number;
+                                byte b47 = (byte) number;
                                 byte b48 = 0;
-                                if (Main.player[(int)b47].zoneEvil)
+                                if (Main.player[(int) b47].zoneEvil)
                                 {
                                     b48 = 1;
                                 }
                                 byte b49 = 0;
-                                if (Main.player[(int)b47].zoneMeteor)
+                                if (Main.player[(int) b47].zoneMeteor)
                                 {
                                     b49 = 1;
                                 }
                                 byte b50 = 0;
-                                if (Main.player[(int)b47].zoneDungeon)
+                                if (Main.player[(int) b47].zoneDungeon)
                                 {
                                     b50 = 1;
                                 }
                                 byte b51 = 0;
-                                if (Main.player[(int)b47].zoneJungle)
+                                if (Main.player[(int) b47].zoneJungle)
                                 {
                                     b51 = 1;
                                 }
                                 byte b52 = 0;
-                                if (Main.player[(int)b47].zoneHoly)
+                                if (Main.player[(int) b47].zoneHoly)
                                 {
                                     b52 = 1;
                                 }
@@ -1101,7 +1101,7 @@ namespace Terraria
                         case 38:
                             {
                                 byte[] bytes165 = BitConverter.GetBytes(msgType);
-                                byte[] bytes166 = Encoding.ASCII.GetBytes(text);
+                                byte[] bytes166 = Encoding.UTF8.GetBytes(text);
                                 num2 += bytes166.Length;
                                 byte[] bytes167 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes167, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1112,7 +1112,7 @@ namespace Terraria
                         case 39:
                             {
                                 byte[] bytes168 = BitConverter.GetBytes(msgType);
-                                byte[] bytes169 = BitConverter.GetBytes((short)number);
+                                byte[] bytes169 = BitConverter.GetBytes((short) number);
                                 num2 += bytes169.Length;
                                 byte[] bytes170 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes170, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1123,8 +1123,8 @@ namespace Terraria
                         case 40:
                             {
                                 byte[] bytes171 = BitConverter.GetBytes(msgType);
-                                byte b53 = (byte)number;
-                                byte[] bytes172 = BitConverter.GetBytes((short)Main.player[(int)b53].talkNPC);
+                                byte b53 = (byte) number;
+                                byte[] bytes172 = BitConverter.GetBytes((short) Main.player[(int) b53].talkNPC);
                                 num2 += 1 + bytes172.Length;
                                 byte[] bytes173 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes173, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1138,9 +1138,9 @@ namespace Terraria
                         case 41:
                             {
                                 byte[] bytes174 = BitConverter.GetBytes(msgType);
-                                byte b54 = (byte)number;
-                                byte[] bytes175 = BitConverter.GetBytes(Main.player[(int)b54].itemRotation);
-                                byte[] bytes176 = BitConverter.GetBytes((short)Main.player[(int)b54].itemAnimation);
+                                byte b54 = (byte) number;
+                                byte[] bytes175 = BitConverter.GetBytes(Main.player[(int) b54].itemRotation);
+                                byte[] bytes176 = BitConverter.GetBytes((short) Main.player[(int) b54].itemAnimation);
                                 num2 += 1 + bytes175.Length + bytes176.Length;
                                 byte[] bytes177 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes177, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1155,9 +1155,9 @@ namespace Terraria
                         case 42:
                             {
                                 byte[] bytes178 = BitConverter.GetBytes(msgType);
-                                byte b55 = (byte)number;
-                                byte[] bytes179 = BitConverter.GetBytes((short)Main.player[(int)b55].statMana);
-                                byte[] bytes180 = BitConverter.GetBytes((short)Main.player[(int)b55].statManaMax);
+                                byte b55 = (byte) number;
+                                byte[] bytes179 = BitConverter.GetBytes((short) Main.player[(int) b55].statMana);
+                                byte[] bytes180 = BitConverter.GetBytes((short) Main.player[(int) b55].statManaMax);
                                 num2 += 1 + bytes179.Length + bytes180.Length;
                                 byte[] bytes181 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes181, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1172,8 +1172,8 @@ namespace Terraria
                         case 43:
                             {
                                 byte[] bytes182 = BitConverter.GetBytes(msgType);
-                                byte b56 = (byte)number;
-                                byte[] bytes183 = BitConverter.GetBytes((short)number2);
+                                byte b56 = (byte) number;
+                                byte[] bytes183 = BitConverter.GetBytes((short) number2);
                                 num2 += 1 + bytes183.Length;
                                 byte[] bytes184 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes184, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1186,11 +1186,11 @@ namespace Terraria
                         case 44:
                             {
                                 byte[] bytes185 = BitConverter.GetBytes(msgType);
-                                byte b57 = (byte)number;
-                                byte b58 = (byte)(number2 + 1f);
-                                byte[] bytes186 = BitConverter.GetBytes((short)number3);
-                                byte b59 = (byte)number4;
-                                byte[] bytes187 = Encoding.ASCII.GetBytes(text);
+                                byte b57 = (byte) number;
+                                byte b58 = (byte) (number2 + 1f);
+                                byte[] bytes186 = BitConverter.GetBytes((short) number3);
+                                byte b59 = (byte) number4;
+                                byte[] bytes187 = Encoding.UTF8.GetBytes(text);
                                 num2 += 2 + bytes186.Length + 1 + bytes187.Length;
                                 byte[] bytes188 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes188, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1210,8 +1210,8 @@ namespace Terraria
                         case 45:
                             {
                                 byte[] bytes189 = BitConverter.GetBytes(msgType);
-                                byte b60 = (byte)number;
-                                byte b61 = (byte)Main.player[(int)b60].team;
+                                byte b60 = (byte) number;
+                                byte b61 = (byte) Main.player[(int) b60].team;
                                 num2 += 2;
                                 byte[] bytes190 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes190, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1225,7 +1225,7 @@ namespace Terraria
                             {
                                 byte[] bytes191 = BitConverter.GetBytes(msgType);
                                 byte[] bytes192 = BitConverter.GetBytes(number);
-                                byte[] bytes193 = BitConverter.GetBytes((int)number2);
+                                byte[] bytes193 = BitConverter.GetBytes((int) number2);
                                 num2 += bytes192.Length + bytes193.Length;
                                 byte[] bytes194 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes194, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1238,10 +1238,10 @@ namespace Terraria
                         case 47:
                             {
                                 byte[] bytes195 = BitConverter.GetBytes(msgType);
-                                byte[] bytes196 = BitConverter.GetBytes((short)number);
+                                byte[] bytes196 = BitConverter.GetBytes((short) number);
                                 byte[] bytes197 = BitConverter.GetBytes(Main.sign[number].x);
                                 byte[] bytes198 = BitConverter.GetBytes(Main.sign[number].y);
-                                byte[] bytes199 = Encoding.ASCII.GetBytes(Main.sign[number].text);
+                                byte[] bytes199 = Encoding.UTF8.GetBytes(Main.sign[number].text);
                                 num2 += bytes196.Length + bytes197.Length + bytes198.Length + bytes199.Length;
                                 byte[] bytes200 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes200, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1260,10 +1260,10 @@ namespace Terraria
                             {
                                 byte[] bytes201 = BitConverter.GetBytes(msgType);
                                 byte[] bytes202 = BitConverter.GetBytes(number);
-                                byte[] bytes203 = BitConverter.GetBytes((int)number2);
-                                byte liquid = Main.tile[number, (int)number2].liquid;
+                                byte[] bytes203 = BitConverter.GetBytes((int) number2);
+                                byte liquid = Main.tile[number, (int) number2].liquid;
                                 byte b62 = 0;
-                                if (Main.tile[number, (int)number2].lava)
+                                if (Main.tile[number, (int) number2].lava)
                                 {
                                     b62 = 1;
                                 }
@@ -1292,7 +1292,7 @@ namespace Terraria
                         case 50:
                             {
                                 byte[] bytes207 = BitConverter.GetBytes(msgType);
-                                byte b63 = (byte)number;
+                                byte b63 = (byte) number;
                                 num2 += 11;
                                 byte[] bytes208 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes208, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1301,7 +1301,7 @@ namespace Terraria
                                 num3++;
                                 for (int n = 0; n < 10; n++)
                                 {
-                                    NetMessage.buffer[num].writeBuffer[num3] = (byte)Main.player[(int)b63].buffType[n];
+                                    NetMessage.buffer[num].writeBuffer[num3] = (byte) Main.player[(int) b63].buffType[n];
                                     num3++;
                                 }
                             }
@@ -1310,8 +1310,8 @@ namespace Terraria
                             {
                                 byte[] bytes209 = BitConverter.GetBytes(msgType);
                                 num2 += 2;
-                                byte b64 = (byte)number;
-                                byte b65 = (byte)number2;
+                                byte b64 = (byte) number;
+                                byte b65 = (byte) number2;
                                 byte[] bytes210 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes210, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
                                 Buffer.BlockCopy(bytes209, 0, NetMessage.buffer[num].writeBuffer, 4, 1);
@@ -1323,10 +1323,10 @@ namespace Terraria
                         case 52:
                             {
                                 byte[] bytes211 = BitConverter.GetBytes(msgType);
-                                byte b66 = (byte)number;
-                                byte b67 = (byte)number2;
-                                byte[] bytes212 = BitConverter.GetBytes((int)number3);
-                                byte[] bytes213 = BitConverter.GetBytes((int)number4);
+                                byte b66 = (byte) number;
+                                byte b67 = (byte) number2;
+                                byte[] bytes212 = BitConverter.GetBytes((int) number3);
+                                byte[] bytes213 = BitConverter.GetBytes((int) number4);
                                 num2 += 2 + bytes212.Length + bytes213.Length;
                                 byte[] bytes214 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes214, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1344,9 +1344,9 @@ namespace Terraria
                         case 53:
                             {
                                 byte[] bytes215 = BitConverter.GetBytes(msgType);
-                                byte[] bytes216 = BitConverter.GetBytes((short)number);
-                                byte b68 = (byte)number2;
-                                byte[] bytes217 = BitConverter.GetBytes((short)number3);
+                                byte[] bytes216 = BitConverter.GetBytes((short) number);
+                                byte b68 = (byte) number2;
+                                byte[] bytes217 = BitConverter.GetBytes((short) number3);
                                 num2 += bytes216.Length + 1 + bytes217.Length;
                                 byte[] bytes218 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes218, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1362,7 +1362,7 @@ namespace Terraria
                         case 54:
                             {
                                 byte[] bytes219 = BitConverter.GetBytes(msgType);
-                                byte[] bytes220 = BitConverter.GetBytes((short)number);
+                                byte[] bytes220 = BitConverter.GetBytes((short) number);
                                 num2 += bytes220.Length + 15;
                                 byte[] bytes221 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes221, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1371,9 +1371,9 @@ namespace Terraria
                                 num3 += bytes220.Length;
                                 for (int num11 = 0; num11 < 5; num11++)
                                 {
-                                    NetMessage.buffer[num].writeBuffer[num3] = (byte)Main.npc[(int)((short)number)].buffType[num11];
+                                    NetMessage.buffer[num].writeBuffer[num3] = (byte) Main.npc[(int) ((short) number)].buffType[num11];
                                     num3++;
-                                    byte[] bytes222 = BitConverter.GetBytes(Main.npc[(int)((short)number)].buffTime[num11]);
+                                    byte[] bytes222 = BitConverter.GetBytes(Main.npc[(int) ((short) number)].buffTime[num11]);
                                     Buffer.BlockCopy(bytes222, 0, NetMessage.buffer[num].writeBuffer, num3, bytes222.Length);
                                     num3 += bytes222.Length;
                                 }
@@ -1382,9 +1382,9 @@ namespace Terraria
                         case 55:
                             {
                                 byte[] bytes223 = BitConverter.GetBytes(msgType);
-                                byte b69 = (byte)number;
-                                byte b70 = (byte)number2;
-                                byte[] bytes224 = BitConverter.GetBytes((short)number3);
+                                byte b69 = (byte) number;
+                                byte b70 = (byte) number2;
+                                byte[] bytes224 = BitConverter.GetBytes((short) number3);
                                 num2 += 2 + bytes224.Length;
                                 byte[] bytes225 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes225, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1400,8 +1400,8 @@ namespace Terraria
                         case 56:
                             {
                                 byte[] bytes226 = BitConverter.GetBytes(msgType);
-                                byte[] bytes227 = BitConverter.GetBytes((short)number);
-                                byte[] bytes228 = Encoding.ASCII.GetBytes(Main.chrName[number]);
+                                byte[] bytes227 = BitConverter.GetBytes((short) number);
+                                byte[] bytes228 = Encoding.UTF8.GetBytes(Main.chrName[number]);
                                 num2 += bytes227.Length + bytes228.Length;
                                 byte[] bytes229 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes229, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1426,7 +1426,7 @@ namespace Terraria
                         case 58:
                             {
                                 byte[] bytes232 = BitConverter.GetBytes(msgType);
-                                byte b71 = (byte)number;
+                                byte b71 = (byte) number;
                                 byte[] bytes233 = BitConverter.GetBytes(number2);
                                 num2 += 1 + bytes233.Length;
                                 byte[] bytes234 = BitConverter.GetBytes(num2 - 4);
@@ -1441,7 +1441,7 @@ namespace Terraria
                             {
                                 byte[] bytes235 = BitConverter.GetBytes(msgType);
                                 byte[] bytes236 = BitConverter.GetBytes(number);
-                                byte[] bytes237 = BitConverter.GetBytes((int)number2);
+                                byte[] bytes237 = BitConverter.GetBytes((int) number2);
                                 num2 += bytes236.Length + bytes237.Length;
                                 byte[] bytes238 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes238, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1454,10 +1454,10 @@ namespace Terraria
                         case 60:
                             {
                                 byte[] bytes239 = BitConverter.GetBytes(msgType);
-                                byte[] bytes240 = BitConverter.GetBytes((short)number);
-                                byte[] bytes241 = BitConverter.GetBytes((short)number2);
-                                byte[] bytes242 = BitConverter.GetBytes((short)number3);
-                                byte b72 = (byte)number4;
+                                byte[] bytes240 = BitConverter.GetBytes((short) number);
+                                byte[] bytes241 = BitConverter.GetBytes((short) number2);
+                                byte[] bytes242 = BitConverter.GetBytes((short) number3);
+                                byte b72 = (byte) number4;
                                 num2 += bytes240.Length + bytes241.Length + bytes242.Length + 1;
                                 byte[] bytes243 = BitConverter.GetBytes(num2 - 4);
                                 Buffer.BlockCopy(bytes243, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
@@ -1471,6 +1471,17 @@ namespace Terraria
                                 NetMessage.buffer[num].writeBuffer[num3] = b72;
                                 num3++;
                             }
+                            break;
+                        case 61:
+                            byte[] local_338 = BitConverter.GetBytes(msgType);
+                            byte[] local_339 = BitConverter.GetBytes(number);
+                            byte[] local_340 = BitConverter.GetBytes((int) number2);
+                            num2 += local_339.Length + local_340.Length;
+                            Buffer.BlockCopy((Array) BitConverter.GetBytes(num2 - 4), 0, (Array) NetMessage.buffer[num].writeBuffer, 0, 4);
+                            Buffer.BlockCopy((Array) local_338, 0, (Array) NetMessage.buffer[num].writeBuffer, 4, 1);
+                            Buffer.BlockCopy((Array)local_339, 0, (Array)NetMessage.buffer[num].writeBuffer, num3, local_339.Length);
+                            int local_2_171 = num3 + local_339.Length;
+                            Buffer.BlockCopy((Array)local_340, 0, (Array)NetMessage.buffer[num].writeBuffer, local_2_171, local_340.Length);
                             break;
                     }
                     if (Main.netMode != 1)
@@ -1847,13 +1858,9 @@ namespace Terraria
             if (NetHooks.OnGreetPlayer(plr))
                 return;
             if (Main.motd == "")
-            {
-                NetMessage.SendData(25, plr, -1, "Welcome to " + Main.worldName + "!", 255, 255f, 240f, 20f, 0);
-            }
+                NetMessage.SendData(25, plr, -1, Lang.mp[18] + " " + Main.worldName + "!", (int)byte.MaxValue, (float)byte.MaxValue, 240f, 20f, 0);
             else
-            {
-                NetMessage.SendData(25, plr, -1, Main.motd, 255, 255f, 240f, 20f, 0);
-            }
+                NetMessage.SendData(25, plr, -1, Main.motd, (int)byte.MaxValue, (float)byte.MaxValue, 240f, 20f, 0);
             string text = "";
             for (int i = 0; i < 255; i++)
             {
@@ -1945,6 +1952,9 @@ namespace Terraria
                     if (!Netplay.serverSock[i].announced)
                     {
                         Netplay.serverSock[i].announced = true;
+                        NetMessage.SendData(25, -1, i, Main.player[i].name + " " + Lang.mp[19], (int)byte.MaxValue, (float)byte.MaxValue, 240f, 20f, 0);
+                        if (Main.dedServ)
+                            Console.WriteLine(Main.player[i].name + " " + Lang.mp[19]);
                     }
                 }
                 else

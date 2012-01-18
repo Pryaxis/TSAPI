@@ -46,7 +46,7 @@ namespace Hooks
 			{
 				if (e.MsgID == PacketTypes.ChatText)
 				{
-					string @string = Encoding.ASCII.GetString(e.Msg.readBuffer, e.Index + 4, e.Length - 5);
+					string @string = Encoding.UTF8.GetString(e.Msg.readBuffer, e.Index + 4, e.Length - 5);
 					e.Handled = ServerHooks.OnChat(e.Msg, e.Msg.whoAmI, @string);
 				}
 			}

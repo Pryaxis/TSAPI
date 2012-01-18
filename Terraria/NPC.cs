@@ -2035,10 +2035,7 @@ namespace Terraria
 			        }
 			        break;
 			}
-			if (this.displayName == null || this.displayName == "")
-			{
-				this.displayName = Name;
-			}
+            this.displayName = Lang.npcName(this.netID);
 			this.lifeMax = this.life;
 			this.defDamage = this.damage;
 			this.defDefense = this.defense;
@@ -4645,6 +4642,7 @@ namespace Terraria
 			this.defDamage = this.damage;
 			this.defDefense = this.defense;
 			this.netID = this.type;
+            this.displayName = Lang.npcName(this.netID);
             NpcHooks.OnSetDefaultsInt(ref Type, this);
 		}
 		public void AI()
@@ -17878,205 +17876,159 @@ namespace Terraria
 			{
 				Main.npc[num7].displayName = Main.npc[num7].name;
 			}
-			if (Main.netMode == 0)
-			{
-				Main.NewText(Main.npc[num7].displayName + " has awoken!", 175, 75, 255);
-				return;
-			}
-			if (Main.netMode == 2)
-			{
-				NetMessage.SendData(25, -1, -1, Main.npc[num7].displayName + " has awoken!", 255, 175f, 75f, 255f, 0);
-			}
+            if (Main.netMode == 0)
+            {
+                Main.NewText(Main.npc[num7].displayName + " " + Lang.misc[16], (byte)175, (byte)75, byte.MaxValue);
+            }
+            else
+            {
+                if (Main.netMode != 2)
+                    return;
+                NetMessage.SendData(25, -1, -1, Main.npc[num7].displayName + " " + Lang.misc[16], (int) byte.MaxValue, 175f, 75f, (float) byte.MaxValue, 0);
+            }
 		}
-		public static void SpawnOnPlayer(int plr, int Type)
-		{
-			if (Main.netMode == 1)
-			{
-				return;
-			}
-			bool flag = false;
-			int num = 0;
-			int num2 = 0;
-			int num3 = (int)(Main.player[plr].position.X / 16f) - NPC.spawnRangeX * 2;
-			int num4 = (int)(Main.player[plr].position.X / 16f) + NPC.spawnRangeX * 2;
-			int num5 = (int)(Main.player[plr].position.Y / 16f) - NPC.spawnRangeY * 2;
-			int num6 = (int)(Main.player[plr].position.Y / 16f) + NPC.spawnRangeY * 2;
-			int num7 = (int)(Main.player[plr].position.X / 16f) - NPC.safeRangeX;
-			int num8 = (int)(Main.player[plr].position.X / 16f) + NPC.safeRangeX;
-			int num9 = (int)(Main.player[plr].position.Y / 16f) - NPC.safeRangeY;
-			int num10 = (int)(Main.player[plr].position.Y / 16f) + NPC.safeRangeY;
-			if (num3 < 0)
-			{
-				num3 = 0;
-			}
-			if (num4 > Main.maxTilesX)
-			{
-				num4 = Main.maxTilesX;
-			}
-			if (num5 < 0)
-			{
-				num5 = 0;
-			}
-			if (num6 > Main.maxTilesY)
-			{
-				num6 = Main.maxTilesY;
-			}
-			for (int i = 0; i < 1000; i++)
-			{
-				int j = 0;
-				while (j < 100)
-				{
-					int num11 = Main.rand.Next(num3, num4);
-					int num12 = Main.rand.Next(num5, num6);
-					if (Main.tile[num11, num12].active && Main.tileSolid[(int)Main.tile[num11, num12].type])
-					{
-						goto IL_304;
-					}
-					if (!Main.wallHouse[(int)Main.tile[num11, num12].wall] || i >= 999)
-					{
-						int k = num12;
-						while (k < Main.maxTilesY)
-						{
-							if (Main.tile[num11, k].active && Main.tileSolid[(int)Main.tile[num11, k].type])
-							{
-								if (num11 < num7 || num11 > num8 || k < num9 || k > num10 || i == 999)
-								{
-									byte arg_237_0 = Main.tile[num11, k].type;
-									num = num11;
-									num2 = k;
-									flag = true;
-									break;
-								}
-								break;
-							}
-							else
-							{
-								k++;
-							}
-						}
-						if (!flag || i >= 999)
-						{
-							goto IL_304;
-						}
-						int num13 = num - NPC.spawnSpaceX / 2;
-						int num14 = num + NPC.spawnSpaceX / 2;
-						int num15 = num2 - NPC.spawnSpaceY;
-						int num16 = num2;
-						if (num13 < 0)
-						{
-							flag = false;
-						}
-						if (num14 > Main.maxTilesX)
-						{
-							flag = false;
-						}
-						if (num15 < 0)
-						{
-							flag = false;
-						}
-						if (num16 > Main.maxTilesY)
-						{
-							flag = false;
-						}
-						if (flag)
-						{
-							for (int l = num13; l < num14; l++)
-							{
-								for (int m = num15; m < num16; m++)
-								{
-									if (Main.tile[l, m].active && Main.tileSolid[(int)Main.tile[l, m].type])
-									{
-										flag = false;
-										break;
-									}
-								}
-							}
-							goto IL_304;
-						}
-						goto IL_304;
-					}
-					IL_30A:
-					j++;
-					continue;
-					IL_304:
-					if (!flag && !flag)
-					{
-						goto IL_30A;
-					}
-					break;
-				}
-				if (flag && i < 999)
-				{
-					Rectangle rectangle = new Rectangle(num * 16, num2 * 16, 16, 16);
-					for (int n = 0; n < 255; n++)
-					{
-						if (Main.player[n].active)
-						{
-							Rectangle rectangle2 = new Rectangle((int)(Main.player[n].position.X + (float)(Main.player[n].width / 2) - (float)(NPC.sWidth / 2) - (float)NPC.safeRangeX), (int)(Main.player[n].position.Y + (float)(Main.player[n].height / 2) - (float)(NPC.sHeight / 2) - (float)NPC.safeRangeY), NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
-							if (rectangle.Intersects(rectangle2))
-							{
-								flag = false;
-							}
-						}
-					}
-				}
-				if (flag)
-				{
-					break;
-				}
-			}
-			if (flag)
-			{
-				int num17 = NPC.NewNPC(num * 16 + 8, num2 * 16, Type, 1);
-				if (num17 == 200)
-				{
-					return;
-				}
-				Main.npc[num17].target = plr;
-				Main.npc[num17].timeLeft *= 20;
-				string str = Main.npc[num17].name;
-				if (Main.npc[num17].type == 13)
-				{
-					str = "Eater of Worlds";
-				}
-				if (Main.npc[num17].type == 35)
-				{
-					str = "Skeletron";
-				}
-				if (Main.netMode == 2 && num17 < 200)
-				{
-					NetMessage.SendData(23, -1, -1, "", num17, 0f, 0f, 0f, 0);
-				}
-				if (Type == 125)
-				{
-					if (Main.netMode == 0)
-					{
-						Main.NewText("The Twins have awoken!", 175, 75, 255);
-						return;
-					}
-					if (Main.netMode == 2)
-					{
-						NetMessage.SendData(25, -1, -1, "The Twins have awoken!", 255, 175f, 75f, 255f, 0);
-						return;
-					}
-				}
-				else
-				{
-					if (Type != 82 && Type != 126 && Type != 50)
-					{
-						if (Main.netMode == 0)
-						{
-							Main.NewText(str + " has awoken!", 175, 75, 255);
-							return;
-						}
-						if (Main.netMode == 2)
-						{
-							NetMessage.SendData(25, -1, -1, str + " has awoken!", 255, 175f, 75f, 255f, 0);
-						}
-					}
-				}
-			}
-		}
+        public static void SpawnOnPlayer(int plr, int Type)
+        {
+            if (Main.netMode == 1)
+                return;
+            bool flag = false;
+            int num1 = 0;
+            int num2 = 0;
+            int minValue1 = (int)((double)Main.player[plr].position.X / 16.0) - NPC.spawnRangeX * 2;
+            int maxValue1 = (int)((double)Main.player[plr].position.X / 16.0) + NPC.spawnRangeX * 2;
+            int minValue2 = (int)((double)Main.player[plr].position.Y / 16.0) - NPC.spawnRangeY * 2;
+            int maxValue2 = (int)((double)Main.player[plr].position.Y / 16.0) + NPC.spawnRangeY * 2;
+            int num3 = (int)((double)Main.player[plr].position.X / 16.0) - NPC.safeRangeX;
+            int num4 = (int)((double)Main.player[plr].position.X / 16.0) + NPC.safeRangeX;
+            int num5 = (int)((double)Main.player[plr].position.Y / 16.0) - NPC.safeRangeY;
+            int num6 = (int)((double)Main.player[plr].position.Y / 16.0) + NPC.safeRangeY;
+            if (minValue1 < 0)
+                minValue1 = 0;
+            if (maxValue1 > Main.maxTilesX)
+                maxValue1 = Main.maxTilesX;
+            if (minValue2 < 0)
+                minValue2 = 0;
+            if (maxValue2 > Main.maxTilesY)
+                maxValue2 = Main.maxTilesY;
+            for (int index1 = 0; index1 < 1000; ++index1)
+            {
+                for (int index2 = 0; index2 < 100; ++index2)
+                {
+                    int index3 = Main.rand.Next(minValue1, maxValue1);
+                    int index4 = Main.rand.Next(minValue2, maxValue2);
+                    if (!Main.tile[index3, index4].active || !Main.tileSolid[(int)Main.tile[index3, index4].type])
+                    {
+                        if (!Main.wallHouse[(int)Main.tile[index3, index4].wall] || index1 >= 999)
+                        {
+                            for (int index5 = index4; index5 < Main.maxTilesY; ++index5)
+                            {
+                                if (Main.tile[index3, index5].active && Main.tileSolid[(int)Main.tile[index3, index5].type])
+                                {
+                                    if (index3 < num3 || index3 > num4 || (index5 < num5 || index5 > num6) || index1 == 999)
+                                    {
+                                        int num7 = (int)Main.tile[index3, index5].type;
+                                        num1 = index3;
+                                        num2 = index5;
+                                        flag = true;
+                                        break;
+                                    }
+                                    else
+                                        break;
+                                }
+                            }
+                            if (flag && index1 < 999)
+                            {
+                                int num7 = num1 - NPC.spawnSpaceX / 2;
+                                int num8 = num1 + NPC.spawnSpaceX / 2;
+                                int num9 = num2 - NPC.spawnSpaceY;
+                                int num10 = num2;
+                                if (num7 < 0)
+                                    flag = false;
+                                if (num8 > Main.maxTilesX)
+                                    flag = false;
+                                if (num9 < 0)
+                                    flag = false;
+                                if (num10 > Main.maxTilesY)
+                                    flag = false;
+                                if (flag)
+                                {
+                                    for (int index5 = num7; index5 < num8; ++index5)
+                                    {
+                                        for (int index6 = num9; index6 < num10; ++index6)
+                                        {
+                                            if (Main.tile[index5, index6].active && Main.tileSolid[(int)Main.tile[index5, index6].type])
+                                            {
+                                                flag = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                            continue;
+                    }
+                    if (flag || flag)
+                        break;
+                }
+                if (flag && index1 < 999)
+                {
+                    Rectangle rectangle1 = new Rectangle(num1 * 16, num2 * 16, 16, 16);
+                    for (int index2 = 0; index2 < (int)byte.MaxValue; ++index2)
+                    {
+                        if (Main.player[index2].active)
+                        {
+                            Rectangle rectangle2 = new Rectangle((int)((double)Main.player[index2].position.X + (double)(Main.player[index2].width / 2) - (double)(NPC.sWidth / 2) - (double)NPC.safeRangeX), (int)((double)Main.player[index2].position.Y + (double)(Main.player[index2].height / 2) - (double)(NPC.sHeight / 2) - (double)NPC.safeRangeY), NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+                            if (rectangle1.Intersects(rectangle2))
+                                flag = false;
+                        }
+                    }
+                }
+                if (flag)
+                    break;
+            }
+            if (!flag)
+                return;
+            int number = NPC.NewNPC(num1 * 16 + 8, num2 * 16, Type, 1);
+            if (number == 200)
+                return;
+            Main.npc[number].target = plr;
+            Main.npc[number].timeLeft *= 20;
+            string str = Main.npc[number].name;
+            if (Main.npc[number].displayName != "")
+                str = Main.npc[number].displayName;
+            if (Main.netMode == 2 && number < 200)
+                NetMessage.SendData(23, -1, -1, "", number, 0.0f, 0.0f, 0.0f, 0);
+            if (Type == 125)
+            {
+                if (Main.netMode == 0)
+                {
+                    Main.NewText("The Twins " + Lang.misc[16], (byte)175, (byte)75, byte.MaxValue);
+                }
+                else
+                {
+                    if (Main.netMode != 2)
+                        return;
+                    NetMessage.SendData(25, -1, -1, "The Twins " + Lang.misc[16], (int)byte.MaxValue, 175f, 75f, (float)byte.MaxValue, 0);
+                }
+            }
+            else
+            {
+                if (Type == 82 || Type == 126 || Type == 50)
+                    return;
+                if (Main.netMode == 0)
+                {
+                    Main.NewText(str + " " + Lang.misc[16], (byte)175, (byte)75, byte.MaxValue);
+                }
+                else
+                {
+                    if (Main.netMode != 2)
+                        return;
+                    NetMessage.SendData(25, -1, -1, str + " " + Lang.misc[16], (int)byte.MaxValue, 175f, 75f, (float)byte.MaxValue, 0);
+                }
+            }
+        }
 		public static int NewNPC(int X, int Y, int Type, int Start = 0)
 		{
 			int num = -1;
@@ -18097,20 +18049,13 @@ namespace Terraria
 				Main.npc[num].active = true;
 				Main.npc[num].timeLeft = (int)((double)NPC.activeTime * 1.25);
 				Main.npc[num].wet = Collision.WetCollision(Main.npc[num].position, Main.npc[num].width, Main.npc[num].height);
-				if (Type == 50)
-				{
-					if (Main.netMode == 0)
-					{
-						Main.NewText(Main.npc[num].name + " has awoken!", 175, 75, 255);
-					}
-					else
-					{
-						if (Main.netMode == 2)
-						{
-							NetMessage.SendData(25, -1, -1, Main.npc[num].name + " has awoken!", 255, 175f, 75f, 255f, 0);
-						}
-					}
-				}
+                if (Type == 50)
+                {
+                    if (Main.netMode == 0)
+                        Main.NewText(Main.npc[num].name + " " + Lang.misc[16], (byte)175, (byte)75, byte.MaxValue);
+                    else if (Main.netMode == 2)
+                        NetMessage.SendData(25, -1, -1, Main.npc[num].name + " " + Lang.misc[16], (int)byte.MaxValue, 175f, 75f, (float)byte.MaxValue, 0);
+                }
 				return num;
 			}
 			return 200;
@@ -18289,663 +18234,393 @@ namespace Terraria
 			}
 			return 0.0;
 		}
-		public void checkDead()
-		{
-			if (!this.active)
-			{
-				return;
-			}
-			if (this.realLife >= 0 && this.realLife != this.whoAmI)
-			{
-				return;
-			}
-			if (this.life <= 0)
-			{
-				NPC.noSpawnCycle = true;
-				if (this.townNPC && this.type != 37)
-				{
-					string str = this.name;
-					if (this.displayName != "")
-					{
-						str = this.displayName;
-					}
-					if (Main.netMode == 0)
-					{
-						Main.NewText(str + " was slain...", 255, 25, 25);
-					}
-					else
-					{
-						if (Main.netMode == 2)
-						{
-							NetMessage.SendData(25, -1, -1, str + " was slain...", 255, 255f, 25f, 25f, 0);
-						}
-					}
-					if (Main.netMode != 1)
-					{
-						Main.chrName[this.type] = "";
-						NPC.setNames();
-						NetMessage.SendData(56, -1, -1, "", this.type, 0f, 0f, 0f, 0);
-					}
-				}
-				if (this.townNPC && Main.netMode != 1 && this.homeless && WorldGen.spawnNPC == this.type)
-				{
-					WorldGen.spawnNPC = 0;
-				}
-				if (this.soundKilled > 0)
-				{
-					Main.PlaySound(4, (int)this.position.X, (int)this.position.Y, this.soundKilled);
-				}
-				this.NPCLoot();
-				this.active = false;
-				if (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 29 || this.type == 111 || this.type == 143 || this.type == 144 || this.type == 145)
-				{
-					Main.invasionSize--;
-				}
-			}
-		}
-		public void NPCLoot()
-		{
-			if (Main.hardMode && this.lifeMax > 1 && this.damage > 0 && !this.friendly && (double)this.position.Y > Main.rockLayer * 16.0 && Main.rand.Next(7) == 0 && this.type != 121 && this.value > 0f)
-			{
-				if (Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].zoneEvil)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 521, 1, false, 0);
-				}
-				if (Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].zoneHoly)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 520, 1, false, 0);
-				}
-			}
-			if (Main.xMas && this.lifeMax > 1 && this.damage > 0 && !this.friendly && this.type != 121 && this.value > 0f && Main.rand.Next(13) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(599, 602), 1, false, 0);
-			}
-			if (this.type == 109 && !NPC.downedClown)
-			{
-				NPC.downedClown = true;
-				if (Main.netMode == 2)
-				{
-					NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0);
-				}
-			}
-			if (this.type == 85 && this.value > 0f)
-			{
-				int num = Main.rand.Next(7);
-				if (num == 0)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 437, 1, false, -1);
-				}
-				if (num == 1)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 517, 1, false, -1);
-				}
-				if (num == 2)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 535, 1, false, -1);
-				}
-				if (num == 3)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 536, 1, false, -1);
-				}
-				if (num == 4)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 532, 1, false, -1);
-				}
-				if (num == 5)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 393, 1, false, -1);
-				}
-				if (num == 6)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 554, 1, false, -1);
-				}
-			}
-			if (this.type == 87)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 575, Main.rand.Next(5, 11), false, 0);
-			}
-			if (this.type == 143 || this.type == 144 || this.type == 145)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 593, Main.rand.Next(5, 11), false, 0);
-			}
-			if (this.type == 79)
-			{
-				if (Main.rand.Next(10) == 0)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 527, 1, false, 0);
-				}
-			}
-			else
-			{
-				if (this.type == 80 && Main.rand.Next(10) == 0)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 528, 1, false, 0);
-				}
-			}
-			if (this.type == 101 || this.type == 98)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 522, Main.rand.Next(2, 6), false, 0);
-			}
-			if (this.type == 86)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 526, 1, false, 0);
-			}
-			if (this.type == 113)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 367, 1, false, -1);
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(489, 492), 1, false, -1);
-				}
-				else
-				{
-					int num2 = Main.rand.Next(3);
-					if (num2 == 0)
-					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 514, 1, false, -1);
-					}
-					else
-					{
-						if (num2 == 1)
-						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 426, 1, false, -1);
-						}
-						else
-						{
-							if (num2 == 2)
-							{
-								Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 434, 1, false, -1);
-							}
-						}
-					}
-				}
-				if (Main.netMode != 1)
-				{
-					int num3 = (int)(this.position.X + (float)(this.width / 2)) / 16;
-					int num4 = (int)(this.position.Y + (float)(this.height / 2)) / 16;
-					int num5 = this.width / 2 / 16 + 1;
-					for (int i = num3 - num5; i <= num3 + num5; i++)
-					{
-						for (int j = num4 - num5; j <= num4 + num5; j++)
-						{
-							if ((i == num3 - num5 || i == num3 + num5 || j == num4 - num5 || j == num4 + num5) && !Main.tile[i, j].active)
-							{
-								Main.tile[i, j].type = 140;
-								Main.tile[i, j].active = true;
-							}
-							Main.tile[i, j].lava = false;
-							Main.tile[i, j].liquid = 0;
-							if (Main.netMode == 2)
-							{
-								NetMessage.SendTileSquare(-1, i, j, 1);
-							}
-							else
-							{
-								WorldGen.SquareTileFrame(i, j, true);
-							}
-						}
-					}
-				}
-			}
-			if (this.type == 1 || this.type == 16 || this.type == 138 || this.type == 141)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(1, 3), false, 0);
-			}
-			if (this.type == 75)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 501, Main.rand.Next(1, 4), false, 0);
-			}
-			if (this.type == 81)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(2, 5), false, 0);
-			}
-			if (this.type == 122)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(5, 11), false, 0);
-			}
-			if (this.type == 71)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 327, 1, false, 0);
-			}
-			if (this.type == 2)
-			{
-				if (Main.rand.Next(3) == 0)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 38, 1, false, 0);
-				}
-				else
-				{
-					if (Main.rand.Next(100) == 0)
-					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 236, 1, false, 0);
-					}
-				}
-			}
-			if (this.type == 104 && Main.rand.Next(60) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 485, 1, false, -1);
-			}
-			if (this.type == 58)
-			{
-				if (Main.rand.Next(500) == 0)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 263, 1, false, 0);
-				}
-				else
-				{
-					if (Main.rand.Next(40) == 0)
-					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 118, 1, false, 0);
-					}
-				}
-			}
-			if (this.type == 102 && Main.rand.Next(500) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 263, 1, false, 0);
-			}
-			if ((this.type == 3 || this.type == 132) && Main.rand.Next(50) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 216, 1, false, -1);
-			}
-			if (this.type == 66)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 267, 1, false, 0);
-			}
-			if (this.type == 62 && Main.rand.Next(50) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 272, 1, false, -1);
-			}
-			if (this.type == 52)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 251, 1, false, 0);
-			}
-			if (this.type == 53)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 239, 1, false, 0);
-			}
-			if (this.type == 54)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 260, 1, false, 0);
-			}
-			if (this.type == 55)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 261, 1, false, 0);
-			}
-			if (this.type == 69 && Main.rand.Next(7) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 323, 1, false, 0);
-			}
-			if (this.type == 73)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 362, Main.rand.Next(1, 3), false, 0);
-			}
-			if (this.type == 4)
-			{
-				int stack = Main.rand.Next(30) + 20;
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 47, stack, false, 0);
-				stack = Main.rand.Next(20) + 10;
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, stack, false, 0);
-				stack = Main.rand.Next(20) + 10;
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, stack, false, 0);
-				stack = Main.rand.Next(20) + 10;
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, stack, false, 0);
-				stack = Main.rand.Next(3) + 1;
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 59, stack, false, 0);
-			}
-			if ((this.type == 6 || this.type == 94) && Main.rand.Next(3) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 68, 1, false, 0);
-			}
-			if (this.type == 7 || this.type == 8 || this.type == 9)
-			{
-				if (Main.rand.Next(3) == 0)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 68, Main.rand.Next(1, 3), false, 0);
-				}
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 69, Main.rand.Next(3, 9), false, 0);
-			}
-			if ((this.type == 10 || this.type == 11 || this.type == 12 || this.type == 95 || this.type == 96 || this.type == 97) && Main.rand.Next(500) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 215, 1, false, 0);
-			}
-			if (this.type == 47 && Main.rand.Next(75) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 243, 1, false, 0);
-			}
-			if (this.type == 13 || this.type == 14 || this.type == 15)
-			{
-				int stack2 = Main.rand.Next(1, 3);
-				if (Main.rand.Next(2) == 0)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 86, stack2, false, 0);
-				}
-				if (Main.rand.Next(2) == 0)
-				{
-					stack2 = Main.rand.Next(2, 6);
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, stack2, false, 0);
-				}
-				if (this.boss)
-				{
-					stack2 = Main.rand.Next(10, 30);
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, stack2, false, 0);
-					stack2 = Main.rand.Next(10, 31);
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, stack2, false, 0);
-				}
-				if (Main.rand.Next(3) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLife < Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLifeMax)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0);
-				}
-			}
-			if (this.type == 116 || this.type == 117 || this.type == 118 || this.type == 119 || this.type == 139)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0);
-			}
-			if (this.type == 63 || this.type == 64 || this.type == 103)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 282, Main.rand.Next(1, 5), false, 0);
-			}
-			if (this.type == 21 || this.type == 44)
-			{
-				if (Main.rand.Next(25) == 0)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 118, 1, false, 0);
-				}
-				else
-				{
-					if (this.type == 44)
-					{
-						if (Main.rand.Next(20) == 0)
-						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(410, 412), 1, false, 0);
-						}
-						else
-						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 166, Main.rand.Next(1, 4), false, 0);
-						}
-					}
-				}
-			}
-			if (this.type == 45)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 238, 1, false, 0);
-			}
-			if (this.type == 50)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(256, 259), 1, false, 0);
-			}
-			if (this.type == 23 && Main.rand.Next(50) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 116, 1, false, 0);
-			}
-			if (this.type == 24 && Main.rand.Next(300) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 244, 1, false, 0);
-			}
-			if (this.type == 31 || this.type == 32 || this.type == 34)
-			{
-				if (Main.rand.Next(65) == 0)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 327, 1, false, 0);
-				}
-				else
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 154, Main.rand.Next(1, 4), false, 0);
-				}
-			}
-			if (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 29 || this.type == 111)
-			{
-				if (Main.rand.Next(200) == 0)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 160, 1, false, 0);
-				}
-				else
-				{
-					if (Main.rand.Next(2) == 0)
-					{
-						int stack3 = Main.rand.Next(1, 6);
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 161, stack3, false, 0);
-					}
-				}
-			}
-			if (this.type == 42 && Main.rand.Next(2) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 209, 1, false, 0);
-			}
-			if (this.type == 43 && Main.rand.Next(4) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 210, 1, false, 0);
-			}
-			if (this.type == 65)
-			{
-				if (Main.rand.Next(50) == 0)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 268, 1, false, 0);
-				}
-				else
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 319, 1, false, 0);
-				}
-			}
-			if (this.type == 48 && Main.rand.Next(2) == 0)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 320, 1, false, 0);
-			}
-			if (this.type == 125 || this.type == 126)
-			{
-				int num6 = 125;
-				if (this.type == 125)
-				{
-					num6 = 126;
-				}
-				if (!NPC.AnyNPCs(num6))
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 549, Main.rand.Next(20, 31), false, 0);
-				}
-				else
-				{
-					this.value = 0f;
-					this.boss = false;
-				}
-			}
-			else
-			{
-				if (this.type == 127)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 547, Main.rand.Next(20, 31), false, 0);
-				}
-				else
-				{
-					if (this.type == 134)
-					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 548, Main.rand.Next(20, 31), false, 0);
-					}
-				}
-			}
-			if (this.boss)
-			{
-				if (this.type == 4)
-				{
-					NPC.downedBoss1 = true;
-				}
-				else
-				{
-					if (this.type == 13 || this.type == 14 || this.type == 15)
-					{
-						NPC.downedBoss2 = true;
-						this.name = "Eater of Worlds";
-					}
-					else
-					{
-						if (this.type == 35)
-						{
-							NPC.downedBoss3 = true;
-							this.name = "Skeletron";
-						}
-						else
-						{
-							this.name = this.displayName;
-						}
-					}
-				}
-				int stack4 = Main.rand.Next(5, 16);
-				int num7 = 28;
-				if (this.type == 113)
-				{
-					num7 = 188;
-				}
-				if (this.type > 113)
-				{
-					num7 = 499;
-				}
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num7, stack4, false, 0);
-				int num8 = Main.rand.Next(5) + 5;
-				for (int k = 0; k < num8; k++)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0);
-				}
-				if (this.type == 125 || this.type == 126)
-				{
-					if (Main.netMode == 0)
-					{
-						Main.NewText("The Twins have been defeated!", 175, 75, 255);
-					}
-					else
-					{
-						if (Main.netMode == 2)
-						{
-							NetMessage.SendData(25, -1, -1, "The Twins have been defeated!", 255, 175f, 75f, 255f, 0);
-						}
-					}
-				}
-				else
-				{
-					if (Main.netMode == 0)
-					{
-						Main.NewText(this.name + " has been defeated!", 175, 75, 255);
-					}
-					else
-					{
-						if (Main.netMode == 2)
-						{
-							NetMessage.SendData(25, -1, -1, this.name + " has been defeated!", 255, 175f, 75f, 255f, 0);
-						}
-					}
-				}
-				if (this.type == 113 && Main.netMode != 1)
-				{
-					WorldGen.StartHardmode();
-				}
-				if (Main.netMode == 2)
-				{
-					NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0);
-				}
-			}
-			if (Main.rand.Next(6) == 0 && this.lifeMax > 1 && this.damage > 0)
-			{
-				if (Main.rand.Next(2) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statMana < Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statManaMax)
-				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 184, 1, false, 0);
-				}
-				else
-				{
-					if (Main.rand.Next(2) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLife < Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLifeMax)
-					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0);
-					}
-				}
-			}
-			if (Main.rand.Next(2) == 0 && this.lifeMax > 1 && this.damage > 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statMana < Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statManaMax)
-			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 184, 1, false, 0);
-			}
-			float num9 = this.value;
-			num9 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
-			if (Main.rand.Next(5) == 0)
-			{
-				num9 *= 1f + (float)Main.rand.Next(5, 11) * 0.01f;
-			}
-			if (Main.rand.Next(10) == 0)
-			{
-				num9 *= 1f + (float)Main.rand.Next(10, 21) * 0.01f;
-			}
-			if (Main.rand.Next(15) == 0)
-			{
-				num9 *= 1f + (float)Main.rand.Next(15, 31) * 0.01f;
-			}
-			if (Main.rand.Next(20) == 0)
-			{
-				num9 *= 1f + (float)Main.rand.Next(20, 41) * 0.01f;
-			}
-			while ((int)num9 > 0)
-			{
-				if (num9 > 1000000f)
-				{
-					int num10 = (int)(num9 / 1000000f);
-					if (num10 > 50 && Main.rand.Next(5) == 0)
-					{
-						num10 /= Main.rand.Next(3) + 1;
-					}
-					if (Main.rand.Next(5) == 0)
-					{
-						num10 /= Main.rand.Next(3) + 1;
-					}
-					num9 -= (float)(1000000 * num10);
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 74, num10, false, 0);
-				}
-				else
-				{
-					if (num9 > 10000f)
-					{
-						int num11 = (int)(num9 / 10000f);
-						if (num11 > 50 && Main.rand.Next(5) == 0)
-						{
-							num11 /= Main.rand.Next(3) + 1;
-						}
-						if (Main.rand.Next(5) == 0)
-						{
-							num11 /= Main.rand.Next(3) + 1;
-						}
-						num9 -= (float)(10000 * num11);
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 73, num11, false, 0);
-					}
-					else
-					{
-						if (num9 > 100f)
-						{
-							int num12 = (int)(num9 / 100f);
-							if (num12 > 50 && Main.rand.Next(5) == 0)
-							{
-								num12 /= Main.rand.Next(3) + 1;
-							}
-							if (Main.rand.Next(5) == 0)
-							{
-								num12 /= Main.rand.Next(3) + 1;
-							}
-							num9 -= (float)(100 * num12);
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 72, num12, false, 0);
-						}
-						else
-						{
-							int num13 = (int)num9;
-							if (num13 > 50 && Main.rand.Next(5) == 0)
-							{
-								num13 /= Main.rand.Next(3) + 1;
-							}
-							if (Main.rand.Next(5) == 0)
-							{
-								num13 /= Main.rand.Next(4) + 1;
-							}
-							if (num13 < 1)
-							{
-								num13 = 1;
-							}
-							num9 -= (float)num13;
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 71, num13, false, 0);
-						}
-					}
-				}
-			}
-		}
+        public void checkDead()
+        {
+            if (!this.active || this.realLife >= 0 && this.realLife != this.whoAmI || this.life > 0)
+                return;
+            NPC.noSpawnCycle = true;
+            if (this.townNPC && this.type != 37)
+            {
+                string str = this.name;
+                if (this.displayName != "")
+                    str = this.displayName;
+                if (Main.netMode == 0)
+                    Main.NewText(str + Lang.misc[19], byte.MaxValue, (byte)25, (byte)25);
+                else if (Main.netMode == 2)
+                    NetMessage.SendData(25, -1, -1, str + Lang.misc[19], (int)byte.MaxValue, (float)byte.MaxValue, 25f, 25f, 0);
+                if (Main.netMode != 1)
+                {
+                    Main.chrName[this.type] = "";
+                    NPC.setNames();
+                    NetMessage.SendData(56, -1, -1, "", this.type, 0.0f, 0.0f, 0.0f, 0);
+                }
+            }
+            if (this.townNPC && Main.netMode != 1 && (this.homeless && WorldGen.spawnNPC == this.type))
+                WorldGen.spawnNPC = 0;
+            if (this.soundKilled > 0)
+                Main.PlaySound(4, (int)this.position.X, (int)this.position.Y, this.soundKilled);
+            this.NPCLoot();
+            this.active = false;
+            if (this.type != 26 && this.type != 27 && (this.type != 28 && this.type != 29) && (this.type != 111 && this.type != 143 && (this.type != 144 && this.type != 145)))
+                return;
+            --Main.invasionSize;
+        }
+        public void NPCLoot()
+        {
+            if (Main.hardMode && this.lifeMax > 1 && (this.damage > 0 && !this.friendly) && ((double)this.position.Y > Main.rockLayer * 16.0 && Main.rand.Next(7) == 0 && (this.type != 121 && (double)this.value > 0.0)))
+            {
+                if (Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].zoneEvil)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 521, 1, false, 0);
+                if (Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].zoneHoly)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 520, 1, false, 0);
+            }
+            if (Main.xMas && this.lifeMax > 1 && (this.damage > 0 && !this.friendly) && (this.type != 121 && (double)this.value > 0.0 && Main.rand.Next(13) == 0))
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(599, 602), 1, false, 0);
+            if (this.type == 109 && !NPC.downedClown)
+            {
+                NPC.downedClown = true;
+                if (Main.netMode == 2)
+                    NetMessage.SendData(7, -1, -1, "", 0, 0.0f, 0.0f, 0.0f, 0);
+            }
+            if (this.type == 85 && (double)this.value > 0.0)
+            {
+                int num = Main.rand.Next(7);
+                if (num == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 437, 1, false, -1);
+                if (num == 1)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 517, 1, false, -1);
+                if (num == 2)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 535, 1, false, -1);
+                if (num == 3)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 536, 1, false, -1);
+                if (num == 4)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 532, 1, false, -1);
+                if (num == 5)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 393, 1, false, -1);
+                if (num == 6)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 554, 1, false, -1);
+            }
+            if (this.type == 87)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 575, Main.rand.Next(5, 11), false, 0);
+            if (this.type == 143 || this.type == 144 || this.type == 145)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 593, Main.rand.Next(5, 11), false, 0);
+            if (this.type == 79)
+            {
+                if (Main.rand.Next(10) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 527, 1, false, 0);
+            }
+            else if (this.type == 80 && Main.rand.Next(10) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 528, 1, false, 0);
+            if (this.type == 101 || this.type == 98)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 522, Main.rand.Next(2, 6), false, 0);
+            if (this.type == 86)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 526, 1, false, 0);
+            if (this.type == 113)
+            {
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 367, 1, false, -1);
+                if (Main.rand.Next(2) == 0)
+                {
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(489, 492), 1, false, -1);
+                }
+                else
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 514, 1, false, -1);
+                            break;
+                        case 1:
+                            Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 426, 1, false, -1);
+                            break;
+                        case 2:
+                            Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 434, 1, false, -1);
+                            break;
+                    }
+                }
+                if (Main.netMode != 1)
+                {
+                    int num1 = (int)((double)this.position.X + (double)(this.width / 2)) / 16;
+                    int num2 = (int)((double)this.position.Y + (double)(this.height / 2)) / 16;
+                    int num3 = this.width / 2 / 16 + 1;
+                    for (int index1 = num1 - num3; index1 <= num1 + num3; ++index1)
+                    {
+                        for (int index2 = num2 - num3; index2 <= num2 + num3; ++index2)
+                        {
+                            if ((index1 == num1 - num3 || index1 == num1 + num3 || (index2 == num2 - num3 || index2 == num2 + num3)) && !Main.tile[index1, index2].active)
+                            {
+                                Main.tile[index1, index2].type = (byte)140;
+                                Main.tile[index1, index2].active = true;
+                            }
+                            Main.tile[index1, index2].lava = false;
+                            Main.tile[index1, index2].liquid = (byte)0;
+                            if (Main.netMode == 2)
+                                NetMessage.SendTileSquare(-1, index1, index2, 1);
+                            else
+                                WorldGen.SquareTileFrame(index1, index2, true);
+                        }
+                    }
+                }
+            }
+            if (this.type == 1 || this.type == 16 || (this.type == 138 || this.type == 141))
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(1, 3), false, 0);
+            if (this.type == 75)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 501, Main.rand.Next(1, 4), false, 0);
+            if (this.type == 81)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(2, 5), false, 0);
+            if (this.type == 122)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(5, 11), false, 0);
+            if (this.type == 71)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 327, 1, false, 0);
+            if (this.type == 2)
+            {
+                if (Main.rand.Next(3) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 38, 1, false, 0);
+                else if (Main.rand.Next(100) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 236, 1, false, 0);
+            }
+            if (this.type == 104 && Main.rand.Next(60) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 485, 1, false, -1);
+            if (this.type == 58)
+            {
+                if (Main.rand.Next(500) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 263, 1, false, 0);
+                else if (Main.rand.Next(40) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 118, 1, false, 0);
+            }
+            if (this.type == 102 && Main.rand.Next(500) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 263, 1, false, 0);
+            if ((this.type == 3 || this.type == 132) && Main.rand.Next(50) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 216, 1, false, -1);
+            if (this.type == 66)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 267, 1, false, 0);
+            if (this.type == 62 && Main.rand.Next(50) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 272, 1, false, -1);
+            if (this.type == 52)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 251, 1, false, 0);
+            if (this.type == 53)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 239, 1, false, 0);
+            if (this.type == 54)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 260, 1, false, 0);
+            if (this.type == 55)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 261, 1, false, 0);
+            if (this.type == 69 && Main.rand.Next(7) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 323, 1, false, 0);
+            if (this.type == 73)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 362, Main.rand.Next(1, 3), false, 0);
+            if (this.type == 4)
+            {
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 47, Main.rand.Next(30) + 20, false, 0);
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, Main.rand.Next(20) + 10, false, 0);
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, Main.rand.Next(20) + 10, false, 0);
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, Main.rand.Next(20) + 10, false, 0);
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 59, Main.rand.Next(3) + 1, false, 0);
+            }
+            if ((this.type == 6 || this.type == 94) && Main.rand.Next(3) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 68, 1, false, 0);
+            if (this.type == 7 || this.type == 8 || this.type == 9)
+            {
+                if (Main.rand.Next(3) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 68, Main.rand.Next(1, 3), false, 0);
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 69, Main.rand.Next(3, 9), false, 0);
+            }
+            if ((this.type == 10 || this.type == 11 || (this.type == 12 || this.type == 95) || (this.type == 96 || this.type == 97)) && Main.rand.Next(500) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 215, 1, false, 0);
+            if (this.type == 47 && Main.rand.Next(75) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 243, 1, false, 0);
+            if (this.type == 13 || this.type == 14 || this.type == 15)
+            {
+                int Stack = Main.rand.Next(1, 3);
+                if (Main.rand.Next(2) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 86, Stack, false, 0);
+                if (Main.rand.Next(2) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, Main.rand.Next(2, 6), false, 0);
+                if (this.boss)
+                {
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, Main.rand.Next(10, 30), false, 0);
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, Main.rand.Next(10, 31), false, 0);
+                }
+                if (Main.rand.Next(3) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLife < Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLifeMax)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0);
+            }
+            if (this.type == 116 || this.type == 117 || (this.type == 118 || this.type == 119) || this.type == 139)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0);
+            if (this.type == 63 || this.type == 64 || this.type == 103)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 282, Main.rand.Next(1, 5), false, 0);
+            if (this.type == 21 || this.type == 44)
+            {
+                if (Main.rand.Next(25) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 118, 1, false, 0);
+                else if (this.type == 44)
+                {
+                    if (Main.rand.Next(20) == 0)
+                        Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(410, 412), 1, false, 0);
+                    else
+                        Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 166, Main.rand.Next(1, 4), false, 0);
+                }
+            }
+            if (this.type == 45)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 238, 1, false, 0);
+            if (this.type == 50)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(256, 259), 1, false, 0);
+            if (this.type == 23 && Main.rand.Next(50) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 116, 1, false, 0);
+            if (this.type == 24 && Main.rand.Next(300) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 244, 1, false, 0);
+            if (this.type == 31 || this.type == 32 || this.type == 34)
+            {
+                if (Main.rand.Next(65) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 327, 1, false, 0);
+                else
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 154, Main.rand.Next(1, 4), false, 0);
+            }
+            if (this.type == 26 || this.type == 27 || (this.type == 28 || this.type == 29) || this.type == 111)
+            {
+                if (Main.rand.Next(200) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 160, 1, false, 0);
+                else if (Main.rand.Next(2) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 161, Main.rand.Next(1, 6), false, 0);
+            }
+            if (this.type == 42 && Main.rand.Next(2) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 209, 1, false, 0);
+            if (this.type == 43 && Main.rand.Next(4) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 210, 1, false, 0);
+            if (this.type == 65)
+            {
+                if (Main.rand.Next(50) == 0)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 268, 1, false, 0);
+                else
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 319, 1, false, 0);
+            }
+            if (this.type == 48 && Main.rand.Next(2) == 0)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 320, 1, false, 0);
+            if (this.type == 125 || this.type == 126)
+            {
+                int Type = 125;
+                if (this.type == 125)
+                    Type = 126;
+                if (!NPC.AnyNPCs(Type))
+                {
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 549, Main.rand.Next(20, 31), false, 0);
+                }
+                else
+                {
+                    this.value = 0.0f;
+                    this.boss = false;
+                }
+            }
+            else if (this.type == (int)sbyte.MaxValue)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 547, Main.rand.Next(20, 31), false, 0);
+            else if (this.type == 134)
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 548, Main.rand.Next(20, 31), false, 0);
+            if (this.boss)
+            {
+                if (this.type == 4)
+                    NPC.downedBoss1 = true;
+                else if (this.type == 13 || this.type == 14 || this.type == 15)
+                {
+                    NPC.downedBoss2 = true;
+                    this.name = "Eater of Worlds";
+                }
+                else if (this.type == 35)
+                {
+                    NPC.downedBoss3 = true;
+                    this.name = "Skeletron";
+                }
+                else
+                    this.name = this.displayName;
+                string str = this.name;
+                if (this.displayName != "")
+                    str = this.displayName;
+                int Stack = Main.rand.Next(5, 16);
+                int Type = 28;
+                if (this.type == 113)
+                    Type = 188;
+                if (this.type > 113)
+                    Type = 499;
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Type, Stack, false, 0);
+                int num = Main.rand.Next(5) + 5;
+                for (int index = 0; index < num; ++index)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0);
+                if (this.type == 125 || this.type == 126)
+                {
+                    if (Main.netMode == 0)
+                        Main.NewText("The Twins " + Lang.misc[17], (byte)175, (byte)75, byte.MaxValue);
+                    else if (Main.netMode == 2)
+                        NetMessage.SendData(25, -1, -1, "The Twins " + Lang.misc[17], (int)byte.MaxValue, 175f, 75f, (float)byte.MaxValue, 0);
+                }
+                else if (Main.netMode == 0)
+                    Main.NewText(str + " " + Lang.misc[17], (byte)175, (byte)75, byte.MaxValue);
+                else if (Main.netMode == 2)
+                    NetMessage.SendData(25, -1, -1, str + " " + Lang.misc[17], (int)byte.MaxValue, 175f, 75f, (float)byte.MaxValue, 0);
+                if (this.type == 113 && Main.netMode != 1)
+                    WorldGen.StartHardmode();
+                if (Main.netMode == 2)
+                    NetMessage.SendData(7, -1, -1, "", 0, 0.0f, 0.0f, 0.0f, 0);
+            }
+            if (Main.rand.Next(6) == 0 && this.lifeMax > 1 && this.damage > 0)
+            {
+                if (Main.rand.Next(2) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statMana < Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statManaMax)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 184, 1, false, 0);
+                else if (Main.rand.Next(2) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLife < Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLifeMax)
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0);
+            }
+            if (Main.rand.Next(2) == 0 && this.lifeMax > 1 && (this.damage > 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statMana < Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statManaMax))
+                Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 184, 1, false, 0);
+            float num4 = this.value * (float)(1.0 + (double)Main.rand.Next(-20, 21) * 0.00999999977648258);
+            if (Main.rand.Next(5) == 0)
+                num4 *= (float)(1.0 + (double)Main.rand.Next(5, 11) * 0.00999999977648258);
+            if (Main.rand.Next(10) == 0)
+                num4 *= (float)(1.0 + (double)Main.rand.Next(10, 21) * 0.00999999977648258);
+            if (Main.rand.Next(15) == 0)
+                num4 *= (float)(1.0 + (double)Main.rand.Next(15, 31) * 0.00999999977648258);
+            if (Main.rand.Next(20) == 0)
+                num4 *= (float)(1.0 + (double)Main.rand.Next(20, 41) * 0.00999999977648258);
+            while ((int)num4 > 0)
+            {
+                if ((double)num4 > 1000000.0)
+                {
+                    int Stack = (int)((double)num4 / 1000000.0);
+                    if (Stack > 50 && Main.rand.Next(5) == 0)
+                        Stack /= Main.rand.Next(3) + 1;
+                    if (Main.rand.Next(5) == 0)
+                        Stack /= Main.rand.Next(3) + 1;
+                    num4 -= (float)(1000000 * Stack);
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 74, Stack, false, 0);
+                }
+                else if ((double)num4 > 10000.0)
+                {
+                    int Stack = (int)((double)num4 / 10000.0);
+                    if (Stack > 50 && Main.rand.Next(5) == 0)
+                        Stack /= Main.rand.Next(3) + 1;
+                    if (Main.rand.Next(5) == 0)
+                        Stack /= Main.rand.Next(3) + 1;
+                    num4 -= (float)(10000 * Stack);
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 73, Stack, false, 0);
+                }
+                else if ((double)num4 > 100.0)
+                {
+                    int Stack = (int)((double)num4 / 100.0);
+                    if (Stack > 50 && Main.rand.Next(5) == 0)
+                        Stack /= Main.rand.Next(3) + 1;
+                    if (Main.rand.Next(5) == 0)
+                        Stack /= Main.rand.Next(3) + 1;
+                    num4 -= (float)(100 * Stack);
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 72, Stack, false, 0);
+                }
+                else
+                {
+                    int Stack = (int)num4;
+                    if (Stack > 50 && Main.rand.Next(5) == 0)
+                        Stack /= Main.rand.Next(3) + 1;
+                    if (Main.rand.Next(5) == 0)
+                        Stack /= Main.rand.Next(4) + 1;
+                    if (Stack < 1)
+                        Stack = 1;
+                    num4 -= (float)Stack;
+                    Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 71, Stack, false, 0);
+                }
+            }
+        }
 		public void HitEffect(int hitDirection = 0, double dmg = 10.0)
 		{
 			if (!this.active)
@@ -22055,52 +21730,50 @@ namespace Terraria
 			}
 			return false;
 		}
-		public static void SpawnSkeletron()
-		{
-			bool flag = true;
-			bool flag2 = false;
-			Vector2 vector = default(Vector2);
-			int num = 0;
-			int num2 = 0;
-			for (int i = 0; i < 200; i++)
-			{
-				if (Main.npc[i].active && Main.npc[i].type == 35)
-				{
-					flag = false;
-					break;
-				}
-			}
-			for (int j = 0; j < 200; j++)
-			{
-				if (Main.npc[j].active && Main.npc[j].type == 37)
-				{
-					flag2 = true;
-					Main.npc[j].ai[3] = 1f;
-					vector = Main.npc[j].position;
-					num = Main.npc[j].width;
-					num2 = Main.npc[j].height;
-					if (Main.netMode == 2)
-					{
-						NetMessage.SendData(23, -1, -1, "", j, 0f, 0f, 0f, 0);
-					}
-				}
-			}
-			if (flag && flag2)
-			{
-				int num3 = NPC.NewNPC((int)vector.X + num / 2, (int)vector.Y + num2 / 2, 35, 0);
-				Main.npc[num3].netUpdate = true;
-				string str = "Skeletron";
-				if (Main.netMode == 0)
-				{
-					Main.NewText(str + " has awoken!", 175, 75, 255);
-					return;
-				}
-				if (Main.netMode == 2)
-				{
-					NetMessage.SendData(25, -1, -1, str + " has awoken!", 255, 175f, 75f, 255f, 0);
-				}
-			}
-		}
+        public static void SpawnSkeletron()
+        {
+            bool flag1 = true;
+            bool flag2 = false;
+            Vector2 vector2 = new Vector2();
+            int num1 = 0;
+            int num2 = 0;
+            for (int index = 0; index < 200; ++index)
+            {
+                if (Main.npc[index].active && Main.npc[index].type == 35)
+                {
+                    flag1 = false;
+                    break;
+                }
+            }
+            for (int number = 0; number < 200; ++number)
+            {
+                if (Main.npc[number].active && Main.npc[number].type == 37)
+                {
+                    flag2 = true;
+                    Main.npc[number].ai[3] = 1f;
+                    vector2 = Main.npc[number].position;
+                    num1 = Main.npc[number].width;
+                    num2 = Main.npc[number].height;
+                    if (Main.netMode == 2)
+                        NetMessage.SendData(23, -1, -1, "", number, 0.0f, 0.0f, 0.0f, 0);
+                }
+            }
+            if (!flag1 || !flag2)
+                return;
+            int index1 = NPC.NewNPC((int)vector2.X + num1 / 2, (int)vector2.Y + num2 / 2, 35, 0);
+            Main.npc[index1].netUpdate = true;
+            string str = "Skeletron";
+            if (Main.netMode == 0)
+            {
+                Main.NewText(str + " " + Lang.misc[16], (byte)175, (byte)75, byte.MaxValue);
+            }
+            else
+            {
+                if (Main.netMode != 2)
+                    return;
+                NetMessage.SendData(25, -1, -1, str + " " + Lang.misc[16], (int)byte.MaxValue, 175f, 75f, (float)byte.MaxValue, 0);
+            }
+        }
 		public static bool NearSpikeBall(int x, int y)
 		{
 			Rectangle rectangle = new Rectangle(x * 16 - 300, y * 16 - 300, 600, 600);
@@ -22117,627 +21790,483 @@ namespace Terraria
 			}
 			return false;
 		}
-		public void AddBuff(int type, int time, bool quiet = false)
-		{
-			if (this.buffImmune[type])
-			{
-				return;
-			}
-			if (!quiet)
-			{
-				if (Main.netMode == 1)
-				{
-					NetMessage.SendData(53, -1, -1, "", this.whoAmI, (float)type, (float)time, 0f, 0);
-				}
-				else
-				{
-					if (Main.netMode == 2)
-					{
-						NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0);
-					}
-				}
-			}
-			int num = -1;
-			for (int i = 0; i < 5; i++)
-			{
-				if (this.buffType[i] == type)
-				{
-					if (this.buffTime[i] < time)
-					{
-						this.buffTime[i] = time;
-					}
-					return;
-				}
-			}
-			while (num == -1)
-			{
-				int num2 = -1;
-				for (int j = 0; j < 5; j++)
-				{
-					if (!Main.debuff[this.buffType[j]])
-					{
-						num2 = j;
-						break;
-					}
-				}
-				if (num2 == -1)
-				{
-					return;
-				}
-				for (int k = num2; k < 5; k++)
-				{
-					if (this.buffType[k] == 0)
-					{
-						num = k;
-						break;
-					}
-				}
-				if (num == -1)
-				{
-					this.DelBuff(num2);
-				}
-			}
-			this.buffType[num] = type;
-			this.buffTime[num] = time;
-		}
-		public void DelBuff(int b)
-		{
-			this.buffTime[b] = 0;
-			this.buffType[b] = 0;
-			for (int i = 0; i < 4; i++)
-			{
-				if (this.buffTime[i] == 0 || this.buffType[i] == 0)
-				{
-					for (int j = i + 1; j < 5; j++)
-					{
-						this.buffTime[j - 1] = this.buffTime[j];
-						this.buffType[j - 1] = this.buffType[j];
-						this.buffTime[j] = 0;
-						this.buffType[j] = 0;
-					}
-				}
-			}
-			if (Main.netMode == 2)
-			{
-				NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0);
-			}
-		}
-		public void UpdateNPC(int i)
-		{
-			this.whoAmI = i;
-			if (this.active)
-			{
-				if (this.displayName == "")
-				{
-					this.displayName = this.name;
-				}
-				if (this.townNPC && Main.chrName[this.type] != "")
-				{
-					this.displayName = Main.chrName[this.type];
-				}
-				this.lifeRegen = 0;
-				this.poisoned = false;
-				this.onFire = false;
-				this.onFire2 = false;
-				this.confused = false;
-				for (int j = 0; j < 5; j++)
-				{
-					if (this.buffType[j] > 0 && this.buffTime[j] > 0)
-					{
-						this.buffTime[j]--;
-						if (this.buffType[j] == 20)
-						{
-							this.poisoned = true;
-						}
-						else
-						{
-							if (this.buffType[j] == 24)
-							{
-								this.onFire = true;
-							}
-							else
-							{
-								if (this.buffType[j] == 31)
-								{
-									this.confused = true;
-								}
-								else
-								{
-									if (this.buffType[j] == 39)
-									{
-										this.onFire2 = true;
-									}
-								}
-							}
-						}
-					}
-				}
-				if (Main.netMode != 1)
-				{
-					for (int k = 0; k < 5; k++)
-					{
-						if (this.buffType[k] > 0 && this.buffTime[k] <= 0)
-						{
-							this.DelBuff(k);
-							if (Main.netMode == 2)
-							{
-								NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0);
-							}
-						}
-					}
-				}
-				if (!this.dontTakeDamage)
-				{
-					if (this.poisoned)
-					{
-						this.lifeRegen = -4;
-					}
-					if (this.onFire)
-					{
-						this.lifeRegen = -8;
-					}
-					if (this.onFire2)
-					{
-						this.lifeRegen = -12;
-					}
-					this.lifeRegenCount += this.lifeRegen;
-					while (this.lifeRegenCount >= 120)
-					{
-						this.lifeRegenCount -= 120;
-						if (this.life < this.lifeMax)
-						{
-							this.life++;
-						}
-						if (this.life > this.lifeMax)
-						{
-							this.life = this.lifeMax;
-						}
-					}
-					while (this.lifeRegenCount <= -120)
-					{
-						this.lifeRegenCount += 120;
-						int num = this.whoAmI;
-						if (this.realLife >= 0)
-						{
-							num = this.realLife;
-						}
-						Main.npc[num].life--;
-						if (Main.npc[num].life <= 0)
-						{
-							Main.npc[num].life = 1;
-							if (Main.netMode != 1)
-							{
-								Main.npc[num].StrikeNPC(9999, 0f, 0, false, false);
-								if (Main.netMode == 2)
-								{
-									NetMessage.SendData(28, -1, -1, "", num, 9999f, 0f, 0f, 0);
-								}
-							}
-						}
-					}
-				}
-				if (Main.netMode != 1 && Main.bloodMoon)
-				{
-					if (this.type == 46)
-					{
-						this.Transform(47);
-					}
-					else
-					{
-						if (this.type == 55)
-						{
-							this.Transform(57);
-						}
-					}
-				}
-				float num2 = 10f;
-				float num3 = 0.3f;
-				float num4 = (float)(Main.maxTilesX / 4200);
-				num4 *= num4;
-				float num5 = (float)((double)(this.position.Y / 16f - (60f + 10f * num4)) / (Main.worldSurface / 6.0));
-				if ((double)num5 < 0.25)
-				{
-					num5 = 0.25f;
-				}
-				if (num5 > 1f)
-				{
-					num5 = 1f;
-				}
-				num3 *= num5;
-				if (this.wet)
-				{
-					num3 = 0.2f;
-					num2 = 7f;
-				}
-				if (this.soundDelay > 0)
-				{
-					this.soundDelay--;
-				}
-				if (this.life <= 0)
-				{
-					this.active = false;
-				}
-				this.oldTarget = this.target;
-				this.oldDirection = this.direction;
-				this.oldDirectionY = this.directionY;
-				this.AI();
-				if (this.type == 44)
-				{
-					Lighting.addLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + 4f) / 16, 0.9f, 0.75f, 0.5f);
-				}
-				for (int l = 0; l < 256; l++)
-				{
-					if (this.immune[l] > 0)
-					{
-						this.immune[l]--;
-					}
-				}
-				if (!this.noGravity && !this.noTileCollide)
-				{
-					int num6 = (int)(this.position.X + (float)(this.width / 2)) / 16;
-					int num7 = (int)(this.position.Y + (float)(this.height / 2)) / 16;
-					if (Main.tile[num6, num7] == null)
-					{
-						num3 = 0f;
-						this.velocity.X = 0f;
-						this.velocity.Y = 0f;
-					}
-				}
-				if (!this.noGravity)
-				{
-					this.velocity.Y = this.velocity.Y + num3;
-					if (this.velocity.Y > num2)
-					{
-						this.velocity.Y = num2;
-					}
-				}
-				if ((double)this.velocity.X < 0.005 && (double)this.velocity.X > -0.005)
-				{
-					this.velocity.X = 0f;
-				}
-				if (Main.netMode != 1 && this.type != 37 && (this.friendly || this.type == 46 || this.type == 55 || this.type == 74))
-				{
-					if (this.life < this.lifeMax)
-					{
-						this.friendlyRegen++;
-						if (this.friendlyRegen > 300)
-						{
-							this.friendlyRegen = 0;
-							this.life++;
-							this.netUpdate = true;
-						}
-					}
-					if (this.immune[255] == 0)
-					{
-						Rectangle rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
-						for (int m = 0; m < 200; m++)
-						{
-							if (Main.npc[m].active && !Main.npc[m].friendly && Main.npc[m].damage > 0)
-							{
-								Rectangle rectangle2 = new Rectangle((int)Main.npc[m].position.X, (int)Main.npc[m].position.Y, Main.npc[m].width, Main.npc[m].height);
-								if (rectangle.Intersects(rectangle2))
-								{
-									int num8 = Main.npc[m].damage;
-									int num9 = 6;
-									int num10 = 1;
-									if (Main.npc[m].position.X + (float)(Main.npc[m].width / 2) > this.position.X + (float)(this.width / 2))
-									{
-										num10 = -1;
-									}
-									Main.npc[i].StrikeNPC(num8, (float)num9, num10, false, false);
-									if (Main.netMode != 0)
-									{
-										NetMessage.SendData(28, -1, -1, "", i, (float)num8, (float)num9, (float)num10, 0);
-									}
-									this.netUpdate = true;
-									this.immune[255] = 30;
-								}
-							}
-						}
-					}
-				}
-				if (!this.noTileCollide)
-				{
-					bool flag = Collision.LavaCollision(this.position, this.width, this.height);
-					if (flag)
-					{
-						this.lavaWet = true;
-						if (!this.lavaImmune && !this.dontTakeDamage && Main.netMode != 1 && this.immune[255] == 0)
-						{
-							this.AddBuff(24, 420, false);
-							this.immune[255] = 30;
-							this.StrikeNPC(50, 0f, 0, false, false);
-							if (Main.netMode == 2 && Main.netMode != 0)
-							{
-								NetMessage.SendData(28, -1, -1, "", this.whoAmI, 50f, 0f, 0f, 0);
-							}
-						}
-					}
-					bool flag2 = false;
-					if (this.type == 72)
-					{
-						flag2 = false;
-						this.wetCount = 0;
-						flag = false;
-					}
-					else
-					{
-						flag2 = Collision.WetCollision(this.position, this.width, this.height);
-					}
-					if (flag2)
-					{
-						if (this.onFire && !this.lavaWet && Main.netMode != 1)
-						{
-							for (int n = 0; n < 5; n++)
-							{
-								if (this.buffType[n] == 24)
-								{
-									this.DelBuff(n);
-								}
-							}
-						}
-						if (!this.wet && this.wetCount == 0)
-						{
-							this.wetCount = 10;
-							if (!flag)
-							{
-								for (int num11 = 0; num11 < 30; num11++)
-								{
-									int num12 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 33, 0f, 0f, 0, default(Color), 1f);
-									Dust expr_928_cp_0 = Main.dust[num12];
-									expr_928_cp_0.velocity.Y = expr_928_cp_0.velocity.Y - 4f;
-									Dust expr_946_cp_0 = Main.dust[num12];
-									expr_946_cp_0.velocity.X = expr_946_cp_0.velocity.X * 2.5f;
-									Main.dust[num12].scale = 1.3f;
-									Main.dust[num12].alpha = 100;
-									Main.dust[num12].noGravity = true;
-								}
-								if (this.type != 1 && this.type != 59 && !this.noGravity)
-								{
-									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 0);
-								}
-							}
-							else
-							{
-								for (int num13 = 0; num13 < 10; num13++)
-								{
-									int num14 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
-									Dust expr_A52_cp_0 = Main.dust[num14];
-									expr_A52_cp_0.velocity.Y = expr_A52_cp_0.velocity.Y - 1.5f;
-									Dust expr_A70_cp_0 = Main.dust[num14];
-									expr_A70_cp_0.velocity.X = expr_A70_cp_0.velocity.X * 2.5f;
-									Main.dust[num14].scale = 1.3f;
-									Main.dust[num14].alpha = 100;
-									Main.dust[num14].noGravity = true;
-								}
-								if (this.type != 1 && this.type != 59 && !this.noGravity)
-								{
-									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
-								}
-							}
-						}
-						this.wet = true;
-					}
-					else
-					{
-						if (this.wet)
-						{
-							this.velocity.X = this.velocity.X * 0.5f;
-							this.wet = false;
-							if (this.wetCount == 0)
-							{
-								this.wetCount = 10;
-								if (!this.lavaWet)
-								{
-									for (int num15 = 0; num15 < 30; num15++)
-									{
-										int num16 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 33, 0f, 0f, 0, default(Color), 1f);
-										Dust expr_BC1_cp_0 = Main.dust[num16];
-										expr_BC1_cp_0.velocity.Y = expr_BC1_cp_0.velocity.Y - 4f;
-										Dust expr_BDF_cp_0 = Main.dust[num16];
-										expr_BDF_cp_0.velocity.X = expr_BDF_cp_0.velocity.X * 2.5f;
-										Main.dust[num16].scale = 1.3f;
-										Main.dust[num16].alpha = 100;
-										Main.dust[num16].noGravity = true;
-									}
-									if (this.type != 1 && this.type != 59 && !this.noGravity)
-									{
-										Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 0);
-									}
-								}
-								else
-								{
-									for (int num17 = 0; num17 < 10; num17++)
-									{
-										int num18 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
-										Dust expr_CEB_cp_0 = Main.dust[num18];
-										expr_CEB_cp_0.velocity.Y = expr_CEB_cp_0.velocity.Y - 1.5f;
-										Dust expr_D09_cp_0 = Main.dust[num18];
-										expr_D09_cp_0.velocity.X = expr_D09_cp_0.velocity.X * 2.5f;
-										Main.dust[num18].scale = 1.3f;
-										Main.dust[num18].alpha = 100;
-										Main.dust[num18].noGravity = true;
-									}
-									if (this.type != 1 && this.type != 59 && !this.noGravity)
-									{
-										Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
-									}
-								}
-							}
-						}
-					}
-					if (!this.wet)
-					{
-						this.lavaWet = false;
-					}
-					if (this.wetCount > 0)
-					{
-						this.wetCount -= 1;
-					}
-					bool flag3 = false;
-					if (this.aiStyle == 10)
-					{
-						flag3 = true;
-					}
-					if (this.aiStyle == 14)
-					{
-						flag3 = true;
-					}
-					if (this.aiStyle == 3 && this.directionY == 1)
-					{
-						flag3 = true;
-					}
-					this.oldVelocity = this.velocity;
-					this.collideX = false;
-					this.collideY = false;
-					if (this.wet)
-					{
-						Vector2 vector = this.velocity;
-						this.velocity = Collision.TileCollision(this.position, this.velocity, this.width, this.height, flag3, flag3);
-						if (Collision.up)
-						{
-							this.velocity.Y = 0.01f;
-						}
-						Vector2 value = this.velocity * 0.5f;
-						if (this.velocity.X != vector.X)
-						{
-							value.X = this.velocity.X;
-							this.collideX = true;
-						}
-						if (this.velocity.Y != vector.Y)
-						{
-							value.Y = this.velocity.Y;
-							this.collideY = true;
-						}
-						this.oldPosition = this.position;
-						this.position += value;
-					}
-					else
-					{
-						if (this.type == 72)
-						{
-							Vector2 vector2 = new Vector2(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2));
-							int num19 = 12;
-							int num20 = 12;
-							vector2.X -= (float)(num19 / 2);
-							vector2.Y -= (float)(num20 / 2);
-							this.velocity = Collision.TileCollision(vector2, this.velocity, num19, num20, true, true);
-						}
-						else
-						{
-							this.velocity = Collision.TileCollision(this.position, this.velocity, this.width, this.height, flag3, flag3);
-						}
-						if (Collision.up)
-						{
-							this.velocity.Y = 0.01f;
-						}
-						if (this.oldVelocity.X != this.velocity.X)
-						{
-							this.collideX = true;
-						}
-						if (this.oldVelocity.Y != this.velocity.Y)
-						{
-							this.collideY = true;
-						}
-						this.oldPosition = this.position;
-						this.position += this.velocity;
-					}
-				}
-				else
-				{
-					this.oldPosition = this.position;
-					this.position += this.velocity;
-				}
-				if (Main.netMode != 1 && !this.noTileCollide && this.lifeMax > 1 && Collision.SwitchTiles(this.position, this.width, this.height, this.oldPosition) && this.type == 46)
-				{
-					this.ai[0] = 1f;
-					this.ai[1] = 400f;
-					this.ai[2] = 0f;
-				}
-				if (!this.active)
-				{
-					this.netUpdate = true;
-				}
-				if (Main.netMode == 2)
-				{
-					if (this.townNPC)
-					{
-						this.netSpam = 0;
-					}
-					if (this.netUpdate2)
-					{
-						this.netUpdate = true;
-					}
-					if (!this.active)
-					{
-						this.netSpam = 0;
-					}
-					if (this.netUpdate)
-					{
-						if (this.netSpam <= 180)
-						{
-							this.netSpam += 60;
-							NetMessage.SendData(23, -1, -1, "", i, 0f, 0f, 0f, 0);
-							this.netUpdate2 = false;
-						}
-						else
-						{
-							this.netUpdate2 = true;
-						}
-					}
-					if (this.netSpam > 0)
-					{
-						this.netSpam--;
-					}
-					if (this.active && this.townNPC && NPC.TypeToNum(this.type) != -1)
-					{
-						if (this.homeless != this.oldHomeless || this.homeTileX != this.oldHomeTileX || this.homeTileY != this.oldHomeTileY)
-						{
-							int num21 = 0;
-							if (this.homeless)
-							{
-								num21 = 1;
-							}
-							NetMessage.SendData(60, -1, -1, "", i, (float)Main.npc[i].homeTileX, (float)Main.npc[i].homeTileY, (float)num21, 0);
-						}
-						this.oldHomeless = this.homeless;
-						this.oldHomeTileX = this.homeTileX;
-						this.oldHomeTileY = this.homeTileY;
-					}
-				}
-				this.FindFrame();
-				this.CheckActive();
-				this.netUpdate = false;
-				this.justHit = false;
-				if (this.type == 120 || this.type == 137 || this.type == 138)
-				{
-					for (int num22 = this.oldPos.Length - 1; num22 > 0; num22--)
-					{
-						this.oldPos[num22] = this.oldPos[num22 - 1];
-						Lighting.addLight((int)this.position.X / 16, (int)this.position.Y / 16, 0.3f, 0f, 0.2f);
-					}
-					this.oldPos[0] = this.position;
-					return;
-				}
-				if (this.type == 94)
-				{
-					for (int num23 = this.oldPos.Length - 1; num23 > 0; num23--)
-					{
-						this.oldPos[num23] = this.oldPos[num23 - 1];
-					}
-					this.oldPos[0] = this.position;
-					return;
-				}
-				if (this.type == 125 || this.type == 126 || this.type == 127 || this.type == 128 || this.type == 129 || this.type == 130 || this.type == 131 || this.type == 139 || this.type == 140)
-				{
-					for (int num24 = this.oldPos.Length - 1; num24 > 0; num24--)
-					{
-						this.oldPos[num24] = this.oldPos[num24 - 1];
-					}
-					this.oldPos[0] = this.position;
-				}
-			}
-		}
+        public void AddBuff(int type, int time, bool quiet = false)
+        {
+            if (this.buffImmune[type])
+                return;
+            if (!quiet)
+            {
+                if (Main.netMode == 1)
+                    NetMessage.SendData(53, -1, -1, "", this.whoAmI, (float)type, (float)time, 0.0f, 0);
+                else if (Main.netMode == 2)
+                    NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0.0f, 0.0f, 0.0f, 0);
+            }
+            int index1 = -1;
+            for (int index2 = 0; index2 < 5; ++index2)
+            {
+                if (this.buffType[index2] == type)
+                {
+                    if (this.buffTime[index2] >= time)
+                        return;
+                    this.buffTime[index2] = time;
+                    return;
+                }
+            }
+            while (index1 == -1)
+            {
+                int b = -1;
+                for (int index2 = 0; index2 < 5; ++index2)
+                {
+                    if (!Main.debuff[this.buffType[index2]])
+                    {
+                        b = index2;
+                        break;
+                    }
+                }
+                if (b == -1)
+                    return;
+                for (int index2 = b; index2 < 5; ++index2)
+                {
+                    if (this.buffType[index2] == 0)
+                    {
+                        index1 = index2;
+                        break;
+                    }
+                }
+                if (index1 == -1)
+                    this.DelBuff(b);
+            }
+            this.buffType[index1] = type;
+            this.buffTime[index1] = time;
+        }
+        public void DelBuff(int b)
+        {
+            this.buffTime[b] = 0;
+            this.buffType[b] = 0;
+            for (int index1 = 0; index1 < 4; ++index1)
+            {
+                if (this.buffTime[index1] == 0 || this.buffType[index1] == 0)
+                {
+                    for (int index2 = index1 + 1; index2 < 5; ++index2)
+                    {
+                        this.buffTime[index2 - 1] = this.buffTime[index2];
+                        this.buffType[index2 - 1] = this.buffType[index2];
+                        this.buffTime[index2] = 0;
+                        this.buffType[index2] = 0;
+                    }
+                }
+            }
+            if (Main.netMode != 2)
+                return;
+            NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0.0f, 0.0f, 0.0f, 0);
+        }
+        public void UpdateNPC(int i)
+        {
+            this.whoAmI = i;
+            if (!this.active)
+                return;
+            if (this.displayName == "")
+                this.displayName = this.name;
+            if (this.townNPC && Main.chrName[this.type] != "")
+                this.displayName = Main.chrName[this.type];
+            this.lifeRegen = 0;
+            this.poisoned = false;
+            this.onFire = false;
+            this.onFire2 = false;
+            this.confused = false;
+            for (int index = 0; index < 5; ++index)
+            {
+                if (this.buffType[index] > 0 && this.buffTime[index] > 0)
+                {
+                    --this.buffTime[index];
+                    if (this.buffType[index] == 20)
+                        this.poisoned = true;
+                    else if (this.buffType[index] == 24)
+                        this.onFire = true;
+                    else if (this.buffType[index] == 31)
+                        this.confused = true;
+                    else if (this.buffType[index] == 39)
+                        this.onFire2 = true;
+                }
+            }
+            if (Main.netMode != 1)
+            {
+                for (int b = 0; b < 5; ++b)
+                {
+                    if (this.buffType[b] > 0 && this.buffTime[b] <= 0)
+                    {
+                        this.DelBuff(b);
+                        if (Main.netMode == 2)
+                            NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0.0f, 0.0f, 0.0f, 0);
+                    }
+                }
+            }
+            if (!this.dontTakeDamage)
+            {
+                if (this.poisoned)
+                    this.lifeRegen = -4;
+                if (this.onFire)
+                    this.lifeRegen = -8;
+                if (this.onFire2)
+                    this.lifeRegen = -12;
+                this.lifeRegenCount += this.lifeRegen;
+                while (this.lifeRegenCount >= 120)
+                {
+                    this.lifeRegenCount -= 120;
+                    if (this.life < this.lifeMax)
+                        ++this.life;
+                    if (this.life > this.lifeMax)
+                        this.life = this.lifeMax;
+                }
+                while (this.lifeRegenCount <= -120)
+                {
+                    this.lifeRegenCount += 120;
+                    int number = this.whoAmI;
+                    if (this.realLife >= 0)
+                        number = this.realLife;
+                    --Main.npc[number].life;
+                    if (Main.npc[number].life <= 0)
+                    {
+                        Main.npc[number].life = 1;
+                        if (Main.netMode != 1)
+                        {
+                            Main.npc[number].StrikeNPC(9999, 0.0f, 0, false, false);
+                            if (Main.netMode == 2)
+                                NetMessage.SendData(28, -1, -1, "", number, 9999f, 0.0f, 0.0f, 0);
+                        }
+                    }
+                }
+            }
+            if (Main.netMode != 1 && Main.bloodMoon)
+            {
+                if (this.type == 46)
+                    this.Transform(47);
+                else if (this.type == 55)
+                    this.Transform(57);
+            }
+            float num1 = 10f;
+            float num2 = 0.3f;
+            float num3 = (float)(Main.maxTilesX / 4200);
+            float num4 = (float)(((double)this.position.Y / 16.0 - (60.0 + 10.0 * (double)(num3 * num3))) / (Main.worldSurface / 6.0));
+            if ((double)num4 < 0.25)
+                num4 = 0.25f;
+            if ((double)num4 > 1.0)
+                num4 = 1f;
+            float num5 = num2 * num4;
+            if (this.wet)
+            {
+                num5 = 0.2f;
+                num1 = 7f;
+            }
+            if (this.soundDelay > 0)
+                --this.soundDelay;
+            if (this.life <= 0)
+                this.active = false;
+            this.oldTarget = this.target;
+            this.oldDirection = this.direction;
+            this.oldDirectionY = this.directionY;
+            this.AI();
+            if (this.type == 44)
+                Lighting.addLight((int)((double)this.position.X + (double)(this.width / 2)) / 16, (int)((double)this.position.Y + 4.0) / 16, 0.9f, 0.75f, 0.5f);
+            for (int index = 0; index < 256; ++index)
+            {
+                if (this.immune[index] > 0)
+                    --this.immune[index];
+            }
+            if (!this.noGravity && !this.noTileCollide)
+            {
+                int index1 = (int)((double)this.position.X + (double)(this.width / 2)) / 16;
+                int index2 = (int)((double)this.position.Y + (double)(this.height / 2)) / 16;
+                if (Main.tile[index1, index2] == null)
+                {
+                    num5 = 0.0f;
+                    this.velocity.X = 0.0f;
+                    this.velocity.Y = 0.0f;
+                }
+            }
+            if (!this.noGravity)
+            {
+                this.velocity.Y += num5;
+                if ((double)this.velocity.Y > (double)num1)
+                    this.velocity.Y = num1;
+            }
+            if ((double)this.velocity.X < 0.005 && (double)this.velocity.X > -0.005)
+                this.velocity.X = 0.0f;
+            if (Main.netMode != 1 && this.type != 37 && (this.friendly || this.type == 46 || (this.type == 55 || this.type == 74)))
+            {
+                if (this.life < this.lifeMax)
+                {
+                    ++this.friendlyRegen;
+                    if (this.friendlyRegen > 300)
+                    {
+                        this.friendlyRegen = 0;
+                        ++this.life;
+                        this.netUpdate = true;
+                    }
+                }
+                if (this.immune[(int)byte.MaxValue] == 0)
+                {
+                    Rectangle rectangle1 = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
+                    for (int index = 0; index < 200; ++index)
+                    {
+                        if (Main.npc[index].active && !Main.npc[index].friendly && Main.npc[index].damage > 0)
+                        {
+                            Rectangle rectangle2 = new Rectangle((int)Main.npc[index].position.X, (int)Main.npc[index].position.Y, Main.npc[index].width, Main.npc[index].height);
+                            if (rectangle1.Intersects(rectangle2))
+                            {
+                                int Damage = Main.npc[index].damage;
+                                int num6 = 6;
+                                int hitDirection = 1;
+                                if ((double)Main.npc[index].position.X + (double)(Main.npc[index].width / 2) > (double)this.position.X + (double)(this.width / 2))
+                                    hitDirection = -1;
+                                Main.npc[i].StrikeNPC(Damage, (float)num6, hitDirection, false, false);
+                                if (Main.netMode != 0)
+                                    NetMessage.SendData(28, -1, -1, "", i, (float)Damage, (float)num6, (float)hitDirection, 0);
+                                this.netUpdate = true;
+                                this.immune[(int)byte.MaxValue] = 30;
+                            }
+                        }
+                    }
+                }
+            }
+            if (!this.noTileCollide)
+            {
+                bool flag1 = Collision.LavaCollision(this.position, this.width, this.height);
+                if (flag1)
+                {
+                    this.lavaWet = true;
+                    if (!this.lavaImmune && !this.dontTakeDamage && (Main.netMode != 1 && this.immune[(int)byte.MaxValue] == 0))
+                    {
+                        this.AddBuff(24, 420, false);
+                        this.immune[(int)byte.MaxValue] = 30;
+                        this.StrikeNPC(50, 0.0f, 0, false, false);
+                        if (Main.netMode == 2 && Main.netMode != 0)
+                            NetMessage.SendData(28, -1, -1, "", this.whoAmI, 50f, 0.0f, 0.0f, 0);
+                    }
+                }
+                bool flag2;
+                if (this.type == 72)
+                {
+                    flag2 = false;
+                    this.wetCount = (byte)0;
+                    flag1 = false;
+                }
+                else
+                    flag2 = Collision.WetCollision(this.position, this.width, this.height);
+                if (flag2)
+                {
+                    if (this.onFire && !this.lavaWet && Main.netMode != 1)
+                    {
+                        for (int b = 0; b < 5; ++b)
+                        {
+                            if (this.buffType[b] == 24)
+                                this.DelBuff(b);
+                        }
+                    }
+                    if (!this.wet && (int)this.wetCount == 0)
+                    {
+                        this.wetCount = (byte)10;
+                        if (!flag1)
+                        {
+                            for (int index1 = 0; index1 < 30; ++index1)
+                            {
+                                int index2 = Dust.NewDust(new Vector2(this.position.X - 6f, (float)((double)this.position.Y + (double)(this.height / 2) - 8.0)), this.width + 12, 24, 33, 0.0f, 0.0f, 0, new Color(), 1f);
+                                Main.dust[index2].velocity.Y -= 4f;
+                                Main.dust[index2].velocity.X *= 2.5f;
+                                Main.dust[index2].scale = 1.3f;
+                                Main.dust[index2].alpha = 100;
+                                Main.dust[index2].noGravity = true;
+                            }
+                            if (this.type != 1 && this.type != 59 && !this.noGravity)
+                                Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 0);
+                        }
+                        else
+                        {
+                            for (int index1 = 0; index1 < 10; ++index1)
+                            {
+                                int index2 = Dust.NewDust(new Vector2(this.position.X - 6f, (float)((double)this.position.Y + (double)(this.height / 2) - 8.0)), this.width + 12, 24, 35, 0.0f, 0.0f, 0, new Color(), 1f);
+                                Main.dust[index2].velocity.Y -= 1.5f;
+                                Main.dust[index2].velocity.X *= 2.5f;
+                                Main.dust[index2].scale = 1.3f;
+                                Main.dust[index2].alpha = 100;
+                                Main.dust[index2].noGravity = true;
+                            }
+                            if (this.type != 1 && this.type != 59 && !this.noGravity)
+                                Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
+                        }
+                    }
+                    this.wet = true;
+                }
+                else if (this.wet)
+                {
+                    this.velocity.X *= 0.5f;
+                    this.wet = false;
+                    if ((int)this.wetCount == 0)
+                    {
+                        this.wetCount = (byte)10;
+                        if (!this.lavaWet)
+                        {
+                            for (int index1 = 0; index1 < 30; ++index1)
+                            {
+                                int index2 = Dust.NewDust(new Vector2(this.position.X - 6f, (float)((double)this.position.Y + (double)(this.height / 2) - 8.0)), this.width + 12, 24, 33, 0.0f, 0.0f, 0, new Color(), 1f);
+                                Main.dust[index2].velocity.Y -= 4f;
+                                Main.dust[index2].velocity.X *= 2.5f;
+                                Main.dust[index2].scale = 1.3f;
+                                Main.dust[index2].alpha = 100;
+                                Main.dust[index2].noGravity = true;
+                            }
+                            if (this.type != 1 && this.type != 59 && !this.noGravity)
+                                Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 0);
+                        }
+                        else
+                        {
+                            for (int index1 = 0; index1 < 10; ++index1)
+                            {
+                                int index2 = Dust.NewDust(new Vector2(this.position.X - 6f, (float)((double)this.position.Y + (double)(this.height / 2) - 8.0)), this.width + 12, 24, 35, 0.0f, 0.0f, 0, new Color(), 1f);
+                                Main.dust[index2].velocity.Y -= 1.5f;
+                                Main.dust[index2].velocity.X *= 2.5f;
+                                Main.dust[index2].scale = 1.3f;
+                                Main.dust[index2].alpha = 100;
+                                Main.dust[index2].noGravity = true;
+                            }
+                            if (this.type != 1 && this.type != 59 && !this.noGravity)
+                                Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
+                        }
+                    }
+                }
+                if (!this.wet)
+                    this.lavaWet = false;
+                if ((int)this.wetCount > 0)
+                    --this.wetCount;
+                bool flag3 = false;
+                if (this.aiStyle == 10)
+                    flag3 = true;
+                if (this.aiStyle == 14)
+                    flag3 = true;
+                if (this.aiStyle == 3 && this.directionY == 1)
+                    flag3 = true;
+                this.oldVelocity = this.velocity;
+                this.collideX = false;
+                this.collideY = false;
+                if (this.wet)
+                {
+                    Vector2 vector2_1 = this.velocity;
+                    this.velocity = Collision.TileCollision(this.position, this.velocity, this.width, this.height, flag3, flag3);
+                    if (Collision.up)
+                        this.velocity.Y = 0.01f;
+                    Vector2 vector2_2 = this.velocity * 0.5f;
+                    if ((double)this.velocity.X != (double)vector2_1.X)
+                    {
+                        vector2_2.X = this.velocity.X;
+                        this.collideX = true;
+                    }
+                    if ((double)this.velocity.Y != (double)vector2_1.Y)
+                    {
+                        vector2_2.Y = this.velocity.Y;
+                        this.collideY = true;
+                    }
+                    this.oldPosition = this.position;
+                    this.position += vector2_2;
+                }
+                else
+                {
+                    if (this.type == 72)
+                    {
+                        Vector2 Position = new Vector2(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2));
+                        int Width = 12;
+                        int Height = 12;
+                        Position.X -= (float)(Width / 2);
+                        Position.Y -= (float)(Height / 2);
+                        this.velocity = Collision.TileCollision(Position, this.velocity, Width, Height, true, true);
+                    }
+                    else
+                        this.velocity = Collision.TileCollision(this.position, this.velocity, this.width, this.height, flag3, flag3);
+                    if (Collision.up)
+                        this.velocity.Y = 0.01f;
+                    if ((double)this.oldVelocity.X != (double)this.velocity.X)
+                        this.collideX = true;
+                    if ((double)this.oldVelocity.Y != (double)this.velocity.Y)
+                        this.collideY = true;
+                    this.oldPosition = this.position;
+                    this.position += this.velocity;
+                }
+            }
+            else
+            {
+                this.oldPosition = this.position;
+                this.position += this.velocity;
+            }
+            if (Main.netMode != 1 && !this.noTileCollide && (this.lifeMax > 1 && Collision.SwitchTiles(this.position, this.width, this.height, this.oldPosition)) && this.type == 46)
+            {
+                this.ai[0] = 1f;
+                this.ai[1] = 400f;
+                this.ai[2] = 0.0f;
+            }
+            if (!this.active)
+                this.netUpdate = true;
+            if (Main.netMode == 2)
+            {
+                if (this.townNPC)
+                    this.netSpam = 0;
+                if (this.netUpdate2)
+                    this.netUpdate = true;
+                if (!this.active)
+                    this.netSpam = 0;
+                if (this.netUpdate)
+                {
+                    if (this.netSpam <= 180)
+                    {
+                        this.netSpam += 60;
+                        NetMessage.SendData(23, -1, -1, "", i, 0.0f, 0.0f, 0.0f, 0);
+                        this.netUpdate2 = false;
+                    }
+                    else
+                        this.netUpdate2 = true;
+                }
+                if (this.netSpam > 0)
+                    --this.netSpam;
+                if (this.active && this.townNPC && NPC.TypeToNum(this.type) != -1)
+                {
+                    if (this.homeless != this.oldHomeless || this.homeTileX != this.oldHomeTileX || this.homeTileY != this.oldHomeTileY)
+                    {
+                        int num6 = 0;
+                        if (this.homeless)
+                            num6 = 1;
+                        NetMessage.SendData(60, -1, -1, "", i, (float)Main.npc[i].homeTileX, (float)Main.npc[i].homeTileY, (float)num6, 0);
+                    }
+                    this.oldHomeless = this.homeless;
+                    this.oldHomeTileX = this.homeTileX;
+                    this.oldHomeTileY = this.homeTileY;
+                }
+            }
+            this.FindFrame();
+            this.CheckActive();
+            this.netUpdate = false;
+            this.justHit = false;
+            if (this.type == 120 || this.type == 137 || this.type == 138)
+            {
+                for (int index = this.oldPos.Length - 1; index > 0; --index)
+                {
+                    this.oldPos[index] = this.oldPos[index - 1];
+                    Lighting.addLight((int)this.position.X / 16, (int)this.position.Y / 16, 0.3f, 0.0f, 0.2f);
+                }
+                this.oldPos[0] = this.position;
+            }
+            else if (this.type == 94)
+            {
+                for (int index = this.oldPos.Length - 1; index > 0; --index)
+                    this.oldPos[index] = this.oldPos[index - 1];
+                this.oldPos[0] = this.position;
+            }
+            else
+            {
+                if (this.type != 125 && this.type != 126 && (this.type != (int)sbyte.MaxValue && this.type != 128) && (this.type != 129 && this.type != 130 && (this.type != 131 && this.type != 139)) && this.type != 140)
+                    return;
+                for (int index = this.oldPos.Length - 1; index > 0; --index)
+                    this.oldPos[index] = this.oldPos[index - 1];
+                this.oldPos[0] = this.position;
+            }
+        }
 		public Color GetAlpha(Color newColor)
 		{
 			float num = (float)(255 - this.alpha) / 255f;
@@ -22826,1063 +22355,758 @@ namespace Terraria
 			}
 			return new Color(num, num2, num3, num4);
 		}
-		public string GetChat()
-		{
-			string text = Main.chrName[18];
-			string str = Main.chrName[17];
-			string text2 = Main.chrName[19];
-			string text3 = Main.chrName[20];
-			string str2 = Main.chrName[38];
-			string arg_36_0 = Main.chrName[54];
-			string str3 = Main.chrName[22];
-			string arg_49_0 = Main.chrName[108];
-			string text4 = Main.chrName[107];
-			string text5 = Main.chrName[124];
-			bool flag = false;
-			bool flag2 = false;
-			bool flag3 = false;
-			bool flag4 = false;
-			bool flag5 = false;
-			bool flag6 = false;
-			bool flag7 = false;
-			bool flag8 = false;
-			bool flag9 = false;
-			for (int i = 0; i < 200; i++)
-			{
-				if (Main.npc[i].active)
-				{
-					switch (Main.npc[i].type)
-					{
-					    case 17:
-					        flag = true;
-					        break;
-					    case 18:
-					        flag2 = true;
-					        break;
-					    case 19:
-					        flag3 = true;
-					        break;
-					    case 20:
-					        flag4 = true;
-					        break;
-					    case 37:
-					        flag5 = true;
-					        break;
-					    case 38:
-					        flag6 = true;
-					        break;
-					    case 124:
-					        flag7 = true;
-					        break;
-					    case 107:
-					        flag8 = true;
-					        break;
-					    case 2:
-					        flag9 = true;
-					        break;
-					}
-				}
-			}
-			string result = "";
-			switch (this.type)
-			{
-			    case 17:
-			        if (!NPC.downedBoss1 && Main.rand.Next(3) == 0)
-			        {
-			            if (Main.player[Main.myPlayer].statLifeMax < 200)
-			            {
-			                result = "I hope a scrawny kid like you isn't all that is standing between us and Cthulu's Eye.";
-			            }
-			            else
-			            {
-			                if (Main.player[Main.myPlayer].statDefense <= 10)
-			                {
-			                    result = "Look at that shoddy armor you're wearing. Better buy some more healing potions.";
-			                }
-			                else
-			                {
-			                    result = "I feel like an evil presence is watching me.";
-			                }
-			            }
-			        }
-			        else
-			        {
-			            if (Main.dayTime)
-			            {
-			                if (Main.time < 16200.0)
-			                {
-			                    int num = Main.rand.Next(3);
-			                    switch (num)
-			                    {
-			                        case 0:
-			                            result = "Sword beats paper! Get one today.";
-			                            break;
-			                        case 1:
-			                            result = "You want apples? You want carrots? You want pineapples? We got torches.";
-			                            break;
-			                        default:
-			                            result = "Lovely morning, wouldn't you say? Was there something you needed?";
-			                            break;
-			                    }
-			                }
-			                else
-			                {
-			                    if (Main.time > 37800.0)
-			                    {
-			                        int num2 = Main.rand.Next(3);
-			                        switch (num2)
-			                        {
-			                            case 0:
-			                                result = "Night will be upon us soon, friend. Make your choices while you can.";
-			                                break;
-			                            case 1:
-			                                result = "You have no idea how much Dirt Blocks sell for overseas.";
-			                                break;
-			                            default:
-			                                result = "Ah, they will tell tales of " + Main.player[Main.myPlayer].name + " some day... good ones I'm sure.";
-			                                break;
-			                        }
-			                    }
-			                    else
-			                    {
-			                        int num3 = Main.rand.Next(3);
-			                        switch (num3)
-			                        {
-			                            case 0:
-			                                result = "Check out my dirt blocks; they are extra dirty.";
-			                                break;
-			                            case 1:
-			                                result = "Boy, that sun is hot! I do have some perfectly ventilated armor.";
-			                                break;
-			                            default:
-			                                result = "The sun is high, but my prices are not.";
-			                                break;
-			                        }
-			                    }
-			                }
-			            }
-			            else
-			            {
-			                if (Main.bloodMoon)
-			                {
-			                    if (flag2 && flag7 && Main.rand.Next(3) == 0)
-			                    {
-			                        result = string.Concat(new string[]
-			                                                   {
-			                                                       "Oh, great. I can hear ", 
-			                                                       text5, 
-			                                                       " and ", 
-			                                                       text, 
-			                                                       " arguing from here."
-			                                                   });
-			                    }
-			                    else
-			                    {
-			                        int num4 = Main.rand.Next(4);
-			                        switch (num4)
-			                        {
-			                            case 0:
-			                                result = "Have you seen Chith...Shith.. Chat... The big eye?";
-			                                break;
-			                            case 1:
-			                                result = "Hey, this house is secure, right? Right? " + Main.player[Main.myPlayer].name + "?";
-			                                break;
-			                            case 2:
-			                                result = "Not even a blood moon can stop capitalism. Let's do some business.";
-			                                break;
-			                            default:
-			                                result = "Keep your eye on the prize, buy a lense!";
-			                                break;
-			                        }
-			                    }
-			                }
-			                else
-			                {
-			                    if (Main.time < 9720.0)
-			                    {
-			                        if (Main.rand.Next(2) == 0)
-			                        {
-			                            result = "Kosh, kapleck Mog. Oh sorry, that's klingon for 'Buy something or die.'";
-			                        }
-			                        else
-			                        {
-			                            result = Main.player[Main.myPlayer].name + " is it? I've heard good things, friend!";
-			                        }
-			                    }
-			                    else
-			                    {
-			                        if (Main.time > 22680.0)
-			                        {
-			                            if (Main.rand.Next(2) == 0)
-			                            {
-			                                result = "I hear there's a secret treasure... oh never mind.";
-			                            }
-			                            else
-			                            {
-			                                result = "Angel Statue you say? I'm sorry, I'm not a junk dealer.";
-			                            }
-			                        }
-			                        else
-			                        {
-			                            int num5 = Main.rand.Next(3);
-			                            switch (num5)
-			                            {
-			                                case 0:
-			                                    result = "The last guy who was here left me some junk... er I mean... treasures!";
-			                                    break;
-			                                case 1:
-			                                    result = "I wonder if the moon is made of cheese...huh, what? Oh yes, buy something!";
-			                                    break;
-			                                default:
-			                                    result = "Did you say gold?  I'll take that off of ya.";
-			                                    break;
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 18:
-			        if (Main.bloodMoon)
-			        {
-			            if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax * 0.66)
-			            {
-			                int num6 = Main.rand.Next(3);
-			                switch (num6)
-			                {
-			                    case 0:
-			                        result = "You better not get blood on me.";
-			                        break;
-			                    case 1:
-			                        result = "Hurry up and stop bleeding.";
-			                        break;
-			                    default:
-			                        result = "If you're going to die, do it outside.";
-			                        break;
-			                }
-			            }
-			            else
-			            {
-			                int num7 = Main.rand.Next(4);
-			                switch (num7)
-			                {
-			                    case 0:
-			                        result = "What is that supposed to mean?!";
-			                        break;
-			                    case 1:
-			                        result = "I don't think I like your tone.";
-			                        break;
-			                    case 2:
-			                        result = "Why are you even here? If you aren't bleeding, you don't need to be here. Get out.";
-			                        break;
-			                    default:
-			                        result = "WHAT?!";
-			                        break;
-			                }
-			            }
-			        }
-			        else
-			        {
-			            if (Main.rand.Next(3) == 0 && !NPC.downedBoss3)
-			            {
-			                result = "Have you seen that old man pacing around the dungeon? He looks troubled.";
-			            }
-			            else
-			            {
-			                if (flag6 && Main.rand.Next(4) == 0)
-			                {
-			                    result = "I wish " + str2 + " would be more careful.  I'm getting tired of having to sew his limbs back on every day.";
-			                }
-			                else
-			                {
-			                    if (flag3 && Main.rand.Next(4) == 0)
-			                    {
-			                        result = "Hey, has " + text2 + " mentioned needing to go to the doctor for any reason? Just wondering.";
-			                    }
-			                    else
-			                    {
-			                        if (flag9 && Main.rand.Next(4) == 0)
-			                        {
-			                            result = "I need to have a serious talk with " + str3 + ". How many times a week can you come in with severe lava burns?";
-			                        }
-			                        else
-			                        {
-			                            if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax * 0.33)
-			                            {
-			                                int num8 = Main.rand.Next(5);
-			                                switch (num8)
-			                                {
-			                                    case 0:
-			                                        result = "I think you look better this way.";
-			                                        break;
-			                                    case 1:
-			                                        result = "Eww... What happened to your face?";
-			                                        break;
-			                                    case 2:
-			                                        result = "MY GOODNESS! I'm good, but I'm not THAT good.";
-			                                        break;
-			                                    case 3:
-			                                        result = "Dear friends we are gathered here today to bid farewell... Oh, you'll be fine.";
-			                                        break;
-			                                    default:
-			                                        result = "You left your arm over there. Let me get that for you...";
-			                                        break;
-			                                }
-			                            }
-			                            else
-			                            {
-			                                if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax * 0.66)
-			                                {
-			                                    int num9 = Main.rand.Next(7);
-			                                    switch (num9)
-			                                    {
-			                                        case 0:
-			                                            result = "Quit being such a baby! I've seen worse.";
-			                                            break;
-			                                        case 1:
-			                                            result = "That's gonna need stitches!";
-			                                            break;
-			                                        case 2:
-			                                            result = "Trouble with those bullies again?";
-			                                            break;
-			                                        case 3:
-			                                            result = "Hold on, I've got some cartoon bandages around here somewhere.";
-			                                            break;
-			                                        case 4:
-			                                            result = "Walk it off, " + Main.player[Main.myPlayer].name + ", you'll be fine. Sheesh.";
-			                                            break;
-			                                        case 5:
-			                                            result = "Does it hurt when you do that? Don't do that.";
-			                                            break;
-			                                        default:
-			                                            result = "You look half digested. Have you been chasing slimes again?";
-			                                            break;
-			                                    }
-			                                }
-			                                else
-			                                {
-			                                    int num10 = Main.rand.Next(4);
-			                                    switch (num10)
-			                                    {
-			                                        case 0:
-			                                            result = "Turn your head and cough.";
-			                                            break;
-			                                        case 1:
-			                                            result = "That's not the biggest I've ever seen... Yes, I've seen bigger wounds for sure.";
-			                                            break;
-			                                        case 2:
-			                                            result = "Would you like a lollipop?";
-			                                            break;
-			                                        default:
-			                                            result = "Show me where it hurts.";
-			                                            break;
-			                                    }
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 19:
-			        if (NPC.downedBoss3 && !Main.hardMode)
-			        {
-			            result = "I heard there is a doll that looks very similar to " + str3 + " somewhere in the underworld.  I'd like to put a few rounds in it.";
-			        }
-			        else
-			        {
-			            if (flag2 && Main.rand.Next(5) == 0)
-			            {
-			                result = "Make it quick! I've got a date with " + text + " in an hour.";
-			            }
-			            else
-			            {
-			                if (flag2 && Main.rand.Next(5) == 0)
-			                {
-			                    result = "I want what " + text + " is sellin'. What do you mean, she doesn't sell anything?";
-			                }
-			                else
-			                {
-			                    if (flag4 && Main.rand.Next(5) == 0)
-			                    {
-			                        result = text3 + " is a looker.  Too bad she's such a prude.";
-			                    }
-			                    else
-			                    {
-			                        if (flag6 && Main.rand.Next(5) == 0)
-			                        {
-			                            result = "Don't bother with " + str2 + ", I've got all you need right here.";
-			                        }
-			                        else
-			                        {
-			                            if (flag6 && Main.rand.Next(5) == 0)
-			                            {
-			                                result = "What's " + str2 + "'s problem? Does he even realize we sell completely different stuff?";
-			                            }
-			                            else
-			                            {
-			                                if (Main.bloodMoon)
-			                                {
-			                                    if (Main.rand.Next(2) == 0)
-			                                    {
-			                                        result = "Man, it's a good night not to talk to anybody, don't you think, " + Main.player[Main.myPlayer].name + "?";
-			                                    }
-			                                    else
-			                                    {
-			                                        result = "I love nights like tonight.  There is never a shortage of things to kill!";
-			                                    }
-			                                }
-			                                else
-			                                {
-			                                    int num11 = Main.rand.Next(3);
-			                                    switch (num11)
-			                                    {
-			                                        case 0:
-			                                            result = "I see you're eyeballin' the Minishark.. You really don't want to know how it was made.";
-			                                            break;
-			                                        case 1:
-			                                            result = "Hey, this ain't a movie, pal. Ammo is extra.";
-			                                            break;
-			                                        default:
-			                                            result = "Keep your hands off my gun, buddy!";
-			                                            break;
-			                                    }
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 20:
-			        if (!NPC.downedBoss2 && Main.rand.Next(3) == 0)
-			        {
-			            result = "Have you tried using purification powder on the ebonstone of the corruption?";
-			        }
-			        else
-			        {
-			            if (flag3 && Main.rand.Next(4) == 0)
-			            {
-			                result = "I wish " + text2 + " would stop flirting with me. Doesn't he realize I'm 500 years old?";
-			            }
-			            else
-			            {
-			                if (flag && Main.rand.Next(4) == 0)
-			                {
-			                    result = "Why does " + str + " keep trying to sell me an angel statues? Everyone knows that they don't do anything.";
-			                }
-			                else
-			                {
-			                    if (flag5 && Main.rand.Next(4) == 0)
-			                    {
-			                        result = "Have you seen the old man walking around the dungeon? He doesn't look well at all...";
-			                    }
-			                    else
-			                    {
-			                        if (Main.bloodMoon)
-			                        {
-			                            int num12 = Main.rand.Next(4);
-			                            switch (num12)
-			                            {
-			                                case 0:
-			                                    result = "I sell what I want! If you don't like it, too bad.";
-			                                    break;
-			                                case 1:
-			                                    result = "Why do you have to be so confrontational during a time like this?";
-			                                    break;
-			                                case 2:
-			                                    result = "I don't want you to buy my stuff. I want you to want to buy my stuff, ok?";
-			                                    break;
-			                                default:
-			                                    result = "Dude, is it just me or is there like a million zombies out tonight?";
-			                                    break;
-			                            }
-			                        }
-			                        else
-			                        {
-			                            int num13 = Main.rand.Next(5);
-			                            switch (num13)
-			                            {
-			                                case 0:
-			                                    result = "You must cleanse the world of this corruption.";
-			                                    break;
-			                                case 1:
-			                                    result = "Be safe; Terraria needs you!";
-			                                    break;
-			                                case 2:
-			                                    result = "The sands of time are flowing. And well, you are not aging very gracefully.";
-			                                    break;
-			                                case 3:
-			                                    result = "What's this about me having more 'bark' than bite?";
-			                                    break;
-			                                default:
-			                                    result = "So two goblins walk into a bar, and one says to the other, 'Want to get a Goblet of beer?!'";
-			                                    break;
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 22:
-			        if (Main.bloodMoon)
-			        {
-			            int num14 = Main.rand.Next(3);
-			            switch (num14)
-			            {
-			                case 0:
-			                    result = "You can tell a Blood Moon is out when the sky turns red. There is something about it that causes monsters to swarm.";
-			                    break;
-			                case 1:
-			                    result = "Hey, buddy, do you know where any deathweed is? Oh, no reason; just wondering, is all.";
-			                    break;
-			                default:
-			                    result = "If you were to look up, you'd see that the moon is red right now.";
-			                    break;
-			            }
-			        }
-			        else
-			        {
-			            if (!Main.dayTime)
-			            {
-			                result = "You should stay indoors at night. It is very dangerous to be wandering around in the dark.";
-			            }
-			            else
-			            {
-			                int num15 = Main.rand.Next(3);
-			                switch (num15)
-			                {
-			                    case 0:
-			                        result = "Greetings, " + Main.player[Main.myPlayer].name + ". Is there something I can help you with?";
-			                        break;
-			                    case 1:
-			                        result = "I am here to give you advice on what to do next.  It is recommended that you talk with me anytime you get stuck.";
-			                        break;
-			                    default:
-			                        result = "They say there is a person who will tell you how to survive in this land... oh wait. That's me.";
-			                        break;
-			                }
-			            }
-			        }
-			        break;
-			    case 37:
-			        if (Main.dayTime)
-			        {
-			            int num16 = Main.rand.Next(3);
-			            switch (num16)
-			            {
-			                case 0:
-			                    result = "I cannot let you enter until you free me of my curse.";
-			                    break;
-			                case 1:
-			                    result = "Come back at night if you wish to enter.";
-			                    break;
-			                default:
-			                    result = "My master cannot be summoned under the light of day.";
-			                    break;
-			            }
-			        }
-			        else
-			        {
-			            if (Main.player[Main.myPlayer].statLifeMax < 300 || Main.player[Main.myPlayer].statDefense < 10)
-			            {
-			                int num17 = Main.rand.Next(4);
-			                switch (num17)
-			                {
-			                    case 0:
-			                        result = "You are far too weak to defeat my curse.  Come back when you aren't so worthless.";
-			                        break;
-			                    case 1:
-			                        result = "You pathetic fool.  You cannot hope to face my master as you are now.";
-			                        break;
-			                    case 2:
-			                        result = "I hope you have like six friends standing around behind you.";
-			                        break;
-			                    default:
-			                        result = "Please, no, stranger. You'll only get yourself killed.";
-			                        break;
-			                }
-			            }
-			            else
-			            {
-			                int num18 = Main.rand.Next(4);
-			                switch (num18)
-			                {
-			                    case 0:
-			                        result = "You just might be strong enough to free me from my curse...";
-			                        break;
-			                    case 1:
-			                        result = "Stranger, do you possess the strength to defeat my master?";
-			                        break;
-			                    case 2:
-			                        result = "Please! Battle my captor and free me! I beg you!";
-			                        break;
-			                    default:
-			                        result = "Defeat my master, and I will grant you passage into the Dungeon.";
-			                        break;
-			                }
-			            }
-			        }
-			        break;
-			    case 38:
-			        if (!NPC.downedBoss2 && Main.rand.Next(3) == 0)
-			        {
-			            result = "Trying to get past that ebonrock, eh?  Why not introduce it to one of these explosives!";
-			        }
-			        if (Main.bloodMoon)
-			        {
-			            int num19 = Main.rand.Next(3);
-			            switch (num19)
-			            {
-			                case 0:
-			                    result = "Hey, have you seen a clown around?";
-			                    break;
-			                case 1:
-			                    result = "There was a bomb sitting right here, and now I can't seem to find it...";
-			                    break;
-			                default:
-			                    result = "I've got something for them zombies alright!";
-			                    break;
-			            }
-			        }
-			        else
-			        {
-			            if (flag3 && Main.rand.Next(5) == 0)
-			            {
-			                result = "Even " + text2 + " wants what I'm selling!";
-			            }
-			            else
-			            {
-			                if (flag3 && Main.rand.Next(5) == 0)
-			                {
-			                    result = "Would you rather have a bullet hole or a grenade hole? That's what I thought.";
-			                }
-			                else
-			                {
-			                    if (flag2 && Main.rand.Next(4) == 0)
-			                    {
-			                        result = "I'm sure " + text + " will help if you accidentally lose a limb to these.";
-			                    }
-			                    else
-			                    {
-			                        if (flag4 && Main.rand.Next(4) == 0)
-			                        {
-			                            result = "Why purify the world when you can just blow it up?";
-			                        }
-			                        else
-			                        {
-			                            if (!Main.dayTime)
-			                            {
-			                                int num20 = Main.rand.Next(4);
-			                                if (num20 == 0)
-			                                {
-			                                    result = "If you throw this one in the bathtub and close all the windows, it'll clear your sinuses and pop your ears!";
-			                                }
-			                                else
-			                                {
-			                                    if (num20 == 1)
-			                                    {
-			                                        result = "Wanna play Fuse Chicken?";
-			                                    }
-			                                    else
-			                                    {
-			                                        if (num20 == 2)
-			                                        {
-			                                            result = "Hey, could you sign this Griefing Waiver?";
-			                                        }
-			                                        else
-			                                        {
-			                                            result = "NO SMOKING IN HERE!!";
-			                                        }
-			                                    }
-			                                }
-			                            }
-			                            else
-			                            {
-			                                int num21 = Main.rand.Next(5);
-			                                switch (num21)
-			                                {
-			                                    case 0:
-			                                        result = "Explosives are da' bomb these days.  Buy some now!";
-			                                        break;
-			                                    case 1:
-			                                        result = "It's a good day to die!";
-			                                        break;
-			                                    case 2:
-			                                        result = "I wonder what happens if I... (BOOM!)... Oh, sorry, did you need that leg?";
-			                                        break;
-			                                    case 3:
-			                                        result = "Dynamite, my own special cure-all for what ails ya.";
-			                                        break;
-			                                    default:
-			                                        result = "Check out my goods; they have explosive prices!";
-			                                        break;
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 54:
-			        if (!flag7 && Main.rand.Next(2) == 0)
-			        {
-			            result = "I keep having vague memories of tying up a woman and throwing her in a dungeon.";
-			        }
-			        else
-			        {
-			            if (Main.bloodMoon)
-			            {
-			                result = Main.player[Main.myPlayer].name + "... we have a problem! Its a blood moon out there!";
-			            }
-			            else
-			            {
-			                if (flag2 && Main.rand.Next(4) == 0)
-			                {
-			                    result = "T'were I younger, I would ask " + text + " out. I used to be quite the lady killer.";
-			                }
-			                else
-			                {
-			                    if (Main.player[Main.myPlayer].head == 24)
-			                    {
-			                        result = "That Red Hat of yours looks familiar...";
-			                    }
-			                    else
-			                    {
-			                        int num22 = Main.rand.Next(6);
-			                        switch (num22)
-			                        {
-			                            case 0:
-			                                result = "Thanks again for freeing me from my curse. Felt like something jumped up and bit me";
-			                                break;
-			                            case 1:
-			                                result = "Mama always said I would make a great tailor.";
-			                                break;
-			                            case 2:
-			                                result = "Life's like a box of clothes; you never know what you are gonna wear!";
-			                                break;
-			                            case 3:
-			                                result = "Of course embroidery is hard! If it wasn't hard, no one would do it! That's what makes it great.";
-			                                break;
-			                            case 4:
-			                                result = "I know everything they is to know about the clothierin' business.";
-			                                break;
-			                            default:
-			                                result = "Being cursed was lonely, so I once made a friend out of leather. I named him Wilson.";
-			                                break;
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 105:
-			        result = "Thank you for freeing me, human.  I was tied up and left here by the other goblins.  You could say that we didn't get along very well.";
-			        break;
-			    case 106:
-			        result = "Thanks for saving me, friend!  This bondage was starting to chafe.";
-			        break;
-			    case 107:
-			        if (this.homeless)
-			        {
-			            int num23 = Main.rand.Next(5);
-			            switch (num23)
-			            {
-			                case 0:
-			                    result = "I can't believe they tied me up and left me here just for pointing out that they weren't going east!";
-			                    break;
-			                case 1:
-			                    result = "Now that I'm an outcast, can I throw away the spiked balls? My pockets hurt.";
-			                    break;
-			                case 2:
-			                    result = "Looking for a gadgets expert? I'm your goblin!";
-			                    break;
-			                case 3:
-			                    result = "Thanks for your help. Now, I have to finish pacing around aimlessly here. I'm sure we'll meet again.";
-			                    break;
-			                default:
-			                    result = "I thought you'd be taller.";
-			                    break;
-			            }
-			        }
-			        else
-			        {
-			            if (flag7 && Main.rand.Next(4) == 0)
-			            {
-			                result = "Hey...what's " + text5 + " up to? Have you...have you talked to her, by chance?";
-			            }
-			            else
-			            {
-			                if (!Main.dayTime)
-			                {
-			                    int num24 = Main.rand.Next(5);
-			                    switch (num24)
-			                    {
-			                        case 0:
-			                            result = "Hey, does your hat need a motor? I think I have a motor that would fit exactly in that hat.";
-			                            break;
-			                        case 1:
-			                            result = "Yo, I heard you like rockets and running boots, so I put some rockets in your running boots.";
-			                            break;
-			                        case 2:
-			                            result = "Silence is golden. Duct tape is silver.";
-			                            break;
-			                        case 3:
-			                            result = "YES, gold is stronger than iron. What are they teaching these humans nowadays?";
-			                            break;
-			                        default:
-			                            result = "You know, that mining helmet-flipper combination was a much better idea on paper.";
-			                            break;
-			                    }
-			                }
-			                else
-			                {
-			                    int num25 = Main.rand.Next(5);
-			                    switch (num25)
-			                    {
-			                        case 0:
-			                            result = "Goblins are surprisingly easy to anger. In fact, they could start a war over cloth!";
-			                            break;
-			                        case 1:
-			                            result = "To be honest, most goblins aren't exactly rocket scientists. Well, some are.";
-			                            break;
-			                        case 2:
-			                            result = "Do you know why we all carry around these spiked balls? Because I don't.";
-			                            break;
-			                        case 3:
-			                            result = "I just finished my newest creation! This version doesn't explode violently if you breathe on it too hard.";
-			                            break;
-			                        default:
-			                            result = "Goblin thieves aren't very good at their job. They can't even steal from an unlocked chest!";
-			                            break;
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 108:
-			        if (this.homeless)
-			        {
-			            int num26 = Main.rand.Next(3);
-			            switch (num26)
-			            {
-			                case 0:
-			                    result = "Ohh, my hero!";
-			                    break;
-			                default:
-			                    if (num26 == 1 && !Main.player[Main.myPlayer].male)
-			                    {
-			                        result = "Oh, how heroic! Thank you for saving me, young lady!";
-			                    }
-			                    else
-			                    {
-			                        if (num26 == 1)
-			                        {
-			                            result = "Oh, how heroic! Thank you for saving me, young man!";
-			                        }
-			                        else
-			                        {
-			                            if (num26 == 2)
-			                            {
-			                                result = "Now that we know each other, I can move in with you, right?";
-			                            }
-			                        }
-			                    }
-			                    break;
-			            }
-			        }
-			        else
-			        {
-			            if (Main.player[Main.myPlayer].male && flag9 && Main.rand.Next(6) == 0)
-			            {
-			                result = "Well, hi there, " + str3 + "! What can I do for you today?";
-			            }
-			            else
-			            {
-			                if (Main.player[Main.myPlayer].male && flag6 && Main.rand.Next(6) == 0)
-			                {
-			                    result = "Well, hi there, " + str2 + "! What can I do for you today?";
-			                }
-			                else
-			                {
-			                    if (Main.player[Main.myPlayer].male && flag8 && Main.rand.Next(6) == 0)
-			                    {
-			                        result = "Well, hi there, " + text4 + "! What can I do for you today?";
-			                    }
-			                    else
-			                    {
-			                        if (!Main.player[Main.myPlayer].male && flag2 && Main.rand.Next(6) == 0)
-			                        {
-			                            result = "Well, hi there, " + text + "! What can I do for you today?";
-			                        }
-			                        else
-			                        {
-			                            if (!Main.player[Main.myPlayer].male && flag7 && Main.rand.Next(6) == 0)
-			                            {
-			                                result = "Well, hi there, " + text5 + "! What can I do for you today?";
-			                            }
-			                            else
-			                            {
-			                                if (!Main.player[Main.myPlayer].male && flag4 && Main.rand.Next(6) == 0)
-			                                {
-			                                    result = "Well, hi there, " + text3 + "! What can I do for you today?";
-			                                }
-			                                else
-			                                {
-			                                    if (!Main.dayTime)
-			                                    {
-			                                        int num27 = Main.rand.Next(3);
-			                                        switch (num27)
-			                                        {
-			                                            case 0:
-			                                                result = "Want me to pull a coin from behind your ear? No? Ok.";
-			                                                break;
-			                                            case 1:
-			                                                result = "Do you want some magic candy? No? Ok.";
-			                                                break;
-			                                            case 2:
-			                                                result = "I make a rather enchanting hot chocolate if you'd be inter...No? Ok.";
-			                                                break;
-			                                        }
-			                                    }
-			                                    else
-			                                    {
-			                                        int num28 = Main.rand.Next(5);
-			                                        switch (num28)
-			                                        {
-			                                            case 0:
-			                                                result = "Are you here for a peek at my crystal ball?";
-			                                                break;
-			                                            case 1:
-			                                                result = "Ever wanted an enchanted ring that turns rocks into slimes? Well neither did I.";
-			                                                break;
-			                                            case 2:
-			                                                result = "Someone once told me friendship is magic. That's ridiculous. You can't turn people into frogs with friendship.";
-			                                                break;
-			                                            case 3:
-			                                                result = "I can see your future now... You will buy a lot of items from me!";
-			                                                break;
-			                                            default:
-			                                                result = "I once tried to bring an Angel Statue to life. It didn't do anything.";
-			                                                break;
-			                                        }
-			                                    }
-			                                }
-			                            }
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 123:
-			        result = "Thanks!  It was just a matter of time before I ended up like the rest of the skeletons down here.";
-			        break;
-			    case 124:
-			        if (this.homeless)
-			        {
-			            int num29 = Main.rand.Next(4);
-			            switch (num29)
-			            {
-			                case 0:
-			                    result = "Hey, watch where you're going! I was over there a little while ago!";
-			                    break;
-			                case 1:
-			                    result = "Hold on, I've almost got wifi going down here.";
-			                    break;
-			                case 2:
-			                    result = "But I was almost done putting blinking lights up here!";
-			                    break;
-			                default:
-			                    result = "DON'T MOVE. I DROPPED MY CONTACT.";
-			                    break;
-			            }
-			        }
-			        else
-			        {
-			            if (Main.bloodMoon)
-			            {
-			                int num30 = Main.rand.Next(4);
-			                switch (num30)
-			                {
-			                    case 0:
-			                        result = "All I want is for the switch to make the... What?!";
-			                        break;
-			                    case 1:
-			                        result = "Oh, let me guess. Didn't buy enough wire. Idiot.";
-			                        break;
-			                    case 2:
-			                        result = "Just-could you just... Please? Ok? Ok. Ugh.";
-			                        break;
-			                    default:
-			                        result = "I don't appreciate the way you're looking at me. I am WORKING right now.";
-			                        break;
-			                }
-			            }
-			            else
-			            {
-			                if (flag8 && Main.rand.Next(6) == 0)
-			                {
-			                    result = string.Concat(new string[]
-			                                               {
-			                                                   "Hey, ", 
-			                                                   Main.player[Main.myPlayer].name, 
-			                                                   ", did you just come from ", 
-			                                                   text4, 
-			                                                   "'s? Did he say anything about me by chance?"
-			                                               });
-			                }
-			                else
-			                {
-			                    if (flag3 && Main.rand.Next(6) == 0)
-			                    {
-			                        result = text2 + " keeps talking about pressing my pressure plate. I told him it was for stepping on.";
-			                    }
-			                    else
-			                    {
-			                        int num31 = Main.rand.Next(3);
-			                        switch (num31)
-			                        {
-			                            case 0:
-			                                result = "Always buy more wire than you need!";
-			                                break;
-			                            case 1:
-			                                result = "Did you make sure your device was plugged in?";
-			                                break;
-			                            default:
-			                                result = "Oh, you know what this house needs? More blinking lights.";
-			                                break;
-			                        }
-			                    }
-			                }
-			            }
-			        }
-			        break;
-			    case 142:
-			        {
-			            int num32 = Main.rand.Next(3);
-			            switch (num32)
-			            {
-			                case 0:
-			                    result = "Ho ho ho, and a bottle of... Egg Nog!";
-			                    break;
-			                case 1:
-			                    result = "Care to bake me some cookies?";
-			                    break;
-			                case 2:
-			                    result = "What? You thought I wasn't real?";
-			                    break;
-			            }
-			        }
-			        break;
-			}
-			return result;
-		}
+        public string GetChat()
+        {
+            Recipe.FindRecipes();
+            string str1 = Main.chrName[18];
+            string str2 = Main.chrName[17];
+            string str3 = Main.chrName[19];
+            string str4 = Main.chrName[20];
+            string str5 = Main.chrName[38];
+            string str6 = Main.chrName[54];
+            string str7 = Main.chrName[22];
+            string str8 = Main.chrName[108];
+            string str9 = Main.chrName[107];
+            string str10 = Main.chrName[124];
+            bool flag1 = false;
+            bool flag2 = false;
+            bool flag3 = false;
+            bool flag4 = false;
+            bool flag5 = false;
+            bool flag6 = false;
+            bool flag7 = false;
+            bool flag8 = false;
+            bool flag9 = false;
+            for (int index = 0; index < 200; ++index)
+            {
+                if (Main.npc[index].active)
+                {
+                    if (Main.npc[index].type == 17)
+                        flag1 = true;
+                    else if (Main.npc[index].type == 18)
+                        flag2 = true;
+                    else if (Main.npc[index].type == 19)
+                        flag3 = true;
+                    else if (Main.npc[index].type == 20)
+                        flag4 = true;
+                    else if (Main.npc[index].type == 37)
+                        flag5 = true;
+                    else if (Main.npc[index].type == 38)
+                        flag6 = true;
+                    else if (Main.npc[index].type == 124)
+                        flag7 = true;
+                    else if (Main.npc[index].type == 107)
+                        flag8 = true;
+                    else if (Main.npc[index].type == 2)
+                        flag9 = true;
+                }
+            }
+            string str11 = "";
+            if (this.type == 17)
+            {
+                if (!NPC.downedBoss1 && Main.rand.Next(3) == 0)
+                    str11 = Main.player[Main.myPlayer].statLifeMax >= 200 ? (Main.player[Main.myPlayer].statDefense > 10 ? Lang.dialog(3) : Lang.dialog(2)) : Lang.dialog(1);
+                else if (Main.dayTime)
+                {
+                    if (Main.time < 16200.0)
+                    {
+                        switch (Main.rand.Next(3))
+                        {
+                            case 0:
+                                str11 = Lang.dialog(4);
+                                break;
+                            case 1:
+                                str11 = Lang.dialog(5);
+                                break;
+                            default:
+                                str11 = Lang.dialog(6);
+                                break;
+                        }
+                    }
+                    else if (Main.time > 37800.0)
+                    {
+                        switch (Main.rand.Next(3))
+                        {
+                            case 0:
+                                str11 = Lang.dialog(7);
+                                break;
+                            case 1:
+                                str11 = Lang.dialog(8);
+                                break;
+                            default:
+                                str11 = Lang.dialog(9);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (Main.rand.Next(3))
+                        {
+                            case 0:
+                                str11 = Lang.dialog(10);
+                                break;
+                            case 1:
+                                str11 = Lang.dialog(11);
+                                break;
+                            default:
+                                str11 = Lang.dialog(12);
+                                break;
+                        }
+                    }
+                }
+                else if (Main.bloodMoon)
+                {
+                    if (flag2 && flag7 && Main.rand.Next(3) == 0)
+                    {
+                        str11 = Lang.dialog(13);
+                    }
+                    else
+                    {
+                        switch (Main.rand.Next(4))
+                        {
+                            case 0:
+                                str11 = Lang.dialog(14);
+                                break;
+                            case 1:
+                                str11 = Lang.dialog(15);
+                                break;
+                            case 2:
+                                str11 = Lang.dialog(16);
+                                break;
+                            default:
+                                str11 = Lang.dialog(17);
+                                break;
+                        }
+                    }
+                }
+                else if (Main.time < 9720.0)
+                    str11 = Main.rand.Next(2) != 0 ? Lang.dialog(19) : Lang.dialog(18);
+                else if (Main.time > 22680.0)
+                {
+                    str11 = Main.rand.Next(2) != 0 ? Lang.dialog(21) : Lang.dialog(20);
+                }
+                else
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(22);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(23);
+                            break;
+                        default:
+                            str11 = Lang.dialog(24);
+                            break;
+                    }
+                }
+            }
+            else if (this.type == 18)
+            {
+                if (Main.bloodMoon)
+                {
+                    if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax * 0.66)
+                    {
+                        switch (Main.rand.Next(3))
+                        {
+                            case 0:
+                                str11 = Lang.dialog(25);
+                                break;
+                            case 1:
+                                str11 = Lang.dialog(26);
+                                break;
+                            default:
+                                str11 = Lang.dialog(27);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (Main.rand.Next(4))
+                        {
+                            case 0:
+                                str11 = Lang.dialog(28);
+                                break;
+                            case 1:
+                                str11 = Lang.dialog(29);
+                                break;
+                            case 2:
+                                str11 = Lang.dialog(30);
+                                break;
+                            default:
+                                str11 = Lang.dialog(31);
+                                break;
+                        }
+                    }
+                }
+                else if (Main.rand.Next(3) == 0 && !NPC.downedBoss3)
+                    str11 = Lang.dialog(32);
+                else if (flag6 && Main.rand.Next(4) == 0)
+                    str11 = Lang.dialog(33);
+                else if (flag3 && Main.rand.Next(4) == 0)
+                    str11 = Lang.dialog(34);
+                else if (flag9 && Main.rand.Next(4) == 0)
+                    str11 = Lang.dialog(35);
+                else if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax * 0.33)
+                {
+                    switch (Main.rand.Next(5))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(36);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(37);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(38);
+                            break;
+                        case 3:
+                            str11 = Lang.dialog(39);
+                            break;
+                        default:
+                            str11 = Lang.dialog(40);
+                            break;
+                    }
+                }
+                else if ((double)Main.player[Main.myPlayer].statLife < (double)Main.player[Main.myPlayer].statLifeMax * 0.66)
+                {
+                    switch (Main.rand.Next(7))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(41);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(42);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(43);
+                            break;
+                        case 3:
+                            str11 = Lang.dialog(44);
+                            break;
+                        case 4:
+                            str11 = Lang.dialog(45);
+                            break;
+                        case 5:
+                            str11 = Lang.dialog(46);
+                            break;
+                        default:
+                            str11 = Lang.dialog(47);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (Main.rand.Next(4))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(48);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(49);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(50);
+                            break;
+                        default:
+                            str11 = Lang.dialog(51);
+                            break;
+                    }
+                }
+            }
+            else if (this.type == 19)
+            {
+                if (NPC.downedBoss3 && !Main.hardMode)
+                    str11 = Lang.dialog(58);
+                else if (flag2 && Main.rand.Next(5) == 0)
+                    str11 = Lang.dialog(59);
+                else if (flag2 && Main.rand.Next(5) == 0)
+                    str11 = Lang.dialog(60);
+                else if (flag4 && Main.rand.Next(5) == 0)
+                    str11 = Lang.dialog(61);
+                else if (flag6 && Main.rand.Next(5) == 0)
+                    str11 = Lang.dialog(62);
+                else if (flag6 && Main.rand.Next(5) == 0)
+                    str11 = Lang.dialog(63);
+                else if (Main.bloodMoon)
+                {
+                    str11 = Main.rand.Next(2) != 0 ? Lang.dialog(65) : Lang.dialog(64);
+                }
+                else
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(66);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(67);
+                            break;
+                        default:
+                            str11 = Lang.dialog(68);
+                            break;
+                    }
+                }
+            }
+            else if (this.type == 20)
+            {
+                if (!NPC.downedBoss2 && Main.rand.Next(3) == 0)
+                    str11 = Lang.dialog(69);
+                else if (flag3 && Main.rand.Next(4) == 0)
+                    str11 = Lang.dialog(70);
+                else if (flag1 && Main.rand.Next(4) == 0)
+                    str11 = Lang.dialog(71);
+                else if (flag5 && Main.rand.Next(4) == 0)
+                    str11 = Lang.dialog(72);
+                else if (Main.bloodMoon)
+                {
+                    switch (Main.rand.Next(4))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(73);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(74);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(75);
+                            break;
+                        default:
+                            str11 = Lang.dialog(76);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (Main.rand.Next(5))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(77);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(78);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(79);
+                            break;
+                        case 3:
+                            str11 = Lang.dialog(80);
+                            break;
+                        default:
+                            str11 = Lang.dialog(81);
+                            break;
+                    }
+                }
+            }
+            else if (this.type == 37)
+            {
+                if (Main.dayTime)
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(82);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(83);
+                            break;
+                        default:
+                            str11 = Lang.dialog(84);
+                            break;
+                    }
+                }
+                else if (Main.player[Main.myPlayer].statLifeMax < 300 || Main.player[Main.myPlayer].statDefense < 10)
+                {
+                    switch (Main.rand.Next(4))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(85);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(86);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(87);
+                            break;
+                        default:
+                            str11 = Lang.dialog(88);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (Main.rand.Next(4))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(89);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(90);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(91);
+                            break;
+                        default:
+                            str11 = Lang.dialog(92);
+                            break;
+                    }
+                }
+            }
+            else if (this.type == 38)
+            {
+                if (!NPC.downedBoss2 && Main.rand.Next(3) == 0)
+                    Lang.dialog(93);
+                if (Main.bloodMoon)
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(94);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(95);
+                            break;
+                        default:
+                            str11 = Lang.dialog(96);
+                            break;
+                    }
+                }
+                else if (flag3 && Main.rand.Next(5) == 0)
+                    str11 = Lang.dialog(97);
+                else if (flag3 && Main.rand.Next(5) == 0)
+                    str11 = Lang.dialog(98);
+                else if (flag2 && Main.rand.Next(4) == 0)
+                    str11 = Lang.dialog(99);
+                else if (flag4 && Main.rand.Next(4) == 0)
+                    str11 = Lang.dialog(100);
+                else if (!Main.dayTime)
+                {
+                    switch (Main.rand.Next(4))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(101);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(102);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(103);
+                            break;
+                        default:
+                            str11 = Lang.dialog(104);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (Main.rand.Next(5))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(105);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(106);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(107);
+                            break;
+                        case 3:
+                            str11 = Lang.dialog(108);
+                            break;
+                        default:
+                            str11 = Lang.dialog(109);
+                            break;
+                    }
+                }
+            }
+            else if (this.type == 54)
+            {
+                if (!flag7 && Main.rand.Next(2) == 0)
+                    str11 = Lang.dialog(110);
+                else if (Main.bloodMoon)
+                    str11 = Lang.dialog(111);
+                else if (flag2 && Main.rand.Next(4) == 0)
+                    str11 = Lang.dialog(112);
+                else if (Main.player[Main.myPlayer].head == 24)
+                {
+                    str11 = Lang.dialog(113);
+                }
+                else
+                {
+                    switch (Main.rand.Next(6))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(114);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(115);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(116);
+                            break;
+                        case 3:
+                            str11 = Lang.dialog(117);
+                            break;
+                        case 4:
+                            str11 = Lang.dialog(118);
+                            break;
+                        default:
+                            str11 = Lang.dialog(119);
+                            break;
+                    }
+                }
+            }
+            else if (this.type == 105)
+                str11 = Lang.dialog(120);
+            else if (this.type == 107)
+            {
+                if (this.homeless)
+                {
+                    switch (Main.rand.Next(5))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(121);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(122);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(123);
+                            break;
+                        case 3:
+                            str11 = Lang.dialog(124);
+                            break;
+                        default:
+                            str11 = Lang.dialog(125);
+                            break;
+                    }
+                }
+                else if (flag7 && Main.rand.Next(4) == 0)
+                    str11 = Lang.dialog(126);
+                else if (!Main.dayTime)
+                {
+                    switch (Main.rand.Next(5))
+                    {
+                        case 0:
+                            str11 = Lang.dialog((int)sbyte.MaxValue);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(128);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(129);
+                            break;
+                        case 3:
+                            str11 = Lang.dialog(130);
+                            break;
+                        default:
+                            str11 = Lang.dialog(131);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (Main.rand.Next(5))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(132);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(133);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(134);
+                            break;
+                        case 3:
+                            str11 = Lang.dialog(135);
+                            break;
+                        default:
+                            str11 = Lang.dialog(136);
+                            break;
+                    }
+                }
+            }
+            else if (this.type == 106)
+                str11 = Lang.dialog(137);
+            else if (this.type == 108)
+            {
+                if (this.homeless)
+                {
+                    int num = Main.rand.Next(3);
+                    if (num == 0)
+                        str11 = Lang.dialog(138);
+                    else if (num == 1 && !Main.player[Main.myPlayer].male)
+                        str11 = Lang.dialog(139);
+                    else if (num == 1)
+                        str11 = Lang.dialog(140);
+                    else if (num == 2)
+                        str11 = Lang.dialog(141);
+                }
+                else if (Main.player[Main.myPlayer].male && flag9 && Main.rand.Next(6) == 0)
+                    str11 = Lang.dialog(142);
+                else if (Main.player[Main.myPlayer].male && flag6 && Main.rand.Next(6) == 0)
+                    str11 = Lang.dialog(143);
+                else if (Main.player[Main.myPlayer].male && flag8 && Main.rand.Next(6) == 0)
+                    str11 = Lang.dialog(144);
+                else if (!Main.player[Main.myPlayer].male && flag2 && Main.rand.Next(6) == 0)
+                    str11 = Lang.dialog(145);
+                else if (!Main.player[Main.myPlayer].male && flag7 && Main.rand.Next(6) == 0)
+                    str11 = Lang.dialog(146);
+                else if (!Main.player[Main.myPlayer].male && flag4 && Main.rand.Next(6) == 0)
+                    str11 = Lang.dialog(147);
+                else if (!Main.dayTime)
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(148);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(149);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(150);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (Main.rand.Next(5))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(151);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(152);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(153);
+                            break;
+                        case 3:
+                            str11 = Lang.dialog(154);
+                            break;
+                        default:
+                            str11 = Lang.dialog(155);
+                            break;
+                    }
+                }
+            }
+            else if (this.type == 123)
+                str11 = Lang.dialog(156);
+            else if (this.type == 124)
+            {
+                if (this.homeless)
+                {
+                    switch (Main.rand.Next(4))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(157);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(158);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(159);
+                            break;
+                        default:
+                            str11 = Lang.dialog(160);
+                            break;
+                    }
+                }
+                else if (Main.bloodMoon)
+                {
+                    switch (Main.rand.Next(4))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(161);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(162);
+                            break;
+                        case 2:
+                            str11 = Lang.dialog(163);
+                            break;
+                        default:
+                            str11 = Lang.dialog(164);
+                            break;
+                    }
+                }
+                else if (flag8 && Main.rand.Next(6) == 0)
+                    str11 = Lang.dialog(165);
+                else if (flag3 && Main.rand.Next(6) == 0)
+                {
+                    str11 = Lang.dialog(166);
+                }
+                else
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(167);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(168);
+                            break;
+                        default:
+                            str11 = Lang.dialog(169);
+                            break;
+                    }
+                }
+            }
+            else if (this.type == 22)
+            {
+                if (Main.bloodMoon)
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(170);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(171);
+                            break;
+                        default:
+                            str11 = Lang.dialog(172);
+                            break;
+                    }
+                }
+                else if (!Main.dayTime)
+                {
+                    str11 = Lang.dialog(173);
+                }
+                else
+                {
+                    switch (Main.rand.Next(3))
+                    {
+                        case 0:
+                            str11 = Lang.dialog(174);
+                            break;
+                        case 1:
+                            str11 = Lang.dialog(175);
+                            break;
+                        default:
+                            str11 = Lang.dialog(176);
+                            break;
+                    }
+                }
+            }
+            else if (this.type == 142)
+            {
+                switch (Main.rand.Next(3))
+                {
+                    case 0:
+                        str11 = Lang.dialog(224);
+                        break;
+                    case 1:
+                        str11 = Lang.dialog(225);
+                        break;
+                    case 2:
+                        str11 = Lang.dialog(226);
+                        break;
+                }
+            }
+            return str11;
+        }
 		public object Clone()
 		{
 			return base.MemberwiseClone();

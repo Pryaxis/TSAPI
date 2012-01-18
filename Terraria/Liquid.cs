@@ -38,7 +38,13 @@ namespace Terraria
 				{
 					float num2 = (float)(maxY - i) / (float)(maxY - minY + 1);
 					num2 /= (float)verbose;
-					Main.statusText = "Settling liquids: " + (int)(num2 * 100f + 1f) + "%";
+				    Main.statusText = string.Concat(new object[4]
+				                                        {
+				                                            (object) Lang.gen[27],
+				                                            (object) " ",
+				                                            (object) (int) ((double) num2*100.0 + 1.0),
+				                                            (object) "%"
+				                                        });
 				}
 				else
 				{
@@ -46,7 +52,13 @@ namespace Terraria
 					{
 						float num3 = (float)(maxY - i) / (float)(maxY - minY + 1);
 						num3 /= (float)(-(float)verbose);
-						Main.statusText = "Creating underworld: " + (int)(num3 * 100f + 1f) + "%";
+					    Main.statusText = string.Concat(new object[4]
+					                                        {
+					                                            (object) Lang.gen[18],
+					                                            (object) " ",
+					                                            (object) (int) ((double) num3*100.0 + 1.0),
+					                                            (object) "%"
+					                                        });
 					}
 				}
 				for (int j = 0; j < 2; j++)
