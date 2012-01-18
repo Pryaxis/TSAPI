@@ -1149,219 +1149,228 @@ namespace Terraria
             }
             realsaveWorld(resetTime);
         }
-	    public static void realsaveWorld(bool resetTime = false)
-    {
-      if (Main.worldName == "")
-        Main.worldName = "World";
-      if (WorldGen.saveLock)
-        return;
-      WorldGen.saveLock = true;
-      while (WorldGen.hardLock)
-        Main.statusText = Lang.gen[48];
-      lock (WorldGen.padlock)
-      {
-        try
+        public static void realsaveWorld(bool resetTime = false)
         {
-          Directory.CreateDirectory(Main.WorldPath);
+            if (Main.worldName == "")
+                Main.worldName = "World";
+            if (WorldGen.saveLock)
+                return;
+            WorldGen.saveLock = true;
+            while (WorldGen.hardLock)
+                Main.statusText = Lang.gen[48];
+            lock (WorldGen.padlock)
+            {
+                try
+                {
+                    Directory.CreateDirectory(Main.WorldPath);
+                }
+                catch
+                {
+                }
+                if (Main.skipMenu)
+                    return;
+                bool local_0 = Main.dayTime;
+                WorldGen.tempTime = Main.time;
+                WorldGen.tempMoonPhase = Main.moonPhase;
+                WorldGen.tempBloodMoon = Main.bloodMoon;
+                if (resetTime)
+                {
+                    local_0 = true;
+                    WorldGen.tempTime = 13500.0;
+                    WorldGen.tempMoonPhase = 0;
+                    WorldGen.tempBloodMoon = false;
+                }
+                if (Main.worldPathName == null)
+                    return;
+                new Stopwatch().Start();
+                string local_2 = Main.worldPathName + ".sav";
+                using (FileStream resource_1 = new FileStream(local_2, FileMode.Create))
+                {
+                    using (BinaryWriter resource_0 = new BinaryWriter((Stream) resource_1))
+                    {
+                        resource_0.Write(Main.curRelease);
+                        resource_0.Write(Main.worldName);
+                        resource_0.Write(Main.worldID);
+                        resource_0.Write((int) Main.leftWorld);
+                        resource_0.Write((int) Main.rightWorld);
+                        resource_0.Write((int) Main.topWorld);
+                        resource_0.Write((int) Main.bottomWorld);
+                        resource_0.Write(Main.maxTilesY);
+                        resource_0.Write(Main.maxTilesX);
+                        resource_0.Write(Main.spawnTileX);
+                        resource_0.Write(Main.spawnTileY);
+                        resource_0.Write(Main.worldSurface);
+                        resource_0.Write(Main.rockLayer);
+                        resource_0.Write(WorldGen.tempTime);
+                        resource_0.Write(local_0);
+                        resource_0.Write(WorldGen.tempMoonPhase);
+                        resource_0.Write(WorldGen.tempBloodMoon);
+                        resource_0.Write(Main.dungeonX);
+                        resource_0.Write(Main.dungeonY);
+                        resource_0.Write(NPC.downedBoss1);
+                        resource_0.Write(NPC.downedBoss2);
+                        resource_0.Write(NPC.downedBoss3);
+                        resource_0.Write(NPC.savedGoblin);
+                        resource_0.Write(NPC.savedWizard);
+                        resource_0.Write(NPC.savedMech);
+                        resource_0.Write(NPC.downedGoblins);
+                        resource_0.Write(NPC.downedClown);
+                        resource_0.Write(NPC.downedFrost);
+                        resource_0.Write(WorldGen.shadowOrbSmashed);
+                        resource_0.Write(WorldGen.spawnMeteor);
+                        resource_0.Write((byte) WorldGen.shadowOrbCount);
+                        resource_0.Write(WorldGen.altarCount);
+                        resource_0.Write(Main.hardMode);
+                        resource_0.Write(Main.invasionDelay);
+                        resource_0.Write(Main.invasionSize);
+                        resource_0.Write(Main.invasionType);
+                        resource_0.Write(Main.invasionX);
+                        for (int i = 0; i < Main.maxTilesX; i++)
+                        {
+                            float num = (float) i/(float) Main.maxTilesX;
+                            Main.statusText = string.Concat(new object[4]
+                                                                {
+                                                                    (object) Lang.gen[49],
+                                                                    (object) " ",
+                                                                    (object) (int) ((double) num*100.0 + 1.0),
+                                                                    (object) "%"
+                                                                });
+                            for (int j = 0; j < Main.maxTilesY; j++)
+                            {
+                                if (Main.tile[i, j].type == 127 && Main.tile[i, j].active)
+                                {
+                                    WorldGen.KillTile(i, j, false, false, false);
+                                    WorldGen.KillTile(i, j, false, false, false);
+                                    if (!Main.tile[i, j].active && Main.netMode != 0)
+                                    {
+                                        NetMessage.SendData(17, -1, -1, "", 0, (float) i, (float) j, 0f, 0);
+                                    }
+                                }
+                                TileData tiledata = Main.tile[i, j].Data;
+                                resource_0.Write(tiledata.active);
+                                if (tiledata.active)
+                                {
+                                    resource_0.Write(tiledata.type);
+                                    if (Main.tileFrameImportant[(int) tiledata.type])
+                                    {
+                                        resource_0.Write(tiledata.frameX);
+                                        resource_0.Write(tiledata.frameY);
+                                    }
+                                }
+                                if (Main.tile[i, j].wall > 0)
+                                {
+                                    resource_0.Write(true);
+                                    resource_0.Write(tiledata.wall);
+                                }
+                                else
+                                {
+                                    resource_0.Write(false);
+                                }
+                                if (tiledata.liquid > 0)
+                                {
+                                    resource_0.Write(true);
+                                    resource_0.Write(tiledata.liquid);
+                                    resource_0.Write(tiledata.lava);
+                                }
+                                else
+                                {
+                                    resource_0.Write(false);
+                                }
+                                resource_0.Write(tiledata.wire);
+                                int num2 = 1;
+                                while (j + num2 < Main.maxTilesY && Main.tile[i, j].isTheSameAs(Main.tile[i, j + num2]))
+                                {
+                                    num2++;
+                                }
+                                num2--;
+                                resource_0.Write((short) num2);
+                                j += num2;
+                            }
+                        }
+                        for (int local_10 = 0; local_10 < 1000; ++local_10)
+                        {
+                            if (Main.chest[local_10] == null)
+                            {
+                                resource_0.Write(false);
+                            }
+                            else
+                            {
+                                Chest local_11 = (Chest) Main.chest[local_10].Clone();
+                                resource_0.Write(true);
+                                resource_0.Write(local_11.x);
+                                resource_0.Write(local_11.y);
+                                for (int local_12 = 0; local_12 < Chest.maxItems; ++local_12)
+                                {
+                                    if (local_11.item[local_12].type == 0)
+                                        local_11.item[local_12].stack = 0;
+                                    resource_0.Write((byte) local_11.item[local_12].stack);
+                                    if (local_11.item[local_12].stack > 0)
+                                    {
+                                        resource_0.Write(local_11.item[local_12].netID);
+                                        resource_0.Write(local_11.item[local_12].prefix);
+                                    }
+                                }
+                            }
+                        }
+                        for (int local_13 = 0; local_13 < 1000; ++local_13)
+                        {
+                            if (Main.sign[local_13] == null || Main.sign[local_13].text == null)
+                            {
+                                resource_0.Write(false);
+                            }
+                            else
+                            {
+                                Sign local_14 = (Sign) Main.sign[local_13].Clone();
+                                resource_0.Write(true);
+                                resource_0.Write(local_14.text);
+                                resource_0.Write(local_14.x);
+                                resource_0.Write(local_14.y);
+                            }
+                        }
+                        for (int local_15 = 0; local_15 < 200; ++local_15)
+                        {
+                            NPC local_16 = (NPC) Main.npc[local_15].Clone();
+                            if (local_16.active && local_16.townNPC)
+                            {
+                                resource_0.Write(true);
+                                resource_0.Write(local_16.name);
+                                resource_0.Write(local_16.position.X);
+                                resource_0.Write(local_16.position.Y);
+                                resource_0.Write(local_16.homeless);
+                                resource_0.Write(local_16.homeTileX);
+                                resource_0.Write(local_16.homeTileY);
+                            }
+                        }
+                        resource_0.Write(false);
+                        resource_0.Write(Main.chrName[17]);
+                        resource_0.Write(Main.chrName[18]);
+                        resource_0.Write(Main.chrName[19]);
+                        resource_0.Write(Main.chrName[20]);
+                        resource_0.Write(Main.chrName[22]);
+                        resource_0.Write(Main.chrName[54]);
+                        resource_0.Write(Main.chrName[38]);
+                        resource_0.Write(Main.chrName[107]);
+                        resource_0.Write(Main.chrName[108]);
+                        resource_0.Write(Main.chrName[124]);
+                        resource_0.Write(true);
+                        resource_0.Write(Main.worldName);
+                        resource_0.Write(Main.worldID);
+                        resource_0.Close();
+                        resource_1.Close();
+                        if (File.Exists(Main.worldPathName))
+                        {
+                            Main.statusText = Lang.gen[50];
+                            string local_17 = Main.worldPathName + ".bak";
+                            File.Copy(Main.worldPathName, local_17, true);
+                        }
+                        File.Copy(local_2, Main.worldPathName, true);
+                        File.Delete(local_2);
+                    }
+                }
+                WorldGen.saveLock = false;
+            }
         }
-        catch
-        {
-        }
-        if (Main.skipMenu)
-          return;
-        bool local_0 = Main.dayTime;
-        WorldGen.tempTime = Main.time;
-        WorldGen.tempMoonPhase = Main.moonPhase;
-        WorldGen.tempBloodMoon = Main.bloodMoon;
-        if (resetTime)
-        {
-          local_0 = true;
-          WorldGen.tempTime = 13500.0;
-          WorldGen.tempMoonPhase = 0;
-          WorldGen.tempBloodMoon = false;
-        }
-        if (Main.worldPathName == null)
-          return;
-        new Stopwatch().Start();
-        string local_2 = Main.worldPathName + ".sav";
-        using (FileStream resource_1 = new FileStream(local_2, FileMode.Create))
-        {
-          using (BinaryWriter resource_0 = new BinaryWriter((Stream) resource_1))
-          {
-            resource_0.Write(Main.curRelease);
-            resource_0.Write(Main.worldName);
-            resource_0.Write(Main.worldID);
-            resource_0.Write((int) Main.leftWorld);
-            resource_0.Write((int) Main.rightWorld);
-            resource_0.Write((int) Main.topWorld);
-            resource_0.Write((int) Main.bottomWorld);
-            resource_0.Write(Main.maxTilesY);
-            resource_0.Write(Main.maxTilesX);
-            resource_0.Write(Main.spawnTileX);
-            resource_0.Write(Main.spawnTileY);
-            resource_0.Write(Main.worldSurface);
-            resource_0.Write(Main.rockLayer);
-            resource_0.Write(WorldGen.tempTime);
-            resource_0.Write(local_0);
-            resource_0.Write(WorldGen.tempMoonPhase);
-            resource_0.Write(WorldGen.tempBloodMoon);
-            resource_0.Write(Main.dungeonX);
-            resource_0.Write(Main.dungeonY);
-            resource_0.Write(NPC.downedBoss1);
-            resource_0.Write(NPC.downedBoss2);
-            resource_0.Write(NPC.downedBoss3);
-            resource_0.Write(NPC.savedGoblin);
-            resource_0.Write(NPC.savedWizard);
-            resource_0.Write(NPC.savedMech);
-            resource_0.Write(NPC.downedGoblins);
-            resource_0.Write(NPC.downedClown);
-            resource_0.Write(NPC.downedFrost);
-            resource_0.Write(WorldGen.shadowOrbSmashed);
-            resource_0.Write(WorldGen.spawnMeteor);
-            resource_0.Write((byte) WorldGen.shadowOrbCount);
-            resource_0.Write(WorldGen.altarCount);
-            resource_0.Write(Main.hardMode);
-            resource_0.Write(Main.invasionDelay);
-            resource_0.Write(Main.invasionSize);
-            resource_0.Write(Main.invasionType);
-            resource_0.Write(Main.invasionX);
-            for (int local_5 = 0; local_5 < Main.maxTilesX; ++local_5)
-            {
-              float local_6 = (float) local_5 / (float) Main.maxTilesX;
-              Main.statusText = string.Concat(new object[4]
-              {
-                (object) Lang.gen[49],
-                (object) " ",
-                (object) (int) ((double) local_6 * 100.0 + 1.0),
-                (object) "%"
-              });
-              for (int local_7 = 0; local_7 < Main.maxTilesY; local_7++)
-              {
-                if ((int) Main.tile[local_5, local_7].type == (int) sbyte.MaxValue && Main.tile[local_5, local_7].active)
-                {
-                  WorldGen.KillTile(local_5, local_7, false, false, false);
-                  WorldGen.KillTile(local_5, local_7, false, false, false);
-                  if (!Main.tile[local_5, local_7].active && Main.netMode != 0)
-                    NetMessage.SendData(17, -1, -1, "", 0, (float) local_5, (float) local_7, 0.0f, 0);
-                }
-                Tile local_8 = (Tile) Main.tile[local_5, local_7].Clone();
-                resource_0.Write(local_8.active);
-                if (local_8.active)
-                {
-                  resource_0.Write(local_8.type);
-                  if (Main.tileFrameImportant[(int) local_8.type])
-                  {
-                    resource_0.Write(local_8.frameX);
-                    resource_0.Write(local_8.frameY);
-                  }
-                }
-                if ((int) Main.tile[local_5, local_7].wall > 0)
-                {
-                  resource_0.Write(true);
-                  resource_0.Write(local_8.wall);
-                }
-                else
-                  resource_0.Write(false);
-                if ((int) local_8.liquid > 0)
-                {
-                  resource_0.Write(true);
-                  resource_0.Write(local_8.liquid);
-                  resource_0.Write(local_8.lava);
-                }
-                else
-                  resource_0.Write(false);
-                resource_0.Write(local_8.wire);
-                int local_9 = 1;
-                while (local_7 + local_9 < Main.maxTilesY && local_8.isTheSameAs(Main.tile[local_5, local_7 + local_9]))
-                  ++local_9;
-                int local_9_1 = local_9 - 1;
-                resource_0.Write((short) local_9_1);
-              }
-            }
-            for (int local_10 = 0; local_10 < 1000; ++local_10)
-            {
-              if (Main.chest[local_10] == null)
-              {
-                resource_0.Write(false);
-              }
-              else
-              {
-                Chest local_11 = (Chest) Main.chest[local_10].Clone();
-                resource_0.Write(true);
-                resource_0.Write(local_11.x);
-                resource_0.Write(local_11.y);
-                for (int local_12 = 0; local_12 < Chest.maxItems; ++local_12)
-                {
-                  if (local_11.item[local_12].type == 0)
-                    local_11.item[local_12].stack = 0;
-                  resource_0.Write((byte) local_11.item[local_12].stack);
-                  if (local_11.item[local_12].stack > 0)
-                  {
-                    resource_0.Write(local_11.item[local_12].netID);
-                    resource_0.Write(local_11.item[local_12].prefix);
-                  }
-                }
-              }
-            }
-            for (int local_13 = 0; local_13 < 1000; ++local_13)
-            {
-              if (Main.sign[local_13] == null || Main.sign[local_13].text == null)
-              {
-                resource_0.Write(false);
-              }
-              else
-              {
-                Sign local_14 = (Sign) Main.sign[local_13].Clone();
-                resource_0.Write(true);
-                resource_0.Write(local_14.text);
-                resource_0.Write(local_14.x);
-                resource_0.Write(local_14.y);
-              }
-            }
-            for (int local_15 = 0; local_15 < 200; ++local_15)
-            {
-              NPC local_16 = (NPC) Main.npc[local_15].Clone();
-              if (local_16.active && local_16.townNPC)
-              {
-                resource_0.Write(true);
-                resource_0.Write(local_16.name);
-                resource_0.Write(local_16.position.X);
-                resource_0.Write(local_16.position.Y);
-                resource_0.Write(local_16.homeless);
-                resource_0.Write(local_16.homeTileX);
-                resource_0.Write(local_16.homeTileY);
-              }
-            }
-            resource_0.Write(false);
-            resource_0.Write(Main.chrName[17]);
-            resource_0.Write(Main.chrName[18]);
-            resource_0.Write(Main.chrName[19]);
-            resource_0.Write(Main.chrName[20]);
-            resource_0.Write(Main.chrName[22]);
-            resource_0.Write(Main.chrName[54]);
-            resource_0.Write(Main.chrName[38]);
-            resource_0.Write(Main.chrName[107]);
-            resource_0.Write(Main.chrName[108]);
-            resource_0.Write(Main.chrName[124]);
-            resource_0.Write(true);
-            resource_0.Write(Main.worldName);
-            resource_0.Write(Main.worldID);
-            resource_0.Close();
-            resource_1.Close();
-            if (File.Exists(Main.worldPathName))
-            {
-              Main.statusText = Lang.gen[50];
-              string local_17 = Main.worldPathName + ".bak";
-              File.Copy(Main.worldPathName, local_17, true);
-            }
-            File.Copy(local_2, Main.worldPathName, true);
-            File.Delete(local_2);
-          }
-        }
-        WorldGen.saveLock = false;
-      }
-    }
-        public static void loadWorld()
+	    public static void loadWorld()
         {
             Main.checkXMas();
             if (!File.Exists(Main.worldPathName) && Main.autoGen)
