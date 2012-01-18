@@ -1706,10 +1706,8 @@ namespace Terraria
                     else
                         WorldGen.moveRoom((int) num4, (int) num5, (int) num3);
                 }
-                else
+                else if ((int) num2 == 61)
                 {
-                    if ((int) num2 != 61)
-                        return;
                     int plr = BitConverter.ToInt32(this.readBuffer, index1);
                     int startIndex = index1 + 4;
                     int Type = BitConverter.ToInt32(this.readBuffer, startIndex);
