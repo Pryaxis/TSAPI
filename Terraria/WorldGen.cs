@@ -847,7 +847,7 @@ namespace Terraria
 			Main.PlaySound(10, -1, -1, 1);
 			WorldGen.clearWorld();
 			WorldGen.generateWorld(-1);
-			WorldGen.saveWorld(true);
+			WorldGen.realsaveWorld(true);
 			while( saveLock )
 			{
 			}
