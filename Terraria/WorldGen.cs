@@ -848,7 +848,11 @@ namespace Terraria
 			WorldGen.clearWorld();
 			WorldGen.generateWorld(-1);
 			WorldGen.saveWorld(true);
-			Main.LoadWorlds();
+			while( saveLock )
+			{
+			}
+
+		    Main.LoadWorlds();
 			if (Main.menuMode == 10)
 			{
 				Main.menuMode = 6;
