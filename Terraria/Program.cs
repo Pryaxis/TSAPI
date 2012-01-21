@@ -118,8 +118,14 @@ namespace Terraria
         {
             if (!Directory.Exists("ServerPlugins"))
             {
+	    if (Directory.Exists("serverplugins")){
+	    Console.WriteLine("Case sensitive filesystem detected - fixing your serverplugins directory");
+	    Directory.Move("serverplugins","ServerPlugins");
+	    }
+	    else
+	    {
                 Directory.CreateDirectory("ServerPlugins");
-            }
+            }}
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(Program.CurrentDomain_AssemblyResolve);
             FileInfo[] files = new DirectoryInfo("ServerPlugins").GetFiles("*.dll");
             for (int i = 0; i < files.Length; i++)
