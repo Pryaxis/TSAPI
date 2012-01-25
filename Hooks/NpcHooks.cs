@@ -5,10 +5,13 @@ namespace Hooks
 	public static class NpcHooks
 	{
 		public delegate void StrikeNpcD(NpcStrikeEventArgs e);
+        public delegate void SpawnNpcD(NpcSpawnEventArgs e);
 		public static event SetDefaultsD<NPC, int> SetDefaultsInt;
 		public static event SetDefaultsD<NPC, string> SetDefaultsString;
         public static event SetDefaultsD<NPC, int> NetDefaults;
 		public static event NpcHooks.StrikeNpcD StrikeNpc;
+	    public static event SpawnNpcD SpawnNpc;
+
 		public static void OnSetDefaultsInt(ref int npctype, NPC npc)
 		{
 			if (NpcHooks.SetDefaultsInt == null)
@@ -76,5 +79,19 @@ namespace Hooks
 		    retdamage = npcStrikeEventArgs.ReturnDamage;
 			return npcStrikeEventArgs.Handled;
 		}
+
+        public static bool OnSpawnNpc(NPC npc )
+        {
+            if( SpawnNpc == null )
+            {
+                return false;
+            }
+            NpcSpawnEventArgs npcSpawnEventArgs = new NpcSpawnEventArgs
+                                                        {
+                                                            Npc = npc
+                                                        };
+            NpcHooks.SpawnNpc(npcSpawnEventArgs);
+            return npcSpawnEventArgs.Handled;
+        }
 	}
 }

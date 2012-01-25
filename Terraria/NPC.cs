@@ -16642,6 +16642,7 @@ namespace Terraria
 				NPC.noSpawnCycle = false;
 				return;
 			}
+
 			bool flag = false;
 			bool flag2 = false;
 			int num = 0;
@@ -18044,6 +18045,10 @@ namespace Terraria
 			{
 				Main.npc[num] = new NPC();
 				Main.npc[num].SetDefaults(Type, -1f);
+                if (NpcHooks.OnSpawnNpc( Main.npc[num]) )
+                {
+                    return 200;
+                }
 				Main.npc[num].position.X = (float)(X - Main.npc[num].width / 2);
 				Main.npc[num].position.Y = (float)(Y - Main.npc[num].height);
 				Main.npc[num].active = true;
