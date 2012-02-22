@@ -929,8 +929,8 @@ namespace Terraria
 							Console.WriteLine("Load failed!  No backup found.");
 							return;
 						}
-						File.Copy(Main.worldPathName + ".bak", Main.worldPathName, true);
-						File.Delete(Main.worldPathName + ".bak");
+						File.Delete(Main.worldPathName);
+						File.Move(Main.worldPathName + ".bak", Main.worldPathName);
 						WorldGen.loadWorld();
 						if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 						{
@@ -1011,8 +1011,8 @@ namespace Terraria
 							Console.WriteLine("Load failed!  No backup found.");
 							return;
 						}
-						File.Copy(Main.worldPathName + ".bak", Main.worldPathName, true);
-						File.Delete(Main.worldPathName + ".bak");
+						File.Delete(Main.worldPathName);
+						File.Move(Main.worldPathName + ".bak", Main.worldPathName);
 						WorldGen.loadWorld();
 						if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 						{
@@ -1079,7 +1079,7 @@ namespace Terraria
 			WorldGen.noLiquidCheck = false;
 			Liquid.numLiquid = 0;
 			LiquidBuffer.numLiquidBuffer = 0;
-            Main.tile.SetSize(Main.maxTilesX + 10, Main.maxTilesY + 10);
+			Main.tile.SetSize(Main.maxTilesX + 1, Main.maxTilesY + 1);
 			if (Main.netMode == 1 || WorldGen.lastMaxTilesX > Main.maxTilesX || WorldGen.lastMaxTilesY > Main.maxTilesY)
 			{
 				for (int i = 0; i < WorldGen.lastMaxTilesX; i++)
@@ -1088,7 +1088,7 @@ namespace Terraria
 					Main.statusText = "Freeing unused resources: " + (int)(num * 100f + 1f) + "%";
 					for (int j = 0; j < WorldGen.lastMaxTilesY; j++)
 					{
-						Main.tile[i, j].Data = new TileData();
+						Main.tile.clear(i, j);
 					}
 				}
 			}
@@ -1096,15 +1096,7 @@ namespace Terraria
 			WorldGen.lastMaxTilesY = Main.maxTilesY;
 			if (Main.netMode != 1)
 			{
-				for (int k = 0; k < Main.maxTilesX; k++)
-				{
-					float num2 = (float)k / (float)Main.maxTilesX;
-					Main.statusText = "Resetting game objects: " + (int)(num2 * 100f + 1f) + "%";
-					for (int l = 0; l < Main.maxTilesY; l++)
-					{
-
-					}
-				}
+				Main.tile.reset();
 			}
 			for (int m = 0; m < 2000; m++)
 			{
@@ -1250,7 +1242,7 @@ namespace Terraria
                                         NetMessage.SendData(17, -1, -1, "", 0, (float) i, (float) j, 0f, 0);
                                     }
                                 }
-                                TileData tiledata = Main.tile[i, j].Data;
+                                Tile tiledata = Main.tile[i, j];
                                 resource_0.Write(tiledata.active);
                                 if (tiledata.active)
                                 {
@@ -1365,10 +1357,10 @@ namespace Terraria
                         {
                             Main.statusText = Lang.gen[50];
                             string local_17 = Main.worldPathName + ".bak";
-                            File.Copy(Main.worldPathName, local_17, true);
+                            File.Delete(local_17);
+                            File.Move(Main.worldPathName, local_17);
                         }
-                        File.Copy(local_2, Main.worldPathName, true);
-                        File.Delete(local_2);
+                        File.Move(local_2, Main.worldPathName);
                     }
                 }
                 WorldGen.saveLock = false;
@@ -2005,6 +1997,7 @@ namespace Terraria
 		}
 		public static void generateWorld(int seed = -1)
 		{
+			DateTime start = DateTime.Now;
 			Main.checkXMas();
 			NPC.clrNames();
 			NPC.setNames();
@@ -4696,6 +4689,10 @@ namespace Terraria
 				num335++;
 			}
 			WorldGen.gen = false;
+			string tileStatus = Main.tile.status;
+			if (!string.IsNullOrEmpty(tileStatus))
+				Console.WriteLine(tileStatus);
+			Console.WriteLine(string.Format("World Generation took {0} seconds", (DateTime.Now - start).TotalSeconds));
 		}
 		public static bool GrowEpicTree(int i, int y)
 		{
