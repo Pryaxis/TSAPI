@@ -76,9 +76,50 @@ namespace Terraria
 		public bool lighted;
 		public bool skipLiquid;
 		public bool wire;
-		public short frameX;
-		public short frameY;
 #endif
+		[Obsolete("Direct Access of TileData is now deprecicated please use the Tile object instead")]
+		public TileData Data
+		{
+			get
+			{
+				TileData data = new TileData();
+				data.active = active;
+				data.checkingLiquid = checkingLiquid;
+				data.frameNumber = frameNumber;
+				data.frameX = frameX;
+				data.frameY = frameY;
+				data.lava = lava;
+				data.lighted = lighted;
+				data.liquid = liquid;
+				data.skipLiquid = skipLiquid;
+				data.type = type;
+				data.wall = wall;
+				data.wallFrameNumber = wallFrameNumber;
+				data.wallFrameX = wallFrameX;
+				data.wallFrameY = wallFrameY;
+				data.wire = this.wire;
+				return data;
+			}
+			set
+			{
+				active = value.active;
+				checkingLiquid = value.checkingLiquid;
+				frameNumber = value.frameNumber;
+				frameX = value.frameX;
+				frameY = value.frameY;
+				lava = value.lava;
+				lighted = value.lighted;
+				liquid = value.liquid;
+				skipLiquid = value.skipLiquid;
+				type = value.type;
+				wall = value.wall;
+				wallFrameNumber = value.wallFrameNumber;
+				wallFrameX = value.wallFrameX;
+				wallFrameY = value.wallFrameY;
+				wire = this.wire;
+			}
+		}
+
 		public bool isTheSameAs(Tile compTile)
 		{
 			if (this.active != compTile.active)
@@ -148,6 +189,7 @@ namespace Terraria
 				}
 				return tile;
 			}
+			set { tiles[x * TileCollection.y + y] = value; }
 		}
 		internal void SetSize(int x, int y)
 		{
@@ -155,6 +197,83 @@ namespace Terraria
 			TileCollection.y = y;
 			tiles = new Tile[x * y + y];
 		}
+	}
+
+	[Obsolete("Use of TileData is now deprecicated please use the Tile object instead")]
+	[StructLayout(LayoutKind.Sequential, Pack = 1)]
+	public struct TileData
+	{
+		public byte liquid;
+		public byte type;
+		public byte wall;
+		public byte wallFrameNumber;
+		public byte wallFrameX;
+		public byte wallFrameY;
+		public short frameX;
+		public short frameY;
+
+#if TILE_BITPACK
+		public bool active
+		{
+			get { return (byte)(this.Flags & TileFlag.Active) != 0; }
+			set { this.SetFlag(TileFlag.Active, value); }
+		}
+
+		public bool checkingLiquid
+		{
+			get { return (byte)(this.Flags & TileFlag.CheckingLiquid) != 0; }
+			set { this.SetFlag(TileFlag.CheckingLiquid, value); }
+		}
+
+		public byte frameNumber
+		{
+			get { return (byte)(this.Flags & (TileFlag)3); }
+			set { this.Flags = ((this.Flags & (TileFlag)252) | (TileFlag)value); }
+		}
+
+		public bool lava
+		{
+			get { return (byte)(this.Flags & TileFlag.Lava) != 0; }
+			set { this.SetFlag(TileFlag.Lava, value); }
+		}
+
+		public bool lighted
+		{
+			get { return (byte)(this.Flags & TileFlag.Lighted) != 0; }
+			set { this.SetFlag(TileFlag.Lighted, value); }
+		}
+
+		public bool skipLiquid
+		{
+			get { return (byte)(this.Flags & TileFlag.SkipLiquid) != 0; }
+			set { this.SetFlag(TileFlag.SkipLiquid, value); }
+		}
+
+		public bool wire
+		{
+			get { return (byte)(this.Flags & TileFlag.Wire) != 0; }
+			set { this.SetFlag(TileFlag.Wire, value); }
+		}
+
+		private void SetFlag(TileFlag flag, bool set)
+		{
+			if (set)
+				Flags |= flag;
+			else
+				Flags &= ~flag;
+		}
+
+		private TileFlag Flags;
+#else
+
+		public bool active;
+		public bool checkingLiquid;
+		public byte frameNumber;
+		public bool lava;
+		public bool lighted;
+		public bool skipLiquid;
+		public bool wire;
+#endif
 	}
 
 	public enum TileFlag : byte
