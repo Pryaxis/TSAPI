@@ -7,14 +7,14 @@ namespace Terraria
 {
 	public sealed class Tile
 	{
-		public byte liquid;
-		public byte type;
-		public byte wall;
-		public byte wallFrameNumber;
-		public byte wallFrameX;
-		public byte wallFrameY;
-		public short frameX;
-		public short frameY;
+		public byte liquid { get; set; }
+		public byte type { get; set; }
+		public byte wall { get; set; }
+		public byte wallFrameNumber { get; set; }
+		public byte wallFrameX { get; set; }
+		public byte wallFrameY { get; set; }
+		public short frameX { get; set; }
+		public short frameY { get; set; }
 
 #if TILE_BITPACK
 		public TileFlag Flags;
