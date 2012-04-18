@@ -7,12 +7,14 @@ namespace Hooks
 	{
 		private static bool oldGameMenu;
 		public static event Action Update;
+        public delegate void HardUpdateD(HardUpdateEventArgs e);
 		public static event Action PostUpdate;
 		public static event Action Initialize;
 		public static event Action PostInitialize;
 		public static event Action WorldConnect;
 		public static event Action WorldDisconnect;
 		public static event Action<HandledEventArgs> GetKeyState;
+        public static event HardUpdateD HardUpdate;
 		public static bool IsWorldRunning
 		{
 			get;
@@ -99,5 +101,21 @@ namespace Hooks
 			GameHooks.GetKeyState(handledEventArgs);
 			return handledEventArgs.Handled;
 		}
+
+        public static bool OnHardUpdate(int x, int y, int type)
+        {
+            if (HardUpdate == null)
+            {
+                return false;
+            }
+            HardUpdateEventArgs args = new HardUpdateEventArgs
+            {
+                X = x,
+                Y = y,
+                Type = type
+            };
+            GameHooks.HardUpdate(args);
+            return args.Handled;
+        }
 	}
 }

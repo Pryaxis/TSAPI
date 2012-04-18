@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIVersionAttribute.cs" />
+    <Compile Include="Hooks\Classes\HardUpdateEventArgs.cs" />
     <Compile Include="Hooks\Classes\NpcSpawnEventArgs.cs" />
     <Compile Include="Terraria\Lang.cs" />
     <Compile Include="XNA\Color.cs" />
