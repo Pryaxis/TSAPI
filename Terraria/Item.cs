@@ -10612,7 +10612,8 @@ namespace Terraria
 					}
 				}
 			}
-			return num2 < 3 && num3 < 6 && num < 10;
+
+			return GameHooks.OnStatueSpawn(num2, num3, num, type, false);
 		}
         public void UpdateItem(int i)
         {

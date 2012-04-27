@@ -8,6 +8,7 @@ namespace Hooks
 		private static bool oldGameMenu;
 		public static event Action Update;
         public delegate void HardUpdateD(HardUpdateEventArgs e);
+        public delegate void StatueSpawnD(StatueSpawnEventArgs e);
 		public static event Action PostUpdate;
 		public static event Action Initialize;
 		public static event Action PostInitialize;
@@ -15,6 +16,7 @@ namespace Hooks
 		public static event Action WorldDisconnect;
 		public static event Action<HandledEventArgs> GetKeyState;
         public static event HardUpdateD HardUpdate;
+        public static event StatueSpawnD StatueSpawn;
 		public static bool IsWorldRunning
 		{
 			get;
@@ -117,5 +119,25 @@ namespace Hooks
             GameHooks.HardUpdate(args);
             return args.Handled;
         }
-	}
+
+        public static bool OnStatueSpawn(int n1, int n2, int n3, int type, bool npc)
+        {
+            if (StatueSpawn == null)
+            {
+                return false;
+            }
+            StatueSpawnEventArgs args = new StatueSpawnEventArgs
+            {
+                Within200 = n1,
+                Within600 = n2,
+                WorldWide = n3,
+                Type = type,
+                NPC = npc
+            };
+
+            GameHooks.StatueSpawn(args);
+
+            return args.Handled;
+        }
+    }
 }
