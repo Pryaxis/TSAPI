@@ -128,7 +128,10 @@ namespace Terraria
 				Directory.Move("serverplugins","ServerPlugins");}
 				else{
 				Directory.CreateDirectory("ServerPlugins");
-				}}	
+				}}
+		    var ignoredfiles = new List<String>();
+            if (File.Exists(Path.Combine("ServerPlugins", "ignoredplugins.txt")))
+                ignoredfiles.AddRange(File.ReadAllLines(Path.Combine("ServerPlugins", "ignoredplugins.txt")));
 			AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 			List<FileInfo> files = new DirectoryInfo("ServerPlugins").GetFiles("*.dll").ToList();
 			files.AddRange(new DirectoryInfo("ServerPlugins").GetFiles("*.dll-plugin"));
@@ -138,7 +141,12 @@ namespace Terraria
 				try
 				{
 					string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileInfo.Name);
-					Assembly assembly;
+                    if (ignoredfiles.Contains(fileNameWithoutExtension))
+                    {
+                        Console.WriteLine("{0} was ignored from being loaded.", fileNameWithoutExtension);
+                        continue;
+                    }
+				    Assembly assembly;
 					if (!LoadedAssemblies.TryGetValue(fileNameWithoutExtension, out assembly))
 					{
 						assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName));
