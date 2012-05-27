@@ -84,7 +84,8 @@ namespace Terraria
 							break;
 						case "-ignoreversion":
 							IgnoreVersion = true;
-							Console.WriteLine("Ignoring API version checks on plguins.");
+							Console.WriteLine("WARNING: Versions are no longer being regarded!");
+                            Console.WriteLine("You are on your own! If problems arise, TShock developers will not help you with issues regarding this.");
 							break;
 					}
 				}
