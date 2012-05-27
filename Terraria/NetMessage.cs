@@ -33,10 +33,11 @@ namespace Terraria
             {
                 num = remoteClient;
             }
-            lock (NetMessage.buffer[num])
+
             {
                 if (!NetHooks.OnSendData(ref msgType, ref remoteClient, ref ignoreClient, ref text, ref number, ref number2, ref number3, ref number4, ref number5))
                 {
+            lock (NetMessage.buffer[num])
                     int num2 = 5;
                     int num3 = num2;
                     switch (msgType)
