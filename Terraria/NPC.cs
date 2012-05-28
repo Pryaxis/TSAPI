@@ -2066,7 +2066,7 @@ namespace Terraria
 				}
 			}
 
-            return GameHooks.OnStatueSpawn(num2, num3, num, type, true);
+            return GameHooks.OnStatueSpawn(num2, num3, num, (int)(x/16), (int)(y/16), type, true);
 		}
 		public static int TypeToNum(int type)
 		{

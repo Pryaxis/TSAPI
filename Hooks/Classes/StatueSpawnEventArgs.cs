@@ -11,6 +11,8 @@ namespace Hooks
         public int Within200 { get; set; }
         public int Within600 { get; set; }
         public int WorldWide { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
         public int Type { get; set; }
         public bool NPC { get; set; }
 	}

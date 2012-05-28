@@ -120,7 +120,7 @@ namespace Hooks
             return args.Handled;
         }
 
-        public static bool OnStatueSpawn(int n1, int n2, int n3, int type, bool npc)
+        public static bool OnStatueSpawn(int n1, int n2, int n3, int x, int y, int type, bool npc)
         {
             if (StatueSpawn == null)
             {
@@ -131,6 +131,8 @@ namespace Hooks
                 Within200 = n1,
                 Within600 = n2,
                 WorldWide = n3,
+                X = x,
+                Y = y,
                 Type = type,
                 NPC = npc
             };
