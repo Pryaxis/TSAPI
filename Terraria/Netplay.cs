@@ -334,23 +334,28 @@ namespace Terraria
                     try
                     {
                         Netplay.serverSock[num].tcpClient = Netplay.tcpListener.AcceptTcpClient();
-			string tmp;
-			bool quick=false;
-			try{
- 					tmp=Netplay.serverSock[num].tcpClient.Client.RemoteEndPoint.ToString();
-					}
-			catch (Exception ex){
-			      tmp="0.0.0.0";
-			      quick=true;
-			      }
+                        string tmp;
+                        bool quick = false;
+                        try
+                        {
+                            tmp = Netplay.serverSock[num].tcpClient.Client.RemoteEndPoint.ToString();
+                        }
+                        catch (Exception ex)
+                        {
+                            tmp = "0.0.0.0";
+                            quick = true;
+                        }
                         Netplay.serverSock[num].tcpClient.NoDelay = true;
                         Netplay.serverSock[num].connectTime = DateTime.UtcNow;
-			if (quick == false){
-                           Console.WriteLine(tmp + " is connecting...");
-			   }else{
-			   Console.WriteLine("Detected quick connection/disconnection on server.. disregarding.");
-			   quick=false;
-			   } 
+                        if (quick == false)
+                        {
+                            Console.WriteLine(tmp + " is connecting...");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Detected quick connection/disconnection on server.. disregarding.");
+                            quick = false;
+                        }
                         if (connectionLimit > 0 &&
                             CheckExistingIP(tmp.Split(':')[0]) > connectionLimit)
                             serverSock[num].kill = true;
