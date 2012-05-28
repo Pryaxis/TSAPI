@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using Hooks;
 using System;
 using System.Text;
@@ -15,7 +16,15 @@ namespace Terraria
                     return;
                 }
                 if (Main.runningMono)
+                {
                     sock.networkStream.Write(buffer, offset, count);
+                    var args = new SocketAsyncEventArgs {AcceptSocket = sock.tcpClient.Client};
+                    /*args.Completed += (sender, eventArgs) => Console.WriteLine("Wrote {0} bytes, error: {1}",
+                                                                               eventArgs.BytesTransferred,
+                                                                               eventArgs.SocketError);*/
+                    args.SetBuffer(buffer, offset, count);
+                    sock.tcpClient.Client.SendAsync(args);
+                }
                 else
                     sock.networkStream.BeginWrite(buffer, offset, count, callback, state);
             }
