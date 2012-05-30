@@ -10,7 +10,7 @@ namespace Terraria
 	internal class ProgramServer
 	{
 		public const string PluginsPath = "ServerPlugins";
-		public static readonly Version ApiVersion = new Version(1, 12, 0, 1);
+		public static readonly Version ApiVersion = new Version(1, 12, 0, 2);
 		public static List<PluginContainer> Plugins = new List<PluginContainer>();
 		public static Dictionary<string, Assembly> LoadedAssemblies = new Dictionary<string, Assembly>();
 		public static bool IgnoreVersion;

@@ -9,10 +9,14 @@ namespace Hooks
 		public delegate void GetDataD(GetDataEventArgs e);
 		public delegate void GreetPlayerD(int who, HandledEventArgs e);
 		public delegate void SendBytesD(ServerSock socket, byte[] buffer, int offset, int count, HandledEventArgs e);
+	    public delegate void NameCheckD(int who, string name, HandledEventArgs e);
+
 		public static event NetHooks.SendDataD SendData;
 		public static event NetHooks.GetDataD GetData;
 		public static event NetHooks.GreetPlayerD GreetPlayer;
 		public static event NetHooks.SendBytesD SendBytes;
+	    public static event NetHooks.NameCheckD NameValidityCheck;
+
 		public static bool OnSendData(ref int msgType, ref int remoteClient, ref int ignoreClient, ref string text, ref int number, ref float number2, ref float number3, ref float number4, ref int number5)
 		{
 			if (NetHooks.SendData == null)
@@ -81,5 +85,11 @@ namespace Hooks
 			NetHooks.SendBytes(socket, buffer, offset, count, handledEventArgs);
 			return handledEventArgs.Handled;
 		}
+        public static bool OnNameCheck(int who, string name)
+        {
+            HandledEventArgs handledEventArgs = new HandledEventArgs();
+            NetHooks.NameValidityCheck(who, name, handledEventArgs);
+            return handledEventArgs.Handled;
+        }
 	}
 }
