@@ -926,7 +926,7 @@ namespace Terraria
                 bool flag = true;
                 while (flag)
                 {
-                    Console.WriteLine("Terraria Server " + Main.versionNumber2);
+                    //Console.WriteLine("Terraria Server " + Main.versionNumber2);
                     Console.WriteLine("");
                     for (int j = 0; j < Main.numLoadWorlds; j++)
                     {

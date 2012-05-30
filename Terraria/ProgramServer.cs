@@ -10,7 +10,7 @@ namespace Terraria
 	internal class ProgramServer
 	{
 		public const string PluginsPath = "ServerPlugins";
-		public static readonly Version ApiVersion = new Version(1, 12, 0, 0);
+		public static readonly Version ApiVersion = new Version(1, 12, 0, 1);
 		public static List<PluginContainer> Plugins = new List<PluginContainer>();
 		public static Dictionary<string, Assembly> LoadedAssemblies = new Dictionary<string, Assembly>();
 		public static bool IgnoreVersion;
@@ -95,6 +95,7 @@ namespace Terraria
 					Terraria.Main.SavePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "My Games", "Terraria");
 				Terraria.Main.WorldPath = Path.Combine(Terraria.Main.SavePath, "Worlds");
 				Terraria.Main.PlayerPath = Path.Combine(Terraria.Main.SavePath, "Players");
+                Console.WriteLine("TerrariaAPI Version: " + ApiVersion + " (Protocol 1.1.2)");
 				Initialize(Game);
 				Game.DedServ();
 				DeInitialize();
