@@ -241,37 +241,33 @@ namespace Terraria
                     Main.player[number].name = text.Trim();
                     if (Main.netMode != 2)
                         return;
-
-                    if (!NetHooks.OnNameCheck(number, text))
+                    if (Netplay.serverSock[this.whoAmI].state < 10)
                     {
-
-                        if (Netplay.serverSock[this.whoAmI].state < 10)
+                        for (int index26 = 0; index26 < (int)byte.MaxValue; ++index26)
                         {
-                            for (int index26 = 0; index26 < (int)byte.MaxValue; ++index26)
-                            {
-                                if (index26 != number && text == Main.player[index26].name &&
-                                    Netplay.serverSock[index26].active)
-                                    flag = true;
-                            }
+                            if (index26 != number && text == Main.player[index26].name &&
+                                Netplay.serverSock[index26].active)
+                                flag = true;
                         }
-                        if (flag)
+                    }
+                    if (flag)
+                    {
+                        if (!NetHooks.OnNameCollision(number, text))
+                        {
                             NetMessage.SendData(2, this.whoAmI, -1, text + " " + Lang.mp[5], 0, 0.0f, 0.0f, 0.0f, 0);
-                        else if (text.Length > Player.nameLen)
-                            NetMessage.SendData(2, this.whoAmI, -1, "Name is too long.", 0, 0.0f, 0.0f, 0.0f, 0);
-                        else if (text == "")
-                        {
-                            NetMessage.SendData(2, this.whoAmI, -1, "Empty name.", 0, 0.0f, 0.0f, 0.0f, 0);
                         }
-                        else
-                        {
-                            Netplay.serverSock[this.whoAmI].oldName = text;
-                            Netplay.serverSock[this.whoAmI].name = text;
-                            NetMessage.SendData(4, -1, this.whoAmI, text, number, 0.0f, 0.0f, 0.0f, 0);
-                        }
+                    }
+                    else if (text.Length > Player.nameLen)
+                        NetMessage.SendData(2, this.whoAmI, -1, "Name is too long.", 0, 0.0f, 0.0f, 0.0f, 0);
+                    else if (text == "")
+                    {
+                        NetMessage.SendData(2, this.whoAmI, -1, "Empty name.", 0, 0.0f, 0.0f, 0.0f, 0);
                     }
                     else
                     {
-                        
+                        Netplay.serverSock[this.whoAmI].oldName = text;
+                        Netplay.serverSock[this.whoAmI].name = text;
+                        NetMessage.SendData(4, -1, this.whoAmI, text, number, 0.0f, 0.0f, 0.0f, 0);
                     }
                 }
                 else if ((int) num2 == 5)
