@@ -723,6 +723,10 @@ namespace Terraria
 					num5++;
 				}
 			}
+            if (WorldHooks.OnMeteorDrop(0,0))
+            {
+                return;
+            }
 			while (!flag)
 			{
 				float num6 = (float)Main.maxTilesX * 0.08f;
