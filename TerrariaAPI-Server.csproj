@@ -80,7 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIVersionAttribute.cs" />
+    <Compile Include="Hooks\Classes\ChristmasCheckEventArgs.cs" />
     <Compile Include="Hooks\Classes\HardUpdateEventArgs.cs" />
+    <Compile Include="Hooks\Classes\MeteorDropEventArgs.cs" />
     <Compile Include="Hooks\Classes\NpcSpawnEventArgs.cs" />
     <Compile Include="Hooks\Classes\StatueSpawnEventArgs.cs" />
     <Compile Include="Terraria\Lang.cs" />

@@ -7,10 +7,12 @@ namespace Hooks
 		public delegate void SaveWorldD(bool resettime, HandledEventArgs e);
         public delegate void StartHardModeD(HandledEventArgs e);
 	    public delegate void MeteorDropD(MeteorDropEventArgs e);
+	    public delegate void ChristmasCheckD(ChristmasCheckEventArgs e);
 
 		public static event WorldHooks.SaveWorldD SaveWorld;
 	    public static event StartHardModeD StartHardMode;
 	    public static event MeteorDropD MeteorDrop;
+	    public static event ChristmasCheckD ChristmasCheck;
 
 		public static bool OnSaveWorld(bool resettime)
 		{
@@ -45,6 +47,17 @@ namespace Hooks
 
             MeteorDrop(args);
             return args.Handled;
+        }
+
+        public static bool OnChristmaCheck(bool xmasCheck)
+        {
+            if(ChristmasCheck == null)
+                return xmasCheck;
+            
+            ChristmasCheckEventArgs args = new ChristmasCheckEventArgs(xmasCheck);
+
+            ChristmasCheck(args);
+            return args.Xmas;
         }
 	}
 }

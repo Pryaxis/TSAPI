@@ -2399,12 +2399,9 @@ namespace Terraria
             DateTime now = DateTime.Now;
             int day = now.Day;
             int month = now.Month;
-            if (day >= 15 && month == 12)
-            {
-                Main.xMas = true;
-                return;
-            }
-            Main.xMas = false;
+            bool xmas = ((day >= 15) && (month == 12));
+
+            Main.xMas = WorldHooks.OnChristmaCheck(xmas);
         }
 
         protected void Update()
