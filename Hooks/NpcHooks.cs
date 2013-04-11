@@ -6,11 +6,15 @@ namespace Hooks
 	{
 		public delegate void StrikeNpcD(NpcStrikeEventArgs e);
         public delegate void SpawnNpcD(NpcSpawnEventArgs e);
+	    public delegate void NPCLootDropD(NpcLootDropEventArgs e);
+
 		public static event SetDefaultsD<NPC, int> SetDefaultsInt;
 		public static event SetDefaultsD<NPC, string> SetDefaultsString;
         public static event SetDefaultsD<NPC, int> NetDefaults;
-		public static event NpcHooks.StrikeNpcD StrikeNpc;
+
+		public static event StrikeNpcD StrikeNpc;
 	    public static event SpawnNpcD SpawnNpc;
+	    public static event NPCLootDropD NPCLootDrop;
 
 		public static void OnSetDefaultsInt(ref int npctype, NPC npc)
 		{
@@ -80,7 +84,7 @@ namespace Hooks
 			return npcStrikeEventArgs.Handled;
 		}
 
-        public static bool OnSpawnNpc(NPC npc )
+        public static bool OnSpawnNpc(NPC npc)
         {
             if( SpawnNpc == null )
             {
@@ -92,6 +96,18 @@ namespace Hooks
                                                         };
             NpcHooks.SpawnNpc(npcSpawnEventArgs);
             return npcSpawnEventArgs.Handled;
+        }
+
+        public static bool OnNPCLootDrop(NpcLootDropEventArgs args)
+        {
+            if (NPCLootDrop == null)
+            {
+                return false;
+            }
+
+            NPCLootDrop(args);
+
+            return args.Handled;
         }
 	}
 }
