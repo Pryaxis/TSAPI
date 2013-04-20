@@ -17,5 +17,6 @@ namespace Hooks
         public bool Broadcast { get; set; }
         public int Prefix { get; set; }
         public int NPCID { get; set; }
+        public int NPCArrayIndex { get; set; }
 	}
 }

@@ -18284,12 +18284,13 @@ namespace Terraria
                 Stack = stack,
                 Broadcast = broadcast,
                 Prefix = prefix,
-                NPCID = type
+                NPCID = type,
+                NPCArrayIndex = whoAmI
             };
 
             if (!NpcHooks.OnNPCLootDrop(args))
 	        {
-                Item.NewItem(args.X, args.Y, args.Width, args.Height, args.ItemID, args.Stack, args.Broadcast, args.Prefix));
+                Item.NewItem(args.X, args.Y, args.Width, args.Height, args.ItemID, args.Stack, args.Broadcast, args.Prefix);
 	        }
 	    }
 
