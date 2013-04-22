@@ -222,7 +222,7 @@ namespace Terraria
                         Netplay.serverSock[k].Reset();
                         NetMessage.syncPlayers();
                     }
-                    else if (serverSock[k].tcpClient != null && serverSock[k].tcpClient.Client == null && serverSock[k].tcpClient.Connected)
+                    else if (serverSock[k].tcpClient != null && serverSock[k].tcpClient.Client != null && serverSock[k].tcpClient.Connected)
                     {
                         if (!Netplay.serverSock[k].active)
                         {
@@ -323,7 +323,7 @@ namespace Terraria
                 int num = -1;
                 for (int i = 0; i < Main.maxNetPlayers; i++)
                 {
-                    if (serverSock[i].tcpClient == null || !Netplay.serverSock[i].tcpClient.Connected)
+                    if (serverSock[i].tcpClient == null || serverSock[i].tcpClient.Client == null || !serverSock[i].tcpClient.Connected)
                     {
                         num = i;
                         break;
@@ -380,7 +380,7 @@ namespace Terraria
         {
             int hit = 0;
             for (int i = 0; i < Main.maxNetPlayers; i++)
-                if (serverSock[i] != null && serverSock[i].tcpClient.Connected &&
+                if (serverSock[i] != null && serverSock[i].tcpClient != null && serverSock[i].tcpClient.Client != null && serverSock[i].tcpClient.Connected &&
                     serverSock[i].tcpClient.Client.RemoteEndPoint.ToString().Split(':')[0] == IP)
                     hit++;
             return hit;
