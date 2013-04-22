@@ -178,7 +178,7 @@ namespace Terraria
                     int num2 = -1;
                     for (int j = 0; j < Main.maxNetPlayers; j++)
                     {
-                        if (serverSock[j].tcpClient == null || !Netplay.serverSock[j].tcpClient.Connected)
+                        if (serverSock[j].tcpClient == null || serverSock[j].tcpClient.Client == null|| !Netplay.serverSock[j].tcpClient.Connected)
                         {
                             num2 = j;
                             break;
@@ -222,7 +222,7 @@ namespace Terraria
                         Netplay.serverSock[k].Reset();
                         NetMessage.syncPlayers();
                     }
-                    else if (serverSock[k].tcpClient != null && Netplay.serverSock[k].tcpClient.Connected)
+                    else if (serverSock[k].tcpClient != null && serverSock[k].tcpClient.Client == null && serverSock[k].tcpClient.Connected)
                     {
                         if (!Netplay.serverSock[k].active)
                         {
