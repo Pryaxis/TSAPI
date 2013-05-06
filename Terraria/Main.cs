@@ -614,6 +614,7 @@ namespace Terraria
         public static Color cursorColor = Color.White;
         public static Color tileColor;
         public static bool runningMono = false;
+        public static bool forceUpdate = false;
 
         public static void LoadWorlds()
         {
@@ -1196,7 +1197,7 @@ namespace Terraria
                     {
                         num7 = 1000.0;
                     }
-                    if (Netplay.anyClients)
+                    if (Netplay.anyClients || Main.forceUpdate)
                     {
                         GameHooks.OnUpdate(true);
                         this.Update();

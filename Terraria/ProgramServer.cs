@@ -87,6 +87,11 @@ namespace Terraria
 							Console.WriteLine("WARNING: Versions are no longer being regarded!");
                             Console.WriteLine("You are on your own! If problems arise, TShock developers will not help you with issues regarding this.");
 							break;
+                        case "-forceupdate":
+					        Terraria.Main.forceUpdate = true;
+                            Console.WriteLine("WARNING: Forcing game updates regardless of players!");
+                            Console.WriteLine("This is experimental, and will cause constant CPU usage, you are on your own.");
+					        break;
 					}
 				}
 				if (Environment.OSVersion.Platform == PlatformID.Unix)
