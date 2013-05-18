@@ -40,6 +40,13 @@ public abstract class TerrariaPlugin : IDisposable
 		get;
 		set;
 	}
+    public virtual string UpdateURL
+    {
+        get
+        {
+            return "";
+        }
+    }
 	protected Main Game
 	{
 		get;
