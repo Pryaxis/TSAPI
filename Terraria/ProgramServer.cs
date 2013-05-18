@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Terraria
 {
-	internal class ProgramServer
+	public class ProgramServer
 	{
 		public const string PluginsPath = "ServerPlugins";
 		public static readonly Version ApiVersion = new Version(1, 13, 0, 0);
