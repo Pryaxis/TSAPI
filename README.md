@@ -1,6 +1,6 @@
 # Terraria Server API
 
-This is the Terraria Server API, the API that [TShock for Terraria](http://github.com/tshock/tshcok) runs on.
+This is the Terraria Server API, the API that [TShock for Terraria](http://github.com/tshock/tshock) runs on.
 
 ## Features
 
