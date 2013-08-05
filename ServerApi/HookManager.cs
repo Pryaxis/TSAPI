@@ -102,25 +102,25 @@ namespace ServerApi
 		}
 		#endregion
 
-		#region GameHardUpdate
-		private readonly HandlerCollection<HardUpdateEventArgs> gameHardUpdate = 
-			new HandlerCollection<HardUpdateEventArgs>("GameHardUpdate");
+		#region GameHardmodeTileUpdate
+		private readonly HandlerCollection<HardmodeTileUpdateEventArgs> gameHardmodeTileUpdate = 
+			new HandlerCollection<HardmodeTileUpdateEventArgs>("GameHardmodeTileUpdate");
 
-		public HandlerCollection<HardUpdateEventArgs> GameHardUpdate
+		public HandlerCollection<HardmodeTileUpdateEventArgs> GameHardmodeTileUpdate
 		{
-			get { return this.gameHardUpdate; }
+			get { return this.gameHardmodeTileUpdate; }
 		}
 
-		internal bool InvokeGameHardUpdate(int x, int y, int type)
+		internal bool InvokeGameHardmodeTileUpdate(int x, int y, int type)
 		{
-			HardUpdateEventArgs args = new HardUpdateEventArgs
+			HardmodeTileUpdateEventArgs args = new HardmodeTileUpdateEventArgs
 			{
 				X = x,
 				Y = y,
 				Type = type
 			};
 
-			this.GameHardUpdate.Invoke(args);
+			this.GameHardmodeTileUpdate.Invoke(args);
 			return args.Handled;
 		}
 		#endregion

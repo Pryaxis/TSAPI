@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace ServerApi
 {
-  public class HardUpdateEventArgs : HandledEventArgs
+  public class HardmodeTileUpdateEventArgs : HandledEventArgs
   {
     public int X
     {

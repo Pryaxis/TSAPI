@@ -88,7 +88,7 @@
     <Compile Include="ServerApi\EventArgs\NpcLootDropEventArgs.cs" />
     <Compile Include="ServerApi\EventArgs\ChatEventArgs.cs" />
     <Compile Include="ServerApi\EventArgs\ChatReceivedEventArgs.cs" />
-    <Compile Include="ServerApi\EventArgs\HardUpdateEventArgs.cs" />
+    <Compile Include="ServerApi\EventArgs\HardmodeTileUpdateEventArgs.cs" />
     <Compile Include="ServerApi\EventArgs\MeteorDropEventArgs.cs" />
     <Compile Include="ServerApi\EventArgs\NpcSpawnEventArgs.cs" />
     <Compile Include="ServerApi\EventArgs\StatueSpawnEventArgs.cs" />

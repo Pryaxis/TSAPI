@@ -15802,7 +15802,7 @@ namespace Terraria
 						}
 						if (num4 < 2)
 						{
-							if (PluginApi.Hooks.InvokeGameHardUpdate(i + num2, j + num3, 129))
+							if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(i + num2, j + num3, 129))
 							{
 								return;
 							}
@@ -15825,7 +15825,7 @@ namespace Terraria
 							{
 								flag = true;
 							}
-							if (PluginApi.Hooks.InvokeGameHardUpdate(num6, num7, 23))
+							if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 23))
 							{
 								return;
 							}
@@ -15841,7 +15841,7 @@ namespace Terraria
 								{
 									flag = true;
 								}
-								if (PluginApi.Hooks.InvokeGameHardUpdate(num6, num7, 25))
+								if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 25))
 								{
 									return;
 								}
@@ -15857,7 +15857,7 @@ namespace Terraria
 									{
 										flag = true;
 									}
-									if (PluginApi.Hooks.InvokeGameHardUpdate(num6, num7, 112))
+									if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 112))
 									{
 										return;
 									}
@@ -15873,7 +15873,7 @@ namespace Terraria
 										{
 											flag = true;
 										}
-										if (PluginApi.Hooks.InvokeGameHardUpdate(num6, num7, 0))
+										if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 0))
 										{
 											return;
 										}
@@ -15889,7 +15889,7 @@ namespace Terraria
 											{
 												flag = true;
 											}
-											if (PluginApi.Hooks.InvokeGameHardUpdate(num6, num7, 23))
+											if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 23))
 											{
 												return;
 											}
@@ -15905,7 +15905,7 @@ namespace Terraria
 												{
 													flag = true;
 												}
-												if (PluginApi.Hooks.InvokeGameHardUpdate(num6, num7, 32))
+												if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 32))
 												{
 													return;
 												}
@@ -15934,7 +15934,7 @@ namespace Terraria
 							{
 								flag2 = true;
 							}
-							if (PluginApi.Hooks.InvokeGameHardUpdate(num8, num9, 109))
+							if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num8, num9, 109))
 							{
 								return;
 							}
@@ -15950,7 +15950,7 @@ namespace Terraria
 								{
 									flag2 = true;
 								}
-								if (PluginApi.Hooks.InvokeGameHardUpdate(num8, num9, 117))
+								if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num8, num9, 117))
 								{
 									return;
 								}
@@ -15966,7 +15966,7 @@ namespace Terraria
 									{
 										flag2 = true;
 									}
-									if (PluginApi.Hooks.InvokeGameHardUpdate(num8, num9, 116) )
+									if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num8, num9, 116) )
 									{
 										return;
 									}
