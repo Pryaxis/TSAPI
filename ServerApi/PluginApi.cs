@@ -14,7 +14,7 @@ namespace ServerApi
 			get;
 			private set;
 		}
-		internal static IProfiler Profiler
+		internal static ProfilerManager Profiler
 		{
 			get; 
 			private set;
@@ -28,18 +28,8 @@ namespace ServerApi
 		static PluginApi()
 		{
 			LogWriter = new LogWriterManager();
+			Profiler = new ProfilerManager();
 			Hooks = new HookManager();
-		}
-
-		public static void AttachProfiler(IProfiler newProfiler)
-		{
-			if (newProfiler == null)
-				throw new ArgumentNullException("newProfiler");
-
-			if (Profiler != null)
-				Profiler.Detach();
-
-			Profiler = newProfiler;
 		}
 	}
 }
