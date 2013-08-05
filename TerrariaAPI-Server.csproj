@@ -104,7 +104,9 @@
     <Compile Include="ServerApi\HookManager.cs" />
     <Compile Include="ServerApi\ILogWriter.cs" />
     <Compile Include="ServerApi\IProfiler.cs" />
+    <Compile Include="ServerApi\LogWriterManager.cs" />
     <Compile Include="ServerApi\PluginApi.cs" />
+    <Compile Include="ServerApi\ServerLogWriter.cs" />
     <Compile Include="Terraria\Lang.cs" />
     <Compile Include="XNA\Color.cs" />
     <Compile Include="ServerApi\EventArgs\GetDataEventArgs.cs" />

@@ -4,14 +4,31 @@ namespace ServerApi
 {
 	public static class PluginApi
 	{
-		public static HookManager Hooks { get; private set; }
-		internal static IProfiler Profiler { get; private set; }
-		public static ILogWriter LogWriter { get; private set; }
-		public static bool IsWorldRunning { get; internal set; }
+		public static HookManager Hooks
+		{
+			get; 
+			private set;
+		}
+		public static LogWriterManager LogWriter
+		{
+			get;
+			private set;
+		}
+		internal static IProfiler Profiler
+		{
+			get; 
+			private set;
+		}
+		public static bool IsWorldRunning
+		{
+			get; 
+			internal set;
+		}
 
 		static PluginApi()
 		{
-			PluginApi.Hooks = new HookManager();
+			LogWriter = new LogWriterManager();
+			Hooks = new HookManager();
 		}
 
 		public static void AttachProfiler(IProfiler newProfiler)
@@ -19,21 +36,10 @@ namespace ServerApi
 			if (newProfiler == null)
 				throw new ArgumentNullException("newProfiler");
 
-			if (PluginApi.Profiler != null)
-				PluginApi.Profiler.Detach();
+			if (Profiler != null)
+				Profiler.Detach();
 
-			PluginApi.Profiler = newProfiler;
-		}
-
-		public static void AttachLogWriter(ILogWriter newLogWriter)
-		{
-			if (newLogWriter == null)
-				throw new ArgumentNullException("newLogWriter");
-
-			if (PluginApi.LogWriter != null)
-				PluginApi.LogWriter.Detach();
-
-			PluginApi.LogWriter = newLogWriter;
+			Profiler = newProfiler;
 		}
 	}
 }
