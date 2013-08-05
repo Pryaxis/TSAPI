@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using ServerApi;
 
 namespace Terraria
 {
@@ -85,44 +87,38 @@ namespace Terraria
 						case "-ignoreversion":
 							IgnoreVersion = true;
 							Console.WriteLine("WARNING: Versions are no longer being regarded!");
-                            Console.WriteLine("You are on your own! If problems arise, TShock developers will not help you with issues regarding this.");
+							Console.WriteLine("You are on your own! If problems arise, TShock developers will not help you with issues regarding this.");
 							break;
-                        case "-forceupdate":
-					        Terraria.Main.forceUpdate = true;
-                            Console.WriteLine("WARNING: Forcing game updates regardless of players!");
-                            Console.WriteLine("This is experimental, and will cause constant CPU usage, you are on your own.");
-					        break;
+						case "-forceupdate":
+							Terraria.Main.forceUpdate = true;
+							Console.WriteLine("WARNING: Forcing game updates regardless of players!");
+							Console.WriteLine("This is experimental, and will cause constant CPU usage, you are on your own.");
+							break;
 					}
 				}
+				PluginApi.LogWriter.ServerWriteLine(
+					string.Format("TerrariaApi - Server {0} started.", ApiVersion), TraceLevel.Verbose);
+				PluginApi.LogWriter.ServerWriteLine(
+					"\tCommand line: " + Environment.CommandLine, TraceLevel.Verbose);
+				PluginApi.LogWriter.ServerWriteLine(
+					string.Format("\tOS: {0} (64bit: {1})", Environment.OSVersion, Environment.Is64BitOperatingSystem), TraceLevel.Verbose);
+				PluginApi.LogWriter.ServerWriteLine(
+					"\tMono: " + Terraria.Main.runningMono, TraceLevel.Verbose);
+
 				if (Environment.OSVersion.Platform == PlatformID.Unix)
 					Terraria.Main.SavePath = "Terraria";
 				else
 					Terraria.Main.SavePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "My Games", "Terraria");
 				Terraria.Main.WorldPath = Path.Combine(Terraria.Main.SavePath, "Worlds");
 				Terraria.Main.PlayerPath = Path.Combine(Terraria.Main.SavePath, "Players");
-                Console.WriteLine("TerrariaAPI Version: " + ApiVersion + " (Protocol 1.1.2)");
+				Console.WriteLine("TerrariaAPI Version: " + ApiVersion + " (Protocol 1.1.2)");
 				Initialize(Game);
 				Game.DedServ();
 				DeInitialize();
 			}
-			catch (Exception value)
+			catch (Exception ex)
 			{
-				try
-				{
-					using (var streamWriter = new StreamWriter("crashlog.txt", true))
-					{
-						streamWriter.WriteLine(DateTime.Now);
-						streamWriter.WriteLine(value);
-						streamWriter.WriteLine("");
-					}
-					Console.WriteLine("Server crash: " + DateTime.Now);
-					Console.WriteLine(value);
-					Console.WriteLine("");
-					Console.WriteLine("Please send crashlog.txt to support@terraria.org");
-				}
-				catch
-				{
-				}
+				PluginApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + ex, TraceLevel.Error);
 			}
 		}
 

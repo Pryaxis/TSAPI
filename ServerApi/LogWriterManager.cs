@@ -30,6 +30,8 @@ namespace ServerApi
 		{
 			if (newLogWriter == null)
 				throw new ArgumentNullException("newLogWriter");
+			if (newLogWriter == this.LogWriter)
+				return;
 
 			ILogWriter prevLogWriter = this.LogWriter;
 			Exception detachException = null;
@@ -43,9 +45,16 @@ namespace ServerApi
 				{
 					detachException = ex;
 				}
+
+				PluginApi.LogWriter.ServerWriteLine(
+					string.Format("Log writer \"{0}\" is being detached.", this.LogWriterName), TraceLevel.Verbose);
 			}
 
 			this.LogWriter = newLogWriter;
+
+			PluginApi.LogWriter.ServerWriteLine(
+				string.Format("Log writer \"{0}\" has been attached.", this.LogWriterName), TraceLevel.Verbose);
+
 			if (detachException != null)
 				this.ServerWriteLine(
 					string.Format("Log writer \"{0}\" had thrown an unhandled exception:\n{1}", prevLogWriter.Name, detachException), 

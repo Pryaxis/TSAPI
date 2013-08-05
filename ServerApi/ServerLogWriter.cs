@@ -14,13 +14,26 @@ namespace ServerApi
 		}
 
 		public ServerLogWriter(string logFilePath = "ServerLog.txt") {
-			this.LogFileWriter = new StreamWriter(logFilePath, true);
+			try
+			{
+				this.LogFileWriter = new StreamWriter(logFilePath, true);
+			}
+			catch (Exception ex)
+			{
+				try {
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("Fatal startup exception. Could not write to \"{0}\". Exception details:\n{1}", logFilePath, ex);
+				} finally {
+					Console.ForegroundColor = ConsoleColor.Gray;
+				}
+
+				throw;
+			}
 			this.LogFileWriter.AutoFlush = true;
 		}
 
 		public void Detach()
 		{
-			// -
 		}
 
 		public void ServerWriteLine(string message, TraceLevel kind)
