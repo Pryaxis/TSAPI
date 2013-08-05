@@ -1150,6 +1150,9 @@ namespace Terraria
         }
         public static void realsaveWorld(bool resetTime = false)
         {
+            Stopwatch saveWorldWatch = new Stopwatch();
+            saveWorldWatch.Start();
+
             if (Main.worldName == "")
                 Main.worldName = "World";
             if (WorldGen.saveLock)
@@ -1368,9 +1371,15 @@ namespace Terraria
                 }
                 WorldGen.saveLock = false;
             }
+
+            saveWorldWatch.Stop();
+            PluginApi.Profiler.InputServerWorldSaveTime(saveWorldWatch.Elapsed);
         }
 	    public static void loadWorld()
         {
+            Stopwatch loadWorldWatch = new Stopwatch();
+            loadWorldWatch.Start();
+
             Main.checkXMas();
             if (!File.Exists(Main.worldPathName) && Main.autoGen)
             {
@@ -1685,6 +1694,9 @@ namespace Terraria
                     }
                 }
             }
+
+            loadWorldWatch.Stop();
+            PluginApi.Profiler.InputServerWorldLoadTime(loadWorldWatch.Elapsed);
         }
 		private static void resetGen()
 		{

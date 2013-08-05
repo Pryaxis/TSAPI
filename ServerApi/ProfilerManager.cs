@@ -164,6 +164,26 @@ namespace ServerApi {
 			}
 		}
 
+		internal void InputPluginCustomProcessingTime(TerrariaPlugin plugin, string operation, TimeSpan processingTime)
+		{
+			if (plugin == null)
+				throw new ArgumentNullException("plugin");
+			if (string.IsNullOrWhiteSpace(operation))
+				throw new ArgumentException("operation");
+			if (this.WrappedProfiler == null)
+				return;
+
+			try
+			{
+				this.WrappedProfiler.InputPluginCustomProcessingTime(plugin, operation, processingTime);
+			}
+			catch (Exception ex)
+			{
+				PluginApi.LogWriter.ServerWriteLine(
+					string.Format("Profiler \"{0}\" has thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
+			}
+		}
+
 		internal void InputPluginHandlerExceptionThrown(TerrariaPlugin plugin, string hookName, Exception exception)
 		{
 			if (plugin == null)

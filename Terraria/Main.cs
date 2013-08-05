@@ -921,6 +921,7 @@ namespace Terraria
                 nPC.SetDefaults(i, -1f);
                 Main.npcName[i] = nPC.name;
             }
+            PluginApi.Profiler.EndMeasureServerInitTime();
             while (Main.worldPathName == null || Main.worldPathName == "")
             {
                 Main.LoadWorlds();
@@ -1199,9 +1200,15 @@ namespace Terraria
                     }
                     if (Netplay.anyClients || Main.forceUpdate)
                     {
+                        Stopwatch updateWatch = new Stopwatch();
+                        updateWatch.Start();
+
                         PluginApi.Hooks.InvokeGameUpdate();
                         this.Update();
                         PluginApi.Hooks.InvokeGamePostUpdate();
+
+                        updateWatch.Stop();
+                        PluginApi.Profiler.InputServerGameUpdateTime(updateWatch.Elapsed);
                     }
                     double num10 = (double) stopwatch.ElapsedMilliseconds + num7;
                     if (num10 < num6)

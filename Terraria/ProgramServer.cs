@@ -22,6 +22,7 @@ namespace Terraria
 		{
 			try
 			{
+				PluginApi.Profiler.BeginMeasureServerInitTime();
 				Game = new Main();
 				for (int i = 0; i < args.Length; i++)
 				{
