@@ -12,7 +12,7 @@ namespace Terraria
         {
             try
             {
-                if (NetHooks.OnSendBytes(sock, buffer, offset, count))
+                if (PluginApi.Hooks.InvokeNetSendBytes(sock, buffer, offset, count))
                 {
                     return;
                 }
@@ -46,7 +46,7 @@ namespace Terraria
 
             {
                             
-                if (!NetHooks.OnSendData(ref msgType, ref remoteClient, ref ignoreClient, ref text, ref number, ref number2, ref number3, ref number4, ref number5))
+                if (!PluginApi.Hooks.InvokeNetSendData(ref msgType, ref remoteClient, ref ignoreClient, ref text, ref number, ref number2, ref number3, ref number4, ref number5))
                 {
                     lock (NetMessage.buffer[num].writeBuffer)
                     {
@@ -2028,7 +2028,7 @@ namespace Terraria
         }
         public static void greetPlayer(int plr)
         {
-            if (NetHooks.OnGreetPlayer(plr))
+            if (PluginApi.Hooks.InvokeNetGreetPlayer(plr))
                 return;
             if (Main.motd == "")
                 NetMessage.SendData(25, plr, -1, Lang.mp[18] + " " + Main.worldName + "!", (int)byte.MaxValue, (float)byte.MaxValue, 240f, 20f, 0);

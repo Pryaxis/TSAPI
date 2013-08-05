@@ -908,7 +908,7 @@ namespace Terraria
         {
             Type t = Type.GetType("Mono.Runtime");
             Main.runningMono = (t != null);
-            GameHooks.OnInitialize(true);
+            PluginApi.Hooks.InvokeGameInitialize();
             Main.rand = new Random();
             Console.Title = "Terraria Server " + Main.versionNumber2;
             Main.dedServ = true;
@@ -1172,7 +1172,7 @@ namespace Terraria
             {
                 Main.startDedInput();
             }
-            GameHooks.OnInitialize(false);
+            PluginApi.Hooks.InvokeGamePostInitialize();
             stopwatch.Start();
             double num6 = 16.666666666666668;
             double num7 = 0.0;
@@ -1199,9 +1199,9 @@ namespace Terraria
                     }
                     if (Netplay.anyClients || Main.forceUpdate)
                     {
-                        GameHooks.OnUpdate(true);
+                        PluginApi.Hooks.InvokeGameUpdate();
                         this.Update();
-                        GameHooks.OnUpdate(false);
+                        PluginApi.Hooks.InvokeGamePostUpdate();
                     }
                     double num10 = (double) stopwatch.ElapsedMilliseconds + num7;
                     if (num10 < num6)
@@ -1233,7 +1233,7 @@ namespace Terraria
             {
                 Console.Write(": ");
                 string text = Console.ReadLine();
-                if (!ServerHooks.OnCommand(text))
+                if (!PluginApi.Hooks.InvokeServerCommand(text))
                 {
                     string text2 = text;
                     text = text.ToLower();
@@ -2402,7 +2402,8 @@ namespace Terraria
             int month = now.Month;
             bool xmas = ((day >= 15) && (month == 12));
 
-            Main.xMas = WorldHooks.OnChristmaCheck(xmas);
+            PluginApi.Hooks.InvokeWorldChristmasCheck(ref xmas);
+            Main.xMas = xmas;
         }
 
         protected void Update()

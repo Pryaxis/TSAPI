@@ -81,7 +81,7 @@ namespace Terraria
             int index1 = 0;
             index1 = start + 1;
             byte num2 = this.readBuffer[start];
-            if (NetHooks.OnGetData(ref num2, this, ref index1, ref length))
+            if (PluginApi.Hooks.InvokeNetGetData(ref num2, this, ref index1, ref length))
             {
                 return;
             }
@@ -252,7 +252,7 @@ namespace Terraria
                     }
                     if (flag)
                     {
-                        if (!NetHooks.OnNameCollision(number, text))
+                        if (!PluginApi.Hooks.InvokeNetNameCollision(number, text))
                         {
                             NetMessage.SendData(2, this.whoAmI, -1, text + " " + Lang.mp[5], 0, 0.0f, 0.0f, 0.0f, 0);
                         }

@@ -1752,74 +1752,74 @@ namespace Terraria
 			{
 				switch (type)
 				{
-				    case -1:
-				        this.SetDefaults("Slimeling");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -2:
-				        this.SetDefaults("Slimer2");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -3:
-				        this.SetDefaults("Green Slime");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -4:
-				        this.SetDefaults("Pinky");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -5:
-				        this.SetDefaults("Baby Slime");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -6:
-				        this.SetDefaults("Black Slime");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -7:
-				        this.SetDefaults("Purple Slime");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -8:
-				        this.SetDefaults("Red Slime");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -9:
-				        this.SetDefaults("Yellow Slime");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -10:
-				        this.SetDefaults("Jungle Slime");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -11:
-				        this.SetDefaults("Little Eater");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -12:
-				        this.SetDefaults("Big Eater");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -13:
-				        this.SetDefaults("Short Bones");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -14:
-				        this.SetDefaults("Big Boned");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -15:
-				        this.SetDefaults("Heavy Skeleton");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -16:
-				        this.SetDefaults("Little Stinger");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
-				    case -17:
-				        this.SetDefaults("Big Stinger");
-				        NpcHooks.OnNetDefaults(ref type, this);
-				        return;
+					case -1:
+						this.SetDefaults("Slimeling");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -2:
+						this.SetDefaults("Slimer2");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -3:
+						this.SetDefaults("Green Slime");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -4:
+						this.SetDefaults("Pinky");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -5:
+						this.SetDefaults("Baby Slime");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -6:
+						this.SetDefaults("Black Slime");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -7:
+						this.SetDefaults("Purple Slime");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -8:
+						this.SetDefaults("Red Slime");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -9:
+						this.SetDefaults("Yellow Slime");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -10:
+						this.SetDefaults("Jungle Slime");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -11:
+						this.SetDefaults("Little Eater");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -12:
+						this.SetDefaults("Big Eater");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -13:
+						this.SetDefaults("Short Bones");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -14:
+						this.SetDefaults("Big Boned");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -15:
+						this.SetDefaults("Heavy Skeleton");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -16:
+						this.SetDefaults("Little Stinger");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
+					case -17:
+						this.SetDefaults("Big Stinger");
+						PluginApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						return;
 				}
 			}
 			else
@@ -2038,7 +2038,7 @@ namespace Terraria
 			this.lifeMax = this.life;
 			this.defDamage = this.damage;
 			this.defDefense = this.defense;
-            NpcHooks.OnSetDefaultsString(ref Name, this);
+			PluginApi.Hooks.InvokeNpcSetDefaultsString(ref Name, this);
 		}
 		public static bool MechSpawn(float x, float y, int type)
 		{
@@ -2065,7 +2065,7 @@ namespace Terraria
 				}
 			}
 
-            return GameHooks.OnStatueSpawn(num2, num3, num, (int)(x/16), (int)(y/16), type, true);
+			return PluginApi.Hooks.InvokeGameStatueSpawn(num2, num3, num, (int)(x/16), (int)(y/16), type, true);
 		}
 		public static int TypeToNum(int type)
 		{
@@ -4642,12 +4642,12 @@ namespace Terraria
 			this.defDamage = this.damage;
 			this.defDefense = this.defense;
 			this.netID = this.type;
-            this.displayName = Lang.npcName(this.netID);
-            NpcHooks.OnSetDefaultsInt(ref Type, this);
+			this.displayName = Lang.npcName(this.netID);
+			PluginApi.Hooks.InvokeNpcSetDefaultsInt(ref Type, this);
 		}
 		public void AI()
 		{
-		    if (this.aiStyle == 0)
+		if (this.aiStyle == 0)
 			{
 				for (int i = 0; i < 255; i++)
 				{
@@ -18045,22 +18045,22 @@ namespace Terraria
 			{
 				Main.npc[num] = new NPC();
 				Main.npc[num].SetDefaults(Type, -1f);
-                if (NpcHooks.OnSpawnNpc( Main.npc[num]) )
-                {
-                    return 200;
-                }
+				if (PluginApi.Hooks.InvokeNpcSpawn(Main.npc[num]))
+				{
+					return 200;
+				}
 				Main.npc[num].position.X = (float)(X - Main.npc[num].width / 2);
 				Main.npc[num].position.Y = (float)(Y - Main.npc[num].height);
 				Main.npc[num].active = true;
 				Main.npc[num].timeLeft = (int)((double)NPC.activeTime * 1.25);
 				Main.npc[num].wet = Collision.WetCollision(Main.npc[num].position, Main.npc[num].width, Main.npc[num].height);
-                if (Type == 50)
-                {
-                    if (Main.netMode == 0)
-                        Main.NewText(Main.npc[num].name + " " + Lang.misc[16], (byte)175, (byte)75, byte.MaxValue);
-                    else if (Main.netMode == 2)
-                        NetMessage.SendData(25, -1, -1, Main.npc[num].name + " " + Lang.misc[16], (int)byte.MaxValue, 175f, 75f, (float)byte.MaxValue, 0);
-                }
+				if (Type == 50)
+				{
+						if (Main.netMode == 0)
+							Main.NewText(Main.npc[num].name + " " + Lang.misc[16], (byte)175, (byte)75, byte.MaxValue);
+						else if (Main.netMode == 2)
+							NetMessage.SendData(25, -1, -1, Main.npc[num].name + " " + Lang.misc[16], (int)byte.MaxValue, 175f, 75f, (float)byte.MaxValue, 0);
+				}
 				return num;
 			}
 			return 200;
@@ -18271,27 +18271,13 @@ namespace Terraria
             --Main.invasionSize;
         }
 
-	    private void DropLoot(int x, int y, int w, int h, int itemID, int stack, bool broadcast, int prefix)
-	    {
-	        NpcLootDropEventArgs args = new NpcLootDropEventArgs
-            {
-                X = x,
-                Y = y,
-                Width = w,
-                Height = h,
-                ItemId = itemID,
-                Stack = stack,
-                Broadcast = broadcast,
-                Prefix = prefix,
-                NpcId = type,
-                NpcArrayIndex = whoAmI
-            };
-
-            if (!NpcHooks.OnNPCLootDrop(args))
-	        {
-                Item.NewItem(args.X, args.Y, args.Width, args.Height, args.ItemId, args.Stack, args.Broadcast, args.Prefix);
-	        }
-	    }
+		private void DropLoot(int x, int y, int w, int h, int itemId, int stack, bool broadcast, int prefix)
+		{
+			if (!PluginApi.Hooks.InvokeNpcLootDrop(ref x, ref y, ref w, ref h, ref itemId, ref stack, ref broadcast, ref prefix, type, whoAmI))
+			{
+				Item.NewItem(x, y, w, h, itemId, stack, broadcast, prefix);
+			}
+		}
 
         public void NPCLoot()
         {
