@@ -1,10 +1,11 @@
 using System;
 using System.ComponentModel;
-namespace Hooks
+
+namespace ServerApi
 {
 	public class SendDataEventArgs : HandledEventArgs
 	{
-		public PacketTypes MsgID
+		public PacketTypes MsgId
 		{
 			get;
 			set;
@@ -44,11 +45,10 @@ namespace Hooks
 			get;
 			set;
 		}
-
-        public int number5
-        {
-            get; 
-            set; 
-        }
+		public int number5
+		{
+			get; 
+			set; 
+		}
 	}
 }

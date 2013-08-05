@@ -1,6 +1,5 @@
-
 using System;
-using Hooks;
+using ServerApi;
 
 namespace Terraria
 {
@@ -18280,17 +18279,17 @@ namespace Terraria
                 Y = y,
                 Width = w,
                 Height = h,
-                ItemID = itemID,
+                ItemId = itemID,
                 Stack = stack,
                 Broadcast = broadcast,
                 Prefix = prefix,
-                NPCID = type,
-                NPCArrayIndex = whoAmI
+                NpcId = type,
+                NpcArrayIndex = whoAmI
             };
 
             if (!NpcHooks.OnNPCLootDrop(args))
 	        {
-                Item.NewItem(args.X, args.Y, args.Width, args.Height, args.ItemID, args.Stack, args.Broadcast, args.Prefix);
+                Item.NewItem(args.X, args.Y, args.Width, args.Height, args.ItemId, args.Stack, args.Broadcast, args.Prefix);
 	        }
 	    }
 

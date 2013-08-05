@@ -1,14 +1,15 @@
 using System;
 using System.ComponentModel;
 using Terraria;
-namespace Hooks
+
+namespace ServerApi
 {
 	public class NpcStrikeEventArgs : HandledEventArgs
 	{
 		public NPC Npc
 		{
 			get;
-			set;
+			internal set;
 		}
 		public int Damage
 		{
@@ -30,15 +31,15 @@ namespace Hooks
 			get;
 			set;
 		}
-        public bool NoEffect 
-        { 
-            get; 
-            set; 
-        }
-        public double ReturnDamage
-        {
-            get; 
-            set; 
-        }
+		public bool NoEffect 
+		{ 
+			get; 
+			set; 
+		}
+		public double ReturnDamage
+		{
+			get; 
+			set; 
+		}
 	}
 }

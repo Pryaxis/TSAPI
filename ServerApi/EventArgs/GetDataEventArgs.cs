@@ -1,7 +1,8 @@
 using System;
 using System.ComponentModel;
 using Terraria;
-namespace Hooks
+
+namespace ServerApi
 {
 	public class GetDataEventArgs : HandledEventArgs
 	{
@@ -13,7 +14,7 @@ namespace Hooks
 		public messageBuffer Msg
 		{
 			get;
-			set;
+			internal set;
 		}
 		public int Index
 		{

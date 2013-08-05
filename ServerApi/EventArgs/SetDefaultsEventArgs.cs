@@ -1,13 +1,14 @@
 using System;
 using System.ComponentModel;
-namespace Hooks
+
+namespace ServerApi
 {
 	public class SetDefaultsEventArgs<T, F> : HandledEventArgs
 	{
 		public T Object
 		{
 			get;
-			set;
+			internal set;
 		}
 		public F Info
 		{

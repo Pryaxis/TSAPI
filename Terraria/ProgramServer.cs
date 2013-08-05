@@ -272,13 +272,13 @@ namespace Terraria
 
 		private static bool Compatible(Type type)
 		{
-			object[] customAttributes = type.GetCustomAttributes(typeof (APIVersionAttribute), false);
+			object[] customAttributes = type.GetCustomAttributes(typeof (ApiVersionAttribute), false);
 			if (customAttributes.Length != 1)
 			{
 				return false;
 			}
-			var aPIVersionAttribute = (APIVersionAttribute) customAttributes[0];
-			Version apiVersion = aPIVersionAttribute.ApiVersion;
+			var apiVersionAttribute = (ApiVersionAttribute) customAttributes[0];
+			Version apiVersion = apiVersionAttribute.ApiVersion;
 			return IgnoreVersion || (apiVersion.Major == ApiVersion.Major && apiVersion.Minor == ApiVersion.Minor);
 		}
 

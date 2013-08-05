@@ -1,14 +1,15 @@
 using System;
 using System.ComponentModel;
 using Terraria;
-namespace Hooks
+
+namespace ServerApi
 {
-    public class NpcSpawnEventArgs : HandledEventArgs
+	public class NpcSpawnEventArgs : HandledEventArgs
 	{
 		public NPC Npc
 		{
 			get;
-			set;
+			internal set;
 		}
 	}
 }

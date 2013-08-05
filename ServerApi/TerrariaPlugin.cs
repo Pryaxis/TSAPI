@@ -1,5 +1,6 @@
 using System;
 using Terraria;
+
 public abstract class TerrariaPlugin : IDisposable
 {
 	public virtual string Name
@@ -40,34 +41,39 @@ public abstract class TerrariaPlugin : IDisposable
 		get;
 		set;
 	}
-    public virtual string UpdateURL
-    {
-        get
-        {
-            return "";
-        }
-    }
+	public virtual string UpdateURL
+	{
+		get
+		{
+			return "";
+		}
+	}
 	protected Main Game
 	{
 		get;
 		private set;
 	}
+
 	protected TerrariaPlugin(Main game)
 	{
 		this.Order = 1;
 		this.Game = game;
 	}
+
 	~TerrariaPlugin()
 	{
 		this.Dispose(false);
 	}
+
 	public void Dispose()
 	{
 		this.Dispose(true);
 		GC.SuppressFinalize(this);
 	}
+
 	protected virtual void Dispose(bool disposing)
 	{
 	}
+
 	public abstract void Initialize();
 }

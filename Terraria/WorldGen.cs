@@ -1,9 +1,8 @@
-
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
-using Hooks;
+using ServerApi;
 
 namespace Terraria
 {
@@ -723,10 +722,10 @@ namespace Terraria
 					num5++;
 				}
 			}
-            if (WorldHooks.OnMeteorDrop(0,0))
-            {
-                return;
-            }
+			if (PluginApi.Hooks.InvokeWorldMeteorDrop(0, 0)
+			{
+				return;
+			}
 			while (!flag)
 			{
 				float num6 = (float)Main.maxTilesX * 0.08f;

@@ -1,7 +1,8 @@
 using System.Net.Sockets;
-using Hooks;
 using System;
 using System.Text;
+using ServerApi;
+
 namespace Terraria
 {
     public class NetMessage
