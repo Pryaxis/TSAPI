@@ -4,6 +4,8 @@ using System.Diagnostics;
 namespace ServerApi {
 	public class ProfilerManager
 	{
+		private readonly Stopwatch serverInitTimeWatch = new Stopwatch();
+
 		internal IProfiler WrappedProfiler
 		{
 			get;
@@ -47,6 +49,17 @@ namespace ServerApi {
 
 			PluginApi.LogWriter.ServerWriteLine(
 				string.Format("Profiler \"{0}\" was attached.", this.ProfilerName), TraceLevel.Verbose);
+		}
+
+		internal void BeginMeasureServerInitTime()
+		{
+			this.serverInitTimeWatch.Restart();
+		}
+
+		internal void EndMeasureServerInitTime()
+		{
+			this.serverInitTimeWatch.Stop();
+			this.InputServerInitTime(this.serverInitTimeWatch.Elapsed);
 		}
 
 		internal void InputServerInitTime(TimeSpan processingTime)

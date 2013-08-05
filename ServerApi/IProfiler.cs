@@ -81,6 +81,22 @@ namespace ServerApi
 		void InputPluginHandlerTime(TerrariaPlugin plugin, string hookName, TimeSpan processingTime);
 
 		/// <summary>
+		///   Provides the profiler with the processing time of a named custom operation performed by a plugin. This allows 
+		///   plugins to pass performance measurements of any long time operations to the profiler.
+		/// </summary>
+		/// <param name="plugin">
+		///   The plugin which performed the operation.
+		/// </param>
+		/// <param name="operation">
+		///   The name of the operation. It's wise to use the same name for any recurring operation, allowing the profiler
+		///   to produce better reports.
+		/// </param>
+		/// <param name="processingTime">
+		///   The consumed processing time.
+		/// </param>
+		void InputPluginCustomProcessingTime(TerrariaPlugin plugin, string operation, TimeSpan processingTime);
+
+		/// <summary>
 		///   Provides the profiler with the exception thrown by one of a plugin's registered handlers. This allows to easily
 		///   identify problematic plugins, which may not handle their exceptions properly and thus cause performance drawbacks
 		///   or other problems, by profiling.
