@@ -1,79 +1,82 @@
 using System;
 using Terraria;
 
-public abstract class TerrariaPlugin : IDisposable
+namespace TerrariaApi.Server
 {
-	public virtual string Name
+	public abstract class TerrariaPlugin : IDisposable
 	{
-		get
+		public virtual string Name
 		{
-			return "None";
+			get
+			{
+				return "None";
+			}
 		}
-	}
-	public virtual Version Version
-	{
-		get
+		public virtual Version Version
 		{
-			return new Version(1, 0);
+			get
+			{
+				return new Version(1, 0);
+			}
 		}
-	}
-	public virtual string Author
-	{
-		get
+		public virtual string Author
 		{
-			return "None";
+			get
+			{
+				return "None";
+			}
 		}
-	}
-	public virtual string Description
-	{
-		get
+		public virtual string Description
 		{
-			return "None";
+			get
+			{
+				return "None";
+			}
 		}
-	}
-	public virtual bool Enabled
-	{
-		get;
-		set;
-	}
-	public int Order
-	{
-		get;
-		set;
-	}
-	public virtual string UpdateURL
-	{
-		get
+		public virtual bool Enabled
 		{
-			return "";
+			get;
+			set;
 		}
-	}
-	protected Main Game
-	{
-		get;
-		private set;
-	}
+		public int Order
+		{
+			get;
+			set;
+		}
+		public virtual string UpdateURL
+		{
+			get
+			{
+				return "";
+			}
+		}
+		protected Main Game
+		{
+			get;
+			private set;
+		}
 
-	protected TerrariaPlugin(Main game)
-	{
-		this.Order = 1;
-		this.Game = game;
-	}
+		protected TerrariaPlugin(Main game)
+		{
+			this.Order = 1;
+			this.Game = game;
+		}
 
-	~TerrariaPlugin()
-	{
-		this.Dispose(false);
-	}
+		~TerrariaPlugin()
+		{
+			this.Dispose(false);
+		}
 
-	public void Dispose()
-	{
-		this.Dispose(true);
-		GC.SuppressFinalize(this);
-	}
+		public void Dispose()
+		{
+			this.Dispose(true);
+			GC.SuppressFinalize(this);
+		}
 
-	protected virtual void Dispose(bool disposing)
-	{
-	}
+		protected virtual void Dispose(bool disposing)
+		{
+		}
 
-	public abstract void Initialize();
+		public abstract void Initialize();
+	}
 }

@@ -1,14 +1,17 @@
 using System;
 
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-public class ApiVersionAttribute : Attribute
+namespace TerrariaApi.Server
 {
-	public Version ApiVersion;
-	public ApiVersionAttribute(Version version)
+	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+	public class ApiVersionAttribute : Attribute
 	{
-		this.ApiVersion = version;
-	}
-	public ApiVersionAttribute(int major, int minor) : this(new Version(major, minor))
-	{
+		public Version ApiVersion;
+		public ApiVersionAttribute(Version version)
+		{
+			this.ApiVersion = version;
+		}
+		public ApiVersionAttribute(int major, int minor) : this(new Version(major, minor))
+		{
+		}
 	}
 }
