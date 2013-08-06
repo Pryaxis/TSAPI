@@ -46,13 +46,13 @@ namespace TerrariaApi.Server
 					detachException = ex;
 				}
 
-				ServerApi.LogWriter.ServerWriteLine(
+				this.WrappedLogWriter.ServerWriteLine(
 					string.Format("Log writer \"{0}\" is being detached.", this.LogWriterName), TraceLevel.Verbose);
 			}
 
 			this.WrappedLogWriter = newLogWriter;
 
-			ServerApi.LogWriter.ServerWriteLine(
+			this.WrappedLogWriter.ServerWriteLine(
 				string.Format("Log writer \"{0}\" has been attached.", this.LogWriterName), TraceLevel.Verbose);
 
 			if (detachException != null)

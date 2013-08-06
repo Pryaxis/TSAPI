@@ -57,16 +57,19 @@ namespace TerrariaApi.Server
 			internal set;
 		}
 
-		internal static void InitializeHooks()
+		static ServerApi()
 		{
 			Hooks = new HookManager();
+			LogWriter = new LogWriterManager();
+			Profiler = new ProfilerManager();
 		}
 
 		internal static void Initialize(string[] commandLineArgs, Main game)
 		{
+			Profiler.BeginMeasureServerInitTime();
+
 			ServerApi.game = game;
 			HandleCommandLine(commandLineArgs);
-			LogWriter = new LogWriterManager();
 
 			ServerApi.LogWriter.ServerWriteLine(
 				string.Format("TerrariaApi - Server v{0} started.", ApiVersion), TraceLevel.Verbose);
@@ -98,9 +101,6 @@ namespace TerrariaApi.Server
 			// Add assembly resolver instructing it to use the server plugins directory as a search path.
 			// TODO: Either adding the server plugins directory to PATH or as a privatePath node in the assembly config should do too.
 			AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-
-			Profiler = new ProfilerManager();
-			Profiler.BeginMeasureServerInitTime();
 
 			LoadPlugins();
 		}

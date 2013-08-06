@@ -13,8 +13,6 @@ namespace Terraria
 		{
 			try
 			{
-				// Must be done before creating Main because its constructor will invoke some of the hooks.
-				ServerApi.InitializeHooks();
 				Game = new Main();
 				
 				if (Environment.OSVersion.Platform == PlatformID.Unix)
