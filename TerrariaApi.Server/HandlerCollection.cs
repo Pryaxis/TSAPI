@@ -19,7 +19,7 @@ namespace TerrariaApi.Server
       this.hookName = hookName;
     }
 
-    public void Register(TerrariaPlugin registrator, HookHandler<ArgsType> handler, int priority = 0)
+    public void Register(TerrariaPlugin registrator, HookHandler<ArgsType> handler, int priority)
     {
       if (registrator == null)
         throw new ArgumentNullException("registrator");
@@ -50,6 +50,11 @@ namespace TerrariaApi.Server
         }
       }
     }
+
+		public void Register(TerrariaPlugin registrator, HookHandler<ArgsType> handler)
+		{
+			this.Register(registrator, handler, registrator.Order);
+		}
 
     public bool Deregister(TerrariaPlugin registrator, HookHandler<ArgsType> handler)
     {
