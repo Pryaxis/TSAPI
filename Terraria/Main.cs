@@ -1452,7 +1452,7 @@ namespace Terraria
                                 Console.WriteLine("Reloading plugins");
                                 try
                                 {
-                                    ProgramServer.ReloadPlugins();
+                                    Console.WriteLine("This feature has been removed.");
                                 }
                                 catch (Exception ex)
                                 {

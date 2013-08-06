@@ -241,7 +241,7 @@ namespace ServerApi {
 
 			try
 			{
-				this.WrappedProfiler.InputPluginDisposeTime(plugin, processingTime);
+				this.WrappedProfiler.InputPluginUnloadTime(plugin, processingTime);
 			}
 			catch (Exception ex)
 			{
