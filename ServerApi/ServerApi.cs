@@ -57,6 +57,11 @@ namespace ServerApi
 			internal set;
 		}
 
+		internal static void InitializeHooks()
+		{
+			Hooks = new HookManager();
+		}
+
 		internal static void Initialize(string[] commandLineArgs, Main game)
 		{
 			ServerApi.game = game;
@@ -94,7 +99,6 @@ namespace ServerApi
 			// TODO: Either adding the server plugins directory to PATH or as a privatePath node in the assembly config should do too.
 			AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
-			Hooks = new HookManager();
 			Profiler = new ProfilerManager();
 			Profiler.BeginMeasureServerInitTime();
 

@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Reflection;
 using ServerApi;
 
 namespace Terraria
@@ -17,6 +13,8 @@ namespace Terraria
 		{
 			try
 			{
+				// Must be done before creating Main because its constructor will invoke some of the hooks.
+				ServerApi.ServerApi.InitializeHooks();
 				Game = new Main();
 				
 				if (Environment.OSVersion.Platform == PlatformID.Unix)
