@@ -26,11 +26,21 @@ namespace Terraria
 
 				Terraria.Main.WorldPath = Path.Combine(Terraria.Main.SavePath, "Worlds");
 				Terraria.Main.PlayerPath = Path.Combine(Terraria.Main.SavePath, "Players");
-				
-				PluginApi.Init(args, Game);
 
+				try
+				{
+					PluginApi.Initialize(args, Game);
+				}
+				catch (Exception ex)
+				{
+					PluginApi.LogWriter.ServerWriteLine(
+						"Startup aborted due to an exception in the Server API initialization:\n" + ex, TraceLevel.Error);
+
+					return;
+				}
+				
 				Game.DedServ();
-				DeInitialize();
+				PluginApi.DeInitialize();
 			}
 			catch (Exception ex)
 			{
@@ -63,18 +73,5 @@ namespace Terraria
 			}
 			return r.CompiledAssembly;
 		}*/
-
-		public static void ReloadPlugins()
-		{
-			for (int index = 0; index < Plugins.Count; index++)
-			{
-				var p = Plugins[index];
-				p.DeInitialize();
-				p.Dispose();
-				Plugins.RemoveAt(index);
-			}
-			LoadedAssemblies.Clear();
-			Initialize(Game);
-		}
 	}
 }

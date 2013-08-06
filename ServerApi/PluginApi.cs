@@ -10,6 +10,9 @@ using Terraria;
 
 namespace ServerApi
 {
+	// TODO: Maybe re-implement a reload functionality for plugins, but you'll have to load all assemblies into their own
+	// AppDomain in order to unload them again later. Beware that having them in their own AppDomain might cause threading 
+	// problems as usual locks will only work in their own AppDomains.
 	public static class PluginApi
 	{
 		public const string PluginsPath = "ServerPlugins";
@@ -54,14 +57,14 @@ namespace ServerApi
 			internal set;
 		}
 
-		internal static void Init(string[] commandLineArgs, Main game)
+		internal static void Initialize(string[] commandLineArgs, Main game)
 		{
 			PluginApi.game = game;
 			HandleCommandLine(commandLineArgs);
 			LogWriter = new LogWriterManager();
 
 			PluginApi.LogWriter.ServerWriteLine(
-				string.Format("TerrariaApi - Server {0} started.", ApiVersion), TraceLevel.Verbose);
+				string.Format("TerrariaApi - Server v{0} started.", ApiVersion), TraceLevel.Verbose);
 			PluginApi.LogWriter.ServerWriteLine(
 				"\tCommand line: " + Environment.CommandLine, TraceLevel.Verbose);
 			PluginApi.LogWriter.ServerWriteLine(
@@ -98,7 +101,7 @@ namespace ServerApi
 			LoadPlugins();
 		}
 
-		internal static void DeInit()
+		internal static void DeInitialize()
 		{
 			UnloadPlugins();
 		}
