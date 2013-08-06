@@ -38,7 +38,7 @@ namespace ServerApi {
 				catch (Exception ex)
 				{
 					ServerApi.LogWriter.ServerWriteLine(
-						string.Format("Profiler \"{0}\" had thrown an unhandled exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
+						string.Format("Profiler \"{0}\" had thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
 				}
 
 				ServerApi.LogWriter.ServerWriteLine(
@@ -49,6 +49,24 @@ namespace ServerApi {
 
 			ServerApi.LogWriter.ServerWriteLine(
 				string.Format("Profiler \"{0}\" was attached.", this.ProfilerName), TraceLevel.Verbose);
+		}
+
+		internal void Deatch()
+		{
+			if (this.WrappedProfiler == null)
+				return;
+
+			try
+			{
+				this.WrappedProfiler.Detach();
+			}
+			catch (Exception ex)
+			{
+				ServerApi.LogWriter.ServerWriteLine(
+					string.Format("Profiler \"{0}\" has thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
+			}
+
+			this.WrappedProfiler = null;
 		}
 
 		internal void BeginMeasureServerInitTime()
@@ -214,7 +232,7 @@ namespace ServerApi {
 			}
 		}
 
-		internal void InputPluginDisposeTime(TerrariaPlugin plugin, TimeSpan processingTime)
+		internal void InputPluginUnloadTime(TerrariaPlugin plugin, TimeSpan processingTime)
 		{
 			if (plugin == null)
 				throw new ArgumentNullException("plugin");

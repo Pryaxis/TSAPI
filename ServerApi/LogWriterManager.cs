@@ -10,14 +10,14 @@ namespace ServerApi
 			get; 
 			private set;
 		}
-		internal ILogWriter LogWriter
+		internal ILogWriter WrappedLogWriter
 		{
 			get; 
 			private set;
 		}
 		public string LogWriterName
 		{
-			get { return this.LogWriter.Name; }
+			get { return this.WrappedLogWriter.Name; }
 		}
 
 		internal LogWriterManager()
@@ -30,12 +30,12 @@ namespace ServerApi
 		{
 			if (newLogWriter == null)
 				throw new ArgumentNullException("newLogWriter");
-			if (newLogWriter == this.LogWriter)
+			if (newLogWriter == this.WrappedLogWriter)
 				return;
 
-			ILogWriter prevLogWriter = this.LogWriter;
+			ILogWriter prevLogWriter = this.WrappedLogWriter;
 			Exception detachException = null;
-			if (this.LogWriter != null)
+			if (this.WrappedLogWriter != null)
 			{
 				try
 				{
@@ -50,22 +50,40 @@ namespace ServerApi
 					string.Format("Log writer \"{0}\" is being detached.", this.LogWriterName), TraceLevel.Verbose);
 			}
 
-			this.LogWriter = newLogWriter;
+			this.WrappedLogWriter = newLogWriter;
 
 			ServerApi.LogWriter.ServerWriteLine(
 				string.Format("Log writer \"{0}\" has been attached.", this.LogWriterName), TraceLevel.Verbose);
 
 			if (detachException != null)
 				this.ServerWriteLine(
-					string.Format("Log writer \"{0}\" had thrown an unhandled exception:\n{1}", prevLogWriter.Name, detachException), 
+					string.Format("Log writer \"{0}\" had thrown an unexpected exception:\n{1}", prevLogWriter.Name, detachException), 
 					TraceLevel.Error);
+		}
+
+		internal void Deatch()
+		{
+			if (this.WrappedLogWriter == null)
+				return;
+
+			try
+			{
+				this.WrappedLogWriter.Detach();
+			}
+			catch (Exception ex)
+			{
+				DefaultLogWriter.ServerWriteLine(
+					string.Format("Log writer \"{0}\" has thrown an unexpected exception:\n{1}", this.LogWriterName, ex), TraceLevel.Error);
+			}
+
+			this.WrappedLogWriter = null;
 		}
 
 		internal void ServerWriteLine(string message, TraceLevel kind)
 		{
 			try
 			{
-				this.LogWriter.ServerWriteLine(message, kind);
+				this.WrappedLogWriter.ServerWriteLine(message, kind);
 			}
 			catch (Exception ex)
 			{
@@ -79,7 +97,7 @@ namespace ServerApi
 		{
 			try
 			{
-				LogWriter.PluginWriteLine(plugin, message, kind);
+				this.WrappedLogWriter.PluginWriteLine(plugin, message, kind);
 			}
 			catch (Exception ex)
 			{

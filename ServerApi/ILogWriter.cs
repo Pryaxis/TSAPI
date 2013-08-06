@@ -5,7 +5,9 @@ using System.Linq;
 namespace ServerApi
 {
 	/// <summary>
-	///   Implements a server log writer. Methods of this implementation are generally expected to be thread safe.
+	///   Implements a server log writer. Methods of this implementation are generally expected to be thread safe. Note that
+	///   the plugin which has registered the log writer should never dispose it during deinitialization or disposing, let the
+	///   Server API call the detach method instead.
 	/// </summary>
 	public interface ILogWriter
 	{

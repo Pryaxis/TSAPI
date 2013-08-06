@@ -5,7 +5,9 @@ using System.Linq;
 namespace ServerApi
 {
 	/// <summary>
-	///   Implements a server profiler. Methods of this implementation are generally expected to be thread safe.
+	///   Implements a server profiler. Methods of this implementation are generally expected to be thread safe. Note that
+	///   the plugin which has registered the profiler should never dispose it during deinitialization or disposing, let the
+	///   Server API call the detach method instead.
 	/// </summary>
 	public interface IProfiler
 	{
@@ -113,7 +115,7 @@ namespace ServerApi
 		void InputPluginHandlerExceptionThrown(TerrariaPlugin plugin, string hookName, Exception exception);
 
 		/// <summary>
-		///   Provides the profiler with the processing time consumed by a plugin's dispose method.
+		///   Provides the profiler with the processing time consumed by a plugin's DeInitialize and Dispose method.
 		/// </summary>
 		/// <param name="plugin">
 		///   The plugin which registered the handler.
@@ -121,6 +123,6 @@ namespace ServerApi
 		/// <param name="processingTime">
 		///   The consumed processing time.
 		/// </param>
-		void InputPluginDisposeTime(TerrariaPlugin plugin, TimeSpan processingTime);
+		void InputPluginUnloadTime(TerrariaPlugin plugin, TimeSpan processingTime);
 	}
 }

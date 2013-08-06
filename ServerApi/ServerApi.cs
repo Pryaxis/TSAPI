@@ -104,6 +104,8 @@ namespace ServerApi
 		internal static void DeInitialize()
 		{
 			UnloadPlugins();
+			Profiler.Deatch();
+			LogWriter.Deatch();
 		}
 
 		internal static void HandleCommandLine(string[] commandLineArgs)
@@ -301,7 +303,7 @@ namespace ServerApi
 						Stopwatch initTimeWatch = new Stopwatch();
 						initTimeWatch.Start();
 
-						pluginInstance = (TerrariaPlugin)Activator.CreateInstance(type, new object[] { main });
+						pluginInstance = (TerrariaPlugin)Activator.CreateInstance(type, game);
 						
 						initTimeWatch.Stop();
 						pluginInitWatches.Add(pluginInstance, initTimeWatch);
@@ -356,13 +358,45 @@ namespace ServerApi
 
 		internal static void UnloadPlugins()
 		{
+			var pluginUnloadWatches = new Dictionary<PluginContainer, Stopwatch>();
 			foreach (PluginContainer pluginContainer in plugins)
 			{
-				pluginContainer.DeInitialize();
+				Stopwatch unloadWatch = new Stopwatch();
+				unloadWatch.Start();
+
+				try
+				{
+					pluginContainer.DeInitialize();
+				}
+				catch (Exception ex)
+				{
+					LogWriter.ServerWriteLine(string.Format(
+						"Plugin \"{0}\" has thrown an exception while being deinitialized:\n{1}", pluginContainer.Plugin.Name, ex), 
+						TraceLevel.Error);
+				}
+
+				unloadWatch.Stop();
+				pluginUnloadWatches.Add(pluginContainer, unloadWatch);
 			}
+
 			foreach (PluginContainer pluginContainer in plugins)
 			{
-				pluginContainer.Dispose();
+				Stopwatch unloadWatch = pluginUnloadWatches[pluginContainer];
+				unloadWatch.Start();
+
+				try
+				{
+					pluginContainer.Dispose();
+				}
+				catch (Exception ex)
+				{
+					LogWriter.ServerWriteLine(string.Format(
+						"Plugin \"{0}\" has thrown an exception while being disposed:\n{1}", pluginContainer.Plugin.Name, ex), 
+						TraceLevel.Error);
+				}
+
+				unloadWatch.Stop();
+				Profiler.InputPluginUnloadTime(pluginContainer.Plugin, unloadWatch.Elapsed);
 			}
 		}
 
