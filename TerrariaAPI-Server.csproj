@@ -79,6 +79,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TerrariaApi.Server\ApiVersionAttribute.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\ChristmasCheckEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\CommandEventArgs.cs" />

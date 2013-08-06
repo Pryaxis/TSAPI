@@ -17,7 +17,7 @@ namespace TerrariaApi.Server
 	{
 		public const string PluginsPath = "ServerPlugins";
 
-		public static readonly Version ApiVersion = new Version(1, 13, 0, 0);
+		public static readonly Version ApiVersion = new Version(1, 14, 0, 0);
 		private static Main game;
 		private static readonly Dictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
 		private static readonly List<PluginContainer> plugins = new List<PluginContainer>();
@@ -267,7 +267,22 @@ namespace TerrariaApi.Server
 				{
 					try
 					{
-						assembly = Assembly.LoadFile(fileInfo.FullName);
+						assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName));
+
+						// Many types have changed with 1.14 and thus we won't even able to check the ApiVersionAttribute of types, 
+						// because the types can not be loaded as they reference the old types of the old TerrariaServer assembly.
+						// We work around this by checking the referenced assemblies, if we notice a reference to the old 
+						// TerrariaServer assembly, we expect it to be outdated.
+						AssemblyName[] referencedAssemblies = assembly.GetReferencedAssemblies();
+						AssemblyName terrariaServerReference = referencedAssemblies.FirstOrDefault(an => an.Name == "TerrariaServer");
+						if (terrariaServerReference != null && terrariaServerReference.Version == new Version(0, 0, 0, 0))
+						{
+							LogWriter.ServerWriteLine(
+								string.Format("Plugin assembly \"{0}\" was compiled for a Server API version prior 1.14 and was ignored.", 
+								fileInfo.Name), TraceLevel.Warning);
+
+							continue;
+						}
 
 						foreach (Type type in assembly.GetExportedTypes())
 						{
@@ -284,7 +299,7 @@ namespace TerrariaApi.Server
 								if (apiVersion != ApiVersion)
 								{
 									LogWriter.ServerWriteLine(
-										string.Format("Plugin \"{0}\" is designed for a different Server Api version ({1}) and was ignored.", 
+										string.Format("Plugin \"{0}\" is designed for a different Server API version ({1}) and was ignored.", 
 										type.FullName, apiVersion.ToString(2)), TraceLevel.Warning);
 
 									continue;
@@ -315,7 +330,7 @@ namespace TerrariaApi.Server
 					{
 						// Broken assemblies / plugins better stop the entire server init.
 						throw new InvalidOperationException(
-							string.Format("Failed to load assembly \"{0}\".", fileInfo.FullName), ex);
+							string.Format("Failed to load assembly \"{0}\".", fileInfo.Name), ex);
 					}
 
 					loadedAssemblies.Add(fileNameWithoutExtension, assembly);

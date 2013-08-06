@@ -38,7 +38,7 @@ namespace TerrariaApi.Server
 
 		public void ServerWriteLine(string message, TraceLevel kind)
 		{
-			this.WriteLine("Server Api", message, kind);
+			this.WriteLine("Server API", message, kind);
 		}
 
 		public void PluginWriteLine(TerrariaPlugin plugin, string message, TraceLevel kind)
