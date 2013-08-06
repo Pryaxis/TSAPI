@@ -67,10 +67,6 @@ namespace TerrariaApi.Server
 		internal static void Initialize(string[] commandLineArgs, Main game)
 		{
 			Profiler.BeginMeasureServerInitTime();
-
-			ServerApi.game = game;
-			HandleCommandLine(commandLineArgs);
-
 			ServerApi.LogWriter.ServerWriteLine(
 				string.Format("TerrariaApi - Server v{0} started.", ApiVersion), TraceLevel.Verbose);
 			ServerApi.LogWriter.ServerWriteLine(
@@ -79,6 +75,9 @@ namespace TerrariaApi.Server
 				string.Format("\tOS: {0} (64bit: {1})", Environment.OSVersion, Environment.Is64BitOperatingSystem), TraceLevel.Verbose);
 			ServerApi.LogWriter.ServerWriteLine(
 				"\tMono: " + Terraria.Main.runningMono, TraceLevel.Verbose);
+
+			ServerApi.game = game;
+			HandleCommandLine(commandLineArgs);
 
 			ServerPluginsDirectoryPath = Path.Combine(Environment.CurrentDirectory, PluginsPath);
 
@@ -221,7 +220,7 @@ namespace TerrariaApi.Server
 					{
 						IgnoreVersion = true;
 						LogWriter.ServerWriteLine(
-							"Versions are no longer being regarded!\nYou are on your own! If problems arise, TShock developers will not help you with issues regarding this.", 
+							"Plugin versions are no longer being regarded, you are on your own! If problems arise, TShock developers will not help you with issues regarding this.", 
 							TraceLevel.Warning);
 
 						break;
@@ -230,7 +229,7 @@ namespace TerrariaApi.Server
 					{
 						Terraria.Main.forceUpdate = true;
 						LogWriter.ServerWriteLine(
-							"Forcing game updates regardless of players!\nThis is experimental, and will cause constant CPU usage, you are on your own.",
+							"Forcing game updates regardless of players! This is experimental, and will cause constant CPU usage, you are on your own.",
 							TraceLevel.Warning);
 
 						break;

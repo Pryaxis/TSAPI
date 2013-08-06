@@ -23,7 +23,7 @@ namespace TerrariaApi.Server
 		internal LogWriterManager()
 		{
 			this.DefaultLogWriter = new ServerLogWriter();
-			this.Attach(this.DefaultLogWriter);
+			this.WrappedLogWriter = this.DefaultLogWriter;
 		}
 
 		public void Attach(ILogWriter newLogWriter)
