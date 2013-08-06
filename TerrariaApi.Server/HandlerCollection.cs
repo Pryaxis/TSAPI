@@ -78,10 +78,13 @@ namespace TerrariaApi.Server
 
 		public void Invoke(ArgsType args)
 		{
+			if (args == null)
+				throw new ArgumentNullException("args");
+
 			foreach (var registration in this.registrations) {
 				try
 				{
-					if (ServerApi.Profiler == null)
+					if (ServerApi.Profiler.WrappedProfiler == null)
 					{
 						registration.Handler(args);
 					}
@@ -107,7 +110,7 @@ namespace TerrariaApi.Server
 						"Plugin \"{0}\" has had an unhandled exception thrown by one of its {1} handlers: \n{2}",
 						registration.Registrator.Name, hookName, ex), TraceLevel.Warning);
 
-					if (ServerApi.Profiler != null)
+					if (ServerApi.Profiler.WrappedProfiler != null)
 						ServerApi.Profiler.InputPluginHandlerExceptionThrown(registration.Registrator, hookName, ex);
 				}
 			}
