@@ -29,22 +29,22 @@ namespace Terraria
 
 				try
 				{
-					PluginApi.Initialize(args, Game);
+					ServerApi.ServerApi.Initialize(args, Game);
 				}
 				catch (Exception ex)
 				{
-					PluginApi.LogWriter.ServerWriteLine(
+					ServerApi.ServerApi.LogWriter.ServerWriteLine(
 						"Startup aborted due to an exception in the Server API initialization:\n" + ex, TraceLevel.Error);
 
 					return;
 				}
 				
 				Game.DedServ();
-				PluginApi.DeInitialize();
+				ServerApi.ServerApi.DeInitialize();
 			}
 			catch (Exception ex)
 			{
-				PluginApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + ex, TraceLevel.Error);
+				ServerApi.ServerApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + ex, TraceLevel.Error);
 			}
 		}
 

@@ -1301,7 +1301,7 @@ namespace Terraria
             }
 		    this.width = (int)((float)this.width * this.scale);
 			this.height = (int)((float)this.height * this.scale);
-			PluginApi.Hooks.InvokeProjectileSetDefaults(ref Type, this);
+			ServerApi.ServerApi.Hooks.InvokeProjectileSetDefaults(ref Type, this);
 		}
 		public static int NewProjectile(float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner = 255)
 		{

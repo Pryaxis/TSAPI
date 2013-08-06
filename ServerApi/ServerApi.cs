@@ -13,7 +13,7 @@ namespace ServerApi
 	// TODO: Maybe re-implement a reload functionality for plugins, but you'll have to load all assemblies into their own
 	// AppDomain in order to unload them again later. Beware that having them in their own AppDomain might cause threading 
 	// problems as usual locks will only work in their own AppDomains.
-	public static class PluginApi
+	public static class ServerApi
 	{
 		public const string PluginsPath = "ServerPlugins";
 
@@ -59,17 +59,17 @@ namespace ServerApi
 
 		internal static void Initialize(string[] commandLineArgs, Main game)
 		{
-			PluginApi.game = game;
+			ServerApi.game = game;
 			HandleCommandLine(commandLineArgs);
 			LogWriter = new LogWriterManager();
 
-			PluginApi.LogWriter.ServerWriteLine(
+			ServerApi.LogWriter.ServerWriteLine(
 				string.Format("TerrariaApi - Server v{0} started.", ApiVersion), TraceLevel.Verbose);
-			PluginApi.LogWriter.ServerWriteLine(
+			ServerApi.LogWriter.ServerWriteLine(
 				"\tCommand line: " + Environment.CommandLine, TraceLevel.Verbose);
-			PluginApi.LogWriter.ServerWriteLine(
+			ServerApi.LogWriter.ServerWriteLine(
 				string.Format("\tOS: {0} (64bit: {1})", Environment.OSVersion, Environment.Is64BitOperatingSystem), TraceLevel.Verbose);
-			PluginApi.LogWriter.ServerWriteLine(
+			ServerApi.LogWriter.ServerWriteLine(
 				"\tMono: " + Terraria.Main.runningMono, TraceLevel.Verbose);
 
 			ServerPluginsDirectoryPath = Path.Combine(Environment.CurrentDirectory, PluginsPath);

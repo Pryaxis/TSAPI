@@ -46,13 +46,13 @@ namespace ServerApi
 					detachException = ex;
 				}
 
-				PluginApi.LogWriter.ServerWriteLine(
+				ServerApi.LogWriter.ServerWriteLine(
 					string.Format("Log writer \"{0}\" is being detached.", this.LogWriterName), TraceLevel.Verbose);
 			}
 
 			this.LogWriter = newLogWriter;
 
-			PluginApi.LogWriter.ServerWriteLine(
+			ServerApi.LogWriter.ServerWriteLine(
 				string.Format("Log writer \"{0}\" has been attached.", this.LogWriterName), TraceLevel.Verbose);
 
 			if (detachException != null)

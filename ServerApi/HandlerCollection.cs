@@ -76,7 +76,7 @@ namespace ServerApi
       foreach (var registration in this.registrations) {
         try
         {
-          if (PluginApi.Profiler == null)
+          if (ServerApi.Profiler == null)
           {
             registration.Handler(args);
           }
@@ -92,18 +92,18 @@ namespace ServerApi
             finally
             {
               watch.Stop();
-              PluginApi.Profiler.InputPluginHandlerTime(registration.Registrator, hookName, watch.Elapsed);
+              ServerApi.Profiler.InputPluginHandlerTime(registration.Registrator, hookName, watch.Elapsed);
             }
           }
         }
         catch (Exception ex)
         {
-          PluginApi.LogWriter.ServerWriteLine(string.Format(
+          ServerApi.LogWriter.ServerWriteLine(string.Format(
             "Plugin \"{0}\" has had an unhandled exception thrown by one of its {1} handlers: \n{2}",
             registration.Registrator.Name, hookName, ex), TraceLevel.Warning);
 
-          if (PluginApi.Profiler != null)
-            PluginApi.Profiler.InputPluginHandlerExceptionThrown(registration.Registrator, hookName, ex);
+          if (ServerApi.Profiler != null)
+            ServerApi.Profiler.InputPluginHandlerExceptionThrown(registration.Registrator, hookName, ex);
         }
       }
     }

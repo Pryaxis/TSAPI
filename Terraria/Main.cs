@@ -908,7 +908,7 @@ namespace Terraria
         {
             Type t = Type.GetType("Mono.Runtime");
             Main.runningMono = (t != null);
-            PluginApi.Hooks.InvokeGameInitialize();
+            ServerApi.ServerApi.Hooks.InvokeGameInitialize();
             Main.rand = new Random();
             Console.Title = "Terraria Server " + Main.versionNumber2;
             Main.dedServ = true;
@@ -921,7 +921,7 @@ namespace Terraria
                 nPC.SetDefaults(i, -1f);
                 Main.npcName[i] = nPC.name;
             }
-            PluginApi.Profiler.EndMeasureServerInitTime();
+            ServerApi.ServerApi.Profiler.EndMeasureServerInitTime();
             while (Main.worldPathName == null || Main.worldPathName == "")
             {
                 Main.LoadWorlds();
@@ -1173,7 +1173,7 @@ namespace Terraria
             {
                 Main.startDedInput();
             }
-            PluginApi.Hooks.InvokeGamePostInitialize();
+            ServerApi.ServerApi.Hooks.InvokeGamePostInitialize();
             stopwatch.Start();
             double num6 = 16.666666666666668;
             double num7 = 0.0;
@@ -1203,12 +1203,12 @@ namespace Terraria
                         Stopwatch updateWatch = new Stopwatch();
                         updateWatch.Start();
 
-                        PluginApi.Hooks.InvokeGameUpdate();
+                        ServerApi.ServerApi.Hooks.InvokeGameUpdate();
                         this.Update();
-                        PluginApi.Hooks.InvokeGamePostUpdate();
+                        ServerApi.ServerApi.Hooks.InvokeGamePostUpdate();
 
                         updateWatch.Stop();
-                        PluginApi.Profiler.InputServerGameUpdateTime(updateWatch.Elapsed);
+                        ServerApi.ServerApi.Profiler.InputServerGameUpdateTime(updateWatch.Elapsed);
                     }
                     double num10 = (double) stopwatch.ElapsedMilliseconds + num7;
                     if (num10 < num6)
@@ -1240,7 +1240,7 @@ namespace Terraria
             {
                 Console.Write(": ");
                 string text = Console.ReadLine();
-                if (!PluginApi.Hooks.InvokeServerCommand(text))
+                if (!ServerApi.ServerApi.Hooks.InvokeServerCommand(text))
                 {
                     string text2 = text;
                     text = text.ToLower();
@@ -2409,7 +2409,7 @@ namespace Terraria
             int month = now.Month;
             bool xmas = ((day >= 15) && (month == 12));
 
-            PluginApi.Hooks.InvokeWorldChristmasCheck(ref xmas);
+            ServerApi.ServerApi.Hooks.InvokeWorldChristmasCheck(ref xmas);
             Main.xMas = xmas;
         }
 

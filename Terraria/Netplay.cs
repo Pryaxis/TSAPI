@@ -218,7 +218,7 @@ namespace Terraria
 
                     if (Netplay.serverSock[k].kill)
                     {
-                        PluginApi.Hooks.InvokeServerLeave(Netplay.serverSock[k].whoAmI);
+                        ServerApi.ServerApi.Hooks.InvokeServerLeave(Netplay.serverSock[k].whoAmI);
                         Netplay.serverSock[k].Reset();
                         NetMessage.syncPlayers();
                     }

@@ -37,17 +37,17 @@ namespace ServerApi {
 				}
 				catch (Exception ex)
 				{
-					PluginApi.LogWriter.ServerWriteLine(
+					ServerApi.LogWriter.ServerWriteLine(
 						string.Format("Profiler \"{0}\" had thrown an unhandled exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
 				}
 
-				PluginApi.LogWriter.ServerWriteLine(
+				ServerApi.LogWriter.ServerWriteLine(
 					string.Format("Profiler \"{0}\" was detached.", this.ProfilerName), TraceLevel.Verbose);
 			}
 
 			this.WrappedProfiler = newProfiler;
 
-			PluginApi.LogWriter.ServerWriteLine(
+			ServerApi.LogWriter.ServerWriteLine(
 				string.Format("Profiler \"{0}\" was attached.", this.ProfilerName), TraceLevel.Verbose);
 		}
 
@@ -81,7 +81,7 @@ namespace ServerApi {
 			}
 			catch (Exception ex)
 			{
-				PluginApi.LogWriter.ServerWriteLine(
+				ServerApi.LogWriter.ServerWriteLine(
 					string.Format("Profiler \"{0}\" has thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
 			}
 		}
@@ -97,7 +97,7 @@ namespace ServerApi {
 			}
 			catch (Exception ex)
 			{
-				PluginApi.LogWriter.ServerWriteLine(
+				ServerApi.LogWriter.ServerWriteLine(
 					string.Format("Profiler \"{0}\" has thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
 			}
 		}
@@ -113,7 +113,7 @@ namespace ServerApi {
 			}
 			catch (Exception ex)
 			{
-				PluginApi.LogWriter.ServerWriteLine(
+				ServerApi.LogWriter.ServerWriteLine(
 					string.Format("Profiler \"{0}\" has thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
 			}
 		}
@@ -129,7 +129,7 @@ namespace ServerApi {
 			}
 			catch (Exception ex)
 			{
-				PluginApi.LogWriter.ServerWriteLine(
+				ServerApi.LogWriter.ServerWriteLine(
 					string.Format("Profiler \"{0}\" has thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
 			}
 		}
@@ -147,7 +147,7 @@ namespace ServerApi {
 			}
 			catch (Exception ex)
 			{
-				PluginApi.LogWriter.ServerWriteLine(
+				ServerApi.LogWriter.ServerWriteLine(
 					string.Format("Profiler \"{0}\" has thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
 			}
 		}
@@ -167,7 +167,7 @@ namespace ServerApi {
 			}
 			catch (Exception ex)
 			{
-				PluginApi.LogWriter.ServerWriteLine(
+				ServerApi.LogWriter.ServerWriteLine(
 					string.Format("Profiler \"{0}\" has thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
 			}
 		}
@@ -187,7 +187,7 @@ namespace ServerApi {
 			}
 			catch (Exception ex)
 			{
-				PluginApi.LogWriter.ServerWriteLine(
+				ServerApi.LogWriter.ServerWriteLine(
 					string.Format("Profiler \"{0}\" has thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
 			}
 		}
@@ -209,7 +209,7 @@ namespace ServerApi {
 			}
 			catch (Exception ex)
 			{
-				PluginApi.LogWriter.ServerWriteLine(
+				ServerApi.LogWriter.ServerWriteLine(
 					string.Format("Profiler \"{0}\" has thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
 			}
 		}
@@ -227,7 +227,7 @@ namespace ServerApi {
 			}
 			catch (Exception ex)
 			{
-				PluginApi.LogWriter.ServerWriteLine(
+				ServerApi.LogWriter.ServerWriteLine(
 					string.Format("Profiler \"{0}\" has thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
 			}
 		}

@@ -722,7 +722,7 @@ namespace Terraria
 					num5++;
 				}
 			}
-			if (PluginApi.Hooks.InvokeWorldMeteorDrop(0, 0))
+			if (ServerApi.ServerApi.Hooks.InvokeWorldMeteorDrop(0, 0))
 			{
 				return;
 			}
@@ -1142,7 +1142,7 @@ namespace Terraria
 		}
         public static void saveWorld(bool resetTime = false)
         {
-            if (PluginApi.Hooks.InvokeWorldSave(resetTime))
+            if (ServerApi.ServerApi.Hooks.InvokeWorldSave(resetTime))
             {
                 return;
             }
@@ -1373,7 +1373,7 @@ namespace Terraria
             }
 
             saveWorldWatch.Stop();
-            PluginApi.Profiler.InputServerWorldSaveTime(saveWorldWatch.Elapsed);
+            ServerApi.ServerApi.Profiler.InputServerWorldSaveTime(saveWorldWatch.Elapsed);
         }
 	    public static void loadWorld()
         {
@@ -1696,7 +1696,7 @@ namespace Terraria
             }
 
             loadWorldWatch.Stop();
-            PluginApi.Profiler.InputServerWorldLoadTime(loadWorldWatch.Elapsed);
+            ServerApi.ServerApi.Profiler.InputServerWorldLoadTime(loadWorldWatch.Elapsed);
         }
 		private static void resetGen()
 		{
@@ -5830,7 +5830,7 @@ namespace Terraria
 			{
 				return;
 			}
-			if (PluginApi.Hooks.InvokeWorldStartHardMode())
+			if (ServerApi.ServerApi.Hooks.InvokeWorldStartHardMode())
 					return;
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.smCallBack), 1);
 		}
@@ -15814,7 +15814,7 @@ namespace Terraria
 						}
 						if (num4 < 2)
 						{
-							if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(i + num2, j + num3, 129))
+							if (ServerApi.ServerApi.Hooks.InvokeGameHardmodeTileUpdate(i + num2, j + num3, 129))
 							{
 								return;
 							}
@@ -15837,7 +15837,7 @@ namespace Terraria
 							{
 								flag = true;
 							}
-							if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 23))
+							if (ServerApi.ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 23))
 							{
 								return;
 							}
@@ -15853,7 +15853,7 @@ namespace Terraria
 								{
 									flag = true;
 								}
-								if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 25))
+								if (ServerApi.ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 25))
 								{
 									return;
 								}
@@ -15869,7 +15869,7 @@ namespace Terraria
 									{
 										flag = true;
 									}
-									if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 112))
+									if (ServerApi.ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 112))
 									{
 										return;
 									}
@@ -15885,7 +15885,7 @@ namespace Terraria
 										{
 											flag = true;
 										}
-										if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 0))
+										if (ServerApi.ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 0))
 										{
 											return;
 										}
@@ -15901,7 +15901,7 @@ namespace Terraria
 											{
 												flag = true;
 											}
-											if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 23))
+											if (ServerApi.ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 23))
 											{
 												return;
 											}
@@ -15917,7 +15917,7 @@ namespace Terraria
 												{
 													flag = true;
 												}
-												if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 32))
+												if (ServerApi.ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, 32))
 												{
 													return;
 												}
@@ -15946,7 +15946,7 @@ namespace Terraria
 							{
 								flag2 = true;
 							}
-							if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num8, num9, 109))
+							if (ServerApi.ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num8, num9, 109))
 							{
 								return;
 							}
@@ -15962,7 +15962,7 @@ namespace Terraria
 								{
 									flag2 = true;
 								}
-								if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num8, num9, 117))
+								if (ServerApi.ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num8, num9, 117))
 								{
 									return;
 								}
@@ -15978,7 +15978,7 @@ namespace Terraria
 									{
 										flag2 = true;
 									}
-									if (PluginApi.Hooks.InvokeGameHardmodeTileUpdate(num8, num9, 116) )
+									if (ServerApi.ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num8, num9, 116) )
 									{
 										return;
 									}

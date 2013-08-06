@@ -117,7 +117,7 @@ namespace Terraria
 		}
 		public void Reset()
 		{
-			PluginApi.Hooks.InvokeServerSocketReset(this);
+			ServerApi.ServerApi.Hooks.InvokeServerSocketReset(this);
 			for (int i = 0; i < Main.maxSectionsX; i++)
 			{
 				for (int j = 0; j < Main.maxSectionsY; j++)

@@ -80,7 +80,7 @@ namespace ServerApi
 				else
 					this.InvokeGameWorldConnect();
 
-				PluginApi.IsWorldRunning = !Main.gameMenu;
+				ServerApi.IsWorldRunning = !Main.gameMenu;
 			}
 
 			this.GameUpdate.Invoke(EventArgs.Empty);
