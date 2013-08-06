@@ -54,7 +54,7 @@ namespace ServerApi
 		void InputServerGameUpdateTime(TimeSpan processingTime);
 
 		/// <summary>
-		///   Provides the profiler with the processing time consumed by a plugin's initialization.
+		///   Provides the profiler with the processing time consumed by a plugin's constructor and initialization.
 		///   This method is called for each plugin after all plugins have been fully initialized to give the profiler a chance
 		///   to gather all data no matter when it got attached.
 		/// </summary>

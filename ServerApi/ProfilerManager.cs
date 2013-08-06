@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace ServerApi {
 	public class ProfilerManager
 	{
-		private readonly Stopwatch serverInitTimeWatch = new Stopwatch();
+		private Stopwatch serverInitTimeWatch = new Stopwatch();
 
 		internal IProfiler WrappedProfiler
 		{
@@ -53,13 +53,21 @@ namespace ServerApi {
 
 		internal void BeginMeasureServerInitTime()
 		{
-			this.serverInitTimeWatch.Restart();
+			if (this.serverInitTimeWatch == null)
+				this.serverInitTimeWatch = new Stopwatch();
+
+			this.serverInitTimeWatch.Start();
 		}
 
 		internal void EndMeasureServerInitTime()
 		{
+			if (this.serverInitTimeWatch == null)
+				return;
+
 			this.serverInitTimeWatch.Stop();
 			this.InputServerInitTime(this.serverInitTimeWatch.Elapsed);
+
+			this.serverInitTimeWatch = null;
 		}
 
 		internal void InputServerInitTime(TimeSpan processingTime)

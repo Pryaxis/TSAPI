@@ -869,14 +869,14 @@ namespace Terraria
             }
         }
 
-        public void SetWorld(string wrold)
+        public void SetWorld(string world)
         {
-            Main.worldPathName = wrold;
+            Main.worldPathName = world;
         }
 
-        public void SetWorldName(string wrold)
+        public void SetWorldName(string world)
         {
-            Main.worldName = wrold;
+            Main.worldName = world;
         }
 
         public void autoShut()
