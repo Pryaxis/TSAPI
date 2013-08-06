@@ -60,7 +60,7 @@ namespace TerrariaApi.Server
 							Console.ForegroundColor = ConsoleColor.Red;
 							break;
 						case TraceLevel.Warning:
-							Console.ForegroundColor = ConsoleColor.DarkYellow;
+							Console.ForegroundColor = ConsoleColor.Yellow;
 							break;
 						case TraceLevel.Info:
 							Console.ForegroundColor = ConsoleColor.Gray;
@@ -73,7 +73,7 @@ namespace TerrariaApi.Server
 				}
 			}
 
-			this.LogFileWriter.WriteLine("[{0:MM/dd/yy HH:mm:ss}] [{1}] {2} {3}", DateTime.Now, context, kind, message);
+			this.LogFileWriter.WriteLine("[{0:MM/dd/yy HH:mm:ss}] [{1}] {2}: {3}", DateTime.Now, context, kind, message);
 		}
 
 		~ServerLogWriter()

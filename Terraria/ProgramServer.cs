@@ -32,6 +32,7 @@ namespace Terraria
 					ServerApi.LogWriter.ServerWriteLine(
 						"Startup aborted due to an exception in the Server API initialization:\n" + ex, TraceLevel.Error);
 
+					Console.ReadLine();
 					return;
 				}
 				
@@ -41,6 +42,7 @@ namespace Terraria
 			catch (Exception ex)
 			{
 				ServerApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + ex, TraceLevel.Error);
+				Console.ReadLine();
 			}
 		}
 

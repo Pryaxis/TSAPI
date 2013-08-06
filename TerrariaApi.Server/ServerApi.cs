@@ -268,6 +268,48 @@ namespace TerrariaApi.Server
 					try
 					{
 						assembly = Assembly.LoadFile(fileInfo.FullName);
+
+						foreach (Type type in assembly.GetExportedTypes())
+						{
+							if (!type.IsSubclassOf(typeof (TerrariaPlugin)) || !type.IsPublic || type.IsAbstract)
+								continue;
+							object[] customAttributes = type.GetCustomAttributes(typeof (ApiVersionAttribute), false);
+							if (customAttributes.Length == 0)
+								continue;
+
+							if (!IgnoreVersion)
+							{
+								var apiVersionAttribute = (ApiVersionAttribute)customAttributes[0];
+								Version apiVersion = apiVersionAttribute.ApiVersion;
+								if (apiVersion != ApiVersion)
+								{
+									LogWriter.ServerWriteLine(
+										string.Format("Plugin \"{0}\" is designed for a different Server Api version ({1}) and was ignored.", 
+										type.FullName, apiVersion.ToString(2)), TraceLevel.Warning);
+
+									continue;
+								}
+							}
+
+							TerrariaPlugin pluginInstance;
+							try
+							{
+								Stopwatch initTimeWatch = new Stopwatch();
+								initTimeWatch.Start();
+
+								pluginInstance = (TerrariaPlugin)Activator.CreateInstance(type, game);
+						
+								initTimeWatch.Stop();
+								pluginInitWatches.Add(pluginInstance, initTimeWatch);
+							}
+							catch (Exception ex)
+							{
+								// Broken plugins better stop the entire server init.
+								throw new InvalidOperationException(
+									string.Format("Could not create an instance of plugin class \"{0}\".", type.FullName), ex);
+							}
+							plugins.Add(new PluginContainer(pluginInstance));
+						}
 					}
 					catch (Exception ex)
 					{
@@ -277,48 +319,6 @@ namespace TerrariaApi.Server
 					}
 
 					loadedAssemblies.Add(fileNameWithoutExtension, assembly);
-				}
-
-				foreach (Type type in assembly.GetExportedTypes())
-				{
-					if (!type.IsSubclassOf(typeof (TerrariaPlugin)) || !type.IsPublic || type.IsAbstract)
-						continue;
-					object[] customAttributes = type.GetCustomAttributes(typeof (ApiVersionAttribute), false);
-					if (customAttributes.Length == 0)
-						continue;
-
-					if (!IgnoreVersion)
-					{
-						var apiVersionAttribute = (ApiVersionAttribute)customAttributes[0];
-						Version apiVersion = apiVersionAttribute.ApiVersion;
-						if (apiVersion != ApiVersion)
-						{
-							LogWriter.ServerWriteLine(
-								string.Format("Plugin \"{0}\" is designed for a different Server Api version ({1}) and was ignored.", 
-								type.FullName, apiVersion.ToString(2)), TraceLevel.Warning);
-
-							continue;
-						}
-					}
-
-					TerrariaPlugin pluginInstance;
-					try
-					{
-						Stopwatch initTimeWatch = new Stopwatch();
-						initTimeWatch.Start();
-
-						pluginInstance = (TerrariaPlugin)Activator.CreateInstance(type, game);
-						
-						initTimeWatch.Stop();
-						pluginInitWatches.Add(pluginInstance, initTimeWatch);
-					}
-					catch (Exception ex)
-					{
-						// Broken plugins better stop the entire server init.
-						throw new InvalidOperationException(
-							string.Format("Could not create an instance of plugin class \"{0}\".", type.FullName), ex);
-					}
-					plugins.Add(new PluginContainer(pluginInstance));
 				}
 			}
 			IOrderedEnumerable<PluginContainer> orderedPluginSelector =
