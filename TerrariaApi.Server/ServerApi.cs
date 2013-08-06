@@ -46,7 +46,7 @@ namespace TerrariaApi.Server
 			get;
 			private set;
 		}
-		internal static ProfilerManager Profiler
+		public static ProfilerManager Profiler
 		{
 			get; 
 			private set;
