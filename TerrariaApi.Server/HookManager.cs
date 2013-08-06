@@ -900,7 +900,7 @@ namespace TerrariaApi.Server
 			get { return this.worldChristmasCheck; }
 		}
 
-		internal void InvokeWorldChristmasCheck(ref bool xmasCheck)
+		internal bool InvokeWorldChristmasCheck(ref bool xmasCheck)
 		{
 			ChristmasCheckEventArgs args = new ChristmasCheckEventArgs
 			{
@@ -910,6 +910,7 @@ namespace TerrariaApi.Server
 			this.WorldChristmasCheck.Invoke(args);
 
 			xmasCheck = args.Xmas;
+			return args.Handled;
 		}
 		#endregion
 		#endregion

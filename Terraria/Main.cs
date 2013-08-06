@@ -2409,7 +2409,10 @@ namespace Terraria
             int month = now.Month;
             bool xmas = ((day >= 15) && (month == 12));
 
-            ServerApi.Hooks.InvokeWorldChristmasCheck(ref xmas);
+            bool xmas2 = xmas;
+            if (ServerApi.Hooks.InvokeWorldChristmasCheck(ref xmas2))
+                xmas = xmas2;
+
             Main.xMas = xmas;
         }
 
