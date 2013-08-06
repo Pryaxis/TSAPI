@@ -1,5 +1,5 @@
 using System;
-using ServerApi;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -10457,17 +10457,17 @@ namespace Terraria
         public void netDefaults(int Type)
         {
             RealnetDefaults(Type);
-            ServerApi.ServerApi.Hooks.InvokeItemNetDefaults(ref Type, this);
+            ServerApi.Hooks.InvokeItemNetDefaults(ref Type, this);
         }
         public void SetDefaults(int Type, bool noMatCheck = false)
         {
             RealSetDefaults(Type, noMatCheck);
-            ServerApi.ServerApi.Hooks.InvokeItemSetDefaultsInt(ref Type, this);
+            ServerApi.Hooks.InvokeItemSetDefaultsInt(ref Type, this);
         }
         public void SetDefaults(string ItemName)
         {
             RealSetDefaults(ItemName);
-            ServerApi.ServerApi.Hooks.InvokeItemSetDefaultsString(ref ItemName, this);
+            ServerApi.Hooks.InvokeItemSetDefaultsString(ref ItemName, this);
         }
 		public static string VersionName(string oldName, int release)
 		{
@@ -10614,7 +10614,7 @@ namespace Terraria
 				}
 			}
 
-			return ServerApi.ServerApi.Hooks.InvokeGameStatueSpawn(num2, num3, num, (int)(x/16), (int)(y/16), type, false);
+			return ServerApi.Hooks.InvokeGameStatueSpawn(num2, num3, num, (int)(x/16), (int)(y/16), type, false);
 		}
         public void UpdateItem(int i)
         {

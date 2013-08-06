@@ -1,5 +1,5 @@
 using System;
-using ServerApi;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -1754,71 +1754,71 @@ namespace Terraria
 				{
 					case -1:
 						this.SetDefaults("Slimeling");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -2:
 						this.SetDefaults("Slimer2");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -3:
 						this.SetDefaults("Green Slime");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -4:
 						this.SetDefaults("Pinky");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -5:
 						this.SetDefaults("Baby Slime");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -6:
 						this.SetDefaults("Black Slime");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -7:
 						this.SetDefaults("Purple Slime");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -8:
 						this.SetDefaults("Red Slime");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -9:
 						this.SetDefaults("Yellow Slime");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -10:
 						this.SetDefaults("Jungle Slime");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -11:
 						this.SetDefaults("Little Eater");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -12:
 						this.SetDefaults("Big Eater");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -13:
 						this.SetDefaults("Short Bones");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -14:
 						this.SetDefaults("Big Boned");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -15:
 						this.SetDefaults("Heavy Skeleton");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -16:
 						this.SetDefaults("Little Stinger");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 					case -17:
 						this.SetDefaults("Big Stinger");
-						ServerApi.ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+						ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 						return;
 				}
 			}
@@ -2038,7 +2038,7 @@ namespace Terraria
 			this.lifeMax = this.life;
 			this.defDamage = this.damage;
 			this.defDefense = this.defense;
-			ServerApi.ServerApi.Hooks.InvokeNpcSetDefaultsString(ref Name, this);
+			ServerApi.Hooks.InvokeNpcSetDefaultsString(ref Name, this);
 		}
 		public static bool MechSpawn(float x, float y, int type)
 		{
@@ -2065,7 +2065,7 @@ namespace Terraria
 				}
 			}
 
-			return ServerApi.ServerApi.Hooks.InvokeGameStatueSpawn(num2, num3, num, (int)(x/16), (int)(y/16), type, true);
+			return ServerApi.Hooks.InvokeGameStatueSpawn(num2, num3, num, (int)(x/16), (int)(y/16), type, true);
 		}
 		public static int TypeToNum(int type)
 		{
@@ -4643,7 +4643,7 @@ namespace Terraria
 			this.defDefense = this.defense;
 			this.netID = this.type;
 			this.displayName = Lang.npcName(this.netID);
-			ServerApi.ServerApi.Hooks.InvokeNpcSetDefaultsInt(ref Type, this);
+			ServerApi.Hooks.InvokeNpcSetDefaultsInt(ref Type, this);
 		}
 		public void AI()
 		{
@@ -18045,7 +18045,7 @@ namespace Terraria
 			{
 				Main.npc[num] = new NPC();
 				Main.npc[num].SetDefaults(Type, -1f);
-				if (ServerApi.ServerApi.Hooks.InvokeNpcSpawn(Main.npc[num]))
+				if (ServerApi.Hooks.InvokeNpcSpawn(Main.npc[num]))
 				{
 					return 200;
 				}
@@ -18273,7 +18273,7 @@ namespace Terraria
 
 		private void DropLoot(int x, int y, int w, int h, int itemId, int stack, bool broadcast, int prefix)
 		{
-			if (!ServerApi.ServerApi.Hooks.InvokeNpcLootDrop(ref x, ref y, ref w, ref h, ref itemId, ref stack, ref broadcast, ref prefix, type, whoAmI))
+			if (!ServerApi.Hooks.InvokeNpcLootDrop(ref x, ref y, ref w, ref h, ref itemId, ref stack, ref broadcast, ref prefix, type, whoAmI))
 			{
 				Item.NewItem(x, y, w, h, itemId, stack, broadcast, prefix);
 			}

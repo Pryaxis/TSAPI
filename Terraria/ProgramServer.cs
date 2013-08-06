@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using ServerApi;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -14,7 +14,7 @@ namespace Terraria
 			try
 			{
 				// Must be done before creating Main because its constructor will invoke some of the hooks.
-				ServerApi.ServerApi.InitializeHooks();
+				ServerApi.InitializeHooks();
 				Game = new Main();
 				
 				if (Environment.OSVersion.Platform == PlatformID.Unix)
@@ -27,22 +27,22 @@ namespace Terraria
 
 				try
 				{
-					ServerApi.ServerApi.Initialize(args, Game);
+					ServerApi.Initialize(args, Game);
 				}
 				catch (Exception ex)
 				{
-					ServerApi.ServerApi.LogWriter.ServerWriteLine(
+					ServerApi.LogWriter.ServerWriteLine(
 						"Startup aborted due to an exception in the Server API initialization:\n" + ex, TraceLevel.Error);
 
 					return;
 				}
 				
 				Game.DedServ();
-				ServerApi.ServerApi.DeInitialize();
+				ServerApi.DeInitialize();
 			}
 			catch (Exception ex)
 			{
-				ServerApi.ServerApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + ex, TraceLevel.Error);
+				ServerApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + ex, TraceLevel.Error);
 			}
 		}
 
