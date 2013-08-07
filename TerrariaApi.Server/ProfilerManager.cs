@@ -190,7 +190,7 @@ namespace TerrariaApi.Server {
 			}
 		}
 
-		internal void InputPluginCustomProcessingTime(TerrariaPlugin plugin, string operation, TimeSpan processingTime)
+		public void InputPluginCustomProcessingTime(TerrariaPlugin plugin, string operation, TimeSpan processingTime)
 		{
 			if (plugin == null)
 				throw new ArgumentNullException("plugin");

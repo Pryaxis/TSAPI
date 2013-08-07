@@ -8,6 +8,7 @@ namespace TerrariaApi.Server
 	public class HandlerCollection<ArgsType>: IEnumerable<HandlerRegistration<ArgsType>> where ArgsType: EventArgs
 	{
 		private readonly List<HandlerRegistration<ArgsType>> registrations;
+		private readonly object registrationsLock = new object();
 		public string hookName { get; private set; }
 
 		internal HandlerCollection(string hookName)
@@ -33,20 +34,23 @@ namespace TerrariaApi.Server
 				Priority = priority
 			};
 
-			// Highest priority goes up in the list, first registered wins if priority equals.
-			for (int i = 0; i < this.registrations.Count + 1; i++)
+			lock (this.registrationsLock)
 			{
-				if (i == this.registrations.Count)
+				// Highest priority goes up in the list, first registered wins if priority equals.
+				for (int i = 0; i < this.registrations.Count + 1; i++)
 				{
-					this.registrations.Add(newRegistration);
-					break;
-				}
+					if (i == this.registrations.Count)
+					{
+						this.registrations.Add(newRegistration);
+						break;
+					}
 
-				int itemPriority = this.registrations[i].Priority;
-				if (itemPriority < priority)
-				{
-					this.registrations.Insert(i, newRegistration);
-					break;
+					int itemPriority = this.registrations[i].Priority;
+					if (itemPriority < priority)
+					{
+						this.registrations.Insert(i, newRegistration);
+						break;
+					}
 				}
 			}
 		}
@@ -68,11 +72,15 @@ namespace TerrariaApi.Server
 				Registrator = registrator,
 				Handler = handler
 			};
-			int registrationIndex = this.registrations.IndexOf(registration);
-			if (registrationIndex == -1)
-				return false;
 
-			this.registrations.RemoveAt(registrationIndex);
+			lock (this.registrationsLock)
+			{
+				int registrationIndex = this.registrations.IndexOf(registration);
+				if (registrationIndex == -1)
+					return false;
+
+				this.registrations.RemoveAt(registrationIndex);
+			}
 			return true;
 		}
 
@@ -80,38 +88,41 @@ namespace TerrariaApi.Server
 		{
 			if (args == null)
 				throw new ArgumentNullException("args");
+			if (this.registrations.Count == 0)
+				return;
 
-			foreach (var registration in this.registrations) {
-				try
-				{
-					if (ServerApi.Profiler.WrappedProfiler == null)
+			lock (this.registrations) {
+				foreach (var registration in this.registrations) {
+					try
 					{
-						registration.Handler(args);
-					}
-					else
-					{
-						Stopwatch watch = new Stopwatch();
-
-						watch.Start();
-						try
+						if (ServerApi.Profiler.WrappedProfiler == null)
 						{
 							registration.Handler(args);
 						}
-						finally
+						else
 						{
-							watch.Stop();
-							ServerApi.Profiler.InputPluginHandlerTime(registration.Registrator, hookName, watch.Elapsed);
+							Stopwatch watch = new Stopwatch();
+
+							watch.Start();
+							try
+							{
+								registration.Handler(args);
+							}
+							finally
+							{
+								watch.Stop();
+								ServerApi.Profiler.InputPluginHandlerTime(registration.Registrator, hookName, watch.Elapsed);
+							}
 						}
 					}
-				}
-				catch (Exception ex)
-				{
-					ServerApi.LogWriter.ServerWriteLine(string.Format(
-						"Plugin \"{0}\" has had an unhandled exception thrown by one of its {1} handlers: \n{2}",
-						registration.Registrator.Name, hookName, ex), TraceLevel.Warning);
+					catch (Exception ex)
+					{
+						ServerApi.LogWriter.ServerWriteLine(string.Format(
+							"Plugin \"{0}\" has had an unhandled exception thrown by one of its {1} handlers: \n{2}",
+							registration.Registrator.Name, hookName, ex), TraceLevel.Warning);
 
-					if (ServerApi.Profiler.WrappedProfiler != null)
 						ServerApi.Profiler.InputPluginHandlerExceptionThrown(registration.Registrator, hookName, ex);
+					}
 				}
 			}
 		}
