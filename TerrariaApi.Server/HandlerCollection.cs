@@ -15,7 +15,7 @@ namespace TerrariaApi.Server
 		{
 			if (string.IsNullOrWhiteSpace(hookName))
 				throw new ArgumentException("Invalid hook name.", "hookName");
-
+			
 			this.registrations = new List<HandlerRegistration<ArgsType>>();
 			this.hookName = hookName;
 		}
@@ -91,7 +91,7 @@ namespace TerrariaApi.Server
 			if (this.registrations.Count == 0)
 				return;
 
-			lock (this.registrations) {
+			lock (this.registrationsLock) {
 				foreach (var registration in this.registrations) {
 					try
 					{
