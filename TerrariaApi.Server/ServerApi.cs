@@ -295,7 +295,7 @@ namespace TerrariaApi.Server
 							{
 								var apiVersionAttribute = (ApiVersionAttribute)customAttributes[0];
 								Version apiVersion = apiVersionAttribute.ApiVersion;
-								if (apiVersion != ApiVersion)
+								if (apiVersion.Major != ApiVersion.Major || apiVersion.Minor != ApiVersion.Minor)
 								{
 									LogWriter.ServerWriteLine(
 										string.Format("Plugin \"{0}\" is designed for a different Server API version ({1}) and was ignored.", 
