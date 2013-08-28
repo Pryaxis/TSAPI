@@ -67,8 +67,8 @@ namespace TerrariaApi.Server
 		{
 			get { return this.gameUpdate; }
 		}
-		private bool currentGameMenuState;
 
+		private bool currentGameMenuState;
 		internal void InvokeGameUpdate()
 		{
 			if (this.currentGameMenuState != Main.gameMenu)
