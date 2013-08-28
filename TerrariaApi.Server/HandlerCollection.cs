@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Diagnostics;
 
 namespace TerrariaApi.Server
 {
 	public class HandlerCollection<ArgsType>: IEnumerable<HandlerRegistration<ArgsType>> where ArgsType: EventArgs
 	{
+		// Always handle this collection like an immuteable object to maintain thread safety!
 		private List<HandlerRegistration<ArgsType>> registrations;
 		private readonly object alterRegistrationsLock = new object();
 		public string hookName { get; private set; }
@@ -36,7 +38,6 @@ namespace TerrariaApi.Server
 
 			lock (this.alterRegistrationsLock)
 			{
-				// The collection can't be modified directly because an invoke might currently be ongoing.
 				var registrationsClone = new List<HandlerRegistration<ArgsType>>(this.registrations.Count);
 				registrationsClone.AddRange(this.registrations);
 
@@ -51,7 +52,7 @@ namespace TerrariaApi.Server
 				}
 				registrationsClone.Insert(insertionIndex, newRegistration);
 
-				this.registrations = registrationsClone;
+				Interlocked.Exchange(ref this.registrations, registrationsClone);
 			}
 		}
 
@@ -79,13 +80,12 @@ namespace TerrariaApi.Server
 				if (registrationIndex == -1)
 					return false;
 
-				// The collection can't be modified directly because an invoke might currently be ongoing.
 				var registrationsClone = new List<HandlerRegistration<ArgsType>>(this.registrations.Count);
 				for (int i = 0; i < this.registrations.Count; i++) 
 					if (i != registrationIndex)
 						registrationsClone.Add(this.registrations[i]);
 
-				this.registrations = registrationsClone;
+				Interlocked.Exchange(ref this.registrations, registrationsClone);
 			}
 
 			return true;
@@ -98,8 +98,9 @@ namespace TerrariaApi.Server
 			if (this.registrations.Count == 0)
 				return;
 
-			// We handle the registrations like a muteable collection, looping through it is always thread safe.
-			foreach (var registration in this.registrations)
+			// We handle the registrations collection like an immuteable object, looping through it is always thread safe.
+			List<HandlerRegistration<ArgsType>> registrations =	this.registrations;
+			foreach (var registration in registrations)
 			{
 				try
 				{
