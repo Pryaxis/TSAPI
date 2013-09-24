@@ -152,6 +152,22 @@ namespace TerrariaApi.Server {
 			}
 		}
 
+		internal void InputServerGameUpdateTimeWithoutHooks(TimeSpan processingTime)
+		{
+			if (this.WrappedProfiler == null)
+				return;
+
+			try
+			{
+				this.WrappedProfiler.InputServerGameUpdateTimeWithoutHooks(processingTime);
+			}
+			catch (Exception ex)
+			{
+				ServerApi.LogWriter.ServerWriteLine(
+					string.Format("Profiler \"{0}\" has thrown an unexpected exception:\n{1}", this.ProfilerName, ex), TraceLevel.Error);
+			}
+		}
+
 		internal void InputPluginInitTime(TerrariaPlugin plugin, TimeSpan processingTime)
 		{
 			if (plugin == null)

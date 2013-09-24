@@ -1200,15 +1200,28 @@ namespace Terraria
                     }
                     if (Netplay.anyClients || Main.forceUpdate)
                     {
-                        Stopwatch updateWatch = new Stopwatch();
-                        updateWatch.Start();
+                        if (ServerApi.Profiler.WrappedProfiler == null)
+                        {
+                            ServerApi.Hooks.InvokeGameUpdate();
+                            this.Update();
+                            ServerApi.Hooks.InvokeGamePostUpdate();
+                        }
+                        else
+                        {
+                            Stopwatch updateWatch = new Stopwatch();
+                            updateWatch.Start();
+                            ServerApi.Hooks.InvokeGameUpdate();
 
-                        ServerApi.Hooks.InvokeGameUpdate();
-                        this.Update();
-                        ServerApi.Hooks.InvokeGamePostUpdate();
+                            Stopwatch internalUpdateWatch = new Stopwatch();
+                            internalUpdateWatch.Start();
+                            this.Update();
+                            internalUpdateWatch.Stop();
+                            ServerApi.Profiler.InputServerGameUpdateTimeWithoutHooks(internalUpdateWatch.Elapsed);
 
-                        updateWatch.Stop();
-                        ServerApi.Profiler.InputServerGameUpdateTime(updateWatch.Elapsed);
+                            ServerApi.Hooks.InvokeGamePostUpdate();
+                            updateWatch.Stop();
+                            ServerApi.Profiler.InputServerGameUpdateTime(updateWatch.Elapsed);
+                        }
                     }
                     double num10 = (double) stopwatch.ElapsedMilliseconds + num7;
                     if (num10 < num6)
