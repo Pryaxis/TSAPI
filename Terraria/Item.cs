@@ -1,9 +1,4 @@
-﻿// Type: Terraria.Item
-// Assembly: TerrariaServer, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null
-// MVID: EB2F1A62-51C4-4A10-89A0-0EEF96EDFF7B
-// Assembly location: C:\terraria\TerrariaServer.exe
-
-
+﻿
 using System;
 
 namespace Terraria
