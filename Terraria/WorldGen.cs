@@ -2,9 +2,10 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using TerrariaApi.Server;
 namespace Terraria
 {
-	internal class WorldGen
+	public class WorldGen
 	{
 		public static int tileReframeCount = 0;
 		public static bool noMapUpdate = false;
@@ -1461,7 +1462,17 @@ namespace Terraria
 			WorldGen.setWorldSize();
 			WorldGen.worldCleared = true;
 		}
+
 		public static void saveWorld(bool resetTime = false)
+		{
+			if (ServerApi.Hooks.InvokeWorldSave(resetTime))
+			{
+				return;
+			}
+			realsaveWorld(resetTime);
+		}
+
+		public static void realsaveWorld(bool resetTime = false)
 		{
 			if (Main.worldName == "")
 			{
