@@ -1,7 +1,7 @@
 using System;
 namespace Terraria
 {
-	internal class Lang
+	public class Lang
 	{
 		public static int lang = 0;
 		public static string[] misc = new string[31];
