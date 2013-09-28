@@ -247,7 +247,6 @@ namespace Terraria
                                 {
                                     NetMessage.SendData(2, this.whoAmI, -1, text + " " + Lang.mp[5], 0, 0f, 0f, 0f, 0);
                                 }
-                                //return;
 							}
 							if (text.Length > Player.nameLen)
 							{

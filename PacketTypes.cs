@@ -3,7 +3,7 @@ public enum PacketTypes
 {
 	ConnectRequest = 1,
 	Disconnect,
-	/*ContinueConnecting,
+	ContinueConnecting,
 	PlayerInfo,
 	PlayerSlot,
 	ContinueConnecting2,
@@ -18,7 +18,7 @@ public enum PacketTypes
 	SyncPlayers,
 	PlayerHp,
 	Tile,
-	TimeSet,
+	/*TimeSet,
 	DoorUse,
 	TileSendSquare,
 	ItemDrop,

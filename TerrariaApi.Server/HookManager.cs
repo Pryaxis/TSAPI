@@ -623,7 +623,7 @@ namespace TerrariaApi.Server
 
 		internal bool InvokeNpcLootDrop(
 			ref int x, ref int y, ref int w, ref int h, ref int itemId, ref int stack, ref bool broadcast, ref int prefix, 
-			int npcId, int npcArrayIndex)
+			int npcId, int npcArrayIndex, ref bool nodelay)
 		{
 			NpcLootDropEventArgs args = new NpcLootDropEventArgs
 			{
@@ -636,7 +636,8 @@ namespace TerrariaApi.Server
 				Broadcast = broadcast,
 				Prefix = prefix,
 				NpcId = npcId,
-				NpcArrayIndex = npcArrayIndex
+				NpcArrayIndex = npcArrayIndex,
+				NoGrabDelay = nodelay
 			};
 
 			this.NpcLootDrop.Invoke(args);
@@ -649,6 +650,7 @@ namespace TerrariaApi.Server
 			stack = args.Stack;
 			broadcast = args.Broadcast;
 			prefix = args.Prefix;
+			nodelay = args.NoGrabDelay;
 			return args.Handled;
 		}
 		#endregion

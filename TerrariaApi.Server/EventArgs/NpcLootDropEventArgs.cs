@@ -55,5 +55,7 @@ namespace TerrariaApi.Server
 			get; 
 			internal set;
 		}
+
+		public bool NoGrabDelay { get; set; }
 	}
 }
