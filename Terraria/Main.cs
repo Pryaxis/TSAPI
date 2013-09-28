@@ -1,8 +1,4 @@
 using Microsoft.Win32;
-
-
-
-
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -973,6 +969,7 @@ namespace Terraria
 		private float screenOff;
 		private float scAdj;
 		private float cTop;
+        public static bool runningMono = false;
 		[DllImport("User32")]
 		private static extern int RemoveMenu(IntPtr hMenu, int nPosition, int wFlags);
 		[DllImport("User32")]
@@ -1534,6 +1531,8 @@ namespace Terraria
 			{
 				Console.Title = "Terraria Server " + Main.versionNumber2;
 			}
+            Type t = Type.GetType("Mono.Runtime");
+            Main.runningMono = (t != null);
 			Main.dedServ = true;
 			Main.showSplash = false;
 			this.Initialize();
