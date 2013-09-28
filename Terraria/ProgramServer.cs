@@ -1,75 +1,99 @@
 using System;
-using System.Diagnostics;
-using System.IO;
-using TerrariaApi.Server;
-
 namespace Terraria
 {
-	public class ProgramServer
+	internal class ProgramServer
 	{
 		private static Main Game;
-
 		private static void Main(string[] args)
 		{
-			try
+			ProgramServer.Game = new Main();
+			for (int i = 0; i < args.Length; i++)
 			{
-				Game = new Main();
-				
-				if (Environment.OSVersion.Platform == PlatformID.Unix)
-					Terraria.Main.SavePath = "Terraria";
-				else
-					Terraria.Main.SavePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "My Games", "Terraria");
-
-				Terraria.Main.WorldPath = Path.Combine(Terraria.Main.SavePath, "Worlds");
-				Terraria.Main.PlayerPath = Path.Combine(Terraria.Main.SavePath, "Players");
-
-				try
+				if (args[i].ToLower() == "-config")
 				{
-					ServerApi.Initialize(args, Game);
+					i++;
+					ProgramServer.Game.LoadDedConfig(args[i]);
 				}
-				catch (Exception ex)
+				if (args[i].ToLower() == "-port")
 				{
-					ServerApi.LogWriter.ServerWriteLine(
-						"Startup aborted due to an exception in the Server API initialization:\n" + ex, TraceLevel.Error);
-
-					Console.ReadLine();
-					return;
+					i++;
+					try
+					{
+						int serverPort = Convert.ToInt32(args[i]);
+						Netplay.serverPort = serverPort;
+					}
+					catch
+					{
+					}
 				}
-				
-				Game.DedServ();
-				ServerApi.DeInitialize();
+				if (args[i].ToLower() == "-players" || args[i].ToLower() == "-maxplayers")
+				{
+					i++;
+					try
+					{
+						int netPlayers = Convert.ToInt32(args[i]);
+						ProgramServer.Game.SetNetPlayers(netPlayers);
+					}
+					catch
+					{
+					}
+				}
+				if (args[i].ToLower() == "-pass" || args[i].ToLower() == "-password")
+				{
+					i++;
+					Netplay.password = args[i];
+				}
+				if (args[i].ToLower() == "-lang")
+				{
+					i++;
+					Lang.lang = Convert.ToInt32(args[i]);
+				}
+				if (args[i].ToLower() == "-world")
+				{
+					i++;
+					ProgramServer.Game.SetWorld(args[i]);
+				}
+				if (args[i].ToLower() == "-worldname")
+				{
+					i++;
+					ProgramServer.Game.SetWorldName(args[i]);
+				}
+				if (args[i].ToLower() == "-motd")
+				{
+					i++;
+					ProgramServer.Game.NewMOTD(args[i]);
+				}
+				if (args[i].ToLower() == "-banlist")
+				{
+					i++;
+					Netplay.banFile = args[i];
+				}
+				if (args[i].ToLower() == "-autoshutdown")
+				{
+					ProgramServer.Game.autoShut();
+				}
+				if (args[i].ToLower() == "-secure")
+				{
+					Netplay.spamCheck = true;
+				}
+				if (args[i].ToLower() == "-autocreate")
+				{
+					i++;
+					string newOpt = args[i];
+					ProgramServer.Game.autoCreate(newOpt);
+				}
+				if (args[i].ToLower() == "-loadlib")
+				{
+					i++;
+					string path = args[i];
+					ProgramServer.Game.loadLib(path);
+				}
+				if (args[i].ToLower() == "-noupnp")
+				{
+					Netplay.uPNP = false;
+				}
 			}
-			catch (Exception ex)
-			{
-				ServerApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + ex, TraceLevel.Error);
-				Console.ReadLine();
-			}
+			ProgramServer.Game.DedServ();
 		}
-
-		/*private static Assembly Compile(string name, string data, bool addfail = true)
-		{
-			var prov = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v4.0" } });
-			var cp = new CompilerParameters();
-			cp.GenerateInMemory = true;
-			cp.GenerateExecutable = false;
-			cp.CompilerOptions = "/d:TERRARIA_API /unsafe";
-
-			foreach (var a in Assemblies)
-			{
-				if (!cp.ReferencedAssemblies.Contains(a.Location))
-					cp.ReferencedAssemblies.Add(a.Location);
-			}
-			var r = prov.CompileAssemblyFromSource(cp, data);
-			if (r.Errors.Count > 0)
-			{
-				for (int i = 0; i < r.Errors.Count; i++)
-				{
-					AppendLog("Error compiling: {0}\r\nLine number: {1}, Error number: {2}, Error text: {3}\r\n",
-						name, r.Errors[i].Line, r.Errors[i].ErrorNumber, r.Errors[i].ErrorText);
-				}
-				return null;
-			}
-			return r.CompiledAssembly;
-		}*/
 	}
 }

@@ -73,8 +73,8 @@ namespace TerrariaApi.Server
 				"\tCommand line: " + Environment.CommandLine, TraceLevel.Verbose);
 			ServerApi.LogWriter.ServerWriteLine(
 				string.Format("\tOS: {0} (64bit: {1})", Environment.OSVersion, Environment.Is64BitOperatingSystem), TraceLevel.Verbose);
-			ServerApi.LogWriter.ServerWriteLine(
-				"\tMono: " + Terraria.Main.runningMono, TraceLevel.Verbose);
+			/*ServerApi.LogWriter.ServerWriteLine(
+				"\tMono: " + Terraria.Main.runningMono, TraceLevel.Verbose);*/
 
 			ServerApi.game = game;
 			HandleCommandLine(commandLineArgs);
@@ -184,7 +184,7 @@ namespace TerrariaApi.Server
 
 						break;
 					}
-					case "-connperip":
+					/*case "-connperip":
 					{
 						int limit;
 						if (int.TryParse(commandLineArgs[++i], out limit))
@@ -197,12 +197,12 @@ namespace TerrariaApi.Server
 							LogWriter.ServerWriteLine("Invalid value given for command line argument \"-connperip\".", TraceLevel.Warning);
 
 						break;
-					}
-					case "-killinactivesocket":
+					}*/
+					/*case "-killinactivesocket":
 					{
 						Netplay.killInactive = true;
 						break;
-					}
+					}*/
 					case "-lang":
 					{
 						int langIndex;
@@ -225,7 +225,7 @@ namespace TerrariaApi.Server
 
 						break;
 					}
-					case "-forceupdate":
+					/*case "-forceupdate":
 					{
 						Terraria.Main.forceUpdate = true;
 						LogWriter.ServerWriteLine(
@@ -233,7 +233,7 @@ namespace TerrariaApi.Server
 							TraceLevel.Warning);
 
 						break;
-					}
+					}*/
 				}
 			}
 		}

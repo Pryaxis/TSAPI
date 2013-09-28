@@ -13,11 +13,11 @@ namespace Terraria
 			{
 				return;
 			}
-			if (Main.tile[x, y].checkingLiquid)
+			if (Main.tile[x, y].checkingLiquid())
 			{
 				return;
 			}
-			Main.tile[x, y].checkingLiquid = true;
+			Main.tile[x, y].checkingLiquid(true);
 			Main.liquidBuffer[LiquidBuffer.numLiquidBuffer].x = x;
 			Main.liquidBuffer[LiquidBuffer.numLiquidBuffer].y = y;
 			LiquidBuffer.numLiquidBuffer++;
