@@ -970,14 +970,6 @@ namespace Terraria
 		private float scAdj;
 		private float cTop;
         public static bool runningMono = false;
-		[DllImport("User32")]
-		private static extern int RemoveMenu(IntPtr hMenu, int nPosition, int wFlags);
-		[DllImport("User32")]
-		private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
-		[DllImport("User32")]
-		private static extern int GetMenuItemCount(IntPtr hWnd);
-		[DllImport("kernel32.dll")]
-		public static extern IntPtr LoadLibrary(string dllToLoad);
 		public static void LoadWorlds()
 		{
 			Directory.CreateDirectory(Main.WorldPath);
@@ -1508,11 +1500,6 @@ namespace Terraria
 			Main.menuMultiplayer = true;
 			Main.menuServer = true;
 			Main.menuMode = 1;
-		}
-		public void loadLib(string path)
-		{
-			Main.libPath = path;
-			Main.LoadLibrary(Main.libPath);
 		}
 		public void DedServ()
 		{
