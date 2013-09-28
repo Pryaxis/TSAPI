@@ -243,8 +243,11 @@ namespace Terraria
 							}
 							if (flag)
 							{
-								NetMessage.SendData(2, this.whoAmI, -1, text + " " + Lang.mp[5], 0, 0f, 0f, 0f, 0);
-								return;
+                                if (!ServerApi.Hooks.InvokeNetNameCollision(num3, text))
+                                {
+                                    NetMessage.SendData(2, this.whoAmI, -1, text + " " + Lang.mp[5], 0, 0f, 0f, 0f, 0);
+                                }
+                                //return;
 							}
 							if (text.Length > Player.nameLen)
 							{
