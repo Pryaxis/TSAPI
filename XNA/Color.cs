@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 [Serializable]
-public struct Color : /*IPackedVector<uint>, IPackedVector,*/ IEquatable<Color>
+public struct Color : IPackedVector<uint>, IPackedVector, IEquatable<Color>
 {
 	private uint packedValue;
 	public byte R
@@ -1089,10 +1089,10 @@ public struct Color : /*IPackedVector<uint>, IPackedVector,*/ IEquatable<Color>
 	{
 		this.packedValue = Color.PackHelper(vector.X, vector.Y, vector.Z, vector.W);
 	}
-	/*void IPackedVector.PackFromVector4(Vector4 vector)
+	void IPackedVector.PackFromVector4(Vector4 vector)
 	{
 		this.packedValue = Color.PackHelper(vector.X, vector.Y, vector.Z, vector.W);
-	}*/
+	}
 	public static Color FromNonPremultiplied(Vector4 vector)
 	{
 		Color result;

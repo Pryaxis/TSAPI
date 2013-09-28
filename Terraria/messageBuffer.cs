@@ -1,6 +1,7 @@
 
 using System;
 using System.Text;
+using TerrariaApi.Server;
 namespace Terraria
 {
 	public class messageBuffer
@@ -37,8 +38,13 @@ namespace Terraria
 			{
 				Netplay.clientSock.timeOut = 0;
 			}
+
 			int num = start + 1;
 			byte b = this.readBuffer[start];
+			if (ServerApi.Hooks.InvokeNetGetData(ref b, this, ref num, ref length))
+			{
+				return;
+			}
 			Main.rxMsg++;
 			Main.rxData += length;
 			Main.rxMsgType[(int)b]++;

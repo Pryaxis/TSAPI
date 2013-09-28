@@ -3,7 +3,7 @@ public enum PacketTypes
 {
 	ConnectRequest = 1,
 	Disconnect,
-	ContinueConnecting,
+	/*ContinueConnecting,
 	PlayerInfo,
 	PlayerSlot,
 	ContinueConnecting2,
@@ -24,9 +24,9 @@ public enum PacketTypes
 	ItemDrop,
 	ItemOwner,
 	NpcUpdate,
-	NpcItemStrike,
-	ChatText,
-	PlayerDamage,
+	NpcItemStrike,*/
+	ChatText = 25,
+	/*PlayerDamage,
 	ProjectileNew,
 	NpcStrike,
 	ProjectileDestroy,
@@ -61,5 +61,5 @@ public enum PacketTypes
     PlayHarp,
     HitSwitch,
     UpdateNPCHome,
-    SpawnBossorInvasion
+    SpawnBossorInvasion*/
 }
