@@ -1761,40 +1761,6 @@ namespace Terraria
 								{
 								}
 							}
-							flag3 = true;
-							while (flag3)
-							{
-								Console.WriteLine("Terraria Server " + Main.versionNumber2);
-								Console.WriteLine("");
-								Console.Write("Automatically forward port? (y/n): ");
-								string text4 = Console.ReadLine();
-								try
-								{
-									if (text4 == "" || text4.ToLower() == "y" || text4.ToLower() == "yes")
-									{
-										Netplay.uPNP = true;
-										flag3 = false;
-									}
-									else
-									{
-										if (text4.ToLower() == "n" || text4.ToLower() == "no")
-										{
-											Netplay.uPNP = false;
-											flag3 = false;
-										}
-									}
-								}
-								catch
-								{
-								}
-								try
-								{
-									Console.Clear();
-								}
-								catch
-								{
-								}
-							}
 							Console.WriteLine("Terraria Server " + Main.versionNumber2);
 							Console.WriteLine("");
 							Console.Write("Server password (press enter for none): ");

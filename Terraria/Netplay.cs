@@ -1,4 +1,3 @@
-using NATUPNPLib;
 using System;
 using System.IO;
 using System.Net;
@@ -22,37 +21,8 @@ namespace Terraria
 		public static string banFile = "banlist.txt";
 		public static bool spamCheck = false;
 		public static bool anyClients = false;
-		public static UPnPNAT upnpnat = (UPnPNAT)Activator.CreateInstance(Type.GetTypeFromCLSID(new Guid("AE1E00AA-3FD5-403C-8A27-2BBDC30CD0E1")));
-		public static IStaticPortMappingCollection mappings = Netplay.upnpnat.StaticPortMappingCollection;
-		public static string portForwardIP;
-		public static int portForwardPort;
-		public static bool portForwardOpen;
-		public static bool uPNP = true;
+		public static bool uPNP = false;
 		public static bool ServerUp = false;
-		public static void openPort()
-		{
-			Netplay.portForwardIP = Netplay.LocalIPAddress();
-			Netplay.portForwardPort = Netplay.serverPort;
-			foreach (IStaticPortMapping staticPortMapping in Netplay.mappings)
-			{
-				if (staticPortMapping.InternalPort == Netplay.portForwardPort && staticPortMapping.InternalClient == Netplay.portForwardIP && staticPortMapping.Protocol == "TCP")
-				{
-					Netplay.portForwardOpen = true;
-				}
-			}
-			if (!Netplay.portForwardOpen)
-			{
-				Netplay.mappings.Add(Netplay.portForwardPort, "TCP", Netplay.portForwardPort, Netplay.portForwardIP, true, "Terraria Server");
-				Netplay.portForwardOpen = true;
-			}
-		}
-		public static void closePort()
-		{
-			if (Netplay.portForwardOpen)
-			{
-				Netplay.mappings.Remove(Netplay.portForwardPort, "TCP");
-			}
-		}
 		public static string LocalIPAddress()
 		{
 			string result = "";
@@ -400,16 +370,6 @@ namespace Terraria
 				ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.ListenForClients), 1);
 				Main.statusText = "Server started";
 			}
-			if (Netplay.uPNP)
-			{
-				try
-				{
-					Netplay.openPort();
-				}
-				catch
-				{
-				}
-			}
 			int num = 0;
 			while (!Netplay.disconnect)
 			{
@@ -486,8 +446,10 @@ namespace Terraria
 							}
 							if (Netplay.serverSock[k].statusMax > 0 && Netplay.serverSock[k].statusText2 != "")
 							{
+							
 								if (Netplay.serverSock[k].statusCount >= Netplay.serverSock[k].statusMax)
 								{
+								try{
 									Netplay.serverSock[k].statusText = string.Concat(new object[]
 									{
 										"(",
@@ -498,12 +460,15 @@ namespace Terraria
 										Netplay.serverSock[k].statusText2,
 										": Complete!"
 									});
+									} catch (Exception ex)
+									{}
 									Netplay.serverSock[k].statusText2 = "";
 									Netplay.serverSock[k].statusMax = 0;
 									Netplay.serverSock[k].statusCount = 0;
 								}
 								else
 								{
+								try{
 									Netplay.serverSock[k].statusText = string.Concat(new object[]
 									{
 										"(",
@@ -516,12 +481,16 @@ namespace Terraria
 										(int)((float)Netplay.serverSock[k].statusCount / (float)Netplay.serverSock[k].statusMax * 100f),
 										"%"
 									});
+									}catch (Exception ex)
+									{}
 								}
 							}
 							else
 							{
+								
 								if (Netplay.serverSock[k].state == 0)
 								{
+								try {
 									Netplay.serverSock[k].statusText = string.Concat(new object[]
 									{
 										"(",
@@ -530,11 +499,16 @@ namespace Terraria
 										Netplay.serverSock[k].name,
 										" is connecting..."
 									});
+									} catch (Exception ex)
+									{}
+								
 								}
+
 								else
 								{
 									if (Netplay.serverSock[k].state == 1)
 									{
+									try {
 										Netplay.serverSock[k].statusText = string.Concat(new object[]
 										{
 											"(",
@@ -543,9 +517,12 @@ namespace Terraria
 											Netplay.serverSock[k].name,
 											" is sending player data..."
 										});
+										} catch (Exception ex)
+										{}
 									}
 									else
 									{
+									try {
 										if (Netplay.serverSock[k].state == 2)
 										{
 											Netplay.serverSock[k].statusText = string.Concat(new object[]
@@ -571,6 +548,8 @@ namespace Terraria
 												});
 											}
 										}
+										} catch (Exception ex)
+										{}
 									}
 								}
 							}
@@ -624,13 +603,6 @@ namespace Terraria
 				Netplay.ServerUp = true;
 			}
 			Netplay.tcpListener.Stop();
-			try
-			{
-				Netplay.closePort();
-			}
-			catch
-			{
-			}
 			for (int l = 0; l < 256; l++)
 			{
 				Netplay.serverSock[l].Reset();
