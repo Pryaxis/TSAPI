@@ -4237,33 +4237,33 @@ namespace Terraria
         this.name = "Meteor Helmet";
         this.width = 18;
         this.height = 18;
-        this.defense = 4;
+        this.defense = 5;
         this.headSlot = 6;
         this.rare = 1;
         this.value = 45000;
-        this.toolTip = "5% increased magic damage";
+        this.toolTip = "7% increased magic damage";
       }
       else if (this.type == 124)
       {
         this.name = "Meteor Suit";
         this.width = 18;
         this.height = 18;
-        this.defense = 5;
+        this.defense = 6;
         this.bodySlot = 6;
         this.rare = 1;
         this.value = 30000;
-        this.toolTip = "5% increased magic damage";
+        this.toolTip = "7% increased magic damage";
       }
       else if (this.type == 125)
       {
         this.name = "Meteor Leggings";
         this.width = 18;
         this.height = 18;
-        this.defense = 4;
+        this.defense = 5;
         this.legSlot = 6;
         this.rare = 1;
         this.value = 30000;
-        this.toolTip = "5% increased magic damage";
+        this.toolTip = "7% increased magic damage";
       }
       else if (this.type == 126)
       {
@@ -4839,7 +4839,7 @@ namespace Terraria
         this.shoot = 14;
         this.knockBack = 3f;
         this.useAmmo = 14;
-        this.useSound = 11;
+        this.useSound = 41;
         this.damage = 15;
         this.shootSpeed = 10f;
         this.noMelee = true;
@@ -4884,7 +4884,7 @@ namespace Terraria
         this.useTime = 25;
         this.noUseGraphic = true;
         this.noMelee = true;
-        this.value = 500;
+        this.value = Item.buyPrice(0, 0, 3, 0);
         this.damage = 0;
         this.toolTip = "A small explosion that will destroy some tiles";
       }
@@ -6281,7 +6281,7 @@ namespace Terraria
         this.scale = 1.15f;
         this.useSound = 1;
         this.rare = 3;
-        this.value = 27000;
+        this.value = 54000;
         this.melee = true;
       }
       else if (this.type == 274)
@@ -9577,6 +9577,7 @@ namespace Terraria
         this.accessory = true;
         this.toolTip = "15% increased ranged damage";
         this.value = 100000;
+        this.rare = 4;
       }
       else if (this.type == 490)
       {
@@ -10224,7 +10225,7 @@ namespace Terraria
         this.damage = 21;
         this.shootSpeed = 6f;
         this.noMelee = true;
-        this.value = 600000;
+        this.value = 250000;
         this.rare = 4;
         this.ranged = true;
         this.toolTip = "Fires a spread of bullets";
@@ -13142,7 +13143,7 @@ namespace Terraria
         this.mana = 3;
         this.useSound = 43;
         this.useStyle = 5;
-        this.damage = 17;
+        this.damage = 16;
         this.useAnimation = 38;
         this.useTime = 38;
         this.width = 40;
@@ -13157,7 +13158,7 @@ namespace Terraria
       else if (this.type == 741)
       {
         this.name = "Sapphire Staff";
-        this.mana = 3;
+        this.mana = 4;
         this.useSound = 43;
         this.useStyle = 5;
         this.damage = 19;
@@ -13176,10 +13177,10 @@ namespace Terraria
       else if (this.type == 742)
       {
         this.name = "Emerald Staff";
-        this.mana = 3;
+        this.mana = 4;
         this.useSound = 43;
         this.useStyle = 5;
-        this.damage = 22;
+        this.damage = 21;
         this.useAnimation = 32;
         this.useTime = 32;
         this.width = 40;
@@ -13196,7 +13197,7 @@ namespace Terraria
       else if (this.type == 743)
       {
         this.name = "Ruby Staff";
-        this.mana = 3;
+        this.mana = 5;
         this.useSound = 43;
         this.useStyle = 5;
         this.damage = 24;
@@ -13216,10 +13217,10 @@ namespace Terraria
       else if (this.type == 744)
       {
         this.name = "Diamond Staff";
-        this.mana = 3;
+        this.mana = 5;
         this.useSound = 43;
         this.useStyle = 5;
-        this.damage = 27;
+        this.damage = 26;
         this.useAnimation = 26;
         this.useTime = 26;
         this.width = 40;
@@ -16494,7 +16495,7 @@ namespace Terraria
         this.damage = 25;
         this.shootSpeed = 13f;
         this.noMelee = true;
-        this.value = 10000;
+        this.value = Item.buyPrice(0, 5, 0, 0);
         this.knockBack = 4f;
         this.useAmmo = 51;
         this.toolTip = "Allows the collection of seeds for ammo";
@@ -20889,7 +20890,7 @@ namespace Terraria
         this.knockBack = 5.5f;
         this.width = 24;
         this.height = 28;
-        this.damage = 54;
+        this.damage = 40;
         this.scale = 1.15f;
         this.useSound = 1;
         this.rare = 5;
@@ -21224,10 +21225,10 @@ namespace Terraria
         this.knockBack = 7f;
         this.width = 24;
         this.height = 28;
-        this.damage = 60;
+        this.damage = 57;
         this.scale = 1.15f;
         this.useSound = 1;
-        this.rare = 5;
+        this.rare = 6;
         this.shoot = 274;
         this.shootSpeed = 9f;
         this.value = 250000;
@@ -24493,6 +24494,8 @@ namespace Terraria
         return new Color(200, 200, 200, 2000);
       if (this.type == 1572)
         return new Color(200, 200, (int) byte.MaxValue, 125);
+      if (this.type == 51)
+          return new Color((int)byte.MaxValue, (int)byte.MaxValue, (int)byte.MaxValue, 0);
       if (this.type == 787)
         return new Color((int) byte.MaxValue, (int) byte.MaxValue, (int) byte.MaxValue, 175);
       if (this.type == 1508)
