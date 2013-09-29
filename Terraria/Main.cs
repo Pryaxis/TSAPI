@@ -971,6 +971,7 @@ namespace Terraria
 		private float scAdj;
 		private float cTop;
         public static bool runningMono = false;
+		public static bool forceUpdate = false;
 		public static void LoadWorlds()
 		{
 			Directory.CreateDirectory(Main.WorldPath);
@@ -1841,7 +1842,7 @@ namespace Terraria
 					{
 						num7 = 1000.0;
 					}
-					if (Netplay.anyClients)
+					if (Netplay.anyClients || forceUpdate)
 					{
 						ServerApi.Hooks.InvokeGameUpdate();
 						this.Update();

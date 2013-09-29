@@ -369,7 +369,7 @@ namespace TerrariaApi.Server
 
 			if (Main.netMode == 2)
 			{
-				switch ((PacketTypes)msgId)
+				switch ((PacketTypes) msgId)
 				{
 					case PacketTypes.ConnectRequest:
 						if (this.InvokeServerConnect(buffer.whoAmI))
