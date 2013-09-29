@@ -18,8 +18,6 @@ namespace Terraria
             }
             catch (Exception e)
             {
-                Console.WriteLine("{0} had an exception thrown when trying to send data.", sock.tcpClient.Client.RemoteEndPoint);
-                Console.WriteLine(e);
                 sock.kill = true;
             }
         }
