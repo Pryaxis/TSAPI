@@ -342,7 +342,7 @@ namespace Terraria
 		public static int dayMusic = 0;
 		public int newMusic;
 		public static bool showItemText = true;
-		public static bool autoSave = true;
+		public static bool autoSave = false;
 		public static string buffString = "";
 		public static string libPath = "";
 		public static int lo = 0;
