@@ -119,7 +119,7 @@ namespace Terraria
 		public void AddShop(Item newItem)
 		{
 			int i = 0;
-			while (i < 19)
+			while (i < 39)
 			{
 				if (this.item[i] == null || this.item[i].type == 0)
 				{
