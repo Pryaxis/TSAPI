@@ -379,14 +379,14 @@ namespace TerrariaApi.Server
 						}
 
 						break;
-					/*case PacketTypes.ContinueConnecting2:
+					case PacketTypes.ContinueConnecting2:
 						if (this.InvokeServerJoin(buffer.whoAmI))
 						{
 							Netplay.serverSock[buffer.whoAmI].kill = true;
 							return true;
 						}
 
-						break;*/
+						break;
 					case PacketTypes.ChatText:
 						string @string = Encoding.UTF8.GetString(buffer.readBuffer, index + 4, length - 5);
 						if (this.InvokeServerChat(buffer, buffer.whoAmI, @string))

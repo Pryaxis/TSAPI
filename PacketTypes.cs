@@ -18,15 +18,15 @@ public enum PacketTypes
 	SyncPlayers,
 	PlayerHp,
 	Tile,
-	/*TimeSet,
+	TimeSet,
 	DoorUse,
 	TileSendSquare,
 	ItemDrop,
 	ItemOwner,
 	NpcUpdate,
-	NpcItemStrike,*/
+	NpcItemStrike,
 	ChatText = 25,
-	/*PlayerDamage,
+	PlayerDamage,
 	ProjectileNew,
 	NpcStrike,
 	ProjectileDestroy,
@@ -61,5 +61,5 @@ public enum PacketTypes
     PlayHarp,
     HitSwitch,
     UpdateNPCHome,
-    SpawnBossorInvasion*/
+    SpawnBossorInvasion
 }
