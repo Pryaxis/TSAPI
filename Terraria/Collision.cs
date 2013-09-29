@@ -466,16 +466,6 @@ namespace Terraria
 							}
 							if (flag)
 							{
-								if (Width != 18)
-								{
-									goto IL_2BF;
-								}
-								IL_2BF:
-								if (Width != 18)
-								{
-									goto IL_2C9;
-								}
-								IL_2C9:
 								int num7 = (int)Main.tile[i, j].slope();
 								vector4.X = (float)(i * 16);
 								vector4.Y = (float)(j * 16);
