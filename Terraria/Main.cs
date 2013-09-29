@@ -1843,11 +1843,9 @@ namespace Terraria
 					}
 					if (Netplay.anyClients)
 					{
-						Console.WriteLine("Server Update called.");
-						//ServerApi.Hooks.InvokeGameUpdate();
+						ServerApi.Hooks.InvokeGameUpdate();
 						this.Update();
-						//ServerApi.Hooks.InvokeGamePostUpdate();
-						Console.WriteLine("Server Update ended.");
+						ServerApi.Hooks.InvokeGamePostUpdate();
 					}
 					double num10 = (double)stopwatch.ElapsedMilliseconds + num7;
 					if (num10 < num6)
