@@ -7,7 +7,6 @@ namespace Terraria
 	internal class ProgramServer
 	{
 		private static Main Game;
-        public static readonly Version ApiVersion = new Version(1, 15, 0, 0);
 		private static void Main(string[] args)
 		{
 			try
@@ -24,7 +23,7 @@ namespace Terraria
 
 				try
 				{
-                    Console.WriteLine("TerrariaAPI Version: " + ApiVersion + " (Protocol 1.2 (Dev 2K Preview))");
+                    Console.WriteLine("TerrariaAPI Version: " + ServerApi.ApiVersion + " (Protocol 1.2 (Release Preview))");
 					ServerApi.Initialize(args, Game);
 				}
 				catch (Exception ex)
