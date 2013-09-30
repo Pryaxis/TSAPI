@@ -11,6 +11,10 @@ namespace Terraria
         {
             try
             {
+	            if (ServerApi.Hooks.InvokeNetSendBytes(sock, buffer, offset, count))
+	            {
+		            return;
+	            }
 				if (Main.runningMono)
 					sock.networkStream.Write(buffer, offset, count);
 				else

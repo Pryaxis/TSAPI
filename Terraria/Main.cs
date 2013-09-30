@@ -1510,6 +1510,9 @@ namespace Terraria
 		}
 		public void DedServ()
 		{
+			Type t = Type.GetType("Mono.Runtime");
+            Main.runningMono = (t != null);
+			ServerApi.Hooks.InvokeGameInitialize();
 			Main.rand = new Random();
 			if (Main.autoShutdown)
 			{
@@ -1525,8 +1528,7 @@ namespace Terraria
 			{
 				Console.Title = "Terraria Server " + Main.versionNumber2;
 			}
-            Type t = Type.GetType("Mono.Runtime");
-            Main.runningMono = (t != null);
+            
 			Main.dedServ = true;
 			Main.showSplash = false;
 			this.Initialize();
@@ -1823,6 +1825,7 @@ namespace Terraria
 			{
 				Main.startDedInput();
 			}
+			ServerApi.Hooks.InvokeGamePostInitialize();
 			stopwatch.Start();
 			double num6 = 16.666666666666668;
 			double num7 = 0.0;
@@ -4880,12 +4883,11 @@ namespace Terraria
 			DateTime now = DateTime.Now;
 			int day = now.Day;
 			int month = now.Month;
-			if (day >= 15 && month == 12)
-			{
-				Main.xMas = true;
-				return;
-			}
-			Main.xMas = false;
+			bool xmas = ((day >= 15) && (month == 12));
+
+			ServerApi.Hooks.InvokeWorldChristmasCheck(ref xmas);
+
+			Main.xMas = xmas;
 		}
 		public void updateCloudLayer()
 		{

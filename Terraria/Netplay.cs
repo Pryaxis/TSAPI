@@ -3,6 +3,8 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using TerrariaApi.Server;
+
 namespace Terraria
 {
 	public class Netplay
@@ -416,6 +418,7 @@ namespace Terraria
 					}
 					if (Netplay.serverSock[k].kill)
 					{
+						ServerApi.Hooks.InvokeServerLeave(Netplay.serverSock[k].whoAmI);
 						Netplay.serverSock[k].Reset();
 						NetMessage.syncPlayers();
 					}

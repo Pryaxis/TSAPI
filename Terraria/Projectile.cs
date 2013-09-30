@@ -1,4 +1,5 @@
 using System;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -3584,6 +3585,7 @@ namespace Terraria
 				this.active = false;
 			this.width = (int)((double)this.width * (double)this.scale);
 			this.height = (int)((double)this.height * (double)this.scale);
+			ServerApi.Hooks.InvokeProjectileSetDefaults(ref Type, this);
 		}
 
 		public static int NewProjectile(float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner = 255, float ai0 = 0.0f, float ai1 = 0.0f)

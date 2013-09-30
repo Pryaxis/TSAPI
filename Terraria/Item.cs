@@ -1,5 +1,6 @@
 ﻿
 using System;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -1684,7 +1685,13 @@ namespace Terraria
       this.toolTip2 = Lang.toolTip2(this.netID, false);
     }
 
-    public void SetDefaults(string ItemName)
+	public void SetDefaults(string itemname)
+	{
+		RealSetDefaults(itemname);
+		ServerApi.Hooks.InvokeItemSetDefaultsString(ref itemname, this);
+	}
+
+    public void RealSetDefaults(string ItemName)
     {
       this.name = "";
       bool flag = false;
@@ -2274,7 +2281,12 @@ namespace Terraria
       }
     }
 
-    public void netDefaults(int type)
+	public void netDefaults(int type)
+	{
+		RealNetDefaults(type);
+		ServerApi.Hooks.InvokeItemNetDefaults(ref type, this);
+	}
+	public void RealNetDefaults(int type)
     {
       if (type < 0)
       {
@@ -2385,7 +2397,13 @@ namespace Terraria
         this.SetDefaults(type, false);
     }
 
-    public void SetDefaults(int Type, bool noMatCheck = false)
+	public void SetDefaults(int type, bool noMatCheck = false)
+	{
+		RealSetDefaults(type, noMatCheck);
+		ServerApi.Hooks.InvokeItemSetDefaultsInt(ref type, this);
+	}
+
+    public void RealSetDefaults(int Type, bool noMatCheck = false)
     {
       this.owner = Main.netMode == 1 || Main.netMode == 2 ? (int) byte.MaxValue : Main.myPlayer;
       this.dye = (byte) 0;

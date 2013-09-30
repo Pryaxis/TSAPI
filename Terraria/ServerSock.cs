@@ -1,6 +1,8 @@
 
 using System;
 using System.Net.Sockets;
+using TerrariaApi.Server;
+
 namespace Terraria
 {
 	public class ServerSock
@@ -150,6 +152,7 @@ namespace Terraria
 		}
 		public void Reset()
 		{
+			ServerApi.Hooks.InvokeServerSocketReset(this);
 			for (int i = 0; i < Main.maxSectionsX; i++)
 			{
 				for (int j = 0; j < Main.maxSectionsY; j++)
