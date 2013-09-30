@@ -7473,12 +7473,12 @@ namespace Terraria
 			}
 			for (int num375 = 20; num375 < Main.maxTilesX - 20; num375++)
 			{
-                float iLoveAsunaNumberIncrementor = (float)num375 / (float)Main.maxTilesX;
+                float f = (float)num375 / (float)Main.maxTilesX;
                 Main.statusText = string.Concat(new object[]
 				{
 					Lang.gen[69],
 					" ",
-					(int)(iLoveAsunaNumberIncrementor * 50f + 51f),
+					(int)(f * 50f + 51f),
 					"%"
 				});
 				for (int num376 = 20; num376 < Main.maxTilesY - 20; num376++)
