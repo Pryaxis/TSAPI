@@ -10943,6 +10943,7 @@ namespace Terraria
         this.createTile = 141;
         this.width = 12;
         this.height = 12;
+	this.explosive = 4;
         this.toolTip = "Explodes when activated";
       }
       else if (this.type == 581)
