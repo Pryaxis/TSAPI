@@ -1999,6 +1999,7 @@ namespace Terraria
                             Buffer.BlockCopy(bytes276, 0, NetMessage.buffer[num].writeBuffer, 4, 1);
                             Buffer.BlockCopy(bytes277, 0, NetMessage.buffer[num].writeBuffer, 5, bytes277.Length);
 					    }
+                        break;
 					}
 					if (Main.netMode != 1)
 					{
