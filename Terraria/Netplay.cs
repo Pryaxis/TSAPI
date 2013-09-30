@@ -143,6 +143,7 @@ namespace Terraria
 		public static void ClientLoop(object threadContext)
 		{
 			Netplay.ResetNetDiag();
+		    Main.ServerSideCharacter = false;
 			if (Main.rand == null)
 			{
 				Main.rand = new Random((int)DateTime.Now.Ticks);
