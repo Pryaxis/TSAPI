@@ -1989,6 +1989,17 @@ namespace Terraria
 					        num3 += bytes274.Length;
 					    }
 					        break;
+                        case 68:
+					    {
+                            byte[] bytes276 = BitConverter.GetBytes(msgType);
+                            byte[] bytes277 = Encoding.UTF8.GetBytes(Main.clientUUID);
+                            num2 += bytes277.Length;
+                            byte[] bytes278 = BitConverter.GetBytes(num2 - 4);
+                            Buffer.BlockCopy(bytes278, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
+                            Buffer.BlockCopy(bytes276, 0, NetMessage.buffer[num].writeBuffer, 4, 1);
+                            Buffer.BlockCopy(bytes277, 0, NetMessage.buffer[num].writeBuffer, 5, bytes277.Length);
+					    }
+                        break;
 					}
 					if (Main.netMode != 1)
 					{

@@ -25,7 +25,7 @@ public enum PacketTypes
 	ItemOwner,
 	NpcUpdate,
 	NpcItemStrike,
-	ChatText = 25,
+	ChatText,
 	PlayerDamage,
 	ProjectileNew,
 	NpcStrike,
@@ -66,5 +66,7 @@ public enum PacketTypes
     PaintTile,
     PaintWall,
     Teleport,
-    PlayerHealOther
+    PlayerHealOther,
+	Placeholder,
+	ClientUUID
 }

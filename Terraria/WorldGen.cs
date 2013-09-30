@@ -5057,7 +5057,7 @@ namespace Terraria
 				num98++;
 			}
 			float num99 = (float)(Main.maxTilesX / 4200);
-			float num100 = (float)WorldGen.genRand.Next(5, (int)(8f * num99));
+            float num100 = (float)WorldGen.genRand.Next((int)(5f * num99), (int)(8f * num99));
 			int num101 = 0;
 			while ((float)num101 < num100)
 			{
@@ -7441,7 +7441,7 @@ namespace Terraria
 				{
 					Lang.gen[69],
 					" ",
-					(int)(num370 * 100f + 1f),
+					(int)(num370 * 50f + 1f),
 					"%"
 				});
 				for (int num371 = 20; num371 < Main.maxTilesY - 20; num371++)
@@ -7473,6 +7473,14 @@ namespace Terraria
 			}
 			for (int num375 = 20; num375 < Main.maxTilesX - 20; num375++)
 			{
+                float f = (float)num375 / (float)Main.maxTilesX;
+                Main.statusText = string.Concat(new object[]
+				{
+					Lang.gen[69],
+					" ",
+					(int)(f * 50f + 51f),
+					"%"
+				});
 				for (int num376 = 20; num376 < Main.maxTilesY - 20; num376++)
 				{
 					if (Main.tile[num375, num376].type != 48 && Main.tile[num375, num376].type != 232 && WorldGen.SolidTile(num375, num376) && WorldGen.SolidTile(num375, num376 + 1))
@@ -33711,13 +33719,19 @@ namespace Terraria
 			}
 			for (int num38 = 0; num38 < num37; num38++)
 			{
+                int incr = 0;
 				int num39 = WorldGen.genRand.Next(num18, num19);
 				int num40 = WorldGen.genRand.Next(num20, num21);
 				while (!Main.wallHouse[(int)Main.tile[num39, num40].wall] || Main.tile[num39, num40].active())
 				{
+                    incr++;
+                    if (incr > 1000)
+                        break;
 					num39 = WorldGen.genRand.Next(num18, num19);
 					num40 = WorldGen.genRand.Next(num20, num21);
 				}
+                if (incr > 1000)
+                    break;
 				int num42;
 				int num43;
 				int num44;

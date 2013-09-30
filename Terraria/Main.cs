@@ -48,10 +48,17 @@ namespace Terraria
 		public const int maxClouds = 200;
 		public const int maxCloudTypes = 22;
 		public const int maxHair = 51;
-		public static int curRelease = 66;
-		public static string versionNumber = "v1.2 Dev 2K";
-		public static string versionNumber2 = "v1.2 Dev 2K";
+		public static int curRelease = 67;
+		public static string versionNumber = "v1.2 Dev 2O";
+		public static string versionNumber2 = "v1.2 Dev 2O";
+        public static bool ServerSideCharacter = false;
+        public static string clientUUID;
+        public static int maxMsg = 69;
+        public static int npcStreamSpeed = 30;
 		public static int musicError = 0;
+        public static bool dedServFPS = false;
+        public static int dedServCount1 = 0;
+        public static int dedServCount2 = 0;
 		public static bool superFast = false;
 		public static bool[] hairLoaded = new bool[51];
 		public static bool[] wingsLoaded = new bool[21];
@@ -65,7 +72,6 @@ namespace Terraria
 		public static bool[] armorHeadLoaded = new bool[112];
 		public static bool[] armorBodyLoaded = new bool[75];
 		public static bool[] armorLegsLoaded = new bool[64];
-		public static int npcStreamSpeed = 5;
 		public static float zoomX;
 		public static float zoomY;
 		public static float sunCircle;
@@ -164,7 +170,6 @@ namespace Terraria
 		public static int rxData = 0;
 		public static int txMsg = 0;
 		public static int rxMsg = 0;
-		public static int maxMsg = 68;
 		public static int[] rxMsgType = new int[Main.maxMsg];
 		public static int[] rxDataType = new int[Main.maxMsg];
 		public static int[] txMsgType = new int[Main.maxMsg];
@@ -1838,10 +1843,6 @@ namespace Terraria
 						Main.oldStatusText = Main.statusText;
 						Console.WriteLine(Main.statusText);
 					}
-					if (num7 > 1000.0)
-					{
-						num7 = 1000.0;
-					}
 					if (Netplay.anyClients || forceUpdate)
 					{
 						ServerApi.Hooks.InvokeGameUpdate();
@@ -1983,6 +1984,20 @@ namespace Terraria
 						}
 						else
 						{
+                            if (text == "fps")
+                            {
+                                if (!Main.dedServFPS)
+                                {
+                                    Main.dedServFPS = true;
+                                    Main.fpsTimer.Reset();
+                                }
+                                else
+                                {
+                                    Main.dedServCount1 = 0;
+                                    Main.dedServCount2 = 0;
+                                    Main.dedServFPS = false;
+                                }
+                            }
 							if (text == "settle")
 							{
 								if (!Liquid.panicMode)
@@ -4968,6 +4983,41 @@ namespace Terraria
 		}
 		protected void Update()
 		{
+            Main.tileBrick[1] = true;
+            if (Main.dedServ)
+            {
+                if (Main.dedServFPS)
+                {
+                    Main.updateTime++;
+                    if (!Main.fpsTimer.IsRunning)
+                    {
+                        Main.fpsTimer.Restart();
+                    }
+                    if (Main.fpsTimer.ElapsedMilliseconds >= 1000L)
+                    {
+                        Main.dedServCount1 += Main.updateTime;
+                        Main.dedServCount2++;
+                        float num = (float)Main.dedServCount1 / (float)Main.dedServCount2;
+                        Console.WriteLine(string.Concat(new object[]
+						{
+							Main.updateTime,
+							"  (",
+							num,
+							")"
+						}));
+                        Main.updateTime = 0;
+                        Main.fpsTimer.Restart();
+                    }
+                }
+                else
+                {
+                    if (Main.fpsTimer.IsRunning)
+                    {
+                        Main.fpsTimer.Stop();
+                    }
+                    Main.updateTime = 0;
+                }
+            }
 			Main.ignoreErrors = true;
 			if (Main.netMode == 2)
 			{
@@ -10682,7 +10732,7 @@ namespace Terraria
 							}
 						}
 					}
-					if (Main.netMode != 1 && Main.hardMode && !WorldGen.spawnEye && Main.rand.Next(8) == 0 && (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || !NPC.downedMechBoss3))
+					if (Main.netMode != 1 && Main.hardMode && !WorldGen.spawnEye && WorldGen.altarCount > 0 && Main.rand.Next(9) == 0 && (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || !NPC.downedMechBoss3))
 					{
 						int m = 0;
 						while (m < 1000)
@@ -11156,461 +11206,8 @@ namespace Terraria
 			return num;
 		}
 		public static void PlaySound(int type, int x = -1, int y = -1, int Style = 1)
-		{/*
-			int num = Style;
-			try
-			{
-				if (!Main.dedServ)
-				{
-					if (Main.soundVolume != 0f)
-					{
-						bool flag = false;
-						float num2 = 1f;
-						float num3 = 0f;
-						if (x == -1 || y == -1)
-						{
-							flag = true;
-						}
-						else
-						{
-							if (WorldGen.gen)
-							{
-								return;
-							}
-							if (Main.netMode == 2)
-							{
-								return;
-							}
-							Rectangle value = new Rectangle((int)(Main.screenPosition.X - (float)(Main.screenWidth * 2)), (int)(Main.screenPosition.Y - (float)(Main.screenHeight * 2)), Main.screenWidth * 5, Main.screenHeight * 5);
-							Rectangle rectangle = new Rectangle(x, y, 1, 1);
-							Vector2 vector = new Vector2(Main.screenPosition.X + (float)Main.screenWidth * 0.5f, Main.screenPosition.Y + (float)Main.screenHeight * 0.5f);
-							if (rectangle.Intersects(value))
-							{
-								flag = true;
-							}
-							if (flag)
-							{
-								num3 = ((float)x - vector.X) / ((float)Main.screenWidth * 0.5f);
-								float num4 = Math.Abs((float)x - vector.X);
-								float num5 = Math.Abs((float)y - vector.Y);
-								float num6 = (float)Math.Sqrt((double)(num4 * num4 + num5 * num5));
-								num2 = 1f - num6 / ((float)Main.screenWidth * 1.5f);
-							}
-						}
-						if (num3 < -1f)
-						{
-							num3 = -1f;
-						}
-						if (num3 > 1f)
-						{
-							num3 = 1f;
-						}
-						if (num2 > 1f)
-						{
-							num2 = 1f;
-						}
-						if (num2 > 0f)
-						{
-							if (flag)
-							{
-								num2 *= Main.soundVolume;
-								if (type == 0)
-								{
-									int num7 = Main.rand.Next(3);
-									Main.soundInstanceDig[num7].Stop();
-									Main.soundInstanceDig[num7] = Main.soundDig[num7].CreateInstance();
-									Main.soundInstanceDig[num7].Volume = num2;
-									Main.soundInstanceDig[num7].Pan = num3;
-									Main.soundInstanceDig[num7].Pitch = (float)Main.rand.Next(-10, 11) * 0.01f;
-									Main.soundInstanceDig[num7].Play();
-								}
-								else
-								{
-									if (type == 1)
-									{
-										int num8 = Main.rand.Next(3);
-										Main.soundInstancePlayerHit[num8].Stop();
-										Main.soundInstancePlayerHit[num8] = Main.soundPlayerHit[num8].CreateInstance();
-										Main.soundInstancePlayerHit[num8].Volume = num2;
-										Main.soundInstancePlayerHit[num8].Pan = num3;
-										Main.soundInstancePlayerHit[num8].Play();
-									}
-									else
-									{
-										if (type == 2)
-										{
-											if (num == 1)
-											{
-												int num9 = Main.rand.Next(3);
-												if (num9 == 1)
-												{
-													num = 18;
-												}
-												if (num9 == 2)
-												{
-													num = 19;
-												}
-											}
-											if (num != 9 && num != 10 && num != 24 && num != 26 && num != 34)
-											{
-												Main.soundInstanceItem[num].Stop();
-											}
-											Main.soundInstanceItem[num] = Main.soundItem[num].CreateInstance();
-											Main.soundInstanceItem[num].Volume = num2;
-											Main.soundInstanceItem[num].Pan = num3;
-											if (num == 47)
-											{
-												Main.soundInstanceItem[num].Pitch = (float)Main.rand.Next(-5, 6) * 0.19f;
-											}
-											else
-											{
-												Main.soundInstanceItem[num].Pitch = (float)Main.rand.Next(-6, 7) * 0.01f;
-											}
-											if (num == 26 || num == 35)
-											{
-												Main.soundInstanceItem[num].Volume = num2 * 0.75f;
-												Main.soundInstanceItem[num].Pitch = Main.harpNote;
-											}
-											Main.soundInstanceItem[num].Play();
-										}
-										else
-										{
-											if (type == 3)
-											{
-												Main.soundInstanceNPCHit[num].Stop();
-												Main.soundInstanceNPCHit[num] = Main.soundNPCHit[num].CreateInstance();
-												Main.soundInstanceNPCHit[num].Volume = num2;
-												Main.soundInstanceNPCHit[num].Pan = num3;
-												Main.soundInstanceNPCHit[num].Pitch = (float)Main.rand.Next(-10, 11) * 0.01f;
-												Main.soundInstanceNPCHit[num].Play();
-											}
-											else
-											{
-												if (type == 4)
-												{
-													if (num != 10 || Main.soundInstanceNPCKilled[num].State != SoundState.Playing)
-													{
-														Main.soundInstanceNPCKilled[num] = Main.soundNPCKilled[num].CreateInstance();
-														Main.soundInstanceNPCKilled[num].Volume = num2;
-														Main.soundInstanceNPCKilled[num].Pan = num3;
-														Main.soundInstanceNPCKilled[num].Pitch = (float)Main.rand.Next(-10, 11) * 0.01f;
-														Main.soundInstanceNPCKilled[num].Play();
-													}
-												}
-												else
-												{
-													if (type == 5)
-													{
-														Main.soundInstancePlayerKilled.Stop();
-														Main.soundInstancePlayerKilled = Main.soundPlayerKilled.CreateInstance();
-														Main.soundInstancePlayerKilled.Volume = num2;
-														Main.soundInstancePlayerKilled.Pan = num3;
-														Main.soundInstancePlayerKilled.Play();
-													}
-													else
-													{
-														if (type == 6)
-														{
-															Main.soundInstanceGrass.Stop();
-															Main.soundInstanceGrass = Main.soundGrass.CreateInstance();
-															Main.soundInstanceGrass.Volume = num2;
-															Main.soundInstanceGrass.Pan = num3;
-															Main.soundInstanceGrass.Pitch = (float)Main.rand.Next(-30, 31) * 0.01f;
-															Main.soundInstanceGrass.Play();
-														}
-														else
-														{
-															if (type == 7)
-															{
-																Main.soundInstanceGrab.Stop();
-																Main.soundInstanceGrab = Main.soundGrab.CreateInstance();
-																Main.soundInstanceGrab.Volume = num2;
-																Main.soundInstanceGrab.Pan = num3;
-																Main.soundInstanceGrab.Pitch = (float)Main.rand.Next(-10, 11) * 0.01f;
-																Main.soundInstanceGrab.Play();
-															}
-															else
-															{
-																if (type == 8)
-																{
-																	Main.soundInstanceDoorOpen.Stop();
-																	Main.soundInstanceDoorOpen = Main.soundDoorOpen.CreateInstance();
-																	Main.soundInstanceDoorOpen.Volume = num2;
-																	Main.soundInstanceDoorOpen.Pan = num3;
-																	Main.soundInstanceDoorOpen.Pitch = (float)Main.rand.Next(-20, 21) * 0.01f;
-																	Main.soundInstanceDoorOpen.Play();
-																}
-																else
-																{
-																	if (type == 9)
-																	{
-																		Main.soundInstanceDoorClosed.Stop();
-																		Main.soundInstanceDoorClosed = Main.soundDoorClosed.CreateInstance();
-																		Main.soundInstanceDoorClosed.Volume = num2;
-																		Main.soundInstanceDoorClosed.Pan = num3;
-																		Main.soundInstanceDoorOpen.Pitch = (float)Main.rand.Next(-20, 21) * 0.01f;
-																		Main.soundInstanceDoorClosed.Play();
-																	}
-																	else
-																	{
-																		if (type == 10)
-																		{
-																			Main.soundInstanceMenuOpen.Stop();
-																			Main.soundInstanceMenuOpen = Main.soundMenuOpen.CreateInstance();
-																			Main.soundInstanceMenuOpen.Volume = num2;
-																			Main.soundInstanceMenuOpen.Pan = num3;
-																			Main.soundInstanceMenuOpen.Play();
-																		}
-																		else
-																		{
-																			if (type == 11)
-																			{
-																				Main.soundInstanceMenuClose.Stop();
-																				Main.soundInstanceMenuClose = Main.soundMenuClose.CreateInstance();
-																				Main.soundInstanceMenuClose.Volume = num2;
-																				Main.soundInstanceMenuClose.Pan = num3;
-																				Main.soundInstanceMenuClose.Play();
-																			}
-																			else
-																			{
-																				if (type == 12)
-																				{
-																					Main.soundInstanceMenuTick.Stop();
-																					Main.soundInstanceMenuTick = Main.soundMenuTick.CreateInstance();
-																					Main.soundInstanceMenuTick.Volume = num2;
-																					Main.soundInstanceMenuTick.Pan = num3;
-																					Main.soundInstanceMenuTick.Play();
-																				}
-																				else
-																				{
-																					if (type == 13)
-																					{
-																						Main.soundInstanceShatter.Stop();
-																						Main.soundInstanceShatter = Main.soundShatter.CreateInstance();
-																						Main.soundInstanceShatter.Volume = num2;
-																						Main.soundInstanceShatter.Pan = num3;
-																						Main.soundInstanceShatter.Play();
-																					}
-																					else
-																					{
-																						if (type == 14)
-																						{
-																							int num10 = Main.rand.Next(3);
-																							Main.soundInstanceZombie[num10] = Main.soundZombie[num10].CreateInstance();
-																							Main.soundInstanceZombie[num10].Volume = num2 * 0.4f;
-																							Main.soundInstanceZombie[num10].Pan = num3;
-																							Main.soundInstanceZombie[num10].Play();
-																						}
-																						else
-																						{
-																							if (type == 15)
-																							{
-																								if (Main.soundInstanceRoar[num].State == SoundState.Stopped)
-																								{
-																									Main.soundInstanceRoar[num] = Main.soundRoar[num].CreateInstance();
-																									Main.soundInstanceRoar[num].Volume = num2;
-																									Main.soundInstanceRoar[num].Pan = num3;
-																									Main.soundInstanceRoar[num].Play();
-																								}
-																							}
-																							else
-																							{
-																								if (type == 16)
-																								{
-																									Main.soundInstanceDoubleJump.Stop();
-																									Main.soundInstanceDoubleJump = Main.soundDoubleJump.CreateInstance();
-																									Main.soundInstanceDoubleJump.Volume = num2;
-																									Main.soundInstanceDoubleJump.Pan = num3;
-																									Main.soundInstanceDoubleJump.Pitch = (float)Main.rand.Next(-10, 11) * 0.01f;
-																									Main.soundInstanceDoubleJump.Play();
-																								}
-																								else
-																								{
-																									if (type == 17)
-																									{
-																										Main.soundInstanceRun.Stop();
-																										Main.soundInstanceRun = Main.soundRun.CreateInstance();
-																										Main.soundInstanceRun.Volume = num2;
-																										Main.soundInstanceRun.Pan = num3;
-																										Main.soundInstanceRun.Pitch = (float)Main.rand.Next(-10, 11) * 0.01f;
-																										Main.soundInstanceRun.Play();
-																									}
-																									else
-																									{
-																										if (type == 18)
-																										{
-																											Main.soundInstanceCoins = Main.soundCoins.CreateInstance();
-																											Main.soundInstanceCoins.Volume = num2;
-																											Main.soundInstanceCoins.Pan = num3;
-																											Main.soundInstanceCoins.Play();
-																										}
-																										else
-																										{
-																											if (type == 19)
-																											{
-																												if (Main.soundInstanceSplash[num].State == SoundState.Stopped)
-																												{
-																													Main.soundInstanceSplash[num] = Main.soundSplash[num].CreateInstance();
-																													Main.soundInstanceSplash[num].Volume = num2;
-																													Main.soundInstanceSplash[num].Pan = num3;
-																													Main.soundInstanceSplash[num].Pitch = (float)Main.rand.Next(-10, 11) * 0.01f;
-																													Main.soundInstanceSplash[num].Play();
-																												}
-																											}
-																											else
-																											{
-																												if (type == 20)
-																												{
-																													int num11 = Main.rand.Next(3);
-																													Main.soundInstanceFemaleHit[num11].Stop();
-																													Main.soundInstanceFemaleHit[num11] = Main.soundFemaleHit[num11].CreateInstance();
-																													Main.soundInstanceFemaleHit[num11].Volume = num2;
-																													Main.soundInstanceFemaleHit[num11].Pan = num3;
-																													Main.soundInstanceFemaleHit[num11].Play();
-																												}
-																												else
-																												{
-																													if (type == 21)
-																													{
-																														int num12 = Main.rand.Next(3);
-																														Main.soundInstanceTink[num12].Stop();
-																														Main.soundInstanceTink[num12] = Main.soundTink[num12].CreateInstance();
-																														Main.soundInstanceTink[num12].Volume = num2;
-																														Main.soundInstanceTink[num12].Pan = num3;
-																														Main.soundInstanceTink[num12].Play();
-																													}
-																													else
-																													{
-																														if (type == 22)
-																														{
-																															Main.soundInstanceUnlock.Stop();
-																															Main.soundInstanceUnlock = Main.soundUnlock.CreateInstance();
-																															Main.soundInstanceUnlock.Volume = num2;
-																															Main.soundInstanceUnlock.Pan = num3;
-																															Main.soundInstanceUnlock.Play();
-																														}
-																														else
-																														{
-																															if (type == 23)
-																															{
-																																Main.soundInstanceDrown.Stop();
-																																Main.soundInstanceDrown = Main.soundDrown.CreateInstance();
-																																Main.soundInstanceDrown.Volume = num2;
-																																Main.soundInstanceDrown.Pan = num3;
-																																Main.soundInstanceDrown.Play();
-																															}
-																															else
-																															{
-																																if (type == 24)
-																																{
-																																	Main.soundInstanceChat = Main.soundChat.CreateInstance();
-																																	Main.soundInstanceChat.Volume = num2;
-																																	Main.soundInstanceChat.Pan = num3;
-																																	Main.soundInstanceChat.Play();
-																																}
-																																else
-																																{
-																																	if (type == 25)
-																																	{
-																																		Main.soundInstanceMaxMana = Main.soundMaxMana.CreateInstance();
-																																		Main.soundInstanceMaxMana.Volume = num2;
-																																		Main.soundInstanceMaxMana.Pan = num3;
-																																		Main.soundInstanceMaxMana.Play();
-																																	}
-																																	else
-																																	{
-																																		if (type == 26)
-																																		{
-																																			int num13 = Main.rand.Next(3, 5);
-																																			Main.soundInstanceZombie[num13] = Main.soundZombie[num13].CreateInstance();
-																																			Main.soundInstanceZombie[num13].Volume = num2 * 0.9f;
-																																			Main.soundInstanceZombie[num13].Pan = num3;
-																																			Main.soundInstanceSplash[num].Pitch = (float)Main.rand.Next(-10, 11) * 0.01f;
-																																			Main.soundInstanceZombie[num13].Play();
-																																		}
-																																		else
-																																		{
-																																			if (type == 27)
-																																			{
-																																				if (Main.soundInstancePixie.State == SoundState.Playing)
-																																				{
-																																					Main.soundInstancePixie.Volume = num2;
-																																					Main.soundInstancePixie.Pan = num3;
-																																					Main.soundInstancePixie.Pitch = (float)Main.rand.Next(-10, 11) * 0.01f;
-																																				}
-																																				else
-																																				{
-																																					Main.soundInstancePixie.Stop();
-																																					Main.soundInstancePixie = Main.soundPixie.CreateInstance();
-																																					Main.soundInstancePixie.Volume = num2;
-																																					Main.soundInstancePixie.Pan = num3;
-																																					Main.soundInstancePixie.Pitch = (float)Main.rand.Next(-10, 11) * 0.01f;
-																																					Main.soundInstancePixie.Play();
-																																				}
-																																			}
-																																			else
-																																			{
-																																				if (type == 28)
-																																				{
-																																					if (Main.soundInstanceMech[num].State != SoundState.Playing)
-																																					{
-																																						Main.soundInstanceMech[num] = Main.soundMech[num].CreateInstance();
-																																						Main.soundInstanceMech[num].Volume = num2;
-																																						Main.soundInstanceMech[num].Pan = num3;
-																																						Main.soundInstanceMech[num].Pitch = (float)Main.rand.Next(-10, 11) * 0.01f;
-																																						Main.soundInstanceMech[num].Play();
-																																					}
-																																				}
-																																				else
-																																				{
-																																					if (type == 29)
-																																					{
-																																						if (Main.soundInstanceMech[num].State != SoundState.Playing)
-																																						{
-																																							Main.soundInstanceMech[num] = Main.soundZombie[num].CreateInstance();
-																																							Main.soundInstanceMech[num].Volume = num2;
-																																							Main.soundInstanceMech[num].Pan = num3;
-																																							Main.soundInstanceMech[num].Pitch = (float)Main.rand.Next(-10, 11) * 0.01f;
-																																							Main.soundInstanceMech[num].Play();
-																																						}
-																																					}
-																																				}
-																																			}
-																																		}
-																																	}
-																																}
-																															}
-																														}
-																													}
-																												}
-																											}
-																										}
-																									}
-																								}
-																							}
-																						}
-																					}
-																				}
-																			}
-																		}
-																	}
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			catch
-			{
-			}
-		*/}
+		{
+            // Kept because it does nothing but is called by a million other things
+        }
 	}
 }

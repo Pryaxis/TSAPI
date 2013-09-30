@@ -8474,7 +8474,7 @@ namespace Terraria
 																																																																																																																																																																																																																										this.aiStyle = 3;
 																																																																																																																																																																																																																										this.damage = 70;
 																																																																																																																																																																																																																										this.defense = 28;
-																																																																																																																																																																																																																										this.lifeMax = 800;
+																																																																																																																																																																																																																										this.lifeMax = 2000;
 																																																																																																																																																																																																																										this.soundHit = 1;
 																																																																																																																																																																																																																										this.soundKilled = 1;
 																																																																																																																																																																																																																										this.knockBackResist = 0f;
@@ -30181,7 +30181,7 @@ namespace Terraria
 																															{
 																																if (num29 == 226 && flag2)
 																																{
-																																	if (Main.rand.Next(3) == 0)
+																																	if (Main.rand.Next(4) == 0)
 																																	{
 																																		num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 226, 0);
 																																	}
@@ -33217,6 +33217,10 @@ namespace Terraria
 					}
 				}
 			}
+            if (this.type == 204 && Main.rand.Next(3) == 0)
+            {
+                DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 209, 1, false, 0, false);
+            }
 			if (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 29 || this.type == 111)
 			{
 				if (Main.rand.Next(200) == 0)
@@ -37889,7 +37893,7 @@ namespace Terraria
 				{
 					this.velocity.X = 0f;
 				}
-				if (Main.netMode != 1 && this.type != 37 && (this.friendly || this.type == 46 || this.type == 55 || this.type == 74 || this.type == 148 || this.type == 149))
+				if (Main.netMode != 1 && this.type != 37 && (this.friendly || this.type == 46 || this.type == 55 || this.type == 74 || this.type == 148 || this.type == 149 || this.type == 230))
 				{
 					if (this.life < this.lifeMax)
 					{
@@ -37989,10 +37993,10 @@ namespace Terraria
 									for (int num19 = 0; num19 < 10; num19++)
 									{
 										int num20 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 152, 0f, 0f, 0, default(Color), 1f);
-										Dust expr_F24_cp_0 = Main.dust[num20];
-										expr_F24_cp_0.velocity.Y = expr_F24_cp_0.velocity.Y - 1f;
-										Dust expr_F42_cp_0 = Main.dust[num20];
-										expr_F42_cp_0.velocity.X = expr_F42_cp_0.velocity.X * 2.5f;
+                                        Dust expr_F31_cp_0 = Main.dust[num20];
+                                        expr_F31_cp_0.velocity.Y = expr_F31_cp_0.velocity.Y - 1f;
+                                        Dust expr_F4F_cp_0 = Main.dust[num20];
+                                        expr_F4F_cp_0.velocity.X = expr_F4F_cp_0.velocity.X * 2.5f;
 										Main.dust[num20].scale = 1.3f;
 										Main.dust[num20].alpha = 100;
 										Main.dust[num20].noGravity = true;
@@ -38026,10 +38030,10 @@ namespace Terraria
 								for (int num23 = 0; num23 < 10; num23++)
 								{
 									int num24 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
-									Dust expr_11EE_cp_0 = Main.dust[num24];
-									expr_11EE_cp_0.velocity.Y = expr_11EE_cp_0.velocity.Y - 1.5f;
-									Dust expr_120C_cp_0 = Main.dust[num24];
-									expr_120C_cp_0.velocity.X = expr_120C_cp_0.velocity.X * 2.5f;
+                                    Dust expr_11FB_cp_0 = Main.dust[num24];
+                                    expr_11FB_cp_0.velocity.Y = expr_11FB_cp_0.velocity.Y - 1.5f;
+                                    Dust expr_1219_cp_0 = Main.dust[num24];
+                                    expr_1219_cp_0.velocity.X = expr_1219_cp_0.velocity.X * 2.5f;
 									Main.dust[num24].scale = 1.3f;
 									Main.dust[num24].alpha = 100;
 									Main.dust[num24].noGravity = true;
@@ -38058,10 +38062,10 @@ namespace Terraria
 										for (int num25 = 0; num25 < 10; num25++)
 										{
 											int num26 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 152, 0f, 0f, 0, default(Color), 1f);
-											Dust expr_1395_cp_0 = Main.dust[num26];
-											expr_1395_cp_0.velocity.Y = expr_1395_cp_0.velocity.Y - 1f;
-											Dust expr_13B3_cp_0 = Main.dust[num26];
-											expr_13B3_cp_0.velocity.X = expr_13B3_cp_0.velocity.X * 2.5f;
+                                            Dust expr_13A2_cp_0 = Main.dust[num26];
+                                            expr_13A2_cp_0.velocity.Y = expr_13A2_cp_0.velocity.Y - 1f;
+                                            Dust expr_13C0_cp_0 = Main.dust[num26];
+                                            expr_13C0_cp_0.velocity.X = expr_13C0_cp_0.velocity.X * 2.5f;
 											Main.dust[num26].scale = 1.3f;
 											Main.dust[num26].alpha = 100;
 											Main.dust[num26].noGravity = true;
@@ -38076,10 +38080,10 @@ namespace Terraria
 										for (int num27 = 0; num27 < 30; num27++)
 										{
 											int num28 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, Dust.dustWater(), 0f, 0f, 0, default(Color), 1f);
-											Dust expr_14F8_cp_0 = Main.dust[num28];
-											expr_14F8_cp_0.velocity.Y = expr_14F8_cp_0.velocity.Y - 4f;
-											Dust expr_1516_cp_0 = Main.dust[num28];
-											expr_1516_cp_0.velocity.X = expr_1516_cp_0.velocity.X * 2.5f;
+                                            Dust expr_1505_cp_0 = Main.dust[num28];
+                                            expr_1505_cp_0.velocity.Y = expr_1505_cp_0.velocity.Y - 4f;
+                                            Dust expr_1523_cp_0 = Main.dust[num28];
+                                            expr_1523_cp_0.velocity.X = expr_1523_cp_0.velocity.X * 2.5f;
 											Main.dust[num28].scale *= 0.8f;
 											Main.dust[num28].alpha = 100;
 											Main.dust[num28].noGravity = true;
@@ -38095,10 +38099,10 @@ namespace Terraria
 									for (int num29 = 0; num29 < 10; num29++)
 									{
 										int num30 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
-										Dust expr_164F_cp_0 = Main.dust[num30];
-										expr_164F_cp_0.velocity.Y = expr_164F_cp_0.velocity.Y - 1.5f;
-										Dust expr_166D_cp_0 = Main.dust[num30];
-										expr_166D_cp_0.velocity.X = expr_166D_cp_0.velocity.X * 2.5f;
+                                        Dust expr_165C_cp_0 = Main.dust[num30];
+                                        expr_165C_cp_0.velocity.Y = expr_165C_cp_0.velocity.Y - 1.5f;
+                                        Dust expr_167A_cp_0 = Main.dust[num30];
+                                        expr_167A_cp_0.velocity.X = expr_167A_cp_0.velocity.X * 2.5f;
 										Main.dust[num30].scale = 1.3f;
 										Main.dust[num30].alpha = 100;
 										Main.dust[num30].noGravity = true;
@@ -38314,7 +38318,7 @@ namespace Terraria
 					if (Main.npcStreamSpeed > 0 && !this.townNPC && Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y) > 1f)
 					{
 						this.netStream += 1;
-						if ((int)this.netStream > Main.numPlayers * Main.npcStreamSpeed)
+						if ((int)this.netStream > Main.npcStreamSpeed)
 						{
 							for (int num40 = 0; num40 < 255; num40++)
 							{
@@ -38323,33 +38327,33 @@ namespace Terraria
 									float num41 = Math.Abs(this.center().X - Main.player[num40].center().X) + Math.Abs(this.center().Y - Main.player[num40].center().Y);
 									if (num41 < 250f)
 									{
-										byte[] expr_1F73_cp_0 = this.streamPlayer;
-										int expr_1F73_cp_1 = num40;
-										expr_1F73_cp_0[expr_1F73_cp_1] -= 8;
+                                        byte[] expr_1F7A_cp_0 = this.streamPlayer;
+                                        int expr_1F7A_cp_1 = num40;
+                                        expr_1F7A_cp_0[expr_1F7A_cp_1] -= 8;
 									}
 									else
 									{
 										if (num41 < 500f)
 										{
-											byte[] expr_1F99_cp_0 = this.streamPlayer;
-											int expr_1F99_cp_1 = num40;
-											expr_1F99_cp_0[expr_1F99_cp_1] -= 4;
+                                            byte[] expr_1FA0_cp_0 = this.streamPlayer;
+                                            int expr_1FA0_cp_1 = num40;
+                                            expr_1FA0_cp_0[expr_1FA0_cp_1] -= 4;
 										}
 										else
 										{
 											if (num41 < 1000f)
 											{
-												byte[] expr_1FBF_cp_0 = this.streamPlayer;
-												int expr_1FBF_cp_1 = num40;
-												expr_1FBF_cp_0[expr_1FBF_cp_1] -= 2;
+                                                byte[] expr_1FC6_cp_0 = this.streamPlayer;
+                                                int expr_1FC6_cp_1 = num40;
+                                                expr_1FC6_cp_0[expr_1FC6_cp_1] -= 2;
 											}
 											else
 											{
 												if (num41 < 1500f)
 												{
-													byte[] expr_1FE5_cp_0 = this.streamPlayer;
-													int expr_1FE5_cp_1 = num40;
-													expr_1FE5_cp_0[expr_1FE5_cp_1] -= 1;
+                                                    byte[] expr_1FEC_cp_0 = this.streamPlayer;
+                                                    int expr_1FEC_cp_1 = num40;
+                                                    expr_1FEC_cp_0[expr_1FEC_cp_1] -= 1;
 												}
 											}
 										}
