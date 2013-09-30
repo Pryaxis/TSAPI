@@ -121,7 +121,7 @@ namespace Terraria
 						Main.myPlayer = num2;
 					}
 					NetMessage.SendData(4, -1, -1, Main.player[Main.myPlayer].name, Main.myPlayer, 0f, 0f, 0f, 0);
-                    NetMessage.SendData(68, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0);
+					NetMessage.SendData(68, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0);
 					NetMessage.SendData(16, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0);
 					NetMessage.SendData(42, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0);
 					NetMessage.SendData(50, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0);
@@ -160,7 +160,7 @@ namespace Terraria
 						{
 							num3 = this.whoAmI;
 						}
-                        if (num3 == Main.myPlayer && !Main.ServerSideCharacter)
+						if (num3 == Main.myPlayer && !Main.ServerSideCharacter)
 						{
 							return;
 						}
@@ -274,7 +274,7 @@ namespace Terraria
 							{
 								num5 = this.whoAmI;
 							}
-                            if (num5 == Main.myPlayer && !Main.ServerSideCharacter)
+							if (num5 == Main.myPlayer && !Main.ServerSideCharacter)
 							{
 								return;
 							}
@@ -483,10 +483,10 @@ namespace Terraria
 									{
 										NPC.downedClown = true;
 									}
-                                    if ((b4 & 64) == 64)
-                                    {
-                                        Main.ServerSideCharacter = true;
-                                    }
+									if ((b4 & 64) == 64)
+									{
+										Main.ServerSideCharacter = true;
+									}
 									if ((b5 & 1) == 1)
 									{
 										NPC.downedMechBoss1 = true;
@@ -894,7 +894,7 @@ namespace Terraria
 													if (b == 13)
 													{
 														int num27 = (int)this.readBuffer[num];
-                                                        if (num27 == Main.myPlayer && !Main.ServerSideCharacter)
+														if (num27 == Main.myPlayer && !Main.ServerSideCharacter)
 														{
 															return;
 														}
@@ -1022,7 +1022,7 @@ namespace Terraria
 																{
 																	int num32 = (int)this.readBuffer[num];
 																	num++;
-                                                                    if (num32 == Main.myPlayer && !Main.ServerSideCharacter)
+																	if (num32 == Main.myPlayer && !Main.ServerSideCharacter)
 																	{
 																		return;
 																	}
@@ -2121,7 +2121,7 @@ namespace Terraria
 																																			num++;
 																																			int num84 = (int)BitConverter.ToInt16(this.readBuffer, num);
 																																			num += 2;
-                                                                                                                                            if (num83 != Main.myPlayer || Main.ServerSideCharacter)
+																																			if (num83 != Main.myPlayer || Main.ServerSideCharacter)
 																																			{
 																																				Main.player[num83].HealEffect(num84, true);
 																																			}
@@ -2304,13 +2304,6 @@ namespace Terraria
 																																									{
 																																										num87 = this.whoAmI;
 																																									}
-                                                                                                                                                                    else
-                                                                                                                                                                    {
-                                                                                                                                                                        if (Main.myPlayer == num87 && !Main.ServerSideCharacter)
-                                                                                                                                                                        {
-                                                                                                                                                                            return;
-                                                                                                                                                                        }
-                                                                                                                                                                    }
 																																									num++;
 																																									int statMana = (int)BitConverter.ToInt16(this.readBuffer, num);
 																																									num += 2;
@@ -2318,6 +2311,13 @@ namespace Terraria
 																																									if (Main.netMode == 2)
 																																									{
 																																										num87 = this.whoAmI;
+																																									}
+																																									else
+																																									{
+																																										if (Main.myPlayer == 87 && !Main.serverStarting)
+																																										{
+																																											return;
+																																										}
 																																									}
 																																									Main.player[num87].statMana = statMana;
 																																									Main.player[num87].statManaMax = statManaMax;
@@ -2550,7 +2550,7 @@ namespace Terraria
 																																																}
 																																																else
 																																																{
-                                                                                                                                                                                                    if (num107 == Main.myPlayer && !Main.ServerSideCharacter)
+																																																	if (num107 == Main.myPlayer && !Main.ServerSideCharacter)
 																																																	{
 																																																		return;
 																																																	}
@@ -2955,38 +2955,42 @@ namespace Terraria
 																																																														}
 																																																														else
 																																																														{
-                                                                                                                                                                                                                                                            if (b == 66)
-                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                int num134 = (int)this.readBuffer[num];
-                                                                                                                                                                                                                                                                num++;
-                                                                                                                                                                                                                                                                int num135 = (int)BitConverter.ToInt16(this.readBuffer, num);
-                                                                                                                                                                                                                                                                num += 2;
-                                                                                                                                                                                                                                                                if (num135 > 0)
-                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                    Main.player[num134].statLife += num135;
-                                                                                                                                                                                                                                                                    if (Main.player[num134].statLife > Main.player[num134].statLifeMax)
-                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                        Main.player[num134].statLife = Main.player[num134].statLifeMax;
-                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                    Main.player[num134].HealEffect(num135, false);
-                                                                                                                                                                                                                                                                    if (Main.netMode == 2)
-                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                        NetMessage.SendData(66, -1, this.whoAmI, "", num134, (float)num135, 0f, 0f, 0);
-                                                                                                                                                                                                                                                                        return;
-                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                if (b == 67)
-                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                    return;
-                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                if (b == 68)
-                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                    Encoding.UTF8.GetString(this.readBuffer, start + 1, length - 1);
-                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                            }
+																																																															if (b == 66)
+																																																															{
+																																																																int num134 = (int)this.readBuffer[num];
+																																																																num++;
+																																																																int num135 = (int)BitConverter.ToInt16(this.readBuffer, num);
+																																																																num += 2;
+																																																																if (num135 > 0)
+																																																																{
+																																																																	Main.player[num134].statLife += num135;
+																																																																	if (Main.player[num134].statLife >
+																																																																	    Main.player[num134].statLifeMax)
+																																																																	{
+																																																																		Main.player[num134].statLife =
+																																																																			Main.player[num134].statLifeMax;
+																																																																	}
+																																																																	Main.player[num134].HealEffect(num135, false);
+																																																																	if (Main.netMode == 2)
+																																																																	{
+																																																																		NetMessage.SendData(66, -1, this.whoAmI, "", num134,
+																																																																			(float) num135, 0f, 0f, 0);
+																																																																		return;
+																																																																	}
+																																																																}
+																																																															}
+																																																															else
+																																																															{
+																																																																if (b == 67)
+																																																																{
+																																																																	return;
+																																																																}
+																																																																if (b == 68)
+																																																																{
+																																																																	Encoding.UTF8.GetString(this.readBuffer, start + 1,
+																																																																		length - 1);
+																																																																}
+																																																															}
 																																																														}
 																																																													}
 																																																												}
