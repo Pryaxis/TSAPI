@@ -306,22 +306,21 @@ namespace Terraria
 					{
 						if (type == 4)
 						{
-							this.item[num].SetDefaults("Grenade");
-							num++;
-							this.item[num].SetDefaults("Bomb");
-							num++;
-							this.item[num].SetDefaults("Dynamite");
-							num++;
+							this.item[num++].SetDefaults("Grenade");
+							this.item[num++].SetDefaults("Bomb");
+							this.item[num++].SetDefaults("Dynamite");
 							if (Main.hardMode)
 							{
-								this.item[num].SetDefaults("Hellfire Arrow");
+								this.item[num++].SetDefaults("Hellfire Arrow");
 							}
-							num++;
+							if (Main.hardMode && NPC.downedGolemBoss && NPC.downedPirates)
+							{
+								this.item[num++].SetDefaults(937, false);
+							}
 							if (Main.hardMode)
 							{
-								this.item[num].SetDefaults(1347, false);
+								this.item[num++].SetDefaults(1347, false);
 							}
-							num++;
 						}
 						else
 						{
@@ -778,6 +777,25 @@ namespace Terraria
 																					this.item[num].SetDefaults(1162, false);
 																					num++;
 																				}
+																			}
+																			if (Main.hardMode && NPC.downedGolemBoss)
+																			{
+																				this.item[num].SetDefaults(909, false);
+																				num++;
+																				this.item[num].SetDefaults(910, false);
+																				num++;
+																				this.item[num].SetDefaults(940, false);
+																				num++;
+																				this.item[num].SetDefaults(941, false);
+																				num++;
+																				this.item[num].SetDefaults(942, false);
+																				num++;
+																				this.item[num].SetDefaults(943, false);
+																				num++;
+																				this.item[num].SetDefaults(944, false);
+																				num++;
+																				this.item[num].SetDefaults(945, false);
+																				num++;
 																			}
 																			if (Main.player[Main.myPlayer].HasItem(1258))
 																			{

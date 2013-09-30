@@ -5588,7 +5588,7 @@ namespace Terraria
 					{
 						this.ropeCount--;
 					}
-					if (!this.pulley && !this.frozen && !this.controlJump && this.gravDir == 1f && this.ropeCount == 0 && (this.controlUp || this.controlDown))
+					if (!this.pulley && !this.frozen && !this.controlJump && this.gravDir == 1f && this.ropeCount == 0 && this.grappling[0] == -1 && !this.tongued && (this.controlUp || this.controlDown))
 					{
 						int num72 = (int)(this.position.X + (float)(this.width / 2)) / 16;
 						int num73 = (int)(this.position.Y - 8f) / 16;
@@ -15641,7 +15641,7 @@ namespace Terraria
 												}
 												else
 												{
-													if ((Main.tile[Player.tileTargetX, Player.tileTargetY].type == 22 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 205) && (double)Player.tileTargetY > Main.worldSurface && this.inventory[this.selectedItem].pick < 55)
+													if ((Main.tile[Player.tileTargetX, Player.tileTargetY].type == 22 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 204) && (double)Player.tileTargetY > Main.worldSurface && this.inventory[this.selectedItem].pick < 55)
 													{
 														this.hitTile = 0;
 													}
@@ -17343,7 +17343,10 @@ namespace Terraria
 			catch
 			{
 			}
-			bool serverSideChar = Main.ServerSideCharacter;
+			if (Main.ServerSideCharacter)
+			{
+				return;
+			}
 			if (playerPath == null || playerPath == "")
 			{
 				return;

@@ -2521,6 +2521,10 @@ namespace Terraria
 									}
 								}
 							}
+							if (num < 67)
+							{
+								WorldGen.FixSunflowers();
+							}
 							int num4 = 40;
 							if (num < 58)
 							{
@@ -23934,78 +23938,86 @@ namespace Terraria
 							}
 							else
 							{
-								if (type == 170)
+								if (type == 243)
 								{
-									Item.NewItem(i * 16, j * 16, 32, 32, 710, 1, false, 0, false);
+									Item.NewItem(i*16, j*16, 32, 32, 1430, 1, false, 0, false);
 								}
 								else
 								{
-									if (type == 171)
+									if (type == 170)
 									{
-										Item.NewItem(i * 16, j * 16, 32, 32, 711, 1, false, 0, false);
+										Item.NewItem(i*16, j*16, 32, 32, 710, 1, false, 0, false);
 									}
 									else
 									{
-										if (type == 172)
+										if (type == 171)
 										{
-											Item.NewItem(i * 16, j * 16, 32, 32, 712, 1, false, 0, false);
+											Item.NewItem(i*16, j*16, 32, 32, 711, 1, false, 0, false);
 										}
 										else
 										{
-											if (type == 212)
+											if (type == 172)
 											{
-												Item.NewItem(i * 16, j * 16, 32, 32, 951, 1, false, 0, false);
+												Item.NewItem(i*16, j*16, 32, 32, 712, 1, false, 0, false);
 											}
 											else
 											{
-												if (type == 219)
+												if (type == 212)
 												{
-													Item.NewItem(i * 16, j * 16, 32, 32, 997, 1, false, 0, false);
+													Item.NewItem(i*16, j*16, 32, 32, 951, 1, false, 0, false);
 												}
 												else
 												{
-													if (type == 220)
+													if (type == 219)
 													{
-														Item.NewItem(i * 16, j * 16, 32, 32, 998, 1, false, 0, false);
+														Item.NewItem(i*16, j*16, 32, 32, 997, 1, false, 0, false);
 													}
 													else
 													{
-														if (type == 228)
+														if (type == 220)
 														{
-															Item.NewItem(i * 16, j * 16, 32, 32, 1120, 1, false, 0, false);
+															Item.NewItem(i*16, j*16, 32, 32, 998, 1, false, 0, false);
 														}
 														else
 														{
-															if (type == 247)
+															if (type == 228)
 															{
-																Item.NewItem(i * 16, j * 16, 32, 32, 1551, 1, false, 0, false);
+																Item.NewItem(i*16, j*16, 32, 32, 1120, 1, false, 0, false);
 															}
 															else
 															{
-																if (type == 231)
+																if (type == 247)
 																{
-																	int num7 = (i + 1) * 16 + 8;
-																	int num8 = j * 16;
-																	Gore.NewGore(new Vector2((float)num7, (float)num8), default(Vector2), 300, 1f);
-																	Gore.NewGore(new Vector2((float)num7, (float)(num8 + 8)), default(Vector2), 301, 1f);
-																	Gore.NewGore(new Vector2((float)num7, (float)(num8 + 16)), default(Vector2), 302, 1f);
-																	float num9 = (float)(i * 16);
-																	float num10 = (float)(j * 16);
-																	float num11 = -1f;
-																	int plr = 0;
-																	for (int num12 = 0; num12 < 255; num12++)
+																	Item.NewItem(i*16, j*16, 32, 32, 1551, 1, false, 0, false);
+																}
+																else
+																{
+																	if (type == 231)
 																	{
-																		if (Main.player[num12].active && !Main.player[num12].dead)
+																		int num7 = (i + 1)*16 + 8;
+																		int num8 = j*16;
+																		Gore.NewGore(new Vector2((float) num7, (float) num8), default(Vector2), 300, 1f);
+																		Gore.NewGore(new Vector2((float) num7, (float) (num8 + 8)), default(Vector2), 301, 1f);
+																		Gore.NewGore(new Vector2((float) num7, (float) (num8 + 16)), default(Vector2), 302, 1f);
+																		float num9 = (float) (i*16);
+																		float num10 = (float) (j*16);
+																		float num11 = -1f;
+																		int plr = 0;
+																		for (int num12 = 0; num12 < 255; num12++)
 																		{
-																			float num13 = Math.Abs(Main.player[num12].position.X - num9) + Math.Abs(Main.player[num12].position.Y - num10);
-																			if (num13 < num11 || num11 == -1f)
+																			if (Main.player[num12].active && !Main.player[num12].dead)
 																			{
-																				plr = num12;
-																				num11 = num13;
+																				float num13 = Math.Abs(Main.player[num12].position.X - num9) +
+																				              Math.Abs(Main.player[num12].position.Y - num10);
+																				if (num13 < num11 || num11 == -1f)
+																				{
+																					plr = num12;
+																					num11 = num13;
+																				}
 																			}
 																		}
+																		NPC.SpawnOnPlayer(plr, 222);
 																	}
-																	NPC.SpawnOnPlayer(plr, 222);
 																}
 															}
 														}
@@ -24177,6 +24189,47 @@ namespace Terraria
 						Main.tile[x + k, y + l].type = (byte)type;
 					}
 				}
+			}
+		}
+		public static void FixSunflowers()
+		{
+			for (int i = 5; i < Main.maxTilesX - 5; i++)
+			{
+				int num = 5;
+				while ((double)num < Main.worldSurface)
+				{
+					if (Main.tile[i, num].active() && Main.tile[i, num].type == 27)
+					{
+						WorldGen.FixSunflower(i, num);
+					}
+					num++;
+				}
+			}
+		}
+		public static void FixSunflower(int i, int j)
+		{
+			if (Main.tile[i, j].type != 27)
+			{
+				return;
+			}
+			int k = 0;
+			k += (int)(Main.tile[i, j].frameX / 18);
+			int num = j + (int)(Main.tile[i, j].frameY / 18 * -1);
+			while (k > 1)
+			{
+				k -= 2;
+			}
+			k *= -1;
+			k += i;
+			int num2 = WorldGen.genRand.Next(3) * 36;
+			int num3 = 0;
+			for (int l = k; l < k + 2; l++)
+			{
+				for (int m = num; m < num + 4; m++)
+				{
+					Main.tile[l, m].frameX = (short)(num3 + num2);
+				}
+				num3 += 18;
 			}
 		}
 		public static void CheckSunflower(int i, int j, int type = 27)
@@ -41256,37 +41309,75 @@ namespace Terraria
 								{
 									if (Main.tileBrick[num])
 									{
-										if (num43 > -1 && Main.tileBrick[num43])
+										if (num == 60 || num == 70)
 										{
-											num43 = num;
+											if (num43 > -1 && num43 != 59 && Main.tileBrick[num43])
+											{
+												num43 = num;
+											}
+											if (num48 > -1 && num48 != 59 && Main.tileBrick[num48])
+											{
+												num48 = num;
+											}
+											if (num45 > -1 && num45 != 59 && Main.tileBrick[num45])
+											{
+												num45 = num;
+											}
+											if (num46 > -1 && num46 != 59 && Main.tileBrick[num46])
+											{
+												num46 = num;
+											}
+											if (num42 > -1 && num42 != 59 && Main.tileBrick[num42])
+											{
+												num42 = num;
+											}
+											if (num44 > -1 && num44 != 59 && Main.tileBrick[num44])
+											{
+												num44 = num;
+											}
+											if (num47 > -1 && num47 != 59 && Main.tileBrick[num47])
+											{
+												num47 = num;
+											}
+											if (num49 > -1 && num49 != 59 && Main.tileBrick[num49])
+											{
+												num49 = num;
+											}
 										}
-										if (num48 > -1 && Main.tileBrick[num48])
+										else
 										{
-											num48 = num;
-										}
-										if (num45 > -1 && Main.tileBrick[num45])
-										{
-											num45 = num;
-										}
-										if (num46 > -1 && Main.tileBrick[num46])
-										{
-											num46 = num;
-										}
-										if (num42 > -1 && Main.tileBrick[num42])
-										{
-											num42 = num;
-										}
-										if (num44 > -1 && Main.tileBrick[num44])
-										{
-											num44 = num;
-										}
-										if (num47 > -1 && Main.tileBrick[num47])
-										{
-											num47 = num;
-										}
-										if (num49 > -1 && Main.tileBrick[num49])
-										{
-											num49 = num;
+											if (num43 > -1 && Main.tileBrick[num43])
+											{
+												num43 = num;
+											}
+											if (num48 > -1 && Main.tileBrick[num48])
+											{
+												num48 = num;
+											}
+											if (num45 > -1 && Main.tileBrick[num45])
+											{
+												num45 = num;
+											}
+											if (num46 > -1 && Main.tileBrick[num46])
+											{
+												num46 = num;
+											}
+											if (num42 > -1 && Main.tileBrick[num42])
+											{
+												num42 = num;
+											}
+											if (num44 > -1 && Main.tileBrick[num44])
+											{
+												num44 = num;
+											}
+											if (num47 > -1 && Main.tileBrick[num47])
+											{
+												num47 = num;
+											}
+											if (num49 > -1 && Main.tileBrick[num49])
+											{
+												num49 = num;
+											}
 										}
 									}
 								}

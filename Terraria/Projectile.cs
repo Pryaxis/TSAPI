@@ -170,10 +170,11 @@ namespace Terraria
 				this.friendly = true;
 				this.light = 0.4f;
 				this.penetrate = -1;
-				this.timeLeft = 80;
+				this.timeLeft = 120;
 				this.alpha = 100;
 				this.ignoreWater = true;
 				this.ranged = true;
+				this.maxUpdates = 1;
 			}
 			else if (this.type == 6)
 			{
@@ -7432,6 +7433,8 @@ namespace Terraria
 			}
 			else
 			{
+        		if (this.type == 5)
+          			return new Color((int) byte.MaxValue, (int) byte.MaxValue, (int) byte.MaxValue, 0);
 				if (this.type == 300 || this.type == 301)
 					return new Color(250, 250, 250, 50);
 				if (this.type == 304)

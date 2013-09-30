@@ -10,6 +10,7 @@ namespace Terraria
 		public static int immuneTime = 20;
 		public static int maxAI = 4;
 		public int netSpam;
+		public static bool noStream = false;
 		public static int spawnSpaceX = 3;
 		public static int spawnSpaceY = 3;
 		public float gfxOffY;
@@ -4324,6 +4325,7 @@ namespace Terraria
 		}
 		public void SetDefaults(int Type, float scaleOverride = -1f)
 		{
+			NPC.noStream = false;
 			this.netStream = 32;
 			bool flag = false;
 			this.netID = 0;
@@ -4553,6 +4555,7 @@ namespace Terraria
 											this.knockBackResist = 0f;
 											this.behindTiles = true;
 											this.value = 140f;
+											NPC.noStream = true;
 										}
 										else
 										{
@@ -4574,6 +4577,7 @@ namespace Terraria
 												this.knockBackResist = 0f;
 												this.behindTiles = true;
 												this.value = 140f;
+												NPC.noStream = true;
 											}
 											else
 											{
@@ -4616,6 +4620,7 @@ namespace Terraria
 														this.knockBackResist = 0f;
 														this.behindTiles = true;
 														this.value = 40f;
+														NPC.noStream = true;
 													}
 													else
 													{
@@ -4637,6 +4642,7 @@ namespace Terraria
 															this.knockBackResist = 0f;
 															this.behindTiles = true;
 															this.value = 40f;
+															NPC.noStream = true;
 														}
 														else
 														{
@@ -4688,6 +4694,7 @@ namespace Terraria
 																	this.buffImmune[20] = true;
 																	this.buffImmune[24] = true;
 																	this.buffImmune[39] = true;
+																	NPC.noStream = true;
 																}
 																else
 																{
@@ -4713,6 +4720,7 @@ namespace Terraria
 																		this.buffImmune[20] = true;
 																		this.buffImmune[24] = true;
 																		this.buffImmune[39] = true;
+																		NPC.noStream = true;
 																	}
 																	else
 																	{
@@ -6061,6 +6069,7 @@ namespace Terraria
 																																																																																										this.buffImmune[20] = true;
 																																																																																										this.buffImmune[24] = true;
 																																																																																										this.buffImmune[39] = true;
+																																																																																										NPC.noStream = true;
 																																																																																									}
 																																																																																									else
 																																																																																									{
@@ -6085,6 +6094,7 @@ namespace Terraria
 																																																																																											this.buffImmune[20] = true;
 																																																																																											this.buffImmune[24] = true;
 																																																																																											this.buffImmune[39] = true;
+																																																																																											NPC.noStream = true;
 																																																																																										}
 																																																																																										else
 																																																																																										{
@@ -6109,6 +6119,7 @@ namespace Terraria
 																																																																																												this.buffImmune[20] = true;
 																																																																																												this.buffImmune[24] = true;
 																																																																																												this.buffImmune[39] = true;
+																																																																																												NPC.noStream = true;
 																																																																																											}
 																																																																																											else
 																																																																																											{
@@ -6133,6 +6144,7 @@ namespace Terraria
 																																																																																													this.buffImmune[20] = true;
 																																																																																													this.buffImmune[24] = true;
 																																																																																													this.buffImmune[39] = true;
+																																																																																													NPC.noStream = true;
 																																																																																												}
 																																																																																												else
 																																																																																												{
@@ -6157,6 +6169,7 @@ namespace Terraria
 																																																																																														this.buffImmune[20] = true;
 																																																																																														this.buffImmune[24] = true;
 																																																																																														this.buffImmune[39] = true;
+																																																																																														NPC.noStream = true;
 																																																																																													}
 																																																																																													else
 																																																																																													{
@@ -6237,6 +6250,7 @@ namespace Terraria
 																																																																																																		this.behindTiles = true;
 																																																																																																		this.scale = 0.9f;
 																																																																																																		this.value = 300f;
+																																																																																																		NPC.noStream = true;
 																																																																																																	}
 																																																																																																	else
 																																																																																																	{
@@ -6259,6 +6273,7 @@ namespace Terraria
 																																																																																																			this.behindTiles = true;
 																																																																																																			this.scale = 0.9f;
 																																																																																																			this.value = 300f;
+																																																																																																			NPC.noStream = true;
 																																																																																																		}
 																																																																																																		else
 																																																																																																		{
@@ -6302,6 +6317,7 @@ namespace Terraria
 																																																																																																					this.knockBackResist = 0f;
 																																																																																																					this.behindTiles = true;
 																																																																																																					this.value = 700f;
+																																																																																																					NPC.noStream = true;
 																																																																																																				}
 																																																																																																				else
 																																																																																																				{
@@ -6323,6 +6339,7 @@ namespace Terraria
 																																																																																																						this.knockBackResist = 0f;
 																																																																																																						this.behindTiles = true;
 																																																																																																						this.value = 700f;
+																																																																																																						NPC.noStream = true;
 																																																																																																					}
 																																																																																																					else
 																																																																																																					{
@@ -7001,6 +7018,7 @@ namespace Terraria
 																																																																																																																																									this.buffImmune[20] = true;
 																																																																																																																																									this.buffImmune[24] = true;
 																																																																																																																																									this.buffImmune[39] = true;
+																																																																																																																																									NPC.noStream = true;
 																																																																																																																																								}
 																																																																																																																																								else
 																																																																																																																																								{
@@ -7026,6 +7044,7 @@ namespace Terraria
 																																																																																																																																										this.buffImmune[20] = true;
 																																																																																																																																										this.buffImmune[24] = true;
 																																																																																																																																										this.buffImmune[39] = true;
+																																																																																																																																										NPC.noStream = true;
 																																																																																																																																									}
 																																																																																																																																									else
 																																																																																																																																									{
@@ -32093,7 +32112,7 @@ namespace Terraria
 			{
 				return;
 			}
-			if (Main.hardMode && this.lifeMax > 1 && this.damage > 0 && !this.friendly && (double)this.position.Y > Main.rockLayer * 16.0 && Main.rand.Next(6) == 0 && this.type != 121 && this.value > 0f)
+			if (Main.hardMode && this.lifeMax > 1 && this.damage > 0 && !this.friendly && (double)this.position.Y > Main.rockLayer * 16.0 && Main.rand.Next(5) == 0 && this.type != 121 && this.value > 0f)
 			{
 				if (Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].zoneEvil || Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].zoneBlood)
 				{
@@ -32104,8 +32123,28 @@ namespace Terraria
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 520, 1, false, 0, false);
 				}
 			}
-
 			if (Main.hardMode)
+			{
+				if (!NPC.downedMechBoss1 && Main.rand.Next(1000) == 0)
+				{
+					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 556, 1, false, 0, false);
+				}
+				else
+				{
+					if (!NPC.downedMechBoss2 && Main.rand.Next(1000) == 0)
+					{
+						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 544, 1, false, 0, false);
+					}
+					else
+					{
+						if (!NPC.downedMechBoss3 && Main.rand.Next(1000) == 0)
+						{
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 557, 1, false, 0, false);
+						}
+					}
+				}
+			}
+			if (Main.hardMode && this.value > 0f)
 			{
 				if (Main.rand.Next(4000) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].zoneJungle)
 				{
@@ -32799,7 +32838,7 @@ namespace Terraria
 					}
 				}
 			}
-			if ((this.type == 174 || this.type == 179 || this.type == 182 || this.type == 183) && Main.rand.Next(400) == 0)
+			if ((this.type == 174 || this.type == 179 || this.type == 182 || this.type == 183) && Main.rand.Next(200) == 0)
 			{
 				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 996, 1, false, 0, false);
 			}
@@ -33272,7 +33311,7 @@ namespace Terraria
 				}
 				if (!NPC.AnyNPCs(num12))
 				{
-					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 549, Main.rand.Next(20, 31), false, 0, false);
+					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 549, Main.rand.Next(25, 41), false, 0, false);
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1225, Main.rand.Next(12, 25), false, 0, false);
 				}
 				else
@@ -33285,14 +33324,14 @@ namespace Terraria
 			{
 				if (this.type == 127)
 				{
-					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 547, Main.rand.Next(20, 31), false, 0, false);
+					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 547, Main.rand.Next(25, 41), false, 0, false);
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1225, Main.rand.Next(12, 25), false, 0, false);
 				}
 				else
 				{
 					if (this.type == 134)
 					{
-						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 548, Main.rand.Next(20, 31), false, 0, false);
+						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 548, Main.rand.Next(25, 41), false, 0, false);
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1225, Main.rand.Next(12, 25), false, 0, false);
 					}
 				}

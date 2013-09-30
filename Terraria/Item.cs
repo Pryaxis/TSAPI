@@ -4940,7 +4940,7 @@ namespace Terraria
         this.useTime = 45;
         this.noUseGraphic = true;
         this.noMelee = true;
-        this.value = 400;
+        this.value = 75;
         this.damage = 60;
         this.knockBack = 8f;
         this.toolTip = "A small explosion that will not destroy tiles";
@@ -6150,7 +6150,7 @@ namespace Terraria
         this.maxStack = 99;
         this.healLife = 20;
         this.consumable = true;
-        this.value = 1000;
+        this.value = Item.sellPrice(0, 0, 1, 0);
         this.potion = true;
         this.toolTip = "'It's smiling, might be a good snack'";
       }
@@ -13783,7 +13783,7 @@ namespace Terraria
         this.knockBack = 0.3f;
         this.shootSpeed = 7f;
         this.noMelee = true;
-        this.value = 500000;
+        this.value = Item.buyPirce(2, 0, 0, 0);
         this.rare = 5;
         this.toolTip = "Creates and destroys biomes when sprayed";
         this.toolTip2 = "Uses colored solution";
@@ -13795,7 +13795,7 @@ namespace Terraria
         this.ammo = 780;
         this.width = 10;
         this.height = 12;
-        this.value = 1000;
+		this.value = Item.buyPirce(0, 0, 25, 0);
         this.rare = 3;
         this.maxStack = 999;
         this.toolTip = "Used by the Clentaminator";
@@ -13808,7 +13808,7 @@ namespace Terraria
         this.ammo = 780;
         this.width = 10;
         this.height = 12;
-        this.value = 1000;
+		this.value = Item.buyPirce(0, 0, 25, 0);
         this.rare = 3;
         this.maxStack = 999;
         this.toolTip = "Used by the Clentaminator";
@@ -13821,7 +13821,7 @@ namespace Terraria
         this.ammo = 780;
         this.width = 10;
         this.height = 12;
-        this.value = 1000;
+		this.value = Item.buyPirce(0, 0, 25, 0);
         this.rare = 3;
         this.maxStack = 999;
         this.toolTip = "Used by the Clentaminator";
@@ -13834,7 +13834,7 @@ namespace Terraria
         this.ammo = 780;
         this.width = 10;
         this.height = 12;
-        this.value = 1000;
+		this.value = Item.buyPirce(0, 0, 25, 0);
         this.rare = 3;
         this.maxStack = 999;
         this.toolTip = "Used by the Clentaminator";
@@ -13847,7 +13847,7 @@ namespace Terraria
         this.ammo = 780;
         this.width = 10;
         this.height = 12;
-        this.value = 1000;
+		this.value = Item.buyPirce(0, 0, 25, 0);
         this.rare = 3;
         this.maxStack = 999;
         this.toolTip = "Used by the Clentaminator";
@@ -15131,7 +15131,7 @@ namespace Terraria
         this.useAnimation = 15;
         this.useTime = 10;
         this.autoReuse = true;
-        this.maxStack = 999;
+        this.maxStack = 99;
         this.consumable = true;
         this.createTile = 204;
         this.width = 12;
@@ -24657,7 +24657,7 @@ namespace Terraria
                 Main.item[number].SetDefaults(0, false);
                 Main.item[number].active = false;
               }
-              if (Main.netMode == 1)
+              if (Main.netMode != 0)
               {
                 NetMessage.SendData(21, -1, -1, "", i, 0.0f, 0.0f, 0.0f, 0);
                 NetMessage.SendData(21, -1, -1, "", number, 0.0f, 0.0f, 0.0f, 0);
