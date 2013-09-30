@@ -13783,7 +13783,7 @@ namespace Terraria
         this.knockBack = 0.3f;
         this.shootSpeed = 7f;
         this.noMelee = true;
-        this.value = Item.buyPirce(2, 0, 0, 0);
+        this.value = Item.buyPrice(2, 0, 0, 0);
         this.rare = 5;
         this.toolTip = "Creates and destroys biomes when sprayed";
         this.toolTip2 = "Uses colored solution";
@@ -13795,7 +13795,7 @@ namespace Terraria
         this.ammo = 780;
         this.width = 10;
         this.height = 12;
-		this.value = Item.buyPirce(0, 0, 25, 0);
+		this.value = Item.buyPrice(0, 0, 25, 0);
         this.rare = 3;
         this.maxStack = 999;
         this.toolTip = "Used by the Clentaminator";
@@ -13808,7 +13808,7 @@ namespace Terraria
         this.ammo = 780;
         this.width = 10;
         this.height = 12;
-		this.value = Item.buyPirce(0, 0, 25, 0);
+		this.value = Item.buyPrice(0, 0, 25, 0);
         this.rare = 3;
         this.maxStack = 999;
         this.toolTip = "Used by the Clentaminator";
@@ -13821,7 +13821,7 @@ namespace Terraria
         this.ammo = 780;
         this.width = 10;
         this.height = 12;
-		this.value = Item.buyPirce(0, 0, 25, 0);
+		this.value = Item.buyPrice(0, 0, 25, 0);
         this.rare = 3;
         this.maxStack = 999;
         this.toolTip = "Used by the Clentaminator";
@@ -13834,7 +13834,7 @@ namespace Terraria
         this.ammo = 780;
         this.width = 10;
         this.height = 12;
-		this.value = Item.buyPirce(0, 0, 25, 0);
+		this.value = Item.buyPrice(0, 0, 25, 0);
         this.rare = 3;
         this.maxStack = 999;
         this.toolTip = "Used by the Clentaminator";
@@ -13847,7 +13847,7 @@ namespace Terraria
         this.ammo = 780;
         this.width = 10;
         this.height = 12;
-		this.value = Item.buyPirce(0, 0, 25, 0);
+		this.value = Item.buyPrice(0, 0, 25, 0);
         this.rare = 3;
         this.maxStack = 999;
         this.toolTip = "Used by the Clentaminator";

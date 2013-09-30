@@ -4993,10 +4993,6 @@ namespace Terraria
 			{
 				Main.cloudAlpha = Main.maxRaining;
 			}
-			if (base.IsActive && Main.cloudAlpha > 0f)
-			{
-				Rain.MakeRain();
-			}
 			if (Main.netMode != 1)
 			{
 				this.updateCloudLayer();
