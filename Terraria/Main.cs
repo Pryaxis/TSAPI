@@ -1712,38 +1712,6 @@ namespace Terraria
 							{
 								Console.WriteLine("Terraria Server " + Main.versionNumber2);
 								Console.WriteLine("");
-								Console.Write("Max players (press enter for 8): ");
-								string value2 = Console.ReadLine();
-								try
-								{
-									if (value2 == "")
-									{
-										value2 = "8";
-									}
-									int num4 = Convert.ToInt32(value2);
-									if (num4 <= 255 && num4 >= 1)
-									{
-										Main.maxNetPlayers = num4;
-										flag3 = false;
-									}
-									flag3 = false;
-								}
-								catch
-								{
-								}
-								try
-								{
-									Console.Clear();
-								}
-								catch
-								{
-								}
-							}
-							flag3 = true;
-							while (flag3)
-							{
-								Console.WriteLine("Terraria Server " + Main.versionNumber2);
-								Console.WriteLine("");
 								Console.Write("Server port (press enter for 7777): ");
 								string value3 = Console.ReadLine();
 								try
@@ -1770,10 +1738,6 @@ namespace Terraria
 								{
 								}
 							}
-							Console.WriteLine("Terraria Server " + Main.versionNumber2);
-							Console.WriteLine("");
-							Console.Write("Server password (press enter for none): ");
-							Netplay.password = Console.ReadLine();
 							Main.worldPathName = Main.loadWorldPath[num3];
 							flag = false;
 							try
