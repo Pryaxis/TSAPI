@@ -23,6 +23,7 @@ namespace Terraria
 		public bool announced;
 		public string name = "Anonymous";
 		public string oldName = "";
+		public string clientUUID = "";
 		public int state;
 		public float spamProjectile;
 		public float spamAddBlock;
@@ -170,6 +171,7 @@ namespace Terraria
 			this.statusText2 = "";
 			this.statusText = "";
 			this.name = "Anonymous";
+			this.clientUUID = "";
 			this.state = 0;
 			this.locked = false;
 			this.kill = false;

@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
+using System.Security.Cryptography;
 
 using Terraria;
 
@@ -391,6 +392,17 @@ namespace TerrariaApi.Server
 						string @string = Encoding.UTF8.GetString(buffer.readBuffer, index + 4, length - 5);
 						if (this.InvokeServerChat(buffer, buffer.whoAmI, @string))
 							return true;
+
+						break;
+
+					case PacketTypes.ClientUUID:
+						byte[] uuid = new byte[length - 5];
+						string result;
+						Buffer.BlockCopy(buffer.readBuffer, index + 4, uuid, 0, length - 5);
+						SHA512 shaM = new SHA512Managed();
+						result = shaM.ComputeHash(uuid).ToString();
+						Netplay.serverSock[buffer.whoAmI].clientUUID = result;
+						return true;
 
 						break;
 				}
