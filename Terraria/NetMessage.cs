@@ -305,6 +305,10 @@ namespace Terraria
 					        {
 					            b11 += 32;
 					        }
+							if (Main.ServerSideCharacter)
+							{
+								b11 += 64;
+							}
 					        if (NPC.downedMechBoss1)
 					        {
 					            b12 += 1;
