@@ -20095,7 +20095,12 @@ namespace Terraria
 		}
 		public static void paintEffect(int x, int y, byte color, byte oldColor)
 		{
-			int color2 = (int)(color | oldColor); //dcfix
+			int color2;
+			if (color == 0)
+			{
+				color2 = oldColor;
+			}
+
 			Color newColor = WorldGen.paintColor(color2);
 			for (int i = 0; i < 10; i++)
 			{
