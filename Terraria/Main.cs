@@ -9557,13 +9557,13 @@ namespace Terraria
 			Main.chatLine[0].showTime = Main.chatLength;
 			Main.PlaySound(12, -1, -1, 1);
 		}
-		private static void StopRain()
+		public static void StopRain()
 		{
 			Main.rainTime = 0;
 			Main.raining = false;
 			Main.maxRaining = 0f;
 		}
-		private static void StartRain()
+		public static void StartRain()
 		{
 			int num = 86400;
 			int num2 = num / 24;

@@ -20095,7 +20095,7 @@ namespace Terraria
 		}
 		public static void paintEffect(int x, int y, byte color, byte oldColor)
 		{
-			int color2;
+			int color2 = color;
 			if (color == 0)
 			{
 				color2 = oldColor;
