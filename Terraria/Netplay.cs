@@ -15,8 +15,8 @@ namespace Terraria
 		public static ServerSock[] serverSock = new ServerSock[256];
 		public static ClientSock clientSock = new ClientSock();
 		public static TcpListener tcpListener;
-		public static IPAddress serverListenIP;
-		public static IPAddress serverIP;
+		public static IPAddress serverListenIP = IPAddress.Any;
+		public static IPAddress serverIP = IPAddress.Any;
 		public static int serverPort = 7777;
 		public static bool disconnect = false;
 		public static string password = "";
