@@ -342,9 +342,6 @@ namespace Terraria
 			}
 			Main.myPlayer = 255;
 			Netplay.serverIP = IPAddress.Any;
-			
-			if (Netplay.serverListenIP == null)
-				Netplay.serverListenIP = Netplay.serverIP;
 			Main.menuMode = 14;
 			Main.statusText = "Starting server...";
 			Main.netMode = 2;
