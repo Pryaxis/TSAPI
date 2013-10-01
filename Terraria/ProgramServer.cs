@@ -23,7 +23,7 @@ namespace Terraria
 
 				try
 				{
-                    Console.WriteLine("TerrariaAPI Version: " + ServerApi.ApiVersion + " (Protocol 1.2 (Release Preview))");
+					Console.WriteLine("TerrariaAPI Version: " + ServerApi.ApiVersion + " (Protocol 1.2)");
 					ServerApi.Initialize(args, Game);
 				}
 				catch (Exception ex)
