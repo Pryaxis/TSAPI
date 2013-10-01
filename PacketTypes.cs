@@ -61,5 +61,12 @@ public enum PacketTypes
     PlayHarp,
     HitSwitch,
     UpdateNPCHome,
-    SpawnBossorInvasion
+    SpawnBossorInvasion,
+    PlayerDodge,
+    PaintTile,
+    PaintWall,
+    Teleport,
+    PlayerHealOther,
+	Placeholder,
+	ClientUUID
 }

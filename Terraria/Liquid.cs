@@ -38,13 +38,13 @@ namespace Terraria
 				{
 					float num2 = (float)(maxY - i) / (float)(maxY - minY + 1);
 					num2 /= (float)verbose;
-				    Main.statusText = string.Concat(new object[4]
-				                                        {
-				                                            (object) Lang.gen[27],
-				                                            (object) " ",
-				                                            (object) (int) ((double) num2*100.0 + 1.0),
-				                                            (object) "%"
-				                                        });
+					Main.statusText = string.Concat(new object[]
+					{
+						Lang.gen[27],
+						" ",
+						(int)(num2 * 100f + 1f),
+						"%"
+					});
 				}
 				else
 				{
@@ -52,13 +52,13 @@ namespace Terraria
 					{
 						float num3 = (float)(maxY - i) / (float)(maxY - minY + 1);
 						num3 /= (float)(-(float)verbose);
-					    Main.statusText = string.Concat(new object[4]
-					                                        {
-					                                            (object) Lang.gen[18],
-					                                            (object) " ",
-					                                            (object) (int) ((double) num3*100.0 + 1.0),
-					                                            (object) "%"
-					                                        });
+						Main.statusText = string.Concat(new object[]
+						{
+							Lang.gen[18],
+							" ",
+							(int)(num3 * 100f + 1f),
+							"%"
+						});
 					}
 				}
 				for (int j = 0; j < 2; j++)
@@ -80,36 +80,39 @@ namespace Terraria
 							bool flag = false;
 							int num9 = num7;
 							int num10 = i;
-							bool flag2 = Main.tile[num7, i].lava;
-							byte b = Main.tile[num7, i].liquid;
+							byte b = Main.tile[num7, i].liquidType();
+							bool flag2 = Main.tile[num7, i].lava();
+							bool flag3 = Main.tile[num7, i].honey();
+							byte b2 = Main.tile[num7, i].liquid;
 							Main.tile[num7, i].liquid = 0;
-							bool flag3 = true;
+							bool flag4 = true;
 							int num11 = 0;
-							while (flag3 && num9 > 3 && num9 < Main.maxTilesX - 3 && num10 < Main.maxTilesY - 3)
+							while (flag4 && num9 > 3 && num9 < Main.maxTilesX - 3 && num10 < Main.maxTilesY - 3)
 							{
-								flag3 = false;
-								while (Main.tile[num9, num10 + 1].liquid == 0 && num10 < Main.maxTilesY - 5 && (!Main.tile[num9, num10 + 1].active || !Main.tileSolid[(int)Main.tile[num9, num10 + 1].type] || Main.tileSolidTop[(int)Main.tile[num9, num10 + 1].type]))
+								flag4 = false;
+								while (Main.tile[num9, num10 + 1].liquid == 0 && num10 < Main.maxTilesY - 5 && (!Main.tile[num9, num10 + 1].nactive() || !Main.tileSolid[(int)Main.tile[num9, num10 + 1].type] || Main.tileSolidTop[(int)Main.tile[num9, num10 + 1].type]))
 								{
 									flag = true;
 									num8 = num6;
 									num11 = 0;
-									flag3 = true;
+									flag4 = true;
 									num10++;
-									if (num10 > WorldGen.waterLine)
+									if (num10 > WorldGen.waterLine && WorldGen.gen && !flag3)
 									{
-										flag2 = true;
+										b = 1;
 									}
 								}
-								if (Main.tile[num9, num10 + 1].liquid > 0 && Main.tile[num9, num10 + 1].liquid < 255 && Main.tile[num9, num10 + 1].lava == flag2)
+								if (Main.tile[num9, num10 + 1].liquid > 0 && Main.tile[num9, num10 + 1].liquid < 255 && Main.tile[num9, num10 + 1].liquidType() == b)
 								{
 									int num12 = (int)(255 - Main.tile[num9, num10 + 1].liquid);
-									if (num12 > (int)b)
+									if (num12 > (int)b2)
 									{
-										num12 = (int)b;
+										num12 = (int)b2;
 									}
-                                    Main.tile[num9, num10 + 1].liquid += (byte)num12;
-									b -= (byte)num12;
-									if (b <= 0)
+									Tile expr_2D1 = Main.tile[num9, num10 + 1];
+									expr_2D1.liquid += (byte)num12;
+									b2 -= (byte)num12;
+									if (b2 <= 0)
 									{
 										num++;
 										break;
@@ -117,27 +120,27 @@ namespace Terraria
 								}
 								if (num11 == 0)
 								{
-									if (Main.tile[num9 + num8, num10].liquid == 0 && (!Main.tile[num9 + num8, num10].active || !Main.tileSolid[(int)Main.tile[num9 + num8, num10].type] || Main.tileSolidTop[(int)Main.tile[num9 + num8, num10].type]))
+									if (Main.tile[num9 + num8, num10].liquid == 0 && (!Main.tile[num9 + num8, num10].nactive() || !Main.tileSolid[(int)Main.tile[num9 + num8, num10].type] || Main.tileSolidTop[(int)Main.tile[num9 + num8, num10].type]))
 									{
 										num11 = num8;
 									}
 									else
 									{
-										if (Main.tile[num9 - num8, num10].liquid == 0 && (!Main.tile[num9 - num8, num10].active || !Main.tileSolid[(int)Main.tile[num9 - num8, num10].type] || Main.tileSolidTop[(int)Main.tile[num9 - num8, num10].type]))
+										if (Main.tile[num9 - num8, num10].liquid == 0 && (!Main.tile[num9 - num8, num10].nactive() || !Main.tileSolid[(int)Main.tile[num9 - num8, num10].type] || Main.tileSolidTop[(int)Main.tile[num9 - num8, num10].type]))
 										{
 											num11 = -num8;
 										}
 									}
 								}
-								if (num11 != 0 && Main.tile[num9 + num11, num10].liquid == 0 && (!Main.tile[num9 + num11, num10].active || !Main.tileSolid[(int)Main.tile[num9 + num11, num10].type] || Main.tileSolidTop[(int)Main.tile[num9 + num11, num10].type]))
+								if (num11 != 0 && Main.tile[num9 + num11, num10].liquid == 0 && (!Main.tile[num9 + num11, num10].nactive() || !Main.tileSolid[(int)Main.tile[num9 + num11, num10].type] || Main.tileSolidTop[(int)Main.tile[num9 + num11, num10].type]))
 								{
-									flag3 = true;
+									flag4 = true;
 									num9 += num11;
 								}
-								if (flag && !flag3)
+								if (flag && !flag4)
 								{
 									flag = false;
-									flag3 = true;
+									flag4 = true;
 									num8 = -num6;
 									num11 = 0;
 								}
@@ -146,9 +149,9 @@ namespace Terraria
 							{
 								num++;
 							}
-							Main.tile[num9, num10].liquid = b;
-							Main.tile[num9, num10].lava = flag2;
-							if (Main.tile[num9 - 1, num10].liquid > 0 && Main.tile[num9 - 1, num10].lava != flag2)
+							Main.tile[num9, num10].liquid = b2;
+							Main.tile[num9, num10].liquidType((int)b);
+							if (Main.tile[num9 - 1, num10].liquid > 0 && Main.tile[num9 - 1, num10].lava() != flag2)
 							{
 								if (flag2)
 								{
@@ -161,7 +164,7 @@ namespace Terraria
 							}
 							else
 							{
-								if (Main.tile[num9 + 1, num10].liquid > 0 && Main.tile[num9 + 1, num10].lava != flag2)
+								if (Main.tile[num9 + 1, num10].liquid > 0 && Main.tile[num9 + 1, num10].lava() != flag2)
 								{
 									if (flag2)
 									{
@@ -174,7 +177,7 @@ namespace Terraria
 								}
 								else
 								{
-									if (Main.tile[num9, num10 - 1].liquid > 0 && Main.tile[num9, num10 - 1].lava != flag2)
+									if (Main.tile[num9, num10 - 1].liquid > 0 && Main.tile[num9, num10 - 1].lava() != flag2)
 									{
 										if (flag2)
 										{
@@ -187,7 +190,7 @@ namespace Terraria
 									}
 									else
 									{
-										if (Main.tile[num9, num10 + 1].liquid > 0 && Main.tile[num9, num10 + 1].lava != flag2)
+										if (Main.tile[num9, num10 + 1].liquid > 0 && Main.tile[num9, num10 + 1].lava() != flag2)
 										{
 											if (flag2)
 											{
@@ -201,6 +204,62 @@ namespace Terraria
 									}
 								}
 							}
+							if (Main.tile[num9, num10].liquid > 0)
+							{
+								if (Main.tile[num9 - 1, num10].liquid > 0 && Main.tile[num9 - 1, num10].honey() != flag3)
+								{
+									if (flag3)
+									{
+										Liquid.HoneyCheck(num9, num10);
+									}
+									else
+									{
+										Liquid.HoneyCheck(num9 - 1, num10);
+									}
+								}
+								else
+								{
+									if (Main.tile[num9 + 1, num10].liquid > 0 && Main.tile[num9 + 1, num10].honey() != flag3)
+									{
+										if (flag3)
+										{
+											Liquid.HoneyCheck(num9, num10);
+										}
+										else
+										{
+											Liquid.HoneyCheck(num9 + 1, num10);
+										}
+									}
+									else
+									{
+										if (Main.tile[num9, num10 - 1].liquid > 0 && Main.tile[num9, num10 - 1].honey() != flag3)
+										{
+											if (flag3)
+											{
+												Liquid.HoneyCheck(num9, num10);
+											}
+											else
+											{
+												Liquid.HoneyCheck(num9, num10 - 1);
+											}
+										}
+										else
+										{
+											if (Main.tile[num9, num10 + 1].liquid > 0 && Main.tile[num9, num10 + 1].honey() != flag3)
+											{
+												if (flag3)
+												{
+													Liquid.HoneyCheck(num9, num10);
+												}
+												else
+												{
+													Liquid.HoneyCheck(num9, num10 + 1);
+												}
+											}
+										}
+									}
+								}
+							}
 						}
 					}
 				}
@@ -209,29 +268,29 @@ namespace Terraria
 		}
 		public void Update()
 		{
-			if (Main.tile[this.x, this.y].active && Main.tileSolid[(int)Main.tile[this.x, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x, this.y].type])
+			if (Main.tile[this.x, this.y].nactive() && Main.tileSolid[(int)Main.tile[this.x, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x, this.y].type])
 			{
 				byte arg_81_0 = Main.tile[this.x, this.y].type;
 				this.kill = 9;
 				return;
 			}
 			byte liquid = Main.tile[this.x, this.y].liquid;
-			float num = 0f;
-			if (this.y > Main.maxTilesY - 200 && !Main.tile[this.x, this.y].lava && Main.tile[this.x, this.y].liquid > 0)
+			if (this.y > Main.maxTilesY - 200 && Main.tile[this.x, this.y].liquidType() == 0 && Main.tile[this.x, this.y].liquid > 0)
 			{
 				byte b = 2;
 				if (Main.tile[this.x, this.y].liquid < b)
 				{
 					b = Main.tile[this.x, this.y].liquid;
 				}
-                Main.tile[this.x, this.y].liquid -= b;
+				Tile expr_150 = Main.tile[this.x, this.y];
+				expr_150.liquid -= b;
 			}
 			if (Main.tile[this.x, this.y].liquid == 0)
 			{
 				this.kill = 9;
 				return;
 			}
-			if (Main.tile[this.x, this.y].lava)
+			if (Main.tile[this.x, this.y].lava())
 			{
 				Liquid.LavaCheck(this.x, this.y);
 				if (!Liquid.quickFall)
@@ -246,36 +305,70 @@ namespace Terraria
 			}
 			else
 			{
-				if (Main.tile[this.x - 1, this.y].lava)
+				if (Main.tile[this.x - 1, this.y].lava())
 				{
 					Liquid.AddWater(this.x - 1, this.y);
 				}
-				if (Main.tile[this.x + 1, this.y].lava)
+				if (Main.tile[this.x + 1, this.y].lava())
 				{
 					Liquid.AddWater(this.x + 1, this.y);
 				}
-				if (Main.tile[this.x, this.y - 1].lava)
+				if (Main.tile[this.x, this.y - 1].lava())
 				{
 					Liquid.AddWater(this.x, this.y - 1);
 				}
-				if (Main.tile[this.x, this.y + 1].lava)
+				if (Main.tile[this.x, this.y + 1].lava())
 				{
 					Liquid.AddWater(this.x, this.y + 1);
 				}
+				if (Main.tile[this.x, this.y].honey())
+				{
+					Liquid.HoneyCheck(this.x, this.y);
+					if (!Liquid.quickFall)
+					{
+						if (this.delay < 10)
+						{
+							this.delay++;
+							return;
+						}
+						this.delay = 0;
+					}
+				}
+				else
+				{
+					if (Main.tile[this.x - 1, this.y].honey())
+					{
+						Liquid.AddWater(this.x - 1, this.y);
+					}
+					if (Main.tile[this.x + 1, this.y].honey())
+					{
+						Liquid.AddWater(this.x + 1, this.y);
+					}
+					if (Main.tile[this.x, this.y - 1].honey())
+					{
+						Liquid.AddWater(this.x, this.y - 1);
+					}
+					if (Main.tile[this.x, this.y + 1].honey())
+					{
+						Liquid.AddWater(this.x, this.y + 1);
+					}
+				}
 			}
-			if ((!Main.tile[this.x, this.y + 1].active || !Main.tileSolid[(int)Main.tile[this.x, this.y + 1].type] || Main.tileSolidTop[(int)Main.tile[this.x, this.y + 1].type]) && (Main.tile[this.x, this.y + 1].liquid <= 0 || Main.tile[this.x, this.y + 1].lava == Main.tile[this.x, this.y].lava) && Main.tile[this.x, this.y + 1].liquid < 255)
+			if ((!Main.tile[this.x, this.y + 1].nactive() || !Main.tileSolid[(int)Main.tile[this.x, this.y + 1].type] || Main.tileSolidTop[(int)Main.tile[this.x, this.y + 1].type]) && (Main.tile[this.x, this.y + 1].liquid <= 0 || Main.tile[this.x, this.y + 1].liquidType() == Main.tile[this.x, this.y].liquidType()) && Main.tile[this.x, this.y + 1].liquid < 255)
 			{
-				num = (float)(255 - Main.tile[this.x, this.y + 1].liquid);
+				float num = (float)(255 - Main.tile[this.x, this.y + 1].liquid);
 				if (num > (float)Main.tile[this.x, this.y].liquid)
 				{
 					num = (float)Main.tile[this.x, this.y].liquid;
 				}
-                Main.tile[this.x, this.y].liquid -= (byte)num;
-                Main.tile[this.x, this.y + 1].liquid += (byte)num;
-				Main.tile[this.x, this.y + 1].lava = Main.tile[this.x, this.y].lava;
+				Tile expr_534 = Main.tile[this.x, this.y];
+				expr_534.liquid -= (byte)num;
+				Tile expr_55B = Main.tile[this.x, this.y + 1];
+				expr_55B.liquid += (byte)num;
+				Main.tile[this.x, this.y + 1].liquidType((int)Main.tile[this.x, this.y].liquidType());
 				Liquid.AddWater(this.x, this.y + 1);
-				Main.tile[this.x, this.y + 1].skipLiquid = true;
-				Main.tile[this.x, this.y].skipLiquid = true;
+				Main.tile[this.x, this.y + 1].skipLiquid(true);
+				Main.tile[this.x, this.y].skipLiquid(true);
 				if (Main.tile[this.x, this.y].liquid > 250)
 				{
 					Main.tile[this.x, this.y].liquid = 255;
@@ -292,19 +385,19 @@ namespace Terraria
 				bool flag2 = true;
 				bool flag3 = true;
 				bool flag4 = true;
-				if (Main.tile[this.x - 1, this.y].active && Main.tileSolid[(int)Main.tile[this.x - 1, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x - 1, this.y].type])
+				if (Main.tile[this.x - 1, this.y].nactive() && Main.tileSolid[(int)Main.tile[this.x - 1, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x - 1, this.y].type])
 				{
 					flag = false;
 				}
 				else
 				{
-					if (Main.tile[this.x - 1, this.y].liquid > 0 && Main.tile[this.x - 1, this.y].lava != Main.tile[this.x, this.y].lava)
+					if (Main.tile[this.x - 1, this.y].liquid > 0 && Main.tile[this.x - 1, this.y].liquidType() != Main.tile[this.x, this.y].liquidType())
 					{
 						flag = false;
 					}
 					else
 					{
-						if (Main.tile[this.x - 2, this.y].active && Main.tileSolid[(int)Main.tile[this.x - 2, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x - 2, this.y].type])
+						if (Main.tile[this.x - 2, this.y].nactive() && Main.tileSolid[(int)Main.tile[this.x - 2, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x - 2, this.y].type])
 						{
 							flag3 = false;
 						}
@@ -316,7 +409,7 @@ namespace Terraria
 							}
 							else
 							{
-								if (Main.tile[this.x - 2, this.y].liquid > 0 && Main.tile[this.x - 2, this.y].lava != Main.tile[this.x, this.y].lava)
+								if (Main.tile[this.x - 2, this.y].liquid > 0 && Main.tile[this.x - 2, this.y].liquidType() != Main.tile[this.x, this.y].liquidType())
 								{
 									flag3 = false;
 								}
@@ -324,19 +417,19 @@ namespace Terraria
 						}
 					}
 				}
-				if (Main.tile[this.x + 1, this.y].active && Main.tileSolid[(int)Main.tile[this.x + 1, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x + 1, this.y].type])
+				if (Main.tile[this.x + 1, this.y].nactive() && Main.tileSolid[(int)Main.tile[this.x + 1, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x + 1, this.y].type])
 				{
 					flag2 = false;
 				}
 				else
 				{
-					if (Main.tile[this.x + 1, this.y].liquid > 0 && Main.tile[this.x + 1, this.y].lava != Main.tile[this.x, this.y].lava)
+					if (Main.tile[this.x + 1, this.y].liquid > 0 && Main.tile[this.x + 1, this.y].liquidType() != Main.tile[this.x, this.y].liquidType())
 					{
 						flag2 = false;
 					}
 					else
 					{
-						if (Main.tile[this.x + 2, this.y].active && Main.tileSolid[(int)Main.tile[this.x + 2, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x + 2, this.y].type])
+						if (Main.tile[this.x + 2, this.y].nactive() && Main.tileSolid[(int)Main.tile[this.x + 2, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x + 2, this.y].type])
 						{
 							flag4 = false;
 						}
@@ -348,7 +441,7 @@ namespace Terraria
 							}
 							else
 							{
-								if (Main.tile[this.x + 2, this.y].liquid > 0 && Main.tile[this.x + 2, this.y].lava != Main.tile[this.x, this.y].lava)
+								if (Main.tile[this.x + 2, this.y].liquid > 0 && Main.tile[this.x + 2, this.y].liquidType() != Main.tile[this.x, this.y].liquidType())
 								{
 									flag4 = false;
 								}
@@ -367,7 +460,7 @@ namespace Terraria
 					{
 						bool flag5 = true;
 						bool flag6 = true;
-						if (Main.tile[this.x - 3, this.y].active && Main.tileSolid[(int)Main.tile[this.x - 3, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x - 3, this.y].type])
+						if (Main.tile[this.x - 3, this.y].nactive() && Main.tileSolid[(int)Main.tile[this.x - 3, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x - 3, this.y].type])
 						{
 							flag5 = false;
 						}
@@ -379,13 +472,13 @@ namespace Terraria
 							}
 							else
 							{
-								if (Main.tile[this.x - 3, this.y].lava != Main.tile[this.x, this.y].lava)
+								if (Main.tile[this.x - 3, this.y].liquidType() != Main.tile[this.x, this.y].liquidType())
 								{
 									flag5 = false;
 								}
 							}
 						}
-						if (Main.tile[this.x + 3, this.y].active && Main.tileSolid[(int)Main.tile[this.x + 3, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x + 3, this.y].type])
+						if (Main.tile[this.x + 3, this.y].nactive() && Main.tileSolid[(int)Main.tile[this.x + 3, this.y].type] && !Main.tileSolidTop[(int)Main.tile[this.x + 3, this.y].type])
 						{
 							flag6 = false;
 						}
@@ -397,7 +490,7 @@ namespace Terraria
 							}
 							else
 							{
-								if (Main.tile[this.x + 3, this.y].lava != Main.tile[this.x, this.y].lava)
+								if (Main.tile[this.x + 3, this.y].liquidType() != Main.tile[this.x, this.y].liquidType())
 								{
 									flag6 = false;
 								}
@@ -405,64 +498,64 @@ namespace Terraria
 						}
 						if (flag5 && flag6)
 						{
-							num = (float)((int)(Main.tile[this.x - 1, this.y].liquid + Main.tile[this.x + 1, this.y].liquid + Main.tile[this.x - 2, this.y].liquid + Main.tile[this.x + 2, this.y].liquid + Main.tile[this.x - 3, this.y].liquid + Main.tile[this.x + 3, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
+							float num = (float)((int)(Main.tile[this.x - 1, this.y].liquid + Main.tile[this.x + 1, this.y].liquid + Main.tile[this.x - 2, this.y].liquid + Main.tile[this.x + 2, this.y].liquid + Main.tile[this.x - 3, this.y].liquid + Main.tile[this.x + 3, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
 							num = (float)Math.Round((double)(num / 7f));
 							int num3 = 0;
-							Main.tile[this.x - 1, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x - 1, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x - 1, this.y].liquid != (byte)num)
 							{
-								Liquid.AddWater(this.x - 1, this.y);
 								Main.tile[this.x - 1, this.y].liquid = (byte)num;
+								Liquid.AddWater(this.x - 1, this.y);
 							}
 							else
 							{
 								num3++;
 							}
-							Main.tile[this.x + 1, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x + 1, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x + 1, this.y].liquid != (byte)num)
 							{
-								Liquid.AddWater(this.x + 1, this.y);
 								Main.tile[this.x + 1, this.y].liquid = (byte)num;
+								Liquid.AddWater(this.x + 1, this.y);
 							}
 							else
 							{
 								num3++;
 							}
-							Main.tile[this.x - 2, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x - 2, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x - 2, this.y].liquid != (byte)num)
 							{
-								Liquid.AddWater(this.x - 2, this.y);
 								Main.tile[this.x - 2, this.y].liquid = (byte)num;
+								Liquid.AddWater(this.x - 2, this.y);
 							}
 							else
 							{
 								num3++;
 							}
-							Main.tile[this.x + 2, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x + 2, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x + 2, this.y].liquid != (byte)num)
 							{
-								Liquid.AddWater(this.x + 2, this.y);
 								Main.tile[this.x + 2, this.y].liquid = (byte)num;
+								Liquid.AddWater(this.x + 2, this.y);
 							}
 							else
 							{
 								num3++;
 							}
-							Main.tile[this.x - 3, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x - 3, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x - 3, this.y].liquid != (byte)num)
 							{
-								Liquid.AddWater(this.x - 3, this.y);
 								Main.tile[this.x - 3, this.y].liquid = (byte)num;
+								Liquid.AddWater(this.x - 3, this.y);
 							}
 							else
 							{
 								num3++;
 							}
-							Main.tile[this.x + 3, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x + 3, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x + 3, this.y].liquid != (byte)num)
 							{
-								Liquid.AddWater(this.x + 3, this.y);
 								Main.tile[this.x + 3, this.y].liquid = (byte)num;
+								Liquid.AddWater(this.x + 3, this.y);
 							}
 							else
 							{
@@ -500,43 +593,43 @@ namespace Terraria
 						else
 						{
 							int num4 = 0;
-							num = (float)((int)(Main.tile[this.x - 1, this.y].liquid + Main.tile[this.x + 1, this.y].liquid + Main.tile[this.x - 2, this.y].liquid + Main.tile[this.x + 2, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
+							float num = (float)((int)(Main.tile[this.x - 1, this.y].liquid + Main.tile[this.x + 1, this.y].liquid + Main.tile[this.x - 2, this.y].liquid + Main.tile[this.x + 2, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
 							num = (float)Math.Round((double)(num / 5f));
-							Main.tile[this.x - 1, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x - 1, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x - 1, this.y].liquid != (byte)num)
 							{
-								Liquid.AddWater(this.x - 1, this.y);
 								Main.tile[this.x - 1, this.y].liquid = (byte)num;
+								Liquid.AddWater(this.x - 1, this.y);
 							}
 							else
 							{
 								num4++;
 							}
-							Main.tile[this.x + 1, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x + 1, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x + 1, this.y].liquid != (byte)num)
 							{
-								Liquid.AddWater(this.x + 1, this.y);
 								Main.tile[this.x + 1, this.y].liquid = (byte)num;
+								Liquid.AddWater(this.x + 1, this.y);
 							}
 							else
 							{
 								num4++;
 							}
-							Main.tile[this.x - 2, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x - 2, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x - 2, this.y].liquid != (byte)num)
 							{
-								Liquid.AddWater(this.x - 2, this.y);
 								Main.tile[this.x - 2, this.y].liquid = (byte)num;
+								Liquid.AddWater(this.x - 2, this.y);
 							}
 							else
 							{
 								num4++;
 							}
-							Main.tile[this.x + 2, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x + 2, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x + 2, this.y].liquid != (byte)num)
 							{
-								Liquid.AddWater(this.x + 2, this.y);
 								Main.tile[this.x + 2, this.y].liquid = (byte)num;
+								Liquid.AddWater(this.x + 2, this.y);
 							}
 							else
 							{
@@ -568,21 +661,21 @@ namespace Terraria
 					{
 						if (flag3)
 						{
-							num = (float)((int)(Main.tile[this.x - 1, this.y].liquid + Main.tile[this.x + 1, this.y].liquid + Main.tile[this.x - 2, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
+							float num = (float)((int)(Main.tile[this.x - 1, this.y].liquid + Main.tile[this.x + 1, this.y].liquid + Main.tile[this.x - 2, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
 							num = (float)Math.Round((double)(num / 4f) + 0.001);
-							Main.tile[this.x - 1, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x - 1, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x - 1, this.y].liquid != (byte)num || Main.tile[this.x, this.y].liquid != (byte)num)
 							{
-								Liquid.AddWater(this.x - 1, this.y);
 								Main.tile[this.x - 1, this.y].liquid = (byte)num;
+								Liquid.AddWater(this.x - 1, this.y);
 							}
-							Main.tile[this.x + 1, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x + 1, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x + 1, this.y].liquid != (byte)num || Main.tile[this.x, this.y].liquid != (byte)num)
 							{
-								Liquid.AddWater(this.x + 1, this.y);
 								Main.tile[this.x + 1, this.y].liquid = (byte)num;
+								Liquid.AddWater(this.x + 1, this.y);
 							}
-							Main.tile[this.x - 2, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x - 2, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x - 2, this.y].liquid != (byte)num || Main.tile[this.x, this.y].liquid != (byte)num)
 							{
 								Main.tile[this.x - 2, this.y].liquid = (byte)num;
@@ -594,21 +687,21 @@ namespace Terraria
 						{
 							if (flag4)
 							{
-								num = (float)((int)(Main.tile[this.x - 1, this.y].liquid + Main.tile[this.x + 1, this.y].liquid + Main.tile[this.x + 2, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
+								float num = (float)((int)(Main.tile[this.x - 1, this.y].liquid + Main.tile[this.x + 1, this.y].liquid + Main.tile[this.x + 2, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
 								num = (float)Math.Round((double)(num / 4f) + 0.001);
-								Main.tile[this.x - 1, this.y].lava = Main.tile[this.x, this.y].lava;
+								Main.tile[this.x - 1, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 								if (Main.tile[this.x - 1, this.y].liquid != (byte)num || Main.tile[this.x, this.y].liquid != (byte)num)
 								{
-									Liquid.AddWater(this.x - 1, this.y);
 									Main.tile[this.x - 1, this.y].liquid = (byte)num;
+									Liquid.AddWater(this.x - 1, this.y);
 								}
-								Main.tile[this.x + 1, this.y].lava = Main.tile[this.x, this.y].lava;
+								Main.tile[this.x + 1, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 								if (Main.tile[this.x + 1, this.y].liquid != (byte)num || Main.tile[this.x, this.y].liquid != (byte)num)
 								{
-									Liquid.AddWater(this.x + 1, this.y);
 									Main.tile[this.x + 1, this.y].liquid = (byte)num;
+									Liquid.AddWater(this.x + 1, this.y);
 								}
-								Main.tile[this.x + 2, this.y].lava = Main.tile[this.x, this.y].lava;
+								Main.tile[this.x + 2, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 								if (Main.tile[this.x + 2, this.y].liquid != (byte)num || Main.tile[this.x, this.y].liquid != (byte)num)
 								{
 									Main.tile[this.x + 2, this.y].liquid = (byte)num;
@@ -618,9 +711,9 @@ namespace Terraria
 							}
 							else
 							{
-								num = (float)((int)(Main.tile[this.x - 1, this.y].liquid + Main.tile[this.x + 1, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
+								float num = (float)((int)(Main.tile[this.x - 1, this.y].liquid + Main.tile[this.x + 1, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
 								num = (float)Math.Round((double)(num / 3f) + 0.001);
-								Main.tile[this.x - 1, this.y].lava = Main.tile[this.x, this.y].lava;
+								Main.tile[this.x - 1, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 								if (Main.tile[this.x - 1, this.y].liquid != (byte)num)
 								{
 									Main.tile[this.x - 1, this.y].liquid = (byte)num;
@@ -629,7 +722,7 @@ namespace Terraria
 								{
 									Liquid.AddWater(this.x - 1, this.y);
 								}
-								Main.tile[this.x + 1, this.y].lava = Main.tile[this.x, this.y].lava;
+								Main.tile[this.x + 1, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 								if (Main.tile[this.x + 1, this.y].liquid != (byte)num)
 								{
 									Main.tile[this.x + 1, this.y].liquid = (byte)num;
@@ -647,13 +740,13 @@ namespace Terraria
 				{
 					if (flag)
 					{
-						num = (float)((int)(Main.tile[this.x - 1, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
+						float num = (float)((int)(Main.tile[this.x - 1, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
 						num = (float)Math.Round((double)(num / 2f) + 0.001);
 						if (Main.tile[this.x - 1, this.y].liquid != (byte)num)
 						{
 							Main.tile[this.x - 1, this.y].liquid = (byte)num;
 						}
-						Main.tile[this.x - 1, this.y].lava = Main.tile[this.x, this.y].lava;
+						Main.tile[this.x - 1, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 						if (Main.tile[this.x, this.y].liquid != (byte)num || Main.tile[this.x - 1, this.y].liquid != (byte)num)
 						{
 							Liquid.AddWater(this.x - 1, this.y);
@@ -664,13 +757,13 @@ namespace Terraria
 					{
 						if (flag2)
 						{
-							num = (float)((int)(Main.tile[this.x + 1, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
+							float num = (float)((int)(Main.tile[this.x + 1, this.y].liquid + Main.tile[this.x, this.y].liquid) + num2);
 							num = (float)Math.Round((double)(num / 2f) + 0.001);
 							if (Main.tile[this.x + 1, this.y].liquid != (byte)num)
 							{
 								Main.tile[this.x + 1, this.y].liquid = (byte)num;
 							}
-							Main.tile[this.x + 1, this.y].lava = Main.tile[this.x, this.y].lava;
+							Main.tile[this.x + 1, this.y].liquidType((int)Main.tile[this.x, this.y].liquidType());
 							if (Main.tile[this.x, this.y].liquid != (byte)num || Main.tile[this.x + 1, this.y].liquid != (byte)num)
 							{
 								Liquid.AddWater(this.x + 1, this.y);
@@ -715,7 +808,7 @@ namespace Terraria
 			if (Main.netMode == 2)
 			{
 				Liquid.cycles = 30;
-				Liquid.maxLiquid = 6000;
+				Liquid.maxLiquid = 5000;
 			}
 			if (!WorldGen.gen)
 			{
@@ -747,7 +840,6 @@ namespace Terraria
 							Console.WriteLine("Water has been settled.");
 							Liquid.panicCounter = 0;
 							Liquid.panicMode = false;
-							WorldGen.WaterCheck();
 							if (Main.netMode == 2)
 							{
 								for (int i = 0; i < 255; i++)
@@ -785,7 +877,7 @@ namespace Terraria
 			if (num4 > Liquid.numLiquid)
 			{
 				num4 = Liquid.numLiquid;
-				int arg_19C_0 = Main.netMode;
+				int arg_197_0 = Main.netMode;
 				Liquid.wetCounter = Liquid.cycles;
 			}
 			if (Liquid.quickFall)
@@ -794,20 +886,20 @@ namespace Terraria
 				{
 					Main.liquid[l].delay = 10;
 					Main.liquid[l].Update();
-					Main.tile[Main.liquid[l].x, Main.liquid[l].y].skipLiquid = false;
+					Main.tile[Main.liquid[l].x, Main.liquid[l].y].skipLiquid(false);
 				}
 			}
 			else
 			{
 				for (int m = num3; m < num4; m++)
 				{
-					if (!Main.tile[Main.liquid[m].x, Main.liquid[m].y].skipLiquid)
+					if (!Main.tile[Main.liquid[m].x, Main.liquid[m].y].skipLiquid())
 					{
 						Main.liquid[m].Update();
 					}
 					else
 					{
-						Main.tile[Main.liquid[m].x, Main.liquid[m].y].skipLiquid = false;
+						Main.tile[Main.liquid[m].x, Main.liquid[m].y].skipLiquid(false);
 					}
 				}
 			}
@@ -816,7 +908,7 @@ namespace Terraria
 				Liquid.wetCounter = 0;
 				for (int n = Liquid.numLiquid - 1; n >= 0; n--)
 				{
-					if (Main.liquid[n].kill > 3)
+					if (Main.liquid[n].kill > 4)
 					{
 						Liquid.DelWater(n);
 					}
@@ -828,7 +920,7 @@ namespace Terraria
 				}
 				for (int num6 = 0; num6 < num5; num6++)
 				{
-					Main.tile[Main.liquidBuffer[0].x, Main.liquidBuffer[0].y].checkingLiquid = false;
+					Main.tile[Main.liquidBuffer[0].x, Main.liquidBuffer[0].y].checkingLiquid(false);
 					Liquid.AddWater(Main.liquidBuffer[0].x, Main.liquidBuffer[0].y);
 					LiquidBuffer.DelBuffer(0);
 				}
@@ -856,7 +948,7 @@ namespace Terraria
 		}
 		public static void AddWater(int x, int y)
 		{
-			if (Main.tile[x, y].checkingLiquid)
+			if (Main.tile[x, y].checkingLiquid())
 			{
 				return;
 			}
@@ -881,26 +973,58 @@ namespace Terraria
 				LiquidBuffer.AddBuffer(x, y);
 				return;
 			}
-			Main.tile[x, y].checkingLiquid = true;
+			Main.tile[x, y].checkingLiquid(true);
 			Main.liquid[Liquid.numLiquid].kill = 0;
 			Main.liquid[Liquid.numLiquid].x = x;
 			Main.liquid[Liquid.numLiquid].y = y;
 			Main.liquid[Liquid.numLiquid].delay = 0;
-			Main.tile[x, y].skipLiquid = false;
+			Main.tile[x, y].skipLiquid(false);
 			Liquid.numLiquid++;
 			if (Main.netMode == 2 && Liquid.numLiquid < Liquid.maxLiquid / 3)
 			{
 				NetMessage.sendWater(x, y);
 			}
-			if (Main.tile[x, y].active && (Main.tileWaterDeath[(int)Main.tile[x, y].type] || (Main.tile[x, y].lava && Main.tileLavaDeath[(int)Main.tile[x, y].type])))
+			if (Main.tile[x, y].active() && (Main.tileWaterDeath[(int)Main.tile[x, y].type] || (Main.tile[x, y].lava() && Main.tileLavaDeath[(int)Main.tile[x, y].type])))
 			{
 				if (Main.tile[x, y].type == 4 && Main.tile[x, y].frameY == 176)
 				{
 					return;
 				}
+				if (Main.tile[x, y].type == 4 && Main.tile[x, y].frameY == 242)
+				{
+					return;
+				}
+				if (Main.tile[x, y].type == 19 && Main.tile[x, y].frameY == 234)
+				{
+					return;
+				}
+				if (Main.tile[x, y].type == 11 && Main.tile[x, y].frameY >= 1026 && Main.tile[x, y].frameY <= 1078)
+				{
+					return;
+				}
+				if (Main.tile[x, y].type == 15 && Main.tile[x, y].frameY >= 640 && Main.tile[x, y].frameY <= 678)
+				{
+					return;
+				}
+				if (Main.tile[x, y].type == 14 && Main.tile[x, y].frameX >= 702 && Main.tile[x, y].frameX <= 754)
+				{
+					return;
+				}
+				if (Main.tile[x, y].type == 18 && Main.tile[x, y].frameX >= 504 && Main.tile[x, y].frameX <= 538)
+				{
+					return;
+				}
+				if (Main.tile[x, y].type == 105 && Main.tile[x, y].frameX >= 1764 && Main.tile[x, y].frameX <= 1798)
+				{
+					return;
+				}
+				if (Main.tile[x, y].type == 101 && Main.tile[x, y].frameX >= 216 && Main.tile[x, y].frameX <= 268)
+				{
+					return;
+				}
 				if (WorldGen.gen)
 				{
-					Main.tile[x, y].active = false;
+					Main.tile[x, y].active(false);
 					return;
 				}
 				WorldGen.KillTile(x, y, false, false, false);
@@ -912,29 +1036,34 @@ namespace Terraria
 		}
 		public static void LavaCheck(int x, int y)
 		{
-			if ((Main.tile[x - 1, y].liquid > 0 && !Main.tile[x - 1, y].lava) || (Main.tile[x + 1, y].liquid > 0 && !Main.tile[x + 1, y].lava) || (Main.tile[x, y - 1].liquid > 0 && !Main.tile[x, y - 1].lava))
+			if ((Main.tile[x - 1, y].liquid > 0 && !Main.tile[x - 1, y].lava()) || (Main.tile[x + 1, y].liquid > 0 && !Main.tile[x + 1, y].lava()) || (Main.tile[x, y - 1].liquid > 0 && !Main.tile[x, y - 1].lava()))
 			{
 				int num = 0;
-				if (!Main.tile[x - 1, y].lava)
+				int type = 56;
+				if (!Main.tile[x - 1, y].lava())
 				{
 					num += (int)Main.tile[x - 1, y].liquid;
 					Main.tile[x - 1, y].liquid = 0;
 				}
-				if (!Main.tile[x + 1, y].lava)
+				if (!Main.tile[x + 1, y].lava())
 				{
 					num += (int)Main.tile[x + 1, y].liquid;
 					Main.tile[x + 1, y].liquid = 0;
 				}
-				if (!Main.tile[x, y - 1].lava)
+				if (!Main.tile[x, y - 1].lava())
 				{
 					num += (int)Main.tile[x, y - 1].liquid;
 					Main.tile[x, y - 1].liquid = 0;
 				}
-				if (num >= 32 && !Main.tile[x, y].active)
+				if (Main.tile[x - 1, y].honey() || Main.tile[x + 1, y].honey() || Main.tile[x, y - 1].honey())
+				{
+					type = 230;
+				}
+				if (num >= 32 && !Main.tile[x, y].active())
 				{
 					Main.tile[x, y].liquid = 0;
-					Main.tile[x, y].lava = false;
-					WorldGen.PlaceTile(x, y, 56, true, true, -1, 0);
+					Main.tile[x, y].lava(false);
+					WorldGen.PlaceTile(x, y, type, true, true, -1, 0);
 					WorldGen.SquareTileFrame(x, y, true);
 					if (Main.netMode == 2)
 					{
@@ -945,16 +1074,119 @@ namespace Terraria
 			}
 			else
 			{
-				if (Main.tile[x, y + 1].liquid > 0 && !Main.tile[x, y + 1].lava && !Main.tile[x, y + 1].active)
+				if (Main.tile[x, y + 1].liquid > 0 && !Main.tile[x, y + 1].lava())
+				{
+					if (Main.tileCut[(int)Main.tile[x, y + 1].type])
+					{
+						WorldGen.KillTile(x, y + 1, false, false, false);
+						if (Main.netMode == 2)
+						{
+							NetMessage.SendData(17, -1, -1, "", 0, (float)x, (float)(y + 1), 0f, 0);
+						}
+					}
+					if (!Main.tile[x, y + 1].active())
+					{
+						if (Main.tile[x, y].liquid < 32)
+						{
+							Main.tile[x, y].liquid = 0;
+							Main.tile[x, y].liquidType(0);
+							if (Main.netMode == 2)
+							{
+								NetMessage.SendTileSquare(-1, x - 1, y, 3);
+								return;
+							}
+						}
+						else
+						{
+							int type2 = 56;
+							if (Main.tile[x, y + 1].honey())
+							{
+								type2 = 230;
+							}
+							Main.tile[x, y].liquid = 0;
+							Main.tile[x, y].lava(false);
+							Main.tile[x, y + 1].liquid = 0;
+							WorldGen.PlaceTile(x, y + 1, type2, true, true, -1, 0);
+							WorldGen.SquareTileFrame(x, y + 1, true);
+							if (Main.netMode == 2)
+							{
+								NetMessage.SendTileSquare(-1, x - 1, y, 3);
+							}
+						}
+					}
+				}
+			}
+		}
+		public static void HoneyCheck(int x, int y)
+		{
+			if ((Main.tile[x - 1, y].liquid > 0 && Main.tile[x - 1, y].liquidType() == 0) || (Main.tile[x + 1, y].liquid > 0 && Main.tile[x + 1, y].liquidType() == 0) || (Main.tile[x, y - 1].liquid > 0 && Main.tile[x, y - 1].liquidType() == 0))
+			{
+				int num = 0;
+				if (Main.tile[x - 1, y].liquidType() == 0)
+				{
+					num += (int)Main.tile[x - 1, y].liquid;
+					Main.tile[x - 1, y].liquid = 0;
+				}
+				if (Main.tile[x + 1, y].liquidType() == 0)
+				{
+					num += (int)Main.tile[x + 1, y].liquid;
+					Main.tile[x + 1, y].liquid = 0;
+				}
+				if (Main.tile[x, y - 1].liquidType() == 0)
+				{
+					num += (int)Main.tile[x, y - 1].liquid;
+					Main.tile[x, y - 1].liquid = 0;
+				}
+				if (num >= 32 && !Main.tile[x, y].active())
 				{
 					Main.tile[x, y].liquid = 0;
-					Main.tile[x, y].lava = false;
-					Main.tile[x, y + 1].liquid = 0;
-					WorldGen.PlaceTile(x, y + 1, 56, true, true, -1, 0);
-					WorldGen.SquareTileFrame(x, y + 1, true);
+					Main.tile[x, y].liquidType(0);
+					WorldGen.PlaceTile(x, y, 229, true, true, -1, 0);
+					WorldGen.SquareTileFrame(x, y, true);
 					if (Main.netMode == 2)
 					{
-						NetMessage.SendTileSquare(-1, x - 1, y, 3);
+						NetMessage.SendTileSquare(-1, x - 1, y - 1, 3);
+						return;
+					}
+				}
+			}
+			else
+			{
+				if (Main.tile[x, y + 1].liquid > 0 && Main.tile[x, y + 1].liquidType() == 0)
+				{
+					if (Main.tileCut[(int)Main.tile[x, y + 1].type])
+					{
+						WorldGen.KillTile(x, y + 1, false, false, false);
+						if (Main.netMode == 2)
+						{
+							NetMessage.SendData(17, -1, -1, "", 0, (float)x, (float)(y + 1), 0f, 0);
+						}
+					}
+					if (!Main.tile[x, y + 1].active())
+					{
+						if (Main.tile[x, y].liquid < 32)
+						{
+							Main.tile[x, y].liquid = 0;
+							Main.tile[x, y].liquidType(0);
+							if (Main.netMode == 2)
+							{
+								NetMessage.SendTileSquare(-1, x - 1, y, 3);
+								return;
+							}
+						}
+						else
+						{
+							Main.tile[x, y].liquid = 0;
+							Main.tile[x, y].liquidType(0);
+							Main.tile[x, y + 1].liquid = 0;
+							Main.tile[x, y + 1].liquidType(0);
+							WorldGen.PlaceTile(x, y + 1, 229, true, true, -1, 0);
+							WorldGen.SquareTileFrame(x, y + 1, true);
+							if (Main.netMode == 2)
+							{
+								NetMessage.SendTileSquare(-1, x - 1, y, 3);
+							}
+						}
 					}
 				}
 			}
@@ -982,7 +1214,7 @@ namespace Terraria
 				if (Main.liquid[i].x == x && Main.liquid[i].y == y)
 				{
 					Main.liquid[i].kill = 0;
-					Main.tile[x, y].skipLiquid = true;
+					Main.tile[x, y].skipLiquid(true);
 					return;
 				}
 			}
@@ -991,14 +1223,14 @@ namespace Terraria
 				LiquidBuffer.AddBuffer(x, y);
 				return;
 			}
-			Main.tile[x, y].checkingLiquid = true;
-			Main.tile[x, y].skipLiquid = true;
+			Main.tile[x, y].checkingLiquid(true);
+			Main.tile[x, y].skipLiquid(true);
 			Main.liquid[Liquid.numLiquid].kill = 0;
 			Main.liquid[Liquid.numLiquid].x = x;
 			Main.liquid[Liquid.numLiquid].y = y;
 			Liquid.numLiquid++;
 			int arg_10F_0 = Main.netMode;
-			if (Main.tile[x, y].active && (Main.tileWaterDeath[(int)Main.tile[x, y].type] || (Main.tile[x, y].lava && Main.tileLavaDeath[(int)Main.tile[x, y].type])))
+			if (Main.tile[x, y].active() && (Main.tileWaterDeath[(int)Main.tile[x, y].type] || (Main.tile[x, y].lava() && Main.tileLavaDeath[(int)Main.tile[x, y].type])))
 			{
 				WorldGen.KillTile(x, y, false, false, false);
 				if (Main.netMode == 2)
@@ -1011,30 +1243,39 @@ namespace Terraria
 		{
 			int num = Main.liquid[l].x;
 			int num2 = Main.liquid[l].y;
-			if (Main.tile[num, num2].liquid < 2)
+			byte b = 2;
+			if (Main.tile[num, num2].liquid < b)
 			{
 				Main.tile[num, num2].liquid = 0;
-				if (Main.tile[num - 1, num2].liquid < 2)
+				if (Main.tile[num - 1, num2].liquid < b)
 				{
 					Main.tile[num - 1, num2].liquid = 0;
 				}
-				if (Main.tile[num + 1, num2].liquid < 2)
+				else
+				{
+					Liquid.AddWater(num - 1, num2);
+				}
+				if (Main.tile[num + 1, num2].liquid < b)
 				{
 					Main.tile[num + 1, num2].liquid = 0;
+				}
+				else
+				{
+					Liquid.AddWater(num + 1, num2);
 				}
 			}
 			else
 			{
 				if (Main.tile[num, num2].liquid < 20)
 				{
-					if ((Main.tile[num - 1, num2].liquid < Main.tile[num, num2].liquid && (!Main.tile[num - 1, num2].active || !Main.tileSolid[(int)Main.tile[num - 1, num2].type] || Main.tileSolidTop[(int)Main.tile[num - 1, num2].type])) || (Main.tile[num + 1, num2].liquid < Main.tile[num, num2].liquid && (!Main.tile[num + 1, num2].active || !Main.tileSolid[(int)Main.tile[num + 1, num2].type] || Main.tileSolidTop[(int)Main.tile[num + 1, num2].type])) || (Main.tile[num, num2 + 1].liquid < 255 && (!Main.tile[num, num2 + 1].active || !Main.tileSolid[(int)Main.tile[num, num2 + 1].type] || Main.tileSolidTop[(int)Main.tile[num, num2 + 1].type])))
+					if ((Main.tile[num - 1, num2].liquid < Main.tile[num, num2].liquid && (!Main.tile[num - 1, num2].nactive() || !Main.tileSolid[(int)Main.tile[num - 1, num2].type] || Main.tileSolidTop[(int)Main.tile[num - 1, num2].type])) || (Main.tile[num + 1, num2].liquid < Main.tile[num, num2].liquid && (!Main.tile[num + 1, num2].nactive() || !Main.tileSolid[(int)Main.tile[num + 1, num2].type] || Main.tileSolidTop[(int)Main.tile[num + 1, num2].type])) || (Main.tile[num, num2 + 1].liquid < 255 && (!Main.tile[num, num2 + 1].nactive() || !Main.tileSolid[(int)Main.tile[num, num2 + 1].type] || Main.tileSolidTop[(int)Main.tile[num, num2 + 1].type])))
 					{
 						Main.tile[num, num2].liquid = 0;
 					}
 				}
 				else
 				{
-					if (Main.tile[num, num2 + 1].liquid < 255 && (!Main.tile[num, num2 + 1].active || !Main.tileSolid[(int)Main.tile[num, num2 + 1].type] || Main.tileSolidTop[(int)Main.tile[num, num2 + 1].type]) && !Liquid.stuck)
+					if (Main.tile[num, num2 + 1].liquid < 255 && (!Main.tile[num, num2 + 1].nactive() || !Main.tileSolid[(int)Main.tile[num, num2 + 1].type] || Main.tileSolidTop[(int)Main.tile[num, num2 + 1].type]) && !Liquid.stuck)
 					{
 						Main.liquid[l].kill = 0;
 						return;
@@ -1047,23 +1288,23 @@ namespace Terraria
 			}
 			if (Main.tile[num, num2].liquid == 0)
 			{
-				Main.tile[num, num2].lava = false;
+				Main.tile[num, num2].liquidType(0);
 			}
 			else
 			{
-				if ((Main.tile[num + 1, num2].liquid > 0 && Main.tile[num + 1, num2 + 1].liquid < 250 && !Main.tile[num + 1, num2 + 1].active) || (Main.tile[num - 1, num2].liquid > 0 && Main.tile[num - 1, num2 + 1].liquid < 250 && !Main.tile[num - 1, num2 + 1].active))
+				if ((Main.tile[num + 1, num2].liquid > 0 && Main.tile[num + 1, num2 + 1].liquid < 250 && !Main.tile[num + 1, num2 + 1].active()) || (Main.tile[num - 1, num2].liquid > 0 && Main.tile[num - 1, num2 + 1].liquid < 250 && !Main.tile[num - 1, num2 + 1].active()))
 				{
 					Liquid.AddWater(num - 1, num2);
 					Liquid.AddWater(num + 1, num2);
 				}
-				if (Main.tile[num, num2].lava)
+				if (Main.tile[num, num2].lava())
 				{
 					Liquid.LavaCheck(num, num2);
 					for (int i = num - 1; i <= num + 1; i++)
 					{
 						for (int j = num2 - 1; j <= num2 + 1; j++)
 						{
-							if (Main.tile[i, j].active)
+							if (Main.tile[i, j].active())
 							{
 								if (Main.tile[i, j].type == 2 || Main.tile[i, j].type == 23 || Main.tile[i, j].type == 109)
 								{
@@ -1090,13 +1331,20 @@ namespace Terraria
 						}
 					}
 				}
+				else
+				{
+					if (Main.tile[num, num2].honey())
+					{
+						Liquid.HoneyCheck(num, num2);
+					}
+				}
 			}
 			if (Main.netMode == 2)
 			{
 				NetMessage.sendWater(num, num2);
 			}
 			Liquid.numLiquid--;
-			Main.tile[Main.liquid[l].x, Main.liquid[l].y].checkingLiquid = false;
+			Main.tile[Main.liquid[l].x, Main.liquid[l].y].checkingLiquid(false);
 			Main.liquid[l].x = Main.liquid[Liquid.numLiquid].x;
 			Main.liquid[l].y = Main.liquid[Liquid.numLiquid].y;
 			Main.liquid[l].kill = Main.liquid[Liquid.numLiquid].kill;

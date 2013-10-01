@@ -1,6 +1,7 @@
+
 using System;
 using System.Net.Sockets;
-using Hooks;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -14,6 +15,7 @@ namespace Terraria
 		public int statusCount;
 		public int statusMax;
 		public bool[,] tileSection = new bool[Main.maxTilesX / 200 + 1, Main.maxTilesY / 150 + 1];
+		public string statusText = "";
 		public bool active;
 		public bool locked;
 		public bool kill;
@@ -32,7 +34,6 @@ namespace Terraria
 		public float spamWaterMax = 50f;
 		public byte[] readBuffer;
 		public byte[] writeBuffer;
-	    public DateTime connectTime;
 		public void SpamUpdate()
 		{
 			if (!Netplay.spamCheck)
@@ -87,6 +88,40 @@ namespace Terraria
 			this.spamDelBlock = 0f;
 			this.spamWater = 0f;
 		}
+		public static void CheckSection(int who, Vector2 position)
+		{
+			int sectionX = Netplay.GetSectionX((int)(position.X / 16f));
+			int sectionY = Netplay.GetSectionY((int)(position.Y / 16f));
+			int num = 0;
+			for (int i = sectionX - 1; i < sectionX + 2; i++)
+			{
+				for (int j = sectionY - 1; j < sectionY + 2; j++)
+				{
+					if (i >= 0 && i < Main.maxSectionsX && j >= 0 && j < Main.maxSectionsY && !Netplay.serverSock[who].tileSection[i, j])
+					{
+						num++;
+					}
+				}
+			}
+			if (num > 0)
+			{
+				int num2 = num * 150;
+				NetMessage.SendData(9, who, -1, "Receiving tile data", num2, 0f, 0f, 0f, 0);
+				Netplay.serverSock[who].statusText2 = "is receiving tile data";
+				Netplay.serverSock[who].statusMax += num2;
+				for (int k = sectionX - 1; k < sectionX + 2; k++)
+				{
+					for (int l = sectionY - 1; l < sectionY + 2; l++)
+					{
+						if (k >= 0 && k < Main.maxSectionsX && l >= 0 && l < Main.maxSectionsY && !Netplay.serverSock[who].tileSection[k, l])
+						{
+							NetMessage.SendSection(who, k, l);
+							NetMessage.SendData(11, who, -1, "", k, (float)l, (float)k, (float)l, 0);
+						}
+					}
+				}
+			}
+		}
 		public bool SectionRange(int size, int firstX, int firstY)
 		{
 			for (int i = 0; i < 4; i++)
@@ -117,7 +152,7 @@ namespace Terraria
 		}
 		public void Reset()
 		{
-            ServerHooks.OnSocketReset(this);
+			ServerApi.Hooks.InvokeServerSocketReset(this);
 			for (int i = 0; i < Main.maxSectionsX; i++)
 			{
 				for (int j = 0; j < Main.maxSectionsY; j++)
@@ -133,13 +168,13 @@ namespace Terraria
 			this.statusCount = 0;
 			this.statusMax = 0;
 			this.statusText2 = "";
+			this.statusText = "";
 			this.name = "Anonymous";
 			this.state = 0;
 			this.locked = false;
 			this.kill = false;
 			this.SpamClear();
 			this.active = false;
-            this.connectTime = new DateTime();
 			NetMessage.buffer[this.whoAmI].Reset();
 			if (this.networkStream != null)
 			{
