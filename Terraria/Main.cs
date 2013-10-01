@@ -48,9 +48,9 @@ namespace Terraria
 		public const int maxClouds = 200;
 		public const int maxCloudTypes = 22;
 		public const int maxHair = 51;
-		public static int curRelease = 67;
-		public static string versionNumber = "v1.2";
-		public static string versionNumber2 = "v1.2";
+        public static int curRelease = 68;
+        public static string versionNumber = "v1.2.0.1";
+        public static string versionNumber2 = "v1.2.0.1";
         public static bool ServerSideCharacter = false;
         public static string clientUUID;
         public static int maxMsg = 69;
