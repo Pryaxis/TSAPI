@@ -25,6 +25,8 @@ namespace Terraria
 		public static bool anyClients = false;
 		public static bool uPNP = false;
 		public static bool ServerUp = false;
+        public static int connectionLimit = 0;
+        public static bool killInactive = false;
 		public static string LocalIPAddress()
 		{
 			string result = "";
@@ -380,7 +382,7 @@ namespace Terraria
 					int num2 = -1;
 					for (int j = 0; j < Main.maxNetPlayers; j++)
 					{
-						if (!Netplay.serverSock[j].tcpClient.Connected)
+                        if (serverSock[j].tcpClient == null || serverSock[j].tcpClient.Client == null|| !Netplay.serverSock[j].tcpClient.Connected)
 						{
 							num2 = j;
 							break;
@@ -415,6 +417,8 @@ namespace Terraria
 					{
 						NetMessage.CheckBytes(k);
 					}
+                    if (killInactive && serverSock[k].active && serverSock[k].state == 0 && (DateTime.UtcNow - serverSock[k].connectTime).TotalSeconds > 5)
+                        Netplay.serverSock[k].kill = true;
 					if (Netplay.serverSock[k].kill)
 					{
 						ServerApi.Hooks.InvokeServerLeave(Netplay.serverSock[k].whoAmI);
@@ -423,7 +427,7 @@ namespace Terraria
 					}
 					else
 					{
-						if (Netplay.serverSock[k].tcpClient.Connected)
+						if (serverSock[k].tcpClient != null && serverSock[k].tcpClient.Client != null && serverSock[k].tcpClient.Connected)
 						{
 							if (!Netplay.serverSock[k].active)
 							{
@@ -633,7 +637,7 @@ namespace Terraria
 				int num = -1;
 				for (int i = 0; i < Main.maxNetPlayers; i++)
 				{
-					if (!Netplay.serverSock[i].tcpClient.Connected)
+					if (serverSock[i].tcpClient == null || serverSock[i].tcpClient.Client == null || !serverSock[i].tcpClient.Connected)
 					{
 						num = i;
 						break;
@@ -644,8 +648,30 @@ namespace Terraria
 					try
 					{
 						Netplay.serverSock[num].tcpClient = Netplay.tcpListener.AcceptTcpClient();
+						string tmp;
+						bool quick = false;
+						try
+						{
+							tmp = Netplay.serverSock[num].tcpClient.Client.RemoteEndPoint.ToString();
+						}
+						catch (Exception ex)
+						{
+							tmp = "0.0.0.0";
+							quick = true;
+						}
 						Netplay.serverSock[num].tcpClient.NoDelay = true;
-						Console.WriteLine(Netplay.serverSock[num].tcpClient.Client.RemoteEndPoint + " is connecting...");
+						Netplay.serverSock[num].connectTime = DateTime.UtcNow;
+						if (quick == false)
+						{
+							Console.WriteLine(tmp + " is connecting...");
+						}
+						else
+						{
+							Console.WriteLine("Detected quick connection/disconnection on server.. disregarding.");
+							quick = false;
+						}
+						if (connectionLimit > 0 && CheckExistingIP(tmp.Split(':')[0]) > connectionLimit)
+							serverSock[num].kill = true;
 						continue;
 					}
 					catch (Exception ex)
@@ -663,6 +689,17 @@ namespace Terraria
 				Netplay.tcpListener.Stop();
 			}
 		}
+		
+		public static int CheckExistingIP(string IP)
+		{
+			int hit = 0;
+			for (int i = 0; i < Main.maxNetPlayers; i++)
+			if (serverSock[i] != null && serverSock[i].tcpClient != null && serverSock[i].tcpClient.Client != null && serverSock[i].tcpClient.Connected &&
+				serverSock[i].tcpClient.Client.RemoteEndPoint.ToString().Split(':')[0] == IP)
+				hit++;
+			return hit;
+		}
+		
 		public static void StartClient()
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.ClientLoop), 1);
