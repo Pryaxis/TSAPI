@@ -400,7 +400,7 @@ namespace TerrariaApi.Server
 						string result;
 						Buffer.BlockCopy(buffer.readBuffer, index + 4, uuid, 0, length - 5);
 						SHA512 shaM = new SHA512Managed();
-						result = shaM.ComputeHash(uuid).ToString();
+						result = Encoding.ASCII.GetString(shaM.ComputeHash(uuid));
 						Netplay.serverSock[buffer.whoAmI].clientUUID = result;
 						return true;
 
