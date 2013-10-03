@@ -261,78 +261,66 @@ namespace TerrariaApi.Server
 					continue;
 				}
 
-				Assembly assembly;
-				if (!loadedAssemblies.TryGetValue(fileNameWithoutExtension, out assembly))
+				try
 				{
-					try
-					{
+					Assembly assembly;
+					// The plugin assembly might have been resolved by another plugin assembly already, so no use to
+					// load it again, but we do still have to verify it and create plugin instances.
+					if (!loadedAssemblies.TryGetValue(fileNameWithoutExtension, out assembly)) {
 						assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName));
-
-						// Many types have changed with 1.14 and thus we won't even able to check the ApiVersionAttribute of types, 
-						// because the types can not be loaded as they reference the old types of the old TerrariaServer assembly.
-						// We work around this by checking the referenced assemblies, if we notice a reference to the old 
-						// TerrariaServer assembly, we expect it to be outdated.
-						AssemblyName[] referencedAssemblies = assembly.GetReferencedAssemblies();
-						AssemblyName terrariaServerReference = referencedAssemblies.FirstOrDefault(an => an.Name == "TerrariaServer");
-						if (terrariaServerReference != null && terrariaServerReference.Version == new Version(0, 0, 0, 0))
-						{
-							LogWriter.ServerWriteLine(
-								string.Format("Plugin assembly \"{0}\" was compiled for a Server API version prior 1.14 and was ignored.", 
-								fileInfo.Name), TraceLevel.Warning);
-
-							continue;
-						}
-
-						foreach (Type type in assembly.GetExportedTypes())
-						{
-							if (!type.IsSubclassOf(typeof (TerrariaPlugin)) || !type.IsPublic || type.IsAbstract)
-								continue;
-							object[] customAttributes = type.GetCustomAttributes(typeof (ApiVersionAttribute), false);
-							if (customAttributes.Length == 0)
-								continue;
-
-							if (!IgnoreVersion)
-							{
-								var apiVersionAttribute = (ApiVersionAttribute)customAttributes[0];
-								Version apiVersion = apiVersionAttribute.ApiVersion;
-								if (apiVersion.Major != ApiVersion.Major || apiVersion.Minor != ApiVersion.Minor)
-								{
-									LogWriter.ServerWriteLine(
-										string.Format("Plugin \"{0}\" is designed for a different Server API version ({1}) and was ignored.", 
-										type.FullName, apiVersion.ToString(2)), TraceLevel.Warning);
-
-									continue;
-								}
-							}
-
-							TerrariaPlugin pluginInstance;
-							try
-							{
-								Stopwatch initTimeWatch = new Stopwatch();
-								initTimeWatch.Start();
-
-								pluginInstance = (TerrariaPlugin)Activator.CreateInstance(type, game);
-						
-								initTimeWatch.Stop();
-								pluginInitWatches.Add(pluginInstance, initTimeWatch);
-							}
-							catch (Exception ex)
-							{
-								// Broken plugins better stop the entire server init.
-								throw new InvalidOperationException(
-									string.Format("Could not create an instance of plugin class \"{0}\".", type.FullName), ex);
-							}
-							plugins.Add(new PluginContainer(pluginInstance));
-						}
+						loadedAssemblies.Add(fileNameWithoutExtension, assembly);
 					}
-					catch (Exception ex)
+
+					if (!InvalidateAssembly(assembly, fileInfo.Name))
+						continue;
+
+					foreach (Type type in assembly.GetExportedTypes())
 					{
-						// Broken assemblies / plugins better stop the entire server init.
-						throw new InvalidOperationException(
-							string.Format("Failed to load assembly \"{0}\".", fileInfo.Name), ex);
-					}
+						if (!type.IsSubclassOf(typeof (TerrariaPlugin)) || !type.IsPublic || type.IsAbstract)
+							continue;
+						object[] customAttributes = type.GetCustomAttributes(typeof (ApiVersionAttribute), false);
+						if (customAttributes.Length == 0)
+							continue;
 
-					loadedAssemblies.Add(fileNameWithoutExtension, assembly);
+						if (!IgnoreVersion)
+						{
+							var apiVersionAttribute = (ApiVersionAttribute)customAttributes[0];
+							Version apiVersion = apiVersionAttribute.ApiVersion;
+							if (apiVersion.Major != ApiVersion.Major || apiVersion.Minor != ApiVersion.Minor)
+							{
+								LogWriter.ServerWriteLine(
+									string.Format("Plugin \"{0}\" is designed for a different Server API version ({1}) and was ignored.", 
+									type.FullName, apiVersion.ToString(2)), TraceLevel.Warning);
+
+								continue;
+							}
+						}
+
+						TerrariaPlugin pluginInstance;
+						try
+						{
+							Stopwatch initTimeWatch = new Stopwatch();
+							initTimeWatch.Start();
+
+							pluginInstance = (TerrariaPlugin)Activator.CreateInstance(type, game);
+						
+							initTimeWatch.Stop();
+							pluginInitWatches.Add(pluginInstance, initTimeWatch);
+						}
+						catch (Exception ex)
+						{
+							// Broken plugins better stop the entire server init.
+							throw new InvalidOperationException(
+								string.Format("Could not create an instance of plugin class \"{0}\".", type.FullName), ex);
+						}
+						plugins.Add(new PluginContainer(pluginInstance));
+					}
+				}
+				catch (Exception ex)
+				{
+					// Broken assemblies / plugins better stop the entire server init.
+					throw new InvalidOperationException(
+						string.Format("Failed to load assembly \"{0}\".", fileInfo.Name), ex);
 				}
 			}
 			IOrderedEnumerable<PluginContainer> orderedPluginSelector =
@@ -430,16 +418,43 @@ namespace TerrariaApi.Server
 					if (!loadedAssemblies.TryGetValue(fileName, out assembly))
 					{
 						assembly = Assembly.Load(File.ReadAllBytes(path));
+						// We just do this to return a proper error message incase this is a resolved plugin assembly 
+						// referencing an old TerrariaServer version.
+						if (!InvalidateAssembly(assembly, fileName))
+							throw new InvalidOperationException(
+								"The assembly is referencing a version of TerrariaServer prior 1.14.");
+
 						loadedAssemblies.Add(fileName, assembly);
 					}
 					return assembly;
 				}
 			}
-			catch (Exception value)
+			catch (Exception ex)
 			{
-				Console.WriteLine(value);
+				LogWriter.ServerWriteLine(
+					string.Format("Error on resolving assembly \"{0}.dll\":\n{1}", fileName, ex),
+					TraceLevel.Error);
 			}
 			return null;
+		}
+
+		// Many types have changed with 1.14 and thus we won't even be able to check the ApiVersionAttribute of 
+		// plugin classes of assemblies targeting a TerrariaServer prior 1.14 as they can not be loaded at all.
+		// We work around this by checking the referenced assemblies, if we notice a reference to the old 
+		// TerrariaServer assembly, we expect the plugin assembly to be outdated.
+		private static bool InvalidateAssembly(Assembly assembly, string fileName) {
+			AssemblyName[] referencedAssemblies = assembly.GetReferencedAssemblies();
+			AssemblyName terrariaServerReference = referencedAssemblies.FirstOrDefault(an => an.Name == "TerrariaServer");
+			if (terrariaServerReference != null && terrariaServerReference.Version == new Version(0, 0, 0, 0))
+			{
+				LogWriter.ServerWriteLine(
+					string.Format("Plugin assembly \"{0}\" was compiled for a Server API version prior 1.14 and was ignored.", 
+					fileName), TraceLevel.Warning);
+
+				return false;
+			}
+
+			return true;
 		}
 	}
 }
