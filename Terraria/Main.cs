@@ -10,8 +10,8 @@ namespace Terraria
 {
 	public class Main
 	{
-		public const int maxItemTypes = 1614;
-		public const int maxProjectileTypes = 310;
+		public const int maxItemTypes = 1615;
+		public const int maxProjectileTypes = 311;
 		public const int maxNPCTypes = 297;
 		public const int maxTileSets = 251;
 		public const int maxWallTypes = 112;
@@ -48,23 +48,23 @@ namespace Terraria
 		public const int maxClouds = 200;
 		public const int maxCloudTypes = 22;
 		public const int maxHair = 51;
-        public static int curRelease = 68;
-        public static string versionNumber = "v1.2.0.1";
-        public static string versionNumber2 = "v1.2.0.1";
-        public static bool ServerSideCharacter = false;
-        public static string clientUUID;
-        public static int maxMsg = 69;
-        public static int npcStreamSpeed = 30;
+		public static int curRelease = 69;
+		public static string versionNumber = "v1.2.0.2";
+		public static string versionNumber2 = "v1.2.0.2";
+		public static bool ServerSideCharacter = false;
+		public static string clientUUID;
+		public static int maxMsg = 69;
+		public static int npcStreamSpeed = 30;
 		public static int musicError = 0;
-        public static bool dedServFPS = false;
-        public static int dedServCount1 = 0;
-        public static int dedServCount2 = 0;
+		public static bool dedServFPS = false;
+		public static int dedServCount1 = 0;
+		public static int dedServCount2 = 0;
 		public static bool superFast = false;
 		public static bool[] hairLoaded = new bool[51];
 		public static bool[] wingsLoaded = new bool[21];
 		public static bool[] goreLoaded = new bool[431];
-		public static bool[] projectileLoaded = new bool[310];
-		public static bool[] itemFlameLoaded = new bool[1614];
+		public static bool[] projectileLoaded = new bool[311];
+		public static bool[] itemFlameLoaded = new bool[1615];
 		public static bool[] backgroundLoaded = new bool[185];
 		public static bool[] tileSetsLoaded = new bool[251];
 		public static bool[] wallLoaded = new bool[112];
@@ -195,7 +195,7 @@ namespace Terraria
 		public static int zoneX = 99;
 		public static int zoneY = 87;
 		public static float harpNote = 0f;
-		public static bool[] projHostile = new bool[310];
+		public static bool[] projHostile = new bool[311];
 		public static bool[] pvpBuff = new bool[81];
 		public static bool[] vanityPet = new bool[81];
 		public static bool[] lightPet = new bool[81];
@@ -382,8 +382,8 @@ namespace Terraria
 		public static int helpText = 0;
 		public static bool autoGen = false;
 		public static bool autoPause = false;
-		public static int[] projFrames = new int[310];
-		public static bool[] projPet = new bool[310];
+		public static int[] projFrames = new int[311];
+		public static bool[] projPet = new bool[311];
 		public static float demonTorch = 1f;
 		public static int demonTorchDir = 1;
 		public static int numStars;
@@ -568,7 +568,7 @@ namespace Terraria
 		});
 		public static string WorldPath = Main.SavePath + Path.DirectorySeparatorChar + "Worlds";
 		public static string PlayerPath = Main.SavePath + Path.DirectorySeparatorChar + "Players";
-		public static string[] itemName = new string[1614];
+		public static string[] itemName = new string[1615];
 		public static string[] npcName = new string[297];
 		public static int invasionType = 0;
 		public static double invasionX = 0.0;
@@ -976,7 +976,7 @@ namespace Terraria
 		private float screenOff;
 		private float scAdj;
 		private float cTop;
-        public static bool runningMono = false;
+		public static bool runningMono = false;
 		public static bool forceUpdate = false;
 		public static void LoadWorlds()
 		{
@@ -1512,7 +1512,7 @@ namespace Terraria
 		public void DedServ()
 		{
 			Type t = Type.GetType("Mono.Runtime");
-            Main.runningMono = (t != null);
+			Main.runningMono = (t != null);
 			ServerApi.Hooks.InvokeGameInitialize();
 			Main.rand = new Random();
 			if (Main.autoShutdown)
@@ -1529,7 +1529,7 @@ namespace Terraria
 			{
 				Console.Title = "Terraria Server " + Main.versionNumber2;
 			}
-            
+			
 			Main.dedServ = true;
 			Main.showSplash = false;
 			this.Initialize();
@@ -1952,20 +1952,20 @@ namespace Terraria
 						}
 						else
 						{
-                            if (text == "fps")
-                            {
-                                if (!Main.dedServFPS)
-                                {
-                                    Main.dedServFPS = true;
-                                    Main.fpsTimer.Reset();
-                                }
-                                else
-                                {
-                                    Main.dedServCount1 = 0;
-                                    Main.dedServCount2 = 0;
-                                    Main.dedServFPS = false;
-                                }
-                            }
+							if (text == "fps")
+							{
+								if (!Main.dedServFPS)
+								{
+									Main.dedServFPS = true;
+									Main.fpsTimer.Reset();
+								}
+								else
+								{
+									Main.dedServCount1 = 0;
+									Main.dedServCount2 = 0;
+									Main.dedServFPS = false;
+								}
+							}
 							if (text == "settle")
 							{
 								if (!Liquid.panicMode)
@@ -2316,7 +2316,7 @@ namespace Terraria
 			Main.bgAlpha[0] = 1f;
 			Main.bgAlpha2[0] = 1f;
 			this.invBottom = 258;
-			for (int i = 0; i < 310; i++)
+			for (int i = 0; i < 311; i++)
 			{
 				Main.projFrames[i] = 1;
 			}
@@ -2413,6 +2413,7 @@ namespace Terraria
 			Main.debuff[68] = true;
 			Main.debuff[69] = true;
 			Main.debuff[70] = true;
+			Main.debuff[80] = true;
 			Main.meleeBuff[71] = true;
 			Main.meleeBuff[73] = true;
 			Main.meleeBuff[74] = true;
@@ -3520,7 +3521,7 @@ namespace Terraria
 			{
 				Main.itemText[num10] = new ItemText();
 			}
-			for (int num11 = 0; num11 < 1614; num11++)
+			for (int num11 = 0; num11 < 1615; num11++)
 			{
 				Item item = new Item();
 				item.SetDefaults(num11, false);
@@ -3571,7 +3572,7 @@ namespace Terraria
 			{
 				Main.LoadPlayers();
 			}
-			for (int num17 = 1; num17 < 310; num17++)
+			for (int num17 = 1; num17 < 311; num17++)
 			{
 				Projectile projectile = new Projectile();
 				projectile.SetDefaults(num17);
@@ -3922,7 +3923,7 @@ namespace Terraria
 			}
 			this.LoadBackground(0);
 			this.LoadBackground(49);
-			for (int num6 = 0; num6 < 1614; num6++)
+			for (int num6 = 0; num6 < 1615; num6++)
 			{
 				Main.itemTexture[num6] = base.Content.Load<Texture2D>(string.Concat(new object[]
 				{
@@ -4978,40 +4979,40 @@ namespace Terraria
 			{
 				Main.mapFullscreen = false;
 			}
-            if (Main.dedServ)
-            {
-                if (Main.dedServFPS)
-                {
-                    Main.updateTime++;
-                    if (!Main.fpsTimer.IsRunning)
-                    {
-                        Main.fpsTimer.Restart();
-                    }
-                    if (Main.fpsTimer.ElapsedMilliseconds >= 1000L)
-                    {
-                        Main.dedServCount1 += Main.updateTime;
-                        Main.dedServCount2++;
-                        float num = (float)Main.dedServCount1 / (float)Main.dedServCount2;
-                        Console.WriteLine(string.Concat(new object[]
+			if (Main.dedServ)
+			{
+				if (Main.dedServFPS)
+				{
+					Main.updateTime++;
+					if (!Main.fpsTimer.IsRunning)
+					{
+						Main.fpsTimer.Restart();
+					}
+					if (Main.fpsTimer.ElapsedMilliseconds >= 1000L)
+					{
+						Main.dedServCount1 += Main.updateTime;
+						Main.dedServCount2++;
+						float num = (float)Main.dedServCount1 / (float)Main.dedServCount2;
+						Console.WriteLine(string.Concat(new object[]
 						{
 							Main.updateTime,
 							"  (",
 							num,
 							")"
 						}));
-                        Main.updateTime = 0;
-                        Main.fpsTimer.Restart();
-                    }
-                }
-                else
-                {
-                    if (Main.fpsTimer.IsRunning)
-                    {
-                        Main.fpsTimer.Stop();
-                    }
-                    Main.updateTime = 0;
-                }
-            }
+						Main.updateTime = 0;
+						Main.fpsTimer.Restart();
+					}
+				}
+				else
+				{
+					if (Main.fpsTimer.IsRunning)
+					{
+						Main.fpsTimer.Stop();
+					}
+					Main.updateTime = 0;
+				}
+			}
 			
 			if (Main.netMode == 1)
 			{
@@ -5678,6 +5679,232 @@ namespace Terraria
 		public static bool canDrawColorWall(int i, int j)
 		{
 			return Main.tile[i, j] != null && Main.tile[i, j].wallColor() > 0 && Main.wallAltTextureDrawn[(int)Main.tile[i, j].wall, (int)Main.tile[i, j].wallColor()] && Main.wallAltTextureInit[(int)Main.tile[i, j].wall, (int)Main.tile[i, j].wallColor()];
+		}
+		public static float NPCAddHeight(int i)
+		{
+			float num = 0f;
+			if (Main.npc[i].type == 125)
+			{
+				num = 30f;
+			}
+			else
+			{
+				if (Main.npc[i].type == 205)
+				{
+					num = 8f;
+				}
+				else
+				{
+					if (Main.npc[i].type == 182)
+					{
+						num = 24f;
+					}
+					else
+					{
+						if (Main.npc[i].type == 178)
+						{
+							num = 2f;
+						}
+						else
+						{
+							if (Main.npc[i].type == 126)
+							{
+								num = 30f;
+							}
+							else
+							{
+								if (Main.npc[i].type == 6 || Main.npc[i].type == 173)
+								{
+									num = 26f;
+								}
+								else
+								{
+									if (Main.npc[i].type == 94)
+									{
+										num = 14f;
+									}
+									else
+									{
+										if (Main.npc[i].type == 7 || Main.npc[i].type == 8 || Main.npc[i].type == 9)
+										{
+											num = 13f;
+										}
+										else
+										{
+											if (Main.npc[i].type == 98 || Main.npc[i].type == 99 || Main.npc[i].type == 100)
+											{
+												num = 13f;
+											}
+											else
+											{
+												if (Main.npc[i].type == 95 || Main.npc[i].type == 96 || Main.npc[i].type == 97)
+												{
+													num = 13f;
+												}
+												else
+												{
+													if (Main.npc[i].type == 10 || Main.npc[i].type == 11 || Main.npc[i].type == 12)
+													{
+														num = 8f;
+													}
+													else
+													{
+														if (Main.npc[i].type == 13 || Main.npc[i].type == 14 || Main.npc[i].type == 15)
+														{
+															num = 26f;
+														}
+														else
+														{
+															if (Main.npc[i].type == 175)
+															{
+																num = 4f;
+															}
+															else
+															{
+																if (Main.npc[i].type == 48)
+																{
+																	num = 32f;
+																}
+																else
+																{
+																	if (Main.npc[i].type == 49 || Main.npc[i].type == 51)
+																	{
+																		num = 4f;
+																	}
+																	else
+																	{
+																		if (Main.npc[i].type == 60)
+																		{
+																			num = 10f;
+																		}
+																		else
+																		{
+																			if (Main.npc[i].type == 62 || Main.npc[i].type == 66 || Main.npc[i].type == 156)
+																			{
+																				num = 14f;
+																			}
+																			else
+																			{
+																				if (Main.npc[i].type == 63 || Main.npc[i].type == 64 || Main.npc[i].type == 103)
+																				{
+																					num = 4f;
+																				}
+																				else
+																				{
+																					if (Main.npc[i].type == 65)
+																					{
+																						num = 14f;
+																					}
+																					else
+																					{
+																						if (Main.npc[i].type == 69)
+																						{
+																							num = 4f;
+																						}
+																						else
+																						{
+																							if (Main.npc[i].type == 70)
+																							{
+																								num = -4f;
+																							}
+																							else
+																							{
+																								if (Main.npc[i].type == 72)
+																								{
+																									num = -2f;
+																								}
+																								else
+																								{
+																									if (Main.npc[i].type == 83 || Main.npc[i].type == 84)
+																									{
+																										num = 20f;
+																									}
+																									else
+																									{
+																										if (Main.npc[i].type == 150 || Main.npc[i].type == 151 || Main.npc[i].type == 158)
+																										{
+																											num = 10f;
+																										}
+																										else
+																										{
+																											if (Main.npc[i].type == 152)
+																											{
+																												num = 6f;
+																											}
+																											else
+																											{
+																												if (Main.npc[i].type == 153 || Main.npc[i].type == 154)
+																												{
+																													num = 4f;
+																												}
+																												else
+																												{
+																													if (Main.npc[i].type == 165 || Main.npc[i].type == 237 || Main.npc[i].type == 238 || Main.npc[i].type == 240)
+																													{
+																														num = 10f;
+																													}
+																													else
+																													{
+																														if (Main.npc[i].type == 39 || Main.npc[i].type == 40 || Main.npc[i].type == 41)
+																														{
+																															num = 26f;
+																														}
+																														else
+																														{
+																															if (Main.npc[i].type >= 87 && Main.npc[i].type <= 92)
+																															{
+																																num = 56f;
+																															}
+																															else
+																															{
+																																if (Main.npc[i].type >= 134 && Main.npc[i].type <= 136)
+																																{
+																																	num = 30f;
+																																}
+																																else
+																																{
+																																	if (Main.npc[i].type == 169)
+																																	{
+																																		num = 8f;
+																																	}
+																																	else
+																																	{
+																																		if (Main.npc[i].type == 174)
+																																		{
+																																			num = 6f;
+																																		}
+																																	}
+																																}
+																															}
+																														}
+																													}
+																												}
+																											}
+																										}
+																									}
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return num * Main.npc[i].scale;
 		}
 		private static Color buffColor(Color newColor, float R, float G, float B, float A)
 		{
@@ -10304,7 +10531,7 @@ namespace Terraria
 		}
 		public static void PlaySound(int type, int x = -1, int y = -1, int Style = 1)
 		{
-            // Kept because it does nothing but is called by a million other things
-        }
+			// Kept because it does nothing but is called by a million other things
+		}
 	}
 }

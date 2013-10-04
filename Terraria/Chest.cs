@@ -208,6 +208,8 @@ namespace Terraria
 					{
 						this.item[num].SetDefaults(931, false);
 						num++;
+						this.item[num].SetDefaults(1614, false);
+						num++;
 						break;
 					}
 				}
