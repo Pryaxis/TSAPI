@@ -594,7 +594,7 @@ namespace Terraria
 					return "Once you have a wooden sword, you might try to gather some gel from the slimes. Combine wood and gel to make a torch!";
 
 				case 182:
-					return "To interact with backgrounds and placed objects, use a hammer!";
+					return "To interact with backgrounds, use a hammer!";
 
 				case 183:
 					return "You should do some mining to find metal ore. You can craft very useful things with it.";
@@ -612,10 +612,10 @@ namespace Terraria
 					return "Anvils can be crafted out of iron, or purchased from a merchant.";
 
 				case 188:
-					return "Underground are crystal hearts that can be used to increase your max life. You will need a hammer to obtain them.";
+					return "Underground are crystal hearts that can be used to increase your max life. You can smash them with a pickaxe.";
 
 				case 189:
-					return "If you gather 10 fallen stars, they can be combined to create an item that will increase your magic capacity.";
+					return "If you gather 5 fallen stars, they can be combined to create an item that will increase your magic capacity.";
 
 				case 190:
 					return "Stars fall all over the world at night. They can be used for all sorts of usefull things. If you see one, be sure to grab it because they disappear after sunrise.";
@@ -7872,7 +7872,7 @@ namespace Terraria
 		}
 		public static void tTip()
 		{
-			for (int i = 1; i < 1614; i++)
+			for (int i = 1; i < 1615; i++)
 			{
 				Item item = new Item();
 				item.SetDefaults(i, false);
@@ -25878,6 +25878,9 @@ namespace Terraria
 
 				case 1613:
 					return "Ankh Shield";
+
+				case 1614:
+					return "Blue Flare";
 				}
 			}
 			else
@@ -33809,7 +33812,7 @@ namespace Terraria
 				}
 				if (num == 20)
 				{
-					return "Terraria: Terrestial Trouble";
+					return "Terraria: Terrestrial Trouble";
 				}
 				if (num == 21)
 				{
