@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using TerrariaApi.Server;
 
 namespace Terraria
@@ -2228,7 +2227,7 @@ namespace Terraria
       }
       else if (ItemName != "")
       {
-        for (int Type = 0; Type < 1614; ++Type)
+        for (int Type = 0; Type < 1615; ++Type)
         {
           if (Main.itemName[Type] == ItemName)
           {
@@ -4132,7 +4131,6 @@ namespace Terraria
         this.toolTip = "Creates a magical shadow orb";
         this.value = 10000;
         this.buffType = 19;
-        this.buffTime = 18000;
       }
       else if (this.type == 116)
       {
@@ -4906,7 +4904,7 @@ namespace Terraria
         this.noMelee = true;
         this.value = Item.buyPrice(0, 0, 3, 0);
         this.damage = 0;
-	this.explosive = 1;
+		this.explosive = 1;
         this.toolTip = "A small explosion that will destroy some tiles";
       }
       else if (this.type == 167)
@@ -4924,9 +4922,9 @@ namespace Terraria
         this.useTime = 40;
         this.noUseGraphic = true;
         this.noMelee = true;
-        this.value = 5000;
+        this.value = Item.sellPrice(0, 0, 30, 0);
         this.rare = 1;
-	this.explosive = 2;
+		this.explosive = 2;
         this.toolTip = "A large explosion that will destroy most tiles";
       }
       else if (this.type == 168)
@@ -5914,7 +5912,7 @@ namespace Terraria
         this.noMelee = true;
         this.value = 500;
         this.damage = 0;
-	this.explosive = 1;
+		this.explosive = 1;
         this.toolTip = "'Tossing may be difficult.'";
       }
       else if (this.type == 236)
@@ -8547,7 +8545,6 @@ namespace Terraria
         this.toolTip = "Summons a magical fairy";
         this.value = this.value = 250000;
         this.buffType = 27;
-        this.buffTime = 18000;
       }
       else if (this.type == 426)
       {
@@ -10943,7 +10940,7 @@ namespace Terraria
         this.createTile = 141;
         this.width = 12;
         this.height = 12;
-	this.explosive = 4;
+		this.explosive = 4;
         this.toolTip = "Explodes when activated";
       }
       else if (this.type == 581)
@@ -13480,7 +13477,7 @@ namespace Terraria
         this.knockBack = 4f;
         this.rare = 8;
         this.ranged = true;
-	this.explosive = 3;
+		this.explosive = 3;
       }
       else if (this.type == 760)
       {
@@ -13668,7 +13665,7 @@ namespace Terraria
         this.ranged = true;
         this.toolTip = "Small blast radius. Will destroy tiles";
         this.rare = 1;
-	this.explosive = 1;
+		this.explosive = 1;
       }
       else if (this.type == 773)
       {
@@ -13701,7 +13698,7 @@ namespace Terraria
         this.ranged = true;
         this.toolTip = "Large blast radius. Will destroy tiles";
         this.rare = 2;
-	this.explosive = 2;
+		this.explosive = 2;
       }
       else if (this.type == 775)
       {
@@ -16289,7 +16286,7 @@ namespace Terraria
       else if (this.type == 969)
       {
         this.name = "Cooked Marshmellow";
-        this.useSound = 3;
+        this.useSound = 2;
         this.useStyle = 2;
         this.useTurn = true;
         this.useAnimation = 17;
@@ -19801,7 +19798,7 @@ namespace Terraria
         this.width = 20;
         this.height = 12;
         this.damage = 35;
-        this.pick = 210;
+        this.pick = 190;
         this.useSound = 23;
         this.shoot = 223;
         this.rare = 7;
@@ -23880,7 +23877,7 @@ namespace Terraria
         this.name = "Shroomite Helmet";
         this.width = 18;
         this.height = 18;
-        this.defense = 12;
+        this.defense = 11;
         this.headSlot = 105;
         this.rare = 8;
         this.value = 375000;
@@ -24458,6 +24455,21 @@ namespace Terraria
         this.defense = 4;
         this.toolTip = "Grants immunity to knockback and fire blocks";
         this.toolTip2 = "Grants immunity to most debuffs";
+      }
+      else if (this.type == 1614)
+      {
+        this.name = "Blue Flare";
+        this.shootSpeed = 6f;
+        this.shoot = 310;
+        this.damage = 1;
+        this.width = 12;
+        this.height = 12;
+        this.maxStack = 999;
+        this.consumable = true;
+        this.ammo = 931;
+        this.knockBack = 1.5f;
+        this.value = 7;
+        this.ranged = true;
       }
       this.netID = this.type;
       if (!noMatCheck)

@@ -996,6 +996,7 @@ namespace Terraria
 				this.light = 0.3f;
 				this.penetrate = -1;
 				this.timeLeft = 180;
+				this.magic = true;
 			}
 			else if (this.type == 79)
 			{
@@ -3582,6 +3583,18 @@ namespace Terraria
 				this.friendly = true;
 				this.maxUpdates = 3;
 			}
+			else if (this.type == 310)
+			{
+				this.netImportant = true;
+				this.name = "Blue Flare";
+				this.width = 6;
+				this.height = 6;
+				this.aiStyle = 33;
+				this.friendly = true;
+				this.penetrate = -1;
+				this.alpha = (int) byte.MaxValue;
+				this.timeLeft = 36000;
+			}
 			else
 				this.active = false;
 			this.width = (int)((double)this.width * (double)this.scale);
@@ -3766,7 +3779,7 @@ namespace Terraria
 				Main.npc[i].AddBuff(20, 600, false);
 			else if (this.type == 184)
 				Main.npc[i].AddBuff(20, 900, false);
-			if (this.type == 163)
+			if (this.type == 163 || this.type == 310)
 			{
 				if (Main.rand.Next(3) == 0)
 					Main.npc[i].AddBuff(24, 600, false);
@@ -3869,7 +3882,7 @@ namespace Terraria
 				Main.player[i].AddBuff(69, 900, true);
 			else if (this.type == 282 || this.type == 283)
 				Main.player[i].AddBuff(70, 600, true);
-			if (this.type == 163)
+			if (this.type == 163 || this.type == 310)
 			{
 				if (Main.rand.Next(3) == 0)
 					Main.player[i].AddBuff(24, 600, true);
@@ -5674,7 +5687,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 163)
+				if (this.type == 163 || this.type == 310)
 				{
 					if (this.alpha > 0)
 					{
@@ -12596,7 +12609,12 @@ namespace Terraria
 																																	num414 *= num415;
 																																	if (this.alpha < 70)
 																																	{
-																																		int num416 = Dust.NewDust(new Vector2(this.position.X, this.position.Y - 2f), 6, 6, 127, this.velocity.X, this.velocity.Y, 100, default(Color), 1.6f);
+																																		int someInt = 127;
+																																		if (this.type == 310)
+																																		{
+																																			someInt = 187;
+																																		}
+																																		int num416 = Dust.NewDust(new Vector2(this.position.X, this.position.Y - 2f), 6, 6, someInt, this.velocity.X, this.velocity.Y, 100, default(Color), 1.6f);
 																																		Main.dust[num416].noGravity = true;
 																																		Dust expr_13AFD_cp_0 = Main.dust[num416];
 																																		expr_13AFD_cp_0.position.X = expr_13AFD_cp_0.position.X - num413 * 1f;
@@ -12818,7 +12836,7 @@ namespace Terraria
 																																		}
 																																		if (this.type == 307)
 																																		{
-																																			num432 = 9f;
+																																		num432 = 9f;
 																																			num433 = 0.2f;
 																																		}
 																																		Vector2 vector29 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
@@ -15956,7 +15974,7 @@ namespace Terraria
 								if (Main.tile[i1, j1] != null && Main.tile[i1, j1].active())
 								{
 									flag2 = true;
-									if (Main.tileDungeon[(int)Main.tile[i1, j1].type] || (int)Main.tile[i1, j1].type == 21 || ((int)Main.tile[i1, j1].type == 26 || (int)Main.tile[i1, j1].type == 107) || ((int)Main.tile[i1, j1].type == 108 || (int)Main.tile[i1, j1].type == 111 || ((int)Main.tile[i1, j1].type == 226 || (int)Main.tile[i1, j1].type == 237)) || ((int)Main.tile[i1, j1].type == 221 || (int)Main.tile[i1, j1].type == 222 || (int)Main.tile[i1, j1].type == 223))
+									if (Main.tileDungeon[(int)Main.tile[i1, j1].type] || (int)Main.tile[i1, j1].type == 21 || ((int)Main.tile[i1, j1].type == 26 || (int)Main.tile[i1, j1].type == 107) || ((int)Main.tile[i1, j1].type == 108 || (int)Main.tile[i1, j1].type == 111 || ((int)Main.tile[i1, j1].type == 226 || (int)Main.tile[i1, j1].type == 237)) || ((int)Main.tile[i1, j1].type == 221 || (int)Main.tile[i1, j1].type == 222 || ((int)Main.tile[i1, j1].type == 223  || (int) Main.tile[i1, j1].type == 211)))
 										flag2 = false;
 									if (!Main.hardMode && (int)Main.tile[i1, j1].type == 58)
 										flag2 = false;

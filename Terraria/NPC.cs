@@ -1,4 +1,3 @@
-
 using System;
 using TerrariaApi.Server;
 namespace Terraria
@@ -30200,7 +30199,7 @@ namespace Terraria
 																															{
 																																if (num29 == 226 && flag2)
 																																{
-																																	if (Main.rand.Next(4) == 0)
+																																	if (Main.rand.Next(3) == 0)
 																																	{
 																																		num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 226, 0);
 																																	}
@@ -30213,7 +30212,7 @@ namespace Terraria
 																																{
 																																	if (num29 == 60 && (double)num2 > (Main.worldSurface + Main.rockLayer) / 2.0)
 																																	{
-																																		if (Main.rand.Next(3) == 0)
+																																		if (Main.rand.Next(4) == 0)
 																																		{
 																																			num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 204, 0);
 																																		}
@@ -32123,7 +32122,7 @@ namespace Terraria
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 520, 1, false, 0, false);
 				}
 			}
-			if (Main.hardMode)
+			if (Main.hardMode && this.value > 0f)
 			{
 				if (!NPC.downedMechBoss1 && Main.rand.Next(1000) == 0)
 				{
@@ -33325,7 +33324,7 @@ namespace Terraria
 				if (this.type == 127)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 547, Main.rand.Next(25, 41), false, 0, false);
-					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1225, Main.rand.Next(12, 25), false, 0, false);
+					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1225, Main.rand.Next(20, 36), false, 0, false);
 				}
 				else
 				{
