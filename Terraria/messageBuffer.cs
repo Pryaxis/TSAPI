@@ -1,4 +1,3 @@
-
 using System;
 using System.Text;
 using TerrariaApi.Server;
@@ -247,6 +246,7 @@ namespace Terraria
                                 if (!ServerApi.Hooks.InvokeNetNameCollision(num3, text))
                                 {
                                     NetMessage.SendData(2, this.whoAmI, -1, text + " " + Lang.mp[5], 0, 0f, 0f, 0f, 0);
+									return;
                                 }
 							}
 							if (text.Length > Player.nameLen)
@@ -2314,7 +2314,7 @@ namespace Terraria
 																																									}
 																																									else
 																																									{
-																																										if (Main.myPlayer == 87 && !Main.serverStarting)
+																																										if (Main.myPlayer == num87 && !Main.ServerSideCharacter)
 																																										{
 																																											return;
 																																										}
@@ -2965,7 +2965,7 @@ namespace Terraria
 																																																																{
 																																																																	Main.player[num134].statLife += num135;
 																																																																	if (Main.player[num134].statLife >
-																																																																	    Main.player[num134].statLifeMax)
+																																																																		Main.player[num134].statLifeMax)
 																																																																	{
 																																																																		Main.player[num134].statLife =
 																																																																			Main.player[num134].statLifeMax;

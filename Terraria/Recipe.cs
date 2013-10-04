@@ -248,6 +248,7 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].stack = 1;
 			Recipe.addRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(286, false);
+			Recipe.newRecipe.createItem.stack = 5;
 			Recipe.newRecipe.requiredItem[0].SetDefaults(282, false);
 			Recipe.newRecipe.requiredItem[0].stack = 5;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(23, false);
@@ -440,6 +441,12 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].SetDefaults(126, false);
 			Recipe.newRecipe.requiredItem[1].SetDefaults(316, false);
 			Recipe.newRecipe.requiredItem[2].SetDefaults("Rotten Chunk");
+			Recipe.newRecipe.requiredTile[0] = 13;
+			Recipe.addRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(300, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(126, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(316, false);
+			Recipe.newRecipe.requiredItem[2].SetDefaults(1330, false);
 			Recipe.newRecipe.requiredTile[0] = 13;
 			Recipe.addRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(301, false);

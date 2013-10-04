@@ -837,7 +837,11 @@ namespace Terraria
 			if (Main.tile[x, y].nactive())
 			{
 				WorldGen.houseTile[(int)Main.tile[x, y].type] = true;
-				if (Main.tileSolid[(int)Main.tile[x, y].type] || Main.tile[x, y].type == 11)
+				if (Main.tileSolid[(int)Main.tile[x, y].type])
+				{
+					return;
+				}
+				if (Main.tile[x, y].type == 11 && (Main.tile[x, y].frameX == 0 || Main.tile[x, y].frameX == 54))
 				{
 					return;
 				}
@@ -1193,6 +1197,10 @@ namespace Terraria
 					"%"
 				});
 				Thread.Sleep(0);
+				if (!Main.mapEnabled)
+				{
+					break;
+				}
 			}
 			if (Main.gameMenu)
 			{
@@ -7511,6 +7519,7 @@ namespace Terraria
 				}
 			}
 			Main.tileSolid[226] = false;
+			Main.tileSolid[162] = false;
 			float num379 = (float)(Main.maxTilesX / 4200);
 			for (int num380 = 0; num380 < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 2E-05); num380++)
 			{
@@ -7813,7 +7822,7 @@ namespace Terraria
 				}
 				num409++;
 			}
-			Main.tileSolid[162] = false;
+
 			WorldGen.maxTileCount = 3500;
 			for (int num415 = 0; num415 < (int)((double)Main.maxTilesX * 0.005); num415++)
 			{
@@ -13978,7 +13987,7 @@ namespace Terraria
 				rectangle3 = array[num2 - 1];
 				num90 = rectangle3.X + WorldGen.genRand.Next(rectangle3.Width);
 				num91 = rectangle3.Y + WorldGen.genRand.Next(rectangle3.Height);
-				WorldGen.PlaceTight(num90, num91, 237, false);
+				WorldGen.PlaceTile(num90, num91, 237, false, false, -1, 0);
 				if (Main.tile[num90, num91].type == 237)
 				{
 					goto IL_14E8;
@@ -20713,7 +20722,7 @@ namespace Terraria
 			{
 				flag = true;
 			}
-			if (type == 78 && !Main.tile[x, y].active() && Main.tile[x, y + 1].nactive() && Main.tileSolid[(int)Main.tile[x, y + 1].type])
+			if (type == 78 && !Main.tile[x, y].active() && Main.tile[x, y + 1].nactive() && Main.tileSolid[(int)Main.tile[x, y + 1].type] && !Main.tile[x, y + 1].halfBrick() && Main.tile[x, y + 1].slope() == 0)
 			{
 				flag = true;
 			}
@@ -27174,7 +27183,7 @@ namespace Terraria
 														{
 															Main.tile[i, j + 1] = new Tile();
 														}
-														if ((Main.tile[i - 1, j].nactive() && !Main.tile[i - 1, j].halfBrick() && Main.tile[i - 1, j].slope() == 0 && (Main.tileSolid[(int)Main.tile[i - 1, j].type] || Main.tile[i - 1, j].type == 124 || (Main.tile[i - 1, j].type == 5 && Main.tile[i - 1, j - 1].type == 5 && Main.tile[i - 1, j + 1].type == 5))) || (Main.tile[i + 1, j].nactive() && !Main.tile[i + 1, j].halfBrick() && Main.tile[i + 1, j].slope() == 0 && (Main.tileSolid[(int)Main.tile[i + 1, j].type] || Main.tile[i + 1, j].type == 124 || (Main.tile[i + 1, j].type == 5 && Main.tile[i + 1, j - 1].type == 5 && Main.tile[i + 1, j + 1].type == 5))) || (Main.tile[i, j + 1].nactive() && !Main.tile[i, j + 1].halfBrick() && Main.tileSolid[(int)Main.tile[i, j + 1].type] && Main.tile[i, j + 1].slope() == 0))
+														if ((Main.tile[i - 1, j].nactive() && !Main.tile[i - 1, j].halfBrick() && Main.tile[i - 1, j].slope() == 0 && (WorldGen.SolidTile(i - 1, j) || Main.tile[i - 1, j].type == 124 || (Main.tile[i - 1, j].type == 5 && Main.tile[i - 1, j - 1].type == 5 && Main.tile[i - 1, j + 1].type == 5))) || (Main.tile[i + 1, j].nactive() && !Main.tile[i + 1, j].halfBrick() && Main.tile[i + 1, j].slope() == 0 && (WorldGen.SolidTile(i + 1, j) || Main.tile[i + 1, j].type == 124 || (Main.tile[i + 1, j].type == 5 && Main.tile[i + 1, j - 1].type == 5 && Main.tile[i + 1, j + 1].type == 5))) || (Main.tile[i, j + 1].nactive() && !Main.tile[i, j + 1].halfBrick() && WorldGen.SolidTile(i, j + 1) && Main.tile[i, j + 1].slope() == 0))
 														{
 															Main.tile[i, j].active(true);
 															Main.tile[i, j].type = (byte)type;
@@ -27875,6 +27884,7 @@ namespace Terraria
 				if (liquid > 0)
 				{
 					bool flag = Main.tile[num, num2].lava();
+					bool flag2 = Main.tile[num, num2].honey();
 					for (int j = 0; j < WorldGen.numOutPump; j++)
 					{
 						int num3 = WorldGen.outPumpX[j];
@@ -27882,12 +27892,14 @@ namespace Terraria
 						int liquid2 = (int)Main.tile[num3, num4].liquid;
 						if (liquid2 < 255)
 						{
-							bool flag2 = Main.tile[num3, num4].lava();
+							bool flag3 = Main.tile[num3, num4].lava();
+							bool flag4 = Main.tile[num3, num4].honey();
 							if (liquid2 == 0)
 							{
-								flag2 = flag;
+								flag3 = flag;
+								flag4 = flag2;
 							}
-							if (flag == flag2)
+							if (flag == flag3 && flag2 == flag4)
 							{
 								int num5 = liquid;
 								if (num5 + liquid2 > 255)
@@ -27900,6 +27912,7 @@ namespace Terraria
 								expr_E9.liquid -= (byte)num5;
 								liquid = (int)Main.tile[num, num2].liquid;
 								Main.tile[num3, num4].lava(flag);
+								Main.tile[num3, num4].honey(flag2);
 								WorldGen.SquareTileFrame(num3, num4, true);
 								if (Main.tile[num, num2].liquid == 0)
 								{
@@ -27993,7 +28006,7 @@ namespace Terraria
 					flag = false;
 				}
 			}
-			if (flag && Main.tile[i, j].actuator())
+			if (flag && Main.tile[i, j].actuator() && (Main.tile[i, j].type != 226 || (double)j <= Main.worldSurface || NPC.downedPlantBoss))
 			{
 				if (Main.tile[i, j].inActive())
 				{
@@ -34265,17 +34278,36 @@ namespace Terraria
 									WorldGen.PlaceTile(i, j - 1, 227, true, false, -1, 2);
 									return;
 								}
-								if (Main.tile[i, j].type == 80 && !Main.tile[i - 1, j - 1].active() && !Main.tile[i + 1, j - 1].active())
+								if (Main.tile[i, j].type != 80 || Main.tile[i - 1, j - 1].active() || Main.tile[i + 1, j - 1].active())
 								{
-									WorldGen.PlaceTile(i, j - 1, 227, true, false, -1, 6);
+									return;
+								}
+								try
+								{
+									bool flag = true;
+									for (int m = i - 5; m <= i + 5; m++)
+									{
+										for (int n = j - 5; n <= j + 15; n++)
+										{
+											if (Main.tile[m, n].active() && (Main.tile[m, n].type == 112 || Main.tile[m, n].type == 234))
+											{
+												flag = false;
+											}
+										}
+									}
+									if (flag)
+									{
+										WorldGen.PlaceTile(i, j - 1, 227, true, false, -1, 6);
+									}
+									return;
+								}
+								catch
+								{
 									return;
 								}
 							}
 						}
 					}
-				}
-				else
-				{
 					if (j < Main.maxTilesY - 200)
 					{
 						if (!Main.tile[i, j - 1].active() || Main.tile[i, j - 1].type == 3 || Main.tile[i, j - 1].type == 51 || Main.tile[i, j - 1].type == 61 || Main.tile[i, j - 1].type == 73 || Main.tile[i, j - 1].type == 74 || Main.tile[i, j - 1].type == 184)

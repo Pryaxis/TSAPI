@@ -2223,8 +2223,9 @@ namespace Terraria
 									for (int num20 = 0; num20 < 256; num20++)
 									{
 										if (num20 != ignoreClient &&
-										    (NetMessage.buffer[num20].broadcast || (Netplay.serverSock[num20].state >= 3 && msgType == 10)) &&
-										    Netplay.serverSock[num20].tcpClient.Connected)
+											(NetMessage.buffer[num20].broadcast || (Netplay.serverSock[num20].state >= 3 && msgType == 10)) &&
+											Netplay.serverSock[num20].tcpClient != null && Netplay.serverSock[num20].tcpClient.Client != null &&
+											Netplay.serverSock[num20].tcpClient.Connected)
 										{
 											bool flag5 = false;
 											if (Main.projectile[number].type == 12 || Main.projPet[Main.projectile[number].type] ||
@@ -2270,8 +2271,9 @@ namespace Terraria
 								for (int num21 = 0; num21 < 256; num21++)
 								{
 									if (num21 != ignoreClient &&
-									    (NetMessage.buffer[num21].broadcast || (Netplay.serverSock[num21].state >= 3 && msgType == 10)) &&
-									    Netplay.serverSock[num21].tcpClient.Connected)
+										(NetMessage.buffer[num21].broadcast || (Netplay.serverSock[num21].state >= 3 && msgType == 10)) &&
+										Netplay.serverSock[num21].tcpClient != null && Netplay.serverSock[num21].tcpClient.Client != null &&
+										Netplay.serverSock[num21].tcpClient.Connected)
 									{
 										try
 										{
