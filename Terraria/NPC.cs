@@ -32318,7 +32318,7 @@ namespace Terraria
 				{
 					if (Main.rand.Next(10) == 0)
 					{
-						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1245, 1, false, -1, false);
+						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1254, 1, false, -1, false);
 					}
 				}
 			}
