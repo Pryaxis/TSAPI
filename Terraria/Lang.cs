@@ -25198,7 +25198,7 @@ namespace Terraria
 					return "Bee Wings";
 
 				case 1516:
-					return "Giant Harpey Feather";
+					return "Giant Harpy Feather";
 
 				case 1517:
 					return "Bone Feather";
