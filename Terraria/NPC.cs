@@ -33425,7 +33425,7 @@ namespace Terraria
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, stack5, false, 0, false);
 					if (Main.rand.Next(30) == 0)
 					{
-						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 995, 1, false, 0, false);
+						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 994, 1, false, 0, false);
 					}
 				}
 				if (Main.rand.Next(4) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLife < Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLifeMax)
