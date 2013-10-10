@@ -487,6 +487,10 @@ namespace Terraria
 									{
 										Main.ServerSideCharacter = true;
 									}
+									if ((b4 & 128) == 128)
+									{
+										NPC.downedPlantBoss = true;
+									}
 									if ((b5 & 1) == 1)
 									{
 										NPC.downedMechBoss1 = true;
@@ -748,10 +752,18 @@ namespace Terraria
 													Main.tile[num23, num22].color(this.readBuffer[num]);
 													num++;
 												}
+												else
+												{
+													Main.tile[num23, num22].color(0);
+												}
 												if ((b7 & 8) == 8)
 												{
 													Main.tile[num23, num22].wallColor(this.readBuffer[num]);
 													num++;
+												}
+												else
+												{
+													Main.tile[num23, num22].wallColor(0);
 												}
 												if (Main.tile[num23, num22].active())
 												{
@@ -1028,13 +1040,17 @@ namespace Terraria
 																	}
 																	int statLife = (int)BitConverter.ToInt16(this.readBuffer, num);
 																	num += 2;
-																	int statLifeMax = (int)BitConverter.ToInt16(this.readBuffer, num);
+																	int num33 = (int)BitConverter.ToInt16(this.readBuffer, num);
 																	if (Main.netMode == 2)
 																	{
 																		num32 = this.whoAmI;
 																	}
 																	Main.player[num32].statLife = statLife;
-																	Main.player[num32].statLifeMax = statLifeMax;
+																	if (num33 < 100)
+																	{
+																		num33 = 100;
+																	}
+																	Main.player[num32].statLifeMax = num33;
 																	if (Main.player[num32].statLife <= 0)
 																	{
 																		Main.player[num32].dead = true;

@@ -10,12 +10,12 @@ namespace Terraria
 {
 	public class Main
 	{
-		public const int maxItemTypes = 1615;
+		public const int maxItemTypes = 1725;
 		public const int maxProjectileTypes = 311;
-		public const int maxNPCTypes = 297;
+		public const int maxNPCTypes = 301;
 		public const int maxTileSets = 251;
-		public const int maxWallTypes = 112;
-		public const int maxGoreTypes = 431;
+		public const int maxWallTypes = 113;
+		public const int maxGoreTypes = 438;
 		public const int numArmorHead = 112;
 		public const int numArmorBody = 75;
 		public const int numArmorLegs = 64;
@@ -48,9 +48,9 @@ namespace Terraria
 		public const int maxClouds = 200;
 		public const int maxCloudTypes = 22;
 		public const int maxHair = 51;
-		public static int curRelease = 69;
-		public static string versionNumber = "v1.2.0.2";
-		public static string versionNumber2 = "v1.2.0.2";
+		public static int curRelease = 71;
+		public static string versionNumber = "v1.2.0.3.1";
+		public static string versionNumber2 = "v1.2.0.3.1";
 		public static bool ServerSideCharacter = false;
 		public static string clientUUID;
 		public static int maxMsg = 69;
@@ -62,13 +62,13 @@ namespace Terraria
 		public static bool superFast = false;
 		public static bool[] hairLoaded = new bool[51];
 		public static bool[] wingsLoaded = new bool[21];
-		public static bool[] goreLoaded = new bool[431];
+		public static bool[] goreLoaded = new bool[438];
 		public static bool[] projectileLoaded = new bool[311];
-		public static bool[] itemFlameLoaded = new bool[1615];
+		public static bool[] itemFlameLoaded = new bool[1725];
 		public static bool[] backgroundLoaded = new bool[185];
 		public static bool[] tileSetsLoaded = new bool[251];
-		public static bool[] wallLoaded = new bool[112];
-		public static bool[] NPCLoaded = new bool[297];
+		public static bool[] wallLoaded = new bool[113];
+		public static bool[] NPCLoaded = new bool[301];
 		public static bool[] armorHeadLoaded = new bool[112];
 		public static bool[] armorBodyLoaded = new bool[75];
 		public static bool[] armorLegsLoaded = new bool[64];
@@ -88,7 +88,7 @@ namespace Terraria
 		public static bool showSpam = false;
 		public static bool showItemOwner = false;
 		public static int oldTempLightCount = 0;
-		public static bool[] nextNPC = new bool[297];
+		public static bool[] nextNPC = new bool[301];
 		public static int musicBox = -1;
 		public static int musicBox2 = -1;
 		public static byte hbPosition = 1;
@@ -327,7 +327,7 @@ namespace Terraria
 		public static int numDust = 6000;
 		public static int numPlayers = 0;
 		public static int maxNetPlayers = 255;
-		public static string[] chrName = new string[297];
+		public static string[] chrName = new string[301];
 		public static int maxRain = 750;
 		public int invBottom = 210;
 		public static float cameraX = 0f;
@@ -423,8 +423,8 @@ namespace Terraria
 		public static bool[,] treeAltTextureInit = new bool[Main.numTreeStyles, Main.numTileColors];
 		public static bool[,] treeAltTextureDrawn = new bool[Main.numTreeStyles, Main.numTileColors];
 		public static bool[,] checkTreeAlt = new bool[Main.numTreeStyles, Main.numTileColors];
-		public static bool[,] wallAltTextureInit = new bool[112, Main.numTileColors];
-		public static bool[,] wallAltTextureDrawn = new bool[112, Main.numTileColors];
+		public static bool[,] wallAltTextureInit = new bool[113, Main.numTileColors];
+		public static bool[,] wallAltTextureDrawn = new bool[113, Main.numTileColors];
 		public static float[] musicFade = new float[30];
 		public static float musicVolume = 0.75f;
 		public static float soundVolume = 1f;
@@ -434,10 +434,10 @@ namespace Terraria
 		public static bool[] tileAlch = new bool[251];
 		public static int[] tileShine = new int[251];
 		public static bool[] tileShine2 = new bool[251];
-		public static bool[] wallHouse = new bool[112];
-		public static bool[] wallDungeon = new bool[112];
-		public static bool[] wallLight = new bool[112];
-		public static int[] wallBlend = new int[112];
+		public static bool[] wallHouse = new bool[113];
+		public static bool[] wallDungeon = new bool[113];
+		public static bool[] wallLight = new bool[113];
+		public static int[] wallBlend = new int[113];
 		public static bool[] tileStone = new bool[251];
 		public static bool[] tilePick = new bool[251];
 		public static bool[] tileAxe = new bool[251];
@@ -568,8 +568,8 @@ namespace Terraria
 		});
 		public static string WorldPath = Main.SavePath + Path.DirectorySeparatorChar + "Worlds";
 		public static string PlayerPath = Main.SavePath + Path.DirectorySeparatorChar + "Players";
-		public static string[] itemName = new string[1615];
-		public static string[] npcName = new string[297];
+		public static string[] itemName = new string[1725];
+		public static string[] npcName = new string[301];
 		public static int invasionType = 0;
 		public static double invasionX = 0.0;
 		public static int invasionSize = 0;
@@ -1534,7 +1534,7 @@ namespace Terraria
 			Main.showSplash = false;
 			this.Initialize();
 			Lang.setLang(false);
-			for (int i = 0; i < 297; i++)
+			for (int i = 0; i < 301; i++)
 			{
 				NPC nPC = new NPC();
 				nPC.SetDefaults(i, -1f);
@@ -2564,7 +2564,8 @@ namespace Terraria
 			Main.wallHouse[109] = true;
 			Main.wallHouse[110] = true;
 			Main.wallHouse[111] = true;
-			for (int j = 0; j < 112; j++)
+			Main.wallHouse[112] = true;
+			for (int j = 0; j < 113; j++)
 			{
 				Main.wallDungeon[j] = false;
 			}
@@ -3377,7 +3378,7 @@ namespace Terraria
 			Main.wallHouse[68] = true;
 			Main.wallHouse[72] = true;
 			Main.wallHouse[73] = true;
-			for (int l = 0; l < 112; l++)
+			for (int l = 0; l < 113; l++)
 			{
 				if (l == 20)
 				{
@@ -3521,7 +3522,7 @@ namespace Terraria
 			{
 				Main.itemText[num10] = new ItemText();
 			}
-			for (int num11 = 0; num11 < 1615; num11++)
+			for (int num11 = 0; num11 < 1725; num11++)
 			{
 				Item item = new Item();
 				item.SetDefaults(num11, false);
@@ -3923,7 +3924,7 @@ namespace Terraria
 			}
 			this.LoadBackground(0);
 			this.LoadBackground(49);
-			for (int num6 = 0; num6 < 1615; num6++)
+			for (int num6 = 0; num6 < 1725; num6++)
 			{
 				Main.itemTexture[num6] = base.Content.Load<Texture2D>(string.Concat(new object[]
 				{
@@ -3943,7 +3944,7 @@ namespace Terraria
 					num7
 				}));
 			}
-			for (int num8 = 0; num8 < 297; num8++)
+			for (int num8 = 0; num8 < 301; num8++)
 			{
 				NPC nPC = new NPC();
 				nPC.SetDefaults(num8, -1f);
@@ -4828,18 +4829,23 @@ namespace Terraria
 							num6 += Main.rand.Next((int)((double)Main.screenHeight * 0.5)) + (int)((double)Main.screenHeight * 0.1);
 						}
 						num5 += (int)Main.screenPosition.X;
-						int num7 = Dust.NewDust(new Vector2((float)num5, (float)num6), 10, 10, 76, 0f, 0f, 0, default(Color), 1f);
-						Main.dust[num7].scale += Main.cloudAlpha * 0.2f;
-						Main.dust[num7].velocity.Y = 3f + (float)Main.rand.Next(30) * 0.1f;
-						Dust expr_258_cp_0 = Main.dust[num7];
-						expr_258_cp_0.velocity.Y = expr_258_cp_0.velocity.Y * Main.dust[num7].scale;
-						Main.dust[num7].velocity.X = Main.windSpeed + (float)Main.rand.Next(-10, 10) * 0.1f;
-						Dust expr_2AB_cp_0 = Main.dust[num7];
-						expr_2AB_cp_0.velocity.X = expr_2AB_cp_0.velocity.X + Main.windSpeed * Main.cloudAlpha * 10f;
-						Dust expr_2D5_cp_0 = Main.dust[num7];
-						expr_2D5_cp_0.velocity.Y = expr_2D5_cp_0.velocity.Y * (1f + 0.3f * Main.cloudAlpha);
-						Main.dust[num7].scale += Main.cloudAlpha * 0.2f;
-						Main.dust[num7].velocity *= 1f + Main.cloudAlpha * 0.5f;
+						int num7 = num5 / 16;
+						int num8 = num6 / 16;
+						if (Main.tile[num7, num8].wall == 0)
+						{
+							int num9 = Dust.NewDust(new Vector2((float)num5, (float)num6), 10, 10, 76, 0f, 0f, 0, default(Color), 1f);
+							Main.dust[num9].scale += Main.cloudAlpha * 0.2f;
+							Main.dust[num9].velocity.Y = 3f + (float)Main.rand.Next(30) * 0.1f;
+							Dust expr_27E_cp_0 = Main.dust[num9];
+							expr_27E_cp_0.velocity.Y = expr_27E_cp_0.velocity.Y * Main.dust[num9].scale;
+							Main.dust[num9].velocity.X = Main.windSpeed + (float)Main.rand.Next(-10, 10) * 0.1f;
+							Dust expr_2D1_cp_0 = Main.dust[num9];
+							expr_2D1_cp_0.velocity.X = expr_2D1_cp_0.velocity.X + Main.windSpeed * Main.cloudAlpha * 10f;
+							Dust expr_2FB_cp_0 = Main.dust[num9];
+							expr_2FB_cp_0.velocity.Y = expr_2FB_cp_0.velocity.Y * (1f + 0.3f * Main.cloudAlpha);
+							Main.dust[num9].scale += Main.cloudAlpha * 0.2f;
+							Main.dust[num9].velocity *= 1f + Main.cloudAlpha * 0.5f;
+						}
 					}
 					num4++;
 				}
@@ -9976,7 +9982,7 @@ namespace Terraria
 							Main.StartInvasion(3);
 						}
 					}
-					if (Main.hardMode && Main.rand.Next(30) == 0 && Main.netMode != 1)
+					if (Main.hardMode && NPC.downedMechBossAny && Main.rand.Next(25) == 0 && Main.netMode != 1)
 					{
 						Main.eclipse = true;
 						if (Main.eclipse)
@@ -10164,7 +10170,7 @@ namespace Terraria
 								num6++;
 							}
 						}
-						for (int num8 = 0; num8 < 297; num8++)
+						for (int num8 = 0; num8 < 301; num8++)
 						{
 							Main.nextNPC[num8] = false;
 						}

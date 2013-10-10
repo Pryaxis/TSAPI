@@ -103,6 +103,7 @@ namespace Terraria
 		private static int tempMoonPhase = Main.moonPhase;
 		private static bool tempDayTime = Main.dayTime;
 		private static bool tempBloodMoon = Main.bloodMoon;
+		private static bool tempEclipse = Main.eclipse;
 		private static double tempTime = Main.time;
 		public static bool tempRaining = false;
 		public static float tempMaxRain = 0f;
@@ -307,7 +308,7 @@ namespace Terraria
 			{
 				return true;
 			}
-			for (int i = 0; i < 297; i++)
+			for (int i = 0; i < 301; i++)
 			{
 				if (Main.nextNPC[i] && WorldGen.CheckConditions(i))
 				{
@@ -1298,6 +1299,7 @@ namespace Terraria
 			Main.cloudAlpha = WorldGen.tempMaxRain;
 			Main.moonPhase = WorldGen.tempMoonPhase;
 			Main.bloodMoon = WorldGen.tempBloodMoon;
+			Main.eclipse = WorldGen.tempEclipse;
 		}
 		public static void serverLoadWorld()
 		{
@@ -1510,12 +1512,14 @@ namespace Terraria
 					WorldGen.tempTime = Main.time;
 					WorldGen.tempMoonPhase = Main.moonPhase;
 					WorldGen.tempBloodMoon = Main.bloodMoon;
+					WorldGen.tempEclipse = Main.eclipse;
 					if (resetTime)
 					{
 						value = true;
 						WorldGen.tempTime = 13500.0;
 						WorldGen.tempMoonPhase = 0;
 						WorldGen.tempBloodMoon = false;
+						WorldGen.tempEclipse = false;
 					}
 					if (Main.worldPathName != null)
 					{
@@ -1561,6 +1565,7 @@ namespace Terraria
 								binaryWriter.Write(value);
 								binaryWriter.Write(WorldGen.tempMoonPhase);
 								binaryWriter.Write(WorldGen.tempBloodMoon);
+								binaryWriter.Write(WorldGen.tempEclipse);
 								binaryWriter.Write(Main.dungeonX);
 								binaryWriter.Write(Main.dungeonY);
 								binaryWriter.Write(WorldGen.crimson);
@@ -2248,6 +2253,11 @@ namespace Terraria
 							WorldGen.tempDayTime = binaryReader.ReadBoolean();
 							WorldGen.tempMoonPhase = binaryReader.ReadInt32();
 							WorldGen.tempBloodMoon = binaryReader.ReadBoolean();
+							if (num >= 70)
+							{
+								WorldGen.tempEclipse = binaryReader.ReadBoolean();
+								Main.eclipse = WorldGen.tempEclipse;
+							}
 							Main.dungeonX = binaryReader.ReadInt32();
 							Main.dungeonY = binaryReader.ReadInt32();
 							if (num >= 56)
@@ -4497,7 +4507,7 @@ namespace Terraria
 					{
 						if (Main.tile[num24, num25].active())
 						{
-							if (num24 == (num21 + num22) / 2 && WorldGen.genRand.Next(10) == 0)
+							if (num24 == (num21 + num22) / 2 && WorldGen.genRand.Next(7) == 0)
 							{
 								array3[num17] = num24;
 								array4[num17] = num25;
@@ -19589,109 +19599,116 @@ namespace Terraria
 				}
 				if (type == 15)
 				{
-					if (num2 == 5)
+					if (num2 >= 18 && num2 <= 23)
 					{
-						Item.NewItem(x * 16, num * 16, 32, 32, 806, 1, false, 0, false);
+						Item.NewItem(x * 16, num * 16, 32, 32, 1703 + num2 - 18, 1, false, 0, false);
 					}
 					else
 					{
-						if (num2 == 6)
+						if (num2 == 5)
 						{
-							Item.NewItem(x * 16, num * 16, 32, 32, 807, 1, false, 0, false);
+							Item.NewItem(x * 16, num * 16, 32, 32, 806, 1, false, 0, false);
 						}
 						else
 						{
-							if (num2 == 7)
+							if (num2 == 6)
 							{
-								Item.NewItem(x * 16, num * 16, 32, 32, 808, 1, false, 0, false);
+								Item.NewItem(x * 16, num * 16, 32, 32, 807, 1, false, 0, false);
 							}
 							else
 							{
-								if (num2 == 8)
+								if (num2 == 7)
 								{
-									Item.NewItem(x * 16, num * 16, 32, 32, 809, 1, false, 0, false);
+									Item.NewItem(x * 16, num * 16, 32, 32, 808, 1, false, 0, false);
 								}
 								else
 								{
-									if (num2 == 9)
+									if (num2 == 8)
 									{
-										Item.NewItem(x * 16, num * 16, 32, 32, 810, 1, false, 0, false);
+										Item.NewItem(x * 16, num * 16, 32, 32, 809, 1, false, 0, false);
 									}
 									else
 									{
-										if (num2 == 10)
+										if (num2 == 9)
 										{
-											Item.NewItem(x * 16, num * 16, 32, 32, 826, 1, false, 0, false);
+											Item.NewItem(x * 16, num * 16, 32, 32, 810, 1, false, 0, false);
 										}
 										else
 										{
-											if (num2 == 11)
+											if (num2 == 10)
 											{
-												Item.NewItem(x * 16, num * 16, 32, 32, 915, 1, false, 0, false);
+												Item.NewItem(x * 16, num * 16, 32, 32, 826, 1, false, 0, false);
 											}
 											else
 											{
-												if (num2 == 13)
+												if (num2 == 11)
 												{
-													Item.NewItem(x * 16, num * 16, 32, 32, 1396, 1, false, 0, false);
+													Item.NewItem(x * 16, num * 16, 32, 32, 915, 1, false, 0, false);
 												}
 												else
 												{
-													if (num2 == 14)
+													if (num2 == 13)
 													{
-														Item.NewItem(x * 16, num * 16, 32, 32, 1399, 1, false, 0, false);
+														Item.NewItem(x * 16, num * 16, 32, 32, 1396, 1, false, 0, false);
 													}
 													else
 													{
-														if (num2 == 15)
+														if (num2 == 14)
 														{
-															Item.NewItem(x * 16, num * 16, 32, 32, 1402, 1, false, 0, false);
+															Item.NewItem(x * 16, num * 16, 32, 32, 1399, 1, false, 0, false);
 														}
 														else
 														{
-															if (num2 == 12)
+															if (num2 == 15)
 															{
-																Item.NewItem(x * 16, num * 16, 32, 32, 1143, 1, false, 0, false);
+																Item.NewItem(x * 16, num * 16, 32, 32, 1402, 1, false, 0, false);
 															}
 															else
 															{
-																if (num2 == 4)
+																if (num2 == 12)
 																{
-																	Item.NewItem(x * 16, num * 16, 32, 32, 630, 1, false, 0, false);
+																	Item.NewItem(x * 16, num * 16, 32, 32, 1143, 1, false, 0, false);
 																}
 																else
 																{
-																	if (num2 == 3)
+																	if (num2 == 4)
 																	{
-																		Item.NewItem(x * 16, num * 16, 32, 32, 629, 1, false, 0, false);
+																		Item.NewItem(x * 16, num * 16, 32, 32, 630, 1, false, 0, false);
 																	}
 																	else
 																	{
-																		if (num2 == 2)
+																		if (num2 == 3)
 																		{
-																			Item.NewItem(x * 16, num * 16, 32, 32, 628, 1, false, 0, false);
+																			Item.NewItem(x * 16, num * 16, 32, 32, 629, 1, false, 0, false);
 																		}
 																		else
 																		{
-																			if (num2 == 17)
+																			if (num2 == 2)
 																			{
-																				Item.NewItem(x * 16, num * 16, 32, 32, 1509, 1, false, 0, false);
+																				Item.NewItem(x * 16, num * 16, 32, 32, 628, 1, false, 0, false);
 																			}
 																			else
 																			{
-																				if (num2 == 1)
+																				if (num2 == 17)
 																				{
-																					Item.NewItem(x * 16, num * 16, 32, 32, 358, 1, false, 0, false);
+																					Item.NewItem(x * 16, num * 16, 32, 32, 1509, 1, false, 0, false);
 																				}
 																				else
 																				{
-																					if (num2 == 16)
+																					if (num2 == 1)
 																					{
-																						Item.NewItem(x * 16, num * 16, 32, 32, 1459, 1, false, 0, false);
+																						Item.NewItem(x * 16, num * 16, 32, 32, 358, 1, false, 0, false);
 																					}
 																					else
 																					{
-																						Item.NewItem(x * 16, num * 16, 32, 32, 34, 1, false, 0, false);
+																						if (num2 == 16)
+																						{
+																							Item.NewItem(x * 16, num * 16, 32, 32, 1459, 1, false, 0, false);
+																						}
+																						else
+																						{
+																							Item.NewItem(x * 16, num * 16, 32, 32, 34, 1, false, 0, false);
+																						}
 																					}
 																				}
 																			}
@@ -21167,31 +21184,38 @@ namespace Terraria
 				if (type == 91)
 				{
 					int num2 = frameX / 18;
-					if (num2 >= 10 && num2 <= 15)
+					if (num2 >= 22)
 					{
-						Item.NewItem(x * 16, (num + 1) * 16, 32, 32, 1441 + num2, 1, false, 0, false);
+						Item.NewItem(x * 16, (num + 1) * 16, 32, 32, 1593 + num2, 1, false, 0, false);
 					}
 					else
 					{
-						if (num2 >= 16 && num2 <= 21)
+						if (num2 >= 10 && num2 <= 15)
 						{
-							Item.NewItem(x * 16, (num + 1) * 16, 32, 32, 1448 + num2, 1, false, 0, false);
+							Item.NewItem(x * 16, (num + 1) * 16, 32, 32, 1441 + num2, 1, false, 0, false);
 						}
 						else
 						{
-							if (num2 >= 7 && num2 <= 9)
+							if (num2 >= 16 && num2 <= 21)
 							{
-								Item.NewItem(x * 16, (num + 1) * 16, 32, 32, 838 + num2, 1, false, 0, false);
+								Item.NewItem(x * 16, (num + 1) * 16, 32, 32, 1448 + num2, 1, false, 0, false);
 							}
 							else
 							{
-								if (num2 >= 4 && num2 <= 6)
+								if (num2 >= 7 && num2 <= 9)
 								{
-									Item.NewItem(x * 16, (num + 1) * 16, 32, 32, 785 + num2, 1, false, 0, false);
+									Item.NewItem(x * 16, (num + 1) * 16, 32, 32, 838 + num2, 1, false, 0, false);
 								}
 								else
 								{
-									Item.NewItem(x * 16, (num + 1) * 16, 32, 32, 337 + num2, 1, false, 0, false);
+									if (num2 >= 4 && num2 <= 6)
+									{
+										Item.NewItem(x * 16, (num + 1) * 16, 32, 32, 785 + num2, 1, false, 0, false);
+									}
+									else
+									{
+										Item.NewItem(x * 16, (num + 1) * 16, 32, 32, 337 + num2, 1, false, 0, false);
+									}
 								}
 							}
 						}
@@ -21924,13 +21948,20 @@ namespace Terraria
 						}
 						else
 						{
-							if (num2 >= 5 && num2 <= 8)
+							if (num2 >= 9 && num2 <= 12)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 1465 + num2, 1, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 1710 + num2, 1, false, 0, false);
 							}
 							else
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, num2 + 643, 1, false, 0, false);
+								if (num2 >= 5 && num2 <= 8)
+								{
+									Item.NewItem(i * 16, j * 16, 32, 32, 1465 + num2, 1, false, 0, false);
+								}
+								else
+								{
+									Item.NewItem(i * 16, j * 16, 32, 32, num2 + 643, 1, false, 0, false);
+								}
 							}
 						}
 					}
@@ -22742,6 +22773,10 @@ namespace Terraria
 					{
 						type2 = 637 + num2;
 					}
+					if (num2 >= 15 && num2 <= 20)
+					{
+						type2 = 1698 + num2;
+					}
 					if (num2 >= 4 && num2 <= 7)
 					{
 						type2 = 823 + num2;
@@ -23333,6 +23368,10 @@ namespace Terraria
 				if (num == 0)
 				{
 					Item.NewItem(i * 16, j * 16, 32, 32, 928, 1, false, 0, false);
+				}
+				if (num == 1)
+				{
+					Item.NewItem(i * 16, j * 16, 32, 32, 1337, 1, false, 0, false);
 				}
 				WorldGen.destroyObject = false;
 				for (int num7 = k; num7 < k + 4; num7++)
@@ -25513,12 +25552,21 @@ namespace Terraria
 													}
 													else
 													{
-														if (Main.tile[k, l].type == 32)
+														if (Main.tile[k, l].type == 70)
 														{
-															WorldGen.KillTile(k, l, false, false, false);
-															if (Main.netMode == 1)
+															Main.tile[k, l].type = 60;
+															WorldGen.SquareTileFrame(k, l, true);
+															NetMessage.SendTileSquare(-1, k, l, 1);
+														}
+														else
+														{
+															if (Main.tile[k, l].type == 32)
 															{
-																NetMessage.SendData(17, -1, -1, "", 0, (float)k, (float)l, 0f, 0);
+																WorldGen.KillTile(k, l, false, false, false);
+																if (Main.netMode == 1)
+																{
+																	NetMessage.SendData(17, -1, -1, "", 0, (float)k, (float)l, 0f, 0);
+																}
 															}
 														}
 													}
@@ -27183,7 +27231,7 @@ namespace Terraria
 														{
 															Main.tile[i, j + 1] = new Tile();
 														}
-														if ((Main.tile[i - 1, j].nactive() && !Main.tile[i - 1, j].halfBrick() && Main.tile[i - 1, j].slope() == 0 && (WorldGen.SolidTile(i - 1, j) || Main.tile[i - 1, j].type == 124 || (Main.tile[i - 1, j].type == 5 && Main.tile[i - 1, j - 1].type == 5 && Main.tile[i - 1, j + 1].type == 5))) || (Main.tile[i + 1, j].nactive() && !Main.tile[i + 1, j].halfBrick() && Main.tile[i + 1, j].slope() == 0 && (WorldGen.SolidTile(i + 1, j) || Main.tile[i + 1, j].type == 124 || (Main.tile[i + 1, j].type == 5 && Main.tile[i + 1, j - 1].type == 5 && Main.tile[i + 1, j + 1].type == 5))) || (Main.tile[i, j + 1].nactive() && !Main.tile[i, j + 1].halfBrick() && WorldGen.SolidTile(i, j + 1) && Main.tile[i, j + 1].slope() == 0))
+														if ((Main.tile[i - 1, j].nactive() && !Main.tile[i - 1, j].halfBrick() && Main.tile[i - 1, j].type != 10 && Main.tile[i - 1, j].slope() == 0 && (WorldGen.SolidTile(i - 1, j) || Main.tile[i - 1, j].type == 124 || (Main.tile[i - 1, j].type == 5 && Main.tile[i - 1, j - 1].type == 5 && Main.tile[i - 1, j + 1].type == 5))) || (Main.tile[i + 1, j].nactive() && !Main.tile[i + 1, j].halfBrick() && Main.tile[i + 1, j].type != 10 && Main.tile[i + 1, j].slope() == 0 && (WorldGen.SolidTile(i + 1, j) || Main.tile[i + 1, j].type == 124 || (Main.tile[i + 1, j].type == 5 && Main.tile[i + 1, j - 1].type == 5 && Main.tile[i + 1, j + 1].type == 5))) || (Main.tile[i, j + 1].nactive() && !Main.tile[i, j + 1].halfBrick() && WorldGen.SolidTile(i, j + 1) && Main.tile[i, j + 1].slope() == 0))
 														{
 															Main.tile[i, j].active(true);
 															Main.tile[i, j].type = (byte)type;
@@ -28657,7 +28705,7 @@ namespace Terraria
 																																										int num42 = 0;
 																																										for (int num43 = 0; num43 < 200; num43++)
 																																										{
-																																											if (Main.npc[num43].active && (Main.npc[num43].type == 17 || Main.npc[num43].type == 19 || Main.npc[num43].type == 22 || Main.npc[num43].type == 38 || Main.npc[num43].type == 54 || Main.npc[num43].type == 107 || Main.npc[num43].type == 108))
+																																											if (Main.npc[num43].active && (Main.npc[num43].type == 17 || Main.npc[num43].type == 19 || Main.npc[num43].type == 22 || Main.npc[num43].type == 38 || Main.npc[num43].type == 54 || Main.npc[num43].type == 107 || Main.npc[num43].type == 108 || Main.npc[num43].type == 142 || Main.npc[num43].type == 160 || Main.npc[num43].type == 207 || Main.npc[num43].type == 209 || Main.npc[num43].type == 227 || Main.npc[num43].type == 228 || Main.npc[num43].type == 229))
 																																											{
 																																												array[num42] = num43;
 																																												num42++;
@@ -28684,7 +28732,7 @@ namespace Terraria
 																																										int num45 = 0;
 																																										for (int num46 = 0; num46 < 200; num46++)
 																																										{
-																																											if (Main.npc[num46].active && (Main.npc[num46].type == 18 || Main.npc[num46].type == 20 || Main.npc[num46].type == 124))
+																																											if (Main.npc[num46].active && (Main.npc[num46].type == 18 || Main.npc[num46].type == 20 || Main.npc[num46].type == 124 || Main.npc[num46].type == 178 || Main.npc[num46].type == 208))
 																																											{
 																																												array2[num45] = num46;
 																																												num45++;
@@ -29327,6 +29375,14 @@ namespace Terraria
 					{
 						num3 = 1594;
 					}
+					if (Main.tile[i, j].wall == 78)
+					{
+						num3 = 1723;
+					}
+					if (Main.tile[i, j].wall == 87 || Main.tile[i, j].wall == 112)
+					{
+						num3 = 1102;
+					}
 					if (Main.tile[i, j].wall == 94 || Main.tile[i, j].wall == 100)
 					{
 						num3 = 1378;
@@ -29594,9 +29650,13 @@ namespace Terraria
 						{
 							num5 = 6;
 						}
-						if (Main.tile[i, j].type == 10 || Main.tile[i, j].type == 11 || Main.tile[i, j].type == 30 || Main.tile[i, j].type == 86 || Main.tile[i, j].type == 89 || Main.tile[i, j].type == 93 || Main.tile[i, j].type == 94 || Main.tile[i, j].type == 104 || Main.tile[i, j].type == 106 || Main.tile[i, j].type == 114 || Main.tile[i, j].type == 124 || Main.tile[i, j].type == 128 || Main.tile[i, j].type == 139)
+						if (Main.tile[i, j].type == 30 || Main.tile[i, j].type == 86 || Main.tile[i, j].type == 89 || Main.tile[i, j].type == 93 || Main.tile[i, j].type == 94 || Main.tile[i, j].type == 104 || Main.tile[i, j].type == 106 || Main.tile[i, j].type == 114 || Main.tile[i, j].type == 124 || Main.tile[i, j].type == 128 || Main.tile[i, j].type == 139)
 						{
 							num5 = 7;
+						}
+						if (Main.tile[i, j].type == 10 || Main.tile[i, j].type == 11)
+						{
+							num5 = -1;
 						}
 						if (Main.tile[i, j].type == 240)
 						{
@@ -29686,7 +29746,14 @@ namespace Terraria
 													}
 													else
 													{
-														num5 = 1;
+														if (num8 == 14)
+														{
+															num5 = 13;
+														}
+														else
+														{
+															num5 = 1;
+														}
 													}
 												}
 											}
@@ -29734,7 +29801,14 @@ namespace Terraria
 												}
 												else
 												{
-													num5 = 1;
+													if (num9 >= 9)
+													{
+														num5 = -1;
+													}
+													else
+													{
+														num5 = 1;
+													}
 												}
 											}
 										}
@@ -29868,6 +29942,10 @@ namespace Terraria
 										}
 									}
 								}
+							}
+							if (Main.tile[i, j].type == 14 && num11 >= 15)
+							{
+								num5 = -1;
 							}
 							if (Main.tile[i, j].type == 14 && num11 == 9)
 							{
@@ -30320,97 +30398,104 @@ namespace Terraria
 						}
 						if (Main.tile[i, j].type == 15)
 						{
-							if (Main.tile[i, j].frameY >= 680)
+							if (Main.tile[i, j].frameY >= 720)
 							{
-								num5 = 126;
+								num5 = -1;
 							}
 							else
 							{
-								if (Main.tile[i, j].frameY >= 640)
+								if (Main.tile[i, j].frameY >= 680)
 								{
-									num5 = 109;
+									num5 = 126;
 								}
 								else
 								{
-									if (Main.tile[i, j].frameY >= 520)
+									if (Main.tile[i, j].frameY >= 640)
 									{
-										num5 = 1;
+										num5 = 109;
 									}
 									else
 									{
-										if (Main.tile[i, j].frameY >= 480)
+										if (Main.tile[i, j].frameY >= 520)
 										{
-											num5 = 148;
+											num5 = 1;
 										}
 										else
 										{
-											if (Main.tile[i, j].frameY >= 440)
+											if (Main.tile[i, j].frameY >= 480)
 											{
-												num5 = 126;
+												num5 = 148;
 											}
 											else
 											{
-												if (Main.tile[i, j].frameY >= 400)
+												if (Main.tile[i, j].frameY >= 440)
 												{
-													num5 = 116;
+													num5 = 126;
 												}
 												else
 												{
-													if (Main.tile[i, j].frameY >= 360)
+													if (Main.tile[i, j].frameY >= 400)
 													{
-														num5 = 26;
+														num5 = 116;
 													}
 													else
 													{
-														if (Main.tile[i, j].frameY >= 320)
+														if (Main.tile[i, j].frameY >= 360)
 														{
-															num5 = 5;
+															num5 = 26;
 														}
 														else
 														{
-															if (Main.tile[i, j].frameY >= 280)
+															if (Main.tile[i, j].frameY >= 320)
 															{
-																num5 = 26;
+																num5 = 5;
 															}
 															else
 															{
-																if (Main.tile[i, j].frameY >= 240)
+																if (Main.tile[i, j].frameY >= 280)
 																{
-																	num5 = 40;
+																	num5 = 26;
 																}
 																else
 																{
-																	if (Main.tile[i, j].frameY >= 200)
+																	if (Main.tile[i, j].frameY >= 240)
 																	{
-																		num5 = 7;
+																		num5 = 40;
 																	}
 																	else
 																	{
-																		if (Main.tile[i, j].frameY >= 160)
+																		if (Main.tile[i, j].frameY >= 200)
 																		{
-																			num5 = 79;
+																			num5 = 7;
 																		}
 																		else
 																		{
-																			if (Main.tile[i, j].frameY >= 120)
+																			if (Main.tile[i, j].frameY >= 160)
 																			{
-																				num5 = 78;
+																				num5 = 79;
 																			}
 																			else
 																			{
-																				if (Main.tile[i, j].frameY >= 80)
+																				if (Main.tile[i, j].frameY >= 120)
 																				{
-																					num5 = 77;
+																					num5 = 78;
 																				}
 																				else
 																				{
-																					if (Main.tile[i, j].frameY >= 40)
+																					if (Main.tile[i, j].frameY >= 80)
 																					{
-																						num5 = 1;
+																						num5 = 77;
 																					}
 																					else
 																					{
-																						num5 = 7;
+																						if (Main.tile[i, j].frameY >= 40)
+																						{
+																							num5 = 1;
+																						}
+																						else
+																						{
+																							num5 = 7;
+																						}
 																					}
 																				}
 																			}
@@ -32111,6 +32196,13 @@ namespace Terraria
 																																																																								{
 																																																																									num26 = 1457;
 																																																																								}
+																																																																								else
+																																																																								{
+																																																																									if (num38 == 14)
+																																																																									{
+																																																																										num26 = 1702;
+																																																																									}
+																																																																								}
 																																																																							}
 																																																																						}
 																																																																					}
@@ -33052,7 +33144,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (NPC.downedMechBossAny)
+				if (NPC.downedPlantBoss && WorldGen.genRand.Next(3) != 0)
 				{
 					return;
 				}
@@ -35742,7 +35834,7 @@ namespace Terraria
 										}
 									}
 								}
-								if (flag22)
+								if (flag22 && !Main.tile[num53, num54].active())
 								{
 									WorldGen.PlaceTile(num53, num54, 51, true, false, -1, 0);
 									WorldGen.TileFrame(num53, num54, true, false);
@@ -39880,7 +39972,7 @@ namespace Terraria
 					return false;
 				}
 			}
-			return (!Main.tile[i, j - 1].active() || (Main.tile[i, j - 1].type != 5 && Main.tile[i, j - 1].type != 26 && Main.tile[i, j - 1].type != 21 && Main.tile[i, j - 1].type != 77)) && Main.tile[i, j].type != 10;
+			return (!Main.tile[i, j - 1].active() || (Main.tile[i, j - 1].type != 5 && Main.tile[i, j - 1].type != 26 && Main.tile[i, j - 1].type != 21 && Main.tile[i, j - 1].type != 77 && Main.tile[i, j - 1].type != 237)) && Main.tile[i, j].type != 10;
 		}
 		public static bool SlopeTile(int i, int j, int slope = 0)
 		{
@@ -40470,15 +40562,22 @@ namespace Terraria
 																													}
 																													else
 																													{
-																														if (num27 >= 4 && num27 <= 8)
+																														if (num27 >= 20 && num27 <= 23)
 																														{
-																															Item.NewItem(i * 16, j * 16, 16, 16, 812 + num27, 1, false, 0, false);
+																															Item.NewItem(i * 16, j * 16, 16, 16, 1709 + num27 - 20, 1, false, 0, false);
 																														}
 																														else
 																														{
-																															if (num27 != 11)
+																															if (num27 >= 4 && num27 <= 8)
 																															{
-																																Item.NewItem(i * 16, j * 16, 16, 16, 649 + num27, 1, false, 0, false);
+																																Item.NewItem(i * 16, j * 16, 16, 16, 812 + num27, 1, false, 0, false);
+																															}
+																															else
+																															{
+																																if (num27 != 11)
+																																{
+																																	Item.NewItem(i * 16, j * 16, 16, 16, 649 + num27, 1, false, 0, false);
+																																}
 																															}
 																														}
 																													}
@@ -40621,13 +40720,20 @@ namespace Terraria
 																														}
 																														else
 																														{
-																															if (num31 >= 4 && num31 <= 8)
+																															if (num31 >= 20 && num31 <= 23)
 																															{
-																																Item.NewItem(i * 16, j * 16, 16, 16, 812 + num31, 1, false, 0, false);
+																																Item.NewItem(i * 16, j * 16, 16, 16, 1709 + num31 - 20, 1, false, 0, false);
 																															}
 																															else
 																															{
-																																Item.NewItem(i * 16, j * 16, 16, 16, 649 + num31, 1, false, 0, false);
+																																if (num31 >= 4 && num31 <= 8)
+																																{
+																																	Item.NewItem(i * 16, j * 16, 16, 16, 812 + num31, 1, false, 0, false);
+																																}
+																																else
+																																{
+																																	Item.NewItem(i * 16, j * 16, 16, 16, 649 + num31, 1, false, 0, false);
+																																}
 																															}
 																														}
 																													}

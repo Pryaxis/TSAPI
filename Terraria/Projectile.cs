@@ -17,6 +17,7 @@ namespace Terraria
 		public Vector2[] oldPos = new Vector2[10];
 		public int[] playerImmune = new int[(int)byte.MaxValue];
 		public string miscText = "";
+		public int numHits;
 		public bool netImportant;
 		public bool noDropItem;
 		public bool wet;
@@ -69,6 +70,7 @@ namespace Terraria
 
 		public void SetDefaults(int Type)
 		{
+			this.numHits = 0;
 			this.netImportant = false;
 			for (int index = 0; index < this.oldPos.Length; ++index)
 			{
@@ -2221,18 +2223,17 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.timeLeft = 60;
 			}
-			else if (this.type == 188)
+			else if (this.type == 85)
 			{
 				this.name = "Flames";
 				this.width = 6;
 				this.height = 6;
 				this.aiStyle = 23;
 				this.friendly = true;
-				this.hostile = true;
 				this.alpha = (int)byte.MaxValue;
-				this.penetrate = -1;
+				this.penetrate = 3;
 				this.maxUpdates = 2;
-				this.magic = true;
+				this.ranged = true;
 			}
 			else if (this.type == 189)
 			{
@@ -3592,7 +3593,7 @@ namespace Terraria
 				this.aiStyle = 33;
 				this.friendly = true;
 				this.penetrate = -1;
-				this.alpha = (int) byte.MaxValue;
+				this.alpha = (int)byte.MaxValue;
 				this.timeLeft = 36000;
 			}
 			else
@@ -3899,25 +3900,28 @@ namespace Terraria
 
 		public void ghostHeal(int dmg, Vector2 Position)
 		{
-			float ai1 = (float)dmg * 0.1f;
-			if ((int)ai1 == 0 || !this.magic)
+			float num1 = 0.1f - (float)this.numHits * 0.02f;
+			if ((double)num1 <= 0.0)
 				return;
-			float num1 = 0.0f;
-			int num2 = this.owner;
+			float ai1 = (float)dmg * num1;
+			if ((int)ai1 <= 0 || !this.magic)
+				return;
+			float num2 = 0.0f;
+			int num3 = this.owner;
 			for (int index = 0; index < (int)byte.MaxValue; ++index)
 			{
-				if (Main.player[index].active && !Main.player[index].dead && (!Main.player[this.owner].hostile && !Main.player[index].hostile || Main.player[this.owner].team == Main.player[index].team) && ((double)(Math.Abs(Main.player[index].position.X + (float)(Main.player[index].width / 2) - this.position.X + (float)(this.width / 2)) + Math.Abs(Main.player[index].position.Y + (float)(Main.player[index].height / 2) - this.position.Y + (float)(this.height / 2))) < 800.0 && (double)(Main.player[index].statLifeMax - Main.player[index].statLife) > (double)num1))
+				if (Main.player[index].active && !Main.player[index].dead && (!Main.player[this.owner].hostile && !Main.player[index].hostile || Main.player[this.owner].team == Main.player[index].team) && ((double)(Math.Abs(Main.player[index].position.X + (float)(Main.player[index].width / 2) - this.position.X + (float)(this.width / 2)) + Math.Abs(Main.player[index].position.Y + (float)(Main.player[index].height / 2) - this.position.Y + (float)(this.height / 2))) < 800.0 && (double)(Main.player[index].statLifeMax - Main.player[index].statLife) > (double)num2))
 				{
-					num1 = (float)(Main.player[index].statLifeMax - Main.player[index].statLife);
-					num2 = index;
+					num2 = (float)(Main.player[index].statLifeMax - Main.player[index].statLife);
+					num3 = index;
 				}
 			}
-			Projectile.NewProjectile(Position.X, Position.Y, 0.0f, 0.0f, 298, 0, 0.0f, this.owner, (float)num2, ai1);
+			Projectile.NewProjectile(Position.X, Position.Y, 0.0f, 0.0f, 298, 0, 0.0f, this.owner, (float)num3, ai1);
 		}
 
 		public void vampireHeal(int dmg, Vector2 Position)
 		{
-			float ai1 = (float)dmg * 0.1f;
+			float ai1 = (float)dmg * 0.075f;
 			if ((int)ai1 == 0)
 				return;
 			int num = this.owner;
@@ -4121,6 +4125,8 @@ namespace Terraria
 									if (this.magic && Main.rand.Next(1, 101) <= Main.player[this.owner].magicCrit)
 										crit = true;
 									int Damage = Main.DamageVar((float)this.damage);
+									if (this.type == 294)
+										this.damage = (int)((double)this.damage * 0.8);
 									if (this.type == 261)
 									{
 										float num = (float)Math.Sqrt((double)this.velocity.X * (double)this.velocity.X + (double)this.velocity.Y * (double)this.velocity.Y);
@@ -4138,7 +4144,7 @@ namespace Terraria
 										this.vampireHeal(dmg, new Vector2(Main.npc[index].center().X, Main.npc[index].center().Y));
 									if (this.melee && (int)Main.player[this.owner].meleeEnchant == 7)
 										Projectile.NewProjectile(Main.npc[index].center().X, Main.npc[index].center().Y, Main.npc[index].velocity.X, Main.npc[index].velocity.Y, 289, 0, 0.0f, this.owner, 0.0f, 0.0f);
-									if (Main.player[this.owner].coins && Main.rand.Next(5) == 0)
+									if ((double)Main.npc[index].value > 0.0 && Main.player[this.owner].coins && Main.rand.Next(5) == 0)
 									{
 										int Type = 71;
 										if (Main.rand.Next(10) == 0)
@@ -4663,7 +4669,7 @@ namespace Terraria
 		{
 			if (!this.active)
 				return;
-			if (Main.player[this.owner].frostBurn && (this.melee || this.ranged) && Main.rand.Next(2 * (1 + this.maxUpdates)) == 0)
+			if (Main.player[this.owner].frostBurn && (this.melee || this.ranged) && (this.friendly && !this.hostile && Main.rand.Next(2 * (1 + this.maxUpdates)) == 0))
 			{
 				int index = Dust.NewDust(this.position, this.width, this.height, 135, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, new Color(), 2f);
 				Main.dust[index].noGravity = true;
@@ -6937,7 +6943,7 @@ namespace Terraria
 																NetMessage.SendTileSquare(-1, num89, num90, 1);
 															}
 														}
-														if (Main.tile[num89, num90].type == 163)
+														if (Main.tile[num89, num90].type == 163 || Main.tile[num89, num90].type == 200)
 														{
 															Main.tile[num89, num90].type = 161;
 															WorldGen.SquareTileFrame(num89, num90, true);
@@ -12836,7 +12842,7 @@ namespace Terraria
 																																		}
 																																		if (this.type == 307)
 																																		{
-																																		num432 = 9f;
+																																			num432 = 9f;
 																																			num433 = 0.2f;
 																																		}
 																																		Vector2 vector29 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
@@ -13903,7 +13909,7 @@ namespace Terraria
 																																													{
 																																														this.ai[0] += 3f;
 																																													}
-																																													float num517 = 40f;
+																																													float num517 = 25f;
 																																													if (this.ai[0] > 180f)
 																																													{
 																																														num517 -= (this.ai[0] - 180f) / 2f;
@@ -13965,7 +13971,7 @@ namespace Terraria
 																																																Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 8);
 																																																this.localAI[0] += 1f;
 																																															}
-																																															for (int num526 = 0; num526 < 10; num526++)
+																																															for (int num526 = 0; num526 < 9; num526++)
 																																															{
 																																																int num527 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 175, 0f, 0f, 100, default(Color), 1.3f);
 																																																Main.dust[num527].noGravity = true;
@@ -15974,7 +15980,7 @@ namespace Terraria
 								if (Main.tile[i1, j1] != null && Main.tile[i1, j1].active())
 								{
 									flag2 = true;
-									if (Main.tileDungeon[(int)Main.tile[i1, j1].type] || (int)Main.tile[i1, j1].type == 21 || ((int)Main.tile[i1, j1].type == 26 || (int)Main.tile[i1, j1].type == 107) || ((int)Main.tile[i1, j1].type == 108 || (int)Main.tile[i1, j1].type == 111 || ((int)Main.tile[i1, j1].type == 226 || (int)Main.tile[i1, j1].type == 237)) || ((int)Main.tile[i1, j1].type == 221 || (int)Main.tile[i1, j1].type == 222 || ((int)Main.tile[i1, j1].type == 223  || (int) Main.tile[i1, j1].type == 211)))
+									if (Main.tileDungeon[(int)Main.tile[i1, j1].type] || (int)Main.tile[i1, j1].type == 21 || ((int)Main.tile[i1, j1].type == 26 || (int)Main.tile[i1, j1].type == 107) || ((int)Main.tile[i1, j1].type == 108 || (int)Main.tile[i1, j1].type == 111 || ((int)Main.tile[i1, j1].type == 226 || (int)Main.tile[i1, j1].type == 237)) || ((int)Main.tile[i1, j1].type == 221 || (int)Main.tile[i1, j1].type == 222 || ((int)Main.tile[i1, j1].type == 223 || (int)Main.tile[i1, j1].type == 211)))
 										flag2 = false;
 									if (!Main.hardMode && (int)Main.tile[i1, j1].type == 58)
 										flag2 = false;
@@ -16154,21 +16160,27 @@ namespace Terraria
 										WorldGen.SquareTileFrame(index1, index2, true);
 										NetMessage.SendTileSquare(-1, index1, index2, 1);
 									}
-									else if ((int)Main.tile[index1, index2].type == 53)
+									else if ((int)Main.tile[index1, index2].type == 53 || (int)Main.tile[index1, index2].type == 234)
 									{
 										Main.tile[index1, index2].type = (byte)116;
 										WorldGen.SquareTileFrame(index1, index2, true);
 										NetMessage.SendTileSquare(-1, index1, index2, 1);
 									}
-									else if ((int)Main.tile[index1, index2].type == 23)
+									else if ((int)Main.tile[index1, index2].type == 23 || (int)Main.tile[index1, index2].type == 199)
 									{
 										Main.tile[index1, index2].type = (byte)109;
 										WorldGen.SquareTileFrame(index1, index2, true);
 										NetMessage.SendTileSquare(-1, index1, index2, 1);
 									}
-									else if ((int)Main.tile[index1, index2].type == 25)
+									else if ((int)Main.tile[index1, index2].type == 25 || (int)Main.tile[index1, index2].type == 203)
 									{
 										Main.tile[index1, index2].type = (byte)117;
+										WorldGen.SquareTileFrame(index1, index2, true);
+										NetMessage.SendTileSquare(-1, index1, index2, 1);
+									}
+									else if ((int)Main.tile[index1, index2].type == 161 || (int)Main.tile[index1, index2].type == 163 || (int)Main.tile[index1, index2].type == 200)
+									{
+										Main.tile[index1, index2].type = (byte)164;
 										WorldGen.SquareTileFrame(index1, index2, true);
 										NetMessage.SendTileSquare(-1, index1, index2, 1);
 									}
@@ -16221,7 +16233,7 @@ namespace Terraria
 									WorldGen.SquareTileFrame(index1, index2, true);
 									NetMessage.SendTileSquare(-1, index1, index2, 1);
 								}
-								else if ((int)Main.tile[index1, index2].type == 161 || (int)Main.tile[index1, index2].type == 164)
+								else if ((int)Main.tile[index1, index2].type == 161 || (int)Main.tile[index1, index2].type == 164 || (int)Main.tile[index1, index2].type == 200)
 								{
 									Main.tile[index1, index2].type = (byte)163;
 									WorldGen.SquareTileFrame(index1, index2, true);
@@ -16262,8 +16274,8 @@ namespace Terraria
 			}
 			else
 			{
-        		if (this.type == 5)
-          			return new Color((int) byte.MaxValue, (int) byte.MaxValue, (int) byte.MaxValue, 0);
+				if (this.type == 5)
+					return new Color((int)byte.MaxValue, (int)byte.MaxValue, (int)byte.MaxValue, 0);
 				if (this.type == 300 || this.type == 301)
 					return new Color(250, 250, 250, 50);
 				if (this.type == 304)

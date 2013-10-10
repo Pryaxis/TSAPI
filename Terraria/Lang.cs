@@ -4521,6 +4521,8 @@ namespace Terraria
 
 				case 31:
 					return "Not moving puts you stealth, increasing ranged ability and reducing chance for enemies to target you";
+				case 32:
+					return "4 defense";
 				}
 			}
 			else
@@ -5886,6 +5888,14 @@ namespace Terraria
 
 				case 296:
 					return "Angry Bones";
+				case 297:
+					return "Blue Jay";
+				case 298:
+					return "Cardinal";
+				case 299:
+					return "Squirrel";
+				case 300:
+					return "Mouse";
 				}
 			}
 			else
@@ -7872,7 +7882,7 @@ namespace Terraria
 		}
 		public static void tTip()
 		{
-			for (int i = 1; i < 1615; i++)
+			for (int i = 1; i < 1725; i++)
 			{
 				Item item = new Item();
 				item.SetDefaults(i, false);
@@ -8049,13 +8059,13 @@ namespace Terraria
 			}
 			if (Lang.lang <= 1 || english)
 			{
-				if (l <= 329)
+				if (l <= 332)
 				{
-					if (l <= 88)
+					if (l <= 128)
 					{
-						if (l <= 23)
+						if (l <= 29)
 						{
-							if (l <= -37)
+							if (l <= -1)
 							{
 								if (l == -43)
 								{
@@ -8065,13 +8075,13 @@ namespace Terraria
 								{
 									return "Can mine Meteorite";
 								}
-							}
-							else
-							{
 								if (l == -1)
 								{
 									return "Can mine Meteorite";
 								}
+							}
+							else
+							{
 								if (l == 8)
 								{
 									return "Provides light";
@@ -8080,118 +8090,135 @@ namespace Terraria
 								{
 								case 15:
 									return "Tells the time";
-
 								case 16:
 									return "Tells the time";
-
 								case 17:
 									return "Tells the time";
-
 								case 18:
 									return "Shows depth";
-
+								case 19:
+								case 20:
+								case 21:
+								case 22:
+									break;
 								case 23:
 									return "'Both tasty and flammable'";
+								default:
+									if (l == 29)
+									{
+										return "Permanently increases maximum life by 20";
+									}
+									break;
 								}
 							}
 						}
 						else
 						{
-							if (l <= 43)
+							if (l <= 70)
 							{
-								if (l == 29)
-								{
-									return "Permanently increases maximum life by 20";
-								}
 								switch (l)
 								{
 								case 33:
 									return "Used for smelting ore";
-
 								case 34:
 									break;
-
 								case 35:
 									return "Used to craft items from metal bars";
-
 								case 36:
 									return "Used for basic crafting";
-
 								default:
 									if (l == 43)
 									{
 										return "Summons the Eye of Cthulhu";
+									}
+									switch (l)
+									{
+									case 49:
+										return "Slowly regenerates life";
+									case 50:
+										return "Gaze in the mirror to return home";
+									case 53:
+										return "Allows the holder to double jump";
+									case 54:
+										return "The wearer can run super fast";
+									case 56:
+										return "'Pulsing with dark energy'";
+									case 57:
+										return "'Pulsing with dark energy'";
+									case 64:
+										return "Summons a vile thorn";
+									case 65:
+										return "Causes stars to rain from the sky";
+									case 66:
+										return "Cleanses the corruption";
+									case 67:
+										return "Removes the Hallow";
+									case 68:
+										return "'Looks tasty!'";
+									case 70:
+										return "Summons the Eater of Worlds";
 									}
 									break;
 								}
 							}
 							else
 							{
+								if (l == 75)
+								{
+									return "Disappears after the sunrise";
+								}
 								switch (l)
 								{
-								case 49:
-									return "Slowly regenerates life";
-
-								case 50:
-									return "Gaze in the mirror to return home";
-
-								case 51:
-								case 52:
-								case 55:
-								case 58:
-								case 59:
-								case 60:
-								case 61:
-								case 62:
-								case 63:
-								case 69:
+								case 84:
+									return "'Get over here!'";
+								case 85:
+									return "Can be climbed on";
+								case 86:
+								case 87:
 									break;
-
-								case 53:
-									return "Allows the holder to double jump";
-
-								case 54:
-									return "The wearer can run super fast";
-
-								case 56:
-									return "'Pulsing with dark energy'";
-
-								case 57:
-									return "'Pulsing with dark energy'";
-
-								case 64:
-									return "Summons a vile thorn";
-
-								case 65:
-									return "Causes stars to rain from the sky";
-
-								case 66:
-									return "Cleanses the corruption";
-
-								case 67:
-									return "Removes the Hallow";
-
-								case 68:
-									return "'Looks tasty!'";
-
-								case 70:
-									return "Summons the Eater of Worlds";
-
+								case 88:
+									return "Provides light when worn";
 								default:
-									if (l == 75)
-									{
-										return "Disappears after the sunrise";
-									}
 									switch (l)
 									{
-									case 84:
-										return "'Get over here!'";
-
-									case 85:
-										return "Can be climbed on";
-
-									case 88:
-										return "Provides light when worn";
+									case 98:
+										return "33% chance to not consume ammo";
+									case 100:
+										return "7% increased melee speed";
+									case 101:
+										return "7% increased melee speed";
+									case 102:
+										return "7% increased melee speed";
+									case 103:
+										return "Able to mine Hellstone";
+									case 109:
+										return "Permanently increases maximum mana by 20";
+									case 111:
+										return "Increases maximum mana by 20";
+									case 112:
+										return "Throws balls of fire";
+									case 113:
+										return "Casts a controllable missile";
+									case 114:
+										return "Magically moves dirt";
+									case 115:
+										return "Creates a magical shadow orb";
+									case 117:
+										return "'Warm to the touch'";
+									case 118:
+										return "Sometimes dropped by Skeletons and Piranha";
+									case 120:
+										return "Lights wooden arrows ablaze";
+									case 121:
+										return "'It's made out of fire!'";
+									case 123:
+										return "7% increased magic damage";
+									case 124:
+										return "7% increased magic damage";
+									case 125:
+										return "7% increased magic damage";
+									case 128:
+										return "Allows flight";
 									}
 									break;
 								}
@@ -8200,241 +8227,180 @@ namespace Terraria
 					}
 					else
 					{
-						if (l <= 197)
+						if (l <= 218)
 						{
-							if (l <= 175)
+							if (l <= 190)
 							{
 								switch (l)
 								{
-								case 98:
-									return "33% chance to not consume ammo";
-
-								case 99:
-								case 104:
-								case 105:
-								case 106:
-								case 107:
-								case 108:
-								case 110:
-								case 116:
-								case 119:
-								case 122:
-								case 126:
-								case 127:
+								case 148:
+									return "Holding this may attract unwanted attention";
+								case 149:
+									return "'It contains strange symbols'";
+								case 150:
+								case 154:
+								case 155:
+								case 160:
+								case 161:
+								case 162:
+								case 163:
+								case 164:
 									break;
-
-								case 100:
-									return "7% increased melee speed";
-
-								case 101:
-									return "7% increased melee speed";
-
-								case 102:
-									return "7% increased melee speed";
-
-								case 103:
-									return "Able to mine Hellstone";
-
-								case 109:
-									return "Permanently increases maximum mana by 20";
-
-								case 111:
-									return "Increases maximum mana by 20";
-
-								case 112:
-									return "Throws balls of fire";
-
-								case 113:
-									return "Casts a controllable missile";
-
-								case 114:
-									return "Magically moves dirt";
-
-								case 115:
-									return "Creates a magical shadow orb";
-
-								case 117:
-									return "'Warm to the touch'";
-
-								case 118:
-									return "Sometimes dropped by Skeletons and Piranha";
-
-								case 120:
-									return "Lights wooden arrows ablaze";
-
-								case 121:
-									return "'It's made out of fire!'";
-
-								case 123:
-									return "7% increased magic damage";
-
-								case 124:
-									return "7% increased magic damage";
-
-								case 125:
-									return "7% increased magic damage";
-
-								case 128:
-									return "Allows flight";
-
+								case 151:
+									return "4% increased ranged damage.";
+								case 152:
+									return "4% increased ranged damage.";
+								case 153:
+									return "4% increased ranged damage.";
+								case 156:
+									return "Grants immunity to knockback";
+								case 157:
+									return "Sprays out a shower of water";
+								case 158:
+									return "Negates fall damage";
+								case 159:
+									return "Increases jump height";
+								case 165:
+									return "Casts a slow moving bolt of water";
+								case 166:
+									return "A small explosion that will destroy some tiles";
+								case 167:
+									return "A large explosion that will destroy most tiles";
+								case 168:
+									return "A small explosion that will not destroy tiles";
 								default:
+									if (l == 175)
+									{
+										return "'Hot to the touch'";
+									}
 									switch (l)
 									{
-									case 148:
-										return "Holding this may attract unwanted attention";
-
-									case 149:
-										return "'It contains strange symbols'";
-
-									case 150:
-									case 154:
-									case 155:
-									case 160:
-									case 161:
-									case 162:
-									case 163:
-									case 164:
-										break;
-
-									case 151:
-										return "4% increased ranged damage.";
-
-									case 152:
-										return "4% increased ranged damage.";
-
-									case 153:
-										return "4% increased ranged damage.";
-
-									case 156:
-										return "Grants immunity to knockback";
-
-									case 157:
-										return "Sprays out a shower of water";
-
-									case 158:
-										return "Negates fall damage";
-
-									case 159:
-										return "Increases jump height";
-
-									case 165:
-										return "Casts a slow moving bolt of water";
-
-									case 166:
-										return "A small explosion that will destroy some tiles";
-
-									case 167:
-										return "A large explosion that will destroy most tiles";
-
-									case 168:
-										return "A small explosion that will not destroy tiles";
-
-									default:
-										if (l == 175)
-										{
-											return "'Hot to the touch'";
-										}
-										break;
+									case 186:
+										return "Increases breath time and allows breathing in water";
+									case 187:
+										return "Grants the ability to swim";
+									case 190:
+										return "Has a chance to poison enemies";
 									}
 									break;
 								}
 							}
 							else
 							{
+								if (l == 193)
+								{
+									return "Grants immunity to fire blocks";
+								}
+								if (l == 197)
+								{
+									return "Shoots fallen stars";
+								}
 								switch (l)
 								{
-								case 186:
-									return "Increases breath time and allows breathing in water";
-
-								case 187:
-									return "Grants the ability to swim";
-
-								case 188:
-								case 189:
-									break;
-
-								case 190:
-									return "Has a chance to poison enemies";
-
-								default:
-									if (l == 193)
-									{
-										return "Grants immunity to fire blocks";
-									}
-									if (l == 197)
-									{
-										return "Shoots fallen stars";
-									}
-									break;
+								case 208:
+									return "'It's pretty, oh so pretty'";
+								case 211:
+									return "12% increased melee speed";
+								case 212:
+									return "10% increased movement speed";
+								case 213:
+									return "Creates grass on dirt";
+								case 215:
+									return "'May annoy others'";
+								case 218:
+									return "Summons a controllable ball of fire";
 								}
 							}
 						}
 						else
 						{
-							if (l <= 238)
+							if (l <= 305)
 							{
 								switch (l)
 								{
-								case 208:
-									return "'It's pretty, oh so pretty'";
-
-								case 209:
-								case 210:
-								case 214:
-								case 216:
-								case 217:
+								case 222:
+									return "Grows plants";
+								case 223:
+									return "6% reduced mana usage";
+								case 224:
+								case 225:
+								case 226:
+								case 227:
 									break;
-
-								case 211:
-									return "12% increased melee speed";
-
-								case 212:
-									return "10% increased movement speed";
-
-								case 213:
-									return "Creates grass on dirt";
-
-								case 215:
-									return "'May annoy others'";
-
-								case 218:
-									return "Summons a controllable ball of fire";
-
+								case 228:
+									return "Increases maximum mana by 20";
+								case 229:
+									return "Increases maximum mana by 20";
+								case 230:
+									return "Increases maximum mana by 20";
 								default:
 									switch (l)
 									{
-									case 222:
-										return "Grows plants";
-
-									case 223:
-										return "6% reduced mana usage";
-
-									case 224:
-									case 225:
-									case 226:
-									case 227:
+									case 235:
+										return "'Tossing may be difficult.'";
+									case 236:
 										break;
-
-									case 228:
-										return "Increases maximum mana by 20";
-
-									case 229:
-										return "Increases maximum mana by 20";
-
-									case 230:
-										return "Increases maximum mana by 20";
-
+									case 237:
+										return "'Makes you look cool!'";
+									case 238:
+										return "15% increased magic damage";
 									default:
 										switch (l)
 										{
-										case 235:
-											return "'Tossing may be difficult.'";
-
-										case 237:
-											return "'Makes you look cool!'";
-
-										case 238:
-											return "15% increased magic damage";
+										case 261:
+											return "'It's smiling, might be a good snack'";
+										case 266:
+											return "'This is a good idea!'";
+										case 267:
+											return "'You are a terrible person.'";
+										case 268:
+											return "Greatly extends underwater breathing";
+										case 272:
+											return "Casts a demon scythe";
+										case 281:
+											return "Allows the collection of seeds for ammo";
+										case 282:
+											return "Works when wet";
+										case 283:
+											return "For use with Blowpipe";
+										case 285:
+											return "5% increased movement speed";
+										case 288:
+											return "Provides immunity to lava";
+										case 289:
+											return "Provides life regeneration";
+										case 290:
+											return "25% increased movement speed";
+										case 291:
+											return "Breathe water instead of air";
+										case 292:
+											return "Increase defense by 8";
+										case 293:
+											return "Increased mana regeneration";
+										case 294:
+											return "20% increased magic damage";
+										case 295:
+											return "Slows falling speed";
+										case 296:
+											return "Shows the location of treasure and ore";
+										case 297:
+											return "Grants invisibility";
+										case 298:
+											return "Emits an aura of light";
+										case 299:
+											return "Increases night vision";
+										case 300:
+											return "Increases enemy spawn rate";
+										case 301:
+											return "Attackers also take damage";
+										case 302:
+											return "Allows the ability to walk on water";
+										case 303:
+											return "20% increased arrow speed and damage";
+										case 304:
+											return "Shows the location of enemies";
+										case 305:
+											return "Allows the control of gravity";
 										}
 										break;
 									}
@@ -8443,121 +8409,22 @@ namespace Terraria
 							}
 							else
 							{
+								if (l == 324)
+								{
+									return "'Banned in most places'";
+								}
 								switch (l)
 								{
-								case 261:
-									return "'It's smiling, might be a good snack'";
-
-								case 262:
-								case 263:
-								case 264:
-								case 265:
-								case 269:
-								case 270:
-								case 271:
-								case 273:
-								case 274:
-								case 275:
-								case 276:
-								case 277:
-								case 278:
-								case 279:
-								case 280:
-								case 284:
-								case 286:
-								case 287:
+								case 327:
+									return "Opens one Gold Chest";
+								case 328:
 									break;
-
-								case 266:
-									return "'This is a good idea!'";
-
-								case 267:
-									return "'You are a terrible person.'";
-
-								case 268:
-									return "Greatly extends underwater breathing";
-
-								case 272:
-									return "Casts a demon scythe";
-
-								case 281:
-									return "Allows the collection of seeds for ammo";
-
-								case 282:
-									return "Works when wet";
-
-								case 283:
-									return "For use with Blowpipe";
-
-								case 285:
-									return "5% increased movement speed";
-
-								case 288:
-									return "Provides immunity to lava";
-
-								case 289:
-									return "Provides life regeneration";
-
-								case 290:
-									return "25% increased movement speed";
-
-								case 291:
-									return "Breathe water instead of air";
-
-								case 292:
-									return "Increase defense by 8";
-
-								case 293:
-									return "Increased mana regeneration";
-
-								case 294:
-									return "20% increased magic damage";
-
-								case 295:
-									return "Slows falling speed";
-
-								case 296:
-									return "Shows the location of treasure and ore";
-
-								case 297:
-									return "Grants invisibility";
-
-								case 298:
-									return "Emits an aura of light";
-
-								case 299:
-									return "Increases night vision";
-
-								case 300:
-									return "Increases enemy spawn rate";
-
-								case 301:
-									return "Attackers also take damage";
-
-								case 302:
-									return "Allows the ability to walk on water";
-
-								case 303:
-									return "20% increased arrow speed and damage";
-
-								case 304:
-									return "Shows the location of enemies";
-
-								case 305:
-									return "Allows the control of gravity";
-
+								case 329:
+									return "Opens all Shadow Chests";
 								default:
-									if (l == 324)
+									if (l == 332)
 									{
-										return "'Banned in most places'";
-									}
-									switch (l)
-									{
-									case 327:
-										return "Opens one Gold Chest";
-
-									case 329:
-										return "Opens all Shadow Chests";
+										return "Used for crafting cloth";
 									}
 									break;
 								}
@@ -8567,16 +8434,12 @@ namespace Terraria
 				}
 				else
 				{
-					if (l <= 726)
+					if (l <= 749)
 					{
-						if (l <= 603)
+						if (l <= 669)
 						{
-							if (l <= 407)
+							if (l <= 425)
 							{
-								if (l == 332)
-								{
-									return "Used for crafting cloth";
-								}
 								if (l == 352)
 								{
 									return "Used for brewing ale";
@@ -8585,306 +8448,303 @@ namespace Terraria
 								{
 								case 357:
 									return "Minor improvements to all stats";
-
+								case 358:
+								case 359:
+								case 360:
+								case 362:
+								case 364:
+								case 365:
+								case 366:
+								case 368:
+								case 369:
+								case 370:
+								case 374:
+								case 375:
+								case 379:
+								case 380:
+								case 381:
+								case 382:
+								case 383:
+								case 384:
+								case 387:
+								case 388:
+								case 390:
+								case 391:
+								case 392:
+								case 406:
+									break;
 								case 361:
 									return "Summons a Goblin Army";
-
 								case 363:
 									return "Used for advanced wood crafting";
-
 								case 367:
 									return "Strong enough to destroy Demon Altars";
-
 								case 371:
 									return "Increases maximum mana by 40";
-
 								case 372:
 									return "7% increased movement speed";
-
 								case 373:
 									return "10% increased ranged damage";
-
 								case 376:
 									return "Increases maximum mana by 60";
-
 								case 377:
 									return "5% increased melee critical strike chance";
-
 								case 378:
 									return "12% increased ranged damage";
-
 								case 385:
 									return "Can mine Mythril and Orichalcum";
-
 								case 386:
 									return "Can mine Adamantite and Titanium";
-
 								case 389:
 									return "Has a chance to confuse";
-
 								case 393:
 									return "Shows horizontal position";
-
 								case 394:
 									return "Grants the ability to swim";
-
 								case 395:
 									return "Shows position";
-
 								case 396:
 									return "Negates fall damage";
-
 								case 397:
 									return "Grants immunity to knockback";
-
 								case 398:
 									return "Allows the combining of some accessories";
-
 								case 399:
 									return "Allows the holder to double jump";
-
 								case 400:
 									return "Increases maximum mana by 80";
-
 								case 401:
 									return "7% increased melee critical strike chance";
-
 								case 402:
 									return "14% increased ranged damage";
-
 								case 403:
 									return "6% increased damage";
-
 								case 404:
 									return "4% increased critical strike chance";
-
 								case 405:
 									return "Allows flight";
-
 								case 407:
 									return "Increases block placement range";
+								default:
+									switch (l)
+									{
+									case 422:
+										return "Spreads the Hallow to some blocks";
+									case 423:
+										return "Spreads the corruption to some blocks";
+									case 425:
+										return "Summons a magical fairy";
+									}
+									break;
 								}
 							}
 							else
 							{
+								if (l == 434)
+								{
+									return "Three round burst";
+								}
 								switch (l)
 								{
-								case 422:
-									return "Spreads the Hallow to some blocks";
-
-								case 423:
-									return "Spreads the corruption to some blocks";
-
-								case 424:
+								case 485:
+									return "Turns the holder into a werewolf at night";
+								case 486:
+									return "Creates a grid on screen for block placement";
+								case 487:
+								case 488:
+								case 494:
+								case 498:
+								case 499:
+								case 500:
+								case 501:
+								case 502:
+								case 503:
+								case 504:
+								case 505:
+								case 507:
+								case 508:
+								case 511:
+								case 512:
+								case 513:
+								case 514:
+								case 530:
+								case 537:
+								case 538:
+								case 539:
+								case 540:
+								case 545:
+								case 546:
+								case 550:
+								case 562:
+								case 563:
+								case 564:
+								case 565:
+								case 566:
+								case 567:
+								case 568:
+								case 569:
+								case 570:
+								case 571:
+								case 572:
+								case 573:
+								case 574:
+								case 577:
+								case 578:
+								case 586:
+								case 587:
+								case 588:
+								case 589:
+								case 590:
+								case 591:
+								case 592:
+								case 593:
+								case 594:
+								case 595:
+								case 596:
+								case 597:
+								case 598:
 									break;
-
-								case 425:
-									return "Summons a magical fairy";
-
+								case 489:
+									return "15% increased magic damage";
+								case 490:
+									return "15% increased melee damage";
+								case 491:
+									return "15% increased ranged damage";
+								case 492:
+									return "Allows flight and slow fall";
+								case 493:
+									return "Allows flight and slow fall";
+								case 495:
+									return "Casts a controllable rainbow";
+								case 496:
+									return "Summons a block of ice";
+								case 497:
+									return "Transforms the holder into merfolk when entering water";
+								case 506:
+									return "Uses gel for ammo";
+								case 509:
+									return "Places red wire";
+								case 510:
+									return "Removes wire";
+								case 515:
+									return "Creates several crystal shards on impact";
+								case 516:
+									return "Summons falling stars on impact";
+								case 517:
+									return "A magical returning dagger";
+								case 518:
+									return "Summons rapid fire crystal shards";
+								case 519:
+									return "Summons unholy fire balls";
+								case 520:
+									return "'The essence of light creatures'";
+								case 521:
+									return "'The essence of dark creatures'";
+								case 522:
+									return "'Not even water can put the flame out'";
+								case 523:
+									return "Can be placed in water";
+								case 524:
+									return "Used to smelt adamantite and titanium ore";
+								case 525:
+									return "Used to craft items from mythril, orichalcum, adamantite, and titanium bars";
+								case 526:
+									return "'Sharp and magical!'";
+								case 527:
+									return "'Sometimes carried by creatures in corrupt deserts'";
+								case 528:
+									return "'Sometimes carried by creatures in light deserts'";
+								case 529:
+									return "Activates when stepped on";
+								case 531:
+									return "Can be enchanted";
+								case 532:
+									return "Causes stars to fall when injured";
+								case 533:
+									return "50% chance to not consume ammo";
+								case 534:
+									return "Fires a spread of bullets";
+								case 535:
+									return "Reduces the cooldown of healing potions";
+								case 536:
+									return "Increases melee knockback";
+								case 541:
+									return "Activates when stepped on";
+								case 542:
+									return "Activates when a player steps on it";
+								case 543:
+									return "Activates when a player steps on it";
+								case 544:
+									return "Summons The Twins";
+								case 547:
+									return "'The essence of pure terror'";
+								case 548:
+									return "'The essence of the destroyer'";
+								case 549:
+									return "'The essence of omniscient watchers'";
+								case 551:
+									return "7% increased critical strike chance";
+								case 552:
+									return "7% increased damage";
+								case 553:
+									return "15% increased ranged damage";
+								case 554:
+									return "Increases length of invincibility after taking damage";
+								case 555:
+									return "8% reduced mana usage";
+								case 556:
+									return "Summons Destroyer";
+								case 557:
+									return "Summons Skeletron Prime";
+								case 558:
+									return "Increases maximum mana by 100";
+								case 559:
+									return "10% increased melee damage and critical strike chance";
+								case 560:
+									return "Summons King Slime";
+								case 561:
+									return "Stacks up to 5";
+								case 575:
+									return "'The essence of powerful flying creatures'";
+								case 576:
+									return "Has a chance to record songs";
+								case 579:
+									return "'Not to be confused with a picksaw'";
+								case 580:
+									return "Explodes when activated";
+								case 581:
+									return "Sends water to outlet pumps";
+								case 582:
+									return "Receives water from inlet pumps";
+								case 583:
+									return "Activates every second";
+								case 584:
+									return "Activates every 3 seconds";
+								case 585:
+									return "Activates every 5 seconds";
+								case 599:
+									return "Right click to open";
+								case 600:
+									return "Right click to open";
+								case 601:
+									return "Right click to open";
+								case 602:
+									return "Summons the Frost Legion";
+								case 603:
+									return "Summons a pet bunny";
 								default:
-									if (l == 434)
-									{
-										return "Three round burst";
-									}
 									switch (l)
 									{
-									case 485:
-										return "Turns the holder into a werewolf at night";
-
-									case 486:
-										return "Creates a grid on screen for block placement";
-
-									case 489:
-										return "15% increased magic damage";
-
-									case 490:
-										return "15% increased melee damage";
-
-									case 491:
-										return "15% increased ranged damage";
-
-									case 492:
-										return "Allows flight and slow fall";
-
-									case 493:
-										return "Allows flight and slow fall";
-
-									case 495:
-										return "Casts a controllable rainbow";
-
-									case 496:
-										return "Summons a block of ice";
-
-									case 497:
-										return "Transforms the holder into merfolk when entering water";
-
-									case 506:
-										return "Uses gel for ammo";
-
-									case 509:
-										return "Places red wire";
-
-									case 510:
-										return "Removes wire";
-
-									case 515:
-										return "Creates several crystal shards on impact";
-
-									case 516:
-										return "Summons falling stars on impact";
-
-									case 517:
-										return "A magical returning dagger";
-
-									case 518:
-										return "Summons rapid fire crystal shards";
-
-									case 519:
-										return "Summons unholy fire balls";
-
-									case 520:
-										return "'The essence of light creatures'";
-
-									case 521:
-										return "'The essence of dark creatures'";
-
-									case 522:
-										return "'Not even water can put the flame out'";
-
-									case 523:
-										return "Can be placed in water";
-
-									case 524:
-										return "Used to smelt adamantite and titanium ore";
-
-									case 525:
-										return "Used to craft items from mythril, orichalcum, adamantite, and titanium bars";
-
-									case 526:
-										return "'Sharp and magical!'";
-
-									case 527:
-										return "'Sometimes carried by creatures in corrupt deserts'";
-
-									case 528:
-										return "'Sometimes carried by creatures in light deserts'";
-
-									case 529:
-										return "Activates when stepped on";
-
-									case 531:
-										return "Can be enchanted";
-
-									case 532:
-										return "Causes stars to fall when injured";
-
-									case 533:
-										return "50% chance to not consume ammo";
-
-									case 534:
-										return "Fires a spread of bullets";
-
-									case 535:
-										return "Reduces the cooldown of healing potions";
-
-									case 536:
-										return "Increases melee knockback";
-
-									case 541:
-										return "Activates when stepped on";
-
-									case 542:
-										return "Activates when a player steps on it on";
-
-									case 543:
-										return "Activates when a player steps on it on";
-
-									case 544:
-										return "Summons The Twins";
-
-									case 547:
-										return "'The essence of pure terror'";
-
-									case 548:
-										return "'The essence of the destroyer'";
-
-									case 549:
-										return "'The essence of omniscient watchers'";
-
-									case 551:
-										return "7% increased critical strike chance";
-
-									case 552:
-										return "7% increased damage";
-
-									case 553:
-										return "15% increased ranged damage";
-
-									case 554:
-										return "Increases length of invincibility after taking damage";
-
-									case 555:
-										return "8% reduced mana usage";
-
-									case 556:
-										return "Summons Destroyer";
-
-									case 557:
-										return "Summons Skeletron Prime";
-
-									case 558:
-										return "Increases maximum mana by 100";
-
-									case 559:
-										return "10% increased melee damage and critical strike chance";
-
-									case 560:
-										return "Summons King Slime";
-
-									case 561:
-										return "Stacks up to 5";
-
-									case 575:
-										return "'The essence of powerful flying creatures'";
-
-									case 576:
-										return "Has a chance to record songs";
-
-									case 579:
-										return "'Not to be confused with a picksaw'";
-
-									case 580:
-										return "Explodes when activated";
-
-									case 581:
-										return "Sends water to outlet pumps";
-
-									case 582:
-										return "Receives water from inlet pumps";
-
-									case 583:
-										return "Activates every second";
-
-									case 584:
-										return "Activates every 3 seconds";
-
-									case 585:
-										return "Activates every 5 seconds";
-
-									case 599:
-										return "Right click to open";
-
-									case 600:
-										return "Right click to open";
-
-									case 601:
-										return "Right click to open";
-
-									case 602:
-										return "Summons the Frost Legion";
-
-									case 603:
-										return "Summons a pet bunny";
+									case 665:
+										return "You shouldn't have this";
+									case 666:
+										return "You shouldn't have this";
+									case 667:
+										return "You shouldn't have this";
+									case 668:
+										return "You shouldn't have this";
+									case 669:
+										return "Summons a baby penguin";
 									}
 									break;
 								}
@@ -8892,78 +8752,58 @@ namespace Terraria
 						}
 						else
 						{
-							if (l <= 686)
+							if (l <= 709)
 							{
+								if (l == 676)
+								{
+									return "Shoots an icy bolt";
+								}
 								switch (l)
 								{
-								case 665:
-									return "You shouldn't have this";
-
-								case 666:
-									return "You shouldn't have this";
-
-								case 667:
-									return "You shouldn't have this";
-
-								case 668:
-									return "You shouldn't have this";
-
-								case 669:
-									return "Summons a baby penguin";
-
+								case 683:
+									return "Summons the Devil's trident";
+								case 684:
+									return "16% increased melee and ranged damage";
+								case 685:
+									return "11% increased melee and ranged critical strike chance";
+								case 686:
+									return "8% increased movement speed";
 								default:
-									if (l == 676)
-									{
-										return "Shoots an icy bolt";
-									}
 									switch (l)
 									{
-									case 683:
-										return "Summons the Devil's trident";
-
-									case 684:
-										return "16% increased melee and ranged damage";
-
-									case 685:
-										return "11% increased melee and ranged critical strike chance";
-
-									case 686:
-										return "8% increased movement speed";
+									case 707:
+										return "Tells the time";
+									case 708:
+										return "Tells the time";
+									case 709:
+										return "Tells the time";
 									}
 									break;
 								}
 							}
 							else
 							{
+								if (l == 716)
+								{
+									return "Used to craft items from metal bars";
+								}
 								switch (l)
 								{
-								case 707:
-									return "Tells the time";
-
-								case 708:
-									return "Tells the time";
-
-								case 709:
-									return "Tells the time";
-
+								case 723:
+									return "Shoots a beam of light";
+								case 724:
+									return "Shoots an icy bolt";
+								case 725:
+									return "Shoots frost arrows";
+								case 726:
+									return "Shoots a stream of frost";
 								default:
-									if (l == 716)
-									{
-										return "Used to craft items from metal bars";
-									}
 									switch (l)
 									{
-									case 723:
-										return "Shoots a beam of light";
-
-									case 724:
-										return "Shoots an icy bolt";
-
-									case 725:
-										return "Shoots frost arrows";
-
-									case 726:
-										return "Shoots a stream of frost";
+									case 748:
+										return "Allows flight and slow fall";
+									case 749:
+										return "Allows flight and slow fall";
 									}
 									break;
 								}
@@ -8972,102 +8812,235 @@ namespace Terraria
 					}
 					else
 					{
-						if (l <= 832)
+						if (l <= 1006)
 						{
-							if (l <= 761)
+							if (l <= 798)
 							{
+								if (l == 753)
+								{
+									return "Summons a pet turtle";
+								}
+								if (l == 761)
+								{
+									return "Allows flight and slow fall";
+								}
 								switch (l)
 								{
-								case 748:
+								case 779:
+									return "Creates and destroys biomes when sprayed";
+								case 780:
+									return "Used by the Clentaminator";
+								case 781:
+									return "Used by the Clentaminator";
+								case 782:
+									return "Used by the Clentaminator";
+								case 783:
+									return "Used by the Clentaminator";
+								case 784:
+									return "Used by the Clentaminator";
+								case 785:
 									return "Allows flight and slow fall";
-
-								case 749:
+								case 786:
 									return "Allows flight and slow fall";
-
-								default:
-									if (l == 753)
-									{
-										return "Summons a pet turtle";
-									}
-									if (l == 761)
-									{
-										return "Allows flight and slow fall";
-									}
-									break;
+								case 787:
+									return "Strong enough to destroy Demon Altars";
+								case 788:
+									return "Summons a thorn spear";
+								case 792:
+									return "2% increased damage";
+								case 793:
+									return "2% increased damage";
+								case 794:
+									return "2% increased damage";
+								case 798:
+									return "Able to mine Hellstone";
 								}
 							}
 							else
 							{
 								switch (l)
 								{
-								case 779:
-									return "Creates and destroys biomes when sprayed";
-
-								case 780:
-									return "Used by the Clentaminator";
-
-								case 781:
-									return "Used by the Clentaminator";
-
-								case 782:
-									return "Used by the Clentaminator";
-
-								case 783:
-									return "Used by the Clentaminator";
-
-								case 784:
-									return "Used by the Clentaminator";
-
-								case 785:
+								case 821:
 									return "Allows flight and slow fall";
-
-								case 786:
+								case 822:
 									return "Allows flight and slow fall";
-
-								case 787:
-									return "Strong enough to destroy Demon Altars";
-
-								case 788:
-									return "Summons a thorn spear";
-
-								case 789:
-								case 790:
-								case 791:
-								case 795:
-								case 796:
-								case 797:
-									break;
-
-								case 792:
-									return "2% increased damage";
-
-								case 793:
-									return "2% increased damage";
-
-								case 794:
-									return "2% increased damage";
-
-								case 798:
-									return "Able to mine Hellstone";
-
+								case 823:
+									return "Allows flight and slow fall";
 								default:
+									if (l == 832)
+									{
+										return "Places living wood";
+									}
 									switch (l)
 									{
-									case 821:
-										return "Allows flight and slow fall";
-
-									case 822:
-										return "Allows flight and slow fall";
-
-									case 823:
-										return "Allows flight and slow fall";
-
-									default:
-										if (l == 832)
-										{
-											return "Places living wood";
-										}
-										break;
+									case 849:
+										return "Enables solid blocks to be toggled on and off";
+									case 850:
+										return "Places blue wire";
+									case 851:
+										return "Places green wire";
+									case 852:
+										return "Activates when a player steps on it";
+									case 853:
+										return "Activates when anything but a player steps on it";
+									case 854:
+										return "Shops have lower prices";
+									case 855:
+										return "Hitting enemies will sometimes drop extra coins";
+									case 856:
+										return "'Having a wonderful time!'";
+									case 857:
+										return "Allows the holder to do an improved double jump";
+									case 860:
+										return "Provides life regeneration and reduces the cooldown of healing potions";
+									case 861:
+										return "Turns the holder into a werewolf at night and a merfolk when entering water";
+									case 862:
+										return "Causes stars to fall and increases length of invincibility after taking damage";
+									case 863:
+										return "Provides the ability to walk on water";
+									case 885:
+										return "Immunity to Bleeding";
+									case 886:
+										return "Immunity to Broken Armor";
+									case 887:
+										return "Immunity to Poison";
+									case 888:
+										return "Immunity to Darkness";
+									case 889:
+										return "Immunity to Slow";
+									case 890:
+										return "Immunity to Silence";
+									case 891:
+										return "Immunity to Curse";
+									case 892:
+										return "Immunity to Weakness";
+									case 893:
+										return "Immunity to Confusion";
+									case 897:
+										return "Increases melee knockback";
+									case 898:
+										return "Allows flight";
+									case 899:
+										return "Increases all stats if worn during the day";
+									case 900:
+										return "Increases all stats if worn during the night";
+									case 901:
+										return "Immunity to Weakness and Broken Armor";
+									case 902:
+										return "Immunity to Poison and Bleeding";
+									case 903:
+										return "Immunity to Slow and Confusion";
+									case 904:
+										return "Immunity to Silence and Curse";
+									case 905:
+										return "Uses coins for ammo";
+									case 906:
+										return "Provides 7 seconds of immunity to lava";
+									case 907:
+										return "Provides the ability to walk on water";
+									case 908:
+										return "Provides the ability to walk on water and lava";
+									case 932:
+										return "Places bone";
+									case 933:
+										return "Places leaves";
+									case 934:
+										return "Allows the owner to float for a few seconds";
+									case 935:
+										return "12% increased damage";
+									case 936:
+										return "Increases melee knockback";
+									case 937:
+										return "Explodes when stepped on";
+									case 938:
+										return "Absorbs 25% of damage done to players on your team";
+									case 946:
+										return "You will fall slower while holding this";
+									case 947:
+										return "Reacts to the light";
+									case 948:
+										return "Allows flight and slowfall";
+									case 950:
+										return "Provides extra mobility on ice";
+									case 951:
+										return "Rapidly launches snowballs";
+									case 953:
+										return "Allows the ability to slide down walls";
+									case 956:
+										return "7% increased melee speed";
+									case 957:
+										return "7% increased melee speed";
+									case 958:
+										return "7% increased melee speed";
+									case 959:
+										return "4% increased ranged damage.";
+									case 960:
+										return "Increases maximum mana by 20";
+									case 961:
+										return "Increases maximum mana by 20";
+									case 962:
+										return "Increases maximum mana by 20";
+									case 963:
+										return "Gives a chance to dodge attacks";
+									case 964:
+										return "Fires a spread of bullets";
+									case 965:
+										return "Can be climbed on";
+									case 966:
+										return "Life regen is increased when near a campfire";
+									case 967:
+										return "Put it on a stick and roast over a campfire";
+									case 968:
+										return "Roast it over a campfire!";
+									case 969:
+										return "Minor improvements to all stats";
+									case 975:
+										return "Allows the ability to slide down walls";
+									case 976:
+										return "Allows the ability to climb walls";
+									case 977:
+										return "Allows the ability to dash";
+									case 982:
+										return "Increases maximum mana by 20";
+									case 983:
+										return "Allows the holder to double jump";
+									case 984:
+										return "Allows the ability to climb walls and dash";
+									case 985:
+										return "Throw to create a climbable line of rope";
+									case 986:
+										return "Allows the collection of seeds for ammo";
+									case 987:
+										return "Allows the holder to double jump";
+									case 989:
+										return "Shoots an enchanted sword beam";
+									case 990:
+										return "'Not to be confused with a hamdrill'";
+									case 994:
+										return "Summons a Baby Eater of Souls";
+									case 995:
+										return "Used to craft objects";
+									case 996:
+										return "Used to craft objects";
+									case 997:
+										return "Turns silt/slush into something more useful";
+									case 998:
+										return "Used to craft objects";
+									case 1000:
+										return "Shoots confetti everywhere!";
+									case 1001:
+										return "16% increased melee damage";
+									case 1002:
+										return "16% increased ranged damage";
+									case 1003:
+										return "Increases maximum mana by 80 and reduces mana usage by 17%";
+									case 1004:
+										return "5% increased damage";
+									case 1005:
+										return "8% increased critical strike chance";
+									case 1006:
+										return "Reacts to the light";
 									}
 									break;
 								}
@@ -9075,745 +9048,401 @@ namespace Terraria
 						}
 						else
 						{
-							if (l <= 1343)
+							if (l <= 1432)
 							{
 								switch (l)
 								{
-								case 849:
-									return "Enables solid blocks to be toggled on and off";
-
-								case 850:
-									return "Places blue wire";
-
-								case 851:
-									return "Places green wire";
-
-								case 852:
-									return "Activates when a player steps on it on";
-
-								case 853:
-									return "Activates when anything but a player steps on it on";
-
-								case 854:
-									return "Shops have lower prices";
-
-								case 855:
-									return "Hitting enemies will sometimes drop extra coins";
-
-								case 856:
-									return "'Having a wonderful time!'";
-
-								case 857:
-									return "Allows the holder to do an improved double jump";
-
-								case 858:
-								case 859:
-								case 864:
-								case 865:
-								case 866:
-								case 867:
-								case 868:
-								case 869:
-								case 870:
-								case 871:
-								case 872:
-								case 873:
-								case 874:
-								case 875:
-								case 876:
-								case 877:
-								case 878:
-								case 879:
-								case 880:
-								case 881:
-								case 882:
-								case 883:
-								case 884:
-								case 894:
-								case 895:
-								case 896:
-								case 909:
-								case 910:
-								case 911:
-								case 912:
-								case 913:
-								case 914:
-								case 915:
-								case 916:
-								case 917:
-								case 918:
-								case 919:
-								case 920:
-								case 921:
-								case 922:
-								case 923:
-								case 924:
-								case 925:
-								case 926:
-								case 927:
-								case 928:
-								case 929:
-								case 930:
-								case 931:
-								case 939:
-								case 940:
-								case 941:
-								case 942:
-								case 943:
-								case 944:
-								case 945:
-								case 949:
-								case 952:
-								case 954:
-								case 955:
-								case 970:
-								case 971:
-								case 972:
-								case 973:
-								case 974:
-								case 978:
-								case 979:
-								case 980:
-								case 981:
-								case 988:
-								case 991:
-								case 992:
-								case 993:
-								case 999:
-									break;
-
-								case 860:
-									return "Provides life regeneration and reduces the cooldown of healing potions";
-
-								case 861:
-									return "Turns the holder into a werewolf at night and a merfolk when entering water";
-
-								case 862:
-									return "Causes stars to fall and increases length of invincibility after taking damage";
-
-								case 863:
-									return "Provides the ability to walk on water";
-
-								case 885:
-									return "Immunity to Bleeding";
-
-								case 886:
-									return "Immunity to Broken Armor";
-
-								case 887:
-									return "Immunity to Poison";
-
-								case 888:
-									return "Immunity to Darkness";
-
-								case 889:
-									return "Immunity to Slow";
-
-								case 890:
-									return "Immunity to Silence";
-
-								case 891:
-									return "Immunity to Curse";
-
-								case 892:
-									return "Immunity to Weakness";
-
-								case 893:
-									return "Immunity to Confusion";
-
-								case 897:
-									return "Increases melee knockback";
-
-								case 898:
-									return "Allows flight";
-
-								case 899:
-									return "Increases all stats if worn during the day";
-
-								case 900:
-									return "Increases all stats if worn during the night";
-
-								case 901:
-									return "Immunity to Weakness and Broken Armor";
-
-								case 902:
-									return "Immunity to Poison and Bleeding";
-
-								case 903:
-									return "Immunity to Slow and Confusion";
-
-								case 904:
-									return "Immunity to Silence and Curse";
-
-								case 905:
-									return "Uses coins for ammo";
-
-								case 906:
-									return "Provides 7 seconds of immunity to lava";
-
-								case 907:
-									return "Provides the ability to walk on water";
-
-								case 908:
-									return "Provides the ability to walk on water and lava";
-
-								case 932:
-									return "Places bone";
-
-								case 933:
-									return "Places leaves";
-
-								case 934:
-									return "Allows the owner to float for a few seconds";
-
-								case 935:
-									return "12% increased damage";
-
-								case 936:
-									return "Increases melee knockback";
-
-								case 937:
-									return "Explodes when stepped on";
-
-								case 938:
-									return "Absorbs 25% of damage done to players on your team";
-
-								case 946:
-									return "You will fall slower while holding this";
-
-								case 947:
-									return "Reacts to the light";
-
-								case 948:
-									return "Allows flight and slowfall";
-
-								case 950:
-									return "Provides extra mobility on ice";
-
-								case 951:
-									return "Rapidly launches snowballs";
-
-								case 953:
-									return "Allows the ability to slide down walls";
-
-								case 956:
-									return "7% increased melee speed";
-
-								case 957:
-									return "7% increased melee speed";
-
-								case 958:
-									return "7% increased melee speed";
-
-								case 959:
-									return "4% increased ranged damage.";
-
-								case 960:
-									return "Increases maximum mana by 20";
-
-								case 961:
-									return "Increases maximum mana by 20";
-
-								case 962:
-									return "Increases maximum mana by 20";
-
-								case 963:
-									return "Gives a chance to dodge attacks";
-
-								case 964:
-									return "Fires a spread of bullets";
-
-								case 965:
-									return "Can be climbed on";
-
-								case 966:
-									return "Life regen is increased when near a campfire";
-
-								case 967:
-									return "Put it on a stick and roast over a campfire";
-
-								case 968:
-									return "Roast it over a campfire!";
-
-								case 969:
-									return "Minor improvements to all stats";
-
-								case 975:
-									return "Allows the ability to slide down walls";
-
-								case 976:
-									return "Allows the ability to climb walls";
-
-								case 977:
-									return "Allows the ability to dash";
-
-								case 982:
-									return "Increases maximum mana by 20";
-
-								case 983:
-									return "Allows the holder to double jump";
-
-								case 984:
-									return "Allows the ability to climb walls and dash";
-
-								case 985:
-									return "Throw to create a climbable line of rope";
-
-								case 986:
-									return "Allows the collection of seeds for ammo";
-
-								case 987:
-									return "Allows the holder to double jump";
-
-								case 989:
-									return "Shoots an enchanted sword beam";
-
-								case 990:
-									return "'Not to be confused with a hamdrill'";
-
-								case 994:
-									return "Summons a Baby Eater of Souls";
-
-								case 995:
-									return "Used to craft objects";
-
-								case 996:
-									return "Used to craft objects";
-
-								case 997:
-									return "Turns silt/slush into something more useful";
-
-								case 998:
-									return "Used to craft objects";
-
-								case 1000:
-									return "Shoots confetti everywhere!";
-
-								case 1001:
-									return "16% increased melee damage";
-
-								case 1002:
-									return "16% increased ranged damage";
-
-								case 1003:
-									return "Increases maximum mana by 80 and reduces mana usage by 17%";
-
-								case 1004:
-									return "5% increased damage";
-
-								case 1005:
-									return "8% increased critical strike chance";
-
-								case 1006:
-									return "Reacts to the light";
-
+								case 1071:
+									return "Used with paint to color blocks";
+								case 1072:
+									return "Used with paint to color walls";
 								default:
 									switch (l)
 									{
-									case 1071:
-										return "Used with paint to color blocks";
-
-									case 1072:
-										return "Used with paint to color walls";
-
+									case 1100:
+										return "Used to remove paint";
+									case 1101:
+									case 1102:
+									case 1103:
+									case 1104:
+									case 1105:
+									case 1106:
+									case 1124:
+									case 1125:
+									case 1126:
+									case 1127:
+									case 1128:
+									case 1134:
+									case 1135:
+									case 1136:
+									case 1137:
+									case 1138:
+									case 1139:
+									case 1140:
+									case 1142:
+									case 1143:
+									case 1144:
+									case 1146:
+									case 1147:
+									case 1148:
+									case 1149:
+									case 1150:
+									case 1152:
+									case 1153:
+									case 1154:
+									case 1155:
+									case 1166:
+									case 1168:
+									case 1173:
+									case 1174:
+									case 1175:
+									case 1176:
+									case 1177:
+									case 1184:
+									case 1185:
+									case 1186:
+									case 1187:
+									case 1190:
+									case 1191:
+									case 1192:
+									case 1193:
+									case 1194:
+									case 1197:
+									case 1198:
+									case 1199:
+									case 1200:
+									case 1201:
+									case 1202:
+									case 1203:
+									case 1204:
+									case 1222:
+									case 1223:
+									case 1224:
+									case 1225:
+									case 1229:
+									case 1230:
+									case 1231:
+									case 1232:
+									case 1233:
+									case 1234:
+									case 1236:
+									case 1237:
+									case 1238:
+									case 1239:
+									case 1240:
+									case 1241:
+									case 1243:
+									case 1245:
+									case 1246:
+									case 1257:
+									case 1262:
+									case 1263:
+									case 1266:
+									case 1267:
+									case 1268:
+									case 1269:
+									case 1270:
+									case 1271:
+									case 1272:
+									case 1273:
+									case 1274:
+									case 1275:
+									case 1276:
+									case 1277:
+									case 1278:
+									case 1279:
+									case 1280:
+									case 1281:
+									case 1288:
+									case 1289:
+									case 1292:
+									case 1298:
+									case 1302:
+									case 1304:
+									case 1305:
+									case 1319:
+									case 1320:
+									case 1324:
+									case 1325:
+									case 1328:
+									case 1329:
+									case 1330:
+									case 1337:
+									case 1338:
+									case 1339:
+									case 1340:
+									case 1341:
+									case 1342:
+										break;
+									case 1107:
+										return "Used to make Teal Dye";
+									case 1108:
+										return "Used to make Green Dye";
+									case 1109:
+										return "Used to make Sky Blue Dye";
+									case 1110:
+										return "Used to make Yellow Dye";
+									case 1111:
+										return "Used to make Blue Dye";
+									case 1112:
+										return "Used to make Lime Dye";
+									case 1113:
+										return "Used to make Pink Dye";
+									case 1114:
+										return "Used to make Orange Dye";
+									case 1115:
+										return "Used to make Red Dye";
+									case 1116:
+										return "Used to make Cyan Dye";
+									case 1117:
+										return "Used to make Violet Dye";
+									case 1118:
+										return "Used to make Purple Dye";
+									case 1119:
+										return "Used to make Black Dye";
+									case 1120:
+										return "Used to Craft Dyes";
+									case 1121:
+										return "Shoots bees that will chase your enemy";
+									case 1122:
+										return "Chases after your enemy";
+									case 1123:
+										return "Summons killer bees after striking your foe";
+									case 1129:
+										return "Places Hives";
+									case 1130:
+										return "Explodes into a swarm of bees";
+									case 1131:
+										return "Allows the holder to reverse gravity";
+									case 1132:
+										return "Releases bees when damaged";
+									case 1133:
+										return "Summons the Queen Bee";
+									case 1141:
+										return "Opens the jungle temple door";
+									case 1145:
+										return "Used for basic crafting";
+									case 1151:
+										return "Activates when a player steps on it";
+									case 1156:
+										return "Latches on to enemies for continuous damage";
+									case 1157:
+										return "Summons a Pygmy to fight for you";
+									case 1158:
+										return "Increases your max number of minions";
+									case 1159:
+										return "Increases your max number of minions";
+									case 1160:
+										return "Increases your max number of minions";
+									case 1161:
+										return "Increases your max number of minions";
+									case 1162:
+										return "Allows flight and slow fall";
+									case 1163:
+										return "Allows the holder to double jump";
+									case 1164:
+										return "Allows the holder to quadruple jump";
+									case 1165:
+										return "Allows flight and slow fall";
+									case 1167:
+										return "Increases the damage of your minions by 15";
+									case 1169:
+										return "Summons a Baby Skeletron Head";
+									case 1170:
+										return "Summons a Baby Hornet";
+									case 1171:
+										return "Summons a Tiki Spirit";
+									case 1172:
+										return "Summons a Pet Lizard";
+									case 1178:
+										return "Rapidly shoots razor sharp leaves";
+									case 1179:
+										return "Chases after your enemy";
+									case 1180:
+										return "Summons a Pet Parrot";
+									case 1181:
+										return "Summons a Baby Truffle";
+									case 1182:
+										return "Summons a Pet Sapling";
+									case 1183:
+										return "Summons a Wisp to provide light";
+									case 1188:
+										return "Can mine Mythril, Orichalcum, Adamantite, and Titanium";
+									case 1189:
+										return "Can mine Mythril, Orichalcum, Adamantite, and Titanium";
+									case 1195:
+										return "Can mine Adamantite and Titanium";
+									case 1196:
+										return "Can mine Adamantite and Titanium";
+									case 1205:
+										return "8% increased melee damage";
+									case 1206:
+										return "9% increased ranged damage";
+									case 1207:
+										return "7% increased magic damage and critical strike chance";
+									case 1208:
+										return "3% increased damage";
+									case 1209:
+										return "2% increased damage";
+									case 1210:
+										return "7% increased melee damage";
+									case 1211:
+										return "15% increased ranged critical strike chance";
+									case 1212:
+										return "18% increased magic critical strike chance";
+									case 1213:
+										return "6% increased critical strike chance";
+									case 1214:
+										return "11% increased movement speed";
+									case 1215:
+										return "8% increased melee damage and critical strike chance";
+									case 1216:
+										return "16% increased ranged damage";
+									case 1217:
+										return "16% increased magic damage and 7% increased magic critical strike chance";
+									case 1218:
+										return "4% increased damage";
+									case 1219:
+										return "3% increased damage and critical strike chance";
+									case 1220:
+										return "Used to craft items from mythril, orichalcum, adamantite, and titanium bars";
+									case 1221:
+										return "Used to smelt adamantite and titanium ore";
+									case 1226:
+										return "Shoots a powerful orb";
+									case 1227:
+										return "Shoots a spore cloud";
+									case 1228:
+										return "Shoots a spore cloud";
+									case 1235:
+										return "Bounces back after hitting a wall";
+									case 1242:
+										return "Summons a Baby Dinosaur";
+									case 1244:
+										return "Summons a cloud to rain down on your foes";
+									case 1247:
+										return "Causes stars to fall and releases bees when injured";
+									case 1248:
+										return "10% increased critical strike chance";
+									case 1249:
+										return "Increases jump height";
+									case 1250:
+										return "Allows the holder to double jump";
+									case 1251:
+										return "Allows the holder to double jump";
+									case 1252:
+										return "Allows the holder to double jump";
+									case 1253:
+										return "Puts a shell around the owner when below 25% life that reduces damage";
+									case 1254:
+										return "Shoots a powerful, high velocity bullet";
+									case 1255:
+										return "Shoots a powerful, high velocity bullet";
+									case 1256:
+										return "Summons a cloud to rain blood on your foes";
+									case 1258:
+										return "Shoots an explosive bolt";
+									case 1259:
+										return "Shoots razor sharp flower petals at nearby enemies";
+									case 1260:
+										return "Shoots a rainbow that does continuous damage";
+									case 1261:
+										return "Explodes into deadly shrapnel";
+									case 1264:
+										return "Shoots a ball of frost";
+									case 1265:
+										return "Shoots a powerful, high velocity bullet";
+									case 1282:
+										return "Increases maximum mana by 20";
+									case 1283:
+										return "Increases maximum mana by 40";
+									case 1284:
+										return "Increases maximum mana by 40";
+									case 1285:
+										return "Increases maximum mana by 60";
+									case 1286:
+										return "Increases maximum mana by 60";
+									case 1287:
+										return "Increases maximum mana by 80";
+									case 1290:
+										return "Increases movement speed after being struck";
+									case 1291:
+										return "Permanently increases maximum life by 5";
+									case 1293:
+										return "Used at the Lihzahrd Altar";
+									case 1294:
+										return "Capable of mining Lihzahrd Bricks";
+									case 1295:
+										return "Shoots a piercing ray of heat";
+									case 1296:
+										return "Summons a powerful boulder";
+									case 1297:
+										return "Punches with the force of a golem";
+									case 1299:
+										return "Increases view range when held";
+									case 1300:
+										return "Increases view range for guns";
+									case 1301:
+										return "10% increased damage";
+									case 1303:
+										return "Provides light under water";
+									case 1306:
+										return "Shoots an icy sickle";
+									case 1307:
+										return "'You are a terrible person'";
+									case 1308:
+										return "Shoots a poison fang that pierces multiple enemies";
+									case 1309:
+										return "Summons a baby slime to fight for you";
+									case 1310:
+										return "Inflicts poison on enemies";
+									case 1311:
+										return "Summons an eyeball spring";
+									case 1312:
+										return "Summons a baby snowman";
+									case 1313:
+										return "Shoots a skull";
+									case 1314:
+										return "Shoots a boxing glove";
+									case 1315:
+										return "Summons a pirate invasion";
+									case 1316:
+										return "6% increased melee damage";
+									case 1317:
+										return "8% increased melee damage and critical strike chance";
+									case 1318:
+										return "4% increased melee critical strike chance";
+									case 1321:
+										return "Increase arrow speed and damage by 10%";
+									case 1322:
+										return "Inflicts fire damage on attack";
+									case 1323:
+										return "Reduces damage from touching lava";
+									case 1326:
+										return "Teleports to the position of the mouse";
+									case 1327:
+										return "Shoots a deathly sickle";
+									case 1331:
+										return "Summons the Brain of Cthulhu";
+									case 1332:
+										return "'The blood of gods'";
+									case 1333:
+										return "Can be placed in water";
+									case 1334:
+										return "Decreases target's defense";
+									case 1335:
+										return "Decreases target's defense";
+									case 1336:
+										return "Sprays a shower of ichor";
+									case 1343:
+										return "Increases melee knockback and inflicts fire damage on attack";
 									default:
 										switch (l)
 										{
-										case 1100:
-											return "Used to remove paint";
-
-										case 1107:
-											return "Used to make Teal Dye";
-
-										case 1108:
-											return "Used to make Green Dye";
-
-										case 1109:
-											return "Used to make Sky Blue Dye";
-
-										case 1110:
-											return "Used to make Yellow Dye";
-
-										case 1111:
-											return "Used to make Blue Dye";
-
-										case 1112:
-											return "Used to make Lime Dye";
-
-										case 1113:
-											return "Used to make Pink Dye";
-
-										case 1114:
-											return "Used to make Orange Dye";
-
-										case 1115:
-											return "Used to make Red Dye";
-
-										case 1116:
-											return "Used to make Cyan Dye";
-
-										case 1117:
-											return "Used to make Violet Dye";
-
-										case 1118:
-											return "Used to make Purple Dye";
-
-										case 1119:
-											return "Used to make Black Dye";
-
-										case 1120:
-											return "Used to Craft Dyes";
-
-										case 1121:
-											return "Shoots bees that will chase your enemy";
-
-										case 1122:
-											return "Chases after your enemy";
-
-										case 1123:
-											return "Summons killer bees after striking your foe";
-
-										case 1129:
-											return "Places Hives";
-
-										case 1130:
-											return "Explodes into a swarm of bees";
-
-										case 1131:
-											return "Allows the holder to reverse gravity";
-
-										case 1132:
-											return "Releases bees when damaged";
-
-										case 1133:
-											return "Summons the Queen Bee";
-
-										case 1141:
-											return "Opens the jungle temple door";
-
-										case 1145:
-											return "Used for basic crafting";
-
-										case 1151:
-											return "Activates when a player steps on it on";
-
-										case 1156:
-											return "Latches on to enemies for continuous damage";
-
-										case 1157:
-											return "Summons a Pygmy to fight for you";
-
-										case 1158:
-											return "Increases your max number of minions";
-
-										case 1159:
-											return "Increases your max number of minions";
-
-										case 1160:
-											return "Increases your max number of minions";
-
-										case 1161:
-											return "Increases your max number of minions";
-
-										case 1162:
-											return "Allows flight and slow fall";
-
-										case 1163:
-											return "Allows the holder to double jump";
-
-										case 1164:
-											return "Allows the holder to quadruple jump";
-
-										case 1165:
-											return "Allows flight and slow fall";
-
-										case 1167:
-											return "Increases the damage of your minions by 15";
-
-										case 1169:
-											return "Summons a Baby Skeletron Head";
-
-										case 1170:
-											return "Summons a Baby Hornet";
-
-										case 1171:
-											return "Summons a Tiki Spirit";
-
-										case 1172:
-											return "Summons a Pet Lizard";
-
-										case 1178:
-											return "Rapidly shoots razor sharp leaves";
-
-										case 1179:
-											return "Chases after your enemy";
-
-										case 1180:
-											return "Summons a Pet Parrot";
-
-										case 1181:
-											return "Summons a Baby Truffle";
-
-										case 1182:
-											return "Summons a Pet Sapling";
-
-										case 1183:
-											return "Summons a Wisp to provide light";
-
-										case 1188:
-											return "Can mine Mythril, Orichalcum, Adamantite, and Titanium";
-
-										case 1189:
-											return "Can mine Mythril, Orichalcum, Adamantite, and Titanium";
-
-										case 1195:
-											return "Can mine Adamantite and Titanium";
-
-										case 1196:
-											return "Can mine Adamantite and Titanium";
-
-										case 1205:
-											return "8% increased melee damage";
-
-										case 1206:
-											return "9% increased ranged damage";
-
-										case 1207:
-											return "7% increased magic damage and critical strike chance";
-
-										case 1208:
-											return "3% increased damage";
-
-										case 1209:
-											return "2% increased damage";
-
-										case 1210:
-											return "7% increased melee damage";
-
-										case 1211:
-											return "15% increased ranged critical strike chance";
-
-										case 1212:
-											return "18% increased magic critical strike chance";
-
-										case 1213:
-											return "6% increased critical strike chance";
-
-										case 1214:
-											return "11% increased movement speed";
-
-										case 1215:
-											return "8% increased melee damage and critical strike chance";
-
-										case 1216:
-											return "16% increased ranged damage";
-
-										case 1217:
-											return "16% increased magic damage and 7% increased magic critical strike chance";
-
-										case 1218:
-											return "4% increased damage";
-
-										case 1219:
-											return "3% increased damage and critical strike chance";
-
-										case 1220:
-											return "Used to craft items from mythril, orichalcum, adamantite, and titanium bars";
-
-										case 1221:
-											return "Used to smelt adamantite and titanium ore";
-
-										case 1226:
-											return "Shoots a powerful orb";
-
-										case 1227:
-											return "Shoots a spore cloud";
-
-										case 1228:
-											return "Shoots a spore cloud";
-
-										case 1235:
-											return "Bounces back after hitting a wall";
-
-										case 1242:
-											return "Summons a Baby Dinosaur";
-
-										case 1244:
-											return "Summons a cloud to rain down on your foes";
-
-										case 1247:
-											return "Causes stars to fall and releases bees when injured";
-
-										case 1248:
-											return "10% increased critical strike chance";
-
-										case 1249:
-											return "Increases jump height";
-
-										case 1250:
-											return "Allows the holder to double jump";
-
-										case 1251:
-											return "Allows the holder to double jump";
-
-										case 1252:
-											return "Allows the holder to double jump";
-
-										case 1253:
-											return "Puts a shell around the owner when below 25% life that reduces damage";
-
-										case 1254:
-											return "Shoots a powerful, high velocity bullet";
-
-										case 1255:
-											return "Shoots a powerful, high velocity bullet";
-
-										case 1256:
-											return "Summons a cloud to rain blood on your foes";
-
-										case 1258:
-											return "Shoots an explosive bolt";
-
-										case 1259:
-											return "Shoots razor sharp flower petals at nearby enemies";
-
-										case 1260:
-											return "Shoots a rainbow that does continuous damage";
-
-										case 1261:
-											return "Explodes into deadly shrapnel";
-
-										case 1264:
-											return "Shoots a ball of frost";
-
-										case 1265:
-											return "Shoots a powerful, high velocity bullet";
-
-										case 1282:
-											return "Increases maximum mana by 20";
-
-										case 1283:
-											return "Increases maximum mana by 40";
-
-										case 1284:
-											return "Increases maximum mana by 40";
-
-										case 1285:
-											return "Increases maximum mana by 60";
-
-										case 1286:
-											return "Increases maximum mana by 60";
-
-										case 1287:
-											return "Increases maximum mana by 80";
-
-										case 1290:
-											return "Increases movement speed after being struck";
-
-										case 1291:
-											return "Permanently increases maximum life by 5";
-
-										case 1293:
-											return "Used at the Lihzahrd Altar";
-
-										case 1294:
-											return "Capable of mining Lihzahrd Bricks";
-
-										case 1295:
-											return "Shoots a piercing ray of heat";
-
-										case 1296:
-											return "Summons a powerful boulder";
-
-										case 1297:
-											return "Punches with the force of a golem";
-
-										case 1299:
-											return "Increases view range when held";
-
-										case 1300:
-											return "Increases view range for guns";
-
-										case 1301:
-											return "10% increased damage";
-
-										case 1303:
-											return "Provides light under water";
-
-										case 1306:
-											return "Shoots an icy sickle";
-
-										case 1307:
-											return "'You are a terrible person'";
-
-										case 1308:
-											return "Shoots a poison fang that pierces multiple enemies";
-
-										case 1309:
-											return "Summons a baby slime to fight for you";
-
-										case 1310:
-											return "Inflicts poison on enemies";
-
-										case 1311:
-											return "Summons an eyeball spring";
-
-										case 1312:
-											return "Summons a baby snowman";
-
-										case 1313:
-											return "Shoots a skull";
-
-										case 1314:
-											return "Shoots a boxing glove";
-
-										case 1315:
-											return "Summons a pirate invasion";
-
-										case 1316:
-											return "6% increased melee damage";
-
-										case 1317:
-											return "8% increased melee damage and critical strike chance";
-
-										case 1318:
-											return "4% increased melee critical strike chance";
-
-										case 1321:
-											return "Increase arrow speed and damage by 10%";
-
-										case 1322:
-											return "Inflicts fire damage on attack";
-
-										case 1323:
-											return "Reduces damage from touching lava";
-
-										case 1326:
-											return "Teleports to the position of the mouse";
-
-										case 1327:
-											return "Shoots a deathly sickle";
-
-										case 1331:
-											return "Summons the Brain of Cthulhu";
-
-										case 1332:
-											return "'The blood of gods'";
-
-										case 1333:
-											return "Can be placed in water";
-
-										case 1334:
-											return "Decreases target's defense";
-
-										case 1335:
-											return "Decreases target's defense";
-
-										case 1336:
-											return "Sprays a shower of ichor";
-
-										case 1343:
-											return "Increases melee knockback and inflicts fire damage on attack";
+										case 1430:
+											return "Used to craft weapon imbuement flasks";
+										case 1432:
+											return "Used to craft various types of ammo";
 										}
 										break;
 									}
@@ -9824,213 +9453,196 @@ namespace Terraria
 							{
 								switch (l)
 								{
-								case 1430:
-									return "Used to craft weapon imbuement flasks";
-
-								case 1431:
+								case 1444:
+									return "Creates a shadow beam that bounces off walls";
+								case 1445:
+									return "Launches a ball of fire that explodes into a raging inferno";
+								case 1446:
+									return "Summons a lost soul to chase your foes";
+								case 1447:
+								case 1448:
 									break;
-
-								case 1432:
-									return "Used to craft various types of ammo";
-
+								case 1449:
+									return "Blows bubbles";
+								case 1450:
+									return "Blows bubbles";
 								default:
 									switch (l)
 									{
-									case 1444:
-										return "Creates a shadow beam that bounces off walls";
-
-									case 1445:
-										return "Launches a ball of fire that explodes into a raging inferno";
-
-									case 1446:
-										return "Summons a lost soul to chase your foes";
-
-									case 1447:
-									case 1448:
+									case 1503:
+										return "Increases maximum mana by 80 and reduces mana usage by 17%";
+									case 1504:
+										return "7% increased magic damage and critical strike chance";
+									case 1505:
+										return "8% increased magic damage";
+									case 1506:
+									case 1507:
+									case 1508:
+									case 1509:
+									case 1510:
+									case 1511:
+									case 1512:
+									case 1514:
+									case 1516:
+									case 1517:
+									case 1518:
+									case 1519:
+									case 1520:
+									case 1521:
+									case 1528:
+									case 1529:
+									case 1530:
+									case 1531:
+									case 1532:
+									case 1538:
+									case 1539:
+									case 1540:
+									case 1541:
+									case 1542:
+									case 1552:
+									case 1570:
+									case 1573:
+									case 1574:
+									case 1575:
+									case 1576:
+									case 1577:
+									case 1589:
+									case 1590:
+									case 1591:
+									case 1592:
+									case 1593:
+									case 1594:
+									case 1596:
+									case 1597:
+									case 1598:
+									case 1599:
+									case 1600:
+									case 1601:
+									case 1602:
+									case 1603:
+									case 1604:
+									case 1605:
+									case 1606:
+									case 1607:
+									case 1608:
+									case 1609:
+									case 1610:
+									case 1611:
 										break;
-
-									case 1449:
-										return "Blows bubbles";
-
-									case 1450:
-										return "Blows bubbles";
-
+									case 1513:
+										return "A powerful returning hammer";
+									case 1515:
+										return "Allows flight and slow fall";
+									case 1522:
+										return "For Capture the Gem. It drops when you die";
+									case 1523:
+										return "For Capture the Gem. It drops when you die";
+									case 1524:
+										return "For Capture the Gem. It drops when you die";
+									case 1525:
+										return "For Capture the Gem. It drops when you die";
+									case 1526:
+										return "For Capture the Gem. It drops when you die";
+									case 1527:
+										return "For Capture the Gem. It drops when you die";
+									case 1533:
+										return "Unlocks a Jungle Chest in the dungeon";
+									case 1534:
+										return "Unlocks a Corruption Chest in the dungeon";
+									case 1535:
+										return "Unlocks a Crimson Chest in the dungeon";
+									case 1536:
+										return "Unlocks a Hallowed Chest in the dungeon";
+									case 1537:
+										return "Unlocks a Frozen Chest in the dungeon";
+									case 1543:
+										return "Used with paint to color blocks";
+									case 1544:
+										return "Used with paint to color walls";
+									case 1545:
+										return "Used to remove paint";
+									case 1546:
+										return "15% increased arrow damage";
+									case 1547:
+										return "15% increased bullet damage";
+									case 1548:
+										return "15% increased rocket damage";
+									case 1549:
+										return "13% increased ranged critical strike chance";
+									case 1550:
+										return "7% increased ranged critical strike chance";
+									case 1551:
+										return "Converts Chlorophyte Bars into Shroomite Bars";
+									case 1553:
+										return "50% chance to not consume ammo";
+									case 1554:
+										return "You shouldn't have this";
+									case 1555:
+										return "You shouldn't have this";
+									case 1556:
+										return "You shouldn't have this";
+									case 1557:
+										return "You shouldn't have this";
+									case 1558:
+										return "You shouldn't have this";
+									case 1559:
+										return "You shouldn't have this";
+									case 1560:
+										return "You shouldn't have this";
+									case 1561:
+										return "You shouldn't have this";
+									case 1562:
+										return "You shouldn't have this";
+									case 1563:
+										return "You shouldn't have this";
+									case 1564:
+										return "You shouldn't have this";
+									case 1565:
+										return "You shouldn't have this";
+									case 1566:
+										return "You shouldn't have this";
+									case 1567:
+										return "You shouldn't have this";
+									case 1568:
+										return "You shouldn't have this";
+									case 1569:
+										return "Rapidly throw life stealing daggers";
+									case 1571:
+										return "A powerful javalin that unleashes tiny eaters";
+									case 1572:
+										return "Summons a powerful frost hydra to spit ice at your enemies";
+									case 1578:
+										return "Releases bees and increases movement speed when damaged";
+									case 1579:
+										return "The wearer can run super fast";
+									case 1580:
+										return "You shouldn't have this";
+									case 1581:
+										return "You shouldn't have this";
+									case 1582:
+										return "You shouldn't have this";
+									case 1583:
+										return "You shouldn't have this";
+									case 1584:
+										return "You shouldn't have this";
+									case 1585:
+										return "You shouldn't have this";
+									case 1586:
+										return "You shouldn't have this";
+									case 1587:
+										return "You shouldn't have this";
+									case 1588:
+										return "You shouldn't have this";
+									case 1595:
+										return "Increases maximum mana by 20";
+									case 1612:
+										return "Grants immunity to most debuffs";
+									case 1613:
+										return "Grants immunity to knockback and fire blocks";
 									default:
-										switch (l)
+										if (l == 1724)
 										{
-										case 1503:
-											return "Increases maximum mana by 80 and reduces mana usage by 17%";
-
-										case 1504:
-											return "7% increased magic damage and critical strike chance";
-
-										case 1505:
-											return "8% increased magic damage";
-
-										case 1513:
-											return "A powerful returning hammer";
-
-										case 1515:
-											return "Allows flight and slow fall";
-
-										case 1522:
-											return "For Capture the Gem. It drops when you die";
-
-										case 1523:
-											return "For Capture the Gem. It drops when you die";
-
-										case 1524:
-											return "For Capture the Gem. It drops when you die";
-
-										case 1525:
-											return "For Capture the Gem. It drops when you die";
-
-										case 1526:
-											return "For Capture the Gem. It drops when you die";
-
-										case 1527:
-											return "For Capture the Gem. It drops when you die";
-
-										case 1533:
-											return "Unlocks a Jungle Chest in the dungeon";
-
-										case 1534:
-											return "Unlocks a Corruption Chest in the dungeon";
-
-										case 1535:
-											return "Unlocks a Crimson Chest in the dungeon";
-
-										case 1536:
-											return "Unlocks a Hallowed Chest in the dungeon";
-
-										case 1537:
-											return "Unlocks a Frozen Chest in the dungeon";
-
-										case 1543:
-											return "Used with paint to color blocks";
-
-										case 1544:
-											return "Used with paint to color walls";
-
-										case 1545:
-											return "Used to remove paint";
-
-										case 1546:
-											return "15% increased arrow damage";
-
-										case 1547:
-											return "15% increased bullet damage";
-
-										case 1548:
-											return "15% increased rocket damage";
-
-										case 1549:
-											return "13% increased ranged critical strike chance";
-
-										case 1550:
-											return "7% increased ranged critical strike chance";
-
-										case 1551:
-											return "Converts Chlorophyte Bars into Shroomite Bars";
-
-										case 1553:
-											return "50% chance to not consume ammo";
-
-										case 1554:
-											return "You shouldn't have this";
-
-										case 1555:
-											return "You shouldn't have this";
-
-										case 1556:
-											return "You shouldn't have this";
-
-										case 1557:
-											return "You shouldn't have this";
-
-										case 1558:
-											return "You shouldn't have this";
-
-										case 1559:
-											return "You shouldn't have this";
-
-										case 1560:
-											return "You shouldn't have this";
-
-										case 1561:
-											return "You shouldn't have this";
-
-										case 1562:
-											return "You shouldn't have this";
-
-										case 1563:
-											return "You shouldn't have this";
-
-										case 1564:
-											return "You shouldn't have this";
-
-										case 1565:
-											return "You shouldn't have this";
-
-										case 1566:
-											return "You shouldn't have this";
-
-										case 1567:
-											return "You shouldn't have this";
-
-										case 1568:
-											return "You shouldn't have this";
-
-										case 1569:
-											return "Rapidly throw life stealing daggers";
-
-										case 1571:
-											return "A powerful javalin that unleashes tiny eaters";
-
-										case 1572:
-											return "Summons a powerful frost hydra to spit ice at your enemies";
-
-										case 1578:
-											return "Releases bees and increases movement speed when damaged";
-
-										case 1579:
-											return "The wearer can run super fast";
-
-										case 1580:
-											return "You shouldn't have this";
-
-										case 1581:
-											return "You shouldn't have this";
-
-										case 1582:
-											return "You shouldn't have this";
-
-										case 1583:
-											return "You shouldn't have this";
-
-										case 1584:
-											return "You shouldn't have this";
-
-										case 1585:
-											return "You shouldn't have this";
-
-										case 1586:
-											return "You shouldn't have this";
-
-										case 1587:
-											return "You shouldn't have this";
-
-										case 1588:
-											return "You shouldn't have this";
-
-										case 1595:
-											return "Increases maximum mana by 20";
-
-										case 1612:
-											return "Grants immunity to most debuffs";
-
-										case 1613:
-											return "Grants immunity to knockback and fire blocks";
+											return "Allows the holder to double jump";
 										}
 										break;
 									}
@@ -22472,7 +22084,7 @@ namespace Terraria
 					return "Queen Statue";
 
 				case 478:
-					return "Pirahna Statue";
+					return "Piranha Statue";
 
 				case 479:
 					return "Planked Wall";
@@ -23429,7 +23041,7 @@ namespace Terraria
 					return "Tendon Bow";
 
 				case 797:
-					return "Meat Grinder";
+					return "Flesh Grinder";
 
 				case 798:
 					return "Deathbringer Pickaxe";
@@ -23939,13 +23551,13 @@ namespace Terraria
 					return "Campfire";
 
 				case 967:
-					return "Marshmellow";
+					return "Marshmallow";
 
 				case 968:
-					return "Marshmellow on a Stick";
+					return "Marshmallow on a Stick";
 
 				case 969:
-					return "Cooked Marshmellow";
+					return "Cooked Marshmallow";
 
 				case 970:
 					return "Red Rocket";
@@ -25881,6 +25493,226 @@ namespace Terraria
 
 				case 1614:
 					return "Blue Flare";
+				case 1615:
+					return "Angler Fish Banner";
+				case 1616:
+					return "Angry Nimbus Banner";
+				case 1617:
+					return "Anomura Fungus Banner";
+				case 1618:
+					return "Antlion Banner";
+				case 1619:
+					return "Arapaima Banner";
+				case 1620:
+					return "Armored Skeleton Banner";
+				case 1621:
+					return "Bat Banner";
+				case 1622:
+					return "Bird Banner";
+				case 1623:
+					return "Black Recluse Banner";
+				case 1624:
+					return "Blood Feeder Banner";
+				case 1625:
+					return "Blood Jelly Banner";
+				case 1626:
+					return "Blood Crawler Banner";
+				case 1627:
+					return "Bone Serpent Banner";
+				case 1628:
+					return "Bunny Banner";
+				case 1629:
+					return "Chaos Elemental Banner";
+				case 1630:
+					return "Mimic Banner";
+				case 1631:
+					return "Clown Banner";
+				case 1632:
+					return "Corrupt Bunny Banner";
+				case 1633:
+					return "Corrupt Goldfish Banner";
+				case 1634:
+					return "Crab Banner";
+				case 1635:
+					return "Crimera Banner";
+				case 1636:
+					return "Crimson Axe Banner";
+				case 1637:
+					return "Cursed Hammer Banner";
+				case 1638:
+					return "Demon Banner";
+				case 1639:
+					return "Demon Eye Banner";
+				case 1640:
+					return "Derpling Banner";
+				case 1641:
+					return "Eater of Souls Banner";
+				case 1642:
+					return "Enchanted Sword Banner";
+				case 1643:
+					return "Zombie Eskimo Banner";
+				case 1644:
+					return "Face Monster Banner";
+				case 1645:
+					return "Floaty Gross Banner";
+				case 1646:
+					return "Flying Fish Banner";
+				case 1647:
+					return "Flying Snake Banner";
+				case 1648:
+					return "Frankenstein Banner";
+				case 1649:
+					return "Fungi Bulb Banner";
+				case 1650:
+					return "Fungo Fish Banner";
+				case 1651:
+					return "Gastropod Banner";
+				case 1652:
+					return "Goblin Archer Banner";
+				case 1653:
+					return "Goblin Sorcerer Banner";
+				case 1654:
+					return "Goblin Scout Banner";
+				case 1655:
+					return "Goblin Thief Banner";
+				case 1656:
+					return "Goblin Warrior Banner";
+				case 1657:
+					return "Goldfish Banner";
+				case 1658:
+					return "Harpy Banner";
+				case 1659:
+					return "Hellbat Banner";
+				case 1660:
+					return "Herpling Banner";
+				case 1661:
+					return "Hornet Banner";
+				case 1662:
+					return "Ice Elemental Banner";
+				case 1663:
+					return "Icy Merman Banner";
+				case 1664:
+					return "Fire Imp Banner";
+				case 1665:
+					return "Jellyfish Banner";
+				case 1666:
+					return "Jungle Creeper Banner";
+				case 1667:
+					return "Lihzahrd Banner";
+				case 1668:
+					return "Man Eater Banner";
+				case 1669:
+					return "Meteor Head Banner";
+				case 1670:
+					return "Moth Banner";
+				case 1671:
+					return "Mummy Banner";
+				case 1672:
+					return "Mushi Ladybug Banner";
+				case 1673:
+					return "Parrot Banner";
+				case 1674:
+					return "Pigron Banner";
+				case 1675:
+					return "Piranha Banner";
+				case 1676:
+					return "Pirate Banner";
+				case 1677:
+					return "Pixie Banner";
+				case 1678:
+					return "Raincoat Zombie Banner";
+				case 1679:
+					return "Reaper Banner";
+				case 1680:
+					return "Shark Banner";
+				case 1681:
+					return "Skeleton Banner";
+				case 1682:
+					return "Skeleton Mage Banner";
+				case 1683:
+					return "Slime Banner";
+				case 1684:
+					return "Snow Flinx Banner";
+				case 1685:
+					return "Spider Banner";
+				case 1686:
+					return "Spore Zombie Banner";
+				case 1687:
+					return "Swamp Thing Banner";
+				case 1688:
+					return "Tortoise Banner";
+				case 1689:
+					return "Toxic Sludge Banner";
+				case 1690:
+					return "Umbrella Slime Banner";
+				case 1691:
+					return "Unicorn Banner";
+				case 1692:
+					return "Vampire Banner";
+				case 1693:
+					return "Vulture Banner";
+				case 1694:
+					return "Nypmh Banner";
+				case 1695:
+					return "Werewolf Banner";
+				case 1696:
+					return "Wolf Banner";
+				case 1697:
+					return "World Feeder Banner";
+				case 1698:
+					return "Worm Banner";
+				case 1699:
+					return "Wraith Banner";
+				case 1700:
+					return "Wyvern Banner";
+				case 1701:
+					return "Zombie Banner";
+				case 1702:
+					return "Glass Platform";
+				case 1703:
+					return "Glass Chair";
+				case 1704:
+					return "Golden Chair";
+				case 1705:
+					return "Golden Toilet";
+				case 1706:
+					return "Bar Stool";
+				case 1707:
+					return "Honey Chair";
+				case 1708:
+					return "Steam Punk Chair";
+				case 1709:
+					return "Glass Door";
+				case 1710:
+					return "Golden Door";
+				case 1711:
+					return "Honey Door";
+				case 1712:
+					return "Steam Punk Door";
+				case 1713:
+					return "Glass Table";
+				case 1714:
+					return "Banquet Table";
+				case 1715:
+					return "Bar";
+				case 1716:
+					return "Golden Table";
+				case 1717:
+					return "Honey Table";
+				case 1718:
+					return "Steam Punk Table";
+				case 1719:
+					return "Glass Bed";
+				case 1720:
+					return "Golden Bed";
+				case 1721:
+					return "Honey Bed";
+				case 1722:
+					return "Steam Punk Bed";
+				case 1723:
+					return "Living Wood Wall";
+				case 1724:
+					return "Fart in a Jar";
 				}
 			}
 			else
@@ -34816,6 +34648,7 @@ namespace Terraria
 				Main.tileName[172] = "Platinum Chandelier";
 				Main.tileName[173] = "Candelabra";
 				Main.tileName[174] = "Platinum Candle";
+				Main.tileName[191] = "Living Wood";
 				Main.tileName[207] = "Crimtane";
 				Main.tileName[207] = "Water Fountain";
 				Main.tileName[209] = "Cannon";

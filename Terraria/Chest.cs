@@ -247,13 +247,13 @@ namespace Terraria
 					if (Main.hardMode)
 					{
 						this.item[num].SetDefaults(534, false);
+                        num++;
 					}
-					num++;
 					if (Main.hardMode)
 					{
 						this.item[num].SetDefaults(1432, false);
+                        num++;
 					}
-					num++;
 					if (Main.player[Main.myPlayer].HasItem(1258))
 					{
 						this.item[num].SetDefaults(1261, false);
@@ -599,6 +599,8 @@ namespace Terraria
 																num++;
 																this.item[num].SetDefaults(1345, false);
 																num++;
+                                                                this.item[num].SetDefaults(1450, false);
+                                                                num++;
 																if (Main.hardMode)
 																{
 																	this.item[num].SetDefaults(970, false);

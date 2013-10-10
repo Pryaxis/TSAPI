@@ -309,6 +309,10 @@ namespace Terraria
 							{
 								b11 += 64;
 							}
+							if (NPC.downedPlantBoss)
+							{
+								b11 += 128;
+							}
 					        if (NPC.downedMechBoss1)
 					        {
 					            b12 += 1;
@@ -2082,7 +2086,7 @@ namespace Terraria
 								    Netplay.serverSock[num17].tcpClient.Connected)
 								{
 									bool flag2 = false;
-									if (Main.npc[number].boss || Main.npc[number].netAlways || Main.npc[number].townNPC)
+									if (Main.npc[number].boss || Main.npc[number].netAlways || Main.npc[number].townNPC || !Main.npc[number].active)
 									{
 										flag2 = true;
 									}
