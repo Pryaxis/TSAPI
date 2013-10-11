@@ -29204,6 +29204,7 @@ namespace Terraria
 					num4++;
 				}
 			}
+			try {
 			for (int j = 0; j < 255; j++)
 			{
 				if (Main.player[j].active && !Main.player[j].dead)
@@ -31618,6 +31619,11 @@ namespace Terraria
 					}
 				}
 			}
+			} catch (Exception BadNPCex)  // TODO: WE NEED TO GO THROUGH THIS WHOLE METHOD TO PREVENT OOB ERRORS!
+			{
+			// you could put debug messages here in order to catch potential abusers.
+			}
+			
 		}
 		public static void SpawnWOF(Vector2 pos)
 		{
