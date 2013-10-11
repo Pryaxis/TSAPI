@@ -20,7 +20,7 @@ namespace Terraria
 		public static int lightCounter = 0;
 		public static int offScreenTiles = 45;
 		public static int offScreenTiles2 = 35;
-		private static int firstTileX;
+		/*private static int firstTileX;
 		private static int lastTileX;
 		private static int firstTileY;
 		private static int lastTileY;
@@ -32,14 +32,14 @@ namespace Terraria
 		public static float[,] colorB2 = new float[Main.screenWidth + Lighting.offScreenTiles * 2 + 10, Main.screenHeight + Lighting.offScreenTiles * 2 + 10];
 		public static bool[,] stopLight = new bool[Main.screenWidth + Lighting.offScreenTiles * 2 + 10, Main.screenHeight + Lighting.offScreenTiles * 2 + 10];
 		public static bool[,] wetLight = new bool[Main.screenWidth + Lighting.offScreenTiles * 2 + 10, Main.screenHeight + Lighting.offScreenTiles * 2 + 10];
-		public static bool[,] honeyLight = new bool[Main.screenWidth + Lighting.offScreenTiles * 2 + 10, Main.screenHeight + Lighting.offScreenTiles * 2 + 10];
+		public static bool[,] honeyLight = new bool[Main.screenWidth + Lighting.offScreenTiles * 2 + 10, Main.screenHeight + Lighting.offScreenTiles * 2 + 10];*/
 		public static int scrX;
 		public static int scrY;
 		public static int minX;
 		public static int maxX;
 		public static int minY;
 		public static int maxY;
-		private static int maxTempLights = 2000;
+		/*private static int maxTempLights = 2000;
 		private static int[] tempLightX = new int[Lighting.maxTempLights];
 		private static int[] tempLightY = new int[Lighting.maxTempLights];
 		private static float[] tempLight = new float[Lighting.maxTempLights];
@@ -259,7 +259,7 @@ namespace Terraria
 						}
 					}
 				}
-				/*if (Netplay.clientSock.statusMax > 0)
+				if (Netplay.clientSock.statusMax > 0)
 				{
 					Main.mapTime = 1;
 				}
@@ -322,7 +322,7 @@ namespace Terraria
 					catch
 					{
 					}
-				}*/
+				}
 				if (Lighting.oldSkyColor != Lighting.skyColor)
 				{
 					for (int num20 = Lighting.firstToLightX; num20 < Lighting.lastToLightX; num20++)
@@ -3556,6 +3556,6 @@ namespace Terraria
 				result = false;
 			}
 			return result;
-		}
+		}*/
 	}
 }

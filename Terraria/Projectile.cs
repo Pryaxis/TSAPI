@@ -4652,7 +4652,7 @@ namespace Terraria
 				G *= 1f;
 				B *= 0.0f;
 			}
-			Lighting.addLight((int)(((double)this.position.X + (double)(this.width / 2)) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), R, G, B);
+			//Lighting.addLight((int)(((double)this.position.X + (double)(this.width / 2)) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), R, G, B);
 		}
 
 		public Vector2 center()

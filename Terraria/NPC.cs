@@ -10317,7 +10317,7 @@ namespace Terraria
 					num *= 1f;
 					num2 *= 1f;
 					num3 *= 1f;
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), num, num2, num3);
+					//Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), num, num2, num3);
 					this.color.R = (byte)Main.DiscoR;
 					this.color.G = (byte)Main.DiscoG;
 					this.color.B = (byte)Main.DiscoB;
@@ -10429,7 +10429,7 @@ namespace Terraria
 				}
 				if (this.type == 59)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.3f, 0.1f);
+					//Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.3f, 0.1f);
 					int num13 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 1.7f);
 					Main.dust[num13].noGravity = true;
 				}
@@ -10786,7 +10786,7 @@ namespace Terraria
 						if (this.type == 116)
 						{
 							this.TargetClosest(true);
-							Lighting.addLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.3f, 0.2f, 0.1f);
+							//Lighting.addLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.3f, 0.2f, 0.1f);
 							if (this.direction == -1 && this.velocity.X > -6f)
 							{
 								this.velocity.X = this.velocity.X - 0.1f;
@@ -11926,7 +11926,7 @@ namespace Terraria
 						}
 						if (this.type >= 277 && this.type <= 280)
 						{
-							Lighting.addLight((int)this.center().X / 16, (int)this.center().Y / 16, 0.2f, 0.1f, 0f);
+							//Lighting.addLight((int)this.center().X / 16, (int)this.center().Y / 16, 0.2f, 0.1f, 0f);
 						}
 						if (this.type == 258)
 						{
@@ -13591,7 +13591,7 @@ namespace Terraria
 										num148 /= 16;
 										if (!WorldGen.SolidTile(num147, num148))
 										{
-											Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.3f, 0.1f, 0.05f);
+											//Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.3f, 0.1f, 0.05f);
 										}
 										if (num141 > 0f)
 										{
@@ -15739,7 +15739,7 @@ namespace Terraria
 															}
 															else
 															{
-																Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.3f, 0.1f);
+																//Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.3f, 0.1f);
 																int num275 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 2f), this.width, this.height, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 2f);
 																Main.dust[num275].noGravity = true;
 																Dust expr_10A6D_cp_0 = Main.dust[num275];
@@ -17456,7 +17456,7 @@ namespace Terraria
 																			}
 																			if (this.type == 102)
 																			{
-																				Lighting.addLight((int)(this.position.X + (float)(this.width / 2) + (float)(this.direction * (this.width + 8))) / 16, (int)(this.position.Y + 2f) / 16, 0.07f, 0.04f, 0.025f);
+																				//Lighting.addLight((int)(this.position.X + (float)(this.width / 2) + (float)(this.direction * (this.width + 8))) / 16, (int)(this.position.Y + 2f) / 16, 0.07f, 0.04f, 0.025f);
 																			}
 																			if (flag29)
 																			{
@@ -17836,7 +17836,7 @@ namespace Terraria
 																		{
 																			if (this.aiStyle == 18)
 																			{
-																				if (this.type == 63)
+																				/*if (this.type == 63)
 																				{
 																					Lighting.addLight((int)(this.position.X + (float)(this.height / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.05f, 0.15f, 0.4f);
 																				}
@@ -17853,7 +17853,7 @@ namespace Terraria
 																							Lighting.addLight((int)(this.position.X + (float)(this.height / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.35f, 0.05f, 0.2f);
 																						}
 																					}
-																				}
+																				}*/
 																				if (this.direction == 0)
 																				{
 																					this.TargetClosest(true);
@@ -18269,7 +18269,7 @@ namespace Terraria
 																						this.velocity.X = (float)(num380 * this.direction);
 																						this.velocity.Y = (float)(num380 * this.directionY);
 																						float num381 = (float)(270 - (int)Main.mouseTextColor) / 400f;
-																						Lighting.addLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.9f, 0.3f + num381, 0.2f);
+																						//Lighting.addLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.9f, 0.3f + num381, 0.2f);
 																						return;
 																					}
 																					if (this.aiStyle == 22)
@@ -18408,7 +18408,7 @@ namespace Terraria
 																							{
 																								if (this.type == 169)
 																								{
-																									Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0.6f, 0.75f);
+																									//Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0.6f, 0.75f);
 																									this.alpha = 30;
 																									if (Main.rand.Next(3) == 0)
 																									{
@@ -18725,7 +18725,7 @@ namespace Terraria
 																						}
 																						if (this.type == 122)
 																						{
-																							Lighting.addLight((int)this.position.X / 16, (int)this.position.Y / 16, 0.4f, 0f, 0.25f);
+																							//Lighting.addLight((int)this.position.X / 16, (int)this.position.Y / 16, 0.4f, 0f, 0.25f);
 																							return;
 																						}
 																					}
@@ -18735,7 +18735,7 @@ namespace Terraria
 																						{
 																							this.noGravity = true;
 																							this.noTileCollide = true;
-																							if (this.type == 83)
+																							/*if (this.type == 83)
 																							{
 																								Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.2f, 0.05f, 0.3f);
 																							}
@@ -18749,7 +18749,7 @@ namespace Terraria
 																								{
 																									Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.05f, 0.2f, 0.3f);
 																								}
-																							}
+																							}*/
 																							if (this.target < 0 || this.target == 255 || Main.player[this.target].dead)
 																							{
 																								this.TargetClosest(true);
@@ -19879,7 +19879,7 @@ namespace Terraria
 																														this.spriteDirection = -1;
 																														this.rotation = (float)Math.Atan2((double)num462, (double)num461) + 3.14f;
 																													}
-																													Lighting.addLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.3f, 0.2f, 0.1f);
+																													//Lighting.addLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.3f, 0.2f, 0.1f);
 																													return;
 																												}
 																												else
@@ -22320,7 +22320,7 @@ namespace Terraria
 																																					{
 																																						if (this.type != 135 || this.ai[2] != 1f)
 																																						{
-																																							Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.3f, 0.1f, 0.05f);
+																																							//Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.3f, 0.1f, 0.05f);
 																																						}
 																																						this.localAI[1] = 1f;
 																																						if (this.type == 134)
@@ -37976,7 +37976,7 @@ namespace Terraria
 					num5 *= num8;
 					num6 *= num8;
 					num7 *= num8;
-					Lighting.addLight((int)this.center().X / 16, (int)this.center().Y / 16, num5, num6, num7);
+					//Lighting.addLight((int)this.center().X / 16, (int)this.center().Y / 16, num5, num6, num7);
 				}
 				if (!this.dontTakeDamage)
 				{
@@ -38164,7 +38164,7 @@ namespace Terraria
 				this.AI();
 				if (this.type == 44)
 				{
-					Lighting.addLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + 4f) / 16, 0.9f, 0.75f, 0.5f);
+					//Lighting.addLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + 4f) / 16, 0.9f, 0.75f, 0.5f);
 				}
 				for (int l = 0; l < 256; l++)
 				{
@@ -38586,7 +38586,7 @@ namespace Terraria
 					for (int num37 = this.oldPos.Length - 1; num37 > 0; num37--)
 					{
 						this.oldPos[num37] = this.oldPos[num37 - 1];
-						Lighting.addLight((int)this.position.X / 16, (int)this.position.Y / 16, 0.3f, 0f, 0.2f);
+						//Lighting.addLight((int)this.position.X / 16, (int)this.position.Y / 16, 0.3f, 0f, 0.2f);
 					}
 					this.oldPos[0] = this.position;
 				}
