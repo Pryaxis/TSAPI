@@ -259,7 +259,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (Netplay.clientSock.statusMax > 0)
+				/*if (Netplay.clientSock.statusMax > 0)
 				{
 					Main.mapTime = 1;
 				}
@@ -322,7 +322,7 @@ namespace Terraria
 					catch
 					{
 					}
-				}
+				}*/
 				if (Lighting.oldSkyColor != Lighting.skyColor)
 				{
 					for (int num20 = Lighting.firstToLightX; num20 < Lighting.lastToLightX; num20++)

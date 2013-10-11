@@ -221,7 +221,7 @@ namespace Terraria
 		public static int wofB;
 		public static int wofF = 0;
 		private static int offScreenRange = 200;
-		public static int maxMapUpdates = 250000;
+		/*public static int maxMapUpdates = 250000;
 		public static bool refreshMap = false;
 		public static int loadMapLastX = 0;
 		public static bool loadMapLock = false;
@@ -263,7 +263,7 @@ namespace Terraria
 		private int bgLoops;
 		private int bgStartY;
 		private int bgLoopsY;
-		private int bgTop;
+		private int bgTop;*/
 		public static int renderCount = 99;
 		private Process tServer = new Process();
 		private static Stopwatch saveTime = new Stopwatch();
@@ -463,7 +463,7 @@ namespace Terraria
 		public static int[] backgroundWidth = new int[185];
 		public static int[] backgroundHeight = new int[185];
 		public static bool tilesLoaded = false;
-		public static Map[,] map = new Map[Main.maxTilesX, Main.maxTilesY];
+		//public static Map[,] map = new Map[Main.maxTilesX, Main.maxTilesY];
 		public static Tile[,] tile = new Tile[Main.maxTilesX, Main.maxTilesY];
 		public static Dust[] dust = new Dust[6001];
 		public static Star[] star = new Star[130];
@@ -891,7 +891,7 @@ namespace Terraria
 		public static int lastItemUpdate;
 		public static int maxNPCUpdates = 5;
 		public static int maxItemUpdates = 5;
-		public static string cUp = "W";
+		/*public static string cUp = "W";
 		public static string cLeft = "A";
 		public static string cDown = "S";
 		public static string cRight = "D";
@@ -913,7 +913,7 @@ namespace Terraria
 		public static Color cursorColor = Color.White;
 		public static int cursorColorDirection = 1;
 		public static float cursorAlpha = 0f;
-		public static float cursorScale = 0f;
+		public static float cursorScale = 0f;*/
 		public static bool signBubble = false;
 		public static int signX = 0;
 		public static int signY = 0;
@@ -925,7 +925,7 @@ namespace Terraria
 		public static bool autoShutdown = false;
 		public int a;
 		public int b;
-		private float logoRotation;
+		/*private float logoRotation;
 		private float logoRotationDirection = 1f;
 		private float logoRotationSpeed = 1f;
 		private float logoScale = 1f;
@@ -937,7 +937,7 @@ namespace Terraria
 		private int selectedMenu = -1;
 		private int selectedMenu2 = -1;
 		private int selectedPlayer;
-		private int selectedWorld;
+		private int selectedWorld;*/
 		public static int menuMode = 0;
 		public static int menuSkip = 0;
 		private static Item cpItem = new Item();
@@ -1009,7 +1009,7 @@ namespace Terraria
 			}
 			Main.numLoadWorlds = num;
 		}
-		private static void LoadPlayers()
+		/*private static void LoadPlayers()
 		{
 			Directory.CreateDirectory(Main.PlayerPath);
 			string[] files = Directory.GetFiles(Main.PlayerPath, "*.plr");
@@ -1124,7 +1124,7 @@ namespace Terraria
 			catch
 			{
 			}
-		}
+		}*/
 		private static void EraseWorld(int i)
 		{
 			try
@@ -3477,10 +3477,10 @@ namespace Terraria
 			Main.tileNoSunLight[11] = true;
 			Main.tileNoSunLight[189] = false;
 			Main.tileNoSunLight[196] = false;
-			for (int n = 0; n < Main.maxMenuItems; n++)
+			/*for (int n = 0; n < Main.maxMenuItems; n++)
 			{
 				this.menuItemScale[n] = 0.8f;
-			}
+			}*/
 			for (int num = 0; num < 6001; num++)
 			{
 				Main.dust[num] = new Dust();
@@ -3569,10 +3569,10 @@ namespace Terraria
 			Main.teamColor[2] = new Color(20, 200, 30);
 			Main.teamColor[3] = new Color(75, 90, 255);
 			Main.teamColor[4] = new Color(200, 180, 0);
-			if (Main.menuMode == 1)
+			/*if (Main.menuMode == 1)
 			{
 				Main.LoadPlayers();
-			}
+			}*/
 			for (int num17 = 1; num17 < 311; num17++)
 			{
 				Projectile projectile = new Projectile();
@@ -3587,7 +3587,7 @@ namespace Terraria
 			{
 				WorldGen.clearWorld();
 				Main.gameMenu = false;
-				Main.LoadPlayers();
+				//Main.LoadPlayers();
 				Main.player[Main.myPlayer] = (Player)Main.loadPlayer[0].Clone();
 				Main.PlayerPath = Main.loadPlayerPath[0];
 				Main.LoadWorlds();
@@ -4981,10 +4981,10 @@ namespace Terraria
 			Stopwatch stopwatch = new Stopwatch();
 			stopwatch.Start();
 			WorldGen.destroyObject = false;
-			if (Main.gameMenu)
+			/*if (Main.gameMenu)
 			{
 				Main.mapFullscreen = false;
-			}
+			}*/
 			if (Main.dedServ)
 			{
 				if (Main.dedServFPS)

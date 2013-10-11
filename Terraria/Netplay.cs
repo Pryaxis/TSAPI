@@ -119,7 +119,7 @@ namespace Terraria
 			}
 			return false;
 		}
-		public static void newRecent()
+		/*public static void newRecent()
 		{
 			for (int i = 0; i < Main.maxMP; i++)
 			{
@@ -330,7 +330,7 @@ namespace Terraria
 			Netplay.clientSock.statusMax = 0;
 			Netplay.clientSock.statusText = "";
 			Main.netMode = 0;
-		}
+		}*/
 		public static void ServerLoop(object threadContext)
 		{
 			Netplay.ResetNetDiag();
@@ -700,10 +700,10 @@ namespace Terraria
 			return hit;
 		}
 		
-		public static void StartClient()
+		/*public static void StartClient()
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.ClientLoop), 1);
-		}
+		}*/
 		public static void StartServer()
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.ServerLoop), 1);

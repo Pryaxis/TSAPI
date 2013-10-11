@@ -11648,7 +11648,7 @@ namespace Terraria
 			this.grappling[0] = -1;
 			Main.TeleportEffect(this.getRect(), Style);
 			this.position = newPos;
-			if (this.whoAmi == Main.myPlayer)
+			/*if (this.whoAmi == Main.myPlayer)
 			{
 				Main.BlackFadeIn = 255;
 				Lighting.BlackOut();
@@ -11662,7 +11662,7 @@ namespace Terraria
 				Main.quickBG = 10;
 				Main.maxQ = true;
 				Main.renderNow = true;
-			}
+			}*/
 			this.fallStart = (int)(this.position.Y / 16f);
 			Main.TeleportEffect(this.getRect(), Style);
 			this.teleportTime = 1f;
@@ -11670,7 +11670,7 @@ namespace Terraria
 		}
 		public void Spawn()
 		{
-			if (this.whoAmi == Main.myPlayer)
+			/*if (this.whoAmi == Main.myPlayer)
 			{
 				if (Main.mapTime < 5)
 				{
@@ -11689,7 +11689,7 @@ namespace Terraria
 			{
 				NetMessage.SendData(12, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0);
 				Main.gameMenu = false;
-			}
+			}*/
 			this.headPosition = default(Vector2);
 			this.bodyPosition = default(Vector2);
 			this.legPosition = default(Vector2);
@@ -11753,7 +11753,7 @@ namespace Terraria
 			{
 				this.immuneTime = 60;
 			}
-			if (this.whoAmi == Main.myPlayer)
+			/*if (this.whoAmi == Main.myPlayer)
 			{
 				Main.BlackFadeIn = 255;
 				Main.renderNow = true;
@@ -11763,7 +11763,7 @@ namespace Terraria
 				}
 				Main.screenPosition.X = this.position.X + (float)(this.width / 2) - (float)(Main.screenWidth / 2);
 				Main.screenPosition.Y = this.position.Y + (float)(this.height / 2) - (float)(Main.screenHeight / 2);
-			}
+			}*/
 		}
 		public void ShadowDodge()
 		{
@@ -12114,7 +12114,7 @@ namespace Terraria
 							this.inventory[i].SetDefaults(0, false);
 						}
 					}
-					Main.mapFullscreen = false;
+					//Main.mapFullscreen = false;
 				}
 			}
 			else
@@ -12142,7 +12142,7 @@ namespace Terraria
 				{
 					if (Main.myPlayer == this.whoAmi)
 					{
-						Main.mapFullscreen = false;
+						//Main.mapFullscreen = false;
 					}
 					Main.trashItem.SetDefaults(0, false);
 					if (this.difficulty == 1)
@@ -12207,7 +12207,7 @@ namespace Terraria
 			{
 				this.DropCoins();
 			}
-			if (this.whoAmi == Main.myPlayer)
+			/*if (this.whoAmi == Main.myPlayer)
 			{
 				try
 				{
@@ -12216,7 +12216,7 @@ namespace Terraria
 				catch
 				{
 				}
-			}
+			}*/
 		}
 		public bool ItemSpace(Item newItem)
 		{
@@ -17532,7 +17532,7 @@ namespace Terraria
 			this.spX[0] = x;
 			this.spY[0] = y;
 		}
-		public static void SavePlayer(Player newPlayer, string playerPath)
+		/*public static void SavePlayer(Player newPlayer, string playerPath)
 		{
 			try
 			{
@@ -17974,7 +17974,7 @@ namespace Terraria
 				}
 			}
 			return new Player();
-		}
+		}*/
 		public bool HasItem(int type)
 		{
 			for (int i = 0; i < 58; i++)
