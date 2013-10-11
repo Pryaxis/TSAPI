@@ -25373,7 +25373,7 @@ namespace Terraria
                             NetMessage.SendData(21, -1, -1, "", i, 0.0f, 0.0f, 0.0f, 0);
                     }
                 }
-                if (this.type == 520)
+                /*if (this.type == 520)
                 {
                     float num2 = (float)Main.rand.Next(90, 111) * 0.01f * Main.essScale;
                     Lighting.addLight((int)(((double)this.position.X + (double)(this.width / 2)) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), 0.5f * num2, 0.1f * num2, 0.25f * num2);
@@ -25422,7 +25422,7 @@ namespace Terraria
                 {
                     float num2 = (float)Main.rand.Next(90, 111) * 0.01f * (Main.essScale * 0.2f);
                     Lighting.addLight((int)(((double)this.position.X + (double)(this.width / 2)) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), 1f * num2, 1f * num2, 0.1f * num2);
-                }
+                }*/
                 if (this.type == 75 && Main.dayTime)
                 {
                     for (int index = 0; index < 10; ++index)
@@ -25447,7 +25447,7 @@ namespace Terraria
                     Main.dust[index].scale *= 0.5f;
                 }
             }
-            else if (this.type == 8 || this.type == 105)
+            /*else if (this.type == 8 || this.type == 105)
             {
                 if (!this.wet)
                     Lighting.addLight((int)(((double)this.position.X + (double)(this.width / 2)) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), 1f, 0.95f, 0.8f);
@@ -25455,7 +25455,7 @@ namespace Terraria
             else if (this.type == 523)
                 Lighting.addLight((int)(((double)this.position.X + (double)(this.width / 2)) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), 0.85f, 1f, 0.7f);
             else if (this.type == 1333)
-                Lighting.addLight((int)(((double)this.position.X + (double)(this.width / 2)) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), 1.25f, 1.25f, 0.8f);
+                Lighting.addLight((int)(((double)this.position.X + (double)(this.width / 2)) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), 1.25f, 1.25f, 0.8f);*/
             else if (this.type >= 427 && this.type <= 432)
             {
                 if (!this.wet)
@@ -25500,10 +25500,10 @@ namespace Terraria
                         G = 0.9f;
                         B = 0.0f;
                     }
-                    Lighting.addLight((int)(((double)this.position.X + (double)(this.width / 2)) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), R, G, B);
+                    //Lighting.addLight((int)(((double)this.position.X + (double)(this.width / 2)) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), R, G, B);
                 }
             }
-            else if (this.type == 41)
+            /*else if (this.type == 41)
             {
                 if (!this.wet)
                     Lighting.addLight((int)(((double)this.position.X + (double)this.width) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), 1f, 0.75f, 0.55f);
@@ -25522,7 +25522,7 @@ namespace Terraria
             else if (this.type == 183)
                 Lighting.addLight((int)(((double)this.position.X + (double)this.width) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), 0.15f, 0.45f, 0.9f);
             else if (this.type == 75)
-                Lighting.addLight((int)(((double)this.position.X + (double)this.width) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), 0.8f, 0.7f, 0.1f);
+                Lighting.addLight((int)(((double)this.position.X + (double)this.width) / 16.0), (int)(((double)this.position.Y + (double)(this.height / 2)) / 16.0), 0.8f, 0.7f, 0.1f);*/
             if (this.type == 75)
             {
                 if (Main.rand.Next(25) == 0)

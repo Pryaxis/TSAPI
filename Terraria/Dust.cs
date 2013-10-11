@@ -222,7 +222,7 @@ namespace Terraria
 		}
 		public static void UpdateDust()
 		{
-			Dust.lavaBubbles = 0;
+			/*Dust.lavaBubbles = 0;
 			Main.snowDust = 0;
 			for (int i = 0; i < 6000; i++)
 			{
@@ -293,7 +293,7 @@ namespace Terraria
 									}
 								}
 							}
-							Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num * num3, num * num4, num * num5);
+							//Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num * num3, num * num4, num * num5);
 						}
 						if (Main.dust[i].type == 154)
 						{
@@ -313,7 +313,7 @@ namespace Terraria
 							num7 *= 0f;
 							num8 *= 0.25f;
 							num9 *= 1f;
-							Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num6 * num7, num6 * num8, num6 * num9);
+							//Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num6 * num7, num6 * num8, num6 * num9);
 						}
 						if (Main.dust[i].type == 182)
 						{
@@ -329,7 +329,7 @@ namespace Terraria
 							num11 *= 1f;
 							num12 *= 0.2f;
 							num13 *= 0.1f;
-							Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num10 * num11, num10 * num12, num10 * num13);
+							//Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num10 * num11, num10 * num12, num10 * num13);
 						}
 						if (Main.dust[i].type == 157)
 						{
@@ -340,7 +340,7 @@ namespace Terraria
 							num15 *= 0.25f;
 							num16 *= 1f;
 							num17 *= 0.5f;
-							Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num14 * num15, num14 * num16, num14 * num17);
+							//Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num14 * num15, num14 * num16, num14 * num17);
 						}
 						if (Main.dust[i].type == 163)
 						{
@@ -351,7 +351,7 @@ namespace Terraria
 							num19 *= 0.25f;
 							num20 *= 1f;
 							num21 *= 0.05f;
-							Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num18 * num19, num18 * num20, num18 * num21);
+							//Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num18 * num19, num18 * num20, num18 * num21);
 						}
 						if (Main.dust[i].type == 170)
 						{
@@ -362,7 +362,7 @@ namespace Terraria
 							num23 *= 1f;
 							num24 *= 1f;
 							num25 *= 0.05f;
-							Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num22 * num23, num22 * num24, num22 * num25);
+							//Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num22 * num23, num22 * num24, num22 * num25);
 						}
 						if (Main.dust[i].type == 156)
 						{
@@ -374,7 +374,7 @@ namespace Terraria
 							num27 *= 0.5f;
 							num28 *= 0.9f;
 							num29 *= 1f;
-							Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num26 * num27, num26 * num28, num26 * num29);
+							//Lighting.addLight((int)(Main.dust[i].position.X / 16f), (int)(Main.dust[i].position.Y / 16f), num26 * num27, num26 * num28, num26 * num29);
 						}
 						if (Main.dust[i].type == 174)
 						{
@@ -1500,7 +1500,7 @@ namespace Terraria
 				{
 					Main.dust[i].active = false;
 				}
-			}
+			}*/
 		}
 		public Color GetAlpha(Color newColor)
 		{

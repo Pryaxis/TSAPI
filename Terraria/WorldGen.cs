@@ -1100,7 +1100,7 @@ namespace Terraria
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.worldGenCallBack), 1);
 		}
-		public static void SaveAndQuitCallBack(object threadContext)
+		/*public static void SaveAndQuitCallBack(object threadContext)
 		{
 			Main.menuMode = 10;
 			Main.gameMenu = true;
@@ -1224,7 +1224,7 @@ namespace Terraria
 		public static void playWorld()
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.playWorldCallBack), 1);
-		}
+		}*/
 		public static void saveAndPlayCallBack(object threadContext)
 		{
 			WorldGen.saveWorld(false);
@@ -1233,14 +1233,14 @@ namespace Terraria
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.saveAndPlayCallBack), 1);
 		}
-		public static void saveToonWhilePlayingCallBack(object threadContext)
+		/*public static void saveToonWhilePlayingCallBack(object threadContext)
 		{
 			Player.SavePlayer(Main.player[Main.myPlayer], Main.playerPathName);
 		}
 		public static void saveToonWhilePlaying()
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.saveToonWhilePlayingCallBack), 1);
-		}
+		}*/
 		public static void serverLoadWorldCallBack(object threadContext)
 		{
 			WorldGen.loadWorld();
@@ -1307,7 +1307,7 @@ namespace Terraria
 		}
 		public static void clearWorld()
 		{
-			if (Main.mapReady)
+			/*if (Main.mapReady)
 			{
 				for (int i = 0; i < WorldGen.lastMaxTilesX; i++)
 				{
@@ -1332,7 +1332,7 @@ namespace Terraria
 			Main.mapTime = 0;
 			Main.updateMap = false;
 			Main.mapReady = false;
-			Main.refreshMap = false;
+			Main.refreshMap = false;*/
 			WorldGen.spawnHardBoss = 0;
 			WorldGen.totalSolid2 = 0;
 			WorldGen.totalGood2 = 0;
@@ -39063,8 +39063,8 @@ namespace Terraria
 		}
 		public static void SectionTileFrame(int startX, int startY, int endX, int endY)
 		{
-			Main.mapTime = Main.mapTimeMax + 10;
-			WorldGen.noMapUpdate = true;
+			/*Main.mapTime = Main.mapTimeMax + 10;
+			WorldGen.noMapUpdate = true;*/
 			int num = startX * 200;
 			int num2 = (endX + 1) * 200;
 			int num3 = startY * 150;
@@ -39347,7 +39347,7 @@ namespace Terraria
 			{
 				return;
 			}
-			if (Main.netMode != 2 && Main.mapEnabled && !WorldGen.noMapUpdate && !WorldGen.gen && Main.map[i, j] != null && Main.map[i, j].light > 0)
+			/*if (Main.netMode != 2 && Main.mapEnabled && !WorldGen.noMapUpdate && !WorldGen.gen && Main.map[i, j] != null && Main.map[i, j].light > 0)
 			{
 				Main.map[i, j].setTile(i, j, Main.map[i, j].light);
 				if (Main.map[i, j].changed())
@@ -39363,7 +39363,7 @@ namespace Terraria
 						Main.mapUnfinished = true;
 					}
 				}
-			}
+			}*/
 			if (Main.tile[i, j].wall == 0)
 			{
 				Main.tile[i, j].wallColor(0);
@@ -40043,7 +40043,7 @@ namespace Terraria
 			{
 				if (i > 5 && j > 5 && i < Main.maxTilesX - 5 && j < Main.maxTilesY - 5 && Main.tile[i, j] != null)
 				{
-					if (Main.netMode != 2 && Main.mapEnabled && !WorldGen.noMapUpdate && !WorldGen.gen && Main.map[i, j] != null && Main.map[i, j].light > 0)
+					/*if (Main.netMode != 2 && Main.mapEnabled && !WorldGen.noMapUpdate && !WorldGen.gen && Main.map[i, j] != null && Main.map[i, j].light > 0)
 					{
 						Main.map[i, j].setTile(i, j, Main.map[i, j].light);
 						if (Main.map[i, j].changed())
@@ -40060,7 +40060,7 @@ namespace Terraria
 								Main.mapUnfinished = true;
 							}
 						}
-					}
+					}*/
 					if (!Main.tile[i, j].active())
 					{
 						Main.tile[i, j].halfBrick(false);
@@ -46490,7 +46490,7 @@ namespace Terraria
 			catch
 			{
 			}
-			if (Main.netMode != 2 && Main.mapEnabled && !WorldGen.noMapUpdate && !WorldGen.gen && i > 0 && j > 0 && Main.map[i, j] != null && Main.map[i, j].light > 0)
+			/*if (Main.netMode != 2 && Main.mapEnabled && !WorldGen.noMapUpdate && !WorldGen.gen && i > 0 && j > 0 && Main.map[i, j] != null && Main.map[i, j].light > 0)
 			{
 				Main.map[i, j].setTile(i, j, Main.map[i, j].light);
 				if (Main.map[i, j].changed() && !flag)
@@ -46504,7 +46504,7 @@ namespace Terraria
 					}
 					Main.mapUnfinished = true;
 				}
-			}
+			}*/
 		}
 	}
 }
