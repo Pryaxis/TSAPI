@@ -22,6 +22,8 @@ namespace Terraria
             }
             catch (Exception e)
             {
+                Console.WriteLine("{0} had an exception thrown when trying to send data.", sock.tcpClient.Client.RemoteEndPoint);
+                Console.WriteLine(e);
                 sock.kill = true;
             }
         }
@@ -39,7 +41,7 @@ namespace Terraria
 			if (!ServerApi.Hooks.InvokeNetSendData(ref msgType, ref remoteClient, ref ignoreClient, ref text, ref number,
 					ref number2, ref number3, ref number4, ref number5))
 			{
-				lock (NetMessage.buffer[num])
+				lock (NetMessage.buffer[num].writeBuffer)
 				{
 					int num2 = 5;
 					int num3 = num2;
@@ -2333,7 +2335,7 @@ namespace Terraria
 		}
 		public static void RecieveBytes(byte[] bytes, int streamLength, int i = 256)
 		{
-			lock (NetMessage.buffer[i])
+			lock (NetMessage.buffer[i].readBuffer)
 			{
 				try
 				{
@@ -2358,7 +2360,7 @@ namespace Terraria
 		}
 		public static void CheckBytes(int i = 256)
 		{
-			lock (NetMessage.buffer[i])
+			lock (NetMessage.buffer[i].readBuffer)
 			{
 				int num = 0;
 				if (NetMessage.buffer[i].totalData >= 4)
