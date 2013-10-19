@@ -1077,10 +1077,10 @@ namespace Terraria
 				this.height = 6;
 				this.aiStyle = 23;
 				this.friendly = true;
-				this.alpha = (int)byte.MaxValue;
+				this.alpha = 255;
 				this.penetrate = 3;
 				this.maxUpdates = 2;
-				this.magic = true;
+				this.ranged = true;
 			}
 			else if (this.type == 86)
 			{
@@ -2223,17 +2223,18 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.timeLeft = 60;
 			}
-			else if (this.type == 85)
+			else if (this.type == 188)
 			{
 				this.name = "Flames";
 				this.width = 6;
 				this.height = 6;
 				this.aiStyle = 23;
 				this.friendly = true;
-				this.alpha = (int)byte.MaxValue;
-				this.penetrate = 3;
+				this.hostile = true;
+				this.alpha = 255;
+				this.penetrate = -1;
 				this.maxUpdates = 2;
-				this.ranged = true;
+				this.magic = true;
 			}
 			else if (this.type == 189)
 			{
