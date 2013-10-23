@@ -40825,13 +40825,20 @@ namespace Terraria
 																																}
 																																else
 																																{
-																																	if (num31 >= 4 && num31 <= 8)
+																																	if (num31 >= 20 && num31 <= 23)
 																																	{
-																																		Item.NewItem(i * 16, j * 16, 16, 16, 812 + num31, 1, false, 0, false);
+																																		Item.NewItem(i * 16, j * 16, 16, 16, 1709 + num31 - 20, 1, false, 0, false);
 																																	}
 																																	else
 																																	{
-																																		Item.NewItem(i * 16, j * 16, 16, 16, 649 + num31, 1, false, 0, false);
+																																		if (num31 >= 4 && num31 <= 8)
+																																		{
+																																			Item.NewItem(i * 16, j * 16, 16, 16, 812 + num31, 1, false, 0, false);
+																																		}
+																																		else
+																																		{
+																																			Item.NewItem(i * 16, j * 16, 16, 16, 649 + num31, 1, false, 0, false);
+																																		}
 																																	}
 																																}
 																															}
