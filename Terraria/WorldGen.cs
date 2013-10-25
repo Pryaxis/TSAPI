@@ -1309,6 +1309,8 @@ namespace Terraria
 		}
 		public static void clearWorld()
 		{
+			Main.checkXMas();
+			Main.checkHalloween();
 			/*if (Main.mapReady)
 			{
 				for (int i = 0; i < WorldGen.lastMaxTilesX; i++)

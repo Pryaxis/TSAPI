@@ -49,8 +49,8 @@ namespace Terraria
 		public const int maxCloudTypes = 22;
 		public const int maxHair = 51;
 		public static int curRelease = 72;
-		public static string versionNumber = "v1.2.1";
-		public static string versionNumber2 = "v1.2.1";
+		public static string versionNumber = "v1.2.1.1";
+		public static string versionNumber2 = "v1.2.1.1";
 		public static bool ServerSideCharacter = false;
 		public static string clientUUID;
 		public static int maxMsg = 69;
@@ -10154,7 +10154,7 @@ namespace Terraria
 							}
 						}
 					}
-					if (Main.netMode != 1 && Main.hardMode && !WorldGen.spawnEye && WorldGen.altarCount > 0 && Main.rand.Next(10) == 0 && (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || !NPC.downedMechBoss3))
+					if (Main.netMode != 1 && !Main.pumpkinMoon && Main.hardMode && !WorldGen.spawnEye && WorldGen.altarCount > 0 && Main.rand.Next(10) == 0 && (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || !NPC.downedMechBoss3))
 					{
 						int m = 0;
 						while (m < 1000)

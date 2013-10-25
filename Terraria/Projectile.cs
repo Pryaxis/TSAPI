@@ -3798,7 +3798,7 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 				this.tileCollide = false;
-				this.timeLeft = 600;
+				this.timeLeft = 420;
 			}
 			else
 				this.active = false;
@@ -4280,7 +4280,7 @@ namespace Terraria
 				{
 					for (int index = 0; index < 200; ++index)
 					{
-						if (Main.npc[index].active && !Main.npc[index].dontTakeDamage && ((!Main.npc[index].friendly || Main.npc[index].type == 22 && this.owner < (int)byte.MaxValue && Main.player[this.owner].killGuide) && this.friendly || Main.npc[index].friendly && this.hostile) && (this.owner < 0 || Main.npc[index].immune[this.owner] == 0))
+						if (Main.npc[index].active && !Main.npc[index].dontTakeDamage && ((!Main.npc[index].friendly || this.type == 318 || Main.npc[index].type == 22 && this.owner < (int)byte.MaxValue && Main.player[this.owner].killGuide) && this.friendly || Main.npc[index].friendly && this.hostile) && (this.owner < 0 || Main.npc[index].immune[this.owner] == 0))
 						{
 							bool flag = false;
 							if (this.type == 11 && (Main.npc[index].type == 47 || Main.npc[index].type == 57))

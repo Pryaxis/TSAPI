@@ -30250,7 +30250,7 @@ namespace Terraria
 			{
 				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1321, 1, false, -1, false);
 			}
-			if (this.type == 260 && Main.rand.Next(150) == 0)
+			if (this.type == 60 && Main.rand.Next(150) == 0)
 			{
 				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1322, 1, false, -1, false);
 			}

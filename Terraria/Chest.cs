@@ -209,11 +209,16 @@ namespace Terraria
 						break;
 					}
 				}
+				if (Main.halloween)
+				{
+					this.item[num].SetDefaults(1786, false);
+					num++;
+				}
 				if (Main.hardMode)
 				{
 					this.item[num].SetDefaults(1348, false);
+					num++;
 				}
-				num++;
 			}
 			else if (type == 2)
 			{

@@ -594,6 +594,8 @@ namespace Terraria
 					            }
 					            num9 -= 1;
 					            byte[] bytes52 = BitConverter.GetBytes(num9);
+								if(num9 < 0)
+									Console.WriteLine(num9);
 					            Buffer.BlockCopy(bytes52, 0, NetMessage.buffer[num].writeBuffer, num3, 2);
 					            num3 += 2;
 					            i += (int) num9;
