@@ -45,7 +45,26 @@ namespace Terraria
 					}
 				}
 			}
-			return this.wall == compTile.wall && this.liquid == compTile.liquid && this.lava() == compTile.lava() && this.honey() == compTile.honey() && this.wire() == compTile.wire() && this.wire2() == compTile.wire2() && this.wire3() == compTile.wire3() && this.halfBrick() == compTile.halfBrick() && this.actuator() == compTile.actuator() && this.inActive() == compTile.inActive() && this.wallColor() == compTile.wallColor() && this.color() == compTile.color() && this.slope() == compTile.slope();
+			if (this.wall != compTile.wall)
+			{
+				return false;
+			}
+			if (this.liquid != compTile.liquid)
+			{
+				return false;
+			}
+			if (this.liquid > 0)
+			{
+				if (this.lava() != compTile.lava())
+				{
+					return false;
+				}
+				if (this.honey() != compTile.honey())
+				{
+					return false;
+				}
+			}
+			return this.wire() == compTile.wire() && this.wire2() == compTile.wire2() && this.wire3() == compTile.wire3() && this.halfBrick() == compTile.halfBrick() && this.actuator() == compTile.actuator() && this.inActive() == compTile.inActive() && this.wallColor() == compTile.wallColor() && this.color() == compTile.color() && this.slope() == compTile.slope();
 		}
 		public byte wallFrameX()
 		{
@@ -190,7 +209,7 @@ namespace Terraria
 		}
 		public void wallFrameNumber(byte wallFrameNumber)
 		{
-			if ((wallFrameNumber & 4) == 4)
+			if ((wallFrameNumber & 1) == 1)
 			{
 				this.tileHeader4 |= 4;
 			}
@@ -198,7 +217,7 @@ namespace Terraria
 			{
 				this.tileHeader4 = (byte)((int)this.tileHeader4 & -5);
 			}
-			if ((wallFrameNumber & 8) == 8)
+			if ((wallFrameNumber & 2) == 2)
 			{
 				this.tileHeader4 |= 8;
 				return;

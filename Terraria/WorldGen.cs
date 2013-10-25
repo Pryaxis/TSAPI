@@ -136,7 +136,7 @@ namespace Terraria
 		public static int roomY1;
 		public static int roomY2;
 		public static bool canSpawn;
-		public static bool[] houseTile = new bool[251];
+		public static bool[] houseTile = new bool[255];
 		public static int bestX = 0;
 		public static int bestY = 0;
 		public static int hiScore = 0;
@@ -308,7 +308,7 @@ namespace Terraria
 			{
 				return true;
 			}
-			for (int i = 0; i < 301; i++)
+			for (int i = 0; i < 331; i++)
 			{
 				if (Main.nextNPC[i] && WorldGen.CheckConditions(i))
 				{
@@ -487,6 +487,7 @@ namespace Terraria
 						}
 					}
 					int num7 = NPC.NewNPC(num2 * 16, num3 * 16, WorldGen.spawnNPC, 1);
+					Main.nextNPC[WorldGen.spawnNPC] = false;
 					Main.npc[num7].homeTileX = WorldGen.bestX;
 					Main.npc[num7].homeTileY = WorldGen.bestY;
 					if (num2 < WorldGen.bestX)
@@ -527,6 +528,7 @@ namespace Terraria
 				}
 				else
 				{
+					Main.nextNPC[WorldGen.spawnNPC] = false;
 					WorldGen.spawnNPC = 0;
 					Main.npc[num].homeTileX = WorldGen.bestX;
 					Main.npc[num].homeTileY = WorldGen.bestY;
@@ -549,7 +551,7 @@ namespace Terraria
 			{
 				WorldGen.roomTable = true;
 			}
-			if (WorldGen.houseTile[4] || WorldGen.houseTile[33] || WorldGen.houseTile[34] || WorldGen.houseTile[35] || WorldGen.houseTile[36] || WorldGen.houseTile[42] || WorldGen.houseTile[49] || WorldGen.houseTile[93] || WorldGen.houseTile[95] || WorldGen.houseTile[98] || WorldGen.houseTile[100] || WorldGen.houseTile[149] || WorldGen.houseTile[170] || WorldGen.houseTile[171] || WorldGen.houseTile[172] || WorldGen.houseTile[173] || WorldGen.houseTile[174])
+			if (WorldGen.houseTile[4] || WorldGen.houseTile[33] || WorldGen.houseTile[34] || WorldGen.houseTile[35] || WorldGen.houseTile[42] || WorldGen.houseTile[49] || WorldGen.houseTile[93] || WorldGen.houseTile[95] || WorldGen.houseTile[98] || WorldGen.houseTile[100] || WorldGen.houseTile[149] || WorldGen.houseTile[173] || WorldGen.houseTile[174])
 			{
 				WorldGen.roomTorch = true;
 			}
@@ -793,7 +795,7 @@ namespace Terraria
 			WorldGen.roomY1 = y;
 			WorldGen.roomY2 = y;
 			WorldGen.numRoomTiles = 0;
-			for (int i = 0; i < 251; i++)
+			for (int i = 0; i < 255; i++)
 			{
 				WorldGen.houseTile[i] = false;
 			}
@@ -1333,6 +1335,9 @@ namespace Terraria
 			Main.updateMap = false;
 			Main.mapReady = false;
 			Main.refreshMap = false;*/
+			Main.pumpkinMoon = false;
+			Main.eclipse = false;
+			NPC.waveKills = 0f;
 			WorldGen.spawnHardBoss = 0;
 			WorldGen.totalSolid2 = 0;
 			WorldGen.totalGood2 = 0;
@@ -2155,6 +2160,7 @@ namespace Terraria
 		public static void loadWorld()
 		{
 			Main.checkXMas();
+			Main.checkHalloween();
 			if (!File.Exists(Main.worldPathName) && Main.autoGen)
 			{
 				for (int i = Main.worldPathName.Length - 1; i >= 0; i--)
@@ -2424,7 +2430,14 @@ namespace Terraria
 										{
 											Main.tile[j, k].active(false);
 										}
-										if (Main.tileFrameImportant[(int)Main.tile[j, k].type])
+										if (num < 72 &&
+										    (Main.tile[j, k].type == 35 || Main.tile[j, k].type == 36 || Main.tile[j, k].type == 170 ||
+										     Main.tile[j, k].type == 171 || Main.tile[j, k].type == 172))
+										{
+											Main.tile[j, k].frameX = binaryReader.ReadInt16();
+											Main.tile[j, k].frameY = binaryReader.ReadInt16();
+										}
+										else if (Main.tileFrameImportant[(int)Main.tile[j, k].type])
 										{
 											if (num < 28 && Main.tile[j, k].type == 4)
 											{
@@ -2542,6 +2555,10 @@ namespace Terraria
 							if (num < 67)
 							{
 								WorldGen.FixSunflowers();
+							}
+							if (num < 72)
+							{
+								WorldGen.FixChands();
 							}
 							int num4 = 40;
 							if (num < 58)
@@ -4088,6 +4105,7 @@ namespace Terraria
 			WorldGen.crimson = false;
 			WorldGen.heartCount = 0;
 			Main.checkXMas();
+			Main.checkHalloween();
 			NPC.clrNames();
 			NPC.setNames();
 			WorldGen.gen = true;
@@ -9084,6 +9102,26 @@ namespace Terraria
 				}
 			}
 			Main.statusText = Lang.gen[42];
+			if (Main.halloween)
+			{
+				for (int num566 = 40; num566 < Main.maxTilesX - 40; num566++)
+				{
+					int num567 = 50;
+					while ((double)num567 < Main.worldSurface)
+					{
+						if (Main.tile[num566, num567].active() && Main.tile[num566, num567].type == 2 && WorldGen.genRand.Next(15) == 0)
+						{
+							WorldGen.PlacePumpkin(num566, num567 - 1);
+							int num568 = WorldGen.genRand.Next(5);
+							for (int num569 = 0; num569 < num568; num569++)
+							{
+								WorldGen.GrowPumpkin(num566, num567 - 1, 254);
+							}
+						}
+						num567++;
+					}
+				}
+			}
 			WorldGen.AddPlants();
 			for (int num565 = 0; num565 < Main.maxTilesX; num565++)
 			{
@@ -19699,6 +19737,14 @@ namespace Terraria
 																					{
 																						Item.NewItem(x * 16, num * 16, 32, 32, 358, 1, false, 0, false);
 																					}
+																					else if (num2 == 24)
+																					{
+																						Item.NewItem(x * 16, num * 16, 32, 32, 1792, 1, false, 0, false);
+																					}
+																					else if (num2 == 25)
+																					{
+																						Item.NewItem(x * 16, num * 16, 32, 32, 1814, 1, false, 0, false);
+																					}
 																					else
 																					{
 																						if (num2 == 16)
@@ -20190,16 +20236,23 @@ namespace Terraria
 			}
 			if (flag)
 			{
-				int num3 = style * 54;
-				int num4 = 0;
+				int num3 = 0;
+				while (style > 35)
+				{
+					num3++;
+					style -= 36;
+				}
+
+				int num4 = style * 54;
+				int num5 = num3 * 54;
 				for (int k = num; k < num + 3; k++)
 				{
 					for (int l = num2; l < num2 + 3; l++)
 					{
 						Main.tile[k, l].active(true);
 						Main.tile[k, l].type = (byte)type;
-						Main.tile[k, l].frameX = (short)(num3 + 18 * (k - num));
-						Main.tile[k, l].frameY = (short)(num4 + 18 * (l - num2));
+						Main.tile[k, l].frameX = (short)(num4 + 18 * (k - num));
+						Main.tile[k, l].frameY = (short)(num5 + 18 * (l - num2));
 					}
 				}
 			}
@@ -20213,20 +20266,28 @@ namespace Terraria
 			bool flag = false;
 			int type = (int)Main.tile[x, y].type;
 			int num = 0;
+			int num2 = 0;
 			int i = (int)(Main.tile[x, y].frameX / 18);
 			while (i >= 3)
 			{
 				i -= 3;
 				num++;
 			}
-			int num2 = x - i;
-			int num3 = y - (int)(Main.tile[x, y].frameY / 18);
-			i = num * 54;
-			for (int j = num2; j < num2 + 3; j++)
+			int num3 = x - i;
+			int j = y - (int)(Main.tile[x, y].frameY / 18);
+			while (j >= 3)
 			{
-				for (int k = num3; k < num3 + 3; k++)
+				j -= 3;
+				num2++;
+			}
+			int num4 = y - j;
+			j = num2 * 54;
+			i = num * 54;
+			for (int k = num3; k < num3 + 3; k++)
+			{
+				for (int l = num4; l < num4 + 3; l++)
 				{
-					if ((int)Main.tile[j, k].type != type || !Main.tile[j, k].active() || Main.tile[j, k].wall <= 0 || (int)Main.tile[j, k].frameX != i + (j - num2) * 18 || (int)Main.tile[j, k].frameY != (k - num3) * 18)
+					if ((int)Main.tile[k, l].type != type || !Main.tile[k, l].active() || Main.tile[k, l].wall <= 0 || (int)Main.tile[k, l].frameX != i + (k - num3) * 18 || (int)Main.tile[k, l].frameY != (l - num4) * 18)
 					{
 						flag = true;
 						break;
@@ -20236,19 +20297,28 @@ namespace Terraria
 			if (flag)
 			{
 				WorldGen.destroyObject = true;
-				for (int l = num2; l < num2 + 3; l++)
+				for (int m = num3; m < num3 + 3; m++)
 				{
-					for (int m = num3; m < num3 + 3; m++)
+					for (int n = num4; n < num4 + 3; n++)
 					{
-						if ((int)Main.tile[l, m].type == type && Main.tile[l, m].active())
+						if ((int)Main.tile[m, n].type == type && Main.tile[m, n].active())
 						{
-							WorldGen.KillTile(l, m, false, false, false);
+							WorldGen.KillTile(m, n, false, false, false);
 						}
 					}
 				}
+				num += num2 * 36;
 				if (type == 240)
 				{
-					if (num == 33)
+					if (num == 37)
+					{
+						Item.NewItem(x * 16, y * 16, 32, 32, 1856, 1, false, 0, false);
+					}
+					else if (num == 36)
+					{
+						Item.NewItem(x * 16, y * 16, 32, 32, 1855, 1, false, 0, false);
+					}
+					else if (num == 33)
 					{
 						Item.NewItem(x * 16, y * 16, 32, 32, 1574, 1, false, 0, false);
 					}
@@ -20668,7 +20738,11 @@ namespace Terraria
 				}
 				if (type == 242)
 				{
-					if (num == 16)
+					if (num >= 17)
+					{
+						Item.NewItem(x * 16, y * 16, 32, 32, 1846 + num - 17, 1, false, 0, false);
+					}
+					else if (num == 16)
 					{
 						Item.NewItem(x * 16, y * 16, 32, 32, 1573, 1, false, 0, false);
 					}
@@ -21480,6 +21554,10 @@ namespace Terraria
 						{
 							Item.NewItem(x * 16, num2 * 16, 32, 32, 1431, 1, false, 0, false);
 						}
+						else if (num == 8)
+						{
+							Item.NewItem(x * 16, num2 * 16, 32, 32, 1808, 1, false, 0, false);
+						}
 						else
 						{
 							Item.NewItem(x * 16, num2 * 16, 32, 32, 1389 + num, 1, false, 0, false);
@@ -21704,6 +21782,14 @@ namespace Terraria
 					if (num == 15)
 					{
 						type2 = 1511;
+					}
+					if (num == 16)
+					{
+						type2 = 1795;
+					}
+					if (num == 17)
+					{
+						type2 = 1817;
 					}
 					Item.NewItem(num2 * 16, y * 16, 32, 32, type2, 1, false, 0, false);
 				}
@@ -22809,6 +22895,14 @@ namespace Terraria
 					{
 						type2 = 1510;
 					}
+					if (num2 == 21)
+					{
+						type2 = 1794;
+					}
+					if (num2 == 22)
+					{
+						type2 = 1816;
+					}
 					Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false);
 				}
 				else
@@ -23487,7 +23581,7 @@ namespace Terraria
 					{
 						Main.tile[l, m] = new Tile();
 					}
-					if (Main.tile[l, m].active() && Main.tile[l, m].type == 139)
+					if (Main.tile[l, m].active() && (Main.tile[l, m].type == 139 || Main.tile[l, m].type == 35))
 					{
 						if (Main.tile[l, m].frameX < 36)
 						{
@@ -23583,7 +23677,11 @@ namespace Terraria
 						flag = true;
 					}
 				}
-				if (!Main.tileSolid[(int)Main.tile[l, num5 + 2].type] && !Main.tileTable[(int)Main.tile[l, num5 + 2].type])
+				if (!Main.tile[l, num5 + 2].nactive())
+				{
+					flag = true;
+				}
+				else if (!Main.tileSolid[(int)Main.tile[l, num5 + 2].type] && !Main.tileTable[(int)Main.tile[l, num5 + 2].type])
 				{
 					flag = true;
 				}
@@ -23601,7 +23699,11 @@ namespace Terraria
 						}
 					}
 				}
-				if (num >= 13)
+				if (type == 35)
+				{
+					Item.NewItem(i * 16, j * 16, 32, 32, 1813, 1, false, 0, false);
+				}
+				else if (num >= 13)
 				{
 					Item.NewItem(i * 16, j * 16, 32, 32, 1596 + num - 13, 1, false, 0, false);
 				}
@@ -23967,115 +24069,74 @@ namespace Terraria
 						}
 					}
 				}
-				if (type == 34)
+				
+				if (type == 106)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 106, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 363, 1, false, 0, false);
 				}
 				else
 				{
-					if (type == 35)
+					if (type == 243)
 					{
-						Item.NewItem(i * 16, j * 16, 32, 32, 107, 1, false, 0, false);
+						Item.NewItem(i*16, j*16, 32, 32, 1430, 1, false, 0, false);
 					}
 					else
 					{
-						if (type == 36)
+						if (type == 212)
 						{
-							Item.NewItem(i * 16, j * 16, 32, 32, 108, 1, false, 0, false);
+							Item.NewItem(i*16, j*16, 32, 32, 951, 1, false, 0, false);
 						}
 						else
 						{
-							if (type == 106)
+							if (type == 219)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 363, 1, false, 0, false);
+								Item.NewItem(i*16, j*16, 32, 32, 997, 1, false, 0, false);
 							}
 							else
 							{
-								if (type == 243)
+								if (type == 220)
 								{
-									Item.NewItem(i*16, j*16, 32, 32, 1430, 1, false, 0, false);
+									Item.NewItem(i*16, j*16, 32, 32, 998, 1, false, 0, false);
 								}
 								else
 								{
-									if (type == 170)
+									if (type == 228)
 									{
-										Item.NewItem(i*16, j*16, 32, 32, 710, 1, false, 0, false);
+										Item.NewItem(i*16, j*16, 32, 32, 1120, 1, false, 0, false);
 									}
 									else
 									{
-										if (type == 171)
+										if (type == 247)
 										{
-											Item.NewItem(i*16, j*16, 32, 32, 711, 1, false, 0, false);
+											Item.NewItem(i*16, j*16, 32, 32, 1551, 1, false, 0, false);
 										}
 										else
 										{
-											if (type == 172)
+											if (type == 231)
 											{
-												Item.NewItem(i*16, j*16, 32, 32, 712, 1, false, 0, false);
-											}
-											else
-											{
-												if (type == 212)
+												int num7 = (i + 1)*16 + 8;
+												int num8 = j*16;
+												Gore.NewGore(new Vector2((float) num7, (float) num8), default(Vector2), 300, 1f);
+												Gore.NewGore(new Vector2((float) num7, (float) (num8 + 8)), default(Vector2), 301, 1f);
+												Gore.NewGore(new Vector2((float) num7, (float) (num8 + 16)), default(Vector2), 302, 1f);
+												float num9 = (float) (i*16);
+												float num10 = (float) (j*16);
+												float num11 = -1f;
+												int plr = 0;
+												for (int num12 = 0; num12 < 255; num12++)
 												{
-													Item.NewItem(i*16, j*16, 32, 32, 951, 1, false, 0, false);
-												}
-												else
-												{
-													if (type == 219)
+													if (Main.player[num12].active && !Main.player[num12].dead)
 													{
-														Item.NewItem(i*16, j*16, 32, 32, 997, 1, false, 0, false);
-													}
-													else
-													{
-														if (type == 220)
+														float num13 = Math.Abs(Main.player[num12].position.X - num9) +
+																		Math.Abs(Main.player[num12].position.Y - num10);
+														if (num13 < num11 || num11 == -1f)
 														{
-															Item.NewItem(i*16, j*16, 32, 32, 998, 1, false, 0, false);
-														}
-														else
-														{
-															if (type == 228)
-															{
-																Item.NewItem(i*16, j*16, 32, 32, 1120, 1, false, 0, false);
-															}
-															else
-															{
-																if (type == 247)
-																{
-																	Item.NewItem(i*16, j*16, 32, 32, 1551, 1, false, 0, false);
-																}
-																else
-																{
-																	if (type == 231)
-																	{
-																		int num7 = (i + 1)*16 + 8;
-																		int num8 = j*16;
-																		Gore.NewGore(new Vector2((float) num7, (float) num8), default(Vector2), 300, 1f);
-																		Gore.NewGore(new Vector2((float) num7, (float) (num8 + 8)), default(Vector2), 301, 1f);
-																		Gore.NewGore(new Vector2((float) num7, (float) (num8 + 16)), default(Vector2), 302, 1f);
-																		float num9 = (float) (i*16);
-																		float num10 = (float) (j*16);
-																		float num11 = -1f;
-																		int plr = 0;
-																		for (int num12 = 0; num12 < 255; num12++)
-																		{
-																			if (Main.player[num12].active && !Main.player[num12].dead)
-																			{
-																				float num13 = Math.Abs(Main.player[num12].position.X - num9) +
-																				              Math.Abs(Main.player[num12].position.Y - num10);
-																				if (num13 < num11 || num11 == -1f)
-																				{
-																					plr = num12;
-																					num11 = num13;
-																				}
-																			}
-																		}
-																		NPC.SpawnOnPlayer(plr, 222);
-																	}
-																}
-															}
+															plr = num12;
+															num11 = num13;
 														}
 													}
 												}
+												NPC.SpawnOnPlayer(plr, 222);
 											}
 										}
 									}
@@ -24094,6 +24155,538 @@ namespace Terraria
 				}
 			}
 		}
+		public static void Place2x2Style(int x, int y, int type, int style = 0)
+		{
+			if (x < 5 || x > Main.maxTilesX - 5 || y < 5 || y > Main.maxTilesY - 5)
+			{
+				return;
+			}
+			short num = 0;
+			if (type == 254)
+			{
+				num = (short)(x % 12 / 2);
+				num *= 36;
+			}
+			bool flag = true;
+			for (int i = x - 1; i < x + 1; i++)
+			{
+				for (int j = y - 1; j < y + 1; j++)
+				{
+					if (Main.tile[i, j] == null)
+					{
+						Main.tile[i, j] = new Tile();
+					}
+					if (Main.tile[i, j].active())
+					{
+						flag = false;
+					}
+				}
+				if (Main.tile[i, y + 1] == null)
+				{
+					Main.tile[i, y + 1] = new Tile();
+				}
+				if (!WorldGen.SolidTile(i, y + 1))
+				{
+					flag = false;
+				}
+				if (type == 254 && Main.tile[i, y + 1].type != 2 && Main.tile[i, y + 1].type != 109)
+				{
+					flag = false;
+				}
+			}
+			if (flag)
+			{
+				short num2 = (short)(36 * style);
+				Main.tile[x - 1, y - 1].active(true);
+				Main.tile[x - 1, y - 1].frameY = num;
+				Main.tile[x - 1, y - 1].frameX = num2;
+				Main.tile[x - 1, y - 1].type = (byte)type;
+				Main.tile[x, y - 1].active(true);
+				Main.tile[x, y - 1].frameY = num;
+				Main.tile[x, y - 1].frameX = num2 + 18;
+				Main.tile[x, y - 1].type = (byte)type;
+				Main.tile[x - 1, y].active(true);
+				Main.tile[x - 1, y].frameY = num + 18;
+				Main.tile[x - 1, y].frameX = num2;
+				Main.tile[x - 1, y].type = (byte)type;
+				Main.tile[x, y].active(true);
+				Main.tile[x, y].frameY = num + 18;
+				Main.tile[x, y].frameX = num2 + 18;
+				Main.tile[x, y].type = (byte)type;
+			}
+		}
+		public static void Check2x2Style(int i, int j, int type)
+		{
+			if (WorldGen.destroyObject)
+			{
+				return;
+			}
+			bool flag = false;
+			int k;
+			for (k = (int)(Main.tile[i, j].frameY / 18); k > 1; k -= 2)
+			{
+			}
+			int num = j - k;
+			int l = (int)(Main.tile[i, j].frameX / 18);
+			int num2 = 0;
+			while (l > 1)
+			{
+				l -= 2;
+				num2++;
+			}
+			l = i - l;
+			int num3 = num2 * 36;
+			for (int m = l; m < l + 2; m++)
+			{
+				for (int n = num; n < num + 2; n++)
+				{
+					if (Main.tile[m, n] == null)
+					{
+						Main.tile[m, n] = new Tile();
+					}
+					if (!Main.tile[m, n].active() || (int)Main.tile[m, n].type != type || (int)Main.tile[m, n].frameX != (m - l) * 18 + num3)
+					{
+						flag = true;
+					}
+				}
+				if (!WorldGen.SolidTile(m, num + 2))
+				{
+					flag = true;
+				}
+			}
+			if (flag)
+			{
+				int frameX = (int)Main.tile[i, j].frameX;
+				WorldGen.destroyObject = true;
+				for (int num4 = l; num4 < l + 2; num4++)
+				{
+					for (int num5 = num; num5 < num + 2; num5++)
+					{
+						if (Main.tile[num4, num5] == null)
+						{
+							Main.tile[num4, num5] = new Tile();
+						}
+						if ((int)Main.tile[num4, num5].type == type && Main.tile[num4, num5].active())
+						{
+							WorldGen.KillTile(num4, num5, false, false, false);
+						}
+					}
+				}
+				if (type == 254)
+				{
+					if (frameX >= 72)
+					{
+						if (frameX < 108)
+						{
+							if (WorldGen.genRand.Next(2) == 0)
+							{
+								Item.NewItem(i * 16, j * 16, 32, 32, 1725, WorldGen.genRand.Next(1, 3), false, 0, false);
+							}
+						}
+						else if (frameX < 144)
+						{
+							Item.NewItem(i * 16, j * 16, 32, 32, 1725, WorldGen.genRand.Next(2, 6), false, 0, false);
+						}
+						else
+						{
+							Item.NewItem(i * 16, j * 16, 32, 32, 1725, WorldGen.genRand.Next(5, 11), false, 0, false);
+							if (Main.halloween && Main.rand.Next(200) == 0)
+							{
+								Item.NewItem(i * 16, j * 16, 32, 32, 1799, 1, false, 0, false);
+							}
+						}
+					}
+				}
+				else if (type == 96)
+				{
+					if (num2 == 0)
+					{
+						Item.NewItem(i * 16, j * 16, 32, 32, 345, 1, false, 0, false);
+					}
+					if (num2 == 1)
+					{
+						Item.NewItem(i * 16, j * 16, 32, 32, 1791, 1, false, 0, false);
+					}
+				}
+				WorldGen.destroyObject = false;
+				for (int num6 = l - 1; num6 < l + 3; num6++)
+				{
+					for (int num7 = num - 1; num7 < num + 3; num7++)
+					{
+						WorldGen.TileFrame(num6, num7, false, false);
+					}
+				}
+			}
+		}
+		public static void PlacePumpkin(int x, int superY)
+		{
+			int num = 254;
+			int num2 = WorldGen.genRand.Next(6) * 36;
+			if (x < 5 || x > Main.maxTilesX - 5 || superY < 5 || superY > Main.maxTilesY - 5)
+			{
+				return;
+			}
+			bool flag = true;
+			for (int i = x - 1; i < x + 1; i++)
+			{
+				for (int j = superY - 1; j < superY + 1; j++)
+				{
+					if (Main.tile[i, j] == null)
+					{
+						Main.tile[i, j] = new Tile();
+					}
+					if (Main.tile[i, j].active() && Main.tile[i, j].type != 3 && Main.tile[i, j].type != 73 && Main.tile[i, j].type != 113 && Main.tile[i, j].type != 110 && (Main.tile[i, j].type != 185 || Main.tile[i, j].frameY != 0))
+					{
+						flag = false;
+					}
+					if (Main.tile[i, j].liquid > 0)
+					{
+						flag = false;
+					}
+				}
+				if (!WorldGen.SolidTile(i, superY + 1) || (Main.tile[i, superY + 1].type != 2 && Main.tile[i, superY + 1].type != 109))
+				{
+					flag = false;
+				}
+			}
+			if (flag)
+			{
+				Main.tile[x - 1, superY - 1].active(true);
+				Main.tile[x - 1, superY - 1].frameY = (short)num2;
+				Main.tile[x - 1, superY - 1].frameX = 0;
+				Main.tile[x - 1, superY - 1].type = (byte)num;
+				Main.tile[x, superY - 1].active(true);
+				Main.tile[x, superY - 1].frameY = (short)num2;
+				Main.tile[x, superY - 1].frameX = 18;
+				Main.tile[x, superY - 1].type = (byte)num;
+				Main.tile[x - 1, superY].active(true);
+				Main.tile[x - 1, superY].frameY = (short)(num2 + 18);
+				Main.tile[x - 1, superY].frameX = 0;
+				Main.tile[x - 1, superY].type = (byte)num;
+				Main.tile[x, superY].active(true);
+				Main.tile[x, superY].frameY = (short)(num2 + 18);
+				Main.tile[x, superY].frameX = 18;
+				Main.tile[x, superY].type = (byte)num;
+			}
+		}
+		public static void GrowPumpkin(int i, int j, int type)
+		{
+			if (WorldGen.destroyObject)
+			{
+				return;
+			}
+			bool flag = false;
+			int k;
+			for (k = (int)(Main.tile[i, j].frameY / 18); k > 1; k -= 2)
+			{
+			}
+			int num = j - k;
+			int l = (int)(Main.tile[i, j].frameX / 18);
+			int num2 = 0;
+			while (l > 1)
+			{
+				l -= 2;
+				num2++;
+			}
+			l = i - l;
+			int num3 = num2 * 36;
+			if (num2 >= 4)
+			{
+				return;
+			}
+			for (int m = l; m < l + 2; m++)
+			{
+				for (int n = num; n < num + 2; n++)
+				{
+					if (Main.tile[m, n] == null)
+					{
+						Main.tile[m, n] = new Tile();
+					}
+					if (!Main.tile[m, n].active() || (int)Main.tile[m, n].type != type || (int)Main.tile[m, n].frameX != (m - l) * 18 + num3)
+					{
+						flag = true;
+					}
+				}
+				if (!WorldGen.SolidTile(m, num + 2) || (Main.tile[m, num + 2].type != 2 && Main.tile[m, num + 2].type != 109))
+				{
+					flag = true;
+				}
+			}
+			if (!flag)
+			{
+				for (int num4 = l; num4 < l + 2; num4++)
+				{
+					for (int num5 = num; num5 < num + 2; num5++)
+					{
+						if (Main.tile[num4, num5] == null)
+						{
+							Main.tile[num4, num5] = new Tile();
+						}
+						if ((int)Main.tile[num4, num5].type == type && Main.tile[num4, num5].active())
+						{
+							Tile expr_1AD = Main.tile[num4, num5];
+							expr_1AD.frameX += 36;
+						}
+					}
+				}
+			}
+			if (Main.netMode == 2)
+			{
+				NetMessage.SendTileSquare(-1, l, num, 4);
+			}
+		}
+		public static void FixChands()
+		{
+			for (int i = 5; i < Main.maxTilesX - 5; i++)
+			{
+				for (int j = 5; j < Main.maxTilesY - 5; j++)
+				{
+					if (Main.tile[i, j].active())
+					{
+						int type = (int)Main.tile[i, j].type;
+						if (Main.tile[i, j].active() && (type == 35 || type == 36 || type == 170 || type == 171 || type == 172))
+						{
+							WorldGen.FixChand(i, j);
+						}
+					}
+				}
+			}
+		}
+		public static void FixChand(int i, int j)
+		{
+			int num = 0;
+			int type = (int)Main.tile[i, j].type;
+			if (Main.tile[i, j].active())
+			{
+				if (type == 35)
+				{
+					num = 1;
+				}
+				if (type == 36)
+				{
+					num = 2;
+				}
+				if (type == 170)
+				{
+					num = 3;
+				}
+				if (type == 171)
+				{
+					num = 4;
+				}
+				if (type == 172)
+				{
+					num = 5;
+				}
+			}
+			if (num > 0)
+			{
+				int k;
+				for (k = (int)(Main.tile[i, j].frameX / 18); k >= 3; k -= 3)
+				{
+				}
+				if (k >= 3)
+				{
+					k -= 3;
+				}
+				k = i - k;
+				int num2 = j + (int)(Main.tile[i, j].frameY / 18 * -1);
+				for (int l = k; l < k + 3; l++)
+				{
+					for (int m = num2; m < num2 + 3; m++)
+					{
+						if (Main.tile[l, m] == null)
+						{
+							Main.tile[l, m] = new Tile();
+						}
+						if (Main.tile[l, m].active() && (int)Main.tile[l, m].type == type)
+						{
+							Main.tile[l, m].type = 34;
+							Main.tile[l, m].frameY = (short)((int)Main.tile[l, m].frameY + num * 54);
+						}
+					}
+				}
+			}
+		}
+		public static void PlaceChand(int x, int y, int type, int style = 0)
+		{
+			bool flag = true;
+			int num = 0;
+			for (int i = x - 1; i < x + 2; i++)
+			{
+				for (int j = y; j < y + 3; j++)
+				{
+					if (Main.tile[i, j] == null)
+					{
+						Main.tile[i, j] = new Tile();
+					}
+					if (Main.tile[i, j].active())
+					{
+						flag = false;
+					}
+				}
+			}
+			if (Main.tile[x, y - 1] == null)
+			{
+				Main.tile[x, y - 1] = new Tile();
+			}
+			if (!Main.tile[x, y - 1].nactive() || !Main.tileSolid[(int)Main.tile[x, y - 1].type] || Main.tileSolidTop[(int)Main.tile[x, y - 1].type])
+			{
+				flag = false;
+			}
+			if (flag)
+			{
+				int num2 = 0;
+				int num3 = style * 18 * 3;
+				Main.tile[x - 1, y + num].active(true);
+				Main.tile[x - 1, y + num].frameY = (short)num3;
+				Main.tile[x - 1, y + num].frameX = (short)num2;
+				Main.tile[x - 1, y + num].type = (byte)type;
+				Main.tile[x, y + num].active(true);
+				Main.tile[x, y + num].frameY = (short)num3;
+				Main.tile[x, y + num].frameX = (short)(num2 + 18);
+				Main.tile[x, y + num].type = (byte)type;
+				Main.tile[x + 1, y + num].active(true);
+				Main.tile[x + 1, y + num].frameY = (short)num3;
+				Main.tile[x + 1, y + num].frameX = (short)(num2 + 36);
+				Main.tile[x + 1, y + num].type = (byte)type;
+				Main.tile[x - 1, y + 1 + num].active(true);
+				Main.tile[x - 1, y + 1 + num].frameY = (short)(num3 + 18);
+				Main.tile[x - 1, y + 1 + num].frameX = (short)num2;
+				Main.tile[x - 1, y + 1 + num].type = (byte)type;
+				Main.tile[x, y + 1 + num].active(true);
+				Main.tile[x, y + 1 + num].frameY = (short)(num3 + 18);
+				Main.tile[x, y + 1 + num].frameX = (short)(num2 + 18);
+				Main.tile[x, y + 1 + num].type = (byte)type;
+				Main.tile[x + 1, y + 1 + num].active(true);
+				Main.tile[x + 1, y + 1 + num].frameY = (short)(num3 + 18);
+				Main.tile[x + 1, y + 1 + num].frameX = (short)(num2 + 36);
+				Main.tile[x + 1, y + 1 + num].type = (byte)type;
+				Main.tile[x - 1, y + 2 + num].active(true);
+				Main.tile[x - 1, y + 2 + num].frameY = (short)(num3 + 36);
+				Main.tile[x - 1, y + 2 + num].frameX = (short)num2;
+				Main.tile[x - 1, y + 2 + num].type = (byte)type;
+				Main.tile[x, y + 2 + num].active(true);
+				Main.tile[x, y + 2 + num].frameY = (short)(num3 + 36);
+				Main.tile[x, y + 2 + num].frameX = (short)(num2 + 18);
+				Main.tile[x, y + 2 + num].type = (byte)type;
+				Main.tile[x + 1, y + 2 + num].active(true);
+				Main.tile[x + 1, y + 2 + num].frameY = (short)(num3 + 36);
+				Main.tile[x + 1, y + 2 + num].frameX = (short)(num2 + 36);
+				Main.tile[x + 1, y + 2 + num].type = (byte)type;
+			}
+		}
+		public static void CheckChand(int i, int j, int type)
+		{
+			if (WorldGen.destroyObject)
+			{
+				return;
+			}
+			bool flag = false;
+			int k = (int)(Main.tile[i, j].frameX / 18);
+			int num = 0;
+			while (k >= 3)
+			{
+				num++;
+				k -= 3;
+			}
+			int num2 = i - k;
+			int num3 = 54 * num;
+			if (k >= 3)
+			{
+				k -= 3;
+			}
+			k = i - k;
+			int l = (int)(Main.tile[i, j].frameY / 18);
+			int num4 = 0;
+			while (l >= 3)
+			{
+				num4++;
+				l -= 3;
+			}
+			int num5 = 54 * num4;
+			if (l >= 3)
+			{
+				l -= 3;
+			}
+			l = j - l;
+			for (int m = k; m < k + 3; m++)
+			{
+				for (int n = l; n < l + 3; n++)
+				{
+					if (Main.tile[m, n] == null)
+					{
+						Main.tile[m, n] = new Tile();
+					}
+					if (!Main.tile[m, n].active() || (int)Main.tile[m, n].type != type || (int)Main.tile[m, n].frameX != (m - num2) * 18 + num3 || (int)Main.tile[m, n].frameY != (n - l) * 18 + num5)
+					{
+						flag = true;
+					}
+				}
+			}
+			if (Main.tile[k + 1, l - 1] == null)
+			{
+				Main.tile[k + 1, l - 1] = new Tile();
+			}
+			if (!Main.tile[k + 1, l - 1].nactive() || !Main.tileSolid[(int)Main.tile[k + 1, l - 1].type] || Main.tileSolidTop[(int)Main.tile[k + 1, l - 1].type])
+			{
+				flag = true;
+			}
+			if (flag)
+			{
+				WorldGen.destroyObject = true;
+				for (int num6 = k; num6 < k + 3; num6++)
+				{
+					for (int num7 = l; num7 < l + 3; num7++)
+					{
+						if ((int)Main.tile[num6, num7].type == type && Main.tile[num6, num7].active())
+						{
+							WorldGen.KillTile(num6, num7, false, false, false);
+						}
+					}
+				}
+				if (type == 34)
+				{
+					if (num4 == 0)
+					{
+						Item.NewItem(i * 16, j * 16, 32, 32, 106, 1, false, 0, false);
+					}
+					if (num4 == 1)
+					{
+						Item.NewItem(i * 16, j * 16, 32, 32, 107, 1, false, 0, false);
+					}
+					if (num4 == 2)
+					{
+						Item.NewItem(i * 16, j * 16, 32, 32, 108, 1, false, 0, false);
+					}
+					if (num4 == 3)
+					{
+						Item.NewItem(i * 16, j * 16, 32, 32, 710, 1, false, 0, false);
+					}
+					if (num4 == 4)
+					{
+						Item.NewItem(i * 16, j * 16, 32, 32, 711, 1, false, 0, false);
+					}
+					if (num4 == 5)
+					{
+						Item.NewItem(i * 16, j * 16, 32, 32, 712, 1, false, 0, false);
+					}
+					if (num4 == 6)
+					{
+						Item.NewItem(i * 16, j * 16, 32, 32, 1812, 1, false, 0, false);
+					}
+				}
+				WorldGen.destroyObject = false;
+				for (int num8 = k - 1; num8 < k + 4; num8++)
+				{
+					for (int num9 = l - 1; num9 < l + 4; num9++)
+					{
+						WorldGen.TileFrame(num8, num9, false, false);
+					}
+				}
+			}
+		}
+
 		public static void Place3x3(int x, int y, int type, int style = 0)
 		{
 			bool flag = true;
@@ -26972,7 +27565,7 @@ namespace Terraria
 		}
 		public static bool PlaceTile(int i, int j, int type, bool mute = false, bool forced = false, int plr = -1, int style = 0)
 		{
-			if (type >= 251)
+			if (type >= 255)
 			{
 				return false;
 			}
@@ -27201,6 +27794,10 @@ namespace Terraria
 												WorldGen.SquareTileFrame(i, j, true);
 											}
 										}
+										else if (type == 254)
+										{
+											WorldGen.Place2x2Style(i, j, type, style);
+										}
 										else
 										{
 											if (type == 132 || type == 138 || type == 142 || type == 143)
@@ -27332,7 +27929,7 @@ namespace Terraria
 																		}
 																		else
 																		{
-																			if (type == 139)
+																			if (type == 139 || type == 35)
 																			{
 																				WorldGen.PlaceMB(i, j, type, style);
 																				WorldGen.SquareTileFrame(i, j, true);
@@ -27381,9 +27978,14 @@ namespace Terraria
 																										{
 																											WorldGen.Place6x4Wall(i, j, type, style);
 																										}
+																										else if (type == 34)
+																										{
+																											WorldGen.PlaceChand(i, j, type, style);
+																											WorldGen.SquareTileFrame(i, j, true);
+																										}
 																										else
 																										{
-																											if (type == 34 || type == 35 || type == 36 || type == 106 || type == 170 || type == 171 || type == 172 || type == 212 || type == 219 || type == 220 || type == 228 || type == 231 || type == 243 || type == 247)
+																											if (type == 106 || type == 212 || type == 219 || type == 220 || type == 228 || type == 231 || type == 243 || type == 247)
 																											{
 																												WorldGen.Place3x3(i, j, type, style);
 																												WorldGen.SquareTileFrame(i, j, true);
@@ -27550,9 +28152,13 @@ namespace Terraria
 																																																}
 																																																else
 																																																{
-																																																	if (type == 94 || type == 95 || type == 96 || type == 97 || type == 98 || type == 99 || type == 100 || type == 125 || type == 126 || type == 173)
+																																																	if (type == 94 || type == 95 || type == 97 || type == 98 || type == 99 || type == 100 || type == 125 || type == 126 || type == 173)
 																																																	{
 																																																		WorldGen.Place2x2(i, j, type);
+																																																	}
+																																																	else if (type == 96)
+																																																	{
+																																																		WorldGen.Place2x2Style(i, j, type, style);
 																																																	}
 																																																	else
 																																																	{
@@ -28295,30 +28901,34 @@ namespace Terraria
 																}
 																else
 																{
-																	if (type == 34 || type == 35 || type == 36 || type == 170 || type == 171 || type == 172)
+																	if (type == 34)
 																	{
-																		int num16 = j - (int)(Main.tile[i, j].frameY / 18);
-																		int num17 = (int)(Main.tile[i, j].frameX / 18);
-																		if (num17 > 2)
+																		int num16;
+																		for (num16 = (int)(Main.tile[i, j].frameY / 18); num16 >= 3; num16 -= 3)
 																		{
-																			num17 -= 3;
 																		}
-																		num17 = i - num17;
-																		short num18 = 54;
-																		if (Main.tile[num17, num16].frameX > 0)
+																		int num17 = j - num16;
+																		int num18 = (int)(Main.tile[i, j].frameX / 18);
+																		if (num18 > 2)
 																		{
-																			num18 = -54;
+																			num18 -= 3;
 																		}
-																		for (int num19 = num17; num19 < num17 + 3; num19++)
+																		num18 = i - num18;
+																		short num19 = 54;
+																		if (Main.tile[num18, num17].frameX > 0)
 																		{
-																			for (int num20 = num16; num20 < num16 + 3; num20++)
+																			num19 = -54;
+																		}
+																		for (int num20 = num18; num20 < num18 + 3; num20++)
+																		{
+																			for (int num21 = num17; num21 < num17 + 3; num21++)
 																			{
-																				Tile expr_8C4 = Main.tile[num19, num20];
-																				expr_8C4.frameX += num18;
-																				WorldGen.noWire(num19, num20);
+																				Tile expr_8DB = Main.tile[num20, num21];
+																				expr_8DB.frameX += num19;
+																				WorldGen.noWire(num20, num21);
 																			}
 																		}
-																		NetMessage.SendTileSquare(-1, num17 + 1, num16 + 1, 3);
+																		NetMessage.SendTileSquare(-1, num18 + 1, num17 + 1, 3);
 																	}
 																	else
 																	{
@@ -28436,7 +29046,7 @@ namespace Terraria
 																				}
 																				else
 																				{
-																					if (type == 139)
+																					if (type == 139 || type == 35)
 																					{
 																						WorldGen.SwitchMB(i, j);
 																					}
@@ -28464,310 +29074,256 @@ namespace Terraria
 																								{
 																									if (type == 142 || type == 143)
 																									{
-																										int num28 = j - (int)(Main.tile[i, j].frameY / 18);
-																										int num29 = (int)(Main.tile[i, j].frameX / 18);
-																										if (num29 > 1)
-																										{
-																											num29 -= 2;
-																										}
-																										num29 = i - num29;
-																										WorldGen.noWire(num29, num28);
-																										WorldGen.noWire(num29, num28 + 1);
-																										WorldGen.noWire(num29 + 1, num28);
-																										WorldGen.noWire(num29 + 1, num28 + 1);
-																										if (type == 142)
-																										{
-																											for (int num30 = 0; num30 < 4; num30++)
-																											{
-																												if (WorldGen.numInPump >= WorldGen.maxPump - 1)
-																												{
-																													break;
-																												}
-																												int num31;
-																												int num32;
-																												if (num30 == 0)
-																												{
-																													num31 = num29;
-																													num32 = num28 + 1;
-																												}
-																												else
-																												{
-																													if (num30 == 1)
-																													{
-																														num31 = num29 + 1;
-																														num32 = num28 + 1;
-																													}
-																													else
-																													{
-																														if (num30 == 2)
-																														{
-																															num31 = num29;
-																															num32 = num28;
-																														}
-																														else
-																														{
-																															num31 = num29 + 1;
-																															num32 = num28;
-																														}
-																													}
-																												}
-																												WorldGen.inPumpX[WorldGen.numInPump] = num31;
-																												WorldGen.inPumpY[WorldGen.numInPump] = num32;
-																												WorldGen.numInPump++;
-																											}
-																										}
-																										else
-																										{
-																											for (int num33 = 0; num33 < 4; num33++)
-																											{
-																												if (WorldGen.numOutPump >= WorldGen.maxPump - 1)
-																												{
-																													break;
-																												}
-																												int num34;
-																												int num35;
-																												if (num33 == 0)
-																												{
-																													num34 = num29;
-																													num35 = num28 + 1;
-																												}
-																												else
-																												{
-																													if (num33 == 1)
-																													{
-																														num34 = num29 + 1;
-																														num35 = num28 + 1;
-																													}
-																													else
-																													{
-																														if (num33 == 2)
-																														{
-																															num34 = num29;
-																															num35 = num28;
-																														}
-																														else
-																														{
-																															num34 = num29 + 1;
-																															num35 = num28;
-																														}
-																													}
-																												}
-																												WorldGen.outPumpX[WorldGen.numOutPump] = num34;
-																												WorldGen.outPumpY[WorldGen.numOutPump] = num35;
-																												WorldGen.numOutPump++;
-																											}
-																										}
+																										int num29 = j - (int)(Main.tile[i, j].frameY / 18);
+					int num30 = (int)(Main.tile[i, j].frameX / 18);
+					if (num30 > 1)
+					{
+						num30 -= 2;
+					}
+					num30 = i - num30;
+					WorldGen.noWire(num30, num29);
+					WorldGen.noWire(num30, num29 + 1);
+					WorldGen.noWire(num30 + 1, num29);
+					WorldGen.noWire(num30 + 1, num29 + 1);
+					if (type == 142)
+					{
+						for (int num31 = 0; num31 < 4; num31++)
+						{
+							if (WorldGen.numInPump >= WorldGen.maxPump - 1)
+							{
+								break;
+							}
+							int num32;
+							int num33;
+							if (num31 == 0)
+							{
+								num32 = num30;
+								num33 = num29 + 1;
+							}
+							else if (num31 == 1)
+							{
+								num32 = num30 + 1;
+								num33 = num29 + 1;
+							}
+							else if (num31 == 2)
+							{
+								num32 = num30;
+								num33 = num29;
+							}
+							else
+							{
+								num32 = num30 + 1;
+								num33 = num29;
+							}
+							WorldGen.inPumpX[WorldGen.numInPump] = num32;
+							WorldGen.inPumpY[WorldGen.numInPump] = num33;
+							WorldGen.numInPump++;
+						}
+					}
+					else
+					{
+						for (int num34 = 0; num34 < 4; num34++)
+						{
+							if (WorldGen.numOutPump >= WorldGen.maxPump - 1)
+							{
+								break;
+							}
+							int num35;
+							int num36;
+							if (num34 == 0)
+							{
+								num35 = num30;
+								num36 = num29 + 1;
+							}
+							else if (num34 == 1)
+							{
+								num35 = num30 + 1;
+								num36 = num29 + 1;
+							}
+							else if (num34 == 2)
+							{
+								num35 = num30;
+								num36 = num29;
+							}
+							else
+							{
+								num35 = num30 + 1;
+								num36 = num29;
+							}
+							WorldGen.outPumpX[WorldGen.numOutPump] = num35;
+							WorldGen.outPumpY[WorldGen.numOutPump] = num36;
+							WorldGen.numOutPump++;
+						}
+					}
 																									}
 																									else
 																									{
 																										if (type == 105)
 																										{
-																											int num36 = j - (int)(Main.tile[i, j].frameY / 18);
-																											int num37 = (int)(Main.tile[i, j].frameX / 18);
-																											int num38 = 0;
-																											while (num37 >= 2)
+																											int num37 = j - (int)(Main.tile[i, j].frameY / 18);
+																											int num38 = (int)(Main.tile[i, j].frameX / 18);
+																											int num39 = 0;
+																											while (num38 >= 2)
 																											{
-																												num37 -= 2;
-																												num38++;
+																												num38 -= 2;
+																												num39++;
 																											}
-																											num37 = i - num37;
-																											WorldGen.noWire(num37, num36);
-																											WorldGen.noWire(num37, num36 + 1);
-																											WorldGen.noWire(num37, num36 + 2);
-																											WorldGen.noWire(num37 + 1, num36);
-																											WorldGen.noWire(num37 + 1, num36 + 1);
-																											WorldGen.noWire(num37 + 1, num36 + 2);
-																											int num39 = num37 * 16 + 16;
-																											int num40 = (num36 + 3) * 16;
-																											int num41 = -1;
-																											if (num38 == 4)
+																											num38 = i - num38;
+																											WorldGen.noWire(num38, num37);
+																											WorldGen.noWire(num38, num37 + 1);
+																											WorldGen.noWire(num38, num37 + 2);
+																											WorldGen.noWire(num38 + 1, num37);
+																											WorldGen.noWire(num38 + 1, num37 + 1);
+																											WorldGen.noWire(num38 + 1, num37 + 2);
+																											int num40 = num38 * 16 + 16;
+																											int num41 = (num37 + 3) * 16;
+																											int num42 = -1;
+																											if (num39 == 4)
 																											{
-																												if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num39, (float)num40, 1))
+																												if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num40, (float)num41, 1))
 																												{
-																													num41 = NPC.NewNPC(num39, num40 - 12, 1, 0);
+																													num42 = NPC.NewNPC(num40, num41 - 12, 1, 0);
 																												}
 																											}
-																											else
+																											else if (num39 == 7)
 																											{
-																												if (num38 == 7)
+																												if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num40, (float)num41, 49))
 																												{
-																													if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num39, (float)num40, 49))
-																													{
-																														num41 = NPC.NewNPC(num39 - 4, num40 - 6, 49, 0);
-																													}
+																													num42 = NPC.NewNPC(num40 - 4, num41 - 6, 49, 0);
 																												}
-																												else
+																											}
+																											else if (num39 == 8)
+																											{
+																												if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num40, (float)num41, 55))
 																												{
-																													if (num38 == 8)
+																													num42 = NPC.NewNPC(num40, num41 - 12, 55, 0);
+																												}
+																											}
+																											else if (num39 == 9)
+																											{
+																												if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num40, (float)num41, 46))
+																												{
+																													num42 = NPC.NewNPC(num40, num41 - 12, 46, 0);
+																												}
+																											}
+																											else if (num39 == 10)
+																											{
+																												if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num40, (float)num41, 21))
+																												{
+																													num42 = NPC.NewNPC(num40, num41, 21, 0);
+																												}
+																											}
+																											else if (num39 == 18)
+																											{
+																												if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num40, (float)num41, 67))
+																												{
+																													num42 = NPC.NewNPC(num40, num41 - 12, 67, 0);
+																												}
+																											}
+																											else if (num39 == 23)
+																											{
+																												if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num40, (float)num41, 63))
+																												{
+																													num42 = NPC.NewNPC(num40, num41 - 12, 63, 0);
+																												}
+																											}
+																											else if (num39 == 27)
+																											{
+																												if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num40, (float)num41, 85))
+																												{
+																													num42 = NPC.NewNPC(num40 - 9, num41, 85, 0);
+																												}
+																											}
+																											else if (num39 == 28)
+																											{
+																												if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num40, (float)num41, 74))
+																												{
+																													num42 = NPC.NewNPC(num40, num41 - 12, 74, 0);
+																												}
+																											}
+																											else if (num39 == 42)
+																											{
+																												if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num40, (float)num41, 58))
+																												{
+																													num42 = NPC.NewNPC(num40, num41 - 12, 58, 0);
+																												}
+																											}
+																											else if (num39 == 37)
+																											{
+																												if (WorldGen.checkMech(i, j, 600) && Item.MechSpawn((float)num40, (float)num41, 58) && Item.MechSpawn((float)num40, (float)num41, 1734))
+																												{
+																													Item.NewItem(num40, num41 - 16, 0, 0, 58, 1, false, 0, false);
+																												}
+																											}
+																											else if (num39 == 2)
+																											{
+																												if (WorldGen.checkMech(i, j, 600) && Item.MechSpawn((float)num40, (float)num41, 184) && Item.MechSpawn((float)num40, (float)num41, 1735))
+																												{
+																													Item.NewItem(num40, num41 - 16, 0, 0, 184, 1, false, 0, false);
+																												}
+																											}
+																											else if (num39 == 17)
+																											{
+																												if (WorldGen.checkMech(i, j, 600) && Item.MechSpawn((float)num40, (float)num41, 166))
+																												{
+																													Item.NewItem(num40, num41 - 20, 0, 0, 166, 1, false, 0, false);
+																												}
+																											}
+																											else if (num39 == 40)
+																											{
+																												if (WorldGen.checkMech(i, j, 300))
+																												{
+																													int[] array = new int[10];
+																													int num43 = 0;
+																													for (int num44 = 0; num44 < 200; num44++)
 																													{
-																														if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num39, (float)num40, 55))
+																														if (Main.npc[num44].active && (Main.npc[num44].type == 17 || Main.npc[num44].type == 19 || Main.npc[num44].type == 22 || Main.npc[num44].type == 38 || Main.npc[num44].type == 54 || Main.npc[num44].type == 107 || Main.npc[num44].type == 108 || Main.npc[num44].type == 142 || Main.npc[num44].type == 160 || Main.npc[num44].type == 207 || Main.npc[num44].type == 209 || Main.npc[num44].type == 227 || Main.npc[num44].type == 228 || Main.npc[num44].type == 229))
 																														{
-																															num41 = NPC.NewNPC(num39, num40 - 12, 55, 0);
-																														}
-																													}
-																													else
-																													{
-																														if (num38 == 9)
-																														{
-																															if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num39, (float)num40, 46))
+																															array[num43] = num44;
+																															num43++;
+																															if (num43 >= 9)
 																															{
-																																num41 = NPC.NewNPC(num39, num40 - 12, 46, 0);
-																															}
-																														}
-																														else
-																														{
-																															if (num38 == 10)
-																															{
-																																if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num39, (float)num40, 21))
-																																{
-																																	num41 = NPC.NewNPC(num39, num40, 21, 0);
-																																}
-																															}
-																															else
-																															{
-																																if (num38 == 18)
-																																{
-																																	if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num39, (float)num40, 67))
-																																	{
-																																		num41 = NPC.NewNPC(num39, num40 - 12, 67, 0);
-																																	}
-																																}
-																																else
-																																{
-																																	if (num38 == 23)
-																																	{
-																																		if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num39, (float)num40, 63))
-																																		{
-																																			num41 = NPC.NewNPC(num39, num40 - 12, 63, 0);
-																																		}
-																																	}
-																																	else
-																																	{
-																																		if (num38 == 27)
-																																		{
-																																			if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num39, (float)num40, 85))
-																																			{
-																																				num41 = NPC.NewNPC(num39 - 9, num40, 85, 0);
-																																			}
-																																		}
-																																		else
-																																		{
-																																			if (num38 == 28)
-																																			{
-																																				if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num39, (float)num40, 74))
-																																				{
-																																					num41 = NPC.NewNPC(num39, num40 - 12, 74, 0);
-																																				}
-																																			}
-																																			else
-																																			{
-																																				if (num38 == 42)
-																																				{
-																																					if (WorldGen.checkMech(i, j, 30) && NPC.MechSpawn((float)num39, (float)num40, 58))
-																																					{
-																																						num41 = NPC.NewNPC(num39, num40 - 12, 58, 0);
-																																					}
-																																				}
-																																				else
-																																				{
-																																					if (num38 == 37)
-																																					{
-																																						if (WorldGen.checkMech(i, j, 600) && Item.MechSpawn((float)num39, (float)num40, 58))
-																																						{
-																																							Item.NewItem(num39, num40 - 16, 0, 0, 58, 1, false, 0, false);
-																																						}
-																																					}
-																																					else
-																																					{
-																																						if (num38 == 2)
-																																						{
-																																							if (WorldGen.checkMech(i, j, 600) && Item.MechSpawn((float)num39, (float)num40, 184))
-																																							{
-																																								Item.NewItem(num39, num40 - 16, 0, 0, 184, 1, false, 0, false);
-																																							}
-																																						}
-																																						else
-																																						{
-																																							if (num38 == 17)
-																																							{
-																																								if (WorldGen.checkMech(i, j, 600) && Item.MechSpawn((float)num39, (float)num40, 166))
-																																								{
-																																									Item.NewItem(num39, num40 - 20, 0, 0, 166, 1, false, 0, false);
-																																								}
-																																							}
-																																							else
-																																							{
-																																								if (num38 == 40)
-																																								{
-																																									if (WorldGen.checkMech(i, j, 300))
-																																									{
-																																										int[] array = new int[10];
-																																										int num42 = 0;
-																																										for (int num43 = 0; num43 < 200; num43++)
-																																										{
-																																											if (Main.npc[num43].active && (Main.npc[num43].type == 17 || Main.npc[num43].type == 19 || Main.npc[num43].type == 22 || Main.npc[num43].type == 38 || Main.npc[num43].type == 54 || Main.npc[num43].type == 107 || Main.npc[num43].type == 108 || Main.npc[num43].type == 142 || Main.npc[num43].type == 160 || Main.npc[num43].type == 207 || Main.npc[num43].type == 209 || Main.npc[num43].type == 227 || Main.npc[num43].type == 228 || Main.npc[num43].type == 229))
-																																											{
-																																												array[num42] = num43;
-																																												num42++;
-																																												if (num42 >= 9)
-																																												{
-																																													break;
-																																												}
-																																											}
-																																										}
-																																										if (num42 > 0)
-																																										{
-																																											int num44 = array[Main.rand.Next(num42)];
-																																											Main.npc[num44].position.X = (float)(num39 - Main.npc[num44].width / 2);
-																																											Main.npc[num44].position.Y = (float)(num40 - Main.npc[num44].height - 1);
-																																											NetMessage.SendData(23, -1, -1, "", num44, 0f, 0f, 0f, 0);
-																																										}
-																																									}
-																																								}
-																																								else
-																																								{
-																																									if (num38 == 41 && WorldGen.checkMech(i, j, 300))
-																																									{
-																																										int[] array2 = new int[10];
-																																										int num45 = 0;
-																																										for (int num46 = 0; num46 < 200; num46++)
-																																										{
-																																											if (Main.npc[num46].active && (Main.npc[num46].type == 18 || Main.npc[num46].type == 20 || Main.npc[num46].type == 124 || Main.npc[num46].type == 178 || Main.npc[num46].type == 208))
-																																											{
-																																												array2[num45] = num46;
-																																												num45++;
-																																												if (num45 >= 9)
-																																												{
-																																													break;
-																																												}
-																																											}
-																																										}
-																																										if (num45 > 0)
-																																										{
-																																											int num47 = array2[Main.rand.Next(num45)];
-																																											Main.npc[num47].position.X = (float)(num39 - Main.npc[num47].width / 2);
-																																											Main.npc[num47].position.Y = (float)(num40 - Main.npc[num47].height - 1);
-																																											NetMessage.SendData(23, -1, -1, "", num47, 0f, 0f, 0f, 0);
-																																										}
-																																									}
-																																								}
-																																							}
-																																						}
-																																					}
-																																				}
-																																			}
-																																		}
-																																	}
-																																}
+																																break;
 																															}
 																														}
 																													}
+																													if (num43 > 0)
+																													{
+																														int num45 = array[Main.rand.Next(num43)];
+																														Main.npc[num45].position.X = (float)(num40 - Main.npc[num45].width / 2);
+																														Main.npc[num45].position.Y = (float)(num41 - Main.npc[num45].height - 1);
+																														NetMessage.SendData(23, -1, -1, "", num45, 0f, 0f, 0f, 0);
+																													}
 																												}
 																											}
-																											if (num41 >= 0)
+																											else if (num39 == 41 && WorldGen.checkMech(i, j, 300))
 																											{
-																												Main.npc[num41].value = 0f;
-																												Main.npc[num41].npcSlots = 0f;
+																												int[] array2 = new int[10];
+																												int num46 = 0;
+																												for (int num47 = 0; num47 < 200; num47++)
+																												{
+																													if (Main.npc[num47].active && (Main.npc[num47].type == 18 || Main.npc[num47].type == 20 || Main.npc[num47].type == 124 || Main.npc[num47].type == 178 || Main.npc[num47].type == 208))
+																													{
+																														array2[num46] = num47;
+																														num46++;
+																														if (num46 >= 9)
+																														{
+																															break;
+																														}
+																													}
+																												}
+																												if (num46 > 0)
+																												{
+																													int num48 = array2[Main.rand.Next(num46)];
+																													Main.npc[num48].position.X = (float)(num40 - Main.npc[num48].width / 2);
+																													Main.npc[num48].position.Y = (float)(num41 - Main.npc[num48].height - 1);
+																													NetMessage.SendData(23, -1, -1, "", num48, 0f, 0f, 0f, 0);
+																												}
+																											}
+																											if (num42 >= 0)
+																											{
+																												Main.npc[num42].value = 0f;
+																												Main.npc[num42].npcSlots = 0f;
 																											}
 																										}
 																									}
@@ -28893,6 +29449,18 @@ namespace Terraria
 						if (Main.tile[i, j].wall == 25)
 						{
 							type = 48;
+						}
+						if (Main.tile[i, j].wall == 113)
+						{
+							type = 189;
+						}
+						if (Main.tile[i, j].wall == 114)
+						{
+							type = 190;
+						}
+						if (Main.tile[i, j].wall == 115)
+						{
+							type = 191;
 						}
 						if (Main.tile[i, j].wall == 26 || Main.tile[i, j].wall == 30)
 						{
@@ -29215,6 +29783,18 @@ namespace Terraria
 					{
 						num3 = 1126;
 					}
+					else if (Main.tile[i, j].wall == 113)
+					{
+						num3 = 1726;
+					}
+					else if (Main.tile[i, j].wall == 114)
+					{
+						num3 = 1728;
+					}
+					else if (Main.tile[i, j].wall == 115)
+					{
+						num3 = 1730;
+					}
 					if (Main.tile[i, j].wall == 22)
 					{
 						num3 = 417;
@@ -29497,6 +30077,10 @@ namespace Terraria
 											Item.NewItem(i * 16, j * 16, 16, 16, 5, 1, false, 0, false);
 										}
 									}
+									else if (Main.tile[i, j].type == 254)
+									{
+										Main.PlaySound(6, i * 16, j * 16, 1);
+									}
 									else
 									{
 										if (Main.tile[i, j].type == 24)
@@ -29750,9 +30334,9 @@ namespace Terraria
 														{
 															num5 = 13;
 														}
-														else
+														else if (num8 >= 15)
 														{
-															num5 = 1;
+															num5 = -1;
 														}
 													}
 												}
@@ -29900,6 +30484,10 @@ namespace Terraria
 																				if (num10 == 15)
 																				{
 																					num5 = 126;
+																				}
+																				else
+																				{
+																					num5 = -1;
 																				}
 																			}
 																		}
@@ -30609,6 +31197,49 @@ namespace Terraria
 						{
 							num5 = 6;
 						}
+						if (Main.tile[i, j].type == 251)
+						{
+							num5 = 189;
+						}
+						if (Main.tile[i, j].type == 252)
+						{
+							num5 = 190;
+						}
+						if (Main.tile[i, j].type == 253)
+						{
+							num5 = 191;
+						}
+						if (Main.tile[i, j].type == 254)
+						{
+							if (Main.tile[i, j].frameX < 72)
+							{
+								num5 = 3;
+							}
+							else if (Main.tile[i, j].frameX < 108)
+							{
+								num5 = 3;
+								if (Main.rand.Next(3) == 0)
+								{
+									num5 = 189;
+								}
+							}
+							else if (Main.tile[i, j].frameX < 144)
+							{
+								num5 = 3;
+								if (Main.rand.Next(2) == 0)
+								{
+									num5 = 189;
+								}
+							}
+							else
+							{
+								num5 = 3;
+								if (Main.rand.Next(4) != 0)
+								{
+									num5 = 189;
+								}
+							}
+						}
 						if (Main.tile[i, j].type == 21)
 						{
 							if (Main.tile[i, j].frameX >= 612)
@@ -30767,23 +31398,27 @@ namespace Terraria
 								num5 = 8;
 							}
 						}
+						if (Main.tile[i, j].type == 34)
+						{
+							num5 = -1;
+						}
 						if (Main.tile[i, j].type == 6)
 						{
 							num5 = 8;
 						}
-						if (Main.tile[i, j].type == 7 || Main.tile[i, j].type == 34 || Main.tile[i, j].type == 47)
+						if (Main.tile[i, j].type == 7 || Main.tile[i, j].type == 47)
 						{
 							num5 = 9;
 						}
-						if (Main.tile[i, j].type == 8 || Main.tile[i, j].type == 36 || Main.tile[i, j].type == 45 || Main.tile[i, j].type == 102)
+						if (Main.tile[i, j].type == 8 || Main.tile[i, j].type == 45 || Main.tile[i, j].type == 102)
 						{
 							num5 = 10;
 						}
-						if (Main.tile[i, j].type == 9 || Main.tile[i, j].type == 35 || Main.tile[i, j].type == 42 || Main.tile[i, j].type == 46 || Main.tile[i, j].type == 126 || Main.tile[i, j].type == 136)
+						if (Main.tile[i, j].type == 9 || Main.tile[i, j].type == 42 || Main.tile[i, j].type == 46 || Main.tile[i, j].type == 126 || Main.tile[i, j].type == 136)
 						{
 							num5 = 11;
 						}
-						if (Main.tile[i, j].type == 166 || Main.tile[i, j].type == 170 || Main.tile[i, j].type == 175)
+						if (Main.tile[i, j].type == 166 || Main.tile[i, j].type == 175)
 						{
 							num5 = 81;
 						}
@@ -30791,11 +31426,11 @@ namespace Terraria
 						{
 							num5 = 82;
 						}
-						if (Main.tile[i, j].type == 168 || Main.tile[i, j].type == 171 || Main.tile[i, j].type == 176)
+						if (Main.tile[i, j].type == 168 || Main.tile[i, j].type == 176)
 						{
 							num5 = 83;
 						}
-						if (Main.tile[i, j].type == 169 || Main.tile[i, j].type == 172 || Main.tile[i, j].type == 177)
+						if (Main.tile[i, j].type == 169 || Main.tile[i, j].type == 177)
 						{
 							num5 = 84;
 						}
@@ -31374,7 +32009,15 @@ namespace Terraria
 								}
 							}
 						}
-						if ((Main.tile[i, j].type == 34 || Main.tile[i, j].type == 35 || Main.tile[i, j].type == 36 || Main.tile[i, j].type == 42) && Main.rand.Next(2) == 0)
+						if (Main.tile[i, j].type == 35)
+						{
+							num5 = 189;
+							if (Main.tile[i, j].frameX < 36 && WorldGen.genRand.Next(2) == 0)
+							{
+								num5 = 6;
+							}
+						}
+						if ((Main.tile[i, j].type == 34 || Main.tile[i, j].type == 42) && Main.rand.Next(2) == 0)
 						{
 							num5 = 6;
 						}
@@ -31722,6 +32365,18 @@ namespace Terraria
 															}
 														}
 													}
+												}
+												else if (Main.tile[i, j].type == 251)
+												{
+													num26 = 1725;
+												}
+												else if (Main.tile[i, j].type == 252)
+												{
+													num26 = 1727;
+												}
+												else if (Main.tile[i, j].type == 253)
+												{
+													num26 = 1729;
 												}
 												else
 												{
@@ -32201,6 +32856,14 @@ namespace Terraria
 																																																																									if (num38 == 14)
 																																																																									{
 																																																																										num26 = 1702;
+																																																																									}
+																																																																									else if (num38 == 15)
+																																																																									{
+																																																																										num26 = 1796;
+																																																																									}
+																																																																									else if (num38 == 16)
+																																																																									{
+																																																																										num26 = 1818;
 																																																																									}
 																																																																								}
 																																																																							}
@@ -34188,43 +34851,8 @@ namespace Terraria
 					}
 					else
 					{
-						num66 = WorldGen.genRand.Next(6);
-						if (num66 == 0)
-						{
-							num67 = 34;
-						}
-						else
-						{
-							if (num66 == 1)
-							{
-								num67 = 35;
-							}
-							else
-							{
-								if (num66 == 2)
-								{
-									num67 = 36;
-								}
-								else
-								{
-									if (num66 == 3)
-									{
-										num67 = 170;
-									}
-									else
-									{
-										if (num66 == 4)
-										{
-											num67 = 171;
-										}
-										else
-										{
-											num67 = 172;
-										}
-									}
-								}
-							}
-						}
+						num67 = 34;
+						style4 = WorldGen.genRand.Next(6);
 					}
 					if (num67 > 0)
 					{
@@ -34479,7 +35107,7 @@ namespace Terraria
 		{
 			WorldGen.UpdateMech();
 			WorldGen.totalD++;
-			if (WorldGen.totalD >= 10)
+			if (WorldGen.totalD >= 30)
 			{
 				WorldGen.totalD = 0;
 				WorldGen.CountTiles(WorldGen.totalX);
@@ -34651,6 +35279,13 @@ namespace Terraria
 												}
 											}
 										}
+										else if (Main.tile[num4, num5].type == 254)
+										{
+											if (Main.rand.Next((int)((Main.tile[num4, num5].frameX + 10) / 10)) == 0)
+											{
+												WorldGen.GrowPumpkin(num4, num5, 254);
+											}
+										}
 										else
 										{
 											if (Main.tile[num4, num5].type == 78)
@@ -34669,6 +35304,29 @@ namespace Terraria
 												if (Main.tile[num4, num5].type == 2 || Main.tile[num4, num5].type == 23 || Main.tile[num4, num5].type == 32 || Main.tile[num4, num5].type == 109 || Main.tile[num4, num5].type == 199)
 												{
 													int num13 = (int)Main.tile[num4, num5].type;
+													if (Main.halloween && WorldGen.genRand.Next(75) == 0 && (num13 == 2 || num13 == 109))
+													{
+														int num14 = 100;
+														int num15 = 0;
+														for (int k = num4 - num14; k < num4 + num14; k += 2)
+														{
+															for (int l = num5 - num14; l < num5 + num14; l += 2)
+															{
+																if (k > 1 && k < Main.maxTilesX - 2 && l > 1 && l < Main.maxTilesY - 2 && Main.tile[k, l].active() && Main.tile[k, l].type == 254)
+																{
+																	num15++;
+																}
+															}
+														}
+														if (num15 < 6)
+														{
+															WorldGen.PlacePumpkin(num4, num8);
+															if (Main.netMode == 2 && Main.tile[num4, num8].type == 254)
+															{
+																NetMessage.SendTileSquare(-1, num4, num8, 4);
+															}
+														}
+													}
 													if (!Main.tile[num4, num8].active() && WorldGen.genRand.Next(12) == 0 && num13 == 2)
 													{
 														WorldGen.PlaceTile(num4, num8, 3, true, false, -1, 0);
@@ -40566,6 +41224,14 @@ namespace Terraria
 																														{
 																															Item.NewItem(i * 16, j * 16, 16, 16, 1709 + num27 - 20, 1, false, 0, false);
 																														}
+																														else if (num27 == 24)
+																														{
+																															Item.NewItem(i * 16, j * 16, 16, 16, 1793, 1, false, 0, false);
+																														}
+																														else if (num27 == 25)
+																														{
+																															Item.NewItem(i * 16, j * 16, 16, 16, 1815, 1, false, 0, false);
+																														}
 																														else
 																														{
 																															if (num27 >= 4 && num27 <= 8)
@@ -40724,6 +41390,14 @@ namespace Terraria
 																															{
 																																Item.NewItem(i * 16, j * 16, 16, 16, 1709 + num31 - 20, 1, false, 0, false);
 																															}
+																															else if (num31 == 24)
+																															{
+																																Item.NewItem(i * 16, j * 16, 16, 16, 1793, 1, false, 0, false);
+																															}
+																															else if (num31 == 25)
+																															{
+																																Item.NewItem(i * 16, j * 16, 16, 16, 1815, 1, false, 0, false);
+																															}
 																															else
 																															{
 																																if (num31 >= 4 && num31 <= 8)
@@ -40828,6 +41502,14 @@ namespace Terraria
 																																	if (num31 >= 20 && num31 <= 23)
 																																	{
 																																		Item.NewItem(i * 16, j * 16, 16, 16, 1709 + num31 - 20, 1, false, 0, false);
+																																	}
+																																	else if (num31 == 24)
+																																	{
+																																		Item.NewItem(i * 16, j * 16, 16, 16, 1793, 1, false, 0, false);
+																																	}
+																																	else if (num31 == 25)
+																																	{
+																																		Item.NewItem(i * 16, j * 16, 16, 16, 1815, 1, false, 0, false);
 																																	}
 																																	else
 																																	{
@@ -41004,9 +41686,13 @@ namespace Terraria
 																								{
 																									WorldGen.Check6x4Wall(i, j);
 																								}
-																								else
+																								else if (num == 34)
 																								{
-																									if (num == 34 || num == 35 || num == 36 || num == 106 || num == 170 || num == 171 || num == 172 || num == 212 || num == 219 || num == 220 || num == 228 || num == 231 || num == 243 || num == 247)
+																									WorldGen.CheckChand(i, j, num);
+																								}
+																								else 
+																								{
+																									if (num == 106 || num == 212 || num == 219 || num == 220 || num == 228 || num == 231 || num == 243 || num == 247)
 																									{
 																										WorldGen.Check3x3(i, j, (int)((byte)num));
 																									}
@@ -41064,6 +41750,10 @@ namespace Terraria
 																																		{
 																																			WorldGen.CheckPot(i, j, 28);
 																																		}
+																																		else if (num == 254)
+																																		{
+																																			WorldGen.Check2x2Style(i, j, num);
+																																		}
 																																		else
 																																		{
 																																			if (num == 132 || num == 138 || num == 142 || num == 143)
@@ -41078,7 +41768,7 @@ namespace Terraria
 																																				}
 																																				else
 																																				{
-																																					if (num == 139)
+																																					if (num == 139 || num == 35)
 																																					{
 																																						WorldGen.CheckMB(i, j, (int)((byte)num));
 																																					}
@@ -41126,9 +41816,13 @@ namespace Terraria
 																																												}
 																																												else
 																																												{
-																																													if (num == 85 || num == 94 || num == 95 || num == 96 || num == 97 || num == 98 || num == 99 || num == 100 || num == 125 || num == 126 || num == 173)
+																																													if (num == 85 || num == 94 || num == 95 || num == 97 || num == 98 || num == 99 || num == 100 || num == 125 || num == 126 || num == 173)
 																																													{
 																																														WorldGen.Check2x2(i, j, num);
+																																													}
+																																													else if (num == 96)
+																																													{
+																																														WorldGen.Check2x2Style(i, j, num);
 																																													}
 																																													else
 																																													{
