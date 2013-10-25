@@ -24203,15 +24203,15 @@ namespace Terraria
 				Main.tile[x - 1, y - 1].type = (byte)type;
 				Main.tile[x, y - 1].active(true);
 				Main.tile[x, y - 1].frameY = num;
-				Main.tile[x, y - 1].frameX = num2 + 18;
+				Main.tile[x, y - 1].frameX = (short)(num2 + 18);
 				Main.tile[x, y - 1].type = (byte)type;
 				Main.tile[x - 1, y].active(true);
-				Main.tile[x - 1, y].frameY = num + 18;
+				Main.tile[x - 1, y].frameY = (short)(num + 18);
 				Main.tile[x - 1, y].frameX = num2;
 				Main.tile[x - 1, y].type = (byte)type;
 				Main.tile[x, y].active(true);
-				Main.tile[x, y].frameY = num + 18;
-				Main.tile[x, y].frameX = num2 + 18;
+				Main.tile[x, y].frameY = (short)(num + 18);
+				Main.tile[x, y].frameX = (short)(num2 + 18);
 				Main.tile[x, y].type = (byte)type;
 			}
 		}

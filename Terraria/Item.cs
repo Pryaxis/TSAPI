@@ -6,9 +6,9 @@ namespace Terraria
     public class Item
     {
         public static int potionDelay = 3600;
-        public static int[] headType = new int[112];
-        public static int[] bodyType = new int[75];
-        public static int[] legType = new int[64];
+        public static int[] headType = new int[138];
+        public static int[] bodyType = new int[100];
+        public static int[] legType = new int[84];
         public int tileWand = -1;
         public int ownIgnore = -1;
         public int createTile = -1;
@@ -432,7 +432,7 @@ namespace Terraria
                     }
                     else
                     {
-                        if (!this.accessory || this.type == 267 || (this.type == 562 || this.type == 563) || (this.type == 564 || this.type == 565 || (this.type == 566 || this.type == 567)) || (this.type == 568 || this.type == 569 || (this.type == 570 || this.type == 571) || (this.type == 572 || this.type == 573 || (this.type == 574 || this.type == 576))) || this.type == 1307)
+						if (!this.accessory || this.type == 267 || this.type == 562 || this.type == 563 || this.type == 564 || this.type == 565 || this.type == 566 || this.type == 567 || this.type == 568 || this.type == 569 || this.type == 570 || this.type == 571 || this.type == 572 || this.type == 573 || this.type == 574 || this.type == 576 || this.type == 1307 || (this.type >= 1596 && this.type < 1610))
                             return false;
                         num1 = Main.rand.Next(62, 81);
                     }
@@ -2227,7 +2227,7 @@ namespace Terraria
             }
             else if (ItemName != "")
             {
-                for (int Type = 0; Type < 1725; ++Type)
+                for (int Type = 0; Type < 1858; ++Type)
                 {
                     if (Main.itemName[Type] == ItemName)
                     {
@@ -4423,7 +4423,8 @@ namespace Terraria
                 this.autoReuse = true;
                 this.maxStack = 99;
                 this.consumable = true;
-                this.createTile = 35;
+				this.createTile = 34;
+				this.placeStyle = 1;
                 this.width = 26;
                 this.height = 26;
                 this.value = 12000;
@@ -4438,7 +4439,8 @@ namespace Terraria
                 this.autoReuse = true;
                 this.maxStack = 99;
                 this.consumable = true;
-                this.createTile = 36;
+				this.createTile = 34;
+				this.placeStyle = 2;
                 this.width = 26;
                 this.height = 26;
                 this.value = 24000;
@@ -13218,7 +13220,8 @@ namespace Terraria
                 this.autoReuse = true;
                 this.maxStack = 99;
                 this.consumable = true;
-                this.createTile = 170;
+				this.createTile = 34;
+				this.placeStyle = 3;
                 this.width = 26;
                 this.height = 26;
                 this.value = 4500;
@@ -13233,7 +13236,8 @@ namespace Terraria
                 this.autoReuse = true;
                 this.maxStack = 99;
                 this.consumable = true;
-                this.createTile = 171;
+				this.createTile = 34;
+				this.placeStyle = 4;
                 this.width = 26;
                 this.height = 26;
                 this.value = 18000;
@@ -13248,7 +13252,8 @@ namespace Terraria
                 this.autoReuse = true;
                 this.maxStack = 99;
                 this.consumable = true;
-                this.createTile = 172;
+                this.createTile = 34;
+				this.placeStyle = 5;
                 this.width = 26;
                 this.height = 26;
                 this.value = 36000;
@@ -19037,7 +19042,7 @@ namespace Terraria
             else if (this.type == 1157)
             {
                 this.mana = 10;
-                this.damage = 25;
+                this.damage = 27;
                 this.useStyle = 1;
                 this.name = "Pygmy Staff";
                 this.shootSpeed = 10f;
@@ -20701,7 +20706,7 @@ namespace Terraria
             else if (this.type == 1260)
             {
                 this.useStyle = 5;
-                this.useAnimation = 40;
+                this.useAnimation = 45;
                 this.useTime = 40;
                 this.name = "Rainbow Gun";
                 this.width = 50;
@@ -21812,6 +21817,7 @@ namespace Terraria
                 this.value = 500000;
                 this.toolTip = "Sprays out a shower of ichor";
                 this.magic = true;
+				this.noMelee = true;
             }
             else if (this.type == 1337)
             {
@@ -25020,6 +25026,1444 @@ namespace Terraria
         this.toolTip = "Allows the holder to double jump";
         this.value = 75000;
       }
+			else if (this.type == 1725)
+			{
+				this.name = "Pumpkin";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 251;
+				this.width = 8;
+				this.height = 10;
+			}
+			else if (this.type == 1726)
+			{
+				this.name = "Pumpkin Wall";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 7;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createWall = 113;
+				this.width = 12;
+				this.height = 12;
+			}
+			else if (this.type == 1727)
+			{
+				this.name = "Hay";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 252;
+				this.width = 8;
+				this.height = 10;
+			}
+			else if (this.type == 1728)
+			{
+				this.name = "Hay Wall";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 7;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createWall = 114;
+				this.width = 12;
+				this.height = 12;
+			}
+			else if (this.type == 1729)
+			{
+				this.name = "Spooky Wood";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 253;
+				this.width = 8;
+				this.height = 10;
+			}
+			else if (this.type == 1730)
+			{
+				this.name = "Spooky Wood Wall";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 7;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createWall = 115;
+				this.width = 12;
+				this.height = 12;
+			}
+			else if (this.type == 1731)
+			{
+				this.name = "Pumpkin Helmet";
+				this.width = 18;
+				this.height = 18;
+				this.defense = 2;
+				this.headSlot = 112;
+			}
+			else if (this.type == 1732)
+			{
+				this.name = "Pumpkin Breastplate";
+				this.width = 18;
+				this.height = 18;
+				this.defense = 3;
+				this.bodySlot = 75;
+			}
+			else if (this.type == 1733)
+			{
+				this.name = "Pumpkin Leggings";
+				this.width = 18;
+				this.height = 18;
+				this.defense = 2;
+				this.legSlot = 64;
+			}
+			else if (this.type == 1734)
+			{
+				this.name = "Candy Apple";
+				this.width = 12;
+				this.height = 12;
+			}
+			else if (this.type == 1735)
+			{
+				this.name = "Soul Cake";
+				this.width = 12;
+				this.height = 12;
+			}
+			else if (this.type == 1736)
+			{
+				this.name = "Nurse Hat";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 113;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1737)
+			{
+				this.name = "Nurse Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 76;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1738)
+			{
+				this.name = "Nurse Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 65;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1739)
+			{
+				this.name = "Wizard's Hat";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 114;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1740)
+			{
+				this.name = "Guy Fawkes Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 115;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1741)
+			{
+				this.name = "Dye Trader Robe";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 77;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1742)
+			{
+				this.name = "Steam Punk Goggles";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 116;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1743)
+			{
+				this.name = "Cyborg Helmet";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 117;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1744)
+			{
+				this.name = "Cyborg Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 78;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1745)
+			{
+				this.name = "Cyborg Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 66;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1746)
+			{
+				this.name = "Creeper Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 118;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1747)
+			{
+				this.name = "Creeper Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 79;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1748)
+			{
+				this.name = "Creeper Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 67;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1749)
+			{
+				this.name = "Cat Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 119;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1750)
+			{
+				this.name = "Cat Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 80;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1751)
+			{
+				this.name = "Cat Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 68;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1752)
+			{
+				this.name = "Ghost Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 120;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1753)
+			{
+				this.name = "Ghost Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 81;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1754)
+			{
+				this.name = "Pumpkin Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 121;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1755)
+			{
+				this.name = "Pumpkin Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 82;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1756)
+			{
+				this.name = "Pumpkin Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 69;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1757)
+			{
+				this.name = "Robot Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 122;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1758)
+			{
+				this.name = "Robot Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 83;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1759)
+			{
+				this.name = "Robot Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 70;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1760)
+			{
+				this.name = "Unicorn Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 123;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1761)
+			{
+				this.name = "Unicorn Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 84;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1762)
+			{
+				this.name = "Unicorn Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 71;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1763)
+			{
+				this.name = "Vampire Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 124;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1764)
+			{
+				this.name = "Vampire Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 85;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1765)
+			{
+				this.name = "Vampire Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 72;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1766)
+			{
+				this.name = "Witch Hat";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 125;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1767)
+			{
+				this.name = "Leprechaun Hat";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 126;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1768)
+			{
+				this.name = "Leprechaun Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 86;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1769)
+			{
+				this.name = "Leprechaun Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 73;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1770)
+			{
+				this.name = "Pixie Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 87;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1771)
+			{
+				this.name = "Pixie Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 74;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1772)
+			{
+				this.name = "Princess Hat";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 127;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1773)
+			{
+				this.name = "Princess Dress";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 88;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1774)
+			{
+				this.name = "Goodie Bag";
+				this.width = 12;
+				this.height = 12;
+				this.rare = 3;
+				this.toolTip = "Right click to open";
+				this.maxStack = 99;
+				this.value = Item.sellPrice(0, 1, 0, 0);
+			}
+			else if (this.type == 1775)
+			{
+				this.name = "Witch Dress";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 89;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1776)
+			{
+				this.name = "Witch Boots";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 75;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1777)
+			{
+				this.name = "Bride of Frankenstein Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 128;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1778)
+			{
+				this.name = "Bride of Frankenstein Dress";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 90;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1779)
+			{
+				this.name = "Karate Tortoise Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 129;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1780)
+			{
+				this.name = "Karate Tortoise Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 91;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1781)
+			{
+				this.name = "Karate Tortoise Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 76;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1782)
+			{
+				this.useStyle = 5;
+				this.autoReuse = true;
+				this.useAnimation = 9;
+				this.useTime = 9;
+				this.name = "Candy Corn Rifle";
+				this.crit += 6;
+				this.width = 60;
+				this.height = 26;
+				this.shoot = 311;
+				this.useAmmo = 311;
+				this.useSound = 11;
+				this.damage = 44;
+				this.shootSpeed = 10f;
+				this.noMelee = true;
+				this.value = 750000;
+				this.rare = 8;
+				this.knockBack = 2f;
+				this.ranged = true;
+			}
+			else if (this.type == 1783)
+			{
+				this.name = "Candy Corn";
+				this.shootSpeed = 4f;
+				this.shoot = 311;
+				this.damage = 9;
+				this.width = 8;
+				this.height = 8;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.ammo = 311;
+				this.knockBack = 1.5f;
+				this.value = 5;
+				this.ranged = true;
+			}
+			else if (this.type == 1784)
+			{
+				this.useStyle = 5;
+				this.autoReuse = true;
+				this.useAnimation = 30;
+				this.useTime = 30;
+				this.name = "Jack 'O Lantern Launcher";
+				this.crit += 6;
+				this.width = 60;
+				this.height = 26;
+				this.shoot = 312;
+				this.useAmmo = 312;
+				this.useSound = 11;
+				this.damage = 60;
+				this.shootSpeed = 7f;
+				this.noMelee = true;
+				this.value = 750000;
+				this.rare = 8;
+				this.knockBack = 5f;
+				this.ranged = true;
+			}
+			else if (this.type == 1785)
+			{
+				this.name = "Explosive Jack 'O Lanter";
+				this.shootSpeed = 4f;
+				this.shoot = 312;
+				this.damage = 25;
+				this.width = 8;
+				this.height = 8;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.ammo = 312;
+				this.knockBack = 3f;
+				this.value = 15;
+				this.ranged = true;
+			}
+			else if (this.type == 1786)
+			{
+				this.name = "Sickle";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 23;
+				this.autoReuse = true;
+				this.width = 24;
+				this.height = 28;
+				this.damage = 7;
+				this.useSound = 1;
+				this.knockBack = 2.5f;
+				this.value = Item.buyPrice(0, 1, 0, 0);
+				this.melee = true;
+			}
+			else if (this.type == 1787)
+			{
+				this.name = "Pumpkin Pie";
+				this.useSound = 2;
+				this.useStyle = 2;
+				this.useTurn = true;
+				this.useAnimation = 17;
+				this.useTime = 17;
+				this.maxStack = 30;
+				this.consumable = true;
+				this.width = 10;
+				this.height = 10;
+				this.buffType = 26;
+				this.buffTime = 54000;
+				this.rare = 1;
+				this.toolTip = "Minor improvements to all stats";
+				this.value = 1000;
+			}
+			else if (this.type == 1788)
+			{
+				this.name = "Scarecrow Hat";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 130;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1789)
+			{
+				this.name = "Scarecrow Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 92;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1790)
+			{
+				this.name = "Scarecrow Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 77;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1791)
+			{
+				this.name = "Cauldron";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 96;
+				this.placeStyle = 1;
+				this.width = 20;
+				this.height = 20;
+				this.value = Item.sellPrice(0, 1, 0, 0);
+			}
+			else if (this.type == 1792)
+			{
+				this.name = "Pumpkin Chair";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 15;
+				this.placeStyle = 24;
+				this.width = 12;
+				this.height = 30;
+			}
+			else if (this.type == 1793)
+			{
+				this.name = "Pumpkin Door";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 10;
+				this.placeStyle = 24;
+				this.width = 14;
+				this.height = 28;
+				this.value = 200;
+			}
+			else if (this.type == 1794)
+			{
+				this.name = "Pumpkin Table";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 14;
+				this.placeStyle = 21;
+				this.width = 26;
+				this.height = 20;
+				this.value = 300;
+			}
+			else if (this.type == 1795)
+			{
+				this.name = "Pumpkin Work Bench";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 18;
+				this.placeStyle = 16;
+				this.width = 28;
+				this.height = 14;
+				this.value = 150;
+			}
+			else if (this.type == 1796)
+			{
+				this.name = "Pumpkin Platform";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 19;
+				this.placeStyle = 15;
+				this.width = 8;
+				this.height = 10;
+			}
+			else if (this.type == 1797)
+			{
+				this.name = "Tattered Fairy Wings";
+				this.width = 24;
+				this.height = 8;
+				this.accessory = true;
+				this.rare = 7;
+				this.value = 400000;
+			}
+			else if (this.type == 1798)
+			{
+				this.damage = 0;
+				this.useStyle = 1;
+				this.name = "Spider Egg";
+				this.shoot = 313;
+				this.width = 16;
+				this.height = 30;
+				this.useSound = 2;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.rare = 3;
+				this.noMelee = true;
+				this.toolTip = "Summons a pet spider";
+				this.buffType = 81;
+				this.value = Item.sellPrice(0, 2, 0, 0);
+			}
+			else if (this.type == 1799)
+			{
+				this.damage = 0;
+				this.useStyle = 1;
+				this.name = "Magical Pumpkin Seed";
+				this.shoot = 314;
+				this.width = 16;
+				this.height = 30;
+				this.useSound = 2;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.rare = 3;
+				this.noMelee = true;
+				this.toolTip = "Summons a squashling";
+				this.buffType = 82;
+				this.value = Item.sellPrice(0, 2, 0, 0);
+			}
+			else if (this.type == 1800)
+			{
+				this.noUseGraphic = true;
+				this.damage = 0;
+				this.knockBack = 7f;
+				this.useStyle = 5;
+				this.name = "Bat Hook";
+				this.shootSpeed = 15.5f;
+				this.shoot = 315;
+				this.width = 18;
+				this.height = 28;
+				this.useSound = 1;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.rare = 3;
+				this.noMelee = true;
+				this.value = Item.sellPrice(0, 2, 0, 0);
+			}
+			else if (this.type == 1801)
+			{
+				this.name = "Bat Scepter";
+				this.useStyle = 5;
+				this.autoReuse = true;
+				this.useAnimation = 12;
+				this.useTime = 12;
+				this.mana = 3;
+				this.width = 50;
+				this.height = 18;
+				this.shoot = 316;
+				this.useSound = 32;
+				this.damage = 45;
+				this.shootSpeed = 10f;
+				this.noMelee = true;
+				this.value = 500000;
+				this.rare = 8;
+				this.magic = true;
+				this.knockBack = 3f;
+			}
+			else if (this.type == 1802)
+			{
+				this.mana = 10;
+				this.damage = 32;
+				this.useStyle = 1;
+				this.name = "Raven Staff";
+				this.shootSpeed = 10f;
+				this.shoot = 317;
+				this.width = 26;
+				this.height = 28;
+				this.useSound = 44;
+				this.useAnimation = 28;
+				this.useTime = 28;
+				this.rare = 8;
+				this.noMelee = true;
+				this.knockBack = 3f;
+				this.toolTip = "Summons a raven to fight for you";
+				this.buffType = 83;
+				this.value = 100000;
+				this.summon = true;
+			}
+			else if (this.type >= 1803 && this.type <= 1807)
+			{
+				this.name = "Dungeon Key Mold";
+				this.width = 14;
+				this.height = 20;
+				this.maxStack = 99;
+				this.rare = 8;
+			}
+			else if (this.type == 1808)
+			{
+				this.name = "Hanging Jack 'O Lantern";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 42;
+				this.width = 12;
+				this.height = 28;
+				this.placeStyle = 8;
+			}
+			else if (this.type == 1809)
+			{
+				this.useStyle = 1;
+				this.name = "Rotten Egg";
+				this.shootSpeed = 9f;
+				this.shoot = 318;
+				this.damage = 10;
+				this.width = 18;
+				this.height = 20;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.useSound = 1;
+				this.useAnimation = 19;
+				this.useTime = 19;
+				this.noUseGraphic = true;
+				this.noMelee = true;
+				this.ranged = true;
+				this.knockBack = 6.5f;
+			}
+			else if (this.type == 1810)
+			{
+				this.damage = 0;
+				this.useStyle = 1;
+				this.name = "Unlucky Yarn";
+				this.shoot = 319;
+				this.width = 16;
+				this.height = 30;
+				this.useSound = 2;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.rare = 3;
+				this.noMelee = true;
+				this.buffType = 84;
+				this.value = Item.sellPrice(0, 2, 0, 0);
+			}
+			else if (this.type == 1811)
+			{
+				this.name = "Black Fairy Dust";
+				this.maxStack = 99;
+				this.width = 16;
+				this.height = 14;
+				this.value = Item.sellPrice(0, 2, 50, 0);
+				this.rare = 5;
+			}
+			else if (this.type == 1812)
+			{
+				this.name = "Jackelier";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 34;
+				this.placeStyle = 6;
+				this.width = 26;
+				this.height = 26;
+			}
+			else if (this.type == 1813)
+			{
+				this.name = "Jack 'O Lantern";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 35;
+				this.width = 26;
+				this.height = 26;
+			}
+			else if (this.type == 1814)
+			{
+				this.name = "Spooky Chair";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 15;
+				this.placeStyle = 25;
+				this.width = 12;
+				this.height = 30;
+			}
+			else if (this.type == 1815)
+			{
+				this.name = "Spooky Door";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 10;
+				this.placeStyle = 25;
+				this.width = 14;
+				this.height = 28;
+				this.value = 200;
+			}
+			else if (this.type == 1816)
+			{
+				this.name = "Spooky Table";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 14;
+				this.placeStyle = 22;
+				this.width = 26;
+				this.height = 20;
+				this.value = 300;
+			}
+			else if (this.type == 1817)
+			{
+				this.name = "Spooky Work Bench";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 18;
+				this.placeStyle = 17;
+				this.width = 28;
+				this.height = 14;
+				this.value = 150;
+			}
+			else if (this.type == 1818)
+			{
+				this.name = "Spooky Platform";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 19;
+				this.placeStyle = 16;
+				this.width = 8;
+				this.height = 10;
+			}
+			else if (this.type == 1819)
+			{
+				this.name = "Reaper Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 131;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1820)
+			{
+				this.name = "Reaper Robe";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 93;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1821)
+			{
+				this.name = "Fox Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 132;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1822)
+			{
+				this.name = "Fox Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 94;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1823)
+			{
+				this.name = "Fox Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 78;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1824)
+			{
+				this.name = "Cat Ears";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 133;
+				this.vanity = true;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+			}
+			else if (this.type == 1825)
+			{
+				this.noMelee = true;
+				this.useStyle = 1;
+				this.name = "Bloody Machete";
+				this.shootSpeed = 15f;
+				this.shoot = 320;
+				this.damage = 15;
+				this.knockBack = 5f;
+				this.width = 34;
+				this.height = 34;
+				this.useSound = 1;
+				this.useAnimation = 15;
+				this.useTime = 15;
+				this.noUseGraphic = true;
+				this.rare = 2;
+				this.value = 50000;
+				this.melee = true;
+			}
+			else if (this.type == 1826)
+			{
+				this.autoReuse = true;
+				this.name = "Horseman's Blade";
+				this.useStyle = 1;
+				this.useAnimation = 26;
+				this.knockBack = 7.5f;
+				this.width = 40;
+				this.height = 40;
+				this.damage = 75;
+				this.scale = 1.15f;
+				this.useSound = 1;
+				this.rare = 8;
+				this.value = Item.sellPrice(0, 10, 0, 0);
+				this.melee = true;
+			}
+			else if (this.type == 1827)
+			{
+				this.name = "Bladed Glove";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.autoReuse = true;
+				this.useAnimation = 8;
+				this.useTime = 8;
+				this.width = 24;
+				this.height = 28;
+				this.damage = 12;
+				this.knockBack = 4f;
+				this.useSound = 1;
+				this.scale = 1.35f;
+				this.melee = true;
+				this.rare = 2;
+				this.value = 50000;
+				this.melee = true;
+			}
+			else if (this.type == 1828)
+			{
+				this.name = "Pumpkin Seed";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 254;
+				this.width = 8;
+				this.height = 10;
+			}
+			else if (this.type == 1829)
+			{
+				this.noUseGraphic = true;
+				this.damage = 0;
+				this.knockBack = 7f;
+				this.useStyle = 5;
+				this.name = "Spooky Hook";
+				this.shootSpeed = 15.5f;
+				this.shoot = 322;
+				this.width = 18;
+				this.height = 28;
+				this.useSound = 1;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.rare = 7;
+				this.noMelee = true;
+				this.value = Item.sellPrice(0, 4, 0, 0);
+			}
+			else if (this.type == 1830)
+			{
+				this.name = "Spooky Wings";
+				this.width = 24;
+				this.height = 8;
+				this.accessory = true;
+				this.rare = 7;
+				this.value = 400000;
+			}
+			else if (this.type == 1831)
+			{
+				this.name = "Spooky Twig";
+				this.maxStack = 99;
+				this.width = 16;
+				this.height = 14;
+				this.value = Item.sellPrice(0, 2, 50, 0);
+				this.rare = 5;
+			}
+			else if (this.type == 1832)
+			{
+				this.name = "Spooky Helmet";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 134;
+				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.defense = 8;
+				this.rare = 8;
+				this.toolTip = "Increases your max number of minions";
+				this.toolTip2 = "Increases minion damage by 11%";
+			}
+			else if (this.type == 1833)
+			{
+				this.name = "Spooky Breastplate";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 95;
+				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.defense = 10;
+				this.rare = 8;
+				this.toolTip = "Increases your max number of minions";
+				this.toolTip2 = "Increases minion damage by 11%";
+			}
+			else if (this.type == 1834)
+			{
+				this.name = "Spooky Leggings";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 79;
+				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.defense = 9;
+				this.rare = 8;
+				this.toolTip = "Increases your max number of minions";
+				this.toolTip2 = "Increases minion damage by 11%";
+			}
+			else if (this.type == 1835)
+			{
+				this.useStyle = 5;
+				this.autoReuse = true;
+				this.useAnimation = 26;
+				this.useTime = 26;
+				this.name = "Stake Launcher";
+				this.crit += 10;
+				this.width = 40;
+				this.height = 26;
+				this.shoot = 323;
+				this.useAmmo = 323;
+				this.useSound = 5;
+				this.damage = 75;
+				this.shootSpeed = 9f;
+				this.noMelee = true;
+				this.value = 750000;
+				this.rare = 8;
+				this.knockBack = 6.5f;
+				this.ranged = true;
+			}
+			else if (this.type == 1836)
+			{
+				this.name = "Stake";
+				this.shootSpeed = 3f;
+				this.shoot = 323;
+				this.damage = 25;
+				this.width = 20;
+				this.height = 14;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.ammo = 323;
+				this.knockBack = 4.5f;
+				this.value = 15;
+				this.ranged = true;
+			}
+			else if (this.type == 1837)
+			{
+				this.useStyle = 1;
+				this.name = "Cursed Sapling";
+				this.shoot = 324;
+				this.width = 16;
+				this.height = 30;
+				this.useSound = 2;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.rare = 3;
+				this.noMelee = true;
+				this.buffType = 85;
+				this.value = Item.sellPrice(0, 2, 0, 0);
+			}
+			else if (this.type == 1838)
+			{
+				this.name = "Space Creature Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 135;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.vanity = true;
+			}
+			else if (this.type == 1839)
+			{
+				this.name = "Space Creature Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 96;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.vanity = true;
+			}
+			else if (this.type == 1840)
+			{
+				this.name = "Space Creature Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 80;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.vanity = true;
+			}
+			else if (this.type == 1841)
+			{
+				this.name = "Wolf Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 136;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.vanity = true;
+			}
+			else if (this.type == 1842)
+			{
+				this.name = "Wolf Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 97;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.vanity = true;
+			}
+			else if (this.type == 1843)
+			{
+				this.name = "Wolf Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 81;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.vanity = true;
+			}
+			else if (this.type == 1844)
+			{
+				this.useStyle = 4;
+				this.name = "Pumpkin Moon Medallion";
+				this.width = 22;
+				this.height = 14;
+				this.consumable = true;
+				this.useAnimation = 45;
+				this.useTime = 45;
+				this.maxStack = 20;
+				this.toolTip = "Summons the Pumpkin Moon";
+				this.rare = 8;
+			}
+			else if (this.type == 1845)
+			{
+				this.name = "Necromantic Scroll";
+				this.rare = 8;
+				this.width = 24;
+				this.height = 28;
+				this.accessory = true;
+				this.toolTip = "Increases your max number of minions";
+				this.toolTip2 = "Increases minion damage by 10%";
+				this.value = Item.buyPrice(0, 20, 0, 0);
+			}
+			else if (this.type >= 1846 && this.type <= 1850)
+			{
+				this.name = "Large Painting";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 242;
+				this.width = 30;
+				this.height = 30;
+				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.placeStyle = 17 + this.type - 1846;
+			}
+			else if (this.type == 1851)
+			{
+				this.name = "Treasure Hunter Shirt";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 98;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.vanity = true;
+			}
+			else if (this.type == 1852)
+			{
+				this.name = "Treasure Hunter Pants";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 82;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.vanity = true;
+			}
+			else if (this.type == 1853)
+			{
+				this.name = "Dryad Coverings";
+				this.width = 18;
+				this.height = 18;
+				this.bodySlot = 99;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.vanity = true;
+			}
+			else if (this.type == 1854)
+			{
+				this.name = "Dryad Loincloth";
+				this.width = 18;
+				this.height = 18;
+				this.legSlot = 83;
+				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.vanity = true;
+			}
+			else if (this.type == 1855 || this.type == 1856)
+			{
+				this.name = "Trophy";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 240;
+				this.width = 30;
+				this.height = 30;
+				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.rare = 1;
+				this.placeStyle = 36 + this.type - 1855;
+			}
+			else if (this.type == 1857)
+			{
+				this.name = "Jack 'O Lantern Mask";
+				this.width = 18;
+				this.height = 18;
+				this.headSlot = 137;
+				this.value = Item.sellPrice(0, 5, 0, 0);
+				this.vanity = true;
+				this.rare = 3;
+			}
+
             this.netID = this.type;
             if (!noMatCheck)
                 this.checkMat();
@@ -25078,7 +26522,7 @@ namespace Terraria
                 return new Color((int)byte.MaxValue, (int)byte.MaxValue, (int)byte.MaxValue, 200);
             if (this.type == 520 || this.type == 521 || (this.type == 522 || this.type == 547) || (this.type == 548 || this.type == 549 || (this.type == 575 || this.type == 1332)))
                 return new Color((int)byte.MaxValue, (int)byte.MaxValue, (int)byte.MaxValue, 50);
-            if (this.type == 58 || this.type == 184)
+			if (this.type == 58 || this.type == 184 || this.type == 1734 || this.type == 1735)
                 return new Color(200, 200, 200, 2000);
             if (this.type == 1572)
                 return new Color(200, 200, (int)byte.MaxValue, 125);
@@ -25086,7 +26530,9 @@ namespace Terraria
                 return new Color((int)byte.MaxValue, (int)byte.MaxValue, (int)byte.MaxValue, 0);
             if (this.type == 787)
                 return new Color((int)byte.MaxValue, (int)byte.MaxValue, (int)byte.MaxValue, 175);
-            if (this.type == 1508)
+            if (this.type == 1826)
+				return new Color(255, 255, 255, 200);
+			if (this.type == 1508)
                 return new Color(200, 200, 200, 0);
             if (this.type == 502)
                 return new Color((int)byte.MaxValue, (int)byte.MaxValue, (int)byte.MaxValue, 150);
@@ -25558,6 +27004,17 @@ namespace Terraria
                 return 0;
             int index1 = 400;
             Main.item[400] = new Item();
+			if (Main.halloween)
+			{
+				if (Type == 58)
+				{
+					Type = 1734;
+				}
+				if (Type == 184)
+				{
+					Type = 1735;
+				}
+			}
             if (Main.netMode != 1)
             {
                 for (int index2 = 0; index2 < 400; ++index2)

@@ -10,17 +10,17 @@ namespace Terraria
 {
 	public class Main
 	{
-		public const int maxItemTypes = 1725;
-		public const int maxProjectileTypes = 311;
-		public const int maxNPCTypes = 301;
-		public const int maxTileSets = 251;
-		public const int maxWallTypes = 113;
-		public const int maxGoreTypes = 438;
-		public const int numArmorHead = 112;
-		public const int numArmorBody = 75;
-		public const int numArmorLegs = 64;
-		public const int maxBuffs = 81;
-		public const int maxWings = 21;
+		public const int maxItemTypes = 1858;
+		public const int maxProjectileTypes = 330;
+		public const int maxNPCTypes = 331;
+		public const int maxTileSets = 255;
+		public const int maxWallTypes = 116;
+		public const int maxGoreTypes = 488;
+		public const int numArmorHead = 132;
+		public const int numArmorBody = 100;
+		public const int numArmorLegs = 84;
+		public const int maxBuffs = 86;
+		public const int maxWings = 22;
 		public const int maxBackgrounds = 185;
 		private const int MF_BYPOSITION = 1024;
 		public const int sectionWidth = 200;
@@ -48,9 +48,9 @@ namespace Terraria
 		public const int maxClouds = 200;
 		public const int maxCloudTypes = 22;
 		public const int maxHair = 51;
-		public static int curRelease = 71;
-		public static string versionNumber = "v1.2.0.3.1";
-		public static string versionNumber2 = "v1.2.0.3.1";
+		public static int curRelease = 72;
+		public static string versionNumber = "v1.2.1";
+		public static string versionNumber2 = "v1.2.1";
 		public static bool ServerSideCharacter = false;
 		public static string clientUUID;
 		public static int maxMsg = 69;
@@ -61,17 +61,17 @@ namespace Terraria
 		public static int dedServCount2 = 0;
 		public static bool superFast = false;
 		public static bool[] hairLoaded = new bool[51];
-		public static bool[] wingsLoaded = new bool[21];
-		public static bool[] goreLoaded = new bool[438];
-		public static bool[] projectileLoaded = new bool[311];
-		public static bool[] itemFlameLoaded = new bool[1725];
+		public static bool[] wingsLoaded = new bool[22];
+		public static bool[] goreLoaded = new bool[488];
+		public static bool[] projectileLoaded = new bool[330];
+		public static bool[] itemFlameLoaded = new bool[1858];
 		public static bool[] backgroundLoaded = new bool[185];
-		public static bool[] tileSetsLoaded = new bool[251];
-		public static bool[] wallLoaded = new bool[113];
-		public static bool[] NPCLoaded = new bool[301];
-		public static bool[] armorHeadLoaded = new bool[112];
-		public static bool[] armorBodyLoaded = new bool[75];
-		public static bool[] armorLegsLoaded = new bool[64];
+		public static bool[] tileSetsLoaded = new bool[255];
+		public static bool[] wallLoaded = new bool[116];
+		public static bool[] NPCLoaded = new bool[331];
+		public static bool[] armorHeadLoaded = new bool[138];
+		public static bool[] armorBodyLoaded = new bool[100];
+		public static bool[] armorLegsLoaded = new bool[84];
 		public static float zoomX;
 		public static float zoomY;
 		public static float sunCircle;
@@ -88,7 +88,7 @@ namespace Terraria
 		public static bool showSpam = false;
 		public static bool showItemOwner = false;
 		public static int oldTempLightCount = 0;
-		public static bool[] nextNPC = new bool[301];
+		public static bool[] nextNPC = new bool[331];
 		public static int musicBox = -1;
 		public static int musicBox2 = -1;
 		public static byte hbPosition = 1;
@@ -152,6 +152,7 @@ namespace Terraria
 		public static string debugWords = "";
 		public static bool gamePad = false;
 		public static bool xMas = false;
+		public static bool halloween = false;
 		public static int snowDust = 0;
 		public static bool chTitle = false;
 		public static int keyCount = 0;
@@ -195,14 +196,14 @@ namespace Terraria
 		public static int zoneX = 99;
 		public static int zoneY = 87;
 		public static float harpNote = 0f;
-		public static bool[] projHostile = new bool[311];
-		public static bool[] pvpBuff = new bool[81];
-		public static bool[] vanityPet = new bool[81];
-		public static bool[] lightPet = new bool[81];
-		public static bool[] meleeBuff = new bool[81];
-		public static bool[] debuff = new bool[81];
-		public static string[] buffName = new string[81];
-		public static string[] buffTip = new string[81];
+		public static bool[] projHostile = new bool[330];
+		public static bool[] pvpBuff = new bool[86];
+		public static bool[] vanityPet = new bool[86];
+		public static bool[] lightPet = new bool[86];
+		public static bool[] meleeBuff = new bool[86];
+		public static bool[] debuff = new bool[86];
+		public static string[] buffName = new string[86];
+		public static string[] buffTip = new string[86];
 		public static int maxMP = 10;
 		public static string[] recentWorld = new string[Main.maxMP];
 		public static string[] recentIP = new string[Main.maxMP];
@@ -276,7 +277,7 @@ namespace Terraria
 		public static bool armorHide = false;
 		public static float craftingAlpha = 1f;
 		public static float armorAlpha = 1f;
-		public static float[] buffAlpha = new float[81];
+		public static float[] buffAlpha = new float[86];
 		public static Item trashItem = new Item();
 		public static bool hardMode = false;
 		public float chestLootScale = 1f;
@@ -327,7 +328,7 @@ namespace Terraria
 		public static int numDust = 6000;
 		public static int numPlayers = 0;
 		public static int maxNetPlayers = 255;
-		public static string[] chrName = new string[301];
+		public static string[] chrName = new string[331];
 		public static int maxRain = 750;
 		public int invBottom = 210;
 		public static float cameraX = 0f;
@@ -336,7 +337,7 @@ namespace Terraria
 		public static int waterStyle = 0;
 		public static int worldRate = 1;
 		public static float caveParrallax = 1f;
-		public static string[] tileName = new string[251];
+		public static string[] tileName = new string[255];
 		public static int dungeonX;
 		public static int dungeonY;
 		public static Liquid[] liquid = new Liquid[Liquid.resLiquid];
@@ -371,6 +372,7 @@ namespace Terraria
 		public static short moonModY = 0;
 		public static bool grabSky = false;
 		public static bool bloodMoon = false;
+		public static bool pumpkinMoon = false;
 		public static float cloudAlpha = 0f;
 		public static float maxRaining = 0f;
 		public static float oldMaxRaining = 0f;
@@ -382,8 +384,8 @@ namespace Terraria
 		public static int helpText = 0;
 		public static bool autoGen = false;
 		public static bool autoPause = false;
-		public static int[] projFrames = new int[311];
-		public static bool[] projPet = new bool[311];
+		public static int[] projFrames = new int[330];
+		public static bool[] projPet = new bool[330];
 		public static float demonTorch = 1f;
 		public static int demonTorchDir = 1;
 		public static int numStars;
@@ -428,38 +430,38 @@ namespace Terraria
 		public static float[] musicFade = new float[30];
 		public static float musicVolume = 0.75f;
 		public static float soundVolume = 1f;
-		public static bool[] tileLighted = new bool[251];
-		public static bool[] tileMergeDirt = new bool[251];
-		public static bool[] tileCut = new bool[251];
-		public static bool[] tileAlch = new bool[251];
-		public static int[] tileShine = new int[251];
-		public static bool[] tileShine2 = new bool[251];
-		public static bool[] wallHouse = new bool[113];
-		public static bool[] wallDungeon = new bool[113];
-		public static bool[] wallLight = new bool[113];
-		public static int[] wallBlend = new int[113];
-		public static bool[] tileStone = new bool[251];
-		public static bool[] tilePick = new bool[251];
-		public static bool[] tileAxe = new bool[251];
-		public static bool[] tileHammer = new bool[251];
-		public static bool[] tileWaterDeath = new bool[251];
-		public static bool[] tileLavaDeath = new bool[251];
-		public static bool[] tileTable = new bool[251];
-		public static bool[] tileBlockLight = new bool[251];
-		public static bool[] tileNoSunLight = new bool[251];
-		public static bool[] tileDungeon = new bool[251];
-		public static bool[] tileSolidTop = new bool[251];
-		public static bool[] tileSolid = new bool[251];
-		public static bool[] tileRope = new bool[251];
-		public static bool[] tileBrick = new bool[251];
-		public static bool[] tileMoss = new bool[251];
-		public static bool[] tileNoAttach = new bool[251];
-		public static bool[] tileNoFail = new bool[251];
-		public static bool[] tileFrameImportant = new bool[251];
-		public static bool[] tileSand = new bool[251];
-		public static bool[] tileFlame = new bool[251];
-		public static int[] tileFrame = new int[251];
-		public static int[] tileFrameCounter = new int[251];
+		public static bool[] tileLighted = new bool[255];
+		public static bool[] tileMergeDirt = new bool[255];
+		public static bool[] tileCut = new bool[255];
+		public static bool[] tileAlch = new bool[255];
+		public static int[] tileShine = new int[255];
+		public static bool[] tileShine2 = new bool[255];
+		public static bool[] wallHouse = new bool[116];
+		public static bool[] wallDungeon = new bool[116];
+		public static bool[] wallLight = new bool[116];
+		public static int[] wallBlend = new int[116];
+		public static bool[] tileStone = new bool[255];
+		public static bool[] tilePick = new bool[255];
+		public static bool[] tileAxe = new bool[255];
+		public static bool[] tileHammer = new bool[255];
+		public static bool[] tileWaterDeath = new bool[255];
+		public static bool[] tileLavaDeath = new bool[255];
+		public static bool[] tileTable = new bool[255];
+		public static bool[] tileBlockLight = new bool[255];
+		public static bool[] tileNoSunLight = new bool[255];
+		public static bool[] tileDungeon = new bool[255];
+		public static bool[] tileSolidTop = new bool[255];
+		public static bool[] tileSolid = new bool[255];
+		public static bool[] tileRope = new bool[255];
+		public static bool[] tileBrick = new bool[255];
+		public static bool[] tileMoss = new bool[255];
+		public static bool[] tileNoAttach = new bool[255];
+		public static bool[] tileNoFail = new bool[255];
+		public static bool[] tileFrameImportant = new bool[255];
+		public static bool[] tileSand = new bool[255];
+		public static bool[] tileFlame = new bool[255];
+		public static int[] tileFrame = new int[255];
+		public static int[] tileFrameCounter = new int[255];
 		public static int[] backgroundWidth = new int[185];
 		public static int[] backgroundHeight = new int[185];
 		public static bool tilesLoaded = false;
@@ -568,8 +570,8 @@ namespace Terraria
 		});
 		public static string WorldPath = Main.SavePath + Path.DirectorySeparatorChar + "Worlds";
 		public static string PlayerPath = Main.SavePath + Path.DirectorySeparatorChar + "Players";
-		public static string[] itemName = new string[1725];
-		public static string[] npcName = new string[301];
+		public static string[] itemName = new string[1858];
+		public static string[] npcName = new string[331];
 		public static int invasionType = 0;
 		public static double invasionX = 0.0;
 		public static int invasionSize = 0;
@@ -873,7 +875,41 @@ namespace Terraria
 			20,
 			15,
 			15,
-			15
+			15,
+			5,
+			5,
+			6,
+			6,
+			5,
+			2,
+			7,
+			2,
+			6,
+			6,
+			6,
+			6,
+			6,
+			15,
+			15,
+			15,
+			15,
+			15,
+			11,
+			4,
+			2,
+			2,
+			3,
+			3,
+			3,
+			15,
+			15,
+			15,
+			10,
+			14,
+			12,
+			1,
+			10,
+			8
 		};
 		private static bool mouseExit = false;
 		private static float exitScale = 0.8f;
@@ -1534,7 +1570,7 @@ namespace Terraria
 			Main.showSplash = false;
 			this.Initialize();
 			Lang.setLang(false);
-			for (int i = 0; i < 301; i++)
+			for (int i = 0; i < 331; i++)
 			{
 				NPC nPC = new NPC();
 				nPC.SetDefaults(i, -1f);
@@ -2316,11 +2352,14 @@ namespace Terraria
 			Main.bgAlpha[0] = 1f;
 			Main.bgAlpha2[0] = 1f;
 			this.invBottom = 258;
-			for (int i = 0; i < 311; i++)
+			for (int i = 0; i < 330; i++)
 			{
 				Main.projFrames[i] = 1;
 			}
+			Main.projFrames[317] = 8;
+			Main.projFrames[321] = 3;
 			Main.projFrames[308] = 10;
+			Main.projFrames[316] = 4;
 			Main.projFrames[275] = 2;
 			Main.projFrames[276] = 2;
 			Main.projFrames[254] = 5;
@@ -2363,8 +2402,17 @@ namespace Terraria
 			Main.projFrames[268] = 8;
 			Main.projFrames[269] = 7;
 			Main.projFrames[270] = 3;
+			Main.projFrames[313] = 12;
+			Main.projFrames[314] = 13;
+			Main.projFrames[319] = 11;
+			Main.projPet[319] = true;
+			Main.projPet[324] = true;
+			Main.projFrames[324] = 10;
 			Main.projPet[266] = true;
 			Main.tileLighted[237] = true;
+			Main.projPet[313] = true;
+			Main.projPet[314] = true;
+			Main.projPet[317] = true;
 			Main.projPet[175] = true;
 			Main.projPet[111] = true;
 			Main.projPet[112] = true;
@@ -2436,6 +2484,10 @@ namespace Terraria
 			Main.vanityPet[61] = true;
 			Main.vanityPet[65] = true;
 			Main.vanityPet[66] = true;
+			Main.vanityPet[81] = true;
+			Main.vanityPet[82] = true;
+			Main.vanityPet[84] = true;
+			Main.vanityPet[85] = true;
 			Main.lightPet[19] = true;
 			Main.lightPet[27] = true;
 			Main.lightPet[57] = true;
@@ -2448,9 +2500,6 @@ namespace Terraria
 			Main.tileFlame[93] = true;
 			Main.tileFlame[98] = true;
 			Main.tileFlame[100] = true;
-			Main.tileFlame[170] = true;
-			Main.tileFlame[171] = true;
-			Main.tileFlame[172] = true;
 			Main.tileFlame[173] = true;
 			Main.tileFlame[174] = true;
 			Main.tileRope[213] = true;
@@ -2468,9 +2517,12 @@ namespace Terraria
 			Main.tileFrameImportant[242] = true;
 			Main.tileFrameImportant[243] = true;
 			Main.tileFrameImportant[244] = true;
+			Main.tileFrameImportant[254] = true;
 			Main.tileSolid[221] = true;
 			Main.tileBlockLight[221] = true;
 			Main.tileMergeDirt[221] = true;
+			Main.tileLighted[96] = true;
+			Main.tileMergeDirt[250] = true;
 			Main.tileSolid[229] = true;
 			Main.tileBlockLight[229] = true;
 			Main.tileMergeDirt[229] = true;
@@ -2558,6 +2610,17 @@ namespace Terraria
 			Main.tileBrick[248] = true;
 			Main.tileBrick[249] = true;
 			Main.tileBrick[250] = true;
+			Main.tileSolid[251] = true;
+			Main.tileSolid[252] = true;
+			Main.tileBrick[252] = true;
+			Main.tileSolid[253] = true;
+			Main.tileBrick[253] = true;
+			Main.tileMergeDirt[251] = true;
+			Main.tileMergeDirt[252] = true;
+			Main.tileMergeDirt[253] = true;
+			Main.tileBlockLight[251] = true;
+			Main.tileBlockLight[252] = true;
+			Main.tileBlockLight[253] = true;
 			Main.tileBlockLight[248] = true;
 			Main.tileBlockLight[249] = true;
 			Main.tileBlockLight[250] = true;
@@ -2565,7 +2628,10 @@ namespace Terraria
 			Main.wallHouse[110] = true;
 			Main.wallHouse[111] = true;
 			Main.wallHouse[112] = true;
-			for (int j = 0; j < 113; j++)
+			Main.wallHouse[113] = true;
+			Main.wallHouse[114] = true;
+			Main.wallHouse[115] = true;
+			for (int j = 0; j < 116; j++)
 			{
 				Main.wallDungeon[j] = false;
 			}
@@ -2789,14 +2855,8 @@ namespace Terraria
 			Main.tileFrameImportant[185] = true;
 			Main.tileFrameImportant[186] = true;
 			Main.tileFrameImportant[187] = true;
-			Main.tileFrameImportant[170] = true;
-			Main.tileFrameImportant[171] = true;
-			Main.tileFrameImportant[172] = true;
 			Main.tileFrameImportant[173] = true;
 			Main.tileFrameImportant[174] = true;
-			Main.tileLighted[170] = true;
-			Main.tileLighted[171] = true;
-			Main.tileLighted[172] = true;
 			Main.tileLighted[173] = true;
 			Main.tileLighted[174] = true;
 			Main.tileFrameImportant[139] = true;
@@ -2901,7 +2961,6 @@ namespace Terraria
 			Main.tileLighted[33] = true;
 			Main.tileLighted[34] = true;
 			Main.tileLighted[35] = true;
-			Main.tileLighted[36] = true;
 			Main.tileLighted[37] = true;
 			Main.tileLighted[42] = true;
 			Main.tileLighted[49] = true;
@@ -2989,7 +3048,6 @@ namespace Terraria
 			Main.tileFrameImportant[33] = true;
 			Main.tileFrameImportant[34] = true;
 			Main.tileFrameImportant[35] = true;
-			Main.tileFrameImportant[36] = true;
 			Main.tileFrameImportant[42] = true;
 			Main.tileFrameImportant[50] = true;
 			Main.tileFrameImportant[55] = true;
@@ -3293,6 +3351,7 @@ namespace Terraria
 			Main.tileLighted[190] = true;
 			Main.tileBlockLight[192] = true;
 			Main.tileBrick[192] = false;
+			Main.tileWaterDeath[215] = true;
 			Main.tileWaterDeath[4] = true;
 			Main.tileWaterDeath[51] = true;
 			Main.tileWaterDeath[93] = true;
@@ -3318,7 +3377,6 @@ namespace Terraria
 			Main.tileLavaDeath[33] = true;
 			Main.tileLavaDeath[34] = true;
 			Main.tileLavaDeath[35] = true;
-			Main.tileLavaDeath[36] = true;
 			Main.tileLavaDeath[42] = true;
 			Main.tileLavaDeath[49] = true;
 			Main.tileLavaDeath[50] = true;
@@ -3378,7 +3436,7 @@ namespace Terraria
 			Main.wallHouse[68] = true;
 			Main.wallHouse[72] = true;
 			Main.wallHouse[73] = true;
-			for (int l = 0; l < 113; l++)
+			for (int l = 0; l < 116; l++)
 			{
 				if (l == 20)
 				{
@@ -3463,7 +3521,7 @@ namespace Terraria
 			Main.tileNoFail[205] = true;
 			Main.tileNoFail[227] = true;
 			Main.tileNoFail[233] = true;
-			for (int m = 0; m < 251; m++)
+			for (int m = 0; m < 255; m++)
 			{
 				Main.tileName[m] = "";
 				if (Main.tileSolid[m])
@@ -3522,7 +3580,7 @@ namespace Terraria
 			{
 				Main.itemText[num10] = new ItemText();
 			}
-			for (int num11 = 0; num11 < 1725; num11++)
+			for (int num11 = 0; num11 < 1858; num11++)
 			{
 				Item item = new Item();
 				item.SetDefaults(num11, false);
@@ -3573,7 +3631,7 @@ namespace Terraria
 			{
 				Main.LoadPlayers();
 			}*/
-			for (int num17 = 1; num17 < 311; num17++)
+			for (int num17 = 1; num17 < 330; num17++)
 			{
 				Projectile projectile = new Projectile();
 				projectile.SetDefaults(num17);
@@ -4170,6 +4228,23 @@ namespace Terraria
 		}
 		protected void UnloadContent()
 		{
+		}
+		public static void startPumpkinMoon()
+		{
+			Main.pumpkinMoon = true;
+			Main.bloodMoon = false;
+			NPC.waveKills = 0f;
+			NPC.waveCount = 1;
+			string text = "First Wave: " + Main.npcName[305];
+			if (Main.netMode == 0)
+			{
+				Main.NewText(text, 175, 75, 255, false);
+				return;
+			}
+			if (Main.netMode == 2)
+			{
+				NetMessage.SendData(25, -1, -1, text, 255, 175f, 75f, 255f, 0);
+			}
 		}
 		protected void UpdateMusic()
 		{
@@ -4862,6 +4937,17 @@ namespace Terraria
 
 			Main.xMas = xmas;
 		}
+		public static void checkHalloween()
+		{
+			DateTime now = DateTime.Now;
+			int day = now.Day;
+			int month = now.Month;
+			bool halloween = (((day >= 20) && (month == 10)) || ((day <= 10) && (month == 11)));
+
+			ServerApi.Hooks.InvokeWorldHalloweenCheck(ref halloween);
+
+			Main.halloween = halloween;
+		}
 		public void updateCloudLayer()
 		{
 			if (Main.netMode == 1)
@@ -5254,7 +5340,13 @@ namespace Terraria
 			}
 			if (Main.netMode != 1)
 			{
-				NPC.SpawnNPC();
+				try
+				{
+					NPC.SpawnNPC();
+				}
+				catch
+				{
+				}
 			}
 			for (int num8 = 0; num8 < 255; num8++)
 			{
@@ -7460,7 +7552,7 @@ namespace Terraria
 			{
 				return false;
 			}
-			if (Main.tile[x, y].active() && Main.tileSolid[(int)Main.tile[x, y].type] && !Main.tileSolidTop[(int)Main.tile[x, y].type] && Main.tile[x, y].type != 10 && Main.tile[x, y].type != 54 && Main.tile[x, y].type != 138 && Main.tile[x, y].type != 191)
+			if (Main.tile[x, y].active() && Main.tileSolid[(int)Main.tile[x, y].type] && !Main.tileSolidTop[(int)Main.tile[x, y].type] && Main.tile[x, y].type != 10 && Main.tile[x, y].type != 54 && Main.tile[x, y].type != 138 && Main.tile[x, y].type != 191 && Main.tile[x, y].type != 137)
 			{
 				int frameX = (int)Main.tile[x, y].frameX;
 				int frameY = (int)Main.tile[x, y].frameY;

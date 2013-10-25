@@ -515,6 +515,14 @@ namespace Terraria
 									{
 										crimson = true;
 									}
+									if ((b5 & 64) == 64)
+									{
+										Main.pumpkinMoon = true;
+									}
+									else
+									{
+										Main.pumpkinMoon = false;
+									}
 									if (flag3)
 									{
 										Main.cloudBGActive = 1f;
@@ -2829,6 +2837,16 @@ namespace Terraria
 																																																													if (flag11)
 																																																													{
 																																																														NPC.SpawnOnPlayer(plr, num122);
+																																																														return;
+																																																													}
+																																																												}
+																																																												else if (num122 == -4)
+																																																												{
+																																																													if (!Main.dayTime)
+																																																													{
+																																																														NetMessage.SendData(25, -1, -1, Lang.misc[31], 255, 50f, 255f, 130f, 0);
+																																																														Main.startPumpkinMoon();
+																																																														NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0);
 																																																														return;
 																																																													}
 																																																												}

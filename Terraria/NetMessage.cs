@@ -339,6 +339,10 @@ namespace Terraria
 					        {
 					            b12 += 32;
 					        }
+							if (Main.pumpkinMoon)
+							{
+								b12 += 64;
+							}
 					        num2 += bytes20.Length + 1 + 1 + 1 + 1 + 1 + bytes21.Length + bytes22.Length + bytes23.Length +
 					                bytes24.Length + bytes25.Length + bytes26.Length + bytes27.Length + 1 + bytes28.Length + 12 + 4 + 1 +
 					                3 + 5 + 12 + 4 + 3 + 4 + 1 + 1;

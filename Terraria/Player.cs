@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.IO;
 using System.Security.Cryptography;
@@ -1087,7 +1085,7 @@ namespace Terraria
 			this.controlDown = false;
 			this.controlRight = false;
 			this.controlJump = false;
-			if (Main.hasFocus && !Main.chatMode && !Main.editSign)
+			/*if (Main.hasFocus && !Main.chatMode && !Main.editSign)
 			{
 				Keys[] pressedKeys = Main.keyState.GetPressedKeys();
 				for (int i = 0; i < pressedKeys.Length; i++)
@@ -1114,7 +1112,7 @@ namespace Terraria
 						this.controlJump = true;
 					}
 				}
-			}
+			}*/
 			if (this.controlUp || this.controlJump)
 			{
 				if (this.velocity.Y > 0f)
@@ -1978,7 +1976,7 @@ namespace Terraria
 				}
 				else
 				{
-					if (i == Main.myPlayer)
+					/*if (i == Main.myPlayer)
 					{
 						this.controlUp = false;
 						this.controlLeft = false;
@@ -2761,7 +2759,7 @@ namespace Terraria
 					if (this.mouseInterface)
 					{
 						this.delayUseItem = true;
-					}
+					}*/
 					Player.tileTargetX = (int)(((float)Main.mouseX + Main.screenPosition.X) / 16f);
 					Player.tileTargetY = (int)(((float)Main.mouseY + Main.screenPosition.Y) / 16f);
 					if (this.gravDir == -1f)
@@ -3015,7 +3013,7 @@ namespace Terraria
 							}
 							else if (this.buffType[num30] == 11)
 							{
-								Lighting.addLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.8f, 0.95f, 1f);
+								//Lighting.addLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.8f, 0.95f, 1f);
 							}
 							else if (this.buffType[num30] == 12)
 							{
@@ -3098,7 +3096,7 @@ namespace Terraria
 							{
 								if ((double)this.statLife <= (double)this.statLifeMax * 0.25)
 								{
-									Lighting.addLight((int)(this.Center().X / 16f), (int)(this.Center().Y / 16f), 0.1f, 0.2f, 0.45f);
+									//Lighting.addLight((int)(this.Center().X / 16f), (int)(this.Center().Y / 16f), 0.1f, 0.2f, 0.45f);
 									this.iceBarrier = true;
 									this.statDefense += 30;
 									this.iceBarrierFrameCounter += 1;
@@ -4383,7 +4381,7 @@ namespace Terraria
 						}
 						if (this.armor[num59].type == 1303 && this.wet)
 						{
-							Lighting.addLight((int)this.center().X / 16, (int)this.center().Y / 16, 0.9f, 0.2f, 0.6f);
+							//Lighting.addLight((int)this.center().X / 16, (int)this.center().Y / 16, 0.9f, 0.2f, 0.6f);
 						}
 						if (this.armor[num59].type == 1301)
 						{
@@ -5020,7 +5018,7 @@ namespace Terraria
 					{
 						int i2 = (int)(this.position.X + (float)(this.width / 2) + (float)(8 * this.direction)) / 16;
 						int j2 = (int)(this.position.Y + 2f) / 16;
-						Lighting.addLight(i2, j2, 0.92f, 0.8f, 0.65f);
+						//Lighting.addLight(i2, j2, 0.92f, 0.8f, 0.65f);
 					}
 					this.setBonus = "";
 					if (this.body == 67 && this.legs == 56 && this.head >= 103 && this.head <= 105)
@@ -8743,7 +8741,7 @@ namespace Terraria
 							}
 						}
 					}
-					if (Main.myPlayer == this.whoAmi)
+					/*if (Main.myPlayer == this.whoAmi)
 					{
 						if (Main.wof >= 0 && Main.npc[Main.wof].active)
 						{
@@ -9018,7 +9016,7 @@ namespace Terraria
 							int damage3 = Main.DamageVar(vector4.Y);
 							this.Hurt(damage3, 0, false, false, Lang.deathMsg(-1, -1, -1, 3), false);
 						}
-					}
+					}*/
 					if (this.controlRight)
 					{
 						this.releaseRight = false;
@@ -11188,14 +11186,14 @@ namespace Terraria
 			if (this.whoAmi == Main.myPlayer)
 			{
 				Main.BlackFadeIn = 255;
-				Lighting.BlackOut();
+				//Lighting.BlackOut();
 				Main.screenLastPosition = Main.screenPosition;
 				Main.screenPosition.X = this.position.X + (float)(this.width / 2) - (float)(Main.screenWidth / 2);
 				Main.screenPosition.Y = this.position.Y + (float)(this.height / 2) - (float)(Main.screenHeight / 2);
-				if (Main.mapTime < 5)
+				/*if (Main.mapTime < 5)
 				{
 					Main.mapTime = 5;
-				}
+				}*/
 				Main.quickBG = 10;
 				Main.maxQ = true;
 				Main.renderNow = true;
@@ -11209,10 +11207,10 @@ namespace Terraria
 		{
 			if (this.whoAmi == Main.myPlayer)
 			{
-				if (Main.mapTime < 5)
+				/*if (Main.mapTime < 5)
 				{
 					Main.mapTime = 5;
-				}
+				}*/
 				Main.quickBG = 10;
 				this.FindSpawn();
 				if (!Player.CheckSpawn(this.SpawnX, this.SpawnY))
@@ -11294,10 +11292,10 @@ namespace Terraria
 			{
 				Main.BlackFadeIn = 255;
 				Main.renderNow = true;
-				if (Main.netMode == 1)
+				/*if (Main.netMode == 1)
 				{
 					Netplay.newRecent();
-				}
+				}*/
 				Main.screenPosition.X = this.position.X + (float)(this.width / 2) - (float)(Main.screenWidth / 2);
 				Main.screenPosition.Y = this.position.Y + (float)(this.height / 2) - (float)(Main.screenHeight / 2);
 			}
@@ -11639,7 +11637,7 @@ namespace Terraria
 							this.inventory[i].SetDefaults(0, false);
 						}
 					}
-					Main.mapFullscreen = false;
+					//Main.mapFullscreen = false;
 				}
 			}
 			else
@@ -11667,7 +11665,7 @@ namespace Terraria
 				{
 					if (Main.myPlayer == this.whoAmi)
 					{
-						Main.mapFullscreen = false;
+						//Main.mapFullscreen = false;
 					}
 					Main.trashItem.SetDefaults(0, false);
 					if (this.difficulty == 1)
@@ -11730,7 +11728,7 @@ namespace Terraria
 			{
 				try
 				{
-					WorldGen.saveToonWhilePlaying();
+					//WorldGen.saveToonWhilePlaying();
 				}
 				catch
 				{
@@ -13386,11 +13384,11 @@ namespace Terraria
 				}
 				else
 				{
-					this.itemHeight = Main.itemTexture[this.inventory[this.selectedItem].type].Height;
-					this.itemWidth = Main.itemTexture[this.inventory[this.selectedItem].type].Width;
+					//this.itemHeight = Main.itemTexture[this.inventory[this.selectedItem].type].Height;
+					//this.itemWidth = Main.itemTexture[this.inventory[this.selectedItem].type].Width;
 				}
 				this.itemAnimation--;
-				if (!Main.dedServ)
+				/*if (!Main.dedServ)
 				{
 					if (this.inventory[this.selectedItem].useStyle == 1)
 					{
@@ -13585,7 +13583,7 @@ namespace Terraria
 						this.itemLocation.X = this.position.X + (float)this.width * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - (float)(this.direction * 2);
 						this.itemLocation.Y = this.position.Y + (float)this.height * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Height * 0.5f;
 					}
-				}
+				}*/
 			}
 			else if (this.inventory[this.selectedItem].holdStyle == 1 && !this.pulley)
 			{
@@ -13593,7 +13591,7 @@ namespace Terraria
 				{
 					this.itemLocation.X = this.position.X + (float)this.width * 0.5f + 20f * (float)this.direction;
 				}
-				else if (this.inventory[this.selectedItem].type == 930)
+				/*else if (this.inventory[this.selectedItem].type == 930)
 				{
 					this.itemLocation.X = this.position.X + (float)(this.width / 2) * 0.5f - 12f - (float)(2 * this.direction);
 					float num26 = this.position.X + (float)(this.width / 2) + (float)(38 * this.direction);
@@ -13701,7 +13699,7 @@ namespace Terraria
 						this.itemLocation.X = this.itemLocation.X - (float)(this.direction * 2);
 						this.itemLocation.Y = this.itemLocation.Y + 4f;
 					}
-				}
+				}*/
 				this.itemLocation.Y = this.position.Y + 24f;
 				if (this.inventory[this.selectedItem].type == 856)
 				{
@@ -13758,9 +13756,9 @@ namespace Terraria
 			}
 			else if (this.inventory[this.selectedItem].holdStyle == 3 && !this.pulley && !Main.dedServ)
 			{
-				this.itemLocation.X = this.position.X + (float)this.width * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - (float)(this.direction * 2);
+				/*this.itemLocation.X = this.position.X + (float)this.width * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - (float)(this.direction * 2);
 				this.itemLocation.Y = this.position.Y + (float)this.height * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Height * 0.5f;
-				this.itemRotation = 0f;
+				this.itemRotation = 0f;*/
 			}
 			if ((((this.inventory[this.selectedItem].type == 974 || this.inventory[this.selectedItem].type == 8 || this.inventory[this.selectedItem].type == 1245 || (this.inventory[this.selectedItem].type >= 427 && this.inventory[this.selectedItem].type <= 433)) && !this.wet) || this.inventory[this.selectedItem].type == 523 || this.inventory[this.selectedItem].type == 1333) && !this.pulley)
 			{
@@ -13897,7 +13895,7 @@ namespace Terraria
 						Dust expr_353D_cp_0 = Main.dust[num37];
 						expr_353D_cp_0.velocity.Y = expr_353D_cp_0.velocity.Y - 1.5f;
 					}
-					Lighting.addLight((int)((this.itemLocation.X - 12f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f + this.velocity.Y) / 16f), r, g, b);
+					//Lighting.addLight((int)((this.itemLocation.X - 12f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f + this.velocity.Y) / 16f), r, g, b);
 				}
 				else
 				{
@@ -13912,7 +13910,7 @@ namespace Terraria
 						Dust expr_3654_cp_0 = Main.dust[num38];
 						expr_3654_cp_0.velocity.Y = expr_3654_cp_0.velocity.Y - 1.5f;
 					}
-					Lighting.addLight((int)((this.itemLocation.X + 12f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f + this.velocity.Y) / 16f), r, g, b);
+					//Lighting.addLight((int)((this.itemLocation.X + 12f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f + this.velocity.Y) / 16f), r, g, b);
 				}
 			}
 			if (this.inventory[this.selectedItem].type == 105 && !this.wet && !this.pulley)
@@ -13935,7 +13933,7 @@ namespace Terraria
 						Dust expr_37B0_cp_0 = Main.dust[num39];
 						expr_37B0_cp_0.velocity.Y = expr_37B0_cp_0.velocity.Y - 1.5f;
 					}
-					Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 1f, 0.95f, 0.8f);
+					//Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 1f, 0.95f, 0.8f);
 				}
 				else
 				{
@@ -13950,7 +13948,7 @@ namespace Terraria
 						Dust expr_38C3_cp_0 = Main.dust[num40];
 						expr_38C3_cp_0.velocity.Y = expr_38C3_cp_0.velocity.Y - 1.5f;
 					}
-					Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 1f, 0.95f, 0.8f);
+					//Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 1f, 0.95f, 0.8f);
 				}
 			}
 			else if (this.inventory[this.selectedItem].type == 148 && !this.wet)
@@ -13973,7 +13971,7 @@ namespace Terraria
 						Dust expr_3A1D_cp_0 = Main.dust[num41];
 						expr_3A1D_cp_0.velocity.Y = expr_3A1D_cp_0.velocity.Y - 1.5f;
 					}
-					Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0f, 0.5f, 1f);
+					//Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0f, 0.5f, 1f);
 				}
 				else
 				{
@@ -13988,29 +13986,29 @@ namespace Terraria
 						Dust expr_3B34_cp_0 = Main.dust[num42];
 						expr_3B34_cp_0.velocity.Y = expr_3B34_cp_0.velocity.Y - 1.5f;
 					}
-					Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0f, 0.5f, 1f);
+					//Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0f, 0.5f, 1f);
 				}
 			}
 			if (this.inventory[this.selectedItem].type == 282 && !this.pulley)
 			{
 				if (this.direction == -1)
 				{
-					Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 1f, 0.8f);
+					//Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 1f, 0.8f);
 				}
 				else
 				{
-					Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 1f, 0.8f);
+					//Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 1f, 0.8f);
 				}
 			}
 			if (this.inventory[this.selectedItem].type == 286 && !this.pulley)
 			{
 				if (this.direction == -1)
 				{
-					Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 0.8f, 1f);
+					//Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 0.8f, 1f);
 				}
 				else
 				{
-					Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 0.8f, 1f);
+					//Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 0.8f, 1f);
 				}
 			}
 			if (this.controlUseItem)
@@ -15469,7 +15467,7 @@ namespace Terraria
 				Rectangle rectangle = new Rectangle((int)this.itemLocation.X, (int)this.itemLocation.Y, 32, 32);
 				if (!Main.dedServ)
 				{
-					rectangle = new Rectangle((int)this.itemLocation.X, (int)this.itemLocation.Y, Main.itemTexture[this.inventory[this.selectedItem].type].Width, Main.itemTexture[this.inventory[this.selectedItem].type].Height);
+					//rectangle = new Rectangle((int)this.itemLocation.X, (int)this.itemLocation.Y, Main.itemTexture[this.inventory[this.selectedItem].type].Width, Main.itemTexture[this.inventory[this.selectedItem].type].Height);
 				}
 				rectangle.Width = (int)((float)rectangle.Width * this.inventory[this.selectedItem].scale);
 				rectangle.Height = (int)((float)rectangle.Height * this.inventory[this.selectedItem].scale);
@@ -15720,7 +15718,7 @@ namespace Terraria
 							num158 *= 0.9f;
 							num159 *= 0.1f;
 						}
-						Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), num157, num158, num159);
+						//Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), num157, num158, num159);
 					}
 					if (this.frostBurn && this.inventory[this.selectedItem].melee && !this.inventory[this.selectedItem].noMelee && !this.inventory[this.selectedItem].noUseGraphic && Main.rand.Next(2) == 0)
 					{
@@ -16743,10 +16741,10 @@ namespace Terraria
 		{
 			try
 			{
-				if (Main.mapEnabled)
+				/*if (Main.mapEnabled)
 				{
 					Map.saveMap();
-				}
+				}*/
 			}
 			catch
 			{

@@ -84,6 +84,7 @@
     <Compile Include="TerrariaApi.Server\EventArgs\ChristmasCheckEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\CommandEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\ConnectEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\HalloweenCheckEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\JoinEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\LeaveEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\NpcLootDropEventArgs.cs" />

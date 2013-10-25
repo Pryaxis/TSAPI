@@ -9,7 +9,7 @@ namespace Terraria
 		public float scale = 1f;
 		public int owner = (int)byte.MaxValue;
 		public string name = "";
-		public float[] )ai = new float[Projectile.maxAI];
+		public float[] ai = new float[Projectile.maxAI];
 		public float[] localAI = new float[Projectile.maxAI];
 		public float stepSpeed = 1f;
 		public int spriteDirection = 1;
@@ -5862,7 +5862,7 @@ namespace Terraria
 					{
 						this.alpha = 0;
 					}
-					Lighting.addLight((int)this.center().X / 16, (int)this.center().Y / 16, 0.9f, 0.6f, 0.2f);
+					//Lighting.addLight((int)this.center().X / 16, (int)this.center().Y / 16, 0.9f, 0.6f, 0.2f);
 					if (this.alpha == 0)
 					{
 						int num5 = 2;
@@ -8182,7 +8182,6 @@ namespace Terraria
 					try
 					{
 						Vector2 value2 = Collision.TileCollision(this.position, this.velocity, this.width, this.height, false, false);
-						this.velocity != value2;
 						int num192 = (int)(this.position.X / 16f) - 1;
 						int num193 = (int)((this.position.X + (float)this.width) / 16f) + 2;
 						int num194 = (int)(this.position.Y / 16f) - 1;
@@ -10900,7 +10899,7 @@ namespace Terraria
 										this.frame = 6;
 									}
 									this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.58f;
-									Lighting.addLight((int)this.center().X / 16, (int)this.center().Y / 16, 0.9f, 0.6f, 0.2f);
+									//Lighting.addLight((int)this.center().X / 16, (int)this.center().Y / 16, 0.9f, 0.6f, 0.2f);
 									for (int num336 = 0; num336 < 2; num336++)
 									{
 										int num337 = 4;
@@ -16997,4 +16996,3 @@ namespace Terraria
 			}
 		}
 	}
-}

@@ -927,6 +927,28 @@ namespace TerrariaApi.Server
 			return args.Handled;
 		}
 		#endregion
+		#region WorldHalloweenCheck
+		private readonly HandlerCollection<HalloweenCheckEventArgs> worldHalloweenCheck =
+			new HandlerCollection<HalloweenCheckEventArgs>("WorldHalloweenCheck");
+
+		public HandlerCollection<HalloweenCheckEventArgs> WorldHalloweenCheck
+		{
+			get { return this.worldHalloweenCheck; }
+		}
+
+		internal bool InvokeWorldHalloweenCheck(ref bool halloweenCheck)
+		{
+			HalloweenCheckEventArgs args = new HalloweenCheckEventArgs
+			{
+				Halloween = halloweenCheck
+			};
+
+			this.worldHalloweenCheck.Invoke(args);
+
+			halloweenCheck = args.Halloween;
+			return args.Handled;
+		}
+		#endregion
 		#endregion
 	}
 }
