@@ -9940,6 +9940,11 @@ namespace Terraria
 		}
 		private static void UpdateTime()
 		{
+			if (Main.pumpkinMoon)
+			{
+				Main.bloodMoon = false;
+			}
+
 			if ((Main.netMode != 1 && !Main.gameMenu) || Main.netMode == 2)
 			{
 				if (Main.raining)
@@ -10034,6 +10039,7 @@ namespace Terraria
 				if (Main.time > 32400.0)
 				{
 					Main.checkXMas();
+					Main.checkHalloween();
 					if (Main.invasionDelay > 0)
 					{
 						Main.invasionDelay--;
@@ -10042,6 +10048,7 @@ namespace Terraria
 					Main.checkForSpawns = 0;
 					Main.time = 0.0;
 					Main.bloodMoon = false;
+					Main.pumpkinMoon = false;
 					Main.dayTime = true;
 					Main.moonPhase++;
 					if (Main.moonPhase >= 8)
@@ -10069,7 +10076,7 @@ namespace Terraria
 								Main.StartInvasion(1);
 							}
 						}
-						if (Main.invasionType == 0 && Main.hardMode && NPC.downedPirates && Main.rand.Next(60) == 0)
+						if (Main.invasionType == 0 && Main.hardMode && ((NPC.downedPirates && Main.rand.Next(60) == 0) || (!NPC.downedPirates && Main.rand.Next(40) == 0)))
 						{
 							Main.StartInvasion(3);
 						}
@@ -10107,6 +10114,7 @@ namespace Terraria
 			else
 			{
 				Main.bloodMoon = false;
+				Main.pumpkinMoon = false;
 				if (Main.time > 54000.0)
 				{
 					WorldGen.spawnNPC = 0;
@@ -10262,7 +10270,7 @@ namespace Terraria
 								num6++;
 							}
 						}
-						for (int num8 = 0; num8 < 301; num8++)
+						for (int num8 = 0; num8 < 331; num8++)
 						{
 							Main.nextNPC[num8] = false;
 						}
