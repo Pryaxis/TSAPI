@@ -67,7 +67,7 @@ namespace Terraria
 		public bool pygmy;
 		public bool raven;
 		public bool slime;
-		public int wingTime;
+		public float wingTime;
 		public int wings;
 		public int wingFrame;
 		public int wingFrameCounter;
@@ -116,6 +116,7 @@ namespace Terraria
 		public int aggro;
 		public float activeNPCs;
 		public bool mouseInterface;
+		public bool lastMouseInterface;
 		public int noThrow;
 		public int changeItem = -1;
 		public int selectedItem;
@@ -134,7 +135,7 @@ namespace Terraria
 		public float ghostDir = 1f;
 		public int[] buffType = new int[10];
 		public int[] buffTime = new int[10];
-		public bool[] buffImmune = new bool[86];
+		public bool[] buffImmune = new bool[90];
 		public int heldProj = -1;
 		public int breathCD;
 		public int breathMax = 200;
@@ -258,6 +259,7 @@ namespace Terraria
 		public bool magicQuiver;
 		public bool magmaStone;
 		public bool lavaRose;
+		public bool chaosState;
 		public bool lightOrb;
 		public bool fairy;
 		public bool bunny;
@@ -1085,34 +1087,6 @@ namespace Terraria
 			this.controlDown = false;
 			this.controlRight = false;
 			this.controlJump = false;
-			/*if (Main.hasFocus && !Main.chatMode && !Main.editSign)
-			{
-				Keys[] pressedKeys = Main.keyState.GetPressedKeys();
-				for (int i = 0; i < pressedKeys.Length; i++)
-				{
-					string a = string.Concat(pressedKeys[i]);
-					if (a == Main.cUp)
-					{
-						this.controlUp = true;
-					}
-					if (a == Main.cLeft)
-					{
-						this.controlLeft = true;
-					}
-					if (a == Main.cDown)
-					{
-						this.controlDown = true;
-					}
-					if (a == Main.cRight)
-					{
-						this.controlRight = true;
-					}
-					if (a == Main.cJump)
-					{
-						this.controlJump = true;
-					}
-				}
-			}*/
 			if (this.controlUp || this.controlJump)
 			{
 				if (this.velocity.Y > 0f)
@@ -1250,6 +1224,10 @@ namespace Terraria
 			{
 				return 180;
 			}
+			if (this.wings == 22)
+			{
+				return 170;
+			}
 			if (this.wings == 16 || this.wings == 17 || this.wings == 18 || this.wings == 19)
 			{
 				return 190;
@@ -1337,21 +1315,30 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (Main.rand.Next(3) == 1)
+			else if (Main.rand.Next(150) == 0)
 			{
-				int number2 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1809, Main.rand.Next(10, 41), false, 0, false);
+				int number2 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1800, 1, false, 0, false);
 				if (Main.netMode == 1)
 				{
 					NetMessage.SendData(21, -1, -1, "", number2, 1f, 0f, 0f, 0);
 					return;
 				}
 			}
-			else if (Main.rand.Next(10) == 0)
+			else if (Main.rand.Next(3) == 1)
 			{
-				int number3 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(1846, 1851), 1, false, 0, false);
+				int number3 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1809, Main.rand.Next(10, 41), false, 0, false);
 				if (Main.netMode == 1)
 				{
 					NetMessage.SendData(21, -1, -1, "", number3, 1f, 0f, 0f, 0);
+					return;
+				}
+			}
+			else if (Main.rand.Next(10) == 0)
+			{
+				int number4 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(1846, 1851), 1, false, 0, false);
+				if (Main.netMode == 1)
+				{
+					NetMessage.SendData(21, -1, -1, "", number4, 1f, 0f, 0f, 0);
 					return;
 				}
 			}
@@ -1360,322 +1347,322 @@ namespace Terraria
 				int num = Main.rand.Next(19);
 				if (num == 0)
 				{
-					int number4 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1749, 1, false, 0, false);
+					int number5 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1749, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number4, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number5, 1f, 0f, 0f, 0);
 					}
-					number4 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1750, 1, false, 0, false);
+					number5 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1750, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number4, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number5, 1f, 0f, 0f, 0);
 					}
-					number4 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1751, 1, false, 0, false);
+					number5 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1751, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number4, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number5, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 1)
 				{
-					int number5 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1746, 1, false, 0, false);
+					int number6 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1746, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number5, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number6, 1f, 0f, 0f, 0);
 					}
-					number5 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1747, 1, false, 0, false);
+					number6 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1747, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number5, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number6, 1f, 0f, 0f, 0);
 					}
-					number5 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1748, 1, false, 0, false);
+					number6 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1748, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number5, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number6, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 2)
 				{
-					int number6 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1752, 1, false, 0, false);
+					int number7 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1752, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number6, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number7, 1f, 0f, 0f, 0);
 					}
-					number6 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1753, 1, false, 0, false);
+					number7 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1753, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number6, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number7, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 3)
 				{
-					int number7 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1767, 1, false, 0, false);
+					int number8 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1767, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number7, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number8, 1f, 0f, 0f, 0);
 					}
-					number7 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1768, 1, false, 0, false);
+					number8 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1768, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number7, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number8, 1f, 0f, 0f, 0);
 					}
-					number7 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1769, 1, false, 0, false);
+					number8 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1769, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number7, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number8, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 4)
 				{
-					int number8 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1770, 1, false, 0, false);
+					int number9 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1770, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number8, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number9, 1f, 0f, 0f, 0);
 					}
-					number8 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1771, 1, false, 0, false);
+					number9 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1771, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number8, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number9, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 5)
 				{
-					int number9 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1772, 1, false, 0, false);
+					int number10 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1772, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number9, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number10, 1f, 0f, 0f, 0);
 					}
-					number9 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1773, 1, false, 0, false);
+					number10 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1773, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number9, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number10, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 6)
 				{
-					int number10 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1754, 1, false, 0, false);
+					int number11 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1754, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number10, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number11, 1f, 0f, 0f, 0);
 					}
-					number10 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1755, 1, false, 0, false);
+					number11 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1755, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number10, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number11, 1f, 0f, 0f, 0);
 					}
-					number10 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1756, 1, false, 0, false);
+					number11 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1756, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number10, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number11, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 7)
 				{
-					int number11 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1757, 1, false, 0, false);
+					int number12 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1757, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number11, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number12, 1f, 0f, 0f, 0);
 					}
-					number11 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1758, 1, false, 0, false);
+					number12 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1758, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number11, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number12, 1f, 0f, 0f, 0);
 					}
-					number11 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1759, 1, false, 0, false);
+					number12 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1759, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number11, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number12, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 8)
 				{
-					int number12 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1760, 1, false, 0, false);
+					int number13 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1760, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number12, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number13, 1f, 0f, 0f, 0);
 					}
-					number12 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1761, 1, false, 0, false);
+					number13 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1761, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number12, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number13, 1f, 0f, 0f, 0);
 					}
-					number12 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1762, 1, false, 0, false);
+					number13 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1762, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number12, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number13, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 9)
 				{
-					int number13 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1763, 1, false, 0, false);
+					int number14 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1763, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number13, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number14, 1f, 0f, 0f, 0);
 					}
-					number13 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1764, 1, false, 0, false);
+					number14 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1764, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number13, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number14, 1f, 0f, 0f, 0);
 					}
-					number13 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1765, 1, false, 0, false);
+					number14 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1765, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number13, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number14, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 10)
 				{
-					int number14 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1766, 1, false, 0, false);
+					int number15 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1766, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number14, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number15, 1f, 0f, 0f, 0);
 					}
-					number14 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1775, 1, false, 0, false);
+					number15 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1775, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number14, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number15, 1f, 0f, 0f, 0);
 					}
-					number14 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1776, 1, false, 0, false);
+					number15 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1776, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number14, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number15, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 11)
 				{
-					int number15 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1777, 1, false, 0, false);
+					int number16 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1777, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number15, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number16, 1f, 0f, 0f, 0);
 					}
-					number15 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1778, 1, false, 0, false);
+					number16 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1778, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number15, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number16, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 12)
 				{
-					int number16 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1779, 1, false, 0, false);
+					int number17 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1779, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number16, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number17, 1f, 0f, 0f, 0);
 					}
-					number16 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1780, 1, false, 0, false);
+					number17 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1780, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number16, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number17, 1f, 0f, 0f, 0);
 					}
-					number16 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1781, 1, false, 0, false);
+					number17 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1781, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number16, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number17, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 13)
 				{
-					int number17 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1819, 1, false, 0, false);
+					int number18 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1819, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number17, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number18, 1f, 0f, 0f, 0);
 					}
-					number17 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1820, 1, false, 0, false);
+					number18 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1820, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number17, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number18, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 14)
 				{
-					int number18 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1821, 1, false, 0, false);
+					int number19 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1821, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number18, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number19, 1f, 0f, 0f, 0);
 					}
-					number18 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1822, 1, false, 0, false);
+					number19 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1822, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number18, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number19, 1f, 0f, 0f, 0);
 					}
-					number18 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1823, 1, false, 0, false);
-					if (Main.netMode == 1)
-					{
-						NetMessage.SendData(21, -1, -1, "", number18, 1f, 0f, 0f, 0);
-						return;
-					}
-				}
-				else if (num == 15)
-				{
-					int number19 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1824, 1, false, 0, false);
+					number19 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1823, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
 						NetMessage.SendData(21, -1, -1, "", number19, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
+				else if (num == 15)
+				{
+					int number20 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1824, 1, false, 0, false);
+					if (Main.netMode == 1)
+					{
+						NetMessage.SendData(21, -1, -1, "", number20, 1f, 0f, 0f, 0);
+						return;
+					}
+				}
 				else if (num == 16)
 				{
-					int number20 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1838, 1, false, 0, false);
+					int number21 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1838, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number20, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number21, 1f, 0f, 0f, 0);
 					}
-					number20 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1839, 1, false, 0, false);
+					number21 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1839, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number20, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number21, 1f, 0f, 0f, 0);
 					}
-					number20 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1840, 1, false, 0, false);
+					number21 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1840, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number20, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number21, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 17)
 				{
-					int number21 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1841, 1, false, 0, false);
+					int number22 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1841, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number21, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number22, 1f, 0f, 0f, 0);
 					}
-					number21 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1842, 1, false, 0, false);
+					number22 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1842, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number21, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number22, 1f, 0f, 0f, 0);
 					}
-					number21 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1843, 1, false, 0, false);
+					number22 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1843, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number21, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number22, 1f, 0f, 0f, 0);
 						return;
 					}
 				}
 				else if (num == 18)
 				{
-					int number22 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1851, 1, false, 0, false);
+					int number23 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1851, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number22, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number23, 1f, 0f, 0f, 0);
 					}
-					number22 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1852, 1, false, 0, false);
+					number23 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1852, 1, false, 0, false);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(21, -1, -1, "", number22, 1f, 0f, 0f, 0);
+						NetMessage.SendData(21, -1, -1, "", number23, 1f, 0f, 0f, 0);
 					}
 				}
 			}
@@ -1832,61 +1819,6 @@ namespace Terraria
 				{
 					this.potionDelay--;
 				}
-				if (i == Main.myPlayer)
-				{
-					if (Main.trashItem.type >= 1522 && Main.trashItem.type <= 1527)
-					{
-						Main.trashItem.SetDefaults(0, false);
-					}
-					this.zoneEvil = false;
-					if (Main.evilTiles >= 200)
-					{
-						this.zoneEvil = true;
-					}
-					this.zoneHoly = false;
-					if (Main.holyTiles >= 100)
-					{
-						this.zoneHoly = true;
-					}
-					this.zoneMeteor = false;
-					if (Main.meteorTiles >= 50)
-					{
-						this.zoneMeteor = true;
-					}
-					this.zoneDungeon = false;
-					if (Main.dungeonTiles >= 250 && (double)this.position.Y > Main.worldSurface * 16.0)
-					{
-						int num13 = (int)this.position.X / 16;
-						int num14 = (int)this.position.Y / 16;
-						if (Main.wallDungeon[(int)Main.tile[num13, num14].wall])
-						{
-							this.zoneDungeon = true;
-						}
-					}
-					this.zoneJungle = false;
-					if (Main.jungleTiles >= 80)
-					{
-						this.zoneJungle = true;
-					}
-					this.zoneSnow = false;
-					if (Main.snowTiles >= 300)
-					{
-						this.zoneSnow = true;
-					}
-					this.zoneBlood = false;
-					if (Main.bloodTiles >= 200)
-					{
-						this.zoneBlood = true;
-					}
-					if (Main.waterCandles > 0)
-					{
-						this.zoneCandle = true;
-					}
-					else
-					{
-						this.zoneCandle = false;
-					}
-				}
 				if (this.ghost)
 				{
 					this.Ghost();
@@ -1976,790 +1908,10 @@ namespace Terraria
 				}
 				else
 				{
-					/*if (i == Main.myPlayer)
-					{
-						this.controlUp = false;
-						this.controlLeft = false;
-						this.controlDown = false;
-						this.controlRight = false;
-						this.controlJump = false;
-						this.controlUseItem = false;
-						this.controlUseTile = false;
-						this.controlThrow = false;
-						this.controlInv = false;
-						this.controlHook = false;
-						this.controlTorch = false;
-						this.mapStyle = false;
-						this.mapAlphaDown = false;
-						this.mapAlphaUp = false;
-						this.mapFullScreen = false;
-						this.mapZoomIn = false;
-						this.mapZoomOut = false;
-						if (Main.hasFocus)
-						{
-							if (!Main.chatMode && !Main.editSign)
-							{
-								Keys[] pressedKeys = Main.keyState.GetPressedKeys();
-								bool flag2 = false;
-								bool flag3 = false;
-								for (int k = 0; k < pressedKeys.Length; k++)
-								{
-									string a = string.Concat(pressedKeys[k]);
-									if (a == Main.cUp)
-									{
-										this.controlUp = true;
-									}
-									if (a == Main.cLeft)
-									{
-										this.controlLeft = true;
-									}
-									if (a == Main.cDown)
-									{
-										this.controlDown = true;
-									}
-									if (a == Main.cRight)
-									{
-										this.controlRight = true;
-									}
-									if (a == Main.cJump)
-									{
-										this.controlJump = true;
-									}
-									if (a == Main.cThrowItem)
-									{
-										this.controlThrow = true;
-									}
-									if (a == Main.cInv)
-									{
-										this.controlInv = true;
-									}
-									if (a == Main.cBuff)
-									{
-										this.QuickBuff();
-									}
-									if (a == Main.cHeal)
-									{
-										flag3 = true;
-									}
-									if (a == Main.cMana)
-									{
-										flag2 = true;
-									}
-									if (a == Main.cHook)
-									{
-										this.controlHook = true;
-									}
-									if (a == Main.cTorch)
-									{
-										this.controlTorch = true;
-									}
-									if (Main.mapEnabled)
-									{
-										if (a == Main.cMapZoomIn)
-										{
-											this.mapZoomIn = true;
-										}
-										if (a == Main.cMapZoomOut)
-										{
-											this.mapZoomOut = true;
-										}
-										if (a == Main.cMapAlphaUp)
-										{
-											this.mapAlphaUp = true;
-										}
-										if (a == Main.cMapAlphaDown)
-										{
-											this.mapAlphaDown = true;
-										}
-										if (a == Main.cMapFull)
-										{
-											this.mapFullScreen = true;
-										}
-										if (a == Main.cMapStyle)
-										{
-											this.mapStyle = true;
-										}
-									}
-								}
-								if (Main.gamePad)
-								{
-									GamePadState state = GamePad.GetState(PlayerIndex.One);
-									if (state.DPad.Up == ButtonState.Pressed)
-									{
-										this.controlUp = true;
-									}
-									if (state.DPad.Down == ButtonState.Pressed)
-									{
-										this.controlDown = true;
-									}
-									if (state.DPad.Left == ButtonState.Pressed)
-									{
-										this.controlLeft = true;
-									}
-									if (state.DPad.Right == ButtonState.Pressed)
-									{
-										this.controlRight = true;
-									}
-									if (state.Triggers.Left > 0f)
-									{
-										this.controlJump = true;
-									}
-									if (state.Triggers.Right > 0f)
-									{
-										this.controlUseItem = true;
-									}
-									Main.mouseX = (int)((float)(Main.screenWidth / 2) + state.ThumbSticks.Right.X * (float)Player.tileRangeX * 16f);
-									Main.mouseY = (int)((float)(Main.screenHeight / 2) - state.ThumbSticks.Right.Y * (float)Player.tileRangeX * 16f);
-									if (state.ThumbSticks.Right.X == 0f)
-									{
-										Main.mouseX = Main.screenWidth / 2 + this.direction * 2;
-									}
-								}
-								if (Main.mapFullscreen)
-								{
-									if (this.controlUp)
-									{
-										Main.mapFullscreenPos.Y = Main.mapFullscreenPos.Y - 1f * (16f / Main.mapFullscreenScale);
-									}
-									if (this.controlDown)
-									{
-										Main.mapFullscreenPos.Y = Main.mapFullscreenPos.Y + 1f * (16f / Main.mapFullscreenScale);
-									}
-									if (this.controlLeft)
-									{
-										Main.mapFullscreenPos.X = Main.mapFullscreenPos.X - 1f * (16f / Main.mapFullscreenScale);
-									}
-									if (this.controlRight)
-									{
-										Main.mapFullscreenPos.X = Main.mapFullscreenPos.X + 1f * (16f / Main.mapFullscreenScale);
-									}
-									this.controlUp = false;
-									this.controlLeft = false;
-									this.controlDown = false;
-									this.controlRight = false;
-									this.controlJump = false;
-									this.controlUseItem = false;
-									this.controlUseTile = false;
-									this.controlThrow = false;
-									this.controlHook = false;
-									this.controlTorch = false;
-								}
-								if (flag3)
-								{
-									if (this.releaseQuickHeal)
-									{
-										this.QuickHeal();
-									}
-									this.releaseQuickHeal = false;
-								}
-								else
-								{
-									this.releaseQuickHeal = true;
-								}
-								if (flag2)
-								{
-									if (this.releaseQuickMana)
-									{
-										this.QuickMana();
-									}
-									this.releaseQuickMana = false;
-								}
-								else
-								{
-									this.releaseQuickMana = true;
-								}
-								if (this.controlLeft && this.controlRight)
-								{
-									this.controlLeft = false;
-									this.controlRight = false;
-								}
-								if (Main.mapFullscreen)
-								{
-									if (this.mapZoomIn)
-									{
-										Main.mapFullscreenScale *= 1.05f;
-									}
-									if (this.mapZoomOut)
-									{
-										Main.mapFullscreenScale *= 0.95f;
-									}
-								}
-								else
-								{
-									if (Main.mapStyle == 1)
-									{
-										if (this.mapZoomIn)
-										{
-											Main.mapMinimapScale *= 1.025f;
-										}
-										if (this.mapZoomOut)
-										{
-											Main.mapMinimapScale *= 0.975f;
-										}
-										if (this.mapAlphaUp)
-										{
-											Main.mapMinimapAlpha += 0.015f;
-										}
-										if (this.mapAlphaDown)
-										{
-											Main.mapMinimapAlpha -= 0.015f;
-										}
-									}
-									else if (Main.mapStyle == 2)
-									{
-										if (this.mapZoomIn)
-										{
-											Main.mapOverlayScale *= 1.05f;
-										}
-										if (this.mapZoomOut)
-										{
-											Main.mapOverlayScale *= 0.95f;
-										}
-										if (this.mapAlphaUp)
-										{
-											Main.mapOverlayAlpha += 0.015f;
-										}
-										if (this.mapAlphaDown)
-										{
-											Main.mapOverlayAlpha -= 0.015f;
-										}
-									}
-									if (this.mapStyle)
-									{
-										if (this.releaseMapStyle)
-										{
-											Main.PlaySound(12, -1, -1, 1);
-											Main.mapStyle++;
-											if (Main.mapStyle > 2)
-											{
-												Main.mapStyle = 0;
-											}
-										}
-										this.releaseMapStyle = false;
-									}
-									else
-									{
-										this.releaseMapStyle = true;
-									}
-								}
-								if (this.mapFullScreen)
-								{
-									if (this.releaseMapFullscreen)
-									{
-										if (Main.mapFullscreen)
-										{
-											Main.PlaySound(11, -1, -1, 1);
-											Main.mapFullscreen = false;
-										}
-										else
-										{
-											Main.playerInventory = false;
-											this.talkNPC = -1;
-											Main.PlaySound(10, -1, -1, 1);
-											float mapFullscreenScale = 2.5f;
-											Main.mapFullscreenScale = mapFullscreenScale;
-											Main.mapFullscreen = true;
-											Main.resetMapFull = true;
-										}
-									}
-									this.releaseMapFullscreen = false;
-								}
-								else
-								{
-									this.releaseMapFullscreen = true;
-								}
-							}
-							if (this.confused)
-							{
-								bool flag4 = this.controlLeft;
-								bool flag5 = this.controlUp;
-								this.controlLeft = this.controlRight;
-								this.controlRight = flag4;
-								this.controlUp = this.controlRight;
-								this.controlDown = flag5;
-							}
-							if (Main.mouseLeft && !this.mouseInterface)
-							{
-								this.controlUseItem = true;
-							}
-							if (Main.mouseRight && !this.mouseInterface)
-							{
-								this.controlUseTile = true;
-							}
-							if (this.controlInv)
-							{
-								if (this.releaseInventory)
-								{
-									if (Main.mapFullscreen)
-									{
-										Main.mapFullscreen = false;
-										this.releaseInventory = false;
-										Main.PlaySound(11, -1, -1, 1);
-									}
-									else
-									{
-										this.toggleInv();
-									}
-								}
-								this.releaseInventory = false;
-							}
-							else
-							{
-								this.releaseInventory = true;
-							}
-							if (this.delayUseItem)
-							{
-								if (!this.controlUseItem)
-								{
-									this.delayUseItem = false;
-								}
-								this.controlUseItem = false;
-							}
-							if (this.itemAnimation == 0 && this.itemTime == 0)
-							{
-								this.dropItemCheck();
-								int num15 = this.selectedItem;
-								if (!Main.chatMode && this.selectedItem != 58)
-								{
-									if (Main.keyState.IsKeyDown(Keys.D1))
-									{
-										this.selectedItem = 0;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D2))
-									{
-										this.selectedItem = 1;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D3))
-									{
-										this.selectedItem = 2;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D4))
-									{
-										this.selectedItem = 3;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D5))
-									{
-										this.selectedItem = 4;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D6))
-									{
-										this.selectedItem = 5;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D7))
-									{
-										this.selectedItem = 6;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D8))
-									{
-										this.selectedItem = 7;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D9))
-									{
-										this.selectedItem = 8;
-									}
-									if (Main.keyState.IsKeyDown(Keys.D0))
-									{
-										this.selectedItem = 9;
-									}
-								}
-								if (num15 != this.selectedItem)
-								{
-									Main.PlaySound(12, -1, -1, 1);
-								}
-								if (Main.mapFullscreen)
-								{
-									int num16 = (Main.mouseState.ScrollWheelValue - Main.oldMouseState.ScrollWheelValue) / 120;
-									Main.mapFullscreenScale *= 1f + (float)num16 * 0.3f;
-								}
-								else if (!Main.playerInventory)
-								{
-									int l;
-									for (l = (Main.mouseState.ScrollWheelValue - Main.oldMouseState.ScrollWheelValue) / 120; l > 9; l -= 10)
-									{
-									}
-									while (l < 0)
-									{
-										l += 10;
-									}
-									this.selectedItem -= l;
-									if (l != 0)
-									{
-										Main.PlaySound(12, -1, -1, 1);
-									}
-									if (this.changeItem >= 0)
-									{
-										if (this.selectedItem != this.changeItem)
-										{
-											Main.PlaySound(12, -1, -1, 1);
-										}
-										this.selectedItem = this.changeItem;
-										this.changeItem = -1;
-									}
-									while (this.selectedItem > 9)
-									{
-										this.selectedItem -= 10;
-									}
-									while (this.selectedItem < 0)
-									{
-										this.selectedItem += 10;
-									}
-								}
-								else
-								{
-									int num17 = (Main.mouseState.ScrollWheelValue - Main.oldMouseState.ScrollWheelValue) / 120;
-									Main.focusRecipe += num17;
-									if (Main.focusRecipe > Main.numAvailableRecipes - 1)
-									{
-										Main.focusRecipe = Main.numAvailableRecipes - 1;
-									}
-									if (Main.focusRecipe < 0)
-									{
-										Main.focusRecipe = 0;
-									}
-								}
-							}
-						}
-						if (this.selectedItem == 58)
-						{
-							this.nonTorch = -1;
-						}
-						else if (this.controlTorch && this.itemAnimation == 0)
-						{
-							int num18 = 0;
-							int num19 = (int)(((float)Main.mouseX + Main.screenPosition.X) / 16f);
-							int num20 = (int)(((float)Main.mouseY + Main.screenPosition.Y) / 16f);
-							if (this.gravDir == -1f)
-							{
-								num20 = (int)((Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY) / 16f);
-							}
-							if (this.position.X / 16f - (float)Player.tileRangeX <= (float)num19 && (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX - 1f >= (float)num19 && this.position.Y / 16f - (float)Player.tileRangeY <= (float)num20 && (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY - 2f >= (float)num20)
-							{
-								try
-								{
-									if (Main.tile[num19, num20].active())
-									{
-										int type = (int)Main.tile[num19, num20].type;
-										if (type == 209)
-										{
-											num18 = 6;
-										}
-										else if (Main.tileHammer[type])
-										{
-											num18 = 1;
-										}
-										else if (Main.tileAxe[type])
-										{
-											num18 = 2;
-										}
-										else
-										{
-											num18 = 3;
-										}
-									}
-									else if (Main.tile[num19, num20].liquid > 0 && this.wet)
-									{
-										num18 = 4;
-									}
-									goto IL_1561;
-								}
-								catch
-								{
-									goto IL_1561;
-								}
-							}
-							if (this.wet)
-							{
-								num18 = 4;
-							}
-							IL_1561:
-							if (num18 == 0)
-							{
-								float num21 = Math.Abs((float)Main.mouseX + Main.screenPosition.X - (this.position.X + (float)(this.width / 2)));
-								float num22 = Math.Abs((float)Main.mouseY + Main.screenPosition.Y - (this.position.Y + (float)(this.height / 2))) * 1.3f;
-								float num23 = (float)Math.Sqrt((double)(num21 * num21 + num22 * num22));
-								if (num23 > 200f)
-								{
-									num18 = 5;
-								}
-							}
-							for (int m = 0; m < 50; m++)
-							{
-								int type2 = this.inventory[m].type;
-								if (num18 == 0)
-								{
-									if (type2 == 8 || type2 == 427 || type2 == 428 || type2 == 429 || type2 == 430 || type2 == 431 || type2 == 432 || type2 == 433 || type2 == 523 || type2 == 974 || type2 == 1245 || type2 == 1333)
-									{
-										if (this.nonTorch == -1)
-										{
-											this.nonTorch = this.selectedItem;
-										}
-										this.selectedItem = m;
-										break;
-									}
-									if (type2 == 282 || type2 == 286)
-									{
-										if (this.nonTorch == -1)
-										{
-											this.nonTorch = this.selectedItem;
-										}
-										this.selectedItem = m;
-									}
-								}
-								else if (num18 == 1)
-								{
-									if (this.inventory[m].hammer > 0)
-									{
-										if (this.nonTorch == -1)
-										{
-											this.nonTorch = this.selectedItem;
-										}
-										this.selectedItem = m;
-										break;
-									}
-								}
-								else if (num18 == 2)
-								{
-									if (this.inventory[m].axe > 0)
-									{
-										if (this.nonTorch == -1)
-										{
-											this.nonTorch = this.selectedItem;
-										}
-										this.selectedItem = m;
-										break;
-									}
-								}
-								else if (num18 == 3)
-								{
-									if (this.inventory[m].pick > 0)
-									{
-										if (this.nonTorch == -1)
-										{
-											this.nonTorch = this.selectedItem;
-										}
-										this.selectedItem = m;
-										break;
-									}
-								}
-								else if (num18 == 4)
-								{
-									if (type2 == 8 || type2 == 427 || type2 == 428 || type2 == 429 || type2 == 430 || type2 == 431 || type2 == 432 || type2 == 433 || type2 == 523 || type2 == 974 || type2 == 1245 || type2 == 1333)
-									{
-										if (this.nonTorch == -1)
-										{
-											this.nonTorch = this.selectedItem;
-										}
-										if (this.inventory[this.selectedItem].createTile != 4)
-										{
-											this.selectedItem = m;
-										}
-									}
-									else if (type2 == 930)
-									{
-										bool flag6 = false;
-										for (int n = 57; n >= 0; n--)
-										{
-											if (this.inventory[n].ammo == this.inventory[m].useAmmo)
-											{
-												flag6 = true;
-												break;
-											}
-										}
-										if (flag6)
-										{
-											if (this.nonTorch == -1)
-											{
-												this.nonTorch = this.selectedItem;
-											}
-											this.selectedItem = m;
-											break;
-										}
-									}
-									else if (type2 == 282 || type2 == 286 || type2 == 523 || type2 == 1333)
-									{
-										if (this.nonTorch == -1)
-										{
-											this.nonTorch = this.selectedItem;
-										}
-										this.selectedItem = m;
-										break;
-									}
-								}
-								else if (num18 == 5)
-								{
-									if (type2 == 8 || type2 == 427 || type2 == 428 || type2 == 429 || type2 == 430 || type2 == 431 || type2 == 432 || type2 == 433 || type2 == 523 || type2 == 974 || type2 == 1245 || type2 == 1333)
-									{
-										if (this.nonTorch == -1)
-										{
-											this.nonTorch = this.selectedItem;
-										}
-										if (this.inventory[this.selectedItem].createTile != 4)
-										{
-											this.selectedItem = m;
-										}
-									}
-									else if (type2 == 930)
-									{
-										bool flag7 = false;
-										for (int num24 = 57; num24 >= 0; num24--)
-										{
-											if (this.inventory[num24].ammo == this.inventory[m].useAmmo)
-											{
-												flag7 = true;
-												break;
-											}
-										}
-										if (flag7)
-										{
-											if (this.nonTorch == -1)
-											{
-												this.nonTorch = this.selectedItem;
-											}
-											this.selectedItem = m;
-											break;
-										}
-									}
-									else if (type2 == 282 || type2 == 286)
-									{
-										if (this.nonTorch == -1)
-										{
-											this.nonTorch = this.selectedItem;
-										}
-										this.selectedItem = m;
-										break;
-									}
-								}
-								else if (num18 == 6)
-								{
-									int num25 = 929;
-									if (Main.tile[num19, num20].frameX >= 72)
-									{
-										num25 = 1338;
-									}
-									if (type2 == num25)
-									{
-										if (this.nonTorch == -1)
-										{
-											this.nonTorch = this.selectedItem;
-										}
-										this.selectedItem = m;
-										break;
-									}
-								}
-							}
-						}
-						else if (this.nonTorch > -1 && this.itemAnimation == 0)
-						{
-							this.selectedItem = this.nonTorch;
-							this.nonTorch = -1;
-						}
-						if (this.frozen)
-						{
-							this.controlJump = false;
-							this.controlDown = false;
-							this.controlLeft = false;
-							this.controlRight = false;
-							this.controlUp = false;
-							this.controlUseItem = false;
-							this.controlUseTile = false;
-							this.controlThrow = false;
-						}
-						if (!this.controlThrow)
-						{
-							this.releaseThrow = true;
-						}
-						else
-						{
-							this.releaseThrow = false;
-						}
-						if (Main.netMode == 1)
-						{
-							bool flag8 = false;
-							if (this.statLife != Main.clientPlayer.statLife || this.statLifeMax != Main.clientPlayer.statLifeMax)
-							{
-								NetMessage.SendData(16, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0);
-								flag8 = true;
-							}
-							if (this.statMana != Main.clientPlayer.statMana || this.statManaMax != Main.clientPlayer.statManaMax)
-							{
-								NetMessage.SendData(42, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0);
-								flag8 = true;
-							}
-							if (this.controlUp != Main.clientPlayer.controlUp)
-							{
-								flag8 = true;
-							}
-							if (this.controlDown != Main.clientPlayer.controlDown)
-							{
-								flag8 = true;
-							}
-							if (this.controlLeft != Main.clientPlayer.controlLeft)
-							{
-								flag8 = true;
-							}
-							if (this.controlRight != Main.clientPlayer.controlRight)
-							{
-								flag8 = true;
-							}
-							if (this.controlJump != Main.clientPlayer.controlJump)
-							{
-								flag8 = true;
-							}
-							if (this.controlUseItem != Main.clientPlayer.controlUseItem)
-							{
-								flag8 = true;
-							}
-							if (this.selectedItem != Main.clientPlayer.selectedItem)
-							{
-								flag8 = true;
-							}
-							if (flag8)
-							{
-								NetMessage.SendData(13, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0);
-							}
-						}
-						if (Main.playerInventory)
-						{
-							this.AdjTiles();
-						}
-						if (this.chest != -1)
-						{
-							int num26 = (int)(((double)this.position.X + (double)this.width * 0.5) / 16.0);
-							int num27 = (int)(((double)this.position.Y + (double)this.height * 0.5) / 16.0);
-							if (num26 < this.chestX - 5 || num26 > this.chestX + 6 || num27 < this.chestY - 4 || num27 > this.chestY + 5)
-							{
-								if (this.chest != -1)
-								{
-									Main.PlaySound(11, -1, -1, 1);
-								}
-								this.chest = -1;
-							}
-							if (!Main.tile[this.chestX, this.chestY].active())
-							{
-								Main.PlaySound(11, -1, -1, 1);
-								this.chest = -1;
-							}
-						}
-						if (this.velocity.Y == 0f)
-						{
-							int num28 = (int)(this.position.Y / 16f) - this.fallStart;
-							if (((this.gravDir == 1f && num28 > 25) || (this.gravDir == -1f && num28 < -25)) && !this.noFallDmg && this.wings == 0)
-							{
-								int damage = (int)((float)num28 * this.gravDir - 25f) * 10;
-								this.immune = false;
-								this.Hurt(damage, 0, false, false, Lang.deathMsg(-1, -1, -1, 0), false);
-							}
-							this.fallStart = (int)(this.position.Y / 16f);
-						}
-						if (this.jump > 0 || this.rocketDelay > 0 || this.wet || this.slowFall || (double)num10 < 0.8 || this.tongued)
-						{
-							this.fallStart = (int)(this.position.Y / 16f);
-						}
-					}
 					if (this.mouseInterface)
 					{
 						this.delayUseItem = true;
-					}*/
+					}
 					Player.tileTargetX = (int)(((float)Main.mouseX + Main.screenPosition.X) / 16f);
 					Player.tileTargetY = (int)(((float)Main.mouseY + Main.screenPosition.Y) / 16f);
 					if (this.gravDir == -1f)
@@ -2876,6 +2028,7 @@ namespace Terraria
 					this.truffle = false;
 					this.shadowDodge = false;
 					this.palladiumRegen = false;
+					this.chaosState = false;
 					this.onHitDodge = false;
 					this.onHitRegen = false;
 					this.onHitPetal = false;
@@ -2957,8 +2110,20 @@ namespace Terraria
 					if (this.whoAmi == Main.myPlayer)
 					{
 						Main.musicBox2 = -1;
+						if (Main.waterCandles > 0)
+						{
+							this.AddBuff(86, 2, false);
+						}
+						if (Main.campfire)
+						{
+							this.AddBuff(87, 2, false);
+						}
+						if (Main.heartLantern)
+						{
+							this.AddBuff(89, 2, false);
+						}
 					}
-					for (int num29 = 0; num29 < 86; num29++)
+					for (int num29 = 0; num29 < 90; num29++)
 					{
 						this.buffImmune[num29] = false;
 					}
@@ -3010,10 +2175,6 @@ namespace Terraria
 							else if (this.buffType[num30] == 10)
 							{
 								this.invis = true;
-							}
-							else if (this.buffType[num30] == 11)
-							{
-								//Lighting.addLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.8f, 0.95f, 1f);
 							}
 							else if (this.buffType[num30] == 12)
 							{
@@ -3088,6 +2249,10 @@ namespace Terraria
 							{
 								this.palladiumRegen = true;
 							}
+							else if (this.buffType[num30] == 88)
+							{
+								this.chaosState = true;
+							}
 							else if (this.buffType[num30] == 63)
 							{
 								this.moveSpeed += 1f;
@@ -3096,7 +2261,6 @@ namespace Terraria
 							{
 								if ((double)this.statLife <= (double)this.statLifeMax * 0.25)
 								{
-									//Lighting.addLight((int)(this.Center().X / 16f), (int)(this.Center().Y / 16f), 0.1f, 0.2f, 0.45f);
 									this.iceBarrier = true;
 									this.statDefense += 30;
 									this.iceBarrierFrameCounter += 1;
@@ -4211,15 +3375,15 @@ namespace Terraria
 						}
 						if (this.armor[num58].prefix == 67)
 						{
-							this.meleeCrit++;
-							this.rangedCrit++;
-							this.magicCrit++;
-						}
-						if (this.armor[num58].prefix == 68)
-						{
 							this.meleeCrit += 2;
 							this.rangedCrit += 2;
 							this.magicCrit += 2;
+						}
+						if (this.armor[num58].prefix == 68)
+						{
+							this.meleeCrit += 4;
+							this.rangedCrit += 4;
+							this.magicCrit += 4;
 						}
 						if (this.armor[num58].prefix == 69)
 						{
@@ -4337,6 +3501,11 @@ namespace Terraria
 						{
 							this.doubleJump4 = true;
 						}
+						if (this.armor[num59].type == 1863)
+						{
+							this.doubleJump4 = true;
+							this.jumpBoost = true;
+						}
 						if (this.armor[num59].type == 1164)
 						{
 							this.doubleJump = true;
@@ -4375,13 +3544,14 @@ namespace Terraria
 						{
 							this.panic = true;
 						}
-						if (this.armor[num59].type == 1300 && this.inventory[this.selectedItem].useAmmo == 14)
+						if ((this.armor[num59].type == 1300 || this.armor[num59].type == 1858) && (this.inventory[this.selectedItem].useAmmo == 14 || this.inventory[this.selectedItem].useAmmo == 311 || this.inventory[this.selectedItem].useAmmo == 323))
 						{
 							this.scope = true;
 						}
-						if (this.armor[num59].type == 1303 && this.wet)
+						if (this.armor[num59].type == 1858)
 						{
-							//Lighting.addLight((int)this.center().X / 16, (int)this.center().Y / 16, 0.9f, 0.2f, 0.6f);
+							this.rangedCrit += 10;
+							this.rangedDamage += 0.1f;
 						}
 						if (this.armor[num59].type == 1301)
 						{
@@ -4596,6 +3766,17 @@ namespace Terraria
 							num6 = 6f;
 							this.rocketBoots = 2;
 						}
+						if (this.armor[num59].type == 1860)
+						{
+							this.accFlipper = true;
+							this.accDivingHelm = true;
+						}
+						if (this.armor[num59].type == 1861)
+						{
+							this.accFlipper = true;
+							this.accDivingHelm = true;
+							this.iceSkate = true;
+						}
 						if (this.armor[num59].type == 897)
 						{
 							this.kbGlove = true;
@@ -4612,6 +3793,12 @@ namespace Terraria
 						{
 							this.minionKB += 2f;
 							this.minionDamage += 0.15f;
+						}
+						if (this.armor[num59].type == 1864)
+						{
+							this.minionKB += 2f;
+							this.minionDamage += 0.15f;
+							this.maxMinions++;
 						}
 						if (this.armor[num59].type == 1845)
 						{
@@ -4669,6 +3856,28 @@ namespace Terraria
 							num6 = 6.75f;
 							this.rocketBoots = 2;
 							this.moveSpeed += 0.08f;
+						}
+						if (this.armor[num59].type == 1862)
+						{
+							num6 = 6.75f;
+							this.rocketBoots = 3;
+							this.moveSpeed += 0.08f;
+							this.iceSkate = true;
+						}
+						if (this.armor[num59].type == 1865)
+						{
+							this.lifeRegen += 2;
+							this.statDefense += 4;
+							this.meleeSpeed += 0.1f;
+							this.meleeDamage += 0.1f;
+							this.meleeCrit += 2;
+							this.rangedDamage += 0.1f;
+							this.rangedCrit += 2;
+							this.magicDamage += 0.1f;
+							this.magicCrit += 2;
+							this.pickSpeed -= 0.15f;
+							this.minionDamage += 0.1f;
+							this.minionKB += 0.5f;
 						}
 						if (this.armor[num59].type == 899 && Main.dayTime)
 						{
@@ -4806,6 +4015,10 @@ namespace Terraria
 						if (this.armor[num59].type == 1830)
 						{
 							this.wings = 21;
+						}
+						if (this.armor[num59].type == 1866)
+						{
+							this.wings = 22;
 						}
 						if (this.armor[num59].type == 885)
 						{
@@ -5013,12 +4226,6 @@ namespace Terraria
 								this.gem = this.inventory[num64].type - 1522;
 							}
 						}
-					}
-					if (this.head == 11)
-					{
-						int i2 = (int)(this.position.X + (float)(this.width / 2) + (float)(8 * this.direction)) / 16;
-						int j2 = (int)(this.position.Y + 2f) / 16;
-						//Lighting.addLight(i2, j2, 0.92f, 0.8f, 0.65f);
 					}
 					this.setBonus = "";
 					if (this.body == 67 && this.legs == 56 && this.head >= 103 && this.head <= 105)
@@ -5238,11 +4445,6 @@ namespace Terraria
 						if (this.itemAnimation > 0)
 						{
 							this.stealthTimer = 5;
-							this.stealth += 0.0015f;
-							if (this.stealth > 1f)
-							{
-								this.stealth = 1f;
-							}
 						}
 						if ((double)this.velocity.X > -0.1 && (double)this.velocity.X < 0.1 && (double)this.velocity.Y > -0.1 && (double)this.velocity.Y < 0.1)
 						{
@@ -5383,6 +4585,10 @@ namespace Terraria
 					{
 						this.lifeRegen += 2;
 					}
+					if (this.whoAmi == Main.myPlayer && Main.heartLantern)
+					{
+						this.lifeRegen += 4;
+					}
 					if (this.bleed)
 					{
 						this.lifeRegenTime = 0;
@@ -5464,10 +4670,10 @@ namespace Terraria
 									Main.dust[num70].velocity *= 0.75f;
 									int num71 = Main.rand.Next(-40, 41);
 									int num72 = Main.rand.Next(-40, 41);
-									Dust expr_83D3_cp_0 = Main.dust[num70];
-									expr_83D3_cp_0.position.X = expr_83D3_cp_0.position.X + (float)num71;
-									Dust expr_83EF_cp_0 = Main.dust[num70];
-									expr_83EF_cp_0.position.Y = expr_83EF_cp_0.position.Y + (float)num72;
+									Dust expr_86FC_cp_0 = Main.dust[num70];
+									expr_86FC_cp_0.position.X = expr_86FC_cp_0.position.X + (float)num71;
+									Dust expr_8718_cp_0 = Main.dust[num70];
+									expr_8718_cp_0.position.Y = expr_8718_cp_0.position.Y + (float)num72;
 									Main.dust[num70].velocity.X = (float)(-(float)num71) * 0.075f;
 									Main.dust[num70].velocity.Y = (float)(-(float)num72) * 0.075f;
 								}
@@ -5520,7 +4726,7 @@ namespace Terraria
 									}
 								}
 							}
-							goto IL_87CF;
+							goto IL_8AF8;
 						}
 					}
 					while (this.lifeRegenCount <= -600)
@@ -5540,7 +4746,7 @@ namespace Terraria
 							}
 						}
 					}
-					IL_87CF:
+					IL_8AF8:
 					if (this.manaRegenDelay > 0)
 					{
 						this.manaRegenDelay--;
@@ -6126,7 +5332,7 @@ namespace Terraria
 						}
 						this.canCarpet = true;
 						this.carpetFrame = -1;
-						this.wingTime = this.GetWingTime();
+						this.wingTime = (float)this.GetWingTime();
 						this.rocketTime = this.rocketTimeMax;
 						this.rocketDelay = 0;
 						this.rocketFrame = false;
@@ -6164,6 +5370,18 @@ namespace Terraria
 							if (this.wings == 9 || this.wings == 10 || this.wings == 11 || this.wings == 20 || this.wings == 21)
 							{
 								num6 = 7.5f;
+							}
+							if (this.wings == 22)
+							{
+								if (this.controlDown && this.controlJump && this.wingTime > 0f)
+								{
+									num6 = 10f;
+									num4 *= 10f;
+								}
+								else
+								{
+									num6 = 6.25f;
+								}
 							}
 							if (this.wings == 12)
 							{
@@ -6272,7 +5490,7 @@ namespace Terraria
 								this.direction = 1;
 							}
 						}
-						else if (this.controlLeft && this.velocity.X > -num6 && this.dashDelay == 0)
+						else if (this.controlLeft && this.velocity.X > -num6 && this.dashDelay >= 0)
 						{
 							if (this.itemAnimation == 0 || this.inventory[this.selectedItem].useTurn)
 							{
@@ -6326,8 +5544,8 @@ namespace Terraria
 										Main.dust[num103].noGravity = true;
 										Main.dust[num103].noLight = true;
 										Main.dust[num103].velocity *= 0.001f;
-										Dust expr_A60B_cp_0 = Main.dust[num103];
-										expr_A60B_cp_0.velocity.Y = expr_A60B_cp_0.velocity.Y - 0.003f;
+										Dust expr_A975_cp_0 = Main.dust[num103];
+										expr_A975_cp_0.velocity.Y = expr_A975_cp_0.velocity.Y - 0.003f;
 									}
 								}
 								else
@@ -6338,7 +5556,7 @@ namespace Terraria
 								}
 							}
 						}
-						else if (this.controlRight && this.velocity.X < num6 && this.dashDelay == 0)
+						else if (this.controlRight && this.velocity.X < num6)
 						{
 							if (this.itemAnimation == 0 || this.inventory[this.selectedItem].useTurn)
 							{
@@ -6392,8 +5610,8 @@ namespace Terraria
 										Main.dust[num108].noGravity = true;
 										Main.dust[num108].noLight = true;
 										Main.dust[num108].velocity *= 0.001f;
-										Dust expr_AADB_cp_0 = Main.dust[num108];
-										expr_AADB_cp_0.velocity.Y = expr_AADB_cp_0.velocity.Y - 0.003f;
+										Dust expr_AE3A_cp_0 = Main.dust[num108];
+										expr_AE3A_cp_0.velocity.Y = expr_AE3A_cp_0.velocity.Y - 0.003f;
 									}
 								}
 								else
@@ -6575,7 +5793,7 @@ namespace Terraria
 								else if (flag37)
 								{
 									this.dJumpEffect2 = true;
-									float arg_B11B_0 = this.gravDir;
+									float arg_B47A_0 = this.gravDir;
 									Main.PlaySound(16, (int)this.position.X, (int)this.position.Y, 1);
 									this.velocity.Y = -Player.jumpSpeed * this.gravDir;
 									this.jump = Player.jumpHeight * 3;
@@ -6583,7 +5801,7 @@ namespace Terraria
 								else if (flag38)
 								{
 									this.dJumpEffect3 = true;
-									float arg_B17D_0 = this.gravDir;
+									float arg_B4DC_0 = this.gravDir;
 									Main.PlaySound(16, (int)this.position.X, (int)this.position.Y, 1);
 									this.velocity.Y = -Player.jumpSpeed * this.gravDir;
 									this.jump = (int)((double)Player.jumpHeight * 1.5);
@@ -6653,15 +5871,15 @@ namespace Terraria
 						}
 						if (this.wings == 0)
 						{
-							this.wingTime = 0;
+							this.wingTime = 0f;
 						}
 						if (this.wings == 3)
 						{
-							this.wingTime = 1000;
+							this.wingTime = 1000f;
 						}
 						if (Main.myPlayer == this.whoAmi && (this.wings == 3 || this.wings == 16 || this.wings == 17 || this.wings == 18 || this.wings == 19))
 						{
-							this.wingTime = 0;
+							this.wingTime = 0f;
 							this.jump = 0;
 						}
 						if (this.rocketBoots == 0)
@@ -6699,13 +5917,21 @@ namespace Terraria
 							{
 								this.velocity.X = this.velocity.X * 0.99f;
 							}
-							else if (this.velocity.X > num3 || this.velocity.X < -num3)
+							else if (this.velocity.X > num6 || this.velocity.X < -num6)
 							{
-								this.velocity.X = this.velocity.X * 0.8f;
+								this.velocity.X = this.velocity.X * 0.9f;
 							}
 							else
 							{
-								this.dashDelay = 30;
+								this.dashDelay = 20;
+								if (this.velocity.X < 0f)
+								{
+									this.velocity.X = -num6;
+								}
+								else if (this.velocity.X > 0f)
+								{
+									this.velocity.X = num6;
+								}
 							}
 						}
 						else if (this.dash > 0)
@@ -6753,10 +5979,10 @@ namespace Terraria
 								for (int num121 = 0; num121 < 20; num121++)
 								{
 									int num122 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 2f);
-									Dust expr_BDC0_cp_0 = Main.dust[num122];
-									expr_BDC0_cp_0.position.X = expr_BDC0_cp_0.position.X + (float)Main.rand.Next(-5, 6);
-									Dust expr_BDE7_cp_0 = Main.dust[num122];
-									expr_BDE7_cp_0.position.Y = expr_BDE7_cp_0.position.Y + (float)Main.rand.Next(-5, 6);
+									Dust expr_C170_cp_0 = Main.dust[num122];
+									expr_C170_cp_0.position.X = expr_C170_cp_0.position.X + (float)Main.rand.Next(-5, 6);
+									Dust expr_C197_cp_0 = Main.dust[num122];
+									expr_C197_cp_0.position.Y = expr_C197_cp_0.position.Y + (float)Main.rand.Next(-5, 6);
 									Main.dust[num122].velocity *= 0.2f;
 									Main.dust[num122].scale *= 1f + (float)Main.rand.Next(20) * 0.01f;
 								}
@@ -6814,13 +6040,13 @@ namespace Terraria
 										int num127 = Dust.NewDust(new Vector2(this.position.X + (float)(this.width / 2) + (float)((this.width / 2 - 4) * this.slideDir), this.position.Y + (float)(this.height / 2) + (float)(this.height / 2 - 4) * this.gravDir), 8, 8, 31, 0f, 0f, 0, default(Color), 1f);
 										if (this.slideDir < 0)
 										{
-											Dust expr_C256_cp_0 = Main.dust[num127];
-											expr_C256_cp_0.position.X = expr_C256_cp_0.position.X - 10f;
+											Dust expr_C606_cp_0 = Main.dust[num127];
+											expr_C606_cp_0.position.X = expr_C606_cp_0.position.X - 10f;
 										}
 										if (this.gravDir < 0f)
 										{
-											Dust expr_C281_cp_0 = Main.dust[num127];
-											expr_C281_cp_0.position.Y = expr_C281_cp_0.position.Y - 12f;
+											Dust expr_C631_cp_0 = Main.dust[num127];
+											expr_C631_cp_0.position.Y = expr_C631_cp_0.position.Y - 12f;
 										}
 										Main.dust[num127].velocity *= 0.1f;
 										Main.dust[num127].scale *= 1.2f;
@@ -6852,13 +6078,13 @@ namespace Terraria
 								int num128 = Dust.NewDust(new Vector2(this.position.X + (float)(this.width / 2) + (float)((this.width / 2 - 4) * this.slideDir), this.position.Y + (float)(this.height / 2) + (float)(this.height / 2 - 4) * this.gravDir), 8, 8, 31, 0f, 0f, 0, default(Color), 1f);
 								if (this.slideDir < 0)
 								{
-									Dust expr_C466_cp_0 = Main.dust[num128];
-									expr_C466_cp_0.position.X = expr_C466_cp_0.position.X - 10f;
+									Dust expr_C816_cp_0 = Main.dust[num128];
+									expr_C816_cp_0.position.X = expr_C816_cp_0.position.X - 10f;
 								}
 								if (this.gravDir < 0f)
 								{
-									Dust expr_C491_cp_0 = Main.dust[num128];
-									expr_C491_cp_0.position.Y = expr_C491_cp_0.position.Y - 12f;
+									Dust expr_C841_cp_0 = Main.dust[num128];
+									expr_C841_cp_0.position.Y = expr_C841_cp_0.position.Y - 12f;
 								}
 								Main.dust[num128].velocity *= 0.1f;
 								Main.dust[num128].scale *= 1.2f;
@@ -6866,7 +6092,7 @@ namespace Terraria
 							}
 						}
 						bool flag42 = false;
-						if (this.grappling[0] == -1 && this.carpet && !this.jumpAgain && !this.jumpAgain2 && !this.jumpAgain3 && !this.jumpAgain4 && this.jump == 0 && this.velocity.Y != 0f && this.rocketTime == 0 && this.wingTime == 0)
+						if (this.grappling[0] == -1 && this.carpet && !this.jumpAgain && !this.jumpAgain2 && !this.jumpAgain3 && !this.jumpAgain4 && this.jump == 0 && this.velocity.Y != 0f && this.rocketTime == 0 && this.wingTime == 0f)
 						{
 							if (this.controlJump && this.canCarpet)
 							{
@@ -7002,9 +6228,9 @@ namespace Terraria
 						bool flag43 = false;
 						if (this.velocity.Y == 0f || this.sliding)
 						{
-							this.wingTime = this.GetWingTime();
+							this.wingTime = (float)this.GetWingTime();
 						}
-						if (this.wings > 0 && this.controlJump && this.wingTime > 0 && !this.jumpAgain && this.jump == 0 && this.velocity.Y != 0f)
+						if (this.wings > 0 && this.controlJump && this.wingTime > 0f && !this.jumpAgain && this.jump == 0 && this.velocity.Y != 0f)
 						{
 							flag43 = true;
 						}
@@ -7101,7 +6327,7 @@ namespace Terraria
 											this.velocity.Y = Player.jumpSpeed * 3f;
 										}
 									}
-									this.wingTime -= 2;
+									this.wingTime -= 2f;
 								}
 								else if (this.wings == 3 && this.controlUp)
 								{
@@ -7136,7 +6362,7 @@ namespace Terraria
 											this.velocity.Y = Player.jumpSpeed * 3f;
 										}
 									}
-									this.wingTime -= 2;
+									this.wingTime -= 2f;
 								}
 								else
 								{
@@ -7171,7 +6397,14 @@ namespace Terraria
 											this.velocity.Y = Player.jumpSpeed * 1.5f;
 										}
 									}
-									this.wingTime--;
+									if (this.wings == 22 && this.controlDown && !this.controlLeft && !this.controlRight)
+									{
+										this.wingTime -= 0.5f;
+									}
+									else
+									{
+										this.wingTime -= 1f;
+									}
 								}
 							}
 							if (this.wings == 4)
@@ -7194,7 +6427,7 @@ namespace Terraria
 										int type3 = 6;
 										if (this.head == 41)
 										{
-											int arg_D7D1_0 = this.body;
+											int arg_DBCD_0 = this.body;
 										}
 										float scale = 1.75f;
 										int alpha = 100;
@@ -7218,14 +6451,14 @@ namespace Terraria
 											num155 += this.velocity.Y;
 										}
 										int num156 = Dust.NewDust(new Vector2(x, num155), 8, 8, type3, 0f, 0f, alpha, default(Color), scale);
-										Dust expr_D8E4_cp_0 = Main.dust[num156];
-										expr_D8E4_cp_0.velocity.X = expr_D8E4_cp_0.velocity.X * 0.1f;
+										Dust expr_DCE0_cp_0 = Main.dust[num156];
+										expr_DCE0_cp_0.velocity.X = expr_DCE0_cp_0.velocity.X * 0.1f;
 										Main.dust[num156].velocity.Y = Main.dust[num156].velocity.Y * 1f + 2f * this.gravDir - this.velocity.Y * 0.3f;
 										Main.dust[num156].noGravity = true;
 										if (num153 == 4)
 										{
-											Dust expr_D95E_cp_0 = Main.dust[num156];
-											expr_D95E_cp_0.velocity.Y = expr_D95E_cp_0.velocity.Y + 6f;
+											Dust expr_DD5A_cp_0 = Main.dust[num156];
+											expr_DD5A_cp_0.velocity.Y = expr_DD5A_cp_0.velocity.Y + 6f;
 										}
 									}
 									this.wingFrameCounter++;
@@ -7244,25 +6477,135 @@ namespace Terraria
 									this.wingFrame = 3;
 								}
 							}
+							else if (this.wings == 22)
+							{
+								if (!this.controlJump)
+								{
+									this.wingFrame = 0;
+									this.wingFrameCounter = 0;
+								}
+								else if (this.wingTime > 0f)
+								{
+									if (this.controlDown)
+									{
+										if (this.velocity.X != 0f)
+										{
+											this.wingFrameCounter++;
+											int num157 = 2;
+											if (this.wingFrameCounter < num157)
+											{
+												this.wingFrame = 1;
+											}
+											else if (this.wingFrameCounter < num157 * 2)
+											{
+												this.wingFrame = 2;
+											}
+											else if (this.wingFrameCounter < num157 * 3)
+											{
+												this.wingFrame = 3;
+											}
+											else if (this.wingFrameCounter < num157 * 4 - 1)
+											{
+												this.wingFrame = 2;
+											}
+											else
+											{
+												this.wingFrame = 2;
+												this.wingFrameCounter = 0;
+											}
+										}
+										else
+										{
+											this.wingFrameCounter++;
+											int num158 = 6;
+											if (this.wingFrameCounter < num158)
+											{
+												this.wingFrame = 4;
+											}
+											else if (this.wingFrameCounter < num158 * 2)
+											{
+												this.wingFrame = 5;
+											}
+											else if (this.wingFrameCounter < num158 * 3 - 1)
+											{
+												this.wingFrame = 4;
+											}
+											else
+											{
+												this.wingFrame = 4;
+												this.wingFrameCounter = 0;
+											}
+										}
+									}
+									else
+									{
+										this.wingFrameCounter++;
+										int num159 = 2;
+										if (this.wingFrameCounter < num159)
+										{
+											this.wingFrame = 4;
+										}
+										else if (this.wingFrameCounter < num159 * 2)
+										{
+											this.wingFrame = 5;
+										}
+										else if (this.wingFrameCounter < num159 * 3)
+										{
+											this.wingFrame = 6;
+										}
+										else if (this.wingFrameCounter < num159 * 4 - 1)
+										{
+											this.wingFrame = 5;
+										}
+										else
+										{
+											this.wingFrame = 5;
+											this.wingFrameCounter = 0;
+										}
+									}
+								}
+								else
+								{
+									this.wingFrameCounter++;
+									int num160 = 6;
+									if (this.wingFrameCounter < num160)
+									{
+										this.wingFrame = 4;
+									}
+									else if (this.wingFrameCounter < num160 * 2)
+									{
+										this.wingFrame = 5;
+									}
+									else if (this.wingFrameCounter < num160 * 3 - 1)
+									{
+										this.wingFrame = 4;
+									}
+									else
+									{
+										this.wingFrame = 4;
+										this.wingFrameCounter = 0;
+									}
+								}
+							}
 							else if (this.wings == 12)
 							{
 								if (flag43 || this.jump > 0)
 								{
 									this.wingFrameCounter++;
-									int num157 = 5;
-									if (this.wingFrameCounter < num157)
+									int num161 = 5;
+									if (this.wingFrameCounter < num161)
 									{
 										this.wingFrame = 1;
 									}
-									else if (this.wingFrameCounter < num157 * 2)
+									else if (this.wingFrameCounter < num161 * 2)
 									{
 										this.wingFrame = 2;
 									}
-									else if (this.wingFrameCounter < num157 * 3)
+									else if (this.wingFrameCounter < num161 * 3)
 									{
 										this.wingFrame = 3;
 									}
-									else if (this.wingFrameCounter < num157 * 4 - 1)
+									else if (this.wingFrameCounter < num161 * 4 - 1)
 									{
 										this.wingFrame = 2;
 									}
@@ -7304,10 +6647,10 @@ namespace Terraria
 							}
 							if (this.wings > 0 && this.rocketBoots > 0)
 							{
-								this.wingTime += this.rocketTime * 3;
+								this.wingTime += (float)(this.rocketTime * 3);
 								this.rocketTime = 0;
 							}
-							if (flag43 && this.wings != 4)
+							if (flag43 && this.wings != 4 && this.wings != 22)
 							{
 								if (this.wingFrame == 3)
 								{
@@ -7326,7 +6669,7 @@ namespace Terraria
 							{
 								this.rocketTime = this.rocketTimeMax;
 							}
-							if ((this.wingTime == 0 || this.wings == 0) && this.rocketBoots > 0 && this.controlJump && this.rocketDelay == 0 && this.canRocket && this.rocketRelease && !this.jumpAgain)
+							if ((this.wingTime == 0f || this.wings == 0) && this.rocketBoots > 0 && this.controlJump && this.rocketDelay == 0 && this.canRocket && this.rocketRelease && !this.jumpAgain)
 							{
 								if (this.rocketTime > 0)
 								{
@@ -7339,7 +6682,7 @@ namespace Terraria
 											Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 13);
 											this.rocketDelay2 = 30;
 										}
-										else if (this.rocketBoots == 2)
+										else if (this.rocketBoots == 2 || this.rocketBoots == 3)
 										{
 											Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 24);
 											this.rocketDelay2 = 15;
@@ -7361,13 +6704,13 @@ namespace Terraria
 							}
 							if (this.rocketDelay > 0)
 							{
-								int num158 = this.height;
+								int num162 = this.height;
 								if (this.gravDir == -1f)
 								{
-									num158 = 4;
+									num162 = 4;
 								}
 								this.rocketFrame = true;
-								for (int num159 = 0; num159 < 2; num159++)
+								for (int num163 = 0; num163 < 2; num163++)
 								{
 									int type4 = 6;
 									float scale2 = 2.5f;
@@ -7378,37 +6721,67 @@ namespace Terraria
 										scale2 = 1.5f;
 										alpha2 = 20;
 									}
+									else if (this.rocketBoots == 3)
+									{
+										type4 = 76;
+										scale2 = 1f;
+										alpha2 = 20;
+									}
 									else if (this.socialShadow)
 									{
 										type4 = 27;
 										scale2 = 1.5f;
 									}
-									if (num159 == 0)
+									if (num163 == 0)
 									{
-										int num160 = Dust.NewDust(new Vector2(this.position.X - 4f, this.position.Y + (float)num158 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
+										int num164 = Dust.NewDust(new Vector2(this.position.X - 4f, this.position.Y + (float)num162 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
 										if (this.rocketBoots == 1)
 										{
-											Main.dust[num160].noGravity = true;
+											Main.dust[num164].noGravity = true;
 										}
-										Main.dust[num160].velocity.X = Main.dust[num160].velocity.X * 1f - 2f - this.velocity.X * 0.3f;
-										Main.dust[num160].velocity.Y = Main.dust[num160].velocity.Y * 1f + 2f * this.gravDir - this.velocity.Y * 0.3f;
+										Main.dust[num164].velocity.X = Main.dust[num164].velocity.X * 1f - 2f - this.velocity.X * 0.3f;
+										Main.dust[num164].velocity.Y = Main.dust[num164].velocity.Y * 1f + 2f * this.gravDir - this.velocity.Y * 0.3f;
 										if (this.rocketBoots == 2)
 										{
-											Main.dust[num160].velocity *= 0.1f;
+											Main.dust[num164].velocity *= 0.1f;
+										}
+										if (this.rocketBoots == 3)
+										{
+											Main.dust[num164].velocity *= 0.05f;
+											Dust expr_E502_cp_0 = Main.dust[num164];
+											expr_E502_cp_0.velocity.Y = expr_E502_cp_0.velocity.Y + 0.15f;
+											Main.dust[num164].noLight = true;
+											if (Main.rand.Next(2) == 0)
+											{
+												Main.dust[num164].noGravity = true;
+												Main.dust[num164].scale = 1.75f;
+											}
 										}
 									}
 									else
 									{
-										int num161 = Dust.NewDust(new Vector2(this.position.X + (float)this.width - 4f, this.position.Y + (float)num158 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
+										int num165 = Dust.NewDust(new Vector2(this.position.X + (float)this.width - 4f, this.position.Y + (float)num162 - 10f), 8, 8, type4, 0f, 0f, alpha2, default(Color), scale2);
 										if (this.rocketBoots == 1)
 										{
-											Main.dust[num161].noGravity = true;
+											Main.dust[num165].noGravity = true;
 										}
-										Main.dust[num161].velocity.X = Main.dust[num161].velocity.X * 1f + 2f - this.velocity.X * 0.3f;
-										Main.dust[num161].velocity.Y = Main.dust[num161].velocity.Y * 1f + 2f * this.gravDir - this.velocity.Y * 0.3f;
+										Main.dust[num165].velocity.X = Main.dust[num165].velocity.X * 1f + 2f - this.velocity.X * 0.3f;
+										Main.dust[num165].velocity.Y = Main.dust[num165].velocity.Y * 1f + 2f * this.gravDir - this.velocity.Y * 0.3f;
 										if (this.rocketBoots == 2)
 										{
-											Main.dust[num161].velocity *= 0.1f;
+											Main.dust[num165].velocity *= 0.1f;
+										}
+										if (this.rocketBoots == 3)
+										{
+											Main.dust[num165].velocity *= 0.05f;
+											Dust expr_E6AB_cp_0 = Main.dust[num165];
+											expr_E6AB_cp_0.velocity.Y = expr_E6AB_cp_0.velocity.Y + 0.15f;
+											Main.dust[num165].noLight = true;
+											if (Main.rand.Next(2) == 0)
+											{
+												Main.dust[num165].noGravity = true;
+												Main.dust[num165].scale = 1.75f;
+											}
 										}
 									}
 								}
@@ -7470,50 +6843,50 @@ namespace Terraria
 									{
 										if (this.wings == 10 && Main.rand.Next(3) == 0)
 										{
-											int num162 = 4;
+											int num166 = 4;
 											if (this.direction == 1)
 											{
-												num162 = -40;
+												num166 = -40;
 											}
-											int num163 = Dust.NewDust(new Vector2(this.position.X + (float)(this.width / 2) + (float)num162, this.position.Y + (float)(this.height / 2) - 15f), 30, 30, 76, 0f, 0f, 50, default(Color), 0.6f);
-											Main.dust[num163].fadeIn = 1.1f;
-											Main.dust[num163].noGravity = true;
-											Main.dust[num163].noLight = true;
-											Main.dust[num163].velocity *= 0.3f;
+											int num167 = Dust.NewDust(new Vector2(this.position.X + (float)(this.width / 2) + (float)num166, this.position.Y + (float)(this.height / 2) - 15f), 30, 30, 76, 0f, 0f, 50, default(Color), 0.6f);
+											Main.dust[num167].fadeIn = 1.1f;
+											Main.dust[num167].noGravity = true;
+											Main.dust[num167].noLight = true;
+											Main.dust[num167].velocity *= 0.3f;
 										}
 										if (this.wings == 9 && Main.rand.Next(3) == 0)
 										{
-											int num164 = 8;
+											int num168 = 8;
 											if (this.direction == 1)
 											{
-												num164 = -40;
+												num168 = -40;
 											}
-											int num165 = Dust.NewDust(new Vector2(this.position.X + (float)(this.width / 2) + (float)num164, this.position.Y + (float)(this.height / 2) - 15f), 30, 30, 6, 0f, 0f, 200, default(Color), 2f);
-											Main.dust[num165].noGravity = true;
-											Main.dust[num165].velocity *= 0.3f;
+											int num169 = Dust.NewDust(new Vector2(this.position.X + (float)(this.width / 2) + (float)num168, this.position.Y + (float)(this.height / 2) - 15f), 30, 30, 6, 0f, 0f, 200, default(Color), 2f);
+											Main.dust[num169].noGravity = true;
+											Main.dust[num169].velocity *= 0.3f;
 										}
 										if (this.wings == 6)
 										{
 											if (Main.rand.Next(10) == 0)
 											{
-												int num166 = 4;
+												int num170 = 4;
 												if (this.direction == 1)
 												{
-													num166 = -40;
+													num170 = -40;
 												}
-												int num167 = Dust.NewDust(new Vector2(this.position.X + (float)(this.width / 2) + (float)num166, this.position.Y + (float)(this.height / 2) - 12f), 30, 20, 55, 0f, 0f, 200, default(Color), 1f);
-												Main.dust[num167].velocity *= 0.3f;
+												int num171 = Dust.NewDust(new Vector2(this.position.X + (float)(this.width / 2) + (float)num170, this.position.Y + (float)(this.height / 2) - 12f), 30, 20, 55, 0f, 0f, 200, default(Color), 1f);
+												Main.dust[num171].velocity *= 0.3f;
 											}
 										}
 										else if (this.wings == 5 && Main.rand.Next(6) == 0)
 										{
-											int num168 = 6;
+											int num172 = 6;
 											if (this.direction == 1)
 											{
-												num168 = -30;
+												num172 = -30;
 											}
-											int num169 = Dust.NewDust(new Vector2(this.position.X + (float)(this.width / 2) + (float)num168, this.position.Y), 18, this.height, 58, 0f, 0f, 255, default(Color), 1.2f);
-											Main.dust[num169].velocity *= 0.3f;
+											int num173 = Dust.NewDust(new Vector2(this.position.X + (float)(this.width / 2) + (float)num172, this.position.Y), 18, this.height, 58, 0f, 0f, 255, default(Color), 1.2f);
+											Main.dust[num173].velocity *= 0.3f;
 										}
 										if (this.wings == 4)
 										{
@@ -7531,7 +6904,7 @@ namespace Terraria
 											{
 												x2 = this.position.X + (float)(this.width / 2) - 26f;
 											}
-											float num170 = this.position.Y + (float)this.height - 18f;
+											float num174 = this.position.Y + (float)this.height - 18f;
 											if (Main.rand.Next(2) == 1)
 											{
 												x2 = this.position.X + (float)(this.width / 2) + 8f;
@@ -7539,14 +6912,14 @@ namespace Terraria
 												{
 													x2 = this.position.X + (float)(this.width / 2) - 20f;
 												}
-												num170 += 6f;
+												num174 += 6f;
 											}
-											int num171 = Dust.NewDust(new Vector2(x2, num170), 8, 8, type5, 0f, 0f, alpha3, default(Color), scale3);
-											Dust expr_E655_cp_0 = Main.dust[num171];
-											expr_E655_cp_0.velocity.X = expr_E655_cp_0.velocity.X * 0.3f;
-											Dust expr_E673_cp_0 = Main.dust[num171];
-											expr_E673_cp_0.velocity.Y = expr_E673_cp_0.velocity.Y + 10f;
-											Main.dust[num171].noGravity = true;
+											int num175 = Dust.NewDust(new Vector2(x2, num174), 8, 8, type5, 0f, 0f, alpha3, default(Color), scale3);
+											Dust expr_EDBD_cp_0 = Main.dust[num175];
+											expr_EDBD_cp_0.velocity.X = expr_EDBD_cp_0.velocity.X * 0.3f;
+											Dust expr_EDDB_cp_0 = Main.dust[num175];
+											expr_EDDB_cp_0.velocity.Y = expr_EDDB_cp_0.velocity.Y + 10f;
+											Main.dust[num175].noGravity = true;
 											this.wingFrameCounter++;
 											if (this.wingFrameCounter > 4)
 											{
@@ -7558,13 +6931,16 @@ namespace Terraria
 												}
 											}
 										}
-										else if (this.wings == 12)
+										else if (this.wings != 22)
 										{
-											this.wingFrame = 3;
-										}
-										else
-										{
-											this.wingFrame = 2;
+											if (this.wings == 12)
+											{
+												this.wingFrame = 3;
+											}
+											else
+											{
+												this.wingFrame = 2;
+											}
 										}
 									}
 									this.velocity.Y = this.velocity.Y + num2 / 3f * this.gravDir;
@@ -7636,15 +7012,23 @@ namespace Terraria
 							this.velocity.Y = this.velocity.Y + 0.2f;
 						}
 					}
-					for (int num172 = 0; num172 < 400; num172++)
+					if (this.wings == 22 && this.controlDown && this.controlJump && this.wingTime > 0f)
 					{
-						if (Main.item[num172].active && Main.item[num172].noGrabDelay == 0 && Main.item[num172].owner == i)
+						this.velocity.Y = this.velocity.Y * 0.9f;
+						if (this.velocity.Y > -2f && this.velocity.Y < 1f)
 						{
-							if (new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height).Intersects(new Rectangle((int)Main.item[num172].position.X, (int)Main.item[num172].position.Y, Main.item[num172].width, Main.item[num172].height)))
+							this.velocity.Y = 1E-05f;
+						}
+					}
+					for (int num176 = 0; num176 < 400; num176++)
+					{
+						if (Main.item[num176].active && Main.item[num176].noGrabDelay == 0 && Main.item[num176].owner == i)
+						{
+							if (new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height).Intersects(new Rectangle((int)Main.item[num176].position.X, (int)Main.item[num176].position.Y, Main.item[num176].width, Main.item[num176].height)))
 							{
 								if (i == Main.myPlayer && (this.inventory[this.selectedItem].type != 0 || this.itemAnimation <= 0))
 								{
-									if (Main.item[num172].type == 58 || Main.item[num172].type == 1734)
+									if (Main.item[num176].type == 58 || Main.item[num176].type == 1734)
 									{
 										Main.PlaySound(7, (int)this.position.X, (int)this.position.Y, 1);
 										this.statLife += 20;
@@ -7656,13 +7040,13 @@ namespace Terraria
 										{
 											this.statLife = this.statLifeMax;
 										}
-										Main.item[num172] = new Item();
+										Main.item[num176] = new Item();
 										if (Main.netMode == 1)
 										{
-											NetMessage.SendData(21, -1, -1, "", num172, 0f, 0f, 0f, 0);
+											NetMessage.SendData(21, -1, -1, "", num176, 0f, 0f, 0f, 0);
 										}
 									}
-									else if (Main.item[num172].type == 184 || Main.item[num172].type == 1735)
+									else if (Main.item[num176].type == 184 || Main.item[num176].type == 1735)
 									{
 										Main.PlaySound(7, (int)this.position.X, (int)this.position.Y, 1);
 										this.statMana += 100;
@@ -7674,75 +7058,75 @@ namespace Terraria
 										{
 											this.statMana = this.statManaMax2;
 										}
-										Main.item[num172] = new Item();
+										Main.item[num176] = new Item();
 										if (Main.netMode == 1)
 										{
-											NetMessage.SendData(21, -1, -1, "", num172, 0f, 0f, 0f, 0);
+											NetMessage.SendData(21, -1, -1, "", num176, 0f, 0f, 0f, 0);
 										}
 									}
 									else
 									{
-										Main.item[num172] = this.GetItem(i, Main.item[num172]);
+										Main.item[num176] = this.GetItem(i, Main.item[num176]);
 										if (Main.netMode == 1)
 										{
-											NetMessage.SendData(21, -1, -1, "", num172, 0f, 0f, 0f, 0);
+											NetMessage.SendData(21, -1, -1, "", num176, 0f, 0f, 0f, 0);
 										}
 									}
 								}
 							}
-							else if (new Rectangle((int)this.position.X - Player.itemGrabRange, (int)this.position.Y - Player.itemGrabRange, this.width + Player.itemGrabRange * 2, this.height + Player.itemGrabRange * 2).Intersects(new Rectangle((int)Main.item[num172].position.X, (int)Main.item[num172].position.Y, Main.item[num172].width, Main.item[num172].height)) && this.ItemSpace(Main.item[num172]))
+							else if (new Rectangle((int)this.position.X - Player.itemGrabRange, (int)this.position.Y - Player.itemGrabRange, this.width + Player.itemGrabRange * 2, this.height + Player.itemGrabRange * 2).Intersects(new Rectangle((int)Main.item[num176].position.X, (int)Main.item[num176].position.Y, Main.item[num176].width, Main.item[num176].height)) && this.ItemSpace(Main.item[num176]))
 							{
-								Main.item[num172].beingGrabbed = true;
-								if ((double)this.position.X + (double)this.width * 0.5 > (double)Main.item[num172].position.X + (double)Main.item[num172].width * 0.5)
+								Main.item[num176].beingGrabbed = true;
+								if ((double)this.position.X + (double)this.width * 0.5 > (double)Main.item[num176].position.X + (double)Main.item[num176].width * 0.5)
 								{
-									if (Main.item[num172].velocity.X < Player.itemGrabSpeedMax + this.velocity.X)
+									if (Main.item[num176].velocity.X < Player.itemGrabSpeedMax + this.velocity.X)
 									{
-										Item expr_ED79_cp_0 = Main.item[num172];
-										expr_ED79_cp_0.velocity.X = expr_ED79_cp_0.velocity.X + Player.itemGrabSpeed;
+										Item expr_F55D_cp_0 = Main.item[num176];
+										expr_F55D_cp_0.velocity.X = expr_F55D_cp_0.velocity.X + Player.itemGrabSpeed;
 									}
-									if (Main.item[num172].velocity.X < 0f)
+									if (Main.item[num176].velocity.X < 0f)
 									{
-										Item expr_EDB3_cp_0 = Main.item[num172];
-										expr_EDB3_cp_0.velocity.X = expr_EDB3_cp_0.velocity.X + Player.itemGrabSpeed * 0.75f;
+										Item expr_F597_cp_0 = Main.item[num176];
+										expr_F597_cp_0.velocity.X = expr_F597_cp_0.velocity.X + Player.itemGrabSpeed * 0.75f;
 									}
 								}
 								else
 								{
-									if (Main.item[num172].velocity.X > -Player.itemGrabSpeedMax + this.velocity.X)
+									if (Main.item[num176].velocity.X > -Player.itemGrabSpeedMax + this.velocity.X)
 									{
-										Item expr_EE02_cp_0 = Main.item[num172];
-										expr_EE02_cp_0.velocity.X = expr_EE02_cp_0.velocity.X - Player.itemGrabSpeed;
+										Item expr_F5E6_cp_0 = Main.item[num176];
+										expr_F5E6_cp_0.velocity.X = expr_F5E6_cp_0.velocity.X - Player.itemGrabSpeed;
 									}
-									if (Main.item[num172].velocity.X > 0f)
+									if (Main.item[num176].velocity.X > 0f)
 									{
-										Item expr_EE39_cp_0 = Main.item[num172];
-										expr_EE39_cp_0.velocity.X = expr_EE39_cp_0.velocity.X - Player.itemGrabSpeed * 0.75f;
+										Item expr_F61D_cp_0 = Main.item[num176];
+										expr_F61D_cp_0.velocity.X = expr_F61D_cp_0.velocity.X - Player.itemGrabSpeed * 0.75f;
 									}
 								}
-								if ((double)this.position.Y + (double)this.height * 0.5 > (double)Main.item[num172].position.Y + (double)Main.item[num172].height * 0.5)
+								if ((double)this.position.Y + (double)this.height * 0.5 > (double)Main.item[num176].position.Y + (double)Main.item[num176].height * 0.5)
 								{
-									if (Main.item[num172].velocity.Y < Player.itemGrabSpeedMax)
+									if (Main.item[num176].velocity.Y < Player.itemGrabSpeedMax)
 									{
-										Item expr_EEC2_cp_0 = Main.item[num172];
-										expr_EEC2_cp_0.velocity.Y = expr_EEC2_cp_0.velocity.Y + Player.itemGrabSpeed;
+										Item expr_F6A6_cp_0 = Main.item[num176];
+										expr_F6A6_cp_0.velocity.Y = expr_F6A6_cp_0.velocity.Y + Player.itemGrabSpeed;
 									}
-									if (Main.item[num172].velocity.Y < 0f)
+									if (Main.item[num176].velocity.Y < 0f)
 									{
-										Item expr_EEFC_cp_0 = Main.item[num172];
-										expr_EEFC_cp_0.velocity.Y = expr_EEFC_cp_0.velocity.Y + Player.itemGrabSpeed * 0.75f;
+										Item expr_F6E0_cp_0 = Main.item[num176];
+										expr_F6E0_cp_0.velocity.Y = expr_F6E0_cp_0.velocity.Y + Player.itemGrabSpeed * 0.75f;
 									}
 								}
 								else
 								{
-									if (Main.item[num172].velocity.Y > -Player.itemGrabSpeedMax)
+									if (Main.item[num176].velocity.Y > -Player.itemGrabSpeedMax)
 									{
-										Item expr_EF3C_cp_0 = Main.item[num172];
-										expr_EF3C_cp_0.velocity.Y = expr_EF3C_cp_0.velocity.Y - Player.itemGrabSpeed;
+										Item expr_F720_cp_0 = Main.item[num176];
+										expr_F720_cp_0.velocity.Y = expr_F720_cp_0.velocity.Y - Player.itemGrabSpeed;
 									}
-									if (Main.item[num172].velocity.Y > 0f)
+									if (Main.item[num176].velocity.Y > 0f)
 									{
-										Item expr_EF73_cp_0 = Main.item[num172];
-										expr_EF73_cp_0.velocity.Y = expr_EF73_cp_0.velocity.Y - Player.itemGrabSpeed * 0.75f;
+										Item expr_F757_cp_0 = Main.item[num176];
+										expr_F757_cp_0.velocity.Y = expr_F757_cp_0.velocity.Y - Player.itemGrabSpeed * 0.75f;
 									}
 								}
 							}
@@ -7835,11 +7219,11 @@ namespace Terraria
 								{
 									this.showItemIcon2 = 1337;
 								}
-								int num173;
-								for (num173 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameX / 18); num173 >= 4; num173 -= 4)
+								int num177;
+								for (num177 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameX / 18); num177 >= 4; num177 -= 4)
 								{
 								}
-								if (num173 < 2)
+								if (num177 < 2)
 								{
 									this.showItemIconR = true;
 								}
@@ -7852,14 +7236,14 @@ namespace Terraria
 							{
 								this.noThrow = 2;
 								this.showItemIcon = true;
-								int num174 = (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameY;
-								int num175 = 0;
-								while (num174 >= 40)
+								int num178 = (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameY;
+								int num179 = 0;
+								while (num178 >= 40)
 								{
-									num174 -= 40;
-									num175++;
+									num178 -= 40;
+									num179++;
 								}
-								this.showItemIcon2 = 970 + num175;
+								this.showItemIcon2 = 970 + num179;
 							}
 							if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 212)
 							{
@@ -7988,30 +7372,30 @@ namespace Terraria
 							{
 								this.noThrow = 2;
 								this.showItemIcon = true;
-								int num176 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 22);
-								if (num176 == 0)
+								int num180 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 22);
+								if (num180 == 0)
 								{
 									this.showItemIcon2 = 8;
 								}
-								else if (num176 == 8)
+								else if (num180 == 8)
 								{
 									this.showItemIcon2 = 523;
 								}
-								else if (num176 == 9)
+								else if (num180 == 9)
 								{
 									this.showItemIcon2 = 974;
 								}
-								else if (num176 == 10)
+								else if (num180 == 10)
 								{
 									this.showItemIcon2 = 1245;
 								}
-								else if (num176 == 11)
+								else if (num180 == 11)
 								{
 									this.showItemIcon2 = 1333;
 								}
 								else
 								{
-									this.showItemIcon2 = 426 + num176;
+									this.showItemIcon2 = 426 + num180;
 								}
 							}
 							if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 13)
@@ -8056,16 +7440,16 @@ namespace Terraria
 								this.noThrow = 2;
 								this.showItemIcon = true;
 								this.showItemIcon2 = 105;
-								int num177 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 22);
-								if (num177 == 1)
+								int num181 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 22);
+								if (num181 == 1)
 								{
 									this.showItemIcon2 = 1405;
 								}
-								if (num177 == 2)
+								if (num181 == 2)
 								{
 									this.showItemIcon2 = 1406;
 								}
-								if (num177 == 3)
+								if (num181 == 3)
 								{
 									this.showItemIcon2 = 1407;
 								}
@@ -8088,63 +7472,63 @@ namespace Terraria
 							if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 139)
 							{
 								this.noThrow = 2;
-								int num178 = Player.tileTargetX;
-								int num179 = Player.tileTargetY;
-								int num180 = 0;
-								for (int num181 = (int)(Main.tile[num178, num179].frameY / 18); num181 >= 2; num181 -= 2)
+								int num182 = Player.tileTargetX;
+								int num183 = Player.tileTargetY;
+								int num184 = 0;
+								for (int num185 = (int)(Main.tile[num182, num183].frameY / 18); num185 >= 2; num185 -= 2)
 								{
-									num180++;
+									num184++;
 								}
 								this.showItemIcon = true;
-								if (num180 >= 13)
+								if (num184 >= 13)
 								{
-									this.showItemIcon2 = 1596 + num180 - 13;
+									this.showItemIcon2 = 1596 + num184 - 13;
 								}
 								else
 								{
-									this.showItemIcon2 = 562 + num180;
+									this.showItemIcon2 = 562 + num184;
 								}
 							}
 							if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 207)
 							{
 								this.noThrow = 2;
-								int num182 = Player.tileTargetX;
-								int num183 = Player.tileTargetY;
-								int num184 = 0;
-								for (int num185 = (int)(Main.tile[num182, num183].frameX / 18); num185 >= 2; num185 -= 2)
+								int num186 = Player.tileTargetX;
+								int num187 = Player.tileTargetY;
+								int num188 = 0;
+								for (int num189 = (int)(Main.tile[num186, num187].frameX / 18); num189 >= 2; num189 -= 2)
 								{
-									num184++;
+									num188++;
 								}
 								this.showItemIcon = true;
-								if (num184 == 0)
+								if (num188 == 0)
 								{
 									this.showItemIcon2 = 909;
 								}
-								else if (num184 == 1)
+								else if (num188 == 1)
 								{
 									this.showItemIcon2 = 910;
 								}
-								else if (num184 == 2)
+								else if (num188 == 2)
 								{
 									this.showItemIcon2 = 940;
 								}
-								else if (num184 == 3)
+								else if (num188 == 3)
 								{
 									this.showItemIcon2 = 941;
 								}
-								else if (num184 == 4)
+								else if (num188 == 4)
 								{
 									this.showItemIcon2 = 942;
 								}
-								else if (num184 == 5)
+								else if (num188 == 5)
 								{
 									this.showItemIcon2 = 943;
 								}
-								else if (num184 == 6)
+								else if (num188 == 6)
 								{
 									this.showItemIcon2 = 944;
 								}
-								else if (num184 == 7)
+								else if (num188 == 7)
 								{
 									this.showItemIcon2 = 945;
 								}
@@ -8152,17 +7536,17 @@ namespace Terraria
 							if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 55 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 85)
 							{
 								this.noThrow = 2;
-								int num186 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameX / 18);
-								int num187 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 18);
-								while (num186 > 1)
+								int num190 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameX / 18);
+								int num191 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 18);
+								while (num190 > 1)
 								{
-									num186 -= 2;
+									num190 -= 2;
 								}
-								int num188 = Player.tileTargetX - num186;
-								int num189 = Player.tileTargetY - num187;
+								int num192 = Player.tileTargetX - num190;
+								int num193 = Player.tileTargetY - num191;
 								Main.signBubble = true;
-								Main.signX = num188 * 16 + 16;
-								Main.signY = num189 * 16;
+								Main.signX = num192 * 16 + 16;
+								Main.signY = num193 * 16;
 							}
 							if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 237)
 							{
@@ -8174,80 +7558,80 @@ namespace Terraria
 							{
 								this.noThrow = 2;
 								this.showItemIcon = true;
-								int num190 = (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameY;
-								int num191 = 0;
-								while (num190 >= 54)
+								int num194 = (int)Main.tile[Player.tileTargetX, Player.tileTargetY].frameY;
+								int num195 = 0;
+								while (num194 >= 54)
 								{
-									num190 -= 54;
-									num191++;
+									num194 -= 54;
+									num195++;
 								}
-								if (num191 == 0)
+								if (num195 == 0)
 								{
 									this.showItemIcon2 = 25;
 								}
-								else if (num191 == 9)
+								else if (num195 == 9)
 								{
 									this.showItemIcon2 = 837;
 								}
-								else if (num191 == 10)
+								else if (num195 == 10)
 								{
 									this.showItemIcon2 = 912;
 								}
-								else if (num191 == 11)
+								else if (num195 == 11)
 								{
 									this.showItemIcon2 = 1141;
 								}
-								else if (num191 == 12)
+								else if (num195 == 12)
 								{
 									this.showItemIcon2 = 1137;
 								}
-								else if (num191 == 13)
+								else if (num195 == 13)
 								{
 									this.showItemIcon2 = 1138;
 								}
-								else if (num191 == 14)
+								else if (num195 == 14)
 								{
 									this.showItemIcon2 = 1139;
 								}
-								else if (num191 == 15)
+								else if (num195 == 15)
 								{
 									this.showItemIcon2 = 1140;
 								}
-								else if (num191 == 16)
+								else if (num195 == 16)
 								{
 									this.showItemIcon2 = 1411;
 								}
-								else if (num191 == 17)
+								else if (num195 == 17)
 								{
 									this.showItemIcon2 = 1412;
 								}
-								else if (num191 == 18)
+								else if (num195 == 18)
 								{
 									this.showItemIcon2 = 1413;
 								}
-								else if (num191 == 19)
+								else if (num195 == 19)
 								{
 									this.showItemIcon2 = 1458;
 								}
-								else if (num191 >= 20 && num191 <= 23)
+								else if (num195 >= 20 && num195 <= 23)
 								{
-									this.showItemIcon2 = 1709 + num191 - 20;
+									this.showItemIcon2 = 1709 + num195 - 20;
 								}
-								else if (num191 == 24)
+								else if (num195 == 24)
 								{
 									this.showItemIcon2 = 1793;
 								}
-								else if (num191 == 25)
+								else if (num195 == 25)
 								{
 									this.showItemIcon2 = 1815;
 								}
-								else if (num191 >= 4 && num191 <= 8)
+								else if (num195 >= 4 && num195 <= 8)
 								{
-									this.showItemIcon2 = 812 + num191;
+									this.showItemIcon2 = 812 + num195;
 								}
 								else
 								{
-									this.showItemIcon2 = 649 + num191;
+									this.showItemIcon2 = 649 + num195;
 								}
 							}
 							if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 125)
@@ -8278,17 +7662,17 @@ namespace Terraria
 							{
 								if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 212 && this.launcherWait <= 0)
 								{
-									int num192 = Player.tileTargetX;
-									int num193 = Player.tileTargetY;
+									int num196 = Player.tileTargetX;
+									int num197 = Player.tileTargetY;
 									bool flag44 = false;
-									for (int num194 = 0; num194 < 58; num194++)
+									for (int num198 = 0; num198 < 58; num198++)
 									{
-										if (this.inventory[num194].type == 949 && this.inventory[num194].stack > 0)
+										if (this.inventory[num198].type == 949 && this.inventory[num198].stack > 0)
 										{
-											this.inventory[num194].stack--;
-											if (this.inventory[num194].stack <= 0)
+											this.inventory[num198].stack--;
+											if (this.inventory[num198].stack <= 0)
 											{
-												this.inventory[num194].SetDefaults(0, false);
+												this.inventory[num198].SetDefaults(0, false);
 											}
 											flag44 = true;
 											break;
@@ -8298,42 +7682,42 @@ namespace Terraria
 									{
 										this.launcherWait = 10;
 										Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 11);
-										int num195 = (int)(Main.tile[num192, num193].frameX / 18);
-										int num196 = 0;
-										while (num195 >= 3)
+										int num199 = (int)(Main.tile[num196, num197].frameX / 18);
+										int num200 = 0;
+										while (num199 >= 3)
 										{
-											num196++;
-											num195 -= 3;
+											num200++;
+											num199 -= 3;
 										}
-										num195 = num192 - num195;
-										int num197;
-										for (num197 = (int)(Main.tile[num192, num193].frameY / 18); num197 >= 3; num197 -= 3)
+										num199 = num196 - num199;
+										int num201;
+										for (num201 = (int)(Main.tile[num196, num197].frameY / 18); num201 >= 3; num201 -= 3)
 										{
 										}
-										num197 = num193 - num197;
-										float num198 = 12f + (float)Main.rand.Next(450) * 0.01f;
-										float num199 = (float)Main.rand.Next(85, 105);
-										float num200 = (float)Main.rand.Next(-35, 11);
+										num201 = num197 - num201;
+										float num202 = 12f + (float)Main.rand.Next(450) * 0.01f;
+										float num203 = (float)Main.rand.Next(85, 105);
+										float num204 = (float)Main.rand.Next(-35, 11);
 										int type6 = 166;
 										int damage2 = 17;
 										float knockBack = 3.5f;
-										Vector2 vector = new Vector2((float)((num195 + 2) * 16 - 8), (float)((num197 + 2) * 16 - 8));
-										if (num196 == 0)
+										Vector2 vector = new Vector2((float)((num199 + 2) * 16 - 8), (float)((num201 + 2) * 16 - 8));
+										if (num200 == 0)
 										{
-											num199 *= -1f;
+											num203 *= -1f;
 											vector.X -= 12f;
 										}
 										else
 										{
 											vector.X += 12f;
 										}
-										float num201 = num199;
-										float num202 = num200;
-										float num203 = (float)Math.Sqrt((double)(num201 * num201 + num202 * num202));
-										num203 = num198 / num203;
-										num201 *= num203;
-										num202 *= num203;
-										Projectile.NewProjectile(vector.X, vector.Y, num201, num202, type6, damage2, knockBack, Main.myPlayer, 0f, 0f);
+										float num205 = num203;
+										float num206 = num204;
+										float num207 = (float)Math.Sqrt((double)(num205 * num205 + num206 * num206));
+										num207 = num202 / num207;
+										num205 *= num207;
+										num206 *= num207;
+										Projectile.NewProjectile(vector.X, vector.Y, num205, num206, type6, damage2, knockBack, Main.myPlayer, 0f, 0f);
 									}
 								}
 								if (this.releaseUseTile)
@@ -8372,30 +7756,30 @@ namespace Terraria
 									}
 									else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 79)
 									{
-										int num204 = Player.tileTargetX;
-										int num205 = Player.tileTargetY;
-										num204 += (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameX / 18 * -1);
+										int num208 = Player.tileTargetX;
+										int num209 = Player.tileTargetY;
+										num208 += (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameX / 18 * -1);
 										if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameX >= 72)
 										{
-											num204 += 4;
-											num204++;
+											num208 += 4;
+											num208++;
 										}
 										else
 										{
-											num204 += 2;
+											num208 += 2;
 										}
-										int num206 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 18);
-										int num207 = 0;
-										while (num206 > 1)
+										int num210 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 18);
+										int num211 = 0;
+										while (num210 > 1)
 										{
-											num206 -= 2;
-											num207++;
+											num210 -= 2;
+											num211++;
 										}
-										num205 -= num206;
-										num205 += 2;
-										if (Player.CheckSpawn(num204, num205))
+										num209 -= num210;
+										num209 += 2;
+										if (Player.CheckSpawn(num208, num209))
 										{
-											this.ChangeSpawn(num204, num205);
+											this.ChangeSpawn(num208, num209);
 											Main.NewText("Spawn point set!", 255, 240, 20, false);
 										}
 									}
@@ -8404,8 +7788,8 @@ namespace Terraria
 										bool flag45 = true;
 										if (this.sign >= 0)
 										{
-											int num208 = Sign.ReadSign(Player.tileTargetX, Player.tileTargetY);
-											if (num208 == this.sign)
+											int num212 = Sign.ReadSign(Player.tileTargetX, Player.tileTargetY);
+											if (num212 == this.sign)
 											{
 												this.sign = -1;
 												Main.npcChatText = "";
@@ -8422,23 +7806,23 @@ namespace Terraria
 												Main.playerInventory = false;
 												Main.editSign = false;
 												Main.PlaySound(10, -1, -1, 1);
-												int num209 = Sign.ReadSign(Player.tileTargetX, Player.tileTargetY);
-												this.sign = num209;
-												Main.npcChatText = Main.sign[num209].text;
+												int num213 = Sign.ReadSign(Player.tileTargetX, Player.tileTargetY);
+												this.sign = num213;
+												Main.npcChatText = Main.sign[num213].text;
 											}
 											else
 											{
-												int num210 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameX / 18);
-												int num211 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 18);
-												while (num210 > 1)
+												int num214 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameX / 18);
+												int num215 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 18);
+												while (num214 > 1)
 												{
-													num210 -= 2;
+													num214 -= 2;
 												}
-												int num212 = Player.tileTargetX - num210;
-												int num213 = Player.tileTargetY - num211;
-												if (Main.tile[num212, num213].type == 55 || Main.tile[num212, num213].type == 85)
+												int num216 = Player.tileTargetX - num214;
+												int num217 = Player.tileTargetY - num215;
+												if (Main.tile[num216, num217].type == 55 || Main.tile[num216, num217].type == 85)
 												{
-													NetMessage.SendData(46, -1, -1, "", num212, (float)num213, 0f, 0f, 0);
+													NetMessage.SendData(46, -1, -1, "", num216, (float)num217, 0f, 0f, 0);
 												}
 											}
 										}
@@ -8446,42 +7830,42 @@ namespace Terraria
 									else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 104)
 									{
 										string text = "AM";
-										double num214 = Main.time;
+										double num218 = Main.time;
 										if (!Main.dayTime)
 										{
-											num214 += 54000.0;
+											num218 += 54000.0;
 										}
-										num214 = num214 / 86400.0 * 24.0;
-										double num215 = 7.5;
-										num214 = num214 - num215 - 12.0;
-										if (num214 < 0.0)
+										num218 = num218 / 86400.0 * 24.0;
+										double num219 = 7.5;
+										num218 = num218 - num219 - 12.0;
+										if (num218 < 0.0)
 										{
-											num214 += 24.0;
+											num218 += 24.0;
 										}
-										if (num214 >= 12.0)
+										if (num218 >= 12.0)
 										{
 											text = "PM";
 										}
-										int num216 = (int)num214;
-										double num217 = num214 - (double)num216;
-										num217 = (double)((int)(num217 * 60.0));
-										string text2 = string.Concat(num217);
-										if (num217 < 10.0)
+										int num220 = (int)num218;
+										double num221 = num218 - (double)num220;
+										num221 = (double)((int)(num221 * 60.0));
+										string text2 = string.Concat(num221);
+										if (num221 < 10.0)
 										{
 											text2 = "0" + text2;
 										}
-										if (num216 > 12)
+										if (num220 > 12)
 										{
-											num216 -= 12;
+											num220 -= 12;
 										}
-										if (num216 == 0)
+										if (num220 == 0)
 										{
-											num216 = 12;
+											num220 = 12;
 										}
 										string newText = string.Concat(new object[]
 										{
 											"Time: ",
-											num216,
+											num220,
 											":",
 											text2,
 											" ",
@@ -8494,14 +7878,14 @@ namespace Terraria
 										bool flag46 = false;
 										if (!NPC.AnyNPCs(245))
 										{
-											for (int num218 = 0; num218 < 58; num218++)
+											for (int num222 = 0; num222 < 58; num222++)
 											{
-												if (this.inventory[num218].type == 1293)
+												if (this.inventory[num222].type == 1293)
 												{
-													this.inventory[num218].stack--;
-													if (this.inventory[num218].stack <= 0)
+													this.inventory[num222].stack--;
+													if (this.inventory[num222].stack <= 0)
 													{
-														this.inventory[num218].SetDefaults(0, false);
+														this.inventory[num222].SetDefaults(0, false);
 													}
 													flag46 = true;
 												}
@@ -8522,24 +7906,24 @@ namespace Terraria
 									}
 									else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 10)
 									{
-										int num219 = Player.tileTargetX;
-										int num220 = Player.tileTargetY;
-										if (Main.tile[num219, num220].frameY >= 594 && Main.tile[num219, num220].frameY <= 646)
+										int num223 = Player.tileTargetX;
+										int num224 = Player.tileTargetY;
+										if (Main.tile[num223, num224].frameY >= 594 && Main.tile[num223, num224].frameY <= 646)
 										{
-											int num221 = 1141;
-											for (int num222 = 0; num222 < 58; num222++)
+											int num225 = 1141;
+											for (int num226 = 0; num226 < 58; num226++)
 											{
-												if (this.inventory[num222].type == num221 && this.inventory[num222].stack > 0)
+												if (this.inventory[num226].type == num225 && this.inventory[num226].stack > 0)
 												{
-													this.inventory[num222].stack--;
-													if (this.inventory[num222].stack <= 0)
+													this.inventory[num226].stack--;
+													if (this.inventory[num226].stack <= 0)
 													{
-														this.inventory[num222] = new Item();
+														this.inventory[num226] = new Item();
 													}
-													WorldGen.UnlockDoor(num219, num220);
+													WorldGen.UnlockDoor(num223, num224);
 													if (Main.netMode == 1)
 													{
-														NetMessage.SendData(52, -1, -1, "", this.whoAmi, 2f, (float)num219, (float)num220, 0);
+														NetMessage.SendData(52, -1, -1, "", this.whoAmi, 2f, (float)num223, (float)num224, 0);
 													}
 												}
 											}
@@ -8561,20 +7945,20 @@ namespace Terraria
 									else if ((Main.tile[Player.tileTargetX, Player.tileTargetY].type == 21 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 29 || Main.tile[Player.tileTargetX, Player.tileTargetY].type == 97) && this.talkNPC == -1)
 									{
 										Main.mouseRightRelease = false;
-										int num223 = 0;
-										int num224;
-										for (num224 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameX / 18); num224 > 1; num224 -= 2)
+										int num227 = 0;
+										int num228;
+										for (num228 = (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameX / 18); num228 > 1; num228 -= 2)
 										{
 										}
-										num224 = Player.tileTargetX - num224;
-										int num225 = Player.tileTargetY - (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 18);
+										num228 = Player.tileTargetX - num228;
+										int num229 = Player.tileTargetY - (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 18);
 										if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 29)
 										{
-											num223 = 1;
+											num227 = 1;
 										}
 										else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 97)
 										{
-											num223 = 2;
+											num227 = 2;
 										}
 										else if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameX >= 252)
 										{
@@ -8592,99 +7976,100 @@ namespace Terraria
 										{
 											Main.chestText = "Chest";
 										}
-										if (Main.netMode == 1 && num223 == 0 && (Main.tile[num224, num225].frameX < 72 || Main.tile[num224, num225].frameX > 106) && (Main.tile[num224, num225].frameX < 144 || Main.tile[num224, num225].frameX > 178) && (Main.tile[num224, num225].frameX < 828 || Main.tile[num224, num225].frameX > 1006))
+										if (Main.netMode == 1 && num227 == 0 && (Main.tile[num228, num229].frameX < 72 || Main.tile[num228, num229].frameX > 106) && (Main.tile[num228, num229].frameX < 144 || Main.tile[num228, num229].frameX > 178) && (Main.tile[num228, num229].frameX < 828 || Main.tile[num228, num229].frameX > 1006))
 										{
-											if (num224 == this.chestX && num225 == this.chestY && this.chest != -1)
+											if (num228 == this.chestX && num229 == this.chestY && this.chest != -1)
 											{
 												this.chest = -1;
 												Main.PlaySound(11, -1, -1, 1);
 											}
 											else
 											{
-												NetMessage.SendData(31, -1, -1, "", num224, (float)num225, 0f, 0f, 0);
+												NetMessage.SendData(31, -1, -1, "", num228, (float)num229, 0f, 0f, 0);
 											}
 										}
 										else
 										{
-											int num226 = -1;
-											if (num223 == 1)
+											int num230 = -1;
+											if (num227 == 1)
 											{
-												num226 = -2;
+												num230 = -2;
 											}
-											else if (num223 == 2)
+											else if (num227 == 2)
 											{
-												num226 = -3;
+												num230 = -3;
 											}
 											else
 											{
 												bool flag47 = false;
-												if ((Main.tile[num224, num225].frameX >= 72 && Main.tile[num224, num225].frameX <= 106) || (Main.tile[num224, num225].frameX >= 144 && Main.tile[num224, num225].frameX <= 178) || (Main.tile[num224, num225].frameX >= 828 && Main.tile[num224, num225].frameX <= 1006))
+												if ((Main.tile[num228, num229].frameX >= 72 && Main.tile[num228, num229].frameX <= 106) || (Main.tile[num228, num229].frameX >= 144 && Main.tile[num228, num229].frameX <= 178) || (Main.tile[num228, num229].frameX >= 828 && Main.tile[num228, num229].frameX <= 1006))
 												{
-													int num227 = 327;
-													if (Main.tile[num224, num225].frameX >= 144 && Main.tile[num224, num225].frameX <= 178)
+													int num231 = 327;
+													if (Main.tile[num228, num229].frameX >= 144 && Main.tile[num228, num229].frameX <= 178)
 													{
-														num227 = 329;
+														num231 = 329;
 													}
-													if (Main.tile[num224, num225].frameX >= 828 && Main.tile[num224, num225].frameX <= 1006)
+													if (Main.tile[num228, num229].frameX >= 828 && Main.tile[num228, num229].frameX <= 1006)
 													{
-														int num228 = (int)(Main.tile[num224, num225].frameX / 18);
-														int num229 = 0;
-														while (num228 >= 2)
+														int num232 = (int)(Main.tile[num228, num229].frameX / 18);
+														int num233 = 0;
+														while (num232 >= 2)
 														{
-															num228 -= 2;
-															num229++;
+															num232 -= 2;
+															num233++;
 														}
-														num229 -= 23;
-														num227 = 1533 + num229;
+														num233 -= 23;
+														num231 = 1533 + num233;
 													}
 													flag47 = true;
-													for (int num230 = 0; num230 < 58; num230++)
+													for (int num234 = 0; num234 < 58; num234++)
 													{
-														if (this.inventory[num230].type == num227 && this.inventory[num230].stack > 0)
+														if (this.inventory[num234].type == num231 && this.inventory[num234].stack > 0)
 														{
-															if (num227 != 329)
+															if (num231 != 329)
 															{
-																this.inventory[num230].stack--;
-																if (this.inventory[num230].stack <= 0)
+																this.inventory[num234].stack--;
+																if (this.inventory[num234].stack <= 0)
 																{
-																	this.inventory[num230] = new Item();
+																	this.inventory[num234] = new Item();
 																}
 															}
-															Chest.Unlock(num224, num225);
+															Chest.Unlock(num228, num229);
 															if (Main.netMode == 1)
 															{
-																NetMessage.SendData(52, -1, -1, "", this.whoAmi, 1f, (float)num224, (float)num225, 0);
+																NetMessage.SendData(52, -1, -1, "", this.whoAmi, 1f, (float)num228, (float)num229, 0);
 															}
 														}
 													}
 												}
 												if (!flag47)
 												{
-													num226 = Chest.FindChest(num224, num225);
+													num230 = Chest.FindChest(num228, num229);
+													Main.stackSplit = 600;
 												}
 											}
-											if (num226 != -1)
+											if (num230 != -1)
 											{
-												if (num226 == this.chest)
+												if (num230 == this.chest)
 												{
 													this.chest = -1;
 													Main.PlaySound(11, -1, -1, 1);
 												}
-												else if (num226 != this.chest && this.chest == -1)
+												else if (num230 != this.chest && this.chest == -1)
 												{
-													this.chest = num226;
+													this.chest = num230;
 													Main.playerInventory = true;
 													Main.PlaySound(10, -1, -1, 1);
-													this.chestX = num224;
-													this.chestY = num225;
+													this.chestX = num228;
+													this.chestY = num229;
 												}
 												else
 												{
-													this.chest = num226;
+													this.chest = num230;
 													Main.playerInventory = true;
 													Main.PlaySound(12, -1, -1, 1);
-													this.chestX = num224;
-													this.chestY = num225;
+													this.chestX = num228;
+													this.chestY = num229;
 												}
 											}
 										}
@@ -8703,28 +8088,28 @@ namespace Terraria
 						bool flag48 = false;
 						if (Main.wof >= 0)
 						{
-							float num231 = Main.npc[Main.wof].position.X + (float)(Main.npc[Main.wof].width / 2);
-							num231 += (float)(Main.npc[Main.wof].direction * 200);
-							float num232 = Main.npc[Main.wof].position.Y + (float)(Main.npc[Main.wof].height / 2);
+							float num235 = Main.npc[Main.wof].position.X + (float)(Main.npc[Main.wof].width / 2);
+							num235 += (float)(Main.npc[Main.wof].direction * 200);
+							float num236 = Main.npc[Main.wof].position.Y + (float)(Main.npc[Main.wof].height / 2);
 							Vector2 vector2 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-							float num233 = num231 - vector2.X;
-							float num234 = num232 - vector2.Y;
-							float num235 = (float)Math.Sqrt((double)(num233 * num233 + num234 * num234));
-							float num236 = 11f;
-							float num237;
-							if (num235 > num236)
+							float num237 = num235 - vector2.X;
+							float num238 = num236 - vector2.Y;
+							float num239 = (float)Math.Sqrt((double)(num237 * num237 + num238 * num238));
+							float num240 = 11f;
+							float num241;
+							if (num239 > num240)
 							{
-								num237 = num236 / num235;
+								num241 = num240 / num239;
 							}
 							else
 							{
-								num237 = 1f;
+								num241 = 1f;
 								flag48 = true;
 							}
-							num233 *= num237;
-							num234 *= num237;
-							this.velocity.X = num233;
-							this.velocity.Y = num234;
+							num237 *= num241;
+							num238 *= num241;
+							this.velocity.X = num237;
+							this.velocity.Y = num238;
 						}
 						else
 						{
@@ -8732,291 +8117,15 @@ namespace Terraria
 						}
 						if (flag48 && Main.myPlayer == this.whoAmi)
 						{
-							for (int num238 = 0; num238 < 10; num238++)
+							for (int num242 = 0; num242 < 10; num242++)
 							{
-								if (this.buffType[num238] == 38)
+								if (this.buffType[num242] == 38)
 								{
-									this.DelBuff(num238);
+									this.DelBuff(num242);
 								}
 							}
 						}
 					}
-					/*if (Main.myPlayer == this.whoAmi)
-					{
-						if (Main.wof >= 0 && Main.npc[Main.wof].active)
-						{
-							float num239 = Main.npc[Main.wof].position.X + 40f;
-							if (Main.npc[Main.wof].direction > 0)
-							{
-								num239 -= 96f;
-							}
-							if (this.position.X + (float)this.width > num239 && this.position.X < num239 + 140f && this.gross)
-							{
-								this.noKnockback = false;
-								this.Hurt(50, Main.npc[Main.wof].direction, false, false, " was slain...", false);
-							}
-							if (!this.gross && this.position.Y > (float)((Main.maxTilesY - 250) * 16) && this.position.X > num239 - 1920f && this.position.X < num239 + 1920f)
-							{
-								this.AddBuff(37, 10, true);
-								Main.PlaySound(4, (int)Main.npc[Main.wof].position.X, (int)Main.npc[Main.wof].position.Y, 10);
-							}
-							if (this.gross)
-							{
-								if (this.position.Y < (float)((Main.maxTilesY - 200) * 16))
-								{
-									this.AddBuff(38, 10, true);
-								}
-								if (Main.npc[Main.wof].direction < 0)
-								{
-									if (this.position.X + (float)(this.width / 2) > Main.npc[Main.wof].position.X + (float)(Main.npc[Main.wof].width / 2) + 40f)
-									{
-										this.AddBuff(38, 10, true);
-									}
-								}
-								else if (this.position.X + (float)(this.width / 2) < Main.npc[Main.wof].position.X + (float)(Main.npc[Main.wof].width / 2) - 40f)
-								{
-									this.AddBuff(38, 10, true);
-								}
-							}
-							if (this.tongued)
-							{
-								this.controlHook = false;
-								this.controlUseItem = false;
-								for (int num240 = 0; num240 < 1000; num240++)
-								{
-									if (Main.projectile[num240].active && Main.projectile[num240].owner == Main.myPlayer && Main.projectile[num240].aiStyle == 7)
-									{
-										Main.projectile[num240].Kill();
-									}
-								}
-								Vector2 vector3 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-								float num241 = Main.npc[Main.wof].position.X + (float)(Main.npc[Main.wof].width / 2) - vector3.X;
-								float num242 = Main.npc[Main.wof].position.Y + (float)(Main.npc[Main.wof].height / 2) - vector3.Y;
-								float num243 = (float)Math.Sqrt((double)(num241 * num241 + num242 * num242));
-								if (num243 > 3000f)
-								{
-									this.KillMe(1000.0, 0, false, " tried to escape.");
-								}
-								else if (Main.npc[Main.wof].position.X < 608f || Main.npc[Main.wof].position.X > (float)((Main.maxTilesX - 38) * 16))
-								{
-									this.KillMe(1000.0, 0, false, " was licked.");
-								}
-							}
-						}
-						if (this.controlHook)
-						{
-							if (this.releaseHook)
-							{
-								this.QuickGrapple();
-							}
-							this.releaseHook = false;
-						}
-						else
-						{
-							this.releaseHook = true;
-						}
-						if (this.talkNPC >= 0)
-						{
-							Rectangle rectangle = new Rectangle((int)(this.position.X + (float)(this.width / 2) - (float)(Player.tileRangeX * 16)), (int)(this.position.Y + (float)(this.height / 2) - (float)(Player.tileRangeY * 16)), Player.tileRangeX * 16 * 2, Player.tileRangeY * 16 * 2);
-							Rectangle value = new Rectangle((int)Main.npc[this.talkNPC].position.X, (int)Main.npc[this.talkNPC].position.Y, Main.npc[this.talkNPC].width, Main.npc[this.talkNPC].height);
-							if (!rectangle.Intersects(value) || this.chest != -1 || !Main.npc[this.talkNPC].active)
-							{
-								if (this.chest == -1)
-								{
-									Main.PlaySound(11, -1, -1, 1);
-								}
-								this.talkNPC = -1;
-								Main.npcChatText = "";
-							}
-						}
-						if (this.sign >= 0)
-						{
-							Rectangle rectangle2 = new Rectangle((int)(this.position.X + (float)(this.width / 2) - (float)(Player.tileRangeX * 16)), (int)(this.position.Y + (float)(this.height / 2) - (float)(Player.tileRangeY * 16)), Player.tileRangeX * 16 * 2, Player.tileRangeY * 16 * 2);
-							try
-							{
-								Rectangle value2 = new Rectangle(Main.sign[this.sign].x * 16, Main.sign[this.sign].y * 16, 32, 32);
-								if (!rectangle2.Intersects(value2))
-								{
-									Main.PlaySound(11, -1, -1, 1);
-									this.sign = -1;
-									Main.editSign = false;
-									Main.npcChatText = "";
-								}
-							}
-							catch
-							{
-								Main.PlaySound(11, -1, -1, 1);
-								this.sign = -1;
-								Main.editSign = false;
-								Main.npcChatText = "";
-							}
-						}
-						if (Main.editSign)
-						{
-							if (this.sign == -1)
-							{
-								Main.editSign = false;
-							}
-							else
-							{
-								Main.npcChatText = Main.GetInputText(Main.npcChatText);
-								if (Main.inputTextEnter)
-								{
-									byte[] bytes = new byte[]
-									{
-										10
-									};
-									Main.npcChatText += Encoding.ASCII.GetString(bytes);
-								}
-							}
-						}
-						if (!this.immune)
-						{
-							Rectangle rectangle3 = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
-							for (int num244 = 0; num244 < 200; num244++)
-							{
-								if (Main.npc[num244].active && !Main.npc[num244].friendly && Main.npc[num244].damage > 0 && rectangle3.Intersects(new Rectangle((int)Main.npc[num244].position.X, (int)Main.npc[num244].position.Y, Main.npc[num244].width, Main.npc[num244].height)))
-								{
-									int num245 = -1;
-									if (Main.npc[num244].position.X + (float)(Main.npc[num244].width / 2) < this.position.X + (float)(this.width / 2))
-									{
-										num245 = 1;
-									}
-									int num246 = Main.DamageVar((float)Main.npc[num244].damage);
-									if (this.whoAmi == Main.myPlayer && this.thorns && !this.immune && !Main.npc[num244].dontTakeDamage)
-									{
-										int num247 = num246 / 3;
-										int num248 = 10;
-										if (this.turtleThorns)
-										{
-											num247 = num246;
-										}
-										Main.npc[num244].StrikeNPC(num247, (float)num248, -num245, false, false);
-										if (Main.netMode != 0)
-										{
-											NetMessage.SendData(28, -1, -1, "", num244, (float)num247, (float)num248, (float)(-(float)num245), 0);
-										}
-									}
-									if (!this.immune)
-									{
-										if (Main.npc[num244].type >= 269 && Main.npc[num244].type <= 272)
-										{
-											if (Main.rand.Next(3) == 0)
-											{
-												this.AddBuff(30, 600, true);
-											}
-											else if (Main.rand.Next(3) == 0)
-											{
-												this.AddBuff(32, 300, true);
-											}
-										}
-										if (Main.npc[num244].type >= 273 && Main.npc[num244].type <= 276 && Main.rand.Next(2) == 0)
-										{
-											this.AddBuff(36, 600, true);
-										}
-										if (Main.npc[num244].type >= 277 && Main.npc[num244].type <= 280)
-										{
-											this.AddBuff(24, 600, true);
-										}
-										if (((Main.npc[num244].type == 1 && Main.npc[num244].name == "Black Slime") || Main.npc[num244].type == 81 || Main.npc[num244].type == 79) && Main.rand.Next(4) == 0)
-										{
-											this.AddBuff(22, 900, true);
-										}
-										if ((Main.npc[num244].type == 23 || Main.npc[num244].type == 25) && Main.rand.Next(3) == 0)
-										{
-											this.AddBuff(24, 420, true);
-										}
-										if ((Main.npc[num244].type == 34 || Main.npc[num244].type == 83 || Main.npc[num244].type == 84) && Main.rand.Next(3) == 0)
-										{
-											this.AddBuff(23, 240, true);
-										}
-										if ((Main.npc[num244].type == 104 || Main.npc[num244].type == 102) && Main.rand.Next(8) == 0)
-										{
-											this.AddBuff(30, 2700, true);
-										}
-										if (Main.npc[num244].type == 75 && Main.rand.Next(10) == 0)
-										{
-											this.AddBuff(35, 420, true);
-										}
-										if ((Main.npc[num244].type == 163 || Main.npc[num244].type == 238) && Main.rand.Next(10) == 0)
-										{
-											this.AddBuff(70, 480, true);
-										}
-										if ((Main.npc[num244].type == 79 || Main.npc[num244].type == 103) && Main.rand.Next(5) == 0)
-										{
-											this.AddBuff(35, 420, true);
-										}
-										if ((Main.npc[num244].type == 75 || Main.npc[num244].type == 78 || Main.npc[num244].type == 82) && Main.rand.Next(8) == 0)
-										{
-											this.AddBuff(32, 900, true);
-										}
-										if ((Main.npc[num244].type == 93 || Main.npc[num244].type == 109 || Main.npc[num244].type == 80) && Main.rand.Next(14) == 0)
-										{
-											this.AddBuff(31, 300, true);
-										}
-										if (Main.npc[num244].type >= 305 && Main.npc[num244].type <= 314 && Main.rand.Next(10) == 0)
-										{
-											this.AddBuff(33, 3600, true);
-										}
-										if (Main.npc[num244].type == 77 && Main.rand.Next(6) == 0)
-										{
-											this.AddBuff(36, 18000, true);
-										}
-										if (Main.npc[num244].type == 112 && Main.rand.Next(20) == 0)
-										{
-											this.AddBuff(33, 18000, true);
-										}
-										if (Main.npc[num244].type == 182 && Main.rand.Next(25) == 0)
-										{
-											this.AddBuff(33, 7200, true);
-										}
-										if (Main.npc[num244].type == 141 && Main.rand.Next(2) == 0)
-										{
-											this.AddBuff(20, 600, true);
-										}
-										if (Main.npc[num244].type == 147 && !Main.player[i].frozen && Main.rand.Next(12) == 0)
-										{
-											Main.player[i].AddBuff(46, 600, true);
-										}
-										if (Main.npc[num244].type == 150)
-										{
-											if (Main.rand.Next(2) == 0)
-											{
-												Main.player[i].AddBuff(46, 900, true);
-											}
-											if (!Main.player[i].frozen && Main.rand.Next(35) == 0)
-											{
-												Main.player[i].AddBuff(47, 60, true);
-											}
-										}
-										if (Main.npc[num244].type == 184)
-										{
-											Main.player[i].AddBuff(46, 1200, true);
-											if (!Main.player[i].frozen && Main.rand.Next(15) == 0)
-											{
-												Main.player[i].AddBuff(47, 60, true);
-											}
-										}
-									}
-									this.Hurt(num246, num245, false, false, Lang.deathMsg(-1, num244, -1, -1), false);
-								}
-							}
-						}
-						Vector2 vector4 = Collision.HurtTiles(this.position, this.velocity, this.width, this.height, this.fireWalk);
-						if (vector4.Y == 20f)
-						{
-							this.AddBuff(67, 20, true);
-						}
-						else if (vector4.Y == 15f)
-						{
-							this.AddBuff(68, 1, true);
-						}
-						else if (vector4.Y != 0f)
-						{
-							int damage3 = Main.DamageVar(vector4.Y);
-							this.Hurt(damage3, 0, false, false, Lang.deathMsg(-1, -1, -1, 3), false);
-						}
-					}*/
 					if (this.controlRight)
 					{
 						this.releaseRight = false;
@@ -9064,44 +8173,44 @@ namespace Terraria
 						{
 							this.wingFrame = 3;
 						}
-						this.wingTime = this.GetWingTime();
+						this.wingTime = (float)this.GetWingTime();
 						this.rocketTime = this.rocketTimeMax;
 						this.rocketDelay = 0;
 						this.rocketFrame = false;
 						this.canRocket = false;
 						this.rocketRelease = false;
 						this.fallStart = (int)(this.position.Y / 16f);
-						float num249 = 0f;
-						float num250 = 0f;
-						for (int num251 = 0; num251 < this.grapCount; num251++)
+						float num253 = 0f;
+						float num254 = 0f;
+						for (int num255 = 0; num255 < this.grapCount; num255++)
 						{
-							num249 += Main.projectile[this.grappling[num251]].position.X + (float)(Main.projectile[this.grappling[num251]].width / 2);
-							num250 += Main.projectile[this.grappling[num251]].position.Y + (float)(Main.projectile[this.grappling[num251]].height / 2);
+							num253 += Main.projectile[this.grappling[num255]].position.X + (float)(Main.projectile[this.grappling[num255]].width / 2);
+							num254 += Main.projectile[this.grappling[num255]].position.Y + (float)(Main.projectile[this.grappling[num255]].height / 2);
 						}
-						num249 /= (float)this.grapCount;
-						num250 /= (float)this.grapCount;
+						num253 /= (float)this.grapCount;
+						num254 /= (float)this.grapCount;
 						Vector2 vector5 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-						float num252 = num249 - vector5.X;
-						float num253 = num250 - vector5.Y;
-						float num254 = (float)Math.Sqrt((double)(num252 * num252 + num253 * num253));
-						float num255 = 11f;
+						float num256 = num253 - vector5.X;
+						float num257 = num254 - vector5.Y;
+						float num258 = (float)Math.Sqrt((double)(num256 * num256 + num257 * num257));
+						float num259 = 11f;
 						if (Main.projectile[this.grappling[0]].type == 315)
 						{
-							num255 = 16f;
+							num259 = 16f;
 						}
-						float num256;
-						if (num254 > num255)
+						float num260;
+						if (num258 > num259)
 						{
-							num256 = num255 / num254;
+							num260 = num259 / num258;
 						}
 						else
 						{
-							num256 = 1f;
+							num260 = 1f;
 						}
-						num252 *= num256;
-						num253 *= num256;
-						this.velocity.X = num252;
-						this.velocity.Y = num253;
+						num256 *= num260;
+						num257 *= num260;
+						this.velocity.X = num256;
+						this.velocity.Y = num257;
 						if (this.itemAnimation == 0)
 						{
 							if (this.velocity.X > 0f)
@@ -9146,11 +8255,11 @@ namespace Terraria
 								}
 								this.grappling[0] = 0;
 								this.grapCount = 0;
-								for (int num257 = 0; num257 < 1000; num257++)
+								for (int num261 = 0; num261 < 1000; num261++)
 								{
-									if (Main.projectile[num257].active && Main.projectile[num257].owner == i && Main.projectile[num257].aiStyle == 7)
+									if (Main.projectile[num261].active && Main.projectile[num261].owner == i && Main.projectile[num261].aiStyle == 7)
 									{
-										Main.projectile[num257].Kill();
+										Main.projectile[num261].Kill();
 									}
 								}
 							}
@@ -9160,25 +8269,25 @@ namespace Terraria
 							this.releaseJump = true;
 						}
 					}
-					int num258 = this.width / 2;
-					int num259 = this.height / 2;
-					new Vector2(this.position.X + (float)(this.width / 2) - (float)(num258 / 2), this.position.Y + (float)(this.height / 2) - (float)(num259 / 2));
+					int num262 = this.width / 2;
+					int num263 = this.height / 2;
+					new Vector2(this.position.X + (float)(this.width / 2) - (float)(num262 / 2), this.position.Y + (float)(this.height / 2) - (float)(num263 / 2));
 					Vector2 vector6 = Collision.StickyTiles(this.position, this.velocity, this.width, this.height);
 					if (vector6.Y != -1f && vector6.X != -1f)
 					{
-						int num260 = (int)vector6.X;
-						int num261 = (int)vector6.Y;
-						int type7 = (int)Main.tile[num260, num261].type;
+						int num264 = (int)vector6.X;
+						int num265 = (int)vector6.Y;
+						int type7 = (int)Main.tile[num264, num265].type;
 						if (this.whoAmi == Main.myPlayer && type7 == 51 && (this.velocity.X != 0f || this.velocity.Y != 0f))
 						{
 							this.stickyBreak++;
 							if (this.stickyBreak > Main.rand.Next(20, 100))
 							{
 								this.stickyBreak = 0;
-								WorldGen.KillTile(num260, num261, false, false, false);
-								if (Main.netMode == 1 && !Main.tile[num260, num261].active() && Main.netMode == 1)
+								WorldGen.KillTile(num264, num265, false, false, false);
+								if (Main.netMode == 1 && !Main.tile[num264, num265].active() && Main.netMode == 1)
 								{
-									NetMessage.SendData(17, -1, -1, "", 0, (float)num260, (float)num261, 0f, 0);
+									NetMessage.SendData(17, -1, -1, "", 0, (float)num264, (float)num265, 0f, 0);
 								}
 							}
 						}
@@ -9221,52 +8330,52 @@ namespace Terraria
 						}
 						if (type7 == 229 && Main.rand.Next(5) == 0 && ((double)this.velocity.Y > 0.15 || this.velocity.Y < 0f))
 						{
-							if ((float)(num260 * 16) < this.position.X + (float)(this.width / 2))
+							if ((float)(num264 * 16) < this.position.X + (float)(this.width / 2))
 							{
-								int num262 = Dust.NewDust(new Vector2(this.position.X - 4f, (float)(num261 * 16)), 4, 16, 153, 0f, 0f, 50, default(Color), 1f);
-								Main.dust[num262].scale += (float)Main.rand.Next(0, 6) * 0.1f;
-								Main.dust[num262].velocity *= 0.1f;
-								Main.dust[num262].noGravity = true;
+								int num266 = Dust.NewDust(new Vector2(this.position.X - 4f, (float)(num265 * 16)), 4, 16, 153, 0f, 0f, 50, default(Color), 1f);
+								Main.dust[num266].scale += (float)Main.rand.Next(0, 6) * 0.1f;
+								Main.dust[num266].velocity *= 0.1f;
+								Main.dust[num266].noGravity = true;
 							}
 							else
 							{
-								int num263 = Dust.NewDust(new Vector2(this.position.X + (float)this.width - 2f, (float)(num261 * 16)), 4, 16, 153, 0f, 0f, 50, default(Color), 1f);
-								Main.dust[num263].scale += (float)Main.rand.Next(0, 6) * 0.1f;
-								Main.dust[num263].velocity *= 0.1f;
-								Main.dust[num263].noGravity = true;
+								int num267 = Dust.NewDust(new Vector2(this.position.X + (float)this.width - 2f, (float)(num265 * 16)), 4, 16, 153, 0f, 0f, 50, default(Color), 1f);
+								Main.dust[num267].scale += (float)Main.rand.Next(0, 6) * 0.1f;
+								Main.dust[num267].velocity *= 0.1f;
+								Main.dust[num267].noGravity = true;
 							}
-							if (Main.tile[num260, num261 + 1] != null && Main.tile[num260, num261 + 1].type == 229 && this.position.Y + (float)this.height > (float)((num261 + 1) * 16))
+							if (Main.tile[num264, num265 + 1] != null && Main.tile[num264, num265 + 1].type == 229 && this.position.Y + (float)this.height > (float)((num265 + 1) * 16))
 							{
-								if ((float)(num260 * 16) < this.position.X + (float)(this.width / 2))
+								if ((float)(num264 * 16) < this.position.X + (float)(this.width / 2))
 								{
-									int num264 = Dust.NewDust(new Vector2(this.position.X - 4f, (float)(num261 * 16 + 16)), 4, 16, 153, 0f, 0f, 50, default(Color), 1f);
-									Main.dust[num264].scale += (float)Main.rand.Next(0, 6) * 0.1f;
-									Main.dust[num264].velocity *= 0.1f;
-									Main.dust[num264].noGravity = true;
+									int num268 = Dust.NewDust(new Vector2(this.position.X - 4f, (float)(num265 * 16 + 16)), 4, 16, 153, 0f, 0f, 50, default(Color), 1f);
+									Main.dust[num268].scale += (float)Main.rand.Next(0, 6) * 0.1f;
+									Main.dust[num268].velocity *= 0.1f;
+									Main.dust[num268].noGravity = true;
 								}
 								else
 								{
-									int num265 = Dust.NewDust(new Vector2(this.position.X + (float)this.width - 2f, (float)(num261 * 16 + 16)), 4, 16, 153, 0f, 0f, 50, default(Color), 1f);
-									Main.dust[num265].scale += (float)Main.rand.Next(0, 6) * 0.1f;
-									Main.dust[num265].velocity *= 0.1f;
-									Main.dust[num265].noGravity = true;
+									int num269 = Dust.NewDust(new Vector2(this.position.X + (float)this.width - 2f, (float)(num265 * 16 + 16)), 4, 16, 153, 0f, 0f, 50, default(Color), 1f);
+									Main.dust[num269].scale += (float)Main.rand.Next(0, 6) * 0.1f;
+									Main.dust[num269].velocity *= 0.1f;
+									Main.dust[num269].noGravity = true;
 								}
 							}
-							if (Main.tile[num260, num261 + 2] != null && Main.tile[num260, num261 + 2].type == 229 && this.position.Y + (float)this.height > (float)((num261 + 2) * 16))
+							if (Main.tile[num264, num265 + 2] != null && Main.tile[num264, num265 + 2].type == 229 && this.position.Y + (float)this.height > (float)((num265 + 2) * 16))
 							{
-								if ((float)(num260 * 16) < this.position.X + (float)(this.width / 2))
+								if ((float)(num264 * 16) < this.position.X + (float)(this.width / 2))
 								{
-									int num266 = Dust.NewDust(new Vector2(this.position.X - 4f, (float)(num261 * 16 + 32)), 4, 16, 153, 0f, 0f, 50, default(Color), 1f);
-									Main.dust[num266].scale += (float)Main.rand.Next(0, 6) * 0.1f;
-									Main.dust[num266].velocity *= 0.1f;
-									Main.dust[num266].noGravity = true;
+									int num270 = Dust.NewDust(new Vector2(this.position.X - 4f, (float)(num265 * 16 + 32)), 4, 16, 153, 0f, 0f, 50, default(Color), 1f);
+									Main.dust[num270].scale += (float)Main.rand.Next(0, 6) * 0.1f;
+									Main.dust[num270].velocity *= 0.1f;
+									Main.dust[num270].noGravity = true;
 								}
 								else
 								{
-									int num267 = Dust.NewDust(new Vector2(this.position.X + (float)this.width - 2f, (float)(num261 * 16 + 32)), 4, 16, 153, 0f, 0f, 50, default(Color), 1f);
-									Main.dust[num267].scale += (float)Main.rand.Next(0, 6) * 0.1f;
-									Main.dust[num267].velocity *= 0.1f;
-									Main.dust[num267].noGravity = true;
+									int num271 = Dust.NewDust(new Vector2(this.position.X + (float)this.width - 2f, (float)(num265 * 16 + 32)), 4, 16, 153, 0f, 0f, 50, default(Color), 1f);
+									Main.dust[num271].scale += (float)Main.rand.Next(0, 6) * 0.1f;
+									Main.dust[num271].velocity *= 0.1f;
+									Main.dust[num271].noGravity = true;
 								}
 							}
 						}
@@ -9284,20 +8393,20 @@ namespace Terraria
 					{
 						try
 						{
-							int num268 = (int)((this.position.X + (float)(this.width / 2) + (float)(6 * this.direction)) / 16f);
-							int num269 = 0;
+							int num272 = (int)((this.position.X + (float)(this.width / 2) + (float)(6 * this.direction)) / 16f);
+							int num273 = 0;
 							if (this.gravDir == -1f)
 							{
-								num269 = this.height;
+								num273 = this.height;
 							}
-							int num270 = (int)((this.position.Y + (float)num269 - 44f * this.gravDir) / 16f);
-							if (Main.tile[num268, num270].liquid < 128)
+							int num274 = (int)((this.position.Y + (float)num273 - 44f * this.gravDir) / 16f);
+							if (Main.tile[num272, num274].liquid < 128)
 							{
-								if (Main.tile[num268, num270] == null)
+								if (Main.tile[num272, num274] == null)
 								{
-									Main.tile[num268, num270] = new Tile();
+									Main.tile[num272, num274] = new Tile();
 								}
-								if (!Main.tile[num268, num270].active() || !Main.tileSolid[(int)Main.tile[num268, num270].type] || Main.tileSolidTop[(int)Main.tile[num268, num270].type])
+								if (!Main.tile[num272, num274].active() || !Main.tileSolid[(int)Main.tile[num272, num274].type] || Main.tileSolidTop[(int)Main.tile[num272, num274].type])
 								{
 									flag49 = false;
 								}
@@ -9320,16 +8429,16 @@ namespace Terraria
 						if (flag49)
 						{
 							this.breathCD++;
-							int num271 = 7;
+							int num275 = 7;
 							if (this.inventory[this.selectedItem].type == 186)
 							{
-								num271 *= 2;
+								num275 *= 2;
 							}
 							if (this.accDivingHelm)
 							{
-								num271 *= 4;
+								num275 *= 4;
 							}
-							if (this.breathCD >= num271)
+							if (this.breathCD >= num275)
 							{
 								this.breathCD = 0;
 								this.breath--;
@@ -9362,18 +8471,18 @@ namespace Terraria
 					}
 					if (flag49 && Main.rand.Next(20) == 0 && !this.lavaWet && !this.honeyWet)
 					{
-						int num272 = 0;
+						int num276 = 0;
 						if (this.gravDir == -1f)
 						{
-							num272 += this.height - 12;
+							num276 += this.height - 12;
 						}
 						if (this.inventory[this.selectedItem].type == 186)
 						{
-							Dust.NewDust(new Vector2(this.position.X + (float)(10 * this.direction) + 4f, this.position.Y + (float)num272 - 54f * this.gravDir), this.width - 8, 8, 34, 0f, 0f, 0, default(Color), 1.2f);
+							Dust.NewDust(new Vector2(this.position.X + (float)(10 * this.direction) + 4f, this.position.Y + (float)num276 - 54f * this.gravDir), this.width - 8, 8, 34, 0f, 0f, 0, default(Color), 1.2f);
 						}
 						else
 						{
-							Dust.NewDust(new Vector2(this.position.X + (float)(12 * this.direction), this.position.Y + (float)num272 + 4f * this.gravDir), this.width - 8, 8, 34, 0f, 0f, 0, default(Color), 1.2f);
+							Dust.NewDust(new Vector2(this.position.X + (float)(12 * this.direction), this.position.Y + (float)num276 + 4f * this.gravDir), this.width - 8, 8, 34, 0f, 0f, 0, default(Color), 1.2f);
 						}
 					}
 					if (this.gravDir == -1f)
@@ -9381,12 +8490,12 @@ namespace Terraria
 						this.waterWalk = false;
 						this.waterWalk2 = false;
 					}
-					int num273 = this.height;
+					int num277 = this.height;
 					if (this.waterWalk)
 					{
-						num273 -= 6;
+						num277 -= 6;
 					}
-					bool flag50 = Collision.LavaCollision(this.position, this.width, num273);
+					bool flag50 = Collision.LavaCollision(this.position, this.width, num277);
 					if (flag50)
 					{
 						if (!this.lavaImmune && Main.myPlayer == i && !this.immune)
@@ -9418,7 +8527,7 @@ namespace Terraria
 					}
 					if (this.waterWalk2 && !this.waterWalk)
 					{
-						num273 -= 6;
+						num277 -= 6;
 					}
 					bool flag51 = Collision.WetCollision(this.position, this.width, this.height);
 					if (Collision.honey)
@@ -9430,11 +8539,11 @@ namespace Terraria
 					{
 						if (this.onFire && !this.lavaWet)
 						{
-							for (int num274 = 0; num274 < 10; num274++)
+							for (int num278 = 0; num278 < 10; num278++)
 							{
-								if (this.buffType[num274] == 24)
+								if (this.buffType[num278] == 24)
 								{
-									this.DelBuff(num274);
+									this.DelBuff(num278);
 								}
 							}
 						}
@@ -9447,47 +8556,47 @@ namespace Terraria
 								{
 									if (this.honeyWet)
 									{
-										for (int num275 = 0; num275 < 20; num275++)
+										for (int num279 = 0; num279 < 20; num279++)
 										{
-											int num276 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 152, 0f, 0f, 0, default(Color), 1f);
-											Dust expr_13A79_cp_0 = Main.dust[num276];
-											expr_13A79_cp_0.velocity.Y = expr_13A79_cp_0.velocity.Y - 1f;
-											Dust expr_13A99_cp_0 = Main.dust[num276];
-											expr_13A99_cp_0.velocity.X = expr_13A99_cp_0.velocity.X * 2.5f;
-											Main.dust[num276].scale = 1.3f;
-											Main.dust[num276].alpha = 100;
-											Main.dust[num276].noGravity = true;
+											int num280 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 152, 0f, 0f, 0, default(Color), 1f);
+											Dust expr_14291_cp_0 = Main.dust[num280];
+											expr_14291_cp_0.velocity.Y = expr_14291_cp_0.velocity.Y - 1f;
+											Dust expr_142B1_cp_0 = Main.dust[num280];
+											expr_142B1_cp_0.velocity.X = expr_142B1_cp_0.velocity.X * 2.5f;
+											Main.dust[num280].scale = 1.3f;
+											Main.dust[num280].alpha = 100;
+											Main.dust[num280].noGravity = true;
 										}
 										Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 									}
 									else
 									{
-										for (int num277 = 0; num277 < 50; num277++)
+										for (int num281 = 0; num281 < 50; num281++)
 										{
-											int num278 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, Dust.dustWater(), 0f, 0f, 0, default(Color), 1f);
-											Dust expr_13B9A_cp_0 = Main.dust[num278];
-											expr_13B9A_cp_0.velocity.Y = expr_13B9A_cp_0.velocity.Y - 3f;
-											Dust expr_13BBA_cp_0 = Main.dust[num278];
-											expr_13BBA_cp_0.velocity.X = expr_13BBA_cp_0.velocity.X * 2.5f;
-											Main.dust[num278].scale = 0.8f;
-											Main.dust[num278].alpha = 100;
-											Main.dust[num278].noGravity = true;
+											int num282 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, Dust.dustWater(), 0f, 0f, 0, default(Color), 1f);
+											Dust expr_143B2_cp_0 = Main.dust[num282];
+											expr_143B2_cp_0.velocity.Y = expr_143B2_cp_0.velocity.Y - 3f;
+											Dust expr_143D2_cp_0 = Main.dust[num282];
+											expr_143D2_cp_0.velocity.X = expr_143D2_cp_0.velocity.X * 2.5f;
+											Main.dust[num282].scale = 0.8f;
+											Main.dust[num282].alpha = 100;
+											Main.dust[num282].noGravity = true;
 										}
 										Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 0);
 									}
 								}
 								else
 								{
-									for (int num279 = 0; num279 < 20; num279++)
+									for (int num283 = 0; num283 < 20; num283++)
 									{
-										int num280 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
-										Dust expr_13CB8_cp_0 = Main.dust[num280];
-										expr_13CB8_cp_0.velocity.Y = expr_13CB8_cp_0.velocity.Y - 1.5f;
-										Dust expr_13CD8_cp_0 = Main.dust[num280];
-										expr_13CD8_cp_0.velocity.X = expr_13CD8_cp_0.velocity.X * 2.5f;
-										Main.dust[num280].scale = 1.3f;
-										Main.dust[num280].alpha = 100;
-										Main.dust[num280].noGravity = true;
+										int num284 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
+										Dust expr_144D0_cp_0 = Main.dust[num284];
+										expr_144D0_cp_0.velocity.Y = expr_144D0_cp_0.velocity.Y - 1.5f;
+										Dust expr_144F0_cp_0 = Main.dust[num284];
+										expr_144F0_cp_0.velocity.X = expr_144F0_cp_0.velocity.X * 2.5f;
+										Main.dust[num284].scale = 1.3f;
+										Main.dust[num284].alpha = 100;
+										Main.dust[num284].noGravity = true;
 									}
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 								}
@@ -9509,47 +8618,47 @@ namespace Terraria
 							{
 								if (this.honeyWet)
 								{
-									for (int num281 = 0; num281 < 20; num281++)
+									for (int num285 = 0; num285 < 20; num285++)
 									{
-										int num282 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 152, 0f, 0f, 0, default(Color), 1f);
-										Dust expr_13E37_cp_0 = Main.dust[num282];
-										expr_13E37_cp_0.velocity.Y = expr_13E37_cp_0.velocity.Y - 1f;
-										Dust expr_13E57_cp_0 = Main.dust[num282];
-										expr_13E57_cp_0.velocity.X = expr_13E57_cp_0.velocity.X * 2.5f;
-										Main.dust[num282].scale = 1.3f;
-										Main.dust[num282].alpha = 100;
-										Main.dust[num282].noGravity = true;
+										int num286 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 152, 0f, 0f, 0, default(Color), 1f);
+										Dust expr_1464F_cp_0 = Main.dust[num286];
+										expr_1464F_cp_0.velocity.Y = expr_1464F_cp_0.velocity.Y - 1f;
+										Dust expr_1466F_cp_0 = Main.dust[num286];
+										expr_1466F_cp_0.velocity.X = expr_1466F_cp_0.velocity.X * 2.5f;
+										Main.dust[num286].scale = 1.3f;
+										Main.dust[num286].alpha = 100;
+										Main.dust[num286].noGravity = true;
 									}
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 								}
 								else
 								{
-									for (int num283 = 0; num283 < 50; num283++)
+									for (int num287 = 0; num287 < 50; num287++)
 									{
-										int num284 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2)), this.width + 12, 24, Dust.dustWater(), 0f, 0f, 0, default(Color), 1f);
-										Dust expr_13F52_cp_0 = Main.dust[num284];
-										expr_13F52_cp_0.velocity.Y = expr_13F52_cp_0.velocity.Y - 4f;
-										Dust expr_13F72_cp_0 = Main.dust[num284];
-										expr_13F72_cp_0.velocity.X = expr_13F72_cp_0.velocity.X * 2.5f;
-										Main.dust[num284].scale = 0.8f;
-										Main.dust[num284].alpha = 100;
-										Main.dust[num284].noGravity = true;
+										int num288 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2)), this.width + 12, 24, Dust.dustWater(), 0f, 0f, 0, default(Color), 1f);
+										Dust expr_1476A_cp_0 = Main.dust[num288];
+										expr_1476A_cp_0.velocity.Y = expr_1476A_cp_0.velocity.Y - 4f;
+										Dust expr_1478A_cp_0 = Main.dust[num288];
+										expr_1478A_cp_0.velocity.X = expr_1478A_cp_0.velocity.X * 2.5f;
+										Main.dust[num288].scale = 0.8f;
+										Main.dust[num288].alpha = 100;
+										Main.dust[num288].noGravity = true;
 									}
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 0);
 								}
 							}
 							else
 							{
-								for (int num285 = 0; num285 < 20; num285++)
+								for (int num289 = 0; num289 < 20; num289++)
 								{
-									int num286 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
-									Dust expr_14070_cp_0 = Main.dust[num286];
-									expr_14070_cp_0.velocity.Y = expr_14070_cp_0.velocity.Y - 1.5f;
-									Dust expr_14090_cp_0 = Main.dust[num286];
-									expr_14090_cp_0.velocity.X = expr_14090_cp_0.velocity.X * 2.5f;
-									Main.dust[num286].scale = 1.3f;
-									Main.dust[num286].alpha = 100;
-									Main.dust[num286].noGravity = true;
+									int num290 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
+									Dust expr_14888_cp_0 = Main.dust[num290];
+									expr_14888_cp_0.velocity.Y = expr_14888_cp_0.velocity.Y - 1.5f;
+									Dust expr_148A8_cp_0 = Main.dust[num290];
+									expr_148A8_cp_0.velocity.X = expr_148A8_cp_0.velocity.X * 2.5f;
+									Main.dust[num290].scale = 1.3f;
+									Main.dust[num290].alpha = 100;
+									Main.dust[num290].noGravity = true;
 								}
 								Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 							}
@@ -9564,10 +8673,10 @@ namespace Terraria
 					{
 						this.wetCount -= 1;
 					}
-					float num287 = 1f + Math.Abs(this.velocity.X) / 3f;
+					float num291 = 1f + Math.Abs(this.velocity.X) / 3f;
 					if (this.gfxOffY > 0f)
 					{
-						this.gfxOffY -= num287 * this.stepSpeed;
+						this.gfxOffY -= num291 * this.stepSpeed;
 						if (this.gfxOffY < 0f)
 						{
 							this.gfxOffY = 0f;
@@ -9575,7 +8684,7 @@ namespace Terraria
 					}
 					else if (this.gfxOffY < 0f)
 					{
-						this.gfxOffY += num287 * this.stepSpeed;
+						this.gfxOffY += num291 * this.stepSpeed;
 						if (this.gfxOffY > 0f)
 						{
 							this.gfxOffY = 0f;
@@ -9592,19 +8701,19 @@ namespace Terraria
 					if (Main.myPlayer == i && !this.iceSkate && this.velocity.Y > 7f)
 					{
 						Vector2 vector7 = this.position + this.velocity;
-						int num288 = (int)(vector7.X / 16f);
-						int num289 = (int)((vector7.X + (float)this.width) / 16f);
-						int num290 = (int)((this.position.Y + (float)this.height + 1f) / 16f);
-						for (int num291 = num288; num291 <= num289; num291++)
+						int num292 = (int)(vector7.X / 16f);
+						int num293 = (int)((vector7.X + (float)this.width) / 16f);
+						int num294 = (int)((this.position.Y + (float)this.height + 1f) / 16f);
+						for (int num295 = num292; num295 <= num293; num295++)
 						{
-							for (int num292 = num290; num292 <= num290 + 1; num292++)
+							for (int num296 = num294; num296 <= num294 + 1; num296++)
 							{
-								if (Main.tile[num291, num292].nactive() && Main.tile[num291, num292].type == 162)
+								if (Main.tile[num295, num296].nactive() && Main.tile[num295, num296].type == 162)
 								{
-									WorldGen.KillTile(num291, num292, false, false, false);
+									WorldGen.KillTile(num295, num296, false, false, false);
 									if (Main.netMode == 1)
 									{
-										NetMessage.SendData(17, -1, -1, "", 0, (float)num291, (float)num292, 0f, 0);
+										NetMessage.SendData(17, -1, -1, "", 0, (float)num295, (float)num296, 0f, 0);
 									}
 								}
 							}
@@ -9626,123 +8735,123 @@ namespace Terraria
 						Vector2 vector9 = this.position;
 						vector9.X += this.velocity.X;
 						bool flag52 = false;
-						int num293 = (int)(vector9.X / 16f);
-						int num294 = (int)((vector9.X + (float)this.width) / 16f);
-						int num295 = (int)((this.position.Y + (float)this.height + 4f) / 16f);
-						float num296 = (float)((num295 + 3) * 16);
-						for (int num297 = num293; num297 <= num294; num297++)
+						int num297 = (int)(vector9.X / 16f);
+						int num298 = (int)((vector9.X + (float)this.width) / 16f);
+						int num299 = (int)((this.position.Y + (float)this.height + 4f) / 16f);
+						float num300 = (float)((num299 + 3) * 16);
+						for (int num301 = num297; num301 <= num298; num301++)
 						{
-							for (int num298 = num295; num298 <= num295 + 1; num298++)
+							for (int num302 = num299; num302 <= num299 + 1; num302++)
 							{
-								if (Main.tile[num297, num298] == null)
+								if (Main.tile[num301, num302] == null)
 								{
-									Main.tile[num297, num298] = new Tile();
+									Main.tile[num301, num302] = new Tile();
 								}
-								if (Main.tile[num297, num298].slope() != 0)
+								if (Main.tile[num301, num302].slope() != 0)
 								{
 									flag52 = true;
 								}
 								if (this.waterWalk2 || this.waterWalk)
 								{
-									if (Main.tile[num297, num298 - 1] == null)
+									if (Main.tile[num301, num302 - 1] == null)
 									{
-										Main.tile[num297, num298 - 1] = new Tile();
+										Main.tile[num301, num302 - 1] = new Tile();
 									}
-									if (Main.tile[num297, num298].liquid > 0 && Main.tile[num297, num298 - 1].liquid == 0)
+									if (Main.tile[num301, num302].liquid > 0 && Main.tile[num301, num302 - 1].liquid == 0)
 									{
-										int num299 = (int)(Main.tile[num297, num298].liquid / 32 * 2 + 2);
-										int num300 = num298 * 16 + 16 - num299;
-										Rectangle rectangle4 = new Rectangle(num297 * 16, num298 * 16 - 17, 16, 16);
-										if (rectangle4.Intersects(new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height)) && (float)num300 < num296)
+										int num303 = (int)(Main.tile[num301, num302].liquid / 32 * 2 + 2);
+										int num304 = num302 * 16 + 16 - num303;
+										Rectangle rectangle4 = new Rectangle(num301 * 16, num302 * 16 - 17, 16, 16);
+										if (rectangle4.Intersects(new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height)) && (float)num304 < num300)
 										{
-											num296 = (float)num300;
+											num300 = (float)num304;
 										}
 									}
 								}
-								if (Main.tile[num297, num298 - 1] == null)
+								if (Main.tile[num301, num302 - 1] == null)
 								{
-									Main.tile[num297, num298 - 1] = new Tile();
+									Main.tile[num301, num302 - 1] = new Tile();
 								}
-								if (Main.tile[num297, num298].nactive() && (Main.tileSolid[(int)Main.tile[num297, num298].type] || Main.tileSolidTop[(int)Main.tile[num297, num298].type]))
+								if (Main.tile[num301, num302].nactive() && (Main.tileSolid[(int)Main.tile[num301, num302].type] || Main.tileSolidTop[(int)Main.tile[num301, num302].type]))
 								{
-									int num301 = num298 * 16;
-									if (Main.tile[num297, num298].halfBrick())
+									int num305 = num302 * 16;
+									if (Main.tile[num301, num302].halfBrick())
 									{
-										num301 += 8;
+										num305 += 8;
 									}
-									Rectangle rectangle5 = new Rectangle(num297 * 16, num298 * 16 - 17, 16, 16);
-									if (rectangle5.Intersects(new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height)) && (float)num301 < num296)
+									Rectangle rectangle5 = new Rectangle(num301 * 16, num302 * 16 - 17, 16, 16);
+									if (rectangle5.Intersects(new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height)) && (float)num305 < num300)
 									{
-										num296 = (float)num301;
+										num300 = (float)num305;
 									}
 								}
 							}
 						}
-						float num302 = num296 - (this.position.Y + (float)this.height);
-						if (num302 > 7f && num302 < 17f && !flag52)
+						float num306 = num300 - (this.position.Y + (float)this.height);
+						if (num306 > 7f && num306 < 17f && !flag52)
 						{
 							this.stepSpeed = 1.5f;
-							if (num302 > 9f)
+							if (num306 > 9f)
 							{
 								this.stepSpeed = 2.5f;
 							}
-							this.gfxOffY += this.position.Y + (float)this.height - num296;
-							this.position.Y = num296 - (float)this.height;
+							this.gfxOffY += this.position.Y + (float)this.height - num300;
+							this.position.Y = num300 - (float)this.height;
 						}
 					}
 					if (this.gravDir == -1f)
 					{
 						if ((this.carpetFrame != -1 || this.velocity.Y <= num2) && !this.controlUp)
 						{
-							int num303 = 0;
+							int num307 = 0;
 							if (this.velocity.X < 0f)
 							{
-								num303 = -1;
+								num307 = -1;
 							}
 							if (this.velocity.X > 0f)
 							{
-								num303 = 1;
+								num307 = 1;
 							}
 							Vector2 vector10 = this.position;
 							vector10.X += this.velocity.X;
-							int num304 = (int)((vector10.X + (float)(this.width / 2) + (float)((this.width / 2 + 1) * num303)) / 16f);
-							int num305 = (int)(((double)vector10.Y + 0.1) / 16.0);
-							if (Main.tile[num304, num305] == null)
+							int num308 = (int)((vector10.X + (float)(this.width / 2) + (float)((this.width / 2 + 1) * num307)) / 16f);
+							int num309 = (int)(((double)vector10.Y + 0.1) / 16.0);
+							if (Main.tile[num308, num309] == null)
 							{
-								Main.tile[num304, num305] = new Tile();
+								Main.tile[num308, num309] = new Tile();
 							}
-							if (num305 - 1 > 0 && Main.tile[num304, num305 + 1] == null)
+							if (num309 - 1 > 0 && Main.tile[num308, num309 + 1] == null)
 							{
-								Main.tile[num304, num305 + 1] = new Tile();
+								Main.tile[num308, num309 + 1] = new Tile();
 							}
-							if (num305 - 2 > 0 && Main.tile[num304, num305 + 2] == null)
+							if (num309 - 2 > 0 && Main.tile[num308, num309 + 2] == null)
 							{
-								Main.tile[num304, num305 + 2] = new Tile();
+								Main.tile[num308, num309 + 2] = new Tile();
 							}
-							if (num305 - 3 > 0 && Main.tile[num304, num305 + 3] == null)
+							if (num309 - 3 > 0 && Main.tile[num308, num309 + 3] == null)
 							{
-								Main.tile[num304, num305 + 3] = new Tile();
+								Main.tile[num308, num309 + 3] = new Tile();
 							}
-							if (num305 - 4 > 0 && Main.tile[num304, num305 + 4] == null)
+							if (num309 - 4 > 0 && Main.tile[num308, num309 + 4] == null)
 							{
-								Main.tile[num304, num305 + 4] = new Tile();
+								Main.tile[num308, num309 + 4] = new Tile();
 							}
-							if (num305 - 3 > 0 && Main.tile[num304 - num303, num305 + 3] == null)
+							if (num309 - 3 > 0 && Main.tile[num308 - num307, num309 + 3] == null)
 							{
-								Main.tile[num304 - num303, num305 + 3] = new Tile();
+								Main.tile[num308 - num307, num309 + 3] = new Tile();
 							}
-							if ((float)(num304 * 16) < vector10.X + (float)this.width && (float)(num304 * 16 + 16) > vector10.X && ((Main.tile[num304, num305].nactive() && ((Main.tileSolid[(int)Main.tile[num304, num305].type] && !Main.tileSolidTop[(int)Main.tile[num304, num305].type]) || (this.controlUp && Main.tileSolidTop[(int)Main.tile[num304, num305].type] && Main.tile[num304, num305].frameY == 0 && (!Main.tileSolid[(int)Main.tile[num304, num305 + 1].type] || !Main.tile[num304, num305 + 1].nactive())))) || (Main.tile[num304, num305 + 1].halfBrick() && Main.tile[num304, num305 + 1].nactive())) && (!Main.tile[num304, num305 + 1].nactive() || !Main.tileSolid[(int)Main.tile[num304, num305 + 1].type] || Main.tileSolidTop[(int)Main.tile[num304, num305 + 1].type] || Main.tile[num304, num305 + 1].slope() != 0 || (Main.tile[num304, num305 + 1].halfBrick() && (!Main.tile[num304, num305 + 4].nactive() || !Main.tileSolid[(int)Main.tile[num304, num305 + 4].type] || Main.tileSolidTop[(int)Main.tile[num304, num305 + 4].type]))) && (!Main.tile[num304, num305 + 2].nactive() || !Main.tileSolid[(int)Main.tile[num304, num305 + 2].type] || Main.tileSolidTop[(int)Main.tile[num304, num305 + 2].type]) && (!Main.tile[num304, num305 + 3].nactive() || !Main.tileSolid[(int)Main.tile[num304, num305 + 3].type] || Main.tileSolidTop[(int)Main.tile[num304, num305 + 3].type]) && (!Main.tile[num304 - num303, num305 + 3].nactive() || !Main.tileSolid[(int)Main.tile[num304 - num303, num305 + 3].type] || Main.tileSolidTop[(int)Main.tile[num304 - num303, num305 + 3].type]))
+							if ((float)(num308 * 16) < vector10.X + (float)this.width && (float)(num308 * 16 + 16) > vector10.X && ((Main.tile[num308, num309].nactive() && ((Main.tileSolid[(int)Main.tile[num308, num309].type] && !Main.tileSolidTop[(int)Main.tile[num308, num309].type]) || (this.controlUp && Main.tileSolidTop[(int)Main.tile[num308, num309].type] && Main.tile[num308, num309].frameY == 0 && (!Main.tileSolid[(int)Main.tile[num308, num309 + 1].type] || !Main.tile[num308, num309 + 1].nactive())))) || (Main.tile[num308, num309 + 1].halfBrick() && Main.tile[num308, num309 + 1].nactive())) && (!Main.tile[num308, num309 + 1].nactive() || !Main.tileSolid[(int)Main.tile[num308, num309 + 1].type] || Main.tileSolidTop[(int)Main.tile[num308, num309 + 1].type] || Main.tile[num308, num309 + 1].slope() != 0 || (Main.tile[num308, num309 + 1].halfBrick() && (!Main.tile[num308, num309 + 4].nactive() || !Main.tileSolid[(int)Main.tile[num308, num309 + 4].type] || Main.tileSolidTop[(int)Main.tile[num308, num309 + 4].type]))) && (!Main.tile[num308, num309 + 2].nactive() || !Main.tileSolid[(int)Main.tile[num308, num309 + 2].type] || Main.tileSolidTop[(int)Main.tile[num308, num309 + 2].type]) && (!Main.tile[num308, num309 + 3].nactive() || !Main.tileSolid[(int)Main.tile[num308, num309 + 3].type] || Main.tileSolidTop[(int)Main.tile[num308, num309 + 3].type]) && (!Main.tile[num308 - num307, num309 + 3].nactive() || !Main.tileSolid[(int)Main.tile[num308 - num307, num309 + 3].type] || Main.tileSolidTop[(int)Main.tile[num308 - num307, num309 + 3].type]))
 							{
-								float num306 = (float)(num305 * 16 + 16);
-								if (num306 > vector10.Y)
+								float num310 = (float)(num309 * 16 + 16);
+								if (num310 > vector10.Y)
 								{
-									float num307 = num306 - vector10.Y;
-									if ((double)num307 <= 16.1)
+									float num311 = num310 - vector10.Y;
+									if ((double)num311 <= 16.1)
 									{
-										this.gfxOffY -= num306 - this.position.Y;
-										this.position.Y = num306;
+										this.gfxOffY -= num310 - this.position.Y;
+										this.position.Y = num310;
 										this.velocity.Y = 0f;
-										if (num307 < 9f)
+										if (num311 < 9f)
 										{
 											this.stepSpeed = 1f;
 										}
@@ -9757,62 +8866,62 @@ namespace Terraria
 					}
 					else if ((this.carpetFrame != -1 || this.velocity.Y >= num2) && !this.controlDown)
 					{
-						int num308 = 0;
+						int num312 = 0;
 						if (this.velocity.X < 0f)
 						{
-							num308 = -1;
+							num312 = -1;
 						}
 						if (this.velocity.X > 0f)
 						{
-							num308 = 1;
+							num312 = 1;
 						}
 						Vector2 vector11 = this.position;
 						vector11.X += this.velocity.X;
-						int num309 = (int)((vector11.X + (float)(this.width / 2) + (float)((this.width / 2 + 1) * num308)) / 16f);
-						int num310 = (int)((vector11.Y + (float)this.height - 1f) / 16f);
-						if (Main.tile[num309, num310] == null)
+						int num313 = (int)((vector11.X + (float)(this.width / 2) + (float)((this.width / 2 + 1) * num312)) / 16f);
+						int num314 = (int)((vector11.Y + (float)this.height - 1f) / 16f);
+						if (Main.tile[num313, num314] == null)
 						{
-							Main.tile[num309, num310] = new Tile();
+							Main.tile[num313, num314] = new Tile();
 						}
-						if (num310 - 1 > 0 && Main.tile[num309, num310 - 1] == null)
+						if (num314 - 1 > 0 && Main.tile[num313, num314 - 1] == null)
 						{
-							Main.tile[num309, num310 - 1] = new Tile();
+							Main.tile[num313, num314 - 1] = new Tile();
 						}
-						if (num310 - 2 > 0 && Main.tile[num309, num310 - 2] == null)
+						if (num314 - 2 > 0 && Main.tile[num313, num314 - 2] == null)
 						{
-							Main.tile[num309, num310 - 2] = new Tile();
+							Main.tile[num313, num314 - 2] = new Tile();
 						}
-						if (num310 - 3 > 0 && Main.tile[num309, num310 - 3] == null)
+						if (num314 - 3 > 0 && Main.tile[num313, num314 - 3] == null)
 						{
-							Main.tile[num309, num310 - 3] = new Tile();
+							Main.tile[num313, num314 - 3] = new Tile();
 						}
-						if (num310 - 4 > 0 && Main.tile[num309, num310 - 4] == null)
+						if (num314 - 4 > 0 && Main.tile[num313, num314 - 4] == null)
 						{
-							Main.tile[num309, num310 - 4] = new Tile();
+							Main.tile[num313, num314 - 4] = new Tile();
 						}
-						if (num310 - 3 > 0 && Main.tile[num309 - num308, num310 - 3] == null)
+						if (num314 - 3 > 0 && Main.tile[num313 - num312, num314 - 3] == null)
 						{
-							Main.tile[num309 - num308, num310 - 3] = new Tile();
+							Main.tile[num313 - num312, num314 - 3] = new Tile();
 						}
-						if ((float)(num309 * 16) < vector11.X + (float)this.width && (float)(num309 * 16 + 16) > vector11.X && ((Main.tile[num309, num310].nactive() && (Main.tile[num309, num310].slope() == 0 || (Main.tile[num309, num310].slope() == 1 && this.position.X + (float)(this.width / 2) < (float)(num309 * 16)) || (Main.tile[num309, num310].slope() == 2 && this.position.X + (float)(this.width / 2) > (float)(num309 * 16 + 16))) && (Main.tile[num309, num310 - 1].slope() == 0 || this.position.Y + (float)this.height > (float)(num310 * 16)) && ((Main.tileSolid[(int)Main.tile[num309, num310].type] && !Main.tileSolidTop[(int)Main.tile[num309, num310].type]) || (this.controlUp && Main.tileSolidTop[(int)Main.tile[num309, num310].type] && Main.tile[num309, num310].frameY == 0 && (!Main.tileSolid[(int)Main.tile[num309, num310 - 1].type] || !Main.tile[num309, num310 - 1].nactive())))) || (Main.tile[num309, num310 - 1].halfBrick() && Main.tile[num309, num310 - 1].nactive())) && (!Main.tile[num309, num310 - 1].nactive() || !Main.tileSolid[(int)Main.tile[num309, num310 - 1].type] || Main.tileSolidTop[(int)Main.tile[num309, num310 - 1].type] || (Main.tile[num309, num310 - 1].slope() == 1 && this.position.X + (float)(this.width / 2) > (float)(num309 * 16)) || (Main.tile[num309, num310 - 1].slope() == 2 && this.position.X + (float)(this.width / 2) < (float)(num309 * 16 + 16)) || (Main.tile[num309, num310 - 1].halfBrick() && (!Main.tile[num309, num310 - 4].nactive() || !Main.tileSolid[(int)Main.tile[num309, num310 - 4].type] || Main.tileSolidTop[(int)Main.tile[num309, num310 - 4].type]))) && (!Main.tile[num309, num310 - 2].nactive() || !Main.tileSolid[(int)Main.tile[num309, num310 - 2].type] || Main.tileSolidTop[(int)Main.tile[num309, num310 - 2].type]) && (!Main.tile[num309, num310 - 3].nactive() || !Main.tileSolid[(int)Main.tile[num309, num310 - 3].type] || Main.tileSolidTop[(int)Main.tile[num309, num310 - 3].type]) && (!Main.tile[num309 - num308, num310 - 3].nactive() || !Main.tileSolid[(int)Main.tile[num309 - num308, num310 - 3].type] || Main.tileSolidTop[(int)Main.tile[num309 - num308, num310 - 3].type]))
+						if ((float)(num313 * 16) < vector11.X + (float)this.width && (float)(num313 * 16 + 16) > vector11.X && ((Main.tile[num313, num314].nactive() && (Main.tile[num313, num314].slope() == 0 || (Main.tile[num313, num314].slope() == 1 && this.position.X + (float)(this.width / 2) < (float)(num313 * 16)) || (Main.tile[num313, num314].slope() == 2 && this.position.X + (float)(this.width / 2) > (float)(num313 * 16 + 16))) && (Main.tile[num313, num314 - 1].slope() == 0 || this.position.Y + (float)this.height > (float)(num314 * 16)) && ((Main.tileSolid[(int)Main.tile[num313, num314].type] && !Main.tileSolidTop[(int)Main.tile[num313, num314].type]) || (this.controlUp && ((Main.tileSolidTop[(int)Main.tile[num313, num314].type] && Main.tile[num313, num314].frameY == 0) || Main.tile[num313, num314].type == 19) && (!Main.tileSolid[(int)Main.tile[num313, num314 - 1].type] || !Main.tile[num313, num314 - 1].nactive())))) || (Main.tile[num313, num314 - 1].halfBrick() && Main.tile[num313, num314 - 1].nactive())) && (!Main.tile[num313, num314 - 1].nactive() || !Main.tileSolid[(int)Main.tile[num313, num314 - 1].type] || Main.tileSolidTop[(int)Main.tile[num313, num314 - 1].type] || (Main.tile[num313, num314 - 1].slope() == 1 && this.position.X + (float)(this.width / 2) > (float)(num313 * 16)) || (Main.tile[num313, num314 - 1].slope() == 2 && this.position.X + (float)(this.width / 2) < (float)(num313 * 16 + 16)) || (Main.tile[num313, num314 - 1].halfBrick() && (!Main.tile[num313, num314 - 4].nactive() || !Main.tileSolid[(int)Main.tile[num313, num314 - 4].type] || Main.tileSolidTop[(int)Main.tile[num313, num314 - 4].type]))) && (!Main.tile[num313, num314 - 2].nactive() || !Main.tileSolid[(int)Main.tile[num313, num314 - 2].type] || Main.tileSolidTop[(int)Main.tile[num313, num314 - 2].type]) && (!Main.tile[num313, num314 - 3].nactive() || !Main.tileSolid[(int)Main.tile[num313, num314 - 3].type] || Main.tileSolidTop[(int)Main.tile[num313, num314 - 3].type]) && (!Main.tile[num313 - num312, num314 - 3].nactive() || !Main.tileSolid[(int)Main.tile[num313 - num312, num314 - 3].type] || Main.tileSolidTop[(int)Main.tile[num313 - num312, num314 - 3].type]))
 						{
-							float num311 = (float)(num310 * 16);
-							if (Main.tile[num309, num310].halfBrick())
+							float num315 = (float)(num314 * 16);
+							if (Main.tile[num313, num314].halfBrick())
 							{
-								num311 += 8f;
+								num315 += 8f;
 							}
-							if (Main.tile[num309, num310 - 1].halfBrick())
+							if (Main.tile[num313, num314 - 1].halfBrick())
 							{
-								num311 -= 8f;
+								num315 -= 8f;
 							}
-							if (num311 < vector11.Y + (float)this.height)
+							if (num315 < vector11.Y + (float)this.height)
 							{
-								float num312 = vector11.Y + (float)this.height - num311;
-								if ((double)num312 <= 16.1)
+								float num316 = vector11.Y + (float)this.height - num315;
+								if ((double)num316 <= 16.1)
 								{
-									this.gfxOffY += this.position.Y + (float)this.height - num311;
-									this.position.Y = num311 - (float)this.height;
-									if (num312 < 9f)
+									this.gfxOffY += this.position.Y + (float)this.height - num315;
+									this.position.Y = num315 - (float)this.height;
+									if (num316 < 9f)
 									{
 										this.stepSpeed = 1f;
 									}
@@ -9940,36 +9049,36 @@ namespace Terraria
 					}
 					if (this.velocity.Y == 0f && this.grappling[0] == -1)
 					{
-						int num313 = (int)((this.position.X + (float)(this.width / 2)) / 16f);
-						int num314 = (int)((this.position.Y + (float)this.height) / 16f);
-						int num315 = -1;
-						if (Main.tile[num313 - 1, num314] == null)
+						int num317 = (int)((this.position.X + (float)(this.width / 2)) / 16f);
+						int num318 = (int)((this.position.Y + (float)this.height) / 16f);
+						int num319 = -1;
+						if (Main.tile[num317 - 1, num318] == null)
 						{
-							Main.tile[num313 - 1, num314] = new Tile();
+							Main.tile[num317 - 1, num318] = new Tile();
 						}
-						if (Main.tile[num313 + 1, num314] == null)
+						if (Main.tile[num317 + 1, num318] == null)
 						{
-							Main.tile[num313 + 1, num314] = new Tile();
+							Main.tile[num317 + 1, num318] = new Tile();
 						}
-						if (Main.tile[num313, num314] == null)
+						if (Main.tile[num317, num318] == null)
 						{
-							Main.tile[num313, num314] = new Tile();
+							Main.tile[num317, num318] = new Tile();
 						}
-						if (Main.tile[num313, num314].nactive() && Main.tileSolid[(int)Main.tile[num313, num314].type])
+						if (Main.tile[num317, num318].nactive() && Main.tileSolid[(int)Main.tile[num317, num318].type])
 						{
-							num315 = (int)Main.tile[num313, num314].type;
+							num319 = (int)Main.tile[num317, num318].type;
 						}
-						else if (Main.tile[num313 - 1, num314].nactive() && Main.tileSolid[(int)Main.tile[num313 - 1, num314].type])
+						else if (Main.tile[num317 - 1, num318].nactive() && Main.tileSolid[(int)Main.tile[num317 - 1, num318].type])
 						{
-							num315 = (int)Main.tile[num313 - 1, num314].type;
+							num319 = (int)Main.tile[num317 - 1, num318].type;
 						}
-						else if (Main.tile[num313 + 1, num314].nactive() && Main.tileSolid[(int)Main.tile[num313 + 1, num314].type])
+						else if (Main.tile[num317 + 1, num318].nactive() && Main.tileSolid[(int)Main.tile[num317 + 1, num318].type])
 						{
-							num315 = (int)Main.tile[num313 + 1, num314].type;
+							num319 = (int)Main.tile[num317 + 1, num318].type;
 						}
-						if (num315 > -1)
+						if (num319 > -1)
 						{
-							if (num315 == 229)
+							if (num319 == 229)
 							{
 								this.sticky = true;
 							}
@@ -9977,7 +9086,7 @@ namespace Terraria
 							{
 								this.sticky = false;
 							}
-							if (num315 == 161 || num315 == 162 || num315 == 163 || num315 == 164 || num315 == 200)
+							if (num319 == 161 || num319 == 162 || num319 == 163 || num319 == 164 || num319 == 200)
 							{
 								this.slippy = true;
 							}
@@ -9985,7 +9094,7 @@ namespace Terraria
 							{
 								this.slippy = false;
 							}
-							if (num315 == 197)
+							if (num319 == 197)
 							{
 								this.slippy2 = true;
 							}
@@ -9993,7 +9102,7 @@ namespace Terraria
 							{
 								this.slippy2 = false;
 							}
-							if (num315 == 198)
+							if (num319 == 198)
 							{
 								this.powerrun = true;
 							}
@@ -10001,172 +9110,172 @@ namespace Terraria
 							{
 								this.powerrun = false;
 							}
-							if (Main.tile[num313 - 1, num314].slope() != 0 || Main.tile[num313, num314].slope() != 0 || Main.tile[num313 + 1, num314].slope() != 0)
+							if (Main.tile[num317 - 1, num318].slope() != 0 || Main.tile[num317, num318].slope() != 0 || Main.tile[num317 + 1, num318].slope() != 0)
 							{
-								num315 = -1;
+								num319 = -1;
 							}
-							if (!this.wet && (num315 == 147 || num315 == 25 || num315 == 53 || num315 == 189 || num315 == 0 || num315 == 123 || num315 == 57 || num315 == 112 || num315 == 116 || num315 == 196 || num315 == 193 || num315 == 195 || num315 == 197 || num315 == 199 || num315 == 229))
+							if (!this.wet && (num319 == 147 || num319 == 25 || num319 == 53 || num319 == 189 || num319 == 0 || num319 == 123 || num319 == 57 || num319 == 112 || num319 == 116 || num319 == 196 || num319 == 193 || num319 == 195 || num319 == 197 || num319 == 199 || num319 == 229))
 							{
-								int num316 = 1;
+								int num320 = 1;
 								if (flag53)
 								{
-									num316 = 20;
+									num320 = 20;
 								}
-								for (int num317 = 0; num317 < num316; num317++)
+								for (int num321 = 0; num321 < num320; num321++)
 								{
 									bool flag54 = true;
-									int num318 = 76;
-									if (num315 == 53)
+									int num322 = 76;
+									if (num319 == 53)
 									{
-										num318 = 32;
+										num322 = 32;
 									}
-									if (num315 == 189)
+									if (num319 == 189)
 									{
-										num318 = 16;
+										num322 = 16;
 									}
-									if (num315 == 0)
+									if (num319 == 0)
 									{
-										num318 = 0;
+										num322 = 0;
 									}
-									if (num315 == 123)
+									if (num319 == 123)
 									{
-										num318 = 53;
+										num322 = 53;
 									}
-									if (num315 == 57)
+									if (num319 == 57)
 									{
-										num318 = 36;
+										num322 = 36;
 									}
-									if (num315 == 112)
+									if (num319 == 112)
 									{
-										num318 = 14;
+										num322 = 14;
 									}
-									if (num315 == 116)
+									if (num319 == 116)
 									{
-										num318 = 51;
+										num322 = 51;
 									}
-									if (num315 == 196)
+									if (num319 == 196)
 									{
-										num318 = 108;
+										num322 = 108;
 									}
-									if (num315 == 193)
+									if (num319 == 193)
 									{
-										num318 = 4;
+										num322 = 4;
 									}
-									if (num315 == 195 || num315 == 199)
+									if (num319 == 195 || num319 == 199)
 									{
-										num318 = 5;
+										num322 = 5;
 									}
-									if (num315 == 197)
+									if (num319 == 197)
 									{
-										num318 = 4;
+										num322 = 4;
 									}
-									if (num315 == 229)
+									if (num319 == 229)
 									{
-										num318 = 153;
+										num322 = 153;
 									}
-									if (num315 == 25)
+									if (num319 == 25)
 									{
-										num318 = 37;
+										num322 = 37;
 									}
-									if (num318 == 32 && Main.rand.Next(2) == 0)
-									{
-										flag54 = false;
-									}
-									if (num318 == 14 && Main.rand.Next(2) == 0)
+									if (num322 == 32 && Main.rand.Next(2) == 0)
 									{
 										flag54 = false;
 									}
-									if (num318 == 51 && Main.rand.Next(2) == 0)
+									if (num322 == 14 && Main.rand.Next(2) == 0)
 									{
 										flag54 = false;
 									}
-									if (num318 == 36 && Main.rand.Next(2) == 0)
+									if (num322 == 51 && Main.rand.Next(2) == 0)
 									{
 										flag54 = false;
 									}
-									if (num318 == 0 && Main.rand.Next(3) != 0)
+									if (num322 == 36 && Main.rand.Next(2) == 0)
 									{
 										flag54 = false;
 									}
-									if (num318 == 53 && Main.rand.Next(3) != 0)
+									if (num322 == 0 && Main.rand.Next(3) != 0)
+									{
+										flag54 = false;
+									}
+									if (num322 == 53 && Main.rand.Next(3) != 0)
 									{
 										flag54 = false;
 									}
 									Color newColor = default(Color);
-									if (num315 == 193)
+									if (num319 == 193)
 									{
 										newColor = new Color(30, 100, 255, 100);
 									}
-									if (num315 == 197)
+									if (num319 == 197)
 									{
 										newColor = new Color(97, 200, 255, 100);
 									}
 									if (!flag53)
 									{
-										float num319 = Math.Abs(this.velocity.X) / 3f;
-										if ((float)Main.rand.Next(100) > num319 * 100f)
+										float num323 = Math.Abs(this.velocity.X) / 3f;
+										if ((float)Main.rand.Next(100) > num323 * 100f)
 										{
 											flag54 = false;
 										}
 									}
 									if (flag54)
 									{
-										float num320 = this.velocity.X;
-										if (num320 > 6f)
+										float num324 = this.velocity.X;
+										if (num324 > 6f)
 										{
-											num320 = 6f;
+											num324 = 6f;
 										}
-										if (num320 < -6f)
+										if (num324 < -6f)
 										{
-											num320 = -6f;
+											num324 = -6f;
 										}
 										if (this.velocity.X != 0f || flag53)
 										{
-											int num321 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + (float)this.height - 2f), this.width, 6, num318, 0f, 0f, 50, newColor, 1f);
-											if (num318 == 76)
+											int num325 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + (float)this.height - 2f), this.width, 6, num322, 0f, 0f, 50, newColor, 1f);
+											if (num322 == 76)
 											{
-												Main.dust[num321].scale += (float)Main.rand.Next(3) * 0.1f;
-												Main.dust[num321].noLight = true;
+												Main.dust[num325].scale += (float)Main.rand.Next(3) * 0.1f;
+												Main.dust[num325].noLight = true;
 											}
-											if (num318 == 16 || num318 == 108 || num318 == 153)
+											if (num322 == 16 || num322 == 108 || num322 == 153)
 											{
-												Main.dust[num321].scale += (float)Main.rand.Next(6) * 0.1f;
+												Main.dust[num325].scale += (float)Main.rand.Next(6) * 0.1f;
 											}
-											if (num318 == 37)
+											if (num322 == 37)
 											{
-												Main.dust[num321].scale += 0.25f;
-												Main.dust[num321].alpha = 50;
+												Main.dust[num325].scale += 0.25f;
+												Main.dust[num325].alpha = 50;
 											}
-											if (num318 == 5)
+											if (num322 == 5)
 											{
-												Main.dust[num321].scale += (float)Main.rand.Next(2, 8) * 0.1f;
+												Main.dust[num325].scale += (float)Main.rand.Next(2, 8) * 0.1f;
 											}
-											Main.dust[num321].noGravity = true;
-											if (num316 > 1)
+											Main.dust[num325].noGravity = true;
+											if (num320 > 1)
 											{
-												Dust expr_1623B_cp_0 = Main.dust[num321];
-												expr_1623B_cp_0.velocity.X = expr_1623B_cp_0.velocity.X * 1.2f;
-												Dust expr_1625B_cp_0 = Main.dust[num321];
-												expr_1625B_cp_0.velocity.Y = expr_1625B_cp_0.velocity.Y * 0.8f;
-												Dust expr_1627B_cp_0 = Main.dust[num321];
-												expr_1627B_cp_0.velocity.Y = expr_1627B_cp_0.velocity.Y - 1f;
-												Main.dust[num321].velocity *= 0.8f;
-												Main.dust[num321].scale += (float)Main.rand.Next(3) * 0.1f;
-												Main.dust[num321].velocity.X = (Main.dust[num321].position.X - (this.position.X + (float)(this.width / 2))) * 0.2f;
-												if (Main.dust[num321].velocity.Y > 0f)
+												Dust expr_16A71_cp_0 = Main.dust[num325];
+												expr_16A71_cp_0.velocity.X = expr_16A71_cp_0.velocity.X * 1.2f;
+												Dust expr_16A91_cp_0 = Main.dust[num325];
+												expr_16A91_cp_0.velocity.Y = expr_16A91_cp_0.velocity.Y * 0.8f;
+												Dust expr_16AB1_cp_0 = Main.dust[num325];
+												expr_16AB1_cp_0.velocity.Y = expr_16AB1_cp_0.velocity.Y - 1f;
+												Main.dust[num325].velocity *= 0.8f;
+												Main.dust[num325].scale += (float)Main.rand.Next(3) * 0.1f;
+												Main.dust[num325].velocity.X = (Main.dust[num325].position.X - (this.position.X + (float)(this.width / 2))) * 0.2f;
+												if (Main.dust[num325].velocity.Y > 0f)
 												{
-													Dust expr_16341_cp_0 = Main.dust[num321];
-													expr_16341_cp_0.velocity.Y = expr_16341_cp_0.velocity.Y * -1f;
+													Dust expr_16B77_cp_0 = Main.dust[num325];
+													expr_16B77_cp_0.velocity.Y = expr_16B77_cp_0.velocity.Y * -1f;
 												}
-												Dust expr_16361_cp_0 = Main.dust[num321];
-												expr_16361_cp_0.velocity.X = expr_16361_cp_0.velocity.X + num320 * 0.3f;
+												Dust expr_16B97_cp_0 = Main.dust[num325];
+												expr_16B97_cp_0.velocity.X = expr_16B97_cp_0.velocity.X + num324 * 0.3f;
 											}
 											else
 											{
-												Main.dust[num321].velocity *= 0.2f;
+												Main.dust[num325].velocity *= 0.2f;
 											}
-											Dust expr_163A7_cp_0 = Main.dust[num321];
-											expr_163A7_cp_0.position.X = expr_163A7_cp_0.position.X - num320 * 1f;
+											Dust expr_16BDD_cp_0 = Main.dust[num325];
+											expr_16BDD_cp_0.position.X = expr_16BDD_cp_0.position.X - num324 * 1f;
 										}
 									}
 								}
@@ -10207,15 +9316,15 @@ namespace Terraria
 						try
 						{
 							this.ItemCheck(i);
-							goto IL_1658B;
+							goto IL_16DC1;
 						}
 						catch
 						{
-							goto IL_1658B;
+							goto IL_16DC1;
 						}
 					}
 					this.ItemCheck(i);
-					IL_1658B:
+					IL_16DC1:
 					this.PlayerFrame();
 					if (this.statLife > this.statLifeMax)
 					{
@@ -11079,7 +10188,11 @@ namespace Terraria
 				}
 				else if (this.wings > 0)
 				{
-					if (this.velocity.Y > 0f)
+					if (this.wings == 22)
+					{
+						this.bodyFrame.Y = 0;
+					}
+					else if (this.velocity.Y > 0f)
 					{
 						if (this.controlJump)
 						{
@@ -11132,6 +10245,10 @@ namespace Terraria
 			{
 				this.legFrameCounter = 0.0;
 				this.legFrame.Y = this.legFrame.Height * 5;
+				if (this.wings == 22)
+				{
+					this.legFrame.Y = 0;
+				}
 			}
 			else if (this.velocity.X != 0f)
 			{
@@ -11180,46 +10297,22 @@ namespace Terraria
 		}
 		public void Teleport(Vector2 newPos, int Style = 0)
 		{
-			this.grappling[0] = -1;
-			Main.TeleportEffect(this.getRect(), Style);
-			this.position = newPos;
-			if (this.whoAmi == Main.myPlayer)
+			try
 			{
-				Main.BlackFadeIn = 255;
-				//Lighting.BlackOut();
-				Main.screenLastPosition = Main.screenPosition;
-				Main.screenPosition.X = this.position.X + (float)(this.width / 2) - (float)(Main.screenWidth / 2);
-				Main.screenPosition.Y = this.position.Y + (float)(this.height / 2) - (float)(Main.screenHeight / 2);
-				/*if (Main.mapTime < 5)
-				{
-					Main.mapTime = 5;
-				}*/
-				Main.quickBG = 10;
-				Main.maxQ = true;
-				Main.renderNow = true;
+				this.grappling[0] = -1;
+				Main.TeleportEffect(this.getRect(), Style);
+				this.position = newPos;
+				this.fallStart = (int)(this.position.Y / 16f);
+				Main.TeleportEffect(this.getRect(), Style);
+				this.teleportTime = 1f;
+				this.teleportStyle = Style;
 			}
-			this.fallStart = (int)(this.position.Y / 16f);
-			Main.TeleportEffect(this.getRect(), Style);
-			this.teleportTime = 1f;
-			this.teleportStyle = Style;
+			catch
+			{
+			}
 		}
 		public void Spawn()
 		{
-			if (this.whoAmi == Main.myPlayer)
-			{
-				/*if (Main.mapTime < 5)
-				{
-					Main.mapTime = 5;
-				}*/
-				Main.quickBG = 10;
-				this.FindSpawn();
-				if (!Player.CheckSpawn(this.SpawnX, this.SpawnY))
-				{
-					this.SpawnX = -1;
-					this.SpawnY = -1;
-				}
-				Main.maxQ = true;
-			}
 			if (Main.netMode == 1 && this.whoAmi == Main.myPlayer)
 			{
 				NetMessage.SendData(12, -1, -1, "", Main.myPlayer, 0f, 0f, 0f, 0);
@@ -11288,17 +10381,6 @@ namespace Terraria
 			{
 				this.immuneTime = 60;
 			}
-			if (this.whoAmi == Main.myPlayer)
-			{
-				Main.BlackFadeIn = 255;
-				Main.renderNow = true;
-				/*if (Main.netMode == 1)
-				{
-					Netplay.newRecent();
-				}*/
-				Main.screenPosition.X = this.position.X + (float)(this.width / 2) - (float)(Main.screenWidth / 2);
-				Main.screenPosition.Y = this.position.Y + (float)(this.height / 2) - (float)(Main.screenHeight / 2);
-			}
 		}
 		public void ShadowDodge()
 		{
@@ -11307,17 +10389,6 @@ namespace Terraria
 			if (this.longInvince)
 			{
 				this.immuneTime += 40;
-			}
-			if (this.whoAmi == Main.myPlayer)
-			{
-				for (int i = 0; i < 9; i++)
-				{
-					if (this.buffTime[i] > 0 && this.buffType[i] == 59)
-					{
-						this.DelBuff(i);
-					}
-				}
-				NetMessage.SendData(62, -1, -1, "", this.whoAmi, 2f, 0f, 0f, 0);
 			}
 		}
 		public void NinjaDodge()
@@ -11617,28 +10688,6 @@ namespace Terraria
 					int num3 = Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.head / 2), (float)Main.rand.Next(10, 30) * 0.1f * (float)hitDirection + num, (float)Main.rand.Next(-40, -20) * 0.1f, num2, 0, 0f, Main.myPlayer, 0f, 0f);
 					Main.projectile[num3].miscText = this.name + deathText;
 				}
-				if (Main.myPlayer == this.whoAmi)
-				{
-					for (int i = 0; i < 59; i++)
-					{
-						if (this.inventory[i].stack > 0 && this.inventory[i].type >= 1522 && this.inventory[i].type <= 1527)
-						{
-							int num4 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, this.inventory[i].type, 1, false, 0, false);
-							Main.item[num4].SetDefaults(this.inventory[i].name);
-							Main.item[num4].Prefix((int)this.inventory[i].prefix);
-							Main.item[num4].stack = this.inventory[i].stack;
-							Main.item[num4].velocity.Y = (float)Main.rand.Next(-20, 1) * 0.2f;
-							Main.item[num4].velocity.X = (float)Main.rand.Next(-20, 21) * 0.2f;
-							Main.item[num4].noGrabDelay = 100;
-							if (Main.netMode == 1)
-							{
-								NetMessage.SendData(21, -1, -1, "", num4, 0f, 0f, 0f, 0);
-							}
-							this.inventory[i].SetDefaults(0, false);
-						}
-					}
-					//Main.mapFullscreen = false;
-				}
 			}
 			else
 			{
@@ -11660,23 +10709,6 @@ namespace Terraria
 					}
 					int num7 = Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.head / 2), (float)Main.rand.Next(10, 30) * 0.1f * (float)hitDirection + num5, (float)Main.rand.Next(-40, -20) * 0.1f, num6, 0, 0f, Main.myPlayer, 0f, 0f);
 					Main.projectile[num7].miscText = this.name + deathText;
-				}
-				if (Main.myPlayer == this.whoAmi)
-				{
-					if (Main.myPlayer == this.whoAmi)
-					{
-						//Main.mapFullscreen = false;
-					}
-					Main.trashItem.SetDefaults(0, false);
-					if (this.difficulty == 1)
-					{
-						this.DropItems();
-					}
-					else if (this.difficulty == 2)
-					{
-						this.DropItems();
-						this.KillMeForGood();
-					}
 				}
 			}
 			Main.PlaySound(5, (int)this.position.X, (int)this.position.Y, 1);
@@ -11723,16 +10755,6 @@ namespace Terraria
 			if (!pvp && this.whoAmi == Main.myPlayer && this.difficulty == 0)
 			{
 				this.DropCoins();
-			}
-			if (this.whoAmi == Main.myPlayer)
-			{
-				try
-				{
-					//WorldGen.saveToonWhilePlaying();
-				}
-				catch
-				{
-				}
 			}
 		}
 		public bool ItemSpace(Item newItem)
@@ -13238,6 +12260,10 @@ namespace Terraria
 				{
 					flag2 = false;
 				}
+				if (this.inventory[this.selectedItem].type == 1844 && (Main.dayTime || Main.pumpkinMoon))
+				{
+					flag2 = false;
+				}
 				if (this.inventory[this.selectedItem].shoot == 17 && flag2 && i == Main.myPlayer)
 				{
 					int num11 = (int)((float)Main.mouseX + Main.screenPosition.X) / 16;
@@ -13360,7 +12386,7 @@ namespace Terraria
 			}
 			if (!this.controlUseItem)
 			{
-				bool arg_1954_0 = this.channel;
+				bool arg_197E_0 = this.channel;
 				this.channel = false;
 			}
 			if (this.itemAnimation > 0)
@@ -13377,329 +12403,13 @@ namespace Terraria
 				{
 					this.manaRegenDelay = (int)this.maxRegenDelay;
 				}
-				if (Main.dedServ)
-				{
-					this.itemHeight = this.inventory[this.selectedItem].height;
-					this.itemWidth = this.inventory[this.selectedItem].width;
-				}
-				else
-				{
-					//this.itemHeight = Main.itemTexture[this.inventory[this.selectedItem].type].Height;
-					//this.itemWidth = Main.itemTexture[this.inventory[this.selectedItem].type].Width;
-				}
+				this.itemHeight = this.inventory[this.selectedItem].height;
+				this.itemWidth = this.inventory[this.selectedItem].width;
 				this.itemAnimation--;
-				/*if (!Main.dedServ)
-				{
-					if (this.inventory[this.selectedItem].useStyle == 1)
-					{
-						if (this.inventory[this.selectedItem].type == 1827)
-						{
-							if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.333)
-							{
-								float num19 = 10f;
-								this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - num19) * (float)this.direction;
-								this.itemLocation.Y = this.position.Y + 26f;
-							}
-							else if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.666)
-							{
-								float num20 = 8f;
-								this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - num20) * (float)this.direction;
-								num20 = 24f;
-								this.itemLocation.Y = this.position.Y + num20;
-							}
-							else
-							{
-								float num21 = 6f;
-								this.itemLocation.X = this.position.X + (float)this.width * 0.5f - ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - num21) * (float)this.direction;
-								num21 = 20f;
-								this.itemLocation.Y = this.position.Y + num21;
-							}
-							this.itemRotation = ((float)this.itemAnimation / (float)this.itemAnimationMax - 0.5f) * (float)(-(float)this.direction) * 3.5f - (float)this.direction * 0.3f;
-						}
-						else
-						{
-							if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.333)
-							{
-								float num22 = 10f;
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 32)
-								{
-									num22 = 14f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width >= 52)
-								{
-									num22 = 24f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width >= 64)
-								{
-									num22 = 28f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width >= 92)
-								{
-									num22 = 38f;
-								}
-								this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - num22) * (float)this.direction;
-								this.itemLocation.Y = this.position.Y + 24f;
-							}
-							else if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.666)
-							{
-								float num23 = 10f;
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 32)
-								{
-									num23 = 18f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width >= 52)
-								{
-									num23 = 24f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width >= 64)
-								{
-									num23 = 28f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width >= 92)
-								{
-									num23 = 38f;
-								}
-								this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - num23) * (float)this.direction;
-								num23 = 10f;
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 32)
-								{
-									num23 = 8f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height >= 32)
-								{
-									num23 = 12f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 64)
-								{
-									num23 = 14f;
-								}
-								this.itemLocation.Y = this.position.Y + num23;
-							}
-							else
-							{
-								float num24 = 6f;
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width > 32)
-								{
-									num24 = 14f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width >= 52)
-								{
-									num24 = 24f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width >= 64)
-								{
-									num24 = 28f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Width >= 92)
-								{
-									num24 = 38f;
-								}
-								this.itemLocation.X = this.position.X + (float)this.width * 0.5f - ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - num24) * (float)this.direction;
-								num24 = 10f;
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 32)
-								{
-									num24 = 10f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 52)
-								{
-									num24 = 12f;
-								}
-								if (Main.itemTexture[this.inventory[this.selectedItem].type].Height > 64)
-								{
-									num24 = 14f;
-								}
-								this.itemLocation.Y = this.position.Y + num24;
-							}
-							this.itemRotation = ((float)this.itemAnimation / (float)this.itemAnimationMax - 0.5f) * (float)(-(float)this.direction) * 3.5f - (float)this.direction * 0.3f;
-						}
-						if (this.gravDir == -1f)
-						{
-							this.itemRotation = -this.itemRotation;
-							this.itemLocation.Y = this.position.Y + (float)this.height + (this.position.Y - this.itemLocation.Y);
-						}
-					}
-					else if (this.inventory[this.selectedItem].useStyle == 2)
-					{
-						this.itemRotation = (float)this.itemAnimation / (float)this.itemAnimationMax * (float)this.direction * 2f + -1.4f * (float)this.direction;
-						if ((double)this.itemAnimation < (double)this.itemAnimationMax * 0.5)
-						{
-							this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - 9f - this.itemRotation * 12f * (float)this.direction) * (float)this.direction;
-							this.itemLocation.Y = this.position.Y + 38f + this.itemRotation * (float)this.direction * 4f;
-						}
-						else
-						{
-							this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - 9f - this.itemRotation * 16f * (float)this.direction) * (float)this.direction;
-							this.itemLocation.Y = this.position.Y + 38f + this.itemRotation * (float)this.direction;
-						}
-						if (this.gravDir == -1f)
-						{
-							this.itemRotation = -this.itemRotation;
-							this.itemLocation.Y = this.position.Y + (float)this.height + (this.position.Y - this.itemLocation.Y);
-						}
-					}
-					else if (this.inventory[this.selectedItem].useStyle == 3)
-					{
-						if ((double)this.itemAnimation > (double)this.itemAnimationMax * 0.666)
-						{
-							this.itemLocation.X = -1000f;
-							this.itemLocation.Y = -1000f;
-							this.itemRotation = -1.3f * (float)this.direction;
-						}
-						else
-						{
-							this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - 4f) * (float)this.direction;
-							this.itemLocation.Y = this.position.Y + 24f;
-							float num25 = (float)this.itemAnimation / (float)this.itemAnimationMax * (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * (float)this.direction * this.inventory[this.selectedItem].scale * 1.2f - (float)(10 * this.direction);
-							if (num25 > -4f && this.direction == -1)
-							{
-								num25 = -8f;
-							}
-							if (num25 < 4f && this.direction == 1)
-							{
-								num25 = 8f;
-							}
-							this.itemLocation.X = this.itemLocation.X - num25;
-							this.itemRotation = 0.8f * (float)this.direction;
-						}
-						if (this.gravDir == -1f)
-						{
-							this.itemRotation = -this.itemRotation;
-							this.itemLocation.Y = this.position.Y + (float)this.height + (this.position.Y - this.itemLocation.Y);
-						}
-					}
-					else if (this.inventory[this.selectedItem].useStyle == 4)
-					{
-						this.itemRotation = 0f;
-						this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - 9f - this.itemRotation * 14f * (float)this.direction - 4f) * (float)this.direction;
-						this.itemLocation.Y = this.position.Y + (float)Main.itemTexture[this.inventory[this.selectedItem].type].Height * 0.5f + 4f;
-						if (this.gravDir == -1f)
-						{
-							this.itemRotation = -this.itemRotation;
-							this.itemLocation.Y = this.position.Y + (float)this.height + (this.position.Y - this.itemLocation.Y);
-						}
-					}
-					else if (this.inventory[this.selectedItem].useStyle == 5)
-					{
-						this.itemLocation.X = this.position.X + (float)this.width * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - (float)(this.direction * 2);
-						this.itemLocation.Y = this.position.Y + (float)this.height * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Height * 0.5f;
-					}
-				}*/
 			}
 			else if (this.inventory[this.selectedItem].holdStyle == 1 && !this.pulley)
 			{
-				if (Main.dedServ)
-				{
-					this.itemLocation.X = this.position.X + (float)this.width * 0.5f + 20f * (float)this.direction;
-				}
-				/*else if (this.inventory[this.selectedItem].type == 930)
-				{
-					this.itemLocation.X = this.position.X + (float)(this.width / 2) * 0.5f - 12f - (float)(2 * this.direction);
-					float num26 = this.position.X + (float)(this.width / 2) + (float)(38 * this.direction);
-					if (this.direction == 1)
-					{
-						num26 -= 10f;
-					}
-					float num27 = this.position.Y + (float)(this.height / 2) - 4f * this.gravDir;
-					if (this.gravDir == -1f)
-					{
-						num27 -= 8f;
-					}
-					int num28 = 0;
-					for (int num29 = 54; num29 < 58; num29++)
-					{
-						if (this.inventory[num29].stack > 0 && this.inventory[num29].ammo == 931)
-						{
-							num28 = this.inventory[num29].type;
-							break;
-						}
-					}
-					if (num28 == 0)
-					{
-						for (int num30 = 0; num30 < 54; num30++)
-						{
-							if (this.inventory[num30].stack > 0 && this.inventory[num30].ammo == 931)
-							{
-								num28 = this.inventory[num30].type;
-								break;
-							}
-						}
-					}
-					if (num28 == 931)
-					{
-						num28 = 127;
-					}
-					else if (num28 == 1614)
-					{
-						num28 = 187;
-					}
-					if (num28 > 0)
-					{
-						int num31 = Dust.NewDust(new Vector2(num26, num27 + this.gfxOffY), 6, 6, num28, 0f, 0f, 100, default(Color), 1.6f);
-						Main.dust[num31].noGravity = true;
-						Dust expr_29BC_cp_0 = Main.dust[num31];
-						expr_29BC_cp_0.velocity.Y = expr_29BC_cp_0.velocity.Y - 4f * this.gravDir;
-					}
-				}
-				else if (this.inventory[this.selectedItem].type == 968)
-				{
-					this.itemLocation.X = this.position.X + (float)this.width * 0.5f + (float)(8 * this.direction);
-					if (this.whoAmi == Main.myPlayer)
-					{
-						int num32 = (int)(this.itemLocation.X + (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.8f * (float)this.direction) / 16;
-						int num33 = (int)(this.itemLocation.Y + (float)(Main.itemTexture[this.inventory[this.selectedItem].type].Height / 2)) / 16;
-						if (Main.tile[num32, num33] == null)
-						{
-							Main.tile[num32, num33] = new Tile();
-						}
-						if (Main.tile[num32, num33].active() && Main.tile[num32, num33].type == 215)
-						{
-							this.miscTimer++;
-							if (Main.rand.Next(5) == 0)
-							{
-								this.miscTimer++;
-							}
-							if (this.miscTimer > 900)
-							{
-								this.miscTimer = 0;
-								this.inventory[this.selectedItem].SetDefaults(969, false);
-								if (this.selectedItem == 58)
-								{
-									Main.mouseItem.SetDefaults(969, false);
-								}
-								for (int num34 = 0; num34 < 58; num34++)
-								{
-									if (this.inventory[num34].type == this.inventory[this.selectedItem].type && num34 != this.selectedItem && this.inventory[num34].stack < this.inventory[num34].maxStack)
-									{
-										Main.PlaySound(7, -1, -1, 1);
-										this.inventory[num34].stack++;
-										this.inventory[this.selectedItem].SetDefaults(0, false);
-										if (this.selectedItem == 58)
-										{
-											Main.mouseItem.SetDefaults(0, false);
-										}
-									}
-								}
-							}
-						}
-						else
-						{
-							this.miscTimer = 0;
-						}
-					}
-				}
-				else if (this.inventory[this.selectedItem].type == 856)
-				{
-					this.itemLocation.X = this.position.X + (float)this.width * 0.5f + (float)(4 * this.direction);
-				}
-				else
-				{
-					this.itemLocation.X = this.position.X + (float)this.width * 0.5f + ((float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f + 2f) * (float)this.direction;
-					if (this.inventory[this.selectedItem].type == 282 || this.inventory[this.selectedItem].type == 286)
-					{
-						this.itemLocation.X = this.itemLocation.X - (float)(this.direction * 2);
-						this.itemLocation.Y = this.itemLocation.Y + 4f;
-					}
-				}*/
+				this.itemLocation.X = this.position.X + (float)this.width * 0.5f + 20f * (float)this.direction;
 				this.itemLocation.Y = this.position.Y + 24f;
 				if (this.inventory[this.selectedItem].type == 856)
 				{
@@ -13752,263 +12462,6 @@ namespace Terraria
 						this.itemRotation = -this.itemRotation;
 						this.itemLocation.Y = this.position.Y + (float)this.height + (this.position.Y - this.itemLocation.Y);
 					}
-				}
-			}
-			else if (this.inventory[this.selectedItem].holdStyle == 3 && !this.pulley && !Main.dedServ)
-			{
-				/*this.itemLocation.X = this.position.X + (float)this.width * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Width * 0.5f - (float)(this.direction * 2);
-				this.itemLocation.Y = this.position.Y + (float)this.height * 0.5f - (float)Main.itemTexture[this.inventory[this.selectedItem].type].Height * 0.5f;
-				this.itemRotation = 0f;*/
-			}
-			if ((((this.inventory[this.selectedItem].type == 974 || this.inventory[this.selectedItem].type == 8 || this.inventory[this.selectedItem].type == 1245 || (this.inventory[this.selectedItem].type >= 427 && this.inventory[this.selectedItem].type <= 433)) && !this.wet) || this.inventory[this.selectedItem].type == 523 || this.inventory[this.selectedItem].type == 1333) && !this.pulley)
-			{
-				float r = 1f;
-				float g = 0.95f;
-				float b = 0.8f;
-				int num35 = 0;
-				if (this.inventory[this.selectedItem].type == 523)
-				{
-					num35 = 8;
-				}
-				else if (this.inventory[this.selectedItem].type == 974)
-				{
-					num35 = 9;
-				}
-				else if (this.inventory[this.selectedItem].type == 1245)
-				{
-					num35 = 10;
-				}
-				else if (this.inventory[this.selectedItem].type == 1333)
-				{
-					num35 = 11;
-				}
-				else if (this.inventory[this.selectedItem].type >= 427)
-				{
-					num35 = this.inventory[this.selectedItem].type - 426;
-				}
-				if (num35 == 1)
-				{
-					r = 0f;
-					g = 0.1f;
-					b = 1.3f;
-				}
-				else if (num35 == 2)
-				{
-					r = 1f;
-					g = 0.1f;
-					b = 0.1f;
-				}
-				else if (num35 == 3)
-				{
-					r = 0f;
-					g = 1f;
-					b = 0.1f;
-				}
-				else if (num35 == 4)
-				{
-					r = 0.9f;
-					g = 0f;
-					b = 0.9f;
-				}
-				else if (num35 == 5)
-				{
-					r = 1.3f;
-					g = 1.3f;
-					b = 1.3f;
-				}
-				else if (num35 == 6)
-				{
-					r = 0.9f;
-					g = 0.9f;
-					b = 0f;
-				}
-				else if (num35 == 7)
-				{
-					r = 0.5f * Main.demonTorch + 1f * (1f - Main.demonTorch);
-					g = 0.3f;
-					b = 1f * Main.demonTorch + 0.5f * (1f - Main.demonTorch);
-				}
-				else if (num35 == 8)
-				{
-					b = 0.7f;
-					r = 0.85f;
-					g = 1f;
-				}
-				else if (num35 == 9)
-				{
-					b = 1f;
-					r = 0.7f;
-					g = 0.85f;
-				}
-				else if (num35 == 10)
-				{
-					b = 0f;
-					r = 1f;
-					g = 0.5f;
-				}
-				else if (num35 == 11)
-				{
-					b = 0.8f;
-					r = 1.25f;
-					g = 1.25f;
-				}
-				int num36 = num35;
-				if (num36 == 0)
-				{
-					num36 = 6;
-				}
-				else if (num36 == 8)
-				{
-					num36 = 75;
-				}
-				else if (num36 == 9)
-				{
-					num36 = 135;
-				}
-				else if (num36 == 10)
-				{
-					num36 = 158;
-				}
-				else if (num36 == 11)
-				{
-					num36 = 169;
-				}
-				else
-				{
-					num36 = 58 + num36;
-				}
-				int maxValue = 30;
-				if (this.itemAnimation > 0)
-				{
-					maxValue = 7;
-				}
-				if (this.direction == -1)
-				{
-					if (Main.rand.Next(maxValue) == 0)
-					{
-						int num37 = Dust.NewDust(new Vector2(this.itemLocation.X - 16f, this.itemLocation.Y - 14f * this.gravDir), 4, 4, num36, 0f, 0f, 100, default(Color), 1f);
-						if (Main.rand.Next(3) != 0)
-						{
-							Main.dust[num37].noGravity = true;
-						}
-						Main.dust[num37].velocity *= 0.3f;
-						Dust expr_353D_cp_0 = Main.dust[num37];
-						expr_353D_cp_0.velocity.Y = expr_353D_cp_0.velocity.Y - 1.5f;
-					}
-					//Lighting.addLight((int)((this.itemLocation.X - 12f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f + this.velocity.Y) / 16f), r, g, b);
-				}
-				else
-				{
-					if (Main.rand.Next(maxValue) == 0)
-					{
-						int num38 = Dust.NewDust(new Vector2(this.itemLocation.X + 6f, this.itemLocation.Y - 14f * this.gravDir), 4, 4, num36, 0f, 0f, 100, default(Color), 1f);
-						if (Main.rand.Next(3) != 0)
-						{
-							Main.dust[num38].noGravity = true;
-						}
-						Main.dust[num38].velocity *= 0.3f;
-						Dust expr_3654_cp_0 = Main.dust[num38];
-						expr_3654_cp_0.velocity.Y = expr_3654_cp_0.velocity.Y - 1.5f;
-					}
-					//Lighting.addLight((int)((this.itemLocation.X + 12f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f + this.velocity.Y) / 16f), r, g, b);
-				}
-			}
-			if (this.inventory[this.selectedItem].type == 105 && !this.wet && !this.pulley)
-			{
-				int maxValue2 = 20;
-				if (this.itemAnimation > 0)
-				{
-					maxValue2 = 7;
-				}
-				if (this.direction == -1)
-				{
-					if (Main.rand.Next(maxValue2) == 0)
-					{
-						int num39 = Dust.NewDust(new Vector2(this.itemLocation.X - 12f, this.itemLocation.Y - 20f * this.gravDir), 4, 4, 6, 0f, 0f, 100, default(Color), 1f);
-						if (Main.rand.Next(3) != 0)
-						{
-							Main.dust[num39].noGravity = true;
-						}
-						Main.dust[num39].velocity *= 0.3f;
-						Dust expr_37B0_cp_0 = Main.dust[num39];
-						expr_37B0_cp_0.velocity.Y = expr_37B0_cp_0.velocity.Y - 1.5f;
-					}
-					//Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 1f, 0.95f, 0.8f);
-				}
-				else
-				{
-					if (Main.rand.Next(maxValue2) == 0)
-					{
-						int num40 = Dust.NewDust(new Vector2(this.itemLocation.X + 4f, this.itemLocation.Y - 20f * this.gravDir), 4, 4, 6, 0f, 0f, 100, default(Color), 1f);
-						if (Main.rand.Next(3) != 0)
-						{
-							Main.dust[num40].noGravity = true;
-						}
-						Main.dust[num40].velocity *= 0.3f;
-						Dust expr_38C3_cp_0 = Main.dust[num40];
-						expr_38C3_cp_0.velocity.Y = expr_38C3_cp_0.velocity.Y - 1.5f;
-					}
-					//Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 1f, 0.95f, 0.8f);
-				}
-			}
-			else if (this.inventory[this.selectedItem].type == 148 && !this.wet)
-			{
-				int maxValue3 = 10;
-				if (this.itemAnimation > 0)
-				{
-					maxValue3 = 7;
-				}
-				if (this.direction == -1)
-				{
-					if (Main.rand.Next(maxValue3) == 0)
-					{
-						int num41 = Dust.NewDust(new Vector2(this.itemLocation.X - 12f, this.itemLocation.Y - 20f * this.gravDir), 4, 4, 172, 0f, 0f, 100, default(Color), 1f);
-						if (Main.rand.Next(3) != 0)
-						{
-							Main.dust[num41].noGravity = true;
-						}
-						Main.dust[num41].velocity *= 0.3f;
-						Dust expr_3A1D_cp_0 = Main.dust[num41];
-						expr_3A1D_cp_0.velocity.Y = expr_3A1D_cp_0.velocity.Y - 1.5f;
-					}
-					//Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0f, 0.5f, 1f);
-				}
-				else
-				{
-					if (Main.rand.Next(maxValue3) == 0)
-					{
-						int num42 = Dust.NewDust(new Vector2(this.itemLocation.X + 4f, this.itemLocation.Y - 20f * this.gravDir), 4, 4, 172, 0f, 0f, 100, default(Color), 1f);
-						if (Main.rand.Next(3) != 0)
-						{
-							Main.dust[num42].noGravity = true;
-						}
-						Main.dust[num42].velocity *= 0.3f;
-						Dust expr_3B34_cp_0 = Main.dust[num42];
-						expr_3B34_cp_0.velocity.Y = expr_3B34_cp_0.velocity.Y - 1.5f;
-					}
-					//Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0f, 0.5f, 1f);
-				}
-			}
-			if (this.inventory[this.selectedItem].type == 282 && !this.pulley)
-			{
-				if (this.direction == -1)
-				{
-					//Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 1f, 0.8f);
-				}
-				else
-				{
-					//Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 1f, 0.8f);
-				}
-			}
-			if (this.inventory[this.selectedItem].type == 286 && !this.pulley)
-			{
-				if (this.direction == -1)
-				{
-					//Lighting.addLight((int)((this.itemLocation.X - 16f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 0.8f, 1f);
-				}
-				else
-				{
-					//Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), 0.7f, 0.8f, 1f);
 				}
 			}
 			if (this.controlUseItem)
@@ -14680,6 +13133,14 @@ namespace Terraria
 						else
 						{
 							int num108 = Projectile.NewProjectile(vector.X, vector.Y, num53, num54, num45, num47, num48, i, 0f, 0f);
+							if (this.inventory[this.selectedItem].type == 726)
+							{
+								Main.projectile[num108].magic = true;
+							}
+							if (this.inventory[this.selectedItem].type == 724 || this.inventory[this.selectedItem].type == 676)
+							{
+								Main.projectile[num108].melee = true;
+							}
 							if (num45 == 80)
 							{
 								Main.projectile[num108].ai[0] = (float)Player.tileTargetX;
@@ -14895,8 +13356,8 @@ namespace Terraria
 												num125 = 255 - num122;
 											}
 											num122 += num125;
-											Tile expr_681E = Main.tile[num123, num124];
-											expr_681E.liquid -= (byte)num125;
+											Tile expr_68AF = Main.tile[num123, num124];
+											expr_68AF.liquid -= (byte)num125;
 											Main.tile[num123, num124].liquidType(liquidType);
 											if (Main.tile[num123, num124].liquid == 0)
 											{
@@ -15423,10 +13884,45 @@ namespace Terraria
 					newPos.Y = (float)Main.mouseY + Main.screenPosition.Y;
 					newPos.X -= (float)(this.width / 2);
 					newPos.Y -= (float)this.height;
-					if (!Collision.SolidCollision(newPos, this.width, this.height))
+					if (newPos.X > 50f && newPos.X < (float)(Main.maxTilesX * 16 - 50) && newPos.Y > 50f && newPos.Y < (float)(Main.maxTilesY * 16 - 50))
 					{
-						this.Teleport(newPos, 1);
-						NetMessage.SendData(65, -1, -1, "", 0, (float)this.whoAmi, newPos.X, newPos.Y, 1);
+						int num142 = (int)(newPos.X / 16f);
+						int num143 = (int)(newPos.Y / 16f);
+						if ((Main.tile[num142, num143].wall != 87 || (double)num143 <= Main.worldSurface || NPC.downedPlantBoss) && !Collision.SolidCollision(newPos, this.width, this.height))
+						{
+							this.Teleport(newPos, 1);
+							NetMessage.SendData(65, -1, -1, "", 0, (float)this.whoAmi, newPos.X, newPos.Y, 1);
+							if (this.chaosState)
+							{
+								this.statLife -= this.statLifeMax / 5;
+								if (Lang.lang <= 1)
+								{
+									string deathText = " didn't materialize";
+									if (Main.rand.Next(2) == 0)
+									{
+										if (this.male)
+										{
+											deathText = "'s legs appeared where his head should be";
+										}
+										else
+										{
+											deathText = "'s legs appeared where her head should be";
+										}
+									}
+									if (this.statLife <= 0)
+									{
+										this.KillMe(1.0, 0, false, deathText);
+									}
+								}
+								else if (this.statLife <= 0)
+								{
+									this.KillMe(1.0, 0, false, "");
+								}
+								this.lifeRegenCount = 0;
+								this.lifeRegenTime = 0;
+							}
+							this.AddBuff(88, 600, true);
+						}
 					}
 				}
 				if (this.inventory[this.selectedItem].type == 29 && this.itemAnimation > 0 && this.statLifeMax < 400 && this.itemTime == 0)
@@ -15465,10 +13961,6 @@ namespace Terraria
 			{
 				bool flag11 = false;
 				Rectangle rectangle = new Rectangle((int)this.itemLocation.X, (int)this.itemLocation.Y, 32, 32);
-				if (!Main.dedServ)
-				{
-					//rectangle = new Rectangle((int)this.itemLocation.X, (int)this.itemLocation.Y, Main.itemTexture[this.inventory[this.selectedItem].type].Width, Main.itemTexture[this.inventory[this.selectedItem].type].Height);
-				}
 				rectangle.Width = (int)((float)rectangle.Width * this.inventory[this.selectedItem].scale);
 				rectangle.Height = (int)((float)rectangle.Height * this.inventory[this.selectedItem].scale);
 				if (this.direction == -1)
@@ -15519,59 +14011,59 @@ namespace Terraria
 						rectangle.Height = (int)((double)rectangle.Height * 0.6);
 					}
 				}
-				float arg_8BF8_0 = this.gravDir;
+				float arg_8DD6_0 = this.gravDir;
 				if (this.inventory[this.selectedItem].type == 1450 && Main.rand.Next(3) == 0)
 				{
-					int num142 = -1;
+					int num144 = -1;
 					float x3 = (float)(rectangle.X + Main.rand.Next(rectangle.Width));
 					float y3 = (float)(rectangle.Y + Main.rand.Next(rectangle.Height));
 					if (Main.rand.Next(500) == 0)
 					{
-						num142 = Gore.NewGore(new Vector2(x3, y3), default(Vector2), 415, (float)Main.rand.Next(51, 101) * 0.01f);
+						num144 = Gore.NewGore(new Vector2(x3, y3), default(Vector2), 415, (float)Main.rand.Next(51, 101) * 0.01f);
 					}
 					else if (Main.rand.Next(250) == 0)
 					{
-						num142 = Gore.NewGore(new Vector2(x3, y3), default(Vector2), 414, (float)Main.rand.Next(51, 101) * 0.01f);
+						num144 = Gore.NewGore(new Vector2(x3, y3), default(Vector2), 414, (float)Main.rand.Next(51, 101) * 0.01f);
 					}
 					else if (Main.rand.Next(80) == 0)
 					{
-						num142 = Gore.NewGore(new Vector2(x3, y3), default(Vector2), 413, (float)Main.rand.Next(51, 101) * 0.01f);
+						num144 = Gore.NewGore(new Vector2(x3, y3), default(Vector2), 413, (float)Main.rand.Next(51, 101) * 0.01f);
 					}
 					else if (Main.rand.Next(10) == 0)
 					{
-						num142 = Gore.NewGore(new Vector2(x3, y3), default(Vector2), 412, (float)Main.rand.Next(51, 101) * 0.01f);
+						num144 = Gore.NewGore(new Vector2(x3, y3), default(Vector2), 412, (float)Main.rand.Next(51, 101) * 0.01f);
 					}
 					else if (Main.rand.Next(3) == 0)
 					{
-						num142 = Gore.NewGore(new Vector2(x3, y3), default(Vector2), 411, (float)Main.rand.Next(51, 101) * 0.01f);
+						num144 = Gore.NewGore(new Vector2(x3, y3), default(Vector2), 411, (float)Main.rand.Next(51, 101) * 0.01f);
 					}
-					if (num142 >= 0)
+					if (num144 >= 0)
 					{
-						Gore expr_8DE6_cp_0 = Main.gore[num142];
-						expr_8DE6_cp_0.velocity.X = expr_8DE6_cp_0.velocity.X + (float)(this.direction * 2);
-						Gore expr_8E08_cp_0 = Main.gore[num142];
-						expr_8E08_cp_0.velocity.Y = expr_8E08_cp_0.velocity.Y * 0.3f;
+						Gore expr_8FC4_cp_0 = Main.gore[num144];
+						expr_8FC4_cp_0.velocity.X = expr_8FC4_cp_0.velocity.X + (float)(this.direction * 2);
+						Gore expr_8FE6_cp_0 = Main.gore[num144];
+						expr_8FE6_cp_0.velocity.Y = expr_8FE6_cp_0.velocity.Y * 0.3f;
 					}
 				}
 				if (!flag11)
 				{
 					if (this.inventory[this.selectedItem].type == 989 && Main.rand.Next(5) == 0)
 					{
-						int num143 = Main.rand.Next(3);
-						if (num143 == 0)
+						int num145 = Main.rand.Next(3);
+						if (num145 == 0)
 						{
-							num143 = 15;
+							num145 = 15;
 						}
-						else if (num143 == 1)
+						else if (num145 == 1)
 						{
-							num143 = 57;
+							num145 = 57;
 						}
 						else
 						{
-							num143 = 58;
+							num145 = 58;
 						}
-						int num144 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, num143, (float)(this.direction * 2), 0f, 150, default(Color), 1.3f);
-						Main.dust[num144].velocity *= 0.2f;
+						int num146 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, num145, (float)(this.direction * 2), 0f, 150, default(Color), 1.3f);
+						Main.dust[num146].velocity *= 0.2f;
 					}
 					if ((this.inventory[this.selectedItem].type == 44 || this.inventory[this.selectedItem].type == 45 || this.inventory[this.selectedItem].type == 46 || this.inventory[this.selectedItem].type == 103 || this.inventory[this.selectedItem].type == 104) && Main.rand.Next(15) == 0)
 					{
@@ -15583,23 +14075,23 @@ namespace Terraria
 						{
 							Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 14, (float)(this.direction * 2), 0f, 150, default(Color), 1.4f);
 						}
-						int num145 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 27, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 1.2f);
-						Main.dust[num145].noGravity = true;
-						Dust expr_90C9_cp_0 = Main.dust[num145];
-						expr_90C9_cp_0.velocity.X = expr_90C9_cp_0.velocity.X / 2f;
-						Dust expr_90E7_cp_0 = Main.dust[num145];
-						expr_90E7_cp_0.velocity.Y = expr_90E7_cp_0.velocity.Y / 2f;
+						int num147 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 27, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 1.2f);
+						Main.dust[num147].noGravity = true;
+						Dust expr_92A7_cp_0 = Main.dust[num147];
+						expr_92A7_cp_0.velocity.X = expr_92A7_cp_0.velocity.X / 2f;
+						Dust expr_92C5_cp_0 = Main.dust[num147];
+						expr_92C5_cp_0.velocity.Y = expr_92C5_cp_0.velocity.Y / 2f;
 					}
 					if (this.inventory[this.selectedItem].type == 678)
 					{
-						int num146 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 71, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 1.2f);
-						Main.dust[num146].velocity *= 1.5f;
-						Main.dust[num146].noGravity = true;
+						int num148 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 71, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 1.2f);
+						Main.dust[num148].velocity *= 1.5f;
+						Main.dust[num148].noGravity = true;
 					}
 					if (this.inventory[this.selectedItem].type == 723 && Main.rand.Next(2) == 0)
 					{
-						int num147 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 64, 0f, 0f, 150, default(Color), 1.2f);
-						Main.dust[num147].noGravity = true;
+						int num149 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 64, 0f, 0f, 150, default(Color), 1.2f);
+						Main.dust[num149].noGravity = true;
 					}
 					if (this.inventory[this.selectedItem].type == 65)
 					{
@@ -15614,119 +14106,76 @@ namespace Terraria
 					}
 					if (this.inventory[this.selectedItem].type == 190 || this.inventory[this.selectedItem].type == 213)
 					{
-						int num148 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 40, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 0, default(Color), 1.2f);
-						Main.dust[num148].noGravity = true;
+						int num150 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 40, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 0, default(Color), 1.2f);
+						Main.dust[num150].noGravity = true;
 					}
 					if (this.inventory[this.selectedItem].type == 121)
 					{
-						for (int num149 = 0; num149 < 2; num149++)
+						for (int num151 = 0; num151 < 2; num151++)
 						{
-							int num150 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 6, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 2.5f);
-							Main.dust[num150].noGravity = true;
-							Dust expr_943F_cp_0 = Main.dust[num150];
-							expr_943F_cp_0.velocity.X = expr_943F_cp_0.velocity.X * 2f;
-							Dust expr_945D_cp_0 = Main.dust[num150];
-							expr_945D_cp_0.velocity.Y = expr_945D_cp_0.velocity.Y * 2f;
+							int num152 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 6, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 2.5f);
+							Main.dust[num152].noGravity = true;
+							Dust expr_961D_cp_0 = Main.dust[num152];
+							expr_961D_cp_0.velocity.X = expr_961D_cp_0.velocity.X * 2f;
+							Dust expr_963B_cp_0 = Main.dust[num152];
+							expr_963B_cp_0.velocity.Y = expr_963B_cp_0.velocity.Y * 2f;
 						}
 					}
 					if (this.inventory[this.selectedItem].type == 122 || this.inventory[this.selectedItem].type == 217)
 					{
-						int num151 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 6, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 1.9f);
-						Main.dust[num151].noGravity = true;
+						int num153 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 6, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 1.9f);
+						Main.dust[num153].noGravity = true;
 					}
 					if (this.inventory[this.selectedItem].type == 155)
 					{
-						int num152 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 172, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 0.9f);
-						Main.dust[num152].noGravity = true;
-						Main.dust[num152].velocity *= 0.1f;
+						int num154 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 172, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 0.9f);
+						Main.dust[num154].noGravity = true;
+						Main.dust[num154].velocity *= 0.1f;
 					}
 					if ((this.inventory[this.selectedItem].type == 676 || this.inventory[this.selectedItem].type == 673) && Main.rand.Next(3) == 0)
 					{
-						int num153 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 67, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 90, default(Color), 1.5f);
-						Main.dust[num153].noGravity = true;
-						Main.dust[num153].velocity *= 0.2f;
+						int num155 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 67, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 90, default(Color), 1.5f);
+						Main.dust[num155].noGravity = true;
+						Main.dust[num155].velocity *= 0.2f;
 					}
 					if (this.inventory[this.selectedItem].type == 724 && Main.rand.Next(5) == 0)
 					{
-						int num154 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 67, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 90, default(Color), 1.5f);
-						Main.dust[num154].noGravity = true;
-						Main.dust[num154].velocity *= 0.2f;
+						int num156 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 67, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 90, default(Color), 1.5f);
+						Main.dust[num156].noGravity = true;
+						Main.dust[num156].velocity *= 0.2f;
 					}
 					if (this.inventory[this.selectedItem].type >= 795 && this.inventory[this.selectedItem].type <= 802 && Main.rand.Next(3) == 0)
 					{
-						int num155 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 115, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 140, default(Color), 1.5f);
-						Main.dust[num155].noGravity = true;
-						Main.dust[num155].velocity *= 0.25f;
+						int num157 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 115, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 140, default(Color), 1.5f);
+						Main.dust[num157].noGravity = true;
+						Main.dust[num157].velocity *= 0.25f;
 					}
 					if (this.inventory[this.selectedItem].type == 367 || this.inventory[this.selectedItem].type == 368 || this.inventory[this.selectedItem].type == 674)
 					{
 						if (Main.rand.Next(3) == 0)
 						{
-							int num156 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 57, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 1.1f);
-							Main.dust[num156].noGravity = true;
-							Dust expr_9949_cp_0 = Main.dust[num156];
-							expr_9949_cp_0.velocity.X = expr_9949_cp_0.velocity.X / 2f;
-							Dust expr_9967_cp_0 = Main.dust[num156];
-							expr_9967_cp_0.velocity.Y = expr_9967_cp_0.velocity.Y / 2f;
-							Dust expr_9985_cp_0 = Main.dust[num156];
-							expr_9985_cp_0.velocity.X = expr_9985_cp_0.velocity.X + (float)(this.direction * 2);
+							int num158 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 57, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 1.1f);
+							Main.dust[num158].noGravity = true;
+							Dust expr_9B27_cp_0 = Main.dust[num158];
+							expr_9B27_cp_0.velocity.X = expr_9B27_cp_0.velocity.X / 2f;
+							Dust expr_9B45_cp_0 = Main.dust[num158];
+							expr_9B45_cp_0.velocity.Y = expr_9B45_cp_0.velocity.Y / 2f;
+							Dust expr_9B63_cp_0 = Main.dust[num158];
+							expr_9B63_cp_0.velocity.X = expr_9B63_cp_0.velocity.X + (float)(this.direction * 2);
 						}
 						if (Main.rand.Next(4) == 0)
 						{
-							int num156 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 43, 0f, 0f, 254, default(Color), 0.3f);
-							Main.dust[num156].velocity *= 0f;
+							int num158 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 43, 0f, 0f, 254, default(Color), 0.3f);
+							Main.dust[num158].velocity *= 0f;
 						}
-					}
-					if (this.inventory[this.selectedItem].type >= 198 && this.inventory[this.selectedItem].type <= 203)
-					{
-						float num157 = 0.5f;
-						float num158 = 0.5f;
-						float num159 = 0.5f;
-						if (this.inventory[this.selectedItem].type == 198)
-						{
-							num157 *= 0.1f;
-							num158 *= 0.5f;
-							num159 *= 1.2f;
-						}
-						else if (this.inventory[this.selectedItem].type == 199)
-						{
-							num157 *= 1f;
-							num158 *= 0.2f;
-							num159 *= 0.1f;
-						}
-						else if (this.inventory[this.selectedItem].type == 200)
-						{
-							num157 *= 0.1f;
-							num158 *= 1f;
-							num159 *= 0.2f;
-						}
-						else if (this.inventory[this.selectedItem].type == 201)
-						{
-							num157 *= 0.8f;
-							num158 *= 0.1f;
-							num159 *= 1f;
-						}
-						else if (this.inventory[this.selectedItem].type == 202)
-						{
-							num157 *= 0.8f;
-							num158 *= 0.9f;
-							num159 *= 1f;
-						}
-						else if (this.inventory[this.selectedItem].type == 203)
-						{
-							num157 *= 0.9f;
-							num158 *= 0.9f;
-							num159 *= 0.1f;
-						}
-						//Lighting.addLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), num157, num158, num159);
 					}
 					if (this.frostBurn && this.inventory[this.selectedItem].melee && !this.inventory[this.selectedItem].noMelee && !this.inventory[this.selectedItem].noUseGraphic && Main.rand.Next(2) == 0)
 					{
-						int num160 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 135, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 2.5f);
-						Main.dust[num160].noGravity = true;
-						Main.dust[num160].velocity *= 0.7f;
-						Dust expr_9D0B_cp_0 = Main.dust[num160];
-						expr_9D0B_cp_0.velocity.Y = expr_9D0B_cp_0.velocity.Y - 0.5f;
+						int num162 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 135, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 2.5f);
+						Main.dust[num162].noGravity = true;
+						Main.dust[num162].velocity *= 0.7f;
+						Dust expr_9EE9_cp_0 = Main.dust[num162];
+						expr_9EE9_cp_0.velocity.Y = expr_9EE9_cp_0.velocity.Y - 0.5f;
 					}
 					if (this.inventory[this.selectedItem].melee && !this.inventory[this.selectedItem].noMelee && !this.inventory[this.selectedItem].noUseGraphic && this.meleeEnchant > 0)
 					{
@@ -15734,68 +14183,68 @@ namespace Terraria
 						{
 							if (Main.rand.Next(3) == 0)
 							{
-								int num161 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 171, 0f, 0f, 100, default(Color), 1f);
-								Main.dust[num161].noGravity = true;
-								Main.dust[num161].fadeIn = 1.5f;
-								Main.dust[num161].velocity *= 0.25f;
+								int num163 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 171, 0f, 0f, 100, default(Color), 1f);
+								Main.dust[num163].noGravity = true;
+								Main.dust[num163].fadeIn = 1.5f;
+								Main.dust[num163].velocity *= 0.25f;
 							}
 						}
 						else if (this.meleeEnchant == 2)
 						{
 							if (Main.rand.Next(2) == 0)
 							{
-								int num162 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 75, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 2.5f);
-								Main.dust[num162].noGravity = true;
-								Main.dust[num162].velocity *= 0.7f;
-								Dust expr_9EDA_cp_0 = Main.dust[num162];
-								expr_9EDA_cp_0.velocity.Y = expr_9EDA_cp_0.velocity.Y - 0.5f;
+								int num164 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 75, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 2.5f);
+								Main.dust[num164].noGravity = true;
+								Main.dust[num164].velocity *= 0.7f;
+								Dust expr_A0B8_cp_0 = Main.dust[num164];
+								expr_A0B8_cp_0.velocity.Y = expr_A0B8_cp_0.velocity.Y - 0.5f;
 							}
 						}
 						else if (this.meleeEnchant == 3)
 						{
 							if (Main.rand.Next(2) == 0)
 							{
-								int num163 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 6, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 2.5f);
-								Main.dust[num163].noGravity = true;
-								Main.dust[num163].velocity *= 0.7f;
-								Dust expr_9FB0_cp_0 = Main.dust[num163];
-								expr_9FB0_cp_0.velocity.Y = expr_9FB0_cp_0.velocity.Y - 0.5f;
+								int num165 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 6, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 2.5f);
+								Main.dust[num165].noGravity = true;
+								Main.dust[num165].velocity *= 0.7f;
+								Dust expr_A18E_cp_0 = Main.dust[num165];
+								expr_A18E_cp_0.velocity.Y = expr_A18E_cp_0.velocity.Y - 0.5f;
 							}
 						}
 						else if (this.meleeEnchant == 4)
 						{
 							if (Main.rand.Next(2) == 0)
 							{
-								int num164 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 57, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 1.1f);
-								Main.dust[num164].noGravity = true;
-								Dust expr_A06D_cp_0 = Main.dust[num164];
-								expr_A06D_cp_0.velocity.X = expr_A06D_cp_0.velocity.X / 2f;
-								Dust expr_A08B_cp_0 = Main.dust[num164];
-								expr_A08B_cp_0.velocity.Y = expr_A08B_cp_0.velocity.Y / 2f;
+								int num166 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 57, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 1.1f);
+								Main.dust[num166].noGravity = true;
+								Dust expr_A24B_cp_0 = Main.dust[num166];
+								expr_A24B_cp_0.velocity.X = expr_A24B_cp_0.velocity.X / 2f;
+								Dust expr_A269_cp_0 = Main.dust[num166];
+								expr_A269_cp_0.velocity.Y = expr_A269_cp_0.velocity.Y / 2f;
 							}
 						}
 						else if (this.meleeEnchant == 5)
 						{
 							if (Main.rand.Next(2) == 0)
 							{
-								int num165 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 169, 0f, 0f, 100, default(Color), 1f);
-								Dust expr_A118_cp_0 = Main.dust[num165];
-								expr_A118_cp_0.velocity.X = expr_A118_cp_0.velocity.X + (float)this.direction;
-								Dust expr_A138_cp_0 = Main.dust[num165];
-								expr_A138_cp_0.velocity.Y = expr_A138_cp_0.velocity.Y + 0.2f;
-								Main.dust[num165].noGravity = true;
+								int num167 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 169, 0f, 0f, 100, default(Color), 1f);
+								Dust expr_A2F6_cp_0 = Main.dust[num167];
+								expr_A2F6_cp_0.velocity.X = expr_A2F6_cp_0.velocity.X + (float)this.direction;
+								Dust expr_A316_cp_0 = Main.dust[num167];
+								expr_A316_cp_0.velocity.Y = expr_A316_cp_0.velocity.Y + 0.2f;
+								Main.dust[num167].noGravity = true;
 							}
 						}
 						else if (this.meleeEnchant == 6)
 						{
 							if (Main.rand.Next(2) == 0)
 							{
-								int num166 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 135, 0f, 0f, 100, default(Color), 1f);
-								Dust expr_A1D3_cp_0 = Main.dust[num166];
-								expr_A1D3_cp_0.velocity.X = expr_A1D3_cp_0.velocity.X + (float)this.direction;
-								Dust expr_A1F3_cp_0 = Main.dust[num166];
-								expr_A1F3_cp_0.velocity.Y = expr_A1F3_cp_0.velocity.Y + 0.2f;
-								Main.dust[num166].noGravity = true;
+								int num168 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 135, 0f, 0f, 100, default(Color), 1f);
+								Dust expr_A3B1_cp_0 = Main.dust[num168];
+								expr_A3B1_cp_0.velocity.X = expr_A3B1_cp_0.velocity.X + (float)this.direction;
+								Dust expr_A3D1_cp_0 = Main.dust[num168];
+								expr_A3D1_cp_0.velocity.Y = expr_A3D1_cp_0.velocity.Y + 0.2f;
+								Main.dust[num168].noGravity = true;
 							}
 						}
 						else if (this.meleeEnchant == 7)
@@ -15803,85 +14252,85 @@ namespace Terraria
 							if (Main.rand.Next(20) == 0)
 							{
 								int type3 = Main.rand.Next(139, 143);
-								int num167 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, type3, this.velocity.X, this.velocity.Y, 0, default(Color), 1.2f);
-								Dust expr_A2AD_cp_0 = Main.dust[num167];
-								expr_A2AD_cp_0.velocity.X = expr_A2AD_cp_0.velocity.X * (1f + (float)Main.rand.Next(-50, 51) * 0.01f);
-								Dust expr_A2E1_cp_0 = Main.dust[num167];
-								expr_A2E1_cp_0.velocity.Y = expr_A2E1_cp_0.velocity.Y * (1f + (float)Main.rand.Next(-50, 51) * 0.01f);
-								Dust expr_A315_cp_0 = Main.dust[num167];
-								expr_A315_cp_0.velocity.X = expr_A315_cp_0.velocity.X + (float)Main.rand.Next(-50, 51) * 0.05f;
-								Dust expr_A343_cp_0 = Main.dust[num167];
-								expr_A343_cp_0.velocity.Y = expr_A343_cp_0.velocity.Y + (float)Main.rand.Next(-50, 51) * 0.05f;
-								Main.dust[num167].scale *= 1f + (float)Main.rand.Next(-30, 31) * 0.01f;
+								int num169 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, type3, this.velocity.X, this.velocity.Y, 0, default(Color), 1.2f);
+								Dust expr_A48B_cp_0 = Main.dust[num169];
+								expr_A48B_cp_0.velocity.X = expr_A48B_cp_0.velocity.X * (1f + (float)Main.rand.Next(-50, 51) * 0.01f);
+								Dust expr_A4BF_cp_0 = Main.dust[num169];
+								expr_A4BF_cp_0.velocity.Y = expr_A4BF_cp_0.velocity.Y * (1f + (float)Main.rand.Next(-50, 51) * 0.01f);
+								Dust expr_A4F3_cp_0 = Main.dust[num169];
+								expr_A4F3_cp_0.velocity.X = expr_A4F3_cp_0.velocity.X + (float)Main.rand.Next(-50, 51) * 0.05f;
+								Dust expr_A521_cp_0 = Main.dust[num169];
+								expr_A521_cp_0.velocity.Y = expr_A521_cp_0.velocity.Y + (float)Main.rand.Next(-50, 51) * 0.05f;
+								Main.dust[num169].scale *= 1f + (float)Main.rand.Next(-30, 31) * 0.01f;
 							}
 							if (Main.rand.Next(40) == 0)
 							{
 								int type4 = Main.rand.Next(276, 283);
-								int num168 = Gore.NewGore(new Vector2((float)rectangle.X, (float)rectangle.Y), this.velocity, type4, 1f);
-								Gore expr_A3F0_cp_0 = Main.gore[num168];
-								expr_A3F0_cp_0.velocity.X = expr_A3F0_cp_0.velocity.X * (1f + (float)Main.rand.Next(-50, 51) * 0.01f);
-								Gore expr_A424_cp_0 = Main.gore[num168];
-								expr_A424_cp_0.velocity.Y = expr_A424_cp_0.velocity.Y * (1f + (float)Main.rand.Next(-50, 51) * 0.01f);
-								Main.gore[num168].scale *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
-								Gore expr_A487_cp_0 = Main.gore[num168];
-								expr_A487_cp_0.velocity.X = expr_A487_cp_0.velocity.X + (float)Main.rand.Next(-50, 51) * 0.05f;
-								Gore expr_A4B5_cp_0 = Main.gore[num168];
-								expr_A4B5_cp_0.velocity.Y = expr_A4B5_cp_0.velocity.Y + (float)Main.rand.Next(-50, 51) * 0.05f;
+								int num170 = Gore.NewGore(new Vector2((float)rectangle.X, (float)rectangle.Y), this.velocity, type4, 1f);
+								Gore expr_A5CE_cp_0 = Main.gore[num170];
+								expr_A5CE_cp_0.velocity.X = expr_A5CE_cp_0.velocity.X * (1f + (float)Main.rand.Next(-50, 51) * 0.01f);
+								Gore expr_A602_cp_0 = Main.gore[num170];
+								expr_A602_cp_0.velocity.Y = expr_A602_cp_0.velocity.Y * (1f + (float)Main.rand.Next(-50, 51) * 0.01f);
+								Main.gore[num170].scale *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
+								Gore expr_A665_cp_0 = Main.gore[num170];
+								expr_A665_cp_0.velocity.X = expr_A665_cp_0.velocity.X + (float)Main.rand.Next(-50, 51) * 0.05f;
+								Gore expr_A693_cp_0 = Main.gore[num170];
+								expr_A693_cp_0.velocity.Y = expr_A693_cp_0.velocity.Y + (float)Main.rand.Next(-50, 51) * 0.05f;
 							}
 						}
 						else if (this.meleeEnchant == 8 && Main.rand.Next(4) == 0)
 						{
-							int num169 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 46, 0f, 0f, 100, default(Color), 1f);
-							Main.dust[num169].noGravity = true;
-							Main.dust[num169].fadeIn = 1.5f;
-							Main.dust[num169].velocity *= 0.25f;
+							int num171 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 46, 0f, 0f, 100, default(Color), 1f);
+							Main.dust[num171].noGravity = true;
+							Main.dust[num171].fadeIn = 1.5f;
+							Main.dust[num171].velocity *= 0.25f;
 						}
 					}
 					if (this.magmaStone && !this.inventory[this.selectedItem].magic && !this.inventory[this.selectedItem].ranged && Main.rand.Next(3) != 0)
 					{
-						int num170 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 6, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 2.5f);
-						Main.dust[num170].noGravity = true;
-						Dust expr_A64F_cp_0 = Main.dust[num170];
-						expr_A64F_cp_0.velocity.X = expr_A64F_cp_0.velocity.X * 2f;
-						Dust expr_A66D_cp_0 = Main.dust[num170];
-						expr_A66D_cp_0.velocity.Y = expr_A66D_cp_0.velocity.Y * 2f;
+						int num172 = Dust.NewDust(new Vector2((float)rectangle.X, (float)rectangle.Y), rectangle.Width, rectangle.Height, 6, this.velocity.X * 0.2f + (float)(this.direction * 3), this.velocity.Y * 0.2f, 100, default(Color), 2.5f);
+						Main.dust[num172].noGravity = true;
+						Dust expr_A82D_cp_0 = Main.dust[num172];
+						expr_A82D_cp_0.velocity.X = expr_A82D_cp_0.velocity.X * 2f;
+						Dust expr_A84B_cp_0 = Main.dust[num172];
+						expr_A84B_cp_0.velocity.Y = expr_A84B_cp_0.velocity.Y * 2f;
 					}
 					if (Main.myPlayer == i && this.inventory[this.selectedItem].type != 1450)
 					{
-						int num171 = (int)((float)this.inventory[this.selectedItem].damage * this.meleeDamage);
-						float num172 = this.inventory[this.selectedItem].knockBack;
+						int num173 = (int)((float)this.inventory[this.selectedItem].damage * this.meleeDamage);
+						float num174 = this.inventory[this.selectedItem].knockBack;
 						if (this.kbGlove)
 						{
-							num172 *= 2f;
+							num174 *= 2f;
 						}
-						int num173 = rectangle.X / 16;
-						int num174 = (rectangle.X + rectangle.Width) / 16 + 1;
-						int num175 = rectangle.Y / 16;
-						int num176 = (rectangle.Y + rectangle.Height) / 16 + 1;
-						for (int num177 = num173; num177 < num174; num177++)
+						int num175 = rectangle.X / 16;
+						int num176 = (rectangle.X + rectangle.Width) / 16 + 1;
+						int num177 = rectangle.Y / 16;
+						int num178 = (rectangle.Y + rectangle.Height) / 16 + 1;
+						for (int num179 = num175; num179 < num176; num179++)
 						{
-							for (int num178 = num175; num178 < num176; num178++)
+							for (int num180 = num177; num180 < num178; num180++)
 							{
-								if (Main.tile[num177, num178] != null && Main.tileCut[(int)Main.tile[num177, num178].type] && Main.tile[num177, num178 + 1] != null && Main.tile[num177, num178 + 1].type != 78)
+								if (Main.tile[num179, num180] != null && Main.tileCut[(int)Main.tile[num179, num180].type] && Main.tile[num179, num180 + 1] != null && Main.tile[num179, num180 + 1].type != 78)
 								{
 									if (this.inventory[this.selectedItem].type == 1786)
 									{
-										int type5 = (int)Main.tile[num177, num178].type;
-										WorldGen.KillTile(num177, num178, false, false, false);
-										if (!Main.tile[num177, num178].active())
+										int type5 = (int)Main.tile[num179, num180].type;
+										WorldGen.KillTile(num179, num180, false, false, false);
+										if (!Main.tile[num179, num180].active())
 										{
-											int num179 = 0;
+											int num181 = 0;
 											if (type5 == 3 || type5 == 24 || type5 == 61 || type5 == 110 || type5 == 201)
 											{
-												num179 = Main.rand.Next(1, 3);
+												num181 = Main.rand.Next(1, 3);
 											}
 											if (type5 == 73 || type5 == 74 || type5 == 113)
 											{
-												num179 = Main.rand.Next(2, 5);
+												num181 = Main.rand.Next(2, 5);
 											}
-											if (num179 > 0)
+											if (num181 > 0)
 											{
-												int number = Item.NewItem(num177 * 16, num178 * 16, 16, 16, 1727, num179, false, 0, false);
+												int number = Item.NewItem(num179 * 16, num180 * 16, 16, 16, 1727, num181, false, 0, false);
 												if (Main.netMode == 1)
 												{
 													NetMessage.SendData(21, -1, -1, "", number, 1f, 0f, 0f, 0);
@@ -15890,57 +14339,57 @@ namespace Terraria
 										}
 										if (Main.netMode == 1)
 										{
-											NetMessage.SendData(17, -1, -1, "", 0, (float)num177, (float)num178, 0f, 0);
+											NetMessage.SendData(17, -1, -1, "", 0, (float)num179, (float)num180, 0f, 0);
 										}
 									}
 									else
 									{
-										WorldGen.KillTile(num177, num178, false, false, false);
+										WorldGen.KillTile(num179, num180, false, false, false);
 										if (Main.netMode == 1)
 										{
-											NetMessage.SendData(17, -1, -1, "", 0, (float)num177, (float)num178, 0f, 0);
+											NetMessage.SendData(17, -1, -1, "", 0, (float)num179, (float)num180, 0f, 0);
 										}
 									}
 								}
 							}
 						}
-						for (int num180 = 0; num180 < 200; num180++)
+						for (int num182 = 0; num182 < 200; num182++)
 						{
-							if (Main.npc[num180].active && Main.npc[num180].immune[i] == 0 && this.attackCD == 0 && !Main.npc[num180].dontTakeDamage && (!Main.npc[num180].friendly || (Main.npc[num180].type == 22 && this.killGuide) || (Main.npc[num180].type == 54 && this.killClothier)))
+							if (Main.npc[num182].active && Main.npc[num182].immune[i] == 0 && this.attackCD == 0 && !Main.npc[num182].dontTakeDamage && (!Main.npc[num182].friendly || (Main.npc[num182].type == 22 && this.killGuide) || (Main.npc[num182].type == 54 && this.killClothier)))
 							{
-								Rectangle value = new Rectangle((int)Main.npc[num180].position.X, (int)Main.npc[num180].position.Y, Main.npc[num180].width, Main.npc[num180].height);
-								if (rectangle.Intersects(value) && (Main.npc[num180].noTileCollide || Collision.CanHit(this.position, this.width, this.height, Main.npc[num180].position, Main.npc[num180].width, Main.npc[num180].height)))
+								Rectangle value = new Rectangle((int)Main.npc[num182].position.X, (int)Main.npc[num182].position.Y, Main.npc[num182].width, Main.npc[num182].height);
+								if (rectangle.Intersects(value) && (Main.npc[num182].noTileCollide || Collision.CanHit(this.position, this.width, this.height, Main.npc[num182].position, Main.npc[num182].width, Main.npc[num182].height)))
 								{
 									bool flag12 = false;
 									if (Main.rand.Next(1, 101) <= this.meleeCrit)
 									{
 										flag12 = true;
 									}
-									int num181 = Main.DamageVar((float)num171);
-									this.StatusNPC(this.inventory[this.selectedItem].type, num180);
-									this.onHit(Main.npc[num180].center().X, Main.npc[num180].center().Y);
-									Main.npc[num180].StrikeNPC(num181, num172, this.direction, flag12, false);
+									int num183 = Main.DamageVar((float)num173);
+									this.StatusNPC(this.inventory[this.selectedItem].type, num182);
+									this.onHit(Main.npc[num182].center().X, Main.npc[num182].center().Y);
+									Main.npc[num182].StrikeNPC(num183, num174, this.direction, flag12, false);
 									if (this.inventory[this.selectedItem].type == 1826)
 									{
-										this.pumpkinSword(num180, (int)((double)num171 * 1.5), num172);
+										this.pumpkinSword(num182, (int)((double)num173 * 1.5), num174);
 									}
 									if (this.meleeEnchant == 7)
 									{
-										Projectile.NewProjectile(Main.npc[num180].center().X, Main.npc[num180].center().Y, Main.npc[num180].velocity.X, Main.npc[num180].velocity.Y, 289, 0, 0f, this.whoAmi, 0f, 0f);
+										Projectile.NewProjectile(Main.npc[num182].center().X, Main.npc[num182].center().Y, Main.npc[num182].velocity.X, Main.npc[num182].velocity.Y, 289, 0, 0f, this.whoAmi, 0f, 0f);
 									}
 									if (this.inventory[this.selectedItem].type == 1123)
 									{
-										int num182 = Main.rand.Next(1, 4);
-										for (int num183 = 0; num183 < num182; num183++)
+										int num184 = Main.rand.Next(1, 4);
+										for (int num185 = 0; num185 < num184; num185++)
 										{
-											float num184 = (float)(this.direction * 2) + (float)Main.rand.Next(-35, 36) * 0.02f;
-											float num185 = (float)Main.rand.Next(-35, 36) * 0.02f;
-											num184 *= 0.2f;
-											num185 *= 0.2f;
-											Projectile.NewProjectile((float)(rectangle.X + rectangle.Width / 2), (float)(rectangle.Y + rectangle.Height / 2), num184, num185, 181, num181 / 3, 0f, i, 0f, 0f);
+											float num186 = (float)(this.direction * 2) + (float)Main.rand.Next(-35, 36) * 0.02f;
+											float num187 = (float)Main.rand.Next(-35, 36) * 0.02f;
+											num186 *= 0.2f;
+											num187 *= 0.2f;
+											Projectile.NewProjectile((float)(rectangle.X + rectangle.Width / 2), (float)(rectangle.Y + rectangle.Height / 2), num186, num187, 181, num183 / 3, 0f, i, 0f, 0f);
 										}
 									}
-									if (Main.npc[num180].value > 0f && this.coins && Main.rand.Next(5) == 0)
+									if (Main.npc[num182].value > 0f && this.coins && Main.rand.Next(5) == 0)
 									{
 										int type6 = 71;
 										if (Main.rand.Next(10) == 0)
@@ -15951,74 +14400,74 @@ namespace Terraria
 										{
 											type6 = 73;
 										}
-										int num186 = Item.NewItem((int)Main.npc[num180].position.X, (int)Main.npc[num180].position.Y, Main.npc[num180].width, Main.npc[num180].height, type6, 1, false, 0, false);
-										Main.item[num186].stack = Main.rand.Next(1, 11);
-										Main.item[num186].velocity.Y = (float)Main.rand.Next(-20, 1) * 0.2f;
-										Main.item[num186].velocity.X = (float)Main.rand.Next(10, 31) * 0.2f * (float)this.direction;
+										int num188 = Item.NewItem((int)Main.npc[num182].position.X, (int)Main.npc[num182].position.Y, Main.npc[num182].width, Main.npc[num182].height, type6, 1, false, 0, false);
+										Main.item[num188].stack = Main.rand.Next(1, 11);
+										Main.item[num188].velocity.Y = (float)Main.rand.Next(-20, 1) * 0.2f;
+										Main.item[num188].velocity.X = (float)Main.rand.Next(10, 31) * 0.2f * (float)this.direction;
 										if (Main.netMode == 1)
 										{
-											NetMessage.SendData(21, -1, -1, "", num186, 0f, 0f, 0f, 0);
+											NetMessage.SendData(21, -1, -1, "", num188, 0f, 0f, 0f, 0);
 										}
 									}
 									if (Main.netMode != 0)
 									{
 										if (flag12)
 										{
-											NetMessage.SendData(28, -1, -1, "", num180, (float)num181, num172, (float)this.direction, 1);
+											NetMessage.SendData(28, -1, -1, "", num182, (float)num183, num174, (float)this.direction, 1);
 										}
 										else
 										{
-											NetMessage.SendData(28, -1, -1, "", num180, (float)num181, num172, (float)this.direction, 0);
+											NetMessage.SendData(28, -1, -1, "", num182, (float)num183, num174, (float)this.direction, 0);
 										}
 									}
-									Main.npc[num180].immune[i] = this.itemAnimation;
+									Main.npc[num182].immune[i] = this.itemAnimation;
 									this.attackCD = (int)((double)this.itemAnimationMax * 0.33);
 								}
 							}
 						}
 						if (this.hostile)
 						{
-							for (int num187 = 0; num187 < 255; num187++)
+							for (int num189 = 0; num189 < 255; num189++)
 							{
-								if (num187 != i && Main.player[num187].active && Main.player[num187].hostile && !Main.player[num187].immune && !Main.player[num187].dead && (Main.player[i].team == 0 || Main.player[i].team != Main.player[num187].team))
+								if (num189 != i && Main.player[num189].active && Main.player[num189].hostile && !Main.player[num189].immune && !Main.player[num189].dead && (Main.player[i].team == 0 || Main.player[i].team != Main.player[num189].team))
 								{
-									Rectangle value2 = new Rectangle((int)Main.player[num187].position.X, (int)Main.player[num187].position.Y, Main.player[num187].width, Main.player[num187].height);
-									if (rectangle.Intersects(value2) && Collision.CanHit(this.position, this.width, this.height, Main.player[num187].position, Main.player[num187].width, Main.player[num187].height))
+									Rectangle value2 = new Rectangle((int)Main.player[num189].position.X, (int)Main.player[num189].position.Y, Main.player[num189].width, Main.player[num189].height);
+									if (rectangle.Intersects(value2) && Collision.CanHit(this.position, this.width, this.height, Main.player[num189].position, Main.player[num189].width, Main.player[num189].height))
 									{
 										bool flag13 = false;
 										if (Main.rand.Next(1, 101) <= 10)
 										{
 											flag13 = true;
 										}
-										int num188 = Main.DamageVar((float)num171);
-										this.StatusPvP(this.inventory[this.selectedItem].type, num187);
-										this.onHit(Main.player[num187].center().X, Main.player[num187].center().Y);
-										Main.player[num187].Hurt(num188, this.direction, true, false, "", flag13);
+										int num190 = Main.DamageVar((float)num173);
+										this.StatusPvP(this.inventory[this.selectedItem].type, num189);
+										this.onHit(Main.player[num189].center().X, Main.player[num189].center().Y);
+										Main.player[num189].Hurt(num190, this.direction, true, false, "", flag13);
 										if (this.meleeEnchant == 7)
 										{
-											Projectile.NewProjectile(Main.player[num187].center().X, Main.player[num187].center().Y, Main.player[num187].velocity.X, Main.player[num187].velocity.Y, 289, 0, 0f, this.whoAmi, 0f, 0f);
+											Projectile.NewProjectile(Main.player[num189].center().X, Main.player[num189].center().Y, Main.player[num189].velocity.X, Main.player[num189].velocity.Y, 289, 0, 0f, this.whoAmi, 0f, 0f);
 										}
 										if (this.inventory[this.selectedItem].type == 1123)
 										{
-											int num189 = Main.rand.Next(1, 4);
-											for (int num190 = 0; num190 < num189; num190++)
+											int num191 = Main.rand.Next(1, 4);
+											for (int num192 = 0; num192 < num191; num192++)
 											{
-												float num191 = (float)(this.direction * 2) + (float)Main.rand.Next(-35, 36) * 0.02f;
-												float num192 = (float)Main.rand.Next(-35, 36) * 0.02f;
-												num191 *= 0.2f;
-												num192 *= 0.2f;
-												Projectile.NewProjectile((float)(rectangle.X + rectangle.Width / 2), (float)(rectangle.Y + rectangle.Height / 2), num191, num192, 181, num188 / 3, 0f, i, 0f, 0f);
+												float num193 = (float)(this.direction * 2) + (float)Main.rand.Next(-35, 36) * 0.02f;
+												float num194 = (float)Main.rand.Next(-35, 36) * 0.02f;
+												num193 *= 0.2f;
+												num194 *= 0.2f;
+												Projectile.NewProjectile((float)(rectangle.X + rectangle.Width / 2), (float)(rectangle.Y + rectangle.Height / 2), num193, num194, 181, num190 / 3, 0f, i, 0f, 0f);
 											}
 										}
 										if (Main.netMode != 0)
 										{
 											if (flag13)
 											{
-												NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.whoAmi, -1, -1, -1), num187, (float)this.direction, (float)num188, 1f, 1);
+												NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.whoAmi, -1, -1, -1), num189, (float)this.direction, (float)num190, 1f, 1);
 											}
 											else
 											{
-												NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.whoAmi, -1, -1, -1), num187, (float)this.direction, (float)num188, 1f, 0);
+												NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.whoAmi, -1, -1, -1), num189, (float)this.direction, (float)num190, 1f, 0);
 											}
 										}
 										this.attackCD = (int)((double)this.itemAnimationMax * 0.33);
@@ -16028,62 +14477,62 @@ namespace Terraria
 						}
 						if (this.inventory[this.selectedItem].type == 787 && (this.itemAnimation == (int)((double)this.itemAnimationMax * 0.1) || this.itemAnimation == (int)((double)this.itemAnimationMax * 0.3) || this.itemAnimation == (int)((double)this.itemAnimationMax * 0.5) || this.itemAnimation == (int)((double)this.itemAnimationMax * 0.7) || this.itemAnimation == (int)((double)this.itemAnimationMax * 0.9)))
 						{
-							float num193 = 0f;
-							float num194 = 0f;
 							float num195 = 0f;
 							float num196 = 0f;
+							float num197 = 0f;
+							float num198 = 0f;
 							if (this.itemAnimation == (int)((double)this.itemAnimationMax * 0.9))
 							{
-								num193 = -7f;
+								num195 = -7f;
 							}
 							if (this.itemAnimation == (int)((double)this.itemAnimationMax * 0.7))
 							{
-								num193 = -6f;
-								num194 = 2f;
+								num195 = -6f;
+								num196 = 2f;
 							}
 							if (this.itemAnimation == (int)((double)this.itemAnimationMax * 0.5))
 							{
-								num193 = -4f;
-								num194 = 4f;
+								num195 = -4f;
+								num196 = 4f;
 							}
 							if (this.itemAnimation == (int)((double)this.itemAnimationMax * 0.3))
 							{
-								num193 = -2f;
-								num194 = 6f;
+								num195 = -2f;
+								num196 = 6f;
 							}
 							if (this.itemAnimation == (int)((double)this.itemAnimationMax * 0.1))
 							{
-								num194 = 7f;
+								num196 = 7f;
 							}
 							if (this.itemAnimation == (int)((double)this.itemAnimationMax * 0.7))
 							{
-								num196 = 26f;
+								num198 = 26f;
 							}
 							if (this.itemAnimation == (int)((double)this.itemAnimationMax * 0.3))
 							{
-								num196 -= 4f;
-								num195 -= 20f;
+								num198 -= 4f;
+								num197 -= 20f;
 							}
 							if (this.itemAnimation == (int)((double)this.itemAnimationMax * 0.1))
 							{
-								num195 += 6f;
+								num197 += 6f;
 							}
 							if (this.direction == -1)
 							{
 								if (this.itemAnimation == (int)((double)this.itemAnimationMax * 0.9))
 								{
-									num196 -= 8f;
+									num198 -= 8f;
 								}
 								if (this.itemAnimation == (int)((double)this.itemAnimationMax * 0.7))
 								{
-									num196 -= 6f;
+									num198 -= 6f;
 								}
 							}
-							num193 *= 1.5f;
-							num194 *= 1.5f;
-							num196 *= (float)this.direction;
-							num195 *= this.gravDir;
-							Projectile.NewProjectile((float)(rectangle.X + rectangle.Width / 2) + num196, (float)(rectangle.Y + rectangle.Height / 2) + num195, (float)this.direction * num194, num193 * this.gravDir, 131, num171 / 2, 0f, i, 0f, 0f);
+							num195 *= 1.5f;
+							num196 *= 1.5f;
+							num198 *= (float)this.direction;
+							num197 *= this.gravDir;
+							Projectile.NewProjectile((float)(rectangle.X + rectangle.Width / 2) + num198, (float)(rectangle.Y + rectangle.Height / 2) + num197, (float)this.direction * num196, num195 * this.gravDir, 131, num173 / 2, 0f, i, 0f, 0f);
 						}
 					}
 				}
@@ -16187,9 +14636,9 @@ namespace Terraria
 				if (this.itemTime == 0 && this.itemAnimation > 0 && (this.inventory[this.selectedItem].type == 43 || this.inventory[this.selectedItem].type == 70 || this.inventory[this.selectedItem].type == 544 || this.inventory[this.selectedItem].type == 556 || this.inventory[this.selectedItem].type == 557 || this.inventory[this.selectedItem].type == 560 || this.inventory[this.selectedItem].type == 1133 || this.inventory[this.selectedItem].type == 1331))
 				{
 					bool flag14 = false;
-					for (int num197 = 0; num197 < 200; num197++)
+					for (int num199 = 0; num199 < 200; num199++)
 					{
-						if (Main.npc[num197].active && ((this.inventory[this.selectedItem].type == 43 && Main.npc[num197].type == 4) || (this.inventory[this.selectedItem].type == 70 && Main.npc[num197].type == 13) || ((this.inventory[this.selectedItem].type == 560 & Main.npc[num197].type == 50) || (this.inventory[this.selectedItem].type == 544 && Main.npc[num197].type == 125)) || (this.inventory[this.selectedItem].type == 544 && Main.npc[num197].type == 126) || (this.inventory[this.selectedItem].type == 556 && Main.npc[num197].type == 134) || (this.inventory[this.selectedItem].type == 557 && Main.npc[num197].type == 128) || (this.inventory[this.selectedItem].type == 1133 && Main.npc[num197].type == 222) || (this.inventory[this.selectedItem].type == 1331 && Main.npc[num197].type == 266)))
+						if (Main.npc[num199].active && ((this.inventory[this.selectedItem].type == 43 && Main.npc[num199].type == 4) || (this.inventory[this.selectedItem].type == 70 && Main.npc[num199].type == 13) || ((this.inventory[this.selectedItem].type == 560 & Main.npc[num199].type == 50) || (this.inventory[this.selectedItem].type == 544 && Main.npc[num199].type == 125)) || (this.inventory[this.selectedItem].type == 544 && Main.npc[num199].type == 126) || (this.inventory[this.selectedItem].type == 556 && Main.npc[num199].type == 134) || (this.inventory[this.selectedItem].type == 557 && Main.npc[num199].type == 128) || (this.inventory[this.selectedItem].type == 1133 && Main.npc[num199].type == 222) || (this.inventory[this.selectedItem].type == 1331 && Main.npc[num199].type == 266)))
 						{
 							flag14 = true;
 							break;
@@ -16334,21 +14783,21 @@ namespace Terraria
 				}
 				else if (this.itemTime == this.inventory[this.selectedItem].useTime / 2)
 				{
-					for (int num198 = 0; num198 < 70; num198++)
+					for (int num200 = 0; num200 < 70; num200++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 15, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 150, default(Color), 1.5f);
 					}
 					this.grappling[0] = -1;
 					this.grapCount = 0;
-					for (int num199 = 0; num199 < 1000; num199++)
+					for (int num201 = 0; num201 < 1000; num201++)
 					{
-						if (Main.projectile[num199].active && Main.projectile[num199].owner == i && Main.projectile[num199].aiStyle == 7)
+						if (Main.projectile[num201].active && Main.projectile[num201].owner == i && Main.projectile[num201].aiStyle == 7)
 						{
-							Main.projectile[num199].Kill();
+							Main.projectile[num201].Kill();
 						}
 					}
 					this.Spawn();
-					for (int num200 = 0; num200 < 70; num200++)
+					for (int num202 = 0; num202 < 70; num202++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 15, 0f, 0f, 150, default(Color), 1.5f);
 					}
@@ -16359,22 +14808,22 @@ namespace Terraria
 				if (this.itemTime == this.inventory[this.selectedItem].useTime && this.inventory[this.selectedItem].tileWand > 0)
 				{
 					int tileWand2 = this.inventory[this.selectedItem].tileWand;
-					int num201 = 0;
-					while (num201 < 58)
+					int num203 = 0;
+					while (num203 < 58)
 					{
-						if (tileWand2 == this.inventory[num201].type && this.inventory[num201].stack > 0)
+						if (tileWand2 == this.inventory[num203].type && this.inventory[num203].stack > 0)
 						{
-							this.inventory[num201].stack--;
-							if (this.inventory[num201].stack <= 0)
+							this.inventory[num203].stack--;
+							if (this.inventory[num203].stack <= 0)
 							{
-								this.inventory[num201] = new Item();
+								this.inventory[num203] = new Item();
 								break;
 							}
 							break;
 						}
 						else
 						{
-							num201++;
+							num203++;
 						}
 					}
 				}
@@ -16604,53 +15053,6 @@ namespace Terraria
 			}
 			return player;
 		}
-		private static void EncryptFile(string inputFile, string outputFile)
-		{
-			string s = "h3y_gUyZ";
-			UnicodeEncoding unicodeEncoding = new UnicodeEncoding();
-			byte[] bytes = unicodeEncoding.GetBytes(s);
-			FileStream fileStream = new FileStream(outputFile, FileMode.Create);
-			RijndaelManaged rijndaelManaged = new RijndaelManaged();
-			CryptoStream cryptoStream = new CryptoStream(fileStream, rijndaelManaged.CreateEncryptor(bytes, bytes), CryptoStreamMode.Write);
-			FileStream fileStream2 = new FileStream(inputFile, FileMode.Open);
-			int num;
-			while ((num = fileStream2.ReadByte()) != -1)
-			{
-				cryptoStream.WriteByte((byte)num);
-			}
-			fileStream2.Close();
-			cryptoStream.Close();
-			fileStream.Close();
-		}
-		private static bool DecryptFile(string inputFile, string outputFile)
-		{
-			string s = "h3y_gUyZ";
-			UnicodeEncoding unicodeEncoding = new UnicodeEncoding();
-			byte[] bytes = unicodeEncoding.GetBytes(s);
-			FileStream fileStream = new FileStream(inputFile, FileMode.Open);
-			RijndaelManaged rijndaelManaged = new RijndaelManaged();
-			CryptoStream cryptoStream = new CryptoStream(fileStream, rijndaelManaged.CreateDecryptor(bytes, bytes), CryptoStreamMode.Read);
-			FileStream fileStream2 = new FileStream(outputFile, FileMode.Create);
-			try
-			{
-				int num;
-				while ((num = cryptoStream.ReadByte()) != -1)
-				{
-					fileStream2.WriteByte((byte)num);
-				}
-				fileStream2.Close();
-				cryptoStream.Close();
-				fileStream.Close();
-			}
-			catch
-			{
-				fileStream2.Close();
-				fileStream.Close();
-				File.Delete(outputFile);
-				return true;
-			}
-			return false;
-		}
 		public static bool CheckSpawn(int x, int y)
 		{
 			if (x < 10 || x > Main.maxTilesX - 10 || y < 10 || y > Main.maxTilesX - 10)
@@ -16736,449 +15138,6 @@ namespace Terraria
 			this.spI[0] = Main.worldID;
 			this.spX[0] = x;
 			this.spY[0] = y;
-		}
-		public static void SavePlayer(Player newPlayer, string playerPath)
-		{
-			try
-			{
-				/*if (Main.mapEnabled)
-				{
-					Map.saveMap();
-				}*/
-			}
-			catch
-			{
-			}
-			try
-			{
-				Directory.CreateDirectory(Main.PlayerPath);
-			}
-			catch
-			{
-			}
-			if (Main.ServerSideCharacter)
-			{
-				return;
-			}
-			if (playerPath == null || playerPath == "")
-			{
-				return;
-			}
-			string destFileName = playerPath + ".bak";
-			if (File.Exists(playerPath))
-			{
-				File.Copy(playerPath, destFileName, true);
-			}
-			string text = playerPath + ".dat";
-			using (FileStream fileStream = new FileStream(text, FileMode.Create))
-			{
-				using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
-				{
-					binaryWriter.Write(Main.curRelease);
-					binaryWriter.Write(newPlayer.name);
-					binaryWriter.Write(newPlayer.difficulty);
-					binaryWriter.Write(newPlayer.hair);
-					binaryWriter.Write(newPlayer.male);
-					binaryWriter.Write(newPlayer.statLife);
-					binaryWriter.Write(newPlayer.statLifeMax);
-					binaryWriter.Write(newPlayer.statMana);
-					binaryWriter.Write(newPlayer.statManaMax);
-					binaryWriter.Write(newPlayer.hairColor.R);
-					binaryWriter.Write(newPlayer.hairColor.G);
-					binaryWriter.Write(newPlayer.hairColor.B);
-					binaryWriter.Write(newPlayer.skinColor.R);
-					binaryWriter.Write(newPlayer.skinColor.G);
-					binaryWriter.Write(newPlayer.skinColor.B);
-					binaryWriter.Write(newPlayer.eyeColor.R);
-					binaryWriter.Write(newPlayer.eyeColor.G);
-					binaryWriter.Write(newPlayer.eyeColor.B);
-					binaryWriter.Write(newPlayer.shirtColor.R);
-					binaryWriter.Write(newPlayer.shirtColor.G);
-					binaryWriter.Write(newPlayer.shirtColor.B);
-					binaryWriter.Write(newPlayer.underShirtColor.R);
-					binaryWriter.Write(newPlayer.underShirtColor.G);
-					binaryWriter.Write(newPlayer.underShirtColor.B);
-					binaryWriter.Write(newPlayer.pantsColor.R);
-					binaryWriter.Write(newPlayer.pantsColor.G);
-					binaryWriter.Write(newPlayer.pantsColor.B);
-					binaryWriter.Write(newPlayer.shoeColor.R);
-					binaryWriter.Write(newPlayer.shoeColor.G);
-					binaryWriter.Write(newPlayer.shoeColor.B);
-					for (int i = 0; i < 11; i++)
-					{
-						if (newPlayer.armor[i].name == null)
-						{
-							newPlayer.armor[i].name = "";
-						}
-						binaryWriter.Write(newPlayer.armor[i].netID);
-						binaryWriter.Write(newPlayer.armor[i].prefix);
-					}
-					for (int j = 0; j < 3; j++)
-					{
-						binaryWriter.Write(newPlayer.dye[j].netID);
-						binaryWriter.Write(newPlayer.dye[j].prefix);
-					}
-					for (int k = 0; k < 58; k++)
-					{
-						if (newPlayer.inventory[k].name == null)
-						{
-							newPlayer.inventory[k].name = "";
-						}
-						binaryWriter.Write(newPlayer.inventory[k].netID);
-						binaryWriter.Write(newPlayer.inventory[k].stack);
-						binaryWriter.Write(newPlayer.inventory[k].prefix);
-					}
-					for (int l = 0; l < Chest.maxItems; l++)
-					{
-						if (newPlayer.bank[l].name == null)
-						{
-							newPlayer.bank[l].name = "";
-						}
-						binaryWriter.Write(newPlayer.bank[l].netID);
-						binaryWriter.Write(newPlayer.bank[l].stack);
-						binaryWriter.Write(newPlayer.bank[l].prefix);
-					}
-					for (int m = 0; m < Chest.maxItems; m++)
-					{
-						if (newPlayer.bank2[m].name == null)
-						{
-							newPlayer.bank2[m].name = "";
-						}
-						binaryWriter.Write(newPlayer.bank2[m].netID);
-						binaryWriter.Write(newPlayer.bank2[m].stack);
-						binaryWriter.Write(newPlayer.bank2[m].prefix);
-					}
-					for (int n = 0; n < 10; n++)
-					{
-						binaryWriter.Write(newPlayer.buffType[n]);
-						binaryWriter.Write(newPlayer.buffTime[n]);
-					}
-					for (int num = 0; num < 200; num++)
-					{
-						if (newPlayer.spN[num] == null)
-						{
-							binaryWriter.Write(-1);
-							break;
-						}
-						binaryWriter.Write(newPlayer.spX[num]);
-						binaryWriter.Write(newPlayer.spY[num]);
-						binaryWriter.Write(newPlayer.spI[num]);
-						binaryWriter.Write(newPlayer.spN[num]);
-					}
-					binaryWriter.Write(newPlayer.hbLocked);
-					binaryWriter.Close();
-				}
-			}
-			Player.EncryptFile(text, playerPath);
-			File.Delete(text);
-		}
-		public static Player LoadPlayer(string playerPath)
-		{
-			bool flag = false;
-			if (Main.rand == null)
-			{
-				Main.rand = new Random((int)DateTime.Now.Ticks);
-			}
-			Player player = new Player();
-			try
-			{
-				string text = playerPath + ".dat";
-				flag = Player.DecryptFile(playerPath, text);
-				if (!flag)
-				{
-					using (FileStream fileStream = new FileStream(text, FileMode.Open))
-					{
-						using (BinaryReader binaryReader = new BinaryReader(fileStream))
-						{
-							int num = binaryReader.ReadInt32();
-							player.name = binaryReader.ReadString();
-							if (num >= 10)
-							{
-								if (num >= 17)
-								{
-									player.difficulty = binaryReader.ReadByte();
-								}
-								else
-								{
-									bool flag2 = binaryReader.ReadBoolean();
-									if (flag2)
-									{
-										player.difficulty = 2;
-									}
-								}
-							}
-							player.hair = binaryReader.ReadInt32();
-							if (num <= 17)
-							{
-								if (player.hair == 5 || player.hair == 6 || player.hair == 9 || player.hair == 11)
-								{
-									player.male = false;
-								}
-								else
-								{
-									player.male = true;
-								}
-							}
-							else
-							{
-								player.male = binaryReader.ReadBoolean();
-							}
-							player.statLife = binaryReader.ReadInt32();
-							player.statLifeMax = binaryReader.ReadInt32();
-							if (player.statLifeMax > 500)
-							{
-								player.statLifeMax = 500;
-							}
-							if (player.statLife > player.statLifeMax)
-							{
-								player.statLife = player.statLifeMax;
-							}
-							player.statMana = binaryReader.ReadInt32();
-							player.statManaMax = binaryReader.ReadInt32();
-							if (player.statManaMax > 200)
-							{
-								player.statManaMax = 200;
-							}
-							if (player.statMana > 400)
-							{
-								player.statMana = 400;
-							}
-							player.hairColor.R = binaryReader.ReadByte();
-							player.hairColor.G = binaryReader.ReadByte();
-							player.hairColor.B = binaryReader.ReadByte();
-							player.skinColor.R = binaryReader.ReadByte();
-							player.skinColor.G = binaryReader.ReadByte();
-							player.skinColor.B = binaryReader.ReadByte();
-							player.eyeColor.R = binaryReader.ReadByte();
-							player.eyeColor.G = binaryReader.ReadByte();
-							player.eyeColor.B = binaryReader.ReadByte();
-							player.shirtColor.R = binaryReader.ReadByte();
-							player.shirtColor.G = binaryReader.ReadByte();
-							player.shirtColor.B = binaryReader.ReadByte();
-							player.underShirtColor.R = binaryReader.ReadByte();
-							player.underShirtColor.G = binaryReader.ReadByte();
-							player.underShirtColor.B = binaryReader.ReadByte();
-							player.pantsColor.R = binaryReader.ReadByte();
-							player.pantsColor.G = binaryReader.ReadByte();
-							player.pantsColor.B = binaryReader.ReadByte();
-							player.shoeColor.R = binaryReader.ReadByte();
-							player.shoeColor.G = binaryReader.ReadByte();
-							player.shoeColor.B = binaryReader.ReadByte();
-							Main.player[Main.myPlayer].shirtColor = player.shirtColor;
-							Main.player[Main.myPlayer].pantsColor = player.pantsColor;
-							Main.player[Main.myPlayer].hairColor = player.hairColor;
-							if (num >= 38)
-							{
-								for (int i = 0; i < 11; i++)
-								{
-									player.armor[i].netDefaults(binaryReader.ReadInt32());
-									player.armor[i].Prefix((int)binaryReader.ReadByte());
-								}
-								if (num >= 47)
-								{
-									for (int j = 0; j < 3; j++)
-									{
-										player.dye[j].netDefaults(binaryReader.ReadInt32());
-										player.dye[j].Prefix((int)binaryReader.ReadByte());
-									}
-								}
-								if (num >= 58)
-								{
-									for (int k = 0; k < 58; k++)
-									{
-										int num2 = binaryReader.ReadInt32();
-										if (num2 >= 1858)
-										{
-											player.inventory[k].netDefaults(0);
-										}
-										else
-										{
-											player.inventory[k].netDefaults(num2);
-											player.inventory[k].stack = binaryReader.ReadInt32();
-											player.inventory[k].Prefix((int)binaryReader.ReadByte());
-										}
-									}
-								}
-								else
-								{
-									for (int l = 0; l < 48; l++)
-									{
-										int num3 = binaryReader.ReadInt32();
-										if (num3 >= 1858)
-										{
-											player.inventory[l].netDefaults(0);
-										}
-										else
-										{
-											player.inventory[l].netDefaults(num3);
-											player.inventory[l].stack = binaryReader.ReadInt32();
-											player.inventory[l].Prefix((int)binaryReader.ReadByte());
-										}
-									}
-								}
-								if (num >= 58)
-								{
-									for (int m = 0; m < 40; m++)
-									{
-										player.bank[m].netDefaults(binaryReader.ReadInt32());
-										player.bank[m].stack = binaryReader.ReadInt32();
-										player.bank[m].Prefix((int)binaryReader.ReadByte());
-									}
-									for (int n = 0; n < 40; n++)
-									{
-										player.bank2[n].netDefaults(binaryReader.ReadInt32());
-										player.bank2[n].stack = binaryReader.ReadInt32();
-										player.bank2[n].Prefix((int)binaryReader.ReadByte());
-									}
-								}
-								else
-								{
-									for (int num4 = 0; num4 < 20; num4++)
-									{
-										player.bank[num4].netDefaults(binaryReader.ReadInt32());
-										player.bank[num4].stack = binaryReader.ReadInt32();
-										player.bank[num4].Prefix((int)binaryReader.ReadByte());
-									}
-									for (int num5 = 0; num5 < 20; num5++)
-									{
-										player.bank2[num5].netDefaults(binaryReader.ReadInt32());
-										player.bank2[num5].stack = binaryReader.ReadInt32();
-										player.bank2[num5].Prefix((int)binaryReader.ReadByte());
-									}
-								}
-							}
-							else
-							{
-								for (int num6 = 0; num6 < 8; num6++)
-								{
-									player.armor[num6].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-									if (num >= 36)
-									{
-										player.armor[num6].Prefix((int)binaryReader.ReadByte());
-									}
-								}
-								if (num >= 6)
-								{
-									for (int num7 = 8; num7 < 11; num7++)
-									{
-										player.armor[num7].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-										if (num >= 36)
-										{
-											player.armor[num7].Prefix((int)binaryReader.ReadByte());
-										}
-									}
-								}
-								for (int num8 = 0; num8 < 44; num8++)
-								{
-									player.inventory[num8].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-									player.inventory[num8].stack = binaryReader.ReadInt32();
-									if (num >= 36)
-									{
-										player.inventory[num8].Prefix((int)binaryReader.ReadByte());
-									}
-								}
-								if (num >= 15)
-								{
-									for (int num9 = 44; num9 < 48; num9++)
-									{
-										player.inventory[num9].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-										player.inventory[num9].stack = binaryReader.ReadInt32();
-										if (num >= 36)
-										{
-											player.inventory[num9].Prefix((int)binaryReader.ReadByte());
-										}
-									}
-								}
-								for (int num10 = 0; num10 < 20; num10++)
-								{
-									player.bank[num10].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-									player.bank[num10].stack = binaryReader.ReadInt32();
-									if (num >= 36)
-									{
-										player.bank[num10].Prefix((int)binaryReader.ReadByte());
-									}
-								}
-								if (num >= 20)
-								{
-									for (int num11 = 0; num11 < 20; num11++)
-									{
-										player.bank2[num11].SetDefaults(Item.VersionName(binaryReader.ReadString(), num));
-										player.bank2[num11].stack = binaryReader.ReadInt32();
-										if (num >= 36)
-										{
-											player.bank2[num11].Prefix((int)binaryReader.ReadByte());
-										}
-									}
-								}
-							}
-							if (num < 58)
-							{
-								for (int num12 = 40; num12 < 48; num12++)
-								{
-									player.inventory[num12 + 10] = (Item)player.inventory[num12].Clone();
-									player.inventory[num12].SetDefaults(0, false);
-								}
-							}
-							if (num >= 11)
-							{
-								for (int num13 = 0; num13 < 10; num13++)
-								{
-									player.buffType[num13] = binaryReader.ReadInt32();
-									player.buffTime[num13] = binaryReader.ReadInt32();
-								}
-							}
-							for (int num14 = 0; num14 < 200; num14++)
-							{
-								int num15 = binaryReader.ReadInt32();
-								if (num15 == -1)
-								{
-									break;
-								}
-								player.spX[num14] = num15;
-								player.spY[num14] = binaryReader.ReadInt32();
-								player.spI[num14] = binaryReader.ReadInt32();
-								player.spN[num14] = binaryReader.ReadString();
-							}
-							if (num >= 16)
-							{
-								player.hbLocked = binaryReader.ReadBoolean();
-							}
-							binaryReader.Close();
-						}
-					}
-					player.PlayerFrame();
-					File.Delete(text);
-					Player result = player;
-					return result;
-				}
-			}
-			catch
-			{
-				flag = true;
-			}
-			if (flag)
-			{
-				try
-				{
-					string text2 = playerPath + ".bak";
-					Player result;
-					if (File.Exists(text2))
-					{
-						File.Delete(playerPath);
-						File.Move(text2, playerPath);
-						result = Player.LoadPlayer(playerPath);
-						return result;
-					}
-					result = new Player();
-					return result;
-				}
-				catch
-				{
-					Player result = new Player();
-					return result;
-				}
-			}
-			return new Player();
 		}
 		public bool HasItem(int type)
 		{

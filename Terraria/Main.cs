@@ -10,7 +10,7 @@ namespace Terraria
 {
 	public class Main
 	{
-		public const int maxItemTypes = 1858;
+		public const int maxItemTypes = 1867;
 		public const int maxProjectileTypes = 330;
 		public const int maxNPCTypes = 331;
 		public const int maxTileSets = 255;
@@ -19,8 +19,8 @@ namespace Terraria
 		public const int numArmorHead = 132;
 		public const int numArmorBody = 100;
 		public const int numArmorLegs = 84;
-		public const int maxBuffs = 86;
-		public const int maxWings = 22;
+		public const int maxBuffs = 90;
+		public const int maxWings = 23;
 		public const int maxBackgrounds = 185;
 		private const int MF_BYPOSITION = 1024;
 		public const int sectionWidth = 200;
@@ -40,7 +40,7 @@ namespace Terraria
 		public const int maxNPCHitSounds = 13;
 		public const int maxNPCKilledSounds = 19;
 		public const int maxLiquidTypes = 12;
-		public const int maxMusic = 30;
+		public const int maxMusic = 31;
 		public const double dayLength = 54000.0;
 		public const double nightLength = 32400.0;
 		public const int maxStars = 130;
@@ -48,9 +48,9 @@ namespace Terraria
 		public const int maxClouds = 200;
 		public const int maxCloudTypes = 22;
 		public const int maxHair = 51;
-		public static int curRelease = 72;
-		public static string versionNumber = "v1.2.1.1";
-		public static string versionNumber2 = "v1.2.1.1";
+		public static int curRelease = 73;
+		public static string versionNumber = "v1.2.1.2";
+		public static string versionNumber2 = "v1.2.1.2";
 		public static bool ServerSideCharacter = false;
 		public static string clientUUID;
 		public static int maxMsg = 69;
@@ -61,10 +61,10 @@ namespace Terraria
 		public static int dedServCount2 = 0;
 		public static bool superFast = false;
 		public static bool[] hairLoaded = new bool[51];
-		public static bool[] wingsLoaded = new bool[22];
+		public static bool[] wingsLoaded = new bool[23];
 		public static bool[] goreLoaded = new bool[488];
 		public static bool[] projectileLoaded = new bool[330];
-		public static bool[] itemFlameLoaded = new bool[1858];
+		public static bool[] itemFlameLoaded = new bool[1867];
 		public static bool[] backgroundLoaded = new bool[185];
 		public static bool[] tileSetsLoaded = new bool[255];
 		public static bool[] wallLoaded = new bool[116];
@@ -197,13 +197,13 @@ namespace Terraria
 		public static int zoneY = 87;
 		public static float harpNote = 0f;
 		public static bool[] projHostile = new bool[330];
-		public static bool[] pvpBuff = new bool[86];
-		public static bool[] vanityPet = new bool[86];
-		public static bool[] lightPet = new bool[86];
-		public static bool[] meleeBuff = new bool[86];
-		public static bool[] debuff = new bool[86];
-		public static string[] buffName = new string[86];
-		public static string[] buffTip = new string[86];
+		public static bool[] pvpBuff = new bool[90];
+		public static bool[] vanityPet = new bool[90];
+		public static bool[] lightPet = new bool[90];
+		public static bool[] meleeBuff = new bool[90];
+		public static bool[] debuff = new bool[90];
+		public static string[] buffName = new string[90];
+		public static string[] buffTip = new string[90];
 		public static int maxMP = 10;
 		public static string[] recentWorld = new string[Main.maxMP];
 		public static string[] recentIP = new string[Main.maxMP];
@@ -277,7 +277,7 @@ namespace Terraria
 		public static bool armorHide = false;
 		public static float craftingAlpha = 1f;
 		public static float armorAlpha = 1f;
-		public static float[] buffAlpha = new float[86];
+		public static float[] buffAlpha = new float[90];
 		public static Item trashItem = new Item();
 		public static bool hardMode = false;
 		public float chestLootScale = 1f;
@@ -348,7 +348,8 @@ namespace Terraria
 		public static int dayMusic = 0;
 		public int newMusic;
 		public static bool showItemText = true;
-		public static bool autoSave = false;
+		public static bool autoSave = true;
+		public static bool validateSaves = true;
 		public static string buffString = "";
 		public static string libPath = "";
 		public static int lo = 0;
@@ -411,6 +412,7 @@ namespace Terraria
 		public static int jungleTiles;
 		public static int dungeonTiles;
 		public static bool campfire;
+		public static bool heartLantern;
 		public static int fadeCounter = 0;
 		public static float invAlpha = 1f;
 		public static float invDir = 1f;
@@ -427,7 +429,7 @@ namespace Terraria
 		public static bool[,] checkTreeAlt = new bool[Main.numTreeStyles, Main.numTileColors];
 		public static bool[,] wallAltTextureInit = new bool[113, Main.numTileColors];
 		public static bool[,] wallAltTextureDrawn = new bool[113, Main.numTileColors];
-		public static float[] musicFade = new float[30];
+		public static float[] musicFade = new float[31];
 		public static float musicVolume = 0.75f;
 		public static float soundVolume = 1f;
 		public static bool[] tileLighted = new bool[255];
@@ -570,7 +572,7 @@ namespace Terraria
 		});
 		public static string WorldPath = Main.SavePath + Path.DirectorySeparatorChar + "Worlds";
 		public static string PlayerPath = Main.SavePath + Path.DirectorySeparatorChar + "Players";
-		public static string[] itemName = new string[1858];
+		public static string[] itemName = new string[1867];
 		public static string[] npcName = new string[331];
 		public static int invasionType = 0;
 		public static double invasionX = 0.0;
@@ -2462,6 +2464,10 @@ namespace Terraria
 			Main.debuff[69] = true;
 			Main.debuff[70] = true;
 			Main.debuff[80] = true;
+			Main.debuff[86] = true;
+			Main.debuff[87] = true;
+			Main.debuff[88] = true;
+			Main.debuff[89] = true;
 			Main.meleeBuff[71] = true;
 			Main.meleeBuff[73] = true;
 			Main.meleeBuff[74] = true;
@@ -3580,7 +3586,7 @@ namespace Terraria
 			{
 				Main.itemText[num10] = new ItemText();
 			}
-			for (int num11 = 0; num11 < 1858; num11++)
+			for (int num11 = 0; num11 < 1867; num11++)
 			{
 				Item item = new Item();
 				item.SetDefaults(num11, false);
@@ -4229,21 +4235,36 @@ namespace Terraria
 		protected void UnloadContent()
 		{
 		}
+		public static void stopPumpkinMoon()
+		{
+			if (Main.pumpkinMoon)
+			{
+				Main.pumpkinMoon = false;
+				if (Main.netMode != 1)
+				{
+					NPC.waveKills = 0f;
+					NPC.waveCount = 0;
+				}
+			}
+		}
 		public static void startPumpkinMoon()
 		{
 			Main.pumpkinMoon = true;
 			Main.bloodMoon = false;
-			NPC.waveKills = 0f;
-			NPC.waveCount = 1;
-			string text = "First Wave: " + Main.npcName[305];
-			if (Main.netMode == 0)
+			if (Main.netMode != 1)
 			{
-				Main.NewText(text, 175, 75, 255, false);
-				return;
-			}
-			if (Main.netMode == 2)
-			{
-				NetMessage.SendData(25, -1, -1, text, 255, 175f, 75f, 255f, 0);
+				NPC.waveKills = 0f;
+				NPC.waveCount = 1;
+				string text = "First Wave: " + Main.npcName[305];
+				if (Main.netMode == 0)
+				{
+					Main.NewText(text, 175, 75, 255, false);
+					return;
+				}
+				if (Main.netMode == 2)
+				{
+					NetMessage.SendData(25, -1, -1, text, 255, 175f, 75f, 255f, 0);
+				}
 			}
 		}
 		protected void UpdateMusic()
@@ -10048,7 +10069,7 @@ namespace Terraria
 					Main.checkForSpawns = 0;
 					Main.time = 0.0;
 					Main.bloodMoon = false;
-					Main.pumpkinMoon = false;
+					Main.stopPumpkinMoon();
 					Main.dayTime = true;
 					Main.moonPhase++;
 					if (Main.moonPhase >= 8)

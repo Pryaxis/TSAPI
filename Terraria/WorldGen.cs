@@ -306,14 +306,37 @@ namespace Terraria
 		{
 			if (WorldGen.CheckConditions(WorldGen.spawnNPC))
 			{
-				return true;
-			}
-			for (int i = 0; i < 331; i++)
-			{
-				if (Main.nextNPC[i] && WorldGen.CheckConditions(i))
+				bool flag = false;
+				for (int i = 0; i < 200; i++)
 				{
-					WorldGen.spawnNPC = i;
+					if (Main.npc[i].type == WorldGen.spawnNPC)
+					{
+						flag = true;
+					}
+				}
+				if (flag)
+				{
 					return true;
+				}
+			}
+			for (int j = 0; j < 331; j++)
+			{
+				if (Main.nextNPC[j] && WorldGen.CheckConditions(j))
+				{
+					bool flag2 = false;
+					for (int k = 0; k < 200; k++)
+					{
+						if (Main.npc[k].type == j)
+						{
+							flag2 = true;
+						}
+					}
+					if (!flag2)
+					{
+						WorldGen.spawnNPC = j;
+						return true;
+					}
+					Main.nextNPC[j] = false;
 				}
 			}
 			return false;
@@ -1276,6 +1299,7 @@ namespace Terraria
 							Console.WriteLine("Load failed!  No backup found.");
 							return;
 						}
+						File.Copy(Main.worldPathName, Main.worldPathName + ".bad", true);
 						File.Copy(Main.worldPathName + ".bak", Main.worldPathName, true);
 						File.Delete(Main.worldPathName + ".bak");
 						WorldGen.loadWorld();
@@ -1284,6 +1308,9 @@ namespace Terraria
 							WorldGen.loadWorld();
 							if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 							{
+								File.Copy(Main.worldPathName, Main.worldPathName + ".bak", true);
+								File.Copy(Main.worldPathName + ".bad", Main.worldPathName, true);
+								File.Delete(Main.worldPathName + ".bad");
 								Console.WriteLine("Load failed!");
 								return;
 							}
@@ -1631,79 +1658,80 @@ namespace Terraria
 									});
 									for (int j = 0; j < Main.maxTilesY; j++)
 									{
-										if (Main.tile[i, j].type == 127 && Main.tile[i, j].active())
+										lock (Main.tile[i, j])
 										{
-											WorldGen.KillTile(i, j, false, false, false);
-											WorldGen.KillTile(i, j, false, false, false);
-											if (!Main.tile[i, j].active() && Main.netMode != 0)
+											if (Main.tile[i, j].type == 127 && Main.tile[i, j].active())
 											{
-												NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0);
+												WorldGen.KillTile(i, j, false, false, false);
+												if (!Main.tile[i, j].active() && Main.netMode != 0)
+												{
+													NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0);
+												}
 											}
-										}
-										Tile tile = (Tile)Main.tile[i, j].Clone();
-										binaryWriter.Write(tile.active());
-										if (tile.active())
-										{
-											binaryWriter.Write(tile.type);
-											if (Main.tileFrameImportant[(int)tile.type])
+											binaryWriter.Write(Main.tile[i, j].active());
+											if (Main.tile[i, j].active())
 											{
-												binaryWriter.Write(tile.frameX);
-												binaryWriter.Write(tile.frameY);
+												binaryWriter.Write(Main.tile[i, j].type);
+												if (Main.tileFrameImportant[(int)Main.tile[i, j].type])
+												{
+													binaryWriter.Write(Main.tile[i, j].frameX);
+													binaryWriter.Write(Main.tile[i, j].frameY);
+												}
+												if (Main.tile[i, j].color() > 0)
+												{
+													binaryWriter.Write(true);
+													binaryWriter.Write(Main.tile[i, j].color());
+												}
+												else
+												{
+													binaryWriter.Write(false);
+												}
 											}
-											if (tile.color() > 0)
+											if (Main.tile[i, j].wall > 0)
 											{
 												binaryWriter.Write(true);
-												binaryWriter.Write(tile.color());
+												binaryWriter.Write(Main.tile[i, j].wall);
+												if (Main.tile[i, j].wallColor() > 0)
+												{
+													binaryWriter.Write(true);
+													binaryWriter.Write(Main.tile[i, j].wallColor());
+												}
+												else
+												{
+													binaryWriter.Write(false);
+												}
 											}
 											else
 											{
 												binaryWriter.Write(false);
 											}
-										}
-										if (Main.tile[i, j].wall > 0)
-										{
-											binaryWriter.Write(true);
-											binaryWriter.Write(tile.wall);
-											if (tile.wallColor() > 0)
+											if (Main.tile[i, j].liquid > 0)
 											{
 												binaryWriter.Write(true);
-												binaryWriter.Write(tile.wallColor());
+												binaryWriter.Write(Main.tile[i, j].liquid);
+												binaryWriter.Write(Main.tile[i, j].lava());
+												binaryWriter.Write(Main.tile[i, j].honey());
 											}
 											else
 											{
 												binaryWriter.Write(false);
 											}
+											binaryWriter.Write(Main.tile[i, j].wire());
+											binaryWriter.Write(Main.tile[i, j].wire2());
+											binaryWriter.Write(Main.tile[i, j].wire3());
+											binaryWriter.Write(Main.tile[i, j].halfBrick());
+											binaryWriter.Write(Main.tile[i, j].slope());
+											binaryWriter.Write(Main.tile[i, j].actuator());
+											binaryWriter.Write(Main.tile[i, j].inActive());
+											int num2 = 1;
+											while (j + num2 < Main.maxTilesY && Main.tile[i, j].isTheSameAs(Main.tile[i, j + num2]))
+											{
+												num2++;
+											}
+											num2--;
+											binaryWriter.Write((short)num2);
+											j += num2;
 										}
-										else
-										{
-											binaryWriter.Write(false);
-										}
-										if (tile.liquid > 0)
-										{
-											binaryWriter.Write(true);
-											binaryWriter.Write(tile.liquid);
-											binaryWriter.Write(tile.lava());
-											binaryWriter.Write(tile.honey());
-										}
-										else
-										{
-											binaryWriter.Write(false);
-										}
-										binaryWriter.Write(tile.wire());
-										binaryWriter.Write(tile.wire2());
-										binaryWriter.Write(tile.wire3());
-										binaryWriter.Write(tile.halfBrick());
-										binaryWriter.Write(tile.slope());
-										binaryWriter.Write(tile.actuator());
-										binaryWriter.Write(tile.inActive());
-										int num2 = 1;
-										while (j + num2 < Main.maxTilesY && tile.isTheSameAs(Main.tile[i, j + num2]))
-										{
-											num2++;
-										}
-										num2--;
-										binaryWriter.Write((short)num2);
-										j += num2;
 									}
 								}
 								for (int k = 0; k < 1000; k++)
@@ -2670,7 +2698,7 @@ namespace Terraria
 								bool flag2 = binaryReader.ReadBoolean();
 								string text2 = binaryReader.ReadString();
 								int num10 = binaryReader.ReadInt32();
-								if (!flag2 || !(text2 == Main.worldName) || num10 != Main.worldID)
+								if (!flag2 || (!(text2 == Main.worldName) && num10 != Main.worldID))
 								{
 									WorldGen.loadSuccess = false;
 									WorldGen.loadFailed = true;
@@ -2757,6 +2785,419 @@ namespace Terraria
 					}
 				}
 			}
+		}
+		public static bool validateWorld(string validatePath)
+		{
+			Stopwatch stopwatch = new Stopwatch();
+			stopwatch.Start();
+			if (WorldGen.genRand == null)
+			{
+				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
+			}
+			bool result;
+			using (FileStream fileStream = new FileStream(validatePath, FileMode.Open))
+			{
+				using (BinaryReader binaryReader = new BinaryReader(fileStream))
+				{
+					try
+					{
+						int num = binaryReader.ReadInt32();
+						if (num > Main.curRelease)
+						{
+							try
+							{
+								binaryReader.Close();
+								fileStream.Close();
+							}
+							catch
+							{
+							}
+							result = false;
+						}
+						else
+						{
+							string b = binaryReader.ReadString();
+							int num2 = binaryReader.ReadInt32();
+							binaryReader.ReadInt32();
+							binaryReader.ReadInt32();
+							binaryReader.ReadInt32();
+							binaryReader.ReadInt32();
+							int num3 = binaryReader.ReadInt32();
+							int num4 = binaryReader.ReadInt32();
+							if (num >= 63)
+							{
+								binaryReader.ReadByte();
+							}
+							if (num >= 44)
+							{
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+							}
+							if (num >= 60)
+							{
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								if (num >= 61)
+								{
+									binaryReader.ReadInt32();
+									binaryReader.ReadInt32();
+								}
+							}
+							binaryReader.ReadInt32();
+							binaryReader.ReadInt32();
+							binaryReader.ReadDouble();
+							binaryReader.ReadDouble();
+							binaryReader.ReadDouble();
+							binaryReader.ReadBoolean();
+							binaryReader.ReadInt32();
+							binaryReader.ReadBoolean();
+							if (num >= 70)
+							{
+								binaryReader.ReadBoolean();
+							}
+							binaryReader.ReadInt32();
+							binaryReader.ReadInt32();
+							if (num >= 56)
+							{
+								binaryReader.ReadBoolean();
+							}
+							binaryReader.ReadBoolean();
+							binaryReader.ReadBoolean();
+							binaryReader.ReadBoolean();
+							if (num >= 66)
+							{
+								binaryReader.ReadBoolean();
+							}
+							if (num >= 44)
+							{
+								binaryReader.ReadBoolean();
+								binaryReader.ReadBoolean();
+								binaryReader.ReadBoolean();
+								binaryReader.ReadBoolean();
+							}
+							if (num >= 64)
+							{
+								binaryReader.ReadBoolean();
+								binaryReader.ReadBoolean();
+							}
+							if (num >= 29)
+							{
+								binaryReader.ReadBoolean();
+								binaryReader.ReadBoolean();
+								if (num >= 34)
+								{
+									binaryReader.ReadBoolean();
+								}
+								binaryReader.ReadBoolean();
+							}
+							if (num >= 32)
+							{
+								binaryReader.ReadBoolean();
+							}
+							if (num >= 37)
+							{
+								binaryReader.ReadBoolean();
+							}
+							if (num >= 56)
+							{
+								binaryReader.ReadBoolean();
+							}
+							binaryReader.ReadBoolean();
+							binaryReader.ReadBoolean();
+							binaryReader.ReadByte();
+							if (num >= 23)
+							{
+								binaryReader.ReadInt32();
+								binaryReader.ReadBoolean();
+							}
+							binaryReader.ReadInt32();
+							binaryReader.ReadInt32();
+							binaryReader.ReadInt32();
+							binaryReader.ReadDouble();
+							if (num >= 53)
+							{
+								binaryReader.ReadBoolean();
+								binaryReader.ReadInt32();
+								binaryReader.ReadSingle();
+							}
+							if (num >= 54)
+							{
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+							}
+							if (num >= 55)
+							{
+								binaryReader.ReadByte();
+								binaryReader.ReadByte();
+								binaryReader.ReadByte();
+							}
+							if (num >= 60)
+							{
+								binaryReader.ReadByte();
+								binaryReader.ReadByte();
+								binaryReader.ReadByte();
+								binaryReader.ReadByte();
+								binaryReader.ReadByte();
+							}
+							if (num >= 60)
+							{
+								binaryReader.ReadInt32();
+							}
+							if (num >= 62)
+							{
+								binaryReader.ReadInt16();
+								binaryReader.ReadSingle();
+							}
+							for (int i = 0; i < num4; i++)
+							{
+								float num5 = (float)i / (float)Main.maxTilesX;
+								Main.statusText = string.Concat(new object[]
+								{
+									Lang.gen[73],
+									" ",
+									(int)(num5 * 100f + 1f),
+									"%"
+								});
+								for (int j = 0; j < num3; j++)
+								{
+									Tile tile = new Tile();
+									tile.active(binaryReader.ReadBoolean());
+									if (tile.active())
+									{
+										tile.type = binaryReader.ReadByte();
+										if (tile.type == 127)
+										{
+											tile.active(false);
+										}
+										if (num < 72 && (tile.type == 35 || tile.type == 36 || tile.type == 170 || tile.type == 171 || tile.type == 172))
+										{
+											tile.frameX = binaryReader.ReadInt16();
+											tile.frameY = binaryReader.ReadInt16();
+										}
+										else if (Main.tileFrameImportant[(int)tile.type])
+										{
+											if (num < 28 && tile.type == 4)
+											{
+												tile.frameX = 0;
+												tile.frameY = 0;
+											}
+											else if (num < 40 && tile.type == 19)
+											{
+												tile.frameX = 0;
+												tile.frameY = 0;
+											}
+											else
+											{
+												tile.frameX = binaryReader.ReadInt16();
+												tile.frameY = binaryReader.ReadInt16();
+												if (tile.type == 144)
+												{
+													tile.frameY = 0;
+												}
+											}
+										}
+										else
+										{
+											tile.frameX = -1;
+											tile.frameY = -1;
+										}
+										if (num >= 48 && binaryReader.ReadBoolean())
+										{
+											tile.color(binaryReader.ReadByte());
+										}
+									}
+									if (num <= 25)
+									{
+										binaryReader.ReadBoolean();
+									}
+									if (binaryReader.ReadBoolean())
+									{
+										tile.wall = binaryReader.ReadByte();
+										if (num >= 48 && binaryReader.ReadBoolean())
+										{
+											tile.wallColor(binaryReader.ReadByte());
+										}
+									}
+									if (binaryReader.ReadBoolean())
+									{
+										tile.liquid = binaryReader.ReadByte();
+										tile.lava(binaryReader.ReadBoolean());
+										if (num >= 51)
+										{
+											tile.honey(binaryReader.ReadBoolean());
+										}
+									}
+									if (num >= 33)
+									{
+										tile.wire(binaryReader.ReadBoolean());
+									}
+									if (num >= 43)
+									{
+										tile.wire2(binaryReader.ReadBoolean());
+										tile.wire3(binaryReader.ReadBoolean());
+									}
+									if (num >= 41)
+									{
+										tile.halfBrick(binaryReader.ReadBoolean());
+										if (!Main.tileSolid[(int)tile.type])
+										{
+											tile.halfBrick(false);
+										}
+										if (num >= 49)
+										{
+											tile.slope(binaryReader.ReadByte());
+											if (!Main.tileSolid[(int)tile.type])
+											{
+												tile.slope(0);
+											}
+										}
+									}
+									if (num >= 42)
+									{
+										tile.actuator(binaryReader.ReadBoolean());
+										tile.inActive(binaryReader.ReadBoolean());
+									}
+									if (num >= 25)
+									{
+										int num6 = (int)binaryReader.ReadInt16();
+										j += num6;
+									}
+								}
+							}
+							int num7 = 40;
+							if (num < 58)
+							{
+								num7 = 20;
+							}
+							for (int k = 0; k < 1000; k++)
+							{
+								if (binaryReader.ReadBoolean())
+								{
+									binaryReader.ReadInt32();
+									binaryReader.ReadInt32();
+									for (int l = 0; l < 40; l++)
+									{
+										if (l < num7)
+										{
+											int num8;
+											if (num >= 59)
+											{
+												num8 = (int)binaryReader.ReadInt16();
+											}
+											else
+											{
+												num8 = (int)binaryReader.ReadByte();
+											}
+											if (num8 > 0)
+											{
+												if (num >= 38)
+												{
+													binaryReader.ReadInt32();
+												}
+												else
+												{
+													binaryReader.ReadString();
+												}
+												binaryReader.ReadByte();
+											}
+										}
+									}
+								}
+							}
+							for (int m = 0; m < 1000; m++)
+							{
+								if (binaryReader.ReadBoolean())
+								{
+									binaryReader.ReadString();
+									binaryReader.ReadInt32();
+									binaryReader.ReadInt32();
+								}
+							}
+							bool flag = binaryReader.ReadBoolean();
+							int num9 = 0;
+							while (flag)
+							{
+								binaryReader.ReadString();
+								binaryReader.ReadSingle();
+								binaryReader.ReadSingle();
+								binaryReader.ReadBoolean();
+								binaryReader.ReadInt32();
+								binaryReader.ReadInt32();
+								flag = binaryReader.ReadBoolean();
+								num9++;
+							}
+							if (num >= 31)
+							{
+								binaryReader.ReadString();
+								binaryReader.ReadString();
+								binaryReader.ReadString();
+								binaryReader.ReadString();
+								binaryReader.ReadString();
+								binaryReader.ReadString();
+								binaryReader.ReadString();
+								binaryReader.ReadString();
+								binaryReader.ReadString();
+								if (num >= 35)
+								{
+									binaryReader.ReadString();
+									if (num >= 65)
+									{
+										binaryReader.ReadString();
+										binaryReader.ReadString();
+										binaryReader.ReadString();
+										binaryReader.ReadString();
+										binaryReader.ReadString();
+										binaryReader.ReadString();
+										binaryReader.ReadString();
+										binaryReader.ReadString();
+									}
+								}
+							}
+							if (num >= 7)
+							{
+								bool flag2 = binaryReader.ReadBoolean();
+								string text = binaryReader.ReadString();
+								int num10 = binaryReader.ReadInt32();
+								if (!flag2 || (!(text == b) && num10 != num2))
+								{
+									binaryReader.Close();
+									fileStream.Close();
+									result = false;
+									return result;
+								}
+							}
+							binaryReader.Close();
+							fileStream.Close();
+							result = true;
+						}
+					}
+					catch
+					{
+						try
+						{
+							binaryReader.Close();
+							fileStream.Close();
+						}
+						catch
+						{
+						}
+						result = false;
+					}
+				}
+			}
+			return result;
 		}
 		private static void resetGen()
 		{
@@ -21559,6 +22000,10 @@ namespace Terraria
 						else if (num == 8)
 						{
 							Item.NewItem(x * 16, num2 * 16, 32, 32, 1808, 1, false, 0, false);
+						}
+						else if (num == 9)
+						{
+							Item.NewItem(x * 16, num2 * 16, 32, 32, 1859, 1, false, 0, false);
 						}
 						else
 						{

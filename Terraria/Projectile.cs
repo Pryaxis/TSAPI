@@ -4378,6 +4378,8 @@ namespace Terraria
 									}
 									if (this.type == 286)
 										Main.npc[index].immune[this.owner] = 5;
+									else if (this.type == 190)
+										Main.npc[index].immune[this.owner] = 8;
 									else if (this.type == 311)
 										Main.npc[index].immune[this.owner] = 7;
 									else if (this.penetrate != 1)

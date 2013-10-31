@@ -2227,7 +2227,7 @@ namespace Terraria
             }
             else if (ItemName != "")
             {
-                for (int Type = 0; Type < 1858; ++Type)
+                for (int Type = 0; Type < 1867; ++Type)
                 {
                     if (Main.itemName[Type] == ItemName)
                     {
@@ -20586,8 +20586,8 @@ namespace Terraria
             else if (this.type == 1254)
             {
                 this.useStyle = 5;
-                this.useAnimation = 60;
-                this.useTime = 60;
+                this.useAnimation = 50;
+                this.useTime = 50;
                 this.name = "Sniper Rifle";
                 this.crit += 15;
                 this.width = 44;
@@ -25707,7 +25707,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 20;
 				this.height = 20;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.value = Item.buyPrice(0, 1, 50, 0);
 			}
 			else if (this.type == 1792)
 			{
@@ -26463,6 +26463,108 @@ namespace Terraria
 				this.value = Item.sellPrice(0, 5, 0, 0);
 				this.vanity = true;
 				this.rare = 3;
+			}
+			else if (this.type == 1858)
+			{
+				this.name = "Sniper Scope";
+				this.width = 14;
+				this.height = 28;
+				this.rare = 7;
+				this.value = 300000;
+				this.accessory = true;
+				this.toolTip = "Increases view range for guns (Right click to zoom out)";
+				this.toolTip2 = "10% increased ranged damage and critical strike chance";
+			}
+			else if (this.type == 1859)
+			{
+				this.name = "Heart Lantern";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 42;
+				this.width = 12;
+				this.height = 28;
+				this.placeStyle = 9;
+			}
+			else if (this.type == 1860)
+			{
+				this.name = "Jellyfish Diving Gear";
+				this.width = 24;
+				this.height = 28;
+				this.rare = 5;
+				this.value = 150000;
+				this.accessory = true;
+				this.toolTip = "Grants the ability to swim and greatly extends underwater breathing";
+				this.toolTip2 = "Provides light under water";
+			}
+			else if (this.type == 1861)
+			{
+				this.name = "Arctic Diving Gear";
+				this.width = 24;
+				this.height = 28;
+				this.rare = 6;
+				this.value = 250000;
+				this.accessory = true;
+				this.toolTip = "Grants the ability to swim and greatly extends underwater breathing";
+				this.toolTip2 = "Provides light under water and extra mobility on ice";
+			}
+			else if (this.type == 1862)
+			{
+				this.name = "Sparkfrost Boots";
+				this.width = 16;
+				this.height = 24;
+				this.accessory = true;
+				this.rare = 7;
+				this.toolTip = "Allows flight, super fast running, and extra mobility on ice";
+				this.toolTip = "7% increased movement speed";
+				this.value = 350000;
+			}
+			else if (this.type == 1863)
+			{
+				this.name = "Fart in a Balloon";
+				this.width = 14;
+				this.height = 28;
+				this.rare = 4;
+				this.value = 150000;
+				this.accessory = true;
+				this.toolTip = "Allows the holder to double jump";
+				this.toolTip2 = "Increases jump height";
+			}
+			else if (this.type == 1864)
+			{
+				this.name = "Papyrus Scarab";
+				this.rare = 8;
+				this.width = 24;
+				this.height = 28;
+				this.accessory = true;
+				this.toolTip = "Increases your max number of minions";
+				this.toolTip2 = "Increases the damage and knockback of your minions";
+				this.value = Item.buyPrice(0, 25, 0, 0);
+			}
+			else if (this.type == 1865)
+			{
+				this.name = "Celestial Stone";
+				this.width = 16;
+				this.height = 24;
+				this.accessory = true;
+				this.rare = 7;
+				this.toolTip = "Minor increase to damage, attack speed, critical strike chance,";
+				this.toolTip2 = "life regeneration, defense, pick speed, and minion knockback";
+				this.value = 400000;
+			}
+			else if (this.type == 1866)
+			{
+				this.name = "Hoverboard";
+				this.width = 24;
+				this.height = 8;
+				this.accessory = true;
+				this.toolTip = "Allows flight and slow fall";
+				this.value = 400000;
+				this.rare = 5;
 			}
 
             this.netID = this.type;

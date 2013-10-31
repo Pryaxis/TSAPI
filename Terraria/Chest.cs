@@ -347,7 +347,7 @@ namespace Terraria
 					this.item[num].SetDefaults("Hellfire Arrow");
 					num++;
 				}
-				if (Main.hardMode && NPC.downedGolemBoss && NPC.downedPirates)
+				if (Main.hardMode && NPC.downedPlantBoss && NPC.downedPirates)
 				{
 					this.item[num].SetDefaults(937, false);
 					num++;
@@ -809,7 +809,7 @@ namespace Terraria
 						num++;
 					}
 				}
-				if (Main.hardMode && NPC.downedGolemBoss)
+				if (Main.hardMode && NPC.downedPlantBoss)
 				{
 					this.item[num].SetDefaults(909, false);
 					num++;
@@ -836,6 +836,11 @@ namespace Terraria
 				if (Main.player[Main.myPlayer].HasItem(1258))
 				{
 					this.item[num].SetDefaults(1261, false);
+					num++;
+				}
+				if (Main.halloween)
+				{
+					this.item[num].SetDefaults(1791, false);
 					num++;
 				}
 			}

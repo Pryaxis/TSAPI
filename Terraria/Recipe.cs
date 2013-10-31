@@ -4,7 +4,7 @@ namespace Terraria
 	public class Recipe
 	{
 		public static int maxRequirements = 15;
-		public static int maxRecipes = 900;
+		public static int maxRecipes = 1000;
 		public static int numRecipes = 0;
 		private static Recipe newRecipe = new Recipe();
 		public Item createItem = new Item();
@@ -784,6 +784,11 @@ namespace Terraria
 			Recipe.newRecipe.createItem.SetDefaults(1431, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults("Bottle");
 			Recipe.newRecipe.requiredItem[1].SetDefaults(75, false);
+			Recipe.addRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(1859, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(29, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(85, false);
+			Recipe.newRecipe.requiredItem[1].stack = 4;
 			Recipe.addRecipe();
 			Recipe.newRecipe.createItem.SetDefaults("Chinese Lantern");
 			Recipe.newRecipe.requiredItem[0].SetDefaults("Silk");
@@ -4216,6 +4221,13 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].stack = 10;
 			Recipe.newRecipe.requiredTile[0] = 134;
 			Recipe.addRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(1866, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(575, false);
+			Recipe.newRecipe.requiredItem[0].stack = 20;
+			Recipe.newRecipe.requiredItem[1].SetDefaults(1552, false);
+			Recipe.newRecipe.requiredItem[1].stack = 18;
+			Recipe.newRecipe.requiredTile[0] = 134;
+			Recipe.addRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1085, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(1073, false);
 			Recipe.newRecipe.requiredItem[0].stack = 2;
@@ -4590,6 +4602,16 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].SetDefaults(268, false);
 			Recipe.newRecipe.requiredTile[0] = 114;
 			Recipe.addRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(1860, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(394, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(1303, false);
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.addRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(1861, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(1860, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(950, false);
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.addRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(395, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(17, false);
 			Recipe.newRecipe.requiredItem[1].SetDefaults(18, false);
@@ -4637,6 +4659,11 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].SetDefaults(159, false);
 			Recipe.newRecipe.requiredTile[0] = 114;
 			Recipe.addRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(1863, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(1724, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(159, false);
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.addRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1250, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(399, false);
 			Recipe.newRecipe.requiredItem[1].SetDefaults(158, false);
@@ -4674,6 +4701,11 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[2].SetDefaults(285, false);
 			Recipe.newRecipe.requiredTile[0] = 114;
 			Recipe.addRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(1862, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(898, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(950, false);
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.addRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(907, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(863, false);
 			Recipe.newRecipe.requiredItem[1].SetDefaults(193, false);
@@ -4704,6 +4736,11 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[1].SetDefaults(936, false);
 			Recipe.newRecipe.requiredTile[0] = 114;
 			Recipe.addRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(1864, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(1845, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(1167, false);
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.addRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(982, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(111, false);
 			Recipe.newRecipe.requiredItem[1].SetDefaults(49, false);
@@ -4717,6 +4754,11 @@ namespace Terraria
 			Recipe.newRecipe.createItem.SetDefaults(860, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(49, false);
 			Recipe.newRecipe.requiredItem[1].SetDefaults(535, false);
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.addRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(1865, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(899, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(900, false);
 			Recipe.newRecipe.requiredTile[0] = 114;
 			Recipe.addRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(861, false);
@@ -4787,6 +4829,11 @@ namespace Terraria
 			Recipe.newRecipe.createItem.SetDefaults(1301, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(935, false);
 			Recipe.newRecipe.requiredItem[1].SetDefaults(1248, false);
+			Recipe.newRecipe.requiredTile[0] = 114;
+			Recipe.addRecipe();
+			Recipe.newRecipe.createItem.SetDefaults(1858, false);
+			Recipe.newRecipe.requiredItem[0].SetDefaults(1300, false);
+			Recipe.newRecipe.requiredItem[1].SetDefaults(1301, false);
 			Recipe.newRecipe.requiredTile[0] = 114;
 			Recipe.addRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(193, false);
