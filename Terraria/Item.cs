@@ -20706,14 +20706,14 @@ namespace Terraria
             else if (this.type == 1260)
             {
                 this.useStyle = 5;
-                this.useAnimation = 45;
+                this.useAnimation = 40;
                 this.useTime = 40;
                 this.name = "Rainbow Gun";
                 this.width = 50;
                 this.height = 18;
                 this.shoot = 250;
                 this.useSound = 9;
-                this.damage = 40;
+                this.damage = 45;
                 this.knockBack = 2f;
                 this.shootSpeed = 16f;
                 this.noMelee = true;
