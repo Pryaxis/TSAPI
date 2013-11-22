@@ -346,6 +346,7 @@ namespace TerrariaApi.Server
 			number2 = args.number2;
 			number3 = args.number3;
 			number4 = args.number4;
+			number5 = args.number5;
 			return args.Handled;
 		}
 		#endregion
