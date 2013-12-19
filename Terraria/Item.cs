@@ -94,6 +94,7 @@ namespace Terraria
 		public bool ranged;
 		public bool summon;
 		public int reuseDelay;
+		public int explosive;
 		public bool Prefix(int pre)
 		{
 			if (pre == 0 || this.type == 0)
@@ -2875,7 +2876,6 @@ namespace Terraria
             RealSetDefaults(itemname);
             ServerApi.Hooks.InvokeItemSetDefaultsString(ref itemname, this);
         }
-
         public void RealSetDefaults(string ItemName)
 		{
 			this.name = "";
@@ -4226,6 +4226,7 @@ namespace Terraria
 			this.value = 0;
 			this.useTurn = false;
 			this.buy = false;
+			this.explosive = 0;
 			if (this.type == 0)
 			{
 				this.netID = 0;
@@ -6656,6 +6657,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.value = Item.buyPrice(0, 0, 3, 0);
 				this.damage = 0;
+				this.explosive = 1;
 				this.toolTip = "A small explosion that will destroy some tiles";
 			}
 			else if (this.type == 167)
@@ -6675,6 +6677,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.value = Item.sellPrice(0, 0, 30, 0);
 				this.rare = 1;
+				this.explosive = 2;
 				this.toolTip = "A large explosion that will destroy most tiles";
 			}
 			else if (this.type == 168)
@@ -7662,6 +7665,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.value = 500;
 				this.damage = 0;
+				this.explosive = 1;
 				this.toolTip = "'Tossing may be difficult.'";
 			}
 			else if (this.type == 236)
@@ -12691,6 +12695,7 @@ namespace Terraria
 				this.createTile = 141;
 				this.width = 12;
 				this.height = 12;
+				this.explosive = 4;
 				this.toolTip = "Explodes when activated";
 			}
 			else if (this.type == 581)
@@ -15228,6 +15233,7 @@ namespace Terraria
 				this.value = 100000;
 				this.knockBack = 4f;
 				this.rare = 8;
+				this.explosive = 3;
 				this.ranged = true;
 			}
 			else if (this.type == 760)
@@ -15415,6 +15421,7 @@ namespace Terraria
 				this.value = Item.buyPrice(0, 0, 2, 50);
 				this.ranged = true;
 				this.toolTip = "Small blast radius. Will destroy tiles";
+				this.explosive = 2;
 				this.rare = 1;
 			}
 			else if (this.type == 773)
@@ -15447,6 +15454,7 @@ namespace Terraria
 				this.value = (this.value = Item.buyPrice(0, 0, 5, 0));
 				this.ranged = true;
 				this.toolTip = "Large blast radius. Will destroy tiles";
+				this.explosive = 4;
 				this.rare = 2;
 			}
 			else if (this.type == 775)
