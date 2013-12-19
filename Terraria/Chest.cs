@@ -527,6 +527,11 @@ namespace Terraria
 				num++;
 				this.item[num].SetDefaults(596, false);
 				num++;
+				for (int k = 1873; k < 1906; k++)
+				{
+					this.item[num].SetDefaults(k, false);
+					num++;
+				}
 			}
 			else if (type == 10)
 			{
@@ -690,9 +695,9 @@ namespace Terraria
 				num++;
 				this.item[num].SetDefaults(1100, false);
 				num++;
-				for (int k = 1073; k <= 1084; k++)
+				for (int l = 1073; l <= 1084; l++)
 				{
-					this.item[num].SetDefaults(k, false);
+					this.item[num].SetDefaults(l, false);
 					num++;
 				}
 				this.item[num].SetDefaults(1097, false);
@@ -767,6 +772,14 @@ namespace Terraria
 				{
 					this.item[num].SetDefaults(1494, false);
 					num++;
+				}
+				if (Main.xMas)
+				{
+					for (int m = 1948; m <= 1957; m++)
+					{
+						this.item[num].SetDefaults(m, false);
+						num++;
+					}
 				}
 			}
 			else if (type == 16)
@@ -872,9 +885,9 @@ namespace Terraria
 			}
 			if (Main.player[Main.myPlayer].discount)
 			{
-				for (int l = 0; l < num; l++)
+				for (int n = 0; n < num; n++)
 				{
-					this.item[l].value = (int)((float)this.item[l].value * 0.8f);
+					this.item[n].value = (int)((float)this.item[n].value * 0.8f);
 				}
 			}
 		}

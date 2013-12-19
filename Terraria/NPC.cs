@@ -51,7 +51,7 @@ namespace Terraria
 		public bool lavaWet;
 		public int[] buffType = new int[5];
 		public int[] buffTime = new int[5];
-		public bool[] buffImmune = new bool[90];
+		public bool[] buffImmune = new bool[93];
 		public bool midas;
 		public bool ichor;
 		public bool onFire;
@@ -79,8 +79,8 @@ namespace Terraria
 		public static bool downedMechBoss1 = false;
 		public static bool downedMechBoss2 = false;
 		public static bool downedMechBoss3 = false;
-		public static int spawnRate = NPC.defaultSpawnRate;
-		public static int maxSpawns = NPC.defaultMaxSpawns;
+		private static int spawnRate = NPC.defaultSpawnRate;
+		private static int maxSpawns = NPC.defaultMaxSpawns;
 		public int soundDelay;
 		public Vector2 position;
 		public Vector2 velocity;
@@ -149,7 +149,7 @@ namespace Terraria
 		public int friendlyRegen;
 		public static void clrNames()
 		{
-			for (int i = 0; i < 331; i++)
+			for (int i = 0; i < 353; i++)
 			{
 				Main.chrName[i] = "";
 			}
@@ -2914,7 +2914,7 @@ namespace Terraria
 			}
 			else if (Name != "")
 			{
-				for (int i = 1; i < 331; i++)
+				for (int i = 1; i < 353; i++)
 				{
 					if (Main.npcName[i] == Name)
 					{
@@ -3139,7 +3139,7 @@ namespace Terraria
 				this.buffTime[j] = 0;
 				this.buffType[j] = 0;
 			}
-			for (int k = 0; k < 90; k++)
+			for (int k = 0; k < 93; k++)
 			{
 				this.buffImmune[k] = false;
 			}
@@ -4004,7 +4004,7 @@ namespace Terraria
 				this.value = 5000f;
 				this.buffImmune[20] = true;
 			}
-			else if (this.type == 46 || this.type == 303)
+			else if (this.type == 46 || this.type == 303 || this.type == 337)
 			{
 				this.name = "Bunny";
 				this.width = 18;
@@ -8502,9 +8502,329 @@ namespace Terraria
 				flag = true;
 				this.knockBackResist = 0.4f;
 			}
+			else if (this.type == 331)
+			{
+				this.name = "Zombie";
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 3;
+				this.damage = 14;
+				this.defense = 6;
+				this.lifeMax = 45;
+				this.soundHit = 1;
+				this.soundKilled = 2;
+				this.knockBackResist = 0.5f;
+				this.value = 60f;
+				this.buffImmune[31] = false;
+			}
+			else if (this.type == 332)
+			{
+				this.name = "Zombie";
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 3;
+				this.damage = 14;
+				this.defense = 6;
+				this.lifeMax = 45;
+				this.soundHit = 1;
+				this.soundKilled = 2;
+				this.knockBackResist = 0.5f;
+				this.value = 60f;
+				this.buffImmune[31] = false;
+			}
+			if (this.type == 333)
+			{
+				this.name = "Slime";
+				this.width = 24;
+				this.height = 18;
+				this.aiStyle = 1;
+				this.damage = 7;
+				this.defense = 2;
+				this.lifeMax = 25;
+				this.soundHit = 1;
+				this.soundKilled = 1;
+				this.value = 25f;
+				this.buffImmune[20] = true;
+				this.buffImmune[31] = false;
+			}
+			if (this.type == 334)
+			{
+				this.name = "Slime";
+				this.width = 24;
+				this.height = 18;
+				this.aiStyle = 1;
+				this.damage = 6;
+				this.defense = 2;
+				this.lifeMax = 23;
+				this.soundHit = 1;
+				this.soundKilled = 1;
+				this.scale = 0.9f;
+				this.value = 25f;
+				this.buffImmune[20] = true;
+				this.buffImmune[31] = false;
+			}
+			if (this.type == 335)
+			{
+				this.name = "Slime";
+				this.width = 24;
+				this.height = 18;
+				this.aiStyle = 1;
+				this.damage = 8;
+				this.defense = 3;
+				this.lifeMax = 29;
+				this.scale = 1.05f;
+				this.soundHit = 1;
+				this.soundKilled = 1;
+				this.value = 25f;
+				this.buffImmune[20] = true;
+				this.buffImmune[31] = false;
+			}
+			if (this.type == 336)
+			{
+				this.name = "Slime";
+				this.width = 24;
+				this.height = 18;
+				this.aiStyle = 1;
+				this.damage = 5;
+				this.defense = 1;
+				this.lifeMax = 22;
+				this.scale = 0.85f;
+				this.soundHit = 1;
+				this.soundKilled = 1;
+				this.value = 25f;
+				this.buffImmune[20] = true;
+				this.buffImmune[31] = false;
+			}
+			else if (this.type >= 338 && this.type <= 340)
+			{
+				this.name = "Zombie Elf";
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 3;
+				this.soundHit = 1;
+				this.soundKilled = 1;
+				this.value = 1200f;
+				this.buffImmune[31] = false;
+				this.npcSlots = 0.5f;
+				if (this.type == 338)
+				{
+					this.damage = 65;
+					this.defense = 18;
+					this.lifeMax = 600;
+					this.knockBackResist = 0.4f;
+				}
+				else if (this.type == 339)
+				{
+					this.damage = 52;
+					this.defense = 24;
+					this.lifeMax = 700;
+					this.knockBackResist = 0.2f;
+					this.scale = 1.05f;
+				}
+				else if (this.type == 340)
+				{
+					this.damage = 78;
+					this.defense = 14;
+					this.lifeMax = 500;
+					this.knockBackResist = 0.25f;
+					this.scale = 0.9f;
+				}
+			}
+			else if (this.type == 341)
+			{
+				this.name = "Present Mimic";
+				this.width = 24;
+				this.height = 24;
+				this.aiStyle = 25;
+				this.damage = 100;
+				this.defense = 32;
+				this.lifeMax = 900;
+				this.soundHit = 4;
+				this.soundKilled = 6;
+				this.value = (float)Item.buyPrice(0, 0, 20, 0);
+				this.knockBackResist = 0.25f;
+				this.buffImmune[20] = true;
+				this.buffImmune[24] = true;
+				this.buffImmune[39] = true;
+			}
+			else if (this.type == 342)
+			{
+				this.name = "Gingerbread Man";
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 3;
+				this.damage = 90;
+				this.defense = 26;
+				this.lifeMax = 750;
+				this.soundHit = 7;
+				this.soundKilled = 6;
+				this.knockBackResist = 0.2f;
+				this.value = 1800f;
+				this.buffImmune[20] = true;
+				this.buffImmune[31] = false;
+			}
+			else if (this.type == 343)
+			{
+				this.name = "Yeti";
+				this.width = 38;
+				this.height = 78;
+				this.aiStyle = 3;
+				this.damage = 140;
+				this.defense = 50;
+				this.lifeMax = 3500;
+				this.soundHit = 1;
+				this.soundKilled = 1;
+				this.knockBackResist = 0f;
+				this.value = 3000f;
+				this.buffImmune[31] = false;
+			}
+			else if (this.type == 344)
+			{
+				this.name = "Everscream";
+				this.width = 172;
+				this.height = 130;
+				this.aiStyle = 57;
+				this.damage = 110;
+				this.defense = 38;
+				this.lifeMax = 13000;
+				this.soundHit = 7;
+				this.soundKilled = 5;
+				this.knockBackResist = 0f;
+				this.value = 10000f;
+				this.buffImmune[20] = true;
+			}
+			else if (this.type == 345)
+			{
+				this.name = "Ice Queen";
+				this.width = 130;
+				this.height = 140;
+				this.aiStyle = 60;
+				this.damage = 160;
+				this.defense = 38;
+				this.lifeMax = 34000;
+				this.soundHit = 7;
+				this.soundKilled = 5;
+				this.knockBackResist = 0f;
+				this.value = 10000f;
+				this.buffImmune[20] = true;
+				this.noTileCollide = true;
+				this.noGravity = true;
+			}
+			else if (this.type == 346)
+			{
+				this.name = "Santa-NK1";
+				this.width = 112;
+				this.height = 140;
+				this.aiStyle = 61;
+				this.damage = 120;
+				this.defense = 56;
+				this.lifeMax = 18000;
+				this.soundHit = 4;
+				this.soundKilled = 14;
+				this.knockBackResist = 0f;
+				this.value = 10000f;
+				this.buffImmune[20] = true;
+			}
+			else if (this.type == 347)
+			{
+				this.name = "Elf Copter";
+				this.width = 50;
+				this.height = 50;
+				this.aiStyle = 62;
+				this.damage = 60;
+				this.defense = 28;
+				this.lifeMax = 1200;
+				this.soundHit = 4;
+				this.knockBackResist = 0.4f;
+				this.soundKilled = 14;
+				this.value = 1000f;
+				this.noTileCollide = true;
+				this.noGravity = true;
+			}
+			else if (this.type == 348)
+			{
+				this.name = "Nutcracker";
+				this.width = 28;
+				this.height = 76;
+				this.aiStyle = 3;
+				this.damage = 80;
+				this.defense = 26;
+				this.lifeMax = 1800;
+				this.soundHit = 1;
+				this.soundKilled = 1;
+				this.knockBackResist = 0.4f;
+				this.value = 1500f;
+				this.buffImmune[31] = false;
+			}
+			else if (this.type == 349)
+			{
+				this.name = "Nutcracker";
+				this.width = 28;
+				this.height = 76;
+				this.aiStyle = 3;
+				this.damage = 120;
+				this.defense = 42;
+				this.lifeMax = 1800;
+				this.soundHit = 1;
+				this.soundKilled = 1;
+				this.knockBackResist = 0.1f;
+				this.value = 1500f;
+				this.buffImmune[31] = false;
+			}
+			else if (this.type == 350)
+			{
+				this.name = "Elf Archer";
+				this.width = 18;
+				this.height = 40;
+				this.aiStyle = 3;
+				this.damage = 80;
+				this.defense = 30;
+				this.lifeMax = 900;
+				this.soundHit = 1;
+				this.soundKilled = 1;
+				this.knockBackResist = 0.45f;
+				this.value = 900f;
+				this.buffImmune[20] = true;
+				this.buffImmune[31] = false;
+			}
+			else if (this.type == 351)
+			{
+				this.name = "Krampus";
+				this.width = 18;
+				this.height = 90;
+				this.aiStyle = 3;
+				this.damage = 110;
+				this.defense = 40;
+				this.lifeMax = 2500;
+				this.soundHit = 1;
+				this.soundKilled = 1;
+				this.knockBackResist = 0.1f;
+				this.value = 3000f;
+				this.buffImmune[20] = true;
+				this.buffImmune[31] = false;
+			}
+			else if (this.type == 352)
+			{
+				this.name = "Flocko";
+				this.width = 54;
+				this.height = 54;
+				this.aiStyle = 63;
+				this.damage = 100;
+				this.defense = 12;
+				this.lifeMax = 800;
+				this.soundHit = 1;
+				this.soundKilled = 6;
+				this.value = 500f;
+				this.buffImmune[20] = true;
+				this.buffImmune[24] = true;
+				this.buffImmune[39] = true;
+				this.knockBackResist = 0.4f;
+				this.noGravity = true;
+				this.noTileCollide = true;
+			}
 			if (flag)
 			{
-				for (int n = 0; n < 90; n++)
+				for (int n = 0; n < 93; n++)
 				{
 					this.buffImmune[n] = true;
 				}
@@ -8698,6 +9018,11 @@ namespace Terraria
 							}
 						}
 					}
+				}
+				if (this.type == 59)
+				{
+					int num13 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 1.7f);
+					Main.dust[num13].noGravity = true;
 				}
 				if (this.ai[2] > 1f)
 				{
@@ -9342,6 +9667,10 @@ namespace Terraria
 				{
 					this.Transform(199);
 				}
+				if (Main.netMode != 1 && this.type == 348 && (double)this.life <= (double)this.lifeMax * 0.55)
+				{
+					this.Transform(349);
+				}
 				int num19 = 60;
 				if (this.type == 120)
 				{
@@ -9362,25 +9691,25 @@ namespace Terraria
 						{
 							int num23 = Dust.NewDust(this.position, this.width, this.height, 71, num20, num21, 200, default(Color), 2f);
 							Main.dust[num23].noGravity = true;
-							Dust expr_283B_cp_0 = Main.dust[num23];
-							expr_283B_cp_0.velocity.X = expr_283B_cp_0.velocity.X * 2f;
+							Dust expr_2875_cp_0 = Main.dust[num23];
+							expr_2875_cp_0.velocity.X = expr_2875_cp_0.velocity.X * 2f;
 						}
 						for (int k = 0; k < 20; k++)
 						{
 							int num24 = Dust.NewDust(this.oldPos[2], this.width, this.height, 71, -num20, -num21, 200, default(Color), 2f);
 							Main.dust[num24].noGravity = true;
-							Dust expr_28BC_cp_0 = Main.dust[num24];
-							expr_28BC_cp_0.velocity.X = expr_28BC_cp_0.velocity.X * 2f;
+							Dust expr_28F6_cp_0 = Main.dust[num24];
+							expr_28F6_cp_0.velocity.X = expr_28F6_cp_0.velocity.X * 2f;
 						}
 					}
 				}
 				bool flag3 = false;
 				bool flag4 = true;
-				if (this.type == 47 || this.type == 67 || this.type == 109 || this.type == 110 || this.type == 111 || this.type == 120 || this.type == 163 || this.type == 164 || this.type == 239 || this.type == 168 || this.type == 199 || this.type == 206 || this.type == 214 || this.type == 215 || this.type == 216 || this.type == 217 || this.type == 218 || this.type == 219 || this.type == 220 || this.type == 226 || this.type == 243 || this.type == 251 || this.type == 257 || this.type == 258 || this.type == 290 || this.type == 291 || this.type == 292 || this.type == 293 || this.type == 305 || this.type == 306 || this.type == 307 || this.type == 308 || this.type == 309)
+				if (this.type == 343 || this.type == 47 || this.type == 67 || this.type == 109 || this.type == 110 || this.type == 111 || this.type == 120 || this.type == 163 || this.type == 164 || this.type == 239 || this.type == 168 || this.type == 199 || this.type == 206 || this.type == 214 || this.type == 215 || this.type == 216 || this.type == 217 || this.type == 218 || this.type == 219 || this.type == 220 || this.type == 226 || this.type == 243 || this.type == 251 || this.type == 257 || this.type == 258 || this.type == 290 || this.type == 291 || this.type == 292 || this.type == 293 || this.type == 305 || this.type == 306 || this.type == 307 || this.type == 308 || this.type == 309 || this.type == 348 || this.type == 349 || this.type == 350 || this.type == 351)
 				{
 					flag4 = false;
 				}
-				if ((this.type != 110 && this.type != 111 && this.type != 206 && this.type != 216 && this.type != 214 && this.type != 215 && this.type != 291 && this.type != 292 && this.type != 293) || this.ai[2] <= 0f)
+				if ((this.type != 110 && this.type != 111 && this.type != 206 && this.type != 216 && this.type != 214 && this.type != 215 && this.type != 291 && this.type != 292 && this.type != 293 && this.type != 350) || this.ai[2] <= 0f)
 				{
 					if (this.velocity.Y == 0f && ((this.velocity.X > 0f && this.direction < 0) || (this.velocity.X < 0f && this.direction > 0)))
 					{
@@ -9407,9 +9736,9 @@ namespace Terraria
 						this.netUpdate = true;
 					}
 				}
-				if ((Main.eclipse || !Main.dayTime || (double)this.position.Y > Main.worldSurface * 16.0 || this.type == 26 || this.type == 27 || this.type == 28 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 47 || this.type == 67 || this.type == 73 || this.type == 77 || this.type == 78 || this.type == 79 || this.type == 80 || this.type == 110 || this.type == 111 || this.type == 120 || this.type == 168 || this.type == 181 || this.type == 185 || this.type == 198 || this.type == 199 || this.type == 198 || this.type == 206 || this.type == 217 || this.type == 218 || this.type == 219 || this.type == 220 || this.type == 239 || this.type == 243 || this.type == 254 || (this.type == 255 | this.type == 257) || this.type == 258 || this.type == 291 || this.type == 292 || this.type == 293 || (this.type >= 212 && this.type <= 216)) && this.ai[3] < (float)num19)
+				if ((Main.eclipse || !Main.dayTime || (double)this.position.Y > Main.worldSurface * 16.0 || this.type == 343 || this.type == 26 || this.type == 27 || this.type == 28 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 47 || this.type == 67 || this.type == 73 || this.type == 77 || this.type == 78 || this.type == 79 || this.type == 80 || this.type == 110 || this.type == 111 || this.type == 120 || this.type == 168 || this.type == 181 || this.type == 185 || this.type == 198 || this.type == 199 || this.type == 198 || this.type == 206 || this.type == 217 || this.type == 218 || this.type == 219 || this.type == 220 || this.type == 239 || this.type == 243 || this.type == 254 || (this.type == 255 | this.type == 257) || this.type == 258 || this.type == 291 || this.type == 292 || this.type == 293 || (this.type >= 212 && this.type <= 216) || this.type == 350) && this.ai[3] < (float)num19)
 				{
-					if ((this.type == 3 || this.type == 21 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 77 || this.type == 110 || this.type == 132 || this.type == 167 || this.type == 161 || this.type == 162 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 197 || this.type == 200 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 223 || this.type == 291 || this.type == 292 || this.type == 293 || this.type == 320 || this.type == 321 || this.type == 319) && Main.rand.Next(1000) == 0)
+					if ((this.type == 3 || this.type == 331 || this.type == 332 || this.type == 21 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 77 || this.type == 110 || this.type == 132 || this.type == 167 || this.type == 161 || this.type == 162 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 197 || this.type == 200 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 223 || this.type == 291 || this.type == 292 || this.type == 293 || this.type == 320 || this.type == 321 || this.type == 319) && Main.rand.Next(1000) == 0)
 					{
 						Main.PlaySound(14, (int)this.position.X, (int)this.position.Y, 1);
 					}
@@ -9435,7 +9764,7 @@ namespace Terraria
 					}
 					this.TargetClosest(true);
 				}
-				else if ((this.type != 110 && this.type != 111 && this.type != 206 && this.type != 216 && this.type != 214 && this.type != 215 && this.type != 291 && this.type != 292 && this.type != 293) || this.ai[2] <= 0f)
+				else if ((this.type != 110 && this.type != 111 && this.type != 206 && this.type != 216 && this.type != 214 && this.type != 215 && this.type != 291 && this.type != 292 && this.type != 293 && this.type != 350) || this.ai[2] <= 0f)
 				{
 					if (Main.dayTime && (double)(this.position.Y / 16f) < Main.worldSurface && this.timeLeft > 10)
 					{
@@ -9463,7 +9792,7 @@ namespace Terraria
 						this.direction = 1;
 					}
 				}
-				if (this.type == 159)
+				if (this.type == 159 || this.type == 349)
 				{
 					if (this.type == 159 && ((this.velocity.X > 0f && this.direction < 0) || (this.velocity.X < 0f && this.direction > 0)))
 					{
@@ -9569,7 +9898,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 27 || this.type == 77 || this.type == 104 || this.type == 163 || this.type == 162 || this.type == 196 || this.type == 197 || this.type == 212 || this.type == 257 || this.type == 326)
+				else if (this.type == 27 || this.type == 77 || this.type == 104 || this.type == 163 || this.type == 162 || this.type == 196 || this.type == 197 || this.type == 212 || this.type == 257 || this.type == 326 || this.type == 343 || this.type == 348 || this.type == 351)
 				{
 					if (this.velocity.X < -2f || this.velocity.X > 2f)
 					{
@@ -9621,7 +9950,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 21 || this.type == 26 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 47 || this.type == 73 || this.type == 140 || this.type == 164 || this.type == 239 || this.type == 167 || this.type == 168 || this.type == 185 || this.type == 198 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 217 || this.type == 218 || this.type == 219 || this.type == 226 || this.type == 181 || this.type == 254)
+				else if (this.type == 21 || this.type == 26 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 47 || this.type == 73 || this.type == 140 || this.type == 164 || this.type == 239 || this.type == 167 || this.type == 168 || this.type == 185 || this.type == 198 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 217 || this.type == 218 || this.type == 219 || this.type == 226 || this.type == 181 || this.type == 254 || this.type == 338 || this.type == 339 || this.type == 340 || this.type == 342)
 				{
 					float num25 = 1.5f;
 					if (this.type == 294)
@@ -9648,7 +9977,19 @@ namespace Terraria
 					{
 						num25 = 1.2f;
 					}
-					if (this.type == 21 || this.type == 201 || this.type == 202 || this.type == 203)
+					if (this.type == 338)
+					{
+						num25 = 1.75f;
+					}
+					if (this.type == 339)
+					{
+						num25 = 1.25f;
+					}
+					if (this.type == 340)
+					{
+						num25 = 2f;
+					}
+					if (this.type == 21 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 342)
 					{
 						num25 *= 1f + (1f - this.scale);
 					}
@@ -9966,7 +10307,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type != 110 && this.type != 111 && this.type != 206 && this.type != 214 && this.type != 215 && this.type != 216 && this.type != 290 && this.type != 291 && this.type != 292 && this.type != 293)
+				else if (this.type != 110 && this.type != 111 && this.type != 206 && this.type != 214 && this.type != 215 && this.type != 216 && this.type != 290 && this.type != 291 && this.type != 292 && this.type != 293 && this.type != 350)
 				{
 					float num36 = 1f;
 					if (this.type == 186)
@@ -9997,7 +10338,7 @@ namespace Terraria
 					{
 						num36 = 1.05f;
 					}
-					if (this.type == 3 || this.type == 132 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223)
+					if (this.type == 3 || this.type == 132 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 331 || this.type == 332)
 					{
 						num36 *= 1f + (1f - this.scale);
 					}
@@ -10236,7 +10577,7 @@ namespace Terraria
 						this.ai[2] = 0f;
 					}
 				}
-				if (this.type == 110 || this.type == 111 || this.type == 206 || this.type == 214 || this.type == 215 || this.type == 216 || this.type == 290 || this.type == 291 || this.type == 292 || this.type == 293)
+				if (this.type == 110 || this.type == 111 || this.type == 206 || this.type == 214 || this.type == 215 || this.type == 216 || this.type == 290 || this.type == 291 || this.type == 292 || this.type == 293 || this.type == 350)
 				{
 					if (this.confused)
 					{
@@ -10254,6 +10595,10 @@ namespace Terraria
 							this.ai[2] = 0f;
 						}
 						int num67 = 70;
+						if (this.type == 350)
+						{
+							num67 = 85;
+						}
 						if (this.type == 291)
 						{
 							num67 = 200;
@@ -10383,6 +10728,10 @@ namespace Terraria
 								if (this.type == 206)
 								{
 									num73 = 37;
+								}
+								if (this.type == 350)
+								{
+									num73 = 50;
 								}
 								int num74 = 82;
 								if (this.type == 111)
@@ -10743,7 +11092,7 @@ namespace Terraria
 						this.ai[3] = 0f;
 						if (this.ai[2] >= 60f)
 						{
-							if (!Main.bloodMoon && (this.type == 3 || this.type == 132 || this.type == 161 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 320 || this.type == 321 || this.type == 319))
+							if (!Main.bloodMoon && (this.type == 3 || this.type == 331 || this.type == 332 || this.type == 132 || this.type == 161 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 320 || this.type == 321 || this.type == 319))
 							{
 								this.ai[1] = 0f;
 							}
@@ -10994,10 +11343,10 @@ namespace Terraria
 				if (Main.rand.Next(5) == 0)
 				{
 					int num112 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f), this.width, (int)((float)this.height * 0.5f), 5, this.velocity.X, 2f, 0, default(Color), 1f);
-					Dust expr_7D3A_cp_0 = Main.dust[num112];
-					expr_7D3A_cp_0.velocity.X = expr_7D3A_cp_0.velocity.X * 0.5f;
-					Dust expr_7D58_cp_0 = Main.dust[num112];
-					expr_7D58_cp_0.velocity.Y = expr_7D58_cp_0.velocity.Y * 0.1f;
+					Dust expr_7F5D_cp_0 = Main.dust[num112];
+					expr_7F5D_cp_0.velocity.X = expr_7F5D_cp_0.velocity.X * 0.5f;
+					Dust expr_7F7B_cp_0 = Main.dust[num112];
+					expr_7F7B_cp_0.velocity.Y = expr_7F7B_cp_0.velocity.Y * 0.1f;
 				}
 				if (Main.dayTime || dead)
 				{
@@ -11625,10 +11974,10 @@ namespace Terraria
 					{
 						int num152 = Dust.NewDust(new Vector2(this.position.X - this.velocity.X, this.position.Y - this.velocity.Y), this.width, this.height, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 2f);
 						Main.dust[num152].noGravity = true;
-						Dust expr_9E3C_cp_0 = Main.dust[num152];
-						expr_9E3C_cp_0.velocity.X = expr_9E3C_cp_0.velocity.X * 0.3f;
-						Dust expr_9E5A_cp_0 = Main.dust[num152];
-						expr_9E5A_cp_0.velocity.Y = expr_9E5A_cp_0.velocity.Y * 0.3f;
+						Dust expr_A05F_cp_0 = Main.dust[num152];
+						expr_A05F_cp_0.velocity.X = expr_A05F_cp_0.velocity.X * 0.3f;
+						Dust expr_A07D_cp_0 = Main.dust[num152];
+						expr_A07D_cp_0.velocity.Y = expr_A07D_cp_0.velocity.Y * 0.3f;
 					}
 					else if (this.type != 42 && this.type != 139 && this.type != 176 && this.type != 205 && this.type != 210 && this.type != 211 && this.type != 252 && (this.type < 231 || this.type > 235) && Main.rand.Next(20) == 0)
 					{
@@ -11638,19 +11987,19 @@ namespace Terraria
 							num153 = 5;
 						}
 						int num154 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f), this.width, (int)((float)this.height * 0.5f), num153, this.velocity.X, 2f, 75, this.color, this.scale);
-						Dust expr_9F90_cp_0 = Main.dust[num154];
-						expr_9F90_cp_0.velocity.X = expr_9F90_cp_0.velocity.X * 0.5f;
-						Dust expr_9FAE_cp_0 = Main.dust[num154];
-						expr_9FAE_cp_0.velocity.Y = expr_9FAE_cp_0.velocity.Y * 0.1f;
+						Dust expr_A1B3_cp_0 = Main.dust[num154];
+						expr_A1B3_cp_0.velocity.X = expr_A1B3_cp_0.velocity.X * 0.5f;
+						Dust expr_A1D1_cp_0 = Main.dust[num154];
+						expr_A1D1_cp_0.velocity.Y = expr_A1D1_cp_0.velocity.Y * 0.1f;
 					}
 				}
 				else if (this.type != 252 && Main.rand.Next(40) == 0)
 				{
 					int num155 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f), this.width, (int)((float)this.height * 0.5f), 5, this.velocity.X, 2f, 0, default(Color), 1f);
-					Dust expr_A05B_cp_0 = Main.dust[num155];
-					expr_A05B_cp_0.velocity.X = expr_A05B_cp_0.velocity.X * 0.5f;
-					Dust expr_A079_cp_0 = Main.dust[num155];
-					expr_A079_cp_0.velocity.Y = expr_A079_cp_0.velocity.Y * 0.1f;
+					Dust expr_A27E_cp_0 = Main.dust[num155];
+					expr_A27E_cp_0.velocity.X = expr_A27E_cp_0.velocity.X * 0.5f;
+					Dust expr_A29C_cp_0 = Main.dust[num155];
+					expr_A29C_cp_0.velocity.Y = expr_A29C_cp_0.velocity.Y * 0.1f;
 				}
 				if ((this.type == 6 || this.type == 94 || this.type == 173) && this.wet)
 				{
@@ -12030,7 +12379,7 @@ namespace Terraria
 									}
 									if (Main.netMode != 1 && Main.tile[num180, num181].type == 2)
 									{
-										byte arg_B5BA_0 = Main.tile[num180, num181 - 1].type;
+										byte arg_B7DD_0 = Main.tile[num180, num181 - 1].type;
 									}
 								}
 							}
@@ -12412,6 +12761,10 @@ namespace Terraria
 				{
 					flag21 = true;
 				}
+				if (Main.eclipse)
+				{
+					flag21 = true;
+				}
 				if (this.type == 142 && Main.netMode != 1 && !Main.xMas)
 				{
 					this.StrikeNPC(9999, 0f, 0, false, false);
@@ -12438,7 +12791,7 @@ namespace Terraria
 				{
 					NPC.savedMech = true;
 				}
-				if ((this.type == 46 || this.type == 148 || this.type == 149 || this.type == 230 || this.type == 299 || this.type == 300 || this.type == 303) && this.target == 255)
+				if ((this.type == 46 || this.type == 148 || this.type == 149 || this.type == 230 || this.type == 299 || this.type == 300 || this.type == 303 || this.type == 337) && this.target == 255)
 				{
 					this.TargetClosest(true);
 					if (this.position.X < Main.player[this.target].position.X)
@@ -12563,7 +12916,7 @@ namespace Terraria
 					{
 						this.ai[2] -= 1f;
 					}
-					if (flag21 && !flag22 && this.type != 46 && this.type != 148 && this.type != 149 && this.type != 230 && this.type != 299 && this.type != 300 && this.type != 303)
+					if (flag21 && !flag22 && this.type != 46 && this.type != 148 && this.type != 149 && this.type != 230 && this.type != 299 && this.type != 300 && this.type != 303 && this.type != 337)
 					{
 						if (Main.netMode != 1)
 						{
@@ -12631,7 +12984,7 @@ namespace Terraria
 							{
 								this.ai[0] = 1f;
 								this.ai[1] = (float)(200 + Main.rand.Next(200));
-								if (this.type == 46 || this.type == 148 || this.type == 149 || this.type == 230 || this.type == 299 || this.type == 300 || this.type == 303)
+								if (this.type == 46 || this.type == 148 || this.type == 149 || this.type == 230 || this.type == 299 || this.type == 300 || this.type == 303 || this.type == 337)
 								{
 									this.ai[1] += (float)Main.rand.Next(200, 400);
 								}
@@ -12671,7 +13024,7 @@ namespace Terraria
 				}
 				else if (this.ai[0] == 1f)
 				{
-					if (Main.netMode != 1 && flag21 && num198 == this.homeTileX && num199 == this.homeTileY && this.type != 46 && this.type != 148 && this.type != 149 && this.type != 230 && this.type != 299 && this.type != 300 && this.type != 303)
+					if (Main.netMode != 1 && flag21 && num198 == this.homeTileX && num199 == this.homeTileY && this.type != 46 && this.type != 148 && this.type != 149 && this.type != 230 && this.type != 299 && this.type != 300 && this.type != 303 && this.type != 337)
 					{
 						this.ai[0] = 0f;
 						this.ai[1] = (float)(200 + Main.rand.Next(200));
@@ -12695,7 +13048,7 @@ namespace Terraria
 					{
 						this.ai[0] = 0f;
 						this.ai[1] = (float)(300 + Main.rand.Next(300));
-						if (this.type == 46 || this.type == 148 || this.type == 149 || this.type == 230 || this.type == 299 || this.type == 300 || this.type == 303)
+						if (this.type == 46 || this.type == 148 || this.type == 149 || this.type == 230 || this.type == 299 || this.type == 300 || this.type == 303 || this.type == 337)
 						{
 							this.ai[1] -= (float)Main.rand.Next(100);
 						}
@@ -13005,7 +13358,7 @@ namespace Terraria
 									{
 										Main.tile[num211 - this.direction, num212 + 4] = new Tile();
 									}
-									else if (num198 >= this.homeTileX - 35 && num198 <= this.homeTileX + 35 && (!Main.tile[num211, num212 + 1].nactive() || !Main.tileSolid[(int)Main.tile[num211, num212 + 1].type]) && (!Main.tile[num211 - this.direction, num212 + 1].active() || !Main.tileSolid[(int)Main.tile[num211 - this.direction, num212 + 1].type]) && (!Main.tile[num211, num212 + 2].nactive() || !Main.tileSolid[(int)Main.tile[num211, num212 + 2].type]) && (!Main.tile[num211 - this.direction, num212 + 2].active() || !Main.tileSolid[(int)Main.tile[num211 - this.direction, num212 + 2].type]) && (!Main.tile[num211, num212 + 3].nactive() || !Main.tileSolid[(int)Main.tile[num211, num212 + 3].type]) && (!Main.tile[num211 - this.direction, num212 + 3].active() || !Main.tileSolid[(int)Main.tile[num211 - this.direction, num212 + 3].type]) && (!Main.tile[num211, num212 + 4].nactive() || !Main.tileSolid[(int)Main.tile[num211, num212 + 4].type]) && (!Main.tile[num211 - this.direction, num212 + 4].nactive() || !Main.tileSolid[(int)Main.tile[num211 - this.direction, num212 + 4].type]) && this.type != 46 && this.type != 148 && this.type != 149 && this.type != 230 && this.type != 299 && this.type != 300 && this.type != 303)
+									else if (num198 >= this.homeTileX - 35 && num198 <= this.homeTileX + 35 && (!Main.tile[num211, num212 + 1].nactive() || !Main.tileSolid[(int)Main.tile[num211, num212 + 1].type]) && (!Main.tile[num211 - this.direction, num212 + 1].active() || !Main.tileSolid[(int)Main.tile[num211 - this.direction, num212 + 1].type]) && (!Main.tile[num211, num212 + 2].nactive() || !Main.tileSolid[(int)Main.tile[num211, num212 + 2].type]) && (!Main.tile[num211 - this.direction, num212 + 2].active() || !Main.tileSolid[(int)Main.tile[num211 - this.direction, num212 + 2].type]) && (!Main.tile[num211, num212 + 3].nactive() || !Main.tileSolid[(int)Main.tile[num211, num212 + 3].type]) && (!Main.tile[num211 - this.direction, num212 + 3].active() || !Main.tileSolid[(int)Main.tile[num211 - this.direction, num212 + 3].type]) && (!Main.tile[num211, num212 + 4].nactive() || !Main.tileSolid[(int)Main.tile[num211, num212 + 4].type]) && (!Main.tile[num211 - this.direction, num212 + 4].nactive() || !Main.tileSolid[(int)Main.tile[num211 - this.direction, num212 + 4].type]) && this.type != 46 && this.type != 148 && this.type != 149 && this.type != 230 && this.type != 299 && this.type != 300 && this.type != 303 && this.type != 337)
 									{
 										this.direction *= -1;
 										this.velocity.X = this.velocity.X * -1f;
@@ -13024,7 +13377,7 @@ namespace Terraria
 							{
 								this.velocity.Y = this.velocity.Y * 1.2f;
 							}
-							if (this.velocity.Y < 0f && (this.type == 46 || this.type == 299 || this.type == 303))
+							if (this.velocity.Y < 0f && (this.type == 46 || this.type == 299 || this.type == 303 || this.type == 337))
 							{
 								this.velocity.Y = this.velocity.Y * 1.2f;
 								return;
@@ -13350,8 +13703,8 @@ namespace Terraria
 					{
 						int num252 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 2f), this.width, this.height, 27, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 1.5f);
 						Main.dust[num252].noGravity = true;
-						Dust expr_100C2_cp_0 = Main.dust[num252];
-						expr_100C2_cp_0.velocity.X = expr_100C2_cp_0.velocity.X * 0.5f;
+						Dust expr_10353_cp_0 = Main.dust[num252];
+						expr_10353_cp_0.velocity.X = expr_10353_cp_0.velocity.X * 0.5f;
 						Main.dust[num252].velocity.Y = -2f;
 						return;
 					}
@@ -13362,12 +13715,12 @@ namespace Terraria
 					{
 						int num253 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 2f), this.width, this.height, 172, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 0.9f);
 						Main.dust[num253].noGravity = true;
-						Dust expr_1019B_cp_0 = Main.dust[num253];
-						expr_1019B_cp_0.velocity.X = expr_1019B_cp_0.velocity.X * 0.3f;
-						Dust expr_101BB_cp_0 = Main.dust[num253];
-						expr_101BB_cp_0.velocity.Y = expr_101BB_cp_0.velocity.Y * 0.2f;
-						Dust expr_101DB_cp_0 = Main.dust[num253];
-						expr_101DB_cp_0.velocity.Y = expr_101DB_cp_0.velocity.Y - 1f;
+						Dust expr_1042C_cp_0 = Main.dust[num253];
+						expr_1042C_cp_0.velocity.X = expr_1042C_cp_0.velocity.X * 0.3f;
+						Dust expr_1044C_cp_0 = Main.dust[num253];
+						expr_1044C_cp_0.velocity.Y = expr_1044C_cp_0.velocity.Y * 0.2f;
+						Dust expr_1046C_cp_0 = Main.dust[num253];
+						expr_1046C_cp_0.velocity.Y = expr_1046C_cp_0.velocity.Y - 1f;
 						return;
 					}
 				}
@@ -13386,10 +13739,10 @@ namespace Terraria
 							{
 								int num256 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 2f), this.width, this.height, 106, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 1.2f);
 								Main.dust[num256].noGravity = true;
-								Dust expr_102CC_cp_0 = Main.dust[num256];
-								expr_102CC_cp_0.velocity.X = expr_102CC_cp_0.velocity.X * (0.1f + (float)Main.rand.Next(30) * 0.01f);
-								Dust expr_10300_cp_0 = Main.dust[num256];
-								expr_10300_cp_0.velocity.Y = expr_10300_cp_0.velocity.Y * (0.1f + (float)Main.rand.Next(30) * 0.01f);
+								Dust expr_1055D_cp_0 = Main.dust[num256];
+								expr_1055D_cp_0.velocity.X = expr_1055D_cp_0.velocity.X * (0.1f + (float)Main.rand.Next(30) * 0.01f);
+								Dust expr_10591_cp_0 = Main.dust[num256];
+								expr_10591_cp_0.velocity.Y = expr_10591_cp_0.velocity.Y * (0.1f + (float)Main.rand.Next(30) * 0.01f);
 								Main.dust[num256].scale *= 1f + (float)Main.rand.Next(6) * 0.1f;
 							}
 						}
@@ -13400,10 +13753,10 @@ namespace Terraria
 						if (Main.rand.Next(2) == 0)
 						{
 							int num257 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 2f), this.width, this.height, 173, 0f, 0f, 0, default(Color), 1f);
-							Dust expr_10400_cp_0 = Main.dust[num257];
-							expr_10400_cp_0.velocity.X = expr_10400_cp_0.velocity.X * 0.5f;
-							Dust expr_10420_cp_0 = Main.dust[num257];
-							expr_10420_cp_0.velocity.Y = expr_10420_cp_0.velocity.Y * 0.5f;
+							Dust expr_10691_cp_0 = Main.dust[num257];
+							expr_10691_cp_0.velocity.X = expr_10691_cp_0.velocity.X * 0.5f;
+							Dust expr_106B1_cp_0 = Main.dust[num257];
+							expr_106B1_cp_0.velocity.Y = expr_106B1_cp_0.velocity.Y * 0.5f;
 							return;
 						}
 					}
@@ -13414,8 +13767,8 @@ namespace Terraria
 							int num258 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 2f), this.width, this.height, 174, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 1f);
 							Main.dust[num258].noGravity = true;
 							Main.dust[num258].velocity *= 0.4f;
-							Dust expr_1050F_cp_0 = Main.dust[num258];
-							expr_1050F_cp_0.velocity.Y = expr_1050F_cp_0.velocity.Y - 0.7f;
+							Dust expr_107A0_cp_0 = Main.dust[num258];
+							expr_107A0_cp_0.velocity.Y = expr_107A0_cp_0.velocity.Y - 0.7f;
 							return;
 						}
 					}
@@ -13434,10 +13787,10 @@ namespace Terraria
 					{
 						int num260 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 2f), this.width, this.height, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 2f);
 						Main.dust[num260].noGravity = true;
-						Dust expr_106A1_cp_0 = Main.dust[num260];
-						expr_106A1_cp_0.velocity.X = expr_106A1_cp_0.velocity.X * 1f;
-						Dust expr_106C1_cp_0 = Main.dust[num260];
-						expr_106C1_cp_0.velocity.Y = expr_106C1_cp_0.velocity.Y * 1f;
+						Dust expr_10932_cp_0 = Main.dust[num260];
+						expr_10932_cp_0.velocity.X = expr_10932_cp_0.velocity.X * 1f;
+						Dust expr_10952_cp_0 = Main.dust[num260];
+						expr_10952_cp_0.velocity.Y = expr_10952_cp_0.velocity.Y * 1f;
 						return;
 					}
 				}
@@ -13488,12 +13841,64 @@ namespace Terraria
 					}
 					if (this.type == 112 && Collision.SolidCollision(this.position, this.width, this.height))
 					{
-						int arg_109A2_0 = Main.netMode;
+						int arg_10C33_0 = Main.netMode;
 						this.StrikeNPC(999, 0f, 0, false, false);
 					}
 					if (this.timeLeft > 100)
 					{
 						this.timeLeft = 100;
+					}
+					for (int num267 = 0; num267 < 2; num267++)
+					{
+						if (this.type == 30)
+						{
+							int num268 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 2f), this.width, this.height, 27, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 2f);
+							Main.dust[num268].noGravity = true;
+							Main.dust[num268].velocity *= 0.3f;
+							Dust expr_10D1E_cp_0 = Main.dust[num268];
+							expr_10D1E_cp_0.velocity.X = expr_10D1E_cp_0.velocity.X - this.velocity.X * 0.2f;
+							Dust expr_10D4A_cp_0 = Main.dust[num268];
+							expr_10D4A_cp_0.velocity.Y = expr_10D4A_cp_0.velocity.Y - this.velocity.Y * 0.2f;
+						}
+						else if (this.type == 33)
+						{
+							for (int num269 = 0; num269 < 3; num269++)
+							{
+								float num270 = this.velocity.X / 3f * (float)num267;
+								float num271 = this.velocity.Y / 3f * (float)num267;
+								int num272 = 2;
+								int num273 = Dust.NewDust(new Vector2(this.position.X + (float)num272, this.position.Y + (float)num272), this.width - num272 * 2, this.height - num272 * 2, 172, 0f, 0f, 100, default(Color), 1.2f);
+								Main.dust[num273].noGravity = true;
+								Main.dust[num273].velocity *= 0.1f;
+								Main.dust[num273].velocity += this.velocity * 0.5f;
+								Dust expr_10E94_cp_0 = Main.dust[num273];
+								expr_10E94_cp_0.position.X = expr_10E94_cp_0.position.X - num270;
+								Dust expr_10EB3_cp_0 = Main.dust[num273];
+								expr_10EB3_cp_0.position.Y = expr_10EB3_cp_0.position.Y - num271;
+							}
+							if (Main.rand.Next(5) == 0)
+							{
+								int num274 = 2;
+								int num275 = Dust.NewDust(new Vector2(this.position.X + (float)num274, this.position.Y + (float)num274), this.width - num274 * 2, this.height - num274 * 2, 172, 0f, 0f, 100, default(Color), 0.6f);
+								Main.dust[num275].velocity *= 0.25f;
+								Main.dust[num275].velocity += this.velocity * 0.5f;
+							}
+						}
+						else if (this.type == 112)
+						{
+							int num276 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 2f), this.width, this.height, 18, this.velocity.X * 0.1f, this.velocity.Y * 0.1f, 80, default(Color), 1.3f);
+							Main.dust[num276].velocity *= 0.3f;
+							Main.dust[num276].noGravity = true;
+						}
+						else
+						{
+							int num277 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 2f), this.width, this.height, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 2f);
+							Main.dust[num277].noGravity = true;
+							Dust expr_11131_cp_0 = Main.dust[num277];
+							expr_11131_cp_0.velocity.X = expr_11131_cp_0.velocity.X * 0.3f;
+							Dust expr_11151_cp_0 = Main.dust[num277];
+							expr_11151_cp_0.velocity.Y = expr_11151_cp_0.velocity.Y * 0.3f;
+						}
 					}
 					this.rotation += 0.4f * (float)this.direction;
 					return;
@@ -13791,19 +14196,19 @@ namespace Terraria
 					{
 						int num294 = Dust.NewDust(new Vector2(this.position.X + (float)(this.width / 2) - 15f - this.velocity.X * 5f, this.position.Y + (float)this.height - 2f), 30, 10, 5, -this.velocity.X * 0.2f, 3f, 0, default(Color), 2f);
 						Main.dust[num294].noGravity = true;
-						Dust expr_11F75_cp_0 = Main.dust[num294];
-						expr_11F75_cp_0.velocity.X = expr_11F75_cp_0.velocity.X * 1.3f;
-						Dust expr_11F95_cp_0 = Main.dust[num294];
-						expr_11F95_cp_0.velocity.X = expr_11F95_cp_0.velocity.X + this.velocity.X * 0.4f;
-						Dust expr_11FC1_cp_0 = Main.dust[num294];
-						expr_11FC1_cp_0.velocity.Y = expr_11FC1_cp_0.velocity.Y + (2f + this.velocity.Y);
+						Dust expr_12206_cp_0 = Main.dust[num294];
+						expr_12206_cp_0.velocity.X = expr_12206_cp_0.velocity.X * 1.3f;
+						Dust expr_12226_cp_0 = Main.dust[num294];
+						expr_12226_cp_0.velocity.X = expr_12226_cp_0.velocity.X + this.velocity.X * 0.4f;
+						Dust expr_12252_cp_0 = Main.dust[num294];
+						expr_12252_cp_0.velocity.Y = expr_12252_cp_0.velocity.Y + (2f + this.velocity.Y);
 						for (int num295 = 0; num295 < 2; num295++)
 						{
 							num294 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 120f), this.width, 60, 5, this.velocity.X, this.velocity.Y, 0, default(Color), 2f);
 							Main.dust[num294].noGravity = true;
 							Main.dust[num294].velocity -= this.velocity;
-							Dust expr_12084_cp_0 = Main.dust[num294];
-							expr_12084_cp_0.velocity.Y = expr_12084_cp_0.velocity.Y + 5f;
+							Dust expr_12315_cp_0 = Main.dust[num294];
+							expr_12315_cp_0.velocity.Y = expr_12315_cp_0.velocity.Y + 5f;
 						}
 						return;
 					}
@@ -15619,10 +16024,10 @@ namespace Terraria
 								if (Main.rand.Next(2) == 0)
 								{
 									int num378 = Dust.NewDust(new Vector2(this.position.X - 4f, this.position.Y + (float)this.height - 8f), this.width + 8, 24, 32, 0f, this.velocity.Y / 2f, 0, default(Color), 1f);
-									Dust expr_17FBD_cp_0 = Main.dust[num378];
-									expr_17FBD_cp_0.velocity.X = expr_17FBD_cp_0.velocity.X * 0.4f;
-									Dust expr_17FDD_cp_0 = Main.dust[num378];
-									expr_17FDD_cp_0.velocity.Y = expr_17FDD_cp_0.velocity.Y * -1f;
+									Dust expr_1824E_cp_0 = Main.dust[num378];
+									expr_1824E_cp_0.velocity.X = expr_1824E_cp_0.velocity.X * 0.4f;
+									Dust expr_1826E_cp_0 = Main.dust[num378];
+									expr_1826E_cp_0.velocity.Y = expr_1826E_cp_0.velocity.Y * -1f;
 									if (Main.rand.Next(2) == 0)
 									{
 										Main.dust[num378].noGravity = true;
@@ -17377,10 +17782,10 @@ namespace Terraria
 							if (Main.rand.Next(5) == 0)
 							{
 								int num470 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f), this.width, (int)((float)this.height * 0.5f), 5, this.velocity.X, 2f, 0, default(Color), 1f);
-								Dust expr_1D697_cp_0 = Main.dust[num470];
-								expr_1D697_cp_0.velocity.X = expr_1D697_cp_0.velocity.X * 0.5f;
-								Dust expr_1D6B7_cp_0 = Main.dust[num470];
-								expr_1D6B7_cp_0.velocity.Y = expr_1D6B7_cp_0.velocity.Y * 0.1f;
+								Dust expr_1D928_cp_0 = Main.dust[num470];
+								expr_1D928_cp_0.velocity.X = expr_1D928_cp_0.velocity.X * 0.5f;
+								Dust expr_1D948_cp_0 = Main.dust[num470];
+								expr_1D948_cp_0.velocity.Y = expr_1D948_cp_0.velocity.Y * 0.1f;
 							}
 							if (Main.dayTime || dead2)
 							{
@@ -17854,10 +18259,10 @@ namespace Terraria
 							if (Main.rand.Next(5) == 0)
 							{
 								int num508 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f), this.width, (int)((float)this.height * 0.5f), 5, this.velocity.X, 2f, 0, default(Color), 1f);
-								Dust expr_1F306_cp_0 = Main.dust[num508];
-								expr_1F306_cp_0.velocity.X = expr_1F306_cp_0.velocity.X * 0.5f;
-								Dust expr_1F326_cp_0 = Main.dust[num508];
-								expr_1F326_cp_0.velocity.Y = expr_1F326_cp_0.velocity.Y * 0.1f;
+								Dust expr_1F597_cp_0 = Main.dust[num508];
+								expr_1F597_cp_0.velocity.X = expr_1F597_cp_0.velocity.X * 0.5f;
+								Dust expr_1F5B7_cp_0 = Main.dust[num508];
+								expr_1F5B7_cp_0.velocity.Y = expr_1F5B7_cp_0.velocity.Y * 0.1f;
 							}
 							if (Main.dayTime || dead3)
 							{
@@ -21304,8 +21709,8 @@ namespace Terraria
 								int num714 = Dust.NewDust(new Vector2(this.center().X - 80f, this.center().Y - 9f), 8, 8, 31, 0f, 0f, 100, default(Color), 1f);
 								Main.dust[num714].alpha += Main.rand.Next(100);
 								Main.dust[num714].velocity *= 0.2f;
-								Dust expr_2B758_cp_0 = Main.dust[num714];
-								expr_2B758_cp_0.velocity.Y = expr_2B758_cp_0.velocity.Y - (0.5f + (float)Main.rand.Next(10) * 0.1f);
+								Dust expr_2B9E9_cp_0 = Main.dust[num714];
+								expr_2B9E9_cp_0.velocity.Y = expr_2B9E9_cp_0.velocity.Y - (0.5f + (float)Main.rand.Next(10) * 0.1f);
 								Main.dust[num714].fadeIn = 0.5f + (float)Main.rand.Next(10) * 0.1f;
 								if (Main.rand.Next(10) == 0)
 								{
@@ -21314,8 +21719,8 @@ namespace Terraria
 									{
 										Main.dust[num714].noGravity = true;
 										Main.dust[num714].scale *= 1f + (float)Main.rand.Next(10) * 0.1f;
-										Dust expr_2B863_cp_0 = Main.dust[num714];
-										expr_2B863_cp_0.velocity.Y = expr_2B863_cp_0.velocity.Y - 1f;
+										Dust expr_2BAF4_cp_0 = Main.dust[num714];
+										expr_2BAF4_cp_0.velocity.Y = expr_2BAF4_cp_0.velocity.Y - 1f;
 									}
 								}
 							}
@@ -21324,8 +21729,8 @@ namespace Terraria
 								int num715 = Dust.NewDust(new Vector2(this.center().X + 62f, this.center().Y - 9f), 8, 8, 31, 0f, 0f, 100, default(Color), 1f);
 								Main.dust[num715].alpha += Main.rand.Next(100);
 								Main.dust[num715].velocity *= 0.2f;
-								Dust expr_2B920_cp_0 = Main.dust[num715];
-								expr_2B920_cp_0.velocity.Y = expr_2B920_cp_0.velocity.Y - (0.5f + (float)Main.rand.Next(10) * 0.1f);
+								Dust expr_2BBB1_cp_0 = Main.dust[num715];
+								expr_2BBB1_cp_0.velocity.Y = expr_2BBB1_cp_0.velocity.Y - (0.5f + (float)Main.rand.Next(10) * 0.1f);
 								Main.dust[num715].fadeIn = 0.5f + (float)Main.rand.Next(10) * 0.1f;
 								if (Main.rand.Next(10) == 0)
 								{
@@ -21334,8 +21739,8 @@ namespace Terraria
 									{
 										Main.dust[num715].noGravity = true;
 										Main.dust[num715].scale *= 1f + (float)Main.rand.Next(10) * 0.1f;
-										Dust expr_2BA2B_cp_0 = Main.dust[num715];
-										expr_2BA2B_cp_0.velocity.Y = expr_2BA2B_cp_0.velocity.Y - 1f;
+										Dust expr_2BCBC_cp_0 = Main.dust[num715];
+										expr_2BCBC_cp_0.velocity.Y = expr_2BCBC_cp_0.velocity.Y - 1f;
 									}
 								}
 							}
@@ -22961,7 +23366,7 @@ namespace Terraria
 										if (this.ai[1] >= 300f && Main.netMode != 1)
 										{
 											this.ai[1] = 0f;
-											if ((double)this.life < (double)this.lifeMax * 0.25)
+											if ((double)this.life < (double)this.lifeMax * 0.25 && this.type != 344)
 											{
 												this.ai[0] = (float)Main.rand.Next(3, 5);
 											}
@@ -22974,58 +23379,119 @@ namespace Terraria
 									}
 									else if (this.ai[0] == 1f)
 									{
-										flag57 = true;
-										this.ai[1] += 1f;
-										if (this.ai[1] % 15f == 0f)
+										if (this.type == 344)
 										{
-											Vector2 vector110 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f + 30f);
-											float num876 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector110.X;
-											float num877 = Main.player[this.target].position.Y - vector110.Y;
-											float num878 = (float)Math.Sqrt((double)(num876 * num876 + num877 * num877));
-											float num879 = 10f;
-											num878 = num879 / num878;
-											num876 *= num878;
-											num877 *= num878;
-											num876 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
-											num877 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
-											Projectile.NewProjectile(vector110.X, vector110.Y, num876, num877, 325, 50, 0f, Main.myPlayer, 0f, 0f);
+											flag57 = true;
+											this.ai[1] += 1f;
+											if (this.ai[1] % 5f == 0f)
+											{
+												Vector2 vector110 = new Vector2(this.position.X + 20f + (float)Main.rand.Next(this.width - 40), this.position.Y + 20f + (float)Main.rand.Next(this.height - 40));
+												float num876 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector110.X;
+												float num877 = Main.player[this.target].position.Y - vector110.Y;
+												num876 += (float)Main.rand.Next(-50, 51);
+												num877 += (float)Main.rand.Next(-50, 51);
+												num877 -= Math.Abs(num876) * ((float)Main.rand.Next(0, 21) * 0.01f);
+												float num878 = (float)Math.Sqrt((double)(num876 * num876 + num877 * num877));
+												float num879 = 12.5f;
+												num878 = num879 / num878;
+												num876 *= num878;
+												num877 *= num878;
+												num876 *= 1f + (float)Main.rand.Next(-20, 21) * 0.02f;
+												num877 *= 1f + (float)Main.rand.Next(-20, 21) * 0.02f;
+												Projectile.NewProjectile(vector110.X, vector110.Y, num876, num877, 345, 43, 0f, Main.myPlayer, (float)Main.rand.Next(0, 31), 0f);
+											}
+											if (this.ai[1] >= 180f)
+											{
+												this.ai[1] = 0f;
+												this.ai[0] = 0f;
+											}
 										}
-										if (this.ai[1] >= 120f)
+										else
 										{
-											this.ai[1] = 0f;
-											this.ai[0] = 0f;
+											flag57 = true;
+											this.ai[1] += 1f;
+											if (this.ai[1] % 15f == 0f)
+											{
+												Vector2 vector111 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f + 30f);
+												float num880 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector111.X;
+												float num881 = Main.player[this.target].position.Y - vector111.Y;
+												float num882 = (float)Math.Sqrt((double)(num880 * num880 + num881 * num881));
+												float num883 = 10f;
+												num882 = num883 / num882;
+												num880 *= num882;
+												num881 *= num882;
+												num880 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
+												num881 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
+												Projectile.NewProjectile(vector111.X, vector111.Y, num880, num881, 325, 50, 0f, Main.myPlayer, 0f, 0f);
+											}
+											if (this.ai[1] >= 120f)
+											{
+												this.ai[1] = 0f;
+												this.ai[0] = 0f;
+											}
 										}
 									}
 									else if (this.ai[0] == 2f)
 									{
-										flag57 = true;
-										this.ai[1] += 1f;
-										if (this.ai[1] > 60f && this.ai[1] < 240f && this.ai[1] % 6f == 0f)
+										if (this.type == 344)
 										{
-											float num880 = 10f;
-											Vector2 vector111 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f + 30f);
-											float num881 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector111.X;
-											float num882 = Main.player[this.target].position.Y - vector111.Y;
-											num882 -= Math.Abs(num881) * 0.3f;
-											num880 += Math.Abs(num881) * 0.004f;
-											if (num880 > 14f)
+											flag57 = true;
+											this.ai[1] += 1f;
+											if (this.ai[1] > 60f && this.ai[1] < 240f && this.ai[1] % 15f == 0f)
 											{
-												num880 = 14f;
+												float num884 = 4.5f;
+												Vector2 vector112 = new Vector2(this.position.X + 20f + (float)Main.rand.Next(this.width - 40), this.position.Y + 60f + (float)Main.rand.Next(this.height - 80));
+												float num885 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector112.X;
+												float num886 = Main.player[this.target].position.Y - vector112.Y;
+												num886 -= Math.Abs(num885) * 0.3f;
+												num884 += Math.Abs(num885) * 0.004f;
+												num885 += (float)Main.rand.Next(-50, 51);
+												num886 -= (float)Main.rand.Next(50, 201);
+												float num887 = (float)Math.Sqrt((double)(num885 * num885 + num886 * num886));
+												num887 = num884 / num887;
+												num885 *= num887;
+												num886 *= num887;
+												num885 *= 1f + (float)Main.rand.Next(-30, 31) * 0.01f;
+												num886 *= 1f + (float)Main.rand.Next(-30, 31) * 0.01f;
+												Projectile.NewProjectile(vector112.X, vector112.Y, num885, num886, 346, 57, 0f, Main.myPlayer, 0f, (float)Main.rand.Next(2));
 											}
-											num881 += (float)Main.rand.Next(-50, 51);
-											num882 -= (float)Main.rand.Next(50, 201);
-											float num883 = (float)Math.Sqrt((double)(num881 * num881 + num882 * num882));
-											num883 = num880 / num883;
-											num881 *= num883;
-											num882 *= num883;
-											num881 *= 1f + (float)Main.rand.Next(-30, 31) * 0.01f;
-											num882 *= 1f + (float)Main.rand.Next(-30, 31) * 0.01f;
-											Projectile.NewProjectile(vector111.X, vector111.Y, num881, num882, Main.rand.Next(326, 329), 40, 0f, Main.myPlayer, 0f, 0f);
+											if (this.ai[1] >= 300f)
+											{
+												this.ai[1] = 0f;
+												this.ai[0] = 0f;
+											}
 										}
-										if (this.ai[1] >= 300f)
+										else
 										{
-											this.ai[1] = 0f;
-											this.ai[0] = 0f;
+											flag57 = true;
+											this.ai[1] += 1f;
+											if (this.ai[1] > 60f && this.ai[1] < 240f && this.ai[1] % 6f == 0f)
+											{
+												float num888 = 10f;
+												Vector2 vector113 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f + 30f);
+												float num889 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector113.X;
+												float num890 = Main.player[this.target].position.Y - vector113.Y;
+												num890 -= Math.Abs(num889) * 0.3f;
+												num888 += Math.Abs(num889) * 0.004f;
+												if (num888 > 14f)
+												{
+													num888 = 14f;
+												}
+												num889 += (float)Main.rand.Next(-50, 51);
+												num890 -= (float)Main.rand.Next(50, 201);
+												float num891 = (float)Math.Sqrt((double)(num889 * num889 + num890 * num890));
+												num891 = num888 / num891;
+												num889 *= num891;
+												num890 *= num891;
+												num889 *= 1f + (float)Main.rand.Next(-30, 31) * 0.01f;
+												num890 *= 1f + (float)Main.rand.Next(-30, 31) * 0.01f;
+												Projectile.NewProjectile(vector113.X, vector113.Y, num889, num890, Main.rand.Next(326, 329), 40, 0f, Main.myPlayer, 0f, 0f);
+											}
+											if (this.ai[1] >= 300f)
+											{
+												this.ai[1] = 0f;
+												this.ai[0] = 0f;
+											}
 										}
 									}
 									else if (this.ai[0] == 3f)
@@ -23034,17 +23500,17 @@ namespace Terraria
 										this.ai[1] += 1f;
 										if (this.ai[1] % 30f == 0f)
 										{
-											Vector2 vector112 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f + 30f);
-											float num884 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector112.X;
-											float num885 = Main.player[this.target].position.Y - vector112.Y;
-											float num886 = (float)Math.Sqrt((double)(num884 * num884 + num885 * num885));
-											float num887 = 16f;
-											num886 = num887 / num886;
-											num884 *= num886;
-											num885 *= num886;
-											num884 *= 1f + (float)Main.rand.Next(-20, 21) * 0.001f;
-											num885 *= 1f + (float)Main.rand.Next(-20, 21) * 0.001f;
-											Projectile.NewProjectile(vector112.X, vector112.Y, num884, num885, 325, 75, 0f, Main.myPlayer, 0f, 0f);
+											Vector2 vector114 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f + 30f);
+											float num892 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector114.X;
+											float num893 = Main.player[this.target].position.Y - vector114.Y;
+											float num894 = (float)Math.Sqrt((double)(num892 * num892 + num893 * num893));
+											float num895 = 16f;
+											num894 = num895 / num894;
+											num892 *= num894;
+											num893 *= num894;
+											num892 *= 1f + (float)Main.rand.Next(-20, 21) * 0.001f;
+											num893 *= 1f + (float)Main.rand.Next(-20, 21) * 0.001f;
+											Projectile.NewProjectile(vector114.X, vector114.Y, num892, num893, 325, 75, 0f, Main.myPlayer, 0f, 0f);
 										}
 										if (this.ai[1] >= 120f)
 										{
@@ -23058,25 +23524,25 @@ namespace Terraria
 										this.ai[1] += 1f;
 										if (this.ai[1] % 10f == 0f)
 										{
-											float num888 = 12f;
-											Vector2 vector113 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f + 30f);
-											float num889 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector113.X;
-											float num890 = Main.player[this.target].position.Y - vector113.Y;
-											num890 -= Math.Abs(num889) * 0.2f;
-											num888 += Math.Abs(num889) * 0.002f;
-											if (num888 > 16f)
+											float num896 = 12f;
+											Vector2 vector115 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f + 30f);
+											float num897 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector115.X;
+											float num898 = Main.player[this.target].position.Y - vector115.Y;
+											num898 -= Math.Abs(num897) * 0.2f;
+											num896 += Math.Abs(num897) * 0.002f;
+											if (num896 > 16f)
 											{
-												num888 = 16f;
+												num896 = 16f;
 											}
-											num889 += (float)Main.rand.Next(-50, 51);
-											num890 -= (float)Main.rand.Next(50, 201);
-											float num891 = (float)Math.Sqrt((double)(num889 * num889 + num890 * num890));
-											num891 = num888 / num891;
-											num889 *= num891;
-											num890 *= num891;
-											num889 *= 1f + (float)Main.rand.Next(-30, 31) * 0.005f;
-											num890 *= 1f + (float)Main.rand.Next(-30, 31) * 0.005f;
-											Projectile.NewProjectile(vector113.X, vector113.Y, num889, num890, Main.rand.Next(326, 329), 50, 0f, Main.myPlayer, 0f, 0f);
+											num897 += (float)Main.rand.Next(-50, 51);
+											num898 -= (float)Main.rand.Next(50, 201);
+											float num899 = (float)Math.Sqrt((double)(num897 * num897 + num898 * num898));
+											num899 = num896 / num899;
+											num897 *= num899;
+											num898 *= num899;
+											num897 *= 1f + (float)Main.rand.Next(-30, 31) * 0.005f;
+											num898 *= 1f + (float)Main.rand.Next(-30, 31) * 0.005f;
+											Projectile.NewProjectile(vector115.X, vector115.Y, num897, num898, Main.rand.Next(326, 329), 50, 0f, Main.myPlayer, 0f, 0f);
 										}
 										if (this.ai[1] >= 240f)
 										{
@@ -23107,9 +23573,9 @@ namespace Terraria
 											this.velocity.X = (this.velocity.X * 20f - num875) / 21f;
 										}
 									}
-									int num892 = 80;
-									int num893 = 20;
-									Vector2 vector114 = new Vector2(this.center().X - (float)(num892 / 2), this.position.Y + (float)this.height - (float)num893);
+									int num900 = 80;
+									int num901 = 20;
+									Vector2 vector116 = new Vector2(this.center().X - (float)(num900 / 2), this.position.Y + (float)this.height - (float)num901);
 									bool flag58 = false;
 									if (this.position.X < Main.player[this.target].position.X && this.position.X + (float)this.width > Main.player[this.target].position.X + (float)Main.player[this.target].width && this.position.Y + (float)this.height < Main.player[this.target].position.Y + (float)Main.player[this.target].height - 16f)
 									{
@@ -23119,7 +23585,7 @@ namespace Terraria
 									{
 										this.velocity.Y = this.velocity.Y + 0.5f;
 									}
-									else if (Collision.SolidCollision(vector114, num892, num893))
+									else if (Collision.SolidCollision(vector116, num900, num901))
 									{
 										if (this.velocity.Y > 0f)
 										{
@@ -23183,22 +23649,22 @@ namespace Terraria
 											}
 											else if (this.ai[3] == 0f && this.localAI[2] % 30f == 0f && this.localAI[2] > 30f)
 											{
-												float num894 = 5f;
-												Vector2 vector115 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f + 30f);
-												if (!WorldGen.SolidTile((int)vector115.X / 16, (int)vector115.Y / 16))
+												float num902 = 5f;
+												Vector2 vector117 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f + 30f);
+												if (!WorldGen.SolidTile((int)vector117.X / 16, (int)vector117.Y / 16))
 												{
-													float num895 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector115.X;
-													float num896 = Main.player[this.target].position.Y - vector115.Y;
-													num895 += (float)Main.rand.Next(-50, 51);
-													num896 += (float)Main.rand.Next(50, 201);
-													num896 *= 0.2f;
-													float num897 = (float)Math.Sqrt((double)(num895 * num895 + num896 * num896));
-													num897 = num894 / num897;
-													num895 *= num897;
-													num896 *= num897;
-													num895 *= 1f + (float)Main.rand.Next(-30, 31) * 0.01f;
-													num896 *= 1f + (float)Main.rand.Next(-30, 31) * 0.01f;
-													Projectile.NewProjectile(vector115.X, vector115.Y, num895, num896, Main.rand.Next(326, 329), 40, 0f, Main.myPlayer, 0f, 0f);
+													float num903 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector117.X;
+													float num904 = Main.player[this.target].position.Y - vector117.Y;
+													num903 += (float)Main.rand.Next(-50, 51);
+													num904 += (float)Main.rand.Next(50, 201);
+													num904 *= 0.2f;
+													float num905 = (float)Math.Sqrt((double)(num903 * num903 + num904 * num904));
+													num905 = num902 / num905;
+													num903 *= num905;
+													num904 *= num905;
+													num903 *= 1f + (float)Main.rand.Next(-30, 31) * 0.01f;
+													num904 *= 1f + (float)Main.rand.Next(-30, 31) * 0.01f;
+													Projectile.NewProjectile(vector117.X, vector117.Y, num903, num904, Main.rand.Next(326, 329), 40, 0f, Main.myPlayer, 0f, 0f);
 												}
 											}
 										}
@@ -23206,17 +23672,17 @@ namespace Terraria
 										{
 											this.TargetClosest(true);
 											this.ai[0] = 1f;
-											int num898 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)this.position.Y + this.height / 2, 328, this.whoAmI);
-											Main.npc[num898].ai[0] = -1f;
-											Main.npc[num898].ai[1] = (float)this.whoAmI;
-											Main.npc[num898].target = this.target;
-											Main.npc[num898].netUpdate = true;
-											num898 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)this.position.Y + this.height / 2, 328, this.whoAmI);
-											Main.npc[num898].ai[0] = 1f;
-											Main.npc[num898].ai[1] = (float)this.whoAmI;
-											Main.npc[num898].ai[3] = 150f;
-											Main.npc[num898].target = this.target;
-											Main.npc[num898].netUpdate = true;
+											int num906 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)this.position.Y + this.height / 2, 328, this.whoAmI);
+											Main.npc[num906].ai[0] = -1f;
+											Main.npc[num906].ai[1] = (float)this.whoAmI;
+											Main.npc[num906].target = this.target;
+											Main.npc[num906].netUpdate = true;
+											num906 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)this.position.Y + this.height / 2, 328, this.whoAmI);
+											Main.npc[num906].ai[0] = 1f;
+											Main.npc[num906].ai[1] = (float)this.whoAmI;
+											Main.npc[num906].ai[3] = 150f;
+											Main.npc[num906].target = this.target;
+											Main.npc[num906].netUpdate = true;
 										}
 										if (Main.player[this.target].dead || Math.Abs(this.position.X - Main.player[this.target].position.X) > 2000f || Math.Abs(this.position.Y - Main.player[this.target].position.Y) > 2000f)
 										{
@@ -23249,31 +23715,31 @@ namespace Terraria
 													this.netUpdate = true;
 												}
 											}
-											Vector2 vector116 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-											float num899 = Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) - vector116.X;
-											float num900 = Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2) - 200f - vector116.Y;
-											float num901 = (float)Math.Sqrt((double)(num899 * num899 + num900 * num900));
-											float num902 = 6f;
+											Vector2 vector118 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+											float num907 = Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) - vector118.X;
+											float num908 = Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2) - 200f - vector118.Y;
+											float num909 = (float)Math.Sqrt((double)(num907 * num907 + num908 * num908));
+											float num910 = 6f;
 											if (this.ai[3] == 1f)
 											{
-												if (num901 > 900f)
+												if (num909 > 900f)
 												{
-													num902 = 12f;
+													num910 = 12f;
 												}
-												else if (num901 > 600f)
+												else if (num909 > 600f)
 												{
-													num902 = 10f;
+													num910 = 10f;
 												}
-												else if (num901 > 300f)
+												else if (num909 > 300f)
 												{
-													num902 = 8f;
+													num910 = 8f;
 												}
 											}
-											if (num901 > 50f)
+											if (num909 > 50f)
 											{
-												num901 = num902 / num901;
-												this.velocity.X = (this.velocity.X * 14f + num899 * num901) / 15f;
-												this.velocity.Y = (this.velocity.Y * 14f + num900 * num901) / 15f;
+												num909 = num910 / num909;
+												this.velocity.X = (this.velocity.X * 14f + num907 * num909) / 15f;
+												this.velocity.Y = (this.velocity.Y * 14f + num908 * num909) / 15f;
 											}
 										}
 										else if (this.ai[1] == 1f)
@@ -23284,13 +23750,13 @@ namespace Terraria
 												this.ai[2] = 0f;
 												this.ai[1] = 0f;
 											}
-											Vector2 vector117 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-											float num903 = Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) - vector117.X;
-											float num904 = Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2) - vector117.Y;
-											float num905 = (float)Math.Sqrt((double)(num903 * num903 + num904 * num904));
-											num905 = 16f / num905;
-											this.velocity.X = (this.velocity.X * 49f + num903 * num905) / 50f;
-											this.velocity.Y = (this.velocity.Y * 49f + num904 * num905) / 50f;
+											Vector2 vector119 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+											float num911 = Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) - vector119.X;
+											float num912 = Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2) - vector119.Y;
+											float num913 = (float)Math.Sqrt((double)(num911 * num911 + num912 * num912));
+											num913 = 16f / num913;
+											this.velocity.X = (this.velocity.X * 49f + num911 * num913) / 50f;
+											this.velocity.Y = (this.velocity.Y * 49f + num912 * num913) / 50f;
 										}
 										else if (this.ai[1] == 2f)
 										{
@@ -23328,15 +23794,15 @@ namespace Terraria
 											if (this.localAI[1] > 90f)
 											{
 												this.localAI[1] = 0f;
-												float num906 = 0.01f;
-												Vector2 vector118 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f + 30f);
-												float num907 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector118.X;
-												float num908 = Main.player[this.target].position.Y - vector118.Y;
-												float num909 = (float)Math.Sqrt((double)(num907 * num907 + num908 * num908));
-												num909 = num906 / num909;
-												num907 *= num909;
-												num908 *= num909;
-												Projectile.NewProjectile(this.center().X, this.center().Y, num907, num908, 329, 60, 0f, Main.myPlayer, this.rotation, (float)this.spriteDirection);
+												float num914 = 0.01f;
+												Vector2 vector120 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f + 30f);
+												float num915 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector120.X;
+												float num916 = Main.player[this.target].position.Y - vector120.Y;
+												float num917 = (float)Math.Sqrt((double)(num915 * num915 + num916 * num916));
+												num917 = num914 / num917;
+												num915 *= num917;
+												num916 *= num917;
+												Projectile.NewProjectile(this.center().X, this.center().Y, num915, num916, 329, 60, 0f, Main.myPlayer, this.rotation, (float)this.spriteDirection);
 											}
 										}
 										if (Main.dayTime)
@@ -23358,64 +23824,64 @@ namespace Terraria
 												this.ai[3] = 0f;
 												this.netUpdate = true;
 											}
-											Vector2 vector119 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-											float num910 = (Main.player[this.target].center().X + Main.npc[(int)this.ai[1]].center().X) / 2f;
-											float num911 = (Main.player[this.target].center().Y + Main.npc[(int)this.ai[1]].center().Y) / 2f;
-											num910 += -170f * this.ai[0] - vector119.X;
-											num911 += 90f - vector119.Y;
-											float num912 = Math.Abs(Main.player[this.target].center().X - Main.npc[(int)this.ai[1]].center().X) + Math.Abs(Main.player[this.target].center().Y - Main.npc[(int)this.ai[1]].center().Y);
-											if (num912 > 700f)
+											Vector2 vector121 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+											float num918 = (Main.player[this.target].center().X + Main.npc[(int)this.ai[1]].center().X) / 2f;
+											float num919 = (Main.player[this.target].center().Y + Main.npc[(int)this.ai[1]].center().Y) / 2f;
+											num918 += -170f * this.ai[0] - vector121.X;
+											num919 += 90f - vector121.Y;
+											float num920 = Math.Abs(Main.player[this.target].center().X - Main.npc[(int)this.ai[1]].center().X) + Math.Abs(Main.player[this.target].center().Y - Main.npc[(int)this.ai[1]].center().Y);
+											if (num920 > 700f)
 											{
-												num910 = Main.npc[(int)this.ai[1]].center().X - 170f * this.ai[0] - vector119.X;
-												num911 = Main.npc[(int)this.ai[1]].center().Y + 90f - vector119.Y;
+												num918 = Main.npc[(int)this.ai[1]].center().X - 170f * this.ai[0] - vector121.X;
+												num919 = Main.npc[(int)this.ai[1]].center().Y + 90f - vector121.Y;
 											}
-											float num913 = (float)Math.Sqrt((double)(num910 * num910 + num911 * num911));
-											float num914 = 6f;
-											if (num913 > 1000f)
+											float num921 = (float)Math.Sqrt((double)(num918 * num918 + num919 * num919));
+											float num922 = 6f;
+											if (num921 > 1000f)
 											{
-												num914 = 21f;
+												num922 = 21f;
 											}
-											else if (num913 > 800f)
+											else if (num921 > 800f)
 											{
-												num914 = 18f;
+												num922 = 18f;
 											}
-											else if (num913 > 600f)
+											else if (num921 > 600f)
 											{
-												num914 = 15f;
+												num922 = 15f;
 											}
-											else if (num913 > 400f)
+											else if (num921 > 400f)
 											{
-												num914 = 12f;
+												num922 = 12f;
 											}
-											else if (num913 > 200f)
+											else if (num921 > 200f)
 											{
-												num914 = 9f;
+												num922 = 9f;
 											}
 											if (this.ai[0] < 0f && this.center().X > Main.npc[(int)this.ai[1]].center().X)
 											{
-												num910 -= 4f;
+												num918 -= 4f;
 											}
 											if (this.ai[0] > 0f && this.center().X < Main.npc[(int)this.ai[1]].center().X)
 											{
-												num910 += 4f;
+												num918 += 4f;
 											}
-											num913 = num914 / num913;
-											this.velocity.X = (this.velocity.X * 14f + num910 * num913) / 15f;
-											this.velocity.Y = (this.velocity.Y * 14f + num911 * num913) / 15f;
-											num913 = (float)Math.Sqrt((double)(num910 * num910 + num911 * num911));
-											if (num913 > 20f)
+											num921 = num922 / num921;
+											this.velocity.X = (this.velocity.X * 14f + num918 * num921) / 15f;
+											this.velocity.Y = (this.velocity.Y * 14f + num919 * num921) / 15f;
+											num921 = (float)Math.Sqrt((double)(num918 * num918 + num919 * num919));
+											if (num921 > 20f)
 											{
-												this.rotation = (float)Math.Atan2((double)num911, (double)num910) + 1.57f;
+												this.rotation = (float)Math.Atan2((double)num919, (double)num918) + 1.57f;
 												return;
 											}
 										}
 										else if (this.ai[2] == 1f)
 										{
-											Vector2 vector120 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-											float num915 = Main.npc[(int)this.ai[1]].position.X + (float)(Main.npc[(int)this.ai[1]].width / 2) - 200f * this.ai[0] - vector120.X;
-											float num916 = Main.npc[(int)this.ai[1]].position.Y + 230f - vector120.Y;
-											float num917 = (float)Math.Sqrt((double)(num915 * num915 + num916 * num916));
-											this.rotation = (float)Math.Atan2((double)num916, (double)num915) + 1.57f;
+											Vector2 vector122 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+											float num923 = Main.npc[(int)this.ai[1]].position.X + (float)(Main.npc[(int)this.ai[1]].width / 2) - 200f * this.ai[0] - vector122.X;
+											float num924 = Main.npc[(int)this.ai[1]].position.Y + 230f - vector122.Y;
+											float num925 = (float)Math.Sqrt((double)(num923 * num923 + num924 * num924));
+											this.rotation = (float)Math.Atan2((double)num924, (double)num923) + 1.57f;
 											this.velocity.X = this.velocity.X * 0.95f;
 											this.velocity.Y = this.velocity.Y - 0.3f;
 											if (this.velocity.Y < -14f)
@@ -23426,21 +23892,21 @@ namespace Terraria
 											{
 												this.TargetClosest(true);
 												this.ai[2] = 2f;
-												vector120 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-												num915 = Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) - vector120.X;
-												num916 = Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2) - vector120.Y;
-												num917 = (float)Math.Sqrt((double)(num915 * num915 + num916 * num916));
-												num917 = 18f / num917;
-												this.velocity.X = num915 * num917;
-												this.velocity.Y = num916 * num917;
+												vector122 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+												num923 = Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) - vector122.X;
+												num924 = Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2) - vector122.Y;
+												num925 = (float)Math.Sqrt((double)(num923 * num923 + num924 * num924));
+												num925 = 18f / num925;
+												this.velocity.X = num923 * num925;
+												this.velocity.Y = num924 * num925;
 												this.netUpdate = true;
 												return;
 											}
 										}
 										else if (this.ai[2] == 2f)
 										{
-											float num918 = Math.Abs(this.center().X - Main.npc[(int)this.ai[1]].center().X) + Math.Abs(this.center().Y - Main.npc[(int)this.ai[1]].center().Y);
-											if (this.position.Y > Main.player[this.target].position.Y || this.velocity.Y < 0f || num918 > 800f)
+											float num926 = Math.Abs(this.center().X - Main.npc[(int)this.ai[1]].center().X) + Math.Abs(this.center().Y - Main.npc[(int)this.ai[1]].center().Y);
+											if (this.position.Y > Main.player[this.target].position.Y || this.velocity.Y < 0f || num926 > 800f)
 											{
 												this.ai[2] = 3f;
 												return;
@@ -23448,11 +23914,11 @@ namespace Terraria
 										}
 										else if (this.ai[2] == 4f)
 										{
-											Vector2 vector121 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-											float num919 = Main.npc[(int)this.ai[1]].position.X + (float)(Main.npc[(int)this.ai[1]].width / 2) - 200f * this.ai[0] - vector121.X;
-											float num920 = Main.npc[(int)this.ai[1]].position.Y + 230f - vector121.Y;
-											float num921 = (float)Math.Sqrt((double)(num919 * num919 + num920 * num920));
-											this.rotation = (float)Math.Atan2((double)num920, (double)num919) + 1.57f;
+											Vector2 vector123 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+											float num927 = Main.npc[(int)this.ai[1]].position.X + (float)(Main.npc[(int)this.ai[1]].width / 2) - 200f * this.ai[0] - vector123.X;
+											float num928 = Main.npc[(int)this.ai[1]].position.Y + 230f - vector123.Y;
+											float num929 = (float)Math.Sqrt((double)(num927 * num927 + num928 * num928));
+											this.rotation = (float)Math.Atan2((double)num928, (double)num927) + 1.57f;
 											this.velocity.Y = this.velocity.Y * 0.95f;
 											this.velocity.X = this.velocity.X + 0.3f * -this.ai[0];
 											if (this.velocity.X < -14f)
@@ -23467,25 +23933,675 @@ namespace Terraria
 											{
 												this.TargetClosest(true);
 												this.ai[2] = 5f;
-												vector121 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-												num919 = Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) - vector121.X;
-												num920 = Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2) - vector121.Y;
-												num921 = (float)Math.Sqrt((double)(num919 * num919 + num920 * num920));
-												num921 = 17f / num921;
-												this.velocity.X = num919 * num921;
-												this.velocity.Y = num920 * num921;
+												vector123 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
+												num927 = Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) - vector123.X;
+												num928 = Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2) - vector123.Y;
+												num929 = (float)Math.Sqrt((double)(num927 * num927 + num928 * num928));
+												num929 = 17f / num929;
+												this.velocity.X = num927 * num929;
+												this.velocity.Y = num928 * num929;
 												this.netUpdate = true;
 												return;
 											}
 										}
 										else if (this.ai[2] == 5f)
 										{
-											float num922 = Math.Abs(this.center().X - Main.npc[(int)this.ai[1]].center().X) + Math.Abs(this.center().Y - Main.npc[(int)this.ai[1]].center().Y);
-											if ((this.velocity.X > 0f && this.position.X + (float)(this.width / 2) > Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2)) || (this.velocity.X < 0f && this.position.X + (float)(this.width / 2) < Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2)) || num922 > 800f)
+											float num930 = Math.Abs(this.center().X - Main.npc[(int)this.ai[1]].center().X) + Math.Abs(this.center().Y - Main.npc[(int)this.ai[1]].center().Y);
+											if ((this.velocity.X > 0f && this.position.X + (float)(this.width / 2) > Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2)) || (this.velocity.X < 0f && this.position.X + (float)(this.width / 2) < Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2)) || num930 > 800f)
+											{
+												this.ai[2] = 0f;
+												return;
+											}
+										}
+									}
+									else if (this.aiStyle == 60)
+									{
+										if (Main.dayTime)
+										{
+											if (this.velocity.X > 0f)
+											{
+												this.velocity.X = this.velocity.X + 0.25f;
+											}
+											else
+											{
+												this.velocity.X = this.velocity.X - 0.25f;
+											}
+											this.velocity.Y = this.velocity.Y - 0.1f;
+											this.rotation = this.velocity.X * 0.05f;
+										}
+										else if (this.ai[0] == 0f)
+										{
+											if (this.ai[2] == 0f)
+											{
+												this.TargetClosest(true);
+												if (this.center().X < Main.player[this.target].center().X)
+												{
+													this.ai[2] = 1f;
+												}
+												else
+												{
+													this.ai[2] = -1f;
+												}
+											}
+											this.TargetClosest(true);
+											int num931 = 800;
+											float num932 = Math.Abs(this.center().X - Main.player[this.target].center().X);
+											if (this.center().X < Main.player[this.target].center().X && this.ai[2] < 0f && num932 > (float)num931)
 											{
 												this.ai[2] = 0f;
 											}
+											if (this.center().X > Main.player[this.target].center().X && this.ai[2] > 0f && num932 > (float)num931)
+											{
+												this.ai[2] = 0f;
+											}
+											float num933 = 0.5f;
+											float num934 = 9f;
+											if ((double)this.life < (double)this.lifeMax * 0.75)
+											{
+												num933 = 0.6f;
+												num934 = 10f;
+											}
+											if ((double)this.life < (double)this.lifeMax * 0.5)
+											{
+												num933 = 0.75f;
+												num934 = 12f;
+											}
+											if ((double)this.life < (double)this.lifeMax * 0.25)
+											{
+												num933 = 0.9f;
+												num934 = 13f;
+											}
+											this.velocity.X = this.velocity.X + this.ai[2] * num933;
+											if (this.velocity.X > num934)
+											{
+												this.velocity.X = num934;
+											}
+											if (this.velocity.X < -num934)
+											{
+												this.velocity.X = -num934;
+											}
+											float num935 = Main.player[this.target].position.Y - (this.position.Y + (float)this.height);
+											if (num935 < 150f)
+											{
+												this.velocity.Y = this.velocity.Y - 0.2f;
+											}
+											if (num935 > 200f)
+											{
+												this.velocity.Y = this.velocity.Y + 0.2f;
+											}
+											if (this.velocity.Y > 8f)
+											{
+												this.velocity.Y = 8f;
+											}
+											if (this.velocity.Y < -8f)
+											{
+												this.velocity.Y = -8f;
+											}
+											this.rotation = this.velocity.X * 0.05f;
+											if ((num932 < 500f || this.ai[3] < 0f) && this.position.Y < Main.player[this.target].position.Y)
+											{
+												this.ai[3] += 1f;
+												int num936 = 13;
+												if ((double)this.life < (double)this.lifeMax * 0.75)
+												{
+													num936 = 12;
+												}
+												if ((double)this.life < (double)this.lifeMax * 0.5)
+												{
+													num936 = 11;
+												}
+												if ((double)this.life < (double)this.lifeMax * 0.25)
+												{
+													num936 = 10;
+												}
+												if (this.ai[3] > (float)num936)
+												{
+													this.ai[3] = (float)(-(float)num936);
+												}
+												if (this.ai[3] == 0f && Main.netMode != 1)
+												{
+													Vector2 vector124 = new Vector2(this.center().X, this.center().Y);
+													vector124.X += this.velocity.X * 7f;
+													float num937 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector124.X;
+													float num938 = Main.player[this.target].center().Y - vector124.Y;
+													float num939 = (float)Math.Sqrt((double)(num937 * num937 + num938 * num938));
+													float num940 = 7f;
+													if ((double)this.life < (double)this.lifeMax * 0.75)
+													{
+														num940 = 9f;
+													}
+													if ((double)this.life < (double)this.lifeMax * 0.5)
+													{
+														num940 = 11f;
+													}
+													if ((double)this.life < (double)this.lifeMax * 0.25)
+													{
+														num940 = 12f;
+													}
+													num939 = num940 / num939;
+													num937 *= num939;
+													num938 *= num939;
+													Projectile.NewProjectile(vector124.X, vector124.Y, num937, num938, 348, 50, 0f, Main.myPlayer, 0f, 0f);
+												}
+											}
+											else if (this.ai[3] < 0f)
+											{
+												this.ai[3] += 1f;
+											}
+											if (Main.netMode != 1)
+											{
+												this.ai[1] += (float)Main.rand.Next(1, 4);
+												if (this.ai[1] > 800f && num932 < 600f)
+												{
+													this.ai[0] = -1f;
+												}
+											}
 										}
+										else if (this.ai[0] == 1f)
+										{
+											this.TargetClosest(true);
+											float num941 = 0.15f;
+											float num942 = 7f;
+											if ((double)this.life < (double)this.lifeMax * 0.75)
+											{
+												num941 = 0.17f;
+												num942 = 8f;
+											}
+											if ((double)this.life < (double)this.lifeMax * 0.5)
+											{
+												num941 = 0.2f;
+												num942 = 9f;
+											}
+											if ((double)this.life < (double)this.lifeMax * 0.25)
+											{
+												num941 = 0.25f;
+												num942 = 10f;
+											}
+											if (this.center().X < Main.player[this.target].center().X)
+											{
+												this.velocity.X = this.velocity.X + num941;
+												if (this.velocity.X < 0f)
+												{
+													this.velocity.X = this.velocity.X * 0.98f;
+												}
+											}
+											if (this.center().X > Main.player[this.target].center().X)
+											{
+												this.velocity.X = this.velocity.X - num941;
+												if (this.velocity.X > 0f)
+												{
+													this.velocity.X = this.velocity.X * 0.98f;
+												}
+											}
+											if (this.velocity.X > num942 || this.velocity.X < -num942)
+											{
+												this.velocity.X = this.velocity.X * 0.95f;
+											}
+											float num943 = Main.player[this.target].position.Y - (this.position.Y + (float)this.height);
+											if (num943 < 180f)
+											{
+												this.velocity.Y = this.velocity.Y - 0.1f;
+											}
+											if (num943 > 200f)
+											{
+												this.velocity.Y = this.velocity.Y + 0.1f;
+											}
+											if (this.velocity.Y > 6f)
+											{
+												this.velocity.Y = 6f;
+											}
+											if (this.velocity.Y < -6f)
+											{
+												this.velocity.Y = -6f;
+											}
+											this.rotation = this.velocity.X * 0.01f;
+											if (Main.netMode != 1)
+											{
+												this.ai[3] += 1f;
+												int num944 = 15;
+												if ((double)this.life < (double)this.lifeMax * 0.75)
+												{
+													num944 = 14;
+												}
+												if ((double)this.life < (double)this.lifeMax * 0.5)
+												{
+													num944 = 12;
+												}
+												if ((double)this.life < (double)this.lifeMax * 0.25)
+												{
+													num944 = 10;
+												}
+												if ((double)this.life < (double)this.lifeMax * 0.1)
+												{
+													num944 = 8;
+												}
+												if (this.ai[3] >= (float)num944)
+												{
+													this.ai[3] = 0f;
+													Vector2 vector125 = new Vector2(this.center().X, this.position.Y + (float)this.height - 14f);
+													int i2 = (int)(vector125.X / 16f);
+													int j2 = (int)(vector125.Y / 16f);
+													if (!WorldGen.SolidTile(i2, j2))
+													{
+														float num945 = this.velocity.Y;
+														if (num945 < 0f)
+														{
+															num945 = 0f;
+														}
+														num945 += 3f;
+														float speedX2 = this.velocity.X * 0.25f;
+														Projectile.NewProjectile(vector125.X, vector125.Y, speedX2, num945, 349, 50, 0f, Main.myPlayer, (float)Main.rand.Next(5), 0f);
+													}
+												}
+											}
+											if (Main.netMode != 1)
+											{
+												this.ai[1] += (float)Main.rand.Next(1, 4);
+												if (this.ai[1] > 600f)
+												{
+													this.ai[0] = -1f;
+												}
+											}
+										}
+										else if (this.ai[0] == 2f)
+										{
+											this.TargetClosest(true);
+											Vector2 vector126 = new Vector2(this.center().X, this.center().Y - 20f);
+											float num946 = (float)Main.rand.Next(-1000, 1001);
+											float num947 = (float)Main.rand.Next(-1000, 1001);
+											float num948 = (float)Math.Sqrt((double)(num946 * num946 + num947 * num947));
+											float num949 = 15f;
+											this.velocity *= 0.95f;
+											num948 = num949 / num948;
+											num946 *= num948;
+											num947 *= num948;
+											this.rotation += 0.2f;
+											vector126.X += num946 * 4f;
+											vector126.Y += num947 * 4f;
+											this.ai[3] += 1f;
+											int num950 = 5;
+											if ((double)this.life < (double)this.lifeMax * 0.75)
+											{
+												num950 = 4;
+											}
+											if ((double)this.life < (double)this.lifeMax * 0.5)
+											{
+												num950 = 3;
+											}
+											if ((double)this.life < (double)this.lifeMax * 0.25)
+											{
+												num950 = 2;
+											}
+											if ((double)this.life < (double)this.lifeMax * 0.1)
+											{
+												num950 = 1;
+											}
+											if (this.ai[3] > (float)num950)
+											{
+												this.ai[3] = 0f;
+												Projectile.NewProjectile(vector126.X, vector126.Y, num946, num947, 349, 50, 0f, Main.myPlayer, 0f, 0f);
+											}
+											if (Main.netMode != 1)
+											{
+												this.ai[1] += (float)Main.rand.Next(1, 4);
+												if (this.ai[1] > 500f)
+												{
+													this.ai[0] = -1f;
+												}
+											}
+										}
+										if (this.ai[0] == -1f)
+										{
+											int num951 = Main.rand.Next(3);
+											this.TargetClosest(true);
+											if (Math.Abs(this.center().X - Main.player[this.target].center().X) > 1000f)
+											{
+												num951 = 0;
+											}
+											this.ai[0] = (float)num951;
+											this.ai[1] = 0f;
+											this.ai[2] = 0f;
+											this.ai[3] = 0f;
+											return;
+										}
+									}
+									else if (this.aiStyle == 61)
+									{
+										float num952 = 2f;
+										this.noGravity = true;
+										this.noTileCollide = true;
+										if (!Main.dayTime)
+										{
+											this.TargetClosest(true);
+										}
+										bool flag59 = false;
+										if ((double)this.life < (double)this.lifeMax * 0.75)
+										{
+											num952 = 3f;
+										}
+										if ((double)this.life < (double)this.lifeMax * 0.5)
+										{
+											num952 = 4f;
+										}
+										if ((double)this.life < (double)this.lifeMax * 0.25)
+										{
+											num952 = 5f;
+										}
+										if (Main.dayTime)
+										{
+											if (this.timeLeft > 10)
+											{
+												this.timeLeft = 10;
+											}
+											num952 = 8f;
+											if (this.velocity.X == 0f)
+											{
+												this.velocity.X = 0.1f;
+											}
+										}
+										else if (this.ai[0] == 0f)
+										{
+											this.ai[1] += 1f;
+											if (this.ai[1] >= 300f && Main.netMode != 1)
+											{
+												this.TargetClosest(true);
+												this.ai[1] = 0f;
+												this.ai[0] = 1f;
+												this.netUpdate = true;
+											}
+										}
+										else if (this.ai[0] == 1f)
+										{
+											this.ai[1] += 1f;
+											flag59 = true;
+											int num953 = 8;
+											if ((double)this.life < (double)this.lifeMax * 0.25)
+											{
+												num953 = 5;
+											}
+											else if ((double)this.life < (double)this.lifeMax * 0.5)
+											{
+												num953 = 6;
+											}
+											else if ((double)this.life < (double)this.lifeMax * 0.75)
+											{
+												num953 = 7;
+											}
+											if (this.ai[1] % (float)num953 == 0f)
+											{
+												Vector2 vector127 = new Vector2(this.center().X + (float)(this.direction * 50), this.center().Y + (float)Main.rand.Next(15, 36));
+												float num954 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector127.X;
+												float num955 = Main.player[this.target].center().Y - vector127.Y;
+												num954 += (float)Main.rand.Next(-40, 41);
+												num955 += (float)Main.rand.Next(-40, 41);
+												float num956 = (float)Math.Sqrt((double)(num954 * num954 + num955 * num955));
+												float num957 = 15f;
+												num956 = num957 / num956;
+												num954 *= num956;
+												num955 *= num956;
+												num954 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
+												num955 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
+												Projectile.NewProjectile(vector127.X, vector127.Y, num954, num955, 180, 37, 0f, Main.myPlayer, 0f, 0f);
+											}
+											if (this.ai[1] > 240f)
+											{
+												this.ai[0] = 0f;
+												this.ai[1] = 0f;
+											}
+										}
+										if (Main.netMode != 1)
+										{
+											int num958 = 600;
+											int num959 = 1200;
+											int num960 = 2700;
+											if ((double)this.life < (double)this.lifeMax * 0.25)
+											{
+												num958 = (int)((double)num958 * 0.5);
+												num959 = (int)((double)num959 * 0.5);
+												num960 = (int)((double)num960 * 0.5);
+											}
+											else if ((double)this.life < (double)this.lifeMax * 0.5)
+											{
+												num958 = (int)((double)num958 * 0.75);
+												num959 = (int)((double)num959 * 0.75);
+												num960 = (int)((double)num960 * 0.75);
+											}
+											else if ((double)this.life < (double)this.lifeMax * 0.75)
+											{
+												num958 = (int)((double)num958 * 0.9);
+												num959 = (int)((double)num959 * 0.9);
+												num960 = (int)((double)num960 * 0.9);
+											}
+											if (Main.rand.Next(num958) == 0)
+											{
+												Vector2 vector128 = new Vector2(this.center().X - (float)(this.direction * 24), this.center().Y - 64f);
+												float num961 = (float)(Main.rand.Next(1, 100) * this.direction);
+												float num962 = 1f;
+												float num963 = (float)Math.Sqrt((double)(num961 * num961 + num962 * num962));
+												float num964 = 1f;
+												num963 = num964 / num963;
+												num961 *= num963;
+												num962 *= num963;
+												Projectile.NewProjectile(vector128.X, vector128.Y, num961, num962, 352, 100, 0f, Main.myPlayer, 0f, 0f);
+											}
+											if (Main.rand.Next(num959) == 0)
+											{
+												this.localAI[1] = 1f;
+											}
+											if (this.localAI[1] >= 1f)
+											{
+												this.localAI[1] += 1f;
+												int num965 = 11;
+												if (this.localAI[1] % (float)num965 == 0f)
+												{
+													Vector2 vector129 = new Vector2(this.center().X - (float)(this.direction * 24), this.center().Y - 64f);
+													float num966 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector129.X;
+													float num967 = Main.player[this.target].center().Y - vector129.Y;
+													num966 += (float)Main.rand.Next(-50, 51);
+													num967 += (float)Main.rand.Next(-50, 51);
+													float num968 = (float)Math.Sqrt((double)(num966 * num966 + num967 * num967));
+													float num969 = 14f;
+													num968 = num969 / num968;
+													num966 *= num968;
+													num967 *= num968;
+													num966 *= 1f + (float)Main.rand.Next(-20, 21) * 0.015f;
+													num967 *= 1f + (float)Main.rand.Next(-20, 21) * 0.015f;
+													Projectile.NewProjectile(vector129.X, vector129.Y, num966, num967, 350, 45, 0f, Main.myPlayer, 0f, 0f);
+												}
+												if (this.localAI[1] >= 100f)
+												{
+													this.localAI[1] = 0f;
+												}
+											}
+											if (Main.rand.Next(num960) == 0)
+											{
+												this.localAI[2] = 2f;
+											}
+											if (this.localAI[2] > 0f)
+											{
+												this.localAI[2] += 1f;
+												int num970 = 8;
+												if (this.localAI[2] % (float)num970 == 0f)
+												{
+													Vector2 vector130 = new Vector2(this.center().X - (float)(this.direction * 24), this.center().Y - 64f);
+													float num971 = (float)Main.rand.Next(-100, 101);
+													float num972 = -300f;
+													float num973 = (float)Math.Sqrt((double)(num971 * num971 + num972 * num972));
+													float num974 = 11f;
+													num973 = num974 / num973;
+													num971 *= num973;
+													num972 *= num973;
+													num971 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
+													num972 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
+													Projectile.NewProjectile(vector130.X, vector130.Y, num971, num972, 351, 55, 0f, Main.myPlayer, 0f, 0f);
+												}
+												if (this.localAI[2] >= 100f)
+												{
+													this.localAI[2] = 0f;
+												}
+											}
+										}
+										if (Math.Abs(this.center().X - Main.player[this.target].center().X) < 50f)
+										{
+											flag59 = true;
+										}
+										if (flag59)
+										{
+											this.velocity.X = this.velocity.X * 0.9f;
+											if ((double)this.velocity.X > -0.1 && (double)this.velocity.X < 0.1)
+											{
+												this.velocity.X = 0f;
+											}
+										}
+										else
+										{
+											if (this.direction > 0)
+											{
+												this.velocity.X = (this.velocity.X * 20f + num952) / 21f;
+											}
+											if (this.direction < 0)
+											{
+												this.velocity.X = (this.velocity.X * 20f - num952) / 21f;
+											}
+										}
+										int num975 = 80;
+										int num976 = 20;
+										Vector2 vector131 = new Vector2(this.center().X - (float)(num975 / 2), this.position.Y + (float)this.height - (float)num976);
+										bool flag60 = false;
+										if (this.position.X < Main.player[this.target].position.X && this.position.X + (float)this.width > Main.player[this.target].position.X + (float)Main.player[this.target].width && this.position.Y + (float)this.height < Main.player[this.target].position.Y + (float)Main.player[this.target].height - 16f)
+										{
+											flag60 = true;
+										}
+										if (flag60)
+										{
+											this.velocity.Y = this.velocity.Y + 0.5f;
+										}
+										else if (Collision.SolidCollision(vector131, num975, num976))
+										{
+											if (this.velocity.Y > 0f)
+											{
+												this.velocity.Y = 0f;
+											}
+											if ((double)this.velocity.Y > -0.2)
+											{
+												this.velocity.Y = this.velocity.Y - 0.025f;
+											}
+											else
+											{
+												this.velocity.Y = this.velocity.Y - 0.2f;
+											}
+											if (this.velocity.Y < -4f)
+											{
+												this.velocity.Y = -4f;
+											}
+										}
+										else
+										{
+											if (this.velocity.Y < 0f)
+											{
+												this.velocity.Y = 0f;
+											}
+											if ((double)this.velocity.Y < 0.1)
+											{
+												this.velocity.Y = this.velocity.Y + 0.025f;
+											}
+											else
+											{
+												this.velocity.Y = this.velocity.Y + 0.5f;
+											}
+										}
+										if (this.velocity.Y > 10f)
+										{
+											this.velocity.Y = 10f;
+											return;
+										}
+									}
+									else if (this.aiStyle == 62)
+									{
+										this.TargetClosest(true);
+										this.rotation = Math.Abs(this.velocity.X) * (float)this.direction * 0.1f;
+										this.spriteDirection = this.direction;
+										float num977 = 7f;
+										Vector2 vector132 = new Vector2(this.center().X + (float)(this.direction * 20), this.center().Y + 6f);
+										float num978 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector132.X;
+										float num979 = Main.player[this.target].position.Y - vector132.Y;
+										float num980 = (float)Math.Sqrt((double)(num978 * num978 + num979 * num979));
+										float num981 = num977 / num980;
+										num978 *= num981;
+										num979 *= num981;
+										bool flag61 = Collision.CanHit(this.center(), 1, 1, Main.player[this.target].center(), 1, 1);
+										if (num980 > 600f || !flag61)
+										{
+											int num982 = 60;
+											this.velocity.X = (this.velocity.X * (float)(num982 - 1) + num978) / (float)num982;
+											this.velocity.Y = (this.velocity.Y * (float)(num982 - 1) + num979) / (float)num982;
+											return;
+										}
+										this.velocity *= 0.98f;
+										if (Math.Abs(this.velocity.X) < 1f && Math.Abs(this.velocity.Y) < 1f && Main.netMode != 1)
+										{
+											this.localAI[0] += 1f;
+											if (this.localAI[0] >= 9f)
+											{
+												this.localAI[0] = 0f;
+												num978 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector132.X;
+												num979 = Main.player[this.target].center().Y - vector132.Y;
+												num978 += (float)Main.rand.Next(-30, 31);
+												num979 += (float)Main.rand.Next(-30, 31);
+												num980 = (float)Math.Sqrt((double)(num978 * num978 + num979 * num979));
+												num977 = 11f;
+												num981 = num977 / num980;
+												num978 *= num981;
+												num979 *= num981;
+												num978 *= 1f + (float)Main.rand.Next(-20, 21) * 0.0125f;
+												num979 *= 1f + (float)Main.rand.Next(-20, 21) * 0.0125f;
+												Projectile.NewProjectile(vector132.X, vector132.Y, num978, num979, 180, 42, 0f, Main.myPlayer, 0f, 0f);
+												return;
+											}
+										}
+									}
+									else if (this.aiStyle == 63)
+									{
+										this.TargetClosest(true);
+										float num983 = 16f;
+										Vector2 vector133 = new Vector2(this.center().X + (float)(this.direction * 20), this.center().Y + 6f);
+										float num984 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector133.X;
+										float num985 = Main.player[this.target].center().Y - vector133.Y;
+										float num986 = (float)Math.Sqrt((double)(num984 * num984 + num985 * num985));
+										float num987 = num983 / num986;
+										num984 *= num987;
+										num985 *= num987;
+										this.ai[0] -= 1f;
+										if (num986 < 200f || this.ai[0] > 0f)
+										{
+											if (num986 < 200f)
+											{
+												this.ai[0] = 20f;
+											}
+											if (this.velocity.X < 0f)
+											{
+												this.direction = -1;
+											}
+											else
+											{
+												this.direction = 1;
+											}
+											this.rotation += (float)this.direction * 0.3f;
+											return;
+										}
+										this.velocity.X = (this.velocity.X * 50f + num984) / 51f;
+										this.velocity.Y = (this.velocity.Y * 50f + num985) / 51f;
+										if (num986 < 350f)
+										{
+											this.velocity.X = (this.velocity.X * 10f + num984) / 11f;
+											this.velocity.Y = (this.velocity.Y * 10f + num985) / 11f;
+										}
+										if (num986 < 300f)
+										{
+											this.velocity.X = (this.velocity.X * 7f + num984) / 8f;
+											this.velocity.Y = (this.velocity.Y * 7f + num985) / 8f;
+										}
+										this.rotation = this.velocity.X * 0.15f;
 									}
 								}
 							}
@@ -23521,7 +24637,7 @@ namespace Terraria
 			{
 				num2 = 4;
 			}
-			if (this.type == 1 || this.type == 16 || this.type == 59 || this.type == 71 || this.type == 81 || this.type == 138 || this.type == 147 || this.type == 183 || this.type == 184 || this.type == 204 || this.type == 225 || this.type == 302 || this.type == 304)
+			if (this.type == 1 || this.type == 16 || this.type == 59 || this.type == 71 || this.type == 81 || this.type == 138 || this.type == 147 || this.type == 183 || this.type == 184 || this.type == 204 || this.type == 225 || this.type == 302 || this.type == 304 || (this.type >= 333 && this.type <= 336))
 			{
 				if (this.type == 302 || this.type == 304)
 				{
@@ -23605,6 +24721,145 @@ namespace Terraria
 					if (this.frame.Y < 0)
 					{
 						this.frame.Y = num * 11;
+					}
+				}
+			}
+			if (this.type == 347)
+			{
+				this.frameCounter += 1.0;
+				if (this.frameCounter > 1.0)
+				{
+					this.frame.Y = this.frame.Y + num;
+					this.frameCounter = 0.0;
+				}
+				if (this.frame.Y > num * 3)
+				{
+					this.frame.Y = 0;
+				}
+			}
+			if (this.type == 346)
+			{
+				if (this.ai[0] == 1f)
+				{
+					this.spriteDirection = this.direction;
+					this.frameCounter += 1.0;
+					if (this.frameCounter > 2.0)
+					{
+						this.frame.Y = this.frame.Y + num;
+						this.frameCounter = 0.0;
+					}
+					if (this.frame.Y > num * 8)
+					{
+						this.frame.Y = num * 6;
+					}
+					if (this.frame.Y < num * 6)
+					{
+						this.frame.Y = num * 6;
+					}
+				}
+				else if (this.velocity.X == 0f)
+				{
+					this.frame.Y = this.frame.Y;
+					this.frameCounter = 0.0;
+				}
+				else
+				{
+					this.spriteDirection = this.direction;
+					this.frameCounter += 1.0;
+					this.frameCounter += (double)(Math.Abs(this.velocity.X) / 2f);
+					if (this.frameCounter > 4.0)
+					{
+						this.frame.Y = this.frame.Y + num;
+						this.frameCounter = 0.0;
+					}
+					if (this.frame.Y > num * 5)
+					{
+						this.frame.Y = num;
+					}
+					if (this.frame.Y < num)
+					{
+						this.frame.Y = num;
+					}
+				}
+			}
+			if (this.type == 352)
+			{
+				this.frameCounter += 1.0;
+				if (this.frameCounter > 3.0)
+				{
+					this.frame.Y = this.frame.Y + num;
+					this.frameCounter = 0.0;
+				}
+				if (this.frame.Y > num * 5)
+				{
+					this.frame.Y = 0;
+				}
+			}
+			if (this.type == 345)
+			{
+				if (this.ai[0] == 0f)
+				{
+					if (this.ai[3] >= 0f)
+					{
+						this.frame.Y = 0;
+					}
+					else if (this.velocity.X < 0f)
+					{
+						this.frame.Y = num;
+					}
+					else
+					{
+						this.frame.Y = num * 2;
+					}
+				}
+				else if (this.ai[0] == 1f)
+				{
+					this.frameCounter += 1.0;
+					if (this.frameCounter > 5.0)
+					{
+						this.frameCounter = 0.0;
+						this.frame.Y = this.frame.Y + num;
+					}
+					if (this.frame.Y > num * 4)
+					{
+						this.frame.Y = num * 3;
+					}
+					if (this.frame.Y < num * 3)
+					{
+						this.frame.Y = num * 3;
+					}
+				}
+				else if (this.ai[0] == 2f)
+				{
+					this.frame.Y = num * 5;
+				}
+			}
+			if (this.type == 344)
+			{
+				if (this.velocity.X == 0f)
+				{
+					this.frameCounter += 1.0;
+					if (this.frameCounter > 2.0)
+					{
+						this.frameCounter = 0.0;
+						this.frame.Y = this.frame.Y + num;
+					}
+					if (this.frame.Y > num * 9)
+					{
+						this.frame.Y = 0;
+					}
+				}
+				else
+				{
+					this.frameCounter += 1.0;
+					if (this.frameCounter > 3.0)
+					{
+						this.frameCounter = 0.0;
+						this.frame.Y = this.frame.Y + num;
+					}
+					if (this.frame.Y > num * 9)
+					{
+						this.frame.Y = 0;
 					}
 				}
 			}
@@ -24464,7 +25719,7 @@ namespace Terraria
 					this.frame.Y = num;
 				}
 			}
-			if (this.type == 85)
+			if (this.type == 85 || this.type == 341)
 			{
 				if (this.ai[0] == 0f)
 				{
@@ -25574,7 +26829,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 17 || this.type == 18 || this.type == 19 || this.type == 20 || this.type == 22 || this.type == 142 || this.type == 178 || this.type == 38 || this.type == 26 || this.type == 27 || this.type == 28 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 21 || this.type == 44 || this.type == 54 || this.type == 37 || this.type == 73 || this.type == 77 || this.type == 78 || this.type == 79 || this.type == 80 || this.type == 104 || this.type == 107 || this.type == 108 || this.type == 120 || this.type == 124 || this.type == 140 || this.type == 159 || this.type == 160 || this.type == 167 || this.type == 181 || this.type == 185 || this.type == 196 || this.type == 197 || this.type == 198 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 207 || this.type == 208 || this.type == 209 || this.type == 212 || this.type == 213 || this.type == 227 || this.type == 228 || this.type == 229 || this.type == 287 || (this.type >= 310 && this.type <= 314) || (this.type >= 322 && this.type <= 324) || this.type == 326)
+			if (this.type == 338 || this.type == 339 || this.type == 340 || this.type == 17 || this.type == 18 || this.type == 19 || this.type == 20 || this.type == 22 || this.type == 142 || this.type == 178 || this.type == 38 || this.type == 26 || this.type == 27 || this.type == 28 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 21 || this.type == 44 || this.type == 54 || this.type == 37 || this.type == 73 || this.type == 77 || this.type == 78 || this.type == 79 || this.type == 80 || this.type == 104 || this.type == 107 || this.type == 108 || this.type == 120 || this.type == 124 || this.type == 140 || this.type == 159 || this.type == 160 || this.type == 167 || this.type == 181 || this.type == 185 || this.type == 196 || this.type == 197 || this.type == 198 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 207 || this.type == 208 || this.type == 209 || this.type == 212 || this.type == 213 || this.type == 227 || this.type == 228 || this.type == 229 || this.type == 287 || (this.type >= 310 && this.type <= 314) || (this.type >= 322 && this.type <= 324) || this.type == 326)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -25626,6 +26881,96 @@ namespace Terraria
 					{
 						this.frame.Y = num * 14;
 					}
+				}
+			}
+			if (this.type == 351)
+			{
+				if (this.velocity.Y == 0f)
+				{
+					if (this.direction == 1)
+					{
+						this.spriteDirection = 1;
+					}
+					if (this.direction == -1)
+					{
+						this.spriteDirection = -1;
+					}
+					if (this.velocity.X == 0f)
+					{
+						this.frame.Y = 0;
+						this.frameCounter = 0.0;
+					}
+					else
+					{
+						this.frameCounter += (double)(Math.Abs(this.velocity.X) * 1f);
+						this.frameCounter += 1.0;
+						if (this.frameCounter > 8.0)
+						{
+							this.frame.Y = this.frame.Y + num;
+							this.frameCounter = 0.0;
+						}
+						if (this.frame.Y / num >= Main.npcFrameCount[this.type])
+						{
+							this.frame.Y = num * 2;
+						}
+					}
+				}
+				else
+				{
+					if (this.velocity.Y < 0f)
+					{
+						this.frame.Y = num;
+					}
+					else
+					{
+						this.frame.Y = num;
+					}
+					this.frameCounter = 0.0;
+				}
+			}
+			if (this.type == 343)
+			{
+				if (this.velocity.Y == 0f)
+				{
+					if (this.direction == 1)
+					{
+						this.spriteDirection = 1;
+					}
+					if (this.direction == -1)
+					{
+						this.spriteDirection = -1;
+					}
+					if (this.velocity.X == 0f)
+					{
+						this.frame.Y = num * 2;
+						this.frameCounter = 0.0;
+					}
+					else
+					{
+						this.frameCounter += (double)(Math.Abs(this.velocity.X) * 1f);
+						this.frameCounter += 1.0;
+						if (this.frameCounter > 6.0)
+						{
+							this.frame.Y = this.frame.Y + num;
+							this.frameCounter = 0.0;
+						}
+						if (this.frame.Y / num >= Main.npcFrameCount[this.type])
+						{
+							this.frame.Y = num * 2;
+						}
+					}
+				}
+				else
+				{
+					if (this.velocity.Y < 0f)
+					{
+						this.frame.Y = 0;
+					}
+					else
+					{
+						this.frame.Y = num;
+					}
+					this.frameCounter = 0.0;
 				}
 			}
 			if (this.type >= 269 && this.type <= 280)
@@ -25859,6 +27204,49 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
+			if (this.type == 350)
+			{
+				if (this.velocity.Y == 0f)
+				{
+					if (this.direction == 1)
+					{
+						this.spriteDirection = 1;
+					}
+					if (this.direction == -1)
+					{
+						this.spriteDirection = -1;
+					}
+					if (this.ai[2] > 0f)
+					{
+						this.spriteDirection = this.direction;
+						this.frame.Y = num * ((int)this.ai[2] - 1);
+						this.frameCounter = 0.0;
+					}
+					else
+					{
+						if (this.frame.Y < num * 7)
+						{
+							this.frame.Y = num * 7;
+						}
+						this.frameCounter += (double)(Math.Abs(this.velocity.X) * 2f);
+						this.frameCounter += (double)(this.velocity.X * 1.3f);
+						if (this.frameCounter > 4.0)
+						{
+							this.frame.Y = this.frame.Y + num;
+							this.frameCounter = 0.0;
+						}
+						if (this.frame.Y / num >= Main.npcFrameCount[this.type])
+						{
+							this.frame.Y = num * 7;
+						}
+					}
+				}
+				else
+				{
+					this.frameCounter = 0.0;
+					this.frame.Y = num * 5;
+				}
+			}
 			if (this.type == 111)
 			{
 				if (this.velocity.Y == 0f)
@@ -26002,7 +27390,58 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 3 || this.type == 52 || this.type == 53 || this.type == 132 || this.type == 161 || this.type == 162 || this.type == 166 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 251 || this.type == 254 || this.type == 255 || (this.type >= 319 && this.type <= 321))
+			else if (this.type == 348)
+			{
+				if (this.velocity.Y == 0f)
+				{
+					if (this.direction == 1)
+					{
+						this.spriteDirection = 1;
+					}
+					if (this.direction == -1)
+					{
+						this.spriteDirection = -1;
+					}
+				}
+				if (this.velocity.Y != 0f)
+				{
+					this.frameCounter = 0.0;
+					this.frame.Y = num * 8;
+				}
+				else if (this.velocity.X == 0f)
+				{
+					this.frameCounter = 0.0;
+					this.frame.Y = 0;
+				}
+				else
+				{
+					this.frameCounter += (double)Math.Abs(this.velocity.X);
+					this.frameCounter += 1.0;
+					if (this.frameCounter > 6.0)
+					{
+						this.frame.Y = this.frame.Y + num;
+						this.frameCounter = 0.0;
+					}
+					if (this.frame.Y > num * 7)
+					{
+						this.frame.Y = num;
+					}
+				}
+			}
+			else if (this.type == 349)
+			{
+				this.frameCounter += 1.0;
+				if (this.frameCounter > 3.0)
+				{
+					this.frame.Y = this.frame.Y + num;
+					this.frameCounter = 0.0;
+				}
+				if (this.frame.Y > num * 7)
+				{
+					this.frame.Y = 0;
+				}
+			}
+			else if (this.type == 3 || this.type == 342 || this.type == 331 || this.type == 332 || this.type == 52 || this.type == 53 || this.type == 132 || this.type == 161 || this.type == 162 || this.type == 166 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 251 || this.type == 254 || this.type == 255 || (this.type >= 319 && this.type <= 321))
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -26212,7 +27651,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 46 || this.type == 47 || this.type == 303)
+			else if (this.type == 46 || this.type == 47 || this.type == 303 || this.type == 337)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -26470,7 +27909,7 @@ namespace Terraria
 			if (faceTarget)
 			{
 				float num4 = num2 - (float)Main.player[this.target].aggro;
-				float num5 = (float)((Main.player[this.target].height + Main.player[this.target].width + this.height + this.width) / 4 + 600 + 50);
+				float num5 = (float)((Main.player[this.target].height + Main.player[this.target].width + this.height + this.width) / 4 + 750 + 50);
 				if (Main.player[this.target].itemAnimation != 0 || Main.player[this.target].aggro >= 0 || num4 <= num5 || this.oldTarget < 0 || this.oldTarget > 254)
 				{
 					this.direction = 1;
@@ -26664,7 +28103,7 @@ namespace Terraria
 							NPC.spawnRate = (int)((double)NPC.spawnRate * 0.3);
 							NPC.maxSpawns = (int)((float)NPC.maxSpawns * 1.8f);
 						}
-						if (Main.pumpkinMoon)
+						if (Main.pumpkinMoon || Main.snowMoon)
 						{
 							NPC.spawnRate = (int)((double)NPC.spawnRate * 0.2);
 							NPC.maxSpawns *= 2;
@@ -26760,7 +28199,7 @@ namespace Terraria
 					{
 						NPC.maxSpawns = NPC.defaultMaxSpawns * 3;
 					}
-					if (Main.pumpkinMoon)
+					if (Main.pumpkinMoon || Main.snowMoon)
 					{
 						NPC.maxSpawns = (int)((double)NPC.defaultMaxSpawns * (2.0 + 0.3 * (double)num4));
 						NPC.spawnRate = 20;
@@ -26775,7 +28214,7 @@ namespace Terraria
 						NPC.spawnRate = 10;
 					}
 					bool flag8 = false;
-					if (!flag4 && ((!Main.bloodMoon && !Main.pumpkinMoon) || Main.dayTime) && (!Main.eclipse || !Main.dayTime) && !Main.player[j].zoneDungeon && !Main.player[j].zoneEvil && !Main.player[j].zoneBlood && !Main.player[j].zoneMeteor)
+					if (!flag4 && ((!Main.bloodMoon && !Main.pumpkinMoon && !Main.snowMoon) || Main.dayTime) && (!Main.eclipse || !Main.dayTime) && !Main.player[j].zoneDungeon && !Main.player[j].zoneEvil && !Main.player[j].zoneBlood && !Main.player[j].zoneMeteor)
 					{
 						if (Main.player[j].townNPCs == 1f)
 						{
@@ -26881,7 +28320,7 @@ namespace Terraria
 							int num18 = Main.rand.Next(num11, num12);
 							if (Main.tile[num17, num18].nactive() && Main.tileSolid[(int)Main.tile[num17, num18].type])
 							{
-								goto IL_105A;
+								goto IL_106F;
 							}
 							if (!Main.wallHouse[(int)Main.tile[num17, num18].wall])
 							{
@@ -26926,7 +28365,7 @@ namespace Terraria
 								}
 								if (!flag7)
 								{
-									goto IL_105A;
+									goto IL_106F;
 								}
 								int num19 = num - NPC.spawnSpaceX / 2;
 								int num20 = num + NPC.spawnSpaceX / 2;
@@ -26966,17 +28405,17 @@ namespace Terraria
 											}
 										}
 									}
-									goto IL_105A;
+									goto IL_106F;
 								}
-								goto IL_105A;
+								goto IL_106F;
 							}
-							IL_1060:
+							IL_1075:
 							k++;
 							continue;
-							IL_105A:
+							IL_106F:
 							if (!flag7 && !flag7)
 							{
-								goto IL_1060;
+								goto IL_1075;
 							}
 							break;
 						}
@@ -27270,6 +28709,10 @@ namespace Terraria
 								{
 									NPC.NewNPC(num * 16 + 8, num2 * 16, 303, 0);
 								}
+								else if (Main.xMas && Main.rand.Next(3) != 0)
+								{
+									NPC.NewNPC(num * 16 + 8, num2 * 16, 337, 0);
+								}
 								else if (Main.rand.Next(3) == 0 && (double)num2 <= Main.worldSurface)
 								{
 									NPC.NewNPC(num * 16 + 8, num2 * 16, 299, 0);
@@ -27405,6 +28848,423 @@ namespace Terraria
 						else if (Main.player[j].zoneMeteor)
 						{
 							num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 23, 0);
+						}
+						else if ((double)num2 <= Main.worldSurface && !Main.dayTime && Main.snowMoon)
+						{
+							if (Main.rand.Next(30) == 0 && NPC.CountNPCS(341) < 4)
+							{
+								num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 341, 0);
+							}
+							else if (NPC.waveCount >= 20)
+							{
+								int num36 = Main.rand.Next(3);
+								if (num36 == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0);
+								}
+								else if (num36 == 1)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+							}
+							else if (NPC.waveCount >= 19)
+							{
+								if (Main.rand.Next(10) == 0 && NPC.CountNPCS(345) < 4)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(346) < 5)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(344) < 7)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0);
+								}
+							}
+							else if (NPC.waveCount >= 18)
+							{
+								if (Main.rand.Next(10) == 0 && NPC.CountNPCS(345) < 3)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(346) < 4)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(344) < 6)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 348, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 351, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0);
+								}
+							}
+							else if (NPC.waveCount >= 17)
+							{
+								if (Main.rand.Next(10) == 0 && NPC.CountNPCS(345) < 2)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(346) < 3)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(344) < 5)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+								else if (Main.rand.Next(4) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 347, 0);
+								}
+								else if (Main.rand.Next(2) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 351, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0);
+								}
+							}
+							else if (NPC.waveCount >= 16)
+							{
+								if (Main.rand.Next(10) == 0 && NPC.CountNPCS(345) < 2)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(346) < 2)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(344) < 4)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+								else if (Main.rand.Next(2) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 352, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0);
+								}
+							}
+							else if (NPC.waveCount >= 15)
+							{
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(346) < 2)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(344) < 3)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 347, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0);
+								}
+							}
+							else if (NPC.waveCount == 14)
+							{
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(344))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0);
+								}
+							}
+							else if (NPC.waveCount == 13)
+							{
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 352, 0);
+								}
+								else if (Main.rand.Next(6) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 342, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 347, 0);
+								}
+							}
+							else if (NPC.waveCount == 12)
+							{
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(344))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+								else if (Main.rand.Next(8) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 343, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 342, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0);
+								}
+							}
+							else if (NPC.waveCount == 11)
+							{
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0);
+								}
+								else if (Main.rand.Next(6) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 352, 0);
+								}
+								else if (Main.rand.Next(2) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 342, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0);
+								}
+							}
+							else if (NPC.waveCount == 10)
+							{
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && NPC.CountNPCS(344) < 2)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+								else if (Main.rand.Next(6) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 351, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 348, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 347, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0);
+								}
+							}
+							else if (NPC.waveCount == 9)
+							{
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0);
+								}
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(344))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+								else if (Main.rand.Next(2) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 348, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 347, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 342, 0);
+								}
+							}
+							else if (NPC.waveCount == 8)
+							{
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0);
+								}
+								else if (Main.rand.Next(8) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 351, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 348, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 347, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 350, 0);
+								}
+							}
+							else if (NPC.waveCount == 7)
+							{
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 342, 0);
+								}
+								else if (Main.rand.Next(4) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 350, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0);
+								}
+							}
+							else if (NPC.waveCount == 6)
+							{
+								if (Main.rand.Next(10) == 0 && NPC.CountNPCS(344) < 2)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+								else if (Main.rand.Next(4) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 347, 0);
+								}
+								else if (Main.rand.Next(2) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 348, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 350, 0);
+								}
+							}
+							else if (NPC.waveCount == 5)
+							{
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(344))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+								else if (Main.rand.Next(4) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 350, 0);
+								}
+								else if (Main.rand.Next(8) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 348, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0);
+								}
+							}
+							else if (NPC.waveCount == 4)
+							{
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(344))
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0);
+								}
+								else if (Main.rand.Next(4) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 350, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 342, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0);
+								}
+							}
+							else if (NPC.waveCount == 3)
+							{
+								if (Main.rand.Next(8) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 348, 0);
+								}
+								else if (Main.rand.Next(4) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 350, 0);
+								}
+								else if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 342, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0);
+								}
+							}
+							else if (NPC.waveCount == 2)
+							{
+								if (Main.rand.Next(3) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 350, 0);
+								}
+								else
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0);
+								}
+							}
+							else if (Main.rand.Next(3) == 0)
+							{
+								num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 342, 0);
+							}
+							else
+							{
+								num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(338, 341), 0);
+							}
 						}
 						else if ((double)num2 <= Main.worldSurface && !Main.dayTime && Main.pumpkinMoon)
 						{
@@ -27900,8 +29760,8 @@ namespace Terraria
 							}
 							else
 							{
-								int num36 = Main.rand.Next(8);
-								if (num36 == 0)
+								int num37 = Main.rand.Next(8);
+								if (num37 == 0)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 231, 0);
 									if (Main.rand.Next(4) == 0)
@@ -27913,7 +29773,7 @@ namespace Terraria
 										Main.npc[num30].SetDefaults("Big Hornet Fatty");
 									}
 								}
-								else if (num36 == 1)
+								else if (num37 == 1)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 232, 0);
 									if (Main.rand.Next(4) == 0)
@@ -27925,7 +29785,7 @@ namespace Terraria
 										Main.npc[num30].SetDefaults("Big Hornet Honey");
 									}
 								}
-								else if (num36 == 2)
+								else if (num37 == 2)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 233, 0);
 									if (Main.rand.Next(4) == 0)
@@ -27937,7 +29797,7 @@ namespace Terraria
 										Main.npc[num30].SetDefaults("Big Hornet Leafy");
 									}
 								}
-								else if (num36 == 3)
+								else if (num37 == 3)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 234, 0);
 									if (Main.rand.Next(4) == 0)
@@ -27949,7 +29809,7 @@ namespace Terraria
 										Main.npc[num30].SetDefaults("Big Hornet Spikey");
 									}
 								}
-								else if (num36 == 4)
+								else if (num37 == 4)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 235, 0);
 									if (Main.rand.Next(4) == 0)
@@ -28125,8 +29985,8 @@ namespace Terraria
 							}
 							else if (Main.dayTime)
 							{
-								int num37 = Math.Abs(num - Main.spawnTileX);
-								if (num37 < Main.maxTilesX / 3 && Main.rand.Next(15) == 0 && (num29 == 2 || num29 == 109 || num29 == 147 || num29 == 161))
+								int num38 = Math.Abs(num - Main.spawnTileX);
+								if (num38 < Main.maxTilesX / 3 && Main.rand.Next(15) == 0 && (num29 == 2 || num29 == 109 || num29 == 147 || num29 == 161))
 								{
 									if (num29 == 147 || num29 == 161)
 									{
@@ -28143,6 +30003,10 @@ namespace Terraria
 									{
 										NPC.NewNPC(num * 16 + 8, num2 * 16, 303, 0);
 									}
+									else if (Main.xMas && Main.rand.Next(3) != 0)
+									{
+										NPC.NewNPC(num * 16 + 8, num2 * 16, 337, 0);
+									}
 									else if (Main.rand.Next(3) == 0 && (double)num2 <= Main.worldSurface)
 									{
 										NPC.NewNPC(num * 16 + 8, num2 * 16, 299, 0);
@@ -28152,11 +30016,11 @@ namespace Terraria
 										NPC.NewNPC(num * 16 + 8, num2 * 16, 46, 0);
 									}
 								}
-								else if (num37 < Main.maxTilesX / 3 && Main.rand.Next(15) == 0 && (num29 == 2 || num29 == 109 || num29 == 147))
+								else if (num38 < Main.maxTilesX / 3 && Main.rand.Next(15) == 0 && (num29 == 2 || num29 == 109 || num29 == 147))
 								{
 									NPC.NewNPC(num * 16 + 8, num2 * 16, 74, 0);
 								}
-								else if (num37 > Main.maxTilesX / 3 && num29 == 2 && Main.rand.Next(300) == 0 && !NPC.AnyNPCs(50))
+								else if (num38 > Main.maxTilesX / 3 && num29 == 2 && Main.rand.Next(300) == 0 && !NPC.AnyNPCs(50))
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 50, 0);
 								}
@@ -28168,7 +30032,7 @@ namespace Terraria
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 61, 0);
 								}
-								else if (num37 > Main.maxTilesX / 3 && (Main.rand.Next(15) == 0 || (!NPC.downedGoblins && WorldGen.shadowOrbSmashed && Main.rand.Next(7) == 0)))
+								else if (num38 > Main.maxTilesX / 3 && (Main.rand.Next(15) == 0 || (!NPC.downedGoblins && WorldGen.shadowOrbSmashed && Main.rand.Next(7) == 0)))
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 73, 0);
 								}
@@ -28195,11 +30059,15 @@ namespace Terraria
 									{
 										Main.npc[num30].SetDefaults(302, -1f);
 									}
-									else if (Main.rand.Next(3) == 0 || num37 < 200)
+									else if (Main.xMas && Main.rand.Next(3) != 0)
+									{
+										Main.npc[num30].SetDefaults(Main.rand.Next(333, 337), -1f);
+									}
+									else if (Main.rand.Next(3) == 0 || num38 < 200)
 									{
 										Main.npc[num30].SetDefaults("Green Slime");
 									}
-									else if (Main.rand.Next(10) == 0 && num37 > 400)
+									else if (Main.rand.Next(10) == 0 && num38 > 400)
 									{
 										Main.npc[num30].SetDefaults("Purple Slime");
 									}
@@ -28229,8 +30097,8 @@ namespace Terraria
 								}
 								else
 								{
-									int num38 = Main.rand.Next(5);
-									if (num38 == 0)
+									int num39 = Main.rand.Next(5);
+									if (num39 == 0)
 									{
 										num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 190, 0);
 										if (Main.rand.Next(3) == 0)
@@ -28238,7 +30106,7 @@ namespace Terraria
 											Main.npc[num30].SetDefaults("Cataract Eye 2");
 										}
 									}
-									else if (num38 == 1)
+									else if (num39 == 1)
 									{
 										num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 191, 0);
 										if (Main.rand.Next(3) == 0)
@@ -28246,7 +30114,7 @@ namespace Terraria
 											Main.npc[num30].SetDefaults("Sleepy Eye 2");
 										}
 									}
-									else if (num38 == 2)
+									else if (num39 == 2)
 									{
 										num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 192, 0);
 										if (Main.rand.Next(3) == 0)
@@ -28254,7 +30122,7 @@ namespace Terraria
 											Main.npc[num30].SetDefaults("Dialated Eye 2");
 										}
 									}
-									else if (num38 == 3)
+									else if (num39 == 3)
 									{
 										num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 193, 0);
 										if (Main.rand.Next(3) == 0)
@@ -28262,7 +30130,7 @@ namespace Terraria
 											Main.npc[num30].SetDefaults("Green Eye 2");
 										}
 									}
-									else if (num38 == 4)
+									else if (num39 == 4)
 									{
 										num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 194, 0);
 										if (Main.rand.Next(3) == 0)
@@ -28320,12 +30188,16 @@ namespace Terraria
 							}
 							else
 							{
-								int num39 = Main.rand.Next(7);
+								int num40 = Main.rand.Next(7);
 								if (Main.halloween && Main.rand.Next(2) == 0)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(319, 322), 0);
 								}
-								else if (num39 == 0)
+								else if (Main.xMas && Main.rand.Next(2) == 0)
+								{
+									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, Main.rand.Next(331, 333), 0);
+								}
+								else if (num40 == 0)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 3, 0);
 									if (Main.rand.Next(3) == 0)
@@ -28340,7 +30212,7 @@ namespace Terraria
 										}
 									}
 								}
-								else if (num39 == 1)
+								else if (num40 == 1)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 132, 0);
 									if (Main.rand.Next(3) == 0)
@@ -28355,7 +30227,7 @@ namespace Terraria
 										}
 									}
 								}
-								else if (num39 == 2)
+								else if (num40 == 2)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 186, 0);
 									if (Main.rand.Next(3) == 0)
@@ -28370,7 +30242,7 @@ namespace Terraria
 										}
 									}
 								}
-								else if (num39 == 3)
+								else if (num40 == 3)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 187, 0);
 									if (Main.rand.Next(3) == 0)
@@ -28385,7 +30257,7 @@ namespace Terraria
 										}
 									}
 								}
-								else if (num39 == 4)
+								else if (num40 == 4)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 188, 0);
 									if (Main.rand.Next(3) == 0)
@@ -28400,7 +30272,7 @@ namespace Terraria
 										}
 									}
 								}
-								else if (num39 == 5)
+								else if (num40 == 5)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 189, 0);
 									if (Main.rand.Next(3) == 0)
@@ -28415,7 +30287,7 @@ namespace Terraria
 										}
 									}
 								}
-								else if (num39 == 6)
+								else if (num40 == 6)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 200, 0);
 									if (Main.rand.Next(3) == 0)
@@ -28655,8 +30527,8 @@ namespace Terraria
 							}
 							else
 							{
-								int num40 = Main.rand.Next(4);
-								if (num40 == 0)
+								int num41 = Main.rand.Next(4);
+								if (num41 == 0)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 21, 0);
 									if (Main.rand.Next(3) == 0)
@@ -28671,7 +30543,7 @@ namespace Terraria
 										}
 									}
 								}
-								else if (num40 == 1)
+								else if (num41 == 1)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 201, 0);
 									if (Main.rand.Next(3) == 0)
@@ -28686,7 +30558,7 @@ namespace Terraria
 										}
 									}
 								}
-								else if (num40 == 2)
+								else if (num41 == 2)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 202, 0);
 									if (Main.rand.Next(3) == 0)
@@ -28701,7 +30573,7 @@ namespace Terraria
 										}
 									}
 								}
-								else if (num40 == 3)
+								else if (num41 == 3)
 								{
 									num30 = NPC.NewNPC(num * 16 + 8, num2 * 16, 203, 0);
 									if (Main.rand.Next(3) == 0)
@@ -29271,6 +31143,10 @@ namespace Terraria
 					}
 					this.TargetClosest(true);
 				}
+				if (this.type == 346 && (double)this.life >= (double)this.lifeMax * 0.5 && (double)this.life - num < (double)this.lifeMax * 0.5)
+				{
+					Gore.NewGore(this.position, this.velocity, 517, 1f);
+				}
 				if (this.type == 184)
 				{
 					this.localAI[0] = 60f;
@@ -29446,9 +31322,187 @@ namespace Terraria
 					NetMessage.SendData(56, -1, -1, "", this.type, 0f, 0f, 0f, 0);
 				}
 				this.active = false;
-				if (Main.pumpkinMoon)
+				if (Main.snowMoon)
 				{
 					float arg_1ED_0 = NPC.waveKills;
+					if (this.type >= 338 && this.type <= 340)
+					{
+						NPC.waveKills += 1f;
+					}
+					if (this.type == 342)
+					{
+						NPC.waveKills += 1f;
+					}
+					if (this.type == 341)
+					{
+						NPC.waveKills += 10f;
+					}
+					if (this.type == 350)
+					{
+						NPC.waveKills += 2f;
+					}
+					if (this.type == 348 || this.type == 349)
+					{
+						NPC.waveKills += 4f;
+					}
+					if (this.type == 347)
+					{
+						NPC.waveKills += 6f;
+					}
+					if (this.type == 351)
+					{
+						NPC.waveKills += 8f;
+					}
+					if (this.type == 352)
+					{
+						NPC.waveKills += 4f;
+					}
+					if (this.type == 343)
+					{
+						NPC.waveKills += 16f;
+					}
+					if (this.type == 344)
+					{
+						NPC.waveKills += 40f;
+					}
+					if (this.type == 346)
+					{
+						NPC.waveKills += 80f;
+					}
+					if (this.type == 345)
+					{
+						NPC.waveKills += 120f;
+					}
+					string text = "";
+					if (NPC.waveCount == 1 && NPC.waveKills >= 25f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 25f;
+						text = "Wave 2: Zombie Elf and Elf Archer";
+					}
+					if (NPC.waveCount == 2 && NPC.waveKills >= 40f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 40f;
+						text = "Wave 3: Zombie Elf, Elf Archer, Gingerbread Man, and Nutcracker";
+					}
+					if (NPC.waveCount == 3 && NPC.waveKills >= 50f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 50f;
+						text = "Wave 4: Everscream, Zombie Elf, Elf Archer, and Gingerbread Man";
+					}
+					if (NPC.waveCount == 4 && NPC.waveKills >= 80f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 5: Everscream, Zombie Elf, Elf Archer, and Nutcracker";
+					}
+					if (NPC.waveCount == 5 && NPC.waveKills >= 100f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 6: Everscream, Elf Archer, Nutcracker, and Elf Copter";
+					}
+					if (NPC.waveCount == 6 && NPC.waveKills >= 160f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 7: Santa-NK1, Gingerbread Man, Elf Archer, and Zombie Elf";
+					}
+					if (NPC.waveCount == 7 && NPC.waveKills >= 180f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 8: Santa-NK1, Elf Copter, Elf Archer, Nutcracker, and Krampus";
+					}
+					if (NPC.waveCount == 8 && NPC.waveKills >= 200f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 9: Santa-NK1, Everscream, Nutcracker, Elf Copter, and Gingerbread Man";
+					}
+					if (NPC.waveCount == 9 && NPC.waveKills >= 250f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 10: Santa-NK1, Everscream, Krampus, Zombie Elf, and Elf Helicopter";
+					}
+					if (NPC.waveCount == 10 && NPC.waveKills >= 300f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 11: Ice Queen, Flocko, Zombie Elf, and Gingerbread Man";
+					}
+					if (NPC.waveCount == 11 && NPC.waveKills >= 375f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 12: Ice Queen, Everscream, Gingerbread Man, Yeti, and Zombie Elf";
+					}
+					if (NPC.waveCount == 12 && NPC.waveKills >= 450f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 13: Ice Queen, Santa-NK1, Gingerbread Man, Flock, Yeti, and Elf Helicopter";
+					}
+					if (NPC.waveCount == 13 && NPC.waveKills >= 525f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 14: Ice Queen, Santa-NK1, Everscream, Yeti, and Krampus";
+					}
+					if (NPC.waveCount == 14 && NPC.waveKills >= 675f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 15: Ice Queen, Santank, Everscream, Yeti, and Elf Copter";
+					}
+					if (NPC.waveCount == 15 && NPC.waveKills >= 850f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 16: Ice Queen, Santank, Everscream, Yeti and Flocko";
+					}
+					if (NPC.waveCount == 16 && NPC.waveKills >= 1025f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 17: Ice Queen, Santank, Everscream, Yeti, Krampus, Elf Copter";
+					}
+					if (NPC.waveCount == 17 && NPC.waveKills >= 1325f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 18: Ice Queen, Santank, Everscream, Yeti, Nutcracker, Krampus";
+					}
+					if (NPC.waveCount == 18 && NPC.waveKills >= 1550f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Wave 19: Ice Queen, Santank, Everscream, Yeti";
+					}
+					if (NPC.waveCount == 19 && NPC.waveKills >= 2000f)
+					{
+						NPC.waveCount++;
+						NPC.waveKills = 0f;
+						text = "Final Wave: Ice Queen, Santa-NK1, and Everscream";
+					}
+					if (text != "")
+					{
+						if (Main.netMode == 0)
+						{
+							Main.NewText(text, 175, 75, 255, false);
+						}
+						else if (Main.netMode == 2)
+						{
+							NetMessage.SendData(25, -1, -1, text, 255, 175f, 75f, 255f, 0);
+						}
+					}
+				}
+				if (Main.pumpkinMoon)
+				{
+					float arg_764_0 = NPC.waveKills;
 					if (this.type >= 305 && this.type <= 314)
 					{
 						NPC.waveKills += 1f;
@@ -29477,18 +31531,18 @@ namespace Terraria
 					{
 						NPC.waveKills += 150f;
 					}
-					string text = "";
+					string text2 = "";
 					if (NPC.waveCount == 1 && NPC.waveKills >= 25f)
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = "Wave 2: " + Main.npcName[305] + " and " + Main.npcName[326];
+						text2 = "Wave 2: " + Main.npcName[305] + " and " + Main.npcName[326];
 					}
 					if (NPC.waveCount == 2 && NPC.waveKills >= 40f)
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = string.Concat(new string[]
+						text2 = string.Concat(new string[]
 						{
 							"Wave 3: ",
 							Main.npcName[305],
@@ -29502,7 +31556,7 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = string.Concat(new string[]
+						text2 = string.Concat(new string[]
 						{
 							"Wave 4: ",
 							Main.npcName[305],
@@ -29518,7 +31572,7 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = string.Concat(new string[]
+						text2 = string.Concat(new string[]
 						{
 							"Wave 5: ",
 							Main.npcName[305],
@@ -29536,7 +31590,7 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = string.Concat(new string[]
+						text2 = string.Concat(new string[]
 						{
 							"Wave 6: ",
 							Main.npcName[326],
@@ -29552,7 +31606,7 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = string.Concat(new string[]
+						text2 = string.Concat(new string[]
 						{
 							"Wave 7: ",
 							Main.npcName[305],
@@ -29568,7 +31622,7 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = string.Concat(new string[]
+						text2 = string.Concat(new string[]
 						{
 							"Wave 8: ",
 							Main.npcName[326],
@@ -29584,7 +31638,7 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = string.Concat(new string[]
+						text2 = string.Concat(new string[]
 						{
 							"Wave 9: ",
 							Main.npcName[305],
@@ -29600,7 +31654,7 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = string.Concat(new string[]
+						text2 = string.Concat(new string[]
 						{
 							"Wave 10: ",
 							Main.npcName[326],
@@ -29620,7 +31674,7 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = string.Concat(new string[]
+						text2 = string.Concat(new string[]
 						{
 							"Wave 11: ",
 							Main.npcName[305],
@@ -29642,7 +31696,7 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = string.Concat(new string[]
+						text2 = string.Concat(new string[]
 						{
 							"Wave 12: ",
 							Main.npcName[326],
@@ -29662,7 +31716,7 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = string.Concat(new string[]
+						text2 = string.Concat(new string[]
 						{
 							"Wave 13: ",
 							Main.npcName[329],
@@ -29680,7 +31734,7 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = string.Concat(new string[]
+						text2 = string.Concat(new string[]
 						{
 							"Wave 14: ",
 							Main.npcName[315],
@@ -29694,17 +31748,17 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = "Final Wave: " + Main.npcName[325] + ", and " + Main.npcName[327];
+						text2 = "Final Wave: " + Main.npcName[325] + ", and " + Main.npcName[327];
 					}
-					if (text != "")
+					if (text2 != "")
 					{
 						if (Main.netMode == 0)
 						{
-							Main.NewText(text, 175, 75, 255, false);
+							Main.NewText(text2, 175, 75, 255, false);
 						}
 						else if (Main.netMode == 2)
 						{
-							NetMessage.SendData(25, -1, -1, text, 255, 175f, 75f, 255f, 0);
+							NetMessage.SendData(25, -1, -1, text2, 255, 175f, 75f, 255f, 0);
 						}
 					}
 				}
@@ -29801,12 +31855,124 @@ namespace Terraria
 			{
 				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1169, 1, false, 0, false);
 			}
-			if (Main.pumpkinMoon)
+			if (Main.snowMoon)
 			{
-				int num2 = (int)((double)(17 - NPC.waveCount) / 1.25);
+				int num2 = (int)((double)(30 - NPC.waveCount) / 2.5);
 				if (num2 < 1)
 				{
 					num2 = 1;
+				}
+				if ((this.type == 344 || this.type == 345 || this.type == 346) && Main.rand.Next(num2) == 0 && NPC.waveCount >= 15)
+				{
+					int maxValue = 4;
+					if (NPC.waveCount == 16)
+					{
+						maxValue = 4;
+					}
+					if (NPC.waveCount == 17)
+					{
+						maxValue = 3;
+					}
+					if (NPC.waveCount == 18)
+					{
+						maxValue = 3;
+					}
+					if (NPC.waveCount == 19)
+					{
+						maxValue = 2;
+					}
+					if (NPC.waveCount == 20)
+					{
+						maxValue = 2;
+					}
+					if (Main.rand.Next(maxValue) == 0)
+					{
+						if (this.type == 344)
+						{
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1962, 1, false, 0, false);
+						}
+						if (this.type == 345)
+						{
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1960, 1, false, 0, false);
+						}
+						if (this.type == 346)
+						{
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1961, 1, false, 0, false);
+						}
+					}
+				}
+				if (Main.rand.Next(num2) == 0)
+				{
+					if (this.type == 344)
+					{
+						int num3 = Main.rand.Next(3);
+						if (Main.rand.Next(15) == 0)
+						{
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1871, 1, false, -1, false);
+						}
+						else
+						{
+							if (num3 == 0)
+							{
+								DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1916, 1, false, 0, false);
+							}
+							if (num3 == 1)
+							{
+								DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1928, 1, false, -1, false);
+							}
+							if (num3 == 2)
+							{
+								DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1930, 1, false, -1, false);
+							}
+						}
+					}
+					if (this.type == 346)
+					{
+						int num4 = Main.rand.Next(2);
+						if (num4 == 0)
+						{
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1910, 1, false, -1, false);
+						}
+						if (num4 == 1)
+						{
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1929, 1, false, -1, false);
+						}
+					}
+					if (this.type == 345)
+					{
+						if (NPC.waveCount >= 15 && Main.rand.Next(30) == 0)
+						{
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1914, 1, false, 0, false);
+						}
+						else if (Main.rand.Next(15) == 0)
+						{
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1959, 1, false, 0, false);
+						}
+						else
+						{
+							int num5 = Main.rand.Next(3);
+							if (num5 == 0)
+							{
+								DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1931, 1, false, -1, false);
+							}
+							if (num5 == 1)
+							{
+								DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1946, 1, false, -1, false);
+							}
+							if (num5 == 2)
+							{
+								DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1947, 1, false, -1, false);
+							}
+						}
+					}
+				}
+			}
+			if (Main.pumpkinMoon)
+			{
+				int num6 = (int)((double)(17 - NPC.waveCount) / 1.25);
+				if (num6 < 1)
+				{
+					num6 = 1;
 				}
 				if (NPC.waveCount == 15)
 				{
@@ -29819,7 +31985,7 @@ namespace Terraria
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1856, 1, false, 0, false);
 					}
 				}
-				if (Main.rand.Next(num2) == 0)
+				if (Main.rand.Next(num6) == 0)
 				{
 					if (this.type == 315 && Main.rand.Next(20) == 0)
 					{
@@ -29831,68 +31997,68 @@ namespace Terraria
 					}
 					if (this.type == 325)
 					{
-						int num3 = Main.rand.Next(5);
-						if (num3 == 0)
+						int num7 = Main.rand.Next(5);
+						if (num7 == 0)
 						{
 							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1829, 1, false, 0, false);
 						}
-						if (num3 == 1)
+						if (num7 == 1)
 						{
 							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1831, 1, false, 0, false);
 						}
-						if (num3 == 2)
+						if (num7 == 2)
 						{
-							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1835, 1, false, 0, false);
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1835, 1, false, -1, false);
 						}
-						if (num3 == 2)
+						if (num7 == 2)
 						{
 							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1836, Main.rand.Next(30, 61), false, 0, false);
 						}
-						if (num3 == 3)
+						if (num7 == 3)
 						{
 							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1837, 1, false, 0, false);
 						}
-						if (num3 == 4)
+						if (num7 == 4)
 						{
-							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1845, 1, false, 0, false);
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1845, 1, false, -1, false);
 						}
 					}
 					if (this.type == 327)
 					{
-						int num4 = Main.rand.Next(7);
-						if (num4 == 0)
+						int num8 = Main.rand.Next(7);
+						if (num8 == 0)
 						{
-							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1782, 1, false, 0, false);
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1782, 1, false, -1, false);
 						}
-						if (num4 == 0)
+						if (num8 == 0)
 						{
 							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1783, Main.rand.Next(50, 101), false, 0, false);
 						}
-						if (num4 == 1)
+						if (num8 == 1)
 						{
-							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1784, 1, false, 0, false);
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1784, 1, false, -1, false);
 						}
-						if (num4 == 1)
+						if (num8 == 1)
 						{
 							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1785, Main.rand.Next(25, 51), false, 0, false);
 						}
-						if (num4 == 2)
+						if (num8 == 2)
 						{
 							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1811, 1, false, 0, false);
 						}
-						if (num4 == 3)
+						if (num8 == 3)
 						{
-							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1826, 1, false, 0, false);
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1826, 1, false, -1, false);
 						}
-						if (num4 == 4)
+						if (num8 == 4)
 						{
-							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1801, 1, false, 0, false);
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1801, 1, false, -1, false);
 						}
-						if (num4 == 5)
+						if (num8 == 5)
 						{
-							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1802, 1, false, 0, false);
+							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1802, 1, false, -1, false);
 						}
-						if (num4 == 6)
+						if (num8 == 6)
 						{
 							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1798, 1, false, 0, false);
 						}
@@ -29927,10 +32093,27 @@ namespace Terraria
 			{
 				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false);
 			}
-			if (this.type == 325 || this.type == 327)
+			if (this.type == 341)
 			{
-				int num5 = Main.rand.Next(6) + 6;
-				for (int i = 0; i < num5; i++)
+				int num9 = Main.rand.Next(5, 11);
+				for (int i = 0; i < num9; i++)
+				{
+					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false);
+				}
+				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1869, 1, false, 0, false);
+			}
+			if (this.type >= 338 && this.type <= 340 && Main.rand.Next(5) == 0)
+			{
+				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false);
+			}
+			if (this.type == 342 && Main.rand.Next(3) != 0)
+			{
+				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false);
+			}
+			if (this.type == 325 || this.type == 327 || this.type == 344 || this.type == 345 || this.type == 346)
+			{
+				int num10 = Main.rand.Next(6) + 6;
+				for (int j = 0; j < num10; j++)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false);
 				}
@@ -29969,7 +32152,7 @@ namespace Terraria
 			}
 			if (Main.xMas && this.lifeMax > 1 && this.damage > 0 && !this.friendly && this.type != 121 && this.value > 0f && Main.rand.Next(13) == 0)
 			{
-				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(599, 602), 1, false, 0, false);
+				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1869, 1, false, 0, false);
 			}
 			if ((this.type == 281 || this.type == 282) && Main.rand.Next(40) == 0)
 			{
@@ -30100,37 +32283,37 @@ namespace Terraria
 			}
 			if (this.type == 245)
 			{
-				int num6 = Main.rand.Next(8);
-				if (num6 == 0)
+				int num11 = Main.rand.Next(8);
+				if (num11 == 0)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1258, 1, false, -1, false);
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1261, Main.rand.Next(60, 100), false, 0, false);
 				}
-				else if (num6 == 1)
+				else if (num11 == 1)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1122, 1, false, -1, false);
 				}
-				else if (num6 == 2)
+				else if (num11 == 2)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 899, 1, false, -1, false);
 				}
-				else if (num6 == 3)
+				else if (num11 == 3)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1248, 1, false, -1, false);
 				}
-				else if (num6 == 4)
+				else if (num11 == 4)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1294, 1, false, -1, false);
 				}
-				else if (num6 == 5)
+				else if (num11 == 5)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1295, 1, false, -1, false);
 				}
-				else if (num6 == 6)
+				else if (num11 == 6)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1296, 1, false, -1, false);
 				}
-				else if (num6 == 7)
+				else if (num11 == 7)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1297, 1, false, -1, false);
 				}
@@ -30312,16 +32495,16 @@ namespace Terraria
 					}
 					else
 					{
-						int num7 = Main.rand.Next(3);
-						if (num7 == 0)
+						int num12 = Main.rand.Next(3);
+						if (num12 == 0)
 						{
 							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 676, 1, false, -1, false);
 						}
-						else if (num7 == 1)
+						else if (num12 == 1)
 						{
 							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 725, 1, false, -1, false);
 						}
-						else if (num7 == 2)
+						else if (num12 == 2)
 						{
 							DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1264, 1, false, -1, false);
 						}
@@ -30329,32 +32512,32 @@ namespace Terraria
 				}
 				else
 				{
-					int num8 = Main.rand.Next(7);
-					if (num8 == 0)
+					int num13 = Main.rand.Next(7);
+					if (num13 == 0)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 437, 1, false, -1, false);
 					}
-					if (num8 == 1)
+					if (num13 == 1)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 517, 1, false, -1, false);
 					}
-					if (num8 == 2)
+					if (num13 == 2)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 535, 1, false, -1, false);
 					}
-					if (num8 == 3)
+					if (num13 == 3)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 536, 1, false, -1, false);
 					}
-					if (num8 == 4)
+					if (num13 == 4)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 532, 1, false, -1, false);
 					}
-					if (num8 == 5)
+					if (num13 == 5)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 393, 1, false, -1, false);
 					}
-					if (num8 == 6)
+					if (num13 == 6)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 554, 1, false, -1, false);
 					}
@@ -30440,8 +32623,8 @@ namespace Terraria
 			}
 			if (this.type == 161 && Main.rand.Next(50) == 0)
 			{
-				int num9 = Main.rand.Next(3);
-				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 803 + num9, 1, false, 0, false);
+				int num14 = Main.rand.Next(3);
+				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 803 + num14, 1, false, 0, false);
 			}
 			if (this.type == 217)
 			{
@@ -30509,12 +32692,12 @@ namespace Terraria
 			{
 				if (Main.rand.Next(150) == 0)
 				{
-					int num10 = Main.rand.Next(3);
-					if (num10 == 0)
+					int num15 = Main.rand.Next(3);
+					if (num15 == 0)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 956, 1, false, -1, false);
 					}
-					else if (num10 == 1)
+					else if (num15 == 1)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 957, 1, false, -1, false);
 					}
@@ -30528,12 +32711,12 @@ namespace Terraria
 			{
 				if (Main.rand.Next(100) == 0)
 				{
-					int num11 = Main.rand.Next(3);
-					if (num11 == 0)
+					int num16 = Main.rand.Next(3);
+					if (num16 == 0)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 960, 1, false, -1, false);
 					}
-					if (num11 == 1)
+					if (num16 == 1)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 961, 1, false, -1, false);
 					}
@@ -30579,43 +32762,43 @@ namespace Terraria
 				}
 				else
 				{
-					int num12 = Main.rand.Next(3);
-					if (num12 == 0)
+					int num17 = Main.rand.Next(3);
+					if (num17 == 0)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 514, 1, false, -1, false);
 					}
-					else if (num12 == 1)
+					else if (num17 == 1)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 426, 1, false, -1, false);
 					}
-					else if (num12 == 2)
+					else if (num17 == 2)
 					{
 						DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 434, 1, false, -1, false);
 					}
 				}
 				if (Main.netMode != 1)
 				{
-					int num13 = (int)(this.position.X + (float)(this.width / 2)) / 16;
-					int num14 = (int)(this.position.Y + (float)(this.height / 2)) / 16;
-					int num15 = this.width / 2 / 16 + 1;
-					for (int j = num13 - num15; j <= num13 + num15; j++)
+					int num18 = (int)(this.position.X + (float)(this.width / 2)) / 16;
+					int num19 = (int)(this.position.Y + (float)(this.height / 2)) / 16;
+					int num20 = this.width / 2 / 16 + 1;
+					for (int k = num18 - num20; k <= num18 + num20; k++)
 					{
-						for (int k = num14 - num15; k <= num14 + num15; k++)
+						for (int l = num19 - num20; l <= num19 + num20; l++)
 						{
-							if ((j == num13 - num15 || j == num13 + num15 || k == num14 - num15 || k == num14 + num15) && !Main.tile[j, k].active())
+							if ((k == num18 - num20 || k == num18 + num20 || l == num19 - num20 || l == num19 + num20) && !Main.tile[k, l].active())
 							{
-								Main.tile[j, k].type = 140;
-								Main.tile[j, k].active(true);
+								Main.tile[k, l].type = 140;
+								Main.tile[k, l].active(true);
 							}
-							Main.tile[j, k].lava(false);
-							Main.tile[j, k].liquid = 0;
+							Main.tile[k, l].lava(false);
+							Main.tile[k, l].liquid = 0;
 							if (Main.netMode == 2)
 							{
-								NetMessage.SendTileSquare(-1, j, k, 1);
+								NetMessage.SendTileSquare(-1, k, l, 1);
 							}
 							else
 							{
-								WorldGen.SquareTileFrame(j, k, true);
+								WorldGen.SquareTileFrame(k, l, true);
 							}
 						}
 					}
@@ -30636,7 +32819,11 @@ namespace Terraria
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(2, 6), false, 0, false);
 				}
 			}
-			if (this.type == 1 || this.type == 16 || this.type == 138 || this.type == 141 || this.type == 147 || this.type == 184 || this.type == 187 || this.type == 204 || this.type == 302)
+			if (this.type >= 333 && this.type <= 336 && Main.rand.Next(20) == 0)
+			{
+				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1906, 1, false, 0, false);
+			}
+			if (this.type == 1 || this.type == 16 || this.type == 138 || this.type == 141 || this.type == 147 || this.type == 184 || this.type == 187 || this.type == 204 || this.type == 302 || (this.type >= 333 && this.type <= 336))
 			{
 				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(1, 3), false, 0, false);
 				if (Main.rand.Next(10000) == 0)
@@ -30690,7 +32877,7 @@ namespace Terraria
 			{
 				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 263, 1, false, 0, false);
 			}
-			if (this.type == 3 || this.type == 132 || this.type == 161 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 319 || this.type == 320 || this.type == 321)
+			if (this.type == 3 || this.type == 331 || this.type == 332 || this.type == 132 || this.type == 161 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 319 || this.type == 320 || this.type == 321)
 			{
 				if (Main.rand.Next(50) == 0)
 				{
@@ -30804,20 +32991,20 @@ namespace Terraria
 			if (this.type == 222)
 			{
 				NPC.downedQueenBee = true;
-				int num16 = Main.rand.Next(3);
-				if (num16 == 0)
+				int num21 = Main.rand.Next(3);
+				if (num21 == 0)
 				{
-					num16 = 1121;
+					num21 = 1121;
 				}
-				else if (num16 == 1)
+				else if (num21 == 1)
 				{
-					num16 = 1123;
+					num21 = 1123;
 				}
-				else if (num16 == 2)
+				else if (num21 == 2)
 				{
-					num16 = 1132;
+					num21 = 1132;
 				}
-				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, num16, 1, false, 0, false);
+				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, num21, 1, false, 0, false);
 				if (Main.rand.Next(20) == 0)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1170, 1, false, 0, false);
@@ -30828,8 +33015,8 @@ namespace Terraria
 				}
 				else if (Main.rand.Next(2) == 0)
 				{
-					num16 = Main.rand.Next(842, 845);
-					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, num16, 1, false, 0, false);
+					num21 = Main.rand.Next(842, 845);
+					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, num21, 1, false, 0, false);
 				}
 				if (Main.rand.Next(4) != 0)
 				{
@@ -30994,12 +33181,12 @@ namespace Terraria
 			}
 			if (this.type == 125 || this.type == 126)
 			{
-				int num17 = 125;
+				int num22 = 125;
 				if (this.type == 125)
 				{
-					num17 = 126;
+					num22 = 126;
 				}
-				if (!NPC.AnyNPCs(num17))
+				if (!NPC.AnyNPCs(num22))
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 549, Main.rand.Next(25, 41), false, 0, false);
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1225, Main.rand.Next(20, 36), false, 0, false);
@@ -31035,33 +33222,33 @@ namespace Terraria
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1157, 1, false, -1, false);
 				}
-				int num18 = Main.rand.Next(6);
+				int num23 = Main.rand.Next(6);
 				if (!NPC.downedPlantBoss)
 				{
-					num18 = 0;
+					num23 = 0;
 				}
-				if (num18 == 0)
+				if (num23 == 0)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 758, 1, false, -1, false);
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 771, Main.rand.Next(20, 50), false, 0, false);
 				}
-				else if (num18 == 1)
+				else if (num23 == 1)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1255, 1, false, -1, false);
 				}
-				else if (num18 == 2)
+				else if (num23 == 2)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 788, 1, false, -1, false);
 				}
-				else if (num18 == 3)
+				else if (num23 == 3)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1178, 1, false, -1, false);
 				}
-				else if (num18 == 4)
+				else if (num23 == 4)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1259, 1, false, -1, false);
 				}
-				else if (num18 == 5)
+				else if (num23 == 5)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1155, 1, false, -1, false);
 				}
@@ -31165,26 +33352,26 @@ namespace Terraria
 					str = this.displayName;
 				}
 				int stack7 = Main.rand.Next(5, 16);
-				int num19 = 28;
+				int num24 = 28;
 				if (this.type == 113)
 				{
-					num19 = 188;
+					num24 = 188;
 				}
 				else if (this.type == 222)
 				{
-					num19 = 1134;
+					num24 = 1134;
 				}
 				else if (this.type > 113 && this.type < 222)
 				{
-					num19 = 499;
+					num24 = 499;
 				}
 				else if (this.type == 245 || this.type == 262)
 				{
-					num19 = 499;
+					num24 = 499;
 				}
-				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, num19, stack7, false, 0, false);
-				int num20 = Main.rand.Next(5) + 5;
-				for (int l = 0; l < num20; l++)
+				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, num24, stack7, false, 0, false);
+				int num25 = Main.rand.Next(5) + 5;
+				for (int m = 0; m < num25; m++)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false);
 				}
@@ -31244,89 +33431,89 @@ namespace Terraria
 			{
 				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 184, 1, false, 0, false);
 			}
-			float num21 = this.value;
+			float num26 = this.value;
 			if (this.midas)
 			{
-				num21 *= 1f + (float)Main.rand.Next(10, 50) * 0.01f;
+				num26 *= 1f + (float)Main.rand.Next(10, 50) * 0.01f;
 			}
-			num21 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
+			num26 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
 			if (Main.rand.Next(5) == 0)
 			{
-				num21 *= 1f + (float)Main.rand.Next(5, 11) * 0.01f;
+				num26 *= 1f + (float)Main.rand.Next(5, 11) * 0.01f;
 			}
 			if (Main.rand.Next(10) == 0)
 			{
-				num21 *= 1f + (float)Main.rand.Next(10, 21) * 0.01f;
+				num26 *= 1f + (float)Main.rand.Next(10, 21) * 0.01f;
 			}
 			if (Main.rand.Next(15) == 0)
 			{
-				num21 *= 1f + (float)Main.rand.Next(15, 31) * 0.01f;
+				num26 *= 1f + (float)Main.rand.Next(15, 31) * 0.01f;
 			}
 			if (Main.rand.Next(20) == 0)
 			{
-				num21 *= 1f + (float)Main.rand.Next(20, 41) * 0.01f;
+				num26 *= 1f + (float)Main.rand.Next(20, 41) * 0.01f;
 			}
-			while ((int)num21 > 0)
+			while ((int)num26 > 0)
 			{
-				if (num21 > 1000000f)
+				if (num26 > 1000000f)
 				{
-					int num22 = (int)(num21 / 1000000f);
-					if (num22 > 50 && Main.rand.Next(5) == 0)
+					int num27 = (int)(num26 / 1000000f);
+					if (num27 > 50 && Main.rand.Next(5) == 0)
 					{
-						num22 /= Main.rand.Next(3) + 1;
+						num27 /= Main.rand.Next(3) + 1;
 					}
 					if (Main.rand.Next(5) == 0)
 					{
-						num22 /= Main.rand.Next(3) + 1;
+						num27 /= Main.rand.Next(3) + 1;
 					}
-					num21 -= (float)(1000000 * num22);
-					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 74, num22, false, 0, false);
+					num26 -= (float)(1000000 * num27);
+					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 74, num27, false, 0, false);
 				}
-				else if (num21 > 10000f)
+				else if (num26 > 10000f)
 				{
-					int num23 = (int)(num21 / 10000f);
-					if (num23 > 50 && Main.rand.Next(5) == 0)
+					int num28 = (int)(num26 / 10000f);
+					if (num28 > 50 && Main.rand.Next(5) == 0)
 					{
-						num23 /= Main.rand.Next(3) + 1;
+						num28 /= Main.rand.Next(3) + 1;
 					}
 					if (Main.rand.Next(5) == 0)
 					{
-						num23 /= Main.rand.Next(3) + 1;
+						num28 /= Main.rand.Next(3) + 1;
 					}
-					num21 -= (float)(10000 * num23);
-					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 73, num23, false, 0, false);
+					num26 -= (float)(10000 * num28);
+					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 73, num28, false, 0, false);
 				}
-				else if (num21 > 100f)
+				else if (num26 > 100f)
 				{
-					int num24 = (int)(num21 / 100f);
-					if (num24 > 50 && Main.rand.Next(5) == 0)
+					int num29 = (int)(num26 / 100f);
+					if (num29 > 50 && Main.rand.Next(5) == 0)
 					{
-						num24 /= Main.rand.Next(3) + 1;
+						num29 /= Main.rand.Next(3) + 1;
 					}
 					if (Main.rand.Next(5) == 0)
 					{
-						num24 /= Main.rand.Next(3) + 1;
+						num29 /= Main.rand.Next(3) + 1;
 					}
-					num21 -= (float)(100 * num24);
-					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 72, num24, false, 0, false);
+					num26 -= (float)(100 * num29);
+					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 72, num29, false, 0, false);
 				}
 				else
 				{
-					int num25 = (int)num21;
-					if (num25 > 50 && Main.rand.Next(5) == 0)
+					int num30 = (int)num26;
+					if (num30 > 50 && Main.rand.Next(5) == 0)
 					{
-						num25 /= Main.rand.Next(3) + 1;
+						num30 /= Main.rand.Next(3) + 1;
 					}
 					if (Main.rand.Next(5) == 0)
 					{
-						num25 /= Main.rand.Next(4) + 1;
+						num30 /= Main.rand.Next(4) + 1;
 					}
-					if (num25 < 1)
+					if (num30 < 1)
 					{
-						num25 = 1;
+						num30 = 1;
 					}
-					num21 -= (float)num25;
-					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 71, num25, false, 0, false);
+					num26 -= (float)num30;
+					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 71, num30, false, 0, false);
 				}
 			}
 		}
@@ -31336,14 +33523,31 @@ namespace Terraria
 			{
 				return;
 			}
-			if (this.type == 1 || this.type == 16 || this.type == 71 || this.type == 244)
+			if (this.type == 333 || this.type == 334 || this.type == 335 || this.type == 336)
 			{
+				Color white = Color.White;
+				if (this.type == 333)
+				{
+					white = new Color(73, 147, 221, 200);
+				}
+				if (this.type == 334)
+				{
+					white = new Color(24, 146, 79, 200);
+				}
+				if (this.type == 335)
+				{
+					white = new Color(194, 46, 50, 200);
+				}
+				if (this.type == 336)
+				{
+					white = new Color(228, 200, 1, 200);
+				}
 				if (this.life > 0)
 				{
 					int num = 0;
 					while ((double)num < dmg / (double)this.lifeMax * 100.0)
 					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, this.alpha, this.color, 1f);
+						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 150, white, 1f);
 						num++;
 					}
 				}
@@ -31351,27 +33555,67 @@ namespace Terraria
 				{
 					for (int i = 0; i < 50; i++)
 					{
+						Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, 150, white, 1f);
+					}
+				}
+			}
+			if (this.type == 1 || this.type == 16 || this.type == 71 || this.type == 244)
+			{
+				if (this.life > 0)
+				{
+					int num2 = 0;
+					while ((double)num2 < dmg / (double)this.lifeMax * 100.0)
+					{
+						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, this.alpha, this.color, 1f);
+						num2++;
+					}
+				}
+				else
+				{
+					for (int j = 0; j < 50; j++)
+					{
 						Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, this.alpha, this.color, 1f);
 					}
 					if (Main.netMode != 1 && this.type == 16)
 					{
-						int num2 = Main.rand.Next(2) + 2;
-						for (int j = 0; j < num2; j++)
+						int num3 = Main.rand.Next(2) + 2;
+						for (int k = 0; k < num3; k++)
 						{
-							int num3 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 1, 0);
-							Main.npc[num3].SetDefaults("Baby Slime");
-							Main.npc[num3].velocity.X = this.velocity.X * 2f;
-							Main.npc[num3].velocity.Y = this.velocity.Y;
-							NPC expr_193_cp_0 = Main.npc[num3];
-							expr_193_cp_0.velocity.X = expr_193_cp_0.velocity.X + ((float)Main.rand.Next(-20, 20) * 0.1f + (float)(j * this.direction) * 0.3f);
-							NPC expr_1D1_cp_0 = Main.npc[num3];
-							expr_1D1_cp_0.velocity.Y = expr_1D1_cp_0.velocity.Y - ((float)Main.rand.Next(0, 10) * 0.1f + (float)j);
-							Main.npc[num3].ai[1] = (float)j;
-							if (Main.netMode == 2 && num3 < 200)
+							int num4 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 1, 0);
+							Main.npc[num4].SetDefaults("Baby Slime");
+							Main.npc[num4].velocity.X = this.velocity.X * 2f;
+							Main.npc[num4].velocity.Y = this.velocity.Y;
+							NPC expr_2F2_cp_0 = Main.npc[num4];
+							expr_2F2_cp_0.velocity.X = expr_2F2_cp_0.velocity.X + ((float)Main.rand.Next(-20, 20) * 0.1f + (float)(k * this.direction) * 0.3f);
+							NPC expr_331_cp_0 = Main.npc[num4];
+							expr_331_cp_0.velocity.Y = expr_331_cp_0.velocity.Y - ((float)Main.rand.Next(0, 10) * 0.1f + (float)k);
+							Main.npc[num4].ai[1] = (float)k;
+							if (Main.netMode == 2 && num4 < 200)
 							{
-								NetMessage.SendData(23, -1, -1, "", num3, 0f, 0f, 0f, 0);
+								NetMessage.SendData(23, -1, -1, "", num4, 0f, 0f, 0f, 0);
 							}
 						}
+					}
+				}
+			}
+			if (this.type == 352)
+			{
+				if (this.life > 0)
+				{
+					int num5 = 0;
+					while ((double)num5 < dmg / (double)this.lifeMax * 100.0)
+					{
+						int num6 = Dust.NewDust(this.position, this.width, this.height, 67, (float)hitDirection, -1f, 0, default(Color), 1f);
+						Main.dust[num6].noGravity = true;
+						num5++;
+					}
+				}
+				else
+				{
+					for (int l = 0; l < 60; l++)
+					{
+						int num7 = Dust.NewDust(this.position, this.width, this.height, 67, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
+						Main.dust[num7].noGravity = true;
 					}
 				}
 			}
@@ -31379,16 +33623,16 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num4 = 0;
-					while ((double)num4 < dmg / (double)this.lifeMax * 100.0)
+					int num8 = 0;
+					while ((double)num8 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 194, (float)hitDirection, -1f, 0, default(Color), 1.1f);
-						num4++;
+						num8++;
 					}
 				}
 				else
 				{
-					for (int k = 0; k < 60; k++)
+					for (int m = 0; m < 60; m++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 194, (float)(2 * hitDirection), -2f, 0, default(Color), 1.1f);
 					}
@@ -31403,22 +33647,22 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num5 = 0;
-					while ((double)num5 < dmg / (double)this.lifeMax * 100.0)
+					int num9 = 0;
+					while ((double)num9 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 189, (float)hitDirection, -1f, 0, default(Color), 1.1f);
-						num5++;
+						num9++;
 					}
 				}
 				else
 				{
-					for (int l = 0; l < 60; l++)
+					for (int n = 0; n < 60; n++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 189, (float)(2 * hitDirection), -2f, 0, default(Color), 1.1f);
 					}
-					for (int m = 476; m <= 484; m++)
+					for (int num10 = 476; num10 <= 484; num10++)
 					{
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, m, this.scale);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, num10, this.scale);
 					}
 				}
 			}
@@ -31426,22 +33670,57 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num6 = 0;
-					while ((double)num6 < dmg / (double)this.lifeMax * 100.0)
+					int num11 = 0;
+					while ((double)num11 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 191, (float)hitDirection, -1f, 0, default(Color), 1.1f);
-						num6++;
+						num11++;
 					}
 				}
 				else
 				{
-					for (int n = 0; n < 60; n++)
+					for (int num12 = 0; num12 < 60; num12++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 191, (float)(2 * hitDirection), -2f, 0, default(Color), 1.1f);
 					}
-					for (int num7 = 469; num7 <= 475; num7++)
+					for (int num13 = 469; num13 <= 475; num13++)
 					{
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, num7, this.scale);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, num13, this.scale);
+					}
+				}
+			}
+			if (this.type == 345 && this.life <= 0)
+			{
+				Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, 513, this.scale);
+				Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, 514, this.scale);
+				Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, 514, this.scale);
+				Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, 515, this.scale);
+				Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, 516, this.scale);
+			}
+			if (this.type == 344)
+			{
+				if (this.life > 0)
+				{
+					int num14 = 0;
+					while ((double)num14 < dmg / (double)this.lifeMax * 100.0)
+					{
+						Dust.NewDust(this.position, this.width, this.height, 196, (float)hitDirection, -1f, 0, default(Color), 1f);
+						num14++;
+					}
+				}
+				else
+				{
+					for (int num15 = 0; num15 < 60; num15++)
+					{
+						Dust.NewDust(this.position, this.width, this.height, 196, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
+					}
+					for (int num16 = 508; num16 <= 512; num16++)
+					{
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, num16, this.scale);
+					}
+					for (int num17 = 509; num17 <= 512; num17++)
+					{
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, num17, this.scale);
 					}
 				}
 			}
@@ -31449,16 +33728,16 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num8 = 0;
-					while ((double)num8 < dmg / (double)this.lifeMax * 100.0)
+					int num18 = 0;
+					while ((double)num18 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 191, (float)hitDirection, -1f, 0, default(Color), 1.1f);
-						num8++;
+						num18++;
 					}
 				}
 				else
 				{
-					for (int num9 = 0; num9 < 60; num9++)
+					for (int num19 = 0; num19 < 60; num19++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 191, (float)(2 * hitDirection), -2f, 0, default(Color), 1.1f);
 					}
@@ -31468,16 +33747,16 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num10 = 0;
-					while ((double)num10 < dmg / (double)this.lifeMax * 100.0)
+					int num20 = 0;
+					while ((double)num20 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 189, (float)hitDirection, -1f, 0, default(Color), 1.3f);
-						num10++;
+						num20++;
 					}
 				}
 				else
 				{
-					for (int num11 = 0; num11 < 60; num11++)
+					for (int num21 = 0; num21 < 60; num21++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 189, (float)(2 * hitDirection), -2f, 0, default(Color), 1.3f);
 					}
@@ -31487,16 +33766,16 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num12 = 0;
-					while ((double)num12 < dmg / (double)this.lifeMax * 100.0)
+					int num22 = 0;
+					while ((double)num22 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 192, (float)hitDirection, -1f, 100, new Color(100, 100, 100, 100), 1f);
-						num12++;
+						num22++;
 					}
 				}
 				else
 				{
-					for (int num13 = 0; num13 < 50; num13++)
+					for (int num23 = 0; num23 < 50; num23++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 192, (float)(2 * hitDirection), -2f, 100, new Color(100, 100, 100, 100), 1f);
 					}
@@ -31507,11 +33786,11 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num14 = 0;
-					while ((double)num14 < dmg / (double)this.lifeMax * 100.0)
+					int num24 = 0;
+					while ((double)num24 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 148, (float)hitDirection, -1f, 0, default(Color), 1f);
-						num14++;
+						num24++;
 					}
 				}
 				else if (this.type == 246)
@@ -31523,7 +33802,7 @@ namespace Terraria
 				}
 				else
 				{
-					for (int num15 = 0; num15 < 50; num15++)
+					for (int num25 = 0; num25 < 50; num25++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 148, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 					}
@@ -31563,28 +33842,28 @@ namespace Terraria
 			}
 			if (this.type == 288 && this.life <= 0)
 			{
-				for (int num16 = 0; num16 < 50; num16++)
+				for (int num26 = 0; num26 < 50; num26++)
 				{
-					int num17 = Dust.NewDust(this.position, this.width, this.height, 180, this.velocity.X, this.velocity.Y, 0, default(Color), 1f);
-					Main.dust[num17].velocity *= 2f;
-					Main.dust[num17].noGravity = true;
-					Main.dust[num17].scale = 1.4f;
+					int num27 = Dust.NewDust(this.position, this.width, this.height, 180, this.velocity.X, this.velocity.Y, 0, default(Color), 1f);
+					Main.dust[num27].velocity *= 2f;
+					Main.dust[num27].noGravity = true;
+					Main.dust[num27].scale = 1.4f;
 				}
 			}
 			if (this.type == 204)
 			{
 				if (this.life > 0)
 				{
-					int num18 = 0;
-					while ((double)num18 < dmg / (double)this.lifeMax * 100.0)
+					int num28 = 0;
+					while ((double)num28 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 100, new Color(149, 208, 104), 1f);
-						num18++;
+						num28++;
 					}
 				}
 				else
 				{
-					for (int num19 = 0; num19 < 50; num19++)
+					for (int num29 = 0; num29 < 50; num29++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, 100, new Color(149, 208, 104), 1f);
 					}
@@ -31594,16 +33873,16 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num20 = 0;
-					while ((double)num20 < dmg / (double)this.lifeMax * 100.0)
+					int num30 = 0;
+					while ((double)num30 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 100, new Color(0, 80, 255, 100), 1f);
-						num20++;
+						num30++;
 					}
 				}
 				else
 				{
-					for (int num21 = 0; num21 < 50; num21++)
+					for (int num31 = 0; num31 < 50; num31++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, 100, new Color(0, 80, 255, 100), 1f);
 					}
@@ -31614,16 +33893,16 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num22 = 0;
-					while ((double)num22 < dmg / (double)this.lifeMax * 150.0)
+					int num32 = 0;
+					while ((double)num32 < dmg / (double)this.lifeMax * 150.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 161, (float)hitDirection, -1f, 0, default(Color), 1f);
-						num22++;
+						num32++;
 					}
 				}
 				else
 				{
-					for (int num23 = 0; num23 < 200; num23++)
+					for (int num33 = 0; num33 < 200; num33++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 161, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 					}
@@ -31632,17 +33911,17 @@ namespace Terraria
 			}
 			if ((this.type == 210 || this.type == 211) && this.life <= 0)
 			{
-				for (int num24 = 0; num24 < 6; num24++)
+				for (int num34 = 0; num34 < 6; num34++)
 				{
-					int num25 = Dust.NewDust(this.position, this.width, this.height, 150, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
+					int num35 = Dust.NewDust(this.position, this.width, this.height, 150, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 					if (Main.rand.Next(2) == 0)
 					{
-						Main.dust[num25].noGravity = true;
-						Main.dust[num25].scale = 1.5f;
+						Main.dust[num35].noGravity = true;
+						Main.dust[num35].scale = 1.5f;
 					}
 					else
 					{
-						Main.dust[num25].scale = 0.8f;
+						Main.dust[num35].scale = 0.8f;
 					}
 				}
 			}
@@ -31650,22 +33929,22 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num26 = 0;
-					while ((double)num26 < dmg / (double)this.lifeMax * 50.0)
+					int num36 = 0;
+					while ((double)num36 < dmg / (double)this.lifeMax * 50.0)
 					{
-						int num27 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 67, this.velocity.X, this.velocity.Y, 90, default(Color), 1.5f);
-						Main.dust[num27].noGravity = true;
-						Main.dust[num27].velocity *= 0.2f;
-						num26++;
+						int num37 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 67, this.velocity.X, this.velocity.Y, 90, default(Color), 1.5f);
+						Main.dust[num37].noGravity = true;
+						Main.dust[num37].velocity *= 0.2f;
+						num36++;
 					}
 				}
 				else
 				{
-					for (int num28 = 0; num28 < 50; num28++)
+					for (int num38 = 0; num38 < 50; num38++)
 					{
-						int num29 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 67, this.velocity.X, this.velocity.Y, 90, default(Color), 1.5f);
-						Main.dust[num29].noGravity = true;
-						Main.dust[num29].velocity *= 0.2f;
+						int num39 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 67, this.velocity.X, this.velocity.Y, 90, default(Color), 1.5f);
+						Main.dust[num39].noGravity = true;
+						Main.dust[num39].velocity *= 0.2f;
 					}
 					Gore.NewGore(this.position, this.velocity, 180, this.scale);
 				}
@@ -31674,21 +33953,21 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num30 = 0;
-					while ((double)num30 < dmg / (double)this.lifeMax * 50.0)
+					int num40 = 0;
+					while ((double)num40 < dmg / (double)this.lifeMax * 50.0)
 					{
-						int num31 = Dust.NewDust(this.position, this.width, this.height, 76, (float)hitDirection, -1f, 0, default(Color), 1f);
-						Main.dust[num31].noGravity = true;
+						int num41 = Dust.NewDust(this.position, this.width, this.height, 76, (float)hitDirection, -1f, 0, default(Color), 1f);
+						Main.dust[num41].noGravity = true;
 						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 100, new Color(97, 200, 255, 100), 1f);
-						num30++;
+						num40++;
 					}
 				}
 				else
 				{
-					for (int num32 = 0; num32 < 30; num32++)
+					for (int num42 = 0; num42 < 30; num42++)
 					{
-						int num33 = Dust.NewDust(this.position, this.width, this.height, 76, (float)hitDirection, -2f, 0, default(Color), 1f);
-						Main.dust[num33].noGravity = true;
+						int num43 = Dust.NewDust(this.position, this.width, this.height, 76, (float)hitDirection, -2f, 0, default(Color), 1f);
+						Main.dust[num43].noGravity = true;
 						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -2f, 100, new Color(97, 200, 255, 100), 1f);
 					}
 				}
@@ -31697,21 +33976,21 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num34 = 0;
-					while ((double)num34 < dmg / (double)this.lifeMax * 100.0)
+					int num44 = 0;
+					while ((double)num44 < dmg / (double)this.lifeMax * 100.0)
 					{
-						int num35 = Dust.NewDust(this.position, this.width, this.height, 76, (float)hitDirection, -1f, 0, default(Color), 1f);
-						Main.dust[num35].noGravity = true;
-						num34++;
+						int num45 = Dust.NewDust(this.position, this.width, this.height, 76, (float)hitDirection, -1f, 0, default(Color), 1f);
+						Main.dust[num45].noGravity = true;
+						num44++;
 					}
 				}
 				else
 				{
-					for (int num36 = 0; num36 < 50; num36++)
+					for (int num46 = 0; num46 < 50; num46++)
 					{
-						int num37 = Dust.NewDust(this.position, this.width, this.height, 76, (float)hitDirection, -1f, 0, default(Color), 1f);
-						Main.dust[num37].noGravity = true;
-						Main.dust[num37].scale *= 1.2f;
+						int num47 = Dust.NewDust(this.position, this.width, this.height, 76, (float)hitDirection, -1f, 0, default(Color), 1f);
+						Main.dust[num47].noGravity = true;
+						Main.dust[num47].scale *= 1.2f;
 					}
 				}
 			}
@@ -31719,16 +33998,16 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num38 = 0;
-					while ((double)num38 < dmg / (double)this.lifeMax * 100.0)
+					int num48 = 0;
+					while ((double)num48 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, this.alpha, new Color(210, 230, 140), 1f);
-						num38++;
+						num48++;
 					}
 				}
 				else
 				{
-					for (int num39 = 0; num39 < 50; num39++)
+					for (int num49 = 0; num49 < 50; num49++)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, this.alpha, new Color(210, 230, 140), 1f);
 					}
@@ -31736,17 +34015,17 @@ namespace Terraria
 			}
 			if (this.type == 112)
 			{
-				for (int num40 = 0; num40 < 20; num40++)
+				for (int num50 = 0; num50 < 20; num50++)
 				{
-					int num41 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 2f), this.width, this.height, 18, 0f, 0f, 100, default(Color), 2f);
+					int num51 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + 2f), this.width, this.height, 18, 0f, 0f, 100, default(Color), 2f);
 					if (Main.rand.Next(2) == 0)
 					{
-						Main.dust[num41].scale *= 0.6f;
+						Main.dust[num51].scale *= 0.6f;
 					}
 					else
 					{
-						Main.dust[num41].velocity *= 1.4f;
-						Main.dust[num41].noGravity = true;
+						Main.dust[num51].velocity *= 1.4f;
+						Main.dust[num51].noGravity = true;
 					}
 				}
 			}
@@ -31754,19 +34033,19 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num42 = 0;
-					while ((double)num42 < dmg / (double)this.lifeMax * 100.0)
+					int num52 = 0;
+					while ((double)num52 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 136, 0f, 0f, this.alpha, this.color, 1f);
-						num42++;
+						num52++;
 					}
 				}
 				else
 				{
-					for (int num43 = 0; num43 < 50; num43++)
+					for (int num53 = 0; num53 < 50; num53++)
 					{
-						int num44 = Dust.NewDust(this.position, this.width, this.height, 136, (float)hitDirection, 0f, this.alpha, this.color, 1f);
-						Main.dust[num44].velocity *= 2f;
+						int num54 = Dust.NewDust(this.position, this.width, this.height, 136, (float)hitDirection, 0f, this.alpha, this.color, 1f);
+						Main.dust[num54].velocity *= 2f;
 					}
 				}
 			}
@@ -31774,51 +34053,51 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num45 = 0;
-					while ((double)num45 < dmg / (double)this.lifeMax * 100.0)
+					int num55 = 0;
+					while ((double)num55 < dmg / (double)this.lifeMax * 100.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 14, 0f, 0f, this.alpha, this.color, 1f);
-						num45++;
+						num55++;
 					}
 				}
 				else
 				{
-					for (int num46 = 0; num46 < 50; num46++)
+					for (int num56 = 0; num56 < 50; num56++)
 					{
-						int num47 = Dust.NewDust(this.position, this.width, this.height, 14, (float)hitDirection, 0f, this.alpha, this.color, 1f);
-						Main.dust[num47].velocity *= 2f;
+						int num57 = Dust.NewDust(this.position, this.width, this.height, 14, (float)hitDirection, 0f, this.alpha, this.color, 1f);
+						Main.dust[num57].velocity *= 2f;
 					}
 					if (Main.netMode != 1)
 					{
 						if (this.type == 121)
 						{
-							int num48 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 81, 0);
-							Main.npc[num48].SetDefaults("Slimer2");
-							Main.npc[num48].velocity.X = this.velocity.X;
-							Main.npc[num48].velocity.Y = this.velocity.Y;
+							int num58 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 81, 0);
+							Main.npc[num58].SetDefaults("Slimer2");
+							Main.npc[num58].velocity.X = this.velocity.X;
+							Main.npc[num58].velocity.Y = this.velocity.Y;
 							Gore.NewGore(this.position, this.velocity, 94, this.scale);
-							if (Main.netMode == 2 && num48 < 200)
+							if (Main.netMode == 2 && num58 < 200)
 							{
-								NetMessage.SendData(23, -1, -1, "", num48, 0f, 0f, 0f, 0);
+								NetMessage.SendData(23, -1, -1, "", num58, 0f, 0f, 0f, 0);
 							}
 						}
 						else if (this.scale >= 1f)
 						{
-							int num49 = Main.rand.Next(2) + 2;
-							for (int num50 = 0; num50 < num49; num50++)
+							int num59 = Main.rand.Next(2) + 2;
+							for (int num60 = 0; num60 < num59; num60++)
 							{
-								int num51 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 1, 0);
-								Main.npc[num51].SetDefaults("Slimeling");
-								Main.npc[num51].velocity.X = this.velocity.X * 3f;
-								Main.npc[num51].velocity.Y = this.velocity.Y;
-								NPC expr_1BA0_cp_0 = Main.npc[num51];
-								expr_1BA0_cp_0.velocity.X = expr_1BA0_cp_0.velocity.X + ((float)Main.rand.Next(-10, 10) * 0.1f + (float)(num50 * this.direction) * 0.3f);
-								NPC expr_1BDF_cp_0 = Main.npc[num51];
-								expr_1BDF_cp_0.velocity.Y = expr_1BDF_cp_0.velocity.Y - ((float)Main.rand.Next(0, 10) * 0.1f + (float)num50);
-								Main.npc[num51].ai[1] = (float)num50;
-								if (Main.netMode == 2 && num51 < 200)
+								int num61 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 1, 0);
+								Main.npc[num61].SetDefaults("Slimeling");
+								Main.npc[num61].velocity.X = this.velocity.X * 3f;
+								Main.npc[num61].velocity.Y = this.velocity.Y;
+								NPC expr_208D_cp_0 = Main.npc[num61];
+								expr_208D_cp_0.velocity.X = expr_208D_cp_0.velocity.X + ((float)Main.rand.Next(-10, 10) * 0.1f + (float)(num60 * this.direction) * 0.3f);
+								NPC expr_20CC_cp_0 = Main.npc[num61];
+								expr_20CC_cp_0.velocity.Y = expr_20CC_cp_0.velocity.Y - ((float)Main.rand.Next(0, 10) * 0.1f + (float)num60);
+								Main.npc[num61].ai[1] = (float)num60;
+								if (Main.netMode == 2 && num61 < 200)
 								{
-									NetMessage.SendData(23, -1, -1, "", num51, 0f, 0f, 0f, 0);
+									NetMessage.SendData(23, -1, -1, "", num61, 0f, 0f, 0f, 0);
 								}
 							}
 						}
@@ -31829,20 +34108,20 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num52 = 0;
-					while ((double)num52 < dmg / (double)this.lifeMax * 50.0)
+					int num62 = 0;
+					while ((double)num62 < dmg / (double)this.lifeMax * 50.0)
 					{
-						int num53 = Dust.NewDust(this.position, this.width, this.height, 71, 0f, 0f, 200, default(Color), 1f);
-						Main.dust[num53].velocity *= 1.5f;
-						num52++;
+						int num63 = Dust.NewDust(this.position, this.width, this.height, 71, 0f, 0f, 200, default(Color), 1f);
+						Main.dust[num63].velocity *= 1.5f;
+						num62++;
 					}
 				}
 				else
 				{
-					for (int num54 = 0; num54 < 50; num54++)
+					for (int num64 = 0; num64 < 50; num64++)
 					{
-						int num55 = Dust.NewDust(this.position, this.width, this.height, 71, (float)hitDirection, 0f, 200, default(Color), 1f);
-						Main.dust[num55].velocity *= 1.5f;
+						int num65 = Dust.NewDust(this.position, this.width, this.height, 71, (float)hitDirection, 0f, 200, default(Color), 1f);
+						Main.dust[num65].velocity *= 1.5f;
 					}
 				}
 			}
@@ -31850,20 +34129,20 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num56 = 0;
-					while ((double)num56 < dmg / (double)this.lifeMax * 50.0)
+					int num66 = 0;
+					while ((double)num66 < dmg / (double)this.lifeMax * 50.0)
 					{
-						int num57 = Dust.NewDust(this.position, this.width, this.height, 72, 0f, 0f, 200, default(Color), 1f);
-						Main.dust[num57].velocity *= 1.5f;
-						num56++;
+						int num67 = Dust.NewDust(this.position, this.width, this.height, 72, 0f, 0f, 200, default(Color), 1f);
+						Main.dust[num67].velocity *= 1.5f;
+						num66++;
 					}
 				}
 				else
 				{
-					for (int num58 = 0; num58 < 50; num58++)
+					for (int num68 = 0; num68 < 50; num68++)
 					{
-						int num59 = Dust.NewDust(this.position, this.width, this.height, 72, (float)hitDirection, 0f, 200, default(Color), 1f);
-						Main.dust[num59].velocity *= 1.5f;
+						int num69 = Dust.NewDust(this.position, this.width, this.height, 72, (float)hitDirection, 0f, 200, default(Color), 1f);
+						Main.dust[num69].velocity *= 1.5f;
 					}
 				}
 			}
@@ -31871,19 +34150,19 @@ namespace Terraria
 			{
 				if (this.life > 0)
 				{
-					int num60 = 0;
-					while ((double)num60 < dmg / (double)this.lifeMax * 50.0)
+					int num70 = 0;
+					while ((double)num70 < dmg / (double)this.lifeMax * 50.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 55, 0f, 0f, 200, this.color, 1f);
-						num60++;
+						num70++;
 					}
 				}
 				else
 				{
-					for (int num61 = 0; num61 < 50; num61++)
+					for (int num71 = 0; num71 < 50; num71++)
 					{
-						int num62 = Dust.NewDust(this.position, this.width, this.height, 55, (float)hitDirection, 0f, 200, this.color, 1f);
-						Main.dust[num62].velocity *= 2f;
+						int num72 = Dust.NewDust(this.position, this.width, this.height, 55, (float)hitDirection, 0f, 200, this.color, 1f);
+						Main.dust[num72].velocity *= 2f;
 					}
 				}
 			}
@@ -31900,15 +34179,15 @@ namespace Terraria
 				}
 				if (this.life > 0)
 				{
-					int num63 = 0;
-					while ((double)num63 < dmg / (double)this.lifeMax * 50.0)
+					int num73 = 0;
+					while ((double)num73 < dmg / (double)this.lifeMax * 50.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 0, newColor, 1f);
-						num63++;
+						num73++;
 					}
 					return;
 				}
-				for (int num64 = 0; num64 < 25; num64++)
+				for (int num74 = 0; num74 < 25; num74++)
 				{
 					Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, 0, newColor, 1f);
 				}
@@ -31922,33 +34201,33 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num65 = 0;
-							while ((double)num65 < dmg / (double)this.lifeMax * 300.0)
+							int num75 = 0;
+							while ((double)num75 < dmg / (double)this.lifeMax * 300.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 175, new Color(0, 80, 255, 100), 1f);
-								num65++;
+								num75++;
 							}
 							return;
 						}
-						for (int num66 = 0; num66 < 200; num66++)
+						for (int num76 = 0; num76 < 200; num76++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, 175, new Color(0, 80, 255, 100), 1f);
 						}
 						if (Main.netMode != 1)
 						{
-							int num67 = Main.rand.Next(4) + 4;
-							for (int num68 = 0; num68 < num67; num68++)
+							int num77 = Main.rand.Next(4) + 4;
+							for (int num78 = 0; num78 < num77; num78++)
 							{
 								int x = (int)(this.position.X + (float)Main.rand.Next(this.width - 32));
 								int y = (int)(this.position.Y + (float)Main.rand.Next(this.height - 32));
-								int num69 = NPC.NewNPC(x, y, 1, 0);
-								Main.npc[num69].SetDefaults(1, -1f);
-								Main.npc[num69].velocity.X = (float)Main.rand.Next(-15, 16) * 0.1f;
-								Main.npc[num69].velocity.Y = (float)Main.rand.Next(-30, 1) * 0.1f;
-								Main.npc[num69].ai[1] = (float)Main.rand.Next(3);
-								if (Main.netMode == 2 && num69 < 200)
+								int num79 = NPC.NewNPC(x, y, 1, 0);
+								Main.npc[num79].SetDefaults(1, -1f);
+								Main.npc[num79].velocity.X = (float)Main.rand.Next(-15, 16) * 0.1f;
+								Main.npc[num79].velocity.Y = (float)Main.rand.Next(-30, 1) * 0.1f;
+								Main.npc[num79].ai[1] = (float)Main.rand.Next(3);
+								if (Main.netMode == 2 && num79 < 200)
 								{
-									NetMessage.SendData(23, -1, -1, "", num69, 0f, 0f, 0f, 0);
+									NetMessage.SendData(23, -1, -1, "", num79, 0f, 0f, 0f, 0);
 								}
 							}
 							return;
@@ -31958,15 +34237,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num70 = 0;
-							while ((double)num70 < dmg / (double)this.lifeMax * 30.0)
+							int num80 = 0;
+							while ((double)num80 < dmg / (double)this.lifeMax * 30.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num70++;
+								num80++;
 							}
 							return;
 						}
-						for (int num71 = 0; num71 < 15; num71++)
+						for (int num81 = 0; num81 < 15; num81++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -31980,15 +34259,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num72 = 0;
-							while ((double)num72 < dmg / (double)this.lifeMax * 30.0)
+							int num82 = 0;
+							while ((double)num82 < dmg / (double)this.lifeMax * 30.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num72++;
+								num82++;
 							}
 							return;
 						}
-						for (int num73 = 0; num73 < 15; num73++)
+						for (int num83 = 0; num83 < 15; num83++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32002,15 +34281,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num74 = 0;
-							while ((double)num74 < dmg / (double)this.lifeMax * 30.0)
+							int num84 = 0;
+							while ((double)num84 < dmg / (double)this.lifeMax * 30.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num74++;
+								num84++;
 							}
 							return;
 						}
-						for (int num75 = 0; num75 < 15; num75++)
+						for (int num85 = 0; num85 < 15; num85++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32048,29 +34327,29 @@ namespace Terraria
 						Gore.NewGore(this.position, this.velocity, 82, 1f);
 						return;
 					}
-					else if (this.type == 46 || this.type == 55 || this.type == 67 || this.type == 74 || this.type == 102 || this.type == 224 || this.type == 230 || this.type == 297 || this.type == 298 || this.type == 299 || this.type == 300 || this.type == 303)
+					else if (this.type == 46 || this.type == 55 || this.type == 67 || this.type == 74 || this.type == 102 || this.type == 224 || this.type == 230 || this.type == 297 || this.type == 298 || this.type == 299 || this.type == 300 || this.type == 303 || this.type == 337)
 					{
 						if (this.life > 0)
 						{
-							int num76 = 0;
-							while ((double)num76 < dmg / (double)this.lifeMax * 20.0)
+							int num86 = 0;
+							while ((double)num86 < dmg / (double)this.lifeMax * 20.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num76++;
+								num86++;
 							}
 							return;
 						}
-						for (int num77 = 0; num77 < 10; num77++)
+						for (int num87 = 0; num87 < 10; num87++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
-						if (this.type == 46 || this.type == 303)
+						if (this.type == 46 || this.type == 303 || this.type == 337)
 						{
 							Gore.NewGore(this.position, this.velocity, 76, 1f);
 							Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 77, 1f);
 							if (this.type == 303)
 							{
-								for (int num78 = 0; num78 < 10; num78++)
+								for (int num88 = 0; num88 < 10; num88++)
 								{
 									Dust.NewDust(this.position, this.width, this.height, 193, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 								}
@@ -32128,15 +34407,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num79 = 0;
-							while ((double)num79 < dmg / (double)this.lifeMax * 20.0)
+							int num89 = 0;
+							while ((double)num89 < dmg / (double)this.lifeMax * 20.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num79++;
+								num89++;
 							}
 							return;
 						}
-						for (int num80 = 0; num80 < 10; num80++)
+						for (int num90 = 0; num90 < 10; num90++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32159,19 +34438,87 @@ namespace Terraria
 							return;
 						}
 					}
+					else if (this.type == 348 || this.type == 349)
+					{
+						if (this.life > 0)
+						{
+							int num91 = 0;
+							while ((double)num91 < dmg / (double)this.lifeMax * 20.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num91++;
+							}
+							return;
+						}
+						for (int num92 = 0; num92 < 10; num92++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 528, 1f);
+						Gore.NewGore(this.position, this.velocity, 529, 1f);
+						Gore.NewGore(this.position, this.velocity, 530, 1f);
+						Gore.NewGore(this.position, this.velocity, 531, 1f);
+						Gore.NewGore(this.position, this.velocity, 532, 1f);
+						return;
+					}
+					else if (this.type == 351)
+					{
+						if (this.life > 0)
+						{
+							int num93 = 0;
+							while ((double)num93 < dmg / (double)this.lifeMax * 20.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num93++;
+							}
+							return;
+						}
+						for (int num94 = 0; num94 < 10; num94++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 538, 1f);
+						Gore.NewGore(this.position, this.velocity, 539, 1f);
+						Gore.NewGore(this.position, this.velocity, 540, 1f);
+						Gore.NewGore(this.position, this.velocity, 541, 1f);
+						Gore.NewGore(this.position, this.velocity, 542, 1f);
+						return;
+					}
+					else if (this.type == 350)
+					{
+						if (this.life > 0)
+						{
+							int num95 = 0;
+							while ((double)num95 < dmg / (double)this.lifeMax * 20.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num95++;
+							}
+							return;
+						}
+						for (int num96 = 0; num96 < 10; num96++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 533, 1f);
+						Gore.NewGore(this.position, this.velocity, 534, 1f);
+						Gore.NewGore(this.position, this.velocity, 535, 1f);
+						Gore.NewGore(this.position, this.velocity, 536, 1f);
+						return;
+					}
 					else if (this.type == 47 || this.type == 57 || this.type == 58)
 					{
 						if (this.life > 0)
 						{
-							int num81 = 0;
-							while ((double)num81 < dmg / (double)this.lifeMax * 20.0)
+							int num97 = 0;
+							while ((double)num97 < dmg / (double)this.lifeMax * 20.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num81++;
+								num97++;
 							}
 							return;
 						}
-						for (int num82 = 0; num82 < 10; num82++)
+						for (int num98 = 0; num98 < 10; num98++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32193,15 +34540,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num83 = 0;
-							while ((double)num83 < dmg / (double)this.lifeMax * 100.0)
+							int num99 = 0;
+							while ((double)num99 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, this.alpha, default(Color), 1f);
-								num83++;
+								num99++;
 							}
 							return;
 						}
-						for (int num84 = 0; num84 < 50; num84++)
+						for (int num100 = 0; num100 < 50; num100++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, this.alpha, default(Color), 1f);
 						}
@@ -32240,15 +34587,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num85 = 0;
-							while ((double)num85 < dmg / (double)this.lifeMax * 100.0)
+							int num101 = 0;
+							while ((double)num101 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num85++;
+								num101++;
 							}
 							return;
 						}
-						for (int num86 = 0; num86 < 50; num86++)
+						for (int num102 = 0; num102 < 50; num102++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32302,15 +34649,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num87 = 0;
-							while ((double)num87 < dmg / (double)this.lifeMax * 100.0)
+							int num103 = 0;
+							while ((double)num103 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num87++;
+								num103++;
 							}
 							return;
 						}
-						for (int num88 = 0; num88 < 50; num88++)
+						for (int num104 = 0; num104 < 50; num104++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32322,7 +34669,7 @@ namespace Terraria
 					{
 						if (this.life <= 0)
 						{
-							for (int num89 = 0; num89 < 50; num89++)
+							for (int num105 = 0; num105 < 50; num105++)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 							}
@@ -32330,11 +34677,11 @@ namespace Terraria
 							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 14f), this.velocity, 155, 1f);
 							return;
 						}
-						int num90 = 0;
-						while ((double)num90 < dmg / (double)this.lifeMax * 100.0)
+						int num106 = 0;
+						while ((double)num106 < dmg / (double)this.lifeMax * 100.0)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-							num90++;
+							num106++;
 						}
 						if ((float)this.life < (float)this.lifeMax * 0.5f && this.localAI[0] == 0f)
 						{
@@ -32347,15 +34694,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num91 = 0;
-							while ((double)num91 < dmg / (double)this.lifeMax * 100.0)
+							int num107 = 0;
+							while ((double)num107 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num91++;
+								num107++;
 							}
 							return;
 						}
-						for (int num92 = 0; num92 < 50; num92++)
+						for (int num108 = 0; num108 < 50; num108++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32367,15 +34714,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num93 = 0;
-							while ((double)num93 < dmg / (double)this.lifeMax * 100.0)
+							int num109 = 0;
+							while ((double)num109 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num93++;
+								num109++;
 							}
 							return;
 						}
-						for (int num94 = 0; num94 < 50; num94++)
+						for (int num110 = 0; num110 < 50; num110++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32388,15 +34735,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num95 = 0;
-							while ((double)num95 < dmg / (double)this.lifeMax * 100.0)
+							int num111 = 0;
+							while ((double)num111 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num95++;
+								num111++;
 							}
 							return;
 						}
-						for (int num96 = 0; num96 < 50; num96++)
+						for (int num112 = 0; num112 < 50; num112++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32408,15 +34755,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num97 = 0;
-							while ((double)num97 < dmg / (double)this.lifeMax * 100.0)
+							int num113 = 0;
+							while ((double)num113 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num97++;
+								num113++;
 							}
 							return;
 						}
-						for (int num98 = 0; num98 < 50; num98++)
+						for (int num114 = 0; num114 < 50; num114++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32428,15 +34775,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num99 = 0;
-							while ((double)num99 < dmg / (double)this.lifeMax * 150.0)
+							int num115 = 0;
+							while ((double)num115 < dmg / (double)this.lifeMax * 150.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num99++;
+								num115++;
 							}
 							return;
 						}
-						for (int num100 = 0; num100 < 75; num100++)
+						for (int num116 = 0; num116 < 75; num116++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32450,15 +34797,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num101 = 0;
-							while ((double)num101 < dmg / (double)this.lifeMax * 150.0)
+							int num117 = 0;
+							while ((double)num117 < dmg / (double)this.lifeMax * 150.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num101++;
+								num117++;
 							}
 							return;
 						}
-						for (int num102 = 0; num102 < 75; num102++)
+						for (int num118 = 0; num118 < 75; num118++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32473,15 +34820,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num103 = 0;
-							while ((double)num103 < dmg / (double)this.lifeMax * 150.0)
+							int num119 = 0;
+							while ((double)num119 < dmg / (double)this.lifeMax * 150.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num103++;
+								num119++;
 							}
 							return;
 						}
-						for (int num104 = 0; num104 < 75; num104++)
+						for (int num120 = 0; num120 < 75; num120++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32497,15 +34844,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num105 = 0;
-							while ((double)num105 < dmg / (double)this.lifeMax * 150.0)
+							int num121 = 0;
+							while ((double)num121 < dmg / (double)this.lifeMax * 150.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 137, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num105++;
+								num121++;
 							}
 							return;
 						}
-						for (int num106 = 0; num106 < 75; num106++)
+						for (int num122 = 0; num122 < 75; num122++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 137, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32516,15 +34863,93 @@ namespace Terraria
 						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 275, this.scale);
 						return;
 					}
-					else if (this.type == 3 || this.type == 52 || this.type == 53 || this.type == 104 || this.type == 109 || this.type == 132 || this.type == 161 || this.type == 162 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 251 || this.type == 319 || this.type == 320 || this.type == 321)
+					else if (this.type == 342)
 					{
 						if (this.life > 0)
 						{
-							int num107 = 0;
-							while ((double)num107 < dmg / (double)this.lifeMax * 100.0)
+							int num123 = 0;
+							while ((double)num123 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 0, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num123++;
+							}
+							return;
+						}
+						for (int num124 = 0; num124 < 50; num124++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 0, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 500, this.scale);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 501, this.scale);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 501, this.scale);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 502, this.scale);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 503, this.scale);
+						return;
+					}
+					else if (this.type >= 338 && this.type <= 340)
+					{
+						if (this.life > 0)
+						{
+							int num125 = 0;
+							while ((double)num125 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num107++;
+								num125++;
+							}
+							return;
+						}
+						for (int num126 = 0; num126 < 50; num126++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						if (this.type == 338)
+						{
+							Gore.NewGore(this.position, this.velocity, 494, this.scale);
+						}
+						if (this.type == 339)
+						{
+							Gore.NewGore(this.position, this.velocity, 495, this.scale);
+						}
+						if (this.type == 340)
+						{
+							Gore.NewGore(this.position, this.velocity, 496, this.scale);
+						}
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 497, this.scale);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 498, this.scale);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 499, this.scale);
+						return;
+					}
+					else if (this.type == 343)
+					{
+						if (this.life > 0)
+						{
+							int num127 = 0;
+							while ((double)num127 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num127++;
+							}
+							return;
+						}
+						for (int num128 = 0; num128 < 50; num128++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 503, this.scale);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 504, this.scale);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 505, this.scale);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 506, this.scale);
+						return;
+					}
+					else if (this.type == 3 || this.type == 52 || this.type == 53 || this.type == 104 || this.type == 109 || this.type == 331 || this.type == 332 || this.type == 132 || this.type == 161 || this.type == 162 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 251 || this.type == 319 || this.type == 320 || this.type == 321)
+					{
+						if (this.life > 0)
+						{
+							int num129 = 0;
+							while ((double)num129 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num129++;
 							}
 							if (this.type == 186 && Main.rand.Next(5) == 0)
 							{
@@ -32532,24 +34957,24 @@ namespace Terraria
 							}
 							if (this.type == 187)
 							{
-								int num108 = 0;
-								while ((double)num108 < dmg / (double)this.lifeMax * 200.0)
+								int num130 = 0;
+								while ((double)num130 < dmg / (double)this.lifeMax * 200.0)
 								{
 									Dust.NewDust(this.position, this.width, 24, 4, (float)hitDirection, -1f, 125, new Color(0, 80, 255, 100), 1f);
-									num108++;
+									num130++;
 								}
 								return;
 							}
 						}
 						else
 						{
-							for (int num109 = 0; num109 < 50; num109++)
+							for (int num131 = 0; num131 < 50; num131++)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 							}
 							if (this.type == 187)
 							{
-								for (int num110 = 0; num110 < 25; num110++)
+								for (int num132 = 0; num132 < 25; num132++)
 								{
 									Dust.NewDust(this.position, this.width, 24, 4, (float)hitDirection, -1f, 125, new Color(0, 80, 255, 100), 1f);
 								}
@@ -32561,6 +34986,24 @@ namespace Terraria
 								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 118, this.scale);
 								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 119, this.scale);
 								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 119, this.scale);
+								return;
+							}
+							if (this.type == 331)
+							{
+								Gore.NewGore(this.position, this.velocity, 488, this.scale);
+								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 489, this.scale);
+								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 489, this.scale);
+								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 490, this.scale);
+								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 490, this.scale);
+								return;
+							}
+							if (this.type == 332)
+							{
+								Gore.NewGore(this.position, this.velocity, 491, this.scale);
+								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 492, this.scale);
+								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 492, this.scale);
+								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 493, this.scale);
+								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 493, this.scale);
 								return;
 							}
 							if (this.type == 109)
@@ -32683,35 +35126,35 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num111 = 0;
-							while ((double)num111 < dmg / (double)this.lifeMax * 50.0)
+							int num133 = 0;
+							while ((double)num133 < dmg / (double)this.lifeMax * 50.0)
 							{
-								int num112 = Dust.NewDust(this.position, this.width, this.height, 31, 0f, 0f, 0, default(Color), 1.5f);
-								Main.dust[num112].noGravity = true;
-								num111++;
+								int num134 = Dust.NewDust(this.position, this.width, this.height, 31, 0f, 0f, 0, default(Color), 1.5f);
+								Main.dust[num134].noGravity = true;
+								num133++;
 							}
 							return;
 						}
-						for (int num113 = 0; num113 < 20; num113++)
+						for (int num135 = 0; num135 < 20; num135++)
 						{
-							int num114 = Dust.NewDust(this.position, this.width, this.height, 31, 0f, 0f, 0, default(Color), 1.5f);
-							Main.dust[num114].velocity *= 2f;
-							Main.dust[num114].noGravity = true;
+							int num136 = Dust.NewDust(this.position, this.width, this.height, 31, 0f, 0f, 0, default(Color), 1.5f);
+							Main.dust[num136].velocity *= 2f;
+							Main.dust[num136].noGravity = true;
 						}
-						int num115 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
-						Main.gore[num115].velocity *= 0.5f;
-						num115 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
-						Main.gore[num115].velocity *= 0.5f;
-						num115 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
-						Main.gore[num115].velocity *= 0.5f;
+						int num137 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
+						Main.gore[num137].velocity *= 0.5f;
+						num137 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
+						Main.gore[num137].velocity *= 0.5f;
+						num137 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
+						Main.gore[num137].velocity *= 0.5f;
 						return;
 					}
 					else if (this.type == 262 || this.type == 263 || this.type == 264)
 					{
 						if (this.life > 0)
 						{
-							int num116 = 0;
-							while ((double)num116 < dmg / (double)this.lifeMax * 100.0)
+							int num138 = 0;
+							while ((double)num138 < dmg / (double)this.lifeMax * 100.0)
 							{
 								if (this.type == 262 && this.life > this.lifeMax / 2 && Main.rand.Next(3) != 0)
 								{
@@ -32725,11 +35168,11 @@ namespace Terraria
 								{
 									Dust.NewDust(this.position, this.width, this.height, 167, (float)hitDirection, -1f, 0, default(Color), 1f);
 								}
-								num116++;
+								num138++;
 							}
 							return;
 						}
-						for (int num117 = 0; num117 < 150; num117++)
+						for (int num139 = 0; num139 < 150; num139++)
 						{
 							if (this.type == 265 && Main.rand.Next(3) != 0)
 							{
@@ -32768,7 +35211,7 @@ namespace Terraria
 					{
 						if (this.life < 0)
 						{
-							for (int num118 = 0; num118 < 15; num118++)
+							for (int num140 = 0; num140 < 15; num140++)
 							{
 								if (Main.rand.Next(3) != 0)
 								{
@@ -32786,15 +35229,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num119 = 0;
-							while ((double)num119 < dmg / (double)this.lifeMax * 100.0)
+							int num141 = 0;
+							while ((double)num141 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num119++;
+								num141++;
 							}
 							return;
 						}
-						for (int num120 = 0; num120 < 150; num120++)
+						for (int num142 = 0; num142 < 150; num142++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32810,15 +35253,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num121 = 0;
-							while ((double)num121 < dmg / (double)this.lifeMax * 50.0)
+							int num143 = 0;
+							while ((double)num143 < dmg / (double)this.lifeMax * 50.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num121++;
+								num143++;
 							}
 							return;
 						}
-						for (int num122 = 0; num122 < 20; num122++)
+						for (int num144 = 0; num144 < 20; num144++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32829,19 +35272,19 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num123 = 0;
-							while ((double)num123 < dmg / (double)this.lifeMax * 100.0)
+							int num145 = 0;
+							while ((double)num145 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num123++;
+								num145++;
 							}
 							return;
 						}
-						for (int num124 = 0; num124 < 150; num124++)
+						for (int num146 = 0; num146 < 150; num146++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
-						for (int num125 = 0; num125 < 2; num125++)
+						for (int num147 = 0; num147 < 2; num147++)
 						{
 							Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 2, 1f);
 							Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 7, 1f);
@@ -32862,43 +35305,43 @@ namespace Terraria
 						}
 						if (this.type == 125 || this.type == 126)
 						{
-							for (int num126 = 0; num126 < 10; num126++)
+							for (int num148 = 0; num148 < 10; num148++)
 							{
-								int num127 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
-								Main.dust[num127].velocity *= 1.4f;
+								int num149 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
+								Main.dust[num149].velocity *= 1.4f;
 							}
-							for (int num128 = 0; num128 < 5; num128++)
+							for (int num150 = 0; num150 < 5; num150++)
 							{
-								int num129 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 2.5f);
-								Main.dust[num129].noGravity = true;
-								Main.dust[num129].velocity *= 5f;
-								num129 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
-								Main.dust[num129].velocity *= 3f;
+								int num151 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 2.5f);
+								Main.dust[num151].noGravity = true;
+								Main.dust[num151].velocity *= 5f;
+								num151 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+								Main.dust[num151].velocity *= 3f;
 							}
-							int num130 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num130].velocity *= 0.4f;
-							Gore expr_6341_cp_0 = Main.gore[num130];
-							expr_6341_cp_0.velocity.X = expr_6341_cp_0.velocity.X + 1f;
-							Gore expr_635F_cp_0 = Main.gore[num130];
-							expr_635F_cp_0.velocity.Y = expr_635F_cp_0.velocity.Y + 1f;
-							num130 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num130].velocity *= 0.4f;
-							Gore expr_63DD_cp_0 = Main.gore[num130];
-							expr_63DD_cp_0.velocity.X = expr_63DD_cp_0.velocity.X - 1f;
-							Gore expr_63FB_cp_0 = Main.gore[num130];
-							expr_63FB_cp_0.velocity.Y = expr_63FB_cp_0.velocity.Y + 1f;
-							num130 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num130].velocity *= 0.4f;
-							Gore expr_6479_cp_0 = Main.gore[num130];
-							expr_6479_cp_0.velocity.X = expr_6479_cp_0.velocity.X + 1f;
-							Gore expr_6497_cp_0 = Main.gore[num130];
-							expr_6497_cp_0.velocity.Y = expr_6497_cp_0.velocity.Y - 1f;
-							num130 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num130].velocity *= 0.4f;
-							Gore expr_6515_cp_0 = Main.gore[num130];
-							expr_6515_cp_0.velocity.X = expr_6515_cp_0.velocity.X - 1f;
-							Gore expr_6533_cp_0 = Main.gore[num130];
-							expr_6533_cp_0.velocity.Y = expr_6533_cp_0.velocity.Y - 1f;
+							int num152 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num152].velocity *= 0.4f;
+							Gore expr_7376_cp_0 = Main.gore[num152];
+							expr_7376_cp_0.velocity.X = expr_7376_cp_0.velocity.X + 1f;
+							Gore expr_7394_cp_0 = Main.gore[num152];
+							expr_7394_cp_0.velocity.Y = expr_7394_cp_0.velocity.Y + 1f;
+							num152 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num152].velocity *= 0.4f;
+							Gore expr_7412_cp_0 = Main.gore[num152];
+							expr_7412_cp_0.velocity.X = expr_7412_cp_0.velocity.X - 1f;
+							Gore expr_7430_cp_0 = Main.gore[num152];
+							expr_7430_cp_0.velocity.Y = expr_7430_cp_0.velocity.Y + 1f;
+							num152 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num152].velocity *= 0.4f;
+							Gore expr_74AE_cp_0 = Main.gore[num152];
+							expr_74AE_cp_0.velocity.X = expr_74AE_cp_0.velocity.X + 1f;
+							Gore expr_74CC_cp_0 = Main.gore[num152];
+							expr_74CC_cp_0.velocity.Y = expr_74CC_cp_0.velocity.Y - 1f;
+							num152 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num152].velocity *= 0.4f;
+							Gore expr_754A_cp_0 = Main.gore[num152];
+							expr_754A_cp_0.velocity.X = expr_754A_cp_0.velocity.X - 1f;
+							Gore expr_7568_cp_0 = Main.gore[num152];
+							expr_7568_cp_0.velocity.Y = expr_7568_cp_0.velocity.Y - 1f;
 							return;
 						}
 					}
@@ -32906,15 +35349,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num131 = 0;
-							while ((double)num131 < dmg / (double)this.lifeMax * 50.0)
+							int num153 = 0;
+							while ((double)num153 < dmg / (double)this.lifeMax * 50.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num131++;
+								num153++;
 							}
 							return;
 						}
-						for (int num132 = 0; num132 < 20; num132++)
+						for (int num154 = 0; num154 < 20; num154++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
@@ -32926,13 +35369,13 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							for (int num133 = 0; num133 < 20; num133++)
+							for (int num155 = 0; num155 < 20; num155++)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
 							}
 							return;
 						}
-						for (int num134 = 0; num134 < 50; num134++)
+						for (int num156 = 0; num156 < 50; num156++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -1f, 0, default(Color), 1f);
 						}
@@ -32950,28 +35393,28 @@ namespace Terraria
 						Gore.NewGore(new Vector2(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2)), this.velocity, 137, this.scale);
 						if (Main.player[Main.myPlayer].position.Y / 16f > (float)(Main.maxTilesY - 250))
 						{
-							int num135 = (int)Main.screenPosition.Y;
-							int num136 = num135 + Main.screenWidth;
-							int num137 = (int)this.position.X;
+							int num157 = (int)Main.screenPosition.Y;
+							int num158 = num157 + Main.screenWidth;
+							int num159 = (int)this.position.X;
 							if (this.direction > 0)
 							{
-								num137 -= 80;
+								num159 -= 80;
 							}
-							int num138 = num137 + 140;
-							int num139 = num137;
-							for (int num140 = num135; num140 < num136; num140 += 50)
+							int num160 = num159 + 140;
+							int num161 = num159;
+							for (int num162 = num157; num162 < num158; num162 += 50)
 							{
-								while (num139 < num138)
+								while (num161 < num160)
 								{
-									for (int num141 = 0; num141 < 5; num141++)
+									for (int num163 = 0; num163 < 5; num163++)
 									{
-										Dust.NewDust(new Vector2((float)num139, (float)num140), 32, 32, 5, (float)Main.rand.Next(-60, 61) * 0.1f, (float)Main.rand.Next(-60, 61) * 0.1f, 0, default(Color), 1f);
+										Dust.NewDust(new Vector2((float)num161, (float)num162), 32, 32, 5, (float)Main.rand.Next(-60, 61) * 0.1f, (float)Main.rand.Next(-60, 61) * 0.1f, 0, default(Color), 1f);
 									}
 									Vector2 vector = new Vector2((float)Main.rand.Next(-80, 81) * 0.1f, (float)Main.rand.Next(-60, 21) * 0.1f);
-									Gore.NewGore(new Vector2((float)num139, (float)num140), vector, Main.rand.Next(140, 143), 1f);
-									num139 += 46;
+									Gore.NewGore(new Vector2((float)num161, (float)num162), vector, Main.rand.Next(140, 143), 1f);
+									num161 += 46;
 								}
-								num139 = num137;
+								num161 = num159;
 							}
 							return;
 						}
@@ -32980,7 +35423,7 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							for (int num142 = 0; num142 < 5; num142++)
+							for (int num164 = 0; num164 < 5; num164++)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
 							}
@@ -32989,13 +35432,13 @@ namespace Terraria
 						if (this.type == 115 && Main.netMode != 1)
 						{
 							NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 116, 0);
-							for (int num143 = 0; num143 < 10; num143++)
+							for (int num165 = 0; num165 < 10; num165++)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
 							}
 							return;
 						}
-						for (int num144 = 0; num144 < 20; num144++)
+						for (int num166 = 0; num166 < 20; num166++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
 						}
@@ -33007,13 +35450,13 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							for (int num145 = 0; num145 < 5; num145++)
+							for (int num167 = 0; num167 < 5; num167++)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
 							}
 							return;
 						}
-						for (int num146 = 0; num146 < 10; num146++)
+						for (int num168 = 0; num168 < 10; num168++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
 						}
@@ -33024,15 +35467,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num147 = 0;
-							while ((double)num147 < dmg / (double)this.lifeMax * 100.0)
+							int num169 = 0;
+							while ((double)num169 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-								num147++;
+								num169++;
 							}
 							return;
 						}
-						for (int num148 = 0; num148 < 50; num148++)
+						for (int num170 = 0; num170 < 50; num170++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 						}
@@ -33056,15 +35499,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num149 = 0;
-							while ((double)num149 < dmg / (double)this.lifeMax * 100.0)
+							int num171 = 0;
+							while ((double)num171 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-								num149++;
+								num171++;
 							}
 							return;
 						}
-						for (int num150 = 0; num150 < 50; num150++)
+						for (int num172 = 0; num172 < 50; num172++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 						}
@@ -33080,53 +35523,53 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num151 = 0;
-							while ((double)num151 < dmg / (double)this.lifeMax * 100.0)
+							int num173 = 0;
+							while ((double)num173 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-								num151++;
+								num173++;
 							}
 							return;
 						}
-						for (int num152 = 0; num152 < 50; num152++)
+						for (int num174 = 0; num174 < 50; num174++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 						}
-						int num153;
+						int num175;
 						if (this.type == 94)
 						{
-							num153 = Gore.NewGore(this.position, this.velocity, 108, this.scale);
-							num153 = Gore.NewGore(this.position, this.velocity, 108, this.scale);
-							num153 = Gore.NewGore(this.position, this.velocity, 109, this.scale);
-							num153 = Gore.NewGore(this.position, this.velocity, 110, this.scale);
+							num175 = Gore.NewGore(this.position, this.velocity, 108, this.scale);
+							num175 = Gore.NewGore(this.position, this.velocity, 108, this.scale);
+							num175 = Gore.NewGore(this.position, this.velocity, 109, this.scale);
+							num175 = Gore.NewGore(this.position, this.velocity, 110, this.scale);
 							return;
 						}
 						if (this.type == 166)
 						{
-							num153 = Gore.NewGore(this.position, this.velocity, 209, this.scale);
-							num153 = Gore.NewGore(this.position, this.velocity, 210, this.scale);
-							num153 = Gore.NewGore(this.position, this.velocity, 211, this.scale);
+							num175 = Gore.NewGore(this.position, this.velocity, 209, this.scale);
+							num175 = Gore.NewGore(this.position, this.velocity, 210, this.scale);
+							num175 = Gore.NewGore(this.position, this.velocity, 211, this.scale);
 							return;
 						}
-						num153 = Gore.NewGore(this.position, this.velocity, 14, this.scale);
-						Main.gore[num153].alpha = this.alpha;
-						num153 = Gore.NewGore(this.position, this.velocity, 15, this.scale);
-						Main.gore[num153].alpha = this.alpha;
+						num175 = Gore.NewGore(this.position, this.velocity, 14, this.scale);
+						Main.gore[num175].alpha = this.alpha;
+						num175 = Gore.NewGore(this.position, this.velocity, 15, this.scale);
+						Main.gore[num175].alpha = this.alpha;
 						return;
 					}
 					else if (this.type == 101)
 					{
 						if (this.life > 0)
 						{
-							int num154 = 0;
-							while ((double)num154 < dmg / (double)this.lifeMax * 100.0)
+							int num176 = 0;
+							while ((double)num176 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-								num154++;
+								num176++;
 							}
 							return;
 						}
-						for (int num155 = 0; num155 < 50; num155++)
+						for (int num177 = 0; num177 < 50; num177++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 						}
@@ -33140,55 +35583,55 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num156 = 0;
-							while ((double)num156 < dmg / (double)this.lifeMax * 100.0)
+							int num178 = 0;
+							while ((double)num178 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-								num156++;
+								num178++;
 							}
 							return;
 						}
-						for (int num157 = 0; num157 < 50; num157++)
+						for (int num179 = 0; num179 < 50; num179++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 						}
-						int num158 = Gore.NewGore(this.position, this.velocity, this.type - 7 + 18, 1f);
-						Main.gore[num158].alpha = this.alpha;
+						int num180 = Gore.NewGore(this.position, this.velocity, this.type - 7 + 18, 1f);
+						Main.gore[num180].alpha = this.alpha;
 						return;
 					}
 					else if (this.type == 98 || this.type == 99 || this.type == 100)
 					{
 						if (this.life > 0)
 						{
-							int num159 = 0;
-							while ((double)num159 < dmg / (double)this.lifeMax * 100.0)
+							int num181 = 0;
+							while ((double)num181 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-								num159++;
+								num181++;
 							}
 							return;
 						}
-						for (int num160 = 0; num160 < 50; num160++)
+						for (int num182 = 0; num182 < 50; num182++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 						}
-						int num161 = Gore.NewGore(this.position, this.velocity, 110, 1f);
-						Main.gore[num161].alpha = this.alpha;
+						int num183 = Gore.NewGore(this.position, this.velocity, 110, 1f);
+						Main.gore[num183].alpha = this.alpha;
 						return;
 					}
 					else if (this.type == 10 || this.type == 11 || this.type == 12)
 					{
 						if (this.life > 0)
 						{
-							int num162 = 0;
-							while ((double)num162 < dmg / (double)this.lifeMax * 50.0)
+							int num184 = 0;
+							while ((double)num184 < dmg / (double)this.lifeMax * 50.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num162++;
+								num184++;
 							}
 							return;
 						}
-						for (int num163 = 0; num163 < 10; num163++)
+						for (int num185 = 0; num185 < 10; num185++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33199,15 +35642,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num164 = 0;
-							while ((double)num164 < dmg / (double)this.lifeMax * 50.0)
+							int num186 = 0;
+							while ((double)num186 < dmg / (double)this.lifeMax * 50.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num164++;
+								num186++;
 							}
 							return;
 						}
-						for (int num165 = 0; num165 < 10; num165++)
+						for (int num187 = 0; num187 < 10; num187++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33218,15 +35661,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num166 = 0;
-							while ((double)num166 < dmg / (double)this.lifeMax * 100.0)
+							int num188 = 0;
+							while ((double)num188 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-								num166++;
+								num188++;
 							}
 							return;
 						}
-						for (int num167 = 0; num167 < 50; num167++)
+						for (int num189 = 0; num189 < 50; num189++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 						}
@@ -33250,15 +35693,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num168 = 0;
-							while ((double)num168 < dmg / (double)this.lifeMax * 100.0)
+							int num190 = 0;
+							while ((double)num190 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num168++;
+								num190++;
 							}
 							return;
 						}
-						for (int num169 = 0; num169 < 50; num169++)
+						for (int num191 = 0; num191 < 50; num191++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33273,15 +35716,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num170 = 0;
-							while ((double)num170 < dmg / (double)this.lifeMax * 100.0)
+							int num192 = 0;
+							while ((double)num192 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num170++;
+								num192++;
 							}
 							return;
 						}
-						for (int num171 = 0; num171 < 50; num171++)
+						for (int num193 = 0; num193 < 50; num193++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33298,15 +35741,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num172 = 0;
-							while ((double)num172 < dmg / (double)this.lifeMax * 100.0)
+							int num194 = 0;
+							while ((double)num194 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num172++;
+								num194++;
 							}
 							return;
 						}
-						for (int num173 = 0; num173 < 50; num173++)
+						for (int num195 = 0; num195 < 50; num195++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33320,15 +35763,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num174 = 0;
-							while ((double)num174 < dmg / (double)this.lifeMax * 100.0)
+							int num196 = 0;
+							while ((double)num196 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num174++;
+								num196++;
 							}
 							return;
 						}
-						for (int num175 = 0; num175 < 50; num175++)
+						for (int num197 = 0; num197 < 50; num197++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33341,15 +35784,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num176 = 0;
-							while ((double)num176 < dmg / (double)this.lifeMax * 100.0)
+							int num198 = 0;
+							while ((double)num198 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num176++;
+								num198++;
 							}
 							return;
 						}
-						for (int num177 = 0; num177 < 50; num177++)
+						for (int num199 = 0; num199 < 50; num199++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 18, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33364,15 +35807,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num178 = 0;
-							while ((double)num178 < dmg / (double)this.lifeMax * 100.0)
+							int num200 = 0;
+							while ((double)num200 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num178++;
+								num200++;
 							}
 							return;
 						}
-						for (int num179 = 0; num179 < 50; num179++)
+						for (int num201 = 0; num201 < 50; num201++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 18, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33387,15 +35830,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num180 = 0;
-							while ((double)num180 < dmg / (double)this.lifeMax * 100.0)
+							int num202 = 0;
+							while ((double)num202 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num180++;
+								num202++;
 							}
 							return;
 						}
-						for (int num181 = 0; num181 < 50; num181++)
+						for (int num203 = 0; num203 < 50; num203++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33410,15 +35853,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num182 = 0;
-							while ((double)num182 < dmg / (double)this.lifeMax * 100.0)
+							int num204 = 0;
+							while ((double)num204 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num182++;
+								num204++;
 							}
 							return;
 						}
-						for (int num183 = 0; num183 < 50; num183++)
+						for (int num205 = 0; num205 < 50; num205++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 18, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33433,15 +35876,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num184 = 0;
-							while ((double)num184 < dmg / (double)this.lifeMax * 100.0)
+							int num206 = 0;
+							while ((double)num206 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num184++;
+								num206++;
 							}
 							return;
 						}
-						for (int num185 = 0; num185 < 50; num185++)
+						for (int num207 = 0; num207 < 50; num207++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33453,15 +35896,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num186 = 0;
-							while ((double)num186 < dmg / (double)this.lifeMax * 100.0)
+							int num208 = 0;
+							while ((double)num208 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num186++;
+								num208++;
 							}
 							return;
 						}
-						for (int num187 = 0; num187 < 50; num187++)
+						for (int num209 = 0; num209 < 50; num209++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33476,15 +35919,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num188 = 0;
-							while ((double)num188 < dmg / (double)this.lifeMax * 100.0)
+							int num210 = 0;
+							while ((double)num210 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num188++;
+								num210++;
 							}
 							return;
 						}
-						for (int num189 = 0; num189 < 50; num189++)
+						for (int num211 = 0; num211 < 50; num211++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33508,258 +35951,6 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num190 = 0;
-							while ((double)num190 < dmg / (double)this.lifeMax * 100.0)
-							{
-								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num190++;
-							}
-							return;
-						}
-						for (int num191 = 0; num191 < 50; num191++)
-						{
-							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 151, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 152, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 152, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 153, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 153, 1f);
-						return;
-					}
-					else if (this.type == 22)
-					{
-						if (this.life > 0)
-						{
-							int num192 = 0;
-							while ((double)num192 < dmg / (double)this.lifeMax * 100.0)
-							{
-								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num192++;
-							}
-							return;
-						}
-						for (int num193 = 0; num193 < 50; num193++)
-						{
-							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 73, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 74, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 74, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 75, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 75, 1f);
-						return;
-					}
-					else if (this.type == 227)
-					{
-						if (this.life > 0)
-						{
-							int num194 = 0;
-							while ((double)num194 < dmg / (double)this.lifeMax * 100.0)
-							{
-								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num194++;
-							}
-							return;
-						}
-						for (int num195 = 0; num195 < 50; num195++)
-						{
-							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 320, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 321, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 322, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 323, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 323, 1f);
-						return;
-					}
-					else if (this.type == 228)
-					{
-						if (this.life > 0)
-						{
-							int num196 = 0;
-							while ((double)num196 < dmg / (double)this.lifeMax * 100.0)
-							{
-								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num196++;
-							}
-							return;
-						}
-						for (int num197 = 0; num197 < 50; num197++)
-						{
-							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 324, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 325, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 326, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 327, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 327, 1f);
-						return;
-					}
-					else if (this.type == 229)
-					{
-						if (this.life > 0)
-						{
-							int num198 = 0;
-							while ((double)num198 < dmg / (double)this.lifeMax * 100.0)
-							{
-								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num198++;
-							}
-							return;
-						}
-						for (int num199 = 0; num199 < 50; num199++)
-						{
-							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 328, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 329, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 329, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 330, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 330, 1f);
-						return;
-					}
-					else if (this.type == 142)
-					{
-						if (this.life > 0)
-						{
-							int num200 = 0;
-							while ((double)num200 < dmg / (double)this.lifeMax * 100.0)
-							{
-								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num200++;
-							}
-							return;
-						}
-						for (int num201 = 0; num201 < 50; num201++)
-						{
-							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 157, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 158, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 158, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 159, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 159, 1f);
-						return;
-					}
-					else if (this.type == 178)
-					{
-						if (this.life > 0)
-						{
-							int num202 = 0;
-							while ((double)num202 < dmg / (double)this.lifeMax * 100.0)
-							{
-								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num202++;
-							}
-							return;
-						}
-						for (int num203 = 0; num203 < 50; num203++)
-						{
-							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 231, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 232, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 232, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 233, 1f);
-						return;
-					}
-					else if (this.type == 37 || this.type == 54)
-					{
-						if (this.life > 0)
-						{
-							int num204 = 0;
-							while ((double)num204 < dmg / (double)this.lifeMax * 100.0)
-							{
-								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num204++;
-							}
-							return;
-						}
-						for (int num205 = 0; num205 < 50; num205++)
-						{
-							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 58, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 59, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 59, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 60, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 60, 1f);
-						return;
-					}
-					else if (this.type == 160)
-					{
-						if (this.life > 0)
-						{
-							int num206 = 0;
-							while ((double)num206 < dmg / (double)this.lifeMax * 100.0)
-							{
-								Dust.NewDust(this.position, this.width, this.height, 26, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num206++;
-							}
-							return;
-						}
-						for (int num207 = 0; num207 < 50; num207++)
-						{
-							Dust.NewDust(this.position, this.width, this.height, 26, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 188, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 189, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 189, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 190, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 190, 1f);
-						return;
-					}
-					else if (this.type == 18)
-					{
-						if (this.life > 0)
-						{
-							int num208 = 0;
-							while ((double)num208 < dmg / (double)this.lifeMax * 100.0)
-							{
-								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num208++;
-							}
-							return;
-						}
-						for (int num209 = 0; num209 < 50; num209++)
-						{
-							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 33, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 34, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 34, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 35, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 35, 1f);
-						return;
-					}
-					else if (this.type == 19)
-					{
-						if (this.life > 0)
-						{
-							int num210 = 0;
-							while ((double)num210 < dmg / (double)this.lifeMax * 100.0)
-							{
-								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num210++;
-							}
-							return;
-						}
-						for (int num211 = 0; num211 < 50; num211++)
-						{
-							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 36, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 37, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 37, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 38, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 38, 1f);
-						return;
-					}
-					else if (this.type == 38)
-					{
-						if (this.life > 0)
-						{
 							int num212 = 0;
 							while ((double)num212 < dmg / (double)this.lifeMax * 100.0)
 							{
@@ -33772,14 +35963,14 @@ namespace Terraria
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
-						Gore.NewGore(this.position, this.velocity, 64, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 65, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 65, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 66, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 66, 1f);
+						Gore.NewGore(this.position, this.velocity, 151, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 152, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 152, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 153, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 153, 1f);
 						return;
 					}
-					else if (this.type == 20)
+					else if (this.type == 22)
 					{
 						if (this.life > 0)
 						{
@@ -33795,14 +35986,14 @@ namespace Terraria
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
-						Gore.NewGore(this.position, this.velocity, 39, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 40, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 40, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 41, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 41, 1f);
+						Gore.NewGore(this.position, this.velocity, 73, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 74, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 74, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 75, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 75, 1f);
 						return;
 					}
-					else if (this.type == 207)
+					else if (this.type == 227)
 					{
 						if (this.life > 0)
 						{
@@ -33818,14 +36009,14 @@ namespace Terraria
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
-						Gore.NewGore(this.position, this.velocity, 283, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 284, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 284, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 285, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 285, 1f);
+						Gore.NewGore(this.position, this.velocity, 320, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 321, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 322, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 323, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 323, 1f);
 						return;
 					}
-					else if (this.type == 208)
+					else if (this.type == 228)
 					{
 						if (this.life > 0)
 						{
@@ -33841,14 +36032,14 @@ namespace Terraria
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
-						Gore.NewGore(this.position, this.velocity, 286, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 287, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 287, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 288, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 288, 1f);
+						Gore.NewGore(this.position, this.velocity, 324, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 325, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 326, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 327, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 327, 1f);
 						return;
 					}
-					else if (this.type == 209)
+					else if (this.type == 229)
 					{
 						if (this.life > 0)
 						{
@@ -33864,14 +36055,14 @@ namespace Terraria
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
-						Gore.NewGore(this.position, this.velocity, 289, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 290, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 290, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 291, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 291, 1f);
+						Gore.NewGore(this.position, this.velocity, 328, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 329, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 329, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 330, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 330, 1f);
 						return;
 					}
-					else if (this.type >= 212 && this.type <= 216)
+					else if (this.type == 142)
 					{
 						if (this.life > 0)
 						{
@@ -33884,6 +36075,258 @@ namespace Terraria
 							return;
 						}
 						for (int num223 = 0; num223 < 50; num223++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 157, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 158, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 158, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 159, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 159, 1f);
+						return;
+					}
+					else if (this.type == 178)
+					{
+						if (this.life > 0)
+						{
+							int num224 = 0;
+							while ((double)num224 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num224++;
+							}
+							return;
+						}
+						for (int num225 = 0; num225 < 50; num225++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 231, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 232, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 232, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 233, 1f);
+						return;
+					}
+					else if (this.type == 37 || this.type == 54)
+					{
+						if (this.life > 0)
+						{
+							int num226 = 0;
+							while ((double)num226 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num226++;
+							}
+							return;
+						}
+						for (int num227 = 0; num227 < 50; num227++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 58, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 59, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 59, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 60, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 60, 1f);
+						return;
+					}
+					else if (this.type == 160)
+					{
+						if (this.life > 0)
+						{
+							int num228 = 0;
+							while ((double)num228 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 26, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num228++;
+							}
+							return;
+						}
+						for (int num229 = 0; num229 < 50; num229++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 26, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 188, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 189, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 189, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 190, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 190, 1f);
+						return;
+					}
+					else if (this.type == 18)
+					{
+						if (this.life > 0)
+						{
+							int num230 = 0;
+							while ((double)num230 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num230++;
+							}
+							return;
+						}
+						for (int num231 = 0; num231 < 50; num231++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 33, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 34, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 34, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 35, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 35, 1f);
+						return;
+					}
+					else if (this.type == 19)
+					{
+						if (this.life > 0)
+						{
+							int num232 = 0;
+							while ((double)num232 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num232++;
+							}
+							return;
+						}
+						for (int num233 = 0; num233 < 50; num233++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 36, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 37, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 37, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 38, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 38, 1f);
+						return;
+					}
+					else if (this.type == 38)
+					{
+						if (this.life > 0)
+						{
+							int num234 = 0;
+							while ((double)num234 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num234++;
+							}
+							return;
+						}
+						for (int num235 = 0; num235 < 50; num235++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 64, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 65, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 65, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 66, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 66, 1f);
+						return;
+					}
+					else if (this.type == 20)
+					{
+						if (this.life > 0)
+						{
+							int num236 = 0;
+							while ((double)num236 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num236++;
+							}
+							return;
+						}
+						for (int num237 = 0; num237 < 50; num237++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 39, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 40, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 40, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 41, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 41, 1f);
+						return;
+					}
+					else if (this.type == 207)
+					{
+						if (this.life > 0)
+						{
+							int num238 = 0;
+							while ((double)num238 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num238++;
+							}
+							return;
+						}
+						for (int num239 = 0; num239 < 50; num239++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 283, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 284, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 284, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 285, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 285, 1f);
+						return;
+					}
+					else if (this.type == 208)
+					{
+						if (this.life > 0)
+						{
+							int num240 = 0;
+							while ((double)num240 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num240++;
+							}
+							return;
+						}
+						for (int num241 = 0; num241 < 50; num241++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 286, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 287, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 287, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 288, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 288, 1f);
+						return;
+					}
+					else if (this.type == 209)
+					{
+						if (this.life > 0)
+						{
+							int num242 = 0;
+							while ((double)num242 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num242++;
+							}
+							return;
+						}
+						for (int num243 = 0; num243 < 50; num243++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
+						}
+						Gore.NewGore(this.position, this.velocity, 289, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 290, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 290, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 291, 1f);
+						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 291, 1f);
+						return;
+					}
+					else if (this.type >= 212 && this.type <= 216)
+					{
+						if (this.life > 0)
+						{
+							int num244 = 0;
+							while ((double)num244 < dmg / (double)this.lifeMax * 100.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
+								num244++;
+							}
+							return;
+						}
+						for (int num245 = 0; num245 < 50; num245++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -33937,15 +36380,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num224 = 0;
-							while ((double)num224 < dmg / (double)this.lifeMax * 50.0)
+							int num246 = 0;
+							while ((double)num246 < dmg / (double)this.lifeMax * 50.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 151, (float)hitDirection, -1f, 0, default(Color), 0.7f);
-								num224++;
+								num246++;
 							}
 							return;
 						}
-						for (int num225 = 0; num225 < 20; num225++)
+						for (int num247 = 0; num247 < 20; num247++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 151, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 0.7f);
 						}
@@ -33962,15 +36405,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num226 = 0;
-							while ((double)num226 < dmg / (double)this.lifeMax * 50.0)
+							int num248 = 0;
+							while ((double)num248 < dmg / (double)this.lifeMax * 50.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 26, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num226++;
+								num248++;
 							}
 							return;
 						}
-						for (int num227 = 0; num227 < 20; num227++)
+						for (int num249 = 0; num249 < 20; num249++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 26, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -34070,15 +36513,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num228 = 0;
-							while ((double)num228 < dmg / (double)this.lifeMax * 50.0)
+							int num250 = 0;
+							while ((double)num250 < dmg / (double)this.lifeMax * 50.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 26, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num228++;
+								num250++;
 							}
 							return;
 						}
-						for (int num229 = 0; num229 < 20; num229++)
+						for (int num251 = 0; num251 < 20; num251++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 26, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -34113,78 +36556,103 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num230 = 0;
-							while ((double)num230 < dmg / (double)this.lifeMax * 100.0)
+							int num252 = 0;
+							while ((double)num252 < dmg / (double)this.lifeMax * 100.0)
 							{
-								int num231 = Dust.NewDust(this.position, this.width, this.height, 174, (float)hitDirection, -1f, 0, default(Color), 1f);
-								Main.dust[num231].scale = 1.1f;
-								Main.dust[num231].noGravity = true;
-								num230++;
+								int num253 = Dust.NewDust(this.position, this.width, this.height, 174, (float)hitDirection, -1f, 0, default(Color), 1f);
+								Main.dust[num253].scale = 1.1f;
+								Main.dust[num253].noGravity = true;
+								num252++;
 							}
 							return;
 						}
-						for (int num232 = 0; num232 < 75; num232++)
+						for (int num254 = 0; num254 < 75; num254++)
 						{
-							int num233 = Dust.NewDust(this.position, this.width, this.height, 174, 1.5f * (float)hitDirection, -0.5f, 0, default(Color), 1f);
-							Main.dust[num233].velocity *= 2f;
-							Main.dust[num233].scale = 1.4f;
-							Main.dust[num233].noGravity = true;
+							int num255 = Dust.NewDust(this.position, this.width, this.height, 174, 1.5f * (float)hitDirection, -0.5f, 0, default(Color), 1f);
+							Main.dust[num255].velocity *= 2f;
+							Main.dust[num255].scale = 1.4f;
+							Main.dust[num255].noGravity = true;
 						}
+						return;
+					}
+					else if (this.type == 341)
+					{
+						int num256 = 196;
+						if (this.life > 0)
+						{
+							int num257 = 0;
+							while ((double)num257 < dmg / (double)this.lifeMax * 50.0)
+							{
+								Dust.NewDust(this.position, this.width, this.height, num256, 0f, 0f, 0, default(Color), 1f);
+								num257++;
+							}
+							return;
+						}
+						for (int num258 = 0; num258 < 20; num258++)
+						{
+							Dust.NewDust(this.position, this.width, this.height, num256, 0f, 0f, 0, default(Color), 1f);
+						}
+						int num259 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 61, this.scale);
+						Main.gore[num259].velocity *= 0.3f;
+						num259 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 62, this.scale);
+						Main.gore[num259].velocity *= 0.3f;
+						num259 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), new Vector2((float)hitDirection, 0f), 63, this.scale);
+						Main.gore[num259].velocity *= 0.3f;
 						return;
 					}
 					else if (this.type == 85)
 					{
-						int num234 = 7;
+						int num260 = 7;
 						if (this.ai[3] == 2f)
 						{
-							num234 = 10;
+							num260 = 10;
 						}
 						if (this.ai[3] == 3f)
 						{
-							num234 = 37;
+							num260 = 37;
 						}
 						if (this.life > 0)
 						{
-							int num235 = 0;
-							while ((double)num235 < dmg / (double)this.lifeMax * 50.0)
+							int num261 = 0;
+							while ((double)num261 < dmg / (double)this.lifeMax * 50.0)
 							{
-								Dust.NewDust(this.position, this.width, this.height, num234, 0f, 0f, 0, default(Color), 1f);
-								num235++;
+								Dust.NewDust(this.position, this.width, this.height, num260, 0f, 0f, 0, default(Color), 1f);
+								num261++;
 							}
 							return;
 						}
-						for (int num236 = 0; num236 < 20; num236++)
+						for (int num262 = 0; num262 < 20; num262++)
 						{
-							Dust.NewDust(this.position, this.width, this.height, num234, 0f, 0f, 0, default(Color), 1f);
+							Dust.NewDust(this.position, this.width, this.height, num260, 0f, 0f, 0, default(Color), 1f);
 						}
-						int num237 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 61, this.scale);
-						Main.gore[num237].velocity *= 0.3f;
-						num237 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 62, this.scale);
-						Main.gore[num237].velocity *= 0.3f;
-						num237 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), new Vector2((float)hitDirection, 0f), 63, this.scale);
-						Main.gore[num237].velocity *= 0.3f;
+						int num263 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 61, this.scale);
+						Main.gore[num263].velocity *= 0.3f;
+						num263 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 62, this.scale);
+						Main.gore[num263].velocity *= 0.3f;
+						num263 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), new Vector2((float)hitDirection, 0f), 63, this.scale);
+						Main.gore[num263].velocity *= 0.3f;
 						return;
 					}
 					else if (this.type == 169)
 					{
 						if (this.life > 0)
 						{
-							int num238 = 0;
-							while ((double)num238 < dmg / (double)this.lifeMax * 50.0)
+							int num264 = 0;
+							while ((double)num264 < dmg / (double)this.lifeMax * 50.0)
 							{
-								int num239 = Dust.NewDust(this.position, this.width, this.height, 92, 0f, 0f, 0, default(Color), 1.5f);
-								Main.dust[num239].velocity *= 1.5f;
-								Main.dust[num239].noGravity = true;
-								num238++;
+								int num265 = Dust.NewDust(this.position, this.width, this.height, 92, 0f, 0f, 0, default(Color), 1.5f);
+								Main.dust[num265].velocity *= 1.5f;
+								Main.dust[num265].noGravity = true;
+								num264++;
 							}
 							return;
 						}
-						for (int num240 = 0; num240 < 100; num240++)
+						for (int num266 = 0; num266 < 100; num266++)
 						{
-							int num241 = Dust.NewDust(this.position, this.width, this.height, 92, 0f, 0f, 0, default(Color), 1.5f);
-							Main.dust[num241].scale = 1.5f;
-							Main.dust[num241].velocity *= 2f;
-							Main.dust[num241].noGravity = true;
+							int num267 = Dust.NewDust(this.position, this.width, this.height, 92, 0f, 0f, 0, default(Color), 1.5f);
+							Main.dust[num267].scale = 1.5f;
+							Main.dust[num267].velocity *= 2f;
+							Main.dust[num267].noGravity = true;
 						}
 						return;
 					}
@@ -34192,26 +36660,26 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num242 = 0;
-							while ((double)num242 < dmg / (double)this.lifeMax * 50.0)
+							int num268 = 0;
+							while ((double)num268 < dmg / (double)this.lifeMax * 50.0)
 							{
-								int num243 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 0, default(Color), 1.5f);
-								Main.dust[num243].velocity *= 1.5f;
-								Main.dust[num243].noGravity = true;
-								num242++;
+								int num269 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 0, default(Color), 1.5f);
+								Main.dust[num269].velocity *= 1.5f;
+								Main.dust[num269].noGravity = true;
+								num268++;
 							}
 							return;
 						}
-						for (int num244 = 0; num244 < 10; num244++)
+						for (int num270 = 0; num270 < 10; num270++)
 						{
-							int num245 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 0, default(Color), 1.5f);
-							Main.dust[num245].velocity *= 2f;
-							Main.dust[num245].noGravity = true;
+							int num271 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 0, default(Color), 1.5f);
+							Main.dust[num271].velocity *= 2f;
+							Main.dust[num271].noGravity = true;
 						}
-						for (int num246 = 0; num246 < 4; num246++)
+						for (int num272 = 0; num272 < 4; num272++)
 						{
-							int num247 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-							Main.gore[num247].velocity *= 0.3f;
+							int num273 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+							Main.gore[num273].velocity *= 0.3f;
 						}
 						return;
 					}
@@ -34219,31 +36687,31 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num248 = 0;
-							while ((double)num248 < dmg / (double)this.lifeMax * 50.0)
+							int num274 = 0;
+							while ((double)num274 < dmg / (double)this.lifeMax * 50.0)
 							{
-								int num249 = Dust.NewDust(this.position, this.width, this.height, 16, 0f, 0f, 0, default(Color), 1.5f);
-								Main.dust[num249].velocity *= 1.5f;
-								Main.dust[num249].noGravity = true;
-								num248++;
+								int num275 = Dust.NewDust(this.position, this.width, this.height, 16, 0f, 0f, 0, default(Color), 1.5f);
+								Main.dust[num275].velocity *= 1.5f;
+								Main.dust[num275].noGravity = true;
+								num274++;
 							}
 							return;
 						}
-						for (int num250 = 0; num250 < 10; num250++)
+						for (int num276 = 0; num276 < 10; num276++)
 						{
-							int num251 = Dust.NewDust(this.position, this.width, this.height, 16, 0f, 0f, 0, default(Color), 1.5f);
-							Main.dust[num251].velocity *= 2f;
-							Main.dust[num251].noGravity = true;
+							int num277 = Dust.NewDust(this.position, this.width, this.height, 16, 0f, 0f, 0, default(Color), 1.5f);
+							Main.dust[num277].velocity *= 2f;
+							Main.dust[num277].noGravity = true;
 						}
-						for (int num252 = 0; num252 < 4; num252++)
+						for (int num278 = 0; num278 < 4; num278++)
 						{
-							int num253 = 11 + num252;
-							if (num253 > 13)
+							int num279 = 11 + num278;
+							if (num279 > 13)
 							{
-								num253 = Main.rand.Next(11, 14);
+								num279 = Main.rand.Next(11, 14);
 							}
-							int num254 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), num253, this.scale);
-							Main.gore[num254].velocity *= 0.3f;
+							int num280 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), num279, this.scale);
+							Main.gore[num280].velocity *= 0.3f;
 						}
 						return;
 					}
@@ -34251,18 +36719,18 @@ namespace Terraria
 					{
 						if (this.life <= 0)
 						{
-							for (int num255 = 0; num255 < 10; num255++)
+							for (int num281 = 0; num281 < 10; num281++)
 							{
-								int num256 = Dust.NewDust(this.position, this.width, this.height, 16, 0f, 0f, 0, default(Color), 1.5f);
-								Main.dust[num256].velocity *= 2f;
-								Main.dust[num256].noGravity = true;
+								int num282 = Dust.NewDust(this.position, this.width, this.height, 16, 0f, 0f, 0, default(Color), 1.5f);
+								Main.dust[num282].velocity *= 2f;
+								Main.dust[num282].noGravity = true;
 							}
-							int num257 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(11, 14), this.scale);
-							Main.gore[num257].velocity *= 0.5f;
-							num257 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), default(Vector2), Main.rand.Next(11, 14), this.scale);
-							Main.gore[num257].velocity *= 0.5f;
-							num257 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + 40f), default(Vector2), Main.rand.Next(11, 14), this.scale);
-							Main.gore[num257].velocity *= 0.5f;
+							int num283 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(11, 14), this.scale);
+							Main.gore[num283].velocity *= 0.5f;
+							num283 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), default(Vector2), Main.rand.Next(11, 14), this.scale);
+							Main.gore[num283].velocity *= 0.5f;
+							num283 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + 40f), default(Vector2), Main.rand.Next(11, 14), this.scale);
+							Main.gore[num283].velocity *= 0.5f;
 							return;
 						}
 					}
@@ -34270,27 +36738,27 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num258 = 0;
-							while ((double)num258 < dmg / (double)this.lifeMax * 50.0)
+							int num284 = 0;
+							while ((double)num284 < dmg / (double)this.lifeMax * 50.0)
 							{
-								int num259 = Dust.NewDust(this.position, this.width, this.height, 16, 0f, 0f, 0, default(Color), 1.5f);
-								Main.dust[num259].velocity *= 1.5f;
-								Main.dust[num259].noGravity = true;
-								num258++;
+								int num285 = Dust.NewDust(this.position, this.width, this.height, 16, 0f, 0f, 0, default(Color), 1.5f);
+								Main.dust[num285].velocity *= 1.5f;
+								Main.dust[num285].noGravity = true;
+								num284++;
 							}
 							return;
 						}
-						for (int num260 = 0; num260 < 10; num260++)
+						for (int num286 = 0; num286 < 10; num286++)
 						{
-							int num261 = Dust.NewDust(this.position, this.width, this.height, 16, 0f, 0f, 0, default(Color), 1.5f);
-							Main.dust[num261].velocity *= 2f;
-							Main.dust[num261].noGravity = true;
+							int num287 = Dust.NewDust(this.position, this.width, this.height, 16, 0f, 0f, 0, default(Color), 1.5f);
+							Main.dust[num287].velocity *= 2f;
+							Main.dust[num287].noGravity = true;
 						}
-						int num262 = Main.rand.Next(1, 4);
-						for (int num263 = 0; num263 < num262; num263++)
+						int num288 = Main.rand.Next(1, 4);
+						for (int num289 = 0; num289 < num288; num289++)
 						{
-							int num264 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), Main.rand.Next(11, 14), this.scale);
-							Main.gore[num264].velocity *= 0.8f;
+							int num290 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), Main.rand.Next(11, 14), this.scale);
+							Main.gore[num290].velocity *= 0.8f;
 						}
 						return;
 					}
@@ -34298,75 +36766,75 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num265 = 0;
-							while ((double)num265 < dmg / (double)this.lifeMax * 50.0)
+							int num291 = 0;
+							while ((double)num291 < dmg / (double)this.lifeMax * 50.0)
 							{
-								int num266 = Dust.NewDust(this.position, this.width, this.height, 31, 0f, 0f, 0, default(Color), 1.5f);
-								Main.dust[num266].velocity *= 2f;
-								Main.dust[num266].noGravity = true;
-								num265++;
+								int num292 = Dust.NewDust(this.position, this.width, this.height, 31, 0f, 0f, 0, default(Color), 1.5f);
+								Main.dust[num292].velocity *= 2f;
+								Main.dust[num292].noGravity = true;
+								num291++;
 							}
 							return;
 						}
-						for (int num267 = 0; num267 < 20; num267++)
+						for (int num293 = 0; num293 < 20; num293++)
 						{
-							int num268 = Dust.NewDust(this.position, this.width, this.height, 31, 0f, 0f, 0, default(Color), 1.5f);
-							Main.dust[num268].velocity *= 2f;
-							Main.dust[num268].noGravity = true;
+							int num294 = Dust.NewDust(this.position, this.width, this.height, 31, 0f, 0f, 0, default(Color), 1.5f);
+							Main.dust[num294].velocity *= 2f;
+							Main.dust[num294].noGravity = true;
 						}
-						int num269 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 61, this.scale);
-						Main.gore[num269].velocity *= 0.3f;
-						num269 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 62, this.scale);
-						Main.gore[num269].velocity *= 0.3f;
-						num269 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), new Vector2((float)hitDirection, 0f), 63, this.scale);
-						Main.gore[num269].velocity *= 0.3f;
+						int num295 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 61, this.scale);
+						Main.gore[num295].velocity *= 0.3f;
+						num295 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 62, this.scale);
+						Main.gore[num295].velocity *= 0.3f;
+						num295 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), new Vector2((float)hitDirection, 0f), 63, this.scale);
+						Main.gore[num295].velocity *= 0.3f;
 						return;
 					}
 					else if (this.type == 82 || this.type == 158 || this.type == 159 || this.type == 250 || this.type == 253)
 					{
 						if (this.life > 0)
 						{
-							int num270 = 0;
-							while ((double)num270 < dmg / (double)this.lifeMax * 50.0)
+							int num296 = 0;
+							while ((double)num296 < dmg / (double)this.lifeMax * 50.0)
 							{
-								int num271 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 50, default(Color), 1.5f);
-								Main.dust[num271].velocity *= 2f;
-								Main.dust[num271].noGravity = true;
-								num270++;
+								int num297 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 50, default(Color), 1.5f);
+								Main.dust[num297].velocity *= 2f;
+								Main.dust[num297].noGravity = true;
+								num296++;
 							}
 							return;
 						}
-						for (int num272 = 0; num272 < 20; num272++)
+						for (int num298 = 0; num298 < 20; num298++)
 						{
-							int num273 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 50, default(Color), 1.5f);
-							Main.dust[num273].velocity *= 2f;
-							Main.dust[num273].noGravity = true;
+							int num299 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 50, default(Color), 1.5f);
+							Main.dust[num299].velocity *= 2f;
+							Main.dust[num299].noGravity = true;
 						}
-						int num274 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-						Main.gore[num274].velocity *= 0.3f;
-						num274 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-						Main.gore[num274].velocity *= 0.3f;
-						num274 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-						Main.gore[num274].velocity *= 0.3f;
+						int num300 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+						Main.gore[num300].velocity *= 0.3f;
+						num300 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+						Main.gore[num300].velocity *= 0.3f;
+						num300 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+						Main.gore[num300].velocity *= 0.3f;
 						return;
 					}
 					else if (this.type == 316 || this.type == 330)
 					{
 						if (this.life > 0)
 						{
-							int num275 = 0;
-							while ((double)num275 < dmg / (double)this.lifeMax * 100.0)
+							int num301 = 0;
+							while ((double)num301 < dmg / (double)this.lifeMax * 100.0)
 							{
-								int num276 = Dust.NewDust(this.position, this.width, this.height, 192, (float)hitDirection, -1f, 100, new Color(100, 100, 100, 100), 1f);
-								Main.dust[num276].noGravity = true;
-								num275++;
+								int num302 = Dust.NewDust(this.position, this.width, this.height, 192, (float)hitDirection, -1f, 100, new Color(100, 100, 100, 100), 1f);
+								Main.dust[num302].noGravity = true;
+								num301++;
 							}
 							return;
 						}
-						for (int num277 = 0; num277 < 50; num277++)
+						for (int num303 = 0; num303 < 50; num303++)
 						{
-							int num278 = Dust.NewDust(this.position, this.width, this.height, 192, (float)(2 * hitDirection), -2f, 100, new Color(100, 100, 100, 100), 1f);
-							Main.dust[num278].noGravity = true;
+							int num304 = Dust.NewDust(this.position, this.width, this.height, 192, (float)(2 * hitDirection), -2f, 100, new Color(100, 100, 100, 100), 1f);
+							Main.dust[num304].noGravity = true;
 						}
 						return;
 					}
@@ -34374,60 +36842,60 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num279 = 0;
-							while ((double)num279 < dmg / (double)this.lifeMax * 50.0)
+							int num305 = 0;
+							while ((double)num305 < dmg / (double)this.lifeMax * 50.0)
 							{
-								int num280 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 50, default(Color), 1.5f);
-								Main.dust[num280].velocity *= 2f;
-								Main.dust[num280].noGravity = true;
-								num279++;
+								int num306 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 50, default(Color), 1.5f);
+								Main.dust[num306].velocity *= 2f;
+								Main.dust[num306].noGravity = true;
+								num305++;
 							}
 							return;
 						}
-						for (int num281 = 0; num281 < 20; num281++)
+						for (int num307 = 0; num307 < 20; num307++)
 						{
-							int num282 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 50, default(Color), 1.5f);
-							Main.dust[num282].velocity *= 2f;
-							Main.dust[num282].noGravity = true;
+							int num308 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 50, default(Color), 1.5f);
+							Main.dust[num308].velocity *= 2f;
+							Main.dust[num308].noGravity = true;
 						}
-						int num283 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-						Main.gore[num283].velocity *= 0.3f;
-						num283 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-						Main.gore[num283].velocity *= 0.3f;
-						num283 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-						Main.gore[num283].velocity *= 0.3f;
-						num283 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), new Vector2((float)hitDirection, 0f), 446, this.scale);
-						Main.gore[num283].velocity *= 0.1f;
+						int num309 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+						Main.gore[num309].velocity *= 0.3f;
+						num309 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+						Main.gore[num309].velocity *= 0.3f;
+						num309 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+						Main.gore[num309].velocity *= 0.3f;
+						num309 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), new Vector2((float)hitDirection, 0f), 446, this.scale);
+						Main.gore[num309].velocity *= 0.1f;
 						return;
 					}
 					else if (this.type == 254 || this.type == 255 || this.type == 256 || this.type == 257 || this.type == 258 || this.type == 259 || this.type == 260 || this.type == 261)
 					{
 						if (this.life > 0)
 						{
-							int num284 = 0;
-							while ((double)num284 < dmg / (double)this.lifeMax * 50.0)
+							int num310 = 0;
+							while ((double)num310 < dmg / (double)this.lifeMax * 50.0)
 							{
-								int num285 = Dust.NewDust(this.position, this.width, this.height, 165, 0f, 0f, 50, default(Color), 1.5f);
-								Main.dust[num285].velocity *= 2f;
-								Main.dust[num285].noGravity = true;
-								num284++;
+								int num311 = Dust.NewDust(this.position, this.width, this.height, 165, 0f, 0f, 50, default(Color), 1.5f);
+								Main.dust[num311].velocity *= 2f;
+								Main.dust[num311].noGravity = true;
+								num310++;
 							}
 							return;
 						}
-						for (int num286 = 0; num286 < 20; num286++)
+						for (int num312 = 0; num312 < 20; num312++)
 						{
-							int num287 = Dust.NewDust(this.position, this.width, this.height, 165, 0f, 0f, 50, default(Color), 1.5f);
-							Main.dust[num287].velocity *= 2f;
-							Main.dust[num287].noGravity = true;
+							int num313 = Dust.NewDust(this.position, this.width, this.height, 165, 0f, 0f, 50, default(Color), 1.5f);
+							Main.dust[num313].velocity *= 2f;
+							Main.dust[num313].noGravity = true;
 						}
 						if (this.type != 261)
 						{
-							int num288 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 375, this.scale);
-							Main.gore[num288].velocity *= 0.3f;
-							num288 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 376, this.scale);
-							Main.gore[num288].velocity *= 0.3f;
-							num288 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 377, this.scale);
-							Main.gore[num288].velocity *= 0.3f;
+							int num314 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 375, this.scale);
+							Main.gore[num314].velocity *= 0.3f;
+							num314 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 376, this.scale);
+							Main.gore[num314].velocity *= 0.3f;
+							num314 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 377, this.scale);
+							Main.gore[num314].velocity *= 0.3f;
 							return;
 						}
 					}
@@ -34435,18 +36903,18 @@ namespace Terraria
 					{
 						if (this.life <= 0)
 						{
-							for (int num289 = 0; num289 < 20; num289++)
+							for (int num315 = 0; num315 < 20; num315++)
 							{
-								int num290 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 50, default(Color), 1.5f);
-								Main.dust[num290].velocity *= 2f;
-								Main.dust[num290].noGravity = true;
+								int num316 = Dust.NewDust(this.position, this.width, this.height, 54, 0f, 0f, 50, default(Color), 1.5f);
+								Main.dust[num316].velocity *= 2f;
+								Main.dust[num316].noGravity = true;
 							}
-							int num291 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-							Main.gore[num291].velocity *= 0.3f;
-							num291 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-							Main.gore[num291].velocity *= 0.3f;
-							num291 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-							Main.gore[num291].velocity *= 0.3f;
+							int num317 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+							Main.gore[num317].velocity *= 0.3f;
+							num317 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+							Main.gore[num317].velocity *= 0.3f;
+							num317 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
+							Main.gore[num317].velocity *= 0.3f;
 							return;
 						}
 					}
@@ -34454,15 +36922,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num292 = 0;
-							while ((double)num292 < dmg / (double)this.lifeMax * 50.0)
+							int num318 = 0;
+							while ((double)num318 < dmg / (double)this.lifeMax * 50.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 26, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num292++;
+								num318++;
 							}
 							return;
 						}
-						for (int num293 = 0; num293 < 20; num293++)
+						for (int num319 = 0; num319 < 20; num319++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 26, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -34473,29 +36941,29 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num294 = 0;
-							while ((double)num294 < dmg / (double)this.lifeMax * 30.0)
+							int num320 = 0;
+							while ((double)num320 < dmg / (double)this.lifeMax * 30.0)
 							{
-								int num295 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 15, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1.8f);
-								Main.dust[num295].noLight = true;
-								Main.dust[num295].noGravity = true;
-								Main.dust[num295].velocity *= 1.3f;
-								num295 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 26, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 0, default(Color), 0.9f);
-								Main.dust[num295].noLight = true;
-								Main.dust[num295].velocity *= 1.3f;
-								num294++;
+								int num321 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 15, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1.8f);
+								Main.dust[num321].noLight = true;
+								Main.dust[num321].noGravity = true;
+								Main.dust[num321].velocity *= 1.3f;
+								num321 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 26, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 0, default(Color), 0.9f);
+								Main.dust[num321].noLight = true;
+								Main.dust[num321].velocity *= 1.3f;
+								num320++;
 							}
 							return;
 						}
-						for (int num296 = 0; num296 < 15; num296++)
+						for (int num322 = 0; num322 < 15; num322++)
 						{
-							int num297 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 15, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1.8f);
-							Main.dust[num297].noLight = true;
-							Main.dust[num297].noGravity = true;
-							Main.dust[num297].velocity *= 1.3f;
-							num297 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 26, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 0, default(Color), 0.9f);
-							Main.dust[num297].noLight = true;
-							Main.dust[num297].velocity *= 1.3f;
+							int num323 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 15, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1.8f);
+							Main.dust[num323].noLight = true;
+							Main.dust[num323].noGravity = true;
+							Main.dust[num323].velocity *= 1.3f;
+							num323 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 26, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 0, default(Color), 0.9f);
+							Main.dust[num323].noLight = true;
+							Main.dust[num323].velocity *= 1.3f;
 						}
 						return;
 					}
@@ -34503,23 +36971,23 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num298 = 0;
-							while ((double)num298 < dmg / (double)this.lifeMax * 30.0)
+							int num324 = 0;
+							while ((double)num324 < dmg / (double)this.lifeMax * 30.0)
 							{
-								int num299 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 181, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1.8f);
-								Main.dust[num299].noLight = true;
-								Main.dust[num299].noGravity = true;
-								Main.dust[num299].velocity *= 1.3f;
-								num298++;
+								int num325 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 181, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1.8f);
+								Main.dust[num325].noLight = true;
+								Main.dust[num325].noGravity = true;
+								Main.dust[num325].velocity *= 1.3f;
+								num324++;
 							}
 							return;
 						}
-						for (int num300 = 0; num300 < 50; num300++)
+						for (int num326 = 0; num326 < 50; num326++)
 						{
-							int num301 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 181, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1.8f);
-							Main.dust[num301].noLight = true;
-							Main.dust[num301].noGravity = true;
-							Main.dust[num301].velocity *= 1.3f;
+							int num327 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 181, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1.8f);
+							Main.dust[num327].noLight = true;
+							Main.dust[num327].noGravity = true;
+							Main.dust[num327].velocity *= 1.3f;
 						}
 						return;
 					}
@@ -34527,15 +36995,15 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num302 = 0;
-							while ((double)num302 < dmg / (double)this.lifeMax * 100.0)
+							int num328 = 0;
+							while ((double)num328 < dmg / (double)this.lifeMax * 100.0)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 26, (float)hitDirection, -1f, 0, default(Color), 1f);
-								num302++;
+								num328++;
 							}
 							return;
 						}
-						for (int num303 = 0; num303 < 150; num303++)
+						for (int num329 = 0; num329 < 150; num329++)
 						{
 							Dust.NewDust(this.position, this.width, this.height, 26, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 						}
@@ -34555,43 +37023,43 @@ namespace Terraria
 					{
 						if (this.life <= 0)
 						{
-							for (int num304 = 0; num304 < 10; num304++)
+							for (int num330 = 0; num330 < 10; num330++)
 							{
-								int num305 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
-								Main.dust[num305].velocity *= 1.4f;
+								int num331 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
+								Main.dust[num331].velocity *= 1.4f;
 							}
-							for (int num306 = 0; num306 < 5; num306++)
+							for (int num332 = 0; num332 < 5; num332++)
 							{
-								int num307 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 2.5f);
-								Main.dust[num307].noGravity = true;
-								Main.dust[num307].velocity *= 5f;
-								num307 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
-								Main.dust[num307].velocity *= 3f;
+								int num333 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 2.5f);
+								Main.dust[num333].noGravity = true;
+								Main.dust[num333].velocity *= 5f;
+								num333 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+								Main.dust[num333].velocity *= 3f;
 							}
-							int num308 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num308].velocity *= 0.4f;
-							Gore expr_DB46_cp_0 = Main.gore[num308];
-							expr_DB46_cp_0.velocity.X = expr_DB46_cp_0.velocity.X + 1f;
-							Gore expr_DB66_cp_0 = Main.gore[num308];
-							expr_DB66_cp_0.velocity.Y = expr_DB66_cp_0.velocity.Y + 1f;
-							num308 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num308].velocity *= 0.4f;
-							Gore expr_DBEA_cp_0 = Main.gore[num308];
-							expr_DBEA_cp_0.velocity.X = expr_DBEA_cp_0.velocity.X - 1f;
-							Gore expr_DC0A_cp_0 = Main.gore[num308];
-							expr_DC0A_cp_0.velocity.Y = expr_DC0A_cp_0.velocity.Y + 1f;
-							num308 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num308].velocity *= 0.4f;
-							Gore expr_DC8E_cp_0 = Main.gore[num308];
-							expr_DC8E_cp_0.velocity.X = expr_DC8E_cp_0.velocity.X + 1f;
-							Gore expr_DCAE_cp_0 = Main.gore[num308];
-							expr_DCAE_cp_0.velocity.Y = expr_DCAE_cp_0.velocity.Y - 1f;
-							num308 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num308].velocity *= 0.4f;
-							Gore expr_DD32_cp_0 = Main.gore[num308];
-							expr_DD32_cp_0.velocity.X = expr_DD32_cp_0.velocity.X - 1f;
-							Gore expr_DD52_cp_0 = Main.gore[num308];
-							expr_DD52_cp_0.velocity.Y = expr_DD52_cp_0.velocity.Y - 1f;
+							int num334 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num334].velocity *= 0.4f;
+							Gore expr_EE41_cp_0 = Main.gore[num334];
+							expr_EE41_cp_0.velocity.X = expr_EE41_cp_0.velocity.X + 1f;
+							Gore expr_EE61_cp_0 = Main.gore[num334];
+							expr_EE61_cp_0.velocity.Y = expr_EE61_cp_0.velocity.Y + 1f;
+							num334 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num334].velocity *= 0.4f;
+							Gore expr_EEE5_cp_0 = Main.gore[num334];
+							expr_EEE5_cp_0.velocity.X = expr_EEE5_cp_0.velocity.X - 1f;
+							Gore expr_EF05_cp_0 = Main.gore[num334];
+							expr_EF05_cp_0.velocity.Y = expr_EF05_cp_0.velocity.Y + 1f;
+							num334 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num334].velocity *= 0.4f;
+							Gore expr_EF89_cp_0 = Main.gore[num334];
+							expr_EF89_cp_0.velocity.X = expr_EF89_cp_0.velocity.X + 1f;
+							Gore expr_EFA9_cp_0 = Main.gore[num334];
+							expr_EFA9_cp_0.velocity.Y = expr_EFA9_cp_0.velocity.Y - 1f;
+							num334 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num334].velocity *= 0.4f;
+							Gore expr_F02D_cp_0 = Main.gore[num334];
+							expr_F02D_cp_0.velocity.X = expr_F02D_cp_0.velocity.X - 1f;
+							Gore expr_F04D_cp_0 = Main.gore[num334];
+							expr_F04D_cp_0.velocity.Y = expr_F04D_cp_0.velocity.Y - 1f;
 							return;
 						}
 					}
@@ -34600,10 +37068,10 @@ namespace Terraria
 						if (this.type == 135 && this.life > 0 && Main.netMode != 1 && this.ai[2] == 0f && Main.rand.Next(25) == 0)
 						{
 							this.ai[2] = 1f;
-							int num309 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 139, 0);
-							if (Main.netMode == 2 && num309 < 200)
+							int num335 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 139, 0);
+							if (Main.netMode == 2 && num335 < 200)
 							{
-								NetMessage.SendData(23, -1, -1, "", num309, 0f, 0f, 0f, 0);
+								NetMessage.SendData(23, -1, -1, "", num335, 0f, 0f, 0f, 0);
 							}
 							this.netUpdate = true;
 						}
@@ -34612,45 +37080,131 @@ namespace Terraria
 							Gore.NewGore(this.position, this.velocity, 156, 1f);
 							if (Main.rand.Next(2) == 0)
 							{
-								for (int num310 = 0; num310 < 10; num310++)
+								for (int num336 = 0; num336 < 10; num336++)
 								{
-									int num311 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
-									Main.dust[num311].velocity *= 1.4f;
+									int num337 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
+									Main.dust[num337].velocity *= 1.4f;
 								}
-								for (int num312 = 0; num312 < 5; num312++)
+								for (int num338 = 0; num338 < 5; num338++)
 								{
-									int num313 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 2.5f);
-									Main.dust[num313].noGravity = true;
-									Main.dust[num313].velocity *= 5f;
-									num313 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
-									Main.dust[num313].velocity *= 3f;
+									int num339 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 2.5f);
+									Main.dust[num339].noGravity = true;
+									Main.dust[num339].velocity *= 5f;
+									num339 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+									Main.dust[num339].velocity *= 3f;
 								}
-								int num314 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-								Main.gore[num314].velocity *= 0.4f;
-								Gore expr_E093_cp_0 = Main.gore[num314];
-								expr_E093_cp_0.velocity.X = expr_E093_cp_0.velocity.X + 1f;
-								Gore expr_E0B3_cp_0 = Main.gore[num314];
-								expr_E0B3_cp_0.velocity.Y = expr_E0B3_cp_0.velocity.Y + 1f;
-								num314 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-								Main.gore[num314].velocity *= 0.4f;
-								Gore expr_E137_cp_0 = Main.gore[num314];
-								expr_E137_cp_0.velocity.X = expr_E137_cp_0.velocity.X - 1f;
-								Gore expr_E157_cp_0 = Main.gore[num314];
-								expr_E157_cp_0.velocity.Y = expr_E157_cp_0.velocity.Y + 1f;
-								num314 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-								Main.gore[num314].velocity *= 0.4f;
-								Gore expr_E1DB_cp_0 = Main.gore[num314];
-								expr_E1DB_cp_0.velocity.X = expr_E1DB_cp_0.velocity.X + 1f;
-								Gore expr_E1FB_cp_0 = Main.gore[num314];
-								expr_E1FB_cp_0.velocity.Y = expr_E1FB_cp_0.velocity.Y - 1f;
-								num314 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-								Main.gore[num314].velocity *= 0.4f;
-								Gore expr_E27F_cp_0 = Main.gore[num314];
-								expr_E27F_cp_0.velocity.X = expr_E27F_cp_0.velocity.X - 1f;
-								Gore expr_E29F_cp_0 = Main.gore[num314];
-								expr_E29F_cp_0.velocity.Y = expr_E29F_cp_0.velocity.Y - 1f;
+								int num340 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+								Main.gore[num340].velocity *= 0.4f;
+								Gore expr_F38E_cp_0 = Main.gore[num340];
+								expr_F38E_cp_0.velocity.X = expr_F38E_cp_0.velocity.X + 1f;
+								Gore expr_F3AE_cp_0 = Main.gore[num340];
+								expr_F3AE_cp_0.velocity.Y = expr_F3AE_cp_0.velocity.Y + 1f;
+								num340 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+								Main.gore[num340].velocity *= 0.4f;
+								Gore expr_F432_cp_0 = Main.gore[num340];
+								expr_F432_cp_0.velocity.X = expr_F432_cp_0.velocity.X - 1f;
+								Gore expr_F452_cp_0 = Main.gore[num340];
+								expr_F452_cp_0.velocity.Y = expr_F452_cp_0.velocity.Y + 1f;
+								num340 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+								Main.gore[num340].velocity *= 0.4f;
+								Gore expr_F4D6_cp_0 = Main.gore[num340];
+								expr_F4D6_cp_0.velocity.X = expr_F4D6_cp_0.velocity.X + 1f;
+								Gore expr_F4F6_cp_0 = Main.gore[num340];
+								expr_F4F6_cp_0.velocity.Y = expr_F4F6_cp_0.velocity.Y - 1f;
+								num340 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+								Main.gore[num340].velocity *= 0.4f;
+								Gore expr_F57A_cp_0 = Main.gore[num340];
+								expr_F57A_cp_0.velocity.X = expr_F57A_cp_0.velocity.X - 1f;
+								Gore expr_F59A_cp_0 = Main.gore[num340];
+								expr_F59A_cp_0.velocity.Y = expr_F59A_cp_0.velocity.Y - 1f;
 								return;
 							}
+						}
+					}
+					else if (this.type == 347)
+					{
+						if (this.life <= 0)
+						{
+							Gore.NewGore(this.position, this.velocity, 524, 1f);
+							Gore.NewGore(this.position, this.velocity, 525, 1f);
+							Gore.NewGore(this.position, this.velocity, 526, 1f);
+							Gore.NewGore(this.position, this.velocity, 527, 1f);
+							for (int num341 = 0; num341 < 7; num341++)
+							{
+								int num342 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
+								Main.dust[num342].velocity *= 1.4f;
+							}
+							for (int num343 = 0; num343 < 4; num343++)
+							{
+								int num344 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 2.5f);
+								Main.dust[num344].noGravity = true;
+								Main.dust[num344].velocity *= 5f;
+								num344 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+								Main.dust[num344].velocity *= 3f;
+							}
+							int num345 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num345].velocity *= 0.4f;
+							Gore expr_F842_cp_0 = Main.gore[num345];
+							expr_F842_cp_0.velocity.X = expr_F842_cp_0.velocity.X + 1f;
+							Gore expr_F862_cp_0 = Main.gore[num345];
+							expr_F862_cp_0.velocity.Y = expr_F862_cp_0.velocity.Y + 1f;
+							num345 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num345].velocity *= 0.4f;
+							Gore expr_F8E6_cp_0 = Main.gore[num345];
+							expr_F8E6_cp_0.velocity.X = expr_F8E6_cp_0.velocity.X - 1f;
+							Gore expr_F906_cp_0 = Main.gore[num345];
+							expr_F906_cp_0.velocity.Y = expr_F906_cp_0.velocity.Y - 1f;
+							return;
+						}
+					}
+					else if (this.type == 346)
+					{
+						if (this.life <= 0)
+						{
+							Gore.NewGore(this.position, this.velocity, 518, 1f);
+							Gore.NewGore(this.position, this.velocity, 519, 1f);
+							Gore.NewGore(this.position, this.velocity, 520, 1f);
+							Gore.NewGore(this.position, this.velocity, 521, 1f);
+							Gore.NewGore(this.position, this.velocity, 522, 1f);
+							Gore.NewGore(this.position, this.velocity, 523, 1f);
+							for (int num346 = 0; num346 < 10; num346++)
+							{
+								int num347 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
+								Main.dust[num347].velocity *= 1.4f;
+							}
+							for (int num348 = 0; num348 < 5; num348++)
+							{
+								int num349 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 2.5f);
+								Main.dust[num349].noGravity = true;
+								Main.dust[num349].velocity *= 5f;
+								num349 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+								Main.dust[num349].velocity *= 3f;
+							}
+							int num350 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num350].velocity *= 0.4f;
+							Gore expr_FBE7_cp_0 = Main.gore[num350];
+							expr_FBE7_cp_0.velocity.X = expr_FBE7_cp_0.velocity.X + 1f;
+							Gore expr_FC07_cp_0 = Main.gore[num350];
+							expr_FC07_cp_0.velocity.Y = expr_FC07_cp_0.velocity.Y + 1f;
+							num350 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num350].velocity *= 0.4f;
+							Gore expr_FC8B_cp_0 = Main.gore[num350];
+							expr_FC8B_cp_0.velocity.X = expr_FC8B_cp_0.velocity.X - 1f;
+							Gore expr_FCAB_cp_0 = Main.gore[num350];
+							expr_FCAB_cp_0.velocity.Y = expr_FCAB_cp_0.velocity.Y + 1f;
+							num350 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num350].velocity *= 0.4f;
+							Gore expr_FD2F_cp_0 = Main.gore[num350];
+							expr_FD2F_cp_0.velocity.X = expr_FD2F_cp_0.velocity.X + 1f;
+							Gore expr_FD4F_cp_0 = Main.gore[num350];
+							expr_FD4F_cp_0.velocity.Y = expr_FD4F_cp_0.velocity.Y - 1f;
+							num350 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num350].velocity *= 0.4f;
+							Gore expr_FDD3_cp_0 = Main.gore[num350];
+							expr_FDD3_cp_0.velocity.X = expr_FDD3_cp_0.velocity.X - 1f;
+							Gore expr_FDF3_cp_0 = Main.gore[num350];
+							expr_FDF3_cp_0.velocity.Y = expr_FDF3_cp_0.velocity.Y - 1f;
+							return;
 						}
 					}
 					else if (this.type == 127)
@@ -34659,43 +37213,43 @@ namespace Terraria
 						{
 							Gore.NewGore(this.position, this.velocity, 149, 1f);
 							Gore.NewGore(this.position, this.velocity, 150, 1f);
-							for (int num315 = 0; num315 < 10; num315++)
+							for (int num351 = 0; num351 < 10; num351++)
 							{
-								int num316 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
-								Main.dust[num316].velocity *= 1.4f;
+								int num352 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
+								Main.dust[num352].velocity *= 1.4f;
 							}
-							for (int num317 = 0; num317 < 5; num317++)
+							for (int num353 = 0; num353 < 5; num353++)
 							{
-								int num318 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 2.5f);
-								Main.dust[num318].noGravity = true;
-								Main.dust[num318].velocity *= 5f;
-								num318 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
-								Main.dust[num318].velocity *= 3f;
+								int num354 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 2.5f);
+								Main.dust[num354].noGravity = true;
+								Main.dust[num354].velocity *= 5f;
+								num354 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+								Main.dust[num354].velocity *= 3f;
 							}
-							int num319 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num319].velocity *= 0.4f;
-							Gore expr_E50D_cp_0 = Main.gore[num319];
-							expr_E50D_cp_0.velocity.X = expr_E50D_cp_0.velocity.X + 1f;
-							Gore expr_E52D_cp_0 = Main.gore[num319];
-							expr_E52D_cp_0.velocity.Y = expr_E52D_cp_0.velocity.Y + 1f;
-							num319 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num319].velocity *= 0.4f;
-							Gore expr_E5B1_cp_0 = Main.gore[num319];
-							expr_E5B1_cp_0.velocity.X = expr_E5B1_cp_0.velocity.X - 1f;
-							Gore expr_E5D1_cp_0 = Main.gore[num319];
-							expr_E5D1_cp_0.velocity.Y = expr_E5D1_cp_0.velocity.Y + 1f;
-							num319 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num319].velocity *= 0.4f;
-							Gore expr_E655_cp_0 = Main.gore[num319];
-							expr_E655_cp_0.velocity.X = expr_E655_cp_0.velocity.X + 1f;
-							Gore expr_E675_cp_0 = Main.gore[num319];
-							expr_E675_cp_0.velocity.Y = expr_E675_cp_0.velocity.Y - 1f;
-							num319 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num319].velocity *= 0.4f;
-							Gore expr_E6F9_cp_0 = Main.gore[num319];
-							expr_E6F9_cp_0.velocity.X = expr_E6F9_cp_0.velocity.X - 1f;
-							Gore expr_E719_cp_0 = Main.gore[num319];
-							expr_E719_cp_0.velocity.Y = expr_E719_cp_0.velocity.Y - 1f;
+							int num355 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num355].velocity *= 0.4f;
+							Gore expr_10061_cp_0 = Main.gore[num355];
+							expr_10061_cp_0.velocity.X = expr_10061_cp_0.velocity.X + 1f;
+							Gore expr_10081_cp_0 = Main.gore[num355];
+							expr_10081_cp_0.velocity.Y = expr_10081_cp_0.velocity.Y + 1f;
+							num355 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num355].velocity *= 0.4f;
+							Gore expr_10105_cp_0 = Main.gore[num355];
+							expr_10105_cp_0.velocity.X = expr_10105_cp_0.velocity.X - 1f;
+							Gore expr_10125_cp_0 = Main.gore[num355];
+							expr_10125_cp_0.velocity.Y = expr_10125_cp_0.velocity.Y + 1f;
+							num355 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num355].velocity *= 0.4f;
+							Gore expr_101A9_cp_0 = Main.gore[num355];
+							expr_101A9_cp_0.velocity.X = expr_101A9_cp_0.velocity.X + 1f;
+							Gore expr_101C9_cp_0 = Main.gore[num355];
+							expr_101C9_cp_0.velocity.Y = expr_101C9_cp_0.velocity.Y - 1f;
+							num355 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num355].velocity *= 0.4f;
+							Gore expr_1024D_cp_0 = Main.gore[num355];
+							expr_1024D_cp_0.velocity.X = expr_1024D_cp_0.velocity.X - 1f;
+							Gore expr_1026D_cp_0 = Main.gore[num355];
+							expr_1026D_cp_0.velocity.Y = expr_1026D_cp_0.velocity.Y - 1f;
 							return;
 						}
 					}
@@ -34705,43 +37259,43 @@ namespace Terraria
 						{
 							Gore.NewGore(this.position, this.velocity, 147, 1f);
 							Gore.NewGore(this.position, this.velocity, 148, 1f);
-							for (int num320 = 0; num320 < 10; num320++)
+							for (int num356 = 0; num356 < 10; num356++)
 							{
-								int num321 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
-								Main.dust[num321].velocity *= 1.4f;
+								int num357 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
+								Main.dust[num357].velocity *= 1.4f;
 							}
-							for (int num322 = 0; num322 < 5; num322++)
+							for (int num358 = 0; num358 < 5; num358++)
 							{
-								int num323 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 2.5f);
-								Main.dust[num323].noGravity = true;
-								Main.dust[num323].velocity *= 5f;
-								num323 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
-								Main.dust[num323].velocity *= 3f;
+								int num359 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 2.5f);
+								Main.dust[num359].noGravity = true;
+								Main.dust[num359].velocity *= 5f;
+								num359 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
+								Main.dust[num359].velocity *= 3f;
 							}
-							int num324 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num324].velocity *= 0.4f;
-							Gore expr_E99A_cp_0 = Main.gore[num324];
-							expr_E99A_cp_0.velocity.X = expr_E99A_cp_0.velocity.X + 1f;
-							Gore expr_E9BA_cp_0 = Main.gore[num324];
-							expr_E9BA_cp_0.velocity.Y = expr_E9BA_cp_0.velocity.Y + 1f;
-							num324 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num324].velocity *= 0.4f;
-							Gore expr_EA3E_cp_0 = Main.gore[num324];
-							expr_EA3E_cp_0.velocity.X = expr_EA3E_cp_0.velocity.X - 1f;
-							Gore expr_EA5E_cp_0 = Main.gore[num324];
-							expr_EA5E_cp_0.velocity.Y = expr_EA5E_cp_0.velocity.Y + 1f;
-							num324 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num324].velocity *= 0.4f;
-							Gore expr_EAE2_cp_0 = Main.gore[num324];
-							expr_EAE2_cp_0.velocity.X = expr_EAE2_cp_0.velocity.X + 1f;
-							Gore expr_EB02_cp_0 = Main.gore[num324];
-							expr_EB02_cp_0.velocity.Y = expr_EB02_cp_0.velocity.Y - 1f;
-							num324 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
-							Main.gore[num324].velocity *= 0.4f;
-							Gore expr_EB86_cp_0 = Main.gore[num324];
-							expr_EB86_cp_0.velocity.X = expr_EB86_cp_0.velocity.X - 1f;
-							Gore expr_EBA6_cp_0 = Main.gore[num324];
-							expr_EBA6_cp_0.velocity.Y = expr_EBA6_cp_0.velocity.Y - 1f;
+							int num360 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num360].velocity *= 0.4f;
+							Gore expr_104EE_cp_0 = Main.gore[num360];
+							expr_104EE_cp_0.velocity.X = expr_104EE_cp_0.velocity.X + 1f;
+							Gore expr_1050E_cp_0 = Main.gore[num360];
+							expr_1050E_cp_0.velocity.Y = expr_1050E_cp_0.velocity.Y + 1f;
+							num360 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num360].velocity *= 0.4f;
+							Gore expr_10592_cp_0 = Main.gore[num360];
+							expr_10592_cp_0.velocity.X = expr_10592_cp_0.velocity.X - 1f;
+							Gore expr_105B2_cp_0 = Main.gore[num360];
+							expr_105B2_cp_0.velocity.Y = expr_105B2_cp_0.velocity.Y + 1f;
+							num360 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num360].velocity *= 0.4f;
+							Gore expr_10636_cp_0 = Main.gore[num360];
+							expr_10636_cp_0.velocity.X = expr_10636_cp_0.velocity.X + 1f;
+							Gore expr_10656_cp_0 = Main.gore[num360];
+							expr_10656_cp_0.velocity.Y = expr_10656_cp_0.velocity.Y - 1f;
+							num360 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), default(Vector2), Main.rand.Next(61, 64), 1f);
+							Main.gore[num360].velocity *= 0.4f;
+							Gore expr_106DA_cp_0 = Main.gore[num360];
+							expr_106DA_cp_0.velocity.X = expr_106DA_cp_0.velocity.X - 1f;
+							Gore expr_106FA_cp_0 = Main.gore[num360];
+							expr_106FA_cp_0.velocity.Y = expr_106FA_cp_0.velocity.Y - 1f;
 							return;
 						}
 					}
@@ -34749,35 +37303,35 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num325 = 0;
-							while ((double)num325 < dmg / (double)this.lifeMax * 100.0)
+							int num361 = 0;
+							while ((double)num361 < dmg / (double)this.lifeMax * 100.0)
 							{
-								int num326 = 25;
+								int num362 = 25;
 								if (Main.rand.Next(2) == 0)
 								{
-									num326 = 6;
+									num362 = 6;
 								}
-								Dust.NewDust(this.position, this.width, this.height, num326, (float)hitDirection, -1f, 0, default(Color), 1f);
-								int num327 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 2f);
-								Main.dust[num327].noGravity = true;
-								num325++;
+								Dust.NewDust(this.position, this.width, this.height, num362, (float)hitDirection, -1f, 0, default(Color), 1f);
+								int num363 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 2f);
+								Main.dust[num363].noGravity = true;
+								num361++;
 							}
 							return;
 						}
-						for (int num328 = 0; num328 < 50; num328++)
+						for (int num364 = 0; num364 < 50; num364++)
 						{
-							int num329 = 25;
+							int num365 = 25;
 							if (Main.rand.Next(2) == 0)
 							{
-								num329 = 6;
+								num365 = 6;
 							}
-							Dust.NewDust(this.position, this.width, this.height, num329, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
+							Dust.NewDust(this.position, this.width, this.height, num365, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 						}
-						for (int num330 = 0; num330 < 50; num330++)
+						for (int num366 = 0; num366 < 50; num366++)
 						{
-							int num331 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 2.5f);
-							Main.dust[num331].velocity *= 6f;
-							Main.dust[num331].noGravity = true;
+							int num367 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, default(Color), 2.5f);
+							Main.dust[num367].velocity *= 6f;
+							Main.dust[num367].noGravity = true;
 						}
 						return;
 					}
@@ -34785,20 +37339,20 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							int num332 = 0;
-							while ((double)num332 < dmg / (double)this.lifeMax * 100.0)
+							int num368 = 0;
+							while ((double)num368 < dmg / (double)this.lifeMax * 100.0)
 							{
-								int num333 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, this.velocity.X, this.velocity.Y, 100, default(Color), 2.5f);
-								Main.dust[num333].noGravity = true;
-								num332++;
+								int num369 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, this.velocity.X, this.velocity.Y, 100, default(Color), 2.5f);
+								Main.dust[num369].noGravity = true;
+								num368++;
 							}
 							return;
 						}
-						for (int num334 = 0; num334 < 50; num334++)
+						for (int num370 = 0; num370 < 50; num370++)
 						{
-							int num335 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, this.velocity.X, this.velocity.Y, 100, default(Color), 2.5f);
-							Main.dust[num335].noGravity = true;
-							Main.dust[num335].velocity *= 2f;
+							int num371 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, this.velocity.X, this.velocity.Y, 100, default(Color), 2.5f);
+							Main.dust[num371].noGravity = true;
+							Main.dust[num371].velocity *= 2f;
 						}
 						Gore.NewGore(this.position, this.velocity, 45, 1f);
 						Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 46, 1f);
@@ -34812,26 +37366,26 @@ namespace Terraria
 						if (this.type == 25)
 						{
 							Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
-							for (int num336 = 0; num336 < 20; num336++)
+							for (int num372 = 0; num372 < 20; num372++)
 							{
-								int num337 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 2f);
-								Main.dust[num337].noGravity = true;
-								Main.dust[num337].velocity *= 2f;
-								num337 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1f);
-								Main.dust[num337].velocity *= 2f;
+								int num373 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 2f);
+								Main.dust[num373].noGravity = true;
+								Main.dust[num373].velocity *= 2f;
+								num373 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1f);
+								Main.dust[num373].velocity *= 2f;
 							}
 							return;
 						}
 						if (this.type == 33)
 						{
 							Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
-							for (int num338 = 0; num338 < 20; num338++)
+							for (int num374 = 0; num374 < 20; num374++)
 							{
-								int num339 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 172, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1.2f);
-								Main.dust[num339].noGravity = true;
-								Main.dust[num339].velocity *= 2f;
-								num339 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 172, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 0.6f);
-								Main.dust[num339].velocity *= 2f;
+								int num375 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 172, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1.2f);
+								Main.dust[num375].noGravity = true;
+								Main.dust[num375].velocity *= 2f;
+								num375 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 172, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 0.6f);
+								Main.dust[num375].velocity *= 2f;
 							}
 							return;
 						}
@@ -34839,15 +37393,15 @@ namespace Terraria
 						{
 							if (this.life > 0)
 							{
-								int num340 = 0;
-								while ((double)num340 < dmg / (double)this.lifeMax * 100.0)
+								int num376 = 0;
+								while ((double)num376 < dmg / (double)this.lifeMax * 100.0)
 								{
 									Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-									num340++;
+									num376++;
 								}
 								return;
 							}
-							for (int num341 = 0; num341 < 50; num341++)
+							for (int num377 = 0; num377 < 50; num377++)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 							}
@@ -34866,15 +37420,15 @@ namespace Terraria
 						{
 							if (this.life > 0)
 							{
-								int num342 = 0;
-								while ((double)num342 < dmg / (double)this.lifeMax * 100.0)
+								int num378 = 0;
+								while ((double)num378 < dmg / (double)this.lifeMax * 100.0)
 								{
 									Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-									num342++;
+									num378++;
 								}
 								return;
 							}
-							for (int num343 = 0; num343 < 50; num343++)
+							for (int num379 = 0; num379 < 50; num379++)
 							{
 								Dust.NewDust(this.position, this.width, this.height, 5, 2.5f * (float)hitDirection, -2.5f, 0, default(Color), 1f);
 							}
@@ -34886,13 +37440,13 @@ namespace Terraria
 							if (this.type == 30)
 							{
 								Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
-								for (int num344 = 0; num344 < 20; num344++)
+								for (int num380 = 0; num380 < 20; num380++)
 								{
-									int num345 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 27, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 2f);
-									Main.dust[num345].noGravity = true;
-									Main.dust[num345].velocity *= 2f;
-									num345 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 27, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1f);
-									Main.dust[num345].velocity *= 2f;
+									int num381 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 27, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 2f);
+									Main.dust[num381].noGravity = true;
+									Main.dust[num381].velocity *= 2f;
+									num381 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 27, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, default(Color), 1f);
+									Main.dust[num381].velocity *= 2f;
 								}
 								return;
 							}
@@ -34900,15 +37454,15 @@ namespace Terraria
 							{
 								if (this.life > 0)
 								{
-									int num346 = 0;
-									while ((double)num346 < dmg / (double)this.lifeMax * 100.0)
+									int num382 = 0;
+									while ((double)num382 < dmg / (double)this.lifeMax * 100.0)
 									{
 										Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-										num346++;
+										num382++;
 									}
 									return;
 								}
-								for (int num347 = 0; num347 < 50; num347++)
+								for (int num383 = 0; num383 < 50; num383++)
 								{
 									Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 								}
@@ -34934,15 +37488,15 @@ namespace Terraria
 							{
 								if (this.life > 0)
 								{
-									int num348 = 0;
-									while ((double)num348 < dmg / (double)this.lifeMax * 100.0)
+									int num384 = 0;
+									while ((double)num384 < dmg / (double)this.lifeMax * 100.0)
 									{
 										Dust.NewDust(this.position, this.width, this.height, 40, (float)hitDirection, -1f, this.alpha, this.color, 1.2f);
-										num348++;
+										num384++;
 									}
 									return;
 								}
-								for (int num349 = 0; num349 < 50; num349++)
+								for (int num385 = 0; num385 < 50; num385++)
 								{
 									Dust.NewDust(this.position, this.width, this.height, 40, (float)hitDirection, -2f, this.alpha, this.color, 1.2f);
 								}
@@ -34954,15 +37508,15 @@ namespace Terraria
 							{
 								if (this.life > 0)
 								{
-									int num350 = 0;
-									while ((double)num350 < dmg / (double)this.lifeMax * 100.0)
+									int num386 = 0;
+									while ((double)num386 < dmg / (double)this.lifeMax * 100.0)
 									{
 										Dust.NewDust(this.position, this.width, this.height, 40, (float)hitDirection, -1f, this.alpha, this.color, 1.2f);
-										num350++;
+										num386++;
 									}
 									return;
 								}
-								for (int num351 = 0; num351 < 50; num351++)
+								for (int num387 = 0; num387 < 50; num387++)
 								{
 									Dust.NewDust(this.position, this.width, this.height, 40, (float)hitDirection, -2f, this.alpha, this.color, 1.2f);
 								}
@@ -34974,15 +37528,15 @@ namespace Terraria
 							{
 								if (this.life > 0)
 								{
-									int num352 = 0;
-									while ((double)num352 < dmg / (double)this.lifeMax * 100.0)
+									int num388 = 0;
+									while ((double)num388 < dmg / (double)this.lifeMax * 100.0)
 									{
 										Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-										num352++;
+										num388++;
 									}
 									return;
 								}
-								for (int num353 = 0; num353 < 50; num353++)
+								for (int num389 = 0; num389 < 50; num389++)
 								{
 									Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 								}
@@ -34994,15 +37548,15 @@ namespace Terraria
 							{
 								if (this.life > 0)
 								{
-									int num354 = 0;
-									while ((double)num354 < dmg / (double)this.lifeMax * 100.0)
+									int num390 = 0;
+									while ((double)num390 < dmg / (double)this.lifeMax * 100.0)
 									{
 										Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-										num354++;
+										num390++;
 									}
 									return;
 								}
-								for (int num355 = 0; num355 < 50; num355++)
+								for (int num391 = 0; num391 < 50; num391++)
 								{
 									Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 								}
@@ -35015,15 +37569,15 @@ namespace Terraria
 							{
 								if (this.life > 0)
 								{
-									int num356 = 0;
-									while ((double)num356 < dmg / (double)this.lifeMax * 100.0)
+									int num392 = 0;
+									while ((double)num392 < dmg / (double)this.lifeMax * 100.0)
 									{
 										Dust.NewDust(this.position, this.width, this.height, 5, (float)hitDirection, -1f, 0, default(Color), 1f);
-										num356++;
+										num392++;
 									}
 									return;
 								}
-								for (int num357 = 0; num357 < 50; num357++)
+								for (int num393 = 0; num393 < 50; num393++)
 								{
 									Dust.NewDust(this.position, this.width, this.height, 5, (float)(2 * hitDirection), -2f, 0, default(Color), 1f);
 								}
@@ -35037,15 +37591,15 @@ namespace Terraria
 				}
 				if (this.life > 0)
 				{
-					int num358 = 0;
-					while ((double)num358 < dmg / (double)this.lifeMax * 80.0)
+					int num394 = 0;
+					while ((double)num394 < dmg / (double)this.lifeMax * 80.0)
 					{
 						Dust.NewDust(this.position, this.width, this.height, 6, (float)(hitDirection * 2), -1f, this.alpha, default(Color), 1.5f);
-						num358++;
+						num394++;
 					}
 					return;
 				}
-				for (int num359 = 0; num359 < 40; num359++)
+				for (int num395 = 0; num395 < 40; num395++)
 				{
 					Dust.NewDust(this.position, this.width, this.height, 6, (float)(hitDirection * 2), -1f, this.alpha, default(Color), 1.5f);
 				}
@@ -35852,6 +38406,14 @@ namespace Terraria
 					{
 						num34 = 40;
 					}
+					if (this.type == 351)
+					{
+						num34 = 40;
+					}
+					if (this.type == 351 || this.type == 343 || this.type == 348 || this.type == 349)
+					{
+						num34 = 40;
+					}
 					if (num34 != this.height)
 					{
 						vector4.Y += (float)(this.height - num34);
@@ -35993,27 +38555,27 @@ namespace Terraria
 									float num41 = Math.Abs(this.center().X - Main.player[num40].center().X) + Math.Abs(this.center().Y - Main.player[num40].center().Y);
 									if (num41 < 250f)
 									{
-										byte[] expr_202B_cp_0 = this.streamPlayer;
-										int expr_202B_cp_1 = num40;
-										expr_202B_cp_0[expr_202B_cp_1] -= 8;
+										byte[] expr_2074_cp_0 = this.streamPlayer;
+										int expr_2074_cp_1 = num40;
+										expr_2074_cp_0[expr_2074_cp_1] -= 8;
 									}
 									else if (num41 < 500f)
 									{
-										byte[] expr_2051_cp_0 = this.streamPlayer;
-										int expr_2051_cp_1 = num40;
-										expr_2051_cp_0[expr_2051_cp_1] -= 4;
+										byte[] expr_209A_cp_0 = this.streamPlayer;
+										int expr_209A_cp_1 = num40;
+										expr_209A_cp_0[expr_209A_cp_1] -= 4;
 									}
 									else if (num41 < 1000f)
 									{
-										byte[] expr_2077_cp_0 = this.streamPlayer;
-										int expr_2077_cp_1 = num40;
-										expr_2077_cp_0[expr_2077_cp_1] -= 2;
+										byte[] expr_20C0_cp_0 = this.streamPlayer;
+										int expr_20C0_cp_1 = num40;
+										expr_20C0_cp_0[expr_20C0_cp_1] -= 2;
 									}
 									else if (num41 < 1500f)
 									{
-										byte[] expr_209D_cp_0 = this.streamPlayer;
-										int expr_209D_cp_1 = num40;
-										expr_209D_cp_0[expr_209D_cp_1] -= 1;
+										byte[] expr_20E6_cp_0 = this.streamPlayer;
+										int expr_20E6_cp_1 = num40;
+										expr_20E6_cp_0[expr_20E6_cp_1] -= 1;
 									}
 									if (this.streamPlayer[num40] <= 0)
 									{
@@ -36084,6 +38646,10 @@ namespace Terraria
 			if (this.type == 25 || this.type == 30 || this.type == 59 || this.type == 60)
 			{
 				return new Color(200, 200, 200, 0);
+			}
+			if (this.type == 352)
+			{
+				return new Color(255, 255, 255, 200);
 			}
 			if (this.type == 72)
 			{
@@ -37395,16 +39961,16 @@ namespace Terraria
 			}
 			return result;
 		}
-		public object Clone()
-		{
-			return base.MemberwiseClone();
-		}
 		private void DropLoot(int x, int y, int w, int h, int itemId, int stack = 1, bool broadcast = false, int prefix = 0, bool nodelay = false)
 		{
 			if (!ServerApi.Hooks.InvokeNpcLootDrop(ref x, ref y, ref w, ref h, ref itemId, ref stack, ref broadcast, ref prefix, type, whoAmI, ref nodelay))
 			{
 				Item.NewItem(x, y, w, h, itemId, stack, broadcast, prefix, nodelay);
 			}
+		}
+		public object Clone()
+		{
+			return base.MemberwiseClone();
 		}
 	}
 }

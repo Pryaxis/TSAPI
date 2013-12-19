@@ -1,4 +1,3 @@
-
 using System;
 using System.Text;
 using TerrariaApi.Server;
@@ -343,6 +342,10 @@ namespace Terraria
 							{
 								b12 += 64;
 							}
+												if (Main.snowMoon)
+					{
+						b12 += 128;
+					}
 					        num2 += bytes20.Length + 1 + 1 + 1 + 1 + 1 + bytes21.Length + bytes22.Length + bytes23.Length +
 					                bytes24.Length + bytes25.Length + bytes26.Length + bytes27.Length + 1 + bytes28.Length + 12 + 4 + 1 +
 					                3 + 5 + 12 + 4 + 3 + 4 + 1 + 1;
@@ -1642,22 +1645,19 @@ namespace Terraria
 					        break;
 					    case 50:
 					    {
-					        byte[] bytes218 = BitConverter.GetBytes(msgType);
-					        byte b85 = (byte) number;
-					        num2 += 11;
-					        byte[] bytes219 = BitConverter.GetBytes(num2 - 4);
-					        Buffer.BlockCopy(bytes219, 0, NetMessage.buffer[num].writeBuffer,
-					            0, 4);
-					        Buffer.BlockCopy(bytes218, 0, NetMessage.buffer[num].writeBuffer,
-					            4, 1);
-					        NetMessage.buffer[num].writeBuffer[num3] = b85;
-					        num3++;
-					        for (int n = 0; n < 10; n++)
-					        {
-					            NetMessage.buffer[num].writeBuffer[num3] =
-					                (byte) Main.player[(int) b85].buffType[n];
-					            num3++;
-					        }
+					byte[] bytes218 = BitConverter.GetBytes(msgType);
+					byte b85 = (byte)number;
+					num2 += 23;
+					byte[] bytes219 = BitConverter.GetBytes(num2 - 4);
+					Buffer.BlockCopy(bytes219, 0, NetMessage.buffer[num].writeBuffer, 0, 4);
+					Buffer.BlockCopy(bytes218, 0, NetMessage.buffer[num].writeBuffer, 4, 1);
+					NetMessage.buffer[num].writeBuffer[num3] = b85;
+					num3++;
+					for (int n = 0; n < 22; n++)
+					{
+						NetMessage.buffer[num].writeBuffer[num3] = (byte)Main.player[(int)b85].buffType[n];
+						num3++;
+					}
 					    }
 					        break;
 					    case 51:

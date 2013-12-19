@@ -100,11 +100,33 @@ namespace Terraria
 		}
 		public byte slope()
 		{
-			return (byte)((this.tileHeader3 & 48) >> 4);
+			byte b = 0;
+			if ((this.tileHeader3 & 16) == 16)
+			{
+				b += 1;
+			}
+			if ((this.tileHeader3 & 32) == 32)
+			{
+				b += 2;
+			}
+			return b;
 		}
 		public void slope(byte slope)
 		{
-			this.tileHeader3 = (byte)((int)(this.tileHeader3 & 207) | (int)(slope & 3) << 4);
+			if ((slope & 1) == 1)
+			{
+				this.tileHeader3 |= 16;
+			}
+			else
+			{
+				this.tileHeader3 = (byte)((int)this.tileHeader3 & -17);
+			}
+			if ((slope & 2) == 2)
+			{
+				this.tileHeader3 |= 32;
+				return;
+			}
+			this.tileHeader3 = (byte)((int)this.tileHeader3 & -33);
 		}
 		public byte color()
 		{
