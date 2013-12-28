@@ -10060,7 +10060,7 @@ namespace Terraria
 					}
 					if (this.whoAmi == Main.myPlayer)
 					{
-						Collision.SwitchTiles(this.position, this.width, this.height, this.oldPosition, 1);
+						Collision.SwitchTiles(this, this.position, this.width, this.height, this.oldPosition, 1);
 					}
 					if (this.position.X < Main.leftWorld + 640f + 16f)
 					{

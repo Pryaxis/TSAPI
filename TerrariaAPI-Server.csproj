@@ -95,6 +95,7 @@
     <Compile Include="TerrariaApi.Server\EventArgs\NpcSpawnEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\StatueSpawnEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\GreetPlayerEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\TriggerPressurePlateEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\HandlerCollection.cs" />
     <Compile Include="TerrariaApi.Server\HandlerRegistration.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\NameCollisionEventArgs.cs" />
