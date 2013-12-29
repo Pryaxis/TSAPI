@@ -667,6 +667,30 @@ namespace TerrariaApi.Server
 			return args.Handled;
 		}
 		#endregion
+
+		#region NpcTriggerPressurePlate
+		private readonly HandlerCollection<TriggerPressurePlateEventArgs<NPC>> npcTriggerPressurePlate = 
+			new HandlerCollection<TriggerPressurePlateEventArgs<NPC>>("NpcTriggerPressurePlate");
+
+		public HandlerCollection<TriggerPressurePlateEventArgs<NPC>> NpcTriggerPressurePlate
+		{
+			get { return this.npcTriggerPressurePlate; }
+		}
+
+		internal bool InvokeNpcTriggerPressurePlate(NPC npc, int tileX, int tileY)
+		{
+			TriggerPressurePlateEventArgs<NPC> args = new TriggerPressurePlateEventArgs<NPC>
+			{
+				Object = npc,
+				TileX = tileX,
+				TileY = tileY
+			};
+
+			this.NpcTriggerPressurePlate.Invoke(args);
+
+			return args.Handled;
+		}
+		#endregion
 		#endregion
 
 		#region Player Hooks
@@ -712,6 +736,30 @@ namespace TerrariaApi.Server
 			this.ProjectileSetDefaults.Invoke(args);
 
 			type = args.Info;
+			return args.Handled;
+		}
+		#endregion
+
+		#region ProjectileTriggerPressurePlate
+		private readonly HandlerCollection<TriggerPressurePlateEventArgs<Projectile>> projectileTriggerPressurePlate = 
+			new HandlerCollection<TriggerPressurePlateEventArgs<Projectile>>("ProjectileTriggerPressurePlate");
+
+		public HandlerCollection<TriggerPressurePlateEventArgs<Projectile>> ProjectileTriggerPressurePlate
+		{
+			get { return this.projectileTriggerPressurePlate; }
+		}
+
+		internal bool InvokeProjectileTriggerPressurePlate(Projectile projectile, int tileX, int tileY)
+		{
+			TriggerPressurePlateEventArgs<Projectile> args = new TriggerPressurePlateEventArgs<Projectile>
+			{
+				Object = projectile,
+				TileX = tileX,
+				TileY = tileY
+			};
+
+			this.ProjectileTriggerPressurePlate.Invoke(args);
+
 			return args.Handled;
 		}
 		#endregion

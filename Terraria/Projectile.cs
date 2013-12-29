@@ -6596,7 +6596,7 @@ namespace Terraria
 					this.Damage();
 					if (Main.netMode != 1 && this.type == 99)
 					{
-						Collision.SwitchTiles(this.position, this.width, this.height, this.lastPosition, 3);
+						Collision.SwitchTiles(this, this.position, this.width, this.height, this.lastPosition, 3);
 					}
 					if (this.type == 94 || this.type == 301)
 					{

@@ -38506,7 +38506,7 @@ namespace Terraria
 					this.oldPosition = this.position;
 					this.position += this.velocity;
 				}
-				if (Main.netMode != 1 && !this.noTileCollide && this.lifeMax > 1 && Collision.SwitchTiles(this.position, this.width, this.height, this.oldPosition, 2) && (this.type == 46 || this.type == 148 || this.type == 149 || this.type == 303))
+				if (Main.netMode != 1 && !this.noTileCollide && this.lifeMax > 1 && Collision.SwitchTiles(this, this.position, this.width, this.height, this.oldPosition, 2) && (this.type == 46 || this.type == 148 || this.type == 149 || this.type == 303))
 				{
 					this.ai[0] = 1f;
 					this.ai[1] = 400f;

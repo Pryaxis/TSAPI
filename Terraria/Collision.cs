@@ -1,4 +1,6 @@
 using System;
+using TerrariaApi.Server;
+
 namespace Terraria
 {
 	public class Collision
@@ -1197,7 +1199,7 @@ namespace Terraria
 			}
 			return default(Vector2);
 		}
-		public static bool SwitchTiles(Vector2 Position, int Width, int Height, Vector2 oldPosition, int objType)
+		public static bool SwitchTiles(object forObject, Vector2 Position, int Width, int Height, Vector2 oldPosition, int objType)
 		{
 			int num = (int)(Position.X / 16f) - 1;
 			int num2 = (int)((Position.X + (float)Width) / 16f) + 2;
@@ -1250,9 +1252,21 @@ namespace Terraria
 									}
 									if (flag)
 									{
-										WorldGen.hitSwitch(i, j);
-										NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0);
-										return true;
+										bool handled = false;
+										if (forObject is NPC)
+										{
+											handled = ServerApi.Hooks.InvokeNpcTriggerPressurePlate((NPC)forObject, i, j);
+										}
+										else if (forObject is Projectile)
+										{
+											handled = ServerApi.Hooks.InvokeProjectileTriggerPressurePlate((Projectile)forObject, i, j);
+										}
+
+										if (!handled) {
+											WorldGen.hitSwitch(i, j);
+											NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0);
+											return true;
+										}
 									}
 								}
 							}
