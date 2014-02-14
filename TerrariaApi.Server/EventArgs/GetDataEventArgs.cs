@@ -11,7 +11,7 @@ namespace TerrariaApi.Server
 			get;
 			set;
 		}
-		public messageBuffer Msg
+		public MessageBuffer Msg
 		{
 			get;
 			internal set;

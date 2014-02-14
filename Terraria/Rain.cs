@@ -1,5 +1,5 @@
-
 using System;
+
 namespace Terraria
 {
 	public class Rain
@@ -7,6 +7,7 @@ namespace Terraria
 		public Vector2 position;
 		public Vector2 velocity;
 		public float scale;
+		public float rotation;
 		public int alpha;
 		public bool active;
 		public byte type;
@@ -112,11 +113,13 @@ namespace Terraria
 			{
 				return Main.maxRain;
 			}
-			Main.rain[num].active = true;
-			Main.rain[num].position = Position;
-			Main.rain[num].scale = 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
-			Main.rain[num].velocity = Velocity * Main.rain[num].scale;
-			Main.rain[num].type = (byte)Main.rand.Next(3);
+			Rain rain = Main.rain[num];
+			rain.active = true;
+			rain.position = Position;
+			rain.scale = 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
+			rain.velocity = Velocity * rain.scale;
+			rain.rotation = (float)Math.Atan2((double)rain.velocity.X, (double)(-(double)rain.velocity.Y));
+			rain.type = (byte)Main.rand.Next(3);
 			return num;
 		}
 	}

@@ -5,6 +5,8 @@ namespace Terraria
 {
 	public class Collision
 	{
+		public static bool stair;
+		public static bool stairFall;
 		public static bool honey;
 		public static bool sloping;
 		public static bool landMine;
@@ -16,7 +18,41 @@ namespace Terraria
 			int num2 = (int)((Position1.Y + (float)(Height1 / 2)) / 16f);
 			int num3 = (int)((Position2.X + (float)(Width2 / 2)) / 16f);
 			int num4 = (int)((Position2.Y + (float)(Height2 / 2)) / 16f);
+			if (num <= 1)
+			{
+				num = 1;
+			}
+			if (num >= Main.maxTilesX)
+			{
+				num = Main.maxTilesX - 1;
+			}
+			if (num3 <= 1)
+			{
+				num3 = 1;
+			}
+			if (num3 >= Main.maxTilesX)
+			{
+				num3 = Main.maxTilesX - 1;
+			}
+			if (num2 <= 1)
+			{
+				num2 = 1;
+			}
+			if (num2 >= Main.maxTilesY)
+			{
+				num2 = Main.maxTilesY - 1;
+			}
+			if (num4 <= 1)
+			{
+				num4 = 1;
+			}
+			if (num4 < Main.maxTilesY)
+			{
+				goto IL_AA;
+			}
+			num4 = Main.maxTilesY - 1;
 			bool result;
+			IL_AA:
 			try
 			{
 				while (true)
@@ -47,7 +83,7 @@ namespace Terraria
 						}
 						if (!Main.tile[num, num2 - 1].inActive() && Main.tile[num, num2 - 1].active() && Main.tileSolid[(int)Main.tile[num, num2 - 1].type] && !Main.tileSolidTop[(int)Main.tile[num, num2 - 1].type] && Main.tile[num, num2 - 1].slope() == 0 && !Main.tile[num, num2 - 1].halfBrick() && !Main.tile[num, num2 + 1].inActive() && Main.tile[num, num2 + 1].active() && Main.tileSolid[(int)Main.tile[num, num2 + 1].type] && !Main.tileSolidTop[(int)Main.tile[num, num2 + 1].type] && Main.tile[num, num2 + 1].slope() == 0 && !Main.tile[num, num2 + 1].halfBrick())
 						{
-							goto Block_19;
+							goto Block_27;
 						}
 					}
 					else
@@ -70,7 +106,7 @@ namespace Terraria
 						}
 						if (!Main.tile[num - 1, num2].inActive() && Main.tile[num - 1, num2].active() && Main.tileSolid[(int)Main.tile[num - 1, num2].type] && !Main.tileSolidTop[(int)Main.tile[num - 1, num2].type] && Main.tile[num - 1, num2].slope() == 0 && !Main.tile[num - 1, num2].halfBrick() && !Main.tile[num + 1, num2].inActive() && Main.tile[num + 1, num2].active() && Main.tileSolid[(int)Main.tile[num + 1, num2].type] && !Main.tileSolidTop[(int)Main.tile[num + 1, num2].type] && Main.tile[num + 1, num2].slope() == 0 && !Main.tile[num + 1, num2].halfBrick())
 						{
-							goto Block_34;
+							goto Block_42;
 						}
 					}
 					if (Main.tile[num, num2] == null)
@@ -79,18 +115,18 @@ namespace Terraria
 					}
 					if (!Main.tile[num, num2].inActive() && Main.tile[num, num2].active() && Main.tileSolid[(int)Main.tile[num, num2].type] && !Main.tileSolidTop[(int)Main.tile[num, num2].type])
 					{
-						goto Block_39;
+						goto Block_47;
 					}
 				}
 				result = true;
 				return result;
-				Block_19:
+				Block_27:
 				result = false;
 				return result;
-				Block_34:
+				Block_42:
 				result = false;
 				return result;
-				Block_39:
+				Block_47:
 				result = false;
 			}
 			catch
@@ -243,22 +279,19 @@ namespace Terraria
 								return true;
 							}
 						}
-						else
+						else if (Main.tile[i, j].active() && Main.tile[i, j].slope() != 0 && Main.tile[i, j - 1].liquid > 0)
 						{
-							if (Main.tile[i, j].active() && Main.tile[i, j].slope() != 0 && Main.tile[i, j - 1].liquid > 0)
+							Vector2 vector2;
+							vector2.X = (float)(i * 16);
+							vector2.Y = (float)(j * 16);
+							int num9 = 16;
+							if (vector.X + (float)num > vector2.X && vector.X < vector2.X + 16f && vector.Y + (float)num2 > vector2.Y && vector.Y < vector2.Y + (float)num9)
 							{
-								Vector2 vector2;
-								vector2.X = (float)(i * 16);
-								vector2.Y = (float)(j * 16);
-								int num9 = 16;
-								if (vector.X + (float)num > vector2.X && vector.X < vector2.X + 16f && vector.Y + (float)num2 > vector2.Y && vector.Y < vector2.Y + (float)num9)
+								if (Main.tile[i, j - 1].honey())
 								{
-									if (Main.tile[i, j - 1].honey())
-									{
-										Collision.honey = true;
-									}
-									return true;
+									Collision.honey = true;
 								}
+								return true;
 							}
 						}
 					}
@@ -394,145 +427,240 @@ namespace Terraria
 						Velocity.Y += Math.Abs(Velocity.X);
 					}
 				}
-				else
+				else if (num11 == 1)
 				{
-					if (num11 == 1)
+					float num12 = Position.X - vector2.X;
+					if (Position.Y + (float)Height >= vector2.Y + num12 && Velocity.X > 0f)
 					{
-						float num12 = Position.X - vector2.X;
-						if (Position.Y + (float)Height >= vector2.Y + num12 && Velocity.X > 0f)
-						{
-							Velocity.Y += Math.Abs(Velocity.X);
-						}
+						Velocity.Y += Math.Abs(Velocity.X);
 					}
 				}
 			}
 			return new Vector4(Position, Velocity.X, Velocity.Y);
 		}
-		public static Vector4 SlopeCollision(Vector2 Position, Vector2 Velocity, int Width, int Height, float gravity = 0f)
+		public static Vector4 SlopeCollision_Yor(Vector2 Position, Vector2 Velocity, int Width, int Height, float gravity = 0f, bool fall = false)
 		{
-			int num = 0;
+			Collision.stair = false;
+			Collision.stairFall = false;
+			bool[] array = new bool[5];
 			float y = Position.Y;
+			float y2 = Position.Y;
 			Collision.sloping = false;
 			Vector2 vector = Position;
 			Vector2 vector2 = Position;
 			Vector2 vector3 = Velocity;
-			int num2 = (int)(Position.X / 16f) - 1;
-			int num3 = (int)((Position.X + (float)Width) / 16f) + 2;
-			int num4 = (int)(Position.Y / 16f) - 1;
-			int num5 = (int)((Position.Y + (float)Height) / 16f) + 2;
-			if (num2 < 0)
+			int num = (int)(Position.X / 16f) - 1;
+			int num2 = (int)((Position.X + (float)Width) / 16f) + 2;
+			int num3 = (int)(Position.Y / 16f) - 1;
+			int num4 = (int)((Position.Y + (float)Height) / 16f) + 2;
+			if (num < 0)
 			{
-				num2 = 0;
+				num = 0;
 			}
-			if (num3 > Main.maxTilesX)
+			if (num2 > Main.maxTilesX)
 			{
-				num3 = Main.maxTilesX;
+				num2 = Main.maxTilesX;
 			}
-			if (num4 < 0)
+			if (num3 < 0)
 			{
-				num4 = 0;
+				num3 = 0;
 			}
-			if (num5 > Main.maxTilesY)
+			if (num4 > Main.maxTilesY)
 			{
-				num5 = Main.maxTilesY;
+				num4 = Main.maxTilesY;
 			}
-			for (int i = num2; i < num3; i++)
+			int num5 = 1;
+			int num6 = 1;
+			int num7 = num2;
+			int num8 = num4;
+			if (Velocity.X < 0f)
 			{
-				for (int j = num4; j < num5; j++)
+				num5 = -1;
+				num7 = num;
+			}
+			if (Velocity.Y < 0f)
+			{
+				num6 = -1;
+				num8 = num3;
+			}
+			int num9 = (int)(Position.X + (float)(Width / 2)) / 16;
+			int num10 = (int)(Position.Y + (float)(Height / 2)) / 16;
+			for (int num11 = num9; num11 != num7; num11 += num5)
+			{
+				for (int i = num10; i < num8; i += num6)
 				{
-					if (Main.tile[i, j] != null && Main.tile[i, j].active() && !Main.tile[i, j].inActive() && (Main.tileSolid[(int)Main.tile[i, j].type] || (Main.tileSolidTop[(int)Main.tile[i, j].type] && Main.tile[i, j].frameY == 0)))
+					if (Main.tile[num11, i] != null && Main.tile[num11, i].active() && !Main.tile[num11, i].inActive() && (Main.tileSolid[(int)Main.tile[num11, i].type] || (Main.tileSolidTop[(int)Main.tile[num11, i].type] && Main.tile[num11, i].frameY == 0)))
 					{
 						Vector2 vector4;
-						vector4.X = (float)(i * 16);
-						vector4.Y = (float)(j * 16);
-						int num6 = 16;
-						if (Main.tile[i, j].halfBrick())
+						vector4.X = (float)(num11 * 16);
+						vector4.Y = (float)(i * 16);
+						int num12 = 16;
+						if (Main.tile[num11, i].halfBrick())
 						{
 							vector4.Y += 8f;
-							num6 -= 8;
+							num12 -= 8;
 						}
-						if (Position.X + (float)Width > vector4.X && Position.X < vector4.X + 16f && Position.Y + (float)Height > vector4.Y && Position.Y < vector4.Y + (float)num6)
+						if (Position.X + (float)Width > vector4.X && Position.X < vector4.X + 16f && Position.Y + (float)Height > vector4.Y && Position.Y < vector4.Y + (float)num12)
 						{
 							bool flag = true;
-							if (Main.tile[i, j].slope() > 0)
+							if (Main.tile[num11, i].slope() > 0)
 							{
-								if (Main.tile[i, j].slope() == 1 && vector.Y + (float)Height - Math.Abs(Velocity.X) - 1f <= vector4.Y + (float)num6 && vector.X >= vector4.X)
+								if (Main.tile[num11, i].slope() > 2)
 								{
-									flag = true;
+									if (Main.tile[num11, i].slope() == 3 && vector.Y + Math.Abs(Velocity.X) + 1f >= vector4.Y && vector.X >= vector4.X)
+									{
+										flag = true;
+									}
+									if (Main.tile[num11, i].slope() == 4 && vector.Y + Math.Abs(Velocity.X) + 1f >= vector4.Y && vector.X + (float)Width <= vector4.X + 16f)
+									{
+										flag = true;
+									}
 								}
-								if (Main.tile[i, j].slope() == 2 && vector.Y + (float)Height - Math.Abs(Velocity.X) - 1f <= vector4.Y + (float)num6 && vector.X + (float)Width <= vector4.X + 16f)
+								else
 								{
-									flag = true;
+									if (Main.tile[num11, i].slope() == 1 && vector.Y + (float)Height - Math.Abs(Velocity.X) - 1f <= vector4.Y + (float)num12 && vector.X >= vector4.X)
+									{
+										flag = true;
+									}
+									if (Main.tile[num11, i].slope() == 2 && vector.Y + (float)Height - Math.Abs(Velocity.X) - 1f <= vector4.Y + (float)num12 && vector.X + (float)Width <= vector4.X + 16f)
+									{
+										flag = true;
+									}
+								}
+							}
+							if (Main.tile[num11, i].type == 19)
+							{
+								if (Velocity.Y < 0f)
+								{
+									flag = false;
+								}
+								if (Position.Y + (float)Height < (float)(i * 16) || Position.Y + (float)Height - (1f + Math.Abs(Velocity.X)) > (float)(i * 16 + 16))
+								{
+									flag = false;
 								}
 							}
 							if (flag)
 							{
-								int num7 = (int)Main.tile[i, j].slope();
-								vector4.X = (float)(i * 16);
-								vector4.Y = (float)(j * 16);
+								bool flag2 = false;
+								if (fall && Main.tile[num11, i].type == 19)
+								{
+									flag2 = true;
+								}
+								int num13 = (int)Main.tile[num11, i].slope();
+								vector4.X = (float)(num11 * 16);
+								vector4.Y = (float)(i * 16);
 								if (Position.X + (float)Width > vector4.X && Position.X < vector4.X + 16f && Position.Y + (float)Height > vector4.Y && Position.Y < vector4.Y + 16f)
 								{
-									if (num7 == 2)
+									float num14 = 0f;
+									if (num13 == 3 || num13 == 4)
 									{
-										float num8 = vector4.X + 16f - (Position.X + (float)Width);
-										if (num8 >= 0f)
+										if (num13 == 3)
 										{
-											if (Position.Y + (float)Height >= vector4.Y + num8)
+											num14 = Position.X - vector4.X;
+										}
+										if (num13 == 4)
+										{
+											num14 = vector4.X + 16f - (Position.X + (float)Width);
+										}
+										if (num14 >= 0f)
+										{
+											if (Position.Y <= vector4.Y + 16f - num14)
 											{
-												float num9 = vector4.Y - (vector.Y + (float)Height) + num8;
-												if (Position.Y + num9 < y)
+												float num15 = vector4.Y + 16f - vector.Y - num14;
+												if (Position.Y + num15 > y2)
 												{
-													vector2.Y = Position.Y + num9;
-													y = vector2.Y;
-													if (vector3.Y > 0f)
+													vector2.Y += num15;
+													y2 = vector2.Y;
+													if (vector3.Y < 0.0101f)
 													{
-														vector3.Y = 0f;
+														vector3.Y = 0.0101f;
 													}
-													num = num7;
+													array[num13] = true;
 												}
 											}
 										}
-										else
+										else if (Position.Y > vector4.Y)
 										{
-											float num10 = vector4.Y - (float)Height;
-											if (vector2.Y > num10)
+											float num16 = vector4.Y + 16f;
+											if (vector2.Y < num16)
 											{
-												vector2.Y = num10;
-												if (vector3.Y > 0f)
+												vector2.Y = num16;
+												if (vector3.Y < 0.0101f)
 												{
-													vector3.Y = 0f;
+													vector3.Y = 0.0101f;
 												}
 											}
 										}
 									}
-									else
+									if (num13 == 1 || num13 == 2)
 									{
-										if (num7 == 1)
+										if (num13 == 1)
 										{
-											float num8 = Position.X - vector4.X;
-											if (num8 >= 0f)
+											num14 = Position.X - vector4.X;
+										}
+										if (num13 == 2)
+										{
+											num14 = vector4.X + 16f - (Position.X + (float)Width);
+										}
+										if (num14 >= 0f)
+										{
+											if (Position.Y + (float)Height >= vector4.Y + num14)
 											{
-												if (Position.Y + (float)Height >= vector4.Y + num8)
+												float num17 = vector4.Y - (vector.Y + (float)Height) + num14;
+												if (Position.Y + num17 < y)
 												{
-													float num11 = vector4.Y - (vector.Y + (float)Height) + num8;
-													if (Position.Y + num11 < y)
+													if (flag2)
 													{
-														vector2.Y = Position.Y + num11;
+														Collision.stairFall = true;
+													}
+													else
+													{
+														if (Main.tile[num11, i].type == 19)
+														{
+															Collision.stair = true;
+														}
+														else
+														{
+															Collision.stair = false;
+														}
+														vector2.Y += num17;
 														y = vector2.Y;
 														if (vector3.Y > 0f)
 														{
 															vector3.Y = 0f;
 														}
-														num = num7;
+														array[num13] = true;
 													}
 												}
 											}
-											else
+										}
+										else if (Main.tile[num11, i].type == 19 && Position.Y + (float)Height - 4f - Math.Abs(Velocity.X) > vector4.Y)
+										{
+											if (flag2)
 											{
-												float num12 = vector4.Y - (float)Height;
-												if (vector2.Y > num12)
+												Collision.stairFall = true;
+											}
+										}
+										else
+										{
+											float num18 = vector4.Y - (float)Height;
+											if (vector2.Y > num18)
+											{
+												if (flag2)
 												{
-													vector2.Y = num12;
+													Collision.stairFall = true;
+												}
+												else
+												{
+													if (Main.tile[num11, i].type == 19)
+													{
+														Collision.stair = true;
+													}
+													else
+													{
+														Collision.stair = false;
+													}
+													vector2.Y = num18;
 													if (vector3.Y > 0f)
 													{
 														vector3.Y = 0f;
@@ -549,22 +677,294 @@ namespace Terraria
 			}
 			Vector2 position = Position;
 			Vector2 velocity = vector2 - Position;
-			Vector2 vector5 = Collision.TileCollision(position, velocity, Width, Height, false, false);
+			Vector2 vector5 = Collision.TileCollision(position, velocity, Width, Height, false, false, 1);
 			if (vector5.Y > velocity.Y)
 			{
-				float num13 = velocity.Y - vector5.Y;
+				float num19 = velocity.Y - vector5.Y;
 				vector2.Y = Position.Y + vector5.Y;
-				if (num == 1)
+				if (array[1])
+				{
+					vector2.X = Position.X - num19;
+				}
+				if (array[2])
+				{
+					vector2.X = Position.X + num19;
+				}
+				vector3.X = 0f;
+				vector3.Y = 0f;
+				Collision.up = false;
+			}
+			else if (vector5.Y < velocity.Y)
+			{
+				float num20 = vector5.Y - velocity.Y;
+				vector2.Y = Position.Y + vector5.Y;
+				if (array[3])
+				{
+					vector2.X = Position.X - num20;
+				}
+				if (array[4])
+				{
+					vector2.X = Position.X + num20;
+				}
+				vector3.X = 0f;
+				vector3.Y = 0f;
+			}
+			return new Vector4(vector2, vector3.X, vector3.Y);
+		}
+		public static Vector4 SlopeCollision(Vector2 Position, Vector2 Velocity, int Width, int Height, float gravity = 0f, bool fall = false)
+		{
+			Collision.stair = false;
+			Collision.stairFall = false;
+			bool[] array = new bool[5];
+			float y = Position.Y;
+			float y2 = Position.Y;
+			Collision.sloping = false;
+			Vector2 vector = Position;
+			Vector2 vector2 = Position;
+			Vector2 vector3 = Velocity;
+			int num = (int)(Position.X / 16f) - 1;
+			int num2 = (int)((Position.X + (float)Width) / 16f) + 2;
+			int num3 = (int)(Position.Y / 16f) - 1;
+			int num4 = (int)((Position.Y + (float)Height) / 16f) + 2;
+			if (num < 0)
+			{
+				num = 0;
+			}
+			if (num2 > Main.maxTilesX)
+			{
+				num2 = Main.maxTilesX;
+			}
+			if (num3 < 0)
+			{
+				num3 = 0;
+			}
+			if (num4 > Main.maxTilesY)
+			{
+				num4 = Main.maxTilesY;
+			}
+			for (int i = num; i < num2; i++)
+			{
+				for (int j = num3; j < num4; j++)
+				{
+					if (Main.tile[i, j] != null && Main.tile[i, j].active() && !Main.tile[i, j].inActive() && (Main.tileSolid[(int)Main.tile[i, j].type] || (Main.tileSolidTop[(int)Main.tile[i, j].type] && Main.tile[i, j].frameY == 0)))
+					{
+						Vector2 vector4;
+						vector4.X = (float)(i * 16);
+						vector4.Y = (float)(j * 16);
+						int num5 = 16;
+						if (Main.tile[i, j].halfBrick())
+						{
+							vector4.Y += 8f;
+							num5 -= 8;
+						}
+						if (Position.X + (float)Width > vector4.X && Position.X < vector4.X + 16f && Position.Y + (float)Height > vector4.Y && Position.Y < vector4.Y + (float)num5)
+						{
+							bool flag = true;
+							if (Main.tile[i, j].slope() > 0)
+							{
+								if (Main.tile[i, j].slope() > 2)
+								{
+									if (Main.tile[i, j].slope() == 3 && vector.Y + Math.Abs(Velocity.X) + 1f >= vector4.Y && vector.X >= vector4.X)
+									{
+										flag = true;
+									}
+									if (Main.tile[i, j].slope() == 4 && vector.Y + Math.Abs(Velocity.X) + 1f >= vector4.Y && vector.X + (float)Width <= vector4.X + 16f)
+									{
+										flag = true;
+									}
+								}
+								else
+								{
+									if (Main.tile[i, j].slope() == 1 && vector.Y + (float)Height - Math.Abs(Velocity.X) - 1f <= vector4.Y + (float)num5 && vector.X >= vector4.X)
+									{
+										flag = true;
+									}
+									if (Main.tile[i, j].slope() == 2 && vector.Y + (float)Height - Math.Abs(Velocity.X) - 1f <= vector4.Y + (float)num5 && vector.X + (float)Width <= vector4.X + 16f)
+									{
+										flag = true;
+									}
+								}
+							}
+							if (Main.tile[i, j].type == 19)
+							{
+								if (Velocity.Y < 0f)
+								{
+									flag = false;
+								}
+								if (Position.Y + (float)Height < (float)(j * 16) || Position.Y + (float)Height - (1f + Math.Abs(Velocity.X)) > (float)(j * 16 + 16))
+								{
+									flag = false;
+								}
+							}
+							if (flag)
+							{
+								bool flag2 = false;
+								if (fall && Main.tile[i, j].type == 19)
+								{
+									flag2 = true;
+								}
+								int num6 = (int)Main.tile[i, j].slope();
+								vector4.X = (float)(i * 16);
+								vector4.Y = (float)(j * 16);
+								if (Position.X + (float)Width > vector4.X && Position.X < vector4.X + 16f && Position.Y + (float)Height > vector4.Y && Position.Y < vector4.Y + 16f)
+								{
+									float num7 = 0f;
+									if (num6 == 3 || num6 == 4)
+									{
+										if (num6 == 3)
+										{
+											num7 = Position.X - vector4.X;
+										}
+										if (num6 == 4)
+										{
+											num7 = vector4.X + 16f - (Position.X + (float)Width);
+										}
+										if (num7 >= 0f)
+										{
+											if (Position.Y <= vector4.Y + 16f - num7)
+											{
+												float num8 = vector4.Y + 16f - vector.Y - num7;
+												if (Position.Y + num8 > y2)
+												{
+													vector2.Y = Position.Y + num8;
+													y2 = vector2.Y;
+													if (vector3.Y < 0.0101f)
+													{
+														vector3.Y = 0.0101f;
+													}
+													array[num6] = true;
+												}
+											}
+										}
+										else if (Position.Y > vector4.Y)
+										{
+											float num9 = vector4.Y + 16f;
+											if (vector2.Y < num9)
+											{
+												vector2.Y = num9;
+												if (vector3.Y < 0.0101f)
+												{
+													vector3.Y = 0.0101f;
+												}
+											}
+										}
+									}
+									if (num6 == 1 || num6 == 2)
+									{
+										if (num6 == 1)
+										{
+											num7 = Position.X - vector4.X;
+										}
+										if (num6 == 2)
+										{
+											num7 = vector4.X + 16f - (Position.X + (float)Width);
+										}
+										if (num7 >= 0f)
+										{
+											if (Position.Y + (float)Height >= vector4.Y + num7)
+											{
+												float num10 = vector4.Y - (vector.Y + (float)Height) + num7;
+												if (Position.Y + num10 < y)
+												{
+													if (flag2)
+													{
+														Collision.stairFall = true;
+													}
+													else
+													{
+														if (Main.tile[i, j].type == 19)
+														{
+															Collision.stair = true;
+														}
+														else
+														{
+															Collision.stair = false;
+														}
+														vector2.Y = Position.Y + num10;
+														y = vector2.Y;
+														if (vector3.Y > 0f)
+														{
+															vector3.Y = 0f;
+														}
+														array[num6] = true;
+													}
+												}
+											}
+										}
+										else if (Main.tile[i, j].type == 19 && Position.Y + (float)Height - 4f - Math.Abs(Velocity.X) > vector4.Y)
+										{
+											if (flag2)
+											{
+												Collision.stairFall = true;
+											}
+										}
+										else
+										{
+											float num11 = vector4.Y - (float)Height;
+											if (vector2.Y > num11)
+											{
+												if (flag2)
+												{
+													Collision.stairFall = true;
+												}
+												else
+												{
+													if (Main.tile[i, j].type == 19)
+													{
+														Collision.stair = true;
+													}
+													else
+													{
+														Collision.stair = false;
+													}
+													vector2.Y = num11;
+													if (vector3.Y > 0f)
+													{
+														vector3.Y = 0f;
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			Vector2 position = Position;
+			Vector2 velocity = vector2 - Position;
+			Vector2 vector5 = Collision.TileCollision(position, velocity, Width, Height, false, false, 1);
+			if (vector5.Y > velocity.Y)
+			{
+				float num12 = velocity.Y - vector5.Y;
+				vector2.Y = Position.Y + vector5.Y;
+				if (array[1])
+				{
+					vector2.X = Position.X - num12;
+				}
+				if (array[2])
+				{
+					vector2.X = Position.X + num12;
+				}
+				vector3.X = 0f;
+				vector3.Y = 0f;
+				Collision.up = false;
+			}
+			else if (vector5.Y < velocity.Y)
+			{
+				float num13 = vector5.Y - velocity.Y;
+				vector2.Y = Position.Y + vector5.Y;
+				if (array[3])
 				{
 					vector2.X = Position.X - num13;
 				}
-				else
+				if (array[4])
 				{
 					vector2.X = Position.X + num13;
 				}
 				vector3.X = 0f;
 				vector3.Y = 0f;
-				Collision.up = false;
 			}
 			return new Vector4(vector2, vector3.X, vector3.Y);
 		}
@@ -636,50 +1036,41 @@ namespace Terraria
 									}
 								}
 							}
-							else
+							else if (vector3.X + (float)Width <= vector4.X && !Main.tileSolidTop[(int)Main.tile[i, j].type])
 							{
-								if (vector3.X + (float)Width <= vector4.X && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+								num5 = i;
+								num6 = j;
+								if (num6 != num8)
 								{
-									num5 = i;
-									num6 = j;
-									if (num6 != num8)
-									{
-										result.X = vector4.X - (vector3.X + (float)Width);
-									}
-									if (num7 == num5)
-									{
-										result.Y = vector.Y;
-									}
+									result.X = vector4.X - (vector3.X + (float)Width);
 								}
-								else
+								if (num7 == num5)
 								{
-									if (vector3.X >= vector4.X + 16f && !Main.tileSolidTop[(int)Main.tile[i, j].type])
-									{
-										num5 = i;
-										num6 = j;
-										if (num6 != num8)
-										{
-											result.X = vector4.X + 16f - vector3.X;
-										}
-										if (num7 == num5)
-										{
-											result.Y = vector.Y;
-										}
-									}
-									else
-									{
-										if (vector3.Y >= vector4.Y + (float)num10 && !Main.tileSolidTop[(int)Main.tile[i, j].type])
-										{
-											Collision.up = true;
-											num7 = i;
-											num8 = j;
-											result.Y = vector4.Y + (float)num10 - vector3.Y + 0.01f;
-											if (num8 == num6)
-											{
-												result.X = vector.X;
-											}
-										}
-									}
+									result.Y = vector.Y;
+								}
+							}
+							else if (vector3.X >= vector4.X + 16f && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+							{
+								num5 = i;
+								num6 = j;
+								if (num6 != num8)
+								{
+									result.X = vector4.X + 16f - vector3.X;
+								}
+								if (num7 == num5)
+								{
+									result.Y = vector.Y;
+								}
+							}
+							else if (vector3.Y >= vector4.Y + (float)num10 && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+							{
+								Collision.up = true;
+								num7 = i;
+								num8 = j;
+								result.Y = vector4.Y + (float)num10 - vector3.Y + 0.01f;
+								if (num8 == num6)
+								{
+									result.X = vector.X;
 								}
 							}
 						}
@@ -688,7 +1079,7 @@ namespace Terraria
 			}
 			return result;
 		}
-		public static Vector2 TileCollision(Vector2 Position, Vector2 Velocity, int Width, int Height, bool fallThrough = false, bool fall2 = false)
+		public static Vector2 TileCollision(Vector2 Position, Vector2 Velocity, int Width, int Height, bool fallThrough = false, bool fall2 = false, int gravDir = 1)
 		{
 			Collision.up = false;
 			Collision.down = false;
@@ -740,7 +1131,18 @@ namespace Terraria
 						{
 							bool flag = false;
 							bool flag2 = false;
-							if (Main.tile[i, j].slope() > 0)
+							if (Main.tile[i, j].slope() > 2)
+							{
+								if (Main.tile[i, j].slope() == 3 && vector3.Y + Math.Abs(Velocity.X) >= vector4.Y && vector3.X >= vector4.X)
+								{
+									flag2 = true;
+								}
+								if (Main.tile[i, j].slope() == 4 && vector3.Y + Math.Abs(Velocity.X) >= vector4.Y && vector3.X + (float)Width <= vector4.X + 16f)
+								{
+									flag2 = true;
+								}
+							}
+							else if (Main.tile[i, j].slope() > 0)
 							{
 								flag = true;
 								if (Main.tile[i, j].slope() == 1 && vector3.Y + (float)Height - Math.Abs(Velocity.X) <= vector4.Y + (float)num10 && vector3.X >= vector4.X)
@@ -767,69 +1169,60 @@ namespace Terraria
 										}
 										if (num7 != num5 && !flag)
 										{
-											result.Y = vector4.Y - (vector3.Y + (float)Height);
+											result.Y = vector4.Y - (vector3.Y + (float)Height) + ((gravDir == -1) ? -0.01f : 0f);
 											num9 = vector4.Y;
 										}
 									}
 								}
-								else
+								else if (vector3.X + (float)Width <= vector4.X && !Main.tileSolidTop[(int)Main.tile[i, j].type])
 								{
-									if (vector3.X + (float)Width <= vector4.X && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+									if (Main.tile[i - 1, j] == null)
 									{
-										if (Main.tile[i - 1, j] == null)
+										Main.tile[i - 1, j] = new Tile();
+									}
+									if (Main.tile[i - 1, j].slope() != 2 && Main.tile[i - 1, j].slope() != 4)
+									{
+										num5 = i;
+										num6 = j;
+										if (num6 != num8)
 										{
-											Main.tile[i - 1, j] = new Tile();
+											result.X = vector4.X - (vector3.X + (float)Width);
 										}
-										if (Main.tile[i - 1, j].slope() != 2)
+										if (num7 == num5)
 										{
-											num5 = i;
-											num6 = j;
-											if (num6 != num8)
-											{
-												result.X = vector4.X - (vector3.X + (float)Width);
-											}
-											if (num7 == num5)
-											{
-												result.Y = vector.Y;
-											}
+											result.Y = vector.Y;
 										}
 									}
-									else
+								}
+								else if (vector3.X >= vector4.X + 16f && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+								{
+									if (Main.tile[i + 1, j] == null)
 									{
-										if (vector3.X >= vector4.X + 16f && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+										Main.tile[i + 1, j] = new Tile();
+									}
+									if (Main.tile[i + 1, j].slope() != 1 && Main.tile[i + 1, j].slope() != 3)
+									{
+										num5 = i;
+										num6 = j;
+										if (num6 != num8)
 										{
-											if (Main.tile[i + 1, j] == null)
-											{
-												Main.tile[i + 1, j] = new Tile();
-											}
-											if (Main.tile[i + 1, j].slope() != 1)
-											{
-												num5 = i;
-												num6 = j;
-												if (num6 != num8)
-												{
-													result.X = vector4.X + 16f - vector3.X;
-												}
-												if (num7 == num5)
-												{
-													result.Y = vector.Y;
-												}
-											}
+											result.X = vector4.X + 16f - vector3.X;
 										}
-										else
+										if (num7 == num5)
 										{
-											if (vector3.Y >= vector4.Y + (float)num10 && !Main.tileSolidTop[(int)Main.tile[i, j].type])
-											{
-												Collision.up = true;
-												num7 = i;
-												num8 = j;
-												result.Y = vector4.Y + (float)num10 - vector3.Y + 0.01f;
-												if (num8 == num6)
-												{
-													result.X = vector.X;
-												}
-											}
+											result.Y = vector.Y;
 										}
+									}
+								}
+								else if (vector3.Y >= vector4.Y + (float)num10 && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+								{
+									Collision.up = true;
+									num7 = i;
+									num8 = j;
+									result.Y = vector4.Y + (float)num10 - vector3.Y + ((gravDir == 1) ? 0.01f : 0f);
+									if (num8 == num6)
+									{
+										result.X = vector.X;
 									}
 								}
 							}
@@ -916,7 +1309,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] != null && Main.tile[i, j].liquid > 0 && Main.tile[i, j - 1].liquid == 0 && (!Main.tile[i, j].lava() || lavaWalk))
 					{
-						int num5 = (int)(Main.tile[i, j].liquid / 32 * 2 + 2);
+						int num5 = Main.tile[i, j].liquid / 32 * 2 + 2;
 						Vector2 vector3;
 						vector3.X = (float)(i * 16);
 						vector3.Y = (float)(j * 16 + 16 - num5);
@@ -985,49 +1378,40 @@ namespace Terraria
 									result.Y = vector4.Y - (vector3.Y + (float)Height);
 								}
 							}
-							else
+							else if (vector3.X + (float)Width <= vector4.X && !Main.tileSolidTop[(int)Main.tile[i, j].type])
 							{
-								if (vector3.X + (float)Width <= vector4.X && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+								num5 = i;
+								num6 = j;
+								if (num6 != num8)
 								{
-									num5 = i;
-									num6 = j;
-									if (num6 != num8)
-									{
-										result.X = vector4.X - (vector3.X + (float)Width);
-									}
-									if (num7 == num5)
-									{
-										result.Y = vector.Y;
-									}
+									result.X = vector4.X - (vector3.X + (float)Width);
 								}
-								else
+								if (num7 == num5)
 								{
-									if (vector3.X >= vector4.X + 16f && !Main.tileSolidTop[(int)Main.tile[i, j].type])
-									{
-										num5 = i;
-										num6 = j;
-										if (num6 != num8)
-										{
-											result.X = vector4.X + 16f - vector3.X;
-										}
-										if (num7 == num5)
-										{
-											result.Y = vector.Y;
-										}
-									}
-									else
-									{
-										if (vector3.Y >= vector4.Y + (float)num9 && !Main.tileSolidTop[(int)Main.tile[i, j].type])
-										{
-											num7 = i;
-											num8 = j;
-											result.Y = vector4.Y + (float)num9 - vector3.Y + 0.01f;
-											if (num8 == num6)
-											{
-												result.X = vector.X + 0.01f;
-											}
-										}
-									}
+									result.Y = vector.Y;
+								}
+							}
+							else if (vector3.X >= vector4.X + 16f && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+							{
+								num5 = i;
+								num6 = j;
+								if (num6 != num8)
+								{
+									result.X = vector4.X + 16f - vector3.X;
+								}
+								if (num7 == num5)
+								{
+									result.Y = vector.Y;
+								}
+							}
+							else if (vector3.Y >= vector4.Y + (float)num9 && !Main.tileSolidTop[(int)Main.tile[i, j].type])
+							{
+								num7 = i;
+								num8 = j;
+								result.Y = vector4.Y + (float)num9 - vector3.Y + 0.01f;
+								if (num8 == num6)
+								{
+									result.X = vector.X + 0.01f;
 								}
 							}
 						}
@@ -1136,12 +1520,9 @@ namespace Terraria
 								{
 									num5 = 17;
 								}
-								else
+								else if (type == 80)
 								{
-									if (type == 80)
-									{
-										num5 = 6;
-									}
+									num5 = 6;
 								}
 								if (type == 32 || type == 69)
 								{
@@ -1154,45 +1535,39 @@ namespace Terraria
 								return new Vector2((float)num7, (float)num5);
 							}
 						}
-						else
+						else if (type == 53 || type == 112 || type == 116 || type == 123 || type == 224 || type == 234)
 						{
-							if (type == 53 || type == 112 || type == 116 || type == 123 || type == 224 || type == 234)
+							if (vector.X + (float)Width - 2f >= vector2.X && vector.X + 2f <= vector2.X + 16f && vector.Y + (float)Height - 2f >= vector2.Y && vector.Y + 2f <= vector2.Y + (float)num6)
 							{
-								if (vector.X + (float)Width - 2f >= vector2.X && vector.X + 2f <= vector2.X + 16f && vector.Y + (float)Height - 2f >= vector2.Y && vector.Y + 2f <= vector2.Y + (float)num6)
+								int num8 = 1;
+								if (vector.X + (float)(Width / 2) < vector2.X + 8f)
 								{
-									int num8 = 1;
-									if (vector.X + (float)(Width / 2) < vector2.X + 8f)
-									{
-										num8 = -1;
-									}
-									num5 = 15;
-									return new Vector2((float)num8, (float)num5);
+									num8 = -1;
 								}
+								num5 = 15;
+								return new Vector2((float)num8, (float)num5);
 							}
-							else
+						}
+						else if (vector.X + (float)Width >= vector2.X && vector.X <= vector2.X + 16f && vector.Y + (float)Height >= vector2.Y && (double)vector.Y <= (double)(vector2.Y + (float)num6) + 0.01)
+						{
+							int num9 = 1;
+							if (vector.X + (float)(Width / 2) < vector2.X + 8f)
 							{
-								if (vector.X + (float)Width >= vector2.X && vector.X <= vector2.X + 16f && vector.Y + (float)Height >= vector2.Y && (double)vector.Y <= (double)(vector2.Y + (float)num6) + 0.01)
-								{
-									int num9 = 1;
-									if (vector.X + (float)(Width / 2) < vector2.X + 8f)
-									{
-										num9 = -1;
-									}
-									if (!fireImmune && (type == 37 || type == 58 || type == 76))
-									{
-										num5 = 20;
-									}
-									if (type == 48)
-									{
-										num5 = 40;
-									}
-									if (type == 232)
-									{
-										num5 = 60;
-									}
-									return new Vector2((float)num9, (float)num5);
-								}
+								num9 = -1;
 							}
+							if (!fireImmune && (type == 37 || type == 58 || type == 76))
+							{
+								num5 = 20;
+							}
+							if (type == 48)
+							{
+								num5 = 40;
+							}
+							if (type == 232)
+							{
+								num5 = 60;
+							}
+							return new Vector2((float)num9, (float)num5);
 						}
 					}
 				}
@@ -1236,20 +1611,18 @@ namespace Terraria
 							{
 								WorldGen.ExplodeMine(i, j);
 							}
-							else
+							else if (oldPosition.X + (float)Width <= vector.X || oldPosition.X >= vector.X + 16f || oldPosition.Y + (float)Height <= vector.Y || (double)oldPosition.Y >= (double)vector.Y + 16.01)
 							{
-								if (oldPosition.X + (float)Width <= vector.X || oldPosition.X >= vector.X + 16f || oldPosition.Y + (float)Height <= vector.Y || (double)oldPosition.Y >= (double)vector.Y + 16.01)
+								int num5 = Main.tile[i, j].frameY / 18;
+								bool flag = true;
+								if ((num5 == 4 || num5 == 2 || num5 == 3 || num5 == 6) && objType != 1)
 								{
-									int num5 = (int)(Main.tile[i, j].frameY / 18);
-									bool flag = true;
-									if ((num5 == 4 || num5 == 2 || num5 == 3 || num5 == 6) && objType != 1)
-									{
-										flag = false;
-									}
-									if (num5 == 5 && objType == 1)
-									{
-										flag = false;
-									}
+									flag = false;
+								}
+								if (num5 == 5 && objType == 1)
+								{
+									flag = false;
+								}
 									if (flag)
 									{
 										bool handled = false;
@@ -1268,7 +1641,6 @@ namespace Terraria
 											return true;
 										}
 									}
-								}
 							}
 						}
 					}
@@ -1303,7 +1675,7 @@ namespace Terraria
 			{
 				for (int j = num3; j < num4; j++)
 				{
-					if (Main.tile[i, j] != null && Main.tile[i, j].active())
+					if (Main.tile[i, j] != null && Main.tile[i, j].active() && !Main.tile[i, j].inActive())
 					{
 						if (Main.tile[i, j].type == 51)
 						{
@@ -1320,28 +1692,25 @@ namespace Terraria
 								return new Vector2((float)i, (float)j);
 							}
 						}
-						else
+						else if (Main.tile[i, j].type == 229 && Main.tile[i, j].slope() == 0)
 						{
-							if (Main.tile[i, j].type == 229 && Main.tile[i, j].slope() == 0)
+							int num6 = 1;
+							Vector2 vector2;
+							vector2.X = (float)(i * 16);
+							vector2.Y = (float)(j * 16);
+							float num7 = 16.01f;
+							if (Main.tile[i, j].halfBrick())
 							{
-								int num6 = 1;
-								Vector2 vector2;
-								vector2.X = (float)(i * 16);
-								vector2.Y = (float)(j * 16);
-								float num7 = 16.01f;
-								if (Main.tile[i, j].halfBrick())
+								vector2.Y += 8f;
+								num7 -= 8f;
+							}
+							if (vector.X + (float)Width > vector2.X - (float)num6 && vector.X < vector2.X + 16f + (float)num6 && vector.Y + (float)Height > vector2.Y && vector.Y < vector2.Y + num7)
+							{
+								if (Main.tile[i, j].type == 51 && (double)(Math.Abs(Velocity.X) + Math.Abs(Velocity.Y)) > 0.7 && Main.rand.Next(30) == 0)
 								{
-									vector2.Y += 8f;
-									num7 -= 8f;
+									Dust.NewDust(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16, 30, 0f, 0f, 0, default(Color), 1f);
 								}
-								if (vector.X + (float)Width > vector2.X - (float)num6 && vector.X < vector2.X + 16f + (float)num6 && vector.Y + (float)Height > vector2.Y && vector.Y < vector2.Y + num7)
-								{
-									if (Main.tile[i, j].type == 51 && (double)(Math.Abs(Velocity.X) + Math.Abs(Velocity.Y)) > 0.7 && Main.rand.Next(30) == 0)
-									{
-										Dust.NewDust(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16, 30, 0f, 0f, 0, default(Color), 1f);
-									}
-									return new Vector2((float)i, (float)j);
-								}
+								return new Vector2((float)i, (float)j);
 							}
 						}
 					}

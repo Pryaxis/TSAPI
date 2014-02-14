@@ -80,6 +80,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Terraria.ID\ItemID.cs" />
+    <Compile Include="Terraria.ID\MessageID.cs" />
+    <Compile Include="Terraria.ID\StatusID.cs" />
+    <Compile Include="Terraria.ID\TileID.cs" />
+    <Compile Include="Terraria.ID\WallID.cs" />
+    <Compile Include="Terraria.MetaData\TileZoneData.cs" />
     <Compile Include="TerrariaApi.Server\ApiVersionAttribute.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\ChristmasCheckEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\CommandEventArgs.cs" />
@@ -111,9 +117,12 @@
     <Compile Include="TerrariaApi.Server\ServerApi.cs" />
     <Compile Include="TerrariaApi.Server\ProfilerManager.cs" />
     <Compile Include="TerrariaApi.Server\ServerLogWriter.cs" />
+    <Compile Include="Terraria\BitsByte.cs" />
     <Compile Include="Terraria\Lang.cs" />
-    <Compile Include="Terraria\Map.cs" />
     <Compile Include="Terraria\Rain.cs" />
+    <Compile Include="Terraria\Utils.cs" />
+    <Compile Include="Terraria\WorldFile.cs" />
+    <Compile Include="Terraria\WorldSections.cs" />
     <Compile Include="XNA\Color.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\GetDataEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\NpcStrikeEventArgs.cs" />
@@ -129,16 +138,12 @@
     <Compile Include="Terraria\StreamExt.cs" />
     <Compile Include="Terraria.Properties\Settings.cs" />
     <Compile Include="TerrariaApi.Server\TerrariaPlugin.cs" />
-    <Compile Include="Terraria\ChatLine.cs" />
     <Compile Include="Terraria\Chest.cs" />
     <Compile Include="Terraria\ClientSock.cs" />
-    <Compile Include="Terraria\Cloud.cs" />
     <Compile Include="Terraria\Collision.cs" />
-    <Compile Include="Terraria\CombatText.cs" />
     <Compile Include="Terraria\Dust.cs" />
     <Compile Include="Terraria\Gore.cs" />
     <Compile Include="Terraria\Item.cs" />
-    <Compile Include="Terraria\ItemText.cs" />
     <Compile Include="Terraria\Lighting.cs" />
     <Compile Include="Terraria\Liquid.cs" />
     <Compile Include="Terraria\LiquidBuffer.cs" />

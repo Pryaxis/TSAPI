@@ -360,7 +360,7 @@ namespace TerrariaApi.Server
 			get { return this.netGetData; }
 		}
 
-		internal bool InvokeNetGetData(ref byte msgId, messageBuffer buffer, ref int index, ref int length)
+		internal bool InvokeNetGetData(ref byte msgId, MessageBuffer buffer, ref int index, ref int length)
 		{
 			if (Main.netMode != 2 && msgId == (byte)PacketTypes.ChatText && length > 3)
 			{
@@ -858,7 +858,7 @@ namespace TerrariaApi.Server
 			get { return this.serverChat; }
 		}
 
-		internal bool InvokeServerChat(messageBuffer buffer, int who, string text)
+		internal bool InvokeServerChat(MessageBuffer buffer, int who, string text)
 		{
 			ServerChatEventArgs args = new ServerChatEventArgs
 			{

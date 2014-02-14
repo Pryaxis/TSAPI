@@ -6,7 +6,7 @@ namespace TerrariaApi.Server
 {
 	public class ServerChatEventArgs : HandledEventArgs
 	{
-		public messageBuffer Buffer
+		public MessageBuffer Buffer
 		{
 			get; 
 			internal set;

@@ -618,7 +618,7 @@ namespace Terraria
 			{
 				Main.netMode = 0;
 				Main.menuMode = 10;
-				WorldGen.saveWorld(false);
+				WorldFile.saveWorld(false);
 				while (WorldGen.saveLock)
 				{
 				}
@@ -700,10 +700,6 @@ namespace Terraria
 			return hit;
 		}
 		
-		/*public static void StartClient()
-		{
-			ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.ClientLoop), 1);
-		}*/
 		public static void StartServer()
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.ServerLoop), 1);
@@ -753,7 +749,7 @@ namespace Terraria
 					Netplay.serverSock[i] = new ServerSock();
 					Netplay.serverSock[i].tcpClient.NoDelay = true;
 				}
-				NetMessage.buffer[i] = new messageBuffer();
+				NetMessage.buffer[i] = new MessageBuffer();
 				NetMessage.buffer[i].whoAmI = i;
 			}
 			Netplay.clientSock.tcpClient.NoDelay = true;

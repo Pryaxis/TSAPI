@@ -1,12 +1,68 @@
 using System;
+
 namespace Terraria
 {
 	public class Chest
 	{
+		public const int MaxNameLength = 20;
+		public static int deferredChestID;
+		public static Chest deferredChest;
+		public static int maxChestTypes = 31;
+		public static int[] typeToIcon = new int[Chest.maxChestTypes];
+		public static int[] itemSpawn = new int[Chest.maxChestTypes];
 		public static int maxItems = 40;
-		public Item[] item = new Item[Chest.maxItems];
+		public Item[] item;
 		public int x;
 		public int y;
+		public bool bankChest;
+		public string name;
+		public Chest(bool bank = false)
+		{
+			this.item = new Item[Chest.maxItems];
+			this.bankChest = bank;
+			this.name = string.Empty;
+		}
+		public static void Initialize()
+		{
+			Chest.typeToIcon[0] = (Chest.itemSpawn[0] = 48);
+			Chest.typeToIcon[1] = (Chest.itemSpawn[1] = 306);
+			Chest.typeToIcon[2] = 327;
+			Chest.itemSpawn[2] = 306;
+			Chest.typeToIcon[3] = (Chest.itemSpawn[3] = 328);
+			Chest.typeToIcon[4] = 329;
+			Chest.itemSpawn[4] = 328;
+			Chest.typeToIcon[5] = (Chest.itemSpawn[5] = 343);
+			Chest.typeToIcon[6] = (Chest.itemSpawn[6] = 348);
+			Chest.typeToIcon[7] = (Chest.itemSpawn[7] = 625);
+			Chest.typeToIcon[8] = (Chest.itemSpawn[8] = 626);
+			Chest.typeToIcon[9] = (Chest.itemSpawn[9] = 627);
+			Chest.typeToIcon[10] = (Chest.itemSpawn[10] = 680);
+			Chest.typeToIcon[11] = (Chest.itemSpawn[11] = 681);
+			Chest.typeToIcon[12] = (Chest.itemSpawn[12] = 831);
+			Chest.typeToIcon[13] = (Chest.itemSpawn[13] = 838);
+			Chest.typeToIcon[14] = (Chest.itemSpawn[14] = 914);
+			Chest.typeToIcon[15] = (Chest.itemSpawn[15] = 952);
+			Chest.typeToIcon[16] = (Chest.itemSpawn[16] = 1142);
+			Chest.typeToIcon[17] = (Chest.itemSpawn[17] = 1298);
+			Chest.typeToIcon[18] = (Chest.itemSpawn[18] = 1528);
+			Chest.typeToIcon[19] = (Chest.itemSpawn[19] = 1529);
+			Chest.typeToIcon[20] = (Chest.itemSpawn[20] = 1530);
+			Chest.typeToIcon[21] = (Chest.itemSpawn[21] = 1531);
+			Chest.typeToIcon[22] = (Chest.itemSpawn[22] = 1532);
+			Chest.typeToIcon[23] = 1533;
+			Chest.itemSpawn[23] = 1528;
+			Chest.typeToIcon[24] = 1534;
+			Chest.itemSpawn[24] = 1529;
+			Chest.typeToIcon[25] = 1535;
+			Chest.itemSpawn[25] = 1530;
+			Chest.typeToIcon[26] = 1536;
+			Chest.itemSpawn[26] = 1531;
+			Chest.typeToIcon[27] = 1537;
+			Chest.itemSpawn[27] = 1532;
+			Chest.typeToIcon[28] = (Chest.itemSpawn[28] = 2230);
+			Chest.typeToIcon[29] = (Chest.itemSpawn[29] = 2249);
+			Chest.typeToIcon[30] = (Chest.itemSpawn[30] = 2250);
+		}
 		public object Clone()
 		{
 			return base.MemberwiseClone();
@@ -25,7 +81,7 @@ namespace Terraria
 					if ((Main.tile[i, j].frameX >= 72 && Main.tile[i, j].frameX <= 106) || (Main.tile[i, j].frameX >= 144 && Main.tile[i, j].frameX <= 178))
 					{
 						Tile expr_A3 = Main.tile[i, j];
-						expr_A3.frameX -= 36;
+						expr_A3.frameX = (short)(expr_A3.frameX - 36);
 						for (int k = 0; k < 4; k++)
 						{
 							Dust.NewDust(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16, 11, 0f, 0f, 0, default(Color), 1f);
@@ -34,7 +90,7 @@ namespace Terraria
 					else if (Main.tile[i, j].frameX >= 828 && Main.tile[i, j].frameX <= 990)
 					{
 						Tile expr_134 = Main.tile[i, j];
-						expr_134.frameX -= 180;
+						expr_134.frameX = (short)(expr_134.frameX - 180);
 						for (int l = 0; l < 4; l++)
 						{
 							Dust.NewDust(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16, 11, 0f, 0f, 0, default(Color), 1f);
@@ -68,40 +124,53 @@ namespace Terraria
 			}
 			return -1;
 		}
-		public static int CreateChest(int X, int Y)
+		public static int CreateChest(int X, int Y, int id = -1)
 		{
-			for (int i = 0; i < 1000; i++)
+			int num = id;
+			if (num == -1)
 			{
-				if (Main.chest[i] != null && Main.chest[i].x == X && Main.chest[i].y == Y)
+				for (int i = 0; i < 1000; i++)
+				{
+					if (Main.chest[i] != null)
+					{
+						if (Main.chest[i].x == X && Main.chest[i].y == Y)
+						{
+							return -1;
+						}
+					}
+					else if (num == -1)
+					{
+						num = i;
+					}
+				}
+				if (num == -1)
 				{
 					return -1;
 				}
-			}
-			for (int j = 0; j < 1000; j++)
-			{
-				if (Main.chest[j] == null)
+				if (Main.netMode == 1)
 				{
-					Main.chest[j] = new Chest();
-					Main.chest[j].x = X;
-					Main.chest[j].y = Y;
-					for (int k = 0; k < Chest.maxItems; k++)
-					{
-						Main.chest[j].item[k] = new Item();
-					}
-					return j;
+					return num;
 				}
 			}
-			return -1;
+			Main.chest[num] = new Chest(false);
+			Main.chest[num].x = X;
+			Main.chest[num].y = Y;
+			for (int j = 0; j < Chest.maxItems; j++)
+			{
+				Main.chest[num].item[j] = new Item();
+			}
+			return num;
 		}
 		public static bool DestroyChest(int X, int Y)
 		{
 			for (int i = 0; i < 1000; i++)
 			{
-				if (Main.chest[i] != null && Main.chest[i].x == X && Main.chest[i].y == Y)
+				Chest chest = Main.chest[i];
+				if (chest != null && chest.x == X && chest.y == Y)
 				{
 					for (int j = 0; j < Chest.maxItems; j++)
 					{
-						if (Main.chest[i].item[j].type > 0 && Main.chest[i].item[j].stack > 0)
+						if (chest.item[j] != null && chest.item[j].type > 0 && chest.item[j].stack > 0)
 						{
 							return false;
 						}
@@ -112,6 +181,19 @@ namespace Terraria
 			}
 			return true;
 		}
+		public static void DestroyChestDirect(int X, int Y, int id)
+		{
+			Chest chest = Main.chest[id];
+			if (chest == null)
+			{
+				return;
+			}
+			if (chest.x != X || chest.y != Y)
+			{
+				return;
+			}
+			Main.chest[id] = null;
+		}
 		public void AddShop(Item newItem)
 		{
 			int i = 0;
@@ -119,7 +201,7 @@ namespace Terraria
 			{
 				if (this.item[i] == null || this.item[i].type == 0)
 				{
-					this.item[i] = (Item)newItem.Clone();
+					this.item[i] = newItem.Clone();
 					this.item[i].buyOnce = true;
 					if (this.item[i].value <= 0)
 					{
@@ -139,6 +221,189 @@ namespace Terraria
 				}
 			}
 		}
+		public static void SetupTravelShop()
+		{
+			for (int i = 0; i < Chest.maxItems; i++)
+			{
+				Main.travelShop[i] = 0;
+			}
+			int num = Main.rand.Next(4, 7);
+			if (Main.rand.Next(5) == 0)
+			{
+				num++;
+			}
+			if (Main.rand.Next(10) == 0)
+			{
+				num++;
+			}
+			if (Main.rand.Next(20) == 0)
+			{
+				num++;
+			}
+			if (Main.rand.Next(40) == 0)
+			{
+				num++;
+			}
+			int num2 = 0;
+			int j = 0;
+			int[] array = new int[]
+			{
+				100,
+				200,
+				300,
+				400,
+				500,
+				800
+			};
+			while (j < num)
+			{
+				int num3 = 0;
+				if (Main.rand.Next(array[5]) == 0)
+				{
+					num3 = 1987;
+				}
+				if (Main.rand.Next(array[4]) == 0 && Main.hardMode)
+				{
+					num3 = 2270;
+				}
+				if (Main.rand.Next(array[4]) == 0)
+				{
+					num3 = 2278;
+				}
+				if (Main.rand.Next(array[4]) == 0)
+				{
+					num3 = 2271;
+				}
+				if (Main.rand.Next(array[3]) == 0 && Main.hardMode && NPC.downedPlantBoss)
+				{
+					num3 = 2223;
+				}
+				if (Main.rand.Next(array[3]) == 0)
+				{
+					num3 = 2272;
+				}
+				if (Main.rand.Next(array[3]) == 0)
+				{
+					num3 = 2219;
+				}
+				if (Main.rand.Next(array[3]) == 0)
+				{
+					num3 = 2276;
+				}
+				if (Main.rand.Next(array[3]) == 0)
+				{
+					num3 = 2284;
+				}
+				if (Main.rand.Next(array[3]) == 0)
+				{
+					num3 = 2285;
+				}
+				if (Main.rand.Next(array[3]) == 0)
+				{
+					num3 = 2286;
+				}
+				if (Main.rand.Next(array[3]) == 0)
+				{
+					num3 = 2287;
+				}
+				if (Main.rand.Next(array[2]) == 0 && WorldGen.shadowOrbSmashed)
+				{
+					num3 = 2269;
+				}
+				if (Main.rand.Next(array[2]) == 0)
+				{
+					num3 = 2177;
+				}
+				if (Main.rand.Next(array[2]) == 0)
+				{
+					num3 = 1988;
+				}
+				if (Main.rand.Next(array[2]) == 0)
+				{
+					num3 = 2275;
+				}
+				if (Main.rand.Next(array[2]) == 0)
+				{
+					num3 = 2279;
+				}
+				if (Main.rand.Next(array[2]) == 0)
+				{
+					num3 = 2277;
+				}
+				if (Main.rand.Next(array[1]) == 0)
+				{
+					num3 = 2214;
+				}
+				if (Main.rand.Next(array[1]) == 0)
+				{
+					num3 = 2215;
+				}
+				if (Main.rand.Next(array[1]) == 0)
+				{
+					num3 = 2216;
+				}
+				if (Main.rand.Next(array[1]) == 0)
+				{
+					num3 = 2217;
+				}
+				if (Main.rand.Next(array[1]) == 0)
+				{
+					num3 = 2273;
+				}
+				if (Main.rand.Next(array[1]) == 0)
+				{
+					num3 = 2274;
+				}
+				if (Main.rand.Next(array[0]) == 0)
+				{
+					num3 = 2266;
+				}
+				if (Main.rand.Next(array[0]) == 0)
+				{
+					num3 = 2267;
+				}
+				if (Main.rand.Next(array[0]) == 0)
+				{
+					num3 = 2268;
+				}
+				if (Main.rand.Next(array[0]) == 0)
+				{
+					num3 = 2258;
+				}
+				if (Main.rand.Next(array[0]) == 0)
+				{
+					num3 = 2242;
+				}
+				if (Main.rand.Next(array[0]) == 0)
+				{
+					num3 = 2260;
+				}
+				if (num3 != 0)
+				{
+					for (int k = 0; k < Chest.maxItems; k++)
+					{
+						if (Main.travelShop[k] == num3)
+						{
+							num3 = 0;
+							break;
+						}
+					}
+				}
+				if (num3 != 0)
+				{
+					j++;
+					Main.travelShop[num2] = num3;
+					num2++;
+					if (num3 == 2260)
+					{
+						Main.travelShop[num2] = 2261;
+						num2++;
+						Main.travelShop[num2] = 2262;
+						num2++;
+					}
+				}
+			}
+		}
 		public void SetupShop(int type)
 		{
 			for (int i = 0; i < Chest.maxItems; i++)
@@ -154,6 +419,8 @@ namespace Terraria
 				num++;
 				this.item[num].SetDefaults("Iron Anvil");
 				num++;
+				this.item[num].SetDefaults(1991, false);
+				num++;
 				this.item[num].SetDefaults("Copper Pickaxe");
 				num++;
 				this.item[num].SetDefaults("Copper Axe");
@@ -162,11 +429,8 @@ namespace Terraria
 				num++;
 				this.item[num].SetDefaults("Lesser Healing Potion");
 				num++;
-				if (Main.player[Main.myPlayer].statManaMax == 200)
-				{
-					this.item[num].SetDefaults("Lesser Mana Potion");
-					num++;
-				}
+				this.item[num].SetDefaults("Lesser Mana Potion");
+				num++;
 				this.item[num].SetDefaults("Wooden Arrow");
 				num++;
 				this.item[num].SetDefaults("Shuriken");
@@ -287,10 +551,18 @@ namespace Terraria
 			{
 				if (Main.bloodMoon)
 				{
-					this.item[num].SetDefaults(67, false);
-					num++;
-					this.item[num].SetDefaults(59, false);
-					num++;
+					if (WorldGen.crimson)
+					{
+						this.item[num].SetDefaults(2171, false);
+						num++;
+					}
+					else
+					{
+						this.item[num].SetDefaults(67, false);
+						num++;
+						this.item[num].SetDefaults(59, false);
+						num++;
+					}
 				}
 				else
 				{
@@ -535,13 +807,19 @@ namespace Terraria
 			}
 			else if (type == 10)
 			{
-				this.item[num].SetDefaults(756, false);
-				num++;
-				this.item[num].SetDefaults(787, false);
-				num++;
+				if (NPC.downedMechBossAny)
+				{
+					this.item[num].SetDefaults(756, false);
+					num++;
+					this.item[num].SetDefaults(787, false);
+					num++;
+				}
 				this.item[num].SetDefaults(868, false);
 				num++;
-				this.item[num].SetDefaults(1551, false);
+				if (NPC.downedPlantBoss)
+				{
+					this.item[num].SetDefaults(1551, false);
+				}
 				num++;
 				this.item[num].SetDefaults(1181, false);
 				num++;
@@ -574,6 +852,16 @@ namespace Terraria
 				else
 				{
 					this.item[num].SetDefaults(995, false);
+					num++;
+				}
+				if (NPC.downedBoss1 && NPC.downedBoss2 && NPC.downedBoss3)
+				{
+					this.item[num].SetDefaults(2203, false);
+					num++;
+				}
+				if (WorldGen.crimson)
+				{
+					this.item[num].SetDefaults(2193, false);
 					num++;
 				}
 				this.item[num].SetDefaults(1263, false);
@@ -617,6 +905,11 @@ namespace Terraria
 				this.item[num].SetDefaults(1037, false);
 				num++;
 				this.item[num].SetDefaults(1120, false);
+				num++;
+				if (Main.netMode == 1)
+				{
+					this.item[num].SetDefaults(1969, false);
+				}
 				num++;
 				if (Main.halloween)
 				{
@@ -706,6 +999,15 @@ namespace Terraria
 				num++;
 				this.item[num].SetDefaults(1098, false);
 				num++;
+				this.item[num].SetDefaults(1966, false);
+				num++;
+				if (Main.hardMode)
+				{
+					this.item[num].SetDefaults(1967, false);
+					num++;
+					this.item[num].SetDefaults(1968, false);
+					num++;
+				}
 				this.item[num].SetDefaults(1490, false);
 				num++;
 				if (Main.moonPhase <= 1)
@@ -780,6 +1082,22 @@ namespace Terraria
 						this.item[num].SetDefaults(m, false);
 						num++;
 					}
+				}
+				for (int n = 2158; n <= 2160; n++)
+				{
+					if (num < 39)
+					{
+						this.item[num].SetDefaults(n, false);
+					}
+					num++;
+				}
+				for (int num2 = 2008; num2 <= 2014; num2++)
+				{
+					if (num < 39)
+					{
+						this.item[num].SetDefaults(num2, false);
+					}
+					num++;
 				}
 			}
 			else if (type == 16)
@@ -869,8 +1187,8 @@ namespace Terraria
 				num++;
 				this.item[num].SetDefaults(878, false);
 				num++;
-				int num2 = (int)((Main.screenPosition.X + (float)(Main.screenWidth / 2)) / 16f);
-				if ((double)(Main.screenPosition.Y / 16f) < Main.worldSurface + 10.0 && (num2 < 380 || num2 > Main.maxTilesX - 380))
+				int num3 = (int)((Main.screenPosition.X + (float)(Main.screenWidth / 2)) / 16f);
+				if ((double)(Main.screenPosition.Y / 16f) < Main.worldSurface + 10.0 && (num3 < 380 || num3 > Main.maxTilesX - 380))
 				{
 					this.item[num].SetDefaults(1180, false);
 					num++;
@@ -879,15 +1197,96 @@ namespace Terraria
 				{
 					this.item[num].SetDefaults(1337, false);
 					num++;
-					this.item[num].SetDefaults(1338, false);
+				}
+			}
+			else if (type == 18)
+			{
+				this.item[num].SetDefaults(1990, false);
+				num++;
+				this.item[num].SetDefaults(1979, false);
+				num++;
+				if (Main.player[Main.myPlayer].statLifeMax >= 400)
+				{
+					this.item[num].SetDefaults(1977, false);
 					num++;
+				}
+				if (Main.player[Main.myPlayer].statManaMax >= 200)
+				{
+					this.item[num].SetDefaults(1978, false);
+				}
+				num++;
+				int num4 = 0;
+				for (int num5 = 0; num5 < 54; num5++)
+				{
+					if (Main.player[Main.myPlayer].inventory[num5].type == 71)
+					{
+						num4 += Main.player[Main.myPlayer].inventory[num5].stack;
+					}
+					if (Main.player[Main.myPlayer].inventory[num5].type == 72)
+					{
+						num4 += Main.player[Main.myPlayer].inventory[num5].stack * 100;
+					}
+					if (Main.player[Main.myPlayer].inventory[num5].type == 73)
+					{
+						num4 += Main.player[Main.myPlayer].inventory[num5].stack * 10000;
+					}
+					if (Main.player[Main.myPlayer].inventory[num5].type == 74)
+					{
+						num4 += Main.player[Main.myPlayer].inventory[num5].stack * 1000000;
+					}
+				}
+				if (num4 >= 1000000)
+				{
+					this.item[num].SetDefaults(1980, false);
+					num++;
+				}
+				if ((Main.moonPhase % 2 == 0 && Main.dayTime) || (Main.moonPhase % 2 == 1 && !Main.dayTime))
+				{
+					this.item[num].SetDefaults(1981, false);
+					num++;
+				}
+				if (Main.player[Main.myPlayer].team != 0)
+				{
+					this.item[num].SetDefaults(1982, false);
+					num++;
+				}
+				if (Main.hardMode)
+				{
+					this.item[num].SetDefaults(1983, false);
+					num++;
+				}
+				if (NPC.AnyNPCs(208))
+				{
+					this.item[num].SetDefaults(1984, false);
+					num++;
+				}
+				if (Main.hardMode && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+				{
+					this.item[num].SetDefaults(1985, false);
+					num++;
+				}
+				if (Main.hardMode && NPC.downedMechBossAny)
+				{
+					this.item[num].SetDefaults(1986, false);
+					num++;
+				}
+			}
+			else if (type == 19)
+			{
+				for (int num6 = 0; num6 < Chest.maxItems; num6++)
+				{
+					if (Main.travelShop[num6] != 0)
+					{
+						this.item[num].netDefaults(Main.travelShop[num6]);
+						num++;
+					}
 				}
 			}
 			if (Main.player[Main.myPlayer].discount)
 			{
-				for (int n = 0; n < num; n++)
+				for (int num7 = 0; num7 < num; num7++)
 				{
-					this.item[n].value = (int)((float)this.item[n].value * 0.8f);
+					this.item[num7].value = (int)((float)this.item[num7].value * 0.8f);
 				}
 			}
 		}
