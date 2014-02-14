@@ -465,6 +465,7 @@ namespace Terraria
 		public static Random rand;
 		public static int maxMoons = 3;
 		public static int moonType = 0;
+		public static int numTileColors = 31;
 		public static bool[] tileLighted = new bool[314];
 		public static bool[] tileMergeDirt = new bool[314];
 		public static bool[] tileCut = new bool[314];
@@ -7645,13 +7646,13 @@ namespace Terraria
 		public static void NewText(string newText, byte R = 255, byte G = 255, byte B = 255, bool force = false)
 		{
 		}
-		private static void StopRain()
+		public static void StopRain()
 		{
 			Main.rainTime = 0;
 			Main.raining = false;
 			Main.maxRaining = 0f;
 		}
-		private static void StartRain()
+		public static void StartRain()
 		{
 			int num = 86400;
 			int num2 = num / 24;
