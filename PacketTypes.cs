@@ -68,5 +68,9 @@ public enum PacketTypes
     Teleport,
     PlayerHealOther,
 	Placeholder,
-	ClientUUID
+	ClientUUID,
+	ChestName,
+	CatchNPC,
+	ReleaseNPC,
+	SetShop
 }
