@@ -2810,11 +2810,6 @@ namespace Terraria
 					if (!Netplay.serverSock[i].announced)
 					{
 						Netplay.serverSock[i].announced = true;
-						NetMessage.SendData(25, -1, i, Main.player[i].name + " " + Lang.mp[19], 255, 255f, 240f, 20f, 0);
-						if (Main.dedServ)
-						{
-							Console.WriteLine(Main.player[i].name + " " + Lang.mp[19]);
-						}
 					}
 				}
 				else
@@ -2824,11 +2819,6 @@ namespace Terraria
 					if (Netplay.serverSock[i].announced)
 					{
 						Netplay.serverSock[i].announced = false;
-						NetMessage.SendData(25, -1, i, Netplay.serverSock[i].oldName + " " + Lang.mp[20], 255, 255f, 240f, 20f, 0);
-						if (Main.dedServ)
-						{
-							Console.WriteLine(Netplay.serverSock[i].oldName + " " + Lang.mp[20]);
-						}
 					}
 				}
 			}
