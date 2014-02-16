@@ -56,6 +56,7 @@ namespace Terraria
 		public static int maxWire = 2000;
 		public static int[] wireX = new int[WorldGen.maxWire];
 		public static int[] wireY = new int[WorldGen.maxWire];
+		[ThreadStatic]
 		public static int numWire = 0;
 		public static int[] noWireX = new int[WorldGen.maxWire];
 		public static int[] noWireY = new int[WorldGen.maxWire];

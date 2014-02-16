@@ -43,7 +43,7 @@ namespace Terraria
 			{
 				num = remoteClient;
 			}
-			lock (NetMessage.buffer[num])
+			lock (NetMessage.buffer[num].writeBuffer)
 			{
 				int num2 = 5;
 				int num3 = num2;
@@ -2566,7 +2566,7 @@ namespace Terraria
 		}
 		public static void RecieveBytes(byte[] bytes, int streamLength, int i = 256)
 		{
-			lock (NetMessage.buffer[i])
+			lock (NetMessage.buffer[i].readBuffer)
 			{
 				try
 				{
@@ -2591,7 +2591,7 @@ namespace Terraria
 		}
 		public static void CheckBytes(int i = 256)
 		{
-			lock (NetMessage.buffer[i])
+			lock (NetMessage.buffer[i].readBuffer)
 			{
 				int num = 0;
 				if (NetMessage.buffer[i].totalData >= 4)
