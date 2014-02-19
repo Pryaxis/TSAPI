@@ -1056,7 +1056,7 @@ namespace Terraria
 							case 4:
 								return "Gallius";
 							case 5:
-								return "Llewllyn";
+								return "Llewellyn";
 							case 6:
 								return "Riley";
 							case 7:
@@ -1101,7 +1101,7 @@ namespace Terraria
 						case 10:
 							return "Ruby";
 						case 11:
-							return "Esmerelda ";
+							return "Esmeralda";
 						case 12:
 							return "Kylie";
 						case 13:
@@ -8147,6 +8147,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 3000f;
 				this.buffImmune[31] = false;
+				this.npcSlots = 2f;
 			}
 			else if (this.type == 344)
 			{
@@ -8162,6 +8163,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.buffImmune[20] = true;
+				this.npcSlots = 3f;
 			}
 			else if (this.type == 345)
 			{
@@ -8169,7 +8171,7 @@ namespace Terraria
 				this.width = 130;
 				this.height = 140;
 				this.aiStyle = 60;
-				this.damage = 160;
+				this.damage = 130;
 				this.defense = 38;
 				this.lifeMax = 34000;
 				this.soundHit = 7;
@@ -8179,6 +8181,7 @@ namespace Terraria
 				this.buffImmune[20] = true;
 				this.noTileCollide = true;
 				this.noGravity = true;
+				this.npcSlots = 5f;
 			}
 			else if (this.type == 346)
 			{
@@ -8194,6 +8197,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.buffImmune[20] = true;
+				this.npcSlots = 4f;
 			}
 			else if (this.type == 347)
 			{
@@ -8210,6 +8214,7 @@ namespace Terraria
 				this.value = 1000f;
 				this.noTileCollide = true;
 				this.noGravity = true;
+				this.npcSlots = 1.5f;
 			}
 			else if (this.type == 348)
 			{
@@ -8225,6 +8230,7 @@ namespace Terraria
 				this.knockBackResist = 0.4f;
 				this.value = 1500f;
 				this.buffImmune[31] = false;
+				this.npcSlots = 1.5f;
 			}
 			else if (this.type == 349)
 			{
@@ -8240,6 +8246,7 @@ namespace Terraria
 				this.knockBackResist = 0.1f;
 				this.value = 1500f;
 				this.buffImmune[31] = false;
+				this.npcSlots = 1.5f;
 			}
 			else if (this.type == 350)
 			{
@@ -8272,6 +8279,7 @@ namespace Terraria
 				this.value = 3000f;
 				this.buffImmune[20] = true;
 				this.buffImmune[31] = false;
+				this.npcSlots = 1.75f;
 			}
 			else if (this.type == 352)
 			{
@@ -8279,7 +8287,7 @@ namespace Terraria
 				this.width = 54;
 				this.height = 54;
 				this.aiStyle = 63;
-				this.damage = 100;
+				this.damage = 90;
 				this.defense = 12;
 				this.lifeMax = 800;
 				this.soundHit = 1;
@@ -8291,6 +8299,7 @@ namespace Terraria
 				this.knockBackResist = 0.4f;
 				this.noGravity = true;
 				this.noTileCollide = true;
+				this.npcSlots = 2f;
 			}
 			else if (this.type == 353)
 			{
@@ -10279,7 +10288,7 @@ namespace Terraria
 						int num67 = 70;
 						if (this.type == 350)
 						{
-							num67 = 85;
+							num67 = 110;
 						}
 						if (this.type == 291)
 						{
@@ -10413,7 +10422,7 @@ namespace Terraria
 								}
 								if (this.type == 350)
 								{
-									num73 = 50;
+									num73 = 45;
 								}
 								int num74 = 82;
 								if (this.type == 111)
@@ -17662,7 +17671,7 @@ namespace Terraria
 										}
 									}
 								}
-								if ((double)this.life < (double)this.lifeMax * 0.35)
+								if ((double)this.life < (double)this.lifeMax * 0.4)
 								{
 									this.ai[0] = 1f;
 									this.ai[1] = 0f;
@@ -18149,7 +18158,7 @@ namespace Terraria
 										}
 									}
 								}
-								if ((double)this.life < (double)this.lifeMax * 0.35)
+								if ((double)this.life < (double)this.lifeMax * 0.4)
 								{
 									this.ai[0] = 1f;
 									this.ai[1] = 0f;
@@ -23906,22 +23915,22 @@ namespace Terraria
 											{
 												this.ai[2] = 0f;
 											}
-											float num943 = 0.5f;
-											float num944 = 9f;
+											float num943 = 0.45f;
+											float num944 = 7f;
 											if ((double)this.life < (double)this.lifeMax * 0.75)
 											{
-												num943 = 0.6f;
-												num944 = 10f;
+												num943 = 0.55f;
+												num944 = 8f;
 											}
 											if ((double)this.life < (double)this.lifeMax * 0.5)
 											{
-												num943 = 0.75f;
-												num944 = 12f;
+												num943 = 0.7f;
+												num944 = 10f;
 											}
 											if ((double)this.life < (double)this.lifeMax * 0.25)
 											{
-												num943 = 0.9f;
-												num944 = 13f;
+												num943 = 0.8f;
+												num944 = 11f;
 											}
 											this.velocity.X = this.velocity.X + this.ai[2] * num943;
 											if (this.velocity.X > num944)
@@ -23966,6 +23975,7 @@ namespace Terraria
 												{
 													num946 = 10;
 												}
+												num946++;
 												if (this.ai[3] > (float)num946)
 												{
 													this.ai[3] = (float)(-(float)num946);
@@ -23977,23 +23987,23 @@ namespace Terraria
 													float num947 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector124.X;
 													float num948 = Main.player[this.target].center().Y - vector124.Y;
 													float num949 = (float)Math.Sqrt((double)(num947 * num947 + num948 * num948));
-													float num950 = 7f;
+													float num950 = 6f;
 													if ((double)this.life < (double)this.lifeMax * 0.75)
 													{
-														num950 = 9f;
+														num950 = 7f;
 													}
 													if ((double)this.life < (double)this.lifeMax * 0.5)
 													{
-														num950 = 11f;
+														num950 = 8f;
 													}
 													if ((double)this.life < (double)this.lifeMax * 0.25)
 													{
-														num950 = 12f;
+														num950 = 9f;
 													}
 													num949 = num950 / num949;
 													num947 *= num949;
 													num948 *= num949;
-													Projectile.NewProjectile(vector124.X, vector124.Y, num947, num948, 348, 50, 0f, Main.myPlayer, 0f, 0f);
+													Projectile.NewProjectile(vector124.X, vector124.Y, num947, num948, 348, 47, 0f, Main.myPlayer, 0f, 0f);
 												}
 											}
 											else if (this.ai[3] < 0f)
@@ -24029,6 +24039,8 @@ namespace Terraria
 												num951 = 0.25f;
 												num952 = 10f;
 											}
+											num951 -= 0.05f;
+											num952 -= 1f;
 											if (this.center().X < Main.player[this.target].center().X)
 											{
 												this.velocity.X = this.velocity.X + num951;
@@ -24087,6 +24099,7 @@ namespace Terraria
 												{
 													num954 = 8;
 												}
+												num954 += 3;
 												if (this.ai[3] >= (float)num954)
 												{
 													this.ai[3] = 0f;
@@ -24102,7 +24115,7 @@ namespace Terraria
 														}
 														num955 += 3f;
 														float speedX2 = this.velocity.X * 0.25f;
-														Projectile.NewProjectile(vector125.X, vector125.Y, speedX2, num955, 349, 50, 0f, Main.myPlayer, (float)Main.rand.Next(5), 0f);
+														Projectile.NewProjectile(vector125.X, vector125.Y, speedX2, num955, 349, 40, 0f, Main.myPlayer, (float)Main.rand.Next(5), 0f);
 													}
 												}
 											}
@@ -24131,27 +24144,27 @@ namespace Terraria
 											vector126.X += num956 * 4f;
 											vector126.Y += num957 * 4f;
 											this.ai[3] += 1f;
-											int num960 = 5;
+											int num960 = 7;
 											if ((double)this.life < (double)this.lifeMax * 0.75)
 											{
-												num960 = 4;
+												num960--;
 											}
 											if ((double)this.life < (double)this.lifeMax * 0.5)
 											{
-												num960 = 3;
+												num960 -= 2;
 											}
 											if ((double)this.life < (double)this.lifeMax * 0.25)
 											{
-												num960 = 2;
+												num960 -= 3;
 											}
 											if ((double)this.life < (double)this.lifeMax * 0.1)
 											{
-												num960 = 1;
+												num960 -= 4;
 											}
 											if (this.ai[3] > (float)num960)
 											{
 												this.ai[3] = 0f;
-												Projectile.NewProjectile(vector126.X, vector126.Y, num956, num957, 349, 50, 0f, Main.myPlayer, 0f, 0f);
+												Projectile.NewProjectile(vector126.X, vector126.Y, num956, num957, 349, 45, 0f, Main.myPlayer, 0f, 0f);
 											}
 											if (Main.netMode != 1)
 											{
@@ -24226,18 +24239,18 @@ namespace Terraria
 										{
 											this.ai[1] += 1f;
 											flag64 = true;
-											int num963 = 8;
+											int num963 = 14;
 											if ((double)this.life < (double)this.lifeMax * 0.25)
 											{
-												num963 = 5;
+												num963 = 8;
 											}
 											else if ((double)this.life < (double)this.lifeMax * 0.5)
 											{
-												num963 = 6;
+												num963 = 10;
 											}
 											else if ((double)this.life < (double)this.lifeMax * 0.75)
 											{
-												num963 = 7;
+												num963 = 12;
 											}
 											if (this.ai[1] % (float)num963 == 0f)
 											{
@@ -24251,9 +24264,9 @@ namespace Terraria
 												num966 = num967 / num966;
 												num964 *= num966;
 												num965 *= num966;
-												num964 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
-												num965 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
-												Projectile.NewProjectile(vector127.X, vector127.Y, num964, num965, 180, 37, 0f, Main.myPlayer, 0f, 0f);
+												num964 *= 1f + (float)Main.rand.Next(-20, 21) * 0.015f;
+												num965 *= 1f + (float)Main.rand.Next(-20, 21) * 0.015f;
+												Projectile.NewProjectile(vector127.X, vector127.Y, num964, num965, 180, 36, 0f, Main.myPlayer, 0f, 0f);
 											}
 											if (this.ai[1] > 240f)
 											{
@@ -24294,7 +24307,7 @@ namespace Terraria
 												num973 = num974 / num973;
 												num971 *= num973;
 												num972 *= num973;
-												Projectile.NewProjectile(vector128.X, vector128.Y, num971, num972, 352, 100, 0f, Main.myPlayer, 0f, 0f);
+												Projectile.NewProjectile(vector128.X, vector128.Y, num971, num972, 352, 80, 0f, Main.myPlayer, 0f, 0f);
 											}
 											if (Main.rand.Next(num969) == 0)
 											{
@@ -24303,7 +24316,7 @@ namespace Terraria
 											if (this.localAI[1] >= 1f)
 											{
 												this.localAI[1] += 1f;
-												int num975 = 11;
+												int num975 = 12;
 												if (this.localAI[1] % (float)num975 == 0f)
 												{
 													Vector2 vector129 = new Vector2(this.center().X - (float)(this.direction * 24), this.center().Y - 64f);
@@ -24312,13 +24325,13 @@ namespace Terraria
 													num976 += (float)Main.rand.Next(-50, 51);
 													num977 += (float)Main.rand.Next(-50, 51);
 													float num978 = (float)Math.Sqrt((double)(num976 * num976 + num977 * num977));
-													float num979 = 14f;
+													float num979 = 12.5f;
 													num978 = num979 / num978;
 													num976 *= num978;
 													num977 *= num978;
 													num976 *= 1f + (float)Main.rand.Next(-20, 21) * 0.015f;
 													num977 *= 1f + (float)Main.rand.Next(-20, 21) * 0.015f;
-													Projectile.NewProjectile(vector129.X, vector129.Y, num976, num977, 350, 45, 0f, Main.myPlayer, 0f, 0f);
+													Projectile.NewProjectile(vector129.X, vector129.Y, num976, num977, 350, 42, 0f, Main.myPlayer, 0f, 0f);
 												}
 												if (this.localAI[1] >= 100f)
 												{
@@ -24332,7 +24345,7 @@ namespace Terraria
 											if (this.localAI[2] > 0f)
 											{
 												this.localAI[2] += 1f;
-												int num980 = 8;
+												int num980 = 9;
 												if (this.localAI[2] % (float)num980 == 0f)
 												{
 													Vector2 vector130 = new Vector2(this.center().X - (float)(this.direction * 24), this.center().Y - 64f);
@@ -24345,7 +24358,7 @@ namespace Terraria
 													num982 *= num983;
 													num981 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
 													num982 *= 1f + (float)Main.rand.Next(-20, 21) * 0.01f;
-													Projectile.NewProjectile(vector130.X, vector130.Y, num981, num982, 351, 55, 0f, Main.myPlayer, 0f, 0f);
+													Projectile.NewProjectile(vector130.X, vector130.Y, num981, num982, 351, 50, 0f, Main.myPlayer, 0f, 0f);
 												}
 												if (this.localAI[2] >= 100f)
 												{
@@ -24466,21 +24479,23 @@ namespace Terraria
 											if (Math.Abs(this.velocity.X) < 1f && Math.Abs(this.velocity.Y) < 1f && Main.netMode != 1)
 											{
 												this.localAI[0] += 1f;
-												if (this.localAI[0] >= 9f)
+												if (this.localAI[0] >= 13f)
 												{
 													this.localAI[0] = 0f;
 													num988 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector132.X;
 													num989 = Main.player[this.target].center().Y - vector132.Y;
-													num988 += (float)Main.rand.Next(-30, 31);
-													num989 += (float)Main.rand.Next(-30, 31);
+													num988 += (float)Main.rand.Next(-35, 36);
+													num989 += (float)Main.rand.Next(-35, 36);
+													num988 *= 1f + (float)Main.rand.Next(-20, 21) * 0.015f;
+													num989 *= 1f + (float)Main.rand.Next(-20, 21) * 0.015f;
 													num990 = (float)Math.Sqrt((double)(num988 * num988 + num989 * num989));
-													num987 = 11f;
+													num987 = 10f;
 													num991 = num987 / num990;
 													num988 *= num991;
 													num989 *= num991;
 													num988 *= 1f + (float)Main.rand.Next(-20, 21) * 0.0125f;
 													num989 *= 1f + (float)Main.rand.Next(-20, 21) * 0.0125f;
-													Projectile.NewProjectile(vector132.X, vector132.Y, num988, num989, 180, 42, 0f, Main.myPlayer, 0f, 0f);
+													Projectile.NewProjectile(vector132.X, vector132.Y, num988, num989, 180, 37, 0f, Main.myPlayer, 0f, 0f);
 													return;
 												}
 											}
@@ -24489,7 +24504,7 @@ namespace Terraria
 									else if (this.aiStyle == 63)
 									{
 										this.TargetClosest(true);
-										float num994 = 16f;
+										float num994 = 12f;
 										Vector2 vector133 = new Vector2(this.center().X + (float)(this.direction * 20), this.center().Y + 6f);
 										float num995 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector133.X;
 										float num996 = Main.player[this.target].center().Y - vector133.Y;
@@ -32492,6 +32507,11 @@ namespace Terraria
 					NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0);
 				}
 				this.xForm(oldType, newType);
+				if (NPC.TypeToNum(this.type) != -1)
+				{
+					Main.npc[this.whoAmI].displayName = NPC.getNewNPCName(this.type);
+				}
+				this.npcNameLookup = 0;
 			}
 		}
 		public double StrikeNPC(int Damage, float knockBack, int hitDirection, bool crit = false, bool noEffect = false)
@@ -32743,15 +32763,15 @@ namespace Terraria
 					}
 					if (this.type == 342)
 					{
-						NPC.waveKills += 1f;
+						NPC.waveKills += 2f;
 					}
 					if (this.type == 341)
 					{
-						NPC.waveKills += 10f;
+						NPC.waveKills += 20f;
 					}
 					if (this.type == 350)
 					{
-						NPC.waveKills += 2f;
+						NPC.waveKills += 3f;
 					}
 					if (this.type == 348 || this.type == 349)
 					{
@@ -32759,31 +32779,31 @@ namespace Terraria
 					}
 					if (this.type == 347)
 					{
-						NPC.waveKills += 6f;
+						NPC.waveKills += 8f;
 					}
 					if (this.type == 351)
 					{
-						NPC.waveKills += 8f;
+						NPC.waveKills += 10f;
 					}
 					if (this.type == 352)
 					{
-						NPC.waveKills += 4f;
+						NPC.waveKills += 5f;
 					}
 					if (this.type == 343)
 					{
-						NPC.waveKills += 16f;
+						NPC.waveKills += 18f;
 					}
 					if (this.type == 344)
 					{
-						NPC.waveKills += 40f;
+						NPC.waveKills += 50f;
 					}
 					if (this.type == 346)
 					{
-						NPC.waveKills += 80f;
+						NPC.waveKills += 100f;
 					}
 					if (this.type == 345)
 					{
-						NPC.waveKills += 120f;
+						NPC.waveKills += 150f;
 					}
 					string text = "";
 					if (NPC.waveCount == 1 && NPC.waveKills >= 25f)

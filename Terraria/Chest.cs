@@ -892,8 +892,8 @@ namespace Terraria
 				if (Main.hardMode)
 				{
 					this.item[num].SetDefaults(1344, false);
+					num++;
 				}
-				num++;
 				if (Main.halloween)
 				{
 					this.item[num].SetDefaults(1742, false);
@@ -1213,8 +1213,8 @@ namespace Terraria
 				if (Main.player[Main.myPlayer].statManaMax >= 200)
 				{
 					this.item[num].SetDefaults(1978, false);
+					num++;
 				}
-				num++;
 				int num4 = 0;
 				for (int num5 = 0; num5 < 54; num5++)
 				{

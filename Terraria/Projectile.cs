@@ -4414,7 +4414,7 @@ namespace Terraria
 					Main.npc[i].AddBuff(20, 1800, false);
 					return;
 				}
-				if (this.type == 255)
+				if (this.type == 355)
 				{
 					Main.npc[i].AddBuff(70, 1800, false);
 				}
@@ -4490,6 +4490,13 @@ namespace Terraria
 				if (Main.rand.Next(2) == 0)
 				{
 					Main.player[i].AddBuff(24, 300, false);
+				}
+			}
+			else if (this.type == 253)
+			{
+				if (Main.rand.Next(2) == 0)
+				{
+					Main.player[i].AddBuff(44, 480, false);
 				}
 			}
 			else if (this.type == 267)
@@ -6602,6 +6609,25 @@ namespace Terraria
 								}
 								else if (this.aiStyle == 14)
 								{
+									if (this.type == 352)
+									{
+										if (this.localAI[1] == 0f)
+										{
+											this.localAI[1] = 1f;
+										}
+										this.alpha += (int)(25f * this.localAI[1]);
+										if (this.alpha <= 0)
+										{
+											this.alpha = 0;
+											this.localAI[1] = 1f;
+										}
+										else if (this.alpha >= 255)
+										{
+											this.alpha = 255;
+											this.localAI[1] = -1f;
+										}
+										this.scale += this.localAI[1] * 0.01f;
+									}
 									if (this.type == 261 && ((this.velocity.X != vector.X && (vector.X < -3f || vector.X > 3f)) || (this.velocity.Y != vector.Y && (vector.Y < -3f || vector.Y > 3f))))
 									{
 										Collision.HitTiles(this.position, this.velocity, this.width, this.height);
@@ -19214,6 +19240,10 @@ namespace Terraria
 			if (this.type == 34 || this.type == 15 || this.type == 93 || this.type == 94 || this.type == 95 || this.type == 96 || this.type == 253 || this.type == 258 || (this.type == 102 && this.alpha < 255))
 			{
 				return new Color(200, 200, 200, 25);
+			}
+			if (this.type == 352)
+			{
+				return new Color(250, 250, 250, this.alpha);
 			}
 			if (this.type == 348 || this.type == 349)
 			{

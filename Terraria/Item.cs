@@ -5,6 +5,7 @@ namespace Terraria
 {
 	public class Item
 	{
+		public static int maxPrefixes = 84;
 		public static int potionDelay = 3600;
 		public static int[] headType = new int[160];
 		public static int[] bodyType = new int[168];
@@ -1155,6 +1156,25 @@ namespace Terraria
 			return true;
 		}
 		public string AffixName()
+		{
+			if (Lang.lang <= 1)
+			{
+				if (Lang.prefix[(int)this.prefix] != "")
+				{
+					return Lang.prefix[(int)this.prefix] + " " + this.name;
+				}
+				return this.name;
+			}
+			else
+			{
+				if (Lang.prefix[(int)this.prefix] != "")
+				{
+					return this.name + " (" + Lang.prefix[(int)this.prefix] + ")";
+				}
+				return this.name;
+			}
+		}
+		public string AffixName_Old()
 		{
 			string text = "";
 			if (Lang.lang <= 1)
@@ -5243,7 +5263,7 @@ namespace Terraria
 				this.name = "Platinum Coin";
 				this.width = 10;
 				this.height = 12;
-				this.maxStack = 100;
+				this.maxStack = 999;
 				this.value = 5000000;
 				this.ammo = 71;
 				this.notAmmo = true;
@@ -6500,6 +6520,7 @@ namespace Terraria
 			{
 				this.autoReuse = true;
 				this.name = "Harpoon";
+				this.noMelee = true;
 				this.useStyle = 5;
 				this.useAnimation = 30;
 				this.useTime = 30;
@@ -26753,8 +26774,7 @@ namespace Terraria
 				this.headSlot = 101;
 				this.rare = 8;
 				this.value = 375000;
-				this.toolTip = "Increases mana usage by 20%";
-				this.toolTip2 = "40% decreased magic damage";
+				this.toolTip = "40% decreased magic damage";
 				return;
 			}
 			if (type == 1504)

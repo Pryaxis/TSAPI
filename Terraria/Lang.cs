@@ -13,6 +13,7 @@ namespace Terraria
 		public static string[] dt = new string[3];
 		public static string[] chestType = new string[Chest.maxChestTypes];
 		public static string[] mapLegend;
+		public static string[] prefix = new string[84];
 		public static string the;
 		public static string dialog(int l, bool english = false)
 		{
@@ -40,7 +41,7 @@ namespace Terraria
 				switch (l)
 				{
 				case 1:
-					return "I hope a scrawny kid like you isn't all that is standing between us and Cthulu's Eye.";
+					return "I hope a scrawny kid like you isn't all that is standing between us and Cthulhu's Eye.";
 				case 2:
 					return "Look at that shoddy armor you're wearing. Better buy some more healing potions.";
 				case 3:
@@ -592,7 +593,7 @@ namespace Terraria
 				case 270:
 					return "I went to Sweden once, they party hard, why aren't you like that?";
 				case 271:
-					return "My name's " + text6 + " but people call me party pooper. Yeah I don't know, it sounds cool though";
+					return "My name's " + text6 + " but people call me party pooper. Yeah I don't know, it sounds cool though.";
 				case 272:
 					return "Do you party? Sometimes? Hm, okay then we can talk...";
 				case 273:
@@ -715,11 +716,11 @@ namespace Terraria
 				case 327:
 					return "Combination hookah and coffee maker! Also makes julienne fries!";
 				case 328:
-					return "Come and have a look! One pound fish! Very very good! One pound fish!";
+					return "Come and have a look! One pound fish! Very, very good! One pound fish!";
 				case 329:
 					return "If you're looking for junk, you've come to the wrong place.";
 				case 330:
-					return "A thrift shop?  No, I only selling the highest quality items on the market.";
+					return "A thrift shop?  No, I am only selling the highest quality items on the market.";
 				case 331:
 					return "Smashing a crimson heart will sometimes cause a meteor to fall out of the sky. crimson hearts can usually be found in the chasms around crimtane areas.";
 				case 332:
@@ -2503,7 +2504,7 @@ namespace Terraria
 				switch (l)
 				{
 				case 1:
-					return "Espero que un canijo como tú no sea lo único que se interpone entre nosotros y el Ojo de Cthulu.";
+					return "Espero que un canijo como tú no sea lo único que se interpone entre nosotros y el Ojo de Cthulhu.";
 				case 2:
 					return "Vaya un arma más mal hecha que llevas. Te conviene comprar más pociones curativas.";
 				case 3:
@@ -6855,9 +6856,9 @@ namespace Terraria
 							case 1183:
 								return "Summons a Wisp to provide light";
 							case 1188:
-								return "Can mine Mythril, Orichalcum, Adamantite, and Titanium";
+								return "Can mine Mythril and Orichalcum";
 							case 1189:
-								return "Can mine Mythril, Orichalcum, Adamantite, and Titanium";
+								return "Can mine Mythril and Orichalcum";
 							case 1195:
 								return "Can mine Adamantite and Titanium";
 							case 1196:
@@ -7065,7 +7066,7 @@ namespace Terraria
 							switch (l)
 							{
 							case 1503:
-								return "Increases mana usage by 20%";
+								return "40% decreased magic damage";
 							case 1504:
 								return "7% increased magic damage and critical strike chance";
 							case 1505:
@@ -13580,11 +13581,8 @@ namespace Terraria
 							case 1359:
 								return "Melee attacks poison enemies";
 							default:
-								switch (l)
+								if (l == 1505)
 								{
-								case 1503:
-									return "40% decreased magic damage";
-								case 1505:
 									return "8% increased movement speed";
 								}
 								break;
@@ -19917,7 +19915,7 @@ namespace Terraria
 				case 2103:
 					return "Spooky Candelabra";
 				case 2104:
-					return "Brain of Cthulu Mask";
+					return "Brain of Cthulhu Mask";
 				case 2105:
 					return "Wall of Flesh Mask";
 				case 2106:
@@ -19933,7 +19931,7 @@ namespace Terraria
 				case 2111:
 					return "Eater of Worlds Mask";
 				case 2112:
-					return "Eye of Cthulu Mask";
+					return "Eye of Cthulhu Mask";
 				case 2113:
 					return "Destroyer Mask";
 				case 2114:
@@ -20095,7 +20093,7 @@ namespace Terraria
 				case 2192:
 					return "Bone Welder";
 				case 2193:
-					return "Flesh Cloning Vaat";
+					return "Flesh Cloning Vat";
 				case 2194:
 					return "Glass Kiln";
 				case 2195:
@@ -26741,6 +26739,89 @@ namespace Terraria
 				Lang.chestType[28] = "Dynasty Chest";
 				Lang.chestType[29] = "Honey Chest";
 				Lang.chestType[30] = "Steampunk Chest";
+				Lang.prefix[1] = "Large";
+				Lang.prefix[2] = "Massive";
+				Lang.prefix[3] = "Dangerous";
+				Lang.prefix[4] = "Savage";
+				Lang.prefix[5] = "Sharp";
+				Lang.prefix[6] = "Pointy";
+				Lang.prefix[7] = "Tiny";
+				Lang.prefix[8] = "Terrible";
+				Lang.prefix[9] = "Small";
+				Lang.prefix[10] = "Dull";
+				Lang.prefix[11] = "Unhappy";
+				Lang.prefix[12] = "Bulky";
+				Lang.prefix[13] = "Shameful";
+				Lang.prefix[14] = "Heavy";
+				Lang.prefix[15] = "Light";
+				Lang.prefix[16] = "Sighted";
+				Lang.prefix[17] = "Rapid";
+				Lang.prefix[18] = "Hasty";
+				Lang.prefix[19] = "Intimidating";
+				Lang.prefix[20] = "Deadly";
+				Lang.prefix[21] = "Staunch";
+				Lang.prefix[22] = "Awful";
+				Lang.prefix[23] = "Lethargic";
+				Lang.prefix[24] = "Awkward";
+				Lang.prefix[25] = "Powerful";
+				Lang.prefix[58] = "Frenzying";
+				Lang.prefix[26] = "Mystic";
+				Lang.prefix[27] = "Adept";
+				Lang.prefix[28] = "Masterful";
+				Lang.prefix[29] = "Inept";
+				Lang.prefix[30] = "Ignorant";
+				Lang.prefix[31] = "Deranged";
+				Lang.prefix[32] = "Intense";
+				Lang.prefix[33] = "Taboo";
+				Lang.prefix[34] = "Celestial";
+				Lang.prefix[35] = "Furious";
+				Lang.prefix[52] = "Manic";
+				Lang.prefix[36] = "Keen";
+				Lang.prefix[37] = "Superior";
+				Lang.prefix[38] = "Forceful";
+				Lang.prefix[53] = "Hurtful";
+				Lang.prefix[54] = "Strong";
+				Lang.prefix[55] = "Unpleasant";
+				Lang.prefix[39] = "Broken";
+				Lang.prefix[40] = "Damaged";
+				Lang.prefix[56] = "Weak";
+				Lang.prefix[41] = "Shoddy";
+				Lang.prefix[57] = "Ruthless";
+				Lang.prefix[42] = "Quick";
+				Lang.prefix[43] = "Deadly";
+				Lang.prefix[44] = "Agile";
+				Lang.prefix[45] = "Nimble";
+				Lang.prefix[46] = "Murderous";
+				Lang.prefix[47] = "Slow";
+				Lang.prefix[48] = "Sluggish";
+				Lang.prefix[49] = "Lazy";
+				Lang.prefix[50] = "Annoying";
+				Lang.prefix[51] = "Nasty";
+				Lang.prefix[59] = "Godly";
+				Lang.prefix[60] = "Demonic";
+				Lang.prefix[61] = "Zealous";
+				Lang.prefix[62] = "Hard";
+				Lang.prefix[63] = "Guarding";
+				Lang.prefix[64] = "Armored";
+				Lang.prefix[65] = "Warding";
+				Lang.prefix[66] = "Arcane";
+				Lang.prefix[67] = "Precise";
+				Lang.prefix[68] = "Lucky";
+				Lang.prefix[69] = "Jagged";
+				Lang.prefix[70] = "Spiked";
+				Lang.prefix[71] = "Angry";
+				Lang.prefix[72] = "Menacing";
+				Lang.prefix[73] = "Brisk";
+				Lang.prefix[74] = "Fleeting";
+				Lang.prefix[75] = "Hasty";
+				Lang.prefix[76] = "Quick";
+				Lang.prefix[77] = "Wild";
+				Lang.prefix[78] = "Rash";
+				Lang.prefix[79] = "Intrepid";
+				Lang.prefix[80] = "Violent";
+				Lang.prefix[81] = "Legendary";
+				Lang.prefix[82] = "Unreal";
+				Lang.prefix[83] = "Mythical";
 			}
 			else if (Lang.lang == 2)
 			{
@@ -27264,6 +27345,89 @@ namespace Terraria
 				Main.buffTip[78] = "Nahkampfangriffe verursachen Konfetti zu erscheinen";
 				Main.buffName[79] = "Waffe verleihen: Gift";
 				Main.buffTip[79] = "Nahkampfangriffe Gift Feinde";
+				Lang.prefix[1] = "Gross";
+				Lang.prefix[2] = "Massiv";
+				Lang.prefix[3] = "Gefährlich";
+				Lang.prefix[4] = "Barbarisch";
+				Lang.prefix[5] = "Scharf";
+				Lang.prefix[6] = "Spitze";
+				Lang.prefix[7] = "Winzig";
+				Lang.prefix[8] = "Schrecklicher";
+				Lang.prefix[9] = "Klein";
+				Lang.prefix[10] = "Stumpf";
+				Lang.prefix[11] = "Unglücklich";
+				Lang.prefix[12] = "Sperrig";
+				Lang.prefix[13] = "Beschämend";
+				Lang.prefix[14] = "Schwer";
+				Lang.prefix[15] = "Locker";
+				Lang.prefix[16] = "Gesichtet";
+				Lang.prefix[17] = "Schnell";
+				Lang.prefix[18] = "Hastig";
+				Lang.prefix[19] = "Einschüchternd";
+				Lang.prefix[20] = "Tödlich";
+				Lang.prefix[21] = "Stillen";
+				Lang.prefix[22] = "Schrecklich";
+				Lang.prefix[23] = "Lethargisch";
+				Lang.prefix[24] = "Unbeholfen";
+				Lang.prefix[25] = "Mächtig";
+				Lang.prefix[26] = "Mystisch";
+				Lang.prefix[27] = "Geschickt";
+				Lang.prefix[28] = "Meisterhaft";
+				Lang.prefix[29] = "Ungeschickt";
+				Lang.prefix[30] = "Unwissend";
+				Lang.prefix[31] = "Gestört";
+				Lang.prefix[32] = "Intensiv";
+				Lang.prefix[33] = "Tabu";
+				Lang.prefix[34] = "Himmlisch";
+				Lang.prefix[35] = "Wütend";
+				Lang.prefix[36] = "Scharf";
+				Lang.prefix[37] = "Überlegen";
+				Lang.prefix[38] = "Kraftvoll";
+				Lang.prefix[39] = "Gebrochen";
+				Lang.prefix[40] = "Beschädigt";
+				Lang.prefix[41] = "Schäbig";
+				Lang.prefix[42] = "Rasch";
+				Lang.prefix[43] = "Tödlich";
+				Lang.prefix[44] = "Agil";
+				Lang.prefix[45] = "Wendig";
+				Lang.prefix[46] = "Mörderisch";
+				Lang.prefix[47] = "Langsam";
+				Lang.prefix[48] = "Träge";
+				Lang.prefix[49] = "Faul";
+				Lang.prefix[50] = "Lästig";
+				Lang.prefix[51] = "Böse";
+				Lang.prefix[52] = "Manisch";
+				Lang.prefix[53] = "Verletzend";
+				Lang.prefix[54] = "Stark";
+				Lang.prefix[55] = "Unangenehm";
+				Lang.prefix[56] = "Schwach";
+				Lang.prefix[57] = "Rücksichtslos";
+				Lang.prefix[58] = "Rasend";
+				Lang.prefix[59] = "Fromm";
+				Lang.prefix[60] = "Dämonisch";
+				Lang.prefix[61] = "Eifrig";
+				Lang.prefix[62] = "Schwer";
+				Lang.prefix[63] = "Schutz-";
+				Lang.prefix[64] = "Gepanzert";
+				Lang.prefix[65] = "Defensiv";
+				Lang.prefix[66] = "Geheimnisvoll";
+				Lang.prefix[67] = "Präzise";
+				Lang.prefix[68] = "Glücklich";
+				Lang.prefix[69] = "Gezackt";
+				Lang.prefix[70] = "Spike";
+				Lang.prefix[71] = "Wütend";
+				Lang.prefix[72] = "Bedrohlich";
+				Lang.prefix[73] = "Rege";
+				Lang.prefix[74] = "Flüchtig";
+				Lang.prefix[75] = "Hastig";
+				Lang.prefix[76] = "Rasch";
+				Lang.prefix[77] = "Wild";
+				Lang.prefix[78] = "Voreilig";
+				Lang.prefix[79] = "Unerschrocken";
+				Lang.prefix[80] = "Gewalttätig";
+				Lang.prefix[81] = "Legendär";
+				Lang.prefix[82] = "Unwirklich";
+				Lang.prefix[83] = "Mythisch";
 			}
 			else if (Lang.lang == 3)
 			{
@@ -27787,6 +27951,89 @@ namespace Terraria
 				Main.buffTip[78] = "Attacchi corpo a corpo causano a comparire coriandoli";
 				Main.buffName[79] = "Arma Imbue: Poison";
 				Main.buffTip[79] = "Mischia attacca nemici veleno";
+				Lang.prefix[1] = "Grande";
+				Lang.prefix[2] = "Massiccio";
+				Lang.prefix[3] = "Pericoloso";
+				Lang.prefix[4] = "Selvaggio";
+				Lang.prefix[5] = "Appuntito";
+				Lang.prefix[6] = "Tagliente";
+				Lang.prefix[7] = "Minuto";
+				Lang.prefix[8] = "Terribile";
+				Lang.prefix[9] = "Piccolo";
+				Lang.prefix[10] = "Opaco";
+				Lang.prefix[11] = "Infelice";
+				Lang.prefix[12] = "Ingombrante";
+				Lang.prefix[13] = "Vergognoso";
+				Lang.prefix[14] = "Pesante";
+				Lang.prefix[15] = "Luce";
+				Lang.prefix[16] = "Avvistato";
+				Lang.prefix[17] = "Rapido";
+				Lang.prefix[18] = "Frettoloso";
+				Lang.prefix[19] = "Intimidatorio";
+				Lang.prefix[20] = "Mortale";
+				Lang.prefix[21] = "Convinto";
+				Lang.prefix[22] = "Orribile";
+				Lang.prefix[23] = "Letargico";
+				Lang.prefix[24] = "Scomodo";
+				Lang.prefix[25] = "Potente";
+				Lang.prefix[26] = "Mistico";
+				Lang.prefix[27] = "Esperto";
+				Lang.prefix[28] = "Magistrale";
+				Lang.prefix[29] = "Inetto";
+				Lang.prefix[30] = "Ignorante";
+				Lang.prefix[31] = "Squilibrato";
+				Lang.prefix[32] = "Intenso";
+				Lang.prefix[33] = "Tabù";
+				Lang.prefix[34] = "Celeste";
+				Lang.prefix[35] = "Furioso";
+				Lang.prefix[36] = "Appassionato";
+				Lang.prefix[37] = "Superiore";
+				Lang.prefix[38] = "Forte";
+				Lang.prefix[39] = "Rotto";
+				Lang.prefix[40] = "Danneggiato";
+				Lang.prefix[41] = "Scadente";
+				Lang.prefix[42] = "Veloce";
+				Lang.prefix[43] = "Mortale";
+				Lang.prefix[44] = "Agile";
+				Lang.prefix[45] = "Lesto";
+				Lang.prefix[46] = "Omicida";
+				Lang.prefix[47] = "Lento";
+				Lang.prefix[48] = "Pigro";
+				Lang.prefix[49] = "Indolente";
+				Lang.prefix[50] = "Fastidioso";
+				Lang.prefix[51] = "Brutto";
+				Lang.prefix[52] = "Maniaco";
+				Lang.prefix[53] = "Offensivo";
+				Lang.prefix[54] = "Robusto";
+				Lang.prefix[55] = "Sgradevole";
+				Lang.prefix[56] = "Debole";
+				Lang.prefix[57] = "Spietato";
+				Lang.prefix[58] = "Frenetico";
+				Lang.prefix[59] = "Devoto";
+				Lang.prefix[60] = "Demonico";
+				Lang.prefix[61] = "Zelante";
+				Lang.prefix[62] = "Duro";
+				Lang.prefix[63] = "Protettivo";
+				Lang.prefix[64] = "Corazzato";
+				Lang.prefix[65] = "Difensivo";
+				Lang.prefix[66] = "Arcano";
+				Lang.prefix[67] = "Preciso";
+				Lang.prefix[68] = "Fortunato";
+				Lang.prefix[69] = "Frastagliato";
+				Lang.prefix[70] = "Spillo";
+				Lang.prefix[71] = "Arrabbiato";
+				Lang.prefix[72] = "Minaccioso";
+				Lang.prefix[73] = "Vivace";
+				Lang.prefix[74] = "Fugace";
+				Lang.prefix[75] = "Frettoloso";
+				Lang.prefix[76] = "Veloce";
+				Lang.prefix[77] = "Selvaggio";
+				Lang.prefix[78] = "Temerario";
+				Lang.prefix[79] = "Intrepido";
+				Lang.prefix[80] = "Violento";
+				Lang.prefix[81] = "Leggendario";
+				Lang.prefix[82] = "Irreale";
+				Lang.prefix[83] = "Mitico";
 			}
 			else if (Lang.lang == 4)
 			{
@@ -28310,6 +28557,89 @@ namespace Terraria
 				Main.buffTip[78] = "Les attaques de mêlée causent des confettis à comparaître";
 				Main.buffName[79] = "Arme Imbue: Poison";
 				Main.buffTip[79] = "Attaques de mêlée des ennemis de poison";
+				Lang.prefix[1] = "Grand";
+				Lang.prefix[2] = "Massif";
+				Lang.prefix[3] = "Dangereuses";
+				Lang.prefix[4] = "Sauvages";
+				Lang.prefix[5] = "Coupante";
+				Lang.prefix[6] = "Pointues";
+				Lang.prefix[7] = "Minuscules";
+				Lang.prefix[8] = "Terrible";
+				Lang.prefix[9] = "Petit";
+				Lang.prefix[10] = "Terne";
+				Lang.prefix[11] = "Malheureux";
+				Lang.prefix[12] = "Volumineux";
+				Lang.prefix[13] = "Honteux";
+				Lang.prefix[14] = "Lourds";
+				Lang.prefix[15] = "Léger";
+				Lang.prefix[16] = "Voyants";
+				Lang.prefix[17] = "Rapide";
+				Lang.prefix[18] = "Hâtif";
+				Lang.prefix[19] = "Intimidant";
+				Lang.prefix[20] = "Mortelle";
+				Lang.prefix[21] = "Dévoué";
+				Lang.prefix[22] = "Affreux";
+				Lang.prefix[23] = "Léthargique";
+				Lang.prefix[24] = "Scomodo";
+				Lang.prefix[25] = "Puissante";
+				Lang.prefix[26] = "Mystique";
+				Lang.prefix[27] = "Expert";
+				Lang.prefix[28] = "Magistrale";
+				Lang.prefix[29] = "Inepte";
+				Lang.prefix[30] = "Ignorants";
+				Lang.prefix[31] = "Dérangé";
+				Lang.prefix[32] = "Intenses";
+				Lang.prefix[33] = "Tabou";
+				Lang.prefix[34] = "Célestes";
+				Lang.prefix[35] = "Furieux";
+				Lang.prefix[36] = "Vif";
+				Lang.prefix[37] = "Supérieure";
+				Lang.prefix[38] = "Énergique";
+				Lang.prefix[39] = "Rompu";
+				Lang.prefix[40] = "Endommagés";
+				Lang.prefix[41] = "Mesquin";
+				Lang.prefix[42] = "Prompt";
+				Lang.prefix[43] = "Mortelle";
+				Lang.prefix[44] = "Agile";
+				Lang.prefix[45] = "Leste";
+				Lang.prefix[46] = "Meurtrier";
+				Lang.prefix[47] = "Lente";
+				Lang.prefix[48] = "Paresseux";
+				Lang.prefix[49] = "Fainéant";
+				Lang.prefix[50] = "Ennuyeux";
+				Lang.prefix[51] = "Méchant";
+				Lang.prefix[52] = "Maniaco";
+				Lang.prefix[53] = "Blessant";
+				Lang.prefix[54] = "Robuste";
+				Lang.prefix[55] = "Désagréables";
+				Lang.prefix[56] = "Faibles";
+				Lang.prefix[57] = "Impitoyable";
+				Lang.prefix[58] = "Frénétique";
+				Lang.prefix[59] = "Pieux";
+				Lang.prefix[60] = "Démoniaque";
+				Lang.prefix[61] = "Zélé";
+				Lang.prefix[62] = "Durs";
+				Lang.prefix[63] = "Protecteur";
+				Lang.prefix[64] = "Blindés";
+				Lang.prefix[65] = "Défensif";
+				Lang.prefix[66] = "Ésotérique";
+				Lang.prefix[67] = "Précise";
+				Lang.prefix[68] = "Chanceux";
+				Lang.prefix[69] = "Déchiqueté";
+				Lang.prefix[70] = "Pointes";
+				Lang.prefix[71] = "Fâché";
+				Lang.prefix[72] = "Menaçant";
+				Lang.prefix[73] = "Brusque";
+				Lang.prefix[74] = "Fugace";
+				Lang.prefix[75] = "Hâtif";
+				Lang.prefix[76] = "Prompt";
+				Lang.prefix[77] = "Sauvages";
+				Lang.prefix[78] = "Téméraire";
+				Lang.prefix[79] = "Intrépide";
+				Lang.prefix[80] = "Violent";
+				Lang.prefix[81] = "Légendaire";
+				Lang.prefix[82] = "Irréel";
+				Lang.prefix[83] = "Mythique";
 			}
 			else if (Lang.lang == 5)
 			{
@@ -28833,17 +29163,107 @@ namespace Terraria
 				Main.buffTip[78] = "Ataques cuerpo a cuerpo infligen confetti que aparezca";
 				Main.buffName[79] = "imbuir armas: tóxico";
 				Main.buffTip[79] = "Cuerpo a cuerpo ataca a los enemigos de veneno";
+				Lang.prefix[1] = "Grande";
+				Lang.prefix[2] = "Masivo";
+				Lang.prefix[3] = "Peligroso";
+				Lang.prefix[4] = "Salvaje";
+				Lang.prefix[5] = "Puntiagudo";
+				Lang.prefix[6] = "Agudo";
+				Lang.prefix[7] = "Diminuto";
+				Lang.prefix[8] = "Mala ";
+				Lang.prefix[9] = "Pequeño";
+				Lang.prefix[10] = "Aburrido";
+				Lang.prefix[11] = "Infeliz";
+				Lang.prefix[12] = "Voluminoso";
+				Lang.prefix[13] = "Vergonzoso";
+				Lang.prefix[14] = "Pesado";
+				Lang.prefix[15] = "Ligero";
+				Lang.prefix[16] = "Ámbito";
+				Lang.prefix[17] = "Rápido";
+				Lang.prefix[18] = "Precipitado";
+				Lang.prefix[19] = "Intimidante";
+				Lang.prefix[20] = "Mortal";
+				Lang.prefix[21] = "Firme";
+				Lang.prefix[22] = "Atroz";
+				Lang.prefix[23] = "Letárgico";
+				Lang.prefix[24] = "Torpe";
+				Lang.prefix[25] = "Poderoso";
+				Lang.prefix[26] = "Místico";
+				Lang.prefix[27] = "Experto";
+				Lang.prefix[28] = "Maestro";
+				Lang.prefix[29] = "Inepto";
+				Lang.prefix[30] = "Ignorante";
+				Lang.prefix[31] = "Trastornado";
+				Lang.prefix[32] = "Intenso";
+				Lang.prefix[33] = "Tabú";
+				Lang.prefix[34] = "Celeste";
+				Lang.prefix[35] = "Furioso";
+				Lang.prefix[36] = "Afilado";
+				Lang.prefix[37] = "Superior";
+				Lang.prefix[38] = "Fuerte";
+				Lang.prefix[39] = "Roto";
+				Lang.prefix[40] = "Estropeado";
+				Lang.prefix[41] = "Regenerado";
+				Lang.prefix[42] = "Pronto";
+				Lang.prefix[43] = "Mortal";
+				Lang.prefix[44] = "Ágil";
+				Lang.prefix[45] = "Listo";
+				Lang.prefix[46] = "Asesino";
+				Lang.prefix[47] = "Lento";
+				Lang.prefix[48] = "Perezoso";
+				Lang.prefix[49] = "Gandul";
+				Lang.prefix[50] = "Molesto";
+				Lang.prefix[51] = "Feo";
+				Lang.prefix[52] = "Maníacos";
+				Lang.prefix[53] = "Hiriente";
+				Lang.prefix[54] = "Vigoroso";
+				Lang.prefix[55] = "Desagradable";
+				Lang.prefix[56] = "Débil";
+				Lang.prefix[57] = "Despiadado";
+				Lang.prefix[58] = "Frenético";
+				Lang.prefix[59] = "Piadoso";
+				Lang.prefix[60] = "Demoníaco";
+				Lang.prefix[61] = "Celoso";
+				Lang.prefix[62] = "Duro";
+				Lang.prefix[63] = "Protector";
+				Lang.prefix[64] = "Blindado";
+				Lang.prefix[65] = "Defensivo";
+				Lang.prefix[66] = "Arcano";
+				Lang.prefix[67] = "Preciso";
+				Lang.prefix[68] = "Afortunado";
+				Lang.prefix[69] = "Dentado";
+				Lang.prefix[70] = "Claveteado";
+				Lang.prefix[71] = "Enojado";
+				Lang.prefix[72] = "Amenazador";
+				Lang.prefix[73] = "Enérgico";
+				Lang.prefix[74] = "Fugaz";
+				Lang.prefix[75] = "Precipitado";
+				Lang.prefix[76] = "Pronto";
+				Lang.prefix[77] = "Salvaje";
+				Lang.prefix[78] = "Temerario";
+				Lang.prefix[79] = "Intrépido";
+				Lang.prefix[80] = "Violento";
+				Lang.prefix[81] = "Legendario";
+				Lang.prefix[82] = "Irreal";
+				Lang.prefix[83] = "Mítico";
 			}
-			for (int i = 0; i < Main.recipe.Length; i++)
+			for (int i = 0; i < 84; i++)
 			{
-				if (Main.recipe[i].createItem.name != null && Main.recipe[i].createItem.name != "" && Main.recipe[i].createItem.netID != 0)
+				if (Lang.prefix[i] == null)
 				{
-					Main.recipe[i].createItem.name = Lang.itemName(Main.recipe[i].createItem.netID, false);
-					Main.recipe[i].createItem.CheckTip();
-					for (int j = 0; j < Main.recipe[j].requiredItem.Length; j++)
+					Lang.prefix[i] = string.Empty;
+				}
+			}
+			for (int j = 0; j < Main.recipe.Length; j++)
+			{
+				if (Main.recipe[j].createItem.name != null && Main.recipe[j].createItem.name != "" && Main.recipe[j].createItem.netID != 0)
+				{
+					Main.recipe[j].createItem.name = Lang.itemName(Main.recipe[j].createItem.netID, false);
+					Main.recipe[j].createItem.CheckTip();
+					for (int k = 0; k < Main.recipe[k].requiredItem.Length; k++)
 					{
-						Main.recipe[i].requiredItem[j].name = Lang.itemName(Main.recipe[i].requiredItem[j].netID, false);
-						Main.recipe[i].requiredItem[j].CheckTip();
+						Main.recipe[j].requiredItem[k].name = Lang.itemName(Main.recipe[j].requiredItem[k].netID, false);
+						Main.recipe[j].requiredItem[k].CheckTip();
 					}
 				}
 			}

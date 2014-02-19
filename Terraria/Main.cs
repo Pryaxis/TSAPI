@@ -61,9 +61,9 @@ namespace Terraria
 		public static int maxCloudTypes = 22;
 		public static int maxHair = 123;
 		public static int maxCharSelectHair = 51;
-		public static int curRelease = 93;
-		public static string versionNumber = "v1.2.3";
-		public static string versionNumber2 = "v1.2.3";
+		public static int curRelease = 94;
+		public static string versionNumber = "v1.2.3.1";
+		public static string versionNumber2 = "v1.2.3.1";
 		public static WorldSections sectionManager;
 		public static bool ServerSideCharacter = false;
 		public static string clientUUID;
@@ -1135,7 +1135,7 @@ namespace Terraria
 		private static float sBar = -1f;
 		private static float lBar = 1f;
 		private int grabColorSlider;
-		private bool blockMouse;
+		public static bool blockMouse = false;
 		private bool[] menuWide = new bool[100];
 		private static float tranSpeed = 0.05f;
 		private static float atmo = 0f;
@@ -2397,6 +2397,8 @@ namespace Terraria
 			Main.lightPet[19] = true;
 			Main.lightPet[27] = true;
 			Main.lightPet[57] = true;
+			Main.lightPet[101] = true;
+			Main.lightPet[102] = true;
 			Main.tileFlame[4] = true;
 			Main.tileFlame[33] = true;
 			Main.tileFlame[34] = true;
@@ -2621,6 +2623,7 @@ namespace Terraria
 			Main.tileFrameImportant[269] = true;
 			Main.wallHouse[142] = true;
 			Main.wallHouse[143] = true;
+			Main.wallHouse[144] = true;
 			Main.wallHouse[133] = true;
 			Main.wallHouse[134] = true;
 			Main.wallHouse[135] = true;
@@ -7753,41 +7756,48 @@ namespace Terraria
 			if (!Main.dayTime)
 			{
 				Main.eclipse = false;
-				if (WorldGen.spawnEye && Main.netMode != 1 && Main.time > 4860.0)
-				{
-					for (int j = 0; j < 255; j++)
-					{
-						if (Main.player[j].active && !Main.player[j].dead && (double)Main.player[j].position.Y < Main.worldSurface * 16.0)
-						{
-							NPC.SpawnOnPlayer(j, 4);
-							WorldGen.spawnEye = false;
-							break;
-						}
-					}
-				}
 				if (WorldGen.spawnHardBoss > 0 && Main.netMode != 1 && Main.time > 4860.0)
 				{
-					for (int k = 0; k < 255; k++)
+					bool flag = false;
+					for (int k = 0; k < 200; k++)
 					{
-						if (Main.player[k].active && !Main.player[k].dead && (double)Main.player[k].position.Y < Main.worldSurface * 16.0)
+						if (Main.npc[k].active && Main.npc[k].boss)
 						{
-							if (WorldGen.spawnHardBoss == 1)
-							{
-								NPC.SpawnOnPlayer(k, 134);
-							}
-							else if (WorldGen.spawnHardBoss == 2)
-							{
-								NPC.SpawnOnPlayer(k, 125);
-								NPC.SpawnOnPlayer(k, 126);
-							}
-							else if (WorldGen.spawnHardBoss == 3)
-							{
-								NPC.SpawnOnPlayer(k, 127);
-							}
-							WorldGen.spawnHardBoss = 0;
-							break;
+							flag = true;
 						}
 					}
+					if (!flag)
+					{
+						int l = 0;
+						while (l < 255)
+						{
+							if (Main.player[l].active && !Main.player[l].dead && (double)Main.player[l].position.Y < Main.worldSurface * 16.0)
+							{
+								if (WorldGen.spawnHardBoss == 1)
+								{
+									NPC.SpawnOnPlayer(l, 134);
+									break;
+								}
+								if (WorldGen.spawnHardBoss == 2)
+								{
+									NPC.SpawnOnPlayer(l, 125);
+									NPC.SpawnOnPlayer(l, 126);
+									break;
+								}
+								if (WorldGen.spawnHardBoss == 3)
+								{
+									NPC.SpawnOnPlayer(l, 127);
+									break;
+								}
+								break;
+							}
+							else
+							{
+								l++;
+							}
+						}
+					}
+					WorldGen.spawnHardBoss = 0;
 				}
 				if (Main.time > 32400.0)
 				{
@@ -7907,68 +7917,79 @@ namespace Terraria
 							}
 						}
 					}
-					if (Main.netMode != 1 && !Main.pumpkinMoon && !Main.snowMoon && WorldGen.altarCount > 0 && Main.hardMode && !WorldGen.spawnEye && Main.rand.Next(10) == 0 && (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || !NPC.downedMechBoss3))
+					if (Main.netMode != 1 && !Main.pumpkinMoon && !Main.snowMoon && WorldGen.altarCount > 0 && Main.hardMode && !WorldGen.spawnEye && Main.rand.Next(10) == 0)
 					{
-						int n = 0;
-						while (n < 1000)
+						bool flag3 = false;
+						for (int num7 = 0; num7 < 200; num7++)
 						{
-							int num7 = Main.rand.Next(3) + 1;
-							if (num7 == 1 && !NPC.downedMechBoss1)
+							if (Main.npc[num7].active && Main.npc[num7].boss)
 							{
-								WorldGen.spawnHardBoss = num7;
-								if (Main.netMode == 0)
-								{
-									Main.NewText(Lang.misc[28], 50, 255, 130, false);
-									break;
-								}
-								if (Main.netMode == 2)
-								{
-									NetMessage.SendData(25, -1, -1, Lang.misc[28], 255, 50f, 255f, 130f, 0);
-									break;
-								}
-								break;
+								flag3 = true;
 							}
-							else if (num7 == 2 && !NPC.downedMechBoss2)
+						}
+						if (!flag3 && (!NPC.downedMechBoss1 || !NPC.downedMechBoss2 || !NPC.downedMechBoss3))
+						{
+							int num8 = 0;
+							while (num8 < 1000)
 							{
-								WorldGen.spawnHardBoss = num7;
-								if (Main.netMode == 0)
+								int num9 = Main.rand.Next(3) + 1;
+								if (num9 == 1 && !NPC.downedMechBoss1)
 								{
-									Main.NewText(Lang.misc[29], 50, 255, 130, false);
+									WorldGen.spawnHardBoss = num9;
+									if (Main.netMode == 0)
+									{
+										Main.NewText(Lang.misc[28], 50, 255, 130, false);
+										break;
+									}
+									if (Main.netMode == 2)
+									{
+										NetMessage.SendData(25, -1, -1, Lang.misc[28], 255, 50f, 255f, 130f, 0);
+										break;
+									}
 									break;
 								}
-								if (Main.netMode == 2)
+								else if (num9 == 2 && !NPC.downedMechBoss2)
 								{
-									NetMessage.SendData(25, -1, -1, Lang.misc[29], 255, 50f, 255f, 130f, 0);
+									WorldGen.spawnHardBoss = num9;
+									if (Main.netMode == 0)
+									{
+										Main.NewText(Lang.misc[29], 50, 255, 130, false);
+										break;
+									}
+									if (Main.netMode == 2)
+									{
+										NetMessage.SendData(25, -1, -1, Lang.misc[29], 255, 50f, 255f, 130f, 0);
+										break;
+									}
 									break;
 								}
-								break;
-							}
-							else if (num7 == 3 && !NPC.downedMechBoss3)
-							{
-								WorldGen.spawnHardBoss = num7;
-								if (Main.netMode == 0)
+								else if (num9 == 3 && !NPC.downedMechBoss3)
 								{
-									Main.NewText(Lang.misc[30], 50, 255, 130, false);
+									WorldGen.spawnHardBoss = num9;
+									if (Main.netMode == 0)
+									{
+										Main.NewText(Lang.misc[30], 50, 255, 130, false);
+										break;
+									}
+									if (Main.netMode == 2)
+									{
+										NetMessage.SendData(25, -1, -1, Lang.misc[30], 255, 50f, 255f, 130f, 0);
+										break;
+									}
 									break;
 								}
-								if (Main.netMode == 2)
+								else
 								{
-									NetMessage.SendData(25, -1, -1, Lang.misc[30], 255, 50f, 255f, 130f, 0);
-									break;
+									num8++;
 								}
-								break;
-							}
-							else
-							{
-								n++;
 							}
 						}
 					}
 					if (!WorldGen.spawnEye && Main.moonPhase != 4 && Main.rand.Next(9) == 0 && Main.netMode != 1)
 					{
-						for (int num8 = 0; num8 < 255; num8++)
+						for (int num10 = 0; num10 < 255; num10++)
 						{
-							if (Main.player[num8].active && Main.player[num8].statLifeMax > 120)
+							if (Main.player[num10].active && Main.player[num10].statLifeMax > 120)
 							{
 								Main.bloodMoon = true;
 								break;
@@ -7998,22 +8019,20 @@ namespace Terraria
 					Main.checkForSpawns++;
 					if (Main.checkForSpawns >= 7200 / Main.worldRate)
 					{
-						int num9 = 0;
-						for (int num10 = 0; num10 < 255; num10++)
+						int num11 = 0;
+						for (int num12 = 0; num12 < 255; num12++)
 						{
-							if (Main.player[num10].active)
+							if (Main.player[num12].active)
 							{
-								num9++;
+								num11++;
 							}
 						}
-						for (int num11 = 0; num11 < 369; num11++)
+						for (int num13 = 0; num13 < 369; num13++)
 						{
-							Main.nextNPC[num11] = false;
+							Main.nextNPC[num13] = false;
 						}
 						Main.checkForSpawns = 0;
 						WorldGen.spawnNPC = 0;
-						int num12 = 0;
-						int num13 = 0;
 						int num14 = 0;
 						int num15 = 0;
 						int num16 = 0;
@@ -8034,337 +8053,339 @@ namespace Terraria
 						int num31 = 0;
 						int num32 = 0;
 						int num33 = 0;
-						for (int num34 = 0; num34 < 200; num34++)
+						int num34 = 0;
+						int num35 = 0;
+						for (int num36 = 0; num36 < 200; num36++)
 						{
-							if (Main.npc[num34].active && Main.npc[num34].townNPC)
+							if (Main.npc[num36].active && Main.npc[num36].townNPC)
 							{
-								if (Main.npc[num34].type != 368 && Main.npc[num34].type != 37 && !Main.npc[num34].homeless)
+								if (Main.npc[num36].type != 368 && Main.npc[num36].type != 37 && !Main.npc[num36].homeless)
 								{
-									WorldGen.QuickFindHome(num34);
+									WorldGen.QuickFindHome(num36);
 								}
-								if (Main.npc[num34].type == 37)
-								{
-									num17++;
-								}
-								if (Main.npc[num34].type == 17)
-								{
-									num12++;
-								}
-								if (Main.npc[num34].type == 18)
-								{
-									num13++;
-								}
-								if (Main.npc[num34].type == 19)
-								{
-									num15++;
-								}
-								if (Main.npc[num34].type == 20)
-								{
-									num14++;
-								}
-								if (Main.npc[num34].type == 22)
-								{
-									num16++;
-								}
-								if (Main.npc[num34].type == 38)
-								{
-									num18++;
-								}
-								if (Main.npc[num34].type == 54)
+								if (Main.npc[num36].type == 37)
 								{
 									num19++;
 								}
-								if (Main.npc[num34].type == 107)
+								if (Main.npc[num36].type == 17)
 								{
-									num21++;
+									num14++;
 								}
-								if (Main.npc[num34].type == 108)
+								if (Main.npc[num36].type == 18)
+								{
+									num15++;
+								}
+								if (Main.npc[num36].type == 19)
+								{
+									num17++;
+								}
+								if (Main.npc[num36].type == 20)
+								{
+									num16++;
+								}
+								if (Main.npc[num36].type == 22)
+								{
+									num18++;
+								}
+								if (Main.npc[num36].type == 38)
 								{
 									num20++;
 								}
-								if (Main.npc[num34].type == 124)
+								if (Main.npc[num36].type == 54)
 								{
-									num22++;
+									num21++;
 								}
-								if (Main.npc[num34].type == 142)
+								if (Main.npc[num36].type == 107)
 								{
 									num23++;
 								}
-								if (Main.npc[num34].type == 160)
+								if (Main.npc[num36].type == 108)
+								{
+									num22++;
+								}
+								if (Main.npc[num36].type == 124)
 								{
 									num24++;
 								}
-								if (Main.npc[num34].type == 178)
+								if (Main.npc[num36].type == 142)
 								{
 									num25++;
 								}
-								if (Main.npc[num34].type == 207)
+								if (Main.npc[num36].type == 160)
 								{
 									num26++;
 								}
-								if (Main.npc[num34].type == 208)
+								if (Main.npc[num36].type == 178)
 								{
 									num27++;
 								}
-								if (Main.npc[num34].type == 209)
+								if (Main.npc[num36].type == 207)
 								{
 									num28++;
 								}
-								if (Main.npc[num34].type == 227)
+								if (Main.npc[num36].type == 208)
 								{
 									num29++;
 								}
-								if (Main.npc[num34].type == 228)
+								if (Main.npc[num36].type == 209)
 								{
 									num30++;
 								}
-								if (Main.npc[num34].type == 229)
+								if (Main.npc[num36].type == 227)
 								{
 									num31++;
 								}
-								if (Main.npc[num34].type == 353)
+								if (Main.npc[num36].type == 228)
 								{
 									num32++;
 								}
-								num33++;
+								if (Main.npc[num36].type == 229)
+								{
+									num33++;
+								}
+								if (Main.npc[num36].type == 353)
+								{
+									num34++;
+								}
+								num35++;
 							}
 						}
 						if (WorldGen.spawnNPC == 0)
 						{
-							int num35 = 0;
-							bool flag2 = false;
-							int num36 = 0;
-							bool flag3 = false;
+							int num37 = 0;
 							bool flag4 = false;
+							int num38 = 0;
 							bool flag5 = false;
-							for (int num37 = 0; num37 < 255; num37++)
+							bool flag6 = false;
+							bool flag7 = false;
+							for (int num39 = 0; num39 < 255; num39++)
 							{
-								if (Main.player[num37].active)
+								if (Main.player[num39].active)
 								{
-									for (int num38 = 0; num38 < 58; num38++)
+									for (int num40 = 0; num40 < 58; num40++)
 									{
-										if (Main.player[num37].inventory[num38] != null & Main.player[num37].inventory[num38].stack > 0)
+										if (Main.player[num39].inventory[num40] != null & Main.player[num39].inventory[num40].stack > 0)
 										{
-											if (num35 < 2000000000)
+											if (num37 < 2000000000)
 											{
-												if (Main.player[num37].inventory[num38].type == 71)
+												if (Main.player[num39].inventory[num40].type == 71)
 												{
-													num35 += Main.player[num37].inventory[num38].stack;
+													num37 += Main.player[num39].inventory[num40].stack;
 												}
-												if (Main.player[num37].inventory[num38].type == 72)
+												if (Main.player[num39].inventory[num40].type == 72)
 												{
-													num35 += Main.player[num37].inventory[num38].stack * 100;
+													num37 += Main.player[num39].inventory[num40].stack * 100;
 												}
-												if (Main.player[num37].inventory[num38].type == 73)
+												if (Main.player[num39].inventory[num40].type == 73)
 												{
-													num35 += Main.player[num37].inventory[num38].stack * 10000;
+													num37 += Main.player[num39].inventory[num40].stack * 10000;
 												}
-												if (Main.player[num37].inventory[num38].type == 74)
+												if (Main.player[num39].inventory[num40].type == 74)
 												{
-													num35 += Main.player[num37].inventory[num38].stack * 1000000;
+													num37 += Main.player[num39].inventory[num40].stack * 1000000;
 												}
 											}
-											if (Main.player[num37].inventory[num38].ammo == 14 || Main.player[num37].inventory[num38].useAmmo == 14)
-											{
-												flag3 = true;
-											}
-											if (Main.player[num37].inventory[num38].type == 166 || Main.player[num37].inventory[num38].type == 167 || Main.player[num37].inventory[num38].type == 168 || Main.player[num37].inventory[num38].type == 235)
-											{
-												flag4 = true;
-											}
-											if (Main.player[num37].inventory[num38].dye > 0 || (Main.player[num37].inventory[num38].type >= 1107 && Main.player[num37].inventory[num38].type <= 1120))
+											if (Main.player[num39].inventory[num40].ammo == 14 || Main.player[num39].inventory[num40].useAmmo == 14)
 											{
 												flag5 = true;
+											}
+											if (Main.player[num39].inventory[num40].type == 166 || Main.player[num39].inventory[num40].type == 167 || Main.player[num39].inventory[num40].type == 168 || Main.player[num39].inventory[num40].type == 235)
+											{
+												flag6 = true;
+											}
+											if (Main.player[num39].inventory[num40].dye > 0 || (Main.player[num39].inventory[num40].type >= 1107 && Main.player[num39].inventory[num40].type <= 1120))
+											{
+												flag7 = true;
 											}
 										}
 									}
-									int num39 = Main.player[num37].statLifeMax / 20;
-									if (num39 > 5)
+									int num41 = Main.player[num39].statLifeMax / 20;
+									if (num41 > 5)
 									{
-										flag2 = true;
+										flag4 = true;
 									}
-									num36 += num39;
-									if (!flag5)
+									num38 += num41;
+									if (!flag7)
 									{
-										for (int num40 = 0; num40 < 3; num40++)
+										for (int num42 = 0; num42 < 3; num42++)
 										{
-											if (Main.player[num37].dye[num40] != null && Main.player[num37].dye[num40].stack > 0 && Main.player[num37].dye[num40].dye > 0)
+											if (Main.player[num39].dye[num42] != null && Main.player[num39].dye[num42].stack > 0 && Main.player[num39].dye[num42].dye > 0)
 											{
-												flag5 = true;
+												flag7 = true;
 											}
 										}
 									}
 								}
 							}
-							if (!NPC.downedBoss3 && num17 == 0)
+							if (!NPC.downedBoss3 && num19 == 0)
 							{
-								int num41 = NPC.NewNPC(Main.dungeonX * 16 + 8, Main.dungeonY * 16, 37, 0);
-								Main.npc[num41].homeless = false;
-								Main.npc[num41].homeTileX = Main.dungeonX;
-								Main.npc[num41].homeTileY = Main.dungeonY;
+								int num43 = NPC.NewNPC(Main.dungeonX * 16 + 8, Main.dungeonY * 16, 37, 0);
+								Main.npc[num43].homeless = false;
+								Main.npc[num43].homeTileX = Main.dungeonX;
+								Main.npc[num43].homeTileY = Main.dungeonY;
 							}
-							bool flag6 = false;
+							bool flag8 = false;
 							if (Main.rand.Next(50) == 0)
 							{
-								flag6 = true;
+								flag8 = true;
 							}
-							if (num16 < 1)
+							if (num18 < 1)
 							{
 								Main.nextNPC[22] = true;
 							}
-							if ((double)num35 > 5000.0 && num12 < 1)
+							if ((double)num37 > 5000.0 && num14 < 1)
 							{
 								Main.nextNPC[17] = true;
 							}
-							if (flag2 && num13 < 1 && num12 > 0)
+							if (flag4 && num15 < 1 && num14 > 0)
 							{
 								Main.nextNPC[18] = true;
 							}
-							if (flag3 && num15 < 1)
+							if (flag5 && num17 < 1)
 							{
 								Main.nextNPC[19] = true;
 							}
-							if ((NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3) && num14 < 1)
+							if ((NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3) && num16 < 1)
 							{
 								Main.nextNPC[20] = true;
 							}
-							if (flag4 && num12 > 0 && num18 < 1)
+							if (flag6 && num14 > 0 && num20 < 1)
 							{
 								Main.nextNPC[38] = true;
 							}
-							if (NPC.savedStylist && num32 < 1)
+							if (NPC.savedStylist && num34 < 1)
 							{
 								Main.nextNPC[353] = true;
 							}
-							if (NPC.downedBoss3 && num19 < 1)
+							if (NPC.downedBoss3 && num21 < 1)
 							{
 								Main.nextNPC[54] = true;
 							}
-							if (NPC.savedGoblin && num21 < 1)
+							if (NPC.savedGoblin && num23 < 1)
 							{
 								Main.nextNPC[107] = true;
 							}
-							if (NPC.savedWizard && num20 < 1)
+							if (NPC.savedWizard && num22 < 1)
 							{
 								Main.nextNPC[108] = true;
 							}
-							if (NPC.savedMech && num22 < 1)
+							if (NPC.savedMech && num24 < 1)
 							{
 								Main.nextNPC[124] = true;
 							}
-							if (NPC.downedFrost && num23 < 1 && Main.xMas)
+							if (NPC.downedFrost && num25 < 1 && Main.xMas)
 							{
 								Main.nextNPC[142] = true;
 							}
-							if (NPC.downedMechBossAny && num25 < 1)
+							if (NPC.downedMechBossAny && num27 < 1)
 							{
 								Main.nextNPC[178] = true;
 							}
-							if (flag5 && num26 < 1)
+							if (flag7 && num28 < 1)
 							{
 								Main.nextNPC[207] = true;
 							}
-							if (NPC.downedQueenBee && num30 < 1)
+							if (NPC.downedQueenBee && num32 < 1)
 							{
 								Main.nextNPC[228] = true;
 							}
-							if (NPC.downedPirates && num31 < 1)
+							if (NPC.downedPirates && num33 < 1)
 							{
 								Main.nextNPC[229] = true;
 							}
-							if (num24 < 1 && Main.hardMode)
+							if (num26 < 1 && Main.hardMode)
 							{
 								Main.nextNPC[160] = true;
 							}
-							if (Main.hardMode && NPC.downedPlantBoss && num28 < 1)
+							if (Main.hardMode && NPC.downedPlantBoss && num30 < 1)
 							{
 								Main.nextNPC[209] = true;
 							}
-							if (num33 >= 4 && num29 < 1)
+							if (num35 >= 4 && num31 < 1)
 							{
 								Main.nextNPC[227] = true;
 							}
-							if (flag6 && num27 < 1 && num33 >= 8)
+							if (flag8 && num29 < 1 && num35 >= 8)
 							{
 								Main.nextNPC[208] = true;
 							}
-							if (WorldGen.spawnNPC == 0 && num16 < 1)
+							if (WorldGen.spawnNPC == 0 && num18 < 1)
 							{
 								WorldGen.spawnNPC = 22;
 							}
-							if (WorldGen.spawnNPC == 0 && (double)num35 > 5000.0 && num12 < 1)
+							if (WorldGen.spawnNPC == 0 && (double)num37 > 5000.0 && num14 < 1)
 							{
 								WorldGen.spawnNPC = 17;
 							}
-							if (WorldGen.spawnNPC == 0 && flag2 && num13 < 1 && num12 > 0)
+							if (WorldGen.spawnNPC == 0 && flag4 && num15 < 1 && num14 > 0)
 							{
 								WorldGen.spawnNPC = 18;
 							}
-							if (WorldGen.spawnNPC == 0 && flag3 && num15 < 1)
+							if (WorldGen.spawnNPC == 0 && flag5 && num17 < 1)
 							{
 								WorldGen.spawnNPC = 19;
 							}
-							if (WorldGen.spawnNPC == 0 && (NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3) && num14 < 1)
+							if (WorldGen.spawnNPC == 0 && (NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3) && num16 < 1)
 							{
 								WorldGen.spawnNPC = 20;
 							}
-							if (WorldGen.spawnNPC == 0 && flag4 && num12 > 0 && num18 < 1)
+							if (WorldGen.spawnNPC == 0 && flag6 && num14 > 0 && num20 < 1)
 							{
 								WorldGen.spawnNPC = 38;
 							}
-							if (WorldGen.spawnNPC == 0 && NPC.savedStylist && num32 < 1)
+							if (WorldGen.spawnNPC == 0 && NPC.savedStylist && num34 < 1)
 							{
 								WorldGen.spawnNPC = 353;
 							}
-							if (WorldGen.spawnNPC == 0 && NPC.downedBoss3 && num19 < 1)
+							if (WorldGen.spawnNPC == 0 && NPC.downedBoss3 && num21 < 1)
 							{
 								WorldGen.spawnNPC = 54;
 							}
-							if (WorldGen.spawnNPC == 0 && NPC.savedGoblin && num21 < 1)
+							if (WorldGen.spawnNPC == 0 && NPC.savedGoblin && num23 < 1)
 							{
 								WorldGen.spawnNPC = 107;
 							}
-							if (WorldGen.spawnNPC == 0 && NPC.savedWizard && num20 < 1)
+							if (WorldGen.spawnNPC == 0 && NPC.savedWizard && num22 < 1)
 							{
 								WorldGen.spawnNPC = 108;
 							}
-							if (WorldGen.spawnNPC == 0 && NPC.savedMech && num22 < 1)
+							if (WorldGen.spawnNPC == 0 && NPC.savedMech && num24 < 1)
 							{
 								WorldGen.spawnNPC = 124;
 							}
-							if (WorldGen.spawnNPC == 0 && NPC.downedFrost && num23 < 1 && Main.xMas)
+							if (WorldGen.spawnNPC == 0 && NPC.downedFrost && num25 < 1 && Main.xMas)
 							{
 								WorldGen.spawnNPC = 142;
 							}
-							if (WorldGen.spawnNPC == 0 && NPC.downedMechBossAny && num25 < 1)
+							if (WorldGen.spawnNPC == 0 && NPC.downedMechBossAny && num27 < 1)
 							{
 								WorldGen.spawnNPC = 178;
 							}
-							if (WorldGen.spawnNPC == 0 && flag5 && num26 < 1)
+							if (WorldGen.spawnNPC == 0 && flag7 && num28 < 1)
 							{
 								WorldGen.spawnNPC = 207;
 							}
-							if (WorldGen.spawnNPC == 0 && NPC.downedQueenBee && num30 < 1)
+							if (WorldGen.spawnNPC == 0 && NPC.downedQueenBee && num32 < 1)
 							{
 								WorldGen.spawnNPC = 228;
 							}
-							if (WorldGen.spawnNPC == 0 && NPC.downedPirates && num31 < 1)
+							if (WorldGen.spawnNPC == 0 && NPC.downedPirates && num33 < 1)
 							{
 								WorldGen.spawnNPC = 229;
 							}
-							if (WorldGen.spawnNPC == 0 && Main.hardMode && num24 < 1)
+							if (WorldGen.spawnNPC == 0 && Main.hardMode && num26 < 1)
 							{
 								WorldGen.spawnNPC = 160;
 							}
-							if (WorldGen.spawnNPC == 0 && Main.hardMode && NPC.downedPlantBoss && num28 < 1)
+							if (WorldGen.spawnNPC == 0 && Main.hardMode && NPC.downedPlantBoss && num30 < 1)
 							{
 								WorldGen.spawnNPC = 209;
 							}
-							if (WorldGen.spawnNPC == 0 && num33 >= 4 && num29 < 1)
+							if (WorldGen.spawnNPC == 0 && num35 >= 4 && num31 < 1)
 							{
 								WorldGen.spawnNPC = 227;
 							}
-							if (WorldGen.spawnNPC == 0 && flag6 && num33 >= 8 && num27 < 1)
+							if (WorldGen.spawnNPC == 0 && flag8 && num35 >= 8 && num29 < 1)
 							{
 								WorldGen.spawnNPC = 208;
 							}

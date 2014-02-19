@@ -54,12 +54,9 @@ namespace Terraria
 		public static int numMechs = 0;
 		public static int[] mechTime = new int[WorldGen.maxMech];
 		public static int maxWire = 2000;
-		public static int[] wireX = new int[WorldGen.maxWire];
-		public static int[] wireY = new int[WorldGen.maxWire];
+		public static Dictionary<Tuple<int, int>, bool> wireSkip = new Dictionary<Tuple<int, int>, bool>();
 		[ThreadStatic]
 		public static int numWire = 0;
-		public static int[] noWireX = new int[WorldGen.maxWire];
-		public static int[] noWireY = new int[WorldGen.maxWire];
 		public static int numNoWire = 0;
 		public static int maxPump = 20;
 		public static int[] inPumpX = new int[WorldGen.maxPump];
@@ -537,7 +534,7 @@ namespace Terraria
 								num9 = num12;
 								if (Main.tile[num8, num9].nactive() && Main.tileSolid[(int)Main.tile[num8, num9].type])
 								{
-									if (!Collision.SolidTiles(num8 - 1, num8 + 1, num9 - 3, num9 - 1))
+									if (Main.tile[num8, num9 - 1].liquid == 0 && !Collision.SolidTiles(num8 - 1, num8 + 1, num9 - 3, num9 - 1))
 									{
 										flag = true;
 										Rectangle value = new Rectangle(num8 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num9 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
@@ -8483,27 +8480,145 @@ namespace Terraria
 					{
 						Main.tile[num630, num631].liquid = 0;
 					}
+					if (Main.tile[num630, num631].type == 21)
+					{
+						int num633 = Main.tile[num630, num631].frameX / 18;
+						int num634 = 0;
+						int num635 = num630;
+						int num636 = num631 - Main.tile[num630, num631].frameY / 18;
+						while (num633 >= 2)
+						{
+							num634++;
+							num633 -= 2;
+						}
+						num635 -= num633;
+						for (int num637 = 0; num637 < 2; num637++)
+						{
+							for (int num638 = 0; num638 < 2; num638++)
+							{
+								int num639 = num635 + num637;
+								int num640 = num636 + num638;
+								Main.tile[num639, num640].active(true);
+								Main.tile[num639, num640].slope(0);
+								Main.tile[num639, num640].halfBrick(false);
+								Main.tile[num639, num640].type = 21;
+								Main.tile[num639, num640].frameX = (short)(num637 * 18 + 36 * num634);
+								Main.tile[num639, num640].frameY = (short)(num638 * 18);
+							}
+							if (!Main.tile[num637, num631 + 2].active())
+							{
+								Main.tile[num637, num631 + 2].active(true);
+								if (!Main.tileSolid[(int)Main.tile[num637, num631 + 2].type] || Main.tileSolidTop[(int)Main.tile[num637, num631 + 2].type])
+								{
+									Main.tile[num637, num631 + 2].type = 0;
+								}
+							}
+							Main.tile[num637, num631 + 2].slope(0);
+							Main.tile[num637, num631 + 2].halfBrick(false);
+						}
+					}
+					if (Main.tile[num630, num631].type == 28)
+					{
+						int num641 = Main.tile[num630, num631].frameX / 18;
+						int num642 = 0;
+						int num643 = num630;
+						while (num641 >= 2)
+						{
+							num642++;
+							num641 -= 2;
+						}
+						num643 -= num641;
+						int num644 = Main.tile[num630, num631].frameY / 18;
+						int num645 = 0;
+						int num646 = num631;
+						while (num644 >= 2)
+						{
+							num645++;
+							num644 -= 2;
+						}
+						num646 -= num644;
+						for (int num647 = 0; num647 < 2; num647++)
+						{
+							for (int num648 = 0; num648 < 2; num648++)
+							{
+								int num649 = num643 + num647;
+								int num650 = num646 + num648;
+								Main.tile[num649, num650].active(true);
+								Main.tile[num649, num650].slope(0);
+								Main.tile[num649, num650].halfBrick(false);
+								Main.tile[num649, num650].type = 28;
+								Main.tile[num649, num650].frameX = (short)(num647 * 18 + 36 * num642);
+								Main.tile[num649, num650].frameY = (short)(num648 * 18 + 36 * num645);
+							}
+							if (!Main.tile[num647, num631 + 2].active())
+							{
+								Main.tile[num647, num631 + 2].active(true);
+								if (!Main.tileSolid[(int)Main.tile[num647, num631 + 2].type] || Main.tileSolidTop[(int)Main.tile[num647, num631 + 2].type])
+								{
+									Main.tile[num647, num631 + 2].type = 0;
+								}
+							}
+							Main.tile[num647, num631 + 2].slope(0);
+							Main.tile[num647, num631 + 2].halfBrick(false);
+						}
+					}
+					if (Main.tile[num630, num631].type == 26)
+					{
+						int num651 = Main.tile[num630, num631].frameX / 18;
+						int num652 = 0;
+						int num653 = num630;
+						int num654 = num631 - Main.tile[num630, num631].frameY / 18;
+						while (num651 >= 3)
+						{
+							num652++;
+							num651 -= 3;
+						}
+						num653 -= num651;
+						for (int num655 = 0; num655 < 3; num655++)
+						{
+							for (int num656 = 0; num656 < 2; num656++)
+							{
+								int num657 = num653 + num655;
+								int num658 = num654 + num656;
+								Main.tile[num657, num658].active(true);
+								Main.tile[num657, num658].slope(0);
+								Main.tile[num657, num658].halfBrick(false);
+								Main.tile[num657, num658].type = 26;
+								Main.tile[num657, num658].frameX = (short)(num655 * 18 + 54 * num652);
+								Main.tile[num657, num658].frameY = (short)(num656 * 18);
+							}
+							if (!Main.tile[num655, num631 + 2].active())
+							{
+								Main.tile[num655, num631 + 2].active(true);
+								if (!Main.tileSolid[(int)Main.tile[num655, num631 + 2].type] || Main.tileSolidTop[(int)Main.tile[num655, num631 + 2].type])
+								{
+									Main.tile[num655, num631 + 2].type = 0;
+								}
+							}
+							Main.tile[num655, num631 + 2].slope(0);
+							Main.tile[num655, num631 + 2].halfBrick(false);
+						}
+					}
 				}
 			}
-			int num633 = WorldGen.lAltarX;
-			int num634 = WorldGen.lAltarY;
-			for (int num635 = 0; num635 <= 2; num635++)
+			int num659 = WorldGen.lAltarX;
+			int num660 = WorldGen.lAltarY;
+			for (int num661 = 0; num661 <= 2; num661++)
 			{
-				for (int num636 = 0; num636 <= 1; num636++)
+				for (int num662 = 0; num662 <= 1; num662++)
 				{
-					int num637 = num633 + num635;
-					int num638 = num634 + num636;
-					Main.tile[num637, num638].active(true);
-					Main.tile[num637, num638].type = 237;
-					Main.tile[num637, num638].frameX = (short)(num635 * 18);
-					Main.tile[num637, num638].frameY = (short)(num636 * 18);
+					int num663 = num659 + num661;
+					int num664 = num660 + num662;
+					Main.tile[num663, num664].active(true);
+					Main.tile[num663, num664].type = 237;
+					Main.tile[num663, num664].frameX = (short)(num661 * 18);
+					Main.tile[num663, num664].frameY = (short)(num662 * 18);
 				}
-				Main.tile[num635, num634 + 2].active(true);
-				Main.tile[num635, num634 + 2].slope(0);
-				Main.tile[num635, num634 + 2].halfBrick(false);
-				Main.tile[num635, num634 + 2].type = 226;
+				Main.tile[num661, num660 + 2].active(true);
+				Main.tile[num661, num660 + 2].slope(0);
+				Main.tile[num661, num660 + 2].halfBrick(false);
+				Main.tile[num661, num660 + 2].type = 226;
 			}
-			WorldGen.gen = false;
 		}
 		public static bool GrowEpicTree(int i, int y)
 		{
@@ -11134,22 +11249,20 @@ namespace Terraria
 			}
 			if (Main.netMode != 1)
 			{
-				int num6 = num2;
-				for (int num7 = num4; num7 <= num4 + 2; num7++)
+				int item = num2;
+				for (int num6 = num4; num6 <= num4 + 2; num6++)
 				{
 					if (WorldGen.numNoWire < WorldGen.maxWire - 1)
 					{
-						WorldGen.noWireX[WorldGen.numNoWire] = num6;
-						WorldGen.noWireY[WorldGen.numNoWire] = num7;
-						WorldGen.numNoWire++;
+						WorldGen.wireSkip[new Tuple<int, int>(item, num6)] = true;
 					}
 				}
 			}
-			for (int num8 = num2 - 1; num8 <= num2 + 1; num8++)
+			for (int num7 = num2 - 1; num7 <= num2 + 1; num7++)
 			{
-				for (int num9 = num4 - 1; num9 <= num4 + 2; num9++)
+				for (int num8 = num4 - 1; num8 <= num4 + 2; num8++)
 				{
-					WorldGen.TileFrame(num8, num9, false, false);
+					WorldGen.TileFrame(num7, num8, false, false);
 				}
 			}
 			Main.PlaySound(9, i * 16, j * 16, 1);
@@ -17460,9 +17573,7 @@ namespace Terraria
 						{
 							if (WorldGen.numNoWire < WorldGen.maxWire - 1)
 							{
-								WorldGen.noWireX[WorldGen.numNoWire] = m;
-								WorldGen.noWireY[WorldGen.numNoWire] = n;
-								WorldGen.numNoWire++;
+								WorldGen.wireSkip[new Tuple<int, int>(m, n)] = true;
 							}
 						}
 					}
@@ -23125,9 +23236,7 @@ namespace Terraria
 							Tile expr_108 = Main.tile[l, m];
 							expr_108.frameX = (short)(expr_108.frameX - 36);
 						}
-						WorldGen.noWireX[WorldGen.numNoWire] = l;
-						WorldGen.noWireY[WorldGen.numNoWire] = m;
-						WorldGen.numNoWire++;
+						WorldGen.wireSkip[new Tuple<int, int>(l, m)] = true;
 					}
 				}
 			}
@@ -23166,9 +23275,7 @@ namespace Terraria
 							Tile expr_F1 = Main.tile[l, m];
 							expr_F1.frameY = (short)(expr_F1.frameY - 72);
 						}
-						WorldGen.noWireX[WorldGen.numNoWire] = l;
-						WorldGen.noWireY[WorldGen.numNoWire] = m;
-						WorldGen.numNoWire++;
+						WorldGen.wireSkip[new Tuple<int, int>(l, m)] = true;
 					}
 				}
 			}
@@ -23370,23 +23477,23 @@ namespace Terraria
 			if (type == 132 && flag)
 			{
 				bool flag2 = true;
+				if (Main.tile[x - 1, num + 1] == null)
+				{
+					Main.tile[x - 1, num + 1] = new Tile();
+				}
 				if (Main.tile[x, num + 1] == null)
 				{
 					Main.tile[x, num + 1] = new Tile();
 				}
-				if (Main.tile[x + 1, num + 1] == null)
+				if (!Main.tile[x - 1, num + 1].nactive() || (!WorldGen.SolidTile2(x - 1, num + 1) && !Main.tileTable[(int)Main.tile[x - 1, num + 1].type]))
 				{
-					Main.tile[x + 1, num + 1] = new Tile();
+					flag2 = false;
 				}
 				if (!Main.tile[x, num + 1].nactive() || (!WorldGen.SolidTile2(x, num + 1) && !Main.tileTable[(int)Main.tile[x, num + 1].type]))
 				{
 					flag2 = false;
 				}
-				if (!Main.tile[x + 1, num + 1].nactive() || (!WorldGen.SolidTile2(x + 1, num + 1) && !Main.tileTable[(int)Main.tile[x + 1, num + 1].type]))
-				{
-					flag2 = false;
-				}
-				if (!flag2 && (Main.tile[x, num].wall < 0 || Main.tile[x + 1, num].wall < 0 || Main.tile[x, num + 1].wall < 0 || Main.tile[x + 1, num + 1].wall < 0))
+				if (!flag2 && (Main.tile[x - 1, num - 1].wall < 1 || Main.tile[x, num - 1].wall < 1 || Main.tile[x - 1, num].wall < 1 || Main.tile[x - 1, num].wall < 1))
 				{
 					flag = false;
 				}
@@ -26521,14 +26628,6 @@ namespace Terraria
 				{
 					return -1;
 				}
-				if (Main.tile[i + 1, y + 1] == null)
-				{
-					Main.tile[i + 1, y + 1] = new Tile();
-				}
-				if (!WorldGen.SolidTile2(i + 1, y + 1) || Main.tile[i + 1, y + 1].type == 127)
-				{
-					return -1;
-				}
 			}
 			if (notNearOtherChests)
 			{
@@ -27032,7 +27131,7 @@ namespace Terraria
 						{
 							Main.tile[i, j + 1] = new Tile();
 						}
-						if (Main.tile[i, j].wall > 0 || (Main.tile[i - 1, j].active() && Main.tile[i - 1, j].slope() == 0 && (Main.tileSolid[(int)Main.tile[i - 1, j].type] || Main.tile[i - 1, j].type == 124 || (Main.tile[i - 1, j].type == 5 && Main.tile[i - 1, j - 1].type == 5 && Main.tile[i - 1, j + 1].type == 5))) || (Main.tile[i + 1, j].active() && Main.tile[i + 1, j].slope() == 0 && (Main.tileSolid[(int)Main.tile[i + 1, j].type] || Main.tile[i + 1, j].type == 124 || (Main.tile[i + 1, j].type == 5 && Main.tile[i + 1, j - 1].type == 5 && Main.tile[i + 1, j + 1].type == 5))) || (Main.tile[i, j + 1].active() && Main.tileSolid[(int)Main.tile[i, j + 1].type] && !Main.tileSolidTop[(int)Main.tile[i, j + 1].type] && !Main.tile[i, j + 1].halfBrick() && Main.tile[i, j + 1].slope() == 0))
+						if (Main.tile[i, j].wall > 0 || (Main.tile[i - 1, j].active() && (Main.tile[i - 1, j].slope() == 0 || Main.tile[i - 1, j].slope() % 2 != 1) && (Main.tileSolid[(int)Main.tile[i - 1, j].type] || Main.tile[i - 1, j].type == 124 || (Main.tile[i - 1, j].type == 5 && Main.tile[i - 1, j - 1].type == 5 && Main.tile[i - 1, j + 1].type == 5))) || (Main.tile[i + 1, j].active() && (Main.tile[i + 1, j].slope() == 0 || Main.tile[i + 1, j].slope() % 2 != 0) && (Main.tileSolid[(int)Main.tile[i + 1, j].type] || Main.tile[i + 1, j].type == 124 || (Main.tile[i + 1, j].type == 5 && Main.tile[i + 1, j - 1].type == 5 && Main.tile[i + 1, j + 1].type == 5))) || (Main.tile[i, j + 1].active() && Main.tileSolid[(int)Main.tile[i, j + 1].type] && !Main.tileSolidTop[(int)Main.tile[i, j + 1].type] && !Main.tile[i, j + 1].halfBrick() && Main.tile[i, j + 1].slope() == 0))
 						{
 							Main.tile[i, j].active(true);
 							Main.tile[i, j].type = (ushort)type;
@@ -27637,16 +27736,6 @@ namespace Terraria
 				}
 			}
 		}
-		public static void noWire(int i, int j)
-		{
-			if (WorldGen.numNoWire >= WorldGen.maxWire - 1)
-			{
-				return;
-			}
-			WorldGen.noWireX[WorldGen.numNoWire] = i;
-			WorldGen.noWireY[WorldGen.numNoWire] = j;
-			WorldGen.numNoWire++;
-		}
 		public static bool DeActive(int i, int j)
 		{
 			if (!Main.tile[i, j].active() || !Main.tileSolid[(int)Main.tile[i, j].type] || Main.tile[i, j].type == 10)
@@ -27682,19 +27771,19 @@ namespace Terraria
 				return;
 			}
 			Dictionary<Tuple<int, int>, bool> dictionary = new Dictionary<Tuple<int, int>, bool>();
-			Dictionary<Tuple<int, int>, bool> dictionary2 = new Dictionary<Tuple<int, int>, bool>();
+			WorldGen.wireSkip.Clear();
 			List<Tuple<int, int>> list = new List<Tuple<int, int>>
 			{
 				new Tuple<int, int>(i, j)
 			};
-			dictionary2[new Tuple<int, int>(i, j)] = true;
+			WorldGen.wireSkip[new Tuple<int, int>(i, j)] = true;
 			for (int k = 1; k > 0; k--)
 			{
 				if (!dictionary.ContainsKey(list[0]))
 				{
 					int item = list[0].Item1;
 					int item2 = list[0].Item2;
-					if (WorldGen.hitWireSingle(list[0].Item1, list[0].Item2, wireType, dictionary2))
+					if (WorldGen.hitWireSingle(list[0].Item1, list[0].Item2, wireType))
 					{
 						list.Insert(1, new Tuple<int, int>(item, item2 + 1));
 						list.Insert(1, new Tuple<int, int>(item, item2 - 1));
@@ -27706,8 +27795,9 @@ namespace Terraria
 				dictionary[list[0]] = true;
 				list.RemoveAt(0);
 			}
+			WorldGen.wireSkip.Clear();
 		}
-		public static bool hitWireSingle(int i, int j, int wireType, Dictionary<Tuple<int, int>, bool> skipdict)
+		public static bool hitWireSingle(int i, int j, int wireType)
 		{
 			if (i < 2 || i >= Main.maxTilesX - 2 || j < 2 || j >= Main.maxTilesY - 2)
 			{
@@ -27726,7 +27816,7 @@ namespace Terraria
 			{
 				return false;
 			}
-			bool flag = skipdict.ContainsKey(new Tuple<int, int>(i, j));
+			bool flag = WorldGen.wireSkip.ContainsKey(new Tuple<int, int>(i, j));
 			int type = (int)tile.type;
 			if (!flag && tile.actuator() && (type != 226 || (double)j <= Main.worldSurface || NPC.downedPlantBoss))
 			{
@@ -27773,13 +27863,13 @@ namespace Terraria
 				{
 					if (type >= 262)
 					{
-						Tile expr_1B7 = tile;
-						expr_1B7.type = (ushort)(expr_1B7.type - 7);
+						Tile expr_1BB = tile;
+						expr_1BB.type = (ushort)(expr_1BB.type - 7);
 					}
 					else
 					{
-						Tile expr_1C8 = tile;
-						expr_1C8.type = (ushort)(expr_1C8.type + 7);
+						Tile expr_1CC = tile;
+						expr_1CC.type = (ushort)(expr_1CC.type + 7);
 					}
 					NetMessage.SendTileSquare(-1, i, j, 1);
 				}
@@ -27805,7 +27895,7 @@ namespace Terraria
 				else if (type == 216)
 				{
 					WorldGen.LaunchRocket(i, j);
-					skipdict[new Tuple<int, int>(i, j)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(i, j)] = true;
 				}
 				else if (type == 235)
 				{
@@ -27818,9 +27908,9 @@ namespace Terraria
 							WorldGen.teleport[0].Y = (float)j;
 							if (tile.halfBrick())
 							{
-								Vector2[] expr_2F2_cp_0 = WorldGen.teleport;
-								int expr_2F2_cp_1 = 0;
-								expr_2F2_cp_0[expr_2F2_cp_1].Y = expr_2F2_cp_0[expr_2F2_cp_1].Y + 0.5f;
+								Vector2[] expr_2FA_cp_0 = WorldGen.teleport;
+								int expr_2FA_cp_1 = 0;
+								expr_2FA_cp_0[expr_2FA_cp_1].Y = expr_2FA_cp_0[expr_2FA_cp_1].Y + 0.5f;
 							}
 						}
 						else if (WorldGen.teleport[0].X != (float)num2 || WorldGen.teleport[0].Y != (float)j)
@@ -27829,9 +27919,9 @@ namespace Terraria
 							WorldGen.teleport[1].Y = (float)j;
 							if (tile.halfBrick())
 							{
-								Vector2[] expr_36F_cp_0 = WorldGen.teleport;
-								int expr_36F_cp_1 = 1;
-								expr_36F_cp_0[expr_36F_cp_1].Y = expr_36F_cp_0[expr_36F_cp_1].Y + 0.5f;
+								Vector2[] expr_377_cp_0 = WorldGen.teleport;
+								int expr_377_cp_1 = 1;
+								expr_377_cp_0[expr_377_cp_1].Y = expr_377_cp_0[expr_377_cp_1].Y + 0.5f;
 							}
 						}
 					}
@@ -27840,13 +27930,13 @@ namespace Terraria
 				{
 					if (tile.frameX < 66)
 					{
-						Tile expr_394 = tile;
-						expr_394.frameX = (short)(expr_394.frameX + 66);
+						Tile expr_39C = tile;
+						expr_39C.frameX = (short)(expr_39C.frameX + 66);
 					}
 					else
 					{
-						Tile expr_3A6 = tile;
-						expr_3A6.frameX = (short)(expr_3A6.frameX - 66);
+						Tile expr_3AE = tile;
+						expr_3AE.frameX = (short)(expr_3AE.frameX - 66);
 					}
 					NetMessage.SendTileSquare(-1, i, j, 1);
 				}
@@ -27854,13 +27944,13 @@ namespace Terraria
 				{
 					if (tile.frameX < 54)
 					{
-						Tile expr_3D6 = tile;
-						expr_3D6.frameX = (short)(expr_3D6.frameX + 54);
+						Tile expr_3DE = tile;
+						expr_3DE.frameX = (short)(expr_3DE.frameX + 54);
 					}
 					else
 					{
-						Tile expr_3E8 = tile;
-						expr_3E8.frameX = (short)(expr_3E8.frameX - 54);
+						Tile expr_3F0 = tile;
+						expr_3F0.frameX = (short)(expr_3F0.frameX - 54);
 					}
 					NetMessage.SendTileSquare(-1, i, j, 1);
 				}
@@ -27885,7 +27975,7 @@ namespace Terraria
 					{
 						for (int n = num4; n < num4 + 2; n++)
 						{
-							skipdict[new Tuple<int, int>(m, n)] = true;
+							WorldGen.wireSkip[new Tuple<int, int>(m, n)] = true;
 							Main.tile[m, n].frameX = (short)((int)Main.tile[m, n].frameX + num5);
 						}
 					}
@@ -27902,12 +27992,12 @@ namespace Terraria
 					{
 						num8 = -18;
 					}
-					Tile expr_516 = Main.tile[i, num7];
-					expr_516.frameX = (short)(expr_516.frameX + num8);
-					Tile expr_534 = Main.tile[i, num7 + 1];
-					expr_534.frameX = (short)(expr_534.frameX + num8);
-					skipdict[new Tuple<int, int>(i, num7)] = true;
-					skipdict[new Tuple<int, int>(i, num7 + 1)] = true;
+					Tile expr_522 = Main.tile[i, num7];
+					expr_522.frameX = (short)(expr_522.frameX + num8);
+					Tile expr_540 = Main.tile[i, num7 + 1];
+					expr_540.frameX = (short)(expr_540.frameX + num8);
+					WorldGen.wireSkip[new Tuple<int, int>(i, num7)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(i, num7 + 1)] = true;
 					NetMessage.SendTileSquare(-1, i, j, 2);
 				}
 				else if (type == 93)
@@ -27922,15 +28012,15 @@ namespace Terraria
 					{
 						num10 = -18;
 					}
-					Tile expr_5B5 = Main.tile[i, num9];
-					expr_5B5.frameX = (short)(expr_5B5.frameX + num10);
-					Tile expr_5D3 = Main.tile[i, num9 + 1];
-					expr_5D3.frameX = (short)(expr_5D3.frameX + num10);
-					Tile expr_5F1 = Main.tile[i, num9 + 2];
-					expr_5F1.frameX = (short)(expr_5F1.frameX + num10);
-					skipdict[new Tuple<int, int>(i, num9)] = true;
-					skipdict[new Tuple<int, int>(i, num9 + 1)] = true;
-					skipdict[new Tuple<int, int>(i, num9 + 2)] = true;
+					Tile expr_5C9 = Main.tile[i, num9];
+					expr_5C9.frameX = (short)(expr_5C9.frameX + num10);
+					Tile expr_5E7 = Main.tile[i, num9 + 1];
+					expr_5E7.frameX = (short)(expr_5E7.frameX + num10);
+					Tile expr_605 = Main.tile[i, num9 + 2];
+					expr_605.frameX = (short)(expr_605.frameX + num10);
+					WorldGen.wireSkip[new Tuple<int, int>(i, num9)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(i, num9 + 1)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(i, num9 + 2)] = true;
 					NetMessage.SendTileSquare(-1, i, num9 + 1, 3);
 				}
 				else if (type == 126 || type == 95 || type == 100 || type == 173)
@@ -27951,18 +28041,18 @@ namespace Terraria
 					{
 						num13 = -36;
 					}
-					Tile expr_6C2 = Main.tile[num12, num11];
-					expr_6C2.frameX = (short)(expr_6C2.frameX + num13);
-					Tile expr_6E1 = Main.tile[num12, num11 + 1];
-					expr_6E1.frameX = (short)(expr_6E1.frameX + num13);
-					Tile expr_700 = Main.tile[num12 + 1, num11];
-					expr_700.frameX = (short)(expr_700.frameX + num13);
-					Tile expr_721 = Main.tile[num12 + 1, num11 + 1];
-					expr_721.frameX = (short)(expr_721.frameX + num13);
-					skipdict[new Tuple<int, int>(num12, num11)] = true;
-					skipdict[new Tuple<int, int>(num12, num11 + 1)] = true;
-					skipdict[new Tuple<int, int>(num12 + 1, num11)] = true;
-					skipdict[new Tuple<int, int>(num12 + 1, num11 + 1)] = true;
+					Tile expr_6E2 = Main.tile[num12, num11];
+					expr_6E2.frameX = (short)(expr_6E2.frameX + num13);
+					Tile expr_701 = Main.tile[num12, num11 + 1];
+					expr_701.frameX = (short)(expr_701.frameX + num13);
+					Tile expr_720 = Main.tile[num12 + 1, num11];
+					expr_720.frameX = (short)(expr_720.frameX + num13);
+					Tile expr_741 = Main.tile[num12 + 1, num11 + 1];
+					expr_741.frameX = (short)(expr_741.frameX + num13);
+					WorldGen.wireSkip[new Tuple<int, int>(num12, num11)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num12, num11 + 1)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num12 + 1, num11)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num12 + 1, num11 + 1)] = true;
 					NetMessage.SendTileSquare(-1, num12, num11, 3);
 				}
 				else if (type == 34)
@@ -27987,9 +28077,9 @@ namespace Terraria
 					{
 						for (int num19 = num15; num19 < num15 + 3; num19++)
 						{
-							Tile expr_802 = Main.tile[num18, num19];
-							expr_802.frameX = (short)(expr_802.frameX + num17);
-							skipdict[new Tuple<int, int>(num18, num19)] = true;
+							Tile expr_832 = Main.tile[num18, num19];
+							expr_832.frameX = (short)(expr_832.frameX + num17);
+							WorldGen.wireSkip[new Tuple<int, int>(num18, num19)] = true;
 						}
 					}
 					NetMessage.SendTileSquare(-1, num16 + 1, num15 + 1, 3);
@@ -28001,8 +28091,8 @@ namespace Terraria
 					{
 						num20 = -18;
 					}
-					Tile expr_870 = tile;
-					expr_870.frameX = (short)(expr_870.frameX + num20);
+					Tile expr_8A4 = tile;
+					expr_8A4.frameX = (short)(expr_8A4.frameX + num20);
 					NetMessage.SendTileSquare(-1, i, j, 3);
 				}
 				else if (type == 92)
@@ -28013,24 +28103,24 @@ namespace Terraria
 					{
 						num22 = -18;
 					}
-					Tile expr_8C0 = Main.tile[i, num21];
-					expr_8C0.frameX = (short)(expr_8C0.frameX + num22);
-					Tile expr_8DE = Main.tile[i, num21 + 1];
-					expr_8DE.frameX = (short)(expr_8DE.frameX + num22);
-					Tile expr_8FC = Main.tile[i, num21 + 2];
-					expr_8FC.frameX = (short)(expr_8FC.frameX + num22);
-					Tile expr_91A = Main.tile[i, num21 + 3];
-					expr_91A.frameX = (short)(expr_91A.frameX + num22);
-					Tile expr_938 = Main.tile[i, num21 + 4];
-					expr_938.frameX = (short)(expr_938.frameX + num22);
-					Tile expr_956 = Main.tile[i, num21 + 5];
-					expr_956.frameX = (short)(expr_956.frameX + num22);
-					skipdict[new Tuple<int, int>(i, num21)] = true;
-					skipdict[new Tuple<int, int>(i, num21 + 1)] = true;
-					skipdict[new Tuple<int, int>(i, num21 + 2)] = true;
-					skipdict[new Tuple<int, int>(i, num21 + 3)] = true;
-					skipdict[new Tuple<int, int>(i, num21 + 4)] = true;
-					skipdict[new Tuple<int, int>(i, num21 + 5)] = true;
+					Tile expr_8F4 = Main.tile[i, num21];
+					expr_8F4.frameX = (short)(expr_8F4.frameX + num22);
+					Tile expr_912 = Main.tile[i, num21 + 1];
+					expr_912.frameX = (short)(expr_912.frameX + num22);
+					Tile expr_930 = Main.tile[i, num21 + 2];
+					expr_930.frameX = (short)(expr_930.frameX + num22);
+					Tile expr_94E = Main.tile[i, num21 + 3];
+					expr_94E.frameX = (short)(expr_94E.frameX + num22);
+					Tile expr_96C = Main.tile[i, num21 + 4];
+					expr_96C.frameX = (short)(expr_96C.frameX + num22);
+					Tile expr_98A = Main.tile[i, num21 + 5];
+					expr_98A.frameX = (short)(expr_98A.frameX + num22);
+					WorldGen.wireSkip[new Tuple<int, int>(i, num21)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(i, num21 + 1)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(i, num21 + 2)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(i, num21 + 3)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(i, num21 + 4)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(i, num21 + 5)] = true;
 					NetMessage.SendTileSquare(-1, i, num21 + 3, 7);
 				}
 				else if (type == 137)
@@ -28129,10 +28219,10 @@ namespace Terraria
 						num28 -= 2;
 					}
 					num28 = i - num28;
-					skipdict[new Tuple<int, int>(num28, num27)] = true;
-					skipdict[new Tuple<int, int>(num28, num27 + 1)] = true;
-					skipdict[new Tuple<int, int>(num28 + 1, num27)] = true;
-					skipdict[new Tuple<int, int>(num28 + 1, num27 + 1)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num28, num27)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num28, num27 + 1)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num28 + 1, num27)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num28 + 1, num27 + 1)] = true;
 					if (type == 142)
 					{
 						for (int num29 = 0; num29 < 4; num29++)
@@ -28215,12 +28305,12 @@ namespace Terraria
 						num37++;
 					}
 					num36 = i - num36;
-					skipdict[new Tuple<int, int>(num36, num35)] = true;
-					skipdict[new Tuple<int, int>(num36, num35 + 1)] = true;
-					skipdict[new Tuple<int, int>(num36, num35 + 2)] = true;
-					skipdict[new Tuple<int, int>(num36 + 1, num35)] = true;
-					skipdict[new Tuple<int, int>(num36 + 1, num35 + 1)] = true;
-					skipdict[new Tuple<int, int>(num36 + 1, num35 + 2)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num36, num35)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num36, num35 + 1)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num36, num35 + 2)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num36 + 1, num35)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num36 + 1, num35 + 1)] = true;
+					WorldGen.wireSkip[new Tuple<int, int>(num36 + 1, num35 + 2)] = true;
 					int num38 = num36 * 16 + 16;
 					int num39 = (num35 + 3) * 16;
 					int num40 = -1;
@@ -28323,7 +28413,7 @@ namespace Terraria
 							int num41 = 0;
 							for (int num42 = 0; num42 < 200; num42++)
 							{
-								if (Main.npc[num42].active && (Main.npc[num42].type == 17 || Main.npc[num42].type == 19 || Main.npc[num42].type == 22 || Main.npc[num42].type == 38 || Main.npc[num42].type == 54 || Main.npc[num42].type == 107 || Main.npc[num42].type == 108 || Main.npc[num42].type == 142 || Main.npc[num42].type == 160 || Main.npc[num42].type == 207 || Main.npc[num42].type == 209 || Main.npc[num42].type == 227 || Main.npc[num42].type == 228 || Main.npc[num42].type == 229))
+								if (Main.npc[num42].active && (Main.npc[num42].type == 17 || Main.npc[num42].type == 19 || Main.npc[num42].type == 22 || Main.npc[num42].type == 38 || Main.npc[num42].type == 54 || Main.npc[num42].type == 107 || Main.npc[num42].type == 108 || Main.npc[num42].type == 142 || Main.npc[num42].type == 160 || Main.npc[num42].type == 207 || Main.npc[num42].type == 209 || Main.npc[num42].type == 227 || Main.npc[num42].type == 228 || Main.npc[num42].type == 229 || Main.npc[num42].type == 368))
 								{
 									array[num41] = num42;
 									num41++;
@@ -28348,7 +28438,7 @@ namespace Terraria
 						int num44 = 0;
 						for (int num45 = 0; num45 < 200; num45++)
 						{
-							if (Main.npc[num45].active && (Main.npc[num45].type == 18 || Main.npc[num45].type == 20 || Main.npc[num45].type == 124 || Main.npc[num45].type == 178 || Main.npc[num45].type == 208))
+							if (Main.npc[num45].active && (Main.npc[num45].type == 18 || Main.npc[num45].type == 20 || Main.npc[num45].type == 124 || Main.npc[num45].type == 178 || Main.npc[num45].type == 208 || Main.npc[num45].type == 353))
 							{
 								array2[num44] = num45;
 								num44++;
@@ -38479,11 +38569,11 @@ namespace Terraria
 								{
 									num3 = (int)tile3.type;
 								}
-								if (tile4 != null && tile4.nactive())
+								if (tile4 != null && tile4.nactive() && (tile4.slope() == 0 || tile4.slope() % 2 != 1))
 								{
 									num4 = (int)tile4.type;
 								}
-								if (tile5 != null && tile5.nactive())
+								if (tile5 != null && tile5.nactive() && (tile5.slope() == 0 || tile5.slope() % 2 != 0))
 								{
 									num5 = (int)tile5.type;
 								}
@@ -39686,40 +39776,40 @@ namespace Terraria
 							}
 							if (num == 147)
 							{
-								if (num43 > -1 && Main.tileBrick[num43] && num43 != 206 && num43 != 163 && num43 != 164 && num43 != 200)
+								if (num43 > -1 && Main.tileBrick[num43] && num43 != 161 && num43 != 163 && num43 != 164 && num43 != 200)
 								{
 									num43 = num;
 								}
-								if (num48 > -1 && Main.tileBrick[num48] && num48 != 206 && num48 != 163 && num48 != 164 && num48 != 200)
+								if (num48 > -1 && Main.tileBrick[num48] && num48 != 161 && num48 != 163 && num48 != 164 && num48 != 200)
 								{
 									num48 = num;
 								}
-								if (num45 > -1 && Main.tileBrick[num45] && num45 != 206 && num45 != 163 && num45 != 164 && num45 != 200)
+								if (num45 > -1 && Main.tileBrick[num45] && num45 != 161 && num45 != 163 && num45 != 164 && num45 != 200)
 								{
 									num45 = num;
 								}
-								if (num46 > -1 && Main.tileBrick[num46] && num46 != 206 && num46 != 163 && num46 != 164 && num46 != 200)
+								if (num46 > -1 && Main.tileBrick[num46] && num46 != 161 && num46 != 163 && num46 != 164 && num46 != 200)
 								{
 									num46 = num;
 								}
-								if (num42 > -1 && Main.tileBrick[num42] && num42 != 206 && num42 != 163 && num42 != 164 && num42 != 200)
+								if (num42 > -1 && Main.tileBrick[num42] && num42 != 161 && num42 != 163 && num42 != 164 && num42 != 200)
 								{
 									num42 = num;
 								}
-								if (num44 > -1 && Main.tileBrick[num44] && num44 != 206 && num44 != 163 && num44 != 164 && num44 != 200)
+								if (num44 > -1 && Main.tileBrick[num44] && num44 != 161 && num44 != 163 && num44 != 164 && num44 != 200)
 								{
 									num44 = num;
 								}
-								if (num47 > -1 && Main.tileBrick[num47] && num47 != 206 && num47 != 163 && num47 != 164 && num47 != 200)
+								if (num47 > -1 && Main.tileBrick[num47] && num47 != 161 && num47 != 163 && num47 != 164 && num47 != 200)
 								{
 									num47 = num;
 								}
-								if (num49 > -1 && Main.tileBrick[num49] && num49 != 206 && num49 != 163 && num49 != 164 && num49 != 200)
+								if (num49 > -1 && Main.tileBrick[num49] && num49 != 161 && num49 != 163 && num49 != 164 && num49 != 200)
 								{
 									num49 = num;
 								}
 							}
-							else if (num == 206 || num == 163 || num == 164 || num == 200)
+							else if (num == 161 || num == 163 || num == 164 || num == 200)
 							{
 								if (num43 > -1 && Main.tileBrick[num43] && num43 != 147)
 								{

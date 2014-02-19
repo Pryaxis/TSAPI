@@ -1,4 +1,5 @@
 using System;
+
 namespace Terraria
 {
 	public class Recipe
@@ -355,7 +356,7 @@ namespace Terraria
 			Recipe.newRecipe.requiredTile[0] = 13;
 			Recipe.addRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(2209, false);
-			Recipe.newRecipe.requiredItem[0].stack = 10;
+			Recipe.newRecipe.createItem.stack = 15;
 			Recipe.newRecipe.requiredItem[0].SetDefaults(500, false);
 			Recipe.newRecipe.requiredItem[0].stack = 15;
 			Recipe.newRecipe.requiredItem[1].SetDefaults(75, false);
@@ -2756,6 +2757,7 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].SetDefaults(1344, false);
 			Recipe.newRecipe.requiredItem[0].stack = 10;
 			Recipe.newRecipe.requiredTile[0] = 307;
+			Recipe.addRecipe();
 			Recipe.newRecipe.createItem.SetDefaults(1722, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults(1344, false);
 			Recipe.newRecipe.requiredItem[0].stack = 15;
@@ -5503,6 +5505,14 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].stack = 1;
 			Recipe.newRecipe.requiredItem[1].SetDefaults("Bottled Water");
 			Recipe.addRecipe();
+			for (int j = 0; j < 8; j++)
+			{
+				Recipe.newRecipe.createItem.SetDefaults(2178 + j, false);
+				Recipe.newRecipe.requiredItem[0].SetDefaults(1994 + j, false);
+				Recipe.newRecipe.requiredItem[0].stack = 1;
+				Recipe.newRecipe.requiredItem[1].SetDefaults("Bottle");
+				Recipe.addRecipe();
+			}
 			Recipe.newRecipe.createItem.SetDefaults(2208, false);
 			Recipe.newRecipe.requiredItem[0].SetDefaults("Glass");
 			Recipe.newRecipe.requiredItem[0].stack = 16;
@@ -6463,15 +6473,15 @@ namespace Terraria
 			Recipe.newRecipe.requiredItem[0].stack = 100;
 			Recipe.addRecipe();
 			Recipe.wallReturn();
-			for (int j = 0; j < Recipe.numRecipes; j++)
+			for (int k = 0; k < Recipe.numRecipes; k++)
 			{
 				int num = 0;
-				while (Main.recipe[j].requiredItem[num].type > 0)
+				while (Main.recipe[k].requiredItem[num].type > 0)
 				{
-					Main.recipe[j].requiredItem[num].checkMat();
+					Main.recipe[k].requiredItem[num].checkMat();
 					num++;
 				}
-				Main.recipe[j].createItem.checkMat();
+				Main.recipe[k].createItem.checkMat();
 			}
 		}
 		private static void wallReturn()

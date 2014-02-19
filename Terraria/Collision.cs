@@ -1752,5 +1752,125 @@ namespace Terraria
 			}
 			return false;
 		}
+		public static void StepUp(ref Vector2 position, ref Vector2 velocity, int width, int height, ref float stepSpeed, ref float gfxOffY, int gravDir = 1, bool holdsMatching = false)
+		{
+			int num = 0;
+			if (velocity.X < 0f)
+			{
+				num = -1;
+			}
+			if (velocity.X > 0f)
+			{
+				num = 1;
+			}
+			Vector2 vector = position;
+			vector.X += velocity.X;
+			int num2 = (int)((vector.X + (float)(width / 2) + (float)((width / 2 + 1) * num)) / 16f);
+			int num3 = (int)(((double)vector.Y + 0.1) / 16.0);
+			if (gravDir == 1)
+			{
+				num3 = (int)((vector.Y + (float)height - 1f) / 16f);
+			}
+			int num4 = height / 16 + ((height % 16 == 0) ? 0 : 1);
+			bool flag = true;
+			bool flag2 = true;
+			if (Main.tile[num2, num3] == null)
+			{
+				Main.tile[num2, num3] = new Tile();
+			}
+			for (int i = 1; i < num4 + 2; i++)
+			{
+				if (num3 - i > 0 && Main.tile[num2, num3 - i * gravDir] == null)
+				{
+					Main.tile[num2, num3 + i] = new Tile();
+				}
+			}
+			if (num3 - num4 > 0 && Main.tile[num2 - num, num3 - num4 * gravDir] == null)
+			{
+				Main.tile[num2 - num, num3 - num4 * gravDir] = new Tile();
+			}
+			Tile tile;
+			for (int j = 2; j < num4 + 1; j++)
+			{
+				tile = Main.tile[num2, num3 - j * gravDir];
+				flag = (flag && (!tile.nactive() || !Main.tileSolid[(int)tile.type] || Main.tileSolidTop[(int)tile.type]));
+			}
+			tile = Main.tile[num2 - num, num3 - num4 * gravDir];
+			flag2 = (flag2 && (!tile.nactive() || !Main.tileSolid[(int)tile.type] || Main.tileSolidTop[(int)tile.type]));
+			bool flag3 = true;
+			bool flag4 = true;
+			if (gravDir == 1)
+			{
+				tile = Main.tile[num2, num3 - gravDir];
+				Tile tile2 = Main.tile[num2, num3 - (num4 + 1) * gravDir];
+				flag3 = (flag3 && (!tile.nactive() || !Main.tileSolid[(int)tile.type] || Main.tileSolidTop[(int)tile.type] || (tile.slope() == 1 && position.X + (float)(width / 2) > (float)(num2 * 16)) || (tile.slope() == 2 && position.X + (float)(width / 2) < (float)(num2 * 16 + 16)) || (tile.halfBrick() && (!tile2.nactive() || !Main.tileSolid[(int)tile2.type] || Main.tileSolidTop[(int)tile2.type]))));
+				tile = Main.tile[num2, num3];
+				tile2 = Main.tile[num2, num3 - 1];
+				flag4 = (flag4 && ((tile.nactive() && (!tile.topSlope() || (tile.slope() == 1 && position.X + (float)(width / 2) < (float)(num2 * 16)) || (tile.slope() == 2 && position.X + (float)(width / 2) > (float)(num2 * 16 + 16))) && (!tile.topSlope() || position.Y + (float)height > (float)(num3 * 16)) && ((Main.tileSolid[(int)tile.type] && !Main.tileSolidTop[(int)tile.type]) || (holdsMatching && ((Main.tileSolidTop[(int)tile.type] && tile.frameY == 0) || tile.type == 19) && (!Main.tileSolid[(int)tile2.type] || !tile2.nactive())))) || (tile2.halfBrick() && tile2.nactive())));
+			}
+			else
+			{
+				tile = Main.tile[num2, num3 - gravDir];
+				Tile tile2 = Main.tile[num2, num3 - (num4 + 1) * gravDir];
+				flag3 = (flag3 && (!tile.nactive() || !Main.tileSolid[(int)tile.type] || Main.tileSolidTop[(int)tile.type] || tile.slope() != 0 || (tile.halfBrick() && (!tile2.nactive() || !Main.tileSolid[(int)tile2.type] || Main.tileSolidTop[(int)tile2.type]))));
+				tile = Main.tile[num2, num3];
+				tile2 = Main.tile[num2, num3 + 1];
+				flag4 = (flag4 && ((tile.nactive() && ((Main.tileSolid[(int)tile.type] && !Main.tileSolidTop[(int)tile.type]) || (holdsMatching && Main.tileSolidTop[(int)tile.type] && tile.frameY == 0 && (!Main.tileSolid[(int)tile2.type] || !tile2.nactive())))) || (tile2.halfBrick() && tile2.nactive())));
+			}
+			if ((float)(num2 * 16) < vector.X + (float)width && (float)(num2 * 16 + 16) > vector.X)
+			{
+				if (gravDir == 1)
+				{
+					if (flag4 && flag3 && flag && flag2)
+					{
+						float num5 = (float)(num3 * 16);
+						if (Main.tile[num2, num3].halfBrick())
+						{
+							num5 += 8f;
+						}
+						if (Main.tile[num2, num3 - 1].halfBrick())
+						{
+							num5 -= 8f;
+						}
+						if (num5 < vector.Y + (float)height)
+						{
+							float num6 = vector.Y + (float)height - num5;
+							if ((double)num6 <= 16.1)
+							{
+								gfxOffY += position.Y + (float)height - num5;
+								position.Y = num5 - (float)height;
+								if (num6 < 9f)
+								{
+									stepSpeed = 1f;
+									return;
+								}
+								stepSpeed = 2f;
+								return;
+							}
+						}
+					}
+				}
+				else if (flag4 && flag3 && flag && flag2 && !Main.tile[num2, num3].bottomSlope())
+				{
+					float num7 = (float)(num3 * 16 + 16);
+					if (num7 > vector.Y)
+					{
+						float num8 = num7 - vector.Y;
+						if ((double)num8 <= 16.1)
+						{
+							gfxOffY -= num7 - position.Y;
+							position.Y = num7;
+							velocity.Y = 0f;
+							if (num8 < 9f)
+							{
+								stepSpeed = 1f;
+								return;
+							}
+							stepSpeed = 2f;
+						}
+					}
+				}
+			}
+		}
 	}
 }

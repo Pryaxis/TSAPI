@@ -2425,6 +2425,10 @@ namespace Terraria
 							tile = new Tile();
 							Main.tile[j, i] = tile;
 						}
+						else
+						{
+							tile.Clear();
+						}
 						byte b3 = reader.ReadByte();
 						if ((b3 & 1) == 1)
 						{

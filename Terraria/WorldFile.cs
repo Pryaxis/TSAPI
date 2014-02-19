@@ -1496,7 +1496,7 @@ namespace Terraria
 					{
 						item.netDefaults(reader.ReadInt32());
 						item.stack = (int)num5;
-						item.prefix = reader.ReadByte();
+						item.Prefix((int)reader.ReadByte());
 					}
 					chest.item[j] = item;
 				}
