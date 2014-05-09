@@ -148,6 +148,33 @@ namespace Terraria.ID
 		public const byte WhiteDynasty = 142;
 		public const byte BlueDynasty = 143;
 		public const byte ArcaneRunes = 144;
-		public const byte Count = 145;
+		public const byte IronFence = 145;
+		public const byte CopperPlating = 146;
+		public const byte StoneSlab = 147;
+		public const byte Sail = 148;
+		public const byte BorealWood = 149;
+		public const byte BorealWoodFence = 150;
+		public const byte PalmWood = 151;
+		public const byte PalmWoodFence = 152;
+		public const byte AmberGemspark = 153;
+		public const byte AmethystGemspark = 154;
+		public const byte DiamondGemspark = 155;
+		public const byte EmeraldGemspark = 156;
+		public const byte AmberGemsparkOff = 157;
+		public const byte AmethystGemsparkOff = 158;
+		public const byte DiamondGemsparkOff = 159;
+		public const byte EmeraldGemsparkOff = 160;
+		public const byte RubyGemsparkOff = 161;
+		public const byte SapphireGemsparkOff = 162;
+		public const byte TopazGemsparkOff = 163;
+		public const byte RubyGemspark = 164;
+		public const byte SapphireGemspark = 165;
+		public const byte TopazGemspark = 166;
+		public const byte TinPlating = 167;
+		public const byte Confetti = 168;
+		public const byte ConfettiBlack = 169;
+		public const byte CaveWall = 170;
+		public const byte CaveWall2 = 171;
+		public const byte Count = 172;
 	}
 }

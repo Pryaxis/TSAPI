@@ -1,4 +1,3 @@
-
 using System;
 namespace Terraria
 {
@@ -46,13 +45,10 @@ namespace Terraria
 					Main.star[i].twinkle = 1f;
 					Main.star[i].twinkleSpeed *= -1f;
 				}
-				else
+				else if ((double)Main.star[i].twinkle < 0.5)
 				{
-					if ((double)Main.star[i].twinkle < 0.5)
-					{
-						Main.star[i].twinkle = 0.5f;
-						Main.star[i].twinkleSpeed *= -1f;
-					}
+					Main.star[i].twinkle = 0.5f;
+					Main.star[i].twinkleSpeed *= -1f;
 				}
 				Main.star[i].rotation += Main.star[i].rotationSpeed;
 				if ((double)Main.star[i].rotation > 6.28)

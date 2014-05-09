@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TerrariaApi.Server;
 
 namespace Terraria
@@ -46,13 +47,11 @@ namespace Terraria
 			{
 				num4 = 1;
 			}
-			if (num4 < Main.maxTilesY)
+			if (num4 >= Main.maxTilesY)
 			{
-				goto IL_AA;
+				num4 = Main.maxTilesY - 1;
 			}
-			num4 = Main.maxTilesY - 1;
 			bool result;
-			IL_AA:
 			try
 			{
 				while (true)
@@ -75,11 +74,11 @@ namespace Terraria
 						}
 						if (Main.tile[num, num2 - 1] == null)
 						{
-							Main.tile[num, num2 - 1] = new Tile();
+							goto Block_14;
 						}
 						if (Main.tile[num, num2 + 1] == null)
 						{
-							Main.tile[num, num2 + 1] = new Tile();
+							goto Block_15;
 						}
 						if (!Main.tile[num, num2 - 1].inActive() && Main.tile[num, num2 - 1].active() && Main.tileSolid[(int)Main.tile[num, num2 - 1].type] && !Main.tileSolidTop[(int)Main.tile[num, num2 - 1].type] && Main.tile[num, num2 - 1].slope() == 0 && !Main.tile[num, num2 - 1].halfBrick() && !Main.tile[num, num2 + 1].inActive() && Main.tile[num, num2 + 1].active() && Main.tileSolid[(int)Main.tile[num, num2 + 1].type] && !Main.tileSolidTop[(int)Main.tile[num, num2 + 1].type] && Main.tile[num, num2 + 1].slope() == 0 && !Main.tile[num, num2 + 1].halfBrick())
 						{
@@ -98,11 +97,11 @@ namespace Terraria
 						}
 						if (Main.tile[num - 1, num2] == null)
 						{
-							Main.tile[num - 1, num2] = new Tile();
+							goto Block_29;
 						}
 						if (Main.tile[num + 1, num2] == null)
 						{
-							Main.tile[num + 1, num2] = new Tile();
+							goto Block_30;
 						}
 						if (!Main.tile[num - 1, num2].inActive() && Main.tile[num - 1, num2].active() && Main.tileSolid[(int)Main.tile[num - 1, num2].type] && !Main.tileSolidTop[(int)Main.tile[num - 1, num2].type] && Main.tile[num - 1, num2].slope() == 0 && !Main.tile[num - 1, num2].halfBrick() && !Main.tile[num + 1, num2].inActive() && Main.tile[num + 1, num2].active() && Main.tileSolid[(int)Main.tile[num + 1, num2].type] && !Main.tileSolidTop[(int)Main.tile[num + 1, num2].type] && Main.tile[num + 1, num2].slope() == 0 && !Main.tile[num + 1, num2].halfBrick())
 						{
@@ -111,7 +110,7 @@ namespace Terraria
 					}
 					if (Main.tile[num, num2] == null)
 					{
-						Main.tile[num, num2] = new Tile();
+						goto Block_43;
 					}
 					if (!Main.tile[num, num2].inActive() && Main.tile[num, num2].active() && Main.tileSolid[(int)Main.tile[num, num2].type] && !Main.tileSolidTop[(int)Main.tile[num, num2].type])
 					{
@@ -120,10 +119,25 @@ namespace Terraria
 				}
 				result = true;
 				return result;
+				Block_14:
+				result = false;
+				return result;
+				Block_15:
+				result = false;
+				return result;
 				Block_27:
 				result = false;
 				return result;
+				Block_29:
+				result = false;
+				return result;
+				Block_30:
+				result = false;
+				return result;
 				Block_42:
+				result = false;
+				return result;
+				Block_43:
 				result = false;
 				return result;
 				Block_47:
@@ -134,6 +148,694 @@ namespace Terraria
 				result = false;
 			}
 			return result;
+		}
+		public static bool CanHitLine(Vector2 Position1, int Width1, int Height1, Vector2 Position2, int Width2, int Height2)
+		{
+			int num = (int)((Position1.X + (float)(Width1 / 2)) / 16f);
+			int num2 = (int)((Position1.Y + (float)(Height1 / 2)) / 16f);
+			int num3 = (int)((Position2.X + (float)(Width2 / 2)) / 16f);
+			int num4 = (int)((Position2.Y + (float)(Height2 / 2)) / 16f);
+			if (num <= 1)
+			{
+				num = 1;
+			}
+			if (num >= Main.maxTilesX)
+			{
+				num = Main.maxTilesX - 1;
+			}
+			if (num3 <= 1)
+			{
+				num3 = 1;
+			}
+			if (num3 >= Main.maxTilesX)
+			{
+				num3 = Main.maxTilesX - 1;
+			}
+			if (num2 <= 1)
+			{
+				num2 = 1;
+			}
+			if (num2 >= Main.maxTilesY)
+			{
+				num2 = Main.maxTilesY - 1;
+			}
+			if (num4 <= 1)
+			{
+				num4 = 1;
+			}
+			if (num4 >= Main.maxTilesY)
+			{
+				num4 = Main.maxTilesY - 1;
+			}
+			float num5 = (float)Math.Abs(num - num3);
+			float num6 = (float)Math.Abs(num2 - num4);
+			if (num5 == 0f && num6 == 0f)
+			{
+				return true;
+			}
+			float num7 = 1f;
+			float num8 = 1f;
+			if (num5 == 0f || num6 == 0f)
+			{
+				if (num5 == 0f)
+				{
+					num7 = 0f;
+				}
+				if (num6 == 0f)
+				{
+					num8 = 0f;
+				}
+			}
+			else if (num5 > num6)
+			{
+				num7 = num5 / num6;
+			}
+			else
+			{
+				num8 = num6 / num5;
+			}
+			float num9 = 0f;
+			float num10 = 0f;
+			int num11 = 1;
+			if (num2 < num4)
+			{
+				num11 = 2;
+			}
+			int num12 = (int)num5;
+			int num13 = (int)num6;
+			int num14 = Math.Sign(num3 - num);
+			int num15 = Math.Sign(num4 - num2);
+			bool flag = false;
+			bool flag2 = false;
+			bool result;
+			try
+			{
+				while (true)
+				{
+					if (num11 == 2)
+					{
+						num9 += num7;
+						int num16 = (int)num9;
+						num9 %= 1f;
+						for (int i = 0; i < num16; i++)
+						{
+							if (Main.tile[num, num2 - 1] == null)
+							{
+								goto Block_18;
+							}
+							if (Main.tile[num, num2] == null)
+							{
+								goto Block_19;
+							}
+							if (Main.tile[num, num2 + 1] == null)
+							{
+								goto Block_20;
+							}
+							Tile tile = Main.tile[num, num2 - 1];
+							Tile tile2 = Main.tile[num, num2 + 1];
+							Tile tile3 = Main.tile[num, num2];
+							if ((!tile.inActive() && tile.active() && Main.tileSolid[(int)tile.type] && !Main.tileSolidTop[(int)tile.type]) || (!tile2.inActive() && tile2.active() && Main.tileSolid[(int)tile2.type] && !Main.tileSolidTop[(int)tile2.type]) || (!tile3.inActive() && tile3.active() && Main.tileSolid[(int)tile3.type] && !Main.tileSolidTop[(int)tile3.type]))
+							{
+								goto IL_292;
+							}
+							if (num12 == 0 && num13 == 0)
+							{
+								flag = true;
+								break;
+							}
+							num += num14;
+							num12--;
+							if (num12 == 0 && num13 == 0 && num16 == 1)
+							{
+								flag2 = true;
+							}
+						}
+						if (num13 != 0)
+						{
+							num11 = 1;
+						}
+					}
+					else if (num11 == 1)
+					{
+						num10 += num8;
+						int num17 = (int)num10;
+						num10 %= 1f;
+						for (int j = 0; j < num17; j++)
+						{
+							if (Main.tile[num - 1, num2] == null)
+							{
+								goto Block_37;
+							}
+							if (Main.tile[num, num2] == null)
+							{
+								goto Block_38;
+							}
+							if (Main.tile[num + 1, num2] == null)
+							{
+								goto Block_39;
+							}
+							Tile tile4 = Main.tile[num - 1, num2];
+							Tile tile5 = Main.tile[num + 1, num2];
+							Tile tile6 = Main.tile[num, num2];
+							if ((!tile4.inActive() && tile4.active() && Main.tileSolid[(int)tile4.type] && !Main.tileSolidTop[(int)tile4.type]) || (!tile5.inActive() && tile5.active() && Main.tileSolid[(int)tile5.type] && !Main.tileSolidTop[(int)tile5.type]) || (!tile6.inActive() && tile6.active() && Main.tileSolid[(int)tile6.type] && !Main.tileSolidTop[(int)tile6.type]))
+							{
+								goto IL_40A;
+							}
+							if (num12 == 0 && num13 == 0)
+							{
+								flag = true;
+								break;
+							}
+							num2 += num15;
+							num13--;
+							if (num12 == 0 && num13 == 0 && num17 == 1)
+							{
+								flag2 = true;
+							}
+						}
+						if (num12 != 0)
+						{
+							num11 = 2;
+						}
+					}
+					if (Main.tile[num, num2] == null)
+					{
+						goto Block_55;
+					}
+					Tile tile7 = Main.tile[num, num2];
+					if (!tile7.inActive() && tile7.active() && Main.tileSolid[(int)tile7.type] && !Main.tileSolidTop[(int)tile7.type])
+					{
+						goto Block_59;
+					}
+					if (flag || flag2)
+					{
+						goto IL_4B1;
+					}
+				}
+				Block_18:
+				result = false;
+				return result;
+				Block_19:
+				result = false;
+				return result;
+				Block_20:
+				result = false;
+				return result;
+				IL_292:
+				result = false;
+				return result;
+				Block_37:
+				result = false;
+				return result;
+				Block_38:
+				result = false;
+				return result;
+				Block_39:
+				result = false;
+				return result;
+				IL_40A:
+				result = false;
+				return result;
+				Block_55:
+				result = false;
+				return result;
+				Block_59:
+				result = false;
+				return result;
+				IL_4B1:
+				result = true;
+			}
+			catch
+			{
+				result = false;
+			}
+			return result;
+		}
+		public static Tuple<int, int> TupleHitLine(int x1, int y1, int x2, int y2, int ignoreX, int ignoreY, List<Tuple<int, int>> ignoreTargets)
+		{
+			int num = x1;
+			int num2 = y1;
+			int num3 = x2;
+			int num4 = y2;
+			if (num <= 1)
+			{
+				num = 1;
+			}
+			if (num >= Main.maxTilesX)
+			{
+				num = Main.maxTilesX - 1;
+			}
+			if (num3 <= 1)
+			{
+				num3 = 1;
+			}
+			if (num3 >= Main.maxTilesX)
+			{
+				num3 = Main.maxTilesX - 1;
+			}
+			if (num2 <= 1)
+			{
+				num2 = 1;
+			}
+			if (num2 >= Main.maxTilesY)
+			{
+				num2 = Main.maxTilesY - 1;
+			}
+			if (num4 <= 1)
+			{
+				num4 = 1;
+			}
+			if (num4 >= Main.maxTilesY)
+			{
+				num4 = Main.maxTilesY - 1;
+			}
+			float num5 = (float)Math.Abs(num - num3);
+			float num6 = (float)Math.Abs(num2 - num4);
+			if (num5 == 0f && num6 == 0f)
+			{
+				return new Tuple<int, int>(num, num2);
+			}
+			float num7 = 1f;
+			float num8 = 1f;
+			if (num5 == 0f || num6 == 0f)
+			{
+				if (num5 == 0f)
+				{
+					num7 = 0f;
+				}
+				if (num6 == 0f)
+				{
+					num8 = 0f;
+				}
+			}
+			else if (num5 > num6)
+			{
+				num7 = num5 / num6;
+			}
+			else
+			{
+				num8 = num6 / num5;
+			}
+			float num9 = 0f;
+			float num10 = 0f;
+			int num11 = 1;
+			if (num2 < num4)
+			{
+				num11 = 2;
+			}
+			int num12 = (int)num5;
+			int num13 = (int)num6;
+			int num14 = Math.Sign(num3 - num);
+			int num15 = Math.Sign(num4 - num2);
+			bool flag = false;
+			bool flag2 = false;
+			Tuple<int, int> result;
+			try
+			{
+				while (true)
+				{
+					if (num11 == 2)
+					{
+						num9 += num7;
+						int num16 = (int)num9;
+						num9 %= 1f;
+						for (int i = 0; i < num16; i++)
+						{
+							if (Main.tile[num, num2 - 1] == null)
+							{
+								goto Block_18;
+							}
+							if (Main.tile[num, num2 + 1] == null)
+							{
+								goto Block_19;
+							}
+							Tile tile = Main.tile[num, num2 - 1];
+							Tile tile2 = Main.tile[num, num2 + 1];
+							Tile tile3 = Main.tile[num, num2];
+							if (!ignoreTargets.Contains(new Tuple<int, int>(num, num2)) && !ignoreTargets.Contains(new Tuple<int, int>(num, num2 - 1)) && !ignoreTargets.Contains(new Tuple<int, int>(num, num2 + 1)))
+							{
+								if (ignoreY != -1 && num15 < 0 && !tile.inActive() && tile.active() && Main.tileSolid[(int)tile.type] && !Main.tileSolidTop[(int)tile.type])
+								{
+									goto Block_28;
+								}
+								if (ignoreY != 1 && num15 > 0 && !tile2.inActive() && tile2.active() && Main.tileSolid[(int)tile2.type] && !Main.tileSolidTop[(int)tile2.type])
+								{
+									goto Block_34;
+								}
+								if (!tile3.inActive() && tile3.active() && Main.tileSolid[(int)tile3.type] && !Main.tileSolidTop[(int)tile3.type])
+								{
+									goto Block_38;
+								}
+							}
+							if (num12 == 0 && num13 == 0)
+							{
+								flag = true;
+								break;
+							}
+							num += num14;
+							num12--;
+							if (num12 == 0 && num13 == 0 && num16 == 1)
+							{
+								flag2 = true;
+							}
+						}
+						if (num13 != 0)
+						{
+							num11 = 1;
+						}
+					}
+					else if (num11 == 1)
+					{
+						num10 += num8;
+						int num17 = (int)num10;
+						num10 %= 1f;
+						for (int j = 0; j < num17; j++)
+						{
+							if (Main.tile[num - 1, num2] == null)
+							{
+								goto Block_46;
+							}
+							if (Main.tile[num + 1, num2] == null)
+							{
+								goto Block_47;
+							}
+							Tile tile4 = Main.tile[num - 1, num2];
+							Tile tile5 = Main.tile[num + 1, num2];
+							Tile tile6 = Main.tile[num, num2];
+							if (!ignoreTargets.Contains(new Tuple<int, int>(num, num2)) && !ignoreTargets.Contains(new Tuple<int, int>(num - 1, num2)) && !ignoreTargets.Contains(new Tuple<int, int>(num + 1, num2)))
+							{
+								if (ignoreX != -1 && num14 < 0 && !tile4.inActive() && tile4.active() && Main.tileSolid[(int)tile4.type] && !Main.tileSolidTop[(int)tile4.type])
+								{
+									goto Block_56;
+								}
+								if (ignoreX != 1 && num14 > 0 && !tile5.inActive() && tile5.active() && Main.tileSolid[(int)tile5.type] && !Main.tileSolidTop[(int)tile5.type])
+								{
+									goto Block_62;
+								}
+								if (!tile6.inActive() && tile6.active() && Main.tileSolid[(int)tile6.type] && !Main.tileSolidTop[(int)tile6.type])
+								{
+									goto Block_66;
+								}
+							}
+							if (num12 == 0 && num13 == 0)
+							{
+								flag = true;
+								break;
+							}
+							num2 += num15;
+							num13--;
+							if (num12 == 0 && num13 == 0 && num17 == 1)
+							{
+								flag2 = true;
+							}
+						}
+						if (num12 != 0)
+						{
+							num11 = 2;
+						}
+					}
+					if (Main.tile[num, num2] == null)
+					{
+						goto Block_73;
+					}
+					Tile tile7 = Main.tile[num, num2];
+					if (!ignoreTargets.Contains(new Tuple<int, int>(num, num2)) && !tile7.inActive() && tile7.active() && Main.tileSolid[(int)tile7.type] && !Main.tileSolidTop[(int)tile7.type])
+					{
+						goto Block_78;
+					}
+					if (flag || flag2)
+					{
+						goto IL_563;
+					}
+				}
+				Block_18:
+				result = new Tuple<int, int>(-1, -1);
+				return result;
+				Block_19:
+				result = new Tuple<int, int>(-1, -1);
+				return result;
+				Block_28:
+				result = new Tuple<int, int>(num, num2 - 1);
+				return result;
+				Block_34:
+				result = new Tuple<int, int>(num, num2 + 1);
+				return result;
+				Block_38:
+				result = new Tuple<int, int>(num, num2);
+				return result;
+				Block_46:
+				result = new Tuple<int, int>(-1, -1);
+				return result;
+				Block_47:
+				result = new Tuple<int, int>(-1, -1);
+				return result;
+				Block_56:
+				result = new Tuple<int, int>(num - 1, num2);
+				return result;
+				Block_62:
+				result = new Tuple<int, int>(num + 1, num2);
+				return result;
+				Block_66:
+				result = new Tuple<int, int>(num, num2);
+				return result;
+				Block_73:
+				result = new Tuple<int, int>(-1, -1);
+				return result;
+				Block_78:
+				result = new Tuple<int, int>(num, num2);
+				return result;
+				IL_563:
+				result = new Tuple<int, int>(num, num2);
+			}
+			catch
+			{
+				result = new Tuple<int, int>(-1, -1);
+			}
+			return result;
+		}
+		public static Tuple<int, int> TupleHitLineWall(int x1, int y1, int x2, int y2)
+		{
+			int num = x1;
+			int num2 = y1;
+			int num3 = x2;
+			int num4 = y2;
+			if (num <= 1)
+			{
+				num = 1;
+			}
+			if (num >= Main.maxTilesX)
+			{
+				num = Main.maxTilesX - 1;
+			}
+			if (num3 <= 1)
+			{
+				num3 = 1;
+			}
+			if (num3 >= Main.maxTilesX)
+			{
+				num3 = Main.maxTilesX - 1;
+			}
+			if (num2 <= 1)
+			{
+				num2 = 1;
+			}
+			if (num2 >= Main.maxTilesY)
+			{
+				num2 = Main.maxTilesY - 1;
+			}
+			if (num4 <= 1)
+			{
+				num4 = 1;
+			}
+			if (num4 >= Main.maxTilesY)
+			{
+				num4 = Main.maxTilesY - 1;
+			}
+			float num5 = (float)Math.Abs(num - num3);
+			float num6 = (float)Math.Abs(num2 - num4);
+			if (num5 == 0f && num6 == 0f)
+			{
+				return new Tuple<int, int>(num, num2);
+			}
+			float num7 = 1f;
+			float num8 = 1f;
+			if (num5 == 0f || num6 == 0f)
+			{
+				if (num5 == 0f)
+				{
+					num7 = 0f;
+				}
+				if (num6 == 0f)
+				{
+					num8 = 0f;
+				}
+			}
+			else if (num5 > num6)
+			{
+				num7 = num5 / num6;
+			}
+			else
+			{
+				num8 = num6 / num5;
+			}
+			float num9 = 0f;
+			float num10 = 0f;
+			int num11 = 1;
+			if (num2 < num4)
+			{
+				num11 = 2;
+			}
+			int num12 = (int)num5;
+			int num13 = (int)num6;
+			int num14 = Math.Sign(num3 - num);
+			int num15 = Math.Sign(num4 - num2);
+			bool flag = false;
+			bool flag2 = false;
+			Tuple<int, int> result;
+			try
+			{
+				while (true)
+				{
+					if (num11 == 2)
+					{
+						num9 += num7;
+						int num16 = (int)num9;
+						num9 %= 1f;
+						for (int i = 0; i < num16; i++)
+						{
+							//Main.tile[num, num2]; TODO decompiled shit
+							if (Collision.HitWallSubstep(num, num2))
+							{
+								goto Block_18;
+							}
+							if (num12 == 0 && num13 == 0)
+							{
+								flag = true;
+								break;
+							}
+							num += num14;
+							num12--;
+							if (num12 == 0 && num13 == 0 && num16 == 1)
+							{
+								flag2 = true;
+							}
+						}
+						if (num13 != 0)
+						{
+							num11 = 1;
+						}
+					}
+					else if (num11 == 1)
+					{
+						num10 += num8;
+						int num17 = (int)num10;
+						num10 %= 1f;
+						for (int j = 0; j < num17; j++)
+						{
+							//Main.tile[num, num2]; TODO:DECOMPILED SHIT
+							if (Collision.HitWallSubstep(num, num2))
+							{
+								goto Block_26;
+							}
+							if (num12 == 0 && num13 == 0)
+							{
+								flag = true;
+								break;
+							}
+							num2 += num15;
+							num13--;
+							if (num12 == 0 && num13 == 0 && num17 == 1)
+							{
+								flag2 = true;
+							}
+						}
+						if (num12 != 0)
+						{
+							num11 = 2;
+						}
+					}
+					if (Main.tile[num, num2] == null)
+					{
+						goto Block_33;
+					}
+					//Main.tile[num, num2]; TODO:DECOMPILED BS
+					if (Collision.HitWallSubstep(num, num2))
+					{
+						goto Block_34;
+					}
+					if (flag || flag2)
+					{
+						goto IL_26C;
+					}
+				}
+				Block_18:
+				result = new Tuple<int, int>(num, num2);
+				return result;
+				Block_26:
+				result = new Tuple<int, int>(num, num2);
+				return result;
+				Block_33:
+				result = new Tuple<int, int>(-1, -1);
+				return result;
+				Block_34:
+				result = new Tuple<int, int>(num, num2);
+				return result;
+				IL_26C:
+				result = new Tuple<int, int>(num, num2);
+			}
+			catch
+			{
+				result = new Tuple<int, int>(-1, -1);
+			}
+			return result;
+		}
+		public static bool HitWallSubstep(int x, int y)
+		{
+			if (Main.tile[x, y].wall == 0)
+			{
+				return false;
+			}
+			bool flag = false;
+			if (Main.wallHouse[(int)Main.tile[x, y].wall])
+			{
+				flag = true;
+			}
+			if (!flag)
+			{
+				for (int i = -1; i < 2; i++)
+				{
+					for (int j = -1; j < 2; j++)
+					{
+						if ((i != 0 || j != 0) && Main.tile[x + i, y + j].wall == 0)
+						{
+							flag = true;
+						}
+					}
+				}
+			}
+			if (Main.tile[x, y].active() && flag)
+			{
+				bool flag2 = true;
+				for (int k = -1; k < 2; k++)
+				{
+					for (int l = -1; l < 2; l++)
+					{
+						if (k != 0 || l != 0)
+						{
+							Tile tile = Main.tile[x + k, y + l];
+							if (!tile.active() || !Main.tileSolid[(int)tile.type] || Main.tileSolidTop[(int)tile.type])
+							{
+								flag2 = false;
+							}
+						}
+					}
+				}
+				if (flag2)
+				{
+					flag = false;
+				}
+			}
+			return flag;
 		}
 		public static bool EmptyTile(int i, int j, bool ignoreTiles = false)
 		{
@@ -1309,7 +2011,7 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] != null && Main.tile[i, j].liquid > 0 && Main.tile[i, j - 1].liquid == 0 && (!Main.tile[i, j].lava() || lavaWalk))
 					{
-						int num5 = Main.tile[i, j].liquid / 32 * 2 + 2;
+						int num5 = (int)(Main.tile[i, j].liquid / 32 * 2 + 2);
 						Vector2 vector3;
 						vector3.X = (float)(i * 16);
 						vector3.Y = (float)(j * 16 + 16 - num5);
@@ -1613,7 +2315,7 @@ namespace Terraria
 							}
 							else if (oldPosition.X + (float)Width <= vector.X || oldPosition.X >= vector.X + 16f || oldPosition.Y + (float)Height <= vector.Y || (double)oldPosition.Y >= (double)vector.Y + 16.01)
 							{
-								int num5 = Main.tile[i, j].frameY / 18;
+								int num5 = (int)(Main.tile[i, j].frameY / 18);
 								bool flag = true;
 								if ((num5 == 4 || num5 == 2 || num5 == 3 || num5 == 6) && objType != 1)
 								{
@@ -1623,24 +2325,25 @@ namespace Terraria
 								{
 									flag = false;
 								}
-									if (flag)
+								if (flag)
+								{
+									bool handled = false;
+									if (forObject is NPC)
 									{
-										bool handled = false;
-										if (forObject is NPC)
-										{
-											handled = ServerApi.Hooks.InvokeNpcTriggerPressurePlate((NPC)forObject, i, j);
-										}
-										else if (forObject is Projectile)
-										{
-											handled = ServerApi.Hooks.InvokeProjectileTriggerPressurePlate((Projectile)forObject, i, j);
-										}
-
-										if (!handled) {
-											WorldGen.hitSwitch(i, j);
-											NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0);
-											return true;
-										}
+										handled = ServerApi.Hooks.InvokeNpcTriggerPressurePlate((NPC)forObject, i, j);
 									}
+									else if (forObject is Projectile)
+									{
+										handled = ServerApi.Hooks.InvokeProjectileTriggerPressurePlate((Projectile)forObject, i, j);
+									}
+
+									if (!handled)
+									{
+										Wiring.hitSwitch(i, j);
+										NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0);
+										return true;
+									}
+								}
 							}
 						}
 					}
@@ -1752,6 +2455,69 @@ namespace Terraria
 			}
 			return false;
 		}
+		public static void StepDown(ref Vector2 position, ref Vector2 velocity, int width, int height, ref float stepSpeed, ref float gfxOffY, int gravDir = 1, bool waterWalk = false)
+		{
+			Vector2 vector = position;
+			vector.X += velocity.X;
+			bool flag = false;
+			int num = (int)(vector.X / 16f);
+			int num2 = (int)((vector.X + (float)width) / 16f);
+			int num3 = (int)((position.Y + (float)height + 4f) / 16f);
+			int num4 = height / 16 + ((height % 16 == 0) ? 0 : 1);
+			float num5 = (float)((num3 + num4) * 16);
+			float num6 = Main.bottomWorld / 16f - 42f;
+			for (int i = num; i <= num2; i++)
+			{
+				for (int j = num3; j <= num3 + 1; j++)
+				{
+					if (Main.tile[i, j] == null)
+					{
+						Main.tile[i, j] = new Tile();
+					}
+					if (Main.tile[i, j - 1] == null)
+					{
+						Main.tile[i, j - 1] = new Tile();
+					}
+					if (Main.tile[i, j].topSlope())
+					{
+						flag = true;
+					}
+					if (waterWalk && Main.tile[i, j].liquid > 0 && Main.tile[i, j - 1].liquid == 0)
+					{
+						int num7 = (int)(Main.tile[i, j].liquid / 32 * 2 + 2);
+						int num8 = j * 16 + 16 - num7;
+						Rectangle rectangle = new Rectangle(i * 16, j * 16 - 17, 16, 16);
+						if (rectangle.Intersects(new Rectangle((int)position.X, (int)position.Y, width, height)) && (float)num8 < num5)
+						{
+							num5 = (float)num8;
+						}
+					}
+					if ((float)j >= num6 || (Main.tile[i, j].nactive() && (Main.tileSolid[(int)Main.tile[i, j].type] || Main.tileSolidTop[(int)Main.tile[i, j].type])))
+					{
+						int num9 = j * 16;
+						if (Main.tile[i, j].halfBrick())
+						{
+							num9 += 8;
+						}
+						if (Utils.FloatIntersect((float)(i * 16), (float)(j * 16 - 17), 16f, 16f, position.X, position.Y, (float)width, (float)height) && (float)num9 < num5)
+						{
+							num5 = (float)num9;
+						}
+					}
+				}
+			}
+			float num10 = num5 - (position.Y + (float)height);
+			if (num10 > 7f && num10 < 17f && !flag)
+			{
+				stepSpeed = 1.5f;
+				if (num10 > 9f)
+				{
+					stepSpeed = 2.5f;
+				}
+				gfxOffY += position.Y + (float)height - num5;
+				position.Y = num5 - (float)height;
+			}
+		}
 		public static void StepUp(ref Vector2 position, ref Vector2 velocity, int width, int height, ref float stepSpeed, ref float gfxOffY, int gravDir = 1, bool holdsMatching = false)
 		{
 			int num = 0;
@@ -1776,22 +2542,26 @@ namespace Terraria
 			bool flag2 = true;
 			if (Main.tile[num2, num3] == null)
 			{
-				Main.tile[num2, num3] = new Tile();
+				return;
 			}
 			for (int i = 1; i < num4 + 2; i++)
 			{
 				if (num3 - i > 0 && Main.tile[num2, num3 - i * gravDir] == null)
 				{
-					Main.tile[num2, num3 + i] = new Tile();
+					return;
 				}
 			}
 			if (num3 - num4 > 0 && Main.tile[num2 - num, num3 - num4 * gravDir] == null)
 			{
-				Main.tile[num2 - num, num3 - num4 * gravDir] = new Tile();
+				return;
 			}
 			Tile tile;
 			for (int j = 2; j < num4 + 1; j++)
 			{
+				if (Main.tile[num2, num3 - j * gravDir] == null)
+				{
+					return;
+				}
 				tile = Main.tile[num2, num3 - j * gravDir];
 				flag = (flag && (!tile.nactive() || !Main.tileSolid[(int)tile.type] || Main.tileSolidTop[(int)tile.type]));
 			}
@@ -1801,6 +2571,14 @@ namespace Terraria
 			bool flag4 = true;
 			if (gravDir == 1)
 			{
+				if (Main.tile[num2, num3 - gravDir] == null)
+				{
+					return;
+				}
+				if (Main.tile[num2, num3 - (num4 + 1) * gravDir] == null)
+				{
+					return;
+				}
 				tile = Main.tile[num2, num3 - gravDir];
 				Tile tile2 = Main.tile[num2, num3 - (num4 + 1) * gravDir];
 				flag3 = (flag3 && (!tile.nactive() || !Main.tileSolid[(int)tile.type] || Main.tileSolidTop[(int)tile.type] || (tile.slope() == 1 && position.X + (float)(width / 2) > (float)(num2 * 16)) || (tile.slope() == 2 && position.X + (float)(width / 2) < (float)(num2 * 16 + 16)) || (tile.halfBrick() && (!tile2.nactive() || !Main.tileSolid[(int)tile2.type] || Main.tileSolidTop[(int)tile2.type]))));
@@ -1828,7 +2606,7 @@ namespace Terraria
 						{
 							num5 += 8f;
 						}
-						if (Main.tile[num2, num3 - 1].halfBrick())
+						if (Main.tile[num2, num3 - 1].halfBrick() && !Main.tileSolidTop[(int)Main.tile[num2, num3 - 1].type])
 						{
 							num5 -= 8f;
 						}
@@ -1871,6 +2649,10 @@ namespace Terraria
 					}
 				}
 			}
+		}
+		public static bool InTileBounds(int x, int y, int lx, int ly, int hx, int hy)
+		{
+			return x >= lx && x <= hx && y >= ly && y <= hy;
 		}
 	}
 }

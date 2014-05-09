@@ -1,5 +1,4 @@
 using System;
-
 namespace Terraria
 {
 	public class Tile
@@ -27,7 +26,7 @@ namespace Terraria
 				}
 				if (this.slope() > 0)
 				{
-					return 2 + this.slope();
+					return (int)(2 + this.slope());
 				}
 				if (Main.tileSolid[(int)this.type] && !Main.tileSolidTop[(int)this.type])
 				{
@@ -141,19 +140,19 @@ namespace Terraria
 		}
 		public int wallFrameX()
 		{
-			return (this.bTileHeader2 & 15) * 36;
+			return (int)((this.bTileHeader2 & 15) * 36);
 		}
 		public void wallFrameX(int wallFrameX)
 		{
-			this.bTileHeader2 = (byte)((this.bTileHeader2 & 240) | (wallFrameX / 36 & 15));
+			this.bTileHeader2 = (byte)((int)(this.bTileHeader2 & 240) | (wallFrameX / 36 & 15));
 		}
 		public int wallFrameY()
 		{
-			return (this.bTileHeader3 & 7) * 36;
+			return (int)((this.bTileHeader3 & 7) * 36);
 		}
 		public void wallFrameY(int wallFrameY)
 		{
-			this.bTileHeader3 = (byte)((this.bTileHeader3 & 248) | (wallFrameY / 36 & 7));
+			this.bTileHeader3 = (byte)((int)(this.bTileHeader3 & 248) | (wallFrameY / 36 & 7));
 		}
 		public byte frameNumber()
 		{
@@ -161,7 +160,7 @@ namespace Terraria
 		}
 		public void frameNumber(byte frameNumber)
 		{
-			this.bTileHeader2 = (byte)((this.bTileHeader2 & 207) | (frameNumber & 3) << 4);
+			this.bTileHeader2 = (byte)((int)(this.bTileHeader2 & 207) | (int)(frameNumber & 3) << 4);
 		}
 		public byte wallFrameNumber()
 		{
@@ -169,7 +168,7 @@ namespace Terraria
 		}
 		public void wallFrameNumber(byte wallFrameNumber)
 		{
-			this.bTileHeader2 = (byte)((this.bTileHeader2 & 63) | (wallFrameNumber & 3) << 6);
+			this.bTileHeader2 = (byte)((int)(this.bTileHeader2 & 63) | (int)(wallFrameNumber & 3) << 6);
 		}
 		public bool topSlope()
 		{
@@ -181,13 +180,36 @@ namespace Terraria
 			byte b = this.slope();
 			return b == 3 || b == 4;
 		}
+		public bool leftSlope()
+		{
+			byte b = this.slope();
+			return b == 2 || b == 4;
+		}
+		public bool rightSlope()
+		{
+			byte b = this.slope();
+			return b == 1 || b == 3;
+		}
 		public byte slope()
 		{
 			return (byte)((this.sTileHeader & 28672) >> 12);
 		}
 		public void slope(byte slope)
 		{
-			this.sTileHeader = (short)(((int)this.sTileHeader & 36863) | (slope & 7) << 12);
+			this.sTileHeader = (short)(((int)this.sTileHeader & 36863) | (int)(slope & 7) << 12);
+		}
+		public int blockType()
+		{
+			if (this.halfBrick())
+			{
+				return 1;
+			}
+			int num = (int)this.slope();
+			if (num > 0)
+			{
+				num++;
+			}
+			return num;
 		}
 		public byte color()
 		{
@@ -211,7 +233,7 @@ namespace Terraria
 			{
 				wallColor = 30;
 			}
-			this.bTileHeader = (byte)((this.bTileHeader & 224) | (int)wallColor);
+			this.bTileHeader = (byte)((this.bTileHeader & 224) | wallColor);
 		}
 		public bool lava()
 		{
@@ -224,7 +246,7 @@ namespace Terraria
 				this.bTileHeader = (byte)((this.bTileHeader & 159) | 32);
 				return;
 			}
-			this.bTileHeader = (byte)(this.bTileHeader & 223);
+			this.bTileHeader &= 223;
 		}
 		public bool honey()
 		{
@@ -237,13 +259,13 @@ namespace Terraria
 				this.bTileHeader = (byte)((this.bTileHeader & 159) | 64);
 				return;
 			}
-			this.bTileHeader = (byte)(this.bTileHeader & 191);
+			this.bTileHeader &= 191;
 		}
 		public void liquidType(int liquidType)
 		{
 			if (liquidType == 0)
 			{
-				this.bTileHeader = (byte)(this.bTileHeader & 159);
+				this.bTileHeader &= 159;
 				return;
 			}
 			if (liquidType == 1)
@@ -268,10 +290,10 @@ namespace Terraria
 		{
 			if (checkingLiquid)
 			{
-				this.bTileHeader3 = (byte)(this.bTileHeader3 | 8);
+				this.bTileHeader3 |= 8;
 				return;
 			}
-			this.bTileHeader3 = (byte)(this.bTileHeader3 & 247);
+			this.bTileHeader3 &= 247;
 		}
 		public bool skipLiquid()
 		{
@@ -281,10 +303,10 @@ namespace Terraria
 		{
 			if (skipLiquid)
 			{
-				this.bTileHeader3 = (byte)(this.bTileHeader3 | 16);
+				this.bTileHeader3 |= 16;
 				return;
 			}
-			this.bTileHeader3 = (byte)(this.bTileHeader3 & 239);
+			this.bTileHeader3 &= 239;
 		}
 		public bool wire()
 		{
@@ -294,7 +316,7 @@ namespace Terraria
 		{
 			if (wire)
 			{
-				this.sTileHeader = (short)(this.sTileHeader | 128);
+				this.sTileHeader |= 128;
 				return;
 			}
 			this.sTileHeader = (short)((int)this.sTileHeader & 65407);
@@ -307,7 +329,7 @@ namespace Terraria
 		{
 			if (wire2)
 			{
-				this.sTileHeader = (short)(this.sTileHeader | 256);
+				this.sTileHeader |= 256;
 				return;
 			}
 			this.sTileHeader = (short)((int)this.sTileHeader & 65279);
@@ -320,7 +342,7 @@ namespace Terraria
 		{
 			if (wire3)
 			{
-				this.sTileHeader = (short)(this.sTileHeader | 512);
+				this.sTileHeader |= 512;
 				return;
 			}
 			this.sTileHeader = (short)((int)this.sTileHeader & 65023);
@@ -333,7 +355,7 @@ namespace Terraria
 		{
 			if (halfBrick)
 			{
-				this.sTileHeader = (short)(this.sTileHeader | 1024);
+				this.sTileHeader |= 1024;
 				return;
 			}
 			this.sTileHeader = (short)((int)this.sTileHeader & 64511);
@@ -346,14 +368,14 @@ namespace Terraria
 		{
 			if (actuator)
 			{
-				this.sTileHeader = (short)(this.sTileHeader | 2048);
+				this.sTileHeader |= 2048;
 				return;
 			}
 			this.sTileHeader = (short)((int)this.sTileHeader & 63487);
 		}
 		public bool nactive()
 		{
-			int num = this.sTileHeader & 96;
+			int num = (int)(this.sTileHeader & 96);
 			return num == 32;
 		}
 		public bool inActive()
@@ -364,7 +386,7 @@ namespace Terraria
 		{
 			if (inActive)
 			{
-				this.sTileHeader = (short)(this.sTileHeader | 64);
+				this.sTileHeader |= 64;
 				return;
 			}
 			this.sTileHeader = (short)((int)this.sTileHeader & 65471);
@@ -377,7 +399,7 @@ namespace Terraria
 		{
 			if (active)
 			{
-				this.sTileHeader = (short)(this.sTileHeader | 32);
+				this.sTileHeader |= 32;
 				return;
 			}
 			this.sTileHeader = (short)((int)this.sTileHeader & 65503);

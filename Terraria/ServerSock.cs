@@ -1,7 +1,6 @@
 using System;
 using System.Net.Sockets;
 using TerrariaApi.Server;
-
 namespace Terraria
 {
 	public class ServerSock
@@ -35,7 +34,6 @@ namespace Terraria
 		public byte[] readBuffer;
 		public byte[] writeBuffer;
 		public DateTime connectTime;
-
 		public void SpamUpdate()
 		{
 			if (!Netplay.spamCheck)
@@ -179,7 +177,6 @@ namespace Terraria
 			this.SpamClear();
 			this.active = false;
 			this.connectTime = new DateTime();
-
 			NetMessage.buffer[this.whoAmI].Reset();
 			if (this.networkStream != null)
 			{

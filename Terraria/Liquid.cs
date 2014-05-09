@@ -102,14 +102,14 @@ namespace Terraria
 								}
 								if (Main.tile[num9, num10 + 1].liquid > 0 && Main.tile[num9, num10 + 1].liquid < 255 && Main.tile[num9, num10 + 1].liquidType() == b)
 								{
-									int num12 = 255 - Main.tile[num9, num10 + 1].liquid;
+									int num12 = (int)(255 - Main.tile[num9, num10 + 1].liquid);
 									if (num12 > (int)b2)
 									{
 										num12 = (int)b2;
 									}
 									Tile expr_29E = Main.tile[num9, num10 + 1];
-									expr_29E.liquid = (byte)(expr_29E.liquid + (byte)num12);
-									b2 = (byte)(b2 - (byte)num12);
+									expr_29E.liquid += (byte)num12;
+									b2 -= (byte)num12;
 									if (b2 <= 0)
 									{
 										num++;
@@ -265,7 +265,7 @@ namespace Terraria
 					b = tile5.liquid;
 				}
 				Tile expr_106 = tile5;
-				expr_106.liquid = (byte)(expr_106.liquid - b);
+				expr_106.liquid -= b;
 			}
 			if (tile5.liquid == 0)
 			{
@@ -344,9 +344,9 @@ namespace Terraria
 					num = (float)tile5.liquid;
 				}
 				Tile expr_306 = tile5;
-				expr_306.liquid = (byte)(expr_306.liquid - (byte)num);
+				expr_306.liquid -= (byte)num;
 				Tile expr_317 = tile4;
-				expr_317.liquid = (byte)(expr_317.liquid + (byte)num);
+				expr_317.liquid += (byte)num;
 				tile4.liquidType((int)tile5.liquidType());
 				Liquid.AddWater(this.x, this.y + 1);
 				tile4.skipLiquid(true);
@@ -444,7 +444,7 @@ namespace Terraria
 						}
 						if (flag5 && flag6)
 						{
-							float num = (float)(tile.liquid + tile2.liquid + (int)Main.tile[this.x - 2, this.y].liquid + (int)Main.tile[this.x + 2, this.y].liquid + (int)Main.tile[this.x - 3, this.y].liquid + (int)Main.tile[this.x + 3, this.y].liquid + (int)tile5.liquid + num2);
+							float num = (float)((int)(tile.liquid + tile2.liquid + Main.tile[this.x - 2, this.y].liquid + Main.tile[this.x + 2, this.y].liquid + Main.tile[this.x - 3, this.y].liquid + Main.tile[this.x + 3, this.y].liquid + tile5.liquid) + num2);
 							num = (float)Math.Round((double)(num / 7f));
 							int num3 = 0;
 							tile.liquidType((int)tile5.liquidType());
@@ -539,7 +539,7 @@ namespace Terraria
 						else
 						{
 							int num4 = 0;
-							float num = (float)(tile.liquid + tile2.liquid + (int)Main.tile[this.x - 2, this.y].liquid + (int)Main.tile[this.x + 2, this.y].liquid + (int)tile5.liquid + num2);
+							float num = (float)((int)(tile.liquid + tile2.liquid + Main.tile[this.x - 2, this.y].liquid + Main.tile[this.x + 2, this.y].liquid + tile5.liquid) + num2);
 							num = (float)Math.Round((double)(num / 5f));
 							tile.liquidType((int)tile5.liquidType());
 							if (tile.liquid != (byte)num)
@@ -605,7 +605,7 @@ namespace Terraria
 					}
 					else if (flag3)
 					{
-						float num = (float)(tile.liquid + tile2.liquid + (int)Main.tile[this.x - 2, this.y].liquid + (int)tile5.liquid + num2);
+						float num = (float)((int)(tile.liquid + tile2.liquid + Main.tile[this.x - 2, this.y].liquid + tile5.liquid) + num2);
 						num = (float)Math.Round((double)(num / 4f) + 0.001);
 						tile.liquidType((int)tile5.liquidType());
 						if (tile.liquid != (byte)num || tile5.liquid != (byte)num)
@@ -629,7 +629,7 @@ namespace Terraria
 					}
 					else if (flag4)
 					{
-						float num = (float)(tile.liquid + tile2.liquid + (int)Main.tile[this.x + 2, this.y].liquid + (int)tile5.liquid + num2);
+						float num = (float)((int)(tile.liquid + tile2.liquid + Main.tile[this.x + 2, this.y].liquid + tile5.liquid) + num2);
 						num = (float)Math.Round((double)(num / 4f) + 0.001);
 						tile.liquidType((int)tile5.liquidType());
 						if (tile.liquid != (byte)num || tile5.liquid != (byte)num)
@@ -653,7 +653,7 @@ namespace Terraria
 					}
 					else
 					{
-						float num = (float)(tile.liquid + tile2.liquid + (int)tile5.liquid + num2);
+						float num = (float)((int)(tile.liquid + tile2.liquid + tile5.liquid) + num2);
 						num = (float)Math.Round((double)(num / 3f) + 0.001);
 						tile.liquidType((int)tile5.liquidType());
 						if (tile.liquid != (byte)num)
@@ -678,7 +678,7 @@ namespace Terraria
 				}
 				else if (flag)
 				{
-					float num = (float)(tile.liquid + tile5.liquid + num2);
+					float num = (float)((int)(tile.liquid + tile5.liquid) + num2);
 					num = (float)Math.Round((double)(num / 2f) + 0.001);
 					if (tile.liquid != (byte)num)
 					{
@@ -693,7 +693,7 @@ namespace Terraria
 				}
 				else if (flag2)
 				{
-					float num = (float)(tile2.liquid + tile5.liquid + num2);
+					float num = (float)((int)(tile2.liquid + tile5.liquid) + num2);
 					num = (float)Math.Round((double)(num / 2f) + 0.001);
 					if (tile2.liquid != (byte)num)
 					{
@@ -955,6 +955,34 @@ namespace Terraria
 					return;
 				}
 				if (tile.type == 101 && tile.frameX >= 216 && tile.frameX <= 268)
+				{
+					return;
+				}
+				if (tile.type == 104 && tile.frameX >= 612 && tile.frameX <= 646)
+				{
+					return;
+				}
+				if (tile.type == 42 && tile.frameY >= 1152 && tile.frameY <= 1186)
+				{
+					return;
+				}
+				if (tile.type == 93 && tile.frameY >= 1242 && tile.frameY <= 1294)
+				{
+					return;
+				}
+				if (tile.type == 33 && tile.frameY >= 550 && tile.frameY <= 570)
+				{
+					return;
+				}
+				if (tile.type == 34 && tile.frameY >= 1728 && tile.frameY <= 1780)
+				{
+					return;
+				}
+				if (tile.type == 100 && tile.frameY >= 900 && tile.frameY <= 934)
+				{
+					return;
+				}
+				if (tile.type == 90 && tile.frameY >= 900 && tile.frameY <= 934)
 				{
 					return;
 				}

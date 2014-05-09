@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
-using TerrariaApi.Server;
 using System.IO;
+using TerrariaApi.Server;
 namespace Terraria
 {
 	internal class ProgramServer
@@ -9,6 +9,8 @@ namespace Terraria
 		private static Main Game;
 		private static void Main(string[] args)
 		{
+			Process currentProcess = Process.GetCurrentProcess();
+			currentProcess.PriorityClass = ProcessPriorityClass.High;
 			try
 			{
 				Game = new Main();

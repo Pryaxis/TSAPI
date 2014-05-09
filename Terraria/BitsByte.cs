@@ -15,10 +15,10 @@ namespace Terraria
 			{
 				if (value)
 				{
-					this.value = (byte)(this.value | (byte)(1 << key));
+					this.value |= (byte)(1 << key);
 					return;
 				}
-				this.value = (byte)(this.value & (byte)(~(byte)(1 << key)));
+				this.value &= (byte)(~(byte)(1 << key));
 			}
 		}
 		public BitsByte(bool b1 = false, bool b2 = false, bool b3 = false, bool b4 = false, bool b5 = false, bool b6 = false, bool b7 = false, bool b8 = false)

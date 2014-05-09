@@ -80,6 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Terraria.DataStructures\DoubleStack.cs" />
+    <Compile Include="Terraria.DataStructures\Point16.cs" />
     <Compile Include="Terraria.ID\ItemID.cs" />
     <Compile Include="Terraria.ID\MessageID.cs" />
     <Compile Include="Terraria.ID\StatusID.cs" />
@@ -118,22 +120,23 @@
     <Compile Include="TerrariaApi.Server\ProfilerManager.cs" />
     <Compile Include="TerrariaApi.Server\ServerLogWriter.cs" />
     <Compile Include="Terraria\BitsByte.cs" />
+    <Compile Include="Terraria\Framing.cs" />
+    <Compile Include="Terraria\HitTile.cs" />
     <Compile Include="Terraria\Lang.cs" />
+    <Compile Include="Terraria\Minecart.cs" />
+    <Compile Include="Terraria\Mount.cs" />
     <Compile Include="Terraria\Rain.cs" />
     <Compile Include="Terraria\Utils.cs" />
+    <Compile Include="Terraria\Wiring.cs" />
     <Compile Include="Terraria\WorldFile.cs" />
     <Compile Include="Terraria\WorldSections.cs" />
-    <Compile Include="XNA\Color.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\GetDataEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\NpcStrikeEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\SendDataEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\SetDefaultsEventArgs.cs" />
     <Compile Include="IPackedVector.cs" />
     <Compile Include="PacketTypes.cs" />
-    <Compile Include="XNA\PackUtils.cs" />
     <Compile Include="TerrariaApi.Server\PluginContainer.cs" />
-    <Compile Include="XNA\Point.cs" />
-    <Compile Include="XNA\Rectangle.cs" />
     <Compile Include="Terraria\StreamGenericExt.cs" />
     <Compile Include="Terraria\StreamExt.cs" />
     <Compile Include="Terraria.Properties\Settings.cs" />
@@ -162,6 +165,13 @@
     <Compile Include="Terraria\Tile.cs" />
     <Compile Include="Terraria\WorldGen.cs" />
     <Compile Include="TileCommand.cs" />
+    <Compile Include="XNA\Color.cs" />
+    <Compile Include="XNA\MathHelper.cs" />
+    <Compile Include="XNA\Matrix.cs" />
+    <Compile Include="XNA\PackUtils.cs" />
+    <Compile Include="XNA\Point.cs" />
+    <Compile Include="XNA\Quaternion.cs" />
+    <Compile Include="XNA\Rectangle.cs" />
     <Compile Include="XNA\Vector2.cs" />
     <Compile Include="XNA\Vector3.cs" />
     <Compile Include="XNA\Vector4.cs" />

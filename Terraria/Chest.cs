@@ -1,13 +1,10 @@
 using System;
-
 namespace Terraria
 {
 	public class Chest
 	{
 		public const int MaxNameLength = 20;
-		public static int deferredChestID;
-		public static Chest deferredChest;
-		public static int maxChestTypes = 31;
+		public static int maxChestTypes = 47;
 		public static int[] typeToIcon = new int[Chest.maxChestTypes];
 		public static int[] itemSpawn = new int[Chest.maxChestTypes];
 		public static int maxItems = 40;
@@ -21,6 +18,18 @@ namespace Terraria
 			this.item = new Item[Chest.maxItems];
 			this.bankChest = bank;
 			this.name = string.Empty;
+		}
+		public override string ToString()
+		{
+			int num = 0;
+			for (int i = 0; i < this.item.Length; i++)
+			{
+				if (this.item[i].stack > 0)
+				{
+					num++;
+				}
+			}
+			return string.Format("{{X: {0}, Y: {1}, Count: {2}}}", this.x, this.y, num);
 		}
 		public static void Initialize()
 		{
@@ -62,6 +71,25 @@ namespace Terraria
 			Chest.typeToIcon[28] = (Chest.itemSpawn[28] = 2230);
 			Chest.typeToIcon[29] = (Chest.itemSpawn[29] = 2249);
 			Chest.typeToIcon[30] = (Chest.itemSpawn[30] = 2250);
+			Chest.typeToIcon[31] = (Chest.itemSpawn[31] = 2526);
+			Chest.typeToIcon[32] = (Chest.itemSpawn[32] = 2544);
+			Chest.typeToIcon[33] = (Chest.itemSpawn[33] = 2559);
+			Chest.typeToIcon[34] = (Chest.itemSpawn[34] = 2574);
+			Chest.typeToIcon[35] = (Chest.itemSpawn[35] = 2612);
+			Chest.typeToIcon[36] = 327;
+			Chest.itemSpawn[36] = 2612;
+			Chest.typeToIcon[37] = (Chest.itemSpawn[37] = 2613);
+			Chest.typeToIcon[38] = 327;
+			Chest.itemSpawn[38] = 2613;
+			Chest.typeToIcon[39] = (Chest.itemSpawn[39] = 2614);
+			Chest.typeToIcon[40] = 327;
+			Chest.itemSpawn[40] = 2614;
+			Chest.typeToIcon[41] = (Chest.itemSpawn[41] = 2615);
+			Chest.typeToIcon[42] = (Chest.itemSpawn[42] = 2616);
+			Chest.typeToIcon[43] = (Chest.itemSpawn[43] = 2617);
+			Chest.typeToIcon[44] = (Chest.itemSpawn[44] = 2618);
+			Chest.typeToIcon[45] = (Chest.itemSpawn[45] = 2619);
+			Chest.typeToIcon[46] = (Chest.itemSpawn[46] = 2620);
 		}
 		public object Clone()
 		{
@@ -69,32 +97,71 @@ namespace Terraria
 		}
 		public static void Unlock(int X, int Y)
 		{
-			Main.PlaySound(22, X * 16, Y * 16, 1);
+			if (Main.tile[X, Y] == null)
+			{
+				return;
+			}
+			int num = (int)(Main.tile[X, Y].frameX / 36);
+			int num2 = num;
+			short num3;
+			int type;
+			switch (num2)
+			{
+				case 2:
+				case 4:
+				{
+					num3 = 36;
+					type = 11;
+					goto IL_95;
+				}
+				case 3:
+					break;
+				default:
+					switch (num2)
+					{
+						case 23:
+						case 24:
+						case 25:
+						case 26:
+						case 27:
+						{
+							num3 = 180;
+							type = 11;
+							goto IL_95;
+						}
+						default:
+						switch (num2)
+						{
+							case 36:
+							case 38:
+							case 40:
+							{
+								num3 = 36;
+								type = 11;
+								goto IL_95;
+							}
+							case 37:
+							case 39:
+								break;
+							default:
+								return;
+						}
+						break;
+					}
+					break;
+				}
+			return;
+			IL_95:
+			//Main.PlaySound(22, X * 16, Y * 16, 1);
 			for (int i = X; i <= X + 1; i++)
 			{
 				for (int j = Y; j <= Y + 1; j++)
 				{
-					if (Main.tile[i, j] == null)
+					Tile expr_BB = Main.tile[i, j];
+					expr_BB.frameX -= num3;
+					for (int k = 0; k < 4; k++)
 					{
-						Main.tile[i, j] = new Tile();
-					}
-					if ((Main.tile[i, j].frameX >= 72 && Main.tile[i, j].frameX <= 106) || (Main.tile[i, j].frameX >= 144 && Main.tile[i, j].frameX <= 178))
-					{
-						Tile expr_A3 = Main.tile[i, j];
-						expr_A3.frameX = (short)(expr_A3.frameX - 36);
-						for (int k = 0; k < 4; k++)
-						{
-							Dust.NewDust(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16, 11, 0f, 0f, 0, default(Color), 1f);
-						}
-					}
-					else if (Main.tile[i, j].frameX >= 828 && Main.tile[i, j].frameX <= 990)
-					{
-						Tile expr_134 = Main.tile[i, j];
-						expr_134.frameX = (short)(expr_134.frameX - 180);
-						for (int l = 0; l < 4; l++)
-						{
-							Dust.NewDust(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16, 11, 0f, 0f, 0, default(Color), 1f);
-						}
+						Dust.NewDust(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16, type, 0f, 0f, 0, default(Color), 1f);
 					}
 				}
 			}
@@ -305,6 +372,10 @@ namespace Terraria
 				if (Main.rand.Next(array[3]) == 0)
 				{
 					num3 = 2287;
+				}
+				if (Main.rand.Next(array[3]) == 0)
+				{
+					num3 = 2296;
 				}
 				if (Main.rand.Next(array[2]) == 0 && WorldGen.shadowOrbSmashed)
 				{
@@ -782,8 +853,15 @@ namespace Terraria
 				num++;
 				this.item[num].SetDefaults(853, false);
 				num++;
+				this.item[num].SetDefaults(2739, false);
+				num++;
 				this.item[num].SetDefaults(849, false);
 				num++;
+				if (NPC.AnyNPCs(369) && Main.hardMode && Main.moonPhase == 3)
+				{
+					this.item[num].SetDefaults(2295, false);
+					num++;
+				}
 			}
 			else if (type == 9)
 			{
@@ -819,8 +897,8 @@ namespace Terraria
 				if (NPC.downedPlantBoss)
 				{
 					this.item[num].SetDefaults(1551, false);
+					num++;
 				}
-				num++;
 				this.item[num].SetDefaults(1181, false);
 				num++;
 				this.item[num].SetDefaults(783, false);
@@ -929,6 +1007,8 @@ namespace Terraria
 				num++;
 				this.item[num].SetDefaults(1450, false);
 				num++;
+				this.item[num++].SetDefaults(2700, false);
+				this.item[num++].SetDefaults(2738, false);
 				if (Main.hardMode)
 				{
 					this.item[num].SetDefaults(970, false);
@@ -1187,6 +1267,8 @@ namespace Terraria
 				num++;
 				this.item[num].SetDefaults(878, false);
 				num++;
+				this.item[num].SetDefaults(2434, false);
+				num++;
 				int num3 = (int)((Main.screenPosition.X + (float)(Main.screenWidth / 2)) / 16f);
 				if ((double)(Main.screenPosition.Y / 16f) < Main.worldSurface + 10.0 && (num3 < 380 || num3 > Main.maxTilesX - 380))
 				{
@@ -1215,27 +1297,27 @@ namespace Terraria
 					this.item[num].SetDefaults(1978, false);
 					num++;
 				}
-				int num4 = 0;
+				long num4 = 0L;
 				for (int num5 = 0; num5 < 54; num5++)
 				{
 					if (Main.player[Main.myPlayer].inventory[num5].type == 71)
 					{
-						num4 += Main.player[Main.myPlayer].inventory[num5].stack;
+						num4 += (long)Main.player[Main.myPlayer].inventory[num5].stack;
 					}
 					if (Main.player[Main.myPlayer].inventory[num5].type == 72)
 					{
-						num4 += Main.player[Main.myPlayer].inventory[num5].stack * 100;
+						num4 += (long)(Main.player[Main.myPlayer].inventory[num5].stack * 100);
 					}
 					if (Main.player[Main.myPlayer].inventory[num5].type == 73)
 					{
-						num4 += Main.player[Main.myPlayer].inventory[num5].stack * 10000;
+						num4 += (long)(Main.player[Main.myPlayer].inventory[num5].stack * 10000);
 					}
 					if (Main.player[Main.myPlayer].inventory[num5].type == 74)
 					{
-						num4 += Main.player[Main.myPlayer].inventory[num5].stack * 1000000;
+						num4 += (long)(Main.player[Main.myPlayer].inventory[num5].stack * 1000000);
 					}
 				}
-				if (num4 >= 1000000)
+				if (num4 >= 1000000L)
 				{
 					this.item[num].SetDefaults(1980, false);
 					num++;

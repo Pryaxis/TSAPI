@@ -1,4 +1,3 @@
-
 using System;
 namespace Terraria
 {
@@ -20,9 +19,9 @@ namespace Terraria
 			if (Main.netMode == 2)
 			{
 				return;
-			}
+			}/*
 			if (this.active)
-			{/*
+			{
 				if (this.type >= 276 && this.type <= 282)
 				{
 					this.velocity.X = this.velocity.X * 0.98f;
@@ -43,52 +42,56 @@ namespace Terraria
 						}
 					}
 				}
-				else
+				if (this.type >= 570 && this.type <= 572)
 				{
-					if (this.type == 11 || this.type == 12 || this.type == 13 || this.type == 61 || this.type == 62 || this.type == 63 || this.type == 99 || this.type == 220 || this.type == 221 || this.type == 222 || (this.type >= 375 && this.type <= 377))
+					this.scale -= 0.001f;
+					if ((double)this.scale <= 0.01)
 					{
-						this.velocity.Y = this.velocity.Y * 0.98f;
-						this.velocity.X = this.velocity.X * 0.98f;
-						this.scale -= 0.007f;
-						if ((double)this.scale < 0.1)
-						{
-							this.scale = 0.1f;
-							this.alpha = 255;
-						}
+						this.scale = 0.01f;
+						Gore.goreTime = 0;
 					}
-					else
+					this.sticky = false;
+					this.rotation = this.velocity.X * 0.1f;
+				}
+				else if (this.type == 11 || this.type == 12 || this.type == 13 || this.type == 61 || this.type == 62 || this.type == 63 || this.type == 99 || this.type == 220 || this.type == 221 || this.type == 222 || (this.type >= 375 && this.type <= 377) || (this.type >= 435 && this.type <= 437))
+				{
+					this.velocity.Y = this.velocity.Y * 0.98f;
+					this.velocity.X = this.velocity.X * 0.98f;
+					this.scale -= 0.007f;
+					if ((double)this.scale < 0.1)
 					{
-						if (this.type == 16 || this.type == 17)
-						{
-							this.velocity.Y = this.velocity.Y * 0.98f;
-							this.velocity.X = this.velocity.X * 0.98f;
-							this.scale -= 0.01f;
-							if ((double)this.scale < 0.1)
-							{
-								this.scale = 0.1f;
-								this.alpha = 255;
-							}
-						}
-						else
-						{
-							if (this.type == 331)
-							{
-								this.alpha += 5;
-								this.velocity.Y = this.velocity.Y * 0.95f;
-								this.velocity.X = this.velocity.X * 0.95f;
-								this.rotation = this.velocity.X * 0.1f;
-							}
-							else
-							{
-								if (this.type < 411 || this.type > 430)
-								{
-									this.velocity.Y = this.velocity.Y + 0.2f;
-								}
-							}
-						}
+						this.scale = 0.1f;
+						this.alpha = 255;
 					}
 				}
+				else if (this.type == 16 || this.type == 17)
+				{
+					this.velocity.Y = this.velocity.Y * 0.98f;
+					this.velocity.X = this.velocity.X * 0.98f;
+					this.scale -= 0.01f;
+					if ((double)this.scale < 0.1)
+					{
+						this.scale = 0.1f;
+						this.alpha = 255;
+					}
+				}
+				else if (this.type == 331)
+				{
+					this.alpha += 5;
+					this.velocity.Y = this.velocity.Y * 0.95f;
+					this.velocity.X = this.velocity.X * 0.95f;
+					this.rotation = this.velocity.X * 0.1f;
+				}
+				else if (this.type < 411 || this.type > 430)
+				{
+					this.velocity.Y = this.velocity.Y + 0.2f;
+				}
 				this.rotation += this.velocity.X * 0.1f;
+				if (this.type >= 580 && this.type <= 582)
+				{
+					this.rotation = 0f;
+					this.velocity.X = this.velocity.X * 0.95f;
+				}
 				if (this.type >= 411 && this.type <= 430)
 				{
 					this.alpha = 50;
@@ -164,42 +167,39 @@ namespace Terraria
 						}
 					}
 				}
-				else
+				else if (this.sticky)
 				{
-					if (this.sticky)
+					int num7 = 32;
+					if (Main.goreLoaded[this.type])
 					{
-						int num7 = 32;
-						if (Main.goreLoaded[this.type])
+						num7 = Main.goreTexture[this.type].Width;
+						if (Main.goreTexture[this.type].Height < num7)
 						{
-							num7 = Main.goreTexture[this.type].Width;
-							if (Main.goreTexture[this.type].Height < num7)
-							{
-								num7 = Main.goreTexture[this.type].Height;
-							}
+							num7 = Main.goreTexture[this.type].Height;
 						}
-						num7 = (int)((float)num7 * 0.9f);
-						this.velocity = Collision.TileCollision(this.position, this.velocity, (int)((float)num7 * this.scale), (int)((float)num7 * this.scale), false, false);
-						if (this.velocity.Y == 0f)
+					}
+					num7 = (int)((float)num7 * 0.9f);
+					this.velocity = Collision.TileCollision(this.position, this.velocity, (int)((float)num7 * this.scale), (int)((float)num7 * this.scale), false, false, 1);
+					if (this.velocity.Y == 0f)
+					{
+						this.velocity.X = this.velocity.X * 0.97f;
+						if ((double)this.velocity.X > -0.01 && (double)this.velocity.X < 0.01)
 						{
-							this.velocity.X = this.velocity.X * 0.97f;
-							if ((double)this.velocity.X > -0.01 && (double)this.velocity.X < 0.01)
-							{
-								this.velocity.X = 0f;
-							}
+							this.velocity.X = 0f;
 						}
-						if (this.timeLeft > 0)
-						{
-							this.timeLeft--;
-						}
-						else
-						{
-							this.alpha++;
-						}
+					}
+					if (this.timeLeft > 0)
+					{
+						this.timeLeft--;
 					}
 					else
 					{
-						this.alpha += 2;
+						this.alpha++;
 					}
+				}
+				else
+				{
+					this.alpha += 2;
 				}
 				this.position += this.velocity;
 				if (this.alpha >= 255)
@@ -216,13 +216,10 @@ namespace Terraria
 						num10 *= 0.3f;
 						num9 *= 0.8f;
 					}
-					else
+					else if (this.type == 17)
 					{
-						if (this.type == 17)
-						{
-							num9 *= 0.6f;
-							num8 *= 0.3f;
-						}
+						num9 *= 0.6f;
+						num8 *= 0.3f;
 					}
 					if (Main.goreLoaded[this.type])
 					{
@@ -230,21 +227,26 @@ namespace Terraria
 						return;
 					}
 					Lighting.addLight((int)((this.position.X + 32f * this.scale / 2f) / 16f), (int)((this.position.Y + 32f * this.scale / 2f) / 16f), num8, num9, num10);
-				}*/
-			}
+				}
+			}*/
 		}
 		public static int NewGore(Vector2 Position, Vector2 Velocity, int Type, float Scale = 1f)
 		{
+			if (Main.netMode == 2)
+			{
+				return 500;
+			}
+			return 500;
+			/*if (Main.gamePaused)
+			{
+				return 500;
+			}
 			if (Main.rand == null)
 			{
 				Main.rand = new Random();
 			}
-			if (Main.netMode == 2)
-			{
-				return 0;
-			}
 			int num = 500;
-			/*for (int i = 0; i < 500; i++)
+			for (int i = 0; i < 500; i++)
 			{
 				if (!Main.gore[i].active)
 				{
@@ -259,31 +261,28 @@ namespace Terraria
 			Main.gore[num].light = 0f;
 			Main.gore[num].position = Position;
 			Main.gore[num].velocity = Velocity;
-			Gore expr_84_cp_0 = Main.gore[num];
-			expr_84_cp_0.velocity.Y = expr_84_cp_0.velocity.Y - (float)Main.rand.Next(10, 31) * 0.1f;
-			Gore expr_B1_cp_0 = Main.gore[num];
-			expr_B1_cp_0.velocity.X = expr_B1_cp_0.velocity.X + (float)Main.rand.Next(-20, 21) * 0.1f;
+			Gore expr_95_cp_0 = Main.gore[num];
+			expr_95_cp_0.velocity.Y = expr_95_cp_0.velocity.Y - (float)Main.rand.Next(10, 31) * 0.1f;
+			Gore expr_C2_cp_0 = Main.gore[num];
+			expr_C2_cp_0.velocity.X = expr_C2_cp_0.velocity.X + (float)Main.rand.Next(-20, 21) * 0.1f;
 			Main.gore[num].type = Type;
 			Main.gore[num].active = true;
 			Main.gore[num].alpha = 0;
 			Main.gore[num].rotation = 0f;
 			Main.gore[num].scale = Scale;
-			if (Gore.goreTime == 0 || Type == 11 || Type == 12 || Type == 13 || Type == 16 || Type == 17 || Type == 61 || Type == 62 || Type == 63 || Type == 99 || Type == 220 || Type == 221 || Type == 222)
+			if (Gore.goreTime == 0 || Type == 11 || Type == 12 || Type == 13 || Type == 16 || Type == 17 || Type == 61 || Type == 62 || Type == 63 || Type == 99 || Type == 220 || Type == 221 || Type == 222 || Type == 435 || Type == 436 || Type == 437)
 			{
 				Main.gore[num].sticky = false;
 			}
+			else if (Type >= 375 && Type <= 377)
+			{
+				Main.gore[num].sticky = false;
+				Main.gore[num].alpha = 100;
+			}
 			else
 			{
-				if (Type >= 375 && Type <= 377)
-				{
-					Main.gore[num].sticky = false;
-					Main.gore[num].alpha = 100;
-				}
-				else
-				{
-					Main.gore[num].sticky = true;
-					Main.gore[num].timeLeft = Gore.goreTime;
-				}
+				Main.gore[num].sticky = true;
+				Main.gore[num].timeLeft = Gore.goreTime;
 			}
 			if (Type == 16 || Type == 17)
 			{
@@ -291,19 +290,23 @@ namespace Terraria
 				Main.gore[num].scale = 0.7f;
 				Main.gore[num].light = 1f;
 			}
+			if (Type >= 570 && Type <= 572)
+			{
+				Main.gore[num].velocity = Velocity;
+			}
 			if (Type >= 411 && Type <= 430 && Main.goreLoaded[Type])
 			{
 				Main.gore[num].position.X = Position.X - (float)(Main.goreTexture[Type].Width / 2) * Scale;
 				Main.gore[num].position.Y = Position.Y - (float)Main.goreTexture[Type].Height * Scale;
-				Gore expr_277_cp_0 = Main.gore[num];
-				expr_277_cp_0.velocity.Y = expr_277_cp_0.velocity.Y * ((float)Main.rand.Next(90, 150) * 0.01f);
-				Gore expr_2A7_cp_0 = Main.gore[num];
-				expr_2A7_cp_0.velocity.X = expr_2A7_cp_0.velocity.X * ((float)Main.rand.Next(40, 90) * 0.01f);
+				Gore expr_2BD_cp_0 = Main.gore[num];
+				expr_2BD_cp_0.velocity.Y = expr_2BD_cp_0.velocity.Y * ((float)Main.rand.Next(90, 150) * 0.01f);
+				Gore expr_2ED_cp_0 = Main.gore[num];
+				expr_2ED_cp_0.velocity.X = expr_2ED_cp_0.velocity.X * ((float)Main.rand.Next(40, 90) * 0.01f);
 				int num2 = Main.rand.Next(4) * 5;
 				Main.gore[num].type += num2;
 				Main.gore[num].timeLeft = Main.rand.Next(Gore.goreTime / 2, Gore.goreTime * 2);
-			}*/
-			return num;
+			}
+			return num;*/
 		}
 		public Color GetAlpha(Color newColor)
 		{
@@ -319,6 +322,11 @@ namespace Terraria
 			}
 			else
 			{
+				if (this.type >= 570 && this.type <= 572)
+				{
+					byte b2 = (byte)(255 - this.alpha);
+					return new Color((int)b2, (int)b2, (int)b2, (int)(b2 / 2));
+				}
 				if (this.type == 331)
 				{
 					return new Color(255, 255, 255, 50);

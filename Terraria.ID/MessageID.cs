@@ -76,6 +76,10 @@ namespace Terraria.ID
 		public const short BugCatching = 70;
 		public const short BugReleasing = 71;
 		public const short TravelMerchantItems = 72;
-		public const short count = 73;
+		public const short TeleportationPotion = 73;
+		public const short AnglerQuest = 74;
+		public const short AnglerQuestFinished = 75;
+		public const short AnglerQuestCountSync = 76;
+		public const short count = 77;
 	}
 }

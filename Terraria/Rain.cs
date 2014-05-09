@@ -1,5 +1,4 @@
 using System;
-
 namespace Terraria
 {
 	public class Rain
@@ -71,13 +70,18 @@ namespace Terraria
 				this.active = false;
 				if ((float)Main.rand.Next(100) < Main.gfxQuality * 100f)
 				{
-					int num = Dust.NewDust(this.position - this.velocity, 2, 2, 154, 0f, 0f, 0, default(Color), 1f);
-					Dust expr_C3_cp_0 = Main.dust[num];
-					expr_C3_cp_0.position.X = expr_C3_cp_0.position.X - 2f;
-					Main.dust[num].alpha = 38;
-					Main.dust[num].velocity *= 0.1f;
-					Main.dust[num].velocity += -this.velocity * 0.025f;
-					Main.dust[num].scale = 0.75f;
+					int num = 154;
+					if (this.type == 3 || this.type == 4 || this.type == 5)
+					{
+						num = 218;
+					}
+					int num2 = Dust.NewDust(this.position - this.velocity, 2, 2, num, 0f, 0f, 0, default(Color), 1f);
+					Dust expr_E6_cp_0 = Main.dust[num2];
+					expr_E6_cp_0.position.X = expr_E6_cp_0.position.X - 2f;
+					Main.dust[num2].alpha = 38;
+					Main.dust[num2].velocity *= 0.1f;
+					Main.dust[num2].velocity += -this.velocity * 0.025f;
+					Main.dust[num2].scale = 0.75f;
 				}
 			}
 		}
@@ -120,6 +124,11 @@ namespace Terraria
 			rain.velocity = Velocity * rain.scale;
 			rain.rotation = (float)Math.Atan2((double)rain.velocity.X, (double)(-(double)rain.velocity.Y));
 			rain.type = (byte)Main.rand.Next(3);
+			if (Main.bloodMoon)
+			{
+				Rain expr_12D = rain;
+				expr_12D.type += 3;
+			}
 			return num;
 		}
 	}

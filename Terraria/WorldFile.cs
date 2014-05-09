@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using TerrariaApi.Server;
-
 namespace Terraria
 {
 	public class WorldFile
@@ -127,15 +126,17 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void saveWorld(bool resetTime = false)
 		{
 			if (ServerApi.Hooks.InvokeWorldSave(resetTime))
 			{
 				return;
 			}
-			realsaveWorld(resetTime);
+			RealSaveWorld(resetTime);
 		}
-		public static void realsaveWorld(bool resetTime = false)
+
+		public static void RealSaveWorld(bool resetTime = false)
 		{
 			if (Main.worldName == "")
 			{
@@ -727,7 +728,7 @@ namespace Terraria
 		}
 		private static int SaveFileFormatHeader(BinaryWriter writer)
 		{
-			short num = 314;
+			short num = 340;
 			short num2 = 10;
 			writer.Write(Main.curRelease);
 			writer.Write(num2);
@@ -742,7 +743,7 @@ namespace Terraria
 			{
 				if (Main.tileFrameImportant[i])
 				{
-					b = (byte)(b | b2);
+					b |= b2;
 				}
 				if (b2 == 128)
 				{
@@ -855,6 +856,13 @@ namespace Terraria
 			writer.Write((int)Main.cloudBGActive);
 			writer.Write((short)Main.numClouds);
 			writer.Write(Main.windSpeedSet);
+			writer.Write(Main.anglerWhoFinishedToday.Count);
+			for (int i = 0; i < Main.anglerWhoFinishedToday.Count; i++)
+			{
+				writer.Write(Main.anglerWhoFinishedToday[i]);
+			}
+			writer.Write(NPC.savedAngler);
+			writer.Write(Main.anglerQuest);
 			return (int)writer.BaseStream.Position;
 		}
 		private static int SaveWorldTiles(BinaryWriter writer)
@@ -879,8 +887,8 @@ namespace Terraria
 					byte b = b2 = (b3 = 0);
 					if (tile.active())
 					{
-						b2 = (byte)(b2 | 2);
-						if (tile.type == 127 && tile.active())
+						b2 |= 2;
+						if (tile.type == 127)
 						{
 							WorldGen.KillTile(i, j, false, false, false);
 							if (!tile.active() && Main.netMode != 0)
@@ -894,7 +902,7 @@ namespace Terraria
 						{
 							array[num2] = (byte)(tile.type >> 8);
 							num2++;
-							b2 = (byte)(b2 | 32);
+							b2 |= 32;
 						}
 						if (Main.tileFrameImportant[(int)tile.type])
 						{
@@ -909,19 +917,19 @@ namespace Terraria
 						}
 						if (tile.color() != 0)
 						{
-							b3 = (byte)(b3 | 8);
+							b3 |= 8;
 							array[num2] = tile.color();
 							num2++;
 						}
 					}
 					if (tile.wall != 0)
 					{
-						b2 = (byte)(b2 | 4);
+						b2 |= 4;
 						array[num2] = tile.wall;
 						num2++;
 						if (tile.wallColor() != 0)
 						{
-							b3 = (byte)(b3 | 16);
+							b3 |= 16;
 							array[num2] = tile.wallColor();
 							num2++;
 						}
@@ -930,30 +938,30 @@ namespace Terraria
 					{
 						if (tile.lava())
 						{
-							b2 = (byte)(b2 | 16);
+							b2 |= 16;
 						}
 						else if (tile.honey())
 						{
-							b2 = (byte)(b2 | 24);
+							b2 |= 24;
 						}
 						else
 						{
-							b2 = (byte)(b2 | 8);
+							b2 |= 8;
 						}
 						array[num2] = tile.liquid;
 						num2++;
 					}
 					if (tile.wire())
 					{
-						b = (byte)(b | 2);
+						b |= 2;
 					}
 					if (tile.wire2())
 					{
-						b = (byte)(b | 4);
+						b |= 4;
 					}
 					if (tile.wire3())
 					{
-						b = (byte)(b | 8);
+						b |= 8;
 					}
 					int num3;
 					if (tile.halfBrick())
@@ -962,31 +970,31 @@ namespace Terraria
 					}
 					else if (tile.slope() != 0)
 					{
-						num3 = tile.slope() + 1 << 4;
+						num3 = (int)(tile.slope() + 1) << 4;
 					}
 					else
 					{
 						num3 = 0;
 					}
-					b = (byte)(b | (byte)num3);
+					b |= (byte)num3;
 					if (tile.actuator())
 					{
-						b3 = (byte)(b3 | 2);
+						b3 |= 2;
 					}
 					if (tile.inActive())
 					{
-						b3 = (byte)(b3 | 4);
+						b3 |= 4;
 					}
 					int num4 = 2;
 					if (b3 != 0)
 					{
-						b = (byte)(b | 1);
+						b |= 1;
 						array[num4] = b3;
 						num4--;
 					}
 					if (b != 0)
 					{
-						b2 = (byte)(b2 | 1);
+						b2 |= 1;
 						array[num4] = b;
 						num4--;
 					}
@@ -995,7 +1003,7 @@ namespace Terraria
 					int num7 = Main.maxTilesY - j - 1;
 					while (num7 > 0 && tile.isTheSameAs(Main.tile[i, num6]))
 					{
-						num5 = (short)(num5 + 1);
+						num5 += 1;
 						num7--;
 						num6++;
 					}
@@ -1006,13 +1014,13 @@ namespace Terraria
 						num2++;
 						if (num5 > 255)
 						{
-							b2 = (byte)(b2 | 128);
+							b2 |= 128;
 							array[num2] = (byte)(((int)num5 & 65280) >> 8);
 							num2++;
 						}
 						else
 						{
-							b2 = (byte)(b2 | 64);
+							b2 |= 64;
 						}
 					}
 					array[num4] = b2;
@@ -1034,6 +1042,11 @@ namespace Terraria
 					{
 						for (int k = chest.y; k <= chest.y + 1; k++)
 						{
+							if (j < 0 || k < 0 || j >= Main.maxTilesX || k >= Main.maxTilesY)
+							{
+								flag = true;
+								break;
+							}
 							Tile tile = Main.tile[j, k];
 							if (!tile.active() || tile.type != 21)
 							{
@@ -1048,7 +1061,7 @@ namespace Terraria
 					}
 					else
 					{
-						num = (short)(num + 1);
+						num += 1;
 					}
 				}
 			}
@@ -1071,6 +1084,14 @@ namespace Terraria
 						}
 						else
 						{
+							if (item.stack > item.maxStack)
+							{
+								item.stack = item.maxStack;
+							}
+							if (item.stack < 0)
+							{
+								item.stack = 1;
+							}
 							writer.Write((short)item.stack);
 							if (item.stack > 0)
 							{
@@ -1091,7 +1112,7 @@ namespace Terraria
 				Sign sign = Main.sign[i];
 				if (sign != null && sign.text != null)
 				{
-					num = (short)(num + 1);
+					num += 1;
 				}
 			}
 			writer.Write(num);
@@ -1201,7 +1222,7 @@ namespace Terraria
 				{
 					b2 = (byte)(b2 << 1);
 				}
-				if ((b & b2) == (int)b2)
+				if ((b & b2) == b2)
 				{
 					importance[i] = true;
 				}
@@ -1210,7 +1231,7 @@ namespace Terraria
 		}
 		private static void LoadHeader(BinaryReader reader)
 		{
-			int arg_05_0 = WorldFile.versionNumber;
+			int num = WorldFile.versionNumber;
 			Main.worldName = reader.ReadString();
 			Main.worldID = reader.ReadInt32();
 			Main.leftWorld = (float)reader.ReadInt32();
@@ -1297,6 +1318,25 @@ namespace Terraria
 			Main.numClouds = (int)reader.ReadInt16();
 			Main.windSpeedSet = reader.ReadSingle();
 			Main.windSpeed = Main.windSpeedSet;
+			if (num < 95)
+			{
+				return;
+			}
+			Main.anglerWhoFinishedToday.Clear();
+			for (int i = reader.ReadInt32(); i > 0; i--)
+			{
+				Main.anglerWhoFinishedToday.Add(reader.ReadString());
+			}
+			if (num < 99)
+			{
+				return;
+			}
+			NPC.savedAngler = reader.ReadBoolean();
+			if (num < 101)
+			{
+				return;
+			}
+			Main.anglerQuest = reader.ReadInt32();
 		}
 		private static void LoadWorldTiles(BinaryReader reader, bool[] importance)
 		{
@@ -1497,6 +1537,12 @@ namespace Terraria
 						item.netDefaults(reader.ReadInt32());
 						item.stack = (int)num5;
 						item.Prefix((int)reader.ReadByte());
+					}
+					else if (num5 < 0)
+					{
+						item.netDefaults(reader.ReadInt32());
+						item.Prefix((int)reader.ReadByte());
+						item.stack = 1;
 					}
 					chest.item[j] = item;
 				}
@@ -1773,8 +1819,14 @@ namespace Terraria
 						}
 						result = false;
 					}
-					catch
+					catch (Exception value)
 					{
+						using (StreamWriter streamWriter = new StreamWriter("client-crashlog.txt", true))
+						{
+							streamWriter.WriteLine(DateTime.Now);
+							streamWriter.WriteLine(value);
+							streamWriter.WriteLine("");
+						}
 						try
 						{
 							binaryReader.Close();
@@ -1832,6 +1884,18 @@ namespace Terraria
 			});
 			string text2 = array[array.Length - 1];
 			return text2.Substring(0, text2.Length - 4);
+		}
+		public static void ResetTemps()
+		{
+			WorldFile.tempRaining = false;
+			WorldFile.tempMaxRain = 0f;
+			WorldFile.tempRainTime = 0;
+			WorldFile.tempDayTime = true;
+			WorldFile.tempBloodMoon = false;
+			WorldFile.tempEclipse = false;
+			WorldFile.tempMoonPhase = 0;
+			Main.anglerWhoFinishedToday.Clear();
+			Main.anglerQuestFinished = false;
 		}
 	}
 }
