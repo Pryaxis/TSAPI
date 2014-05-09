@@ -53,8 +53,8 @@ namespace Terraria
 		public float npcSlots = 1f;
 		private static bool noSpawnCycle = false;
 		private static int activeTime = 750;
-		private static int defaultSpawnRate = 600;
-		private static int defaultMaxSpawns = 5;
+		public static int defaultSpawnRate = 600;
+		public static int defaultMaxSpawns = 5;
 		public bool wet;
 		public bool honeyWet;
 		public byte wetCount;

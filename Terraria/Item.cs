@@ -116,6 +116,7 @@ namespace Terraria
 		public bool ranged;
 		public bool summon;
 		public int reuseDelay;
+		public int explosive = 0;
 		public override string ToString()
 		{
 			return string.Format("{{Name: \"{0}\" NetID: {1} Stack: {2}", this.name, this.netID, this.stack);
