@@ -37093,7 +37093,8 @@ namespace Terraria
 					}
 				}
 			}
-			return num2 < 3 && num3 < 6 && num < 10;
+
+			return ServerApi.Hooks.InvokeGameStatueSpawn(num2, num3, num, (int)(x / 16), (int)(y / 16), type, false);
 		}
 		public static int buyPrice(int platinum = 0, int gold = 0, int silver = 0, int copper = 0)
 		{

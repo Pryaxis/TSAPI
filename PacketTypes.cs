@@ -72,5 +72,9 @@ public enum PacketTypes
 	ChestName,
 	CatchNPC,
 	ReleaseNPC,
-	SetShop
+	SetShop,
+	TeleportationPotion,
+	AnglerQuest,
+	CompleteAnglerQuest,
+	NumberOfAnglerQuestsCompleted,
 }
