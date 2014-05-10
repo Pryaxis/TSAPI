@@ -67,7 +67,7 @@ namespace Terraria
 							{
 								Player player = Main.player[number];
 								binaryWriter.Write((byte)number);
-								binaryWriter.Write(player.male ? 0 : 1);
+								binaryWriter.Write((byte)(player.male ? 0 : 1));
 								binaryWriter.Write((byte)player.hair);
 								binaryWriter.Write(text);
 								binaryWriter.Write(player.hairDye);
@@ -253,7 +253,7 @@ namespace Terraria
 							binaryWriter.Write((byte)number5);
 							break;
 						case 18:
-							binaryWriter.Write(Main.dayTime ? 1 : 0);
+							binaryWriter.Write((byte)(Main.dayTime ? 1 : 0));
 							binaryWriter.Write((int)Main.time);
 							binaryWriter.Write(Main.sunModY);
 							binaryWriter.Write(Main.moonModY);
@@ -262,7 +262,7 @@ namespace Terraria
 							binaryWriter.Write((byte)number);
 							binaryWriter.Write((short)number2);
 							binaryWriter.Write((short)number3);
-							binaryWriter.Write((number4 == 1f) ? 1 : 0);
+							binaryWriter.Write((byte)((number4 == 1f) ? 1 : 0));
 							break;
 						case 20:
 							{
