@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 
 using Terraria;
+using System.IO;
 
 namespace TerrariaApi.Server
 {
@@ -391,9 +392,20 @@ namespace TerrariaApi.Server
 
 						break;
 					case PacketTypes.ChatText:
-						string @string = Encoding.UTF8.GetString(buffer.readBuffer, index + 4, length - 5);
-						if (this.InvokeServerChat(buffer, buffer.whoAmI, @string))
-							return true;
+						var text = "";
+						using(var stream = new MemoryStream(buffer.readBuffer))
+						{
+							stream.Position = index;
+							using(var reader = new BinaryReader(stream))
+							{
+								reader.ReadByte();
+								reader.ReadRGB();
+								text = reader.ReadString();
+							}
+						}
+
+						if (this.InvokeServerChat(buffer, buffer.whoAmI, @text))
+									return true;
 
 						break;
 
