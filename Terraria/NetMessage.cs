@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Threading;
 using TerrariaApi.Server;
 namespace Terraria
 {
@@ -1696,6 +1697,131 @@ namespace Terraria
 				}
 			}
 		}
+
+		public static void PlayerLeft(int who)
+		{
+			NetMessage.SendData(14, -1, who, "", who, (float)0, 0f, 0f, 0);
+			if (Netplay.serverSock[who].announced)
+			{
+				Netplay.serverSock[who].announced = false;
+			}
+		}
+
+		public static void PlayerJoin(int i)
+		{
+			NetMessage.SendData(14, -1, i, "", i, (float) 1, 0f, 0f, 0);
+			NetMessage.SendData(4, -1, i, Main.player[i].name, i, 0f, 0f, 0f, 0);
+			NetMessage.SendData(13, -1, i, "", i, 0f, 0f, 0f, 0);
+			NetMessage.SendData(16, -1, i, "", i, 0f, 0f, 0f, 0);
+			NetMessage.SendData(30, -1, i, "", i, 0f, 0f, 0f, 0);
+			NetMessage.SendData(45, -1, i, "", i, 0f, 0f, 0f, 0);
+			NetMessage.SendData(42, -1, i, "", i, 0f, 0f, 0f, 0);
+			NetMessage.SendData(50, -1, i, "", i, 0f, 0f, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].inventory[Main.player[i].selectedItem].name, i, (float) Main.player[i].selectedItem,
+					(float) Main.player[i].inventory[Main.player[i].selectedItem].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[0].name, i, 59f, (float) Main.player[i].armor[0].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[1].name, i, 60f, (float) Main.player[i].armor[1].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[2].name, i, 61f, (float) Main.player[i].armor[2].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[3].name, i, 62f, (float) Main.player[i].armor[3].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[4].name, i, 63f, (float) Main.player[i].armor[4].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[5].name, i, 64f, (float) Main.player[i].armor[5].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[6].name, i, 65f, (float) Main.player[i].armor[6].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[7].name, i, 66f, (float) Main.player[i].armor[7].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[8].name, i, 67f, (float) Main.player[i].armor[8].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[9].name, i, 68f, (float) Main.player[i].armor[9].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[10].name, i, 69f, (float) Main.player[i].armor[10].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[11].name, i, 70f, (float) Main.player[i].armor[11].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[12].name, i, 71f, (float) Main.player[i].armor[12].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[13].name, i, 72f, (float) Main.player[i].armor[13].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[14].name, i, 73f, (float) Main.player[i].armor[14].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].armor[15].name, i, 74f, (float) Main.player[i].armor[15].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].dye[0].name, i, 75f, (float) Main.player[i].dye[0].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].dye[1].name, i, 76f, (float) Main.player[i].dye[1].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].dye[2].name, i, 77f, (float) Main.player[i].dye[2].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].dye[3].name, i, 78f, (float) Main.player[i].dye[3].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].dye[4].name, i, 79f, (float) Main.player[i].dye[4].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].dye[5].name, i, 80f, (float) Main.player[i].dye[5].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].dye[6].name, i, 81f, (float) Main.player[i].dye[6].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, i, Main.player[i].dye[7].name, i, 82f, (float) Main.player[i].dye[7].prefix, 0f, 0);
+
+			for (int j = 0; j < 255; j++)
+			{
+				if(j == i)
+					continue;
+				
+				int num = 0;
+				if (Main.player[j].active)
+				{
+					num = 1;
+				}
+				if (Netplay.serverSock[j].state == 10)
+				{
+					NetMessage.SendData(14, i, j, "", j, (float) 1, 0f, 0f, 0);
+					NetMessage.SendData(4, i, j, Main.player[j].name, j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(13, i, j, "", j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(16, i, j, "", j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(30, i, j, "", j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(45, i, j, "", j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(42, i, j, "", j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(50, i, j, "", j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].inventory[Main.player[j].selectedItem].name, j, (float) Main.player[j].selectedItem,
+							(float) Main.player[j].inventory[Main.player[j].selectedItem].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[0].name, j, 59f, (float) Main.player[j].armor[0].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[1].name, j, 60f, (float) Main.player[j].armor[1].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[2].name, j, 61f, (float) Main.player[j].armor[2].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[3].name, j, 62f, (float) Main.player[j].armor[3].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[4].name, j, 63f, (float) Main.player[j].armor[4].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[5].name, j, 64f, (float) Main.player[j].armor[5].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[6].name, j, 65f, (float) Main.player[j].armor[6].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[7].name, j, 66f, (float) Main.player[j].armor[7].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[8].name, j, 67f, (float) Main.player[j].armor[8].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[9].name, j, 68f, (float) Main.player[j].armor[9].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[10].name, j, 69f, (float) Main.player[j].armor[10].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[11].name, j, 70f, (float) Main.player[j].armor[11].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[12].name, j, 71f, (float) Main.player[j].armor[12].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[13].name, j, 72f, (float) Main.player[j].armor[13].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[14].name, j, 73f, (float) Main.player[j].armor[14].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].armor[15].name, j, 74f, (float) Main.player[j].armor[15].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].dye[0].name, j, 75f, (float) Main.player[j].dye[0].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].dye[1].name, j, 76f, (float) Main.player[j].dye[1].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].dye[2].name, j, 77f, (float) Main.player[j].dye[2].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].dye[3].name, j, 78f, (float) Main.player[j].dye[3].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].dye[4].name, j, 79f, (float) Main.player[j].dye[4].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].dye[5].name, j, 80f, (float) Main.player[j].dye[5].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].dye[6].name, j, 81f, (float) Main.player[j].dye[6].prefix, 0f, 0);
+					NetMessage.SendData(5, i, j, Main.player[j].dye[7].name, j, 82f, (float) Main.player[j].dye[7].prefix, 0f, 0);
+				}
+			}
+
+			if (!Netplay.serverSock[i].announced)
+			{
+				Netplay.serverSock[i].announced = true;
+			}
+
+			for (int l = 0; l < 200; l++)
+			{
+				if (Main.npc[l].active && Main.npc[l].townNPC && NPC.TypeToNum(Main.npc[l].type) != -1)
+				{
+					int num2 = 0;
+					if (Main.npc[l].homeless)
+					{
+						num2 = 1;
+					}
+					NetMessage.SendData(60, i, -1, "", l, (float)Main.npc[l].homeTileX, (float)Main.npc[l].homeTileY, (float)num2, 0);
+				}
+			}
+			for (int m = 0; m < 200; m++)
+			{
+				if (Main.npc[m].active && Main.npc[m].type == 368)
+				{
+					NetMessage.SendData(72, i, -1, "", 0, 0f, 0f, 0f, 0);
+					break;
+				}
+			}
+
+			NetMessage.SendData(74, i, -1, Main.player[i].name, Main.anglerQuest, 0f, 0f, 0f, 0);
+		}
+
 		public static void syncPlayers()
 		{
 			bool flag = false;

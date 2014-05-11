@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -237,9 +238,16 @@ namespace Terraria
                         Netplay.serverSock[k].kill = true;
 					if (Netplay.serverSock[k].kill)
 					{
+						Stopwatch timer = new Stopwatch();
+						timer.Start();
+
 						ServerApi.Hooks.InvokeServerLeave(Netplay.serverSock[k].whoAmI);
 						Netplay.serverSock[k].Reset();
-						NetMessage.syncPlayers();
+						NetMessage.PlayerLeft(Netplay.serverSock[k].whoAmI);
+
+						timer.Stop();
+
+						Console.WriteLine(String.Format("Player left took {0} ms.", timer.ElapsedMilliseconds));
 					}
 					else if (serverSock[k].tcpClient != null && serverSock[k].tcpClient.Client != null && serverSock[k].tcpClient.Connected)
 					{
