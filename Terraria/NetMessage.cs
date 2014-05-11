@@ -44,10 +44,9 @@ namespace Terraria
 			{
 				lock (NetMessage.buffer[num].writeBuffer)
 				{
-					MemoryStream output = new MemoryStream(NetMessage.buffer[num].writeBuffer);
-					BinaryWriter binaryWriter = new BinaryWriter(output);
-					long position = binaryWriter.BaseStream.Position;
-					binaryWriter.BaseStream.Position += 2L;
+					BinaryWriter binaryWriter = NetMessage.buffer[num].binaryWriter;
+					long position = 0;
+					binaryWriter.BaseStream.Position = 2L;
 					binaryWriter.Write((byte)msgType);
 					switch (msgType)
 					{
@@ -1698,128 +1697,114 @@ namespace Terraria
 			}
 		}
 
-		public static void PlayerLeft(int who)
+		public static void syncJoin(int plr)
 		{
-			NetMessage.SendData(14, -1, who, "", who, (float)0, 0f, 0f, 0);
-			if (Netplay.serverSock[who].announced)
+			Player player = Main.player[plr];
+			NetMessage.SendData(14, -1, plr, "", plr, (float)1, 0f, 0f, 0);
+			NetMessage.SendData(4, -1, plr, player.name, plr, 0f, 0f, 0f, 0);
+			NetMessage.SendData(13, -1, plr, "", plr, 0f, 0f, 0f, 0);
+			NetMessage.SendData(16, -1, plr, "", plr, 0f, 0f, 0f, 0);
+			NetMessage.SendData(30, -1, plr, "", plr, 0f, 0f, 0f, 0);
+			NetMessage.SendData(45, -1, plr, "", plr, 0f, 0f, 0f, 0);
+			NetMessage.SendData(42, -1, plr, "", plr, 0f, 0f, 0f, 0);
+			NetMessage.SendData(50, -1, plr, "", plr, 0f, 0f, 0f, 0);
+			for (int k = 0; k < 59; k++)
 			{
-				Netplay.serverSock[who].announced = false;
+				NetMessage.SendData(5, -1, plr, player.inventory[k].name, plr, (float)k,
+					(float)player.inventory[k].prefix, 0f, 0);
 			}
-		}
-
-		public static void PlayerJoin(int i)
-		{
-			NetMessage.SendData(14, -1, i, "", i, (float) 1, 0f, 0f, 0);
-			NetMessage.SendData(4, -1, i, Main.player[i].name, i, 0f, 0f, 0f, 0);
-			NetMessage.SendData(13, -1, i, "", i, 0f, 0f, 0f, 0);
-			NetMessage.SendData(16, -1, i, "", i, 0f, 0f, 0f, 0);
-			NetMessage.SendData(30, -1, i, "", i, 0f, 0f, 0f, 0);
-			NetMessage.SendData(45, -1, i, "", i, 0f, 0f, 0f, 0);
-			NetMessage.SendData(42, -1, i, "", i, 0f, 0f, 0f, 0);
-			NetMessage.SendData(50, -1, i, "", i, 0f, 0f, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].inventory[Main.player[i].selectedItem].name, i, (float) Main.player[i].selectedItem,
-					(float) Main.player[i].inventory[Main.player[i].selectedItem].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[0].name, i, 59f, (float) Main.player[i].armor[0].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[1].name, i, 60f, (float) Main.player[i].armor[1].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[2].name, i, 61f, (float) Main.player[i].armor[2].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[3].name, i, 62f, (float) Main.player[i].armor[3].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[4].name, i, 63f, (float) Main.player[i].armor[4].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[5].name, i, 64f, (float) Main.player[i].armor[5].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[6].name, i, 65f, (float) Main.player[i].armor[6].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[7].name, i, 66f, (float) Main.player[i].armor[7].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[8].name, i, 67f, (float) Main.player[i].armor[8].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[9].name, i, 68f, (float) Main.player[i].armor[9].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[10].name, i, 69f, (float) Main.player[i].armor[10].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[11].name, i, 70f, (float) Main.player[i].armor[11].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[12].name, i, 71f, (float) Main.player[i].armor[12].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[13].name, i, 72f, (float) Main.player[i].armor[13].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[14].name, i, 73f, (float) Main.player[i].armor[14].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].armor[15].name, i, 74f, (float) Main.player[i].armor[15].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].dye[0].name, i, 75f, (float) Main.player[i].dye[0].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].dye[1].name, i, 76f, (float) Main.player[i].dye[1].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].dye[2].name, i, 77f, (float) Main.player[i].dye[2].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].dye[3].name, i, 78f, (float) Main.player[i].dye[3].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].dye[4].name, i, 79f, (float) Main.player[i].dye[4].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].dye[5].name, i, 80f, (float) Main.player[i].dye[5].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].dye[6].name, i, 81f, (float) Main.player[i].dye[6].prefix, 0f, 0);
-			NetMessage.SendData(5, -1, i, Main.player[i].dye[7].name, i, 82f, (float) Main.player[i].dye[7].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[0].name, plr, 59f, (float)player.armor[0].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[1].name, plr, 60f, (float)player.armor[1].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[2].name, plr, 61f, (float)player.armor[2].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[3].name, plr, 62f, (float)player.armor[3].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[4].name, plr, 63f, (float)player.armor[4].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[5].name, plr, 64f, (float)player.armor[5].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[6].name, plr, 65f, (float)player.armor[6].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[7].name, plr, 66f, (float)player.armor[7].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[8].name, plr, 67f, (float)player.armor[8].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[9].name, plr, 68f, (float)player.armor[9].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[10].name, plr, 69f, (float)player.armor[10].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[11].name, plr, 70f, (float)player.armor[11].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[12].name, plr, 71f, (float)player.armor[12].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[13].name, plr, 72f, (float)player.armor[13].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[14].name, plr, 73f, (float)player.armor[14].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.armor[15].name, plr, 74f, (float)player.armor[15].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.dye[0].name, plr, 75f, (float)player.dye[0].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.dye[1].name, plr, 76f, (float)player.dye[1].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.dye[2].name, plr, 77f, (float)player.dye[2].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.dye[3].name, plr, 78f, (float)player.dye[3].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.dye[4].name, plr, 79f, (float)player.dye[4].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.dye[5].name, plr, 80f, (float)player.dye[5].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.dye[6].name, plr, 81f, (float)player.dye[6].prefix, 0f, 0);
+			NetMessage.SendData(5, -1, plr, player.dye[7].name, plr, 82f, (float)player.dye[7].prefix, 0f, 0);
 
 			for (int j = 0; j < 255; j++)
 			{
-				if(j == i)
+				if (j == plr)
 					continue;
-				
-				int num = 0;
-				if (Main.player[j].active)
-				{
-					num = 1;
-				}
+
 				if (Netplay.serverSock[j].state == 10)
 				{
-					NetMessage.SendData(14, i, j, "", j, (float) 1, 0f, 0f, 0);
-					NetMessage.SendData(4, i, j, Main.player[j].name, j, 0f, 0f, 0f, 0);
-					NetMessage.SendData(13, i, j, "", j, 0f, 0f, 0f, 0);
-					NetMessage.SendData(16, i, j, "", j, 0f, 0f, 0f, 0);
-					NetMessage.SendData(30, i, j, "", j, 0f, 0f, 0f, 0);
-					NetMessage.SendData(45, i, j, "", j, 0f, 0f, 0f, 0);
-					NetMessage.SendData(42, i, j, "", j, 0f, 0f, 0f, 0);
-					NetMessage.SendData(50, i, j, "", j, 0f, 0f, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].inventory[Main.player[j].selectedItem].name, j, (float) Main.player[j].selectedItem,
-							(float) Main.player[j].inventory[Main.player[j].selectedItem].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[0].name, j, 59f, (float) Main.player[j].armor[0].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[1].name, j, 60f, (float) Main.player[j].armor[1].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[2].name, j, 61f, (float) Main.player[j].armor[2].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[3].name, j, 62f, (float) Main.player[j].armor[3].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[4].name, j, 63f, (float) Main.player[j].armor[4].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[5].name, j, 64f, (float) Main.player[j].armor[5].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[6].name, j, 65f, (float) Main.player[j].armor[6].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[7].name, j, 66f, (float) Main.player[j].armor[7].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[8].name, j, 67f, (float) Main.player[j].armor[8].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[9].name, j, 68f, (float) Main.player[j].armor[9].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[10].name, j, 69f, (float) Main.player[j].armor[10].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[11].name, j, 70f, (float) Main.player[j].armor[11].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[12].name, j, 71f, (float) Main.player[j].armor[12].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[13].name, j, 72f, (float) Main.player[j].armor[13].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[14].name, j, 73f, (float) Main.player[j].armor[14].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].armor[15].name, j, 74f, (float) Main.player[j].armor[15].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].dye[0].name, j, 75f, (float) Main.player[j].dye[0].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].dye[1].name, j, 76f, (float) Main.player[j].dye[1].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].dye[2].name, j, 77f, (float) Main.player[j].dye[2].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].dye[3].name, j, 78f, (float) Main.player[j].dye[3].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].dye[4].name, j, 79f, (float) Main.player[j].dye[4].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].dye[5].name, j, 80f, (float) Main.player[j].dye[5].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].dye[6].name, j, 81f, (float) Main.player[j].dye[6].prefix, 0f, 0);
-					NetMessage.SendData(5, i, j, Main.player[j].dye[7].name, j, 82f, (float) Main.player[j].dye[7].prefix, 0f, 0);
+					Player player2 = Main.player[j];
+					NetMessage.SendData(14, plr, j, "", j, (float)1, 0f, 0f, 0);
+					NetMessage.SendData(4, plr, j, player2.name, j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(13, plr, j, "", j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(16, plr, j, "", j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(30, plr, j, "", j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(45, plr, j, "", j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(42, plr, j, "", j, 0f, 0f, 0f, 0);
+					NetMessage.SendData(50, plr, j, "", j, 0f, 0f, 0f, 0);
+					for (int k = 0; k < 59; k++)
+					{
+						NetMessage.SendData(5, plr, j, player2.inventory[k].name, j, (float)k,
+						(float)player2.inventory[k].prefix, 0f, 0);
+					}
+					NetMessage.SendData(5, plr, j, player2.armor[0].name, j, 59f, (float)player2.armor[0].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[1].name, j, 60f, (float)player2.armor[1].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[2].name, j, 61f, (float)player2.armor[2].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[3].name, j, 62f, (float)player2.armor[3].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[4].name, j, 63f, (float)player2.armor[4].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[5].name, j, 64f, (float)player2.armor[5].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[6].name, j, 65f, (float)player2.armor[6].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[7].name, j, 66f, (float)player2.armor[7].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[8].name, j, 67f, (float)player2.armor[8].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[9].name, j, 68f, (float)player2.armor[9].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[10].name, j, 69f, (float)player2.armor[10].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[11].name, j, 70f, (float)player2.armor[11].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[12].name, j, 71f, (float)player2.armor[12].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[13].name, j, 72f, (float)player2.armor[13].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[14].name, j, 73f, (float)player2.armor[14].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.armor[15].name, j, 74f, (float)player2.armor[15].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.dye[0].name, j, 75f, (float)player2.dye[0].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.dye[1].name, j, 76f, (float)player2.dye[1].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.dye[2].name, j, 77f, (float)player2.dye[2].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.dye[3].name, j, 78f, (float)player2.dye[3].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.dye[4].name, j, 79f, (float)player2.dye[4].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.dye[5].name, j, 80f, (float)player2.dye[5].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.dye[6].name, j, 81f, (float)player2.dye[6].prefix, 0f, 0);
+					NetMessage.SendData(5, plr, j, player2.dye[7].name, j, 82f, (float)player2.dye[7].prefix, 0f, 0);
 				}
 			}
-
-			if (!Netplay.serverSock[i].announced)
-			{
-				Netplay.serverSock[i].announced = true;
-			}
+			Netplay.serverSock[plr].announced = true;
 
 			for (int l = 0; l < 200; l++)
 			{
 				if (Main.npc[l].active && Main.npc[l].townNPC && NPC.TypeToNum(Main.npc[l].type) != -1)
 				{
-					int num2 = 0;
-					if (Main.npc[l].homeless)
-					{
-						num2 = 1;
-					}
-					NetMessage.SendData(60, i, -1, "", l, (float)Main.npc[l].homeTileX, (float)Main.npc[l].homeTileY, (float)num2, 0);
+					NetMessage.SendData(60, plr, -1, "", l, (float)Main.npc[l].homeTileX, (float)Main.npc[l].homeTileY, Main.npc[l].homeless ? 1 : 0, 0);
 				}
-			}
-			for (int m = 0; m < 200; m++)
-			{
-				if (Main.npc[m].active && Main.npc[m].type == 368)
+				if (Main.npc[l].active && Main.npc[l].type == 368)
 				{
-					NetMessage.SendData(72, i, -1, "", 0, 0f, 0f, 0f, 0);
-					break;
+					NetMessage.SendData(72, plr, -1, "", 0, 0f, 0f, 0f, 0);
 				}
 			}
 
-			NetMessage.SendData(74, i, -1, Main.player[i].name, Main.anglerQuest, 0f, 0f, 0f, 0);
+			NetMessage.SendData(74, plr, -1, Main.player[plr].name, Main.anglerQuest, 0f, 0f, 0f, 0);
+		}
+		public static void syncLeave(int plr)
+		{
+			NetMessage.SendData(14, -1, plr, "", plr, (float)0, 0f, 0f, 0);
+			Netplay.serverSock[plr].announced = false;
 		}
 
 		public static void syncPlayers()
@@ -1886,19 +1871,12 @@ namespace Terraria
 					NetMessage.SendData(5, -1, i, Main.player[i].dye[5].name, i, 80f, (float)Main.player[i].dye[5].prefix, 0f, 0);
 					NetMessage.SendData(5, -1, i, Main.player[i].dye[6].name, i, 81f, (float)Main.player[i].dye[6].prefix, 0f, 0);
 					NetMessage.SendData(5, -1, i, Main.player[i].dye[7].name, i, 82f, (float)Main.player[i].dye[7].prefix, 0f, 0);
-					if (!Netplay.serverSock[i].announced)
-					{
-						Netplay.serverSock[i].announced = true;
-					}
+					Netplay.serverSock[i].announced = true;
 				}
 				else
 				{
-					num = 0;
-					NetMessage.SendData(14, -1, i, "", i, (float)num, 0f, 0f, 0);
-					if (Netplay.serverSock[i].announced)
-					{
-						Netplay.serverSock[i].announced = false;
-					}
+					NetMessage.SendData(14, -1, i, "", i, 0f, 0f, 0f, 0);
+					Netplay.serverSock[i].announced = false;
 				}
 			}
 			for (int l = 0; l < 200; l++)
@@ -1912,10 +1890,7 @@ namespace Terraria
 					}
 					NetMessage.SendData(60, -1, -1, "", l, (float)Main.npc[l].homeTileX, (float)Main.npc[l].homeTileY, (float)num2, 0);
 				}
-			}
-			for (int m = 0; m < 200; m++)
-			{
-				if (Main.npc[m].active && Main.npc[m].type == 368)
+				if (Main.npc[l].active && Main.npc[l].type == 368)
 				{
 					NetMessage.SendTravelShop();
 					break;

@@ -243,7 +243,7 @@ namespace Terraria
 
 						ServerApi.Hooks.InvokeServerLeave(Netplay.serverSock[k].whoAmI);
 						Netplay.serverSock[k].Reset();
-						NetMessage.PlayerLeft(Netplay.serverSock[k].whoAmI);
+						NetMessage.syncLeave(Netplay.serverSock[k].whoAmI);
 
 						timer.Stop();
 

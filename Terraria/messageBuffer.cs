@@ -18,19 +18,23 @@ namespace Terraria
 		public int spamCount;
 		public int maxSpam;
 		public bool checkBytes;
-		public MemoryStream memoryStream;
+
+		public BinaryReader binaryReader;
+		public BinaryWriter binaryWriter;
 
 		public MessageBuffer()
 		{
-			memoryStream = new MemoryStream(writeBuffer);
+			binaryReader = new BinaryReader(new MemoryStream(readBuffer));
+			binaryWriter = new BinaryWriter(new MemoryStream(writeBuffer));
 		}
 
 		public void Reset()
 		{
-			memoryStream.Close();
 			this.readBuffer = new byte[65535];
 			this.writeBuffer = new byte[65535];
-			memoryStream = new MemoryStream(writeBuffer);
+			binaryReader = new BinaryReader(new MemoryStream(readBuffer));
+			binaryWriter = new BinaryWriter(new MemoryStream(writeBuffer));
+
 			this.writeLocked = false;
 			this.messageLength = 0;
 			this.totalData = 0;
@@ -81,8 +85,6 @@ namespace Terraria
 			{
 				NetMessage.BootPlayer(this.whoAmI, Lang.mp[2]);
 			}
-			MemoryStream input = new MemoryStream(this.readBuffer);
-			BinaryReader binaryReader = new BinaryReader(input);
 			binaryReader.BaseStream.Position = (long)num;
 			switch (b)
 			{
@@ -550,13 +552,11 @@ namespace Terraria
 					Netplay.serverSock[this.whoAmI].state = 10;
 					NetMessage.greetPlayer(this.whoAmI);
 					NetMessage.buffer[this.whoAmI].broadcast = true;
-					NetMessage.PlayerJoin(this.whoAmI);
+					NetMessage.syncJoin(this.whoAmI);
 					NetMessage.SendData(12, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0);
-					NetMessage.SendData(74, this.whoAmI, -1, Main.player[this.whoAmI].name, Main.anglerQuest, 0f, 0f, 0f, 0);
 
 					timer.Stop();
 					Console.WriteLine("Player join took {0} ms.", timer.ElapsedMilliseconds);
-
 					return;
 				}
 				NetMessage.SendData(12, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0);
