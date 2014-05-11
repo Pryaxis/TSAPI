@@ -556,7 +556,7 @@ namespace Terraria
 					NetMessage.SendData(12, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0);
 
 					timer.Stop();
-					Console.WriteLine("Player join took {0} ms.", timer.ElapsedMilliseconds);
+					Console.WriteLine("syncJoin took {0} ms.", timer.ElapsedMilliseconds);
 					return;
 				}
 				NetMessage.SendData(12, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0);

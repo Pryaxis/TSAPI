@@ -247,7 +247,7 @@ namespace Terraria
 
 						timer.Stop();
 
-						Console.WriteLine(String.Format("Player left took {0} ms.", timer.ElapsedMilliseconds));
+						Console.WriteLine(String.Format("syncLeave took {0} ms.", timer.ElapsedMilliseconds));
 					}
 					else if (serverSock[k].tcpClient != null && serverSock[k].tcpClient.Client != null && serverSock[k].tcpClient.Connected)
 					{

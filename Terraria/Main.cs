@@ -9332,7 +9332,7 @@ namespace Terraria
 			if (Main.netPlayCounter > 3600)
 			{
 				NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0);
-				NetMessage.syncPlayers();
+				//NetMessage.syncPlayers();
 				Main.netPlayCounter = 0;
 			}
 			for (int i = 0; i < Main.maxNetPlayers; i++)
