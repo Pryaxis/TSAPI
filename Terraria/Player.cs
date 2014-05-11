@@ -535,8 +535,6 @@ namespace Terraria
 		public int potionDelayTime = Item.potionDelay;
 		public static bool lastPound = true;
 
-		public bool[] sentItem = new bool[59];
-
 		public void HealEffect(int healAmount, bool broadcast = true)
 		{
 			/*CombatText.NewText(new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height), new Color(100, 255, 100, 255), string.Concat(healAmount), false, false);
