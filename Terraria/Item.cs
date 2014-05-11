@@ -6743,6 +6743,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.value = Item.buyPrice(0, 0, 3, 0);
 				this.damage = 0;
+				this.explosive = 1;
 				this.toolTip = "A small explosion that will destroy some tiles";
 				return;
 			}
@@ -6763,6 +6764,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.value = Item.sellPrice(0, 0, 30, 0);
 				this.rare = 1;
+				this.explosive = 2;
 				this.toolTip = "A large explosion that will destroy most tiles";
 				return;
 			}
@@ -7831,6 +7833,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.value = 500;
 				this.damage = 0;
+				this.explosive = 1;
 				this.toolTip = "'Tossing may be difficult.'";
 				return;
 			}
@@ -13223,6 +13226,7 @@ namespace Terraria
 				this.createTile = 141;
 				this.width = 12;
 				this.height = 12;
+				this.explosive = 4;
 				this.toolTip = "Explodes when activated";
 				return;
 			}
@@ -15950,6 +15954,7 @@ namespace Terraria
 				this.knockBack = 4f;
 				this.rare = 8;
 				this.ranged = true;
+				this.explosive = 3;
 				return;
 			}
 			if (type == 760)
@@ -16151,6 +16156,7 @@ namespace Terraria
 				this.ranged = true;
 				this.toolTip = "Small blast radius. Will destroy tiles";
 				this.rare = 1;
+				this.explosive = 1;
 				return;
 			}
 			if (type == 773)
@@ -16185,6 +16191,7 @@ namespace Terraria
 				this.ranged = true;
 				this.toolTip = "Large blast radius. Will destroy tiles";
 				this.rare = 2;
+				this.explosive = 2;
 				return;
 			}
 			if (type == 775)
@@ -36836,6 +36843,7 @@ namespace Terraria
 			this.value = 0;
 			this.useTurn = false;
 			this.buy = false;
+			this.explosive = 0;
 			this.handOnSlot = -1;
 			this.handOffSlot = -1;
 			this.backSlot = -1;
