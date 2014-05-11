@@ -8721,6 +8721,11 @@ namespace Terraria
 		}
 		public static bool GrowPalmTree(int i, int y)
 		{
+			if (Main.rand == null)
+			{
+				Main.rand = new Random();
+			}
+
 			int num = y;
 			while (Main.tile[i, num].type == 20)
 			{
