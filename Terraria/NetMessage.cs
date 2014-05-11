@@ -1708,6 +1708,11 @@ namespace Terraria
 			NetMessage.SendData(45, -1, plr, "", plr, 0f, 0f, 0f, 0);
 			NetMessage.SendData(42, -1, plr, "", plr, 0f, 0f, 0f, 0);
 			NetMessage.SendData(50, -1, plr, "", plr, 0f, 0f, 0f, 0);
+			for (int k = 0; k < 59; k++)
+			{
+				NetMessage.SendData(5, -1, plr, player.inventory[k].name, plr, (float)k,
+					(float)player.inventory[k].prefix, 0f, 0);
+			}
 			NetMessage.SendData(5, -1, plr, player.armor[0].name, plr, 59f, (float)player.armor[0].prefix, 0f, 0);
 			NetMessage.SendData(5, -1, plr, player.armor[1].name, plr, 60f, (float)player.armor[1].prefix, 0f, 0);
 			NetMessage.SendData(5, -1, plr, player.armor[2].name, plr, 61f, (float)player.armor[2].prefix, 0f, 0);
@@ -1749,6 +1754,11 @@ namespace Terraria
 					NetMessage.SendData(45, plr, j, "", j, 0f, 0f, 0f, 0);
 					NetMessage.SendData(42, plr, j, "", j, 0f, 0f, 0f, 0);
 					NetMessage.SendData(50, plr, j, "", j, 0f, 0f, 0f, 0);
+					for (int k = 0; k < 59; k++)
+					{
+						NetMessage.SendData(5, plr, j, player2.inventory[k].name, j, (float)k,
+						(float)player2.inventory[k].prefix, 0f, 0);
+					}
 					NetMessage.SendData(5, plr, j, player2.armor[0].name, j, 59f, (float)player2.armor[0].prefix, 0f, 0);
 					NetMessage.SendData(5, plr, j, player2.armor[1].name, j, 60f, (float)player2.armor[1].prefix, 0f, 0);
 					NetMessage.SendData(5, plr, j, player2.armor[2].name, j, 61f, (float)player2.armor[2].prefix, 0f, 0);

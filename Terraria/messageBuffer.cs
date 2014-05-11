@@ -598,7 +598,6 @@ namespace Terraria
 				{
 					player5.velocity = binaryReader.ReadVector2();
 				}
-				NetMessage.SendData(5, -1, this.whoAmI, player5.inventory[player5.selectedItem].name, num32, player5.selectedItem, player5.inventory[player5.selectedItem].prefix);
 				if (Main.netMode == 2 && Netplay.serverSock[this.whoAmI].state == 10)
 				{
 					NetMessage.SendData(13, -1, this.whoAmI, "", num32, 0f, 0f, 0f, 0);
