@@ -121,7 +121,6 @@
     <Compile Include="TerrariaApi.Server\ServerLogWriter.cs" />
     <Compile Include="Terraria\BitsByte.cs" />
     <Compile Include="Terraria\Framing.cs" />
-    <Compile Include="Terraria\HitTile.cs" />
     <Compile Include="Terraria\Lang.cs" />
     <Compile Include="Terraria\Minecart.cs" />
     <Compile Include="Terraria\Mount.cs" />
