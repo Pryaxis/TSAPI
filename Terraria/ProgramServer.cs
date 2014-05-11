@@ -9,8 +9,6 @@ namespace Terraria
 		private static Main Game;
 		private static void Main(string[] args)
 		{
-			Process currentProcess = Process.GetCurrentProcess();
-			currentProcess.PriorityClass = ProcessPriorityClass.High;
 			try
 			{
 				Game = new Main();
