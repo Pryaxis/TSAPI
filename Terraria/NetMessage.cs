@@ -174,6 +174,7 @@ namespace Terraria
 								bb2[3] = NPC.downedBoss3;
 								bb2[4] = Main.hardMode;
 								bb2[5] = NPC.downedClown;
+								bb2[6] = Main.ServerSideCharacter;
 								bb2[7] = NPC.downedPlantBoss;
 								binaryWriter.Write(bb2);
 								BitsByte bb3 = 0;
