@@ -461,7 +461,7 @@ namespace Terraria
 				case 202:
 					return "Are goblins really so different from us that we couldn't live together peacefully?";
 				case 203:
-					return "I heard there was a powerfully wizard who lives in these parts.  Make sure to keep an eye out for him next time you go underground.";
+					return "I heard there was a powerful wizard who lives in these parts.  Make sure to keep an eye out for him next time you go underground.";
 				case 204:
 					return "If you combine lenses at a demon altar, you might be able to find a way to summon a powerful monster. You will want to wait until night before using it, though.";
 				case 205:
@@ -5639,7 +5639,7 @@ namespace Terraria
 		}
 		public static void tTip()
 		{
-			for (int i = 1; i < 2743; i++)
+			for (int i = 1; i < 2749; i++)
 			{
 				Item item = new Item();
 				item.SetDefaults(i, false);
@@ -7776,22 +7776,21 @@ namespace Terraria
 						default:
 							switch (l)
 							{
-							case 2322:
-								return "Increases mining speed by 25%";
-							case 2323:
-								return "Increases pickup range for life hearts";
-							case 2324:
-								return "Reduces enemy aggression";
-							case 2325:
-								return "Increases placement speed and range";
-							case 2326:
-								return "Increases knockback";
-							case 2327:
-								return "Lets you to move swiftly in liquids";
-							case 2328:
-								return "Increases your max number of minions";
-							case 2329:
-								return "Allows you to see nearby danger sources";
+							case 2308:
+								return "Quite shiny.  This will probably sell well.";
+							case 2309:
+							case 2310:
+							case 2311:
+							case 2312:
+							case 2313:
+							case 2314:
+							case 2315:
+							case 2316:
+							case 2317:
+							case 2318:
+							case 2319:
+							case 2320:
+							case 2321:
 							case 2330:
 							case 2331:
 							case 2332:
@@ -7805,6 +7804,22 @@ namespace Terraria
 							case 2358:
 							case 2360:
 								break;
+							case 2322:
+								return "Increases mining speed by 25%";
+							case 2323:
+								return "Increases pickup range for life hearts";
+							case 2324:
+								return "Reduces enemy aggression";
+							case 2325:
+								return "Increases placement speed and range";
+							case 2326:
+								return "Increases knockback";
+							case 2327:
+								return "Lets you move swiftly in liquids";
+							case 2328:
+								return "Increases your max number of minions";
+							case 2329:
+								return "Allows you to see nearby danger sources";
 							case 2334:
 								return "Right click to open";
 							case 2335:
@@ -7876,6 +7891,8 @@ namespace Terraria
 							default:
 								switch (l)
 								{
+								case 2420:
+									return "Summons a pet Zephyr Fish";
 								case 2423:
 									return "Increases jump speed and allows auto-jump";
 								case 2425:
@@ -7899,23 +7916,28 @@ namespace Terraria
 				}
 				else if (l <= 2551)
 				{
-					if (l <= 2494)
+					if (l <= 2502)
 					{
-						if (l == 2491)
+						switch (l)
 						{
+						case 2491:
 							return "Summons a rideable Turtle mount";
-						}
-						if (l == 2494)
-						{
+						case 2492:
+							return "Not for use on slopes";
+						case 2493:
+							break;
+						case 2494:
 							return "Allows flight and slow fall";
+						default:
+							if (l == 2502)
+							{
+								return "Summons a rideable Bee mount";
+							}
+							break;
 						}
 					}
 					else
 					{
-						if (l == 2502)
-						{
-							return "Summons a rideable Bee mount";
-						}
 						if (l == 2535)
 						{
 							return "Summons twins to fight for you";
@@ -21155,7 +21177,7 @@ namespace Terraria
 				case 2472:
 					return "Guide Voodoo Fish";
 				case 2473:
-					return "Whyverntail";
+					return "Wyverntail";
 				case 2474:
 					return "Zombie Fish";
 				case 2475:
@@ -21694,6 +21716,18 @@ namespace Terraria
 					return "Grasshopper Cage";
 				case 2742:
 					return "Music Box (Underground Crimson)";
+				case 2743:
+					return "Cactus Table";
+				case 2744:
+					return "Cactus Platform";
+				case 2745:
+					return "Boreal Wood Sword";
+				case 2746:
+					return "Boreal Wood Hammer";
+				case 2747:
+					return "Boreal Wood Bow";
+				case 2748:
+					return "Glass Chest";
 				}
 			}
 			else if (Lang.lang == 2)
@@ -27560,544 +27594,540 @@ namespace Terraria
 			array[0] = "";
 			int num2 = 0;
 			bool flag = false;
-			if (Lang.lang <= 1)
+			if (gotFish)
 			{
-				if (gotFish)
+				switch (Main.rand.Next(5))
 				{
-					switch (Main.rand.Next(5))
-					{
-					case 0:
-						array2[0] = "Oh! Thanks for the fish I asked for, now scram!";
-						break;
-					case 1:
-						array2[0] = "Awesome catch! It's all going according to plan! He he he!";
-						break;
-					case 2:
-						array2[0] = "You make a great errand monkey! Now go away!";
-						break;
-					case 3:
-						array2[0] = "Muahahahahaha! You did it! You're still in one piece though, how boring!";
-						break;
-					case 4:
-						array2[0] = "Woah!? You actually did what I asked, and survived! Nice, hand it over and beat it!";
-						break;
-					}
+				case 0:
+					array2[0] = "Oh! Thanks for the fish I asked for, now scram!";
+					break;
+				case 1:
+					array2[0] = "Awesome catch! It's all going according to plan! He he he!";
+					break;
+				case 2:
+					array2[0] = "You make a great errand monkey! Now go away!";
+					break;
+				case 3:
+					array2[0] = "Muahahahahaha! You did it! You're still in one piece though, how boring!";
+					break;
+				case 4:
+					array2[0] = "Woah!? You actually did what I asked, and survived! Nice, hand it over and beat it!";
+					break;
 				}
-				if (Main.anglerQuestFinished)
-				{
-					switch (Main.rand.Next(5))
-					{
-					case 0:
-						array[0] = "I don't have anything for you to do right now.";
-						break;
-					case 1:
-						array[0] = "You have entertained me enough for today, go.";
-						break;
-					case 2:
-						array[0] = "You are done, the grand " + str + " dismisses you!";
-						break;
-					case 3:
-						array[0] = "Only one fish a day, please go away!";
-						break;
-					case 4:
-						array[0] = "I haven't even used the last fish you gave me.  I don't need another.";
-						break;
-					}
-				}
-				else
-				{
-					switch (Main.anglerQuestItemNetIDs[Main.anglerQuest])
-					{
-					case 2450:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Na na na na na na na Bat-FISH!";
-							array[num2++] = "That means go digging underground, fetch it, and bring it to me!";
-							flag = true;
-						}
-						break;
-					case 2451:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "The subterranean jungles of " + Main.worldName + " have the weirdest things!";
-							array[num2++] = "Like, there's this fish I saw that looked just like a giant bumblebee!";
-							array[num2++] = "I'm allergic to bees, so you have to catch it for me! I bet it'd taste like a tuna and honey sandwich!";
-							flag = true;
-						}
-						break;
-					case 2452:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "I finally found a jungle cat that likes water! I think it's because it's also part fish.";
-							array[num2++] = "I don't know why this happened, and I don't want to know.";
-							array[num2++] = "I just want it in my hands, and make it snappy!";
-							flag = true;
-						}
-						break;
-					case 2453:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "There's a rumor going around that there are islands that float high up in the sky, and that they have amazing treasure!";
-							array[num2++] = "Who cares about that though, what's even cooler is that sometimes lakes form in the clouds, and in those lakes are fish made out of clouds!";
-							array[num2++] = "I wanna know what it tastes like, so you better go catch it for me!";
-							flag = true;
-						}
-						break;
-					case 2454:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "There's a cursed fish swimming in the waters of the deepest corruption!";
-							array[num2++] = "It was forged of the cursed flames that spread from the fallen horrors that lurk down there.";
-							array[num2++] = "They say not even water can put out this fire, and that it can burn forever.";
-							array[num2++] = "I can think of some awesome things I can do with a fish like that! You gonna go get it for me, or are you too chicken!?";
-							flag = true;
-						}
-						break;
-					case 2455:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "I was reeling in the big one when this funny talking zombie burst out of the forest lake and started rambling on about this 'ferocious' species of fish made out of dirt!";
-							array[num2++] = "He says it could suffocate ten blokes his size, or something like that... I want it! NOW!";
-							flag = true;
-						}
-						break;
-					case 2456:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "The demolitionist was raising cane about losing a stick of dynamite in the lake out in the forest. He has like, so many, so why does one matter?";
-							array[num2++] = "Apparently, because it grew fins and started swimming away! I don't know where he gets his materials to make those things, but that one is clearly possessed!";
-							array[num2++] = "Reel it in and bring it to me, I always wanted a suicide bombing fish! Don't ask why...";
-							flag = true;
-						}
-						break;
-					case 2457:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "I bet you're not brave enough to find the Eater of Plankton.";
-							array[num2++] = "A corrupt fish that was mutated from a severed piece of the Eater of Worlds itself!";
-							array[num2++] = "Capture it and bring it to me, and prove to me you're not a wuss!";
-							flag = true;
-						}
-						break;
-					case 2458:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "I love collecting those bright yellow stars that fall from the sky! I love it even more when they land on someone's head.";
-							array[num2++] = "But.. but.. nothing beats a star that falls in a foresty lake and turns into a fish!";
-							array[num2++] = "That's just totally rad, and you're just rad enough to get it for me!";
-							flag = true;
-						}
-						break;
-					case 2459:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Apparently, Demon Eyes can sometimes be amphibious. They don't fly, they swim!";
-							array[num2++] = "I want to see the look on someone's face when they find it in their bathtub!";
-							array[num2++] = "They hang around the same areas. That means you reel one in for me!";
-							flag = true;
-						}
-						break;
-					case 2460:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "I don't know what's worse, a bone fish or a bone fish with HANDS. This Fish-o-Tron deep in the caverns really freaks me out!";
-							array[num2++] = "I think it's possessed by the same evil spirits that possessed that old man by the dungeon!";
-							array[num2++] = "I double duck dare you to go catch it!";
-							flag = true;
-						}
-						break;
-					case 2461:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "I was trying to sleep by the hill lakeside when this fish swooped down at me. It was flying!";
-							array[num2++] = "It also had the face of a lady and had feathers! I think I screamed louder than she did!";
-							array[num2++] = "Hey you, go make her pay for scaring me like that!";
-							flag = true;
-						}
-						break;
-					case 2462:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "There's a piece of the Hunger that morphed from the Wall of Flesh into a small fish-like thing that swims around aimlessly in the underworld and it's gross and it's yucky and I want it now!";
-							flag = true;
-						}
-						break;
-					case 2463:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Did you know deep in the crimson, some of those creatures make this gross yellow stuff?";
-							array[num2++] = "I overheard a crazy story about a pool of it having melted together into a shape of a fish and it swims around and everything!";
-							array[num2++] = "Fetch it for me, so I can stick it in someone's toilet!";
-							flag = true;
-						}
-						break;
-					case 2464:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Oooooohhh, I'm going to be SO rich! Deep in the caverns, there is a fish made out of gemstones!";
-							array[num2++] = "Don't ask me how, I don't know, all I know is that this fish is totally awesome and you're going to catch it for me!";
-							flag = true;
-						}
-						break;
-					case 2465:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "There's some interesting critters to be found in the deeper Hallows, I tell you!";
-							array[num2++] = "They glow this crazy purple color and it messes with my eyes!";
-							array[num2++] = "It's totally wild, so I want you to catch a fish like that for me!";
-							flag = true;
-						}
-						break;
-					case 2466:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "What's white and tan and fluffy and lives in a frozen underground lake? A mutant flinxfin!";
-							array[num2++] = "I wasn't telling a joke, you know, there really is a mutated variety of Flinx that is more adapted to an aquatic lifestyle!";
-							array[num2++] = "I want it to adapt to my fishbowl, so make sure that happens!";
-							flag = true;
-						}
-						break;
-					case 2467:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "It's a whale! It's a dolphin! No, it's a penguin fish! Oh, and look, it's you!";
-							array[num2++] = "You get to bring me one! You do know they only like cold water, right?";
-							flag = true;
-						}
-						break;
-					case 2468:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "There's a really really rare type of pixie that's born with so many wings that it can't actually fly!";
-							array[num2++] = "It swims with the fishes in the lakes surrounded by that blue colored grass.";
-							array[num2++] = "My fish tank needs a lamp, so I want you to catch me that pixie!";
-							flag = true;
-						}
-						break;
-					case 2469:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "I saw a fish that had eight legs! Nope! Not happening!";
-							array[num2++] = "You're fishing it for me, so it's not alive when I hold it!";
-							array[num2++] = "That's the last time I go fishing so deep in the cavern!";
-							flag = true;
-						}
-						break;
-					case 2470:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "You ever wonder why the lakes on the surface of the snowy areas of " + Main.worldName + " never ice over? I don't.";
-							array[num2++] = "The fish, however, do! A fish made out of ice would make a great offering to the mighty and amazing " + str + "!";
-							array[num2++] = "Go, my loyal subject, and bring me this Tundra Trout with haste!";
-							flag = true;
-						}
-						break;
-					case 2471:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Unicorns and rainbows are absolutely great! They're everywhere, even in the water.";
-							array[num2++] = "No, really, I actually saw a unicorn fish in the Hallowed lake!";
-							array[num2++] = "Your job is to reel it up and let me have it as a pet!";
-							flag = true;
-						}
-						break;
-					case 2472:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Those demons in the underworld really like voodoo dolls, but I think there's a doll out there who was blasted with way too much magic!";
-							array[num2++] = "It turned into a fish and it does stuff on its own. I dare you to go down and get me one!";
-							array[num2++] = "I'd watch out for the boiling lava, because it burns you to death and that won't get me my fish!";
-							flag = true;
-						}
-						break;
-					case 2473:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "I know something youuuuu don't! Fine, I'll tell you, there's a terrifying creature that flies among the stars! I'm not making this up!";
-							array[num2++] = "It's called a Wyvern! But, but, you knew that already, right? Well what you don't know is that they are born and raised as tadpoles!";
-							array[num2++] = "So, they're actually like.. well, a frog! Hop to it and get me one!";
-							flag = true;
-						}
-						break;
-					case 2474:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "You won't believe it! I caught a fish in the forest at night that was already dead! Then it tried to eat me! I threw it away and ran!";
-							array[num2++] = "Now I want to stick it in someone's dresser to see what happens, so go fish it back up for me will ya?!";
-							flag = true;
-						}
-						break;
-					case 2475:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "I found this spectacular place draped in giant glowing mushrooms! Everything was blue! I was picking some of the mushrooms I found next to a glistening blue lake, when one of the mushrooms snapped at me and swam away! I want to give it a taste of its own medicine, and give it a good chompin'! What I mean is, you gotta get it for me!";
-							flag = true;
-						}
-						break;
-					case 2476:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Did you know there's magical islands that float up high in the sky? Bet you didn't! They say angels live in the sky, and I believe those angels have fins and gills and swim around! I believe you must catch one for me!";
-							flag = true;
-						}
-						break;
-					case 2477:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Ow! Don't get near me! I got stung by a Bloody Man-O-War! In case you're not smart enough to know what that is, it's the most menacing jellyfish in all of " + Main.worldName + "! Go to that rotten crimson and catch it if you dare! ";
-							flag = true;
-						}
-						break;
-					case 2478:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Normally I could care less if I see fishbones floating in the water underground, but this one was swimming! What, you thought that only human skeletons still flailed about in " + Main.worldName + "? Get it for me so I can stick it in someone's bed!";
-							flag = true;
-						}
-						break;
-					case 2479:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Out in the forest, I was fishing right? Well guess what! A bunny hopped up to me! Then another one hopped up, and another... suddenly I'm surrounded by bunnies! One even swam up to me from the water, but it had no legs! I fell outta my chair in surprise and all the bunnies scurried off! I want that bunny fish as a pet, so you better catch it for me! Pronto!";
-							flag = true;
-						}
-						break;
-					case 2480:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Yarr matey! Shiver me timbers! Avast, scallywags! There's a pirate captain who once had a pet fish named Cap'n Tunabeard, but during a big storm the fishbowl fell overboard! It has a hook for a tail, and an eyepatch and everything! You need to fetch me that fish, so I can be as cool as a pirate! Obviously it's out in the ocean somewhere! Duh!";
-							flag = true;
-						}
-						break;
-					case 2481:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "I saw this bright orange and colorful fish by the ocean, and it was looking around frantically as though it was seeking a lost family member! Go catch it for me, so that another one will show up looking frantically for him instead!";
-							flag = true;
-						}
-						break;
-					case 2482:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "I hear in the underworld, that the King of all demons is actually a fish! Just imagine the absolute power I would have if you caught it for me!";
-							flag = true;
-						}
-						break;
-					case 2483:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Those Derplings in the jungle are the most scary creatures I've ever seen! Good thing is, sometimes they don't have legs! These ones live in the water and are a lot less scary! Catch me one now so I can see what they taste like without being scared half to death!";
-							flag = true;
-						}
-						break;
-					case 2484:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "There's a legend of a mighty being known as the Fishron! It's part pig, part dragon, and part FISH! I hear it hangs around in the frozen subterranean lakes of the coldest part of the world! I'm not going there, so YOU go catch it and makes sure it lands in my hands! I'm so excited!";
-							flag = true;
-						}
-						break;
-					case 2485:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "A really long fish that looks like a sword's sheath swims in the murky waters of the corruption! It looks a lot like ebonstone, so don't let it fool you! That's right, you. You're catching it, not me!";
-							flag = true;
-						}
-						break;
-					case 2486:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Watch your step when wading through jungle waters! Why? No, not because I care about you being eaten by piranhas. I care because you'll step on one of my favorite kinds of fish, the Mud Fish! I also care a lot that you're going to grab me one as a pet!";
-							flag = true;
-						}
-						break;
-					case 2487:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "In the forest, the slimes are kinda gross. Slimefish are even more so! I don't want to swim with slimes, so yoink one out of the water for me!";
-							flag = true;
-						}
-						break;
-					case 2488:
-						if (gotFish)
-						{
-							array = array2;
-						}
-						else
-						{
-							array[num2++] = "Piranhas and sharks are ugly! Soooo ugly! Did you know there's a fish that looks very pretty and still can eat your face off? I would pay 2 platinum to see that happen, by the way... To the point, though, you catchy for me. Just make sure I have it before you lose your face!";
-							flag = true;
-						}
-						break;
-					}
-				}
-				string text = array[0];
-				for (int i = 1; i < array.Length; i++)
-				{
-					if (array[i] != null)
-					{
-						text = text + " " + array[i];
-					}
-				}
-				if (flag)
-				{
-					Main.npcChatCornerItem = Main.anglerQuestItemNetIDs[Main.anglerQuest];
-				}
-				return text;
 			}
-			return "";
+			if (Main.anglerQuestFinished)
+			{
+				switch (Main.rand.Next(5))
+				{
+				case 0:
+					array[0] = "I don't have anything for you to do right now.";
+					break;
+				case 1:
+					array[0] = "You have entertained me enough for today, go.";
+					break;
+				case 2:
+					array[0] = "You are done, the grand " + str + " dismisses you!";
+					break;
+				case 3:
+					array[0] = "Only one fish a day, please go away!";
+					break;
+				case 4:
+					array[0] = "I haven't even used the last fish you gave me.  I don't need another.";
+					break;
+				}
+			}
+			else
+			{
+				switch (Main.anglerQuestItemNetIDs[Main.anglerQuest])
+				{
+				case 2450:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Na na na na na na na Bat-FISH!";
+						array[num2++] = "That means go digging underground, fetch it, and bring it to me!";
+						flag = true;
+					}
+					break;
+				case 2451:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "The subterranean jungles of " + Main.worldName + " have the weirdest things!";
+						array[num2++] = "Like, there's this fish I saw that looked just like a giant bumblebee!";
+						array[num2++] = "I'm allergic to bees, so you have to catch it for me! I bet it'd taste like a tuna and honey sandwich!";
+						flag = true;
+					}
+					break;
+				case 2452:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "I finally found a jungle cat that likes water! I think it's because it's also part fish.";
+						array[num2++] = "I don't know why this happened, and I don't want to know.";
+						array[num2++] = "I just want it in my hands, and make it snappy!";
+						flag = true;
+					}
+					break;
+				case 2453:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "There's a rumor going around that there are islands that float high up in the sky, and that they have amazing treasure!";
+						array[num2++] = "Who cares about that though, what's even cooler is that sometimes lakes form in the clouds, and in those lakes are fish made out of clouds!";
+						array[num2++] = "I wanna know what it tastes like, so you better go catch it for me!";
+						flag = true;
+					}
+					break;
+				case 2454:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "There's a cursed fish swimming in the waters of the deepest corruption!";
+						array[num2++] = "It was forged of the cursed flames that spread from the fallen horrors that lurk down there.";
+						array[num2++] = "They say not even water can put out this fire, and that it can burn forever.";
+						array[num2++] = "I can think of some awesome things I can do with a fish like that! You gonna go get it for me, or are you too chicken!?";
+						flag = true;
+					}
+					break;
+				case 2455:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "I was reeling in the big one when this funny talking zombie burst out of the forest lake and started rambling on about this 'ferocious' species of fish made out of dirt!";
+						array[num2++] = "He says it could suffocate ten blokes his size, or something like that... I want it! NOW!";
+						flag = true;
+					}
+					break;
+				case 2456:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "The demolitionist was raising cane about losing a stick of dynamite in the lake out in the forest. He has like, so many, so why does one matter?";
+						array[num2++] = "Apparently, because it grew fins and started swimming away! I don't know where he gets his materials to make those things, but that one is clearly possessed!";
+						array[num2++] = "Reel it in and bring it to me, I always wanted a suicide bombing fish! Don't ask why...";
+						flag = true;
+					}
+					break;
+				case 2457:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "I bet you're not brave enough to find the Eater of Plankton.";
+						array[num2++] = "A corrupt fish that was mutated from a severed piece of the Eater of Worlds itself!";
+						array[num2++] = "Capture it and bring it to me, and prove to me you're not a wuss!";
+						flag = true;
+					}
+					break;
+				case 2458:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "I love collecting those bright yellow stars that fall from the sky! I love it even more when they land on someone's head.";
+						array[num2++] = "But.. but.. nothing beats a star that falls in a foresty lake and turns into a fish!";
+						array[num2++] = "That's just totally rad, and you're just rad enough to get it for me!";
+						flag = true;
+					}
+					break;
+				case 2459:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Apparently, Demon Eyes can sometimes be amphibious. They don't fly, they swim!";
+						array[num2++] = "I want to see the look on someone's face when they find it in their bathtub!";
+						array[num2++] = "They hang around the same areas. That means you reel one in for me!";
+						flag = true;
+					}
+					break;
+				case 2460:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "I don't know what's worse, a bone fish or a bone fish with HANDS. This Fish-o-Tron deep in the caverns really freaks me out!";
+						array[num2++] = "I think it's possessed by the same evil spirits that possessed that old man by the dungeon!";
+						array[num2++] = "I double duck dare you to go catch it!";
+						flag = true;
+					}
+					break;
+				case 2461:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "I was trying to sleep by the hill lakeside when this fish swooped down at me. It was flying!";
+						array[num2++] = "It also had the face of a lady and had feathers! I think I screamed louder than she did!";
+						array[num2++] = "Hey you, go make her pay for scaring me like that!";
+						flag = true;
+					}
+					break;
+				case 2462:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "There's a piece of the Hunger that morphed from the Wall of Flesh into a small fish-like thing that swims around aimlessly in the underworld and it's gross and it's yucky and I want it now!";
+						flag = true;
+					}
+					break;
+				case 2463:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Did you know deep in the crimson, some of those creatures make this gross yellow stuff?";
+						array[num2++] = "I overheard a crazy story about a pool of it having melted together into a shape of a fish and it swims around and everything!";
+						array[num2++] = "Fetch it for me, so I can stick it in someone's toilet!";
+						flag = true;
+					}
+					break;
+				case 2464:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Oooooohhh, I'm going to be SO rich! Deep in the caverns, there is a fish made out of gemstones!";
+						array[num2++] = "Don't ask me how, I don't know, all I know is that this fish is totally awesome and you're going to catch it for me!";
+						flag = true;
+					}
+					break;
+				case 2465:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "There's some interesting critters to be found in the deeper Hallows, I tell you!";
+						array[num2++] = "They glow this crazy purple color and it messes with my eyes!";
+						array[num2++] = "It's totally wild, so I want you to catch a fish like that for me!";
+						flag = true;
+					}
+					break;
+				case 2466:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "What's white and tan and fluffy and lives in a frozen underground lake? A mutant flinxfin!";
+						array[num2++] = "I wasn't telling a joke, you know, there really is a mutated variety of Flinx that is more adapted to an aquatic lifestyle!";
+						array[num2++] = "I want it to adapt to my fishbowl, so make sure that happens!";
+						flag = true;
+					}
+					break;
+				case 2467:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "It's a whale! It's a dolphin! No, it's a penguin fish! Oh, and look, it's you!";
+						array[num2++] = "You get to bring me one! You do know they only like cold water, right?";
+						flag = true;
+					}
+					break;
+				case 2468:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "There's a really really rare type of pixie that's born with so many wings that it can't actually fly!";
+						array[num2++] = "It swims with the fishes in the lakes surrounded by that blue colored grass.";
+						array[num2++] = "My fish tank needs a lamp, so I want you to catch me that pixie!";
+						flag = true;
+					}
+					break;
+				case 2469:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "I saw a fish that had eight legs! Nope! Not happening!";
+						array[num2++] = "You're fishing it for me, so it's not alive when I hold it!";
+						array[num2++] = "That's the last time I go fishing so deep in the cavern!";
+						flag = true;
+					}
+					break;
+				case 2470:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "You ever wonder why the lakes on the surface of the snowy areas of " + Main.worldName + " never ice over? I don't.";
+						array[num2++] = "The fish, however, do! A fish made out of ice would make a great offering to the mighty and amazing " + str + "!";
+						array[num2++] = "Go, my loyal subject, and bring me this Tundra Trout with haste!";
+						flag = true;
+					}
+					break;
+				case 2471:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Unicorns and rainbows are absolutely great! They're everywhere, even in the water.";
+						array[num2++] = "No, really, I actually saw a unicorn fish in the Hallowed lake!";
+						array[num2++] = "Your job is to reel it up and let me have it as a pet!";
+						flag = true;
+					}
+					break;
+				case 2472:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Those demons in the underworld really like voodoo dolls, but I think there's a doll out there who was blasted with way too much magic!";
+						array[num2++] = "It turned into a fish and it does stuff on its own. I dare you to go down and get me one!";
+						array[num2++] = "I'd watch out for the boiling lava, because it burns you to death and that won't get me my fish!";
+						flag = true;
+					}
+					break;
+				case 2473:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "I know something youuuuu don't! Fine, I'll tell you, there's a terrifying creature that flies among the stars! I'm not making this up!";
+						array[num2++] = "It's called a Wyvern! But, but, you knew that already, right? Well what you don't know is that they are born and raised as tadpoles!";
+						array[num2++] = "So, they're actually like.. well, a frog! Hop to it and get me one!";
+						flag = true;
+					}
+					break;
+				case 2474:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "You won't believe it! I caught a fish in the forest at night that was already dead! Then it tried to eat me! I threw it away and ran!";
+						array[num2++] = "Now I want to stick it in someone's dresser to see what happens, so go fish it back up for me will ya?!";
+						flag = true;
+					}
+					break;
+				case 2475:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "I found this spectacular place draped in giant glowing mushrooms! Everything was blue! I was picking some of the mushrooms I found next to a glistening blue lake, when one of the mushrooms snapped at me and swam away! I want to give it a taste of its own medicine, and give it a good chompin'! What I mean is, you gotta get it for me!";
+						flag = true;
+					}
+					break;
+				case 2476:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Did you know there's magical islands that float up high in the sky? Bet you didn't! They say angels live in the sky, and I believe those angels have fins and gills and swim around! I believe you must catch one for me!";
+						flag = true;
+					}
+					break;
+				case 2477:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Ow! Don't get near me! I got stung by a Bloody Man-O-War! In case you're not smart enough to know what that is, it's the most menacing jellyfish in all of " + Main.worldName + "! Go to that rotten crimson and catch it if you dare! ";
+						flag = true;
+					}
+					break;
+				case 2478:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Normally I could care less if I see fishbones floating in the water underground, but this one was swimming! What, you thought that only human skeletons still flailed about in " + Main.worldName + "? Get it for me so I can stick it in someone's bed!";
+						flag = true;
+					}
+					break;
+				case 2479:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Out in the forest, I was fishing right? Well guess what! A bunny hopped up to me! Then another one hopped up, and another... suddenly I'm surrounded by bunnies! One even swam up to me from the water, but it had no legs! I fell outta my chair in surprise and all the bunnies scurried off! I want that bunny fish as a pet, so you better catch it for me! Pronto!";
+						flag = true;
+					}
+					break;
+				case 2480:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Yarr matey! Shiver me timbers! Avast, scallywags! There's a pirate captain who once had a pet fish named Cap'n Tunabeard, but during a big storm the fishbowl fell overboard! It has a hook for a tail, and an eyepatch and everything! You need to fetch me that fish, so I can be as cool as a pirate! Obviously it's out in the ocean somewhere! Duh!";
+						flag = true;
+					}
+					break;
+				case 2481:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "I saw this bright orange and colorful fish by the ocean, and it was looking around frantically as though it was seeking a lost family member! Go catch it for me, so that another one will show up looking frantically for him instead!";
+						flag = true;
+					}
+					break;
+				case 2482:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "I hear in the underworld, that the King of all demons is actually a fish! Just imagine the absolute power I would have if you caught it for me!";
+						flag = true;
+					}
+					break;
+				case 2483:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Those Derplings in the jungle are the most scary creatures I've ever seen! Good thing is, sometimes they don't have legs! These ones live in the water and are a lot less scary! Catch me one now so I can see what they taste like without being scared half to death!";
+						flag = true;
+					}
+					break;
+				case 2484:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "There's a legend of a mighty being known as the Fishron! It's part pig, part dragon, and part FISH! I hear it hangs around in the frozen subterranean lakes of the coldest part of the world! I'm not going there, so YOU go catch it and makes sure it lands in my hands! I'm so excited!";
+						flag = true;
+					}
+					break;
+				case 2485:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "A really long fish that looks like a sword's sheath swims in the murky waters of the corruption! It looks a lot like ebonstone, so don't let it fool you! That's right, you. You're catching it, not me!";
+						flag = true;
+					}
+					break;
+				case 2486:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Watch your step when wading through jungle waters! Why? No, not because I care about you being eaten by piranhas. I care because you'll step on one of my favorite kinds of fish, the Mud Fish! I also care a lot that you're going to grab me one as a pet!";
+						flag = true;
+					}
+					break;
+				case 2487:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "In the forest, the slimes are kinda gross. Slimefish are even more so! I don't want to swim with slimes, so yoink one out of the water for me!";
+						flag = true;
+					}
+					break;
+				case 2488:
+					if (gotFish)
+					{
+						array = array2;
+					}
+					else
+					{
+						array[num2++] = "Piranhas and sharks are ugly! Soooo ugly! Did you know there's a fish that looks very pretty and still can eat your face off? I would pay 2 platinum to see that happen, by the way... To the point, though, you catchy for me. Just make sure I have it before you lose your face!";
+						flag = true;
+					}
+					break;
+				}
+			}
+			string text = array[0];
+			for (int i = 1; i < array.Length; i++)
+			{
+				if (array[i] != null)
+				{
+					text = text + " " + array[i];
+				}
+			}
+			if (flag)
+			{
+				Main.npcChatCornerItem = Main.anglerQuestItemNetIDs[Main.anglerQuest];
+			}
+			return text;
 		}
 		public static void setLang(bool english = false)
 		{
@@ -28140,7 +28170,7 @@ namespace Terraria
 				Lang.misc[33] = "Screams are echoing from the dungeon...";
 				Lang.misc[34] = "The Frost Moon is rising...";
 				Lang.misc[35] = "has departed!";
-				Lang.misc[36] = "has left!";
+				Lang.misc[36] = " has left!";
 				Lang.misc[37] = "Any";
 				Lang.misc[38] = "Pressure Plate";
 				Lang.menu[0] = "Start a new instance of Terraria to join!";
@@ -28813,6 +28843,7 @@ namespace Terraria
 				Lang.chestType[44] = "Obsidian Chest";
 				Lang.chestType[45] = "Pumpkin Chest";
 				Lang.chestType[46] = "Spooky Chest";
+				Lang.chestType[47] = "Glass Chest";
 				Lang.prefix[1] = "Large";
 				Lang.prefix[2] = "Massive";
 				Lang.prefix[3] = "Dangerous";

@@ -1067,8 +1067,12 @@ namespace Terraria
 			}
 			int num2 = (int)tile.FrontTrack();
 			int num3 = (int)tile.BackTrack();
+			if (Minecart.trackType == null)
+			{
+				return false;
+			}
 			int num4;
-			if (num2 != -1)
+			if (num2 >= 0 && num2 < Minecart.trackType.Length)
 			{
 				num4 = Minecart.trackType[num2];
 			}
@@ -1133,6 +1137,10 @@ namespace Terraria
 						if (num5 == -1)
 						{
 							if (num4 == 2)
+							{
+								return false;
+							}
+							if (num4 == 1)
 							{
 								return false;
 							}

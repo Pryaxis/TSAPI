@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Threading;
@@ -1700,6 +1701,9 @@ namespace Terraria
 
 		public static void syncJoin(int plr)
 		{
+			Stopwatch timer = new Stopwatch();
+			timer.Start();
+
 			Player player = Main.player[plr];
 			NetMessage.SendData(14, -1, plr, "", plr, (float)1, 0f, 0f, 0);
 			NetMessage.SendData(4, -1, plr, player.name, plr, 0f, 0f, 0f, 0);
@@ -1801,6 +1805,8 @@ namespace Terraria
 			}
 
 			NetMessage.SendData(74, plr, -1, Main.player[plr].name, Main.anglerQuest, 0f, 0f, 0f, 0);
+			timer.Stop();
+			Console.WriteLine("syncJoin took {0} ms.", timer.ElapsedMilliseconds);
 		}
 		public static void syncLeave(int plr)
 		{

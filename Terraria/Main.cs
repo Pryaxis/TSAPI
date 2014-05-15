@@ -12,7 +12,7 @@ namespace Terraria
 {
 	public class Main
 	{
-		public static int maxItemTypes = 2743;
+		public static int maxItemTypes = 2749;
 		public static int maxProjectileTypes = 423;
 		public static int maxNPCTypes = 378;
 		public static int maxTileSets = 340;
@@ -61,9 +61,9 @@ namespace Terraria
 		public static int maxCloudTypes = 22;
 		public static int maxHair = 123;
 		public static int maxCharSelectHair = 51;
-		public static int curRelease = 101;
-		public static string versionNumber = "v1.2.4";
-		public static string versionNumber2 = "v1.2.4";
+		public static int curRelease = 102;
+		public static string versionNumber = "v1.2.4.1";
+		public static string versionNumber2 = "v1.2.4.1";
 		public static WorldSections sectionManager;
 		public static bool ServerSideCharacter = false;
 		public static string clientUUID;
@@ -78,7 +78,7 @@ namespace Terraria
 		public static bool[] wingsLoaded = new bool[27];
 		public static bool[] goreLoaded = new bool[587];
 		public static bool[] projectileLoaded = new bool[423];
-		public static bool[] itemFlameLoaded = new bool[2743];
+		public static bool[] itemFlameLoaded = new bool[2749];
 		public static bool[] backgroundLoaded = new bool[185];
 		public static bool[] tileSetsLoaded = new bool[340];
 		public static bool[] wallLoaded = new bool[172];
@@ -144,11 +144,6 @@ namespace Terraria
 		public static float upTimer;
 		public static float upTimerMax;
 		public static float upTimerMaxDelay;
-		public static float[] drawTimer = new float[10];
-		public static float[] drawTimerMax = new float[10];
-		public static float[] drawTimerMaxDelay = new float[10];
-		public static float[] renderTimer = new float[10];
-		public static float[] lightTimer = new float[10];
 		public static bool drawDiag = false;
 		public static bool drawRelease = false;
 		public static int debugToggle = 0;
@@ -717,7 +712,7 @@ namespace Terraria
 		});
 		public static string WorldPath = Main.SavePath + Path.DirectorySeparatorChar + "Worlds";
 		public static string PlayerPath = Main.SavePath + Path.DirectorySeparatorChar + "Players";
-		public static string[] itemName = new string[2743];
+		public static string[] itemName = new string[2749];
 		public static string[] npcName = new string[378];
 		public static int invasionType = 0;
 		public static double invasionX = 0.0;
@@ -1684,6 +1679,18 @@ namespace Terraria
 					str = "-";
 				}
 				text += str;
+			}
+			string path = string.Concat(new object[]
+			{
+				Main.WorldPath,
+				Path.DirectorySeparatorChar,
+				text,
+				".wld"
+			});
+			string fullPath = Path.GetFullPath(path);
+			if (fullPath.StartsWith("\\\\.\\", StringComparison.Ordinal))
+			{
+				text += "_";
 			}
 			if (File.Exists(string.Concat(new object[]
 			{
@@ -2893,6 +2900,7 @@ namespace Terraria
 			Main.buffNoSave[60] = true;
 			Main.buffNoSave[62] = true;
 			Main.buffNoSave[63] = true;
+			Main.buffNoSave[64] = true;
 			Main.buffNoSave[67] = true;
 			Main.buffNoSave[68] = true;
 			Main.buffNoSave[69] = true;
@@ -2915,6 +2923,8 @@ namespace Terraria
 			Main.buffNoSave[119] = true;
 			Main.buffNoSave[120] = true;
 			Main.buffNoSave[90] = true;
+			Main.buffNoSave[125] = true;
+			Main.buffNoSave[126] = true;
 			Main.buffNoSave[128] = true;
 			Main.buffNoSave[129] = true;
 			Main.buffNoSave[130] = true;
@@ -4370,7 +4380,7 @@ namespace Terraria
 			{
 				Main.rain[num12] = new Rain();
 			}
-			for (int num16 = 0; num16 < 2743; num16++)
+			for (int num16 = 0; num16 < 2749; num16++)
 			{
 				Item item = new Item();
 				item.SetDefaults(num16, false);

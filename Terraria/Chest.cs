@@ -4,7 +4,7 @@ namespace Terraria
 	public class Chest
 	{
 		public const int MaxNameLength = 20;
-		public static int maxChestTypes = 47;
+		public static int maxChestTypes = 48;
 		public static int[] typeToIcon = new int[Chest.maxChestTypes];
 		public static int[] itemSpawn = new int[Chest.maxChestTypes];
 		public static int maxItems = 40;
@@ -90,6 +90,7 @@ namespace Terraria
 			Chest.typeToIcon[44] = (Chest.itemSpawn[44] = 2618);
 			Chest.typeToIcon[45] = (Chest.itemSpawn[45] = 2619);
 			Chest.typeToIcon[46] = (Chest.itemSpawn[46] = 2620);
+			Chest.typeToIcon[47] = (Chest.itemSpawn[47] = 2748);
 		}
 		public object Clone()
 		{
@@ -436,6 +437,10 @@ namespace Terraria
 				if (Main.rand.Next(array[0]) == 0)
 				{
 					num3 = 2268;
+				}
+				if (Main.rand.Next(array[0]) == 0)
+				{
+					num3 = 2281 + Main.rand.Next(3);
 				}
 				if (Main.rand.Next(array[0]) == 0)
 				{

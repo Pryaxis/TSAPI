@@ -160,7 +160,7 @@ namespace Terraria
 				}
 				if (num == -1 || num == -2 || num == -3)
 				{
-					if (this.type == 1 || this.type == 4 || this.type == 6 || this.type == 7 || this.type == 10 || this.type == 24 || this.type == 45 || this.type == 46 || this.type == 65 || this.type == 103 || this.type == 104 || this.type == 121 || this.type == 122 || this.type == 155 || this.type == 190 || this.type == 196 || this.type == 198 || this.type == 199 || this.type == 200 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 204 || this.type == 213 || this.type == 217 || this.type == 273 || this.type == 367 || this.type == 368 || this.type == 426 || this.type == 482 || this.type == 483 || this.type == 484 || this.type == 653 || this.type == 654 || this.type == 656 || this.type == 657 || this.type == 659 || this.type == 660 || this.type == 671 || this.type == 672 || this.type == 674 || this.type == 675 || this.type == 676 || this.type == 723 || this.type == 724 || this.type == 757 || this.type == 776 || this.type == 777 || this.type == 778 || this.type == 787 || this.type == 795 || this.type == 797 || this.type == 798 || this.type == 799 || this.type == 881 || this.type == 882 || this.type == 921 || this.type == 922 || this.type == 989 || this.type == 990 || this.type == 991 || this.type == 992 || this.type == 993 || this.type == 1123 || this.type == 1166 || this.type == 1185 || this.type == 1188 || this.type == 1192 || this.type == 1195 || this.type == 1199 || this.type == 1202 || this.type == 1222 || this.type == 1223 || this.type == 1224 || this.type == 1226 || this.type == 1227 || this.type == 1230 || this.type == 1233 || this.type == 1234 || this.type == 1294 || this.type == 1304 || this.type == 1305 || this.type == 1306 || this.type == 1320 || this.type == 1327 || this.type == 1506 || this.type == 1507 || this.type == 1786 || this.type == 1826 || this.type == 1827 || this.type == 1909 || this.type == 1917 || this.type == 1928 || this.type == 2176 || this.type == 2273 || this.type == 2608 || this.type == 2341 || this.type == 2330 || this.type == 2320)
+					if (this.type == 1 || this.type == 4 || this.type == 6 || this.type == 7 || this.type == 10 || this.type == 24 || this.type == 45 || this.type == 46 || this.type == 65 || this.type == 103 || this.type == 104 || this.type == 121 || this.type == 122 || this.type == 155 || this.type == 190 || this.type == 196 || this.type == 198 || this.type == 199 || this.type == 200 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 204 || this.type == 213 || this.type == 217 || this.type == 273 || this.type == 367 || this.type == 368 || this.type == 426 || this.type == 482 || this.type == 483 || this.type == 484 || this.type == 653 || this.type == 654 || this.type == 656 || this.type == 657 || this.type == 659 || this.type == 660 || this.type == 671 || this.type == 672 || this.type == 674 || this.type == 675 || this.type == 676 || this.type == 723 || this.type == 724 || this.type == 757 || this.type == 776 || this.type == 777 || this.type == 778 || this.type == 787 || this.type == 795 || this.type == 797 || this.type == 798 || this.type == 799 || this.type == 881 || this.type == 882 || this.type == 921 || this.type == 922 || this.type == 989 || this.type == 990 || this.type == 991 || this.type == 992 || this.type == 993 || this.type == 1123 || this.type == 1166 || this.type == 1185 || this.type == 1188 || this.type == 1192 || this.type == 1195 || this.type == 1199 || this.type == 1202 || this.type == 1222 || this.type == 1223 || this.type == 1224 || this.type == 1226 || this.type == 1227 || this.type == 1230 || this.type == 1233 || this.type == 1234 || this.type == 1294 || this.type == 1304 || this.type == 1305 || this.type == 1306 || this.type == 1320 || this.type == 1327 || this.type == 1506 || this.type == 1507 || this.type == 1786 || this.type == 1826 || this.type == 1827 || this.type == 1909 || this.type == 1917 || this.type == 1928 || this.type == 2176 || this.type == 2273 || this.type == 2608 || this.type == 2341 || this.type == 2330 || this.type == 2320 || this.type == 2516 || this.type == 2517 || this.type == 2746 || this.type == 2745)
 					{
 						int num9 = Main.rand.Next(40);
 						if (num9 == 0)
@@ -384,7 +384,7 @@ namespace Terraria
 							num = 61;
 						}
 					}
-					else if (this.type == 39 || this.type == 44 || this.type == 95 || this.type == 96 || this.type == 98 || this.type == 99 || this.type == 120 || this.type == 164 || this.type == 197 || this.type == 219 || this.type == 266 || this.type == 281 || this.type == 434 || this.type == 435 || this.type == 436 || this.type == 481 || this.type == 506 || this.type == 533 || this.type == 534 || this.type == 578 || this.type == 655 || this.type == 658 || this.type == 661 || this.type == 679 || this.type == 682 || this.type == 725 || this.type == 758 || this.type == 759 || this.type == 760 || this.type == 796 || this.type == 800 || this.type == 905 || this.type == 923 || this.type == 964 || this.type == 986 || this.type == 1156 || this.type == 1187 || this.type == 1194 || this.type == 1201 || this.type == 1229 || this.type == 1254 || this.type == 1255 || this.type == 1258 || this.type == 1265 || this.type == 1319 || this.type == 1553 || this.type == 1782 || this.type == 1784 || this.type == 1835 || this.type == 1870 || this.type == 1910 || this.type == 1929 || this.type == 1946 || this.type == 2223 || this.type == 2269 || this.type == 2270 || this.type == 2624)
+					else if (this.type == 39 || this.type == 44 || this.type == 95 || this.type == 96 || this.type == 98 || this.type == 99 || this.type == 120 || this.type == 164 || this.type == 197 || this.type == 219 || this.type == 266 || this.type == 281 || this.type == 434 || this.type == 435 || this.type == 436 || this.type == 481 || this.type == 506 || this.type == 533 || this.type == 534 || this.type == 578 || this.type == 655 || this.type == 658 || this.type == 661 || this.type == 679 || this.type == 682 || this.type == 725 || this.type == 758 || this.type == 759 || this.type == 760 || this.type == 796 || this.type == 800 || this.type == 905 || this.type == 923 || this.type == 964 || this.type == 986 || this.type == 1156 || this.type == 1187 || this.type == 1194 || this.type == 1201 || this.type == 1229 || this.type == 1254 || this.type == 1255 || this.type == 1258 || this.type == 1265 || this.type == 1319 || this.type == 1553 || this.type == 1782 || this.type == 1784 || this.type == 1835 || this.type == 1870 || this.type == 1910 || this.type == 1929 || this.type == 1946 || this.type == 2223 || this.type == 2269 || this.type == 2270 || this.type == 2624 || this.type == 2515 || this.type == 2747)
 					{
 						int num11 = Main.rand.Next(36);
 						if (num11 == 0)
@@ -3463,7 +3463,7 @@ namespace Terraria
 			}
 			else if (ItemName != "")
 			{
-				for (int i = 0; i < 2743; i++)
+				for (int i = 0; i < 2749; i++)
 				{
 					if (Main.itemName[i] == ItemName)
 					{
@@ -5288,6 +5288,7 @@ namespace Terraria
 				this.autoReuse = true;
 				this.consumable = true;
 				this.createTile = 330;
+				this.noMelee = true;
 			}
 			else if (type == 72)
 			{
@@ -5309,6 +5310,7 @@ namespace Terraria
 				this.autoReuse = true;
 				this.consumable = true;
 				this.createTile = 331;
+				this.noMelee = true;
 			}
 			else if (type == 73)
 			{
@@ -5330,6 +5332,7 @@ namespace Terraria
 				this.autoReuse = true;
 				this.consumable = true;
 				this.createTile = 332;
+				this.noMelee = true;
 			}
 			else if (type == 74)
 			{
@@ -5351,6 +5354,7 @@ namespace Terraria
 				this.autoReuse = true;
 				this.consumable = true;
 				this.createTile = 333;
+				this.noMelee = true;
 			}
 			else if (type == 75)
 			{
@@ -21533,6 +21537,7 @@ namespace Terraria
 			}
 			if (type == 1157)
 			{
+				this.mana = 10;
 				this.damage = 34;
 				this.useStyle = 1;
 				this.name = "Pygmy Staff";
@@ -33414,6 +33419,7 @@ namespace Terraria
 									this.useStyle = 1;
 									this.useAnimation = 15;
 									this.useTime = 7;
+									this.useTurn = true;
 									this.autoReuse = true;
 									this.width = 16;
 									this.height = 16;
@@ -33814,6 +33820,7 @@ namespace Terraria
 								}
 								if (type == 2364)
 								{
+									this.mana = 10;
 									this.damage = 9;
 									this.useStyle = 1;
 									this.name = "Hornet Staff";
@@ -33835,6 +33842,7 @@ namespace Terraria
 								}
 								if (type == 2365)
 								{
+									this.mana = 10;
 									this.damage = 21;
 									this.useStyle = 1;
 									this.name = "Imp Staff";
@@ -34174,6 +34182,11 @@ namespace Terraria
 									this.createWall = 146 + type - 2432;
 									this.width = 12;
 									this.height = 12;
+									if (type == 2434)
+									{
+										this.value = Item.buyPrice(0, 0, 0, 50);
+										return;
+									}
 									return;
 								}
 								if (type == 2435)
@@ -34884,6 +34897,7 @@ namespace Terraria
 								}
 								if (type == 2535)
 								{
+									this.mana = 10;
 									this.damage = 30;
 									this.useStyle = 1;
 									this.name = "Optic Staff";
@@ -35227,6 +35241,7 @@ namespace Terraria
 								}
 								if (type == 2551)
 								{
+									this.mana = 10;
 									this.damage = 25;
 									this.useStyle = 1;
 									this.name = "Spider Staff";
@@ -35784,6 +35799,7 @@ namespace Terraria
 								}
 								if (type == 2584)
 								{
+									this.mana = 10;
 									this.damage = 32;
 									this.useStyle = 1;
 									this.name = "Pirate Staff";
@@ -36000,7 +36016,7 @@ namespace Terraria
 									this.shootSpeed = 14f;
 									this.useSound = 1;
 									this.rare = 8;
-									this.value = 1000;
+									this.value = Item.sellPrice(0, 5, 0, 0);
 									this.melee = true;
 									this.noUseGraphic = true;
 									return;
@@ -36031,6 +36047,7 @@ namespace Terraria
 								}
 								if (type == 2621)
 								{
+									this.mana = 10;
 									this.damage = 50;
 									this.useStyle = 1;
 									this.name = "Tempest Staff";
@@ -36064,7 +36081,7 @@ namespace Terraria
 									this.damage = 60;
 									this.shootSpeed = 10f;
 									this.noMelee = true;
-									this.value = 60000;
+									this.value = this.value = Item.sellPrice(0, 5, 0, 0);
 									this.ranged = true;
 									this.rare = 8;
 									this.knockBack = 2f;
@@ -36089,7 +36106,7 @@ namespace Terraria
 									this.knockBack = 5f;
 									this.scale = 0.9f;
 									this.toolTip = "Casts a typhoon";
-									this.value = 10000;
+									this.value = this.value = Item.sellPrice(0, 5, 0, 0);
 									this.magic = true;
 									return;
 								}
@@ -36686,6 +36703,7 @@ namespace Terraria
 											this.useStyle = 1;
 											this.useAnimation = 15;
 											this.useTime = 7;
+											this.useTurn = true;
 											this.autoReuse = true;
 											this.width = 16;
 											this.height = 16;
@@ -36747,6 +36765,109 @@ namespace Terraria
 											this.rare = 4;
 											this.value = 100000;
 											this.accessory = true;
+										}
+										if (type == 2743)
+										{
+											this.name = "Cactus Table";
+											this.useStyle = 1;
+											this.useTurn = true;
+											this.useAnimation = 15;
+											this.useTime = 10;
+											this.autoReuse = true;
+											this.maxStack = 99;
+											this.consumable = true;
+											this.createTile = 14;
+											this.placeStyle = 30;
+											this.width = 26;
+											this.height = 20;
+											this.value = 300;
+											return;
+										}
+										if (type == 2744)
+										{
+											this.name = "Cactus Platform";
+											this.useStyle = 1;
+											this.useTurn = true;
+											this.useAnimation = 15;
+											this.useTime = 10;
+											this.autoReuse = true;
+											this.maxStack = 99;
+											this.consumable = true;
+											this.createTile = 19;
+											this.placeStyle = 25;
+											this.width = 8;
+											this.height = 10;
+											return;
+										}
+										if (type == 2745)
+										{
+											this.name = "Boreal Wood Sword";
+											this.useStyle = 1;
+											this.useTurn = false;
+											this.useAnimation = 23;
+											this.useTime = 23;
+											this.width = 24;
+											this.height = 28;
+											this.damage = 8;
+											this.knockBack = 5f;
+											this.useSound = 1;
+											this.scale = 1f;
+											this.value = 100;
+											this.melee = true;
+											return;
+										}
+										if (type == 2746)
+										{
+											this.name = "Boreal Wood Hammer";
+											this.autoReuse = true;
+											this.useStyle = 1;
+											this.useTurn = true;
+											this.useAnimation = 33;
+											this.useTime = 23;
+											this.hammer = 35;
+											this.width = 24;
+											this.height = 28;
+											this.damage = 4;
+											this.knockBack = 5.5f;
+											this.scale = 1.1f;
+											this.useSound = 1;
+											this.value = 50;
+											this.melee = true;
+											return;
+										}
+										if (type == 2747)
+										{
+											this.name = "Boreal Wood Bow";
+											this.useStyle = 5;
+											this.useAnimation = 29;
+											this.useTime = 29;
+											this.width = 12;
+											this.height = 28;
+											this.shoot = 1;
+											this.useAmmo = 1;
+											this.useSound = 5;
+											this.damage = 6;
+											this.shootSpeed = 6.6f;
+											this.noMelee = true;
+											this.value = 100;
+											this.ranged = true;
+											return;
+										}
+										if (type == 2748)
+										{
+											this.name = "Glass Chest";
+											this.useStyle = 1;
+											this.useTurn = true;
+											this.useAnimation = 15;
+											this.useTime = 10;
+											this.autoReuse = true;
+											this.maxStack = 99;
+											this.consumable = true;
+											this.createTile = 21;
+											this.placeStyle = 47;
+											this.width = 26;
+											this.height = 22;
+											this.value = 500;
 										}
 									}
 								}
@@ -36856,7 +36977,7 @@ namespace Terraria
 			this.faceSlot = -1;
 			this.balloonSlot = -1;
 			this.uniqueStack = false;
-			if (this.type >= 2743)
+			if (this.type >= 2749)
 			{
 				this.type = 0;
 			}
@@ -37353,7 +37474,7 @@ namespace Terraria
 								NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0);
 							}
 						}
-						else if (this.owner == Main.myPlayer && this.type != 312 && this.type != 318 && this.type != 173 && this.type != 174 && this.type != 175 && this.rare == 0)
+						else if (this.owner == Main.myPlayer && this.type != 312 && this.type != 318 && this.type != 173 && this.type != 174 && this.type != 175 && this.type != 2701 && this.rare == 0)
 						{
 							this.active = false;
 							this.type = 0;

@@ -10202,7 +10202,7 @@ namespace Terraria
 			{
 				return;
 			}
-			if (Main.tile[i, num].nactive() && !Main.tile[i, num].halfBrick() && Main.tile[i, num].slope() == 0 && (((Main.tile[i, num].type == 2 || Main.tile[i, num].type == 23 || Main.tile[i, num].type == 60 || Main.tile[i, num].type == 109 || Main.tile[i, num].type == 147 || Main.tile[i, num].type == 199 || Main.tile[i, num].type == 70) && Main.tile[i, num - 1].wall == 0) || Main.tile[i, num - 1].wall == 106 || Main.tile[i, num - 1].wall == 107) && ((Main.tile[i - 1, num].active() && (Main.tile[i - 1, num].type == 2 || Main.tile[i - 1, num].type == 23 || Main.tile[i - 1, num].type == 60 || Main.tile[i - 1, num].type == 109 || Main.tile[i - 1, num].type == 147 || Main.tile[i - 1, num].type == 199 || Main.tile[i - 1, num].type == 70)) || (Main.tile[i + 1, num].active() && (Main.tile[i + 1, num].type == 2 || Main.tile[i + 1, num].type == 23 || Main.tile[i + 1, num].type == 60 || Main.tile[i + 1, num].type == 109 || Main.tile[i + 1, num].type == 147 || Main.tile[i + 1, num].type == 199 || Main.tile[i + 1, num].type == 70))))
+			if (Main.tile[i, num].nactive() && !Main.tile[i, num].halfBrick() && Main.tile[i, num].slope() == 0 && (Main.tile[i, num].type == 2 || Main.tile[i, num].type == 23 || Main.tile[i, num].type == 60 || Main.tile[i, num].type == 109 || Main.tile[i, num].type == 147 || Main.tile[i, num].type == 199 || Main.tile[i, num].type == 70) && (Main.tile[i, num - 1].wall == 0 || Main.tile[i, num - 1].wall == 106 || Main.tile[i, num - 1].wall == 107 || (Main.tile[i, num - 1].wall >= 138 && Main.tile[i, num - 1].wall <= 141) || Main.tile[i, num - 1].wall == 145 || Main.tile[i, num - 1].wall == 150 || Main.tile[i, num - 1].wall == 152) && ((Main.tile[i - 1, num].active() && (Main.tile[i - 1, num].type == 2 || Main.tile[i - 1, num].type == 23 || Main.tile[i - 1, num].type == 60 || Main.tile[i - 1, num].type == 109 || Main.tile[i - 1, num].type == 147 || Main.tile[i - 1, num].type == 199 || Main.tile[i - 1, num].type == 70)) || (Main.tile[i + 1, num].active() && (Main.tile[i + 1, num].type == 2 || Main.tile[i + 1, num].type == 23 || Main.tile[i + 1, num].type == 60 || Main.tile[i + 1, num].type == 109 || Main.tile[i + 1, num].type == 147 || Main.tile[i + 1, num].type == 199 || Main.tile[i + 1, num].type == 70))))
 			{
 				int num2 = 2;
 				int num3 = 16;
@@ -20829,7 +20829,7 @@ namespace Terraria
 						return;
 					}
 				}
-				else if (Main.tile[x, y].type > 82 && Main.tile[x, y].frameX == 36)
+				else if (Main.tile[x, y].frameX == 36)
 				{
 					if (Main.tile[x, y].type == 83)
 					{
@@ -20902,7 +20902,7 @@ namespace Terraria
 				{
 					WorldGen.PlaceAlch(num, num2 - 1, 5);
 				}
-				if (Main.tile[num, num2].type == 147)
+				if (Main.tile[num, num2].type == 147 || Main.tile[num, num2].type == 163 || Main.tile[num, num2].type == 164 || Main.tile[num, num2].type == 161 || Main.tile[num, num2].type == 200)
 				{
 					WorldGen.PlaceAlch(num, num2 - 1, 6);
 				}
@@ -23341,6 +23341,10 @@ namespace Terraria
 					if (num2 == 29)
 					{
 						type2 = 2583;
+					}
+					if (num2 == 30)
+					{
+						type2 = 2743;
 					}
 					Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false);
 				}
@@ -29769,7 +29773,7 @@ namespace Terraria
 						{
 							Main.PlaySound(21, i * 16, j * 16, 1);
 						}
-						else if (tile.type == 231)
+						else if (tile.type == 231 || tile.type == 195)
 						{
 							Main.PlaySound(4, i * 16, j * 16, 1);
 						}
@@ -29882,14 +29886,15 @@ namespace Terraria
 							{
 								num10 -= 10000;
 							}
-							Item item = new Item();
-							item.netDefaults(num9);
-							item.Prefix(num10);
 							if (Main.netMode != 1)
 							{
-								int num11 = Item.NewItem(i * 16, j * 16, 16, 16, num9, 1, false, 0, false);
+								Item item = new Item();
+								item.netDefaults(num9);
+								item.Prefix(num10);
+								int num11 = Item.NewItem(i * 16, j * 16, 16, 16, num9, 1, true, 0, false);
 								item.position = Main.item[num11].position;
 								Main.item[num11] = item;
+								NetMessage.SendData(21, -1, -1, "", num11, 0f, 0f, 0f, 0);
 							}
 							n = (int)Main.tile[num6, j].frameX;
 							int num12 = 0;
@@ -32504,6 +32509,10 @@ namespace Terraria
 							else if (num56 == 24)
 							{
 								num43 = 2630;
+							}
+							else if (num56 == 25)
+							{
+								num43 = 2744;
 							}
 						}
 						else if (tile.type == 22)

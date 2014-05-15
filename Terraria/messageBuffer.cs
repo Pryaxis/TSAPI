@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using TerrariaApi.Server;
 using System.Diagnostics;
+using System.Threading.Tasks;
 namespace Terraria
 {
 	public class MessageBuffer
@@ -28,10 +29,18 @@ namespace Terraria
 			binaryWriter = new BinaryWriter(new MemoryStream(writeBuffer));
 		}
 
+		~MessageBuffer()
+		{
+			binaryReader.Dispose();
+			binaryWriter.Dispose();
+		}
+
 		public void Reset()
 		{
 			this.readBuffer = new byte[65535];
 			this.writeBuffer = new byte[65535];
+			binaryReader.Dispose();
+			binaryWriter.Dispose();
 			binaryReader = new BinaryReader(new MemoryStream(readBuffer));
 			binaryWriter = new BinaryWriter(new MemoryStream(writeBuffer));
 
@@ -546,17 +555,11 @@ namespace Terraria
 				}
 				if (Netplay.serverSock[this.whoAmI].state == 3)
 				{
-					Stopwatch timer = new Stopwatch();
-					timer.Start();
-
 					Netplay.serverSock[this.whoAmI].state = 10;
 					NetMessage.greetPlayer(this.whoAmI);
 					NetMessage.buffer[this.whoAmI].broadcast = true;
-					NetMessage.syncJoin(this.whoAmI);
+					Task.Factory.StartNew(() => NetMessage.syncJoin(this.whoAmI));
 					NetMessage.SendData(12, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0);
-
-					timer.Stop();
-					Console.WriteLine("syncJoin took {0} ms.", timer.ElapsedMilliseconds);
 					return;
 				}
 				NetMessage.SendData(12, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0);

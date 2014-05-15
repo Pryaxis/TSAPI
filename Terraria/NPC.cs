@@ -219,7 +219,7 @@ namespace Terraria
 						case 19:
 							return "Finn";
 						case 20:
-							return "Isacc";
+							return "Isaac";
 						case 21:
 							return "Joseph";
 						default:
@@ -8627,6 +8627,7 @@ namespace Terraria
 				this.value = 10000f;
 				this.boss = true;
 				this.netAlways = true;
+				this.timeLeft = NPC.activeTime * 30;
 				this.buffImmune[20] = true;
 				this.buffImmune[24] = true;
 				this.buffImmune[31] = true;
@@ -8886,9 +8887,14 @@ namespace Terraria
 							if (this.velocity.X < -0.2f)
 							{
 								this.velocity.X = this.velocity.X * 0.95f;
-								return;
 							}
 						}
+					}
+					this.velocity.X = this.velocity.X * 0.93f;
+					if ((double)this.velocity.X > -0.1 && (double)this.velocity.X < 0.1)
+					{
+						this.velocity.X = 0f;
+						return;
 					}
 				}
 				else
@@ -13715,50 +13721,53 @@ namespace Terraria
 					{
 						if (this.type >= 281 && this.type <= 286)
 						{
-							float num245 = 6f;
-							if (this.type == 285 || this.type == 286)
+							if (Main.netMode != 1)
 							{
-								num245 = 8f;
+								float num245 = 6f;
+								if (this.type == 285 || this.type == 286)
+								{
+									num245 = 8f;
+								}
+								if (this.type == 281 || this.type == 282)
+								{
+									num245 = 4f;
+								}
+								Vector2 vector22 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y);
+								float num246 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector22.X;
+								float num247 = Main.player[this.target].position.Y + (float)Main.player[this.target].height * 0.5f - vector22.Y;
+								if (this.type == 283 || this.type == 284)
+								{
+									num246 += (float)Main.rand.Next(-30, 31);
+									num247 += (float)Main.rand.Next(-30, 31);
+									num246 -= Main.player[this.target].velocity.X * 10f;
+									num247 -= Main.player[this.target].velocity.Y * 10f;
+								}
+								float num248 = (float)Math.Sqrt((double)(num246 * num246 + num247 * num247));
+								num248 = num245 / num248;
+								num246 *= num248;
+								num247 *= num248;
+								int num249 = 30;
+								int num250 = 290;
+								if (this.type == 285 || this.type == 286)
+								{
+									num250 = 291;
+									num249 = 40;
+								}
+								if (this.type == 281 || this.type == 282)
+								{
+									num250 = 293;
+									num249 = 40;
+								}
+								int num251 = Projectile.NewProjectile(vector22.X, vector22.Y, num246, num247, num250, num249, 0f, Main.myPlayer, 0f, 0f);
+								Main.projectile[num251].timeLeft = 300;
+								if (num250 == 291)
+								{
+									Main.projectile[num251].ai[0] = Main.player[this.target].center().X;
+									Main.projectile[num251].ai[1] = Main.player[this.target].center().Y;
+									Main.projectile[num251].netUpdate = true;
+								}
+								this.localAI[0] = 0f;
 							}
-							if (this.type == 281 || this.type == 282)
-							{
-								num245 = 4f;
-							}
-							Vector2 vector22 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y);
-							float num246 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector22.X;
-							float num247 = Main.player[this.target].position.Y + (float)Main.player[this.target].height * 0.5f - vector22.Y;
-							if (this.type == 283 || this.type == 284)
-							{
-								num246 += (float)Main.rand.Next(-30, 31);
-								num247 += (float)Main.rand.Next(-30, 31);
-								num246 -= Main.player[this.target].velocity.X * 10f;
-								num247 -= Main.player[this.target].velocity.Y * 10f;
-							}
-							float num248 = (float)Math.Sqrt((double)(num246 * num246 + num247 * num247));
-							num248 = num245 / num248;
-							num246 *= num248;
-							num247 *= num248;
-							int num249 = 30;
-							int num250 = 290;
-							if (this.type == 285 || this.type == 286)
-							{
-								num250 = 291;
-								num249 = 40;
-							}
-							if (this.type == 281 || this.type == 282)
-							{
-								num250 = 293;
-								num249 = 40;
-							}
-							int num251 = Projectile.NewProjectile(vector22.X, vector22.Y, num246, num247, num250, num249, 0f, Main.myPlayer, 0f, 0f);
-							Main.projectile[num251].timeLeft = 300;
-							if (num250 == 291)
-							{
-								Main.projectile[num251].ai[0] = Main.player[this.target].center().X;
-								Main.projectile[num251].ai[1] = Main.player[this.target].center().Y;
-								Main.projectile[num251].netUpdate = true;
-							}
-							this.localAI[0] = 0f;
 						}
 						else
 						{
@@ -31419,7 +31428,7 @@ namespace Terraria
 								}
 							}
 						}
-						else if (!flag5 && !NPC.savedAngler && !NPC.AnyNPCs(376) && (num < 340 || num > Main.maxTilesX - 340) && num30 == 53 && (double)num2 < Main.worldSurface)
+						else if (!flag5 && !NPC.savedAngler && !NPC.AnyNPCs(376) && (num < 340 || num > Main.maxTilesX - 340) && Main.tileSand[num30] && (double)num2 < Main.worldSurface)
 						{
 							NPC.NewNPC(num * 16 + 8, num2 * 16, 376, 0);
 						}
@@ -33800,222 +33809,198 @@ namespace Terraria
 			}
 			else
 			{
-				if (Type == 370)
+				if (Type != 370)
 				{
-					for (int m = 0; m < 255; m++)
+					bool flag = false;
+					int num8 = 0;
+					int num9 = 0;
+					int num10 = (int)(Main.player[plr].position.X / 16f) - NPC.spawnRangeX * 2;
+					int num11 = (int)(Main.player[plr].position.X / 16f) + NPC.spawnRangeX * 2;
+					int num12 = (int)(Main.player[plr].position.Y / 16f) - NPC.spawnRangeY * 2;
+					int num13 = (int)(Main.player[plr].position.Y / 16f) + NPC.spawnRangeY * 2;
+					int num14 = (int)(Main.player[plr].position.X / 16f) - NPC.safeRangeX;
+					int num15 = (int)(Main.player[plr].position.X / 16f) + NPC.safeRangeX;
+					int num16 = (int)(Main.player[plr].position.Y / 16f) - NPC.safeRangeY;
+					int num17 = (int)(Main.player[plr].position.Y / 16f) + NPC.safeRangeY;
+					if (num10 < 0)
 					{
-						Player player = Main.player[m];
-						if (player.active && !player.dead)
+						num10 = 0;
+					}
+					if (num11 > Main.maxTilesX)
+					{
+						num11 = Main.maxTilesX;
+					}
+					if (num12 < 0)
+					{
+						num12 = 0;
+					}
+					if (num13 > Main.maxTilesY)
+					{
+						num13 = Main.maxTilesY;
+					}
+					for (int m = 0; m < 1000; m++)
+					{
+						int n = 0;
+						while (n < 100)
 						{
-							int n = 0;
-							while (n < 50)
+							int num18 = Main.rand.Next(num10, num11);
+							int num19 = Main.rand.Next(num12, num13);
+							if (Main.tile[num18, num19].nactive() && Main.tileSolid[(int)Main.tile[num18, num19].type])
 							{
-								if (player.inventory[n].bait > 0)
+								goto IL_62B;
+							}
+							if (!Main.wallHouse[(int)Main.tile[num18, num19].wall] || m >= 999)
+							{
+								int num20 = num19;
+								while (num20 < Main.maxTilesY)
 								{
-									if (player.inventory[n].type == 2673)
+									if (Main.tile[num18, num20].nactive() && Main.tileSolid[(int)Main.tile[num18, num20].type])
 									{
-										int num8 = 0;
-										while (num8 < 1000)
+										if (num18 < num14 || num18 > num15 || num20 < num16 || num20 > num17 || m == 999)
 										{
-											Projectile projectile = Main.projectile[num8];
-											if (projectile.active && projectile.bobber && projectile.owner == m)
+											ushort arg_54D_0 = Main.tile[num18, num20].type;
+											num8 = num18;
+											num9 = num20;
+											flag = true;
+											break;
+										}
+										break;
+									}
+									else
+									{
+										num20++;
+									}
+								}
+								if (!flag || m >= 999)
+								{
+									goto IL_62B;
+								}
+								int num21 = num8 - NPC.spawnSpaceX / 2;
+								int num22 = num8 + NPC.spawnSpaceX / 2;
+								int num23 = num9 - NPC.spawnSpaceY;
+								int num24 = num9;
+								if (num21 < 0)
+								{
+									flag = false;
+								}
+								if (num22 > Main.maxTilesX)
+								{
+									flag = false;
+								}
+								if (num23 < 0)
+								{
+									flag = false;
+								}
+								if (num24 > Main.maxTilesY)
+								{
+									flag = false;
+								}
+								if (flag)
+								{
+									for (int num25 = num21; num25 < num22; num25++)
+									{
+										for (int num26 = num23; num26 < num24; num26++)
+										{
+											if (Main.tile[num25, num26].nactive() && Main.tileSolid[(int)Main.tile[num25, num26].type])
 											{
-												int num9 = NPC.NewNPC((int)projectile.center().X, (int)projectile.center().Y + 100, 370, 0);
-												string str2 = Main.npc[num9].name;
-												if (Main.netMode == 0)
-												{
-													Main.NewText(str2 + " " + Lang.misc[16], 175, 75, 255, false);
-													return;
-												}
-												if (Main.netMode == 2)
-												{
-													NetMessage.SendData(25, -1, -1, str2 + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0);
-													return;
-												}
+												flag = false;
 												break;
 											}
-											else
-											{
-												num8++;
-											}
 										}
-										return;
 									}
-									break;
+									goto IL_62B;
 								}
-								else
+								goto IL_62B;
+							}
+							IL_633:
+							n++;
+							continue;
+							IL_62B:
+							if (!flag && !flag)
+							{
+								goto IL_633;
+							}
+							break;
+						}
+						if (flag && m < 999)
+						{
+							Rectangle rectangle = new Rectangle(num8 * 16, num9 * 16, 16, 16);
+							for (int num27 = 0; num27 < 255; num27++)
+							{
+								if (Main.player[num27].active)
 								{
-									n++;
+									Rectangle rectangle2 = new Rectangle((int)(Main.player[num27].position.X + (float)(Main.player[num27].width / 2) - (float)(NPC.sWidth / 2) - (float)NPC.safeRangeX), (int)(Main.player[num27].position.Y + (float)(Main.player[num27].height / 2) - (float)(NPC.sHeight / 2) - (float)NPC.safeRangeY), NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+									if (rectangle.Intersects(rectangle2))
+									{
+										flag = false;
+									}
 								}
+							}
+						}
+						if (flag)
+						{
+							break;
+						}
+					}
+					if (flag)
+					{
+						int num28 = NPC.NewNPC(num8 * 16 + 8, num9 * 16, Type, 1);
+						if (num28 == 200)
+						{
+							return;
+						}
+						Main.npc[num28].target = plr;
+						Main.npc[num28].timeLeft *= 20;
+						string str2 = Main.npc[num28].name;
+						if (Main.npc[num28].displayName != "")
+						{
+							str2 = Main.npc[num28].displayName;
+						}
+						if (Main.netMode == 2 && num28 < 200)
+						{
+							NetMessage.SendData(23, -1, -1, "", num28, 0f, 0f, 0f, 0);
+						}
+						if (Type == 125)
+						{
+							if (Main.netMode == 0)
+							{
+								Main.NewText("The Twins " + Lang.misc[16], 175, 75, 255, false);
+								return;
+							}
+							if (Main.netMode == 2)
+							{
+								NetMessage.SendData(25, -1, -1, "The Twins " + Lang.misc[16], 255, 175f, 75f, 255f, 0);
+								return;
+							}
+						}
+						else if (Type != 82 && Type != 126 && Type != 50)
+						{
+							if (Main.netMode == 0)
+							{
+								Main.NewText(str2 + " " + Lang.misc[16], 175, 75, 255, false);
+								return;
+							}
+							if (Main.netMode == 2)
+							{
+								NetMessage.SendData(25, -1, -1, str2 + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0);
 							}
 						}
 					}
 					return;
 				}
-				bool flag = false;
-				int num10 = 0;
-				int num11 = 0;
-				int num12 = (int)(Main.player[plr].position.X / 16f) - NPC.spawnRangeX * 2;
-				int num13 = (int)(Main.player[plr].position.X / 16f) + NPC.spawnRangeX * 2;
-				int num14 = (int)(Main.player[plr].position.Y / 16f) - NPC.spawnRangeY * 2;
-				int num15 = (int)(Main.player[plr].position.Y / 16f) + NPC.spawnRangeY * 2;
-				int num16 = (int)(Main.player[plr].position.X / 16f) - NPC.safeRangeX;
-				int num17 = (int)(Main.player[plr].position.X / 16f) + NPC.safeRangeX;
-				int num18 = (int)(Main.player[plr].position.Y / 16f) - NPC.safeRangeY;
-				int num19 = (int)(Main.player[plr].position.Y / 16f) + NPC.safeRangeY;
-				if (num12 < 0)
+				Player player = Main.player[plr];
+				if (!player.active || player.dead)
 				{
-					num12 = 0;
+					return;
 				}
-				if (num13 > Main.maxTilesX)
+				int num29 = 0;
+				while (num29 < 1000)
 				{
-					num13 = Main.maxTilesX;
-				}
-				if (num14 < 0)
-				{
-					num14 = 0;
-				}
-				if (num15 > Main.maxTilesY)
-				{
-					num15 = Main.maxTilesY;
-				}
-				for (int num20 = 0; num20 < 1000; num20++)
-				{
-					int num21 = 0;
-					while (num21 < 100)
+					Projectile projectile = Main.projectile[num29];
+					if (projectile.active && projectile.bobber && projectile.owner == plr)
 					{
-						int num22 = Main.rand.Next(num12, num13);
-						int num23 = Main.rand.Next(num14, num15);
-						if (Main.tile[num22, num23].nactive() && Main.tileSolid[(int)Main.tile[num22, num23].type])
-						{
-							goto IL_692;
-						}
-						if (!Main.wallHouse[(int)Main.tile[num22, num23].wall] || num20 >= 999)
-						{
-							int num24 = num23;
-							while (num24 < Main.maxTilesY)
-							{
-								if (Main.tile[num22, num24].nactive() && Main.tileSolid[(int)Main.tile[num22, num24].type])
-								{
-									if (num22 < num16 || num22 > num17 || num24 < num18 || num24 > num19 || num20 == 999)
-									{
-										ushort arg_5B4_0 = Main.tile[num22, num24].type;
-										num10 = num22;
-										num11 = num24;
-										flag = true;
-										break;
-									}
-									break;
-								}
-								else
-								{
-									num24++;
-								}
-							}
-							if (!flag || num20 >= 999)
-							{
-								goto IL_692;
-							}
-							int num25 = num10 - NPC.spawnSpaceX / 2;
-							int num26 = num10 + NPC.spawnSpaceX / 2;
-							int num27 = num11 - NPC.spawnSpaceY;
-							int num28 = num11;
-							if (num25 < 0)
-							{
-								flag = false;
-							}
-							if (num26 > Main.maxTilesX)
-							{
-								flag = false;
-							}
-							if (num27 < 0)
-							{
-								flag = false;
-							}
-							if (num28 > Main.maxTilesY)
-							{
-								flag = false;
-							}
-							if (flag)
-							{
-								for (int num29 = num25; num29 < num26; num29++)
-								{
-									for (int num30 = num27; num30 < num28; num30++)
-									{
-										if (Main.tile[num29, num30].nactive() && Main.tileSolid[(int)Main.tile[num29, num30].type])
-										{
-											flag = false;
-											break;
-										}
-									}
-								}
-								goto IL_692;
-							}
-							goto IL_692;
-						}
-						IL_69A:
-						num21++;
-						continue;
-						IL_692:
-						if (!flag && !flag)
-						{
-							goto IL_69A;
-						}
-						break;
-					}
-					if (flag && num20 < 999)
-					{
-						Rectangle rectangle = new Rectangle(num10 * 16, num11 * 16, 16, 16);
-						for (int num31 = 0; num31 < 255; num31++)
-						{
-							if (Main.player[num31].active)
-							{
-								Rectangle rectangle2 = new Rectangle((int)(Main.player[num31].position.X + (float)(Main.player[num31].width / 2) - (float)(NPC.sWidth / 2) - (float)NPC.safeRangeX), (int)(Main.player[num31].position.Y + (float)(Main.player[num31].height / 2) - (float)(NPC.sHeight / 2) - (float)NPC.safeRangeY), NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
-								if (rectangle.Intersects(rectangle2))
-								{
-									flag = false;
-								}
-							}
-						}
-					}
-					if (flag)
-					{
-						break;
-					}
-				}
-				if (flag)
-				{
-					int num32 = NPC.NewNPC(num10 * 16 + 8, num11 * 16, Type, 1);
-					if (num32 == 200)
-					{
-						return;
-					}
-					Main.npc[num32].target = plr;
-					Main.npc[num32].timeLeft *= 20;
-					string str3 = Main.npc[num32].name;
-					if (Main.npc[num32].displayName != "")
-					{
-						str3 = Main.npc[num32].displayName;
-					}
-					if (Main.netMode == 2 && num32 < 200)
-					{
-						NetMessage.SendData(23, -1, -1, "", num32, 0f, 0f, 0f, 0);
-					}
-					if (Type == 125)
-					{
-						if (Main.netMode == 0)
-						{
-							Main.NewText("The Twins " + Lang.misc[16], 175, 75, 255, false);
-							return;
-						}
-						if (Main.netMode == 2)
-						{
-							NetMessage.SendData(25, -1, -1, "The Twins " + Lang.misc[16], 255, 175f, 75f, 255f, 0);
-							return;
-						}
-					}
-					else if (Type != 82 && Type != 126 && Type != 50)
-					{
+						int num30 = NPC.NewNPC((int)projectile.center().X, (int)projectile.center().Y + 100, 370, 0);
+						string str3 = Main.npc[num30].name;
 						if (Main.netMode == 0)
 						{
 							Main.NewText(str3 + " " + Lang.misc[16], 175, 75, 255, false);
@@ -34024,7 +34009,13 @@ namespace Terraria
 						if (Main.netMode == 2)
 						{
 							NetMessage.SendData(25, -1, -1, str3 + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0);
+							return;
 						}
+						break;
+					}
+					else
+					{
+						num29++;
 					}
 				}
 				return;
@@ -34581,31 +34572,31 @@ namespace Terraria
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = "Wave 15: Ice Queen, Santank, Everscream, Yeti, and Elf Copter";
+						text = "Wave 15: Ice Queen, Santa-NK1, Everscream, Yeti, and Elf Copter";
 					}
 					if (NPC.waveCount == 15 && NPC.waveKills >= 850f)
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = "Wave 16: Ice Queen, Santank, Everscream, Yeti and Flocko";
+						text = "Wave 16: Ice Queen, Santa-NK1, Everscream, Yeti and Flocko";
 					}
 					if (NPC.waveCount == 16 && NPC.waveKills >= 1025f)
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = "Wave 17: Ice Queen, Santank, Everscream, Yeti, Krampus, Elf Copter";
+						text = "Wave 17: Ice Queen, Santa-NK1, Everscream, Yeti, Krampus, Elf Copter";
 					}
 					if (NPC.waveCount == 17 && NPC.waveKills >= 1325f)
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = "Wave 18: Ice Queen, Santank, Everscream, Yeti, Nutcracker, Krampus";
+						text = "Wave 18: Ice Queen, Santa-NK1, Everscream, Yeti, Nutcracker, Krampus";
 					}
 					if (NPC.waveCount == 18 && NPC.waveKills >= 1550f)
 					{
 						NPC.waveCount++;
 						NPC.waveKills = 0f;
-						text = "Wave 19: Ice Queen, Santank, Everscream, Yeti";
+						text = "Wave 19: Ice Queen, Santa-NK1, Everscream, Yeti";
 					}
 					if (NPC.waveCount == 19 && NPC.waveKills >= 2000f)
 					{
@@ -35237,6 +35228,10 @@ namespace Terraria
 			if (this.type >= 338 && this.type <= 340 && Main.rand.Next(5) == 0)
 			{
 				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false);
+			}
+			if (this.type >= 338 && this.type <= 340 && Main.rand.Next(200) == 0)
+			{
+				DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 1943 + Main.rand.Next(3), 1, false, 0, false);
 			}
 			if (this.type == 342 && Main.rand.Next(3) != 0)
 			{
@@ -35950,6 +35945,10 @@ namespace Terraria
 				if (Main.rand.Next(300) == 0)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 2663, 1, false, 0, false);
+				}
+				if (Main.rand.Next(300) == 0)
+				{
+					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, 2238, 1, false, 0, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
@@ -36821,6 +36820,10 @@ namespace Terraria
 					num29 = 499;
 				}
 				else if (this.type == 245 || this.type == 262)
+				{
+					num29 = 499;
+				}
+				else if (this.type == 370)
 				{
 					num29 = 499;
 				}
