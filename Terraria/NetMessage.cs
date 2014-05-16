@@ -1000,7 +1000,7 @@ namespace Terraria
 							Main.txData += num16;
 							Main.txMsgType[msgType]++;
 							Main.txDataType[msgType] += num16;
-							Netplay.serverSock[remoteClient].networkStream.BeginWrite(NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[remoteClient].ServerWriteCallBack), Netplay.serverSock[remoteClient].networkStream);
+							SendBytes(Netplay.serverSock[remoteClient], NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[remoteClient].ServerWriteCallBack), Netplay.serverSock[remoteClient].networkStream);
 						}
 						catch
 						{
