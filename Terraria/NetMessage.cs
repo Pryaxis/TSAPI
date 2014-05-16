@@ -760,27 +760,7 @@ namespace Terraria
 					binaryWriter.BaseStream.Position = position;
 					binaryWriter.Write((short)num16);
 					binaryWriter.BaseStream.Position = (long)num16;
-					if (Main.netMode == 1)
-					{
-						if (!Netplay.clientSock.tcpClient.Connected)
-						{
-							goto IL_22E9;
-						}
-						try
-						{
-							NetMessage.buffer[num].spamCount++;
-							Main.txMsg++;
-							Main.txData += num16;
-							Main.txMsgType[msgType]++;
-							Main.txDataType[msgType] += num16;
-							Netplay.clientSock.networkStream.BeginWrite(NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.clientSock.ClientWriteCallBack), Netplay.clientSock.networkStream);
-							goto IL_22E9;
-						}
-						catch
-						{
-							goto IL_22E9;
-						}
-					}
+					
 					if (remoteClient == -1)
 					{
 						if (msgType == 34 || msgType == 69)
@@ -796,7 +776,7 @@ namespace Terraria
 										Main.txData += num16;
 										Main.txMsgType[msgType]++;
 										Main.txDataType[msgType] += num16;
-										Netplay.serverSock[num17].networkStream.BeginWrite(NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num17].ServerWriteCallBack), Netplay.serverSock[num17].networkStream);
+										SendBytes(Netplay.serverSock[num17], NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num17].ServerWriteCallBack), Netplay.serverSock[num17].networkStream);
 									}
 									catch
 									{
@@ -817,7 +797,7 @@ namespace Terraria
 										Main.txData += num16;
 										Main.txMsgType[msgType]++;
 										Main.txDataType[msgType] += num16;
-										Netplay.serverSock[num18].networkStream.BeginWrite(NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num18].ServerWriteCallBack), Netplay.serverSock[num18].networkStream);
+										SendBytes(Netplay.serverSock[num18], NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num18].ServerWriteCallBack), Netplay.serverSock[num18].networkStream);
 									}
 									catch
 									{
@@ -863,7 +843,7 @@ namespace Terraria
 											Main.txData += num16;
 											Main.txMsgType[msgType]++;
 											Main.txDataType[msgType] += num16;
-											Netplay.serverSock[num19].networkStream.BeginWrite(NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num19].ServerWriteCallBack), Netplay.serverSock[num19].networkStream);
+											SendBytes(Netplay.serverSock[num19], NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num19].ServerWriteCallBack), Netplay.serverSock[num19].networkStream);
 										}
 										catch
 										{
@@ -911,7 +891,7 @@ namespace Terraria
 											Main.txData += num16;
 											Main.txMsgType[msgType]++;
 											Main.txDataType[msgType] += num16;
-											Netplay.serverSock[num20].networkStream.BeginWrite(NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num20].ServerWriteCallBack), Netplay.serverSock[num20].networkStream);
+											SendBytes(Netplay.serverSock[num20], NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num20].ServerWriteCallBack), Netplay.serverSock[num20].networkStream);
 										}
 										catch
 										{
@@ -933,7 +913,7 @@ namespace Terraria
 										Main.txData += num16;
 										Main.txMsgType[msgType]++;
 										Main.txDataType[msgType] += num16;
-										Netplay.serverSock[num21].networkStream.BeginWrite(NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num21].ServerWriteCallBack), Netplay.serverSock[num21].networkStream);
+										SendBytes(Netplay.serverSock[num21], NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num21].ServerWriteCallBack), Netplay.serverSock[num21].networkStream);
 									}
 									catch
 									{
@@ -980,7 +960,7 @@ namespace Terraria
 											Main.txData += num16;
 											Main.txMsgType[msgType]++;
 											Main.txDataType[msgType] += num16;
-											Netplay.serverSock[num22].networkStream.BeginWrite(NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num22].ServerWriteCallBack), Netplay.serverSock[num22].networkStream);
+											SendBytes(Netplay.serverSock[num22], NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num22].ServerWriteCallBack), Netplay.serverSock[num22].networkStream);
 										}
 										catch
 										{
@@ -1002,7 +982,7 @@ namespace Terraria
 										Main.txData += num16;
 										Main.txMsgType[msgType]++;
 										Main.txDataType[msgType] += num16;
-										Netplay.serverSock[num23].networkStream.BeginWrite(NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num23].ServerWriteCallBack), Netplay.serverSock[num23].networkStream);
+										SendBytes(Netplay.serverSock[num23], NetMessage.buffer[num].writeBuffer, 0, num16, new AsyncCallback(Netplay.serverSock[num23].ServerWriteCallBack), Netplay.serverSock[num23].networkStream);
 									}
 									catch
 									{
