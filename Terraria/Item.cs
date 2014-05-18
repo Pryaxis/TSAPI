@@ -15937,6 +15937,7 @@ namespace Terraria
 				this.knockBack = 4f;
 				this.rare = 8;
 				this.ranged = true;
+				this.explosive = 3;
 				return;
 			}
 			if (type == 759)
@@ -30355,6 +30356,7 @@ namespace Terraria
 				this.knockBack = 4f;
 				this.rare = 8;
 				this.ranged = true;
+				this.explosive = 3;
 				return;
 			}
 			if (type == 1947)
