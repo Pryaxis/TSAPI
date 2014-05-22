@@ -3099,6 +3099,9 @@ namespace Terraria
 		}
 		public static void randomBackgrounds()
 		{
+			if (WorldGen.genRand == null)
+				WorldGen.genRand = new Random();
+
 			WorldGen.treeBG = WorldGen.genRand.Next(9);
 			if ((WorldGen.treeBG == 1 || WorldGen.treeBG == 2) && WorldGen.genRand.Next(2) == 0)
 			{
