@@ -2923,8 +2923,8 @@ namespace Terraria
 
 		public void SetDefaults(string itemname)
 		{
-			RealSetDefaults(itemname);
-			ServerApi.Hooks.InvokeItemSetDefaultsString(ref itemname, this);
+			if (!ServerApi.Hooks.InvokeItemSetDefaultsString(ref itemname, this))
+				RealSetDefaults(itemname);
 		}
 
 		public void RealSetDefaults(string ItemName)
@@ -3555,8 +3555,8 @@ namespace Terraria
 
 		public void netDefaults(int type)
 		{
-			RealNetDefaults(type);
-			ServerApi.Hooks.InvokeItemNetDefaults(ref type, this);
+			if (!ServerApi.Hooks.InvokeItemNetDefaults(ref type, this))
+				RealNetDefaults(type);
 		}
 
 		public void RealNetDefaults(int type)
@@ -36879,7 +36879,13 @@ namespace Terraria
 				}
 			}
 		}
-		public void SetDefaults(int Type, bool noMatCheck = false)
+		public void SetDefaults(int type, bool noMatCheck = false)
+		{
+			if (!ServerApi.Hooks.InvokeItemSetDefaultsInt(ref type, this))
+				RealSetDefaults(type, noMatCheck);
+		}
+
+		public void RealSetDefaults(int Type, bool noMatCheck = false)
 		{
 			if (Main.netMode == 1 || Main.netMode == 2)
 			{
