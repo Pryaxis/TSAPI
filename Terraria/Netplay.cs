@@ -238,16 +238,9 @@ namespace Terraria
                         Netplay.serverSock[k].kill = true;
 					if (Netplay.serverSock[k].kill)
 					{
-						Stopwatch timer = new Stopwatch();
-						timer.Start();
-
 						ServerApi.Hooks.InvokeServerLeave(Netplay.serverSock[k].whoAmI);
 						Netplay.serverSock[k].Reset();
 						NetMessage.syncLeave(Netplay.serverSock[k].whoAmI);
-
-						timer.Stop();
-
-						Console.WriteLine(String.Format("syncLeave took {0} ms.", timer.ElapsedMilliseconds));
 					}
 					else if (serverSock[k].tcpClient != null && serverSock[k].tcpClient.Client != null && serverSock[k].tcpClient.Connected)
 					{
