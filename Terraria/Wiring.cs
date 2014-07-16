@@ -6,8 +6,11 @@ namespace Terraria
 	public static class Wiring
 	{
 		public static bool running = false;
+		[ThreadStatic]
 		private static Dictionary<Point16, bool> wireSkip;
+		[ThreadStatic]
 		private static DoubleStack<Point16> wireList;
+		[ThreadStatic]
 		private static Dictionary<Point16, byte> toProcess;
 		private static Vector2[] teleport = new Vector2[2];
 		private static int maxPump = 20;
@@ -22,18 +25,16 @@ namespace Terraria
 		private static int[] mechY = new int[Wiring.maxMech];
 		private static int numMechs = 0;
 		private static int[] mechTime = new int[Wiring.maxMech];
-		public static void Initialize()
-		{
-			Wiring.wireSkip = new Dictionary<Point16, bool>();
-			Wiring.wireList = new DoubleStack<Point16>(1024, 0);
-			Wiring.toProcess = new Dictionary<Point16, byte>();
-		}
 		public static void SkipWire(int x, int y)
 		{
+			if (wireSkip == null)
+				wireSkip = new Dictionary<Point16, bool>();
 			Wiring.wireSkip[new Point16(x, y)] = true;
 		}
 		public static void SkipWire(Point16 point)
 		{
+			if (wireSkip == null)
+				wireSkip = new Dictionary<Point16, bool>();
 			Wiring.wireSkip[point] = true;
 		}
 		public static void UpdateMech()
@@ -232,10 +233,9 @@ namespace Terraria
 		}
 		private static void TripWire(int left, int top, int width, int height)
 		{
-			if (Main.netMode == 1)
-			{
-				return;
-			}
+			if (wireList == null)
+				wireList = new DoubleStack<Point16>(1024, 0);
+
 			Wiring.running = true;
 			if (Wiring.wireList.Count != 0)
 			{
@@ -339,6 +339,11 @@ namespace Terraria
 		}
 		private static void hitWire(DoubleStack<Point16> next, int wireType)
 		{
+			if (toProcess == null)
+				toProcess = new Dictionary<Point16, byte>();
+			if (wireSkip == null)
+				wireSkip = new Dictionary<Point16, bool>();
+
 			for (int i = 0; i < next.Count; i++)
 			{
 				Point16 point = next.PopFront();

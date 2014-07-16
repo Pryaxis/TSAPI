@@ -2690,7 +2690,6 @@ namespace Terraria
 		{
 			Main.netMode = 2;
 			Chest.Initialize();
-			Wiring.Initialize();
 			Framing.Initialize();
 			Mount.Initialize();
 			Minecart.Initialize();
