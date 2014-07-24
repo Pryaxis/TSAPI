@@ -558,7 +558,7 @@ namespace Terraria
 					Netplay.serverSock[this.whoAmI].state = 10;
 					NetMessage.greetPlayer(this.whoAmI);
 					NetMessage.buffer[this.whoAmI].broadcast = true;
-					Task.Factory.StartNew(() => NetMessage.syncJoin(this.whoAmI));
+					Task.Factory.StartNew(() => NetMessage.syncJoin(this.whoAmI)).LogExceptions();
 					NetMessage.SendData(12, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0);
 					return;
 				}
