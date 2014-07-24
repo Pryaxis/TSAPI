@@ -119,6 +119,7 @@
     <Compile Include="TerrariaApi.Server\ServerApi.cs" />
     <Compile Include="TerrariaApi.Server\ProfilerManager.cs" />
     <Compile Include="TerrariaApi.Server\ServerLogWriter.cs" />
+    <Compile Include="TerrariaApi.Server\TaskExt.cs" />
     <Compile Include="Terraria\BitsByte.cs" />
     <Compile Include="Terraria\Framing.cs" />
     <Compile Include="Terraria\Lang.cs" />
