@@ -17,7 +17,7 @@ namespace Terraria
 	            {
 		            return;
 	            }
-				if (Main.runningMono)
+				if (ServerApi.RunningMono)
 					sock.networkStream.Write(buffer, offset, count);
 				else
 					sock.networkStream.BeginWrite(buffer, offset, count, callback, state);

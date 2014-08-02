@@ -1225,8 +1225,7 @@ namespace Terraria
 		private float screenOff;
 		private float scAdj;
 		private float cTop;
-		public static bool runningMono = false;
-		public static bool forceUpdate = false;
+
 		[DllImport("User32")]
 		private static extern int RemoveMenu(IntPtr hMenu, int nPosition, int wFlags);
 		[DllImport("User32")]
@@ -1969,8 +1968,6 @@ namespace Terraria
 		}
 		public void DedServ()
 		{
-			Type t = Type.GetType("Mono.Runtime");
-			Main.runningMono = (t != null);
 			ServerApi.Hooks.InvokeGameInitialize();
 			Main.rand = new Random();
 			if (Main.autoShutdown)
@@ -2262,7 +2259,7 @@ namespace Terraria
 						Main.oldStatusText = Main.statusText;
 						Console.WriteLine(Main.statusText);
 					}
-					if (Netplay.anyClients || forceUpdate)
+					if (Netplay.anyClients || ServerApi.ForceUpdate)
 					{
 						ServerApi.Hooks.InvokeGameUpdate();
 						this.Update();

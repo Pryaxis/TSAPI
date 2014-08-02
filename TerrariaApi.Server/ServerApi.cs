@@ -56,16 +56,22 @@ namespace TerrariaApi.Server
 			get; 
 			internal set;
 		}
+		public static bool RunningMono { get; private set; }
+		public static bool ForceUpdate { get; private set; }
 
 		static ServerApi()
 		{
 			Hooks = new HookManager();
 			LogWriter = new LogWriterManager();
 			Profiler = new ProfilerManager();
+
+			Type t = Type.GetType("Mono.Runtime");
+			RunningMono = (t != null);
 		}
 
 		internal static void Initialize(string[] commandLineArgs, Main game)
 		{
+
 			Profiler.BeginMeasureServerInitTime();
 			ServerApi.LogWriter.ServerWriteLine(
 				string.Format("TerrariaApi - Server v{0} started.", ApiVersion), TraceLevel.Verbose);
@@ -74,7 +80,7 @@ namespace TerrariaApi.Server
 			ServerApi.LogWriter.ServerWriteLine(
 				string.Format("\tOS: {0} (64bit: {1})", Environment.OSVersion, Environment.Is64BitOperatingSystem), TraceLevel.Verbose);
 			ServerApi.LogWriter.ServerWriteLine(
-				"\tMono: " + Terraria.Main.runningMono, TraceLevel.Verbose);
+				"\tMono: " + RunningMono, TraceLevel.Verbose);
 
 			ServerApi.game = game;
 			HandleCommandLine(commandLineArgs);
@@ -227,7 +233,7 @@ namespace TerrariaApi.Server
 					}
 					case "-forceupdate":
 					{
-						Terraria.Main.forceUpdate = true;
+						ForceUpdate = true;
 						LogWriter.ServerWriteLine(
 							"Forcing game updates regardless of players! This is experimental, and will cause constant CPU usage, you are on your own.",
 							TraceLevel.Warning);
