@@ -58,6 +58,7 @@ namespace TerrariaApi.Server
 		}
 		public static bool RunningMono { get; private set; }
 		public static bool ForceUpdate { get; private set; }
+        public static bool UseAsyncSocketsInMono { get; private set; }
 
 		static ServerApi()
 		{
@@ -65,6 +66,8 @@ namespace TerrariaApi.Server
 			LogWriter = new LogWriterManager();
 			Profiler = new ProfilerManager();
 
+            UseAsyncSocketsInMono = false;
+		    ForceUpdate = false;
 			Type t = Type.GetType("Mono.Runtime");
 			RunningMono = (t != null);
 		}
@@ -240,6 +243,14 @@ namespace TerrariaApi.Server
 
 						break;
 					}
+                    case "-asyncmono":
+				    {
+				        UseAsyncSocketsInMono = true;
+                        LogWriter.ServerWriteLine(
+                            "Forcing Mono to use asynchronous sockets.  This is highly experimental and may not work on all versions of Mono.",
+                            TraceLevel.Warning);
+				        break;
+				    }
 				}
 			}
 		}

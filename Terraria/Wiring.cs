@@ -12,7 +12,7 @@ namespace Terraria
 		private static DoubleStack<Point16> wireList;
 		[ThreadStatic]
 		private static Dictionary<Point16, byte> toProcess;
-		private static Vector2[] teleport = new Vector2[2];
+		public static Vector2[] teleport = new Vector2[2];
 		private static int maxPump = 20;
 		private static int[] inPumpX = new int[Wiring.maxPump];
 		private static int[] inPumpY = new int[Wiring.maxPump];
@@ -159,7 +159,7 @@ namespace Terraria
 				Wiring.TripWire(num2, num3, 2, 2);
 			}
 		}
-		private static bool checkMech(int i, int j, int time)
+		public static bool checkMech(int i, int j, int time)
 		{
 			for (int k = 0; k < Wiring.numMechs; k++)
 			{
@@ -1126,7 +1126,7 @@ namespace Terraria
 			}
 			return true;
 		}
-		private static void Teleport()
+		public static void Teleport()
 		{
 			if (Wiring.teleport[0].X < Wiring.teleport[1].X + 3f && Wiring.teleport[0].X > Wiring.teleport[1].X - 3f && Wiring.teleport[0].Y > Wiring.teleport[1].Y - 3f && Wiring.teleport[0].Y < Wiring.teleport[1].Y)
 			{
@@ -1183,7 +1183,7 @@ namespace Terraria
 				Main.npc[m].teleporting = false;
 			}
 		}
-		private static bool DeActive(int i, int j)
+		public static bool DeActive(int i, int j)
 		{
 			if (!Main.tile[i, j].active() || ((!Main.tileSolid[(int)Main.tile[i, j].type] || Main.tile[i, j].type == 10) && Main.tile[i, j].type != 314))
 			{
@@ -1201,7 +1201,7 @@ namespace Terraria
 			}
 			return true;
 		}
-		private static bool ReActive(int i, int j)
+		public static bool ReActive(int i, int j)
 		{
 			Main.tile[i, j].inActive(false);
 			WorldGen.SquareTileFrame(i, j, false);
