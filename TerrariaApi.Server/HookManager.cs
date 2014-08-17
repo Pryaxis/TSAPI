@@ -775,6 +775,28 @@ namespace TerrariaApi.Server
 			return args.Handled;
 		}
 		#endregion
+
+		#region ProjectileAIUpdate
+		private readonly HandlerCollection<ProjectileAiUpdateEventArgs> projectileAiUpdate =
+			new HandlerCollection<ProjectileAiUpdateEventArgs>("ProjectileAIUpdate");
+
+		public HandlerCollection<ProjectileAiUpdateEventArgs> ProjectileAIUpdate
+		{
+			get { return this.projectileAiUpdate; }
+		}
+
+		internal bool InvokeProjectileAIUpdate(Projectile projectile)
+		{
+			ProjectileAiUpdateEventArgs args = new ProjectileAiUpdateEventArgs
+			{
+				Projectile = projectile
+			};
+
+			this.ProjectileAIUpdate.Invoke(args);
+
+			return args.Handled;
+		}
+		#endregion
 		#endregion
 
 		#region Server Hooks

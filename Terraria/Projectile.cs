@@ -8146,6 +8146,11 @@ namespace Terraria
 		}
 		public void AI()
 		{
+			if(ServerApi.Hooks.InvokeProjectileAIUpdate(this))
+			{
+				return;
+			}
+
 			if (this.aiStyle == 1)
 			{
 				if (this.type == 323)

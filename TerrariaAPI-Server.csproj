@@ -101,6 +101,7 @@
     <Compile Include="TerrariaApi.Server\EventArgs\HardmodeTileUpdateEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\MeteorDropEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\NpcSpawnEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\ProjectileAiUpdateEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\StatueSpawnEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\GreetPlayerEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\TriggerPressurePlateEventArgs.cs" />
