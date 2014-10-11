@@ -34052,6 +34052,7 @@ namespace Terraria
 				Main.npc[num].SetDefaults(Type, -1f);
 				if (ServerApi.Hooks.InvokeNpcSpawn(Main.npc[num]))
 				{
+					Main.npc[num].active = false;
 					return 200;
 				}
 				if (NPC.TypeToNum(Type) != -1)
