@@ -6,10 +6,9 @@ namespace TerrariaApi.Server
 {
 	public class NpcSpawnEventArgs : HandledEventArgs
 	{
-		public NPC Npc
+		public int NpcId
 		{
-			get;
-			internal set;
+			get; set;
 		}
 	}
 }
