@@ -34151,6 +34151,9 @@ namespace Terraria
 					this.buffType[j] = array[j];
 					this.buffTime[j] = array2[j];
 				}
+
+				ServerApi.Hooks.InvokeNpcTransformation(this.whoAmI);
+
 				if (Main.netMode == 2)
 				{
 					this.netUpdate = true;

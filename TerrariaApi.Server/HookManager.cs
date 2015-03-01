@@ -616,6 +616,27 @@ namespace TerrariaApi.Server
 		}
 		#endregion
 
+		#region NpcTransformation
+		private readonly HandlerCollection<NpcTransformationEventArgs> npcTransform =
+			new HandlerCollection<NpcTransformationEventArgs>("NpcTransform");
+
+		public HandlerCollection<NpcTransformationEventArgs> NpcTransform
+		{
+			get { return this.npcTransform; }
+		}
+
+		internal bool InvokeNpcTransformation(int npcId)
+		{
+			NpcTransformationEventArgs args = new NpcTransformationEventArgs
+			{
+				NpcId = npcId
+			};
+
+			this.NpcTransform.Invoke(args);
+			return args.Handled;
+		}
+		#endregion
+
 		#region NpcSpawn
 		private readonly HandlerCollection<NpcSpawnEventArgs> npcSpawn = 
 			new HandlerCollection<NpcSpawnEventArgs>("NpcSpawn");
