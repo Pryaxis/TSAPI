@@ -227,7 +227,7 @@ namespace Terraria
 			int num15 = Math.Sign(num4 - num2);
 			bool flag = false;
 			bool flag2 = false;
-			bool result;
+			bool result = false;
 			try
 			{
 				while (true)
@@ -449,7 +449,7 @@ namespace Terraria
 			int num15 = Math.Sign(num4 - num2);
 			bool flag = false;
 			bool flag2 = false;
-			Tuple<int, int> result;
+			Tuple<int, int> result = new Tuple<int, int>(-1, -1);
 			try
 			{
 				while (true)
@@ -691,7 +691,7 @@ namespace Terraria
 			int num15 = Math.Sign(num4 - num2);
 			bool flag = false;
 			bool flag2 = false;
-			Tuple<int, int> result;
+			Tuple<int, int> result = new Tuple<int, int>(-1, -1);
 			try
 			{
 				while (true)
