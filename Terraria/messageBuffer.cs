@@ -1,8 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using TerrariaApi.Server;
 using System.Diagnostics;
+using System.IO.Streams;
 using System.Threading.Tasks;
+using ClientApi.Networking;
+using TerrariaApi.Server.Networking.TerrariaPackets;
+
 namespace Terraria
 {
 	public class MessageBuffer
@@ -22,17 +27,52 @@ namespace Terraria
 
 		public BinaryReader binaryReader;
 		public BinaryWriter binaryWriter;
+		public Dictionary<PacketId, Action<IPacket>> PacketHandlers; 
 
 		public MessageBuffer()
 		{
 			binaryReader = new BinaryReader(new MemoryStream(readBuffer));
 			binaryWriter = new BinaryWriter(new MemoryStream(writeBuffer));
+			PacketHandlers = new Dictionary<PacketId, Action<IPacket>>();
+			PacketHandlers.Add((PacketId)1, HandleVersion);
 		}
 
 		~MessageBuffer()
 		{
 			binaryReader.Dispose();
 			binaryWriter.Dispose();
+		}
+
+		private void HandleVersion(IPacket packet)
+		{
+			var pkt = packet as VersionPacket;
+			Console.WriteLine("Received Version: {0}", pkt.Version);
+			if (Main.netMode != 2)
+			{
+				return;
+			}
+			if (Main.dedServ && Netplay.CheckBan(Netplay.serverSock[this.whoAmI].tcpClient.Client.RemoteEndPoint.ToString()))
+			{
+				NetMessage.SendData(2, this.whoAmI, -1, Lang.mp[3], 0, 0f, 0f, 0f, 0);
+				return;
+			}
+			if (Netplay.serverSock[this.whoAmI].state != 0)
+			{
+				return;
+			}
+			if (pkt.Version != "Terraria" + Main.curRelease)
+			{
+				NetMessage.SendData(2, this.whoAmI, -1, Lang.mp[4], 0, 0f, 0f, 0f, 0);
+				return;
+			}
+			if (string.IsNullOrEmpty(Netplay.password))
+			{
+				Netplay.serverSock[this.whoAmI].state = 1;
+				NetMessage.SendData(3, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0);
+				return;
+			}
+			Netplay.serverSock[this.whoAmI].state = -1;
+			NetMessage.SendData(37, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0);
 		}
 
 		public void Reset()
@@ -94,40 +134,17 @@ namespace Terraria
 			{
 				NetMessage.BootPlayer(this.whoAmI, Lang.mp[2]);
 			}
+
 			binaryReader.BaseStream.Position = (long)num;
+			if (PacketHandlers.ContainsKey((PacketId) b))
+			{
+				byte[] buffer = binaryReader.BaseStream.ReadBytes(length - 1);
+				IPacket packet = PacketFactory.Instance.CreatePacket((PacketId)b, buffer);
+				PacketHandlers[(PacketId) b](packet);
+			}
+
 			switch (b)
 			{
-			case 1:
-			{
-				if (Main.netMode != 2)
-				{
-					return;
-				}
-				if (Main.dedServ && Netplay.CheckBan(Netplay.serverSock[this.whoAmI].tcpClient.Client.RemoteEndPoint.ToString()))
-				{
-					NetMessage.SendData(2, this.whoAmI, -1, Lang.mp[3], 0, 0f, 0f, 0f, 0);
-					return;
-				}
-				if (Netplay.serverSock[this.whoAmI].state != 0)
-				{
-					return;
-				}
-				string a = binaryReader.ReadString();
-				if (!(a == "Terraria" + Main.curRelease))
-				{
-					NetMessage.SendData(2, this.whoAmI, -1, Lang.mp[4], 0, 0f, 0f, 0f, 0);
-					return;
-				}
-				if (string.IsNullOrEmpty(Netplay.password))
-				{
-					Netplay.serverSock[this.whoAmI].state = 1;
-					NetMessage.SendData(3, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0);
-					return;
-				}
-				Netplay.serverSock[this.whoAmI].state = -1;
-				NetMessage.SendData(37, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0);
-				return;
-			}
 			case 2:
 				if (Main.netMode != 1)
 				{

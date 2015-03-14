@@ -1,14 +1,31 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Threading;
+using ClientApi.Networking;
 using TerrariaApi.Server;
+using TerrariaApi.Server.Networking.TerrariaPackets;
+
 namespace Terraria
 {
 	public class NetMessage
 	{
 		public static MessageBuffer[] buffer = new MessageBuffer[257];
+		public static Dictionary<PacketId, Action<Stream, string, int, float, float, float, int>> PacketHandlers = new Dictionary<PacketId, Action<Stream, string, int, float, float, float, int>>();
+
+		static NetMessage()
+		{
+			PacketHandlers.Add((PacketId)1, HandleVersion);
+		}
+
+		private static void HandleVersion(Stream s, string text, int number, float number2, float number3, float number4, int number5)
+		{
+			VersionPacket packet = new VersionPacket() { Version = "Terraria" + Main.curRelease };
+			packet.Write(s);
+		}
+
 		public static void SendBytes(ServerSock sock, byte[] buffer, int offset, int count, AsyncCallback callback, object state)
         {
             try
@@ -49,11 +66,12 @@ namespace Terraria
 					long position = 0;
 					binaryWriter.BaseStream.Position = 2L;
 					binaryWriter.Write((byte)msgType);
+					if (PacketHandlers.ContainsKey((PacketId)msgType))
+					{
+						PacketHandlers[(PacketId)msgType](binaryWriter.BaseStream, text, number, number2, number3, number4, number5);
+					}
 					switch (msgType)
 					{
-						case 1:
-							binaryWriter.Write("Terraria" + Main.curRelease);
-							break;
 						case 2:
 							binaryWriter.Write(text);
 							if (Main.dedServ)

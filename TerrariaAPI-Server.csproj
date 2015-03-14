@@ -76,7 +76,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>tshock_logo.ico</ApplicationIcon>
+    <ApplicationIcon>./tshock_logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -121,6 +121,11 @@
     <Compile Include="TerrariaApi.Server\ILogWriter.cs" />
     <Compile Include="TerrariaApi.Server\IProfiler.cs" />
     <Compile Include="TerrariaApi.Server\LogWriterManager.cs" />
+    <Compile Include="TerrariaApi.Server\Networking\IPacket.cs" />
+    <Compile Include="TerrariaApi.Server\Networking\PacketFactory.cs" />
+    <Compile Include="TerrariaApi.Server\Networking\PacketId.cs" />
+    <Compile Include="TerrariaApi.Server\Networking\PacketIdAttribute.cs" />
+    <Compile Include="TerrariaApi.Server\Networking\TerrariaPackets\VersionPacket.cs" />
     <Compile Include="TerrariaApi.Server\ServerApi.cs" />
     <Compile Include="TerrariaApi.Server\ProfilerManager.cs" />
     <Compile Include="TerrariaApi.Server\ServerLogWriter.cs" />
