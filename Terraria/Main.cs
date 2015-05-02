@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading;
 using Terraria.DataStructures;
 using TerrariaApi.Server;
+using XNA;
+
 namespace Terraria
 {
 	public class Main

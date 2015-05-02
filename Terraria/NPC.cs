@@ -1,5 +1,7 @@
 using System;
 using TerrariaApi.Server;
+using XNA;
+
 namespace Terraria
 {
 	public class NPC
@@ -175,561 +177,561 @@ namespace Terraria
 				{
 					switch (npcType)
 					{
-					case 17:
-						switch (WorldGen.genRand.Next(23))
-						{
-						case 0:
-							return "Alfred";
-						case 1:
-							return "Barney";
-						case 2:
-							return "Calvin";
-						case 3:
-							return "Edmund";
-						case 4:
-							return "Edwin";
-						case 5:
-							return "Eugene";
-						case 6:
-							return "Frank";
-						case 7:
-							return "Frederick";
-						case 8:
-							return "Gilbert";
-						case 9:
-							return "Gus";
-						case 10:
-							return "Wilbur";
-						case 11:
-							return "Seymour";
-						case 12:
-							return "Louis";
-						case 13:
-							return "Humphrey";
-						case 14:
-							return "Harold";
-						case 15:
-							return "Milton";
-						case 16:
-							return "Mortimer";
 						case 17:
-							return "Howard";
+							switch (WorldGen.genRand.Next(23))
+							{
+								case 0:
+									return "Alfred";
+								case 1:
+									return "Barney";
+								case 2:
+									return "Calvin";
+								case 3:
+									return "Edmund";
+								case 4:
+									return "Edwin";
+								case 5:
+									return "Eugene";
+								case 6:
+									return "Frank";
+								case 7:
+									return "Frederick";
+								case 8:
+									return "Gilbert";
+								case 9:
+									return "Gus";
+								case 10:
+									return "Wilbur";
+								case 11:
+									return "Seymour";
+								case 12:
+									return "Louis";
+								case 13:
+									return "Humphrey";
+								case 14:
+									return "Harold";
+								case 15:
+									return "Milton";
+								case 16:
+									return "Mortimer";
+								case 17:
+									return "Howard";
+								case 18:
+									return "Walter";
+								case 19:
+									return "Finn";
+								case 20:
+									return "Isaac";
+								case 21:
+									return "Joseph";
+								default:
+									return "Ralph";
+							}
+							break;
 						case 18:
-							return "Walter";
+							switch (WorldGen.genRand.Next(24))
+							{
+								case 0:
+									return "Molly";
+								case 1:
+									return "Amy";
+								case 2:
+									return "Claire";
+								case 3:
+									return "Emily";
+								case 4:
+									return "Katie";
+								case 5:
+									return "Madeline";
+								case 6:
+									return "Katelyn";
+								case 7:
+									return "Emma";
+								case 8:
+									return "Abigail";
+								case 9:
+									return "Carly";
+								case 10:
+									return "Jenna";
+								case 11:
+									return "Heather";
+								case 12:
+									return "Katherine";
+								case 13:
+									return "Caitlin";
+								case 14:
+									return "Kaitlin";
+								case 15:
+									return "Holly";
+								case 16:
+									return "Kaitlyn";
+								case 17:
+									return "Hannah";
+								case 18:
+									return "Kathryn";
+								case 19:
+									return "Lorraine";
+								case 20:
+									return "Helen";
+								case 21:
+									return "Kayla";
+								case 22:
+									return "Lisa";
+								default:
+									return "Allison";
+							}
+							break;
 						case 19:
-							return "Finn";
+							switch (WorldGen.genRand.Next(24))
+							{
+								case 0:
+									return "DeShawn";
+								case 1:
+									return "DeAndre";
+								case 2:
+									return "Marquis";
+								case 3:
+									return "Darnell";
+								case 4:
+									return "Terrell";
+								case 5:
+									return "Malik";
+								case 6:
+									return "Trevon";
+								case 7:
+									return "Tyrone";
+								case 8:
+									return "Willie";
+								case 9:
+									return "Dominique";
+								case 10:
+									return "Demetrius";
+								case 11:
+									return "Reginald";
+								case 12:
+									return "Jamal";
+								case 13:
+									return "Maurice";
+								case 14:
+									return "Jalen";
+								case 15:
+									return "Darius";
+								case 16:
+									return "Xavier";
+								case 17:
+									return "Terrance";
+								case 18:
+									return "Andre";
+								case 19:
+									return "Dante";
+								case 20:
+									return "Brimst";
+								case 21:
+									return "Bronson";
+								case 22:
+									return "Tony";
+								default:
+									return "Darryl";
+							}
+							break;
 						case 20:
-							return "Isaac";
-						case 21:
-							return "Joseph";
-						default:
-							return "Ralph";
-						}
-						break;
-					case 18:
-						switch (WorldGen.genRand.Next(24))
-						{
-						case 0:
-							return "Molly";
-						case 1:
-							return "Amy";
-						case 2:
-							return "Claire";
-						case 3:
-							return "Emily";
-						case 4:
-							return "Katie";
-						case 5:
-							return "Madeline";
-						case 6:
-							return "Katelyn";
-						case 7:
-							return "Emma";
-						case 8:
-							return "Abigail";
-						case 9:
-							return "Carly";
-						case 10:
-							return "Jenna";
-						case 11:
-							return "Heather";
-						case 12:
-							return "Katherine";
-						case 13:
-							return "Caitlin";
-						case 14:
-							return "Kaitlin";
-						case 15:
-							return "Holly";
-						case 16:
-							return "Kaitlyn";
-						case 17:
-							return "Hannah";
-						case 18:
-							return "Kathryn";
-						case 19:
-							return "Lorraine";
-						case 20:
-							return "Helen";
-						case 21:
-							return "Kayla";
-						case 22:
-							return "Lisa";
-						default:
-							return "Allison";
-						}
-						break;
-					case 19:
-						switch (WorldGen.genRand.Next(24))
-						{
-						case 0:
-							return "DeShawn";
-						case 1:
-							return "DeAndre";
-						case 2:
-							return "Marquis";
-						case 3:
-							return "Darnell";
-						case 4:
-							return "Terrell";
-						case 5:
-							return "Malik";
-						case 6:
-							return "Trevon";
-						case 7:
-							return "Tyrone";
-						case 8:
-							return "Willie";
-						case 9:
-							return "Dominique";
-						case 10:
-							return "Demetrius";
-						case 11:
-							return "Reginald";
-						case 12:
-							return "Jamal";
-						case 13:
-							return "Maurice";
-						case 14:
-							return "Jalen";
-						case 15:
-							return "Darius";
-						case 16:
-							return "Xavier";
-						case 17:
-							return "Terrance";
-						case 18:
-							return "Andre";
-						case 19:
-							return "Dante";
-						case 20:
-							return "Brimst";
-						case 21:
-							return "Bronson";
-						case 22:
-							return "Tony";
-						default:
-							return "Darryl";
-						}
-						break;
-					case 20:
-						switch (WorldGen.genRand.Next(22))
-						{
-						case 0:
-							return "Alalia";
-						case 1:
-							return "Alalia";
-						case 2:
-							return "Alura";
-						case 3:
-							return "Ariella";
-						case 4:
-							return "Caelia";
-						case 5:
-							return "Calista";
-						case 6:
-							return "Chryseis";
-						case 7:
-							return "Emerenta";
-						case 8:
-							return "Elysia";
-						case 9:
-							return "Evvie";
-						case 10:
-							return "Faye";
-						case 11:
-							return "Felicitae";
-						case 12:
-							return "Lunette";
-						case 13:
-							return "Nata";
-						case 14:
-							return "Nissa";
-						case 15:
-							return "Tatiana";
-						case 16:
-							return "Rosalva";
-						case 17:
-							return "Shea";
-						case 18:
-							return "Tania";
-						case 19:
-							return "Isis";
-						case 20:
-							return "Celestia";
-						default:
-							return "Xylia";
-						}
-						break;
-					case 21:
-						break;
-					case 22:
-						switch (WorldGen.genRand.Next(35))
-						{
-						case 0:
-							return "Joe";
-						case 1:
-							return "Connor";
-						case 2:
-							return "Tanner";
-						case 3:
-							return "Wyatt";
-						case 4:
-							return "Cody";
-						case 5:
-							return "Levi";
-						case 6:
-							return "Luke";
-						case 7:
-							return "Jack";
-						case 8:
-							return "Scott";
-						case 9:
-							return "Logan";
-						case 10:
-							return "Cole";
-						case 11:
-							return "Asher";
-						case 12:
-							return "Bradley";
-						case 13:
-							return "Jacob";
-						case 14:
-							return "Garrett";
-						case 15:
-							return "Dylan";
-						case 16:
-							return "Maxwell";
-						case 17:
-							return "Steve";
-						case 18:
-							return "Brett";
-						case 19:
-							return "Andrew";
-						case 20:
-							return "Harley";
-						case 21:
-							return "Kyle";
-						case 22:
-							return "Jake";
-						case 23:
-							return "Ryan";
-						case 24:
-							return "Jeffrey";
-						case 25:
-							return "Seth";
-						case 26:
-							return "Marty";
-						case 27:
-							return "Brandon";
-						case 28:
-							return "Zach";
-						case 29:
-							return "Jeff";
-						case 30:
-							return "Daniel";
-						case 31:
-							return "Trent";
-						case 32:
-							return "Kevin";
-						case 33:
-							return "Brian";
-						default:
-							return "Colin";
-						}
-						break;
-					default:
-						if (npcType == 38)
-						{
 							switch (WorldGen.genRand.Next(22))
 							{
-							case 0:
-								return "Dolbere";
-							case 1:
-								return "Bazdin";
-							case 2:
-								return "Durim";
-							case 3:
-								return "Tordak";
-							case 4:
-								return "Garval";
-							case 5:
-								return "Morthal";
-							case 6:
-								return "Oten";
-							case 7:
-								return "Dolgen";
-							case 8:
-								return "Gimli";
-							case 9:
-								return "Gimut";
-							case 10:
-								return "Duerthen";
-							case 11:
-								return "Beldin";
-							case 12:
-								return "Jarut";
-							case 13:
-								return "Ovbere";
-							case 14:
-								return "Norkas";
-							case 15:
-								return "Dolgrim";
-							case 16:
-								return "Boften";
-							case 17:
-								return "Norsun";
-							case 18:
-								return "Dias";
-							case 19:
-								return "Fikod";
-							case 20:
-								return "Urist";
-							default:
-								return "Darur";
+								case 0:
+									return "Alalia";
+								case 1:
+									return "Alalia";
+								case 2:
+									return "Alura";
+								case 3:
+									return "Ariella";
+								case 4:
+									return "Caelia";
+								case 5:
+									return "Calista";
+								case 6:
+									return "Chryseis";
+								case 7:
+									return "Emerenta";
+								case 8:
+									return "Elysia";
+								case 9:
+									return "Evvie";
+								case 10:
+									return "Faye";
+								case 11:
+									return "Felicitae";
+								case 12:
+									return "Lunette";
+								case 13:
+									return "Nata";
+								case 14:
+									return "Nissa";
+								case 15:
+									return "Tatiana";
+								case 16:
+									return "Rosalva";
+								case 17:
+									return "Shea";
+								case 18:
+									return "Tania";
+								case 19:
+									return "Isis";
+								case 20:
+									return "Celestia";
+								default:
+									return "Xylia";
 							}
-						}
-						break;
+							break;
+						case 21:
+							break;
+						case 22:
+							switch (WorldGen.genRand.Next(35))
+							{
+								case 0:
+									return "Joe";
+								case 1:
+									return "Connor";
+								case 2:
+									return "Tanner";
+								case 3:
+									return "Wyatt";
+								case 4:
+									return "Cody";
+								case 5:
+									return "Levi";
+								case 6:
+									return "Luke";
+								case 7:
+									return "Jack";
+								case 8:
+									return "Scott";
+								case 9:
+									return "Logan";
+								case 10:
+									return "Cole";
+								case 11:
+									return "Asher";
+								case 12:
+									return "Bradley";
+								case 13:
+									return "Jacob";
+								case 14:
+									return "Garrett";
+								case 15:
+									return "Dylan";
+								case 16:
+									return "Maxwell";
+								case 17:
+									return "Steve";
+								case 18:
+									return "Brett";
+								case 19:
+									return "Andrew";
+								case 20:
+									return "Harley";
+								case 21:
+									return "Kyle";
+								case 22:
+									return "Jake";
+								case 23:
+									return "Ryan";
+								case 24:
+									return "Jeffrey";
+								case 25:
+									return "Seth";
+								case 26:
+									return "Marty";
+								case 27:
+									return "Brandon";
+								case 28:
+									return "Zach";
+								case 29:
+									return "Jeff";
+								case 30:
+									return "Daniel";
+								case 31:
+									return "Trent";
+								case 32:
+									return "Kevin";
+								case 33:
+									return "Brian";
+								default:
+									return "Colin";
+							}
+							break;
+						default:
+							if (npcType == 38)
+							{
+								switch (WorldGen.genRand.Next(22))
+								{
+									case 0:
+										return "Dolbere";
+									case 1:
+										return "Bazdin";
+									case 2:
+										return "Durim";
+									case 3:
+										return "Tordak";
+									case 4:
+										return "Garval";
+									case 5:
+										return "Morthal";
+									case 6:
+										return "Oten";
+									case 7:
+										return "Dolgen";
+									case 8:
+										return "Gimli";
+									case 9:
+										return "Gimut";
+									case 10:
+										return "Duerthen";
+									case 11:
+										return "Beldin";
+									case 12:
+										return "Jarut";
+									case 13:
+										return "Ovbere";
+									case 14:
+										return "Norkas";
+									case 15:
+										return "Dolgrim";
+									case 16:
+										return "Boften";
+									case 17:
+										return "Norsun";
+									case 18:
+										return "Dias";
+									case 19:
+										return "Fikod";
+									case 20:
+										return "Urist";
+									default:
+										return "Darur";
+								}
+							}
+							break;
 					}
 				}
 				else if (npcType != 54)
 				{
 					switch (npcType)
 					{
-					case 107:
-						switch (WorldGen.genRand.Next(25))
-						{
-						case 0:
-							return "Grodax";
-						case 1:
-							return "Sarx";
-						case 2:
-							return "Xon";
-						case 3:
-							return "Mrunok";
-						case 4:
-							return "Nuxatk";
-						case 5:
-							return "Tgerd";
-						case 6:
-							return "Darz";
-						case 7:
-							return "Smador";
-						case 8:
-							return "Stazen";
-						case 9:
-							return "Mobart";
-						case 10:
-							return "Knogs";
-						case 11:
-							return "Tkanus";
-						case 12:
-							return "Negurk";
-						case 13:
-							return "Nort";
-						case 14:
-							return "Durnok";
-						case 15:
-							return "Trogem";
-						case 16:
-							return "Stezom";
-						case 17:
-							return "Gnudar";
-						case 18:
-							return "Ragz";
-						case 19:
-							return "Fahd";
-						case 20:
-							return "Xanos";
-						case 21:
-							return "Arback";
-						case 22:
-							return "Fjell";
-						case 23:
-							return "Dalek";
-						default:
-							return "Knub";
-						}
-						break;
-					case 108:
-						switch (WorldGen.genRand.Next(21))
-						{
-						case 0:
-							return "Dalamar";
-						case 1:
-							return "Dulais";
-						case 2:
-							return "Elric";
-						case 3:
-							return "Arddun";
-						case 4:
-							return "Maelor";
-						case 5:
-							return "Leomund";
-						case 6:
-							return "Hirael";
-						case 7:
-							return "Gwentor";
-						case 8:
-							return "Greum";
-						case 9:
-							return "Gearroid";
-						case 10:
-							return "Fizban";
-						case 11:
-							return "Ningauble";
-						case 12:
-							return "Seonag";
-						case 13:
-							return "Sargon";
-						case 14:
-							return "Merlyn";
-						case 15:
-							return "Magius";
-						case 16:
-							return "Berwyn";
-						case 17:
-							return "Arwyn";
-						case 18:
-							return "Alasdair";
-						case 19:
-							return "Tagar";
-						default:
-							return "Xanadu";
-						}
-						break;
-					default:
-						if (npcType == 124)
-						{
-							switch (WorldGen.genRand.Next(24))
+						case 107:
+							switch (WorldGen.genRand.Next(25))
 							{
-							case 0:
-								return "Shayna";
-							case 1:
-								return "Korrie";
-							case 2:
-								return "Ginger";
-							case 3:
-								return "Brooke";
-							case 4:
-								return "Jenny";
-							case 5:
-								return "Autumn";
-							case 6:
-								return "Nancy";
-							case 7:
-								return "Ella";
-							case 8:
-								return "Kayla";
-							case 9:
-								return "Selah";
-							case 10:
-								return "Sophia";
-							case 11:
-								return "Marshanna";
-							case 12:
-								return "Lauren";
-							case 13:
-								return "Trisha";
-							case 14:
-								return "Shirlena";
-							case 15:
-								return "Sheena";
-							case 16:
-								return "Ellen";
-							case 17:
-								return "Amy";
-							case 18:
-								return "Dawn";
-							case 19:
-								return "Susana";
-							case 20:
-								return "Meredith";
-							case 21:
-								return "Selene";
-							case 22:
-								return "Terra";
-							default:
-								return "Sally";
+								case 0:
+									return "Grodax";
+								case 1:
+									return "Sarx";
+								case 2:
+									return "Xon";
+								case 3:
+									return "Mrunok";
+								case 4:
+									return "Nuxatk";
+								case 5:
+									return "Tgerd";
+								case 6:
+									return "Darz";
+								case 7:
+									return "Smador";
+								case 8:
+									return "Stazen";
+								case 9:
+									return "Mobart";
+								case 10:
+									return "Knogs";
+								case 11:
+									return "Tkanus";
+								case 12:
+									return "Negurk";
+								case 13:
+									return "Nort";
+								case 14:
+									return "Durnok";
+								case 15:
+									return "Trogem";
+								case 16:
+									return "Stezom";
+								case 17:
+									return "Gnudar";
+								case 18:
+									return "Ragz";
+								case 19:
+									return "Fahd";
+								case 20:
+									return "Xanos";
+								case 21:
+									return "Arback";
+								case 22:
+									return "Fjell";
+								case 23:
+									return "Dalek";
+								default:
+									return "Knub";
 							}
-						}
-						break;
+							break;
+						case 108:
+							switch (WorldGen.genRand.Next(21))
+							{
+								case 0:
+									return "Dalamar";
+								case 1:
+									return "Dulais";
+								case 2:
+									return "Elric";
+								case 3:
+									return "Arddun";
+								case 4:
+									return "Maelor";
+								case 5:
+									return "Leomund";
+								case 6:
+									return "Hirael";
+								case 7:
+									return "Gwentor";
+								case 8:
+									return "Greum";
+								case 9:
+									return "Gearroid";
+								case 10:
+									return "Fizban";
+								case 11:
+									return "Ningauble";
+								case 12:
+									return "Seonag";
+								case 13:
+									return "Sargon";
+								case 14:
+									return "Merlyn";
+								case 15:
+									return "Magius";
+								case 16:
+									return "Berwyn";
+								case 17:
+									return "Arwyn";
+								case 18:
+									return "Alasdair";
+								case 19:
+									return "Tagar";
+								default:
+									return "Xanadu";
+							}
+							break;
+						default:
+							if (npcType == 124)
+							{
+								switch (WorldGen.genRand.Next(24))
+								{
+									case 0:
+										return "Shayna";
+									case 1:
+										return "Korrie";
+									case 2:
+										return "Ginger";
+									case 3:
+										return "Brooke";
+									case 4:
+										return "Jenny";
+									case 5:
+										return "Autumn";
+									case 6:
+										return "Nancy";
+									case 7:
+										return "Ella";
+									case 8:
+										return "Kayla";
+									case 9:
+										return "Selah";
+									case 10:
+										return "Sophia";
+									case 11:
+										return "Marshanna";
+									case 12:
+										return "Lauren";
+									case 13:
+										return "Trisha";
+									case 14:
+										return "Shirlena";
+									case 15:
+										return "Sheena";
+									case 16:
+										return "Ellen";
+									case 17:
+										return "Amy";
+									case 18:
+										return "Dawn";
+									case 19:
+										return "Susana";
+									case 20:
+										return "Meredith";
+									case 21:
+										return "Selene";
+									case 22:
+										return "Terra";
+									default:
+										return "Sally";
+								}
+							}
+							break;
 					}
 				}
 				else
 				{
 					switch (WorldGen.genRand.Next(25))
 					{
-					case 0:
-						return "Sebastian";
-					case 1:
-						return "Rupert";
-					case 2:
-						return "Clive";
-					case 3:
-						return "Nigel";
-					case 4:
-						return "Mervyn";
-					case 5:
-						return "Cedric";
-					case 6:
-						return "Pip";
-					case 7:
-						return "Cyril";
-					case 8:
-						return "Fitz";
-					case 9:
-						return "Lloyd";
-					case 10:
-						return "Arthur";
-					case 11:
-						return "Rodney";
-					case 12:
-						return "Graham";
-					case 13:
-						return "Edward";
-					case 14:
-						return "Alfred";
-					case 15:
-						return "Edmund";
-					case 16:
-						return "Henry";
-					case 17:
-						return "Herald";
-					case 18:
-						return "Roland";
-					case 19:
-						return "Lincoln";
-					case 20:
-						return "Lloyd";
-					case 21:
-						return "Edgar";
-					case 22:
-						return "Eustace";
-					case 23:
-						return "Benjamin";
-					default:
-						return "Rodrick";
+						case 0:
+							return "Sebastian";
+						case 1:
+							return "Rupert";
+						case 2:
+							return "Clive";
+						case 3:
+							return "Nigel";
+						case 4:
+							return "Mervyn";
+						case 5:
+							return "Cedric";
+						case 6:
+							return "Pip";
+						case 7:
+							return "Cyril";
+						case 8:
+							return "Fitz";
+						case 9:
+							return "Lloyd";
+						case 10:
+							return "Arthur";
+						case 11:
+							return "Rodney";
+						case 12:
+							return "Graham";
+						case 13:
+							return "Edward";
+						case 14:
+							return "Alfred";
+						case 15:
+							return "Edmund";
+						case 16:
+							return "Henry";
+						case 17:
+							return "Herald";
+						case 18:
+							return "Roland";
+						case 19:
+							return "Lincoln";
+						case 20:
+							return "Lloyd";
+						case 21:
+							return "Edgar";
+						case 22:
+							return "Eustace";
+						case 23:
+							return "Benjamin";
+						default:
+							return "Rodrick";
 					}
 				}
 			}
@@ -741,179 +743,179 @@ namespace Terraria
 					{
 						switch (npcType)
 						{
-						case 207:
-							switch (WorldGen.genRand.Next(16))
-							{
-							case 0:
-								return "Abdosir";
-							case 1:
-								return "Akbar";
-							case 2:
-								return "Bodashtart";
-							case 3:
-								return "Danel";
-							case 4:
-								return "Hanno";
-							case 5:
-								return "Hiram";
-							case 6:
-								return "Kanmi";
-							case 7:
-								return "Philosir";
-							case 8:
-								return "Tabnit";
-							case 9:
-								return "Yutpan";
-							case 10:
-								return "Ahirom";
-							case 11:
-								return "Batnoam";
-							case 12:
-								return "Sikarbaal";
-							case 13:
-								return "Hannibal";
-							case 14:
-								return "Yehomilk";
-							default:
-								return "Ahinadab";
-							}
-							break;
-						case 208:
-							switch (WorldGen.genRand.Next(17))
-							{
-							case 0:
-								return "Candy";
-							case 1:
-								return "Isis";
-							case 2:
-								return "Trixy";
-							case 3:
-								return "Destiny";
-							case 4:
-								return "Lexus";
-							case 5:
-								return "Bambi";
-							case 6:
-								return "Bailey";
-							case 7:
-								return "Glitter";
-							case 8:
-								return "Sparkle";
-							case 9:
-								return "Paris";
-							case 10:
-								return "Dazzle";
-							case 11:
-								return "Fantasy";
-							case 12:
-								return "Bunny";
-							case 13:
-								return "Sugar";
-							case 14:
-								return "Fantasia";
-							case 15:
-								return "Star";
-							default:
-								return "Cherry";
-							}
-							break;
-						case 209:
-							switch (WorldGen.genRand.Next(23))
-							{
-							case 0:
-								return "Alpha";
-							case 1:
-								return "Beta";
-							case 2:
-								return "Delta";
-							case 3:
-								return "Omega";
-							case 4:
-								return "Gamma";
-							case 5:
-								return "Theta";
-							case 6:
-								return "Kappa";
-							case 7:
-								return "Omicron";
-							case 8:
-								return "Sigma";
-							case 9:
-								return "Upsilon";
-							case 10:
-								return "Phi";
-							case 11:
-								return "Zeta";
-							case 12:
-								return "Lambda";
-							case 13:
-								return "Nu";
-							case 14:
-								return "Ci";
-							case 15:
-								return "Rho";
-							case 16:
-								return "Phi";
-							case 17:
-								return "Fender";
-							case 18:
-								return "T-3E0";
-							case 19:
-								return "Niner-7";
-							case 20:
-								return "A.N.D.Y";
-							case 21:
-								return "Syn-X";
-							default:
-								return "Mu";
-							}
-							break;
+							case 207:
+								switch (WorldGen.genRand.Next(16))
+								{
+									case 0:
+										return "Abdosir";
+									case 1:
+										return "Akbar";
+									case 2:
+										return "Bodashtart";
+									case 3:
+										return "Danel";
+									case 4:
+										return "Hanno";
+									case 5:
+										return "Hiram";
+									case 6:
+										return "Kanmi";
+									case 7:
+										return "Philosir";
+									case 8:
+										return "Tabnit";
+									case 9:
+										return "Yutpan";
+									case 10:
+										return "Ahirom";
+									case 11:
+										return "Batnoam";
+									case 12:
+										return "Sikarbaal";
+									case 13:
+										return "Hannibal";
+									case 14:
+										return "Yehomilk";
+									default:
+										return "Ahinadab";
+								}
+								break;
+							case 208:
+								switch (WorldGen.genRand.Next(17))
+								{
+									case 0:
+										return "Candy";
+									case 1:
+										return "Isis";
+									case 2:
+										return "Trixy";
+									case 3:
+										return "Destiny";
+									case 4:
+										return "Lexus";
+									case 5:
+										return "Bambi";
+									case 6:
+										return "Bailey";
+									case 7:
+										return "Glitter";
+									case 8:
+										return "Sparkle";
+									case 9:
+										return "Paris";
+									case 10:
+										return "Dazzle";
+									case 11:
+										return "Fantasy";
+									case 12:
+										return "Bunny";
+									case 13:
+										return "Sugar";
+									case 14:
+										return "Fantasia";
+									case 15:
+										return "Star";
+									default:
+										return "Cherry";
+								}
+								break;
+							case 209:
+								switch (WorldGen.genRand.Next(23))
+								{
+									case 0:
+										return "Alpha";
+									case 1:
+										return "Beta";
+									case 2:
+										return "Delta";
+									case 3:
+										return "Omega";
+									case 4:
+										return "Gamma";
+									case 5:
+										return "Theta";
+									case 6:
+										return "Kappa";
+									case 7:
+										return "Omicron";
+									case 8:
+										return "Sigma";
+									case 9:
+										return "Upsilon";
+									case 10:
+										return "Phi";
+									case 11:
+										return "Zeta";
+									case 12:
+										return "Lambda";
+									case 13:
+										return "Nu";
+									case 14:
+										return "Ci";
+									case 15:
+										return "Rho";
+									case 16:
+										return "Phi";
+									case 17:
+										return "Fender";
+									case 18:
+										return "T-3E0";
+									case 19:
+										return "Niner-7";
+									case 20:
+										return "A.N.D.Y";
+									case 21:
+										return "Syn-X";
+									default:
+										return "Mu";
+								}
+								break;
 						}
 					}
 					else
 					{
 						switch (WorldGen.genRand.Next(20))
 						{
-						case 0:
-							return "Whitney";
-						case 1:
-							return "Verity";
-						case 2:
-							return "Ada";
-						case 3:
-							return "Cornelia";
-						case 4:
-							return "Lydia";
-						case 5:
-							return "Leila";
-						case 6:
-							return "Minerva";
-						case 7:
-							return "Emeline";
-						case 8:
-							return "Cynthia";
-						case 9:
-							return "Fidelia";
-						case 10:
-							return "Lilly";
-						case 11:
-							return "Phoebe";
-						case 12:
-							return "Zylphia";
-						case 13:
-							return "Zelda";
-						case 14:
-							return "Selina";
-						case 15:
-							return "Hope";
-						case 16:
-							return "Isabella";
-						case 17:
-							return "Judith";
-						case 18:
-							return "Savannah";
-						default:
-							return "Vivian";
+							case 0:
+								return "Whitney";
+							case 1:
+								return "Verity";
+							case 2:
+								return "Ada";
+							case 3:
+								return "Cornelia";
+							case 4:
+								return "Lydia";
+							case 5:
+								return "Leila";
+							case 6:
+								return "Minerva";
+							case 7:
+								return "Emeline";
+							case 8:
+								return "Cynthia";
+							case 9:
+								return "Fidelia";
+							case 10:
+								return "Lilly";
+							case 11:
+								return "Phoebe";
+							case 12:
+								return "Zylphia";
+							case 13:
+								return "Zelda";
+							case 14:
+								return "Selina";
+							case 15:
+								return "Hope";
+							case 16:
+								return "Isabella";
+							case 17:
+								return "Judith";
+							case 18:
+								return "Savannah";
+							default:
+								return "Vivian";
 						}
 					}
 				}
@@ -921,30 +923,30 @@ namespace Terraria
 				{
 					switch (WorldGen.genRand.Next(12))
 					{
-					case 0:
-						return "Reishi";
-					case 1:
-						return "Maitake";
-					case 2:
-						return "Chanterelle";
-					case 3:
-						return "Porcini";
-					case 4:
-						return "Shimeji";
-					case 5:
-						return "Amanita";
-					case 6:
-						return "Muscaria";
-					case 7:
-						return "Agaric";
-					case 8:
-						return "Cremini";
-					case 9:
-						return "Morel";
-					case 10:
-						return "Enoki";
-					default:
-						return "Shiitake";
+						case 0:
+							return "Reishi";
+						case 1:
+							return "Maitake";
+						case 2:
+							return "Chanterelle";
+						case 3:
+							return "Porcini";
+						case 4:
+							return "Shimeji";
+						case 5:
+							return "Amanita";
+						case 6:
+							return "Muscaria";
+						case 7:
+							return "Agaric";
+						case 8:
+							return "Cremini";
+						case 9:
+							return "Morel";
+						case 10:
+							return "Enoki";
+						default:
+							return "Shiitake";
 					}
 				}
 			}
@@ -952,231 +954,231 @@ namespace Terraria
 			{
 				switch (npcType)
 				{
-				case 227:
-					switch (WorldGen.genRand.Next(17))
-					{
-					case 0:
-						return "Marco";
-					case 1:
-						return "Guido";
-					case 2:
-						return "Enzo";
-					case 3:
-						return "Martino";
-					case 4:
-						return "Mauro";
-					case 5:
-						return "Lorenzo";
-					case 6:
-						return "Ludo";
-					case 7:
-						return "Luciano";
-					case 8:
-						return "Carlo";
-					case 9:
-						return "Bruno";
-					case 10:
-						return "Mario";
-					case 11:
-						return "Leonardo";
-					case 12:
-						return "Raphael";
-					case 13:
-						return "Luigi";
-					case 14:
-						return "Luca";
-					case 15:
-						return "Darren";
-					default:
-						return "Stefano";
-					}
-					break;
-				case 228:
-					switch (WorldGen.genRand.Next(10))
-					{
-					case 0:
-						return "Abibe";
-					case 1:
-						return "Jamundi";
-					case 2:
-						return "U'wa";
-					case 3:
-						return "Tairona";
-					case 4:
-						return "Xirigua";
-					case 5:
-						return "Zop'a";
-					case 6:
-						return "Opuni";
-					case 7:
-						return "Kogi-ghi";
-					case 8:
-						return "Konah";
-					default:
-						return "Gboto";
-					}
-					break;
-				case 229:
-					switch (WorldGen.genRand.Next(11))
-					{
-					case 0:
-						return "David";
-					case 1:
-						return "Red Beard";
-					case 2:
-						return "Jack";
-					case 3:
-						return "Black Beard";
-					case 4:
-						return "Captain Morgan";
-					case 5:
-						return "Wet Beard";
-					case 6:
-						return "James T. Beard";
-					case 7:
-						return "Gunpowder Garry";
-					case 8:
-						return "Captain Stoney Dirt";
-					case 9:
-						return "Jake";
-					default:
-						return "Captain Bullywort";
-					}
-					break;
-				default:
-					if (npcType != 353)
-					{
-						switch (npcType)
+					case 227:
+						switch (WorldGen.genRand.Next(17))
 						{
-						case 368:
-							switch (WorldGen.genRand.Next(13))
-							{
 							case 0:
-								return "Abraham";
+								return "Marco";
 							case 1:
-								return "Bohemas";
+								return "Guido";
 							case 2:
-								return "Eladon";
+								return "Enzo";
 							case 3:
-								return "Aphraim";
+								return "Martino";
 							case 4:
-								return "Gallius";
+								return "Mauro";
 							case 5:
-								return "Llewellyn";
+								return "Lorenzo";
 							case 6:
-								return "Riley";
+								return "Ludo";
 							case 7:
-								return "Rawleigh";
+								return "Luciano";
 							case 8:
-								return "Shipton";
+								return "Carlo";
 							case 9:
-								return "Romeo";
+								return "Bruno";
 							case 10:
-								return "Aedan";
+								return "Mario";
 							case 11:
-								return "Mercer";
-							default:
-								return "Willy";
-							}
-							break;
-						case 369:
-							switch (WorldGen.genRand.Next(22))
-							{
-							case 0:
-								return "Bobby";
-							case 1:
-								return "Sammy";
-							case 2:
-								return "Jimmy";
-							case 3:
-								return "Danny";
-							case 4:
-								return "Timmy";
-							case 5:
-								return "Simon";
-							case 6:
-								return "Johnny";
-							case 7:
-								return "Billy";
-							case 8:
-								return "Matty";
-							case 9:
-								return "Bart";
-							case 10:
-								return "Phillip";
-							case 11:
-								return "Spencer";
+								return "Leonardo";
 							case 12:
-								return "Nathan";
+								return "Raphael";
 							case 13:
-								return "Grayson";
+								return "Luigi";
 							case 14:
-								return "Bryce";
+								return "Luca";
 							case 15:
-								return "Miles";
-							case 16:
-								return "Charles";
-							case 17:
-								return "Adam";
-							case 18:
-								return "Tyler";
-							case 19:
-								return "Jey";
-							case 20:
-								return "Ivan";
+								return "Darren";
 							default:
-								return "Izzy";
-							}
-							break;
+								return "Stefano";
 						}
-					}
-					else
-					{
-						switch (WorldGen.genRand.Next(20))
+						break;
+					case 228:
+						switch (WorldGen.genRand.Next(10))
 						{
-						case 0:
-							return "Bri";
-						case 1:
-							return "Brianne";
-						case 2:
-							return "Flora";
-						case 3:
-							return "Iris";
-						case 4:
-							return "Scarlett";
-						case 5:
-							return "Lola";
-						case 6:
-							return "Hazel";
-						case 7:
-							return "Stella";
-						case 8:
-							return "Pearl";
-						case 9:
-							return "Tallulah";
-						case 10:
-							return "Ruby";
-						case 11:
-							return "Esmeralda";
-						case 12:
-							return "Kylie";
-						case 13:
-							return "Kati";
-						case 14:
-							return "Biah";
-						case 15:
-							return "Meliyah";
-						case 16:
-							return "Petra";
-						case 17:
-							return "Rox";
-						case 18:
-							return "Roxanne";
-						default:
-							return "Annabel";
+							case 0:
+								return "Abibe";
+							case 1:
+								return "Jamundi";
+							case 2:
+								return "U'wa";
+							case 3:
+								return "Tairona";
+							case 4:
+								return "Xirigua";
+							case 5:
+								return "Zop'a";
+							case 6:
+								return "Opuni";
+							case 7:
+								return "Kogi-ghi";
+							case 8:
+								return "Konah";
+							default:
+								return "Gboto";
 						}
-					}
-					break;
+						break;
+					case 229:
+						switch (WorldGen.genRand.Next(11))
+						{
+							case 0:
+								return "David";
+							case 1:
+								return "Red Beard";
+							case 2:
+								return "Jack";
+							case 3:
+								return "Black Beard";
+							case 4:
+								return "Captain Morgan";
+							case 5:
+								return "Wet Beard";
+							case 6:
+								return "James T. Beard";
+							case 7:
+								return "Gunpowder Garry";
+							case 8:
+								return "Captain Stoney Dirt";
+							case 9:
+								return "Jake";
+							default:
+								return "Captain Bullywort";
+						}
+						break;
+					default:
+						if (npcType != 353)
+						{
+							switch (npcType)
+							{
+								case 368:
+									switch (WorldGen.genRand.Next(13))
+									{
+										case 0:
+											return "Abraham";
+										case 1:
+											return "Bohemas";
+										case 2:
+											return "Eladon";
+										case 3:
+											return "Aphraim";
+										case 4:
+											return "Gallius";
+										case 5:
+											return "Llewellyn";
+										case 6:
+											return "Riley";
+										case 7:
+											return "Rawleigh";
+										case 8:
+											return "Shipton";
+										case 9:
+											return "Romeo";
+										case 10:
+											return "Aedan";
+										case 11:
+											return "Mercer";
+										default:
+											return "Willy";
+									}
+									break;
+								case 369:
+									switch (WorldGen.genRand.Next(22))
+									{
+										case 0:
+											return "Bobby";
+										case 1:
+											return "Sammy";
+										case 2:
+											return "Jimmy";
+										case 3:
+											return "Danny";
+										case 4:
+											return "Timmy";
+										case 5:
+											return "Simon";
+										case 6:
+											return "Johnny";
+										case 7:
+											return "Billy";
+										case 8:
+											return "Matty";
+										case 9:
+											return "Bart";
+										case 10:
+											return "Phillip";
+										case 11:
+											return "Spencer";
+										case 12:
+											return "Nathan";
+										case 13:
+											return "Grayson";
+										case 14:
+											return "Bryce";
+										case 15:
+											return "Miles";
+										case 16:
+											return "Charles";
+										case 17:
+											return "Adam";
+										case 18:
+											return "Tyler";
+										case 19:
+											return "Jey";
+										case 20:
+											return "Ivan";
+										default:
+											return "Izzy";
+									}
+									break;
+							}
+						}
+						else
+						{
+							switch (WorldGen.genRand.Next(20))
+							{
+								case 0:
+									return "Bri";
+								case 1:
+									return "Brianne";
+								case 2:
+									return "Flora";
+								case 3:
+									return "Iris";
+								case 4:
+									return "Scarlett";
+								case 5:
+									return "Lola";
+								case 6:
+									return "Hazel";
+								case 7:
+									return "Stella";
+								case 8:
+									return "Pearl";
+								case 9:
+									return "Tallulah";
+								case 10:
+									return "Ruby";
+								case 11:
+									return "Esmeralda";
+								case 12:
+									return "Kylie";
+								case 13:
+									return "Kati";
+								case 14:
+									return "Biah";
+								case 15:
+									return "Meliyah";
+								case 16:
+									return "Petra";
+								case 17:
+									return "Rox";
+								case 18:
+									return "Roxanne";
+								default:
+									return "Annabel";
+							}
+						}
+						break;
 				}
 			}
 			return "";
@@ -26190,26 +26192,26 @@ namespace Terraria
 													int num1095 = 0;
 													switch ((int)this.ai[3])
 													{
-													case 0:
-													case 1:
-													case 2:
-													case 3:
-													case 4:
-													case 5:
-													case 6:
-													case 7:
-													case 8:
-													case 9:
-														num1095 = 1;
-														break;
-													case 10:
-														this.ai[3] = 1f;
-														num1095 = 2;
-														break;
-													case 11:
-														this.ai[3] = 0f;
-														num1095 = 3;
-														break;
+														case 0:
+														case 1:
+														case 2:
+														case 3:
+														case 4:
+														case 5:
+														case 6:
+														case 7:
+														case 8:
+														case 9:
+															num1095 = 1;
+															break;
+														case 10:
+															this.ai[3] = 1f;
+															num1095 = 2;
+															break;
+														case 11:
+															this.ai[3] = 0f;
+															num1095 = 3;
+															break;
 													}
 													if (flag75)
 													{
@@ -26455,22 +26457,22 @@ namespace Terraria
 													int num1101 = 0;
 													switch ((int)this.ai[3])
 													{
-													case 0:
-													case 1:
-													case 2:
-													case 3:
-													case 4:
-													case 5:
-														num1101 = 1;
-														break;
-													case 6:
-														this.ai[3] = 1f;
-														num1101 = 2;
-														break;
-													case 7:
-														this.ai[3] = 0f;
-														num1101 = 3;
-														break;
+														case 0:
+														case 1:
+														case 2:
+														case 3:
+														case 4:
+														case 5:
+															num1101 = 1;
+															break;
+														case 6:
+															this.ai[3] = 1f;
+															num1101 = 2;
+															break;
+														case 7:
+															this.ai[3] = 0f;
+															num1101 = 3;
+															break;
 													}
 													if (num1101 == 1)
 													{
@@ -31187,10 +31189,10 @@ namespace Terraria
 								}
 								goto IL_1188;
 							}
-							IL_118E:
+						IL_118E:
 							l++;
 							continue;
-							IL_1188:
+						IL_1188:
 							if (!flag7 && !flag7)
 							{
 								goto IL_118E;
@@ -33718,7 +33720,7 @@ namespace Terraria
 			catch
 			{
 			}
-			IL_162:
+		IL_162:
 			num3 = num5 * 16;
 			int num7 = NPC.NewNPC(num2, num3, 113, 0);
 			if (Main.npc[num7].displayName == "")
@@ -33912,10 +33914,10 @@ namespace Terraria
 								}
 								goto IL_62B;
 							}
-							IL_633:
+						IL_633:
 							n++;
 							continue;
-							IL_62B:
+						IL_62B:
 							if (!flag && !flag)
 							{
 								goto IL_633;
@@ -34050,7 +34052,7 @@ namespace Terraria
 			{
 				Main.npc[num] = new NPC();
 				Main.npc[num].SetDefaults(Type, -1f);
-				
+
 				if (NPC.TypeToNum(Type) != -1)
 				{
 					Main.npc[num].displayName = NPC.getNewNPCName(Type);
@@ -35349,90 +35351,90 @@ namespace Terraria
 					{
 						switch (num13)
 						{
-						case 75:
-							if (Main.rand.Next(2) == 0)
-							{
-								num11 = 889;
-							}
-							else
-							{
-								num11 = 890;
-							}
-							if (Main.rand.Next(100) != 0)
-							{
-								goto IL_1DC7;
-							}
-							if (num11 == 889)
-							{
-								num12 = 890;
-								goto IL_1DC7;
-							}
-							num12 = 889;
-							goto IL_1DC7;
-						case 76:
-						case 85:
-						case 86:
-						case 87:
-						case 88:
-						case 89:
-						case 90:
-						case 91:
-						case 92:
-							goto IL_1DC7;
-						case 77:
-							goto IL_1CDD;
-						case 78:
-						case 82:
-							num11 = 889;
-							goto IL_1DC7;
-						case 79:
-							if (Main.rand.Next(2) == 0)
-							{
-								num11 = 888;
-							}
-							else
-							{
-								num11 = 890;
-							}
-							if (Main.rand.Next(100) != 0)
-							{
-								goto IL_1DC7;
-							}
-							if (num11 == 888)
-							{
-								num12 = 890;
-								goto IL_1DC7;
-							}
-							num12 = 888;
-							goto IL_1DC7;
-						case 80:
-						case 93:
-							break;
-						case 81:
-							num11 = 888;
-							goto IL_1DC7;
-						case 83:
-						case 84:
-							goto IL_1D19;
-						case 94:
-							goto IL_1D25;
-						default:
-							switch (num13)
-							{
-							case 102:
-							case 104:
-								goto IL_1CD1;
-							case 103:
-								num11 = 890;
-								goto IL_1DC7;
-							default:
-								if (num13 != 109)
+							case 75:
+								if (Main.rand.Next(2) == 0)
+								{
+									num11 = 889;
+								}
+								else
+								{
+									num11 = 890;
+								}
+								if (Main.rand.Next(100) != 0)
 								{
 									goto IL_1DC7;
 								}
+								if (num11 == 889)
+								{
+									num12 = 890;
+									goto IL_1DC7;
+								}
+								num12 = 889;
+								goto IL_1DC7;
+							case 76:
+							case 85:
+							case 86:
+							case 87:
+							case 88:
+							case 89:
+							case 90:
+							case 91:
+							case 92:
+								goto IL_1DC7;
+							case 77:
+								goto IL_1CDD;
+							case 78:
+							case 82:
+								num11 = 889;
+								goto IL_1DC7;
+							case 79:
+								if (Main.rand.Next(2) == 0)
+								{
+									num11 = 888;
+								}
+								else
+								{
+									num11 = 890;
+								}
+								if (Main.rand.Next(100) != 0)
+								{
+									goto IL_1DC7;
+								}
+								if (num11 == 888)
+								{
+									num12 = 890;
+									goto IL_1DC7;
+								}
+								num12 = 888;
+								goto IL_1DC7;
+							case 80:
+							case 93:
 								break;
-							}
-							break;
+							case 81:
+								num11 = 888;
+								goto IL_1DC7;
+							case 83:
+							case 84:
+								goto IL_1D19;
+							case 94:
+								goto IL_1D25;
+							default:
+								switch (num13)
+								{
+									case 102:
+									case 104:
+										goto IL_1CD1;
+									case 103:
+										num11 = 890;
+										goto IL_1DC7;
+									default:
+										if (num13 != 109)
+										{
+											goto IL_1DC7;
+										}
+										break;
+								}
+								break;
 						}
 						num11 = 893;
 						goto IL_1DC7;
@@ -35467,46 +35469,46 @@ namespace Terraria
 					}
 					switch (num13)
 					{
-					case 231:
-					case 232:
-					case 233:
-					case 234:
-					case 235:
-						goto IL_1CE9;
-					default:
-						switch (num13)
-						{
-						case 269:
-						case 270:
-						case 271:
-						case 272:
-							break;
-						case 273:
-						case 274:
-						case 275:
-						case 276:
-							goto IL_1CDD;
+						case 231:
+						case 232:
+						case 233:
+						case 234:
+						case 235:
+							goto IL_1CE9;
 						default:
-							goto IL_1DC7;
-						}
-						break;
+							switch (num13)
+							{
+								case 269:
+								case 270:
+								case 271:
+								case 272:
+									break;
+								case 273:
+								case 274:
+								case 275:
+								case 276:
+									goto IL_1CDD;
+								default:
+									goto IL_1DC7;
+							}
+							break;
 					}
 				}
-				IL_1CD1:
+			IL_1CD1:
 				num11 = 885;
 				goto IL_1DC7;
-				IL_1CDD:
+			IL_1CDD:
 				num11 = 886;
 				goto IL_1DC7;
-				IL_1CE9:
+			IL_1CE9:
 				num11 = 887;
 				goto IL_1DC7;
-				IL_1D19:
+			IL_1D19:
 				num11 = 891;
 				goto IL_1DC7;
-				IL_1D25:
+			IL_1D25:
 				num11 = 892;
-				IL_1DC7:
+			IL_1DC7:
 				if (num11 != -1)
 				{
 					DropLoot((int)this.position.X, (int)this.position.Y, this.width, this.height, num11, 1, false, -1, false);
@@ -41934,7 +41936,7 @@ namespace Terraria
 						}
 					}
 				}
-				IL_898:
+			IL_898:
 				if (Main.netMode != 1 && Main.bloodMoon)
 				{
 					bool flag2 = false;

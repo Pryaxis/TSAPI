@@ -1,4 +1,6 @@
 using System;
+using XNA;
+
 namespace Terraria
 {
 	public class Dust

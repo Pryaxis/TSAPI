@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TerrariaApi.Server;
+using XNA;
 
 namespace Terraria
 {

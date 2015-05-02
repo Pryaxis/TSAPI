@@ -1,1303 +1,1306 @@
 using System;
 using System.Globalization;
-[Serializable]
-public struct Color : IPackedVector<uint>, IPackedVector, IEquatable<Color>
+
+namespace XNA
 {
-	private uint packedValue;
-	public byte R
-	{
-		get
-		{
-			return (byte)this.packedValue;
-		}
-		set
+	[Serializable]
+	public struct Color : IPackedVector<uint>, IPackedVector, IEquatable<Color>
+	{
+		private uint packedValue;
+		public byte R
+		{
+			get
+			{
+				return (byte)this.packedValue;
+			}
+			set
+			{
+				this.packedValue = ((this.packedValue & 4294967040u) | (uint)value);
+			}
+		}
+		public byte G
+		{
+			get
+			{
+				return (byte)(this.packedValue >> 8);
+			}
+			set
+			{
+				this.packedValue = ((this.packedValue & 4294902015u) | (uint)((uint)value << 8));
+			}
+		}
+		public byte B
+		{
+			get
+			{
+				return (byte)(this.packedValue >> 16);
+			}
+			set
+			{
+				this.packedValue = ((this.packedValue & 4278255615u) | (uint)((uint)value << 16));
+			}
+		}
+		public byte A
+		{
+			get
+			{
+				return (byte)(this.packedValue >> 24);
+			}
+			set
+			{
+				this.packedValue = ((this.packedValue & 16777215u) | (uint)((uint)value << 24));
+			}
+		}
+		public uint PackedValue
+		{
+			get
+			{
+				return this.packedValue;
+			}
+			set
+			{
+				this.packedValue = value;
+			}
+		}
+		public static Color Transparent
 		{
-			this.packedValue = ((this.packedValue & 4294967040u) | (uint)value);
-		}
-	}
-	public byte G
-	{
-		get
+			get
+			{
+				return new Color(0u);
+			}
+		}
+		public static Color AliceBlue
 		{
-			return (byte)(this.packedValue >> 8);
+			get
+			{
+				return new Color(4294965488u);
+			}
 		}
-		set
+		public static Color AntiqueWhite
 		{
-			this.packedValue = ((this.packedValue & 4294902015u) | (uint)((uint)value << 8));
+			get
+			{
+				return new Color(4292340730u);
+			}
 		}
-	}
-	public byte B
-	{
-		get
+		public static Color Aqua
 		{
-			return (byte)(this.packedValue >> 16);
+			get
+			{
+				return new Color(4294967040u);
+			}
 		}
-		set
+		public static Color Aquamarine
 		{
-			this.packedValue = ((this.packedValue & 4278255615u) | (uint)((uint)value << 16));
+			get
+			{
+				return new Color(4292149119u);
+			}
 		}
-	}
-	public byte A
-	{
-		get
+		public static Color Azure
 		{
-			return (byte)(this.packedValue >> 24);
+			get
+			{
+				return new Color(4294967280u);
+			}
 		}
-		set
+		public static Color Beige
 		{
-			this.packedValue = ((this.packedValue & 16777215u) | (uint)((uint)value << 24));
+			get
+			{
+				return new Color(4292670965u);
+			}
 		}
-	}
-	[CLSCompliant(false)]
-	public uint PackedValue
-	{
-		get
+		public static Color Bisque
 		{
-			return this.packedValue;
+			get
+			{
+				return new Color(4291093759u);
+			}
 		}
-		set
+		public static Color Black
 		{
-			this.packedValue = value;
+			get
+			{
+				return new Color(4278190080u);
+			}
 		}
-	}
-	public static Color Transparent
-	{
-		get
+		public static Color BlanchedAlmond
 		{
-			return new Color(0u);
+			get
+			{
+				return new Color(4291685375u);
+			}
 		}
-	}
-	public static Color AliceBlue
-	{
-		get
+		public static Color Blue
 		{
-			return new Color(4294965488u);
+			get
+			{
+				return new Color(4294901760u);
+			}
 		}
-	}
-	public static Color AntiqueWhite
-	{
-		get
+		public static Color BlueViolet
 		{
-			return new Color(4292340730u);
+			get
+			{
+				return new Color(4293012362u);
+			}
 		}
-	}
-	public static Color Aqua
-	{
-		get
+		public static Color Brown
 		{
-			return new Color(4294967040u);
+			get
+			{
+				return new Color(4280953509u);
+			}
 		}
-	}
-	public static Color Aquamarine
-	{
-		get
+		public static Color BurlyWood
 		{
-			return new Color(4292149119u);
+			get
+			{
+				return new Color(4287084766u);
+			}
 		}
-	}
-	public static Color Azure
-	{
-		get
+		public static Color CadetBlue
 		{
-			return new Color(4294967280u);
+			get
+			{
+				return new Color(4288716383u);
+			}
 		}
-	}
-	public static Color Beige
-	{
-		get
+		public static Color Chartreuse
 		{
-			return new Color(4292670965u);
+			get
+			{
+				return new Color(4278255487u);
+			}
 		}
-	}
-	public static Color Bisque
-	{
-		get
+		public static Color Chocolate
 		{
-			return new Color(4291093759u);
+			get
+			{
+				return new Color(4280183250u);
+			}
 		}
-	}
-	public static Color Black
-	{
-		get
+		public static Color Coral
 		{
-			return new Color(4278190080u);
+			get
+			{
+				return new Color(4283465727u);
+			}
 		}
-	}
-	public static Color BlanchedAlmond
-	{
-		get
+		public static Color CornflowerBlue
 		{
-			return new Color(4291685375u);
+			get
+			{
+				return new Color(4293760356u);
+			}
 		}
-	}
-	public static Color Blue
-	{
-		get
+		public static Color Cornsilk
 		{
-			return new Color(4294901760u);
+			get
+			{
+				return new Color(4292671743u);
+			}
 		}
-	}
-	public static Color BlueViolet
-	{
-		get
+		public static Color Crimson
 		{
-			return new Color(4293012362u);
+			get
+			{
+				return new Color(4282127580u);
+			}
 		}
-	}
-	public static Color Brown
-	{
-		get
+		public static Color Cyan
 		{
-			return new Color(4280953509u);
+			get
+			{
+				return new Color(4294967040u);
+			}
 		}
-	}
-	public static Color BurlyWood
-	{
-		get
+		public static Color DarkBlue
 		{
-			return new Color(4287084766u);
+			get
+			{
+				return new Color(4287299584u);
+			}
 		}
-	}
-	public static Color CadetBlue
-	{
-		get
+		public static Color DarkCyan
 		{
-			return new Color(4288716383u);
+			get
+			{
+				return new Color(4287335168u);
+			}
 		}
-	}
-	public static Color Chartreuse
-	{
-		get
+		public static Color DarkGoldenrod
 		{
-			return new Color(4278255487u);
+			get
+			{
+				return new Color(4278945464u);
+			}
 		}
-	}
-	public static Color Chocolate
-	{
-		get
+		public static Color DarkGray
 		{
-			return new Color(4280183250u);
+			get
+			{
+				return new Color(4289309097u);
+			}
 		}
-	}
-	public static Color Coral
-	{
-		get
+		public static Color DarkGreen
 		{
-			return new Color(4283465727u);
+			get
+			{
+				return new Color(4278215680u);
+			}
 		}
-	}
-	public static Color CornflowerBlue
-	{
-		get
+		public static Color DarkKhaki
 		{
-			return new Color(4293760356u);
+			get
+			{
+				return new Color(4285249469u);
+			}
 		}
-	}
-	public static Color Cornsilk
-	{
-		get
+		public static Color DarkMagenta
 		{
-			return new Color(4292671743u);
+			get
+			{
+				return new Color(4287299723u);
+			}
 		}
-	}
-	public static Color Crimson
-	{
-		get
+		public static Color DarkOliveGreen
 		{
-			return new Color(4282127580u);
+			get
+			{
+				return new Color(4281297749u);
+			}
 		}
-	}
-	public static Color Cyan
-	{
-		get
+		public static Color DarkOrange
 		{
-			return new Color(4294967040u);
+			get
+			{
+				return new Color(4278226175u);
+			}
 		}
-	}
-	public static Color DarkBlue
-	{
-		get
+		public static Color DarkOrchid
 		{
-			return new Color(4287299584u);
+			get
+			{
+				return new Color(4291572377u);
+			}
 		}
-	}
-	public static Color DarkCyan
-	{
-		get
+		public static Color DarkRed
 		{
-			return new Color(4287335168u);
+			get
+			{
+				return new Color(4278190219u);
+			}
 		}
-	}
-	public static Color DarkGoldenrod
-	{
-		get
+		public static Color DarkSalmon
 		{
-			return new Color(4278945464u);
+			get
+			{
+				return new Color(4286224105u);
+			}
 		}
-	}
-	public static Color DarkGray
-	{
-		get
+		public static Color DarkSeaGreen
 		{
-			return new Color(4289309097u);
+			get
+			{
+				return new Color(4287347855u);
+			}
 		}
-	}
-	public static Color DarkGreen
-	{
-		get
+		public static Color DarkSlateBlue
 		{
-			return new Color(4278215680u);
+			get
+			{
+				return new Color(4287315272u);
+			}
 		}
-	}
-	public static Color DarkKhaki
-	{
-		get
+		public static Color DarkSlateGray
 		{
-			return new Color(4285249469u);
+			get
+			{
+				return new Color(4283387695u);
+			}
 		}
-	}
-	public static Color DarkMagenta
-	{
-		get
+		public static Color DarkTurquoise
 		{
-			return new Color(4287299723u);
+			get
+			{
+				return new Color(4291939840u);
+			}
 		}
-	}
-	public static Color DarkOliveGreen
-	{
-		get
+		public static Color DarkViolet
 		{
-			return new Color(4281297749u);
+			get
+			{
+				return new Color(4292018324u);
+			}
 		}
-	}
-	public static Color DarkOrange
-	{
-		get
+		public static Color DeepPink
 		{
-			return new Color(4278226175u);
+			get
+			{
+				return new Color(4287829247u);
+			}
 		}
-	}
-	public static Color DarkOrchid
-	{
-		get
+		public static Color DeepSkyBlue
 		{
-			return new Color(4291572377u);
+			get
+			{
+				return new Color(4294950656u);
+			}
 		}
-	}
-	public static Color DarkRed
-	{
-		get
+		public static Color DimGray
 		{
-			return new Color(4278190219u);
+			get
+			{
+				return new Color(4285098345u);
+			}
 		}
-	}
-	public static Color DarkSalmon
-	{
-		get
+		public static Color DodgerBlue
 		{
-			return new Color(4286224105u);
+			get
+			{
+				return new Color(4294938654u);
+			}
 		}
-	}
-	public static Color DarkSeaGreen
-	{
-		get
+		public static Color Firebrick
 		{
-			return new Color(4287347855u);
+			get
+			{
+				return new Color(4280427186u);
+			}
 		}
-	}
-	public static Color DarkSlateBlue
-	{
-		get
+		public static Color FloralWhite
 		{
-			return new Color(4287315272u);
+			get
+			{
+				return new Color(4293982975u);
+			}
 		}
-	}
-	public static Color DarkSlateGray
-	{
-		get
+		public static Color ForestGreen
 		{
-			return new Color(4283387695u);
+			get
+			{
+				return new Color(4280453922u);
+			}
 		}
-	}
-	public static Color DarkTurquoise
-	{
-		get
+		public static Color Fuchsia
 		{
-			return new Color(4291939840u);
+			get
+			{
+				return new Color(4294902015u);
+			}
 		}
-	}
-	public static Color DarkViolet
-	{
-		get
+		public static Color Gainsboro
 		{
-			return new Color(4292018324u);
+			get
+			{
+				return new Color(4292664540u);
+			}
 		}
-	}
-	public static Color DeepPink
-	{
-		get
+		public static Color GhostWhite
 		{
-			return new Color(4287829247u);
+			get
+			{
+				return new Color(4294965496u);
+			}
 		}
-	}
-	public static Color DeepSkyBlue
-	{
-		get
+		public static Color Gold
 		{
-			return new Color(4294950656u);
+			get
+			{
+				return new Color(4278245375u);
+			}
 		}
-	}
-	public static Color DimGray
-	{
-		get
+		public static Color Goldenrod
 		{
-			return new Color(4285098345u);
+			get
+			{
+				return new Color(4280329690u);
+			}
 		}
-	}
-	public static Color DodgerBlue
-	{
-		get
+		public static Color Gray
 		{
-			return new Color(4294938654u);
+			get
+			{
+				return new Color(4286611584u);
+			}
 		}
-	}
-	public static Color Firebrick
-	{
-		get
+		public static Color Green
 		{
-			return new Color(4280427186u);
+			get
+			{
+				return new Color(4278222848u);
+			}
 		}
-	}
-	public static Color FloralWhite
-	{
-		get
+		public static Color GreenYellow
 		{
-			return new Color(4293982975u);
+			get
+			{
+				return new Color(4281335725u);
+			}
 		}
-	}
-	public static Color ForestGreen
-	{
-		get
+		public static Color Honeydew
 		{
-			return new Color(4280453922u);
+			get
+			{
+				return new Color(4293984240u);
+			}
 		}
-	}
-	public static Color Fuchsia
-	{
-		get
+		public static Color HotPink
 		{
-			return new Color(4294902015u);
+			get
+			{
+				return new Color(4290013695u);
+			}
 		}
-	}
-	public static Color Gainsboro
-	{
-		get
+		public static Color IndianRed
 		{
-			return new Color(4292664540u);
+			get
+			{
+				return new Color(4284243149u);
+			}
 		}
-	}
-	public static Color GhostWhite
-	{
-		get
+		public static Color Indigo
 		{
-			return new Color(4294965496u);
+			get
+			{
+				return new Color(4286709835u);
+			}
 		}
-	}
-	public static Color Gold
-	{
-		get
+		public static Color Ivory
 		{
-			return new Color(4278245375u);
+			get
+			{
+				return new Color(4293984255u);
+			}
 		}
-	}
-	public static Color Goldenrod
-	{
-		get
+		public static Color Khaki
 		{
-			return new Color(4280329690u);
+			get
+			{
+				return new Color(4287424240u);
+			}
 		}
-	}
-	public static Color Gray
-	{
-		get
+		public static Color Lavender
 		{
-			return new Color(4286611584u);
+			get
+			{
+				return new Color(4294633190u);
+			}
 		}
-	}
-	public static Color Green
-	{
-		get
+		public static Color LavenderBlush
 		{
-			return new Color(4278222848u);
+			get
+			{
+				return new Color(4294308095u);
+			}
 		}
-	}
-	public static Color GreenYellow
-	{
-		get
+		public static Color LawnGreen
 		{
-			return new Color(4281335725u);
+			get
+			{
+				return new Color(4278254716u);
+			}
 		}
-	}
-	public static Color Honeydew
-	{
-		get
+		public static Color LemonChiffon
 		{
-			return new Color(4293984240u);
+			get
+			{
+				return new Color(4291689215u);
+			}
 		}
-	}
-	public static Color HotPink
-	{
-		get
+		public static Color LightBlue
 		{
-			return new Color(4290013695u);
+			get
+			{
+				return new Color(4293318829u);
+			}
 		}
-	}
-	public static Color IndianRed
-	{
-		get
+		public static Color LightCoral
 		{
-			return new Color(4284243149u);
+			get
+			{
+				return new Color(4286611696u);
+			}
 		}
-	}
-	public static Color Indigo
-	{
-		get
+		public static Color LightCyan
 		{
-			return new Color(4286709835u);
+			get
+			{
+				return new Color(4294967264u);
+			}
 		}
-	}
-	public static Color Ivory
-	{
-		get
+		public static Color LightGoldenrodYellow
 		{
-			return new Color(4293984255u);
+			get
+			{
+				return new Color(4292016890u);
+			}
 		}
-	}
-	public static Color Khaki
-	{
-		get
+		public static Color LightGreen
 		{
-			return new Color(4287424240u);
+			get
+			{
+				return new Color(4287688336u);
+			}
 		}
-	}
-	public static Color Lavender
-	{
-		get
+		public static Color LightGray
 		{
-			return new Color(4294633190u);
+			get
+			{
+				return new Color(4292072403u);
+			}
 		}
-	}
-	public static Color LavenderBlush
-	{
-		get
+		public static Color LightPink
 		{
-			return new Color(4294308095u);
+			get
+			{
+				return new Color(4290885375u);
+			}
 		}
-	}
-	public static Color LawnGreen
-	{
-		get
+		public static Color LightSalmon
 		{
-			return new Color(4278254716u);
+			get
+			{
+				return new Color(4286226687u);
+			}
 		}
-	}
-	public static Color LemonChiffon
-	{
-		get
+		public static Color LightSeaGreen
 		{
-			return new Color(4291689215u);
+			get
+			{
+				return new Color(4289376800u);
+			}
 		}
-	}
-	public static Color LightBlue
-	{
-		get
+		public static Color LightSkyBlue
 		{
-			return new Color(4293318829u);
+			get
+			{
+				return new Color(4294626951u);
+			}
 		}
-	}
-	public static Color LightCoral
-	{
-		get
+		public static Color LightSlateGray
 		{
-			return new Color(4286611696u);
+			get
+			{
+				return new Color(4288252023u);
+			}
 		}
-	}
-	public static Color LightCyan
-	{
-		get
+		public static Color LightSteelBlue
 		{
-			return new Color(4294967264u);
+			get
+			{
+				return new Color(4292789424u);
+			}
 		}
-	}
-	public static Color LightGoldenrodYellow
-	{
-		get
+		public static Color LightYellow
 		{
-			return new Color(4292016890u);
+			get
+			{
+				return new Color(4292935679u);
+			}
 		}
-	}
-	public static Color LightGreen
-	{
-		get
+		public static Color Lime
 		{
-			return new Color(4287688336u);
+			get
+			{
+				return new Color(4278255360u);
+			}
 		}
-	}
-	public static Color LightGray
-	{
-		get
+		public static Color LimeGreen
 		{
-			return new Color(4292072403u);
+			get
+			{
+				return new Color(4281519410u);
+			}
 		}
-	}
-	public static Color LightPink
-	{
-		get
+		public static Color Linen
 		{
-			return new Color(4290885375u);
+			get
+			{
+				return new Color(4293325050u);
+			}
 		}
-	}
-	public static Color LightSalmon
-	{
-		get
+		public static Color Magenta
 		{
-			return new Color(4286226687u);
+			get
+			{
+				return new Color(4294902015u);
+			}
 		}
-	}
-	public static Color LightSeaGreen
-	{
-		get
+		public static Color Maroon
 		{
-			return new Color(4289376800u);
+			get
+			{
+				return new Color(4278190208u);
+			}
 		}
-	}
-	public static Color LightSkyBlue
-	{
-		get
+		public static Color MediumAquamarine
 		{
-			return new Color(4294626951u);
+			get
+			{
+				return new Color(4289383782u);
+			}
 		}
-	}
-	public static Color LightSlateGray
-	{
-		get
+		public static Color MediumBlue
 		{
-			return new Color(4288252023u);
+			get
+			{
+				return new Color(4291624960u);
+			}
 		}
-	}
-	public static Color LightSteelBlue
-	{
-		get
+		public static Color MediumOrchid
 		{
-			return new Color(4292789424u);
+			get
+			{
+				return new Color(4292040122u);
+			}
 		}
-	}
-	public static Color LightYellow
-	{
-		get
+		public static Color MediumPurple
 		{
-			return new Color(4292935679u);
+			get
+			{
+				return new Color(4292571283u);
+			}
 		}
-	}
-	public static Color Lime
-	{
-		get
+		public static Color MediumSeaGreen
 		{
-			return new Color(4278255360u);
+			get
+			{
+				return new Color(4285641532u);
+			}
 		}
-	}
-	public static Color LimeGreen
-	{
-		get
+		public static Color MediumSlateBlue
 		{
-			return new Color(4281519410u);
+			get
+			{
+				return new Color(4293814395u);
+			}
 		}
-	}
-	public static Color Linen
-	{
-		get
+		public static Color MediumSpringGreen
 		{
-			return new Color(4293325050u);
+			get
+			{
+				return new Color(4288346624u);
+			}
 		}
-	}
-	public static Color Magenta
-	{
-		get
+		public static Color MediumTurquoise
 		{
-			return new Color(4294902015u);
+			get
+			{
+				return new Color(4291613000u);
+			}
 		}
-	}
-	public static Color Maroon
-	{
-		get
+		public static Color MediumVioletRed
 		{
-			return new Color(4278190208u);
+			get
+			{
+				return new Color(4286911943u);
+			}
 		}
-	}
-	public static Color MediumAquamarine
-	{
-		get
+		public static Color MidnightBlue
 		{
-			return new Color(4289383782u);
+			get
+			{
+				return new Color(4285536537u);
+			}
 		}
-	}
-	public static Color MediumBlue
-	{
-		get
+		public static Color MintCream
 		{
-			return new Color(4291624960u);
+			get
+			{
+				return new Color(4294639605u);
+			}
 		}
-	}
-	public static Color MediumOrchid
-	{
-		get
+		public static Color MistyRose
 		{
-			return new Color(4292040122u);
+			get
+			{
+				return new Color(4292994303u);
+			}
 		}
-	}
-	public static Color MediumPurple
-	{
-		get
+		public static Color Moccasin
 		{
-			return new Color(4292571283u);
+			get
+			{
+				return new Color(4290110719u);
+			}
 		}
-	}
-	public static Color MediumSeaGreen
-	{
-		get
+		public static Color NavajoWhite
 		{
-			return new Color(4285641532u);
+			get
+			{
+				return new Color(4289584895u);
+			}
 		}
-	}
-	public static Color MediumSlateBlue
-	{
-		get
+		public static Color Navy
 		{
-			return new Color(4293814395u);
+			get
+			{
+				return new Color(4286578688u);
+			}
 		}
-	}
-	public static Color MediumSpringGreen
-	{
-		get
+		public static Color OldLace
 		{
-			return new Color(4288346624u);
+			get
+			{
+				return new Color(4293326333u);
+			}
 		}
-	}
-	public static Color MediumTurquoise
-	{
-		get
+		public static Color Olive
 		{
-			return new Color(4291613000u);
+			get
+			{
+				return new Color(4278222976u);
+			}
 		}
-	}
-	public static Color MediumVioletRed
-	{
-		get
+		public static Color OliveDrab
 		{
-			return new Color(4286911943u);
+			get
+			{
+				return new Color(4280520299u);
+			}
 		}
-	}
-	public static Color MidnightBlue
-	{
-		get
+		public static Color Orange
 		{
-			return new Color(4285536537u);
+			get
+			{
+				return new Color(4278232575u);
+			}
 		}
-	}
-	public static Color MintCream
-	{
-		get
+		public static Color OrangeRed
 		{
-			return new Color(4294639605u);
+			get
+			{
+				return new Color(4278207999u);
+			}
 		}
-	}
-	public static Color MistyRose
-	{
-		get
+		public static Color Orchid
 		{
-			return new Color(4292994303u);
+			get
+			{
+				return new Color(4292243674u);
+			}
 		}
-	}
-	public static Color Moccasin
-	{
-		get
+		public static Color PaleGoldenrod
 		{
-			return new Color(4290110719u);
+			get
+			{
+				return new Color(4289390830u);
+			}
 		}
-	}
-	public static Color NavajoWhite
-	{
-		get
+		public static Color PaleGreen
 		{
-			return new Color(4289584895u);
+			get
+			{
+				return new Color(4288215960u);
+			}
 		}
-	}
-	public static Color Navy
-	{
-		get
+		public static Color PaleTurquoise
 		{
-			return new Color(4286578688u);
+			get
+			{
+				return new Color(4293848751u);
+			}
 		}
-	}
-	public static Color OldLace
-	{
-		get
+		public static Color PaleVioletRed
 		{
-			return new Color(4293326333u);
+			get
+			{
+				return new Color(4287852763u);
+			}
 		}
-	}
-	public static Color Olive
-	{
-		get
+		public static Color PapayaWhip
 		{
-			return new Color(4278222976u);
+			get
+			{
+				return new Color(4292210687u);
+			}
 		}
-	}
-	public static Color OliveDrab
-	{
-		get
+		public static Color PeachPuff
 		{
-			return new Color(4280520299u);
+			get
+			{
+				return new Color(4290370303u);
+			}
 		}
-	}
-	public static Color Orange
-	{
-		get
+		public static Color Peru
 		{
-			return new Color(4278232575u);
+			get
+			{
+				return new Color(4282353101u);
+			}
 		}
-	}
-	public static Color OrangeRed
-	{
-		get
+		public static Color Pink
 		{
-			return new Color(4278207999u);
+			get
+			{
+				return new Color(4291543295u);
+			}
 		}
-	}
-	public static Color Orchid
-	{
-		get
+		public static Color Plum
 		{
-			return new Color(4292243674u);
+			get
+			{
+				return new Color(4292714717u);
+			}
 		}
-	}
-	public static Color PaleGoldenrod
-	{
-		get
+		public static Color PowderBlue
 		{
-			return new Color(4289390830u);
+			get
+			{
+				return new Color(4293320880u);
+			}
 		}
-	}
-	public static Color PaleGreen
-	{
-		get
+		public static Color Purple
 		{
-			return new Color(4288215960u);
+			get
+			{
+				return new Color(4286578816u);
+			}
 		}
-	}
-	public static Color PaleTurquoise
-	{
-		get
+		public static Color Red
 		{
-			return new Color(4293848751u);
+			get
+			{
+				return new Color(4278190335u);
+			}
 		}
-	}
-	public static Color PaleVioletRed
-	{
-		get
+		public static Color RosyBrown
 		{
-			return new Color(4287852763u);
+			get
+			{
+				return new Color(4287598524u);
+			}
 		}
-	}
-	public static Color PapayaWhip
-	{
-		get
+		public static Color RoyalBlue
 		{
-			return new Color(4292210687u);
+			get
+			{
+				return new Color(4292962625u);
+			}
 		}
-	}
-	public static Color PeachPuff
-	{
-		get
+		public static Color SaddleBrown
 		{
-			return new Color(4290370303u);
+			get
+			{
+				return new Color(4279453067u);
+			}
 		}
-	}
-	public static Color Peru
-	{
-		get
+		public static Color Salmon
 		{
-			return new Color(4282353101u);
+			get
+			{
+				return new Color(4285694202u);
+			}
 		}
-	}
-	public static Color Pink
-	{
-		get
+		public static Color SandyBrown
 		{
-			return new Color(4291543295u);
+			get
+			{
+				return new Color(4284523764u);
+			}
 		}
-	}
-	public static Color Plum
-	{
-		get
+		public static Color SeaGreen
 		{
-			return new Color(4292714717u);
+			get
+			{
+				return new Color(4283927342u);
+			}
 		}
-	}
-	public static Color PowderBlue
-	{
-		get
+		public static Color SeaShell
 		{
-			return new Color(4293320880u);
+			get
+			{
+				return new Color(4293850623u);
+			}
 		}
-	}
-	public static Color Purple
-	{
-		get
+		public static Color Sienna
 		{
-			return new Color(4286578816u);
+			get
+			{
+				return new Color(4281160352u);
+			}
 		}
-	}
-	public static Color Red
-	{
-		get
+		public static Color Silver
 		{
-			return new Color(4278190335u);
+			get
+			{
+				return new Color(4290822336u);
+			}
 		}
-	}
-	public static Color RosyBrown
-	{
-		get
+		public static Color SkyBlue
 		{
-			return new Color(4287598524u);
+			get
+			{
+				return new Color(4293643911u);
+			}
 		}
-	}
-	public static Color RoyalBlue
-	{
-		get
+		public static Color SlateBlue
 		{
-			return new Color(4292962625u);
+			get
+			{
+				return new Color(4291648106u);
+			}
 		}
-	}
-	public static Color SaddleBrown
-	{
-		get
+		public static Color SlateGray
 		{
-			return new Color(4279453067u);
+			get
+			{
+				return new Color(4287660144u);
+			}
 		}
-	}
-	public static Color Salmon
-	{
-		get
+		public static Color Snow
 		{
-			return new Color(4285694202u);
+			get
+			{
+				return new Color(4294638335u);
+			}
 		}
-	}
-	public static Color SandyBrown
-	{
-		get
+		public static Color SpringGreen
 		{
-			return new Color(4284523764u);
+			get
+			{
+				return new Color(4286578432u);
+			}
 		}
-	}
-	public static Color SeaGreen
-	{
-		get
+		public static Color SteelBlue
 		{
-			return new Color(4283927342u);
+			get
+			{
+				return new Color(4290019910u);
+			}
 		}
-	}
-	public static Color SeaShell
-	{
-		get
+		public static Color Tan
 		{
-			return new Color(4293850623u);
+			get
+			{
+				return new Color(4287411410u);
+			}
 		}
-	}
-	public static Color Sienna
-	{
-		get
+		public static Color Teal
 		{
-			return new Color(4281160352u);
+			get
+			{
+				return new Color(4286611456u);
+			}
 		}
-	}
-	public static Color Silver
-	{
-		get
+		public static Color Thistle
 		{
-			return new Color(4290822336u);
+			get
+			{
+				return new Color(4292394968u);
+			}
 		}
-	}
-	public static Color SkyBlue
-	{
-		get
+		public static Color Tomato
 		{
-			return new Color(4293643911u);
+			get
+			{
+				return new Color(4282868735u);
+			}
 		}
-	}
-	public static Color SlateBlue
-	{
-		get
+		public static Color Turquoise
 		{
-			return new Color(4291648106u);
+			get
+			{
+				return new Color(4291878976u);
+			}
 		}
-	}
-	public static Color SlateGray
-	{
-		get
+		public static Color Violet
 		{
-			return new Color(4287660144u);
+			get
+			{
+				return new Color(4293821166u);
+			}
 		}
-	}
-	public static Color Snow
-	{
-		get
+		public static Color Wheat
 		{
-			return new Color(4294638335u);
+			get
+			{
+				return new Color(4289978101u);
+			}
 		}
-	}
-	public static Color SpringGreen
-	{
-		get
+		public static Color White
 		{
-			return new Color(4286578432u);
+			get
+			{
+				return new Color(4294967295u);
+			}
 		}
-	}
-	public static Color SteelBlue
-	{
-		get
+		public static Color WhiteSmoke
 		{
-			return new Color(4290019910u);
+			get
+			{
+				return new Color(4294309365u);
+			}
 		}
-	}
-	public static Color Tan
-	{
-		get
+		public static Color Yellow
 		{
-			return new Color(4287411410u);
+			get
+			{
+				return new Color(4278255615u);
+			}
 		}
-	}
-	public static Color Teal
-	{
-		get
+		public static Color YellowGreen
 		{
-			return new Color(4286611456u);
+			get
+			{
+				return new Color(4281519514u);
+			}
 		}
-	}
-	public static Color Thistle
-	{
-		get
+		private Color(uint packedValue)
 		{
-			return new Color(4292394968u);
+			this.packedValue = packedValue;
 		}
-	}
-	public static Color Tomato
-	{
-		get
+		public Color(int r, int g, int b)
 		{
-			return new Color(4282868735u);
+			if (((r | g | b) & -256) != 0)
+			{
+				r = Color.ClampToByte64((long)r);
+				g = Color.ClampToByte64((long)g);
+				b = Color.ClampToByte64((long)b);
+			}
+			g <<= 8;
+			b <<= 16;
+			this.packedValue = (uint)(r | g | b | -16777216);
 		}
-	}
-	public static Color Turquoise
-	{
-		get
+		public Color(int r, int g, int b, int a)
 		{
-			return new Color(4291878976u);
+			if (((r | g | b | a) & -256) != 0)
+			{
+				r = Color.ClampToByte32(r);
+				g = Color.ClampToByte32(g);
+				b = Color.ClampToByte32(b);
+				a = Color.ClampToByte32(a);
+			}
+			g <<= 8;
+			b <<= 16;
+			a <<= 24;
+			this.packedValue = (uint)(r | g | b | a);
 		}
-	}
-	public static Color Violet
-	{
-		get
+		public Color(float r, float g, float b)
 		{
-			return new Color(4293821166u);
+			this.packedValue = Color.PackHelper(r, g, b, 1f);
 		}
-	}
-	public static Color Wheat
-	{
-		get
+		public Color(float r, float g, float b, float a)
 		{
-			return new Color(4289978101u);
+			this.packedValue = Color.PackHelper(r, g, b, a);
 		}
-	}
-	public static Color White
-	{
-		get
+		public Color(Vector4 vector)
 		{
-			return new Color(4294967295u);
+			this.packedValue = Color.PackHelper(vector.X, vector.Y, vector.Z, vector.W);
 		}
-	}
-	public static Color WhiteSmoke
-	{
-		get
+		void IPackedVector.PackFromVector4(Vector4 vector)
 		{
-			return new Color(4294309365u);
+			this.packedValue = Color.PackHelper(vector.X, vector.Y, vector.Z, vector.W);
 		}
-	}
-	public static Color Yellow
-	{
-		get
+		public static Color FromNonPremultiplied(Vector4 vector)
 		{
-			return new Color(4278255615u);
+			Color result;
+			result.packedValue = Color.PackHelper(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
+			return result;
 		}
-	}
-	public static Color YellowGreen
-	{
-		get
+		public static Color FromNonPremultiplied(int r, int g, int b, int a)
 		{
-			return new Color(4281519514u);
-		}
-	}
-	private Color(uint packedValue)
-	{
-		this.packedValue = packedValue;
-	}
-	public Color(int r, int g, int b)
-	{
-		if (((r | g | b) & -256) != 0)
-		{
-			r = Color.ClampToByte64((long)r);
-			g = Color.ClampToByte64((long)g);
-			b = Color.ClampToByte64((long)b);
-		}
-		g <<= 8;
-		b <<= 16;
-		this.packedValue = (uint)(r | g | b | -16777216);
-	}
-	public Color(int r, int g, int b, int a)
-	{
-		if (((r | g | b | a) & -256) != 0)
-		{
-			r = Color.ClampToByte32(r);
-			g = Color.ClampToByte32(g);
-			b = Color.ClampToByte32(b);
+			r = Color.ClampToByte64((long)(r * a) / 255L);
+			g = Color.ClampToByte64((long)(g * a) / 255L);
+			b = Color.ClampToByte64((long)(b * a) / 255L);
 			a = Color.ClampToByte32(a);
+			g <<= 8;
+			b <<= 16;
+			a <<= 24;
+			Color result;
+			result.packedValue = (uint)(r | g | b | a);
+			return result;
 		}
-		g <<= 8;
-		b <<= 16;
-		a <<= 24;
-		this.packedValue = (uint)(r | g | b | a);
-	}
-	public Color(float r, float g, float b)
-	{
-		this.packedValue = Color.PackHelper(r, g, b, 1f);
-	}
-	public Color(float r, float g, float b, float a)
-	{
-		this.packedValue = Color.PackHelper(r, g, b, a);
-	}
-	public Color(Vector4 vector)
-	{
-		this.packedValue = Color.PackHelper(vector.X, vector.Y, vector.Z, vector.W);
-	}
-	void IPackedVector.PackFromVector4(Vector4 vector)
-	{
-		this.packedValue = Color.PackHelper(vector.X, vector.Y, vector.Z, vector.W);
-	}
-	public static Color FromNonPremultiplied(Vector4 vector)
-	{
-		Color result;
-		result.packedValue = Color.PackHelper(vector.X * vector.W, vector.Y * vector.W, vector.Z * vector.W, vector.W);
-		return result;
-	}
-	public static Color FromNonPremultiplied(int r, int g, int b, int a)
-	{
-		r = Color.ClampToByte64((long)(r * a) / 255L);
-		g = Color.ClampToByte64((long)(g * a) / 255L);
-		b = Color.ClampToByte64((long)(b * a) / 255L);
-		a = Color.ClampToByte32(a);
-		g <<= 8;
-		b <<= 16;
-		a <<= 24;
-		Color result;
-		result.packedValue = (uint)(r | g | b | a);
-		return result;
-	}
-	private static uint PackHelper(float vectorX, float vectorY, float vectorZ, float vectorW)
-	{
-		uint num = PackUtils.PackUNorm(255f, vectorX);
-		uint num2 = PackUtils.PackUNorm(255f, vectorY) << 8;
-		uint num3 = PackUtils.PackUNorm(255f, vectorZ) << 16;
-		uint num4 = PackUtils.PackUNorm(255f, vectorW) << 24;
-		return num | num2 | num3 | num4;
-	}
-	private static int ClampToByte32(int value)
-	{
-		if (value < 0)
+		private static uint PackHelper(float vectorX, float vectorY, float vectorZ, float vectorW)
 		{
-			return 0;
+			uint num = PackUtils.PackUNorm(255f, vectorX);
+			uint num2 = PackUtils.PackUNorm(255f, vectorY) << 8;
+			uint num3 = PackUtils.PackUNorm(255f, vectorZ) << 16;
+			uint num4 = PackUtils.PackUNorm(255f, vectorW) << 24;
+			return num | num2 | num3 | num4;
 		}
-		if (value > 255)
+		private static int ClampToByte32(int value)
 		{
-			return 255;
-		}
-		return value;
-	}
-	private static int ClampToByte64(long value)
-	{
-		if (value < 0L)
-		{
-			return 0;
-		}
-		if (value > 255L)
-		{
-			return 255;
-		}
-		return (int)value;
-	}
-	public Vector4 ToVector4()
-	{
-		Vector4 result;
-		result.X = PackUtils.UnpackUNorm(255u, this.packedValue);
-		result.Y = PackUtils.UnpackUNorm(255u, this.packedValue >> 8);
-		result.Z = PackUtils.UnpackUNorm(255u, this.packedValue >> 16);
-		result.W = PackUtils.UnpackUNorm(255u, this.packedValue >> 24);
-		return result;
-	}
-	public static Color Lerp(Color value1, Color value2, float amount)
-	{
-		uint num = value1.packedValue;
-		uint num2 = value2.packedValue;
-		int num3 = (int)((byte)num);
-		int num4 = (int)((byte)(num >> 8));
-		int num5 = (int)((byte)(num >> 16));
-		int num6 = (int)((byte)(num >> 24));
-		int num7 = (int)((byte)num2);
-		int num8 = (int)((byte)(num2 >> 8));
-		int num9 = (int)((byte)(num2 >> 16));
-		int num10 = (int)((byte)(num2 >> 24));
-		int num11 = (int)PackUtils.PackUNorm(65536f, amount);
-		int num12 = num3 + ((num7 - num3) * num11 >> 16);
-		int num13 = num4 + ((num8 - num4) * num11 >> 16);
-		int num14 = num5 + ((num9 - num5) * num11 >> 16);
-		int num15 = num6 + ((num10 - num6) * num11 >> 16);
-		Color result;
-		result.packedValue = (uint)(num12 | num13 << 8 | num14 << 16 | num15 << 24);
-		return result;
-	}
-	public static Color Multiply(Color value, float scale)
-	{
-		uint num = value.packedValue;
-		uint num2 = (uint)((byte)num);
-		uint num3 = (uint)((byte)(num >> 8));
-		uint num4 = (uint)((byte)(num >> 16));
-		uint num5 = (uint)((byte)(num >> 24));
-		scale *= 65536f;
-		uint num6;
-		if (scale < 0f)
-		{
-			num6 = 0u;
-		}
-		else
-		{
-			if (scale > 1.677722E+07f)
+			if (value < 0)
 			{
-				num6 = 16777215u;
+				return 0;
+			}
+			if (value > 255)
+			{
+				return 255;
+			}
+			return value;
+		}
+		private static int ClampToByte64(long value)
+		{
+			if (value < 0L)
+			{
+				return 0;
+			}
+			if (value > 255L)
+			{
+				return 255;
+			}
+			return (int)value;
+		}
+		public Vector4 ToVector4()
+		{
+			Vector4 result;
+			result.X = PackUtils.UnpackUNorm(255u, this.packedValue);
+			result.Y = PackUtils.UnpackUNorm(255u, this.packedValue >> 8);
+			result.Z = PackUtils.UnpackUNorm(255u, this.packedValue >> 16);
+			result.W = PackUtils.UnpackUNorm(255u, this.packedValue >> 24);
+			return result;
+		}
+		public static Color Lerp(Color value1, Color value2, float amount)
+		{
+			uint num = value1.packedValue;
+			uint num2 = value2.packedValue;
+			int num3 = (int)((byte)num);
+			int num4 = (int)((byte)(num >> 8));
+			int num5 = (int)((byte)(num >> 16));
+			int num6 = (int)((byte)(num >> 24));
+			int num7 = (int)((byte)num2);
+			int num8 = (int)((byte)(num2 >> 8));
+			int num9 = (int)((byte)(num2 >> 16));
+			int num10 = (int)((byte)(num2 >> 24));
+			int num11 = (int)PackUtils.PackUNorm(65536f, amount);
+			int num12 = num3 + ((num7 - num3) * num11 >> 16);
+			int num13 = num4 + ((num8 - num4) * num11 >> 16);
+			int num14 = num5 + ((num9 - num5) * num11 >> 16);
+			int num15 = num6 + ((num10 - num6) * num11 >> 16);
+			Color result;
+			result.packedValue = (uint)(num12 | num13 << 8 | num14 << 16 | num15 << 24);
+			return result;
+		}
+		public static Color Multiply(Color value, float scale)
+		{
+			uint num = value.packedValue;
+			uint num2 = (uint)((byte)num);
+			uint num3 = (uint)((byte)(num >> 8));
+			uint num4 = (uint)((byte)(num >> 16));
+			uint num5 = (uint)((byte)(num >> 24));
+			scale *= 65536f;
+			uint num6;
+			if (scale < 0f)
+			{
+				num6 = 0u;
 			}
 			else
 			{
-				num6 = (uint)scale;
+				if (scale > 1.677722E+07f)
+				{
+					num6 = 16777215u;
+				}
+				else
+				{
+					num6 = (uint)scale;
+				}
 			}
-		}
-		num2 = num2 * num6 >> 16;
-		num3 = num3 * num6 >> 16;
-		num4 = num4 * num6 >> 16;
-		num5 = num5 * num6 >> 16;
-		if (num2 > 255u)
-		{
-			num2 = 255u;
-		}
-		if (num3 > 255u)
-		{
-			num3 = 255u;
-		}
-		if (num4 > 255u)
-		{
-			num4 = 255u;
-		}
-		if (num5 > 255u)
-		{
-			num5 = 255u;
-		}
-		Color result;
-		result.packedValue = (num2 | num3 << 8 | num4 << 16 | num5 << 24);
-		return result;
-	}
-	public static Color operator *(Color value, float scale)
-	{
-		uint num = value.packedValue;
-		uint num2 = (uint)((byte)num);
-		uint num3 = (uint)((byte)(num >> 8));
-		uint num4 = (uint)((byte)(num >> 16));
-		uint num5 = (uint)((byte)(num >> 24));
-		scale *= 65536f;
-		uint num6;
-		if (scale < 0f)
-		{
-			num6 = 0u;
-		}
-		else
-		{
-			if (scale > 1.677722E+07f)
+			num2 = num2 * num6 >> 16;
+			num3 = num3 * num6 >> 16;
+			num4 = num4 * num6 >> 16;
+			num5 = num5 * num6 >> 16;
+			if (num2 > 255u)
 			{
-				num6 = 16777215u;
+				num2 = 255u;
+			}
+			if (num3 > 255u)
+			{
+				num3 = 255u;
+			}
+			if (num4 > 255u)
+			{
+				num4 = 255u;
+			}
+			if (num5 > 255u)
+			{
+				num5 = 255u;
+			}
+			Color result;
+			result.packedValue = (num2 | num3 << 8 | num4 << 16 | num5 << 24);
+			return result;
+		}
+		public static Color operator *(Color value, float scale)
+		{
+			uint num = value.packedValue;
+			uint num2 = (uint)((byte)num);
+			uint num3 = (uint)((byte)(num >> 8));
+			uint num4 = (uint)((byte)(num >> 16));
+			uint num5 = (uint)((byte)(num >> 24));
+			scale *= 65536f;
+			uint num6;
+			if (scale < 0f)
+			{
+				num6 = 0u;
 			}
 			else
 			{
-				num6 = (uint)scale;
+				if (scale > 1.677722E+07f)
+				{
+					num6 = 16777215u;
+				}
+				else
+				{
+					num6 = (uint)scale;
+				}
 			}
+			num2 = num2 * num6 >> 16;
+			num3 = num3 * num6 >> 16;
+			num4 = num4 * num6 >> 16;
+			num5 = num5 * num6 >> 16;
+			if (num2 > 255u)
+			{
+				num2 = 255u;
+			}
+			if (num3 > 255u)
+			{
+				num3 = 255u;
+			}
+			if (num4 > 255u)
+			{
+				num4 = 255u;
+			}
+			if (num5 > 255u)
+			{
+				num5 = 255u;
+			}
+			Color result;
+			result.packedValue = (num2 | num3 << 8 | num4 << 16 | num5 << 24);
+			return result;
 		}
-		num2 = num2 * num6 >> 16;
-		num3 = num3 * num6 >> 16;
-		num4 = num4 * num6 >> 16;
-		num5 = num5 * num6 >> 16;
-		if (num2 > 255u)
+		public override string ToString()
 		{
-			num2 = 255u;
+			return string.Format(CultureInfo.CurrentCulture, "{{R:{0} G:{1} B:{2} A:{3}}}", new object[]
+		    {
+			    this.R, 
+			    this.G, 
+			    this.B, 
+			    this.A
+		    });
 		}
-		if (num3 > 255u)
+		public override int GetHashCode()
 		{
-			num3 = 255u;
+			return this.packedValue.GetHashCode();
 		}
-		if (num4 > 255u)
+		public override bool Equals(object obj)
 		{
-			num4 = 255u;
+			return obj is Color && this.Equals((Color)obj);
 		}
-		if (num5 > 255u)
+		public bool Equals(Color other)
 		{
-			num5 = 255u;
+			return this.packedValue.Equals(other.packedValue);
 		}
-		Color result;
-		result.packedValue = (num2 | num3 << 8 | num4 << 16 | num5 << 24);
-		return result;
-	}
-	public override string ToString()
-	{
-		return string.Format(CultureInfo.CurrentCulture, "{{R:{0} G:{1} B:{2} A:{3}}}", new object[]
+		public static bool operator ==(Color a, Color b)
 		{
-			this.R, 
-			this.G, 
-			this.B, 
-			this.A
-		});
-	}
-	public override int GetHashCode()
-	{
-		return this.packedValue.GetHashCode();
-	}
-	public override bool Equals(object obj)
-	{
-		return obj is Color && this.Equals((Color)obj);
-	}
-	public bool Equals(Color other)
-	{
-		return this.packedValue.Equals(other.packedValue);
-	}
-	public static bool operator ==(Color a, Color b)
-	{
-		return a.Equals(b);
-	}
-	public static bool operator !=(Color a, Color b)
-	{
-		return !a.Equals(b);
+			return a.Equals(b);
+		}
+		public static bool operator !=(Color a, Color b)
+		{
+			return !a.Equals(b);
+		}
 	}
 }

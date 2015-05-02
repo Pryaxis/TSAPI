@@ -7,6 +7,7 @@ using System.Threading;
 using ClientApi.Networking;
 using TerrariaApi.Server;
 using TerrariaApi.Server.Networking.TerrariaPackets;
+using XNA;
 
 namespace Terraria
 {
@@ -27,25 +28,25 @@ namespace Terraria
 		}
 
 		public static void SendBytes(ServerSock sock, byte[] buffer, int offset, int count, AsyncCallback callback, object state)
-        {
-            try
-            {
-	            if (ServerApi.Hooks.InvokeNetSendBytes(sock, buffer, offset, count))
-	            {
-		            return;
-	            }
+		{
+			try
+			{
+				if (ServerApi.Hooks.InvokeNetSendBytes(sock, buffer, offset, count))
+				{
+					return;
+				}
 				if (ServerApi.RunningMono && !ServerApi.UseAsyncSocketsInMono)
 					sock.networkStream.Write(buffer, offset, count);
 				else
 					sock.networkStream.BeginWrite(buffer, offset, count, callback, state);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("{0} had an exception thrown when trying to send data.", sock.tcpClient.Client.RemoteEndPoint);
-                Console.WriteLine(e);
-                sock.kill = true;
-            }
-        }
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("{0} had an exception thrown when trying to send data.", sock.tcpClient.Client.RemoteEndPoint);
+				Console.WriteLine(e);
+				sock.kill = true;
+			}
+		}
 		public static void SendData(int msgType, int remoteClient = -1, int ignoreClient = -1, string text = "", int number = 0, float number2 = 0f, float number3 = 0f, float number4 = 0f, int number5 = 0)
 		{
 			if (Main.netMode == 0)
@@ -778,7 +779,7 @@ namespace Terraria
 					binaryWriter.BaseStream.Position = position;
 					binaryWriter.Write((short)num16);
 					binaryWriter.BaseStream.Position = (long)num16;
-					
+
 					if (remoteClient == -1)
 					{
 						if (msgType == 34 || msgType == 69)

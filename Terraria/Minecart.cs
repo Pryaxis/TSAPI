@@ -1,4 +1,6 @@
 using System;
+using XNA;
+
 namespace Terraria
 {
 	public static class Minecart

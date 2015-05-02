@@ -1,59 +1,63 @@
 using System;
 using System.Globalization;
-[Serializable]
-public struct Point : IEquatable<Point>
+
+namespace XNA
 {
-	public int X;
-	public int Y;
-	private static Point _zero;
-	public static Point Zero
+	[Serializable]
+	public struct Point : IEquatable<Point>
 	{
-		get
+		public int X;
+		public int Y;
+		private static Point _zero;
+		public static Point Zero
 		{
-			return Point._zero;
+			get
+			{
+				return Point._zero;
+			}
 		}
-	}
-	public Point(int x, int y)
-	{
-		this.X = x;
-		this.Y = y;
-	}
-	public bool Equals(Point other)
-	{
-		return this.X == other.X && this.Y == other.Y;
-	}
-	public override bool Equals(object obj)
-	{
-		bool result = false;
-		if (obj is Point)
+		public Point(int x, int y)
 		{
-			result = this.Equals((Point)obj);
+			this.X = x;
+			this.Y = y;
 		}
-		return result;
-	}
-	public override int GetHashCode()
-	{
-		return this.X.GetHashCode() + this.Y.GetHashCode();
-	}
-	public override string ToString()
-	{
-		CultureInfo currentCulture = CultureInfo.CurrentCulture;
-		return string.Format(currentCulture, "{{X:{0} Y:{1}}}", new object[]
+		public bool Equals(Point other)
 		{
-			this.X.ToString(currentCulture), 
-			this.Y.ToString(currentCulture)
-		});
-	}
-	public static bool operator ==(Point a, Point b)
-	{
-		return a.Equals(b);
-	}
-	public static bool operator !=(Point a, Point b)
-	{
-		return a.X != b.X || a.Y != b.Y;
-	}
-	static Point()
-	{
-		Point._zero = default(Point);
+			return this.X == other.X && this.Y == other.Y;
+		}
+		public override bool Equals(object obj)
+		{
+			bool result = false;
+			if (obj is Point)
+			{
+				result = this.Equals((Point)obj);
+			}
+			return result;
+		}
+		public override int GetHashCode()
+		{
+			return this.X.GetHashCode() + this.Y.GetHashCode();
+		}
+		public override string ToString()
+		{
+			CultureInfo currentCulture = CultureInfo.CurrentCulture;
+			return string.Format(currentCulture, "{{X:{0} Y:{1}}}", new object[]
+			{
+				this.X.ToString(currentCulture), 
+				this.Y.ToString(currentCulture)
+			});
+		}
+		public static bool operator ==(Point a, Point b)
+		{
+			return a.Equals(b);
+		}
+		public static bool operator !=(Point a, Point b)
+		{
+			return a.X != b.X || a.Y != b.Y;
+		}
+		static Point()
+		{
+			Point._zero = default(Point);
+		}
 	}
 }

@@ -1,5 +1,7 @@
 using System;
 using TerrariaApi.Server;
+using XNA;
+
 namespace Terraria
 {
 	public class Projectile
