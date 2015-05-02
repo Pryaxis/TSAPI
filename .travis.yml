@@ -1,8 +1,5 @@
-language: c
-install:
-- sudo apt-get install mono-devel mono-gmcs nunit-console
-script:
-- xbuild ./TerrariaAPI-Server.csproj
+language: csharp
+solution: ./TerrariaAPI-Server.csproj
 notifications:
   slack:
-    secure: O4Nibe2fdaUa2ZxuETUg6WEoQKvNM2CotnfaIVgm3fjfe61dfE1P+EgTpbwDG8646jSmpTqMDw8Z6I/WJwGTlXV/ZQsbwu63Cps4MgOTvPHZ0Lsye5azySlJZs1iI4ItYSj2czXfcnJ+qAl1SOOkXJrjB5uyTMWtDpCrSCFB3MA=
+    secure: aNnH0oTLaQsYE2nHKydMU23keuw8hWxM+QGDbc3UAg0aagzZ8BkwtMqB/s6GswYzuTRSjLEOndL9B3djMe7OLkM6B2nggevRM3yPxajOcGpdGDfeo2R/JbBzcrXUYu6rN3cNyNTazbemfy5wv5tbpDg6tvcjo0SaH6HePJ78gjs=
