@@ -299,17 +299,6 @@ namespace XNA
 		}
 
 
-		public static Matrix CreateFromQuaternion(Quaternion quaternion)
-		{
-			throw new NotImplementedException();
-		}
-
-
-		public static void CreateFromQuaternion(ref Quaternion quaternion, out Matrix result)
-		{
-			throw new NotImplementedException();
-		}
-
 		public static Matrix CreateFromYawPitchRoll(float yaw, float pitch, float roll)
 		{
 			throw new NotImplementedException();
