@@ -1,6 +1,8 @@
 using System;
 using System.Net.Sockets;
 using TerrariaApi.Server;
+using XNA;
+
 namespace Terraria
 {
 	public class ServerSock

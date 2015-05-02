@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Terraria.DataStructures;
+using XNA;
+
 namespace Terraria
 {
 	public static class Wiring

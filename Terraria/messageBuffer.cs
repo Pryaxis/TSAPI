@@ -7,6 +7,7 @@ using System.IO.Streams;
 using System.Threading.Tasks;
 using ClientApi.Networking;
 using TerrariaApi.Server.Networking.TerrariaPackets;
+using XNA;
 
 namespace Terraria
 {

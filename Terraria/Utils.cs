@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using XNA;
+
 namespace Terraria
 {
 	public static class Utils

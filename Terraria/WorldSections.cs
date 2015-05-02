@@ -1,5 +1,7 @@
 using System;
 using System.Diagnostics;
+using XNA;
+
 namespace Terraria
 {
 	public class WorldSections

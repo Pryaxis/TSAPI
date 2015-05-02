@@ -144,8 +144,8 @@
     <Compile Include="TerrariaApi.Server\EventArgs\NpcStrikeEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\SendDataEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\SetDefaultsEventArgs.cs" />
-    <Compile Include="IPackedVector.cs" />
-    <Compile Include="PacketTypes.cs" />
+    <Compile Include="XNA\IPackedVector.cs" />
+    <Compile Include="TerrariaApi.Server\PacketTypes.cs" />
     <Compile Include="TerrariaApi.Server\PluginContainer.cs" />
     <Compile Include="Terraria\StreamGenericExt.cs" />
     <Compile Include="Terraria\StreamExt.cs" />
@@ -174,7 +174,6 @@
     <Compile Include="Terraria\Star.cs" />
     <Compile Include="Terraria\Tile.cs" />
     <Compile Include="Terraria\WorldGen.cs" />
-    <Compile Include="TileCommand.cs" />
     <Compile Include="XNA\Color.cs" />
     <Compile Include="XNA\MathHelper.cs" />
     <Compile Include="XNA\Matrix.cs" />

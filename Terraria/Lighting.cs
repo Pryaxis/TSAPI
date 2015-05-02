@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using Terraria.DataStructures;
+using XNA;
+
 namespace Terraria
 {
 	public class Lighting

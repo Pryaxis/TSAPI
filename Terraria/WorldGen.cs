@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using TerrariaApi.Server;
+using XNA;
+
 namespace Terraria
 {
 	public class WorldGen
