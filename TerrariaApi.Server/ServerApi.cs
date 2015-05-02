@@ -21,7 +21,7 @@ namespace TerrariaApi.Server
 		private static Main game;
 		private static readonly Dictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
 		private static readonly List<PluginContainer> plugins = new List<PluginContainer>();
-	
+
 		public static bool IgnoreVersion
 		{
 			get;
@@ -38,7 +38,7 @@ namespace TerrariaApi.Server
 		}
 		public static HookManager Hooks
 		{
-			get; 
+			get;
 			private set;
 		}
 		public static LogWriterManager LogWriter
@@ -48,17 +48,17 @@ namespace TerrariaApi.Server
 		}
 		public static ProfilerManager Profiler
 		{
-			get; 
+			get;
 			private set;
 		}
 		public static bool IsWorldRunning
 		{
-			get; 
+			get;
 			internal set;
 		}
 		public static bool RunningMono { get; private set; }
 		public static bool ForceUpdate { get; private set; }
-        public static bool UseAsyncSocketsInMono { get; private set; }
+		public static bool UseAsyncSocketsInMono { get; private set; }
 
 		static ServerApi()
 		{
@@ -66,8 +66,8 @@ namespace TerrariaApi.Server
 			LogWriter = new LogWriterManager();
 			Profiler = new ProfilerManager();
 
-            UseAsyncSocketsInMono = false;
-		    ForceUpdate = false;
+			UseAsyncSocketsInMono = false;
+			ForceUpdate = false;
 			Type t = Type.GetType("Mono.Runtime");
 			RunningMono = (t != null);
 		}
@@ -92,7 +92,7 @@ namespace TerrariaApi.Server
 
 			if (!Directory.Exists(ServerPluginsDirectoryPath))
 			{
-				string lcDirectoryPath = 
+				string lcDirectoryPath =
 					Path.Combine(Path.GetDirectoryName(ServerPluginsDirectoryPath), PluginsPath.ToLower());
 
 				if (Directory.Exists(lcDirectoryPath))
@@ -127,130 +127,130 @@ namespace TerrariaApi.Server
 				switch (commandLineArgs[i].ToLower())
 				{
 					case "-config":
-					{
-						string filePath = commandLineArgs[++i];
-						LogWriter.ServerWriteLine(string.Format("Loading dedicated config file: {0}", filePath), TraceLevel.Verbose);
-						game.LoadDedConfig(filePath);
+						{
+							string filePath = commandLineArgs[++i];
+							LogWriter.ServerWriteLine(string.Format("Loading dedicated config file: {0}", filePath), TraceLevel.Verbose);
+							game.LoadDedConfig(filePath);
 
-						break;
-					}
+							break;
+						}
 					case "-port":
-					{
-						int serverPort;
-						if (int.TryParse(commandLineArgs[++i], out serverPort))
 						{
-							Netplay.serverPort = serverPort;
-							LogWriter.ServerWriteLine(string.Format("Listening on port {0}.", serverPort), TraceLevel.Verbose);
-						}
-						else
-						{
-							// The server should not start up if this argument is invalid.
-							throw new InvalidOperationException("Invalid value given for command line argument \"-ip\".");
-						}
+							int serverPort;
+							if (int.TryParse(commandLineArgs[++i], out serverPort))
+							{
+								Netplay.serverPort = serverPort;
+								LogWriter.ServerWriteLine(string.Format("Listening on port {0}.", serverPort), TraceLevel.Verbose);
+							}
+							else
+							{
+								// The server should not start up if this argument is invalid.
+								throw new InvalidOperationException("Invalid value given for command line argument \"-ip\".");
+							}
 
-						break;
-					}
+							break;
+						}
 					case "-world":
-					{
-						string worldPath = commandLineArgs[++i];
-						game.SetWorld(worldPath);
-						LogWriter.ServerWriteLine(string.Format("World set for auto loading: {0}", worldPath), TraceLevel.Verbose);
+						{
+							string worldPath = commandLineArgs[++i];
+							game.SetWorld(worldPath);
+							LogWriter.ServerWriteLine(string.Format("World set for auto loading: {0}", worldPath), TraceLevel.Verbose);
 
-						break;
-					}
+							break;
+						}
 					case "-worldname":
-					{
-						string worldName = commandLineArgs[++i];
-						game.SetWorldName(worldName);
-						LogWriter.ServerWriteLine(string.Format("World name will be overridden by: {0}", worldName), TraceLevel.Verbose);
+						{
+							string worldName = commandLineArgs[++i];
+							game.SetWorldName(worldName);
+							LogWriter.ServerWriteLine(string.Format("World name will be overridden by: {0}", worldName), TraceLevel.Verbose);
 
-						break;
-					}
+							break;
+						}
 					case "-autoshutdown":
-					{
-						game.autoShut();
-						break;
-					}
+						{
+							game.autoShut();
+							break;
+						}
 					case "-autocreate":
-					{
-						string newOpt = commandLineArgs[++i];
-						game.autoCreate(newOpt);
-						break;
-					}
+						{
+							string newOpt = commandLineArgs[++i];
+							game.autoCreate(newOpt);
+							break;
+						}
 					case "-ip":
-					{
-						IPAddress ip;
-						if (IPAddress.TryParse(commandLineArgs[++i], out ip))
 						{
-							Netplay.serverListenIP = ip;
-							LogWriter.ServerWriteLine(string.Format("Listening on IP {0}.", ip), TraceLevel.Verbose);
-						}
-						else
-						{
-							// The server should not start up if this argument is invalid.
-							throw new InvalidOperationException("Invalid value given for command line argument \"-ip\".");
-						}
+							IPAddress ip;
+							if (IPAddress.TryParse(commandLineArgs[++i], out ip))
+							{
+								Netplay.serverListenIP = ip;
+								LogWriter.ServerWriteLine(string.Format("Listening on IP {0}.", ip), TraceLevel.Verbose);
+							}
+							else
+							{
+								// The server should not start up if this argument is invalid.
+								throw new InvalidOperationException("Invalid value given for command line argument \"-ip\".");
+							}
 
-						break;
-					}
+							break;
+						}
 					case "-connperip":
-					{
-						int limit;
-						if (int.TryParse(commandLineArgs[++i], out limit))
 						{
-							Netplay.connectionLimit = limit;
-							LogWriter.ServerWriteLine(string.Format(
-								"Connections per IP have been limited to {0} connections.", limit), TraceLevel.Verbose);
-						}
-						else
-							LogWriter.ServerWriteLine("Invalid value given for command line argument \"-connperip\".", TraceLevel.Warning);
+							int limit;
+							if (int.TryParse(commandLineArgs[++i], out limit))
+							{
+								Netplay.connectionLimit = limit;
+								LogWriter.ServerWriteLine(string.Format(
+									"Connections per IP have been limited to {0} connections.", limit), TraceLevel.Verbose);
+							}
+							else
+								LogWriter.ServerWriteLine("Invalid value given for command line argument \"-connperip\".", TraceLevel.Warning);
 
-						break;
-					}
+							break;
+						}
 					case "-killinactivesocket":
-					{
-						Netplay.killInactive = true;
-						break;
-					}
-					case "-lang":
-					{
-						int langIndex;
-						if (int.TryParse(commandLineArgs[++i], out langIndex))
 						{
-							Lang.lang = langIndex;
-							LogWriter.ServerWriteLine(string.Format("Language index set to {0}.", langIndex), TraceLevel.Verbose);
+							Netplay.killInactive = true;
+							break;
 						}
-						else
-							LogWriter.ServerWriteLine("Invalid value given for command line argument \"-lang\".", TraceLevel.Warning);
+					case "-lang":
+						{
+							int langIndex;
+							if (int.TryParse(commandLineArgs[++i], out langIndex))
+							{
+								Lang.lang = langIndex;
+								LogWriter.ServerWriteLine(string.Format("Language index set to {0}.", langIndex), TraceLevel.Verbose);
+							}
+							else
+								LogWriter.ServerWriteLine("Invalid value given for command line argument \"-lang\".", TraceLevel.Warning);
 
-						break;
-					}
+							break;
+						}
 					case "-ignoreversion":
-					{
-						IgnoreVersion = true;
-						LogWriter.ServerWriteLine(
-							"Plugin versions are no longer being regarded, you are on your own! If problems arise, TShock developers will not help you with issues regarding this.", 
-							TraceLevel.Warning);
+						{
+							IgnoreVersion = true;
+							LogWriter.ServerWriteLine(
+								"Plugin versions are no longer being regarded, you are on your own! If problems arise, TShock developers will not help you with issues regarding this.",
+								TraceLevel.Warning);
 
-						break;
-					}
+							break;
+						}
 					case "-forceupdate":
-					{
-						ForceUpdate = true;
-						LogWriter.ServerWriteLine(
-							"Forcing game updates regardless of players! This is experimental, and will cause constant CPU usage, you are on your own.",
-							TraceLevel.Warning);
+						{
+							ForceUpdate = true;
+							LogWriter.ServerWriteLine(
+								"Forcing game updates regardless of players! This is experimental, and will cause constant CPU usage, you are on your own.",
+								TraceLevel.Warning);
 
-						break;
-					}
-                    case "-asyncmono":
-				    {
-				        UseAsyncSocketsInMono = true;
-                        LogWriter.ServerWriteLine(
-                            "Forcing Mono to use asynchronous sockets.  This is highly experimental and may not work on all versions of Mono.",
-                            TraceLevel.Warning);
-				        break;
-				    }
+							break;
+						}
+					case "-asyncmono":
+						{
+							UseAsyncSocketsInMono = true;
+							LogWriter.ServerWriteLine(
+								"Forcing Mono to use asynchronous sockets.  This is highly experimental and may not work on all versions of Mono.",
+								TraceLevel.Warning);
+							break;
+						}
 				}
 			}
 		}
@@ -266,7 +266,7 @@ namespace TerrariaApi.Server
 			List<FileInfo> fileInfos = new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll").ToList();
 			fileInfos.AddRange(new DirectoryInfo(ServerPluginsDirectoryPath).GetFiles("*.dll-plugin"));
 
-			Dictionary<TerrariaPlugin,Stopwatch> pluginInitWatches = new Dictionary<TerrariaPlugin,Stopwatch>();
+			Dictionary<TerrariaPlugin, Stopwatch> pluginInitWatches = new Dictionary<TerrariaPlugin, Stopwatch>();
 			foreach (FileInfo fileInfo in fileInfos)
 			{
 				string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileInfo.Name);
@@ -283,7 +283,8 @@ namespace TerrariaApi.Server
 					Assembly assembly;
 					// The plugin assembly might have been resolved by another plugin assembly already, so no use to
 					// load it again, but we do still have to verify it and create plugin instances.
-					if (!loadedAssemblies.TryGetValue(fileNameWithoutExtension, out assembly)) {
+					if (!loadedAssemblies.TryGetValue(fileNameWithoutExtension, out assembly))
+					{
 						assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName));
 						loadedAssemblies.Add(fileNameWithoutExtension, assembly);
 					}
@@ -293,9 +294,9 @@ namespace TerrariaApi.Server
 
 					foreach (Type type in assembly.GetExportedTypes())
 					{
-						if (!type.IsSubclassOf(typeof (TerrariaPlugin)) || !type.IsPublic || type.IsAbstract)
+						if (!type.IsSubclassOf(typeof(TerrariaPlugin)) || !type.IsPublic || type.IsAbstract)
 							continue;
-						object[] customAttributes = type.GetCustomAttributes(typeof (ApiVersionAttribute), false);
+						object[] customAttributes = type.GetCustomAttributes(typeof(ApiVersionAttribute), false);
 						if (customAttributes.Length == 0)
 							continue;
 
@@ -306,7 +307,7 @@ namespace TerrariaApi.Server
 							if (apiVersion.Major != ApiVersion.Major || apiVersion.Minor != ApiVersion.Minor)
 							{
 								LogWriter.ServerWriteLine(
-									string.Format("Plugin \"{0}\" is designed for a different Server API version ({1}) and was ignored.", 
+									string.Format("Plugin \"{0}\" is designed for a different Server API version ({1}) and was ignored.",
 									type.FullName, apiVersion.ToString(2)), TraceLevel.Warning);
 
 								continue;
@@ -320,7 +321,7 @@ namespace TerrariaApi.Server
 							initTimeWatch.Start();
 
 							pluginInstance = (TerrariaPlugin)Activator.CreateInstance(type, game);
-						
+
 							initTimeWatch.Stop();
 							pluginInitWatches.Add(pluginInstance, initTimeWatch);
 						}
@@ -363,7 +364,7 @@ namespace TerrariaApi.Server
 
 				initTimeWatch.Stop();
 				LogWriter.ServerWriteLine(string.Format(
-					"Plugin {0} v{1} (by {2}) initiated.", current.Plugin.Name, current.Plugin.Version, current.Plugin.Author), 
+					"Plugin {0} v{1} (by {2}) initiated.", current.Plugin.Name, current.Plugin.Version, current.Plugin.Author),
 					TraceLevel.Info);
 			}
 
@@ -394,7 +395,7 @@ namespace TerrariaApi.Server
 				catch (Exception ex)
 				{
 					LogWriter.ServerWriteLine(string.Format(
-						"Plugin \"{0}\" has thrown an exception while being deinitialized:\n{1}", pluginContainer.Plugin.Name, ex), 
+						"Plugin \"{0}\" has thrown an exception while being deinitialized:\n{1}", pluginContainer.Plugin.Name, ex),
 						TraceLevel.Error);
 				}
 
@@ -414,7 +415,7 @@ namespace TerrariaApi.Server
 				catch (Exception ex)
 				{
 					LogWriter.ServerWriteLine(string.Format(
-						"Plugin \"{0}\" has thrown an exception while being disposed:\n{1}", pluginContainer.Plugin.Name, ex), 
+						"Plugin \"{0}\" has thrown an exception while being disposed:\n{1}", pluginContainer.Plugin.Name, ex),
 						TraceLevel.Error);
 				}
 
@@ -459,13 +460,14 @@ namespace TerrariaApi.Server
 		// plugin classes of assemblies targeting a TerrariaServer prior 1.14 as they can not be loaded at all.
 		// We work around this by checking the referenced assemblies, if we notice a reference to the old 
 		// TerrariaServer assembly, we expect the plugin assembly to be outdated.
-		private static bool InvalidateAssembly(Assembly assembly, string fileName) {
+		private static bool InvalidateAssembly(Assembly assembly, string fileName)
+		{
 			AssemblyName[] referencedAssemblies = assembly.GetReferencedAssemblies();
 			AssemblyName terrariaServerReference = referencedAssemblies.FirstOrDefault(an => an.Name == "TerrariaServer");
 			if (terrariaServerReference != null && terrariaServerReference.Version == new Version(0, 0, 0, 0))
 			{
 				LogWriter.ServerWriteLine(
-					string.Format("Plugin assembly \"{0}\" was compiled for a Server API version prior 1.14 and was ignored.", 
+					string.Format("Plugin assembly \"{0}\" was compiled for a Server API version prior 1.14 and was ignored.",
 					fileName), TraceLevel.Warning);
 
 				return false;
