@@ -179,7 +179,6 @@
     <Compile Include="XNA\Matrix.cs" />
     <Compile Include="XNA\PackUtils.cs" />
     <Compile Include="XNA\Point.cs" />
-    <Compile Include="XNA\Quaternion.cs" />
     <Compile Include="XNA\Rectangle.cs" />
     <Compile Include="XNA\Vector2.cs" />
     <Compile Include="XNA\Vector3.cs" />
