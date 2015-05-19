@@ -2794,6 +2794,12 @@ namespace Terraria.ID
 		public const short Grasshopper = 2740;
 		public const short GrasshopperCage = 2741;
 		public const short MusicBoxUndergroundCrimson = 2742;
-		public const short Count = 2743;
+		public const short CactusTable = 2743;
+		public const short CactusPlatform = 2744;
+		public const short BorealWoodSword = 2745;
+		public const short BorealWoodHammer = 2746;
+		public const short BorealWoodBow = 2747;
+		public const short GlassChest = 2748;
+		public const short Count = 2749;
 	}
 }
