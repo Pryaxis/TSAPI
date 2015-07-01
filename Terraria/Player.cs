@@ -626,7 +626,7 @@ namespace Terraria
 
 		public sbyte balloon = -1;
 
-		public bool[] hideVisual = new bool[10];
+		public BitsByte hideVisual = 0;
 
 		public BitsByte hideMisc = 0;
 
@@ -1410,15 +1410,14 @@ namespace Terraria
 				{
 					if (this.skinVariant >= 4)
 					{
-						Player player = this;
-						player.skinVariant = player.skinVariant - 4;
+						
+						this.skinVariant -= 4;
 						return;
 					}
 				}
 				else if (this.skinVariant < 4)
 				{
-					Player player1 = this;
-					player1.skinVariant = player1.skinVariant + 4;
+					this.skinVariant += 4;
 				}
 			}
 		}

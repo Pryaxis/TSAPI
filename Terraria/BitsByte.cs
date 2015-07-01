@@ -7,30 +7,28 @@ namespace Terraria
 	{
 		private static bool Null;
 
-		private byte @value;
+		private byte value;
 
 		public bool this[int key]
 		{
 			get
 			{
-				return (this.@value & 1 << (key & 31)) != 0;
+				return (this.value & 1 << (key & 31)) != 0;
 			}
 			set
 			{
 				if (value)
 				{
-					BitsByte bitsByte = this;
-					bitsByte.@value = (byte)(bitsByte.@value | (byte)(1 << (key & 31)));
+					this.value |= (byte)(1 << (key & 31));
 					return;
 				}
-				BitsByte bitsByte1 = this;
-				bitsByte1.@value = (byte)(bitsByte1.@value & (byte)(~(1 << (key & 31))));
+				this.value &= (byte)(~(1 << (key & 31)));
 			}
 		}
 
 		public BitsByte(bool b1 = false, bool b2 = false, bool b3 = false, bool b4 = false, bool b5 = false, bool b6 = false, bool b7 = false, bool b8 = false)
 		{
-			this.@value = 0;
+			this.value = 0;
 			this[0] = b1;
 			this[1] = b2;
 			this[2] = b3;

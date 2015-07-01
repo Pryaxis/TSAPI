@@ -113,6 +113,7 @@ namespace Terraria
 			}
 			this.reader.BaseStream.Position = (long)num2;
 			byte num5 = num1;
+
 			switch (num5)
 			{
 				case 1:

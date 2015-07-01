@@ -542,7 +542,7 @@ namespace Terraria
 									Netplay.Clients[k].StatusText2 = "";
 									Netplay.Clients[k].StatusMax = 0;
 									Netplay.Clients[k].StatusCount = 0;
-									goto IL_665;
+									continue;
 								}
 								Netplay.Clients[k].StatusText = string.Concat(new object[]
 								{
@@ -556,7 +556,7 @@ namespace Terraria
 									(int)((float)Netplay.Clients[k].StatusCount / (float)Netplay.Clients[k].StatusMax * 100f),
 									"%"
 								});
-								goto IL_665;
+								continue;
 							}
 							else
 							{
@@ -570,7 +570,7 @@ namespace Terraria
 										Netplay.Clients[k].Name,
 										" is connecting..."
 									});
-									goto IL_665;
+									continue;
 								}
 								if (Netplay.Clients[k].State == 1)
 								{
@@ -582,7 +582,7 @@ namespace Terraria
 										Netplay.Clients[k].Name,
 										" is sending player data..."
 									});
-									goto IL_665;
+									continue;
 								}
 								if (Netplay.Clients[k].State == 2)
 								{
@@ -594,11 +594,11 @@ namespace Terraria
 										Netplay.Clients[k].Name,
 										" requested world information"
 									});
-									goto IL_665;
+									continue;
 								}
 								if (Netplay.Clients[k].State == 3 || Netplay.Clients[k].State != 10)
 								{
-									goto IL_665;
+									continue;
 								}
 								try
 								{
@@ -610,12 +610,13 @@ namespace Terraria
 										Netplay.Clients[k].Name,
 										" is playing"
 									});
-									goto IL_665;
+									continue;
 								}
 								catch (Exception)
 								{
+									throw;
 									Netplay.Clients[k].PendingTermination = true;
-									goto IL_665;
+									continue;
 								}
 							}
 						}
@@ -632,7 +633,6 @@ namespace Terraria
 							}
 						}
 					}
-				IL_665: ;
 				}
 				num++;
 				if (num > 10)
@@ -640,10 +640,10 @@ namespace Terraria
 					Thread.Sleep(1);
 					num = 0;
 				}
-				else
+				/*else
 				{
 					Thread.Sleep(0);
-				}
+				}*/
 				if (!WorldGen.saveLock && !Main.dedServ)
 				{
 					if (num3 == 0)
@@ -670,8 +670,12 @@ namespace Terraria
 			{
 				Netplay.closePort();
 			}
-			catch
+			catch(Exception)
 			{
+				if (!Main.ignoreErrors)
+				{
+					throw;
+				}
 			}
 			for (int l = 0; l < 256; l++)
 			{
@@ -682,6 +686,7 @@ namespace Terraria
 				Main.netMode = 0;
 				Main.menuMode = 10;
 				WorldFile.saveWorld();
+				//blocks until world saves?
 				while (WorldGen.saveLock)
 				{
 				}
