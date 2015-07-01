@@ -1437,15 +1437,13 @@ namespace Terraria
 					int num63 = num59;
 					float single2 = (float)num60;
 					float single3 = (float)num61;
+					float crit = 0;
 					if (flag6)
 					{
-						obj4 = 1;
+						crit = 1;
 					}
-					else
-					{
-						obj4 = null;
-					}
-					NetMessage.SendData(26, -1, num62, str4, num63, single2, single3, (float)obj4, (item7 ? 1 : 0), 0, 0);
+					NetMessage.SendData(26, -1, num62, str4, num63, single2, single3, crit, (item7 ? 1 : 0), 0, 0);
+
 					return;
 				}
 				case 27:
