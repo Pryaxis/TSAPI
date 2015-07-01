@@ -626,7 +626,7 @@ namespace Terraria
 
 		public sbyte balloon = -1;
 
-		public BitsByte hideVisual = 0;
+		public bool[] hideVisual = new bool[10];
 
 		public BitsByte hideMisc = 0;
 

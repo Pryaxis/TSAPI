@@ -56,8 +56,14 @@ namespace Terraria
 							writer.Write((byte)player.skinVariant);
 							writer.Write((byte)player.hair);
 							writer.Write(text);
-							writer.Write(player.hairDye);
-							writer.Write(player.hideVisual);
+							writer.Write(player.hairDye); 
+							BitsByte hideVisual = 0;
+							for (int i = 0; i < 8; i++)
+								hideVisual[i] = player.hideVisual[i];
+							writer.Write(hideVisual); hideVisual = 0;
+							for (int i = 0; i < 2; i++)
+								hideVisual[i] = player.hideVisual[i + 8];
+							writer.Write(hideVisual);
 							writer.Write(player.hideMisc);
 							writer.WriteRGB(player.hairColor);
 							writer.WriteRGB(player.skinColor);
