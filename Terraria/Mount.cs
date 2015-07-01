@@ -1,84 +1,181 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
-using XNA;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Terraria.DataStructures;
+using Terraria.GameContent.Achievements;
+using Terraria.Graphics.Shaders;
+using Terraria.ID;
 
 namespace Terraria
 {
 	public class Mount
 	{
-		private class MountData
-		{
-			public int textureWidth;
-			public int textureHeight;
-			public int xOffset;
-			public int yOffset;
-			public int[] playerYOffsets;
-			public int bodyFrame;
-			public int playerHeadOffset;
-			public int heightBoost;
-			public int buff;
-			public int extraBuff;
-			public int flightTimeMax;
-			public float runSpeed;
-			public float dashSpeed;
-			public float swimSpeed;
-			public float acceleration;
-			public float jumpSpeed;
-			public int jumpHeight;
-			public float fallDamage;
-			public int fatigueMax;
-			public bool constantJump;
-			public bool blockExtraJumps;
-			public int spawnDust;
-			public int totalFrames;
-			public int standingFrameStart;
-			public int standingFrameCount;
-			public int standingFrameDelay;
-			public int runningFrameStart;
-			public int runningFrameCount;
-			public int runningFrameDelay;
-			public int flyingFrameStart;
-			public int flyingFrameCount;
-			public int flyingFrameDelay;
-			public int inAirFrameStart;
-			public int inAirFrameCount;
-			public int inAirFrameDelay;
-			public int idleFrameStart;
-			public int idleFrameCount;
-			public int idleFrameDelay;
-			public bool idleFrameLoop;
-			public int swimFrameStart;
-			public int swimFrameCount;
-			public int swimFrameDelay;
-		}
 		public const int None = -1;
+
 		public const int Rudolph = 0;
+
 		public const int Bunny = 1;
+
 		public const int Pigron = 2;
+
 		public const int Slime = 3;
+
 		public const int Turtle = 4;
+
 		public const int Bee = 5;
+
 		public const int Minecart = 6;
-		public const int maxMounts = 7;
+
+		public const int UFO = 7;
+
+		public const int Drill = 8;
+
+		public const int Scutlix = 9;
+
+		public const int Unicorn = 10;
+
+		public const int MinecartMech = 11;
+
+		public const int CuteFishron = 12;
+
+		public const int MinecartWood = 13;
+
+		public const int maxMounts = 14;
+
 		public const int FrameStanding = 0;
+
 		public const int FrameRunning = 1;
+
 		public const int FrameInAir = 2;
+
 		public const int FrameFlying = 3;
+
 		public const int FrameSwimming = 4;
+
+		public const int FrameDashing = 5;
+
+		public const int DrawBack = 0;
+
+		public const int DrawBackExtra = 1;
+
+		public const int DrawFront = 2;
+
+		public const int DrawFrontExtra = 3;
+
+		public const int scutlixBaseDamage = 50;
+
+		public const int drillTextureWidth = 80;
+
+		public const float drillRotationChange = 0.05235988f;
+
+		public const float maxDrillLength = 48f;
+
+		public static int currentShader;
+
 		private static Mount.MountData[] mounts;
+
+		private static Vector2[] scutlixEyePositions;
+
+		private static Vector2 scutlixTextureSize;
+
+		public static Vector2 drillDiodePoint1;
+
+		public static Vector2 drillDiodePoint2;
+
+		public static Vector2 drillTextureSize;
+
+		public static int drillPickPower;
+
+		public static int drillPickTime;
+
+		public static int drillBeamCooldownMax;
+
 		private Mount.MountData _data;
+
 		private int _type;
+
 		private bool _flipDraw;
+
 		private int _frame;
+
 		private float _frameCounter;
+
 		private int _frameExtra;
+
 		private float _frameExtraCounter;
+
 		private int _frameState;
+
 		private int _flyTime;
+
 		private int _idleTime;
+
 		private int _idleTimeNext;
+
 		private float _fatigue;
+
 		private float _fatigueMax;
+
+		private bool _abilityCharging;
+
+		private int _abilityCharge;
+
+		private int _abilityCooldown;
+
+		private int _abilityDuration;
+
+		private bool _abilityActive;
+
+		private bool _aiming;
+
+		public List<DrillDebugDraw> _debugDraw;
+
+		private object _mountSpecificData;
+
 		private bool _active;
+
+		public bool AbilityActive
+		{
+			get
+			{
+				return this._abilityActive;
+			}
+		}
+
+		public float AbilityCharge
+		{
+			get
+			{
+				return (float)this._abilityCharge / (float)this._data.abilityChargeMax;
+			}
+		}
+
+		public bool AbilityCharging
+		{
+			get
+			{
+				return this._abilityCharging;
+			}
+		}
+
+		public bool AbilityReady
+		{
+			get
+			{
+				return this._abilityCooldown == 0;
+			}
+		}
+
+		public float Acceleration
+		{
+			get
+			{
+				return this._data.acceleration;
+			}
+		}
+
 		public bool Active
 		{
 			get
@@ -86,34 +183,35 @@ namespace Terraria
 				return this._active;
 			}
 		}
-		public int Type
+
+		public bool AllowDirectionChange
 		{
 			get
 			{
-				return this._type;
+				if (this._type != 9)
+				{
+					return true;
+				}
+				return this._abilityCooldown < this._data.abilityCooldown / 2;
 			}
 		}
-		public int FlyTime
+
+		public bool AutoJump
 		{
 			get
 			{
-				return this._flyTime;
+				return this._data.constantJump;
 			}
 		}
-		public int BuffType
+
+		public bool BlockExtraJumps
 		{
 			get
 			{
-				return this._data.buff;
+				return this._data.blockExtraJumps;
 			}
 		}
-		public bool FlipDraw
-		{
-			get
-			{
-				return this._flipDraw;
-			}
-		}
+
 		public int BodyFrame
 		{
 			get
@@ -121,31 +219,115 @@ namespace Terraria
 				return this._data.bodyFrame;
 			}
 		}
-		public int XOffset
+
+		public int BuffType
 		{
 			get
 			{
-				return this._data.xOffset;
+				return this._data.buff;
 			}
 		}
-		public int YOffset
+
+		public bool CanFly
 		{
 			get
 			{
-				return this._data.yOffset;
-			}
-		}
-		public int PlayerOffset
-		{
-			get
-			{
-				if (!this._active)
+				if (this._active && this._data.flightTimeMax != 0)
 				{
-					return 0;
+					return true;
 				}
-				return this._data.playerYOffsets[this._frame];
+				return false;
 			}
 		}
+
+		public bool CanHover
+		{
+			get
+			{
+				if (this._active && this._data.usesHover)
+				{
+					return true;
+				}
+				return false;
+			}
+		}
+
+		public bool Cart
+		{
+			get
+			{
+				if (this._data == null || !this._active)
+				{
+					return false;
+				}
+				return this._data.Minecart;
+			}
+		}
+
+		public float DashSpeed
+		{
+			get
+			{
+				return this._data.dashSpeed;
+			}
+		}
+
+		public bool Directional
+		{
+			get
+			{
+				if (this._data == null)
+				{
+					return true;
+				}
+				return this._data.MinecartDirectional;
+			}
+		}
+
+		public float FallDamage
+		{
+			get
+			{
+				return this._data.fallDamage;
+			}
+		}
+
+		public int FlyTime
+		{
+			get
+			{
+				return this._flyTime;
+			}
+		}
+
+		public int HeightBoost
+		{
+			get
+			{
+				return this._data.heightBoost;
+			}
+		}
+
+		public Action<Vector2> MinecartDust
+		{
+			get
+			{
+				if (this._data == null)
+				{
+					return new Action<Vector2>(DelegateMethods.Minecart.Sparks);
+				}
+				return this._data.MinecartDust;
+			}
+		}
+
+		public Vector2 Origin
+		{
+			get
+			{
+				return new Vector2((float)this._data.textureWidth / 2f, (float)this._data.textureHeight / (2f * (float)this._data.totalFrames));
+			}
+		}
+
 		public int PlayerHeadOffset
 		{
 			get
@@ -157,13 +339,31 @@ namespace Terraria
 				return this._data.playerHeadOffset;
 			}
 		}
-		public int HeightBoost
+
+		public int PlayerOffset
 		{
 			get
 			{
-				return this._data.heightBoost;
+				if (!this._active)
+				{
+					return 0;
+				}
+				return this._data.playerYOffsets[this._frame];
 			}
 		}
+
+		public int PlayerOffsetHitbox
+		{
+			get
+			{
+				if (!this._active)
+				{
+					return 0;
+				}
+				return this._data.playerYOffsets[0] - this._data.playerYOffsets[this._frame] + this._data.playerYOffsets[0] / 4;
+			}
+		}
+
 		public float RunSpeed
 		{
 			get
@@ -172,816 +372,231 @@ namespace Terraria
 				{
 					return this._data.swimSpeed;
 				}
-				if (this._type == 5 && this._frameState == 2)
+				if (this._type == 12 && this._frameState == 4)
 				{
-					float num = this._fatigue / this._fatigueMax;
-					return this._data.runSpeed + 4f * (1f - num);
+					return this._data.swimSpeed;
 				}
-				return this._data.runSpeed;
-			}
-		}
-		public float DashSpeed
-		{
-			get
-			{
-				return this._data.dashSpeed;
-			}
-		}
-		public float Acceleration
-		{
-			get
-			{
-				return this._data.acceleration;
-			}
-		}
-		public float FallDamage
-		{
-			get
-			{
-				return this._data.fallDamage;
-			}
-		}
-		public bool AutoJump
-		{
-			get
-			{
-				return this._data.constantJump;
-			}
-		}
-		public bool BlockExtraJumps
-		{
-			get
-			{
-				return this._data.blockExtraJumps;
-			}
-		}
-		public Rectangle FrameRect
-		{
-			get
-			{
-				int num = this._data.textureHeight / this._data.totalFrames;
-				return new Rectangle(0, num * this._frame, this._data.textureWidth, num);
-			}
-		}
-		public Rectangle FrameRectExtra
-		{
-			get
-			{
-				int num = this._data.textureHeight / this._data.totalFrames;
-				if (this._type == 5)
+				if (this._type == 12 && this._frameState == 2)
 				{
-					return new Rectangle(0, num * this._frameExtra, this._data.textureWidth, num);
+					return this._data.runSpeed + 11f;
 				}
-				return new Rectangle(0, num * this._frame, this._data.textureWidth, num);
+				if (this._type != 5 || this._frameState != 2)
+				{
+					return this._data.runSpeed;
+				}
+				float single = this._fatigue / this._fatigueMax;
+				return this._data.runSpeed + 4f * (1f - single);
 			}
 		}
-		public Vector2 Origin
+
+		public int Type
 		{
 			get
 			{
-				return new Vector2((float)this._data.textureWidth / 2f, (float)this._data.textureHeight / (2f * (float)this._data.totalFrames));
+				return this._type;
 			}
 		}
-		public bool CanFly
+
+		public int XOffset
 		{
 			get
 			{
-				return this._active && this._data.flightTimeMax != 0;
+				return this._data.xOffset;
 			}
 		}
+
+		public int YOffset
+		{
+			get
+			{
+				return this._data.yOffset;
+			}
+		}
+
+		static Mount()
+		{
+			Mount.currentShader = 0;
+			Mount.drillDiodePoint1 = new Vector2(36f, -6f);
+			Mount.drillDiodePoint2 = new Vector2(36f, 8f);
+			Mount.drillPickPower = 210;
+			Mount.drillPickTime = 6;
+			Mount.drillBeamCooldownMax = 1;
+		}
+
 		public Mount()
 		{
+			this._debugDraw = new List<DrillDebugDraw>();
 			this.Reset();
 		}
-		public void Reset()
+
+		public void AbilityRecovery()
 		{
-			this._active = false;
-			this._type = -1;
-			this._frame = 0;
-			this._frameCounter = 0f;
-			this._frameExtra = 0;
-			this._frameExtraCounter = 0f;
-			this._frameState = 0;
-			this._flyTime = 0;
-			this._idleTime = 0;
-			this._idleTimeNext = -1;
-			this._fatigueMax = 0f;
-		}
-		public static void Initialize()
-		{
-			Mount.mounts = new Mount.MountData[7];
-			Mount.MountData mountData = new Mount.MountData();
-			Mount.mounts[0] = mountData;
-			mountData.spawnDust = 57;
-			mountData.buff = 90;
-			mountData.heightBoost = 20;
-			mountData.flightTimeMax = 160;
-			mountData.runSpeed = 5.5f;
-			mountData.dashSpeed = 12f;
-			mountData.acceleration = 0.09f;
-			mountData.jumpHeight = 17;
-			mountData.jumpSpeed = 5.31f;
-			/*if (Main.netMode != 2)
+			if (this._abilityCharging)
 			{
-				mountData.backTexture = Main.rudolphMountTexture[0];
-				mountData.backTextureExtra = null;
-				mountData.frontTexture = Main.rudolphMountTexture[1];
-				mountData.frontTextureExtra = Main.rudolphMountTexture[2];
-				mountData.textureWidth = mountData.backTexture.Width;
-				mountData.textureHeight = mountData.backTexture.Height;
-				mountData.totalFrames = 12;
-				int[] array = new int[mountData.totalFrames];
-				for (int i = 0; i < array.Length; i++)
+				if (this._abilityCharge < this._data.abilityChargeMax)
 				{
-					array[i] = 30;
+					Mount mount = this;
+					mount._abilityCharge = mount._abilityCharge + 1;
 				}
-				array[1] += 2;
-				array[11] += 2;
-				mountData.playerYOffsets = array;
-				mountData.xOffset = 13;
-				mountData.bodyFrame = 3;
-				mountData.yOffset = -7;
-				mountData.playerHeadOffset = 22;
-				mountData.standingFrameCount = 1;
-				mountData.standingFrameDelay = 12;
-				mountData.standingFrameStart = 0;
-				mountData.runningFrameCount = 6;
-				mountData.runningFrameDelay = 12;
-				mountData.runningFrameStart = 6;
-				mountData.flyingFrameCount = 6;
-				mountData.flyingFrameDelay = 6;
-				mountData.flyingFrameStart = 6;
-				mountData.inAirFrameCount = 1;
-				mountData.inAirFrameDelay = 12;
-				mountData.inAirFrameStart = 1;
-				mountData.idleFrameCount = 4;
-				mountData.idleFrameDelay = 30;
-				mountData.idleFrameStart = 2;
-				mountData.idleFrameLoop = true;
-			}*/
-			mountData = new Mount.MountData();
-			Mount.mounts[2] = mountData;
-			mountData.spawnDust = 58;
-			mountData.buff = 129;
-			mountData.heightBoost = 20;
-			mountData.flightTimeMax = 160;
-			mountData.runSpeed = 5f;
-			mountData.dashSpeed = 9f;
-			mountData.acceleration = 0.08f;
-			mountData.jumpHeight = 10;
-			mountData.jumpSpeed = 6.01f;
-			/*if (Main.netMode != 2)
-			{
-				mountData.backTexture = Main.pigronMountTexture;
-				mountData.backTextureExtra = null;
-				mountData.frontTexture = null;
-				mountData.frontTextureExtra = null;
-				mountData.textureWidth = mountData.backTexture.Width;
-				mountData.textureHeight = mountData.backTexture.Height;
-				mountData.totalFrames = 16;
-				int[] array = new int[mountData.totalFrames];
-				for (int j = 0; j < array.Length; j++)
-				{
-					array[j] = 22;
-				}
-				array[12] += 2;
-				array[13] += 4;
-				array[14] += 2;
-				mountData.playerYOffsets = array;
-				mountData.xOffset = 1;
-				mountData.bodyFrame = 3;
-				mountData.yOffset = 8;
-				mountData.playerHeadOffset = 22;
-				mountData.standingFrameCount = 1;
-				mountData.standingFrameDelay = 12;
-				mountData.standingFrameStart = 7;
-				mountData.runningFrameCount = 5;
-				mountData.runningFrameDelay = 12;
-				mountData.runningFrameStart = 11;
-				mountData.flyingFrameCount = 6;
-				mountData.flyingFrameDelay = 6;
-				mountData.flyingFrameStart = 1;
-				mountData.inAirFrameCount = 1;
-				mountData.inAirFrameDelay = 12;
-				mountData.inAirFrameStart = 0;
-				mountData.idleFrameCount = 3;
-				mountData.idleFrameDelay = 30;
-				mountData.idleFrameStart = 8;
-				mountData.idleFrameLoop = false;
-			}*/
-			mountData = new Mount.MountData();
-			Mount.mounts[1] = mountData;
-			mountData.spawnDust = 15;
-			mountData.buff = 128;
-			mountData.heightBoost = 20;
-			mountData.flightTimeMax = 0;
-			mountData.fallDamage = 0.8f;
-			mountData.runSpeed = 4f;
-			mountData.dashSpeed = 7.5f;
-			mountData.acceleration = 0.13f;
-			mountData.jumpHeight = 15;
-			mountData.jumpSpeed = 5.01f;
-			/*if (Main.netMode != 2)
-			{
-				mountData.backTexture = Main.bunnyMountTexture;
-				mountData.backTextureExtra = null;
-				mountData.frontTexture = null;
-				mountData.frontTextureExtra = null;
-				mountData.textureWidth = mountData.backTexture.Width;
-				mountData.textureHeight = mountData.backTexture.Height;
-				mountData.totalFrames = 7;
-				int[] array = new int[mountData.totalFrames];
-				for (int k = 0; k < array.Length; k++)
-				{
-					array[k] = 14;
-				}
-				array[2] += 2;
-				array[3] += 4;
-				array[4] += 8;
-				array[5] += 8;
-				mountData.playerYOffsets = array;
-				mountData.xOffset = 1;
-				mountData.bodyFrame = 3;
-				mountData.yOffset = 4;
-				mountData.playerHeadOffset = 22;
-				mountData.standingFrameCount = 1;
-				mountData.standingFrameDelay = 12;
-				mountData.standingFrameStart = 0;
-				mountData.runningFrameCount = 7;
-				mountData.runningFrameDelay = 12;
-				mountData.runningFrameStart = 0;
-				mountData.flyingFrameCount = 6;
-				mountData.flyingFrameDelay = 6;
-				mountData.flyingFrameStart = 1;
-				mountData.inAirFrameCount = 1;
-				mountData.inAirFrameDelay = 12;
-				mountData.inAirFrameStart = 5;
-				mountData.idleFrameCount = 0;
-				mountData.idleFrameDelay = 0;
-				mountData.idleFrameStart = 0;
-				mountData.idleFrameLoop = false;
-			}*/
-			mountData = new Mount.MountData();
-			Mount.mounts[3] = mountData;
-			mountData.spawnDust = 56;
-			mountData.buff = 130;
-			mountData.heightBoost = 20;
-			mountData.flightTimeMax = 0;
-			mountData.fallDamage = 0.5f;
-			mountData.runSpeed = 4f;
-			mountData.dashSpeed = 4f;
-			mountData.acceleration = 0.08f;
-			mountData.jumpHeight = 22;
-			mountData.jumpSpeed = 7.25f;
-			mountData.constantJump = true;
-			/*if (Main.netMode != 2)
-			{
-				mountData.backTexture = Main.slimeMountTexture;
-				mountData.backTextureExtra = null;
-				mountData.frontTexture = null;
-				mountData.frontTextureExtra = null;
-				mountData.textureWidth = mountData.backTexture.Width;
-				mountData.textureHeight = mountData.backTexture.Height;
-				mountData.totalFrames = 4;
-				int[] array = new int[mountData.totalFrames];
-				for (int l = 0; l < array.Length; l++)
-				{
-					array[l] = 20;
-				}
-				array[1] += 2;
-				array[3] -= 2;
-				mountData.playerYOffsets = array;
-				mountData.xOffset = 1;
-				mountData.bodyFrame = 3;
-				mountData.yOffset = 10;
-				mountData.playerHeadOffset = 22;
-				mountData.standingFrameCount = 1;
-				mountData.standingFrameDelay = 12;
-				mountData.standingFrameStart = 0;
-				mountData.runningFrameCount = 4;
-				mountData.runningFrameDelay = 12;
-				mountData.runningFrameStart = 0;
-				mountData.flyingFrameCount = 0;
-				mountData.flyingFrameDelay = 0;
-				mountData.flyingFrameStart = 0;
-				mountData.inAirFrameCount = 1;
-				mountData.inAirFrameDelay = 12;
-				mountData.inAirFrameStart = 1;
-				mountData.idleFrameCount = 0;
-				mountData.idleFrameDelay = 0;
-				mountData.idleFrameStart = 0;
-				mountData.idleFrameLoop = false;
-			}*/
-			mountData = new Mount.MountData();
-			Mount.mounts[6] = mountData;
-			mountData.spawnDust = 213;
-			mountData.buff = 118;
-			mountData.extraBuff = 138;
-			mountData.heightBoost = 10;
-			mountData.flightTimeMax = 0;
-			mountData.fallDamage = 1f;
-			mountData.runSpeed = 13f;
-			mountData.dashSpeed = 13f;
-			mountData.acceleration = 0.04f;
-			mountData.jumpHeight = 15;
-			mountData.jumpSpeed = 5.15f;
-			mountData.blockExtraJumps = true;
-			/*if (Main.netMode != 2)
-			{
-				mountData.backTexture = null;
-				mountData.backTextureExtra = null;
-				mountData.frontTexture = Main.minecartMountTexture;
-				mountData.frontTextureExtra = null;
-				mountData.textureWidth = mountData.frontTexture.Width;
-				mountData.textureHeight = mountData.frontTexture.Height;
-				mountData.totalFrames = 3;
-				int[] array = new int[mountData.totalFrames];
-				for (int m = 0; m < array.Length; m++)
-				{
-					array[m] = 8;
-				}
-				mountData.playerYOffsets = array;
-				mountData.xOffset = 1;
-				mountData.bodyFrame = 3;
-				mountData.yOffset = 13;
-				mountData.playerHeadOffset = 14;
-				mountData.standingFrameCount = 1;
-				mountData.standingFrameDelay = 12;
-				mountData.standingFrameStart = 0;
-				mountData.runningFrameCount = 3;
-				mountData.runningFrameDelay = 12;
-				mountData.runningFrameStart = 0;
-				mountData.flyingFrameCount = 0;
-				mountData.flyingFrameDelay = 0;
-				mountData.flyingFrameStart = 0;
-				mountData.inAirFrameCount = 0;
-				mountData.inAirFrameDelay = 0;
-				mountData.inAirFrameStart = 0;
-				mountData.idleFrameCount = 0;
-				mountData.idleFrameDelay = 0;
-				mountData.idleFrameStart = 0;
-				mountData.idleFrameLoop = false;
-			}*/
-			mountData = new Mount.MountData();
-			Mount.mounts[4] = mountData;
-			mountData.spawnDust = 56;
-			mountData.buff = 131;
-			mountData.heightBoost = 26;
-			mountData.flightTimeMax = 0;
-			mountData.fallDamage = 1f;
-			mountData.runSpeed = 2f;
-			mountData.dashSpeed = 2f;
-			mountData.swimSpeed = 6f;
-			mountData.acceleration = 0.08f;
-			mountData.jumpHeight = 10;
-			mountData.jumpSpeed = 3.15f;
-			/*if (Main.netMode != 2)
-			{
-				mountData.backTexture = Main.turtleMountTexture;
-				mountData.backTextureExtra = null;
-				mountData.frontTexture = null;
-				mountData.frontTextureExtra = null;
-				mountData.textureWidth = mountData.backTexture.Width;
-				mountData.textureHeight = mountData.backTexture.Height;
-				mountData.totalFrames = 12;
-				int[] array = new int[mountData.totalFrames];
-				for (int n = 0; n < array.Length; n++)
-				{
-					array[n] = 26;
-				}
-				mountData.playerYOffsets = array;
-				mountData.xOffset = 1;
-				mountData.bodyFrame = 3;
-				mountData.yOffset = 13;
-				mountData.playerHeadOffset = 30;
-				mountData.standingFrameCount = 1;
-				mountData.standingFrameDelay = 12;
-				mountData.standingFrameStart = 0;
-				mountData.runningFrameCount = 6;
-				mountData.runningFrameDelay = 12;
-				mountData.runningFrameStart = 0;
-				mountData.flyingFrameCount = 0;
-				mountData.flyingFrameDelay = 0;
-				mountData.flyingFrameStart = 0;
-				mountData.inAirFrameCount = 1;
-				mountData.inAirFrameDelay = 12;
-				mountData.inAirFrameStart = 3;
-				mountData.idleFrameCount = 0;
-				mountData.idleFrameDelay = 0;
-				mountData.idleFrameStart = 0;
-				mountData.idleFrameLoop = false;
-				mountData.swimFrameCount = 6;
-				mountData.swimFrameDelay = 12;
-				mountData.swimFrameStart = 6;
-			}*/
-			mountData = new Mount.MountData();
-			Mount.mounts[5] = mountData;
-			mountData.spawnDust = 152;
-			mountData.buff = 132;
-			mountData.heightBoost = 16;
-			mountData.flightTimeMax = 320;
-			mountData.fatigueMax = 320;
-			mountData.fallDamage = 0f;
-			mountData.runSpeed = 2f;
-			mountData.dashSpeed = 2f;
-			mountData.acceleration = 0.16f;
-			mountData.jumpHeight = 10;
-			mountData.jumpSpeed = 4f;
-			mountData.blockExtraJumps = true;
-			/*if (Main.netMode != 2)
-			{
-				mountData.backTexture = Main.beeMountTexture[0];
-				mountData.backTextureExtra = Main.beeMountTexture[1];
-				mountData.frontTexture = null;
-				mountData.frontTextureExtra = null;
-				mountData.textureWidth = mountData.backTexture.Width;
-				mountData.textureHeight = mountData.backTexture.Height;
-				mountData.totalFrames = 12;
-				int[] array = new int[mountData.totalFrames];
-				for (int num = 0; num < array.Length; num++)
-				{
-					array[num] = 16;
-				}
-				array[8] = 18;
-				mountData.playerYOffsets = array;
-				mountData.xOffset = 1;
-				mountData.bodyFrame = 3;
-				mountData.yOffset = 4;
-				mountData.playerHeadOffset = 18;
-				mountData.standingFrameCount = 1;
-				mountData.standingFrameDelay = 12;
-				mountData.standingFrameStart = 0;
-				mountData.runningFrameCount = 5;
-				mountData.runningFrameDelay = 12;
-				mountData.runningFrameStart = 0;
-				mountData.flyingFrameCount = 3;
-				mountData.flyingFrameDelay = 12;
-				mountData.flyingFrameStart = 5;
-				mountData.inAirFrameCount = 3;
-				mountData.inAirFrameDelay = 12;
-				mountData.inAirFrameStart = 5;
-				mountData.idleFrameCount = 4;
-				mountData.idleFrameDelay = 12;
-				mountData.idleFrameStart = 8;
-				mountData.idleFrameLoop = true;
-				mountData.swimFrameCount = 0;
-				mountData.swimFrameDelay = 12;
-				mountData.swimFrameStart = 0;
-			}*/
-		}
-		public static int GetHeightBoost(int MountType)
-		{
-			if (MountType <= -1 || MountType >= 7)
-			{
-				return 0;
 			}
-			return Mount.mounts[MountType].heightBoost;
+			else if (this._abilityCharge > 0)
+			{
+				Mount mount1 = this;
+				mount1._abilityCharge = mount1._abilityCharge - 1;
+			}
+			if (this._abilityCooldown > 0)
+			{
+				Mount mount2 = this;
+				mount2._abilityCooldown = mount2._abilityCooldown - 1;
+			}
+			if (this._abilityDuration > 0)
+			{
+				Mount mount3 = this;
+				mount3._abilityDuration = mount3._abilityDuration - 1;
+			}
 		}
-		public int JumpHeight(float xVelocity)
+
+		public bool AimAbility(Player mountedPlayer, Vector2 mousePosition)
 		{
-			int num = this._data.jumpHeight;
+			Vector2 deadZone;
+			Vector2 vector2 = new Vector2();
+			Vector2 y = new Vector2();
+			this._aiming = true;
 			switch (this._type)
 			{
-			case 0:
-				num += (int)(Math.Abs(xVelocity) / 4f);
-				break;
-			case 1:
-				num += (int)(Math.Abs(xVelocity) / 2.5f);
-				break;
-			case 4:
-				if (this._frameState == 4)
+				case 8:
 				{
-					num += 5;
+					deadZone = this.ClampToDeadZone(mountedPlayer, mousePosition);
+					deadZone = deadZone - mountedPlayer.Center;
+					Mount.DrillMountData drillMountDatum = (Mount.DrillMountData)this._mountSpecificData;
+					float rotation = deadZone.ToRotation();
+					if (rotation < 0f)
+					{
+						rotation = rotation + 6.28318548f;
+					}
+					drillMountDatum.diodeRotationTarget = rotation;
+					float single = drillMountDatum.diodeRotation % 6.28318548f;
+					if (single < 0f)
+					{
+						single = single + 6.28318548f;
+					}
+					if (single < rotation)
+					{
+						if (rotation - single > 3.14159274f)
+						{
+							single = single + 6.28318548f;
+						}
+					}
+					else if (single - rotation > 3.14159274f)
+					{
+						single = single - 6.28318548f;
+					}
+					drillMountDatum.diodeRotation = single;
+					drillMountDatum.crosshairPosition = mousePosition;
+					return true;
 				}
-				break;
+				case 9:
+				{
+					int num = this._frameExtra;
+					int num1 = mountedPlayer.direction;
+					deadZone = this.ClampToDeadZone(mountedPlayer, mousePosition);
+					deadZone = deadZone - mountedPlayer.Center;
+					float degrees = MathHelper.ToDegrees(deadZone.ToRotation());
+					if (degrees > 90f)
+					{
+						mountedPlayer.direction = -1;
+						degrees = 180f - degrees;
+					}
+					else if (degrees >= -90f)
+					{
+						mountedPlayer.direction = 1;
+					}
+					else
+					{
+						mountedPlayer.direction = -1;
+						degrees = -180f - degrees;
+					}
+					if ((mountedPlayer.direction <= 0 || mountedPlayer.velocity.X >= 0f) && (mountedPlayer.direction >= 0 || mountedPlayer.velocity.X <= 0f))
+					{
+						this._flipDraw = false;
+					}
+					else
+					{
+						this._flipDraw = true;
+					}
+					if (degrees >= 0f)
+					{
+						if ((double)degrees < 22.5)
+						{
+							this._frameExtra = 8;
+						}
+						else if ((double)degrees < 67.5)
+						{
+							this._frameExtra = 9;
+						}
+						else if ((double)degrees < 112.5)
+						{
+							this._frameExtra = 10;
+						}
+					}
+					else if ((double)degrees > -22.5)
+					{
+						this._frameExtra = 8;
+					}
+					else if ((double)degrees > -67.5)
+					{
+						this._frameExtra = 7;
+					}
+					else if ((double)degrees > -112.5)
+					{
+						this._frameExtra = 6;
+					}
+					float abilityCharge = this.AbilityCharge;
+					if (abilityCharge > 0f)
+					{
+						vector2.X = mountedPlayer.position.X + (float)(mountedPlayer.width / 2);
+						vector2.Y = mountedPlayer.position.Y + (float)mountedPlayer.height;
+						int num2 = (this._frameExtra - 6) * 2;
+						for (int i = 0; i < 2; i++)
+						{
+							y.Y = vector2.Y + Mount.scutlixEyePositions[num2 + i].Y;
+							if (mountedPlayer.direction != -1)
+							{
+								y.X = vector2.X + Mount.scutlixEyePositions[num2 + i].X + (float)this._data.xOffset;
+							}
+							else
+							{
+								y.X = vector2.X - Mount.scutlixEyePositions[num2 + i].X - (float)this._data.xOffset;
+							}
+							Lighting.AddLight((int)(y.X / 16f), (int)(y.Y / 16f), 1f * abilityCharge, 0f, 0f);
+						}
+					}
+					if (this._frameExtra != num)
+					{
+						return true;
+					}
+					return mountedPlayer.direction != num1;
+				}
 			}
-			return num;
+			return false;
 		}
-		public float JumpSpeed(float xVelocity)
+
+		public bool CanMount(int m, Player mountingPlayer)
 		{
-			float num = this._data.jumpSpeed;
-			switch (this._type)
-			{
-			case 0:
-			case 1:
-				num += Math.Abs(xVelocity) / 7f;
-				break;
-			case 4:
-				if (this._frameState == 4)
-				{
-					num += 2.5f;
-				}
-				break;
-			}
-			return num;
+			int num = 42 + Mount.mounts[m].heightBoost;
+			Vector2 vector2 = mountingPlayer.position + new Vector2(0f, (float)(mountingPlayer.height - num));
+			return Collision.IsClearSpotHack(vector2, 2f, mountingPlayer.width, num, false, false, 1, true, false);
 		}
+
 		public bool CheckBuff(int buffID)
 		{
-			return this._data.buff == buffID || this._data.extraBuff == buffID;
+			if (this._data.buff == buffID)
+			{
+				return true;
+			}
+			return this._data.extraBuff == buffID;
 		}
-		public void FatigueRecovery()
-		{
-			if (this._fatigue > 2f)
-			{
-				this._fatigue -= 2f;
-				return;
-			}
-			this._fatigue = 0f;
-		}
-		public bool Flight()
-		{
-			if (this._flyTime <= 0)
-			{
-				return false;
-			}
-			this._flyTime--;
-			return true;
-		}
-		public bool Hover(Player mountedPlayer)
-		{
-			if (this._frameState == 2)
-			{
-				bool flag = true;
-				float num = mountedPlayer.gravity / Player.defaultGravity;
-				if (mountedPlayer.slowFall)
-				{
-					num /= 3f;
-				}
-				if (num < 0.25f)
-				{
-					num = 0.25f;
-				}
-				if (this._flyTime > 0)
-				{
-					this._flyTime--;
-				}
-				else if (this._fatigue < this._fatigueMax)
-				{
-					this._fatigue += num;
-				}
-				else
-				{
-					flag = false;
-				}
-				float num2 = this._fatigue / this._fatigueMax;
-				float num3 = 4f * num2;
-				float num4 = 4f * num2;
-				if (num3 == 0f)
-				{
-					num3 = 0.001f;
-				}
-				if (num4 == 0f)
-				{
-					num4 = 0.001f;
-				}
-				float num5 = mountedPlayer.velocity.Y;
-				if ((mountedPlayer.controlUp || mountedPlayer.controlJump) && flag)
-				{
-					num3 = -2f - 6f * (1f - num2);
-					num5 -= this._data.acceleration;
-				}
-				else if (mountedPlayer.controlDown)
-				{
-					num5 += this._data.acceleration;
-					num4 = 8f;
-				}
-				else
-				{
-					int arg_11C_0 = mountedPlayer.jump;
-				}
-				if (num5 < num3)
-				{
-					if (num3 - num5 < this._data.acceleration)
-					{
-						num5 = num3;
-					}
-					else
-					{
-						num5 += this._data.acceleration;
-					}
-				}
-				else if (num5 > num4)
-				{
-					if (num5 - num4 < this._data.acceleration)
-					{
-						num5 = num4;
-					}
-					else
-					{
-						num5 -= this._data.acceleration;
-					}
-				}
-				mountedPlayer.velocity.Y = num5;
-			}
-			else
-			{
-				mountedPlayer.velocity.Y = mountedPlayer.velocity.Y + mountedPlayer.gravity * mountedPlayer.gravDir;
-			}
-			return true;
-		}
-		public void UpdateFrame(int state, Vector2 velocity)
-		{
-			if (this._frameState != state)
-			{
-				this._frameState = state;
-				this._frameCounter = 0f;
-			}
-			if (state != 0)
-			{
-				this._idleTime = 0;
-			}
-			if (this._type == 5 && state != 2)
-			{
-				this._frameExtra = 0;
-				this._frameExtraCounter = 0f;
-			}
-			switch (state)
-			{
-			case 0:
-				if (this._data.idleFrameCount != 0)
-				{
-					if (this._type == 5)
-					{
-						if (this._fatigue != 0f)
-						{
-							if (this._idleTime == 0)
-							{
-								this._idleTimeNext = this._idleTime + 1;
-							}
-						}
-						else
-						{
-							this._idleTime = 0;
-							this._idleTimeNext = 2;
-						}
-					}
-					else if (this._idleTime == 0)
-					{
-						this._idleTimeNext = Main.rand.Next(900, 1500);
-					}
-					this._idleTime++;
-				}
-				this._frameCounter += 1f;
-				if (this._data.idleFrameCount != 0 && this._idleTime >= this._idleTimeNext)
-				{
-					float num = (float)this._data.idleFrameDelay;
-					if (this._type == 5)
-					{
-						num *= 2f - 1f * this._fatigue / this._fatigueMax;
-					}
-					int num2 = (int)((float)(this._idleTime - this._idleTimeNext) / num);
-					if (num2 >= this._data.idleFrameCount)
-					{
-						if (this._data.idleFrameLoop)
-						{
-							this._idleTime = this._idleTimeNext;
-							this._frame = this._data.idleFrameStart;
-						}
-						else
-						{
-							this._frameCounter = 0f;
-							this._frame = this._data.standingFrameStart;
-							this._idleTime = 0;
-						}
-					}
-					else
-					{
-						this._frame = this._data.idleFrameStart + num2;
-					}
-					if (this._type == 5)
-					{
-						this._frameExtra = this._frame;
-						return;
-					}
-				}
-				else
-				{
-					if (this._frameCounter > (float)this._data.standingFrameDelay)
-					{
-						this._frameCounter -= (float)this._data.standingFrameDelay;
-						this._frame++;
-					}
-					if (this._frame < this._data.standingFrameStart || this._frame >= this._data.standingFrameStart + this._data.standingFrameCount)
-					{
-						this._frame = this._data.standingFrameStart;
-						return;
-					}
-				}
-				break;
-			case 1:
-			{
-				float num3;
-				if (this._type == 6)
-				{
-					num3 = (this._flipDraw ? velocity.X : (-velocity.X));
-				}
-				else
-				{
-					num3 = Math.Abs(velocity.X);
-				}
-				this._frameCounter += num3;
-				if (num3 >= 0f)
-				{
-					if (this._frameCounter > (float)this._data.runningFrameDelay)
-					{
-						this._frameCounter -= (float)this._data.runningFrameDelay;
-						this._frame++;
-					}
-					if (this._frame < this._data.runningFrameStart || this._frame >= this._data.runningFrameStart + this._data.runningFrameCount)
-					{
-						this._frame = this._data.runningFrameStart;
-						return;
-					}
-				}
-				else
-				{
-					if (this._frameCounter < 0f)
-					{
-						this._frameCounter += (float)this._data.runningFrameDelay;
-						this._frame--;
-					}
-					if (this._frame < this._data.runningFrameStart || this._frame >= this._data.runningFrameStart + this._data.runningFrameCount)
-					{
-						this._frame = this._data.runningFrameStart + this._data.runningFrameCount - 1;
-						return;
-					}
-				}
-				break;
-			}
-			case 2:
-				this._frameCounter += 1f;
-				if (this._frameCounter > (float)this._data.inAirFrameDelay)
-				{
-					this._frameCounter -= (float)this._data.inAirFrameDelay;
-					this._frame++;
-				}
-				if (this._frame < this._data.inAirFrameStart || this._frame >= this._data.inAirFrameStart + this._data.inAirFrameCount)
-				{
-					this._frame = this._data.inAirFrameStart;
-				}
-				if (this._type == 4)
-				{
-					if (velocity.Y < 0f)
-					{
-						this._frame = 3;
-						return;
-					}
-					this._frame = 6 + Main.debugToggle % 6;
-					return;
-				}
-				else if (this._type == 5)
-				{
-					float num4 = this._fatigue / this._fatigueMax;
-					this._frameExtraCounter += 6f - 4f * num4;
-					if (this._frameExtraCounter > (float)this._data.flyingFrameDelay)
-					{
-						this._frameExtra++;
-						this._frameExtraCounter -= (float)this._data.flyingFrameDelay;
-					}
-					if (this._frameExtra < this._data.flyingFrameStart || this._frameExtra >= this._data.flyingFrameStart + this._data.flyingFrameCount)
-					{
-						this._frameExtra = this._data.flyingFrameStart;
-						return;
-					}
-				}
-				break;
-			case 3:
-				this._frameCounter += 1f;
-				if (this._frameCounter > (float)this._data.flyingFrameDelay)
-				{
-					this._frameCounter -= (float)this._data.flyingFrameDelay;
-					this._frame++;
-				}
-				if (this._frame < this._data.flyingFrameStart || this._frame >= this._data.flyingFrameStart + this._data.flyingFrameCount)
-				{
-					this._frame = this._data.flyingFrameStart;
-					return;
-				}
-				break;
-			case 4:
-				this._frameCounter += (float)((int)((Math.Abs(velocity.X) + Math.Abs(velocity.Y)) / 2f));
-				if (this._frameCounter > (float)this._data.swimFrameDelay)
-				{
-					this._frameCounter -= (float)this._data.swimFrameDelay;
-					this._frame++;
-				}
-				if (this._frame < this._data.swimFrameStart || this._frame >= this._data.swimFrameStart + this._data.swimFrameCount)
-				{
-					this._frame = this._data.swimFrameStart;
-				}
-				break;
-			default:
-				return;
-			}
-		}
-		public void ResetFlightTime(float xVelocity)
-		{
-			this._flyTime = (this._active ? this._data.flightTimeMax : 0);
-			if (this._type == 0)
-			{
-				this._flyTime += (int)(Math.Abs(xVelocity) * 20f);
-			}
-		}
+
 		public void CheckMountBuff(Player mountedPlayer)
 		{
 			if (this._type == -1)
@@ -994,57 +609,110 @@ namespace Terraria
 				{
 					return;
 				}
-				if (this._type == 6 && mountedPlayer.buffType[i] == this._data.extraBuff)
+				if (this.Cart && mountedPlayer.buffType[i] == this._data.extraBuff)
 				{
 					return;
 				}
 			}
 			this.Dismount(mountedPlayer);
 		}
+
+		private Vector2 ClampToDeadZone(Player mountedPlayer, Vector2 position)
+		{
+			int y;
+			int x;
+			switch (this._type)
+			{
+				case 8:
+				{
+					y = (int)Mount.drillTextureSize.Y;
+					x = (int)Mount.drillTextureSize.X;
+					break;
+				}
+				case 9:
+				{
+					y = (int)Mount.scutlixTextureSize.Y;
+					x = (int)Mount.scutlixTextureSize.X;
+					break;
+				}
+				default:
+				{
+					return position;
+				}
+			}
+			Vector2 center = mountedPlayer.Center;
+			position = position - center;
+			if (position.X > (float)(-x) && position.X < (float)x && position.Y > (float)(-y) && position.Y < (float)y)
+			{
+				float single = (float)x / Math.Abs(position.X);
+				float single1 = (float)y / Math.Abs(position.Y);
+				if (single <= single1)
+				{
+					position = position * single;
+				}
+				else
+				{
+					position = position * single1;
+				}
+			}
+			return position + center;
+		}
+
 		public void Dismount(Player mountedPlayer)
 		{
 			if (!this._active)
 			{
 				return;
 			}
+			bool cart = this.Cart;
 			this._active = false;
 			mountedPlayer.ClearBuff(this._data.buff);
-			if (this._type == 6)
+			this._mountSpecificData = null;
+			if (cart)
 			{
 				mountedPlayer.ClearBuff(this._data.extraBuff);
 				mountedPlayer.cartFlip = false;
-				mountedPlayer.fullRotation = 0f;
-				mountedPlayer.fullRotationOrigin = Vector2.Zero;
 				mountedPlayer.lastBoost = Vector2.Zero;
 			}
+			mountedPlayer.fullRotation = 0f;
+			mountedPlayer.fullRotationOrigin = Vector2.Zero;
 			if (Main.netMode != 2)
 			{
 				for (int i = 0; i < 100; i++)
 				{
-					if (this._type == 6)
+					if (this._type != 6 && this._type != 11 && this._type != 13)
 					{
-						if (i % 10 == 0)
+						Vector2 vector2 = new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y);
+						int num = mountedPlayer.height;
+						int num1 = this._data.spawnDust;
+						Color color = new Color();
+						int num2 = Dust.NewDust(vector2, mountedPlayer.width + 40, num, num1, 0f, 0f, 0, color, 1f);
+						Dust dust = Main.dust[num2];
+						dust.scale = dust.scale + (float)Main.rand.Next(-10, 21) * 0.01f;
+						if (this._data.spawnDustNoGravity)
 						{
-							int type = Main.rand.Next(61, 64);
-							int num = Gore.NewGore(new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y), Vector2.Zero, type, 1f);
-							Main.gore[num].alpha = 100;
-							Main.gore[num].velocity = Vector2.Transform(new Vector2(1f, 0f), Matrix.CreateRotationZ((float)(Main.rand.NextDouble() * 6.2831854820251465)));
-						}
-					}
-					else
-					{
-						int num2 = Dust.NewDust(new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y), mountedPlayer.width + 40, mountedPlayer.height, this._data.spawnDust, 0f, 0f, 0, default(Color), 1f);
-						Main.dust[num2].scale += (float)Main.rand.Next(-10, 21) * 0.01f;
-						if (Main.rand.Next(2) == 0)
-						{
-							Main.dust[num2].scale *= 1.3f;
 							Main.dust[num2].noGravity = true;
+						}
+						else if (Main.rand.Next(2) != 0)
+						{
+							Dust dust1 = Main.dust[num2];
+							dust1.velocity = dust1.velocity * 0.5f;
 						}
 						else
 						{
-							Main.dust[num2].velocity *= 0.5f;
+							Dust dust2 = Main.dust[num2];
+							dust2.scale = dust2.scale * 1.3f;
+							Main.dust[num2].noGravity = true;
 						}
-						Main.dust[num2].velocity += mountedPlayer.velocity * 0.8f;
+						Dust dust3 = Main.dust[num2];
+						dust3.velocity = dust3.velocity + (mountedPlayer.velocity * 0.8f);
+					}
+					else if (i % 10 == 0)
+					{
+						int num3 = Main.rand.Next(61, 64);
+						int num4 = Gore.NewGore(new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y), Vector2.Zero, num3, 1f);
+						Main.gore[num4].alpha = 100;
+						Main.gore[num4].velocity = Vector2.Transform(new Vector2(1f, 0f), Matrix.CreateRotationZ((float)(Main.rand.NextDouble() * 6.28318548202515)));
 					}
 				}
 			}
@@ -1052,14 +720,1467 @@ namespace Terraria
 			mountedPlayer.position.Y = mountedPlayer.position.Y + (float)mountedPlayer.height;
 			mountedPlayer.height = 42;
 			mountedPlayer.position.Y = mountedPlayer.position.Y - (float)mountedPlayer.height;
-			if (mountedPlayer.whoAmi == Main.myPlayer)
+			if (mountedPlayer.whoAmI == Main.myPlayer)
 			{
-				NetMessage.SendData(13, -1, -1, "", mountedPlayer.whoAmi, 0f, 0f, 0f, 0);
+				NetMessage.SendData(13, -1, -1, "", mountedPlayer.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
+
+		public void Draw(List<DrawData> playerDrawData, int drawType, Player drawPlayer, Vector2 Position, Color drawColor, SpriteEffects playerEffect, float shadow)
+		{
+			DrawData drawDatum;
+			Texture2D texture2D;
+			Texture2D texture2D1;
+			SpriteEffects spriteEffect;
+			Color lightGreen;
+			Vector2 vector2;
+			if (playerDrawData == null)
+			{
+				return;
+			}
+			switch (drawType)
+			{
+				case 0:
+				{
+					texture2D = this._data.backTexture;
+					texture2D1 = this._data.backTextureGlow;
+					break;
+				}
+				case 1:
+				{
+					texture2D = this._data.backTextureExtra;
+					texture2D1 = this._data.backTextureExtraGlow;
+					break;
+				}
+				case 2:
+				{
+					if (this._type == 0 && this._idleTime >= this._idleTimeNext)
+					{
+						return;
+					}
+					texture2D = this._data.frontTexture;
+					texture2D1 = this._data.frontTextureGlow;
+					break;
+				}
+				case 3:
+				{
+					texture2D = this._data.frontTextureExtra;
+					texture2D1 = this._data.frontTextureExtraGlow;
+					break;
+				}
+				default:
+				{
+					texture2D = null;
+					texture2D1 = null;
+					break;
+				}
+			}
+			if (texture2D == null)
+			{
+				return;
+			}
+			int num = this._type;
+			if ((num == 0 || num == 9) && drawType == 3 && shadow != 0f)
+			{
+				return;
+			}
+			int xOffset = this.XOffset;
+			int yOffset = this.YOffset + this.PlayerOffset;
+			if (drawPlayer.direction <= 0 && (!this.Cart || !this.Directional))
+			{
+				xOffset = xOffset * -1;
+			}
+			Position.X = (float)((int)(Position.X - Main.screenPosition.X + (float)(drawPlayer.width / 2) + (float)xOffset));
+			Position.Y = (float)((int)(Position.Y - Main.screenPosition.Y + (float)(drawPlayer.height / 2) + (float)yOffset));
+			int num1 = 0;
+			int num2 = this._type;
+			if (num2 == 5)
+			{
+				switch (drawType)
+				{
+					case 0:
+					{
+						num1 = this._frame;
+						break;
+					}
+					case 1:
+					{
+						num1 = this._frameExtra;
+						break;
+					}
+					default:
+					{
+						num1 = 0;
+						break;
+					}
+				}
+			}
+			else if (num2 != 9)
+			{
+				num1 = this._frame;
+			}
+			else
+			{
+				switch (drawType)
+				{
+					case 0:
+					{
+						num1 = this._frame;
+						break;
+					}
+					case 1:
+					{
+						num1 = 0;
+						break;
+					}
+					case 2:
+					{
+						num1 = this._frameExtra;
+						break;
+					}
+					case 3:
+					{
+						num1 = this._frameExtra;
+						break;
+					}
+					default:
+					{
+						goto case 1;
+					}
+				}
+			}
+			int num3 = this._data.textureHeight / this._data.totalFrames;
+			Rectangle rectangle = new Rectangle(0, num3 * num1, this._data.textureWidth, num3);
+			int num4 = this._type;
+			if (num4 != 0)
+			{
+				switch (num4)
+				{
+					case 7:
+					{
+						if (drawType != 3)
+						{
+							break;
+						}
+						drawColor = new Color(250, 250, 250, 255);
+						break;
+					}
+					case 9:
+					{
+						if (drawType != 3)
+						{
+							break;
+						}
+						if (this._abilityCharge == 0)
+						{
+							return;
+						}
+						drawColor = Color.Multiply(Color.White, (float)this._abilityCharge / (float)this._data.abilityChargeMax);
+						drawColor.A = 0;
+						break;
+					}
+				}
+			}
+			else if (drawType == 3)
+			{
+				drawColor = Color.White;
+			}
+			Color color = new Color((drawColor.ToVector4() * 0.25f) + new Vector4(0.75f));
+			switch (this._type)
+			{
+				case 11:
+				{
+					if (drawType != 2)
+					{
+						break;
+					}
+					color = Color.White;
+					color.A = 127;
+					break;
+				}
+				case 12:
+				{
+					if (drawType != 0)
+					{
+						break;
+					}
+					float single = MathHelper.Clamp(drawPlayer.MountFishronSpecialCounter / 60f, 0f, 1f);
+					color = Colors.CurrentLiquidColor;
+					if (color == Color.Transparent)
+					{
+						color = Color.White;
+					}
+					color.A = 127;
+					color = color * single;
+					break;
+				}
+			}
+			float single1 = 0f;
+			switch (this._type)
+			{
+				case 7:
+				{
+					single1 = drawPlayer.fullRotation;
+					break;
+				}
+				case 8:
+				{
+					Mount.DrillMountData drillMountDatum = (Mount.DrillMountData)this._mountSpecificData;
+					if (drawType != 0)
+					{
+						if (drawType != 3)
+						{
+							break;
+						}
+						single1 = drillMountDatum.diodeRotation - single1 - drawPlayer.fullRotation;
+						break;
+					}
+					else
+					{
+						single1 = drillMountDatum.outerRingRotation - single1;
+						break;
+					}
+				}
+			}
+			Vector2 origin = this.Origin;
+			int num5 = this._type;
+			float single2 = 1f;
+			switch (this._type)
+			{
+				case 6:
+				case 13:
+				{
+					spriteEffect = (this._flipDraw ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+					break;
+				}
+				case 7:
+				{
+					spriteEffect = SpriteEffects.None;
+					break;
+				}
+				case 8:
+				{
+					spriteEffect = (drawPlayer.direction != 1 || drawType != 2 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+					break;
+				}
+				case 9:
+				case 10:
+				case 12:
+				{
+					spriteEffect = playerEffect;
+					break;
+				}
+				case 11:
+				{
+					spriteEffect = (Math.Sign(drawPlayer.velocity.X) == -drawPlayer.direction ? playerEffect ^ SpriteEffects.FlipHorizontally : playerEffect);
+					break;
+				}
+				default:
+				{
+					goto case 12;
+				}
+			}
+			bool flag = false;
+			int num6 = this._type;
+			if (!flag)
+			{
+				drawDatum = new DrawData(texture2D, Position, new Rectangle?(rectangle), drawColor, single1, origin, single2, spriteEffect, 0)
+				{
+					shader = Mount.currentShader
+				};
+				playerDrawData.Add(drawDatum);
+				if (texture2D1 != null)
+				{
+					drawDatum = new DrawData(texture2D1, Position, new Rectangle?(rectangle), color, single1, origin, single2, spriteEffect, 0)
+					{
+						shader = Mount.currentShader
+					};
+				}
+				playerDrawData.Add(drawDatum);
+			}
+			if (this._type != 8)
+			{
+				return;
+			}
+			if (drawType == 3)
+			{
+				Mount.DrillMountData drillMountDatum1 = (Mount.DrillMountData)this._mountSpecificData;
+				Rectangle rectangle1 = new Rectangle(0, 0, 1, 1);
+				Vector2 vector21 = Mount.drillDiodePoint1.RotatedBy((double)drillMountDatum1.diodeRotation, new Vector2());
+				Vector2 vector22 = Mount.drillDiodePoint2.RotatedBy((double)drillMountDatum1.diodeRotation, new Vector2());
+				for (int i = 0; i < (int)drillMountDatum1.beams.Length; i++)
+				{
+					Mount.DrillBeam drillBeam = drillMountDatum1.beams[i];
+					if (drillBeam.curTileTarget != Point16.NegativeOne)
+					{
+						for (int j = 0; j < 2; j++)
+						{
+							Vector2 vector23 = (new Vector2((float)(drillBeam.curTileTarget.X * 16 + 8), (float)(drillBeam.curTileTarget.Y * 16 + 8)) - Main.screenPosition) - Position;
+							if (j != 0)
+							{
+								vector2 = vector22;
+								lightGreen = Color.LightGreen;
+							}
+							else
+							{
+								vector2 = vector21;
+								lightGreen = Color.CornflowerBlue;
+							}
+							lightGreen.A = 128;
+							lightGreen = lightGreen * 0.5f;
+							Vector2 vector24 = vector23 - vector2;
+							float rotation = vector24.ToRotation();
+							Vector2 vector25 = new Vector2(2f, vector24.Length());
+							drawDatum = new DrawData(Main.magicPixel, vector2 + Position, new Rectangle?(rectangle1), lightGreen, rotation - 1.57079637f, Vector2.Zero, vector25, SpriteEffects.None, 0)
+							{
+								ignorePlayerRotation = true,
+								shader = Mount.currentShader
+							};
+							playerDrawData.Add(drawDatum);
+						}
+					}
+				}
+			}
+		}
+
+		private Point16 DrillSmartCursor(Player mountedPlayer, Mount.DrillMountData data)
+		{
+			Vector2 vector2;
+			vector2 = (mountedPlayer.whoAmI != Main.myPlayer ? data.crosshairPosition : Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY));
+			Vector2 center = mountedPlayer.Center;
+			Vector2 vector21 = vector2 - center;
+			float single = vector21.Length();
+			if (single > 224f)
+			{
+				single = 224f;
+			}
+			single = single + 32f;
+			vector21.Normalize();
+			Vector2 vector22 = center;
+			Vector2 vector23 = center + (vector21 * single);
+			Point16 point16 = new Point16(-1, -1);
+			if (!Utils.PlotTileLine(vector22, vector23, 65.6f, (int x, int y) => {
+				point16 = new Point16(x, y);
+				for (int i = 0; i < (int)data.beams.Length; i++)
+				{
+					if (data.beams[i].curTileTarget == point16)
+					{
+						return true;
+					}
+				}
+				if (!WorldGen.CanKillTile(x, y))
+				{
+					return true;
+				}
+				if (Main.tile[x, y] != null && !Main.tile[x, y].inActive() && Main.tile[x, y].active())
+				{
+					return false;
+				}
+				return true;
+			}))
+			{
+				return point16;
+			}
+			return new Point16(-1, -1);
+		}
+
+		public void FatigueRecovery()
+		{
+			if (this._fatigue <= 2f)
+			{
+				this._fatigue = 0f;
+				return;
+			}
+			Mount mount = this;
+			mount._fatigue = mount._fatigue - 2f;
+		}
+
+		public bool FindTileHeight(Vector2 position, int maxTilesDown, out float tileHeight)
+		{
+			int x = (int)(position.X / 16f);
+			int y = (int)(position.Y / 16f);
+			for (int i = 0; i <= maxTilesDown; i++)
+			{
+				Tile tile = Main.tile[x, y];
+				bool flag = Main.tileSolid[tile.type];
+				bool flag1 = Main.tileSolidTop[tile.type];
+				if (tile.active())
+				{
+					if (!flag)
+					{
+					}
+					else if (flag1)
+					{
+					}
+				}
+				y++;
+			}
+			tileHeight = 0f;
+			return true;
+		}
+
+		public bool Flight()
+		{
+			if (this._flyTime <= 0)
+			{
+				return false;
+			}
+			Mount mount = this;
+			mount._flyTime = mount._flyTime - 1;
+			return true;
+		}
+
+		public static int GetHeightBoost(int MountType)
+		{
+			if (MountType <= -1 || MountType >= 14)
+			{
+				return 0;
+			}
+			return Mount.mounts[MountType].heightBoost;
+		}
+
+		public static Vector2 GetMinecartMechPoint(Player mountedPlayer, int offX, int offY)
+		{
+			int num = Math.Sign(mountedPlayer.velocity.X);
+			if (num == 0)
+			{
+				num = mountedPlayer.direction;
+			}
+			float single = (float)offX;
+			int num1 = Math.Sign(offX);
+			if (mountedPlayer.direction != num)
+			{
+				single = single - (float)num1;
+			}
+			if (num == -1)
+			{
+				single = single - (float)num1;
+			}
+			Vector2 vector2 = (new Vector2(single * (float)num, (float)offY)).RotatedBy((double)mountedPlayer.fullRotation, new Vector2());
+			Vector2 vector21 = (new Vector2(MathHelper.Lerp(0f, -8f, mountedPlayer.fullRotation / 0.7853982f), MathHelper.Lerp(0f, 2f, Math.Abs(mountedPlayer.fullRotation / 0.7853982f)))).RotatedBy((double)mountedPlayer.fullRotation, new Vector2());
+			if (num == Math.Sign(mountedPlayer.fullRotation))
+			{
+				vector21 = vector21 * MathHelper.Lerp(1f, 0.6f, Math.Abs(mountedPlayer.fullRotation / 0.7853982f));
+			}
+			return (mountedPlayer.Bottom + vector2) + vector21;
+		}
+
+		public bool Hover(Player mountedPlayer)
+		{
+			if (this._frameState == 2 || this._frameState == 4)
+			{
+				bool flag = true;
+				float single = 1f;
+				float single1 = mountedPlayer.gravity / Player.defaultGravity;
+				if (mountedPlayer.slowFall)
+				{
+					single1 = single1 / 3f;
+				}
+				if (single1 < 0.25f)
+				{
+					single1 = 0.25f;
+				}
+				if (this._type != 7 && this._type != 8 && this._type != 12)
+				{
+					if (this._flyTime > 0)
+					{
+						Mount mount = this;
+						mount._flyTime = mount._flyTime - 1;
+					}
+					else if (this._fatigue >= this._fatigueMax)
+					{
+						flag = false;
+					}
+					else
+					{
+						Mount mount1 = this;
+						mount1._fatigue = mount1._fatigue + single1;
+					}
+				}
+				if (this._type == 12 && !mountedPlayer.MountFishronSpecial)
+				{
+					single = 0.5f;
+				}
+				float single2 = this._fatigue / this._fatigueMax;
+				if (this._type == 7 || this._type == 8 || this._type == 12)
+				{
+					single2 = 0f;
+				}
+				float single3 = 4f * single2;
+				float single4 = 4f * single2;
+				if (single3 == 0f)
+				{
+					single3 = -0.001f;
+				}
+				if (single4 == 0f)
+				{
+					single4 = -0.001f;
+				}
+				float y = mountedPlayer.velocity.Y;
+				if ((mountedPlayer.controlUp || mountedPlayer.controlJump) && flag)
+				{
+					single3 = -2f - 6f * (1f - single2);
+					y = y - this._data.acceleration * single;
+				}
+				else if (!mountedPlayer.controlDown)
+				{
+					int num = mountedPlayer.jump;
+				}
+				else
+				{
+					y = y + this._data.acceleration * single;
+					single4 = 8f;
+				}
+				if (y < single3)
+				{
+					y = (single3 - y >= this._data.acceleration ? y + this._data.acceleration * single : single3);
+				}
+				else if (y > single4)
+				{
+					y = (y - single4 >= this._data.acceleration ? y - this._data.acceleration * single : single4);
+				}
+				mountedPlayer.velocity.Y = y;
+				mountedPlayer.fallStart = (int)(mountedPlayer.position.Y / 16f);
+			}
+			else if (this._type != 7 && this._type != 8 && this._type != 12)
+			{
+				mountedPlayer.velocity.Y = mountedPlayer.velocity.Y + mountedPlayer.gravity * mountedPlayer.gravDir;
+			}
+			else if (mountedPlayer.velocity.Y == 0f)
+			{
+				mountedPlayer.velocity.Y = 0.001f;
+			}
+			if (this._type == 7)
+			{
+				float x = mountedPlayer.velocity.X / this._data.dashSpeed;
+				if ((double)x > 0.95)
+				{
+					x = 0.95f;
+				}
+				if ((double)x < -0.95)
+				{
+					x = -0.95f;
+				}
+				float single5 = 0.7853982f * x / 2f;
+				float single6 = Math.Abs(2f - (float)this._frame / 2f) / 2f;
+				Lighting.AddLight((int)(mountedPlayer.position.X + (float)(mountedPlayer.width / 2)) / 16, (int)(mountedPlayer.position.Y + (float)(mountedPlayer.height / 2)) / 16, 0.4f, 0.2f * single6, 0f);
+				mountedPlayer.fullRotation = single5;
+			}
+			else if (this._type == 8)
+			{
+				float x1 = mountedPlayer.velocity.X / this._data.dashSpeed;
+				if ((double)x1 > 0.95)
+				{
+					x1 = 0.95f;
+				}
+				if ((double)x1 < -0.95)
+				{
+					x1 = -0.95f;
+				}
+				mountedPlayer.fullRotation = 0.7853982f * x1 / 2f;
+				Mount.DrillMountData drillMountDatum = (Mount.DrillMountData)this._mountSpecificData;
+				float x2 = drillMountDatum.outerRingRotation;
+				x2 = x2 + mountedPlayer.velocity.X / 80f;
+				if (x2 > 3.14159274f)
+				{
+					x2 = x2 - 6.28318548f;
+				}
+				else if (x2 < -3.14159274f)
+				{
+					x2 = x2 + 6.28318548f;
+				}
+				drillMountDatum.outerRingRotation = x2;
+			}
+			return true;
+		}
+
+		public static void Initialize()
+		{
+			Mount.mounts = new Mount.MountData[14];
+			Mount.MountData mountDatum = new Mount.MountData();
+			Mount.mounts[0] = mountDatum;
+			mountDatum.spawnDust = 57;
+			mountDatum.spawnDustNoGravity = false;
+			mountDatum.buff = 90;
+			mountDatum.heightBoost = 20;
+			mountDatum.flightTimeMax = 160;
+			mountDatum.runSpeed = 5.5f;
+			mountDatum.dashSpeed = 12f;
+			mountDatum.acceleration = 0.09f;
+			mountDatum.jumpHeight = 17;
+			mountDatum.jumpSpeed = 5.31f;
+			mountDatum.totalFrames = 12;
+			int[] numArray = new int[mountDatum.totalFrames];
+			for (int i = 0; i < (int)numArray.Length; i++)
+			{
+				numArray[i] = 30;
+			}
+			numArray[1] = numArray[1] + 2;
+			numArray[11] = numArray[11] + 2;
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 13;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = -7;
+			mountDatum.playerHeadOffset = 22;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 0;
+			mountDatum.runningFrameCount = 6;
+			mountDatum.runningFrameDelay = 12;
+			mountDatum.runningFrameStart = 6;
+			mountDatum.flyingFrameCount = 6;
+			mountDatum.flyingFrameDelay = 6;
+			mountDatum.flyingFrameStart = 6;
+			mountDatum.inAirFrameCount = 1;
+			mountDatum.inAirFrameDelay = 12;
+			mountDatum.inAirFrameStart = 1;
+			mountDatum.idleFrameCount = 4;
+			mountDatum.idleFrameDelay = 30;
+			mountDatum.idleFrameStart = 2;
+			mountDatum.idleFrameLoop = true;
+			mountDatum.swimFrameCount = mountDatum.inAirFrameCount;
+			mountDatum.swimFrameDelay = mountDatum.inAirFrameDelay;
+			mountDatum.swimFrameStart = mountDatum.inAirFrameStart;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = Main.rudolphMountTexture[0];
+				mountDatum.backTextureExtra = null;
+				mountDatum.frontTexture = Main.rudolphMountTexture[1];
+				mountDatum.frontTextureExtra = Main.rudolphMountTexture[2];
+				mountDatum.textureWidth = mountDatum.backTexture.Width;
+				mountDatum.textureHeight = mountDatum.backTexture.Height;
+			}
+			mountDatum = new Mount.MountData();
+			Mount.mounts[2] = mountDatum;
+			mountDatum.spawnDust = 58;
+			mountDatum.buff = 129;
+			mountDatum.heightBoost = 20;
+			mountDatum.flightTimeMax = 160;
+			mountDatum.runSpeed = 5f;
+			mountDatum.dashSpeed = 9f;
+			mountDatum.acceleration = 0.08f;
+			mountDatum.jumpHeight = 10;
+			mountDatum.jumpSpeed = 6.01f;
+			mountDatum.totalFrames = 16;
+			numArray = new int[mountDatum.totalFrames];
+			for (int j = 0; j < (int)numArray.Length; j++)
+			{
+				numArray[j] = 22;
+			}
+			numArray[12] = numArray[12] + 2;
+			numArray[13] = numArray[13] + 4;
+			numArray[14] = numArray[14] + 2;
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 1;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 8;
+			mountDatum.playerHeadOffset = 22;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 7;
+			mountDatum.runningFrameCount = 5;
+			mountDatum.runningFrameDelay = 12;
+			mountDatum.runningFrameStart = 11;
+			mountDatum.flyingFrameCount = 6;
+			mountDatum.flyingFrameDelay = 6;
+			mountDatum.flyingFrameStart = 1;
+			mountDatum.inAirFrameCount = 1;
+			mountDatum.inAirFrameDelay = 12;
+			mountDatum.inAirFrameStart = 0;
+			mountDatum.idleFrameCount = 3;
+			mountDatum.idleFrameDelay = 30;
+			mountDatum.idleFrameStart = 8;
+			mountDatum.idleFrameLoop = false;
+			mountDatum.swimFrameCount = mountDatum.inAirFrameCount;
+			mountDatum.swimFrameDelay = mountDatum.inAirFrameDelay;
+			mountDatum.swimFrameStart = mountDatum.inAirFrameStart;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = Main.pigronMountTexture;
+				mountDatum.backTextureExtra = null;
+				mountDatum.frontTexture = null;
+				mountDatum.frontTextureExtra = null;
+				mountDatum.textureWidth = mountDatum.backTexture.Width;
+				mountDatum.textureHeight = mountDatum.backTexture.Height;
+			}
+			mountDatum = new Mount.MountData();
+			Mount.mounts[1] = mountDatum;
+			mountDatum.spawnDust = 15;
+			mountDatum.buff = 128;
+			mountDatum.heightBoost = 20;
+			mountDatum.flightTimeMax = 0;
+			mountDatum.fallDamage = 0.8f;
+			mountDatum.runSpeed = 4f;
+			mountDatum.dashSpeed = 7.5f;
+			mountDatum.acceleration = 0.13f;
+			mountDatum.jumpHeight = 15;
+			mountDatum.jumpSpeed = 5.01f;
+			mountDatum.totalFrames = 7;
+			numArray = new int[mountDatum.totalFrames];
+			for (int k = 0; k < (int)numArray.Length; k++)
+			{
+				numArray[k] = 14;
+			}
+			numArray[2] = numArray[2] + 2;
+			numArray[3] = numArray[3] + 4;
+			numArray[4] = numArray[4] + 8;
+			numArray[5] = numArray[5] + 8;
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 1;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 4;
+			mountDatum.playerHeadOffset = 22;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 0;
+			mountDatum.runningFrameCount = 7;
+			mountDatum.runningFrameDelay = 12;
+			mountDatum.runningFrameStart = 0;
+			mountDatum.flyingFrameCount = 6;
+			mountDatum.flyingFrameDelay = 6;
+			mountDatum.flyingFrameStart = 1;
+			mountDatum.inAirFrameCount = 1;
+			mountDatum.inAirFrameDelay = 12;
+			mountDatum.inAirFrameStart = 5;
+			mountDatum.idleFrameCount = 0;
+			mountDatum.idleFrameDelay = 0;
+			mountDatum.idleFrameStart = 0;
+			mountDatum.idleFrameLoop = false;
+			mountDatum.swimFrameCount = mountDatum.inAirFrameCount;
+			mountDatum.swimFrameDelay = mountDatum.inAirFrameDelay;
+			mountDatum.swimFrameStart = mountDatum.inAirFrameStart;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = Main.bunnyMountTexture;
+				mountDatum.backTextureExtra = null;
+				mountDatum.frontTexture = null;
+				mountDatum.frontTextureExtra = null;
+				mountDatum.textureWidth = mountDatum.backTexture.Width;
+				mountDatum.textureHeight = mountDatum.backTexture.Height;
+			}
+			mountDatum = new Mount.MountData();
+			Mount.mounts[3] = mountDatum;
+			mountDatum.spawnDust = 56;
+			mountDatum.buff = 130;
+			mountDatum.heightBoost = 20;
+			mountDatum.flightTimeMax = 0;
+			mountDatum.fallDamage = 0.5f;
+			mountDatum.runSpeed = 4f;
+			mountDatum.dashSpeed = 4f;
+			mountDatum.acceleration = 0.18f;
+			mountDatum.jumpHeight = 12;
+			mountDatum.jumpSpeed = 8.25f;
+			mountDatum.constantJump = true;
+			mountDatum.totalFrames = 4;
+			numArray = new int[mountDatum.totalFrames];
+			for (int l = 0; l < (int)numArray.Length; l++)
+			{
+				numArray[l] = 20;
+			}
+			numArray[1] = numArray[1] + 2;
+			numArray[3] = numArray[3] - 2;
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 1;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 10;
+			mountDatum.playerHeadOffset = 22;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 0;
+			mountDatum.runningFrameCount = 4;
+			mountDatum.runningFrameDelay = 12;
+			mountDatum.runningFrameStart = 0;
+			mountDatum.flyingFrameCount = 0;
+			mountDatum.flyingFrameDelay = 0;
+			mountDatum.flyingFrameStart = 0;
+			mountDatum.inAirFrameCount = 1;
+			mountDatum.inAirFrameDelay = 12;
+			mountDatum.inAirFrameStart = 1;
+			mountDatum.idleFrameCount = 0;
+			mountDatum.idleFrameDelay = 0;
+			mountDatum.idleFrameStart = 0;
+			mountDatum.idleFrameLoop = false;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = Main.slimeMountTexture;
+				mountDatum.backTextureExtra = null;
+				mountDatum.frontTexture = null;
+				mountDatum.frontTextureExtra = null;
+				mountDatum.textureWidth = mountDatum.backTexture.Width;
+				mountDatum.textureHeight = mountDatum.backTexture.Height;
+			}
+			mountDatum = new Mount.MountData();
+			Mount.mounts[6] = mountDatum;
+			mountDatum.Minecart = true;
+			mountDatum.MinecartDirectional = true;
+			mountDatum.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.Sparks);
+			mountDatum.spawnDust = 213;
+			mountDatum.buff = 118;
+			mountDatum.extraBuff = 138;
+			mountDatum.heightBoost = 10;
+			mountDatum.flightTimeMax = 0;
+			mountDatum.fallDamage = 1f;
+			mountDatum.runSpeed = 13f;
+			mountDatum.dashSpeed = 13f;
+			mountDatum.acceleration = 0.04f;
+			mountDatum.jumpHeight = 15;
+			mountDatum.jumpSpeed = 5.15f;
+			mountDatum.blockExtraJumps = true;
+			mountDatum.totalFrames = 3;
+			numArray = new int[mountDatum.totalFrames];
+			for (int m = 0; m < (int)numArray.Length; m++)
+			{
+				numArray[m] = 8;
+			}
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 1;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 13;
+			mountDatum.playerHeadOffset = 14;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 0;
+			mountDatum.runningFrameCount = 3;
+			mountDatum.runningFrameDelay = 12;
+			mountDatum.runningFrameStart = 0;
+			mountDatum.flyingFrameCount = 0;
+			mountDatum.flyingFrameDelay = 0;
+			mountDatum.flyingFrameStart = 0;
+			mountDatum.inAirFrameCount = 0;
+			mountDatum.inAirFrameDelay = 0;
+			mountDatum.inAirFrameStart = 0;
+			mountDatum.idleFrameCount = 0;
+			mountDatum.idleFrameDelay = 0;
+			mountDatum.idleFrameStart = 0;
+			mountDatum.idleFrameLoop = false;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = null;
+				mountDatum.backTextureExtra = null;
+				mountDatum.frontTexture = Main.minecartMountTexture;
+				mountDatum.frontTextureExtra = null;
+				mountDatum.textureWidth = mountDatum.frontTexture.Width;
+				mountDatum.textureHeight = mountDatum.frontTexture.Height;
+			}
+			mountDatum = new Mount.MountData();
+			Mount.mounts[4] = mountDatum;
+			mountDatum.spawnDust = 56;
+			mountDatum.buff = 131;
+			mountDatum.heightBoost = 26;
+			mountDatum.flightTimeMax = 0;
+			mountDatum.fallDamage = 1f;
+			mountDatum.runSpeed = 2f;
+			mountDatum.dashSpeed = 2f;
+			mountDatum.swimSpeed = 6f;
+			mountDatum.acceleration = 0.08f;
+			mountDatum.jumpHeight = 10;
+			mountDatum.jumpSpeed = 3.15f;
+			mountDatum.totalFrames = 12;
+			numArray = new int[mountDatum.totalFrames];
+			for (int n = 0; n < (int)numArray.Length; n++)
+			{
+				numArray[n] = 26;
+			}
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 1;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 13;
+			mountDatum.playerHeadOffset = 30;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 0;
+			mountDatum.runningFrameCount = 6;
+			mountDatum.runningFrameDelay = 12;
+			mountDatum.runningFrameStart = 0;
+			mountDatum.flyingFrameCount = 0;
+			mountDatum.flyingFrameDelay = 0;
+			mountDatum.flyingFrameStart = 0;
+			mountDatum.inAirFrameCount = 1;
+			mountDatum.inAirFrameDelay = 12;
+			mountDatum.inAirFrameStart = 3;
+			mountDatum.idleFrameCount = 0;
+			mountDatum.idleFrameDelay = 0;
+			mountDatum.idleFrameStart = 0;
+			mountDatum.idleFrameLoop = false;
+			mountDatum.swimFrameCount = 6;
+			mountDatum.swimFrameDelay = 12;
+			mountDatum.swimFrameStart = 6;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = Main.turtleMountTexture;
+				mountDatum.backTextureExtra = null;
+				mountDatum.frontTexture = null;
+				mountDatum.frontTextureExtra = null;
+				mountDatum.textureWidth = mountDatum.backTexture.Width;
+				mountDatum.textureHeight = mountDatum.backTexture.Height;
+			}
+			mountDatum = new Mount.MountData();
+			Mount.mounts[5] = mountDatum;
+			mountDatum.spawnDust = 152;
+			mountDatum.buff = 132;
+			mountDatum.heightBoost = 16;
+			mountDatum.flightTimeMax = 320;
+			mountDatum.fatigueMax = 320;
+			mountDatum.fallDamage = 0f;
+			mountDatum.usesHover = true;
+			mountDatum.runSpeed = 2f;
+			mountDatum.dashSpeed = 2f;
+			mountDatum.acceleration = 0.16f;
+			mountDatum.jumpHeight = 10;
+			mountDatum.jumpSpeed = 4f;
+			mountDatum.blockExtraJumps = true;
+			mountDatum.totalFrames = 12;
+			numArray = new int[mountDatum.totalFrames];
+			for (int o = 0; o < (int)numArray.Length; o++)
+			{
+				numArray[o] = 16;
+			}
+			numArray[8] = 18;
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 1;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 4;
+			mountDatum.playerHeadOffset = 18;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 0;
+			mountDatum.runningFrameCount = 5;
+			mountDatum.runningFrameDelay = 12;
+			mountDatum.runningFrameStart = 0;
+			mountDatum.flyingFrameCount = 3;
+			mountDatum.flyingFrameDelay = 12;
+			mountDatum.flyingFrameStart = 5;
+			mountDatum.inAirFrameCount = 3;
+			mountDatum.inAirFrameDelay = 12;
+			mountDatum.inAirFrameStart = 5;
+			mountDatum.idleFrameCount = 4;
+			mountDatum.idleFrameDelay = 12;
+			mountDatum.idleFrameStart = 8;
+			mountDatum.idleFrameLoop = true;
+			mountDatum.swimFrameCount = 0;
+			mountDatum.swimFrameDelay = 12;
+			mountDatum.swimFrameStart = 0;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = Main.beeMountTexture[0];
+				mountDatum.backTextureExtra = Main.beeMountTexture[1];
+				mountDatum.frontTexture = null;
+				mountDatum.frontTextureExtra = null;
+				mountDatum.textureWidth = mountDatum.backTexture.Width;
+				mountDatum.textureHeight = mountDatum.backTexture.Height;
+			}
+			mountDatum = new Mount.MountData();
+			Mount.mounts[7] = mountDatum;
+			mountDatum.spawnDust = 226;
+			mountDatum.spawnDustNoGravity = true;
+			mountDatum.buff = 141;
+			mountDatum.heightBoost = 16;
+			mountDatum.flightTimeMax = 320;
+			mountDatum.fatigueMax = 320;
+			mountDatum.fallDamage = 0f;
+			mountDatum.usesHover = true;
+			mountDatum.runSpeed = 8f;
+			mountDatum.dashSpeed = 8f;
+			mountDatum.acceleration = 0.16f;
+			mountDatum.jumpHeight = 10;
+			mountDatum.jumpSpeed = 4f;
+			mountDatum.blockExtraJumps = true;
+			mountDatum.totalFrames = 8;
+			numArray = new int[mountDatum.totalFrames];
+			for (int p = 0; p < (int)numArray.Length; p++)
+			{
+				numArray[p] = 16;
+			}
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 1;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 4;
+			mountDatum.playerHeadOffset = 18;
+			mountDatum.standingFrameCount = 8;
+			mountDatum.standingFrameDelay = 4;
+			mountDatum.standingFrameStart = 0;
+			mountDatum.runningFrameCount = 8;
+			mountDatum.runningFrameDelay = 4;
+			mountDatum.runningFrameStart = 0;
+			mountDatum.flyingFrameCount = 8;
+			mountDatum.flyingFrameDelay = 4;
+			mountDatum.flyingFrameStart = 0;
+			mountDatum.inAirFrameCount = 8;
+			mountDatum.inAirFrameDelay = 4;
+			mountDatum.inAirFrameStart = 0;
+			mountDatum.idleFrameCount = 0;
+			mountDatum.idleFrameDelay = 12;
+			mountDatum.idleFrameStart = 0;
+			mountDatum.idleFrameLoop = true;
+			mountDatum.swimFrameCount = 0;
+			mountDatum.swimFrameDelay = 12;
+			mountDatum.swimFrameStart = 0;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = null;
+				mountDatum.backTextureExtra = null;
+				mountDatum.frontTexture = Main.UFOMountTexture[0];
+				mountDatum.frontTextureExtra = Main.UFOMountTexture[1];
+				mountDatum.textureWidth = mountDatum.frontTexture.Width;
+				mountDatum.textureHeight = mountDatum.frontTexture.Height;
+			}
+			mountDatum = new Mount.MountData();
+			Mount.mounts[8] = mountDatum;
+			mountDatum.spawnDust = 226;
+			mountDatum.buff = 142;
+			mountDatum.heightBoost = 16;
+			mountDatum.flightTimeMax = 320;
+			mountDatum.fatigueMax = 320;
+			mountDatum.fallDamage = 1f;
+			mountDatum.usesHover = true;
+			mountDatum.swimSpeed = 4f;
+			mountDatum.runSpeed = 6f;
+			mountDatum.dashSpeed = 4f;
+			mountDatum.acceleration = 0.16f;
+			mountDatum.jumpHeight = 10;
+			mountDatum.jumpSpeed = 4f;
+			mountDatum.blockExtraJumps = true;
+			mountDatum.emitsLight = true;
+			mountDatum.lightColor = new Vector3(0.3f, 0.3f, 0.4f);
+			mountDatum.totalFrames = 1;
+			numArray = new int[mountDatum.totalFrames];
+			for (int q = 0; q < (int)numArray.Length; q++)
+			{
+				numArray[q] = 4;
+			}
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 1;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 4;
+			mountDatum.playerHeadOffset = 18;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 0;
+			mountDatum.runningFrameCount = 1;
+			mountDatum.runningFrameDelay = 12;
+			mountDatum.runningFrameStart = 0;
+			mountDatum.flyingFrameCount = 1;
+			mountDatum.flyingFrameDelay = 12;
+			mountDatum.flyingFrameStart = 0;
+			mountDatum.inAirFrameCount = 1;
+			mountDatum.inAirFrameDelay = 12;
+			mountDatum.inAirFrameStart = 0;
+			mountDatum.idleFrameCount = 0;
+			mountDatum.idleFrameDelay = 12;
+			mountDatum.idleFrameStart = 8;
+			mountDatum.swimFrameCount = 0;
+			mountDatum.swimFrameDelay = 12;
+			mountDatum.swimFrameStart = 0;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = Main.drillMountTexture[0];
+				mountDatum.backTextureGlow = Main.drillMountTexture[3];
+				mountDatum.backTextureExtra = null;
+				mountDatum.backTextureExtraGlow = null;
+				mountDatum.frontTexture = Main.drillMountTexture[1];
+				mountDatum.frontTextureGlow = Main.drillMountTexture[4];
+				mountDatum.frontTextureExtra = Main.drillMountTexture[2];
+				mountDatum.frontTextureExtraGlow = Main.drillMountTexture[5];
+				mountDatum.textureWidth = mountDatum.frontTexture.Width;
+				mountDatum.textureHeight = mountDatum.frontTexture.Height;
+			}
+			Mount.drillTextureSize = new Vector2(80f, 80f);
+			mountDatum = new Mount.MountData();
+			Mount.mounts[9] = mountDatum;
+			mountDatum.spawnDust = 152;
+			mountDatum.buff = 143;
+			mountDatum.heightBoost = 16;
+			mountDatum.flightTimeMax = 0;
+			mountDatum.fatigueMax = 0;
+			mountDatum.fallDamage = 0f;
+			mountDatum.abilityChargeMax = 40;
+			mountDatum.abilityCooldown = 20;
+			mountDatum.abilityDuration = 0;
+			mountDatum.runSpeed = 8f;
+			mountDatum.dashSpeed = 8f;
+			mountDatum.acceleration = 0.4f;
+			mountDatum.jumpHeight = 22;
+			mountDatum.jumpSpeed = 10.01f;
+			mountDatum.blockExtraJumps = false;
+			mountDatum.totalFrames = 12;
+			numArray = new int[mountDatum.totalFrames];
+			for (int r = 0; r < (int)numArray.Length; r++)
+			{
+				numArray[r] = 16;
+			}
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 1;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 6;
+			mountDatum.playerHeadOffset = 18;
+			mountDatum.standingFrameCount = 6;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 6;
+			mountDatum.runningFrameCount = 6;
+			mountDatum.runningFrameDelay = 12;
+			mountDatum.runningFrameStart = 0;
+			mountDatum.flyingFrameCount = 0;
+			mountDatum.flyingFrameDelay = 12;
+			mountDatum.flyingFrameStart = 0;
+			mountDatum.inAirFrameCount = 1;
+			mountDatum.inAirFrameDelay = 12;
+			mountDatum.inAirFrameStart = 1;
+			mountDatum.idleFrameCount = 0;
+			mountDatum.idleFrameDelay = 12;
+			mountDatum.idleFrameStart = 6;
+			mountDatum.idleFrameLoop = true;
+			mountDatum.swimFrameCount = 0;
+			mountDatum.swimFrameDelay = 12;
+			mountDatum.swimFrameStart = 0;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = Main.scutlixMountTexture[0];
+				mountDatum.backTextureExtra = null;
+				mountDatum.frontTexture = Main.scutlixMountTexture[1];
+				mountDatum.frontTextureExtra = Main.scutlixMountTexture[2];
+				mountDatum.textureWidth = mountDatum.backTexture.Width;
+				mountDatum.textureHeight = mountDatum.backTexture.Height;
+			}
+			Mount.scutlixEyePositions = new Vector2[] { new Vector2(60f, 2f), new Vector2(70f, 6f), new Vector2(68f, 6f), new Vector2(76f, 12f), new Vector2(80f, 10f), new Vector2(84f, 18f), new Vector2(74f, 20f), new Vector2(76f, 24f), new Vector2(70f, 34f), new Vector2(76f, 34f) };
+			Mount.scutlixTextureSize = new Vector2(45f, 54f);
+			for (int s = 0; s < (int)Mount.scutlixEyePositions.Length; s++)
+			{
+				Mount.scutlixEyePositions[s] = Mount.scutlixEyePositions[s] - Mount.scutlixTextureSize;
+			}
+			mountDatum = new Mount.MountData();
+			Mount.mounts[10] = mountDatum;
+			mountDatum.spawnDust = 15;
+			mountDatum.buff = 162;
+			mountDatum.heightBoost = 34;
+			mountDatum.flightTimeMax = 0;
+			mountDatum.fallDamage = 0.2f;
+			mountDatum.runSpeed = 4f;
+			mountDatum.dashSpeed = 12f;
+			mountDatum.acceleration = 0.3f;
+			mountDatum.jumpHeight = 10;
+			mountDatum.jumpSpeed = 8.01f;
+			mountDatum.totalFrames = 16;
+			numArray = new int[mountDatum.totalFrames];
+			for (int t = 0; t < (int)numArray.Length; t++)
+			{
+				numArray[t] = 28;
+			}
+			numArray[3] = numArray[3] + 2;
+			numArray[4] = numArray[4] + 2;
+			numArray[7] = numArray[7] + 2;
+			numArray[8] = numArray[8] + 2;
+			numArray[12] = numArray[12] + 2;
+			numArray[13] = numArray[13] + 2;
+			numArray[15] = numArray[15] + 4;
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 5;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 1;
+			mountDatum.playerHeadOffset = 31;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 0;
+			mountDatum.runningFrameCount = 7;
+			mountDatum.runningFrameDelay = 15;
+			mountDatum.runningFrameStart = 1;
+			mountDatum.dashingFrameCount = 6;
+			mountDatum.dashingFrameDelay = 40;
+			mountDatum.dashingFrameStart = 9;
+			mountDatum.flyingFrameCount = 6;
+			mountDatum.flyingFrameDelay = 6;
+			mountDatum.flyingFrameStart = 1;
+			mountDatum.inAirFrameCount = 1;
+			mountDatum.inAirFrameDelay = 12;
+			mountDatum.inAirFrameStart = 15;
+			mountDatum.idleFrameCount = 0;
+			mountDatum.idleFrameDelay = 0;
+			mountDatum.idleFrameStart = 0;
+			mountDatum.idleFrameLoop = false;
+			mountDatum.swimFrameCount = mountDatum.inAirFrameCount;
+			mountDatum.swimFrameDelay = mountDatum.inAirFrameDelay;
+			mountDatum.swimFrameStart = mountDatum.inAirFrameStart;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = Main.unicornMountTexture;
+				mountDatum.backTextureExtra = null;
+				mountDatum.frontTexture = null;
+				mountDatum.frontTextureExtra = null;
+				mountDatum.textureWidth = mountDatum.backTexture.Width;
+				mountDatum.textureHeight = mountDatum.backTexture.Height;
+			}
+			mountDatum = new Mount.MountData();
+			Mount.mounts[11] = mountDatum;
+			mountDatum.Minecart = true;
+			mountDatum.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.SparksMech);
+			mountDatum.spawnDust = 213;
+			mountDatum.buff = 167;
+			mountDatum.extraBuff = 166;
+			mountDatum.heightBoost = 12;
+			mountDatum.flightTimeMax = 0;
+			mountDatum.fallDamage = 1f;
+			mountDatum.runSpeed = 20f;
+			mountDatum.dashSpeed = 20f;
+			mountDatum.acceleration = 0.1f;
+			mountDatum.jumpHeight = 15;
+			mountDatum.jumpSpeed = 5.15f;
+			mountDatum.blockExtraJumps = true;
+			mountDatum.totalFrames = 3;
+			numArray = new int[mountDatum.totalFrames];
+			for (int u = 0; u < (int)numArray.Length; u++)
+			{
+				numArray[u] = 9;
+			}
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = -1;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 11;
+			mountDatum.playerHeadOffset = 14;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 0;
+			mountDatum.runningFrameCount = 3;
+			mountDatum.runningFrameDelay = 12;
+			mountDatum.runningFrameStart = 0;
+			mountDatum.flyingFrameCount = 0;
+			mountDatum.flyingFrameDelay = 0;
+			mountDatum.flyingFrameStart = 0;
+			mountDatum.inAirFrameCount = 0;
+			mountDatum.inAirFrameDelay = 0;
+			mountDatum.inAirFrameStart = 0;
+			mountDatum.idleFrameCount = 0;
+			mountDatum.idleFrameDelay = 0;
+			mountDatum.idleFrameStart = 0;
+			mountDatum.idleFrameLoop = false;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = null;
+				mountDatum.backTextureExtra = null;
+				mountDatum.frontTexture = Main.minecartMechMountTexture[0];
+				mountDatum.frontTextureGlow = Main.minecartMechMountTexture[1];
+				mountDatum.frontTextureExtra = null;
+				mountDatum.textureWidth = mountDatum.frontTexture.Width;
+				mountDatum.textureHeight = mountDatum.frontTexture.Height;
+			}
+			mountDatum = new Mount.MountData();
+			Mount.mounts[12] = mountDatum;
+			mountDatum.spawnDust = 15;
+			mountDatum.buff = 168;
+			mountDatum.heightBoost = 20;
+			mountDatum.flightTimeMax = 320;
+			mountDatum.fatigueMax = 320;
+			mountDatum.fallDamage = 0f;
+			mountDatum.usesHover = true;
+			mountDatum.runSpeed = 2f;
+			mountDatum.dashSpeed = 1f;
+			mountDatum.acceleration = 0.2f;
+			mountDatum.jumpHeight = 4;
+			mountDatum.jumpSpeed = 3f;
+			mountDatum.swimSpeed = 16f;
+			mountDatum.blockExtraJumps = true;
+			mountDatum.totalFrames = 23;
+			numArray = new int[mountDatum.totalFrames];
+			for (int v = 0; v < (int)numArray.Length; v++)
+			{
+				numArray[v] = 12;
+			}
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 2;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 16;
+			mountDatum.playerHeadOffset = 31;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 8;
+			mountDatum.runningFrameCount = 7;
+			mountDatum.runningFrameDelay = 14;
+			mountDatum.runningFrameStart = 8;
+			mountDatum.flyingFrameCount = 8;
+			mountDatum.flyingFrameDelay = 16;
+			mountDatum.flyingFrameStart = 0;
+			mountDatum.inAirFrameCount = 8;
+			mountDatum.inAirFrameDelay = 6;
+			mountDatum.inAirFrameStart = 0;
+			mountDatum.idleFrameCount = 0;
+			mountDatum.idleFrameDelay = 0;
+			mountDatum.idleFrameStart = 0;
+			mountDatum.idleFrameLoop = false;
+			mountDatum.swimFrameCount = 8;
+			mountDatum.swimFrameDelay = 4;
+			mountDatum.swimFrameStart = 15;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = Main.cuteFishronMountTexture[0];
+				mountDatum.backTextureGlow = Main.cuteFishronMountTexture[1];
+				mountDatum.frontTexture = null;
+				mountDatum.frontTextureExtra = null;
+				mountDatum.textureWidth = mountDatum.backTexture.Width;
+				mountDatum.textureHeight = mountDatum.backTexture.Height;
+			}
+			mountDatum = new Mount.MountData();
+			Mount.mounts[13] = mountDatum;
+			mountDatum.Minecart = true;
+			mountDatum.MinecartDirectional = true;
+			mountDatum.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.Sparks);
+			mountDatum.spawnDust = 213;
+			mountDatum.buff = 184;
+			mountDatum.extraBuff = 185;
+			mountDatum.heightBoost = 10;
+			mountDatum.flightTimeMax = 0;
+			mountDatum.fallDamage = 1f;
+			mountDatum.runSpeed = 10f;
+			mountDatum.dashSpeed = 10f;
+			mountDatum.acceleration = 0.03f;
+			mountDatum.jumpHeight = 12;
+			mountDatum.jumpSpeed = 5.15f;
+			mountDatum.blockExtraJumps = true;
+			mountDatum.totalFrames = 3;
+			numArray = new int[mountDatum.totalFrames];
+			for (int w = 0; w < (int)numArray.Length; w++)
+			{
+				numArray[w] = 8;
+			}
+			mountDatum.playerYOffsets = numArray;
+			mountDatum.xOffset = 1;
+			mountDatum.bodyFrame = 3;
+			mountDatum.yOffset = 13;
+			mountDatum.playerHeadOffset = 14;
+			mountDatum.standingFrameCount = 1;
+			mountDatum.standingFrameDelay = 12;
+			mountDatum.standingFrameStart = 0;
+			mountDatum.runningFrameCount = 3;
+			mountDatum.runningFrameDelay = 12;
+			mountDatum.runningFrameStart = 0;
+			mountDatum.flyingFrameCount = 0;
+			mountDatum.flyingFrameDelay = 0;
+			mountDatum.flyingFrameStart = 0;
+			mountDatum.inAirFrameCount = 0;
+			mountDatum.inAirFrameDelay = 0;
+			mountDatum.inAirFrameStart = 0;
+			mountDatum.idleFrameCount = 0;
+			mountDatum.idleFrameDelay = 0;
+			mountDatum.idleFrameStart = 0;
+			mountDatum.idleFrameLoop = false;
+			if (Main.netMode != 2)
+			{
+				mountDatum.backTexture = null;
+				mountDatum.backTextureExtra = null;
+				mountDatum.frontTexture = Main.minecartWoodMountTexture;
+				mountDatum.frontTextureExtra = null;
+				mountDatum.textureWidth = mountDatum.frontTexture.Width;
+				mountDatum.textureHeight = mountDatum.frontTexture.Height;
+			}
+		}
+
+		public int JumpHeight(float xVelocity)
+		{
+			int num = this._data.jumpHeight;
+			switch (this._type)
+			{
+				case 0:
+				{
+					num = num + (int)(Math.Abs(xVelocity) / 4f);
+					return num;
+				}
+				case 1:
+				{
+					num = num + (int)(Math.Abs(xVelocity) / 2.5f);
+					return num;
+				}
+				case 2:
+				case 3:
+				{
+					return num;
+				}
+				case 4:
+				{
+					if (this._frameState != 4)
+					{
+						return num;
+					}
+					num = num + 5;
+					return num;
+				}
+				default:
+				{
+					return num;
+				}
+			}
+		}
+
+		public float JumpSpeed(float xVelocity)
+		{
+			float single = this._data.jumpSpeed;
+			switch (this._type)
+			{
+				case 0:
+				case 1:
+				{
+					single = single + Math.Abs(xVelocity) / 7f;
+					return single;
+				}
+				case 2:
+				case 3:
+				{
+					return single;
+				}
+				case 4:
+				{
+					if (this._frameState != 4)
+					{
+						return single;
+					}
+					single = single + 2.5f;
+					return single;
+				}
+				default:
+				{
+					return single;
+				}
+			}
+		}
+
+		public void Reset()
+		{
+			this._active = false;
+			this._type = -1;
+			this._flipDraw = false;
+			this._frame = 0;
+			this._frameCounter = 0f;
+			this._frameExtra = 0;
+			this._frameExtraCounter = 0f;
+			this._frameState = 0;
+			this._flyTime = 0;
+			this._idleTime = 0;
+			this._idleTimeNext = -1;
+			this._fatigueMax = 0f;
+			this._abilityCharging = false;
+			this._abilityCharge = 0;
+			this._aiming = false;
+		}
+
+		public void ResetFlightTime(float xVelocity)
+		{
+			this._flyTime = (this._active ? this._data.flightTimeMax : 0);
+			if (this._type == 0)
+			{
+				Mount mount = this;
+				mount._flyTime = mount._flyTime + (int)(Math.Abs(xVelocity) * 20f);
+			}
+		}
+
+		public void ResetHeadPosition()
+		{
+			if (this._aiming)
+			{
+				this._aiming = false;
+				this._frameExtra = 0;
+				this._flipDraw = false;
+			}
+		}
+
 		public void SetMount(int m, Player mountedPlayer, bool faceLeft = false)
 		{
-			if (this._type == m || m <= -1 || m >= 7)
+			if (this._type == m || m <= -1 || m >= 14)
 			{
 				return;
 			}
@@ -1067,69 +2188,1130 @@ namespace Terraria
 			{
 				return;
 			}
-			if (this._active)
+			if (!this._active)
 			{
-				mountedPlayer.ClearBuff(this._data.buff);
-				if (this._type == 6)
-				{
-					mountedPlayer.ClearBuff(this._data.extraBuff);
-				}
+				this._active = true;
 			}
 			else
 			{
-				this._active = true;
+				mountedPlayer.ClearBuff(this._data.buff);
+				if (this.Cart)
+				{
+					mountedPlayer.ClearBuff(this._data.extraBuff);
+					mountedPlayer.cartFlip = false;
+					mountedPlayer.lastBoost = Vector2.Zero;
+				}
+				mountedPlayer.fullRotation = 0f;
+				mountedPlayer.fullRotationOrigin = Vector2.Zero;
+				this._mountSpecificData = null;
 			}
 			this._flyTime = 0;
 			this._type = m;
 			this._data = Mount.mounts[m];
 			this._fatigueMax = (float)this._data.fatigueMax;
-			if (this._type == 6 && !faceLeft)
-			{
-				mountedPlayer.AddBuff(this._data.extraBuff, 3600, true);
-				this._flipDraw = true;
-			}
-			else
+			if (!this.Cart || faceLeft || this.Directional)
 			{
 				mountedPlayer.AddBuff(this._data.buff, 3600, true);
 				this._flipDraw = false;
 			}
+			else
+			{
+				mountedPlayer.AddBuff(this._data.extraBuff, 3600, true);
+				this._flipDraw = true;
+			}
+			if (this._type == 9 && this._abilityCooldown < 20)
+			{
+				this._abilityCooldown = 20;
+			}
 			mountedPlayer.position.Y = mountedPlayer.position.Y + (float)mountedPlayer.height;
+			for (int i = 0; i < (int)mountedPlayer.shadowPos.Length; i++)
+			{
+				mountedPlayer.shadowPos[i].Y = mountedPlayer.shadowPos[i].Y + (float)mountedPlayer.height;
+			}
 			mountedPlayer.height = 42 + this._data.heightBoost;
 			mountedPlayer.position.Y = mountedPlayer.position.Y - (float)mountedPlayer.height;
+			for (int j = 0; j < (int)mountedPlayer.shadowPos.Length; j++)
+			{
+				mountedPlayer.shadowPos[j].Y = mountedPlayer.shadowPos[j].Y - (float)mountedPlayer.height;
+			}
+			if (this._type == 7 || this._type == 8)
+			{
+				mountedPlayer.fullRotationOrigin = new Vector2((float)(mountedPlayer.width / 2), (float)(mountedPlayer.height / 2));
+			}
+			if (this._type == 8)
+			{
+				this._mountSpecificData = new Mount.DrillMountData();
+			}
 			if (Main.netMode != 2)
 			{
-				for (int i = 0; i < 100; i++)
+				for (int k = 0; k < 100; k++)
 				{
-					if (this._type == 6)
+					if (this._type != 6 && this._type != 11 && this._type != 13)
 					{
-						if (i % 10 == 0)
+						Vector2 vector2 = new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y);
+						int num = mountedPlayer.height;
+						int num1 = this._data.spawnDust;
+						Color color = new Color();
+						int num2 = Dust.NewDust(vector2, mountedPlayer.width + 40, num, num1, 0f, 0f, 0, color, 1f);
+						Dust dust = Main.dust[num2];
+						dust.scale = dust.scale + (float)Main.rand.Next(-10, 21) * 0.01f;
+						if (this._data.spawnDustNoGravity)
 						{
-							int type = Main.rand.Next(61, 64);
-							int num = Gore.NewGore(new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y), Vector2.Zero, type, 1f);
-							Main.gore[num].alpha = 100;
-							Main.gore[num].velocity = Vector2.Transform(new Vector2(1f, 0f), Matrix.CreateRotationZ((float)(Main.rand.NextDouble() * 6.2831854820251465)));
-						}
-					}
-					else
-					{
-						int num2 = Dust.NewDust(new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y), mountedPlayer.width + 40, mountedPlayer.height, this._data.spawnDust, 0f, 0f, 0, default(Color), 1f);
-						Main.dust[num2].scale += (float)Main.rand.Next(-10, 21) * 0.01f;
-						if (Main.rand.Next(2) == 0)
-						{
-							Main.dust[num2].scale *= 1.3f;
 							Main.dust[num2].noGravity = true;
+						}
+						else if (Main.rand.Next(2) != 0)
+						{
+							Dust dust1 = Main.dust[num2];
+							dust1.velocity = dust1.velocity * 0.5f;
 						}
 						else
 						{
-							Main.dust[num2].velocity *= 0.5f;
+							Dust dust2 = Main.dust[num2];
+							dust2.scale = dust2.scale * 1.3f;
+							Main.dust[num2].noGravity = true;
 						}
-						Main.dust[num2].velocity += mountedPlayer.velocity * 0.8f;
+						Dust dust3 = Main.dust[num2];
+						dust3.velocity = dust3.velocity + (mountedPlayer.velocity * 0.8f);
+					}
+					else if (k % 10 == 0)
+					{
+						int num3 = Main.rand.Next(61, 64);
+						int num4 = Gore.NewGore(new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y), Vector2.Zero, num3, 1f);
+						Main.gore[num4].alpha = 100;
+						Main.gore[num4].velocity = Vector2.Transform(new Vector2(1f, 0f), Matrix.CreateRotationZ((float)(Main.rand.NextDouble() * 6.28318548202515)));
 					}
 				}
 			}
-			if (mountedPlayer.whoAmi == Main.myPlayer)
+			if (mountedPlayer.whoAmI == Main.myPlayer)
 			{
-				NetMessage.SendData(13, -1, -1, "", mountedPlayer.whoAmi, 0f, 0f, 0f, 0);
+				NetMessage.SendData(13, -1, -1, "", mountedPlayer.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+			}
+		}
+
+		public void StartAbilityCharge(Player mountedPlayer)
+		{
+			if (Main.myPlayer != mountedPlayer.whoAmI)
+			{
+				if (this._type != 9)
+				{
+					return;
+				}
+				this._abilityCharging = true;
+				return;
+			}
+			if (this._type != 9)
+			{
+				return;
+			}
+			float x = Main.screenPosition.X + (float)Main.mouseX;
+			float y = Main.screenPosition.Y + (float)Main.mouseY;
+			float single = x - mountedPlayer.position.X;
+			float y1 = y - mountedPlayer.position.Y;
+			Projectile.NewProjectile(x, y, 0f, 0f, 441, 0, 0f, mountedPlayer.whoAmI, single, y1);
+			this._abilityCharging = true;
+		}
+
+		public void StopAbilityCharge()
+		{
+			if (this._type != 9)
+			{
+				return;
+			}
+			this._abilityCharging = false;
+			this._abilityCooldown = this._data.abilityCooldown;
+			this._abilityDuration = this._data.abilityDuration;
+		}
+
+		public void UpdateDrill(Player mountedPlayer, bool controlUp, bool controlDown)
+		{
+			Mount.DrillMountData drillMountDatum = (Mount.DrillMountData)this._mountSpecificData;
+			for (int i = 0; i < (int)drillMountDatum.beams.Length; i++)
+			{
+				Mount.DrillBeam negativeOne = drillMountDatum.beams[i];
+				if (negativeOne.cooldown > 1)
+				{
+					Mount.DrillBeam drillBeam = negativeOne;
+					drillBeam.cooldown = drillBeam.cooldown - 1;
+				}
+				else if (negativeOne.cooldown == 1)
+				{
+					negativeOne.cooldown = 0;
+					negativeOne.curTileTarget = Point16.NegativeOne;
+				}
+			}
+			drillMountDatum.diodeRotation = drillMountDatum.diodeRotation * 0.85f + 0.15f * drillMountDatum.diodeRotationTarget;
+			if (drillMountDatum.beamCooldown > 0)
+			{
+				Mount.DrillMountData drillMountDatum1 = drillMountDatum;
+				drillMountDatum1.beamCooldown = drillMountDatum1.beamCooldown - 1;
+			}
+		}
+
+		public void UpdateEffects(Player mountedPlayer)
+		{
+			mountedPlayer.autoJump = this.AutoJump;
+			switch (this._type)
+			{
+				case 8:
+				{
+					if (mountedPlayer.ownedProjectileCounts[453] >= 1)
+					{
+						break;
+					}
+					this._abilityActive = false;
+					return;
+				}
+				case 9:
+				{
+					Vector2 center = mountedPlayer.Center;
+					Vector2 vector2 = center;
+					bool flag = false;
+					float single = 1500f;
+					for (int i = 0; i < 200; i++)
+					{
+						NPC nPC = Main.npc[i];
+						if (nPC.CanBeChasedBy(this, false))
+						{
+							float single1 = Vector2.Distance(nPC.Center, vector2);
+							if ((Vector2.Distance(vector2, vector2) > single1 && single1 < single || !flag) && Collision.CanHitLine(center, 0, 0, nPC.position, nPC.width, nPC.height))
+							{
+								single = single1;
+								vector2 = nPC.Center;
+								flag = true;
+							}
+						}
+					}
+					bool flag1 = flag;
+					float single2 = Math.Abs((vector2 - center).ToRotation());
+					if (mountedPlayer.direction == 1 && (double)single2 > 1.04719759490799)
+					{
+						flag1 = false;
+					}
+					else if (mountedPlayer.direction == -1 && (double)single2 < 2.09439514610459)
+					{
+						flag1 = false;
+					}
+					else if (!Collision.CanHitLine(center, 0, 0, vector2, 0, 0))
+					{
+						flag1 = false;
+					}
+					if (!flag1)
+					{
+						this._abilityCharging = false;
+						this.ResetHeadPosition();
+						return;
+					}
+					if (this._abilityCooldown != 0 || mountedPlayer.whoAmI != Main.myPlayer)
+					{
+						this.AimAbility(mountedPlayer, vector2);
+						this._abilityCharging = true;
+						return;
+					}
+					this.AimAbility(mountedPlayer, vector2);
+					this.StopAbilityCharge();
+					this.UseAbility(mountedPlayer, vector2, false);
+					return;
+				}
+				case 10:
+				{
+					mountedPlayer.doubleJumpUnicorn = true;
+					if (Math.Abs(mountedPlayer.velocity.X) > mountedPlayer.mount.DashSpeed - mountedPlayer.mount.RunSpeed / 2f)
+					{
+						mountedPlayer.noKnockback = true;
+					}
+					if (mountedPlayer.itemAnimation <= 0 || mountedPlayer.inventory[mountedPlayer.selectedItem].type != 1260)
+					{
+						break;
+					}
+					AchievementsHelper.HandleSpecialEvent(mountedPlayer, 5);
+					return;
+				}
+				case 11:
+				{
+					Vector3 vector3 = new Vector3(0.4f, 0.12f, 0.15f);
+					float single3 = 1f + Math.Abs(mountedPlayer.velocity.X) / this.RunSpeed * 2.5f;
+					Player player = mountedPlayer;
+					player.statDefense = player.statDefense + (int)(2f * single3);
+					int num = Math.Sign(mountedPlayer.velocity.X);
+					if (num == 0)
+					{
+						num = mountedPlayer.direction;
+					}
+					if (Main.netMode != 2)
+					{
+						vector3 = vector3 * single3;
+						Lighting.AddLight(mountedPlayer.Center, vector3.X, vector3.Y, vector3.Z);
+						Lighting.AddLight(mountedPlayer.Top, vector3.X, vector3.Y, vector3.Z);
+						Lighting.AddLight(mountedPlayer.Bottom, vector3.X, vector3.Y, vector3.Z);
+						Lighting.AddLight(mountedPlayer.Left, vector3.X, vector3.Y, vector3.Z);
+						Lighting.AddLight(mountedPlayer.Right, vector3.X, vector3.Y, vector3.Z);
+						float single4 = -24f;
+						if (mountedPlayer.direction != num)
+						{
+							single4 = -22f;
+						}
+						if (num == -1)
+						{
+							single4 = single4 + 1f;
+						}
+						Vector2 vector21 = (new Vector2(single4 * (float)num, -19f)).RotatedBy((double)mountedPlayer.fullRotation, new Vector2());
+						Vector2 vector22 = (new Vector2(MathHelper.Lerp(0f, -8f, mountedPlayer.fullRotation / 0.7853982f), MathHelper.Lerp(0f, 2f, Math.Abs(mountedPlayer.fullRotation / 0.7853982f)))).RotatedBy((double)mountedPlayer.fullRotation, new Vector2());
+						if (num == Math.Sign(mountedPlayer.fullRotation))
+						{
+							vector22 = vector22 * MathHelper.Lerp(1f, 0.6f, Math.Abs(mountedPlayer.fullRotation / 0.7853982f));
+						}
+						Vector2 bottom = (mountedPlayer.Bottom + vector21) + vector22;
+						Vector2 vector23 = ((mountedPlayer.oldPosition + (mountedPlayer.Size * new Vector2(0.5f, 1f))) + vector21) + vector22;
+						if (Vector2.Distance(bottom, vector23) <= 3f)
+						{
+							Dust[] dustArray = Main.dust;
+							Vector2 center1 = mountedPlayer.Center;
+							Color color = new Color();
+							Dust zero = dustArray[Dust.NewDust(center1, 0, 0, 182, 0f, 0f, 0, color, 1f)];
+							zero.position = bottom;
+							zero.noGravity = true;
+							zero.velocity = Vector2.Zero;
+							zero.customData = mountedPlayer;
+							zero.shader = GameShaders.Armor.GetSecondaryShader(mountedPlayer.cMinecart, mountedPlayer);
+						}
+						else
+						{
+							int num1 = (int)Vector2.Distance(bottom, vector23) / 3;
+							if (Vector2.Distance(bottom, vector23) % 3f != 0f)
+							{
+								num1++;
+							}
+							for (float j = 1f; j <= (float)num1; j = j + 1f)
+							{
+								Dust[] dustArray1 = Main.dust;
+								Vector2 center2 = mountedPlayer.Center;
+								Color color1 = new Color();
+								Dust secondaryShader = dustArray1[Dust.NewDust(center2, 0, 0, 182, 0f, 0f, 0, color1, 1f)];
+								secondaryShader.position = Vector2.Lerp(vector23, bottom, j / (float)num1);
+								secondaryShader.noGravity = true;
+								secondaryShader.velocity = Vector2.Zero;
+								secondaryShader.customData = mountedPlayer;
+								secondaryShader.shader = GameShaders.Armor.GetSecondaryShader(mountedPlayer.cMinecart, mountedPlayer);
+							}
+						}
+					}
+					if (mountedPlayer.whoAmI != Main.myPlayer || mountedPlayer.velocity.X == 0f)
+					{
+						break;
+					}
+					Vector2 minecartMechPoint = Mount.GetMinecartMechPoint(mountedPlayer, 20, -19);
+					int num2 = 60;
+					int num3 = 0;
+					float rotation = 0f;
+					for (int k = 0; k < 200; k++)
+					{
+						NPC nPC1 = Main.npc[k];
+						if (nPC1.active && nPC1.immune[mountedPlayer.whoAmI] <= 0 && !nPC1.dontTakeDamage && nPC1.Distance(minecartMechPoint) < 300f && nPC1.CanBeChasedBy(mountedPlayer, false) && Collision.CanHitLine(nPC1.position, nPC1.width, nPC1.height, minecartMechPoint, 0, 0))
+						{
+							if (Math.Abs(MathHelper.WrapAngle(MathHelper.WrapAngle(nPC1.AngleFrom(minecartMechPoint)) - MathHelper.WrapAngle((mountedPlayer.fullRotation + (float)num == -1f ? 3.14159274f : 0f)))) < 0.7853982f)
+							{
+								Vector2 size = (nPC1.position + (nPC1.Size * Utils.RandomVector2(Main.rand, 0f, 1f))) - minecartMechPoint;
+								rotation = rotation + size.ToRotation();
+								num3++;
+								int num4 = Projectile.NewProjectile(minecartMechPoint.X, minecartMechPoint.Y, size.X, size.Y, 591, 0, 0f, mountedPlayer.whoAmI, (float)mountedPlayer.whoAmI, 0f);
+								Main.projectile[num4].Center = nPC1.Center;
+								Main.projectile[num4].damage = num2;
+								Main.projectile[num4].Damage();
+								Main.projectile[num4].damage = 0;
+								Main.projectile[num4].Center = minecartMechPoint;
+							}
+						}
+					}
+					break;
+				}
+				case 12:
+				{
+					if (mountedPlayer.MountFishronSpecial)
+					{
+						Vector3 vector31 = Colors.CurrentLiquidColor.ToVector3();
+						vector31 = vector31 * 0.4f;
+						Point tileCoordinates = ((mountedPlayer.Center + ((Vector2.UnitX * (float)mountedPlayer.direction) * 20f)) + (mountedPlayer.velocity * 10f)).ToTileCoordinates();
+						if (WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y))
+						{
+							Lighting.AddLight(mountedPlayer.Center + ((Vector2.UnitX * (float)mountedPlayer.direction) * 20f), vector31.X, vector31.Y, vector31.Z);
+						}
+						else
+						{
+							Lighting.AddLight(tileCoordinates.X, tileCoordinates.Y, vector31.X, vector31.Y, vector31.Z);
+						}
+						Player player1 = mountedPlayer;
+						player1.meleeDamage = player1.meleeDamage + 0.15f;
+						Player player2 = mountedPlayer;
+						player2.rangedDamage = player2.rangedDamage + 0.15f;
+						Player player3 = mountedPlayer;
+						player3.magicDamage = player3.magicDamage + 0.15f;
+						Player player4 = mountedPlayer;
+						player4.minionDamage = player4.minionDamage + 0.15f;
+						Player player5 = mountedPlayer;
+						player5.thrownDamage = player5.thrownDamage + 0.15f;
+					}
+					if (mountedPlayer.statLife <= mountedPlayer.statLifeMax2 / 2)
+					{
+						mountedPlayer.MountFishronSpecialCounter = 60f;
+					}
+					if (!mountedPlayer.wet)
+					{
+						break;
+					}
+					mountedPlayer.MountFishronSpecialCounter = 300f;
+					return;
+				}
+				default:
+				{
+					return;
+				}
+			}
+		}
+
+		public void UpdateFrame(Player mountedPlayer, int state, Vector2 velocity)
+		{
+			Vector2 vector2 = new Vector2();
+			float single;
+			if (this._frameState != state)
+			{
+				this._frameState = state;
+				this._frameCounter = 0f;
+			}
+			if (state != 0)
+			{
+				this._idleTime = 0;
+			}
+			if (this._data.emitsLight)
+			{
+				Point tileCoordinates = mountedPlayer.Center.ToTileCoordinates();
+				Lighting.AddLight(tileCoordinates.X, tileCoordinates.Y, this._data.lightColor.X, this._data.lightColor.Y, this._data.lightColor.Z);
+			}
+			switch (this._type)
+			{
+				case 5:
+				{
+					if (state == 2)
+					{
+						goto case 6;
+					}
+					this._frameExtra = 0;
+					this._frameExtraCounter = 0f;
+					goto case 6;
+				}
+				case 6:
+				{
+					switch (state)
+					{
+						case 0:
+						{
+							if (this._data.idleFrameCount != 0)
+							{
+								if (this._type != 5)
+								{
+									if (this._idleTime == 0)
+									{
+										this._idleTimeNext = Main.rand.Next(900, 1500);
+									}
+								}
+								else if (this._fatigue == 0f)
+								{
+									this._idleTime = 0;
+									this._idleTimeNext = 2;
+								}
+								else if (this._idleTime == 0)
+								{
+									this._idleTimeNext = this._idleTime + 1;
+								}
+								Mount mount = this;
+								mount._idleTime = mount._idleTime + 1;
+							}
+							Mount mount1 = this;
+							mount1._frameCounter = mount1._frameCounter + 1f;
+							if (this._data.idleFrameCount == 0 || this._idleTime < this._idleTimeNext)
+							{
+								if (this._frameCounter > (float)this._data.standingFrameDelay)
+								{
+									Mount mount2 = this;
+									mount2._frameCounter = mount2._frameCounter - (float)this._data.standingFrameDelay;
+									Mount mount3 = this;
+									mount3._frame = mount3._frame + 1;
+								}
+								if (this._frame >= this._data.standingFrameStart && this._frame < this._data.standingFrameStart + this._data.standingFrameCount)
+								{
+									break;
+								}
+								this._frame = this._data.standingFrameStart;
+								return;
+							}
+							else
+							{
+								float single1 = (float)this._data.idleFrameDelay;
+								if (this._type == 5)
+								{
+									single1 = single1 * (2f - 1f * this._fatigue / this._fatigueMax);
+								}
+								int num = (int)((float)(this._idleTime - this._idleTimeNext) / single1);
+								if (num < this._data.idleFrameCount)
+								{
+									this._frame = this._data.idleFrameStart + num;
+								}
+								else if (!this._data.idleFrameLoop)
+								{
+									this._frameCounter = 0f;
+									this._frame = this._data.standingFrameStart;
+									this._idleTime = 0;
+								}
+								else
+								{
+									this._idleTime = this._idleTimeNext;
+									this._frame = this._data.idleFrameStart;
+								}
+								if (this._type != 5)
+								{
+									break;
+								}
+								this._frameExtra = this._frame;
+								return;
+							}
+						}
+						case 1:
+						{
+							int num1 = this._type;
+							if (num1 == 6)
+							{
+								single = (this._flipDraw ? velocity.X : -velocity.X);
+							}
+							else if (num1 == 9)
+							{
+								single = (!this._flipDraw ? Math.Abs(velocity.X) : -Math.Abs(velocity.X));
+							}
+							else if (num1 == 13)
+							{
+								single = (this._flipDraw ? velocity.X : -velocity.X);
+							}
+							else
+							{
+								single = Math.Abs(velocity.X);
+							}
+							Mount mount4 = this;
+							mount4._frameCounter = mount4._frameCounter + single;
+							if (single < 0f)
+							{
+								if (this._frameCounter < 0f)
+								{
+									Mount mount5 = this;
+									mount5._frameCounter = mount5._frameCounter + (float)this._data.runningFrameDelay;
+									Mount mount6 = this;
+									mount6._frame = mount6._frame - 1;
+								}
+								if (this._frame >= this._data.runningFrameStart && this._frame < this._data.runningFrameStart + this._data.runningFrameCount)
+								{
+									break;
+								}
+								this._frame = this._data.runningFrameStart + this._data.runningFrameCount - 1;
+								return;
+							}
+							else
+							{
+								if (this._frameCounter > (float)this._data.runningFrameDelay)
+								{
+									Mount mount7 = this;
+									mount7._frameCounter = mount7._frameCounter - (float)this._data.runningFrameDelay;
+									Mount mount8 = this;
+									mount8._frame = mount8._frame + 1;
+								}
+								if (this._frame >= this._data.runningFrameStart && this._frame < this._data.runningFrameStart + this._data.runningFrameCount)
+								{
+									break;
+								}
+								this._frame = this._data.runningFrameStart;
+								return;
+							}
+						}
+						case 2:
+						{
+							Mount mount9 = this;
+							mount9._frameCounter = mount9._frameCounter + 1f;
+							if (this._frameCounter > (float)this._data.inAirFrameDelay)
+							{
+								Mount mount10 = this;
+								mount10._frameCounter = mount10._frameCounter - (float)this._data.inAirFrameDelay;
+								Mount mount11 = this;
+								mount11._frame = mount11._frame + 1;
+							}
+							if (this._frame < this._data.inAirFrameStart || this._frame >= this._data.inAirFrameStart + this._data.inAirFrameCount)
+							{
+								this._frame = this._data.inAirFrameStart;
+							}
+							if (this._type == 4)
+							{
+								if (velocity.Y < 0f)
+								{
+									this._frame = 3;
+									return;
+								}
+								this._frame = 6;
+								return;
+							}
+							if (this._type != 5)
+							{
+								break;
+							}
+							float single2 = this._fatigue / this._fatigueMax;
+							Mount mount12 = this;
+							mount12._frameExtraCounter = mount12._frameExtraCounter + (6f - 4f * single2);
+							if (this._frameExtraCounter > (float)this._data.flyingFrameDelay)
+							{
+								Mount mount13 = this;
+								mount13._frameExtra = mount13._frameExtra + 1;
+								Mount mount14 = this;
+								mount14._frameExtraCounter = mount14._frameExtraCounter - (float)this._data.flyingFrameDelay;
+							}
+							if (this._frameExtra >= this._data.flyingFrameStart && this._frameExtra < this._data.flyingFrameStart + this._data.flyingFrameCount)
+							{
+								break;
+							}
+							this._frameExtra = this._data.flyingFrameStart;
+							return;
+						}
+						case 3:
+						{
+							Mount mount15 = this;
+							mount15._frameCounter = mount15._frameCounter + 1f;
+							if (this._frameCounter > (float)this._data.flyingFrameDelay)
+							{
+								Mount mount16 = this;
+								mount16._frameCounter = mount16._frameCounter - (float)this._data.flyingFrameDelay;
+								Mount mount17 = this;
+								mount17._frame = mount17._frame + 1;
+							}
+							if (this._frame >= this._data.flyingFrameStart && this._frame < this._data.flyingFrameStart + this._data.flyingFrameCount)
+							{
+								break;
+							}
+							this._frame = this._data.flyingFrameStart;
+							return;
+						}
+						case 4:
+						{
+							Mount mount18 = this;
+							mount18._frameCounter = mount18._frameCounter + (float)((int)((Math.Abs(velocity.X) + Math.Abs(velocity.Y)) / 2f));
+							if (this._frameCounter > (float)this._data.swimFrameDelay)
+							{
+								Mount mount19 = this;
+								mount19._frameCounter = mount19._frameCounter - (float)this._data.swimFrameDelay;
+								Mount mount20 = this;
+								mount20._frame = mount20._frame + 1;
+							}
+							if (this._frame >= this._data.swimFrameStart && this._frame < this._data.swimFrameStart + this._data.swimFrameCount)
+							{
+								break;
+							}
+							this._frame = this._data.swimFrameStart;
+							return;
+						}
+						case 5:
+						{
+							int num2 = this._type;
+							if (num2 == 6)
+							{
+								single = (this._flipDraw ? velocity.X : -velocity.X);
+							}
+							else if (num2 == 9)
+							{
+								single = (!this._flipDraw ? Math.Abs(velocity.X) : -Math.Abs(velocity.X));
+							}
+							else if (num2 == 13)
+							{
+								single = (this._flipDraw ? velocity.X : -velocity.X);
+							}
+							else
+							{
+								single = Math.Abs(velocity.X);
+							}
+							Mount mount21 = this;
+							mount21._frameCounter = mount21._frameCounter + single;
+							if (single < 0f)
+							{
+								if (this._frameCounter < 0f)
+								{
+									Mount mount22 = this;
+									mount22._frameCounter = mount22._frameCounter + (float)this._data.dashingFrameDelay;
+									Mount mount23 = this;
+									mount23._frame = mount23._frame - 1;
+								}
+								if (this._frame >= this._data.dashingFrameStart && this._frame < this._data.dashingFrameStart + this._data.dashingFrameCount)
+								{
+									break;
+								}
+								this._frame = this._data.dashingFrameStart + this._data.dashingFrameCount - 1;
+								break;
+							}
+							else
+							{
+								if (this._frameCounter > (float)this._data.dashingFrameDelay)
+								{
+									Mount mount24 = this;
+									mount24._frameCounter = mount24._frameCounter - (float)this._data.dashingFrameDelay;
+									Mount mount25 = this;
+									mount25._frame = mount25._frame + 1;
+								}
+								if (this._frame >= this._data.dashingFrameStart && this._frame < this._data.dashingFrameStart + this._data.dashingFrameCount)
+								{
+									break;
+								}
+								this._frame = this._data.dashingFrameStart;
+								return;
+							}
+						}
+						default:
+						{
+							return;
+						}
+					}
+					return;
+				}
+				case 7:
+				{
+					state = 2;
+					goto case 6;
+				}
+				case 8:
+				{
+					if (state != 0 && state != 1)
+					{
+						goto case 6;
+					}
+					vector2.X = mountedPlayer.position.X;
+					vector2.Y = mountedPlayer.position.Y + (float)mountedPlayer.height;
+					int x = (int)(vector2.X / 16f);
+					float y = vector2.Y / 16f;
+					float tileRotation = 0f;
+					float single3 = (float)mountedPlayer.width;
+					while (single3 > 0f)
+					{
+						float single4 = (float)((x + 1) * 16);
+						float x1 = single4 - vector2.X;
+						if (x1 > single3)
+						{
+							x1 = single3;
+						}
+						tileRotation = tileRotation + Collision.GetTileRotation(vector2) * x1;
+						single3 = single3 - x1;
+						vector2.X = vector2.X + x1;
+						x++;
+					}
+					float single5 = tileRotation / (float)mountedPlayer.width - mountedPlayer.fullRotation;
+					float single6 = 0f;
+					float single7 = 0.157079637f;
+					if (single5 < 0f)
+					{
+						single6 = (single5 <= -single7 ? -single7 : single5);
+					}
+					else if (single5 > 0f)
+					{
+						single6 = (single5 >= single7 ? single7 : single5);
+					}
+					if (single6 == 0f)
+					{
+						goto case 6;
+					}
+					Player player = mountedPlayer;
+					player.fullRotation = player.fullRotation + single6;
+					if (mountedPlayer.fullRotation > 0.7853982f)
+					{
+						mountedPlayer.fullRotation = 0.7853982f;
+					}
+					if (mountedPlayer.fullRotation >= -0.7853982f)
+					{
+						goto case 6;
+					}
+					mountedPlayer.fullRotation = -0.7853982f;
+					goto case 6;
+				}
+				case 9:
+				{
+					if (this._aiming)
+					{
+						goto case 6;
+					}
+					Mount mount26 = this;
+					mount26._frameExtraCounter = mount26._frameExtraCounter + 1f;
+					if (this._frameExtraCounter < 12f)
+					{
+						goto case 6;
+					}
+					this._frameExtraCounter = 0f;
+					Mount mount27 = this;
+					mount27._frameExtra = mount27._frameExtra + 1;
+					if (this._frameExtra < 6)
+					{
+						goto case 6;
+					}
+					this._frameExtra = 0;
+					goto case 6;
+				}
+				case 10:
+				{
+					bool flag = Math.Abs(velocity.X) > this.DashSpeed - this.RunSpeed / 2f;
+					if (state == 1)
+					{
+						bool flag1 = false;
+						if (!flag)
+						{
+							this._frameExtra = 0;
+						}
+						else
+						{
+							state = 5;
+							if (this._frameExtra < 6)
+							{
+								flag1 = true;
+							}
+							Mount mount28 = this;
+							mount28._frameExtra = mount28._frameExtra + 1;
+						}
+						if (flag1)
+						{
+							Vector2 center = mountedPlayer.Center + new Vector2((float)(mountedPlayer.width * mountedPlayer.direction), 0f);
+							Vector2 vector21 = new Vector2(40f, 30f);
+							float single8 = 6.28318548f * Main.rand.NextFloat();
+							for (float i = 0f; i < 14f; i = i + 1f)
+							{
+								Dust[] dustArray = Main.dust;
+								Random random = Main.rand;
+								int[] numArray = new int[] { 176, 177, 179 };
+								int num3 = Utils.SelectRandom<int>(random, numArray);
+								Color color = new Color();
+								Dust secondaryShader = dustArray[Dust.NewDust(center, 0, 0, num3, 0f, 0f, 0, color, 1f)];
+								Vector2 vector22 = Vector2.UnitY.RotatedBy((double)(i * 6.28318548f / 14f + single8), new Vector2());
+								vector22 = vector22 * (0.2f * (float)this._frameExtra);
+								secondaryShader.position = center + (vector22 * vector21);
+								secondaryShader.velocity = vector22 + new Vector2(this.RunSpeed - (float)(Math.Sign(velocity.X) * this._frameExtra * 2), 0f);
+								secondaryShader.noGravity = true;
+								secondaryShader.scale = 1f + Main.rand.NextFloat() * 0.8f;
+								secondaryShader.fadeIn = Main.rand.NextFloat() * 2f;
+								secondaryShader.shader = GameShaders.Armor.GetSecondaryShader(mountedPlayer.cMount, mountedPlayer);
+							}
+						}
+					}
+					if (!flag)
+					{
+						goto case 6;
+					}
+					Dust[] dustArray1 = Main.dust;
+					Vector2 vector23 = mountedPlayer.position;
+					int num4 = mountedPlayer.width;
+					int num5 = mountedPlayer.height;
+					Random random1 = Main.rand;
+					int[] numArray1 = new int[] { 176, 177, 179 };
+					int num6 = Utils.SelectRandom<int>(random1, numArray1);
+					Color color1 = new Color();
+					Dust zero = dustArray1[Dust.NewDust(vector23, num4, num5, num6, 0f, 0f, 0, color1, 1f)];
+					zero.velocity = Vector2.Zero;
+					zero.noGravity = true;
+					zero.scale = 0.5f + Main.rand.NextFloat() * 0.8f;
+					zero.fadeIn = 1f + Main.rand.NextFloat() * 2f;
+					zero.shader = GameShaders.Armor.GetSecondaryShader(mountedPlayer.cMount, mountedPlayer);
+					goto case 6;
+				}
+				default:
+				{
+					goto case 6;
+				}
+			}
+		}
+
+		public void UseAbility(Player mountedPlayer, Vector2 mousePosition, bool toggleOn)
+		{
+			Vector2 vector2 = new Vector2();
+			Vector2 x = new Vector2();
+			switch (this._type)
+			{
+				case 8:
+				{
+					if (Main.myPlayer != mountedPlayer.whoAmI)
+					{
+						this._abilityActive = toggleOn;
+						break;
+					}
+					else
+					{
+						if (!toggleOn)
+						{
+							this._abilityActive = false;
+							return;
+						}
+						if (this._abilityActive)
+						{
+							break;
+						}
+						if (mountedPlayer.whoAmI == Main.myPlayer)
+						{
+							float single = Main.screenPosition.X + (float)Main.mouseX;
+							float y = Main.screenPosition.Y + (float)Main.mouseY;
+							float x1 = single - mountedPlayer.position.X;
+							float y1 = y - mountedPlayer.position.Y;
+							Projectile.NewProjectile(single, y, 0f, 0f, 453, 0, 0f, mountedPlayer.whoAmI, x1, y1);
+						}
+						this._abilityActive = true;
+						return;
+					}
+				}
+				case 9:
+				{
+					if (Main.myPlayer != mountedPlayer.whoAmI)
+					{
+						break;
+					}
+					mousePosition = this.ClampToDeadZone(mountedPlayer, mousePosition);
+					x.X = mountedPlayer.position.X + (float)(mountedPlayer.width / 2);
+					x.Y = mountedPlayer.position.Y + (float)mountedPlayer.height;
+					int num = (this._frameExtra - 6) * 2;
+					for (int i = 0; i < 2; i++)
+					{
+						vector2.Y = x.Y + Mount.scutlixEyePositions[num + i].Y + (float)this._data.yOffset;
+						if (mountedPlayer.direction != -1)
+						{
+							vector2.X = x.X + Mount.scutlixEyePositions[num + i].X + (float)this._data.xOffset;
+						}
+						else
+						{
+							vector2.X = x.X - Mount.scutlixEyePositions[num + i].X - (float)this._data.xOffset;
+						}
+						Vector2 vector21 = mousePosition - vector2;
+						vector21.Normalize();
+						vector21 = vector21 * 14f;
+						int num1 = 100;
+						vector2 = vector2 + vector21;
+						Projectile.NewProjectile(vector2.X, vector2.Y, vector21.X, vector21.Y, 606, num1, 0f, Main.myPlayer, 0f, 0f);
+					}
+					return;
+				}
+				default:
+				{
+					return;
+				}
+			}
+		}
+
+		public void UseDrill(Player mountedPlayer)
+		{
+			if (this._type != 8 || !this._abilityActive)
+			{
+				return;
+			}
+			Mount.DrillMountData drillMountDatum = (Mount.DrillMountData)this._mountSpecificData;
+			if (drillMountDatum.beamCooldown == 0)
+			{
+				int num = 0;
+				while (num < (int)drillMountDatum.beams.Length)
+				{
+					Mount.DrillBeam drillBeam = drillMountDatum.beams[num];
+					if (drillBeam.cooldown != 0)
+					{
+						num++;
+					}
+					else
+					{
+						Point16 point16 = this.DrillSmartCursor(mountedPlayer, drillMountDatum);
+						if (point16 == Point16.NegativeOne)
+						{
+							break;
+						}
+						drillBeam.curTileTarget = point16;
+						int num1 = Mount.drillPickPower;
+						mountedPlayer.PickTile(point16.X, point16.Y, num1);
+						Vector2 vector2 = new Vector2((float)(point16.X << 4) + 8f, (float)(point16.Y << 4) + 8f);
+						float rotation = (vector2 - mountedPlayer.Center).ToRotation();
+						for (int i = 0; i < 2; i++)
+						{
+							float single = rotation + (Main.rand.Next(2) == 1 ? -1f : 1f) * 1.57079637f;
+							float single1 = (float)Main.rand.NextDouble() * 2f + 2f;
+							Vector2 vector21 = new Vector2((float)Math.Cos((double)single) * single1, (float)Math.Sin((double)single) * single1);
+							float x = vector21.X;
+							float y = vector21.Y;
+							Color color = new Color();
+							int num2 = Dust.NewDust(vector2, 0, 0, 230, x, y, 0, color, 1f);
+							Main.dust[num2].noGravity = true;
+							Main.dust[num2].customData = mountedPlayer;
+						}
+						Tile.SmoothSlope(point16.X, point16.Y, true);
+						drillBeam.cooldown = Mount.drillPickTime;
+						break;
+					}
+				}
+				drillMountDatum.beamCooldown = Mount.drillBeamCooldownMax;
+			}
+		}
+
+		private class DrillBeam
+		{
+			public Point16 curTileTarget;
+
+			public int cooldown;
+
+			public DrillBeam()
+			{
+				this.curTileTarget = Point16.NegativeOne;
+				this.cooldown = 0;
+			}
+		}
+
+		private class DrillMountData
+		{
+			public float diodeRotationTarget;
+
+			public float diodeRotation;
+
+			public float outerRingRotation;
+
+			public Mount.DrillBeam[] beams;
+
+			public int beamCooldown;
+
+			public Vector2 crosshairPosition;
+
+			public DrillMountData()
+			{
+				this.beams = new Mount.DrillBeam[4];
+				for (int i = 0; i < (int)this.beams.Length; i++)
+				{
+					this.beams[i] = new Mount.DrillBeam();
+				}
+			}
+		}
+
+		private class MountData
+		{
+			public Texture2D backTexture;
+
+			public Texture2D backTextureGlow;
+
+			public Texture2D backTextureExtra;
+
+			public Texture2D backTextureExtraGlow;
+
+			public Texture2D frontTexture;
+
+			public Texture2D frontTextureGlow;
+
+			public Texture2D frontTextureExtra;
+
+			public Texture2D frontTextureExtraGlow;
+
+			public int textureWidth;
+
+			public int textureHeight;
+
+			public int xOffset;
+
+			public int yOffset;
+
+			public int[] playerYOffsets;
+
+			public int bodyFrame;
+
+			public int playerHeadOffset;
+
+			public int heightBoost;
+
+			public int buff;
+
+			public int extraBuff;
+
+			public int flightTimeMax;
+
+			public bool usesHover;
+
+			public float runSpeed;
+
+			public float dashSpeed;
+
+			public float swimSpeed;
+
+			public float acceleration;
+
+			public float jumpSpeed;
+
+			public int jumpHeight;
+
+			public float fallDamage;
+
+			public int fatigueMax;
+
+			public bool constantJump;
+
+			public bool blockExtraJumps;
+
+			public int abilityChargeMax;
+
+			public int abilityDuration;
+
+			public int abilityCooldown;
+
+			public int spawnDust;
+
+			public bool spawnDustNoGravity;
+
+			public int totalFrames;
+
+			public int standingFrameStart;
+
+			public int standingFrameCount;
+
+			public int standingFrameDelay;
+
+			public int runningFrameStart;
+
+			public int runningFrameCount;
+
+			public int runningFrameDelay;
+
+			public int flyingFrameStart;
+
+			public int flyingFrameCount;
+
+			public int flyingFrameDelay;
+
+			public int inAirFrameStart;
+
+			public int inAirFrameCount;
+
+			public int inAirFrameDelay;
+
+			public int idleFrameStart;
+
+			public int idleFrameCount;
+
+			public int idleFrameDelay;
+
+			public bool idleFrameLoop;
+
+			public int swimFrameStart;
+
+			public int swimFrameCount;
+
+			public int swimFrameDelay;
+
+			public int dashingFrameStart;
+
+			public int dashingFrameCount;
+
+			public int dashingFrameDelay;
+
+			public bool Minecart;
+
+			public bool MinecartDirectional;
+
+			public Action<Vector2> MinecartDust;
+
+			public Vector3 lightColor;
+
+			public bool emitsLight;
+
+			public MountData()
+			{
 			}
 		}
 	}

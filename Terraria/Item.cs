@@ -1,3502 +1,3007 @@
+using Microsoft.Xna.Framework;
 using System;
-using TerrariaApi.Server;
-using XNA;
+using Terraria.Graphics.Shaders;
+using Terraria.ID;
 
 namespace Terraria
 {
-	public class Item
+	public class Item : Entity
 	{
+		public const int flaskTime = 72000;
+
+		public const int copper = 1;
+
+		public const int silver = 100;
+
+		public const int gold = 10000;
+
+		public const int platinum = 1000000;
+
 		public const int maxPrefixes = 84;
-		public static int potionDelay = 3600;
+
+		public static int potionDelay;
+
+		public static int restorationDelay;
+
 		public bool questItem;
-		public static int[] headType = new int[169];
-		public static int[] bodyType = new int[175];
-		public static int[] legType = new int[110];
+
+		public static int[] headType;
+
+		public static int[] bodyType;
+
+		public static int[] legType;
+
+		public static bool[] staff;
+
+		public static bool[] claw;
+
 		public bool flame;
+
 		public bool mech;
-		public bool wet;
-		public bool honeyWet;
-		public byte wetCount;
-		public bool lavaWet;
-		public Vector2 position;
-		public Vector2 velocity;
-		public int width;
-		public int height;
-		public bool active;
+
 		public int noGrabDelay;
+
 		public bool beingGrabbed;
+
+		public bool isBeingGrabbed;
+
 		public int spawnTime;
+
 		public int tileWand = -1;
+
 		public bool wornArmor;
+
 		public byte dye;
+
 		public int fishingPole = 1;
+
 		public int bait;
-		public static int manaGrabRange = 300;
-		public static int lifeGrabRange = 250;
+
+		public static int coinGrabRange;
+
+		public static int manaGrabRange;
+
+		public static int lifeGrabRange;
+
 		public short makeNPC;
+
+		public bool expertOnly;
+
+		public bool expert;
+
 		public short hairDye = -1;
+
 		public byte paint;
+
+		public bool instanced;
+
 		public int ownIgnore = -1;
+
 		public int ownTime;
+
 		public int keepTime;
+
 		public int type;
-		public string name;
+
+		public bool favorited;
+
 		public int holdStyle;
+
 		public int useStyle;
+
 		public bool channel;
+
 		public bool accessory;
+
 		public int useAnimation;
+
 		public int useTime;
+
 		public int stack;
+
 		public int maxStack;
+
 		public int pick;
+
 		public int axe;
+
 		public int hammer;
+
 		public int tileBoost;
+
 		public int createTile = -1;
+
 		public int createWall = -1;
+
 		public int placeStyle;
+
 		public int damage;
+
 		public float knockBack;
+
 		public int healLife;
+
 		public int healMana;
+
 		public bool potion;
+
 		public bool consumable;
+
 		public bool autoReuse;
+
 		public bool useTurn;
+
 		public Color color;
+
 		public int alpha;
+
+		public short glowMask;
+
 		public float scale = 1f;
+
 		public int useSound;
+
 		public int defense;
+
 		public int headSlot = -1;
+
 		public int bodySlot = -1;
+
 		public int legSlot = -1;
+
 		public sbyte handOnSlot = -1;
+
 		public sbyte handOffSlot = -1;
+
 		public sbyte backSlot = -1;
+
 		public sbyte frontSlot = -1;
+
 		public sbyte shoeSlot = -1;
+
 		public sbyte waistSlot = -1;
+
 		public sbyte wingSlot = -1;
+
 		public sbyte shieldSlot = -1;
+
 		public sbyte neckSlot = -1;
+
 		public sbyte faceSlot = -1;
+
 		public sbyte balloonSlot = -1;
+
+		public int stringColor;
+
 		public string toolTip;
+
 		public string toolTip2;
+
 		public int owner = 255;
+
 		public int rare;
+
 		public int shoot;
+
 		public float shootSpeed;
+
 		public int ammo;
+
 		public bool notAmmo;
+
 		public int useAmmo;
+
 		public int lifeRegen;
+
 		public int manaIncrease;
+
 		public bool buyOnce;
+
 		public int mana;
+
 		public bool noUseGraphic;
+
 		public bool noMelee;
+
 		public int release;
-		public int value;
+
+		public int @value;
+
 		public bool buy;
+
 		public bool social;
+
 		public bool vanity;
+
 		public bool material;
+
 		public bool noWet;
+
 		public int buffType;
+
 		public int buffTime;
+
 		public int mountType = -1;
+
 		public bool cartTrack;
+
 		public bool uniqueStack;
+
 		public int netID;
+
 		public int crit;
+
 		public byte prefix;
+
 		public bool melee;
+
 		public bool magic;
+
 		public bool ranged;
+
+		public bool thrown;
+
 		public bool summon;
+
 		public int reuseDelay;
-		public int explosive = 0;
-		public override string ToString()
+
+		static Item()
 		{
-			return string.Format("{{Name: \"{0}\" NetID: {1} Stack: {2}", this.name, this.netID, this.stack);
+			Item.potionDelay = 3600;
+			Item.restorationDelay = 3000;
+			Item.headType = new int[194];
+			Item.bodyType = new int[195];
+			Item.legType = new int[135];
+			Item.staff = new bool[3601];
+			Item.claw = new bool[3601];
+			Item.coinGrabRange = 350;
+			Item.manaGrabRange = 300;
+			Item.lifeGrabRange = 250;
 		}
-		public bool Prefix(int pre)
+
+		public Item()
 		{
-			if (pre == 0 || this.type == 0)
-			{
-				return false;
-			}
-			if (Main.rand == null)
-			{
-				Main.rand = new Random();
-			}
-			int num = pre;
-			float num2 = 1f;
-			float num3 = 1f;
-			float num4 = 1f;
-			float num5 = 1f;
-			float num6 = 1f;
-			float num7 = 1f;
-			int num8 = 0;
-			bool flag = true;
-			while (flag)
-			{
-				num2 = 1f;
-				num3 = 1f;
-				num4 = 1f;
-				num5 = 1f;
-				num6 = 1f;
-				num7 = 1f;
-				num8 = 0;
-				flag = false;
-				if (num == -1 && Main.rand.Next(4) == 0)
-				{
-					num = 0;
-				}
-				if (pre < -1)
-				{
-					num = -1;
-				}
-				if (num == -1 || num == -2 || num == -3)
-				{
-					if (this.type == 1 || this.type == 4 || this.type == 6 || this.type == 7 || this.type == 10 || this.type == 24 || this.type == 45 || this.type == 46 || this.type == 65 || this.type == 103 || this.type == 104 || this.type == 121 || this.type == 122 || this.type == 155 || this.type == 190 || this.type == 196 || this.type == 198 || this.type == 199 || this.type == 200 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 204 || this.type == 213 || this.type == 217 || this.type == 273 || this.type == 367 || this.type == 368 || this.type == 426 || this.type == 482 || this.type == 483 || this.type == 484 || this.type == 653 || this.type == 654 || this.type == 656 || this.type == 657 || this.type == 659 || this.type == 660 || this.type == 671 || this.type == 672 || this.type == 674 || this.type == 675 || this.type == 676 || this.type == 723 || this.type == 724 || this.type == 757 || this.type == 776 || this.type == 777 || this.type == 778 || this.type == 787 || this.type == 795 || this.type == 797 || this.type == 798 || this.type == 799 || this.type == 881 || this.type == 882 || this.type == 921 || this.type == 922 || this.type == 989 || this.type == 990 || this.type == 991 || this.type == 992 || this.type == 993 || this.type == 1123 || this.type == 1166 || this.type == 1185 || this.type == 1188 || this.type == 1192 || this.type == 1195 || this.type == 1199 || this.type == 1202 || this.type == 1222 || this.type == 1223 || this.type == 1224 || this.type == 1226 || this.type == 1227 || this.type == 1230 || this.type == 1233 || this.type == 1234 || this.type == 1294 || this.type == 1304 || this.type == 1305 || this.type == 1306 || this.type == 1320 || this.type == 1327 || this.type == 1506 || this.type == 1507 || this.type == 1786 || this.type == 1826 || this.type == 1827 || this.type == 1909 || this.type == 1917 || this.type == 1928 || this.type == 2176 || this.type == 2273 || this.type == 2608 || this.type == 2341 || this.type == 2330 || this.type == 2320 || this.type == 2516 || this.type == 2517 || this.type == 2746 || this.type == 2745)
-					{
-						int num9 = Main.rand.Next(40);
-						if (num9 == 0)
-						{
-							num = 1;
-						}
-						if (num9 == 1)
-						{
-							num = 2;
-						}
-						if (num9 == 2)
-						{
-							num = 3;
-						}
-						if (num9 == 3)
-						{
-							num = 4;
-						}
-						if (num9 == 4)
-						{
-							num = 5;
-						}
-						if (num9 == 5)
-						{
-							num = 6;
-						}
-						if (num9 == 6)
-						{
-							num = 7;
-						}
-						if (num9 == 7)
-						{
-							num = 8;
-						}
-						if (num9 == 8)
-						{
-							num = 9;
-						}
-						if (num9 == 9)
-						{
-							num = 10;
-						}
-						if (num9 == 10)
-						{
-							num = 11;
-						}
-						if (num9 == 11)
-						{
-							num = 12;
-						}
-						if (num9 == 12)
-						{
-							num = 13;
-						}
-						if (num9 == 13)
-						{
-							num = 14;
-						}
-						if (num9 == 14)
-						{
-							num = 15;
-						}
-						if (num9 == 15)
-						{
-							num = 36;
-						}
-						if (num9 == 16)
-						{
-							num = 37;
-						}
-						if (num9 == 17)
-						{
-							num = 38;
-						}
-						if (num9 == 18)
-						{
-							num = 53;
-						}
-						if (num9 == 19)
-						{
-							num = 54;
-						}
-						if (num9 == 20)
-						{
-							num = 55;
-						}
-						if (num9 == 21)
-						{
-							num = 39;
-						}
-						if (num9 == 22)
-						{
-							num = 40;
-						}
-						if (num9 == 23)
-						{
-							num = 56;
-						}
-						if (num9 == 24)
-						{
-							num = 41;
-						}
-						if (num9 == 25)
-						{
-							num = 57;
-						}
-						if (num9 == 26)
-						{
-							num = 42;
-						}
-						if (num9 == 27)
-						{
-							num = 43;
-						}
-						if (num9 == 28)
-						{
-							num = 44;
-						}
-						if (num9 == 29)
-						{
-							num = 45;
-						}
-						if (num9 == 30)
-						{
-							num = 46;
-						}
-						if (num9 == 31)
-						{
-							num = 47;
-						}
-						if (num9 == 32)
-						{
-							num = 48;
-						}
-						if (num9 == 33)
-						{
-							num = 49;
-						}
-						if (num9 == 34)
-						{
-							num = 50;
-						}
-						if (num9 == 35)
-						{
-							num = 51;
-						}
-						if (num9 == 36)
-						{
-							num = 59;
-						}
-						if (num9 == 37)
-						{
-							num = 60;
-						}
-						if (num9 == 38)
-						{
-							num = 61;
-						}
-						if (num9 == 39)
-						{
-							num = 81;
-						}
-					}
-					else if (this.type == 162 || this.type == 160 || this.type == 163 || this.type == 220 || this.type == 274 || this.type == 277 || this.type == 280 || this.type == 383 || this.type == 384 || this.type == 385 || this.type == 386 || this.type == 387 || this.type == 388 || this.type == 389 || this.type == 390 || this.type == 406 || this.type == 537 || this.type == 550 || this.type == 579 || this.type == 756 || this.type == 759 || this.type == 801 || this.type == 802 || this.type == 1186 || this.type == 1189 || this.type == 1190 || this.type == 1193 || this.type == 1196 || this.type == 1197 || this.type == 1200 || this.type == 1203 || this.type == 1204 || this.type == 1228 || this.type == 1231 || this.type == 1232 || this.type == 1259 || this.type == 1262 || this.type == 1297 || this.type == 1314 || this.type == 1325 || this.type == 1947 || this.type == 2332 || this.type == 2331 || this.type == 2342 || this.type == 2424 || this.type == 2611)
-					{
-						int num10 = Main.rand.Next(14);
-						if (num10 == 0)
-						{
-							num = 36;
-						}
-						if (num10 == 1)
-						{
-							num = 37;
-						}
-						if (num10 == 2)
-						{
-							num = 38;
-						}
-						if (num10 == 3)
-						{
-							num = 53;
-						}
-						if (num10 == 4)
-						{
-							num = 54;
-						}
-						if (num10 == 5)
-						{
-							num = 55;
-						}
-						if (num10 == 6)
-						{
-							num = 39;
-						}
-						if (num10 == 7)
-						{
-							num = 40;
-						}
-						if (num10 == 8)
-						{
-							num = 56;
-						}
-						if (num10 == 9)
-						{
-							num = 41;
-						}
-						if (num10 == 10)
-						{
-							num = 57;
-						}
-						if (num10 == 11)
-						{
-							num = 59;
-						}
-						if (num10 == 12)
-						{
-							num = 60;
-						}
-						if (num10 == 13)
-						{
-							num = 61;
-						}
-					}
-					else if (this.type == 39 || this.type == 44 || this.type == 95 || this.type == 96 || this.type == 98 || this.type == 99 || this.type == 120 || this.type == 164 || this.type == 197 || this.type == 219 || this.type == 266 || this.type == 281 || this.type == 434 || this.type == 435 || this.type == 436 || this.type == 481 || this.type == 506 || this.type == 533 || this.type == 534 || this.type == 578 || this.type == 655 || this.type == 658 || this.type == 661 || this.type == 679 || this.type == 682 || this.type == 725 || this.type == 758 || this.type == 759 || this.type == 760 || this.type == 796 || this.type == 800 || this.type == 905 || this.type == 923 || this.type == 964 || this.type == 986 || this.type == 1156 || this.type == 1187 || this.type == 1194 || this.type == 1201 || this.type == 1229 || this.type == 1254 || this.type == 1255 || this.type == 1258 || this.type == 1265 || this.type == 1319 || this.type == 1553 || this.type == 1782 || this.type == 1784 || this.type == 1835 || this.type == 1870 || this.type == 1910 || this.type == 1929 || this.type == 1946 || this.type == 2223 || this.type == 2269 || this.type == 2270 || this.type == 2624 || this.type == 2515 || this.type == 2747)
-					{
-						int num11 = Main.rand.Next(36);
-						if (num11 == 0)
-						{
-							num = 16;
-						}
-						if (num11 == 1)
-						{
-							num = 17;
-						}
-						if (num11 == 2)
-						{
-							num = 18;
-						}
-						if (num11 == 3)
-						{
-							num = 19;
-						}
-						if (num11 == 4)
-						{
-							num = 20;
-						}
-						if (num11 == 5)
-						{
-							num = 21;
-						}
-						if (num11 == 6)
-						{
-							num = 22;
-						}
-						if (num11 == 7)
-						{
-							num = 23;
-						}
-						if (num11 == 8)
-						{
-							num = 24;
-						}
-						if (num11 == 9)
-						{
-							num = 25;
-						}
-						if (num11 == 10)
-						{
-							num = 58;
-						}
-						if (num11 == 11)
-						{
-							num = 36;
-						}
-						if (num11 == 12)
-						{
-							num = 37;
-						}
-						if (num11 == 13)
-						{
-							num = 38;
-						}
-						if (num11 == 14)
-						{
-							num = 53;
-						}
-						if (num11 == 15)
-						{
-							num = 54;
-						}
-						if (num11 == 16)
-						{
-							num = 55;
-						}
-						if (num11 == 17)
-						{
-							num = 39;
-						}
-						if (num11 == 18)
-						{
-							num = 40;
-						}
-						if (num11 == 19)
-						{
-							num = 56;
-						}
-						if (num11 == 20)
-						{
-							num = 41;
-						}
-						if (num11 == 21)
-						{
-							num = 57;
-						}
-						if (num11 == 22)
-						{
-							num = 42;
-						}
-						if (num11 == 23)
-						{
-							num = 43;
-						}
-						if (num11 == 24)
-						{
-							num = 44;
-						}
-						if (num11 == 25)
-						{
-							num = 45;
-						}
-						if (num11 == 26)
-						{
-							num = 46;
-						}
-						if (num11 == 27)
-						{
-							num = 47;
-						}
-						if (num11 == 28)
-						{
-							num = 48;
-						}
-						if (num11 == 29)
-						{
-							num = 49;
-						}
-						if (num11 == 30)
-						{
-							num = 50;
-						}
-						if (num11 == 31)
-						{
-							num = 51;
-						}
-						if (num11 == 32)
-						{
-							num = 59;
-						}
-						if (num11 == 33)
-						{
-							num = 60;
-						}
-						if (num11 == 34)
-						{
-							num = 61;
-						}
-						if (num11 == 35)
-						{
-							num = 82;
-						}
-					}
-					else if (this.type == 64 || this.type == 112 || this.type == 113 || this.type == 127 || this.type == 157 || this.type == 165 || this.type == 218 || this.type == 272 || this.type == 494 || this.type == 495 || this.type == 496 || this.type == 514 || this.type == 517 || this.type == 518 || this.type == 519 || this.type == 683 || this.type == 726 || this.type == 739 || this.type == 740 || this.type == 741 || this.type == 742 || this.type == 743 || this.type == 744 || this.type == 788 || this.type == 1121 || this.type == 1155 || this.type == 1157 || this.type == 1178 || this.type == 1244 || this.type == 1256 || this.type == 1260 || this.type == 1264 || this.type == 1266 || this.type == 1295 || this.type == 1296 || this.type == 1308 || this.type == 1309 || this.type == 1313 || this.type == 1336 || this.type == 1444 || this.type == 1445 || this.type == 1446 || this.type == 1572 || this.type == 1801 || this.type == 1802 || this.type == 1930 || this.type == 1931 || this.type == 2188 || this.type == 2622 || this.type == 2621 || this.type == 2584 || this.type == 2551 || this.type == 2366 || this.type == 2535 || this.type == 2365 || this.type == 2364 || this.type == 2623)
-					{
-						int num12 = Main.rand.Next(36);
-						if (num12 == 0)
-						{
-							num = 26;
-						}
-						if (num12 == 1)
-						{
-							num = 27;
-						}
-						if (num12 == 2)
-						{
-							num = 28;
-						}
-						if (num12 == 3)
-						{
-							num = 29;
-						}
-						if (num12 == 4)
-						{
-							num = 30;
-						}
-						if (num12 == 5)
-						{
-							num = 31;
-						}
-						if (num12 == 6)
-						{
-							num = 32;
-						}
-						if (num12 == 7)
-						{
-							num = 33;
-						}
-						if (num12 == 8)
-						{
-							num = 34;
-						}
-						if (num12 == 9)
-						{
-							num = 35;
-						}
-						if (num12 == 10)
-						{
-							num = 52;
-						}
-						if (num12 == 11)
-						{
-							num = 36;
-						}
-						if (num12 == 12)
-						{
-							num = 37;
-						}
-						if (num12 == 13)
-						{
-							num = 38;
-						}
-						if (num12 == 14)
-						{
-							num = 53;
-						}
-						if (num12 == 15)
-						{
-							num = 54;
-						}
-						if (num12 == 16)
-						{
-							num = 55;
-						}
-						if (num12 == 17)
-						{
-							num = 39;
-						}
-						if (num12 == 18)
-						{
-							num = 40;
-						}
-						if (num12 == 19)
-						{
-							num = 56;
-						}
-						if (num12 == 20)
-						{
-							num = 41;
-						}
-						if (num12 == 21)
-						{
-							num = 57;
-						}
-						if (num12 == 22)
-						{
-							num = 42;
-						}
-						if (num12 == 23)
-						{
-							num = 43;
-						}
-						if (num12 == 24)
-						{
-							num = 44;
-						}
-						if (num12 == 25)
-						{
-							num = 45;
-						}
-						if (num12 == 26)
-						{
-							num = 46;
-						}
-						if (num12 == 27)
-						{
-							num = 47;
-						}
-						if (num12 == 28)
-						{
-							num = 48;
-						}
-						if (num12 == 29)
-						{
-							num = 49;
-						}
-						if (num12 == 30)
-						{
-							num = 50;
-						}
-						if (num12 == 31)
-						{
-							num = 51;
-						}
-						if (num12 == 32)
-						{
-							num = 59;
-						}
-						if (num12 == 33)
-						{
-							num = 60;
-						}
-						if (num12 == 34)
-						{
-							num = 61;
-						}
-						if (num12 == 35)
-						{
-							num = 83;
-						}
-					}
-					else if (this.type == 55 || this.type == 119 || this.type == 191 || this.type == 284 || this.type == 670 || this.type == 1122 || this.type == 1513 || this.type == 1569 || this.type == 1571 || this.type == 1825 || this.type == 1918)
-					{
-						int num13 = Main.rand.Next(14);
-						if (num13 == 0)
-						{
-							num = 36;
-						}
-						if (num13 == 1)
-						{
-							num = 37;
-						}
-						if (num13 == 2)
-						{
-							num = 38;
-						}
-						if (num13 == 3)
-						{
-							num = 53;
-						}
-						if (num13 == 4)
-						{
-							num = 54;
-						}
-						if (num13 == 5)
-						{
-							num = 55;
-						}
-						if (num13 == 6)
-						{
-							num = 39;
-						}
-						if (num13 == 7)
-						{
-							num = 40;
-						}
-						if (num13 == 8)
-						{
-							num = 56;
-						}
-						if (num13 == 9)
-						{
-							num = 41;
-						}
-						if (num13 == 10)
-						{
-							num = 57;
-						}
-						if (num13 == 11)
-						{
-							num = 59;
-						}
-						if (num13 == 12)
-						{
-							num = 60;
-						}
-						if (num13 == 13)
-						{
-							num = 61;
-						}
-					}
-					else
-					{
-						if (!this.accessory || this.type == 267 || this.type == 562 || this.type == 563 || this.type == 564 || this.type == 565 || this.type == 566 || this.type == 567 || this.type == 568 || this.type == 569 || this.type == 570 || this.type == 571 || this.type == 572 || this.type == 573 || this.type == 574 || this.type == 576 || this.type == 1307 || (this.type >= 1596 && this.type < 1610) || this.vanity)
-						{
-							return false;
-						}
-						num = Main.rand.Next(62, 81);
-					}
-				}
-				if (pre == -3)
-				{
-					return true;
-				}
-				if (pre == -1 && (num == 7 || num == 8 || num == 9 || num == 10 || num == 11 || num == 22 || num == 23 || num == 24 || num == 29 || num == 30 || num == 31 || num == 39 || num == 40 || num == 56 || num == 41 || num == 47 || num == 48 || num == 49) && Main.rand.Next(3) != 0)
-				{
-					num = 0;
-				}
-				if (num == 1)
-				{
-					num5 = 1.12f;
-				}
-				else if (num == 2)
-				{
-					num5 = 1.18f;
-				}
-				else if (num == 3)
-				{
-					num2 = 1.05f;
-					num8 = 2;
-					num5 = 1.05f;
-				}
-				else if (num == 4)
-				{
-					num2 = 1.1f;
-					num5 = 1.1f;
-					num3 = 1.1f;
-				}
-				else if (num == 5)
-				{
-					num2 = 1.15f;
-				}
-				else if (num == 6)
-				{
-					num2 = 1.1f;
-				}
-				else if (num == 81)
-				{
-					num3 = 1.15f;
-					num2 = 1.15f;
-					num8 = 5;
-					num4 = 0.9f;
-					num5 = 1.1f;
-				}
-				else if (num == 7)
-				{
-					num5 = 0.82f;
-				}
-				else if (num == 8)
-				{
-					num3 = 0.85f;
-					num2 = 0.85f;
-					num5 = 0.87f;
-				}
-				else if (num == 9)
-				{
-					num5 = 0.9f;
-				}
-				else if (num == 10)
-				{
-					num2 = 0.85f;
-				}
-				else if (num == 11)
-				{
-					num4 = 1.1f;
-					num3 = 0.9f;
-					num5 = 0.9f;
-				}
-				else if (num == 12)
-				{
-					num3 = 1.1f;
-					num2 = 1.05f;
-					num5 = 1.1f;
-					num4 = 1.15f;
-				}
-				else if (num == 13)
-				{
-					num3 = 0.8f;
-					num2 = 0.9f;
-					num5 = 1.1f;
-				}
-				else if (num == 14)
-				{
-					num3 = 1.15f;
-					num4 = 1.1f;
-				}
-				else if (num == 15)
-				{
-					num3 = 0.9f;
-					num4 = 0.85f;
-				}
-				else if (num == 16)
-				{
-					num2 = 1.1f;
-					num8 = 3;
-				}
-				else if (num == 17)
-				{
-					num4 = 0.85f;
-					num6 = 1.1f;
-				}
-				else if (num == 18)
-				{
-					num4 = 0.9f;
-					num6 = 1.15f;
-				}
-				else if (num == 19)
-				{
-					num3 = 1.15f;
-					num6 = 1.05f;
-				}
-				else if (num == 20)
-				{
-					num3 = 1.05f;
-					num6 = 1.05f;
-					num2 = 1.1f;
-					num4 = 0.95f;
-					num8 = 2;
-				}
-				else if (num == 21)
-				{
-					num3 = 1.15f;
-					num2 = 1.1f;
-				}
-				else if (num == 82)
-				{
-					num3 = 1.15f;
-					num2 = 1.15f;
-					num8 = 5;
-					num4 = 0.9f;
-					num6 = 1.1f;
-				}
-				else if (num == 22)
-				{
-					num3 = 0.9f;
-					num6 = 0.9f;
-					num2 = 0.85f;
-				}
-				else if (num == 23)
-				{
-					num4 = 1.15f;
-					num6 = 0.9f;
-				}
-				else if (num == 24)
-				{
-					num4 = 1.1f;
-					num3 = 0.8f;
-				}
-				else if (num == 25)
-				{
-					num4 = 1.1f;
-					num2 = 1.15f;
-					num8 = 1;
-				}
-				else if (num == 58)
-				{
-					num4 = 0.85f;
-					num2 = 0.85f;
-				}
-				else if (num == 26)
-				{
-					num7 = 0.85f;
-					num2 = 1.1f;
-				}
-				else if (num == 27)
-				{
-					num7 = 0.85f;
-				}
-				else if (num == 28)
-				{
-					num7 = 0.85f;
-					num2 = 1.15f;
-					num3 = 1.05f;
-				}
-				else if (num == 83)
-				{
-					num3 = 1.15f;
-					num2 = 1.15f;
-					num8 = 5;
-					num4 = 0.9f;
-					num7 = 0.9f;
-				}
-				else if (num == 29)
-				{
-					num7 = 1.1f;
-				}
-				else if (num == 30)
-				{
-					num7 = 1.2f;
-					num2 = 0.9f;
-				}
-				else if (num == 31)
-				{
-					num3 = 0.9f;
-					num2 = 0.9f;
-				}
-				else if (num == 32)
-				{
-					num7 = 1.15f;
-					num2 = 1.1f;
-				}
-				else if (num == 33)
-				{
-					num7 = 1.1f;
-					num3 = 1.1f;
-					num4 = 0.9f;
-				}
-				else if (num == 34)
-				{
-					num7 = 0.9f;
-					num3 = 1.1f;
-					num4 = 1.1f;
-					num2 = 1.1f;
-				}
-				else if (num == 35)
-				{
-					num7 = 1.2f;
-					num2 = 1.15f;
-					num3 = 1.15f;
-				}
-				else if (num == 52)
-				{
-					num7 = 0.9f;
-					num2 = 0.9f;
-					num4 = 0.9f;
-				}
-				else if (num == 36)
-				{
-					num8 = 3;
-				}
-				else if (num == 37)
-				{
-					num2 = 1.1f;
-					num8 = 3;
-					num3 = 1.1f;
-				}
-				else if (num == 38)
-				{
-					num3 = 1.15f;
-				}
-				else if (num == 53)
-				{
-					num2 = 1.1f;
-				}
-				else if (num == 54)
-				{
-					num3 = 1.15f;
-				}
-				else if (num == 55)
-				{
-					num3 = 1.15f;
-					num2 = 1.05f;
-				}
-				else if (num == 59)
-				{
-					num3 = 1.15f;
-					num2 = 1.15f;
-					num8 = 5;
-				}
-				else if (num == 60)
-				{
-					num2 = 1.15f;
-					num8 = 5;
-				}
-				else if (num == 61)
-				{
-					num8 = 5;
-				}
-				else if (num == 39)
-				{
-					num2 = 0.7f;
-					num3 = 0.8f;
-				}
-				else if (num == 40)
-				{
-					num2 = 0.85f;
-				}
-				else if (num == 56)
-				{
-					num3 = 0.8f;
-				}
-				else if (num == 41)
-				{
-					num3 = 0.85f;
-					num2 = 0.9f;
-				}
-				else if (num == 57)
-				{
-					num3 = 0.9f;
-					num2 = 1.18f;
-				}
-				else if (num == 42)
-				{
-					num4 = 0.9f;
-				}
-				else if (num == 43)
-				{
-					num2 = 1.1f;
-					num4 = 0.9f;
-				}
-				else if (num == 44)
-				{
-					num4 = 0.9f;
-					num8 = 3;
-				}
-				else if (num == 45)
-				{
-					num4 = 0.95f;
-				}
-				else if (num == 46)
-				{
-					num8 = 3;
-					num4 = 0.94f;
-					num2 = 1.07f;
-				}
-				else if (num == 47)
-				{
-					num4 = 1.15f;
-				}
-				else if (num == 48)
-				{
-					num4 = 1.2f;
-				}
-				else if (num == 49)
-				{
-					num4 = 1.08f;
-				}
-				else if (num == 50)
-				{
-					num2 = 0.8f;
-					num4 = 1.15f;
-				}
-				else if (num == 51)
-				{
-					num3 = 0.9f;
-					num4 = 0.9f;
-					num2 = 1.05f;
-					num8 = 2;
-				}
-				if (num2 != 1f && Math.Round((double)((float)this.damage * num2)) == (double)this.damage)
-				{
-					flag = true;
-					num = -1;
-				}
-				if (num4 != 1f && Math.Round((double)((float)this.useAnimation * num4)) == (double)this.useAnimation)
-				{
-					flag = true;
-					num = -1;
-				}
-				if (num7 != 1f && Math.Round((double)((float)this.mana * num7)) == (double)this.mana)
-				{
-					flag = true;
-					num = -1;
-				}
-				if (num3 != 1f && this.knockBack == 0f)
-				{
-					flag = true;
-					num = -1;
-				}
-				if (pre == -2 && num == 0)
-				{
-					num = -1;
-					flag = true;
-				}
-			}
-			this.damage = (int)Math.Round((double)((float)this.damage * num2));
-			this.useAnimation = (int)Math.Round((double)((float)this.useAnimation * num4));
-			this.useTime = (int)Math.Round((double)((float)this.useTime * num4));
-			this.reuseDelay = (int)Math.Round((double)((float)this.reuseDelay * num4));
-			this.mana = (int)Math.Round((double)((float)this.mana * num7));
-			this.knockBack *= num3;
-			this.scale *= num5;
-			this.shootSpeed *= num6;
-			this.crit += num8;
-			float num14 = 1f * num2 * (2f - num4) * (2f - num7) * num5 * num3 * num6 * (1f + (float)this.crit * 0.02f);
-			if (num == 62 || num == 69 || num == 73 || num == 77)
-			{
-				num14 *= 1.05f;
-			}
-			if (num == 63 || num == 70 || num == 74 || num == 78 || num == 67)
-			{
-				num14 *= 1.1f;
-			}
-			if (num == 64 || num == 71 || num == 75 || num == 79 || num == 66)
-			{
-				num14 *= 1.15f;
-			}
-			if (num == 65 || num == 72 || num == 76 || num == 80 || num == 68)
-			{
-				num14 *= 1.2f;
-			}
-			if ((double)num14 >= 1.2)
-			{
-				this.rare += 2;
-			}
-			else if ((double)num14 >= 1.05)
-			{
-				this.rare++;
-			}
-			else if ((double)num14 <= 0.8)
-			{
-				this.rare -= 2;
-			}
-			else if ((double)num14 <= 0.95)
-			{
-				this.rare--;
-			}
-			if (this.rare < -1)
-			{
-				this.rare = -1;
-			}
-			if (this.rare > 9)
-			{
-				this.rare = 9;
-			}
-			num14 *= num14;
-			this.value = (int)((float)this.value * num14);
-			this.prefix = (byte)num;
-			return true;
 		}
+
 		public string AffixName()
 		{
 			if (Lang.lang <= 1)
 			{
-				if (Lang.prefix[(int)this.prefix] != "")
+				if (Lang.prefix[this.prefix] == "")
 				{
-					return Lang.prefix[(int)this.prefix] + " " + this.name;
+					return this.name;
 				}
-				return this.name;
+				return string.Concat(Lang.prefix[this.prefix], " ", this.name);
 			}
-			else
+			if (Lang.prefix[this.prefix] == "")
 			{
-				if (Lang.prefix[(int)this.prefix] != "")
-				{
-					return this.name + " (" + Lang.prefix[(int)this.prefix] + ")";
-				}
 				return this.name;
 			}
+			return string.Concat(this.name, " (", Lang.prefix[this.prefix], ")");
 		}
+
 		public string AffixName_Old()
 		{
-			string text = "";
+			string str = "";
 			if (Lang.lang <= 1)
 			{
 				if (this.prefix == 1)
 				{
-					text = "Large";
+					str = "Large";
 				}
 				if (this.prefix == 2)
 				{
-					text = "Massive";
+					str = "Massive";
 				}
 				if (this.prefix == 3)
 				{
-					text = "Dangerous";
+					str = "Dangerous";
 				}
 				if (this.prefix == 4)
 				{
-					text = "Savage";
+					str = "Savage";
 				}
 				if (this.prefix == 5)
 				{
-					text = "Sharp";
+					str = "Sharp";
 				}
 				if (this.prefix == 6)
 				{
-					text = "Pointy";
+					str = "Pointy";
 				}
 				if (this.prefix == 7)
 				{
-					text = "Tiny";
+					str = "Tiny";
 				}
 				if (this.prefix == 8)
 				{
-					text = "Terrible";
+					str = "Terrible";
 				}
 				if (this.prefix == 9)
 				{
-					text = "Small";
+					str = "Small";
 				}
 				if (this.prefix == 10)
 				{
-					text = "Dull";
+					str = "Dull";
 				}
 				if (this.prefix == 11)
 				{
-					text = "Unhappy";
+					str = "Unhappy";
 				}
 				if (this.prefix == 12)
 				{
-					text = "Bulky";
+					str = "Bulky";
 				}
 				if (this.prefix == 13)
 				{
-					text = "Shameful";
+					str = "Shameful";
 				}
 				if (this.prefix == 14)
 				{
-					text = "Heavy";
+					str = "Heavy";
 				}
 				if (this.prefix == 15)
 				{
-					text = "Light";
+					str = "Light";
 				}
 				if (this.prefix == 16)
 				{
-					text = "Sighted";
+					str = "Sighted";
 				}
 				if (this.prefix == 17)
 				{
-					text = "Rapid";
+					str = "Rapid";
 				}
 				if (this.prefix == 18)
 				{
-					text = "Hasty";
+					str = "Hasty";
 				}
 				if (this.prefix == 19)
 				{
-					text = "Intimidating";
+					str = "Intimidating";
 				}
 				if (this.prefix == 20)
 				{
-					text = "Deadly";
+					str = "Deadly";
 				}
 				if (this.prefix == 21)
 				{
-					text = "Staunch";
+					str = "Staunch";
 				}
 				if (this.prefix == 22)
 				{
-					text = "Awful";
+					str = "Awful";
 				}
 				if (this.prefix == 23)
 				{
-					text = "Lethargic";
+					str = "Lethargic";
 				}
 				if (this.prefix == 24)
 				{
-					text = "Awkward";
+					str = "Awkward";
 				}
 				if (this.prefix == 25)
 				{
-					text = "Powerful";
+					str = "Powerful";
 				}
 				if (this.prefix == 58)
 				{
-					text = "Frenzying";
+					str = "Frenzying";
 				}
 				if (this.prefix == 26)
 				{
-					text = "Mystic";
+					str = "Mystic";
 				}
 				if (this.prefix == 27)
 				{
-					text = "Adept";
+					str = "Adept";
 				}
 				if (this.prefix == 28)
 				{
-					text = "Masterful";
+					str = "Masterful";
 				}
 				if (this.prefix == 29)
 				{
-					text = "Inept";
+					str = "Inept";
 				}
 				if (this.prefix == 30)
 				{
-					text = "Ignorant";
+					str = "Ignorant";
 				}
 				if (this.prefix == 31)
 				{
-					text = "Deranged";
+					str = "Deranged";
 				}
 				if (this.prefix == 32)
 				{
-					text = "Intense";
+					str = "Intense";
 				}
 				if (this.prefix == 33)
 				{
-					text = "Taboo";
+					str = "Taboo";
 				}
 				if (this.prefix == 34)
 				{
-					text = "Celestial";
+					str = "Celestial";
 				}
 				if (this.prefix == 35)
 				{
-					text = "Furious";
+					str = "Furious";
 				}
 				if (this.prefix == 52)
 				{
-					text = "Manic";
+					str = "Manic";
 				}
 				if (this.prefix == 36)
 				{
-					text = "Keen";
+					str = "Keen";
 				}
 				if (this.prefix == 37)
 				{
-					text = "Superior";
+					str = "Superior";
 				}
 				if (this.prefix == 38)
 				{
-					text = "Forceful";
+					str = "Forceful";
 				}
 				if (this.prefix == 53)
 				{
-					text = "Hurtful";
+					str = "Hurtful";
 				}
 				if (this.prefix == 54)
 				{
-					text = "Strong";
+					str = "Strong";
 				}
 				if (this.prefix == 55)
 				{
-					text = "Unpleasant";
+					str = "Unpleasant";
 				}
 				if (this.prefix == 39)
 				{
-					text = "Broken";
+					str = "Broken";
 				}
 				if (this.prefix == 40)
 				{
-					text = "Damaged";
+					str = "Damaged";
 				}
 				if (this.prefix == 56)
 				{
-					text = "Weak";
+					str = "Weak";
 				}
 				if (this.prefix == 41)
 				{
-					text = "Shoddy";
+					str = "Shoddy";
 				}
 				if (this.prefix == 57)
 				{
-					text = "Ruthless";
+					str = "Ruthless";
 				}
 				if (this.prefix == 42)
 				{
-					text = "Quick";
+					str = "Quick";
 				}
 				if (this.prefix == 43)
 				{
-					text = "Deadly";
+					str = "Deadly";
 				}
 				if (this.prefix == 44)
 				{
-					text = "Agile";
+					str = "Agile";
 				}
 				if (this.prefix == 45)
 				{
-					text = "Nimble";
+					str = "Nimble";
 				}
 				if (this.prefix == 46)
 				{
-					text = "Murderous";
+					str = "Murderous";
 				}
 				if (this.prefix == 47)
 				{
-					text = "Slow";
+					str = "Slow";
 				}
 				if (this.prefix == 48)
 				{
-					text = "Sluggish";
+					str = "Sluggish";
 				}
 				if (this.prefix == 49)
 				{
-					text = "Lazy";
+					str = "Lazy";
 				}
 				if (this.prefix == 50)
 				{
-					text = "Annoying";
+					str = "Annoying";
 				}
 				if (this.prefix == 51)
 				{
-					text = "Nasty";
+					str = "Nasty";
 				}
 				if (this.prefix == 59)
 				{
-					text = "Godly";
+					str = "Godly";
 				}
 				if (this.prefix == 60)
 				{
-					text = "Demonic";
+					str = "Demonic";
 				}
 				if (this.prefix == 61)
 				{
-					text = "Zealous";
+					str = "Zealous";
 				}
 				if (this.prefix == 62)
 				{
-					text = "Hard";
+					str = "Hard";
 				}
 				if (this.prefix == 63)
 				{
-					text = "Guarding";
+					str = "Guarding";
 				}
 				if (this.prefix == 64)
 				{
-					text = "Armored";
+					str = "Armored";
 				}
 				if (this.prefix == 65)
 				{
-					text = "Warding";
+					str = "Warding";
 				}
 				if (this.prefix == 66)
 				{
-					text = "Arcane";
+					str = "Arcane";
 				}
 				if (this.prefix == 67)
 				{
-					text = "Precise";
+					str = "Precise";
 				}
 				if (this.prefix == 68)
 				{
-					text = "Lucky";
+					str = "Lucky";
 				}
 				if (this.prefix == 69)
 				{
-					text = "Jagged";
+					str = "Jagged";
 				}
 				if (this.prefix == 70)
 				{
-					text = "Spiked";
+					str = "Spiked";
 				}
 				if (this.prefix == 71)
 				{
-					text = "Angry";
+					str = "Angry";
 				}
 				if (this.prefix == 72)
 				{
-					text = "Menacing";
+					str = "Menacing";
 				}
 				if (this.prefix == 73)
 				{
-					text = "Brisk";
+					str = "Brisk";
 				}
 				if (this.prefix == 74)
 				{
-					text = "Fleeting";
+					str = "Fleeting";
 				}
 				if (this.prefix == 75)
 				{
-					text = "Hasty";
+					str = "Hasty";
 				}
 				if (this.prefix == 76)
 				{
-					text = "Quick";
+					str = "Quick";
 				}
 				if (this.prefix == 77)
 				{
-					text = "Wild";
+					str = "Wild";
 				}
 				if (this.prefix == 78)
 				{
-					text = "Rash";
+					str = "Rash";
 				}
 				if (this.prefix == 79)
 				{
-					text = "Intrepid";
+					str = "Intrepid";
 				}
 				if (this.prefix == 80)
 				{
-					text = "Violent";
+					str = "Violent";
 				}
 				if (this.prefix == 81)
 				{
-					text = "Legendary";
+					str = "Legendary";
 				}
 				if (this.prefix == 82)
 				{
-					text = "Unreal";
+					str = "Unreal";
 				}
 				if (this.prefix == 83)
 				{
-					text = "Mythical";
+					str = "Mythical";
 				}
 			}
 			else if (Lang.lang == 2)
 			{
 				if (this.prefix == 1)
 				{
-					text = "Gross";
+					str = "Gross";
 				}
 				if (this.prefix == 2)
 				{
-					text = "Massiv";
+					str = "Massiv";
 				}
 				if (this.prefix == 3)
 				{
-					text = "Gefährlich";
+					str = "Gefährlich";
 				}
 				if (this.prefix == 4)
 				{
-					text = "Barbarisch";
+					str = "Barbarisch";
 				}
 				if (this.prefix == 5)
 				{
-					text = "Scharf";
+					str = "Scharf";
 				}
 				if (this.prefix == 6)
 				{
-					text = "Spitze";
+					str = "Spitze";
 				}
 				if (this.prefix == 7)
 				{
-					text = "Winzig";
+					str = "Winzig";
 				}
 				if (this.prefix == 8)
 				{
-					text = "Schrecklicher";
+					str = "Schrecklicher";
 				}
 				if (this.prefix == 9)
 				{
-					text = "Klein";
+					str = "Klein";
 				}
 				if (this.prefix == 10)
 				{
-					text = "Stumpf";
+					str = "Stumpf";
 				}
 				if (this.prefix == 11)
 				{
-					text = "Unglücklich";
+					str = "Unglücklich";
 				}
 				if (this.prefix == 12)
 				{
-					text = "Sperrig";
+					str = "Sperrig";
 				}
 				if (this.prefix == 13)
 				{
-					text = "Beschämend";
+					str = "Beschämend";
 				}
 				if (this.prefix == 14)
 				{
-					text = "Schwer";
+					str = "Schwer";
 				}
 				if (this.prefix == 15)
 				{
-					text = "Locker";
+					str = "Locker";
 				}
 				if (this.prefix == 16)
 				{
-					text = "Gesichtet";
+					str = "Gesichtet";
 				}
 				if (this.prefix == 17)
 				{
-					text = "Schnell";
+					str = "Schnell";
 				}
 				if (this.prefix == 18)
 				{
-					text = "Hastig";
+					str = "Hastig";
 				}
 				if (this.prefix == 19)
 				{
-					text = "Einschüchternd";
+					str = "Einschüchternd";
 				}
 				if (this.prefix == 20)
 				{
-					text = "Tödlich";
+					str = "Tödlich";
 				}
 				if (this.prefix == 21)
 				{
-					text = "Stillen";
+					str = "Stillen";
 				}
 				if (this.prefix == 22)
 				{
-					text = "Schrecklich";
+					str = "Schrecklich";
 				}
 				if (this.prefix == 23)
 				{
-					text = "Lethargisch";
+					str = "Lethargisch";
 				}
 				if (this.prefix == 24)
 				{
-					text = "Unbeholfen";
+					str = "Unbeholfen";
 				}
 				if (this.prefix == 25)
 				{
-					text = "Mächtig";
+					str = "Mächtig";
 				}
 				if (this.prefix == 26)
 				{
-					text = "Mystisch";
+					str = "Mystisch";
 				}
 				if (this.prefix == 27)
 				{
-					text = "Geschickt";
+					str = "Geschickt";
 				}
 				if (this.prefix == 28)
 				{
-					text = "Meisterhaft";
+					str = "Meisterhaft";
 				}
 				if (this.prefix == 29)
 				{
-					text = "Ungeschickt";
+					str = "Ungeschickt";
 				}
 				if (this.prefix == 30)
 				{
-					text = "Unwissend";
+					str = "Unwissend";
 				}
 				if (this.prefix == 31)
 				{
-					text = "Gestört";
+					str = "Gestört";
 				}
 				if (this.prefix == 32)
 				{
-					text = "Intensiv";
+					str = "Intensiv";
 				}
 				if (this.prefix == 33)
 				{
-					text = "Tabu";
+					str = "Tabu";
 				}
 				if (this.prefix == 34)
 				{
-					text = "Himmlisch";
+					str = "Himmlisch";
 				}
 				if (this.prefix == 35)
 				{
-					text = "Wütend";
+					str = "Wütend";
 				}
 				if (this.prefix == 36)
 				{
-					text = "Scharf";
+					str = "Scharf";
 				}
 				if (this.prefix == 37)
 				{
-					text = "Überlegen";
+					str = "Überlegen";
 				}
 				if (this.prefix == 38)
 				{
-					text = "Kraftvoll";
+					str = "Kraftvoll";
 				}
 				if (this.prefix == 39)
 				{
-					text = "Gebrochen";
+					str = "Gebrochen";
 				}
 				if (this.prefix == 40)
 				{
-					text = "Beschädigt";
+					str = "Beschädigt";
 				}
 				if (this.prefix == 41)
 				{
-					text = "Schäbig";
+					str = "Schäbig";
 				}
 				if (this.prefix == 42)
 				{
-					text = "Rasch";
+					str = "Rasch";
 				}
 				if (this.prefix == 43)
 				{
-					text = "Tödlich";
+					str = "Tödlich";
 				}
 				if (this.prefix == 44)
 				{
-					text = "Agil";
+					str = "Agil";
 				}
 				if (this.prefix == 45)
 				{
-					text = "Wendig";
+					str = "Wendig";
 				}
 				if (this.prefix == 46)
 				{
-					text = "Mörderisch";
+					str = "Mörderisch";
 				}
 				if (this.prefix == 47)
 				{
-					text = "Langsam";
+					str = "Langsam";
 				}
 				if (this.prefix == 48)
 				{
-					text = "Träge";
+					str = "Träge";
 				}
 				if (this.prefix == 49)
 				{
-					text = "Faul";
+					str = "Faul";
 				}
 				if (this.prefix == 50)
 				{
-					text = "Lästig";
+					str = "Lästig";
 				}
 				if (this.prefix == 51)
 				{
-					text = "Böse";
+					str = "Böse";
 				}
 				if (this.prefix == 52)
 				{
-					text = "Manisch";
+					str = "Manisch";
 				}
 				if (this.prefix == 53)
 				{
-					text = "Verletzend";
+					str = "Verletzend";
 				}
 				if (this.prefix == 54)
 				{
-					text = "Stark";
+					str = "Stark";
 				}
 				if (this.prefix == 55)
 				{
-					text = "Unangenehm";
+					str = "Unangenehm";
 				}
 				if (this.prefix == 56)
 				{
-					text = "Schwach";
+					str = "Schwach";
 				}
 				if (this.prefix == 57)
 				{
-					text = "Rücksichtslos";
+					str = "Rücksichtslos";
 				}
 				if (this.prefix == 58)
 				{
-					text = "Rasend";
+					str = "Rasend";
 				}
 				if (this.prefix == 59)
 				{
-					text = "Fromm";
+					str = "Fromm";
 				}
 				if (this.prefix == 60)
 				{
-					text = "Dämonisch";
+					str = "Dämonisch";
 				}
 				if (this.prefix == 61)
 				{
-					text = "Eifrig";
+					str = "Eifrig";
 				}
 				if (this.prefix == 62)
 				{
-					text = "Schwer";
+					str = "Schwer";
 				}
 				if (this.prefix == 63)
 				{
-					text = "Schutz-";
+					str = "Schutz-";
 				}
 				if (this.prefix == 64)
 				{
-					text = "Gepanzert";
+					str = "Gepanzert";
 				}
 				if (this.prefix == 65)
 				{
-					text = "Defensiv";
+					str = "Defensiv";
 				}
 				if (this.prefix == 66)
 				{
-					text = "Geheimnisvoll";
+					str = "Geheimnisvoll";
 				}
 				if (this.prefix == 67)
 				{
-					text = "Präzise";
+					str = "Präzise";
 				}
 				if (this.prefix == 68)
 				{
-					text = "Glücklich";
+					str = "Glücklich";
 				}
 				if (this.prefix == 69)
 				{
-					text = "Gezackt";
+					str = "Gezackt";
 				}
 				if (this.prefix == 70)
 				{
-					text = "Spike";
+					str = "Spike";
 				}
 				if (this.prefix == 71)
 				{
-					text = "Wütend";
+					str = "Wütend";
 				}
 				if (this.prefix == 72)
 				{
-					text = "Bedrohlich";
+					str = "Bedrohlich";
 				}
 				if (this.prefix == 73)
 				{
-					text = "Rege";
+					str = "Rege";
 				}
 				if (this.prefix == 74)
 				{
-					text = "Flüchtig";
+					str = "Flüchtig";
 				}
 				if (this.prefix == 75)
 				{
-					text = "Hastig";
+					str = "Hastig";
 				}
 				if (this.prefix == 76)
 				{
-					text = "Rasch";
+					str = "Rasch";
 				}
 				if (this.prefix == 77)
 				{
-					text = "Wild";
+					str = "Wild";
 				}
 				if (this.prefix == 78)
 				{
-					text = "Voreilig";
+					str = "Voreilig";
 				}
 				if (this.prefix == 79)
 				{
-					text = "Unerschrocken";
+					str = "Unerschrocken";
 				}
 				if (this.prefix == 80)
 				{
-					text = "Gewalttätig";
+					str = "Gewalttätig";
 				}
 				if (this.prefix == 81)
 				{
-					text = "Legendär";
+					str = "Legendär";
 				}
 				if (this.prefix == 82)
 				{
-					text = "Unwirklich";
+					str = "Unwirklich";
 				}
 				if (this.prefix == 83)
 				{
-					text = "Mythisch";
+					str = "Mythisch";
 				}
 			}
 			else if (Lang.lang == 3)
 			{
 				if (this.prefix == 1)
 				{
-					text = "Grande";
+					str = "Grande";
 				}
 				if (this.prefix == 2)
 				{
-					text = "Massiccio";
+					str = "Massiccio";
 				}
 				if (this.prefix == 3)
 				{
-					text = "Pericoloso";
+					str = "Pericoloso";
 				}
 				if (this.prefix == 4)
 				{
-					text = "Selvaggio";
+					str = "Selvaggio";
 				}
 				if (this.prefix == 5)
 				{
-					text = "Appuntito";
+					str = "Appuntito";
 				}
 				if (this.prefix == 6)
 				{
-					text = "Tagliente";
+					str = "Tagliente";
 				}
 				if (this.prefix == 7)
 				{
-					text = "Minuto";
+					str = "Minuto";
 				}
 				if (this.prefix == 8)
 				{
-					text = "Terribile";
+					str = "Terribile";
 				}
 				if (this.prefix == 9)
 				{
-					text = "Piccolo";
+					str = "Piccolo";
 				}
 				if (this.prefix == 10)
 				{
-					text = "Opaco";
+					str = "Opaco";
 				}
 				if (this.prefix == 11)
 				{
-					text = "Infelice";
+					str = "Infelice";
 				}
 				if (this.prefix == 12)
 				{
-					text = "Ingombrante";
+					str = "Ingombrante";
 				}
 				if (this.prefix == 13)
 				{
-					text = "Vergognoso";
+					str = "Vergognoso";
 				}
 				if (this.prefix == 14)
 				{
-					text = "Pesante";
+					str = "Pesante";
 				}
 				if (this.prefix == 15)
 				{
-					text = "Luce";
+					str = "Luce";
 				}
 				if (this.prefix == 16)
 				{
-					text = "Avvistato";
+					str = "Avvistato";
 				}
 				if (this.prefix == 17)
 				{
-					text = "Rapido";
+					str = "Rapido";
 				}
 				if (this.prefix == 18)
 				{
-					text = "Frettoloso";
+					str = "Frettoloso";
 				}
 				if (this.prefix == 19)
 				{
-					text = "Intimidatorio";
+					str = "Intimidatorio";
 				}
 				if (this.prefix == 20)
 				{
-					text = "Mortale";
+					str = "Mortale";
 				}
 				if (this.prefix == 21)
 				{
-					text = "Convinto";
+					str = "Convinto";
 				}
 				if (this.prefix == 22)
 				{
-					text = "Orribile";
+					str = "Orribile";
 				}
 				if (this.prefix == 23)
 				{
-					text = "Letargico";
+					str = "Letargico";
 				}
 				if (this.prefix == 24)
 				{
-					text = "Scomodo";
+					str = "Scomodo";
 				}
 				if (this.prefix == 25)
 				{
-					text = "Potente";
+					str = "Potente";
 				}
 				if (this.prefix == 26)
 				{
-					text = "Mistico";
+					str = "Mistico";
 				}
 				if (this.prefix == 27)
 				{
-					text = "Esperto";
+					str = "Esperto";
 				}
 				if (this.prefix == 28)
 				{
-					text = "Magistrale";
+					str = "Magistrale";
 				}
 				if (this.prefix == 29)
 				{
-					text = "Inetto";
+					str = "Inetto";
 				}
 				if (this.prefix == 30)
 				{
-					text = "Ignorante";
+					str = "Ignorante";
 				}
 				if (this.prefix == 31)
 				{
-					text = "Squilibrato";
+					str = "Squilibrato";
 				}
 				if (this.prefix == 32)
 				{
-					text = "Intenso";
+					str = "Intenso";
 				}
 				if (this.prefix == 33)
 				{
-					text = "Tabù";
+					str = "Tabù";
 				}
 				if (this.prefix == 34)
 				{
-					text = "Celeste";
+					str = "Celeste";
 				}
 				if (this.prefix == 35)
 				{
-					text = "Furioso";
+					str = "Furioso";
 				}
 				if (this.prefix == 36)
 				{
-					text = "Appassionato";
+					str = "Appassionato";
 				}
 				if (this.prefix == 37)
 				{
-					text = "Superiore";
+					str = "Superiore";
 				}
 				if (this.prefix == 38)
 				{
-					text = "Forte";
+					str = "Forte";
 				}
 				if (this.prefix == 39)
 				{
-					text = "Rotto";
+					str = "Rotto";
 				}
 				if (this.prefix == 40)
 				{
-					text = "Danneggiato";
+					str = "Danneggiato";
 				}
 				if (this.prefix == 41)
 				{
-					text = "Scadente";
+					str = "Scadente";
 				}
 				if (this.prefix == 42)
 				{
-					text = "Veloce";
+					str = "Veloce";
 				}
 				if (this.prefix == 43)
 				{
-					text = "Mortale";
+					str = "Mortale";
 				}
 				if (this.prefix == 44)
 				{
-					text = "Agile";
+					str = "Agile";
 				}
 				if (this.prefix == 45)
 				{
-					text = "Lesto";
+					str = "Lesto";
 				}
 				if (this.prefix == 46)
 				{
-					text = "Omicida";
+					str = "Omicida";
 				}
 				if (this.prefix == 47)
 				{
-					text = "Lento";
+					str = "Lento";
 				}
 				if (this.prefix == 48)
 				{
-					text = "Pigro";
+					str = "Pigro";
 				}
 				if (this.prefix == 49)
 				{
-					text = "Indolente";
+					str = "Indolente";
 				}
 				if (this.prefix == 50)
 				{
-					text = "Fastidioso";
+					str = "Fastidioso";
 				}
 				if (this.prefix == 51)
 				{
-					text = "Brutto";
+					str = "Brutto";
 				}
 				if (this.prefix == 52)
 				{
-					text = "Maniaco";
+					str = "Maniaco";
 				}
 				if (this.prefix == 53)
 				{
-					text = "Offensivo";
+					str = "Offensivo";
 				}
 				if (this.prefix == 54)
 				{
-					text = "Robusto";
+					str = "Robusto";
 				}
 				if (this.prefix == 55)
 				{
-					text = "Sgradevole";
+					str = "Sgradevole";
 				}
 				if (this.prefix == 56)
 				{
-					text = "Debole";
+					str = "Debole";
 				}
 				if (this.prefix == 57)
 				{
-					text = "Spietato";
+					str = "Spietato";
 				}
 				if (this.prefix == 58)
 				{
-					text = "Frenetico";
+					str = "Frenetico";
 				}
 				if (this.prefix == 59)
 				{
-					text = "Devoto";
+					str = "Devoto";
 				}
 				if (this.prefix == 60)
 				{
-					text = "Demonico";
+					str = "Demonico";
 				}
 				if (this.prefix == 61)
 				{
-					text = "Zelante";
+					str = "Zelante";
 				}
 				if (this.prefix == 62)
 				{
-					text = "Duro";
+					str = "Duro";
 				}
 				if (this.prefix == 63)
 				{
-					text = "Protettivo";
+					str = "Protettivo";
 				}
 				if (this.prefix == 64)
 				{
-					text = "Corazzato";
+					str = "Corazzato";
 				}
 				if (this.prefix == 65)
 				{
-					text = "Difensivo";
+					str = "Difensivo";
 				}
 				if (this.prefix == 66)
 				{
-					text = "Arcano";
+					str = "Arcano";
 				}
 				if (this.prefix == 67)
 				{
-					text = "Preciso";
+					str = "Preciso";
 				}
 				if (this.prefix == 68)
 				{
-					text = "Fortunato";
+					str = "Fortunato";
 				}
 				if (this.prefix == 69)
 				{
-					text = "Frastagliato";
+					str = "Frastagliato";
 				}
 				if (this.prefix == 70)
 				{
-					text = "Spillo";
+					str = "Spillo";
 				}
 				if (this.prefix == 71)
 				{
-					text = "Arrabbiato";
+					str = "Arrabbiato";
 				}
 				if (this.prefix == 72)
 				{
-					text = "Minaccioso";
+					str = "Minaccioso";
 				}
 				if (this.prefix == 73)
 				{
-					text = "Vivace";
+					str = "Vivace";
 				}
 				if (this.prefix == 74)
 				{
-					text = "Fugace";
+					str = "Fugace";
 				}
 				if (this.prefix == 75)
 				{
-					text = "Frettoloso";
+					str = "Frettoloso";
 				}
 				if (this.prefix == 76)
 				{
-					text = "Veloce";
+					str = "Veloce";
 				}
 				if (this.prefix == 77)
 				{
-					text = "Selvaggio";
+					str = "Selvaggio";
 				}
 				if (this.prefix == 78)
 				{
-					text = "Temerario";
+					str = "Temerario";
 				}
 				if (this.prefix == 79)
 				{
-					text = "Intrepido";
+					str = "Intrepido";
 				}
 				if (this.prefix == 80)
 				{
-					text = "Violento";
+					str = "Violento";
 				}
 				if (this.prefix == 81)
 				{
-					text = "Leggendario";
+					str = "Leggendario";
 				}
 				if (this.prefix == 82)
 				{
-					text = "Irreale";
+					str = "Irreale";
 				}
 				if (this.prefix == 83)
 				{
-					text = "Mitico";
+					str = "Mitico";
 				}
 			}
 			else if (Lang.lang == 4)
 			{
 				if (this.prefix == 1)
 				{
-					text = "Grand";
+					str = "Grand";
 				}
 				if (this.prefix == 2)
 				{
-					text = "Massif";
+					str = "Massif";
 				}
 				if (this.prefix == 3)
 				{
-					text = "Dangereuses";
+					str = "Dangereuses";
 				}
 				if (this.prefix == 4)
 				{
-					text = "Sauvages";
+					str = "Sauvages";
 				}
 				if (this.prefix == 5)
 				{
-					text = "Coupante";
+					str = "Coupante";
 				}
 				if (this.prefix == 6)
 				{
-					text = "Pointues";
+					str = "Pointues";
 				}
 				if (this.prefix == 7)
 				{
-					text = "Minuscules";
+					str = "Minuscules";
 				}
 				if (this.prefix == 8)
 				{
-					text = "Terrible";
+					str = "Terrible";
 				}
 				if (this.prefix == 9)
 				{
-					text = "Petit";
+					str = "Petit";
 				}
 				if (this.prefix == 10)
 				{
-					text = "Terne";
+					str = "Terne";
 				}
 				if (this.prefix == 11)
 				{
-					text = "Malheureux";
+					str = "Malheureux";
 				}
 				if (this.prefix == 12)
 				{
-					text = "Volumineux";
+					str = "Volumineux";
 				}
 				if (this.prefix == 13)
 				{
-					text = "Honteux";
+					str = "Honteux";
 				}
 				if (this.prefix == 14)
 				{
-					text = "Lourds";
+					str = "Lourds";
 				}
 				if (this.prefix == 15)
 				{
-					text = "Léger";
+					str = "Léger";
 				}
 				if (this.prefix == 16)
 				{
-					text = "Voyants";
+					str = "Voyants";
 				}
 				if (this.prefix == 17)
 				{
-					text = "Rapide";
+					str = "Rapide";
 				}
 				if (this.prefix == 18)
 				{
-					text = "Hâtif";
+					str = "Hâtif";
 				}
 				if (this.prefix == 19)
 				{
-					text = "Intimidant";
+					str = "Intimidant";
 				}
 				if (this.prefix == 20)
 				{
-					text = "Mortelle";
+					str = "Mortelle";
 				}
 				if (this.prefix == 21)
 				{
-					text = "Dévoué";
+					str = "Dévoué";
 				}
 				if (this.prefix == 22)
 				{
-					text = "Affreux";
+					str = "Affreux";
 				}
 				if (this.prefix == 23)
 				{
-					text = "Léthargique";
+					str = "Léthargique";
 				}
 				if (this.prefix == 24)
 				{
-					text = "Scomodo";
+					str = "Scomodo";
 				}
 				if (this.prefix == 25)
 				{
-					text = "Puissante";
+					str = "Puissante";
 				}
 				if (this.prefix == 26)
 				{
-					text = "Mystique";
+					str = "Mystique";
 				}
 				if (this.prefix == 27)
 				{
-					text = "Expert";
+					str = "Expert";
 				}
 				if (this.prefix == 28)
 				{
-					text = "Magistrale";
+					str = "Magistrale";
 				}
 				if (this.prefix == 29)
 				{
-					text = "Inepte";
+					str = "Inepte";
 				}
 				if (this.prefix == 30)
 				{
-					text = "Ignorants";
+					str = "Ignorants";
 				}
 				if (this.prefix == 31)
 				{
-					text = "Dérangé";
+					str = "Dérangé";
 				}
 				if (this.prefix == 32)
 				{
-					text = "Intenses";
+					str = "Intenses";
 				}
 				if (this.prefix == 33)
 				{
-					text = "Tabou";
+					str = "Tabou";
 				}
 				if (this.prefix == 34)
 				{
-					text = "Célestes";
+					str = "Célestes";
 				}
 				if (this.prefix == 35)
 				{
-					text = "Furieux";
+					str = "Furieux";
 				}
 				if (this.prefix == 36)
 				{
-					text = "Vif";
+					str = "Vif";
 				}
 				if (this.prefix == 37)
 				{
-					text = "Supérieure";
+					str = "Supérieure";
 				}
 				if (this.prefix == 38)
 				{
-					text = "Énergique";
+					str = "Énergique";
 				}
 				if (this.prefix == 39)
 				{
-					text = "Rompu";
+					str = "Rompu";
 				}
 				if (this.prefix == 40)
 				{
-					text = "Endommagés";
+					str = "Endommagés";
 				}
 				if (this.prefix == 41)
 				{
-					text = "Mesquin";
+					str = "Mesquin";
 				}
 				if (this.prefix == 42)
 				{
-					text = "Prompt";
+					str = "Prompt";
 				}
 				if (this.prefix == 43)
 				{
-					text = "Mortelle";
+					str = "Mortelle";
 				}
 				if (this.prefix == 44)
 				{
-					text = "Agile";
+					str = "Agile";
 				}
 				if (this.prefix == 45)
 				{
-					text = "Leste";
+					str = "Leste";
 				}
 				if (this.prefix == 46)
 				{
-					text = "Meurtrier";
+					str = "Meurtrier";
 				}
 				if (this.prefix == 47)
 				{
-					text = "Lente";
+					str = "Lente";
 				}
 				if (this.prefix == 48)
 				{
-					text = "Paresseux";
+					str = "Paresseux";
 				}
 				if (this.prefix == 49)
 				{
-					text = "Fainéant";
+					str = "Fainéant";
 				}
 				if (this.prefix == 50)
 				{
-					text = "Ennuyeux";
+					str = "Ennuyeux";
 				}
 				if (this.prefix == 51)
 				{
-					text = "Méchant";
+					str = "Méchant";
 				}
 				if (this.prefix == 52)
 				{
-					text = "Maniaco";
+					str = "Maniaco";
 				}
 				if (this.prefix == 53)
 				{
-					text = "Blessant";
+					str = "Blessant";
 				}
 				if (this.prefix == 54)
 				{
-					text = "Robuste";
+					str = "Robuste";
 				}
 				if (this.prefix == 55)
 				{
-					text = "Désagréables";
+					str = "Désagréables";
 				}
 				if (this.prefix == 56)
 				{
-					text = "Faibles";
+					str = "Faibles";
 				}
 				if (this.prefix == 57)
 				{
-					text = "Impitoyable";
+					str = "Impitoyable";
 				}
 				if (this.prefix == 58)
 				{
-					text = "Frénétique";
+					str = "Frénétique";
 				}
 				if (this.prefix == 59)
 				{
-					text = "Pieux";
+					str = "Pieux";
 				}
 				if (this.prefix == 60)
 				{
-					text = "Démoniaque";
+					str = "Démoniaque";
 				}
 				if (this.prefix == 61)
 				{
-					text = "Zélé";
+					str = "Zélé";
 				}
 				if (this.prefix == 62)
 				{
-					text = "Durs";
+					str = "Durs";
 				}
 				if (this.prefix == 63)
 				{
-					text = "Protecteur";
+					str = "Protecteur";
 				}
 				if (this.prefix == 64)
 				{
-					text = "Blindés";
+					str = "Blindés";
 				}
 				if (this.prefix == 65)
 				{
-					text = "Défensif";
+					str = "Défensif";
 				}
 				if (this.prefix == 66)
 				{
-					text = "Ésotérique";
+					str = "Ésotérique";
 				}
 				if (this.prefix == 67)
 				{
-					text = "Précise";
+					str = "Précise";
 				}
 				if (this.prefix == 68)
 				{
-					text = "Chanceux";
+					str = "Chanceux";
 				}
 				if (this.prefix == 69)
 				{
-					text = "Déchiqueté";
+					str = "Déchiqueté";
 				}
 				if (this.prefix == 70)
 				{
-					text = "Pointes";
+					str = "Pointes";
 				}
 				if (this.prefix == 71)
 				{
-					text = "Fâché";
+					str = "Fâché";
 				}
 				if (this.prefix == 72)
 				{
-					text = "Menaçant";
+					str = "Menaçant";
 				}
 				if (this.prefix == 73)
 				{
-					text = "Brusque";
+					str = "Brusque";
 				}
 				if (this.prefix == 74)
 				{
-					text = "Fugace";
+					str = "Fugace";
 				}
 				if (this.prefix == 75)
 				{
-					text = "Hâtif";
+					str = "Hâtif";
 				}
 				if (this.prefix == 76)
 				{
-					text = "Prompt";
+					str = "Prompt";
 				}
 				if (this.prefix == 77)
 				{
-					text = "Sauvages";
+					str = "Sauvages";
 				}
 				if (this.prefix == 78)
 				{
-					text = "Téméraire";
+					str = "Téméraire";
 				}
 				if (this.prefix == 79)
 				{
-					text = "Intrépide";
+					str = "Intrépide";
 				}
 				if (this.prefix == 80)
 				{
-					text = "Violent";
+					str = "Violent";
 				}
 				if (this.prefix == 81)
 				{
-					text = "Légendaire";
+					str = "Légendaire";
 				}
 				if (this.prefix == 82)
 				{
-					text = "Irréel";
+					str = "Irréel";
 				}
 				if (this.prefix == 83)
 				{
-					text = "Mythique";
+					str = "Mythique";
 				}
 			}
 			else if (Lang.lang == 5)
 			{
 				if (this.prefix == 1)
 				{
-					text = "Grande";
+					str = "Grande";
 				}
 				if (this.prefix == 2)
 				{
-					text = "Masivo";
+					str = "Masivo";
 				}
 				if (this.prefix == 3)
 				{
-					text = "Peligroso";
+					str = "Peligroso";
 				}
 				if (this.prefix == 4)
 				{
-					text = "Salvaje";
+					str = "Salvaje";
 				}
 				if (this.prefix == 5)
 				{
-					text = "Puntiagudo";
+					str = "Puntiagudo";
 				}
 				if (this.prefix == 6)
 				{
-					text = "Agudo";
+					str = "Agudo";
 				}
 				if (this.prefix == 7)
 				{
-					text = "Diminuto";
+					str = "Diminuto";
 				}
 				if (this.prefix == 8)
 				{
-					text = "Mala ";
+					str = "Mala ";
 				}
 				if (this.prefix == 9)
 				{
-					text = "Pequeño";
+					str = "Pequeño";
 				}
 				if (this.prefix == 10)
 				{
-					text = "Aburrido";
+					str = "Aburrido";
 				}
 				if (this.prefix == 11)
 				{
-					text = "Infeliz";
+					str = "Infeliz";
 				}
 				if (this.prefix == 12)
 				{
-					text = "Voluminoso";
+					str = "Voluminoso";
 				}
 				if (this.prefix == 13)
 				{
-					text = "Vergonzoso";
+					str = "Vergonzoso";
 				}
 				if (this.prefix == 14)
 				{
-					text = "Pesado";
+					str = "Pesado";
 				}
 				if (this.prefix == 15)
 				{
-					text = "Ligero";
+					str = "Ligero";
 				}
 				if (this.prefix == 16)
 				{
-					text = "Ámbito";
+					str = "Ámbito";
 				}
 				if (this.prefix == 17)
 				{
-					text = "Rápido";
+					str = "Rápido";
 				}
 				if (this.prefix == 18)
 				{
-					text = "Precipitado";
+					str = "Precipitado";
 				}
 				if (this.prefix == 19)
 				{
-					text = "Intimidante";
+					str = "Intimidante";
 				}
 				if (this.prefix == 20)
 				{
-					text = "Mortal";
+					str = "Mortal";
 				}
 				if (this.prefix == 21)
 				{
-					text = "Firme";
+					str = "Firme";
 				}
 				if (this.prefix == 22)
 				{
-					text = "Atroz";
+					str = "Atroz";
 				}
 				if (this.prefix == 23)
 				{
-					text = "Letárgico";
+					str = "Letárgico";
 				}
 				if (this.prefix == 24)
 				{
-					text = "Torpe";
+					str = "Torpe";
 				}
 				if (this.prefix == 25)
 				{
-					text = "Poderoso";
+					str = "Poderoso";
 				}
 				if (this.prefix == 26)
 				{
-					text = "Místico";
+					str = "Místico";
 				}
 				if (this.prefix == 27)
 				{
-					text = "Experto";
+					str = "Experto";
 				}
 				if (this.prefix == 28)
 				{
-					text = "Maestro";
+					str = "Maestro";
 				}
 				if (this.prefix == 29)
 				{
-					text = "Inepto";
+					str = "Inepto";
 				}
 				if (this.prefix == 30)
 				{
-					text = "Ignorante";
+					str = "Ignorante";
 				}
 				if (this.prefix == 31)
 				{
-					text = "Trastornado";
+					str = "Trastornado";
 				}
 				if (this.prefix == 32)
 				{
-					text = "Intenso";
+					str = "Intenso";
 				}
 				if (this.prefix == 33)
 				{
-					text = "Tabú";
+					str = "Tabú";
 				}
 				if (this.prefix == 34)
 				{
-					text = "Celeste";
+					str = "Celeste";
 				}
 				if (this.prefix == 35)
 				{
-					text = "Furioso";
+					str = "Furioso";
 				}
 				if (this.prefix == 36)
 				{
-					text = "Afilado";
+					str = "Afilado";
 				}
 				if (this.prefix == 37)
 				{
-					text = "Superior";
+					str = "Superior";
 				}
 				if (this.prefix == 38)
 				{
-					text = "Fuerte";
+					str = "Fuerte";
 				}
 				if (this.prefix == 39)
 				{
-					text = "Roto";
+					str = "Roto";
 				}
 				if (this.prefix == 40)
 				{
-					text = "Estropeado";
+					str = "Estropeado";
 				}
 				if (this.prefix == 41)
 				{
-					text = "Regenerado";
+					str = "Regenerado";
 				}
 				if (this.prefix == 42)
 				{
-					text = "Pronto";
+					str = "Pronto";
 				}
 				if (this.prefix == 43)
 				{
-					text = "Mortal";
+					str = "Mortal";
 				}
 				if (this.prefix == 44)
 				{
-					text = "Ágil";
+					str = "Ágil";
 				}
 				if (this.prefix == 45)
 				{
-					text = "Listo";
+					str = "Listo";
 				}
 				if (this.prefix == 46)
 				{
-					text = "Asesino";
+					str = "Asesino";
 				}
 				if (this.prefix == 47)
 				{
-					text = "Lento";
+					str = "Lento";
 				}
 				if (this.prefix == 48)
 				{
-					text = "Perezoso";
+					str = "Perezoso";
 				}
 				if (this.prefix == 49)
 				{
-					text = "Gandul";
+					str = "Gandul";
 				}
 				if (this.prefix == 50)
 				{
-					text = "Molesto";
+					str = "Molesto";
 				}
 				if (this.prefix == 51)
 				{
-					text = "Feo";
+					str = "Feo";
 				}
 				if (this.prefix == 52)
 				{
-					text = "Maníacos";
+					str = "Maníacos";
 				}
 				if (this.prefix == 53)
 				{
-					text = "Hiriente";
+					str = "Hiriente";
 				}
 				if (this.prefix == 54)
 				{
-					text = "Vigoroso";
+					str = "Vigoroso";
 				}
 				if (this.prefix == 55)
 				{
-					text = "Desagradable";
+					str = "Desagradable";
 				}
 				if (this.prefix == 56)
 				{
-					text = "Débil";
+					str = "Débil";
 				}
 				if (this.prefix == 57)
 				{
-					text = "Despiadado";
+					str = "Despiadado";
 				}
 				if (this.prefix == 58)
 				{
-					text = "Frenético";
+					str = "Frenético";
 				}
 				if (this.prefix == 59)
 				{
-					text = "Piadoso";
+					str = "Piadoso";
 				}
 				if (this.prefix == 60)
 				{
-					text = "Demoníaco";
+					str = "Demoníaco";
 				}
 				if (this.prefix == 61)
 				{
-					text = "Celoso";
+					str = "Celoso";
 				}
 				if (this.prefix == 62)
 				{
-					text = "Duro";
+					str = "Duro";
 				}
 				if (this.prefix == 63)
 				{
-					text = "Protector";
+					str = "Protector";
 				}
 				if (this.prefix == 64)
 				{
-					text = "Blindado";
+					str = "Blindado";
 				}
 				if (this.prefix == 65)
 				{
-					text = "Defensivo";
+					str = "Defensivo";
 				}
 				if (this.prefix == 66)
 				{
-					text = "Arcano";
+					str = "Arcano";
 				}
 				if (this.prefix == 67)
 				{
-					text = "Preciso";
+					str = "Preciso";
 				}
 				if (this.prefix == 68)
 				{
-					text = "Afortunado";
+					str = "Afortunado";
 				}
 				if (this.prefix == 69)
 				{
-					text = "Dentado";
+					str = "Dentado";
 				}
 				if (this.prefix == 70)
 				{
-					text = "Claveteado";
+					str = "Claveteado";
 				}
 				if (this.prefix == 71)
 				{
-					text = "Enojado";
+					str = "Enojado";
 				}
 				if (this.prefix == 72)
 				{
-					text = "Amenazador";
+					str = "Amenazador";
 				}
 				if (this.prefix == 73)
 				{
-					text = "Enérgico";
+					str = "Enérgico";
 				}
 				if (this.prefix == 74)
 				{
-					text = "Fugaz";
+					str = "Fugaz";
 				}
 				if (this.prefix == 75)
 				{
-					text = "Precipitado";
+					str = "Precipitado";
 				}
 				if (this.prefix == 76)
 				{
-					text = "Pronto";
+					str = "Pronto";
 				}
 				if (this.prefix == 77)
 				{
-					text = "Salvaje";
+					str = "Salvaje";
 				}
 				if (this.prefix == 78)
 				{
-					text = "Temerario";
+					str = "Temerario";
 				}
 				if (this.prefix == 79)
 				{
-					text = "Intrépido";
+					str = "Intrépido";
 				}
 				if (this.prefix == 80)
 				{
-					text = "Violento";
+					str = "Violento";
 				}
 				if (this.prefix == 81)
 				{
-					text = "Legendario";
+					str = "Legendario";
 				}
 				if (this.prefix == 82)
 				{
-					text = "Irreal";
+					str = "Irreal";
 				}
 				if (this.prefix == 83)
 				{
-					text = "Mítico";
+					str = "Mítico";
 				}
 			}
 			if (Lang.lang <= 1)
 			{
-				string result = this.name;
-				if (text != "")
+				string str1 = this.name;
+				if (str != "")
 				{
-					result = text + " " + this.name;
+					str1 = string.Concat(str, " ", this.name);
 				}
-				return result;
+				return str1;
 			}
 			if (Lang.lang == 2)
 			{
-				string result2 = this.name;
-				if (text != "")
+				string str2 = this.name;
+				if (str != "")
 				{
-					result2 = this.name + " (" + text + ")";
+					str2 = string.Concat(this.name, " (", str, ")");
 				}
-				return result2;
+				return str2;
 			}
 			if (Lang.lang == 3)
 			{
-				string result3 = this.name;
-				if (text != "")
+				string str3 = this.name;
+				if (str != "")
 				{
-					result3 = this.name + " (" + text + ")";
+					str3 = string.Concat(this.name, " (", str, ")");
 				}
-				return result3;
+				return str3;
 			}
 			if (Lang.lang == 4)
 			{
-				string result4 = this.name;
-				if (text != "")
+				string str4 = this.name;
+				if (str != "")
 				{
-					result4 = this.name + " (" + text + ")";
+					str4 = string.Concat(this.name, " (", str, ")");
 				}
-				return result4;
+				return str4;
 			}
-			string result5 = this.name;
-			if (text != "")
+			string str5 = this.name;
+			if (str != "")
 			{
-				result5 = this.name + " (" + text + ")";
+				str5 = string.Concat(this.name, " (", str, ")");
 			}
-			return result5;
+			return str5;
 		}
-		public void CheckTip()
+
+		public static int BannerToNPC(int i)
 		{
-			if (this.toolTip != "")
+			switch (i)
 			{
-				this.toolTip = Lang.toolTip(this.netID, false);
-			}
-			if (this.toolTip2 != "")
-			{
-				this.toolTip2 = Lang.toolTip2(this.netID, false);
+				case 1:
+				{
+					return 102;
+				}
+				case 2:
+				{
+					return 250;
+				}
+				case 3:
+				{
+					return 257;
+				}
+				case 4:
+				{
+					return 69;
+				}
+				case 5:
+				{
+					return 157;
+				}
+				case 6:
+				{
+					return 77;
+				}
+				case 7:
+				{
+					return 49;
+				}
+				case 8:
+				{
+					return 74;
+				}
+				case 9:
+				{
+					return 163;
+				}
+				case 10:
+				{
+					return 241;
+				}
+				case 11:
+				{
+					return 242;
+				}
+				case 12:
+				{
+					return 239;
+				}
+				case 13:
+				{
+					return 39;
+				}
+				case 14:
+				{
+					return 46;
+				}
+				case 15:
+				{
+					return 120;
+				}
+				case 16:
+				{
+					return 85;
+				}
+				case 17:
+				{
+					return 109;
+				}
+				case 18:
+				{
+					return 47;
+				}
+				case 19:
+				{
+					return 57;
+				}
+				case 20:
+				{
+					return 67;
+				}
+				case 21:
+				{
+					return 173;
+				}
+				case 22:
+				{
+					return 179;
+				}
+				case 23:
+				{
+					return 83;
+				}
+				case 24:
+				{
+					return 62;
+				}
+				case 25:
+				{
+					return 2;
+				}
+				case 26:
+				{
+					return 177;
+				}
+				case 27:
+				{
+					return 6;
+				}
+				case 28:
+				{
+					return 84;
+				}
+				case 29:
+				{
+					return 161;
+				}
+				case 30:
+				{
+					return 181;
+				}
+				case 31:
+				{
+					return 182;
+				}
+				case 32:
+				{
+					return 224;
+				}
+				case 33:
+				{
+					return 226;
+				}
+				case 34:
+				{
+					return 162;
+				}
+				case 35:
+				{
+					return 259;
+				}
+				case 36:
+				{
+					return 256;
+				}
+				case 37:
+				{
+					return 122;
+				}
+				case 38:
+				{
+					return 27;
+				}
+				case 39:
+				{
+					return 29;
+				}
+				case 40:
+				{
+					return 26;
+				}
+				case 41:
+				{
+					return 73;
+				}
+				case 42:
+				{
+					return 28;
+				}
+				case 43:
+				{
+					return 55;
+				}
+				case 44:
+				{
+					return 48;
+				}
+				case 45:
+				{
+					return 60;
+				}
+				case 46:
+				{
+					return 174;
+				}
+				case 47:
+				{
+					return 42;
+				}
+				case 48:
+				{
+					return 169;
+				}
+				case 49:
+				{
+					return 206;
+				}
+				case 50:
+				{
+					return 24;
+				}
+				case 51:
+				{
+					return 63;
+				}
+				case 52:
+				{
+					return 236;
+				}
+				case 53:
+				{
+					return 199;
+				}
+				case 54:
+				{
+					return 43;
+				}
+				case 55:
+				{
+					return 23;
+				}
+				case 56:
+				{
+					return 205;
+				}
+				case 57:
+				{
+					return 78;
+				}
+				case 58:
+				{
+					return 258;
+				}
+				case 59:
+				{
+					return 252;
+				}
+				case 60:
+				{
+					return 170;
+				}
+				case 61:
+				{
+					return 58;
+				}
+				case 62:
+				{
+					return 212;
+				}
+				case 63:
+				{
+					return 75;
+				}
+				case 64:
+				{
+					return 223;
+				}
+				case 65:
+				{
+					return 253;
+				}
+				case 66:
+				{
+					return 65;
+				}
+				case 67:
+				{
+					return 21;
+				}
+				case 68:
+				{
+					return 32;
+				}
+				case 69:
+				{
+					return 1;
+				}
+				case 70:
+				{
+					return 185;
+				}
+				case 71:
+				{
+					return 164;
+				}
+				case 72:
+				{
+					return 254;
+				}
+				case 73:
+				{
+					return 166;
+				}
+				case 74:
+				{
+					return 153;
+				}
+				case 75:
+				{
+					return 141;
+				}
+				case 76:
+				{
+					return 225;
+				}
+				case 77:
+				{
+					return 86;
+				}
+				case 78:
+				{
+					return 158;
+				}
+				case 79:
+				{
+					return 61;
+				}
+				case 80:
+				{
+					return 196;
+				}
+				case 81:
+				{
+					return 104;
+				}
+				case 82:
+				{
+					return 155;
+				}
+				case 83:
+				{
+					return 98;
+				}
+				case 84:
+				{
+					return 10;
+				}
+				case 85:
+				{
+					return 82;
+				}
+				case 86:
+				{
+					return 87;
+				}
+				case 87:
+				{
+					return 3;
+				}
+				case 88:
+				{
+					return 175;
+				}
+				case 89:
+				{
+					return 197;
+				}
+				case 90:
+				{
+					return -6;
+				}
+				case 91:
+				{
+					return 273;
+				}
+				case 92:
+				{
+					return 379;
+				}
+				case 93:
+				case 94:
+				case 181:
+				case 182:
+				case 194:
+				case 200:
+				case 220:
+				{
+					return 0;
+				}
+				case 95:
+				{
+					return 287;
+				}
+				case 96:
+				{
+					return 101;
+				}
+				case 97:
+				{
+					return 217;
+				}
+				case 98:
+				{
+					return 168;
+				}
+				case 99:
+				{
+					return 81;
+				}
+				case 100:
+				{
+					return 94;
+				}
+				case 101:
+				{
+					return 183;
+				}
+				case 102:
+				{
+					return 34;
+				}
+				case 103:
+				{
+					return 218;
+				}
+				case 104:
+				{
+					return 7;
+				}
+				case 105:
+				{
+					return 285;
+				}
+				case 106:
+				{
+					return 52;
+				}
+				case 107:
+				{
+					return 71;
+				}
+				case 108:
+				{
+					return 288;
+				}
+				case 109:
+				{
+					return 350;
+				}
+				case 110:
+				{
+					return 347;
+				}
+				case 111:
+				{
+					return 251;
+				}
+				case 112:
+				{
+					return 352;
+				}
+				case 113:
+				{
+					return 316;
+				}
+				case 114:
+				{
+					return 93;
+				}
+				case 115:
+				{
+					return 289;
+				}
+				case 116:
+				{
+					return 152;
+				}
+				case 117:
+				{
+					return 342;
+				}
+				case 118:
+				{
+					return 111;
+				}
+				case 119:
+				{
+					return -3;
+				}
+				case 120:
+				{
+					return 315;
+				}
+				case 121:
+				{
+					return 277;
+				}
+				case 122:
+				{
+					return 329;
+				}
+				case 123:
+				{
+					return 304;
+				}
+				case 124:
+				{
+					return 150;
+				}
+				case 125:
+				{
+					return 243;
+				}
+				case 126:
+				{
+					return 147;
+				}
+				case 127:
+				{
+					return 268;
+				}
+				case 128:
+				{
+					return 137;
+				}
+				case 129:
+				{
+					return 138;
+				}
+				case 130:
+				{
+					return 51;
+				}
+				case 131:
+				{
+					return -10;
+				}
+				case 132:
+				{
+					return 351;
+				}
+				case 133:
+				{
+					return 219;
+				}
+				case 134:
+				{
+					return 151;
+				}
+				case 135:
+				{
+					return 59;
+				}
+				case 136:
+				{
+					return 381;
+				}
+				case 137:
+				{
+					return 388;
+				}
+				case 138:
+				{
+					return 386;
+				}
+				case 139:
+				{
+					return 389;
+				}
+				case 140:
+				{
+					return 385;
+				}
+				case 141:
+				{
+					return 383;
+				}
+				case 142:
+				{
+					return 382;
+				}
+				case 143:
+				{
+					return 390;
+				}
+				case 144:
+				{
+					return 387;
+				}
+				case 145:
+				{
+					return 144;
+				}
+				case 146:
+				{
+					return 16;
+				}
+				case 147:
+				{
+					return 283;
+				}
+				case 148:
+				{
+					return 348;
+				}
+				case 149:
+				{
+					return 290;
+				}
+				case 150:
+				{
+					return 148;
+				}
+				case 151:
+				{
+					return -4;
+				}
+				case 152:
+				{
+					return 330;
+				}
+				case 153:
+				{
+					return 140;
+				}
+				case 154:
+				{
+					return 341;
+				}
+				case 155:
+				{
+					return -7;
+				}
+				case 156:
+				{
+					return 281;
+				}
+				case 157:
+				{
+					return 244;
+				}
+				case 158:
+				{
+					return 301;
+				}
+				case 159:
+				{
+					return -8;
+				}
+				case 160:
+				{
+					return 172;
+				}
+				case 161:
+				{
+					return 269;
+				}
+				case 162:
+				{
+					return 305;
+				}
+				case 163:
+				{
+					return 391;
+				}
+				case 164:
+				{
+					return 110;
+				}
+				case 165:
+				{
+					return 293;
+				}
+				case 166:
+				{
+					return 291;
+				}
+				case 167:
+				{
+					return 121;
+				}
+				case 168:
+				{
+					return 56;
+				}
+				case 169:
+				{
+					return 145;
+				}
+				case 170:
+				{
+					return 143;
+				}
+				case 171:
+				{
+					return 184;
+				}
+				case 172:
+				{
+					return 204;
+				}
+				case 173:
+				{
+					return 326;
+				}
+				case 174:
+				{
+					return 221;
+				}
+				case 175:
+				{
+					return 292;
+				}
+				case 176:
+				{
+					return 53;
+				}
+				case 177:
+				{
+					return 45;
+				}
+				case 178:
+				{
+					return 44;
+				}
+				case 179:
+				{
+					return 167;
+				}
+				case 180:
+				{
+					return 380;
+				}
+				case 183:
+				{
+					return -9;
+				}
+				case 184:
+				{
+					return 343;
+				}
+				case 185:
+				{
+					return 338;
+				}
+				case 186:
+				{
+					return 471;
+				}
+				case 187:
+				{
+					return 498;
+				}
+				case 188:
+				{
+					return 496;
+				}
+				case 189:
+				{
+					return 494;
+				}
+				case 190:
+				{
+					return 462;
+				}
+				case 191:
+				{
+					return 461;
+				}
+				case 192:
+				{
+					return 468;
+				}
+				case 193:
+				{
+					return 477;
+				}
+				case 195:
+				{
+					return 469;
+				}
+				case 196:
+				{
+					return 460;
+				}
+				case 197:
+				{
+					return 466;
+				}
+				case 198:
+				{
+					return 467;
+				}
+				case 199:
+				{
+					return 463;
+				}
+				case 201:
+				{
+					return 480;
+				}
+				case 202:
+				{
+					return 481;
+				}
+				case 203:
+				{
+					return 483;
+				}
+				case 204:
+				{
+					return 482;
+				}
+				case 205:
+				{
+					return 489;
+				}
+				case 206:
+				{
+					return 490;
+				}
+				case 207:
+				{
+					return 513;
+				}
+				case 208:
+				{
+					return 510;
+				}
+				case 209:
+				{
+					return 509;
+				}
+				case 210:
+				{
+					return 508;
+				}
+				case 211:
+				{
+					return 524;
+				}
+				case 212:
+				{
+					return 529;
+				}
+				case 213:
+				{
+					return 533;
+				}
+				case 214:
+				{
+					return 532;
+				}
+				case 215:
+				{
+					return 530;
+				}
+				case 216:
+				{
+					return 411;
+				}
+				case 217:
+				{
+					return 402;
+				}
+				case 218:
+				{
+					return 407;
+				}
+				case 219:
+				{
+					return 409;
+				}
+				case 221:
+				{
+					return 405;
+				}
+				case 222:
+				{
+					return 418;
+				}
+				case 223:
+				{
+					return 417;
+				}
+				case 224:
+				{
+					return 412;
+				}
+				case 225:
+				{
+					return 416;
+				}
+				case 226:
+				{
+					return 415;
+				}
+				case 227:
+				{
+					return 419;
+				}
+				case 228:
+				{
+					return 424;
+				}
+				case 229:
+				{
+					return 421;
+				}
+				case 230:
+				{
+					return 420;
+				}
+				case 231:
+				{
+					return 423;
+				}
+				case 232:
+				{
+					return 428;
+				}
+				case 233:
+				{
+					return 426;
+				}
+				case 234:
+				{
+					return 427;
+				}
+				case 235:
+				{
+					return 429;
+				}
+				case 236:
+				{
+					return 425;
+				}
+				case 237:
+				{
+					return 216;
+				}
+				case 238:
+				{
+					return 214;
+				}
+				case 239:
+				{
+					return 213;
+				}
+				case 240:
+				{
+					return 215;
+				}
+				case 241:
+				{
+					return 520;
+				}
+				case 242:
+				{
+					return 156;
+				}
+				case 243:
+				{
+					return 64;
+				}
+				case 244:
+				{
+					return 103;
+				}
+				case 245:
+				{
+					return 79;
+				}
+				case 246:
+				{
+					return 80;
+				}
+				case 247:
+				{
+					return 31;
+				}
+				case 248:
+				{
+					return 154;
+				}
+				case 249:
+				{
+					return 537;
+				}
+				case 250:
+				{
+					return 220;
+				}
+				default:
+				{
+					return 0;
+				}
 			}
 		}
 
-		public void SetDefaults(string itemname)
+		public static int buyPrice(int platinum = 0, int gold = 0, int silver = 0, int copper = 0)
 		{
-			if (!ServerApi.Hooks.InvokeItemSetDefaultsString(ref itemname, this))
-				RealSetDefaults(itemname);
+			int num = copper + silver * 100;
+			num = num + gold * 100 * 100;
+			return num + platinum * 100 * 100 * 100;
 		}
 
-		public void RealSetDefaults(string ItemName)
-		{
-			this.name = "";
-			bool flag = false;
-			if (ItemName == "Gold Pickaxe")
-			{
-				this.SetDefaults(1, false);
-				this.color = new Color(210, 190, 0, 100);
-				this.useTime = 17;
-				this.pick = 55;
-				this.useAnimation = 20;
-				this.scale = 1.05f;
-				this.damage = 6;
-				this.value = 10000;
-				this.toolTip = "Can mine Meteorite";
-				this.netID = -1;
-			}
-			else if (ItemName == "Gold Broadsword")
-			{
-				this.SetDefaults(4, false);
-				this.color = new Color(210, 190, 0, 100);
-				this.useAnimation = 20;
-				this.damage = 13;
-				this.scale = 1.05f;
-				this.value = 9000;
-				this.netID = -2;
-			}
-			else if (ItemName == "Gold Shortsword")
-			{
-				this.SetDefaults(6, false);
-				this.color = new Color(210, 190, 0, 100);
-				this.damage = 11;
-				this.useAnimation = 11;
-				this.scale = 0.95f;
-				this.value = 7000;
-				this.netID = -3;
-			}
-			else if (ItemName == "Gold Axe")
-			{
-				this.SetDefaults(10, false);
-				this.color = new Color(210, 190, 0, 100);
-				this.useTime = 18;
-				this.axe = 11;
-				this.useAnimation = 26;
-				this.scale = 1.15f;
-				this.damage = 7;
-				this.value = 8000;
-				this.netID = -4;
-			}
-			else if (ItemName == "Gold Hammer")
-			{
-				this.SetDefaults(7, false);
-				this.color = new Color(210, 190, 0, 100);
-				this.useAnimation = 28;
-				this.useTime = 23;
-				this.scale = 1.25f;
-				this.damage = 9;
-				this.hammer = 55;
-				this.value = 8000;
-				this.netID = -5;
-			}
-			else if (ItemName == "Gold Bow")
-			{
-				this.SetDefaults(99, false);
-				this.useAnimation = 26;
-				this.useTime = 26;
-				this.color = new Color(210, 190, 0, 100);
-				this.damage = 11;
-				this.value = 7000;
-				this.netID = -6;
-			}
-			else if (ItemName == "Silver Pickaxe")
-			{
-				this.SetDefaults(1, false);
-				this.color = new Color(180, 180, 180, 100);
-				this.useTime = 11;
-				this.pick = 45;
-				this.useAnimation = 19;
-				this.scale = 1.05f;
-				this.damage = 6;
-				this.value = 5000;
-				this.netID = -7;
-			}
-			else if (ItemName == "Silver Broadsword")
-			{
-				this.SetDefaults(4, false);
-				this.color = new Color(180, 180, 180, 100);
-				this.useAnimation = 21;
-				this.damage = 11;
-				this.value = 4500;
-				this.netID = -8;
-			}
-			else if (ItemName == "Silver Shortsword")
-			{
-				this.SetDefaults(6, false);
-				this.color = new Color(180, 180, 180, 100);
-				this.damage = 9;
-				this.useAnimation = 12;
-				this.scale = 0.95f;
-				this.value = 3500;
-				this.netID = -9;
-			}
-			else if (ItemName == "Silver Axe")
-			{
-				this.SetDefaults(10, false);
-				this.color = new Color(180, 180, 180, 100);
-				this.useTime = 18;
-				this.axe = 10;
-				this.useAnimation = 26;
-				this.scale = 1.15f;
-				this.damage = 6;
-				this.value = 4000;
-				this.netID = -10;
-			}
-			else if (ItemName == "Silver Hammer")
-			{
-				this.SetDefaults(7, false);
-				this.color = new Color(180, 180, 180, 100);
-				this.useAnimation = 29;
-				this.useTime = 19;
-				this.scale = 1.25f;
-				this.damage = 9;
-				this.hammer = 45;
-				this.value = 4000;
-				this.netID = -11;
-			}
-			else if (ItemName == "Silver Bow")
-			{
-				this.SetDefaults(99, false);
-				this.useAnimation = 27;
-				this.useTime = 27;
-				this.color = new Color(180, 180, 180, 100);
-				this.damage = 9;
-				this.value = 3500;
-				this.netID = -12;
-			}
-			else if (ItemName == "Copper Pickaxe")
-			{
-				this.SetDefaults(1, false);
-				this.color = new Color(180, 100, 45, 80);
-				this.useTime = 15;
-				this.pick = 35;
-				this.useAnimation = 23;
-				this.damage = 4;
-				this.scale = 0.9f;
-				this.tileBoost = -1;
-				this.value = 500;
-				this.netID = -13;
-			}
-			else if (ItemName == "Copper Broadsword")
-			{
-				this.SetDefaults(4, false);
-				this.color = new Color(180, 100, 45, 80);
-				this.useAnimation = 23;
-				this.damage = 8;
-				this.value = 450;
-				this.netID = -14;
-			}
-			else if (ItemName == "Copper Shortsword")
-			{
-				this.SetDefaults(6, false);
-				this.color = new Color(180, 100, 45, 80);
-				this.damage = 5;
-				this.useAnimation = 13;
-				this.scale = 0.8f;
-				this.value = 350;
-				this.netID = -15;
-			}
-			else if (ItemName == "Copper Axe")
-			{
-				this.SetDefaults(10, false);
-				this.color = new Color(180, 100, 45, 80);
-				this.useTime = 21;
-				this.axe = 7;
-				this.useAnimation = 30;
-				this.scale = 1f;
-				this.damage = 3;
-				this.tileBoost = -1;
-				this.value = 400;
-				this.netID = -16;
-			}
-			else if (ItemName == "Copper Hammer")
-			{
-				this.SetDefaults(7, false);
-				this.color = new Color(180, 100, 45, 80);
-				this.useAnimation = 33;
-				this.useTime = 23;
-				this.scale = 1.1f;
-				this.damage = 4;
-				this.hammer = 35;
-				this.tileBoost = -1;
-				this.value = 400;
-				this.netID = -17;
-			}
-			else if (ItemName == "Copper Bow")
-			{
-				this.SetDefaults(99, false);
-				this.useAnimation = 29;
-				this.useTime = 29;
-				this.color = new Color(180, 100, 45, 80);
-				this.damage = 6;
-				this.value = 350;
-				this.netID = -18;
-			}
-			else if (ItemName == "Blue Phasesaber")
-			{
-				this.SetDefaults(198, false);
-				this.damage = 41;
-				this.scale = 1.15f;
-				flag = true;
-				this.autoReuse = true;
-				this.useTurn = true;
-				this.rare = 4;
-				this.netID = -19;
-			}
-			else if (ItemName == "Red Phasesaber")
-			{
-				this.SetDefaults(199, false);
-				this.damage = 41;
-				this.scale = 1.15f;
-				flag = true;
-				this.autoReuse = true;
-				this.useTurn = true;
-				this.rare = 4;
-				this.netID = -20;
-			}
-			else if (ItemName == "Green Phasesaber")
-			{
-				this.SetDefaults(200, false);
-				this.damage = 41;
-				this.scale = 1.15f;
-				flag = true;
-				this.autoReuse = true;
-				this.useTurn = true;
-				this.rare = 4;
-				this.netID = -21;
-			}
-			else if (ItemName == "Purple Phasesaber")
-			{
-				this.SetDefaults(201, false);
-				this.damage = 41;
-				this.scale = 1.15f;
-				flag = true;
-				this.autoReuse = true;
-				this.useTurn = true;
-				this.rare = 4;
-				this.netID = -22;
-			}
-			else if (ItemName == "White Phasesaber")
-			{
-				this.SetDefaults(202, false);
-				this.damage = 41;
-				this.scale = 1.15f;
-				flag = true;
-				this.autoReuse = true;
-				this.useTurn = true;
-				this.rare = 4;
-				this.netID = -23;
-			}
-			else if (ItemName == "Yellow Phasesaber")
-			{
-				this.SetDefaults(203, false);
-				this.damage = 41;
-				this.scale = 1.15f;
-				flag = true;
-				this.autoReuse = true;
-				this.useTurn = true;
-				this.rare = 4;
-				this.netID = -24;
-			}
-			else if (ItemName == "Tin Pickaxe")
-			{
-				this.SetDefaults(1, false);
-				this.color = new Color(170, 150, 80, 110);
-				this.useTime = 14;
-				this.pick = 35;
-				this.useAnimation = 21;
-				this.damage = 5;
-				this.scale = 0.95f;
-				this.value = 750;
-				this.netID = -25;
-			}
-			else if (ItemName == "Tin Broadsword")
-			{
-				this.SetDefaults(4, false);
-				this.color = new Color(170, 150, 80, 110);
-				this.useAnimation = 22;
-				this.damage = 9;
-				this.value = 675;
-				this.netID = -26;
-			}
-			else if (ItemName == "Tin Shortsword")
-			{
-				this.SetDefaults(6, false);
-				this.color = new Color(170, 150, 80, 110);
-				this.damage = 7;
-				this.useAnimation = 12;
-				this.scale = 0.85f;
-				this.value = 525;
-				this.netID = -27;
-			}
-			else if (ItemName == "Tin Axe")
-			{
-				this.SetDefaults(10, false);
-				this.color = new Color(170, 150, 80, 110);
-				this.useTime = 20;
-				this.axe = 8;
-				this.useAnimation = 28;
-				this.scale = 1.05f;
-				this.damage = 4;
-				this.value = 600;
-				this.netID = -28;
-			}
-			else if (ItemName == "Tin Hammer")
-			{
-				this.SetDefaults(7, false);
-				this.color = new Color(170, 150, 80, 110);
-				this.useAnimation = 31;
-				this.useTime = 21;
-				this.scale = 1.15f;
-				this.damage = 6;
-				this.hammer = 38;
-				this.value = 600;
-				this.netID = -29;
-			}
-			else if (ItemName == "Tin Bow")
-			{
-				this.SetDefaults(99, false);
-				this.useAnimation = 28;
-				this.useTime = 28;
-				this.color = new Color(170, 150, 80, 110);
-				this.damage = 7;
-				this.value = 525;
-				this.netID = -30;
-			}
-			else if (ItemName == "Lead Pickaxe")
-			{
-				this.SetDefaults(1, false);
-				this.color = new Color(90, 100, 110, 170);
-				this.useTime = 12;
-				this.pick = 43;
-				this.useAnimation = 19;
-				this.damage = 6;
-				this.scale = 1.025f;
-				this.value = 3000;
-				this.netID = -31;
-			}
-			else if (ItemName == "Lead Broadsword")
-			{
-				this.SetDefaults(4, false);
-				this.color = new Color(80, 90, 170, 160);
-				this.useAnimation = 21;
-				this.damage = 11;
-				this.value = 2700;
-				this.netID = -32;
-			}
-			else if (ItemName == "Lead Shortsword")
-			{
-				this.SetDefaults(6, false);
-				this.color = new Color(90, 100, 110, 170);
-				this.damage = 9;
-				this.useAnimation = 12;
-				this.scale = 0.925f;
-				this.value = 2100;
-				this.netID = -33;
-			}
-			else if (ItemName == "Lead Axe")
-			{
-				this.SetDefaults(10, false);
-				this.color = new Color(90, 100, 110, 170);
-				this.useTime = 19;
-				this.axe = 10;
-				this.useAnimation = 28;
-				this.scale = 1.125f;
-				this.damage = 6;
-				this.value = 2400;
-				this.netID = -34;
-			}
-			else if (ItemName == "Lead Hammer")
-			{
-				this.SetDefaults(7, false);
-				this.color = new Color(90, 100, 110, 170);
-				this.useAnimation = 29;
-				this.useTime = 19;
-				this.scale = 1.225f;
-				this.damage = 8;
-				this.hammer = 43;
-				this.value = 2400;
-				this.netID = -35;
-			}
-			else if (ItemName == "Lead Bow")
-			{
-				this.SetDefaults(99, false);
-				this.useAnimation = 27;
-				this.useTime = 27;
-				this.color = new Color(90, 100, 110, 170);
-				this.damage = 9;
-				this.value = 2100;
-				this.netID = -36;
-			}
-			else if (ItemName == "Tungsten Pickaxe")
-			{
-				this.SetDefaults(1, false);
-				this.color = new Color(130, 180, 130, 100);
-				this.useTime = 19;
-				this.pick = 50;
-				this.useAnimation = 21;
-				this.scale = 1.05f;
-				this.damage = 6;
-				this.value = 7500;
-				this.netID = -37;
-				this.toolTip = "Can mine Meteorite";
-			}
-			else if (ItemName == "Tungsten Broadsword")
-			{
-				this.SetDefaults(4, false);
-				this.color = new Color(130, 180, 130, 100);
-				this.useAnimation = 20;
-				this.damage = 12;
-				this.scale *= 1.025f;
-				this.value = 6750;
-				this.netID = -38;
-			}
-			else if (ItemName == "Tungsten Shortsword")
-			{
-				this.SetDefaults(6, false);
-				this.color = new Color(130, 180, 130, 100);
-				this.damage = 10;
-				this.useAnimation = 11;
-				this.scale = 0.95f;
-				this.value = 5250;
-				this.netID = -39;
-			}
-			else if (ItemName == "Tungsten Axe")
-			{
-				this.SetDefaults(10, false);
-				this.color = new Color(130, 180, 130, 100);
-				this.useTime = 18;
-				this.axe = 11;
-				this.useAnimation = 26;
-				this.scale = 1.15f;
-				this.damage = 7;
-				this.value = 4000;
-				this.netID = -40;
-			}
-			else if (ItemName == "Tungsten Hammer")
-			{
-				this.SetDefaults(7, false);
-				this.color = new Color(130, 180, 130, 100);
-				this.useAnimation = 28;
-				this.useTime = 25;
-				this.scale = 1.25f;
-				this.damage = 9;
-				this.hammer = 50;
-				this.value = 6000;
-				this.netID = -41;
-			}
-			else if (ItemName == "Tungsten Bow")
-			{
-				this.SetDefaults(99, false);
-				this.useAnimation = 26;
-				this.useTime = 26;
-				this.color = new Color(130, 180, 130, 100);
-				this.damage = 10;
-				this.value = 5250;
-				this.netID = -42;
-			}
-			else if (ItemName == "Platinum Pickaxe")
-			{
-				this.SetDefaults(1, false);
-				this.color = new Color(110, 140, 200, 80);
-				this.useTime = 15;
-				this.pick = 59;
-				this.useAnimation = 19;
-				this.scale = 1.05f;
-				this.damage = 7;
-				this.value = 15000;
-				this.toolTip = "Can mine Meteorite";
-				this.netID = -43;
-			}
-			else if (ItemName == "Platinum Broadsword")
-			{
-				this.SetDefaults(4, false);
-				this.color = new Color(110, 140, 200, 80);
-				this.useAnimation = 19;
-				this.damage = 15;
-				this.scale = 1.075f;
-				this.value = 13500;
-				this.netID = -44;
-			}
-			else if (ItemName == "Platinum Shortsword")
-			{
-				this.SetDefaults(6, false);
-				this.color = new Color(110, 140, 200, 80);
-				this.damage = 13;
-				this.useAnimation = 10;
-				this.scale = 0.975f;
-				this.value = 10500;
-				this.netID = -45;
-			}
-			else if (ItemName == "Platinum Axe")
-			{
-				this.SetDefaults(10, false);
-				this.color = new Color(110, 140, 200, 80);
-				this.useTime = 17;
-				this.axe = 12;
-				this.useAnimation = 25;
-				this.scale = 1.175f;
-				this.damage = 8;
-				this.value = 12000;
-				this.netID = -46;
-			}
-			else if (ItemName == "Platinum Hammer")
-			{
-				this.SetDefaults(7, false);
-				this.color = new Color(110, 140, 200, 80);
-				this.useAnimation = 27;
-				this.useTime = 21;
-				this.scale = 1.275f;
-				this.damage = 10;
-				this.hammer = 59;
-				this.value = 12000;
-				this.netID = -47;
-			}
-			else if (ItemName == "Platinum Bow")
-			{
-				this.SetDefaults(99, false);
-				this.useAnimation = 25;
-				this.useTime = 25;
-				this.color = new Color(110, 140, 200, 80);
-				this.damage = 13;
-				this.value = 10500;
-				this.netID = -48;
-			}
-			else if (ItemName != "")
-			{
-				for (int i = 0; i < 2749; i++)
-				{
-					if (Main.itemName[i] == ItemName)
-					{
-						this.SetDefaults(i, false);
-						this.checkMat();
-						return;
-					}
-				}
-				this.name = "";
-				this.stack = 0;
-				this.type = 0;
-			}
-			if (this.type != 0)
-			{
-				if (flag)
-				{
-					this.material = false;
-				}
-				else
-				{
-					this.checkMat();
-				}
-				this.name = ItemName;
-				this.name = Lang.itemName(this.netID, false);
-				this.CheckTip();
-			}
-		}
-		public Rectangle getRect()
-		{
-			return new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
-		}
 		public bool checkMat()
 		{
 			if (this.type >= 71 && this.type <= 74)
@@ -3506,64 +3011,669 @@ namespace Terraria
 			}
 			for (int i = 0; i < Recipe.numRecipes; i++)
 			{
-				int num = 0;
-				while (Main.recipe[i].requiredItem[num].type > 0)
+				for (int j = 0; Main.recipe[i].requiredItem[j].type > 0; j++)
 				{
-					if (this.netID == Main.recipe[i].requiredItem[num].netID)
+					if (this.netID == Main.recipe[i].requiredItem[j].netID)
 					{
 						this.material = true;
 						return true;
 					}
-					num++;
 				}
 			}
-			int num2 = this.type;
-			if (num2 <= 543)
+			int num = this.type;
+			if (num > 543)
 			{
-				if (num2 != 529)
+				switch (num)
 				{
-					switch (num2)
+					case 852:
+					case 853:
 					{
+						break;
+					}
+					default:
+					{
+						if (num != 1151)
+						{
+							this.material = false;
+							return false;
+						}
+						else
+						{
+							break;
+						}
+					}
+				}
+			}
+			else if (num != 529)
+			{
+				switch (num)
+				{
 					case 541:
 					case 542:
 					case 543:
-						break;
-					default:
-						goto IL_C5;
-					}
-				}
-			}
-			else
-			{
-				switch (num2)
-				{
-				case 852:
-				case 853:
-					break;
-				default:
-					if (num2 != 1151)
 					{
-						goto IL_C5;
+						break;
 					}
-					break;
+					default:
+					{
+						this.material = false;
+						return false;
+					}
 				}
 			}
 			this.material = true;
 			return true;
-			IL_C5:
-			this.material = false;
+		}
+
+		public void CheckTip()
+		{
+			this.toolTip = Lang.toolTip(this.netID, false);
+			this.toolTip2 = Lang.toolTip2(this.netID, false);
+		}
+
+		public Item Clone()
+		{
+			return (Item)base.MemberwiseClone();
+		}
+
+		public void FindOwner(int whoAmI)
+		{
+			if (this.keepTime > 0)
+			{
+				return;
+			}
+			int num = this.owner;
+			this.owner = 255;
+			float single = 999999f;
+			for (int i = 0; i < 255; i++)
+			{
+				if (this.ownIgnore != i && Main.player[i].active && Main.player[i].ItemSpace(Main.item[whoAmI]))
+				{
+					float single1 = Math.Abs(Main.player[i].position.X + (float)(Main.player[i].width / 2) - this.position.X - (float)(this.width / 2)) + Math.Abs(Main.player[i].position.Y + (float)(Main.player[i].height / 2) - this.position.Y - (float)this.height);
+					if (Main.player[i].manaMagnet && (this.type == 184 || this.type == 1735 || this.type == 1868))
+					{
+						single1 = single1 - (float)Item.manaGrabRange;
+					}
+					if (Main.player[i].lifeMagnet && (this.type == 58 || this.type == 1734 || this.type == 1867))
+					{
+						single1 = single1 - (float)Item.lifeGrabRange;
+					}
+					if (single1 < (float)NPC.sWidth && single1 < single)
+					{
+						single = single1;
+						this.owner = i;
+					}
+				}
+			}
+			if (this.owner != num && (num == Main.myPlayer && Main.netMode == 1 || num == 255 && Main.netMode == 2 || num != 255 && !Main.player[num].active))
+			{
+				NetMessage.SendData(21, -1, -1, "", whoAmI, 0f, 0f, 0f, 0, 0, 0);
+				if (this.active)
+				{
+					NetMessage.SendData(22, -1, -1, "", whoAmI, 0f, 0f, 0f, 0, 0, 0);
+				}
+			}
+		}
+
+		public Color GetAlpha(Color newColor)
+		{
+			float single;
+			int r;
+			int g;
+			int b;
+			int a;
+			int num = this.type;
+			if (num > 1306)
+			{
+				if (num > 1826)
+				{
+					if (num <= 3065)
+					{
+						if (num > 2765)
+						{
+							switch (num)
+							{
+								case 2782:
+								case 2783:
+								case 2784:
+								case 2785:
+								case 2786:
+								{
+									break;
+								}
+								default:
+								{
+									if (num == 3065)
+									{
+										return new Color(255, 255, 255, newColor.A - this.alpha);
+									}
+									single = (float)(255 - this.alpha) / 255f;
+									r = (int)((float)newColor.R * single);
+									g = (int)((float)newColor.G * single);
+									b = (int)((float)newColor.B * single);
+									a = newColor.A - this.alpha;
+									if (a < 0)
+									{
+										a = 0;
+									}
+									if (a > 255)
+									{
+										a = 255;
+									}
+									return new Color(r, g, b, a);
+								}
+							}
+						}
+						else
+						{
+							switch (num)
+							{
+								case 1867:
+								case 1868:
+								{
+									return new Color(200, 200, 200, 200);
+								}
+								default:
+								{
+									switch (num)
+									{
+										case 2763:
+										case 2764:
+										case 2765:
+										{
+											break;
+										}
+										default:
+										{
+											single = (float)(255 - this.alpha) / 255f;
+											r = (int)((float)newColor.R * single);
+											g = (int)((float)newColor.G * single);
+											b = (int)((float)newColor.B * single);
+											a = newColor.A - this.alpha;
+											if (a < 0)
+											{
+												a = 0;
+											}
+											if (a > 255)
+											{
+												a = 255;
+											}
+											return new Color(r, g, b, a);
+										}
+									}
+									break;
+								}
+							}
+						}
+					}
+					else if (num > 3459)
+					{
+						if (num == 3522)
+						{
+							return new Color(250, 250, 250, 255 - this.alpha);
+						}
+						if (num == 3580)
+						{
+							return new Color(255, 255, 255, 50);
+						}
+						single = (float)(255 - this.alpha) / 255f;
+						r = (int)((float)newColor.R * single);
+						g = (int)((float)newColor.G * single);
+						b = (int)((float)newColor.B * single);
+						a = newColor.A - this.alpha;
+						if (a < 0)
+						{
+							a = 0;
+						}
+						if (a > 255)
+						{
+							a = 255;
+						}
+						return new Color(r, g, b, a);
+					}
+					else
+					{
+						if (num == 3191)
+						{
+							return new Color(250, 250, 250, 200);
+						}
+						switch (num)
+						{
+							case 3453:
+							case 3454:
+							case 3455:
+							{
+								return new Color(255, 255, 255, 50);
+							}
+							case 3456:
+							case 3457:
+							case 3458:
+							case 3459:
+							{
+								return new Color(255, 255, 255, 200);
+							}
+							default:
+							{
+								single = (float)(255 - this.alpha) / 255f;
+								r = (int)((float)newColor.R * single);
+								g = (int)((float)newColor.G * single);
+								b = (int)((float)newColor.B * single);
+								a = newColor.A - this.alpha;
+								if (a < 0)
+								{
+									a = 0;
+								}
+								if (a > 255)
+								{
+									a = 255;
+								}
+								return new Color(r, g, b, a);
+							}
+						}
+					}
+					return new Color(250, 250, 250, 255 - this.alpha);
+				}
+				else
+				{
+					if (num <= 1508)
+					{
+						if (num == 1332)
+						{
+							return new Color(255, 255, 255, 50);
+						}
+						if (num != 1446)
+						{
+							switch (num)
+							{
+								case 1506:
+								case 1507:
+								{
+									break;
+								}
+								case 1508:
+								{
+									return new Color(200, 200, 200, 0);
+								}
+								default:
+								{
+									single = (float)(255 - this.alpha) / 255f;
+									r = (int)((float)newColor.R * single);
+									g = (int)((float)newColor.G * single);
+									b = (int)((float)newColor.B * single);
+									a = newColor.A - this.alpha;
+									if (a < 0)
+									{
+										a = 0;
+									}
+									if (a > 255)
+									{
+										a = 255;
+									}
+									return new Color(r, g, b, a);
+								}
+							}
+						}
+					}
+					else if (num > 1572)
+					{
+						switch (num)
+						{
+							case 1734:
+							case 1735:
+							{
+								return new Color(200, 200, 200, 200);
+							}
+							default:
+							{
+								if (num == 1826)
+								{
+									return new Color(255, 255, 255, 200);
+								}
+								single = (float)(255 - this.alpha) / 255f;
+								r = (int)((float)newColor.R * single);
+								g = (int)((float)newColor.G * single);
+								b = (int)((float)newColor.B * single);
+								a = newColor.A - this.alpha;
+								if (a < 0)
+								{
+									a = 0;
+								}
+								if (a > 255)
+								{
+									a = 255;
+								}
+								return new Color(r, g, b, a);
+							}
+						}
+					}
+					else
+					{
+						switch (num)
+						{
+							case 1543:
+							case 1544:
+							case 1545:
+							{
+								break;
+							}
+							default:
+							{
+								if (num == 1572)
+								{
+									return new Color(200, 200, 255, 125);
+								}
+								single = (float)(255 - this.alpha) / 255f;
+								r = (int)((float)newColor.R * single);
+								g = (int)((float)newColor.G * single);
+								b = (int)((float)newColor.B * single);
+								a = newColor.A - this.alpha;
+								if (a < 0)
+								{
+									a = 0;
+								}
+								if (a > 255)
+								{
+									a = 255;
+								}
+								return new Color(r, g, b, a);
+							}
+						}
+					}
+					return new Color((int)newColor.R, (int)newColor.G, (int)newColor.B, (int)Main.gFade);
+				}
+			}
+			else if (num <= 220)
+			{
+				if (num > 75)
+				{
+					if (num > 184)
+					{
+						switch (num)
+						{
+							case 198:
+							case 199:
+							case 200:
+							case 201:
+							case 202:
+							case 203:
+							{
+								return Color.White;
+							}
+							default:
+							{
+								switch (num)
+								{
+									case 217:
+									case 218:
+									case 219:
+									case 220:
+									{
+										break;
+									}
+									default:
+									{
+										single = (float)(255 - this.alpha) / 255f;
+										r = (int)((float)newColor.R * single);
+										g = (int)((float)newColor.G * single);
+										b = (int)((float)newColor.B * single);
+										a = newColor.A - this.alpha;
+										if (a < 0)
+										{
+											a = 0;
+										}
+										if (a > 255)
+										{
+											a = 255;
+										}
+										return new Color(r, g, b, a);
+									}
+								}
+								break;
+							}
+						}
+					}
+					else
+					{
+						switch (num)
+						{
+							case 119:
+							case 120:
+							case 121:
+							case 122:
+							{
+								break;
+							}
+							default:
+							{
+								if (num == 184)
+								{
+									return new Color(200, 200, 200, 200);
+								}
+								single = (float)(255 - this.alpha) / 255f;
+								r = (int)((float)newColor.R * single);
+								g = (int)((float)newColor.G * single);
+								b = (int)((float)newColor.B * single);
+								a = newColor.A - this.alpha;
+								if (a < 0)
+								{
+									a = 0;
+								}
+								if (a > 255)
+								{
+									a = 255;
+								}
+								return new Color(r, g, b, a);
+							}
+						}
+					}
+					return new Color(255, 255, 255, 255);
+				}
+				else
+				{
+					if (num == 51)
+					{
+						return new Color(255, 255, 255, 0);
+					}
+					if (num == 58)
+					{
+						return new Color(200, 200, 200, 200);
+					}
+					if (num == 75)
+					{
+						return new Color(255, 255, 255, newColor.A - this.alpha);
+					}
+				}
+			}
+			else if (num <= 575)
+			{
+				if (num > 522)
+				{
+					switch (num)
+					{
+						case 547:
+						case 548:
+						case 549:
+						{
+							return new Color(255, 255, 255, 50);
+						}
+						default:
+						{
+							if (num == 575)
+							{
+								return new Color(255, 255, 255, 50);
+							}
+							break;
+						}
+					}
+				}
+				else
+				{
+					switch (num)
+					{
+						case 501:
+						{
+							return new Color(200, 200, 200, 50);
+						}
+						case 502:
+						{
+							return new Color(255, 255, 255, 150);
+						}
+						default:
+						{
+							switch (num)
+							{
+								case 520:
+								case 521:
+								case 522:
+								{
+									return new Color(255, 255, 255, 50);
+								}
+							}
+							break;
+						}
+					}
+				}
+			}
+			else if (num > 787)
+			{
+				if (num == 1260)
+				{
+					return new Color(255, 255, 255, 175);
+				}
+				if (num == 1306)
+				{
+					return new Color(255, 255, 255, 200);
+				}
+			}
+			else
+			{
+				if (num == 757)
+				{
+					return new Color(255, 255, 255, 200);
+				}
+				if (num == 787)
+				{
+					return new Color(255, 255, 255, 175);
+				}
+			}
+			single = (float)(255 - this.alpha) / 255f;
+			r = (int)((float)newColor.R * single);
+			g = (int)((float)newColor.G * single);
+			b = (int)((float)newColor.B * single);
+			a = newColor.A - this.alpha;
+			if (a < 0)
+			{
+				a = 0;
+			}
+			if (a > 255)
+			{
+				a = 255;
+			}
+			return new Color(r, g, b, a);
+		}
+
+		public Color GetColor(Color newColor)
+		{
+			int r = this.color.R - (255 - newColor.R);
+			int g = this.color.G - (255 - newColor.G);
+			int b = this.color.B - (255 - newColor.B);
+			int a = this.color.A - (255 - newColor.A);
+			if (r < 0)
+			{
+				r = 0;
+			}
+			if (r > 255)
+			{
+				r = 255;
+			}
+			if (g < 0)
+			{
+				g = 0;
+			}
+			if (g > 255)
+			{
+				g = 255;
+			}
+			if (b < 0)
+			{
+				b = 0;
+			}
+			if (b > 255)
+			{
+				b = 255;
+			}
+			if (a < 0)
+			{
+				a = 0;
+			}
+			if (a > 255)
+			{
+				a = 255;
+			}
+			return new Color(r, g, b, a);
+		}
+
+		public Rectangle getRect()
+		{
+			return new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
+		}
+
+		public bool IsNotTheSameAs(Item compareItem)
+		{
+			if (this.netID != compareItem.netID || this.stack != compareItem.stack)
+			{
+				return true;
+			}
+			return this.prefix != compareItem.prefix;
+		}
+
+		public bool IsTheSameAs(Item compareItem)
+		{
+			if (this.netID != compareItem.netID)
+			{
+				return false;
+			}
+			return this.type == compareItem.type;
+		}
+
+		public static bool MechSpawn(float x, float y, int type)
+		{
+			int num = 0;
+			int num1 = 0;
+			int num2 = 0;
+			for (int i = 0; i < 200; i++)
+			{
+				if (Main.item[i].active && Main.item[i].type == type)
+				{
+					num++;
+					Vector2 vector2 = new Vector2(x, y);
+					float single = Main.item[i].position.X - vector2.X;
+					float single1 = Main.item[i].position.Y - vector2.Y;
+					float single2 = (float)Math.Sqrt((double)(single * single + single1 * single1));
+					if (single2 < 300f)
+					{
+						num1++;
+					}
+					if (single2 < 800f)
+					{
+						num2++;
+					}
+				}
+			}
+			if (num1 < 3 && num2 < 6 && num < 10)
+			{
+				return true;
+			}
 			return false;
 		}
 
 		public void netDefaults(int type)
 		{
-			if (!ServerApi.Hooks.InvokeItemNetDefaults(ref type, this))
-				RealNetDefaults(type);
-		}
-
-		public void RealNetDefaults(int type)
-		{
-			if (type < 0)
+			if (type >= 0)
+			{
+				this.SetDefaults(type, false);
+			}
+			else
 			{
 				if (type == -1)
 				{
@@ -3806,441 +3916,2904 @@ namespace Terraria
 					return;
 				}
 			}
-			else
-			{
-				this.SetDefaults(type, false);
-			}
 		}
+
+		public static int NewItem(int X, int Y, int Width, int Height, int Type, int Stack = 1, bool noBroadcast = false, int pfix = 0, bool noGrabDelay = false)
+		{
+			if (Main.rand == null)
+			{
+				Main.rand = new Random();
+			}
+			if (WorldGen.gen)
+			{
+				return 0;
+			}
+			int num = 400;
+			Main.item[400] = new Item();
+			if (Main.halloween)
+			{
+				if (Type == 58)
+				{
+					Type = 1734;
+				}
+				if (Type == 184)
+				{
+					Type = 1735;
+				}
+			}
+			if (Main.xMas)
+			{
+				if (Type == 58)
+				{
+					Type = 1867;
+				}
+				if (Type == 184)
+				{
+					Type = 1868;
+				}
+			}
+			if (Main.netMode != 1)
+			{
+				int num1 = 0;
+				while (num1 < 400)
+				{
+					if (Main.item[num1].active || Main.itemLockoutTime[num1] != 0)
+					{
+						num1++;
+					}
+					else
+					{
+						num = num1;
+						break;
+					}
+				}
+			}
+			if (num == 400 && Main.netMode != 1)
+			{
+				int num2 = 0;
+				for (int i = 0; i < 400; i++)
+				{
+					if (Main.item[i].spawnTime - Main.itemLockoutTime[i] > num2)
+					{
+						num2 = Main.item[i].spawnTime - Main.itemLockoutTime[i];
+						num = i;
+					}
+				}
+			}
+			Main.itemLockoutTime[num] = 0;
+			Main.item[num] = new Item();
+			Main.item[num].SetDefaults(Type, false);
+			Main.item[num].Prefix(pfix);
+			Main.item[num].position.X = (float)(X + Width / 2 - Main.item[num].width / 2);
+			Main.item[num].position.Y = (float)(Y + Height / 2 - Main.item[num].height / 2);
+			Main.item[num].wet = Collision.WetCollision(Main.item[num].position, Main.item[num].width, Main.item[num].height);
+			Main.item[num].velocity.X = (float)Main.rand.Next(-30, 31) * 0.1f;
+			Main.item[num].velocity.Y = (float)Main.rand.Next(-40, -15) * 0.1f;
+			if (Type == 859)
+			{
+				Item item = Main.item[num];
+				item.velocity = item.velocity * 0f;
+			}
+			if (Type == 520 || Type == 521 || Main.item[num].type >= 0 && ItemID.Sets.NebulaPickup[Main.item[num].type])
+			{
+				Main.item[num].velocity.X = (float)Main.rand.Next(-30, 31) * 0.1f;
+				Main.item[num].velocity.Y = (float)Main.rand.Next(-30, 31) * 0.1f;
+			}
+			Main.item[num].active = true;
+			Main.item[num].spawnTime = 0;
+			Main.item[num].stack = Stack;
+			if (Main.netMode == 2 && !noBroadcast)
+			{
+				int num3 = 0;
+				if (noGrabDelay)
+				{
+					num3 = 1;
+				}
+				NetMessage.SendData(21, -1, -1, "", num, (float)num3, 0f, 0f, 0, 0, 0);
+				Main.item[num].FindOwner(num);
+			}
+			else if (Main.netMode == 0)
+			{
+				Main.item[num].owner = Main.myPlayer;
+			}
+			return num;
+		}
+
 		public static int NPCtoBanner(int i)
 		{
 			switch (i)
 			{
-			case 1:
-			case 147:
-			case 184:
-				return 69;
-			case 2:
-			case 133:
-			case 190:
-			case 191:
-			case 192:
-			case 193:
-			case 194:
-				return 25;
-			case 3:
-			case 132:
-			case 186:
-			case 187:
-			case 188:
-			case 189:
-			case 200:
-				return 87;
-			case 6:
-				return 27;
-			case 10:
-			case 11:
-			case 12:
-			case 95:
-			case 96:
-			case 97:
-				return 84;
-			case 21:
-			case 201:
-			case 202:
-			case 203:
-				return 67;
-			case 23:
-				return 55;
-			case 24:
-				return 50;
-			case 27:
-				return 41;
-			case 28:
-				return 42;
-			case 29:
-				return 39;
-			case 32:
-				return 68;
-			case 39:
-			case 40:
-			case 41:
-				return 13;
-			case 42:
-			case 176:
-			case 231:
-			case 232:
-			case 233:
-			case 234:
-			case 235:
-				return 47;
-			case 43:
-				return 54;
-			case 46:
-				return 14;
-			case 47:
-				return 18;
-			case 48:
-				return 44;
-			case 49:
-			case 93:
-				return 7;
-			case 55:
-			case 230:
-				return 43;
-			case 57:
-				return 19;
-			case 58:
-				return 61;
-			case 60:
-			case 151:
-				return 45;
-			case 61:
-				return 79;
-			case 62:
-			case 66:
-			case 156:
-				return 24;
-			case 63:
-			case 64:
-			case 103:
-				return 51;
-			case 65:
-				return 66;
-			case 67:
-				return 20;
-			case 69:
-				return 4;
-			case 73:
-				return 40;
-			case 74:
-				return 8;
-			case 75:
-				return 63;
-			case 77:
-				return 6;
-			case 78:
-			case 79:
-			case 80:
-				return 57;
-			case 82:
-				return 85;
-			case 83:
-				return 23;
-			case 84:
-				return 28;
-			case 85:
-				return 16;
-			case 86:
-				return 77;
-			case 87:
-			case 88:
-			case 89:
-			case 90:
-			case 91:
-			case 92:
-				return 86;
-			case 98:
-			case 99:
-			case 100:
-				return 83;
-			case 102:
-				return 1;
-			case 104:
-				return 81;
-			case 109:
-				return 17;
-			case 111:
-				return 38;
-			case 120:
-				return 15;
-			case 122:
-				return 37;
-			case 141:
-				return 75;
-			case 153:
-			case 154:
-				return 74;
-			case 155:
-				return 82;
-			case 157:
-				return 5;
-			case 158:
-			case 159:
-				return 78;
-			case 161:
-				return 29;
-			case 162:
-				return 34;
-			case 163:
-			case 238:
-				return 9;
-			case 164:
-			case 165:
-				return 71;
-			case 166:
-				return 73;
-			case 169:
-				return 48;
-			case 170:
-			case 171:
-			case 180:
-				return 60;
-			case 173:
-				return 21;
-			case 174:
-				return 46;
-			case 177:
-				return 26;
-			case 179:
-				return 22;
-			case 181:
-				return 30;
-			case 182:
-				return 31;
-			case 185:
-				return 70;
-			case 195:
-			case 196:
-				return 80;
-			case 198:
-			case 199:
-				return 53;
-			case 205:
-				return 56;
-			case 206:
-				return 49;
-			case 212:
-			case 213:
-			case 214:
-			case 215:
-			case 216:
-				return 62;
-			case 223:
-				return 64;
-			case 224:
-				return 32;
-			case 225:
-				return 76;
-			case 226:
-				return 33;
-			case 236:
-			case 237:
-				return 52;
-			case 239:
-				return 12;
-			case 241:
-				return 10;
-			case 242:
-				return 11;
-			case 250:
-				return 2;
-			case 252:
-				return 59;
-			case 253:
-				return 65;
-			case 254:
-			case 255:
-				return 72;
-			case 256:
-				return 36;
-			case 257:
-				return 3;
-			case 258:
-				return 58;
-			case 259:
-			case 260:
-				return 35;
+				case -10:
+				{
+					return 131;
+				}
+				case -9:
+				{
+					return 183;
+				}
+				case -8:
+				{
+					return 159;
+				}
+				case -7:
+				{
+					return 155;
+				}
+				case -6:
+				{
+					return 90;
+				}
+				case -5:
+				case -1:
+				case 0:
+				case 4:
+				case 5:
+				case 8:
+				case 9:
+				case 13:
+				case 14:
+				case 15:
+				case 17:
+				case 18:
+				case 19:
+				case 20:
+				case 22:
+				case 25:
+				case 30:
+				case 33:
+				case 35:
+				case 36:
+				case 37:
+				case 38:
+				case 50:
+				case 54:
+				case 68:
+				case 70:
+				case 72:
+				case 76:
+				case 105:
+				case 106:
+				case 107:
+				case 108:
+				case 111:
+				case 112:
+				case 113:
+				case 114:
+				case 115:
+				case 116:
+				case 117:
+				case 118:
+				case 119:
+				case 123:
+				case 124:
+				case 125:
+				case 126:
+				case 127:
+				case 128:
+				case 129:
+				case 130:
+				case 131:
+				case 134:
+				case 135:
+				case 136:
+				case 139:
+				case 142:
+				case 146:
+				case 149:
+				case 160:
+				case 178:
+				case 207:
+				case 208:
+				case 209:
+				case 210:
+				case 211:
+				case 222:
+				case 227:
+				case 228:
+				case 229:
+				case 245:
+				case 246:
+				case 247:
+				case 248:
+				case 249:
+				case 261:
+				case 262:
+				case 263:
+				case 264:
+				case 265:
+				case 266:
+				case 267:
+				case 274:
+				case 275:
+				case 276:
+				case 278:
+				case 279:
+				case 280:
+				case 282:
+				case 284:
+				case 297:
+				case 298:
+				case 299:
+				case 300:
+				case 322:
+				case 323:
+				case 324:
+				case 325:
+				case 327:
+				case 328:
+				case 339:
+				case 340:
+				case 344:
+				case 345:
+				case 346:
+				case 353:
+				case 354:
+				case 355:
+				case 356:
+				case 357:
+				case 358:
+				case 359:
+				case 360:
+				case 361:
+				case 362:
+				case 363:
+				case 364:
+				case 365:
+				case 366:
+				case 367:
+				case 368:
+				case 369:
+				case 370:
+				case 371:
+				case 372:
+				case 373:
+				case 374:
+				case 375:
+				case 376:
+				case 377:
+				case 378:
+				case 392:
+				case 393:
+				case 394:
+				case 395:
+				case 396:
+				case 397:
+				case 398:
+				case 399:
+				case 400:
+				case 401:
+				case 410:
+				case 422:
+				case 437:
+				case 438:
+				case 439:
+				case 440:
+				case 441:
+				case 442:
+				case 443:
+				case 444:
+				case 445:
+				case 446:
+				case 447:
+				case 448:
+				case 453:
+				case 454:
+				case 455:
+				case 456:
+				case 457:
+				case 458:
+				case 459:
+				case 464:
+				case 465:
+				case 470:
+				case 472:
+				case 473:
+				case 474:
+				case 475:
+				case 476:
+				case 478:
+				case 479:
+				case 484:
+				case 485:
+				case 486:
+				case 487:
+				case 488:
+				case 491:
+				case 492:
+				case 493:
+				case 507:
+				case 516:
+				case 517:
+				case 518:
+				case 519:
+				case 521:
+				case 522:
+				case 523:
+				case 534:
+				case 535:
+				case 536:
+				{
+					return 0;
+				}
+				case -4:
+				{
+					return 151;
+				}
+				case -3:
+				{
+					return 119;
+				}
+				case -2:
+				case 121:
+				{
+					return 167;
+				}
+				case 1:
+				case 302:
+				case 333:
+				case 334:
+				case 335:
+				case 336:
+				{
+					return 69;
+				}
+				case 2:
+				case 133:
+				case 190:
+				case 191:
+				case 192:
+				case 193:
+				case 194:
+				case 317:
+				case 318:
+				{
+					return 25;
+				}
+				case 3:
+				case 132:
+				case 186:
+				case 187:
+				case 188:
+				case 189:
+				case 200:
+				case 319:
+				case 320:
+				case 321:
+				case 331:
+				case 332:
+				case 430:
+				case 431:
+				case 432:
+				case 433:
+				case 434:
+				case 435:
+				case 436:
+				{
+					return 87;
+				}
+				case 6:
+				{
+					return 27;
+				}
+				case 7:
+				{
+					return 104;
+				}
+				case 10:
+				case 11:
+				case 12:
+				case 95:
+				case 96:
+				case 97:
+				{
+					return 84;
+				}
+				case 16:
+				{
+					return 146;
+				}
+				case 21:
+				case 201:
+				case 202:
+				case 203:
+				case 449:
+				case 450:
+				case 451:
+				case 452:
+				{
+					return 67;
+				}
+				case 23:
+				{
+					return 55;
+				}
+				case 24:
+				{
+					return 50;
+				}
+				case 26:
+				{
+					return 40;
+				}
+				case 27:
+				{
+					return 38;
+				}
+				case 28:
+				{
+					return 42;
+				}
+				case 29:
+				{
+					return 39;
+				}
+				case 31:
+				case 294:
+				case 295:
+				case 296:
+				{
+					return 247;
+				}
+				case 32:
+				{
+					return 68;
+				}
+				case 34:
+				{
+					return 102;
+				}
+				case 39:
+				case 40:
+				case 41:
+				{
+					return 13;
+				}
+				case 42:
+				case 176:
+				case 231:
+				case 232:
+				case 233:
+				case 234:
+				case 235:
+				{
+					return 47;
+				}
+				case 43:
+				{
+					return 54;
+				}
+				case 44:
+				{
+					return 178;
+				}
+				case 45:
+				{
+					return 177;
+				}
+				case 46:
+				case 303:
+				case 337:
+				{
+					return 14;
+				}
+				case 47:
+				{
+					return 18;
+				}
+				case 48:
+				{
+					return 44;
+				}
+				case 49:
+				{
+					return 7;
+				}
+				case 51:
+				{
+					return 130;
+				}
+				case 52:
+				{
+					return 106;
+				}
+				case 53:
+				{
+					return 176;
+				}
+				case 55:
+				case 230:
+				{
+					return 43;
+				}
+				case 56:
+				{
+					return 168;
+				}
+				case 57:
+				{
+					return 19;
+				}
+				case 58:
+				{
+					return 61;
+				}
+				case 59:
+				{
+					return 135;
+				}
+				case 60:
+				{
+					return 45;
+				}
+				case 61:
+				{
+					return 79;
+				}
+				case 62:
+				case 66:
+				{
+					return 24;
+				}
+				case 63:
+				{
+					return 51;
+				}
+				case 64:
+				{
+					return 243;
+				}
+				case 65:
+				{
+					return 66;
+				}
+				case 67:
+				{
+					return 20;
+				}
+				case 69:
+				{
+					return 4;
+				}
+				case 71:
+				{
+					return 107;
+				}
+				case 73:
+				{
+					return 41;
+				}
+				case 74:
+				{
+					return 8;
+				}
+				case 75:
+				{
+					return 63;
+				}
+				case 77:
+				{
+					return 6;
+				}
+				case 78:
+				{
+					return 57;
+				}
+				case 79:
+				{
+					return 245;
+				}
+				case 80:
+				{
+					return 246;
+				}
+				case 81:
+				{
+					return 99;
+				}
+				case 82:
+				{
+					return 85;
+				}
+				case 83:
+				{
+					return 23;
+				}
+				case 84:
+				{
+					return 28;
+				}
+				case 85:
+				{
+					return 16;
+				}
+				case 86:
+				{
+					return 77;
+				}
+				case 87:
+				case 88:
+				case 89:
+				case 90:
+				case 91:
+				case 92:
+				{
+					return 86;
+				}
+				case 93:
+				{
+					return 114;
+				}
+				case 94:
+				{
+					return 100;
+				}
+				case 98:
+				case 99:
+				case 100:
+				{
+					return 83;
+				}
+				case 101:
+				{
+					return 96;
+				}
+				case 102:
+				{
+					return 1;
+				}
+				case 103:
+				{
+					return 244;
+				}
+				case 104:
+				{
+					return 81;
+				}
+				case 109:
+				{
+					return 17;
+				}
+				case 110:
+				{
+					return 164;
+				}
+				case 120:
+				{
+					return 15;
+				}
+				case 122:
+				{
+					return 37;
+				}
+				case 137:
+				{
+					return 128;
+				}
+				case 138:
+				{
+					return 129;
+				}
+				case 140:
+				{
+					return 153;
+				}
+				case 141:
+				{
+					return 75;
+				}
+				case 143:
+				{
+					return 170;
+				}
+				case 144:
+				{
+					return 145;
+				}
+				case 145:
+				{
+					return 169;
+				}
+				case 147:
+				{
+					return 126;
+				}
+				case 148:
+				{
+					return 150;
+				}
+				case 150:
+				{
+					return 124;
+				}
+				case 151:
+				{
+					return 134;
+				}
+				case 152:
+				{
+					return 116;
+				}
+				case 153:
+				{
+					return 74;
+				}
+				case 154:
+				{
+					return 248;
+				}
+				case 155:
+				{
+					return 82;
+				}
+				case 156:
+				{
+					return 242;
+				}
+				case 157:
+				{
+					return 5;
+				}
+				case 158:
+				case 159:
+				{
+					return 78;
+				}
+				case 161:
+				{
+					return 29;
+				}
+				case 162:
+				{
+					return 34;
+				}
+				case 163:
+				case 238:
+				{
+					return 9;
+				}
+				case 164:
+				case 165:
+				{
+					return 71;
+				}
+				case 166:
+				{
+					return 73;
+				}
+				case 167:
+				{
+					return 179;
+				}
+				case 168:
+				{
+					return 98;
+				}
+				case 169:
+				{
+					return 48;
+				}
+				case 170:
+				case 171:
+				case 180:
+				{
+					return 60;
+				}
+				case 172:
+				{
+					return 160;
+				}
+				case 173:
+				{
+					return 21;
+				}
+				case 174:
+				{
+					return 46;
+				}
+				case 175:
+				{
+					return 88;
+				}
+				case 177:
+				{
+					return 26;
+				}
+				case 179:
+				{
+					return 22;
+				}
+				case 181:
+				{
+					return 30;
+				}
+				case 182:
+				{
+					return 31;
+				}
+				case 183:
+				{
+					return 101;
+				}
+				case 184:
+				{
+					return 171;
+				}
+				case 185:
+				{
+					return 70;
+				}
+				case 195:
+				case 196:
+				{
+					return 80;
+				}
+				case 197:
+				{
+					return 89;
+				}
+				case 198:
+				case 199:
+				{
+					return 53;
+				}
+				case 204:
+				{
+					return 172;
+				}
+				case 205:
+				{
+					return 56;
+				}
+				case 206:
+				{
+					return 49;
+				}
+				case 212:
+				{
+					return 62;
+				}
+				case 213:
+				{
+					return 239;
+				}
+				case 214:
+				{
+					return 238;
+				}
+				case 215:
+				{
+					return 240;
+				}
+				case 216:
+				{
+					return 237;
+				}
+				case 217:
+				{
+					return 97;
+				}
+				case 218:
+				{
+					return 103;
+				}
+				case 219:
+				{
+					return 133;
+				}
+				case 220:
+				{
+					return 250;
+				}
+				case 221:
+				{
+					return 174;
+				}
+				case 223:
+				{
+					return 64;
+				}
+				case 224:
+				{
+					return 32;
+				}
+				case 225:
+				{
+					return 76;
+				}
+				case 226:
+				{
+					return 33;
+				}
+				case 236:
+				case 237:
+				{
+					return 52;
+				}
+				case 239:
+				case 240:
+				{
+					return 12;
+				}
+				case 241:
+				{
+					return 10;
+				}
+				case 242:
+				{
+					return 11;
+				}
+				case 243:
+				{
+					return 125;
+				}
+				case 244:
+				{
+					return 157;
+				}
+				case 250:
+				{
+					return 2;
+				}
+				case 251:
+				{
+					return 111;
+				}
+				case 252:
+				{
+					return 59;
+				}
+				case 253:
+				{
+					return 65;
+				}
+				case 254:
+				case 255:
+				{
+					return 72;
+				}
+				case 256:
+				{
+					return 36;
+				}
+				case 257:
+				{
+					return 3;
+				}
+				case 258:
+				{
+					return 58;
+				}
+				case 259:
+				case 260:
+				{
+					return 35;
+				}
+				case 268:
+				{
+					return 127;
+				}
+				case 269:
+				case 270:
+				case 271:
+				case 272:
+				{
+					return 161;
+				}
+				case 273:
+				{
+					return 91;
+				}
+				case 277:
+				{
+					return 121;
+				}
+				case 281:
+				{
+					return 156;
+				}
+				case 283:
+				{
+					return 147;
+				}
+				case 285:
+				case 286:
+				{
+					return 105;
+				}
+				case 287:
+				{
+					return 95;
+				}
+				case 288:
+				{
+					return 108;
+				}
+				case 289:
+				{
+					return 115;
+				}
+				case 290:
+				{
+					return 149;
+				}
+				case 291:
+				{
+					return 166;
+				}
+				case 292:
+				{
+					return 175;
+				}
+				case 293:
+				{
+					return 165;
+				}
+				case 301:
+				{
+					return 158;
+				}
+				case 304:
+				{
+					return 123;
+				}
+				case 305:
+				case 306:
+				case 307:
+				case 308:
+				case 309:
+				case 310:
+				case 311:
+				case 312:
+				case 313:
+				case 314:
+				{
+					return 162;
+				}
+				case 315:
+				{
+					return 120;
+				}
+				case 316:
+				{
+					return 113;
+				}
+				case 326:
+				{
+					return 173;
+				}
+				case 329:
+				{
+					return 122;
+				}
+				case 330:
+				{
+					return 152;
+				}
+				case 338:
+				{
+					return 185;
+				}
+				case 341:
+				{
+					return 154;
+				}
+				case 342:
+				{
+					return 117;
+				}
+				case 343:
+				{
+					return 184;
+				}
+				case 347:
+				{
+					return 110;
+				}
+				case 348:
+				case 349:
+				{
+					return 148;
+				}
+				case 350:
+				{
+					return 109;
+				}
+				case 351:
+				{
+					return 132;
+				}
+				case 352:
+				{
+					return 112;
+				}
+				case 379:
+				{
+					return 92;
+				}
+				case 380:
+				{
+					return 180;
+				}
+				case 381:
+				{
+					return 136;
+				}
+				case 382:
+				{
+					return 142;
+				}
+				case 383:
+				case 384:
+				{
+					return 141;
+				}
+				case 385:
+				{
+					return 140;
+				}
+				case 386:
+				{
+					return 138;
+				}
+				case 387:
+				{
+					return 144;
+				}
+				case 388:
+				{
+					return 137;
+				}
+				case 389:
+				{
+					return 139;
+				}
+				case 390:
+				{
+					return 143;
+				}
+				case 391:
+				{
+					return 163;
+				}
+				case 402:
+				case 403:
+				case 404:
+				{
+					return 217;
+				}
+				case 405:
+				case 406:
+				{
+					return 221;
+				}
+				case 407:
+				case 408:
+				{
+					return 218;
+				}
+				case 409:
+				{
+					return 219;
+				}
+				case 411:
+				{
+					return 216;
+				}
+				case 412:
+				case 413:
+				case 414:
+				{
+					return 224;
+				}
+				case 415:
+				{
+					return 226;
+				}
+				case 416:
+				{
+					return 225;
+				}
+				case 417:
+				{
+					return 223;
+				}
+				case 418:
+				{
+					return 222;
+				}
+				case 419:
+				{
+					return 227;
+				}
+				case 420:
+				{
+					return 230;
+				}
+				case 421:
+				{
+					return 229;
+				}
+				case 423:
+				{
+					return 231;
+				}
+				case 424:
+				{
+					return 228;
+				}
+				case 425:
+				{
+					return 236;
+				}
+				case 426:
+				{
+					return 233;
+				}
+				case 427:
+				{
+					return 234;
+				}
+				case 428:
+				{
+					return 232;
+				}
+				case 429:
+				{
+					return 235;
+				}
+				case 460:
+				{
+					return 196;
+				}
+				case 461:
+				{
+					return 191;
+				}
+				case 462:
+				{
+					return 190;
+				}
+				case 463:
+				{
+					return 199;
+				}
+				case 466:
+				{
+					return 197;
+				}
+				case 467:
+				{
+					return 198;
+				}
+				case 468:
+				{
+					return 192;
+				}
+				case 469:
+				{
+					return 195;
+				}
+				case 471:
+				{
+					return 186;
+				}
+				case 477:
+				{
+					return 193;
+				}
+				case 480:
+				{
+					return 201;
+				}
+				case 481:
+				{
+					return 202;
+				}
+				case 482:
+				{
+					return 204;
+				}
+				case 483:
+				{
+					return 203;
+				}
+				case 489:
+				{
+					return 205;
+				}
+				case 490:
+				{
+					return 206;
+				}
+				case 494:
+				case 495:
+				{
+					return 189;
+				}
+				case 496:
+				case 497:
+				{
+					return 188;
+				}
+				case 498:
+				case 499:
+				case 500:
+				case 501:
+				case 502:
+				case 503:
+				case 504:
+				case 505:
+				case 506:
+				{
+					return 187;
+				}
+				case 508:
+				{
+					return 210;
+				}
+				case 509:
+				{
+					return 209;
+				}
+				case 510:
+				case 511:
+				case 512:
+				{
+					return 208;
+				}
+				case 513:
+				case 514:
+				case 515:
+				{
+					return 207;
+				}
+				case 520:
+				{
+					return 241;
+				}
+				case 524:
+				case 525:
+				case 526:
+				case 527:
+				{
+					return 211;
+				}
+				case 528:
+				case 529:
+				{
+					return 212;
+				}
+				case 530:
+				case 531:
+				{
+					return 215;
+				}
+				case 532:
+				{
+					return 214;
+				}
+				case 533:
+				{
+					return 213;
+				}
+				case 537:
+				{
+					return 249;
+				}
+				default:
+				{
+					return 0;
+				}
 			}
-			return -1;
 		}
-		public static int BannerToNPC(int i)
+
+		public bool Prefix(int pre)
 		{
-			switch (i)
+			if (pre == 0 || this.type == 0)
 			{
-			case 1:
-				return 102;
-			case 2:
-				return 250;
-			case 3:
-				return 257;
-			case 4:
-				return 69;
-			case 5:
-				return 157;
-			case 6:
-				return 77;
-			case 7:
-				return 49;
-			case 8:
-				return 74;
-			case 9:
-				return 163;
-			case 10:
-				return 241;
-			case 11:
-				return 242;
-			case 12:
-				return 239;
-			case 13:
-				return 39;
-			case 14:
-				return 46;
-			case 15:
-				return 120;
-			case 16:
-				return 85;
-			case 17:
-				return 109;
-			case 18:
-				return 47;
-			case 19:
-				return 57;
-			case 20:
-				return 67;
-			case 21:
-				return 173;
-			case 22:
-				return 179;
-			case 23:
-				return 83;
-			case 24:
-				return 62;
-			case 25:
-				return 2;
-			case 26:
-				return 177;
-			case 27:
-				return 6;
-			case 28:
-				return 84;
-			case 29:
-				return 161;
-			case 30:
-				return 181;
-			case 31:
-				return 182;
-			case 32:
-				return 224;
-			case 33:
-				return 226;
-			case 34:
-				return 162;
-			case 35:
-				return 259;
-			case 36:
-				return 256;
-			case 37:
-				return 122;
-			case 38:
-				return 111;
-			case 39:
-				return 29;
-			case 40:
-				return 73;
-			case 41:
-				return 27;
-			case 42:
-				return 28;
-			case 43:
-				return 55;
-			case 44:
-				return 48;
-			case 45:
-				return 60;
-			case 46:
-				return 174;
-			case 47:
-				return 42;
-			case 48:
-				return 169;
-			case 49:
-				return 206;
-			case 50:
-				return 24;
-			case 51:
-				return 63;
-			case 52:
-				return 236;
-			case 53:
-				return 199;
-			case 54:
-				return 43;
-			case 55:
-				return 23;
-			case 56:
-				return 205;
-			case 57:
-				return 78;
-			case 58:
-				return 258;
-			case 59:
-				return 252;
-			case 60:
-				return 170;
-			case 61:
-				return 58;
-			case 62:
-				return 212;
-			case 63:
-				return 75;
-			case 64:
-				return 223;
-			case 65:
-				return 253;
-			case 66:
-				return 65;
-			case 67:
-				return 21;
-			case 68:
-				return 32;
-			case 69:
-				return 1;
-			case 70:
-				return 185;
-			case 71:
-				return 164;
-			case 72:
-				return 254;
-			case 73:
-				return 166;
-			case 74:
-				return 153;
-			case 75:
-				return 141;
-			case 76:
-				return 225;
-			case 77:
-				return 86;
-			case 78:
-				return 158;
-			case 79:
-				return 61;
-			case 80:
-				return 196;
-			case 81:
-				return 104;
-			case 82:
-				return 155;
-			case 83:
-				return 98;
-			case 84:
-				return 10;
-			case 85:
-				return 82;
-			case 86:
-				return 87;
-			case 87:
-				return 3;
-			default:
-				return -1;
+				return false;
+			}
+			if (Main.rand == null)
+			{
+				Main.rand = new Random();
+			}
+			int num = pre;
+			float single = 1f;
+			float single1 = 1f;
+			float single2 = 1f;
+			float single3 = 1f;
+			float single4 = 1f;
+			float single5 = 1f;
+			int num1 = 0;
+			bool flag = true;
+			while (flag)
+			{
+				single = 1f;
+				single1 = 1f;
+				single2 = 1f;
+				single3 = 1f;
+				single4 = 1f;
+				single5 = 1f;
+				num1 = 0;
+				flag = false;
+				if (num == -1 && Main.rand.Next(4) == 0)
+				{
+					num = 0;
+				}
+				if (pre < -1)
+				{
+					num = -1;
+				}
+				if (num == -1 || num == -2 || num == -3)
+				{
+					if (this.type == 1 || this.type == 4 || this.type == 6 || this.type == 7 || this.type == 10 || this.type == 24 || this.type == 45 || this.type == 46 || this.type == 65 || this.type == 103 || this.type == 104 || this.type == 121 || this.type == 122 || this.type == 155 || this.type == 190 || this.type == 196 || this.type == 198 || this.type == 199 || this.type == 200 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 204 || this.type == 213 || this.type == 217 || this.type == 273 || this.type == 367 || this.type == 368 || this.type == 426 || this.type == 482 || this.type == 483 || this.type == 484 || this.type == 653 || this.type == 654 || this.type == 656 || this.type == 657 || this.type == 659 || this.type == 660 || this.type == 671 || this.type == 672 || this.type == 674 || this.type == 675 || this.type == 676 || this.type == 723 || this.type == 724 || this.type == 757 || this.type == 776 || this.type == 777 || this.type == 778 || this.type == 787 || this.type == 795 || this.type == 797 || this.type == 798 || this.type == 799 || this.type == 881 || this.type == 882 || this.type == 921 || this.type == 922 || this.type == 989 || this.type == 990 || this.type == 991 || this.type == 992 || this.type == 993 || this.type == 1123 || this.type == 1166 || this.type == 1185 || this.type == 1188 || this.type == 1192 || this.type == 1195 || this.type == 1199 || this.type == 1202 || this.type == 1222 || this.type == 1223 || this.type == 1224 || this.type == 1226 || this.type == 1227 || this.type == 1230 || this.type == 1233 || this.type == 1234 || this.type == 1294 || this.type == 1304 || this.type == 1305 || this.type == 1306 || this.type == 1320 || this.type == 1327 || this.type == 1506 || this.type == 1507 || this.type == 1786 || this.type == 1826 || this.type == 1827 || this.type == 1909 || this.type == 1917 || this.type == 1928 || this.type == 2176 || this.type == 2273 || this.type == 2608 || this.type == 2341 || this.type == 2330 || this.type == 2320 || this.type == 2516 || this.type == 2517 || this.type == 2746 || this.type == 2745 || this.type == 3063 || this.type == 3018 || this.type == 3211 || this.type == 3013 || this.type == 3258 || this.type == 3106 || this.type == 3065 || this.type == 2880 || this.type == 3481 || this.type == 3482 || this.type == 3483 || this.type == 3484 || this.type == 3485 || this.type == 3487 || this.type == 3488 || this.type == 3489 || this.type == 3490 || this.type == 3491 || this.type == 3493 || this.type == 3494 || this.type == 3495 || this.type == 3496 || this.type == 3497 || this.type == 3498 || this.type == 3500 || this.type == 3501 || this.type == 3502 || this.type == 3503 || this.type == 3504 || this.type == 3505 || this.type == 3506 || this.type == 3507 || this.type == 3508 || this.type == 3509 || this.type == 3511 || this.type == 3512 || this.type == 3513 || this.type == 3514 || this.type == 3515 || this.type == 3517 || this.type == 3518 || this.type == 3519 || this.type == 3520 || this.type == 3521 || this.type == 3522 || this.type == 3523 || this.type == 3524 || this.type == 3525 || this.type >= 3462 && this.type <= 3466 || this.type >= 2772 && this.type <= 2786 || this.type == 3349 || this.type == 3352 || this.type == 3351)
+					{
+						int num2 = Main.rand.Next(40);
+						if (num2 == 0)
+						{
+							num = 1;
+						}
+						if (num2 == 1)
+						{
+							num = 2;
+						}
+						if (num2 == 2)
+						{
+							num = 3;
+						}
+						if (num2 == 3)
+						{
+							num = 4;
+						}
+						if (num2 == 4)
+						{
+							num = 5;
+						}
+						if (num2 == 5)
+						{
+							num = 6;
+						}
+						if (num2 == 6)
+						{
+							num = 7;
+						}
+						if (num2 == 7)
+						{
+							num = 8;
+						}
+						if (num2 == 8)
+						{
+							num = 9;
+						}
+						if (num2 == 9)
+						{
+							num = 10;
+						}
+						if (num2 == 10)
+						{
+							num = 11;
+						}
+						if (num2 == 11)
+						{
+							num = 12;
+						}
+						if (num2 == 12)
+						{
+							num = 13;
+						}
+						if (num2 == 13)
+						{
+							num = 14;
+						}
+						if (num2 == 14)
+						{
+							num = 15;
+						}
+						if (num2 == 15)
+						{
+							num = 36;
+						}
+						if (num2 == 16)
+						{
+							num = 37;
+						}
+						if (num2 == 17)
+						{
+							num = 38;
+						}
+						if (num2 == 18)
+						{
+							num = 53;
+						}
+						if (num2 == 19)
+						{
+							num = 54;
+						}
+						if (num2 == 20)
+						{
+							num = 55;
+						}
+						if (num2 == 21)
+						{
+							num = 39;
+						}
+						if (num2 == 22)
+						{
+							num = 40;
+						}
+						if (num2 == 23)
+						{
+							num = 56;
+						}
+						if (num2 == 24)
+						{
+							num = 41;
+						}
+						if (num2 == 25)
+						{
+							num = 57;
+						}
+						if (num2 == 26)
+						{
+							num = 42;
+						}
+						if (num2 == 27)
+						{
+							num = 43;
+						}
+						if (num2 == 28)
+						{
+							num = 44;
+						}
+						if (num2 == 29)
+						{
+							num = 45;
+						}
+						if (num2 == 30)
+						{
+							num = 46;
+						}
+						if (num2 == 31)
+						{
+							num = 47;
+						}
+						if (num2 == 32)
+						{
+							num = 48;
+						}
+						if (num2 == 33)
+						{
+							num = 49;
+						}
+						if (num2 == 34)
+						{
+							num = 50;
+						}
+						if (num2 == 35)
+						{
+							num = 51;
+						}
+						if (num2 == 36)
+						{
+							num = 59;
+						}
+						if (num2 == 37)
+						{
+							num = 60;
+						}
+						if (num2 == 38)
+						{
+							num = 61;
+						}
+						if (num2 == 39)
+						{
+							num = 81;
+						}
+					}
+					else if (this.type == 162 || this.type == 160 || this.type == 163 || this.type == 220 || this.type == 274 || this.type == 277 || this.type == 280 || this.type == 383 || this.type == 384 || this.type == 385 || this.type == 386 || this.type == 387 || this.type == 388 || this.type == 389 || this.type == 390 || this.type == 406 || this.type == 537 || this.type == 550 || this.type == 579 || this.type == 756 || this.type == 759 || this.type == 801 || this.type == 802 || this.type == 1186 || this.type == 1189 || this.type == 1190 || this.type == 1193 || this.type == 1196 || this.type == 1197 || this.type == 1200 || this.type == 1203 || this.type == 1204 || this.type == 1228 || this.type == 1231 || this.type == 1232 || this.type == 1259 || this.type == 1262 || this.type == 1297 || this.type == 1314 || this.type == 1325 || this.type == 1947 || this.type == 2332 || this.type == 2331 || this.type == 2342 || this.type == 2424 || this.type == 2611 || this.type == 2798 || this.type == 3012 || this.type == 3473 || this.type == 3098 || this.type == 3368)
+					{
+						int num3 = Main.rand.Next(14);
+						if (num3 == 0)
+						{
+							num = 36;
+						}
+						if (num3 == 1)
+						{
+							num = 37;
+						}
+						if (num3 == 2)
+						{
+							num = 38;
+						}
+						if (num3 == 3)
+						{
+							num = 53;
+						}
+						if (num3 == 4)
+						{
+							num = 54;
+						}
+						if (num3 == 5)
+						{
+							num = 55;
+						}
+						if (num3 == 6)
+						{
+							num = 39;
+						}
+						if (num3 == 7)
+						{
+							num = 40;
+						}
+						if (num3 == 8)
+						{
+							num = 56;
+						}
+						if (num3 == 9)
+						{
+							num = 41;
+						}
+						if (num3 == 10)
+						{
+							num = 57;
+						}
+						if (num3 == 11)
+						{
+							num = 59;
+						}
+						if (num3 == 12)
+						{
+							num = 60;
+						}
+						if (num3 == 13)
+						{
+							num = 61;
+						}
+					}
+					else if (this.type == 39 || this.type == 44 || this.type == 95 || this.type == 96 || this.type == 98 || this.type == 99 || this.type == 120 || this.type == 164 || this.type == 197 || this.type == 219 || this.type == 266 || this.type == 281 || this.type == 434 || this.type == 435 || this.type == 436 || this.type == 481 || this.type == 506 || this.type == 533 || this.type == 534 || this.type == 578 || this.type == 655 || this.type == 658 || this.type == 661 || this.type == 679 || this.type == 682 || this.type == 725 || this.type == 758 || this.type == 759 || this.type == 760 || this.type == 796 || this.type == 800 || this.type == 905 || this.type == 923 || this.type == 964 || this.type == 986 || this.type == 1156 || this.type == 1187 || this.type == 1194 || this.type == 1201 || this.type == 1229 || this.type == 1254 || this.type == 1255 || this.type == 1258 || this.type == 1265 || this.type == 1319 || this.type == 1553 || this.type == 1782 || this.type == 1784 || this.type == 1835 || this.type == 1870 || this.type == 1910 || this.type == 1929 || this.type == 1946 || this.type == 2223 || this.type == 2269 || this.type == 2270 || this.type == 2624 || this.type == 2515 || this.type == 2747 || this.type == 2796 || this.type == 2797 || this.type == 3052 || this.type == 2888 || this.type == 3019 || this.type == 3029 || this.type == 3007 || this.type == 3008 || this.type == 3210 || this.type == 3107 || this.type == 3245 || this.type == 3475 || this.type == 3540 || this.type == 3480 || this.type == 3486 || this.type == 3492 || this.type == 3498 || this.type == 3504 || this.type == 3510 || this.type == 3516 || this.type == 3350 || this.type == 3546)
+					{
+						int num4 = Main.rand.Next(36);
+						if (num4 == 0)
+						{
+							num = 16;
+						}
+						if (num4 == 1)
+						{
+							num = 17;
+						}
+						if (num4 == 2)
+						{
+							num = 18;
+						}
+						if (num4 == 3)
+						{
+							num = 19;
+						}
+						if (num4 == 4)
+						{
+							num = 20;
+						}
+						if (num4 == 5)
+						{
+							num = 21;
+						}
+						if (num4 == 6)
+						{
+							num = 22;
+						}
+						if (num4 == 7)
+						{
+							num = 23;
+						}
+						if (num4 == 8)
+						{
+							num = 24;
+						}
+						if (num4 == 9)
+						{
+							num = 25;
+						}
+						if (num4 == 10)
+						{
+							num = 58;
+						}
+						if (num4 == 11)
+						{
+							num = 36;
+						}
+						if (num4 == 12)
+						{
+							num = 37;
+						}
+						if (num4 == 13)
+						{
+							num = 38;
+						}
+						if (num4 == 14)
+						{
+							num = 53;
+						}
+						if (num4 == 15)
+						{
+							num = 54;
+						}
+						if (num4 == 16)
+						{
+							num = 55;
+						}
+						if (num4 == 17)
+						{
+							num = 39;
+						}
+						if (num4 == 18)
+						{
+							num = 40;
+						}
+						if (num4 == 19)
+						{
+							num = 56;
+						}
+						if (num4 == 20)
+						{
+							num = 41;
+						}
+						if (num4 == 21)
+						{
+							num = 57;
+						}
+						if (num4 == 22)
+						{
+							num = 42;
+						}
+						if (num4 == 23)
+						{
+							num = 43;
+						}
+						if (num4 == 24)
+						{
+							num = 44;
+						}
+						if (num4 == 25)
+						{
+							num = 45;
+						}
+						if (num4 == 26)
+						{
+							num = 46;
+						}
+						if (num4 == 27)
+						{
+							num = 47;
+						}
+						if (num4 == 28)
+						{
+							num = 48;
+						}
+						if (num4 == 29)
+						{
+							num = 49;
+						}
+						if (num4 == 30)
+						{
+							num = 50;
+						}
+						if (num4 == 31)
+						{
+							num = 51;
+						}
+						if (num4 == 32)
+						{
+							num = 59;
+						}
+						if (num4 == 33)
+						{
+							num = 60;
+						}
+						if (num4 == 34)
+						{
+							num = 61;
+						}
+						if (num4 == 35)
+						{
+							num = 82;
+						}
+					}
+					else if (this.type == 64 || this.type == 112 || this.type == 113 || this.type == 127 || this.type == 157 || this.type == 165 || this.type == 218 || this.type == 272 || this.type == 494 || this.type == 495 || this.type == 496 || this.type == 514 || this.type == 517 || this.type == 518 || this.type == 519 || this.type == 683 || this.type == 726 || this.type == 739 || this.type == 740 || this.type == 741 || this.type == 742 || this.type == 743 || this.type == 744 || this.type == 788 || this.type == 1121 || this.type == 1155 || this.type == 1157 || this.type == 1178 || this.type == 1244 || this.type == 1256 || this.type == 1260 || this.type == 1264 || this.type == 1266 || this.type == 1295 || this.type == 1296 || this.type == 1308 || this.type == 1309 || this.type == 1313 || this.type == 1336 || this.type == 1444 || this.type == 1445 || this.type == 1446 || this.type == 1572 || this.type == 1801 || this.type == 1802 || this.type == 1930 || this.type == 1931 || this.type == 2188 || this.type == 2622 || this.type == 2621 || this.type == 2584 || this.type == 2551 || this.type == 2366 || this.type == 2535 || this.type == 2365 || this.type == 2364 || this.type == 2623 || this.type == 2750 || this.type == 2795 || this.type == 3053 || this.type == 3051 || this.type == 3209 || this.type == 3014 || this.type == 3105 || this.type == 2882 || this.type == 3269 || this.type == 3006 || this.type == 3377 || this.type == 3069 || this.type == 2749 || this.type == 3249 || this.type == 3476 || this.type == 3474 || this.type == 3531 || this.type == 3541 || this.type == 3542 || this.type == 3569 || this.type == 3570 || this.type == 3571 || this.type == 3531)
+					{
+						int num5 = Main.rand.Next(36);
+						if (num5 == 0)
+						{
+							num = 26;
+						}
+						if (num5 == 1)
+						{
+							num = 27;
+						}
+						if (num5 == 2)
+						{
+							num = 28;
+						}
+						if (num5 == 3)
+						{
+							num = 29;
+						}
+						if (num5 == 4)
+						{
+							num = 30;
+						}
+						if (num5 == 5)
+						{
+							num = 31;
+						}
+						if (num5 == 6)
+						{
+							num = 32;
+						}
+						if (num5 == 7)
+						{
+							num = 33;
+						}
+						if (num5 == 8)
+						{
+							num = 34;
+						}
+						if (num5 == 9)
+						{
+							num = 35;
+						}
+						if (num5 == 10)
+						{
+							num = 52;
+						}
+						if (num5 == 11)
+						{
+							num = 36;
+						}
+						if (num5 == 12)
+						{
+							num = 37;
+						}
+						if (num5 == 13)
+						{
+							num = 38;
+						}
+						if (num5 == 14)
+						{
+							num = 53;
+						}
+						if (num5 == 15)
+						{
+							num = 54;
+						}
+						if (num5 == 16)
+						{
+							num = 55;
+						}
+						if (num5 == 17)
+						{
+							num = 39;
+						}
+						if (num5 == 18)
+						{
+							num = 40;
+						}
+						if (num5 == 19)
+						{
+							num = 56;
+						}
+						if (num5 == 20)
+						{
+							num = 41;
+						}
+						if (num5 == 21)
+						{
+							num = 57;
+						}
+						if (num5 == 22)
+						{
+							num = 42;
+						}
+						if (num5 == 23)
+						{
+							num = 43;
+						}
+						if (num5 == 24)
+						{
+							num = 44;
+						}
+						if (num5 == 25)
+						{
+							num = 45;
+						}
+						if (num5 == 26)
+						{
+							num = 46;
+						}
+						if (num5 == 27)
+						{
+							num = 47;
+						}
+						if (num5 == 28)
+						{
+							num = 48;
+						}
+						if (num5 == 29)
+						{
+							num = 49;
+						}
+						if (num5 == 30)
+						{
+							num = 50;
+						}
+						if (num5 == 31)
+						{
+							num = 51;
+						}
+						if (num5 == 32)
+						{
+							num = 59;
+						}
+						if (num5 == 33)
+						{
+							num = 60;
+						}
+						if (num5 == 34)
+						{
+							num = 61;
+						}
+						if (num5 == 35)
+						{
+							num = 83;
+						}
+					}
+					else if (this.type == 55 || this.type == 119 || this.type == 191 || this.type == 284 || this.type == 670 || this.type == 1122 || this.type == 1513 || this.type == 1569 || this.type == 1571 || this.type == 1825 || this.type == 1918 || this.type == 3054 || this.type == 3262 || this.type >= 3278 && this.type <= 3292 || this.type >= 3315 && this.type <= 3317 || this.type == 3389 || this.type == 3030 || this.type == 3543)
+					{
+						int num6 = Main.rand.Next(14);
+						if (num6 == 0)
+						{
+							num = 36;
+						}
+						if (num6 == 1)
+						{
+							num = 37;
+						}
+						if (num6 == 2)
+						{
+							num = 38;
+						}
+						if (num6 == 3)
+						{
+							num = 53;
+						}
+						if (num6 == 4)
+						{
+							num = 54;
+						}
+						if (num6 == 5)
+						{
+							num = 55;
+						}
+						if (num6 == 6)
+						{
+							num = 39;
+						}
+						if (num6 == 7)
+						{
+							num = 40;
+						}
+						if (num6 == 8)
+						{
+							num = 56;
+						}
+						if (num6 == 9)
+						{
+							num = 41;
+						}
+						if (num6 == 10)
+						{
+							num = 57;
+						}
+						if (num6 == 11)
+						{
+							num = 59;
+						}
+						if (num6 == 12)
+						{
+							num = 60;
+						}
+						if (num6 == 13)
+						{
+							num = 61;
+						}
+					}
+					else
+					{
+						if (!this.accessory || this.type == 267 || this.type == 562 || this.type == 563 || this.type == 564 || this.type == 565 || this.type == 566 || this.type == 567 || this.type == 568 || this.type == 569 || this.type == 570 || this.type == 571 || this.type == 572 || this.type == 573 || this.type == 574 || this.type == 576 || this.type == 1307 || this.type >= 1596 && this.type < 1610 || this.vanity)
+						{
+							return false;
+						}
+						num = Main.rand.Next(62, 81);
+					}
+				}
+				if (pre == -3)
+				{
+					return true;
+				}
+				if (pre == -1 && (num == 7 || num == 8 || num == 9 || num == 10 || num == 11 || num == 22 || num == 23 || num == 24 || num == 29 || num == 30 || num == 31 || num == 39 || num == 40 || num == 56 || num == 41 || num == 47 || num == 48 || num == 49) && Main.rand.Next(3) != 0)
+				{
+					num = 0;
+				}
+				if (num == 1)
+				{
+					single3 = 1.12f;
+				}
+				else if (num == 2)
+				{
+					single3 = 1.18f;
+				}
+				else if (num == 3)
+				{
+					single = 1.05f;
+					num1 = 2;
+					single3 = 1.05f;
+				}
+				else if (num == 4)
+				{
+					single = 1.1f;
+					single3 = 1.1f;
+					single1 = 1.1f;
+				}
+				else if (num == 5)
+				{
+					single = 1.15f;
+				}
+				else if (num == 6)
+				{
+					single = 1.1f;
+				}
+				else if (num == 81)
+				{
+					single1 = 1.15f;
+					single = 1.15f;
+					num1 = 5;
+					single2 = 0.9f;
+					single3 = 1.1f;
+				}
+				else if (num == 7)
+				{
+					single3 = 0.82f;
+				}
+				else if (num == 8)
+				{
+					single1 = 0.85f;
+					single = 0.85f;
+					single3 = 0.87f;
+				}
+				else if (num == 9)
+				{
+					single3 = 0.9f;
+				}
+				else if (num == 10)
+				{
+					single = 0.85f;
+				}
+				else if (num == 11)
+				{
+					single2 = 1.1f;
+					single1 = 0.9f;
+					single3 = 0.9f;
+				}
+				else if (num == 12)
+				{
+					single1 = 1.1f;
+					single = 1.05f;
+					single3 = 1.1f;
+					single2 = 1.15f;
+				}
+				else if (num == 13)
+				{
+					single1 = 0.8f;
+					single = 0.9f;
+					single3 = 1.1f;
+				}
+				else if (num == 14)
+				{
+					single1 = 1.15f;
+					single2 = 1.1f;
+				}
+				else if (num == 15)
+				{
+					single1 = 0.9f;
+					single2 = 0.85f;
+				}
+				else if (num == 16)
+				{
+					single = 1.1f;
+					num1 = 3;
+				}
+				else if (num == 17)
+				{
+					single2 = 0.85f;
+					single4 = 1.1f;
+				}
+				else if (num == 18)
+				{
+					single2 = 0.9f;
+					single4 = 1.15f;
+				}
+				else if (num == 19)
+				{
+					single1 = 1.15f;
+					single4 = 1.05f;
+				}
+				else if (num == 20)
+				{
+					single1 = 1.05f;
+					single4 = 1.05f;
+					single = 1.1f;
+					single2 = 0.95f;
+					num1 = 2;
+				}
+				else if (num == 21)
+				{
+					single1 = 1.15f;
+					single = 1.1f;
+				}
+				else if (num == 82)
+				{
+					single1 = 1.15f;
+					single = 1.15f;
+					num1 = 5;
+					single2 = 0.9f;
+					single4 = 1.1f;
+				}
+				else if (num == 22)
+				{
+					single1 = 0.9f;
+					single4 = 0.9f;
+					single = 0.85f;
+				}
+				else if (num == 23)
+				{
+					single2 = 1.15f;
+					single4 = 0.9f;
+				}
+				else if (num == 24)
+				{
+					single2 = 1.1f;
+					single1 = 0.8f;
+				}
+				else if (num == 25)
+				{
+					single2 = 1.1f;
+					single = 1.15f;
+					num1 = 1;
+				}
+				else if (num == 58)
+				{
+					single2 = 0.85f;
+					single = 0.85f;
+				}
+				else if (num == 26)
+				{
+					single5 = 0.85f;
+					single = 1.1f;
+				}
+				else if (num == 27)
+				{
+					single5 = 0.85f;
+				}
+				else if (num == 28)
+				{
+					single5 = 0.85f;
+					single = 1.15f;
+					single1 = 1.05f;
+				}
+				else if (num == 83)
+				{
+					single1 = 1.15f;
+					single = 1.15f;
+					num1 = 5;
+					single2 = 0.9f;
+					single5 = 0.9f;
+				}
+				else if (num == 29)
+				{
+					single5 = 1.1f;
+				}
+				else if (num == 30)
+				{
+					single5 = 1.2f;
+					single = 0.9f;
+				}
+				else if (num == 31)
+				{
+					single1 = 0.9f;
+					single = 0.9f;
+				}
+				else if (num == 32)
+				{
+					single5 = 1.15f;
+					single = 1.1f;
+				}
+				else if (num == 33)
+				{
+					single5 = 1.1f;
+					single1 = 1.1f;
+					single2 = 0.9f;
+				}
+				else if (num == 34)
+				{
+					single5 = 0.9f;
+					single1 = 1.1f;
+					single2 = 1.1f;
+					single = 1.1f;
+				}
+				else if (num == 35)
+				{
+					single5 = 1.2f;
+					single = 1.15f;
+					single1 = 1.15f;
+				}
+				else if (num == 52)
+				{
+					single5 = 0.9f;
+					single = 0.9f;
+					single2 = 0.9f;
+				}
+				else if (num == 36)
+				{
+					num1 = 3;
+				}
+				else if (num == 37)
+				{
+					single = 1.1f;
+					num1 = 3;
+					single1 = 1.1f;
+				}
+				else if (num == 38)
+				{
+					single1 = 1.15f;
+				}
+				else if (num == 53)
+				{
+					single = 1.1f;
+				}
+				else if (num == 54)
+				{
+					single1 = 1.15f;
+				}
+				else if (num == 55)
+				{
+					single1 = 1.15f;
+					single = 1.05f;
+				}
+				else if (num == 59)
+				{
+					single1 = 1.15f;
+					single = 1.15f;
+					num1 = 5;
+				}
+				else if (num == 60)
+				{
+					single = 1.15f;
+					num1 = 5;
+				}
+				else if (num == 61)
+				{
+					num1 = 5;
+				}
+				else if (num == 39)
+				{
+					single = 0.7f;
+					single1 = 0.8f;
+				}
+				else if (num == 40)
+				{
+					single = 0.85f;
+				}
+				else if (num == 56)
+				{
+					single1 = 0.8f;
+				}
+				else if (num == 41)
+				{
+					single1 = 0.85f;
+					single = 0.9f;
+				}
+				else if (num == 57)
+				{
+					single1 = 0.9f;
+					single = 1.18f;
+				}
+				else if (num == 42)
+				{
+					single2 = 0.9f;
+				}
+				else if (num == 43)
+				{
+					single = 1.1f;
+					single2 = 0.9f;
+				}
+				else if (num == 44)
+				{
+					single2 = 0.9f;
+					num1 = 3;
+				}
+				else if (num == 45)
+				{
+					single2 = 0.95f;
+				}
+				else if (num == 46)
+				{
+					num1 = 3;
+					single2 = 0.94f;
+					single = 1.07f;
+				}
+				else if (num == 47)
+				{
+					single2 = 1.15f;
+				}
+				else if (num == 48)
+				{
+					single2 = 1.2f;
+				}
+				else if (num == 49)
+				{
+					single2 = 1.08f;
+				}
+				else if (num == 50)
+				{
+					single = 0.8f;
+					single2 = 1.15f;
+				}
+				else if (num == 51)
+				{
+					single1 = 0.9f;
+					single2 = 0.9f;
+					single = 1.05f;
+					num1 = 2;
+				}
+				if (single != 1f && Math.Round((double)((float)this.damage * single)) == (double)this.damage)
+				{
+					flag = true;
+					num = -1;
+				}
+				if (single2 != 1f && Math.Round((double)((float)this.useAnimation * single2)) == (double)this.useAnimation)
+				{
+					flag = true;
+					num = -1;
+				}
+				if (single5 != 1f && Math.Round((double)((float)this.mana * single5)) == (double)this.mana)
+				{
+					flag = true;
+					num = -1;
+				}
+				if (single1 != 1f && this.knockBack == 0f)
+				{
+					flag = true;
+					num = -1;
+				}
+				if (pre != -2 || num != 0)
+				{
+					continue;
+				}
+				num = -1;
+				flag = true;
+			}
+			this.damage = (int)Math.Round((double)((float)this.damage * single));
+			this.useAnimation = (int)Math.Round((double)((float)this.useAnimation * single2));
+			this.useTime = (int)Math.Round((double)((float)this.useTime * single2));
+			this.reuseDelay = (int)Math.Round((double)((float)this.reuseDelay * single2));
+			this.mana = (int)Math.Round((double)((float)this.mana * single5));
+			this.knockBack = this.knockBack * single1;
+			this.scale = this.scale * single3;
+			this.shootSpeed = this.shootSpeed * single4;
+			Item item = this;
+			item.crit = item.crit + num1;
+			float single6 = 1f * single * (2f - single2) * (2f - single5) * single3 * single1 * single4 * (1f + (float)this.crit * 0.02f);
+			if (num == 62 || num == 69 || num == 73 || num == 77)
+			{
+				single6 = single6 * 1.05f;
+			}
+			if (num == 63 || num == 70 || num == 74 || num == 78 || num == 67)
+			{
+				single6 = single6 * 1.1f;
+			}
+			if (num == 64 || num == 71 || num == 75 || num == 79 || num == 66)
+			{
+				single6 = single6 * 1.15f;
+			}
+			if (num == 65 || num == 72 || num == 76 || num == 80 || num == 68)
+			{
+				single6 = single6 * 1.2f;
+			}
+			if ((double)single6 >= 1.2)
+			{
+				Item item1 = this;
+				item1.rare = item1.rare + 2;
+			}
+			else if ((double)single6 >= 1.05)
+			{
+				Item item2 = this;
+				item2.rare = item2.rare + 1;
+			}
+			else if ((double)single6 <= 0.8)
+			{
+				Item item3 = this;
+				item3.rare = item3.rare - 2;
+			}
+			else if ((double)single6 <= 0.95)
+			{
+				Item item4 = this;
+				item4.rare = item4.rare - 1;
+			}
+			if (this.rare > -11)
+			{
+				if (this.rare < -1)
+				{
+					this.rare = -1;
+				}
+				if (this.rare > 11)
+				{
+					this.rare = 11;
+				}
+			}
+			single6 = single6 * single6;
+			this.@value = (int)((float)this.@value * single6);
+			this.prefix = (byte)num;
+			return true;
+		}
+
+		public void ResetStats(int Type)
+		{
+			this.expert = false;
+			this.expertOnly = false;
+			this.instanced = false;
+			this.thrown = false;
+			this.questItem = false;
+			this.fishingPole = 0;
+			this.bait = 0;
+			this.hairDye = -1;
+			this.makeNPC = 0;
+			this.dye = 0;
+			this.paint = 0;
+			this.tileWand = -1;
+			this.notAmmo = false;
+			this.netID = 0;
+			this.prefix = 0;
+			this.crit = 0;
+			this.mech = false;
+			this.flame = false;
+			this.reuseDelay = 0;
+			this.melee = false;
+			this.magic = false;
+			this.ranged = false;
+			this.summon = false;
+			this.placeStyle = 0;
+			this.buffTime = 0;
+			this.buffType = 0;
+			this.mountType = -1;
+			this.cartTrack = false;
+			this.material = false;
+			this.noWet = false;
+			this.vanity = false;
+			this.mana = 0;
+			this.wet = false;
+			this.wetCount = 0;
+			this.lavaWet = false;
+			this.channel = false;
+			this.manaIncrease = 0;
+			this.release = 0;
+			this.noMelee = false;
+			this.noUseGraphic = false;
+			this.lifeRegen = 0;
+			this.shootSpeed = 0f;
+			this.active = true;
+			this.alpha = 0;
+			this.ammo = 0;
+			this.useAmmo = 0;
+			this.autoReuse = false;
+			this.accessory = false;
+			this.axe = 0;
+			this.healMana = 0;
+			this.bodySlot = -1;
+			this.legSlot = -1;
+			this.headSlot = -1;
+			this.potion = false;
+			this.color = new Color();
+			this.glowMask = -1;
+			this.consumable = false;
+			this.createTile = -1;
+			this.createWall = -1;
+			this.damage = -1;
+			this.defense = 0;
+			this.hammer = 0;
+			this.healLife = 0;
+			this.holdStyle = 0;
+			this.knockBack = 0f;
+			this.maxStack = 1;
+			this.pick = 0;
+			this.rare = 0;
+			this.scale = 1f;
+			this.shoot = 0;
+			this.stack = 1;
+			this.toolTip = null;
+			this.toolTip2 = null;
+			this.tileBoost = 0;
+			this.useStyle = 0;
+			this.useSound = 0;
+			this.useTime = 100;
+			this.useAnimation = 100;
+			this.@value = 0;
+			this.useTurn = false;
+			this.buy = false;
+			this.handOnSlot = -1;
+			this.handOffSlot = -1;
+			this.backSlot = -1;
+			this.frontSlot = -1;
+			this.shoeSlot = -1;
+			this.waistSlot = -1;
+			this.wingSlot = -1;
+			this.shieldSlot = -1;
+			this.neckSlot = -1;
+			this.faceSlot = -1;
+			this.balloonSlot = -1;
+			this.uniqueStack = false;
+			this.favorited = false;
+			this.type = Type;
+		}
+
+		public static int sellPrice(int platinum = 0, int gold = 0, int silver = 0, int copper = 0)
+		{
+			int num = copper + silver * 100;
+			num = num + gold * 100 * 100;
+			num = num + platinum * 100 * 100 * 100;
+			return num * 5;
+		}
+
+		public void SetDefaults(string ItemName)
+		{
+			this.name = "";
+			bool flag = false;
+			if (ItemName == "Blue Phasesaber")
+			{
+				this.SetDefaults(198, false);
+				this.damage = 41;
+				this.scale = 1.15f;
+				flag = true;
+				this.autoReuse = true;
+				this.useTurn = true;
+				this.rare = 4;
+				this.netID = -19;
+			}
+			else if (ItemName == "Red Phasesaber")
+			{
+				this.SetDefaults(199, false);
+				this.damage = 41;
+				this.scale = 1.15f;
+				flag = true;
+				this.autoReuse = true;
+				this.useTurn = true;
+				this.rare = 4;
+				this.netID = -20;
+			}
+			else if (ItemName == "Green Phasesaber")
+			{
+				this.SetDefaults(200, false);
+				this.damage = 41;
+				this.scale = 1.15f;
+				flag = true;
+				this.autoReuse = true;
+				this.useTurn = true;
+				this.rare = 4;
+				this.netID = -21;
+			}
+			else if (ItemName == "Purple Phasesaber")
+			{
+				this.SetDefaults(201, false);
+				this.damage = 41;
+				this.scale = 1.15f;
+				flag = true;
+				this.autoReuse = true;
+				this.useTurn = true;
+				this.rare = 4;
+				this.netID = -22;
+			}
+			else if (ItemName == "White Phasesaber")
+			{
+				this.SetDefaults(202, false);
+				this.damage = 41;
+				this.scale = 1.15f;
+				flag = true;
+				this.autoReuse = true;
+				this.useTurn = true;
+				this.rare = 4;
+				this.netID = -23;
+			}
+			else if (ItemName == "Yellow Phasesaber")
+			{
+				this.SetDefaults(203, false);
+				this.damage = 41;
+				this.scale = 1.15f;
+				flag = true;
+				this.autoReuse = true;
+				this.useTurn = true;
+				this.rare = 4;
+				this.netID = -24;
+			}
+			else if (ItemName != "")
+			{
+				for (int i = 0; i < 3601; i++)
+				{
+					if (Main.itemName[i] == ItemName)
+					{
+						this.SetDefaults(i, false);
+						this.checkMat();
+						return;
+					}
+				}
+				this.name = "";
+				this.stack = 0;
+				this.type = 0;
+			}
+			if (this.type != 0)
+			{
+				if (!flag)
+				{
+					this.checkMat();
+				}
+				else
+				{
+					this.material = false;
+				}
+				this.name = ItemName;
+				this.name = Lang.itemName(this.netID, false);
+				this.CheckTip();
 			}
 		}
+
+		public void SetDefaults(int Type = 0, bool noMatCheck = false)
+		{
+			if (Main.netMode == 1 || Main.netMode == 2)
+			{
+				this.owner = 255;
+			}
+			else
+			{
+				this.owner = Main.myPlayer;
+			}
+			this.ResetStats(Type);
+			if (this.type >= 3601)
+			{
+				this.type = 0;
+			}
+			if (this.type == 0)
+			{
+				this.netID = 0;
+				this.name = "";
+				this.stack = 0;
+			}
+			else if (this.type <= 1000)
+			{
+				this.SetDefaults1(this.type);
+			}
+			else if (this.type <= 2001)
+			{
+				this.SetDefaults2(this.type);
+			}
+			else if (this.type > 3000)
+			{
+				this.SetDefaults4(this.type);
+			}
+			else
+			{
+				this.SetDefaults3(this.type);
+			}
+			this.dye = (byte)GameShaders.Armor.GetShaderIdFromItemId(this.type);
+			if (this.hairDye != 0)
+			{
+				this.hairDye = GameShaders.Hair.GetShaderIdFromItemId(this.type);
+			}
+			if (this.type == 2015)
+			{
+				this.@value = Item.sellPrice(0, 0, 5, 0);
+			}
+			if (this.type == 2016)
+			{
+				this.@value = Item.sellPrice(0, 0, 7, 50);
+			}
+			if (this.type == 2017)
+			{
+				this.@value = Item.sellPrice(0, 0, 7, 50);
+			}
+			if (this.type == 2019)
+			{
+				this.@value = Item.sellPrice(0, 0, 5, 0);
+			}
+			if (this.type == 2018)
+			{
+				this.@value = Item.sellPrice(0, 0, 5, 0);
+			}
+			if (this.type == 3563)
+			{
+				this.@value = Item.sellPrice(0, 0, 5, 0);
+			}
+			if (this.type == 261)
+			{
+				this.@value = Item.sellPrice(0, 0, 7, 50);
+			}
+			if (this.type == 2205)
+			{
+				this.@value = Item.sellPrice(0, 0, 12, 50);
+			}
+			if (this.type == 2123)
+			{
+				this.@value = Item.sellPrice(0, 0, 7, 50);
+			}
+			if (this.type == 2122)
+			{
+				this.@value = Item.sellPrice(0, 0, 7, 50);
+			}
+			if (this.type == 2003)
+			{
+				this.@value = Item.sellPrice(0, 0, 20, 0);
+			}
+			if (this.type == 2156)
+			{
+				this.@value = Item.sellPrice(0, 0, 15, 0);
+			}
+			if (this.type == 2157)
+			{
+				this.@value = Item.sellPrice(0, 0, 15, 0);
+			}
+			if (this.type == 2121)
+			{
+				this.@value = Item.sellPrice(0, 0, 15, 0);
+			}
+			if (this.type == 1992)
+			{
+				this.@value = Item.sellPrice(0, 0, 3, 0);
+			}
+			if (this.type == 2004)
+			{
+				this.@value = Item.sellPrice(0, 0, 5, 0);
+			}
+			if (this.type == 2002)
+			{
+				this.@value = Item.sellPrice(0, 0, 5, 0);
+			}
+			if (this.type == 2740)
+			{
+				this.@value = Item.sellPrice(0, 0, 2, 50);
+			}
+			if (this.type == 2006)
+			{
+				this.@value = Item.sellPrice(0, 0, 20, 0);
+			}
+			if (this.type == 3191)
+			{
+				this.@value = Item.sellPrice(0, 0, 20, 0);
+			}
+			if (this.type == 3192)
+			{
+				this.@value = Item.sellPrice(0, 0, 2, 50);
+			}
+			if (this.type == 3193)
+			{
+				this.@value = Item.sellPrice(0, 0, 5, 0);
+			}
+			if (this.type == 3194)
+			{
+				this.@value = Item.sellPrice(0, 0, 10, 0);
+			}
+			if (this.type == 2007)
+			{
+				this.@value = Item.sellPrice(0, 0, 50, 0);
+			}
+			if (this.type == 2673)
+			{
+				this.@value = Item.sellPrice(0, 10, 0, 0);
+			}
+			if (this.bait > 0)
+			{
+				if (this.bait >= 50)
+				{
+					this.rare = 3;
+				}
+				else if (this.bait >= 30)
+				{
+					this.rare = 2;
+				}
+				else if (this.bait >= 15)
+				{
+					this.rare = 1;
+				}
+			}
+			if (this.type >= 1994 && this.type <= 2001)
+			{
+				int num = this.type - 1994;
+				if (num == 0)
+				{
+					this.@value = Item.sellPrice(0, 0, 5, 0);
+				}
+				if (num == 4)
+				{
+					this.@value = Item.sellPrice(0, 0, 10, 0);
+				}
+				if (num == 6)
+				{
+					this.@value = Item.sellPrice(0, 0, 15, 0);
+				}
+				if (num == 3)
+				{
+					this.@value = Item.sellPrice(0, 0, 20, 0);
+				}
+				if (num == 7)
+				{
+					this.@value = Item.sellPrice(0, 0, 30, 0);
+				}
+				if (num == 2)
+				{
+					this.@value = Item.sellPrice(0, 0, 40, 0);
+				}
+				if (num == 1)
+				{
+					this.@value = Item.sellPrice(0, 0, 75, 0);
+				}
+				if (num == 5)
+				{
+					this.@value = Item.sellPrice(0, 1, 0, 0);
+				}
+			}
+			if (this.type == 483 || this.type == 1192 || this.type == 482 || this.type == 1185 || this.type == 484 || this.type == 1199 || this.type == 368)
+			{
+				this.autoReuse = true;
+				this.damage = (int)((double)this.damage * 1.15);
+			}
+			if (this.type == 2663 || this.type == 1720 || this.type == 2137 || this.type == 2155 || this.type == 2151 || this.type == 1704 || this.type == 2143 || this.type == 1710 || this.type == 2238 || this.type == 2133 || this.type == 2147 || this.type == 2405 || this.type == 1716 || this.type == 1705)
+			{
+				this.@value = Item.sellPrice(0, 2, 0, 0);
+			}
+			if (Main.projHook[this.shoot])
+			{
+				this.useStyle = 0;
+				this.useTime = 0;
+				this.useAnimation = 0;
+			}
+			if (this.type >= 1803 && this.type <= 1807)
+			{
+				this.SetDefaults(1533 + this.type - 1803, false);
+			}
+			if (this.dye > 0)
+			{
+				this.maxStack = 99;
+			}
+			if (this.createTile == 19)
+			{
+				this.maxStack = 999;
+			}
+			this.netID = this.type;
+			if (!noMatCheck)
+			{
+				this.checkMat();
+			}
+			this.name = Lang.itemName(this.netID, false);
+			this.CheckTip();
+			if (this.type > 0 && this.type < 3601 && ItemID.Sets.Deprecated[this.type])
+			{
+				this.netID = 0;
+				this.type = 0;
+				this.stack = 0;
+				this.name = "";
+			}
+		}
+
 		public void SetDefaults1(int type)
 		{
 			if (type == 1)
 			{
 				this.name = "Iron Pickaxe";
-				this.color = new Color(160, 145, 130, 110);
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 20;
@@ -4252,7 +6825,7 @@ namespace Terraria
 				this.pick = 40;
 				this.useSound = 1;
 				this.knockBack = 2f;
-				this.value = 2000;
+				this.@value = 2000;
 				this.melee = true;
 			}
 			else if (type == 2)
@@ -4286,7 +6859,6 @@ namespace Terraria
 			else if (type == 4)
 			{
 				this.name = "Iron Broadsword";
-				this.color = new Color(160, 145, 130, 110);
 				this.useStyle = 1;
 				this.useTurn = false;
 				this.useAnimation = 21;
@@ -4297,7 +6869,7 @@ namespace Terraria
 				this.knockBack = 5f;
 				this.useSound = 1;
 				this.scale = 1f;
-				this.value = 1800;
+				this.@value = 1800;
 				this.melee = true;
 			}
 			else if (type == 5)
@@ -4314,12 +6886,11 @@ namespace Terraria
 				this.maxStack = 99;
 				this.consumable = true;
 				this.potion = true;
-				this.value = 25;
+				this.@value = Item.sellPrice(0, 0, 2, 50);
 			}
 			else if (type == 6)
 			{
 				this.name = "Iron Shortsword";
-				this.color = new Color(160, 145, 130, 110);
 				this.useStyle = 3;
 				this.useTurn = false;
 				this.useAnimation = 12;
@@ -4331,13 +6902,12 @@ namespace Terraria
 				this.scale = 0.9f;
 				this.useSound = 1;
 				this.useTurn = true;
-				this.value = 1400;
+				this.@value = 1400;
 				this.melee = true;
 			}
 			else if (type == 7)
 			{
 				this.name = "Iron Hammer";
-				this.color = new Color(160, 145, 130, 110);
 				this.autoReuse = true;
 				this.useStyle = 1;
 				this.useTurn = true;
@@ -4350,7 +6920,7 @@ namespace Terraria
 				this.knockBack = 5.5f;
 				this.scale = 1.2f;
 				this.useSound = 1;
-				this.value = 1600;
+				this.@value = 1600;
 				this.melee = true;
 			}
 			else if (type == 8)
@@ -4370,7 +6940,7 @@ namespace Terraria
 				this.width = 10;
 				this.height = 12;
 				this.toolTip = "Provides light";
-				this.value = 50;
+				this.@value = 50;
 			}
 			else if (type == 9)
 			{
@@ -4389,7 +6959,6 @@ namespace Terraria
 			else if (type == 10)
 			{
 				this.name = "Iron Axe";
-				this.color = new Color(160, 145, 130, 110);
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 27;
@@ -4402,7 +6971,7 @@ namespace Terraria
 				this.axe = 9;
 				this.scale = 1.1f;
 				this.useSound = 1;
-				this.value = 1600;
+				this.@value = 1600;
 				this.melee = true;
 			}
 			else if (type == 11)
@@ -4418,7 +6987,7 @@ namespace Terraria
 				this.createTile = 6;
 				this.width = 12;
 				this.height = 12;
-				this.value = 500;
+				this.@value = 500;
 			}
 			else if (type == 12)
 			{
@@ -4433,7 +7002,7 @@ namespace Terraria
 				this.createTile = 7;
 				this.width = 12;
 				this.height = 12;
-				this.value = 250;
+				this.@value = 250;
 			}
 			else if (type == 13)
 			{
@@ -4448,7 +7017,7 @@ namespace Terraria
 				this.createTile = 8;
 				this.width = 12;
 				this.height = 12;
-				this.value = 2000;
+				this.@value = 2000;
 			}
 			else if (type == 14)
 			{
@@ -4463,7 +7032,7 @@ namespace Terraria
 				this.createTile = 9;
 				this.width = 12;
 				this.height = 12;
-				this.value = 1000;
+				this.@value = 1000;
 			}
 			else if (type == 15)
 			{
@@ -4472,7 +7041,7 @@ namespace Terraria
 				this.height = 28;
 				this.accessory = true;
 				this.toolTip = "Tells the time";
-				this.value = 1000;
+				this.@value = 1000;
 				this.waistSlot = 2;
 			}
 			else if (type == 16)
@@ -4482,7 +7051,7 @@ namespace Terraria
 				this.height = 28;
 				this.accessory = true;
 				this.toolTip = "Tells the time";
-				this.value = 5000;
+				this.@value = 5000;
 				this.waistSlot = 7;
 			}
 			else if (type == 17)
@@ -4493,7 +7062,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 1;
 				this.toolTip = "Tells the time";
-				this.value = 10000;
+				this.@value = 10000;
 				this.waistSlot = 3;
 			}
 			else if (type == 18)
@@ -4504,7 +7073,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 1;
 				this.toolTip = "Shows depth";
-				this.value = 10000;
+				this.@value = Item.sellPrice(0, 0, 25, 0);
 			}
 			else if (type == 19)
 			{
@@ -4512,7 +7081,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 6000;
+				this.@value = 6000;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -4528,7 +7097,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 750;
+				this.@value = 750;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -4544,7 +7113,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 3000;
+				this.@value = 3000;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -4561,7 +7130,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 1500;
+				this.@value = 1500;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -4581,7 +7150,8 @@ namespace Terraria
 				this.ammo = 23;
 				this.color = new Color(0, 80, 255, 100);
 				this.toolTip = "'Both tasty and flammable'";
-				this.value = 5;
+				this.@value = 5;
+				this.consumable = true;
 			}
 			else if (type == 24)
 			{
@@ -4595,7 +7165,7 @@ namespace Terraria
 				this.knockBack = 4f;
 				this.scale = 0.95f;
 				this.useSound = 1;
-				this.value = 100;
+				this.@value = 100;
 				this.melee = true;
 			}
 			else if (type == 25)
@@ -4610,7 +7180,7 @@ namespace Terraria
 				this.createTile = 10;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 			}
 			else if (type == 26)
 			{
@@ -4638,7 +7208,7 @@ namespace Terraria
 				this.createTile = 20;
 				this.width = 18;
 				this.height = 18;
-				this.value = 10;
+				this.@value = 10;
 			}
 			else if (type == 28)
 			{
@@ -4654,7 +7224,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.potion = true;
-				this.value = 300;
+				this.@value = 300;
 			}
 			else if (type == 29)
 			{
@@ -4669,7 +7239,7 @@ namespace Terraria
 				this.useAnimation = 30;
 				this.toolTip = "Permanently increases maximum life by 20";
 				this.rare = 2;
-				this.value = 75000;
+				this.@value = 75000;
 			}
 			else if (type == 30)
 			{
@@ -4693,12 +7263,12 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 13;
 				this.width = 16;
 				this.height = 24;
-				this.value = 20;
+				this.@value = 20;
 			}
 			else if (type == 32)
 			{
@@ -4713,7 +7283,7 @@ namespace Terraria
 				this.createTile = 14;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 			}
 			else if (type == 33)
 			{
@@ -4728,7 +7298,7 @@ namespace Terraria
 				this.createTile = 17;
 				this.width = 26;
 				this.height = 24;
-				this.value = 300;
+				this.@value = 300;
 				this.toolTip = "Used for smelting ore";
 			}
 			else if (type == 34)
@@ -4744,7 +7314,7 @@ namespace Terraria
 				this.createTile = 15;
 				this.width = 12;
 				this.height = 30;
-				this.value = 150;
+				this.@value = 150;
 			}
 			else if (type == 35)
 			{
@@ -4759,7 +7329,7 @@ namespace Terraria
 				this.createTile = 16;
 				this.width = 28;
 				this.height = 14;
-				this.value = 5000;
+				this.@value = 5000;
 				this.toolTip = "Used to craft items from metal bars";
 			}
 			else if (type == 36)
@@ -4775,7 +7345,7 @@ namespace Terraria
 				this.createTile = 18;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				this.toolTip = "Used for basic crafting";
 			}
 			else if (type == 37)
@@ -4785,8 +7355,7 @@ namespace Terraria
 				this.height = 12;
 				this.defense = 1;
 				this.headSlot = 10;
-				this.rare = 1;
-				this.value = 1000;
+				this.@value = 1000;
 			}
 			else if (type == 38)
 			{
@@ -4794,7 +7363,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 500;
+				this.@value = 500;
 			}
 			else if (type == 39)
 			{
@@ -4810,7 +7379,7 @@ namespace Terraria
 				this.damage = 4;
 				this.shootSpeed = 6.1f;
 				this.noMelee = true;
-				this.value = 100;
+				this.@value = 100;
 				this.ranged = true;
 			}
 			else if (type == 40)
@@ -4818,14 +7387,14 @@ namespace Terraria
 				this.name = "Wooden Arrow";
 				this.shootSpeed = 3f;
 				this.shoot = 1;
-				this.damage = 4;
+				this.damage = 5;
 				this.width = 10;
 				this.height = 28;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 1;
 				this.knockBack = 2f;
-				this.value = 10;
+				this.@value = 5;
 				this.ranged = true;
 			}
 			else if (type == 41)
@@ -4833,14 +7402,14 @@ namespace Terraria
 				this.name = "Flaming Arrow";
 				this.shootSpeed = 3.5f;
 				this.shoot = 2;
-				this.damage = 6;
+				this.damage = 7;
 				this.width = 10;
 				this.height = 28;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 1;
 				this.knockBack = 2f;
-				this.value = 15;
+				this.@value = 10;
 				this.ranged = true;
 			}
 			else if (type == 42)
@@ -4859,8 +7428,8 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 20;
-				this.ranged = true;
+				this.@value = 15;
+				this.thrown = true;
 			}
 			else if (type == 43)
 			{
@@ -4891,7 +7460,7 @@ namespace Terraria
 				this.alpha = 30;
 				this.rare = 1;
 				this.noMelee = true;
-				this.value = 18000;
+				this.@value = 18000;
 				this.ranged = true;
 			}
 			else if (type == 45)
@@ -4909,7 +7478,7 @@ namespace Terraria
 				this.scale = 1.2f;
 				this.useSound = 1;
 				this.rare = 1;
-				this.value = 13500;
+				this.@value = 13500;
 				this.melee = true;
 			}
 			else if (type == 46)
@@ -4924,7 +7493,7 @@ namespace Terraria
 				this.scale = 1.1f;
 				this.useSound = 1;
 				this.rare = 1;
-				this.value = 13500;
+				this.@value = 13500;
 				this.melee = true;
 			}
 			else if (type == 47)
@@ -4932,7 +7501,7 @@ namespace Terraria
 				this.name = "Unholy Arrow";
 				this.shootSpeed = 3.4f;
 				this.shoot = 4;
-				this.damage = 8;
+				this.damage = 12;
 				this.width = 10;
 				this.height = 28;
 				this.maxStack = 999;
@@ -4941,7 +7510,7 @@ namespace Terraria
 				this.knockBack = 3f;
 				this.alpha = 30;
 				this.rare = 1;
-				this.value = 40;
+				this.@value = 40;
 				this.ranged = true;
 			}
 			else if (type == 48)
@@ -4957,7 +7526,7 @@ namespace Terraria
 				this.createTile = 21;
 				this.width = 26;
 				this.height = 22;
-				this.value = 500;
+				this.@value = 500;
 			}
 			else if (type == 49)
 			{
@@ -4968,7 +7537,7 @@ namespace Terraria
 				this.lifeRegen = 1;
 				this.rare = 1;
 				this.toolTip = "Slowly regenerates life";
-				this.value = 50000;
+				this.@value = 50000;
 				this.handOnSlot = 2;
 			}
 			else if (type == 50)
@@ -4983,14 +7552,14 @@ namespace Terraria
 				this.useAnimation = 90;
 				this.toolTip = "Gaze in the mirror to return home";
 				this.rare = 1;
-				this.value = 50000;
+				this.@value = 50000;
 			}
 			else if (type == 51)
 			{
 				this.name = "Jester's Arrow";
 				this.shootSpeed = 0.5f;
 				this.shoot = 5;
-				this.damage = 9;
+				this.damage = 10;
 				this.width = 10;
 				this.height = 28;
 				this.maxStack = 999;
@@ -4998,7 +7567,7 @@ namespace Terraria
 				this.ammo = 1;
 				this.knockBack = 4f;
 				this.rare = 1;
-				this.value = 100;
+				this.@value = 100;
 				this.ranged = true;
 			}
 			else if (type == 52)
@@ -5015,7 +7584,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 1;
 			}
 			else if (type == 53)
@@ -5026,7 +7595,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 1;
 				this.toolTip = "Allows the holder to double jump";
-				this.value = 50000;
+				this.@value = 50000;
 				this.waistSlot = 1;
 			}
 			else if (type == 54)
@@ -5037,7 +7606,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 1;
 				this.toolTip = "The wearer can run super fast";
-				this.value = 50000;
+				this.@value = 50000;
 				this.shoeSlot = 6;
 			}
 			else if (type == 55)
@@ -5056,7 +7625,7 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.rare = 1;
-				this.value = 50000;
+				this.@value = 50000;
 				this.melee = true;
 			}
 			else if (type == 56)
@@ -5074,7 +7643,7 @@ namespace Terraria
 				this.height = 12;
 				this.rare = 1;
 				this.toolTip = "'Pulsing with dark energy'";
-				this.value = 4000;
+				this.@value = 4000;
 			}
 			else if (type == 57)
 			{
@@ -5084,7 +7653,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.rare = 1;
 				this.toolTip = "'Pulsing with dark energy'";
-				this.value = 16000;
+				this.@value = 16000;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -5112,7 +7681,8 @@ namespace Terraria
 				this.createTile = 23;
 				this.width = 14;
 				this.height = 14;
-				this.value = 500;
+				this.@value = 500;
+				this.autoReuse = true;
 			}
 			else if (type == 60)
 			{
@@ -5120,7 +7690,7 @@ namespace Terraria
 				this.width = 16;
 				this.height = 18;
 				this.maxStack = 99;
-				this.value = 50;
+				this.@value = 50;
 			}
 			else if (type == 61)
 			{
@@ -5148,7 +7718,8 @@ namespace Terraria
 				this.createTile = 2;
 				this.width = 14;
 				this.height = 14;
-				this.value = 20;
+				this.@value = 20;
+				this.autoReuse = true;
 			}
 			else if (type == 63)
 			{
@@ -5162,7 +7733,7 @@ namespace Terraria
 				this.createTile = 27;
 				this.width = 26;
 				this.height = 26;
-				this.value = 200;
+				this.@value = 200;
 			}
 			else if (type == 64)
 			{
@@ -5181,7 +7752,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.knockBack = 1f;
 				this.toolTip = "Summons a vile thorn";
-				this.value = 10000;
+				this.@value = 10000;
 				this.magic = true;
 			}
 			else if (type == 65)
@@ -5203,7 +7774,7 @@ namespace Terraria
 				this.rare = 2;
 				this.toolTip = "Causes stars to rain from the sky";
 				this.toolTip2 = "'Forged with the fury of heaven'";
-				this.value = 50000;
+				this.@value = 50000;
 				this.melee = true;
 			}
 			else if (type == 66)
@@ -5221,7 +7792,7 @@ namespace Terraria
 				this.useTime = 15;
 				this.noMelee = true;
 				this.toolTip = "Cleanses the corruption";
-				this.value = 75;
+				this.@value = 75;
 			}
 			else if (type == 67)
 			{
@@ -5238,7 +7809,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 15;
 				this.noMelee = true;
-				this.value = 100;
+				this.@value = 100;
 				this.toolTip = "Removes the Hallow";
 			}
 			else if (type == 68)
@@ -5248,7 +7819,7 @@ namespace Terraria
 				this.height = 20;
 				this.maxStack = 99;
 				this.toolTip = "'Looks tasty!'";
-				this.value = 10;
+				this.@value = 10;
 			}
 			else if (type == 69)
 			{
@@ -5256,7 +7827,7 @@ namespace Terraria
 				this.width = 8;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 100;
+				this.@value = 100;
 			}
 			else if (type == 70)
 			{
@@ -5274,9 +7845,9 @@ namespace Terraria
 			{
 				this.name = "Copper Coin";
 				this.width = 10;
-				this.height = 12;
+				this.height = 10;
 				this.maxStack = 100;
-				this.value = 5;
+				this.@value = 5;
 				this.ammo = 71;
 				this.shoot = 158;
 				this.notAmmo = true;
@@ -5298,7 +7869,7 @@ namespace Terraria
 				this.width = 10;
 				this.height = 12;
 				this.maxStack = 100;
-				this.value = 500;
+				this.@value = 500;
 				this.ammo = 71;
 				this.notAmmo = true;
 				this.damage = 50;
@@ -5318,9 +7889,9 @@ namespace Terraria
 			{
 				this.name = "Gold Coin";
 				this.width = 10;
-				this.height = 12;
+				this.height = 14;
 				this.maxStack = 100;
-				this.value = 50000;
+				this.@value = 50000;
 				this.ammo = 71;
 				this.notAmmo = true;
 				this.damage = 100;
@@ -5339,10 +7910,10 @@ namespace Terraria
 			else if (type == 74)
 			{
 				this.name = "Platinum Coin";
-				this.width = 10;
-				this.height = 12;
+				this.width = 12;
+				this.height = 14;
 				this.maxStack = 999;
-				this.value = 5000000;
+				this.@value = 5000000;
 				this.ammo = 71;
 				this.notAmmo = true;
 				this.damage = 200;
@@ -5363,11 +7934,11 @@ namespace Terraria
 				this.name = "Fallen Star";
 				this.width = 18;
 				this.height = 20;
-				this.maxStack = 100;
+				this.maxStack = 99;
 				this.alpha = 75;
 				this.ammo = 15;
 				this.toolTip = "Disappears after the sunrise";
-				this.value = 500;
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				this.useStyle = 4;
 				this.useSound = 4;
 				this.useTurn = false;
@@ -5383,7 +7954,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 1;
 				this.legSlot = 1;
-				this.value = 750;
+				this.@value = 750;
 			}
 			else if (type == 77)
 			{
@@ -5392,7 +7963,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 2;
 				this.legSlot = 2;
-				this.value = 3000;
+				this.@value = 3000;
 			}
 			else if (type == 78)
 			{
@@ -5401,7 +7972,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 3;
 				this.legSlot = 3;
-				this.value = 7500;
+				this.@value = 7500;
 			}
 			else if (type == 79)
 			{
@@ -5410,7 +7981,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 4;
 				this.legSlot = 4;
-				this.value = 15000;
+				this.@value = 15000;
 			}
 			else if (type == 80)
 			{
@@ -5419,7 +7990,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 2;
 				this.bodySlot = 1;
-				this.value = 1000;
+				this.@value = 1000;
 			}
 			else if (type == 81)
 			{
@@ -5428,7 +7999,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 3;
 				this.bodySlot = 2;
-				this.value = 4000;
+				this.@value = 4000;
 			}
 			else if (type == 82)
 			{
@@ -5437,7 +8008,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 4;
 				this.bodySlot = 3;
-				this.value = 10000;
+				this.@value = 10000;
 			}
 			else if (type == 83)
 			{
@@ -5446,7 +8017,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 5;
 				this.bodySlot = 4;
-				this.value = 20000;
+				this.@value = 20000;
 			}
 			else if (type == 84)
 			{
@@ -5464,7 +8035,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 1;
 				this.noMelee = true;
-				this.value = 20000;
+				this.@value = 20000;
 				this.toolTip = "'Get over here!'";
 			}
 			else if (type == 85)
@@ -5480,8 +8051,9 @@ namespace Terraria
 				this.createTile = 214;
 				this.width = 12;
 				this.height = 12;
-				this.value = 1000;
-				this.tileBoost += 2;
+				this.@value = 200;
+				Item item = this;
+				item.tileBoost = item.tileBoost + 3;
 				this.toolTip = "Can be climbed on";
 			}
 			else if (type == 86)
@@ -5491,7 +8063,7 @@ namespace Terraria
 				this.height = 18;
 				this.maxStack = 99;
 				this.rare = 1;
-				this.value = 500;
+				this.@value = 500;
 			}
 			else if (type == 87)
 			{
@@ -5506,7 +8078,7 @@ namespace Terraria
 				this.createTile = 29;
 				this.width = 20;
 				this.height = 12;
-				this.value = 10000;
+				this.@value = 10000;
 			}
 			else if (type == 88)
 			{
@@ -5516,7 +8088,7 @@ namespace Terraria
 				this.defense = 1;
 				this.headSlot = 11;
 				this.rare = 1;
-				this.value = 80000;
+				this.@value = Item.buyPrice(0, 4, 0, 0);
 				this.toolTip = "Provides light when worn";
 			}
 			else if (type == 89)
@@ -5526,7 +8098,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 1;
 				this.headSlot = 1;
-				this.value = 1250;
+				this.@value = 1250;
 			}
 			else if (type == 90)
 			{
@@ -5535,7 +8107,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 2;
 				this.headSlot = 2;
-				this.value = 5000;
+				this.@value = 5000;
 			}
 			else if (type == 91)
 			{
@@ -5544,7 +8116,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 3;
 				this.headSlot = 3;
-				this.value = 12500;
+				this.@value = 12500;
 			}
 			else if (type == 92)
 			{
@@ -5553,7 +8125,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 4;
 				this.headSlot = 4;
-				this.value = 25000;
+				this.@value = 25000;
 			}
 			else if (type == 93)
 			{
@@ -5577,7 +8149,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.width = 8;
@@ -5597,7 +8169,7 @@ namespace Terraria
 				this.damage = 10;
 				this.shootSpeed = 5f;
 				this.noMelee = true;
-				this.value = 50000;
+				this.@value = 50000;
 				this.scale = 0.9f;
 				this.rare = 1;
 				this.ranged = true;
@@ -5606,21 +8178,22 @@ namespace Terraria
 			{
 				this.useStyle = 5;
 				this.autoReuse = true;
-				this.useAnimation = 41;
-				this.useTime = 41;
+				this.useAnimation = 36;
+				this.useTime = 36;
 				this.name = "Musket";
 				this.width = 44;
 				this.height = 14;
 				this.shoot = 10;
 				this.useAmmo = 14;
 				this.useSound = 11;
-				this.damage = 25;
-				this.shootSpeed = 8.5f;
+				this.damage = 31;
+				this.shootSpeed = 9f;
 				this.noMelee = true;
-				this.value = 100000;
-				this.knockBack = 4.5f;
+				this.@value = 100000;
+				this.knockBack = 5.25f;
 				this.rare = 1;
 				this.ranged = true;
+				this.crit = 7;
 			}
 			else if (type == 97)
 			{
@@ -5634,7 +8207,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 2f;
-				this.value = 7;
+				this.@value = 7;
 				this.ranged = true;
 			}
 			else if (type == 98)
@@ -5652,7 +8225,7 @@ namespace Terraria
 				this.damage = 6;
 				this.shootSpeed = 7f;
 				this.noMelee = true;
-				this.value = 350000;
+				this.@value = 350000;
 				this.rare = 2;
 				this.toolTip = "33% chance to not consume ammo";
 				this.toolTip2 = "'Half shark, half gun, completely awesome.'";
@@ -5664,7 +8237,6 @@ namespace Terraria
 				this.useAnimation = 28;
 				this.useTime = 28;
 				this.name = "Iron Bow";
-				this.color = new Color(160, 145, 130, 110);
 				this.width = 12;
 				this.height = 28;
 				this.shoot = 1;
@@ -5673,7 +8245,7 @@ namespace Terraria
 				this.damage = 8;
 				this.shootSpeed = 6.6f;
 				this.noMelee = true;
-				this.value = 1400;
+				this.@value = 1400;
 				this.ranged = true;
 			}
 			else if (type == 100)
@@ -5684,7 +8256,7 @@ namespace Terraria
 				this.defense = 6;
 				this.legSlot = 5;
 				this.rare = 1;
-				this.value = 22500;
+				this.@value = 22500;
 				this.toolTip = "7% increased melee speed";
 			}
 			else if (type == 101)
@@ -5695,7 +8267,7 @@ namespace Terraria
 				this.defense = 7;
 				this.bodySlot = 5;
 				this.rare = 1;
-				this.value = 30000;
+				this.@value = 30000;
 				this.toolTip = "7% increased melee speed";
 			}
 			else if (type == 102)
@@ -5706,7 +8278,7 @@ namespace Terraria
 				this.defense = 6;
 				this.headSlot = 5;
 				this.rare = 1;
-				this.value = 37500;
+				this.@value = 37500;
 				this.toolTip = "7% increased melee speed";
 			}
 			else if (type == 103)
@@ -5724,7 +8296,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.knockBack = 3f;
 				this.rare = 1;
-				this.value = 18000;
+				this.@value = 18000;
 				this.scale = 1.15f;
 				this.toolTip = "Able to mine Hellstone";
 				this.melee = true;
@@ -5744,7 +8316,7 @@ namespace Terraria
 				this.scale = 1.3f;
 				this.useSound = 1;
 				this.rare = 1;
-				this.value = 15000;
+				this.@value = 15000;
 				this.melee = true;
 			}
 			else if (type == 105)
@@ -5777,7 +8349,7 @@ namespace Terraria
 				this.createTile = 34;
 				this.width = 26;
 				this.height = 26;
-				this.value = 3000;
+				this.@value = 3000;
 			}
 			else if (type == 107)
 			{
@@ -5793,7 +8365,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 26;
 				this.height = 26;
-				this.value = 12000;
+				this.@value = 12000;
 			}
 			else if (type == 108)
 			{
@@ -5809,7 +8381,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 26;
 				this.height = 26;
-				this.value = 24000;
+				this.@value = 24000;
 			}
 			else if (type == 109)
 			{
@@ -5834,11 +8406,11 @@ namespace Terraria
 				this.useTurn = true;
 				this.useAnimation = 17;
 				this.useTime = 17;
-				this.maxStack = 25;
+				this.maxStack = 50;
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.value = 200;
+				this.@value = Item.buyPrice(0, 0, 1, 0);
 			}
 			else if (type == 111)
 			{
@@ -5848,13 +8420,13 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 1;
 				this.toolTip = "Increases maximum mana by 20";
-				this.value = 50000;
+				this.@value = 50000;
 				this.handOnSlot = 3;
 			}
 			else if (type == 112)
 			{
-				this.mana = 17;
-				this.damage = 44;
+				this.mana = 15;
+				this.damage = 48;
 				this.useStyle = 1;
 				this.name = "Flower of Fire";
 				this.shootSpeed = 6f;
@@ -5868,14 +8440,14 @@ namespace Terraria
 				this.noMelee = true;
 				this.knockBack = 5.5f;
 				this.toolTip = "Throws balls of fire";
-				this.value = 10000;
+				this.@value = 10000;
 				this.magic = true;
 			}
 			else if (type == 113)
 			{
 				this.mana = 10;
 				this.channel = true;
-				this.damage = 23;
+				this.damage = 27;
 				this.useStyle = 1;
 				this.name = "Magic Missile";
 				this.shootSpeed = 6f;
@@ -5887,15 +8459,15 @@ namespace Terraria
 				this.useTime = 17;
 				this.rare = 2;
 				this.noMelee = true;
-				this.knockBack = 5.5f;
+				this.knockBack = 7.5f;
 				this.toolTip = "Casts a controllable missile";
-				this.value = 10000;
+				this.@value = 10000;
 				this.magic = true;
 			}
 			else if (type == 114)
 			{
 				this.channel = true;
-				this.damage = 0;
+				this.knockBack = 5f;
 				this.useStyle = 1;
 				this.name = "Dirt Rod";
 				this.shoot = 17;
@@ -5906,9 +8478,8 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 1;
 				this.noMelee = true;
-				this.knockBack = 5f;
 				this.toolTip = "Magically moves dirt";
-				this.value = 200000;
+				this.@value = Item.buyPrice(0, 5, 0, 0);
 			}
 			else if (type == 115)
 			{
@@ -5925,7 +8496,7 @@ namespace Terraria
 				this.rare = 1;
 				this.noMelee = true;
 				this.toolTip = "Creates a magical shadow orb";
-				this.value = 10000;
+				this.@value = 10000;
 				this.buffType = 19;
 			}
 			else if (type == 116)
@@ -5941,7 +8512,7 @@ namespace Terraria
 				this.createTile = 37;
 				this.width = 12;
 				this.height = 12;
-				this.value = 1000;
+				this.@value = 1000;
 			}
 			else if (type == 117)
 			{
@@ -5951,7 +8522,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.rare = 1;
 				this.toolTip = "'Warm to the touch'";
-				this.value = 7000;
+				this.@value = 7000;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -5967,7 +8538,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 18;
 				this.height = 18;
-				this.value = 1000;
+				this.@value = 1000;
 				this.toolTip = "Sometimes dropped by Skeletons and Piranha";
 			}
 			else if (type == 119)
@@ -5986,28 +8557,28 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.rare = 3;
-				this.value = 100000;
+				this.@value = 100000;
 				this.melee = true;
 			}
 			else if (type == 120)
 			{
 				this.useStyle = 5;
-				this.useAnimation = 25;
-				this.useTime = 25;
+				this.useAnimation = 22;
+				this.useTime = 22;
 				this.name = "Molten Fury";
 				this.width = 14;
 				this.height = 32;
 				this.shoot = 1;
 				this.useAmmo = 1;
 				this.useSound = 5;
-				this.damage = 29;
+				this.damage = 31;
 				this.shootSpeed = 8f;
 				this.knockBack = 2f;
 				this.alpha = 30;
 				this.rare = 3;
 				this.noMelee = true;
 				this.scale = 1.1f;
-				this.value = 27000;
+				this.@value = 27000;
 				this.toolTip = "Lights wooden arrows ablaze";
 				this.ranged = true;
 			}
@@ -6023,7 +8594,7 @@ namespace Terraria
 				this.scale = 1.3f;
 				this.useSound = 1;
 				this.rare = 3;
-				this.value = 27000;
+				this.@value = 27000;
 				this.toolTip = "'It's made out of fire!'";
 				this.melee = true;
 			}
@@ -6032,8 +8603,8 @@ namespace Terraria
 				this.name = "Molten Pickaxe";
 				this.useStyle = 1;
 				this.useTurn = true;
-				this.useAnimation = 25;
-				this.useTime = 25;
+				this.useAnimation = 23;
+				this.useTime = 18;
 				this.autoReuse = true;
 				this.width = 24;
 				this.height = 28;
@@ -6043,7 +8614,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.knockBack = 2f;
 				this.rare = 3;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				return;
 			}
@@ -6055,7 +8626,7 @@ namespace Terraria
 				this.defense = 5;
 				this.headSlot = 6;
 				this.rare = 1;
-				this.value = 45000;
+				this.@value = 45000;
 				this.toolTip = "7% increased magic damage";
 				return;
 			}
@@ -6067,7 +8638,7 @@ namespace Terraria
 				this.defense = 6;
 				this.bodySlot = 6;
 				this.rare = 1;
-				this.value = 30000;
+				this.@value = 30000;
 				this.toolTip = "7% increased magic damage";
 				return;
 			}
@@ -6079,7 +8650,7 @@ namespace Terraria
 				this.defense = 5;
 				this.legSlot = 6;
 				this.rare = 1;
-				this.value = 30000;
+				this.@value = 30000;
 				this.toolTip = "7% increased magic damage";
 				return;
 			}
@@ -6092,12 +8663,12 @@ namespace Terraria
 				this.useTurn = true;
 				this.useAnimation = 17;
 				this.useTime = 17;
-				this.maxStack = 30;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
 				this.potion = true;
-				this.value = 20;
+				this.@value = 20;
 				return;
 			}
 			if (type == 127)
@@ -6119,7 +8690,7 @@ namespace Terraria
 				this.scale = 0.8f;
 				this.rare = 1;
 				this.magic = true;
-				this.value = 20000;
+				this.@value = 20000;
 				return;
 			}
 			if (type == 128)
@@ -6130,7 +8701,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 3;
 				this.toolTip = "Allows flight";
-				this.value = 50000;
+				this.@value = 50000;
 				this.shoeSlot = 12;
 				return;
 			}
@@ -6436,6 +9007,7 @@ namespace Terraria
 				this.height = 18;
 				this.holdStyle = 1;
 				this.toolTip = "Holding this may attract unwanted attention";
+				this.rare = 1;
 				return;
 			}
 			if (type == 149)
@@ -6452,6 +9024,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 28;
 				this.toolTip = "'It contains strange symbols'";
+				this.@value = Item.sellPrice(0, 0, 0, 75);
 				return;
 			}
 			if (type == 150)
@@ -6478,7 +9051,7 @@ namespace Terraria
 				this.defense = 5;
 				this.headSlot = 7;
 				this.rare = 2;
-				this.value = 45000;
+				this.@value = 45000;
 				this.toolTip = "4% increased ranged damage.";
 				return;
 			}
@@ -6490,7 +9063,7 @@ namespace Terraria
 				this.defense = 6;
 				this.bodySlot = 7;
 				this.rare = 2;
-				this.value = 30000;
+				this.@value = 30000;
 				this.toolTip = "4% increased ranged damage.";
 				return;
 			}
@@ -6502,7 +9075,7 @@ namespace Terraria
 				this.defense = 5;
 				this.legSlot = 7;
 				this.rare = 2;
-				this.value = 30000;
+				this.@value = 30000;
 				this.toolTip = "4% increased ranged damage.";
 				return;
 			}
@@ -6513,17 +9086,19 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 12;
 				this.height = 14;
-				this.value = 50;
+				this.@value = 50;
 				this.useAnimation = 12;
 				this.useTime = 12;
 				this.useStyle = 1;
 				this.useSound = 1;
 				this.shootSpeed = 8f;
 				this.noUseGraphic = true;
-				this.damage = 22;
-				this.knockBack = 4f;
+				this.damage = 20;
+				this.knockBack = 2.3f;
 				this.shoot = 21;
-				this.ranged = true;
+				this.thrown = true;
+				this.ammo = 154;
+				this.notAmmo = false;
 				return;
 			}
 			if (type == 155)
@@ -6532,15 +9107,15 @@ namespace Terraria
 				this.useTurn = true;
 				this.name = "Muramasa";
 				this.useStyle = 1;
-				this.useAnimation = 20;
+				this.useAnimation = 18;
 				this.width = 40;
 				this.height = 40;
-				this.damage = 18;
+				this.damage = 19;
 				this.scale = 1.1f;
 				this.useSound = 1;
 				this.rare = 2;
-				this.value = 27000;
-				this.knockBack = 1f;
+				this.@value = 27000;
+				this.knockBack = 2.5f;
 				this.melee = true;
 				return;
 			}
@@ -6550,7 +9125,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 28;
 				this.rare = 2;
-				this.value = 27000;
+				this.@value = 27000;
 				this.accessory = true;
 				this.defense = 1;
 				this.toolTip = "Grants immunity to knockback";
@@ -6568,13 +9143,13 @@ namespace Terraria
 				this.knockBack = 5f;
 				this.width = 38;
 				this.height = 10;
-				this.damage = 15;
+				this.damage = 16;
 				this.scale = 1f;
 				this.shoot = 22;
-				this.shootSpeed = 11f;
+				this.shootSpeed = 12.5f;
 				this.useSound = 13;
 				this.rare = 2;
-				this.value = 27000;
+				this.@value = 27000;
 				this.toolTip = "Sprays out a shower of water";
 				this.magic = true;
 				return;
@@ -6585,7 +9160,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 22;
 				this.rare = 1;
-				this.value = 27000;
+				this.@value = 27000;
 				this.accessory = true;
 				this.toolTip = "Negates fall damage";
 				return;
@@ -6596,7 +9171,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 28;
 				this.rare = 1;
-				this.value = 27000;
+				this.@value = 27000;
 				this.accessory = true;
 				this.toolTip = "Increases jump height";
 				this.balloonSlot = 8;
@@ -6619,7 +9194,7 @@ namespace Terraria
 				this.shootSpeed = 11f;
 				this.useSound = 10;
 				this.rare = 2;
-				this.value = 27000;
+				this.@value = 27000;
 				this.ranged = true;
 				return;
 			}
@@ -6640,8 +9215,8 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 80;
-				this.ranged = true;
+				this.@value = 80;
+				this.thrown = true;
 				return;
 			}
 			if (type == 162)
@@ -6660,7 +9235,7 @@ namespace Terraria
 				this.shootSpeed = 12f;
 				this.useSound = 1;
 				this.rare = 1;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				this.channel = true;
 				this.noMelee = true;
@@ -6683,7 +9258,7 @@ namespace Terraria
 				this.shootSpeed = 12f;
 				this.useSound = 1;
 				this.rare = 2;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				this.channel = true;
 				return;
@@ -6701,10 +9276,10 @@ namespace Terraria
 				this.knockBack = 3f;
 				this.useAmmo = 14;
 				this.useSound = 41;
-				this.damage = 15;
+				this.damage = 17;
 				this.shootSpeed = 10f;
 				this.noMelee = true;
-				this.value = 50000;
+				this.@value = 50000;
 				this.scale = 0.85f;
 				this.rare = 2;
 				this.ranged = true;
@@ -6718,7 +9293,7 @@ namespace Terraria
 				this.useSound = 21;
 				this.name = "Water Bolt";
 				this.useStyle = 5;
-				this.damage = 17;
+				this.damage = 19;
 				this.useAnimation = 17;
 				this.useTime = 17;
 				this.width = 24;
@@ -6729,7 +9304,7 @@ namespace Terraria
 				this.knockBack = 5f;
 				this.toolTip = "Casts a slow moving bolt of water";
 				this.magic = true;
-				this.value = 50000;
+				this.@value = 50000;
 				return;
 			}
 			if (type == 166)
@@ -6740,16 +9315,15 @@ namespace Terraria
 				this.shoot = 28;
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 100;
+				this.maxStack = 99;
 				this.consumable = true;
 				this.useSound = 1;
 				this.useAnimation = 25;
 				this.useTime = 25;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = Item.buyPrice(0, 0, 3, 0);
+				this.@value = Item.buyPrice(0, 0, 3, 0);
 				this.damage = 0;
-				this.explosive = 1;
 				this.toolTip = "A small explosion that will destroy some tiles";
 				return;
 			}
@@ -6768,9 +9342,8 @@ namespace Terraria
 				this.useTime = 40;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 0, 30, 0);
+				this.@value = Item.buyPrice(0, 0, 20, 0);
 				this.rare = 1;
-				this.explosive = 2;
 				this.toolTip = "A large explosion that will destroy most tiles";
 				return;
 			}
@@ -6789,11 +9362,11 @@ namespace Terraria
 				this.useTime = 45;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 75;
+				this.@value = 75;
 				this.damage = 60;
 				this.knockBack = 8f;
 				this.toolTip = "A small explosion that will not destroy tiles";
-				this.ranged = true;
+				this.thrown = true;
 				return;
 			}
 			if (type == 169)
@@ -6896,7 +9469,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.rare = 2;
 				this.toolTip = "'Hot to the touch'";
-				this.value = 20000;
+				this.@value = 20000;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -6937,7 +9510,7 @@ namespace Terraria
 				this.alpha = 50;
 				this.width = 10;
 				this.height = 14;
-				this.value = 1875;
+				this.@value = 1875;
 				return;
 			}
 			if (type == 180)
@@ -6955,7 +9528,7 @@ namespace Terraria
 				this.alpha = 50;
 				this.width = 10;
 				this.height = 14;
-				this.value = 3750;
+				this.@value = 3750;
 				return;
 			}
 			if (type == 177)
@@ -6973,7 +9546,7 @@ namespace Terraria
 				this.alpha = 50;
 				this.width = 10;
 				this.height = 14;
-				this.value = 5625;
+				this.@value = 5625;
 				return;
 			}
 			if (type == 179)
@@ -6991,7 +9564,7 @@ namespace Terraria
 				this.alpha = 50;
 				this.width = 10;
 				this.height = 14;
-				this.value = 7500;
+				this.@value = 7500;
 				return;
 			}
 			if (type == 178)
@@ -7009,7 +9582,7 @@ namespace Terraria
 				this.alpha = 50;
 				this.width = 10;
 				this.height = 14;
-				this.value = 11250;
+				this.@value = 11250;
 				return;
 			}
 			if (type == 182)
@@ -7027,7 +9600,7 @@ namespace Terraria
 				this.alpha = 50;
 				this.width = 10;
 				this.height = 14;
-				this.value = 15000;
+				this.@value = 15000;
 				return;
 			}
 			if (type == 183)
@@ -7035,7 +9608,7 @@ namespace Terraria
 				this.name = "Glowing Mushroom";
 				this.width = 16;
 				this.height = 18;
-				this.value = 50;
+				this.@value = 50;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -7069,7 +9642,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 3;
 				this.noMelee = true;
-				this.value = 20000;
+				this.@value = 20000;
 				return;
 			}
 			if (type == 186)
@@ -7078,7 +9651,7 @@ namespace Terraria
 				this.width = 44;
 				this.height = 44;
 				this.rare = 1;
-				this.value = 10000;
+				this.@value = 10000;
 				this.holdStyle = 2;
 				this.toolTip = "'Because not drowning is kinda nice'";
 				return;
@@ -7089,7 +9662,7 @@ namespace Terraria
 				this.width = 28;
 				this.height = 28;
 				this.rare = 1;
-				this.value = 10000;
+				this.@value = 10000;
 				this.accessory = true;
 				this.toolTip = "Grants the ability to swim";
 				this.shoeSlot = 1;
@@ -7110,7 +9683,7 @@ namespace Terraria
 				this.height = 24;
 				this.rare = 1;
 				this.potion = true;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 189)
@@ -7122,12 +9695,12 @@ namespace Terraria
 				this.useTurn = true;
 				this.useAnimation = 17;
 				this.useTime = 17;
-				this.maxStack = 50;
+				this.maxStack = 75;
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
 				this.rare = 1;
-				this.value = 500;
+				this.@value = Item.buyPrice(0, 0, 2, 50);
 				return;
 			}
 			if (type == 190)
@@ -7142,7 +9715,7 @@ namespace Terraria
 				this.scale = 1.4f;
 				this.useSound = 1;
 				this.rare = 3;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				return;
 			}
@@ -7162,7 +9735,7 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.rare = 3;
-				this.value = 50000;
+				this.@value = 50000;
 				this.melee = true;
 				return;
 			}
@@ -7187,7 +9760,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 22;
 				this.rare = 2;
-				this.value = 27000;
+				this.@value = 27000;
 				this.accessory = true;
 				this.defense = 1;
 				this.toolTip = "Grants immunity to fire blocks";
@@ -7195,6 +9768,7 @@ namespace Terraria
 			}
 			if (type == 194)
 			{
+				this.autoReuse = true;
 				this.name = "Mushroom Grass Seeds";
 				this.useTurn = true;
 				this.useStyle = 1;
@@ -7205,11 +9779,12 @@ namespace Terraria
 				this.createTile = 70;
 				this.width = 14;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				return;
 			}
 			if (type == 195)
 			{
+				this.autoReuse = true;
 				this.name = "Jungle Grass Seeds";
 				this.useTurn = true;
 				this.useStyle = 1;
@@ -7220,7 +9795,7 @@ namespace Terraria
 				this.createTile = 60;
 				this.width = 14;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				return;
 			}
 			if (type == 196)
@@ -7239,7 +9814,7 @@ namespace Terraria
 				this.scale = 1.2f;
 				this.useSound = 1;
 				this.tileBoost = -1;
-				this.value = 50;
+				this.@value = 50;
 				this.melee = true;
 				return;
 			}
@@ -7258,7 +9833,7 @@ namespace Terraria
 				this.damage = 55;
 				this.shootSpeed = 14f;
 				this.noMelee = true;
-				this.value = 500000;
+				this.@value = 500000;
 				this.rare = 2;
 				this.toolTip = "Shoots fallen stars";
 				this.ranged = true;
@@ -7276,7 +9851,7 @@ namespace Terraria
 				this.scale = 1f;
 				this.useSound = 15;
 				this.rare = 1;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				return;
 			}
@@ -7292,7 +9867,7 @@ namespace Terraria
 				this.scale = 1f;
 				this.useSound = 15;
 				this.rare = 1;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				return;
 			}
@@ -7308,7 +9883,7 @@ namespace Terraria
 				this.scale = 1f;
 				this.useSound = 15;
 				this.rare = 1;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				return;
 			}
@@ -7324,7 +9899,7 @@ namespace Terraria
 				this.scale = 1f;
 				this.useSound = 15;
 				this.rare = 1;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				return;
 			}
@@ -7340,7 +9915,7 @@ namespace Terraria
 				this.scale = 1f;
 				this.useSound = 15;
 				this.rare = 1;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				return;
 			}
@@ -7356,7 +9931,7 @@ namespace Terraria
 				this.scale = 1f;
 				this.useSound = 15;
 				this.rare = 1;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				return;
 			}
@@ -7377,7 +9952,7 @@ namespace Terraria
 				this.scale = 1.2f;
 				this.useSound = 1;
 				this.rare = 1;
-				this.value = 15000;
+				this.@value = 15000;
 				this.melee = true;
 				return;
 			}
@@ -7427,7 +10002,7 @@ namespace Terraria
 				this.name = "Jungle Rose";
 				this.width = 20;
 				this.height = 20;
-				this.value = 100;
+				this.@value = 100;
 				this.headSlot = 23;
 				this.toolTip = "'It's pretty, oh so pretty'";
 				this.vanity = true;
@@ -7439,7 +10014,7 @@ namespace Terraria
 				this.width = 16;
 				this.height = 18;
 				this.maxStack = 99;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 210)
@@ -7448,7 +10023,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 211)
@@ -7459,7 +10034,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 3;
 				this.toolTip = "12% increased melee speed";
-				this.value = 50000;
+				this.@value = 50000;
 				this.handOnSlot = 5;
 				this.handOffSlot = 9;
 				return;
@@ -7472,7 +10047,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 3;
 				this.toolTip = "10% increased movement speed";
-				this.value = 50000;
+				this.@value = 50000;
 				return;
 			}
 			if (type == 213)
@@ -7487,11 +10062,10 @@ namespace Terraria
 				this.height = 28;
 				this.damage = 7;
 				this.createTile = 2;
-				this.scale = 1.2f;
 				this.useSound = 1;
 				this.knockBack = 3f;
 				this.rare = 3;
-				this.value = 2000;
+				this.@value = 2000;
 				this.toolTip = "Creates grass on dirt";
 				this.melee = true;
 				return;
@@ -7524,7 +10098,7 @@ namespace Terraria
 				this.useSound = 16;
 				this.rare = 2;
 				this.toolTip = "'May annoy others'";
-				this.value = 100;
+				this.@value = 100;
 				return;
 			}
 			if (type == 216)
@@ -7533,7 +10107,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.rare = 1;
-				this.value = 1500;
+				this.@value = 1500;
 				this.accessory = true;
 				this.defense = 1;
 				this.handOffSlot = 7;
@@ -7557,15 +10131,15 @@ namespace Terraria
 				this.scale = 1.4f;
 				this.useSound = 1;
 				this.rare = 3;
-				this.value = 15000;
+				this.@value = 15000;
 				this.melee = true;
 				return;
 			}
 			if (type == 218)
 			{
-				this.mana = 16;
+				this.mana = 12;
 				this.channel = true;
-				this.damage = 34;
+				this.damage = 40;
 				this.useStyle = 1;
 				this.name = "Flamelash";
 				this.shootSpeed = 6f;
@@ -7579,7 +10153,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.knockBack = 6.5f;
 				this.toolTip = "Summons a controllable ball of fire";
-				this.value = 10000;
+				this.@value = 10000;
 				this.magic = true;
 				return;
 			}
@@ -7596,10 +10170,10 @@ namespace Terraria
 				this.knockBack = 2f;
 				this.useAmmo = 14;
 				this.useSound = 41;
-				this.damage = 23;
+				this.damage = 24;
 				this.shootSpeed = 13f;
 				this.noMelee = true;
-				this.value = 50000;
+				this.@value = 50000;
 				this.scale = 0.85f;
 				this.rare = 3;
 				this.ranged = true;
@@ -7612,17 +10186,18 @@ namespace Terraria
 				this.useStyle = 5;
 				this.useAnimation = 45;
 				this.useTime = 45;
-				this.knockBack = 7f;
+				this.knockBack = 7.75f;
 				this.width = 30;
 				this.height = 10;
-				this.damage = 33;
+				this.damage = 35;
+				this.crit = 7;
 				this.scale = 1.1f;
 				this.noUseGraphic = true;
 				this.shoot = 35;
 				this.shootSpeed = 12f;
 				this.useSound = 1;
 				this.rare = 3;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				this.channel = true;
 				return;
@@ -7640,7 +10215,7 @@ namespace Terraria
 				this.createTile = 77;
 				this.width = 26;
 				this.height = 24;
-				this.value = 3000;
+				this.@value = 3000;
 				return;
 			}
 			if (type == 222)
@@ -7656,7 +10231,7 @@ namespace Terraria
 				this.createTile = 78;
 				this.width = 14;
 				this.height = 14;
-				this.value = 100;
+				this.@value = 100;
 				this.toolTip = "Grows plants";
 				return;
 			}
@@ -7666,7 +10241,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 22;
 				this.rare = 3;
-				this.value = 27000;
+				this.@value = 27000;
 				this.accessory = true;
 				this.toolTip = "6% reduced mana usage";
 				this.faceSlot = 1;
@@ -7684,7 +10259,7 @@ namespace Terraria
 				this.createTile = 79;
 				this.width = 28;
 				this.height = 20;
-				this.value = 2000;
+				this.@value = 2000;
 				return;
 			}
 			if (type == 225)
@@ -7693,33 +10268,16 @@ namespace Terraria
 				this.maxStack = 999;
 				this.width = 22;
 				this.height = 22;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
-			if (type == 226)
+			if (type == 226 || type == 227)
 			{
-				this.name = "Lesser Restoration Potion";
-				this.useSound = 3;
-				this.healMana = 50;
-				this.healLife = 50;
-				this.useStyle = 2;
-				this.useTurn = true;
-				this.useAnimation = 17;
-				this.useTime = 17;
-				this.maxStack = 20;
-				this.consumable = true;
-				this.width = 14;
-				this.height = 24;
-				this.potion = true;
-				this.value = 2000;
-				return;
-			}
-			if (type == 227)
-			{
+				type = 227;
 				this.name = "Restoration Potion";
 				this.useSound = 3;
-				this.healMana = 100;
-				this.healLife = 100;
+				this.healMana = 80;
+				this.healLife = 80;
 				this.useStyle = 2;
 				this.useTurn = true;
 				this.useAnimation = 17;
@@ -7729,7 +10287,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.potion = true;
-				this.value = 4000;
+				this.@value = 1500;
 				this.rare = 1;
 				return;
 			}
@@ -7741,9 +10299,9 @@ namespace Terraria
 				this.defense = 5;
 				this.headSlot = 8;
 				this.rare = 3;
-				this.value = 45000;
-				this.toolTip = "Increases maximum mana by 20";
-				this.toolTip2 = "3% increased magic critical strike chance";
+				this.@value = 45000;
+				this.toolTip = "Increases maximum mana by 40";
+				this.toolTip2 = "4% increased magic critical strike chance";
 				return;
 			}
 			if (type == 229)
@@ -7751,12 +10309,12 @@ namespace Terraria
 				this.name = "Jungle Shirt";
 				this.width = 18;
 				this.height = 18;
-				this.defense = 5;
+				this.defense = 6;
 				this.bodySlot = 8;
 				this.rare = 3;
-				this.value = 30000;
+				this.@value = 30000;
 				this.toolTip = "Increases maximum mana by 20";
-				this.toolTip2 = "3% increased magic critical strike chance";
+				this.toolTip2 = "4% increased magic critical strike chance";
 				return;
 			}
 			if (type == 230)
@@ -7764,12 +10322,12 @@ namespace Terraria
 				this.name = "Jungle Pants";
 				this.width = 18;
 				this.height = 18;
-				this.defense = 5;
+				this.defense = 6;
 				this.legSlot = 8;
 				this.rare = 3;
-				this.value = 30000;
+				this.@value = 30000;
 				this.toolTip = "Increases maximum mana by 20";
-				this.toolTip2 = "3% increased magic critical strike chance";
+				this.toolTip2 = "4% increased magic critical strike chance";
 				return;
 			}
 			if (type == 231)
@@ -7780,7 +10338,7 @@ namespace Terraria
 				this.defense = 8;
 				this.headSlot = 9;
 				this.rare = 3;
-				this.value = 45000;
+				this.@value = 45000;
 				return;
 			}
 			if (type == 232)
@@ -7791,7 +10349,7 @@ namespace Terraria
 				this.defense = 9;
 				this.bodySlot = 9;
 				this.rare = 3;
-				this.value = 30000;
+				this.@value = 30000;
 				return;
 			}
 			if (type == 233)
@@ -7802,7 +10360,7 @@ namespace Terraria
 				this.defense = 8;
 				this.legSlot = 9;
 				this.rare = 3;
-				this.value = 30000;
+				this.@value = 30000;
 				return;
 			}
 			if (type == 234)
@@ -7817,7 +10375,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 1f;
-				this.value = 8;
+				this.@value = 8;
 				this.rare = 1;
 				this.ranged = true;
 				return;
@@ -7837,9 +10395,8 @@ namespace Terraria
 				this.useTime = 25;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 500;
+				this.@value = 500;
 				this.damage = 0;
-				this.explosive = 1;
 				this.toolTip = "'Tossing may be difficult.'";
 				return;
 			}
@@ -7849,7 +10406,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 237)
@@ -7859,7 +10416,7 @@ namespace Terraria
 				this.height = 12;
 				this.headSlot = 12;
 				this.rare = 2;
-				this.value = 10000;
+				this.@value = 10000;
 				this.toolTip = "'Makes you look cool!'";
 				this.vanity = true;
 				return;
@@ -7871,7 +10428,7 @@ namespace Terraria
 				this.height = 20;
 				this.headSlot = 14;
 				this.rare = 2;
-				this.value = 10000;
+				this.@value = 10000;
 				this.defense = 2;
 				this.toolTip = "15% increased magic damage";
 				return;
@@ -7882,7 +10439,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 15;
-				this.value = 10000;
+				this.@value = 10000;
 				this.vanity = true;
 				return;
 			}
@@ -7892,7 +10449,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 10;
-				this.value = 5000;
+				this.@value = 5000;
 				this.vanity = true;
 				return;
 			}
@@ -7902,7 +10459,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 10;
-				this.value = 5000;
+				this.@value = 5000;
 				this.vanity = true;
 				return;
 			}
@@ -7912,7 +10469,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 16;
-				this.value = 10000;
+				this.@value = 10000;
 				this.vanity = true;
 				return;
 			}
@@ -7922,7 +10479,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 17;
-				this.value = 20000;
+				this.@value = 20000;
 				this.vanity = true;
 				return;
 			}
@@ -7932,7 +10489,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 12;
 				this.headSlot = 18;
-				this.value = 10000;
+				this.@value = 10000;
 				this.vanity = true;
 				return;
 			}
@@ -7942,7 +10499,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 11;
-				this.value = 250000;
+				this.@value = 250000;
 				this.vanity = true;
 				return;
 			}
@@ -7952,7 +10509,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 11;
-				this.value = 250000;
+				this.@value = 250000;
 				this.vanity = true;
 				return;
 			}
@@ -7962,7 +10519,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 12;
 				this.headSlot = 19;
-				this.value = 10000;
+				this.@value = 10000;
 				this.vanity = true;
 				return;
 			}
@@ -7972,7 +10529,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 12;
-				this.value = 5000;
+				this.@value = 5000;
 				this.vanity = true;
 				return;
 			}
@@ -7982,7 +10539,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 12;
-				this.value = 5000;
+				this.@value = 5000;
 				this.vanity = true;
 				return;
 			}
@@ -7992,7 +10549,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 20;
-				this.value = 10000;
+				this.@value = 10000;
 				this.vanity = true;
 				this.useStyle = 1;
 				this.useTurn = true;
@@ -8012,7 +10569,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 12;
 				this.headSlot = 21;
-				this.value = 10000;
+				this.@value = 10000;
 				this.vanity = true;
 				return;
 			}
@@ -8022,7 +10579,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 13;
-				this.value = 5000;
+				this.@value = 5000;
 				this.vanity = true;
 				return;
 			}
@@ -8032,7 +10589,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 13;
-				this.value = 5000;
+				this.@value = 5000;
 				this.vanity = true;
 				return;
 			}
@@ -8042,7 +10599,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 12;
 				this.height = 20;
-				this.value = 10000;
+				this.@value = 10000;
 				return;
 			}
 			if (type == 255)
@@ -8051,7 +10608,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 12;
 				this.height = 20;
-				this.value = 2000;
+				this.@value = 2000;
 				return;
 			}
 			if (type == 256)
@@ -8060,8 +10617,10 @@ namespace Terraria
 				this.width = 18;
 				this.height = 12;
 				this.headSlot = 22;
-				this.value = 10000;
-				this.vanity = true;
+				this.@value = 10000;
+				this.defense = 2;
+				this.rare = 1;
+				this.toolTip = "20% increased throwing velocity";
 				return;
 			}
 			if (type == 257)
@@ -8070,8 +10629,10 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 14;
-				this.value = 5000;
-				this.vanity = true;
+				this.@value = 5000;
+				this.defense = 4;
+				this.rare = 1;
+				this.toolTip = "15% increased throwing damage";
 				return;
 			}
 			if (type == 258)
@@ -8080,8 +10641,10 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 14;
-				this.value = 5000;
-				this.vanity = true;
+				this.@value = 5000;
+				this.defense = 3;
+				this.rare = 1;
+				this.toolTip = "10% increased throwing critical strike chance";
 				return;
 			}
 			if (type == 259)
@@ -8090,7 +10653,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 50;
+				this.@value = 50;
 				return;
 			}
 			if (type == 260)
@@ -8099,7 +10662,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 14;
 				this.headSlot = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				this.vanity = true;
 				return;
 			}
@@ -8125,7 +10688,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 14;
 				this.bodySlot = 15;
-				this.value = 2000;
+				this.@value = 2000;
 				this.vanity = true;
 				return;
 			}
@@ -8135,7 +10698,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 25;
-				this.value = 10000;
+				this.@value = 10000;
 				this.vanity = true;
 				return;
 			}
@@ -8145,7 +10708,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 26;
-				this.value = 10000;
+				this.@value = 10000;
 				this.vanity = true;
 				return;
 			}
@@ -8154,14 +10717,14 @@ namespace Terraria
 				this.name = "Hellfire Arrow";
 				this.shootSpeed = 6.5f;
 				this.shoot = 41;
-				this.damage = 10;
+				this.damage = 13;
 				this.width = 10;
 				this.height = 28;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 1;
 				this.knockBack = 8f;
-				this.value = 100;
+				this.@value = 100;
 				this.rare = 2;
 				this.ranged = true;
 				return;
@@ -8182,7 +10745,7 @@ namespace Terraria
 				this.shootSpeed = 12f;
 				this.noMelee = true;
 				this.knockBack = 5f;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 2;
 				this.toolTip = "'This is a good idea!'";
 				this.ranged = true;
@@ -8194,7 +10757,7 @@ namespace Terraria
 				this.name = "Guide Voodoo Doll";
 				this.width = 14;
 				this.height = 26;
-				this.value = 1000;
+				this.@value = 1000;
 				this.toolTip = "'You are a terrible person.'";
 				return;
 			}
@@ -8205,7 +10768,7 @@ namespace Terraria
 				this.name = "Diving Helmet";
 				this.width = 20;
 				this.height = 20;
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 2;
 				this.toolTip = "Greatly extends underwater breathing";
 				return;
@@ -8216,8 +10779,9 @@ namespace Terraria
 				this.bodySlot = 0;
 				this.width = 20;
 				this.height = 20;
-				this.value = 10000;
+				this.@value = 10000;
 				this.color = Main.player[Main.myPlayer].shirtColor;
+				this.vanity = true;
 				return;
 			}
 			if (type == 270)
@@ -8226,8 +10790,9 @@ namespace Terraria
 				this.legSlot = 0;
 				this.width = 20;
 				this.height = 20;
-				this.value = 10000;
+				this.@value = 10000;
 				this.color = Main.player[Main.myPlayer].pantsColor;
+				this.vanity = true;
 				return;
 			}
 			if (type == 271)
@@ -8236,8 +10801,9 @@ namespace Terraria
 				this.headSlot = 0;
 				this.width = 20;
 				this.height = 20;
-				this.value = 10000;
+				this.@value = 10000;
 				this.color = Main.player[Main.myPlayer].hairColor;
+				this.vanity = true;
 				return;
 			}
 			if (type == 272)
@@ -8258,7 +10824,7 @@ namespace Terraria
 				this.knockBack = 5f;
 				this.scale = 0.9f;
 				this.toolTip = "Casts a demon scythe";
-				this.value = 10000;
+				this.@value = 10000;
 				this.magic = true;
 				return;
 			}
@@ -8275,7 +10841,7 @@ namespace Terraria
 				this.scale = 1.15f;
 				this.useSound = 1;
 				this.rare = 3;
-				this.value = 54000;
+				this.@value = 54000;
 				this.melee = true;
 				return;
 			}
@@ -8283,18 +10849,18 @@ namespace Terraria
 			{
 				this.name = "Dark Lance";
 				this.useStyle = 5;
-				this.useAnimation = 25;
-				this.useTime = 25;
-				this.shootSpeed = 5f;
-				this.knockBack = 4f;
+				this.useAnimation = 22;
+				this.useTime = 22;
+				this.shootSpeed = 6f;
+				this.knockBack = 5f;
 				this.width = 40;
 				this.height = 40;
-				this.damage = 27;
+				this.damage = 29;
 				this.scale = 1.1f;
 				this.useSound = 1;
 				this.shoot = 46;
 				this.rare = 3;
-				this.value = 27000;
+				this.@value = 27000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -8313,7 +10879,7 @@ namespace Terraria
 				this.createTile = 81;
 				this.width = 20;
 				this.height = 22;
-				this.value = 400;
+				this.@value = 400;
 				return;
 			}
 			if (type == 276)
@@ -8329,7 +10895,7 @@ namespace Terraria
 				this.createTile = 188;
 				this.width = 12;
 				this.height = 12;
-				this.value = 10;
+				this.@value = 10;
 				return;
 			}
 			if (type == 277)
@@ -8342,12 +10908,12 @@ namespace Terraria
 				this.knockBack = 5f;
 				this.width = 40;
 				this.height = 40;
-				this.damage = 10;
+				this.damage = 11;
 				this.scale = 1.1f;
 				this.useSound = 1;
 				this.shoot = 47;
 				this.rare = 1;
-				this.value = 10000;
+				this.@value = 10000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -8365,7 +10931,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 3f;
-				this.value = 15;
+				this.@value = 15;
 				this.ranged = true;
 				return;
 			}
@@ -8385,9 +10951,9 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 50;
+				this.@value = 50;
 				this.knockBack = 2f;
-				this.ranged = true;
+				this.thrown = true;
 				return;
 			}
 			if (type == 280)
@@ -8404,7 +10970,7 @@ namespace Terraria
 				this.scale = 1f;
 				this.useSound = 1;
 				this.shoot = 49;
-				this.value = 1000;
+				this.@value = 1000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -8421,19 +10987,19 @@ namespace Terraria
 				this.height = 6;
 				this.shoot = 10;
 				this.useAmmo = 51;
-				this.useSound = 5;
+				this.useSound = 63;
 				this.damage = 9;
 				this.shootSpeed = 11f;
 				this.noMelee = true;
-				this.value = 10000;
+				this.@value = 10000;
 				this.knockBack = 3.5f;
-				this.useAmmo = 51;
 				this.toolTip = "Allows the collection of seeds for ammo";
 				this.ranged = true;
 				return;
 			}
 			if (type == 282)
 			{
+				this.color = new Color(255, 255, 255, 0);
 				this.useStyle = 1;
 				this.name = "Glowstick";
 				this.shootSpeed = 6f;
@@ -8446,7 +11012,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 15;
 				this.noMelee = true;
-				this.value = 10;
+				this.@value = 10;
 				this.holdStyle = 1;
 				this.toolTip = "Works when wet";
 				return;
@@ -8460,8 +11026,9 @@ namespace Terraria
 				this.maxStack = 999;
 				this.ammo = 51;
 				this.toolTip = "For use with Blowpipe";
-				this.damage = 1;
+				this.damage = 3;
 				this.ranged = true;
+				this.consumable = true;
 				return;
 			}
 			if (type == 284)
@@ -8471,7 +11038,7 @@ namespace Terraria
 				this.name = "Wooden Boomerang";
 				this.shootSpeed = 6.5f;
 				this.shoot = 52;
-				this.damage = 7;
+				this.damage = 8;
 				this.knockBack = 5f;
 				this.width = 14;
 				this.height = 28;
@@ -8479,7 +11046,7 @@ namespace Terraria
 				this.useAnimation = 16;
 				this.useTime = 16;
 				this.noUseGraphic = true;
-				this.value = 5000;
+				this.@value = 5000;
 				this.melee = true;
 				return;
 			}
@@ -8490,11 +11057,12 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "5% increased movement speed";
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 286)
 			{
+				this.color = new Color(255, 255, 255, 0);
 				this.useStyle = 1;
 				this.name = "Sticky Glowstick";
 				this.shootSpeed = 6f;
@@ -8507,17 +11075,19 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 15;
 				this.noMelee = true;
-				this.value = 20;
+				this.@value = 20;
 				this.holdStyle = 1;
 				return;
 			}
 			if (type == 287)
 			{
+				this.crit = 4;
 				this.useStyle = 1;
 				this.name = "Poisoned Knife";
-				this.shootSpeed = 11f;
+				this.shootSpeed = 12f;
 				this.shoot = 54;
-				this.damage = 13;
+				this.damage = 14;
+				this.autoReuse = true;
 				this.width = 18;
 				this.height = 20;
 				this.maxStack = 999;
@@ -8527,9 +11097,9 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 60;
-				this.knockBack = 2f;
-				this.ranged = true;
+				this.@value = 60;
+				this.knockBack = 2.4f;
+				this.thrown = true;
 				return;
 			}
 			if (type == 288)
@@ -8547,7 +11117,7 @@ namespace Terraria
 				this.buffType = 1;
 				this.buffTime = 14400;
 				this.toolTip = "Provides immunity to lava";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8566,7 +11136,7 @@ namespace Terraria
 				this.buffType = 2;
 				this.buffTime = 18000;
 				this.toolTip = "Provides life regeneration";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8585,7 +11155,7 @@ namespace Terraria
 				this.buffType = 3;
 				this.buffTime = 14400;
 				this.toolTip = "25% increased movement speed";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8604,7 +11174,7 @@ namespace Terraria
 				this.buffType = 4;
 				this.buffTime = 7200;
 				this.toolTip = "Breathe water instead of air";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8623,7 +11193,7 @@ namespace Terraria
 				this.buffType = 5;
 				this.buffTime = 18000;
 				this.toolTip = "Increase defense by 8";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8640,9 +11210,9 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.buffType = 6;
-				this.buffTime = 7200;
+				this.buffTime = 25200;
 				this.toolTip = "Increased mana regeneration";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8661,7 +11231,7 @@ namespace Terraria
 				this.buffType = 7;
 				this.buffTime = 7200;
 				this.toolTip = "20% increased magic damage";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8680,7 +11250,7 @@ namespace Terraria
 				this.buffType = 8;
 				this.buffTime = 18000;
 				this.toolTip = "Slows falling speed";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8699,7 +11269,7 @@ namespace Terraria
 				this.buffType = 9;
 				this.buffTime = 18000;
 				this.toolTip = "Shows the location of treasure and ore";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8718,7 +11288,7 @@ namespace Terraria
 				this.buffType = 10;
 				this.buffTime = 7200;
 				this.toolTip = "Grants invisibility";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8737,7 +11307,7 @@ namespace Terraria
 				this.buffType = 11;
 				this.buffTime = 18000;
 				this.toolTip = "Emits an aura of light";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8756,7 +11326,7 @@ namespace Terraria
 				this.buffType = 12;
 				this.buffTime = 14400;
 				this.toolTip = "Increases night vision";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8775,7 +11345,7 @@ namespace Terraria
 				this.buffType = 13;
 				this.buffTime = 25200;
 				this.toolTip = "Increases enemy spawn rate";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8794,7 +11364,7 @@ namespace Terraria
 				this.buffType = 14;
 				this.buffTime = 7200;
 				this.toolTip = "Attackers also take damage";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8813,7 +11383,7 @@ namespace Terraria
 				this.buffType = 15;
 				this.buffTime = 18000;
 				this.toolTip = "Allows the ability to walk on water";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8832,7 +11402,7 @@ namespace Terraria
 				this.buffType = 16;
 				this.buffTime = 14400;
 				this.toolTip = "20% increased arrow speed and damage";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8851,7 +11421,7 @@ namespace Terraria
 				this.buffType = 17;
 				this.buffTime = 18000;
 				this.toolTip = "Shows the location of enemies";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8870,7 +11440,7 @@ namespace Terraria
 				this.buffType = 18;
 				this.buffTime = 10800;
 				this.toolTip = "Allows the control of gravity";
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -8888,11 +11458,12 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 26;
 				this.height = 22;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 307)
 			{
+				this.autoReuse = true;
 				this.name = "Daybloom Seeds";
 				this.useTurn = true;
 				this.useStyle = 1;
@@ -8904,11 +11475,12 @@ namespace Terraria
 				this.placeStyle = 0;
 				this.width = 12;
 				this.height = 14;
-				this.value = 80;
+				this.@value = 80;
 				return;
 			}
 			if (type == 308)
 			{
+				this.autoReuse = true;
 				this.name = "Moonglow Seeds";
 				this.useTurn = true;
 				this.useStyle = 1;
@@ -8920,11 +11492,12 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 12;
 				this.height = 14;
-				this.value = 80;
+				this.@value = 80;
 				return;
 			}
 			if (type == 309)
 			{
+				this.autoReuse = true;
 				this.name = "Blinkroot Seeds";
 				this.useTurn = true;
 				this.useStyle = 1;
@@ -8936,11 +11509,12 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 12;
 				this.height = 14;
-				this.value = 80;
+				this.@value = 80;
 				return;
 			}
 			if (type == 310)
 			{
+				this.autoReuse = true;
 				this.name = "Deathweed Seeds";
 				this.useTurn = true;
 				this.useStyle = 1;
@@ -8952,11 +11526,12 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 12;
 				this.height = 14;
-				this.value = 80;
+				this.@value = 80;
 				return;
 			}
 			if (type == 311)
 			{
+				this.autoReuse = true;
 				this.name = "Waterleaf Seeds";
 				this.useTurn = true;
 				this.useStyle = 1;
@@ -8968,11 +11543,12 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 12;
 				this.height = 14;
-				this.value = 80;
+				this.@value = 80;
 				return;
 			}
 			if (type == 312)
 			{
+				this.autoReuse = true;
 				this.name = "Fireblossom Seeds";
 				this.useTurn = true;
 				this.useStyle = 1;
@@ -8984,7 +11560,7 @@ namespace Terraria
 				this.placeStyle = 5;
 				this.width = 12;
 				this.height = 14;
-				this.value = 80;
+				this.@value = 80;
 				return;
 			}
 			if (type == 313)
@@ -8993,7 +11569,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 12;
 				this.height = 14;
-				this.value = 100;
+				this.@value = 100;
 				return;
 			}
 			if (type == 314)
@@ -9002,7 +11578,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 12;
 				this.height = 14;
-				this.value = 100;
+				this.@value = 100;
 				return;
 			}
 			if (type == 315)
@@ -9011,7 +11587,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 12;
 				this.height = 14;
-				this.value = 100;
+				this.@value = 100;
 				return;
 			}
 			if (type == 316)
@@ -9020,7 +11596,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 12;
 				this.height = 14;
-				this.value = 100;
+				this.@value = 100;
 				return;
 			}
 			if (type == 317)
@@ -9029,7 +11605,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 12;
 				this.height = 14;
-				this.value = 100;
+				this.@value = 100;
 				return;
 			}
 			if (type == 318)
@@ -9038,7 +11614,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 12;
 				this.height = 14;
-				this.value = 100;
+				this.@value = 100;
 				return;
 			}
 			if (type == 319)
@@ -9047,7 +11623,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 16;
 				this.height = 14;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 320)
@@ -9056,7 +11632,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 16;
 				this.height = 14;
-				this.value = 50;
+				this.@value = 50;
 				return;
 			}
 			if (type == 321)
@@ -9079,7 +11655,7 @@ namespace Terraria
 				this.headSlot = 28;
 				this.width = 20;
 				this.height = 20;
-				this.value = 20000;
+				this.@value = 20000;
 				return;
 			}
 			if (type == 323)
@@ -9088,7 +11664,7 @@ namespace Terraria
 				this.width = 10;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 50;
+				this.@value = 50;
 				return;
 			}
 			if (type == 324)
@@ -9097,7 +11673,7 @@ namespace Terraria
 				this.width = 10;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 250000;
+				this.@value = 200000;
 				this.toolTip = "'Banned in most places'";
 				return;
 			}
@@ -9107,7 +11683,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 16;
-				this.value = 200000;
+				this.@value = 200000;
 				this.vanity = true;
 				return;
 			}
@@ -9117,7 +11693,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 15;
-				this.value = 200000;
+				this.@value = 200000;
 				this.vanity = true;
 				return;
 			}
@@ -9144,7 +11720,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 26;
 				this.height = 22;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 329)
@@ -9154,7 +11730,7 @@ namespace Terraria
 				this.height = 20;
 				this.maxStack = 1;
 				this.toolTip = "Opens all Shadow Chests";
-				this.value = 75000;
+				this.@value = 75000;
 				return;
 			}
 			if (type == 330)
@@ -9178,7 +11754,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 16;
 				this.maxStack = 99;
-				this.value = 100;
+				this.@value = 100;
 				return;
 			}
 			if (type == 332)
@@ -9194,7 +11770,7 @@ namespace Terraria
 				this.createTile = 86;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.toolTip = "Used for crafting cloth";
 				return;
 			}
@@ -9211,7 +11787,7 @@ namespace Terraria
 				this.createTile = 87;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 334)
@@ -9227,7 +11803,7 @@ namespace Terraria
 				this.createTile = 88;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 335)
@@ -9243,7 +11819,7 @@ namespace Terraria
 				this.createTile = 89;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 336)
@@ -9259,7 +11835,7 @@ namespace Terraria
 				this.createTile = 90;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 337)
@@ -9276,7 +11852,7 @@ namespace Terraria
 				this.placeStyle = 0;
 				this.width = 10;
 				this.height = 24;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 338)
@@ -9293,7 +11869,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 10;
 				this.height = 24;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 339)
@@ -9310,7 +11886,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 10;
 				this.height = 24;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 340)
@@ -9327,7 +11903,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 10;
 				this.height = 24;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 341)
@@ -9343,7 +11919,7 @@ namespace Terraria
 				this.createTile = 92;
 				this.width = 10;
 				this.height = 24;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 342)
@@ -9359,7 +11935,7 @@ namespace Terraria
 				this.createTile = 93;
 				this.width = 10;
 				this.height = 24;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 343)
@@ -9376,7 +11952,7 @@ namespace Terraria
 				this.placeStyle = 5;
 				this.width = 20;
 				this.height = 20;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 344)
@@ -9392,7 +11968,7 @@ namespace Terraria
 				this.createTile = 95;
 				this.width = 20;
 				this.height = 20;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 345)
@@ -9408,7 +11984,7 @@ namespace Terraria
 				this.createTile = 96;
 				this.width = 20;
 				this.height = 20;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 346)
@@ -9424,7 +12000,7 @@ namespace Terraria
 				this.createTile = 97;
 				this.width = 20;
 				this.height = 20;
-				this.value = 200000;
+				this.@value = 200000;
 				return;
 			}
 			if (type == 347)
@@ -9440,7 +12016,7 @@ namespace Terraria
 				this.createTile = 98;
 				this.width = 20;
 				this.height = 20;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 348)
@@ -9457,7 +12033,7 @@ namespace Terraria
 				this.placeStyle = 6;
 				this.width = 20;
 				this.height = 20;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 349)
@@ -9473,7 +12049,7 @@ namespace Terraria
 				this.createTile = 100;
 				this.width = 20;
 				this.height = 20;
-				this.value = 1500;
+				this.@value = 1500;
 				return;
 			}
 			if (type == 350)
@@ -9490,7 +12066,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 16;
 				this.height = 24;
-				this.value = 70;
+				this.@value = 70;
 				return;
 			}
 			if (type == 351)
@@ -9507,7 +12083,7 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 16;
 				this.height = 24;
-				this.value = 20;
+				this.@value = 20;
 				return;
 			}
 			if (type == 352)
@@ -9523,7 +12099,7 @@ namespace Terraria
 				this.createTile = 94;
 				this.width = 24;
 				this.height = 24;
-				this.value = 600;
+				this.@value = 600;
 				this.toolTip = "Used for brewing ale";
 				return;
 			}
@@ -9541,7 +12117,7 @@ namespace Terraria
 				this.height = 10;
 				this.buffType = 25;
 				this.buffTime = 7200;
-				this.value = 100;
+				this.@value = 100;
 				return;
 			}
 			if (type == 354)
@@ -9557,7 +12133,7 @@ namespace Terraria
 				this.createTile = 101;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 355)
@@ -9573,7 +12149,7 @@ namespace Terraria
 				this.createTile = 102;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 356)
@@ -9589,7 +12165,7 @@ namespace Terraria
 				this.createTile = 103;
 				this.width = 16;
 				this.height = 24;
-				this.value = 20;
+				this.@value = 20;
 				return;
 			}
 			if (type == 357)
@@ -9605,10 +12181,10 @@ namespace Terraria
 				this.width = 10;
 				this.height = 10;
 				this.buffType = 26;
-				this.buffTime = 36000;
+				this.buffTime = 108000;
 				this.rare = 1;
 				this.toolTip = "Minor improvements to all stats";
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 358)
@@ -9625,7 +12201,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 12;
 				this.height = 30;
-				this.value = 150;
+				this.@value = 150;
 				return;
 			}
 			if (type == 359)
@@ -9641,7 +12217,7 @@ namespace Terraria
 				this.createTile = 104;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 360)
@@ -9657,7 +12233,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 361)
@@ -9670,6 +12246,7 @@ namespace Terraria
 				this.width = 28;
 				this.height = 28;
 				this.toolTip = "Summons a Goblin Army";
+				this.maxStack = 20;
 				return;
 			}
 			if (type == 362)
@@ -9678,7 +12255,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 24;
 				this.height = 24;
-				this.value = 30;
+				this.@value = 30;
 				return;
 			}
 			if (type == 363)
@@ -9694,7 +12271,7 @@ namespace Terraria
 				this.createTile = 106;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.toolTip = "Used for advanced wood crafting";
 				return;
 			}
@@ -9711,7 +12288,7 @@ namespace Terraria
 				this.createTile = 107;
 				this.width = 12;
 				this.height = 12;
-				this.value = 3500;
+				this.@value = 3500;
 				this.rare = 3;
 				return;
 			}
@@ -9728,7 +12305,7 @@ namespace Terraria
 				this.createTile = 108;
 				this.width = 12;
 				this.height = 12;
-				this.value = 5500;
+				this.@value = 5500;
 				this.rare = 3;
 				return;
 			}
@@ -9745,7 +12322,7 @@ namespace Terraria
 				this.createTile = 111;
 				this.width = 12;
 				this.height = 12;
-				this.value = 7500;
+				this.@value = 7500;
 				this.rare = 3;
 				return;
 			}
@@ -9765,7 +12342,7 @@ namespace Terraria
 				this.scale = 1.2f;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 39000;
+				this.@value = 39000;
 				this.melee = true;
 				this.toolTip = "Strong enough to destroy Demon Altars";
 				return;
@@ -9780,16 +12357,17 @@ namespace Terraria
 				this.knockBack = 4.5f;
 				this.width = 40;
 				this.height = 40;
-				this.damage = 47;
+				this.damage = 50;
 				this.scale = 1.15f;
 				this.useSound = 1;
 				this.rare = 5;
-				this.value = 230000;
+				this.@value = 230000;
 				this.melee = true;
 				return;
 			}
 			if (type == 369)
 			{
+				this.autoReuse = true;
 				this.name = "Hallowed Seeds";
 				this.useTurn = true;
 				this.useStyle = 1;
@@ -9800,7 +12378,7 @@ namespace Terraria
 				this.createTile = 109;
 				this.width = 14;
 				this.height = 14;
-				this.value = 2000;
+				this.@value = 2000;
 				this.rare = 3;
 				return;
 			}
@@ -9828,7 +12406,7 @@ namespace Terraria
 				this.defense = 2;
 				this.headSlot = 29;
 				this.rare = 4;
-				this.value = 75000;
+				this.@value = 75000;
 				this.toolTip = "Increases maximum mana by 40";
 				this.toolTip2 = "9% increased magic critical strike chance";
 				return;
@@ -9841,7 +12419,7 @@ namespace Terraria
 				this.defense = 11;
 				this.headSlot = 30;
 				this.rare = 4;
-				this.value = 75000;
+				this.@value = 75000;
 				this.toolTip = "7% increased movement speed";
 				this.toolTip2 = "12% increased melee speed";
 				return;
@@ -9854,7 +12432,7 @@ namespace Terraria
 				this.defense = 4;
 				this.headSlot = 31;
 				this.rare = 4;
-				this.value = 75000;
+				this.@value = 75000;
 				this.toolTip = "10% increased ranged damage";
 				this.toolTip2 = "6% increased ranged critical strike chance";
 				return;
@@ -9867,7 +12445,7 @@ namespace Terraria
 				this.defense = 8;
 				this.bodySlot = 17;
 				this.rare = 4;
-				this.value = 60000;
+				this.@value = 60000;
 				this.toolTip2 = "3% increased critical strike chance";
 				return;
 			}
@@ -9879,7 +12457,7 @@ namespace Terraria
 				this.defense = 7;
 				this.legSlot = 16;
 				this.rare = 4;
-				this.value = 45000;
+				this.@value = 45000;
 				this.toolTip2 = "10% increased movement speed";
 				return;
 			}
@@ -9891,7 +12469,7 @@ namespace Terraria
 				this.defense = 3;
 				this.headSlot = 32;
 				this.rare = 4;
-				this.value = 112500;
+				this.@value = 112500;
 				this.toolTip = "Increases maximum mana by 60";
 				this.toolTip2 = "15% increased magic damage";
 				return;
@@ -9904,7 +12482,7 @@ namespace Terraria
 				this.defense = 16;
 				this.headSlot = 33;
 				this.rare = 4;
-				this.value = 112500;
+				this.@value = 112500;
 				this.toolTip = "5% increased melee critical strike chance";
 				this.toolTip2 = "10% increased melee damage";
 				return;
@@ -9917,7 +12495,7 @@ namespace Terraria
 				this.defense = 6;
 				this.headSlot = 34;
 				this.rare = 4;
-				this.value = 112500;
+				this.@value = 112500;
 				this.toolTip = "12% increased ranged damage";
 				this.toolTip2 = "7% increased ranged critical strike chance";
 				return;
@@ -9930,7 +12508,7 @@ namespace Terraria
 				this.defense = 12;
 				this.bodySlot = 18;
 				this.rare = 4;
-				this.value = 90000;
+				this.@value = 90000;
 				this.toolTip2 = "5% increased damage";
 				return;
 			}
@@ -9942,7 +12520,7 @@ namespace Terraria
 				this.defense = 9;
 				this.legSlot = 17;
 				this.rare = 4;
-				this.value = 67500;
+				this.@value = 67500;
 				this.toolTip2 = "3% increased critical strike chance";
 				return;
 			}
@@ -9952,7 +12530,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10500;
+				this.@value = 10500;
 				this.rare = 3;
 				this.useStyle = 1;
 				this.useTurn = true;
@@ -9970,7 +12548,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 22000;
+				this.@value = 22000;
 				this.rare = 3;
 				this.useStyle = 1;
 				this.useTurn = true;
@@ -9997,7 +12575,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 57;
 				this.rare = 4;
-				this.value = 54000;
+				this.@value = 54000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -10019,7 +12597,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 58;
 				this.rare = 4;
-				this.value = 81000;
+				this.@value = 81000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -10041,7 +12619,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 59;
 				this.rare = 4;
-				this.value = 54000;
+				this.@value = 54000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -10064,7 +12642,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 60;
 				this.rare = 4;
-				this.value = 81000;
+				this.@value = 81000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -10087,7 +12665,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 61;
 				this.rare = 4;
-				this.value = 108000;
+				this.@value = 108000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -10109,7 +12687,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 62;
 				this.rare = 4;
-				this.value = 108000;
+				this.@value = 108000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -10126,14 +12704,14 @@ namespace Terraria
 				this.knockBack = 7f;
 				this.width = 30;
 				this.height = 10;
-				this.damage = 49;
+				this.damage = 63;
 				this.scale = 1.1f;
 				this.noUseGraphic = true;
 				this.shoot = 63;
 				this.shootSpeed = 15f;
 				this.useSound = 1;
 				this.rare = 5;
-				this.value = 144000;
+				this.@value = 144000;
 				this.melee = true;
 				this.channel = true;
 				this.toolTip = "Has a chance to confuse";
@@ -10155,7 +12733,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.shoot = 64;
 				this.rare = 4;
-				this.value = 67500;
+				this.@value = 67500;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -10167,7 +12745,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 37500;
+				this.@value = 37500;
 				this.rare = 3;
 				this.useStyle = 1;
 				this.useTurn = true;
@@ -10199,8 +12777,8 @@ namespace Terraria
 				this.name = "Compass";
 				this.width = 24;
 				this.height = 28;
-				this.rare = 3;
-				this.value = 100000;
+				this.rare = 1;
+				this.@value = Item.sellPrice(0, 0, 25, 0);
 				this.accessory = true;
 				this.toolTip = "Shows horizontal position";
 				return;
@@ -10211,7 +12789,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 28;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				this.toolTip = "Grants the ability to swim";
 				this.toolTip2 = "Greatly extends underwater breathing";
@@ -10223,8 +12801,8 @@ namespace Terraria
 				this.name = "GPS";
 				this.width = 24;
 				this.height = 28;
-				this.rare = 4;
-				this.value = 150000;
+				this.rare = 3;
+				this.@value = Item.sellPrice(0, 3, 0, 0);
 				this.accessory = true;
 				this.toolTip = "Shows position";
 				this.toolTip2 = "Tells the time";
@@ -10236,7 +12814,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 28;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				this.toolTip = "Negates fall damage";
 				this.toolTip2 = "Grants immunity to fire blocks";
@@ -10248,7 +12826,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 28;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				this.defense = 2;
 				this.toolTip = "Grants immunity to knockback";
@@ -10269,7 +12847,7 @@ namespace Terraria
 				this.createTile = 114;
 				this.width = 26;
 				this.height = 20;
-				this.value = 100000;
+				this.@value = 100000;
 				this.toolTip = "Allows the combining of some accessories";
 				return;
 			}
@@ -10279,7 +12857,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 28;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.accessory = true;
 				this.toolTip = "Allows the holder to double jump";
 				this.toolTip2 = "Increases jump height";
@@ -10294,7 +12872,7 @@ namespace Terraria
 				this.defense = 4;
 				this.headSlot = 35;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.toolTip = "Increases maximum mana by 80";
 				this.toolTip2 = "11% increased magic damage and critical strike chance";
 				return;
@@ -10307,7 +12885,7 @@ namespace Terraria
 				this.defense = 22;
 				this.headSlot = 36;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.toolTip = "7% increased melee critical strike chance";
 				this.toolTip2 = "14% increased melee damage";
 				return;
@@ -10320,7 +12898,7 @@ namespace Terraria
 				this.defense = 8;
 				this.headSlot = 37;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.toolTip = "14% increased ranged damage";
 				this.toolTip2 = "8% increased ranged critical strike chance";
 				return;
@@ -10330,10 +12908,10 @@ namespace Terraria
 				this.name = "Adamantite Breastplate";
 				this.width = 18;
 				this.height = 18;
-				this.defense = 14;
+				this.defense = 16;
 				this.bodySlot = 19;
 				this.rare = 4;
-				this.value = 120000;
+				this.@value = 120000;
 				this.toolTip = "6% increased damage";
 				return;
 			}
@@ -10342,10 +12920,10 @@ namespace Terraria
 				this.name = "Adamantite Leggings";
 				this.width = 18;
 				this.height = 18;
-				this.defense = 10;
+				this.defense = 12;
 				this.legSlot = 18;
 				this.rare = 4;
-				this.value = 90000;
+				this.@value = 90000;
 				this.toolTip = "4% increased critical strike chance";
 				this.toolTip2 = "5% increased movement speed";
 				return;
@@ -10359,7 +12937,7 @@ namespace Terraria
 				this.rare = 4;
 				this.toolTip = "Allows flight";
 				this.toolTip2 = "The wearer can run super fast";
-				this.value = 100000;
+				this.@value = 100000;
 				this.shoeSlot = 13;
 				return;
 			}
@@ -10378,7 +12956,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.shoot = 66;
 				this.rare = 4;
-				this.value = 90000;
+				this.@value = 90000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -10392,7 +12970,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 3;
 				this.toolTip = "Increases block placement range";
-				this.value = 100000;
+				this.@value = 100000;
 				this.waistSlot = 5;
 				return;
 			}
@@ -10434,7 +13012,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 1;
 				this.bodySlot = 20;
-				this.value = 5000;
+				this.@value = 5000;
 				this.rare = 1;
 				return;
 			}
@@ -10445,7 +13023,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 1;
 				this.legSlot = 19;
-				this.value = 5000;
+				this.@value = 5000;
 				this.rare = 1;
 				return;
 			}
@@ -10617,7 +13195,7 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 200;
+				this.@value = 200;
 				this.toolTip = "Spreads the Hallow to some blocks";
 				return;
 			}
@@ -10639,7 +13217,7 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 200;
+				this.@value = 200;
 				this.toolTip = "Spreads the corruption to some blocks";
 				return;
 			}
@@ -10672,7 +13250,11 @@ namespace Terraria
 				this.rare = 5;
 				this.noMelee = true;
 				this.toolTip = "Summons a magical fairy";
-				this.value = (this.value = 250000);
+				int num = 250000;
+				int num1 = num;
+				this.@value = num;
+				this.@value = num1;
+				this.buffType = 27;
 				return;
 			}
 			if (type == 426)
@@ -10687,7 +13269,7 @@ namespace Terraria
 				this.scale = 1.05f;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.melee = true;
 				return;
 			}
@@ -10708,7 +13290,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 10;
 				this.height = 12;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 428)
@@ -10728,7 +13310,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 10;
 				this.height = 12;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 429)
@@ -10748,7 +13330,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 10;
 				this.height = 12;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 430)
@@ -10768,7 +13350,7 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 10;
 				this.height = 12;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 431)
@@ -10788,7 +13370,7 @@ namespace Terraria
 				this.placeStyle = 5;
 				this.width = 10;
 				this.height = 12;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 432)
@@ -10808,7 +13390,7 @@ namespace Terraria
 				this.placeStyle = 6;
 				this.width = 10;
 				this.height = 12;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 433)
@@ -10828,7 +13410,7 @@ namespace Terraria
 				this.placeStyle = 7;
 				this.width = 10;
 				this.height = 12;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 434)
@@ -10847,7 +13429,7 @@ namespace Terraria
 				this.damage = 19;
 				this.shootSpeed = 7.75f;
 				this.noMelee = true;
-				this.value = 150000;
+				this.@value = 150000;
 				this.rare = 4;
 				this.ranged = true;
 				this.toolTip = "Three round burst";
@@ -10869,7 +13451,7 @@ namespace Terraria
 				this.damage = 32;
 				this.shootSpeed = 9f;
 				this.noMelee = true;
-				this.value = 60000;
+				this.@value = 60000;
 				this.ranged = true;
 				this.rare = 4;
 				this.knockBack = 1.5f;
@@ -10890,7 +13472,7 @@ namespace Terraria
 				this.damage = 36;
 				this.shootSpeed = 9.5f;
 				this.noMelee = true;
-				this.value = 90000;
+				this.@value = 90000;
 				this.ranged = true;
 				this.rare = 4;
 				this.knockBack = 2f;
@@ -10912,7 +13494,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 4;
 				this.noMelee = true;
-				this.value = 200000;
+				this.@value = 200000;
 				return;
 			}
 			if (type == 438)
@@ -10928,7 +13510,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 2;
 				return;
 			}
@@ -10945,7 +13527,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 3;
 				return;
 			}
@@ -10962,7 +13544,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 4;
 				return;
 			}
@@ -10979,7 +13561,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 5;
 				return;
 			}
@@ -10996,7 +13578,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 6;
 				return;
 			}
@@ -11013,7 +13595,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 7;
 				return;
 			}
@@ -11030,7 +13612,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 8;
 				return;
 			}
@@ -11047,7 +13629,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 9;
 				return;
 			}
@@ -11064,7 +13646,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 10;
 				return;
 			}
@@ -11081,7 +13663,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 11;
 				return;
 			}
@@ -11098,7 +13680,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 12;
 				return;
 			}
@@ -11115,7 +13697,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 13;
 				return;
 			}
@@ -11132,7 +13714,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 14;
 				return;
 			}
@@ -11149,7 +13731,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 15;
 				return;
 			}
@@ -11166,7 +13748,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 16;
 				return;
 			}
@@ -11183,7 +13765,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 17;
 				return;
 			}
@@ -11200,7 +13782,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 18;
 				return;
 			}
@@ -11217,7 +13799,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 19;
 				return;
 			}
@@ -11234,7 +13816,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 20;
 				return;
 			}
@@ -11251,7 +13833,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 21;
 				return;
 			}
@@ -11268,7 +13850,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 22;
 				return;
 			}
@@ -11285,7 +13867,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 23;
 				return;
 			}
@@ -11302,7 +13884,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 24;
 				return;
 			}
@@ -11319,7 +13901,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 25;
 				return;
 			}
@@ -11336,7 +13918,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 26;
 				return;
 			}
@@ -11353,7 +13935,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 27;
 				return;
 			}
@@ -11370,7 +13952,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 28;
 				return;
 			}
@@ -11387,7 +13969,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 29;
 				return;
 			}
@@ -11404,7 +13986,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 30;
 				return;
 			}
@@ -11421,7 +14003,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 31;
 				return;
 			}
@@ -11438,7 +14020,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 32;
 				return;
 			}
@@ -11455,7 +14037,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 33;
 				return;
 			}
@@ -11469,11 +14051,10 @@ namespace Terraria
 				this.autoReuse = true;
 				this.maxStack = 99;
 				this.consumable = true;
-				this.createTile = 105;
+				this.createTile = 349;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
-				this.placeStyle = 34;
+				this.@value = 300;
 				return;
 			}
 			if (type == 471)
@@ -11489,7 +14070,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 35;
 				return;
 			}
@@ -11506,7 +14087,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 36;
 				return;
 			}
@@ -11523,7 +14104,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 37;
 				return;
 			}
@@ -11540,7 +14121,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 38;
 				return;
 			}
@@ -11557,7 +14138,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 39;
 				return;
 			}
@@ -11574,7 +14155,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 40;
 				return;
 			}
@@ -11591,7 +14172,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 41;
 				return;
 			}
@@ -11608,7 +14189,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 42;
 				return;
 			}
@@ -11657,7 +14238,7 @@ namespace Terraria
 				this.damage = 40;
 				this.shootSpeed = 10f;
 				this.noMelee = true;
-				this.value = 120000;
+				this.@value = 120000;
 				this.ranged = true;
 				this.rare = 4;
 				this.knockBack = 2.5f;
@@ -11676,7 +14257,7 @@ namespace Terraria
 				this.scale = 1.2f;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 138000;
+				this.@value = 138000;
 				this.melee = true;
 				return;
 			}
@@ -11695,7 +14276,7 @@ namespace Terraria
 				this.scale = 1.1f;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 69000;
+				this.@value = 69000;
 				this.melee = true;
 				return;
 			}
@@ -11712,7 +14293,7 @@ namespace Terraria
 				this.scale = 1.15f;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 103500;
+				this.@value = 103500;
 				this.melee = true;
 				return;
 			}
@@ -11724,7 +14305,7 @@ namespace Terraria
 				this.height = 28;
 				this.accessory = true;
 				this.toolTip = "Turns the holder into a werewolf on full moons";
-				this.value = 150000;
+				this.@value = 150000;
 				return;
 			}
 			if (type == 486)
@@ -11734,7 +14315,7 @@ namespace Terraria
 				this.height = 26;
 				this.accessory = true;
 				this.toolTip = "Creates a grid on screen for block placement";
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				return;
 			}
@@ -11751,7 +14332,7 @@ namespace Terraria
 				this.createTile = 125;
 				this.width = 22;
 				this.height = 22;
-				this.value = 100000;
+				this.@value = 100000;
 				this.rare = 3;
 				return;
 			}
@@ -11768,7 +14349,7 @@ namespace Terraria
 				this.createTile = 126;
 				this.width = 22;
 				this.height = 26;
-				this.value = 10000;
+				this.@value = 10000;
 				return;
 			}
 			if (type == 489)
@@ -11778,7 +14359,7 @@ namespace Terraria
 				this.height = 24;
 				this.accessory = true;
 				this.toolTip = "15% increased magic damage";
-				this.value = 100000;
+				this.@value = 100000;
 				this.rare = 4;
 				return;
 			}
@@ -11789,7 +14370,7 @@ namespace Terraria
 				this.height = 24;
 				this.accessory = true;
 				this.toolTip = "15% increased ranged damage";
-				this.value = 100000;
+				this.@value = 100000;
 				this.rare = 4;
 				return;
 			}
@@ -11800,7 +14381,7 @@ namespace Terraria
 				this.height = 24;
 				this.accessory = true;
 				this.toolTip = "15% increased melee damage";
-				this.value = 100000;
+				this.@value = 100000;
 				this.rare = 4;
 				return;
 			}
@@ -11811,7 +14392,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 1;
 				return;
@@ -11823,7 +14404,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 2;
 				return;
@@ -11843,7 +14424,7 @@ namespace Terraria
 				this.damage = 32;
 				this.shootSpeed = 4.5f;
 				this.noMelee = true;
-				this.value = 200000;
+				this.@value = 200000;
 				this.mana = 4;
 				this.magic = true;
 				return;
@@ -11853,7 +14434,7 @@ namespace Terraria
 				this.rare = 5;
 				this.mana = 18;
 				this.channel = true;
-				this.damage = 72;
+				this.damage = 74;
 				this.useStyle = 1;
 				this.name = "Rainbow Rod";
 				this.shootSpeed = 6f;
@@ -11861,20 +14442,20 @@ namespace Terraria
 				this.width = 26;
 				this.height = 28;
 				this.useSound = 28;
-				this.useAnimation = 19;
+				this.useAnimation = 18;
 				this.useTime = 18;
 				this.noMelee = true;
 				this.knockBack = 6f;
 				this.toolTip = "Casts a controllable rainbow";
-				this.value = 200000;
+				this.@value = 200000;
 				this.magic = true;
 				return;
 			}
 			if (type == 496)
 			{
 				this.rare = 4;
-				this.mana = 7;
-				this.damage = 26;
+				this.mana = 6;
+				this.damage = 28;
 				this.useStyle = 1;
 				this.name = "Ice Rod";
 				this.shootSpeed = 12f;
@@ -11882,14 +14463,14 @@ namespace Terraria
 				this.width = 26;
 				this.height = 28;
 				this.useSound = 28;
-				this.useAnimation = 17;
-				this.useTime = 17;
+				this.useAnimation = 9;
+				this.useTime = 9;
 				this.rare = 4;
 				this.autoReuse = true;
 				this.noMelee = true;
 				this.knockBack = 0f;
 				this.toolTip = "Summons a block of ice";
-				this.value = 1000000;
+				this.@value = Item.buyPrice(0, 50, 0, 0);
 				this.magic = true;
 				this.knockBack = 2f;
 				return;
@@ -11901,7 +14482,7 @@ namespace Terraria
 				this.height = 28;
 				this.accessory = true;
 				this.toolTip = "Transforms the holder into merfolk when entering water";
-				this.value = 150000;
+				this.@value = 150000;
 				this.rare = 5;
 				return;
 			}
@@ -11935,7 +14516,7 @@ namespace Terraria
 				this.height = 24;
 				this.rare = 3;
 				this.potion = true;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 500)
@@ -11952,7 +14533,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.rare = 3;
-				this.value = 1000;
+				this.@value = Item.buyPrice(0, 0, 5, 0);
 				return;
 			}
 			if (type == 501)
@@ -11961,7 +14542,7 @@ namespace Terraria
 				this.width = 16;
 				this.height = 14;
 				this.maxStack = 99;
-				this.value = 500;
+				this.@value = 500;
 				this.rare = 1;
 				return;
 			}
@@ -11978,7 +14559,7 @@ namespace Terraria
 				this.createTile = 129;
 				this.width = 24;
 				this.height = 24;
-				this.value = 8000;
+				this.@value = 8000;
 				this.rare = 1;
 				return;
 			}
@@ -11988,7 +14569,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 40;
-				this.value = 20000;
+				this.@value = 20000;
 				this.vanity = true;
 				this.rare = 2;
 				return;
@@ -11999,7 +14580,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 23;
-				this.value = 10000;
+				this.@value = 10000;
 				this.vanity = true;
 				this.rare = 2;
 				return;
@@ -12010,7 +14591,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 22;
-				this.value = 10000;
+				this.@value = 10000;
 				this.vanity = true;
 				this.rare = 2;
 				return;
@@ -12031,7 +14612,7 @@ namespace Terraria
 				this.knockBack = 0.3f;
 				this.shootSpeed = 7f;
 				this.noMelee = true;
-				this.value = 500000;
+				this.@value = 500000;
 				this.rare = 5;
 				this.ranged = true;
 				this.toolTip = "Uses gel for ammo";
@@ -12048,7 +14629,7 @@ namespace Terraria
 				this.height = 28;
 				this.autoReuse = true;
 				this.noMelee = true;
-				this.value = 10000;
+				this.@value = 10000;
 				return;
 			}
 			if (type == 508)
@@ -12062,7 +14643,7 @@ namespace Terraria
 				this.height = 28;
 				this.autoReuse = true;
 				this.noMelee = true;
-				this.value = 10000;
+				this.@value = 10000;
 				return;
 			}
 			if (type == 509)
@@ -12070,16 +14651,16 @@ namespace Terraria
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
-				this.useTime = 10;
+				this.useTime = 5;
 				this.autoReuse = true;
 				this.name = "Wrench";
 				this.width = 24;
 				this.height = 28;
 				this.rare = 1;
 				this.toolTip = "Places red wire";
-				this.value = 20000;
+				this.@value = 20000;
 				this.mech = true;
-				this.tileBoost = 3;
+				this.tileBoost = 20;
 				return;
 			}
 			if (type == 510)
@@ -12087,16 +14668,16 @@ namespace Terraria
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
-				this.useTime = 10;
+				this.useTime = 5;
 				this.autoReuse = true;
 				this.name = "Wire Cutter";
 				this.width = 24;
 				this.height = 28;
 				this.rare = 1;
 				this.toolTip = "Removes wire";
-				this.value = 20000;
+				this.@value = 20000;
 				this.mech = true;
-				this.tileBoost = 3;
+				this.tileBoost = 20;
 				return;
 			}
 			if (type == 511)
@@ -12112,7 +14693,7 @@ namespace Terraria
 				this.createTile = 130;
 				this.width = 12;
 				this.height = 12;
-				this.value = 1000;
+				this.@value = 1000;
 				this.mech = true;
 				return;
 			}
@@ -12129,7 +14710,7 @@ namespace Terraria
 				this.createTile = 131;
 				this.width = 12;
 				this.height = 12;
-				this.value = 1000;
+				this.@value = 1000;
 				this.mech = true;
 				return;
 			}
@@ -12146,7 +14727,7 @@ namespace Terraria
 				this.createTile = 132;
 				this.width = 24;
 				this.height = 24;
-				this.value = 3000;
+				this.@value = 3000;
 				this.mech = true;
 				return;
 			}
@@ -12168,7 +14749,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.rare = 4;
 				this.magic = true;
-				this.value = 150000;
+				this.@value = 150000;
 				return;
 			}
 			if (type == 515)
@@ -12176,14 +14757,14 @@ namespace Terraria
 				this.name = "Crystal Bullet";
 				this.shootSpeed = 5f;
 				this.shoot = 89;
-				this.damage = 8;
+				this.damage = 9;
 				this.width = 8;
 				this.height = 8;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 1f;
-				this.value = 30;
+				this.@value = 30;
 				this.ranged = true;
 				this.rare = 3;
 				this.toolTip = "Creates several crystal shards on impact";
@@ -12194,14 +14775,14 @@ namespace Terraria
 				this.name = "Holy Arrow";
 				this.shootSpeed = 3.5f;
 				this.shoot = 91;
-				this.damage = 6;
+				this.damage = 13;
 				this.width = 10;
 				this.height = 28;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 1;
 				this.knockBack = 2f;
-				this.value = 80;
+				this.@value = 80;
 				this.ranged = true;
 				this.rare = 3;
 				this.toolTip = "Summons falling stars on impact";
@@ -12222,7 +14803,7 @@ namespace Terraria
 				this.useTime = 8;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 5, 0, 0);
+				this.@value = Item.sellPrice(0, 5, 0, 0);
 				this.knockBack = 3.75f;
 				this.magic = true;
 				this.rare = 4;
@@ -12248,7 +14829,7 @@ namespace Terraria
 				this.knockBack = 5f;
 				this.toolTip = "Summons rapid fire crystal shards";
 				this.magic = true;
-				this.value = 500000;
+				this.@value = 500000;
 				return;
 			}
 			if (type == 519)
@@ -12259,7 +14840,7 @@ namespace Terraria
 				this.useSound = 20;
 				this.name = "Cursed Flames";
 				this.useStyle = 5;
-				this.damage = 35;
+				this.damage = 36;
 				this.useAnimation = 20;
 				this.useTime = 20;
 				this.width = 24;
@@ -12270,7 +14851,7 @@ namespace Terraria
 				this.knockBack = 6.5f;
 				this.toolTip = "Summons unholy fire balls";
 				this.magic = true;
-				this.value = 500000;
+				this.@value = 500000;
 				return;
 			}
 			if (type == 520)
@@ -12279,7 +14860,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.maxStack = 999;
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 3;
 				this.toolTip = "'The essence of light creatures'";
 				return;
@@ -12290,7 +14871,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.maxStack = 999;
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 3;
 				this.toolTip = "'The essence of dark creatures'";
 				return;
@@ -12301,7 +14882,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 14;
 				this.maxStack = 99;
-				this.value = 4000;
+				this.@value = 4000;
 				this.rare = 3;
 				this.toolTip = "'Not even water can put the flame out'";
 				return;
@@ -12322,7 +14903,7 @@ namespace Terraria
 				this.placeStyle = 8;
 				this.width = 10;
 				this.height = 12;
-				this.value = 300;
+				this.@value = 300;
 				this.rare = 1;
 				this.toolTip = "Can be placed in water";
 				return;
@@ -12340,7 +14921,7 @@ namespace Terraria
 				this.createTile = 133;
 				this.width = 44;
 				this.height = 30;
-				this.value = 50000;
+				this.@value = 50000;
 				this.toolTip = "Used to smelt adamantite ore";
 				this.rare = 3;
 				return;
@@ -12358,7 +14939,7 @@ namespace Terraria
 				this.createTile = 134;
 				this.width = 28;
 				this.height = 14;
-				this.value = 25000;
+				this.@value = 25000;
 				this.toolTip = "Used to craft items from mythril and adamantite bars";
 				this.rare = 3;
 				return;
@@ -12369,7 +14950,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 14;
 				this.maxStack = 99;
-				this.value = 15000;
+				this.@value = 15000;
 				this.rare = 1;
 				this.toolTip = "'Sharp and magical!'";
 				return;
@@ -12380,7 +14961,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 14;
 				this.maxStack = 99;
-				this.value = 4500;
+				this.@value = 4500;
 				this.rare = 2;
 				this.toolTip = "'Sometimes carried by creatures in corrupt deserts'";
 				return;
@@ -12391,7 +14972,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 14;
 				this.maxStack = 99;
-				this.value = 4500;
+				this.@value = 4500;
 				this.rare = 2;
 				this.toolTip = "'Sometimes carried by creatures in light deserts'";
 				return;
@@ -12411,7 +14992,7 @@ namespace Terraria
 				this.height = 12;
 				this.placeStyle = 0;
 				this.mech = true;
-				this.value = 5000;
+				this.@value = 5000;
 				this.mech = true;
 				this.toolTip = "Activates when stepped on";
 				return;
@@ -12422,7 +15003,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 18;
 				this.maxStack = 999;
-				this.value = 500;
+				this.@value = 500;
 				this.mech = true;
 				return;
 			}
@@ -12432,7 +15013,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 18;
 				this.maxStack = 99;
-				this.value = 50000;
+				this.@value = 50000;
 				this.rare = 1;
 				this.toolTip = "Can be enchanted";
 				return;
@@ -12442,7 +15023,7 @@ namespace Terraria
 				this.name = "Star Cloak";
 				this.width = 20;
 				this.height = 24;
-				this.value = 100000;
+				this.@value = 100000;
 				this.toolTip = "Causes stars to fall when injured";
 				this.accessory = true;
 				this.rare = 4;
@@ -12461,10 +15042,10 @@ namespace Terraria
 				this.shoot = 10;
 				this.useAmmo = 14;
 				this.useSound = 11;
-				this.damage = 23;
+				this.damage = 25;
 				this.shootSpeed = 10f;
 				this.noMelee = true;
-				this.value = 300000;
+				this.@value = 300000;
 				this.rare = 5;
 				this.toolTip = "50% chance to not consume ammo";
 				this.toolTip2 = "'Minishark's older brother'";
@@ -12484,10 +15065,10 @@ namespace Terraria
 				this.shoot = 10;
 				this.useAmmo = 14;
 				this.useSound = 36;
-				this.damage = 23;
-				this.shootSpeed = 6f;
+				this.damage = 24;
+				this.shootSpeed = 7f;
 				this.noMelee = true;
-				this.value = 250000;
+				this.@value = 250000;
 				this.rare = 4;
 				this.ranged = true;
 				this.toolTip = "Fires a spread of bullets";
@@ -12498,7 +15079,7 @@ namespace Terraria
 				this.name = "Philosopher's Stone";
 				this.width = 12;
 				this.height = 18;
-				this.value = 100000;
+				this.@value = 100000;
 				this.toolTip = "Reduces the cooldown of healing potions";
 				this.accessory = true;
 				this.rare = 4;
@@ -12509,7 +15090,7 @@ namespace Terraria
 				this.name = "Titan Glove";
 				this.width = 12;
 				this.height = 18;
-				this.value = 100000;
+				this.@value = 100000;
 				this.toolTip = "Increases melee knockback";
 				this.rare = 4;
 				this.accessory = true;
@@ -12532,7 +15113,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.shoot = 97;
 				this.rare = 4;
-				this.value = 45000;
+				this.@value = 45000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -12551,7 +15132,7 @@ namespace Terraria
 				this.createTile = 136;
 				this.width = 12;
 				this.height = 12;
-				this.value = 2000;
+				this.@value = 2000;
 				this.mech = true;
 				return;
 			}
@@ -12568,7 +15149,7 @@ namespace Terraria
 				this.createTile = 137;
 				this.width = 12;
 				this.height = 12;
-				this.value = 10000;
+				this.@value = 10000;
 				this.mech = true;
 				return;
 			}
@@ -12603,7 +15184,7 @@ namespace Terraria
 				this.height = 12;
 				this.placeStyle = 1;
 				this.mech = true;
-				this.value = 5000;
+				this.@value = 5000;
 				this.toolTip = "Activates when stepped on";
 				return;
 			}
@@ -12622,7 +15203,7 @@ namespace Terraria
 				this.height = 12;
 				this.placeStyle = 2;
 				this.mech = true;
-				this.value = 5000;
+				this.@value = 5000;
 				this.toolTip = "Activates when a player steps on it on";
 				return;
 			}
@@ -12641,7 +15222,7 @@ namespace Terraria
 				this.height = 12;
 				this.placeStyle = 3;
 				this.mech = true;
-				this.value = 5000;
+				this.@value = 5000;
 				this.toolTip = "Activates when a player steps on it on";
 				return;
 			}
@@ -12664,14 +15245,14 @@ namespace Terraria
 				this.name = "Cursed Arrow";
 				this.shootSpeed = 4f;
 				this.shoot = 103;
-				this.damage = 14;
+				this.damage = 17;
 				this.width = 10;
 				this.height = 28;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 1;
 				this.knockBack = 3f;
-				this.value = 80;
+				this.@value = 80;
 				this.ranged = true;
 				this.rare = 3;
 				return;
@@ -12688,7 +15269,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 4f;
-				this.value = 30;
+				this.@value = 30;
 				this.rare = 1;
 				this.ranged = true;
 				this.rare = 3;
@@ -12700,7 +15281,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.maxStack = 999;
-				this.value = 40000;
+				this.@value = 40000;
 				this.rare = 5;
 				this.toolTip = "'The essence of pure terror'";
 				return;
@@ -12711,7 +15292,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.maxStack = 999;
-				this.value = 40000;
+				this.@value = 40000;
 				this.rare = 5;
 				this.toolTip = "'The essence of the destroyer'";
 				return;
@@ -12722,7 +15303,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.maxStack = 999;
-				this.value = 40000;
+				this.@value = 40000;
 				this.rare = 5;
 				this.toolTip = "'The essence of omniscient watchers'";
 				return;
@@ -12742,7 +15323,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.shoot = 105;
 				this.rare = 5;
-				this.value = 230000;
+				this.@value = 230000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -12756,7 +15337,7 @@ namespace Terraria
 				this.defense = 15;
 				this.bodySlot = 24;
 				this.rare = 5;
-				this.value = 200000;
+				this.@value = 200000;
 				this.toolTip = "7% increased critical strike chance";
 				return;
 			}
@@ -12768,7 +15349,7 @@ namespace Terraria
 				this.defense = 11;
 				this.legSlot = 23;
 				this.rare = 5;
-				this.value = 150000;
+				this.@value = 150000;
 				this.toolTip = "7% increased damage";
 				this.toolTip2 = "8% increased movement speed";
 				return;
@@ -12781,7 +15362,7 @@ namespace Terraria
 				this.defense = 9;
 				this.headSlot = 41;
 				this.rare = 5;
-				this.value = 250000;
+				this.@value = 250000;
 				this.toolTip = "15% increased ranged damage";
 				this.toolTip2 = "8% increased ranged critical strike chance";
 				return;
@@ -12794,7 +15375,7 @@ namespace Terraria
 				this.defense = 5;
 				this.headSlot = 42;
 				this.rare = 5;
-				this.value = 250000;
+				this.@value = 250000;
 				this.toolTip = "Increases maximum mana by 100";
 				this.toolTip2 = "12% increased magic damage and critical strike chance";
 				return;
@@ -12807,7 +15388,7 @@ namespace Terraria
 				this.defense = 24;
 				this.headSlot = 43;
 				this.rare = 5;
-				this.value = 250000;
+				this.@value = 250000;
 				this.toolTip = "10% increased melee damage and critical strike chance";
 				this.toolTip2 = "10% increased melee haste";
 				return;
@@ -12817,7 +15398,7 @@ namespace Terraria
 				this.name = "Cross Necklace";
 				this.width = 20;
 				this.height = 24;
-				this.value = 1500;
+				this.@value = 1500;
 				this.toolTip = "Increases length of invincibility after taking damage";
 				this.accessory = true;
 				this.rare = 4;
@@ -12829,7 +15410,7 @@ namespace Terraria
 				this.name = "Mana Flower";
 				this.width = 20;
 				this.height = 24;
-				this.value = 50000;
+				this.@value = 50000;
 				this.toolTip = "8% reduced mana usage";
 				this.toolTip2 = "Automatically use mana potions when needed";
 				this.accessory = true;
@@ -12888,7 +15469,7 @@ namespace Terraria
 				this.name = "Light Disc";
 				this.shootSpeed = 13f;
 				this.shoot = 106;
-				this.damage = 35;
+				this.damage = 57;
 				this.knockBack = 8f;
 				this.width = 24;
 				this.height = 24;
@@ -12898,7 +15479,7 @@ namespace Terraria
 				this.noUseGraphic = true;
 				this.rare = 5;
 				this.maxStack = 5;
-				this.value = 500000;
+				this.@value = 500000;
 				this.toolTip = "Stacks up to 5";
 				return;
 			}
@@ -12916,7 +15497,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -12934,7 +15515,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -12952,7 +15533,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -12970,7 +15551,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -12988,7 +15569,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -13006,7 +15587,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -13024,7 +15605,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -13042,7 +15623,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -13060,7 +15641,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -13078,7 +15659,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -13096,7 +15677,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -13114,7 +15695,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -13131,8 +15712,8 @@ namespace Terraria
 				this.placeStyle = 12;
 				this.width = 24;
 				this.height = 24;
-				this.rare = 3;
-				this.value = 100000;
+				this.rare = 4;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -13142,7 +15723,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.maxStack = 999;
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 3;
 				this.toolTip = "'The essence of powerful flying creatures'";
 				return;
@@ -13154,7 +15735,7 @@ namespace Terraria
 				this.height = 24;
 				this.rare = 3;
 				this.toolTip = "Has a chance to record songs";
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -13188,7 +15769,7 @@ namespace Terraria
 				this.damage = 43;
 				this.shootSpeed = 11f;
 				this.noMelee = true;
-				this.value = 200000;
+				this.@value = 200000;
 				this.ranged = true;
 				this.rare = 4;
 				this.knockBack = 2.5f;
@@ -13210,7 +15791,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 107;
 				this.rare = 4;
-				this.value = 220000;
+				this.@value = 220000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -13232,7 +15813,6 @@ namespace Terraria
 				this.createTile = 141;
 				this.width = 12;
 				this.height = 12;
-				this.explosive = 4;
 				this.toolTip = "Explodes when activated";
 				return;
 			}
@@ -13286,7 +15866,7 @@ namespace Terraria
 				this.placeStyle = 0;
 				this.width = 10;
 				this.height = 12;
-				this.value = 50;
+				this.@value = 50;
 				this.toolTip = "Activates every second";
 				return;
 			}
@@ -13306,7 +15886,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 10;
 				this.height = 12;
-				this.value = 50;
+				this.@value = 50;
 				this.toolTip = "Activates every 3 seconds";
 				return;
 			}
@@ -13326,7 +15906,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 10;
 				this.height = 12;
-				this.value = 50;
+				this.@value = 50;
 				this.toolTip = "Activates every 5 seconds";
 				return;
 			}
@@ -13366,7 +15946,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 12;
 				this.headSlot = 44;
-				this.value = 150000;
+				this.@value = 150000;
 				this.vanity = true;
 				return;
 			}
@@ -13376,7 +15956,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 25;
-				this.value = 150000;
+				this.@value = 150000;
 				this.vanity = true;
 				return;
 			}
@@ -13386,7 +15966,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 24;
-				this.value = 150000;
+				this.@value = 150000;
 				this.vanity = true;
 				return;
 			}
@@ -13479,7 +16059,7 @@ namespace Terraria
 				this.placeStyle = 0;
 				this.width = 12;
 				this.height = 12;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 597)
@@ -13496,7 +16076,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 12;
 				this.height = 12;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 598)
@@ -13513,7 +16093,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 12;
 				this.height = 12;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 599)
@@ -13570,7 +16150,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a pet bunny";
-				this.value = 0;
+				this.@value = 0;
 				this.buffType = 40;
 				return;
 			}
@@ -13903,7 +16483,7 @@ namespace Terraria
 				this.placeStyle = 7;
 				this.width = 26;
 				this.height = 22;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 626)
@@ -13920,7 +16500,7 @@ namespace Terraria
 				this.placeStyle = 8;
 				this.width = 26;
 				this.height = 22;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 627)
@@ -13937,7 +16517,7 @@ namespace Terraria
 				this.placeStyle = 9;
 				this.width = 26;
 				this.height = 22;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 628)
@@ -13996,7 +16576,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 1;
@@ -14012,7 +16592,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 2;
@@ -14028,7 +16608,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 3;
@@ -14044,7 +16624,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 4;
@@ -14066,7 +16646,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				this.toolTip = "Used for basic crafting";
 				return;
 			}
@@ -14084,7 +16664,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				this.toolTip = "Used for basic crafting";
 				return;
 			}
@@ -14102,7 +16682,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				this.toolTip = "Used for basic crafting";
 				return;
 			}
@@ -14120,7 +16700,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 639)
@@ -14137,7 +16717,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 640)
@@ -14154,7 +16734,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 641)
@@ -14171,7 +16751,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 642)
@@ -14188,7 +16768,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 643)
@@ -14205,7 +16785,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 644)
@@ -14221,7 +16801,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 28;
 				this.height = 20;
-				this.value = 2000;
+				this.@value = 2000;
 				return;
 			}
 			if (type == 645)
@@ -14237,7 +16817,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 28;
 				this.height = 20;
-				this.value = 2000;
+				this.@value = 2000;
 				return;
 			}
 			if (type == 646)
@@ -14253,7 +16833,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 28;
 				this.height = 20;
-				this.value = 2000;
+				this.@value = 2000;
 				return;
 			}
 			if (type == 647)
@@ -14270,7 +16850,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 648)
@@ -14287,7 +16867,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 649)
@@ -14304,7 +16884,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 650)
@@ -14320,7 +16900,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 651)
@@ -14336,7 +16916,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 652)
@@ -14352,7 +16932,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 653)
@@ -14368,7 +16948,7 @@ namespace Terraria
 				this.knockBack = 5f;
 				this.useSound = 1;
 				this.scale = 1f;
-				this.value = 100;
+				this.@value = 100;
 				this.melee = true;
 				return;
 			}
@@ -14387,7 +16967,7 @@ namespace Terraria
 				this.knockBack = 5.5f;
 				this.scale = 1.2f;
 				this.useSound = 1;
-				this.value = 50;
+				this.@value = 50;
 				this.melee = true;
 				return;
 			}
@@ -14405,7 +16985,7 @@ namespace Terraria
 				this.damage = 8;
 				this.shootSpeed = 6.6f;
 				this.noMelee = true;
-				this.value = 100;
+				this.@value = 100;
 				this.ranged = true;
 				return;
 			}
@@ -14422,7 +17002,7 @@ namespace Terraria
 				this.knockBack = 5f;
 				this.useSound = 1;
 				this.scale = 1f;
-				this.value = 100;
+				this.@value = 100;
 				this.melee = true;
 				return;
 			}
@@ -14441,7 +17021,7 @@ namespace Terraria
 				this.knockBack = 5.5f;
 				this.scale = 1.1f;
 				this.useSound = 1;
-				this.value = 50;
+				this.@value = 50;
 				this.melee = true;
 				return;
 			}
@@ -14459,7 +17039,7 @@ namespace Terraria
 				this.damage = 6;
 				this.shootSpeed = 6.6f;
 				this.noMelee = true;
-				this.value = 100;
+				this.@value = 100;
 				this.ranged = true;
 				return;
 			}
@@ -14476,7 +17056,7 @@ namespace Terraria
 				this.knockBack = 5f;
 				this.useSound = 1;
 				this.scale = 1f;
-				this.value = 100;
+				this.@value = 100;
 				this.melee = true;
 				return;
 			}
@@ -14495,7 +17075,7 @@ namespace Terraria
 				this.knockBack = 5.5f;
 				this.scale = 1.25f;
 				this.useSound = 1;
-				this.value = 50;
+				this.@value = 50;
 				this.melee = true;
 				return;
 			}
@@ -14513,7 +17093,7 @@ namespace Terraria
 				this.damage = 9;
 				this.shootSpeed = 6.6f;
 				this.noMelee = true;
-				this.value = 100;
+				this.@value = 100;
 				this.ranged = true;
 				return;
 			}
@@ -14621,17 +17201,18 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a baby penguin";
 				this.buffType = 41;
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
 			if (type == 670)
 			{
+				this.crit = 2;
 				this.noMelee = true;
 				this.useStyle = 1;
 				this.name = "Ice Boomerang";
 				this.shootSpeed = 11.5f;
 				this.shoot = 113;
-				this.damage = 14;
+				this.damage = 16;
 				this.knockBack = 8.5f;
 				this.width = 14;
 				this.height = 28;
@@ -14640,24 +17221,26 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.rare = 1;
-				this.value = 50000;
+				this.@value = 50000;
 				this.melee = true;
 				return;
 			}
 			if (type == 671)
 			{
-				this.name = "Lockblade";
+				this.crit = 13;
+				this.autoReuse = true;
+				this.name = "Keybrand";
 				this.useStyle = 1;
-				this.useAnimation = 22;
-				this.useTime = 22;
-				this.knockBack = 6f;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.knockBack = 6.5f;
 				this.width = 40;
 				this.height = 40;
-				this.damage = 55;
+				this.damage = 70;
 				this.scale = 1.2f;
 				this.useSound = 1;
 				this.rare = 8;
-				this.value = 138000;
+				this.@value = 138000;
 				this.melee = true;
 				return;
 			}
@@ -14665,15 +17248,15 @@ namespace Terraria
 			{
 				this.name = "Cutlass";
 				this.useStyle = 1;
-				this.useAnimation = 17;
+				this.useAnimation = 18;
 				this.knockBack = 4f;
 				this.width = 24;
 				this.height = 28;
-				this.damage = 51;
+				this.damage = 49;
 				this.scale = 1.1f;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 180000;
+				this.@value = 180000;
 				this.melee = true;
 				this.autoReuse = true;
 				this.useTurn = true;
@@ -14693,7 +17276,7 @@ namespace Terraria
 				this.placeStyle = 23;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				this.toolTip = "Used for basic crafting";
 				return;
 			}
@@ -14708,11 +17291,11 @@ namespace Terraria
 				this.knockBack = 4.5f;
 				this.width = 40;
 				this.height = 40;
-				this.damage = 60;
+				this.damage = 66;
 				this.scale = 1.05f;
 				this.useSound = 1;
 				this.rare = 8;
-				this.value = Item.sellPrice(0, 10, 0, 0);
+				this.@value = Item.sellPrice(0, 10, 0, 0);
 				this.melee = true;
 				return;
 			}
@@ -14720,27 +17303,28 @@ namespace Terraria
 			{
 				this.name = "True Night's Edge";
 				this.useStyle = 1;
-				this.useAnimation = 24;
-				this.useTime = 24;
+				this.useAnimation = 26;
+				this.useTime = 26;
 				this.shoot = 157;
 				this.shootSpeed = 10f;
 				this.knockBack = 4.75f;
 				this.width = 40;
 				this.height = 40;
-				this.damage = 78;
+				this.damage = 90;
 				this.scale = 1.15f;
 				this.useSound = 1;
 				this.rare = 8;
-				this.value = Item.sellPrice(0, 10, 0, 0);
+				this.@value = Item.sellPrice(0, 10, 0, 0);
 				this.melee = true;
 				return;
 			}
 			if (type == 676)
 			{
+				this.autoReuse = true;
 				this.name = "Frostbrand";
 				this.useStyle = 1;
 				this.useAnimation = 23;
-				this.useTime = 59;
+				this.useTime = 55;
 				this.knockBack = 4.5f;
 				this.width = 24;
 				this.height = 28;
@@ -14750,7 +17334,7 @@ namespace Terraria
 				this.rare = 5;
 				this.shoot = 119;
 				this.shootSpeed = 12f;
-				this.value = 250000;
+				this.@value = 250000;
 				this.toolTip = "Shoots an icy bolt";
 				this.melee = true;
 				return;
@@ -14769,7 +17353,7 @@ namespace Terraria
 				this.placeStyle = 28;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 678)
@@ -14803,7 +17387,7 @@ namespace Terraria
 				this.damage = 29;
 				this.shootSpeed = 6f;
 				this.noMelee = true;
-				this.value = 700000;
+				this.@value = 700000;
 				this.rare = 8;
 				this.ranged = true;
 				this.toolTip = "Fires a spread of bullets";
@@ -14823,7 +17407,7 @@ namespace Terraria
 				this.placeStyle = 10;
 				this.width = 26;
 				this.height = 22;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 681)
@@ -14840,7 +17424,7 @@ namespace Terraria
 				this.placeStyle = 11;
 				this.width = 26;
 				this.height = 22;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 682)
@@ -14861,20 +17445,21 @@ namespace Terraria
 				this.crit = 5;
 				this.noMelee = true;
 				this.scale = 1.1f;
-				this.value = 27000;
+				this.@value = 27000;
 				this.ranged = true;
 				return;
 			}
 			if (type == 683)
 			{
-				this.rare = 7;
-				this.mana = 14;
+				this.autoReuse = true;
+				this.rare = 6;
+				this.mana = 25;
 				this.useSound = 20;
 				this.name = "Unholy Trident";
 				this.useStyle = 5;
-				this.damage = 67;
-				this.useAnimation = 30;
-				this.useTime = 30;
+				this.damage = 73;
+				this.useAnimation = 22;
+				this.useTime = 22;
 				this.width = 30;
 				this.height = 30;
 				this.shoot = 114;
@@ -14882,7 +17467,7 @@ namespace Terraria
 				this.knockBack = 6.5f;
 				this.toolTip = "Summons the Devil's trident";
 				this.magic = true;
-				this.value = 500000;
+				this.@value = 500000;
 				return;
 			}
 			if (type == 684)
@@ -14893,7 +17478,7 @@ namespace Terraria
 				this.defense = 10;
 				this.headSlot = 46;
 				this.rare = 5;
-				this.value = 250000;
+				this.@value = 250000;
 				this.toolTip = "16% increased melee and ranged damage";
 				return;
 			}
@@ -14905,7 +17490,7 @@ namespace Terraria
 				this.defense = 20;
 				this.bodySlot = 27;
 				this.rare = 5;
-				this.value = 200000;
+				this.@value = 200000;
 				this.toolTip = "11% increased melee and ranged critical strike chance";
 				return;
 			}
@@ -14917,7 +17502,7 @@ namespace Terraria
 				this.defense = 13;
 				this.legSlot = 26;
 				this.rare = 5;
-				this.value = 150000;
+				this.@value = 150000;
 				this.toolTip = "8% increased movement speed";
 				this.toolTip = "7% increased melee attack speed";
 				return;
@@ -14929,7 +17514,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 2;
 				this.headSlot = 47;
-				this.value = 1875;
+				this.@value = 1875;
 				return;
 			}
 			if (type == 688)
@@ -14939,7 +17524,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 2;
 				this.bodySlot = 28;
-				this.value = Item.sellPrice(0, 0, 0, 50);
+				this.@value = Item.sellPrice(0, 0, 0, 50);
 				return;
 			}
 			if (type == 689)
@@ -14949,7 +17534,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 1;
 				this.legSlot = 27;
-				this.value = 1125;
+				this.@value = 1125;
 				return;
 			}
 			if (type == 690)
@@ -14959,7 +17544,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 3;
 				this.headSlot = 48;
-				this.value = 7500;
+				this.@value = 7500;
 				return;
 			}
 			if (type == 691)
@@ -14969,7 +17554,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 3;
 				this.bodySlot = 29;
-				this.value = 6000;
+				this.@value = 6000;
 				return;
 			}
 			if (type == 692)
@@ -14979,7 +17564,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 2;
 				this.legSlot = 28;
-				this.value = 4500;
+				this.@value = 4500;
 				return;
 			}
 			if (type == 693)
@@ -14989,7 +17574,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 4;
 				this.headSlot = 49;
-				this.value = 7500;
+				this.@value = 7500;
 				return;
 			}
 			if (type == 694)
@@ -14999,7 +17584,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 5;
 				this.bodySlot = 30;
-				this.value = 6000;
+				this.@value = 6000;
 				return;
 			}
 			if (type == 695)
@@ -15009,7 +17594,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 3;
 				this.legSlot = 29;
-				this.value = 4500;
+				this.@value = 4500;
 				return;
 			}
 			if (type == 696)
@@ -15019,7 +17604,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 5;
 				this.headSlot = 50;
-				this.value = 7500;
+				this.@value = 7500;
 				return;
 			}
 			if (type == 697)
@@ -15029,7 +17614,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 6;
 				this.bodySlot = 31;
-				this.value = 6000;
+				this.@value = 6000;
 				return;
 			}
 			if (type == 698)
@@ -15039,7 +17624,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 5;
 				this.legSlot = 30;
-				this.value = 4500;
+				this.@value = 4500;
 				return;
 			}
 			if (type == 699)
@@ -15055,7 +17640,7 @@ namespace Terraria
 				this.createTile = 166;
 				this.width = 12;
 				this.height = 12;
-				this.value = 375;
+				this.@value = 375;
 				return;
 			}
 			if (type == 700)
@@ -15071,7 +17656,7 @@ namespace Terraria
 				this.createTile = 167;
 				this.width = 12;
 				this.height = 12;
-				this.value = 750;
+				this.@value = 750;
 				return;
 			}
 			if (type == 701)
@@ -15087,7 +17672,7 @@ namespace Terraria
 				this.createTile = 168;
 				this.width = 12;
 				this.height = 12;
-				this.value = 1500;
+				this.@value = 1500;
 				return;
 			}
 			if (type == 702)
@@ -15103,7 +17688,7 @@ namespace Terraria
 				this.createTile = 169;
 				this.width = 12;
 				this.height = 12;
-				this.value = 3000;
+				this.@value = 3000;
 				return;
 			}
 			if (type == 703)
@@ -15112,7 +17697,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 1125;
+				this.@value = 1125;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -15129,7 +17714,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 2250;
+				this.@value = 2250;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -15146,7 +17731,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 4500;
+				this.@value = 4500;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -15163,7 +17748,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 9000;
+				this.@value = 9000;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -15181,7 +17766,7 @@ namespace Terraria
 				this.height = 28;
 				this.accessory = true;
 				this.toolTip = "Tells the time";
-				this.value = 1500;
+				this.@value = 1500;
 				this.waistSlot = 8;
 				return;
 			}
@@ -15192,7 +17777,7 @@ namespace Terraria
 				this.height = 28;
 				this.accessory = true;
 				this.toolTip = "Tells the time";
-				this.value = 7500;
+				this.@value = 7500;
 				this.waistSlot = 9;
 				return;
 			}
@@ -15204,7 +17789,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 1;
 				this.toolTip = "Tells the time";
-				this.value = 15000;
+				this.@value = 15000;
 				this.waistSlot = 4;
 				return;
 			}
@@ -15222,7 +17807,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 26;
 				this.height = 26;
-				this.value = 4500;
+				this.@value = 4500;
 				return;
 			}
 			if (type == 711)
@@ -15239,7 +17824,7 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 26;
 				this.height = 26;
-				this.value = 18000;
+				this.@value = 18000;
 				return;
 			}
 			if (type == 712)
@@ -15256,7 +17841,7 @@ namespace Terraria
 				this.placeStyle = 5;
 				this.width = 26;
 				this.height = 26;
-				this.value = 36000;
+				this.@value = 36000;
 				return;
 			}
 			if (type == 713)
@@ -15298,7 +17883,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 51;
-				this.value = 15000;
+				this.@value = 15000;
 				this.vanity = true;
 				return;
 			}
@@ -15316,7 +17901,7 @@ namespace Terraria
 				this.createTile = 16;
 				this.width = 28;
 				this.height = 14;
-				this.value = 7500;
+				this.@value = 7500;
 				this.toolTip = "Used to craft items from metal bars";
 				return;
 			}
@@ -15426,26 +18011,28 @@ namespace Terraria
 				this.knockBack = 6.5f;
 				this.toolTip = "Shoots a beam of light";
 				this.melee = true;
-				this.value = 500000;
+				this.@value = 500000;
 				return;
 			}
 			if (type == 724)
 			{
+				this.autoReuse = true;
+				this.crit = 2;
 				this.rare = 1;
 				this.useSound = 1;
 				this.name = "Ice Blade";
 				this.useStyle = 1;
-				this.damage = 13;
+				this.damage = 17;
 				this.useAnimation = 20;
-				this.useTime = 70;
+				this.useTime = 55;
 				this.width = 30;
 				this.height = 30;
 				this.shoot = 118;
-				this.shootSpeed = 8f;
+				this.shootSpeed = 9.5f;
 				this.knockBack = 4.75f;
 				this.toolTip = "Shoots an icy bolt";
 				this.melee = true;
-				this.value = 20000;
+				this.@value = 20000;
 				return;
 			}
 			if (type == 725)
@@ -15465,7 +18052,7 @@ namespace Terraria
 				this.alpha = 30;
 				this.rare = 5;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 3, 50, 0);
+				this.@value = Item.sellPrice(0, 3, 50, 0);
 				this.toolTip = "Shoots frost arrows";
 				this.ranged = true;
 				return;
@@ -15478,7 +18065,7 @@ namespace Terraria
 				this.useSound = 20;
 				this.name = "Frost Staff";
 				this.useStyle = 5;
-				this.damage = 43;
+				this.damage = 46;
 				this.useAnimation = 20;
 				this.useTime = 20;
 				this.width = 30;
@@ -15488,7 +18075,7 @@ namespace Terraria
 				this.knockBack = 5f;
 				this.toolTip = "Shoots a stream of frost";
 				this.magic = true;
-				this.value = 500000;
+				this.@value = 500000;
 				this.noMelee = true;
 				return;
 			}
@@ -15614,7 +18201,7 @@ namespace Terraria
 				this.shoot = 121;
 				this.shootSpeed = 6f;
 				this.knockBack = 3.25f;
-				this.value = 2000;
+				this.@value = 2000;
 				this.magic = true;
 				this.noMelee = true;
 				return;
@@ -15633,7 +18220,7 @@ namespace Terraria
 				this.shoot = 122;
 				this.shootSpeed = 6.5f;
 				this.knockBack = 3.5f;
-				this.value = 3000;
+				this.@value = 3000;
 				this.magic = true;
 				this.noMelee = true;
 				return;
@@ -15652,7 +18239,7 @@ namespace Terraria
 				this.shoot = 123;
 				this.shootSpeed = 7.5f;
 				this.knockBack = 4f;
-				this.value = 10000;
+				this.@value = 10000;
 				this.magic = true;
 				this.rare = 1;
 				this.noMelee = true;
@@ -15674,7 +18261,7 @@ namespace Terraria
 				this.knockBack = 4.25f;
 				this.magic = true;
 				this.autoReuse = true;
-				this.value = 15000;
+				this.@value = 15000;
 				this.rare = 1;
 				this.noMelee = true;
 				return;
@@ -15695,7 +18282,7 @@ namespace Terraria
 				this.knockBack = 4.75f;
 				this.magic = true;
 				this.autoReuse = true;
-				this.value = 20000;
+				this.@value = 20000;
 				this.rare = 1;
 				this.noMelee = true;
 				return;
@@ -15716,7 +18303,7 @@ namespace Terraria
 				this.knockBack = 5.5f;
 				this.magic = true;
 				this.autoReuse = true;
-				this.value = 30000;
+				this.@value = 30000;
 				this.rare = 2;
 				this.noMelee = true;
 				return;
@@ -15734,7 +18321,7 @@ namespace Terraria
 				this.createWall = 66;
 				this.width = 12;
 				this.height = 12;
-				this.value = 10;
+				this.@value = 10;
 				return;
 			}
 			if (type == 746)
@@ -15750,7 +18337,7 @@ namespace Terraria
 				this.createWall = 67;
 				this.width = 12;
 				this.height = 12;
-				this.value = 10;
+				this.@value = 10;
 				return;
 			}
 			if (type == 747)
@@ -15766,7 +18353,7 @@ namespace Terraria
 				this.createWall = 68;
 				this.width = 12;
 				this.height = 12;
-				this.value = 10;
+				this.@value = 10;
 				return;
 			}
 			if (type == 748)
@@ -15777,7 +18364,7 @@ namespace Terraria
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
 				this.toolTip2 = "Hold up to rocket faster";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 4;
 				return;
@@ -15789,7 +18376,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 5;
 				return;
@@ -15853,7 +18440,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a turtle";
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				this.buffType = 42;
 				return;
 			}
@@ -15864,7 +18451,7 @@ namespace Terraria
 				this.height = 20;
 				this.headSlot = 56;
 				this.rare = 5;
-				this.value = 50000;
+				this.@value = 50000;
 				this.vanity = true;
 				return;
 			}
@@ -15874,7 +18461,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 14;
 				this.bodySlot = 36;
-				this.value = 50000;
+				this.@value = 50000;
 				this.vanity = true;
 				this.rare = 5;
 				return;
@@ -15894,7 +18481,7 @@ namespace Terraria
 				this.scale = 1f;
 				this.useSound = 1;
 				this.shoot = 130;
-				this.value = Item.buyPrice(0, 70, 0, 0);
+				this.@value = Item.buyPrice(0, 70, 0, 0);
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -15906,7 +18493,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.name = "Terra Blade";
 				this.useStyle = 1;
-				this.damage = 88;
+				this.damage = 95;
 				this.useAnimation = 16;
 				this.useTime = 16;
 				this.width = 30;
@@ -15916,7 +18503,7 @@ namespace Terraria
 				this.shootSpeed = 12f;
 				this.knockBack = 6.5f;
 				this.melee = true;
-				this.value = Item.sellPrice(0, 20, 0, 0);
+				this.@value = Item.sellPrice(0, 20, 0, 0);
 				this.autoReuse = true;
 				return;
 			}
@@ -15931,15 +18518,14 @@ namespace Terraria
 				this.width = 50;
 				this.height = 20;
 				this.shoot = 133;
-				this.useSound = 11;
-				this.damage = 55;
+				this.useSound = 61;
+				this.damage = 60;
 				this.shootSpeed = 10f;
 				this.noMelee = true;
-				this.value = 100000;
+				this.@value = 100000;
 				this.knockBack = 4f;
 				this.rare = 8;
 				this.ranged = true;
-				this.explosive = 3;
 				return;
 			}
 			if (type == 759)
@@ -15957,29 +18543,28 @@ namespace Terraria
 				this.damage = 50;
 				this.shootSpeed = 5f;
 				this.noMelee = true;
-				this.value = 100000;
+				this.@value = 100000;
 				this.knockBack = 4f;
 				this.rare = 8;
 				this.ranged = true;
-				this.explosive = 3;
 				return;
 			}
 			if (type == 760)
 			{
 				this.useStyle = 5;
 				this.autoReuse = true;
-				this.useAnimation = 30;
-				this.useTime = 30;
+				this.useAnimation = 40;
+				this.useTime = 40;
 				this.name = "Proximity Mine Launcher";
 				this.useAmmo = 771;
 				this.width = 50;
 				this.height = 20;
 				this.shoot = 135;
 				this.useSound = 11;
-				this.damage = 45;
-				this.shootSpeed = 11f;
+				this.damage = 80;
+				this.shootSpeed = 12f;
 				this.noMelee = true;
-				this.value = Item.buyPrice(0, 35, 0, 0);
+				this.@value = Item.buyPrice(0, 35, 0, 0);
 				this.knockBack = 4f;
 				this.rare = 8;
 				this.ranged = true;
@@ -15992,7 +18577,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 6;
 				return;
@@ -16136,14 +18721,14 @@ namespace Terraria
 			{
 				this.name = "Rocket I";
 				this.shoot = 0;
-				this.damage = 35;
+				this.damage = 40;
 				this.width = 20;
 				this.height = 14;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 771;
 				this.knockBack = 4f;
-				this.value = Item.buyPrice(0, 0, 0, 50);
+				this.@value = Item.buyPrice(0, 0, 0, 50);
 				this.ranged = true;
 				this.toolTip = "Small blast radius. Will not destroy tiles";
 				return;
@@ -16159,25 +18744,24 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 771;
 				this.knockBack = 4f;
-				this.value = Item.buyPrice(0, 0, 2, 50);
+				this.@value = Item.buyPrice(0, 0, 2, 50);
 				this.ranged = true;
 				this.toolTip = "Small blast radius. Will destroy tiles";
 				this.rare = 1;
-				this.explosive = 1;
 				return;
 			}
 			if (type == 773)
 			{
 				this.name = "Rocket III";
 				this.shoot = 6;
-				this.damage = 55;
+				this.damage = 65;
 				this.width = 20;
 				this.height = 14;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 771;
 				this.knockBack = 6f;
-				this.value = Item.buyPrice(0, 0, 1, 0);
+				this.@value = Item.buyPrice(0, 0, 1, 0);
 				this.ranged = true;
 				this.toolTip = "Large blast radius. Will not destroy tiles";
 				this.rare = 1;
@@ -16187,18 +18771,20 @@ namespace Terraria
 			{
 				this.name = "Rocket IV";
 				this.shoot = 9;
-				this.damage = 60;
+				this.damage = 65;
 				this.width = 20;
 				this.height = 14;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 771;
 				this.knockBack = 6f;
-				this.value = (this.value = Item.buyPrice(0, 0, 5, 0));
+				int num2 = Item.buyPrice(0, 0, 5, 0);
+				int num3 = num2;
+				this.@value = num2;
+				this.@value = num3;
 				this.ranged = true;
 				this.toolTip = "Large blast radius. Will destroy tiles";
 				this.rare = 2;
-				this.explosive = 2;
 				return;
 			}
 			if (type == 775)
@@ -16232,7 +18818,7 @@ namespace Terraria
 				this.pick = 110;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 54000;
+				this.@value = 54000;
 				this.melee = true;
 				this.toolTip = "Can mine Mythril and Orichalcum";
 				this.scale = 1.15f;
@@ -16253,7 +18839,7 @@ namespace Terraria
 				this.pick = 150;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 81000;
+				this.@value = 81000;
 				this.melee = true;
 				this.toolTip = "Can mine Adamantite and Titanium";
 				this.scale = 1.15f;
@@ -16274,7 +18860,7 @@ namespace Terraria
 				this.pick = 180;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 108000;
+				this.@value = 108000;
 				this.melee = true;
 				this.scale = 1.15f;
 				return;
@@ -16294,7 +18880,7 @@ namespace Terraria
 				this.knockBack = 0.3f;
 				this.shootSpeed = 7f;
 				this.noMelee = true;
-				this.value = Item.buyPrice(2, 0, 0, 0);
+				this.@value = Item.buyPrice(2, 0, 0, 0);
 				this.rare = 5;
 				this.toolTip = "Creates and destroys biomes when sprayed";
 				this.toolTip2 = "Uses colored solution";
@@ -16307,11 +18893,12 @@ namespace Terraria
 				this.ammo = 780;
 				this.width = 10;
 				this.height = 12;
-				this.value = Item.buyPrice(0, 0, 25, 0);
+				this.@value = Item.buyPrice(0, 0, 25, 0);
 				this.rare = 3;
 				this.maxStack = 999;
 				this.toolTip = "Used by the Clentaminator";
 				this.toolTip2 = "Spreads the purity";
+				this.consumable = true;
 				return;
 			}
 			if (type == 781)
@@ -16321,11 +18908,12 @@ namespace Terraria
 				this.ammo = 780;
 				this.width = 10;
 				this.height = 12;
-				this.value = Item.buyPrice(0, 0, 25, 0);
+				this.@value = Item.buyPrice(0, 0, 25, 0);
 				this.rare = 3;
 				this.maxStack = 999;
 				this.toolTip = "Used by the Clentaminator";
 				this.toolTip2 = "Spreads the hallow";
+				this.consumable = true;
 				return;
 			}
 			if (type == 782)
@@ -16335,11 +18923,12 @@ namespace Terraria
 				this.ammo = 780;
 				this.width = 10;
 				this.height = 12;
-				this.value = Item.buyPrice(0, 0, 25, 0);
+				this.@value = Item.buyPrice(0, 0, 25, 0);
 				this.rare = 3;
 				this.maxStack = 999;
 				this.toolTip = "Used by the Clentaminator";
 				this.toolTip2 = "Spreads the corruption";
+				this.consumable = true;
 				return;
 			}
 			if (type == 783)
@@ -16349,11 +18938,12 @@ namespace Terraria
 				this.ammo = 780;
 				this.width = 10;
 				this.height = 12;
-				this.value = Item.buyPrice(0, 0, 25, 0);
+				this.@value = Item.buyPrice(0, 0, 25, 0);
 				this.rare = 3;
 				this.maxStack = 999;
 				this.toolTip = "Used by the Clentaminator";
 				this.toolTip2 = "Spreads glowing mushrooms";
+				this.consumable = true;
 				return;
 			}
 			if (type == 784)
@@ -16363,11 +18953,12 @@ namespace Terraria
 				this.ammo = 780;
 				this.width = 10;
 				this.height = 12;
-				this.value = Item.buyPrice(0, 0, 25, 0);
+				this.@value = Item.buyPrice(0, 0, 25, 0);
 				this.rare = 3;
 				this.maxStack = 999;
 				this.toolTip = "Used by the Clentaminator";
 				this.toolTip2 = "Spreads the crimson";
+				this.consumable = true;
 				return;
 			}
 			if (type == 785)
@@ -16377,7 +18968,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 7;
 				return;
@@ -16389,7 +18980,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 8;
 				return;
@@ -16410,7 +19001,7 @@ namespace Terraria
 				this.scale = 1.1f;
 				this.useSound = 1;
 				this.rare = 7;
-				this.value = Item.buyPrice(0, 40, 0, 0);
+				this.@value = Item.buyPrice(0, 40, 0, 0);
 				this.melee = true;
 				this.toolTip = "Strong enough to destroy Demon Altars";
 				return;
@@ -16418,7 +19009,7 @@ namespace Terraria
 			if (type == 788)
 			{
 				this.mana = 10;
-				this.damage = 25;
+				this.damage = 28;
 				this.useStyle = 5;
 				this.name = "Nettle Burst";
 				this.shootSpeed = 32f;
@@ -16433,7 +19024,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.knockBack = 1f;
 				this.toolTip = "Summons a thorn spear";
-				this.value = 200000;
+				this.@value = 200000;
 				this.magic = true;
 				return;
 			}
@@ -16451,7 +19042,7 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 10;
 				this.height = 24;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 790)
@@ -16468,7 +19059,7 @@ namespace Terraria
 				this.placeStyle = 5;
 				this.width = 10;
 				this.height = 24;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 791)
@@ -16485,7 +19076,7 @@ namespace Terraria
 				this.placeStyle = 6;
 				this.width = 10;
 				this.height = 24;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 792)
@@ -16495,7 +19086,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 6;
 				this.headSlot = 57;
-				this.value = 50000;
+				this.@value = 50000;
 				this.toolTip = "2% increased damage";
 				this.rare = 1;
 				return;
@@ -16507,7 +19098,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 7;
 				this.bodySlot = 37;
-				this.value = 40000;
+				this.@value = 40000;
 				this.toolTip = "2% increased damage";
 				this.rare = 1;
 				return;
@@ -16519,7 +19110,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 6;
 				this.legSlot = 35;
-				this.value = 30000;
+				this.@value = 30000;
 				this.toolTip = "2% increased damage";
 				this.rare = 1;
 				return;
@@ -16536,7 +19127,7 @@ namespace Terraria
 				this.scale = 1.1f;
 				this.useSound = 1;
 				this.rare = 1;
-				this.value = 13500;
+				this.@value = 13500;
 				this.melee = true;
 				return;
 			}
@@ -16557,7 +19148,7 @@ namespace Terraria
 				this.alpha = 30;
 				this.rare = 1;
 				this.noMelee = true;
-				this.value = 18000;
+				this.@value = 18000;
 				this.ranged = true;
 				return;
 			}
@@ -16576,7 +19167,7 @@ namespace Terraria
 				this.scale = 1.2f;
 				this.useSound = 1;
 				this.rare = 1;
-				this.value = 15000;
+				this.@value = 15000;
 				this.melee = true;
 				return;
 			}
@@ -16595,7 +19186,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.knockBack = 3.5f;
 				this.rare = 1;
-				this.value = 18000;
+				this.@value = 18000;
 				this.scale = 1.15f;
 				this.toolTip = "Able to mine Hellstone";
 				this.melee = true;
@@ -16616,15 +19207,15 @@ namespace Terraria
 				this.scale = 1.2f;
 				this.useSound = 1;
 				this.rare = 1;
-				this.value = 13500;
+				this.@value = 13500;
 				this.melee = true;
 				return;
 			}
 			if (type == 800)
 			{
 				this.useStyle = 5;
-				this.useAnimation = 24;
-				this.useTime = 24;
+				this.useAnimation = 23;
+				this.useTime = 23;
 				this.name = "The Undertaker";
 				this.width = 24;
 				this.height = 28;
@@ -16632,9 +19223,10 @@ namespace Terraria
 				this.useAmmo = 14;
 				this.useSound = 11;
 				this.damage = 15;
-				this.shootSpeed = 5f;
+				this.shootSpeed = 6f;
 				this.noMelee = true;
-				this.value = 50000;
+				this.knockBack = 1f;
+				this.@value = 50000;
 				this.scale = 0.9f;
 				this.rare = 1;
 				this.ranged = true;
@@ -16656,7 +19248,7 @@ namespace Terraria
 				this.shootSpeed = 12f;
 				this.useSound = 1;
 				this.rare = 1;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				this.channel = true;
 				this.noMelee = true;
@@ -16677,7 +19269,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.shoot = 153;
 				this.rare = 1;
-				this.value = 10000;
+				this.@value = 10000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -16689,7 +19281,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 58;
-				this.value = 50000;
+				this.@value = 50000;
 				this.defense = 1;
 				return;
 			}
@@ -16699,7 +19291,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 38;
-				this.value = 40000;
+				this.@value = 40000;
 				this.defense = 2;
 				return;
 			}
@@ -16709,7 +19301,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 36;
-				this.value = 30000;
+				this.@value = 30000;
 				this.defense = 1;
 				return;
 			}
@@ -16807,7 +19399,7 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				this.toolTip = "Used for basic crafting";
 				return;
 			}
@@ -16825,7 +19417,7 @@ namespace Terraria
 				this.placeStyle = 5;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				this.toolTip = "Used for basic crafting";
 				return;
 			}
@@ -16843,7 +19435,7 @@ namespace Terraria
 				this.placeStyle = 6;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				this.toolTip = "Used for basic crafting";
 				return;
 			}
@@ -16861,7 +19453,7 @@ namespace Terraria
 				this.placeStyle = 7;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				this.toolTip = "Used for basic crafting";
 				return;
 			}
@@ -16879,7 +19471,7 @@ namespace Terraria
 				this.placeStyle = 8;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				this.toolTip = "Used for basic crafting";
 				return;
 			}
@@ -16896,7 +19488,7 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 817)
@@ -16912,7 +19504,7 @@ namespace Terraria
 				this.placeStyle = 5;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 818)
@@ -16928,7 +19520,7 @@ namespace Terraria
 				this.placeStyle = 6;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 819)
@@ -16944,7 +19536,7 @@ namespace Terraria
 				this.placeStyle = 7;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 820)
@@ -16960,7 +19552,7 @@ namespace Terraria
 				this.placeStyle = 8;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 821)
@@ -16970,7 +19562,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 9;
 				return;
@@ -16982,7 +19574,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 10;
 				return;
@@ -16996,8 +19588,8 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
-				this.rare = 7;
+				this.@value = 400000;
+				this.rare = 8;
 				this.wingSlot = 11;
 				return;
 			}
@@ -17061,7 +19653,7 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 828)
@@ -17078,7 +19670,7 @@ namespace Terraria
 				this.placeStyle = 5;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 829)
@@ -17095,7 +19687,7 @@ namespace Terraria
 				this.placeStyle = 6;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 830)
@@ -17112,7 +19704,7 @@ namespace Terraria
 				this.placeStyle = 7;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 831)
@@ -17129,7 +19721,7 @@ namespace Terraria
 				this.placeStyle = 12;
 				this.width = 26;
 				this.height = 22;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 832)
@@ -17221,7 +19813,7 @@ namespace Terraria
 				this.placeStyle = 9;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 838)
@@ -17238,7 +19830,7 @@ namespace Terraria
 				this.placeStyle = 13;
 				this.width = 26;
 				this.height = 22;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 839)
@@ -17249,7 +19841,7 @@ namespace Terraria
 				this.headSlot = 59;
 				this.rare = 2;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 1, 50, 0);
+				this.@value = Item.buyPrice(0, 1, 50, 0);
 				return;
 			}
 			if (type == 840)
@@ -17260,7 +19852,7 @@ namespace Terraria
 				this.bodySlot = 39;
 				this.rare = 2;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 1, 50, 0);
+				this.@value = Item.buyPrice(0, 1, 50, 0);
 				return;
 			}
 			if (type == 841)
@@ -17271,7 +19863,7 @@ namespace Terraria
 				this.legSlot = 37;
 				this.rare = 2;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 1, 50, 0);
+				this.@value = Item.buyPrice(0, 1, 50, 0);
 				return;
 			}
 			if (type == 842)
@@ -17318,7 +19910,7 @@ namespace Terraria
 				this.placeStyle = 7;
 				this.width = 10;
 				this.height = 24;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 846)
@@ -17335,7 +19927,7 @@ namespace Terraria
 				this.placeStyle = 8;
 				this.width = 10;
 				this.height = 24;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 847)
@@ -17352,7 +19944,7 @@ namespace Terraria
 				this.placeStyle = 9;
 				this.width = 10;
 				this.height = 24;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 848)
@@ -17378,7 +19970,7 @@ namespace Terraria
 				this.toolTip = "Enables solid blocks to be toggled on and off";
 				this.maxStack = 999;
 				this.mech = true;
-				this.value = Item.buyPrice(0, 0, 10, 0);
+				this.@value = Item.buyPrice(0, 0, 10, 0);
 				return;
 			}
 			if (type == 850)
@@ -17386,16 +19978,16 @@ namespace Terraria
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
-				this.useTime = 10;
+				this.useTime = 5;
 				this.autoReuse = true;
 				this.name = "Blue Wrench";
 				this.width = 24;
 				this.height = 28;
 				this.rare = 1;
 				this.toolTip = "Places blue wire";
-				this.value = 20000;
+				this.@value = 20000;
 				this.mech = true;
-				this.tileBoost = 3;
+				this.tileBoost = 20;
 				return;
 			}
 			if (type == 851)
@@ -17403,16 +19995,16 @@ namespace Terraria
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
-				this.useTime = 10;
+				this.useTime = 5;
 				this.autoReuse = true;
 				this.name = "Green Wrench";
 				this.width = 24;
 				this.height = 28;
 				this.rare = 1;
 				this.toolTip = "Places green wire";
-				this.value = 20000;
+				this.@value = 20000;
 				this.mech = true;
-				this.tileBoost = 3;
+				this.tileBoost = 20;
 				return;
 			}
 			if (type == 852)
@@ -17430,7 +20022,7 @@ namespace Terraria
 				this.height = 12;
 				this.placeStyle = 4;
 				this.mech = true;
-				this.value = 5000;
+				this.@value = 5000;
 				this.toolTip = "Activates when a player steps on it on";
 				return;
 			}
@@ -17449,7 +20041,7 @@ namespace Terraria
 				this.height = 12;
 				this.placeStyle = 5;
 				this.mech = true;
-				this.value = 5000;
+				this.@value = 5000;
 				this.toolTip = "Activates when anything but a player steps on it on";
 				return;
 			}
@@ -17461,7 +20053,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 5;
 				this.toolTip = "Shops have lower prices";
-				this.value = 50000;
+				this.@value = 50000;
 				return;
 			}
 			if (type == 855)
@@ -17472,7 +20064,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 5;
 				this.toolTip = "Hitting enemies will sometimes drop extra coins";
-				this.value = 50000;
+				this.@value = 50000;
 				return;
 			}
 			if (type == 856)
@@ -17483,8 +20075,9 @@ namespace Terraria
 				this.width = 30;
 				this.height = 30;
 				this.toolTip = "'Having a wonderful time!'";
-				this.value = 500;
+				this.@value = 500;
 				this.rare = 2;
+				this.vanity = true;
 				return;
 			}
 			if (type == 857)
@@ -17495,7 +20088,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 2;
 				this.toolTip = "Allows the holder to double jump";
-				this.value = 50000;
+				this.@value = 50000;
 				return;
 			}
 			if (type == 858)
@@ -17512,7 +20105,7 @@ namespace Terraria
 				this.placeStyle = 24;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 859)
@@ -17529,7 +20122,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 20;
+				this.@value = 20;
 				return;
 			}
 			if (type == 860)
@@ -17541,7 +20134,7 @@ namespace Terraria
 				this.rare = 6;
 				this.lifeRegen = 1;
 				this.toolTip = "Provides life regeneration and reduces the cooldown of healing potions";
-				this.value = 500000;
+				this.@value = 500000;
 				this.handOnSlot = 4;
 				return;
 			}
@@ -17553,7 +20146,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 6;
 				this.toolTip = "Turns the holder into a werewolf on full moons and a merfolk when entering water";
-				this.value = 500000;
+				this.@value = 500000;
 				return;
 			}
 			if (type == 862)
@@ -17564,7 +20157,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 6;
 				this.toolTip = "Causes stars to fall and increases length of invincibility after taking damage";
-				this.value = 500000;
+				this.@value = 500000;
 				this.neckSlot = 5;
 				return;
 			}
@@ -17576,7 +20169,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 4;
 				this.toolTip = "Provides the ability to walk on water";
-				this.value = 200000;
+				this.@value = 200000;
 				this.shoeSlot = 2;
 				return;
 			}
@@ -17588,7 +20181,7 @@ namespace Terraria
 				this.headSlot = 62;
 				this.rare = 1;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 25, 0, 0);
+				this.@value = Item.buyPrice(0, 25, 0, 0);
 				return;
 			}
 			if (type == 865)
@@ -17599,7 +20192,7 @@ namespace Terraria
 				this.bodySlot = 41;
 				this.rare = 1;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 10, 0, 0);
+				this.@value = Item.buyPrice(0, 10, 0, 0);
 				return;
 			}
 			if (type == 866)
@@ -17630,7 +20223,7 @@ namespace Terraria
 				this.headSlot = 64;
 				this.rare = 1;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 2, 0, 0);
+				this.@value = Item.buyPrice(0, 2, 0, 0);
 				return;
 			}
 			if (type == 869)
@@ -17641,7 +20234,7 @@ namespace Terraria
 				this.headSlot = 65;
 				this.rare = 1;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 2, 50, 0);
+				this.@value = Item.buyPrice(0, 2, 50, 0);
 				return;
 			}
 			if (type == 870)
@@ -17682,7 +20275,7 @@ namespace Terraria
 				this.headSlot = 67;
 				this.rare = 1;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 5, 0, 0);
+				this.@value = Item.buyPrice(0, 5, 0, 0);
 				return;
 			}
 			if (type == 874)
@@ -17693,7 +20286,7 @@ namespace Terraria
 				this.bodySlot = 44;
 				this.rare = 1;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 5, 0, 0);
+				this.@value = Item.buyPrice(0, 5, 0, 0);
 				return;
 			}
 			if (type == 875)
@@ -17704,7 +20297,7 @@ namespace Terraria
 				this.legSlot = 40;
 				this.rare = 1;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 5, 0, 0);
+				this.@value = Item.buyPrice(0, 5, 0, 0);
 				return;
 			}
 			if (type == 876)
@@ -17715,7 +20308,7 @@ namespace Terraria
 				this.headSlot = 68;
 				this.rare = 1;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 5, 0, 0);
+				this.@value = Item.buyPrice(0, 5, 0, 0);
 				return;
 			}
 			if (type == 877)
@@ -17726,7 +20319,7 @@ namespace Terraria
 				this.bodySlot = 45;
 				this.rare = 1;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 5, 0, 0);
+				this.@value = Item.buyPrice(0, 5, 0, 0);
 				return;
 			}
 			if (type == 878)
@@ -17737,7 +20330,7 @@ namespace Terraria
 				this.legSlot = 41;
 				this.rare = 1;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 5, 0, 0);
+				this.@value = Item.buyPrice(0, 5, 0, 0);
 				return;
 			}
 			if (type == 879)
@@ -17748,7 +20341,7 @@ namespace Terraria
 				this.headSlot = 69;
 				this.rare = 1;
 				this.defense = 4;
-				this.value = Item.sellPrice(0, 0, 50, 0);
+				this.@value = Item.sellPrice(0, 0, 50, 0);
 				return;
 			}
 			if (type == 880)
@@ -17765,7 +20358,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 12;
 				this.rare = 1;
-				this.value = 4500;
+				this.@value = 4500;
 				return;
 			}
 			if (type == 881)
@@ -17781,7 +20374,7 @@ namespace Terraria
 				this.knockBack = 5f;
 				this.useSound = 1;
 				this.scale = 1f;
-				this.value = 1800;
+				this.@value = 1800;
 				this.melee = true;
 				return;
 			}
@@ -17799,7 +20392,7 @@ namespace Terraria
 				this.pick = 35;
 				this.useSound = 1;
 				this.knockBack = 2f;
-				this.value = 2000;
+				this.@value = 2000;
 				this.melee = true;
 				return;
 			}
@@ -17841,7 +20434,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 4;
 				this.toolTip = "Immunity to Bleeding";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 886)
@@ -17852,7 +20445,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 4;
 				this.toolTip = "Immunity to Broken Armor";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 887)
@@ -17863,7 +20456,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 4;
 				this.toolTip = "Immunity to Poison";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 888)
@@ -17874,7 +20467,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 4;
 				this.toolTip = "Immunity to Darkness";
-				this.value = 100000;
+				this.@value = 100000;
 				this.faceSlot = 5;
 				return;
 			}
@@ -17886,7 +20479,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 4;
 				this.toolTip = "Immunity to Slow";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 890)
@@ -17897,7 +20490,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 4;
 				this.toolTip = "Immunity to Silence";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 891)
@@ -17908,7 +20501,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 2;
 				this.toolTip = "Immunity to Curse";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 892)
@@ -17919,7 +20512,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 4;
 				this.toolTip = "Immunity to Weakness";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 893)
@@ -17930,7 +20523,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 4;
 				this.toolTip = "Immunity to Confusion";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 894)
@@ -17969,7 +20562,7 @@ namespace Terraria
 				this.rare = 5;
 				this.toolTip = "Increases melee knockback";
 				this.toolTip = "12% increased melee speed";
-				this.value = 300000;
+				this.@value = 300000;
 				this.handOffSlot = 5;
 				this.handOnSlot = 10;
 				return;
@@ -17983,7 +20576,7 @@ namespace Terraria
 				this.rare = 5;
 				this.toolTip = "Allows flight and super fast running";
 				this.toolTip = "7% increased movement speed";
-				this.value = 300000;
+				this.@value = 300000;
 				this.shoeSlot = 10;
 				return;
 			}
@@ -17995,7 +20588,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 7;
 				this.toolTip = "Increases all stats if worn during the day";
-				this.value = 300000;
+				this.@value = 300000;
 				this.handOnSlot = 13;
 				return;
 			}
@@ -18007,7 +20600,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 5;
 				this.toolTip = "Increases all stats if worn during the night";
-				this.value = 300000;
+				this.@value = 300000;
 				this.handOnSlot = 14;
 				return;
 			}
@@ -18019,7 +20612,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 5;
 				this.toolTip = "Immunity to Weakness and Broken Armor";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 902)
@@ -18030,7 +20623,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 5;
 				this.toolTip = "Immunity to Poison and Bleeding";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 903)
@@ -18041,7 +20634,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 5;
 				this.toolTip = "Immunity to Slow and Confusion";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 904)
@@ -18052,7 +20645,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 5;
 				this.toolTip = "Immunity to Silence and Curse";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 905)
@@ -18070,7 +20663,7 @@ namespace Terraria
 				this.damage = 0;
 				this.shootSpeed = 10f;
 				this.noMelee = true;
-				this.value = 300000;
+				this.@value = 300000;
 				this.rare = 6;
 				this.toolTip = "Uses coins for ammo";
 				this.toolTip2 = "Higher valued coins do more damage";
@@ -18086,7 +20679,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 3;
 				this.toolTip = "Provides 7 seconds of immunity to lava";
-				this.value = 300000;
+				this.@value = 300000;
 				return;
 			}
 			if (type == 907)
@@ -18098,7 +20691,7 @@ namespace Terraria
 				this.rare = 4;
 				this.toolTip = "Provides the ability to walk on water";
 				this.toolTip = "Grants immunity to fire blocks";
-				this.value = 500000;
+				this.@value = 500000;
 				this.shoeSlot = 11;
 				return;
 			}
@@ -18111,7 +20704,7 @@ namespace Terraria
 				this.rare = 7;
 				this.toolTip = "Provides the ability to walk on water and lava";
 				this.toolTip = "Grants immunity to fire blocks and 7 seconds of immunity to lava";
-				this.value = 500000;
+				this.@value = 500000;
 				this.shoeSlot = 8;
 				return;
 			}
@@ -18129,6 +20722,7 @@ namespace Terraria
 				this.placeStyle = 0;
 				this.width = 26;
 				this.height = 36;
+				this.@value = Item.buyPrice(0, 4, 0, 0);
 				return;
 			}
 			if (type == 910)
@@ -18145,6 +20739,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 26;
 				this.height = 36;
+				this.@value = Item.buyPrice(0, 4, 0, 0);
 				return;
 			}
 			if (type == 911)
@@ -18175,7 +20770,7 @@ namespace Terraria
 				this.placeStyle = 10;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 913)
@@ -18186,7 +20781,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 5;
@@ -18208,7 +20803,7 @@ namespace Terraria
 				this.placeStyle = 14;
 				this.width = 26;
 				this.height = 22;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 915)
@@ -18241,7 +20836,7 @@ namespace Terraria
 				this.placeStyle = 9;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				this.toolTip = "Used for basic crafting";
 				return;
 			}
@@ -18259,7 +20854,7 @@ namespace Terraria
 				this.placeStyle = 8;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 918)
@@ -18276,7 +20871,7 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 919)
@@ -18293,7 +20888,7 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 920)
@@ -18309,7 +20904,7 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 28;
 				this.height = 20;
-				this.value = 2000;
+				this.@value = 2000;
 				return;
 			}
 			if (type == 921)
@@ -18325,7 +20920,7 @@ namespace Terraria
 				this.knockBack = 5f;
 				this.useSound = 1;
 				this.scale = 1f;
-				this.value = 100;
+				this.@value = 100;
 				this.melee = true;
 				return;
 			}
@@ -18344,7 +20939,7 @@ namespace Terraria
 				this.knockBack = 5.5f;
 				this.scale = 1.2f;
 				this.useSound = 1;
-				this.value = 50;
+				this.@value = 50;
 				this.melee = true;
 				return;
 			}
@@ -18362,7 +20957,7 @@ namespace Terraria
 				this.damage = 8;
 				this.shootSpeed = 6.6f;
 				this.noMelee = true;
-				this.value = 100;
+				this.@value = 100;
 				this.ranged = true;
 				return;
 			}
@@ -18422,7 +21017,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 12;
 				this.rare = 3;
-				this.value = Item.buyPrice(0, 25, 0, 0);
+				this.@value = Item.buyPrice(0, 25, 0, 0);
 				return;
 			}
 			if (type == 929)
@@ -18439,7 +21034,7 @@ namespace Terraria
 				this.height = 12;
 				this.damage = 300;
 				this.noMelee = true;
-				this.value = Item.buyPrice(0, 0, 15, 0);
+				this.@value = Item.buyPrice(0, 0, 15, 0);
 				return;
 			}
 			if (type == 930)
@@ -18456,7 +21051,7 @@ namespace Terraria
 				this.damage = 2;
 				this.shootSpeed = 6f;
 				this.noMelee = true;
-				this.value = 50000;
+				this.@value = 50000;
 				this.scale = 0.9f;
 				this.rare = 1;
 				this.holdStyle = 1;
@@ -18474,7 +21069,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 931;
 				this.knockBack = 1.5f;
-				this.value = 7;
+				this.@value = 7;
 				this.ranged = true;
 				return;
 			}
@@ -18518,7 +21113,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 2;
 				this.toolTip = "Allows the owner to float for a few seconds";
-				this.value = 50000;
+				this.@value = 50000;
 				return;
 			}
 			if (type == 935)
@@ -18528,7 +21123,7 @@ namespace Terraria
 				this.height = 24;
 				this.accessory = true;
 				this.toolTip = "12% increased damage";
-				this.value = 300000;
+				this.@value = 300000;
 				this.rare = 5;
 				return;
 			}
@@ -18541,7 +21136,7 @@ namespace Terraria
 				this.rare = 6;
 				this.toolTip = "Increases melee knockback";
 				this.toolTip = "12% increased melee damage and melee speed";
-				this.value = 300000;
+				this.@value = 300000;
 				this.handOffSlot = 4;
 				this.handOnSlot = 9;
 				return;
@@ -18561,7 +21156,7 @@ namespace Terraria
 				this.height = 12;
 				this.placeStyle = 0;
 				this.mech = true;
-				this.value = 50000;
+				this.@value = 50000;
 				this.mech = true;
 				this.toolTip = "Explodes when stepped on";
 				return;
@@ -18576,7 +21171,7 @@ namespace Terraria
 				this.defense = 6;
 				this.toolTip = "Absorbs 25% of damage done to players on your team when above 25% life";
 				this.toolTip = "Grants immunity to knockback";
-				this.value = 300000;
+				this.@value = 300000;
 				this.shieldSlot = 2;
 				return;
 			}
@@ -18596,7 +21191,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 2;
 				this.noMelee = true;
-				this.value = 20000;
+				this.@value = 20000;
 				return;
 			}
 			if (type == 940)
@@ -18613,6 +21208,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 26;
 				this.height = 36;
+				this.@value = Item.buyPrice(0, 4, 0, 0);
 				return;
 			}
 			if (type == 941)
@@ -18629,6 +21225,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 26;
 				this.height = 36;
+				this.@value = Item.buyPrice(0, 4, 0, 0);
 				return;
 			}
 			if (type == 942)
@@ -18645,6 +21242,7 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 26;
 				this.height = 36;
+				this.@value = Item.buyPrice(0, 4, 0, 0);
 				return;
 			}
 			if (type == 943)
@@ -18661,6 +21259,7 @@ namespace Terraria
 				this.placeStyle = 5;
 				this.width = 26;
 				this.height = 36;
+				this.@value = Item.buyPrice(0, 4, 0, 0);
 				return;
 			}
 			if (type == 944)
@@ -18677,6 +21276,7 @@ namespace Terraria
 				this.placeStyle = 6;
 				this.width = 26;
 				this.height = 36;
+				this.@value = Item.buyPrice(0, 4, 0, 0);
 				return;
 			}
 			if (type == 945)
@@ -18693,6 +21293,7 @@ namespace Terraria
 				this.placeStyle = 7;
 				this.width = 26;
 				this.height = 36;
+				this.@value = Item.buyPrice(0, 4, 0, 0);
 				return;
 			}
 			if (type == 946)
@@ -18701,7 +21302,7 @@ namespace Terraria
 				this.width = 44;
 				this.height = 44;
 				this.rare = 1;
-				this.value = 10000;
+				this.@value = 10000;
 				this.holdStyle = 2;
 				this.toolTip = "You will fall slower while holding this";
 				return;
@@ -18720,7 +21321,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 12;
 				this.rare = 7;
-				this.value = 250;
+				this.@value = 3000;
 				this.toolTip = "Reacts to the light";
 				return;
 			}
@@ -18731,9 +21332,10 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 8;
 				this.wingSlot = 12;
+				this.@value = Item.buyPrice(1, 0, 0, 0);
 				return;
 			}
 			if (type == 949)
@@ -18743,7 +21345,7 @@ namespace Terraria
 				this.shootSpeed = 7f;
 				this.shoot = 166;
 				this.ammo = 949;
-				this.damage = 4;
+				this.damage = 8;
 				this.width = 18;
 				this.height = 20;
 				this.maxStack = 999;
@@ -18753,8 +21355,8 @@ namespace Terraria
 				this.useTime = 19;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.ranged = true;
-				this.knockBack = 4.5f;
+				this.thrown = true;
+				this.knockBack = 5.75f;
 				return;
 			}
 			if (type == 950)
@@ -18765,7 +21367,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 1;
 				this.toolTip = "Provides extra mobility on ice";
-				this.value = 50000;
+				this.@value = 50000;
 				this.shoeSlot = 7;
 				return;
 			}
@@ -18782,7 +21384,7 @@ namespace Terraria
 				this.createTile = 212;
 				this.width = 20;
 				this.height = 20;
-				this.value = 50000;
+				this.@value = 50000;
 				this.rare = 2;
 				this.toolTip = "Rapidly launches snowballs";
 				return;
@@ -18801,7 +21403,7 @@ namespace Terraria
 				this.placeStyle = 15;
 				this.width = 26;
 				this.height = 22;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 953)
@@ -18813,7 +21415,7 @@ namespace Terraria
 				this.rare = 1;
 				this.toolTip = "Allows the ability to slide down walls";
 				this.toolTip = "Improved ability if combined with Shoe Spikes";
-				this.value = 50000;
+				this.@value = 50000;
 				this.handOnSlot = 11;
 				this.handOffSlot = 6;
 				return;
@@ -18825,7 +21427,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 2;
 				this.headSlot = 72;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 955)
@@ -18835,7 +21437,7 @@ namespace Terraria
 				this.height = 18;
 				this.defense = 4;
 				this.headSlot = 73;
-				this.value = 25000;
+				this.@value = 25000;
 				return;
 			}
 			if (type == 956)
@@ -18846,7 +21448,7 @@ namespace Terraria
 				this.defense = 6;
 				this.headSlot = 74;
 				this.rare = 1;
-				this.value = 37500;
+				this.@value = 37500;
 				this.toolTip = "7% increased melee speed";
 				return;
 			}
@@ -18858,7 +21460,7 @@ namespace Terraria
 				this.defense = 7;
 				this.bodySlot = 48;
 				this.rare = 1;
-				this.value = 30000;
+				this.@value = 30000;
 				this.toolTip = "7% increased melee speed";
 				return;
 			}
@@ -18870,7 +21472,7 @@ namespace Terraria
 				this.defense = 6;
 				this.legSlot = 44;
 				this.rare = 1;
-				this.value = 22500;
+				this.@value = 22500;
 				this.toolTip = "7% increased melee speed";
 				return;
 			}
@@ -18882,7 +21484,7 @@ namespace Terraria
 				this.defense = 5;
 				this.headSlot = 75;
 				this.rare = 2;
-				this.value = 45000;
+				this.@value = 45000;
 				this.toolTip = "4% increased ranged damage.";
 				return;
 			}
@@ -18894,8 +21496,8 @@ namespace Terraria
 				this.defense = 5;
 				this.headSlot = 76;
 				this.rare = 3;
-				this.value = 45000;
-				this.toolTip = "Increases maximum mana by 20";
+				this.@value = 45000;
+				this.toolTip = "Increases maximum mana by 40";
 				this.toolTip2 = "3% increased magic critical strike chance";
 				return;
 			}
@@ -18904,10 +21506,10 @@ namespace Terraria
 				this.name = "Ancient Cobalt Breastplate";
 				this.width = 18;
 				this.height = 18;
-				this.defense = 5;
+				this.defense = 6;
 				this.bodySlot = 49;
 				this.rare = 3;
-				this.value = 30000;
+				this.@value = 30000;
 				this.toolTip = "Increases maximum mana by 20";
 				this.toolTip2 = "3% increased magic critical strike chance";
 				return;
@@ -18917,10 +21519,10 @@ namespace Terraria
 				this.name = "Ancient Cobalt Leggings";
 				this.width = 18;
 				this.height = 18;
-				this.defense = 5;
+				this.defense = 6;
 				this.legSlot = 45;
 				this.rare = 3;
-				this.value = 30000;
+				this.@value = 30000;
 				this.toolTip = "Increases maximum mana by 20";
 				this.toolTip2 = "3% increased magic critical strike chance";
 				return;
@@ -18933,26 +21535,26 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 7;
 				this.toolTip = "Gives a chance to dodge attacks";
-				this.value = 50000;
+				this.@value = 50000;
 				this.waistSlot = 10;
 				return;
 			}
 			if (type == 964)
 			{
-				this.knockBack = 5.5f;
+				this.knockBack = 5.75f;
 				this.useStyle = 5;
-				this.useAnimation = 42;
-				this.useTime = 42;
+				this.useAnimation = 40;
+				this.useTime = 40;
 				this.name = "Boomstick";
 				this.width = 50;
 				this.height = 14;
 				this.shoot = 10;
 				this.useAmmo = 14;
 				this.useSound = 36;
-				this.damage = 12;
-				this.shootSpeed = 5.25f;
+				this.damage = 14;
+				this.shootSpeed = 5.35f;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				this.rare = 2;
 				this.ranged = true;
 				this.toolTip = "Fires a spread of bullets";
@@ -18971,8 +21573,9 @@ namespace Terraria
 				this.createTile = 213;
 				this.width = 12;
 				this.height = 12;
-				this.value = 10;
-				this.tileBoost += 2;
+				this.@value = 10;
+				Item item1 = this;
+				item1.tileBoost = item1.tileBoost + 3;
 				this.toolTip = "Can be climbed on";
 				return;
 			}
@@ -18998,7 +21601,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 12;
 				this.maxStack = 99;
-				this.value = 100;
+				this.@value = 100;
 				return;
 			}
 			if (type == 968)
@@ -19007,7 +21610,7 @@ namespace Terraria
 				this.holdStyle = 1;
 				this.width = 12;
 				this.height = 12;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 969)
@@ -19026,8 +21629,8 @@ namespace Terraria
 				this.buffTime = 36000;
 				this.rare = 1;
 				this.toolTip = "Minor improvements to all stats";
-				this.value = 1000;
-				this.value = 1000;
+				this.@value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 970)
@@ -19044,7 +21647,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 12;
 				this.height = 30;
-				this.value = 1500;
+				this.@value = 1500;
 				this.mech = true;
 				return;
 			}
@@ -19062,7 +21665,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 12;
 				this.height = 30;
-				this.value = 1500;
+				this.@value = 1500;
 				this.mech = true;
 				return;
 			}
@@ -19080,7 +21683,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 12;
 				this.height = 30;
-				this.value = 1500;
+				this.@value = 1500;
 				this.mech = true;
 				return;
 			}
@@ -19098,7 +21701,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 12;
 				this.height = 30;
-				this.value = 1500;
+				this.@value = 1500;
 				this.mech = true;
 				return;
 			}
@@ -19118,7 +21721,7 @@ namespace Terraria
 				this.placeStyle = 9;
 				this.width = 10;
 				this.height = 12;
-				this.value = 60;
+				this.@value = 60;
 				this.noWet = true;
 				return;
 			}
@@ -19131,7 +21734,7 @@ namespace Terraria
 				this.rare = 1;
 				this.toolTip = "Allows the ability to slide down walls";
 				this.toolTip = "Improved ability if combined with Climbing Claws";
-				this.value = 50000;
+				this.@value = 50000;
 				this.shoeSlot = 4;
 				return;
 			}
@@ -19143,7 +21746,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 2;
 				this.toolTip = "Allows the ability to climb walls";
-				this.value = 50000;
+				this.@value = 50000;
 				this.shoeSlot = 4;
 				this.handOnSlot = 11;
 				this.handOffSlot = 6;
@@ -19158,7 +21761,7 @@ namespace Terraria
 				this.rare = 7;
 				this.toolTip = "Allows the ability to dash";
 				this.toolTip = "Double tap a direction";
-				this.value = 50000;
+				this.@value = 50000;
 				this.shoeSlot = 3;
 				return;
 			}
@@ -19168,7 +21771,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 77;
-				this.value = 50000;
+				this.@value = 50000;
 				this.defense = 1;
 				return;
 			}
@@ -19178,7 +21781,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 50;
-				this.value = 40000;
+				this.@value = 40000;
 				this.defense = 2;
 				return;
 			}
@@ -19188,7 +21791,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 46;
-				this.value = 30000;
+				this.@value = 30000;
 				this.defense = 1;
 				return;
 			}
@@ -19198,7 +21801,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 12;
 				this.height = 20;
-				this.value = 10000;
+				this.@value = 10000;
 				return;
 			}
 			if (type == 982)
@@ -19210,7 +21813,7 @@ namespace Terraria
 				this.rare = 1;
 				this.toolTip = "Increases maximum mana by 20";
 				this.toolTip2 = "Increases mana regeneration rate";
-				this.value = 50000;
+				this.@value = 50000;
 				this.handOnSlot = 1;
 				return;
 			}
@@ -19220,7 +21823,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 28;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.accessory = true;
 				this.toolTip = "Allows the holder to double jump";
 				this.toolTip2 = "Increases jump height";
@@ -19236,7 +21839,7 @@ namespace Terraria
 				this.rare = 8;
 				this.toolTip = "Allows the ability to climb walls and dash";
 				this.toolTip2 = "Gives a chance to dodge attacks";
-				this.value = 500000;
+				this.@value = 500000;
 				this.handOnSlot = 11;
 				this.handOffSlot = 6;
 				this.shoeSlot = 14;
@@ -19259,7 +21862,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 100;
+				this.@value = 100;
 				this.toolTip = "Throw to create a climbable line of rope";
 				return;
 			}
@@ -19274,11 +21877,11 @@ namespace Terraria
 				this.height = 6;
 				this.shoot = 10;
 				this.useAmmo = 51;
-				this.useSound = 5;
-				this.damage = 25;
+				this.useSound = 64;
+				this.damage = 27;
 				this.shootSpeed = 13f;
 				this.noMelee = true;
-				this.value = Item.buyPrice(0, 5, 0, 0);
+				this.@value = Item.buyPrice(0, 5, 0, 0);
 				this.knockBack = 4f;
 				this.useAmmo = 51;
 				this.toolTip = "Allows the collection of seeds for ammo";
@@ -19294,7 +21897,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 1;
 				this.toolTip = "Allows the holder to double jump";
-				this.value = 50000;
+				this.@value = 50000;
 				return;
 			}
 			if (type == 988)
@@ -19302,35 +21905,36 @@ namespace Terraria
 				this.name = "Frostburn Arrow";
 				this.shootSpeed = 3.75f;
 				this.shoot = 172;
-				this.damage = 7;
+				this.damage = 9;
 				this.width = 10;
 				this.height = 28;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 1;
 				this.knockBack = 2.2f;
-				this.value = 15;
+				this.@value = 15;
 				this.ranged = true;
 				return;
 			}
 			if (type == 989)
 			{
+				this.autoReuse = true;
 				this.rare = 2;
 				this.useSound = 1;
 				this.name = "Enchanted Sword";
 				this.useStyle = 1;
-				this.damage = 18;
-				this.useAnimation = 19;
-				this.useTime = 60;
+				this.damage = 24;
+				this.useAnimation = 18;
+				this.useTime = 45;
 				this.scale = 1.1f;
 				this.width = 30;
 				this.height = 30;
 				this.shoot = 173;
-				this.shootSpeed = 9f;
-				this.knockBack = 5f;
+				this.shootSpeed = 9.5f;
+				this.knockBack = 5.25f;
 				this.toolTip = "Shoots an echanted beam";
 				this.melee = true;
-				this.value = 20000;
+				this.@value = 20000;
 				return;
 			}
 			if (type == 990)
@@ -19349,7 +21953,7 @@ namespace Terraria
 				this.axe = 22;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 220000;
+				this.@value = 220000;
 				this.melee = true;
 				this.scale = 1.1f;
 				this.toolTip = "'Not to be confused with a hamdrill'";
@@ -19370,7 +21974,7 @@ namespace Terraria
 				this.axe = 14;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 54000;
+				this.@value = 54000;
 				this.melee = true;
 				this.scale = 1.1f;
 				return;
@@ -19390,7 +21994,7 @@ namespace Terraria
 				this.axe = 17;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 81000;
+				this.@value = 81000;
 				this.melee = true;
 				this.scale = 1.1f;
 				return;
@@ -19410,7 +22014,7 @@ namespace Terraria
 				this.axe = 20;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 108000;
+				this.@value = 108000;
 				this.melee = true;
 				this.scale = 1.1f;
 				return;
@@ -19429,7 +22033,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a Baby Eater of Souls";
-				this.value = 0;
+				this.@value = 0;
 				this.buffType = 45;
 				return;
 			}
@@ -19446,7 +22050,7 @@ namespace Terraria
 				this.createTile = 217;
 				this.width = 26;
 				this.height = 20;
-				this.value = 100000;
+				this.@value = 100000;
 				this.toolTip = "Used to craft objects";
 				return;
 			}
@@ -19463,7 +22067,7 @@ namespace Terraria
 				this.createTile = 218;
 				this.width = 26;
 				this.height = 20;
-				this.value = 100000;
+				this.@value = 100000;
 				this.toolTip = "Used to craft objects";
 				return;
 			}
@@ -19480,7 +22084,7 @@ namespace Terraria
 				this.createTile = 219;
 				this.width = 26;
 				this.height = 20;
-				this.value = 100000;
+				this.@value = 100000;
 				this.toolTip = "Turns silt into something more useful";
 				this.toolTip2 = "'To use: Place silt in the extractinator'";
 				return;
@@ -19498,7 +22102,7 @@ namespace Terraria
 				this.createTile = 220;
 				this.width = 26;
 				this.height = 20;
-				this.value = 100000;
+				this.@value = 100000;
 				this.toolTip = "Used to craft objects";
 				return;
 			}
@@ -19517,7 +22121,7 @@ namespace Terraria
 				this.alpha = 50;
 				this.width = 10;
 				this.height = 14;
-				this.value = 15000;
+				this.@value = 15000;
 				return;
 			}
 			if (type == 1000)
@@ -19535,10 +22139,11 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 15;
 				this.noMelee = true;
-				this.value = 100;
+				this.@value = 100;
 				this.ranged = true;
 			}
 		}
+
 		public void SetDefaults2(int type)
 		{
 			if (type == 1001)
@@ -19549,7 +22154,7 @@ namespace Terraria
 				this.defense = 25;
 				this.headSlot = 78;
 				this.rare = 7;
-				this.value = 300000;
+				this.@value = 300000;
 				this.toolTip = "16% increased melee damage";
 				this.toolTip2 = "6% increased melee critical strike chance";
 				return;
@@ -19562,7 +22167,7 @@ namespace Terraria
 				this.defense = 13;
 				this.headSlot = 79;
 				this.rare = 7;
-				this.value = 300000;
+				this.@value = 300000;
 				this.toolTip = "16% increased ranged damage";
 				this.toolTip2 = "20% chance to not consume ammo";
 				return;
@@ -19575,7 +22180,7 @@ namespace Terraria
 				this.defense = 7;
 				this.headSlot = 80;
 				this.rare = 7;
-				this.value = 300000;
+				this.@value = 300000;
 				this.toolTip = "Increases maximum mana by 80 and reduces mana usage by 17%";
 				this.toolTip2 = "16% increased magic damage";
 				return;
@@ -19588,7 +22193,7 @@ namespace Terraria
 				this.defense = 18;
 				this.bodySlot = 51;
 				this.rare = 7;
-				this.value = 240000;
+				this.@value = 240000;
 				this.toolTip = "5% increased damage";
 				this.toolTip = "7% increased critical strike chance";
 				return;
@@ -19601,7 +22206,7 @@ namespace Terraria
 				this.defense = 13;
 				this.legSlot = 47;
 				this.rare = 7;
-				this.value = 180000;
+				this.@value = 180000;
 				this.toolTip = "8% increased critical strike chance";
 				this.toolTip = "5% increased movement speed";
 				return;
@@ -19612,7 +22217,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = Item.sellPrice(0, 0, 90, 0);
+				this.@value = Item.sellPrice(0, 0, 90, 0);
 				this.rare = 7;
 				this.useStyle = 1;
 				this.useTurn = true;
@@ -19629,10 +22234,9 @@ namespace Terraria
 				this.name = "Red Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 1;
 				return;
 			}
 			if (type == 1008)
@@ -19640,10 +22244,9 @@ namespace Terraria
 				this.name = "Orange Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 2;
 				return;
 			}
 			if (type == 1009)
@@ -19651,10 +22254,9 @@ namespace Terraria
 				this.name = "Yellow Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 3;
 				return;
 			}
 			if (type == 1010)
@@ -19662,10 +22264,9 @@ namespace Terraria
 				this.name = "Lime Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 4;
 				return;
 			}
 			if (type == 1011)
@@ -19673,10 +22274,9 @@ namespace Terraria
 				this.name = "Green Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 5;
 				return;
 			}
 			if (type == 1012)
@@ -19684,10 +22284,9 @@ namespace Terraria
 				this.name = "Teal Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 6;
 				return;
 			}
 			if (type == 1013)
@@ -19695,10 +22294,9 @@ namespace Terraria
 				this.name = "Cyan Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 7;
 				return;
 			}
 			if (type == 1014)
@@ -19706,10 +22304,9 @@ namespace Terraria
 				this.name = "Sky Blue Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 8;
 				return;
 			}
 			if (type == 1015)
@@ -19717,10 +22314,9 @@ namespace Terraria
 				this.name = "Blue Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 9;
 				return;
 			}
 			if (type == 1016)
@@ -19728,10 +22324,9 @@ namespace Terraria
 				this.name = "Purple Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 10;
 				return;
 			}
 			if (type == 1017)
@@ -19739,10 +22334,9 @@ namespace Terraria
 				this.name = "Violet Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 11;
 				return;
 			}
 			if (type == 1018)
@@ -19750,10 +22344,9 @@ namespace Terraria
 				this.name = "Pink Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 12;
 				return;
 			}
 			if (type == 1019)
@@ -19761,10 +22354,9 @@ namespace Terraria
 				this.name = "Red and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 13;
 				return;
 			}
 			if (type == 1020)
@@ -19772,10 +22364,9 @@ namespace Terraria
 				this.name = "Orange and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 14;
 				return;
 			}
 			if (type == 1021)
@@ -19783,10 +22374,9 @@ namespace Terraria
 				this.name = "Yellow and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 15;
 				return;
 			}
 			if (type == 1022)
@@ -19794,10 +22384,9 @@ namespace Terraria
 				this.name = "Lime and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 16;
 				return;
 			}
 			if (type == 1023)
@@ -19805,10 +22394,9 @@ namespace Terraria
 				this.name = "Green and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 17;
 				return;
 			}
 			if (type == 1024)
@@ -19816,10 +22404,9 @@ namespace Terraria
 				this.name = "Teal and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 18;
 				return;
 			}
 			if (type == 1025)
@@ -19827,10 +22414,9 @@ namespace Terraria
 				this.name = "Cyan and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 19;
 				return;
 			}
 			if (type == 1026)
@@ -19838,10 +22424,9 @@ namespace Terraria
 				this.name = "Sky Blue and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 20;
 				return;
 			}
 			if (type == 1027)
@@ -19849,10 +22434,9 @@ namespace Terraria
 				this.name = "Blue and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 21;
 				return;
 			}
 			if (type == 1028)
@@ -19860,10 +22444,9 @@ namespace Terraria
 				this.name = "Purple and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 22;
 				return;
 			}
 			if (type == 1029)
@@ -19871,10 +22454,9 @@ namespace Terraria
 				this.name = "Violet and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 23;
 				return;
 			}
 			if (type == 1030)
@@ -19882,10 +22464,9 @@ namespace Terraria
 				this.name = "Pink and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 24;
 				return;
 			}
 			if (type == 1031)
@@ -19893,10 +22474,9 @@ namespace Terraria
 				this.name = "Flame Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 25;
 				return;
 			}
 			if (type == 1032)
@@ -19904,10 +22484,9 @@ namespace Terraria
 				this.name = "Flame and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 26;
 				return;
 			}
 			if (type == 1033)
@@ -19915,10 +22494,9 @@ namespace Terraria
 				this.name = "Green Flame Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 27;
 				return;
 			}
 			if (type == 1034)
@@ -19926,10 +22504,9 @@ namespace Terraria
 				this.name = "Green Flame and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 28;
 				return;
 			}
 			if (type == 1035)
@@ -19937,10 +22514,9 @@ namespace Terraria
 				this.name = "Blue Flame Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 29;
 				return;
 			}
 			if (type == 1036)
@@ -19948,10 +22524,9 @@ namespace Terraria
 				this.name = "Blue Flame and Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 30;
 				return;
 			}
 			if (type == 1037)
@@ -19959,10 +22534,9 @@ namespace Terraria
 				this.name = "Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 31;
 				return;
 			}
 			if (type == 1038)
@@ -19970,10 +22544,9 @@ namespace Terraria
 				this.name = "Bright Red Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 32;
 				return;
 			}
 			if (type == 1039)
@@ -19981,10 +22554,9 @@ namespace Terraria
 				this.name = "Bright Orange Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 33;
 				return;
 			}
 			if (type == 1040)
@@ -19992,10 +22564,9 @@ namespace Terraria
 				this.name = "Bright Yellow Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 34;
 				return;
 			}
 			if (type == 1041)
@@ -20003,10 +22574,9 @@ namespace Terraria
 				this.name = "Bright Lime Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 35;
 				return;
 			}
 			if (type == 1042)
@@ -20014,10 +22584,9 @@ namespace Terraria
 				this.name = "Bright Green Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 36;
 				return;
 			}
 			if (type == 1043)
@@ -20025,10 +22594,9 @@ namespace Terraria
 				this.name = "Bright Teal Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 37;
 				return;
 			}
 			if (type == 1044)
@@ -20036,10 +22604,9 @@ namespace Terraria
 				this.name = "Bright Cyan Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 38;
 				return;
 			}
 			if (type == 1045)
@@ -20047,10 +22614,9 @@ namespace Terraria
 				this.name = "Bright Sky Blue Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 39;
 				return;
 			}
 			if (type == 1046)
@@ -20058,10 +22624,9 @@ namespace Terraria
 				this.name = "Bright Blue Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 40;
 				return;
 			}
 			if (type == 1047)
@@ -20069,10 +22634,9 @@ namespace Terraria
 				this.name = "Bright Purple Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 41;
 				return;
 			}
 			if (type == 1048)
@@ -20080,10 +22644,9 @@ namespace Terraria
 				this.name = "Bright Violet Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 42;
 				return;
 			}
 			if (type == 1049)
@@ -20091,10 +22654,9 @@ namespace Terraria
 				this.name = "Bright Pink Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 43;
 				return;
 			}
 			if (type == 1050)
@@ -20102,10 +22664,9 @@ namespace Terraria
 				this.name = "Black Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 44;
 				return;
 			}
 			if (type == 1051)
@@ -20113,10 +22674,9 @@ namespace Terraria
 				this.name = "Red and Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 45;
 				return;
 			}
 			if (type == 1052)
@@ -20124,10 +22684,9 @@ namespace Terraria
 				this.name = "Orange and Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 46;
 				return;
 			}
 			if (type == 1053)
@@ -20135,10 +22694,9 @@ namespace Terraria
 				this.name = "Yellow and Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 47;
 				return;
 			}
 			if (type == 1054)
@@ -20146,10 +22704,9 @@ namespace Terraria
 				this.name = "Lime and Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 48;
 				return;
 			}
 			if (type == 1055)
@@ -20157,10 +22714,9 @@ namespace Terraria
 				this.name = "Green and Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 49;
 				return;
 			}
 			if (type == 1056)
@@ -20168,10 +22724,9 @@ namespace Terraria
 				this.name = "Teal and Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 50;
 				return;
 			}
 			if (type == 1057)
@@ -20179,10 +22734,9 @@ namespace Terraria
 				this.name = "Cyan and Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 51;
 				return;
 			}
 			if (type == 1058)
@@ -20190,10 +22744,9 @@ namespace Terraria
 				this.name = "Sky Blue and Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 52;
 				return;
 			}
 			if (type == 1059)
@@ -20201,10 +22754,9 @@ namespace Terraria
 				this.name = "Blue and Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 53;
 				return;
 			}
 			if (type == 1060)
@@ -20212,10 +22764,9 @@ namespace Terraria
 				this.name = "Purple and Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 54;
 				return;
 			}
 			if (type == 1061)
@@ -20223,10 +22774,9 @@ namespace Terraria
 				this.name = "Violet and Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 55;
 				return;
 			}
 			if (type == 1062)
@@ -20234,10 +22784,9 @@ namespace Terraria
 				this.name = "Pink and Silver Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 56;
 				return;
 			}
 			if (type == 1063)
@@ -20245,10 +22794,9 @@ namespace Terraria
 				this.name = "Intense Flame Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 57;
 				return;
 			}
 			if (type == 1064)
@@ -20256,10 +22804,9 @@ namespace Terraria
 				this.name = "Intense Green Flame Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 58;
 				return;
 			}
 			if (type == 1065)
@@ -20267,10 +22814,9 @@ namespace Terraria
 				this.name = "Intense Blue Flame Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 59;
 				return;
 			}
 			if (type == 1066)
@@ -20278,10 +22824,9 @@ namespace Terraria
 				this.name = "Rainbow Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 60;
 				return;
 			}
 			if (type == 1067)
@@ -20289,10 +22834,9 @@ namespace Terraria
 				this.name = "Intense Rainbow Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 61;
 				return;
 			}
 			if (type == 1068)
@@ -20300,10 +22844,9 @@ namespace Terraria
 				this.name = "Yellow Gradient Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 62;
 				return;
 			}
 			if (type == 1069)
@@ -20311,10 +22854,9 @@ namespace Terraria
 				this.name = "Cyan Gradient Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 63;
 				return;
 			}
 			if (type == 1070)
@@ -20322,10 +22864,9 @@ namespace Terraria
 				this.name = "Violet Gradient Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
-				this.value = 10000;
+				this.maxStack = 99;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 64;
 				return;
 			}
 			if (type == 1071)
@@ -20339,7 +22880,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.toolTip = "Used with paint to color blocks";
-				this.value = 10000;
+				this.@value = 10000;
 				return;
 			}
 			if (type == 1072)
@@ -20353,7 +22894,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.toolTip = "Used with paint to color walls";
-				this.value = 10000;
+				this.@value = 10000;
 				return;
 			}
 			if (type == 1073)
@@ -20362,7 +22903,7 @@ namespace Terraria
 				this.paint = 1;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20372,7 +22913,7 @@ namespace Terraria
 				this.paint = 2;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20382,7 +22923,7 @@ namespace Terraria
 				this.paint = 3;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20392,7 +22933,7 @@ namespace Terraria
 				this.paint = 4;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20402,7 +22943,7 @@ namespace Terraria
 				this.paint = 5;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20412,7 +22953,7 @@ namespace Terraria
 				this.paint = 6;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20422,7 +22963,7 @@ namespace Terraria
 				this.paint = 7;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20432,7 +22973,7 @@ namespace Terraria
 				this.paint = 8;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20442,7 +22983,7 @@ namespace Terraria
 				this.paint = 9;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20452,7 +22993,7 @@ namespace Terraria
 				this.paint = 10;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20462,7 +23003,7 @@ namespace Terraria
 				this.paint = 11;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20472,7 +23013,7 @@ namespace Terraria
 				this.paint = 12;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20482,7 +23023,7 @@ namespace Terraria
 				this.paint = 13;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20492,7 +23033,7 @@ namespace Terraria
 				this.paint = 14;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20502,7 +23043,7 @@ namespace Terraria
 				this.paint = 15;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20512,7 +23053,7 @@ namespace Terraria
 				this.paint = 16;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20522,7 +23063,7 @@ namespace Terraria
 				this.paint = 17;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20532,7 +23073,7 @@ namespace Terraria
 				this.paint = 18;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20542,7 +23083,7 @@ namespace Terraria
 				this.paint = 19;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20552,7 +23093,7 @@ namespace Terraria
 				this.paint = 20;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20562,7 +23103,7 @@ namespace Terraria
 				this.paint = 21;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20572,7 +23113,7 @@ namespace Terraria
 				this.paint = 22;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20582,7 +23123,7 @@ namespace Terraria
 				this.paint = 23;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20592,7 +23133,7 @@ namespace Terraria
 				this.paint = 24;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20602,7 +23143,7 @@ namespace Terraria
 				this.paint = 25;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20612,17 +23153,17 @@ namespace Terraria
 				this.paint = 26;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
 			if (type == 1099)
 			{
-				this.name = "Grey Paint";
+				this.name = "Gray Paint";
 				this.paint = 27;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -20637,7 +23178,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.toolTip = "Used to remove paint";
-				this.value = 10000;
+				this.@value = 10000;
 				return;
 			}
 			if (type == 1101)
@@ -20698,7 +23239,7 @@ namespace Terraria
 				this.createTile = 221;
 				this.width = 12;
 				this.height = 12;
-				this.value = 4500;
+				this.@value = 4500;
 				this.rare = 3;
 				return;
 			}
@@ -20715,7 +23256,7 @@ namespace Terraria
 				this.createTile = 222;
 				this.width = 12;
 				this.height = 12;
-				this.value = 6500;
+				this.@value = 6500;
 				this.rare = 3;
 				return;
 			}
@@ -20732,7 +23273,7 @@ namespace Terraria
 				this.createTile = 223;
 				this.width = 12;
 				this.height = 12;
-				this.value = 8500;
+				this.@value = 8500;
 				this.rare = 3;
 				return;
 			}
@@ -20742,7 +23283,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Teal Dye";
 				this.placeStyle = 0;
@@ -20761,7 +23302,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Green Dye";
 				this.placeStyle = 1;
@@ -20780,7 +23321,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Sky Blue Dye";
 				this.placeStyle = 2;
@@ -20799,7 +23340,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Yellow Dye";
 				this.placeStyle = 3;
@@ -20818,7 +23359,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Blue Dye";
 				this.placeStyle = 4;
@@ -20837,7 +23378,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Lime Dye";
 				this.placeStyle = 5;
@@ -20856,17 +23397,9 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Pink Dye";
-				this.placeStyle = 6;
-				this.createTile = 227;
-				this.useStyle = 1;
-				this.useTurn = true;
-				this.useAnimation = 15;
-				this.useTime = 10;
-				this.autoReuse = true;
-				this.consumable = true;
 				return;
 			}
 			if (type == 1114)
@@ -20875,7 +23408,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Orange Dye";
 				this.placeStyle = 7;
@@ -20894,7 +23427,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Red Dye";
 				return;
@@ -20905,7 +23438,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Cyan Dye";
 				return;
@@ -20916,7 +23449,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Violet Dye";
 				return;
@@ -20927,7 +23460,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Purple Dye";
 				return;
@@ -20938,7 +23471,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
 				this.toolTip = "Used to make Black Dye";
 				return;
@@ -20956,7 +23489,7 @@ namespace Terraria
 				this.createTile = 228;
 				this.width = 26;
 				this.height = 20;
-				this.value = Item.buyPrice(0, 5, 0, 0);
+				this.@value = Item.buyPrice(0, 5, 0, 0);
 				this.toolTip = "Used to craft dyes";
 				return;
 			}
@@ -20975,7 +23508,7 @@ namespace Terraria
 				this.damage = 9;
 				this.shootSpeed = 8f;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 3, 0, 0);
+				this.@value = Item.sellPrice(0, 3, 0, 0);
 				this.rare = 2;
 				this.magic = true;
 				this.scale = 0.8f;
@@ -20983,19 +23516,20 @@ namespace Terraria
 			}
 			if (type == 1122)
 			{
+				this.autoReuse = true;
 				this.useStyle = 1;
 				this.name = "Possessed Hatchet";
 				this.shootSpeed = 12f;
 				this.shoot = 182;
-				this.damage = 90;
+				this.damage = 80;
 				this.width = 18;
 				this.height = 20;
 				this.useSound = 1;
-				this.useAnimation = 15;
-				this.useTime = 15;
+				this.useAnimation = 14;
+				this.useTime = 14;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 500000;
+				this.@value = 500000;
 				this.knockBack = 5f;
 				this.melee = true;
 				this.rare = 7;
@@ -21006,15 +23540,16 @@ namespace Terraria
 			{
 				this.name = "Bee Keeper";
 				this.useStyle = 1;
-				this.useAnimation = 22;
-				this.knockBack = 5.2f;
+				this.useAnimation = 20;
+				this.knockBack = 5.3f;
+				this.autoReuse = true;
 				this.width = 40;
 				this.height = 40;
-				this.damage = 22;
+				this.damage = 26;
 				this.scale = 1.1f;
 				this.useSound = 1;
 				this.rare = 3;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				this.toolTip = "Summons killer bees after striking your foe";
 				this.toolTip2 = "Small chance to cause confusion";
@@ -21119,8 +23654,8 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 200;
-				this.ranged = true;
+				this.@value = 200;
+				this.thrown = true;
 				return;
 			}
 			if (type == 1131)
@@ -21132,7 +23667,8 @@ namespace Terraria
 				this.rare = 8;
 				this.toolTip = "Allows the holder to reverse gravity";
 				this.toolTip2 = "Press UP to change gravity";
-				this.value = 50000;
+				this.@value = 50000;
+				this.expert = true;
 				return;
 			}
 			if (type == 1132)
@@ -21143,7 +23679,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 2;
 				this.toolTip = "Releases bees when damaged";
-				this.value = 100000;
+				this.@value = 100000;
 				return;
 			}
 			if (type == 1133)
@@ -21173,7 +23709,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.potion = true;
-				this.value = 40;
+				this.@value = 40;
 				return;
 			}
 			if (type == 1135)
@@ -21182,9 +23718,8 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 81;
-				this.value = 1000;
-				this.vanity = true;
-				this.rare = 1;
+				this.@value = 1000;
+				this.defense = 1;
 				return;
 			}
 			if (type == 1136)
@@ -21193,9 +23728,8 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 52;
-				this.value = 1000;
-				this.vanity = true;
-				this.rare = 1;
+				this.@value = 1000;
+				this.defense = 2;
 				return;
 			}
 			if (type == 1137)
@@ -21211,7 +23745,7 @@ namespace Terraria
 				this.placeStyle = 12;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 1138)
@@ -21227,7 +23761,7 @@ namespace Terraria
 				this.placeStyle = 13;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 1139)
@@ -21243,7 +23777,7 @@ namespace Terraria
 				this.placeStyle = 14;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 1140)
@@ -21259,7 +23793,7 @@ namespace Terraria
 				this.placeStyle = 15;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 1141)
@@ -21286,7 +23820,7 @@ namespace Terraria
 				this.placeStyle = 16;
 				this.width = 26;
 				this.height = 22;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 1143)
@@ -21319,7 +23853,7 @@ namespace Terraria
 				this.placeStyle = 9;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 1145)
@@ -21336,7 +23870,7 @@ namespace Terraria
 				this.placeStyle = 10;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				this.toolTip = "Used for basic crafting";
 				return;
 			}
@@ -21354,7 +23888,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 12;
 				this.height = 12;
-				this.value = 10000;
+				this.@value = 10000;
 				this.mech = true;
 				return;
 			}
@@ -21372,7 +23906,7 @@ namespace Terraria
 				this.placeStyle = 2;
 				this.width = 12;
 				this.height = 12;
-				this.value = 10000;
+				this.@value = 10000;
 				this.mech = true;
 				return;
 			}
@@ -21390,7 +23924,7 @@ namespace Terraria
 				this.placeStyle = 3;
 				this.width = 12;
 				this.height = 12;
-				this.value = 10000;
+				this.@value = 10000;
 				this.mech = true;
 				return;
 			}
@@ -21408,7 +23942,7 @@ namespace Terraria
 				this.placeStyle = 4;
 				this.width = 12;
 				this.height = 12;
-				this.value = 10000;
+				this.@value = 10000;
 				this.mech = true;
 				return;
 			}
@@ -21442,7 +23976,7 @@ namespace Terraria
 				this.height = 12;
 				this.placeStyle = 6;
 				this.mech = true;
-				this.value = 5000;
+				this.@value = 5000;
 				this.toolTip = "Activates when a player steps on it on";
 				return;
 			}
@@ -21459,7 +23993,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 43;
 				return;
 			}
@@ -21476,7 +24010,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 44;
 				return;
 			}
@@ -21493,7 +24027,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 45;
 				return;
 			}
@@ -21509,10 +24043,10 @@ namespace Terraria
 				this.height = 18;
 				this.shoot = 189;
 				this.useSound = 11;
-				this.damage = 19;
+				this.damage = 21;
 				this.shootSpeed = 9f;
 				this.noMelee = true;
-				this.value = 500000;
+				this.@value = 500000;
 				this.rare = 8;
 				this.magic = true;
 				return;
@@ -21527,13 +24061,13 @@ namespace Terraria
 				this.knockBack = 1f;
 				this.width = 30;
 				this.height = 10;
-				this.damage = 33;
+				this.damage = 38;
 				this.scale = 1.1f;
 				this.shoot = 190;
 				this.shootSpeed = 14f;
 				this.useSound = 10;
 				this.rare = 8;
-				this.value = Item.sellPrice(0, 5, 50, 0);
+				this.@value = Item.sellPrice(0, 5, 50, 0);
 				this.ranged = true;
 				this.noMelee = true;
 				return;
@@ -21556,7 +24090,7 @@ namespace Terraria
 				this.knockBack = 3f;
 				this.toolTip = "Summons a pygmy to fight for you";
 				this.buffType = 49;
-				this.value = 100000;
+				this.@value = 100000;
 				this.summon = true;
 				return;
 			}
@@ -21568,7 +24102,7 @@ namespace Terraria
 				this.height = 28;
 				this.accessory = true;
 				this.toolTip = "Increases your max number of minions";
-				this.value = Item.buyPrice(0, 40, 0, 0);
+				this.@value = Item.buyPrice(0, 40, 0, 0);
 				this.neckSlot = 4;
 				return;
 			}
@@ -21580,7 +24114,7 @@ namespace Terraria
 				this.defense = 6;
 				this.headSlot = 82;
 				this.rare = 7;
-				this.value = Item.buyPrice(0, 50, 0, 0);
+				this.@value = Item.buyPrice(0, 50, 0, 0);
 				this.toolTip = "Increases your max number of minions";
 				this.toolTip2 = "Increases minion damage by 10%";
 				return;
@@ -21593,7 +24127,7 @@ namespace Terraria
 				this.defense = 17;
 				this.bodySlot = 53;
 				this.rare = 7;
-				this.value = Item.buyPrice(0, 50, 0, 0);
+				this.@value = Item.buyPrice(0, 50, 0, 0);
 				this.toolTip = "Increases your max number of minions";
 				this.toolTip2 = "Increases minion damage by 10%";
 				return;
@@ -21606,7 +24140,7 @@ namespace Terraria
 				this.defense = 12;
 				this.legSlot = 48;
 				this.rare = 7;
-				this.value = Item.buyPrice(0, 50, 0, 0);
+				this.@value = Item.buyPrice(0, 50, 0, 0);
 				this.toolTip = "Increases your max number of minions";
 				this.toolTip2 = "Increases minion damage by 10%";
 				return;
@@ -21618,7 +24152,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = Item.buyPrice(1, 0, 0, 0);
+				this.@value = Item.buyPrice(1, 0, 0, 0);
 				this.wingSlot = 13;
 				this.rare = 5;
 				return;
@@ -21629,7 +24163,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 28;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.accessory = true;
 				this.toolTip = "Allows the holder to double jump";
 				this.toolTip2 = "Increases jump height";
@@ -21642,7 +24176,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 28;
 				this.rare = 8;
-				this.value = 150000;
+				this.@value = 150000;
 				this.accessory = true;
 				this.toolTip = "Allows the holder to quadruple jump";
 				this.toolTip2 = "Increases jump height";
@@ -21656,7 +24190,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 14;
 				return;
@@ -21673,7 +24207,7 @@ namespace Terraria
 				this.scale = 1.05f;
 				this.useSound = 1;
 				this.rare = 3;
-				this.value = 9000;
+				this.@value = 9000;
 				this.melee = true;
 				return;
 			}
@@ -21685,7 +24219,7 @@ namespace Terraria
 				this.height = 28;
 				this.accessory = true;
 				this.toolTip = "Increases the damage and knockback of your minions";
-				this.value = Item.buyPrice(0, 40, 0, 0);
+				this.@value = Item.buyPrice(0, 40, 0, 0);
 				return;
 			}
 			if (type == 1168)
@@ -21703,7 +24237,7 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 20;
+				this.@value = 20;
 				return;
 			}
 			if (type == 1169)
@@ -21720,7 +24254,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a Baby Skeletron Head";
-				this.value = Item.sellPrice(0, 5, 0, 0);
+				this.@value = Item.sellPrice(0, 5, 0, 0);
 				this.buffType = 50;
 				return;
 			}
@@ -21738,7 +24272,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a Baby Hornet";
-				this.value = Item.sellPrice(0, 3, 0, 0);
+				this.@value = Item.sellPrice(0, 3, 0, 0);
 				this.buffType = 51;
 				return;
 			}
@@ -21757,7 +24291,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a Tiki Spirit";
 				this.buffType = 52;
-				this.value = Item.buyPrice(2, 0, 0, 0);
+				this.@value = Item.buyPrice(2, 0, 0, 0);
 				return;
 			}
 			if (type == 1172)
@@ -21774,7 +24308,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a Pet Lizard";
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				this.buffType = 53;
 				return;
 			}
@@ -21858,18 +24392,18 @@ namespace Terraria
 				this.useStyle = 5;
 				this.mana = 4;
 				this.autoReuse = true;
-				this.useAnimation = 8;
-				this.useTime = 8;
+				this.useAnimation = 7;
+				this.useTime = 7;
 				this.name = "Leaf Blower";
 				this.width = 24;
 				this.height = 18;
 				this.shoot = 206;
 				this.useSound = 7;
-				this.damage = 42;
+				this.damage = 48;
 				this.shootSpeed = 11f;
 				this.noMelee = true;
-				this.value = 350000;
-				this.knockBack = 3f;
+				this.@value = 300000;
+				this.knockBack = 4f;
 				this.rare = 7;
 				this.toolTip = "Rapidly shoots razor sharp leaves";
 				this.magic = true;
@@ -21887,7 +24421,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 4.5f;
-				this.value = 50;
+				this.@value = 50;
 				this.ranged = true;
 				this.rare = 7;
 				return;
@@ -21907,7 +24441,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a Pet Parrot";
 				this.buffType = 54;
-				this.value = Item.sellPrice(0, 75, 0, 0);
+				this.@value = Item.sellPrice(0, 75, 0, 0);
 				return;
 			}
 			if (type == 1181)
@@ -21924,7 +24458,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a Baby Truffle";
-				this.value = Item.buyPrice(0, 45, 0, 0);
+				this.@value = Item.buyPrice(0, 45, 0, 0);
 				this.buffType = 55;
 				return;
 			}
@@ -21942,7 +24476,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a Pet Sapling";
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				this.buffType = 56;
 				return;
 			}
@@ -21960,7 +24494,7 @@ namespace Terraria
 				this.rare = 8;
 				this.noMelee = true;
 				this.toolTip = "Summons a Wisp to provide light";
-				this.value = Item.sellPrice(0, 5, 50, 0);
+				this.@value = Item.sellPrice(0, 5, 50, 0);
 				this.buffType = 57;
 				return;
 			}
@@ -21970,7 +24504,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 13500;
+				this.@value = 13500;
 				this.rare = 3;
 				this.useStyle = 1;
 				this.useTurn = true;
@@ -21997,7 +24531,7 @@ namespace Terraria
 				this.scale = 1.125f;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 92000;
+				this.@value = 92000;
 				this.melee = true;
 				return;
 			}
@@ -22016,7 +24550,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.shoot = 212;
 				this.rare = 4;
-				this.value = 60000;
+				this.@value = 60000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -22037,7 +24571,7 @@ namespace Terraria
 				this.damage = 34;
 				this.shootSpeed = 9.25f;
 				this.noMelee = true;
-				this.value = 80000;
+				this.@value = 80000;
 				this.ranged = true;
 				this.rare = 4;
 				this.knockBack = 1.75f;
@@ -22058,7 +24592,7 @@ namespace Terraria
 				this.pick = 130;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 72000;
+				this.@value = 72000;
 				this.melee = true;
 				this.toolTip = "Can mine Mythril and Orichalcum";
 				this.scale = 1.15f;
@@ -22079,7 +24613,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 213;
 				this.rare = 4;
-				this.value = 72000;
+				this.@value = 72000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -22102,7 +24636,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 214;
 				this.rare = 4;
-				this.value = 72000;
+				this.@value = 72000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -22115,7 +24649,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 22000;
+				this.@value = 22000;
 				this.rare = 3;
 				this.useStyle = 1;
 				this.useTurn = true;
@@ -22140,7 +24674,7 @@ namespace Terraria
 				this.scale = 1.17f;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 126500;
+				this.@value = 126500;
 				this.melee = true;
 				return;
 			}
@@ -22159,7 +24693,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.shoot = 215;
 				this.rare = 4;
-				this.value = 82500;
+				this.@value = 82500;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -22180,7 +24714,7 @@ namespace Terraria
 				this.damage = 38;
 				this.shootSpeed = 9.75f;
 				this.noMelee = true;
-				this.value = 110000;
+				this.@value = 110000;
 				this.ranged = true;
 				this.rare = 4;
 				this.knockBack = 2f;
@@ -22201,7 +24735,7 @@ namespace Terraria
 				this.pick = 165;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 99000;
+				this.@value = 99000;
 				this.melee = true;
 				this.toolTip = "Can mine Adamantite and Titanium";
 				this.scale = 1.15f;
@@ -22222,7 +24756,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 216;
 				this.rare = 4;
-				this.value = 99000;
+				this.@value = 99000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -22245,7 +24779,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 217;
 				this.rare = 4;
-				this.value = 99000;
+				this.@value = 99000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -22258,7 +24792,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 37500;
+				this.@value = 37500;
 				this.rare = 3;
 				this.useStyle = 1;
 				this.useTurn = true;
@@ -22283,7 +24817,7 @@ namespace Terraria
 				this.scale = 1.2f;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 161000;
+				this.@value = 161000;
 				this.melee = true;
 				return;
 			}
@@ -22302,7 +24836,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.shoot = 218;
 				this.rare = 4;
-				this.value = 105000;
+				this.@value = 105000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -22323,7 +24857,7 @@ namespace Terraria
 				this.damage = 41;
 				this.shootSpeed = 10.5f;
 				this.noMelee = true;
-				this.value = 140000;
+				this.@value = 140000;
 				this.ranged = true;
 				this.rare = 4;
 				this.knockBack = 2.5f;
@@ -22344,7 +24878,7 @@ namespace Terraria
 				this.pick = 190;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 126000;
+				this.@value = 126000;
 				this.melee = true;
 				this.scale = 1.15f;
 				return;
@@ -22364,7 +24898,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 219;
 				this.rare = 4;
-				this.value = 126000;
+				this.@value = 126000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -22386,7 +24920,7 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 220;
 				this.rare = 4;
-				this.value = 126000;
+				this.@value = 126000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -22401,7 +24935,7 @@ namespace Terraria
 				this.defense = 14;
 				this.headSlot = 83;
 				this.rare = 4;
-				this.value = 75000;
+				this.@value = 75000;
 				this.toolTip = "7% increased movement speed";
 				this.toolTip2 = "12% increased melee speed";
 				return;
@@ -22414,7 +24948,7 @@ namespace Terraria
 				this.defense = 5;
 				this.headSlot = 84;
 				this.rare = 4;
-				this.value = 75000;
+				this.@value = 75000;
 				this.toolTip = "10% increased ranged damage";
 				this.toolTip2 = "6% increased ranged critical strike chance";
 				return;
@@ -22427,7 +24961,7 @@ namespace Terraria
 				this.defense = 3;
 				this.headSlot = 85;
 				this.rare = 4;
-				this.value = 75000;
+				this.@value = 75000;
 				this.toolTip = "Increases maximum mana by 40";
 				this.toolTip2 = "9% increased magic critical strike chance";
 				return;
@@ -22440,7 +24974,7 @@ namespace Terraria
 				this.defense = 10;
 				this.bodySlot = 54;
 				this.rare = 4;
-				this.value = 60000;
+				this.@value = 60000;
 				this.toolTip2 = "3% increased critical strike chance";
 				return;
 			}
@@ -22452,7 +24986,7 @@ namespace Terraria
 				this.defense = 8;
 				this.legSlot = 49;
 				this.rare = 4;
-				this.value = 45000;
+				this.@value = 45000;
 				this.toolTip2 = "10% increased movement speed";
 				return;
 			}
@@ -22464,7 +24998,7 @@ namespace Terraria
 				this.defense = 19;
 				this.headSlot = 86;
 				this.rare = 4;
-				this.value = 112500;
+				this.@value = 112500;
 				this.toolTip = "5% increased melee critical strike chance";
 				this.toolTip2 = "10% increased melee damage";
 				return;
@@ -22477,7 +25011,7 @@ namespace Terraria
 				this.defense = 7;
 				this.headSlot = 87;
 				this.rare = 4;
-				this.value = 112500;
+				this.@value = 112500;
 				this.toolTip = "12% increased ranged damage";
 				this.toolTip2 = "7% increased ranged critical strike chance";
 				return;
@@ -22490,7 +25024,7 @@ namespace Terraria
 				this.defense = 4;
 				this.headSlot = 88;
 				this.rare = 4;
-				this.value = 112500;
+				this.@value = 112500;
 				this.toolTip = "Increases maximum mana by 60";
 				this.toolTip2 = "15% increased magic damage";
 				return;
@@ -22503,7 +25037,7 @@ namespace Terraria
 				this.defense = 13;
 				this.bodySlot = 55;
 				this.rare = 4;
-				this.value = 90000;
+				this.@value = 90000;
 				this.toolTip2 = "5% increased damage";
 				return;
 			}
@@ -22515,7 +25049,7 @@ namespace Terraria
 				this.defense = 10;
 				this.legSlot = 50;
 				this.rare = 4;
-				this.value = 67500;
+				this.@value = 67500;
 				this.toolTip2 = "3% increased critical strike chance";
 				return;
 			}
@@ -22527,7 +25061,7 @@ namespace Terraria
 				this.defense = 23;
 				this.headSlot = 89;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.toolTip = "7% increased melee critical strike chance";
 				this.toolTip2 = "14% increased melee damage";
 				return;
@@ -22540,7 +25074,7 @@ namespace Terraria
 				this.defense = 8;
 				this.headSlot = 90;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.toolTip = "14% increased ranged damage";
 				this.toolTip2 = "8% increased ranged critical strike chance";
 				return;
@@ -22553,7 +25087,7 @@ namespace Terraria
 				this.defense = 4;
 				this.headSlot = 91;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.toolTip = "Increases maximum mana by 80";
 				this.toolTip2 = "11% increased magic damage and critical strike chance";
 				return;
@@ -22566,7 +25100,7 @@ namespace Terraria
 				this.defense = 15;
 				this.bodySlot = 56;
 				this.rare = 4;
-				this.value = 120000;
+				this.@value = 120000;
 				this.toolTip = "6% increased damage";
 				return;
 			}
@@ -22578,7 +25112,7 @@ namespace Terraria
 				this.defense = 11;
 				this.legSlot = 51;
 				this.rare = 4;
-				this.value = 90000;
+				this.@value = 90000;
 				this.toolTip = "4% increased critical strike chance";
 				this.toolTip2 = "5% increased movement speed";
 				return;
@@ -22597,7 +25131,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 28;
 				this.height = 14;
-				this.value = 25000;
+				this.@value = 25000;
 				this.toolTip = "Used to craft items from mythril, orichalcum, adamantite, and titanium bars";
 				this.rare = 3;
 				return;
@@ -22616,7 +25150,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 44;
 				this.height = 30;
-				this.value = 50000;
+				this.@value = 50000;
 				this.toolTip = "Used to smelt adamantite and titanium ore";
 				this.rare = 3;
 				return;
@@ -22636,7 +25170,7 @@ namespace Terraria
 				this.axe = 15;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 72000;
+				this.@value = 72000;
 				this.melee = true;
 				this.scale = 1.1f;
 				return;
@@ -22656,7 +25190,7 @@ namespace Terraria
 				this.axe = 18;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 99000;
+				this.@value = 99000;
 				this.melee = true;
 				this.scale = 1.1f;
 				return;
@@ -22676,7 +25210,7 @@ namespace Terraria
 				this.axe = 21;
 				this.useSound = 1;
 				this.rare = 4;
-				this.value = 108000;
+				this.@value = 108000;
 				this.melee = true;
 				this.scale = 1.1f;
 				return;
@@ -22687,7 +25221,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = Item.sellPrice(0, 0, 40, 0);
+				this.@value = Item.sellPrice(0, 0, 40, 0);
 				this.rare = 4;
 				this.useStyle = 1;
 				this.useTurn = true;
@@ -22703,17 +25237,17 @@ namespace Terraria
 			{
 				this.name = "Chlorophyte Claymore";
 				this.useStyle = 1;
-				this.useAnimation = 28;
+				this.useAnimation = 26;
 				this.useTime = 60;
 				this.shoot = 229;
 				this.shootSpeed = 8f;
 				this.knockBack = 6f;
 				this.width = 40;
 				this.height = 40;
-				this.damage = 65;
+				this.damage = 75;
 				this.useSound = 1;
 				this.rare = 7;
-				this.value = 276000;
+				this.@value = 276000;
 				this.scale = 1.25f;
 				this.melee = true;
 				return;
@@ -22724,17 +25258,17 @@ namespace Terraria
 				this.autoReuse = true;
 				this.useTurn = true;
 				this.useStyle = 1;
-				this.useAnimation = 17;
+				this.useAnimation = 16;
 				this.useTime = 42;
 				this.shoot = 228;
 				this.shootSpeed = 8f;
 				this.knockBack = 4f;
 				this.width = 40;
 				this.height = 40;
-				this.damage = 43;
+				this.damage = 48;
 				this.useSound = 1;
 				this.rare = 7;
-				this.value = 276000;
+				this.@value = 276000;
 				this.melee = true;
 				return;
 			}
@@ -22753,7 +25287,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.shoot = 222;
 				this.rare = 7;
-				this.value = 180000;
+				this.@value = 180000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -22774,7 +25308,7 @@ namespace Terraria
 				this.damage = 34;
 				this.shootSpeed = 11.5f;
 				this.noMelee = true;
-				this.value = 240000;
+				this.@value = 240000;
 				this.ranged = true;
 				this.rare = 7;
 				this.knockBack = 2.75f;
@@ -22795,10 +25329,11 @@ namespace Terraria
 				this.pick = 200;
 				this.useSound = 1;
 				this.rare = 7;
-				this.value = 216000;
+				this.@value = 216000;
 				this.melee = true;
 				this.scale = 1.15f;
-				this.tileBoost++;
+				Item item = this;
+				item.tileBoost = item.tileBoost + 1;
 				return;
 			}
 			if (type == 1231)
@@ -22816,12 +25351,13 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 223;
 				this.rare = 7;
-				this.value = 216000;
+				this.@value = 216000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
 				this.channel = true;
-				this.tileBoost++;
+				Item item1 = this;
+				item1.tileBoost = item1.tileBoost + 1;
 				return;
 			}
 			if (type == 1232)
@@ -22839,12 +25375,13 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 224;
 				this.rare = 7;
-				this.value = 216000;
+				this.@value = 216000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
 				this.channel = true;
-				this.tileBoost++;
+				Item item2 = this;
+				item2.tileBoost = item2.tileBoost + 1;
 				return;
 			}
 			if (type == 1233)
@@ -22862,10 +25399,11 @@ namespace Terraria
 				this.axe = 23;
 				this.useSound = 1;
 				this.rare = 7;
-				this.value = 216000;
+				this.@value = 216000;
 				this.melee = true;
 				this.scale = 1.15f;
-				this.tileBoost++;
+				Item item3 = this;
+				item3.tileBoost = item3.tileBoost + 1;
 				return;
 			}
 			if (type == 1234)
@@ -22884,9 +25422,10 @@ namespace Terraria
 				this.scale = 1.25f;
 				this.useSound = 1;
 				this.rare = 7;
-				this.value = 216000;
+				this.@value = 216000;
 				this.melee = true;
-				this.tileBoost++;
+				Item item4 = this;
+				item4.tileBoost = item4.tileBoost + 1;
 				return;
 			}
 			if (type == 1235)
@@ -22901,7 +25440,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 1;
 				this.knockBack = 3.5f;
-				this.value = 100;
+				this.@value = 100;
 				this.ranged = true;
 				this.rare = 7;
 				return;
@@ -22922,7 +25461,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 1;
 				this.noMelee = true;
-				this.value = 20000;
+				this.@value = 20000;
 				return;
 			}
 			if (type == 1237)
@@ -22941,7 +25480,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 1;
 				this.noMelee = true;
-				this.value = 20000;
+				this.@value = 20000;
 				return;
 			}
 			if (type == 1238)
@@ -22960,7 +25499,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 1;
 				this.noMelee = true;
-				this.value = 20000;
+				this.@value = 20000;
 				return;
 			}
 			if (type == 1239)
@@ -22979,7 +25518,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 1;
 				this.noMelee = true;
-				this.value = 20000;
+				this.@value = 20000;
 				return;
 			}
 			if (type == 1240)
@@ -22998,7 +25537,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 1;
 				this.noMelee = true;
-				this.value = 20000;
+				this.@value = 20000;
 				return;
 			}
 			if (type == 1241)
@@ -23017,7 +25556,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 1;
 				this.noMelee = true;
-				this.value = 20000;
+				this.@value = 20000;
 				return;
 			}
 			if (type == 1242)
@@ -23034,7 +25573,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a Baby Dinosaur";
-				this.value = Item.sellPrice(0, 7, 50, 0);
+				this.@value = Item.sellPrice(0, 7, 50, 0);
 				this.buffType = 61;
 				return;
 			}
@@ -23058,14 +25597,14 @@ namespace Terraria
 				this.shoot = 237;
 				this.width = 26;
 				this.height = 28;
-				this.useSound = 8;
+				this.useSound = 66;
 				this.useAnimation = 22;
 				this.useTime = 22;
 				this.rare = 6;
 				this.noMelee = true;
 				this.knockBack = 0f;
 				this.toolTip = "Summons a cloud to rain down on your foes";
-				this.value = Item.sellPrice(0, 3, 50, 0);
+				this.@value = Item.sellPrice(0, 3, 50, 0);
 				this.magic = true;
 				return;
 			}
@@ -23084,7 +25623,7 @@ namespace Terraria
 				this.placeStyle = 10;
 				this.width = 10;
 				this.height = 12;
-				this.value = 60;
+				this.@value = 60;
 				this.noWet = true;
 				return;
 			}
@@ -23109,7 +25648,7 @@ namespace Terraria
 				this.name = "Bee Cloak";
 				this.width = 20;
 				this.height = 24;
-				this.value = 150000;
+				this.@value = 150000;
 				this.toolTip = "Causes stars to fall and releases bees when injured";
 				this.accessory = true;
 				this.rare = 4;
@@ -23123,7 +25662,7 @@ namespace Terraria
 				this.height = 24;
 				this.accessory = true;
 				this.toolTip = "10% increased critical strike chance";
-				this.value = 100000;
+				this.@value = 100000;
 				this.rare = 7;
 				return;
 			}
@@ -23133,7 +25672,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 28;
 				this.rare = 2;
-				this.value = 54000;
+				this.@value = 54000;
 				this.accessory = true;
 				this.toolTip = "Increases jump height";
 				this.toolTip2 = "Releases bees when damaged";
@@ -23146,7 +25685,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 22;
 				this.rare = 4;
-				this.value = 45000;
+				this.@value = 45000;
 				this.accessory = true;
 				this.toolTip = "Allows the holder to double jump";
 				this.toolTip = "Increases jump height and negates fall damage";
@@ -23159,7 +25698,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 22;
 				this.rare = 4;
-				this.value = 45000;
+				this.@value = 45000;
 				this.accessory = true;
 				this.toolTip = "Allows the holder to double jump";
 				this.toolTip = "Increases jump height and negates fall damage";
@@ -23172,7 +25711,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 22;
 				this.rare = 4;
-				this.value = 45000;
+				this.@value = 45000;
 				this.accessory = true;
 				this.toolTip = "Allows the holder to double jump";
 				this.toolTip = "Increases jump height and negates fall damage";
@@ -23184,7 +25723,7 @@ namespace Terraria
 				this.name = "Frozen Turtle Scale";
 				this.width = 20;
 				this.height = 24;
-				this.value = 225000;
+				this.@value = 225000;
 				this.toolTip = "Puts a shell around the owner when below 20% life";
 				this.accessory = true;
 				this.rare = 5;
@@ -23193,19 +25732,20 @@ namespace Terraria
 			if (type == 1254)
 			{
 				this.useStyle = 5;
-				this.useAnimation = 50;
-				this.useTime = 50;
+				this.useAnimation = 36;
+				this.useTime = 36;
 				this.name = "Sniper Rifle";
-				this.crit += 15;
+				Item item5 = this;
+				item5.crit = item5.crit + 25;
 				this.width = 44;
 				this.height = 14;
 				this.shoot = 10;
 				this.useAmmo = 14;
 				this.useSound = 40;
-				this.damage = 125;
+				this.damage = 185;
 				this.shootSpeed = 16f;
 				this.noMelee = true;
-				this.value = 100000;
+				this.@value = 100000;
 				this.knockBack = 8f;
 				this.rare = 8;
 				this.ranged = true;
@@ -23215,8 +25755,8 @@ namespace Terraria
 			{
 				this.autoReuse = false;
 				this.useStyle = 5;
-				this.useAnimation = 9;
-				this.useTime = 9;
+				this.useAnimation = 8;
+				this.useTime = 8;
 				this.name = "Venus Magnum";
 				this.width = 24;
 				this.height = 22;
@@ -23224,10 +25764,10 @@ namespace Terraria
 				this.knockBack = 5.5f;
 				this.useAmmo = 14;
 				this.useSound = 41;
-				this.damage = 36;
+				this.damage = 38;
 				this.shootSpeed = 13.5f;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 5, 0, 0);
+				this.@value = Item.sellPrice(0, 5, 0, 0);
 				this.scale = 0.85f;
 				this.rare = 7;
 				this.ranged = true;
@@ -23250,7 +25790,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.knockBack = 0f;
 				this.toolTip = "Summons a cloud to rain blood on your foes";
-				this.value = 10000;
+				this.@value = 10000;
 				this.magic = true;
 				return;
 			}
@@ -23261,7 +25801,7 @@ namespace Terraria
 				this.height = 20;
 				this.maxStack = 99;
 				this.rare = 1;
-				this.value = 20000;
+				this.@value = 20000;
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -23284,11 +25824,11 @@ namespace Terraria
 				this.shoot = 246;
 				this.useAmmo = 246;
 				this.useSound = 11;
-				this.damage = 43;
+				this.damage = 45;
 				this.knockBack = 5f;
 				this.shootSpeed = 9f;
 				this.noMelee = true;
-				this.value = 350000;
+				this.@value = 350000;
 				this.rare = 7;
 				this.ranged = true;
 				this.toolTip = "Shoots a bolt that explodes into deadly shrapnel";
@@ -23304,14 +25844,14 @@ namespace Terraria
 				this.knockBack = 7.5f;
 				this.width = 30;
 				this.height = 10;
-				this.damage = 52;
+				this.damage = 65;
 				this.scale = 1.1f;
 				this.noUseGraphic = true;
 				this.shoot = 247;
 				this.shootSpeed = 15.9f;
 				this.useSound = 1;
 				this.rare = 7;
-				this.value = Item.sellPrice(0, 6, 0, 0);
+				this.@value = Item.sellPrice(0, 6, 0, 0);
 				this.melee = true;
 				this.channel = true;
 				return;
@@ -23325,12 +25865,12 @@ namespace Terraria
 				this.width = 50;
 				this.height = 18;
 				this.shoot = 250;
-				this.useSound = 9;
+				this.useSound = 67;
 				this.damage = 45;
-				this.knockBack = 2f;
+				this.knockBack = 2.5f;
 				this.shootSpeed = 16f;
 				this.noMelee = true;
-				this.value = 350000;
+				this.@value = 350000;
 				this.rare = 8;
 				this.magic = true;
 				this.mana = 20;
@@ -23341,14 +25881,14 @@ namespace Terraria
 				this.name = "Stynger Bolt";
 				this.shootSpeed = 2f;
 				this.shoot = 246;
-				this.damage = 15;
+				this.damage = 17;
 				this.width = 10;
 				this.height = 28;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 246;
 				this.knockBack = 1f;
-				this.value = 75;
+				this.@value = 75;
 				this.rare = 5;
 				this.ranged = true;
 				return;
@@ -23368,12 +25908,13 @@ namespace Terraria
 				this.useSound = 23;
 				this.shoot = 252;
 				this.rare = 7;
-				this.value = 216000;
+				this.@value = 216000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
 				this.channel = true;
-				this.tileBoost++;
+				Item item6 = this;
+				item6.tileBoost = item6.tileBoost + 1;
 				return;
 			}
 			if (type == 1263)
@@ -23389,14 +25930,14 @@ namespace Terraria
 				this.createTile = 235;
 				this.width = 12;
 				this.height = 12;
-				this.value = Item.buyPrice(0, 2, 50, 0);
+				this.@value = Item.buyPrice(0, 2, 50, 0);
 				this.mech = true;
 				return;
 			}
 			if (type == 1264)
 			{
 				this.mana = 17;
-				this.damage = 50;
+				this.damage = 55;
 				this.useStyle = 1;
 				this.name = "Flower of Frost";
 				this.shootSpeed = 7f;
@@ -23410,7 +25951,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.knockBack = 6.5f;
 				this.toolTip = "Throws balls of frost";
-				this.value = 10000;
+				this.@value = 10000;
 				this.magic = true;
 				return;
 			}
@@ -23430,7 +25971,7 @@ namespace Terraria
 				this.damage = 30;
 				this.shootSpeed = 13f;
 				this.noMelee = true;
-				this.value = 50000;
+				this.@value = 50000;
 				this.scale = 0.75f;
 				this.rare = 7;
 				this.ranged = true;
@@ -23450,10 +25991,10 @@ namespace Terraria
 				this.width = 24;
 				this.height = 28;
 				this.shoot = 254;
-				this.shootSpeed = 2f;
+				this.shootSpeed = 1.2f;
 				this.toolTip = "Summons something to do stuff and things";
 				this.magic = true;
-				this.value = 500000;
+				this.@value = 500000;
 				return;
 			}
 			if (type == 1267)
@@ -23469,7 +26010,7 @@ namespace Terraria
 				this.createWall = 88;
 				this.width = 12;
 				this.height = 12;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				return;
 			}
 			if (type == 1268)
@@ -23485,7 +26026,7 @@ namespace Terraria
 				this.createWall = 89;
 				this.width = 12;
 				this.height = 12;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				return;
 			}
 			if (type == 1269)
@@ -23501,7 +26042,7 @@ namespace Terraria
 				this.createWall = 90;
 				this.width = 12;
 				this.height = 12;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				return;
 			}
 			if (type == 1270)
@@ -23517,7 +26058,7 @@ namespace Terraria
 				this.createWall = 91;
 				this.width = 12;
 				this.height = 12;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				return;
 			}
 			if (type == 1271)
@@ -23533,7 +26074,7 @@ namespace Terraria
 				this.createWall = 92;
 				this.width = 12;
 				this.height = 12;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				return;
 			}
 			if (type == 1272)
@@ -23549,7 +26090,7 @@ namespace Terraria
 				this.createWall = 93;
 				this.width = 12;
 				this.height = 12;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				return;
 			}
 			if (type == 1273)
@@ -23565,7 +26106,7 @@ namespace Terraria
 				this.shootSpeed = 15f;
 				this.useSound = 1;
 				this.rare = 2;
-				this.value = 45000;
+				this.@value = 45000;
 				return;
 			}
 			if (type == 1274)
@@ -23586,6 +26127,7 @@ namespace Terraria
 				this.headSlot = 94;
 				this.rare = 1;
 				this.vanity = true;
+				this.@value = Item.buyPrice(0, 1, 0, 0);
 				return;
 			}
 			if (type == 1276)
@@ -23596,6 +26138,7 @@ namespace Terraria
 				this.headSlot = 95;
 				this.rare = 1;
 				this.vanity = true;
+				this.@value = Item.buyPrice(0, 1, 0, 0);
 				return;
 			}
 			if (type == 1277)
@@ -23654,7 +26197,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 14;
 				this.bodySlot = 58;
-				this.value = Item.sellPrice(0, 0, 50, 0);
+				this.@value = Item.sellPrice(0, 0, 50, 0);
 				this.toolTip = "Increases maximum mana by 20";
 				this.toolTip = "Reduces mana usage by 5%";
 				return;
@@ -23666,7 +26209,7 @@ namespace Terraria
 				this.height = 14;
 				this.bodySlot = 59;
 				this.defense = 1;
-				this.value = Item.sellPrice(0, 0, 50, 0) * 2;
+				this.@value = Item.sellPrice(0, 0, 50, 0) * 2;
 				this.toolTip = "Increases maximum mana by 40";
 				this.toolTip2 = "Reduces mana usage by 7%";
 				return;
@@ -23678,7 +26221,7 @@ namespace Terraria
 				this.height = 14;
 				this.bodySlot = 60;
 				this.defense = 1;
-				this.value = Item.sellPrice(0, 0, 50, 0) * 3;
+				this.@value = Item.sellPrice(0, 0, 50, 0) * 3;
 				this.toolTip = "Increases maximum mana by 40";
 				this.toolTip2 = "Reduces mana usage by 9%";
 				this.rare = 1;
@@ -23691,7 +26234,7 @@ namespace Terraria
 				this.height = 14;
 				this.bodySlot = 61;
 				this.defense = 2;
-				this.value = Item.sellPrice(0, 0, 50, 0) * 4;
+				this.@value = Item.sellPrice(0, 0, 50, 0) * 4;
 				this.toolTip = "Increases maximum mana by 60";
 				this.toolTip2 = "Reduces mana usage by 11%";
 				this.rare = 1;
@@ -23704,7 +26247,7 @@ namespace Terraria
 				this.height = 14;
 				this.bodySlot = 62;
 				this.defense = 2;
-				this.value = Item.sellPrice(0, 0, 50, 0) * 5;
+				this.@value = Item.sellPrice(0, 0, 50, 0) * 5;
 				this.toolTip = "Increases maximum mana by 60";
 				this.toolTip2 = "Reduces mana usage by 13%";
 				this.rare = 1;
@@ -23717,7 +26260,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 14;
 				this.bodySlot = 63;
-				this.value = Item.sellPrice(0, 0, 50, 0) * 6;
+				this.@value = Item.sellPrice(0, 0, 50, 0) * 6;
 				this.toolTip = "Increases maximum mana by 80";
 				this.toolTip2 = "Reduces mana usage by 15%";
 				this.rare = 2;
@@ -23731,6 +26274,7 @@ namespace Terraria
 				this.bodySlot = 64;
 				this.rare = 1;
 				this.vanity = true;
+				this.@value = Item.buyPrice(0, 25, 0, 0);
 				return;
 			}
 			if (type == 1289)
@@ -23741,6 +26285,7 @@ namespace Terraria
 				this.legSlot = 53;
 				this.rare = 1;
 				this.vanity = true;
+				this.@value = Item.buyPrice(0, 25, 0, 0);
 				return;
 			}
 			if (type == 1290)
@@ -23751,7 +26296,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 1;
 				this.toolTip = "Increases movement speed after being struck";
-				this.value = 50000;
+				this.@value = 50000;
 				this.neckSlot = 3;
 				return;
 			}
@@ -23768,7 +26313,7 @@ namespace Terraria
 				this.useAnimation = 30;
 				this.toolTip = "Permanently increases maximum life by 5";
 				this.rare = 7;
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
 			if (type == 1292)
@@ -23784,7 +26329,7 @@ namespace Terraria
 				this.createTile = 237;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 1293)
@@ -23794,7 +26339,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 22;
 				this.height = 10;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				return;
 			}
 			if (type == 1294)
@@ -23813,10 +26358,11 @@ namespace Terraria
 				this.axe = 25;
 				this.useSound = 1;
 				this.rare = 7;
-				this.value = 216000;
+				this.@value = 216000;
 				this.melee = true;
 				this.scale = 1.15f;
-				this.tileBoost++;
+				Item item7 = this;
+				item7.tileBoost = item7.tileBoost + 1;
 				this.toolTip = "Capable of mining Lihzahrd Bricks";
 				return;
 			}
@@ -23835,7 +26381,7 @@ namespace Terraria
 				this.damage = 55;
 				this.shootSpeed = 15f;
 				this.noMelee = true;
-				this.value = 350000;
+				this.@value = 350000;
 				this.knockBack = 3f;
 				this.rare = 7;
 				this.magic = true;
@@ -23844,21 +26390,21 @@ namespace Terraria
 			}
 			if (type == 1296)
 			{
-				this.mana = 17;
-				this.damage = 45;
+				this.mana = 15;
+				this.damage = 73;
 				this.useStyle = 1;
 				this.name = "Staff of Earth";
 				this.shootSpeed = 11f;
 				this.shoot = 261;
 				this.width = 26;
 				this.height = 28;
-				this.useSound = 20;
+				this.useSound = 69;
 				this.useAnimation = 40;
 				this.useTime = 40;
 				this.rare = 7;
 				this.noMelee = true;
 				this.knockBack = 7.5f;
-				this.value = Item.sellPrice(0, 10, 0, 0);
+				this.@value = Item.sellPrice(0, 10, 0, 0);
 				this.magic = true;
 				this.toolTip = "Summons a powerful boulder";
 				return;
@@ -23868,18 +26414,18 @@ namespace Terraria
 				this.autoReuse = true;
 				this.name = "Golem Fist";
 				this.useStyle = 5;
-				this.useAnimation = 30;
-				this.useTime = 30;
-				this.knockBack = 9f;
+				this.useAnimation = 24;
+				this.useTime = 24;
+				this.knockBack = 12f;
 				this.width = 30;
 				this.height = 10;
-				this.damage = 60;
+				this.damage = 76;
 				this.scale = 0.9f;
 				this.shoot = 262;
 				this.shootSpeed = 14f;
 				this.useSound = 10;
 				this.rare = 7;
-				this.value = Item.sellPrice(0, 5, 0, 0);
+				this.@value = Item.sellPrice(0, 5, 0, 0);
 				this.melee = true;
 				this.noMelee = true;
 				this.toolTip = "Punches with the force of a golem";
@@ -23899,7 +26445,7 @@ namespace Terraria
 				this.placeStyle = 17;
 				this.width = 26;
 				this.height = 22;
-				this.value = 500;
+				this.@value = 500;
 				return;
 			}
 			if (type == 1299)
@@ -23908,7 +26454,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 28;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.toolTip = "Increases view range when held";
 				return;
 			}
@@ -23918,7 +26464,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 28;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.accessory = true;
 				this.toolTip = "Increases view range for guns";
 				this.toolTip2 = "Right click to zoom out";
@@ -23932,7 +26478,7 @@ namespace Terraria
 				this.accessory = true;
 				this.toolTip = "10% increased damage";
 				this.toolTip2 = "8% increased critical strike chance";
-				this.value = 300000;
+				this.@value = 300000;
 				this.rare = 7;
 				return;
 			}
@@ -23948,7 +26494,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 4f;
-				this.value = 40;
+				this.@value = 40;
 				this.ranged = true;
 				this.rare = 3;
 				return;
@@ -23960,7 +26506,7 @@ namespace Terraria
 				this.height = 24;
 				this.accessory = true;
 				this.toolTip = "Provides light under water";
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.rare = 2;
 				this.neckSlot = 1;
 				return;
@@ -23970,15 +26516,15 @@ namespace Terraria
 				this.name = "Zombie Arm";
 				this.useStyle = 1;
 				this.useTurn = false;
-				this.useAnimation = 20;
-				this.useTime = 20;
+				this.useAnimation = 23;
+				this.useTime = 23;
 				this.width = 24;
 				this.height = 28;
 				this.damage = 12;
-				this.knockBack = 4.5f;
+				this.knockBack = 4.25f;
 				this.useSound = 1;
 				this.scale = 1f;
-				this.value = 2000;
+				this.@value = 2000;
 				this.melee = true;
 				return;
 			}
@@ -23999,7 +26545,7 @@ namespace Terraria
 				this.scale = 1.15f;
 				this.useSound = 47;
 				this.rare = 8;
-				this.value = Item.sellPrice(0, 10, 0, 0);
+				this.@value = Item.sellPrice(0, 10, 0, 0);
 				this.melee = true;
 				return;
 			}
@@ -24012,13 +26558,13 @@ namespace Terraria
 				this.knockBack = 5.5f;
 				this.width = 24;
 				this.height = 28;
-				this.damage = 40;
+				this.damage = 42;
 				this.scale = 1.15f;
 				this.useSound = 1;
 				this.rare = 5;
 				this.shoot = 263;
 				this.shootSpeed = 8f;
-				this.value = 250000;
+				this.@value = 250000;
 				this.toolTip = "Shoots an icy sickle";
 				this.melee = true;
 				return;
@@ -24029,7 +26575,7 @@ namespace Terraria
 				this.name = "Clothier Voodoo Doll";
 				this.width = 14;
 				this.height = 26;
-				this.value = 1000;
+				this.@value = 1000;
 				this.toolTip = "'You are a terrible person.'";
 				this.rare = 1;
 				return;
@@ -24052,7 +26598,7 @@ namespace Terraria
 				this.autoReuse = true;
 				this.rare = 6;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 4, 0, 0);
+				this.@value = Item.sellPrice(0, 4, 0, 0);
 				return;
 			}
 			if (type == 1309)
@@ -24073,7 +26619,7 @@ namespace Terraria
 				this.knockBack = 2f;
 				this.toolTip = "Summons a baby slime to fight for you";
 				this.buffType = 64;
-				this.value = 100000;
+				this.@value = 100000;
 				this.summon = true;
 				return;
 			}
@@ -24087,11 +26633,12 @@ namespace Terraria
 				this.ammo = 51;
 				this.toolTip = "Inflicts poison on enemies";
 				this.toolTip2 = "For use with Blowpipe and Blowgun";
-				this.damage = 8;
+				this.damage = 10;
 				this.knockBack = 2f;
 				this.shootSpeed = 2f;
 				this.ranged = true;
 				this.rare = 2;
+				this.consumable = true;
 				return;
 			}
 			if (type == 1311)
@@ -24108,7 +26655,7 @@ namespace Terraria
 				this.rare = 6;
 				this.noMelee = true;
 				this.toolTip = "Summons an eye spring";
-				this.value = Item.sellPrice(0, 3, 0, 0);
+				this.@value = Item.sellPrice(0, 3, 0, 0);
 				this.buffType = 65;
 				return;
 			}
@@ -24126,7 +26673,7 @@ namespace Terraria
 				this.rare = 6;
 				this.noMelee = true;
 				this.toolTip = "Summons a baby snowman";
-				this.value = Item.sellPrice(0, 2, 50, 0);
+				this.@value = Item.sellPrice(0, 2, 50, 0);
 				this.buffType = 66;
 				return;
 			}
@@ -24134,22 +26681,22 @@ namespace Terraria
 			{
 				this.autoReuse = true;
 				this.rare = 2;
-				this.mana = 22;
+				this.mana = 18;
 				this.useSound = 8;
 				this.name = "Book of Skulls";
 				this.useStyle = 5;
-				this.damage = 28;
+				this.damage = 29;
 				this.useAnimation = 26;
 				this.useTime = 26;
 				this.width = 24;
 				this.height = 28;
 				this.shoot = 270;
 				this.scale = 0.9f;
-				this.shootSpeed = 4f;
+				this.shootSpeed = 3.5f;
 				this.knockBack = 3.5f;
 				this.toolTip = "Shoots a skull";
 				this.magic = true;
-				this.value = 50000;
+				this.@value = 50000;
 				return;
 			}
 			if (type == 1314)
@@ -24162,13 +26709,13 @@ namespace Terraria
 				this.knockBack = 6.5f;
 				this.width = 30;
 				this.height = 10;
-				this.damage = 35;
+				this.damage = 40;
 				this.scale = 0.9f;
 				this.shoot = 271;
 				this.shootSpeed = 15f;
 				this.useSound = 10;
 				this.rare = 4;
-				this.value = 27000;
+				this.@value = 27000;
 				this.melee = true;
 				this.noMelee = true;
 				this.toolTip = "Shoots a boxing glove";
@@ -24194,7 +26741,7 @@ namespace Terraria
 				this.defense = 21;
 				this.headSlot = 99;
 				this.rare = 8;
-				this.value = 300000;
+				this.@value = 300000;
 				this.toolTip = "5% increased melee damage";
 				this.toolTip2 = "Enemies are more likely to target you";
 				return;
@@ -24207,7 +26754,7 @@ namespace Terraria
 				this.defense = 27;
 				this.bodySlot = 65;
 				this.rare = 8;
-				this.value = 240000;
+				this.@value = 240000;
 				this.toolTip = "7% increased melee damage and critical strike chance";
 				this.toolTip2 = "Enemies are more likely to target you";
 				return;
@@ -24220,7 +26767,7 @@ namespace Terraria
 				this.defense = 17;
 				this.legSlot = 54;
 				this.rare = 8;
-				this.value = 180000;
+				this.@value = 180000;
 				this.toolTip = "3% increased melee critical strike chance";
 				this.toolTip2 = "Enemies are more likely to target you";
 				return;
@@ -24230,18 +26777,18 @@ namespace Terraria
 				this.name = "Snowball Cannon";
 				this.autoReuse = true;
 				this.useStyle = 5;
-				this.useAnimation = 18;
-				this.useTime = 18;
+				this.useAnimation = 19;
+				this.useTime = 19;
 				this.width = 44;
 				this.height = 14;
 				this.shoot = 166;
 				this.useAmmo = 14;
 				this.useSound = 11;
-				this.damage = 4;
+				this.damage = 10;
 				this.shootSpeed = 11f;
 				this.noMelee = true;
-				this.value = 100000;
-				this.knockBack = 4.5f;
+				this.@value = 100000;
+				this.knockBack = 1f;
 				this.rare = 1;
 				this.ranged = true;
 				this.useAmmo = 949;
@@ -24263,7 +26810,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.knockBack = 3f;
 				this.rare = 1;
-				this.value = 18000;
+				this.@value = Item.buyPrice(0, 1, 50, 0);
 				this.scale = 1.15f;
 				this.melee = true;
 				return;
@@ -24276,7 +26823,7 @@ namespace Terraria
 				this.accessory = true;
 				this.toolTip = "Increase arrow speed and damage by 10%";
 				this.toolTip2 = "20% chance to not consume arrow";
-				this.value = Item.sellPrice(0, 5, 0, 0);
+				this.@value = Item.sellPrice(0, 5, 0, 0);
 				this.rare = 4;
 				this.backSlot = 7;
 				return;
@@ -24288,7 +26835,7 @@ namespace Terraria
 				this.height = 28;
 				this.accessory = true;
 				this.toolTip = "Chance to inflict fire damage on attack";
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				this.rare = 3;
 				return;
 			}
@@ -24299,28 +26846,29 @@ namespace Terraria
 				this.height = 28;
 				this.accessory = true;
 				this.toolTip = "Reduced damage from touching lava";
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				this.rare = 3;
 				this.faceSlot = 6;
 				return;
 			}
 			if (type == 1324)
 			{
+				this.autoReuse = true;
 				this.noMelee = true;
 				this.useStyle = 1;
 				this.name = "Bananarang";
 				this.shootSpeed = 14f;
 				this.shoot = 272;
-				this.damage = 40;
-				this.knockBack = 8.5f;
+				this.damage = 55;
+				this.knockBack = 6.5f;
 				this.width = 14;
 				this.height = 28;
 				this.useSound = 1;
-				this.useAnimation = 8;
-				this.useTime = 8;
+				this.useAnimation = 14;
+				this.useTime = 14;
 				this.noUseGraphic = true;
 				this.rare = 5;
-				this.value = 75000;
+				this.@value = 75000;
 				this.melee = true;
 				this.maxStack = 10;
 				return;
@@ -24340,7 +26888,7 @@ namespace Terraria
 				this.shootSpeed = 12f;
 				this.useSound = 1;
 				this.rare = 2;
-				this.value = 1000;
+				this.@value = 1000;
 				this.melee = true;
 				this.noUseGraphic = true;
 				return;
@@ -24356,7 +26904,7 @@ namespace Terraria
 				this.height = 20;
 				this.useSound = 8;
 				this.rare = 7;
-				this.value = Item.sellPrice(0, 10, 0, 0);
+				this.@value = Item.sellPrice(0, 10, 0, 0);
 				this.toolTip = "Teleports to a new location";
 				return;
 			}
@@ -24372,11 +26920,11 @@ namespace Terraria
 				this.height = 28;
 				this.damage = 57;
 				this.scale = 1.15f;
-				this.useSound = 1;
+				this.useSound = 71;
 				this.rare = 6;
 				this.shoot = 274;
 				this.shootSpeed = 9f;
-				this.value = 250000;
+				this.@value = 250000;
 				this.toolTip = "Shoots a deathly sickle";
 				this.melee = true;
 				return;
@@ -24388,7 +26936,7 @@ namespace Terraria
 				this.height = 18;
 				this.maxStack = 99;
 				this.rare = 7;
-				this.value = 5000;
+				this.@value = 5000;
 				return;
 			}
 			if (type == 1329)
@@ -24398,7 +26946,7 @@ namespace Terraria
 				this.height = 18;
 				this.maxStack = 99;
 				this.rare = 1;
-				this.value = 750;
+				this.@value = 750;
 				return;
 			}
 			if (type == 1330)
@@ -24407,7 +26955,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = 12;
+				this.@value = 12;
 				return;
 			}
 			if (type == 1331)
@@ -24429,7 +26977,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 14;
 				this.maxStack = 99;
-				this.value = 4500;
+				this.@value = 4500;
 				this.rare = 3;
 				this.toolTip = "'The blood of gods'";
 				return;
@@ -24450,7 +26998,7 @@ namespace Terraria
 				this.placeStyle = 11;
 				this.width = 10;
 				this.height = 12;
-				this.value = 330;
+				this.@value = 330;
 				this.rare = 1;
 				this.toolTip = "Can be placed in water";
 				return;
@@ -24460,14 +27008,14 @@ namespace Terraria
 				this.name = "Ichor Arrow";
 				this.shootSpeed = 4.25f;
 				this.shoot = 278;
-				this.damage = 15;
+				this.damage = 16;
 				this.width = 10;
 				this.height = 28;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 1;
 				this.knockBack = 3f;
-				this.value = 80;
+				this.@value = 80;
 				this.ranged = true;
 				this.rare = 3;
 				this.toolTip = "Decreases target's defense";
@@ -24485,7 +27033,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 4f;
-				this.value = 30;
+				this.@value = 30;
 				this.ranged = true;
 				this.rare = 3;
 				this.toolTip = "Decreases target's defense";
@@ -24502,12 +27050,12 @@ namespace Terraria
 				this.knockBack = 4f;
 				this.width = 38;
 				this.height = 10;
-				this.damage = 22;
+				this.damage = 21;
 				this.shoot = 280;
 				this.shootSpeed = 10f;
 				this.useSound = 13;
 				this.rare = 4;
-				this.value = 500000;
+				this.@value = 500000;
 				this.toolTip = "Sprays out a shower of ichor";
 				this.magic = true;
 				this.noMelee = true;
@@ -24527,7 +27075,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 12;
 				this.height = 12;
-				this.value = Item.buyPrice(0, 50, 0, 0);
+				this.@value = Item.buyPrice(0, 50, 0, 0);
 				return;
 			}
 			if (type == 1338)
@@ -24544,7 +27092,7 @@ namespace Terraria
 				this.height = 12;
 				this.damage = 350;
 				this.noMelee = true;
-				this.value = Item.buyPrice(0, 0, 35, 0);
+				this.@value = Item.buyPrice(0, 0, 35, 0);
 				return;
 			}
 			if (type == 1339)
@@ -24553,7 +27101,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = Item.buyPrice(0, 0, 10, 0);
+				this.@value = Item.buyPrice(0, 0, 10, 0);
 				return;
 			}
 			if (type == 1340)
@@ -24569,9 +27117,9 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.buffType = 71;
-				this.buffTime = 54000;
+				this.buffTime = 72000;
 				this.toolTip = "Melee attacks inflict venom on enemies";
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
 				return;
 			}
@@ -24587,7 +27135,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 1;
 				this.knockBack = 4.2f;
-				this.value = 90;
+				this.@value = 90;
 				this.ranged = true;
 				this.rare = 3;
 				this.toolTip = "Inflicts target with venom";
@@ -24605,7 +27153,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 4.1f;
-				this.value = 40;
+				this.@value = 40;
 				this.ranged = true;
 				this.rare = 3;
 				this.toolTip = "Inflicts target with venom";
@@ -24620,7 +27168,7 @@ namespace Terraria
 				this.rare = 7;
 				this.toolTip = "Increases melee knockback and inflicts fire damage on attack";
 				this.toolTip = "9% increased melee damage and speed";
-				this.value = 300000;
+				this.@value = 300000;
 				this.handOffSlot = 1;
 				this.handOnSlot = 6;
 				return;
@@ -24638,7 +27186,7 @@ namespace Terraria
 				this.createTile = 272;
 				this.width = 12;
 				this.height = 12;
-				this.value = Item.buyPrice(0, 0, 7, 0);
+				this.@value = Item.buyPrice(0, 0, 7, 0);
 				return;
 			}
 			if (type == 1345)
@@ -24647,7 +27195,15 @@ namespace Terraria
 				this.width = 12;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = Item.buyPrice(0, 0, 1, 0);
+				this.@value = Item.buyPrice(0, 0, 1, 0);
+				this.noMelee = true;
+				this.useStyle = 1;
+				int num = 20;
+				int num1 = num;
+				this.useTime = num;
+				this.useAnimation = num1;
+				this.autoReuse = true;
+				this.consumable = true;
 				return;
 			}
 			if (type == 1346)
@@ -24656,7 +27212,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = Item.buyPrice(0, 0, 10, 0);
+				this.@value = Item.buyPrice(0, 0, 10, 0);
 				return;
 			}
 			if (type == 1347)
@@ -24665,7 +27221,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = Item.buyPrice(0, 0, 12, 0);
+				this.@value = Item.buyPrice(0, 0, 12, 0);
 				return;
 			}
 			if (type == 1348)
@@ -24674,7 +27230,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 20;
 				this.maxStack = 99;
-				this.value = Item.buyPrice(0, 0, 17, 0);
+				this.@value = Item.buyPrice(0, 0, 17, 0);
 				return;
 			}
 			if (type == 1349)
@@ -24689,7 +27245,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 5f;
-				this.value = 40;
+				this.@value = 40;
 				this.ranged = true;
 				this.rare = 3;
 				this.toolTip = "Explodes into confetti on impact";
@@ -24707,7 +27263,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 3.6f;
-				this.value = 40;
+				this.@value = 40;
 				this.ranged = true;
 				this.rare = 3;
 				this.toolTip = "Causes confusion";
@@ -24725,7 +27281,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 6.6f;
-				this.value = 40;
+				this.@value = 40;
 				this.ranged = true;
 				this.rare = 3;
 				this.toolTip = "Explodes on impact";
@@ -24743,7 +27299,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 14;
 				this.knockBack = 3.6f;
-				this.value = 40;
+				this.@value = 40;
 				this.ranged = true;
 				this.rare = 3;
 				this.toolTip = "Enemies killed will drop more money";
@@ -24762,8 +27318,8 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.buffType = 73;
-				this.buffTime = 54000;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.buffTime = 72000;
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
 				return;
 			}
@@ -24780,8 +27336,8 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.buffType = 74;
-				this.buffTime = 54000;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.buffTime = 72000;
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
 				return;
 			}
@@ -24798,8 +27354,8 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.buffType = 75;
-				this.buffTime = 54000;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.buffTime = 72000;
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
 				return;
 			}
@@ -24816,8 +27372,8 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.buffType = 76;
-				this.buffTime = 54000;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.buffTime = 72000;
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
 				return;
 			}
@@ -24834,8 +27390,8 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.buffType = 77;
-				this.buffTime = 54000;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.buffTime = 72000;
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
 				return;
 			}
@@ -24852,8 +27408,8 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.buffType = 78;
-				this.buffTime = 54000;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.buffTime = 72000;
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
 				return;
 			}
@@ -24870,8 +27426,8 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.buffType = 79;
-				this.buffTime = 54000;
-				this.value = Item.sellPrice(0, 0, 5, 0);
+				this.buffTime = 72000;
+				this.@value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
 				return;
 			}
@@ -24888,7 +27444,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.placeStyle = 0;
 				this.rare = 1;
 				return;
@@ -24906,7 +27462,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.placeStyle = 1;
 				this.rare = 1;
 				return;
@@ -24924,7 +27480,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.placeStyle = 2;
 				this.rare = 1;
 				return;
@@ -24942,7 +27498,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.placeStyle = 3;
 				this.rare = 1;
 				return;
@@ -24960,7 +27516,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.placeStyle = 4;
 				this.rare = 1;
 				return;
@@ -24978,7 +27534,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.placeStyle = 5;
 				this.rare = 1;
 				return;
@@ -24996,7 +27552,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.placeStyle = 6;
 				this.rare = 1;
 				return;
@@ -25014,7 +27570,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.placeStyle = 7;
 				this.rare = 1;
 				return;
@@ -25032,7 +27588,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.placeStyle = 8;
 				this.rare = 1;
 				return;
@@ -25050,7 +27606,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.placeStyle = 9;
 				this.rare = 1;
 				return;
@@ -25068,7 +27624,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.placeStyle = 10;
 				this.rare = 1;
 				return;
@@ -25086,7 +27642,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.placeStyle = 11;
 				this.rare = 1;
 				return;
@@ -25104,7 +27660,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 12;
 				return;
 			}
@@ -25121,7 +27677,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 13;
 				return;
 			}
@@ -25138,7 +27694,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 14;
 				return;
 			}
@@ -25155,7 +27711,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 15;
 				return;
 			}
@@ -25289,7 +27845,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 6;
@@ -25305,7 +27861,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 7;
@@ -25321,7 +27877,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 8;
@@ -25337,7 +27893,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 9;
@@ -25353,7 +27909,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 10;
@@ -25369,7 +27925,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 11;
@@ -25503,7 +28059,7 @@ namespace Terraria
 				this.placeStyle = 10;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 1398)
@@ -25520,7 +28076,7 @@ namespace Terraria
 				this.placeStyle = 11;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				return;
 			}
 			if (type == 1399)
@@ -25553,7 +28109,7 @@ namespace Terraria
 				this.placeStyle = 11;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 1401)
@@ -25570,7 +28126,7 @@ namespace Terraria
 				this.placeStyle = 12;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				return;
 			}
 			if (type == 1402)
@@ -25603,7 +28159,7 @@ namespace Terraria
 				this.placeStyle = 12;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 1404)
@@ -25620,7 +28176,7 @@ namespace Terraria
 				this.placeStyle = 13;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				return;
 			}
 			if (type == 1405)
@@ -25687,7 +28243,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 46;
 				return;
 			}
@@ -25704,7 +28260,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 47;
 				return;
 			}
@@ -25721,7 +28277,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 48;
 				return;
 			}
@@ -25738,7 +28294,7 @@ namespace Terraria
 				this.placeStyle = 16;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 1412)
@@ -25754,7 +28310,7 @@ namespace Terraria
 				this.placeStyle = 17;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 1413)
@@ -25770,7 +28326,7 @@ namespace Terraria
 				this.placeStyle = 18;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 1414)
@@ -25786,7 +28342,7 @@ namespace Terraria
 				this.createTile = 101;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 1;
 				return;
 			}
@@ -25803,7 +28359,7 @@ namespace Terraria
 				this.createTile = 101;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 2;
 				return;
 			}
@@ -25820,7 +28376,7 @@ namespace Terraria
 				this.createTile = 101;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 3;
 				return;
 			}
@@ -25869,7 +28425,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 18;
 				return;
 			}
@@ -25886,7 +28442,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 19;
 				return;
 			}
@@ -25903,7 +28459,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 0;
 				return;
 			}
@@ -25920,7 +28476,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 1;
 				return;
 			}
@@ -25937,7 +28493,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 2;
 				return;
 			}
@@ -25954,7 +28510,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 3;
 				return;
 			}
@@ -25971,7 +28527,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 4;
 				return;
 			}
@@ -25988,7 +28544,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 5;
 				return;
 			}
@@ -26005,7 +28561,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 20;
 				return;
 			}
@@ -26022,7 +28578,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 21;
 				return;
 			}
@@ -26033,7 +28589,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 100;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 1, 0, 0);
+				this.@value = Item.buyPrice(0, 1, 0, 0);
 				return;
 			}
 			if (type == 1430)
@@ -26049,7 +28605,7 @@ namespace Terraria
 				this.createTile = 243;
 				this.width = 26;
 				this.height = 20;
-				this.value = Item.buyPrice(0, 7, 0, 0);
+				this.@value = Item.buyPrice(0, 7, 0, 0);
 				this.rare = 2;
 				return;
 			}
@@ -26075,7 +28631,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 20;
 				this.maxStack = 999;
-				this.value = Item.buyPrice(0, 0, 0, 3);
+				this.@value = Item.buyPrice(0, 0, 0, 3);
 				return;
 			}
 			if (type == 1433)
@@ -26091,7 +28647,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 6;
 				return;
 			}
@@ -26108,7 +28664,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 7;
 				return;
 			}
@@ -26125,7 +28681,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 8;
 				return;
 			}
@@ -26142,7 +28698,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 9;
 				return;
 			}
@@ -26159,7 +28715,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 10;
 				return;
 			}
@@ -26176,7 +28732,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 11;
 				return;
 			}
@@ -26193,7 +28749,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 12;
 				return;
 			}
@@ -26210,7 +28766,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 22;
 				return;
 			}
@@ -26227,7 +28783,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 23;
 				return;
 			}
@@ -26244,7 +28800,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 24;
 				return;
 			}
@@ -26261,7 +28817,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 25;
 				return;
 			}
@@ -26269,7 +28825,7 @@ namespace Terraria
 			{
 				this.name = "Shadowbeam Staff";
 				this.mana = 7;
-				this.useSound = 8;
+				this.useSound = 72;
 				this.useStyle = 5;
 				this.damage = 53;
 				this.useAnimation = 16;
@@ -26280,7 +28836,7 @@ namespace Terraria
 				this.shoot = 294;
 				this.shootSpeed = 6f;
 				this.knockBack = 3.25f;
-				this.value = Item.sellPrice(0, 6, 0, 0);
+				this.@value = Item.sellPrice(0, 6, 0, 0);
 				this.magic = true;
 				this.rare = 8;
 				this.noMelee = true;
@@ -26290,7 +28846,7 @@ namespace Terraria
 			{
 				this.name = "Inferno Fork";
 				this.mana = 18;
-				this.useSound = 45;
+				this.useSound = 73;
 				this.useStyle = 5;
 				this.damage = 65;
 				this.useAnimation = 30;
@@ -26300,7 +28856,7 @@ namespace Terraria
 				this.shoot = 295;
 				this.shootSpeed = 8f;
 				this.knockBack = 8f;
-				this.value = Item.sellPrice(0, 6, 0, 0);
+				this.@value = Item.sellPrice(0, 6, 0, 0);
 				this.magic = true;
 				this.noMelee = true;
 				this.rare = 8;
@@ -26312,7 +28868,7 @@ namespace Terraria
 				this.mana = 11;
 				this.useSound = 43;
 				this.useStyle = 5;
-				this.damage = 68;
+				this.damage = 72;
 				this.autoReuse = true;
 				this.useAnimation = 24;
 				this.useTime = 24;
@@ -26321,7 +28877,7 @@ namespace Terraria
 				this.shoot = 297;
 				this.shootSpeed = 6f;
 				this.knockBack = 6f;
-				this.value = Item.sellPrice(0, 6, 0, 0);
+				this.@value = Item.sellPrice(0, 6, 0, 0);
 				this.magic = true;
 				this.noMelee = true;
 				this.rare = 8;
@@ -26370,7 +28926,7 @@ namespace Terraria
 				this.createTile = 244;
 				this.width = 26;
 				this.height = 20;
-				this.value = Item.buyPrice(0, 4, 0, 0);
+				this.@value = Item.buyPrice(0, 4, 0, 0);
 				this.rare = 1;
 				return;
 			}
@@ -26385,7 +28941,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 28;
 				this.scale = 1f;
-				this.value = Item.buyPrice(0, 5, 0, 0);
+				this.@value = Item.buyPrice(0, 5, 0, 0);
 				this.noMelee = true;
 				this.rare = 1;
 				return;
@@ -26404,7 +28960,7 @@ namespace Terraria
 				this.placeStyle = 10;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1452)
@@ -26421,7 +28977,7 @@ namespace Terraria
 				this.placeStyle = 11;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1453)
@@ -26438,7 +28994,7 @@ namespace Terraria
 				this.placeStyle = 12;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1454)
@@ -26455,7 +29011,7 @@ namespace Terraria
 				this.placeStyle = 13;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1455)
@@ -26472,7 +29028,7 @@ namespace Terraria
 				this.placeStyle = 14;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1456)
@@ -26489,7 +29045,7 @@ namespace Terraria
 				this.placeStyle = 15;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1457)
@@ -26500,7 +29056,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 13;
@@ -26521,7 +29077,7 @@ namespace Terraria
 				this.placeStyle = 19;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 1459)
@@ -26554,7 +29110,7 @@ namespace Terraria
 				this.placeStyle = 13;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 1461)
@@ -26571,7 +29127,7 @@ namespace Terraria
 				this.placeStyle = 14;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				return;
 			}
 			if (type == 1462)
@@ -26587,7 +29143,7 @@ namespace Terraria
 				this.createTile = 105;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 49;
 				return;
 			}
@@ -26604,7 +29160,7 @@ namespace Terraria
 				this.createTile = 101;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 4;
 				return;
 			}
@@ -26622,7 +29178,7 @@ namespace Terraria
 				this.placeStyle = 16;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1465)
@@ -26639,7 +29195,7 @@ namespace Terraria
 				this.placeStyle = 17;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1466)
@@ -26656,7 +29212,7 @@ namespace Terraria
 				this.placeStyle = 18;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1467)
@@ -26673,7 +29229,7 @@ namespace Terraria
 				this.placeStyle = 19;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1468)
@@ -26690,7 +29246,7 @@ namespace Terraria
 				this.placeStyle = 20;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1469)
@@ -26707,7 +29263,7 @@ namespace Terraria
 				this.placeStyle = 21;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1470)
@@ -26723,7 +29279,7 @@ namespace Terraria
 				this.placeStyle = 5;
 				this.width = 28;
 				this.height = 20;
-				this.value = 2000;
+				this.@value = 2000;
 				return;
 			}
 			if (type == 1471)
@@ -26739,7 +29295,7 @@ namespace Terraria
 				this.placeStyle = 6;
 				this.width = 28;
 				this.height = 20;
-				this.value = 2000;
+				this.@value = 2000;
 				return;
 			}
 			if (type == 1472)
@@ -26755,7 +29311,7 @@ namespace Terraria
 				this.placeStyle = 7;
 				this.width = 28;
 				this.height = 20;
-				this.value = 2000;
+				this.@value = 2000;
 				return;
 			}
 			if (type == 1473)
@@ -26771,7 +29327,7 @@ namespace Terraria
 				this.placeStyle = 8;
 				this.width = 28;
 				this.height = 20;
-				this.value = 2000;
+				this.@value = 2000;
 				return;
 			}
 			if (type >= 1474 && type <= 1478)
@@ -26787,7 +29343,7 @@ namespace Terraria
 				this.createTile = 245;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = type - 1474;
 				return;
 			}
@@ -26804,13 +29360,13 @@ namespace Terraria
 				this.createTile = 246;
 				this.width = 30;
 				this.height = 30;
-				if (type >= 1481 && type <= 1494)
+				if (type < 1481 || type > 1494)
 				{
-					this.value = Item.buyPrice(0, 1, 0, 0);
+					this.@value = Item.sellPrice(0, 0, 10, 0);
 				}
 				else
 				{
-					this.value = Item.sellPrice(0, 0, 10, 0);
+					this.@value = Item.buyPrice(0, 1, 0, 0);
 				}
 				this.placeStyle = type - 1479;
 				return;
@@ -26828,7 +29384,7 @@ namespace Terraria
 				this.createTile = 245;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 5;
 				return;
 			}
@@ -26845,7 +29401,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 26 + type - 1496;
 				return;
 			}
@@ -26862,7 +29418,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 13 + type - 1500;
 				return;
 			}
@@ -26874,7 +29430,7 @@ namespace Terraria
 				this.defense = 6;
 				this.headSlot = 101;
 				this.rare = 8;
-				this.value = 375000;
+				this.@value = 375000;
 				this.toolTip = "40% decreased magic damage";
 				return;
 			}
@@ -26886,7 +29442,7 @@ namespace Terraria
 				this.defense = 14;
 				this.bodySlot = 66;
 				this.rare = 8;
-				this.value = 300000;
+				this.@value = 300000;
 				this.toolTip = "7% increased magic damage and critical strike chance";
 				return;
 			}
@@ -26898,7 +29454,7 @@ namespace Terraria
 				this.defense = 10;
 				this.legSlot = 55;
 				this.rare = 8;
-				this.value = 225000;
+				this.@value = 225000;
 				this.toolTip = "8% increased magic damage";
 				this.toolTip2 = "8% increased movement speed";
 				return;
@@ -26918,10 +29474,11 @@ namespace Terraria
 				this.pick = 200;
 				this.useSound = 1;
 				this.rare = 8;
-				this.value = 216000;
+				this.@value = 216000;
 				this.melee = true;
 				this.scale = 1.15f;
-				this.tileBoost += 3;
+				Item item8 = this;
+				item8.tileBoost = item8.tileBoost + 3;
 				return;
 			}
 			if (type == 1507)
@@ -26936,14 +29493,15 @@ namespace Terraria
 				this.width = 20;
 				this.height = 12;
 				this.damage = 60;
-				this.axe = 23;
+				this.axe = 30;
 				this.hammer = 90;
 				this.useSound = 1;
 				this.rare = 8;
-				this.value = 216000;
+				this.@value = 216000;
 				this.melee = true;
 				this.scale = 1.05f;
-				this.tileBoost += 3;
+				Item item9 = this;
+				item9.tileBoost = item9.tileBoost + 3;
 				return;
 			}
 			if (type == 1508)
@@ -26952,7 +29510,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 16;
 				this.height = 14;
-				this.value = Item.sellPrice(0, 0, 50, 0);
+				this.@value = Item.sellPrice(0, 0, 50, 0);
 				this.rare = 8;
 				return;
 			}
@@ -26986,7 +29544,7 @@ namespace Terraria
 				this.placeStyle = 14;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 1511)
@@ -27003,7 +29561,7 @@ namespace Terraria
 				this.placeStyle = 15;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				return;
 			}
 			if (type == 1512)
@@ -27019,7 +29577,7 @@ namespace Terraria
 				this.createTile = 101;
 				this.width = 20;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				this.placeStyle = 5;
 				return;
 			}
@@ -27039,7 +29597,7 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.rare = 8;
-				this.value = Item.sellPrice(0, 10, 0, 0);
+				this.@value = Item.sellPrice(0, 10, 0, 0);
 				this.melee = true;
 				return;
 			}
@@ -27050,7 +29608,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 102;
 				this.rare = 1;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.vanity = true;
 				return;
 			}
@@ -27061,7 +29619,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 15;
 				return;
@@ -27072,7 +29630,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 16;
 				this.height = 14;
-				this.value = Item.sellPrice(0, 2, 50, 0);
+				this.@value = Item.sellPrice(0, 2, 50, 0);
 				this.rare = 5;
 				return;
 			}
@@ -27098,7 +29656,7 @@ namespace Terraria
 				this.placeStyle = 18 + type - 1528;
 				this.width = 26;
 				this.height = 22;
-				this.value = 2500;
+				this.@value = 2500;
 				return;
 			}
 			if (type >= 1533 && type <= 1537)
@@ -27123,7 +29681,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 30 + type - 1538;
 				return;
 			}
@@ -27140,7 +29698,7 @@ namespace Terraria
 				this.createTile = 246;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 16 + type - 1541;
 				return;
 			}
@@ -27154,8 +29712,9 @@ namespace Terraria
 				this.autoReuse = true;
 				this.width = 24;
 				this.height = 24;
-				this.value = 10000;
-				this.tileBoost += 3;
+				this.@value = 10000;
+				Item item10 = this;
+				item10.tileBoost = item10.tileBoost + 3;
 				return;
 			}
 			if (type == 1546)
@@ -27166,7 +29725,7 @@ namespace Terraria
 				this.defense = 11;
 				this.headSlot = 103;
 				this.rare = 8;
-				this.value = 375000;
+				this.@value = 375000;
 				this.toolTip = "15% increased arrow damage";
 				this.toolTip2 = "5% ranged critical strike chance";
 				return;
@@ -27179,7 +29738,7 @@ namespace Terraria
 				this.defense = 11;
 				this.headSlot = 104;
 				this.rare = 8;
-				this.value = 375000;
+				this.@value = 375000;
 				this.toolTip = "15% increased bullet damage";
 				this.toolTip2 = "5% ranged critical strike chance";
 				return;
@@ -27192,7 +29751,7 @@ namespace Terraria
 				this.defense = 11;
 				this.headSlot = 105;
 				this.rare = 8;
-				this.value = 375000;
+				this.@value = 375000;
 				this.toolTip = "15% increased rocket damage";
 				this.toolTip2 = "5% ranged critical strike chance";
 				return;
@@ -27205,7 +29764,7 @@ namespace Terraria
 				this.defense = 24;
 				this.bodySlot = 67;
 				this.rare = 8;
-				this.value = 300000;
+				this.@value = 300000;
 				this.toolTip = "13% increased ranged critical strike chance";
 				this.toolTip2 = "20% chance to not consume ammo";
 				return;
@@ -27218,7 +29777,7 @@ namespace Terraria
 				this.defense = 16;
 				this.legSlot = 56;
 				this.rare = 8;
-				this.value = 225000;
+				this.@value = 225000;
 				this.toolTip = "7% increased ranged critical strike chance";
 				this.toolTip2 = "12% increased movement speed";
 				return;
@@ -27236,7 +29795,7 @@ namespace Terraria
 				this.createTile = 247;
 				this.width = 26;
 				this.height = 24;
-				this.value = Item.buyPrice(1, 0, 0, 0);
+				this.@value = Item.buyPrice(1, 0, 0, 0);
 				this.toolTip = "Converts Chlorophyte Bars into Shroomite Bars";
 				return;
 			}
@@ -27247,7 +29806,7 @@ namespace Terraria
 				this.height = 20;
 				this.maxStack = 99;
 				this.rare = 7;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.useStyle = 1;
 				this.useTurn = true;
 				this.useAnimation = 15;
@@ -27262,20 +29821,21 @@ namespace Terraria
 			{
 				this.useStyle = 5;
 				this.autoReuse = true;
-				this.useAnimation = 6;
-				this.useTime = 6;
+				this.useAnimation = 5;
+				this.useTime = 5;
 				this.name = "S.D.M.G.";
-				this.crit += 5;
+				Item item11 = this;
+				item11.crit = item11.crit + 10;
 				this.width = 60;
 				this.height = 26;
 				this.shoot = 10;
 				this.useAmmo = 14;
-				this.useSound = 11;
-				this.damage = 35;
+				this.useSound = 40;
+				this.damage = 77;
 				this.shootSpeed = 12f;
 				this.noMelee = true;
-				this.value = 750000;
-				this.rare = 8;
+				this.@value = 750000;
+				this.rare = 10;
 				this.toolTip = "50% chance to not consume ammo";
 				this.toolTip2 = "'Space Dolphin Machine Gun'";
 				this.knockBack = 2.5f;
@@ -27447,7 +30007,7 @@ namespace Terraria
 				this.useTime = 16;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 20, 0, 0);
+				this.@value = Item.sellPrice(0, 20, 0, 0);
 				this.knockBack = 2.75f;
 				this.melee = true;
 				this.rare = 8;
@@ -27461,7 +30021,7 @@ namespace Terraria
 				this.height = 18;
 				this.maxStack = 99;
 				this.rare = 8;
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
 			if (type == 1571)
@@ -27479,7 +30039,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 20, 0, 0);
+				this.@value = Item.sellPrice(0, 20, 0, 0);
 				this.knockBack = 5f;
 				this.melee = true;
 				this.rare = 8;
@@ -27498,7 +30058,7 @@ namespace Terraria
 				this.useAnimation = 30;
 				this.useTime = 30;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 20, 0, 0);
+				this.@value = Item.sellPrice(0, 20, 0, 0);
 				this.knockBack = 7.5f;
 				this.rare = 8;
 				this.summon = true;
@@ -27518,7 +30078,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 16;
 				return;
 			}
@@ -27535,7 +30095,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 33 + type - 1574;
 				return;
 			}
@@ -27552,7 +30112,7 @@ namespace Terraria
 				this.createTile = 245;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 6;
 				return;
 			}
@@ -27564,7 +30124,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 3;
 				this.toolTip = "Releases bees and increases movement speed when damaged";
-				this.value = 200000;
+				this.@value = 100000;
 				this.neckSlot = 6;
 				return;
 			}
@@ -27576,7 +30136,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 1;
 				this.toolTip = "The wearer can run super fast";
-				this.value = 50000;
+				this.@value = 50000;
 				this.shoeSlot = 5;
 				return;
 			}
@@ -27769,7 +30329,7 @@ namespace Terraria
 				this.rare = 2;
 				this.toolTip = "Increases maximum mana by 20";
 				this.toolTip2 = "Restores mana when damaged";
-				this.value = 100000;
+				this.@value = 100000;
 				this.handOffSlot = 3;
 				this.handOnSlot = 8;
 				return;
@@ -27788,7 +30348,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -27798,7 +30358,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 16;
 				this.height = 14;
-				this.value = Item.sellPrice(0, 2, 50, 0);
+				this.@value = Item.sellPrice(0, 2, 50, 0);
 				this.rare = 5;
 				return;
 			}
@@ -27810,7 +30370,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 6;
 				this.toolTip = "Grants immunity to most debuffs";
-				this.value = Item.sellPrice(0, 3, 0, 0);
+				this.@value = Item.sellPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1613)
@@ -27819,7 +30379,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 28;
 				this.rare = 7;
-				this.value = Item.sellPrice(0, 5, 0, 0);
+				this.@value = Item.sellPrice(0, 5, 0, 0);
 				this.accessory = true;
 				this.defense = 4;
 				this.toolTip = "Grants immunity to knockback and fire blocks";
@@ -27839,7 +30399,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 931;
 				this.knockBack = 1.5f;
-				this.value = 7;
+				this.@value = 7;
 				this.ranged = true;
 				return;
 			}
@@ -27857,7 +30417,7 @@ namespace Terraria
 				this.placeStyle = 22 + type - 1615;
 				this.width = 10;
 				this.height = 24;
-				this.value = 1000;
+				this.@value = 1000;
 				this.rare = 1;
 				return;
 			}
@@ -27869,7 +30429,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 14;
@@ -27906,7 +30466,7 @@ namespace Terraria
 				this.placeStyle = 20 + type - 1709;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type >= 1713 && type <= 1718)
@@ -27923,7 +30483,7 @@ namespace Terraria
 				this.placeStyle = 15 + type - 1713;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type >= 1719 && type <= 1722)
@@ -27939,7 +30499,7 @@ namespace Terraria
 				this.placeStyle = 9 + type - 1719;
 				this.width = 28;
 				this.height = 20;
-				this.value = 2000;
+				this.@value = 2000;
 				return;
 			}
 			if (type == 1723)
@@ -27965,7 +30525,7 @@ namespace Terraria
 				this.accessory = true;
 				this.rare = 2;
 				this.toolTip = "Allows the holder to double jump";
-				this.value = 75000;
+				this.@value = 75000;
 				return;
 			}
 			if (type == 1725)
@@ -27981,6 +30541,7 @@ namespace Terraria
 				this.createTile = 251;
 				this.width = 8;
 				this.height = 10;
+				this.@value = Item.sellPrice(0, 0, 0, 25);
 				return;
 			}
 			if (type == 1726)
@@ -28106,7 +30667,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 113;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1737)
@@ -28116,7 +30677,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 76;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1738)
@@ -28126,7 +30687,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 65;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1739)
@@ -28136,7 +30697,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 114;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1740)
@@ -28146,7 +30707,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 115;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1741)
@@ -28156,7 +30717,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 77;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1742)
@@ -28166,7 +30727,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 116;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1743)
@@ -28176,7 +30737,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 117;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1744)
@@ -28186,7 +30747,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 78;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1745)
@@ -28196,7 +30757,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 66;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1746)
@@ -28206,7 +30767,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 118;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1747)
@@ -28216,7 +30777,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 79;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1748)
@@ -28226,7 +30787,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 67;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1749)
@@ -28236,7 +30797,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 119;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1750)
@@ -28246,7 +30807,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 80;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1751)
@@ -28256,7 +30817,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 68;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1752)
@@ -28266,7 +30827,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 120;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1753)
@@ -28276,7 +30837,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 81;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1754)
@@ -28286,7 +30847,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 121;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1755)
@@ -28296,7 +30857,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 82;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1756)
@@ -28306,7 +30867,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 69;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1757)
@@ -28316,7 +30877,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 122;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1758)
@@ -28326,7 +30887,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 83;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1759)
@@ -28336,7 +30897,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 70;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1760)
@@ -28346,7 +30907,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 123;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1761)
@@ -28356,7 +30917,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 84;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1762)
@@ -28366,7 +30927,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 71;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1763)
@@ -28376,7 +30937,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 124;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1764)
@@ -28386,7 +30947,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 85;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1765)
@@ -28396,7 +30957,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 72;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1766)
@@ -28406,7 +30967,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 125;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1767)
@@ -28416,7 +30977,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 126;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1768)
@@ -28426,7 +30987,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 86;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1769)
@@ -28436,7 +30997,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 73;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1770)
@@ -28446,7 +31007,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 87;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1771)
@@ -28456,7 +31017,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 74;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1772)
@@ -28466,7 +31027,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 127;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1773)
@@ -28476,7 +31037,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 88;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1774)
@@ -28487,7 +31048,7 @@ namespace Terraria
 				this.rare = 3;
 				this.toolTip = "Right click to open";
 				this.maxStack = 99;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				return;
 			}
 			if (type == 1775)
@@ -28497,7 +31058,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 89;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1776)
@@ -28507,7 +31068,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 75;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1777)
@@ -28517,7 +31078,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 128;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1778)
@@ -28527,7 +31088,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 90;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1779)
@@ -28537,7 +31098,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 129;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1780)
@@ -28547,7 +31108,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 91;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1781)
@@ -28557,7 +31118,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 76;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1782)
@@ -28567,7 +31128,8 @@ namespace Terraria
 				this.useAnimation = 9;
 				this.useTime = 9;
 				this.name = "Candy Corn Rifle";
-				this.crit += 6;
+				Item item12 = this;
+				item12.crit = item12.crit + 6;
 				this.width = 60;
 				this.height = 26;
 				this.shoot = 311;
@@ -28576,7 +31138,7 @@ namespace Terraria
 				this.damage = 44;
 				this.shootSpeed = 10f;
 				this.noMelee = true;
-				this.value = 750000;
+				this.@value = 750000;
 				this.rare = 8;
 				this.knockBack = 2f;
 				this.ranged = true;
@@ -28594,7 +31156,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 311;
 				this.knockBack = 1.5f;
-				this.value = 5;
+				this.@value = 5;
 				this.ranged = true;
 				return;
 			}
@@ -28605,16 +31167,17 @@ namespace Terraria
 				this.useAnimation = 30;
 				this.useTime = 30;
 				this.name = "Jack 'O Lantern Launcher";
-				this.crit += 6;
+				Item item13 = this;
+				item13.crit = item13.crit + 6;
 				this.width = 60;
 				this.height = 26;
 				this.shoot = 312;
 				this.useAmmo = 312;
 				this.useSound = 11;
-				this.damage = 60;
+				this.damage = 65;
 				this.shootSpeed = 7f;
 				this.noMelee = true;
-				this.value = 750000;
+				this.@value = 750000;
 				this.rare = 8;
 				this.knockBack = 5f;
 				this.ranged = true;
@@ -28622,17 +31185,17 @@ namespace Terraria
 			}
 			if (type == 1785)
 			{
-				this.name = "Explosive Jack 'O Lanter";
+				this.name = "Explosive Jack 'O Lantern";
 				this.shootSpeed = 4f;
 				this.shoot = 312;
-				this.damage = 25;
+				this.damage = 30;
 				this.width = 8;
 				this.height = 8;
 				this.maxStack = 999;
 				this.consumable = true;
 				this.ammo = 312;
 				this.knockBack = 3f;
-				this.value = 15;
+				this.@value = 15;
 				this.ranged = true;
 				return;
 			}
@@ -28641,14 +31204,14 @@ namespace Terraria
 				this.name = "Sickle";
 				this.useStyle = 1;
 				this.useTurn = true;
-				this.useAnimation = 23;
+				this.useAnimation = 24;
 				this.autoReuse = true;
 				this.width = 24;
 				this.height = 28;
-				this.damage = 7;
+				this.damage = 9;
 				this.useSound = 1;
-				this.knockBack = 2.5f;
-				this.value = Item.buyPrice(0, 1, 0, 0);
+				this.knockBack = 2.25f;
+				this.@value = Item.buyPrice(0, 0, 60, 0);
 				this.melee = true;
 				return;
 			}
@@ -28665,10 +31228,10 @@ namespace Terraria
 				this.width = 10;
 				this.height = 10;
 				this.buffType = 26;
-				this.buffTime = 54000;
+				this.buffTime = 162000;
 				this.rare = 1;
 				this.toolTip = "Minor improvements to all stats";
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1788)
@@ -28678,7 +31241,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 130;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1789)
@@ -28688,7 +31251,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 92;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1790)
@@ -28698,7 +31261,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 77;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1791)
@@ -28715,7 +31278,7 @@ namespace Terraria
 				this.placeStyle = 1;
 				this.width = 20;
 				this.height = 20;
-				this.value = Item.buyPrice(0, 1, 50, 0);
+				this.@value = Item.buyPrice(0, 1, 50, 0);
 				return;
 			}
 			if (type == 1792)
@@ -28747,7 +31310,7 @@ namespace Terraria
 				this.placeStyle = 24;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 1794)
@@ -28764,7 +31327,7 @@ namespace Terraria
 				this.placeStyle = 21;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 1795)
@@ -28781,7 +31344,7 @@ namespace Terraria
 				this.placeStyle = 16;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				return;
 			}
 			if (type == 1796)
@@ -28792,7 +31355,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 15;
@@ -28807,7 +31370,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.rare = 7;
-				this.value = 400000;
+				this.@value = 400000;
 				this.wingSlot = 20;
 				return;
 			}
@@ -28826,7 +31389,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a pet spider";
 				this.buffType = 81;
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
 			if (type == 1799)
@@ -28844,7 +31407,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a squashling";
 				this.buffType = 82;
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
 			if (type == 1800)
@@ -28863,7 +31426,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 3;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
 			if (type == 1801)
@@ -28881,7 +31444,7 @@ namespace Terraria
 				this.damage = 45;
 				this.shootSpeed = 10f;
 				this.noMelee = true;
-				this.value = 500000;
+				this.@value = 500000;
 				this.rare = 8;
 				this.magic = true;
 				this.knockBack = 3f;
@@ -28905,17 +31468,12 @@ namespace Terraria
 				this.knockBack = 3f;
 				this.toolTip = "Summons a raven to fight for you";
 				this.buffType = 83;
-				this.value = 100000;
+				this.@value = 100000;
 				this.summon = true;
 				return;
 			}
 			if (type >= 1803 && type <= 1807)
 			{
-				this.name = "Dungeon Key Mold";
-				this.width = 14;
-				this.height = 20;
-				this.maxStack = 99;
-				this.rare = 8;
 				return;
 			}
 			if (type == 1808)
@@ -28940,7 +31498,7 @@ namespace Terraria
 				this.name = "Rotten Egg";
 				this.shootSpeed = 9f;
 				this.shoot = 318;
-				this.damage = 10;
+				this.damage = 13;
 				this.width = 18;
 				this.height = 20;
 				this.maxStack = 999;
@@ -28950,7 +31508,7 @@ namespace Terraria
 				this.useTime = 19;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.ranged = true;
+				this.thrown = true;
 				this.knockBack = 6.5f;
 				return;
 			}
@@ -28968,7 +31526,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.buffType = 84;
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
 			if (type == 1811)
@@ -28977,7 +31535,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 16;
 				this.height = 14;
-				this.value = Item.sellPrice(0, 2, 50, 0);
+				this.@value = Item.sellPrice(0, 2, 50, 0);
 				this.rare = 5;
 				return;
 			}
@@ -29041,7 +31599,7 @@ namespace Terraria
 				this.placeStyle = 25;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 1816)
@@ -29058,7 +31616,7 @@ namespace Terraria
 				this.placeStyle = 22;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 1817)
@@ -29075,7 +31633,7 @@ namespace Terraria
 				this.placeStyle = 17;
 				this.width = 28;
 				this.height = 14;
-				this.value = 150;
+				this.@value = 150;
 				return;
 			}
 			if (type == 1818)
@@ -29086,7 +31644,7 @@ namespace Terraria
 				this.useAnimation = 15;
 				this.useTime = 10;
 				this.autoReuse = true;
-				this.maxStack = 99;
+				this.maxStack = 999;
 				this.consumable = true;
 				this.createTile = 19;
 				this.placeStyle = 16;
@@ -29101,7 +31659,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 131;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1820)
@@ -29111,7 +31669,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 93;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1821)
@@ -29121,7 +31679,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 132;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1822)
@@ -29131,7 +31689,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 94;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1823)
@@ -29141,7 +31699,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 78;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1824)
@@ -29151,7 +31709,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 133;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1825)
@@ -29170,7 +31728,7 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.rare = 2;
-				this.value = 50000;
+				this.@value = 50000;
 				this.melee = true;
 				return;
 			}
@@ -29187,7 +31745,7 @@ namespace Terraria
 				this.scale = 1.15f;
 				this.useSound = 1;
 				this.rare = 8;
-				this.value = Item.sellPrice(0, 10, 0, 0);
+				this.@value = Item.sellPrice(0, 10, 0, 0);
 				this.melee = true;
 				return;
 			}
@@ -29207,12 +31765,13 @@ namespace Terraria
 				this.scale = 1.35f;
 				this.melee = true;
 				this.rare = 2;
-				this.value = 50000;
+				this.@value = 50000;
 				this.melee = true;
 				return;
 			}
 			if (type == 1828)
 			{
+				this.autoReuse = true;
 				this.name = "Pumpkin Seed";
 				this.useStyle = 1;
 				this.useTurn = true;
@@ -29224,7 +31783,7 @@ namespace Terraria
 				this.createTile = 254;
 				this.width = 8;
 				this.height = 10;
-				this.value = Item.buyPrice(0, 0, 2, 50);
+				this.@value = Item.buyPrice(0, 0, 2, 50);
 				return;
 			}
 			if (type == 1829)
@@ -29243,7 +31802,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 7;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 4, 0, 0);
+				this.@value = Item.sellPrice(0, 4, 0, 0);
 				return;
 			}
 			if (type == 1830)
@@ -29253,7 +31812,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.rare = 7;
-				this.value = 400000;
+				this.@value = 400000;
 				this.wingSlot = 21;
 				return;
 			}
@@ -29263,7 +31822,7 @@ namespace Terraria
 				this.maxStack = 99;
 				this.width = 16;
 				this.height = 14;
-				this.value = Item.sellPrice(0, 2, 50, 0);
+				this.@value = Item.sellPrice(0, 2, 50, 0);
 				this.rare = 5;
 				return;
 			}
@@ -29273,7 +31832,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 134;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.defense = 8;
 				this.rare = 8;
 				this.toolTip = "Increases your max number of minions";
@@ -29286,7 +31845,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 95;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.defense = 10;
 				this.rare = 8;
 				this.toolTip = "Increases your max number of minions";
@@ -29299,7 +31858,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 79;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.defense = 9;
 				this.rare = 8;
 				this.toolTip = "Increases your max number of minions";
@@ -29313,7 +31872,8 @@ namespace Terraria
 				this.useAnimation = 26;
 				this.useTime = 26;
 				this.name = "Stake Launcher";
-				this.crit += 10;
+				Item item14 = this;
+				item14.crit = item14.crit + 10;
 				this.width = 40;
 				this.height = 26;
 				this.shoot = 323;
@@ -29322,7 +31882,7 @@ namespace Terraria
 				this.damage = 75;
 				this.shootSpeed = 9f;
 				this.noMelee = true;
-				this.value = 750000;
+				this.@value = 750000;
 				this.rare = 8;
 				this.knockBack = 6.5f;
 				this.ranged = true;
@@ -29340,7 +31900,7 @@ namespace Terraria
 				this.consumable = true;
 				this.ammo = 323;
 				this.knockBack = 4.5f;
-				this.value = 15;
+				this.@value = 15;
 				this.ranged = true;
 				return;
 			}
@@ -29357,7 +31917,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.buffType = 85;
-				this.value = Item.sellPrice(0, 2, 0, 0);
+				this.@value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
 			if (type == 1838)
@@ -29366,7 +31926,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 135;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				this.vanity = true;
 				return;
 			}
@@ -29376,7 +31936,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 96;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				this.vanity = true;
 				return;
 			}
@@ -29386,7 +31946,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 80;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				this.vanity = true;
 				return;
 			}
@@ -29396,7 +31956,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 136;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				this.vanity = true;
 				return;
 			}
@@ -29406,7 +31966,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 97;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				this.vanity = true;
 				return;
 			}
@@ -29416,7 +31976,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 81;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				this.vanity = true;
 				return;
 			}
@@ -29443,7 +32003,7 @@ namespace Terraria
 				this.accessory = true;
 				this.toolTip = "Increases your max number of minions";
 				this.toolTip2 = "Increases minion damage by 10%";
-				this.value = Item.buyPrice(0, 20, 0, 0);
+				this.@value = Item.buyPrice(0, 20, 0, 0);
 				return;
 			}
 			if (type >= 1846 && type <= 1850)
@@ -29459,7 +32019,7 @@ namespace Terraria
 				this.createTile = 242;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 17 + type - 1846;
 				return;
 			}
@@ -29469,7 +32029,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 98;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				this.vanity = true;
 				return;
 			}
@@ -29479,7 +32039,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 82;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				this.vanity = true;
 				return;
 			}
@@ -29489,7 +32049,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.bodySlot = 99;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				this.vanity = true;
 				return;
 			}
@@ -29499,7 +32059,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.legSlot = 83;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				this.vanity = true;
 				return;
 			}
@@ -29516,7 +32076,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.rare = 1;
 				this.placeStyle = 36 + type - 1855;
 				return;
@@ -29527,7 +32087,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 18;
 				this.headSlot = 137;
-				this.value = Item.sellPrice(0, 5, 0, 0);
+				this.@value = Item.sellPrice(0, 5, 0, 0);
 				this.vanity = true;
 				this.rare = 3;
 				return;
@@ -29538,7 +32098,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 28;
 				this.rare = 7;
-				this.value = 300000;
+				this.@value = 300000;
 				this.accessory = true;
 				this.toolTip = "Increases view range for guns (Right click to zoom out)";
 				this.toolTip2 = "10% increased ranged damage and critical strike chance";
@@ -29566,7 +32126,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 28;
 				this.rare = 5;
-				this.value = 150000;
+				this.@value = 150000;
 				this.accessory = true;
 				this.toolTip = "Grants the ability to swim and greatly extends underwater breathing";
 				this.toolTip2 = "Provides light under water";
@@ -29579,7 +32139,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 28;
 				this.rare = 6;
-				this.value = 250000;
+				this.@value = 250000;
 				this.accessory = true;
 				this.toolTip = "Grants the ability to swim and greatly extends underwater breathing";
 				this.toolTip2 = "Provides light under water and extra mobility on ice";
@@ -29595,7 +32155,7 @@ namespace Terraria
 				this.rare = 7;
 				this.toolTip = "Allows flight, super fast running, and extra mobility on ice";
 				this.toolTip = "7% increased movement speed";
-				this.value = 350000;
+				this.@value = 350000;
 				this.shoeSlot = 9;
 				return;
 			}
@@ -29605,7 +32165,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 28;
 				this.rare = 4;
-				this.value = 150000;
+				this.@value = 150000;
 				this.accessory = true;
 				this.toolTip = "Allows the holder to double jump";
 				this.toolTip2 = "Increases jump height";
@@ -29621,7 +32181,7 @@ namespace Terraria
 				this.accessory = true;
 				this.toolTip = "Increases your max number of minions";
 				this.toolTip2 = "Increases the damage and knockback of your minions";
-				this.value = Item.buyPrice(0, 25, 0, 0);
+				this.@value = Item.buyPrice(0, 25, 0, 0);
 				return;
 			}
 			if (type == 1865)
@@ -29633,7 +32193,7 @@ namespace Terraria
 				this.rare = 7;
 				this.toolTip = "Minor increase to damage, attack speed, critical strike chance,";
 				this.toolTip2 = "life regeneration, defense, pick speed, and minion knockback";
-				this.value = 400000;
+				this.@value = 400000;
 				return;
 			}
 			if (type == 1866)
@@ -29643,7 +32203,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 22;
 				return;
@@ -29694,7 +32254,7 @@ namespace Terraria
 				this.damage = 20;
 				this.shootSpeed = 8f;
 				this.noMelee = true;
-				this.value = 100000;
+				this.@value = 100000;
 				this.knockBack = 3.75f;
 				this.rare = 1;
 				this.ranged = true;
@@ -29707,7 +32267,7 @@ namespace Terraria
 				this.height = 8;
 				this.accessory = true;
 				this.toolTip = "Allows flight and slow fall";
-				this.value = 400000;
+				this.@value = 400000;
 				this.rare = 5;
 				this.wingSlot = 23;
 				return;
@@ -29740,7 +32300,7 @@ namespace Terraria
 				this.createTile = 171;
 				this.width = 12;
 				this.height = 12;
-				this.value = Item.buyPrice(0, 0, 25, 0);
+				this.@value = Item.buyPrice(0, 0, 25, 0);
 				return;
 			}
 			if (type >= 1874 && type <= 1905)
@@ -29756,7 +32316,7 @@ namespace Terraria
 				this.width = 12;
 				this.height = 12;
 				this.noMelee = true;
-				this.value = Item.buyPrice(0, 0, 5, 0);
+				this.@value = Item.buyPrice(0, 0, 5, 0);
 				return;
 			}
 			if (type == 1906)
@@ -29766,7 +32326,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 138;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 1, 0, 0);
+				this.@value = Item.buyPrice(0, 1, 0, 0);
 				return;
 			}
 			if (type == 1907)
@@ -29776,7 +32336,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 139;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 1, 0, 0);
+				this.@value = Item.buyPrice(0, 1, 0, 0);
 				return;
 			}
 			if (type == 1908)
@@ -29792,7 +32352,7 @@ namespace Terraria
 				this.createTile = 246;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 0, 10, 0);
+				this.@value = Item.sellPrice(0, 0, 10, 0);
 				this.placeStyle = 18;
 				return;
 			}
@@ -29808,7 +32368,7 @@ namespace Terraria
 				this.scale = 1.1f;
 				this.useSound = 1;
 				this.rare = 1;
-				this.value = 13500;
+				this.@value = 13500;
 				this.melee = true;
 				return;
 			}
@@ -29828,7 +32388,7 @@ namespace Terraria
 				this.knockBack = 0.425f;
 				this.shootSpeed = 8.5f;
 				this.noMelee = true;
-				this.value = 500000;
+				this.@value = 500000;
 				this.rare = 8;
 				this.ranged = true;
 				this.toolTip = "Uses gel for ammo";
@@ -29847,10 +32407,10 @@ namespace Terraria
 				this.width = 10;
 				this.height = 10;
 				this.buffType = 26;
-				this.buffTime = 54000;
+				this.buffTime = 126000;
 				this.rare = 1;
 				this.toolTip = "Minor improvements to all stats";
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1912)
@@ -29867,7 +32427,7 @@ namespace Terraria
 				this.width = 14;
 				this.height = 24;
 				this.potion = true;
-				this.value = 40;
+				this.@value = 40;
 				this.rare = 1;
 				return;
 			}
@@ -29887,8 +32447,8 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.noMelee = true;
-				this.value = 25;
-				this.ranged = true;
+				this.@value = 25;
+				this.thrown = true;
 				return;
 			}
 			if (type == 1914)
@@ -29903,7 +32463,7 @@ namespace Terraria
 				this.rare = 8;
 				this.noMelee = true;
 				this.mountType = 0;
-				this.value = Item.sellPrice(0, 5, 0, 0);
+				this.@value = Item.sellPrice(0, 5, 0, 0);
 				return;
 			}
 			if (type == 1915)
@@ -29922,7 +32482,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 7;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 4, 0, 0);
+				this.@value = Item.sellPrice(0, 4, 0, 0);
 				return;
 			}
 			if (type == 1916)
@@ -29941,7 +32501,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 7;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 4, 0, 0);
+				this.@value = Item.sellPrice(0, 4, 0, 0);
 				return;
 			}
 			if (type == 1917)
@@ -29958,7 +32518,7 @@ namespace Terraria
 				this.pick = 55;
 				this.useSound = 1;
 				this.knockBack = 2.5f;
-				this.value = 10000;
+				this.@value = 10000;
 				this.melee = true;
 				this.toolTip = "Can mine Meteorite";
 				return;
@@ -29979,7 +32539,7 @@ namespace Terraria
 				this.useTime = 15;
 				this.noUseGraphic = true;
 				this.rare = 1;
-				this.value = 50000;
+				this.@value = 50000;
 				this.melee = true;
 				return;
 			}
@@ -29996,10 +32556,10 @@ namespace Terraria
 				this.width = 10;
 				this.height = 10;
 				this.buffType = 26;
-				this.buffTime = 54000;
+				this.buffTime = 108000;
 				this.rare = 1;
 				this.toolTip = "Minor improvements to all stats";
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1920)
@@ -30015,10 +32575,10 @@ namespace Terraria
 				this.width = 10;
 				this.height = 10;
 				this.buffType = 26;
-				this.buffTime = 54000;
+				this.buffTime = 108000;
 				this.rare = 1;
 				this.toolTip = "Minor improvements to all stats";
-				this.value = 1000;
+				this.@value = 1000;
 				return;
 			}
 			if (type == 1921)
@@ -30028,7 +32588,7 @@ namespace Terraria
 				this.height = 24;
 				this.accessory = true;
 				this.rare = 2;
-				this.value = 50000;
+				this.@value = 50000;
 				this.handOffSlot = 2;
 				this.handOnSlot = 7;
 				return;
@@ -30047,7 +32607,7 @@ namespace Terraria
 				this.height = 24;
 				this.accessory = true;
 				this.rare = 2;
-				this.value = 50000;
+				this.@value = 50000;
 				return;
 			}
 			if (type == 1924)
@@ -30063,7 +32623,7 @@ namespace Terraria
 				this.placeStyle = 26;
 				this.width = 14;
 				this.height = 28;
-				this.value = 200;
+				this.@value = 200;
 				return;
 			}
 			if (type == 1925)
@@ -30096,7 +32656,7 @@ namespace Terraria
 				this.placeStyle = 23;
 				this.width = 26;
 				this.height = 20;
-				this.value = 300;
+				this.@value = 300;
 				return;
 			}
 			if (type == 1927)
@@ -30112,7 +32672,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a Puppy";
-				this.value = 0;
+				this.@value = 0;
 				this.buffType = 91;
 				return;
 			}
@@ -30120,18 +32680,18 @@ namespace Terraria
 			{
 				this.name = "Christmas Sword";
 				this.useStyle = 1;
-				this.useAnimation = 26;
-				this.useTime = 26;
+				this.useAnimation = 23;
+				this.useTime = 23;
 				this.knockBack = 7f;
 				this.width = 40;
 				this.height = 40;
-				this.damage = 73;
+				this.damage = 86;
 				this.scale = 1.1f;
 				this.shoot = 335;
 				this.shootSpeed = 14f;
 				this.useSound = 1;
 				this.rare = 8;
-				this.value = Item.sellPrice(0, 10, 0, 0);
+				this.@value = Item.sellPrice(0, 10, 0, 0);
 				this.melee = true;
 				return;
 			}
@@ -30150,7 +32710,7 @@ namespace Terraria
 				this.damage = 31;
 				this.shootSpeed = 14f;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 5, 0, 0);
+				this.@value = Item.sellPrice(0, 5, 0, 0);
 				this.rare = 8;
 				this.toolTip = "50% chance to not consume ammo";
 				this.knockBack = 1.75f;
@@ -30172,7 +32732,7 @@ namespace Terraria
 				this.shoot = 336;
 				this.shootSpeed = 12f;
 				this.knockBack = 3.25f;
-				this.value = Item.sellPrice(0, 5, 0, 0);
+				this.@value = Item.sellPrice(0, 5, 0, 0);
 				this.toolTip = "Shoots razor sharp pine needles";
 				this.magic = true;
 				this.rare = 8;
@@ -30193,7 +32753,7 @@ namespace Terraria
 				this.shoot = 337;
 				this.shootSpeed = 10f;
 				this.knockBack = 4.5f;
-				this.value = Item.sellPrice(0, 5, 0, 0);
+				this.@value = Item.sellPrice(0, 5, 0, 0);
 				this.magic = true;
 				this.rare = 8;
 				this.noMelee = true;
@@ -30206,7 +32766,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 140;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1933)
@@ -30216,7 +32776,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 100;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1934)
@@ -30226,7 +32786,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 84;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1935)
@@ -30236,7 +32796,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 142;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1936)
@@ -30246,7 +32806,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 102;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1937)
@@ -30256,7 +32816,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 86;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1940)
@@ -30266,7 +32826,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 141;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1941)
@@ -30276,7 +32836,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 101;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1942)
@@ -30286,7 +32846,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 85;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1938)
@@ -30296,7 +32856,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 143;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1939)
@@ -30306,7 +32866,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 103;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1943)
@@ -30316,7 +32876,7 @@ namespace Terraria
 				this.height = 18;
 				this.headSlot = 144;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1944)
@@ -30326,7 +32886,7 @@ namespace Terraria
 				this.height = 18;
 				this.bodySlot = 104;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1945)
@@ -30336,7 +32896,7 @@ namespace Terraria
 				this.height = 18;
 				this.legSlot = 87;
 				this.vanity = true;
-				this.value = Item.buyPrice(0, 3, 0, 0);
+				this.@value = Item.buyPrice(0, 3, 0, 0);
 				return;
 			}
 			if (type == 1946)
@@ -30354,11 +32914,10 @@ namespace Terraria
 				this.damage = 67;
 				this.shootSpeed = 15f;
 				this.noMelee = true;
-				this.value = Item.sellPrice(0, 20, 0, 0);
+				this.@value = Item.sellPrice(0, 20, 0, 0);
 				this.knockBack = 4f;
 				this.rare = 8;
 				this.ranged = true;
-				this.explosive = 3;
 				return;
 			}
 			if (type == 1947)
@@ -30376,7 +32935,7 @@ namespace Terraria
 				this.useSound = 1;
 				this.shoot = 342;
 				this.rare = 7;
-				this.value = 180000;
+				this.@value = 180000;
 				this.noMelee = true;
 				this.noUseGraphic = true;
 				this.melee = true;
@@ -30395,7 +32954,7 @@ namespace Terraria
 				this.createWall = 116 + type - 1948;
 				this.width = 12;
 				this.height = 12;
-				this.value = Item.buyPrice(0, 0, 1, 0);
+				this.@value = Item.buyPrice(0, 0, 1, 0);
 				return;
 			}
 			if (type == 1958)
@@ -30425,7 +32984,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a Baby Grinch";
-				this.value = 0;
+				this.@value = 0;
 				this.buffType = 92;
 				return;
 			}
@@ -30442,7 +33001,7 @@ namespace Terraria
 				this.createTile = 240;
 				this.width = 30;
 				this.height = 30;
-				this.value = Item.sellPrice(0, 1, 0, 0);
+				this.@value = Item.sellPrice(0, 1, 0, 0);
 				this.rare = 1;
 				this.placeStyle = 38 + type - 1960;
 				return;
@@ -30461,7 +33020,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -30479,7 +33038,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -30497,7 +33056,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 24;
 				this.rare = 4;
-				this.value = 100000;
+				this.@value = 100000;
 				this.accessory = true;
 				return;
 			}
@@ -30507,7 +33066,7 @@ namespace Terraria
 				this.paint = 28;
 				this.width = 24;
 				this.height = 24;
-				this.value = 25;
+				this.@value = 25;
 				this.maxStack = 999;
 				return;
 			}
@@ -30517,7 +33076,7 @@ namespace Terraria
 				this.paint = 29;
 				this.width = 24;
 				this.height = 24;
-				this.value = 50;
+				this.@value = 50;
 				this.maxStack = 999;
 				return;
 			}
@@ -30527,7 +33086,7 @@ namespace Terraria
 				this.paint = 30;
 				this.width = 24;
 				this.height = 24;
-				this.value = 75;
+				this.@value = 75;
 				this.maxStack = 999;
 				return;
 			}
@@ -30537,9 +33096,8 @@ namespace Terraria
 				this.width = 20;
 				this.height = 20;
 				this.maxStack = 1;
-				this.value = 10000;
+				this.@value = 10000;
 				this.rare = 1;
-				this.dye = 65;
 				return;
 			}
 			if (type >= 1970 && type <= 1976)
@@ -30563,20 +33121,19 @@ namespace Terraria
 				this.width = 20;
 				this.height = 26;
 				this.maxStack = 99;
-				this.value = Item.buyPrice(0, 5, 0, 0);
+				this.@value = Item.buyPrice(0, 5, 0, 0);
 				this.rare = 2;
-				this.hairDye = (short)(1 + type - 1977);
 				if (type == 1980)
 				{
-					this.value = Item.buyPrice(0, 10, 0, 0);
+					this.@value = Item.buyPrice(0, 10, 0, 0);
 				}
 				if (type == 1984)
 				{
-					this.value = Item.buyPrice(0, 7, 50, 0);
+					this.@value = Item.buyPrice(0, 7, 50, 0);
 				}
 				if (type == 1985)
 				{
-					this.value = Item.buyPrice(0, 15, 0, 0);
+					this.@value = Item.buyPrice(0, 15, 0, 0);
 				}
 				this.useSound = 3;
 				this.useStyle = 2;
@@ -30592,7 +33149,7 @@ namespace Terraria
 				this.width = 18;
 				this.height = 12;
 				this.maxStack = 1;
-				this.value = Item.buyPrice(0, 40, 0, 0);
+				this.@value = Item.buyPrice(0, 40, 0, 0);
 				this.rare = 5;
 				this.accessory = true;
 				this.faceSlot = 7;
@@ -30605,7 +33162,7 @@ namespace Terraria
 				this.width = 20;
 				this.height = 14;
 				this.maxStack = 1;
-				this.value = Item.buyPrice(0, 3, 50, 0);
+				this.@value = Item.buyPrice(0, 3, 50, 0);
 				this.vanity = true;
 				this.headSlot = 145;
 				return;
@@ -30631,12 +33188,12 @@ namespace Terraria
 				this.width = 20;
 				this.height = 26;
 				this.maxStack = 99;
-				this.value = Item.buyPrice(0, 2, 0, 0);
+				this.@value = Item.buyPrice(0, 2, 0, 0);
 				this.rare = 2;
-				this.hairDye = 0;
 				this.useSound = 3;
 				this.useStyle = 2;
 				this.useTurn = true;
+				this.hairDye = 0;
 				this.useAnimation = 17;
 				this.useTime = 17;
 				this.consumable = true;
@@ -30651,7 +33208,7 @@ namespace Terraria
 				this.width = 24;
 				this.height = 28;
 				this.useSound = 1;
-				this.value = Item.buyPrice(0, 1, 0, 0);
+				this.@value = Item.buyPrice(0, 0, 25, 0);
 				this.autoReuse = true;
 				return;
 			}
@@ -30702,41 +33259,42 @@ namespace Terraria
 				this.makeNPC = 356;
 				this.placeStyle = 1 + type - 1994;
 				this.noUseGraphic = true;
-				int num = type - 1994;
-				if (num == 0)
+				int num2 = type - 1994;
+				if (num2 == 0)
 				{
 					this.bait = 5;
 				}
-				if (num == 4)
+				if (num2 == 4)
 				{
 					this.bait = 10;
 				}
-				if (num == 6)
+				if (num2 == 6)
 				{
 					this.bait = 15;
 				}
-				if (num == 3)
+				if (num2 == 3)
 				{
 					this.bait = 20;
 				}
-				if (num == 7)
+				if (num2 == 7)
 				{
 					this.bait = 25;
 				}
-				if (num == 2)
+				if (num2 == 2)
 				{
 					this.bait = 30;
 				}
-				if (num == 1)
+				if (num2 == 1)
 				{
 					this.bait = 35;
 				}
-				if (num == 5)
+				if (num2 == 5)
 				{
 					this.bait = 50;
 				}
 			}
 		}
+
 		public void SetDefaults3(int type)
 		{
 			if (type == 2002)
@@ -30851,45 +33409,10 @@ namespace Terraria
 				this.createWall = 126 + type - 2008;
 				this.width = 12;
 				this.height = 12;
-				this.value = Item.buyPrice(0, 0, 1, 0);
+				this.@value = Item.buyPrice(0, 0, 1, 0);
 				return;
 			}
-			if (type >= 2015 && type <= 2019)
-			{
-				this.name = "Glowing Snail";
-				this.useStyle = 1;
-				this.autoReuse = true;
-				this.useTurn = true;
-				this.useAnimation = 15;
-				this.useTime = 10;
-				this.maxStack = 999;
-				this.consumable = true;
-				this.width = 12;
-				this.height = 12;
-				this.noUseGraphic = true;
-				if (type == 2015)
-				{
-					this.makeNPC = 74;
-				}
-				if (type == 2016)
-				{
-					this.makeNPC = 297;
-				}
-				if (type == 2017)
-				{
-					this.makeNPC = 298;
-				}
-				if (type == 2018)
-				{
-					this.makeNPC = 299;
-				}
-				if (type == 2019)
-				{
-					this.makeNPC = 46;
-					return;
-				}
-			}
-			else
+			if (type < 2015 || type > 2019)
 			{
 				if (type == 2020)
 				{
@@ -30904,7 +33427,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 6;
 					return;
 				}
@@ -30921,7 +33444,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 7;
 					return;
 				}
@@ -30938,7 +33461,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 8;
 					return;
 				}
@@ -30955,7 +33478,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 9;
 					return;
 				}
@@ -30972,7 +33495,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 10;
 					return;
 				}
@@ -30989,7 +33512,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 11;
 					return;
 				}
@@ -31006,7 +33529,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 12;
 					return;
 				}
@@ -31023,7 +33546,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 13;
 					return;
 				}
@@ -31040,7 +33563,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 14;
 					return;
 				}
@@ -31057,7 +33580,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 15;
 					return;
 				}
@@ -31074,7 +33597,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 16;
 					return;
 				}
@@ -31091,7 +33614,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 17;
 					return;
 				}
@@ -31300,7 +33823,7 @@ namespace Terraria
 					this.placeStyle = 27;
 					this.width = 14;
 					this.height = 28;
-					this.value = 200;
+					this.@value = 200;
 					return;
 				}
 				if (type >= 2045 && type <= 2054)
@@ -31334,7 +33857,7 @@ namespace Terraria
 					this.placeStyle = 7 + type - 2055;
 					this.width = 26;
 					this.height = 26;
-					this.value = 3000;
+					this.@value = 3000;
 					return;
 				}
 				if (type >= 2066 && type <= 2071)
@@ -31351,7 +33874,7 @@ namespace Terraria
 					this.placeStyle = 13 + type - 2066;
 					this.width = 28;
 					this.height = 20;
-					this.value = 2000;
+					this.@value = 2000;
 					return;
 				}
 				if (type >= 2072 && type <= 2081)
@@ -31368,7 +33891,7 @@ namespace Terraria
 					this.placeStyle = type + 1 - 2072;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					return;
 				}
 				if (type >= 2082 && type <= 2091)
@@ -31385,7 +33908,7 @@ namespace Terraria
 					this.placeStyle = type + 1 - 2082;
 					this.width = 10;
 					this.height = 24;
-					this.value = 500;
+					this.@value = 500;
 					return;
 				}
 				if (type >= 2092 && type <= 2103)
@@ -31402,7 +33925,7 @@ namespace Terraria
 					this.placeStyle = type + 1 - 2092;
 					this.width = 20;
 					this.height = 20;
-					this.value = 1500;
+					this.@value = 1500;
 					return;
 				}
 				if (type >= 2104 && type <= 2113)
@@ -31428,7 +33951,7 @@ namespace Terraria
 					this.createTile = 240;
 					this.width = 30;
 					this.height = 30;
-					this.value = Item.sellPrice(0, 0, 5, 0);
+					this.@value = Item.sellPrice(0, 0, 5, 0);
 					this.placeStyle = 41 + type - 2114;
 					this.maxStack = 99;
 					return;
@@ -31525,7 +34048,7 @@ namespace Terraria
 					this.placeStyle = type + 11 - 2124;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					return;
 				}
 				if (type >= 2129 && type <= 2134)
@@ -31542,7 +34065,7 @@ namespace Terraria
 					this.placeStyle = type + 11 - 2129;
 					this.width = 10;
 					this.height = 24;
-					this.value = 500;
+					this.@value = 500;
 					return;
 				}
 				if (type >= 2135 && type <= 2138)
@@ -31558,7 +34081,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 18 + type - 2135;
 					return;
 				}
@@ -31576,7 +34099,7 @@ namespace Terraria
 					this.placeStyle = 19;
 					this.width = 28;
 					this.height = 20;
-					this.value = 2000;
+					this.@value = 2000;
 					return;
 				}
 				if (type == 2140)
@@ -31593,7 +34116,7 @@ namespace Terraria
 					this.placeStyle = 20;
 					this.width = 28;
 					this.height = 20;
-					this.value = 2000;
+					this.@value = 2000;
 					return;
 				}
 				if (type >= 2141 && type <= 2144)
@@ -31610,7 +34133,7 @@ namespace Terraria
 					this.placeStyle = 18 + type - 2141;
 					this.width = 26;
 					this.height = 26;
-					this.value = 3000;
+					this.@value = 3000;
 					return;
 				}
 				if (type >= 2145 && type <= 2148)
@@ -31643,7 +34166,7 @@ namespace Terraria
 					this.placeStyle = type + 13 - 2149;
 					this.width = 20;
 					this.height = 20;
-					this.value = 1500;
+					this.@value = 1500;
 					return;
 				}
 				if (type >= 2153 && type <= 2155)
@@ -31710,7 +34233,7 @@ namespace Terraria
 					this.createWall = 133 + type - 2158;
 					this.width = 12;
 					this.height = 12;
-					this.value = Item.buyPrice(0, 0, 1, 0);
+					this.@value = Item.buyPrice(0, 0, 1, 0);
 					return;
 				}
 				if (type == 2161)
@@ -31719,7 +34242,7 @@ namespace Terraria
 					this.width = 18;
 					this.height = 18;
 					this.maxStack = 999;
-					this.value = 50000;
+					this.@value = 50000;
 					this.rare = 5;
 					return;
 				}
@@ -31770,6 +34293,7 @@ namespace Terraria
 				}
 				if (type == 2171)
 				{
+					this.autoReuse = true;
 					this.name = "Crimson Seeds";
 					this.useTurn = true;
 					this.useStyle = 1;
@@ -31780,7 +34304,7 @@ namespace Terraria
 					this.createTile = 199;
 					this.width = 14;
 					this.height = 14;
-					this.value = 500;
+					this.@value = 500;
 					return;
 				}
 				if (type == 2172)
@@ -31796,7 +34320,7 @@ namespace Terraria
 					this.createTile = 283;
 					this.width = 28;
 					this.height = 14;
-					this.value = 500;
+					this.@value = 500;
 					this.toolTip = "Used for advanced crafting";
 					return;
 				}
@@ -31846,9 +34370,10 @@ namespace Terraria
 					this.axe = 25;
 					this.useSound = 1;
 					this.rare = 8;
-					this.value = Item.sellPrice(0, 1, 0, 0);
+					this.@value = Item.sellPrice(0, 1, 0, 0);
 					this.melee = true;
-					this.tileBoost--;
+					Item item = this;
+					item.tileBoost = item.tileBoost - 1;
 					return;
 				}
 				if (type == 2177)
@@ -31864,7 +34389,7 @@ namespace Terraria
 					this.createTile = 287;
 					this.width = 22;
 					this.height = 22;
-					this.value = Item.buyPrice(0, 15, 0, 0);
+					this.@value = Item.buyPrice(0, 15, 0, 0);
 					this.rare = 6;
 					return;
 				}
@@ -31891,7 +34416,7 @@ namespace Terraria
 					this.defense = 18;
 					this.headSlot = 156;
 					this.rare = 8;
-					this.value = 375000;
+					this.@value = 375000;
 					this.toolTip = "Increases maximum mana by 60 and reduces mana usage by 13%";
 					this.toolTip2 = "5% increased magic damage and critical strike chance";
 					return;
@@ -31914,7 +34439,7 @@ namespace Terraria
 					this.autoReuse = true;
 					this.rare = 7;
 					this.noMelee = true;
-					this.value = Item.sellPrice(0, 7, 0, 0);
+					this.@value = Item.sellPrice(0, 7, 0, 0);
 					return;
 				}
 				if (type >= 2190 && type <= 2191)
@@ -31932,7 +34457,7 @@ namespace Terraria
 					this.height = 12;
 					return;
 				}
-				if ((type >= 2192 && type <= 2198) || type == 2203 || type == 2204)
+				if (type >= 2192 && type <= 2198 || type == 2203 || type == 2204)
 				{
 					this.name = "Crafting Tables";
 					this.useStyle = 1;
@@ -31946,17 +34471,17 @@ namespace Terraria
 					{
 						this.createTile = 307;
 					}
-					else if (type == 2204)
-					{
-						this.createTile = 308;
-					}
-					else
+					else if (type != 2204)
 					{
 						this.createTile = 300 + type - 2192;
 					}
+					else
+					{
+						this.createTile = 308;
+					}
 					this.width = 12;
 					this.height = 12;
-					this.value = Item.buyPrice(0, 10, 0, 0);
+					this.@value = Item.buyPrice(0, 10, 0, 0);
 					return;
 				}
 				if (type == 2199)
@@ -31967,7 +34492,7 @@ namespace Terraria
 					this.defense = 23;
 					this.headSlot = 157;
 					this.rare = 8;
-					this.value = 300000;
+					this.@value = 300000;
 					this.toolTip = "6% increased melee damage";
 					this.toolTip2 = "Enemies are more likely to target you";
 					return;
@@ -31980,7 +34505,7 @@ namespace Terraria
 					this.defense = 20;
 					this.bodySlot = 105;
 					this.rare = 8;
-					this.value = 240000;
+					this.@value = 240000;
 					this.toolTip = "8% increased melee damage and critical strike chance";
 					this.toolTip = "6% increased movement and melee speed";
 					return;
@@ -31993,7 +34518,7 @@ namespace Terraria
 					this.defense = 32;
 					this.bodySlot = 106;
 					this.rare = 8;
-					this.value = 240000;
+					this.@value = 240000;
 					this.toolTip = "5% increased melee damage and critical strike chance";
 					this.toolTip2 = "Enemies are more likely to target you";
 					return;
@@ -32006,7 +34531,7 @@ namespace Terraria
 					this.defense = 18;
 					this.legSlot = 98;
 					this.rare = 8;
-					this.value = 180000;
+					this.@value = 180000;
 					this.toolTip = "6% increased movement and melee speed";
 					this.toolTip2 = "Enemies are more likely to target you";
 					return;
@@ -32064,7 +34589,7 @@ namespace Terraria
 					this.width = 14;
 					this.height = 24;
 					this.rare = 4;
-					this.value = 1500;
+					this.@value = 1500;
 					return;
 				}
 				if (type >= 2210 && type <= 2213)
@@ -32089,7 +34614,7 @@ namespace Terraria
 					this.height = 30;
 					this.accessory = true;
 					this.rare = 3;
-					this.value = Item.buyPrice(0, 10, 0, 0);
+					this.@value = Item.buyPrice(0, 10, 0, 0);
 					return;
 				}
 				if (type == 2218)
@@ -32099,7 +34624,7 @@ namespace Terraria
 					this.height = 18;
 					this.maxStack = 99;
 					this.rare = 8;
-					this.value = Item.sellPrice(0, 0, 50, 0);
+					this.@value = Item.sellPrice(0, 0, 50, 0);
 					return;
 				}
 				if (type == 2219)
@@ -32109,7 +34634,7 @@ namespace Terraria
 					this.height = 24;
 					this.accessory = true;
 					this.toolTip = "Increases pickup range for stars";
-					this.value = Item.buyPrice(0, 15, 0, 0);
+					this.@value = Item.buyPrice(0, 15, 0, 0);
 					this.rare = 4;
 					return;
 				}
@@ -32121,7 +34646,7 @@ namespace Terraria
 					this.accessory = true;
 					this.toolTip = "15% increased magic damage";
 					this.toolTip2 = "Increases pickup range for stars";
-					this.value = Item.buyPrice(0, 16, 0, 0);
+					this.@value = Item.buyPrice(0, 16, 0, 0);
 					this.rare = 5;
 					return;
 				}
@@ -32134,7 +34659,7 @@ namespace Terraria
 					this.rare = 5;
 					this.toolTip = "Restores mana when damaged";
 					this.toolTip2 = "Increases pickup range for stars";
-					this.value = Item.buyPrice(0, 16, 0, 0);
+					this.@value = Item.buyPrice(0, 16, 0, 0);
 					this.handOffSlot = 10;
 					this.handOnSlot = 17;
 					return;
@@ -32146,7 +34671,7 @@ namespace Terraria
 					this.height = 18;
 					this.headSlot = 158;
 					this.vanity = true;
-					this.value = Item.sellPrice(0, 0, 25, 0);
+					this.@value = Item.sellPrice(0, 0, 25, 0);
 					return;
 				}
 				if (type == 2223)
@@ -32160,13 +34685,13 @@ namespace Terraria
 					this.height = 18;
 					this.shoot = 10;
 					this.useAmmo = 1;
-					this.useSound = 5;
+					this.useSound = 75;
 					this.crit = 7;
 					this.damage = 65;
 					this.knockBack = 3f;
 					this.shootSpeed = 7.75f;
 					this.noMelee = true;
-					this.value = Item.buyPrice(0, 45, 0, 0);
+					this.@value = Item.buyPrice(0, 45, 0, 0);
 					this.rare = 8;
 					this.ranged = true;
 					this.toolTip = "Shoots a charged arrow";
@@ -32186,7 +34711,7 @@ namespace Terraria
 					this.placeStyle = 22;
 					this.width = 26;
 					this.height = 26;
-					this.value = 3000;
+					this.@value = 3000;
 					return;
 				}
 				if (type == 2225)
@@ -32203,7 +34728,7 @@ namespace Terraria
 					this.placeStyle = 17;
 					this.width = 10;
 					this.height = 24;
-					this.value = 500;
+					this.@value = 500;
 					return;
 				}
 				if (type == 2226)
@@ -32236,7 +34761,7 @@ namespace Terraria
 					this.placeStyle = 17;
 					this.width = 20;
 					this.height = 20;
-					this.value = 1500;
+					this.@value = 1500;
 					return;
 				}
 				if (type == 2228)
@@ -32269,7 +34794,7 @@ namespace Terraria
 					this.placeStyle = 18;
 					this.width = 28;
 					this.height = 14;
-					this.value = 150;
+					this.@value = 150;
 					return;
 				}
 				if (type == 2230)
@@ -32286,7 +34811,7 @@ namespace Terraria
 					this.placeStyle = 28;
 					this.width = 26;
 					this.height = 22;
-					this.value = 2500;
+					this.@value = 2500;
 					return;
 				}
 				if (type == 2231)
@@ -32303,7 +34828,7 @@ namespace Terraria
 					this.placeStyle = 21;
 					this.width = 28;
 					this.height = 20;
-					this.value = 2000;
+					this.@value = 2000;
 					return;
 				}
 				if (type == 2232)
@@ -32320,7 +34845,7 @@ namespace Terraria
 					this.placeStyle = 16;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					return;
 				}
 				if (type == 2233)
@@ -32336,7 +34861,7 @@ namespace Terraria
 					this.createTile = 101;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					this.placeStyle = 22;
 					return;
 				}
@@ -32354,7 +34879,7 @@ namespace Terraria
 					this.placeStyle = 5;
 					this.width = 16;
 					this.height = 24;
-					this.value = 20;
+					this.@value = 20;
 					return;
 				}
 				if (type == 2235)
@@ -32371,7 +34896,7 @@ namespace Terraria
 					this.placeStyle = 1;
 					this.width = 16;
 					this.height = 24;
-					this.value = 20;
+					this.@value = 20;
 					return;
 				}
 				if (type == 2236)
@@ -32405,7 +34930,7 @@ namespace Terraria
 					this.placeStyle = 1 + type - 2237;
 					this.width = 20;
 					this.height = 20;
-					this.value = 300;
+					this.@value = 300;
 					return;
 				}
 				if (type == 2242 || type == 2243)
@@ -32422,10 +34947,10 @@ namespace Terraria
 					this.placeStyle = 2 + type - 2242;
 					this.width = 16;
 					this.height = 24;
-					this.value = 20;
+					this.@value = 20;
 					if (type == 2242)
 					{
-						this.value = Item.buyPrice(0, 0, 20, 0);
+						this.@value = Item.buyPrice(0, 0, 20, 0);
 						return;
 					}
 				}
@@ -32445,7 +34970,7 @@ namespace Terraria
 						this.placeStyle = 6;
 						this.width = 16;
 						this.height = 24;
-						this.value = 20;
+						this.@value = 20;
 						return;
 					}
 					if (type >= 2245 && type <= 2247)
@@ -32462,7 +34987,7 @@ namespace Terraria
 						this.placeStyle = 5 + type - 2245;
 						this.width = 20;
 						this.height = 20;
-						this.value = 300;
+						this.@value = 300;
 						return;
 					}
 					if (type == 2248)
@@ -32479,7 +35004,7 @@ namespace Terraria
 						this.placeStyle = 24;
 						this.width = 26;
 						this.height = 20;
-						this.value = 300;
+						this.@value = 300;
 						return;
 					}
 					if (type == 2249 || type == 2250)
@@ -32496,7 +35021,7 @@ namespace Terraria
 						this.placeStyle = 29 + type - 2249;
 						this.width = 26;
 						this.height = 22;
-						this.value = 2500;
+						this.@value = 2500;
 						return;
 					}
 					if (type >= 2251 && type <= 2253)
@@ -32513,7 +35038,7 @@ namespace Terraria
 						this.placeStyle = 19 + type - 2251;
 						this.width = 28;
 						this.height = 14;
-						this.value = 150;
+						this.@value = 150;
 						return;
 					}
 					if (type >= 2254 && type <= 2256)
@@ -32530,7 +35055,7 @@ namespace Terraria
 						this.placeStyle = 8 + type - 2254;
 						this.width = 20;
 						this.height = 20;
-						this.value = 300;
+						this.@value = 300;
 						return;
 					}
 					if (type == 2257 || type == 2258)
@@ -32547,10 +35072,10 @@ namespace Terraria
 						this.placeStyle = 7 + type - 2257;
 						this.width = 16;
 						this.height = 24;
-						this.value = 20;
+						this.@value = 20;
 						if (type == 2258)
 						{
-							this.value = Item.buyPrice(0, 0, 50, 0);
+							this.@value = Item.buyPrice(0, 0, 50, 0);
 							return;
 						}
 					}
@@ -32570,7 +35095,7 @@ namespace Terraria
 							this.placeStyle = 25;
 							this.width = 26;
 							this.height = 20;
-							this.value = 300;
+							this.@value = 300;
 							return;
 						}
 						if (type >= 2260 && type <= 2262)
@@ -32586,7 +35111,7 @@ namespace Terraria
 							this.createTile = 311 + type - 2260;
 							this.width = 12;
 							this.height = 12;
-							this.value = Item.buyPrice(0, 0, 0, 50);
+							this.@value = Item.buyPrice(0, 0, 0, 50);
 							return;
 						}
 						if (type >= 2263 && type <= 2264)
@@ -32617,7 +35142,7 @@ namespace Terraria
 							this.placeStyle = 28;
 							this.width = 14;
 							this.height = 28;
-							this.value = 200;
+							this.@value = 200;
 							return;
 						}
 						if (type == 2266)
@@ -32635,7 +35160,7 @@ namespace Terraria
 							this.buffType = 25;
 							this.buffTime = 14400;
 							this.rare = 1;
-							this.value = Item.buyPrice(0, 0, 5, 0);
+							this.@value = Item.buyPrice(0, 0, 5, 0);
 							return;
 						}
 						if (type == 2267)
@@ -32651,10 +35176,10 @@ namespace Terraria
 							this.width = 10;
 							this.height = 10;
 							this.buffType = 26;
-							this.buffTime = 14400;
+							this.buffTime = 36000;
 							this.rare = 1;
 							this.toolTip = "Minor improvements to all stats";
-							this.value = Item.buyPrice(0, 0, 20, 0);
+							this.@value = Item.buyPrice(0, 0, 20, 0);
 							return;
 						}
 						if (type == 2268)
@@ -32670,10 +35195,10 @@ namespace Terraria
 							this.width = 10;
 							this.height = 10;
 							this.buffType = 26;
-							this.buffTime = 25200;
+							this.buffTime = 54000;
 							this.rare = 1;
 							this.toolTip = "Minor improvements to all stats";
-							this.value = Item.buyPrice(0, 0, 30, 0);
+							this.@value = Item.buyPrice(0, 0, 30, 0);
 							return;
 						}
 						if (type == 2269)
@@ -32692,7 +35217,7 @@ namespace Terraria
 							this.damage = 20;
 							this.shootSpeed = 16f;
 							this.noMelee = true;
-							this.value = Item.buyPrice(0, 10, 0, 0);
+							this.@value = Item.buyPrice(0, 10, 0, 0);
 							this.scale = 0.85f;
 							this.rare = 2;
 							this.ranged = true;
@@ -32714,7 +35239,7 @@ namespace Terraria
 							this.damage = 21;
 							this.shootSpeed = 8f;
 							this.noMelee = true;
-							this.value = Item.buyPrice(0, 35, 0, 0);
+							this.@value = Item.buyPrice(0, 35, 0, 0);
 							this.knockBack = 1.5f;
 							this.rare = 4;
 							this.toolTip = "33% chance to not consume ammo";
@@ -32734,7 +35259,7 @@ namespace Terraria
 							this.createWall = 144;
 							this.width = 12;
 							this.height = 12;
-							this.value = Item.buyPrice(0, 0, 2, 50);
+							this.@value = Item.buyPrice(0, 0, 2, 50);
 							return;
 						}
 						if (type == 2272)
@@ -32749,7 +35274,7 @@ namespace Terraria
 							this.scale = 0.9f;
 							this.shoot = 358;
 							this.shootSpeed = 11f;
-							this.value = Item.buyPrice(0, 1, 50, 0);
+							this.@value = Item.buyPrice(0, 1, 50, 0);
 							return;
 						}
 						if (type == 2273)
@@ -32767,7 +35292,7 @@ namespace Terraria
 							this.scale = 1f;
 							this.useSound = 1;
 							this.rare = 1;
-							this.value = Item.buyPrice(0, 2, 50, 0);
+							this.@value = Item.buyPrice(0, 4, 0, 0);
 							this.melee = true;
 							return;
 						}
@@ -32788,7 +35313,7 @@ namespace Terraria
 							this.placeStyle = 12;
 							this.width = 10;
 							this.height = 12;
-							this.value = Item.buyPrice(0, 0, 3, 0);
+							this.@value = Item.buyPrice(0, 0, 3, 0);
 							return;
 						}
 						if (type == 2275)
@@ -32797,7 +35322,7 @@ namespace Terraria
 							this.width = 18;
 							this.height = 18;
 							this.headSlot = 159;
-							this.value = Item.buyPrice(0, 3, 0, 0);
+							this.@value = Item.buyPrice(0, 3, 0, 0);
 							this.toolTip = "7% increased magic damage and critical strike chance";
 							this.defense = 2;
 							this.rare = 2;
@@ -32811,7 +35336,7 @@ namespace Terraria
 							this.accessory = true;
 							this.vanity = true;
 							this.rare = 8;
-							this.value = Item.buyPrice(2, 0, 0, 0);
+							this.@value = Item.buyPrice(2, 0, 0, 0);
 							this.handOnSlot = 16;
 							return;
 						}
@@ -32821,7 +35346,7 @@ namespace Terraria
 							this.width = 18;
 							this.height = 14;
 							this.bodySlot = 165;
-							this.value = Item.buyPrice(0, 2, 0, 0);
+							this.@value = Item.buyPrice(0, 2, 0, 0);
 							this.defense = 4;
 							this.toolTip = "5% increased damage and critical strike chance";
 							this.toolTip = "10% increased melee and movement speed";
@@ -32835,7 +35360,7 @@ namespace Terraria
 							this.height = 14;
 							this.bodySlot = 166;
 							this.vanity = true;
-							this.value = Item.buyPrice(0, 1, 0, 0);
+							this.@value = Item.buyPrice(0, 1, 0, 0);
 							return;
 						}
 						if (type == 2279)
@@ -32844,7 +35369,7 @@ namespace Terraria
 							this.width = 18;
 							this.height = 14;
 							this.bodySlot = 167;
-							this.value = Item.buyPrice(0, 2, 0, 0);
+							this.@value = Item.buyPrice(0, 3, 50, 0);
 							this.defense = 2;
 							this.toolTip = "6% increased magic damage and critical strike chance";
 							this.toolTip2 = "Reduces mana usage by 10%";
@@ -32858,7 +35383,7 @@ namespace Terraria
 							this.height = 20;
 							this.accessory = true;
 							this.toolTip = "Allows flight and slow fall";
-							this.value = 400000;
+							this.@value = 400000;
 							this.rare = 7;
 							this.wingSlot = 24;
 							return;
@@ -32876,7 +35401,7 @@ namespace Terraria
 							this.createTile = 242;
 							this.width = 30;
 							this.height = 30;
-							this.value = Item.buyPrice(0, 1, 0, 0);
+							this.@value = Item.buyPrice(0, 1, 0, 0);
 							this.placeStyle = 22 + type - 2281;
 							return;
 						}
@@ -32886,7 +35411,7 @@ namespace Terraria
 							this.width = 26;
 							this.height = 30;
 							this.maxStack = 1;
-							this.value = Item.buyPrice(0, 5, 0, 0);
+							this.@value = Item.buyPrice(0, 5, 0, 0);
 							this.rare = 5;
 							this.accessory = true;
 							this.backSlot = (sbyte)(3 + type - 2284);
@@ -32910,7 +35435,7 @@ namespace Terraria
 							this.height = 30;
 							return;
 						}
-						if (type == 2289 || (type >= 2291 && type <= 2296))
+						if (type == 2289 || type >= 2291 && type <= 2296)
 						{
 							this.name = "Fishing Poles";
 							this.useStyle = 1;
@@ -32942,10 +35467,10 @@ namespace Terraria
 							}
 							if (type == 2292)
 							{
-								this.fishingPole = 25;
+								this.fishingPole = 27;
 								this.shootSpeed = 14f;
 								this.rare = 2;
-								this.value = Item.sellPrice(0, 1, 0, 0);
+								this.@value = Item.sellPrice(0, 1, 0, 0);
 								return;
 							}
 							if (type == 2295)
@@ -32953,7 +35478,7 @@ namespace Terraria
 								this.fishingPole = 30;
 								this.shootSpeed = 15f;
 								this.rare = 2;
-								this.value = Item.buyPrice(0, 20, 0, 0);
+								this.@value = Item.buyPrice(0, 20, 0, 0);
 								return;
 							}
 							if (type == 2296)
@@ -32961,7 +35486,7 @@ namespace Terraria
 								this.fishingPole = 40;
 								this.shootSpeed = 16f;
 								this.rare = 2;
-								this.value = Item.buyPrice(0, 35, 0, 0);
+								this.@value = Item.buyPrice(0, 35, 0, 0);
 								return;
 							}
 							if (type == 2294)
@@ -32969,42 +35494,42 @@ namespace Terraria
 								this.fishingPole = 50;
 								this.shootSpeed = 17f;
 								this.rare = 3;
-								this.value = Item.sellPrice(0, 20, 0, 0);
+								this.@value = Item.sellPrice(0, 20, 0, 0);
 								return;
 							}
-						}
-						else if (type >= 2421 && type <= 2422)
-						{
-							this.name = "Fishing Poles";
-							this.useStyle = 1;
-							this.useAnimation = 8;
-							this.useTime = 8;
-							this.width = 24;
-							this.height = 28;
-							this.useSound = 1;
-							this.shoot = 381 + type - 2421;
-							if (type == 2421)
-							{
-								this.fishingPole = 22;
-								this.shootSpeed = 13.5f;
-								this.rare = 1;
-								return;
-							}
-							this.fishingPole = 45;
-							this.shootSpeed = 16.5f;
-							this.rare = 3;
-							this.value = Item.sellPrice(0, 10, 0, 0);
-							return;
 						}
 						else
 						{
+							if (type >= 2421 && type <= 2422)
+							{
+								this.name = "Fishing Poles";
+								this.useStyle = 1;
+								this.useAnimation = 8;
+								this.useTime = 8;
+								this.width = 24;
+								this.height = 28;
+								this.useSound = 1;
+								this.shoot = 381 + type - 2421;
+								if (type == 2421)
+								{
+									this.fishingPole = 22;
+									this.shootSpeed = 13.5f;
+									this.rare = 1;
+									return;
+								}
+								this.fishingPole = 45;
+								this.shootSpeed = 16.5f;
+								this.rare = 3;
+								this.@value = Item.sellPrice(0, 10, 0, 0);
+								return;
+							}
 							if (type == 2320)
 							{
 								this.name = "Rockfish";
 								this.autoReuse = true;
 								this.width = 26;
 								this.height = 26;
-								this.value = Item.sellPrice(0, 1, 50, 0);
+								this.@value = Item.sellPrice(0, 1, 50, 0);
 								this.useStyle = 1;
 								this.useAnimation = 24;
 								this.useTime = 14;
@@ -33023,7 +35548,7 @@ namespace Terraria
 								this.maxStack = 30;
 								this.width = 26;
 								this.height = 26;
-								this.value = Item.sellPrice(0, 0, 15, 0);
+								this.@value = Item.sellPrice(0, 0, 15, 0);
 								this.rare = 1;
 								this.useSound = 3;
 								this.healLife = 120;
@@ -33035,120 +35560,7 @@ namespace Terraria
 								this.potion = true;
 								return;
 							}
-							if (type >= 2290 && type <= 2321)
-							{
-								this.name = "Fish";
-								this.maxStack = 999;
-								this.width = 26;
-								this.height = 26;
-								this.value = Item.sellPrice(0, 0, 5, 0);
-								if (type == 2308)
-								{
-									this.value = Item.sellPrice(0, 10, 0, 0);
-									this.rare = 4;
-								}
-								if (type == 2312)
-								{
-									this.value = Item.sellPrice(0, 0, 50, 0);
-									this.rare = 2;
-								}
-								if (type == 2317)
-								{
-									this.value = Item.sellPrice(0, 3, 0, 0);
-									this.rare = 4;
-								}
-								if (type == 2310)
-								{
-									this.value = Item.sellPrice(0, 1, 0, 0);
-									this.rare = 3;
-								}
-								if (type == 2321)
-								{
-									this.value = Item.sellPrice(0, 0, 25, 0);
-									this.rare = 1;
-								}
-								if (type == 2315)
-								{
-									this.value = Item.sellPrice(0, 0, 15, 0);
-									this.rare = 2;
-								}
-								if (type == 2303)
-								{
-									this.value = Item.sellPrice(0, 0, 15, 0);
-									this.rare = 1;
-								}
-								if (type == 2304)
-								{
-									this.value = Item.sellPrice(0, 0, 30, 0);
-									this.rare = 1;
-								}
-								if (type == 2316)
-								{
-									this.value = Item.sellPrice(0, 0, 15, 0);
-								}
-								if (type == 2311)
-								{
-									this.value = Item.sellPrice(0, 0, 15, 0);
-									this.rare = 1;
-								}
-								if (type == 2313)
-								{
-									this.value = Item.sellPrice(0, 0, 15, 0);
-									this.rare = 1;
-								}
-								if (type == 2306)
-								{
-									this.value = Item.sellPrice(0, 0, 15, 0);
-									this.rare = 1;
-								}
-								if (type == 2307)
-								{
-									this.value = Item.sellPrice(0, 0, 25, 0);
-									this.rare = 2;
-								}
-								if (type == 2319)
-								{
-									this.value = Item.sellPrice(0, 0, 15, 0);
-									this.rare = 1;
-								}
-								if (type == 2318)
-								{
-									this.value = Item.sellPrice(0, 0, 15, 0);
-									this.rare = 1;
-								}
-								if (type == 2298)
-								{
-									this.value = Item.sellPrice(0, 0, 7, 50);
-								}
-								if (type == 2309)
-								{
-									this.value = Item.sellPrice(0, 0, 7, 50);
-									this.rare = 1;
-								}
-								if (type == 2300)
-								{
-									this.value = Item.sellPrice(0, 0, 7, 50);
-								}
-								if (type == 2301)
-								{
-									this.value = Item.sellPrice(0, 0, 7, 50);
-								}
-								if (type == 2302)
-								{
-									this.value = Item.sellPrice(0, 0, 15, 0);
-								}
-								if (type == 2299)
-								{
-									this.value = Item.sellPrice(0, 0, 7, 50);
-								}
-								if (type == 2305)
-								{
-									this.value = Item.sellPrice(0, 0, 7, 50);
-									this.rare = 1;
-									return;
-								}
-							}
-							else
+							if (type < 2290 || type > 2321)
 							{
 								if (type == 2322)
 								{
@@ -33163,9 +35575,9 @@ namespace Terraria
 									this.width = 14;
 									this.height = 24;
 									this.buffType = 104;
-									this.buffTime = 18000;
+									this.buffTime = 28800;
 									this.toolTip = "Increases mining speed";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33184,7 +35596,7 @@ namespace Terraria
 									this.buffType = 105;
 									this.buffTime = 28800;
 									this.toolTip = "Increases pickup range for life hearts";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33203,7 +35615,7 @@ namespace Terraria
 									this.buffType = 106;
 									this.buffTime = 18000;
 									this.toolTip = "Reduces enemy aggression and spawn rate";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33222,7 +35634,7 @@ namespace Terraria
 									this.buffType = 107;
 									this.buffTime = 54000;
 									this.toolTip = "Increases placement speed and range";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33241,7 +35653,7 @@ namespace Terraria
 									this.buffType = 108;
 									this.buffTime = 14400;
 									this.toolTip = "Increases knockback";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33260,7 +35672,7 @@ namespace Terraria
 									this.buffType = 109;
 									this.buffTime = 28800;
 									this.toolTip = "Lets you to move swiftly in liquids";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33279,7 +35691,7 @@ namespace Terraria
 									this.buffType = 110;
 									this.buffTime = 21600;
 									this.toolTip = "Increases your max number of minions";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33298,7 +35710,7 @@ namespace Terraria
 									this.buffType = 111;
 									this.buffTime = 36000;
 									this.toolTip = "Allows you to see nearby traps";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33315,7 +35727,7 @@ namespace Terraria
 									this.scale = 1.15f;
 									this.useSound = 1;
 									this.rare = 1;
-									this.value = Item.sellPrice(0, 1, 0, 0);
+									this.@value = Item.sellPrice(0, 1, 0, 0);
 									this.melee = true;
 									return;
 								}
@@ -33334,7 +35746,7 @@ namespace Terraria
 									this.useSound = 1;
 									this.shoot = 367;
 									this.rare = 7;
-									this.value = Item.sellPrice(0, 1, 0, 0);
+									this.@value = Item.sellPrice(0, 1, 0, 0);
 									this.noMelee = true;
 									this.noUseGraphic = true;
 									this.melee = true;
@@ -33347,14 +35759,14 @@ namespace Terraria
 									this.useAnimation = 20;
 									this.useTime = 20;
 									this.shootSpeed = 4f;
-									this.knockBack = 5f;
+									this.knockBack = 4.25f;
 									this.width = 40;
 									this.height = 40;
-									this.damage = 16;
+									this.damage = 19;
 									this.useSound = 1;
 									this.shoot = 368;
 									this.rare = 2;
-									this.value = Item.sellPrice(0, 0, 50, 0);
+									this.@value = Item.sellPrice(0, 0, 50, 0);
 									this.noMelee = true;
 									this.noUseGraphic = true;
 									this.melee = true;
@@ -33383,7 +35795,14 @@ namespace Terraria
 									this.rare = 1;
 									this.toolTip = "Right click to open";
 									this.maxStack = 99;
-									this.value = Item.sellPrice(0, 0, 10, 0);
+									this.@value = Item.sellPrice(0, 0, 10, 0);
+									this.createTile = 376;
+									this.placeStyle = 0;
+									this.useAnimation = 15;
+									this.useTime = 15;
+									this.autoReuse = true;
+									this.useStyle = 1;
+									this.consumable = true;
 									return;
 								}
 								if (type == 2335)
@@ -33394,7 +35813,14 @@ namespace Terraria
 									this.rare = 2;
 									this.toolTip = "Right click to open";
 									this.maxStack = 99;
-									this.value = Item.sellPrice(0, 0, 50, 0);
+									this.@value = Item.sellPrice(0, 0, 50, 0);
+									this.createTile = 376;
+									this.placeStyle = 1;
+									this.useAnimation = 15;
+									this.useTime = 15;
+									this.autoReuse = true;
+									this.useStyle = 1;
+									this.consumable = true;
 									return;
 								}
 								if (type == 2336)
@@ -33405,7 +35831,14 @@ namespace Terraria
 									this.rare = 3;
 									this.toolTip = "Right click to open";
 									this.maxStack = 99;
-									this.value = Item.sellPrice(0, 2, 0, 0);
+									this.@value = Item.sellPrice(0, 2, 0, 0);
+									this.createTile = 376;
+									this.placeStyle = 2;
+									this.useAnimation = 15;
+									this.useTime = 15;
+									this.autoReuse = true;
+									this.useStyle = 1;
+									this.consumable = true;
 									return;
 								}
 								if (type >= 2337 && type <= 2339)
@@ -33432,7 +35865,7 @@ namespace Terraria
 									this.placeStyle = 0;
 									this.consumable = true;
 									this.cartTrack = true;
-									this.tileBoost = 1;
+									this.tileBoost = 5;
 									return;
 								}
 								if (type == 2341)
@@ -33451,7 +35884,7 @@ namespace Terraria
 									this.useSound = 1;
 									this.knockBack = 3f;
 									this.rare = 3;
-									this.value = Item.sellPrice(0, 1, 50, 0);
+									this.@value = Item.sellPrice(0, 1, 50, 0);
 									this.melee = true;
 									return;
 								}
@@ -33470,7 +35903,7 @@ namespace Terraria
 									this.useSound = 23;
 									this.shoot = 369;
 									this.rare = 3;
-									this.value = Item.sellPrice(0, 1, 50, 0);
+									this.@value = Item.sellPrice(0, 1, 50, 0);
 									this.noMelee = true;
 									this.noUseGraphic = true;
 									this.melee = true;
@@ -33482,6 +35915,9 @@ namespace Terraria
 									this.name = "Minecart";
 									this.width = 48;
 									this.height = 28;
+									this.mountType = 6;
+									this.rare = 1;
+									this.@value = Item.sellPrice(0, 0, 2, 0);
 									return;
 								}
 								if (type == 2344)
@@ -33499,7 +35935,7 @@ namespace Terraria
 									this.buffType = 112;
 									this.buffTime = 25200;
 									this.toolTip = "Gives 15% chance to not consume ammo";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33518,7 +35954,7 @@ namespace Terraria
 									this.buffType = 113;
 									this.buffTime = 18000;
 									this.toolTip = "Increases max life by 20%";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33537,7 +35973,7 @@ namespace Terraria
 									this.buffType = 114;
 									this.buffTime = 14400;
 									this.toolTip = "Reduces damage taken by 10%";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33556,7 +35992,7 @@ namespace Terraria
 									this.buffType = 115;
 									this.buffTime = 14400;
 									this.toolTip = "Increases critical strike chance by 10%";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33575,7 +36011,7 @@ namespace Terraria
 									this.buffType = 116;
 									this.buffTime = 14400;
 									this.toolTip = "Ignites nearby enemies";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33594,7 +36030,7 @@ namespace Terraria
 									this.buffType = 117;
 									this.buffTime = 14400;
 									this.toolTip = "Increases damage by 10%";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33611,7 +36047,7 @@ namespace Terraria
 									this.width = 14;
 									this.height = 24;
 									this.toolTip = "Teleports you home";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33628,7 +36064,7 @@ namespace Terraria
 									this.width = 14;
 									this.height = 24;
 									this.toolTip = "Teleports you to a random location";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33647,7 +36083,7 @@ namespace Terraria
 									this.useTime = 15;
 									this.noUseGraphic = true;
 									this.noMelee = true;
-									this.value = 200;
+									this.@value = 200;
 									this.toolTip = "Throw at someone to make them fall in love";
 									return;
 								}
@@ -33666,7 +36102,7 @@ namespace Terraria
 									this.useTime = 15;
 									this.noUseGraphic = true;
 									this.noMelee = true;
-									this.value = 200;
+									this.@value = 200;
 									this.toolTip = "Throw at someone to make them smell terrible";
 									return;
 								}
@@ -33686,6 +36122,7 @@ namespace Terraria
 									this.buffTime = 28800;
 									this.toolTip = "Increases fishing skill";
 									this.rare = 1;
+									this.@value = 1000;
 									return;
 								}
 								if (type == 2355)
@@ -33702,7 +36139,7 @@ namespace Terraria
 									this.height = 24;
 									this.buffType = 122;
 									this.buffTime = 14400;
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33720,12 +36157,13 @@ namespace Terraria
 									this.height = 24;
 									this.buffType = 123;
 									this.buffTime = 10800;
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
 								if (type == 2357)
 								{
+									this.autoReuse = true;
 									this.name = "Shiverthorn Seeds";
 									this.useTurn = true;
 									this.useStyle = 1;
@@ -33737,7 +36175,7 @@ namespace Terraria
 									this.placeStyle = 6;
 									this.width = 12;
 									this.height = 14;
-									this.value = 80;
+									this.@value = 80;
 									return;
 								}
 								if (type == 2358)
@@ -33746,7 +36184,7 @@ namespace Terraria
 									this.maxStack = 99;
 									this.width = 12;
 									this.height = 14;
-									this.value = 100;
+									this.@value = 100;
 									return;
 								}
 								if (type == 2359)
@@ -33764,7 +36202,7 @@ namespace Terraria
 									this.buffType = 124;
 									this.buffTime = 54000;
 									this.toolTip = "Reduces damage from cold sources";
-									this.value = 1000;
+									this.@value = 1000;
 									this.rare = 1;
 									return;
 								}
@@ -33783,7 +36221,7 @@ namespace Terraria
 									this.useTime = 20;
 									this.rare = 3;
 									this.noMelee = true;
-									this.value = 20000;
+									this.@value = 20000;
 									return;
 								}
 								if (type == 2361)
@@ -33794,7 +36232,7 @@ namespace Terraria
 									this.defense = 4;
 									this.headSlot = 160;
 									this.rare = 3;
-									this.value = 45000;
+									this.@value = 45000;
 									this.toolTip = "Increases minion damage by 4%";
 									return;
 								}
@@ -33806,7 +36244,7 @@ namespace Terraria
 									this.defense = 5;
 									this.bodySlot = 168;
 									this.rare = 3;
-									this.value = 30000;
+									this.@value = 30000;
 									this.toolTip = "Increases minion damage by 6%";
 									return;
 								}
@@ -33818,7 +36256,7 @@ namespace Terraria
 									this.defense = 4;
 									this.legSlot = 103;
 									this.rare = 3;
-									this.value = 30000;
+									this.@value = 30000;
 									this.toolTip = "Increases minion damage by 5%";
 									return;
 								}
@@ -33832,7 +36270,7 @@ namespace Terraria
 									this.shoot = 373;
 									this.width = 26;
 									this.height = 28;
-									this.useSound = 44;
+									this.useSound = 76;
 									this.useAnimation = 22;
 									this.useTime = 22;
 									this.rare = 3;
@@ -33840,7 +36278,7 @@ namespace Terraria
 									this.knockBack = 2f;
 									this.toolTip = "Summons a hornet to fight for you";
 									this.buffType = 125;
-									this.value = 10000;
+									this.@value = 10000;
 									this.summon = true;
 									return;
 								}
@@ -33854,7 +36292,7 @@ namespace Terraria
 									this.shoot = 375;
 									this.width = 26;
 									this.height = 28;
-									this.useSound = 44;
+									this.useSound = 77;
 									this.useAnimation = 36;
 									this.useTime = 36;
 									this.rare = 3;
@@ -33862,24 +36300,25 @@ namespace Terraria
 									this.knockBack = 2f;
 									this.toolTip = "Summons an imp to fight for you";
 									this.buffType = 126;
-									this.value = 10000;
+									this.@value = 10000;
 									this.summon = true;
 									return;
 								}
 								if (type == 2366)
 								{
-									this.damage = 19;
+									this.mana = 10;
+									this.damage = 21;
 									this.name = "Spider Queen Staff";
 									this.useStyle = 1;
 									this.shootSpeed = 14f;
 									this.shoot = 377;
 									this.width = 18;
 									this.height = 20;
-									this.useSound = 1;
+									this.useSound = 78;
 									this.useAnimation = 30;
 									this.useTime = 30;
 									this.noMelee = true;
-									this.value = Item.sellPrice(0, 5, 0, 0);
+									this.@value = Item.sellPrice(0, 5, 0, 0);
 									this.knockBack = 7.5f;
 									this.rare = 4;
 									this.summon = true;
@@ -33893,7 +36332,7 @@ namespace Terraria
 									this.defense = 1;
 									this.headSlot = 161;
 									this.rare = 1;
-									this.value = Item.sellPrice(0, 1, 0, 0);
+									this.@value = Item.sellPrice(0, 1, 0, 0);
 									return;
 								}
 								if (type == 2368)
@@ -33904,7 +36343,7 @@ namespace Terraria
 									this.bodySlot = 169;
 									this.defense = 2;
 									this.rare = 1;
-									this.value = Item.sellPrice(0, 1, 0, 0);
+									this.@value = Item.sellPrice(0, 1, 0, 0);
 									return;
 								}
 								if (type == 2369)
@@ -33915,7 +36354,7 @@ namespace Terraria
 									this.legSlot = 104;
 									this.defense = 1;
 									this.rare = 1;
-									this.value = Item.sellPrice(0, 1, 0, 0);
+									this.@value = Item.sellPrice(0, 1, 0, 0);
 									return;
 								}
 								if (type == 2370)
@@ -33925,7 +36364,7 @@ namespace Terraria
 									this.height = 18;
 									this.headSlot = 162;
 									this.rare = 4;
-									this.value = Item.sellPrice(0, 0, 75, 0);
+									this.@value = Item.sellPrice(0, 0, 75, 0);
 									this.toolTip = "Increases your max number of minions";
 									this.toolTip2 = "Increases minion damage by 5%";
 									this.defense = 5;
@@ -33938,7 +36377,7 @@ namespace Terraria
 									this.height = 18;
 									this.bodySlot = 170;
 									this.rare = 4;
-									this.value = Item.sellPrice(0, 0, 75, 0);
+									this.@value = Item.sellPrice(0, 0, 75, 0);
 									this.toolTip = "Increases your max number of minions";
 									this.toolTip2 = "Increases minion damage by 6%";
 									this.defense = 8;
@@ -33951,7 +36390,7 @@ namespace Terraria
 									this.height = 18;
 									this.legSlot = 105;
 									this.rare = 4;
-									this.value = Item.sellPrice(0, 0, 75, 0);
+									this.@value = Item.sellPrice(0, 0, 75, 0);
 									this.toolTip = "Increases your max number of minions";
 									this.toolTip2 = "Increases minion damage by 6%";
 									this.defense = 7;
@@ -33963,7 +36402,7 @@ namespace Terraria
 									this.width = 26;
 									this.height = 30;
 									this.maxStack = 1;
-									this.value = Item.sellPrice(0, 1, 0, 0);
+									this.@value = Item.sellPrice(0, 1, 0, 0);
 									this.rare = 1;
 									this.accessory = true;
 									return;
@@ -33982,7 +36421,7 @@ namespace Terraria
 									this.placeStyle = 11 + type - 2376;
 									this.width = 20;
 									this.height = 20;
-									this.value = 300;
+									this.@value = 300;
 									return;
 								}
 								if (type >= 2386 && type <= 2396)
@@ -33999,7 +36438,7 @@ namespace Terraria
 									this.placeStyle = 5 + type - 2386;
 									this.width = 20;
 									this.height = 20;
-									this.value = 300;
+									this.@value = 300;
 									return;
 								}
 								if (type >= 2397 && type <= 2416)
@@ -34016,7 +36455,7 @@ namespace Terraria
 									this.placeStyle = 1 + type - 2397;
 									this.width = 20;
 									this.height = 20;
-									this.value = 300;
+									this.@value = 300;
 									return;
 								}
 								if (type == 2417)
@@ -34026,7 +36465,7 @@ namespace Terraria
 									this.height = 18;
 									this.headSlot = 163;
 									this.vanity = true;
-									this.value = Item.sellPrice(0, 1, 0, 0);
+									this.@value = Item.sellPrice(0, 1, 0, 0);
 									return;
 								}
 								if (type == 2418)
@@ -34036,7 +36475,7 @@ namespace Terraria
 									this.height = 18;
 									this.bodySlot = 171;
 									this.vanity = true;
-									this.value = Item.sellPrice(0, 1, 0, 0);
+									this.@value = Item.sellPrice(0, 1, 0, 0);
 									return;
 								}
 								if (type == 2419)
@@ -34046,7 +36485,7 @@ namespace Terraria
 									this.height = 18;
 									this.legSlot = 106;
 									this.vanity = true;
-									this.value = Item.sellPrice(0, 1, 0, 0);
+									this.@value = Item.sellPrice(0, 1, 0, 0);
 									return;
 								}
 								if (type == 2420)
@@ -34063,7 +36502,7 @@ namespace Terraria
 									this.rare = 3;
 									this.noMelee = true;
 									this.toolTip = "Summons a Zephyr Fish";
-									this.value = Item.sellPrice(0, 3, 0, 0);
+									this.@value = Item.sellPrice(0, 3, 0, 0);
 									this.buffType = 127;
 									return;
 								}
@@ -34076,7 +36515,7 @@ namespace Terraria
 									this.rare = 1;
 									this.toolTip = "Increases Jump Speed";
 									this.toolTip2 = "Allows constant jumping";
-									this.value = 50000;
+									this.@value = 50000;
 									this.shoeSlot = 15;
 									return;
 								}
@@ -34096,7 +36535,7 @@ namespace Terraria
 									this.useTime = 30;
 									this.noUseGraphic = true;
 									this.rare = 3;
-									this.value = 50000;
+									this.@value = 50000;
 									this.melee = true;
 									return;
 								}
@@ -34113,10 +36552,10 @@ namespace Terraria
 									this.width = 10;
 									this.height = 10;
 									this.buffType = 26;
-									this.buffTime = 10800;
+									this.buffTime = 72000;
 									this.rare = 1;
 									this.toolTip = "Minor improvements to all stats";
-									this.value = Item.sellPrice(0, 0, 5, 0);
+									this.@value = Item.sellPrice(0, 0, 5, 0);
 									return;
 								}
 								if (type == 2428)
@@ -34125,13 +36564,13 @@ namespace Terraria
 									this.name = "Fuzzy Carrot";
 									this.width = 16;
 									this.height = 30;
-									this.useSound = 25;
+									this.useSound = 79;
 									this.useAnimation = 20;
 									this.useTime = 20;
 									this.rare = 8;
 									this.noMelee = true;
 									this.mountType = 1;
-									this.value = Item.sellPrice(0, 5, 0, 0);
+									this.@value = Item.sellPrice(0, 5, 0, 0);
 									return;
 								}
 								if (type == 2429)
@@ -34140,13 +36579,13 @@ namespace Terraria
 									this.name = "Scaly Truffle";
 									this.width = 16;
 									this.height = 30;
-									this.useSound = 25;
+									this.useSound = 80;
 									this.useAnimation = 20;
 									this.useTime = 20;
 									this.rare = 8;
 									this.noMelee = true;
 									this.mountType = 2;
-									this.value = Item.sellPrice(0, 5, 0, 0);
+									this.@value = Item.sellPrice(0, 5, 0, 0);
 									return;
 								}
 								if (type == 2430)
@@ -34155,13 +36594,13 @@ namespace Terraria
 									this.name = "Slimy Saddle";
 									this.width = 16;
 									this.height = 30;
-									this.useSound = 25;
+									this.useSound = 81;
 									this.useAnimation = 20;
 									this.useTime = 20;
 									this.rare = 8;
 									this.noMelee = true;
 									this.mountType = 3;
-									this.value = Item.sellPrice(0, 5, 0, 0);
+									this.@value = Item.sellPrice(0, 5, 0, 0);
 									return;
 								}
 								if (type == 2431)
@@ -34170,1973 +36609,1959 @@ namespace Terraria
 									this.width = 18;
 									this.height = 16;
 									this.maxStack = 99;
-									this.value = 100;
+									this.@value = 100;
 									return;
 								}
-								if (type >= 2432 && type <= 2434)
+								if (type < 2432 || type > 2434)
 								{
-									this.name = "Some walls";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 7;
-									this.autoReuse = true;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.createWall = 146 + type - 2432;
-									this.width = 12;
-									this.height = 12;
-									if (type == 2434)
+									if (type == 2435)
 									{
-										this.value = Item.buyPrice(0, 0, 0, 50);
+										this.name = "Coralstone Block";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 315;
+										this.width = 12;
+										this.height = 12;
+										this.@value = Item.buyPrice(0, 0, 0, 50);
 										return;
 									}
-									return;
-								}
-								if (type == 2435)
-								{
-									this.name = "Coralstone Block";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.createTile = 315;
-									this.width = 12;
-									this.height = 12;
-									this.value = Item.buyPrice(0, 0, 0, 50);
-									return;
-								}
-								if (type >= 2436 && type <= 2438)
-								{
-									this.name = "Jellyfish(es)";
-									this.useStyle = 1;
-									this.autoReuse = true;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.width = 12;
-									this.height = 12;
-									this.noUseGraphic = true;
-									this.bait = 20;
-									return;
-								}
-								if (type >= 2439 && type <= 2441)
-								{
-									this.name = "Jellyfish Jar";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 316 + type - 2439;
-									this.width = 12;
-									this.height = 12;
-									return;
-								}
-								if (type >= 2442 && type <= 2449)
-								{
-									this.name = "Fishing Wall Hangings";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 240;
-									this.width = 30;
-									this.height = 30;
-									this.value = Item.sellPrice(0, 0, 10, 0);
-									this.placeStyle = 46 + type - 2442;
-									return;
-								}
-								if (type >= 2450 && type <= 2488)
-								{
-									this.name = "Quest Fish";
-									this.questItem = true;
-									this.maxStack = 1;
-									this.width = 26;
-									this.height = 26;
-									this.uniqueStack = true;
-									this.rare = -11;
-									return;
-								}
-								if (type == 2489)
-								{
-									this.name = "King Slime Trophy";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 240;
-									this.width = 30;
-									this.height = 30;
-									this.value = Item.sellPrice(0, 1, 0, 0);
-									this.placeStyle = 54;
-									this.rare = 1;
-									return;
-								}
-								if (type == 2490)
-								{
-									this.name = "Ship in a Bottle";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 319;
-									this.width = 12;
-									this.height = 12;
-									this.value = Item.buyPrice(0, 10, 0, 0);
-									return;
-								}
-								if (type == 2491)
-								{
-									this.useStyle = 1;
-									this.name = "Hardy Saddle";
-									this.width = 16;
-									this.height = 30;
-									this.useSound = 25;
-									this.useAnimation = 20;
-									this.useTime = 20;
-									this.rare = 8;
-									this.noMelee = true;
-									this.mountType = 4;
-									this.value = Item.sellPrice(0, 5, 0, 0);
-									return;
-								}
-								if (type == 2492)
-								{
-									this.name = "Pressure Track";
-									this.useStyle = 1;
-									this.useAnimation = 15;
-									this.useTime = 7;
-									this.autoReuse = true;
-									this.width = 16;
-									this.height = 16;
-									this.maxStack = 99;
-									this.createTile = 314;
-									this.placeStyle = 1;
-									this.consumable = true;
-									this.cartTrack = true;
-									this.mech = true;
-									this.tileBoost = 1;
-									this.value = Item.sellPrice(0, 0, 10, 0);
-									return;
-								}
-								if (type == 2493)
-								{
-									this.name = "King Slime Mask";
-									this.width = 28;
-									this.height = 20;
-									this.headSlot = 164;
-									this.rare = 1;
-									this.vanity = true;
-									return;
-								}
-								if (type == 2494)
-								{
-									this.name = "Fin Wings";
-									this.width = 22;
-									this.height = 20;
-									this.accessory = true;
-									this.toolTip = "Allows flight and slow fall";
-									this.value = Item.buyPrice(0, 1, 0, 0);
-									this.rare = 4;
-									this.wingSlot = 25;
-									return;
-								}
-								if (type == 2495)
-								{
-									this.name = "Treasure Map";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 242;
-									this.width = 30;
-									this.height = 30;
-									this.value = Item.buyPrice(0, 1, 0, 0);
-									this.placeStyle = 25;
-									return;
-								}
-								if (type == 2496)
-								{
-									this.name = "Seaweed Planter";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 320;
-									this.placeStyle = 0;
-									this.width = 22;
-									this.height = 30;
-									this.value = Item.buyPrice(0, 0, 1, 0);
-									return;
-								}
-								if (type == 2497)
-								{
-									this.name = "Pillagin Me Pixels";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 242;
-									this.width = 30;
-									this.height = 30;
-									this.value = Item.buyPrice(0, 1, 0, 0);
-									this.placeStyle = 26;
-									return;
-								}
-								if (type == 2498)
-								{
-									this.name = "Fish Costume Mask";
-									this.width = 18;
-									this.height = 18;
-									this.headSlot = 165;
-									this.vanity = true;
-									this.value = Item.sellPrice(0, 1, 0, 0);
-									return;
-								}
-								if (type == 2499)
-								{
-									this.name = "Fish Costume Shirt";
-									this.width = 18;
-									this.height = 18;
-									this.bodySlot = 172;
-									this.vanity = true;
-									this.value = Item.sellPrice(0, 1, 0, 0);
-									return;
-								}
-								if (type == 2500)
-								{
-									this.name = "Fish Costume Finskirt";
-									this.width = 18;
-									this.height = 18;
-									this.legSlot = 107;
-									this.vanity = true;
-									this.value = Item.sellPrice(0, 1, 0, 0);
-									return;
-								}
-								if (type == 2501)
-								{
-									this.name = "Ginger Beard";
-									this.width = 18;
-									this.height = 12;
-									this.maxStack = 1;
-									this.value = Item.buyPrice(0, 40, 0, 0);
-									this.rare = 5;
-									this.accessory = true;
-									this.faceSlot = 8;
-									this.vanity = true;
-									return;
-								}
-								if (type == 2502)
-								{
-									this.useStyle = 1;
-									this.name = "Honeyed Goggles";
-									this.width = 16;
-									this.height = 30;
-									this.useSound = 25;
-									this.useAnimation = 20;
-									this.useTime = 20;
-									this.rare = 8;
-									this.noMelee = true;
-									this.mountType = 5;
-									this.value = Item.sellPrice(0, 5, 0, 0);
-									return;
-								}
-								if (type == 2503)
-								{
-									this.name = "Boreal Wood";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.createTile = 321;
-									this.width = 8;
-									this.height = 10;
-									return;
-								}
-								if (type == 2504)
-								{
-									this.name = "Palm Wood";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.createTile = 322;
-									this.width = 8;
-									this.height = 10;
-									return;
-								}
-								if (type == 2505)
-								{
-									this.name = "Boreal Wood Wall";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 7;
-									this.autoReuse = true;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.createWall = 149;
-									this.width = 12;
-									this.height = 12;
-									return;
-								}
-								if (type == 2506)
-								{
-									this.name = "Palm Wood Wall";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 7;
-									this.autoReuse = true;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.createWall = 151;
-									this.width = 12;
-									this.height = 12;
-									return;
-								}
-								if (type == 2507)
-								{
-									this.name = "Boreal Wood Fence";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 7;
-									this.autoReuse = true;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.createWall = 150;
-									this.width = 12;
-									this.height = 12;
-									return;
-								}
-								if (type == 2508)
-								{
-									this.name = "Palm Wood Fence";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 7;
-									this.autoReuse = true;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.createWall = 152;
-									this.width = 12;
-									this.height = 12;
-									return;
-								}
-								if (type == 2509)
-								{
-									this.name = "Boreal Wood Helmet";
-									this.width = 18;
-									this.height = 18;
-									this.defense = 1;
-									this.headSlot = 166;
-									return;
-								}
-								if (type == 2510)
-								{
-									this.name = "Boreal Wood Breastplate";
-									this.width = 18;
-									this.height = 18;
-									this.defense = 1;
-									this.bodySlot = 173;
-									return;
-								}
-								if (type == 2511)
-								{
-									this.name = "Boreal Wood Greaves";
-									this.width = 18;
-									this.height = 18;
-									this.defense = 1;
-									this.legSlot = 108;
-									return;
-								}
-								if (type == 2512)
-								{
-									this.name = "Palm Wood Helmet";
-									this.width = 18;
-									this.height = 18;
-									this.defense = 1;
-									this.headSlot = 167;
-									return;
-								}
-								if (type == 2513)
-								{
-									this.name = "Palm Wood Breastplate";
-									this.width = 18;
-									this.height = 18;
-									this.defense = 1;
-									this.bodySlot = 174;
-									return;
-								}
-								if (type == 2514)
-								{
-									this.name = "Palm Wood Greaves";
-									this.width = 18;
-									this.height = 18;
-									this.defense = 1;
-									this.legSlot = 109;
-									return;
-								}
-								if (type == 2517)
-								{
-									this.name = "Palm Wood Sword";
-									this.useStyle = 1;
-									this.useTurn = false;
-									this.useAnimation = 23;
-									this.useTime = 23;
-									this.width = 24;
-									this.height = 28;
-									this.damage = 8;
-									this.knockBack = 5f;
-									this.useSound = 1;
-									this.scale = 1f;
-									this.value = 100;
-									this.melee = true;
-									return;
-								}
-								if (type == 2516)
-								{
-									this.name = "Palm Wood Hammer";
-									this.autoReuse = true;
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 33;
-									this.useTime = 23;
-									this.hammer = 35;
-									this.width = 24;
-									this.height = 28;
-									this.damage = 4;
-									this.knockBack = 5.5f;
-									this.scale = 1.1f;
-									this.useSound = 1;
-									this.value = 50;
-									this.melee = true;
-									return;
-								}
-								if (type == 2515)
-								{
-									this.name = "Palm Wood Bow";
-									this.useStyle = 5;
-									this.useAnimation = 29;
-									this.useTime = 29;
-									this.width = 12;
-									this.height = 28;
-									this.shoot = 1;
-									this.useAmmo = 1;
-									this.useSound = 5;
-									this.damage = 6;
-									this.shootSpeed = 6.6f;
-									this.noMelee = true;
-									this.value = 100;
-									this.ranged = true;
-									return;
-								}
-								if (type == 2518)
-								{
-									this.name = "Palm Wood Platform";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 19;
-									this.placeStyle = 17;
-									this.width = 8;
-									this.height = 10;
-									return;
-								}
-								if (type == 2519)
-								{
-									this.name = "Palm Wood Bathtub";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 90;
-									this.placeStyle = 17;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2520)
-								{
-									this.name = "Palm Wood Bed";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.autoReuse = true;
-									this.createTile = 79;
-									this.placeStyle = 22;
-									this.width = 28;
-									this.height = 20;
-									this.value = 2000;
-									return;
-								}
-								if (type == 2521)
-								{
-									this.name = "Palm Wood Bench";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 89;
-									this.placeStyle = 21;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2527)
-								{
-									this.name = "Palm Wood Sofa";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 89;
-									this.placeStyle = 22;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2522)
-								{
-									this.name = "Palm Wood Candelabra";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 100;
-									this.placeStyle = 18;
-									this.width = 20;
-									this.height = 20;
-									this.value = 1500;
-									return;
-								}
-								if (type == 2523)
-								{
-									this.noWet = true;
-									this.name = "Palm Wood Candle";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 33;
-									this.placeStyle = 18;
-									this.width = 8;
-									this.height = 18;
-									return;
-								}
-								if (type == 2524)
-								{
-									this.name = "Palm Wood Chair";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 15;
-									this.placeStyle = 29;
-									this.width = 12;
-									this.height = 30;
-									return;
-								}
-								if (type == 2525)
-								{
-									this.name = "Palm Wood Chandelier";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 34;
-									this.placeStyle = 23;
-									this.width = 26;
-									this.height = 26;
-									this.value = 3000;
-									return;
-								}
-								if (type == 2526)
-								{
-									this.name = "Palm Wood Chest";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 21;
-									this.placeStyle = 31;
-									this.width = 26;
-									this.height = 22;
-									this.value = 500;
-									return;
-								}
-								if (type == 2528)
-								{
-									this.name = "Palm Wood Door";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 10;
-									this.placeStyle = 29;
-									this.width = 14;
-									this.height = 28;
-									this.value = 200;
-									return;
-								}
-								if (type == 2529)
-								{
-									this.name = "Palm Wood Dresser";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 88;
-									this.placeStyle = 16;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2530)
-								{
-									this.name = "Palm Wood Lantern";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.createTile = 42;
-									this.width = 12;
-									this.height = 28;
-									this.placeStyle = 27;
-									return;
-								}
-								if (type == 2531)
-								{
-									this.name = "Palm Wood Piano";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 87;
-									this.placeStyle = 21;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2535)
-								{
-									this.mana = 10;
-									this.damage = 30;
-									this.useStyle = 1;
-									this.name = "Optic Staff";
-									this.shootSpeed = 10f;
-									this.shoot = 387;
-									this.width = 26;
-									this.height = 28;
-									this.useSound = 44;
-									this.useAnimation = 36;
-									this.useTime = 36;
-									this.rare = 5;
-									this.noMelee = true;
-									this.knockBack = 2f;
-									this.toolTip = "Summons twins to fight for you";
-									this.buffType = 134;
-									this.value = Item.buyPrice(0, 10, 0, 0);
-									this.summon = true;
-									return;
-								}
-								if (type == 2532)
-								{
-									this.name = "Palm Wood Table";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 14;
-									this.placeStyle = 26;
-									this.width = 26;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2533)
-								{
-									this.name = "Palm Wood Lamp";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 93;
-									this.placeStyle = 18;
-									this.width = 10;
-									this.height = 24;
-									this.value = 500;
-									return;
-								}
-								if (type == 2534)
-								{
-									this.name = "Palm Wood Work Bench";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 18;
-									this.placeStyle = 22;
-									this.width = 28;
-									this.height = 14;
-									this.value = 150;
-									this.toolTip = "Used for basic crafting";
-									return;
-								}
-								if (type == 2536)
-								{
-									this.name = "Palm Wood Bookcase";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 101;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									this.placeStyle = 23;
-									return;
-								}
-								if (type == 2549)
-								{
-									this.name = "Mushroom Platform";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 19;
-									this.placeStyle = 18;
-									this.width = 8;
-									this.height = 10;
-									return;
-								}
-								if (type == 2537)
-								{
-									this.name = "Mushroom Bathtub";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 90;
-									this.placeStyle = 18;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2538)
-								{
-									this.name = "Mushroom Bed";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.autoReuse = true;
-									this.createTile = 79;
-									this.placeStyle = 23;
-									this.width = 28;
-									this.height = 20;
-									this.value = 2000;
-									return;
-								}
-								if (type == 2539)
-								{
-									this.name = "Mushroom Bench";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 89;
-									this.placeStyle = 23;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2540)
-								{
-									this.name = "Mushroom Bookcase";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 101;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									this.placeStyle = 24;
-									return;
-								}
-								if (type == 2541)
-								{
-									this.name = "Mushroom Candelabra";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 100;
-									this.placeStyle = 19;
-									this.width = 20;
-									this.height = 20;
-									this.value = 1500;
-									return;
-								}
-								if (type == 2542)
-								{
-									this.noWet = true;
-									this.name = "Mushroom Candle";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 33;
-									this.placeStyle = 19;
-									this.width = 8;
-									this.height = 18;
-									return;
-								}
-								if (type == 2543)
-								{
-									this.name = "Mushroom Chandelier";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 34;
-									this.placeStyle = 24;
-									this.width = 26;
-									this.height = 26;
-									this.value = 3000;
-									return;
-								}
-								if (type == 2544)
-								{
-									this.name = "Mushroom Chest";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 21;
-									this.placeStyle = 32;
-									this.width = 26;
-									this.height = 22;
-									this.value = 500;
-									return;
-								}
-								if (type == 2545)
-								{
-									this.name = "Mushroom Dresser";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 88;
-									this.placeStyle = 17;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2547)
-								{
-									this.name = "Mushroom Lamp";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 93;
-									this.placeStyle = 19;
-									this.width = 10;
-									this.height = 24;
-									this.value = 500;
-									return;
-								}
-								if (type == 2546)
-								{
-									this.name = "Mushroom Lantern";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.createTile = 42;
-									this.width = 12;
-									this.height = 28;
-									this.placeStyle = 28;
-									return;
-								}
-								if (type == 2548)
-								{
-									this.name = "Mushroom Piano";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 87;
-									this.placeStyle = 22;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2413)
-								{
-									this.name = "Mushroom Sofa";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 89;
-									this.placeStyle = 23;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2550)
-								{
-									this.name = "Mushroom Table";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 14;
-									this.placeStyle = 27;
-									this.width = 26;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2551)
-								{
-									this.mana = 10;
-									this.damage = 25;
-									this.useStyle = 1;
-									this.name = "Spider Staff";
-									this.shootSpeed = 10f;
-									this.shoot = 390;
-									this.width = 26;
-									this.height = 28;
-									this.useSound = 44;
-									this.useAnimation = 36;
-									this.useTime = 36;
-									this.rare = 4;
-									this.noMelee = true;
-									this.knockBack = 2f;
-									this.toolTip = "Summons spiders to fight for you";
-									this.buffType = 133;
-									this.value = Item.buyPrice(0, 5, 0, 0);
-									this.summon = true;
-									return;
-								}
-								if (type == 2552)
-								{
-									this.name = "Boreal Wood Bathtub";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 90;
-									this.placeStyle = 19;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2553)
-								{
-									this.name = "Boreal Wood Bed";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.autoReuse = true;
-									this.createTile = 79;
-									this.placeStyle = 24;
-									this.width = 28;
-									this.height = 20;
-									this.value = 2000;
-									return;
-								}
-								if (type == 2554)
-								{
-									this.name = "Boreal Wood Bookcase";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 101;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									this.placeStyle = 25;
-									return;
-								}
-								if (type == 2555)
-								{
-									this.name = "Boreal Wood Candelabra";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 100;
-									this.placeStyle = 20;
-									this.width = 20;
-									this.height = 20;
-									this.value = 1500;
-									return;
-								}
-								if (type == 2556)
-								{
-									this.noWet = true;
-									this.name = "Boreal Wood Candle";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 33;
-									this.placeStyle = 20;
-									this.width = 8;
-									this.height = 18;
-									return;
-								}
-								if (type == 2557)
-								{
-									this.name = "Boreal Wood Chair";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 15;
-									this.placeStyle = 30;
-									this.width = 12;
-									this.height = 30;
-									return;
-								}
-								if (type == 2558)
-								{
-									this.name = "Boreal Wood Chandelier";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 34;
-									this.placeStyle = 25;
-									this.width = 26;
-									this.height = 26;
-									this.value = 3000;
-									return;
-								}
-								if (type == 2559)
-								{
-									this.name = "Boreal Wood Chest";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 21;
-									this.placeStyle = 33;
-									this.width = 26;
-									this.height = 22;
-									this.value = 500;
-									return;
-								}
-								if (type == 2560)
-								{
-									this.name = "Boreal Wood Clock";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 104;
-									this.placeStyle = 6;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2561)
-								{
-									this.name = "Boreal Wood Door";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 10;
-									this.placeStyle = 30;
-									this.width = 14;
-									this.height = 28;
-									this.value = 200;
-									return;
-								}
-								if (type == 2562)
-								{
-									this.name = "Boreal Wood Dresser";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 88;
-									this.placeStyle = 18;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2563)
-								{
-									this.name = "Boreal Wood Lamp";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 93;
-									this.placeStyle = 20;
-									this.width = 10;
-									this.height = 24;
-									this.value = 500;
-									return;
-								}
-								if (type == 2564)
-								{
-									this.name = "Boreal Wood Lantern";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.createTile = 42;
-									this.placeStyle = 29;
-									this.width = 12;
-									this.height = 28;
-									return;
-								}
-								if (type == 2565)
-								{
-									this.name = "Boreal Wood Piano";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 87;
-									this.placeStyle = 23;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2566)
-								{
-									this.name = "Boreal Wood Platform";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 19;
-									this.placeStyle = 19;
-									this.width = 8;
-									this.height = 10;
-									return;
-								}
-								if (type == 2567)
-								{
-									this.name = "Slime Bathtub";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 90;
-									this.placeStyle = 20;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2568)
-								{
-									this.name = "Slime Bed";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.autoReuse = true;
-									this.createTile = 79;
-									this.placeStyle = 25;
-									this.width = 28;
-									this.height = 20;
-									this.value = 2000;
-									return;
-								}
-								if (type == 2569)
-								{
-									this.name = "Slime Bookcase";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 101;
-									this.placeStyle = 26;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2570)
-								{
-									this.name = "Slime Candelabra";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 100;
-									this.placeStyle = 21;
-									this.width = 20;
-									this.height = 20;
-									this.value = 1500;
-									return;
-								}
-								if (type == 2571)
-								{
-									this.noWet = true;
-									this.name = "Slime Candle";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 33;
-									this.placeStyle = 21;
-									this.width = 8;
-									this.height = 18;
-									return;
-								}
-								if (type == 2572)
-								{
-									this.name = "Slime Chair";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 15;
-									this.placeStyle = 31;
-									this.width = 12;
-									this.height = 30;
-									return;
-								}
-								if (type == 2573)
-								{
-									this.name = "Slime Chandelier";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 34;
-									this.placeStyle = 26;
-									this.width = 26;
-									this.height = 26;
-									this.value = 3000;
-									return;
-								}
-								if (type == 2574)
-								{
-									this.name = "Slime Chest";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 21;
-									this.placeStyle = 34;
-									this.width = 26;
-									this.height = 22;
-									this.value = 500;
-									return;
-								}
-								if (type == 2575)
-								{
-									this.name = "Slime Clock";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 104;
-									this.placeStyle = 7;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2576)
-								{
-									this.name = "Slime Door";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 10;
-									this.placeStyle = 31;
-									this.width = 14;
-									this.height = 28;
-									this.value = 200;
-									return;
-								}
-								if (type == 2577)
-								{
-									this.name = "Slime Dresser";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 88;
-									this.placeStyle = 19;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2578)
-								{
-									this.name = "Slime Lamp";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 93;
-									this.placeStyle = 21;
-									this.width = 10;
-									this.height = 24;
-									this.value = 500;
-									return;
-								}
-								if (type == 2579)
-								{
-									this.name = "Slime Lantern";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 999;
-									this.consumable = true;
-									this.createTile = 42;
-									this.placeStyle = 30;
-									this.width = 12;
-									this.height = 28;
-									return;
-								}
-								if (type == 2580)
-								{
-									this.name = "Slime Piano";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 87;
-									this.placeStyle = 24;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2581)
-								{
-									this.name = "Slime Platform";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 19;
-									this.placeStyle = 20;
-									this.width = 8;
-									this.height = 10;
-									return;
-								}
-								if (type == 2582)
-								{
-									this.name = "Slime Sofa";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 89;
-									this.placeStyle = 25;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2583)
-								{
-									this.name = "Slime Table";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 14;
-									this.placeStyle = 29;
-									this.width = 26;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2584)
-								{
-									this.mana = 10;
-									this.damage = 32;
-									this.useStyle = 1;
-									this.name = "Pirate Staff";
-									this.shootSpeed = 10f;
-									this.shoot = 393;
-									this.width = 26;
-									this.height = 28;
-									this.useSound = 44;
-									this.useAnimation = 36;
-									this.useTime = 36;
-									this.rare = 5;
-									this.noMelee = true;
-									this.knockBack = 2f;
-									this.toolTip = "Summons pirates to fight for you";
-									this.buffType = 135;
-									this.value = Item.buyPrice(0, 5, 0, 0);
-									this.summon = true;
-									return;
-								}
-								if (type == 2585)
-								{
-									this.noUseGraphic = true;
-									this.damage = 0;
-									this.useStyle = 5;
-									this.name = "Slime Hook";
-									this.shootSpeed = 13f;
-									this.shoot = 396;
-									this.width = 18;
-									this.height = 28;
-									this.useSound = 1;
-									this.useAnimation = 20;
-									this.useTime = 20;
-									this.rare = 3;
-									this.noMelee = true;
-									this.value = 20000;
-									return;
-								}
-								if (type == 2586)
-								{
-									this.useStyle = 5;
-									this.name = "Sticky Grenade";
-									this.shootSpeed = 5.5f;
-									this.shoot = 397;
-									this.width = 20;
-									this.height = 20;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.useSound = 1;
-									this.useAnimation = 45;
-									this.useTime = 45;
-									this.noUseGraphic = true;
-									this.noMelee = true;
-									this.value = 75;
-									this.damage = 60;
-									this.knockBack = 8f;
-									this.toolTip = "A small explosion that will not destroy tiles";
-									this.toolTip2 = "Tossing may be difficult";
-									this.ranged = true;
-									return;
-								}
-								if (type == 2587)
-								{
-									this.damage = 0;
-									this.useStyle = 1;
-									this.name = "Tartar Sauce";
-									this.shoot = 398;
-									this.width = 16;
-									this.height = 30;
-									this.useSound = 2;
-									this.useAnimation = 20;
-									this.useTime = 20;
-									this.rare = 3;
-									this.noMelee = true;
-									this.toolTip = "Summons a mini minotaur";
-									this.buffType = 136;
-									this.value = Item.sellPrice(0, 2, 0, 0);
-									return;
-								}
-								if (type == 2588)
-								{
-									this.name = "Duke Fishron Mask";
-									this.width = 28;
-									this.height = 20;
-									this.headSlot = 168;
-									this.rare = 1;
-									this.vanity = true;
-									return;
-								}
-								if (type == 2589)
-								{
-									this.name = "Duke Fishron Trophy";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 240;
-									this.width = 30;
-									this.height = 30;
-									this.value = Item.sellPrice(0, 1, 0, 0);
-									this.placeStyle = 55;
-									this.rare = 1;
-									return;
-								}
-								if (type == 2590)
-								{
-									this.useStyle = 5;
-									this.name = "Molotov Cocktail";
-									this.shootSpeed = 6.5f;
-									this.shoot = 399;
-									this.width = 20;
-									this.height = 20;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.useSound = 1;
-									this.useAnimation = 30;
-									this.useTime = 30;
-									this.noUseGraphic = true;
-									this.noMelee = true;
-									this.value = 75;
-									this.damage = 40;
-									this.knockBack = 8f;
-									this.toolTip = "A small explosion that puts enemies on fire";
-									this.toolTip2 = "Lights nearby area on fire for a while";
-									this.ranged = true;
-									return;
-								}
-								if (type >= 2591 && type <= 2606)
-								{
-									this.name = "Grandfather Clock";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 104;
-									this.placeStyle = 8 + type - 2591;
-									this.width = 20;
-									this.height = 20;
-									this.value = 300;
-									return;
-								}
-								if (type == 2607)
-								{
-									this.name = "Spider Fang";
-									this.maxStack = 99;
-									this.width = 12;
-									this.height = 12;
-									this.rare = 4;
-									this.value = Item.sellPrice(0, 0, 5, 0);
-									return;
-								}
-								if (type == 2608)
-								{
-									this.name = "Falcon Blade";
-									this.useStyle = 1;
-									this.useAnimation = 15;
-									this.knockBack = 6f;
-									this.width = 24;
-									this.height = 28;
-									this.damage = 25;
-									this.scale = 1.05f;
-									this.useSound = 1;
-									this.rare = 4;
-									this.value = 10000;
-									this.melee = true;
-									return;
-								}
-								if (type == 2609)
-								{
-									this.name = "Fishron Wings";
-									this.width = 22;
-									this.height = 20;
-									this.accessory = true;
-									this.toolTip = "Allows flight and slow fall";
-									this.value = Item.buyPrice(0, 10, 0, 0);
-									this.rare = 8;
-									this.wingSlot = 26;
-									return;
-								}
-								if (type == 2610)
-								{
-									this.name = "Slime Gun";
-									this.useStyle = 5;
-									this.useAnimation = 12;
-									this.useTime = 12;
-									this.width = 38;
-									this.height = 10;
-									this.damage = 0;
-									this.scale = 0.9f;
-									this.shoot = 406;
-									this.shootSpeed = 8f;
-									this.autoReuse = true;
-									this.value = Item.buyPrice(0, 1, 50, 0);
-									return;
-								}
-								if (type == 2611)
-								{
-									this.autoReuse = false;
-									this.name = "Flairon";
-									this.useStyle = 5;
-									this.useAnimation = 20;
-									this.useTime = 20;
-									this.autoReuse = true;
-									this.knockBack = 4.5f;
-									this.width = 30;
-									this.height = 10;
-									this.damage = 66;
-									this.shoot = 404;
-									this.shootSpeed = 14f;
-									this.useSound = 1;
-									this.rare = 8;
-									this.value = Item.sellPrice(0, 5, 0, 0);
-									this.melee = true;
-									this.noUseGraphic = true;
-									return;
-								}
-								if (type >= 2612 && type <= 2620)
-								{
-									this.name = "Many Chests";
-									this.useStyle = 1;
-									this.useTurn = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.autoReuse = true;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 21;
-									if (type <= 2614)
+									if (type >= 2436 && type <= 2438)
 									{
-										this.placeStyle = 35 + (type - 2612) * 2;
+										this.name = "Jellyfish(es)";
+										this.useStyle = 1;
+										this.autoReuse = true;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.width = 12;
+										this.height = 12;
+										this.noUseGraphic = true;
+										this.bait = 20;
+										this.@value = Item.sellPrice(0, 3, 50, 0);
+										return;
 									}
-									else
+									if (type >= 2439 && type <= 2441)
 									{
-										this.placeStyle = 41 + type - 2615;
+										this.name = "Jellyfish Jar";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 316 + type - 2439;
+										this.width = 12;
+										this.height = 12;
+										return;
 									}
-									this.width = 26;
-									this.height = 22;
-									this.value = 500;
-									return;
-								}
-								if (type == 2621)
-								{
-									this.mana = 10;
-									this.damage = 50;
-									this.useStyle = 1;
-									this.name = "Tempest Staff";
-									this.shootSpeed = 10f;
-									this.shoot = 407;
-									this.width = 26;
-									this.height = 28;
-									this.useSound = 44;
-									this.useAnimation = 36;
-									this.useTime = 36;
-									this.rare = 8;
-									this.noMelee = true;
-									this.knockBack = 2f;
-									this.toolTip = "Summons sharknados to fight for you";
-									this.buffType = 139;
-									this.value = Item.buyPrice(0, 5, 0, 0);
-									this.summon = true;
-									return;
-								}
-								if (type == 2624)
-								{
-									this.useStyle = 5;
-									this.useAnimation = 24;
-									this.useTime = 24;
-									this.name = "Tsunami";
-									this.width = 50;
-									this.height = 18;
-									this.shoot = 1;
-									this.useAmmo = 1;
-									this.useSound = 5;
-									this.damage = 60;
-									this.shootSpeed = 10f;
-									this.noMelee = true;
-									this.value = this.value = Item.sellPrice(0, 5, 0, 0);
-									this.ranged = true;
-									this.rare = 8;
-									this.knockBack = 2f;
-									return;
-								}
-								if (type == 2622)
-								{
-									this.mana = 18;
-									this.damage = 60;
-									this.useStyle = 5;
-									this.name = "Razorblade Typhoon";
-									this.shootSpeed = 6f;
-									this.shoot = 409;
-									this.width = 26;
-									this.height = 28;
-									this.useSound = 8;
-									this.useAnimation = 20;
-									this.useTime = 20;
-									this.autoReuse = true;
-									this.rare = 8;
-									this.noMelee = true;
-									this.knockBack = 5f;
-									this.scale = 0.9f;
-									this.toolTip = "Casts a typhoon";
-									this.value = this.value = Item.sellPrice(0, 5, 0, 0);
-									this.magic = true;
-									return;
-								}
-								if (type == 2625 || type == 2626)
-								{
-									this.name = "Beach Stuff";
-									this.useStyle = 1;
-									this.autoReuse = true;
-									this.useAnimation = 15;
-									this.useTime = 10;
-									this.maxStack = 99;
-									this.consumable = true;
-									this.createTile = 324;
-									if (type == 2626)
+									if (type >= 2442 && type <= 2449)
 									{
+										this.name = "Fishing Wall Hangings";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 240;
+										this.width = 30;
+										this.height = 30;
+										this.@value = Item.sellPrice(0, 0, 50, 0);
+										this.placeStyle = 46 + type - 2442;
+										return;
+									}
+									if (type >= 2450 && type <= 2488)
+									{
+										this.name = "Quest Fish";
+										this.questItem = true;
+										this.maxStack = 1;
+										this.width = 26;
+										this.height = 26;
+										this.uniqueStack = true;
+										this.rare = -11;
+										return;
+									}
+									if (type == 2489)
+									{
+										this.name = "King Slime Trophy";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 240;
+										this.width = 30;
+										this.height = 30;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										this.placeStyle = 54;
+										this.rare = 1;
+										return;
+									}
+									if (type == 2490)
+									{
+										this.name = "Ship in a Bottle";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 319;
+										this.width = 12;
+										this.height = 12;
+										this.@value = Item.sellPrice(0, 3, 0, 0);
+										return;
+									}
+									if (type == 2491)
+									{
+										this.useStyle = 1;
+										this.name = "Hardy Saddle";
+										this.width = 16;
+										this.height = 30;
+										this.useSound = 25;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.rare = 8;
+										this.noMelee = true;
+										this.mountType = 4;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										return;
+									}
+									if (type == 2492)
+									{
+										this.name = "Pressure Track";
+										this.useStyle = 1;
+										this.useAnimation = 15;
+										this.useTime = 7;
+										this.useTurn = true;
+										this.autoReuse = true;
+										this.width = 16;
+										this.height = 16;
+										this.maxStack = 99;
+										this.createTile = 314;
+										this.placeStyle = 1;
+										this.consumable = true;
+										this.cartTrack = true;
+										this.mech = true;
+										this.tileBoost = 2;
+										this.@value = Item.sellPrice(0, 0, 10, 0);
+										return;
+									}
+									if (type == 2493)
+									{
+										this.name = "King Slime Mask";
+										this.width = 28;
+										this.height = 20;
+										this.headSlot = 164;
+										this.rare = 1;
+										this.vanity = true;
+										return;
+									}
+									if (type == 2494)
+									{
+										this.name = "Fin Wings";
+										this.width = 22;
+										this.height = 20;
+										this.accessory = true;
+										this.toolTip = "Allows flight and slow fall";
+										this.@value = Item.sellPrice(0, 10, 0, 0);
+										this.rare = 4;
+										this.wingSlot = 25;
+										return;
+									}
+									if (type == 2495)
+									{
+										this.name = "Treasure Map";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 242;
+										this.width = 30;
+										this.height = 30;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										this.placeStyle = 25;
+										return;
+									}
+									if (type == 2496)
+									{
+										this.name = "Seaweed Planter";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 320;
+										this.placeStyle = 0;
+										this.width = 22;
+										this.height = 30;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										return;
+									}
+									if (type == 2497)
+									{
+										this.name = "Pillagin Me Pixels";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 242;
+										this.width = 30;
+										this.height = 30;
+										this.@value = Item.sellPrice(0, 0, 50, 0);
+										this.placeStyle = 26;
+										return;
+									}
+									if (type == 2498)
+									{
+										this.name = "Fish Costume Mask";
+										this.width = 18;
+										this.height = 18;
+										this.headSlot = 165;
+										this.vanity = true;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										return;
+									}
+									if (type == 2499)
+									{
+										this.name = "Fish Costume Shirt";
+										this.width = 18;
+										this.height = 18;
+										this.bodySlot = 172;
+										this.vanity = true;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										return;
+									}
+									if (type == 2500)
+									{
+										this.name = "Fish Costume Finskirt";
+										this.width = 18;
+										this.height = 18;
+										this.legSlot = 107;
+										this.vanity = true;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										return;
+									}
+									if (type == 2501)
+									{
+										this.name = "Ginger Beard";
+										this.width = 18;
+										this.height = 12;
+										this.maxStack = 1;
+										this.@value = Item.buyPrice(0, 40, 0, 0);
+										this.rare = 5;
+										this.accessory = true;
+										this.faceSlot = 8;
+										this.vanity = true;
+										return;
+									}
+									if (type == 2502)
+									{
+										this.useStyle = 1;
+										this.name = "Honeyed Goggles";
+										this.width = 16;
+										this.height = 30;
+										this.useSound = 25;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.rare = 8;
+										this.noMelee = true;
+										this.mountType = 5;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										return;
+									}
+									if (type == 2503)
+									{
+										this.name = "Boreal Wood";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 321;
+										this.width = 8;
+										this.height = 10;
+										return;
+									}
+									if (type == 2504)
+									{
+										this.name = "Palm Wood";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 322;
+										this.width = 8;
+										this.height = 10;
+										return;
+									}
+									if (type == 2505)
+									{
+										this.name = "Boreal Wood Wall";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 7;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createWall = 149;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2506)
+									{
+										this.name = "Palm Wood Wall";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 7;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createWall = 151;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2507)
+									{
+										this.name = "Boreal Wood Fence";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 7;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createWall = 150;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2508)
+									{
+										this.name = "Palm Wood Fence";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 7;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createWall = 152;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2509)
+									{
+										this.name = "Boreal Wood Helmet";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 1;
+										this.headSlot = 166;
+										return;
+									}
+									if (type == 2510)
+									{
+										this.name = "Boreal Wood Breastplate";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 1;
+										this.bodySlot = 173;
+										return;
+									}
+									if (type == 2511)
+									{
+										this.name = "Boreal Wood Greaves";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 1;
+										this.legSlot = 108;
+										return;
+									}
+									if (type == 2512)
+									{
+										this.name = "Palm Wood Helmet";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 1;
+										this.headSlot = 167;
+										return;
+									}
+									if (type == 2513)
+									{
+										this.name = "Palm Wood Breastplate";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 1;
+										this.bodySlot = 174;
+										return;
+									}
+									if (type == 2514)
+									{
+										this.name = "Palm Wood Greaves";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 1;
+										this.legSlot = 109;
+										return;
+									}
+									if (type == 2517)
+									{
+										this.name = "Palm Wood Sword";
+										this.useStyle = 1;
+										this.useTurn = false;
+										this.useAnimation = 23;
+										this.useTime = 23;
+										this.width = 24;
+										this.height = 28;
+										this.damage = 8;
+										this.knockBack = 5f;
+										this.useSound = 1;
+										this.scale = 1f;
+										this.@value = 100;
+										this.melee = true;
+										return;
+									}
+									if (type == 2516)
+									{
+										this.name = "Palm Wood Hammer";
+										this.autoReuse = true;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 33;
+										this.useTime = 23;
+										this.hammer = 35;
+										this.width = 24;
+										this.height = 28;
+										this.damage = 4;
+										this.knockBack = 5.5f;
+										this.scale = 1.1f;
+										this.useSound = 1;
+										this.@value = 50;
+										this.melee = true;
+										return;
+									}
+									if (type == 2515)
+									{
+										this.name = "Palm Wood Bow";
+										this.useStyle = 5;
+										this.useAnimation = 29;
+										this.useTime = 29;
+										this.width = 12;
+										this.height = 28;
+										this.shoot = 1;
+										this.useAmmo = 1;
+										this.useSound = 5;
+										this.damage = 6;
+										this.shootSpeed = 6.6f;
+										this.noMelee = true;
+										this.@value = 100;
+										this.ranged = true;
+										return;
+									}
+									if (type == 2518)
+									{
+										this.name = "Palm Wood Platform";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 19;
+										this.placeStyle = 17;
+										this.width = 8;
+										this.height = 10;
+										return;
+									}
+									if (type == 2519)
+									{
+										this.name = "Palm Wood Bathtub";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 90;
+										this.placeStyle = 17;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2520)
+									{
+										this.name = "Palm Wood Bed";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.autoReuse = true;
+										this.createTile = 79;
+										this.placeStyle = 22;
+										this.width = 28;
+										this.height = 20;
+										this.@value = 2000;
+										return;
+									}
+									if (type == 2521)
+									{
+										this.name = "Palm Wood Bench";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 89;
+										this.placeStyle = 21;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2527)
+									{
+										this.name = "Palm Wood Sofa";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 89;
+										this.placeStyle = 22;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2522)
+									{
+										this.name = "Palm Wood Candelabra";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 100;
+										this.placeStyle = 18;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 1500;
+										return;
+									}
+									if (type == 2523)
+									{
+										this.noWet = true;
+										this.name = "Palm Wood Candle";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 33;
+										this.placeStyle = 18;
+										this.width = 8;
+										this.height = 18;
+										return;
+									}
+									if (type == 2524)
+									{
+										this.name = "Palm Wood Chair";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 15;
+										this.placeStyle = 29;
+										this.width = 12;
+										this.height = 30;
+										return;
+									}
+									if (type == 2525)
+									{
+										this.name = "Palm Wood Chandelier";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 34;
+										this.placeStyle = 23;
+										this.width = 26;
+										this.height = 26;
+										this.@value = 3000;
+										return;
+									}
+									if (type == 2526)
+									{
+										this.name = "Palm Wood Chest";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 21;
+										this.placeStyle = 31;
+										this.width = 26;
+										this.height = 22;
+										this.@value = 500;
+										return;
+									}
+									if (type == 2528)
+									{
+										this.name = "Palm Wood Door";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 10;
+										this.placeStyle = 29;
+										this.width = 14;
+										this.height = 28;
+										this.@value = 200;
+										return;
+									}
+									if (type == 2529)
+									{
+										this.name = "Palm Wood Dresser";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 88;
+										this.placeStyle = 16;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2530)
+									{
+										this.name = "Palm Wood Lantern";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 42;
+										this.width = 12;
+										this.height = 28;
+										this.placeStyle = 27;
+										return;
+									}
+									if (type == 2531)
+									{
+										this.name = "Palm Wood Piano";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 87;
+										this.placeStyle = 21;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2535)
+									{
+										this.mana = 10;
+										this.damage = 30;
+										this.useStyle = 1;
+										this.name = "Optic Staff";
+										this.shootSpeed = 10f;
+										this.shoot = 387;
+										this.width = 26;
+										this.height = 28;
+										this.useSound = 82;
+										this.useAnimation = 36;
+										this.useTime = 36;
+										this.rare = 5;
+										this.noMelee = true;
+										this.knockBack = 2f;
+										this.toolTip = "Summons twins to fight for you";
+										this.buffType = 134;
+										this.@value = Item.buyPrice(0, 10, 0, 0);
+										this.summon = true;
+										return;
+									}
+									if (type == 2532)
+									{
+										this.name = "Palm Wood Table";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 14;
+										this.placeStyle = 26;
+										this.width = 26;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2533)
+									{
+										this.name = "Palm Wood Lamp";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 93;
+										this.placeStyle = 18;
+										this.width = 10;
+										this.height = 24;
+										this.@value = 500;
+										return;
+									}
+									if (type == 2534)
+									{
+										this.name = "Palm Wood Work Bench";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 18;
+										this.placeStyle = 22;
+										this.width = 28;
+										this.height = 14;
+										this.@value = 150;
+										this.toolTip = "Used for basic crafting";
+										return;
+									}
+									if (type == 2536)
+									{
+										this.name = "Palm Wood Bookcase";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 101;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										this.placeStyle = 23;
+										return;
+									}
+									if (type == 2549)
+									{
+										this.name = "Mushroom Platform";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 19;
+										this.placeStyle = 18;
+										this.width = 8;
+										this.height = 10;
+										return;
+									}
+									if (type == 2537)
+									{
+										this.name = "Mushroom Bathtub";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 90;
+										this.placeStyle = 18;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2538)
+									{
+										this.name = "Mushroom Bed";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.autoReuse = true;
+										this.createTile = 79;
+										this.placeStyle = 23;
+										this.width = 28;
+										this.height = 20;
+										this.@value = 2000;
+										return;
+									}
+									if (type == 2539)
+									{
+										this.name = "Mushroom Bench";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 89;
+										this.placeStyle = 23;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2540)
+									{
+										this.name = "Mushroom Bookcase";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 101;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										this.placeStyle = 24;
+										return;
+									}
+									if (type == 2541)
+									{
+										this.name = "Mushroom Candelabra";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 100;
+										this.placeStyle = 19;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 1500;
+										return;
+									}
+									if (type == 2542)
+									{
+										this.noWet = true;
+										this.name = "Mushroom Candle";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 33;
+										this.placeStyle = 19;
+										this.width = 8;
+										this.height = 18;
+										return;
+									}
+									if (type == 2543)
+									{
+										this.name = "Mushroom Chandelier";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 34;
+										this.placeStyle = 24;
+										this.width = 26;
+										this.height = 26;
+										this.@value = 3000;
+										return;
+									}
+									if (type == 2544)
+									{
+										this.name = "Mushroom Chest";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 21;
+										this.placeStyle = 32;
+										this.width = 26;
+										this.height = 22;
+										this.@value = 500;
+										return;
+									}
+									if (type == 2545)
+									{
+										this.name = "Mushroom Dresser";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 88;
+										this.placeStyle = 17;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2547)
+									{
+										this.name = "Mushroom Lamp";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 93;
+										this.placeStyle = 19;
+										this.width = 10;
+										this.height = 24;
+										this.@value = 500;
+										return;
+									}
+									if (type == 2546)
+									{
+										this.name = "Mushroom Lantern";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 42;
+										this.width = 12;
+										this.height = 28;
+										this.placeStyle = 28;
+										return;
+									}
+									if (type == 2548)
+									{
+										this.name = "Mushroom Piano";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 87;
+										this.placeStyle = 22;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2413)
+									{
+										this.name = "Mushroom Sofa";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 89;
+										this.placeStyle = 23;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2550)
+									{
+										this.name = "Mushroom Table";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 14;
+										this.placeStyle = 27;
+										this.width = 26;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2551)
+									{
+										this.mana = 10;
+										this.damage = 26;
+										this.useStyle = 1;
+										this.name = "Spider Staff";
+										this.shootSpeed = 10f;
+										this.shoot = 390;
+										this.width = 26;
+										this.height = 28;
+										this.useSound = 83;
+										this.useAnimation = 36;
+										this.useTime = 36;
+										this.rare = 4;
+										this.noMelee = true;
+										this.knockBack = 3f;
+										this.toolTip = "Summons spiders to fight for you";
+										this.buffType = 133;
+										this.@value = Item.buyPrice(0, 5, 0, 0);
+										this.summon = true;
+										return;
+									}
+									if (type == 2552)
+									{
+										this.name = "Boreal Wood Bathtub";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 90;
+										this.placeStyle = 19;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2553)
+									{
+										this.name = "Boreal Wood Bed";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.autoReuse = true;
+										this.createTile = 79;
+										this.placeStyle = 24;
+										this.width = 28;
+										this.height = 20;
+										this.@value = 2000;
+										return;
+									}
+									if (type == 2554)
+									{
+										this.name = "Boreal Wood Bookcase";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 101;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										this.placeStyle = 25;
+										return;
+									}
+									if (type == 2555)
+									{
+										this.name = "Boreal Wood Candelabra";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 100;
+										this.placeStyle = 20;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 1500;
+										return;
+									}
+									if (type == 2556)
+									{
+										this.noWet = true;
+										this.name = "Boreal Wood Candle";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 33;
+										this.placeStyle = 20;
+										this.width = 8;
+										this.height = 18;
+										return;
+									}
+									if (type == 2557)
+									{
+										this.name = "Boreal Wood Chair";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 15;
+										this.placeStyle = 30;
+										this.width = 12;
+										this.height = 30;
+										return;
+									}
+									if (type == 2558)
+									{
+										this.name = "Boreal Wood Chandelier";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 34;
+										this.placeStyle = 25;
+										this.width = 26;
+										this.height = 26;
+										this.@value = 3000;
+										return;
+									}
+									if (type == 2559)
+									{
+										this.name = "Boreal Wood Chest";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 21;
+										this.placeStyle = 33;
+										this.width = 26;
+										this.height = 22;
+										this.@value = 500;
+										return;
+									}
+									if (type == 2560)
+									{
+										this.name = "Boreal Wood Clock";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 104;
+										this.placeStyle = 6;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2561)
+									{
+										this.name = "Boreal Wood Door";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 10;
+										this.placeStyle = 30;
+										this.width = 14;
+										this.height = 28;
+										this.@value = 200;
+										return;
+									}
+									if (type == 2562)
+									{
+										this.name = "Boreal Wood Dresser";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 88;
+										this.placeStyle = 18;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2563)
+									{
+										this.name = "Boreal Wood Lamp";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 93;
+										this.placeStyle = 20;
+										this.width = 10;
+										this.height = 24;
+										this.@value = 500;
+										return;
+									}
+									if (type == 2564)
+									{
+										this.name = "Boreal Wood Lantern";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 42;
+										this.placeStyle = 29;
+										this.width = 12;
+										this.height = 28;
+										return;
+									}
+									if (type == 2565)
+									{
+										this.name = "Boreal Wood Piano";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 87;
+										this.placeStyle = 23;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2566)
+									{
+										this.name = "Boreal Wood Platform";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 19;
+										this.placeStyle = 19;
+										this.width = 8;
+										this.height = 10;
+										return;
+									}
+									if (type == 2567)
+									{
+										this.name = "Slime Bathtub";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 90;
+										this.placeStyle = 20;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2568)
+									{
+										this.name = "Slime Bed";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.autoReuse = true;
+										this.createTile = 79;
+										this.placeStyle = 25;
+										this.width = 28;
+										this.height = 20;
+										this.@value = 2000;
+										return;
+									}
+									if (type == 2569)
+									{
+										this.name = "Slime Bookcase";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 101;
+										this.placeStyle = 26;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2570)
+									{
+										this.name = "Slime Candelabra";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 100;
+										this.placeStyle = 21;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 1500;
+										return;
+									}
+									if (type == 2571)
+									{
+										this.noWet = true;
+										this.name = "Slime Candle";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 33;
+										this.placeStyle = 21;
+										this.width = 8;
+										this.height = 18;
+										return;
+									}
+									if (type == 2572)
+									{
+										this.name = "Slime Chair";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 15;
+										this.placeStyle = 31;
+										this.width = 12;
+										this.height = 30;
+										return;
+									}
+									if (type == 2573)
+									{
+										this.name = "Slime Chandelier";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 34;
+										this.placeStyle = 26;
+										this.width = 26;
+										this.height = 26;
+										this.@value = 3000;
+										return;
+									}
+									if (type == 2574)
+									{
+										this.name = "Slime Chest";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 21;
+										this.placeStyle = 34;
+										this.width = 26;
+										this.height = 22;
+										this.@value = 500;
+										return;
+									}
+									if (type == 2575)
+									{
+										this.name = "Slime Clock";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 104;
+										this.placeStyle = 7;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2576)
+									{
+										this.name = "Slime Door";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 10;
+										this.placeStyle = 31;
+										this.width = 14;
+										this.height = 28;
+										this.@value = 200;
+										return;
+									}
+									if (type == 2577)
+									{
+										this.name = "Slime Dresser";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 88;
+										this.placeStyle = 19;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2578)
+									{
+										this.name = "Slime Lamp";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 93;
+										this.placeStyle = 21;
+										this.width = 10;
+										this.height = 24;
+										this.@value = 500;
+										return;
+									}
+									if (type == 2579)
+									{
+										this.name = "Slime Lantern";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 42;
+										this.placeStyle = 30;
+										this.width = 12;
+										this.height = 28;
+										return;
+									}
+									if (type == 2580)
+									{
+										this.name = "Slime Piano";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 87;
+										this.placeStyle = 24;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2581)
+									{
+										this.name = "Slime Platform";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 19;
+										this.placeStyle = 20;
+										this.width = 8;
+										this.height = 10;
+										return;
+									}
+									if (type == 2582)
+									{
+										this.name = "Slime Sofa";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 89;
+										this.placeStyle = 25;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2583)
+									{
+										this.name = "Slime Table";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 14;
+										this.placeStyle = 29;
+										this.width = 26;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2584)
+									{
+										this.mana = 10;
+										this.damage = 40;
+										this.useStyle = 1;
+										this.name = "Pirate Staff";
+										this.shootSpeed = 10f;
+										this.shoot = 393;
+										this.width = 26;
+										this.height = 28;
+										this.useSound = 44;
+										this.useAnimation = 36;
+										this.useTime = 36;
+										this.rare = 5;
+										this.noMelee = true;
+										this.knockBack = 6f;
+										this.toolTip = "Summons pirates to fight for you";
+										this.buffType = 135;
+										this.@value = Item.buyPrice(0, 5, 0, 0);
+										this.summon = true;
+										return;
+									}
+									if (type == 2585)
+									{
+										this.noUseGraphic = true;
+										this.damage = 0;
+										this.useStyle = 5;
+										this.name = "Slime Hook";
+										this.shootSpeed = 13f;
+										this.shoot = 396;
+										this.width = 18;
+										this.height = 28;
+										this.useSound = 1;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.rare = 3;
+										this.noMelee = true;
+										this.@value = 20000;
+										return;
+									}
+									if (type == 2586)
+									{
+										this.useStyle = 5;
+										this.name = "Sticky Grenade";
+										this.shootSpeed = 5.5f;
+										this.shoot = 397;
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.useSound = 1;
+										this.useAnimation = 45;
+										this.useTime = 45;
+										this.noUseGraphic = true;
+										this.noMelee = true;
+										this.@value = 75;
+										this.damage = 60;
+										this.knockBack = 8f;
+										this.toolTip = "A small explosion that will not destroy tiles";
+										this.toolTip2 = "Tossing may be difficult";
+										this.thrown = true;
+										return;
+									}
+									if (type == 2587)
+									{
+										this.damage = 0;
+										this.useStyle = 1;
+										this.name = "Tartar Sauce";
+										this.shoot = 398;
+										this.width = 16;
+										this.height = 30;
+										this.useSound = 2;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.rare = 3;
+										this.noMelee = true;
+										this.toolTip = "Summons a mini minotaur";
+										this.buffType = 136;
+										this.@value = Item.sellPrice(0, 2, 0, 0);
+										return;
+									}
+									if (type == 2588)
+									{
+										this.name = "Duke Fishron Mask";
+										this.width = 28;
+										this.height = 20;
+										this.headSlot = 168;
+										this.rare = 1;
+										this.vanity = true;
+										return;
+									}
+									if (type == 2589)
+									{
+										this.name = "Duke Fishron Trophy";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 240;
+										this.width = 30;
+										this.height = 30;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										this.placeStyle = 55;
+										this.rare = 1;
+										return;
+									}
+									if (type == 2590)
+									{
+										this.useStyle = 5;
+										this.name = "Molotov Cocktail";
+										this.shootSpeed = 6.5f;
+										this.shoot = 399;
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.useSound = 1;
+										this.useAnimation = 40;
+										this.useTime = 40;
+										this.noUseGraphic = true;
+										this.noMelee = true;
+										this.@value = Item.sellPrice(0, 0, 1, 0);
+										this.damage = 23;
+										this.knockBack = 7f;
+										this.toolTip = "A small explosion that puts enemies on fire";
+										this.toolTip2 = "Lights nearby area on fire for a while";
+										this.thrown = true;
+										this.rare = 1;
+										return;
+									}
+									if (type >= 2591 && type <= 2606)
+									{
+										this.name = "Grandfather Clock";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 104;
+										this.placeStyle = 8 + type - 2591;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2607)
+									{
+										this.name = "Spider Fang";
+										this.maxStack = 99;
+										this.width = 12;
+										this.height = 12;
+										this.rare = 4;
+										this.@value = Item.sellPrice(0, 0, 5, 0);
+										return;
+									}
+									if (type == 2608)
+									{
+										this.autoReuse = true;
+										this.scale = 1.05f;
+										this.name = "Falcon Blade";
+										this.useStyle = 1;
+										this.useAnimation = 15;
+										this.knockBack = 6f;
+										this.width = 24;
+										this.height = 28;
+										this.damage = 30;
+										this.scale = 1.05f;
+										this.useSound = 1;
+										this.rare = 4;
+										this.@value = 10000;
+										this.melee = true;
+										return;
+									}
+									if (type == 2609)
+									{
+										this.name = "Fishron Wings";
+										this.width = 22;
+										this.height = 20;
+										this.accessory = true;
+										this.toolTip = "Allows flight and slow fall";
+										this.@value = Item.buyPrice(0, 10, 0, 0);
+										this.rare = 8;
+										this.wingSlot = 26;
+										return;
+									}
+									if (type == 2610)
+									{
+										this.name = "Slime Gun";
+										this.useStyle = 5;
+										this.useAnimation = 12;
+										this.useTime = 12;
+										this.width = 38;
+										this.height = 10;
+										this.damage = 0;
+										this.scale = 0.9f;
+										this.shoot = 406;
+										this.shootSpeed = 8f;
+										this.autoReuse = true;
+										this.@value = Item.buyPrice(0, 1, 50, 0);
+										return;
+									}
+									if (type == 2611)
+									{
+										this.autoReuse = false;
+										this.name = "Flairon";
+										this.useStyle = 5;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.autoReuse = true;
+										this.knockBack = 4.5f;
+										this.width = 30;
+										this.height = 10;
+										this.damage = 66;
+										this.shoot = 404;
+										this.shootSpeed = 14f;
+										this.useSound = 1;
+										this.rare = 8;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										this.melee = true;
+										this.noUseGraphic = true;
+										return;
+									}
+									if (type >= 2612 && type <= 2620)
+									{
+										this.name = "Many Chests";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 21;
+										if (type > 2614)
+										{
+											this.placeStyle = 41 + type - 2615;
+										}
+										else
+										{
+											this.placeStyle = 35 + (type - 2612) * 2;
+										}
+										this.width = 26;
+										this.height = 22;
+										this.@value = 500;
+										return;
+									}
+									if (type == 2621)
+									{
+										this.mana = 10;
+										this.damage = 50;
+										this.useStyle = 1;
+										this.name = "Tempest Staff";
+										this.shootSpeed = 10f;
+										this.shoot = 407;
+										this.width = 26;
+										this.height = 28;
+										this.useSound = 44;
+										this.useAnimation = 36;
+										this.useTime = 36;
+										this.rare = 8;
+										this.noMelee = true;
+										this.knockBack = 2f;
+										this.toolTip = "Summons sharknados to fight for you";
+										this.buffType = 139;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										this.summon = true;
+										return;
+									}
+									if (type == 2624)
+									{
+										this.useStyle = 5;
+										this.autoReuse = true;
+										this.useAnimation = 24;
+										this.useTime = 24;
+										this.name = "Tsunami";
+										this.width = 50;
+										this.height = 18;
+										this.shoot = 1;
+										this.useAmmo = 1;
+										this.useSound = 5;
+										this.damage = 60;
+										this.shootSpeed = 10f;
+										this.noMelee = true;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										this.ranged = true;
+										this.rare = 8;
+										this.knockBack = 2f;
+										return;
+									}
+									if (type == 2622)
+									{
+										this.mana = 16;
+										this.damage = 60;
+										this.useStyle = 5;
+										this.name = "Razorblade Typhoon";
+										this.shootSpeed = 6f;
+										this.shoot = 409;
+										this.width = 26;
+										this.height = 28;
+										this.useSound = 84;
+										this.useAnimation = 40;
+										this.useTime = 20;
+										this.autoReuse = true;
+										this.rare = 8;
+										this.noMelee = true;
+										this.knockBack = 5f;
+										this.scale = 0.9f;
+										this.toolTip = "Casts a typhoon";
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										this.magic = true;
+										return;
+									}
+									if (type == 2625 || type == 2626)
+									{
+										this.name = "Beach Stuff";
+										this.useStyle = 1;
+										this.autoReuse = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 324;
+										if (type != 2626)
+										{
+											this.width = 22;
+											this.height = 22;
+											return;
+										}
 										this.placeStyle = 1;
 										this.width = 26;
 										this.height = 24;
 										return;
 									}
-									this.width = 22;
-									this.height = 22;
-									return;
-								}
-								else
-								{
 									if (type >= 2627 && type <= 2630)
 									{
 										this.name = "More Platforms";
@@ -36145,7 +38570,7 @@ namespace Terraria
 										this.useAnimation = 15;
 										this.useTime = 10;
 										this.autoReuse = true;
-										this.maxStack = 99;
+										this.maxStack = 999;
 										this.consumable = true;
 										this.createTile = 19;
 										this.placeStyle = 21 + type - 2627;
@@ -36167,7 +38592,7 @@ namespace Terraria
 										this.placeStyle = 24 + type - 2631;
 										this.width = 28;
 										this.height = 14;
-										this.value = 150;
+										this.@value = 150;
 										this.toolTip = "Used for basic crafting";
 										return;
 									}
@@ -36185,7 +38610,7 @@ namespace Terraria
 										this.placeStyle = 26 + type - 2634;
 										this.width = 20;
 										this.height = 20;
-										this.value = 300;
+										this.@value = 300;
 										return;
 									}
 									if (type == 2623)
@@ -36193,7 +38618,7 @@ namespace Terraria
 										this.autoReuse = true;
 										this.name = "Bubble Gun";
 										this.mana = 4;
-										this.useSound = 39;
+										this.useSound = 85;
 										this.useStyle = 5;
 										this.damage = 70;
 										this.useAnimation = 9;
@@ -36203,7 +38628,7 @@ namespace Terraria
 										this.shoot = 410;
 										this.shootSpeed = 11f;
 										this.knockBack = 3f;
-										this.value = Item.sellPrice(0, 5, 0, 0);
+										this.@value = Item.sellPrice(0, 5, 0, 0);
 										this.magic = true;
 										this.rare = 8;
 										this.noMelee = true;
@@ -36223,7 +38648,7 @@ namespace Terraria
 										this.placeStyle = 20 + type - 2637;
 										this.width = 20;
 										this.height = 20;
-										this.value = 300;
+										this.@value = 300;
 										return;
 									}
 									if (type == 2641 || type == 2642)
@@ -36237,13 +38662,13 @@ namespace Terraria
 										this.maxStack = 999;
 										this.consumable = true;
 										this.createTile = 42;
-										if (type == 2641)
+										if (type != 2641)
 										{
-											this.placeStyle = 31;
+											this.placeStyle = 32;
 										}
 										else
 										{
-											this.placeStyle = 32;
+											this.placeStyle = 31;
 										}
 										this.width = 12;
 										this.height = 28;
@@ -36263,7 +38688,7 @@ namespace Terraria
 										this.placeStyle = 22 + type - 2643;
 										this.width = 10;
 										this.height = 24;
-										this.value = 500;
+										this.@value = 500;
 										return;
 									}
 									if (type >= 2648 && type <= 2651)
@@ -36297,7 +38722,7 @@ namespace Terraria
 										this.placeStyle = 27 + type - 2652;
 										this.width = 26;
 										this.height = 26;
-										this.value = 3000;
+										this.@value = 3000;
 										return;
 									}
 									if (type >= 2658 && type <= 2663)
@@ -36314,7 +38739,7 @@ namespace Terraria
 										this.placeStyle = 21 + type - 2658;
 										this.width = 20;
 										this.height = 20;
-										this.value = 300;
+										this.@value = 300;
 										return;
 									}
 									if (type >= 2664 && type <= 2668)
@@ -36331,7 +38756,7 @@ namespace Terraria
 										this.placeStyle = 22 + type - 2664;
 										this.width = 20;
 										this.height = 20;
-										this.value = 1500;
+										this.@value = 1500;
 										return;
 									}
 									if (type == 2669)
@@ -36348,7 +38773,7 @@ namespace Terraria
 										this.placeStyle = 26;
 										this.width = 28;
 										this.height = 20;
-										this.value = 2000;
+										this.@value = 2000;
 										return;
 									}
 									if (type == 2670)
@@ -36364,7 +38789,7 @@ namespace Terraria
 										this.createTile = 101;
 										this.width = 20;
 										this.height = 20;
-										this.value = 300;
+										this.@value = 300;
 										this.placeStyle = 27;
 										return;
 									}
@@ -36382,7 +38807,7 @@ namespace Terraria
 										this.placeStyle = 25;
 										this.width = 20;
 										this.height = 20;
-										this.value = 300;
+										this.@value = 300;
 										return;
 									}
 									if (type == 2672)
@@ -36398,7 +38823,7 @@ namespace Terraria
 										this.createTile = 105;
 										this.width = 20;
 										this.height = 20;
-										this.value = 300;
+										this.@value = 300;
 										this.placeStyle = 50;
 										return;
 									}
@@ -36426,907 +38851,8529 @@ namespace Terraria
 										this.consumable = true;
 										this.width = 12;
 										this.height = 12;
-										this.bait = 15;
 										if (type == 2675)
 										{
 											this.bait = 30;
+											this.@value = Item.sellPrice(0, 0, 3, 0);
+											return;
 										}
 										if (type == 2676)
+										{
+											this.bait = 50;
+											this.@value = Item.sellPrice(0, 0, 10, 0);
+											return;
+										}
+										this.bait = 15;
+										this.@value = Item.sellPrice(0, 0, 1, 0);
+										return;
+									}
+									if (type >= 2677 && type <= 2690)
+									{
+										this.name = "gemspark walls";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										switch (type)
+										{
+											case 2677:
+											{
+												this.createWall = 153;
+												break;
+											}
+											case 2678:
+											{
+												this.createWall = 157;
+												break;
+											}
+											case 2679:
+											{
+												this.createWall = 154;
+												break;
+											}
+											case 2680:
+											{
+												this.createWall = 158;
+												break;
+											}
+											case 2681:
+											{
+												this.createWall = 155;
+												break;
+											}
+											case 2682:
+											{
+												this.createWall = 159;
+												break;
+											}
+											case 2683:
+											{
+												this.createWall = 156;
+												break;
+											}
+											case 2684:
+											{
+												this.createWall = 160;
+												break;
+											}
+											case 2685:
+											{
+												this.createWall = 164;
+												break;
+											}
+											case 2686:
+											{
+												this.createWall = 161;
+												break;
+											}
+											case 2687:
+											{
+												this.createWall = 165;
+												break;
+											}
+											case 2688:
+											{
+												this.createWall = 162;
+												break;
+											}
+											case 2689:
+											{
+												this.createWall = 166;
+												break;
+											}
+											case 2690:
+											{
+												this.createWall = 163;
+												break;
+											}
+										}
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2691)
+									{
+										this.name = "Tin Plating Wall";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 7;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createWall = 167;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2692)
+									{
+										this.name = "Tin Plating";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 325;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2693)
+									{
+										this.name = "Waterfall Block";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 326;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2694)
+									{
+										this.name = "Lavafall Block";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 327;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2695)
+									{
+										this.name = "Confetti Block";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 328;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2696)
+									{
+										this.name = "Confetti Wall";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 7;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createWall = 168;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2697)
+									{
+										this.name = "Confetti Block";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 329;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2698)
+									{
+										this.name = "Confetti Wall";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 7;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createWall = 169;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2699)
+									{
+										this.name = "Weapon Rack";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 334;
+										this.width = 30;
+										this.height = 30;
+										this.@value = Item.sellPrice(0, 0, 10, 0);
+										return;
+									}
+									if (type == 2700)
+									{
+										this.name = "Fireworks Box";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 335;
+										this.width = 26;
+										this.height = 22;
+										this.@value = Item.buyPrice(0, 5, 0, 0);
+										this.mech = true;
+										return;
+									}
+									if (type == 2701)
+									{
+										this.name = "Living Fire Block";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 336;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type >= 2702 && type <= 2737)
+									{
+										this.name = "statues";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 337;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										this.placeStyle = type - 2702;
+										return;
+									}
+									if (type == 2738)
+									{
+										this.name = "Firework Fountain";
+										this.createTile = 338;
+										this.placeStyle = 0;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.width = 12;
+										this.height = 30;
+										this.@value = Item.buyPrice(0, 3, 0, 0);
+										this.mech = true;
+										return;
+									}
+									if (type == 2739)
+									{
+										this.name = "Booster Track";
+										this.useStyle = 1;
+										this.useAnimation = 15;
+										this.useTime = 7;
+										this.useTurn = true;
+										this.autoReuse = true;
+										this.width = 16;
+										this.height = 16;
+										this.maxStack = 99;
+										this.createTile = 314;
+										this.placeStyle = 2;
+										this.consumable = true;
+										this.cartTrack = true;
+										this.mech = true;
+										this.tileBoost = 2;
+										this.@value = Item.buyPrice(0, 0, 50, 0);
+										return;
+									}
+									if (type == 2740)
+									{
+										this.name = "Grasshopper";
+										this.useStyle = 1;
+										this.autoReuse = true;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.width = 12;
+										this.height = 12;
+										this.makeNPC = 377;
+										this.noUseGraphic = true;
+										this.bait = 10;
+										return;
+									}
+									if (type == 2741)
+									{
+										this.name = "Critter Cage";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 339;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2742)
+									{
+										this.name = "Music Box (Underground Crimson)";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.consumable = true;
+										this.createTile = 139;
+										this.placeStyle = 31;
+										this.width = 24;
+										this.height = 24;
+										this.rare = 4;
+										this.@value = 100000;
+										this.accessory = true;
+										return;
+									}
+									if (type == 2743)
+									{
+										this.name = "Cactus Table";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 14;
+										this.placeStyle = 30;
+										this.width = 26;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2744)
+									{
+										this.name = "Cactus Platform";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 19;
+										this.placeStyle = 25;
+										this.width = 8;
+										this.height = 10;
+										return;
+									}
+									if (type == 2745)
+									{
+										this.name = "Boreal Wood Sword";
+										this.useStyle = 1;
+										this.useTurn = false;
+										this.useAnimation = 23;
+										this.useTime = 23;
+										this.width = 24;
+										this.height = 28;
+										this.damage = 8;
+										this.knockBack = 5f;
+										this.useSound = 1;
+										this.scale = 1f;
+										this.@value = 100;
+										this.melee = true;
+										return;
+									}
+									if (type == 2746)
+									{
+										this.name = "Boreal Wood Hammer";
+										this.autoReuse = true;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 33;
+										this.useTime = 23;
+										this.hammer = 35;
+										this.width = 24;
+										this.height = 28;
+										this.damage = 4;
+										this.knockBack = 5.5f;
+										this.scale = 1.1f;
+										this.useSound = 1;
+										this.@value = 50;
+										this.melee = true;
+										return;
+									}
+									if (type == 2747)
+									{
+										this.name = "Boreal Wood Bow";
+										this.useStyle = 5;
+										this.useAnimation = 29;
+										this.useTime = 29;
+										this.width = 12;
+										this.height = 28;
+										this.shoot = 1;
+										this.useAmmo = 1;
+										this.useSound = 5;
+										this.damage = 6;
+										this.shootSpeed = 6.6f;
+										this.noMelee = true;
+										this.@value = 100;
+										this.ranged = true;
+										return;
+									}
+									if (type == 2748)
+									{
+										this.name = "Glass Chest";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 21;
+										this.placeStyle = 47;
+										this.width = 26;
+										this.height = 22;
+										this.@value = 500;
+										return;
+									}
+									if (type == 2749)
+									{
+										this.mana = 10;
+										this.damage = 36;
+										this.useStyle = 1;
+										this.name = "Xeno Staff";
+										this.shootSpeed = 10f;
+										this.shoot = 423;
+										this.width = 26;
+										this.height = 28;
+										this.useSound = 44;
+										this.useAnimation = 36;
+										this.useTime = 36;
+										this.rare = 3;
+										this.noMelee = true;
+										this.knockBack = 2f;
+										this.toolTip = "Summons a UFO to fight for you";
+										this.buffType = 140;
+										this.@value = 10000;
+										this.summon = true;
+										return;
+									}
+									if (type == 2750)
+									{
+										this.autoReuse = true;
+										this.name = "Meteor Staff";
+										this.mana = 13;
+										this.useStyle = 5;
+										this.damage = 50;
+										this.useAnimation = 10;
+										this.useTime = 10;
+										this.width = 40;
+										this.height = 40;
+										this.shoot = 424;
+										this.shootSpeed = 10f;
+										this.knockBack = 4.5f;
+										this.@value = Item.sellPrice(0, 2, 0, 0);
+										this.magic = true;
+										this.rare = 5;
+										this.noMelee = true;
+										this.useSound = 88;
+										return;
+									}
+									if (type >= 2751 && type <= 2755)
+									{
+										this.name = "Living Fire Block";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 340 + type - 2751;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2756)
+									{
+										this.name = "Gender Change Potion";
+										this.useSound = 6;
+										this.useStyle = 2;
+										this.useTurn = true;
+										this.useAnimation = 17;
+										this.useTime = 17;
+										this.maxStack = 30;
+										this.consumable = true;
+										this.width = 14;
+										this.height = 24;
+										this.@value = 1000;
+										this.rare = 1;
+										return;
+									}
+									if (type == 2757)
+									{
+										this.name = "Vortex Helmet";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 14;
+										this.headSlot = 169;
+										this.glowMask = 26;
+										this.rare = 10;
+										return;
+									}
+									if (type == 2758)
+									{
+										this.name = "Vortex Breastplate";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 28;
+										this.bodySlot = 175;
+										this.glowMask = 27;
+										this.rare = 10;
+										return;
+									}
+									if (type == 2759)
+									{
+										this.name = "Vortex Leggings";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 20;
+										this.legSlot = 110;
+										this.rare = 10;
+										return;
+									}
+									if (type == 2760)
+									{
+										this.name = "Nebula Helmet";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 14;
+										this.headSlot = 170;
+										this.glowMask = 28;
+										this.rare = 10;
+										return;
+									}
+									if (type == 2761)
+									{
+										this.name = "Nebula Breastplate";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 18;
+										this.bodySlot = 176;
+										this.glowMask = 29;
+										this.rare = 10;
+										return;
+									}
+									if (type == 2762)
+									{
+										this.name = "Nebula Leggings";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 14;
+										this.legSlot = 111;
+										this.glowMask = 30;
+										this.rare = 10;
+										return;
+									}
+									if (type == 2763)
+									{
+										this.name = "Solar Flare Helmet";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 24;
+										this.headSlot = 171;
+										this.rare = 10;
+										return;
+									}
+									if (type == 2764)
+									{
+										this.name = "Solar Flare Breastplate";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 34;
+										this.bodySlot = 177;
+										this.rare = 10;
+										return;
+									}
+									if (type == 2765)
+									{
+										this.name = "Solar Flare Leggings";
+										this.width = 18;
+										this.height = 18;
+										this.defense = 20;
+										this.legSlot = 112;
+										this.rare = 10;
+										return;
+									}
+									if (type == 2767)
+									{
+										this.useStyle = 4;
+										this.name = "Lunar Tablet";
+										this.width = 22;
+										this.height = 14;
+										this.consumable = true;
+										this.useAnimation = 45;
+										this.useTime = 45;
+										this.maxStack = 20;
+										this.toolTip = "Summons the Eclipse";
+										this.rare = 8;
+										return;
+									}
+									if (type == 2766)
+									{
+										this.name = "Lunar Tablet Fragment";
+										this.width = 22;
+										this.height = 14;
+										this.maxStack = 99;
+										this.toolTip = "Power pulses weakly in the fragment";
+										this.rare = 8;
+										return;
+									}
+									if (type == 2770)
+									{
+										this.name = "Mothron Wings";
+										this.width = 22;
+										this.height = 20;
+										this.accessory = true;
+										this.toolTip = "Allows flight and slow fall";
+										this.@value = 400000;
+										this.rare = 8;
+										this.wingSlot = 27;
+										return;
+									}
+									if (type == 2769)
+									{
+										this.useStyle = 1;
+										this.name = "Cosmic Car Key";
+										this.width = 32;
+										this.height = 30;
+										this.useSound = 25;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.rare = 8;
+										this.noMelee = true;
+										this.mountType = 7;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										return;
+									}
+									if (type == 2768)
+									{
+										this.useStyle = 1;
+										this.name = "Drill Containment Unit";
+										this.width = 32;
+										this.height = 30;
+										this.useSound = 25;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.rare = 8;
+										this.noMelee = true;
+										this.mountType = 8;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										return;
+									}
+									if (type == 2771)
+									{
+										this.useStyle = 1;
+										this.name = "Brain Scrambler";
+										this.channel = true;
+										this.width = 34;
+										this.height = 34;
+										this.useSound = 90;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.rare = 8;
+										this.noMelee = true;
+										this.mountType = 9;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										return;
+									}
+									if (type == 2772)
+									{
+										this.name = "Vortex Axe";
+										this.autoReuse = true;
+										this.useStyle = 1;
+										this.useAnimation = 25;
+										this.knockBack = 6f;
+										this.useTime = 7;
+										this.width = 54;
+										this.height = 54;
+										this.damage = 100;
+										this.axe = 27;
+										this.useSound = 1;
+										this.rare = 10;
+										this.scale = 1.05f;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										this.melee = true;
+										this.glowMask = 1;
+										Item item1 = this;
+										item1.tileBoost = item1.tileBoost + 4;
+										return;
+									}
+									if (type == 2773)
+									{
+										this.name = "Vortex Chainsaw";
+										this.useStyle = 5;
+										this.useAnimation = 25;
+										this.useTime = 7;
+										this.shootSpeed = 28f;
+										this.knockBack = 4f;
+										this.width = 56;
+										this.height = 22;
+										this.damage = 80;
+										this.axe = 27;
+										this.useSound = 23;
+										this.shoot = 427;
+										this.rare = 10;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										this.noMelee = true;
+										this.noUseGraphic = true;
+										this.melee = true;
+										this.channel = true;
+										this.glowMask = 20;
+										Item item2 = this;
+										item2.tileBoost = item2.tileBoost + 4;
+										return;
+									}
+									if (type == 2774)
+									{
+										this.name = "Vortex Drill";
+										this.useStyle = 5;
+										this.useAnimation = 25;
+										this.useTime = 9;
+										this.shootSpeed = 32f;
+										this.knockBack = 0f;
+										this.width = 54;
+										this.height = 26;
+										this.damage = 50;
+										this.pick = 225;
+										this.useSound = 23;
+										this.shoot = 428;
+										this.rare = 10;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										this.noMelee = true;
+										this.noUseGraphic = true;
+										this.melee = true;
+										this.channel = true;
+										this.glowMask = 21;
+										Item item3 = this;
+										item3.tileBoost = item3.tileBoost + 4;
+										return;
+									}
+									if (type == 2776)
+									{
+										this.name = "Vortex Pickaxe";
+										this.useStyle = 1;
+										this.useAnimation = 12;
+										this.useTime = 6;
+										this.knockBack = 5.5f;
+										this.useTurn = true;
+										this.autoReuse = true;
+										this.width = 36;
+										this.height = 36;
+										this.damage = 80;
+										this.pick = 225;
+										this.useSound = 1;
+										this.rare = 10;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										this.melee = true;
+										this.glowMask = 5;
+										Item item4 = this;
+										item4.tileBoost = item4.tileBoost + 4;
+										return;
+									}
+									if (type == 2775)
+									{
+										this.name = "Vortex Hammer";
+										this.useTurn = true;
+										this.autoReuse = true;
+										this.useStyle = 1;
+										this.useAnimation = 30;
+										this.useTime = 7;
+										this.knockBack = 7f;
+										this.width = 44;
+										this.height = 42;
+										this.damage = 110;
+										this.hammer = 100;
+										this.useSound = 1;
+										this.rare = 10;
+										this.@value = Item.sellPrice(0, 5, 0, 0);
+										this.melee = true;
+										this.scale = 1.1f;
+										this.glowMask = 4;
+										Item item5 = this;
+										item5.tileBoost = item5.tileBoost + 4;
+										return;
+									}
+									if (type == 2777)
+									{
+										this.SetDefaults3(2772);
+										type = 2777;
+										this.name = "Nebula Axe";
+										this.glowMask = 6;
+										return;
+									}
+									if (type == 2778)
+									{
+										this.SetDefaults3(2773);
+										type = 2778;
+										this.name = "Nebula Chainsaw";
+										this.shoot = 429;
+										this.glowMask = 22;
+										return;
+									}
+									if (type == 2779)
+									{
+										this.SetDefaults3(2774);
+										type = 2779;
+										this.name = "Nebula Drill";
+										this.shoot = 430;
+										this.glowMask = 23;
+										return;
+									}
+									if (type == 2780)
+									{
+										this.SetDefaults3(2775);
+										type = 2780;
+										this.name = "Nebula Hammer";
+										this.glowMask = 9;
+										return;
+									}
+									if (type == 2781)
+									{
+										this.SetDefaults3(2776);
+										type = 2781;
+										this.name = "Nebula Pickaxe";
+										this.glowMask = 10;
+										return;
+									}
+									if (type == 2782)
+									{
+										this.SetDefaults3(2772);
+										type = 2782;
+										this.name = "Solar Flare Axe";
+										this.glowMask = 0;
+										return;
+									}
+									if (type == 2783)
+									{
+										this.SetDefaults3(2773);
+										type = 2783;
+										this.name = "Solar Flare Chainsaw";
+										this.shoot = 431;
+										this.glowMask = 0;
+										return;
+									}
+									if (type == 2784)
+									{
+										this.SetDefaults3(2774);
+										type = 2784;
+										this.name = "Solar Flare Drill";
+										this.shoot = 432;
+										this.glowMask = 0;
+										return;
+									}
+									if (type == 2785)
+									{
+										this.SetDefaults3(2775);
+										type = 2785;
+										this.name = "Solar Flare Hammer";
+										this.glowMask = 0;
+										return;
+									}
+									if (type == 2786)
+									{
+										this.SetDefaults3(2776);
+										type = 2786;
+										this.name = "Solar Flare Pickaxe";
+										this.glowMask = 0;
+										return;
+									}
+									if (type == 2787)
+									{
+										this.name = "Honeyfall Block";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 345;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2788)
+									{
+										this.name = "Honeyfall Wall";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 7;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createWall = 172;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type >= 2789 && type <= 2791)
+									{
+										this.name = "Walls";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 7;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createWall = 173 + type - 2789;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type >= 2792 && type <= 2794)
+									{
+										this.name = "bricks";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 346 + type - 2792;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2795)
+									{
+										this.name = "Laser Machinegun";
+										this.useStyle = 5;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.shootSpeed = 20f;
+										this.knockBack = 2f;
+										this.width = 20;
+										this.height = 12;
+										this.damage = 60;
+										this.shoot = 439;
+										this.mana = 6;
+										this.rare = 8;
+										this.@value = Item.sellPrice(0, 10, 0, 0);
+										this.noMelee = true;
+										this.noUseGraphic = true;
+										this.magic = true;
+										this.channel = true;
+										this.glowMask = 47;
+										return;
+									}
+									if (type == 2796)
+									{
+										this.useStyle = 5;
+										this.useAnimation = 12;
+										this.useTime = 12;
+										this.name = "Electrosphere Launcher";
+										this.width = 50;
+										this.height = 18;
+										this.shoot = 442;
+										this.useAmmo = 771;
+										this.glowMask = 36;
+										this.useSound = 92;
+										this.damage = 40;
+										this.shootSpeed = 12f;
+										this.noMelee = true;
+										this.@value = Item.sellPrice(0, 10, 0, 0);
+										this.ranged = true;
+										this.rare = 8;
+										this.knockBack = 2f;
+										return;
+									}
+									if (type == 2797)
+									{
+										this.useStyle = 5;
+										this.useAnimation = 21;
+										this.useTime = 21;
+										this.autoReuse = true;
+										this.name = "Xenopopper";
+										this.width = 50;
+										this.height = 18;
+										this.shoot = 444;
+										this.useAmmo = 14;
+										this.glowMask = 38;
+										this.useSound = 95;
+										this.damage = 45;
+										this.shootSpeed = 12f;
+										this.noMelee = true;
+										this.@value = Item.sellPrice(0, 10, 0, 0);
+										this.ranged = true;
+										this.rare = 8;
+										this.knockBack = 3f;
+										return;
+									}
+									if (type == 2798)
+									{
+										this.name = "Laser Drill";
+										this.useStyle = 5;
+										this.useAnimation = 25;
+										this.useTime = 7;
+										this.shootSpeed = 36f;
+										this.knockBack = 4.75f;
+										this.width = 20;
+										this.height = 12;
+										this.damage = 35;
+										this.pick = 230;
+										this.axe = 30;
+										this.useSound = 23;
+										this.shoot = 445;
+										this.rare = 8;
+										this.@value = Item.sellPrice(0, 10, 0, 0);
+										this.tileBoost = 10;
+										this.noMelee = true;
+										this.noUseGraphic = true;
+										this.melee = true;
+										this.channel = true;
+										this.glowMask = 39;
+										return;
+									}
+									if (type == 2799)
+									{
+										this.name = "Laser Ruler";
+										this.width = 10;
+										this.height = 26;
+										this.accessory = true;
+										this.toolTip = "Creates measurement lines on screen for block placement";
+										this.@value = Item.buyPrice(0, 1, 0, 0);
+										this.rare = 1;
+										return;
+									}
+									if (type == 2800)
+									{
+										this.noUseGraphic = true;
+										this.damage = 0;
+										this.knockBack = 7f;
+										this.useStyle = 5;
+										this.name = "Anti-Gravity Hook";
+										this.shootSpeed = 14f;
+										this.shoot = 446;
+										this.width = 18;
+										this.height = 28;
+										this.useSound = 1;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.rare = 7;
+										this.noMelee = true;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										return;
+									}
+									if (type == 2801)
+									{
+										this.name = "Moon Mask";
+										this.width = 28;
+										this.height = 20;
+										this.headSlot = 172;
+										this.rare = 1;
+										this.vanity = true;
+										return;
+									}
+									if (type == 2802)
+									{
+										this.name = "Sun Mask";
+										this.width = 28;
+										this.height = 20;
+										this.headSlot = 173;
+										this.rare = 1;
+										this.vanity = true;
+										return;
+									}
+									if (type == 2803)
+									{
+										this.name = "Martian Costume Mask";
+										this.width = 18;
+										this.height = 18;
+										this.headSlot = 174;
+										this.vanity = true;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										return;
+									}
+									if (type == 2804)
+									{
+										this.name = "Martian Costume Shirt";
+										this.width = 18;
+										this.height = 18;
+										this.bodySlot = 178;
+										this.vanity = true;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										return;
+									}
+									if (type == 2805)
+									{
+										this.name = "Martian Costume Pants";
+										this.width = 18;
+										this.height = 18;
+										this.legSlot = 113;
+										this.vanity = true;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										return;
+									}
+									if (type == 2806)
+									{
+										this.name = "Martian Uniform Helmet";
+										this.width = 18;
+										this.height = 18;
+										this.headSlot = 175;
+										this.vanity = true;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										this.glowMask = 46;
+										return;
+									}
+									if (type == 2807)
+									{
+										this.name = "Martian Uniform Torso";
+										this.width = 18;
+										this.height = 18;
+										this.bodySlot = 179;
+										this.vanity = true;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										this.glowMask = 45;
+										return;
+									}
+									if (type == 2808)
+									{
+										this.name = "Martian Uniform Pants";
+										this.width = 18;
+										this.height = 18;
+										this.legSlot = 114;
+										this.vanity = true;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										return;
+									}
+									if (type == 2822)
+									{
+										this.name = "Martian Platform";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 19;
+										this.placeStyle = 26;
+										this.width = 8;
+										this.height = 10;
+										return;
+									}
+									if (type == 2810)
+									{
+										this.name = "Martian Bathtub";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 90;
+										this.placeStyle = 27;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2811)
+									{
+										this.name = "Martian Bed";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.autoReuse = true;
+										this.createTile = 79;
+										this.placeStyle = 27;
+										this.width = 28;
+										this.height = 20;
+										this.@value = 2000;
+										return;
+									}
+									if (type == 2823)
+									{
+										this.name = "Martian Sofa";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 89;
+										this.placeStyle = 29;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2825)
+									{
+										this.name = "Martian Table Lamp";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 100;
+										this.placeStyle = 27;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 1500;
+										return;
+									}
+									if (type == 2818)
+									{
+										this.noWet = true;
+										this.name = "Martian Hover Candle";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 33;
+										this.placeStyle = 26;
+										this.width = 8;
+										this.height = 18;
+										return;
+									}
+									if (type == 2812)
+									{
+										this.name = "Martian Chair";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 15;
+										this.placeStyle = 32;
+										this.width = 12;
+										this.height = 30;
+										return;
+									}
+									if (type == 2813)
+									{
+										this.name = "Martian Chandelier";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 34;
+										this.placeStyle = 33;
+										this.width = 26;
+										this.height = 26;
+										this.@value = 3000;
+										return;
+									}
+									if (type == 2814)
+									{
+										this.name = "Martian Chest";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 21;
+										this.placeStyle = 48;
+										this.width = 26;
+										this.height = 22;
+										this.@value = 500;
+										return;
+									}
+									if (type == 2815)
+									{
+										this.name = "Martian Door";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 10;
+										this.placeStyle = 32;
+										this.width = 14;
+										this.height = 28;
+										this.@value = 200;
+										return;
+									}
+									if (type == 2816)
+									{
+										this.name = "Martian Dresser";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 88;
+										this.placeStyle = 24;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2820)
+									{
+										this.name = "Martian Lantern";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 42;
+										this.width = 12;
+										this.height = 28;
+										this.placeStyle = 33;
+										return;
+									}
+									if (type == 2821)
+									{
+										this.name = "Martian Piano";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 87;
+										this.placeStyle = 26;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2824)
+									{
+										this.name = "Martian Table";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 14;
+										this.placeStyle = 31;
+										this.width = 26;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2819)
+									{
+										this.name = "Martian Lamppost";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 93;
+										this.placeStyle = 27;
+										this.width = 10;
+										this.height = 24;
+										this.@value = 500;
+										return;
+									}
+									if (type == 2826)
+									{
+										this.name = "Martian Work Bench";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 18;
+										this.placeStyle = 27;
+										this.width = 28;
+										this.height = 14;
+										this.@value = 150;
+										this.toolTip = "Used for basic crafting";
+										return;
+									}
+									if (type == 2817)
+									{
+										this.name = "Martian Holobookcase";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 101;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										this.placeStyle = 28;
+										return;
+									}
+									if (type == 2809)
+									{
+										this.name = "Martian Astro Clock";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 104;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										this.placeStyle = 24;
+										return;
+									}
+									if (type >= 2827 && type <= 2855)
+									{
+										this.name = "Sink";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 172;
+										this.placeStyle = type - 2827;
+										this.width = 20;
+										this.height = 20;
+										this.@value = 300;
+										return;
+									}
+									if (type == 2856)
+									{
+										this.name = "White Lunatic Hood";
+										this.width = 28;
+										this.height = 20;
+										this.headSlot = 176;
+										this.rare = 1;
+										this.vanity = true;
+										this.@value = Item.buyPrice(0, 10, 0, 0);
+										return;
+									}
+									if (type == 2857)
+									{
+										this.name = "Blue Lunatic Hood";
+										this.width = 28;
+										this.height = 20;
+										this.headSlot = 177;
+										this.rare = 1;
+										this.vanity = true;
+										this.@value = Item.buyPrice(0, 10, 0, 0);
+										return;
+									}
+									if (type == 2858)
+									{
+										this.name = "White Lunatic Robe";
+										this.width = 18;
+										this.height = 14;
+										this.bodySlot = 180;
+										this.rare = 1;
+										this.vanity = true;
+										this.@value = Item.buyPrice(0, 10, 0, 0);
+										return;
+									}
+									if (type == 2859)
+									{
+										this.name = "Blue Lunatic Robe";
+										this.width = 18;
+										this.height = 14;
+										this.bodySlot = 181;
+										this.rare = 1;
+										this.vanity = true;
+										this.@value = Item.buyPrice(0, 10, 0, 0);
+										return;
+									}
+									if (type == 2860)
+									{
+										this.name = "Martian Conduit Plating";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.glowMask = 93;
+										this.createTile = 350;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2861)
+									{
+										this.name = "Martian Conduit Wall";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 7;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.glowMask = 95;
+										this.createWall = 176;
+										this.width = 12;
+										this.height = 12;
+										return;
+									}
+									if (type == 2862)
+									{
+										this.name = "HiTek Sunglasses";
+										this.width = 28;
+										this.height = 12;
+										this.headSlot = 178;
+										this.rare = 3;
+										this.@value = Item.sellPrice(0, 1, 0, 0);
+										this.vanity = true;
+										this.glowMask = 97;
+										return;
+									}
+									if (type == 2863)
+									{
+										this.name = "Martian Hair Dye";
+										this.width = 20;
+										this.height = 26;
+										this.maxStack = 99;
+										this.rare = 3;
+										this.glowMask = 98;
+										this.@value = Item.buyPrice(0, 30, 0, 0);
+										this.useSound = 3;
+										this.useStyle = 2;
+										this.useTurn = true;
+										this.useAnimation = 17;
+										this.useTime = 17;
+										this.consumable = true;
+										return;
+									}
+									if (type == 2864)
+									{
+										this.name = "Martian Dye";
+										this.glowMask = 99;
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = Item.sellPrice(0, 1, 50, 0);
+										this.rare = 3;
+										return;
+									}
+									if (type == 2865)
+									{
+										this.name = "Castle Marsberg";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 242;
+										this.width = 30;
+										this.height = 30;
+										this.@value = Item.buyPrice(0, 2, 0, 0);
+										this.placeStyle = 27;
+										return;
+									}
+									if (type == 2866)
+									{
+										this.name = "Martia Lisa";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 242;
+										this.width = 30;
+										this.height = 30;
+										this.@value = Item.buyPrice(0, 2, 0, 0);
+										this.placeStyle = 28;
+										return;
+									}
+									if (type == 2867)
+									{
+										this.name = "The Truth Is Up There";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 242;
+										this.width = 30;
+										this.height = 30;
+										this.@value = Item.buyPrice(0, 2, 0, 0);
+										this.placeStyle = 29;
+										return;
+									}
+									if (type == 2868)
+									{
+										this.name = "Smoke Block";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 351;
+										this.width = 12;
+										this.height = 12;
+										this.@value = Item.buyPrice(0, 0, 1, 0);
+										return;
+									}
+									if (type == 2869)
+									{
+										this.name = "Living Flame Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = Item.sellPrice(0, 1, 50, 0);
+										this.rare = 3;
+										return;
+									}
+									if (type == 2870)
+									{
+										this.name = "Living Rainbow Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = Item.sellPrice(0, 1, 50, 0);
+										this.rare = 3;
+										return;
+									}
+									if (type == 2871)
+									{
+										this.name = "Shadow Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = Item.sellPrice(0, 0, 75, 0);
+										this.rare = 2;
+										return;
+									}
+									if (type == 2872)
+									{
+										this.name = "Negative Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = Item.sellPrice(0, 0, 75, 0);
+										this.rare = 2;
+										return;
+									}
+									if (type == 2873)
+									{
+										this.name = "Living Ocean Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = Item.sellPrice(0, 1, 50, 0);
+										this.rare = 3;
+										return;
+									}
+									if (type == 2874)
+									{
+										this.name = "Brown Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = 10000;
+										this.rare = 1;
+										return;
+									}
+									if (type == 2875)
+									{
+										this.name = "Brown and Black Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = 10000;
+										this.rare = 1;
+										return;
+									}
+									if (type == 2876)
+									{
+										this.name = "Bright Brown Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = 10000;
+										this.rare = 1;
+										return;
+									}
+									if (type == 2877)
+									{
+										this.name = "Brown and Silver Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = 10000;
+										this.rare = 1;
+										return;
+									}
+									if (type == 2878)
+									{
+										this.name = "Wisp Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = Item.sellPrice(0, 1, 50, 0);
+										this.rare = 3;
+										this.glowMask = 105;
+										return;
+									}
+									if (type == 2879)
+									{
+										this.name = "Pixie Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = Item.sellPrice(0, 1, 50, 0);
+										this.rare = 3;
+										this.glowMask = 104;
+										return;
+									}
+									if (type == 2880)
+									{
+										this.name = "Spellbound Edge";
+										this.useStyle = 1;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.autoReuse = true;
+										this.shoot = 451;
+										this.shootSpeed = 11f;
+										this.knockBack = 4.5f;
+										this.width = 40;
+										this.height = 40;
+										this.damage = 110;
+										this.scale = 1.05f;
+										this.useSound = 1;
+										this.rare = 8;
+										this.@value = Item.sellPrice(0, 10, 0, 0);
+										this.melee = true;
+										return;
+									}
+									if (type == 2882)
+									{
+										this.name = "Charged Blaster Cannon";
+										this.useStyle = 5;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.shootSpeed = 14f;
+										this.knockBack = 2f;
+										this.width = 16;
+										this.height = 16;
+										this.damage = 50;
+										this.useSound = 13;
+										this.shoot = 460;
+										this.mana = 14;
+										this.rare = 8;
+										this.@value = Item.sellPrice(0, 10, 0, 0);
+										this.noMelee = true;
+										this.noUseGraphic = true;
+										this.magic = true;
+										this.channel = true;
+										this.glowMask = 102;
+										return;
+									}
+									if (type == 2883)
+									{
+										this.name = "Chlorophyte Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = Item.sellPrice(0, 1, 50, 0);
+										this.rare = 3;
+										this.glowMask = 103;
+										return;
+									}
+									if (type == 2885)
+									{
+										this.name = "Infernal Wisp Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = Item.sellPrice(0, 1, 50, 0);
+										this.rare = 3;
+										this.glowMask = 106;
+										return;
+									}
+									if (type == 2884)
+									{
+										this.name = "Unicorn Wisp Dye";
+										this.width = 20;
+										this.height = 20;
+										this.maxStack = 99;
+										this.@value = Item.sellPrice(0, 1, 50, 0);
+										this.rare = 3;
+										this.glowMask = 107;
+										return;
+									}
+									if (type == 2887)
+									{
+										this.name = "Vicious Mushroom";
+										this.width = 16;
+										this.height = 18;
+										this.maxStack = 99;
+										this.@value = 50;
+										return;
+									}
+									if (type == 2886)
+									{
+										this.damage = 0;
+										this.useStyle = 1;
+										this.name = "Vicious Powder";
+										this.shootSpeed = 4f;
+										this.shoot = 463;
+										this.width = 16;
+										this.height = 24;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.useSound = 1;
+										this.useAnimation = 15;
+										this.useTime = 15;
+										this.noMelee = true;
+										this.@value = 100;
+										this.toolTip = "Removes the Hallow";
+										return;
+									}
+									if (type == 2888)
+									{
+										this.useStyle = 5;
+										this.useAnimation = 23;
+										this.useTime = 23;
+										this.name = "The Bee's Knees";
+										this.width = 12;
+										this.height = 28;
+										this.shoot = 469;
+										this.useAmmo = 1;
+										this.useSound = 97;
+										this.damage = 26;
+										this.shootSpeed = 8f;
+										this.knockBack = 3f;
+										this.rare = 3;
+										this.noMelee = true;
+										this.@value = 27000;
+										this.ranged = true;
+										return;
+									}
+									if (type < 2889 || type > 2895)
+									{
+										if (type == 2896)
+										{
+											this.useStyle = 1;
+											this.name = "Sticky Dynamite";
+											this.shootSpeed = 4f;
+											this.shoot = 470;
+											this.width = 8;
+											this.height = 28;
+											this.maxStack = 30;
+											this.consumable = true;
+											this.useSound = 1;
+											this.useAnimation = 40;
+											this.useTime = 40;
+											this.noUseGraphic = true;
+											this.noMelee = true;
+											this.@value = Item.buyPrice(0, 0, 20, 0);
+											this.rare = 1;
+											return;
+										}
+										if (type >= 2897 && type <= 2994)
+										{
+											this.name = "Monster Banner";
+											this.useStyle = 1;
+											this.useTurn = true;
+											this.useAnimation = 15;
+											this.useTime = 10;
+											this.autoReuse = true;
+											this.maxStack = 99;
+											this.consumable = true;
+											this.createTile = 91;
+											this.placeStyle = 109 + type - 2897;
+											this.width = 10;
+											this.height = 24;
+											this.@value = 1000;
+											this.rare = 1;
+											return;
+										}
+										if (type == 2995)
+										{
+											this.name = "Sparky Painting";
+											this.useStyle = 1;
+											this.useTurn = true;
+											this.useAnimation = 15;
+											this.useTime = 10;
+											this.autoReuse = true;
+											this.maxStack = 99;
+											this.consumable = true;
+											this.createTile = 242;
+											this.width = 30;
+											this.height = 30;
+											this.@value = Item.sellPrice(0, 0, 10, 0);
+											this.placeStyle = 30;
+											return;
+										}
+										if (type == 2996)
+										{
+											this.name = "Vine Rope";
+											this.useStyle = 1;
+											this.useTurn = true;
+											this.useAnimation = 15;
+											this.useTime = 8;
+											this.autoReuse = true;
+											this.maxStack = 999;
+											this.consumable = true;
+											this.createTile = 353;
+											this.width = 12;
+											this.height = 12;
+											Item item6 = this;
+											item6.tileBoost = item6.tileBoost + 3;
+											this.toolTip = "Can be climbed on";
+											return;
+										}
+										if (type == 2997)
+										{
+											this.name = "Unity Potion";
+											this.maxStack = 30;
+											this.consumable = true;
+											this.width = 14;
+											this.height = 24;
+											this.toolTip = "Teleports you to a party member";
+											this.toolTip2 = "Right click their head on the fullscreen map";
+											this.@value = 1000;
+											this.rare = 1;
+											return;
+										}
+										if (type == 2998)
+										{
+											this.name = "Summoner Emblem";
+											this.width = 24;
+											this.height = 24;
+											this.accessory = true;
+											this.toolTip = "15% increased summon damage";
+											this.@value = 100000;
+											this.rare = 4;
+											return;
+										}
+										if (type == 2999)
+										{
+											this.rare = 1;
+											this.name = "Bewitching Table";
+											this.useStyle = 1;
+											this.useTurn = true;
+											this.useAnimation = 15;
+											this.useTime = 10;
+											this.autoReuse = true;
+											this.maxStack = 999;
+											this.consumable = true;
+											this.createTile = 354;
+											this.width = 12;
+											this.height = 12;
+											this.@value = 100000;
+											return;
+										}
+										if (type == 3000)
+										{
+											this.rare = 1;
+											this.name = "Alchemy Table";
+											this.useStyle = 1;
+											this.useTurn = true;
+											this.useAnimation = 15;
+											this.useTime = 10;
+											this.autoReuse = true;
+											this.maxStack = 999;
+											this.consumable = true;
+											this.createTile = 355;
+											this.width = 12;
+											this.height = 12;
+											this.@value = 100000;
+										}
+									}
+									else
+									{
+										this.name = "Gold Critter";
+										this.useStyle = 1;
+										this.autoReuse = true;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.width = 12;
+										this.height = 12;
+										this.makeNPC = (short)(442 + type - 2889);
+										this.noUseGraphic = true;
+										this.@value = Item.sellPrice(0, 10, 0, 0);
+										this.rare = 2;
+										if (type == 2895 || type == 2893 || type == 2891)
 										{
 											this.bait = 50;
 											return;
 										}
 									}
-									else
+								}
+								else
+								{
+									this.name = "Some walls";
+									this.useStyle = 1;
+									this.useTurn = true;
+									this.useAnimation = 15;
+									this.useTime = 7;
+									this.autoReuse = true;
+									this.maxStack = 999;
+									this.consumable = true;
+									this.createWall = 146 + type - 2432;
+									this.width = 12;
+									this.height = 12;
+									if (type == 2434)
 									{
-										if (type >= 2677 && type <= 2690)
-										{
-											this.name = "gemspark walls";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 999;
-											this.consumable = true;
-											switch (type)
-											{
-											case 2677:
-												this.createWall = 153;
-												break;
-											case 2678:
-												this.createWall = 157;
-												break;
-											case 2679:
-												this.createWall = 154;
-												break;
-											case 2680:
-												this.createWall = 158;
-												break;
-											case 2681:
-												this.createWall = 155;
-												break;
-											case 2682:
-												this.createWall = 159;
-												break;
-											case 2683:
-												this.createWall = 156;
-												break;
-											case 2684:
-												this.createWall = 160;
-												break;
-											case 2685:
-												this.createWall = 164;
-												break;
-											case 2686:
-												this.createWall = 161;
-												break;
-											case 2687:
-												this.createWall = 165;
-												break;
-											case 2688:
-												this.createWall = 162;
-												break;
-											case 2689:
-												this.createWall = 166;
-												break;
-											case 2690:
-												this.createWall = 163;
-												break;
-											}
-											this.width = 12;
-											this.height = 12;
-											return;
-										}
-										if (type == 2691)
-										{
-											this.name = "Tin Plating Wall";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 7;
-											this.autoReuse = true;
-											this.maxStack = 999;
-											this.consumable = true;
-											this.createWall = 167;
-											this.width = 12;
-											this.height = 12;
-											return;
-										}
-										if (type == 2692)
-										{
-											this.name = "Tin Plating";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 999;
-											this.consumable = true;
-											this.createTile = 325;
-											this.width = 12;
-											this.height = 12;
-											return;
-										}
-										if (type == 2693)
-										{
-											this.name = "Waterfall Block";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 999;
-											this.consumable = true;
-											this.createTile = 326;
-											this.width = 12;
-											this.height = 12;
-											return;
-										}
-										if (type == 2694)
-										{
-											this.name = "Lavafall Block";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 999;
-											this.consumable = true;
-											this.createTile = 327;
-											this.width = 12;
-											this.height = 12;
-											return;
-										}
-										if (type == 2695)
-										{
-											this.name = "Confetti Block";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 999;
-											this.consumable = true;
-											this.createTile = 328;
-											this.width = 12;
-											this.height = 12;
-											return;
-										}
-										if (type == 2696)
-										{
-											this.name = "Confetti Wall";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 7;
-											this.autoReuse = true;
-											this.maxStack = 999;
-											this.consumable = true;
-											this.createWall = 168;
-											this.width = 12;
-											this.height = 12;
-											return;
-										}
-										if (type == 2697)
-										{
-											this.name = "Confetti Block";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 999;
-											this.consumable = true;
-											this.createTile = 329;
-											this.width = 12;
-											this.height = 12;
-											return;
-										}
-										if (type == 2698)
-										{
-											this.name = "Confetti Wall";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 7;
-											this.autoReuse = true;
-											this.maxStack = 999;
-											this.consumable = true;
-											this.createWall = 169;
-											this.width = 12;
-											this.height = 12;
-											return;
-										}
-										if (type == 2699)
-										{
-											this.name = "Weapon Rack";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 99;
-											this.consumable = true;
-											this.createTile = 334;
-											this.width = 30;
-											this.height = 30;
-											this.value = Item.sellPrice(0, 0, 10, 0);
-											return;
-										}
-										if (type == 2700)
-										{
-											this.name = "Fireworks Box";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 99;
-											this.consumable = true;
-											this.createTile = 335;
-											this.width = 26;
-											this.height = 22;
-											this.value = Item.buyPrice(0, 5, 0, 0);
-											this.mech = true;
-											return;
-										}
-										if (type == 2701)
-										{
-											this.name = "Living Fire Block";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 999;
-											this.consumable = true;
-											this.createTile = 336;
-											this.width = 12;
-											this.height = 12;
-											return;
-										}
-										if (type >= 2702 && type <= 2737)
-										{
-											this.name = "statues";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 99;
-											this.consumable = true;
-											this.createTile = 337;
-											this.width = 20;
-											this.height = 20;
-											this.value = 300;
-											this.placeStyle = type - 2702;
-											return;
-										}
-										if (type == 2738)
-										{
-											this.name = "Firework Fountain";
-											this.createTile = 338;
-											this.placeStyle = 0;
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 99;
-											this.consumable = true;
-											this.width = 12;
-											this.height = 30;
-											this.value = Item.buyPrice(0, 3, 0, 0);
-											this.mech = true;
-											return;
-										}
-										if (type == 2739)
-										{
-											this.name = "Booster Track";
-											this.useStyle = 1;
-											this.useAnimation = 15;
-											this.useTime = 7;
-											this.useTurn = true;
-											this.autoReuse = true;
-											this.width = 16;
-											this.height = 16;
-											this.maxStack = 99;
-											this.createTile = 314;
-											this.placeStyle = 2;
-											this.consumable = true;
-											this.cartTrack = true;
-											this.mech = true;
-											this.tileBoost = 1;
-											this.value = Item.buyPrice(0, 0, 50, 0);
-											return;
-										}
-										if (type == 2740)
-										{
-											this.name = "Grasshopper";
-											this.useStyle = 1;
-											this.autoReuse = true;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.maxStack = 999;
-											this.consumable = true;
-											this.width = 12;
-											this.height = 12;
-											this.makeNPC = 377;
-											this.noUseGraphic = true;
-											this.bait = 10;
-											return;
-										}
-										if (type == 2741)
-										{
-											this.name = "Critter Cage";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 99;
-											this.consumable = true;
-											this.createTile = 339;
-											this.width = 12;
-											this.height = 12;
-											return;
-										}
-										if (type == 2742)
-										{
-											this.name = "Music Box (Underground Crimson)";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.consumable = true;
-											this.createTile = 139;
-											this.placeStyle = 31;
-											this.width = 24;
-											this.height = 24;
-											this.rare = 4;
-											this.value = 100000;
-											this.accessory = true;
-										}
-										if (type == 2743)
-										{
-											this.name = "Cactus Table";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 99;
-											this.consumable = true;
-											this.createTile = 14;
-											this.placeStyle = 30;
-											this.width = 26;
-											this.height = 20;
-											this.value = 300;
-											return;
-										}
-										if (type == 2744)
-										{
-											this.name = "Cactus Platform";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 99;
-											this.consumable = true;
-											this.createTile = 19;
-											this.placeStyle = 25;
-											this.width = 8;
-											this.height = 10;
-											return;
-										}
-										if (type == 2745)
-										{
-											this.name = "Boreal Wood Sword";
-											this.useStyle = 1;
-											this.useTurn = false;
-											this.useAnimation = 23;
-											this.useTime = 23;
-											this.width = 24;
-											this.height = 28;
-											this.damage = 8;
-											this.knockBack = 5f;
-											this.useSound = 1;
-											this.scale = 1f;
-											this.value = 100;
-											this.melee = true;
-											return;
-										}
-										if (type == 2746)
-										{
-											this.name = "Boreal Wood Hammer";
-											this.autoReuse = true;
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 33;
-											this.useTime = 23;
-											this.hammer = 35;
-											this.width = 24;
-											this.height = 28;
-											this.damage = 4;
-											this.knockBack = 5.5f;
-											this.scale = 1.1f;
-											this.useSound = 1;
-											this.value = 50;
-											this.melee = true;
-											return;
-										}
-										if (type == 2747)
-										{
-											this.name = "Boreal Wood Bow";
-											this.useStyle = 5;
-											this.useAnimation = 29;
-											this.useTime = 29;
-											this.width = 12;
-											this.height = 28;
-											this.shoot = 1;
-											this.useAmmo = 1;
-											this.useSound = 5;
-											this.damage = 6;
-											this.shootSpeed = 6.6f;
-											this.noMelee = true;
-											this.value = 100;
-											this.ranged = true;
-											return;
-										}
-										if (type == 2748)
-										{
-											this.name = "Glass Chest";
-											this.useStyle = 1;
-											this.useTurn = true;
-											this.useAnimation = 15;
-											this.useTime = 10;
-											this.autoReuse = true;
-											this.maxStack = 99;
-											this.consumable = true;
-											this.createTile = 21;
-											this.placeStyle = 47;
-											this.width = 26;
-											this.height = 22;
-											this.value = 500;
-										}
+										this.@value = Item.buyPrice(0, 0, 0, 50);
+										return;
 									}
+								}
+							}
+							else
+							{
+								this.name = "Fish";
+								this.maxStack = 999;
+								this.width = 26;
+								this.height = 26;
+								this.@value = Item.sellPrice(0, 0, 5, 0);
+								if (type == 2308)
+								{
+									this.@value = Item.sellPrice(0, 10, 0, 0);
+									this.rare = 4;
+								}
+								if (type == 2312)
+								{
+									this.@value = Item.sellPrice(0, 0, 50, 0);
+									this.rare = 2;
+								}
+								if (type == 2317)
+								{
+									this.@value = Item.sellPrice(0, 3, 0, 0);
+									this.rare = 4;
+								}
+								if (type == 2310)
+								{
+									this.@value = Item.sellPrice(0, 1, 0, 0);
+									this.rare = 3;
+								}
+								if (type == 2321)
+								{
+									this.@value = Item.sellPrice(0, 0, 25, 0);
+									this.rare = 1;
+								}
+								if (type == 2315)
+								{
+									this.@value = Item.sellPrice(0, 0, 15, 0);
+									this.rare = 2;
+								}
+								if (type == 2303)
+								{
+									this.@value = Item.sellPrice(0, 0, 15, 0);
+									this.rare = 1;
+								}
+								if (type == 2304)
+								{
+									this.@value = Item.sellPrice(0, 0, 30, 0);
+									this.rare = 1;
+								}
+								if (type == 2316)
+								{
+									this.@value = Item.sellPrice(0, 0, 15, 0);
+								}
+								if (type == 2311)
+								{
+									this.@value = Item.sellPrice(0, 0, 15, 0);
+									this.rare = 1;
+								}
+								if (type == 2313)
+								{
+									this.@value = Item.sellPrice(0, 0, 15, 0);
+									this.rare = 1;
+								}
+								if (type == 2306)
+								{
+									this.@value = Item.sellPrice(0, 0, 15, 0);
+									this.rare = 1;
+								}
+								if (type == 2307)
+								{
+									this.@value = Item.sellPrice(0, 0, 25, 0);
+									this.rare = 2;
+								}
+								if (type == 2319)
+								{
+									this.@value = Item.sellPrice(0, 0, 15, 0);
+									this.rare = 1;
+								}
+								if (type == 2318)
+								{
+									this.@value = Item.sellPrice(0, 0, 15, 0);
+									this.rare = 1;
+								}
+								if (type == 2298)
+								{
+									this.@value = Item.sellPrice(0, 0, 7, 50);
+								}
+								if (type == 2309)
+								{
+									this.@value = Item.sellPrice(0, 0, 7, 50);
+									this.rare = 1;
+								}
+								if (type == 2300)
+								{
+									this.@value = Item.sellPrice(0, 0, 7, 50);
+								}
+								if (type == 2301)
+								{
+									this.@value = Item.sellPrice(0, 0, 7, 50);
+								}
+								if (type == 2302)
+								{
+									this.@value = Item.sellPrice(0, 0, 15, 0);
+								}
+								if (type == 2299)
+								{
+									this.@value = Item.sellPrice(0, 0, 7, 50);
+								}
+								if (type == 2305)
+								{
+									this.@value = Item.sellPrice(0, 0, 7, 50);
+									this.rare = 1;
+									return;
 								}
 							}
 						}
 					}
 				}
 			}
-		}
-		public void SetDefaults(int type, bool noMatCheck = false)
-		{
-			if (!ServerApi.Hooks.InvokeItemSetDefaultsInt(ref type, this))
-				RealSetDefaults(type, noMatCheck);
+			else
+			{
+				this.name = "Glowing Snail";
+				this.useStyle = 1;
+				this.autoReuse = true;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.width = 12;
+				this.height = 12;
+				this.noUseGraphic = true;
+				if (type == 2015)
+				{
+					this.makeNPC = 74;
+				}
+				if (type == 2016)
+				{
+					this.makeNPC = 297;
+				}
+				if (type == 2017)
+				{
+					this.makeNPC = 298;
+				}
+				if (type == 2018)
+				{
+					this.makeNPC = 299;
+				}
+				if (type == 2019)
+				{
+					this.makeNPC = 46;
+					return;
+				}
+			}
 		}
 
-		public void RealSetDefaults(int Type, bool noMatCheck = false)
+		public void SetDefaults4(int type)
 		{
-			if (Main.netMode == 1 || Main.netMode == 2)
+			if (type == 3001)
 			{
-				this.owner = 255;
+				this.rare = 1;
+				this.name = "StrangeBrew";
+				this.useSound = 3;
+				this.healLife = 80;
+				this.healMana = 400;
+				this.useStyle = 2;
+				this.useTurn = true;
+				this.useAnimation = 17;
+				this.useTime = 17;
+				this.maxStack = 30;
+				this.consumable = true;
+				this.width = 14;
+				this.height = 24;
+				this.potion = true;
+				this.@value = Item.buyPrice(0, 0, 5, 0);
+				return;
 			}
-			else
+			if (type == 3061)
 			{
-				this.owner = Main.myPlayer;
+				this.name = "Architect Gizmo Pack";
+				this.width = 30;
+				this.height = 30;
+				this.accessory = true;
+				this.rare = 5;
+				this.@value = Item.buyPrice(0, 20, 0, 0);
+				this.backSlot = 8;
+				return;
 			}
-			this.questItem = false;
-			this.fishingPole = 0;
-			this.bait = 0;
-			this.hairDye = -1;
-			this.makeNPC = 0;
-			this.dye = 0;
-			this.paint = 0;
-			this.tileWand = -1;
-			this.notAmmo = false;
-			this.netID = 0;
-			this.prefix = 0;
-			this.crit = 0;
-			this.mech = false;
-			this.flame = false;
-			this.reuseDelay = 0;
-			this.melee = false;
-			this.magic = false;
-			this.ranged = false;
-			this.summon = false;
-			this.placeStyle = 0;
-			this.buffTime = 0;
-			this.buffType = 0;
-			this.mountType = -1;
-			this.cartTrack = false;
-			this.material = false;
-			this.noWet = false;
-			this.vanity = false;
-			this.mana = 0;
-			this.wet = false;
-			this.wetCount = 0;
-			this.lavaWet = false;
-			this.channel = false;
-			this.manaIncrease = 0;
-			this.release = 0;
-			this.noMelee = false;
-			this.noUseGraphic = false;
-			this.lifeRegen = 0;
-			this.shootSpeed = 0f;
-			this.active = true;
-			this.alpha = 0;
-			this.ammo = 0;
-			this.useAmmo = 0;
-			this.autoReuse = false;
-			this.accessory = false;
-			this.axe = 0;
-			this.healMana = 0;
-			this.bodySlot = -1;
-			this.legSlot = -1;
-			this.headSlot = -1;
-			this.potion = false;
-			this.color = default(Color);
-			this.consumable = false;
-			this.createTile = -1;
-			this.createWall = -1;
-			this.damage = -1;
-			this.defense = 0;
-			this.hammer = 0;
-			this.healLife = 0;
-			this.holdStyle = 0;
-			this.knockBack = 0f;
-			this.maxStack = 1;
-			this.pick = 0;
-			this.rare = 0;
-			this.scale = 1f;
-			this.shoot = 0;
-			this.stack = 1;
-			this.toolTip = null;
-			this.toolTip2 = null;
-			this.tileBoost = 0;
-			this.type = Type;
-			this.useStyle = 0;
-			this.useSound = 0;
-			this.useTime = 100;
-			this.useAnimation = 100;
-			this.value = 0;
-			this.useTurn = false;
-			this.buy = false;
-			this.explosive = 0;
-			this.handOnSlot = -1;
-			this.handOffSlot = -1;
-			this.backSlot = -1;
-			this.frontSlot = -1;
-			this.shoeSlot = -1;
-			this.waistSlot = -1;
-			this.wingSlot = -1;
-			this.shieldSlot = -1;
-			this.neckSlot = -1;
-			this.faceSlot = -1;
-			this.balloonSlot = -1;
-			this.uniqueStack = false;
-			if (this.type >= 2749)
+			if (type == 3002)
 			{
-				this.type = 0;
-			}
-			if (this.type == 0)
-			{
-				this.netID = 0;
-				this.name = "";
-				this.stack = 0;
-			}
-			else if (this.type <= 1000)
-			{
-				this.SetDefaults1(this.type);
-			}
-			else if (this.type <= 2001)
-			{
-				this.SetDefaults2(this.type);
-			}
-			else
-			{
-				this.SetDefaults3(this.type);
-			}
-			if (this.dye > 0)
-			{
+				this.alpha = 0;
+				this.color = new Color(255, 255, 255, 0);
+				this.rare = 1;
+				this.useStyle = 1;
+				this.name = "Spelunker Glowstick";
+				this.shootSpeed = 6f;
+				this.shoot = 473;
+				this.width = 12;
+				this.height = 12;
 				this.maxStack = 99;
+				this.consumable = true;
+				this.useSound = 1;
+				this.useAnimation = 15;
+				this.useTime = 15;
+				this.noMelee = true;
+				this.@value = Item.buyPrice(0, 0, 1, 50);
+				this.holdStyle = 1;
+				return;
 			}
-			this.netID = this.type;
-			if (!noMatCheck)
+			if (type == 3003)
 			{
-				this.checkMat();
+				this.name = "Bone Arrow";
+				this.shootSpeed = 3.5f;
+				this.shoot = 474;
+				this.damage = 6;
+				this.width = 10;
+				this.height = 28;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.ammo = 1;
+				this.knockBack = 2.5f;
+				this.@value = Item.buyPrice(0, 0, 0, 15);
+				this.ranged = true;
+				return;
 			}
-			this.name = Lang.itemName(this.netID, false);
-			this.CheckTip();
-		}
-		public static string VersionName(string oldName, int release)
-		{
-			string result = oldName;
-			if (release <= 4)
+			if (type == 3004)
 			{
-				if (oldName == "Cobalt Helmet")
+				this.flame = true;
+				this.noWet = true;
+				this.name = "Bone Torch";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.holdStyle = 1;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 4;
+				this.placeStyle = 13;
+				this.width = 10;
+				this.height = 12;
+				this.@value = Item.buyPrice(0, 0, 1, 0);
+				return;
+			}
+			if (type == 3005)
+			{
+				this.useStyle = 1;
+				this.name = "Vine Rope Coil";
+				this.shootSpeed = 10f;
+				this.shoot = 475;
+				this.damage = 0;
+				this.width = 18;
+				this.height = 20;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.useSound = 1;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.noUseGraphic = true;
+				this.noMelee = true;
+				this.toolTip = "Throw to create a climbable line of vine rope";
+				return;
+			}
+			if (type == 3006)
+			{
+				this.mana = 10;
+				this.autoReuse = true;
+				this.damage = 30;
+				this.useStyle = 5;
+				this.name = "Soul Drain";
+				this.shootSpeed = 10f;
+				this.shoot = 476;
+				this.width = 26;
+				this.height = 28;
+				this.useAnimation = 12;
+				this.useTime = 12;
+				this.rare = 5;
+				this.noMelee = true;
+				this.knockBack = 2.5f;
+				this.toolTip = "Drains power from enemies";
+				this.@value = Item.sellPrice(0, 8, 0, 0);
+				this.magic = true;
+				return;
+			}
+			if (type == 3007)
+			{
+				this.autoReuse = true;
+				this.name = "Dart Pistol";
+				this.useStyle = 5;
+				this.useAnimation = 22;
+				this.useTime = 22;
+				this.width = 38;
+				this.height = 6;
+				this.shoot = 10;
+				this.useAmmo = 51;
+				this.useSound = 98;
+				this.damage = 28;
+				this.shootSpeed = 13f;
+				this.noMelee = true;
+				this.@value = Item.sellPrice(0, 5, 0, 0);
+				this.knockBack = 3.5f;
+				this.useAmmo = 51;
+				this.ranged = true;
+				this.rare = 5;
+				this.scale = 0.9f;
+				return;
+			}
+			if (type == 3008)
+			{
+				this.autoReuse = true;
+				this.name = "Dart Rifle";
+				this.useStyle = 5;
+				this.useAnimation = 38;
+				this.useTime = 38;
+				this.width = 38;
+				this.height = 6;
+				this.shoot = 10;
+				this.useAmmo = 51;
+				this.useSound = 99;
+				this.damage = 52;
+				this.shootSpeed = 14.5f;
+				this.noMelee = true;
+				this.@value = Item.sellPrice(0, 5, 0, 0);
+				this.knockBack = 5.5f;
+				this.useAmmo = 51;
+				this.ranged = true;
+				this.rare = 5;
+				this.scale = 1f;
+				return;
+			}
+			if (type == 3009)
+			{
+				this.name = "Crystal Dart";
+				this.shoot = 477;
+				this.width = 8;
+				this.height = 8;
+				this.maxStack = 999;
+				this.ammo = 51;
+				this.damage = 15;
+				this.knockBack = 3.5f;
+				this.shootSpeed = 1f;
+				this.ranged = true;
+				this.rare = 3;
+				this.consumable = true;
+				return;
+			}
+			if (type == 3010)
+			{
+				this.name = "Cursed Dart";
+				this.shoot = 478;
+				this.width = 8;
+				this.height = 8;
+				this.maxStack = 999;
+				this.ammo = 51;
+				this.damage = 9;
+				this.knockBack = 2.2f;
+				this.shootSpeed = 3f;
+				this.ranged = true;
+				this.rare = 3;
+				this.consumable = true;
+				return;
+			}
+			if (type == 3011)
+			{
+				this.name = "Ichor Dart";
+				this.shoot = 479;
+				this.width = 8;
+				this.height = 8;
+				this.maxStack = 999;
+				this.ammo = 51;
+				this.damage = 10;
+				this.knockBack = 2.5f;
+				this.shootSpeed = 3f;
+				this.ranged = true;
+				this.rare = 3;
+				this.consumable = true;
+				return;
+			}
+			if (type == 3012)
+			{
+				this.autoReuse = true;
+				this.name = "Chain Guillotines";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 14;
+				this.useTime = 14;
+				this.knockBack = 3.25f;
+				this.width = 30;
+				this.height = 10;
+				this.damage = 43;
+				this.shoot = 481;
+				this.shootSpeed = 14f;
+				this.useSound = 1;
+				this.rare = 5;
+				this.@value = 1000;
+				this.melee = true;
+				this.noUseGraphic = true;
+				return;
+			}
+			if (type == 3013)
+			{
+				this.name = "Fetid Baghnakhs";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.autoReuse = true;
+				this.useAnimation = 7;
+				this.useTime = 7;
+				this.width = 24;
+				this.height = 28;
+				this.damage = 70;
+				this.knockBack = 6f;
+				this.useSound = 1;
+				this.scale = 1.35f;
+				this.melee = true;
+				this.rare = 5;
+				this.@value = Item.sellPrice(0, 8, 0, 0);
+				this.melee = true;
+				return;
+			}
+			if (type == 3014)
+			{
+				this.mana = 40;
+				this.autoReuse = true;
+				this.damage = 43;
+				this.useStyle = 1;
+				this.name = "Clinger Staff";
+				this.shootSpeed = 15f;
+				this.shoot = 482;
+				this.width = 26;
+				this.height = 28;
+				this.useSound = 100;
+				this.useAnimation = 24;
+				this.useTime = 24;
+				this.rare = 5;
+				this.noMelee = true;
+				this.knockBack = 8f;
+				this.toolTip = "Summons a wall of cursed flames";
+				this.@value = Item.sellPrice(0, 8, 0, 0);
+				this.magic = true;
+				return;
+			}
+			if (type == 3024)
+			{
+				this.name = "Skiphs's Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.rare = 9;
+				this.@value = Item.sellPrice(0, 3, 0, 0);
+				return;
+			}
+			if (type == 3599)
+			{
+				this.name = "Loki's Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.rare = 9;
+				this.@value = Item.sellPrice(0, 3, 0, 0);
+				return;
+			}
+			if (type == 3015)
+			{
+				this.name = "Putrid Scent";
+				this.width = 24;
+				this.height = 24;
+				this.accessory = true;
+				this.toolTip = "Enemies are less likely to target you";
+				this.toolTip2 = "3% increased damage and critical strike chance";
+				this.@value = Item.sellPrice(0, 8, 0, 0);
+				this.rare = 6;
+				return;
+			}
+			if (type == 3016)
+			{
+				this.name = "Flesh Knuckles";
+				this.width = 24;
+				this.height = 24;
+				this.accessory = true;
+				this.toolTip = "Enemies are more likely to target you";
+				this.defense = 7;
+				this.@value = Item.sellPrice(0, 8, 0, 0);
+				this.rare = 5;
+				return;
+			}
+			if (type == 3017)
+			{
+				this.name = "Flower Boots";
+				this.width = 16;
+				this.height = 24;
+				this.accessory = true;
+				this.rare = 7;
+				this.toolTip = "Flowers grow on the grass beneath you";
+				this.@value = Item.sellPrice(0, 8, 0, 0);
+				this.shoeSlot = 16;
+				return;
+			}
+			if (type == 3018)
+			{
+				this.name = "Seedler";
+				this.useStyle = 1;
+				this.autoReuse = true;
+				this.useAnimation = 23;
+				this.useTime = 23;
+				this.width = 50;
+				this.height = 20;
+				this.shoot = 483;
+				this.useSound = 1;
+				this.damage = 50;
+				this.shootSpeed = 12f;
+				this.@value = Item.sellPrice(0, 10, 0, 0);
+				this.knockBack = 6f;
+				this.rare = 5;
+				this.melee = true;
+				return;
+			}
+			if (type == 3019)
+			{
+				this.autoReuse = true;
+				this.useStyle = 5;
+				this.useAnimation = 14;
+				this.useTime = 14;
+				this.name = "Hellwing Bow";
+				this.width = 18;
+				this.height = 46;
+				this.shoot = 485;
+				this.useAmmo = 1;
+				this.useSound = 5;
+				this.damage = 20;
+				this.knockBack = 5f;
+				this.shootSpeed = 6f;
+				this.noMelee = true;
+				this.@value = Item.sellPrice(0, 4, 0, 0);
+				this.rare = 3;
+				this.ranged = true;
+				this.toolTip = "Shoots a charged arrow";
+				return;
+			}
+			if (type >= 3020 && type <= 3023)
+			{
+				this.name = "Hook";
+				this.noUseGraphic = true;
+				this.damage = 0;
+				this.useStyle = 5;
+				this.shootSpeed = 15f;
+				this.shoot = 486 + type - 3020;
+				this.width = 18;
+				this.height = 28;
+				this.useSound = 1;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.rare = 6;
+				this.noMelee = true;
+				this.@value = Item.sellPrice(0, 8, 0, 0);
+				return;
+			}
+			if (type == 3025)
+			{
+				this.name = "Plaid Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 0, 75, 0);
+				this.rare = 2;
+				return;
+			}
+			if (type == 3026)
+			{
+				this.name = "Reflective Silver Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 0, 75, 0);
+				this.rare = 2;
+				return;
+			}
+			if (type == 3027)
+			{
+				this.name = "Reflective Gold Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 0, 75, 0);
+				this.rare = 2;
+				return;
+			}
+			if (type == 3190)
+			{
+				this.name = "Reflective Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 0, 75, 0);
+				this.rare = 2;
+				return;
+			}
+			if (type == 3038)
+			{
+				this.name = "Hades Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 1, 50, 0);
+				this.rare = 3;
+				return;
+			}
+			if (type == 3597)
+			{
+				this.name = "Burning Hades Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 1, 50, 0);
+				this.rare = 3;
+				return;
+			}
+			if (type == 3600)
+			{
+				this.name = "Shadowflame Hades Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 1, 50, 0);
+				this.rare = 3;
+				return;
+			}
+			if (type == 3598)
+			{
+				this.name = "Grim Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 1, 50, 0);
+				this.rare = 3;
+				return;
+			}
+			if (type == 3029)
+			{
+				this.useStyle = 5;
+				this.autoReuse = true;
+				this.useAnimation = 19;
+				this.useTime = 19;
+				this.name = "Daedalus Stormbow";
+				this.width = 28;
+				this.height = 60;
+				this.shoot = 1;
+				this.useAmmo = 1;
+				this.useSound = 5;
+				this.damage = 43;
+				this.shootSpeed = 12.5f;
+				this.noMelee = true;
+				this.@value = Item.sellPrice(0, 8, 0, 0);
+				this.ranged = true;
+				this.rare = 6;
+				this.knockBack = 2.25f;
+				return;
+			}
+			if (type == 3030)
+			{
+				this.channel = true;
+				this.damage = 40;
+				this.useStyle = 1;
+				this.name = "Flying Knife";
+				this.shootSpeed = 17f;
+				this.shoot = 491;
+				this.width = 26;
+				this.height = 28;
+				this.useSound = 1;
+				this.useAnimation = 15;
+				this.useTime = 15;
+				this.rare = 6;
+				this.noMelee = true;
+				this.knockBack = 4.5f;
+				this.@value = Item.sellPrice(0, 8, 0, 0);
+				this.melee = true;
+				this.noUseGraphic = true;
+				return;
+			}
+			if (type == 3031 || type == 3032)
+			{
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 12;
+				this.useTime = 5;
+				this.width = 20;
+				this.height = 20;
+				this.autoReuse = true;
+				this.rare = 7;
+				this.@value = Item.sellPrice(0, 10, 0, 0);
+				Item item = this;
+				item.tileBoost = item.tileBoost + 2;
+				return;
+			}
+			if (type == 3036)
+			{
+				this.name = "Fish Finder";
+				this.width = 24;
+				this.height = 28;
+				this.rare = 3;
+				this.@value = Item.sellPrice(0, 3, 0, 0);
+				this.accessory = true;
+				return;
+			}
+			if (type == 3037)
+			{
+				this.name = "Weather Radio";
+				this.width = 24;
+				this.height = 28;
+				this.rare = 1;
+				this.@value = Item.sellPrice(0, 1, 0, 0);
+				this.accessory = true;
+				return;
+			}
+			if (type == 3033)
+			{
+				this.name = "Gold Ring";
+				this.width = 16;
+				this.height = 24;
+				this.accessory = true;
+				this.rare = 5;
+				this.@value = 50000;
+				return;
+			}
+			if (type == 3034)
+			{
+				this.name = "Coin Ring";
+				this.width = 16;
+				this.height = 24;
+				this.accessory = true;
+				this.rare = 5;
+				this.@value = 100000;
+				return;
+			}
+			if (type == 3035)
+			{
+				this.name = "Greedy Ring";
+				this.width = 16;
+				this.height = 24;
+				this.accessory = true;
+				this.rare = 6;
+				this.@value = 150000;
+				return;
+			}
+			if (type == 3039)
+			{
+				this.name = "Twilight Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 1, 50, 0);
+				this.rare = 3;
+				return;
+			}
+			if (type == 3040)
+			{
+				this.name = "Acid Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 0, 75, 0);
+				this.rare = 2;
+				return;
+			}
+			if (type == 3028)
+			{
+				this.name = "Blue Acid Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 0, 75, 0);
+				this.rare = 2;
+				return;
+			}
+			if (type == 3041)
+			{
+				this.name = "Glowing Mushroom Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 0, 75, 0);
+				this.rare = 2;
+				return;
+			}
+			if (type == 3042)
+			{
+				this.name = "Phase Dye";
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 1, 50, 0);
+				this.rare = 3;
+				return;
+			}
+			if (type == 3043)
+			{
+				this.damage = 0;
+				this.useStyle = 1;
+				this.name = "Magic Lantern";
+				this.shoot = 492;
+				this.width = 16;
+				this.height = 30;
+				this.useSound = 25;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.rare = 3;
+				this.noMelee = true;
+				this.@value = Item.buyPrice(0, 10, 0, 0);
+				this.buffType = 152;
+				return;
+			}
+			if (type == 3044)
+			{
+				this.name = "Music Box (Lunar Boss?)";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.consumable = true;
+				this.createTile = 139;
+				this.placeStyle = 32;
+				this.width = 24;
+				this.height = 24;
+				this.rare = 4;
+				this.@value = 100000;
+				this.accessory = true;
+				return;
+			}
+			if (type == 3045)
+			{
+				this.flame = true;
+				this.noWet = true;
+				this.name = "Rainbow Torch";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.holdStyle = 1;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 4;
+				this.placeStyle = 14;
+				this.width = 10;
+				this.height = 12;
+				this.@value = 500;
+				this.rare = 1;
+				return;
+			}
+			if (type >= 3046 && type <= 3050)
+			{
+				this.name = "Campfire";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 215;
+				this.placeStyle = 1 + type - 3046;
+				this.width = 12;
+				this.height = 12;
+				this.toolTip = "Life regen is increased when near a campfire";
+				return;
+			}
+			if (type == 3051)
+			{
+				this.mana = 13;
+				this.damage = 19;
+				this.useStyle = 5;
+				this.name = "Crystal Vile Shard";
+				this.shootSpeed = 32f;
+				this.shoot = 494;
+				this.width = 26;
+				this.height = 28;
+				this.useSound = 101;
+				this.useAnimation = 33;
+				this.useTime = 33;
+				this.rare = 5;
+				this.noMelee = true;
+				this.knockBack = 3f;
+				this.@value = Item.sellPrice(0, 8, 0, 0);
+				this.magic = true;
+				this.autoReuse = true;
+				return;
+			}
+			if (type == 3052)
+			{
+				this.autoReuse = true;
+				this.useStyle = 5;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.width = 14;
+				this.height = 32;
+				this.shoot = 495;
+				this.useAmmo = 1;
+				this.useSound = 102;
+				this.damage = 47;
+				this.shootSpeed = 11f;
+				this.knockBack = 4.5f;
+				this.rare = 5;
+				this.crit = 3;
+				this.noMelee = true;
+				this.@value = Item.sellPrice(0, 2, 0, 0);
+				this.ranged = true;
+				return;
+			}
+			if (type == 3053)
+			{
+				this.autoReuse = true;
+				this.rare = 5;
+				this.mana = 6;
+				this.useSound = 103;
+				this.useStyle = 5;
+				this.damage = 40;
+				this.useAnimation = 21;
+				this.useTime = 7;
+				this.width = 24;
+				this.height = 28;
+				this.shoot = 496;
+				this.shootSpeed = 9f;
+				this.knockBack = 3.75f;
+				this.magic = true;
+				this.@value = Item.sellPrice(0, 2, 0, 0);
+				this.noMelee = true;
+				this.noUseGraphic = true;
+				this.crit = 3;
+				return;
+			}
+			if (type == 3054)
+			{
+				this.crit = 3;
+				this.autoReuse = true;
+				this.useStyle = 1;
+				this.shootSpeed = 13f;
+				this.shoot = 497;
+				this.damage = 38;
+				this.width = 18;
+				this.height = 20;
+				this.useSound = 1;
+				this.useAnimation = 12;
+				this.useTime = 12;
+				this.noUseGraphic = true;
+				this.noMelee = true;
+				this.@value = Item.sellPrice(0, 2, 0, 0);
+				this.knockBack = 5.75f;
+				this.melee = true;
+				this.rare = 5;
+				return;
+			}
+			if (type >= 3055 && type <= 3059)
+			{
+				this.name = "Painting";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 242;
+				this.width = 30;
+				this.height = 30;
+				this.@value = Item.sellPrice(0, 0, 10, 0);
+				this.placeStyle = 31 + type - 3055;
+				return;
+			}
+			if (type == 3060)
+			{
+				this.damage = 0;
+				this.useStyle = 1;
+				this.name = "Bone Rattle";
+				this.shoot = 499;
+				this.width = 16;
+				this.height = 30;
+				this.useSound = 2;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.rare = 3;
+				this.noMelee = true;
+				this.@value = Item.sellPrice(0, 7, 50, 0);
+				this.buffType = 154;
+				return;
+			}
+			if (type == 3062)
+			{
+				this.channel = true;
+				this.damage = 0;
+				this.useStyle = 4;
+				this.name = "Crimson Heart";
+				this.shoot = 500;
+				this.width = 24;
+				this.height = 24;
+				this.useSound = 8;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.rare = 1;
+				this.noMelee = true;
+				this.toolTip = "Creates a magical crimson heart";
+				this.@value = 10000;
+				this.buffType = 155;
+				return;
+			}
+			if (type == 3063)
+			{
+				this.rare = 10;
+				this.useSound = 1;
+				this.name = "Meowmere";
+				this.useStyle = 1;
+				this.damage = 200;
+				this.useAnimation = 16;
+				this.useTime = 16;
+				this.width = 30;
+				this.height = 30;
+				this.shoot = 502;
+				this.scale = 1.1f;
+				this.shootSpeed = 12f;
+				this.knockBack = 6.5f;
+				this.melee = true;
+				this.@value = Item.sellPrice(0, 20, 0, 0);
+				this.autoReuse = true;
+				return;
+			}
+			if (type == 3064)
+			{
+				this.name = "Sundial";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 356;
+				this.width = 18;
+				this.height = 34;
+				this.@value = Item.sellPrice(0, 3, 0, 0);
+				this.rare = 7;
+				return;
+			}
+			if (type == 3065)
+			{
+				this.rare = 9;
+				this.useSound = 105;
+				this.name = "Star Wrath";
+				this.useStyle = 1;
+				this.damage = 110;
+				this.useAnimation = 16;
+				this.useTime = 16;
+				this.width = 30;
+				this.height = 30;
+				this.shoot = 503;
+				this.scale = 1.1f;
+				this.shootSpeed = 8f;
+				this.knockBack = 6.5f;
+				this.melee = true;
+				this.@value = Item.sellPrice(0, 20, 0, 0);
+				this.autoReuse = true;
+				return;
+			}
+			if (type == 3066)
+			{
+				this.name = "Marble Block";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 357;
+				this.width = 12;
+				this.height = 12;
+				return;
+			}
+			if (type == 3067)
+			{
+				this.name = "Hellstone Brick Wall";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 7;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createWall = 177;
+				this.width = 12;
+				this.height = 12;
+				return;
+			}
+			if (type == 3068)
+			{
+				this.name = "Guide to Making Cordage";
+				this.width = 16;
+				this.height = 24;
+				this.accessory = true;
+				this.rare = 1;
+				this.@value = 50000;
+				return;
+			}
+			if (type == 3069)
+			{
+				this.mana = 2;
+				this.damage = 8;
+				this.useStyle = 1;
+				this.name = "Wand of Sparking";
+				this.shootSpeed = 7f;
+				this.shoot = 504;
+				this.width = 26;
+				this.height = 28;
+				this.useSound = 8;
+				this.useAnimation = 28;
+				this.useTime = 28;
+				this.rare = 1;
+				this.noMelee = true;
+				this.@value = 5000;
+				this.magic = true;
+				return;
+			}
+			if (type >= 3070 && type <= 3076)
+			{
+				this.name = "Gold Critter Cage";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 358 + type - 3070;
+				this.width = 12;
+				this.height = 12;
+				this.@value = Item.sellPrice(0, 10, 0, 0);
+				this.rare = 2;
+				return;
+			}
+			if (type == 3077)
+			{
+				this.name = "Silk Rope";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 8;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 365;
+				this.width = 12;
+				this.height = 12;
+				this.@value = 10;
+				Item item1 = this;
+				item1.tileBoost = item1.tileBoost + 3;
+				this.toolTip = "Can be climbed on";
+				return;
+			}
+			if (type == 3078)
+			{
+				this.name = "Web Rope";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 8;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 366;
+				this.width = 12;
+				this.height = 12;
+				this.@value = 10;
+				Item item2 = this;
+				item2.tileBoost = item2.tileBoost + 3;
+				this.toolTip = "Can be climbed on";
+				return;
+			}
+			if (type == 3081)
+			{
+				this.name = "Marble";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 367;
+				this.width = 12;
+				this.height = 12;
+				return;
+			}
+			if (type == 3082)
+			{
+				this.name = "Marble Wall";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 7;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createWall = 183;
+				this.width = 12;
+				this.height = 12;
+				return;
+			}
+			if (type == 3083)
+			{
+				this.name = "Marble Block Wall";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 7;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createWall = 179;
+				this.width = 12;
+				this.height = 12;
+				return;
+			}
+			if (type == 3084)
+			{
+				this.name = "Radar";
+				this.width = 24;
+				this.height = 18;
+				this.accessory = true;
+				this.rare = 1;
+				this.@value = Item.sellPrice(0, 1, 0, 0);
+				return;
+			}
+			if (type == 3085)
+			{
+				this.name = "Gold Lock Box";
+				this.width = 12;
+				this.height = 12;
+				this.rare = 2;
+				this.toolTip = "Right click to open";
+				this.toolTip2 = "Requires a Golden Key";
+				this.maxStack = 99;
+				this.@value = Item.buyPrice(0, 2, 0, 0);
+				return;
+			}
+			if (type == 3086)
+			{
+				this.name = "Granite";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 368;
+				this.width = 12;
+				this.height = 12;
+				return;
+			}
+			if (type == 3080)
+			{
+				this.useStyle = 1;
+				this.name = "Web Rope Coil";
+				this.shootSpeed = 10f;
+				this.shoot = 506;
+				this.damage = 0;
+				this.width = 18;
+				this.height = 20;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.useSound = 1;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.noUseGraphic = true;
+				this.noMelee = true;
+				this.@value = 100;
+				this.toolTip = "Throw to create a climbable line of rope";
+				return;
+			}
+			if (type == 3079)
+			{
+				this.useStyle = 1;
+				this.name = "Silk Rope Coil";
+				this.shootSpeed = 10f;
+				this.shoot = 505;
+				this.damage = 0;
+				this.width = 18;
+				this.height = 20;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.useSound = 1;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.noUseGraphic = true;
+				this.noMelee = true;
+				this.@value = 100;
+				this.toolTip = "Throw to create a climbable line of rope";
+				return;
+			}
+			if (type == 3087)
+			{
+				this.name = "Granite Block";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 369;
+				this.width = 12;
+				this.height = 12;
+				return;
+			}
+			if (type == 3088)
+			{
+				this.name = "Granite Wall";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 7;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createWall = 184;
+				this.width = 12;
+				this.height = 12;
+				return;
+			}
+			if (type == 3089)
+			{
+				this.name = "Granite Block Wall";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 7;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createWall = 181;
+				this.width = 12;
+				this.height = 12;
+				return;
+			}
+			if (type == 3090)
+			{
+				this.name = "Royal Gel";
+				this.width = 16;
+				this.height = 24;
+				this.accessory = true;
+				this.rare = 2;
+				this.toolTip = "Slimes become friendly";
+				this.@value = 100000;
+				this.expert = true;
+				return;
+			}
+			if (type == 3091 || type == 3092)
+			{
+				this.name = "Mimic Key";
+				this.width = 14;
+				this.height = 20;
+				this.maxStack = 99;
+				this.toolTip = "Spawns a mimic";
+				this.useAnimation = 20;
+				this.useTime = 20;
+				return;
+			}
+			if (type == 3093)
+			{
+				this.name = "Herb Bag";
+				this.width = 12;
+				this.height = 12;
+				this.rare = 1;
+				this.toolTip = "Right click to open";
+				this.maxStack = 99;
+				this.@value = Item.sellPrice(0, 0, 10, 0);
+				return;
+			}
+			if (type == 3094)
+			{
+				this.useStyle = 1;
+				this.name = "Javelin";
+				this.shootSpeed = 11.5f;
+				this.shoot = 507;
+				this.damage = 17;
+				this.width = 30;
+				this.height = 30;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.useSound = 1;
+				this.useAnimation = 24;
+				this.useTime = 24;
+				this.noUseGraphic = true;
+				this.noMelee = true;
+				this.knockBack = 4.75f;
+				this.thrown = true;
+				return;
+			}
+			if (type == 3095)
+			{
+				this.name = "Tally Counter";
+				this.width = 24;
+				this.height = 18;
+				this.accessory = true;
+				this.rare = 1;
+				this.@value = Item.sellPrice(0, 1, 0, 0);
+				return;
+			}
+			if (type == 3097)
+			{
+				this.melee = true;
+				this.damage = 30;
+				this.name = "Shield of Cthulhu";
+				this.width = 24;
+				this.height = 28;
+				this.rare = 1;
+				this.@value = Item.sellPrice(0, 0, 30, 0);
+				this.accessory = true;
+				this.defense = 2;
+				this.shieldSlot = 5;
+				this.knockBack = 9f;
+				this.expert = true;
+				return;
+			}
+			if (type == 3098)
+			{
+				this.name = "Butcher's Chainsaw";
+				this.useStyle = 5;
+				this.useAnimation = 25;
+				this.useTime = 8;
+				this.shootSpeed = 48f;
+				this.knockBack = 8f;
+				this.width = 54;
+				this.height = 20;
+				this.damage = 120;
+				this.axe = 30;
+				this.useSound = 23;
+				this.shoot = 509;
+				this.rare = 8;
+				this.@value = Item.sellPrice(0, 4, 0, 0);
+				this.noMelee = true;
+				this.noUseGraphic = true;
+				this.melee = true;
+				this.channel = true;
+				return;
+			}
+			if (type == 3099)
+			{
+				this.name = "Stopwatch";
+				this.width = 24;
+				this.height = 18;
+				this.accessory = true;
+				this.rare = 1;
+				this.@value = Item.sellPrice(0, 1, 0, 0);
+				return;
+			}
+			if (type == 3100)
+			{
+				this.name = "Meteorite Brick";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 370;
+				this.width = 12;
+				this.height = 12;
+				return;
+			}
+			if (type == 3101)
+			{
+				this.name = "Meteorite Brick Wall";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 7;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createWall = 182;
+				this.width = 12;
+				this.height = 12;
+				return;
+			}
+			if (type == 3102)
+			{
+				this.name = "Metal Detector";
+				this.width = 24;
+				this.height = 18;
+				this.accessory = true;
+				this.rare = 1;
+				this.@value = Item.sellPrice(0, 1, 0, 0);
+				return;
+			}
+			if (type == 3103)
+			{
+				this.name = "Endless Quiver";
+				this.shootSpeed = 3f;
+				this.shoot = 1;
+				this.damage = 5;
+				this.width = 26;
+				this.height = 26;
+				this.ammo = 1;
+				this.knockBack = 2f;
+				this.@value = Item.sellPrice(0, 2, 0, 0);
+				this.ranged = true;
+				this.rare = 2;
+				return;
+			}
+			if (type == 3104)
+			{
+				this.name = "Endless Musket Pouch";
+				this.shootSpeed = 4f;
+				this.shoot = 14;
+				this.damage = 7;
+				this.width = 26;
+				this.height = 26;
+				this.ammo = 14;
+				this.knockBack = 2f;
+				this.@value = Item.sellPrice(0, 2, 0, 0);
+				this.ranged = true;
+				this.rare = 2;
+				return;
+			}
+			if (type == 3105)
+			{
+				this.magic = true;
+				this.mana = 30;
+				this.useStyle = 1;
+				this.name = "Toxic Flask";
+				this.shootSpeed = 9f;
+				this.rare = 8;
+				this.damage = 46;
+				this.shoot = 510;
+				this.width = 18;
+				this.height = 20;
+				this.knockBack = 4f;
+				this.useSound = 106;
+				this.useAnimation = 28;
+				this.useTime = 28;
+				this.noUseGraphic = true;
+				this.noMelee = true;
+				this.@value = Item.sellPrice(0, 2, 0, 0);
+				return;
+			}
+			if (type == 3106)
+			{
+				this.autoReuse = true;
+				this.name = "Psycho Knife";
+				this.useStyle = 1;
+				this.useAnimation = 20;
+				this.useTime = 20;
+				this.knockBack = 3.5f;
+				this.width = 30;
+				this.height = 30;
+				this.damage = 70;
+				this.scale = 1.1f;
+				this.useSound = 1;
+				this.rare = 8;
+				this.@value = Item.sellPrice(0, 5, 0, 0);
+				this.melee = true;
+				return;
+			}
+			if (type == 3107)
+			{
+				this.useStyle = 5;
+				this.autoReuse = true;
+				this.useAnimation = 15;
+				this.useTime = 15;
+				this.name = "Nailgun";
+				this.width = 50;
+				this.height = 18;
+				this.shoot = 514;
+				this.useAmmo = 514;
+				this.useSound = 108;
+				this.damage = 85;
+				this.shootSpeed = 10f;
+				this.noMelee = true;
+				this.@value = Item.sellPrice(0, 10, 0, 0);
+				this.rare = 8;
+				this.ranged = true;
+				return;
+			}
+			if (type == 3108)
+			{
+				this.name = "Nail";
+				this.shootSpeed = 6f;
+				this.shoot = 514;
+				this.damage = 30;
+				this.width = 8;
+				this.height = 8;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.ammo = 514;
+				this.knockBack = 3f;
+				this.@value = Item.buyPrice(0, 0, 1, 0);
+				this.ranged = true;
+				this.rare = 8;
+				return;
+			}
+			if (type == 3109)
+			{
+				this.name = "Night Vision Helmet";
+				this.width = 22;
+				this.height = 22;
+				this.defense = 2;
+				this.headSlot = 179;
+				this.rare = 3;
+				this.@value = Item.sellPrice(0, 2, 0, 0);
+				this.toolTip = "Improves vision";
+				return;
+			}
+			if (type == 3110)
+			{
+				this.name = "Celestial Shell";
+				this.width = 16;
+				this.height = 24;
+				this.accessory = true;
+				this.rare = 8;
+				this.toolTip = "Turns the holder into a werewolf at night and a merfolk when entering water";
+				this.toolTip2 = "Minor increases to all stats";
+				this.@value = 700000;
+				return;
+			}
+			if (type == 3111)
+			{
+				this.name = "Pink Gel";
+				this.width = 10;
+				this.height = 12;
+				this.maxStack = 999;
+				this.alpha = 100;
+				this.toolTip = "'Bouncy and sweet!'";
+				this.@value = 15;
+				return;
+			}
+			if (type == 3112)
+			{
+				this.color = new Color(255, 255, 255, 0);
+				this.useStyle = 1;
+				this.name = "Bouncy Glowstick";
+				this.shootSpeed = 6f;
+				this.shoot = 515;
+				this.width = 12;
+				this.height = 12;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.useSound = 1;
+				this.useAnimation = 15;
+				this.useTime = 15;
+				this.noMelee = true;
+				this.@value = 10;
+				this.holdStyle = 1;
+				this.toolTip = "Works when wet";
+				this.toolTip2 = "Very bouncy";
+				return;
+			}
+			if (type == 3113)
+			{
+				this.name = "Pink Slime Block";
+				this.createTile = 371;
+				this.width = 12;
+				this.height = 12;
+				this.toolTip = "Very bouncy";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				return;
+			}
+			if (type == 3114)
+			{
+				this.flame = true;
+				this.noWet = true;
+				this.name = "Pink Torch";
+				this.holdStyle = 1;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 4;
+				this.placeStyle = 15;
+				this.width = 10;
+				this.height = 12;
+				this.@value = 80;
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				return;
+			}
+			if (type == 3115)
+			{
+				this.useStyle = 1;
+				this.name = "Bouncy Bomb";
+				this.shootSpeed = 5f;
+				this.shoot = 516;
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.useSound = 1;
+				this.useAnimation = 25;
+				this.useTime = 25;
+				this.noUseGraphic = true;
+				this.noMelee = true;
+				this.@value = Item.buyPrice(0, 0, 4, 0);
+				this.damage = 0;
+				this.toolTip = "A small explosion that will destroy some tiles";
+				this.toolTip2 = "Very bouncy";
+				return;
+			}
+			if (type == 3116)
+			{
+				this.useStyle = 5;
+				this.name = "Bouncy Grenade";
+				this.shootSpeed = 6.5f;
+				this.shoot = 517;
+				this.width = 20;
+				this.height = 20;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.useSound = 1;
+				this.useAnimation = 40;
+				this.useTime = 40;
+				this.noUseGraphic = true;
+				this.noMelee = true;
+				this.@value = 100;
+				this.damage = 65;
+				this.knockBack = 8f;
+				this.toolTip = "A small explosion that will not destroy tiles";
+				this.toolTip2 = "Very bouncy";
+				this.thrown = true;
+				return;
+			}
+			if (type == 3117)
+			{
+				this.flame = true;
+				this.noWet = true;
+				this.name = "Peace Candle";
+				this.createTile = 372;
+				this.width = 8;
+				this.height = 18;
+				this.holdStyle = 1;
+				this.toolTip = "Makes surrounding creatures less hostile";
+				this.rare = 1;
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				return;
+			}
+			if (type >= 3203 && type <= 3208)
+			{
+				this.name = "Biome Crate";
+				this.width = 12;
+				this.height = 12;
+				this.rare = 2;
+				this.toolTip = "Right click to open";
+				this.maxStack = 99;
+				this.createTile = 376;
+				this.placeStyle = 3 + type - 3203;
+				this.useAnimation = 15;
+				this.useTime = 15;
+				this.autoReuse = true;
+				this.useStyle = 1;
+				this.consumable = true;
+				this.@value = Item.sellPrice(0, 1, 0, 0);
+				return;
+			}
+			if (type == 3209)
+			{
+				this.name = "Crystal Serpent";
+				this.mana = 9;
+				this.useSound = 109;
+				this.useStyle = 5;
+				this.damage = 40;
+				this.useAnimation = 29;
+				this.useTime = 29;
+				this.width = 36;
+				this.height = 40;
+				this.shoot = 521;
+				this.shootSpeed = 13f;
+				this.knockBack = 4.4f;
+				this.magic = true;
+				this.autoReuse = true;
+				this.@value = Item.sellPrice(0, 4, 0, 0);
+				this.rare = 5;
+				this.noMelee = true;
+				return;
+			}
+			if (type == 3210)
+			{
+				this.name = "Toxikcarp";
+				this.useSound = 111;
+				this.useStyle = 5;
+				this.damage = 43;
+				this.useAnimation = 14;
+				this.useTime = 14;
+				this.width = 30;
+				this.height = 28;
+				this.shoot = 523;
+				this.shootSpeed = 8.5f;
+				this.knockBack = 3f;
+				this.ranged = true;
+				this.autoReuse = true;
+				this.@value = Item.sellPrice(0, 4, 0, 0);
+				this.rare = 5;
+				this.noMelee = true;
+				return;
+			}
+			if (type == 3211)
+			{
+				this.name = "Bladetongue";
+				this.useStyle = 1;
+				this.useAnimation = 28;
+				this.useTime = 28;
+				this.knockBack = 5.75f;
+				this.width = 40;
+				this.height = 40;
+				this.damage = 55;
+				this.scale = 1.125f;
+				this.useSound = 1;
+				this.rare = 5;
+				this.autoReuse = true;
+				this.@value = Item.sellPrice(0, 4, 0, 0);
+				this.melee = true;
+				return;
+			}
+			if (type == 3212)
+			{
+				this.name = "Shark Tooth Necklace";
+				this.width = 22;
+				this.height = 22;
+				this.accessory = true;
+				this.rare = 1;
+				this.toolTip = "Increases armor penetration";
+				this.@value = Item.sellPrice(0, 1, 0, 0);
+				this.neckSlot = 7;
+				return;
+			}
+			if (type == 3213)
+			{
+				this.name = "Money Trough";
+				this.useStyle = 1;
+				this.shootSpeed = 4f;
+				this.shoot = 525;
+				this.width = 26;
+				this.height = 24;
+				this.useSound = 59;
+				this.useAnimation = 28;
+				this.useTime = 28;
+				this.rare = 3;
+				this.@value = Item.sellPrice(0, 2, 0, 0);
+				return;
+			}
+			if (type == 3119)
+			{
+				this.name = "DPS Meter";
+				this.width = 24;
+				this.height = 18;
+				this.accessory = true;
+				this.rare = 1;
+				this.@value = Item.sellPrice(0, 1, 0, 0);
+				return;
+			}
+			if (type == 3118)
+			{
+				this.name = "Lifeform Analyzer";
+				this.width = 24;
+				this.height = 18;
+				this.accessory = true;
+				this.rare = 1;
+				this.@value = Item.sellPrice(0, 1, 0, 0);
+				return;
+			}
+			if (type == 3096)
+			{
+				this.name = "Sextant";
+				this.width = 24;
+				this.height = 18;
+				this.accessory = true;
+				this.rare = 1;
+				this.@value = Item.sellPrice(0, 1, 0, 0);
+				return;
+			}
+			if (type == 3120)
+			{
+				this.name = "Fisherman's Guide";
+				this.width = 24;
+				this.height = 28;
+				this.rare = 1;
+				this.@value = Item.sellPrice(0, 1, 0, 0);
+				this.accessory = true;
+				return;
+			}
+			if (type == 3121)
+			{
+				this.name = "Goblin Tech";
+				this.width = 24;
+				this.height = 28;
+				this.rare = 3;
+				this.@value = Item.sellPrice(0, 3, 0, 0);
+				this.accessory = true;
+				return;
+			}
+			if (type == 3122)
+			{
+				this.name = "REK";
+				this.width = 24;
+				this.height = 28;
+				this.rare = 3;
+				this.@value = Item.sellPrice(0, 3, 0, 0);
+				this.accessory = true;
+				return;
+			}
+			if (type == 3123)
+			{
+				this.name = "PDA";
+				this.width = 24;
+				this.height = 28;
+				this.rare = 5;
+				this.@value = Item.sellPrice(0, 5, 0, 0);
+				this.accessory = true;
+				return;
+			}
+			if (type == 3124)
+			{
+				this.name = "Cell Phone";
+				this.width = 24;
+				this.height = 28;
+				this.rare = 7;
+				this.@value = Item.sellPrice(0, 8, 0, 0);
+				this.useTurn = true;
+				this.useStyle = 4;
+				this.useTime = 90;
+				this.useSound = 6;
+				this.useAnimation = 90;
+				return;
+			}
+			if (type == 3159 || type == 3160 || type == 3161)
+			{
+				this.name = "Bathtubs";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 90;
+				if (type == 3159)
 				{
-					result = "Jungle Hat";
+					this.placeStyle = 28;
 				}
-				else if (oldName == "Cobalt Breastplate")
+				else if (type == 3160)
 				{
-					result = "Jungle Shirt";
+					this.placeStyle = 30;
 				}
-				else if (oldName == "Cobalt Greaves")
+				else if (type == 3161)
 				{
-					result = "Jungle Pants";
+					this.placeStyle = 29;
 				}
+				this.width = 20;
+				this.height = 20;
+				this.@value = 300;
+				return;
 			}
-			if (release <= 13 && oldName == "Jungle Rose")
+			if (type == 3162 || type == 3163 || type == 3164)
 			{
-				result = "Jungle Spores";
-			}
-			if (release <= 20)
-			{
-				if (oldName == "Gills potion")
+				this.name = "Beds";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.autoReuse = true;
+				this.createTile = 79;
+				this.width = 28;
+				this.height = 20;
+				this.@value = 2000;
+				if (type == 3162)
 				{
-					result = "Gills Potion";
+					this.placeStyle = 28;
+					return;
 				}
-				else if (oldName == "Thorn Chakrum")
+				if (type == 3163)
 				{
-					result = "Thorn Chakram";
+					this.placeStyle = 30;
+					return;
 				}
-				else if (oldName == "Ball 'O Hurt")
+				if (type == 3164)
 				{
-					result = "Ball O' Hurt";
-				}
-			}
-			if (release <= 41 && oldName == "Iron Chain")
-			{
-				result = "Chain";
-			}
-			if (release <= 44 && oldName == "Orb of Light")
-			{
-				result = "Shadow Orb";
-			}
-			if (release <= 46)
-			{
-				if (oldName == "Black Dye")
-				{
-					result = "Black Thread";
-				}
-				if (oldName == "Green Dye")
-				{
-					result = "Green Thread";
+					this.placeStyle = 29;
+					return;
 				}
 			}
-			return result;
-		}
-		public Color GetAlpha(Color newColor)
-		{
-			if (this.type == 75)
+			else if (type == 3165 || type == 3166 || type == 3167)
 			{
-				return new Color(255, 255, 255, (int)newColor.A - this.alpha);
-			}
-			if (this.type == 121 || this.type == 122 || this.type == 217 || this.type == 218 || this.type == 219 || this.type == 220 || this.type == 120 || this.type == 119)
-			{
-				return new Color(255, 255, 255, 255);
-			}
-			if (this.type == 501)
-			{
-				return new Color(200, 200, 200, 50);
-			}
-			if (this.type == 757)
-			{
-				return new Color(255, 255, 255, 200);
-			}
-			if (this.type == 1306)
-			{
-				return new Color(255, 255, 255, 200);
-			}
-			if (this.type == 520 || this.type == 521 || this.type == 522 || this.type == 547 || this.type == 548 || this.type == 549 || this.type == 575 || this.type == 1332)
-			{
-				return new Color(255, 255, 255, 50);
-			}
-			if (this.type == 58 || this.type == 184 || this.type == 1734 || this.type == 1735 || this.type == 1867 || this.type == 1868)
-			{
-				return new Color(200, 200, 200, 200);
-			}
-			if (this.type == 1572)
-			{
-				return new Color(200, 200, 255, 125);
-			}
-			if (this.type == 787)
-			{
-				return new Color(255, 255, 255, 175);
-			}
-			if (this.type == 1826)
-			{
-				return new Color(255, 255, 255, 200);
-			}
-			if (this.type == 1508)
-			{
-				return new Color(200, 200, 200, 0);
-			}
-			if (this.type == 502)
-			{
-				return new Color(255, 255, 255, 150);
-			}
-			if (this.type == 51)
-			{
-				return new Color(255, 255, 255, 0);
-			}
-			if (this.type == 1260)
-			{
-				return new Color(255, 255, 255, 175);
-			}
-			if (this.type == 1508)
-			{
-				return new Color((int)newColor.R, (int)newColor.G, (int)newColor.B, (int)Main.gFade);
-			}
-			if (this.type == 1506 || this.type == 1507)
-			{
-				return new Color((int)newColor.R, (int)newColor.G, (int)newColor.B, (int)Main.gFade);
-			}
-			if (this.type == 1446 || (this.type >= 1543 && this.type <= 1545))
-			{
-				return new Color((int)newColor.R, (int)newColor.G, (int)newColor.B, (int)Main.gFade);
-			}
-			float num = (float)(255 - this.alpha) / 255f;
-			int r = (int)((float)newColor.R * num);
-			int g = (int)((float)newColor.G * num);
-			int b = (int)((float)newColor.B * num);
-			int num2 = (int)newColor.A - this.alpha;
-			if (num2 < 0)
-			{
-				num2 = 0;
-			}
-			if (num2 > 255)
-			{
-				num2 = 255;
-			}
-			if (this.type >= 198 && this.type <= 203)
-			{
-				return Color.White;
-			}
-			return new Color(r, g, b, num2);
-		}
-		public Color GetColor(Color newColor)
-		{
-			int num = (int)(this.color.R - (255 - newColor.R));
-			int num2 = (int)(this.color.G - (255 - newColor.G));
-			int num3 = (int)(this.color.B - (255 - newColor.B));
-			int num4 = (int)(this.color.A - (255 - newColor.A));
-			if (num < 0)
-			{
-				num = 0;
-			}
-			if (num > 255)
-			{
-				num = 255;
-			}
-			if (num2 < 0)
-			{
-				num2 = 0;
-			}
-			if (num2 > 255)
-			{
-				num2 = 255;
-			}
-			if (num3 < 0)
-			{
-				num3 = 0;
-			}
-			if (num3 > 255)
-			{
-				num3 = 255;
-			}
-			if (num4 < 0)
-			{
-				num4 = 0;
-			}
-			if (num4 > 255)
-			{
-				num4 = 255;
-			}
-			return new Color(num, num2, num3, num4);
-		}
-		public static bool MechSpawn(float x, float y, int type)
-		{
-			int num = 0;
-			int num2 = 0;
-			int num3 = 0;
-			for (int i = 0; i < 200; i++)
-			{
-				if (Main.item[i].active && Main.item[i].type == type)
+				this.name = "Bookcases";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 101;
+				this.width = 20;
+				this.height = 20;
+				this.@value = 300;
+				if (type == 3165)
 				{
-					num++;
-					Vector2 vector = new Vector2(x, y);
-					float num4 = Main.item[i].position.X - vector.X;
-					float num5 = Main.item[i].position.Y - vector.Y;
-					float num6 = (float)Math.Sqrt((double)(num4 * num4 + num5 * num5));
-					if (num6 < 300f)
+					this.placeStyle = 29;
+					return;
+				}
+				if (type == 3166)
+				{
+					this.placeStyle = 31;
+					return;
+				}
+				if (type == 3167)
+				{
+					this.placeStyle = 30;
+					return;
+				}
+			}
+			else if (type == 3168 || type == 3169 || type == 3170)
+			{
+				this.name = "Candelabras";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 100;
+				this.width = 20;
+				this.height = 20;
+				this.@value = 1500;
+				if (type == 3168)
+				{
+					this.placeStyle = 28;
+					return;
+				}
+				if (type == 3169)
+				{
+					this.placeStyle = 30;
+					return;
+				}
+				if (type == 3170)
+				{
+					this.placeStyle = 29;
+					return;
+				}
+			}
+			else if (type == 3171 || type == 3172 || type == 3173)
+			{
+				this.name = "Candles";
+				this.noWet = true;
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 33;
+				this.width = 8;
+				this.height = 18;
+				if (type == 3171)
+				{
+					this.placeStyle = 27;
+					return;
+				}
+				if (type == 3172)
+				{
+					this.placeStyle = 29;
+					return;
+				}
+				if (type == 3173)
+				{
+					this.placeStyle = 28;
+					return;
+				}
+			}
+			else if (type == 3174 || type == 3175 || type == 3176)
+			{
+				this.name = "Chairs";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 15;
+				this.width = 12;
+				this.height = 30;
+				if (type == 3174)
+				{
+					this.placeStyle = 33;
+					return;
+				}
+				if (type == 3175)
+				{
+					this.placeStyle = 35;
+					return;
+				}
+				if (type == 3176)
+				{
+					this.placeStyle = 34;
+					return;
+				}
+			}
+			else if (type == 3177 || type == 3178 || type == 3179)
+			{
+				this.name = "Chandeliers";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 34;
+				this.width = 26;
+				this.height = 26;
+				this.@value = 3000;
+				if (type == 3177)
+				{
+					this.placeStyle = 34;
+					return;
+				}
+				if (type == 3178)
+				{
+					this.placeStyle = 36;
+					return;
+				}
+				if (type == 3179)
+				{
+					this.placeStyle = 35;
+					return;
+				}
+			}
+			else if (type == 3180 || type == 3181 || type == 3125)
+			{
+				this.name = "Chests";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 21;
+				this.width = 26;
+				this.height = 22;
+				this.@value = 500;
+				if (type == 3180)
+				{
+					this.placeStyle = 49;
+					return;
+				}
+				if (type == 3181)
+				{
+					this.placeStyle = 51;
+					return;
+				}
+				if (type == 3125)
+				{
+					this.placeStyle = 50;
+					return;
+				}
+			}
+			else if (type == 3126 || type == 3127 || type == 3128)
+			{
+				this.name = "Clocks";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 104;
+				this.width = 20;
+				this.height = 20;
+				this.@value = 300;
+				if (type == 3126)
+				{
+					this.placeStyle = 25;
+					return;
+				}
+				if (type == 3127)
+				{
+					this.placeStyle = 27;
+					return;
+				}
+				if (type == 3128)
+				{
+					this.placeStyle = 26;
+					return;
+				}
+			}
+			else if (type == 3129 || type == 3130 || type == 3131)
+			{
+				this.name = "Doors";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 10;
+				this.width = 14;
+				this.height = 28;
+				this.@value = 200;
+				if (type == 3129)
+				{
+					this.placeStyle = 33;
+					return;
+				}
+				if (type == 3130)
+				{
+					this.placeStyle = 35;
+					return;
+				}
+				if (type == 3131)
+				{
+					this.placeStyle = 34;
+					return;
+				}
+			}
+			else if (type == 3132 || type == 3133 || type == 3134)
+			{
+				this.name = "Dressers";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 88;
+				this.width = 20;
+				this.height = 20;
+				this.@value = 300;
+				if (type == 3132)
+				{
+					this.placeStyle = 25;
+					return;
+				}
+				if (type == 3133)
+				{
+					this.placeStyle = 27;
+					return;
+				}
+				if (type == 3134)
+				{
+					this.placeStyle = 26;
+					return;
+				}
+			}
+			else if (type == 3135 || type == 3136 || type == 3137)
+			{
+				this.name = "Lamps";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 93;
+				this.width = 10;
+				this.height = 24;
+				this.@value = 500;
+				if (type == 3135)
+				{
+					this.placeStyle = 28;
+					return;
+				}
+				if (type == 3136)
+				{
+					this.placeStyle = 30;
+					return;
+				}
+				if (type == 3137)
+				{
+					this.placeStyle = 29;
+					return;
+				}
+			}
+			else if (type == 3138 || type == 3139 || type == 3140)
+			{
+				this.name = "Lanterns";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 42;
+				this.width = 12;
+				this.height = 28;
+				if (type == 3138)
+				{
+					this.placeStyle = 34;
+					return;
+				}
+				if (type == 3139)
+				{
+					this.placeStyle = 36;
+					return;
+				}
+				if (type == 3140)
+				{
+					this.placeStyle = 35;
+					return;
+				}
+			}
+			else if (type == 3141 || type == 3142 || type == 3143)
+			{
+				this.name = "Pianos";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 87;
+				this.width = 20;
+				this.height = 20;
+				this.@value = 300;
+				if (type == 3141)
+				{
+					this.placeStyle = 27;
+					return;
+				}
+				if (type == 3142)
+				{
+					this.placeStyle = 29;
+					return;
+				}
+				if (type == 3143)
+				{
+					this.placeStyle = 28;
+					return;
+				}
+			}
+			else if (type == 3144 || type == 3145 || type == 3146)
+			{
+				this.name = "Platforms";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 999;
+				this.consumable = true;
+				this.createTile = 19;
+				this.width = 8;
+				this.height = 10;
+				if (type == 3144)
+				{
+					this.placeStyle = 27;
+					return;
+				}
+				if (type == 3145)
+				{
+					this.placeStyle = 29;
+					return;
+				}
+				if (type == 3146)
+				{
+					this.placeStyle = 28;
+					return;
+				}
+			}
+			else if (type == 3147 || type == 3148 || type == 3149)
+			{
+				this.name = "Sinks";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 172;
+				this.width = 20;
+				this.height = 20;
+				this.@value = 300;
+				if (type == 3147)
+				{
+					this.placeStyle = 29;
+					return;
+				}
+				if (type == 3148)
+				{
+					this.placeStyle = 31;
+					return;
+				}
+				if (type == 3149)
+				{
+					this.placeStyle = 30;
+					return;
+				}
+			}
+			else if (type == 3150 || type == 3151 || type == 3152)
+			{
+				this.name = "Sofas";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 89;
+				this.width = 20;
+				this.height = 20;
+				this.@value = 300;
+				if (type == 3150)
+				{
+					this.placeStyle = 30;
+					return;
+				}
+				if (type == 3151)
+				{
+					this.placeStyle = 32;
+					return;
+				}
+				if (type == 3152)
+				{
+					this.placeStyle = 31;
+					return;
+				}
+			}
+			else if (type == 3153 || type == 3154 || type == 3155)
+			{
+				this.name = "Tables";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 14;
+				this.width = 26;
+				this.height = 20;
+				this.@value = 300;
+				if (type == 3153)
+				{
+					this.placeStyle = 32;
+					return;
+				}
+				if (type == 3154)
+				{
+					this.placeStyle = 34;
+					return;
+				}
+				if (type == 3155)
+				{
+					this.placeStyle = 33;
+					return;
+				}
+			}
+			else if (type == 3156 || type == 3157 || type == 3158)
+			{
+				this.name = "Workbenchs";
+				this.useStyle = 1;
+				this.useTurn = true;
+				this.useAnimation = 15;
+				this.useTime = 10;
+				this.autoReuse = true;
+				this.maxStack = 99;
+				this.consumable = true;
+				this.createTile = 18;
+				this.width = 28;
+				this.height = 14;
+				this.@value = 150;
+				if (type == 3156)
+				{
+					this.placeStyle = 28;
+					return;
+				}
+				if (type == 3157)
+				{
+					this.placeStyle = 30;
+					return;
+				}
+				if (type == 3158)
+				{
+					this.placeStyle = 29;
+					return;
+				}
+			}
+			else
+			{
+				if (type == 3182)
+				{
+					this.name = "Magic Water Dropper";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 373;
+					this.width = 24;
+					this.height = 24;
+					this.@value = Item.sellPrice(0, 0, 1, 0);
+					return;
+				}
+				if (type == 3183)
+				{
+					this.name = "Golden Bug Net";
+					this.useTurn = true;
+					this.useStyle = 1;
+					this.useAnimation = 18;
+					this.width = 24;
+					this.height = 28;
+					this.useSound = 1;
+					this.@value = Item.sellPrice(0, 5, 0, 0);
+					this.autoReuse = true;
+					this.rare = 4;
+					this.scale = 1.15f;
+					return;
+				}
+				if (type == 3184)
+				{
+					this.name = "Magic Lava Dropper";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 374;
+					this.width = 24;
+					this.height = 24;
+					this.@value = Item.sellPrice(0, 0, 1, 0);
+					return;
+				}
+				if (type == 3185)
+				{
+					this.name = "Magic Honey Dropper";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 375;
+					this.width = 24;
+					this.height = 24;
+					this.@value = Item.sellPrice(0, 0, 1, 0);
+					return;
+				}
+				if (type == 3186)
+				{
+					this.name = "Empty Dropper";
+					this.maxStack = 999;
+					this.width = 24;
+					this.height = 24;
+					this.@value = Item.buyPrice(0, 0, 1, 0);
+					return;
+				}
+				if (type == 3187)
+				{
+					this.name = "Gladiator Helmet";
+					this.width = 18;
+					this.height = 18;
+					this.defense = 2;
+					this.headSlot = 180;
+					this.@value = 20000;
+					return;
+				}
+				if (type == 3188)
+				{
+					this.name = "Gladiator Breastplate";
+					this.width = 18;
+					this.height = 18;
+					this.defense = 3;
+					this.bodySlot = 182;
+					this.@value = 16000;
+					return;
+				}
+				if (type == 3189)
+				{
+					this.name = "Gladiator Leggings";
+					this.width = 18;
+					this.height = 18;
+					this.defense = 2;
+					this.legSlot = 122;
+					this.@value = 12000;
+					return;
+				}
+				if (type >= 3191 && type <= 3194)
+				{
+					this.name = "Grub";
+					this.useStyle = 1;
+					this.autoReuse = true;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.width = 12;
+					this.height = 12;
+					this.makeNPC = (short)(484 + type - 3191);
+					this.noUseGraphic = true;
+					if (type == 3192)
 					{
-						num2++;
+						this.bait = 15;
+						return;
 					}
-					if (num6 < 800f)
+					if (type == 3193)
 					{
-						num3++;
+						this.bait = 25;
+						return;
+					}
+					if (type == 3194)
+					{
+						this.bait = 40;
+						return;
+					}
+					this.bait = 35;
+					return;
+				}
+				if (type == 3195)
+				{
+					this.name = "Grub Soup";
+					this.useSound = 3;
+					this.useStyle = 2;
+					this.useTurn = true;
+					this.useAnimation = 17;
+					this.useTime = 17;
+					this.maxStack = 30;
+					this.consumable = true;
+					this.width = 10;
+					this.height = 10;
+					this.buffType = 26;
+					this.buffTime = 108000;
+					this.rare = 1;
+					this.toolTip = "Minor improvements to all stats";
+					this.@value = 1000;
+					return;
+				}
+				if (type == 3196)
+				{
+					this.useStyle = 1;
+					this.name = "Bomb Fish";
+					this.shootSpeed = 6f;
+					this.shoot = 519;
+					this.width = 26;
+					this.height = 26;
+					this.maxStack = 99;
+					this.consumable = true;
+					this.useSound = 1;
+					this.useAnimation = 25;
+					this.useTime = 25;
+					this.noUseGraphic = true;
+					this.noMelee = true;
+					this.@value = Item.sellPrice(0, 0, 2, 0);
+					this.damage = 0;
+					this.toolTip = "A small explosion that will destroy some tiles";
+					this.rare = 1;
+					return;
+				}
+				if (type == 3197)
+				{
+					this.rare = 1;
+					this.useStyle = 1;
+					this.name = "Frost Daggerfish";
+					this.shootSpeed = 12.5f;
+					this.shoot = 520;
+					this.damage = 17;
+					this.width = 28;
+					this.height = 28;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.useSound = 1;
+					this.useAnimation = 13;
+					this.useTime = 13;
+					this.noUseGraphic = true;
+					this.noMelee = true;
+					this.@value = 80;
+					this.knockBack = 3.5f;
+					this.thrown = true;
+					return;
+				}
+				if (type == 3198)
+				{
+					this.rare = 1;
+					this.name = "Sharpening Station";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 377;
+					this.width = 28;
+					this.height = 22;
+					this.@value = 100000;
+					return;
+				}
+				if (type == 3199)
+				{
+					this.name = "Ice Mirror";
+					this.useTurn = true;
+					this.width = 20;
+					this.height = 20;
+					this.useStyle = 4;
+					this.useTime = 90;
+					this.useSound = 6;
+					this.useAnimation = 90;
+					this.toolTip = "Gaze in the mirror to return home";
+					this.rare = 1;
+					this.@value = 50000;
+					return;
+				}
+				if (type == 3200)
+				{
+					this.name = "Sailfish Boots";
+					this.width = 28;
+					this.height = 24;
+					this.accessory = true;
+					this.rare = 1;
+					this.toolTip = "The wearer can run super fast";
+					this.@value = 50000;
+					this.shoeSlot = 17;
+					return;
+				}
+				if (type == 3201)
+				{
+					this.name = "Tsunami in a Bottle";
+					this.width = 16;
+					this.height = 24;
+					this.accessory = true;
+					this.rare = 1;
+					this.toolTip = "Allows the holder to double jump";
+					this.@value = 50000;
+					this.waistSlot = 11;
+					return;
+				}
+				if (type == 3202)
+				{
+					this.rare = 1;
+					this.name = "Target Dummy";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 99;
+					this.consumable = true;
+					this.createTile = 378;
+					this.width = 20;
+					this.height = 30;
+					this.@value = Item.sellPrice(0, 0, 1, 0);
+					return;
+				}
+				if (type == 3214)
+				{
+					this.name = "Bubble";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 379;
+					this.width = 12;
+					this.height = 12;
+					this.@value = Item.buyPrice(0, 0, 2, 0);
+					return;
+				}
+				if (type >= 3215 && type <= 3222)
+				{
+					this.name = "Planter Box";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 380;
+					this.placeStyle = type - 3215;
+					this.width = 24;
+					this.height = 20;
+					this.@value = Item.buyPrice(0, 0, 1, 0);
+					return;
+				}
+				if (type == 3223)
+				{
+					this.name = "Brain of Confusion";
+					this.width = 22;
+					this.height = 22;
+					this.accessory = true;
+					this.rare = 1;
+					this.toolTip = "May confuse nearby enemies after being struck";
+					this.@value = 50000;
+					this.expert = true;
+					return;
+				}
+				if (type == 3224)
+				{
+					this.name = "Worm Scarf";
+					this.width = 22;
+					this.height = 22;
+					this.accessory = true;
+					this.rare = 1;
+					this.toolTip = "Reduces damage taken by 10%";
+					this.@value = 50000;
+					this.neckSlot = 8;
+					this.expert = true;
+					return;
+				}
+				if (type == 3225)
+				{
+					this.name = "Balloon Pufferfish";
+					this.width = 14;
+					this.height = 28;
+					this.rare = 1;
+					this.@value = 27000;
+					this.accessory = true;
+					this.toolTip = "Increases jump height";
+					this.balloonSlot = 11;
+					return;
+				}
+				if (type == 3226)
+				{
+					this.name = "Lazure's Helmet";
+					this.width = 28;
+					this.height = 20;
+					this.headSlot = 181;
+					this.rare = 9;
+					this.vanity = true;
+					return;
+				}
+				if (type == 3227)
+				{
+					this.name = "Lazure's Armor";
+					this.width = 18;
+					this.height = 14;
+					this.bodySlot = 183;
+					this.rare = 9;
+					this.vanity = true;
+					return;
+				}
+				if (type == 3228)
+				{
+					this.name = "Lazure's Wings";
+					this.width = 24;
+					this.height = 8;
+					this.accessory = true;
+					this.rare = 9;
+					this.wingSlot = 28;
+					return;
+				}
+				if (type >= 3229 && type <= 3233)
+				{
+					this.name = "Grave Marker";
+					this.useTurn = true;
+					this.useStyle = 1;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.maxStack = 99;
+					this.consumable = true;
+					this.createTile = 85;
+					this.placeStyle = 6 + type - 3229;
+					this.width = 20;
+					this.height = 20;
+					return;
+				}
+				if (type == 3234)
+				{
+					this.name = "Crystal Block";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 385;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type >= 3235 && type <= 3237)
+				{
+					this.name = "Music Boxes";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.consumable = true;
+					this.createTile = 139;
+					this.placeStyle = 33 + type - 3235;
+					this.width = 24;
+					this.height = 24;
+					this.rare = 4;
+					this.@value = 100000;
+					this.accessory = true;
+					return;
+				}
+				if (type == 3238)
+				{
+					this.name = "Crystal Wall";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 7;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createWall = 186;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3239)
+				{
+					this.name = "Trap Door";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 387;
+					this.width = 20;
+					this.height = 12;
+					return;
+				}
+				if (type == 3240)
+				{
+					this.name = "Tall Gate";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 388;
+					this.width = 18;
+					this.height = 26;
+					return;
+				}
+				if (type == 3241)
+				{
+					this.name = "Balloon Sharkron";
+					this.width = 14;
+					this.height = 28;
+					this.rare = 1;
+					this.@value = 27000;
+					this.accessory = true;
+					this.toolTip = "Increases jump height";
+					this.balloonSlot = 12;
+					return;
+				}
+				if (type == 3242)
+				{
+					this.name = "Tax Collector's Hat";
+					this.width = 18;
+					this.height = 18;
+					this.@value = Item.buyPrice(0, 3, 0, 0);
+					this.vanity = true;
+					this.headSlot = 182;
+					return;
+				}
+				if (type == 3243)
+				{
+					this.name = "Tax Collector's Suit";
+					this.width = 18;
+					this.height = 18;
+					this.@value = Item.buyPrice(0, 3, 0, 0);
+					this.vanity = true;
+					this.bodySlot = 184;
+					return;
+				}
+				if (type == 3244)
+				{
+					this.name = "Tax Collector's Pants";
+					this.width = 18;
+					this.height = 18;
+					this.@value = Item.buyPrice(0, 3, 0, 0);
+					this.vanity = true;
+					this.legSlot = 124;
+					return;
+				}
+				if (type == 3245)
+				{
+					this.name = "Bone Glove";
+					this.width = 16;
+					this.height = 16;
+					this.@value = Item.sellPrice(0, 1, 0, 0);
+					this.useAnimation = 17;
+					this.useTime = 17;
+					this.useStyle = 1;
+					this.useSound = 1;
+					this.shootSpeed = 1f;
+					this.damage = 11;
+					this.knockBack = 1.8f;
+					this.shoot = 21;
+					this.thrown = true;
+					this.rare = 2;
+					this.useAmmo = 154;
+					this.noUseGraphic = true;
+					this.expert = true;
+					return;
+				}
+				if (type == 3246)
+				{
+					this.name = "Clothier's Jacket";
+					this.width = 18;
+					this.height = 18;
+					this.@value = Item.buyPrice(0, 3, 0, 0);
+					this.vanity = true;
+					this.bodySlot = 185;
+					return;
+				}
+				if (type == 3247)
+				{
+					this.name = "Clothier's Pants";
+					this.width = 18;
+					this.height = 18;
+					this.@value = Item.buyPrice(0, 3, 0, 0);
+					this.vanity = true;
+					this.legSlot = 125;
+					return;
+				}
+				if (type == 3248)
+				{
+					this.name = "Dye Trader's Turban";
+					this.width = 18;
+					this.height = 18;
+					this.@value = Item.buyPrice(0, 3, 0, 0);
+					this.vanity = true;
+					this.headSlot = 183;
+					return;
+				}
+				if (type == 3249)
+				{
+					this.mana = 10;
+					this.damage = 50;
+					this.useStyle = 1;
+					this.name = "Deadly Sphere Staff";
+					this.shootSpeed = 10f;
+					this.shoot = 533;
+					this.buffType = 161;
+					this.width = 26;
+					this.height = 28;
+					this.useSound = 113;
+					this.useAnimation = 36;
+					this.useTime = 36;
+					this.rare = 8;
+					this.noMelee = true;
+					this.knockBack = 2f;
+					this.toolTip = "Summons deadly spheres to fight for you";
+					this.@value = Item.sellPrice(0, 5, 0, 0);
+					this.summon = true;
+					return;
+				}
+				if (type == 3250 || type == 3251 || type == 3252)
+				{
+					this.name = "Horseshoe Balloons";
+					this.width = 20;
+					this.height = 22;
+					this.rare = 4;
+					this.@value = 45000;
+					this.accessory = true;
+					this.balloonSlot = (sbyte)(13 + type - 3250);
+					return;
+				}
+				if (type == 3253)
+				{
+					this.name = "Lava Lamp";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 99;
+					this.consumable = true;
+					this.createTile = 390;
+					this.width = 12;
+					this.height = 30;
+					this.@value = Item.buyPrice(0, 2, 0, 0);
+					this.rare = 1;
+					this.glowMask = 129;
+					return;
+				}
+				if (type >= 3254 && type <= 3257)
+				{
+					this.name = "Critter Cage";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 99;
+					this.consumable = true;
+					this.createTile = 391 + type - 3254;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3258)
+				{
+					this.name = "Slap Hand";
+					this.useStyle = 1;
+					this.useAnimation = 21;
+					this.useTime = 21;
+					this.autoReuse = true;
+					this.knockBack = 20f;
+					this.width = 36;
+					this.height = 36;
+					this.damage = 35;
+					this.scale = 1.1f;
+					this.useSound = 1;
+					this.rare = 4;
+					this.@value = Item.buyPrice(0, 25, 0, 0);
+					this.melee = true;
+					this.crit = 15;
+					return;
+				}
+				if (type == 3260)
+				{
+					this.useStyle = 4;
+					this.name = "Blessed Apple";
+					this.channel = true;
+					this.width = 34;
+					this.height = 34;
+					this.useSound = 25;
+					this.useAnimation = 20;
+					this.useTime = 20;
+					this.rare = 8;
+					this.noMelee = true;
+					this.mountType = 10;
+					this.@value = Item.sellPrice(0, 5, 0, 0);
+					return;
+				}
+				if (type == 3259)
+				{
+					this.name = "Twilight Hair Dye";
+					this.width = 20;
+					this.height = 26;
+					this.maxStack = 99;
+					this.rare = 3;
+					this.@value = Item.buyPrice(0, 30, 0, 0);
+					this.useSound = 3;
+					this.useStyle = 2;
+					this.useTurn = true;
+					this.useAnimation = 17;
+					this.useTime = 17;
+					this.consumable = true;
+					return;
+				}
+				if (type == 3261)
+				{
+					this.name = "Spectre Bar";
+					this.width = 20;
+					this.height = 20;
+					this.maxStack = 99;
+					this.rare = 7;
+					this.@value = Item.sellPrice(0, 1, 0, 0);
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.consumable = true;
+					this.createTile = 239;
+					this.placeStyle = 21;
+					return;
+				}
+				if (type == 3262 || type >= 3278 && type <= 3292 || type >= 3315 && type <= 3317)
+				{
+					this.name = "Yoyo";
+					this.useStyle = 5;
+					this.width = 24;
+					this.height = 24;
+					this.noUseGraphic = true;
+					this.useSound = 1;
+					this.melee = true;
+					this.channel = true;
+					this.noMelee = true;
+					this.shoot = 541 + type - 3278;
+					this.useAnimation = 25;
+					this.useTime = 25;
+					this.shootSpeed = 16f;
+					if (type == 3278)
+					{
+						this.knockBack = 2.5f;
+						this.damage = 9;
+						this.@value = Item.sellPrice(0, 0, 1, 0);
+						this.rare = 0;
+						return;
+					}
+					if (type == 3285)
+					{
+						this.knockBack = 3.5f;
+						this.damage = 14;
+						this.@value = Item.sellPrice(0, 0, 50, 0);
+						this.rare = 1;
+						return;
+					}
+					if (type == 3279)
+					{
+						this.knockBack = 4.5f;
+						this.damage = 16;
+						this.@value = Item.sellPrice(0, 1, 0, 0);
+						this.rare = 1;
+						return;
+					}
+					if (type == 3280)
+					{
+						this.knockBack = 4f;
+						this.damage = 17;
+						this.@value = Item.sellPrice(0, 1, 0, 0);
+						this.rare = 1;
+						return;
+					}
+					if (type == 3281)
+					{
+						this.knockBack = 3.75f;
+						this.damage = 20;
+						this.@value = Item.sellPrice(0, 1, 30, 0);
+						this.rare = 3;
+						return;
+					}
+					if (type == 3317)
+					{
+						this.knockBack = 3.85f;
+						this.damage = 22;
+						this.@value = Item.sellPrice(0, 1, 50, 0);
+						this.rare = 3;
+						this.shoot = 564;
+						return;
+					}
+					if (type == 3282)
+					{
+						this.knockBack = 4.3f;
+						this.damage = 27;
+						this.@value = Item.sellPrice(0, 1, 80, 0);
+						this.rare = 3;
+						return;
+					}
+					if (type == 3262)
+					{
+						this.knockBack = 3.25f;
+						this.damage = 21;
+						this.@value = Item.buyPrice(0, 5, 0, 0);
+						this.rare = 2;
+						this.shoot = 534;
+						return;
+					}
+					if (type == 3315)
+					{
+						this.knockBack = 3.25f;
+						this.damage = 29;
+						this.@value = Item.sellPrice(0, 4, 0, 0);
+						this.rare = 3;
+						this.shoot = 562;
+						return;
+					}
+					if (type == 3316)
+					{
+						this.knockBack = 3.8f;
+						this.damage = 34;
+						this.@value = Item.sellPrice(0, 4, 0, 0);
+						this.rare = 3;
+						this.shoot = 563;
+						return;
+					}
+					if (type == 3283)
+					{
+						this.knockBack = 3.15f;
+						this.damage = 39;
+						this.@value = Item.sellPrice(0, 4, 0, 0);
+						this.rare = 4;
+						return;
+					}
+					if (type == 3289)
+					{
+						this.knockBack = 2.8f;
+						this.damage = 43;
+						this.@value = Item.sellPrice(0, 4, 0, 0);
+						this.rare = 4;
+						return;
+					}
+					if (type == 3290)
+					{
+						this.knockBack = 4.5f;
+						this.damage = 41;
+						this.@value = Item.sellPrice(0, 4, 0, 0);
+						this.rare = 4;
+						return;
+					}
+					if (type == 3284)
+					{
+						this.knockBack = 3.8f;
+						this.damage = 47;
+						this.@value = Item.buyPrice(0, 25, 0, 0);
+						this.rare = 5;
+						return;
+					}
+					if (type == 3286)
+					{
+						this.knockBack = 3.1f;
+						this.damage = 60;
+						this.@value = Item.sellPrice(0, 5, 0, 0);
+						this.rare = 7;
+						return;
+					}
+					if (type == 3291)
+					{
+						this.knockBack = 4.3f;
+						this.damage = 90;
+						this.@value = Item.sellPrice(0, 11, 0, 0);
+						this.rare = 8;
+						return;
+					}
+					if (type == 3288 || type == 3287)
+					{
+						this.knockBack = 8.5f;
+						this.damage = 180;
+						this.rare = 9;
+						return;
+					}
+					if (type == 3292)
+					{
+						this.knockBack = 3.5f;
+						this.damage = 115;
+						this.@value = Item.sellPrice(0, 11, 0, 0);
+						this.rare = 8;
+						return;
+					}
+					this.knockBack = 4f;
+					this.damage = 15;
+					this.rare = 2;
+					this.@value = Item.sellPrice(0, 1, 0, 0);
+					return;
+				}
+				if (type == 3389)
+				{
+					this.name = "Yoyo";
+					this.useStyle = 5;
+					this.width = 24;
+					this.height = 24;
+					this.noUseGraphic = true;
+					this.useSound = 1;
+					this.melee = true;
+					this.channel = true;
+					this.noMelee = true;
+					this.shoot = 603;
+					this.useAnimation = 25;
+					this.useTime = 25;
+					this.shootSpeed = 16f;
+					this.damage = 190;
+					this.knockBack = 6.5f;
+					this.@value = Item.sellPrice(0, 10, 0, 0);
+					this.crit = 10;
+					this.rare = 10;
+					return;
+				}
+				if (type >= 3293 && type <= 3308)
+				{
+					this.name = "String";
+					this.width = 24;
+					this.height = 24;
+					this.rare = 1;
+					this.@value = Item.sellPrice(0, 0, 3, 0);
+					this.accessory = true;
+					if (type == 3307)
+					{
+						this.stringColor = 27;
+						return;
+					}
+					if (type == 3306)
+					{
+						this.stringColor = 14;
+						return;
+					}
+					if (type == 3308)
+					{
+						this.stringColor = 13;
+						return;
+					}
+					if (type == 3305)
+					{
+						this.stringColor = 28;
+						return;
+					}
+					this.stringColor = 1 + type - 3293;
+					return;
+				}
+				if (type >= 3309 && type <= 3314)
+				{
+					this.name = "Counterweight";
+					this.width = 24;
+					this.height = 24;
+					this.rare = 2;
+					this.@value = Item.buyPrice(0, 5, 0, 0);
+					this.accessory = true;
+					return;
+				}
+				if (type == 3263)
+				{
+					this.name = "Hat";
+					this.width = 18;
+					this.height = 18;
+					this.@value = Item.buyPrice(0, 3, 0, 0);
+					this.vanity = true;
+					this.headSlot = 184;
+					return;
+				}
+				if (type == 3264)
+				{
+					this.name = "Torso";
+					this.width = 18;
+					this.height = 18;
+					this.@value = Item.buyPrice(0, 3, 0, 0);
+					this.vanity = true;
+					this.bodySlot = 186;
+					return;
+				}
+				if (type == 3265)
+				{
+					this.name = "Pants";
+					this.width = 18;
+					this.height = 18;
+					this.@value = Item.buyPrice(0, 3, 0, 0);
+					this.vanity = true;
+					this.legSlot = 126;
+					return;
+				}
+				if (type == 3266)
+				{
+					this.name = "Hat";
+					this.width = 18;
+					this.height = 18;
+					this.@value = 4500;
+					this.headSlot = 185;
+					this.defense = 4;
+					return;
+				}
+				if (type == 3267)
+				{
+					this.name = "Torso";
+					this.width = 18;
+					this.height = 18;
+					this.@value = 4500;
+					this.bodySlot = 187;
+					this.defense = 5;
+					return;
+				}
+				if (type == 3268)
+				{
+					this.name = "Pants";
+					this.width = 18;
+					this.height = 18;
+					this.@value = 4500;
+					this.legSlot = 127;
+					this.defense = 4;
+					return;
+				}
+				if (type == 3269)
+				{
+					this.name = "Medusa Head";
+					this.useStyle = 4;
+					this.useAnimation = 20;
+					this.useTime = 20;
+					this.autoReuse = true;
+					this.reuseDelay = 10;
+					this.shootSpeed = 1f;
+					this.knockBack = 2f;
+					this.width = 16;
+					this.height = 16;
+					this.damage = 28;
+					this.useSound = 0;
+					this.shoot = 535;
+					this.mana = 4;
+					this.rare = 4;
+					this.@value = Item.sellPrice(0, 1, 0, 0);
+					this.noMelee = true;
+					this.noUseGraphic = true;
+					this.magic = true;
+					this.channel = true;
+					return;
+				}
+				if (type == 3270)
+				{
+					this.name = "Item Frame";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 99;
+					this.consumable = true;
+					this.createTile = 395;
+					this.width = 28;
+					this.height = 28;
+					this.rare = 1;
+					return;
+				}
+				if (type == 3272)
+				{
+					this.name = "Hardened Sand";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 397;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3271)
+				{
+					this.name = "Sandstone";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 396;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3273)
+				{
+					this.name = "Sandstone Wall";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 7;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createWall = 187;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3344)
+				{
+					this.name = "Corrupt Sandstone Wall";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 7;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createWall = 220;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3345)
+				{
+					this.name = "Crimson Sandstone Wall";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 7;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createWall = 221;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3346)
+				{
+					this.name = "Hallow Sandstone Wall";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 7;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createWall = 222;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3340)
+				{
+					this.name = "Hardened Sand Wall";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 7;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createWall = 216;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3341)
+				{
+					this.name = "Corrupt Hardened Sand Wall";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 7;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createWall = 217;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3342)
+				{
+					this.name = "Crimson Hardened Sand Wall";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 7;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createWall = 218;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3343)
+				{
+					this.name = "Hallow Hardened Sand Wall";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 7;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createWall = 219;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3277)
+				{
+					this.name = "Crimson Sandstone";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 401;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3276)
+				{
+					this.name = "Corrupt Sandstone";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 400;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3275)
+				{
+					this.name = "Crimson Hardened Sand";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 399;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3274)
+				{
+					this.name = "Corrupt Hardened Sand";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 398;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3339)
+				{
+					this.name = "Hallow Sandstone";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 403;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3338)
+				{
+					this.name = "Hallow Hardened Sand";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 402;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3347)
+				{
+					this.name = "Desert Fossil Block";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 404;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3348)
+				{
+					this.name = "Desert Fossil Wall";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 7;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createWall = 223;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type >= 3318 && type <= 3332)
+				{
+					this.name = "Treasure Bag";
+					this.maxStack = 999;
+					this.consumable = true;
+					this.width = 24;
+					this.height = 24;
+					this.rare = 1;
+					if (type == 3320)
+					{
+						this.rare = 2;
+					}
+					if (type == 3321)
+					{
+						this.rare = 2;
+					}
+					if (type == 3322)
+					{
+						this.rare = 3;
+					}
+					if (type == 3323)
+					{
+						this.rare = 3;
+					}
+					if (type == 3324)
+					{
+						this.rare = 4;
+					}
+					if (type == 3325)
+					{
+						this.rare = 5;
+					}
+					if (type == 3326)
+					{
+						this.rare = 5;
+					}
+					if (type == 3327)
+					{
+						this.rare = 5;
+					}
+					if (type == 3328)
+					{
+						this.rare = 6;
+					}
+					if (type == 3329)
+					{
+						this.rare = 7;
+					}
+					if (type == 3330)
+					{
+						this.rare = 7;
+					}
+					if (type == 3331)
+					{
+						this.rare = 8;
+					}
+					if (type == 3332)
+					{
+						this.rare = 8;
+					}
+					this.expert = true;
+					return;
+				}
+				if (type == 3333)
+				{
+					this.name = "Hive Backpack";
+					this.width = 22;
+					this.height = 22;
+					this.accessory = true;
+					this.rare = 3;
+					this.@value = Item.sellPrice(0, 2, 0, 0);
+					this.backSlot = 9;
+					this.expert = true;
+					return;
+				}
+				if (type == 3334)
+				{
+					this.name = "Yoyo Golve";
+					this.width = 22;
+					this.height = 22;
+					this.accessory = true;
+					this.rare = 4;
+					this.@value = Item.buyPrice(0, 50, 0, 0);
+					this.handOffSlot = 11;
+					this.handOnSlot = 18;
+					return;
+				}
+				if (type == 3335)
+				{
+					this.name = "Demon Heart";
+					this.maxStack = 99;
+					this.consumable = true;
+					this.width = 18;
+					this.height = 18;
+					this.useStyle = 4;
+					this.useTime = 30;
+					this.useSound = 4;
+					this.useAnimation = 30;
+					this.rare = 4;
+					this.@value = Item.sellPrice(0, 2, 0, 0);
+					this.expert = true;
+					return;
+				}
+				if (type == 3336)
+				{
+					this.name = "Spore Sac";
+					this.width = 22;
+					this.height = 22;
+					this.accessory = true;
+					this.rare = 8;
+					this.@value = Item.sellPrice(0, 4, 0, 0);
+					this.expert = true;
+					return;
+				}
+				if (type == 3337)
+				{
+					this.name = "Shiny Stone";
+					this.width = 22;
+					this.height = 22;
+					this.accessory = true;
+					this.rare = 8;
+					this.@value = Item.sellPrice(0, 5, 0, 0);
+					this.expert = true;
+					return;
+				}
+				if (type == 3353)
+				{
+					this.name = "Minecart Mech";
+					this.width = 36;
+					this.height = 26;
+					this.mountType = 11;
+					this.rare = 6;
+					this.@value = Item.sellPrice(0, 3, 0, 0);
+					this.expert = true;
+					return;
+				}
+				if (type == 3355 || type == 3354 || type == 3356)
+				{
+					this.name = "Mechanical Piece";
+					this.width = 20;
+					this.height = 20;
+					this.maxStack = 99;
+					this.rare = 5;
+					this.@value = Item.sellPrice(0, 0, 50, 0);
+					this.expert = true;
+					return;
+				}
+				if (type == 3357 || type == 3358 || type == 3359)
+				{
+					this.name = "Trophy";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 99;
+					this.consumable = true;
+					this.createTile = 240;
+					this.width = 30;
+					this.height = 30;
+					this.@value = Item.sellPrice(0, 1, 0, 0);
+					this.placeStyle = 56 + type - 3357;
+					this.rare = 1;
+					return;
+				}
+				if (type == 3360)
+				{
+					this.name = "Wand";
+					this.tileWand = 620;
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.createTile = 383;
+					this.width = 8;
+					this.height = 10;
+					this.rare = 1;
+					return;
+				}
+				if (type == 3361)
+				{
+					this.name = "Wand";
+					this.tileWand = 620;
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.createTile = 384;
+					this.width = 8;
+					this.height = 10;
+					this.rare = 1;
+					return;
+				}
+				if (type == 3362)
+				{
+					this.name = "Fallen Tuxedo Shirt";
+					this.width = 28;
+					this.height = 20;
+					this.bodySlot = 188;
+					this.rare = 1;
+					this.vanity = true;
+					this.@value = Item.buyPrice(0, 25, 0, 0);
+					return;
+				}
+				if (type == 3363)
+				{
+					this.name = "Fallen Tuxedo Pants";
+					this.width = 28;
+					this.height = 20;
+					this.legSlot = 128;
+					this.rare = 1;
+					this.vanity = true;
+					this.@value = Item.buyPrice(0, 25, 0, 0);
+					return;
+				}
+				if (type == 3364)
+				{
+					this.name = "Fireplace";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 99;
+					this.consumable = true;
+					this.createTile = 405;
+					this.width = 28;
+					this.height = 28;
+					this.rare = 1;
+					return;
+				}
+				if (type == 3365)
+				{
+					this.name = "Fireplace";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 99;
+					this.consumable = true;
+					this.createTile = 406;
+					this.width = 28;
+					this.height = 28;
+					this.rare = 1;
+					return;
+				}
+				if (type == 3366)
+				{
+					this.name = "Yoyo Bag";
+					this.width = 24;
+					this.height = 24;
+					this.rare = 4;
+					this.@value = Item.sellPrice(0, 3, 0, 0);
+					this.accessory = true;
+					return;
+				}
+				if (type == 3367)
+				{
+					this.useStyle = 4;
+					this.name = "Shrimpy Truffle";
+					this.channel = true;
+					this.width = 34;
+					this.height = 34;
+					this.useSound = 25;
+					this.useAnimation = 20;
+					this.useTime = 20;
+					this.rare = 8;
+					this.noMelee = true;
+					this.mountType = 12;
+					this.@value = Item.sellPrice(0, 5, 0, 0);
+					this.expert = true;
+					return;
+				}
+				if (type == 3368)
+				{
+					this.name = "Arkhalis";
+					this.width = 14;
+					this.height = 38;
+					this.useAnimation = 25;
+					this.useTime = 15;
+					this.useStyle = 5;
+					this.rare = 2;
+					this.noUseGraphic = true;
+					this.channel = true;
+					this.noMelee = true;
+					this.damage = 20;
+					this.knockBack = 4f;
+					this.autoReuse = false;
+					this.noMelee = true;
+					this.melee = true;
+					this.shoot = 595;
+					this.shootSpeed = 15f;
+					this.@value = 40000;
+					return;
+				}
+				if (type == 3369)
+				{
+					this.name = "Confetti Cannon";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 209;
+					this.placeStyle = 2;
+					this.width = 12;
+					this.height = 12;
+					this.rare = 3;
+					this.@value = Item.buyPrice(0, 25, 0, 0);
+					return;
+				}
+				if (type == 3370)
+				{
+					this.name = "Music Box (Towers)";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.consumable = true;
+					this.createTile = 139;
+					this.placeStyle = 36;
+					this.width = 24;
+					this.height = 24;
+					this.rare = 4;
+					this.@value = 100000;
+					this.accessory = true;
+					return;
+				}
+				if (type == 3371)
+				{
+					this.name = "Music Box (Goblins)";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.consumable = true;
+					this.createTile = 139;
+					this.placeStyle = 37;
+					this.width = 24;
+					this.height = 24;
+					this.rare = 4;
+					this.@value = 100000;
+					this.accessory = true;
+					return;
+				}
+				if (type >= 3372 && type <= 3373)
+				{
+					this.name = "Skeletron Mask";
+					this.width = 28;
+					this.height = 20;
+					this.headSlot = type + 186 - 3372;
+					this.rare = 1;
+					this.vanity = true;
+					return;
+				}
+				if (type == 3374)
+				{
+					this.name = "Fossil Helmet";
+					this.width = 18;
+					this.height = 18;
+					this.defense = 3;
+					this.headSlot = 188;
+					this.rare = 1;
+					this.@value = Item.sellPrice(0, 0, 30, 0);
+					return;
+				}
+				if (type == 3375)
+				{
+					this.name = "Fossil Plate";
+					this.width = 18;
+					this.height = 18;
+					this.defense = 6;
+					this.bodySlot = 189;
+					this.rare = 1;
+					this.@value = Item.sellPrice(0, 0, 50, 0);
+					return;
+				}
+				if (type == 3376)
+				{
+					this.name = "Fossil Greaves";
+					this.width = 18;
+					this.height = 18;
+					this.defense = 4;
+					this.legSlot = 129;
+					this.rare = 1;
+					this.@value = Item.sellPrice(0, 0, 40, 0);
+					return;
+				}
+				if (type == 3377)
+				{
+					this.name = "Ember Staff";
+					this.mana = 7;
+					this.useSound = 43;
+					this.useStyle = 5;
+					this.damage = 20;
+					this.useAnimation = 28;
+					this.useTime = 28;
+					this.width = 40;
+					this.height = 40;
+					this.shoot = 597;
+					this.shootSpeed = 9f;
+					this.knockBack = 4.75f;
+					this.magic = true;
+					this.autoReuse = true;
+					this.@value = 20000;
+					this.rare = 1;
+					this.noMelee = true;
+					return;
+				}
+				if (type == 3378)
+				{
+					this.name = "Bone Javelin";
+					this.shoot = 598;
+					this.shootSpeed = 10f;
+					this.damage = 29;
+					this.knockBack = 5f;
+					this.thrown = true;
+					this.useStyle = 1;
+					this.useSound = 1;
+					this.useAnimation = 25;
+					this.useTime = 25;
+					this.width = 30;
+					this.height = 30;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.noUseGraphic = true;
+					this.noMelee = true;
+					this.autoReuse = true;
+					this.@value = 50;
+					this.rare = 1;
+					return;
+				}
+				if (type == 3379)
+				{
+					this.autoReuse = true;
+					this.useStyle = 1;
+					this.name = "Bone Knife";
+					this.shootSpeed = 10f;
+					this.shoot = 599;
+					this.damage = 14;
+					this.width = 18;
+					this.height = 20;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.useSound = 1;
+					this.useAnimation = 14;
+					this.useTime = 14;
+					this.noUseGraphic = true;
+					this.noMelee = true;
+					this.@value = 50;
+					this.knockBack = 1.5f;
+					this.thrown = true;
+					this.rare = 1;
+					return;
+				}
+				if (type == 3380)
+				{
+					this.name = "Fossil Ore";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 407;
+					this.width = 12;
+					this.height = 12;
+					this.rare = 1;
+					return;
+				}
+				if (type == 3381)
+				{
+					this.name = "Stardust Helmet";
+					this.width = 18;
+					this.height = 18;
+					this.defense = 10;
+					this.headSlot = 189;
+					this.rare = 10;
+					return;
+				}
+				if (type == 3382)
+				{
+					this.name = "Stardust Breastplate";
+					this.width = 18;
+					this.height = 18;
+					this.defense = 16;
+					this.bodySlot = 190;
+					this.rare = 10;
+					return;
+				}
+				if (type == 3383)
+				{
+					this.name = "Stardust Leggings";
+					this.width = 18;
+					this.height = 18;
+					this.defense = 12;
+					this.legSlot = 130;
+					this.rare = 10;
+					return;
+				}
+				if (type == 3384)
+				{
+					this.name = "Portal Gun";
+					this.useStyle = 5;
+					this.useAnimation = 20;
+					this.useTime = 20;
+					this.shootSpeed = 24f;
+					this.knockBack = 2f;
+					this.width = 16;
+					this.height = 16;
+					this.useSound = 0;
+					this.shoot = 600;
+					this.rare = 8;
+					this.@value = Item.sellPrice(0, 10, 0, 0);
+					this.noMelee = true;
+					this.noUseGraphic = true;
+					this.channel = true;
+					this.autoReuse = true;
+					return;
+				}
+				if (type >= 3385 && type <= 3388)
+				{
+					this.name = "Strange Plant";
+					this.width = 20;
+					this.height = 20;
+					this.maxStack = 99;
+					this.@value = 10000;
+					this.rare = -11;
+					this.placeStyle = type - 3385 + 8;
+					this.createTile = 227;
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.consumable = true;
+					return;
+				}
+				if (type >= 3390 && type <= 3452)
+				{
+					this.name = "Monster Banner";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 99;
+					this.consumable = true;
+					this.createTile = 91;
+					this.placeStyle = 207 + type - 3390;
+					this.width = 10;
+					this.height = 24;
+					this.@value = 1000;
+					this.rare = 1;
+					return;
+				}
+				if (type >= 3453 && type <= 3455)
+				{
+					this.name = "Nebulae";
+					this.width = 12;
+					this.height = 12;
+					switch (type)
+					{
+						case 3453:
+						{
+							this.buffType = 179;
+							return;
+						}
+						case 3454:
+						{
+							this.buffType = 173;
+							return;
+						}
+						case 3455:
+						{
+							this.buffType = 176;
+							return;
+						}
+						default:
+						{
+							return;
+						}
+					}
+				}
+				if (type >= 3456 && type <= 3459)
+				{
+					this.name = "Fragment";
+					this.width = 18;
+					this.height = 18;
+					this.maxStack = 999;
+					this.@value = Item.sellPrice(0, 0, 20, 0);
+					this.rare = 9;
+					return;
+				}
+				if (type == 3460)
+				{
+					this.name = "Lunar Ore";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 408;
+					this.width = 12;
+					this.height = 12;
+					this.rare = 10;
+					this.@value = Item.sellPrice(0, 1, 20, 0) / 4;
+					return;
+				}
+				if (type == 3461)
+				{
+					this.name = "Lunar Brick";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createTile = 409;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3462)
+				{
+					this.SetDefaults3(2772);
+					type = 3462;
+					this.name = "Stardust Axe";
+					this.glowMask = 174;
+					return;
+				}
+				if (type == 3463)
+				{
+					this.SetDefaults3(2773);
+					type = 3463;
+					this.name = "Stardust Chainsaw";
+					this.shoot = 610;
+					this.glowMask = 175;
+					return;
+				}
+				if (type == 3464)
+				{
+					this.SetDefaults3(2774);
+					type = 3464;
+					this.name = "Stardust Drill";
+					this.shoot = 609;
+					this.glowMask = 176;
+					return;
+				}
+				if (type == 3465)
+				{
+					this.SetDefaults3(2775);
+					type = 3465;
+					this.name = "Stardust Hammer";
+					this.glowMask = 177;
+					return;
+				}
+				if (type == 3466)
+				{
+					this.SetDefaults3(2776);
+					type = 3466;
+					this.name = "Stardust Pickaxe";
+					this.glowMask = 178;
+					return;
+				}
+				if (type == 3467)
+				{
+					this.name = "Luminite";
+					this.width = 20;
+					this.height = 20;
+					this.maxStack = 999;
+					this.rare = 10;
+					this.@value = Item.sellPrice(0, 1, 20, 0);
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 10;
+					this.autoReuse = true;
+					this.consumable = true;
+					this.createTile = 239;
+					this.placeStyle = 22;
+					return;
+				}
+				if (type >= 3468 && type <= 3471)
+				{
+					this.name = "Wings";
+					this.width = 22;
+					this.height = 20;
+					this.accessory = true;
+					this.toolTip = "Allows flight and slow fall";
+					this.@value = Item.buyPrice(0, 10, 0, 0);
+					this.rare = 10;
+					this.wingSlot = (sbyte)(29 + type - 3468);
+					return;
+				}
+				if (type == 3472)
+				{
+					this.name = "Lunar Brick Wall";
+					this.useStyle = 1;
+					this.useTurn = true;
+					this.useAnimation = 15;
+					this.useTime = 7;
+					this.autoReuse = true;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.createWall = 224;
+					this.width = 12;
+					this.height = 12;
+					return;
+				}
+				if (type == 3473)
+				{
+					this.name = "Solar Eruption";
+					this.useStyle = 5;
+					this.useAnimation = 20;
+					this.useTime = 20;
+					this.shootSpeed = 24f;
+					this.knockBack = 2f;
+					this.width = 16;
+					this.height = 16;
+					this.useSound = 116;
+					this.shoot = 611;
+					this.rare = 10;
+					this.@value = Item.sellPrice(0, 10, 0, 0);
+					this.noMelee = true;
+					this.noUseGraphic = true;
+					this.channel = true;
+					this.autoReuse = true;
+					this.melee = true;
+					this.damage = 105;
+					return;
+				}
+				if (type == 3474)
+				{
+					this.mana = 10;
+					this.damage = 60;
+					this.useStyle = 1;
+					this.name = "Stardust Cell Staff";
+					this.shootSpeed = 10f;
+					this.shoot = 613;
+					this.width = 26;
+					this.height = 28;
+					this.useSound = 44;
+					this.useAnimation = 36;
+					this.useTime = 36;
+					this.rare = 10;
+					this.noMelee = true;
+					this.knockBack = 2f;
+					this.buffType = 182;
+					this.@value = 10000;
+					this.summon = true;
+					return;
+				}
+				if (type == 3475)
+				{
+					this.name = "Vortex Beater";
+					this.useStyle = 5;
+					this.useAnimation = 20;
+					this.useTime = 20;
+					this.shootSpeed = 20f;
+					this.knockBack = 2f;
+					this.width = 20;
+					this.height = 12;
+					this.damage = 60;
+					this.useSound = 13;
+					this.shoot = 615;
+					this.rare = 10;
+					this.@value = Item.sellPrice(0, 10, 0, 0);
+					this.noMelee = true;
+					this.noUseGraphic = true;
+					this.ranged = true;
+					this.channel = true;
+					this.glowMask = 191;
+					this.useAmmo = 14;
+					this.autoReuse = true;
+					return;
+				}
+				if (type == 3476)
+				{
+					this.mana = 40;
+					this.damage = 80;
+					this.useStyle = 5;
+					this.name = "Nebula Arcanum";
+					this.shootSpeed = 7f;
+					this.shoot = 617;
+					this.width = 26;
+					this.height = 28;
+					this.useSound = 117;
+					this.useAnimation = 30;
+					this.useTime = 30;
+					this.autoReuse = true;
+					this.noMelee = true;
+					this.knockBack = 5f;
+					this.rare = 10;
+					this.@value = Item.sellPrice(0, 10, 0, 0);
+					this.magic = true;
+					this.glowMask = 194;
+					this.holdStyle = 1;
+					return;
+				}
+				if (type == 3477)
+				{
+					this.useStyle = 1;
+					this.name = "Blood Water";
+					this.shootSpeed = 9f;
+					this.rare = 3;
+					this.damage = 20;
+					this.shoot = 621;
+					this.width = 18;
+					this.height = 20;
+					this.maxStack = 999;
+					this.consumable = true;
+					this.knockBack = 3f;
+					this.useSound = 1;
+					this.useAnimation = 15;
+					this.useTime = 15;
+					this.noUseGraphic = true;
+					this.noMelee = true;
+					this.@value = 200;
+					this.toolTip = "Spreads the Crimson to some blocks";
+					return;
+				}
+				if (type == 3478)
+				{
+					this.name = "Wedding Veil";
+					this.width = 18;
+					this.height = 18;
+					this.headSlot = 190;
+					this.@value = 5000;
+					this.vanity = true;
+					return;
+				}
+				if (type == 3479)
+				{
+					this.name = "Wedding Dress";
+					this.width = 18;
+					this.height = 18;
+					this.bodySlot = 191;
+					this.@value = 5000;
+					this.vanity = true;
+					return;
+				}
+				if (type < 3522 || type > 3525)
+				{
+					if (type == 3521)
+					{
+						this.SetDefaults1(1);
+						this.type = type;
+						this.useTime = 17;
+						this.pick = 55;
+						this.useAnimation = 20;
+						this.scale = 1.05f;
+						this.damage = 6;
+						this.@value = 10000;
+						return;
+					}
+					if (type == 3520)
+					{
+						this.SetDefaults1(4);
+						this.type = type;
+						this.useAnimation = 20;
+						this.damage = 13;
+						this.scale = 1.05f;
+						this.@value = 9000;
+						return;
+					}
+					if (type == 3519)
+					{
+						this.SetDefaults1(6);
+						this.type = type;
+						this.damage = 11;
+						this.useAnimation = 11;
+						this.scale = 0.95f;
+						this.@value = 7000;
+						return;
+					}
+					if (type == 3517)
+					{
+						this.SetDefaults1(7);
+						this.type = type;
+						this.useAnimation = 28;
+						this.useTime = 23;
+						this.scale = 1.25f;
+						this.damage = 9;
+						this.hammer = 55;
+						this.@value = 8000;
+						return;
+					}
+					if (type == 3518)
+					{
+						this.SetDefaults1(10);
+						this.type = type;
+						this.useTime = 18;
+						this.axe = 11;
+						this.useAnimation = 26;
+						this.scale = 1.15f;
+						this.damage = 7;
+						this.@value = 8000;
+						return;
+					}
+					if (type == 3516)
+					{
+						this.SetDefaults1(99);
+						this.type = type;
+						this.useAnimation = 26;
+						this.useTime = 26;
+						this.damage = 11;
+						this.@value = 7000;
+						return;
+					}
+					if (type == 3515)
+					{
+						this.SetDefaults1(1);
+						this.type = type;
+						this.useTime = 11;
+						this.pick = 45;
+						this.useAnimation = 19;
+						this.scale = 1.05f;
+						this.damage = 6;
+						this.@value = 5000;
+						return;
+					}
+					if (type == 3514)
+					{
+						this.SetDefaults1(4);
+						this.type = type;
+						this.useAnimation = 21;
+						this.damage = 11;
+						this.@value = 4500;
+						return;
+					}
+					if (type == 3513)
+					{
+						this.SetDefaults1(6);
+						this.type = type;
+						this.damage = 9;
+						this.useAnimation = 12;
+						this.scale = 0.95f;
+						this.@value = 3500;
+						return;
+					}
+					if (type == 3511)
+					{
+						this.SetDefaults1(7);
+						this.type = type;
+						this.useAnimation = 29;
+						this.useTime = 19;
+						this.scale = 1.25f;
+						this.damage = 9;
+						this.hammer = 45;
+						this.@value = 4000;
+						return;
+					}
+					if (type == 3512)
+					{
+						this.SetDefaults1(10);
+						this.type = type;
+						this.useTime = 18;
+						this.axe = 10;
+						this.useAnimation = 26;
+						this.scale = 1.15f;
+						this.damage = 6;
+						this.@value = 4000;
+						return;
+					}
+					if (type == 3510)
+					{
+						this.SetDefaults1(99);
+						this.type = type;
+						this.useAnimation = 27;
+						this.useTime = 27;
+						this.damage = 9;
+						this.@value = 3500;
+						return;
+					}
+					if (type == 3509)
+					{
+						this.SetDefaults1(1);
+						this.type = type;
+						this.useTime = 15;
+						this.pick = 35;
+						this.useAnimation = 23;
+						this.damage = 4;
+						this.scale = 0.9f;
+						this.tileBoost = -1;
+						this.@value = 500;
+						return;
+					}
+					if (type == 3508)
+					{
+						this.SetDefaults1(4);
+						this.type = type;
+						this.useAnimation = 23;
+						this.damage = 8;
+						this.@value = 450;
+						return;
+					}
+					if (type == 3507)
+					{
+						this.SetDefaults1(6);
+						this.type = type;
+						this.damage = 5;
+						this.useAnimation = 13;
+						this.scale = 0.8f;
+						this.@value = 350;
+						return;
+					}
+					if (type == 3505)
+					{
+						this.SetDefaults1(7);
+						this.type = type;
+						this.useAnimation = 33;
+						this.useTime = 23;
+						this.scale = 1.1f;
+						this.damage = 4;
+						this.hammer = 35;
+						this.tileBoost = -1;
+						this.@value = 400;
+						return;
+					}
+					if (type == 3506)
+					{
+						this.SetDefaults1(10);
+						this.type = type;
+						this.useTime = 21;
+						this.axe = 7;
+						this.useAnimation = 30;
+						this.scale = 1f;
+						this.damage = 3;
+						this.tileBoost = -1;
+						this.@value = 400;
+						return;
+					}
+					if (type == 3504)
+					{
+						this.SetDefaults1(99);
+						this.type = type;
+						this.useAnimation = 29;
+						this.useTime = 29;
+						this.damage = 6;
+						this.@value = 350;
+						return;
+					}
+					if (type == 3503)
+					{
+						this.SetDefaults1(1);
+						this.type = type;
+						this.useTime = 14;
+						this.pick = 35;
+						this.useAnimation = 21;
+						this.damage = 5;
+						this.scale = 0.95f;
+						this.@value = 750;
+						return;
+					}
+					if (type == 3502)
+					{
+						this.SetDefaults1(4);
+						this.type = type;
+						this.useAnimation = 22;
+						this.damage = 9;
+						this.@value = 675;
+						return;
+					}
+					if (type == 3501)
+					{
+						this.SetDefaults1(6);
+						this.type = type;
+						this.damage = 7;
+						this.useAnimation = 12;
+						this.scale = 0.85f;
+						this.@value = 525;
+						return;
+					}
+					if (type == 3499)
+					{
+						this.SetDefaults1(7);
+						this.type = type;
+						this.useAnimation = 31;
+						this.useTime = 21;
+						this.scale = 1.15f;
+						this.damage = 6;
+						this.hammer = 38;
+						this.@value = 600;
+						return;
+					}
+					if (type == 3500)
+					{
+						this.SetDefaults1(10);
+						this.type = type;
+						this.useTime = 20;
+						this.axe = 8;
+						this.useAnimation = 28;
+						this.scale = 1.05f;
+						this.damage = 4;
+						this.@value = 600;
+						return;
+					}
+					if (type == 3498)
+					{
+						this.SetDefaults1(99);
+						this.type = type;
+						this.useAnimation = 28;
+						this.useTime = 28;
+						this.damage = 7;
+						this.@value = 525;
+						return;
+					}
+					if (type == 3497)
+					{
+						this.SetDefaults1(1);
+						this.type = type;
+						this.useTime = 12;
+						this.pick = 43;
+						this.useAnimation = 19;
+						this.damage = 6;
+						this.scale = 1.025f;
+						this.@value = 3000;
+						return;
+					}
+					if (type == 3496)
+					{
+						this.SetDefaults1(4);
+						this.type = type;
+						this.useAnimation = 21;
+						this.damage = 11;
+						this.@value = 2700;
+						return;
+					}
+					if (type == 3495)
+					{
+						this.SetDefaults1(6);
+						this.type = type;
+						this.damage = 9;
+						this.useAnimation = 12;
+						this.scale = 0.925f;
+						this.@value = 2100;
+						return;
+					}
+					if (type == 3493)
+					{
+						this.SetDefaults1(7);
+						this.type = type;
+						this.useAnimation = 29;
+						this.useTime = 19;
+						this.scale = 1.225f;
+						this.damage = 8;
+						this.hammer = 43;
+						this.@value = 2400;
+						return;
+					}
+					if (type == 3494)
+					{
+						this.SetDefaults1(10);
+						this.type = type;
+						this.useTime = 19;
+						this.axe = 10;
+						this.useAnimation = 28;
+						this.scale = 1.125f;
+						this.damage = 6;
+						this.@value = 2400;
+						return;
+					}
+					if (type == 3492)
+					{
+						this.SetDefaults1(99);
+						this.type = type;
+						this.useAnimation = 27;
+						this.useTime = 27;
+						this.damage = 9;
+						this.@value = 2100;
+						return;
+					}
+					if (type == 3491)
+					{
+						this.SetDefaults1(1);
+						this.type = type;
+						this.useTime = 19;
+						this.pick = 50;
+						this.useAnimation = 21;
+						this.scale = 1.05f;
+						this.damage = 6;
+						this.@value = 7500;
+						return;
+					}
+					if (type == 3490)
+					{
+						this.SetDefaults1(4);
+						this.type = type;
+						this.useAnimation = 20;
+						this.damage = 12;
+						Item item3 = this;
+						item3.scale = item3.scale * 1.025f;
+						this.@value = 6750;
+						return;
+					}
+					if (type == 3489)
+					{
+						this.SetDefaults1(6);
+						this.type = type;
+						this.damage = 10;
+						this.useAnimation = 11;
+						this.scale = 0.95f;
+						this.@value = 5250;
+						return;
+					}
+					if (type == 3487)
+					{
+						this.SetDefaults1(7);
+						this.type = type;
+						this.useAnimation = 28;
+						this.useTime = 25;
+						this.scale = 1.25f;
+						this.damage = 9;
+						this.hammer = 50;
+						this.@value = 6000;
+						return;
+					}
+					if (type == 3488)
+					{
+						this.SetDefaults1(10);
+						this.type = type;
+						this.useTime = 18;
+						this.axe = 11;
+						this.useAnimation = 26;
+						this.scale = 1.15f;
+						this.damage = 7;
+						this.@value = 4000;
+						return;
+					}
+					if (type == 3486)
+					{
+						this.SetDefaults1(99);
+						this.type = type;
+						this.useAnimation = 26;
+						this.useTime = 26;
+						this.damage = 10;
+						this.@value = 5250;
+						return;
+					}
+					if (type == 3485)
+					{
+						this.SetDefaults1(1);
+						this.type = type;
+						this.useTime = 15;
+						this.pick = 59;
+						this.useAnimation = 19;
+						this.scale = 1.05f;
+						this.damage = 7;
+						this.@value = 15000;
+						return;
+					}
+					if (type == 3484)
+					{
+						this.SetDefaults1(4);
+						this.type = type;
+						this.useAnimation = 19;
+						this.damage = 15;
+						this.scale = 1.075f;
+						this.@value = 13500;
+						return;
+					}
+					if (type == 3483)
+					{
+						this.SetDefaults1(6);
+						this.type = type;
+						this.damage = 13;
+						this.useAnimation = 10;
+						this.scale = 0.975f;
+						this.@value = 10500;
+						return;
+					}
+					if (type == 3481)
+					{
+						this.SetDefaults1(7);
+						this.type = type;
+						this.useAnimation = 27;
+						this.useTime = 21;
+						this.scale = 1.275f;
+						this.damage = 10;
+						this.hammer = 59;
+						this.@value = 12000;
+						return;
+					}
+					if (type == 3482)
+					{
+						this.SetDefaults1(10);
+						this.type = type;
+						this.useTime = 17;
+						this.axe = 12;
+						this.useAnimation = 25;
+						this.scale = 1.175f;
+						this.damage = 8;
+						this.@value = 12000;
+						return;
+					}
+					if (type == 3480)
+					{
+						this.SetDefaults1(99);
+						this.type = type;
+						this.useAnimation = 25;
+						this.useTime = 25;
+						this.damage = 13;
+						this.@value = 10500;
+						return;
+					}
+					if (type == 3526)
+					{
+						this.name = "Solar Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 2, 50, 0);
+						this.rare = 4;
+						return;
+					}
+					if (type == 3527)
+					{
+						this.name = "Nebula Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 2, 50, 0);
+						this.rare = 4;
+						return;
+					}
+					if (type == 3528)
+					{
+						this.name = "Vortex Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 2, 50, 0);
+						this.rare = 4;
+						return;
+					}
+					if (type == 3529)
+					{
+						this.name = "Stardust Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 2, 50, 0);
+						this.rare = 4;
+						return;
+					}
+					if (type == 3530)
+					{
+						this.name = "Void Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 2, 50, 0);
+						this.rare = 4;
+						return;
+					}
+					if (type == 3531)
+					{
+						this.mana = 10;
+						this.damage = 60;
+						this.useStyle = 1;
+						this.name = "Stardust Dragon Staff";
+						this.shootSpeed = 10f;
+						this.shoot = 625;
+						this.width = 26;
+						this.height = 28;
+						this.useSound = 44;
+						this.useAnimation = 36;
+						this.useTime = 36;
+						this.rare = 10;
+						this.noMelee = true;
+						this.knockBack = 2f;
+						this.buffType = 188;
+						this.@value = 10000;
+						this.summon = true;
+						return;
+					}
+					if (type == 3540)
+					{
+						this.name = "Phantasm";
+						this.useStyle = 5;
+						this.useAnimation = 12;
+						this.useTime = 12;
+						this.shootSpeed = 20f;
+						this.knockBack = 2f;
+						this.width = 20;
+						this.height = 12;
+						this.damage = 70;
+						this.useSound = 5;
+						this.shoot = 630;
+						this.rare = 10;
+						this.@value = Item.sellPrice(0, 10, 0, 0);
+						this.noMelee = true;
+						this.noUseGraphic = true;
+						this.ranged = true;
+						this.channel = true;
+						this.glowMask = 200;
+						this.useAmmo = 1;
+						this.autoReuse = true;
+						return;
+					}
+					if (type == 3532)
+					{
+						this.name = "Bacon";
+						this.useSound = 2;
+						this.useStyle = 2;
+						this.useTurn = true;
+						this.useAnimation = 17;
+						this.useTime = 17;
+						this.maxStack = 30;
+						this.consumable = true;
+						this.width = 10;
+						this.height = 10;
+						this.buffType = 26;
+						this.buffTime = 108000;
+						this.rare = 1;
+						this.toolTip = "Minor improvements to all stats";
+						this.@value = 1000;
+						return;
+					}
+					if (type == 3541)
+					{
+						this.name = "Last Prism";
+						this.useStyle = 5;
+						this.useAnimation = 10;
+						this.useTime = 10;
+						this.reuseDelay = 5;
+						this.shootSpeed = 30f;
+						this.knockBack = 0f;
+						this.width = 16;
+						this.height = 16;
+						this.damage = 100;
+						this.useSound = 13;
+						this.shoot = 633;
+						this.mana = 12;
+						this.rare = 10;
+						this.@value = Item.sellPrice(0, 10, 0, 0);
+						this.noMelee = true;
+						this.noUseGraphic = true;
+						this.magic = true;
+						this.channel = true;
+						return;
+					}
+					if (type == 3533)
+					{
+						this.name = "Shifting Sands Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 1, 50, 0);
+						this.rare = 3;
+						return;
+					}
+					if (type == 3534)
+					{
+						this.name = "Mirage Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 0, 75, 0);
+						this.rare = 2;
+						return;
+					}
+					if (type == 3535)
+					{
+						this.name = "Shifting Pearlsands Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 1, 50, 0);
+						this.rare = 3;
+						return;
+					}
+					if (type == 3536)
+					{
+						this.name = "Vortex Monolith";
+						this.width = 22;
+						this.height = 32;
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.autoReuse = true;
+						this.maxStack = 999;
+						this.consumable = true;
+						this.createTile = 410;
+						this.placeStyle = 0;
+						this.rare = 9;
+						this.@value = Item.buyPrice(0, 5, 0, 0);
+						return;
+					}
+					if (type == 3537)
+					{
+						this.name = "Nebula Monolith";
+						this.width = 22;
+						this.height = 32;
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.autoReuse = true;
+						this.maxStack = 999;
+						this.consumable = true;
+						this.createTile = 410;
+						this.placeStyle = 1;
+						this.rare = 9;
+						this.@value = Item.buyPrice(1, 0, 0, 0);
+						return;
+					}
+					if (type == 3538)
+					{
+						this.name = "Stardust Monolith";
+						this.width = 22;
+						this.height = 32;
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.autoReuse = true;
+						this.maxStack = 999;
+						this.consumable = true;
+						this.createTile = 410;
+						this.placeStyle = 2;
+						this.rare = 9;
+						this.@value = Item.buyPrice(1, 0, 0, 0);
+						return;
+					}
+					if (type == 3539)
+					{
+						this.name = "Solar Monolith";
+						this.width = 22;
+						this.height = 32;
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.autoReuse = true;
+						this.maxStack = 999;
+						this.consumable = true;
+						this.createTile = 410;
+						this.placeStyle = 3;
+						this.rare = 9;
+						this.@value = Item.buyPrice(1, 0, 0, 0);
+						return;
+					}
+					if (type == 3542)
+					{
+						this.name = "Nebula Blaze";
+						this.useStyle = 5;
+						this.useAnimation = 15;
+						this.useTime = 15;
+						this.shootSpeed = 6f;
+						this.knockBack = 0f;
+						this.width = 16;
+						this.height = 16;
+						this.damage = 120;
+						this.useSound = 20;
+						this.shoot = 634;
+						this.mana = 18;
+						this.rare = 10;
+						this.@value = Item.sellPrice(0, 10, 0, 0);
+						this.noMelee = true;
+						this.magic = true;
+						this.autoReuse = true;
+						this.noUseGraphic = true;
+						this.glowMask = 207;
+						return;
+					}
+					if (type == 3543)
+					{
+						this.name = "Daybreak";
+						this.shoot = 636;
+						this.shootSpeed = 10f;
+						this.damage = 150;
+						this.knockBack = 5f;
+						this.melee = true;
+						this.useStyle = 1;
+						this.useSound = 1;
+						this.useAnimation = 16;
+						this.useTime = 16;
+						this.width = 30;
+						this.height = 30;
+						this.noUseGraphic = true;
+						this.noMelee = true;
+						this.autoReuse = true;
+						this.@value = Item.sellPrice(0, 10, 0, 0);
+						this.@value = 50;
+						this.rare = 10;
+						return;
+					}
+					if (type == 3544)
+					{
+						this.name = "Super Healing Potion";
+						this.useSound = 3;
+						this.healLife = 200;
+						this.useStyle = 2;
+						this.useTurn = true;
+						this.useAnimation = 17;
+						this.useTime = 17;
+						this.maxStack = 30;
+						this.consumable = true;
+						this.potion = true;
+						this.width = 14;
+						this.height = 24;
+						this.rare = 7;
+						this.@value = 1500;
+						return;
+					}
+					if (type == 3545)
+					{
+						this.name = "Detonator";
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.autoReuse = true;
+						this.maxStack = 999;
+						this.consumable = true;
+						this.createTile = 411;
+						this.width = 28;
+						this.height = 28;
+						this.rare = 1;
+						this.mech = true;
+						return;
+					}
+					if (type == 3547)
+					{
+						this.useStyle = 1;
+						this.name = "Bouncy Dynamite";
+						this.shootSpeed = 4f;
+						this.shoot = 637;
+						this.width = 8;
+						this.height = 28;
+						this.maxStack = 30;
+						this.consumable = true;
+						this.useSound = 1;
+						this.useAnimation = 40;
+						this.useTime = 40;
+						this.noUseGraphic = true;
+						this.noMelee = true;
+						this.@value = Item.buyPrice(0, 0, 20, 0);
+						this.rare = 1;
+						return;
+					}
+					if (type == 3546)
+					{
+						this.crit = 10;
+						this.useStyle = 5;
+						this.autoReuse = true;
+						this.useAnimation = 30;
+						this.useTime = 30;
+						this.name = "Fireworks Launcher";
+						this.useAmmo = 771;
+						this.width = 50;
+						this.height = 20;
+						this.shoot = 134;
+						this.useSound = 11;
+						this.damage = 65;
+						this.shootSpeed = 15f;
+						this.noMelee = true;
+						this.@value = Item.sellPrice(0, 10, 0, 0);
+						this.knockBack = 4f;
+						this.rare = 10;
+						this.ranged = true;
+						return;
+					}
+					if (type == 3350)
+					{
+						this.useStyle = 5;
+						this.useAnimation = 24;
+						this.useTime = 9;
+						this.name = "Paintball Gun";
+						this.width = 24;
+						this.height = 14;
+						this.shoot = 587;
+						this.useSound = 0;
+						this.damage = 12;
+						this.shootSpeed = 10f;
+						this.noMelee = true;
+						this.@value = Item.sellPrice(0, 0, 50, 0);
+						this.knockBack = 1.25f;
+						this.scale = 0.85f;
+						this.rare = 2;
+						this.ranged = true;
+						this.crit = 7;
+						return;
+					}
+					if (type == 3352)
+					{
+						this.SetDefaults1(4);
+						this.type = type;
+						this.useAnimation = 12;
+						this.useTime = 12;
+						this.damage = 14;
+						int num = 32;
+						int num1 = num;
+						this.height = num;
+						this.width = num1;
+						this.knockBack = 5f;
+						this.rare = 2;
+						this.@value = Item.sellPrice(0, 0, 50, 0);
+						return;
+					}
+					if (type == 3351)
+					{
+						this.SetDefaults1(4);
+						this.type = type;
+						this.useAnimation = 15;
+						this.useTime = 15;
+						this.damage = 16;
+						int num2 = 28;
+						int num3 = num2;
+						this.height = num2;
+						this.width = num3;
+						this.knockBack = 3.5f;
+						this.rare = 2;
+						this.@value = Item.sellPrice(0, 0, 50, 0);
+						return;
+					}
+					if (type == 3349)
+					{
+						this.SetDefaults1(4);
+						this.type = type;
+						this.useAnimation = 18;
+						this.useTime = 18;
+						this.damage = 20;
+						int num4 = 32;
+						int num5 = num4;
+						this.height = num4;
+						this.width = num5;
+						this.knockBack = 4.25f;
+						this.rare = 2;
+						this.@value = Item.sellPrice(0, 0, 50, 0);
+						return;
+					}
+					if (type == 3548)
+					{
+						this.useStyle = 5;
+						this.name = "Party Grenade";
+						this.shootSpeed = 6f;
+						this.shoot = 588;
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.consumable = true;
+						this.useSound = 1;
+						this.useAnimation = 20;
+						this.useTime = 20;
+						this.noUseGraphic = true;
+						this.noMelee = true;
+						this.@value = Item.sellPrice(0, 0, 0, 50);
+						this.damage = 30;
+						this.knockBack = 6f;
+						this.rare = 2;
+						this.thrown = true;
+						return;
+					}
+					if (type == 3549)
+					{
+						this.name = "Lunar Crafting Station";
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.autoReuse = true;
+						this.maxStack = 99;
+						this.consumable = true;
+						this.createTile = 412;
+						this.width = 28;
+						this.height = 28;
+						this.rare = 10;
+						return;
+					}
+					if (type == 3563)
+					{
+						this.name = "Squirrel";
+						this.useStyle = 1;
+						this.autoReuse = true;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.maxStack = 999;
+						this.consumable = true;
+						this.width = 12;
+						this.height = 12;
+						this.noUseGraphic = true;
+						this.makeNPC = 538;
+						return;
+					}
+					if (type == 3564)
+					{
+						this.name = "Gold Critter";
+						this.useStyle = 1;
+						this.autoReuse = true;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.maxStack = 999;
+						this.consumable = true;
+						this.width = 12;
+						this.height = 12;
+						this.makeNPC = 539;
+						this.noUseGraphic = true;
+						this.@value = Item.sellPrice(0, 10, 0, 0);
+						this.rare = 2;
+						return;
+					}
+					if (type == 3565)
+					{
+						this.name = "Critter Cage";
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.autoReuse = true;
+						this.maxStack = 99;
+						this.consumable = true;
+						this.createTile = 413;
+						this.width = 12;
+						this.height = 12;
+						return;
+					}
+					if (type == 3566)
+					{
+						this.name = "Gold Critter Cage";
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.autoReuse = true;
+						this.maxStack = 99;
+						this.consumable = true;
+						this.createTile = 414;
+						this.width = 12;
+						this.height = 12;
+						this.@value = Item.sellPrice(0, 10, 0, 0);
+						this.rare = 2;
+						return;
+					}
+					if (type == 3550)
+					{
+						this.name = "Flame And Silver Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = 10000;
+						this.rare = 1;
+						return;
+					}
+					if (type == 3551)
+					{
+						this.name = "Green Flame And Silver Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = 10000;
+						this.rare = 1;
+						return;
+					}
+					if (type == 3552)
+					{
+						this.name = "Blue Flame And Silver Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = 10000;
+						this.rare = 1;
+						return;
+					}
+					if (type == 3553)
+					{
+						this.name = "Reflective Copper Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 0, 75, 0);
+						this.rare = 2;
+						return;
+					}
+					if (type == 3554)
+					{
+						this.name = "Reflective Obsidian Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 0, 75, 0);
+						this.rare = 2;
+						return;
+					}
+					if (type == 3555)
+					{
+						this.name = "Reflective Metal Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 0, 75, 0);
+						this.rare = 2;
+						return;
+					}
+					if (type == 3556)
+					{
+						this.name = "Midnight Rainbow Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 1, 50, 0);
+						this.rare = 3;
+						return;
+					}
+					if (type == 3557)
+					{
+						this.name = "Black And White Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = 10000;
+						this.rare = 1;
+						return;
+					}
+					if (type == 3558)
+					{
+						this.name = "Bright Silver Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = 10000;
+						this.rare = 1;
+						return;
+					}
+					if (type == 3559)
+					{
+						this.name = "Silver And Black Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = 10000;
+						this.rare = 1;
+						return;
+					}
+					if (type == 3560)
+					{
+						this.name = "Red Acid Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = 10000;
+						this.rare = 1;
+						return;
+					}
+					if (type == 3561)
+					{
+						this.name = "Gel Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 1, 50, 0);
+						this.rare = 3;
+						return;
+					}
+					if (type == 3562)
+					{
+						this.name = "Pink Gel Dye";
+						this.width = 20;
+						this.height = 20;
+						this.maxStack = 99;
+						this.@value = Item.sellPrice(0, 1, 50, 0);
+						this.rare = 3;
+						return;
+					}
+					if (type == 3567)
+					{
+						this.name = "Phaser Bullet";
+						this.shootSpeed = 2f;
+						this.shoot = 638;
+						this.damage = 20;
+						this.width = 8;
+						this.height = 8;
+						this.maxStack = 999;
+						this.consumable = true;
+						this.ammo = 14;
+						this.knockBack = 3f;
+						this.@value = 7;
+						this.ranged = true;
+						this.rare = 9;
+						this.@value = Item.sellPrice(0, 0, 0, 2);
+						return;
+					}
+					if (type == 3568)
+					{
+						this.name = "Luminite Arrow";
+						this.shootSpeed = 3f;
+						this.shoot = 639;
+						this.damage = 15;
+						this.width = 10;
+						this.height = 28;
+						this.maxStack = 999;
+						this.consumable = true;
+						this.ammo = 1;
+						this.knockBack = 3.5f;
+						this.@value = 5;
+						this.ranged = true;
+						this.rare = 9;
+						this.@value = Item.sellPrice(0, 0, 0, 2);
+						return;
+					}
+					if (type == 3569)
+					{
+						this.mana = 10;
+						this.damage = 50;
+						this.name = "Lunar Portal Staff";
+						this.useStyle = 1;
+						this.shootSpeed = 14f;
+						this.shoot = 641;
+						this.width = 18;
+						this.height = 20;
+						this.useSound = 78;
+						this.useAnimation = 30;
+						this.useTime = 30;
+						this.noMelee = true;
+						this.@value = Item.sellPrice(0, 10, 0, 0);
+						this.knockBack = 7.5f;
+						this.rare = 10;
+						this.summon = true;
+						return;
+					}
+					if (type == 3571)
+					{
+						this.mana = 10;
+						this.damage = 150;
+						this.name = "Rainbow Crystal Staff";
+						this.useStyle = 1;
+						this.shootSpeed = 14f;
+						this.shoot = 643;
+						this.width = 18;
+						this.height = 20;
+						this.useSound = 78;
+						this.useAnimation = 30;
+						this.useTime = 30;
+						this.noMelee = true;
+						this.@value = Item.sellPrice(0, 10, 0, 0);
+						this.knockBack = 7.5f;
+						this.rare = 10;
+						this.summon = true;
+						return;
+					}
+					if (type == 3570)
+					{
+						this.autoReuse = true;
+						this.name = "Flare Staff";
+						this.mana = 13;
+						this.useStyle = 5;
+						this.damage = 100;
+						this.useAnimation = 10;
+						this.useTime = 10;
+						this.width = 40;
+						this.height = 40;
+						this.shoot = 645;
+						this.shootSpeed = 10f;
+						this.knockBack = 4.5f;
+						this.@value = Item.sellPrice(0, 10, 0, 0);
+						this.magic = true;
+						this.rare = 10;
+						this.noMelee = true;
+						this.useSound = 88;
+						return;
+					}
+					if (type == 3572)
+					{
+						this.noUseGraphic = true;
+						this.damage = 0;
+						this.useStyle = 5;
+						this.name = "Lunar Hook";
+						this.shootSpeed = 16f;
+						this.shoot = 646;
+						this.width = 18;
+						this.height = 28;
+						this.useSound = 1;
+						this.useAnimation = 20;
+						this.useTime = 20;
+						this.rare = 10;
+						this.noMelee = true;
+						this.@value = Item.sellPrice(0, 10, 0, 0);
+						return;
+					}
+					if (type >= 3573 && type <= 3576)
+					{
+						this.name = "Lunar Block";
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.autoReuse = true;
+						this.maxStack = 999;
+						this.consumable = true;
+						this.createTile = 415 + type - 3573;
+						this.width = 12;
+						this.height = 12;
+						return;
+					}
+					if (type == 3577)
+					{
+						this.channel = true;
+						this.damage = 0;
+						this.useStyle = 4;
+						this.name = "Suspicious Looking Tentacle";
+						this.shoot = 650;
+						this.width = 24;
+						this.height = 24;
+						this.useSound = 8;
+						this.useAnimation = 20;
+						this.useTime = 20;
+						this.rare = 10;
+						this.noMelee = true;
+						this.toolTip = "Summons a suspicious tentacle";
+						this.@value = Item.sellPrice(0, 10, 0, 0);
+						this.buffType = 190;
+						return;
+					}
+					if (type == 3578)
+					{
+						this.name = "If you're reading this, hi";
+						this.width = 28;
+						this.height = 20;
+						this.bodySlot = 192;
+						this.rare = 9;
+						this.vanity = true;
+						return;
+					}
+					if (type == 3579)
+					{
+						this.name = "Yes, this is my dev armor, deal with it";
+						this.width = 18;
+						this.height = 14;
+						this.legSlot = 132;
+						this.rare = 9;
+						this.vanity = true;
+						return;
+					}
+					if (type == 3580)
+					{
+						this.name = "Isn't this glorious?";
+						this.width = 18;
+						this.height = 14;
+						this.wingSlot = 33;
+						this.rare = 9;
+						this.vanity = true;
+						this.accessory = true;
+						return;
+					}
+					if (type == 3581)
+					{
+						this.name = "Dark...";
+						this.width = 18;
+						this.height = 14;
+						this.rare = 9;
+						this.vanity = true;
+						this.accessory = true;
+						return;
+					}
+					if (type == 3582)
+					{
+						this.name = "Jimm's Wings";
+						this.width = 24;
+						this.height = 8;
+						this.accessory = true;
+						this.rare = 9;
+						this.wingSlot = 34;
+						return;
+					}
+					if (type == 3583)
+					{
+						this.name = "Testokun";
+						this.width = 28;
+						this.height = 20;
+						this.headSlot = 191;
+						this.rare = 9;
+						this.vanity = true;
+						return;
+					}
+					if (type == 3584)
+					{
+						this.name = "Living Leaf Wall";
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 7;
+						this.autoReuse = true;
+						this.maxStack = 999;
+						this.consumable = true;
+						this.createWall = 60;
+						this.width = 12;
+						this.height = 12;
+						return;
+					}
+					if (type == 3585)
+					{
+						this.name = "Skiphs's Helm";
+						this.width = 28;
+						this.height = 20;
+						this.headSlot = 192;
+						this.rare = 9;
+						this.vanity = true;
+						return;
+					}
+					if (type == 3586)
+					{
+						this.name = "Skiphs's Shirt";
+						this.width = 28;
+						this.height = 20;
+						this.bodySlot = 193;
+						this.rare = 9;
+						this.vanity = true;
+						return;
+					}
+					if (type == 3587)
+					{
+						this.name = "Skiphs's Pants";
+						this.width = 18;
+						this.height = 14;
+						this.legSlot = 133;
+						this.rare = 9;
+						this.vanity = true;
+						return;
+					}
+					if (type == 3588)
+					{
+						this.name = "Skiphs's Wings";
+						this.width = 24;
+						this.height = 8;
+						this.accessory = true;
+						this.rare = 9;
+						this.wingSlot = 35;
+						return;
+					}
+					if (type == 3589)
+					{
+						this.name = "Loki's Helm";
+						this.width = 28;
+						this.height = 20;
+						this.headSlot = 193;
+						this.rare = 9;
+						this.vanity = true;
+						return;
+					}
+					if (type == 3590)
+					{
+						this.name = "Loki's Shirt";
+						this.width = 28;
+						this.height = 20;
+						this.bodySlot = 194;
+						this.rare = 9;
+						this.vanity = true;
+						return;
+					}
+					if (type == 3591)
+					{
+						this.name = "Loki's Pants";
+						this.width = 18;
+						this.height = 14;
+						this.legSlot = 134;
+						this.rare = 9;
+						this.vanity = true;
+						return;
+					}
+					if (type == 3592)
+					{
+						this.name = "Loki's Wings";
+						this.width = 24;
+						this.height = 8;
+						this.accessory = true;
+						this.rare = 9;
+						this.wingSlot = 36;
+						return;
+					}
+					if (type >= 3593 && type <= 3594)
+					{
+						this.name = "Monster Banner";
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.autoReuse = true;
+						this.maxStack = 99;
+						this.consumable = true;
+						this.createTile = 91;
+						this.placeStyle = 270 + type - 3593;
+						this.width = 10;
+						this.height = 24;
+						this.@value = 1000;
+						this.rare = 1;
+						return;
+					}
+					if (type == 3595)
+					{
+						this.name = "Trophy";
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.autoReuse = true;
+						this.maxStack = 99;
+						this.consumable = true;
+						this.createTile = 240;
+						this.width = 30;
+						this.height = 30;
+						this.@value = Item.sellPrice(0, 1, 0, 0);
+						this.placeStyle = 59;
+						this.rare = 1;
+						return;
+					}
+					if (type == 3596)
+					{
+						this.name = "moonlord painting";
+						this.useStyle = 1;
+						this.useTurn = true;
+						this.useAnimation = 15;
+						this.useTime = 10;
+						this.autoReuse = true;
+						this.maxStack = 99;
+						this.consumable = true;
+						this.createTile = 242;
+						this.width = 30;
+						this.height = 30;
+						this.@value = Item.buyPrice(0, 3, 0, 0);
+						this.placeStyle = 36;
+					}
+				}
+				else
+				{
+					this.name = "Lunar Hamaxe";
+					this.useTurn = true;
+					this.autoReuse = true;
+					this.useStyle = 1;
+					this.useAnimation = 28;
+					this.useTime = 7;
+					this.knockBack = 7f;
+					this.width = 42;
+					this.height = 42;
+					this.damage = 60;
+					this.axe = 30;
+					this.hammer = 100;
+					this.useSound = 1;
+					this.rare = 10;
+					this.@value = Item.sellPrice(0, 5, 0, 0);
+					this.melee = true;
+					Item item4 = this;
+					item4.tileBoost = item4.tileBoost + 4;
+					switch (type)
+					{
+						case 3522:
+						{
+							break;
+						}
+						case 3523:
+						{
+							this.glowMask = 196;
+							return;
+						}
+						case 3524:
+						{
+							this.glowMask = 197;
+							return;
+						}
+						case 3525:
+						{
+							this.glowMask = 198;
+							return;
+						}
+						default:
+						{
+							return;
+						}
 					}
 				}
 			}
+		}
 
-			return ServerApi.Hooks.InvokeGameStatueSpawn(num2, num3, num, (int)(x / 16), (int)(y / 16), type, false);
-		}
-		public static int buyPrice(int platinum = 0, int gold = 0, int silver = 0, int copper = 0)
+		public override string ToString()
 		{
-			int num = copper + silver * 100;
-			num += gold * 100 * 100;
-			return num + platinum * 100 * 100 * 100;
+			return string.Format("{{Name: \"{0}\" NetID: {1} Stack: {2}", this.name, this.netID, this.stack);
 		}
-		public static int sellPrice(int platinum = 0, int gold = 0, int silver = 0, int copper = 0)
-		{
-			int num = copper + silver * 100;
-			num += gold * 100 * 100;
-			num += platinum * 100 * 100 * 100;
-			return num * 5;
-		}
+
 		public void UpdateItem(int i)
 		{
+			Color color;
+			if (Main.itemLockoutTime[i] > 0)
+			{
+				Main.itemLockoutTime[i] = Main.itemLockoutTime[i] - 1;
+				return;
+			}
 			if (this.active)
 			{
+				if (this.instanced)
+				{
+					if (Main.netMode == 2)
+					{
+						this.active = false;
+						return;
+					}
+					this.keepTime = 600;
+				}
 				if (Main.netMode == 0)
 				{
 					this.owner = Main.myPlayer;
 				}
-				float num = 0.1f;
-				float num2 = 7f;
+				float single = 0.1f;
+				float single1 = 7f;
 				if (Main.netMode == 1)
 				{
-					int num3 = (int)(this.position.X + (float)(this.width / 2)) / 16;
-					int num4 = (int)(this.position.Y + (float)(this.height / 2)) / 16;
-					if (num3 >= 0 && num4 >= 0 && num3 < Main.maxTilesX && num4 < Main.maxTilesY && Main.tile[num3, num4] == null)
+					int x = (int)(this.position.X + (float)(this.width / 2)) / 16;
+					int y = (int)(this.position.Y + (float)(this.height / 2)) / 16;
+					if (x >= 0 && y >= 0 && x < Main.maxTilesX && y < Main.maxTilesY && Main.tile[x, y] == null)
 					{
-						num = 0f;
+						single = 0f;
 						this.velocity.X = 0f;
 						this.velocity.Y = 0f;
 					}
 				}
 				if (this.honeyWet)
 				{
-					num = 0.05f;
-					num2 = 3f;
+					single = 0.05f;
+					single1 = 3f;
 				}
 				else if (this.wet)
 				{
-					num2 = 5f;
-					num = 0.08f;
+					single1 = 5f;
+					single = 0.08f;
 				}
-				Vector2 value = this.velocity * 0.5f;
-				if (this.ownTime > 0)
-				{
-					this.ownTime--;
-				}
-				else
+				Vector2 vector2 = this.velocity * 0.5f;
+				if (this.ownTime <= 0)
 				{
 					this.ownIgnore = -1;
 				}
+				else
+				{
+					Item item = this;
+					item.ownTime = item.ownTime - 1;
+				}
 				if (this.keepTime > 0)
 				{
-					this.keepTime--;
+					Item item1 = this;
+					item1.keepTime = item1.keepTime - 1;
 				}
 				if (!this.beingGrabbed)
 				{
-					if (this.owner == Main.myPlayer && (this.createTile >= 0 || this.createWall > 0 || (this.ammo > 0 && !this.notAmmo) || (this.consumable || (this.type >= 71 && this.type <= 74)) || (this.type >= 205 && this.type <= 207) || this.type == 1128 || this.type == 530) && this.stack < this.maxStack)
+					this.isBeingGrabbed = false;
+				}
+				else
+				{
+					this.isBeingGrabbed = true;
+				}
+				if (this.beingGrabbed)
+				{
+					this.beingGrabbed = false;
+				}
+				else
+				{
+					bool flag = true;
+					switch (this.type)
 					{
-						for (int j = i + 1; j < 400; j++)
+						case 71:
+						case 72:
+						case 73:
+						case 74:
 						{
-							if (Main.item[j].active && Main.item[j].type == this.type && Main.item[j].stack > 0 && Main.item[j].owner == this.owner)
+							flag = false;
+							break;
+						}
+					}
+					if (ItemID.Sets.NebulaPickup[this.type])
+					{
+						flag = false;
+					}
+					if (this.owner == Main.myPlayer && flag && (this.createTile >= 0 || this.createWall > 0 || this.ammo > 0 && !this.notAmmo || this.consumable || this.type >= 205 && this.type <= 207 || this.type == 1128 || this.type == 530 || this.dye > 0 || this.paint > 0 || this.material) && this.stack < this.maxStack)
+					{
+						for (int num = i + 1; num < 400; num++)
+						{
+							if (Main.item[num].active && Main.item[num].type == this.type && Main.item[num].stack > 0 && Main.item[num].owner == this.owner && Math.Abs(this.position.X + (float)(this.width / 2) - (Main.item[num].position.X + (float)(Main.item[num].width / 2))) + Math.Abs(this.position.Y + (float)(this.height / 2) - (Main.item[num].position.Y + (float)(Main.item[num].height / 2))) < 30f)
 							{
-								float num5 = Math.Abs(this.position.X + (float)(this.width / 2) - (Main.item[j].position.X + (float)(Main.item[j].width / 2))) + Math.Abs(this.position.Y + (float)(this.height / 2) - (Main.item[j].position.Y + (float)(Main.item[j].height / 2)));
-								if (num5 < 30f)
+								this.position = (this.position + Main.item[num].position) / 2f;
+								this.velocity = (this.velocity + Main.item[num].velocity) / 2f;
+								int num1 = Main.item[num].stack;
+								if (num1 > this.maxStack - this.stack)
 								{
-									this.position = (this.position + Main.item[j].position) / 2f;
-									this.velocity = (this.velocity + Main.item[j].velocity) / 2f;
-									int num6 = Main.item[j].stack;
-									if (num6 > this.maxStack - this.stack)
+									num1 = this.maxStack - this.stack;
+								}
+								Item item2 = Main.item[num];
+								item2.stack = item2.stack - num1;
+								Item item3 = this;
+								item3.stack = item3.stack + num1;
+								if (Main.item[num].stack <= 0)
+								{
+									Main.item[num].SetDefaults(0, false);
+									Main.item[num].active = false;
+								}
+								if (Main.netMode != 0 && this.owner == Main.myPlayer)
+								{
+									NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+									NetMessage.SendData(21, -1, -1, "", num, 0f, 0f, 0f, 0, 0, 0);
+								}
+							}
+						}
+					}
+					if (Main.netMode != 2 && Main.expertMode && this.owner == Main.myPlayer && this.type >= 71 && this.type <= 74)
+					{
+						Rectangle rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
+						for (int j = 0; j < 200; j++)
+						{
+							if (Main.npc[j].active && Main.npc[j].lifeMax > 5 && !Main.npc[j].friendly && !Main.npc[j].immortal && !Main.npc[j].dontTakeDamage)
+							{
+								float single2 = (float)this.stack;
+								float single3 = 1f;
+								if (this.type == 72)
+								{
+									single3 = 100f;
+								}
+								if (this.type == 73)
+								{
+									single3 = 10000f;
+								}
+								if (this.type == 74)
+								{
+									single3 = 1000000f;
+								}
+								single2 = single2 * single3;
+								float single4 = Main.npc[j].extraValue;
+								int num2 = Main.npc[j].realLife;
+								if (num2 < 0 || !Main.npc[num2].active)
+								{
+									num2 = -1;
+								}
+								else
+								{
+									single4 = Main.npc[num2].extraValue;
+								}
+								if (single4 < single2)
+								{
+									Rectangle rectangle1 = new Rectangle((int)Main.npc[j].position.X, (int)Main.npc[j].position.Y, Main.npc[j].width, Main.npc[j].height);
+									if (rectangle.Intersects(rectangle1))
 									{
-										num6 = this.maxStack - this.stack;
-									}
-									Main.item[j].stack -= num6;
-									this.stack += num6;
-									if (Main.item[j].stack <= 0)
-									{
-										Main.item[j].SetDefaults(0, false);
-										Main.item[j].active = false;
-									}
-									if (Main.netMode != 0)
-									{
-										NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0);
-										NetMessage.SendData(21, -1, -1, "", j, 0f, 0f, 0f, 0);
+										float single5 = (float)Main.rand.Next(50, 76) * 0.01f;
+										if (this.type == 71)
+										{
+											single5 = single5 + (float)Main.rand.Next(51) * 0.01f;
+										}
+										if (this.type == 72)
+										{
+											single5 = single5 + (float)Main.rand.Next(26) * 0.01f;
+										}
+										if (single5 > 1f)
+										{
+											single5 = 1f;
+										}
+										int num3 = (int)((float)this.stack * single5);
+										if (num3 < 1)
+										{
+											num3 = 1;
+										}
+										if (num3 > this.stack)
+										{
+											num3 = this.stack;
+										}
+										Item item4 = this;
+										item4.stack = item4.stack - num3;
+										float single6 = (float)num3 * single3;
+										int num4 = j;
+										if (num2 >= 0)
+										{
+											num4 = num2;
+										}
+										NPC nPC = Main.npc[num4];
+										nPC.extraValue = nPC.extraValue + single6;
+										if (Main.netMode != 0)
+										{
+											NetMessage.SendData(92, -1, -1, "", num4, single6, this.position.X, this.position.Y, 0, 0, 0);
+										}
+										else
+										{
+											Main.npc[num4].moneyPing(this.position);
+										}
+										if (this.stack <= 0)
+										{
+											this.SetDefaults(0, false);
+										}
+										NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 									}
 								}
 							}
 						}
 					}
-					if (this.type == 520 || this.type == 521 || this.type == 547 || this.type == 548 || this.type == 549 || this.type == 575)
+					if (!ItemID.Sets.ItemNoGravity[this.type])
+					{
+						this.velocity.Y = this.velocity.Y + single;
+						if (this.velocity.Y > single1)
+						{
+							this.velocity.Y = single1;
+						}
+						this.velocity.X = this.velocity.X * 0.95f;
+						if ((double)this.velocity.X < 0.1 && (double)this.velocity.X > -0.1)
+						{
+							this.velocity.X = 0f;
+						}
+					}
+					else
 					{
 						this.velocity.X = this.velocity.X * 0.95f;
 						if ((double)this.velocity.X < 0.1 && (double)this.velocity.X > -0.1)
@@ -37339,21 +47386,8 @@ namespace Terraria
 							this.velocity.Y = 0f;
 						}
 					}
-					else
-					{
-						this.velocity.Y = this.velocity.Y + num;
-						if (this.velocity.Y > num2)
-						{
-							this.velocity.Y = num2;
-						}
-						this.velocity.X = this.velocity.X * 0.95f;
-						if ((double)this.velocity.X < 0.1 && (double)this.velocity.X > -0.1)
-						{
-							this.velocity.X = 0f;
-						}
-					}
-					bool flag = Collision.LavaCollision(this.position, this.width, this.height);
-					if (flag)
+					bool flag1 = Collision.LavaCollision(this.position, this.width, this.height);
+					if (flag1)
 					{
 						this.lavaWet = true;
 					}
@@ -37369,51 +47403,50 @@ namespace Terraria
 							if (this.wetCount == 0)
 							{
 								this.wetCount = 20;
-								if (!flag)
+								if (flag1)
 								{
-									if (this.honeyWet)
+									for (int k = 0; k < 5; k++)
 									{
-										for (int k = 0; k < 5; k++)
-										{
-											int num7 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 152, 0f, 0f, 0, default(Color), 1f);
-											Dust expr_65D_cp_0 = Main.dust[num7];
-											expr_65D_cp_0.velocity.Y = expr_65D_cp_0.velocity.Y - 1f;
-											Dust expr_67B_cp_0 = Main.dust[num7];
-											expr_67B_cp_0.velocity.X = expr_67B_cp_0.velocity.X * 2.5f;
-											Main.dust[num7].scale = 1.3f;
-											Main.dust[num7].alpha = 100;
-											Main.dust[num7].noGravity = true;
-										}
-										Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
+										Vector2 vector21 = new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f);
+										color = new Color();
+										int num5 = Dust.NewDust(vector21, this.width + 12, 24, 35, 0f, 0f, 0, color, 1f);
+										Main.dust[num5].velocity.Y = Main.dust[num5].velocity.Y - 1.5f;
+										Main.dust[num5].velocity.X = Main.dust[num5].velocity.X * 2.5f;
+										Main.dust[num5].scale = 1.3f;
+										Main.dust[num5].alpha = 100;
+										Main.dust[num5].noGravity = true;
 									}
-									else
+									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
+								}
+								else if (!this.honeyWet)
+								{
+									for (int l = 0; l < 10; l++)
 									{
-										for (int l = 0; l < 10; l++)
-										{
-											int num8 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, Dust.dustWater(), 0f, 0f, 0, default(Color), 1f);
-											Dust expr_765_cp_0 = Main.dust[num8];
-											expr_765_cp_0.velocity.Y = expr_765_cp_0.velocity.Y - 4f;
-											Dust expr_783_cp_0 = Main.dust[num8];
-											expr_783_cp_0.velocity.X = expr_783_cp_0.velocity.X * 2.5f;
-											Main.dust[num8].scale *= 0.8f;
-											Main.dust[num8].alpha = 100;
-											Main.dust[num8].noGravity = true;
-										}
-										Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
+										Vector2 vector22 = new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f);
+										int num6 = Dust.dustWater();
+										Color color1 = new Color();
+										int num7 = Dust.NewDust(vector22, this.width + 12, 24, num6, 0f, 0f, 0, color1, 1f);
+										Main.dust[num7].velocity.Y = Main.dust[num7].velocity.Y - 4f;
+										Main.dust[num7].velocity.X = Main.dust[num7].velocity.X * 2.5f;
+										Dust dust = Main.dust[num7];
+										dust.scale = dust.scale * 0.8f;
+										Main.dust[num7].alpha = 100;
+										Main.dust[num7].noGravity = true;
 									}
+									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 								}
 								else
 								{
 									for (int m = 0; m < 5; m++)
 									{
-										int num9 = Dust.NewDust(new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f), this.width + 12, 24, 35, 0f, 0f, 0, default(Color), 1f);
-										Dust expr_872_cp_0 = Main.dust[num9];
-										expr_872_cp_0.velocity.Y = expr_872_cp_0.velocity.Y - 1.5f;
-										Dust expr_890_cp_0 = Main.dust[num9];
-										expr_890_cp_0.velocity.X = expr_890_cp_0.velocity.X * 2.5f;
-										Main.dust[num9].scale = 1.3f;
-										Main.dust[num9].alpha = 100;
-										Main.dust[num9].noGravity = true;
+										Vector2 vector23 = new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f);
+										color = new Color();
+										int num8 = Dust.NewDust(vector23, this.width + 12, 24, 152, 0f, 0f, 0, color, 1f);
+										Main.dust[num8].velocity.Y = Main.dust[num8].velocity.Y - 1f;
+										Main.dust[num8].velocity.X = Main.dust[num8].velocity.X * 2.5f;
+										Main.dust[num8].scale = 1.3f;
+										Main.dust[num8].alpha = 100;
+										Main.dust[num8].noGravity = true;
 									}
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 								}
@@ -37424,6 +47457,7 @@ namespace Terraria
 					else if (this.wet)
 					{
 						this.wet = false;
+						byte num9 = this.wetCount;
 					}
 					if (!this.wet)
 					{
@@ -37432,33 +47466,31 @@ namespace Terraria
 					}
 					if (this.wetCount > 0)
 					{
-						this.wetCount -= 1;
+						Item item5 = this;
+						item5.wetCount = (byte)(item5.wetCount - 1);
 					}
-					if (this.wet)
-					{
-						if (this.wet)
-						{
-							Vector2 vector = this.velocity;
-							this.velocity = Collision.TileCollision(this.position, this.velocity, this.width, this.height, false, false, 1);
-							if (this.velocity.X != vector.X)
-							{
-								value.X = this.velocity.X;
-							}
-							if (this.velocity.Y != vector.Y)
-							{
-								value.Y = this.velocity.Y;
-							}
-						}
-					}
-					else
+					if (!this.wet)
 					{
 						this.velocity = Collision.TileCollision(this.position, this.velocity, this.width, this.height, false, false, 1);
 					}
-					Vector4 vector2 = Collision.SlopeCollision(this.position, this.velocity, this.width, this.height, num, false);
-					this.position.X = vector2.X;
-					this.position.Y = vector2.Y;
-					this.velocity.X = vector2.Z;
-					this.velocity.Y = vector2.W;
+					else if (this.wet)
+					{
+						Vector2 vector24 = this.velocity;
+						this.velocity = Collision.TileCollision(this.position, this.velocity, this.width, this.height, false, false, 1);
+						if (this.velocity.X != vector24.X)
+						{
+							vector2.X = this.velocity.X;
+						}
+						if (this.velocity.Y != vector24.Y)
+						{
+							vector2.Y = this.velocity.Y;
+						}
+					}
+					Vector4 vector4 = Collision.SlopeCollision(this.position, this.velocity, this.width, this.height, single, false);
+					this.position.X = vector4.X;
+					this.position.Y = vector4.Y;
+					this.velocity.X = vector4.Z;
+					this.velocity.Y = vector4.W;
 					if (this.lavaWet)
 					{
 						if (this.type == 267)
@@ -37475,13 +47507,13 @@ namespace Terraria
 									{
 										if (Main.netMode == 2)
 										{
-											NetMessage.SendData(28, -1, -1, "", n, 9999f, 10f, (float)(-(float)Main.npc[n].direction), 0);
+											NetMessage.SendData(28, -1, -1, "", n, 9999f, 10f, (float)(-Main.npc[n].direction), 0, 0, 0);
 										}
-										Main.npc[n].StrikeNPC(9999, 10f, -Main.npc[n].direction, false, false);
+										Main.npc[n].StrikeNPCNoInteraction(9999, 10f, -Main.npc[n].direction, false, false, false);
 										NPC.SpawnWOF(this.position);
 									}
 								}
-								NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0);
+								NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 							}
 						}
 						else if (this.owner == Main.myPlayer && this.type != 312 && this.type != 318 && this.type != 173 && this.type != 174 && this.type != 175 && this.type != 2701 && this.rare == 0)
@@ -37492,77 +47524,105 @@ namespace Terraria
 							this.stack = 0;
 							if (Main.netMode != 0)
 							{
-								NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0);
+								NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 							}
 						}
 					}
-					if (this.type == 520)
+					if (this.type == 3191)
 					{
-						float num10 = (float)Main.rand.Next(90, 111) * 0.01f;
-						num10 *= Main.essScale;
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.5f * num10, 0.1f * num10, 0.25f * num10);
+						float single7 = (float)Main.rand.Next(90, 111) * 0.01f;
+						single7 = single7 * ((Main.essScale + 0.5f) / 2f);
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.3f * single7, 0.1f * single7, 0.25f * single7);
 					}
-					else if (this.type == 521)
+					else if (this.type == 520 || this.type == 3454)
 					{
-						float num11 = (float)Main.rand.Next(90, 111) * 0.01f;
-						num11 *= Main.essScale;
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.25f * num11, 0.1f * num11, 0.5f * num11);
+						float single8 = (float)Main.rand.Next(90, 111) * 0.01f;
+						single8 = single8 * Main.essScale;
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.5f * single8, 0.1f * single8, 0.25f * single8);
 					}
-					else if (this.type == 547)
+					else if (this.type == 521 || this.type == 3455)
 					{
-						float num12 = (float)Main.rand.Next(90, 111) * 0.01f;
-						num12 *= Main.essScale;
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.5f * num12, 0.3f * num12, 0.05f * num12);
+						float single9 = (float)Main.rand.Next(90, 111) * 0.01f;
+						single9 = single9 * Main.essScale;
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.25f * single9, 0.1f * single9, 0.5f * single9);
+					}
+					else if (this.type == 547 || this.type == 3453)
+					{
+						float single10 = (float)Main.rand.Next(90, 111) * 0.01f;
+						single10 = single10 * Main.essScale;
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.5f * single10, 0.3f * single10, 0.05f * single10);
 					}
 					else if (this.type == 548)
 					{
-						float num13 = (float)Main.rand.Next(90, 111) * 0.01f;
-						num13 *= Main.essScale;
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.1f * num13, 0.1f * num13, 0.6f * num13);
+						float single11 = (float)Main.rand.Next(90, 111) * 0.01f;
+						single11 = single11 * Main.essScale;
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.1f * single11, 0.1f * single11, 0.6f * single11);
 					}
 					else if (this.type == 575)
 					{
-						float num14 = (float)Main.rand.Next(90, 111) * 0.01f;
-						num14 *= Main.essScale;
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.1f * num14, 0.3f * num14, 0.5f * num14);
+						float single12 = (float)Main.rand.Next(90, 111) * 0.01f;
+						single12 = single12 * Main.essScale;
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.1f * single12, 0.3f * single12, 0.5f * single12);
 					}
 					else if (this.type == 549)
 					{
-						float num15 = (float)Main.rand.Next(90, 111) * 0.01f;
-						num15 *= Main.essScale;
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.1f * num15, 0.5f * num15, 0.2f * num15);
+						float single13 = (float)Main.rand.Next(90, 111) * 0.01f;
+						single13 = single13 * Main.essScale;
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.1f * single13, 0.5f * single13, 0.2f * single13);
 					}
 					else if (this.type == 58 || this.type == 1734 || this.type == 1867)
 					{
-						float num16 = (float)Main.rand.Next(90, 111) * 0.01f;
-						num16 *= Main.essScale * 0.5f;
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.5f * num16, 0.1f * num16, 0.1f * num16);
+						float single14 = (float)Main.rand.Next(90, 111) * 0.01f;
+						single14 = single14 * (Main.essScale * 0.5f);
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.5f * single14, 0.1f * single14, 0.1f * single14);
 					}
 					else if (this.type == 184 || this.type == 1735 || this.type == 1868)
 					{
-						float num17 = (float)Main.rand.Next(90, 111) * 0.01f;
-						num17 *= Main.essScale * 0.5f;
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.1f * num17, 0.1f * num17, 0.5f * num17);
+						float single15 = (float)Main.rand.Next(90, 111) * 0.01f;
+						single15 = single15 * (Main.essScale * 0.5f);
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.1f * single15, 0.1f * single15, 0.5f * single15);
 					}
 					else if (this.type == 522)
 					{
-						float num18 = (float)Main.rand.Next(90, 111) * 0.01f;
-						num18 *= Main.essScale * 0.2f;
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.5f * num18, 1f * num18, 0.1f * num18);
+						float single16 = (float)Main.rand.Next(90, 111) * 0.01f;
+						single16 = single16 * (Main.essScale * 0.2f);
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.5f * single16, 1f * single16, 0.1f * single16);
 					}
 					else if (this.type == 1332)
 					{
-						float num19 = (float)Main.rand.Next(90, 111) * 0.01f;
-						num19 *= Main.essScale * 0.2f;
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f * num19, 1f * num19, 0.1f * num19);
+						float single17 = (float)Main.rand.Next(90, 111) * 0.01f;
+						single17 = single17 * (Main.essScale * 0.2f);
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f * single17, 1f * single17, 0.1f * single17);
+					}
+					else if (this.type == 3456)
+					{
+						Lighting.AddLight(base.Center, new Vector3(0.2f, 0.4f, 0.5f) * Main.essScale);
+					}
+					else if (this.type == 3457)
+					{
+						Lighting.AddLight(base.Center, new Vector3(0.4f, 0.2f, 0.5f) * Main.essScale);
+					}
+					else if (this.type == 3458)
+					{
+						Lighting.AddLight(base.Center, new Vector3(0.5f, 0.4f, 0.2f) * Main.essScale);
+					}
+					else if (this.type == 3459)
+					{
+						Lighting.AddLight(base.Center, new Vector3(0.2f, 0.2f, 0.5f) * Main.essScale);
 					}
 					if (this.type == 75 && Main.dayTime)
 					{
-						for (int num20 = 0; num20 < 10; num20++)
+						for (int o = 0; o < 10; o++)
 						{
-							Dust.NewDust(this.position, this.width, this.height, 15, this.velocity.X, this.velocity.Y, 150, default(Color), 1.2f);
+							Vector2 vector25 = this.position;
+							int num10 = this.width;
+							int num11 = this.height;
+							float x1 = this.velocity.X;
+							float y1 = this.velocity.Y;
+							color = new Color();
+							Dust.NewDust(vector25, num10, num11, 15, x1, y1, 150, color, 1.2f);
 						}
-						for (int num21 = 0; num21 < 3; num21++)
+						for (int p = 0; p < 3; p++)
 						{
 							Gore.NewGore(this.position, new Vector2(this.velocity.X, this.velocity.Y), Main.rand.Next(16, 18), 1f);
 						}
@@ -37571,201 +47631,235 @@ namespace Terraria
 						this.stack = 0;
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0);
+							NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 						}
 					}
-				}
-				else
-				{
-					this.beingGrabbed = false;
 				}
 				if (this.type == 501)
 				{
 					if (Main.rand.Next(6) == 0)
 					{
-						int num22 = Dust.NewDust(this.position, this.width, this.height, 55, 0f, 0f, 200, this.color, 1f);
-						Main.dust[num22].velocity *= 0.3f;
-						Main.dust[num22].scale *= 0.5f;
+						int num12 = Dust.NewDust(this.position, this.width, this.height, 55, 0f, 0f, 200, this.color, 1f);
+						Dust dust1 = Main.dust[num12];
+						dust1.velocity = dust1.velocity * 0.3f;
+						Dust dust2 = Main.dust[num12];
+						dust2.scale = dust2.scale * 0.5f;
 					}
 				}
 				else if (this.type == 1970)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.75f, 0f, 0.75f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.75f, 0f, 0.75f);
 				}
 				else if (this.type == 1972)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0f, 0.75f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0f, 0.75f);
 				}
 				else if (this.type == 1971)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.75f, 0.75f, 0f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.75f, 0.75f, 0f);
 				}
 				else if (this.type == 1973)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0.75f, 0f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0.75f, 0f);
 				}
 				else if (this.type == 1974)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.75f, 0f, 0f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.75f, 0f, 0f);
 				}
 				else if (this.type == 1975)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.75f, 0.75f, 0.75f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.75f, 0.75f, 0.75f);
 				}
 				else if (this.type == 1976)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.75f, 0.375f, 0f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.75f, 0.375f, 0f);
 				}
 				else if (this.type == 2679)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.6f, 0f, 0.6f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.6f, 0f, 0.6f);
 				}
 				else if (this.type == 2687)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0f, 0.6f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0f, 0.6f);
 				}
 				else if (this.type == 2689)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.6f, 0.6f, 0f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.6f, 0.6f, 0f);
 				}
 				else if (this.type == 2683)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0.6f, 0f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0.6f, 0f);
 				}
 				else if (this.type == 2685)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.6f, 0f, 0f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.6f, 0f, 0f);
 				}
 				else if (this.type == 2681)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.6f, 0.6f, 0.6f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.6f, 0.6f, 0.6f);
 				}
 				else if (this.type == 2677)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.6f, 0.375f, 0f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.6f, 0.375f, 0f);
 				}
 				else if (this.type == 8 || this.type == 105)
 				{
 					if (!this.wet)
 					{
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.95f, 0.8f);
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.95f, 0.8f);
 					}
 				}
 				else if (this.type == 2701)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.7f, 0.65f, 0.55f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.7f, 0.65f, 0.55f);
 				}
 				else if (this.type == 523)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.85f, 1f, 0.7f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.85f, 1f, 0.7f);
 				}
 				else if (this.type == 974)
 				{
 					if (!this.wet)
 					{
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.7f, 0.85f, 1f);
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.7f, 0.85f, 1f);
 					}
 				}
 				else if (this.type == 1333)
 				{
-					Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1.25f, 1.25f, 0.8f);
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1.25f, 1.25f, 0.8f);
+				}
+				else if (this.type == 3045)
+				{
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), (float)Main.DiscoR / 255f, (float)Main.DiscoG / 255f, (float)Main.DiscoB / 255f);
+				}
+				else if (this.type == 3004)
+				{
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.95f, 0.65f, 1.3f);
 				}
 				else if (this.type == 2274)
 				{
-					float r = 0.75f;
-					float g = 1.3499999f;
-					float b = 1.5f;
+					float single18 = 0.75f;
+					float single19 = 1.3499999f;
+					float single20 = 1.5f;
 					if (!this.wet)
 					{
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), r, g, b);
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), single18, single19, single20);
 					}
 				}
 				else if (this.type >= 427 && this.type <= 432)
 				{
 					if (!this.wet)
 					{
-						float r2 = 0f;
-						float g2 = 0f;
-						float b2 = 0f;
-						int num23 = this.type - 426;
-						if (num23 == 1)
+						float single21 = 0f;
+						float single22 = 0f;
+						float single23 = 0f;
+						int num13 = this.type - 426;
+						if (num13 == 1)
 						{
-							r2 = 0.1f;
-							g2 = 0.2f;
-							b2 = 1.1f;
+							single21 = 0.1f;
+							single22 = 0.2f;
+							single23 = 1.1f;
 						}
-						if (num23 == 2)
+						if (num13 == 2)
 						{
-							r2 = 1f;
-							g2 = 0.1f;
-							b2 = 0.1f;
+							single21 = 1f;
+							single22 = 0.1f;
+							single23 = 0.1f;
 						}
-						if (num23 == 3)
+						if (num13 == 3)
 						{
-							r2 = 0f;
-							g2 = 1f;
-							b2 = 0.1f;
+							single21 = 0f;
+							single22 = 1f;
+							single23 = 0.1f;
 						}
-						if (num23 == 4)
+						if (num13 == 4)
 						{
-							r2 = 0.9f;
-							g2 = 0f;
-							b2 = 0.9f;
+							single21 = 0.9f;
+							single22 = 0f;
+							single23 = 0.9f;
 						}
-						if (num23 == 5)
+						if (num13 == 5)
 						{
-							r2 = 1.3f;
-							g2 = 1.3f;
-							b2 = 1.3f;
+							single21 = 1.3f;
+							single22 = 1.3f;
+							single23 = 1.3f;
 						}
-						if (num23 == 6)
+						if (num13 == 6)
 						{
-							r2 = 0.9f;
-							g2 = 0.9f;
-							b2 = 0f;
+							single21 = 0.9f;
+							single22 = 0.9f;
+							single23 = 0f;
 						}
-						Lighting.addLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), r2, g2, b2);
+						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), single21, single22, single23);
 					}
+				}
+				else if (this.type == 2777 || this.type == 2778 || this.type == 2779 || this.type == 2780 || this.type == 2781 || this.type == 2760 || this.type == 2761 || this.type == 2762 || this.type == 3524)
+				{
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.4f, 0.16f, 0.36f);
+				}
+				else if (this.type == 2772 || this.type == 2773 || this.type == 2774 || this.type == 2775 || this.type == 2776 || this.type == 2757 || this.type == 2758 || this.type == 2759 || this.type == 3523)
+				{
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0.36f, 0.4f);
+				}
+				else if (this.type == 2782 || this.type == 2783 || this.type == 2784 || this.type == 2785 || this.type == 2786 || this.type == 2763 || this.type == 2764 || this.type == 2765 || this.type == 3522)
+				{
+					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.5f, 0.25f, 0.05f);
+				}
+				else if (this.type == 3462 || this.type == 3463 || this.type == 3464 || this.type == 3465 || this.type == 3466 || this.type == 3381 || this.type == 3382 || this.type == 3383 || this.type == 3525)
+				{
+					Lighting.AddLight(base.Center, 0.3f, 0.3f, 0.2f);
 				}
 				else if (this.type == 41)
 				{
 					if (!this.wet)
 					{
-						Lighting.addLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.75f, 0.55f);
+						Lighting.AddLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.75f, 0.55f);
 					}
 				}
 				else if (this.type == 988)
 				{
 					if (!this.wet)
 					{
-						Lighting.addLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.35f, 0.65f, 1f);
+						Lighting.AddLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.35f, 0.65f, 1f);
 					}
 				}
 				else if (this.type == 282)
 				{
-					Lighting.addLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.7f, 1f, 0.8f);
+					Lighting.AddLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.7f, 1f, 0.8f);
 				}
 				else if (this.type == 286)
 				{
-					Lighting.addLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.7f, 0.8f, 1f);
+					Lighting.AddLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.7f, 0.8f, 1f);
+				}
+				else if (this.type == 3112)
+				{
+					Lighting.AddLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.6f, 0.85f);
+				}
+				else if (this.type == 3002)
+				{
+					Lighting.AddLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1.05f, 0.95f, 0.55f);
 				}
 				else if (this.type == 331)
 				{
-					Lighting.addLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.55f, 0.75f, 0.6f);
+					Lighting.AddLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.55f, 0.75f, 0.6f);
 				}
 				else if (this.type == 183)
 				{
-					Lighting.addLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.15f, 0.45f, 0.9f);
+					Lighting.AddLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.15f, 0.45f, 0.9f);
 				}
 				else if (this.type == 75)
 				{
-					Lighting.addLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.8f, 0.7f, 0.1f);
+					Lighting.AddLight((int)((this.position.X + (float)this.width) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.8f, 0.7f, 0.1f);
 				}
 				if (this.type == 75)
 				{
 					if (Main.rand.Next(25) == 0)
 					{
-						Dust.NewDust(this.position, this.width, this.height, 58, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 150, default(Color), 1.2f);
+						Vector2 vector26 = this.position;
+						int num14 = this.width;
+						int num15 = this.height;
+						color = new Color();
+						Dust.NewDust(vector26, num14, num15, 58, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 150, color, 1.2f);
 					}
 					if (Main.rand.Next(50) == 0)
 					{
@@ -37776,175 +47870,97 @@ namespace Terraria
 				{
 					if (this.type == 58 || this.type == 184 || this.type == 1867 || this.type == 1868 || this.type == 1734 || this.type == 1735)
 					{
-						this.spawnTime += 4;
+						Item item6 = this;
+						item6.spawnTime = item6.spawnTime + 4;
 					}
-					this.spawnTime++;
+					Item item7 = this;
+					item7.spawnTime = item7.spawnTime + 1;
 				}
 				if (Main.netMode == 2 && this.owner != Main.myPlayer)
 				{
-					this.release++;
+					Item item8 = this;
+					item8.release = item8.release + 1;
 					if (this.release >= 300)
 					{
 						this.release = 0;
-						NetMessage.SendData(39, this.owner, -1, "", i, 0f, 0f, 0f, 0);
+						NetMessage.SendData(39, this.owner, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 					}
 				}
-				if (this.wet)
+				if (!this.wet)
 				{
-					this.position += value;
+					Item item9 = this;
+					item9.position = item9.position + this.velocity;
 				}
 				else
 				{
-					this.position += this.velocity;
+					Item item10 = this;
+					item10.position = item10.position + vector2;
 				}
 				if (this.noGrabDelay > 0)
 				{
-					this.noGrabDelay--;
+					Item item11 = this;
+					item11.noGrabDelay = item11.noGrabDelay - 1;
 				}
 			}
 		}
-		public static int NewItem(int X, int Y, int Width, int Height, int Type, int Stack = 1, bool noBroadcast = false, int pfix = 0, bool noGrabDelay = false)
+
+		public static string VersionName(string oldName, int release)
 		{
-			if (Main.rand == null)
+			string str = oldName;
+			if (release <= 4)
 			{
-				Main.rand = new Random();
-			}
-			if (WorldGen.gen)
-			{
-				return 0;
-			}
-			int num = 400;
-			Main.item[400] = new Item();
-			if (Main.halloween)
-			{
-				if (Type == 58)
+				if (oldName == "Cobalt Helmet")
 				{
-					Type = 1734;
+					str = "Jungle Hat";
 				}
-				if (Type == 184)
+				else if (oldName == "Cobalt Breastplate")
 				{
-					Type = 1735;
+					str = "Jungle Shirt";
+				}
+				else if (oldName == "Cobalt Greaves")
+				{
+					str = "Jungle Pants";
 				}
 			}
-			if (Main.xMas)
+			if (release <= 13 && oldName == "Jungle Rose")
 			{
-				if (Type == 58)
-				{
-					Type = 1867;
-				}
-				if (Type == 184)
-				{
-					Type = 1868;
-				}
+				str = "Jungle Spores";
 			}
-			if (Main.netMode != 1)
+			if (release <= 20)
 			{
-				for (int i = 0; i < 400; i++)
+				if (oldName == "Gills potion")
 				{
-					if (!Main.item[i].active)
-					{
-						num = i;
-						break;
-					}
+					str = "Gills Potion";
+				}
+				else if (oldName == "Thorn Chakrum")
+				{
+					str = "Thorn Chakram";
+				}
+				else if (oldName == "Ball 'O Hurt")
+				{
+					str = "Ball O' Hurt";
 				}
 			}
-			if (num == 400 && Main.netMode != 1)
+			if (release <= 41 && oldName == "Iron Chain")
 			{
-				int num2 = 0;
-				for (int j = 0; j < 400; j++)
+				str = "Chain";
+			}
+			if (release <= 44 && oldName == "Orb of Light")
+			{
+				str = "Shadow Orb";
+			}
+			if (release <= 46)
+			{
+				if (oldName == "Black Dye")
 				{
-					if (Main.item[j].spawnTime > num2)
-					{
-						num2 = Main.item[j].spawnTime;
-						num = j;
-					}
+					str = "Black Thread";
+				}
+				if (oldName == "Green Dye")
+				{
+					str = "Green Thread";
 				}
 			}
-			Main.item[num] = new Item();
-			Main.item[num].SetDefaults(Type, false);
-			Main.item[num].Prefix(pfix);
-			Main.item[num].position.X = (float)(X + Width / 2 - Main.item[num].width / 2);
-			Main.item[num].position.Y = (float)(Y + Height / 2 - Main.item[num].height / 2);
-			Main.item[num].wet = Collision.WetCollision(Main.item[num].position, Main.item[num].width, Main.item[num].height);
-			Main.item[num].velocity.X = (float)Main.rand.Next(-30, 31) * 0.1f;
-			Main.item[num].velocity.Y = (float)Main.rand.Next(-40, -15) * 0.1f;
-			if (Type == 859)
-			{
-				Main.item[num].velocity *= 0f;
-			}
-			if (Type == 520 || Type == 521)
-			{
-				Main.item[num].velocity.X = (float)Main.rand.Next(-30, 31) * 0.1f;
-				Main.item[num].velocity.Y = (float)Main.rand.Next(-30, 31) * 0.1f;
-			}
-			Main.item[num].active = true;
-			Main.item[num].spawnTime = 0;
-			Main.item[num].stack = Stack;
-			if (Main.netMode == 2 && !noBroadcast)
-			{
-				int num3 = 0;
-				if (noGrabDelay)
-				{
-					num3 = 1;
-				}
-				NetMessage.SendData(21, -1, -1, "", num, (float)num3, 0f, 0f, 0);
-				Main.item[num].FindOwner(num);
-			}
-			else if (Main.netMode == 0)
-			{
-				Main.item[num].owner = Main.myPlayer;
-			}
-			return num;
-		}
-		public void FindOwner(int whoAmI)
-		{
-			if (this.keepTime > 0)
-			{
-				return;
-			}
-			int num = this.owner;
-			this.owner = 255;
-			float num2 = 999999f;
-			for (int i = 0; i < 255; i++)
-			{
-				if (this.ownIgnore != i && Main.player[i].active && Main.player[i].ItemSpace(Main.item[whoAmI]))
-				{
-					float num3 = Math.Abs(Main.player[i].position.X + (float)(Main.player[i].width / 2) - this.position.X - (float)(this.width / 2)) + Math.Abs(Main.player[i].position.Y + (float)(Main.player[i].height / 2) - this.position.Y - (float)this.height);
-					if (Main.player[i].manaMagnet && (this.type == 184 || this.type == 1735 || this.type == 1868))
-					{
-						num3 -= (float)Item.manaGrabRange;
-					}
-					if (Main.player[i].lifeMagnet && (this.type == 58 || this.type == 1734 || this.type == 1867))
-					{
-						num3 -= (float)Item.lifeGrabRange;
-					}
-					if (num3 < (float)NPC.sWidth && num3 < num2)
-					{
-						num2 = num3;
-						this.owner = i;
-					}
-				}
-			}
-			if (this.owner != num && ((num == Main.myPlayer && Main.netMode == 1) || (num == 255 && Main.netMode == 2) || !Main.player[num].active))
-			{
-				NetMessage.SendData(21, -1, -1, "", whoAmI, 0f, 0f, 0f, 0);
-				if (this.active)
-				{
-					NetMessage.SendData(22, -1, -1, "", whoAmI, 0f, 0f, 0f, 0);
-				}
-			}
-		}
-		public Item Clone()
-		{
-			return (Item)base.MemberwiseClone();
-		}
-		public bool IsTheSameAs(Item compareItem)
-		{
-			return this.netID == compareItem.netID && this.type == compareItem.type;
-		}
-		public bool IsNotTheSameAs(Item compareItem)
-		{
-			return this.netID != compareItem.netID || this.stack != compareItem.stack || this.prefix != compareItem.prefix;
+			return str;
 		}
 	}
 }

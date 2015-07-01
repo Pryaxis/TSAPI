@@ -1,33 +1,20 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
+using System.Security.Permissions;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("Properties")]
+[assembly: AssemblyCompany("Re-Logic")]
+[assembly: AssemblyCopyright("Copyright © Re-Logic 2015")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Properties")]
-[assembly: AssemblyCopyright("Copyright ©  2012-2014")]
+[assembly: AssemblyFileVersion("1.3.0.1")]
+[assembly: AssemblyProduct("Terraria")]
+[assembly: AssemblyTitle("Terraria")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
+[assembly: AssemblyVersion("1.3.0.1")]
+[assembly: CompilationRelaxations(8)]
 [assembly: ComVisible(false)]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e090131f-b5df-4785-b79e-1417d5329bda")]
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-[assembly: AssemblyVersion("1.15.0.0")]
-[assembly: AssemblyFileVersion("1.15.0.0")]
+[assembly: Debuggable(DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints)]
+[assembly: Guid("f571b16a-2c9b-44ab-b115-7c762c9e4e7e")]
+[assembly: RuntimeCompatibility(WrapNonExceptionThrows=true)]
