@@ -315,72 +315,85 @@ namespace Terraria
 					{
 						return;
 					}
-					Player player3 = Main.player[num8];
-					lock (player3)
+					Player item1 = Main.player[num8];
+					lock (item1)
 					{
 						int num9 = this.reader.ReadByte();
 						int num10 = this.reader.ReadInt16();
 						int num11 = this.reader.ReadByte();
 						int num12 = this.reader.ReadInt16();
+						Item[] itemArray = null;
 						int num13 = 0;
-						if (num9 > 58 + (int)player3.armor.Length + (int)player3.dye.Length + (int)player3.miscEquips.Length + (int)player3.miscDyes.Length + (int)player3.bank.item.Length)
+						bool flag1 = false;
+						if (num9 > 58 + (int)item1.armor.Length + (int)item1.dye.Length + (int)item1.miscEquips.Length + (int)item1.miscDyes.Length + (int)item1.bank.item.Length + (int)item1.bank2.item.Length)
 						{
-							num13 = num9 - 58 - ((int)player3.armor.Length + (int)player3.dye.Length + (int)player3.miscEquips.Length + (int)player3.miscDyes.Length + (int)player3.bank.item.Length) - 1;
-							item = player3.bank.item;
+							flag1 = true;
 						}
-						else if (num9 > 58 + (int)player3.armor.Length + (int)player3.dye.Length + (int)player3.miscEquips.Length + (int)player3.miscDyes.Length)
+						else if (num9 > 58 + (int)item1.armor.Length + (int)item1.dye.Length + (int)item1.miscEquips.Length + (int)item1.miscDyes.Length + (int)item1.bank.item.Length)
 						{
-							num13 = num9 - 58 - ((int)player3.armor.Length + (int)player3.dye.Length + (int)player3.miscEquips.Length + (int)player3.miscDyes.Length) - 1;
-							item = player3.bank.item;
+							num13 = num9 - 58 - ((int)item1.armor.Length + (int)item1.dye.Length + (int)item1.miscEquips.Length + (int)item1.miscDyes.Length + (int)item1.bank.item.Length) - 1;
+							itemArray = item1.bank2.item;
 						}
-						else if (num9 > 58 + (int)player3.armor.Length + (int)player3.dye.Length + (int)player3.miscEquips.Length)
+						else if (num9 > 58 + (int)item1.armor.Length + (int)item1.dye.Length + (int)item1.miscEquips.Length + (int)item1.miscDyes.Length)
 						{
-							num13 = num9 - 58 - ((int)player3.armor.Length + (int)player3.dye.Length + (int)player3.miscEquips.Length) - 1;
-							item = player3.miscDyes;
+							num13 = num9 - 58 - ((int)item1.armor.Length + (int)item1.dye.Length + (int)item1.miscEquips.Length + (int)item1.miscDyes.Length) - 1;
+							itemArray = item1.bank.item;
 						}
-						else if (num9 > 58 + (int)player3.armor.Length + (int)player3.dye.Length)
+						else if (num9 > 58 + (int)item1.armor.Length + (int)item1.dye.Length + (int)item1.miscEquips.Length)
 						{
-							num13 = num9 - 58 - ((int)player3.armor.Length + (int)player3.dye.Length) - 1;
-							item = player3.miscEquips;
+							num13 = num9 - 58 - ((int)item1.armor.Length + (int)item1.dye.Length + (int)item1.miscEquips.Length) - 1;
+							itemArray = item1.miscDyes;
 						}
-						else if (num9 > 58 + (int)player3.armor.Length)
+						else if (num9 > 58 + (int)item1.armor.Length + (int)item1.dye.Length)
 						{
-							num13 = num9 - 58 - (int)player3.armor.Length - 1;
-							item = player3.dye;
+							num13 = num9 - 58 - ((int)item1.armor.Length + (int)item1.dye.Length) - 1;
+							itemArray = item1.miscEquips;
+						}
+						else if (num9 > 58 + (int)item1.armor.Length)
+						{
+							num13 = num9 - 58 - (int)item1.armor.Length - 1;
+							itemArray = item1.dye;
 						}
 						else if (num9 <= 58)
 						{
 							num13 = num9;
-							item = player3.inventory;
+							itemArray = item1.inventory;
 						}
 						else
 						{
 							num13 = num9 - 58 - 1;
-							item = player3.armor;
+							itemArray = item1.armor;
 						}
-						if (num9 > 58)
+						if (flag1)
 						{
-							item[num13] = new Item();
-							item[num13].netDefaults(num12);
-							item[num13].stack = num10;
-							item[num13].Prefix(num11);
+							item1.trashItem = new Item();
+							item1.trashItem.netDefaults(num12);
+							item1.trashItem.stack = num10;
+							item1.trashItem.Prefix(num11);
+						}
+						else if (num9 > 58)
+						{
+							itemArray[num13] = new Item();
+							itemArray[num13].netDefaults(num12);
+							itemArray[num13].stack = num10;
+							itemArray[num13].Prefix(num11);
 						}
 						else
 						{
-							int num14 = item[num13].type;
-							int num15 = item[num13].stack;
-							item[num13] = new Item();
-							item[num13].netDefaults(num12);
-							item[num13].stack = num10;
-							item[num13].Prefix(num11);
+							int num14 = itemArray[num13].type;
+							int num15 = itemArray[num13].stack;
+							itemArray[num13] = new Item();
+							itemArray[num13].netDefaults(num12);
+							itemArray[num13].stack = num10;
+							itemArray[num13].Prefix(num11);
 							if (num8 == Main.myPlayer && num13 == 58)
 							{
-								Main.mouseItem = item[num13].Clone();
+								Main.mouseItem = itemArray[num13].Clone();
 							}
 							if (num8 == Main.myPlayer && Main.netMode == 1)
 							{
 								Main.player[num8].inventoryChestStack[num9] = false;
-								if (item[num13].stack != num15 || item[num13].type != num14)
+								if (itemArray[num13].stack != num15 || itemArray[num13].type != num14)
 								{
 									Main.PlaySound(7, -1, -1, 1);
 								}
@@ -392,6 +405,7 @@ namespace Terraria
 						}
 						return;
 					}
+					break;
 				}
 				case 6:
 				{
