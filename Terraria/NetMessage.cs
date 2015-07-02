@@ -1003,8 +1003,6 @@ namespace Terraria
 						NetMessage.buffer[num].spamCount++;
 						Main.txMsg++;
 						Main.txData += num19;
-						Main.txMsgType[msgType]++;
-						Main.txDataType[msgType] += num19;
 						Netplay.Connection.Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Connection.ClientWriteCallBack), null);
 						goto IL_2A90;
 					}
@@ -1026,8 +1024,6 @@ namespace Terraria
 									NetMessage.buffer[num20].spamCount++;
 									Main.txMsg++;
 									Main.txData += num19;
-									Main.txMsgType[msgType]++;
-									Main.txDataType[msgType] += num19;
 									Netplay.Clients[num20].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num20].ServerWriteCallBack), null);
 								}
 								catch (Exception ex)
@@ -1052,8 +1048,6 @@ namespace Terraria
 									NetMessage.buffer[num21].spamCount++;
 									Main.txMsg++;
 									Main.txData += num19;
-									Main.txMsgType[msgType]++;
-									Main.txDataType[msgType] += num19;
 									Netplay.Clients[num21].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num21].ServerWriteCallBack), null);
 								}
 								catch (Exception ex)
@@ -1103,8 +1097,6 @@ namespace Terraria
 										NetMessage.buffer[num22].spamCount++;
 										Main.txMsg++;
 										Main.txData += num19;
-										Main.txMsgType[msgType]++;
-										Main.txDataType[msgType] += num19;
 										Netplay.Clients[num22].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num22].ServerWriteCallBack), null);
 									}
 									catch (Exception ex)
@@ -1156,8 +1148,6 @@ namespace Terraria
 										NetMessage.buffer[num23].spamCount++;
 										Main.txMsg++;
 										Main.txData += num19;
-										Main.txMsgType[msgType]++;
-										Main.txDataType[msgType] += num19;
 										Netplay.Clients[num23].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num23].ServerWriteCallBack), null);
 									}
 									catch (Exception ex)
@@ -1183,8 +1173,6 @@ namespace Terraria
 									NetMessage.buffer[num24].spamCount++;
 									Main.txMsg++;
 									Main.txData += num19;
-									Main.txMsgType[msgType]++;
-									Main.txDataType[msgType] += num19;
 									Netplay.Clients[num24].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num24].ServerWriteCallBack), null);
 								}
 								catch (Exception ex)
@@ -1235,8 +1223,6 @@ namespace Terraria
 										NetMessage.buffer[num25].spamCount++;
 										Main.txMsg++;
 										Main.txData += num19;
-										Main.txMsgType[msgType]++;
-										Main.txDataType[msgType] += num19;
 										Netplay.Clients[num25].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num25].ServerWriteCallBack), null);
 									}
 									catch (Exception ex)
@@ -1262,8 +1248,6 @@ namespace Terraria
 									NetMessage.buffer[num26].spamCount++;
 									Main.txMsg++;
 									Main.txData += num19;
-									Main.txMsgType[msgType]++;
-									Main.txDataType[msgType] += num19;
 									Netplay.Clients[num26].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num26].ServerWriteCallBack), null);
 								}
 								catch (Exception ex)
@@ -1285,8 +1269,6 @@ namespace Terraria
 						NetMessage.buffer[remoteClient].spamCount++;
 						Main.txMsg++;
 						Main.txData += num19;
-						Main.txMsgType[msgType]++;
-						Main.txDataType[msgType] += num19;
 						Netplay.Clients[remoteClient].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[remoteClient].ServerWriteCallBack), null);
 					}
 					catch (Exception ex)
