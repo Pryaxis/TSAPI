@@ -285,7 +285,10 @@ namespace Terraria
 							writer.Write(bb9);
 							writer.Write((byte)player3.selectedItem);
 							writer.WriteVector2(player3.position);
-							writer.WriteVector2(player3.velocity);
+							if (bb9[2])
+							{
+								writer.WriteVector2(player3.velocity);
+							}
 							break;
 						}
 					case 14:
