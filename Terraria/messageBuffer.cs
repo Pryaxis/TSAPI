@@ -2185,30 +2185,29 @@ namespace Terraria
 				}
 				case 52:
 				{
-					int num141 = this.reader.ReadByte();
-					int num142 = this.reader.ReadByte();
-					int num143 = this.reader.ReadInt16();
-					int num144 = this.reader.ReadInt16();
-					if (num142 == 1)
+					int ldap = (int)this.reader.ReadByte();
+					int ad = (int)this.reader.ReadInt16();
+					int winfs = (int)this.reader.ReadInt16();
+					if (ldap == 1)
 					{
-						Chest.Unlock(num143, num144);
+						Chest.Unlock(ad, winfs);
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(52, -1, this.whoAmI, "", num141, (float)num142, (float)num143, (float)num144, 0, 0, 0);
-							NetMessage.SendTileSquare(-1, num143, num144, 2);
+							NetMessage.SendData(52, -1, this.whoAmI, "", 0, (float)ldap, (float)ad, (float)winfs, 0, 0, 0);
+							NetMessage.SendTileSquare(-1, ad, winfs, 2);
 						}
 					}
-					if (num142 != 2)
+					if (ldap != 2)
 					{
 						return;
 					}
-					WorldGen.UnlockDoor(num143, num144);
-					if (Main.netMode != 2)
+					WorldGen.UnlockDoor(ad, winfs);
+					if (Main.netMode == 2)
 					{
+						NetMessage.SendData(52, -1, this.whoAmI, "", 0, (float)ldap, (float)ad, (float)winfs, 0, 0, 0);
+						NetMessage.SendTileSquare(-1, ad, winfs, 2);
 						return;
 					}
-					NetMessage.SendData(52, -1, this.whoAmI, "", num141, (float)num142, (float)num143, (float)num144, 0, 0, 0);
-					NetMessage.SendTileSquare(-1, num143, num144, 2);
 					return;
 				}
 				case 53:

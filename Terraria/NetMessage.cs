@@ -708,7 +708,6 @@ namespace Terraria
 						writer.Write((byte)number2);
 						break;
 					case 52:
-						writer.Write((byte)number);
 						writer.Write((byte)number2);
 						writer.Write((short)number3);
 						writer.Write((short)number4);
