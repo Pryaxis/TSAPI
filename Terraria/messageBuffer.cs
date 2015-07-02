@@ -114,6 +114,10 @@ namespace Terraria
 			this.reader.BaseStream.Position = (long)num2;
 			byte num5 = num1;
 
+#if DEBUG
+			Console.WriteLine(num5);
+#endif
+
 			switch (num5)
 			{
 				case 1:
@@ -990,15 +994,13 @@ namespace Terraria
 					byte num35 = num30;
 					float single = (float)num31;
 					float single1 = (float)num32;
+					//not sure what this does
+					float variable = 0;
 					if (num33 == 1)
 					{
-						obj1 = 1;
+						variable = 1;
 					}
-					else
-					{
-						obj1 = null;
-					}
-					NetMessage.SendData(19, -1, num34, "", (int)num35, single, single1, (float)obj1, 0, 0, 0);
+					NetMessage.SendData(19, -1, num34, "", (int)num35, single, single1, (float)variable, 0, 0, 0);
 					return;
 				}
 				case 20:
@@ -1023,28 +1025,23 @@ namespace Terraria
 							bitsByte10 = this.reader.ReadByte();
 							tile.active(bitsByte9[0]);
 							Tile tile1 = tile;
+							//not sure what this is for
+							byte variable = 0;
 							if (bitsByte9[2])
 							{
-								obj2 = 1;
+								variable = 1;
 							}
-							else
-							{
-								obj2 = null;
-							}
-							tile1.wall = (byte)obj2;
+							tile1.wall = variable;
 							bool item3 = bitsByte9[3];
 							if (Main.netMode != 2)
 							{
 								Tile tile2 = tile;
+								byte variable2 = 0;
 								if (item3)
 								{
-									obj3 = 1;
+									variable2 = 1;
 								}
-								else
-								{
-									obj3 = null;
-								}
-								tile2.liquid = (byte)obj3;
+								tile2.liquid = variable2;
 							}
 							tile.wire(bitsByte9[4]);
 							tile.halfBrick(bitsByte9[5]);
