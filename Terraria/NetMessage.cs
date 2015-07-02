@@ -2110,18 +2110,6 @@ namespace Terraria
 					{
 						NetMessage.SendData(5, -1, i, "", i, (float)(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + Main.player[i].miscEquips.Length + 1 + n), (float)Main.player[i].miscDyes[n].prefix, 0f, 0, 0, 0);
 					}
-					for (int num2 = 0; num2 < Main.player[i].bank.item.Length; num2++)
-					{
-						NetMessage.SendData(5, -1, i, "", i, (float)(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + Main.player[i].miscEquips.Length + Main.player[i].miscDyes.Length + 1 + num2), (float)Main.player[i].bank.item[num2].prefix, 0f, 0, 0, 0);
-					}
-					for (int num3 = 0; num3 < Main.player[i].bank2.item.Length; num3++)
-					{
-						NetMessage.SendData(5, -1, i, "", i, (float)(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + Main.player[i].miscEquips.Length + Main.player[i].miscDyes.Length + Main.player[i].bank.item.Length + 1 + num3), (float)Main.player[i].bank2.item[num3].prefix, 0f, 0, 0, 0);
-					}
-					for (int num4 = 0; num4 < 251; num4++)
-					{
-						NetMessage.SendData(83, -1, -1, "", num4, 0f, 0f, 0f, 0, 0, 0);
-					}
 					if (!Netplay.Clients[i].IsAnnouncementCompleted)
 					{
 						Netplay.Clients[i].IsAnnouncementCompleted = true;
