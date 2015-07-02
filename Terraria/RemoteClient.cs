@@ -231,26 +231,22 @@ namespace Terraria
 			{
 				NetMessage.BootPlayer(this.Id, "Cheating attempt detected: Liquid spam");
 			}
-			RemoteClient spamProjectile = this;
-			spamProjectile.SpamProjectile = spamProjectile.SpamProjectile - 0.4f;
+			SpamProjectile -= 0.4f;
 			if (this.SpamProjectile < 0f)
 			{
 				this.SpamProjectile = 0f;
 			}
-			RemoteClient spamAddBlock = this;
-			spamAddBlock.SpamAddBlock = spamAddBlock.SpamAddBlock - 0.3f;
+			SpamAddBlock -= 0.3f;
 			if (this.SpamAddBlock < 0f)
 			{
 				this.SpamAddBlock = 0f;
 			}
-			RemoteClient spamDeleteBlock = this;
-			spamDeleteBlock.SpamDeleteBlock = spamDeleteBlock.SpamDeleteBlock - 5f;
+			SpamDeleteBlock -= 5f;
 			if (this.SpamDeleteBlock < 0f)
 			{
 				this.SpamDeleteBlock = 0f;
 			}
-			RemoteClient spamWater = this;
-			spamWater.SpamWater = spamWater.SpamWater - 0.2f;
+			SpamWater -= 0.2f;
 			if (this.SpamWater < 0f)
 			{
 				this.SpamWater = 0f;
