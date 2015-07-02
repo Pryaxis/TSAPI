@@ -490,6 +490,8 @@ namespace Terraria
 
 		public Item[] miscDyes = new Item[5];
 
+		public Item trashItem = new Item();
+
 		public int itemAnimation;
 
 		public int itemAnimationMax;
@@ -2968,6 +2970,7 @@ namespace Terraria
 					player.bank2.item[i] = this.bank2.item[i].Clone();
 				}
 			}
+			player.trashItem = this.trashItem.Clone();
 			for (int j = 0; j < 22; j++)
 			{
 				player.buffType[j] = this.buffType[j];
@@ -6266,6 +6269,7 @@ namespace Terraria
 						{
 							vector2.X = projectile1.position.X + (float)(projectile1.width / 2) - (float)(this.width / 2);
 							vector2.Y = projectile1.position.Y + (float)(projectile1.height / 2) - (float)(this.height / 2);
+							this.trashItem = new Item();
 							this.grappling[0] = -1;
 							this.grapCount = 0;
 							for (int j = 0; j < 1000; j++)
