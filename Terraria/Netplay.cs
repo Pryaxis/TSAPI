@@ -83,13 +83,6 @@ namespace Terraria
 			Main.rxData = 0;
 			Main.txMsg = 0;
 			Main.txData = 0;
-			for (int i = 0; i < Main.maxMsg; i++)
-			{
-				Main.rxMsgType[i] = 0;
-				Main.rxDataType[i] = 0;
-				Main.txMsgType[i] = 0;
-				Main.txDataType[i] = 0;
-			}
 		}
 		public static void ResetSections()
 		{

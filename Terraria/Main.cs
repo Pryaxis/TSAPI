@@ -469,14 +469,6 @@ namespace Terraria
 
 		public static int rxMsg;
 
-		public static int[] rxMsgType;
-
-		public static int[] rxDataType;
-
-		public static int[] txMsgType;
-
-		public static int[] txDataType;
-
 		public static float uCarry;
 
 		public static bool drawSkip;
@@ -2654,10 +2646,6 @@ namespace Terraria
 			Main.rxData = 0;
 			Main.txMsg = 0;
 			Main.rxMsg = 0;
-			Main.rxMsgType = new int[Main.maxMsg];
-			Main.rxDataType = new int[Main.maxMsg];
-			Main.txMsgType = new int[Main.maxMsg];
-			Main.txDataType = new int[Main.maxMsg];
 			Main.uCarry = 0f;
 			Main.drawSkip = false;
 			Main.fpsCount = 0;
@@ -12681,7 +12669,6 @@ namespace Terraria
 					vector2 = new Vector2();
 					spriteBatch1.DrawString(spriteFont1, str1, vector216, white1, 0f, vector2, single25, SpriteEffects.None, 0f);
 					num26 = num26 + 30;
-					str1 = string.Concat("rx:", string.Format("{0:0,0}", Main.rxMsgType[b]));
 					SpriteBatch spriteBatch2 = Main.spriteBatch;
 					SpriteFont spriteFont2 = Main.fontMouseText;
 					Vector2 vector217 = new Vector2((float)num26, (float)num27);
@@ -12689,7 +12676,6 @@ namespace Terraria
 					vector2 = new Vector2();
 					spriteBatch2.DrawString(spriteFont2, str1, vector217, white2, 0f, vector2, single25, SpriteEffects.None, 0f);
 					num26 = num26 + 70;
-					str1 = string.Format("{0:0,0}", Main.rxDataType[b]);
 					SpriteBatch spriteBatch3 = Main.spriteBatch;
 					SpriteFont spriteFont3 = Main.fontMouseText;
 					Vector2 vector218 = new Vector2((float)num26, (float)num27);
@@ -12705,7 +12691,6 @@ namespace Terraria
 					vector2 = new Vector2();
 					spriteBatch4.DrawString(spriteFont4, str1, vector219, white4, 0f, vector2, single25, SpriteEffects.None, 0f);
 					num26 = num26 + 30;
-					str1 = string.Concat("tx:", string.Format("{0:0,0}", Main.txMsgType[b]));
 					SpriteBatch spriteBatch5 = Main.spriteBatch;
 					SpriteFont spriteFont5 = Main.fontMouseText;
 					Vector2 vector220 = new Vector2((float)num26, (float)num27);
@@ -12713,7 +12698,6 @@ namespace Terraria
 					vector2 = new Vector2();
 					spriteBatch5.DrawString(spriteFont5, str1, vector220, white5, 0f, vector2, single25, SpriteEffects.None, 0f);
 					num26 = num26 + 70;
-					str1 = string.Format("{0:0,0}", Main.txDataType[b]);
 					SpriteBatch spriteBatch6 = Main.spriteBatch;
 					SpriteFont spriteFont6 = Main.fontMouseText;
 					Vector2 vector221 = new Vector2((float)num26, (float)num27);

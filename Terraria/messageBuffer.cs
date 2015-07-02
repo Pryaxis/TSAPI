@@ -79,8 +79,6 @@ namespace Terraria
 			num1 = this.readBuffer[start];
 			Main.rxMsg = Main.rxMsg + 1;
 			Main.rxData = Main.rxData + length;
-			Main.rxMsgType[num1] = Main.rxMsgType[num1] + 1;
-			Main.rxDataType[num1] = Main.rxDataType[num1] + length;
 			if (Main.netMode == 1 && Netplay.Connection.StatusMax > 0)
 			{
 				RemoteServer connection = Netplay.Connection;
