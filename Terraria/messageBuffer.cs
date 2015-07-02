@@ -2647,7 +2647,11 @@ namespace Terraria
 					{
 						num182 = this.whoAmI;
 					}
-					NPC.CatchNPC(num181, num182);
+					if (num181 < 200 && num181 >= 0)
+					{
+						NPC.CatchNPC(num181, num182);
+						return;
+					}
 					return;
 				}
 				case 71:
