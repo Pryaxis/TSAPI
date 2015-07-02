@@ -8243,8 +8243,13 @@ namespace Terraria
 						x54 = Main.npc[(int)this.ai[1]].position.X + (float)(Main.npc[(int)this.ai[1]].width / 2) - y50.X;
 						y51 = Main.npc[(int)this.ai[1]].position.Y + (float)(Main.npc[(int)this.ai[1]].height / 2) - y50.Y;
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 					this.rotation = (float)Math.Atan2((double)y51, (double)x54) + 1.57f;
 					single121 = (float)Math.Sqrt((double)(x54 * x54 + y51 * y51));
@@ -18329,8 +18334,13 @@ namespace Terraria
 								x134 = Main.npc[(int)this.ai[1]].position.X + (float)(Main.npc[(int)this.ai[1]].width / 2) - x133.X;
 								y133 = Main.npc[(int)this.ai[1]].position.Y + (float)(Main.npc[(int)this.ai[1]].height / 2) - x133.Y;
 							}
-							catch
+							catch (Exception ex)
 							{
+#if DEBUG
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
+
+#endif
 							}
 							this.rotation = (float)Math.Atan2((double)y133, (double)x134) + 1.57f;
 							single288 = (float)Math.Sqrt((double)(x134 * x134 + y133 * y133));
@@ -21712,8 +21722,13 @@ namespace Terraria
 													this.netUpdate = true;
 												}
 											}
-											catch
+											catch (Exception ex)
 											{
+#if DEBUG
+												Console.WriteLine(ex);
+												System.Diagnostics.Debugger.Break();
+
+#endif
 											}
 										}
 									}
@@ -34468,8 +34483,13 @@ namespace Terraria
 						this.velocity.Y = -0.2f;
 					}
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 			}
 		}
@@ -35629,13 +35649,12 @@ namespace Terraria
 					{
 						if (num6 == 471)
 						{
-							goto Label1;
+							num = 1;
 						}
 						if (num6 == 491)
 						{
-							goto Label3;
+							num = 3;
 						}
-						goto Label2;
 					}
 					else
 					{
@@ -35646,37 +35665,29 @@ namespace Terraria
 							case 214:
 							case 215:
 							case 216:
-							{
-								break;
-							}
-							default:
-							{
-								switch (num6)
 								{
-									case 381:
-									case 382:
-									case 383:
-									case 385:
-									case 386:
-									case 388:
-									case 389:
-									case 390:
-									case 391:
-									case 395:
-									{
-										num = 4;
-										goto Label2;
-									}
-									default:
-									{
-										goto Label2;
-									}
+									break;
 								}
-							}
+							case 381:
+							case 382:
+							case 383:
+							case 385:
+							case 386:
+							case 388:
+							case 389:
+							case 390:
+							case 391:
+							case 395:
+								{
+									num = 4;
+									break;
+								}
+							default:
+								{
+									break;
+								}
 						}
 					}
-				Label3:
-					num = 3;
 				}
 				else
 				{
@@ -35686,30 +35697,21 @@ namespace Terraria
 						case 27:
 						case 28:
 						case 29:
-						{
-							goto Label1;
-						}
-						default:
-						{
-							if (num6 == 111)
+						case 111:
 							{
-								goto Label1;
+								num = 1;
+								break;
 							}
-							switch (num6)
+						case 143:
+						case 144:
+						case 145:
 							{
-								case 143:
-								case 144:
-								case 145:
-								{
-									num = 2;
-									break;
-								}
+								num = 2;
+								break;
 							}
-							break;
-						}
 					}
 				}
-			Label2:
+
 				if (num != 0 && num == Main.invasionType)
 				{
 					int num7 = 1;
@@ -35747,9 +35749,6 @@ namespace Terraria
 						NetMessage.SendData(78, -1, -1, "", Main.invasionProgress, (float)Main.invasionProgressMax, (float)Main.invasionProgressIcon, 0f, 0, 0, 0);
 					}
 				}
-			Label1:
-				num = 1;
-				goto Label2;
 			}
 			return;
 		}
@@ -51300,8 +51299,13 @@ namespace Terraria
 							WorldGen.SquareTileFrame(x10, y10, true);
 						}
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 				}
 			}
@@ -74367,8 +74371,13 @@ namespace Terraria
 						}
 					}
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 				return;
 			}
@@ -74753,8 +74762,13 @@ namespace Terraria
 				}
 				num3 = num3 - num4;
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			y = num3 * 16;
 			num = NPC.NewNPC(x, y, 113, 0, 0f, 0f, 0f, 0f, 255);

@@ -173,8 +173,13 @@ namespace Terraria
 					{
 						NetMessage.RecieveBytes(this.ReadBuffer, num, this.Id);
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 				}
 			}

@@ -236,8 +236,13 @@ namespace Terraria.IO
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return null;
 		}
@@ -318,8 +323,13 @@ namespace Terraria.IO
 					}
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return false;
 		}
@@ -971,8 +981,13 @@ namespace Terraria.IO
 							binaryReader.Close();
 							memoryStream.Close();
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 						return;
 					}
@@ -2011,8 +2026,13 @@ namespace Terraria.IO
 				{
 					Directory.CreateDirectory(Main.WorldPath);
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 				if (!Main.skipMenu)
 				{

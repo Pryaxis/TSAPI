@@ -45,8 +45,13 @@ namespace Terraria.Net.Sockets
 					//Console.WriteLine(string.Concat(tcpSocket.GetRemoteAddress(), " is connecting..."));
 					this._listenerCallback(tcpSocket);
 				}
-				catch (Exception)
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 			}
 			this._listener.Stop();
@@ -66,7 +71,7 @@ namespace Terraria.Net.Sockets
 				this._connection.GetStream().EndWrite(result);
 				asyncState.Item1(asyncState.Item2);
 			}
-			catch (Exception)
+			catch
 			{
 				((ISocket)this).Close();
 			}
@@ -129,7 +134,7 @@ namespace Terraria.Net.Sockets
 				ThreadPool.QueueUserWorkItem(new WaitCallback(this.ListenLoop));
 				return true;
 			}
-			catch (Exception)
+			catch
 			{
 				flag = false;
 			}

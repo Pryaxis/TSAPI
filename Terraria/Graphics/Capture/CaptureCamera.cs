@@ -251,7 +251,7 @@ namespace Terraria.Graphics.Capture
 				}
 				flag = true;
 			}
-			catch (Exception)
+			catch
 			{
 				flag = false;
 			}

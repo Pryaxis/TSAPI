@@ -133,8 +133,13 @@ namespace Terraria
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return false;
 		}
@@ -336,8 +341,15 @@ namespace Terraria
 			{
 				Netplay.Connection.Socket.Close();
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			if (!Main.gameMenu)
 			{
@@ -450,8 +462,13 @@ namespace Terraria
 				{
 					Netplay.OpenPort();
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 			}
 			int num = 0;
@@ -612,9 +629,8 @@ namespace Terraria
 									});
 									continue;
 								}
-								catch (Exception)
+								catch
 								{
-									throw;
 									Netplay.Clients[k].PendingTermination = true;
 									continue;
 								}
@@ -640,10 +656,10 @@ namespace Terraria
 					Thread.Sleep(1);
 					num = 0;
 				}
-				/*else
+				else
 				{
 					Thread.Sleep(0);
-				}*/
+				}
 				if (!WorldGen.saveLock && !Main.dedServ)
 				{
 					if (num3 == 0)
@@ -670,7 +686,7 @@ namespace Terraria
 			{
 				Netplay.closePort();
 			}
-			catch(Exception)
+			catch
 			{
 				if (!Main.ignoreErrors)
 				{
@@ -735,8 +751,13 @@ namespace Terraria
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return false;
 		}

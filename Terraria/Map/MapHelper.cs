@@ -2419,8 +2419,13 @@ namespace Terraria.Map
 							Directory.CreateDirectory(str);
 						}
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 					object[] directorySeparatorChar = new object[] { str, Path.DirectorySeparatorChar, Main.worldID, ".map" };
 					str = string.Concat(directorySeparatorChar);

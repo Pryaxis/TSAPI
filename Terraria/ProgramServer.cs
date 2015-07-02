@@ -110,8 +110,13 @@ namespace Terraria
 						{
 							Netplay.ListenPort = Convert.ToInt32(args[num]);
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 					}
 					if (args[num].ToLower() == "-players" || args[num].ToLower() == "-maxplayers")
@@ -122,8 +127,13 @@ namespace Terraria
 							int num1 = Convert.ToInt32(args[num]);
 							ProgramServer.Game.SetNetPlayers(num1);
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 					}
 					if (args[num].ToLower() == "-pass" || args[num].ToLower() == "-password")
@@ -216,8 +226,13 @@ namespace Terraria
 					Console.WriteLine("");
 					Console.WriteLine("Please send crashlog.txt to support@terraria.org");
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 			}
 		}

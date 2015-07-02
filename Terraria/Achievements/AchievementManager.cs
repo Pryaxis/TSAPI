@@ -225,8 +225,13 @@ namespace Terraria.Achievements
 						}
 					}
 				}
-				catch (Exception)
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 			}
 		}

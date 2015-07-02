@@ -60,7 +60,8 @@ namespace Terraria
 							BitsByte hideVisual = 0;
 							for (int i = 0; i < 8; i++)
 								hideVisual[i] = player.hideVisual[i];
-							writer.Write(hideVisual); hideVisual = 0;
+							writer.Write(hideVisual);
+							hideVisual = 0;
 							for (int i = 0; i < 2; i++)
 								hideVisual[i] = player.hideVisual[i + 8];
 							writer.Write(hideVisual);
@@ -491,13 +492,13 @@ namespace Terraria
 						break;
 					case 26:
 						{
-							writer.Write((byte)number);
-							writer.Write((byte)(number2 + 1f));
-							writer.Write((short)number3);
-							writer.Write(text);
+							writer.Write((byte)number); //player id
+							writer.Write((byte)(number2 + 1f)); //hit direction
+							writer.Write((short)number3); //damage
+							writer.Write(text); //death text
 							BitsByte bb13 = 0;
-							bb13[0] = (number4 == 1f);
-							bb13[1] = (number5 == 1);
+							bb13[0] = (number4 == 1f); //pvp
+							bb13[1] = (number5 == 1); //critical hit
 							writer.Write(bb13);
 							break;
 						}
@@ -1029,8 +1030,13 @@ namespace Terraria
 									Main.txDataType[msgType] += num19;
 									Netplay.Clients[num20].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num20].ServerWriteCallBack), null);
 								}
-								catch
+								catch (Exception ex)
 								{
+#if DEBUG
+									Console.WriteLine(ex);
+									System.Diagnostics.Debugger.Break();
+
+#endif
 								}
 							}
 						}
@@ -1050,8 +1056,13 @@ namespace Terraria
 									Main.txDataType[msgType] += num19;
 									Netplay.Clients[num21].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num21].ServerWriteCallBack), null);
 								}
-								catch
+								catch (Exception ex)
 								{
+#if DEBUG
+									Console.WriteLine(ex);
+									System.Diagnostics.Debugger.Break();
+
+#endif
 								}
 							}
 						}
@@ -1096,8 +1107,13 @@ namespace Terraria
 										Main.txDataType[msgType] += num19;
 										Netplay.Clients[num22].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num22].ServerWriteCallBack), null);
 									}
-									catch
+									catch (Exception ex)
 									{
+#if DEBUG
+										Console.WriteLine(ex);
+										System.Diagnostics.Debugger.Break();
+
+#endif
 									}
 								}
 							}
@@ -1144,8 +1160,13 @@ namespace Terraria
 										Main.txDataType[msgType] += num19;
 										Netplay.Clients[num23].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num23].ServerWriteCallBack), null);
 									}
-									catch
+									catch (Exception ex)
 									{
+#if DEBUG
+										Console.WriteLine(ex);
+										System.Diagnostics.Debugger.Break();
+
+#endif
 									}
 								}
 							}
@@ -1166,8 +1187,13 @@ namespace Terraria
 									Main.txDataType[msgType] += num19;
 									Netplay.Clients[num24].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num24].ServerWriteCallBack), null);
 								}
-								catch
+								catch (Exception ex)
 								{
+#if DEBUG
+									Console.WriteLine(ex);
+									System.Diagnostics.Debugger.Break();
+
+#endif
 								}
 							}
 						}
@@ -1213,8 +1239,13 @@ namespace Terraria
 										Main.txDataType[msgType] += num19;
 										Netplay.Clients[num25].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num25].ServerWriteCallBack), null);
 									}
-									catch
+									catch (Exception ex)
 									{
+#if DEBUG
+										Console.WriteLine(ex);
+										System.Diagnostics.Debugger.Break();
+
+#endif
 									}
 								}
 							}
@@ -1235,8 +1266,13 @@ namespace Terraria
 									Main.txDataType[msgType] += num19;
 									Netplay.Clients[num26].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[num26].ServerWriteCallBack), null);
 								}
-								catch
+								catch (Exception ex)
 								{
+#if DEBUG
+									Console.WriteLine(ex);
+									System.Diagnostics.Debugger.Break();
+
+#endif
 								}
 							}
 						}
@@ -1253,8 +1289,13 @@ namespace Terraria
 						Main.txDataType[msgType] += num19;
 						Netplay.Clients[remoteClient].Socket.AsyncSend(NetMessage.buffer[num].writeBuffer, 0, num19, new SocketSendCallback(Netplay.Clients[remoteClient].ServerWriteCallBack), null);
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 				}
 			IL_2A90:
@@ -1972,8 +2013,13 @@ namespace Terraria
 					}
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 		}
 		public static void greetPlayer(int plr)

@@ -867,8 +867,8 @@ namespace Terraria
 			int num;
 			Vector2 vector2;
 			Vector4 vector4;
-			object width;
-			object height;
+			int width;
+			int height;
 			List<Point> points = new List<Point>();
 			switch (Direction)
 			{
@@ -884,7 +884,7 @@ namespace Terraria
 					}
 					else
 					{
-						width = null;
+						width = 0;
 					}
 					num = (int)(x + (float)width) / 16;
 					float single = Math.Min(16f - position.Y % 16f, (float)Height);
@@ -937,7 +937,7 @@ namespace Terraria
 					}
 					else
 					{
-						height = null;
+						height = 0;
 					}
 					num = (int)(y + (float)height) / 16;
 					float single2 = Math.Min(16f - position.X % 16f, (float)Width);

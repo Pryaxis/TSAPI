@@ -2728,8 +2728,13 @@ namespace Terraria
 						}
 					}
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 			}
 			if (this.gills)
@@ -13376,8 +13381,13 @@ namespace Terraria
 				{
 					WorldGen.saveToonWhilePlaying();
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 			}
 		}
@@ -20160,8 +20170,13 @@ namespace Terraria
 						Main.Map.Save();
 					}
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 				try
 				{
@@ -20170,8 +20185,13 @@ namespace Terraria
 						Directory.CreateDirectory(Main.PlayerPath);
 					}
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 			}
 			if (Main.ServerSideCharacter)
@@ -22766,8 +22786,13 @@ namespace Terraria
 					flag = true;
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			if (!flag && this.wet)
 			{
@@ -23803,8 +23828,13 @@ namespace Terraria
 				this.teleportTime = 1f;
 				this.teleportStyle = Style;
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 		}
 
@@ -30842,8 +30872,13 @@ namespace Terraria
 				{
 					this.ItemCheck(i);
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 			}
 			this.PlayerFrame();

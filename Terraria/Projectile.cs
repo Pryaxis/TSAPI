@@ -14320,8 +14320,13 @@ namespace Terraria
 							}
 						}
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 				}
 				if (this.type == 277)
@@ -14880,8 +14885,13 @@ namespace Terraria
 						}
 					}
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 				IL_990C:
 				if (this.type == 519)

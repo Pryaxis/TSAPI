@@ -3976,8 +3976,13 @@ namespace Terraria
 								Main.initMap[i1, j1] = false;
 								this.mapTarget[i1, j1].Dispose();
 							}
-							catch
+							catch (Exception ex)
 							{
+#if DEBUG
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
+
+#endif
 							}
 						}
 					}
@@ -6184,8 +6189,13 @@ namespace Terraria
 					{
 						Console.Clear();
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 					if (str2.Length >= 2 && str2.Substring(0, 2).ToLower() == "d ")
 					{
@@ -6204,15 +6214,25 @@ namespace Terraria
 								}
 							}
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 						try
 						{
 							Console.Clear();
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 					}
 					else if (str2 == "n" || str2 == "N")
@@ -6250,15 +6270,25 @@ namespace Terraria
 									flag1 = false;
 								}
 							}
-							catch
+							catch (Exception ex)
 							{
+#if DEBUG
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
+
+#endif
 							}
 							try
 							{
 								Console.Clear();
 							}
-							catch
+							catch (Exception ex)
 							{
+#if DEBUG
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
+
+#endif
 							}
 						}
 						flag1 = true;
@@ -6285,15 +6315,25 @@ namespace Terraria
 									flag1 = false;
 								}
 							}
-							catch
+							catch (Exception ex)
 							{
+#if DEBUG
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
+
+#endif
 							}
 							try
 							{
 								Console.Clear();
 							}
-							catch
+							catch (Exception ex)
 							{
+#if DEBUG
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
+
+#endif
 							}
 						}
 						flag1 = true;
@@ -6311,8 +6351,13 @@ namespace Terraria
 							{
 								Console.Clear();
 							}
-							catch
+							catch (Exception ex)
 							{
+#if DEBUG
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
+
+#endif
 							}
 						}
 						Main.worldName = Main.newWorldName;
@@ -6335,8 +6380,13 @@ namespace Terraria
 						{
 							Console.Clear();
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 						while (Main.serverGenLock)
 						{
@@ -6378,15 +6428,25 @@ namespace Terraria
 										}
 										flag2 = false;
 									}
-									catch
+									catch (Exception ex)
 									{
+#if DEBUG
+										Console.WriteLine(ex);
+										System.Diagnostics.Debugger.Break();
+
+#endif
 									}
 									try
 									{
 										Console.Clear();
 									}
-									catch
+									catch (Exception ex)
 									{
+#if DEBUG
+										Console.WriteLine(ex);
+										System.Diagnostics.Debugger.Break();
+
+#endif
 									}
 								}
 								flag2 = true;
@@ -6409,15 +6469,25 @@ namespace Terraria
 											flag2 = false;
 										}
 									}
-									catch
+									catch (Exception ex)
 									{
+#if DEBUG
+										Console.WriteLine(ex);
+										System.Diagnostics.Debugger.Break();
+
+#endif
 									}
 									try
 									{
 										Console.Clear();
 									}
-									catch
+									catch (Exception ex)
 									{
+#if DEBUG
+										Console.WriteLine(ex);
+										System.Diagnostics.Debugger.Break();
+
+#endif
 									}
 								}
 								flag2 = true;
@@ -6440,15 +6510,25 @@ namespace Terraria
 											flag2 = false;
 										}
 									}
-									catch
+									catch (Exception ex)
 									{
+#if DEBUG
+										Console.WriteLine(ex);
+										System.Diagnostics.Debugger.Break();
+
+#endif
 									}
 									try
 									{
 										Console.Clear();
 									}
-									catch
+									catch (Exception ex)
 									{
+#if DEBUG
+										Console.WriteLine(ex);
+										System.Diagnostics.Debugger.Break();
+
+#endif
 									}
 								}
 								Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
@@ -6461,13 +6541,23 @@ namespace Terraria
 								{
 									Console.Clear();
 								}
-								catch
+								catch (Exception ex)
 								{
+#if DEBUG
+									Console.WriteLine(ex);
+									System.Diagnostics.Debugger.Break();
+
+#endif
 								}
 							}
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 					}
 				}
@@ -6476,8 +6566,13 @@ namespace Terraria
 			{
 				Console.Clear();
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			WorldGen.serverLoadWorld();
 			Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber));
@@ -6495,8 +6590,13 @@ namespace Terraria
 			{
 				Console.Clear();
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber));
 			Console.WriteLine("");
@@ -16601,8 +16701,13 @@ namespace Terraria
 					{
 						this.tServer.Kill();
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 				}
 			}
@@ -18528,8 +18633,13 @@ namespace Terraria
 								flag5 = true;
 							}
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 						if (flag5)
 						{
@@ -23128,8 +23238,13 @@ namespace Terraria
 				}
 				Main.LoadWorlds();
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 		}
 
@@ -27721,8 +27836,13 @@ namespace Terraria
 									this.mapTarget[k, l].Dispose();
 								}
 							}
-							catch
+							catch (Exception ex)
 							{
+#if DEBUG
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
+
+#endif
 							}
 						}
 					}
@@ -27770,8 +27890,13 @@ namespace Terraria
 				{
 					this.ReleaseTargets();
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 			}
 		}
@@ -28667,8 +28792,13 @@ namespace Terraria
 								{
 									Netplay.ListenPort = Convert.ToInt32(str3);
 								}
-								catch
+								catch (Exception ex)
 								{
+#if DEBUG
+									Console.WriteLine(ex);
+									System.Diagnostics.Debugger.Break();
+
+#endif
 								}
 							}
 							if (str1.Length > 11 && str1.Substring(0, 11).ToLower() == "maxplayers=")
@@ -28678,8 +28808,13 @@ namespace Terraria
 								{
 									Main.maxNetPlayers = Convert.ToInt32(str4);
 								}
-								catch
+								catch (Exception ex)
 								{
+#if DEBUG
+									Console.WriteLine(ex);
+									System.Diagnostics.Debugger.Break();
+
+#endif
 								}
 							}
 							if (str1.Length > 11 && str1.Substring(0, 9).ToLower() == "priority=")
@@ -28717,8 +28852,13 @@ namespace Terraria
 										}
 									}
 								}
-								catch
+								catch (Exception ex)
 								{
+#if DEBUG
+									Console.WriteLine(ex);
+									System.Diagnostics.Debugger.Break();
+
+#endif
 								}
 							}
 							if (str1.Length > 9 && str1.Substring(0, 9).ToLower() == "password=")
@@ -28798,13 +28938,23 @@ namespace Terraria
 								{
 									Main.npcStreamSpeed = Convert.ToInt32(str8);
 								}
-								catch
+								catch (Exception ex)
 								{
+#if DEBUG
+									Console.WriteLine(ex);
+									System.Diagnostics.Debugger.Break();
+
+#endif
 								}
 							}
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 					}
 				}
@@ -28859,8 +29009,13 @@ namespace Terraria
 					object[] directorySeparatorChar = new object[] { "Images", Path.DirectorySeparatorChar, "ItemFlame_", i };
 					texture2DArray[i] = content.Load<Texture2D>(string.Concat(directorySeparatorChar));
 				}
-				catch
+				catch (Exception ex)
 				{
+#if DEBUG
+					Console.WriteLine(ex);
+					System.Diagnostics.Debugger.Break();
+
+#endif
 				}
 				Main.itemFlameLoaded[i] = true;
 			}
@@ -32449,8 +32604,13 @@ namespace Terraria
 					}
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 		}
 
@@ -32494,8 +32654,13 @@ namespace Terraria
 					}
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 		}
 
@@ -33277,8 +33442,13 @@ namespace Terraria
 					}
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 		}
 
@@ -33362,8 +33532,13 @@ namespace Terraria
 					}
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 		}
 
@@ -33384,8 +33559,13 @@ namespace Terraria
 			{
 				this.drawWaters(true, -1, true);
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			Main.tileBatch.End();
 			Main.spriteBatch.End();
@@ -33563,8 +33743,13 @@ namespace Terraria
 					this.DrawWires();
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			TimeLogger.DetailedDrawReset();
 			Main.tileBatch.End();
@@ -33696,8 +33881,13 @@ namespace Terraria
 			{
 				File.SetAttributes(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "servers.dat"), FileAttributes.Normal);
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			try
 			{
@@ -33715,8 +33905,13 @@ namespace Terraria
 					}
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 		}
 
@@ -34139,8 +34334,13 @@ namespace Terraria
 							}
 						}
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 				}
 			}
@@ -34372,8 +34572,13 @@ namespace Terraria
 						{
 							Console.Clear();
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 					}
 					else if (lower == "playing")
@@ -35118,8 +35323,13 @@ namespace Terraria
 					{
 						Main.snowing();
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 				}
 			}
@@ -36637,8 +36847,13 @@ namespace Terraria
 						{
 							Main.player[r].Update(r);
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 					}
 				}
@@ -36648,8 +36863,13 @@ namespace Terraria
 					{
 						NPC.SpawnNPC();
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 				}
 				for (int s = 0; s < 255; s++)
@@ -36801,8 +37021,13 @@ namespace Terraria
 							WorldGen.UpdateWorld();
 							Main.UpdateInvasion();
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 					}
 				}
@@ -37308,8 +37533,13 @@ namespace Terraria
 									{
 										Main.music[i].Resume();
 									}
-									catch (Exception)
+									catch (Exception ex)
 									{
+#if DEBUG
+										Console.WriteLine(ex);
+										System.Diagnostics.Debugger.Break();
+
+#endif
 									}
 								}
 							}
@@ -37324,8 +37554,13 @@ namespace Terraria
 									{
 										Main.music[j].Pause();
 									}
-									catch (Exception)
+									catch (Exception ex)
 									{
+#if DEBUG
+										Console.WriteLine(ex);
+										System.Diagnostics.Debugger.Break();
+
+#endif
 									}
 								}
 							}

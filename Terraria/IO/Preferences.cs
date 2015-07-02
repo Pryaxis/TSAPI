@@ -99,7 +99,7 @@ namespace Terraria.IO
 						}
 						flag = true;
 					}
-					catch (Exception)
+					catch
 					{
 						flag = false;
 					}

@@ -27,6 +27,11 @@ namespace Terraria.Utilities
 			}
 			catch (Exception)
 			{
+#if DEBUG
+				throw;
+				System.Diagnostics.Debugger.Break();
+
+#endif
 				flag = false;
 			}
 			return flag;
@@ -54,6 +59,11 @@ namespace Terraria.Utilities
 			}
 			catch (Exception)
 			{
+#if DEBUG
+				throw;
+				System.Diagnostics.Debugger.Break();
+
+#endif
 				flag = false;
 			}
 			return flag;

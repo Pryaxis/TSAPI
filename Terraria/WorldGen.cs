@@ -2012,8 +2012,13 @@ namespace Terraria
 				Main.PlaySound(34, -1, -1, 0);
 				Main.PlaySound(35, -1, -1, 0);
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			if (Main.netMode == 0)
 			{
@@ -4028,8 +4033,13 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return false;
 		}
@@ -4822,8 +4832,13 @@ namespace Terraria
 					{
 						WorldGen.Caverer(WorldGen.genRand.Next(100, Main.maxTilesX - 100), WorldGen.genRand.Next((int)Main.rockLayer, Main.maxTilesY - 400));
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 					num6++;
 				}
@@ -8120,8 +8135,13 @@ namespace Terraria
 								}
 							}
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 					}
 				}
@@ -8853,8 +8873,13 @@ namespace Terraria
 									{
 										WorldGen.Spread.Wall2(num2, num3, 63);
 									}
-									catch
+									catch (Exception ex)
 									{
+#if DEBUG
+										Console.WriteLine(ex);
+										System.Diagnostics.Debugger.Break();
+
+#endif
 									}
 								}
 							}
@@ -13957,8 +13982,13 @@ namespace Terraria
 								}
 								Main.tile[num19, num20].wall = 0;
 							}
-							catch
+							catch (Exception ex)
 							{
+#if DEBUG
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
+
+#endif
 							}
 						}
 					}
@@ -13983,8 +14013,13 @@ namespace Terraria
 						Main.tile[k, l].liquid = 0;
 						Main.tile[k, l].lava(false);
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 				}
 			}
@@ -13999,8 +14034,13 @@ namespace Terraria
 						Main.tile[m, n].liquid = 0;
 						Main.tile[m, n].lava(false);
 					}
-					catch
+					catch (Exception ex)
 					{
+#if DEBUG
+						Console.WriteLine(ex);
+						System.Diagnostics.Debugger.Break();
+
+#endif
 					}
 				}
 			}
@@ -27763,8 +27803,13 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return false;
 		}
@@ -30298,8 +30343,13 @@ namespace Terraria
 								}
 							}
 						}
-						catch
+						catch (Exception ex)
 						{
+#if DEBUG
+							Console.WriteLine(ex);
+							System.Diagnostics.Debugger.Break();
+
+#endif
 						}
 					}
 				}
@@ -37772,8 +37822,13 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return false;
 		}
@@ -37804,8 +37859,13 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return false;
 		}
@@ -37824,8 +37884,13 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return false;
 		}
@@ -37844,8 +37909,13 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return false;
 		}
@@ -37864,8 +37934,13 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return false;
 		}
@@ -37884,8 +37959,13 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return false;
 		}
@@ -40668,8 +40748,13 @@ namespace Terraria
 													WorldGen.grassSpread--;
 												}
 											}
-											catch
+											catch (Exception ex)
 											{
+#if DEBUG
+												Console.WriteLine(ex);
+												System.Diagnostics.Debugger.Break();
+
+#endif
 											}
 										}
 									}
@@ -40679,8 +40764,13 @@ namespace Terraria
 					}
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 		}
 		public static void ChasmRunnerSideways(int i, int j, int direction, int steps)
@@ -43329,8 +43419,13 @@ namespace Terraria
 					num2 += (yDir + num4) * 0.6f;
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			return new Vector2(num, num2);
 		}
@@ -49268,8 +49363,13 @@ namespace Terraria
 					}
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
+#if DEBUG
+				Console.WriteLine(ex);
+				System.Diagnostics.Debugger.Break();
+
+#endif
 			}
 			if (i > 0 && j > 0)
 			{
