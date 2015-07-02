@@ -34,6 +34,10 @@ namespace Terraria
 				writer.BaseStream.Position = 2L;
 				long position = 0L;
 				writer.Write((byte)msgType);
+
+				Console.WriteLine("Sent: {0} params: rc={1} ic={2} txt={3} num={4} num2={5} num3={6} num4={7} num5={8} num6={9} num7={10}", 
+					msgType, remoteClient, ignoreClient, text, number, number2, number3, number4, number5, number6, number7);
+
 				switch (msgType)
 				{
 					case 1:
@@ -420,7 +424,18 @@ namespace Terraria
 						break;
 					case 23:
 						{
+							if (number > Main.npc.Length || number < 0)
+							{
+								return;
+							}
+
 							NPC nPC = Main.npc[number];
+
+							if (nPC == null)
+							{
+								return;
+							}
+
 							writer.Write((short)number);
 							writer.WriteVector2(nPC.position);
 							writer.WriteVector2(nPC.velocity);
@@ -714,7 +729,7 @@ namespace Terraria
 						break;
 					case 56:
 						{
-							string value4 = null;
+							string value4 = "";
 							if (Main.netMode == 2)
 							{
 								value4 = Main.npc[number].displayName;

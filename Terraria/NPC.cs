@@ -9760,15 +9760,12 @@ namespace Terraria
 					if (this.ai[1] <= 0f && !false)
 					{
 						float[] singleArray3 = this.ai;
+						float array3_0 = 8;
 						if (this.localAI[2] != 8f || !flag48)
 						{
-							obj2 = null;
+							array3_0 = 0;
 						}
-						else
-						{
-							obj2 = 8;
-						}
-						singleArray3[0] = (float)obj2;
+						singleArray3[0] = (float)array3_0;
 						this.ai[1] = (float)(num177 + Main.rand.Next(num178));
 						this.ai[2] = 0f;
 						float[] singleArray4 = this.localAI;

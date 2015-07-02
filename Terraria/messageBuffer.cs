@@ -114,9 +114,7 @@ namespace Terraria
 			this.reader.BaseStream.Position = (long)num2;
 			byte num5 = num1;
 
-#if DEBUG
-			Console.WriteLine(num5);
-#endif
+			Console.WriteLine("Received: {0}", num5);
 
 			switch (num5)
 			{

@@ -33818,7 +33818,6 @@ namespace Terraria
 		public static Vector3 rgbToHsl(Microsoft.Xna.Framework.Color newColor)
 		{
 			float single;
-			object obj;
 			float r = (float)newColor.R;
 			float g = (float)newColor.G;
 			float b = (float)newColor.B;
@@ -33838,15 +33837,12 @@ namespace Terraria
 				if (single1 == r)
 				{
 					float single6 = (g - b) / single5;
+					float single7 = 0;
 					if (g < b)
 					{
-						obj = 6;
+						single7 = 6;
 					}
-					else
-					{
-						obj = null;
-					}
-					single3 = single6 + (float)obj;
+					single3 = single6 + (float)single7;
 				}
 				if (single1 == g)
 				{
