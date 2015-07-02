@@ -482,11 +482,13 @@ namespace Terraria
 							writer.Write(value2);
 							if (!bb12[7])
 							{
-								if (Main.npcLifeBytes[nPC.netID] == 2)
+								byte b3 = Main.npcLifeBytes[nPC.netID];
+								writer.Write(b3);
+								if (b3 == 2)
 								{
 									writer.Write((short)num8);
 								}
-								else if (Main.npcLifeBytes[nPC.netID] == 4)
+								else if (b3 == 4)
 								{
 									writer.Write(num8);
 								}
