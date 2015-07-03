@@ -12,6 +12,7 @@ using Terraria.ID;
 using Terraria.IO;
 using Terraria.Net;
 using Terraria.Net.Sockets;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -71,6 +72,10 @@ namespace Terraria
 			int num2 = 0;
 			num2 = start + 1;
 			num1 = this.readBuffer[start];
+			if (ServerApi.Hooks.InvokeNetGetData(ref num1, this, ref num2, ref length))
+			{
+				return;
+			}
 			Main.rxMsg = Main.rxMsg + 1;
 			Main.rxData = Main.rxData + length;
 			if (Main.netMode == 1 && Netplay.Connection.StatusMax > 0)
@@ -280,7 +285,11 @@ namespace Terraria
 					}
 					if (flag)
 					{
-						NetMessage.SendData(2, this.whoAmI, -1, string.Concat(item1.name, " ", Lang.mp[5]), 0, 0f, 0f, 0f, 0, 0, 0);
+						if (!ServerApi.Hooks.InvokeNetNameCollision(num7, item1.name))
+						{
+							NetMessage.SendData(2, this.whoAmI, -1, string.Concat(item1.name, " ", Lang.mp[5]), 0, 0f, 0f, 0f, 0, 0, 0);
+							return;
+						}
 						return;
 					}
 					if (item1.name.Length > Player.nameLen)
