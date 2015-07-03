@@ -47579,20 +47579,6 @@ namespace Terraria
 					}
 					if (this.type == 75 && Main.dayTime)
 					{
-						for (int o = 0; o < 10; o++)
-						{
-							Vector2 vector25 = this.position;
-							int num10 = this.width;
-							int num11 = this.height;
-							float x1 = this.velocity.X;
-							float y1 = this.velocity.Y;
-							color = new Color();
-							Dust.NewDust(vector25, num10, num11, 15, x1, y1, 150, color, 1.2f);
-						}
-						for (int p = 0; p < 3; p++)
-						{
-							Gore.NewGore(this.position, new Vector2(this.velocity.X, this.velocity.Y), Main.rand.Next(16, 18), 1f);
-						}
 						this.active = false;
 						this.type = 0;
 						this.stack = 0;
@@ -47604,14 +47590,6 @@ namespace Terraria
 				}
 				if (this.type == 501)
 				{
-					if (Main.rand.Next(6) == 0)
-					{
-						int num12 = Dust.NewDust(this.position, this.width, this.height, 55, 0f, 0f, 200, this.color, 1f);
-						Dust dust1 = Main.dust[num12];
-						dust1.velocity = dust1.velocity * 0.3f;
-						Dust dust2 = Main.dust[num12];
-						dust2.scale = dust2.scale * 0.5f;
-					}
 				}
 				else if (this.type == 1970)
 				{
@@ -47820,18 +47798,6 @@ namespace Terraria
 				}
 				if (this.type == 75)
 				{
-					if (Main.rand.Next(25) == 0)
-					{
-						Vector2 vector26 = this.position;
-						int num14 = this.width;
-						int num15 = this.height;
-						color = new Color();
-						Dust.NewDust(vector26, num14, num15, 58, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 150, color, 1.2f);
-					}
-					if (Main.rand.Next(50) == 0)
-					{
-						Gore.NewGore(this.position, new Vector2(this.velocity.X * 0.2f, this.velocity.Y * 0.2f), Main.rand.Next(16, 18), 1f);
-					}
 				}
 				if (this.spawnTime < 2147483646)
 				{

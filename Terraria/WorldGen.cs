@@ -28580,11 +28580,6 @@ namespace Terraria
 				}
 				else if (type == 231)
 				{
-					int num9 = (i + 1) * 16 + 8;
-					int num10 = j * 16;
-					Gore.NewGore(new Vector2((float)num9, (float)num10), default(Vector2), 300, 1f);
-					Gore.NewGore(new Vector2((float)num9, (float)(num10 + 8)), default(Vector2), 301, 1f);
-					Gore.NewGore(new Vector2((float)num9, (float)(num10 + 16)), default(Vector2), 302, 1f);
 					float num11 = (float)(i * 16);
 					float num12 = (float)(j * 16);
 					float num13 = -1f;
@@ -30593,50 +30588,30 @@ namespace Terraria
 				float num6 = 1f;
 				if (num == 0)
 				{
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 51, 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 52, 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 53, 1f);
 				}
 				else if (num == 1)
 				{
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 166, 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 167, 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 168, 1f);
 				}
 				else if (num == 2)
 				{
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 169, 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 170, 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 171, 1f);
 				}
 				else if (num == 3)
 				{
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 172, 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 173, 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 174, 1f);
 				}
 				else if (num >= 4 && num <= 6)
 				{
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 197, 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 198, 1f);
 					num6 = 1.25f;
 				}
 				else if (num >= 7 && num <= 9)
 				{
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 199, 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 200, 1f);
 					num6 = 1.75f;
 				}
 				else if (num >= 10 && num <= 12)
 				{
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 201, 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 202, 1f);
 					num6 = 1.9f;
 				}
 				else if (num >= 13 && num <= 15)
 				{
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 203, 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 204, 1f);
 					num6 = 2.1f;
 				}
 				else if (num >= 16 && num <= 18)
@@ -30654,13 +30629,9 @@ namespace Terraria
 				else if (num >= 25 && num <= 27)
 				{
 					num6 = 10f;
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), WorldGen.genRand.Next(217, 220), 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), WorldGen.genRand.Next(217, 220), 1f);
 				}
 				else if (num >= 28 && num <= 30)
 				{
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), WorldGen.genRand.Next(315, 317), 1f);
-					Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), WorldGen.genRand.Next(315, 317), 1f);
 					if (Main.hardMode)
 					{
 						num6 = 4f;
@@ -30671,7 +30642,6 @@ namespace Terraria
 					int num7 = WorldGen.genRand.Next(2, 5);
 					for (int num8 = 0; num8 < num7; num8++)
 					{
-						Gore.NewGore(new Vector2((float)(i * 16), (float)(j * 16)), default(Vector2), 698 + WorldGen.genRand.Next(6), 1f);
 					}
 					num6 = 2f;
 				}

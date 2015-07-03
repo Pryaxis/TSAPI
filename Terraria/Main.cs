@@ -12730,24 +12730,6 @@ namespace Terraria
 						}
 					}
 				}
-				for (int u = 0; u < 500; u++)
-				{
-					if (!Main.ignoreErrors)
-					{
-						Main.gore[u].Update();
-					}
-					else
-					{
-						try
-						{
-							Main.gore[u].Update();
-						}
-						catch
-						{
-							Main.gore[u] = new Gore();
-						}
-					}
-				}
 				for (int v = 0; v < 1000; v++)
 				{
 					Main.ProjectileUpdateLoopIndex = v;
