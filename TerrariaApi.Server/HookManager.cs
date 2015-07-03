@@ -378,7 +378,7 @@ namespace TerrariaApi.Server
 					case PacketTypes.ConnectRequest:
 						if (this.InvokeServerConnect(buffer.whoAmI))
 						{
-							Netplay.serverSock[buffer.whoAmI].kill = true;
+							Netplay.Clients[buffer.whoAmI].PendingTermination = true;
 							return true;
 						}
 
@@ -386,7 +386,7 @@ namespace TerrariaApi.Server
 					case PacketTypes.ContinueConnecting2:
 						if (this.InvokeServerJoin(buffer.whoAmI))
 						{
-							Netplay.serverSock[buffer.whoAmI].kill = true;
+							Netplay.Clients[buffer.whoAmI].PendingTermination = true;
 							return true;
 						}
 
@@ -414,7 +414,7 @@ namespace TerrariaApi.Server
 						Buffer.BlockCopy(buffer.readBuffer, index + 4, uuid, 0, length - 5);
 						SHA512 shaM = new SHA512Managed();
 						var result = shaM.ComputeHash(uuid);
-						Netplay.serverSock[buffer.whoAmI].clientUUID = result.Aggregate("", (s, b) => s + b.ToString("X2"));;
+//						Netplay.serverSock[buffer.whoAmI].clientUUID = result.Aggregate("", (s, b) => s + b.ToString("X2"));;
 						return true;
 
 						break;
@@ -469,7 +469,7 @@ namespace TerrariaApi.Server
 			get { return this.netSendBytes; }
 		}
 
-		internal bool InvokeNetSendBytes(ServerSock socket, byte[] buffer, int offset, int count)
+		internal bool InvokeNetSendBytes(RemoteClient socket, byte[] buffer, int offset, int count)
 		{
 			SendBytesEventArgs args = new SendBytesEventArgs
 			{
@@ -937,7 +937,7 @@ namespace TerrariaApi.Server
 			get { return this.serverSocketReset; }
 		}
 
-		internal void InvokeServerSocketReset(ServerSock socket)
+		internal void InvokeServerSocketReset(RemoteClient socket)
 		{
 			SocketResetEventArgs args = new SocketResetEventArgs
 			{

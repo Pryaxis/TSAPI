@@ -8,6 +8,21 @@
     <AssemblyName>TerrariaServer</AssemblyName>
     <OutputType>Exe</OutputType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -29,6 +44,7 @@
     <DebugType>pdbonly</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <PlatformTarget>x86</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -77,9 +93,57 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="TerrariaApi.Server\ApiVersionAttribute.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\ChatEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\ChatReceivedEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\ChristmasCheckEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\CommandEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\ConnectEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\GetDataEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\GreetPlayerEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\HalloweenCheckEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\HardmodeTileUpdateEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\JoinEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\LeaveEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\MeteorDropEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\NameCollisionEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\NpcLootDropEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\NpcSpawnEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\NpcStrikeEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\NpcTransformationEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\ProjectileAiUpdateEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\SendBytesEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\SendDataEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\ServerChatEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\SetDefaultsEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\SocketResetEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\StatueSpawnEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\TriggerPressurePlateEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\UpdatePhysicsEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\WorldSaveEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\HandlerCollection.cs" />
+    <Compile Include="TerrariaApi.Server\HandlerRegistration.cs" />
+    <Compile Include="TerrariaApi.Server\HookManager.cs" />
+    <Compile Include="TerrariaApi.Server\ILogWriter.cs" />
+    <Compile Include="TerrariaApi.Server\IProfiler.cs" />
+    <Compile Include="TerrariaApi.Server\LogWriterManager.cs" />
+    <Compile Include="TerrariaApi.Server\Networking\IPacket.cs" />
+    <Compile Include="TerrariaApi.Server\Networking\PacketFactory.cs" />
+    <Compile Include="TerrariaApi.Server\Networking\PacketId.cs" />
+    <Compile Include="TerrariaApi.Server\Networking\PacketIdAttribute.cs" />
+    <Compile Include="TerrariaApi.Server\Networking\TerrariaPackets\VersionPacket.cs" />
+    <Compile Include="TerrariaApi.Server\PacketTypes.cs" />
+    <Compile Include="TerrariaApi.Server\PluginContainer.cs" />
+    <Compile Include="TerrariaApi.Server\ProfilerManager.cs" />
+    <Compile Include="TerrariaApi.Server\ServerApi.cs" />
+    <Compile Include="TerrariaApi.Server\ServerLogWriter.cs" />
+    <Compile Include="TerrariaApi.Server\TaskExt.cs" />
+    <Compile Include="TerrariaApi.Server\TerrariaPlugin.cs" />
     <Compile Include="Terraria\IStaticPortMapping.cs" />
     <Compile Include="Terraria\IStaticPortMappingCollection.cs" />
     <Compile Include="Terraria\IUPnPNAT.cs" />
+    <Compile Include="Terraria\StreamExt.cs" />
+    <Compile Include="Terraria\StreamGenericExt.cs" />
     <Compile Include="Terraria\UPnPNAT.cs" />
     <Compile Include="Terraria\World.Generation\GenerationProgress.cs">
       <AutoGen>false</AutoGen>
@@ -1349,8 +1413,40 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="XNA\Color.cs" />
+    <Compile Include="XNA\IPackedVector.cs" />
+    <Compile Include="XNA\MathHelper.cs" />
+    <Compile Include="XNA\Matrix.cs" />
+    <Compile Include="XNA\PackUtils.cs" />
+    <Compile Include="XNA\Point.cs" />
+    <Compile Include="XNA\Rectangle.cs" />
+    <Compile Include="XNA\Vector2.cs" />
+    <Compile Include="XNA\Vector3.cs" />
+    <Compile Include="XNA\Vector4.cs" />
     <EmbeddedResource Include="Terraria.Libraries.Steamworks.NET.Steamworks.NET.dll" />
     <EmbeddedResource Include="Terraria.Libraries.JSON.NET.Net40.Newtonsoft.Json.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

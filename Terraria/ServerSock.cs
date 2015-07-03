@@ -90,40 +90,40 @@ namespace Terraria
 			this.spamDelBlock = 0f;
 			this.spamWater = 0f;
 		}
-		public static void CheckSection(int who, Vector2 position)
-		{
-			int sectionX = Netplay.GetSectionX((int)(position.X / 16f));
-			int sectionY = Netplay.GetSectionY((int)(position.Y / 16f));
-			int num = 0;
-			for (int i = sectionX - 1; i < sectionX + 2; i++)
-			{
-				for (int j = sectionY - 1; j < sectionY + 2; j++)
-				{
-					if (i >= 0 && i < Main.maxSectionsX && j >= 0 && j < Main.maxSectionsY && !Netplay.serverSock[who].tileSection[i, j])
-					{
-						num++;
-					}
-				}
-			}
-			if (num > 0)
-			{
-				int num2 = num;
-				NetMessage.SendData(9, who, -1, Lang.inter[44], num2, 0f, 0f, 0f, 0);
-				Netplay.serverSock[who].statusText2 = "is receiving tile data";
-				Netplay.serverSock[who].statusMax += num2;
-				for (int k = sectionX - 1; k < sectionX + 2; k++)
-				{
-					for (int l = sectionY - 1; l < sectionY + 2; l++)
-					{
-						if (k >= 0 && k < Main.maxSectionsX && l >= 0 && l < Main.maxSectionsY && !Netplay.serverSock[who].tileSection[k, l])
-						{
-							NetMessage.SendSection(who, k, l, false);
-							NetMessage.SendData(11, who, -1, "", k, (float)l, (float)k, (float)l, 0);
-						}
-					}
-				}
-			}
-		}
+//		public static void CheckSection(int who, Vector2 position)
+//		{
+//			int sectionX = Netplay.GetSectionX((int)(position.X / 16f));
+//			int sectionY = Netplay.GetSectionY((int)(position.Y / 16f));
+//			int num = 0;
+//			for (int i = sectionX - 1; i < sectionX + 2; i++)
+//			{
+//				for (int j = sectionY - 1; j < sectionY + 2; j++)
+//				{
+//					if (i >= 0 && i < Main.maxSectionsX && j >= 0 && j < Main.maxSectionsY && !Netplay.serverSock[who].tileSection[i, j])
+//					{
+//						num++;
+//					}
+//				}
+//			}
+//			if (num > 0)
+//			{
+//				int num2 = num;
+//				NetMessage.SendData(9, who, -1, Lang.inter[44], num2, 0f, 0f, 0f, 0);
+//				Netplay.serverSock[who].statusText2 = "is receiving tile data";
+//				Netplay.serverSock[who].statusMax += num2;
+//				for (int k = sectionX - 1; k < sectionX + 2; k++)
+//				{
+//					for (int l = sectionY - 1; l < sectionY + 2; l++)
+//					{
+//						if (k >= 0 && k < Main.maxSectionsX && l >= 0 && l < Main.maxSectionsY && !Netplay.serverSock[who].tileSection[k, l])
+//						{
+//							NetMessage.SendSection(who, k, l, false);
+//							NetMessage.SendData(11, who, -1, "", k, (float)l, (float)k, (float)l, 0);
+//						}
+//					}
+//				}
+//			}
+//		}
 		public bool SectionRange(int size, int firstX, int firstY)
 		{
 			for (int i = 0; i < 4; i++)

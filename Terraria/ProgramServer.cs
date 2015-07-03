@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Terraria.Social;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -208,32 +209,26 @@ namespace Terraria
 				{
 					ProgramServer.Game.SetWorld(str, flag);
 				}
-				ProgramServer.Game.DedServ();
-			}
-			catch (Exception exception1)
-			{
-				Exception exception = exception1;
 				try
 				{
-					using (StreamWriter streamWriter = new StreamWriter("crashlog.txt", true))
-					{
-						streamWriter.WriteLine(DateTime.Now);
-						streamWriter.WriteLine(exception);
-						streamWriter.WriteLine("");
-					}
-					Console.WriteLine(string.Concat("Server crash: ", DateTime.Now));
-					Console.WriteLine(exception);
-					Console.WriteLine("");
-					Console.WriteLine("Please send crashlog.txt to support@terraria.org");
+					Console.WriteLine("TerrariaAPI Version: " + ServerApi.ApiVersion + " (Protocol {0} ({1}))", Terraria.Main.versionNumber2, Terraria.Main.curRelease);
+					ServerApi.Initialize(args, Game);
 				}
 				catch (Exception ex)
 				{
-#if DEBUG
-					Console.WriteLine(ex);
-					System.Diagnostics.Debugger.Break();
+					ServerApi.LogWriter.ServerWriteLine(
+						"Startup aborted due to an exception in the Server API initialization:\n" + ex, TraceLevel.Error);
 
-#endif
+					Console.ReadLine();
+					return;
 				}
+				ProgramServer.Game.DedServ();
+				ServerApi.DeInitialize();
+
+			}
+			catch (Exception exception1)
+			{
+				ServerApi.LogWriter.ServerWriteLine("Server crashed due to an unhandled exception:\n" + exception1, TraceLevel.Error);
 			}
 		}
 

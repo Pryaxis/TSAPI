@@ -5,7 +5,7 @@ namespace TerrariaApi.Server
 {
 	public class SocketResetEventArgs : EventArgs
 	{
-		public ServerSock Socket
+		public RemoteClient Socket
 		{
 			get; 
 			internal set;

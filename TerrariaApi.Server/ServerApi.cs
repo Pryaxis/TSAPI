@@ -17,7 +17,7 @@ namespace TerrariaApi.Server
 	{
 		public const string PluginsPath = "ServerPlugins";
 
-		public static readonly Version ApiVersion = new Version(1, 17, 0, 0);
+		public static readonly Version ApiVersion = new Version(1, 18, 0, 0);
 		private static Main game;
 		private static readonly Dictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
 		private static readonly List<PluginContainer> plugins = new List<PluginContainer>();
@@ -139,7 +139,7 @@ namespace TerrariaApi.Server
 							int serverPort;
 							if (int.TryParse(commandLineArgs[++i], out serverPort))
 							{
-								Netplay.serverPort = serverPort;
+								Netplay.ListenPort = serverPort;
 								LogWriter.ServerWriteLine(string.Format("Listening on port {0}.", serverPort), TraceLevel.Verbose);
 							}
 							else
@@ -153,7 +153,7 @@ namespace TerrariaApi.Server
 					case "-world":
 						{
 							string worldPath = commandLineArgs[++i];
-							game.SetWorld(worldPath);
+							game.SetWorld(worldPath, false);
 							LogWriter.ServerWriteLine(string.Format("World set for auto loading: {0}", worldPath), TraceLevel.Verbose);
 
 							break;
@@ -182,7 +182,7 @@ namespace TerrariaApi.Server
 							IPAddress ip;
 							if (IPAddress.TryParse(commandLineArgs[++i], out ip))
 							{
-								Netplay.serverListenIP = ip;
+								Netplay.ServerIP = ip;
 								LogWriter.ServerWriteLine(string.Format("Listening on IP {0}.", ip), TraceLevel.Verbose);
 							}
 							else
@@ -198,7 +198,7 @@ namespace TerrariaApi.Server
 							int limit;
 							if (int.TryParse(commandLineArgs[++i], out limit))
 							{
-								Netplay.connectionLimit = limit;
+								Netplay.MaxConnections = limit;
 								LogWriter.ServerWriteLine(string.Format(
 									"Connections per IP have been limited to {0} connections.", limit), TraceLevel.Verbose);
 							}
@@ -209,7 +209,8 @@ namespace TerrariaApi.Server
 						}
 					case "-killinactivesocket":
 						{
-							Netplay.killInactive = true;
+//							Netplay.killInactive = true;
+							LogWriter.ServerWriteLine("The argument -killinactivesocket is no longer present in Terraria.", TraceLevel.Warning);
 							break;
 						}
 					case "-lang":

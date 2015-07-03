@@ -6,7 +6,7 @@ namespace TerrariaApi.Server
 {
 	public class SendBytesEventArgs: HandledEventArgs
 	{
-		public ServerSock Socket
+		public RemoteClient Socket
 		{
 			get; 
 			internal set;

@@ -12,7 +12,7 @@ namespace Terraria
 {
 	public class Netplay
 	{
-		public const int MaxConnections = 256;
+		public static int MaxConnections = 256;
 		public const int NetBufferSize = 1024;
 		public static string BanFilePath = "banlist.txt";
 		public static string ServerPassword = "";
