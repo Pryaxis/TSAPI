@@ -106,35 +106,26 @@ namespace Terraria
 					if (args[num].ToLower() == "-port")
 					{
 						num++;
-						try
+						
+						int port;
+						if (!Int32.TryParse(args[num], out port))
 						{
-							Netplay.ListenPort = Convert.ToInt32(args[num]);
+							Console.WriteLine("Invalid port. Using 7777");
+							port = 7777;
 						}
-						catch (Exception ex)
-						{
-#if DEBUG
-							Console.WriteLine(ex);
-							System.Diagnostics.Debugger.Break();
-
-#endif
-						}
+						Netplay.ListenPort = port;
 					}
 					if (args[num].ToLower() == "-players" || args[num].ToLower() == "-maxplayers")
 					{
 						num++;
-						try
-						{
-							int num1 = Convert.ToInt32(args[num]);
-							ProgramServer.Game.SetNetPlayers(num1);
-						}
-						catch (Exception ex)
-						{
-#if DEBUG
-							Console.WriteLine(ex);
-							System.Diagnostics.Debugger.Break();
 
-#endif
+						int playerCount;
+						if (!Int32.TryParse(args[num], out playerCount))
+						{
+							Console.WriteLine("Invalid player count. Using 8");
+							playerCount = 8;
 						}
+						ProgramServer.Game.SetNetPlayers(playerCount);
 					}
 					if (args[num].ToLower() == "-pass" || args[num].ToLower() == "-password")
 					{
@@ -144,7 +135,13 @@ namespace Terraria
 					if (args[num].ToLower() == "-lang")
 					{
 						num++;
-						Lang.lang = Convert.ToInt32(args[num]);
+						int lang;
+						if (!Int32.TryParse(args[num], out lang))
+						{
+							Console.WriteLine("Invalid language. Using English");
+							lang = 1;
+						}
+						Lang.lang = lang;
 					}
 					if (args[num].ToLower() == "-world")
 					{

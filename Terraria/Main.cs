@@ -5239,13 +5239,7 @@ namespace Terraria
 			}
 			else
 			{
-				string str1 = string.Concat("terraria", Main.rand.Next(2147483647));
-				Console.Title = str1;
-				/*IntPtr intPtr = Main.FindWindow(null, str1);
-				if (intPtr != IntPtr.Zero)
-				{
-					Main.ShowWindow(intPtr, 0);
-				}*/
+				Console.Title = string.Concat("Terraria Server ", Main.versionNumber2);
 			}
 			Main.dedServ = true;
 			Main.showSplash = false;
@@ -8764,11 +8758,8 @@ namespace Terraria
 			}
 			Netplay.Initialize();
 			NetworkInitializer.Load();
-			if (!Main.skipMenu)
+			/*if (!Main.skipMenu)
 			{
-				/*IntPtr systemMenu = Main.GetSystemMenu(base.Window.Handle, false);
-				int menuItemCount = Main.GetMenuItemCount(systemMenu);
-				Main.RemoveMenu(systemMenu, menuItemCount - 1, 1024);*/
 			}
 			else
 			{
@@ -8782,12 +8773,12 @@ namespace Terraria
 				Main.player[Main.myPlayer].Spawn();
 				Main.ActivePlayerFileData.StartPlayTimer();
 				Player.EnterWorld(Main.player[Main.myPlayer]);
-			}
+			}*/
 			if (Main.dedServ)
 			{
 				return;
 			}
-			Main.clientUUID = Guid.NewGuid().ToString();
+			/*Main.clientUUID = Guid.NewGuid().ToString();
 			if (Lang.lang > 1)
 			{
 				Lang.setLang(true);
@@ -8806,7 +8797,7 @@ namespace Terraria
 			goto Label3;
 		Label1:
 			Item.claw[item.type] = true;
-			goto Label0;
+			goto Label0;*/
 		}
 
 		public static void InitializeItemAnimations()
