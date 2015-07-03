@@ -16,6 +16,7 @@ using Terraria.IO;
 using Terraria.ObjectData;
 using Terraria.Utilities;
 using Terraria.World.Generation;
+using TerrariaApi.Server;
 namespace Terraria
 {
 	internal class WorldGen
@@ -12547,6 +12548,10 @@ namespace Terraria
 		public static void StartHardmode()
 		{
 			if (Main.netMode == 1 || Main.hardMode)
+			{
+				return;
+			}
+			if (ServerApi.Hooks.InvokeWorldStartHardMode())
 			{
 				return;
 			}
@@ -37440,6 +37445,12 @@ namespace Terraria
 								}
 							}
 						}
+
+						if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(i + num2, j + num3, 129))
+						{
+							return;
+						}
+
 						if (num4 < 2)
 						{
 							WorldGen.PlaceTile(i + num2, j + num3, 129, true, false, -1, 0);
@@ -37545,6 +37556,12 @@ namespace Terraria
 								{
 									flag2 = true;
 								}
+
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 23))
+								{
+									return;
+								}
+
 								Main.tile[num11, num12].type = 23;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
@@ -37555,6 +37572,10 @@ namespace Terraria
 								{
 									flag2 = true;
 								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 25))
+								{
+									return;
+								}
 								Main.tile[num11, num12].type = 25;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
@@ -37564,6 +37585,10 @@ namespace Terraria
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
+								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 112))
+								{
+									return;
 								}
 								Main.tile[num11, num12].type = 112;
 								WorldGen.SquareTileFrame(num11, num12, true);
@@ -37595,6 +37620,10 @@ namespace Terraria
 								{
 									flag2 = true;
 								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 0))
+								{
+									return;
+								}
 								Main.tile[num11, num12].type = 0;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
@@ -37604,6 +37633,10 @@ namespace Terraria
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
+								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 23))
+								{
+									return;
 								}
 								Main.tile[num11, num12].type = 23;
 								WorldGen.SquareTileFrame(num11, num12, true);
@@ -37615,6 +37648,10 @@ namespace Terraria
 								{
 									flag2 = true;
 								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 32))
+								{
+									return;
+								}
 								Main.tile[num11, num12].type = 32;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
@@ -37624,6 +37661,10 @@ namespace Terraria
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
+								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 163))
+								{
+									return;
 								}
 								Main.tile[num11, num12].type = 163;
 								WorldGen.SquareTileFrame(num11, num12, true);
@@ -37648,6 +37689,10 @@ namespace Terraria
 								{
 									flag3 = true;
 								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, 199))
+								{
+									return;
+								}
 								Main.tile[num13, num14].type = 199;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
@@ -37658,6 +37703,10 @@ namespace Terraria
 								{
 									flag3 = true;
 								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, 203))
+								{
+									return;
+								}
 								Main.tile[num13, num14].type = 203;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
@@ -37667,6 +37716,10 @@ namespace Terraria
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag3 = true;
+								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, 234))
+								{
+									return;
 								}
 								Main.tile[num13, num14].type = 234;
 								WorldGen.SquareTileFrame(num13, num14, true);
@@ -37698,6 +37751,10 @@ namespace Terraria
 								{
 									flag3 = true;
 								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, 0))
+								{
+									return;
+								}
 								Main.tile[num13, num14].type = 0;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
@@ -37707,6 +37764,10 @@ namespace Terraria
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag3 = true;
+								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, 199))
+								{
+									return;
 								}
 								Main.tile[num13, num14].type = 199;
 								WorldGen.SquareTileFrame(num13, num14, true);
@@ -37718,6 +37779,10 @@ namespace Terraria
 								{
 									flag3 = true;
 								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, -1))
+								{
+									return;
+								}
 								Main.tile[num13, num14].type = 352;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
@@ -37727,6 +37792,10 @@ namespace Terraria
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag3 = true;
+								}
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, 200))
+								{
+									return;
 								}
 								Main.tile[num13, num14].type = 200;
 								WorldGen.SquareTileFrame(num13, num14, true);
@@ -37749,6 +37818,10 @@ namespace Terraria
 							{
 								flag4 = true;
 							}
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 109))
+							{
+								return;
+							}
 							Main.tile[num15, num16].type = 109;
 							WorldGen.SquareTileFrame(num15, num16, true);
 							NetMessage.SendTileSquare(-1, num15, num16, 1);
@@ -37758,6 +37831,10 @@ namespace Terraria
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag4 = true;
+							}
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 117))
+							{
+								return;
 							}
 							Main.tile[num15, num16].type = 117;
 							WorldGen.SquareTileFrame(num15, num16, true);
