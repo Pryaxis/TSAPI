@@ -11,6 +11,7 @@ using Terraria.ID;
 using Terraria.Social;
 using Terraria.Social.Base;
 using Terraria.Utilities;
+using TerrariaApi.Server;
 
 namespace Terraria.IO
 {
@@ -2003,6 +2004,10 @@ namespace Terraria.IO
 
 		public static void saveWorld(bool useCloudSaving, bool resetTime = false)
 		{
+			if (ServerApi.Hooks.InvokeWorldSave(resetTime))
+			{
+				return;
+			}
 			if (useCloudSaving && SocialAPI.Cloud == null)
 			{
 				return;
