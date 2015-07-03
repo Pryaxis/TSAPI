@@ -41,6 +41,21 @@ namespace XNA
 		public const float PiOver4 = (float)(Math.PI / 4.0);
 		public const float TwoPi = (float)(Math.PI * 2.0);
 
+		public static float WrapAngle(float angle)
+		{
+			angle = (float)Math.IEEERemainder((double)angle, 6.2831854820251465);
+			if (angle <= -3.141593f)
+			{
+				angle += 6.283185f;
+				return angle;
+			}
+			if (angle > 3.141593f)
+			{
+				angle -= 6.283185f;
+			}
+			return angle;
+		}
+
 		public static float Barycentric(float value1, float value2, float value3, float amount1, float amount2)
 		{
 			return value1 + (value2 - value1) * amount1 + (value3 - value1) * amount2;

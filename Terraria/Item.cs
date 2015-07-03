@@ -1,6 +1,5 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using TerrariaApi.Server;
 
@@ -6615,10 +6614,8 @@ namespace Terraria
 			{
 				this.SetDefaults3(this.type);
 			}
-			this.dye = (byte)GameShaders.Armor.GetShaderIdFromItemId(this.type);
 			if (this.hairDye != 0)
 			{
-				this.hairDye = GameShaders.Hair.GetShaderIdFromItemId(this.type);
 			}
 			if (this.type == 2015)
 			{
@@ -47410,49 +47407,14 @@ namespace Terraria
 								this.wetCount = 20;
 								if (flag1)
 								{
-									for (int k = 0; k < 5; k++)
-									{
-										Vector2 vector21 = new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f);
-										color = new Color();
-										int num5 = Dust.NewDust(vector21, this.width + 12, 24, 35, 0f, 0f, 0, color, 1f);
-										Main.dust[num5].velocity.Y = Main.dust[num5].velocity.Y - 1.5f;
-										Main.dust[num5].velocity.X = Main.dust[num5].velocity.X * 2.5f;
-										Main.dust[num5].scale = 1.3f;
-										Main.dust[num5].alpha = 100;
-										Main.dust[num5].noGravity = true;
-									}
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 								}
 								else if (!this.honeyWet)
 								{
-									for (int l = 0; l < 10; l++)
-									{
-										Vector2 vector22 = new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f);
-										int num6 = Dust.dustWater();
-										Color color1 = new Color();
-										int num7 = Dust.NewDust(vector22, this.width + 12, 24, num6, 0f, 0f, 0, color1, 1f);
-										Main.dust[num7].velocity.Y = Main.dust[num7].velocity.Y - 4f;
-										Main.dust[num7].velocity.X = Main.dust[num7].velocity.X * 2.5f;
-										Dust dust = Main.dust[num7];
-										dust.scale = dust.scale * 0.8f;
-										Main.dust[num7].alpha = 100;
-										Main.dust[num7].noGravity = true;
-									}
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 								}
 								else
 								{
-									for (int m = 0; m < 5; m++)
-									{
-										Vector2 vector23 = new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f);
-										color = new Color();
-										int num8 = Dust.NewDust(vector23, this.width + 12, 24, 152, 0f, 0f, 0, color, 1f);
-										Main.dust[num8].velocity.Y = Main.dust[num8].velocity.Y - 1f;
-										Main.dust[num8].velocity.X = Main.dust[num8].velocity.X * 2.5f;
-										Main.dust[num8].scale = 1.3f;
-										Main.dust[num8].alpha = 100;
-										Main.dust[num8].noGravity = true;
-									}
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 								}
 							}

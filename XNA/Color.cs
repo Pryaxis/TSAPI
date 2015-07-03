@@ -1087,6 +1087,10 @@ namespace XNA
 		{
 			this.packedValue = Color.PackHelper(r, g, b, a);
 		}
+		public Color(Vector3 vector)
+		{
+			this.packedValue = Color.PackHelper(vector.X, vector.Y, vector.Z, 1);
+		}
 		public Color(Vector4 vector)
 		{
 			this.packedValue = Color.PackHelper(vector.X, vector.Y, vector.Z, vector.W);
@@ -1145,6 +1149,14 @@ namespace XNA
 				return 255;
 			}
 			return (int)value;
+		}
+		public Vector3 ToVector3()
+		{
+			Vector3 result;
+			result.X = PackUtils.UnpackUNorm(255u, this.packedValue);
+			result.Y = PackUtils.UnpackUNorm(255u, this.packedValue >> 8);
+			result.Z = PackUtils.UnpackUNorm(255u, this.packedValue >> 24);
+			return result;
 		}
 		public Vector4 ToVector4()
 		{

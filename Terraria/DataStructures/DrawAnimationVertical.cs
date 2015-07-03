@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using XNA;
 using System;
 using Terraria;
 
@@ -15,9 +14,9 @@ namespace Terraria.DataStructures
 			this.TicksPerFrame = ticksperframe;
 		}
 
-		public override Rectangle GetFrame(Texture2D texture)
+		public override Rectangle GetFrame()
 		{
-			return texture.Frame(1, this.FrameCount, 0, this.Frame);
+			return Rectangle.Empty;
 		}
 
 		public override void Update()

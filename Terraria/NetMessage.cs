@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using System.IO;
 using System.IO.Compression;
@@ -47,6 +47,11 @@ namespace Terraria
 					"Sent: {0} params: rc={1} ic={2} txt={3} num={4} num2={5} num3={6} num4={7} num5={8} num6={9} num7={10}",
 					msgType, remoteClient, ignoreClient, text, number, number2, number3, number4, number5, number6, number7);
 
+				if (text == null)
+				{
+					text = "";
+				}
+
 				switch (msgType)
 				{
 					case 1:
@@ -91,7 +96,45 @@ namespace Terraria
 						BitsByte bb2 = 0;
 						if (player.difficulty == 1)
 						{
+<<<<<<< Updated upstream
 							bb2[0] = true;
+=======
+							Player player = Main.player[number];
+							writer.Write((byte)number);
+							writer.Write((byte)player.skinVariant);
+							writer.Write((byte)player.hair);
+							writer.Write(text);
+							writer.Write(player.hairDye); 
+							BitsByte hideVisual = 0;
+							for (int i = 0; i < 8; i++)
+								hideVisual[i] = player.hideVisual[i];
+							writer.Write(hideVisual);
+							hideVisual = 0;
+							for (int i = 0; i < 2; i++)
+								hideVisual[i] = player.hideVisual[i + 8];
+							writer.Write(hideVisual);
+							writer.Write(player.hideMisc);
+							writer.WriteRGB(player.hairColor);
+							writer.WriteRGB(player.skinColor);
+							writer.WriteRGB(player.eyeColor);
+							writer.WriteRGB(player.shirtColor);
+							writer.WriteRGB(player.underShirtColor);
+							writer.WriteRGB(player.pantsColor);
+							writer.WriteRGB(player.shoeColor);
+							
+							BitsByte bb2 = 0;
+							if (player.difficulty == 1)
+							{
+								bb2[0] = true;
+							}
+							else if (player.difficulty == 2)
+							{
+								bb2[1] = true;
+							}
+							bb2[2] = player.extraAccessory;
+							writer.Write(bb2);
+							break;
+>>>>>>> Stashed changes
 						}
 						else if (player.difficulty == 2)
 						{

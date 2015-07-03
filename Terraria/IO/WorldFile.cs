@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -862,7 +862,7 @@ namespace Terraria.IO
 		{
 			int num;
 			WorldFile.IsWorldOnCloud = loadFromCloud;
-			Main.checkXMas();
+			Main.CheckXMas();
 			Main.checkHalloween();
 			bool flag = (!loadFromCloud ? false : SocialAPI.Cloud != null);
 			if (!FileUtilities.Exists(Main.worldPathName, flag) && Main.autoGen)

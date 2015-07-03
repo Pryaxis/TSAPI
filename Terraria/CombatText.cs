@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using XNA;
 using System;
 
 namespace Terraria
@@ -91,7 +90,7 @@ namespace Terraria
 					{
 						num = 1;
 					}
-					Vector2 vector2 = Main.fontCombatText[num].MeasureString(text);
+					Vector2 vector2 = Vector2.Zero;
 					Main.combatText[i].alpha = 1f;
 					Main.combatText[i].alphaDir = -1;
 					Main.combatText[i].active = true;

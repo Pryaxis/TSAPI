@@ -23,6 +23,10 @@ namespace Terraria.World.Generation
 			}
 			set
 			{
+				if (value == null)
+				{
+					return;
+				}
 				this._message = value.Replace("%", "{0:0%}");
 			}
 		}

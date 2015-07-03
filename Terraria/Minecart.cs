@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using System.Runtime.CompilerServices;
 

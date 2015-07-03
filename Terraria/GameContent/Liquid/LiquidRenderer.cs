@@ -1,8 +1,6 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using XNA;
 using System;
 using Terraria;
-using Terraria.Graphics;
 
 namespace Terraria.GameContent.Liquid
 {

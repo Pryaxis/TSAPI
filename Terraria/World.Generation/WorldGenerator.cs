@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Terraria;
-using Terraria.GameContent.UI.States;
-using Terraria.UI;
 
 namespace Terraria.World.Generation
 {
@@ -38,7 +36,6 @@ namespace Terraria.World.Generation
 			}
 			progress.TotalWeight = weight;
 			string str = "";
-			Main.MenuUI.SetState(new UIWorldLoad(progress));
 			Main.menuMode = 888;
 			foreach (GenPass genPass in this._passes)
 			{

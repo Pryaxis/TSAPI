@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using Terraria.ID;
 
@@ -85,32 +85,10 @@ namespace Terraria
 
 		public static void LightningLaserDraw(int stage, Vector2 currentPosition, float distanceLeft, Rectangle lastFrame, out float distCovered, out Rectangle frame, out Vector2 origin, out Color color)
 		{
-			color = DelegateMethods.c_1 * DelegateMethods.f_1;
-			if (stage == 0)
-			{
-				distCovered = 0f;
-				frame = new Rectangle(0, 0, 21, 8);
-				origin = frame.Size() / 2f;
-				return;
-			}
-			if (stage == 1)
-			{
-				frame = new Rectangle(0, 8, 21, 6);
-				distCovered = (float)frame.Height;
-				origin = new Vector2((float)(frame.Width / 2), 0f);
-				return;
-			}
-			if (stage != 2)
-			{
-				distCovered = 9999f;
-				frame = Rectangle.Empty;
-				origin = Vector2.Zero;
-				color = Color.Transparent;
-				return;
-			}
-			distCovered = 8f;
-			frame = new Rectangle(0, 14, 21, 8);
-			origin = new Vector2((float)(frame.Width / 2), 2f);
+			distCovered = 0;
+			frame = Rectangle.Empty;
+			origin = Vector2.Zero;
+			color = Color.White;
 		}
 
 		public static bool NotDoorStand(int x, int y)
@@ -128,32 +106,10 @@ namespace Terraria
 
 		public static void RainbowLaserDraw(int stage, Vector2 currentPosition, float distanceLeft, Rectangle lastFrame, out float distCovered, out Rectangle frame, out Vector2 origin, out Color color)
 		{
-			color = DelegateMethods.c_1;
-			if (stage == 0)
-			{
-				distCovered = 33f;
-				frame = new Rectangle(0, 0, 26, 22);
-				origin = frame.Size() / 2f;
-				return;
-			}
-			if (stage == 1)
-			{
-				frame = new Rectangle(0, 25, 26, 28);
-				distCovered = (float)frame.Height;
-				origin = new Vector2((float)(frame.Width / 2), 0f);
-				return;
-			}
-			if (stage != 2)
-			{
-				distCovered = 9999f;
-				frame = Rectangle.Empty;
-				origin = Vector2.Zero;
-				color = Color.Transparent;
-				return;
-			}
-			distCovered = 22f;
-			frame = new Rectangle(0, 56, 26, 22);
-			origin = new Vector2((float)(frame.Width / 2), 1f);
+			distCovered = 0;
+			frame = Rectangle.Empty;
+			origin = Vector2.Zero;
+			color = Color.White;
 		}
 
 		public static bool SearchAvoidedByNPCs(int x, int y)
@@ -175,48 +131,15 @@ namespace Terraria
 
 		public static bool TestDust(int x, int y)
 		{
-			if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY)
-			{
-				return false;
-			}
-			Vector2 vector2 = (new Vector2((float)x, (float)y) * 16f) + new Vector2(8f);
-			Color color = new Color();
-			int num = Dust.NewDust(vector2, 0, 0, 6, 0f, 0f, 0, color, 1f);
-			Main.dust[num].noGravity = true;
-			Main.dust[num].noLight = true;
 			return true;
 		}
 
 		public static void TurretLaserDraw(int stage, Vector2 currentPosition, float distanceLeft, Rectangle lastFrame, out float distCovered, out Rectangle frame, out Vector2 origin, out Color color)
 		{
-			color = DelegateMethods.c_1;
-			if (stage == 0)
-			{
-				distCovered = 32f;
-				frame = new Rectangle(0, 0, 22, 20);
-				origin = frame.Size() / 2f;
-				return;
-			}
-			if (stage == 1)
-			{
-				DelegateMethods.i_1 = DelegateMethods.i_1 + 1;
-				int i1 = DelegateMethods.i_1 % 5;
-				frame = new Rectangle(0, 22 * (i1 + 1), 22, 20);
-				distCovered = (float)(frame.Height - 1);
-				origin = new Vector2((float)(frame.Width / 2), 0f);
-				return;
-			}
-			if (stage != 2)
-			{
-				distCovered = 9999f;
-				frame = Rectangle.Empty;
-				origin = Vector2.Zero;
-				color = Color.Transparent;
-				return;
-			}
-			frame = new Rectangle(0, 154, 22, 30);
-			distCovered = (float)frame.Height;
-			origin = new Vector2((float)(frame.Width / 2), 1f);
+			distCovered = 0;
+			frame = Rectangle.Empty;
+			origin = Vector2.Zero;
+			color = Color.White;
 		}
 
 		public static class Minecart
@@ -227,58 +150,10 @@ namespace Terraria
 
 			public static void Sparks(Vector2 dustPosition)
 			{
-				Vector2 vector2 = dustPosition;
-				Vector2 vector21 = new Vector2((float)((Main.rand.Next(2) == 0 ? 13 : -13)), 0f);
-				double num = (double)DelegateMethods.Minecart.rotation;
-				Vector2 vector22 = new Vector2();
-				dustPosition = vector2 + vector21.RotatedBy(num, vector22);
-				float single = (float)Main.rand.Next(-2, 3);
-				float single1 = (float)Main.rand.Next(-2, 3);
-				Color color = new Color();
-				int num1 = Dust.NewDust(dustPosition, 1, 1, 213, single, single1, 0, color, 1f);
-				Main.dust[num1].noGravity = true;
-				Main.dust[num1].fadeIn = Main.dust[num1].scale + 1f + 0.01f * (float)Main.rand.Next(0, 51);
-				Main.dust[num1].noGravity = true;
-				Dust dust = Main.dust[num1];
-				dust.velocity = dust.velocity * ((float)Main.rand.Next(15, 51) * 0.01f);
-				Main.dust[num1].velocity.X = Main.dust[num1].velocity.X * ((float)Main.rand.Next(25, 101) * 0.01f);
-				Main.dust[num1].velocity.Y = Main.dust[num1].velocity.Y - (float)Main.rand.Next(15, 31) * 0.1f;
-				Main.dust[num1].position.Y = Main.dust[num1].position.Y - 4f;
-				if (Main.rand.Next(3) != 0)
-				{
-					Main.dust[num1].noGravity = false;
-					return;
-				}
-				Dust dust1 = Main.dust[num1];
-				dust1.scale = dust1.scale * 0.6f;
 			}
 
 			public static void SparksMech(Vector2 dustPosition)
 			{
-				Vector2 vector2 = dustPosition;
-				Vector2 vector21 = new Vector2((float)((Main.rand.Next(2) == 0 ? 13 : -13)), 0f);
-				double num = (double)DelegateMethods.Minecart.rotation;
-				Vector2 vector22 = new Vector2();
-				dustPosition = vector2 + vector21.RotatedBy(num, vector22);
-				float single = (float)Main.rand.Next(-2, 3);
-				float single1 = (float)Main.rand.Next(-2, 3);
-				Color color = new Color();
-				int num1 = Dust.NewDust(dustPosition, 1, 1, 260, single, single1, 0, color, 1f);
-				Main.dust[num1].noGravity = true;
-				Main.dust[num1].fadeIn = Main.dust[num1].scale + 0.5f + 0.01f * (float)Main.rand.Next(0, 51);
-				Main.dust[num1].noGravity = true;
-				Dust dust = Main.dust[num1];
-				dust.velocity = dust.velocity * ((float)Main.rand.Next(15, 51) * 0.01f);
-				Main.dust[num1].velocity.X = Main.dust[num1].velocity.X * ((float)Main.rand.Next(25, 101) * 0.01f);
-				Main.dust[num1].velocity.Y = Main.dust[num1].velocity.Y - (float)Main.rand.Next(15, 31) * 0.1f;
-				Main.dust[num1].position.Y = Main.dust[num1].position.Y - 4f;
-				if (Main.rand.Next(3) != 0)
-				{
-					Main.dust[num1].noGravity = false;
-					return;
-				}
-				Dust dust1 = Main.dust[num1];
-				dust1.scale = dust1.scale * 0.6f;
 			}
 		}
 	}

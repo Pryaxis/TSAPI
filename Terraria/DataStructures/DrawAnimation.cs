@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using XNA;
 using System;
 using Terraria;
 
@@ -19,9 +18,9 @@ namespace Terraria.DataStructures
 		{
 		}
 
-		public virtual Rectangle GetFrame(Texture2D texture)
+		public virtual Rectangle GetFrame()
 		{
-			return texture.Frame(1, 1, 0, 0);
+			return Rectangle.Empty;
 		}
 
 		public virtual void Update()

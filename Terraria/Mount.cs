@@ -1,11 +1,9 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using XNA;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Terraria.DataStructures;
 using Terraria.GameContent.Achievements;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 
 namespace Terraria
@@ -726,321 +724,8 @@ namespace Terraria
 			}
 		}
 
-		public void Draw(List<DrawData> playerDrawData, int drawType, Player drawPlayer, Vector2 Position, Color drawColor, SpriteEffects playerEffect, float shadow)
+		public void Draw(int drawType, Player drawPlayer, Vector2 Position, Color drawColor, float shadow)
 		{
-			DrawData drawDatum;
-			Texture2D texture2D;
-			Texture2D texture2D1;
-			SpriteEffects spriteEffect;
-			Color lightGreen;
-			Vector2 vector2;
-			if (playerDrawData == null)
-			{
-				return;
-			}
-			switch (drawType)
-			{
-				case 0:
-				{
-					texture2D = this._data.backTexture;
-					texture2D1 = this._data.backTextureGlow;
-					break;
-				}
-				case 1:
-				{
-					texture2D = this._data.backTextureExtra;
-					texture2D1 = this._data.backTextureExtraGlow;
-					break;
-				}
-				case 2:
-				{
-					if (this._type == 0 && this._idleTime >= this._idleTimeNext)
-					{
-						return;
-					}
-					texture2D = this._data.frontTexture;
-					texture2D1 = this._data.frontTextureGlow;
-					break;
-				}
-				case 3:
-				{
-					texture2D = this._data.frontTextureExtra;
-					texture2D1 = this._data.frontTextureExtraGlow;
-					break;
-				}
-				default:
-				{
-					texture2D = null;
-					texture2D1 = null;
-					break;
-				}
-			}
-			if (texture2D == null)
-			{
-				return;
-			}
-			int num = this._type;
-			if ((num == 0 || num == 9) && drawType == 3 && shadow != 0f)
-			{
-				return;
-			}
-			int xOffset = this.XOffset;
-			int yOffset = this.YOffset + this.PlayerOffset;
-			if (drawPlayer.direction <= 0 && (!this.Cart || !this.Directional))
-			{
-				xOffset = xOffset * -1;
-			}
-			Position.X = (float)((int)(Position.X - Main.screenPosition.X + (float)(drawPlayer.width / 2) + (float)xOffset));
-			Position.Y = (float)((int)(Position.Y - Main.screenPosition.Y + (float)(drawPlayer.height / 2) + (float)yOffset));
-			int num1 = 0;
-			int num2 = this._type;
-			if (num2 == 5)
-			{
-				switch (drawType)
-				{
-					case 0:
-					{
-						num1 = this._frame;
-						break;
-					}
-					case 1:
-					{
-						num1 = this._frameExtra;
-						break;
-					}
-					default:
-					{
-						num1 = 0;
-						break;
-					}
-				}
-			}
-			else if (num2 != 9)
-			{
-				num1 = this._frame;
-			}
-			else
-			{
-				switch (drawType)
-				{
-					case 0:
-					{
-						num1 = this._frame;
-						break;
-					}
-					case 1:
-					{
-						num1 = 0;
-						break;
-					}
-					case 2:
-					{
-						num1 = this._frameExtra;
-						break;
-					}
-					case 3:
-					{
-						num1 = this._frameExtra;
-						break;
-					}
-					default:
-					{
-						goto case 1;
-					}
-				}
-			}
-			int num3 = this._data.textureHeight / this._data.totalFrames;
-			Rectangle rectangle = new Rectangle(0, num3 * num1, this._data.textureWidth, num3);
-			int num4 = this._type;
-			if (num4 != 0)
-			{
-				switch (num4)
-				{
-					case 7:
-					{
-						if (drawType != 3)
-						{
-							break;
-						}
-						drawColor = new Color(250, 250, 250, 255);
-						break;
-					}
-					case 9:
-					{
-						if (drawType != 3)
-						{
-							break;
-						}
-						if (this._abilityCharge == 0)
-						{
-							return;
-						}
-						drawColor = Color.Multiply(Color.White, (float)this._abilityCharge / (float)this._data.abilityChargeMax);
-						drawColor.A = 0;
-						break;
-					}
-				}
-			}
-			else if (drawType == 3)
-			{
-				drawColor = Color.White;
-			}
-			Color color = new Color((drawColor.ToVector4() * 0.25f) + new Vector4(0.75f));
-			switch (this._type)
-			{
-				case 11:
-				{
-					if (drawType != 2)
-					{
-						break;
-					}
-					color = Color.White;
-					color.A = 127;
-					break;
-				}
-				case 12:
-				{
-					if (drawType != 0)
-					{
-						break;
-					}
-					float single = MathHelper.Clamp(drawPlayer.MountFishronSpecialCounter / 60f, 0f, 1f);
-					color = Colors.CurrentLiquidColor;
-					if (color == Color.Transparent)
-					{
-						color = Color.White;
-					}
-					color.A = 127;
-					color = color * single;
-					break;
-				}
-			}
-			float single1 = 0f;
-			switch (this._type)
-			{
-				case 7:
-				{
-					single1 = drawPlayer.fullRotation;
-					break;
-				}
-				case 8:
-				{
-					Mount.DrillMountData drillMountDatum = (Mount.DrillMountData)this._mountSpecificData;
-					if (drawType != 0)
-					{
-						if (drawType != 3)
-						{
-							break;
-						}
-						single1 = drillMountDatum.diodeRotation - single1 - drawPlayer.fullRotation;
-						break;
-					}
-					else
-					{
-						single1 = drillMountDatum.outerRingRotation - single1;
-						break;
-					}
-				}
-			}
-			Vector2 origin = this.Origin;
-			int num5 = this._type;
-			float single2 = 1f;
-			switch (this._type)
-			{
-				case 6:
-				case 13:
-				{
-					spriteEffect = (this._flipDraw ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
-					break;
-				}
-				case 7:
-				{
-					spriteEffect = SpriteEffects.None;
-					break;
-				}
-				case 8:
-				{
-					spriteEffect = (drawPlayer.direction != 1 || drawType != 2 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
-					break;
-				}
-				case 9:
-				case 10:
-				case 12:
-				{
-					spriteEffect = playerEffect;
-					break;
-				}
-				case 11:
-				{
-					spriteEffect = (Math.Sign(drawPlayer.velocity.X) == -drawPlayer.direction ? playerEffect ^ SpriteEffects.FlipHorizontally : playerEffect);
-					break;
-				}
-				default:
-				{
-					goto case 12;
-				}
-			}
-			bool flag = false;
-			int num6 = this._type;
-			if (!flag)
-			{
-				drawDatum = new DrawData(texture2D, Position, new Rectangle?(rectangle), drawColor, single1, origin, single2, spriteEffect, 0)
-				{
-					shader = Mount.currentShader
-				};
-				playerDrawData.Add(drawDatum);
-				if (texture2D1 != null)
-				{
-					drawDatum = new DrawData(texture2D1, Position, new Rectangle?(rectangle), color, single1, origin, single2, spriteEffect, 0)
-					{
-						shader = Mount.currentShader
-					};
-				}
-				playerDrawData.Add(drawDatum);
-			}
-			if (this._type != 8)
-			{
-				return;
-			}
-			if (drawType == 3)
-			{
-				Mount.DrillMountData drillMountDatum1 = (Mount.DrillMountData)this._mountSpecificData;
-				Rectangle rectangle1 = new Rectangle(0, 0, 1, 1);
-				Vector2 vector21 = Mount.drillDiodePoint1.RotatedBy((double)drillMountDatum1.diodeRotation, new Vector2());
-				Vector2 vector22 = Mount.drillDiodePoint2.RotatedBy((double)drillMountDatum1.diodeRotation, new Vector2());
-				for (int i = 0; i < (int)drillMountDatum1.beams.Length; i++)
-				{
-					Mount.DrillBeam drillBeam = drillMountDatum1.beams[i];
-					if (drillBeam.curTileTarget != Point16.NegativeOne)
-					{
-						for (int j = 0; j < 2; j++)
-						{
-							Vector2 vector23 = (new Vector2((float)(drillBeam.curTileTarget.X * 16 + 8), (float)(drillBeam.curTileTarget.Y * 16 + 8)) - Main.screenPosition) - Position;
-							if (j != 0)
-							{
-								vector2 = vector22;
-								lightGreen = Color.LightGreen;
-							}
-							else
-							{
-								vector2 = vector21;
-								lightGreen = Color.CornflowerBlue;
-							}
-							lightGreen.A = 128;
-							lightGreen = lightGreen * 0.5f;
-							Vector2 vector24 = vector23 - vector2;
-							float rotation = vector24.ToRotation();
-							Vector2 vector25 = new Vector2(2f, vector24.Length());
-							drawDatum = new DrawData(Main.magicPixel, vector2 + Position, new Rectangle?(rectangle1), lightGreen, rotation - 1.57079637f, Vector2.Zero, vector25, SpriteEffects.None, 0)
-							{
-								ignorePlayerRotation = true,
-								shader = Mount.currentShader
-							};
-							playerDrawData.Add(drawDatum);
-						}
-					}
-				}
-			}
 		}
 
 		private Point16 DrillSmartCursor(Player mountedPlayer, Mount.DrillMountData data)
@@ -1341,15 +1026,6 @@ namespace Terraria
 			mountDatum.swimFrameCount = mountDatum.inAirFrameCount;
 			mountDatum.swimFrameDelay = mountDatum.inAirFrameDelay;
 			mountDatum.swimFrameStart = mountDatum.inAirFrameStart;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = Main.rudolphMountTexture[0];
-				mountDatum.backTextureExtra = null;
-				mountDatum.frontTexture = Main.rudolphMountTexture[1];
-				mountDatum.frontTextureExtra = Main.rudolphMountTexture[2];
-				mountDatum.textureWidth = mountDatum.backTexture.Width;
-				mountDatum.textureHeight = mountDatum.backTexture.Height;
-			}
 			mountDatum = new Mount.MountData();
 			Mount.mounts[2] = mountDatum;
 			mountDatum.spawnDust = 58;
@@ -1394,15 +1070,6 @@ namespace Terraria
 			mountDatum.swimFrameCount = mountDatum.inAirFrameCount;
 			mountDatum.swimFrameDelay = mountDatum.inAirFrameDelay;
 			mountDatum.swimFrameStart = mountDatum.inAirFrameStart;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = Main.pigronMountTexture;
-				mountDatum.backTextureExtra = null;
-				mountDatum.frontTexture = null;
-				mountDatum.frontTextureExtra = null;
-				mountDatum.textureWidth = mountDatum.backTexture.Width;
-				mountDatum.textureHeight = mountDatum.backTexture.Height;
-			}
 			mountDatum = new Mount.MountData();
 			Mount.mounts[1] = mountDatum;
 			mountDatum.spawnDust = 15;
@@ -1449,15 +1116,6 @@ namespace Terraria
 			mountDatum.swimFrameCount = mountDatum.inAirFrameCount;
 			mountDatum.swimFrameDelay = mountDatum.inAirFrameDelay;
 			mountDatum.swimFrameStart = mountDatum.inAirFrameStart;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = Main.bunnyMountTexture;
-				mountDatum.backTextureExtra = null;
-				mountDatum.frontTexture = null;
-				mountDatum.frontTextureExtra = null;
-				mountDatum.textureWidth = mountDatum.backTexture.Width;
-				mountDatum.textureHeight = mountDatum.backTexture.Height;
-			}
 			mountDatum = new Mount.MountData();
 			Mount.mounts[3] = mountDatum;
 			mountDatum.spawnDust = 56;
@@ -1500,15 +1158,6 @@ namespace Terraria
 			mountDatum.idleFrameDelay = 0;
 			mountDatum.idleFrameStart = 0;
 			mountDatum.idleFrameLoop = false;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = Main.slimeMountTexture;
-				mountDatum.backTextureExtra = null;
-				mountDatum.frontTexture = null;
-				mountDatum.frontTextureExtra = null;
-				mountDatum.textureWidth = mountDatum.backTexture.Width;
-				mountDatum.textureHeight = mountDatum.backTexture.Height;
-			}
 			mountDatum = new Mount.MountData();
 			Mount.mounts[6] = mountDatum;
 			mountDatum.Minecart = true;
@@ -1553,15 +1202,6 @@ namespace Terraria
 			mountDatum.idleFrameDelay = 0;
 			mountDatum.idleFrameStart = 0;
 			mountDatum.idleFrameLoop = false;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = null;
-				mountDatum.backTextureExtra = null;
-				mountDatum.frontTexture = Main.minecartMountTexture;
-				mountDatum.frontTextureExtra = null;
-				mountDatum.textureWidth = mountDatum.frontTexture.Width;
-				mountDatum.textureHeight = mountDatum.frontTexture.Height;
-			}
 			mountDatum = new Mount.MountData();
 			Mount.mounts[4] = mountDatum;
 			mountDatum.spawnDust = 56;
@@ -1605,15 +1245,6 @@ namespace Terraria
 			mountDatum.swimFrameCount = 6;
 			mountDatum.swimFrameDelay = 12;
 			mountDatum.swimFrameStart = 6;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = Main.turtleMountTexture;
-				mountDatum.backTextureExtra = null;
-				mountDatum.frontTexture = null;
-				mountDatum.frontTextureExtra = null;
-				mountDatum.textureWidth = mountDatum.backTexture.Width;
-				mountDatum.textureHeight = mountDatum.backTexture.Height;
-			}
 			mountDatum = new Mount.MountData();
 			Mount.mounts[5] = mountDatum;
 			mountDatum.spawnDust = 152;
@@ -1660,15 +1291,6 @@ namespace Terraria
 			mountDatum.swimFrameCount = 0;
 			mountDatum.swimFrameDelay = 12;
 			mountDatum.swimFrameStart = 0;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = Main.beeMountTexture[0];
-				mountDatum.backTextureExtra = Main.beeMountTexture[1];
-				mountDatum.frontTexture = null;
-				mountDatum.frontTextureExtra = null;
-				mountDatum.textureWidth = mountDatum.backTexture.Width;
-				mountDatum.textureHeight = mountDatum.backTexture.Height;
-			}
 			mountDatum = new Mount.MountData();
 			Mount.mounts[7] = mountDatum;
 			mountDatum.spawnDust = 226;
@@ -1715,15 +1337,6 @@ namespace Terraria
 			mountDatum.swimFrameCount = 0;
 			mountDatum.swimFrameDelay = 12;
 			mountDatum.swimFrameStart = 0;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = null;
-				mountDatum.backTextureExtra = null;
-				mountDatum.frontTexture = Main.UFOMountTexture[0];
-				mountDatum.frontTextureExtra = Main.UFOMountTexture[1];
-				mountDatum.textureWidth = mountDatum.frontTexture.Width;
-				mountDatum.textureHeight = mountDatum.frontTexture.Height;
-			}
 			mountDatum = new Mount.MountData();
 			Mount.mounts[8] = mountDatum;
 			mountDatum.spawnDust = 226;
@@ -1771,19 +1384,6 @@ namespace Terraria
 			mountDatum.swimFrameCount = 0;
 			mountDatum.swimFrameDelay = 12;
 			mountDatum.swimFrameStart = 0;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = Main.drillMountTexture[0];
-				mountDatum.backTextureGlow = Main.drillMountTexture[3];
-				mountDatum.backTextureExtra = null;
-				mountDatum.backTextureExtraGlow = null;
-				mountDatum.frontTexture = Main.drillMountTexture[1];
-				mountDatum.frontTextureGlow = Main.drillMountTexture[4];
-				mountDatum.frontTextureExtra = Main.drillMountTexture[2];
-				mountDatum.frontTextureExtraGlow = Main.drillMountTexture[5];
-				mountDatum.textureWidth = mountDatum.frontTexture.Width;
-				mountDatum.textureHeight = mountDatum.frontTexture.Height;
-			}
 			Mount.drillTextureSize = new Vector2(80f, 80f);
 			mountDatum = new Mount.MountData();
 			Mount.mounts[9] = mountDatum;
@@ -1832,15 +1432,6 @@ namespace Terraria
 			mountDatum.swimFrameCount = 0;
 			mountDatum.swimFrameDelay = 12;
 			mountDatum.swimFrameStart = 0;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = Main.scutlixMountTexture[0];
-				mountDatum.backTextureExtra = null;
-				mountDatum.frontTexture = Main.scutlixMountTexture[1];
-				mountDatum.frontTextureExtra = Main.scutlixMountTexture[2];
-				mountDatum.textureWidth = mountDatum.backTexture.Width;
-				mountDatum.textureHeight = mountDatum.backTexture.Height;
-			}
 			Mount.scutlixEyePositions = new Vector2[] { new Vector2(60f, 2f), new Vector2(70f, 6f), new Vector2(68f, 6f), new Vector2(76f, 12f), new Vector2(80f, 10f), new Vector2(84f, 18f), new Vector2(74f, 20f), new Vector2(76f, 24f), new Vector2(70f, 34f), new Vector2(76f, 34f) };
 			Mount.scutlixTextureSize = new Vector2(45f, 54f);
 			for (int s = 0; s < (int)Mount.scutlixEyePositions.Length; s++)
@@ -1899,15 +1490,6 @@ namespace Terraria
 			mountDatum.swimFrameCount = mountDatum.inAirFrameCount;
 			mountDatum.swimFrameDelay = mountDatum.inAirFrameDelay;
 			mountDatum.swimFrameStart = mountDatum.inAirFrameStart;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = Main.unicornMountTexture;
-				mountDatum.backTextureExtra = null;
-				mountDatum.frontTexture = null;
-				mountDatum.frontTextureExtra = null;
-				mountDatum.textureWidth = mountDatum.backTexture.Width;
-				mountDatum.textureHeight = mountDatum.backTexture.Height;
-			}
 			mountDatum = new Mount.MountData();
 			Mount.mounts[11] = mountDatum;
 			mountDatum.Minecart = true;
@@ -1951,16 +1533,6 @@ namespace Terraria
 			mountDatum.idleFrameDelay = 0;
 			mountDatum.idleFrameStart = 0;
 			mountDatum.idleFrameLoop = false;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = null;
-				mountDatum.backTextureExtra = null;
-				mountDatum.frontTexture = Main.minecartMechMountTexture[0];
-				mountDatum.frontTextureGlow = Main.minecartMechMountTexture[1];
-				mountDatum.frontTextureExtra = null;
-				mountDatum.textureWidth = mountDatum.frontTexture.Width;
-				mountDatum.textureHeight = mountDatum.frontTexture.Height;
-			}
 			mountDatum = new Mount.MountData();
 			Mount.mounts[12] = mountDatum;
 			mountDatum.spawnDust = 15;
@@ -2007,15 +1579,6 @@ namespace Terraria
 			mountDatum.swimFrameCount = 8;
 			mountDatum.swimFrameDelay = 4;
 			mountDatum.swimFrameStart = 15;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = Main.cuteFishronMountTexture[0];
-				mountDatum.backTextureGlow = Main.cuteFishronMountTexture[1];
-				mountDatum.frontTexture = null;
-				mountDatum.frontTextureExtra = null;
-				mountDatum.textureWidth = mountDatum.backTexture.Width;
-				mountDatum.textureHeight = mountDatum.backTexture.Height;
-			}
 			mountDatum = new Mount.MountData();
 			Mount.mounts[13] = mountDatum;
 			mountDatum.Minecart = true;
@@ -2060,15 +1623,6 @@ namespace Terraria
 			mountDatum.idleFrameDelay = 0;
 			mountDatum.idleFrameStart = 0;
 			mountDatum.idleFrameLoop = false;
-			if (Main.netMode != 2)
-			{
-				mountDatum.backTexture = null;
-				mountDatum.backTextureExtra = null;
-				mountDatum.frontTexture = Main.minecartWoodMountTexture;
-				mountDatum.frontTextureExtra = null;
-				mountDatum.textureWidth = mountDatum.frontTexture.Width;
-				mountDatum.textureHeight = mountDatum.frontTexture.Height;
-			}
 		}
 
 		public int JumpHeight(float xVelocity)
@@ -2464,15 +2018,6 @@ namespace Terraria
 						Vector2 vector23 = ((mountedPlayer.oldPosition + (mountedPlayer.Size * new Vector2(0.5f, 1f))) + vector21) + vector22;
 						if (Vector2.Distance(bottom, vector23) <= 3f)
 						{
-							Dust[] dustArray = Main.dust;
-							Vector2 center1 = mountedPlayer.Center;
-							Color color = new Color();
-							Dust zero = dustArray[Dust.NewDust(center1, 0, 0, 182, 0f, 0f, 0, color, 1f)];
-							zero.position = bottom;
-							zero.noGravity = true;
-							zero.velocity = Vector2.Zero;
-							zero.customData = mountedPlayer;
-							zero.shader = GameShaders.Armor.GetSecondaryShader(mountedPlayer.cMinecart, mountedPlayer);
 						}
 						else
 						{
@@ -2480,18 +2025,6 @@ namespace Terraria
 							if (Vector2.Distance(bottom, vector23) % 3f != 0f)
 							{
 								num1++;
-							}
-							for (float j = 1f; j <= (float)num1; j = j + 1f)
-							{
-								Dust[] dustArray1 = Main.dust;
-								Vector2 center2 = mountedPlayer.Center;
-								Color color1 = new Color();
-								Dust secondaryShader = dustArray1[Dust.NewDust(center2, 0, 0, 182, 0f, 0f, 0, color1, 1f)];
-								secondaryShader.position = Vector2.Lerp(vector23, bottom, j / (float)num1);
-								secondaryShader.noGravity = true;
-								secondaryShader.velocity = Vector2.Zero;
-								secondaryShader.customData = mountedPlayer;
-								secondaryShader.shader = GameShaders.Armor.GetSecondaryShader(mountedPlayer.cMinecart, mountedPlayer);
 							}
 						}
 					}
@@ -2976,23 +2509,6 @@ namespace Terraria
 							Vector2 center = mountedPlayer.Center + new Vector2((float)(mountedPlayer.width * mountedPlayer.direction), 0f);
 							Vector2 vector21 = new Vector2(40f, 30f);
 							float single8 = 6.28318548f * Main.rand.NextFloat();
-							for (float i = 0f; i < 14f; i = i + 1f)
-							{
-								Dust[] dustArray = Main.dust;
-								Random random = Main.rand;
-								int[] numArray = new int[] { 176, 177, 179 };
-								int num3 = Utils.SelectRandom<int>(random, numArray);
-								Color color = new Color();
-								Dust secondaryShader = dustArray[Dust.NewDust(center, 0, 0, num3, 0f, 0f, 0, color, 1f)];
-								Vector2 vector22 = Vector2.UnitY.RotatedBy((double)(i * 6.28318548f / 14f + single8), new Vector2());
-								vector22 = vector22 * (0.2f * (float)this._frameExtra);
-								secondaryShader.position = center + (vector22 * vector21);
-								secondaryShader.velocity = vector22 + new Vector2(this.RunSpeed - (float)(Math.Sign(velocity.X) * this._frameExtra * 2), 0f);
-								secondaryShader.noGravity = true;
-								secondaryShader.scale = 1f + Main.rand.NextFloat() * 0.8f;
-								secondaryShader.fadeIn = Main.rand.NextFloat() * 2f;
-								secondaryShader.shader = GameShaders.Armor.GetSecondaryShader(mountedPlayer.cMount, mountedPlayer);
-							}
 						}
 					}
 					if (!flag)
@@ -3006,13 +2522,6 @@ namespace Terraria
 					Random random1 = Main.rand;
 					int[] numArray1 = new int[] { 176, 177, 179 };
 					int num6 = Utils.SelectRandom<int>(random1, numArray1);
-					Color color1 = new Color();
-					Dust zero = dustArray1[Dust.NewDust(vector23, num4, num5, num6, 0f, 0f, 0, color1, 1f)];
-					zero.velocity = Vector2.Zero;
-					zero.noGravity = true;
-					zero.scale = 0.5f + Main.rand.NextFloat() * 0.8f;
-					zero.fadeIn = 1f + Main.rand.NextFloat() * 2f;
-					zero.shader = GameShaders.Armor.GetSecondaryShader(mountedPlayer.cMount, mountedPlayer);
 					goto case 6;
 				}
 				default:
@@ -3184,22 +2693,6 @@ namespace Terraria
 
 		private class MountData
 		{
-			public Texture2D backTexture;
-
-			public Texture2D backTextureGlow;
-
-			public Texture2D backTextureExtra;
-
-			public Texture2D backTextureExtraGlow;
-
-			public Texture2D frontTexture;
-
-			public Texture2D frontTextureGlow;
-
-			public Texture2D frontTextureExtra;
-
-			public Texture2D frontTextureExtraGlow;
-
 			public int textureWidth;
 
 			public int textureHeight;

@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using XNA;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,11 +18,8 @@ namespace Terraria
 
 		private const ulong RANDOM_MASK = 281474976710655L;
 
-		public static Dictionary<SpriteFont, float[]> charLengths;
-
 		static Utils()
 		{
-			Utils.charLengths = new Dictionary<SpriteFont, float[]>();
 		}
 
 		public static float AngleLerp(this float curAngle, float targetAngle, float amount)
@@ -248,269 +244,62 @@ namespace Terraria
 			return Vector2.Distance(point, r.BottomRight());
 		}
 
-		public static Vector2 DrawBorderString(SpriteBatch sb, string text, Vector2 pos, Color color, float scale = 1f, float anchorx = 0f, float anchory = 0f, int stringLimit = -1)
+		public static Vector2 DrawBorderString(string text, Vector2 pos, Color color, float scale = 1f, float anchorx = 0f, float anchory = 0f, int stringLimit = -1)
 		{
-			if (stringLimit != -1 && text.Length > stringLimit)
-			{
-				text.Substring(0, stringLimit);
-			}
-			SpriteFont spriteFont = Main.fontMouseText;
-			for (int i = -1; i < 2; i++)
-			{
-				for (int j = -1; j < 2; j++)
-				{
-					sb.DrawString(spriteFont, text, pos + new Vector2((float)i, (float)j), Color.Black, 0f, new Vector2(anchorx, anchory) * spriteFont.MeasureString(text), scale, SpriteEffects.None, 0f);
-				}
-			}
-			sb.DrawString(spriteFont, text, pos, color, 0f, new Vector2(anchorx, anchory) * spriteFont.MeasureString(text), scale, SpriteEffects.None, 0f);
-			return spriteFont.MeasureString(text) * scale;
+			return Vector2.Zero;
 		}
 
-		public static Vector2 DrawBorderStringBig(SpriteBatch sb, string text, Vector2 pos, Color color, float scale = 1f, float anchorx = 0f, float anchory = 0f, int stringLimit = -1)
+		public static Vector2 DrawBorderStringBig(string text, Vector2 pos, Color color, float scale = 1f, float anchorx = 0f, float anchory = 0f, int stringLimit = -1)
 		{
-			if (stringLimit != -1 && text.Length > stringLimit)
-			{
-				text.Substring(0, stringLimit);
-			}
-			SpriteFont spriteFont = Main.fontDeathText;
-			for (int i = -1; i < 2; i++)
-			{
-				for (int j = -1; j < 2; j++)
-				{
-					sb.DrawString(spriteFont, text, pos + new Vector2((float)i, (float)j), Color.Black, 0f, new Vector2(anchorx, anchory) * spriteFont.MeasureString(text), scale, SpriteEffects.None, 0f);
-				}
-			}
-			sb.DrawString(spriteFont, text, pos, color, 0f, new Vector2(anchorx, anchory) * spriteFont.MeasureString(text), scale, SpriteEffects.None, 0f);
-			return spriteFont.MeasureString(text) * scale;
+			return Vector2.Zero;
 		}
 
-		public static void DrawBorderStringFourWay(SpriteBatch sb, SpriteFont font, string text, float x, float y, Color textColor, Color borderColor, Vector2 origin, float scale = 1f)
+		public static void DrawBorderStringFourWay(string text, float x, float y, Color textColor, Color borderColor, Vector2 origin, float scale = 1f)
 		{
-			Color color = borderColor;
-			Vector2 zero = Vector2.Zero;
-			for (int i = 0; i < 5; i++)
-			{
-				switch (i)
-				{
-					case 0:
-					{
-						zero.X = x - 2f;
-						zero.Y = y;
-						break;
-					}
-					case 1:
-					{
-						zero.X = x + 2f;
-						zero.Y = y;
-						break;
-					}
-					case 2:
-					{
-						zero.X = x;
-						zero.Y = y - 2f;
-						break;
-					}
-					case 3:
-					{
-						zero.X = x;
-						zero.Y = y + 2f;
-						break;
-					}
-					case 4:
-					{
-						zero.X = x;
-						zero.Y = y;
-						color = textColor;
-						break;
-					}
-					default:
-					{
-						goto case 4;
-					}
-				}
-				sb.DrawString(font, text, zero, color, 0f, origin, scale, SpriteEffects.None, 0f);
-			}
 		}
 
-		public static void DrawCursorSingle(SpriteBatch sb, Color color, float rot = float.NaN, float scale = 1f, Vector2 manualPosition = new Vector2(), int cursorSlot = 0, int specialMode = 0)
+		public static void DrawCursorSingle(Color color, float rot = float.NaN, float scale = 1f, Vector2 manualPosition = new Vector2(), int cursorSlot = 0, int specialMode = 0)
 		{
-			bool flag = false;
-			bool flag1 = true;
-			bool flag2 = true;
-			Vector2 zero = Vector2.Zero;
-			Vector2 vector2 = new Vector2((float)Main.mouseX, (float)Main.mouseY);
-			if (manualPosition != Vector2.Zero)
-			{
-				vector2 = manualPosition;
-			}
-			if (!float.IsNaN(rot))
-			{
-				flag = true;
-				rot = rot - 2.3561945f;
-			}
-			else
-			{
-				rot = 0f;
-			}
-			if (cursorSlot == 4 || cursorSlot == 5)
-			{
-				flag1 = false;
-				zero = new Vector2(8f);
-				if (flag && specialMode == 0)
-				{
-					float single = rot;
-					if (single < 0f)
-					{
-						single = single + 6.28318548f;
-					}
-					float single1 = 0f;
-					while (single1 < 4f)
-					{
-						if (Math.Abs(single - 1.57079637f * single1) > 0.7853982f)
-						{
-							single1 = single1 + 1f;
-						}
-						else
-						{
-							rot = 1.57079637f * single1;
-							break;
-						}
-					}
-				}
-			}
-			if (flag1)
-			{
-				Rectangle? nullable = null;
-				sb.Draw(Main.cursorTextures[cursorSlot], vector2 + Vector2.One, nullable, color.MultiplyRGB(new Color(0.2f, 0.2f, 0.2f, 0.5f)), rot, zero, scale * 1.1f, SpriteEffects.None, 0f);
-			}
-			if (flag2)
-			{
-				Rectangle? nullable1 = null;
-				sb.Draw(Main.cursorTextures[cursorSlot], vector2, nullable1, color, rot, zero, scale, SpriteEffects.None, 0f);
-			}
 		}
 
-		public static void DrawInvBG(SpriteBatch sb, Rectangle R, Color c = new Color())
+		public static void DrawInvBG(Rectangle R, Color c = new Color())
 		{
-			Utils.DrawInvBG(sb, R.X, R.Y, R.Width, R.Height, c);
 		}
 
-		public static void DrawInvBG(SpriteBatch sb, float x, float y, float w, float h, Color c = new Color())
+		public static void DrawInvBG(float x, float y, float w, float h, Color c = new Color())
 		{
-			Utils.DrawInvBG(sb, (int)x, (int)y, (int)w, (int)h, c);
 		}
 
-		public static void DrawInvBG(SpriteBatch sb, int x, int y, int w, int h, Color c = new Color())
+		public static void DrawInvBG(int x, int y, int w, int h, Color c = new Color())
 		{
-			if (c == new Color())
-			{
-				c = new Color(63, 65, 151, 255) * 0.785f;
-			}
-			Texture2D texture2D = Main.inventoryBack13Texture;
-			if (w < 20)
-			{
-				w = 20;
-			}
-			if (h < 20)
-			{
-				h = 20;
-			}
-			sb.Draw(texture2D, new Rectangle(x, y, 10, 10), new Rectangle?(new Rectangle(0, 0, 10, 10)), c);
-			sb.Draw(texture2D, new Rectangle(x + 10, y, w - 20, 10), new Rectangle?(new Rectangle(10, 0, 10, 10)), c);
-			sb.Draw(texture2D, new Rectangle(x + w - 10, y, 10, 10), new Rectangle?(new Rectangle(texture2D.Width - 10, 0, 10, 10)), c);
-			sb.Draw(texture2D, new Rectangle(x, y + 10, 10, h - 20), new Rectangle?(new Rectangle(0, 10, 10, 10)), c);
-			sb.Draw(texture2D, new Rectangle(x + 10, y + 10, w - 20, h - 20), new Rectangle?(new Rectangle(10, 10, 10, 10)), c);
-			sb.Draw(texture2D, new Rectangle(x + w - 10, y + 10, 10, h - 20), new Rectangle?(new Rectangle(texture2D.Width - 10, 10, 10, 10)), c);
-			sb.Draw(texture2D, new Rectangle(x, y + h - 10, 10, 10), new Rectangle?(new Rectangle(0, texture2D.Height - 10, 10, 10)), c);
-			sb.Draw(texture2D, new Rectangle(x + 10, y + h - 10, w - 20, 10), new Rectangle?(new Rectangle(10, texture2D.Height - 10, 10, 10)), c);
-			sb.Draw(texture2D, new Rectangle(x + w - 10, y + h - 10, 10, 10), new Rectangle?(new Rectangle(texture2D.Width - 10, texture2D.Height - 10, 10, 10)), c);
 		}
 
-		public static void DrawLaser(SpriteBatch sb, Texture2D tex, Vector2 start, Vector2 end, Vector2 scale, Utils.LaserLineFraming framing)
+		public static void DrawLaser(Vector2 start, Vector2 end, Vector2 scale, Utils.LaserLineFraming framing)
 		{
-			float height = 0f;
-			Rectangle rectangle = new Rectangle();
-			Vector2 vector2 = new Vector2();
-			Color color = new Color();
-			Vector2 y = start;
-			Vector2 vector21 = Vector2.Normalize(end - start);
-			float single = (end - start).Length();
-			float rotation = vector21.ToRotation() - 1.57079637f;
-			if (vector21.HasNaNs())
-			{
-				return;
-			}
-			Rectangle rectangle1 = new Rectangle();
-			framing(0, y, single, rectangle1, out height, out rectangle, out vector2, out color);
-			sb.Draw(tex, y, new Rectangle?(rectangle), color, rotation, rectangle.Size() / 2f, scale, SpriteEffects.None, 0f);
-			single = single - height * scale.Y;
-			y = y + ((vector21 * ((float)rectangle.Height - vector2.Y)) * scale.Y);
-			if (single > 0f)
-			{
-				float y1 = 0f;
-				while (y1 + 1f < single)
-				{
-					framing(1, y, single - y1, rectangle, out height, out rectangle, out vector2, out color);
-					if (single - y1 < (float)rectangle.Height)
-					{
-						height = height * ((single - y1) / (float)rectangle.Height);
-						rectangle.Height = (int)(single - y1);
-					}
-					sb.Draw(tex, y, new Rectangle?(rectangle), color, rotation, vector2, scale, SpriteEffects.None, 0f);
-					y1 = y1 + height * scale.Y;
-					y = y + ((vector21 * height) * scale.Y);
-				}
-			}
-			Rectangle rectangle2 = new Rectangle();
-			framing(2, y, single, rectangle2, out height, out rectangle, out vector2, out color);
-			sb.Draw(tex, y, new Rectangle?(rectangle), color, rotation, vector2, scale, SpriteEffects.None, 0f);
 		}
 
-		public static void DrawLine(SpriteBatch spriteBatch, Point start, Point end, Color color)
+		public static void DrawLine(Point start, Point end, Color color)
 		{
-			Utils.DrawLine(spriteBatch, new Vector2((float)(start.X << 4), (float)(start.Y << 4)), new Vector2((float)(end.X << 4), (float)(end.Y << 4)), color);
 		}
 
-		public static void DrawLine(SpriteBatch spriteBatch, Vector2 start, Vector2 end, Color color)
+		public static void DrawLine(Vector2 start, Vector2 end, Color color)
 		{
-			float single = Vector2.Distance(start, end);
-			Vector2 vector2 = (end - start) / single;
-			Vector2 vector21 = start;
-			Vector2 vector22 = Main.screenPosition;
-			float rotation = vector2.ToRotation();
-			for (float i = 0f; i <= single; i = i + 4f)
-			{
-				float single1 = i / single;
-				Rectangle? nullable = null;
-				spriteBatch.Draw(Main.blackTileTexture, vector21 - vector22, nullable, new Color(new Vector4(single1, single1, single1, 1f) * color.ToVector4()), rotation, Vector2.Zero, 0.25f, SpriteEffects.None, 0f);
-				vector21 = start + (i * vector2);
-			}
 		}
 
-		public static void DrawRect(SpriteBatch spriteBatch, Rectangle rect, Color color)
+		public static void DrawRect(Rectangle rect, Color color)
 		{
-			Utils.DrawRect(spriteBatch, new Point(rect.X, rect.Y), new Point(rect.X + rect.Width, rect.Y + rect.Height), color);
 		}
 
-		public static void DrawRect(SpriteBatch spriteBatch, Point start, Point end, Color color)
+		public static void DrawRect(Point start, Point end, Color color)
 		{
-			Utils.DrawRect(spriteBatch, new Vector2((float)(start.X << 4), (float)(start.Y << 4)), new Vector2((float)((end.X << 4) - 4), (float)((end.Y << 4) - 4)), color);
 		}
 
-		public static void DrawRect(SpriteBatch spriteBatch, Vector2 start, Vector2 end, Color color)
+		public static void DrawRect(Vector2 start, Vector2 end, Color color)
 		{
-			Utils.DrawLine(spriteBatch, start, new Vector2(start.X, end.Y), color);
-			Utils.DrawLine(spriteBatch, start, new Vector2(end.X, start.Y), color);
-			Utils.DrawLine(spriteBatch, end, new Vector2(start.X, end.Y), color);
-			Utils.DrawLine(spriteBatch, end, new Vector2(end.X, start.Y), color);
 		}
 
-		public static void DrawRect(SpriteBatch spriteBatch, Vector2 topLeft, Vector2 topRight, Vector2 bottomRight, Vector2 bottomLeft, Color color)
+		public static void DrawRect(Vector2 topLeft, Vector2 topRight, Vector2 bottomRight, Vector2 bottomLeft, Color color)
 		{
-			Utils.DrawLine(spriteBatch, topLeft, topRight, color);
-			Utils.DrawLine(spriteBatch, topRight, bottomRight, color);
-			Utils.DrawLine(spriteBatch, bottomRight, bottomLeft, color);
-			Utils.DrawLine(spriteBatch, bottomLeft, topLeft, color);
 		}
 
 		public static string[] FixArgs(string[] brokenArgs)
@@ -563,13 +352,6 @@ namespace Terraria
 			return vec;
 		}
 
-		public static Rectangle Frame(this Texture2D tex, int horizontalFrames = 1, int verticalFrames = 1, int frameX = 0, int frameY = 0)
-		{
-			int width = tex.Width / horizontalFrames;
-			int height = tex.Height / verticalFrames;
-			return new Rectangle(width * frameX, height * frameY, width, height);
-		}
-
 		public static bool HasNaNs(this Vector2 vec)
 		{
 			if (float.IsNaN(vec.X))
@@ -616,16 +398,8 @@ namespace Terraria
 			return (float)r.NextDouble();
 		}
 
-		public static Vector2 OriginFlip(this Rectangle rect, Vector2 origin, SpriteEffects effects)
+		public static Vector2 OriginFlip(this Rectangle rect, Vector2 origin)
 		{
-			if (effects.HasFlag(SpriteEffects.FlipHorizontally))
-			{
-				origin.X = (float)rect.Width - origin.X;
-			}
-			if (effects.HasFlag(SpriteEffects.FlipVertically))
-			{
-				origin.Y = (float)rect.Height - origin.Y;
-			}
 			return origin;
 		}
 
@@ -857,11 +631,6 @@ namespace Terraria
 			return choices[random.Next((int)choices.Length)];
 		}
 
-		public static Vector2 Size(this Texture2D tex)
-		{
-			return new Vector2((float)tex.Width, (float)tex.Height);
-		}
-
 		public static Vector2 Size(this Rectangle r)
 		{
 			return new Vector2((float)r.Width, (float)r.Height);
@@ -967,104 +736,10 @@ namespace Terraria
 			return (angleVector * elipseSizes) / 2f;
 		}
 
-		public static string[] WordwrapString(string text, SpriteFont font, int maxWidth, int maxLines, out int lineAmount)
+		public static string[] WordwrapString(string text, int maxWidth, int maxLines, out int lineAmount)
 		{
 			string[] strArrays = new string[maxLines];
-			int num = 0;
-			char[] chrArray = new char[] { '\n' };
-			List<string> strs = new List<string>(text.Split(chrArray));
-			string item = strs[0];
-			char[] chrArray1 = new char[] { ' ' };
-			List<string> strs1 = new List<string>(item.Split(chrArray1));
-			for (int i = 1; i < strs.Count; i++)
-			{
-				strs1.Add("\n");
-				string str = strs[i];
-				char[] chrArray2 = new char[] { ' ' };
-				strs1.AddRange(str.Split(chrArray2));
-			}
-			bool flag = true;
-			while (strs1.Count > 0)
-			{
-				string item1 = strs1[0];
-				string str1 = " ";
-				if (strs1.Count == 1)
-				{
-					str1 = "";
-				}
-				if (item1 == "\n")
-				{
-					string[] strArrays1 = strArrays;
-					string[] strArrays2 = strArrays1;
-					int num1 = num;
-					num = num1 + 1;
-					IntPtr intPtr = (IntPtr)num1;
-					strArrays1[num1] = string.Concat(strArrays2[num1], item1);
-					if (num >= maxLines)
-					{
-						break;
-					}
-					strs1.RemoveAt(0);
-				}
-				else if (flag)
-				{
-					if (font.MeasureString(item1).X <= (float)maxWidth)
-					{
-						string[] strArrays3 = strArrays;
-						string[] strArrays4 = strArrays3;
-						int num2 = num;
-						IntPtr intPtr1 = (IntPtr)num2;
-						strArrays3[num2] = string.Concat(strArrays4[num2], item1, str1);
-						flag = false;
-						strs1.RemoveAt(0);
-					}
-					else
-					{
-						string str2 = string.Concat(item1[0]);
-						int num3 = 1;
-						while (font.MeasureString(string.Concat(str2, item1[num3], '-')).X <= (float)maxWidth)
-						{
-							int num4 = num3;
-							num3 = num4 + 1;
-							str2 = string.Concat(str2, item1[num4]);
-						}
-						str2 = string.Concat(str2, '-');
-						int num5 = num;
-						num = num5 + 1;
-						strArrays[num5] = string.Concat(str2, " ");
-						if (num >= maxLines)
-						{
-							break;
-						}
-						strs1.RemoveAt(0);
-						strs1.Insert(0, item1.Substring(num3));
-					}
-				}
-				else if (font.MeasureString(string.Concat(strArrays[num], item1)).X <= (float)maxWidth)
-				{
-					string[] strArrays5 = strArrays;
-					string[] strArrays6 = strArrays5;
-					int num6 = num;
-					IntPtr intPtr2 = (IntPtr)num6;
-					strArrays5[num6] = string.Concat(strArrays6[num6], item1, str1);
-					flag = false;
-					strs1.RemoveAt(0);
-				}
-				else
-				{
-					num++;
-					if (num >= maxLines)
-					{
-						break;
-					}
-					flag = true;
-				}
-			}
-			lineAmount = num;
-			if (lineAmount == maxLines)
-			{
-				lineAmount = lineAmount - 1;
-			}
+			lineAmount = 1;
 			return strArrays;
 		}
 

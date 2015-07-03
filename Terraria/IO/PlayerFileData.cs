@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -124,51 +124,26 @@ namespace Terraria.IO
 
 		public void PausePlayTimer()
 		{
-			if (this._timer.IsRunning)
-			{
-				this._timer.Stop();
-			}
 		}
 
 		public override void SetAsActive()
 		{
-			Main.ActivePlayerFileData = this;
-			Main.player[Main.myPlayer] = this.Player;
 		}
 
 		public void SetPlayTime(TimeSpan time)
 		{
-			this._playTime = time;
 		}
 
 		public void StartPlayTimer()
 		{
-			this._isTimerActive = true;
-			if (!this._timer.IsRunning)
-			{
-				this._timer.Start();
-			}
 		}
 
 		public void StopPlayTimer()
 		{
-			this._isTimerActive = false;
-			if (this._timer.IsRunning)
-			{
-				PlayerFileData elapsed = this;
-				elapsed._playTime = elapsed._playTime + this._timer.Elapsed;
-				this._timer.Reset();
-			}
 		}
 
 		public void UpdatePlayTimer()
 		{
-			if (Main.instance.IsActive && !Main.gamePaused && Main.hasFocus && this._isTimerActive)
-			{
-				this.StartPlayTimer();
-				return;
-			}
-			this.PausePlayTimer();
 		}
 	}
 }

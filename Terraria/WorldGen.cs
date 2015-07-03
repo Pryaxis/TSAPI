@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +10,6 @@ using Terraria.GameContent.Biomes;
 using Terraria.GameContent.Events;
 using Terraria.GameContent.Generation;
 using Terraria.GameContent.Tile_Entities;
-using Terraria.Graphics.Capture;
 using Terraria.ID;
 using Terraria.IO;
 using Terraria.ObjectData;
@@ -2030,7 +2029,6 @@ namespace Terraria
 			Main.invasionProgressAlpha = 0f;
 			Main.menuMode = 10;
 			Main.gameMenu = true;
-			CaptureInterface.ResetFocus();
 			Main.ActivePlayerFileData.StopPlayTimer();
 			Player.SavePlayer(Main.ActivePlayerFileData, false);
 			if (Main.netMode == 0)
@@ -2261,7 +2259,7 @@ namespace Terraria
 		{
 			CombatText.clearAll();
 			NPC.ResetKillCount();
-			Main.checkXMas();
+			Main.CheckXMas();
 			Main.checkHalloween();
 			if (Main.mapReady)
 			{
@@ -4147,7 +4145,7 @@ namespace Terraria
 				WorldFile.tempMaxRain = 0f;
 				Main.raining = false;
 				WorldGen.heartCount = 0;
-				Main.checkXMas();
+				Main.CheckXMas();
 				Main.checkHalloween();
 				WorldGen.gen = true;
 				WorldGen.ResetGenerator();

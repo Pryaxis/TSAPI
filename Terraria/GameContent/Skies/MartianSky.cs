@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using XNA;
 using System;
 using System.Runtime.CompilerServices;
 using Terraria;
@@ -39,69 +38,12 @@ namespace Terraria.GameContent.Skies
 			this._leaving = true;
 		}
 
-		public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
+		public override void Draw(float minDepth, float maxDepth)
 		{
-			if (Main.screenPosition.Y > 10000f)
-			{
-				return;
-			}
-			int num = -1;
-			int num1 = 0;
-			for (int i = 0; i < (int)this._ufos.Length; i++)
-			{
-				float depth = this._ufos[i].Depth;
-				if (num == -1 && depth < maxDepth)
-				{
-					num = i;
-				}
-				if (depth <= minDepth)
-				{
-					break;
-				}
-				num1 = i;
-			}
-			if (num == -1)
-			{
-				return;
-			}
-			Color color = new Color((Main.bgColor.ToVector4() * 0.9f) + new Vector4(0.1f));
-			Vector2 vector2 = Main.screenPosition + new Vector2((float)(Main.screenWidth >> 1), (float)(Main.screenHeight >> 1));
-			Rectangle rectangle = new Rectangle(-1000, -1000, 4000, 4000);
-			for (int j = num; j < num1; j++)
-			{
-				Vector2 vector21 = new Vector2(1f / this._ufos[j].Depth, 0.9f / this._ufos[j].Depth);
-				Vector2 position = this._ufos[j].Position;
-				position = (((position - vector2) * vector21) + vector2) - Main.screenPosition;
-				if (this._ufos[j].IsActive && rectangle.Contains((int)position.X, (int)position.Y))
-				{
-					spriteBatch.Draw(this._ufos[j].Texture, position, new Rectangle?(this._ufos[j].GetSourceRectangle()), color * this._ufos[j].Opacity, this._ufos[j].Rotation, Vector2.Zero, vector21.X * 5f * this._ufos[j].Scale, SpriteEffects.None, 0f);
-					if (this._ufos[j].GlowTexture != null)
-					{
-						spriteBatch.Draw(this._ufos[j].GlowTexture, position, new Rectangle?(this._ufos[j].GetSourceRectangle()), Color.White * this._ufos[j].Opacity, this._ufos[j].Rotation, Vector2.Zero, vector21.X * 5f * this._ufos[j].Scale, SpriteEffects.None, 0f);
-					}
-				}
-			}
 		}
 
 		private void GenerateUfos()
 		{
-			float single = (float)Main.maxTilesX / 4200f;
-			this._maxUfos = (int)(256f * single);
-			this._ufos = new MartianSky.Ufo[this._maxUfos];
-			int num = this._maxUfos >> 4;
-			for (int i = 0; i < num; i++)
-			{
-				float single1 = (float)i / (float)num;
-				this._ufos[i] = new MartianSky.Ufo(Main.extraTexture[5], (float)Main.rand.NextDouble() * 4f + 6.6f);
-				this._ufos[i].GlowTexture = Main.glowMaskTexture[90];
-			}
-			for (int j = num; j < (int)this._ufos.Length; j++)
-			{
-				float length = (float)(j - num) / (float)((int)this._ufos.Length - num);
-				this._ufos[j] = new MartianSky.Ufo(Main.extraTexture[6], (float)Main.rand.NextDouble() * 5f + 1.6f);
-				this._ufos[j].Scale = 0.5f;
-				this._ufos[j].GlowTexture = Main.glowMaskTexture[91];
-			}
 		}
 
 		public override bool IsActive()
@@ -214,11 +156,7 @@ namespace Terraria.GameContent.Skies
 
 			private int _frame;
 
-			private Texture2D _texture;
-
 			private MartianSky.IUfoController _controller;
-
-			public Texture2D GlowTexture;
 
 			public Vector2 Position;
 
@@ -260,36 +198,18 @@ namespace Terraria.GameContent.Skies
 					this._frame = value % 12;
 				}
 			}
-
-			public Texture2D Texture
-			{
-				get
-				{
-					return this._texture;
-				}
-				set
-				{
-					this._texture = value;
-					this.FrameWidth = value.Width;
-					this.FrameHeight = value.Height / 3;
-				}
-			}
-
+			
 			static Ufo()
 			{
 				MartianSky.Ufo.Random = new Random();
 			}
 
-			public Ufo(Texture2D texture, float depth = 1f)
+			public Ufo(float depth = 1f)
 			{
 				this._frame = 0;
 				this.Position = Vector2.Zero;
-				this._texture = texture;
 				this.Depth = depth;
 				this.Scale = 1f;
-				this.FrameWidth = texture.Width;
-				this.FrameHeight = texture.Height / 3;
-				this.GlowTexture = null;
 				this.Opacity = 0f;
 				this.Rotation = 0f;
 				this.IsActive = false;

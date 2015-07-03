@@ -2,7 +2,6 @@ using System;
 using Terraria;
 using Terraria.Achievements;
 using Terraria.GameContent.Achievements;
-using Terraria.GameContent.UI.Chat;
 
 namespace Terraria.Initializers
 {
@@ -681,7 +680,6 @@ namespace Terraria.Initializers
 
 		private static void OnAchievementCompleted(Achievement achievement)
 		{
-			Main.NewText(string.Concat("Achievement complete! ", AchievementTagHandler.GenerateTag(achievement)), 255, 255, 255, false);
 		}
 	}
 }

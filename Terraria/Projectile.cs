@@ -1,9 +1,8 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using System.Collections.Generic;
 using Terraria.GameContent;
 using Terraria.GameContent.Achievements;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using TerrariaApi.Server;
 namespace Terraria
@@ -10276,7 +10275,7 @@ namespace Terraria
 									int num35 = Dust.NewDust(base.Center, 0, 0, 66, 0f, 0f, 0, Color.Transparent, 1f);
 									Main.dust[num35].position = base.Center;
 									Main.dust[num35].velocity = spinningpoint.RotatedBy((double)(6.28318548f * num34 / num33), default(Vector2)) * vector4 * (0.8f + Main.rand.NextFloat() * 0.4f);
-									Main.dust[num35].color = Main.hslToRgb(num34 / num33, 1f, 0.5f);
+									Main.dust[num35].color = Main.HslToRgb(num34 / num33, 1f, 0.5f);
 									Main.dust[num35].noGravity = true;
 									Main.dust[num35].scale = 1f + this.ai[0] / 3f;
 								}
@@ -13849,9 +13848,6 @@ namespace Terraria
 						{
 							num144 = 74;
 						}
-						int num145 = Dust.NewDust(this.position, this.width, this.height, num144, 0f, 0f, 200, default(Color), 0.8f);
-						Main.dust[num145].velocity *= 0.3f;
-						Main.dust[num145].shader = GameShaders.Armor.GetSecondaryShader(Main.player[this.owner].cLight, Main.player[this.owner]);
 					}
 				}
 				else
@@ -20247,11 +20243,6 @@ namespace Terraria
 														}
 														this.rotation += this.velocity.X / 20f;
 														Vector2 vector66 = (-Vector2.UnitY).RotatedBy((double)this.rotation, default(Vector2)).RotatedBy((double)((float)this.direction * 0.2f), default(Vector2));
-														int num666 = Dust.NewDust(base.Center + vector66 * 10f - new Vector2(4f), 0, 0, 5, vector66.X, vector66.Y, 0, Color.Transparent, 1f);
-														Main.dust[num666].scale = 1f;
-														Main.dust[num666].velocity = vector66.RotatedByRandom(0.78539818525314331) * 3.5f;
-														Main.dust[num666].noGravity = true;
-														Main.dust[num666].shader = GameShaders.Armor.GetSecondaryShader(Main.player[this.owner].cLight, Main.player[this.owner]);
 													}
 													bool flag28 = true;
 													if (this.type == 500)
@@ -22171,10 +22162,10 @@ namespace Terraria
 																	if (this.type == 632 && Math.Abs(this.localAI[1] - num823) < 100f && this.scale > 0.15f)
 																	{
 																		float prismHue = this.GetPrismHue(this.ai[0]);
-																		Color color = Main.hslToRgb(prismHue, 1f, 0.5f);
+																		Color color = Main.HslToRgb(prismHue, 1f, 0.5f);
 																		color.A = 0;
 																		Vector2 vector115 = base.Center + this.velocity * (this.localAI[1] - 14.5f * this.scale);
-																		float x = Main.rgbToHsl(new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB)).X;
+																		float x = Main.RgbToHsl(new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB)).X;
 																		for (int num846 = 0; num846 < 2; num846++)
 																		{
 																			float num847 = this.velocity.ToRotation() + ((Main.rand.Next(2) == 1) ? -1f : 1f) * 1.57079637f;
@@ -22196,7 +22187,7 @@ namespace Terraria
 																				dust8.scale /= 2f;
 																			}
 																			float hue = (x + Main.rand.NextFloat() * 0.4f) % 1f;
-																			Main.dust[num849].color = Color.Lerp(color, Main.hslToRgb(hue, 1f, 0.75f), this.scale / 1.4f);
+																			Main.dust[num849].color = Color.Lerp(color, Main.HslToRgb(hue, 1f, 0.75f), this.scale / 1.4f);
 																		}
 																		if (Main.rand.Next(5) == 0)
 																		{
@@ -24733,7 +24724,7 @@ namespace Terraria
 																								}
 																								if (this.type == 644)
 																								{
-																									Color newColor2 = Main.hslToRgb(this.ai[0], 1f, 0.5f);
+																									Color newColor2 = Main.HslToRgb(this.ai[0], 1f, 0.5f);
 																									int num999 = (int)this.ai[1];
 																									if (num999 < 0 || num999 >= 1000 || (!Main.projectile[num999].active && Main.projectile[num999].type != 643))
 																									{
@@ -26207,7 +26198,7 @@ namespace Terraria
 																														{
 																															vector203 = base.Center + vector202.RotatedByRandom(0.78539818525314331) * (Main.rand.NextFloat() * 0.5f + 0.75f);
 																														}
-																														float x2 = Main.rgbToHsl(new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB)).X;
+																														float x2 = Main.RgbToHsl(new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB)).X;
 																														Projectile.NewProjectile(vector203.X, vector203.Y, 0f, 0f, 644, this.damage, this.knockBack, this.owner, x2, (float)this.whoAmI);
 																													}
 																													return;
@@ -28383,7 +28374,7 @@ namespace Terraria
 			}
 			if (this.type == 587)
 			{
-				Color newColor = Main.hslToRgb(this.ai[1], 1f, 0.5f);
+				Color newColor = Main.HslToRgb(this.ai[1], 1f, 0.5f);
 				newColor.A = 200;
 				this.localAI[0] += 1f;
 				if (this.localAI[0] >= 2f)
@@ -30271,14 +30262,6 @@ namespace Terraria
 					if (this.frame > 9)
 					{
 						this.frame = 5;
-					}
-					for (int i = 0; i < 2; i++)
-					{
-						int num28 = Dust.NewDust(new Vector2(this.position.X + 3f, this.position.Y + 4f), 14, 14, 156, 0f, 0f, 0, default(Color), 1f);
-						Main.dust[num28].velocity *= 0.2f;
-						Main.dust[num28].noGravity = true;
-						Main.dust[num28].scale = 1.25f;
-						Main.dust[num28].shader = GameShaders.Armor.GetSecondaryShader(Main.player[this.owner].cLight, Main.player[this.owner]);
 					}
 					return;
 				}
@@ -35526,36 +35509,6 @@ namespace Terraria
 			else if (this.type == 645)
 			{
 				bool flag = WorldGen.SolidTile(Framing.GetTileSafely((int)this.position.X / 16, (int)this.position.Y / 16));
-				for (int m = 0; m < 4; m++)
-				{
-					Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
-				}
-				for (int n = 0; n < 4; n++)
-				{
-					int num10 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 229, 0f, 0f, 0, default(Color), 2.5f);
-					Main.dust[num10].noGravity = true;
-					Main.dust[num10].velocity *= 3f;
-					if (flag)
-					{
-						Main.dust[num10].noLight = true;
-					}
-					num10 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 229, 0f, 0f, 100, default(Color), 1.5f);
-					Main.dust[num10].velocity *= 2f;
-					Main.dust[num10].noGravity = true;
-					if (flag)
-					{
-						Main.dust[num10].noLight = true;
-					}
-				}
-				for (int num11 = 0; num11 < 1; num11++)
-				{
-					int num12 = Gore.NewGore(this.position + new Vector2((float)(this.width * Main.rand.Next(100)) / 100f, (float)(this.height * Main.rand.Next(100)) / 100f) - Vector2.One * 10f, default(Vector2), Main.rand.Next(61, 64), 1f);
-					Main.gore[num12].velocity *= 0.3f;
-					Gore expr_8E9_cp_0 = Main.gore[num12];
-					expr_8E9_cp_0.velocity.X = expr_8E9_cp_0.velocity.X + (float)Main.rand.Next(-10, 11) * 0.05f;
-					Gore expr_917_cp_0 = Main.gore[num12];
-					expr_917_cp_0.velocity.Y = expr_917_cp_0.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.05f;
-				}
 			}
 			else if (this.type == 636)
 			{
@@ -35564,64 +35517,19 @@ namespace Terraria
 				{
 					hitbox.X = (int)this.oldPos[num13].X;
 					hitbox.Y = (int)this.oldPos[num13].Y;
-					for (int num14 = 0; num14 < 5; num14++)
-					{
-						int num15 = Utils.SelectRandom<int>(Main.rand, new int[]
-						{
-							6,
-							259,
-							158
-						});
-						int num16 = Dust.NewDust(hitbox.TopLeft(), this.width, this.height, num15, 2.5f * (float)this.direction, -2.5f, 0, default(Color), 1f);
-						Main.dust[num16].alpha = 200;
-						Main.dust[num16].velocity *= 2.4f;
-						Main.dust[num16].scale += Main.rand.NextFloat();
-					}
 				}
 			}
 			else if (this.type == 614)
 			{
-				for (int num17 = 0; num17 < 10; num17++)
-				{
-					Dust dust = Main.dust[Dust.NewDust(this.position, this.width, this.height, 229, 0f, 0f, 0, default(Color), 1f)];
-					dust.noGravity = true;
-					dust.velocity *= 3f;
-				}
 			}
 			if (this.type == 644)
 			{
 				Vector2 spinningpoint = new Vector2(0f, -3f).RotatedByRandom(3.1415927410125732);
 				float num18 = (float)Main.rand.Next(7, 13);
 				Vector2 vector3 = new Vector2(2.1f, 2f);
-				Color newColor = Main.hslToRgb(this.ai[0], 1f, 0.5f);
+				Color newColor = Main.HslToRgb(this.ai[0], 1f, 0.5f);
 				newColor.A = 255;
-				for (float num19 = 0f; num19 < num18; num19 += 1f)
-				{
-					int num20 = Dust.NewDust(base.Center, 0, 0, 267, 0f, 0f, 0, newColor, 1f);
-					Main.dust[num20].position = base.Center;
-					Main.dust[num20].velocity = spinningpoint.RotatedBy((double)(6.28318548f * num19 / num18), default(Vector2)) * vector3 * (0.8f + Main.rand.NextFloat() * 0.4f);
-					Main.dust[num20].noGravity = true;
-					Main.dust[num20].scale = 2f;
-					Main.dust[num20].fadeIn = Main.rand.NextFloat() * 2f;
-					Dust dust2 = Dust.CloneDust(num20);
-					dust2.scale /= 2f;
-					dust2.fadeIn /= 2f;
-					dust2.color = new Color(255, 255, 255, 255);
-				}
-				for (float num21 = 0f; num21 < num18; num21 += 1f)
-				{
-					int num22 = Dust.NewDust(base.Center, 0, 0, 267, 0f, 0f, 0, newColor, 1f);
-					Main.dust[num22].position = base.Center;
-					Main.dust[num22].velocity = spinningpoint.RotatedBy((double)(6.28318548f * num21 / num18), default(Vector2)) * vector3 * (0.8f + Main.rand.NextFloat() * 0.4f);
-					Main.dust[num22].velocity *= Main.rand.NextFloat() * 0.8f;
-					Main.dust[num22].noGravity = true;
-					Main.dust[num22].scale = Main.rand.NextFloat() * 1f;
-					Main.dust[num22].fadeIn = Main.rand.NextFloat() * 2f;
-					Dust dust3 = Dust.CloneDust(num22);
-					dust3.scale /= 2f;
-					dust3.fadeIn /= 2f;
-					dust3.color = new Color(255, 255, 255, 255);
-				}
+				
 				if (Main.myPlayer == this.owner)
 				{
 					this.friendly = true;
@@ -35647,50 +35555,6 @@ namespace Terraria
 				this.penetrate = -1;
 				this.Damage();
 				Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 14);
-				for (int num24 = 0; num24 < 4; num24++)
-				{
-					int num25 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 100, default(Color), 1.5f);
-					Main.dust[num25].position = base.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * (float)this.width / 2f;
-				}
-				for (int num26 = 0; num26 < 30; num26++)
-				{
-					int num27 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 200, default(Color), 3.7f);
-					Main.dust[num27].position = base.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * (float)this.width / 2f;
-					Main.dust[num27].noGravity = true;
-					Main.dust[num27].velocity *= 3f;
-					Main.dust[num27].shader = GameShaders.Armor.GetSecondaryShader(Main.player[this.owner].ArmorSetDye(), Main.player[this.owner]);
-					num27 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 100, default(Color), 1.5f);
-					Main.dust[num27].position = base.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * (float)this.width / 2f;
-					Main.dust[num27].velocity *= 2f;
-					Main.dust[num27].noGravity = true;
-					Main.dust[num27].fadeIn = 2.5f;
-					Main.dust[num27].shader = GameShaders.Armor.GetSecondaryShader(Main.player[this.owner].ArmorSetDye(), Main.player[this.owner]);
-				}
-				for (int num28 = 0; num28 < 10; num28++)
-				{
-					int num29 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 6, 0f, 0f, 0, default(Color), 2.7f);
-					Main.dust[num29].position = base.Center + Vector2.UnitX.RotatedByRandom(3.1415927410125732).RotatedBy((double)this.velocity.ToRotation(), default(Vector2)) * (float)this.width / 2f;
-					Main.dust[num29].noGravity = true;
-					Main.dust[num29].velocity *= 3f;
-					Main.dust[num29].shader = GameShaders.Armor.GetSecondaryShader(Main.player[this.owner].ArmorSetDye(), Main.player[this.owner]);
-				}
-				for (int num30 = 0; num30 < 10; num30++)
-				{
-					int num31 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 31, 0f, 0f, 0, default(Color), 1.5f);
-					Main.dust[num31].position = base.Center + Vector2.UnitX.RotatedByRandom(3.1415927410125732).RotatedBy((double)this.velocity.ToRotation(), default(Vector2)) * (float)this.width / 2f;
-					Main.dust[num31].noGravity = true;
-					Main.dust[num31].velocity *= 3f;
-				}
-				for (int num32 = 0; num32 < 2; num32++)
-				{
-					int num33 = Gore.NewGore(this.position + new Vector2((float)(this.width * Main.rand.Next(100)) / 100f, (float)(this.height * Main.rand.Next(100)) / 100f) - Vector2.One * 10f, default(Vector2), Main.rand.Next(61, 64), 1f);
-					Main.gore[num33].position = base.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * (float)this.width / 2f;
-					Main.gore[num33].velocity *= 0.3f;
-					Gore expr_14F4_cp_0 = Main.gore[num33];
-					expr_14F4_cp_0.velocity.X = expr_14F4_cp_0.velocity.X + (float)Main.rand.Next(-10, 11) * 0.05f;
-					Gore expr_1522_cp_0 = Main.gore[num33];
-					expr_1522_cp_0.velocity.Y = expr_1522_cp_0.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.05f;
-				}
 			}
 			else if (this.type == 617)
 			{
@@ -35701,48 +35565,6 @@ namespace Terraria
 				this.penetrate = -1;
 				this.Damage();
 				Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 14);
-				for (int num34 = 0; num34 < 4; num34++)
-				{
-					int num35 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 240, 0f, 0f, 100, default(Color), 1.5f);
-					Main.dust[num35].position = base.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * (float)this.width / 2f;
-				}
-				for (int num36 = 0; num36 < 30; num36++)
-				{
-					int num37 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 62, 0f, 0f, 200, default(Color), 3.7f);
-					Main.dust[num37].position = base.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * (float)this.width / 2f;
-					Main.dust[num37].noGravity = true;
-					Main.dust[num37].velocity *= 3f;
-					num37 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 90, 0f, 0f, 100, default(Color), 1.5f);
-					Main.dust[num37].position = base.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * (float)this.width / 2f;
-					Main.dust[num37].velocity *= 2f;
-					Main.dust[num37].noGravity = true;
-					Main.dust[num37].fadeIn = 1f;
-					Main.dust[num37].color = Color.Crimson * 0.5f;
-				}
-				for (int num38 = 0; num38 < 10; num38++)
-				{
-					int num39 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 62, 0f, 0f, 0, default(Color), 2.7f);
-					Main.dust[num39].position = base.Center + Vector2.UnitX.RotatedByRandom(3.1415927410125732).RotatedBy((double)this.velocity.ToRotation(), default(Vector2)) * (float)this.width / 2f;
-					Main.dust[num39].noGravity = true;
-					Main.dust[num39].velocity *= 3f;
-				}
-				for (int num40 = 0; num40 < 10; num40++)
-				{
-					int num41 = Dust.NewDust(new Vector2(this.position.X, this.position.Y), this.width, this.height, 240, 0f, 0f, 0, default(Color), 1.5f);
-					Main.dust[num41].position = base.Center + Vector2.UnitX.RotatedByRandom(3.1415927410125732).RotatedBy((double)this.velocity.ToRotation(), default(Vector2)) * (float)this.width / 2f;
-					Main.dust[num41].noGravity = true;
-					Main.dust[num41].velocity *= 3f;
-				}
-				for (int num42 = 0; num42 < 2; num42++)
-				{
-					int num43 = Gore.NewGore(this.position + new Vector2((float)(this.width * Main.rand.Next(100)) / 100f, (float)(this.height * Main.rand.Next(100)) / 100f) - Vector2.One * 10f, default(Vector2), Main.rand.Next(61, 64), 1f);
-					Main.gore[num43].position = base.Center + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * (float)this.width / 2f;
-					Main.gore[num43].velocity *= 0.3f;
-					Gore expr_1B49_cp_0 = Main.gore[num43];
-					expr_1B49_cp_0.velocity.X = expr_1B49_cp_0.velocity.X + (float)Main.rand.Next(-10, 11) * 0.05f;
-					Gore expr_1B77_cp_0 = Main.gore[num43];
-					expr_1B77_cp_0.velocity.Y = expr_1B77_cp_0.velocity.Y + (float)Main.rand.Next(-10, 11) * 0.05f;
-				}
 				if (Main.myPlayer == this.owner)
 				{
 					for (int num44 = 0; num44 < 1000; num44++)
@@ -35995,7 +35817,7 @@ namespace Terraria
 			}
 			else if (this.type == 587)
 			{
-				Color newColor2 = Main.hslToRgb(this.ai[1], 1f, 0.5f);
+				Color newColor2 = Main.HslToRgb(this.ai[1], 1f, 0.5f);
 				newColor2.A = 200;
 				Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 				for (int num84 = 0; num84 < 10; num84++)
@@ -36058,7 +35880,7 @@ namespace Terraria
 					{
 						dust6.velocity = vector10 * (float)Main.rand.Next(45, 91) / 10f;
 					}
-					dust6.color = Main.hslToRgb((float)(0.40000000596046448 + Main.rand.NextDouble() * 0.20000000298023224), 0.9f, 0.5f);
+					dust6.color = Main.HslToRgb((float)(0.40000000596046448 + Main.rand.NextDouble() * 0.20000000298023224), 0.9f, 0.5f);
 					dust6.color = Color.Lerp(dust6.color, Color.White, 0.3f);
 					dust6.noGravity = true;
 					dust6.scale = 0.7f;
@@ -36137,7 +35959,7 @@ namespace Terraria
 					{
 						dust7.velocity = vector11 * (float)Main.rand.Next(45, 91) / 10f;
 					}
-					dust7.color = Main.hslToRgb((float)(0.40000000596046448 + Main.rand.NextDouble() * 0.20000000298023224), 0.9f, 0.5f);
+					dust7.color = Main.HslToRgb((float)(0.40000000596046448 + Main.rand.NextDouble() * 0.20000000298023224), 0.9f, 0.5f);
 					dust7.color = Color.Lerp(dust7.color, Color.White, 0.3f);
 					dust7.noGravity = true;
 					dust7.scale = 0.7f;
@@ -36847,7 +36669,7 @@ namespace Terraria
 					if (!(this.oldPos[num219] == Vector2.Zero))
 					{
 						int num220 = Dust.NewDust(this.oldPos[num219] + vector20, 0, 0, 66, 0f, 0f, 150, Color.Transparent, 0.7f);
-						Main.dust[num220].color = Main.hslToRgb(Main.rand.NextFloat(), 1f, 0.5f);
+						Main.dust[num220].color = Main.HslToRgb(Main.rand.NextFloat(), 1f, 0.5f);
 						Main.dust[num220].noGravity = true;
 					}
 				}

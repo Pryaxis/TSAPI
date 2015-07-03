@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -118,11 +118,11 @@ namespace Terraria.GameContent
 			{
 				float single = 0.08f;
 				float single1 = 0.5f;
-				white = Main.hslToRgb((single1 + (float)player * (single * 2f) + (float)portal * single) % 1f, 1f, 0.5f);
+				white = Main.HslToRgb((single1 + (float)player * (single * 2f) + (float)portal * single) % 1f, 1f, 0.5f);
 			}
 			else
 			{
-				white = (portal != 0 ? Main.hslToRgb(0.52f, 1f, 0.6f) : Main.hslToRgb(0.12f, 1f, 0.5f));
+				white = (portal != 0 ? Main.HslToRgb(0.52f, 1f, 0.6f) : Main.HslToRgb(0.12f, 1f, 0.5f));
 			}
 			white.A = 66;
 			return white;

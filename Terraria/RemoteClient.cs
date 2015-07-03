@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using Terraria.Net.Sockets;
 using TerrariaApi.Server;

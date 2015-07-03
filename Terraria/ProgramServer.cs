@@ -224,7 +224,6 @@ namespace Terraria
 				}
 				ProgramServer.Game.DedServ();
 				ServerApi.DeInitialize();
-
 			}
 			catch (Exception exception1)
 			{

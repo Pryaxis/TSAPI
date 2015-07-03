@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using XNA;
 using System;
 using Terraria;
 using Terraria.Graphics.Effects;
@@ -28,12 +27,11 @@ namespace Terraria.GameContent.Skies
 			this._isActive = false;
 		}
 
-		public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
+		public override void Draw(float minDepth, float maxDepth)
 		{
 			if (maxDepth >= 0f && minDepth < 0f)
 			{
 				float intensity = this.GetIntensity();
-				spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * intensity);
 			}
 		}
 

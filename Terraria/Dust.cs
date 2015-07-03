@@ -1,7 +1,6 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
 
 namespace Terraria
 {
@@ -34,8 +33,6 @@ namespace Terraria
 		public int alpha;
 
 		public Rectangle frame;
-
-		public ArmorShaderData shader;
 
 		public object customData;
 
@@ -73,7 +70,6 @@ namespace Terraria
 			dust.color = rf.color;
 			dust.alpha = rf.alpha;
 			dust.frame = rf.frame;
-			dust.shader = rf.shader;
 			dust.customData = rf.customData;
 			return dust;
 		}
@@ -476,7 +472,6 @@ namespace Terraria
 					type.velocity.Y = (float)Main.rand.Next(-20, 21) * 0.1f + SpeedY;
 					type.frame.X = 10 * Type;
 					type.frame.Y = 10 * Main.rand.Next(3);
-					type.shader = null;
 					type.customData = null;
 					int type1 = Type;
 					while (type1 >= 100)
@@ -615,7 +610,6 @@ namespace Terraria
 							transparent.color = Color.Transparent;
 							transparent.frame.X = 10 * transparent.type;
 							transparent.frame.Y = 10 * Main.rand.Next(3);
-							transparent.shader = null;
 							transparent.customData = null;
 							int num1 = transparent.type / 100;
 							transparent.frame.X = transparent.frame.X - 1000 * num1;

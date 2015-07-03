@@ -1,10 +1,9 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using Terraria.DataStructures;
-using Terraria.Graphics;
 using Terraria.Map;
 
 namespace Terraria
@@ -224,16 +223,6 @@ namespace Terraria
 
 		public static void GetColor4Slice(int centerX, int centerY, ref Color[] slices)
 		{
-		}
-
-		public static void GetColor4Slice_New(int centerX, int centerY, out vertexColors vertices, float scale = 1f)
-		{
-			vertices = new vertexColors();
-		}
-
-		public static void GetColor4Slice_New(int centerX, int centerY, out vertexColors vertices, Color centerColor, float scale = 1f)
-		{
-			vertices = new vertexColors();
 		}
 
 		public static void GetColor9Slice(int centerX, int centerY, ref Color[] slices)

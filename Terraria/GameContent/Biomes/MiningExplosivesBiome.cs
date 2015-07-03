@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using Terraria;
 using Terraria.GameContent.Generation;
@@ -28,7 +28,7 @@ namespace Terraria.GameContent.Biomes
 			WorldUtils.Gen(origin, new ShapeRunner(10f, 20, new Vector2((float)num, 1f)).Output(shapeData), Actions.Chain((GenAction)new Modifiers.Blotches(2, 0.3), (GenAction)new Actions.Scanner(count1), (GenAction)new Modifiers.IsSolid(), (GenAction)new Actions.Scanner(count2)));
 			if (count2.Value < count1.Value / 2)
 				return false;
-			Microsoft.Xna.Framework.Rectangle area = new Microsoft.Xna.Framework.Rectangle(origin.X - 15, origin.Y - 10, 30, 20);
+			Rectangle area = new Rectangle(origin.X - 15, origin.Y - 10, 30, 20);
 			if (!structures.CanPlace(area, 0))
 				return false;
 			WorldUtils.Gen(origin, (GenShape)new ModShapes.All(shapeData), (GenAction)new Actions.SetTile(type, true, true));

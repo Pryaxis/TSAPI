@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
@@ -149,14 +149,8 @@ namespace Terraria.DataStructures
 			this.useDestinationRectangle = false;
 		}
 
-		public void Draw(SpriteBatch sb)
+		public void Draw()
 		{
-			if (this.useDestinationRectangle)
-			{
-				sb.Draw(this.texture, this.destinationRectangle, this.sourceRect, this.color, this.rotation, this.origin, this.effect, 0f);
-				return;
-			}
-			sb.Draw(this.texture, this.position, this.sourceRect, this.color, this.rotation, this.origin, this.scale, this.effect, 0f);
 		}
 	}
 }

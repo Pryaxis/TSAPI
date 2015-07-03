@@ -1,11 +1,9 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using XNA;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Terraria;
-using Terraria.UI.Chat;
 
 namespace Terraria.GameContent.Events
 {
@@ -25,26 +23,8 @@ namespace Terraria.GameContent.Events
 		{
 		}
 
-		public static void Draw(SpriteBatch sb)
+		public static void Draw()
 		{
-			if (Main.netDiag || Main.showFrameRate)
-			{
-				return;
-			}
-			for (int i = 0; i < BlameNPCTest.mostSeen.Count; i++)
-			{
-				int num = 200 + i % 13 * 100;
-				int num1 = 200 + i / 13 * 30;
-				SpriteFont spriteFont = Main.fontItemStack;
-				object[] key = new object[4];
-				KeyValuePair<int, int> item = BlameNPCTest.mostSeen[i];
-				key[0] = item.Key;
-				key[1] = " (";
-				KeyValuePair<int, int> keyValuePair = BlameNPCTest.mostSeen[i];
-				key[2] = keyValuePair.Value;
-				key[3] = ")";
-				ChatManager.DrawColorCodedString(sb, spriteFont, string.Concat(key), new Vector2((float)num, (float)num1), Color.White, 0f, Vector2.Zero, Vector2.One, -1f, false);
-			}
 		}
 
 		public static void Update(int newEntry)

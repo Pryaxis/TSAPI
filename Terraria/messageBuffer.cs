@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+using XNA;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,8 +6,6 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Tile_Entities;
-using Terraria.GameContent.UI;
-using Terraria.GameContent.UI.Chat;
 using Terraria.ID;
 using Terraria.IO;
 using Terraria.Net;
@@ -1350,17 +1348,6 @@ namespace Terraria
 						color = new Color(255, 255, 255);
 					}
 					string str = this.reader.ReadString();
-					if (Main.netMode == 1)
-					{
-						string str1 = str;
-						if (num57 < 255)
-						{
-							str1 = string.Concat(NameTagHandler.GenerateTag(Main.player[num57].name), " ", str);
-							Main.player[num57].chatOverhead.NewMessage(str, Main.chatLength / 2);
-						}
-						Main.NewText(str1, color.R, color.G, color.B, false);
-						return;
-					}
 					if (Main.netMode != 2)
 					{
 						return;
@@ -2981,7 +2968,7 @@ namespace Terraria
 						{
 							num221 = this.reader.ReadInt16();
 						}
-						WorldUIAnchor worldUIAnchor = EmoteBubble.DeserializeNetAnchor(num217, num218);
+						/*WorldUIAnchor worldUIAnchor = EmoteBubble.DeserializeNetAnchor(num217, num218);
 						lock (EmoteBubble.byID)
 						{
 							if (EmoteBubble.byID.ContainsKey(emoteBubble))
@@ -2998,9 +2985,9 @@ namespace Terraria
 							EmoteBubble.byID[emoteBubble].ID = emoteBubble;
 							EmoteBubble.byID[emoteBubble].metadata = num221;
 							return;
-						}
+						}*/
 					}
-					else
+					/*else
 					{
 						if (!EmoteBubble.byID.ContainsKey(emoteBubble))
 						{
@@ -3008,7 +2995,8 @@ namespace Terraria
 						}
 						EmoteBubble.byID.Remove(emoteBubble);
 						return;
-					}
+					}*/
+					return;
 				}
 				case 92:
 				{

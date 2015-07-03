@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using XNA;
 using System;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -629,79 +628,8 @@ namespace Terraria
 			return single1 == 1f;
 		}
 
-		public static void DrawPreview(SpriteBatch sb, TileObjectPreviewData op, Vector2 position)
+		public static void DrawPreview(TileObjectPreviewData op, Vector2 position)
 		{
-			Color white = Color.White;
-			Point16 coordinates = op.Coordinates;
-			Texture2D texture2D = Main.tileTexture[op.Type];
-			TileObjectData tileData = TileObjectData.GetTileData((int)op.Type, op.Style, op.Alternate);
-			int coordinateFullWidth = 0;
-			int coordinateFullHeight = 0;
-			int styleWrapLimit = tileData.CalculatePlacementStyle(op.Style, op.Alternate, op.Random);
-			int num = 0;
-			int drawYOffset = tileData.DrawYOffset;
-			if (tileData.StyleWrapLimit > 0)
-			{
-				num = styleWrapLimit / tileData.StyleWrapLimit;
-				styleWrapLimit = styleWrapLimit % tileData.StyleWrapLimit;
-			}
-			if (!tileData.StyleHorizontal)
-			{
-				coordinateFullWidth = tileData.CoordinateFullWidth * num;
-				coordinateFullHeight = tileData.CoordinateFullHeight * styleWrapLimit;
-			}
-			else
-			{
-				coordinateFullWidth = tileData.CoordinateFullWidth * styleWrapLimit;
-				coordinateFullHeight = tileData.CoordinateFullHeight * num;
-			}
-			for (int i = 0; i < op.Size.X; i++)
-			{
-				int x = coordinateFullWidth + (i - op.ObjectStart.X) * (tileData.CoordinateWidth + tileData.CoordinatePadding);
-				int coordinateHeights = coordinateFullHeight;
-				for (int j = 0; j < op.Size.Y; j++)
-				{
-					int x1 = coordinates.X + i;
-					int y = coordinates.Y + j;
-					if (j == 0 && tileData.DrawStepDown != 0 && WorldGen.SolidTile(Framing.GetTileSafely(x1, y - 1)))
-					{
-						drawYOffset = drawYOffset + tileData.DrawStepDown;
-					}
-					switch (op[i, j])
-					{
-						case 1:
-						{
-							white = Color.White;
-							break;
-						}
-						case 2:
-						{
-							white = Color.Red * 0.7f;
-							break;
-						}
-						default:
-						{
-							break;
-						}
-					}
-					white *= 0.5f;
-					if (i >= op.ObjectStart.X && i < op.ObjectStart.X + tileData.Width && j >= op.ObjectStart.Y && j < op.ObjectStart.Y + tileData.Height)
-					{
-						SpriteEffects spriteEffect = SpriteEffects.None;
-						if (tileData.DrawFlipHorizontal && i % 2 == 1)
-						{
-							spriteEffect = spriteEffect | SpriteEffects.FlipHorizontally;
-						}
-						if (tileData.DrawFlipVertical && j % 2 == 1)
-						{
-							spriteEffect = spriteEffect | SpriteEffects.FlipVertically;
-						}
-						Rectangle rectangle = new Rectangle(x, coordinateHeights, tileData.CoordinateWidth, tileData.CoordinateHeights[j - op.ObjectStart.Y]);
-						sb.Draw(texture2D, new Vector2((float)(x1 * 16 - (int)(position.X + (float)(tileData.CoordinateWidth - 16) / 2f)), (float)(y * 16 - (int)position.Y + drawYOffset)), new Rectangle?(rectangle), white, 0f, Vector2.Zero, 1f, spriteEffect, 0f);
-						coordinateHeights = coordinateHeights + tileData.CoordinateHeights[j - op.ObjectStart.Y] + tileData.CoordinatePadding;
-					}
-				}
-			}
 		}
 
 		public static bool Place(TileObject toBePlaced)

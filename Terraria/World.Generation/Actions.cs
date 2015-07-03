@@ -1,5 +1,4 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using XNA;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -145,17 +144,13 @@ namespace Terraria.World.Generation
 		{
 			private Color _color;
 
-			private SpriteBatch _spriteBatch;
-
-			public DebugDraw(SpriteBatch spriteBatch, Color color = new Color())
+			public DebugDraw(Color color = new Color())
 			{
-				this._spriteBatch = spriteBatch;
 				this._color = color;
 			}
 
 			public override bool Apply(Point origin, int x, int y, params object[] args)
 			{
-				this._spriteBatch.Draw(Main.magicPixel, new Rectangle((x << 4) - (int)Main.screenPosition.X, (y << 4) - (int)Main.screenPosition.Y, 16, 16), this._color);
 				return base.UnitApply(origin, x, y, args);
 			}
 		}
