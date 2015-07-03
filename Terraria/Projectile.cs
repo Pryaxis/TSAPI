@@ -5,6 +5,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.Achievements;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
+using TerrariaApi.Server;
 namespace Terraria
 {
 	public class Projectile : Entity
@@ -6927,6 +6928,7 @@ namespace Terraria
 			this.width = (int)((float)this.width * this.scale);
 			this.height = (int)((float)this.height * this.scale);
 			this.maxPenetrate = this.penetrate;
+			ServerApi.Hooks.InvokeProjectileSetDefaults(ref Type, this);
 		}
 		public static int GetNextSlot()
 		{
@@ -11912,6 +11914,10 @@ namespace Terraria
 		}
 		public void AI()
 		{
+			if (ServerApi.Hooks.InvokeProjectileAIUpdate(this))
+			{
+				return;
+			}
 			if (this.aiStyle == 1)
 			{
 				this.AI_001();
