@@ -20,6 +20,8 @@ namespace Terraria.Net.Sockets
 
 		private bool _isListening;
 
+		private volatile bool _connectionDisposed;
+
 		public TcpSocket()
 		{
 			this._connection = new TcpClient()
@@ -60,6 +62,11 @@ namespace Terraria.Net.Sockets
 
 		private void ReadCallback(IAsyncResult result)
 		{
+			if (this._connectionDisposed == true)
+			{
+				return;
+			}
+
 			if (this._connection.Client.SocketConnected())
 			{
 				Tuple<SocketReceiveCallback, object> asyncState = (Tuple<SocketReceiveCallback, object>)result.AsyncState;
@@ -70,6 +77,12 @@ namespace Terraria.Net.Sockets
 		private void SendCallback(IAsyncResult result)
 		{
 			Tuple<SocketSendCallback, object> asyncState = (Tuple<SocketSendCallback, object>)result.AsyncState;
+
+			if (this._connectionDisposed == true)
+			{
+				return;
+			}
+
 			if (this._connection.Client.SocketConnected())
 			{
 				this._connection.GetStream().EndWrite(result);
@@ -77,6 +90,7 @@ namespace Terraria.Net.Sockets
 			}
 			else
 			{
+				this._connectionDisposed = true;
 				((ISocket)this).Close();
 			}
 		}
@@ -95,6 +109,7 @@ namespace Terraria.Net.Sockets
 		{
 			this._remoteAddress = null;
 			this._connection.Close();
+			this._connectionDisposed = true;
 		}
 
 		void Terraria.Net.Sockets.ISocket.Connect(RemoteAddress address)
@@ -102,6 +117,7 @@ namespace Terraria.Net.Sockets
 			TcpAddress tcpAddress = (TcpAddress)address;
 			this._connection.Connect(tcpAddress.Address, tcpAddress.Port);
 			this._remoteAddress = address;
+			this._connectionDisposed = false;
 		}
 
 		RemoteAddress Terraria.Net.Sockets.ISocket.GetRemoteAddress()
