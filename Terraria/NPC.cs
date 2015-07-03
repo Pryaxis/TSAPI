@@ -71297,6 +71297,13 @@ namespace Terraria
 					}
 					int x = (int)(Main.player[j].position.X + (float)(Main.player[j].width / 2)) / 16;
 					int y = (int)(Main.player[j].position.Y + (float)(Main.player[j].height / 2)) / 16;
+
+					if ((x < 0 || x > Main.maxTilesX) || (y < 0 || y > Main.maxTilesY))
+					{
+						x = Main.spawnTileX;
+						y = Main.spawnTileY;
+					}
+
 					if (Main.wallHouse[Main.tile[x, y].wall])
 					{
 						flag3 = true;
