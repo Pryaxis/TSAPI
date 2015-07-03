@@ -7,6 +7,7 @@ using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.IO;
 using Terraria.Net.Sockets;
+using Terraria.ID;
 namespace Terraria
 {
 	public class NetMessage
@@ -40,20 +41,20 @@ namespace Terraria
 
 				switch (msgType)
 				{
-					case 1:
+					case MessageID.ConnectRequest:
 						writer.Write("Terraria" + Main.curRelease);
 						break;
-					case 2:
+					case MessageID.Disconnect:
 						writer.Write(text);
 						if (Main.dedServ)
 						{
 							Console.WriteLine(Netplay.Clients[num].Socket.GetRemoteAddress().ToString() + " was booted: " + text);
 						}
 						break;
-					case 3:
+					case MessageID.ContinueConnecting:
 						writer.Write((byte)remoteClient);
 						break;
-					case 4:
+					case MessageID.PlayerInfo:
 						{
 							Player player = Main.player[number];
 							writer.Write((byte)number);
@@ -77,8 +78,6 @@ namespace Terraria
 							writer.WriteRGB(player.underShirtColor);
 							writer.WriteRGB(player.pantsColor);
 							writer.WriteRGB(player.shoeColor);
-							
-							//1.2: writer.Write(player.difficulty);
 							BitsByte bb2 = 0;
 							if (player.difficulty == 1)
 							{
@@ -92,7 +91,7 @@ namespace Terraria
 							writer.Write(bb2);
 							break;
 						}
-					case 5:
+					case MessageID.PlayerInventorySlot:
 						{
 							writer.Write((byte)number);
 							writer.Write((byte)number2);
@@ -145,7 +144,7 @@ namespace Terraria
 							writer.Write((short)netID);
 							break;
 						}
-					case 7:
+					case MessageID.WorldInfo:
 						{
 							writer.Write((int)Main.time);
 							BitsByte bb3 = 0;
@@ -238,32 +237,32 @@ namespace Terraria
 							writer.Write((sbyte)Main.invasionType);
 							break;
 						}
-					case 8:
+					case MessageID.GetSection:
 						writer.Write(number);
 						writer.Write((int)number2);
 						break;
-					case 9:
+					case MessageID.Status:
 						writer.Write(number);
 						writer.Write(text);
 						break;
-					case 10:
+					case MessageID.SendTileSection:
 						{
 							int num3 = NetMessage.CompressTileBlock(number, (int)number2, (short)number3, (short)number4, NetMessage.buffer[num].writeBuffer, (int)writer.BaseStream.Position);
 							writer.BaseStream.Position += (long)num3;
 							break;
 						}
-					case 11:
+					case MessageID.SendSectionTileFrame:
 						writer.Write((short)number);
 						writer.Write((short)number2);
 						writer.Write((short)number3);
 						writer.Write((short)number4);
 						break;
-					case 12:
+					case MessageID.SpawnPlayer:
 						writer.Write((byte)number);
 						writer.Write((short)Main.player[number].SpawnX);
 						writer.Write((short)Main.player[number].SpawnY);
 						break;
-					case 13:
+					case MessageID.UpdatePlayer:
 						{
 							Player player3 = Main.player[number];
 							writer.Write((byte)number);
@@ -291,16 +290,16 @@ namespace Terraria
 							}
 							break;
 						}
-					case 14:
+					case MessageID.PlayerActive:
 						writer.Write((byte)number);
 						writer.Write((byte)number2);
 						break;
-					case 16:
+					case MessageID.Deprecated:
 						writer.Write((byte)number);
 						writer.Write((short)Main.player[number].statLife);
 						writer.Write((short)Main.player[number].statLifeMax);
 						break;
-					case 17:
+					case MessageID.PlayerHP:
 						if (Main.netMode == 1)
 						{
 							AchievementsHelper.NotifyTileDestroyed(Main.player[Main.myPlayer], (ushort)number4);
@@ -311,19 +310,19 @@ namespace Terraria
 						writer.Write((short)number4);
 						writer.Write((byte)number5);
 						break;
-					case 18:
+					case MessageID.Time:
 						writer.Write(Main.dayTime ? 1 : 0);
 						writer.Write((int)Main.time);
 						writer.Write(Main.sunModY);
 						writer.Write(Main.moonModY);
 						break;
-					case 19:
+					case MessageID.DoorToggle:
 						writer.Write((byte)number);
 						writer.Write((short)number2);
 						writer.Write((short)number3);
 						writer.Write((number4 == 1f) ? 1 : 0);
 						break;
-					case 20:
+					case MessageID.SendTileSquare:
 						{
 							int num4 = (int)number2;
 							int num5 = (int)number3;
@@ -407,8 +406,8 @@ namespace Terraria
 							}
 							break;
 						}
-					case 21:
-					case 90:
+					case MessageID.UpdateItemDrop:
+					case MessageID.InstancedItem:
 						{
 							Item item2 = Main.item[number];
 							writer.Write((short)number);
@@ -425,11 +424,11 @@ namespace Terraria
 							writer.Write(value);
 							break;
 						}
-					case 22:
+					case MessageID.UpdateItemOwner:
 						writer.Write((short)number);
 						writer.Write((byte)Main.item[number].owner);
 						break;
-					case 23:
+					case MessageID.NpcUpdate:
 						{
 							if (number > Main.npc.Length || number < 0)
 							{
@@ -503,18 +502,18 @@ namespace Terraria
 							}
 							break;
 						}
-					case 24:
-						writer.Write((short)number);
-						writer.Write((byte)number2);
+					case MessageID.StrikeNpcHeldItem:
+						writer.Write((short)number); //NPC id
+						writer.Write((byte)number2); //Player id
 						break;
-					case 25:
-						writer.Write((byte)number);
-						writer.Write((byte)number2);
-						writer.Write((byte)number3);
-						writer.Write((byte)number4);
-						writer.Write(text);
+					case MessageID.ChatMessage: 
+						writer.Write((byte)number); //player id
+						writer.Write((byte)number2); //R
+						writer.Write((byte)number3); //G
+						writer.Write((byte)number4); //B
+						writer.Write(text); //Text
 						break;
-					case 26:
+					case MessageID.PlayerDamage:
 						{
 							writer.Write((byte)number); //player id
 							writer.Write((byte)(number2 + 1f)); //hit direction
@@ -526,7 +525,7 @@ namespace Terraria
 							writer.Write(bb13);
 							break;
 						}
-					case 27:
+					case MessageID.ProjectileUpdate:
 						{
 							Projectile projectile = Main.projectile[number];
 							writer.Write((short)projectile.identity);
@@ -554,26 +553,26 @@ namespace Terraria
 							}
 							break;
 						}
-					case 28:
+					case MessageID.StrikeNpc:
 						writer.Write((short)number);
 						writer.Write((short)number2);
 						writer.Write(number3);
 						writer.Write((byte)(number4 + 1f));
 						writer.Write((byte)number5);
 						break;
-					case 29:
+					case MessageID.DestroyProjectile:
 						writer.Write((short)number);
 						writer.Write((byte)number2);
 						break;
-					case 30:
+					case MessageID.TogglePvP:
 						writer.Write((byte)number);
 						writer.Write(Main.player[number].hostile);
 						break;
-					case 31:
+					case MessageID.GetChestContents:
 						writer.Write((short)number);
 						writer.Write((short)number2);
 						break;
-					case 32:
+					case MessageID.ChestItem:
 						{
 							Item item3 = Main.chest[number].item[(int)((byte)number2)];
 							writer.Write((short)number);
@@ -588,7 +587,7 @@ namespace Terraria
 							writer.Write(value3);
 							break;
 						}
-					case 33:
+					case MessageID.OpenChest:
 						{
 							int num12 = 0;
 							int num13 = 0;
@@ -621,7 +620,7 @@ namespace Terraria
 							}
 							break;
 						}
-					case 34:
+					case MessageID.PlaceOrKillChest:
 						writer.Write((byte)number);
 						writer.Write((short)number2);
 						writer.Write((short)number3);
@@ -633,12 +632,12 @@ namespace Terraria
 							writer.Write((short)number5);
 						}
 						break;
-					case 35:
-					case 66:
+					case MessageID.HealEffect:
+					case MessageID.HealPlayer:
 						writer.Write((byte)number);
 						writer.Write((short)number2);
 						break;
-					case 36:
+					case MessageID.PlayerZone:
 						{
 							Player player4 = Main.player[number];
 							writer.Write((byte)number);
@@ -646,53 +645,53 @@ namespace Terraria
 							writer.Write(player4.zone2);
 							break;
 						}
-					case 38:
+					case MessageID.SendPassword:
 						writer.Write(text);
 						break;
-					case 39:
+					case MessageID.RemoveItemOwner:
 						writer.Write((short)number);
 						break;
-					case 40:
+					case MessageID.SetActiveNpc:
 						writer.Write((byte)number);
 						writer.Write((short)Main.player[number].talkNPC);
 						break;
-					case 41:
+					case MessageID.PlayerItemAnimation:
 						writer.Write((byte)number);
 						writer.Write(Main.player[number].itemRotation);
 						writer.Write((short)Main.player[number].itemAnimation);
 						break;
-					case 42:
+					case MessageID.PlayerMana:
 						writer.Write((byte)number);
 						writer.Write((short)Main.player[number].statMana);
 						writer.Write((short)Main.player[number].statManaMax);
 						break;
-					case 43:
+					case MessageID.ManaEffect:
 						writer.Write((byte)number);
 						writer.Write((short)number2);
 						break;
-					case 44:
+					case MessageID.KillMe:
 						writer.Write((byte)number);
 						writer.Write((byte)(number2 + 1f));
 						writer.Write((short)number3);
 						writer.Write((byte)number4);
 						writer.Write(text);
 						break;
-					case 45:
+					case MessageID.PlayerTeam:
 						writer.Write((byte)number);
 						writer.Write((byte)Main.player[number].team);
 						break;
-					case 46:
+					case MessageID.RequestSign:
 						writer.Write((short)number);
 						writer.Write((short)number2);
 						break;
-					case 47:
+					case MessageID.UpdateOrDisplaySign:
 						writer.Write((short)number);
 						writer.Write((short)Main.sign[number].x);
 						writer.Write((short)Main.sign[number].y);
 						writer.Write(Main.sign[number].text);
 						writer.Write((byte)number2);
 						break;
-					case 48:
+					case MessageID.SetLiquid:
 						{
 							Tile tile2 = Main.tile[number, (int)number2];
 							writer.Write((short)number);
@@ -701,28 +700,28 @@ namespace Terraria
 							writer.Write(tile2.liquidType());
 							break;
 						}
-					case 50:
+					case MessageID.UpdatePlayerBuff:
 						writer.Write((byte)number);
 						for (int num15 = 0; num15 < 22; num15++)
 						{
 							writer.Write((byte)Main.player[number].buffType[num15]);
 						}
 						break;
-					case 51:
+					case MessageID.SpecialNpcEffect:
 						writer.Write((byte)number);
 						writer.Write((byte)number2);
 						break;
-					case 52:
+					case MessageID.Unlock:
 						writer.Write((byte)number2);
 						writer.Write((short)number3);
 						writer.Write((short)number4);
 						break;
-					case 53:
+					case MessageID.AddNpcBuff:
 						writer.Write((short)number);
 						writer.Write((byte)number2);
 						writer.Write((short)number3);
 						break;
-					case 54:
+					case MessageID.UpdateNpcBuff:
 						writer.Write((short)number);
 						for (int num16 = 0; num16 < 5; num16++)
 						{
@@ -730,12 +729,12 @@ namespace Terraria
 							writer.Write((short)Main.npc[number].buffTime[num16]);
 						}
 						break;
-					case 55:
+					case MessageID.AddPlayerBuff:
 						writer.Write((byte)number);
 						writer.Write((byte)number2);
 						writer.Write((short)number3);
 						break;
-					case 56:
+					case MessageID.UpdateNpcName:
 						{
 							string value4 = "";
 							if (Main.netMode == 2)
@@ -750,40 +749,40 @@ namespace Terraria
 							writer.Write(value4);
 							break;
 						}
-					case 57:
+					case MessageID.UpdateGoodOrEvil:
 						writer.Write(WorldGen.tGood);
 						writer.Write(WorldGen.tEvil);
 						writer.Write(WorldGen.tBlood);
 						break;
-					case 58:
+					case MessageID.PlayMusicItem:
 						writer.Write((byte)number);
 						writer.Write(number2);
 						break;
-					case 59:
+					case MessageID.HitSwitch:
 						writer.Write((short)number);
 						writer.Write((short)number2);
 						break;
-					case 60:
+					case MessageID.NpcHomeUpdate:
 						writer.Write((short)number);
 						writer.Write((short)number2);
 						writer.Write((short)number3);
 						writer.Write((byte)number4);
 						break;
-					case 61:
+					case MessageID.SpawnBossOrInvasion:
 						writer.Write(number);
 						writer.Write((int)number2);
 						break;
-					case 62:
+					case MessageID.PlayerDodge:
 						writer.Write((byte)number);
 						writer.Write((byte)number2);
 						break;
-					case 63:
-					case 64:
+					case MessageID.PaintTile:
+					case MessageID.PaintWall:
 						writer.Write((short)number);
 						writer.Write((short)number2);
 						writer.Write((byte)number3);
 						break;
-					case 65:
+					case MessageID.PlayerOrNpcTeleport:
 						{
 							BitsByte bb15 = 0;
 							bb15[0] = ((number & 1) == 1);
@@ -796,10 +795,10 @@ namespace Terraria
 							writer.Write(number4);
 							break;
 						}
-					case 68:
+					case MessageID.ClientUUID:
 						writer.Write(Main.clientUUID);
 						break;
-					case 69:
+					case MessageID.GetChestName:
 						Netplay.GetSectionX((int)number2);
 						Netplay.GetSectionY((int)number3);
 						writer.Write((short)number);
@@ -807,34 +806,34 @@ namespace Terraria
 						writer.Write((short)number3);
 						writer.Write(text);
 						break;
-					case 70:
+					case MessageID.CatchNpc:
 						writer.Write((short)number);
 						writer.Write((byte)number2);
 						break;
-					case 71:
+					case MessageID.ReleaseNpc:
 						writer.Write(number);
 						writer.Write((int)number2);
 						writer.Write((short)number3);
 						writer.Write((byte)number4);
 						break;
-					case 72:
+					case MessageID.TravellingMerchantInventory:
 						for (int num17 = 0; num17 < 40; num17++)
 						{
 							writer.Write((short)Main.travelShop[num17]);
 						}
 						break;
-					case 74:
+					case MessageID.AnglerQuest:
 						{
 							writer.Write((byte)Main.anglerQuest);
 							bool value5 = Main.anglerWhoFinishedToday.Contains(text);
 							writer.Write(value5);
 							break;
 						}
-					case 76:
+					case MessageID.AnglerQuestCountSync:
 						writer.Write((byte)number);
 						writer.Write(Main.player[number].anglerQuestsFinished);
 						break;
-					case 77:
+					case MessageID.TemporaryAnimation:
 						if (Main.netMode != 2)
 						{
 							return;
@@ -844,13 +843,13 @@ namespace Terraria
 						writer.Write((short)number3);
 						writer.Write((short)number4);
 						break;
-					case 78:
+					case MessageID.InvasionProgressReport:
 						writer.Write((short)number);
 						writer.Write((short)number2);
 						writer.Write((sbyte)number3);
 						writer.Write((sbyte)number4);
 						break;
-					case 79:
+					case MessageID.PlaceObject:
 						writer.Write((short)number);
 						writer.Write((short)number2);
 						writer.Write((short)number3);
@@ -859,11 +858,11 @@ namespace Terraria
 						writer.Write((sbyte)number6);
 						writer.Write(number7 == 1);
 						break;
-					case 80:
+					case MessageID.SyncPlayerChestIndex:
 						writer.Write((byte)number);
 						writer.Write((short)number2);
 						break;
-					case 81:
+					case MessageID.CreateCombatText:
 						{
 							writer.Write(number2);
 							writer.Write(number3);
@@ -873,7 +872,7 @@ namespace Terraria
 							writer.Write(text);
 							break;
 						}
-					case 83:
+					case MessageID.SetNpcKillCount:
 						{
 							int num18 = number;
 							if (num18 < 0 && num18 >= 251)
@@ -885,7 +884,7 @@ namespace Terraria
 							writer.Write(value6);
 							break;
 						}
-					case 84:
+					case MessageID.SetPlayerStealth:
 						{
 							byte b3 = (byte)number;
 							float stealth = Main.player[(int)b3].stealth;
@@ -893,13 +892,13 @@ namespace Terraria
 							writer.Write(stealth);
 							break;
 						}
-					case 85:
+					case MessageID.QuickStackChests:
 						{
 							byte value7 = (byte)number;
 							writer.Write(value7);
 							break;
 						}
-					case 86:
+					case MessageID.UpdateTileEntity:
 						{
 							writer.Write(number);
 							bool flag2 = TileEntity.ByID.ContainsKey(number);
@@ -910,12 +909,12 @@ namespace Terraria
 							}
 							break;
 						}
-					case 87:
+					case MessageID.PlaceTileEntity:
 						writer.Write((short)number);
 						writer.Write((short)number2);
 						writer.Write((byte)number3);
 						break;
-					case 88:
+					case MessageID.ItemTweaker:
 						{
 							BitsByte bb16 = (byte)number2;
 							writer.Write((short)number);
@@ -927,7 +926,7 @@ namespace Terraria
 							}
 							break;
 						}
-					case 89:
+					case MessageID.ItemFrameTryPlacing:
 						{
 							writer.Write((short)number);
 							writer.Write((short)number2);
@@ -937,7 +936,7 @@ namespace Terraria
 							writer.Write(item5.stack);
 							break;
 						}
-					case 91:
+					case MessageID.SyncEmoteBubble:
 						writer.Write(number);
 						writer.Write((byte)number2);
 						if (number2 != 255f)
@@ -951,16 +950,16 @@ namespace Terraria
 							}
 						}
 						break;
-					case 92:
+					case MessageID.SyncExtraValue:
 						writer.Write((short)number);
 						writer.Write(number2);
 						writer.Write(number3);
 						writer.Write(number4);
 						break;
-					case 95:
+					case MessageID.KillPortal:
 						writer.Write((ushort)number);
 						break;
-					case 96:
+					case MessageID.TeleportPlayerThroughPortal:
 						{
 							writer.Write((byte)number);
 							Player player5 = Main.player[number];
@@ -970,14 +969,14 @@ namespace Terraria
 							writer.WriteVector2(player5.velocity);
 							break;
 						}
-					case 97:
+					case MessageID.NotifyPlayerNpcKilled:
 						writer.Write((short)number);
 						break;
-					case 99:
+					case MessageID.UpdateMinionTarget:
 						writer.Write((byte)number);
 						writer.WriteVector2(Main.player[number].MinionTargetPoint);
 						break;
-					case 100:
+					case MessageID.TeleportNPCThroughPortal:
 						{
 							writer.Write((ushort)number);
 							NPC nPC2 = Main.npc[number];
@@ -987,22 +986,22 @@ namespace Terraria
 							writer.WriteVector2(nPC2.velocity);
 							break;
 						}
-					case 101:
+					case MessageID.UpdateTowerShieldStrengths:
 						writer.Write((ushort)NPC.ShieldStrengthTowerSolar);
 						writer.Write((ushort)NPC.ShieldStrengthTowerVortex);
 						writer.Write((ushort)NPC.ShieldStrengthTowerNebula);
 						writer.Write((ushort)NPC.ShieldStrengthTowerStardust);
 						break;
-					case 102:
+					case MessageID.NebulaLevelupRequest:
 						writer.Write((byte)number);
 						writer.Write((byte)number2);
 						writer.Write(number3);
 						writer.Write(number4);
 						break;
-					case 103:
+					case MessageID.UpdateMoonLordCountdown:
 						writer.Write(NPC.MoonLordCountdown);
 						break;
-					case 104:
+					case MessageID.SetNpcShopItem:
 						writer.Write((byte)number);
 						writer.Write((short)number2);
 						writer.Write(((short)number3 < 0) ? 0f : number3);
@@ -1036,7 +1035,7 @@ namespace Terraria
 				}
 				if (remoteClient == -1)
 				{
-					if (msgType == 34 || msgType == 69)
+					if (msgType == MessageID.PlaceOrKillChest || msgType == MessageID.GetChestName)
 					{
 						for (int num20 = 0; num20 < 256; num20++)
 						{
@@ -1060,7 +1059,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (msgType == 20)
+					else if (msgType == MessageID.SendTileSquare)
 					{
 						for (int num21 = 0; num21 < 256; num21++)
 						{
@@ -1084,7 +1083,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (msgType == 23)
+					else if (msgType == MessageID.NpcUpdate)
 					{
 						NPC nPC3 = Main.npc[number];
 						for (int num22 = 0; num22 < 256; num22++)
@@ -1139,7 +1138,7 @@ namespace Terraria
 							nPC3.netSkip = 0;
 						}
 					}
-					else if (msgType == 28)
+					else if (msgType == MessageID.StrikeNpc)
 					{
 						NPC nPC4 = Main.npc[number];
 						for (int num23 = 0; num23 < 256; num23++)
@@ -1185,7 +1184,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (msgType == 13)
+					else if (msgType == MessageID.UpdatePlayer)
 					{
 						for (int num24 = 0; num24 < 256; num24++)
 						{
@@ -1214,7 +1213,7 @@ namespace Terraria
 							Main.player[number].netSkip = 0;
 						}
 					}
-					else if (msgType == 27)
+					else if (msgType == MessageID.ProjectileUpdate)
 					{
 						Projectile projectile2 = Main.projectile[number];
 						for (int num25 = 0; num25 < 256; num25++)
