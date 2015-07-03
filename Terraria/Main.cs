@@ -34390,16 +34390,16 @@ namespace Terraria
 			while (!Netplay.disconnect)
 			{
 				Console.Write(": ");
-				string lower = Console.ReadLine();
-				if (lower == null) {
+				string str = Console.ReadLine();
+				string lower = str.ToLower();
+				if (str == null)
+				{
 					Console.WriteLine("Quit");
 					WorldFile.saveWorld();
 					Netplay.disconnect = true;
 					SocialAPI.Shutdown();
 					break;
 				}
-				string str = lower;
-				lower = lower.ToLower();
 				try
 				{
 					if (lower == "help")

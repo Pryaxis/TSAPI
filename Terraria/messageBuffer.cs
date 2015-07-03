@@ -55,16 +55,10 @@ namespace Terraria
 
 		public void GetData(int start, int length)
 		{
-			Item[] item;
 			List<Point> points;
 			List<Point> points1;
 			int num;
 			TileEntity tileEntity;
-			object obj;
-			object obj1;
-			object obj2;
-			object obj3;
-			object obj4;
 			if (this.whoAmI >= 256)
 			{
 				Netplay.Connection.TimeOutTimer = 0;
@@ -405,7 +399,6 @@ namespace Terraria
 						}
 						return;
 					}
-					break;
 				}
 				case 6:
 				{
@@ -488,15 +481,12 @@ namespace Terraria
 					NPC.downedMechBoss2 = bitsByte4[1];
 					NPC.downedMechBoss3 = bitsByte4[2];
 					NPC.downedMechBossAny = bitsByte4[3];
+					float cloudbg = 0;
 					if (bitsByte4[4])
 					{
-						obj = 1;
+						cloudbg = 1;
 					}
-					else
-					{
-						obj = null;
-					}
-					Main.cloudBGActive = (float)obj;
+					Main.cloudBGActive = (float)cloudbg;
 					WorldGen.crimson = bitsByte4[5];
 					Main.pumpkinMoon = bitsByte4[6];
 					Main.snowMoon = bitsByte4[7];
@@ -1040,23 +1030,22 @@ namespace Terraria
 							bitsByte10 = this.reader.ReadByte();
 							tile.active(bitsByte9[0]);
 							Tile tile1 = tile;
-							//not sure what this is for
-							byte variable = 0;
+							byte wall = 0;
 							if (bitsByte9[2])
 							{
-								variable = 1;
+								wall = 1;
 							}
-							tile1.wall = variable;
+							tile1.wall = wall;
 							bool item3 = bitsByte9[3];
 							if (Main.netMode != 2)
 							{
 								Tile tile2 = tile;
-								byte variable2 = 0;
+								byte liquid = 0;
 								if (item3)
 								{
-									variable2 = 1;
+									liquid = 1;
 								}
-								tile2.liquid = variable2;
+								tile2.liquid = liquid;
 							}
 							tile.wire(bitsByte9[4]);
 							tile.halfBrick(bitsByte9[5]);
@@ -2061,7 +2050,7 @@ namespace Terraria
 					int num125 = this.reader.ReadInt16();
 					int num126 = this.reader.ReadInt16();
 					string str8 = this.reader.ReadString();
-					string str9 = null;
+					string str9 = "";
 					if (Main.sign[num124] != null)
 					{
 						str9 = Main.sign[num124].text;
