@@ -529,23 +529,25 @@ namespace Terraria.GameContent
 				PortalHelper.FoundPortals[i, 0] = -1;
 				PortalHelper.FoundPortals[i, 1] = -1;
 			}
-			for (int j = 0; j < (int)PortalHelper.PortalCooldownForPlayers.Length; j++)
+			for (int j = 0; j < PortalHelper.PortalCooldownForPlayers.Length; j++)
 			{
 				if (PortalHelper.PortalCooldownForPlayers[j] > 0)
 				{
-					PortalHelper.PortalCooldownForPlayers[j] = PortalHelper.PortalCooldownForPlayers[j] - 1;
+					PortalHelper.PortalCooldownForPlayers[j] -= 1;
 				}
 			}
-			for (int k = 0; k < (int)PortalHelper.PortalCooldownForNPCs.Length; k++)
+			for (int k = 0; k < PortalHelper.PortalCooldownForNPCs.Length; k++)
 			{
 				if (PortalHelper.PortalCooldownForNPCs[k] > 0)
 				{
-					PortalHelper.PortalCooldownForNPCs[k] = PortalHelper.PortalCooldownForNPCs[k] - 1;
+					PortalHelper.PortalCooldownForNPCs[k] -= 1;
 				}
 			}
 			for (int l = 0; l < 1000; l++)
 			{
 				Projectile projectile = Main.projectile[l];
+				if (projectile.owner < 0 || projectile.owner >= PortalHelper.FoundPortals.GetLength(0))
+					continue;
 				if (projectile.active && projectile.type == 602 && projectile.ai[1] >= 0f && projectile.ai[1] <= 1f)
 				{
 					PortalHelper.FoundPortals[projectile.owner, (int)projectile.ai[1]] = l;

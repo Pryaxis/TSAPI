@@ -851,6 +851,11 @@ namespace Terraria
 					byte num25 = this.reader.ReadByte();
 					int num26 = this.reader.ReadInt16();
 					int num27 = this.reader.ReadInt16();
+
+					// Check for invalid coordinates
+					if (num26 < 0 || num26 >= Main.maxTilesX || num27 < 0 || num27 >= Main.maxTilesY)
+						return;
+
 					short num28 = this.reader.ReadInt16();
 					int num29 = this.reader.ReadByte();
 					bool flag3 = num28 == 1;
@@ -1462,6 +1467,11 @@ namespace Terraria
 					int num65 = this.reader.ReadInt16();
 					int num66 = this.reader.ReadByte();
 					int num67 = this.reader.ReadInt16();
+
+					// If the projectile is of an invalid type, this is most likely a fake packet
+					if (num67 < 0 || num67 >= Main.maxProjectileTypes)
+						return;
+
 					BitsByte bitsByte13 = this.reader.ReadByte();
 					float[] singleArray1 = new float[Projectile.maxAI];
 					for (int r1 = 0; r1 < Projectile.maxAI; r1++)
