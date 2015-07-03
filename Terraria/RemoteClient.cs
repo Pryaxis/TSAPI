@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using Terraria.Net.Sockets;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -95,6 +96,7 @@ namespace Terraria
 
 		public void Reset()
 		{
+			ServerApi.Hooks.InvokeServerSocketReset(this);
 			this.ResetSections();
 			if (this.Id < 255)
 			{
