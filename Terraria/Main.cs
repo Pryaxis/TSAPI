@@ -34403,7 +34403,6 @@ namespace Terraria
 			{
 				Console.Write(": ");
 				string str = Console.ReadLine();
-				string lower = str.ToLower();
 				if (str == null)
 				{
 					Console.WriteLine("Quit");
@@ -34412,6 +34411,7 @@ namespace Terraria
 					SocialAPI.Shutdown();
 					break;
 				}
+				string lower = str.ToLower();
 				if (!ServerApi.Hooks.InvokeServerCommand(str))
 				{
 					try
