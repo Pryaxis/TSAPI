@@ -111,6 +111,7 @@
     <Compile Include="TerrariaApi.Server\EventArgs\TriggerPressurePlateEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\UpdatePhysicsEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\WorldSaveEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\Extensions\SocketExtensions.cs" />
     <Compile Include="TerrariaApi.Server\HandlerCollection.cs" />
     <Compile Include="TerrariaApi.Server\HandlerRegistration.cs" />
     <Compile Include="TerrariaApi.Server\HookManager.cs" />

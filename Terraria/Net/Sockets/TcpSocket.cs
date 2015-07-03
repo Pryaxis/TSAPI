@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using Terraria;
 using Terraria.Net;
+using TerrariaApi.Server.Extensions;
 
 namespace Terraria.Net.Sockets
 {
@@ -59,8 +60,11 @@ namespace Terraria.Net.Sockets
 
 		private void ReadCallback(IAsyncResult result)
 		{
-			Tuple<SocketReceiveCallback, object> asyncState = (Tuple<SocketReceiveCallback, object>)result.AsyncState;
-			asyncState.Item1(asyncState.Item2, this._connection.GetStream().EndRead(result));
+			if (this._connection.Client.SocketConnected())
+			{
+				Tuple<SocketReceiveCallback, object> asyncState = (Tuple<SocketReceiveCallback, object>)result.AsyncState;
+				asyncState.Item1(asyncState.Item2, this._connection.GetStream().EndRead(result));
+			}
 		}
 
 		private void SendCallback(IAsyncResult result)

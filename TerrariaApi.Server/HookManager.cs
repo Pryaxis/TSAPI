@@ -414,10 +414,8 @@ namespace TerrariaApi.Server
 						Buffer.BlockCopy(buffer.readBuffer, index + 4, uuid, 0, length - 5);
 						SHA512 shaM = new SHA512Managed();
 						var result = shaM.ComputeHash(uuid);
-//						Netplay.serverSock[buffer.whoAmI].clientUUID = result.Aggregate("", (s, b) => s + b.ToString("X2"));;
+						//Netplay.serverSock[buffer.whoAmI].clientUUID = result.Aggregate("", (s, b) => s + b.ToString("X2"));;
 						return true;
-
-						break;
 				}
 			}
 
