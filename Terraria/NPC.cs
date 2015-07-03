@@ -9,6 +9,7 @@ using Terraria.GameContent.Events;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.GameContent.UI;
 using Terraria.ID;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -56754,7 +56755,7 @@ namespace Terraria
 			}
 			if (num1 < 3 && num2 < 6 && num < 10)
 			{
-				return true;
+				return ServerApi.Hooks.InvokeGameStatueSpawn(num1, num2, num, (int)(x / 16), (int)(y / 16), type, true);
 			}
 			return false;
 		}
@@ -57135,6 +57136,11 @@ namespace Terraria
 					this.SetDefaults("Big Hornet Stingy");
 					return;
 				}
+
+				if (type > -66)
+				{
+					ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
+				}
 			}
 		}
 
@@ -57194,6 +57200,12 @@ namespace Terraria
 			Main.npc[num].ai[2] = ai2;
 			Main.npc[num].ai[3] = ai3;
 			Main.npc[num].target = Target;
+
+			if (ServerApi.Hooks.InvokeNpcSpawn(ref num))
+			{
+				return num;
+			}
+
 			if (Type == 50)
 			{
 				if (Main.netMode == 0)
@@ -62238,6 +62250,8 @@ namespace Terraria
 			{
 				this.scaleStats();
 			}
+			ServerApi.Hooks.InvokeNpcSetDefaultsString(ref Name, this);
+
 		}
 
 		public void SetDefaults(int Type, float scaleOverride = -1f)
@@ -70726,6 +70740,7 @@ namespace Terraria
 			{
 				this.scaleStats();
 			}
+			ServerApi.Hooks.InvokeNpcSetDefaultsInt(ref Type, this);
 		}
 
 		public void SetDefaultsKeepPlayerInteraction(int Type)
@@ -75235,6 +75250,9 @@ namespace Terraria
 					this.buffType[j] = numArray[j];
 					this.buffTime[j] = numArray1[j];
 				}
+
+				ServerApi.Hooks.InvokeNpcTransformation(this.whoAmI);
+
 				if (Main.netMode == 2)
 				{
 					this.netUpdate = true;
