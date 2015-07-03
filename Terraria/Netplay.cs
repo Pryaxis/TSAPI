@@ -8,6 +8,8 @@ using Terraria.IO;
 using Terraria.Net;
 using Terraria.Net.Sockets;
 using Terraria.Social;
+using TerrariaApi.Server;
+
 namespace Terraria
 {
 	public class Netplay
@@ -507,6 +509,7 @@ namespace Terraria
 					}
 					if (Netplay.Clients[k].PendingTermination)
 					{
+						ServerApi.Hooks.InvokeServerLeave(Netplay.Clients[k].Id);
 						Netplay.Clients[k].Reset();
 						NetMessage.syncPlayers();
 					}
