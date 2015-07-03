@@ -680,37 +680,6 @@ namespace Terraria
 				{
 					if (this._type != 6 && this._type != 11 && this._type != 13)
 					{
-						Vector2 vector2 = new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y);
-						int num = mountedPlayer.height;
-						int num1 = this._data.spawnDust;
-						Color color = new Color();
-						int num2 = Dust.NewDust(vector2, mountedPlayer.width + 40, num, num1, 0f, 0f, 0, color, 1f);
-						Dust dust = Main.dust[num2];
-						dust.scale = dust.scale + (float)Main.rand.Next(-10, 21) * 0.01f;
-						if (this._data.spawnDustNoGravity)
-						{
-							Main.dust[num2].noGravity = true;
-						}
-						else if (Main.rand.Next(2) != 0)
-						{
-							Dust dust1 = Main.dust[num2];
-							dust1.velocity = dust1.velocity * 0.5f;
-						}
-						else
-						{
-							Dust dust2 = Main.dust[num2];
-							dust2.scale = dust2.scale * 1.3f;
-							Main.dust[num2].noGravity = true;
-						}
-						Dust dust3 = Main.dust[num2];
-						dust3.velocity = dust3.velocity + (mountedPlayer.velocity * 0.8f);
-					}
-					else if (i % 10 == 0)
-					{
-						int num3 = Main.rand.Next(61, 64);
-						int num4 = Gore.NewGore(new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y), Vector2.Zero, num3, 1f);
-						Main.gore[num4].alpha = 100;
-						Main.gore[num4].velocity = Vector2.Transform(new Vector2(1f, 0f), Matrix.CreateRotationZ((float)(Main.rand.NextDouble() * 6.28318548202515)));
 					}
 				}
 			}
@@ -1798,43 +1767,6 @@ namespace Terraria
 			}
 			if (Main.netMode != 2)
 			{
-				for (int k = 0; k < 100; k++)
-				{
-					if (this._type != 6 && this._type != 11 && this._type != 13)
-					{
-						Vector2 vector2 = new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y);
-						int num = mountedPlayer.height;
-						int num1 = this._data.spawnDust;
-						Color color = new Color();
-						int num2 = Dust.NewDust(vector2, mountedPlayer.width + 40, num, num1, 0f, 0f, 0, color, 1f);
-						Dust dust = Main.dust[num2];
-						dust.scale = dust.scale + (float)Main.rand.Next(-10, 21) * 0.01f;
-						if (this._data.spawnDustNoGravity)
-						{
-							Main.dust[num2].noGravity = true;
-						}
-						else if (Main.rand.Next(2) != 0)
-						{
-							Dust dust1 = Main.dust[num2];
-							dust1.velocity = dust1.velocity * 0.5f;
-						}
-						else
-						{
-							Dust dust2 = Main.dust[num2];
-							dust2.scale = dust2.scale * 1.3f;
-							Main.dust[num2].noGravity = true;
-						}
-						Dust dust3 = Main.dust[num2];
-						dust3.velocity = dust3.velocity + (mountedPlayer.velocity * 0.8f);
-					}
-					else if (k % 10 == 0)
-					{
-						int num3 = Main.rand.Next(61, 64);
-						int num4 = Gore.NewGore(new Vector2(mountedPlayer.position.X - 20f, mountedPlayer.position.Y), Vector2.Zero, num3, 1f);
-						Main.gore[num4].alpha = 100;
-						Main.gore[num4].velocity = Vector2.Transform(new Vector2(1f, 0f), Matrix.CreateRotationZ((float)(Main.rand.NextDouble() * 6.28318548202515)));
-					}
-				}
 			}
 			if (mountedPlayer.whoAmI == Main.myPlayer)
 			{
