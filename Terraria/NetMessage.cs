@@ -68,43 +68,13 @@ namespace Terraria
 						writer.Write((byte) remoteClient);
 						break;
 					case 4:
-					{
-						Player player = Main.player[number];
-						writer.Write((byte) number);
-						writer.Write((byte) player.skinVariant);
-						writer.Write((byte) player.hair);
-						writer.Write(text);
-						writer.Write(player.hairDye);
-						BitsByte hideVisual = 0;
-						for (int i = 0; i < 8; i++)
-							hideVisual[i] = player.hideVisual[i];
-						writer.Write(hideVisual);
-						hideVisual = 0;
-						for (int i = 0; i < 2; i++)
-							hideVisual[i] = player.hideVisual[i + 8];
-						writer.Write(hideVisual);
-						writer.Write(player.hideMisc);
-						writer.WriteRGB(player.hairColor);
-						writer.WriteRGB(player.skinColor);
-						writer.WriteRGB(player.eyeColor);
-						writer.WriteRGB(player.shirtColor);
-						writer.WriteRGB(player.underShirtColor);
-						writer.WriteRGB(player.pantsColor);
-						writer.WriteRGB(player.shoeColor);
-
-						//1.2: writer.Write(player.difficulty);
-						BitsByte bb2 = 0;
-						if (player.difficulty == 1)
 						{
-<<<<<<< Updated upstream
-							bb2[0] = true;
-=======
 							Player player = Main.player[number];
 							writer.Write((byte)number);
 							writer.Write((byte)player.skinVariant);
 							writer.Write((byte)player.hair);
 							writer.Write(text);
-							writer.Write(player.hairDye); 
+							writer.Write(player.hairDye);
 							BitsByte hideVisual = 0;
 							for (int i = 0; i < 8; i++)
 								hideVisual[i] = player.hideVisual[i];
@@ -121,7 +91,7 @@ namespace Terraria
 							writer.WriteRGB(player.underShirtColor);
 							writer.WriteRGB(player.pantsColor);
 							writer.WriteRGB(player.shoeColor);
-							
+
 							BitsByte bb2 = 0;
 							if (player.difficulty == 1)
 							{
@@ -134,16 +104,7 @@ namespace Terraria
 							bb2[2] = player.extraAccessory;
 							writer.Write(bb2);
 							break;
->>>>>>> Stashed changes
 						}
-						else if (player.difficulty == 2)
-						{
-							bb2[1] = true;
-						}
-						bb2[2] = player.extraAccessory;
-						writer.Write(bb2);
-						break;
-					}
 					case 5:
 					{
 						writer.Write((byte) number);
