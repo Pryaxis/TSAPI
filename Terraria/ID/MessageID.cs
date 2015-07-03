@@ -6,149 +6,149 @@ namespace Terraria.ID
 	{
 		public const byte NeverCalled = 0;
 
-		public const byte ConnectRequest = 1;
+		public const byte Unknown1 = 1;
 
-		public const byte Disconnect = 2;
+		public const byte Unknown2 = 2;
 
-		public const byte ContinueConnecting = 3;
+		public const byte Unknown3 = 3;
 
-		public const byte PlayerInfo = 4;
+		public const byte SyncPlayer = 4;
 
-		public const byte PlayerInventorySlot = 5;
+		public const byte SyncEquipment = 5;
 
-		public const byte ContinueConnecting2 = 6;
+		public const byte Unknown6 = 6;
 
-		public const byte WorldInfo = 7;
+		public const byte Unknown7 = 7;
 
-		public const byte GetSection = 8;
+		public const byte Unknown8 = 8;
 
-		public const byte Status = 9;
+		public const byte Unknown9 = 9;
 
-		public const byte SendTileSection = 10;
+		public const byte TileSection = 10;
 
-		public const byte SendSectionTileFrame = 11;
+		public const byte Unknown11 = 11;
 
-		public const byte SpawnPlayer = 12;
+		public const byte Unknown12 = 12;
 
-		public const byte UpdatePlayer = 13;
+		public const byte Unknown13 = 13;
 
-		public const byte PlayerActive = 14;
+		public const byte Unknown14 = 14;
 
-		public const byte Deprecated = 15;
+		public const byte Unknown15 = 15;
 
-		public const byte PlayerHP = 16;
+		public const byte Unknown16 = 16;
 
-		public const byte ModifyTile = 17;
+		public const byte Unknown17 = 17;
 
-		public const byte Time = 18;
+		public const byte Unknown18 = 18;
 
-		public const byte DoorToggle = 19;
+		public const byte Unknown19 = 19;
 
-		public const byte SendTileSquare = 20;
+		public const byte Unknown20 = 20;
 
-		public const byte UpdateItemDrop = 21;
+		public const byte SyncItem = 21;
 
-		public const byte UpdateItemOwner = 22;
+		public const byte Unknown22 = 22;
 
-		public const byte NpcUpdate = 23;
+		public const byte Unknown23 = 23;
 
-		public const byte StrikeNpcHeldItem = 24;
+		public const byte Unknown24 = 24;
 
-		public const byte ChatMessage = 25;
+		public const byte Unknown25 = 25;
 
-		public const byte PlayerDamage = 26;
+		public const byte Unknown26 = 26;
 
-		public const byte ProjectileUpdate = 27;
+		public const byte Unknown27 = 27;
 
-		public const byte StrikeNpc = 28;
+		public const byte Unknown28 = 28;
 
-		public const byte DestroyProjectile = 29;
+		public const byte Unknown29 = 29;
 
-		public const byte TogglePvP = 30;
+		public const byte Unknown30 = 30;
 
-		public const byte GetChestContents = 31;
+		public const byte RequestChestOpen = 31;
 
-		public const byte ChestItem = 32;
+		public const byte SyncChestItem = 32;
 
-		public const byte OpenChest = 33;
+		public const byte SyncPlayerChest = 33;
 
-		public const byte PlaceOrKillChest = 34;
+		public const byte ChestUpdates = 34;
 
-		public const byte HealEffect = 35;
+		public const byte Unknown35 = 35;
 
-		public const byte PlayerZone = 36;
+		public const byte Unknown36 = 36;
 
-		public const byte RequestPassword = 37;
+		public const byte Unknown37 = 37;
 
-		public const byte SendPassword = 38;
+		public const byte Unknown38 = 38;
 
-		public const byte RemoveItemOwner = 39;
+		public const byte Unknown39 = 39;
 
-		public const byte SetActiveNpc = 40;
+		public const byte Unknown40 = 40;
 
-		public const byte PlayerItemAnimation = 41;
+		public const byte Unknown41 = 41;
 
-		public const byte PlayerMana = 42;
+		public const byte Unknown42 = 42;
 
-		public const byte ManaEffect = 43;
+		public const byte Unknown43 = 43;
 
-		public const byte KillMe = 44;
+		public const byte Unknown44 = 44;
 
-		public const byte PlayerTeam = 45;
+		public const byte Unknown45 = 45;
 
-		public const byte RequestSign = 46;
+		public const byte Unknown46 = 46;
 
-		public const byte UpdateOrDisplaySign = 47;
+		public const byte Unknown47 = 47;
 
-		public const byte SetLiquid = 48;
+		public const byte Unknown48 = 48;
 
-		public const byte ConnectAndSpawn = 49;
+		public const byte Unknown49 = 49;
 
-		public const byte UpdatePlayerBuff = 50;
+		public const byte Unknown50 = 50;
 
-		public const byte SpecialNpcEffect = 51;
+		public const byte Unknown51 = 51;
 
-		public const byte Unlock = 52;
+		public const byte Unknown52 = 52;
 
-		public const byte AddNpcBuff = 53;
+		public const byte Unknown53 = 53;
 
-		public const byte UpdateNpcBuff = 54;
+		public const byte Unknown54 = 54;
 
-		public const byte AddPlayerBuff = 55;
+		public const byte Unknown55 = 55;
 
-		public const byte UpdateNpcName = 56;
+		public const byte Unknown56 = 56;
 
-		public const byte UpdateGoodOrEvil = 57;
+		public const byte Unknown57 = 57;
 
-		public const byte PlayMusicItem = 58;
+		public const byte Unknown58 = 58;
 
-		public const byte HitSwitch = 59;
+		public const byte Unknown59 = 59;
 
-		public const byte NpcHomeUpdate = 60;
+		public const byte Unknown60 = 60;
 
-		public const byte SpawnBossOrInvasion = 61;
+		public const byte Unknown61 = 61;
 
-		public const byte PlayerDodge = 62;
+		public const byte Unknown62 = 62;
 
-		public const byte PaintTile = 63;
+		public const byte Unknown63 = 63;
 
-		public const byte PaintWall = 64;
+		public const byte Unknown64 = 64;
 
-		public const byte PlayerOrNpcTeleport = 65;
+		public const byte Unknown65 = 65;
 
-		public const byte HealPlayer = 66;
+		public const byte Unknown66 = 66;
 
-		public const byte Placeholder = 67;
+		public const byte Unknown67 = 67;
 
-		public const byte ClientUUID = 68;
+		public const byte Unknown68 = 68;
 
-		public const byte GetChestName = 69;
+		public const byte ChestName = 69;
 
-		public const byte CatchNpc = 70;
+		public const byte BugCatching = 70;
 
-		public const byte ReleaseNpc = 71;
+		public const byte BugReleasing = 71;
 
-		public const byte TravellingMerchantInventory = 72;
+		public const byte TravelMerchantItems = 72;
 
 		public const byte TeleportationPotion = 73;
 
@@ -164,21 +164,21 @@ namespace Terraria.ID
 
 		public const byte PlaceObject = 79;
 
-		public const byte SyncPlayerChestIndex = 80;
+		public const byte SyncPLayerChestIndex = 80;
 
-		public const byte CreateCombatText = 81;
+		public const byte ServerCombatText = 81;
 
-		public const byte LoadNetModule = 82;
+		public const byte NetModules = 82;
 
-		public const byte SetNpcKillCount = 83;
+		public const byte NPCKillCountDeathTally = 83;
 
-		public const byte SetPlayerStealth = 84;
+		public const byte PlayerStealth = 84;
 
 		public const byte QuickStackChests = 85;
 
-		public const byte UpdateTileEntity = 86;
+		public const byte TileEntitySharing = 86;
 
-		public const byte PlaceTileEntity = 87;
+		public const byte TileEntityPlacement = 87;
 
 		public const byte ItemTweaker = 88;
 
@@ -194,15 +194,15 @@ namespace Terraria.ID
 
 		public const byte Deprecated1 = 94;
 
-		public const byte KillPortal = 95;
+		public const byte MurderSomeoneElsesProjectile = 95;
 
 		public const byte TeleportPlayerThroughPortal = 96;
 
-		public const byte NotifyPlayerNpcKilled = 97;
+		public const byte AchievementMessageNPCKilled = 97;
 
-		public const byte NotifyPlayerOfEvent = 98;
+		public const byte AchievementMessageEventHappened = 98;
 
-		public const byte UpdateMinionTarget = 99;
+		public const byte MinionTargetUpdate = 99;
 
 		public const byte TeleportNPCThroughPortal = 100;
 
@@ -210,9 +210,9 @@ namespace Terraria.ID
 
 		public const byte NebulaLevelupRequest = 102;
 
-		public const byte UpdateMoonLordCountdown = 103;
+		public const byte MoonlordHorror = 103;
 
-		public const byte SetNpcShopItem = 104;
+		public const byte ShopOverride = 104;
 
 		public const byte Count = 105;
 
