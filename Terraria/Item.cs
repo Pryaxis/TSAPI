@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -3669,6 +3670,8 @@ namespace Terraria
 
 		public void netDefaults(int type)
 		{
+			if (ServerApi.Hooks.InvokeItemNetDefaults(ref type, this))
+				return;
 			if (type >= 0)
 			{
 				this.SetDefaults(type, false);
@@ -6474,6 +6477,8 @@ namespace Terraria
 
 		public void SetDefaults(string ItemName)
 		{
+			if (ServerApi.Hooks.InvokeItemSetDefaultsString(ref ItemName, this))
+				return;
 			this.name = "";
 			bool flag = false;
 			if (ItemName == "Blue Phasesaber")
