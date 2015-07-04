@@ -3,7 +3,7 @@ using Terraria;
 
 namespace Terraria.World.Generation
 {
-	internal class GenerationProgress
+	public class GenerationProgress
 	{
 		private string _message = "";
 
