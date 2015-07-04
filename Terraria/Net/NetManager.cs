@@ -83,6 +83,10 @@ namespace Terraria.Net
 
 		public static void SendCallback(object state)
 		{
+			if (state == null)
+			{
+				return;
+			}
 			((NetPacket)state).Recycle();
 		}
 

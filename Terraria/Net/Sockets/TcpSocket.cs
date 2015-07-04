@@ -101,6 +101,11 @@ namespace Terraria.Net.Sockets
 
 		void Terraria.Net.Sockets.ISocket.AsyncSend(byte[] data, int offset, int size, SocketSendCallback callback, object state)
 		{
+			if (((ISocket)this).IsConnected() == false)
+			{
+				return;
+			}
+
 			this._connection.GetStream().Write(data, 0, size);
 			callback(null);
 			//this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));
@@ -128,7 +133,7 @@ namespace Terraria.Net.Sockets
 
 		bool Terraria.Net.Sockets.ISocket.IsConnected()
 		{
-			if (this._connection == null || this._connection.Client == null)
+			if (this._connectionDisposed == true || this._connection == null || this._connection.Client == null || _connection.Client.SocketConnected() == false)
 			{
 				return false;
 			}
