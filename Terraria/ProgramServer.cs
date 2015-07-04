@@ -229,18 +229,6 @@ namespace Terraria
 
 		private static void Main(string[] args)
 		{
-			AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler((object sender, ResolveEventArgs sargs) => {
-				Assembly assembly;
-				string str = string.Concat((new AssemblyName(sargs.Name)).Name, ".dll");
-				string str1 = Array.Find<string>(typeof(ProgramServer).Assembly.GetManifestResourceNames(), (string element) => element.EndsWith(str));
-				using (Stream manifestResourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(str1))
-				{
-					byte[] numArray = new byte[checked(manifestResourceStream.Length)];
-					manifestResourceStream.Read(numArray, 0, (int)numArray.Length);
-					assembly = Assembly.Load(numArray);
-				}
-				return assembly;
-			});
 			ProgramServer._handleRoutine = new ProgramServer.HandlerRoutine(ProgramServer.ConsoleCtrlCheck);
 			//ProgramServer.SetConsoleCtrlHandler(ProgramServer._handleRoutine, true);
 			ProgramServer.InnerStart(args);
