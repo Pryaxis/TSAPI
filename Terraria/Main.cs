@@ -11096,7 +11096,7 @@ namespace Terraria
 			}
 		}
 
-		private static void StartRain()
+		public static void StartRain()
 		{
 			int num = 86400;
 			int num1 = num / 24;
@@ -11227,7 +11227,7 @@ namespace Terraria
 			}
 		}
 
-		private static void StopRain()
+		public static void StopRain()
 		{
 			Main.rainTime = 0;
 			Main.raining = false;
