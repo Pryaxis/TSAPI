@@ -15,7 +15,7 @@ using TerrariaApi.Server;
 
 namespace Terraria.IO
 {
-	internal class WorldFile
+	public class WorldFile
 	{
 		private static object padlock;
 
