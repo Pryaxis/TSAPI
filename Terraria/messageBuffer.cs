@@ -3141,17 +3141,6 @@ namespace Terraria
 								{
 									num231 = 86;
 								}
-								for (int c1 = 0; (float)c1 < center.Length() / 6f; c1++)
-								{
-									Vector2 center1 = player18.Center + (6f * (float)c1 * vector213);
-									double num232 = (double)single13;
-									Vector2 vector216 = new Vector2();
-									Vector2 vector217 = (center1 + vector214.RotatedBy(num232, vector216)) + vector215;
-									single13 = single13 + single14;
-									Color color4 = new Color();
-									float single17 = single15 + single16;
-									single15 = single17;
-								}
 							}
 							player18.NebulaLevelup((int)num230);
 						}

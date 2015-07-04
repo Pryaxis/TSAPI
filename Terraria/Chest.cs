@@ -2179,11 +2179,6 @@ namespace Terraria
 				{
 					Tile tile = Main.tile[i, j];
 					tile.frameX = (short)(tile.frameX - num);
-					for (int k = 0; k < 4; k++)
-					{
-						Vector2 vector2 = new Vector2((float)(i * 16), (float)(j * 16));
-						Color color = new Color();
-					}
 				}
 			}
 			return true;

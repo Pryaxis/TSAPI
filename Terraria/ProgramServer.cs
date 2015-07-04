@@ -246,12 +246,9 @@ namespace Terraria
 				return assembly;
 			});
 			ProgramServer._handleRoutine = new ProgramServer.HandlerRoutine(ProgramServer.ConsoleCtrlCheck);
-			ProgramServer.SetConsoleCtrlHandler(ProgramServer._handleRoutine, true);
+			//ProgramServer.SetConsoleCtrlHandler(ProgramServer._handleRoutine, true);
 			ProgramServer.InnerStart(args);
 		}
-
-		[DllImport("Kernel32", CharSet=CharSet.None, ExactSpelling=false)]
-		public static extern bool SetConsoleCtrlHandler(ProgramServer.HandlerRoutine Handler, bool Add);
 
 		public enum CtrlTypes
 		{

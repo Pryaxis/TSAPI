@@ -26,7 +26,7 @@ namespace Terraria.Utilities
 			using (FileStream fileStream = File.Create(path))
 			{
 				Process currentProcess = Process.GetCurrentProcess();
-				CrashDump.MiniDumpWriteDump(currentProcess.Handle, currentProcess.Id, fileStream.SafeFileHandle.DangerousGetHandle(), (flag ? CrashDump.MINIDUMP_TYPE.MiniDumpWithFullMemory : CrashDump.MINIDUMP_TYPE.MiniDumpWithIndirectlyReferencedMemory), IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+				//CrashDump.MiniDumpWriteDump(currentProcess.Handle, currentProcess.Id, fileStream.SafeFileHandle.DangerousGetHandle(), (flag ? CrashDump.MINIDUMP_TYPE.MiniDumpWithFullMemory : CrashDump.MINIDUMP_TYPE.MiniDumpWithIndirectlyReferencedMemory), IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
 			}
 		}
 
@@ -37,12 +37,9 @@ namespace Terraria.Utilities
 			using (FileStream fileStream = File.Create(string.Concat(str)))
 			{
 				Process currentProcess = Process.GetCurrentProcess();
-				CrashDump.MiniDumpWriteDump(currentProcess.Handle, currentProcess.Id, fileStream.SafeFileHandle.DangerousGetHandle(), CrashDump.MINIDUMP_TYPE.MiniDumpWithFullMemory, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+				//CrashDump.MiniDumpWriteDump(currentProcess.Handle, currentProcess.Id, fileStream.SafeFileHandle.DangerousGetHandle(), CrashDump.MINIDUMP_TYPE.MiniDumpWithFullMemory, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
 			}
 		}
-
-		[DllImport("dbghelp.dll", CharSet=CharSet.None, ExactSpelling=false)]
-		private static extern bool MiniDumpWriteDump(IntPtr hProcess, int ProcessId, IntPtr hFile, CrashDump.MINIDUMP_TYPE DumpType, IntPtr ExceptionParam, IntPtr UserStreamParam, IntPtr CallackParam);
 
 		internal enum MINIDUMP_TYPE
 		{

@@ -22,7 +22,7 @@ namespace Terraria.Utilities
 					fFlags = flags
 				};
 				FileOperationAPIWrapper.SHFILEOPSTRUCT sHFILEOPSTRUCT1 = sHFILEOPSTRUCT;
-				FileOperationAPIWrapper.SHFileOperation(ref sHFILEOPSTRUCT1);
+				//FileOperationAPIWrapper.SHFileOperation(ref sHFILEOPSTRUCT1);
 				flag = true;
 			}
 			catch (Exception)
@@ -54,7 +54,7 @@ namespace Terraria.Utilities
 					fFlags = (FileOperationAPIWrapper.FileOperationFlags)((ushort)(FileOperationAPIWrapper.FileOperationFlags.FOF_ALLOWUNDO | flags))
 				};
 				FileOperationAPIWrapper.SHFILEOPSTRUCT sHFILEOPSTRUCT1 = sHFILEOPSTRUCT;
-				FileOperationAPIWrapper.SHFileOperation(ref sHFILEOPSTRUCT1);
+				//FileOperationAPIWrapper.SHFileOperation(ref sHFILEOPSTRUCT1);
 				flag = true;
 			}
 			catch (Exception)
@@ -73,9 +73,6 @@ namespace Terraria.Utilities
 		{
 			return FileOperationAPIWrapper.Send(path, FileOperationAPIWrapper.FileOperationFlags.FOF_NOCONFIRMATION | FileOperationAPIWrapper.FileOperationFlags.FOF_WANTNUKEWARNING);
 		}
-
-		[DllImport("shell32.dll", CharSet=CharSet.Auto, ExactSpelling=false)]
-		private static extern int SHFileOperation(ref FileOperationAPIWrapper.SHFILEOPSTRUCT FileOp);
 
 		[Flags]
 		private enum FileOperationFlags : ushort

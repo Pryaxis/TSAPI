@@ -140,8 +140,6 @@ namespace Terraria
 					{
 						num = 218;
 					}
-					Vector2 vector2 = this.position - this.velocity;
-					Color color = new Color();
 				}
 			}
 		}

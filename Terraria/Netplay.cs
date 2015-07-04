@@ -30,8 +30,16 @@ namespace Terraria
 		public static bool disconnect = false;
 		public static bool spamCheck = false;
 		public static bool anyClients = false;
+#if !MONO
 		public static UPnPNAT upnpnat = (UPnPNAT)Activator.CreateInstance(Type.GetTypeFromCLSID(new Guid("AE1E00AA-3FD5-403C-8A27-2BBDC30CD0E1")));
-		public static IStaticPortMappingCollection mappings = Netplay.upnpnat.StaticPortMappingCollection;
+#endif
+		public static IStaticPortMappingCollection mappings =
+#if !MONO
+			Netplay.upnpnat.StaticPortMappingCollection;
+#else
+ null;
+#endif
+
 		public static string portForwardIP;
 		public static int portForwardPort;
 		public static bool portForwardOpen;

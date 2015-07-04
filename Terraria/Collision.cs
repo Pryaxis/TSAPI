@@ -2434,8 +2434,6 @@ namespace Terraria
 							{
 								if (Main.tile[i, j].type == 51 && (double)(Math.Abs(Velocity.X) + Math.Abs(Velocity.Y)) > 0.7 && Main.rand.Next(30) == 0)
 								{
-									Vector2 vector21 = new Vector2((float)(i * 16), (float)(j * 16));
-									Color color = new Color();
 								}
 								return new Vector2((float)i, (float)j);
 							}
@@ -2455,8 +2453,6 @@ namespace Terraria
 							{
 								if (Main.tile[i, j].type == 51 && (double)(Math.Abs(Velocity.X) + Math.Abs(Velocity.Y)) > 0.7 && Main.rand.Next(30) == 0)
 								{
-									Vector2 vector22 = new Vector2((float)(i * 16), (float)(j * 16));
-									Color color1 = new Color();
 								}
 								return new Vector2((float)i, (float)j);
 							}

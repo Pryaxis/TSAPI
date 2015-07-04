@@ -1226,8 +1226,6 @@ namespace Terraria
 
 		public static Tile[,] tile;
 
-        public static Dust[] dust;
-
 		public static Star[] star;
 
 		public static Item[] item;
@@ -1235,8 +1233,6 @@ namespace Terraria
 		public static int[] itemLockoutTime;
 
 		public static NPC[] npc;
-
-        public static Gore[] gore;
 
 		public static Rain[] rain;
 
@@ -5245,11 +5241,11 @@ namespace Terraria
 			{
 				string str1 = string.Concat("terraria", Main.rand.Next(2147483647));
 				Console.Title = str1;
-				IntPtr intPtr = Main.FindWindow(null, str1);
+				/*IntPtr intPtr = Main.FindWindow(null, str1);
 				if (intPtr != IntPtr.Zero)
 				{
 					Main.ShowWindow(intPtr, 0);
-				}
+				}*/
 			}
 			Main.dedServ = true;
 			Main.showSplash = false;
@@ -5485,7 +5481,7 @@ namespace Terraria
 						}
 						while (Main.serverGenLock)
 						{
-							Main.statusText = string.Format(string.Concat("{0:0.0%} - ", generationProgress.Message, " - {1:0.0%}"), generationProgress.TotalProgress, generationProgress.Value);
+							Main.statusText = string.Format(string.Concat("{0:0%} - ", generationProgress.Message, " - {1:0%}"), generationProgress.TotalProgress, generationProgress.Value);
 							if (Main.oldStatusText == Main.statusText)
 							{
 								continue;
@@ -5585,6 +5581,7 @@ namespace Terraria
 #endif
 									}
 								}
+#if !MONO
 								flag2 = true;
 								while (flag2)
 								{
@@ -5626,6 +5623,7 @@ namespace Terraria
 #endif
 									}
 								}
+#endif
 								Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
 								Console.WriteLine("");
 								Console.Write("Server password (press enter for none): ");
@@ -6030,9 +6028,6 @@ namespace Terraria
 			}
 		}
 
-		[DllImport("user32.dll", CharSet=CharSet.None, ExactSpelling=false)]
-		public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
 		protected bool FullTile(int x, int y)
 		{
 			if (Main.tile[x - 1, y] == null || Main.tile[x - 1, y].blockType() != 0 || Main.tile[x + 1, y] == null || Main.tile[x + 1, y].blockType() != 0)
@@ -6172,12 +6167,6 @@ namespace Terraria
 			return "";
 		}
 
-		[DllImport("user32.dll", CharSet=CharSet.Auto, ExactSpelling=true)]
-		public static extern short GetKeyState(int keyCode);
-
-		[DllImport("User32", CharSet=CharSet.None, ExactSpelling=false)]
-		private static extern int GetMenuItemCount(IntPtr hWnd);
-
 		public static string GetPlayerPathFromName(string playerName, bool cloudSave)
 		{
 			string str = "";
@@ -6219,9 +6208,6 @@ namespace Terraria
 			object[] objArray1 = new object[] { str3, Path.DirectorySeparatorChar, str, ".plr" };
 			return string.Concat(objArray1);
 		}
-
-		[DllImport("User32", CharSet=CharSet.None, ExactSpelling=false)]
-		private static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
 
 		public static int GetTreeStyle(int X)
 		{
@@ -9317,12 +9303,7 @@ namespace Terraria
 
 		public void loadLib(string path)
 		{
-			Main.libPath = path;
-			Main.LoadLibrary(Main.libPath);
 		}
-
-		[DllImport("kernel32.dll", CharSet=CharSet.None, ExactSpelling=false)]
-		public static extern IntPtr LoadLibrary(string dllToLoad);
 
 		protected void LoadNPC(int i)
 		{
@@ -10161,9 +10142,6 @@ namespace Terraria
 		{
 		}
 
-		[DllImport("User32", CharSet=CharSet.None, ExactSpelling=false)]
-		private static extern int RemoveMenu(IntPtr hMenu, int nPosition, int wFlags);
-
 		protected void RenderBackground()
 		{
 		}
@@ -10608,9 +10586,6 @@ namespace Terraria
 			newColor.B = (byte)b;
 			return new XNA.Color((int)r, (int)g, (int)b, (int)newColor.A);
 		}
-
-		[DllImport("user32.dll", CharSet=CharSet.None, ExactSpelling=false)]
-		private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
 		public static void snowing()
 		{

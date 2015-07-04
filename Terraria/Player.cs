@@ -2789,6 +2789,13 @@ namespace Terraria
 					}
 				}
 			}
+			if (flag && Main.rand.Next(20) == 0 && !this.lavaWet && !this.honeyWet)
+			{
+				if (this.inventory[this.selectedItem].type == 186)
+				{
+					return;
+				}
+			}
 		}
 
 		public void CheckIceBreak()
@@ -9881,7 +9888,6 @@ namespace Terraria
 					offsetsPlayerOnhand.Y = (float)this.bodyFrame.Height - offsetsPlayerOnhand.Y;
 				}
 				offsetsPlayerOnhand = offsetsPlayerOnhand - (new Vector2((float)(this.bodyFrame.Width - this.width), (float)(this.bodyFrame.Height - 42)) / 2f);
-				Vector2 vector250 = this.RotatedRelativePoint(this.position + offsetsPlayerOnhand, true) - this.velocity;
 			}
 			if ((item.damage >= 0 && item.type > 0 && !item.noMelee || item.type == 1450 || item.type == 1991 || item.type == 3183 || item.type == 3542) && this.itemAnimation > 0)
 			{
@@ -10713,16 +10719,6 @@ namespace Terraria
 				}
 				else if (this.itemTime != 2)
 				{
-					float single112 = (float)item.useTime;
-					single112 = (single112 - (float)this.itemTime) / single112;
-					float single113 = 15f;
-					float single114 = 44f;
-					float single115 = 9.424778f;
-					Vector2 vector291 = new Vector2(single113, 0f);
-					double num176 = (double)(single115 * single112);
-					vector21 = new Vector2();
-					Vector2 x39 = vector291.RotatedBy(num176, vector21);
-					x39.X = x39.X * (float)this.direction;
 				}
 				else
 				{
@@ -11914,11 +11910,6 @@ namespace Terraria
 						flag = true;
 					}
 				}
-			}
-			Vector2 vector2 = new Vector2((float)(x * 16 + 8), (float)(num8 * 16));
-			if (base.Distance(vector2) <= 1000f)
-			{
-				this.MinionTargetPoint = vector2;
 			}
 		}
 
@@ -21348,6 +21339,16 @@ namespace Terraria
 				else
 				{
 					this.velocity.Y = this.velocity.Y * 0.96f;
+				}
+				if (num2 == 229 && Main.rand.Next(5) == 0 && ((double)this.velocity.Y > 0.15 || this.velocity.Y < 0f))
+				{
+					if (Main.tile[x, y + 1] != null && Main.tile[x, y + 1].type == 229 && this.position.Y + (float)this.height > (float)((y + 1) * 16))
+					{
+					}
+					if (Main.tile[x, y + 2] != null && Main.tile[x, y + 2].type == 229 && this.position.Y + (float)this.height > (float)((y + 2) * 16))
+					{
+						return;
+					}
 				}
 			}
 		}

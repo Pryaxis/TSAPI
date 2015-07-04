@@ -2432,12 +2432,6 @@ namespace Terraria
 					{
 						goto case 6;
 					}
-					Vector2 vector23 = mountedPlayer.position;
-					int num4 = mountedPlayer.width;
-					int num5 = mountedPlayer.height;
-					Random random1 = Main.rand;
-					int[] numArray1 = new int[] { 176, 177, 179 };
-					int num6 = Utils.SelectRandom<int>(random1, numArray1);
 					goto case 6;
 				}
 				default:
@@ -2549,15 +2543,6 @@ namespace Terraria
 						mountedPlayer.PickTile(point16.X, point16.Y, num1);
 						Vector2 vector2 = new Vector2((float)(point16.X << 4) + 8f, (float)(point16.Y << 4) + 8f);
 						float rotation = (vector2 - mountedPlayer.Center).ToRotation();
-						for (int i = 0; i < 2; i++)
-						{
-							float single = rotation + (Main.rand.Next(2) == 1 ? -1f : 1f) * 1.57079637f;
-							float single1 = (float)Main.rand.NextDouble() * 2f + 2f;
-							Vector2 vector21 = new Vector2((float)Math.Cos((double)single) * single1, (float)Math.Sin((double)single) * single1);
-							float x = vector21.X;
-							float y = vector21.Y;
-							Color color = new Color();
-						}
 						Tile.SmoothSlope(point16.X, point16.Y, true);
 						drillBeam.cooldown = Mount.drillPickTime;
 						break;
