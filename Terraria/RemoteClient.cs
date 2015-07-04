@@ -13,6 +13,8 @@ namespace Terraria
 
 		public string Name = "Anonymous";
 
+		public string ClientUUID = "";
+
 		public bool IsActive;
 
 		public bool PendingTermination;
@@ -107,6 +109,7 @@ namespace Terraria
 			this.StatusMax = 0;
 			this.StatusText2 = "";
 			this.StatusText = "";
+			this.ClientUUID = "";
 			this.State = 0;
 			this.IsReading = false;
 			this.PendingTermination = false;
