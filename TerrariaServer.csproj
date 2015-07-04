@@ -93,7 +93,6 @@
     <Reference Include="Terraria.Libraries.JSON.NET.Net40.Newtonsoft.Json">
       <HintPath>.\TerrariaServerReferences\Terraria.Libraries.JSON.NET.Net40.Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="System.Drawing" />
     <Reference Include="WindowsBase" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
