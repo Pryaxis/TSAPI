@@ -70,12 +70,12 @@ namespace Terraria.Net.Sockets
 		private void SendCallback(IAsyncResult result)
 		{
 			Tuple<SocketSendCallback, object> asyncState = (Tuple<SocketSendCallback, object>)result.AsyncState;
-			try
+			if (this._connection.Client.SocketConnected())
 			{
 				this._connection.GetStream().EndWrite(result);
 				asyncState.Item1(asyncState.Item2);
 			}
-			catch
+			else
 			{
 				((ISocket)this).Close();
 			}

@@ -306,18 +306,6 @@ namespace Terraria
 			}
 		}
 
-		public Action<Vector2> MinecartDust
-		{
-			get
-			{
-				if (this._data == null)
-				{
-					return new Action<Vector2>(DelegateMethods.Minecart.Sparks);
-				}
-				return this._data.MinecartDust;
-			}
-		}
-
 		public Vector2 Origin
 		{
 			get
@@ -1131,7 +1119,6 @@ namespace Terraria
 			Mount.mounts[6] = mountDatum;
 			mountDatum.Minecart = true;
 			mountDatum.MinecartDirectional = true;
-			mountDatum.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.Sparks);
 			mountDatum.spawnDust = 213;
 			mountDatum.buff = 118;
 			mountDatum.extraBuff = 138;
@@ -1462,7 +1449,6 @@ namespace Terraria
 			mountDatum = new Mount.MountData();
 			Mount.mounts[11] = mountDatum;
 			mountDatum.Minecart = true;
-			mountDatum.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.SparksMech);
 			mountDatum.spawnDust = 213;
 			mountDatum.buff = 167;
 			mountDatum.extraBuff = 166;
@@ -1552,7 +1538,6 @@ namespace Terraria
 			Mount.mounts[13] = mountDatum;
 			mountDatum.Minecart = true;
 			mountDatum.MinecartDirectional = true;
-			mountDatum.MinecartDust = new Action<Vector2>(DelegateMethods.Minecart.Sparks);
 			mountDatum.spawnDust = 213;
 			mountDatum.buff = 184;
 			mountDatum.extraBuff = 185;
@@ -2447,7 +2432,6 @@ namespace Terraria
 					{
 						goto case 6;
 					}
-					Dust[] dustArray1 = Main.dust;
 					Vector2 vector23 = mountedPlayer.position;
 					int num4 = mountedPlayer.width;
 					int num5 = mountedPlayer.height;
@@ -2573,9 +2557,6 @@ namespace Terraria
 							float x = vector21.X;
 							float y = vector21.Y;
 							Color color = new Color();
-							int num2 = Dust.NewDust(vector2, 0, 0, 230, x, y, 0, color, 1f);
-							Main.dust[num2].noGravity = true;
-							Main.dust[num2].customData = mountedPlayer;
 						}
 						Tile.SmoothSlope(point16.X, point16.Y, true);
 						drillBeam.cooldown = Mount.drillPickTime;
@@ -2728,8 +2709,6 @@ namespace Terraria
 			public bool Minecart;
 
 			public bool MinecartDirectional;
-
-			public Action<Vector2> MinecartDust;
 
 			public Vector3 lightColor;
 

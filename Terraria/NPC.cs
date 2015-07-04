@@ -892,12 +892,6 @@ namespace Terraria
 				if (this.type == 81)
 				{
 					flag7 = true;
-					if (Main.rand.Next(30) == 0)
-					{
-						int num14 = Dust.NewDust(this.position, this.width, this.height, 14, 0f, 0f, this.alpha, this.color, 1f);
-						Dust dust = Main.dust[num14];
-						dust.velocity = dust.velocity * 0.3f;
-					}
 				}
 				if ((this.type == 377 || this.type == 446) && this.target != 255 && !Main.player[this.target].dead && Vector2.Distance(base.Center, Main.player[this.target].Center) <= 200f)
 				{
@@ -911,17 +905,6 @@ namespace Terraria
 				{
 					flag7 = true;
 				}
-				if (this.type == 147 && Main.rand.Next(10) == 0)
-				{
-					Vector2 vector25 = this.position;
-					int num15 = this.width;
-					int num16 = this.height;
-					skyBlue = new Color();
-					int num17 = Dust.NewDust(vector25, num15, num16, 76, 0f, 0f, 0, skyBlue, 1f);
-					Main.dust[num17].noGravity = true;
-					Dust dust1 = Main.dust[num17];
-					dust1.velocity = dust1.velocity * 0.1f;
-				}
 				if (this.type == 244)
 				{
 					flag7 = true;
@@ -929,17 +912,6 @@ namespace Terraria
 				}
 				if (this.type == 184)
 				{
-					if (Main.rand.Next(8) == 0)
-					{
-						Vector2 vector26 = this.position - this.velocity;
-						int num18 = this.width;
-						int num19 = this.height;
-						skyBlue = new Color();
-						int num20 = Dust.NewDust(vector26, num18, num19, 76, 0f, 0f, 0, skyBlue, 1f);
-						Main.dust[num20].noGravity = true;
-						Dust dust2 = Main.dust[num20];
-						dust2.velocity = dust2.velocity * 0.15f;
-					}
 					flag7 = true;
 					if (this.localAI[0] > 0f)
 					{
@@ -1110,12 +1082,6 @@ namespace Terraria
 				if (this.type == 59)
 				{
 					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.3f, 0.1f);
-					Vector2 vector213 = new Vector2(this.position.X, this.position.Y);
-					int num21 = this.width;
-					int num22 = this.height;
-					skyBlue = new Color();
-					int num23 = Dust.NewDust(vector213, num21, num22, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, skyBlue, 1.7f);
-					Main.dust[num23].noGravity = true;
 				}
 				if (this.ai[2] > 1f)
 				{
@@ -1541,17 +1507,6 @@ namespace Terraria
 							this.velocity.Y = 2.5f;
 						}
 					}
-					if (Main.rand.Next(40) == 0)
-					{
-						Vector2 vector214 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
-						int num25 = this.width;
-						int num26 = (int)((float)this.height * 0.5f);
-						float x5 = this.velocity.X;
-						skyBlue = new Color();
-						int num27 = Dust.NewDust(vector214, num25, num26, 5, x5, 2f, 0, skyBlue, 1f);
-						Main.dust[num27].velocity.X = Main.dust[num27].velocity.X * 0.5f;
-						Main.dust[num27].velocity.Y = Main.dust[num27].velocity.Y * 0.1f;
-					}
 				}
 				else if (this.type != 133)
 				{
@@ -1757,17 +1712,6 @@ namespace Terraria
 							this.velocity.Y = 4f;
 						}
 					}
-				}
-				if ((this.type == 2 || this.type == 133 || this.type == 190 || this.type == 191 || this.type == 192 || this.type == 193 || this.type == 194) && Main.rand.Next(40) == 0)
-				{
-					Vector2 vector215 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
-					int num28 = this.width;
-					int num29 = (int)((float)this.height * 0.5f);
-					float x6 = this.velocity.X;
-					skyBlue = new Color();
-					int num30 = Dust.NewDust(vector215, num28, num29, 5, x6, 2f, 0, skyBlue, 1f);
-					Main.dust[num30].velocity.X = Main.dust[num30].velocity.X * 0.5f;
-					Main.dust[num30].velocity.Y = Main.dust[num30].velocity.Y * 0.1f;
 				}
 				if (this.wet && this.type != 170 && this.type != 171 && this.type != 172)
 				{
@@ -2244,26 +2188,6 @@ namespace Terraria
 								this.ai[3] = -2f;
 								this.ai[2] = 0f;
 							}
-							for (int o = 0; o < 2; o++)
-							{
-								Vector2 vector217 = y5;
-								Vector2 vector218 = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
-								vector218.Normalize();
-								vector218 = vector218 * ((float)Main.rand.Next(0, 100) * 0.1f);
-								vector217 = vector217 + vector218;
-								vector218.Normalize();
-								vector218 = vector218 * ((float)Main.rand.Next(50, 90) * 0.1f);
-								skyBlue = new Color();
-								int num44 = Dust.NewDust(vector217, 1, 1, 27, 0f, 0f, 0, skyBlue, 1f);
-								Main.dust[num44].velocity = -vector218 * 0.3f;
-								Main.dust[num44].alpha = 100;
-								if (Main.rand.Next(2) == 0)
-								{
-									Main.dust[num44].noGravity = true;
-									Dust dust3 = Main.dust[num44];
-									dust3.scale = dust3.scale + 0.3f;
-								}
-							}
 							return;
 						}
 						this.ai[2] = this.ai[2] + 1f;
@@ -2443,19 +2367,6 @@ namespace Terraria
 						this.velocity.X = this.velocity.X * 0.8f;
 						if (this.ai[2] == (float)(-num49) || this.ai[2] == (float)(-num49 - 8) || this.ai[2] == (float)(-num49 - 16))
 						{
-							for (int r = 0; r < 20; r++)
-							{
-								Vector2 center6 = base.Center + ((Vector2.UnitX * (float)this.spriteDirection) * 40f);
-								Dust[] dustArray = Main.dust;
-								skyBlue = new Color();
-								Dust unitX = dustArray[Dust.NewDust(center6, 0, 0, 259, 0f, 0f, 0, skyBlue, 1f)];
-								Vector2 vector220 = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-								unitX.position = center6 + (vector220 * 4f);
-								unitX.velocity = (vector220 * 2f) + (((Vector2.UnitX * Main.rand.NextFloat()) * (float)this.spriteDirection) * 3f);
-								unitX.scale = 0.3f + vector220.X * (float)(-this.spriteDirection);
-								unitX.fadeIn = 0.7f;
-								unitX.noGravity = true;
-							}
 							if (this.velocity.X > -0.5f && this.velocity.X < 0.5f)
 							{
 								this.velocity.X = 0f;
@@ -2504,23 +2415,6 @@ namespace Terraria
 					{
 						num51 = 2;
 					}
-					if (Main.rand.Next(num51) == 0)
-					{
-						Dust[] dustArray1 = Main.dust;
-						Vector2 vector221 = this.position;
-						int num52 = this.width;
-						int num53 = this.height;
-						skyBlue = new Color();
-						Dust dust4 = dustArray1[Dust.NewDust(vector221, num52, num53, 229, 0f, 0f, 0, skyBlue, 1f)];
-						dust4.noGravity = true;
-						dust4.scale = 1f;
-						dust4.noLight = true;
-						dust4.velocity = base.DirectionFrom(dust4.position) * dust4.velocity.Length();
-						Dust dust5 = dust4;
-						dust5.position = dust5.position - (dust4.velocity * 5f);
-						dust4.position.X = dust4.position.X + (float)(this.direction * 6);
-						dust4.position.Y = dust4.position.Y + 4f;
-					}
 				}
 				if (this.type == 427)
 				{
@@ -2559,18 +2453,6 @@ namespace Terraria
 					{
 						num54 = 2;
 					}
-					if (Main.rand.Next(num54) == 0)
-					{
-						Dust[] dustArray2 = Main.dust;
-						Vector2 vector222 = this.position;
-						int num55 = this.width;
-						int num56 = this.height;
-						skyBlue = new Color();
-						Dust dust6 = dustArray2[Dust.NewDust(vector222, num55, num56, 229, 0f, 0f, 0, skyBlue, 1f)];
-						dust6.noGravity = true;
-						dust6.scale = 1f;
-						dust6.noLight = true;
-					}
 				}
 				bool flag9 = false;
 				if (this.velocity.X == 0f)
@@ -2606,25 +2488,6 @@ namespace Terraria
 						single15 = 2f / single15;
 						x11 = x11 * single15;
 						y9 = y9 * single15;
-						for (int s = 0; s < 20; s++)
-						{
-							Vector2 vector224 = this.position;
-							int num58 = this.width;
-							int num59 = this.height;
-							skyBlue = new Color();
-							int num60 = Dust.NewDust(vector224, num58, num59, 71, x11, y9, 200, skyBlue, 2f);
-							Main.dust[num60].noGravity = true;
-							Main.dust[num60].velocity.X = Main.dust[num60].velocity.X * 2f;
-						}
-						for (int t = 0; t < 20; t++)
-						{
-							int num61 = this.width;
-							int num62 = this.height;
-							skyBlue = new Color();
-							int num63 = Dust.NewDust(this.oldPos[2], num61, num62, 71, -x11, -y9, 200, skyBlue, 2f);
-							Main.dust[num63].noGravity = true;
-							Main.dust[num63].velocity.X = Main.dust[num63].velocity.X * 2f;
-						}
 					}
 				}
 				bool flag10 = false;
@@ -4074,15 +3937,6 @@ namespace Terraria
 								this.velocity.Y = this.velocity.Y + 0.3f;
 							}
 						}
-						if (Main.rand.Next(3) == 0)
-						{
-							Vector2 center12 = (base.Center + new Vector2((float)(this.direction * -14), -8f)) - (Vector2.One * 4f);
-							Vector2 vector226 = (new Vector2((float)(this.direction * -6), 12f) * 0.2f) + (Utils.RandomVector2(Main.rand, -1f, 1f) * 0.1f);
-							Dust dust7 = Main.dust[Dust.NewDust(center12, 8, 8, 229, vector226.X, vector226.Y, 100, Color.Transparent, 1f + Main.rand.NextFloat() * 0.5f)];
-							dust7.noGravity = true;
-							dust7.velocity = vector226;
-							dust7.customData = this;
-						}
 						for (int a = 0; a < 200; a++)
 						{
 							if (a != this.whoAmI && Main.npc[a].active && Main.npc[a].type == this.type && Math.Abs(this.position.X - Main.npc[a].position.X) + Math.Abs(this.position.Y - Main.npc[a].position.Y) < (float)this.width)
@@ -4289,49 +4143,6 @@ namespace Terraria
 								this.velocity.Y = this.velocity.Y - 0.1f;
 							}
 						}
-					}
-					if (Main.rand.Next(6) == 0 && this.ai[1] <= 20f)
-					{
-						Dust[] dustArray3 = Main.dust;
-						Vector2 center14 = base.Center + new Vector2((float)((this.spriteDirection == 1 ? 8 : -20)), -20f);
-						float x17 = this.velocity.X;
-						float y14 = this.velocity.Y;
-						skyBlue = new Color();
-						Dust dust8 = dustArray3[Dust.NewDust(center14, 8, 8, 229, x17, y14, 100, skyBlue, 1f)];
-						dust8.velocity = (dust8.velocity / 4f) + (this.velocity / 2f);
-						dust8.scale = 0.6f;
-						dust8.noLight = true;
-					}
-					if (this.ai[1] >= 57f)
-					{
-						Random random = Main.rand;
-						numArray = new int[] { 161, 229 };
-						int num73 = Utils.SelectRandom<int>(random, numArray);
-						Dust[] dustArray4 = Main.dust;
-						Vector2 center15 = base.Center + new Vector2((float)((this.spriteDirection == 1 ? 8 : -20)), -20f);
-						float x18 = this.velocity.X;
-						float y15 = this.velocity.Y;
-						skyBlue = new Color();
-						Dust dust9 = dustArray4[Dust.NewDust(center15, 8, 8, num73, x18, y15, 100, skyBlue, 1f)];
-						dust9.velocity = (dust9.velocity / 4f) + base.DirectionTo(Main.player[this.target].Top);
-						dust9.scale = 1.2f;
-						dust9.noLight = true;
-					}
-					if (Main.rand.Next(6) == 0)
-					{
-						Dust[] dustArray5 = Main.dust;
-						Vector2 center16 = base.Center;
-						skyBlue = new Color();
-						Dust dust10 = dustArray5[Dust.NewDust(center16, 2, 2, 229, 0f, 0f, 0, skyBlue, 1f)];
-						dust10.position = base.Center + new Vector2((float)((this.spriteDirection == 1 ? 26 : -26)), 24f);
-						dust10.velocity.X = 0f;
-						if (dust10.velocity.Y < 0f)
-						{
-							dust10.velocity.Y = 0f;
-						}
-						dust10.noGravity = true;
-						dust10.scale = 1f;
-						dust10.noLight = true;
 					}
 				}
 				else if (this.type != 185)
@@ -5808,17 +5619,6 @@ namespace Terraria
 				{
 					this.rotation = single63;
 				}
-				if (Main.rand.Next(5) == 0)
-				{
-					Vector2 vector233 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
-					int num103 = this.width;
-					int num104 = (int)((float)this.height * 0.5f);
-					float x40 = this.velocity.X;
-					skyBlue = new Color();
-					int num105 = Dust.NewDust(vector233, num103, num104, 5, x40, 2f, 0, skyBlue, 1f);
-					Main.dust[num105].velocity.X = Main.dust[num105].velocity.X * 0.5f;
-					Main.dust[num105].velocity.Y = Main.dust[num105].velocity.Y * 0.1f;
-				}
 				if (Main.dayTime || flag36)
 				{
 					this.velocity.Y = this.velocity.Y - 0.04f;
@@ -5933,11 +5733,6 @@ namespace Terraria
 									}
 								}
 								Main.PlaySound(3, (int)vector235.X, (int)vector235.Y, 1);
-								for (int s1 = 0; s1 < 10; s1++)
-								{
-									skyBlue = new Color();
-									Dust.NewDust(vector235, 20, 20, 5, vector2.X * 0.4f, vector2.Y * 0.4f, 0, skyBlue, 1f);
-								}
 							}
 						}
 					}
@@ -6073,11 +5868,6 @@ namespace Terraria
 								NetMessage.SendData(23, -1, -1, "", num108, 0f, 0f, 0f, 0, 0, 0);
 							}
 						}
-						for (int t1 = 0; t1 < 10; t1++)
-						{
-							skyBlue = new Color();
-							Dust.NewDust(vector238, 20, 20, 5, vector21.X * 0.4f, vector21.Y * 0.4f, 0, skyBlue, 1f);
-						}
 					}
 					if (this.ai[1] == 100f)
 					{
@@ -6093,11 +5883,6 @@ namespace Terraria
 							this.ai[2] = 0f;
 						}
 					}
-					Vector2 vector240 = this.position;
-					int num111 = this.width;
-					int num112 = this.height;
-					skyBlue = new Color();
-					Dust.NewDust(vector240, num111, num112, 5, (float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f, 0, skyBlue, 1f);
 					this.velocity.X = this.velocity.X * 0.98f;
 					this.velocity.Y = this.velocity.Y * 0.98f;
 					if ((double)this.velocity.X > -0.1 && (double)this.velocity.X < 0.1)
@@ -6830,39 +6615,6 @@ namespace Terraria
 							this.velocity.Y = -2f;
 						}
 					}
-					if (this.type == 23)
-					{
-						Vector2 vector246 = new Vector2(this.position.X - this.velocity.X, this.position.Y - this.velocity.Y);
-						int num116 = this.width;
-						int num117 = this.height;
-						skyBlue = new Color();
-						int num118 = Dust.NewDust(vector246, num116, num117, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, skyBlue, 2f);
-						Main.dust[num118].noGravity = true;
-						Main.dust[num118].velocity.X = Main.dust[num118].velocity.X * 0.3f;
-						Main.dust[num118].velocity.Y = Main.dust[num118].velocity.Y * 0.3f;
-					}
-					else if (this.type != 42 && this.type != 139 && this.type != 176 && this.type != 205 && this.type != 210 && this.type != 211 && this.type != 252 && (this.type < 231 || this.type > 235) && Main.rand.Next(20) == 0)
-					{
-						int num119 = 18;
-						if (this.type == 173)
-						{
-							num119 = 5;
-						}
-						int num120 = Dust.NewDust(new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f), this.width, (int)((float)this.height * 0.5f), num119, this.velocity.X, 2f, 75, this.color, this.scale);
-						Main.dust[num120].velocity.X = Main.dust[num120].velocity.X * 0.5f;
-						Main.dust[num120].velocity.Y = Main.dust[num120].velocity.Y * 0.1f;
-					}
-				}
-				else if (this.type != 252 && Main.rand.Next(40) == 0)
-				{
-					Vector2 vector247 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
-					int num121 = this.width;
-					int num122 = (int)((float)this.height * 0.5f);
-					float x50 = this.velocity.X;
-					skyBlue = new Color();
-					int num123 = Dust.NewDust(vector247, num121, num122, 5, x50, 2f, 0, skyBlue, 1f);
-					Main.dust[num123].velocity.X = Main.dust[num123].velocity.X * 0.5f;
-					Main.dust[num123].velocity.Y = Main.dust[num123].velocity.Y * 0.1f;
 				}
 				if ((this.type == 6 || this.type == 94 || this.type == 173) && this.wet)
 				{
@@ -7009,13 +6761,6 @@ namespace Terraria
 					{
 						num127 = -1;
 					}
-					for (int w1 = 0; w1 < 20; w1++)
-					{
-						Vector2 vector249 = new Vector2(this.position.X - 20f, this.position.Y - 20f);
-						float single109 = (float)(num127 * 8);
-						skyBlue = new Color();
-						Dust.NewDust(vector249, this.width + 40, this.height + 40, 5, single109, -1f, 0, skyBlue, 1f);
-					}
 				}
 				if (this.type == 454 && this.localAI[3] == 0f)
 				{
@@ -7027,19 +6772,6 @@ namespace Terraria
 					this.dontTakeDamage = this.alpha > 0;
 					if (this.type == 454 || this.type != 454 && Main.npc[(int)this.ai[1]].alpha < 85)
 					{
-						if (this.dontTakeDamage)
-						{
-							for (int x110 = 0; x110 < 2; x110++)
-							{
-								Vector2 vector250 = new Vector2(this.position.X, this.position.Y);
-								int num128 = this.width;
-								int num129 = this.height;
-								skyBlue = new Color();
-								int num130 = Dust.NewDust(vector250, num128, num129, 228, 0f, 0f, 100, skyBlue, 2f);
-								Main.dust[num130].noGravity = true;
-								Main.dust[num130].noLight = true;
-							}
-						}
 						NPC nPC44 = this;
 						nPC44.alpha = nPC44.alpha - 42;
 						if (this.alpha < 0)
@@ -7704,25 +7436,6 @@ namespace Terraria
 						this.localAI[2] = 128f;
 						this.localAI[3] = this.localAI[3] - 1f;
 					}
-				}
-				if (this.type == 412)
-				{
-					Vector2 center18 = base.Center + ((this.rotation - 1.57079637f).ToRotationVector2() * 8f);
-					Vector2 rotationVector2 = this.rotation.ToRotationVector2() * 16f;
-					Dust zero = Main.dust[Dust.NewDust(center18 + rotationVector2, 0, 0, 6, this.velocity.X, this.velocity.Y, 100, Color.Transparent, 1f + Main.rand.NextFloat() * 3f)];
-					zero.noGravity = true;
-					zero.noLight = true;
-					Dust dust11 = zero;
-					dust11.position = dust11.position - new Vector2(4f);
-					zero.fadeIn = 1f;
-					zero.velocity = Vector2.Zero;
-					zero = Main.dust[Dust.NewDust(center18 - rotationVector2, 0, 0, 6, this.velocity.X, this.velocity.Y, 100, Color.Transparent, 1f + Main.rand.NextFloat() * 3f)];
-					zero.noGravity = true;
-					zero.noLight = true;
-					Dust dust12 = zero;
-					dust12.position = dust12.position - new Vector2(4f);
-					zero.fadeIn = 1f;
-					zero.velocity = Vector2.Zero;
 				}
 				float single114 = 8f;
 				float single115 = 0.07f;
@@ -10474,100 +10187,6 @@ namespace Terraria
 						this.alpha = 255;
 					}
 					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 8);
-					for (int t2 = 0; t2 < 50; t2++)
-					{
-						if (this.type == 29 || this.type == 45)
-						{
-							Vector2 vector255 = new Vector2(this.position.X, this.position.Y);
-							int num233 = this.width;
-							int num234 = this.height;
-							skyBlue = new Color();
-							int num235 = Dust.NewDust(vector255, num233, num234, 27, 0f, 0f, 100, skyBlue, (float)Main.rand.Next(1, 3));
-							Dust dust13 = Main.dust[num235];
-							dust13.velocity = dust13.velocity * 3f;
-							if (Main.dust[num235].scale > 1f)
-							{
-								Main.dust[num235].noGravity = true;
-							}
-						}
-						else if (this.type == 32)
-						{
-							Vector2 vector256 = new Vector2(this.position.X, this.position.Y);
-							int num236 = this.width;
-							int num237 = this.height;
-							skyBlue = new Color();
-							int num238 = Dust.NewDust(vector256, num236, num237, 172, 0f, 0f, 100, skyBlue, 1.5f);
-							Dust dust14 = Main.dust[num238];
-							dust14.velocity = dust14.velocity * 3f;
-							Main.dust[num238].noGravity = true;
-						}
-						else if (this.type == 283 || this.type == 284)
-						{
-							Vector2 vector257 = new Vector2(this.position.X, this.position.Y);
-							int num239 = this.width;
-							int num240 = this.height;
-							skyBlue = new Color();
-							int num241 = Dust.NewDust(vector257, num239, num240, 173, 0f, 0f, 0, skyBlue, 1f);
-							Dust dust15 = Main.dust[num241];
-							dust15.velocity = dust15.velocity * 2f;
-							Main.dust[num241].scale = 1.4f;
-						}
-						else if (this.type == 285 || this.type == 286)
-						{
-							Vector2 vector258 = new Vector2(this.position.X, this.position.Y);
-							int num242 = this.width;
-							int num243 = this.height;
-							skyBlue = new Color();
-							int num244 = Dust.NewDust(vector258, num242, num243, 174, 0f, 0f, 100, skyBlue, 1.5f);
-							Dust dust16 = Main.dust[num244];
-							dust16.velocity = dust16.velocity * 3f;
-							Main.dust[num244].noGravity = true;
-						}
-						else if (this.type == 281 || this.type == 282)
-						{
-							Vector2 vector259 = new Vector2(this.position.X, this.position.Y);
-							int num245 = this.width;
-							int num246 = this.height;
-							skyBlue = new Color();
-							int num247 = Dust.NewDust(vector259, num245, num246, 175, 0f, 0f, 100, skyBlue, 1.5f);
-							Dust dust17 = Main.dust[num247];
-							dust17.velocity = dust17.velocity * 3f;
-							Main.dust[num247].noGravity = true;
-						}
-						else if (this.type == 172)
-						{
-							Vector2 vector260 = new Vector2(this.position.X, this.position.Y);
-							int num248 = this.width;
-							int num249 = this.height;
-							skyBlue = new Color();
-							int num250 = Dust.NewDust(vector260, num248, num249, 106, 0f, 0f, 100, skyBlue, 2.5f);
-							Dust dust18 = Main.dust[num250];
-							dust18.velocity = dust18.velocity * 3f;
-							Main.dust[num250].noGravity = true;
-						}
-						else if (this.type != 533)
-						{
-							Vector2 vector261 = new Vector2(this.position.X, this.position.Y);
-							int num251 = this.width;
-							int num252 = this.height;
-							skyBlue = new Color();
-							int num253 = Dust.NewDust(vector261, num251, num252, 6, 0f, 0f, 100, skyBlue, 2.5f);
-							Dust dust19 = Main.dust[num253];
-							dust19.velocity = dust19.velocity * 3f;
-							Main.dust[num253].noGravity = true;
-						}
-						else
-						{
-							Vector2 vector262 = this.position;
-							int num254 = this.width;
-							int num255 = this.height;
-							skyBlue = new Color();
-							int num256 = Dust.NewDust(vector262, num254, num255, 27, 0f, 0f, 100, skyBlue, 2.5f);
-							Dust dust20 = Main.dust[num256];
-							dust20.velocity = dust20.velocity * 3f;
-							Main.dust[num256].noGravity = true;
-						}
-					}
 					this.position.X = this.ai[2] * 16f - (float)(this.width / 2) + 8f;
 					this.position.Y = this.ai[3] * 16f - (float)this.height;
 					this.velocity.X = 0f;
@@ -10575,100 +10194,6 @@ namespace Terraria
 					this.ai[2] = 0f;
 					this.ai[3] = 0f;
 					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 8);
-					for (int u2 = 0; u2 < 50; u2++)
-					{
-						if (this.type == 29 || this.type == 45)
-						{
-							Vector2 vector263 = new Vector2(this.position.X, this.position.Y);
-							int num257 = this.width;
-							int num258 = this.height;
-							skyBlue = new Color();
-							int num259 = Dust.NewDust(vector263, num257, num258, 27, 0f, 0f, 100, skyBlue, (float)Main.rand.Next(1, 3));
-							Dust dust21 = Main.dust[num259];
-							dust21.velocity = dust21.velocity * 3f;
-							if (Main.dust[num259].scale > 1f)
-							{
-								Main.dust[num259].noGravity = true;
-							}
-						}
-						else if (this.type == 32)
-						{
-							Vector2 vector264 = new Vector2(this.position.X, this.position.Y);
-							int num260 = this.width;
-							int num261 = this.height;
-							skyBlue = new Color();
-							int num262 = Dust.NewDust(vector264, num260, num261, 172, 0f, 0f, 100, skyBlue, 1.5f);
-							Dust dust22 = Main.dust[num262];
-							dust22.velocity = dust22.velocity * 3f;
-							Main.dust[num262].noGravity = true;
-						}
-						else if (this.type == 172)
-						{
-							Vector2 vector265 = new Vector2(this.position.X, this.position.Y);
-							int num263 = this.width;
-							int num264 = this.height;
-							skyBlue = new Color();
-							int num265 = Dust.NewDust(vector265, num263, num264, 106, 0f, 0f, 100, skyBlue, 2.5f);
-							Dust dust23 = Main.dust[num265];
-							dust23.velocity = dust23.velocity * 3f;
-							Main.dust[num265].noGravity = true;
-						}
-						else if (this.type == 283 || this.type == 284)
-						{
-							Vector2 vector266 = new Vector2(this.position.X, this.position.Y);
-							int num266 = this.width;
-							int num267 = this.height;
-							skyBlue = new Color();
-							int num268 = Dust.NewDust(vector266, num266, num267, 173, 0f, 0f, 0, skyBlue, 1f);
-							Dust dust24 = Main.dust[num268];
-							dust24.velocity = dust24.velocity * 2f;
-							Main.dust[num268].scale = 1.4f;
-						}
-						else if (this.type == 285 || this.type == 286)
-						{
-							Vector2 vector267 = new Vector2(this.position.X, this.position.Y);
-							int num269 = this.width;
-							int num270 = this.height;
-							skyBlue = new Color();
-							int num271 = Dust.NewDust(vector267, num269, num270, 174, 0f, 0f, 100, skyBlue, 1.5f);
-							Dust dust25 = Main.dust[num271];
-							dust25.velocity = dust25.velocity * 3f;
-							Main.dust[num271].noGravity = true;
-						}
-						else if (this.type == 281 || this.type == 282)
-						{
-							Vector2 vector268 = new Vector2(this.position.X, this.position.Y);
-							int num272 = this.width;
-							int num273 = this.height;
-							skyBlue = new Color();
-							int num274 = Dust.NewDust(vector268, num272, num273, 175, 0f, 0f, 100, skyBlue, 1.5f);
-							Dust dust26 = Main.dust[num274];
-							dust26.velocity = dust26.velocity * 3f;
-							Main.dust[num274].noGravity = true;
-						}
-						else if (this.type != 533)
-						{
-							Vector2 vector269 = new Vector2(this.position.X, this.position.Y);
-							int num275 = this.width;
-							int num276 = this.height;
-							skyBlue = new Color();
-							int num277 = Dust.NewDust(vector269, num275, num276, 6, 0f, 0f, 100, skyBlue, 2.5f);
-							Dust dust27 = Main.dust[num277];
-							dust27.velocity = dust27.velocity * 3f;
-							Main.dust[num277].noGravity = true;
-						}
-						else
-						{
-							Vector2 vector270 = this.position;
-							int num278 = this.width;
-							int num279 = this.height;
-							skyBlue = new Color();
-							int num280 = Dust.NewDust(vector270, num278, num279, 27, 0f, 0f, 100, skyBlue, 2.5f);
-							Dust dust28 = Main.dust[num280];
-							dust28.velocity = dust28.velocity * 3f;
-							Main.dust[num280].noGravity = true;
-						}
-					}
 				}
 				this.ai[0] = this.ai[0] + 1f;
 				if (this.type == 283 || this.type == 284)
@@ -10928,21 +10453,6 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 29 || this.type == 45)
-				{
-					if (Main.rand.Next(5) == 0)
-					{
-						Vector2 vector273 = new Vector2(this.position.X, this.position.Y + 2f);
-						int num296 = this.width;
-						int num297 = this.height;
-						skyBlue = new Color();
-						int num298 = Dust.NewDust(vector273, num296, num297, 27, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, skyBlue, 1.5f);
-						Main.dust[num298].noGravity = true;
-						Main.dust[num298].velocity.X = Main.dust[num298].velocity.X * 0.5f;
-						Main.dust[num298].velocity.Y = -2f;
-						return;
-					}
-				}
 				else if (this.type != 32)
 				{
 					if (this.type == 172)
@@ -10952,53 +10462,7 @@ namespace Terraria
 						{
 							num299 = 2;
 						}
-						for (int w2 = 0; w2 < num299; w2++)
-						{
-							if (Main.rand.Next(255) > 255 - this.alpha)
-							{
-								Vector2 vector274 = new Vector2(this.position.X, this.position.Y + 2f);
-								int num300 = this.width;
-								int num301 = this.height;
-								skyBlue = new Color();
-								int num302 = Dust.NewDust(vector274, num300, num301, 106, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, skyBlue, 1.2f);
-								Main.dust[num302].noGravity = true;
-								Main.dust[num302].velocity.X = Main.dust[num302].velocity.X * (0.1f + (float)Main.rand.Next(30) * 0.01f);
-								Main.dust[num302].velocity.Y = Main.dust[num302].velocity.Y * (0.1f + (float)Main.rand.Next(30) * 0.01f);
-								Dust dust29 = Main.dust[num302];
-								dust29.scale = dust29.scale * (1f + (float)Main.rand.Next(6) * 0.1f);
-							}
-						}
 						return;
-					}
-					if (this.type == 283 || this.type == 284)
-					{
-						if (Main.rand.Next(2) == 0)
-						{
-							Vector2 vector275 = new Vector2(this.position.X, this.position.Y + 2f);
-							int num303 = this.width;
-							int num304 = this.height;
-							skyBlue = new Color();
-							int num305 = Dust.NewDust(vector275, num303, num304, 173, 0f, 0f, 0, skyBlue, 1f);
-							Main.dust[num305].velocity.X = Main.dust[num305].velocity.X * 0.5f;
-							Main.dust[num305].velocity.Y = Main.dust[num305].velocity.Y * 0.5f;
-							return;
-						}
-					}
-					else if (this.type == 285 || this.type == 286)
-					{
-						if (Main.rand.Next(2) == 0)
-						{
-							Vector2 vector276 = new Vector2(this.position.X, this.position.Y + 2f);
-							int num306 = this.width;
-							int num307 = this.height;
-							skyBlue = new Color();
-							int num308 = Dust.NewDust(vector276, num306, num307, 174, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, skyBlue, 1f);
-							Main.dust[num308].noGravity = true;
-							Dust dust30 = Main.dust[num308];
-							dust30.velocity = dust30.velocity * 0.4f;
-							Main.dust[num308].velocity.Y = Main.dust[num308].velocity.Y - 0.7f;
-							return;
-						}
 					}
 					else if (this.type != 281 && this.type != 282)
 					{
@@ -11007,45 +10471,7 @@ namespace Terraria
 							Lighting.AddLight(base.Top, 0.6f, 0.6f, 0.3f);
 							return;
 						}
-						if (Main.rand.Next(2) == 0)
-						{
-							Vector2 vector277 = new Vector2(this.position.X, this.position.Y + 2f);
-							int num309 = this.width;
-							int num310 = this.height;
-							skyBlue = new Color();
-							int num311 = Dust.NewDust(vector277, num309, num310, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, skyBlue, 2f);
-							Main.dust[num311].noGravity = true;
-							Main.dust[num311].velocity.X = Main.dust[num311].velocity.X * 1f;
-							Main.dust[num311].velocity.Y = Main.dust[num311].velocity.Y * 1f;
-							return;
-						}
 					}
-					else if (Main.rand.Next(2) == 0)
-					{
-						Vector2 vector278 = new Vector2(this.position.X, this.position.Y + 2f);
-						int num312 = this.width;
-						int num313 = this.height;
-						skyBlue = new Color();
-						int num314 = Dust.NewDust(vector278, num312, num313, 175, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, skyBlue, 0.1f);
-						Main.dust[num314].noGravity = true;
-						Dust dust31 = Main.dust[num314];
-						dust31.velocity = dust31.velocity * 0.5f;
-						Main.dust[num314].fadeIn = 1.2f;
-						return;
-					}
-				}
-				else if (Main.rand.Next(3) != 0)
-				{
-					Vector2 vector279 = new Vector2(this.position.X, this.position.Y + 2f);
-					int num315 = this.width;
-					int num316 = this.height;
-					skyBlue = new Color();
-					int num317 = Dust.NewDust(vector279, num315, num316, 172, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, skyBlue, 0.9f);
-					Main.dust[num317].noGravity = true;
-					Main.dust[num317].velocity.X = Main.dust[num317].velocity.X * 0.3f;
-					Main.dust[num317].velocity.Y = Main.dust[num317].velocity.Y * 0.2f;
-					Main.dust[num317].velocity.Y = Main.dust[num317].velocity.Y - 1f;
-					return;
 				}
 			}
 			else if (this.aiStyle == 9)
@@ -11112,19 +10538,6 @@ namespace Terraria
 						NPC nPC83 = this;
 						nPC83.position = nPC83.position + this.velocity;
 						Main.PlaySound(4, (int)this.position.X, (int)this.position.Y, 9);
-						for (int x210 = 0; x210 < 20; x210++)
-						{
-							Vector2 vector282 = new Vector2(this.position.X, this.position.Y + 2f);
-							int num318 = this.width;
-							int num319 = this.height;
-							skyBlue = new Color();
-							int num320 = Dust.NewDust(vector282, num318, num319, 18, 0f, 0f, 100, skyBlue, 1.8f);
-							Dust dust32 = Main.dust[num320];
-							dust32.velocity = dust32.velocity * 1.3f;
-							Dust dust33 = Main.dust[num320];
-							dust33.velocity = dust33.velocity + this.velocity;
-							Main.dust[num320].noGravity = true;
-						}
 					}
 				}
 				if (this.type == 112 && Collision.SolidCollision(this.position, this.width, this.height))
@@ -11143,73 +10556,13 @@ namespace Terraria
 						if (this.type == 30)
 						{
 							this.alpha = 255;
-							for (int a2 = 0; a2 < 2; a2++)
-							{
-								Vector2 vector283 = new Vector2(this.position.X, this.position.Y + 2f);
-								int num322 = this.width;
-								int num323 = this.height;
-								skyBlue = new Color();
-								int num324 = Dust.NewDust(vector283, num322, num323, 27, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, skyBlue, 1.3f);
-								Main.dust[num324].noGravity = true;
-								Dust dust34 = Main.dust[num324];
-								dust34.velocity = dust34.velocity * 0.3f;
-								Main.dust[num324].velocity.X = Main.dust[num324].velocity.X - this.velocity.X * 0.2f;
-								Main.dust[num324].velocity.Y = Main.dust[num324].velocity.Y - this.velocity.Y * 0.2f;
-							}
 						}
-						else if (this.type == 33)
-						{
-							for (int b2 = 0; b2 < 3; b2++)
-							{
-								float x64 = this.velocity.X / 3f * (float)y210;
-								float y60 = this.velocity.Y / 3f * (float)y210;
-								int num325 = 2;
-								Vector2 vector284 = new Vector2(this.position.X + (float)num325, this.position.Y + (float)num325);
-								skyBlue = new Color();
-								int num326 = Dust.NewDust(vector284, this.width - num325 * 2, this.height - num325 * 2, 172, 0f, 0f, 100, skyBlue, 1.2f);
-								Main.dust[num326].noGravity = true;
-								Dust dust35 = Main.dust[num326];
-								dust35.velocity = dust35.velocity * 0.1f;
-								Dust dust36 = Main.dust[num326];
-								dust36.velocity = dust36.velocity + (this.velocity * 0.5f);
-								Main.dust[num326].position.X = Main.dust[num326].position.X - x64;
-								Main.dust[num326].position.Y = Main.dust[num326].position.Y - y60;
-							}
-							if (Main.rand.Next(5) == 0)
-							{
-								int num327 = 2;
-								Vector2 vector285 = new Vector2(this.position.X + (float)num327, this.position.Y + (float)num327);
-								skyBlue = new Color();
-								int num328 = Dust.NewDust(vector285, this.width - num327 * 2, this.height - num327 * 2, 172, 0f, 0f, 100, skyBlue, 0.6f);
-								Dust dust37 = Main.dust[num328];
-								dust37.velocity = dust37.velocity * 0.25f;
-								Dust dust38 = Main.dust[num328];
-								dust38.velocity = dust38.velocity + (this.velocity * 0.5f);
-							}
-						}
+
 						else if (this.type != 112)
 						{
 							Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.3f, 0.1f);
-							Vector2 vector286 = new Vector2(this.position.X, this.position.Y + 2f);
-							int num329 = this.width;
-							int num330 = this.height;
-							skyBlue = new Color();
-							int num331 = Dust.NewDust(vector286, num329, num330, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, skyBlue, 2f);
-							Main.dust[num331].noGravity = true;
-							Main.dust[num331].velocity.X = Main.dust[num331].velocity.X * 0.3f;
-							Main.dust[num331].velocity.Y = Main.dust[num331].velocity.Y * 0.3f;
 						}
-						else
-						{
-							Vector2 vector287 = new Vector2(this.position.X, this.position.Y + 2f);
-							int num332 = this.width;
-							int num333 = this.height;
-							skyBlue = new Color();
-							int num334 = Dust.NewDust(vector287, num332, num333, 18, this.velocity.X * 0.1f, this.velocity.Y * 0.1f, 80, skyBlue, 1.3f);
-							Dust dust39 = Main.dust[num334];
-							dust39.velocity = dust39.velocity * 0.3f;
-							Main.dust[num334].noGravity = true;
-						}
+
 					}
 					NPC nPC84 = this;
 					nPC84.rotation = nPC84.rotation + 0.4f * (float)this.direction;
@@ -11648,26 +11001,6 @@ namespace Terraria
 					if (num338 == 0 && Main.expertMode)
 					{
 						return;
-					}
-					Vector2 vector293 = new Vector2(this.position.X + (float)(this.width / 2) - 15f - this.velocity.X * 5f, this.position.Y + (float)this.height - 2f);
-					skyBlue = new Color();
-					int num342 = Dust.NewDust(vector293, 30, 10, 5, -this.velocity.X * 0.2f, 3f, 0, skyBlue, 2f);
-					Main.dust[num342].noGravity = true;
-					Main.dust[num342].velocity.X = Main.dust[num342].velocity.X * 1.3f;
-					Main.dust[num342].velocity.X = Main.dust[num342].velocity.X + this.velocity.X * 0.4f;
-					Main.dust[num342].velocity.Y = Main.dust[num342].velocity.Y + (2f + this.velocity.Y);
-					for (int d2 = 0; d2 < 2; d2++)
-					{
-						Vector2 vector294 = new Vector2(this.position.X, this.position.Y + 120f);
-						int num343 = this.width;
-						float x70 = this.velocity.X;
-						float y66 = this.velocity.Y;
-						skyBlue = new Color();
-						num342 = Dust.NewDust(vector294, num343, 60, 5, x70, y66, 0, skyBlue, 2f);
-						Main.dust[num342].noGravity = true;
-						Dust dust40 = Main.dust[num342];
-						dust40.velocity = dust40.velocity - this.velocity;
-						Main.dust[num342].velocity.Y = Main.dust[num342].velocity.Y + 5f;
 					}
 					return;
 				}
@@ -12225,27 +11558,6 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 14)
 			{
-				if (this.type == 60 || this.type == 151)
-				{
-					Vector2 vector299 = new Vector2(this.position.X, this.position.Y);
-					int num348 = this.width;
-					int num349 = this.height;
-					skyBlue = new Color();
-					int num350 = Dust.NewDust(vector299, num348, num349, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, skyBlue, 2f);
-					Main.dust[num350].noGravity = true;
-				}
-				if (this.type == 150 && Main.rand.Next(10) == 0)
-				{
-					Vector2 vector2100 = new Vector2(this.position.X, this.position.Y);
-					int num351 = this.width;
-					int num352 = this.height;
-					skyBlue = new Color();
-					int num353 = Dust.NewDust(vector2100, num351, num352, 67, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 90, skyBlue, 1.5f);
-					Main.dust[num353].noGravity = true;
-					Dust dust41 = Main.dust[num353];
-					dust41.velocity = dust41.velocity * 0.2f;
-					Main.dust[num353].noLight = true;
-				}
 				this.noGravity = true;
 				if (this.collideX)
 				{
@@ -14001,12 +13313,6 @@ namespace Terraria
 					else if (this.type == 75)
 					{
 						num383 = 4;
-						if (Main.rand.Next(6) == 0)
-						{
-							int num386 = Dust.NewDust(this.position, this.width, this.height, 55, 0f, 0f, 200, this.color, 1f);
-							Dust dust45 = Main.dust[num386];
-							dust45.velocity = dust45.velocity * 0.3f;
-						}
 						if (Main.rand.Next(40) == 0)
 						{
 							Main.PlaySound(27, (int)this.position.X, (int)this.position.Y, 1);
@@ -14016,17 +13322,6 @@ namespace Terraria
 					{
 						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0.6f, 0.75f);
 						this.alpha = 30;
-						if (Main.rand.Next(3) == 0)
-						{
-							Vector2 vector2107 = this.position;
-							int num387 = this.width;
-							int num388 = this.height;
-							skyBlue = new Color();
-							int num389 = Dust.NewDust(vector2107, num387, num388, 92, 0f, 0f, 200, skyBlue, 1f);
-							Dust dust46 = Main.dust[num389];
-							dust46.velocity = dust46.velocity * 0.3f;
-							Main.dust[num389].noGravity = true;
-						}
 						if (this.justHit)
 						{
 							this.ai[3] = 0f;
@@ -14829,35 +14124,6 @@ namespace Terraria
 						{
 							this.ai[1] = this.ai[1] + 1f;
 							this.velocity.X = this.velocity.X * 0.7f;
-							if (this.ai[1] < 30f)
-							{
-								Vector2 center27 = base.Center + ((Vector2.UnitX * (float)this.spriteDirection) * -20f);
-								Dust[] dustArray6 = Main.dust;
-								skyBlue = new Color();
-								Dust dust47 = dustArray6[Dust.NewDust(center27, 0, 0, 242, 0f, 0f, 0, skyBlue, 1f)];
-								Vector2 vector2112 = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-								dust47.position = center27 + (vector2112 * 20f);
-								dust47.velocity = -vector2112 * 2f;
-								dust47.scale = 0.5f + vector2112.X * (float)(-this.spriteDirection);
-								dust47.fadeIn = 1f;
-								dust47.noGravity = true;
-							}
-							else if (this.ai[1] == 30f)
-							{
-								for (int i3 = 0; i3 < 20; i3++)
-								{
-									Vector2 center28 = base.Center + ((Vector2.UnitX * (float)this.spriteDirection) * -20f);
-									Dust[] dustArray7 = Main.dust;
-									skyBlue = new Color();
-									Dust unitX1 = dustArray7[Dust.NewDust(center28, 0, 0, 242, 0f, 0f, 0, skyBlue, 1f)];
-									Vector2 vector2113 = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-									unitX1.position = center28 + (vector2113 * 4f);
-									unitX1.velocity = (vector2113 * 4f) + (((Vector2.UnitX * Main.rand.NextFloat()) * (float)this.spriteDirection) * -5f);
-									unitX1.scale = 0.5f + vector2113.X * (float)(-this.spriteDirection);
-									unitX1.fadeIn = 1f;
-									unitX1.noGravity = true;
-								}
-							}
 							if (this.velocity.X > -0.5f && this.velocity.X < 0.5f)
 							{
 								this.velocity.X = 0f;
@@ -15161,27 +14427,6 @@ namespace Terraria
 								this.netUpdate = true;
 							}
 						}
-					}
-					if (this.type == 423 && Math.Abs(this.velocity.X) >= single218 * 0.95f)
-					{
-						Rectangle hitbox1 = base.Hitbox;
-						for (int j3 = 0; j3 < 2; j3++)
-						{
-							if (Main.rand.Next(3) == 0)
-							{
-								Dust[] dustArray8 = Main.dust;
-								Vector2 vector2114 = hitbox1.TopLeft();
-								int width = hitbox1.Width;
-								int height = hitbox1.Height;
-								skyBlue = new Color();
-								Dust zero3 = dustArray8[Dust.NewDust(vector2114, width, height, 242, 0f, 0f, 0, skyBlue, 1f)];
-								zero3.velocity = Vector2.Zero;
-								zero3.noGravity = true;
-								zero3.fadeIn = 1f;
-								zero3.scale = 0.5f + Main.rand.NextFloat();
-							}
-						}
-						return;
 					}
 				}
 				else if (this.aiStyle == 27)
@@ -15779,17 +15024,6 @@ namespace Terraria
 						{
 							this.rotation = single233;
 						}
-						if (Main.rand.Next(5) == 0)
-						{
-							Vector2 vector2117 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
-							int num419 = this.width;
-							int num420 = (int)((float)this.height * 0.5f);
-							float x100 = this.velocity.X;
-							skyBlue = new Color();
-							int num421 = Dust.NewDust(vector2117, num419, num420, 5, x100, 2f, 0, skyBlue, 1f);
-							Main.dust[num421].velocity.X = Main.dust[num421].velocity.X * 0.5f;
-							Main.dust[num421].velocity.Y = Main.dust[num421].velocity.Y * 0.1f;
-						}
 						if (Main.netMode != 1 && !Main.dayTime && !flag92 && this.timeLeft < 10)
 						{
 							for (int o3 = 0; o3 < 200; o3++)
@@ -16315,17 +15549,6 @@ namespace Terraria
 						if (this.rotation > single250 - single251 && this.rotation < single250 + single251)
 						{
 							this.rotation = single250;
-						}
-						if (Main.rand.Next(5) == 0)
-						{
-							Vector2 vector2121 = new Vector2(this.position.X, this.position.Y + (float)this.height * 0.25f);
-							int num434 = this.width;
-							int num435 = (int)((float)this.height * 0.5f);
-							float x106 = this.velocity.X;
-							skyBlue = new Color();
-							int num436 = Dust.NewDust(vector2121, num434, num435, 5, x106, 2f, 0, skyBlue, 1f);
-							Main.dust[num436].velocity.X = Main.dust[num436].velocity.X * 0.5f;
-							Main.dust[num436].velocity.Y = Main.dust[num436].velocity.Y * 0.1f;
 						}
 						if (Main.netMode != 1 && !Main.dayTime && !flag93 && this.timeLeft < 10)
 						{
@@ -18039,19 +17262,6 @@ namespace Terraria
 							this.velocity.Length();
 							if (this.type == 134 || this.type != 134 && Main.npc[(int)this.ai[1]].alpha < 128)
 							{
-								if (this.alpha != 0)
-								{
-									for (int u3 = 0; u3 < 2; u3++)
-									{
-										Vector2 vector2138 = new Vector2(this.position.X, this.position.Y);
-										int num456 = this.width;
-										int num457 = this.height;
-										skyBlue = new Color();
-										int num458 = Dust.NewDust(vector2138, num456, num457, 182, 0f, 0f, 100, skyBlue, 2f);
-										Main.dust[num458].noGravity = true;
-										Main.dust[num458].noLight = true;
-									}
-								}
 								NPC nPC134 = this;
 								nPC134.alpha = nPC134.alpha - 42;
 								if (this.alpha < 0)
@@ -18669,17 +17879,6 @@ namespace Terraria
 							this.ai[1] = 0f;
 							this.TargetClosest(true);
 						}
-						if (this.type == 154 && Main.rand.Next(10) == 0)
-						{
-							Vector2 vector2141 = new Vector2(this.position.X, this.position.Y);
-							int num475 = this.width;
-							int num476 = this.height;
-							skyBlue = new Color();
-							int num477 = Dust.NewDust(vector2141, num475, num476, 67, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 90, skyBlue, 1.5f);
-							Main.dust[num477].noGravity = true;
-							Dust dust48 = Main.dust[num477];
-							dust48.velocity = dust48.velocity * 0.2f;
-						}
 						if (this.ai[0] == 0f)
 						{
 							if (this.velocity.X < 0f)
@@ -18872,17 +18071,6 @@ namespace Terraria
 						{
 							if (this.ai[0] == 3f)
 							{
-								if (this.type == 154 && Main.rand.Next(3) < 2)
-								{
-									Vector2 vector2143 = new Vector2(this.position.X, this.position.Y);
-									int num479 = this.width;
-									int num480 = this.height;
-									skyBlue = new Color();
-									int num481 = Dust.NewDust(vector2143, num479, num480, 67, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 90, skyBlue, 1.5f);
-									Main.dust[num481].noGravity = true;
-									Dust dust49 = Main.dust[num481];
-									dust49.velocity = dust49.velocity * 0.2f;
-								}
 								if (Main.expertMode)
 								{
 									if (this.type < 496 || this.type > 497)
@@ -18981,16 +18169,6 @@ namespace Terraria
 									this.damage = (int)((float)(this.defDamage * 2) * Main.damageMultiplier);
 									this.defense = this.defDefense * 2;
 									this.knockBackResist = 0f;
-									if (Main.rand.Next(3) < 2)
-									{
-										Vector2 center29 = base.Center - new Vector2(30f);
-										skyBlue = new Color();
-										int num482 = Dust.NewDust(center29, 60, 60, 6, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 90, skyBlue, 1.5f);
-										Main.dust[num482].noGravity = true;
-										Dust dust50 = Main.dust[num482];
-										dust50.velocity = dust50.velocity * 0.2f;
-										Main.dust[num482].fadeIn = 1f;
-									}
 									this.ai[1] = this.ai[1] + 1f;
 									if (this.ai[3] > 0f)
 									{
@@ -19392,20 +18570,6 @@ namespace Terraria
 						if (this.type == 378)
 						{
 							Vector2 vector2148 = new Vector2(-6f, -10f);
-							if (this.ai[1] != 5f && Main.rand.Next(3) == 0)
-							{
-								Vector2 center32 = (base.Center + vector2148) - (Vector2.One * 5f);
-								skyBlue = new Color();
-								int num488 = Dust.NewDust(center32, 4, 4, 6, 0f, 0f, 0, skyBlue, 1f);
-								Main.dust[num488].scale = 1.5f;
-								Main.dust[num488].noGravity = true;
-								Main.dust[num488].velocity = (Main.dust[num488].velocity * 0.25f) + (Vector2.Normalize(vector2148) * 1f);
-								Dust dust53 = Main.dust[num488];
-								Vector2 vector2149 = Main.dust[num488].velocity;
-								double num489 = (double)(-1.57079637f * (float)this.direction);
-								vector24 = new Vector2();
-								dust53.velocity = vector2149.RotatedBy(num489, vector24);
-							}
 							if (this.ai[1] == 5f)
 							{
 								this.velocity = Vector2.Zero;
@@ -21999,15 +21163,6 @@ namespace Terraria
 									this.velocity.X = (this.velocity.X * 100f + x181) / 101f;
 									this.velocity.Y = (this.velocity.Y * 100f + y180) / 101f;
 									this.rotation = (float)Math.Atan2((double)y180, (double)x181) - 1.57f;
-									Vector2 vector2180 = this.position;
-									int num549 = this.width;
-									int num550 = this.height;
-									skyBlue = new Color();
-									int num551 = Dust.NewDust(vector2180, num549, num550, 180, 0f, 0f, 0, skyBlue, 1f);
-									Dust dust56 = Main.dust[num551];
-									dust56.velocity = dust56.velocity * 0.1f;
-									Main.dust[num551].scale = 1.3f;
-									Main.dust[num551].noGravity = true;
 									return;
 								}
 								if (this.aiStyle != 57)
@@ -24146,20 +23301,6 @@ namespace Terraria
 												if (this.ai[2] == (float)(num600 - 30))
 												{
 													int num608 = 36;
-													for (int d4 = 0; d4 < num608; d4++)
-													{
-														Vector2 vector2197 = ((Vector2.Normalize(this.velocity) * new Vector2((float)this.width / 2f, (float)this.height)) * 0.75f) * 0.5f;
-														double num609 = (double)((float)(d4 - (num608 / 2 - 1)) * 6.28318548f / (float)num608);
-														vector24 = new Vector2();
-														vector2197 = vector2197.RotatedBy(num609, vector24) + base.Center;
-														Vector2 center34 = vector2197 - base.Center;
-														Vector2 vector2198 = vector2197 + center34;
-														skyBlue = new Color();
-														int num610 = Dust.NewDust(vector2198, 0, 0, 172, center34.X * 2f, center34.Y * 2f, 100, skyBlue, 1.4f);
-														Main.dust[num610].noGravity = true;
-														Main.dust[num610].noLight = true;
-														Main.dust[num610].velocity = Vector2.Normalize(center34) * 3f;
-													}
 													Main.PlaySound(29, (int)center33.X, (int)center33.Y, 20);
 												}
 												this.ai[2] = this.ai[2] + 1f;
@@ -24309,23 +23450,7 @@ namespace Terraria
 											else if (this.ai[0] == 1f)
 											{
 												int num613 = 7;
-												for (int e4 = 0; e4 < num613; e4++)
-												{
-													Vector2 vector2200 = (Vector2.Normalize(this.velocity) * new Vector2((float)(this.width + 50) / 2f, (float)this.height)) * 0.75f;
-													double num614 = (double)(e4 - (num613 / 2 - 1)) * 3.14159265358979 / (double)((float)num613);
-													vector24 = new Vector2();
-													vector2200 = vector2200.RotatedBy(num614, vector24) + center33;
-													Vector2 rotationVector21 = ((float)(Main.rand.NextDouble() * 3.14159274101257) - 1.57079637f).ToRotationVector2() * (float)Main.rand.Next(3, 8);
-													Vector2 vector2201 = vector2200 + rotationVector21;
-													skyBlue = new Color();
-													int num615 = Dust.NewDust(vector2201, 0, 0, 172, rotationVector21.X * 2f, rotationVector21.Y * 2f, 100, skyBlue, 1.4f);
-													Main.dust[num615].noGravity = true;
-													Main.dust[num615].noLight = true;
-													Dust dust57 = Main.dust[num615];
-													dust57.velocity = dust57.velocity / 4f;
-													Dust dust58 = Main.dust[num615];
-													dust58.velocity = dust58.velocity - this.velocity;
-												}
+
 												this.ai[2] = this.ai[2] + 1f;
 												if (this.ai[2] >= (float)num597)
 												{
@@ -24601,23 +23726,6 @@ namespace Terraria
 											else if (this.ai[0] == 6f)
 											{
 												int num619 = 7;
-												for (int f4 = 0; f4 < num619; f4++)
-												{
-													Vector2 vector2205 = (Vector2.Normalize(this.velocity) * new Vector2((float)(this.width + 50) / 2f, (float)this.height)) * 0.75f;
-													double num620 = (double)(f4 - (num619 / 2 - 1)) * 3.14159265358979 / (double)((float)num619);
-													vector24 = new Vector2();
-													vector2205 = vector2205.RotatedBy(num620, vector24) + center33;
-													Vector2 rotationVector23 = ((float)(Main.rand.NextDouble() * 3.14159274101257) - 1.57079637f).ToRotationVector2() * (float)Main.rand.Next(3, 8);
-													Vector2 vector2206 = vector2205 + rotationVector23;
-													skyBlue = new Color();
-													int num621 = Dust.NewDust(vector2206, 0, 0, 172, rotationVector23.X * 2f, rotationVector23.Y * 2f, 100, skyBlue, 1.4f);
-													Main.dust[num621].noGravity = true;
-													Main.dust[num621].noLight = true;
-													Dust dust59 = Main.dust[num621];
-													dust59.velocity = dust59.velocity / 4f;
-													Dust dust60 = Main.dust[num621];
-													dust60.velocity = dust60.velocity - this.velocity;
-												}
 												this.ai[2] = this.ai[2] + 1f;
 												if (this.ai[2] >= (float)num597)
 												{
@@ -24851,23 +23959,6 @@ namespace Terraria
 													this.alpha = 0;
 												}
 												int num627 = 7;
-												for (int h4 = 0; h4 < num627; h4++)
-												{
-													Vector2 vector2211 = (Vector2.Normalize(this.velocity) * new Vector2((float)(this.width + 50) / 2f, (float)this.height)) * 0.75f;
-													double num628 = (double)(h4 - (num627 / 2 - 1)) * 3.14159265358979 / (double)((float)num627);
-													vector24 = new Vector2();
-													vector2211 = vector2211.RotatedBy(num628, vector24) + center33;
-													Vector2 rotationVector24 = ((float)(Main.rand.NextDouble() * 3.14159274101257) - 1.57079637f).ToRotationVector2() * (float)Main.rand.Next(3, 8);
-													Vector2 vector2212 = vector2211 + rotationVector24;
-													skyBlue = new Color();
-													int num629 = Dust.NewDust(vector2212, 0, 0, 172, rotationVector24.X * 2f, rotationVector24.Y * 2f, 100, skyBlue, 1.4f);
-													Main.dust[num629].noGravity = true;
-													Main.dust[num629].noLight = true;
-													Dust dust61 = Main.dust[num629];
-													dust61.velocity = dust61.velocity / 4f;
-													Dust dust62 = Main.dust[num629];
-													dust62.velocity = dust62.velocity - this.velocity;
-												}
 												this.ai[2] = this.ai[2] + 1f;
 												if (this.ai[2] >= (float)num597)
 												{
@@ -25251,19 +24342,6 @@ namespace Terraria
 															unitY2 = Vector2.UnitY * 20f;
 															single461 = 0.45f;
 														}
-														Vector2 center41 = base.Center;
-														skyBlue = new Color();
-														int num639 = Dust.NewDust(center41, 0, 0, 226, 0f, 0f, 100, skyBlue, 0.5f);
-														Main.dust[num639].noGravity = true;
-														Main.dust[num639].position = (base.Center + (vector2216 * single461)) + unitY2;
-														Main.dust[num639].velocity = Vector2.Zero;
-														vector2216 = vector2216 * -1f;
-														Vector2 center42 = base.Center;
-														skyBlue = new Color();
-														num639 = Dust.NewDust(center42, 0, 0, 226, 0f, 0f, 100, skyBlue, 0.5f);
-														Main.dust[num639].noGravity = true;
-														Main.dust[num639].position = (base.Center + (vector2216 * single461)) + unitY2;
-														Main.dust[num639].velocity = Vector2.Zero;
 													}
 													Lighting.AddLight((int)base.Center.X / 16, (int)(base.Center.Y - 10f) / 16, 0.1f * single460, 0.5f * single460, 0.7f * single460);
 													return;
@@ -25364,42 +24442,10 @@ namespace Terraria
 											{
 												single462 = single462 * Main.expertKnockBack;
 											}
-											if (this.type == 388 && this.ai[0] != 3f)
-											{
-												Vector2 vector2217 = this.position;
-												int num642 = this.width;
-												int num643 = this.height;
-												skyBlue = new Color();
-												int num644 = Dust.NewDust(vector2217, num642, num643, 226, 0f, 0f, 100, skyBlue, 0.5f);
-												Main.dust[num644].noGravity = true;
-												Main.dust[num644].velocity = this.velocity / 5f;
-												Vector2 x202 = new Vector2(-10f, 10f);
-												if (this.spriteDirection == 1)
-												{
-													x202.X = x202.X * -1f;
-												}
-												double num645 = (double)this.rotation;
-												vector24 = new Vector2();
-												x202 = x202.RotatedBy(num645, vector24);
-												Main.dust[num644].position = base.Center + x202;
-											}
 											if (this.type == 418)
 											{
 												int num646 = (this.ai[0] == 2f ? 2 : 1);
 												int num647 = (this.ai[0] == 2f ? 30 : 20);
-												for (int k5 = 0; k5 < 2; k5++)
-												{
-													if (Main.rand.Next(3) < num646)
-													{
-														Vector2 center45 = base.Center - new Vector2((float)num647);
-														skyBlue = new Color();
-														int num648 = Dust.NewDust(center45, num647 * 2, num647 * 2, 6, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 90, skyBlue, 1.5f);
-														Main.dust[num648].noGravity = true;
-														Dust dust63 = Main.dust[num648];
-														dust63.velocity = dust63.velocity * 0.2f;
-														Main.dust[num648].fadeIn = 1f;
-													}
-												}
 											}
 											if (this.ai[0] == 0f)
 											{
@@ -25443,18 +24489,6 @@ namespace Terraria
 													vector2219.Normalize();
 													vector2219 = vector2219 * single469;
 													this.velocity = vector2219;
-												}
-												if (this.type == 388 && Main.rand.Next(4) == 0)
-												{
-													Vector2 vector2220 = this.position;
-													int num649 = this.width;
-													int num650 = this.height;
-													skyBlue = new Color();
-													int num651 = Dust.NewDust(vector2220, num649, num650, 226, 0f, 0f, 100, skyBlue, 0.5f);
-													Main.dust[num651].noGravity = true;
-													Dust dust64 = Main.dust[num651];
-													dust64.velocity = dust64.velocity * 2f;
-													Main.dust[num651].velocity = (Main.dust[num651].velocity / 2f) + Vector2.Normalize(Main.dust[num651].position - base.Center);
 												}
 											}
 											else if (this.ai[0] == 2f)
@@ -25532,55 +24566,6 @@ namespace Terraria
 												this.damage = (int)(80f * Main.damageMultiplier);
 												this.alpha = 255;
 												Lighting.AddLight((int)base.Center.X / 16, (int)base.Center.Y / 16, 0.2f, 0.7f, 1.1f);
-												for (int l5 = 0; l5 < 10; l5++)
-												{
-													Vector2 vector2222 = this.position;
-													int num653 = this.width;
-													int num654 = this.height;
-													skyBlue = new Color();
-													int num655 = Dust.NewDust(vector2222, num653, num654, 31, 0f, 0f, 100, skyBlue, 1.5f);
-													Dust dust65 = Main.dust[num655];
-													dust65.velocity = dust65.velocity * 1.4f;
-													Main.dust[num655].position = (((float)Main.rand.NextDouble() * 6.28318548f).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f)) + base.Center;
-												}
-												for (int m5 = 0; m5 < 40; m5++)
-												{
-													Vector2 vector2223 = this.position;
-													int num656 = this.width;
-													int num657 = this.height;
-													skyBlue = new Color();
-													int num658 = Dust.NewDust(vector2223, num656, num657, 226, 0f, 0f, 100, skyBlue, 0.5f);
-													Main.dust[num658].noGravity = true;
-													Dust dust66 = Main.dust[num658];
-													dust66.velocity = dust66.velocity * 2f;
-													Main.dust[num658].position = (((float)Main.rand.NextDouble() * 6.28318548f).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f)) + base.Center;
-													Main.dust[num658].velocity = (Main.dust[num658].velocity / 2f) + Vector2.Normalize(Main.dust[num658].position - base.Center);
-													if (Main.rand.Next(2) == 0)
-													{
-														Vector2 vector2224 = this.position;
-														int num659 = this.width;
-														int num660 = this.height;
-														skyBlue = new Color();
-														num658 = Dust.NewDust(vector2224, num659, num660, 226, 0f, 0f, 100, skyBlue, 0.9f);
-														Main.dust[num658].noGravity = true;
-														Dust dust67 = Main.dust[num658];
-														dust67.velocity = dust67.velocity * 1.2f;
-														Main.dust[num658].position = (((float)Main.rand.NextDouble() * 6.28318548f).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f)) + base.Center;
-														Main.dust[num658].velocity = (Main.dust[num658].velocity / 2f) + Vector2.Normalize(Main.dust[num658].position - base.Center);
-													}
-													if (Main.rand.Next(4) == 0)
-													{
-														Vector2 vector2225 = this.position;
-														int num661 = this.width;
-														int num662 = this.height;
-														skyBlue = new Color();
-														num658 = Dust.NewDust(vector2225, num661, num662, 226, 0f, 0f, 100, skyBlue, 0.7f);
-														Dust dust68 = Main.dust[num658];
-														dust68.velocity = dust68.velocity * 1.2f;
-														Main.dust[num658].position = (((float)Main.rand.NextDouble() * 6.28318548f).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f)) + base.Center;
-														Main.dust[num658].velocity = (Main.dust[num658].velocity / 2f) + Vector2.Normalize(Main.dust[num658].position - base.Center);
-													}
-												}
 												this.ai[1] = this.ai[1] + 1f;
 												if (this.ai[1] >= 3f)
 												{
@@ -26161,63 +25146,6 @@ namespace Terraria
 														}
 														Main.PlaySound(2, (int)base.Center.X, (int)base.Center.Y, 39);
 													}
-												}
-												if (flag135 && Main.rand.Next(8) == 0)
-												{
-													Vector2 unitX8 = (((-1f * Vector2.UnitX) * (float)Main.rand.Next(50, 70)) + base.Center) + (Vector2.UnitY * (float)Main.rand.Next(15, 30));
-													num10 = (Main.rand.Next(4) != 0 ? 31 : 228);
-													skyBlue = new Color();
-													int num689 = Dust.NewDust(unitX8, 4, 16, num10, 0f, 0f, 100, skyBlue, 1.2f);
-													Dust dust69 = Main.dust[num689];
-													Vector2 vector2231 = new Vector2(-1f * (float)Main.rand.NextDouble() * 3f, 1f);
-													vector24 = new Vector2();
-													dust69.velocity = vector2231.RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143, vector24);
-													Dust dust70 = Main.dust[num689];
-													dust70.velocity = dust70.velocity * 0.5f;
-													Main.dust[num689].velocity.Y = -Math.Abs(Main.dust[num689].velocity.Y);
-												}
-												if (flag136 && Main.rand.Next(8) == 0)
-												{
-													Vector2 unitX9 = ((Vector2.UnitX * (float)Main.rand.Next(50, 70)) + base.Center) + (Vector2.UnitY * (float)Main.rand.Next(15, 30));
-													num9 = (Main.rand.Next(4) != 0 ? 31 : 228);
-													skyBlue = new Color();
-													int num690 = Dust.NewDust(unitX9, 4, 16, num9, 0f, 0f, 100, skyBlue, 1.2f);
-													Dust dust71 = Main.dust[num690];
-													Vector2 vector2232 = new Vector2((float)Main.rand.NextDouble() * 3f, 1f);
-													vector24 = new Vector2();
-													dust71.velocity = vector2232.RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143, vector24);
-													Dust dust72 = Main.dust[num690];
-													dust72.velocity = dust72.velocity * 0.5f;
-													Main.dust[num690].velocity.Y = -Math.Abs(Main.dust[num690].velocity.Y);
-												}
-												if (flag137 && Main.rand.Next(8) == 0)
-												{
-													Vector2 unitX10 = (((-1f * Vector2.UnitX) * (float)Main.rand.Next(30, 60)) + base.Center) + (Vector2.UnitY * (float)Main.rand.Next(-30, -10));
-													num8 = (Main.rand.Next(4) != 0 ? 31 : 228);
-													skyBlue = new Color();
-													int num691 = Dust.NewDust(unitX10, 4, 16, num8, 0f, 0f, 100, skyBlue, 1.2f);
-													Dust dust73 = Main.dust[num691];
-													Vector2 vector2233 = new Vector2(-1f * (float)Main.rand.NextDouble() * 2f, 1f);
-													vector24 = new Vector2();
-													dust73.velocity = vector2233.RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143, vector24);
-													Dust dust74 = Main.dust[num691];
-													dust74.velocity = dust74.velocity * 0.5f;
-													Main.dust[num691].velocity.Y = -Math.Abs(Main.dust[num691].velocity.Y);
-												}
-												if (flag138 && Main.rand.Next(8) == 0)
-												{
-													Vector2 unitX11 = ((Vector2.UnitX * (float)Main.rand.Next(30, 60)) + base.Center) + (Vector2.UnitY * (float)Main.rand.Next(-30, -10));
-													num7 = (Main.rand.Next(4) != 0 ? 31 : 228);
-													skyBlue = new Color();
-													int num692 = Dust.NewDust(unitX11, 4, 16, num7, 0f, 0f, 100, skyBlue, 1.2f);
-													Dust dust75 = Main.dust[num692];
-													Vector2 vector2234 = new Vector2((float)Main.rand.NextDouble() * 2f, 1f);
-													vector24 = new Vector2();
-													dust75.velocity = vector2234.RotatedBy((Main.rand.NextDouble() - 0.5) * 0.785398185253143, vector24);
-													Dust dust76 = Main.dust[num692];
-													dust76.velocity = dust76.velocity * 0.5f;
-													Main.dust[num692].velocity.Y = -Math.Abs(Main.dust[num692].velocity.Y);
-													return;
 												}
 											}
 										}
@@ -26884,17 +25812,6 @@ namespace Terraria
 														if (flag142 && WorldGen.SolidTile(tileCoordinates4.X, tileCoordinates4.Y))
 														{
 															flag142 = false;
-														}
-														if (flag142)
-														{
-															Dust[] dustArray9 = Main.dust;
-															skyBlue = new Color();
-															Dust unitY12 = dustArray9[Dust.NewDust(center67, 0, 0, num720, 0f, 0f, 0, skyBlue, 1f)];
-															unitY12.noGravity = true;
-															unitY12.position = center67;
-															unitY12.velocity = (-Vector2.UnitY * single510) * (Main.rand.NextFloat() * 0.9f + 1.6f);
-															unitY12.fadeIn = single512;
-															unitY12.scale = single511;
 														}
 													}
 												}
@@ -27685,33 +26602,6 @@ namespace Terraria
 													{
 														this.velocity = Vector2.Zero;
 														base.Center = Vector2.Lerp(Main.projectile[num744].Center, Main.npc[(int)Math.Abs(this.ai[0]) - 1].Center + vector2280, this.ai[2] / single525);
-														Vector2 unitY15 = (Vector2.UnitY * (float)(-this.height)) / 2f;
-														for (int i6 = 0; i6 < 6; i6++)
-														{
-															Vector2 center82 = base.Center - (Vector2.One * 4f);
-															double num745 = (double)((float)i6 * 6.28318548f / 6f);
-															vector24 = new Vector2();
-															Vector2 vector2281 = center82 + unitY15.RotatedBy(num745, vector24);
-															skyBlue = new Color();
-															int num746 = Dust.NewDust(vector2281, 0, 0, 229, 0f, 0f, 0, skyBlue, 1f);
-															Main.dust[num746].velocity = -Vector2.UnitY;
-															Main.dust[num746].noGravity = true;
-															Main.dust[num746].scale = 0.7f;
-															Main.dust[num746].customData = this;
-														}
-														unitY15 = (Vector2.UnitY * (float)(-this.height)) / 6f;
-														for (int j6 = 0; j6 < 3; j6++)
-														{
-															Vector2 center83 = base.Center - (Vector2.One * 4f);
-															double num747 = (double)((float)j6 * 6.28318548f / 6f);
-															vector24 = new Vector2();
-															Vector2 vector2282 = center83 + unitY15.RotatedBy(num747, vector24);
-															skyBlue = new Color();
-															int num748 = Dust.NewDust(vector2282, 0, 0, 229, 0f, -2f, 0, skyBlue, 1f);
-															Main.dust[num748].noGravity = true;
-															Main.dust[num748].scale = 1.5f;
-															Main.dust[num748].customData = this;
-														}
 														return;
 													}
 													if (Main.netMode != 1)
@@ -29272,48 +28162,10 @@ namespace Terraria
 																	{
 																		this.velocity.X = this.velocity.X + 2f;
 																	}
-																	for (int j7 = 0; j7 < 20; j7++)
-																	{
-																		Vector2 center107 = base.Center;
-																		center107.Y = center107.Y - 18f;
-																		Vector2 vector2304 = new Vector2((float)Main.rand.Next(-100, 101), (float)Main.rand.Next(-100, 101));
-																		vector2304.Normalize();
-																		vector2304 = vector2304 * ((float)Main.rand.Next(0, 100) * 0.1f);
-																		center107 = center107 + vector2304;
-																		vector2304.Normalize();
-																		vector2304 = vector2304 * ((float)Main.rand.Next(50, 90) * 0.2f);
-																		skyBlue = new Color();
-																		int num831 = Dust.NewDust(center107, 1, 1, 27, 0f, 0f, 0, skyBlue, 1f);
-																		Main.dust[num831].velocity = -vector2304 * 0.3f;
-																		Main.dust[num831].alpha = 100;
-																		if (Main.rand.Next(2) == 0)
-																		{
-																			Main.dust[num831].noGravity = true;
-																			Dust dust77 = Main.dust[num831];
-																			dust77.scale = dust77.scale + 0.3f;
-																		}
-																	}
 																}
 																this.localAI[0] = this.localAI[0] + 1f;
 																float single544 = 1f - this.localAI[0] / single543;
 																float single545 = single544 * 20f;
-																for (int k7 = 0; (float)k7 < single545; k7++)
-																{
-																	if (Main.rand.Next(5) == 0)
-																	{
-																		Vector2 vector2305 = this.position;
-																		int num832 = this.width;
-																		int num833 = this.height;
-																		skyBlue = new Color();
-																		int num834 = Dust.NewDust(vector2305, num832, num833, 27, 0f, 0f, 0, skyBlue, 1f);
-																		Main.dust[num834].alpha = 100;
-																		Dust dust78 = Main.dust[num834];
-																		dust78.velocity = dust78.velocity * 0.3f;
-																		Dust dust79 = Main.dust[num834];
-																		dust79.velocity = dust79.velocity + (this.velocity * 0.75f);
-																		Main.dust[num834].noGravity = true;
-																	}
-																}
 															}
 														}
 														if (this.type == 521 && this.localAI[0] < 120f)
@@ -29333,14 +28185,6 @@ namespace Terraria
 															}
 															this.localAI[0] = this.localAI[0] + 1f;
 															int num835 = 10;
-															for (int l7 = 0; l7 < 2; l7++)
-															{
-																Vector2 vector2306 = this.position - new Vector2((float)num835);
-																skyBlue = new Color();
-																int num836 = Dust.NewDust(vector2306, this.width + num835 * 2, this.height + num835 * 2, 228, 0f, 0f, 100, skyBlue, 2f);
-																Main.dust[num836].noGravity = true;
-																Main.dust[num836].noLight = true;
-															}
 														}
 														if (this.ai[0] == 0f)
 														{
@@ -29462,14 +28306,6 @@ namespace Terraria
 														if (this.type == 521)
 														{
 															int num837 = 10;
-															for (int m7 = 0; m7 < 1; m7++)
-															{
-																Vector2 vector2307 = this.position - new Vector2((float)num837);
-																skyBlue = new Color();
-																int num838 = Dust.NewDust(vector2307, this.width + num837 * 2, this.height + num837 * 2, 228, 0f, 0f, 100, skyBlue, 2f);
-																Main.dust[num838].noGravity = true;
-																Main.dust[num838].noLight = true;
-															}
 															return;
 														}
 													}
@@ -30878,26 +29714,6 @@ namespace Terraria
 															}
 															this.rotation = this.velocity.X * 0.025f;
 															this.spriteDirection = -Math.Sign(this.velocity.X);
-															for (int r7 = 0; r7 < 2; r7++)
-															{
-																if (Main.rand.Next(2) != 0)
-																{
-																	Vector2 vector2312 = new Vector2((Main.rand.NextFloat() - 0.5f) * (float)(this.width - 70), (Main.rand.NextFloat() - 0.5f) * 20f + (float)(this.height / 2) + 10f);
-																	double num858 = (double)this.rotation;
-																	vector24 = new Vector2();
-																	Vector2 vector2313 = vector2312.RotatedBy(num858, vector24);
-																	Dust[] dustArray10 = Main.dust;
-																	Vector2 center136 = base.Center;
-																	skyBlue = new Color();
-																	Dust zero5 = dustArray10[Dust.NewDust(center136, 0, 0, 228, 0f, 0f, 0, skyBlue, 1f)];
-																	zero5.position = base.Center + vector2313;
-																	zero5.velocity = Vector2.Zero;
-																	zero5.noGravity = true;
-																	zero5.noLight = true;
-																	zero5.fadeIn = 1.5f;
-																	zero5.scale = 0.5f;
-																}
-															}
 															return;
 														}
 														if (this.aiStyle == 94)
@@ -30940,77 +29756,15 @@ namespace Terraria
 																{
 																	num859 = 127;
 																}
-																if (Main.rand.Next(5) == 0 && this.ai[1] < 120f)
-																{
-																	for (int s7 = 0; s7 < 3; s7++)
-																	{
-																		Dust[] dustArray11 = Main.dust;
-																		Vector2 left = base.Left;
-																		int num860 = this.width;
-																		int num861 = this.height / 2;
-																		skyBlue = new Color();
-																		Dust dust80 = dustArray11[Dust.NewDust(left, num860, num861, num859, 0f, 0f, 0, skyBlue, 1f)];
-																		dust80.position = base.Center + (((Vector2.UnitY.RotatedByRandom(4.1887903213501) * new Vector2((float)this.width * 1.5f, (float)this.height * 1.1f)) * 0.8f) * (0.8f + Main.rand.NextFloat() * 0.2f));
-																		dust80.velocity.X = 0f;
-																		dust80.velocity.Y = -Math.Abs(dust80.velocity.Y - (float)s7 + this.velocity.Y - 4f) * 3f;
-																		dust80.noGravity = true;
-																		dust80.fadeIn = 1f;
-																		dust80.scale = 1f + Main.rand.NextFloat() + (float)s7 * 0.3f;
-																	}
-																}
-																if (this.ai[1] < 150f)
-																{
-																	for (int t7 = 0; t7 < 3; t7++)
-																	{
-																		if (Main.rand.Next(4) == 0)
-																		{
-																			Dust[] dustArray12 = Main.dust;
-																			Vector2 top1 = base.Top + new Vector2((float)(-this.width) * (0.33f - 0.11f * (float)t7), -20f);
-																			int num862 = (int)((float)this.width * (0.66f - 0.22f * (float)t7));
-																			skyBlue = new Color();
-																			Dust dust81 = dustArray12[Dust.NewDust(top1, num862, 20, num859, 0f, 0f, 0, skyBlue, 1f)];
-																			dust81.velocity.X = 0f;
-																			dust81.velocity.Y = -Math.Abs(dust81.velocity.Y - (float)t7 + this.velocity.Y - 4f) * (1f + this.ai[1] / 180f * 0.5f);
-																			dust81.noGravity = true;
-																			dust81.fadeIn = 1f;
-																			dust81.scale = 1f + Main.rand.NextFloat() + (float)t7 * 0.3f;
-																		}
-																	}
-																}
 																if (Main.rand.Next(5) == 0 && this.ai[1] < 150f)
 																{
 																	for (int u7 = 0; u7 < 3; u7++)
 																	{
 																		Vector2 center137 = base.Center + (((Vector2.UnitY.RotatedByRandom(4.1887903213501) * new Vector2((float)this.width, (float)this.height)) * 0.7f) * Main.rand.NextFloat());
-																		float single601 = 1f + Main.rand.NextFloat() * 2f + this.ai[1] / 180f * 4f;
-																		for (int v7 = 0; v7 < 6; v7++)
-																		{
-																			Dust[] dustArray13 = Main.dust;
-																			skyBlue = new Color();
-																			Dust dust82 = dustArray13[Dust.NewDust(center137, 4, 4, num859, 0f, 0f, 0, skyBlue, 1f)];
-																			dust82.position = center137;
-																			dust82.velocity.X = dust82.velocity.X * single601;
-																			dust82.velocity.Y = -Math.Abs(dust82.velocity.Y) * single601;
-																			dust82.noGravity = true;
-																			dust82.fadeIn = 1f;
-																			dust82.scale = 1.5f + Main.rand.NextFloat() + (float)v7 * 0.13f;
-																		}
 																		Random random5 = Main.rand;
 																		numArray = new int[] { 1, 18 };
 																		Main.PlaySound(3, center137, Utils.SelectRandom<int>(random5, numArray));
 																	}
-																}
-																if (Main.rand.Next(3) != 0 && this.ai[1] < 150f)
-																{
-																	Dust[] dustArray14 = Main.dust;
-																	Vector2 left1 = base.Left;
-																	int num863 = this.width;
-																	int num864 = this.height / 2;
-																	skyBlue = new Color();
-																	Dust dust83 = dustArray14[Dust.NewDust(left1, num863, num864, 241, 0f, 0f, 0, skyBlue, 1f)];
-																	dust83.position = base.Center + ((Vector2.UnitY.RotatedByRandom(4.1887903213501) * new Vector2((float)(this.width / 2), (float)(this.height / 2))) * (0.8f + Main.rand.NextFloat() * 0.2f));
-																	dust83.velocity.X = 0f;
-																	dust83.velocity.Y = Math.Abs(dust83.velocity.Y) * 0.25f;
 																}
 																if (this.ai[1] % 60f == 1f)
 																{
@@ -31104,34 +29858,6 @@ namespace Terraria
 															}
 															if (this.type == 493)
 															{
-																if (Main.rand.Next(5) == 0)
-																{
-																	Dust[] dustArray15 = Main.dust;
-																	Vector2 left2 = base.Left;
-																	int num865 = this.width;
-																	int num866 = this.height / 2;
-																	skyBlue = new Color();
-																	Dust dust84 = dustArray15[Dust.NewDust(left2, num865, num866, 241, 0f, 0f, 0, skyBlue, 1f)];
-																	dust84.position = base.Center + ((Vector2.UnitY.RotatedByRandom(2.09439516067505) * new Vector2((float)(this.width / 2), (float)(this.height / 2))) * (0.8f + Main.rand.NextFloat() * 0.2f));
-																	dust84.velocity.X = 0f;
-																	dust84.velocity.Y = Math.Abs(dust84.velocity.Y) * 0.25f;
-																}
-																for (int w7 = 0; w7 < 3; w7++)
-																{
-																	if (Main.rand.Next(5) == 0)
-																	{
-																		Dust[] dustArray16 = Main.dust;
-																		Vector2 top2 = base.Top + new Vector2((float)(-this.width) * (0.33f - 0.11f * (float)w7), -20f);
-																		int num867 = (int)((float)this.width * (0.66f - 0.22f * (float)w7));
-																		skyBlue = new Color();
-																		Dust dust85 = dustArray16[Dust.NewDust(top2, num867, 20, 135, 0f, 0f, 0, skyBlue, 1f)];
-																		dust85.velocity.X = 0f;
-																		dust85.velocity.Y = -Math.Abs(dust85.velocity.Y - (float)w7 + this.velocity.Y - 4f) * 1f;
-																		dust85.noGravity = true;
-																		dust85.fadeIn = 1f;
-																		dust85.scale = 1f + Main.rand.NextFloat() + (float)w7 * 0.3f;
-																	}
-																}
 																if (this.ai[1] > 0f)
 																{
 																	this.ai[1] = this.ai[1] - 1f;
@@ -31232,69 +29958,9 @@ namespace Terraria
 																	}
 																}
 															}
-															if (this.type == 507)
-															{
-																if (Main.rand.Next(5) == 0)
-																{
-																	Dust[] dustArray17 = Main.dust;
-																	Vector2 left3 = base.Left;
-																	int num877 = this.width;
-																	int num878 = this.height / 2;
-																	skyBlue = new Color();
-																	Dust dust86 = dustArray17[Dust.NewDust(left3, num877, num878, 241, 0f, 0f, 0, skyBlue, 1f)];
-																	dust86.position = base.Center + ((Vector2.UnitY.RotatedByRandom(2.09439516067505) * new Vector2((float)(this.width / 2), (float)(this.height / 2))) * (0.8f + Main.rand.NextFloat() * 0.2f));
-																	dust86.velocity.X = 0f;
-																	dust86.velocity.Y = Math.Abs(dust86.velocity.Y) * 0.25f;
-																}
-																for (int y710 = 0; y710 < 3; y710++)
-																{
-																	if (Main.rand.Next(5) == 0)
-																	{
-																		Dust[] dustArray18 = Main.dust;
-																		Vector2 top3 = base.Top + new Vector2((float)(-this.width) * (0.33f - 0.11f * (float)y710), -20f);
-																		int num879 = (int)((float)this.width * (0.66f - 0.22f * (float)y710));
-																		skyBlue = new Color();
-																		Dust black = dustArray18[Dust.NewDust(top3, num879, 20, 242, 0f, 0f, 0, skyBlue, 1f)];
-																		black.velocity.X = 0f;
-																		black.velocity.Y = -Math.Abs(black.velocity.Y - (float)y710 + this.velocity.Y - 4f) * 1f;
-																		black.noGravity = true;
-																		black.fadeIn = 1f;
-																		black.color = Color.Black;
-																		black.scale = 1f + Main.rand.NextFloat() + (float)y710 * 0.3f;
-																	}
-																}
-															}
 															if (this.type == 422)
 															{
-																if (Main.rand.Next(5) == 0)
-																{
-																	Dust[] dustArray19 = Main.dust;
-																	Vector2 left4 = base.Left;
-																	int num880 = this.width;
-																	int num881 = this.height / 2;
-																	skyBlue = new Color();
-																	Dust dust87 = dustArray19[Dust.NewDust(left4, num880, num881, 241, 0f, 0f, 0, skyBlue, 1f)];
-																	dust87.position = base.Center + ((Vector2.UnitY.RotatedByRandom(2.09439516067505) * new Vector2((float)(this.width / 2), (float)(this.height / 2))) * (0.8f + Main.rand.NextFloat() * 0.2f));
-																	dust87.velocity.X = 0f;
-																	dust87.velocity.Y = Math.Abs(dust87.velocity.Y) * 0.25f;
-																}
-																for (int a7 = 0; a7 < 3; a7++)
-																{
-																	if (Main.rand.Next(5) == 0)
-																	{
-																		Dust[] dustArray20 = Main.dust;
-																		Vector2 top4 = base.Top + new Vector2((float)(-this.width) * (0.33f - 0.11f * (float)a7), -20f);
-																		int num882 = (int)((float)this.width * (0.66f - 0.22f * (float)a7));
-																		skyBlue = new Color();
-																		Dust black1 = dustArray20[Dust.NewDust(top4, num882, 20, 229, 0f, 0f, 0, skyBlue, 1f)];
-																		black1.velocity.X = 0f;
-																		black1.velocity.Y = -Math.Abs(black1.velocity.Y - (float)a7 + this.velocity.Y - 4f) * 1f;
-																		black1.noGravity = true;
-																		black1.fadeIn = 1f;
-																		black1.color = Color.Black;
-																		black1.scale = 1f + Main.rand.NextFloat() + (float)a7 * 0.3f;
-																	}
-																}
+																
 																if (this.ai[1] > 0f)
 																{
 																	this.ai[1] = this.ai[1] - 1f;
@@ -31355,34 +30021,6 @@ namespace Terraria
 														Label0:
 															if (this.type == 517)
 															{
-																if (Main.rand.Next(5) == 0)
-																{
-																	Dust[] dustArray21 = Main.dust;
-																	Vector2 left5 = base.Left;
-																	int num888 = this.width;
-																	int num889 = this.height / 2;
-																	skyBlue = new Color();
-																	Dust dust88 = dustArray21[Dust.NewDust(left5, num888, num889, 241, 0f, 0f, 0, skyBlue, 1f)];
-																	dust88.position = base.Center + ((Vector2.UnitY.RotatedByRandom(2.09439516067505) * new Vector2((float)(this.width / 2), (float)(this.height / 2))) * (0.8f + Main.rand.NextFloat() * 0.2f));
-																	dust88.velocity.X = 0f;
-																	dust88.velocity.Y = Math.Abs(dust88.velocity.Y) * 0.25f;
-																}
-																for (int b7 = 0; b7 < 3; b7++)
-																{
-																	if (Main.rand.Next(5) == 0)
-																	{
-																		Dust[] dustArray22 = Main.dust;
-																		Vector2 top5 = base.Top + new Vector2((float)(-this.width) * (0.33f - 0.11f * (float)b7), -20f);
-																		int num890 = (int)((float)this.width * (0.66f - 0.22f * (float)b7));
-																		skyBlue = new Color();
-																		Dust dust89 = dustArray22[Dust.NewDust(top5, num890, 20, 6, 0f, 0f, 0, skyBlue, 1f)];
-																		dust89.velocity.X = 0f;
-																		dust89.velocity.Y = -Math.Abs(dust89.velocity.Y - (float)b7 + this.velocity.Y - 4f) * 1f;
-																		dust89.noGravity = true;
-																		dust89.fadeIn = 1f;
-																		dust89.scale = 1f + Main.rand.NextFloat() + (float)b7 * 0.3f;
-																	}
-																}
 																if (this.ai[1] > 0f)
 																{
 																	this.ai[1] = this.ai[1] - 1f;
@@ -31436,18 +30074,6 @@ namespace Terraria
 																			num893 = 226;
 																			single605 = 0.65f;
 																		}
-																		Vector2 rotationVector26 = center139 + (((float)Main.rand.NextDouble() * 6.28318548f).ToRotationVector2() * (12f - (float)(num892 * 2)));
-																		Vector2 one = rotationVector26 - (Vector2.One * 12f);
-																		float x216 = this.velocity.X / 2f;
-																		float y215 = this.velocity.Y / 2f;
-																		skyBlue = new Color();
-																		int num894 = Dust.NewDust(one, 24, 24, num893, x216, y215, 0, skyBlue, 1f);
-																		Dust dust90 = Main.dust[num894];
-																		dust90.position = dust90.position - new Vector2(2f);
-																		Main.dust[num894].velocity = ((Vector2.Normalize(center139 - rotationVector26) * 1.5f) * (10f - (float)num892 * 2f)) / 10f;
-																		Main.dust[num894].noGravity = true;
-																		Main.dust[num894].scale = single605;
-																		Main.dust[num894].customData = this;
 																	}
 																}
 																return;
@@ -31551,35 +30177,11 @@ namespace Terraria
 															if (this.ai[2] != 0f && this.ai[3] != 0f)
 															{
 																Main.PlaySound(2, (int)base.Center.X, (int)base.Center.Y, 8);
-																for (int d7 = 0; d7 < 20; d7++)
-																{
-																	Vector2 vector2316 = this.position;
-																	int num897 = this.width;
-																	int num898 = this.height;
-																	skyBlue = new Color();
-																	int num899 = Dust.NewDust(vector2316, num897, num898, 242, 0f, 0f, 0, skyBlue, 1f);
-																	Dust dust91 = Main.dust[num899];
-																	dust91.velocity = dust91.velocity * 3f;
-																	Main.dust[num899].noGravity = true;
-																	Main.dust[num899].scale = 2.5f;
-																}
 																base.Center = new Vector2(this.ai[2] * 16f, this.ai[3] * 16f);
 																this.velocity = Vector2.Zero;
 																this.ai[2] = 0f;
 																this.ai[3] = 0f;
 																Main.PlaySound(2, (int)base.Center.X, (int)base.Center.Y, 8);
-																for (int e7 = 0; e7 < 20; e7++)
-																{
-																	Vector2 vector2317 = this.position;
-																	int num900 = this.width;
-																	int num901 = this.height;
-																	skyBlue = new Color();
-																	int num902 = Dust.NewDust(vector2317, num900, num901, 242, 0f, 0f, 0, skyBlue, 1f);
-																	Dust dust92 = Main.dust[num902];
-																	dust92.velocity = dust92.velocity * 3f;
-																	Main.dust[num902].noGravity = true;
-																	Main.dust[num902].scale = 2.5f;
-																}
 															}
 															this.ai[0] = this.ai[0] + 1f;
 															if (this.ai[0] >= (float)num895 && Main.netMode != 1)
@@ -31980,45 +30582,6 @@ namespace Terraria
 																if (this.localAI[0] == 0f)
 																{
 																	this.localAI[0] = 1f;
-																	for (int l8 = 0; l8 < 13; l8++)
-																	{
-																		Vector2 vector2318 = this.position;
-																		int num916 = this.width;
-																		int num917 = this.height;
-																		skyBlue = new Color();
-																		int num918 = Dust.NewDust(vector2318, num916, num917, 6, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 90, skyBlue, 2.5f);
-																		Main.dust[num918].noGravity = true;
-																		Main.dust[num918].fadeIn = 1f;
-																		Dust dust93 = Main.dust[num918];
-																		dust93.velocity = dust93.velocity * 4f;
-																		Main.dust[num918].noLight = true;
-																	}
-																}
-																for (int m8 = 0; m8 < 3; m8++)
-																{
-																	if (Main.rand.Next(3) < 2)
-																	{
-																		Vector2 vector2319 = this.position;
-																		int num919 = this.width;
-																		int num920 = this.height;
-																		skyBlue = new Color();
-																		int num921 = Dust.NewDust(vector2319, num919, num920, 6, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 90, skyBlue, 2.5f);
-																		Main.dust[num921].noGravity = true;
-																		Dust dust94 = Main.dust[num921];
-																		dust94.velocity = dust94.velocity * 0.2f;
-																		Main.dust[num921].fadeIn = 1f;
-																		if (Main.rand.Next(6) != 0)
-																		{
-																			Main.dust[num921].velocity = base.DirectionFrom(Main.dust[num921].position) * Main.dust[num921].velocity.Length();
-																		}
-																		else
-																		{
-																			Dust dust95 = Main.dust[num921];
-																			dust95.velocity = dust95.velocity * 30f;
-																			Main.dust[num921].noGravity = false;
-																			Main.dust[num921].noLight = true;
-																		}
-																	}
 																}
 																return;
 															}
@@ -32052,44 +30615,6 @@ namespace Terraria
 																	this.localAI[0] = 1f;
 																	this.velocity.X = this.ai[2];
 																	this.velocity.Y = this.ai[3];
-																	for (int n8 = 0; n8 < 13; n8++)
-																	{
-																		Vector2 vector2320 = this.position;
-																		int num922 = this.width;
-																		int num923 = this.height;
-																		skyBlue = new Color();
-																		int num924 = Dust.NewDust(vector2320, num922, num923, 261, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 90, skyBlue, 2.5f);
-																		Main.dust[num924].noGravity = true;
-																		Main.dust[num924].fadeIn = 1f;
-																		Dust dust96 = Main.dust[num924];
-																		dust96.velocity = dust96.velocity * 4f;
-																		Main.dust[num924].noLight = true;
-																	}
-																}
-																for (int o8 = 0; o8 < 2; o8++)
-																{
-																	if (Main.rand.Next(10 - (int)Math.Min(7f, this.velocity.Length())) < 1)
-																	{
-																		Vector2 vector2321 = this.position;
-																		int num925 = this.width;
-																		int num926 = this.height;
-																		skyBlue = new Color();
-																		int num927 = Dust.NewDust(vector2321, num925, num926, 261, this.velocity.X * 0.5f, this.velocity.Y * 0.5f, 90, skyBlue, 2.5f);
-																		Main.dust[num927].noGravity = true;
-																		Dust dust97 = Main.dust[num927];
-																		dust97.velocity = dust97.velocity * 0.2f;
-																		Main.dust[num927].fadeIn = 0.4f;
-																		if (Main.rand.Next(6) != 0)
-																		{
-																			Main.dust[num927].velocity = base.DirectionFrom(Main.dust[num927].position) * Main.dust[num927].velocity.Length();
-																		}
-																		else
-																		{
-																			Dust dust98 = Main.dust[num927];
-																			dust98.velocity = dust98.velocity * 5f;
-																			Main.dust[num927].noLight = true;
-																		}
-																	}
 																}
 																this.dontTakeDamage = (this.ai[0] < 0f ? false : this.ai[0] <= 20f);
 																if (this.ai[0] >= 0f)
@@ -32146,47 +30671,6 @@ namespace Terraria
 															this.scale = MathHelper.Lerp(single622, single623, single625);
 															base.Center = this.position;
 															this.alpha = (int)(255f - single625 * 255f);
-															if (Main.rand.Next(6) == 0)
-															{
-																Vector2 vector2323 = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-																Dust[] dustArray23 = Main.dust;
-																Vector2 center147 = base.Center - (vector2323 * 20f);
-																skyBlue = new Color();
-																Dust dust99 = dustArray23[Dust.NewDust(center147, 0, 0, 27, 0f, 0f, 0, skyBlue, 1f)];
-																dust99.noGravity = true;
-																dust99.position = base.Center - ((vector2323 * (float)Main.rand.Next(10, 21)) * this.scale);
-																vector24 = new Vector2();
-																dust99.velocity = vector2323.RotatedBy(1.57079637050629, vector24) * 4f;
-																dust99.scale = 0.5f + Main.rand.NextFloat();
-																dust99.fadeIn = 0.5f;
-															}
-															if (Main.rand.Next(6) == 0)
-															{
-																Vector2 vector2324 = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-																Dust[] dustArray24 = Main.dust;
-																Vector2 center148 = base.Center - (vector2324 * 30f);
-																skyBlue = new Color();
-																Dust dust100 = dustArray24[Dust.NewDust(center148, 0, 0, 240, 0f, 0f, 0, skyBlue, 1f)];
-																dust100.noGravity = true;
-																dust100.position = base.Center - ((vector2324 * 20f) * this.scale);
-																vector24 = new Vector2();
-																dust100.velocity = vector2324.RotatedBy(-1.57079637050629, vector24) * 2f;
-																dust100.scale = 0.5f + Main.rand.NextFloat();
-																dust100.fadeIn = 0.5f;
-															}
-															if (Main.rand.Next(6) == 0)
-															{
-																Vector2 vector2325 = Vector2.UnitY.RotatedByRandom(6.28318548202515);
-																Dust[] dustArray25 = Main.dust;
-																Vector2 center149 = base.Center - (vector2325 * 30f);
-																skyBlue = new Color();
-																Dust zero9 = dustArray25[Dust.NewDust(center149, 0, 0, 240, 0f, 0f, 0, skyBlue, 1f)];
-																zero9.position = base.Center - ((vector2325 * 20f) * this.scale);
-																zero9.velocity = Vector2.Zero;
-																zero9.scale = 0.5f + Main.rand.NextFloat();
-																zero9.fadeIn = 0.5f;
-																zero9.noLight = true;
-															}
 															this.localAI[0] = this.localAI[0] + 0.05235988f;
 															float[] singleArray15 = this.localAI;
 															Vector2 unitY21 = Vector2.UnitY;
@@ -32713,15 +31197,6 @@ namespace Terraria
 														float single635 = vector2337.Length() / 30f;
 														this.localAI[0] = vector2337.ToRotation();
 														this.localAI[1] = MathHelper.Lerp(this.localAI[1], single635, 0.5f);
-														for (int y810 = 0; y810 < 2; y810++)
-														{
-															Vector2 center158 = (base.Center + vector2337) - (Vector2.One * 4f);
-															skyBlue = new Color();
-															int num956 = Dust.NewDust(center158, 0, 0, 229, 0f, 0f, 0, skyBlue, 1f);
-															Dust dust101 = Main.dust[num956];
-															dust101.velocity = dust101.velocity + (vector2337 / 15f);
-															Main.dust[num956].noGravity = true;
-														}
 														if ((single629 - 15f) % 10f == 0f && Main.netMode != 1)
 														{
 															Vector2 unitY24 = Vector2.Normalize(vector2337);
@@ -32836,16 +31311,6 @@ namespace Terraria
 																		num959 = 229;
 																		single638 = 1.65f;
 																	}
-																	Vector2 rotationVector28 = center160 + ((((float)Main.rand.NextDouble() * 6.28318548f).ToRotationVector2() * vector2331) / 2f);
-																	Vector2 one1 = rotationVector28 - (Vector2.One * 8f);
-																	float x221 = this.velocity.X / 2f;
-																	float y219 = this.velocity.Y / 2f;
-																	skyBlue = new Color();
-																	int num960 = Dust.NewDust(one1, 16, 16, num959, x221, y219, 0, skyBlue, 1f);
-																	Main.dust[num960].velocity = ((Vector2.Normalize(center160 - rotationVector28) * 3.5f) * (10f - (float)num958 * 2f)) / 10f;
-																	Main.dust[num960].noGravity = true;
-																	Main.dust[num960].scale = single638;
-																	Main.dust[num960].customData = this;
 																}
 																return;
 															}
@@ -33099,16 +31564,6 @@ namespace Terraria
 																num969 = 229;
 																single644 = 1.65f;
 															}
-															Vector2 rotationVector210 = center166 + ((((float)Main.rand.NextDouble() * 6.28318548f).ToRotationVector2() * vector2339) / 2f);
-															Vector2 one2 = rotationVector210 - (Vector2.One * 8f);
-															float x222 = this.velocity.X / 2f;
-															float y220 = this.velocity.Y / 2f;
-															skyBlue = new Color();
-															int num970 = Dust.NewDust(one2, 16, 16, num969, x222, y220, 0, skyBlue, 1f);
-															Main.dust[num970].velocity = ((Vector2.Normalize(center166 - rotationVector210) * 3.5f) * (10f - (float)num968 * 2f)) / 10f;
-															Main.dust[num970].noGravity = true;
-															Main.dust[num970].scale = single644;
-															Main.dust[num970].customData = this;
 														}
 													}
 												}
@@ -33872,56 +32327,6 @@ namespace Terraria
 							}
 						}
 						this.dontTakeDamage = flag170;
-						if (!flag171)
-						{
-							Vector2 vector2362 = new Vector2(base.Center.X - 80f, base.Center.Y - 9f);
-							skyBlue = new Color();
-							int num980 = Dust.NewDust(vector2362, 8, 8, 31, 0f, 0f, 100, skyBlue, 1f);
-							Dust dust102 = Main.dust[num980];
-							dust102.alpha = dust102.alpha + Main.rand.Next(100);
-							Dust dust103 = Main.dust[num980];
-							dust103.velocity = dust103.velocity * 0.2f;
-							Main.dust[num980].velocity.Y = Main.dust[num980].velocity.Y - (0.5f + (float)Main.rand.Next(10) * 0.1f);
-							Main.dust[num980].fadeIn = 0.5f + (float)Main.rand.Next(10) * 0.1f;
-							if (Main.rand.Next(10) == 0)
-							{
-								Vector2 vector2363 = new Vector2(base.Center.X - 80f, base.Center.Y - 9f);
-								skyBlue = new Color();
-								num980 = Dust.NewDust(vector2363, 8, 8, 6, 0f, 0f, 0, skyBlue, 1f);
-								if (Main.rand.Next(20) != 0)
-								{
-									Main.dust[num980].noGravity = true;
-									Dust dust104 = Main.dust[num980];
-									dust104.scale = dust104.scale * (1f + (float)Main.rand.Next(10) * 0.1f);
-									Main.dust[num980].velocity.Y = Main.dust[num980].velocity.Y - 1f;
-								}
-							}
-						}
-						if (!flag172)
-						{
-							Vector2 vector2364 = new Vector2(base.Center.X + 62f, base.Center.Y - 9f);
-							skyBlue = new Color();
-							int num981 = Dust.NewDust(vector2364, 8, 8, 31, 0f, 0f, 100, skyBlue, 1f);
-							Dust dust105 = Main.dust[num981];
-							dust105.alpha = dust105.alpha + Main.rand.Next(100);
-							Dust dust106 = Main.dust[num981];
-							dust106.velocity = dust106.velocity * 0.2f;
-							Main.dust[num981].velocity.Y = Main.dust[num981].velocity.Y - (0.5f + (float)Main.rand.Next(10) * 0.1f);
-							Main.dust[num981].fadeIn = 0.5f + (float)Main.rand.Next(10) * 0.1f;
-							if (Main.rand.Next(10) == 0)
-							{
-								Vector2 vector2365 = new Vector2(base.Center.X + 62f, base.Center.Y - 9f);
-								skyBlue = new Color();
-								num981 = Dust.NewDust(vector2365, 8, 8, 6, 0f, 0f, 0, skyBlue, 1f);
-								if (Main.rand.Next(20) != 0)
-								{
-									Main.dust[num981].noGravity = true;
-									Dust dust107 = Main.dust[num981];
-									dust107.scale = dust107.scale * (1f + (float)Main.rand.Next(10) * 0.1f);
-									Main.dust[num981].velocity.Y = Main.dust[num981].velocity.Y - 1f;
-								}
-							}
-						}
 						if (this.ai[0] == 0f)
 						{
 							this.noTileCollide = false;
@@ -34275,21 +32680,6 @@ namespace Terraria
 					{
 						this.noGravity = false;
 						this.noTileCollide = false;
-						if (Main.rand.Next(2) == 0)
-						{
-							Vector2 vector2369 = new Vector2(this.position.X - 4f, this.position.Y + (float)this.height - 8f);
-							float y236 = this.velocity.Y / 2f;
-							skyBlue = new Color();
-							int num991 = Dust.NewDust(vector2369, this.width + 8, 24, 32, 0f, y236, 0, skyBlue, 1f);
-							Main.dust[num991].velocity.X = Main.dust[num991].velocity.X * 0.4f;
-							Main.dust[num991].velocity.Y = Main.dust[num991].velocity.Y * -1f;
-							if (Main.rand.Next(2) == 0)
-							{
-								Main.dust[num991].noGravity = true;
-								Dust dust109 = Main.dust[num991];
-								dust109.scale = dust109.scale + 0.2f;
-							}
-						}
 					}
 					else
 					{
@@ -35596,18 +33986,6 @@ namespace Terraria
 						}
 					}
 				}
-			}
-			if (flag && Main.rand.Next(20) == 0 && !this.lavaWet && !this.honeyWet)
-			{
-				int num2 = 0;
-				int num3 = 0;
-				if (this.type == 369)
-				{
-					num3 = 8;
-				}
-				Vector2 vector2 = new Vector2(this.position.X + (float)((10 + num2) * this.direction), this.position.Y + (float)num3 + 4f);
-				Color color = new Color();
-				Dust.NewDust(vector2, this.width - 8, 8, 34, 0f, 0f, 0, color, 1.2f);
 			}
 		}
 
@@ -39546,22 +37924,6 @@ namespace Terraria
 			if (this.daybreak && this.life <= 0)
 			{
 				Rectangle hitbox = base.Hitbox;
-				for (int i = 0; i < 20; i++)
-				{
-					Random random = Main.rand;
-					numArray = new int[] { 6, 259, 158 };
-					int num3 = Utils.SelectRandom<int>(random, numArray);
-					Vector2 vector21 = hitbox.TopLeft();
-					int num4 = this.width;
-					int num5 = this.height;
-					color = new Color();
-					int num6 = Dust.NewDust(vector21, num4, num5, num3, 0f, -2.5f, 0, color, 1f);
-					Main.dust[num6].alpha = 200;
-					Dust dust = Main.dust[num6];
-					dust.velocity = dust.velocity * 1.4f;
-					Dust dust1 = Main.dust[num6];
-					dust1.scale = dust1.scale + Main.rand.NextFloat();
-				}
 				if (Main.netMode != 1)
 				{
 					for (int j = 0; j < 200; j++)
@@ -39573,34 +37935,6 @@ namespace Terraria
 						}
 					}
 				}
-			}
-			if (this.type == 378)
-			{
-				if (this.life <= 0)
-				{
-					for (int k = 0; k < 20; k++)
-					{
-						Vector2 vector22 = this.position;
-						int num7 = this.width;
-						int num8 = this.height;
-						color = new Color();
-						Dust.NewDust(vector22, num7, num8, 7, 0f, 0f, 0, color, 1f);
-					}
-				}
-				else
-				{
-					for (int l = 0; (double)l < dmg / (double)this.lifeMax * 50; l++)
-					{
-						Vector2 vector23 = this.position;
-						int num9 = this.width;
-						int num10 = this.height;
-						color = new Color();
-						Dust.NewDust(vector23, num9, num10, 7, 0f, 0f, 0, color, 1f);
-					}
-				}
-			}
-			if (this.type == 437 && dmg == 9999)
-			{
 			}
 			if (this.type == 398 && dmg == 1337)
 			{
@@ -39619,39 +37953,6 @@ namespace Terraria
 				}
 				this.localAI[1] = (float)hitDirection;
 			}
-			else if (this.type >= 513 && this.type <= 515)
-			{
-			}
-			else if (this.type >= 510 && this.type <= 512)
-			{
-			}
-			else if (this.type == 518 || this.type == 416)
-			{
-			}
-			else if (this.type == 419)
-			{
-			}
-			else if (this.type == 412 || this.type == 413 || this.type == 414)
-			{
-			}
-			else if (this.type == 415)
-			{
-			}
-			else if (this.type == 417)
-			{
-			}
-			else if (this.type == 418)
-			{
-			}
-			if (this.type == 516)
-			{
-			}
-			if (this.type == 519)
-			{
-			}
-			if (this.type == 522)
-			{
-			}
 			else if (this.type == 426)
 			{
 				if (Main.netMode != 1)
@@ -39667,9 +37968,6 @@ namespace Terraria
 				{
 
 				}
-			}
-			else if (this.type == 427)
-			{
 			}
 			else if (this.type == 429)
 			{
@@ -39734,63 +38032,6 @@ namespace Terraria
 						flag1 = true;
 					}
 				}
-				else
-				{
-				}
-			}
-			else if (this.type == 425)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 428)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 424)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 423)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 421)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 420)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
 			}
 			else if (this.type == 406 || this.type == 405)
 			{
@@ -39820,36 +38061,6 @@ namespace Terraria
 						}
 					}
 				}
-				else
-				{
-				}
-			}
-			else if (this.type == 409)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 410)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 407)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
 			}
 			else if (this.type == 402)
 			{
@@ -39865,18 +38076,6 @@ namespace Terraria
 							}
 						}
 					}
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 411)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
 				}
 			}
 			else if (this.type == 491)
@@ -39897,535 +38096,10 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 492)
-			{
-				if (this.life <= 0)
-				{
-				}
-			}
-			else if (this.type >= 524 && this.type <= 527)
-			{
-				int num211 = 0;
-				int num212 = 5;
-				int num213 = 863;
-				if (this.type == 525)
-				{
-					num211 = 75;
-					num213 = 867;
-				}
-				else if (this.type == 526)
-				{
-					num211 = 170;
-					num213 = 871;
-				}
-				else if (this.type == 527)
-				{
-					num211 = 67;
-					num213 = 879;
-				}
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type >= 528 && this.type <= 529)
-			{
-				int num222 = 5;
-				int num223 = 875;
-				if (this.type == 529)
-				{
-					num223 = 876;
-				}
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 530 || this.type == 531)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 532)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 533)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 460)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 477)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 479)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 478)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 466)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 468)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 469)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 463)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 461)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 462)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 379 || this.type == 438)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 439)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 440)
-			{
-				if (this.life <= 0)
-				{
-				}
-			}
-			else if (this.type >= 454 && this.type <= 459)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
 		Label0:
-			if (this.type == 372 || this.type == 373)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
 			if (this.type == 371)
 			{
 				Main.PlaySound(4, (int)this.position.X, (int)this.position.Y, 3);
-				if (this.life <= 0)
-				{
-				}
-			}
-			if (this.type == 370)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 381)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 382 || this.type == 390)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 383)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 384)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 385)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 386)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			if (this.type == 387)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			if (this.type == 520)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 389)
-			{
-				if (this.life <= 0)
-				{
-				}
-				else
-				{
-				}
-			}
-			else if (this.type == 388)
-			{
-				if (this.life <= 0)
-				{
-					for (int t5 = 0; t5 < 10; t5++)
-					{
-						Vector2 vector2167 = this.position;
-						int num362 = this.width;
-						int num363 = this.height;
-						float single96 = -2.5f * (float)hitDirection;
-						color = new Color();
-						int num364 = Dust.NewDust(vector2167, num362, num363, 226, single96, -2.5f, 0, color, 1f);
-						Main.dust[num364].scale = 0.5f;
-					}
-					Vector2 rotationVector23 = this.velocity;
-					if (this.ai[0] == 3f)
-					{
-						rotationVector23 = this.rotation.ToRotationVector2();
-						if (this.spriteDirection == 1)
-						{
-							rotationVector23.X = rotationVector23.X * -1f;
-						}
-						rotationVector23 = rotationVector23 * 5f;
-					}
-					Gore.NewGore(base.Center - new Vector2(10f, 10f), rotationVector23, 605, this.scale);
-					Gore.NewGore(base.Center - new Vector2(10f, 10f), rotationVector23, 606, this.scale);
-				}
-				else
-				{
-					for (int u5 = 0; (double)u5 < dmg / (double)(this.lifeMax * 50); u5++)
-					{
-						Vector2 vector2168 = this.position;
-						int num365 = this.width;
-						int num366 = this.height;
-						float single97 = (float)(-1 * hitDirection);
-						color = new Color();
-						int num367 = Dust.NewDust(vector2168, num365, num366, 226, single97, -1f, 0, color, 1f);
-						Main.dust[num367].position = Vector2.Lerp(Main.dust[num367].position, base.Center, 0.25f);
-						Main.dust[num367].scale = 0.5f;
-					}
-				}
-			}
-			else if (this.type == 399)
-			{
-				if (this.life <= 0)
-				{
-					for (int v5 = 0; v5 < 10; v5++)
-					{
-						Vector2 vector2169 = this.position;
-						int num368 = this.width;
-						int num369 = this.height;
-						float single98 = -2.5f * (float)hitDirection;
-						color = new Color();
-						int num370 = Dust.NewDust(vector2169, num368, num369, 226, single98, -2.5f, 0, color, 1f);
-						Main.dust[num370].scale = 0.5f;
-					}
-					Vector2 rotationVector24 = this.velocity;
-					if (this.ai[0] == 3f)
-					{
-						rotationVector24 = this.rotation.ToRotationVector2();
-						if (this.spriteDirection == 1)
-						{
-							rotationVector24.X = rotationVector24.X * -1f;
-						}
-						rotationVector24 = rotationVector24 * 5f;
-					}
-					Gore.NewGore(base.Center - new Vector2(10f, 10f), rotationVector24, 898, this.scale);
-					Gore.NewGore(base.Center - new Vector2(10f, 10f), rotationVector24, 899, this.scale);
-				}
-				else
-				{
-					for (int w5 = 0; (double)w5 < dmg / (double)(this.lifeMax * 50); w5++)
-					{
-						Vector2 vector2170 = this.position;
-						int num371 = this.width;
-						int num372 = this.height;
-						float single99 = (float)(-1 * hitDirection);
-						color = new Color();
-						int num373 = Dust.NewDust(vector2170, num371, num372, 226, single99, -1f, 0, color, 1f);
-						Main.dust[num373].position = Vector2.Lerp(Main.dust[num373].position, base.Center, 0.25f);
-						Main.dust[num373].scale = 0.5f;
-					}
-				}
-			}
-			else if (this.type == 391)
-			{
-				if (this.life <= 0)
-				{
-					for (int x5 = 0; x5 < 30; x5++)
-					{
-						Vector2 vector2171 = this.position;
-						int num374 = this.width;
-						int num375 = this.height;
-						float single100 = 2.5f * (float)hitDirection;
-						color = new Color();
-						Dust.NewDust(vector2171, num374, num375, 227, single100, -2.5f, 0, color, 1f);
-					}
-					Gore.NewGore(this.position + ((Vector2.UnitX * (float)this.width) / 2f), this.velocity, 607, this.scale);
-					Gore.NewGore(this.position + ((Vector2.UnitX * (float)this.width) / 2f), this.velocity, 608, this.scale);
-					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 609, this.scale);
-				}
-				else
-				{
-					for (int y5 = 0; (double)y5 < dmg / (double)(this.lifeMax * 50); y5++)
-					{
-						Vector2 vector2172 = this.position;
-						int num376 = this.width;
-						int num377 = this.height;
-						float single101 = (float)hitDirection;
-						color = new Color();
-						Dust.NewDust(vector2172, num376, num377, 227, single101, -1f, 0, color, 1f);
-					}
-				}
-			}
-			if (this.type != 392 && this.type != 394 && this.type != 393 && this.type != 395)
-			{
-				if (this.type == 482 || this.type == 483)
-				{
-					if (this.life <= 0)
-					{
-						for (int a5 = 0; a5 < 30; a5++)
-						{
-							Vector2 vector2173 = this.position;
-							int num378 = this.width;
-							int num379 = this.height;
-							float single102 = 2.5f * (float)hitDirection;
-							color = new Color();
-							Dust.NewDust(vector2173, num378, num379, 240, single102, -2.5f, 0, color, 1f);
-						}
-						if (this.type == 482)
-						{
-							Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 718, this.scale);
-							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 10f), this.velocity, 719, this.scale);
-							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 720, this.scale);
-							Gore.NewGore(new Vector2(this.position.X, this.position.Y + 40f), this.velocity, 721, this.scale);
-						}
-					}
-					else
-					{
-						for (int b5 = 0; (double)b5 < dmg / (double)(this.lifeMax * 50); b5++)
-						{
-							Vector2 vector2174 = this.position;
-							int num380 = this.width;
-							int num381 = this.height;
-							float single103 = (float)hitDirection;
-							color = new Color();
-							Dust.NewDust(vector2174, num380, num381, 240, single103, -1f, 0, color, 1f);
-						}
-					}
-				}
-			}
-			else if (this.life <= 0)
-			{
-				for (int c5 = 0; c5 < 30; c5++)
-				{
-					Vector2 vector2175 = this.position;
-					int num382 = this.width;
-					int num383 = this.height;
-					float single104 = -1.5f * (float)hitDirection;
-					color = new Color();
-					int num384 = Dust.NewDust(vector2175, num382, num383, 228, single104, -1.5f, 0, color, 1f);
-					Main.dust[num384].scale = 0.5f;
-				}
-				Vector2 center9 = base.Center;
-				if (this.type == 395)
-				{
-					Gore.NewGore(center9 + new Vector2(-20f, -10f), this.velocity, 610, this.scale);
-					Gore.NewGore(center9 + new Vector2(20f, -10f), this.velocity, 611, this.scale);
-					Gore.NewGore(center9 + new Vector2(-50f, 0f), this.velocity, 612, this.scale);
-					Gore.NewGore(center9 + new Vector2(50f, 0f), this.velocity, 613, this.scale);
-					Gore.NewGore(center9 + new Vector2(-60f, 10f), this.velocity, 614, this.scale);
-					Gore.NewGore(center9 + new Vector2(0f, 30f), this.velocity, 615, this.scale);
-				}
-				if (this.type == 393)
-				{
-					Gore.NewGore(center9, this.velocity, 616, this.scale);
-				}
-				if (this.type == 394)
-				{
-					Gore.NewGore(center9, this.velocity, 617, this.scale);
-				}
-			}
-			else
-			{
-				for (int d5 = 0; (double)d5 < dmg / (double)this.lifeMax * 20; d5++)
-				{
-					Vector2 vector2176 = this.position;
-					int num385 = this.width;
-					int num386 = this.height;
-					float single105 = (float)(-1 * hitDirection);
-					color = new Color();
-					int num387 = Dust.NewDust(vector2176, num385, num386, 228, single105, -1f, 0, color, 1f);
-					Main.dust[num387].position = Vector2.Lerp(Main.dust[num387].position, base.Center, 0.25f);
-					Main.dust[num387].scale = 0.5f;
-				}
-			}
-			if (this.type >= 442 && this.type <= 448 || this.type == 539)
-			{
-				if (this.life <= 0)
-				{
-					for (int e5 = 0; e5 < 20; e5++)
-					{
-						Vector2 vector2177 = this.position;
-						int num388 = this.width;
-						int num389 = this.height;
-						int num390 = Main.rand.Next(232, 234);
-						float single106 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2177, num388, num389, num390, single106, -2f, 0, color, 1f);
-					}
-				}
-				else
-				{
-					for (int f5 = 0; f5 < 10; f5++)
-					{
-						Vector2 vector2178 = this.position;
-						int num391 = this.width;
-						int num392 = this.height;
-						int num393 = Main.rand.Next(232, 234);
-						float single107 = (float)hitDirection;
-						color = new Color();
-						Dust.NewDust(vector2178, num391, num392, num393, single107, -1f, 0, color, 1f);
-					}
-				}
 			}
 			if (this.type == 333 || this.type == 334 || this.type == 335 || this.type == 336)
 			{
@@ -40446,56 +38120,11 @@ namespace Terraria
 				{
 					white = new Color(228, 200, 1, 200);
 				}
-				if (this.life <= 0)
-				{
-					for (int g5 = 0; g5 < 50; g5++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, 150, white, 1f);
-					}
-				}
-				else
-				{
-					for (int h5 = 0; (double)h5 < dmg / (double)this.lifeMax * 100; h5++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 150, white, 1f);
-					}
-				}
-			}
-			if (this.type == 537)
-			{
-				if (this.life <= 0)
-				{
-					for (int i6 = 0; i6 < 50; i6++)
-					{
-						Vector2 vector2179 = this.position;
-						int num394 = this.width;
-						int num395 = this.height;
-						float single108 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2179, num394, num395, 32, single108, -2f, 0, color, 1f);
-					}
-				}
-				else
-				{
-					for (int j6 = 0; (double)j6 < dmg / (double)this.lifeMax * 100; j6++)
-					{
-						Vector2 vector2180 = this.position;
-						int num396 = this.width;
-						int num397 = this.height;
-						float single109 = (float)hitDirection;
-						color = new Color();
-						Dust.NewDust(vector2180, num396, num397, 32, single109, -1f, 0, color, 1f);
-					}
-				}
 			}
 			if (this.type == 1 || this.type == 16 || this.type == 71 || this.type == 244 || this.type == 535)
 			{
 				if (this.life <= 0)
 				{
-					for (int k6 = 0; k6 < 50; k6++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, this.alpha, this.color, 1f);
-					}
 					if (Main.netMode != 1 && this.type == 16)
 					{
 						int num398 = Main.rand.Next(2) + 2;
@@ -40515,753 +38144,23 @@ namespace Terraria
 						}
 					}
 				}
-				else
-				{
-					for (int m6 = 0; (double)m6 < dmg / (double)this.lifeMax * 100; m6++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, this.alpha, this.color, 1f);
-					}
-				}
-			}
-			if (this.type == 352)
-			{
-				if (this.life <= 0)
-				{
-					for (int n6 = 0; n6 < 60; n6++)
-					{
-						Vector2 vector2181 = this.position;
-						int num400 = this.width;
-						int num401 = this.height;
-						float single110 = (float)(2 * hitDirection);
-						color = new Color();
-						int num402 = Dust.NewDust(vector2181, num400, num401, 67, single110, -2f, 0, color, 1f);
-						Main.dust[num402].noGravity = true;
-					}
-				}
-				else
-				{
-					for (int o6 = 0; (double)o6 < dmg / (double)this.lifeMax * 100; o6++)
-					{
-						Vector2 vector2182 = this.position;
-						int num403 = this.width;
-						int num404 = this.height;
-						float single111 = (float)hitDirection;
-						color = new Color();
-						int num405 = Dust.NewDust(vector2182, num403, num404, 67, single111, -1f, 0, color, 1f);
-						Main.dust[num405].noGravity = true;
-					}
-				}
-			}
-			if (this.type >= 305 && this.type <= 314)
-			{
-				if (this.life <= 0)
-				{
-					for (int p6 = 0; p6 < 60; p6++)
-					{
-						Vector2 vector2183 = this.position;
-						int num406 = this.width;
-						int num407 = this.height;
-						float single112 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2183, num406, num407, 194, single112, -2f, 0, color, 1.1f);
-					}
-					Gore.NewGore(this.position, this.velocity, 441, this.scale);
-					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 442, this.scale);
-					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 443, this.scale);
-					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 444, this.scale);
-					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 445, this.scale);
-				}
-				else
-				{
-					for (int q6 = 0; (double)q6 < dmg / (double)this.lifeMax * 100; q6++)
-					{
-						Vector2 vector2184 = this.position;
-						int num408 = this.width;
-						int num409 = this.height;
-						float single113 = (float)hitDirection;
-						color = new Color();
-						Dust.NewDust(vector2184, num408, num409, 194, single113, -1f, 0, color, 1.1f);
-					}
-				}
-			}
-			if (this.type == 327)
-			{
-				if (this.life <= 0)
-				{
-					for (int r6 = 0; r6 < 60; r6++)
-					{
-						Vector2 vector2185 = this.position;
-						int num410 = this.width;
-						int num411 = this.height;
-						float single114 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2185, num410, num411, 189, single114, -2f, 0, color, 1.1f);
-					}
-					for (int s6 = 476; s6 <= 484; s6++)
-					{
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, s6, this.scale);
-					}
-				}
-				else
-				{
-					for (int t6 = 0; (double)t6 < dmg / (double)this.lifeMax * 100; t6++)
-					{
-						Vector2 vector2186 = this.position;
-						int num412 = this.width;
-						int num413 = this.height;
-						float single115 = (float)hitDirection;
-						color = new Color();
-						Dust.NewDust(vector2186, num412, num413, 189, single115, -1f, 0, color, 1.1f);
-					}
-				}
-			}
-			if (this.type == 325)
-			{
-				if (this.life <= 0)
-				{
-					for (int u6 = 0; u6 < 60; u6++)
-					{
-						Vector2 vector2187 = this.position;
-						int num414 = this.width;
-						int num415 = this.height;
-						float single116 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2187, num414, num415, 191, single116, -2f, 0, color, 1.1f);
-					}
-					for (int v6 = 469; v6 <= 475; v6++)
-					{
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, v6, this.scale);
-					}
-				}
-				else
-				{
-					for (int w6 = 0; (double)w6 < dmg / (double)this.lifeMax * 100; w6++)
-					{
-						Vector2 vector2188 = this.position;
-						int num416 = this.width;
-						int num417 = this.height;
-						float single117 = (float)hitDirection;
-						color = new Color();
-						Dust.NewDust(vector2188, num416, num417, 191, single117, -1f, 0, color, 1.1f);
-					}
-				}
-			}
-			if (this.type == 345 && this.life <= 0)
-			{
-				Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, 513, this.scale);
-				Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, 514, this.scale);
-				Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, 514, this.scale);
-				Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, 515, this.scale);
-				Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, 516, this.scale);
-			}
-			if (this.type == 344)
-			{
-				if (this.life <= 0)
-				{
-					for (int x6 = 0; x6 < 60; x6++)
-					{
-						Vector2 vector2189 = this.position;
-						int num418 = this.width;
-						int num419 = this.height;
-						float single118 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2189, num418, num419, 196, single118, -2f, 0, color, 1f);
-					}
-					for (int y6 = 508; y6 <= 512; y6++)
-					{
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, y6, this.scale);
-					}
-					for (int a6 = 509; a6 <= 512; a6++)
-					{
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity * 0f, a6, this.scale);
-					}
-				}
-				else
-				{
-					for (int b6 = 0; (double)b6 < dmg / (double)this.lifeMax * 100; b6++)
-					{
-						Vector2 vector2190 = this.position;
-						int num420 = this.width;
-						int num421 = this.height;
-						float single119 = (float)hitDirection;
-						color = new Color();
-						Dust.NewDust(vector2190, num420, num421, 196, single119, -1f, 0, color, 1f);
-					}
-				}
-			}
-			if (this.type == 326)
-			{
-				if (this.life <= 0)
-				{
-					for (int c6 = 0; c6 < 60; c6++)
-					{
-						Vector2 vector2191 = this.position;
-						int num422 = this.width;
-						int num423 = this.height;
-						float single120 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2191, num422, num423, 191, single120, -2f, 0, color, 1.1f);
-					}
-				}
-				else
-				{
-					for (int d6 = 0; (double)d6 < dmg / (double)this.lifeMax * 100; d6++)
-					{
-						Vector2 vector2192 = this.position;
-						int num424 = this.width;
-						int num425 = this.height;
-						float single121 = (float)hitDirection;
-						color = new Color();
-						Dust.NewDust(vector2192, num424, num425, 191, single121, -1f, 0, color, 1.1f);
-					}
-				}
-			}
-			if (this.type == 304)
-			{
-				if (this.life <= 0)
-				{
-					for (int e6 = 0; e6 < 60; e6++)
-					{
-						Vector2 vector2193 = this.position;
-						int num426 = this.width;
-						int num427 = this.height;
-						float single122 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2193, num426, num427, 189, single122, -2f, 0, color, 1.3f);
-					}
-				}
-				else
-				{
-					for (int f6 = 0; (double)f6 < dmg / (double)this.lifeMax * 100; f6++)
-					{
-						Vector2 vector2194 = this.position;
-						int num428 = this.width;
-						int num429 = this.height;
-						float single123 = (float)hitDirection;
-						color = new Color();
-						Dust.NewDust(vector2194, num428, num429, 189, single123, -1f, 0, color, 1.3f);
-					}
-				}
-			}
-			if (this.type == 302)
-			{
-				if (this.life <= 0)
-				{
-					for (int g6 = 0; g6 < 50; g6++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 192, (float)(2 * hitDirection), -2f, 100, new Color(100, 100, 100, 100), 1f);
-					}
-					Gore.NewGore(this.position, this.velocity, 440, this.scale);
-				}
-				else
-				{
-					for (int h6 = 0; (double)h6 < dmg / (double)this.lifeMax * 100; h6++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 192, (float)hitDirection, -1f, 100, new Color(100, 100, 100, 100), 1f);
-					}
-				}
 			}
 			if (this.type >= 245 && this.type <= 249)
 			{
 				if (this.life > 0)
 				{
-					for (int i7 = 0; (double)i7 < dmg / (double)this.lifeMax * 100; i7++)
-					{
-						Vector2 vector2195 = this.position;
-						int num430 = this.width;
-						int num431 = this.height;
-						float single124 = (float)hitDirection;
-						color = new Color();
-						Dust.NewDust(vector2195, num430, num431, 148, single124, -1f, 0, color, 1f);
-					}
-				}
-				else if (this.type != 246)
-				{
-					for (int j7 = 0; j7 < 50; j7++)
-					{
-						Vector2 vector2196 = this.position;
-						int num432 = this.width;
-						int num433 = this.height;
-						float single125 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2196, num432, num433, 148, single125, -2f, 0, color, 1f);
-					}
-					if (this.type == 245)
-					{
-						Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 368, this.scale);
-						Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 370, this.scale);
-						Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 368, this.scale);
-						Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 370, this.scale);
-						Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 368, this.scale);
-						Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 370, this.scale);
-						Gore.NewGore(this.position, this.velocity, 360, this.scale);
-						Gore.NewGore(this.position, this.velocity, 361, this.scale);
-						Gore.NewGore(this.position, this.velocity, 362, this.scale);
-						Gore.NewGore(this.position, this.velocity, 363, this.scale);
-						Gore.NewGore(this.position, this.velocity, 364, this.scale);
-						Gore.NewGore(this.position, this.velocity, 367, this.scale);
-						Gore.NewGore(this.position, this.velocity, 366, this.scale);
-					}
-					else if (this.type != 249)
-					{
-						Gore.NewGore(this.position, this.velocity, 369, this.scale);
-						Gore.NewGore(this.position, this.velocity, 371, this.scale);
-						Gore.NewGore(this.position, this.velocity, 370, this.scale);
-					}
-					else
-					{
-						Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 368, this.scale);
-						Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 370, this.scale);
-						Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 368, this.scale);
-						Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 370, this.scale);
-						Gore.NewGore(this.position, this.velocity, 365, this.scale);
-						Gore.NewGore(this.position, this.velocity, 363, this.scale);
-						Gore.NewGore(this.position, this.velocity, 362, this.scale);
-					}
+
 				}
 				else if (Main.netMode != 1)
 				{
 					NPC.NewNPC((int)base.Center.X, (int)this.position.Y + this.height, 249, this.whoAmI, 0f, 0f, 0f, 0f, 255);
 				}
 			}
-			if (this.type == 288 && this.life <= 0)
-			{
-				for (int k7 = 0; k7 < 50; k7++)
-				{
-					Vector2 vector2197 = this.position;
-					int num434 = this.width;
-					int num435 = this.height;
-					float x7 = this.velocity.X;
-					float y7 = this.velocity.Y;
-					color = new Color();
-					int num436 = Dust.NewDust(vector2197, num434, num435, 180, x7, y7, 0, color, 1f);
-					Dust dust92 = Main.dust[num436];
-					dust92.velocity = dust92.velocity * 2f;
-					Main.dust[num436].noGravity = true;
-					Main.dust[num436].scale = 1.4f;
-				}
-			}
-			if (this.type == 204)
-			{
-				if (this.life <= 0)
-				{
-					for (int l7 = 0; l7 < 50; l7++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, 100, new Color(149, 208, 104), 1f);
-					}
-				}
-				else
-				{
-					for (int m7 = 0; (double)m7 < dmg / (double)this.lifeMax * 100; m7++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 100, new Color(149, 208, 104), 1f);
-					}
-				}
-			}
-			if (this.type == 225)
-			{
-				if (this.life <= 0)
-				{
-					for (int n7 = 0; n7 < 50; n7++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, 100, new Color(0, 80, 255, 100), 1f);
-					}
-					Gore.NewGore(this.position, this.velocity, 314, this.scale);
-				}
-				else
-				{
-					for (int o7 = 0; (double)o7 < dmg / (double)this.lifeMax * 100; o7++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 100, new Color(0, 80, 255, 100), 1f);
-					}
-				}
-			}
-			if (this.type == 243)
-			{
-				if (this.life <= 0)
-				{
-					for (int p7 = 0; p7 < 200; p7++)
-					{
-						Vector2 vector2198 = this.position;
-						int num437 = this.width;
-						int num438 = this.height;
-						float single126 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2198, num437, num438, 161, single126, -2f, 0, color, 1f);
-					}
-					Gore.NewGore(this.position, this.velocity, 359, this.scale);
-				}
-				else
-				{
-					for (int q7 = 0; (double)q7 < dmg / (double)this.lifeMax * 150; q7++)
-					{
-						Vector2 vector2199 = this.position;
-						int num439 = this.width;
-						int num440 = this.height;
-						float single127 = (float)hitDirection;
-						color = new Color();
-						Dust.NewDust(vector2199, num439, num440, 161, single127, -1f, 0, color, 1f);
-					}
-				}
-			}
-			if ((this.type == 210 || this.type == 211) && this.life <= 0)
-			{
-				for (int r7 = 0; r7 < 6; r7++)
-				{
-					Vector2 vector2200 = this.position;
-					int num441 = this.width;
-					int num442 = this.height;
-					float single128 = (float)(2 * hitDirection);
-					color = new Color();
-					int num443 = Dust.NewDust(vector2200, num441, num442, 150, single128, -2f, 0, color, 1f);
-					if (Main.rand.Next(2) != 0)
-					{
-						Main.dust[num443].scale = 0.8f;
-					}
-					else
-					{
-						Main.dust[num443].noGravity = true;
-						Main.dust[num443].scale = 1.5f;
-					}
-				}
-			}
-			if ((this.type == 355 || this.type == 358) && this.life <= 0)
-			{
-				for (int s7 = 0; s7 < 6; s7++)
-				{
-					Vector2 vector2201 = this.position;
-					int num444 = this.width;
-					int num445 = this.height;
-					float single129 = (float)(2 * hitDirection);
-					color = new Color();
-					int num446 = Dust.NewDust(vector2201, num444, num445, 198, single129, -2f, 0, color, 1f);
-					if (Main.rand.Next(2) != 0)
-					{
-						Main.dust[num446].scale = 0.8f * this.scale;
-					}
-					else
-					{
-						Main.dust[num446].noGravity = true;
-						Main.dust[num446].scale = 1.5f * this.scale;
-					}
-				}
-			}
-			if (this.type == 356 && this.life <= 0)
-			{
-				for (int t7 = 0; t7 < 6; t7++)
-				{
-					Vector2 vector2202 = this.position;
-					int num447 = this.width;
-					int num448 = this.height;
-					float single130 = (float)(2 * hitDirection);
-					color = new Color();
-					int num449 = Dust.NewDust(vector2202, num447, num448, 199, single130, -2f, 0, color, 1f);
-					if (Main.rand.Next(2) != 0)
-					{
-						Main.dust[num449].scale = 0.8f * this.scale;
-					}
-					else
-					{
-						Main.dust[num449].noGravity = true;
-						Main.dust[num449].scale = 1.5f * this.scale;
-					}
-				}
-			}
-			if (this.type >= 484 && this.type <= 487 && this.life <= 0)
-			{
-				for (int u7 = 0; u7 < 6; u7++)
-				{
-					Vector2 vector2203 = this.position;
-					int num450 = this.width;
-					int num451 = this.height;
-					float single131 = (float)(2 * hitDirection);
-					color = new Color();
-					int num452 = Dust.NewDust(vector2203, num450, num451, 248 + this.type - 484, single131, -2f, 0, color, 1f);
-					if (Main.rand.Next(2) != 0)
-					{
-						Main.dust[num452].scale = 0.7f * this.scale;
-					}
-					else
-					{
-						Main.dust[num452].noGravity = true;
-						Main.dust[num452].scale = 1.2f * this.scale;
-					}
-				}
-			}
-			if (this.type == 357 && this.life <= 0)
-			{
-				for (int v7 = 0; v7 < 6; v7++)
-				{
-					Vector2 vector2204 = this.position;
-					int num453 = this.width;
-					int num454 = this.height;
-					float single132 = (float)(2 * hitDirection);
-					color = new Color();
-					int num455 = Dust.NewDust(vector2204, num453, num454, 200, single132, -2f, 0, color, 1f);
-					if (Main.rand.Next(2) != 0)
-					{
-						Main.dust[num455].scale = 0.7f * this.scale;
-					}
-					else
-					{
-						Main.dust[num455].noGravity = true;
-						Main.dust[num455].scale = 1.2f * this.scale;
-					}
-				}
-			}
-			if (this.type == 377 && this.life <= 0)
-			{
-				for (int w7 = 0; w7 < 6; w7++)
-				{
-					Vector2 vector2205 = this.position;
-					int num456 = this.width;
-					int num457 = this.height;
-					float single133 = (float)(2 * hitDirection);
-					color = new Color();
-					int num458 = Dust.NewDust(vector2205, num456, num457, 40, single133, -2f, 0, color, 1f);
-					if (Main.rand.Next(2) != 0)
-					{
-						Main.dust[num458].scale = 0.7f * this.scale;
-					}
-					else
-					{
-						Main.dust[num458].noGravity = true;
-						Main.dust[num458].scale = 1.2f * this.scale;
-					}
-				}
-			}
-			if (this.type == 374 || this.type == 375)
-			{
-				for (int x71 = 0; x71 < 6; x71++)
-				{
-					Vector2 vector2206 = this.position;
-					int num459 = this.width;
-					int num460 = this.height;
-					color = new Color();
-					int num461 = Dust.NewDust(vector2206, num459, num460, 165, 0f, 0f, 50, color, 1.5f);
-					Dust dust93 = Main.dust[num461];
-					dust93.velocity = dust93.velocity * 2f;
-					Main.dust[num461].noGravity = true;
-				}
-			}
-			if (this.type == 359)
-			{
-				if (this.life <= 0)
-				{
-					for (int y71 = 0; y71 < 6; y71++)
-					{
-						Vector2 vector2207 = this.position;
-						int num462 = this.width;
-						int num463 = this.height;
-						float single134 = (float)(2 * hitDirection);
-						color = new Color();
-						int num464 = Dust.NewDust(vector2207, num462, num463, 201, single134, -2f, 0, color, 1f);
-						if (Main.rand.Next(2) != 0)
-						{
-							Main.dust[num464].scale = 0.7f * this.scale;
-						}
-						else
-						{
-							Main.dust[num464].noGravity = true;
-							Main.dust[num464].scale = 1.2f * this.scale;
-						}
-					}
-				}
-				Gore.NewGore(this.position, this.velocity, 547, this.scale);
-				Gore.NewGore(this.position, this.velocity, 548, this.scale);
-			}
-			if (this.type == 360)
-			{
-				if (this.life <= 0)
-				{
-					for (int a7 = 0; a7 < 6; a7++)
-					{
-						Vector2 vector2208 = this.position;
-						int num465 = this.width;
-						int num466 = this.height;
-						float single135 = (float)(2 * hitDirection);
-						color = new Color();
-						int num467 = Dust.NewDust(vector2208, num465, num466, 202, single135, -2f, 0, color, 1f);
-						if (Main.rand.Next(2) != 0)
-						{
-							Main.dust[num467].scale = 0.7f * this.scale;
-						}
-						else
-						{
-							Main.dust[num467].noGravity = true;
-							Main.dust[num467].scale = 1.2f * this.scale;
-						}
-					}
-				}
-				Gore.NewGore(this.position, this.velocity, 549, this.scale);
-				Gore.NewGore(this.position, this.velocity, 550, this.scale);
-			}
-			if (this.type == 154)
-			{
-				if (this.life <= 0)
-				{
-					for (int b7 = 0; b7 < 50; b7++)
-					{
-						Vector2 vector2209 = new Vector2(this.position.X, this.position.Y);
-						int num468 = this.width;
-						int num469 = this.height;
-						float x8 = this.velocity.X;
-						float y8 = this.velocity.Y;
-						color = new Color();
-						int num470 = Dust.NewDust(vector2209, num468, num469, 67, x8, y8, 90, color, 1.5f);
-						Main.dust[num470].noGravity = true;
-						Dust dust94 = Main.dust[num470];
-						dust94.velocity = dust94.velocity * 0.2f;
-					}
-					Gore.NewGore(this.position, this.velocity, 180, this.scale);
-				}
-				else
-				{
-					for (int c7 = 0; (double)c7 < dmg / (double)this.lifeMax * 50; c7++)
-					{
-						Vector2 vector2210 = new Vector2(this.position.X, this.position.Y);
-						int num471 = this.width;
-						int num472 = this.height;
-						float x9 = this.velocity.X;
-						float y9 = this.velocity.Y;
-						color = new Color();
-						int num473 = Dust.NewDust(vector2210, num471, num472, 67, x9, y9, 90, color, 1.5f);
-						Main.dust[num473].noGravity = true;
-						Dust dust95 = Main.dust[num473];
-						dust95.velocity = dust95.velocity * 0.2f;
-					}
-				}
-			}
-			if (this.type == 147 || this.type == 184)
-			{
-				if (this.life <= 0)
-				{
-					for (int d7 = 0; d7 < 30; d7++)
-					{
-						Vector2 vector2211 = this.position;
-						int num474 = this.width;
-						int num475 = this.height;
-						float single136 = (float)hitDirection;
-						color = new Color();
-						int num476 = Dust.NewDust(vector2211, num474, num475, 76, single136, -2f, 0, color, 1f);
-						Main.dust[num476].noGravity = true;
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -2f, 100, new Color(97, 200, 255, 100), 1f);
-					}
-				}
-				else
-				{
-					for (int e7 = 0; (double)e7 < dmg / (double)this.lifeMax * 50; e7++)
-					{
-						Vector2 vector2212 = this.position;
-						int num477 = this.width;
-						int num478 = this.height;
-						float single137 = (float)hitDirection;
-						color = new Color();
-						int num479 = Dust.NewDust(vector2212, num477, num478, 76, single137, -1f, 0, color, 1f);
-						Main.dust[num479].noGravity = true;
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 100, new Color(97, 200, 255, 100), 1f);
-					}
-				}
-			}
-			if (this.type == 143 || this.type == 144 || this.type == 145)
-			{
-				if (this.life <= 0)
-				{
-					for (int f7 = 0; f7 < 50; f7++)
-					{
-						Vector2 vector2213 = this.position;
-						int num480 = this.width;
-						int num481 = this.height;
-						float single138 = (float)hitDirection;
-						color = new Color();
-						int num482 = Dust.NewDust(vector2213, num480, num481, 76, single138, -1f, 0, color, 1f);
-						Main.dust[num482].noGravity = true;
-						Dust dust96 = Main.dust[num482];
-						dust96.scale = dust96.scale * 1.2f;
-					}
-				}
-				else
-				{
-					for (int g7 = 0; (double)g7 < dmg / (double)this.lifeMax * 100; g7++)
-					{
-						Vector2 vector2214 = this.position;
-						int num483 = this.width;
-						int num484 = this.height;
-						float single139 = (float)hitDirection;
-						color = new Color();
-						int num485 = Dust.NewDust(vector2214, num483, num484, 76, single139, -1f, 0, color, 1f);
-						Main.dust[num485].noGravity = true;
-					}
-				}
-			}
-			if (this.type == 141)
-			{
-				if (this.life <= 0)
-				{
-					for (int h7 = 0; h7 < 50; h7++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, this.alpha, new Color(210, 230, 140), 1f);
-					}
-				}
-				else
-				{
-					for (int i8 = 0; (double)i8 < dmg / (double)this.lifeMax * 100; i8++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, this.alpha, new Color(210, 230, 140), 1f);
-					}
-				}
-			}
-			if (this.type == 112)
-			{
-				for (int j8 = 0; j8 < 20; j8++)
-				{
-					Vector2 vector2215 = new Vector2(this.position.X, this.position.Y + 2f);
-					int num486 = this.width;
-					int num487 = this.height;
-					color = new Color();
-					int num488 = Dust.NewDust(vector2215, num486, num487, 18, 0f, 0f, 100, color, 2f);
-					if (Main.rand.Next(2) != 0)
-					{
-						Dust dust97 = Main.dust[num488];
-						dust97.velocity = dust97.velocity * 1.4f;
-						Main.dust[num488].noGravity = true;
-					}
-					else
-					{
-						Dust dust98 = Main.dust[num488];
-						dust98.scale = dust98.scale * 0.6f;
-					}
-				}
-			}
-			if (this.type == 183)
-			{
-				if (this.life <= 0)
-				{
-					for (int k8 = 0; k8 < 50; k8++)
-					{
-						int num489 = Dust.NewDust(this.position, this.width, this.height, 136, (float)hitDirection, 0f, this.alpha, this.color, 1f);
-						Dust dust99 = Main.dust[num489];
-						dust99.velocity = dust99.velocity * 2f;
-					}
-				}
-				else
-				{
-					for (int l8 = 0; (double)l8 < dmg / (double)this.lifeMax * 100; l8++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 136, 0f, 0f, this.alpha, this.color, 1f);
-					}
-				}
-			}
+
 			if (this.type == 81 || this.type == 121)
 			{
 				if (this.life <= 0)
 				{
-					for (int m8 = 0; m8 < 50; m8++)
-					{
-						int num490 = Dust.NewDust(this.position, this.width, this.height, 14, (float)hitDirection, 0f, this.alpha, this.color, 1f);
-						Dust dust100 = Main.dust[num490];
-						dust100.velocity = dust100.velocity * 2f;
-					}
 					if (Main.netMode != 1)
 					{
 						if (this.type == 121)
@@ -41270,7 +38169,6 @@ namespace Terraria
 							Main.npc[num491].SetDefaults("Slimer2");
 							Main.npc[num491].velocity.X = this.velocity.X;
 							Main.npc[num491].velocity.Y = this.velocity.Y;
-							Gore.NewGore(this.position, this.velocity, 94, this.scale);
 							if (Main.netMode == 2 && num491 < 200)
 							{
 								NetMessage.SendData(23, -1, -1, "", num491, 0f, 0f, 0f, 0, 0, 0);
@@ -41296,92 +38194,6 @@ namespace Terraria
 						}
 					}
 				}
-				else
-				{
-					for (int o8 = 0; (double)o8 < dmg / (double)this.lifeMax * 100; o8++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 14, 0f, 0f, this.alpha, this.color, 1f);
-					}
-				}
-			}
-			if (this.type == 120 || this.type == 137 || this.type == 138)
-			{
-				if (this.life <= 0)
-				{
-					for (int p8 = 0; p8 < 50; p8++)
-					{
-						Vector2 vector2216 = this.position;
-						int num494 = this.width;
-						int num495 = this.height;
-						float single140 = (float)hitDirection;
-						color = new Color();
-						int num496 = Dust.NewDust(vector2216, num494, num495, 71, single140, 0f, 200, color, 1f);
-						Dust dust101 = Main.dust[num496];
-						dust101.velocity = dust101.velocity * 1.5f;
-					}
-				}
-				else
-				{
-					for (int q8 = 0; (double)q8 < dmg / (double)this.lifeMax * 50; q8++)
-					{
-						Vector2 vector2217 = this.position;
-						int num497 = this.width;
-						int num498 = this.height;
-						color = new Color();
-						int num499 = Dust.NewDust(vector2217, num497, num498, 71, 0f, 0f, 200, color, 1f);
-						Dust dust102 = Main.dust[num499];
-						dust102.velocity = dust102.velocity * 1.5f;
-					}
-				}
-			}
-			if (this.type == 122)
-			{
-				if (this.life <= 0)
-				{
-					for (int r8 = 0; r8 < 50; r8++)
-					{
-						Vector2 vector2218 = this.position;
-						int num500 = this.width;
-						int num501 = this.height;
-						float single141 = (float)hitDirection;
-						color = new Color();
-						int num502 = Dust.NewDust(vector2218, num500, num501, 72, single141, 0f, 200, color, 1f);
-						Dust dust103 = Main.dust[num502];
-						dust103.velocity = dust103.velocity * 1.5f;
-					}
-				}
-				else
-				{
-					for (int s8 = 0; (double)s8 < dmg / (double)this.lifeMax * 50; s8++)
-					{
-						Vector2 vector2219 = this.position;
-						int num503 = this.width;
-						int num504 = this.height;
-						color = new Color();
-						int num505 = Dust.NewDust(vector2219, num503, num504, 72, 0f, 0f, 200, color, 1f);
-						Dust dust104 = Main.dust[num505];
-						dust104.velocity = dust104.velocity * 1.5f;
-					}
-				}
-			}
-			if (this.type == 75)
-			{
-				if (this.life <= 0)
-				{
-					for (int t8 = 0; t8 < 50; t8++)
-					{
-						int num506 = Dust.NewDust(this.position, this.width, this.height, 55, (float)hitDirection, 0f, 200, this.color, 1f);
-						Dust dust105 = Main.dust[num506];
-						dust105.velocity = dust105.velocity * 2f;
-					}
-				}
-				else
-				{
-					for (int u8 = 0; (double)u8 < dmg / (double)this.lifeMax * 50; u8++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 55, 0f, 0f, 200, this.color, 1f);
-					}
-				}
 			}
 			if (this.type == 63 || this.type == 64 || this.type == 103)
 			{
@@ -41394,54 +38206,11 @@ namespace Terraria
 				{
 					color1 = new Color(70, 225, 140, 100);
 				}
-				if (this.life <= 0)
-				{
-					for (int v8 = 0; v8 < 25; v8++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, 0, color1, 1f);
-					}
-					return;
-				}
-				for (int w8 = 0; (double)w8 < dmg / (double)this.lifeMax * 50; w8++)
-				{
-					Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 0, color1, 1f);
-				}
 				return;
 			}
 			if (this.type == 59 || this.type == 60 || this.type == 151)
 			{
-				if (this.life > 0)
-				{
-					for (int x81 = 0; (double)x81 < dmg / (double)this.lifeMax * 80; x81++)
-					{
-						Vector2 vector2220 = this.position;
-						int num507 = this.width;
-						int num508 = this.height;
-						float single142 = (float)(hitDirection * 2);
-						int num509 = this.alpha;
-						color = new Color();
-						int num510 = Dust.NewDust(vector2220, num507, num508, 6, single142, -1f, num509, color, 1.5f);
-						if (Main.rand.Next(8) != 0)
-						{
-							Main.dust[num510].noGravity = true;
-						}
-					}
-					return;
-				}
-				for (int y81 = 0; y81 < 40; y81++)
-				{
-					Vector2 vector2221 = this.position;
-					int num511 = this.width;
-					int num512 = this.height;
-					float single143 = (float)(hitDirection * 2);
-					int num513 = this.alpha;
-					color = new Color();
-					int num514 = Dust.NewDust(vector2221, num511, num512, 6, single143, -1f, num513, color, 1.5f);
-					if (Main.rand.Next(8) != 0)
-					{
-						Main.dust[num514].noGravity = true;
-					}
-				}
+
 				if (Main.expertMode && this.type == 59 && Main.netMode != 1)
 				{
 					try
@@ -41472,246 +38241,60 @@ namespace Terraria
 				{
 					if (this.life > 0)
 					{
-						for (int a8 = 0; (double)a8 < dmg / (double)this.lifeMax * 30; a8++)
-						{
-							Vector2 vector2222 = this.position;
-							int num515 = this.width;
-							int num516 = this.height;
-							float single144 = (float)hitDirection;
-							color = new Color();
-							Dust.NewDust(vector2222, num515, num516, 5, single144, -1f, 0, color, 1f);
-						}
 						return;
 					}
-					for (int b8 = 0; b8 < 15; b8++)
-					{
-						Vector2 vector2223 = this.position;
-						int num517 = this.width;
-						int num518 = this.height;
-						float single145 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2223, num517, num518, 5, single145, -2f, 0, color, 1f);
-					}
-					Gore.NewGore(this.position, this.velocity, 177, 1f);
-					Gore.NewGore(this.position, this.velocity, 178, 1f);
-					Gore.NewGore(this.position, this.velocity, 179, 1f);
-					Gore.NewGore(this.position, this.velocity, 179, 1f);
 					return;
 				}
 				if (this.type == 177)
 				{
 					if (this.life > 0)
 					{
-						for (int c8 = 0; (double)c8 < dmg / (double)this.lifeMax * 30; c8++)
-						{
-							Vector2 vector2224 = this.position;
-							int num519 = this.width;
-							int num520 = this.height;
-							float single146 = (float)hitDirection;
-							color = new Color();
-							Dust.NewDust(vector2224, num519, num520, 5, single146, -1f, 0, color, 1f);
-						}
 						return;
 					}
-					for (int d8 = 0; d8 < 15; d8++)
-					{
-						Vector2 vector2225 = this.position;
-						int num521 = this.width;
-						int num522 = this.height;
-						float single147 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2225, num521, num522, 5, single147, -2f, 0, color, 1f);
-					}
-					Gore.NewGore(this.position, this.velocity, 234, 1f);
-					Gore.NewGore(this.position, this.velocity, 235, 1f);
-					Gore.NewGore(this.position, this.velocity, 236, 1f);
-					Gore.NewGore(this.position, this.velocity, 236, 1f);
 					return;
 				}
 				if (this.type >= 494 && this.type <= 495)
 				{
 					if (this.life > 0)
 					{
-						for (int e8 = 0; (double)e8 < dmg / (double)this.lifeMax * 30; e8++)
-						{
-							Vector2 vector2226 = this.position;
-							int num523 = this.width;
-							int num524 = this.height;
-							float single148 = (float)hitDirection;
-							color = new Color();
-							Dust.NewDust(vector2226, num523, num524, 5, single148, -1f, 0, color, 1f);
-						}
 						return;
 					}
-					for (int f8 = 0; f8 < 15; f8++)
-					{
-						Vector2 vector2227 = this.position;
-						int num525 = this.width;
-						int num526 = this.height;
-						float single149 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2227, num525, num526, 5, single149, -2f, 0, color, 1f);
-					}
-					int num527 = (this.type - 494) * 2;
-					Gore.NewGore(this.position, this.velocity, 736 + num527, 1f);
-					Gore.NewGore(this.position, this.velocity, 735 + num527, 1f);
 					return;
 				}
 				if (this.type >= 496 && this.type <= 497)
 				{
 					if (this.life > 0)
 					{
-						for (int g8 = 0; (double)g8 < dmg / (double)this.lifeMax * 30; g8++)
-						{
-							Vector2 vector2228 = this.position;
-							int num528 = this.width;
-							int num529 = this.height;
-							float single150 = (float)hitDirection;
-							color = new Color();
-							Dust.NewDust(vector2228, num528, num529, 5, single150, -1f, 0, color, 1f);
-						}
 						return;
 					}
-					for (int h8 = 0; h8 < 15; h8++)
-					{
-						Vector2 vector2229 = this.position;
-						int num530 = this.width;
-						int num531 = this.height;
-						float single151 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2229, num530, num531, 5, single151, -2f, 0, color, 1f);
-					}
-					int num532 = this.type - 496;
-					Gore.NewGore(this.position, this.velocity, 739 + num532, 1f);
 					return;
 				}
 				if (this.type >= 498 && this.type <= 506)
 				{
 					if (this.life > 0)
 					{
-						for (int i9 = 0; (double)i9 < dmg / (double)this.lifeMax * 30; i9++)
-						{
-							Vector2 vector2230 = this.position;
-							int num533 = this.width;
-							int num534 = this.height;
-							float single152 = (float)hitDirection;
-							color = new Color();
-							Dust.NewDust(vector2230, num533, num534, 5, single152, -1f, 0, color, 1f);
-						}
 						return;
 					}
-					for (int j9 = 0; j9 < 15; j9++)
-					{
-						Vector2 vector2231 = this.position;
-						int num535 = this.width;
-						int num536 = this.height;
-						float single153 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2231, num535, num536, 5, single153, -2f, 0, color, 1f);
-					}
-					int num537 = this.type - 498;
-					Gore.NewGore(this.position, this.velocity, 750 + num537, 1f);
-					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 16f), this.velocity, 741 + num537, 1f);
-					Gore.NewGore(new Vector2(this.position.X, this.position.Y + 18f), this.velocity, 759 + num537, 1f);
 					return;
 				}
 				if (this.type == 49 || this.type == 51 || this.type == 93 || this.type == 150 || this.type == 152 || this.type == 226)
 				{
 					if (this.life > 0)
 					{
-						for (int k9 = 0; (double)k9 < dmg / (double)this.lifeMax * 30; k9++)
-						{
-							Vector2 vector2232 = this.position;
-							int num538 = this.width;
-							int num539 = this.height;
-							float single154 = (float)hitDirection;
-							color = new Color();
-							Dust.NewDust(vector2232, num538, num539, 5, single154, -1f, 0, color, 1f);
-						}
 						return;
 					}
-					for (int l9 = 0; l9 < 15; l9++)
-					{
-						Vector2 vector2233 = this.position;
-						int num540 = this.width;
-						int num541 = this.height;
-						float single155 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2233, num540, num541, 5, single155, -2f, 0, color, 1f);
-					}
-					if (this.type == 51)
-					{
-						Gore.NewGore(this.position, this.velocity, 83, 1f);
-						return;
-					}
-					if (this.type == 93)
-					{
-						Gore.NewGore(this.position, this.velocity, 107, 1f);
-						return;
-					}
-					if (this.type == 150)
-					{
-						Gore.NewGore(this.position, this.velocity, 164, 1f);
-						Gore.NewGore(this.position, this.velocity, 165, 1f);
-						return;
-					}
-					if (this.type == 152)
-					{
-						Gore.NewGore(this.position, this.velocity, 175, 1f);
-						Gore.NewGore(this.position, this.velocity, 176, 1f);
-						Gore.NewGore(this.position, this.velocity, 176, 1f);
-						return;
-					}
-					if (this.type != 226)
-					{
-						Gore.NewGore(this.position, this.velocity, 82, 1f);
-						return;
-					}
-					Gore.NewGore(this.position, this.velocity, 317, 1f);
-					Gore.NewGore(this.position, this.velocity, 318, 1f);
-					Gore.NewGore(this.position, this.velocity, 318, 1f);
-					Gore.NewGore(this.position, this.velocity, 319, 1f);
 					return;
 				}
 				if (this.type == 46 || this.type == 55 || this.type == 67 || this.type == 74 || this.type == 102 || this.type == 224 || this.type == 230 || this.type == 297 || this.type == 298 || this.type == 299 || this.type == 300 || this.type == 303 || this.type == 337 || this.type == 538)
 				{
 					if (this.life > 0)
 					{
-						for (int m9 = 0; (double)m9 < dmg / (double)this.lifeMax * 20; m9++)
-						{
-							Vector2 vector2234 = this.position;
-							int num542 = this.width;
-							int num543 = this.height;
-							float single156 = (float)hitDirection;
-							color = new Color();
-							Dust.NewDust(vector2234, num542, num543, 5, single156, -1f, 0, color, 1f);
-						}
 						return;
-					}
-					for (int n9 = 0; n9 < 10; n9++)
-					{
-						Vector2 vector2235 = this.position;
-						int num544 = this.width;
-						int num545 = this.height;
-						float single157 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2235, num544, num545, 5, single157, -2f, 0, color, 1f);
 					}
 					if (this.type == 46 || this.type == 303 || this.type == 337)
 					{
-						Gore.NewGore(this.position, this.velocity, 76, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 77, 1f);
 						if (this.type == 303)
 						{
-							for (int o9 = 0; o9 < 10; o9++)
-							{
-								Vector2 vector2236 = this.position;
-								int num546 = this.width;
-								int num547 = this.height;
-								float single158 = (float)(2 * hitDirection);
-								color = new Color();
-								Dust.NewDust(vector2236, num546, num547, 193, single158, -2f, 0, color, 1f);
-							}
 							return;
 						}
 					}
@@ -41719,56 +38302,42 @@ namespace Terraria
 					{
 						if (this.type == 67)
 						{
-							Gore.NewGore(this.position, this.velocity, 95, 1f);
-							Gore.NewGore(this.position, this.velocity, 95, 1f);
-							Gore.NewGore(this.position, this.velocity, 96, 1f);
 							return;
 						}
 						if (this.type == 55 || this.type == 230)
 						{
-							Gore.NewGore(this.position, this.velocity, 553, 1f);
-							Gore.NewGore(this.position, this.velocity, 554, 1f);
 							return;
 						}
 						if (this.type == 74)
 						{
-							Gore.NewGore(this.position, this.velocity, 100, 1f);
 							return;
 						}
 						if (this.type == 297)
 						{
-							Gore.NewGore(this.position, this.velocity, 431, 1f);
 							return;
 						}
 						if (this.type == 298)
 						{
-							Gore.NewGore(this.position, this.velocity, 432, 1f);
 							return;
 						}
 						if (this.type == 299)
 						{
-							Gore.NewGore(this.position, this.velocity, 433, 1f);
 							return;
 						}
 						if (this.type == 538)
 						{
-							Gore.NewGore(this.position, this.velocity, 897, 1f);
 							return;
 						}
 						if (this.type == 300)
 						{
-							Gore.NewGore(this.position, this.velocity, 434, 1f);
 							return;
 						}
 						if (this.type == 102)
 						{
-							Gore.NewGore(this.position, this.velocity, 116, 1f);
 							return;
 						}
 						if (this.type == 224)
 						{
-							Gore.NewGore(this.position, this.velocity, 312, 1f);
-							Gore.NewGore(this.position, this.velocity, 313, 1f);
 							return;
 						}
 					}
@@ -41777,49 +38346,22 @@ namespace Terraria
 				{
 					if (this.life > 0)
 					{
-						for (int p9 = 0; (double)p9 < dmg / (double)this.lifeMax * 20; p9++)
-						{
-							Vector2 vector2237 = this.position;
-							int num548 = this.width;
-							int num549 = this.height;
-							float single159 = (float)hitDirection;
-							color = new Color();
-							Dust.NewDust(vector2237, num548, num549, 5, single159, -1f, 0, color, 1f);
-						}
 						return;
-					}
-					for (int q9 = 0; q9 < 10; q9++)
-					{
-						Vector2 vector2238 = this.position;
-						int num550 = this.width;
-						int num551 = this.height;
-						float single160 = (float)(2 * hitDirection);
-						color = new Color();
-						Dust.NewDust(vector2238, num550, num551, 5, single160, -2f, 0, color, 1f);
 					}
 					if (this.type == 148)
 					{
-						Gore.NewGore(this.position, this.velocity, 160, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 161, 1f);
 						return;
 					}
 					if (this.type == 149)
 					{
-						Gore.NewGore(this.position, this.velocity, 162, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 163, 1f);
 						return;
 					}
 					if (this.type == 168)
 					{
-						Gore.NewGore(this.position, this.velocity, 215, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 216, 1f);
 						return;
 					}
 					if (this.type == 470)
 					{
-						Gore.NewGore(this.position, this.velocity, 673, 1f);
-						Gore.NewGore(this.position, this.velocity, 672, 1f);
-						Gore.NewGore(this.position, this.velocity, 674, 1f);
 						return;
 					}
 				}
@@ -41829,298 +38371,106 @@ namespace Terraria
 					{
 						if (this.life > 0)
 						{
-							for (int r9 = 0; (double)r9 < dmg / (double)this.lifeMax * 20; r9++)
-							{
-								Vector2 vector2239 = this.position;
-								int num552 = this.width;
-								int num553 = this.height;
-								float single161 = (float)hitDirection;
-								color = new Color();
-								Dust.NewDust(vector2239, num552, num553, 5, single161, -1f, 0, color, 1f);
-							}
 							return;
 						}
-						for (int s9 = 0; s9 < 10; s9++)
-						{
-							Vector2 vector2240 = this.position;
-							int num554 = this.width;
-							int num555 = this.height;
-							float single162 = (float)(2 * hitDirection);
-							color = new Color();
-							Dust.NewDust(vector2240, num554, num555, 5, single162, -2f, 0, color, 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 551, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 552, 1f);
 						return;
 					}
 					if (this.type == 366 || this.type == 367)
 					{
 						if (this.life > 0)
 						{
-							for (int t9 = 0; (double)t9 < dmg / (double)this.lifeMax * 20; t9++)
-							{
-								Vector2 vector2241 = this.position;
-								int num556 = this.width;
-								int num557 = this.height;
-								float single163 = (float)hitDirection;
-								color = new Color();
-								Dust.NewDust(vector2241, num556, num557, 203, single163, -1f, 0, color, 1f);
-							}
 							return;
-						}
-						for (int u9 = 0; u9 < 10; u9++)
-						{
-							Vector2 vector2242 = this.position;
-							int num558 = this.width;
-							int num559 = this.height;
-							float single164 = (float)(2 * hitDirection);
-							color = new Color();
-							Dust.NewDust(vector2242, num558, num559, 203, single164, -2f, 0, color, 1f);
 						}
 						if (this.type == 366)
 						{
-							Gore.NewGore(this.position, this.velocity, 561, 1f);
-							Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 562, 1f);
-							Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 563, 1f);
 							return;
 						}
-						Gore.NewGore(this.position, this.velocity, 564, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 565, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 566, 1f);
 						return;
 					}
 					if (this.type >= 362 && this.type <= 365)
 					{
 						if (this.life > 0)
 						{
-							for (int v9 = 0; (double)v9 < dmg / (double)this.lifeMax * 20; v9++)
-							{
-								Vector2 vector2243 = this.position;
-								int num560 = this.width;
-								int num561 = this.height;
-								float single165 = (float)hitDirection;
-								color = new Color();
-								Dust.NewDust(vector2243, num560, num561, 5, single165, -1f, 0, color, 1f);
-							}
 							return;
-						}
-						for (int w9 = 0; w9 < 10; w9++)
-						{
-							Vector2 vector2244 = this.position;
-							int num562 = this.width;
-							int num563 = this.height;
-							float single166 = (float)(2 * hitDirection);
-							color = new Color();
-							Dust.NewDust(vector2244, num562, num563, 5, single166, -2f, 0, color, 1f);
 						}
 						if (this.type != 362 && this.type != 363)
 						{
-							Gore.NewGore(this.position, this.velocity, 558, 1f);
-							Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 559, 1f);
-							Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 560, 1f);
 							return;
 						}
-						Gore.NewGore(this.position, this.velocity, 555, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 556, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 557, 1f);
 						return;
 					}
 					if (this.type == 348 || this.type == 349)
 					{
 						if (this.life > 0)
 						{
-							for (int x91 = 0; (double)x91 < dmg / (double)this.lifeMax * 20; x91++)
-							{
-								Vector2 vector2245 = this.position;
-								int num564 = this.width;
-								int num565 = this.height;
-								float single167 = (float)hitDirection;
-								color = new Color();
-								Dust.NewDust(vector2245, num564, num565, 5, single167, -1f, 0, color, 1f);
-							}
 							return;
 						}
-						for (int y91 = 0; y91 < 10; y91++)
-						{
-							Vector2 vector2246 = this.position;
-							int num566 = this.width;
-							int num567 = this.height;
-							float single168 = (float)(2 * hitDirection);
-							color = new Color();
-							Dust.NewDust(vector2246, num566, num567, 5, single168, -2f, 0, color, 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 528, 1f);
-						Gore.NewGore(this.position, this.velocity, 529, 1f);
-						Gore.NewGore(this.position, this.velocity, 530, 1f);
-						Gore.NewGore(this.position, this.velocity, 531, 1f);
-						Gore.NewGore(this.position, this.velocity, 532, 1f);
 						return;
 					}
 					if (this.type == 351)
 					{
 						if (this.life > 0)
 						{
-							for (int a9 = 0; (double)a9 < dmg / (double)this.lifeMax * 20; a9++)
-							{
-								Vector2 vector2247 = this.position;
-								int num568 = this.width;
-								int num569 = this.height;
-								float single169 = (float)hitDirection;
-								color = new Color();
-								Dust.NewDust(vector2247, num568, num569, 5, single169, -1f, 0, color, 1f);
-							}
 							return;
 						}
-						for (int b9 = 0; b9 < 10; b9++)
-						{
-							Vector2 vector2248 = this.position;
-							int num570 = this.width;
-							int num571 = this.height;
-							float single170 = (float)(2 * hitDirection);
-							color = new Color();
-							Dust.NewDust(vector2248, num570, num571, 5, single170, -2f, 0, color, 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 538, 1f);
-						Gore.NewGore(this.position, this.velocity, 539, 1f);
-						Gore.NewGore(this.position, this.velocity, 540, 1f);
-						Gore.NewGore(this.position, this.velocity, 541, 1f);
-						Gore.NewGore(this.position, this.velocity, 542, 1f);
 						return;
 					}
 					if (this.type == 350)
 					{
 						if (this.life > 0)
 						{
-							for (int c9 = 0; (double)c9 < dmg / (double)this.lifeMax * 20; c9++)
-							{
-								Vector2 vector2249 = this.position;
-								int num572 = this.width;
-								int num573 = this.height;
-								float single171 = (float)hitDirection;
-								color = new Color();
-								Dust.NewDust(vector2249, num572, num573, 5, single171, -1f, 0, color, 1f);
-							}
 							return;
 						}
-						for (int d9 = 0; d9 < 10; d9++)
-						{
-							Vector2 vector2250 = this.position;
-							int num574 = this.width;
-							int num575 = this.height;
-							float single172 = (float)(2 * hitDirection);
-							color = new Color();
-							Dust.NewDust(vector2250, num574, num575, 5, single172, -2f, 0, color, 1f);
-						}
-						Gore.NewGore(this.position, this.velocity, 533, 1f);
-						Gore.NewGore(this.position, this.velocity, 534, 1f);
-						Gore.NewGore(this.position, this.velocity, 535, 1f);
-						Gore.NewGore(this.position, this.velocity, 536, 1f);
 						return;
 					}
 					if (this.type == 47 || this.type == 57 || this.type == 58 || this.type == 464 || this.type == 465)
 					{
 						if (this.life > 0)
 						{
-							for (int e9 = 0; (double)e9 < dmg / (double)this.lifeMax * 20; e9++)
-							{
-								Vector2 vector2251 = this.position;
-								int num576 = this.width;
-								int num577 = this.height;
-								float single173 = (float)hitDirection;
-								color = new Color();
-								Dust.NewDust(vector2251, num576, num577, 5, single173, -1f, 0, color, 1f);
-							}
 							return;
-						}
-						for (int f9 = 0; f9 < 10; f9++)
-						{
-							Vector2 vector2252 = this.position;
-							int num578 = this.width;
-							int num579 = this.height;
-							float single174 = (float)(2 * hitDirection);
-							color = new Color();
-							Dust.NewDust(vector2252, num578, num579, 5, single174, -2f, 0, color, 1f);
 						}
 						if (this.type == 57)
 						{
-							Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 84, 1f);
 							return;
 						}
 						if (this.type == 58)
 						{
-							Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 85, 1f);
 							return;
 						}
 						if (this.type == 464)
 						{
-							Gore.NewGore(this.position, this.velocity, 668, 1f);
-							Gore.NewGore(this.position, this.velocity, 669, 1f);
 							return;
 						}
 						if (this.type == 465)
 						{
-							Gore.NewGore(this.position, this.velocity, 670, 1f);
-							Gore.NewGore(this.position, this.velocity, 671, 1f);
 							return;
 						}
-						Gore.NewGore(this.position, this.velocity, 78, 1f);
-						Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 79, 1f);
 						return;
 					}
 					if (this.type == 173 || this.type == 174 || this.type == 181 || this.type == 182 || this.type == 268)
 					{
 						if (this.life > 0)
 						{
-							for (int g9 = 0; (double)g9 < dmg / (double)this.lifeMax * 100; g9++)
-							{
-								Vector2 vector2253 = this.position;
-								int num580 = this.width;
-								int num581 = this.height;
-								float single175 = (float)hitDirection;
-								int num582 = this.alpha;
-								color = new Color();
-								Dust.NewDust(vector2253, num580, num581, 5, single175, -1f, num582, color, 1f);
-							}
 							return;
-						}
-						for (int h9 = 0; h9 < 50; h9++)
-						{
-							Vector2 vector2254 = this.position;
-							int num583 = this.width;
-							int num584 = this.height;
-							float single176 = (float)(2 * hitDirection);
-							int num585 = this.alpha;
-							color = new Color();
-							Dust.NewDust(vector2254, num583, num584, 5, single176, -2f, num585, color, 1f);
 						}
 						if (this.type == 173)
 						{
-							Gore.NewGore(this.position, this.velocity, 223, 1f);
-							Gore.NewGore(this.position, this.velocity, 224, 1f);
 							return;
 						}
 						if (this.type == 174)
 						{
-							Gore.NewGore(this.position, this.velocity, 225, 1f);
-							Gore.NewGore(this.position, this.velocity, 226, 1f);
 							return;
 						}
 						if (this.type == 181)
 						{
-							Gore.NewGore(this.position, this.velocity, 237, 1f);
 							return;
 						}
 						if (this.type == 182)
 						{
-							Gore.NewGore(this.position, this.velocity, 238, 1f);
-							Gore.NewGore(this.position, this.velocity, 239, 1f);
 							return;
 						}
 						if (this.type == 268)
 						{
-							Gore.NewGore(this.position, this.velocity, 403, 1f);
-							Gore.NewGore(this.position, this.velocity, 404, 1f);
-							Gore.NewGore(this.position, this.velocity, 405, 1f);
 							return;
 						}
 					}
@@ -42130,130 +38480,55 @@ namespace Terraria
 						{
 							if (this.life > 0)
 							{
-								for (int i10 = 0; (double)i10 < dmg / (double)this.lifeMax * 100; i10++)
-								{
-									Vector2 vector2255 = this.position;
-									int num586 = this.width;
-									int num587 = this.height;
-									float single177 = (float)hitDirection;
-									color = new Color();
-									Dust.NewDust(vector2255, num586, num587, 5, single177, -1f, 0, color, 1f);
-								}
 								return;
-							}
-							for (int j10 = 0; j10 < 50; j10++)
-							{
-								Vector2 vector2256 = this.position;
-								int num588 = this.width;
-								int num589 = this.height;
-								float single178 = (float)(2 * hitDirection);
-								color = new Color();
-								Dust.NewDust(vector2256, num588, num589, 5, single178, -2f, 0, color, 1f);
 							}
 							if (this.type == 190)
 							{
-								Gore.NewGore(this.position, this.velocity, 249, this.scale);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 2, this.scale);
 								return;
 							}
 							if (this.type == 191)
 							{
-								Gore.NewGore(this.position, this.velocity, 248, this.scale);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 2, this.scale);
 								return;
 							}
 							if (this.type == 192)
 							{
-								Gore.NewGore(this.position, this.velocity, 247, this.scale);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 2, this.scale);
 								return;
 							}
 							if (this.type == 193)
 							{
-								Gore.NewGore(this.position, this.velocity, 252, this.scale);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 253, this.scale);
 								return;
 							}
 							if (this.type == 194)
 							{
-								Gore.NewGore(this.position, this.velocity, 250, this.scale);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 251, this.scale);
 								return;
 							}
 							if (this.type == 317)
 							{
-								Gore.NewGore(this.position, this.velocity, 447, this.scale);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 448, this.scale);
 								return;
 							}
 							if (this.type == 318)
 							{
-								Gore.NewGore(this.position, this.velocity, 449, this.scale);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 450, this.scale);
 								return;
 							}
-							Gore.NewGore(this.position, this.velocity, 1, this.scale);
-							Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 2, this.scale);
 							return;
 						}
 						if (this.type == 157)
 						{
 							if (this.life > 0)
 							{
-								for (int k10 = 0; (double)k10 < dmg / (double)this.lifeMax * 100; k10++)
-								{
-									Vector2 vector2257 = this.position;
-									int num590 = this.width;
-									int num591 = this.height;
-									float single179 = (float)hitDirection;
-									color = new Color();
-									Dust.NewDust(vector2257, num590, num591, 5, single179, -1f, 0, color, 1f);
-								}
 								return;
 							}
-							for (int l10 = 0; l10 < 50; l10++)
-							{
-								Vector2 vector2258 = this.position;
-								int num592 = this.width;
-								int num593 = this.height;
-								float single180 = (float)(2 * hitDirection);
-								color = new Color();
-								Dust.NewDust(vector2258, num592, num593, 5, single180, -2f, 0, color, 1f);
-							}
-							Gore.NewGore(this.position, this.velocity, 186, 1f);
-							Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 187, 1f);
 							return;
 						}
 						if (this.type == 133)
 						{
 							if (this.life <= 0)
 							{
-								for (int m10 = 0; m10 < 50; m10++)
-								{
-									Vector2 vector2259 = this.position;
-									int num594 = this.width;
-									int num595 = this.height;
-									float single181 = (float)(2 * hitDirection);
-									color = new Color();
-									Dust.NewDust(vector2259, num594, num595, 5, single181, -2f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity, 155, 1f);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 14f), this.velocity, 155, 1f);
 								return;
-							}
-							for (int n10 = 0; (double)n10 < dmg / (double)this.lifeMax * 100; n10++)
-							{
-								Vector2 vector2260 = this.position;
-								int num596 = this.width;
-								int num597 = this.height;
-								float single182 = (float)hitDirection;
-								color = new Color();
-								Dust.NewDust(vector2260, num596, num597, 5, single182, -1f, 0, color, 1f);
 							}
 							if ((float)this.life < (float)this.lifeMax * 0.5f && this.localAI[0] == 0f)
 							{
 								this.localAI[0] = 1f;
-								Gore.NewGore(this.position, this.velocity, 1, 1f);
 								return;
 							}
 						}
@@ -42261,47 +38536,18 @@ namespace Terraria
 						{
 							if (this.life > 0)
 							{
-								for (int o10 = 0; (double)o10 < dmg / (double)this.lifeMax * 100; o10++)
-								{
-									Vector2 vector2261 = this.position;
-									int num598 = this.width;
-									int num599 = this.height;
-									float single183 = (float)hitDirection;
-									color = new Color();
-									Dust.NewDust(vector2261, num598, num599, 250, single183, -1f, 0, color, 1f);
-								}
 								return;
-							}
-							for (int p10 = 0; p10 < 50; p10++)
-							{
-								Vector2 vector2262 = this.position;
-								int num600 = this.width;
-								int num601 = this.height;
-								float single184 = (float)(2 * hitDirection);
-								color = new Color();
-								Dust.NewDust(vector2262, num600, num601, 250, single184, -2f, 0, color, 1f);
 							}
 							if (this.type == 69)
 							{
-								Gore.NewGore(this.position, this.velocity, 97, 1f);
-								Gore.NewGore(this.position, this.velocity, 98, 1f);
 								return;
 							}
 							if (this.type == 508)
 							{
-								Gore.NewGore(this.position, this.velocity, 811, 1f);
-								Gore.NewGore(this.position, this.velocity, 812, 1f);
-								Gore.NewGore(this.position, this.velocity, 813, 1f);
-								Gore.NewGore(this.position, this.velocity, 814, 1f);
 								return;
 							}
 							if (this.type == 509)
 							{
-								Gore.NewGore(this.position, this.velocity, 815, 1f);
-								Gore.NewGore(this.position, this.velocity, 816, 1f);
-								Gore.NewGore(this.position, this.velocity, 817, 1f);
-								Gore.NewGore(this.position, this.velocity, 818, 1f);
-								Gore.NewGore(this.position, this.velocity, 818, 1f);
 								return;
 							}
 						}
@@ -42311,404 +38557,104 @@ namespace Terraria
 							{
 								if (this.life > 0)
 								{
-									for (int q10 = 0; (double)q10 < dmg / (double)this.lifeMax * 100; q10++)
-									{
-										Vector2 vector2263 = this.position;
-										int num602 = this.width;
-										int num603 = this.height;
-										float single185 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2263, num602, num603, 5, single185, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int r10 = 0; r10 < 50; r10++)
-								{
-									Vector2 vector2264 = this.position;
-									int num604 = this.width;
-									int num605 = this.height;
-									float single186 = (float)(2 * hitDirection);
-									color = new Color();
-									Dust.NewDust(vector2264, num604, num605, 5, single186, -2f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity, 86, 1f);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 87, 1f);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 88, 1f);
 								return;
 							}
 							if (this.type == 301)
 							{
 								if (this.life > 0)
 								{
-									for (int s10 = 0; (double)s10 < dmg / (double)this.lifeMax * 100; s10++)
-									{
-										Vector2 vector2265 = this.position;
-										int num606 = this.width;
-										int num607 = this.height;
-										float single187 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2265, num606, num607, 5, single187, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int t10 = 0; t10 < 50; t10++)
-								{
-									Vector2 vector2266 = this.position;
-									int num608 = this.width;
-									int num609 = this.height;
-									float single188 = (float)(2 * hitDirection);
-									color = new Color();
-									Dust.NewDust(vector2266, num608, num609, 5, single188, -2f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity, 438, 1f);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity, 439, 1f);
 								return;
 							}
 							if (this.type == 252)
 							{
 								if (this.life > 0)
 								{
-									for (int u10 = 0; (double)u10 < dmg / (double)this.lifeMax * 100; u10++)
-									{
-										Vector2 vector2267 = this.position;
-										int num610 = this.width;
-										int num611 = this.height;
-										float single189 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2267, num610, num611, 5, single189, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int v10 = 0; v10 < 50; v10++)
-								{
-									Vector2 vector2268 = this.position;
-									int num612 = this.width;
-									int num613 = this.height;
-									float single190 = (float)(2 * hitDirection);
-									color = new Color();
-									Dust.NewDust(vector2268, num612, num613, 5, single190, -2f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity, 373, 1f);
-								Gore.NewGore(this.position, this.velocity, 374, 1f);
 								return;
 							}
 							if (this.type == 489)
 							{
 								if (this.life > 0)
 								{
-									for (int w10 = 0; (double)w10 < dmg / (double)this.lifeMax * 100; w10++)
-									{
-										Vector2 vector2269 = this.position;
-										int num614 = this.width;
-										int num615 = this.height;
-										float single191 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2269, num614, num615, 5, single191, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int x101 = 0; x101 < 50; x101++)
-								{
-									Vector2 vector2270 = this.position;
-									int num616 = this.width;
-									int num617 = this.height;
-									float single192 = 2.5f * (float)hitDirection;
-									color = new Color();
-									Dust.NewDust(vector2270, num616, num617, 5, single192, -2.5f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity, 722, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 723, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 723, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 724, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 724, this.scale);
 								return;
 							}
 							if (this.type == 534)
 							{
 								if (this.life > 0)
 								{
-									for (int y101 = 0; (double)y101 < dmg / (double)this.lifeMax * 100; y101++)
-									{
-										Vector2 vector2271 = this.position;
-										int num618 = this.width;
-										int num619 = this.height;
-										float single193 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2271, num618, num619, 5, single193, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int a10 = 0; a10 < 50; a10++)
-								{
-									Vector2 vector2272 = this.position;
-									int num620 = this.width;
-									int num621 = this.height;
-									float single194 = 2.5f * (float)hitDirection;
-									color = new Color();
-									Dust.NewDust(vector2272, num620, num621, 5, single194, -2.5f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity, 894, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 895, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 895, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 896, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 896, this.scale);
 								return;
 							}
 							if (this.type == 490)
 							{
 								if (this.life > 0)
 								{
-									for (int b10 = 0; (double)b10 < dmg / (double)this.lifeMax * 100; b10++)
-									{
-										Vector2 vector2273 = this.position;
-										int num622 = this.width;
-										int num623 = this.height;
-										float single195 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2273, num622, num623, 5, single195, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int c10 = 0; c10 < 50; c10++)
-								{
-									Vector2 vector2274 = this.position;
-									int num624 = this.width;
-									int num625 = this.height;
-									float single196 = 2.5f * (float)hitDirection;
-									color = new Color();
-									Dust.NewDust(vector2274, num624, num625, 5, single196, -2.5f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity, 725, this.scale);
-								Gore.NewGore(this.position, this.velocity, 726, this.scale);
-								Gore.NewGore(this.position, this.velocity, 727, this.scale);
-								Gore.NewGore(this.position, this.velocity, 725 + Main.rand.Next(3), this.scale);
-								Gore.NewGore(this.position, this.velocity, 725 + Main.rand.Next(3), this.scale);
 								return;
 							}
 							if (this.type == 65)
 							{
 								if (this.life > 0)
 								{
-									for (int d10 = 0; (double)d10 < dmg / (double)this.lifeMax * 150; d10++)
-									{
-										Vector2 vector2275 = this.position;
-										int num626 = this.width;
-										int num627 = this.height;
-										float single197 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2275, num626, num627, 5, single197, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int e10 = 0; e10 < 75; e10++)
-								{
-									Vector2 vector2276 = this.position;
-									int num628 = this.width;
-									int num629 = this.height;
-									float single198 = (float)(2 * hitDirection);
-									color = new Color();
-									Dust.NewDust(vector2276, num628, num629, 5, single198, -2f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity * 0.8f, 89, 1f);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity * 0.8f, 90, 1f);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity * 0.8f, 91, 1f);
-								Gore.NewGore(new Vector2(this.position.X + 14f, this.position.Y), this.velocity * 0.8f, 92, 1f);
 								return;
 							}
 							if (this.type == 195 || this.type == 196)
 							{
 								if (this.life > 0)
 								{
-									for (int f10 = 0; (double)f10 < dmg / (double)this.lifeMax * 150; f10++)
-									{
-										Vector2 vector2277 = this.position;
-										int num630 = this.width;
-										int num631 = this.height;
-										float single199 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2277, num630, num631, 5, single199, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int g10 = 0; g10 < 75; g10++)
-								{
-									Vector2 vector2278 = this.position;
-									int num632 = this.width;
-									int num633 = this.height;
-									float single200 = (float)(2 * hitDirection);
-									color = new Color();
-									Dust.NewDust(vector2278, num632, num633, 5, single200, -2f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity, 254, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 255, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 255, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 256, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 256, this.scale);
 								return;
 							}
 							if (this.type == 198 || this.type == 199)
 							{
 								if (this.life > 0)
 								{
-									for (int h10 = 0; (double)h10 < dmg / (double)this.lifeMax * 150; h10++)
-									{
-										Vector2 vector2279 = this.position;
-										int num634 = this.width;
-										int num635 = this.height;
-										float single201 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2279, num634, num635, 5, single201, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int i11 = 0; i11 < 75; i11++)
-								{
-									Vector2 vector2280 = this.position;
-									int num636 = this.width;
-									int num637 = this.height;
-									float single202 = (float)(2 * hitDirection);
-									color = new Color();
-									Dust.NewDust(vector2280, num636, num637, 5, single202, -2f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity, 258, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 259, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 259, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 260, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 260, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 261, this.scale);
 								return;
 							}
 							if (this.type == 206)
 							{
 								if (this.life > 0)
 								{
-									for (int j11 = 0; (double)j11 < dmg / (double)this.lifeMax * 150; j11++)
-									{
-										Vector2 vector2281 = this.position;
-										int num638 = this.width;
-										int num639 = this.height;
-										float single203 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2281, num638, num639, 137, single203, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int k11 = 0; k11 < 75; k11++)
-								{
-									Vector2 vector2282 = this.position;
-									int num640 = this.width;
-									int num641 = this.height;
-									float single204 = (float)(2 * hitDirection);
-									color = new Color();
-									Dust.NewDust(vector2282, num640, num641, 137, single204, -2f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity, 273, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 274, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 274, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 275, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 275, this.scale);
 								return;
 							}
 							if (this.type == 342)
 							{
 								if (this.life > 0)
 								{
-									for (int l11 = 0; (double)l11 < dmg / (double)this.lifeMax * 100; l11++)
-									{
-										Vector2 vector2283 = this.position;
-										int num642 = this.width;
-										int num643 = this.height;
-										float single205 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2283, num642, num643, 0, single205, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int m11 = 0; m11 < 50; m11++)
-								{
-									Vector2 vector2284 = this.position;
-									int num644 = this.width;
-									int num645 = this.height;
-									float single206 = 2.5f * (float)hitDirection;
-									color = new Color();
-									Dust.NewDust(vector2284, num644, num645, 0, single206, -2.5f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity, 500, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 501, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 501, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 502, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 502, this.scale);
 								return;
 							}
 							if (this.type >= 338 && this.type <= 340)
 							{
 								if (this.life > 0)
 								{
-									for (int n11 = 0; (double)n11 < dmg / (double)this.lifeMax * 100; n11++)
-									{
-										Vector2 vector2285 = this.position;
-										int num646 = this.width;
-										int num647 = this.height;
-										float single207 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2285, num646, num647, 5, single207, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int o11 = 0; o11 < 50; o11++)
-								{
-									Vector2 vector2286 = this.position;
-									int num648 = this.width;
-									int num649 = this.height;
-									float single208 = 2.5f * (float)hitDirection;
-									color = new Color();
-									Dust.NewDust(vector2286, num648, num649, 5, single208, -2.5f, 0, color, 1f);
-								}
-								if (this.type == 338)
-								{
-									Gore.NewGore(this.position, this.velocity, 494, this.scale);
-								}
-								if (this.type == 339)
-								{
-									Gore.NewGore(this.position, this.velocity, 495, this.scale);
-								}
-								if (this.type == 340)
-								{
-									Gore.NewGore(this.position, this.velocity, 496, this.scale);
-								}
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 497, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 498, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 499, this.scale);
 								return;
 							}
 							if (this.type == 343)
 							{
 								if (this.life > 0)
 								{
-									for (int p11 = 0; (double)p11 < dmg / (double)this.lifeMax * 100; p11++)
-									{
-										Vector2 vector2287 = this.position;
-										int num650 = this.width;
-										int num651 = this.height;
-										float single209 = (float)hitDirection;
-										color = new Color();
-										Dust.NewDust(vector2287, num650, num651, 5, single209, -1f, 0, color, 1f);
-									}
 									return;
 								}
-								for (int q11 = 0; q11 < 50; q11++)
-								{
-									Vector2 vector2288 = this.position;
-									int num652 = this.width;
-									int num653 = this.height;
-									float single210 = 2.5f * (float)hitDirection;
-									color = new Color();
-									Dust.NewDust(vector2288, num652, num653, 5, single210, -2.5f, 0, color, 1f);
-								}
-								Gore.NewGore(this.position, this.velocity, 503, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 504, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 505, this.scale);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 506, this.scale);
 								return;
 							}
 							if ((this.type < 430 || this.type > 436) && this.type != 3 && this.type != 52 && this.type != 53 && this.type != 536 && this.type != 104 && this.type != 109 && this.type != 331 && this.type != 332 && this.type != 132 && this.type != 161 && this.type != 162 && this.type != 186 && this.type != 187 && this.type != 188 && this.type != 189 && this.type != 200 && this.type != 223 && this.type != 251 && this.type != 319 && this.type != 320 && this.type != 321)
@@ -42717,119 +38663,17 @@ namespace Terraria
 								{
 									if (this.life > 0)
 									{
-										for (int r11 = 0; (double)r11 < dmg / (double)this.lifeMax * 50; r11++)
-										{
-											Vector2 vector2289 = this.position;
-											int num654 = this.width;
-											int num655 = this.height;
-											color = new Color();
-											int num656 = Dust.NewDust(vector2289, num654, num655, 31, 0f, 0f, 0, color, 1.5f);
-											Main.dust[num656].noGravity = true;
-										}
 										return;
 									}
-									for (int s11 = 0; s11 < 20; s11++)
-									{
-										Vector2 vector2290 = this.position;
-										int num657 = this.width;
-										int num658 = this.height;
-										color = new Color();
-										int num659 = Dust.NewDust(vector2290, num657, num658, 31, 0f, 0f, 0, color, 1.5f);
-										Dust dust106 = Main.dust[num659];
-										dust106.velocity = dust106.velocity * 2f;
-										Main.dust[num659].noGravity = true;
-									}
-									int num660 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
-									Gore gore3 = Main.gore[num660];
-									gore3.velocity = gore3.velocity * 0.5f;
-									num660 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
-									Gore gore4 = Main.gore[num660];
-									gore4.velocity = gore4.velocity * 0.5f;
-									num660 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)Main.rand.Next(-2, 3), (float)Main.rand.Next(-2, 3)), 61, this.scale);
-									Gore gore5 = Main.gore[num660];
-									gore5.velocity = gore5.velocity * 0.5f;
 									return;
 								}
 								if (this.type == 262 || this.type == 263 || this.type == 264)
 								{
 									if (this.life > 0)
 									{
-										for (int t11 = 0; (double)t11 < dmg / (double)this.lifeMax * 100; t11++)
-										{
-											if (this.type == 262 && this.life > this.lifeMax / 2 && Main.rand.Next(3) != 0)
-											{
-												Vector2 vector2291 = this.position;
-												int num661 = this.width;
-												int num662 = this.height;
-												float single211 = (float)hitDirection;
-												color = new Color();
-												Dust.NewDust(vector2291, num661, num662, 166, single211, -1f, 0, color, 1f);
-											}
-											else if (this.type != 265 || Main.rand.Next(3) == 0)
-											{
-												Vector2 vector2292 = this.position;
-												int num663 = this.width;
-												int num664 = this.height;
-												float single212 = (float)hitDirection;
-												color = new Color();
-												Dust.NewDust(vector2292, num663, num664, 167, single212, -1f, 0, color, 1f);
-											}
-											else
-											{
-												Vector2 vector2293 = this.position;
-												int num665 = this.width;
-												int num666 = this.height;
-												float single213 = (float)hitDirection;
-												color = new Color();
-												Dust.NewDust(vector2293, num665, num666, 166, single213, -1f, 0, color, 1f);
-											}
-										}
 										return;
 									}
-									for (int u11 = 0; u11 < 150; u11++)
-									{
-										if (this.type != 265 || Main.rand.Next(3) == 0)
-										{
-											Vector2 vector2294 = this.position;
-											int num667 = this.width;
-											int num668 = this.height;
-											float single214 = (float)(2 * hitDirection);
-											color = new Color();
-											Dust.NewDust(vector2294, num667, num668, 167, single214, -2f, 0, color, 1f);
-										}
-										else
-										{
-											Vector2 vector2295 = this.position;
-											int num669 = this.width;
-											int num670 = this.height;
-											float single215 = (float)(2 * hitDirection);
-											color = new Color();
-											Dust.NewDust(vector2295, num669, num670, 166, single215, -2f, 0, color, 1f);
-										}
-									}
-									if (this.type == 262)
-									{
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 381, this.scale);
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 382, this.scale);
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 383, this.scale);
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 384, this.scale);
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 385, this.scale);
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 386, this.scale);
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 386, this.scale);
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 387, this.scale);
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 387, this.scale);
-									}
-									if (this.type == 263)
-									{
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 390, this.scale);
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 391, this.scale);
-									}
-									if (this.type == 264)
-									{
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 388, this.scale);
-										Gore.NewGore(new Vector2(this.position.X + (float)Main.rand.Next(this.width), this.position.Y + (float)Main.rand.Next(this.height)), this.velocity, 389, this.scale);
-										return;
-									}
+                                    return;
 								}
 								else if (this.type != 265)
 								{
@@ -42837,162 +38681,33 @@ namespace Terraria
 									{
 										if (this.life > 0)
 										{
-											for (int v11 = 0; (double)v11 < dmg / (double)this.lifeMax * 100; v11++)
-											{
-												Vector2 vector2296 = this.position;
-												int num671 = this.width;
-												int num672 = this.height;
-												float single216 = (float)hitDirection;
-												color = new Color();
-												Dust.NewDust(vector2296, num671, num672, 5, single216, -1f, 0, color, 1f);
-											}
 											return;
 										}
-										for (int w11 = 0; w11 < 150; w11++)
-										{
-											Vector2 vector2297 = this.position;
-											int num673 = this.width;
-											int num674 = this.height;
-											float single217 = (float)(2 * hitDirection);
-											color = new Color();
-											Dust.NewDust(vector2297, num673, num674, 5, single217, -2f, 0, color, 1f);
-										}
-										Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 396, 1f);
-										Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 397, 1f);
-										Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 398, 1f);
-										Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 399, 1f);
-										Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 400, 1f);
-										Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 401, 1f);
 										return;
 									}
 									if (this.type == 267)
 									{
 										if (this.life > 0)
 										{
-											for (int x11 = 0; (double)x11 < dmg / (double)this.lifeMax * 50; x11++)
-											{
-												Vector2 vector2298 = this.position;
-												int num675 = this.width;
-												int num676 = this.height;
-												float single218 = (float)hitDirection;
-												color = new Color();
-												Dust.NewDust(vector2298, num675, num676, 5, single218, -1f, 0, color, 1f);
-											}
 											return;
 										}
-										for (int y11 = 0; y11 < 20; y11++)
-										{
-											Vector2 vector2299 = this.position;
-											int num677 = this.width;
-											int num678 = this.height;
-											float single219 = (float)(2 * hitDirection);
-											color = new Color();
-											Dust.NewDust(vector2299, num677, num678, 5, single219, -2f, 0, color, 1f);
-										}
-										Gore.NewGore(this.position, this.velocity, 402, 1f);
 										return;
 									}
 									if (this.type == 4 || this.type == 126 || this.type == 125)
 									{
 										if (this.life > 0)
 										{
-											for (int a11 = 0; (double)a11 < dmg / (double)this.lifeMax * 100; a11++)
-											{
-												Vector2 vector2300 = this.position;
-												int num679 = this.width;
-												int num680 = this.height;
-												float single220 = (float)hitDirection;
-												color = new Color();
-												Dust.NewDust(vector2300, num679, num680, 5, single220, -1f, 0, color, 1f);
-											}
 											return;
-										}
-										for (int b11 = 0; b11 < 150; b11++)
-										{
-											Vector2 vector2301 = this.position;
-											int num681 = this.width;
-											int num682 = this.height;
-											float single221 = (float)(2 * hitDirection);
-											color = new Color();
-											Dust.NewDust(vector2301, num681, num682, 5, single221, -2f, 0, color, 1f);
 										}
 										for (int c11 = 0; c11 < 2; c11++)
 										{
-											Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 2, 1f);
-											Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 7, 1f);
-											Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 9, 1f);
 											if (this.type == 4)
 											{
-												Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 10, 1f);
 												Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
-											}
-											else if (this.type == 125)
-											{
-												Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 146, 1f);
-											}
-											else if (this.type == 126)
-											{
-												Gore.NewGore(this.position, new Vector2((float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f), 145, 1f);
 											}
 										}
 										if (this.type == 125 || this.type == 126)
 										{
-											for (int d11 = 0; d11 < 10; d11++)
-											{
-												Vector2 vector2302 = new Vector2(this.position.X, this.position.Y);
-												int num683 = this.width;
-												int num684 = this.height;
-												color = new Color();
-												int num685 = Dust.NewDust(vector2302, num683, num684, 31, 0f, 0f, 100, color, 1.5f);
-												Dust dust107 = Main.dust[num685];
-												dust107.velocity = dust107.velocity * 1.4f;
-											}
-											for (int e11 = 0; e11 < 5; e11++)
-											{
-												Vector2 vector2303 = new Vector2(this.position.X, this.position.Y);
-												int num686 = this.width;
-												int num687 = this.height;
-												color = new Color();
-												int num688 = Dust.NewDust(vector2303, num686, num687, 6, 0f, 0f, 100, color, 2.5f);
-												Main.dust[num688].noGravity = true;
-												Dust dust108 = Main.dust[num688];
-												dust108.velocity = dust108.velocity * 5f;
-												Vector2 vector2304 = new Vector2(this.position.X, this.position.Y);
-												int num689 = this.width;
-												int num690 = this.height;
-												color = new Color();
-												num688 = Dust.NewDust(vector2304, num689, num690, 6, 0f, 0f, 100, color, 1.5f);
-												Dust dust109 = Main.dust[num688];
-												dust109.velocity = dust109.velocity * 3f;
-											}
-											Vector2 vector2305 = new Vector2(this.position.X, this.position.Y);
-											vector2 = new Vector2();
-											int num691 = Gore.NewGore(vector2305, vector2, Main.rand.Next(61, 64), 1f);
-											Gore gore6 = Main.gore[num691];
-											gore6.velocity = gore6.velocity * 0.4f;
-											Main.gore[num691].velocity.X = Main.gore[num691].velocity.X + 1f;
-											Main.gore[num691].velocity.Y = Main.gore[num691].velocity.Y + 1f;
-											Vector2 vector2306 = new Vector2(this.position.X, this.position.Y);
-											vector2 = new Vector2();
-											num691 = Gore.NewGore(vector2306, vector2, Main.rand.Next(61, 64), 1f);
-											Gore gore7 = Main.gore[num691];
-											gore7.velocity = gore7.velocity * 0.4f;
-											Main.gore[num691].velocity.X = Main.gore[num691].velocity.X - 1f;
-											Main.gore[num691].velocity.Y = Main.gore[num691].velocity.Y + 1f;
-											Vector2 vector2307 = new Vector2(this.position.X, this.position.Y);
-											vector2 = new Vector2();
-											num691 = Gore.NewGore(vector2307, vector2, Main.rand.Next(61, 64), 1f);
-											Gore gore8 = Main.gore[num691];
-											gore8.velocity = gore8.velocity * 0.4f;
-											Main.gore[num691].velocity.X = Main.gore[num691].velocity.X + 1f;
-											Main.gore[num691].velocity.Y = Main.gore[num691].velocity.Y - 1f;
-											Vector2 vector2308 = new Vector2(this.position.X, this.position.Y);
-											vector2 = new Vector2();
-											num691 = Gore.NewGore(vector2308, vector2, Main.rand.Next(61, 64), 1f);
-											Gore gore9 = Main.gore[num691];
-											gore9.velocity = gore9.velocity * 0.4f;
-											Main.gore[num691].velocity.X = Main.gore[num691].velocity.X - 1f;
-											Main.gore[num691].velocity.Y = Main.gore[num691].velocity.Y - 1f;
 											return;
 										}
 									}
@@ -43002,66 +38717,20 @@ namespace Terraria
 										{
 											if (this.life > 0)
 											{
-												for (int f11 = 0; (double)f11 < dmg / (double)this.lifeMax * 50; f11++)
-												{
-													Vector2 vector2309 = this.position;
-													int num692 = this.width;
-													int num693 = this.height;
-													float single222 = (float)hitDirection;
-													color = new Color();
-													Dust.NewDust(vector2309, num692, num693, 5, single222, -1f, 0, color, 1f);
-												}
 												return;
 											}
-											for (int g11 = 0; g11 < 20; g11++)
-											{
-												Vector2 vector2310 = this.position;
-												int num694 = this.width;
-												int num695 = this.height;
-												float single223 = (float)(2 * hitDirection);
-												color = new Color();
-												Dust.NewDust(vector2310, num694, num695, 5, single223, -2f, 0, color, 1f);
-											}
-											Gore.NewGore(this.position, this.velocity, 6, 1f);
-											Gore.NewGore(this.position, this.velocity, 7, 1f);
 											return;
 										}
 										if (this.type == 113 || this.type == 114)
 										{
 											if (this.life > 0)
 											{
-												for (int h11 = 0; h11 < 20; h11++)
-												{
-													Vector2 vector2311 = this.position;
-													int num696 = this.width;
-													int num697 = this.height;
-													float single224 = (float)hitDirection;
-													color = new Color();
-													Dust.NewDust(vector2311, num696, num697, 5, single224, -1f, 0, color, 1f);
-												}
 												return;
-											}
-											for (int i12 = 0; i12 < 50; i12++)
-											{
-												Vector2 vector2312 = this.position;
-												int num698 = this.width;
-												int num699 = this.height;
-												float single225 = (float)(2 * hitDirection);
-												color = new Color();
-												Dust.NewDust(vector2312, num698, num699, 5, single225, -1f, 0, color, 1f);
 											}
 											if (this.type == 114)
 											{
-												Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 137, this.scale);
-												Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2)), this.velocity, 139, this.scale);
-												Gore.NewGore(new Vector2(this.position.X + (float)(this.width / 2), this.position.Y), this.velocity, 139, this.scale);
-												Gore.NewGore(new Vector2(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2)), this.velocity, 137, this.scale);
 												return;
 											}
-											Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 137, this.scale);
-											Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2)), this.velocity, 138, this.scale);
-											Gore.NewGore(new Vector2(this.position.X + (float)(this.width / 2), this.position.Y), this.velocity, 138, this.scale);
-											Gore.NewGore(new Vector2(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2)), this.velocity, 137, this.scale);
 											if (Main.player[Main.myPlayer].position.Y / 16f > (float)(Main.maxTilesY - 250))
 											{
 												int y12 = (int)Main.screenPosition.Y;
@@ -43077,14 +38746,6 @@ namespace Terraria
 												{
 													while (num702 < num701)
 													{
-														for (int k12 = 0; k12 < 5; k12++)
-														{
-															Vector2 vector2313 = new Vector2((float)num702, (float)j12);
-															color = new Color();
-															Dust.NewDust(vector2313, 32, 32, 5, (float)Main.rand.Next(-60, 61) * 0.1f, (float)Main.rand.Next(-60, 61) * 0.1f, 0, color, 1f);
-														}
-														Vector2 vector2314 = new Vector2((float)Main.rand.Next(-80, 81) * 0.1f, (float)Main.rand.Next(-60, 21) * 0.1f);
-														Gore.NewGore(new Vector2((float)num702, (float)j12), vector2314, Main.rand.Next(140, 143), 1f);
 														num702 = num702 + 46;
 													}
 													num702 = x12;
@@ -43098,98 +38759,31 @@ namespace Terraria
 											{
 												if (this.life > 0)
 												{
-													for (int l12 = 0; l12 < 5; l12++)
-													{
-														Vector2 vector2315 = this.position;
-														int num703 = this.width;
-														int num704 = this.height;
-														float single226 = (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2315, num703, num704, 5, single226, -1f, 0, color, 1f);
-													}
 													return;
 												}
 												if (this.type != 115 || Main.netMode == 1)
 												{
-													for (int m12 = 0; m12 < 20; m12++)
-													{
-														Vector2 vector2316 = this.position;
-														int num705 = this.width;
-														int num706 = this.height;
-														float single227 = (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2316, num705, num706, 5, single227, -1f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 132, this.scale);
-													Gore.NewGore(this.position, this.velocity, 133, this.scale);
 													return;
 												}
 												NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 116, 0, 0f, 0f, 0f, 0f, 255);
-												for (int n12 = 0; n12 < 10; n12++)
-												{
-													Vector2 vector2317 = this.position;
-													int num707 = this.width;
-													int num708 = this.height;
-													float single228 = (float)hitDirection;
-													color = new Color();
-													Dust.NewDust(vector2317, num707, num708, 5, single228, -1f, 0, color, 1f);
-												}
 												return;
 											}
 											if (this.type >= 117 && this.type <= 119)
 											{
 												if (this.life > 0)
 												{
-													for (int o12 = 0; o12 < 5; o12++)
-													{
-														Vector2 vector2318 = this.position;
-														int num709 = this.width;
-														int num710 = this.height;
-														float single229 = (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2318, num709, num710, 5, single229, -1f, 0, color, 1f);
-													}
 													return;
 												}
-												for (int p12 = 0; p12 < 10; p12++)
-												{
-													Vector2 vector2319 = this.position;
-													int num711 = this.width;
-													int num712 = this.height;
-													float single230 = (float)hitDirection;
-													color = new Color();
-													Dust.NewDust(vector2319, num711, num712, 5, single230, -1f, 0, color, 1f);
-												}
-												Gore.NewGore(this.position, this.velocity, 134 + this.type - 117, this.scale);
 												return;
 											}
 											if (this.type == 217 || this.type == 218 || this.type == 219)
 											{
 												if (this.life > 0)
 												{
-													for (int q12 = 0; (double)q12 < dmg / (double)this.lifeMax * 100; q12++)
-													{
-														Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-													}
 													return;
-												}
-												for (int r12 = 0; r12 < 50; r12++)
-												{
-													Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
-												}
-												if (this.type == 217)
-												{
-													Gore.NewGore(this.position, this.velocity, 292, this.scale);
-													Gore.NewGore(this.position, this.velocity, 293, this.scale);
-												}
-												if (this.type == 218)
-												{
-													Gore.NewGore(this.position, this.velocity, 295, this.scale);
-													Gore.NewGore(this.position, this.velocity, 296, this.scale);
 												}
 												if (this.type == 219)
 												{
-													Gore.NewGore(this.position, this.velocity, 294, this.scale);
 													return;
 												}
 											}
@@ -43199,667 +38793,204 @@ namespace Terraria
 												{
 													if (this.life > 0)
 													{
-														for (int s12 = 0; (double)s12 < dmg / (double)this.lifeMax * 100; s12++)
-														{
-															Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-														}
 														return;
 													}
-													for (int t12 = 0; t12 < 50; t12++)
-													{
-														Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
-													}
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y - 35f), this.velocity, 303, this.scale);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y - 45f), this.velocity, 304, this.scale);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y), this.velocity, 305, this.scale);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 306, this.scale);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 10f), this.velocity, 307, this.scale);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), this.velocity, 308, this.scale);
 													return;
 												}
 												if (this.type == 6 || this.type == 94 || this.type == 166)
 												{
 													if (this.life > 0)
 													{
-														for (int u12 = 0; (double)u12 < dmg / (double)this.lifeMax * 100; u12++)
-														{
-															Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-														}
 														return;
-													}
-													for (int v12 = 0; v12 < 50; v12++)
-													{
-														Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 													}
 													if (this.type == 94)
 													{
-														num2 = Gore.NewGore(this.position, this.velocity, 108, this.scale);
-														num2 = Gore.NewGore(this.position, this.velocity, 108, this.scale);
-														num2 = Gore.NewGore(this.position, this.velocity, 109, this.scale);
-														num2 = Gore.NewGore(this.position, this.velocity, 110, this.scale);
 														return;
 													}
 													if (this.type == 166)
 													{
-														num2 = Gore.NewGore(this.position, this.velocity, 209, this.scale);
-														num2 = Gore.NewGore(this.position, this.velocity, 210, this.scale);
-														num2 = Gore.NewGore(this.position, this.velocity, 211, this.scale);
 														return;
 													}
-													num2 = Gore.NewGore(this.position, this.velocity, 14, this.scale);
-													Main.gore[num2].alpha = this.alpha;
-													num2 = Gore.NewGore(this.position, this.velocity, 15, this.scale);
-													Main.gore[num2].alpha = this.alpha;
 													return;
 												}
 												if (this.type == 101)
 												{
 													if (this.life > 0)
 													{
-														for (int w12 = 0; (double)w12 < dmg / (double)this.lifeMax * 100; w12++)
-														{
-															Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-														}
 														return;
 													}
-													for (int x121 = 0; x121 < 50; x121++)
-													{
-														Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
-													}
-													Gore.NewGore(this.position, this.velocity, 110, this.scale);
-													Gore.NewGore(this.position, this.velocity, 114, this.scale);
-													Gore.NewGore(this.position, this.velocity, 114, this.scale);
-													Gore.NewGore(this.position, this.velocity, 115, this.scale);
 													return;
 												}
 												if (this.type == 7 || this.type == 8 || this.type == 9)
 												{
 													if (this.life > 0)
 													{
-														for (int y121 = 0; (double)y121 < dmg / (double)this.lifeMax * 100; y121++)
-														{
-															Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-														}
 														return;
 													}
-													for (int a12 = 0; a12 < 50; a12++)
-													{
-														Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
-													}
-													int num713 = Gore.NewGore(this.position, this.velocity, this.type - 7 + 18, 1f);
-													Main.gore[num713].alpha = this.alpha;
 													return;
 												}
 												if (this.type == 98 || this.type == 99 || this.type == 100)
 												{
 													if (this.life > 0)
 													{
-														for (int b12 = 0; (double)b12 < dmg / (double)this.lifeMax * 100; b12++)
-														{
-															Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-														}
 														return;
 													}
-													for (int c12 = 0; c12 < 50; c12++)
-													{
-														Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
-													}
-													int num714 = Gore.NewGore(this.position, this.velocity, 110, 1f);
-													Main.gore[num714].alpha = this.alpha;
 													return;
 												}
 												if (this.type == 10 || this.type == 11 || this.type == 12)
 												{
 													if (this.life > 0)
 													{
-														for (int d12 = 0; (double)d12 < dmg / (double)this.lifeMax * 50; d12++)
-														{
-															Vector2 vector2320 = this.position;
-															int num715 = this.width;
-															int num716 = this.height;
-															float single231 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2320, num715, num716, 5, single231, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int e12 = 0; e12 < 10; e12++)
-													{
-														Vector2 vector2321 = this.position;
-														int num717 = this.width;
-														int num718 = this.height;
-														float single232 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2321, num717, num718, 5, single232, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, this.type - 7 + 18, 1f);
 													return;
 												}
 												if (this.type == 95 || this.type == 96 || this.type == 97)
 												{
 													if (this.life > 0)
 													{
-														for (int f12 = 0; (double)f12 < dmg / (double)this.lifeMax * 50; f12++)
-														{
-															Vector2 vector2322 = this.position;
-															int num719 = this.width;
-															int num720 = this.height;
-															float single233 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2322, num719, num720, 5, single233, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int g12 = 0; g12 < 10; g12++)
-													{
-														Vector2 vector2323 = this.position;
-														int num721 = this.width;
-														int num722 = this.height;
-														float single234 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2323, num721, num722, 5, single234, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, this.type - 95 + 111, 1f);
 													return;
 												}
 												if (this.type == 13 || this.type == 14 || this.type == 15)
 												{
 													if (this.life > 0)
 													{
-														for (int h12 = 0; (double)h12 < dmg / (double)this.lifeMax * 100; h12++)
-														{
-															Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-														}
 														return;
-													}
-													for (int i13 = 0; i13 < 50; i13++)
-													{
-														Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 													}
 													if (this.type == 13)
 													{
-														Gore.NewGore(this.position, this.velocity, 24, 1f);
-														Gore.NewGore(this.position, this.velocity, 25, 1f);
 														return;
 													}
 													if (this.type == 14)
 													{
-														Gore.NewGore(this.position, this.velocity, 26, 1f);
-														Gore.NewGore(this.position, this.velocity, 27, 1f);
 														return;
 													}
-													Gore.NewGore(this.position, this.velocity, 28, 1f);
-													Gore.NewGore(this.position, this.velocity, 29, 1f);
 													return;
 												}
 												if (this.type == 17)
 												{
 													if (this.life > 0)
 													{
-														for (int j13 = 0; (double)j13 < dmg / (double)this.lifeMax * 100; j13++)
-														{
-															Vector2 vector2324 = this.position;
-															int num723 = this.width;
-															int num724 = this.height;
-															float single235 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2324, num723, num724, 5, single235, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int k13 = 0; k13 < 50; k13++)
-													{
-														Vector2 vector2325 = this.position;
-														int num725 = this.width;
-														int num726 = this.height;
-														float single236 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2325, num725, num726, 5, single236, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 30, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 31, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 31, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 32, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 32, 1f);
 													return;
 												}
 												if (this.type == 441)
 												{
 													if (this.life > 0)
 													{
-														for (int l13 = 0; (double)l13 < dmg / (double)this.lifeMax * 100; l13++)
-														{
-															Vector2 vector2326 = this.position;
-															int num727 = this.width;
-															int num728 = this.height;
-															float single237 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2326, num727, num728, 5, single237, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int m13 = 0; m13 < 50; m13++)
-													{
-														Vector2 vector2327 = this.position;
-														int num729 = this.width;
-														int num730 = this.height;
-														float single238 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2327, num729, num730, 5, single238, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 768, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 769, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 770, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 771, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 771, 1f);
 													return;
 												}
 												if (this.type == 86)
 												{
 													if (this.life > 0)
 													{
-														for (int n13 = 0; (double)n13 < dmg / (double)this.lifeMax * 100; n13++)
-														{
-															Vector2 vector2328 = this.position;
-															int num731 = this.width;
-															int num732 = this.height;
-															float single239 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2328, num731, num732, 5, single239, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int o13 = 0; o13 < 50; o13++)
-													{
-														Vector2 vector2329 = this.position;
-														int num733 = this.width;
-														int num734 = this.height;
-														float single240 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2329, num733, num734, 5, single240, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 101, 1f);
-													Gore.NewGore(this.position, this.velocity, 102, 1f);
-													Gore.NewGore(this.position, this.velocity, 103, 1f);
-													Gore.NewGore(this.position, this.velocity, 103, 1f);
-													Gore.NewGore(this.position, this.velocity, 104, 1f);
-													Gore.NewGore(this.position, this.velocity, 104, 1f);
-													Gore.NewGore(this.position, this.velocity, 105, 1f);
 													return;
 												}
 												if (this.type == 155)
 												{
 													if (this.life > 0)
 													{
-														for (int p13 = 0; (double)p13 < dmg / (double)this.lifeMax * 100; p13++)
-														{
-															Vector2 vector2330 = this.position;
-															int num735 = this.width;
-															int num736 = this.height;
-															float single241 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2330, num735, num736, 5, single241, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int q13 = 0; q13 < 50; q13++)
-													{
-														Vector2 vector2331 = this.position;
-														int num737 = this.width;
-														int num738 = this.height;
-														float single242 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2331, num737, num738, 5, single242, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 181, 1f);
-													Gore.NewGore(this.position, this.velocity, 182, 1f);
-													Gore.NewGore(this.position, this.velocity, 183, 1f);
-													Gore.NewGore(this.position, this.velocity, 183, 1f);
 													return;
 												}
 												if (this.type == 329)
 												{
 													if (this.life > 0)
 													{
-														for (int r13 = 0; (double)r13 < dmg / (double)this.lifeMax * 100; r13++)
-														{
-															Vector2 vector2332 = this.position;
-															int num739 = this.width;
-															int num740 = this.height;
-															float single243 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2332, num739, num740, 5, single243, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int s13 = 0; s13 < 50; s13++)
-													{
-														Vector2 vector2333 = this.position;
-														int num741 = this.width;
-														int num742 = this.height;
-														float single244 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2333, num741, num742, 5, single244, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 485, 1f);
-													Gore.NewGore(this.position, this.velocity, 486, 1f);
-													Gore.NewGore(this.position, this.velocity, 487, 1f);
 													return;
 												}
 												if (this.type == 163 || this.type == 238)
 												{
 													if (this.life > 0)
 													{
-														for (int t13 = 0; (double)t13 < dmg / (double)this.lifeMax * 100; t13++)
-														{
-															Vector2 vector2334 = this.position;
-															int num743 = this.width;
-															int num744 = this.height;
-															float single245 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2334, num743, num744, 18, single245, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int u13 = 0; u13 < 50; u13++)
-													{
-														Vector2 vector2335 = this.position;
-														int num745 = this.width;
-														int num746 = this.height;
-														float single246 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2335, num745, num746, 18, single246, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 205, 1f);
-													Gore.NewGore(this.position, this.velocity, 206, 1f);
-													Gore.NewGore(this.position, this.velocity, 206, 1f);
-													Gore.NewGore(this.position, this.velocity, 206, 1f);
-													Gore.NewGore(this.position, this.velocity, 206, 1f);
 													return;
 												}
 												if (this.type == 164 || this.type == 165)
 												{
 													if (this.life > 0)
 													{
-														for (int v13 = 0; (double)v13 < dmg / (double)this.lifeMax * 100; v13++)
-														{
-															Vector2 vector2336 = this.position;
-															int num747 = this.width;
-															int num748 = this.height;
-															float single247 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2336, num747, num748, 18, single247, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int w13 = 0; w13 < 50; w13++)
-													{
-														Vector2 vector2337 = this.position;
-														int num749 = this.width;
-														int num750 = this.height;
-														float single248 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2337, num749, num750, 18, single248, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 207, 1f);
-													Gore.NewGore(this.position, this.velocity, 208, 1f);
-													Gore.NewGore(this.position, this.velocity, 208, 1f);
-													Gore.NewGore(this.position, this.velocity, 208, 1f);
-													Gore.NewGore(this.position, this.velocity, 208, 1f);
 													return;
 												}
 												if (this.type == 239 || this.type == 240)
 												{
 													if (this.life > 0)
 													{
-														for (int x13 = 0; (double)x13 < dmg / (double)this.lifeMax * 100; x13++)
-														{
-															Vector2 vector2338 = this.position;
-															int num751 = this.width;
-															int num752 = this.height;
-															float single249 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2338, num751, num752, 5, single249, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int y13 = 0; y13 < 50; y13++)
-													{
-														Vector2 vector2339 = this.position;
-														int num753 = this.width;
-														int num754 = this.height;
-														float single250 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2339, num753, num754, 5, single250, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 351, 1f);
-													Gore.NewGore(this.position, this.velocity, 352, 1f);
-													Gore.NewGore(this.position, this.velocity, 352, 1f);
-													Gore.NewGore(this.position, this.velocity, 353, 1f);
-													Gore.NewGore(this.position, this.velocity, 353, 1f);
 													return;
 												}
 												if (this.type == 236 || this.type == 237)
 												{
 													if (this.life > 0)
 													{
-														for (int a13 = 0; (double)a13 < dmg / (double)this.lifeMax * 100; a13++)
-														{
-															Vector2 vector2340 = this.position;
-															int num755 = this.width;
-															int num756 = this.height;
-															float single251 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2340, num755, num756, 18, single251, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int b13 = 0; b13 < 50; b13++)
-													{
-														Vector2 vector2341 = this.position;
-														int num757 = this.width;
-														int num758 = this.height;
-														float single252 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2341, num757, num758, 18, single252, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 332, 1f);
-													Gore.NewGore(this.position, this.velocity, 333, 1f);
-													Gore.NewGore(this.position, this.velocity, 334, 1f);
-													Gore.NewGore(this.position, this.velocity, 335, 1f);
-													Gore.NewGore(this.position, this.velocity, 335, 1f);
 													return;
 												}
 												if (this.type == 241)
 												{
 													if (this.life > 0)
 													{
-														for (int c13 = 0; (double)c13 < dmg / (double)this.lifeMax * 100; c13++)
-														{
-															Vector2 vector2342 = this.position;
-															int num759 = this.width;
-															int num760 = this.height;
-															float single253 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2342, num759, num760, 5, single253, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int d13 = 0; d13 < 50; d13++)
-													{
-														Vector2 vector2343 = this.position;
-														int num761 = this.width;
-														int num762 = this.height;
-														float single254 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2343, num761, num762, 5, single254, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 354, 1f);
-													Gore.NewGore(this.position, this.velocity, 355, 1f);
 													return;
 												}
 												if (this.type == 242)
 												{
 													if (this.life > 0)
 													{
-														for (int e13 = 0; (double)e13 < dmg / (double)this.lifeMax * 100; e13++)
-														{
-															Vector2 vector2344 = this.position;
-															int num763 = this.width;
-															int num764 = this.height;
-															float single255 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2344, num763, num764, 5, single255, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int f13 = 0; f13 < 50; f13++)
-													{
-														Vector2 vector2345 = this.position;
-														int num765 = this.width;
-														int num766 = this.height;
-														float single256 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2345, num765, num766, 5, single256, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 356, 1f);
-													Gore.NewGore(this.position, this.velocity, 357, 1f);
-													Gore.NewGore(this.position, this.velocity, 357, 1f);
-													Gore.NewGore(this.position, this.velocity, 358, 1f);
-													Gore.NewGore(this.position, this.velocity, 358, 1f);
 													return;
 												}
 												if (this.type >= 105 && this.type <= 108)
 												{
 													if (this.life > 0)
 													{
-														for (int g13 = 0; (double)g13 < dmg / (double)this.lifeMax * 100; g13++)
-														{
-															Vector2 vector2346 = this.position;
-															int num767 = this.width;
-															int num768 = this.height;
-															float single257 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2346, num767, num768, 5, single257, -1f, 0, color, 1f);
-														}
 														return;
-													}
-													for (int h13 = 0; h13 < 50; h13++)
-													{
-														Vector2 vector2347 = this.position;
-														int num769 = this.width;
-														int num770 = this.height;
-														float single258 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2347, num769, num770, 5, single258, -2.5f, 0, color, 1f);
 													}
 													if (this.type != 105 && this.type != 107)
 													{
-														Gore.NewGore(this.position, this.velocity, 127, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 128, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 128, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 129, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 129, 1f);
 														return;
 													}
-													Gore.NewGore(this.position, this.velocity, 124, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 125, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 125, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 126, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 126, 1f);
 													return;
 												}
 												if (this.type == 123 || this.type == 124)
 												{
 													if (this.life > 0)
 													{
-														for (int i14 = 0; (double)i14 < dmg / (double)this.lifeMax * 100; i14++)
-														{
-															Vector2 vector2348 = this.position;
-															int num771 = this.width;
-															int num772 = this.height;
-															float single259 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2348, num771, num772, 5, single259, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int j14 = 0; j14 < 50; j14++)
-													{
-														Vector2 vector2349 = this.position;
-														int num773 = this.width;
-														int num774 = this.height;
-														float single260 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2349, num773, num774, 5, single260, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 151, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 152, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 152, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 153, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 153, 1f);
 													return;
 												}
 												if (this.type == 22)
 												{
 													if (this.life > 0)
 													{
-														for (int k14 = 0; (double)k14 < dmg / (double)this.lifeMax * 100; k14++)
-														{
-															Vector2 vector2350 = this.position;
-															int num775 = this.width;
-															int num776 = this.height;
-															float single261 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2350, num775, num776, 5, single261, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int l14 = 0; l14 < 50; l14++)
-													{
-														Vector2 vector2351 = this.position;
-														int num777 = this.width;
-														int num778 = this.height;
-														float single262 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2351, num777, num778, 5, single262, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 73, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 74, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 74, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 75, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 75, 1f);
 													return;
 												}
 												if (this.type == 368)
 												{
 													if (this.life > 0)
 													{
-														for (int m14 = 0; (double)m14 < dmg / (double)this.lifeMax * 100; m14++)
-														{
-															Vector2 vector2352 = this.position;
-															int num779 = this.width;
-															int num780 = this.height;
-															float single263 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2352, num779, num780, 5, single263, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int n14 = 0; n14 < 50; n14++)
-													{
-														Vector2 vector2353 = this.position;
-														int num781 = this.width;
-														int num782 = this.height;
-														float single264 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2353, num781, num782, 5, single264, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 567, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 568, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 568, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 569, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 569, 1f);
 													return;
 												}
 												if (this.type == 369 || this.type == 376)
@@ -43868,539 +38999,134 @@ namespace Terraria
 													{
 														return;
 													}
-													for (int o14 = 0; o14 < 25; o14++)
-													{
-														Vector2 vector2354 = new Vector2(this.position.X, this.position.Y);
-														int num783 = this.width;
-														int num784 = this.height;
-														color = new Color();
-														int num785 = Dust.NewDust(vector2354, num783, num784, 31, 0f, 0f, 100, color, 2f);
-														Dust dust110 = Main.dust[num785];
-														dust110.velocity = dust110.velocity * 1.4f;
-														Main.dust[num785].noLight = true;
-														Main.dust[num785].noGravity = true;
-													}
-													int num786 = 0;
-													Vector2 vector2355 = new Vector2(this.position.X + (float)(this.width / 2) - 24f, this.position.Y + (float)(this.height / 2) - 24f);
-													vector2 = new Vector2();
-													num786 = Gore.NewGore(vector2355, vector2, Main.rand.Next(61, 64), 1f);
-													Main.gore[num786].scale = 1f;
-													Main.gore[num786].velocity.X = Main.gore[num786].velocity.X + 1f;
-													Main.gore[num786].velocity.Y = Main.gore[num786].velocity.Y + 1f;
-													Vector2 vector2356 = new Vector2(this.position.X + (float)(this.width / 2) - 24f, this.position.Y + (float)(this.height / 2) - 24f);
-													vector2 = new Vector2();
-													num786 = Gore.NewGore(vector2356, vector2, Main.rand.Next(61, 64), 1f);
-													Main.gore[num786].scale = 1f;
-													Main.gore[num786].velocity.X = Main.gore[num786].velocity.X - 1f;
-													Main.gore[num786].velocity.Y = Main.gore[num786].velocity.Y + 1f;
-													Vector2 vector2357 = new Vector2(this.position.X + (float)(this.width / 2) - 24f, this.position.Y + (float)(this.height / 2) - 24f);
-													vector2 = new Vector2();
-													num786 = Gore.NewGore(vector2357, vector2, Main.rand.Next(61, 64), 1f);
-													Main.gore[num786].scale = 1f;
-													Main.gore[num786].velocity.X = Main.gore[num786].velocity.X + 1f;
-													Main.gore[num786].velocity.Y = Main.gore[num786].velocity.Y - 1f;
-													Vector2 vector2358 = new Vector2(this.position.X + (float)(this.width / 2) - 24f, this.position.Y + (float)(this.height / 2) - 24f);
-													vector2 = new Vector2();
-													num786 = Gore.NewGore(vector2358, vector2, Main.rand.Next(61, 64), 1f);
-													Main.gore[num786].scale = 1f;
-													Main.gore[num786].velocity.X = Main.gore[num786].velocity.X - 1f;
-													Main.gore[num786].velocity.Y = Main.gore[num786].velocity.Y - 1f;
 													return;
 												}
 												if (this.type == 227)
 												{
 													if (this.life > 0)
 													{
-														for (int p14 = 0; (double)p14 < dmg / (double)this.lifeMax * 100; p14++)
-														{
-															Vector2 vector2359 = this.position;
-															int num787 = this.width;
-															int num788 = this.height;
-															float single265 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2359, num787, num788, 5, single265, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int q14 = 0; q14 < 50; q14++)
-													{
-														Vector2 vector2360 = this.position;
-														int num789 = this.width;
-														int num790 = this.height;
-														float single266 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2360, num789, num790, 5, single266, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 320, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 321, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 322, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 323, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 323, 1f);
 													return;
 												}
 												if (this.type == 228)
 												{
 													if (this.life > 0)
 													{
-														for (int r14 = 0; (double)r14 < dmg / (double)this.lifeMax * 100; r14++)
-														{
-															Vector2 vector2361 = this.position;
-															int num791 = this.width;
-															int num792 = this.height;
-															float single267 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2361, num791, num792, 5, single267, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int s14 = 0; s14 < 50; s14++)
-													{
-														Vector2 vector2362 = this.position;
-														int num793 = this.width;
-														int num794 = this.height;
-														float single268 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2362, num793, num794, 5, single268, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 324, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 325, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 326, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 327, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 327, 1f);
 													return;
 												}
 												if (this.type == 229)
 												{
 													if (this.life > 0)
 													{
-														for (int t14 = 0; (double)t14 < dmg / (double)this.lifeMax * 100; t14++)
-														{
-															Vector2 vector2363 = this.position;
-															int num795 = this.width;
-															int num796 = this.height;
-															float single269 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2363, num795, num796, 5, single269, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int u14 = 0; u14 < 50; u14++)
-													{
-														Vector2 vector2364 = this.position;
-														int num797 = this.width;
-														int num798 = this.height;
-														float single270 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2364, num797, num798, 5, single270, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 328, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 329, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 329, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 330, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 330, 1f);
 													return;
 												}
 												if (this.type == 142)
 												{
 													if (this.life > 0)
 													{
-														for (int v14 = 0; (double)v14 < dmg / (double)this.lifeMax * 100; v14++)
-														{
-															Vector2 vector2365 = this.position;
-															int num799 = this.width;
-															int num800 = this.height;
-															float single271 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2365, num799, num800, 5, single271, -1f, 0, color, 1f);
-														}
+
 														return;
 													}
-													for (int w14 = 0; w14 < 50; w14++)
-													{
-														Vector2 vector2366 = this.position;
-														int num801 = this.width;
-														int num802 = this.height;
-														float single272 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2366, num801, num802, 5, single272, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 157, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 158, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 158, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 159, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 159, 1f);
 													return;
 												}
 												if (this.type == 178)
 												{
 													if (this.life > 0)
 													{
-														for (int x14 = 0; (double)x14 < dmg / (double)this.lifeMax * 100; x14++)
-														{
-															Vector2 vector2367 = this.position;
-															int num803 = this.width;
-															int num804 = this.height;
-															float single273 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2367, num803, num804, 5, single273, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int y14 = 0; y14 < 50; y14++)
-													{
-														Vector2 vector2368 = this.position;
-														int num805 = this.width;
-														int num806 = this.height;
-														float single274 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2368, num805, num806, 5, single274, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 231, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 232, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 232, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 233, 1f);
 													return;
 												}
 												if (this.type == 353 || this.type == 354)
 												{
 													if (this.life > 0)
 													{
-														for (int a14 = 0; (double)a14 < dmg / (double)this.lifeMax * 100; a14++)
-														{
-															Vector2 vector2369 = this.position;
-															int num807 = this.width;
-															int num808 = this.height;
-															float single275 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2369, num807, num808, 5, single275, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int b14 = 0; b14 < 50; b14++)
-													{
-														Vector2 vector2370 = this.position;
-														int num809 = this.width;
-														int num810 = this.height;
-														float single276 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2370, num809, num810, 5, single276, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 543, 1f);
-													Gore.NewGore(this.position, this.velocity, 545, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 546, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 546, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 545, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 545, 1f);
 													return;
 												}
 												if (this.type == 37 || this.type == 54)
 												{
 													if (this.life > 0)
 													{
-														for (int c14 = 0; (double)c14 < dmg / (double)this.lifeMax * 100; c14++)
-														{
-															Vector2 vector2371 = this.position;
-															int num811 = this.width;
-															int num812 = this.height;
-															float single277 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2371, num811, num812, 5, single277, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int d14 = 0; d14 < 50; d14++)
-													{
-														Vector2 vector2372 = this.position;
-														int num813 = this.width;
-														int num814 = this.height;
-														float single278 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2372, num813, num814, 5, single278, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 58, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 59, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 59, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 60, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 60, 1f);
 													return;
 												}
 												if (this.type == 441)
 												{
 													if (this.life > 0)
 													{
-														for (int e14 = 0; (double)e14 < dmg / (double)this.lifeMax * 100; e14++)
-														{
-															Vector2 vector2373 = this.position;
-															int num815 = this.width;
-															int num816 = this.height;
-															float single279 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2373, num815, num816, 5, single279, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int f14 = 0; f14 < 50; f14++)
-													{
-														Vector2 vector2374 = this.position;
-														int num817 = this.width;
-														int num818 = this.height;
-														float single280 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2374, num817, num818, 5, single280, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 768, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 769, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 770, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 771, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 771, 1f);
 													return;
 												}
 												if (this.type == 160)
 												{
 													if (this.life > 0)
 													{
-														for (int g14 = 0; (double)g14 < dmg / (double)this.lifeMax * 100; g14++)
-														{
-															Vector2 vector2375 = this.position;
-															int num819 = this.width;
-															int num820 = this.height;
-															float single281 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2375, num819, num820, 26, single281, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int h14 = 0; h14 < 50; h14++)
-													{
-														Vector2 vector2376 = this.position;
-														int num821 = this.width;
-														int num822 = this.height;
-														float single282 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2376, num821, num822, 26, single282, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 188, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 189, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 189, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 190, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 190, 1f);
 													return;
 												}
 												if (this.type == 18)
 												{
 													if (this.life > 0)
 													{
-														for (int i15 = 0; (double)i15 < dmg / (double)this.lifeMax * 100; i15++)
-														{
-															Vector2 vector2377 = this.position;
-															int num823 = this.width;
-															int num824 = this.height;
-															float single283 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2377, num823, num824, 5, single283, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int j15 = 0; j15 < 50; j15++)
-													{
-														Vector2 vector2378 = this.position;
-														int num825 = this.width;
-														int num826 = this.height;
-														float single284 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2378, num825, num826, 5, single284, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 33, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 34, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 34, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 35, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 35, 1f);
 													return;
 												}
 												if (this.type == 19)
 												{
 													if (this.life > 0)
 													{
-														for (int k15 = 0; (double)k15 < dmg / (double)this.lifeMax * 100; k15++)
-														{
-															Vector2 vector2379 = this.position;
-															int num827 = this.width;
-															int num828 = this.height;
-															float single285 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2379, num827, num828, 5, single285, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int l15 = 0; l15 < 50; l15++)
-													{
-														Vector2 vector2380 = this.position;
-														int num829 = this.width;
-														int num830 = this.height;
-														float single286 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2380, num829, num830, 5, single286, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 36, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 37, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 37, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 38, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 38, 1f);
 													return;
 												}
 												if (this.type == 38)
 												{
 													if (this.life > 0)
 													{
-														for (int m15 = 0; (double)m15 < dmg / (double)this.lifeMax * 100; m15++)
-														{
-															Vector2 vector2381 = this.position;
-															int num831 = this.width;
-															int num832 = this.height;
-															float single287 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2381, num831, num832, 5, single287, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int n15 = 0; n15 < 50; n15++)
-													{
-														Vector2 vector2382 = this.position;
-														int num833 = this.width;
-														int num834 = this.height;
-														float single288 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2382, num833, num834, 5, single288, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 64, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 65, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 65, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 66, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 66, 1f);
 													return;
 												}
 												if (this.type == 20)
 												{
 													if (this.life > 0)
 													{
-														for (int o15 = 0; (double)o15 < dmg / (double)this.lifeMax * 100; o15++)
-														{
-															Vector2 vector2383 = this.position;
-															int num835 = this.width;
-															int num836 = this.height;
-															float single289 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2383, num835, num836, 5, single289, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int p15 = 0; p15 < 50; p15++)
-													{
-														Vector2 vector2384 = this.position;
-														int num837 = this.width;
-														int num838 = this.height;
-														float single290 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2384, num837, num838, 5, single290, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 39, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 40, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 40, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 41, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 41, 1f);
-													return;
 												}
 												if (this.type == 207)
 												{
 													if (this.life > 0)
 													{
-														for (int q15 = 0; (double)q15 < dmg / (double)this.lifeMax * 100; q15++)
-														{
-															Vector2 vector2385 = this.position;
-															int num839 = this.width;
-															int num840 = this.height;
-															float single291 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2385, num839, num840, 5, single291, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int r15 = 0; r15 < 50; r15++)
-													{
-														Vector2 vector2386 = this.position;
-														int num841 = this.width;
-														int num842 = this.height;
-														float single292 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2386, num841, num842, 5, single292, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 283, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 284, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 284, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 285, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 285, 1f);
 													return;
 												}
 												if (this.type == 208)
 												{
 													if (this.life > 0)
 													{
-														for (int s15 = 0; (double)s15 < dmg / (double)this.lifeMax * 100; s15++)
-														{
-															Vector2 vector2387 = this.position;
-															int num843 = this.width;
-															int num844 = this.height;
-															float single293 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2387, num843, num844, 5, single293, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int t15 = 0; t15 < 50; t15++)
-													{
-														Vector2 vector2388 = this.position;
-														int num845 = this.width;
-														int num846 = this.height;
-														float single294 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2388, num845, num846, 5, single294, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 286, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 287, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 287, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 288, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 288, 1f);
 													return;
 												}
 												if (this.type == 209)
 												{
 													if (this.life > 0)
 													{
-														for (int u15 = 0; (double)u15 < dmg / (double)this.lifeMax * 100; u15++)
-														{
-															Vector2 vector2389 = this.position;
-															int num847 = this.width;
-															int num848 = this.height;
-															float single295 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2389, num847, num848, 5, single295, -1f, 0, color, 1f);
-														}
 														return;
 													}
-													for (int v15 = 0; v15 < 50; v15++)
-													{
-														Vector2 vector2390 = this.position;
-														int num849 = this.width;
-														int num850 = this.height;
-														float single296 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2390, num849, num850, 5, single296, -2.5f, 0, color, 1f);
-													}
-													Gore.NewGore(this.position, this.velocity, 289, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 290, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 290, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 291, 1f);
-													Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 291, 1f);
 													return;
 												}
 												if (this.type < 212 || this.type > 216)
@@ -44409,189 +39135,65 @@ namespace Terraria
 													{
 														if (this.life > 0)
 														{
-															for (int w15 = 0; (double)w15 < dmg / (double)this.lifeMax * 50; w15++)
-															{
-																Vector2 vector2391 = this.position;
-																int num851 = this.width;
-																int num852 = this.height;
-																float single297 = (float)hitDirection;
-																color = new Color();
-																Dust.NewDust(vector2391, num851, num852, 151, single297, -1f, 0, color, 0.7f);
-															}
 															return;
 														}
-														for (int x15 = 0; x15 < 20; x15++)
-														{
-															Vector2 vector2392 = this.position;
-															int num853 = this.width;
-															int num854 = this.height;
-															float single298 = 2.5f * (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2392, num853, num854, 151, single298, -2.5f, 0, color, 0.7f);
-														}
+
 														if (this.type != 221)
 														{
-															Gore.NewGore(this.position, this.velocity, 297, this.scale);
 															return;
 														}
-														Gore.NewGore(this.position, this.velocity, 298, this.scale);
-														Gore.NewGore(this.position, this.velocity, 299, this.scale);
 														return;
 													}
 													if (this.type == 21 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 32 || this.type == 44 || this.type == 45 || this.type == 77 || this.type == 110 || this.type == 167 || this.type == 197 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 287 || this.type == 291 || this.type == 292 || this.type == 293 || this.type >= 322 && this.type <= 324 || this.type == 481 || this.type >= 449 && this.type <= 452)
 													{
 														if (this.life > 0)
 														{
-															for (int y15 = 0; (double)y15 < dmg / (double)this.lifeMax * 50; y15++)
-															{
-																Vector2 vector2393 = this.position;
-																int num855 = this.width;
-																int num856 = this.height;
-																float single299 = (float)hitDirection;
-																color = new Color();
-																Dust.NewDust(vector2393, num855, num856, 26, single299, -1f, 0, color, 1f);
-															}
 															return;
-														}
-														for (int a15 = 0; a15 < 20; a15++)
-														{
-															Vector2 vector2394 = this.position;
-															int num857 = this.width;
-															int num858 = this.height;
-															float single300 = 2.5f * (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2394, num857, num858, 26, single300, -2.5f, 0, color, 1f);
 														}
 														if (this.type == 167)
 														{
-															Gore.NewGore(this.position, this.velocity, 213, this.scale);
-															Gore.NewGore(this.position, this.velocity, 214, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 212, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 212, this.scale);
 															return;
 														}
 														if (this.type == 197)
 														{
-															Gore.NewGore(this.position, this.velocity, 257, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 212, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 212, this.scale);
 															return;
 														}
 														if (this.type == 481)
 														{
-															Gore.NewGore(this.position, this.velocity, 695, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 696, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 696, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 697, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 697, this.scale);
 															return;
 														}
 														if (this.type == 201 || this.type == 450)
 														{
-															Gore.NewGore(this.position, this.velocity, 265, this.scale);
-															Gore.NewGore(this.position, this.velocity, 267, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 44, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 44, this.scale);
 															return;
 														}
 														if (this.type == 202 || this.type == 451)
 														{
-															Gore.NewGore(this.position, this.velocity, 268, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 44, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 44, this.scale);
 															return;
 														}
 														if (this.type == 203 || this.type == 452)
 														{
-															Gore.NewGore(this.position, this.velocity, 269, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 266, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 266, this.scale);
 															return;
 														}
 														if (this.type == 322)
 														{
-															Gore.NewGore(this.position, this.velocity, 460, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 461, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 462, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 461, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 462, this.scale);
 															return;
 														}
 														if (this.type == 323)
 														{
-															Gore.NewGore(this.position, this.velocity, 463, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 465, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 464, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 464, this.scale);
 															return;
 														}
 														if (this.type == 324)
 														{
-															Gore.NewGore(this.position, this.velocity, 466, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 467, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 467, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 468, this.scale);
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 468, this.scale);
 															return;
 														}
-														Gore.NewGore(this.position, this.velocity, 42, this.scale);
-														if (this.type == 77)
-														{
-															Gore.NewGore(this.position, this.velocity, 106, this.scale);
-														}
-														if (this.type == 110)
-														{
-															Gore.NewGore(this.position, this.velocity, 130, this.scale);
-														}
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-														if (this.type == 110)
-														{
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 131, this.scale);
-														}
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 44, this.scale);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 44, this.scale);
 														return;
 													}
 													if (this.type == 453)
 													{
 														if (this.life > 0)
 														{
-															for (int b15 = 0; (double)b15 < dmg / (double)this.lifeMax * 50; b15++)
-															{
-																Vector2 vector2395 = this.position;
-																int num859 = this.width;
-																int num860 = this.height;
-																float single301 = (float)hitDirection;
-																color = new Color();
-																Dust.NewDust(vector2395, num859, num860, 26, single301, -1f, 0, color, 1f);
-															}
 															return;
 														}
-														for (int c15 = 0; c15 < 20; c15++)
-														{
-															Vector2 vector2396 = this.position;
-															int num861 = this.width;
-															int num862 = this.height;
-															float single302 = 2.5f * (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2396, num861, num862, 26, single302, -2.5f, 0, color, 1f);
-														}
-														Gore.NewGore(this.position, this.velocity, 638, this.scale);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 639, this.scale);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 640, this.scale);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 641, this.scale);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 642, this.scale);
 														return;
 													}
 													if ((this.type < 269 || this.type > 276) && (this.type < 281 || this.type > 286))
@@ -44600,172 +39202,38 @@ namespace Terraria
 														{
 															if (this.life > 0)
 															{
-																for (int d15 = 0; (double)d15 < dmg / (double)this.lifeMax * 100; d15++)
-																{
-																	Vector2 vector2397 = this.position;
-																	int num863 = this.width;
-																	int num864 = this.height;
-																	float single303 = (float)hitDirection;
-																	color = new Color();
-																	int num865 = Dust.NewDust(vector2397, num863, num864, 174, single303, -1f, 0, color, 1f);
-																	Main.dust[num865].scale = 1.1f;
-																	Main.dust[num865].noGravity = true;
-																}
 																return;
-															}
-															for (int e15 = 0; e15 < 75; e15++)
-															{
-																Vector2 vector2398 = this.position;
-																int num866 = this.width;
-																int num867 = this.height;
-																float single304 = 1.5f * (float)hitDirection;
-																color = new Color();
-																int num868 = Dust.NewDust(vector2398, num866, num867, 174, single304, -0.5f, 0, color, 1f);
-																Dust dust111 = Main.dust[num868];
-																dust111.velocity = dust111.velocity * 2f;
-																Main.dust[num868].scale = 1.4f;
-																Main.dust[num868].noGravity = true;
 															}
 															return;
 														}
 														if (this.type == 341)
 														{
-															int num869 = 196;
 															if (this.life > 0)
 															{
-																for (int f15 = 0; (double)f15 < dmg / (double)this.lifeMax * 50; f15++)
-																{
-																	Vector2 vector2399 = this.position;
-																	int num870 = this.width;
-																	int num871 = this.height;
-																	color = new Color();
-																	Dust.NewDust(vector2399, num870, num871, num869, 0f, 0f, 0, color, 1f);
-																}
 																return;
 															}
-															for (int g15 = 0; g15 < 20; g15++)
-															{
-																Vector2 vector2400 = this.position;
-																int num872 = this.width;
-																int num873 = this.height;
-																color = new Color();
-																Dust.NewDust(vector2400, num872, num873, num869, 0f, 0f, 0, color, 1f);
-															}
-															int num874 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 61, this.scale);
-															Gore gore10 = Main.gore[num874];
-															gore10.velocity = gore10.velocity * 0.3f;
-															num874 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 62, this.scale);
-															Gore gore11 = Main.gore[num874];
-															gore11.velocity = gore11.velocity * 0.3f;
-															num874 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), new Vector2((float)hitDirection, 0f), 63, this.scale);
-															Gore gore12 = Main.gore[num874];
-															gore12.velocity = gore12.velocity * 0.3f;
-															return;
 														}
 														if (this.type == 85)
 														{
-															int num875 = 7;
-															if (this.ai[3] == 2f)
-															{
-																num875 = 10;
-															}
-															if (this.ai[3] == 3f)
-															{
-																num875 = 37;
-															}
 															if (this.life > 0)
 															{
-																for (int h15 = 0; (double)h15 < dmg / (double)this.lifeMax * 50; h15++)
-																{
-																	Vector2 vector2401 = this.position;
-																	int num876 = this.width;
-																	int num877 = this.height;
-																	color = new Color();
-																	Dust.NewDust(vector2401, num876, num877, num875, 0f, 0f, 0, color, 1f);
-																}
 																return;
 															}
-															for (int i16 = 0; i16 < 20; i16++)
-															{
-																Vector2 vector2402 = this.position;
-																int num878 = this.width;
-																int num879 = this.height;
-																color = new Color();
-																Dust.NewDust(vector2402, num878, num879, num875, 0f, 0f, 0, color, 1f);
-															}
-															int num880 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 61, this.scale);
-															Gore gore13 = Main.gore[num880];
-															gore13.velocity = gore13.velocity * 0.3f;
-															num880 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 62, this.scale);
-															Gore gore14 = Main.gore[num880];
-															gore14.velocity = gore14.velocity * 0.3f;
-															num880 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), new Vector2((float)hitDirection, 0f), 63, this.scale);
-															Gore gore15 = Main.gore[num880];
-															gore15.velocity = gore15.velocity * 0.3f;
 															return;
 														}
 														if (this.type == 473 || this.type == 474 || this.type == 475 || this.type == 476)
 														{
-															int num881 = 31;
 															if (this.life > 0)
 															{
-																for (int j16 = 0; (double)j16 < dmg / (double)this.lifeMax * 50; j16++)
-																{
-																	Vector2 vector2403 = this.position;
-																	int num882 = this.width;
-																	int num883 = this.height;
-																	color = new Color();
-																	Dust.NewDust(vector2403, num882, num883, num881, 0f, 0f, 0, color, 1f);
-																}
 																return;
 															}
-															for (int k16 = 0; k16 < 20; k16++)
-															{
-																Vector2 vector2404 = this.position;
-																int num884 = this.width;
-																int num885 = this.height;
-																color = new Color();
-																Dust.NewDust(vector2404, num884, num885, num881, 0f, 0f, 0, color, 1f);
-															}
-															int num886 = Gore.NewGore(base.Center, new Vector2((float)hitDirection, 0f), 61, this.scale);
-															Gore gore16 = Main.gore[num886];
-															gore16.velocity = gore16.velocity * 0.3f;
-															num886 = Gore.NewGore(base.Center, new Vector2((float)hitDirection, 0f), 62, this.scale);
-															Gore gore17 = Main.gore[num886];
-															gore17.velocity = gore17.velocity * 0.3f;
-															num886 = Gore.NewGore(base.Center, new Vector2((float)hitDirection, 0f), 63, this.scale);
-															Gore gore18 = Main.gore[num886];
-															gore18.velocity = gore18.velocity * 0.3f;
 															return;
 														}
 														if (this.type == 169)
 														{
 															if (this.life <= 0)
 															{
-																for (int l16 = 0; l16 < 100; l16++)
-																{
-																	Vector2 vector2405 = this.position;
-																	int num887 = this.width;
-																	int num888 = this.height;
-																	color = new Color();
-																	int num889 = Dust.NewDust(vector2405, num887, num888, 92, 0f, 0f, 0, color, 1.5f);
-																	Main.dust[num889].scale = 1.5f;
-																	Dust dust112 = Main.dust[num889];
-																	dust112.velocity = dust112.velocity * 2f;
-																	Main.dust[num889].noGravity = true;
-																}
 																return;
-															}
-															for (int m16 = 0; (double)m16 < dmg / (double)this.lifeMax * 50; m16++)
-															{
-																Vector2 vector2406 = this.position;
-																int num890 = this.width;
-																int num891 = this.height;
-																color = new Color();
-																int num892 = Dust.NewDust(vector2406, num890, num891, 92, 0f, 0f, 0, color, 1.5f);
-																Dust dust113 = Main.dust[num892];
-																dust113.velocity = dust113.velocity * 1.5f;
-																Main.dust[num892].noGravity = true;
 															}
 															return;
 														}
@@ -44773,77 +39241,16 @@ namespace Terraria
 														{
 															if (this.life > 0)
 															{
-																for (int n16 = 0; (double)n16 < dmg / (double)this.lifeMax * 50; n16++)
-																{
-																	Vector2 vector2407 = this.position;
-																	int num893 = this.width;
-																	int num894 = this.height;
-																	color = new Color();
-																	int num895 = Dust.NewDust(vector2407, num893, num894, 54, 0f, 0f, 0, color, 1.5f);
-																	Dust dust114 = Main.dust[num895];
-																	dust114.velocity = dust114.velocity * 1.5f;
-																	Main.dust[num895].noGravity = true;
-																}
 																return;
-															}
-															for (int o16 = 0; o16 < 10; o16++)
-															{
-																Vector2 vector2408 = this.position;
-																int num896 = this.width;
-																int num897 = this.height;
-																color = new Color();
-																int num898 = Dust.NewDust(vector2408, num896, num897, 54, 0f, 0f, 0, color, 1.5f);
-																Dust dust115 = Main.dust[num898];
-																dust115.velocity = dust115.velocity * 2f;
-																Main.dust[num898].noGravity = true;
-															}
-															for (int p16 = 0; p16 < 4; p16++)
-															{
-																int num899 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																Gore gore19 = Main.gore[num899];
-																gore19.velocity = gore19.velocity * 0.3f;
 															}
 															return;
 														}
 														if (this.type == 171)
 														{
-															if (this.life > 0)
-															{
-																for (int q16 = 0; (double)q16 < dmg / (double)this.lifeMax * 50; q16++)
-																{
-																	Vector2 vector2409 = this.position;
-																	int num900 = this.width;
-																	int num901 = this.height;
-																	color = new Color();
-																	int num902 = Dust.NewDust(vector2409, num900, num901, 16, 0f, 0f, 0, color, 1.5f);
-																	Dust dust116 = Main.dust[num902];
-																	dust116.velocity = dust116.velocity * 1.5f;
-																	Main.dust[num902].noGravity = true;
-																}
-																return;
-															}
-															for (int r16 = 0; r16 < 10; r16++)
-															{
-																Vector2 vector2410 = this.position;
-																int num903 = this.width;
-																int num904 = this.height;
-																color = new Color();
-																int num905 = Dust.NewDust(vector2410, num903, num904, 16, 0f, 0f, 0, color, 1.5f);
-																Dust dust117 = Main.dust[num905];
-																dust117.velocity = dust117.velocity * 2f;
-																Main.dust[num905].noGravity = true;
-															}
-															for (int s16 = 0; s16 < 4; s16++)
-															{
-																int num906 = 11 + s16;
-																if (num906 > 13)
-																{
-																	num906 = Main.rand.Next(11, 14);
-																}
-																int num907 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), num906, this.scale);
-																Gore gore20 = Main.gore[num907];
-																gore20.velocity = gore20.velocity * 0.3f;
-															}
+                                                            if (this.life > 0)
+                                                            {
+                                                                return;
+                                                            }
 															return;
 														}
 														if (this.type != 290)
@@ -44852,36 +39259,7 @@ namespace Terraria
 															{
 																if (this.life > 0)
 																{
-																	for (int t16 = 0; (double)t16 < dmg / (double)this.lifeMax * 50; t16++)
-																	{
-																		Vector2 vector2411 = this.position;
-																		int num908 = this.width;
-																		int num909 = this.height;
-																		color = new Color();
-																		int num910 = Dust.NewDust(vector2411, num908, num909, 16, 0f, 0f, 0, color, 1.5f);
-																		Dust dust118 = Main.dust[num910];
-																		dust118.velocity = dust118.velocity * 1.5f;
-																		Main.dust[num910].noGravity = true;
-																	}
 																	return;
-																}
-																for (int u16 = 0; u16 < 10; u16++)
-																{
-																	Vector2 vector2412 = this.position;
-																	int num911 = this.width;
-																	int num912 = this.height;
-																	color = new Color();
-																	int num913 = Dust.NewDust(vector2412, num911, num912, 16, 0f, 0f, 0, color, 1.5f);
-																	Dust dust119 = Main.dust[num913];
-																	dust119.velocity = dust119.velocity * 2f;
-																	Main.dust[num913].noGravity = true;
-																}
-																int num914 = Main.rand.Next(1, 4);
-																for (int v16 = 0; v16 < num914; v16++)
-																{
-																	int num915 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), Main.rand.Next(11, 14), this.scale);
-																	Gore gore21 = Main.gore[num915];
-																	gore21.velocity = gore21.velocity * 0.8f;
 																}
 																return;
 															}
@@ -44889,95 +39267,23 @@ namespace Terraria
 															{
 																if (this.life > 0)
 																{
-																	for (int w16 = 0; (double)w16 < dmg / (double)this.lifeMax * 50; w16++)
-																	{
-																		Vector2 vector2413 = this.position;
-																		int num916 = this.width;
-																		int num917 = this.height;
-																		color = new Color();
-																		int num918 = Dust.NewDust(vector2413, num916, num917, 31, 0f, 0f, 0, color, 1.5f);
-																		Dust dust120 = Main.dust[num918];
-																		dust120.velocity = dust120.velocity * 2f;
-																		Main.dust[num918].noGravity = true;
-																	}
 																	return;
 																}
-																for (int x16 = 0; x16 < 20; x16++)
-																{
-																	Vector2 vector2414 = this.position;
-																	int num919 = this.width;
-																	int num920 = this.height;
-																	color = new Color();
-																	int num921 = Dust.NewDust(vector2414, num919, num920, 31, 0f, 0f, 0, color, 1.5f);
-																	Dust dust121 = Main.dust[num921];
-																	dust121.velocity = dust121.velocity * 2f;
-																	Main.dust[num921].noGravity = true;
-																}
-																int num922 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 61, this.scale);
-																Gore gore22 = Main.gore[num922];
-																gore22.velocity = gore22.velocity * 0.3f;
-																num922 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), new Vector2((float)hitDirection, 0f), 62, this.scale);
-																Gore gore23 = Main.gore[num922];
-																gore23.velocity = gore23.velocity * 0.3f;
-																num922 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), new Vector2((float)hitDirection, 0f), 63, this.scale);
-																Gore gore24 = Main.gore[num922];
-																gore24.velocity = gore24.velocity * 0.3f;
 																return;
 															}
 															if (this.type == 82 || this.type == 158 || this.type == 159 || this.type == 250 || this.type == 253)
 															{
 																if (this.life > 0)
 																{
-																	for (int y16 = 0; (double)y16 < dmg / (double)this.lifeMax * 50; y16++)
-																	{
-																		Vector2 vector2415 = this.position;
-																		int num923 = this.width;
-																		int num924 = this.height;
-																		color = new Color();
-																		int num925 = Dust.NewDust(vector2415, num923, num924, 54, 0f, 0f, 50, color, 1.5f);
-																		Dust dust122 = Main.dust[num925];
-																		dust122.velocity = dust122.velocity * 2f;
-																		Main.dust[num925].noGravity = true;
-																	}
 																	return;
 																}
-																for (int a16 = 0; a16 < 20; a16++)
-																{
-																	Vector2 vector2416 = this.position;
-																	int num926 = this.width;
-																	int num927 = this.height;
-																	color = new Color();
-																	int num928 = Dust.NewDust(vector2416, num926, num927, 54, 0f, 0f, 50, color, 1.5f);
-																	Dust dust123 = Main.dust[num928];
-																	dust123.velocity = dust123.velocity * 2f;
-																	Main.dust[num928].noGravity = true;
-																}
-																int num929 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																Gore gore25 = Main.gore[num929];
-																gore25.velocity = gore25.velocity * 0.3f;
-																num929 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																Gore gore26 = Main.gore[num929];
-																gore26.velocity = gore26.velocity * 0.3f;
-																num929 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																Gore gore27 = Main.gore[num929];
-																gore27.velocity = gore27.velocity * 0.3f;
 																return;
 															}
 															if (this.type == 316 || this.type == 330)
 															{
 																if (this.life <= 0)
 																{
-																	for (int b16 = 0; b16 < 50; b16++)
-																	{
-																		int num930 = Dust.NewDust(this.position, this.width, this.height, 192, (float)(2 * hitDirection), -2f, 100, new Color(100, 100, 100, 100), 1f);
-																		Main.dust[num930].noGravity = true;
-																	}
 																	return;
-																}
-																for (int c16 = 0; (double)c16 < dmg / (double)this.lifeMax * 100; c16++)
-																{
-																	int num931 = Dust.NewDust(this.position, this.width, this.height, 192, (float)hitDirection, -1f, 100, new Color(100, 100, 100, 100), 1f);
-																	Main.dust[num931].noGravity = true;
 																}
 																return;
 															}
@@ -44985,83 +39291,18 @@ namespace Terraria
 															{
 																if (this.life > 0)
 																{
-																	for (int d16 = 0; (double)d16 < dmg / (double)this.lifeMax * 50; d16++)
-																	{
-																		Vector2 vector2417 = this.position;
-																		int num932 = this.width;
-																		int num933 = this.height;
-																		color = new Color();
-																		int num934 = Dust.NewDust(vector2417, num932, num933, 54, 0f, 0f, 50, color, 1.5f);
-																		Dust dust124 = Main.dust[num934];
-																		dust124.velocity = dust124.velocity * 2f;
-																		Main.dust[num934].noGravity = true;
-																	}
 																	return;
 																}
-																for (int e16 = 0; e16 < 20; e16++)
-																{
-																	Vector2 vector2418 = this.position;
-																	int num935 = this.width;
-																	int num936 = this.height;
-																	color = new Color();
-																	int num937 = Dust.NewDust(vector2418, num935, num936, 54, 0f, 0f, 50, color, 1.5f);
-																	Dust dust125 = Main.dust[num937];
-																	dust125.velocity = dust125.velocity * 2f;
-																	Main.dust[num937].noGravity = true;
-																}
-																int num938 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																Gore gore28 = Main.gore[num938];
-																gore28.velocity = gore28.velocity * 0.3f;
-																num938 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																Gore gore29 = Main.gore[num938];
-																gore29.velocity = gore29.velocity * 0.3f;
-																num938 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																Gore gore30 = Main.gore[num938];
-																gore30.velocity = gore30.velocity * 0.3f;
-																num938 = Gore.NewGore(new Vector2(this.position.X, this.position.Y), new Vector2((float)hitDirection, 0f), 446, this.scale);
-																Gore gore31 = Main.gore[num938];
-																gore31.velocity = gore31.velocity * 0.1f;
 																return;
 															}
 															if (this.type == 254 || this.type == 255 || this.type == 256 || this.type == 257 || this.type == 258 || this.type == 259 || this.type == 260 || this.type == 261)
 															{
 																if (this.life > 0)
 																{
-																	for (int f16 = 0; (double)f16 < dmg / (double)this.lifeMax * 50; f16++)
-																	{
-																		Vector2 vector2419 = this.position;
-																		int num939 = this.width;
-																		int num940 = this.height;
-																		color = new Color();
-																		int num941 = Dust.NewDust(vector2419, num939, num940, 165, 0f, 0f, 50, color, 1.5f);
-																		Dust dust126 = Main.dust[num941];
-																		dust126.velocity = dust126.velocity * 2f;
-																		Main.dust[num941].noGravity = true;
-																	}
 																	return;
-																}
-																for (int g16 = 0; g16 < 20; g16++)
-																{
-																	Vector2 vector2420 = this.position;
-																	int num942 = this.width;
-																	int num943 = this.height;
-																	color = new Color();
-																	int num944 = Dust.NewDust(vector2420, num942, num943, 165, 0f, 0f, 50, color, 1.5f);
-																	Dust dust127 = Main.dust[num944];
-																	dust127.velocity = dust127.velocity * 2f;
-																	Main.dust[num944].noGravity = true;
 																}
 																if (this.type != 261)
 																{
-																	int num945 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 375, this.scale);
-																	Gore gore32 = Main.gore[num945];
-																	gore32.velocity = gore32.velocity * 0.3f;
-																	num945 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 376, this.scale);
-																	Gore gore33 = Main.gore[num945];
-																	gore33.velocity = gore33.velocity * 0.3f;
-																	num945 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 377, this.scale);
-																	Gore gore34 = Main.gore[num945];
-																	gore34.velocity = gore34.velocity * 0.3f;
 																	return;
 																}
 															}
@@ -45071,74 +39312,15 @@ namespace Terraria
 																{
 																	if (this.life > 0)
 																	{
-																		for (int h16 = 0; (double)h16 < dmg / (double)this.lifeMax * 50; h16++)
-																		{
-																			Vector2 vector2421 = this.position;
-																			int num946 = this.width;
-																			int num947 = this.height;
-																			float single305 = (float)hitDirection;
-																			color = new Color();
-																			Dust.NewDust(vector2421, num946, num947, 26, single305, -1f, 0, color, 1f);
-																		}
 																		return;
 																	}
-																	for (int i17 = 0; i17 < 20; i17++)
-																	{
-																		Vector2 vector2422 = this.position;
-																		int num948 = this.width;
-																		int num949 = this.height;
-																		float single306 = 2.5f * (float)hitDirection;
-																		color = new Color();
-																		Dust.NewDust(vector2422, num948, num949, 26, single306, -2.5f, 0, color, 1f);
-																	}
-																	Gore.NewGore(this.position, this.velocity, this.type - 39 + 67, 1f);
 																	return;
 																}
 																if (this.type == 34)
 																{
 																	if (this.life <= 0)
 																	{
-																		for (int j17 = 0; j17 < 15; j17++)
-																		{
-																			Vector2 vector2423 = new Vector2(this.position.X, this.position.Y);
-																			int num950 = this.width;
-																			int num951 = this.height;
-																			color = new Color();
-																			int num952 = Dust.NewDust(vector2423, num950, num951, 15, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, color, 1.8f);
-																			Main.dust[num952].noLight = true;
-																			Main.dust[num952].noGravity = true;
-																			Dust dust128 = Main.dust[num952];
-																			dust128.velocity = dust128.velocity * 1.3f;
-																			Vector2 vector2424 = new Vector2(this.position.X, this.position.Y);
-																			int num953 = this.width;
-																			int num954 = this.height;
-																			color = new Color();
-																			num952 = Dust.NewDust(vector2424, num953, num954, 26, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 0, color, 0.9f);
-																			Main.dust[num952].noLight = true;
-																			Dust dust129 = Main.dust[num952];
-																			dust129.velocity = dust129.velocity * 1.3f;
-																		}
 																		return;
-																	}
-																	for (int k17 = 0; (double)k17 < dmg / (double)this.lifeMax * 30; k17++)
-																	{
-																		Vector2 vector2425 = new Vector2(this.position.X, this.position.Y);
-																		int num955 = this.width;
-																		int num956 = this.height;
-																		color = new Color();
-																		int num957 = Dust.NewDust(vector2425, num955, num956, 15, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, color, 1.8f);
-																		Main.dust[num957].noLight = true;
-																		Main.dust[num957].noGravity = true;
-																		Dust dust130 = Main.dust[num957];
-																		dust130.velocity = dust130.velocity * 1.3f;
-																		Vector2 vector2426 = new Vector2(this.position.X, this.position.Y);
-																		int num958 = this.width;
-																		int num959 = this.height;
-																		color = new Color();
-																		num957 = Dust.NewDust(vector2426, num958, num959, 26, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 0, color, 0.9f);
-																		Main.dust[num957].noLight = true;
-																		Dust dust131 = Main.dust[num957];
-																		dust131.velocity = dust131.velocity * 1.3f;
 																	}
 																	return;
 																}
@@ -45146,31 +39328,7 @@ namespace Terraria
 																{
 																	if (this.life <= 0)
 																	{
-																		for (int l17 = 0; l17 < 50; l17++)
-																		{
-																			Vector2 vector2427 = new Vector2(this.position.X, this.position.Y);
-																			int num960 = this.width;
-																			int num961 = this.height;
-																			color = new Color();
-																			int num962 = Dust.NewDust(vector2427, num960, num961, 181, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, color, 1.8f);
-																			Main.dust[num962].noLight = true;
-																			Main.dust[num962].noGravity = true;
-																			Dust dust132 = Main.dust[num962];
-																			dust132.velocity = dust132.velocity * 1.3f;
-																		}
 																		return;
-																	}
-																	for (int m17 = 0; (double)m17 < dmg / (double)this.lifeMax * 30; m17++)
-																	{
-																		Vector2 vector2428 = new Vector2(this.position.X, this.position.Y);
-																		int num963 = this.width;
-																		int num964 = this.height;
-																		color = new Color();
-																		int num965 = Dust.NewDust(vector2428, num963, num964, 181, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, color, 1.8f);
-																		Main.dust[num965].noLight = true;
-																		Main.dust[num965].noGravity = true;
-																		Dust dust133 = Main.dust[num965];
-																		dust133.velocity = dust133.velocity * 1.3f;
 																	}
 																	return;
 																}
@@ -45178,98 +39336,18 @@ namespace Terraria
 																{
 																	if (this.life > 0)
 																	{
-																		for (int n17 = 0; (double)n17 < dmg / (double)this.lifeMax * 100; n17++)
-																		{
-																			Vector2 vector2429 = this.position;
-																			int num966 = this.width;
-																			int num967 = this.height;
-																			float single307 = (float)hitDirection;
-																			color = new Color();
-																			Dust.NewDust(vector2429, num966, num967, 26, single307, -1f, 0, color, 1f);
-																		}
 																		return;
-																	}
-																	for (int o17 = 0; o17 < 150; o17++)
-																	{
-																		Vector2 vector2430 = this.position;
-																		int num968 = this.width;
-																		int num969 = this.height;
-																		float single308 = 2.5f * (float)hitDirection;
-																		color = new Color();
-																		Dust.NewDust(vector2430, num968, num969, 26, single308, -2.5f, 0, color, 1f);
 																	}
 																	if (this.type == 35)
 																	{
-																		Gore.NewGore(this.position, this.velocity, 54, 1f);
-																		Gore.NewGore(this.position, this.velocity, 55, 1f);
 																		return;
 																	}
-																	Gore.NewGore(this.position, this.velocity, 56, 1f);
-																	Gore.NewGore(this.position, this.velocity, 57, 1f);
-																	Gore.NewGore(this.position, this.velocity, 57, 1f);
-																	Gore.NewGore(this.position, this.velocity, 57, 1f);
 																	return;
 																}
 																if (this.type == 139)
 																{
 																	if (this.life <= 0)
 																	{
-																		for (int p17 = 0; p17 < 10; p17++)
-																		{
-																			Vector2 vector2431 = new Vector2(this.position.X, this.position.Y);
-																			int num970 = this.width;
-																			int num971 = this.height;
-																			color = new Color();
-																			int num972 = Dust.NewDust(vector2431, num970, num971, 31, 0f, 0f, 100, color, 1.5f);
-																			Dust dust134 = Main.dust[num972];
-																			dust134.velocity = dust134.velocity * 1.4f;
-																		}
-																		for (int q17 = 0; q17 < 5; q17++)
-																		{
-																			Vector2 vector2432 = new Vector2(this.position.X, this.position.Y);
-																			int num973 = this.width;
-																			int num974 = this.height;
-																			color = new Color();
-																			int num975 = Dust.NewDust(vector2432, num973, num974, 6, 0f, 0f, 100, color, 2.5f);
-																			Main.dust[num975].noGravity = true;
-																			Dust dust135 = Main.dust[num975];
-																			dust135.velocity = dust135.velocity * 5f;
-																			Vector2 vector2433 = new Vector2(this.position.X, this.position.Y);
-																			int num976 = this.width;
-																			int num977 = this.height;
-																			color = new Color();
-																			num975 = Dust.NewDust(vector2433, num976, num977, 6, 0f, 0f, 100, color, 1.5f);
-																			Dust dust136 = Main.dust[num975];
-																			dust136.velocity = dust136.velocity * 3f;
-																		}
-																		Vector2 vector2434 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		int num978 = Gore.NewGore(vector2434, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore35 = Main.gore[num978];
-																		gore35.velocity = gore35.velocity * 0.4f;
-																		Main.gore[num978].velocity.X = Main.gore[num978].velocity.X + 1f;
-																		Main.gore[num978].velocity.Y = Main.gore[num978].velocity.Y + 1f;
-																		Vector2 vector2435 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		num978 = Gore.NewGore(vector2435, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore36 = Main.gore[num978];
-																		gore36.velocity = gore36.velocity * 0.4f;
-																		Main.gore[num978].velocity.X = Main.gore[num978].velocity.X - 1f;
-																		Main.gore[num978].velocity.Y = Main.gore[num978].velocity.Y + 1f;
-																		Vector2 vector2436 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		num978 = Gore.NewGore(vector2436, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore37 = Main.gore[num978];
-																		gore37.velocity = gore37.velocity * 0.4f;
-																		Main.gore[num978].velocity.X = Main.gore[num978].velocity.X + 1f;
-																		Main.gore[num978].velocity.Y = Main.gore[num978].velocity.Y - 1f;
-																		Vector2 vector2437 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		num978 = Gore.NewGore(vector2437, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore38 = Main.gore[num978];
-																		gore38.velocity = gore38.velocity * 0.4f;
-																		Main.gore[num978].velocity.X = Main.gore[num978].velocity.X - 1f;
-																		Main.gore[num978].velocity.Y = Main.gore[num978].velocity.Y - 1f;
 																		return;
 																	}
 																}
@@ -45277,36 +39355,6 @@ namespace Terraria
 																{
 																	if (this.life <= 0)
 																	{
-																		for (int r17 = 0; r17 < 7; r17++)
-																		{
-																			Vector2 vector2438 = new Vector2(this.position.X, this.position.Y);
-																			int num979 = this.width;
-																			int num980 = this.height;
-																			color = new Color();
-																			int num981 = Dust.NewDust(vector2438, num979, num980, 31, 0f, 0f, 100, color, 1.5f);
-																			Dust dust137 = Main.dust[num981];
-																			dust137.velocity = dust137.velocity * 1.4f;
-																		}
-																		for (int s17 = 0; s17 < 3; s17++)
-																		{
-																			Vector2 vector2439 = new Vector2(this.position.X, this.position.Y);
-																			int num982 = this.width;
-																			int num983 = this.height;
-																			color = new Color();
-																			int num984 = Dust.NewDust(vector2439, num982, num983, 6, 0f, 0f, 100, color, 2.5f);
-																			Main.dust[num984].noGravity = true;
-																			Dust dust138 = Main.dust[num984];
-																			dust138.velocity = dust138.velocity * 5f;
-																			Vector2 vector2440 = new Vector2(this.position.X, this.position.Y);
-																			int num985 = this.width;
-																			int num986 = this.height;
-																			color = new Color();
-																			num984 = Dust.NewDust(vector2440, num985, num986, 6, 0f, 0f, 100, color, 1.5f);
-																			Dust dust139 = Main.dust[num984];
-																			dust139.velocity = dust139.velocity * 3f;
-																		}
-																		Gore.NewGore(this.position, this.velocity, 660, 1f);
-																		Gore.NewGore(this.position, this.velocity, 660, 1f);
 																		return;
 																	}
 																}
@@ -45324,65 +39372,8 @@ namespace Terraria
 																	}
 																	if (this.life <= 0)
 																	{
-																		Gore.NewGore(this.position, this.velocity, 156, 1f);
 																		if (Main.rand.Next(2) == 0)
 																		{
-																			for (int t17 = 0; t17 < 10; t17++)
-																			{
-																				Vector2 vector2441 = new Vector2(this.position.X, this.position.Y);
-																				int num988 = this.width;
-																				int num989 = this.height;
-																				color = new Color();
-																				int num990 = Dust.NewDust(vector2441, num988, num989, 31, 0f, 0f, 100, color, 1.5f);
-																				Dust dust140 = Main.dust[num990];
-																				dust140.velocity = dust140.velocity * 1.4f;
-																			}
-																			for (int u17 = 0; u17 < 5; u17++)
-																			{
-																				Vector2 vector2442 = new Vector2(this.position.X, this.position.Y);
-																				int num991 = this.width;
-																				int num992 = this.height;
-																				color = new Color();
-																				int num993 = Dust.NewDust(vector2442, num991, num992, 6, 0f, 0f, 100, color, 2.5f);
-																				Main.dust[num993].noGravity = true;
-																				Dust dust141 = Main.dust[num993];
-																				dust141.velocity = dust141.velocity * 5f;
-																				Vector2 vector2443 = new Vector2(this.position.X, this.position.Y);
-																				int num994 = this.width;
-																				int num995 = this.height;
-																				color = new Color();
-																				num993 = Dust.NewDust(vector2443, num994, num995, 6, 0f, 0f, 100, color, 1.5f);
-																				Dust dust142 = Main.dust[num993];
-																				dust142.velocity = dust142.velocity * 3f;
-																			}
-																			Vector2 vector2444 = new Vector2(this.position.X, this.position.Y);
-																			vector2 = new Vector2();
-																			int num996 = Gore.NewGore(vector2444, vector2, Main.rand.Next(61, 64), 1f);
-																			Gore gore39 = Main.gore[num996];
-																			gore39.velocity = gore39.velocity * 0.4f;
-																			Main.gore[num996].velocity.X = Main.gore[num996].velocity.X + 1f;
-																			Main.gore[num996].velocity.Y = Main.gore[num996].velocity.Y + 1f;
-																			Vector2 vector2445 = new Vector2(this.position.X, this.position.Y);
-																			vector2 = new Vector2();
-																			num996 = Gore.NewGore(vector2445, vector2, Main.rand.Next(61, 64), 1f);
-																			Gore gore40 = Main.gore[num996];
-																			gore40.velocity = gore40.velocity * 0.4f;
-																			Main.gore[num996].velocity.X = Main.gore[num996].velocity.X - 1f;
-																			Main.gore[num996].velocity.Y = Main.gore[num996].velocity.Y + 1f;
-																			Vector2 vector2446 = new Vector2(this.position.X, this.position.Y);
-																			vector2 = new Vector2();
-																			num996 = Gore.NewGore(vector2446, vector2, Main.rand.Next(61, 64), 1f);
-																			Gore gore41 = Main.gore[num996];
-																			gore41.velocity = gore41.velocity * 0.4f;
-																			Main.gore[num996].velocity.X = Main.gore[num996].velocity.X + 1f;
-																			Main.gore[num996].velocity.Y = Main.gore[num996].velocity.Y - 1f;
-																			Vector2 vector2447 = new Vector2(this.position.X, this.position.Y);
-																			vector2 = new Vector2();
-																			num996 = Gore.NewGore(vector2447, vector2, Main.rand.Next(61, 64), 1f);
-																			Gore gore42 = Main.gore[num996];
-																			gore42.velocity = gore42.velocity * 0.4f;
-																			Main.gore[num996].velocity.X = Main.gore[num996].velocity.X - 1f;
-																			Main.gore[num996].velocity.Y = Main.gore[num996].velocity.Y - 1f;
 																			return;
 																		}
 																	}
@@ -45391,52 +39382,6 @@ namespace Terraria
 																{
 																	if (this.life <= 0)
 																	{
-																		Gore.NewGore(this.position, this.velocity, 524, 1f);
-																		Gore.NewGore(this.position, this.velocity, 525, 1f);
-																		Gore.NewGore(this.position, this.velocity, 526, 1f);
-																		Gore.NewGore(this.position, this.velocity, 527, 1f);
-																		for (int v17 = 0; v17 < 7; v17++)
-																		{
-																			Vector2 vector2448 = new Vector2(this.position.X, this.position.Y);
-																			int num997 = this.width;
-																			int num998 = this.height;
-																			color = new Color();
-																			int num999 = Dust.NewDust(vector2448, num997, num998, 31, 0f, 0f, 100, color, 1.5f);
-																			Dust dust143 = Main.dust[num999];
-																			dust143.velocity = dust143.velocity * 1.4f;
-																		}
-																		for (int w17 = 0; w17 < 4; w17++)
-																		{
-																			Vector2 vector2449 = new Vector2(this.position.X, this.position.Y);
-																			int num1000 = this.width;
-																			int num1001 = this.height;
-																			color = new Color();
-																			int num1002 = Dust.NewDust(vector2449, num1000, num1001, 6, 0f, 0f, 100, color, 2.5f);
-																			Main.dust[num1002].noGravity = true;
-																			Dust dust144 = Main.dust[num1002];
-																			dust144.velocity = dust144.velocity * 5f;
-																			Vector2 vector2450 = new Vector2(this.position.X, this.position.Y);
-																			int num1003 = this.width;
-																			int num1004 = this.height;
-																			color = new Color();
-																			num1002 = Dust.NewDust(vector2450, num1003, num1004, 6, 0f, 0f, 100, color, 1.5f);
-																			Dust dust145 = Main.dust[num1002];
-																			dust145.velocity = dust145.velocity * 3f;
-																		}
-																		Vector2 vector2451 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		int num1005 = Gore.NewGore(vector2451, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore43 = Main.gore[num1005];
-																		gore43.velocity = gore43.velocity * 0.4f;
-																		Main.gore[num1005].velocity.X = Main.gore[num1005].velocity.X + 1f;
-																		Main.gore[num1005].velocity.Y = Main.gore[num1005].velocity.Y + 1f;
-																		Vector2 vector2452 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		num1005 = Gore.NewGore(vector2452, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore44 = Main.gore[num1005];
-																		gore44.velocity = gore44.velocity * 0.4f;
-																		Main.gore[num1005].velocity.X = Main.gore[num1005].velocity.X - 1f;
-																		Main.gore[num1005].velocity.Y = Main.gore[num1005].velocity.Y - 1f;
 																		return;
 																	}
 																}
@@ -45444,68 +39389,6 @@ namespace Terraria
 																{
 																	if (this.life <= 0)
 																	{
-																		Gore.NewGore(this.position, this.velocity, 518, 1f);
-																		Gore.NewGore(this.position, this.velocity, 519, 1f);
-																		Gore.NewGore(this.position, this.velocity, 520, 1f);
-																		Gore.NewGore(this.position, this.velocity, 521, 1f);
-																		Gore.NewGore(this.position, this.velocity, 522, 1f);
-																		Gore.NewGore(this.position, this.velocity, 523, 1f);
-																		for (int x17 = 0; x17 < 10; x17++)
-																		{
-																			Vector2 vector2453 = new Vector2(this.position.X, this.position.Y);
-																			int num1006 = this.width;
-																			int num1007 = this.height;
-																			color = new Color();
-																			int num1008 = Dust.NewDust(vector2453, num1006, num1007, 31, 0f, 0f, 100, color, 1.5f);
-																			Dust dust146 = Main.dust[num1008];
-																			dust146.velocity = dust146.velocity * 1.4f;
-																		}
-																		for (int y17 = 0; y17 < 5; y17++)
-																		{
-																			Vector2 vector2454 = new Vector2(this.position.X, this.position.Y);
-																			int num1009 = this.width;
-																			int num1010 = this.height;
-																			color = new Color();
-																			int num1011 = Dust.NewDust(vector2454, num1009, num1010, 6, 0f, 0f, 100, color, 2.5f);
-																			Main.dust[num1011].noGravity = true;
-																			Dust dust147 = Main.dust[num1011];
-																			dust147.velocity = dust147.velocity * 5f;
-																			Vector2 vector2455 = new Vector2(this.position.X, this.position.Y);
-																			int num1012 = this.width;
-																			int num1013 = this.height;
-																			color = new Color();
-																			num1011 = Dust.NewDust(vector2455, num1012, num1013, 6, 0f, 0f, 100, color, 1.5f);
-																			Dust dust148 = Main.dust[num1011];
-																			dust148.velocity = dust148.velocity * 3f;
-																		}
-																		Vector2 vector2456 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		int num1014 = Gore.NewGore(vector2456, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore45 = Main.gore[num1014];
-																		gore45.velocity = gore45.velocity * 0.4f;
-																		Main.gore[num1014].velocity.X = Main.gore[num1014].velocity.X + 1f;
-																		Main.gore[num1014].velocity.Y = Main.gore[num1014].velocity.Y + 1f;
-																		Vector2 vector2457 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		num1014 = Gore.NewGore(vector2457, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore46 = Main.gore[num1014];
-																		gore46.velocity = gore46.velocity * 0.4f;
-																		Main.gore[num1014].velocity.X = Main.gore[num1014].velocity.X - 1f;
-																		Main.gore[num1014].velocity.Y = Main.gore[num1014].velocity.Y + 1f;
-																		Vector2 vector2458 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		num1014 = Gore.NewGore(vector2458, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore47 = Main.gore[num1014];
-																		gore47.velocity = gore47.velocity * 0.4f;
-																		Main.gore[num1014].velocity.X = Main.gore[num1014].velocity.X + 1f;
-																		Main.gore[num1014].velocity.Y = Main.gore[num1014].velocity.Y - 1f;
-																		Vector2 vector2459 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		num1014 = Gore.NewGore(vector2459, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore48 = Main.gore[num1014];
-																		gore48.velocity = gore48.velocity * 0.4f;
-																		Main.gore[num1014].velocity.X = Main.gore[num1014].velocity.X - 1f;
-																		Main.gore[num1014].velocity.Y = Main.gore[num1014].velocity.Y - 1f;
 																		return;
 																	}
 																}
@@ -45513,64 +39396,6 @@ namespace Terraria
 																{
 																	if (this.life <= 0)
 																	{
-																		Gore.NewGore(this.position, this.velocity, 149, 1f);
-																		Gore.NewGore(this.position, this.velocity, 150, 1f);
-																		for (int a17 = 0; a17 < 10; a17++)
-																		{
-																			Vector2 vector2460 = new Vector2(this.position.X, this.position.Y);
-																			int num1015 = this.width;
-																			int num1016 = this.height;
-																			color = new Color();
-																			int num1017 = Dust.NewDust(vector2460, num1015, num1016, 31, 0f, 0f, 100, color, 1.5f);
-																			Dust dust149 = Main.dust[num1017];
-																			dust149.velocity = dust149.velocity * 1.4f;
-																		}
-																		for (int b17 = 0; b17 < 5; b17++)
-																		{
-																			Vector2 vector2461 = new Vector2(this.position.X, this.position.Y);
-																			int num1018 = this.width;
-																			int num1019 = this.height;
-																			color = new Color();
-																			int num1020 = Dust.NewDust(vector2461, num1018, num1019, 6, 0f, 0f, 100, color, 2.5f);
-																			Main.dust[num1020].noGravity = true;
-																			Dust dust150 = Main.dust[num1020];
-																			dust150.velocity = dust150.velocity * 5f;
-																			Vector2 vector2462 = new Vector2(this.position.X, this.position.Y);
-																			int num1021 = this.width;
-																			int num1022 = this.height;
-																			color = new Color();
-																			num1020 = Dust.NewDust(vector2462, num1021, num1022, 6, 0f, 0f, 100, color, 1.5f);
-																			Dust dust151 = Main.dust[num1020];
-																			dust151.velocity = dust151.velocity * 3f;
-																		}
-																		Vector2 vector2463 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		int num1023 = Gore.NewGore(vector2463, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore49 = Main.gore[num1023];
-																		gore49.velocity = gore49.velocity * 0.4f;
-																		Main.gore[num1023].velocity.X = Main.gore[num1023].velocity.X + 1f;
-																		Main.gore[num1023].velocity.Y = Main.gore[num1023].velocity.Y + 1f;
-																		Vector2 vector2464 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		num1023 = Gore.NewGore(vector2464, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore50 = Main.gore[num1023];
-																		gore50.velocity = gore50.velocity * 0.4f;
-																		Main.gore[num1023].velocity.X = Main.gore[num1023].velocity.X - 1f;
-																		Main.gore[num1023].velocity.Y = Main.gore[num1023].velocity.Y + 1f;
-																		Vector2 vector2465 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		num1023 = Gore.NewGore(vector2465, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore51 = Main.gore[num1023];
-																		gore51.velocity = gore51.velocity * 0.4f;
-																		Main.gore[num1023].velocity.X = Main.gore[num1023].velocity.X + 1f;
-																		Main.gore[num1023].velocity.Y = Main.gore[num1023].velocity.Y - 1f;
-																		Vector2 vector2466 = new Vector2(this.position.X, this.position.Y);
-																		vector2 = new Vector2();
-																		num1023 = Gore.NewGore(vector2466, vector2, Main.rand.Next(61, 64), 1f);
-																		Gore gore52 = Main.gore[num1023];
-																		gore52.velocity = gore52.velocity * 0.4f;
-																		Main.gore[num1023].velocity.X = Main.gore[num1023].velocity.X - 1f;
-																		Main.gore[num1023].velocity.Y = Main.gore[num1023].velocity.Y - 1f;
 																		return;
 																	}
 																}
@@ -45580,52 +39405,7 @@ namespace Terraria
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int c17 = 0; (double)c17 < dmg / (double)this.lifeMax * 100; c17++)
-																			{
-																				int num1024 = 25;
-																				if (Main.rand.Next(2) == 0)
-																				{
-																					num1024 = 6;
-																				}
-																				Vector2 vector2467 = this.position;
-																				int num1025 = this.width;
-																				int num1026 = this.height;
-																				float single309 = (float)hitDirection;
-																				color = new Color();
-																				Dust.NewDust(vector2467, num1025, num1026, num1024, single309, -1f, 0, color, 1f);
-																				Vector2 vector2468 = new Vector2(this.position.X, this.position.Y);
-																				int num1027 = this.width;
-																				int num1028 = this.height;
-																				color = new Color();
-																				int num1029 = Dust.NewDust(vector2468, num1027, num1028, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, color, 2f);
-																				Main.dust[num1029].noGravity = true;
-																			}
 																			return;
-																		}
-																		for (int d17 = 0; d17 < 50; d17++)
-																		{
-																			int num1030 = 25;
-																			if (Main.rand.Next(2) == 0)
-																			{
-																				num1030 = 6;
-																			}
-																			Vector2 vector2469 = this.position;
-																			int num1031 = this.width;
-																			int num1032 = this.height;
-																			float single310 = (float)(2 * hitDirection);
-																			color = new Color();
-																			Dust.NewDust(vector2469, num1031, num1032, num1030, single310, -2f, 0, color, 1f);
-																		}
-																		for (int e17 = 0; e17 < 50; e17++)
-																		{
-																			Vector2 vector2470 = new Vector2(this.position.X, this.position.Y);
-																			int num1033 = this.width;
-																			int num1034 = this.height;
-																			color = new Color();
-																			int num1035 = Dust.NewDust(vector2470, num1033, num1034, 6, this.velocity.X * 0.2f, this.velocity.Y * 0.2f, 100, color, 2.5f);
-																			Dust dust152 = Main.dust[num1035];
-																			dust152.velocity = dust152.velocity * 6f;
-																			Main.dust[num1035].noGravity = true;
 																		}
 																		return;
 																	}
@@ -45633,573 +39413,133 @@ namespace Terraria
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int f17 = 0; (double)f17 < dmg / (double)this.lifeMax * 100; f17++)
-																			{
-																				Vector2 vector2471 = new Vector2(this.position.X, this.position.Y);
-																				int num1036 = this.width;
-																				int num1037 = this.height;
-																				float x18 = this.velocity.X;
-																				float y18 = this.velocity.Y;
-																				color = new Color();
-																				int num1038 = Dust.NewDust(vector2471, num1036, num1037, 6, x18, y18, 100, color, 2.5f);
-																				Main.dust[num1038].noGravity = true;
-																			}
 																			return;
 																		}
-																		for (int g17 = 0; g17 < 50; g17++)
-																		{
-																			Vector2 vector2472 = new Vector2(this.position.X, this.position.Y);
-																			int num1039 = this.width;
-																			int num1040 = this.height;
-																			float x19 = this.velocity.X;
-																			float y19 = this.velocity.Y;
-																			color = new Color();
-																			int num1041 = Dust.NewDust(vector2472, num1039, num1040, 6, x19, y19, 100, color, 2.5f);
-																			Main.dust[num1041].noGravity = true;
-																			Dust dust153 = Main.dust[num1041];
-																			dust153.velocity = dust153.velocity * 2f;
-																		}
-																		Gore.NewGore(this.position, this.velocity, 45, 1f);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 46, 1f);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 46, 1f);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 47, 1f);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 47, 1f);
 																		return;
 																	}
 																	if (this.type == 25)
 																	{
 																		Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
-																		for (int h17 = 0; h17 < 20; h17++)
-																		{
-																			Vector2 vector2473 = new Vector2(this.position.X, this.position.Y);
-																			int num1042 = this.width;
-																			int num1043 = this.height;
-																			color = new Color();
-																			int num1044 = Dust.NewDust(vector2473, num1042, num1043, 6, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, color, 2f);
-																			Main.dust[num1044].noGravity = true;
-																			Dust dust154 = Main.dust[num1044];
-																			dust154.velocity = dust154.velocity * 2f;
-																			Vector2 vector2474 = new Vector2(this.position.X, this.position.Y);
-																			int num1045 = this.width;
-																			int num1046 = this.height;
-																			color = new Color();
-																			num1044 = Dust.NewDust(vector2474, num1045, num1046, 6, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, color, 1f);
-																			Dust dust155 = Main.dust[num1044];
-																			dust155.velocity = dust155.velocity * 2f;
-																		}
 																		return;
 																	}
 																	if (this.type == 33)
 																	{
 																		Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
-																		for (int i18 = 0; i18 < 20; i18++)
-																		{
-																			Vector2 vector2475 = new Vector2(this.position.X, this.position.Y);
-																			int num1047 = this.width;
-																			int num1048 = this.height;
-																			color = new Color();
-																			int num1049 = Dust.NewDust(vector2475, num1047, num1048, 172, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, color, 1.2f);
-																			Main.dust[num1049].noGravity = true;
-																			Dust dust156 = Main.dust[num1049];
-																			dust156.velocity = dust156.velocity * 2f;
-																			Vector2 vector2476 = new Vector2(this.position.X, this.position.Y);
-																			int num1050 = this.width;
-																			int num1051 = this.height;
-																			color = new Color();
-																			num1049 = Dust.NewDust(vector2476, num1050, num1051, 172, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, color, 0.6f);
-																			Dust dust157 = Main.dust[num1049];
-																			dust157.velocity = dust157.velocity * 2f;
-																		}
 																		return;
 																	}
 																	if (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 29 || this.type == 73 || this.type == 111)
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int j18 = 0; (double)j18 < dmg / (double)this.lifeMax * 100; j18++)
-																			{
-																				Vector2 vector2477 = this.position;
-																				int num1052 = this.width;
-																				int num1053 = this.height;
-																				float single311 = (float)hitDirection;
-																				color = new Color();
-																				Dust.NewDust(vector2477, num1052, num1053, 5, single311, -1f, 0, color, 1f);
-																			}
 																			return;
 																		}
-																		for (int k18 = 0; k18 < 50; k18++)
-																		{
-																			Vector2 vector2478 = this.position;
-																			int num1054 = this.width;
-																			int num1055 = this.height;
-																			float single312 = 2.5f * (float)hitDirection;
-																			color = new Color();
-																			Dust.NewDust(vector2478, num1054, num1055, 5, single312, -2.5f, 0, color, 1f);
-																		}
-																		int num1056 = 48;
-																		int num1057 = 49;
-																		int num1058 = 50;
-																		if (this.type == 111)
-																		{
-																			num1056 = 623;
-																			num1057 = 624;
-																			num1058 = 625;
-																		}
-																		else if (this.type == 26)
-																		{
-																			num1056 = 626;
-																			num1057 = 627;
-																			num1058 = 628;
-																		}
-																		else if (this.type == 73)
-																		{
-																			num1056 = 629;
-																			num1057 = 630;
-																			num1058 = 631;
-																		}
-																		else if (this.type == 27)
-																		{
-																			num1056 = 632;
-																			num1057 = 633;
-																			num1058 = 634;
-																		}
-																		else if (this.type == 28)
-																		{
-																			num1056 = 635;
-																			num1057 = 636;
-																			num1058 = 637;
-																		}
-																		Gore.NewGore(this.position, this.velocity, num1056, this.scale);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, num1057, this.scale);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, num1057, this.scale);
-																		if (this.type == 111)
-																		{
-																			Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 131, this.scale);
-																		}
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, num1058, this.scale);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, num1058, this.scale);
 																		return;
 																	}
 																	if (this.type == 471)
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int l18 = 0; (double)l18 < dmg / (double)this.lifeMax * 100; l18++)
-																			{
-																				Vector2 vector2479 = this.position;
-																				int num1059 = this.width;
-																				int num1060 = this.height;
-																				float single313 = (float)hitDirection;
-																				color = new Color();
-																				Dust.NewDust(vector2479, num1059, num1060, 5, single313, -1f, 0, color, 1f);
-																			}
 																			return;
 																		}
-																		for (int m18 = 0; m18 < 50; m18++)
-																		{
-																			Vector2 vector2480 = this.position;
-																			int num1061 = this.width;
-																			int num1062 = this.height;
-																			float single314 = 2.5f * (float)hitDirection;
-																			color = new Color();
-																			Dust.NewDust(vector2480, num1061, num1062, 5, single314, -2.5f, 0, color, 1f);
-																		}
-																		Gore.NewGore(this.position, this.velocity, 675, this.scale);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 676, this.scale);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 677, this.scale);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 678, this.scale);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 678, this.scale);
 																		return;
 																	}
 																	if (this.type == 472)
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int n18 = 0; (double)n18 < dmg / (double)this.lifeMax * 100; n18++)
-																			{
-																				Vector2 vector2481 = this.position;
-																				int num1063 = this.width;
-																				int num1064 = this.height;
-																				float single315 = (float)hitDirection;
-																				color = new Color();
-																				int num1065 = Dust.NewDust(vector2481, num1063, num1064, 5, single315, -1f, 0, color, 1f);
-																				if (Main.rand.Next(3) != 0)
-																				{
-																					Main.dust[num1065].noGravity = true;
-																				}
-																				Main.dust[num1065].alpha = 100;
-																			}
 																			return;
 																		}
-																		for (int o18 = 0; o18 < 50; o18++)
-																		{
-																			Vector2 vector2482 = this.position;
-																			int num1066 = this.width;
-																			int num1067 = this.height;
-																			float single316 = 2.5f * (float)hitDirection;
-																			color = new Color();
-																			int num1068 = Dust.NewDust(vector2482, num1066, num1067, 5, single316, -2.5f, 0, color, 1f);
-																			if (Main.rand.Next(3) != 0)
-																			{
-																				Main.dust[num1068].noGravity = true;
-																			}
-																			Main.dust[num1068].alpha = 100;
-																		}
-																		Gore.NewGore(this.position, this.velocity, 679, this.scale);
-																		Gore.NewGore(this.position, this.velocity, 680, this.scale);
 																		return;
 																	}
 																	if (this.type == 480)
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int p18 = 0; (double)p18 < dmg / (double)this.lifeMax * 100; p18++)
-																			{
-																				Vector2 vector2483 = this.position;
-																				int num1069 = this.width;
-																				int num1070 = this.height;
-																				float single317 = (float)hitDirection;
-																				color = new Color();
-																				Dust.NewDust(vector2483, num1069, num1070, 5, single317, -1f, 0, color, 1f);
-																			}
 																			return;
 																		}
-																		for (int q18 = 0; q18 < 50; q18++)
-																		{
-																			Vector2 vector2484 = this.position;
-																			int num1071 = this.width;
-																			int num1072 = this.height;
-																			float single318 = 2.5f * (float)hitDirection;
-																			color = new Color();
-																			Dust.NewDust(vector2484, num1071, num1072, 5, single318, -2.5f, 0, color, 1f);
-																		}
-																		Gore.NewGore(this.position, this.velocity, 692, this.scale);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 693, this.scale);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 693, this.scale);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 694, this.scale);
-																		Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 694, this.scale);
 																		return;
 																	}
 																	if (this.type == 185)
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int r18 = 0; (double)r18 < dmg / (double)this.lifeMax * 100; r18++)
-																			{
-																				Vector2 vector2485 = this.position;
-																				int num1073 = this.width;
-																				int num1074 = this.height;
-																				float single319 = (float)hitDirection;
-																				color = new Color();
-																				Dust.NewDust(vector2485, num1073, num1074, 5, single319, -1f, 0, color, 1f);
-																			}
 																			return;
 																		}
-																		for (int s18 = 0; s18 < 50; s18++)
-																		{
-																			Vector2 vector2486 = this.position;
-																			int num1075 = this.width;
-																			int num1076 = this.height;
-																			float single320 = 2.5f * (float)hitDirection;
-																			color = new Color();
-																			Dust.NewDust(vector2486, num1075, num1076, 5, single320, -2.5f, 0, color, 1f);
-																		}
-																		Gore.NewGore(this.position, this.velocity, 240, this.scale);
 																		return;
 																	}
 																	if (this.type == 30)
 																	{
 																		Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 10);
-																		for (int t18 = 0; t18 < 20; t18++)
-																		{
-																			Vector2 vector2487 = new Vector2(this.position.X, this.position.Y);
-																			int num1077 = this.width;
-																			int num1078 = this.height;
-																			color = new Color();
-																			int num1079 = Dust.NewDust(vector2487, num1077, num1078, 27, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, color, 2f);
-																			Main.dust[num1079].noGravity = true;
-																			Dust dust158 = Main.dust[num1079];
-																			dust158.velocity = dust158.velocity * 2f;
-																			Vector2 vector2488 = new Vector2(this.position.X, this.position.Y);
-																			int num1080 = this.width;
-																			int num1081 = this.height;
-																			color = new Color();
-																			num1079 = Dust.NewDust(vector2488, num1080, num1081, 27, -this.velocity.X * 0.2f, -this.velocity.Y * 0.2f, 100, color, 1f);
-																			Dust dust159 = Main.dust[num1079];
-																			dust159.velocity = dust159.velocity * 2f;
-																		}
 																		return;
 																	}
 																	if (this.type == 42 || this.type == 176 || this.type == 205 || this.type >= 231 && this.type <= 235)
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int u18 = 0; (double)u18 < dmg / (double)this.lifeMax * 100; u18++)
-																			{
-																				Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -1f, this.alpha, this.color, this.scale);
-																			}
 																			return;
-																		}
-																		for (int v18 = 0; v18 < 50; v18++)
-																		{
-																			Dust.NewDust(this.position, this.width, this.height, 18, (float)hitDirection, -2f, this.alpha, this.color, this.scale);
 																		}
 																		if (this.type == 205)
 																		{
-																			Gore.NewGore(this.position, this.velocity, 270, this.scale);
-																			Gore.NewGore(this.position, this.velocity, 271, this.scale);
-																			Gore.NewGore(this.position, this.velocity, 271, this.scale);
-																			Gore.NewGore(this.position, this.velocity, 272, this.scale);
 																			return;
 																		}
 																		if (this.type == 176)
 																		{
-																			Gore.NewGore(this.position, this.velocity, 229, this.scale);
-																			Gore.NewGore(this.position, this.velocity, 230, this.scale);
 																			return;
 																		}
-																		Gore.NewGore(this.position, this.velocity, 70, this.scale);
-																		Gore.NewGore(this.position, this.velocity, 71, this.scale);
 																		return;
 																	}
 																	if (this.type == 43 || this.type == 56)
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int w18 = 0; (double)w18 < dmg / (double)this.lifeMax * 100; w18++)
-																			{
-																				Dust.NewDust(this.position, this.width, this.height, 40, (float)hitDirection, -1f, this.alpha, this.color, 1.2f);
-																			}
 																			return;
 																		}
-																		for (int x181 = 0; x181 < 50; x181++)
-																		{
-																			Dust.NewDust(this.position, this.width, this.height, 40, (float)hitDirection, -2f, this.alpha, this.color, 1.2f);
-																		}
-																		Gore.NewGore(this.position, this.velocity, 72, 1f);
-																		Gore.NewGore(this.position, this.velocity, 72, 1f);
 																		return;
 																	}
 																	if (this.type == 175)
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int y181 = 0; (double)y181 < dmg / (double)this.lifeMax * 100; y181++)
-																			{
-																				Dust.NewDust(this.position, this.width, this.height, 40, (float)hitDirection, -1f, this.alpha, this.color, 1.2f);
-																			}
 																			return;
 																		}
-																		for (int a18 = 0; a18 < 50; a18++)
-																		{
-																			Dust.NewDust(this.position, this.width, this.height, 40, (float)hitDirection, -2f, this.alpha, this.color, 1.2f);
-																		}
-																		Gore.NewGore(this.position, this.velocity, 227, 1f);
-																		Gore.NewGore(this.position, this.velocity, 228, 1f);
 																		return;
 																	}
 																	if (this.type == 48)
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int b18 = 0; (double)b18 < dmg / (double)this.lifeMax * 100; b18++)
-																			{
-																				Vector2 vector2489 = this.position;
-																				int num1082 = this.width;
-																				int num1083 = this.height;
-																				float single321 = (float)hitDirection;
-																				color = new Color();
-																				Dust.NewDust(vector2489, num1082, num1083, 5, single321, -1f, 0, color, 1f);
-																			}
 																			return;
 																		}
-																		for (int c18 = 0; c18 < 50; c18++)
-																		{
-																			Vector2 vector2490 = this.position;
-																			int num1084 = this.width;
-																			int num1085 = this.height;
-																			float single322 = (float)(2 * hitDirection);
-																			color = new Color();
-																			Dust.NewDust(vector2490, num1084, num1085, 5, single322, -2f, 0, color, 1f);
-																		}
-																		Gore.NewGore(this.position, this.velocity, 80, 1f);
-																		Gore.NewGore(this.position, this.velocity, 81, 1f);
 																		return;
 																	}
 																	if (this.type == 62 || this.type == 66)
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int d18 = 0; (double)d18 < dmg / (double)this.lifeMax * 100; d18++)
-																			{
-																				Vector2 vector2491 = this.position;
-																				int num1086 = this.width;
-																				int num1087 = this.height;
-																				float single323 = (float)hitDirection;
-																				color = new Color();
-																				Dust.NewDust(vector2491, num1086, num1087, 5, single323, -1f, 0, color, 1f);
-																			}
 																			return;
 																		}
-																		for (int e18 = 0; e18 < 50; e18++)
-																		{
-																			Vector2 vector2492 = this.position;
-																			int num1088 = this.width;
-																			int num1089 = this.height;
-																			float single324 = (float)(2 * hitDirection);
-																			color = new Color();
-																			Dust.NewDust(vector2492, num1088, num1089, 5, single324, -2f, 0, color, 1f);
-																		}
-																		Gore.NewGore(this.position, this.velocity, 93, 1f);
-																		Gore.NewGore(this.position, this.velocity, 94, 1f);
-																		Gore.NewGore(this.position, this.velocity, 94, 1f);
 																		return;
 																	}
 																	if (this.type == 156)
 																	{
 																		if (this.life > 0)
 																		{
-																			for (int f18 = 0; (double)f18 < dmg / (double)this.lifeMax * 100; f18++)
-																			{
-																				Vector2 vector2493 = this.position;
-																				int num1090 = this.width;
-																				int num1091 = this.height;
-																				float single325 = (float)hitDirection;
-																				color = new Color();
-																				Dust.NewDust(vector2493, num1090, num1091, 5, single325, -1f, 0, color, 1f);
-																			}
 																			return;
 																		}
-																		for (int g18 = 0; g18 < 50; g18++)
-																		{
-																			Vector2 vector2494 = this.position;
-																			int num1092 = this.width;
-																			int num1093 = this.height;
-																			float single326 = (float)(2 * hitDirection);
-																			color = new Color();
-																			Dust.NewDust(vector2494, num1092, num1093, 5, single326, -2f, 0, color, 1f);
-																		}
-																		Gore.NewGore(this.position, this.velocity, 184, 1f);
-																		Gore.NewGore(this.position, this.velocity, 185, 1f);
-																		Gore.NewGore(this.position, this.velocity, 185, 1f);
 																	}
 																}
 																else if (this.life <= 0)
 																{
-																	Gore.NewGore(this.position, this.velocity, 147, 1f);
-																	Gore.NewGore(this.position, this.velocity, 148, 1f);
-																	for (int h18 = 0; h18 < 10; h18++)
-																	{
-																		Vector2 vector2495 = new Vector2(this.position.X, this.position.Y);
-																		int num1094 = this.width;
-																		int num1095 = this.height;
-																		color = new Color();
-																		int num1096 = Dust.NewDust(vector2495, num1094, num1095, 31, 0f, 0f, 100, color, 1.5f);
-																		Dust dust160 = Main.dust[num1096];
-																		dust160.velocity = dust160.velocity * 1.4f;
-																	}
-																	for (int i19 = 0; i19 < 5; i19++)
-																	{
-																		Vector2 vector2496 = new Vector2(this.position.X, this.position.Y);
-																		int num1097 = this.width;
-																		int num1098 = this.height;
-																		color = new Color();
-																		int num1099 = Dust.NewDust(vector2496, num1097, num1098, 6, 0f, 0f, 100, color, 2.5f);
-																		Main.dust[num1099].noGravity = true;
-																		Dust dust161 = Main.dust[num1099];
-																		dust161.velocity = dust161.velocity * 5f;
-																		Vector2 vector2497 = new Vector2(this.position.X, this.position.Y);
-																		int num1100 = this.width;
-																		int num1101 = this.height;
-																		color = new Color();
-																		num1099 = Dust.NewDust(vector2497, num1100, num1101, 6, 0f, 0f, 100, color, 1.5f);
-																		Dust dust162 = Main.dust[num1099];
-																		dust162.velocity = dust162.velocity * 3f;
-																	}
-																	Vector2 vector2498 = new Vector2(this.position.X, this.position.Y);
-																	vector2 = new Vector2();
-																	int num1102 = Gore.NewGore(vector2498, vector2, Main.rand.Next(61, 64), 1f);
-																	Gore gore53 = Main.gore[num1102];
-																	gore53.velocity = gore53.velocity * 0.4f;
-																	Main.gore[num1102].velocity.X = Main.gore[num1102].velocity.X + 1f;
-																	Main.gore[num1102].velocity.Y = Main.gore[num1102].velocity.Y + 1f;
-																	Vector2 vector2499 = new Vector2(this.position.X, this.position.Y);
-																	vector2 = new Vector2();
-																	num1102 = Gore.NewGore(vector2499, vector2, Main.rand.Next(61, 64), 1f);
-																	Gore gore54 = Main.gore[num1102];
-																	gore54.velocity = gore54.velocity * 0.4f;
-																	Main.gore[num1102].velocity.X = Main.gore[num1102].velocity.X - 1f;
-																	Main.gore[num1102].velocity.Y = Main.gore[num1102].velocity.Y + 1f;
-																	Vector2 vector2500 = new Vector2(this.position.X, this.position.Y);
-																	vector2 = new Vector2();
-																	num1102 = Gore.NewGore(vector2500, vector2, Main.rand.Next(61, 64), 1f);
-																	Gore gore55 = Main.gore[num1102];
-																	gore55.velocity = gore55.velocity * 0.4f;
-																	Main.gore[num1102].velocity.X = Main.gore[num1102].velocity.X + 1f;
-																	Main.gore[num1102].velocity.Y = Main.gore[num1102].velocity.Y - 1f;
-																	Vector2 vector2501 = new Vector2(this.position.X, this.position.Y);
-																	vector2 = new Vector2();
-																	num1102 = Gore.NewGore(vector2501, vector2, Main.rand.Next(61, 64), 1f);
-																	Gore gore56 = Main.gore[num1102];
-																	gore56.velocity = gore56.velocity * 0.4f;
-																	Main.gore[num1102].velocity.X = Main.gore[num1102].velocity.X - 1f;
-																	Main.gore[num1102].velocity.Y = Main.gore[num1102].velocity.Y - 1f;
 																	return;
 																}
 															}
 															else if (this.life <= 0)
 															{
-																for (int j19 = 0; j19 < 20; j19++)
-																{
-																	Vector2 vector2502 = this.position;
-																	int num1103 = this.width;
-																	int num1104 = this.height;
-																	color = new Color();
-																	int num1105 = Dust.NewDust(vector2502, num1103, num1104, 54, 0f, 0f, 50, color, 1.5f);
-																	Dust dust163 = Main.dust[num1105];
-																	dust163.velocity = dust163.velocity * 2f;
-																	Main.dust[num1105].noGravity = true;
-																}
-																int num1106 = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																Gore gore57 = Main.gore[num1106];
-																gore57.velocity = gore57.velocity * 0.3f;
-																num1106 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 15f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																Gore gore58 = Main.gore[num1106];
-																gore58.velocity = gore58.velocity * 0.3f;
-																num1106 = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 20f), new Vector2((float)hitDirection, 0f), 99, this.scale);
-																Gore gore59 = Main.gore[num1106];
-																gore59.velocity = gore59.velocity * 0.3f;
 																return;
 															}
 														}
 														else if (this.life <= 0)
 														{
-															for (int k19 = 0; k19 < 10; k19++)
-															{
-																Vector2 vector2503 = this.position;
-																int num1107 = this.width;
-																int num1108 = this.height;
-																color = new Color();
-																int num1109 = Dust.NewDust(vector2503, num1107, num1108, 16, 0f, 0f, 0, color, 1.5f);
-																Dust dust164 = Main.dust[num1109];
-																dust164.velocity = dust164.velocity * 2f;
-																Main.dust[num1109].noGravity = true;
-															}
-															Vector2 vector2504 = new Vector2(this.position.X, this.position.Y);
-															vector2 = new Vector2();
-															int num1110 = Gore.NewGore(vector2504, vector2, Main.rand.Next(11, 14), this.scale);
-															Gore gore60 = Main.gore[num1110];
-															gore60.velocity = gore60.velocity * 0.5f;
-															Vector2 vector2505 = new Vector2(this.position.X, this.position.Y + 20f);
-															vector2 = new Vector2();
-															num1110 = Gore.NewGore(vector2505, vector2, Main.rand.Next(11, 14), this.scale);
-															Gore gore61 = Main.gore[num1110];
-															gore61.velocity = gore61.velocity * 0.5f;
-															Vector2 vector2506 = new Vector2(this.position.X, this.position.Y + 40f);
-															vector2 = new Vector2();
-															num1110 = Gore.NewGore(vector2506, vector2, Main.rand.Next(11, 14), this.scale);
-															Gore gore62 = Main.gore[num1110];
-															gore62.velocity = gore62.velocity * 0.5f;
 															return;
 														}
 													}
@@ -46207,50 +39547,6 @@ namespace Terraria
 													{
 														if (this.life > 0)
 														{
-															for (int l19 = 0; (double)l19 < dmg / (double)this.lifeMax * 50; l19++)
-															{
-																Vector2 vector2507 = this.position;
-																int num1111 = this.width;
-																int num1112 = this.height;
-																float single327 = (float)hitDirection;
-																color = new Color();
-																Dust.NewDust(vector2507, num1111, num1112, 26, single327, -1f, 0, color, 1f);
-															}
-															return;
-														}
-														for (int m19 = 0; m19 < 20; m19++)
-														{
-															Vector2 vector2508 = this.position;
-															int num1113 = this.width;
-															int num1114 = this.height;
-															float single328 = 2.5f * (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2508, num1113, num1114, 26, single328, -2.5f, 0, color, 1f);
-														}
-														Gore.NewGore(this.position, this.velocity, 42, this.scale);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 43, this.scale);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 44, this.scale);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 44, this.scale);
-														if (this.type == 269)
-														{
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 406, this.scale);
-														}
-														if (this.type == 270)
-														{
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 407, this.scale);
-														}
-														if (this.type == 271 || this.type == 272)
-														{
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 408, this.scale);
-														}
-														if (this.type == 274)
-														{
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 409, this.scale);
-														}
-														if (this.type == 276)
-														{
-															Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 410, this.scale);
 															return;
 														}
 													}
@@ -46259,69 +39555,6 @@ namespace Terraria
 												{
 													if (this.life > 0)
 													{
-														for (int n19 = 0; (double)n19 < dmg / (double)this.lifeMax * 100; n19++)
-														{
-															Vector2 vector2509 = this.position;
-															int num1115 = this.width;
-															int num1116 = this.height;
-															float single329 = (float)hitDirection;
-															color = new Color();
-															Dust.NewDust(vector2509, num1115, num1116, 5, single329, -1f, 0, color, 1f);
-														}
-														return;
-													}
-													for (int o19 = 0; o19 < 50; o19++)
-													{
-														Vector2 vector2510 = this.position;
-														int num1117 = this.width;
-														int num1118 = this.height;
-														float single330 = 2.5f * (float)hitDirection;
-														color = new Color();
-														Dust.NewDust(vector2510, num1117, num1118, 5, single330, -2.5f, 0, color, 1f);
-													}
-													if (this.type == 212)
-													{
-														Gore.NewGore(this.position, this.velocity, 336, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 337, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 337, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 338, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 338, 1f);
-														return;
-													}
-													if (this.type == 213)
-													{
-														Gore.NewGore(this.position, this.velocity, 339, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 340, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 340, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 341, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 341, 1f);
-														return;
-													}
-													if (this.type == 214)
-													{
-														Gore.NewGore(this.position, this.velocity, 342, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 343, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 343, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 344, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 344, 1f);
-														return;
-													}
-													if (this.type == 215)
-													{
-														Gore.NewGore(this.position, this.velocity, 345, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 346, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 346, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 347, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 347, 1f);
-														return;
-													}
-													if (this.type == 216)
-													{
-														Gore.NewGore(this.position, this.velocity, 348, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 349, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 349, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 350, 1f);
-														Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 350, 1f);
 														return;
 													}
 												}
@@ -46331,213 +39564,15 @@ namespace Terraria
 								}
 								else if (this.life < 0)
 								{
-									for (int p19 = 0; p19 < 15; p19++)
-									{
-										if (Main.rand.Next(3) == 0)
-										{
-											Vector2 vector2511 = this.position;
-											int num1119 = this.width;
-											int num1120 = this.height;
-											float single331 = (float)hitDirection;
-											color = new Color();
-											Dust.NewDust(vector2511, num1119, num1120, 167, single331, -1f, 0, color, 1f);
-										}
-										else
-										{
-											Vector2 vector2512 = this.position;
-											int num1121 = this.width;
-											int num1122 = this.height;
-											float single332 = (float)hitDirection;
-											color = new Color();
-											Dust.NewDust(vector2512, num1121, num1122, 166, single332, -1f, 0, color, 1f);
-										}
-									}
 									return;
 								}
 							}
 							else if (this.life <= 0)
 							{
-								for (int q19 = 0; q19 < 50; q19++)
-								{
-									Vector2 vector2513 = this.position;
-									int num1123 = this.width;
-									int num1124 = this.height;
-									float single333 = 2.5f * (float)hitDirection;
-									color = new Color();
-									Dust.NewDust(vector2513, num1123, num1124, 5, single333, -2.5f, 0, color, 1f);
-								}
-								if (this.type == 187 || this.type == 433)
-								{
-									for (int r19 = 0; r19 < 25; r19++)
-									{
-										Dust.NewDust(this.position, this.width, 24, 4, (float)hitDirection, -1f, 125, new Color(0, 80, 255, 100), 1f);
-									}
-								}
-								if (this.type == 104)
-								{
-									Gore.NewGore(this.position, this.velocity, 117, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 118, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 118, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 119, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 119, this.scale);
-									return;
-								}
-								if (this.type == 331)
-								{
-									Gore.NewGore(this.position, this.velocity, 488, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 489, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 489, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 490, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 490, this.scale);
-									return;
-								}
-								if (this.type == 332)
-								{
-									Gore.NewGore(this.position, this.velocity, 491, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 492, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 492, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 493, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 493, this.scale);
-									return;
-								}
-								if (this.type == 109)
-								{
-									Gore.NewGore(this.position, this.velocity, 121, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 122, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 122, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 123, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 123, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 46f), this.velocity, 120, this.scale);
-									return;
-								}
-								if (this.type == 161)
-								{
-									Gore.NewGore(this.position, this.velocity, 191, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 192, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 192, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 193, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 193, this.scale);
-									return;
-								}
-								if (this.type == 162)
-								{
-									Gore.NewGore(this.position, this.velocity, 194, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 195, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 195, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 196, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 196, this.scale);
-									return;
-								}
-								if (this.type == 188 || this.type == 434)
-								{
-									Gore.NewGore(this.position, this.velocity, 243, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 244, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 244, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 245, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 245, this.scale);
-									return;
-								}
-								if (this.type == 200 || this.type == 436)
-								{
-									Gore.NewGore(this.position, this.velocity, 262, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 263, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 263, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 264, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 264, this.scale);
-									return;
-								}
-								if (this.type == 319)
-								{
-									Gore.NewGore(this.position, this.velocity, 451, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 453, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 453, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 452, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 452, this.scale);
-									return;
-								}
-								if (this.type == 320)
-								{
-									Gore.NewGore(this.position, this.velocity, 454, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 455, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 456, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 456, this.scale);
-									return;
-								}
-								if (this.type == 321)
-								{
-									Gore.NewGore(this.position, this.velocity, 457, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 458, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 458, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 459, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 459, this.scale);
-									return;
-								}
-								if (this.type == 223)
-								{
-									Gore.NewGore(this.position, this.velocity, 309, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 310, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 310, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 311, this.scale);
-									Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 311, this.scale);
-									return;
-								}
-								if (this.type == 132)
-								{
-									Gore.NewGore(this.position, this.velocity, 154, 1f);
-								}
-								else if (this.type == 186 || this.type == 432)
-								{
-									Gore.NewGore(this.position, this.velocity, 241, 1f);
-								}
-								else if (this.type == 189 || this.type == 435)
-								{
-									Gore.NewGore(this.position, this.velocity, 246, 1f);
-								}
-								else if (this.type == 251)
-								{
-									Gore.NewGore(this.position, this.velocity, 372, 1f);
-								}
-								else if (this.type != 187 && this.type != 433)
-								{
-									Gore.NewGore(this.position, this.velocity, 3, 1f);
-								}
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 4, 1f);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 20f), this.velocity, 4, 1f);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 5, 1f);
-								Gore.NewGore(new Vector2(this.position.X, this.position.Y + 34f), this.velocity, 5, 1f);
-								if (this.type == 186 || this.type == 432)
-								{
-									Gore.NewGore(this.position, this.velocity, 242, 1f);
-								}
-								if ((this.type == 186 || this.type == 432) && Main.rand.Next(2) == 0)
-								{
-									Gore.NewGore(this.position, this.velocity, 242, 1f);
-									return;
-								}
+
 							}
 							else
 							{
-								for (int s19 = 0; (double)s19 < dmg / (double)this.lifeMax * 100; s19++)
-								{
-									Vector2 vector2514 = this.position;
-									int num1125 = this.width;
-									int num1126 = this.height;
-									float single334 = (float)hitDirection;
-									color = new Color();
-									Dust.NewDust(vector2514, num1125, num1126, 5, single334, -1f, 0, color, 1f);
-								}
-								if (this.type == 186 && Main.rand.Next(5) == 0)
-								{
-									Gore.NewGore(this.position, this.velocity, 242, 1f);
-								}
-								if (this.type == 187)
-								{
-									for (int t19 = 0; (double)t19 < dmg / (double)this.lifeMax * 200; t19++)
-									{
-										Dust.NewDust(this.position, this.width, 24, 4, (float)hitDirection, -1f, 125, new Color(0, 80, 255, 100), 1f);
-									}
-									return;
-								}
 							}
 						}
 					}
@@ -46545,19 +39580,6 @@ namespace Terraria
 			}
 			else
 			{
-				if (this.life > 0)
-				{
-					for (int u19 = 0; (double)u19 < dmg / (double)this.lifeMax * 300; u19++)
-					{
-						Dust.NewDust(this.position, this.width, this.height, 4, (float)hitDirection, -1f, 175, new Color(0, 80, 255, 100), 1f);
-					}
-					return;
-				}
-				for (int v19 = 0; v19 < 200; v19++)
-				{
-					Dust.NewDust(this.position, this.width, this.height, 4, (float)(2 * hitDirection), -2f, 175, new Color(0, 80, 255, 100), 1f);
-				}
-				Gore.NewGore(base.Center + new Vector2(-40f, (float)(-this.height / 2)), this.velocity, 734, 1f);
 				if (Main.netMode != 1)
 				{
 					int num1127 = Main.rand.Next(4) + 4;
@@ -46934,14 +39956,6 @@ namespace Terraria
 			else if (this.extraValue >= 100f)
 			{
 				num = 245;
-			}
-			for (int i = 0; i < 20; i++)
-			{
-				Vector2 vector2 = pos - new Vector2(1f, 2f);
-				Color color = new Color();
-				int num1 = Dust.NewDust(vector2, 10, 14, num, 0f, 0f, 254, color, 0.25f);
-				Dust dust = Main.dust[num1];
-				dust.velocity = dust.velocity * 0.2f;
 			}
 		}
 
@@ -51017,16 +44031,6 @@ namespace Terraria
 		public void ReflectProjectile(int i)
 		{
 			Main.PlaySound(3, (int)Main.projectile[i].position.X, (int)Main.projectile[i].position.Y, this.soundHit);
-			for (int num = 0; num < 3; num++)
-			{
-				Vector2 vector2 = Main.projectile[i].position;
-				int num1 = Main.projectile[i].width;
-				int num2 = Main.projectile[i].height;
-				Color color = new Color();
-				int num3 = Dust.NewDust(vector2, num1, num2, 31, 0f, 0f, 0, color, 1f);
-				Dust dust = Main.dust[num3];
-				dust.velocity = dust.velocity * 0.3f;
-			}
 			Main.projectile[i].hostile = true;
 			Main.projectile[i].friendly = false;
 			Vector2 center = Main.player[Main.projectile[i].owner].Center - Main.projectile[i].Center;
@@ -65082,10 +58086,6 @@ namespace Terraria
 				this.ai[1] = 4f;
 				this.dontTakeDamage = true;
 			}
-			if (this.type == 346 && (double)this.life >= (double)this.lifeMax * 0.5 && (double)this.life - damage < (double)this.lifeMax * 0.5)
-			{
-				Gore.NewGore(this.position, this.velocity, 517, 1f);
-			}
 			if (this.type == 184)
 			{
 				this.localAI[0] = 60f;
@@ -65435,95 +58435,6 @@ namespace Terraria
 			if (oldType == 158 && newType == 159 || oldType == 159 && newType == 158)
 			{
 				Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 8);
-				int num = Gore.NewGore(new Vector2(this.position.X, this.position.Y - 10f), this.velocity, 99, this.scale);
-				Gore gore = Main.gore[num];
-				gore.velocity = gore.velocity * 0.3f;
-				num = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)(this.height / 2) - 10f), this.velocity, 99, this.scale);
-				Gore gore1 = Main.gore[num];
-				gore1.velocity = gore1.velocity * 0.3f;
-				num = Gore.NewGore(new Vector2(this.position.X, this.position.Y + (float)this.height - 10f), this.velocity, 99, this.scale);
-				Gore gore2 = Main.gore[num];
-				gore2.velocity = gore2.velocity * 0.3f;
-			}
-			else if (oldType == 478 && newType == 479)
-			{
-				for (int i = 0; i < 30; i++)
-				{
-					Vector2 vector2 = this.position;
-					int num1 = this.width;
-					int num2 = this.height;
-					Color color = new Color();
-					int num3 = Dust.NewDust(vector2, num1, num2, 238, 0f, -2f, 0, color, 1f);
-					if (Main.rand.Next(2) == 0)
-					{
-						Main.dust[num3].noGravity = true;
-					}
-				}
-				Gore.NewGore(this.position, this.velocity, 684, this.scale);
-				Gore.NewGore(this.position, this.velocity, 685, this.scale);
-				Gore.NewGore(this.position, this.velocity, 686, this.scale);
-				Gore.NewGore(this.position, this.velocity, 684 + Main.rand.Next(3), this.scale);
-			}
-			else if (oldType == 406 && newType == 405)
-			{
-				float single = (float)Main.rand.Next(10, 21);
-				float single1 = 6.28318548f * Main.rand.NextFloat();
-				Vector2 vector21 = new Vector2(22f, 22f);
-				for (float j = 0f; j < single; j = j + 1f)
-				{
-					Dust[] dustArray = Main.dust;
-					Vector2 center = base.Center;
-					Color color1 = new Color();
-					Dust dust = dustArray[Dust.NewDust(center, 0, 0, 229, 0f, 0f, 0, color1, 1f)];
-					Vector2 vector22 = Vector2.UnitY.RotatedBy((double)(j * 6.28318548f / single + single1), new Vector2());
-					dust.position = base.Center + ((vector22 * vector21) / 2f);
-					dust.velocity = vector22;
-					dust.noGravity = true;
-					dust.scale = 0.6f + Main.rand.NextFloat() * 1.8f;
-					Dust dust1 = dust;
-					dust1.velocity = dust1.velocity * dust.scale;
-					dust.fadeIn = Main.rand.NextFloat() * 2f;
-				}
-			}
-			if (oldType == 428 && newType == 427)
-			{
-				for (int k = 0; k < 20; k++)
-				{
-					Random random = Main.rand;
-					int[] numArray = new int[] { 229, 240 };
-					int num4 = Utils.SelectRandom<int>(random, numArray);
-					Dust[] dustArray1 = Main.dust;
-					Vector2 vector23 = this.position;
-					int num5 = this.width;
-					int num6 = this.height;
-					Color color2 = new Color();
-					Dust dust2 = dustArray1[Dust.NewDust(vector23, num5, num6, num4, 0f, 0f, 0, color2, 1f)];
-					dust2.noGravity = true;
-					dust2.scale = 0.6f + Main.rand.NextFloat() * 1.8f;
-					dust2.fadeIn = 0.25f;
-					Dust dust3 = dust2;
-					dust3.velocity = dust3.velocity * (dust2.scale / 2f);
-				}
-			}
-			if (oldType == 427 && newType == 426)
-			{
-				for (int l = 0; l < 30; l++)
-				{
-					Random random1 = Main.rand;
-					int[] numArray1 = new int[] { 229, 240, 240 };
-					int num7 = Utils.SelectRandom<int>(random1, numArray1);
-					Dust[] dustArray2 = Main.dust;
-					Vector2 vector24 = this.position;
-					int num8 = this.width;
-					int num9 = this.height;
-					Color color3 = new Color();
-					Dust dust4 = dustArray2[Dust.NewDust(vector24, num8, num9, num7, 0f, 0f, 0, color3, 1f)];
-					dust4.noGravity = true;
-					dust4.scale = 0.6f + Main.rand.NextFloat() * 1.8f;
-					dust4.fadeIn = 0.25f;
-					Dust dust5 = dust4;
-					dust5.velocity = dust5.velocity * (dust4.scale * 0.75f);
-				}
 			}
 		}
 
@@ -65684,12 +58595,6 @@ namespace Terraria
 							r = color1.B;
 						}
 						r = r / 30;
-						if (Main.rand.Next(300) < r)
-						{
-							int num = Dust.NewDust(this.position, this.width, this.height, 43, 0f, 0f, 254, new Color(255, 255, 0), 0.5f);
-							Dust dust = Main.dust[num];
-							dust.velocity = dust.velocity * 0f;
-						}
 					}
 				}
 				if (this.type >= 254 && this.type <= 261 || this.type == 160)
@@ -65730,37 +58635,12 @@ namespace Terraria
 				{
 					if (this.teleportStyle == 0)
 					{
-						if ((float)Main.rand.Next(100) <= 100f * this.teleportTime * 2f)
-						{
-							Vector2 vector2 = new Vector2((float)this.getRect().X, (float)this.getRect().Y);
-							int width = this.getRect().Width;
-							int height = this.getRect().Height;
-							color = new Color();
-							int num1 = Dust.NewDust(vector2, width, height, 159, 0f, 0f, 0, color, 1f);
-							Main.dust[num1].scale = this.teleportTime * 1.5f;
-							Main.dust[num1].noGravity = true;
-							Dust dust1 = Main.dust[num1];
-							dust1.velocity = dust1.velocity * 1.1f;
-						}
+
 					}
 					else if (this.teleportStyle == 4)
 					{
 						NPC nPC = this;
 						nPC.teleportTime = nPC.teleportTime - 0.02f;
-						if ((float)Main.rand.Next(100) <= 100f * this.teleportTime)
-						{
-							Dust[] dustArray = Main.dust;
-							Vector2 vector21 = this.position;
-							int num2 = this.width;
-							int num3 = this.height;
-							color = new Color();
-							Dust portalColor = dustArray[Dust.NewDust(vector21, num2, num3, 263, 0f, 0f, 0, color, 1f)];
-							portalColor.color = PortalHelper.GetPortalColor(this.lastPortalColorIndex);
-							portalColor.noLight = true;
-							portalColor.noGravity = true;
-							portalColor.scale = 1.2f;
-							portalColor.fadeIn = 0.4f;
-						}
 					}
 					NPC nPC1 = this;
 					nPC1.teleportTime = nPC1.teleportTime - 0.005f;
@@ -66019,19 +58899,6 @@ namespace Terraria
 							{
 								Player player = Main.player[j];
 								player.soulDrain = player.soulDrain + 1;
-							}
-							if (Main.rand.Next(3) != 0)
-							{
-								Vector2 center = base.Center;
-								center.X = center.X + (float)Main.rand.Next(-100, 100) * 0.05f;
-								center.Y = center.Y + (float)Main.rand.Next(-100, 100) * 0.05f;
-								center = center + this.velocity;
-								color = new Color();
-								int num8 = Dust.NewDust(center, 1, 1, 235, 0f, 0f, 0, color, 1f);
-								Dust dust2 = Main.dust[num8];
-								dust2.velocity = dust2.velocity * 0f;
-								Main.dust[num8].scale = (float)Main.rand.Next(70, 85) * 0.01f;
-								Main.dust[num8].fadeIn = (float)(j + 1);
 							}
 						}
 					}
@@ -66524,16 +59391,6 @@ namespace Terraria
 						num18 = 245;
 						single14 = single14 * 0.75f;
 					}
-					if (Main.rand.Next((int)single14) == 0)
-					{
-						Vector2 vector22 = this.position;
-						int num19 = this.width;
-						int num20 = this.height;
-						color = new Color();
-						int num21 = Dust.NewDust(vector22, num19, num20, num18, 0f, 0f, 254, color, 0.25f);
-						Dust dust3 = Main.dust[num21];
-						dust3.velocity = dust3.velocity * 0.1f;
-					}
 				}
 				for (int o = 0; o < 256; o++)
 				{
@@ -66693,17 +59550,6 @@ namespace Terraria
 							this.wetCount = 10;
 							if (flag2)
 							{
-								for (int r1 = 0; r1 < 10; r1++)
-								{
-									Vector2 vector23 = new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f);
-									color = new Color();
-									int num26 = Dust.NewDust(vector23, this.width + 12, 24, 35, 0f, 0f, 0, color, 1f);
-									Main.dust[num26].velocity.Y = Main.dust[num26].velocity.Y - 1.5f;
-									Main.dust[num26].velocity.X = Main.dust[num26].velocity.X * 2.5f;
-									Main.dust[num26].scale = 1.3f;
-									Main.dust[num26].alpha = 100;
-									Main.dust[num26].noGravity = true;
-								}
 								if (this.aiStyle != 1 && this.type != 1 && this.type != 16 && this.type != 147 && this.type != 59 && this.type != 300 && this.aiStyle != 39 && !this.noGravity)
 								{
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
@@ -66711,19 +59557,6 @@ namespace Terraria
 							}
 							else if (!this.honeyWet)
 							{
-								for (int s = 0; s < 30; s++)
-								{
-									Vector2 vector24 = new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f);
-									int num27 = Dust.dustWater();
-									color = new Color();
-									int num28 = Dust.NewDust(vector24, this.width + 12, 24, num27, 0f, 0f, 0, color, 1f);
-									Main.dust[num28].velocity.Y = Main.dust[num28].velocity.Y - 4f;
-									Main.dust[num28].velocity.X = Main.dust[num28].velocity.X * 2.5f;
-									Dust dust4 = Main.dust[num28];
-									dust4.scale = dust4.scale * 0.8f;
-									Main.dust[num28].alpha = 100;
-									Main.dust[num28].noGravity = true;
-								}
 								if (this.type != 376 && this.aiStyle != 1 && this.type != 1 && this.type != 16 && this.type != 147 && this.type != 59 && this.type != 300 && this.aiStyle != 39 && this.aiStyle != 68 && this.type != 362 && this.type != 364 && this.type != 361 && this.type != 445 && !this.noGravity)
 								{
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 0);
@@ -66731,17 +59564,6 @@ namespace Terraria
 							}
 							else
 							{
-								for (int t = 0; t < 10; t++)
-								{
-									Vector2 vector25 = new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f);
-									color = new Color();
-									int num29 = Dust.NewDust(vector25, this.width + 12, 24, 152, 0f, 0f, 0, color, 1f);
-									Main.dust[num29].velocity.Y = Main.dust[num29].velocity.Y - 1f;
-									Main.dust[num29].velocity.X = Main.dust[num29].velocity.X * 2.5f;
-									Main.dust[num29].scale = 1.3f;
-									Main.dust[num29].alpha = 100;
-									Main.dust[num29].noGravity = true;
-								}
 								if (this.aiStyle != 1 && this.type != 1 && this.type != 16 && this.type != 147 && this.type != 59 && this.type != 300 && this.aiStyle != 39 && !this.noGravity)
 								{
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
@@ -66759,17 +59581,6 @@ namespace Terraria
 							this.wetCount = 10;
 							if (this.lavaWet)
 							{
-								for (int u = 0; u < 10; u++)
-								{
-									Vector2 vector26 = new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f);
-									color = new Color();
-									int num30 = Dust.NewDust(vector26, this.width + 12, 24, 35, 0f, 0f, 0, color, 1f);
-									Main.dust[num30].velocity.Y = Main.dust[num30].velocity.Y - 1.5f;
-									Main.dust[num30].velocity.X = Main.dust[num30].velocity.X * 2.5f;
-									Main.dust[num30].scale = 1.3f;
-									Main.dust[num30].alpha = 100;
-									Main.dust[num30].noGravity = true;
-								}
 								if (this.aiStyle != 1 && this.type != 1 && this.type != 16 && this.type != 59 && this.type != 300 && this.aiStyle != 39 && !this.noGravity)
 								{
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
@@ -66777,19 +59588,6 @@ namespace Terraria
 							}
 							else if (!this.honeyWet)
 							{
-								for (int v = 0; v < 30; v++)
-								{
-									Vector2 vector27 = new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f);
-									int num31 = Dust.dustWater();
-									color = new Color();
-									int num32 = Dust.NewDust(vector27, this.width + 12, 24, num31, 0f, 0f, 0, color, 1f);
-									Main.dust[num32].velocity.Y = Main.dust[num32].velocity.Y - 4f;
-									Main.dust[num32].velocity.X = Main.dust[num32].velocity.X * 2.5f;
-									Dust dust5 = Main.dust[num32];
-									dust5.scale = dust5.scale * 0.8f;
-									Main.dust[num32].alpha = 100;
-									Main.dust[num32].noGravity = true;
-								}
 								if (this.type != 376 && this.aiStyle != 1 && this.type != 1 && this.type != 16 && this.type != 59 && this.type != 300 && this.aiStyle != 39 && this.aiStyle != 68 && this.type != 362 && this.type != 364 && this.type != 361 && this.type != 445 && !this.noGravity)
 								{
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 0);
@@ -66797,17 +59595,6 @@ namespace Terraria
 							}
 							else
 							{
-								for (int w = 0; w < 10; w++)
-								{
-									Vector2 vector28 = new Vector2(this.position.X - 6f, this.position.Y + (float)(this.height / 2) - 8f);
-									color = new Color();
-									int num33 = Dust.NewDust(vector28, this.width + 12, 24, 152, 0f, 0f, 0, color, 1f);
-									Main.dust[num33].velocity.Y = Main.dust[num33].velocity.Y - 1f;
-									Main.dust[num33].velocity.X = Main.dust[num33].velocity.X * 2.5f;
-									Main.dust[num33].scale = 1.3f;
-									Main.dust[num33].alpha = 100;
-									Main.dust[num33].noGravity = true;
-								}
 								if (this.aiStyle != 1 && this.type != 1 && this.type != 16 && this.type != 147 && this.type != 300 && this.type != 59 && this.aiStyle != 39 && !this.noGravity)
 								{
 									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);

@@ -142,14 +142,6 @@ namespace Terraria
 					}
 					Vector2 vector2 = this.position - this.velocity;
 					Color color = new Color();
-					int num1 = Dust.NewDust(vector2, 2, 2, num, 0f, 0f, 0, color, 1f);
-					Main.dust[num1].position.X = Main.dust[num1].position.X - 2f;
-					Main.dust[num1].alpha = 38;
-					Dust dust = Main.dust[num1];
-					dust.velocity = dust.velocity * 0.1f;
-					Dust dust1 = Main.dust[num1];
-					dust1.velocity = dust1.velocity + (-this.velocity * 0.025f);
-					Main.dust[num1].scale = 0.75f;
 				}
 			}
 		}

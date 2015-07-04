@@ -1226,7 +1226,7 @@ namespace Terraria
 
 		public static Tile[,] tile;
 
-		public static Dust[] dust;
+        public static Dust[] dust;
 
 		public static Star[] star;
 
@@ -1236,7 +1236,7 @@ namespace Terraria
 
 		public static NPC[] npc;
 
-		public static Gore[] gore;
+        public static Gore[] gore;
 
 		public static Rain[] rain;
 
@@ -2252,12 +2252,10 @@ namespace Terraria
 			Main.tilesLoaded = false;
 			Main.Map = new WorldMap(Main.maxTilesX, Main.maxTilesY);
 			Main.tile = new Tile[Main.maxTilesX, Main.maxTilesY];
-			Main.dust = new Dust[6001];
 			Main.star = new Star[130];
 			Main.item = new Item[401];
 			Main.itemLockoutTime = new int[401];
 			Main.npc = new NPC[201];
-			Main.gore = new Gore[501];
 			Main.rain = new Rain[Main.maxRain + 1];
 			Main.projectile = new Projectile[1001];
 			Main.combatText = new CombatText[100];
@@ -8541,10 +8539,6 @@ namespace Terraria
 			{
 				this.menuItemScale[u] = 0.8f;
 			}
-			for (int v = 0; v < 6001; v++)
-			{
-				Main.dust[v] = new Dust();
-			}
 			for (int w = 0; w < 401; w++)
 			{
 				Main.item[w] = new Item();
@@ -8561,10 +8555,6 @@ namespace Terraria
 			for (int a = 0; a < 1001; a++)
 			{
 				Main.projectile[a] = new Projectile();
-			}
-			for (int b = 0; b < 501; b++)
-			{
-				Main.gore[b] = new Gore();
 			}
 			for (int c = 0; c < Main.maxRain + 1; c++)
 			{
@@ -9290,13 +9280,13 @@ namespace Terraria
 			}
 		}
 
-		protected void LoadGore(int i)
+		/*protected void LoadGore(int i)
 		{
 			if (!Main.goreLoaded[i])
 			{
 				Main.goreLoaded[i] = true;
 			}
-		}
+		}*/
 
 		protected void LoadHair(int i)
 		{
@@ -11682,7 +11672,6 @@ namespace Terraria
 				{
 					Main.numDust = 1000;
 				}
-				Gore.goreTime = (int)(600f * Main.gfxQuality);
 				Liquid.maxLiquid = (int)(2500f + 2500f * Main.gfxQuality);
 				Liquid.cycles = (int)(17f - 10f * Main.gfxQuality);
 				if ((double)Main.gfxQuality < 0.2)
@@ -12768,24 +12757,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (!Main.ignoreErrors)
-				{
-					Dust.UpdateDust();
-				}
-				else
-				{
-					try
-					{
-						Dust.UpdateDust();
-					}
-					catch
-					{
-						for (int x = 0; x < 6000; x++)
-						{
-							Main.dust[x] = new Dust();
-						}
-					}
-				}
+
 				if (Main.netMode != 2)
 				{
 					CombatText.UpdateCombatText();

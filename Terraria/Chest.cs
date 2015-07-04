@@ -2183,7 +2183,6 @@ namespace Terraria
 					{
 						Vector2 vector2 = new Vector2((float)(i * 16), (float)(j * 16));
 						Color color = new Color();
-						Dust.NewDust(vector2, 16, 16, num1, 0f, 0f, 0, color, 1f);
 					}
 				}
 			}

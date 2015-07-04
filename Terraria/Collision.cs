@@ -2436,7 +2436,6 @@ namespace Terraria
 								{
 									Vector2 vector21 = new Vector2((float)(i * 16), (float)(j * 16));
 									Color color = new Color();
-									Dust.NewDust(vector21, 16, 16, 30, 0f, 0f, 0, color, 1f);
 								}
 								return new Vector2((float)i, (float)j);
 							}
@@ -2458,7 +2457,6 @@ namespace Terraria
 								{
 									Vector2 vector22 = new Vector2((float)(i * 16), (float)(j * 16));
 									Color color1 = new Color();
-									Dust.NewDust(vector22, 16, 16, 30, 0f, 0f, 0, color1, 1f);
 								}
 								return new Vector2((float)i, (float)j);
 							}

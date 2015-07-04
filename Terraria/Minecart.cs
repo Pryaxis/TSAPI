@@ -1076,7 +1076,7 @@ namespace Terraria
 			}
 		}
 
-		public static BitsByte TrackCollision(ref Vector2 Position, ref Vector2 Velocity, ref Vector2 lastBoost, int Width, int Height, bool followDown, bool followUp, int fallStart, bool trackOnly, Action<Vector2> MinecartDust)
+		public static BitsByte TrackCollision(ref Vector2 Position, ref Vector2 Velocity, ref Vector2 lastBoost, int Width, int Height, bool followDown, bool followUp, int fallStart, bool trackOnly)
 		{
 			int num;
 			int num1;
@@ -1428,7 +1428,6 @@ namespace Terraria
 									if (!flag8 && Velocity.Y > Player.defaultGravity && fallStart < (int)(Position.Y / 16f) - 1)
 									{
 										Main.PlaySound(2, (int)Position.X + Width / 2, (int)Position.Y + Height / 2, 53);
-										Minecart.WheelSparks(MinecartDust, Position, Width, Height, 10);
 									}
 									if (trackState1 == Minecart.TrackState.AboveFront && Minecart._trackType[num10] == 1)
 									{
@@ -1791,16 +1790,16 @@ namespace Terraria
 			}
 		}
 
-		public static float TrackRotation(ref float rotation, Vector2 Position, int Width, int Height, bool followDown, bool followUp, Action<Vector2> MinecartDust)
+		public static float TrackRotation(ref float rotation, Vector2 Position, int Width, int Height, bool followDown, bool followUp)
 		{
 			Vector2 position = Position;
 			Vector2 vector2 = Position;
 			Vector2 zero = Vector2.Zero;
 			Vector2 vector21 = new Vector2(-12f, 0f);
-			Minecart.TrackCollision(ref position, ref vector21, ref zero, Width, Height, followDown, followUp, 0, true, MinecartDust);
+			Minecart.TrackCollision(ref position, ref vector21, ref zero, Width, Height, followDown, followUp, 0, true);
 			position = position + vector21;
 			vector21 = new Vector2(12f, 0f);
-			Minecart.TrackCollision(ref vector2, ref vector21, ref zero, Width, Height, followDown, followUp, 0, true, MinecartDust);
+			Minecart.TrackCollision(ref vector2, ref vector21, ref zero, Width, Height, followDown, followUp, 0, true);
 			vector2 = vector2 + vector21;
 			float y = vector2.Y - position.Y;
 			float x = vector2.X - position.X;
@@ -1809,16 +1808,6 @@ namespace Terraria
 			float x1 = (Position.X - (float)((int)Position.X)) * single;
 			rotation = (float)Math.Atan2((double)y, (double)x);
 			return y1 - Position.Y + x1;
-		}
-
-		public static void WheelSparks(Action<Vector2> DustAction, Vector2 Position, int Width, int Height, int sparkCount)
-		{
-			Vector2 vector2 = new Vector2((float)(Width / 2) - 25f, (float)(Height / 2));
-			Vector2 position = (Position + vector2) + Minecart._trackMagnetOffset;
-			for (int i = 0; i < sparkCount; i++)
-			{
-				DustAction(position);
-			}
 		}
 
 		private enum TrackState

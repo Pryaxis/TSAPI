@@ -3149,14 +3149,8 @@ namespace Terraria
 									Vector2 vector217 = (center1 + vector214.RotatedBy(num232, vector216)) + vector215;
 									single13 = single13 + single14;
 									Color color4 = new Color();
-									int num233 = Dust.NewDust(vector217, 6, 6, num231, 0f, 0f, 100, color4, 1.5f);
-									Main.dust[num233].noGravity = true;
-									Main.dust[num233].velocity = Vector2.Zero;
 									float single17 = single15 + single16;
 									single15 = single17;
-									Main.dust[num233].fadeIn = single17;
-									Dust dust = Main.dust[num233];
-									dust.velocity = dust.velocity + (vector213 * 1.5f);
 								}
 							}
 							player18.NebulaLevelup((int)num230);
