@@ -24,7 +24,7 @@ namespace Terraria
 
 		public byte[] readBuffer = new byte[131070];
 
-		public byte[] writeBuffer = new byte[131070];
+		//public byte[] writeBuffer = new byte[131070];
 
 		public bool writeLocked;
 
@@ -42,11 +42,11 @@ namespace Terraria
 
 		public MemoryStream readerStream;
 
-		public MemoryStream writerStream;
+		//public MemoryStream writerStream;
 
 		public BinaryReader reader;
 
-		public BinaryWriter writer;
+		//public BinaryWriter writer;
 
 		public MessageBuffer()
 		{
@@ -109,7 +109,7 @@ namespace Terraria
 			this.reader.BaseStream.Position = (long)num2;
 			byte num5 = num1;
 
-			Console.WriteLine("Received: {0}", num5);
+//			Console.WriteLine("Received: {0}", num5);
 
 			switch (num5)
 			{
@@ -3191,7 +3191,7 @@ namespace Terraria
 		public void Reset()
 		{
 			this.readBuffer = new byte[131070];
-			this.writeBuffer = new byte[131070];
+			//this.writeBuffer = new byte[131070];
 			this.writeLocked = false;
 			this.messageLength = 0;
 			this.totalData = 0;
@@ -3217,15 +3217,15 @@ namespace Terraria
 
 		public void ResetWriter()
 		{
-			lock (this)
-			{
-				if (this.writerStream != null)
-				{
-					this.writerStream.Close();
-				}
-				this.writerStream = new MemoryStream(this.writeBuffer);
-				this.writer = new BinaryWriter(this.writerStream);
-			}
+			//lock (this)
+			//{
+			//	if (this.writerStream != null)
+			//	{
+			//		this.writerStream.Close();
+			//	}
+			//	this.writerStream = new MemoryStream(this.writeBuffer);
+			//	this.writer = new BinaryWriter(this.writerStream);
+			//}
 		}
 	}
 }
