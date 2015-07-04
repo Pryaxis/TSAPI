@@ -1,4 +1,4 @@
-using XNA;
+
 using System;
 using Terraria.DataStructures;
 using Terraria.Enums;

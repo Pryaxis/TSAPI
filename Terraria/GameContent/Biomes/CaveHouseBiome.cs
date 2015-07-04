@@ -1,4 +1,4 @@
-using XNA;
+
 using System;
 using System.Collections.Generic;
 using Terraria.GameContent.Generation;

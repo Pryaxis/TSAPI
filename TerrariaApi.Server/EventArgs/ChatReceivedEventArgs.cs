@@ -1,5 +1,5 @@
 ﻿using System;
-using XNA;
+
 
 namespace TerrariaApi.Server
 {

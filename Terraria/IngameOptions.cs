@@ -1,4 +1,4 @@
-using XNA;
+
 using System;
 using Terraria.GameContent;
 using Terraria.Social;

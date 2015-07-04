@@ -1,5 +1,4 @@
 using Microsoft.Win32;
-using XNA;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +7,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
 using Terraria.Achievements;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -594,7 +592,7 @@ namespace Terraria
 
 		public static bool[,] mapWasContentLost;
 
-		public static XNA.Color OurFavoriteColor;
+		public static Color OurFavoriteColor;
 
 		public static bool mapInit;
 
@@ -660,15 +658,15 @@ namespace Terraria
 
 		public static int oldMouseWheel;
 
-		public static XNA.Color mcColor;
+		public static Color mcColor;
 
-		public static XNA.Color hcColor;
+		public static Color hcColor;
 
-		public static XNA.Color highVersionColor;
+		public static Color highVersionColor;
 
-		public static XNA.Color errorColor;
+		public static Color errorColor;
 
-		public static XNA.Color bgColor;
+		public static Color bgColor;
 
 		public static bool mouseHC;
 
@@ -872,13 +870,13 @@ namespace Terraria
 
 		public static float ugBackTransition;
 
-		public static XNA.Color tileColor;
+		public static Color tileColor;
 
 		public static double worldSurface;
 
 		public static double rockLayer;
 
-		public static XNA.Color[] teamColor;
+		public static Color[] teamColor;
 
 		public static bool dayTime;
 
@@ -1549,9 +1547,9 @@ namespace Terraria
 
 		public static string cMapStyle;
 
-		public static XNA.Color mouseColor;
+		public static Color mouseColor;
 
-		public static XNA.Color cursorColor;
+		public static Color cursorColor;
 
 		public static int cursorColorDirection;
 
@@ -1657,7 +1655,7 @@ namespace Terraria
 
 		public static string hoverItemName;
 
-		public static XNA.Color inventoryBack;
+		public static Color inventoryBack;
 
 		public static bool mouseText;
 
@@ -1675,17 +1673,17 @@ namespace Terraria
 
 		private static int oldHairStyle;
 
-		private static XNA.Color oldHairColor;
+		private static Color oldHairColor;
 
 		private static int selClothes;
 
-		private static XNA.Color[] oldClothesColor;
+		private static Color[] oldClothesColor;
 
 		public static int dresserX;
 
 		public static int dresserY;
 
-		public static XNA.Color selColor;
+		public static Color selColor;
 
 		public static int focusColor;
 
@@ -1723,9 +1721,9 @@ namespace Terraria
 
 		private static int bgW;
 
-		private static XNA.Color backColor;
+		private static Color backColor;
 
-		private static XNA.Color trueBackColor;
+		private static Color trueBackColor;
 
 		private float screenOff;
 
@@ -1988,7 +1986,7 @@ namespace Terraria
 			Main.mapTargetY = 2;
 			Main.initMap = new bool[Main.mapTargetX, Main.mapTargetY];
 			Main.mapWasContentLost = new bool[Main.mapTargetX, Main.mapTargetY];
-			Main.OurFavoriteColor = new XNA.Color(255, 231, 69);
+			Main.OurFavoriteColor = new Color(255, 231, 69);
 			Main.mapInit = false;
 			Main.mapEnabled = true;
 			Main.mapStyle = 1;
@@ -2009,10 +2007,10 @@ namespace Terraria
 			Main.IsEngineLoaded = false;
 			Main.renderCount = 99;
 			Main.saveTime = new Stopwatch();
-			Main.mcColor = new XNA.Color(125, 125, 255);
-			Main.hcColor = new XNA.Color(200, 125, 255);
-			Main.highVersionColor = new XNA.Color(255, 255, 0);
-			Main.errorColor = new XNA.Color(255, 0, 0);
+			Main.mcColor = new Color(125, 125, 255);
+			Main.hcColor = new Color(200, 125, 255);
+			Main.highVersionColor = new Color(255, 255, 0);
+			Main.errorColor = new Color(255, 0, 0);
 			Main.mouseHC = false;
 			Main.craftingHide = false;
 			Main.armorHide = false;
@@ -2098,7 +2096,7 @@ namespace Terraria
 			Main.background = 0;
 			Main.caveBackground = 0;
 			Main.ugBackTransition = 0f;
-			Main.teamColor = new XNA.Color[6];
+			Main.teamColor = new Color[6];
 			Main.dayTime = true;
 			Main.time = 13500;
 			Main.moonPhase = 0;
@@ -2399,8 +2397,8 @@ namespace Terraria
 			Main.cMapAlphaDown = "PageDown";
 			Main.cMapFull = "M";
 			Main.cMapStyle = "Tab";
-			Main.mouseColor = new XNA.Color(255, 50, 95);
-			Main.cursorColor = XNA.Color.White;
+			Main.mouseColor = new Color(255, 50, 95);
+			Main.cursorColor = Color.White;
 			Main.cursorColorDirection = 1;
 			Main.cursorAlpha = 0f;
 			Main.cursorScale = 0f;
@@ -2435,7 +2433,7 @@ namespace Terraria
 			Main.cpItem = new Item();
 			Main.newWorldName = "";
 			Main.hoverItemName = "";
-			Main.inventoryBack = new XNA.Color(220, 220, 220, 220);
+			Main.inventoryBack = new Color(220, 220, 220, 220);
 			Main.mouseText = false;
 			Main.mH = 0;
 			Main.sX = Main.screenWidth - 800;
@@ -2444,8 +2442,8 @@ namespace Terraria
 			Main.rare = 0;
 			Main.hairStart = 0;
 			Main.selClothes = 0;
-			Main.oldClothesColor = new XNA.Color[4];
-			Main.selColor = XNA.Color.White;
+			Main.oldClothesColor = new Color[4];
+			Main.selColor = Color.White;
 			Main.focusColor = 0;
 			Main.colorDelay = 0;
 			Main.setKey = -1;
@@ -2464,7 +2462,7 @@ namespace Terraria
 			Main.atmo = 0f;
 			Main.bgScale = 1f;
 			Main.bgW = (int)(1024f * Main.bgScale);
-			Main.backColor = XNA.Color.White;
+			Main.backColor = Color.White;
 			Main.trueBackColor = Main.backColor;
 		}
 
@@ -2619,7 +2617,7 @@ namespace Terraria
 			Main.autoShutdown = true;
 		}
 
-		private static XNA.Color buffColor(XNA.Color newColor, float R, float G, float B, float A)
+		private static Color buffColor(Color newColor, float R, float G, float B, float A)
 		{
 			newColor.R = (byte)((float)newColor.R * R);
 			newColor.G = (byte)((float)newColor.G * G);
@@ -2899,7 +2897,7 @@ namespace Terraria
 			}
 			bool flag = false;
 			Player player = Main.player[Main.myPlayer];
-			XNA.Rectangle rectangle = new XNA.Rectangle((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth, Main.screenHeight);
+			Rectangle rectangle = new Rectangle((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth, Main.screenHeight);
 			int num = 5000;
 			int num1 = 0;
 			for (int i = 0; i < 200; i++)
@@ -3044,7 +3042,7 @@ namespace Terraria
 				Label0:
 					if (num1 != 0 && (num1 != 1 || (double)player.position.Y <= Main.worldSurface * 16 && !Main.dayTime && Main.snowMoon) && (num1 != 2 || (double)player.position.Y <= Main.worldSurface * 16 && !Main.dayTime && Main.pumpkinMoon) && (num1 <= 2 || (double)player.position.Y <= Main.worldSurface * 16 && Main.invasionType == num1 - 2))
 					{
-						XNA.Rectangle rectangle1 = new XNA.Rectangle((int)(Main.npc[i].position.X + (float)(Main.npc[i].width / 2)) - num, (int)(Main.npc[i].position.Y + (float)(Main.npc[i].height / 2)) - num, num * 2, num * 2);
+						Rectangle rectangle1 = new Rectangle((int)(Main.npc[i].position.X + (float)(Main.npc[i].width / 2)) - num, (int)(Main.npc[i].position.Y + (float)(Main.npc[i].height / 2)) - num, num * 2, num * 2);
 						if (rectangle.Intersects(rectangle1))
 						{
 							flag = true;
@@ -5221,7 +5219,7 @@ namespace Terraria
 			byte g = (byte)((float)Main.mouseColor.G * Main.cursorAlpha);
 			byte b = (byte)((float)Main.mouseColor.B * Main.cursorAlpha);
 			byte num = (byte)(255f * single);
-			Main.cursorColor = new XNA.Color((int)r, (int)g, (int)b, (int)num);
+			Main.cursorColor = new Color((int)r, (int)g, (int)b, (int)num);
 			Main.cursorScale = Main.cursorAlpha * 0.3f + 0.7f + 0.1f;
 		}
 
@@ -5768,7 +5766,7 @@ namespace Terraria
 		{
 		}
 
-		public void DrawCapture(XNA.Rectangle area)
+		public void DrawCapture(Rectangle area)
 		{
 		}
 
@@ -5848,7 +5846,7 @@ namespace Terraria
 		{
 		}
 
-		protected void DrawNPCExtras(NPC n, bool beforeDraw, float addHeight, float addY, XNA.Color npcColor, Vector2 halfSize)
+		protected void DrawNPCExtras(NPC n, bool beforeDraw, float addHeight, float addY, Color npcColor, Vector2 halfSize)
 		{
 		}
 
@@ -6370,7 +6368,7 @@ namespace Terraria
 		{
 		}
 
-		public static XNA.Color HslToRgb(float Hue, float Saturation, float Luminosity)
+		public static Color HslToRgb(float Hue, float Saturation, float Luminosity)
 		{
 			byte num;
 			byte num1;
@@ -6397,7 +6395,7 @@ namespace Terraria
 				num1 = (byte)Math.Round((double)Luminosity * 255);
 				num2 = (byte)Math.Round((double)Luminosity * 255);
 			}
-			return new XNA.Color((int)num, (int)num1, (int)num2);
+			return new Color((int)num, (int)num1, (int)num2);
 		}
 
 		public static double hue2rgb(double c, double t1, double t2)
@@ -8736,12 +8734,12 @@ namespace Terraria
 				this.shop[k1] = new Chest(false);
 				this.shop[k1].SetupShop(k1);
 			}
-			Main.teamColor[0] = XNA.Color.White;
-			Main.teamColor[1] = new XNA.Color(218, 59, 59);
-			Main.teamColor[2] = new XNA.Color(59, 218, 85);
-			Main.teamColor[3] = new XNA.Color(59, 149, 218);
-			Main.teamColor[4] = new XNA.Color(242, 221, 100);
-			Main.teamColor[5] = new XNA.Color(224, 100, 242);
+			Main.teamColor[0] = Color.White;
+			Main.teamColor[1] = new Color(218, 59, 59);
+			Main.teamColor[2] = new Color(59, 218, 85);
+			Main.teamColor[3] = new Color(59, 149, 218);
+			Main.teamColor[4] = new Color(242, 221, 100);
+			Main.teamColor[5] = new Color(224, 100, 242);
 			if (Main.menuMode == 1)
 			{
 				Main.LoadPlayers();
@@ -10102,9 +10100,9 @@ namespace Terraria
 		{
 		}
 
-		protected XNA.Color QuickAlpha(XNA.Color oldColor, float Alpha)
+		protected Color QuickAlpha(Color oldColor, float Alpha)
 		{
-			XNA.Color r = oldColor;
+			Color r = oldColor;
 			r.R = (byte)((float)r.R * Alpha);
 			r.G = (byte)((float)r.G * Alpha);
 			r.B = (byte)((float)r.B * Alpha);
@@ -10117,7 +10115,7 @@ namespace Terraria
 			Main.SaveSettings();
 		}
 
-		protected XNA.Color RandColor()
+		protected Color RandColor()
 		{
 			int i;
 			int num = 0;
@@ -10127,7 +10125,7 @@ namespace Terraria
 				num = Main.rand.Next(256);
 				num1 = Main.rand.Next(256);
 			}
-			return new XNA.Color(num, num1, i, 255);
+			return new Color(num, num1, i, 255);
 		}
 
 		public static void RegisterItemAnimation(int index, DrawAnimation animation)
@@ -10203,7 +10201,7 @@ namespace Terraria
 			return pos;
 		}
 
-		public static XNA.Point ReverseGravitySupport(XNA.Point pos, int height = 0)
+		public static Point ReverseGravitySupport(Point pos, int height = 0)
 		{
 			if (Main.player[Main.myPlayer].gravDir != -1f)
 			{
@@ -10213,7 +10211,7 @@ namespace Terraria
 			return pos;
 		}
 
-		public static XNA.Rectangle ReverseGravitySupport(XNA.Rectangle box)
+		public static Rectangle ReverseGravitySupport(Rectangle box)
 		{
 			if (Main.player[Main.myPlayer].gravDir != -1f)
 			{
@@ -10223,7 +10221,7 @@ namespace Terraria
 			return box;
 		}
 
-		public static Vector3 RgbToHsl(XNA.Color newColor)
+		public static Vector3 RgbToHsl(Color newColor)
 		{
 			float single;
 			float r = (float)newColor.R;
@@ -10484,7 +10482,7 @@ namespace Terraria
 			Main.worldName = world;
 		}
 
-		public static XNA.Color shine(XNA.Color newColor, int type)
+		public static Color shine(Color newColor, int type)
 		{
 			int r = newColor.R;
 			int g = newColor.G;
@@ -10506,7 +10504,7 @@ namespace Terraria
 					{
 						r = 255;
 					}
-					return new XNA.Color(r, g, b, 255);
+					return new Color(r, g, b, 255);
 				}
 				if (type == 211)
 				{
@@ -10580,7 +10578,7 @@ namespace Terraria
 			newColor.R = (byte)r;
 			newColor.G = (byte)g;
 			newColor.B = (byte)b;
-			return new XNA.Color((int)r, (int)g, (int)b, (int)newColor.A);
+			return new Color((int)r, (int)g, (int)b, (int)newColor.A);
 		}
 
 		public static void snowing()
@@ -11319,7 +11317,7 @@ namespace Terraria
 			}
 		}
 
-		public static void TeleportEffect(XNA.Rectangle effectRect, int Style, int extraInfo = 0)
+		public static void TeleportEffect(Rectangle effectRect, int Style, int extraInfo = 0)
 		{
 			
 		}
@@ -13077,7 +13075,7 @@ namespace Terraria
 					bool flag8 = false;
 					bool flag9 = false;
 					bool flag10 = false;
-					XNA.Rectangle rectangle = new XNA.Rectangle((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth, Main.screenHeight);
+					Rectangle rectangle = new Rectangle((int)Main.screenPosition.X, (int)Main.screenPosition.Y, Main.screenWidth, Main.screenHeight);
 					int num1 = 5000;
 					for (int k = 0; k < 200; k++)
 					{
@@ -13325,7 +13323,7 @@ namespace Terraria
 							}
 							if (num != 0)
 							{
-								XNA.Rectangle rectangle1 = new XNA.Rectangle((int)(Main.npc[k].position.X + (float)(Main.npc[k].width / 2)) - num1, (int)(Main.npc[k].position.Y + (float)(Main.npc[k].height / 2)) - num1, num1 * 2, num1 * 2);
+								Rectangle rectangle1 = new Rectangle((int)(Main.npc[k].position.X + (float)(Main.npc[k].width / 2)) - num1, (int)(Main.npc[k].position.Y + (float)(Main.npc[k].height / 2)) - num1, num1 * 2, num1 * 2);
 								if (rectangle.Intersects(rectangle1))
 								{
 									if (num == 1)

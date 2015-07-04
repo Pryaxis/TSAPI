@@ -89,14 +89,12 @@
     <Reference Include="Terraria.Libraries.Steamworks.NET.Steamworks.NET">
       <HintPath>.\TerrariaServerReferences\Terraria.Libraries.Steamworks.NET.Steamworks.NET.dll</HintPath>
     </Reference>
-    <Reference Include="System.Core" />
     <Reference Include="Terraria.Libraries.JSON.NET.Net40.Newtonsoft.Json">
       <HintPath>.\TerrariaServerReferences\Terraria.Libraries.JSON.NET.Net40.Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PacketTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
@@ -1063,7 +1061,7 @@
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
     <Compile Include="XNA\Color.cs" />
-    <Compile Include="XNA\IPackedVector.cs" />
+    <Compile Include="IPackedVector.cs" />
     <Compile Include="XNA\MathHelper.cs" />
     <Compile Include="XNA\Matrix.cs" />
     <Compile Include="XNA\PackUtils.cs" />

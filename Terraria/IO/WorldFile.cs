@@ -1,4 +1,4 @@
-using XNA;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -498,11 +498,10 @@ namespace Terraria.IO
 					Main.WorldFileMetadata = FileMetadata.Read(reader, FileType.World);
 					goto Label0;
 				}
-				catch (FileFormatException fileFormatException1)
+				catch (Exception fileFormatException1)
 				{
-					FileFormatException fileFormatException = fileFormatException1;
 					Console.WriteLine("Unable to load world:");
-					Console.WriteLine(fileFormatException);
+					Console.WriteLine(fileFormatException1);
 					flag = false;
 				}
 				return flag;
