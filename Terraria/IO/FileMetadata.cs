@@ -45,7 +45,7 @@ namespace Terraria.IO
 			if (fileMetadatum.Type != expectedType)
 			{
 				string[] name = new string[] { "Expected type \"", Enum.GetName(typeof(FileType), expectedType), "\" but found \"", Enum.GetName(typeof(FileType), fileMetadatum.Type), "\"." };
-				throw new FileFormatException(string.Concat(name));
+				throw new Exception("FileFormatException: " + string.Concat(name));
 			}
 			return fileMetadatum;
 		}
@@ -55,7 +55,7 @@ namespace Terraria.IO
 			ulong num = reader.ReadUInt64();
 			if ((num & 72057594037927935L) != 27981915666277746L)
 			{
-				throw new FileFormatException("Expected Re-Logic file format.");
+				throw new Exception("FileFormatException: Expected Re-Logic file format.");
 			}
 			byte num1 = (byte)(num >> 56 & (long)255);
 			FileType fileType = FileType.None;
@@ -75,7 +75,7 @@ namespace Terraria.IO
 			}
 			if (fileType == FileType.None)
 			{
-				throw new FileFormatException("Found invalid file type.");
+				throw new Exception("FileFormatException: Found invalid file type.");
 			}
 			this.Type = fileType;
 			this.Revision = reader.ReadUInt32();

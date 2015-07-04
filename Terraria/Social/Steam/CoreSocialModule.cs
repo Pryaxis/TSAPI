@@ -2,7 +2,6 @@ using Steamworks;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using System.Windows.Forms;
 using Terraria.Social;
 
 namespace Terraria.Social.Steam
@@ -19,18 +18,10 @@ namespace Terraria.Social.Steam
 
 		public void Initialize()
 		{
-			if (!SteamAPI.Init())
-			{
-				MessageBox.Show("Please launch the game from your Steam client.", "Error");
-				Environment.Exit(1);
-			}
-			this.IsSteamValid = true;
-			ThreadPool.QueueUserWorkItem(new WaitCallback(this.SteamLoop), null);
 		}
 
 		public void Shutdown()
 		{
-			Application.ApplicationExit += new EventHandler((object obj, EventArgs evt) => this.IsSteamValid = false);
 		}
 
 		private void SteamLoop(object context)

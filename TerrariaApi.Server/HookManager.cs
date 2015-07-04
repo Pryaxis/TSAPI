@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Terraria;
-using XNA;
+
 
 namespace TerrariaApi.Server
 {

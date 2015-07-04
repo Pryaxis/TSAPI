@@ -40,6 +40,10 @@ namespace Terraria.IO
 			{
 				return this._path;
 			}
+			set
+			{
+				this._path = value;
+			}
 		}
 
 		protected FileData(string type)
