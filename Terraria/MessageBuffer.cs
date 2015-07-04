@@ -523,10 +523,9 @@ namespace Terraria
 						Main.StartSlimeRain(true);
 					}
 					Main.invasionType = this.reader.ReadSByte();
+					Main.LobbyId = this.reader.ReadUInt64();
 					if (Netplay.Connection.State != 3)
-					{
 						return;
-					}
 					Netplay.Connection.State = 4;
 					return;
 				}

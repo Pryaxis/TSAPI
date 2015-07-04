@@ -41,11 +41,7 @@ namespace Terraria.Social.Steam
 
 		public override bool CanInvite()
 		{
-			if (this._hasLocalHost)
-			{
-				return true;
-			}
-			return this._lobby.State == LobbyState.Active;
+			return (this._hasLocalHost || this._lobby.State == LobbyState.Active || Main.LobbyId != 0uL) && Main.netMode != 0;
 		}
 
 		private void CheckParameters()

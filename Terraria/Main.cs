@@ -176,6 +176,8 @@ namespace Terraria
 
 		public static bool drawBackGore;
 
+		public static ulong LobbyId = 0uL;
+
 		public static float expertLife;
 
 		public static float expertDamage;
