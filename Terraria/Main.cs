@@ -8791,13 +8791,13 @@ namespace Terraria
 			this.SetTitle();
 			Star.SpawnStars();
 			WorldGen.RandomizeWeather();
-			return;
+			return;*/
 		Label0:
 			num++;
 			goto Label3;
 		Label1:
 			Item.claw[item.type] = true;
-			goto Label0;*/
+			goto Label0;
 		}
 
 		public static void InitializeItemAnimations()
