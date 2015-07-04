@@ -32,12 +32,9 @@ namespace Terraria
 		public static bool anyClients = false;
 #if !MONO
 		public static UPnPNAT upnpnat = (UPnPNAT)Activator.CreateInstance(Type.GetTypeFromCLSID(new Guid("AE1E00AA-3FD5-403C-8A27-2BBDC30CD0E1")));
-#endif
+
 		public static IStaticPortMappingCollection mappings =
-#if !MONO
 			Netplay.upnpnat.StaticPortMappingCollection;
-#else
- null;
 #endif
 
 		public static string portForwardIP;
@@ -48,6 +45,7 @@ namespace Terraria
 		{
 			Netplay.portForwardIP = Netplay.GetLocalIPAddress();
 			Netplay.portForwardPort = Netplay.ListenPort;
+#if !MONO
 			if (Netplay.mappings != null)
 			{
 				foreach (IStaticPortMapping staticPortMapping in Netplay.mappings)
@@ -63,13 +61,16 @@ namespace Terraria
 					Netplay.portForwardOpen = true;
 				}
 			}
+#endif
 		}
 		public static void closePort()
 		{
+#if !MONO
 			if (Netplay.portForwardOpen)
 			{
 				Netplay.mappings.Remove(Netplay.portForwardPort, "TCP");
 			}
+#endif
 		}
 		public static string GetLocalIPAddress()
 		{

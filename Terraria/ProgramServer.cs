@@ -91,7 +91,6 @@ namespace Terraria
 			try
 			{
 				Program.LaunchParameters = Utils.ParseArguements(args);
-				Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
 				ProgramServer.Game = new Main();
 				string str = null;
 				bool flag = false;

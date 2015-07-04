@@ -9114,6 +9114,7 @@ namespace Terraria
 #endif
 								}
 							}
+#if !MONO
 							if (str1.Length > 11 && str1.Substring(0, 9).ToLower() == "priority=")
 							{
 								string str5 = str1.Substring(9);
@@ -9158,6 +9159,7 @@ namespace Terraria
 #endif
 								}
 							}
+#endif
 							if (str1.Length > 9 && str1.Substring(0, 9).ToLower() == "password=")
 							{
 								Netplay.ServerPassword = str1.Substring(9);
