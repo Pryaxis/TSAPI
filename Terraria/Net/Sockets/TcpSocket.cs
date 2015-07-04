@@ -43,7 +43,6 @@ namespace Terraria.Net.Sockets
 				try
 				{
 					ISocket tcpSocket = new TcpSocket(this._listener.AcceptTcpClient());
-					//Console.WriteLine(string.Concat(tcpSocket.GetRemoteAddress(), " is connecting..."));
 					this._listenerCallback(tcpSocket);
 				}
 				catch (Exception ex)
