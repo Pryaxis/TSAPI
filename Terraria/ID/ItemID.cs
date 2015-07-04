@@ -7228,6 +7228,8 @@ namespace Terraria.ID
 
 			public static bool[] Deprecated;
 
+			public static bool[] Explosives;
+
 			public static bool[] ItemIconPulse;
 
 			public static bool[] ItemNoGravity;
@@ -7250,6 +7252,9 @@ namespace Terraria.ID
 				SetFactory factory = ItemID.Sets.Factory;
 				int[] numArray = new int[] { 2784, 2783, 2785, 2782, 2774, 2773, 2775, 2772, 2779, 2778, 2780, 2777, 3464, 3463, 3465, 3462, 3341, 3342, 3343, 3340, 3344, 3345, 3346, 3273, 2881 };
 				ItemID.Sets.Deprecated = factory.CreateBoolSet(numArray);
+				SetFactory explosiveFactory = ItemID.Sets.Factory;
+				int[] explosives = new int[] { 166, 167, 235, 580, 758, 759, 772, 774, 1946, 2896, 3115, 3196 };
+				ItemID.Sets.Explosives = explosiveFactory.CreateBoolSet(explosives);
 				SetFactory setFactory = ItemID.Sets.Factory;
 				int[] numArray1 = new int[] { 520, 521, 575, 549, 548, 547, 3456, 3457, 3458, 3459, 3580, 3581 };
 				ItemID.Sets.ItemIconPulse = setFactory.CreateBoolSet(numArray1);
