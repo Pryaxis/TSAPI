@@ -286,7 +286,14 @@ namespace TerrariaApi.Server
 					// load it again, but we do still have to verify it and create plugin instances.
 					if (!loadedAssemblies.TryGetValue(fileNameWithoutExtension, out assembly))
 					{
-						assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName));
+						try
+						{
+							assembly = Assembly.Load(File.ReadAllBytes(fileInfo.FullName));
+						}
+						catch (BadImageFormatException)
+						{
+							continue;
+						}
 						loadedAssemblies.Add(fileNameWithoutExtension, assembly);
 					}
 
