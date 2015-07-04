@@ -135,9 +135,9 @@ namespace Terraria
 
 		private static int activeTime;
 
-		private static int defaultSpawnRate;
-
-		private static int defaultMaxSpawns;
+		public static int defaultSpawnRate;
+		
+		public static int defaultMaxSpawns;
 
 		public bool dontCountMe;
 
