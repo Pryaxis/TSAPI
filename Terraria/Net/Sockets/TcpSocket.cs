@@ -124,7 +124,14 @@ namespace Terraria.Net.Sockets
 
 			//this._connection.GetStream().Write(data, 0, size);
 			//callback(null);
-			this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));
+			try
+			{
+				this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));
+			} 
+			catch
+			{
+				
+			}
 		}
 
 		void Terraria.Net.Sockets.ISocket.Close()
