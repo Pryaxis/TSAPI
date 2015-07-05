@@ -877,7 +877,6 @@ namespace Terraria
 					discoR = discoR * 1f;
 					discoG = discoG * 1f;
 					discoB = discoB * 1f;
-					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), discoR, discoG, discoB);
 					this.color.R = (byte)Main.DiscoR;
 					this.color.G = (byte)Main.DiscoG;
 					this.color.B = (byte)Main.DiscoB;
@@ -1078,10 +1077,6 @@ namespace Terraria
 					{
 						this.localAI[2] = this.localAI[2] + 1f;
 					}
-				}
-				if (this.type == 59)
-				{
-					Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 1f, 0.3f, 0.1f);
 				}
 				if (this.ai[2] > 1f)
 				{
@@ -1442,7 +1437,6 @@ namespace Terraria
 				else if (this.type == 116)
 				{
 					this.TargetClosest(true);
-					Lighting.AddLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.3f, 0.2f, 0.1f);
 					if (this.direction == -1 && this.velocity.X > -6f)
 					{
 						this.velocity.X = this.velocity.X - 0.1f;
@@ -3806,29 +3800,6 @@ namespace Terraria
 							this.velocity.X = -single40;
 						}
 					}
-				}
-				if (this.type >= 277 && this.type <= 280)
-				{
-					Lighting.AddLight((int)base.Center.X / 16, (int)base.Center.Y / 16, 0.2f, 0.1f, 0f);
-				}
-				else if (this.type == 520)
-				{
-					Lighting.AddLight(base.Top + new Vector2(0f, 20f), 0.3f, 0.3f, 0.7f);
-				}
-				else if (this.type == 525)
-				{
-					Vector3 vector3 = new Vector3(0.7f, 1f, 0.2f) * 0.5f;
-					Lighting.AddLight(base.Top + new Vector2(0f, 15f), vector3);
-				}
-				else if (this.type == 526)
-				{
-					Vector3 vector31 = new Vector3(1f, 1f, 0.5f) * 0.4f;
-					Lighting.AddLight(base.Top + new Vector2(0f, 15f), vector31);
-				}
-				else if (this.type == 527)
-				{
-					Vector3 vector32 = new Vector3(0.6f, 0.3f, 1f) * 0.4f;
-					Lighting.AddLight(base.Top + new Vector2(0f, 15f), vector32);
 				}
 				else if (this.type == 415)
 				{
@@ -6540,10 +6511,6 @@ namespace Terraria
 					}
 					int x49 = (int)this.position.X + this.width / 2;
 					int y46 = (int)this.position.Y + this.height / 2;
-					if (!WorldGen.SolidTile(x49 / 16, y46 / 16))
-					{
-						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.3f, 0.1f, 0.05f);
-					}
 					if (x48 > 0f)
 					{
 						this.spriteDirection = 1;
@@ -9631,11 +9598,6 @@ namespace Terraria
 							Main.projectile[num194].noDropItem = true;
 						}
 					}
-					if (single146 > 0f)
-					{
-						Vector3 vector33 = NPCID.Sets.MagicAuraColor[this.type].ToVector3() * single146;
-						Lighting.AddLight(base.Center, vector33.X, vector33.Y, vector33.Z);
-					}
 					if (this.ai[1] <= 0f && !false)
 					{
 						float[] singleArray6 = this.ai;
@@ -10480,11 +10442,6 @@ namespace Terraria
 					}
 					else if (this.type != 281 && this.type != 282)
 					{
-						if (this.type == 533)
-						{
-							Lighting.AddLight(base.Top, 0.6f, 0.6f, 0.3f);
-							return;
-						}
 						if (Main.rand.Next(2) == 0)
 						{
 							return;
@@ -12501,10 +12458,6 @@ namespace Terraria
 							}
 						}
 					}
-					if (this.type == 102)
-					{
-						Lighting.AddLight((int)(this.position.X + (float)(this.width / 2) + (float)(this.direction * (this.width + 8))) / 16, (int)(this.position.Y + 2f) / 16, 0.07f, 0.04f, 0.025f);
-					}
 					if (!flag73)
 					{
 						if (this.type != 157)
@@ -12886,18 +12839,6 @@ namespace Terraria
 				{
 					single197 = single197 + 0.5f;
 				}
-				if (this.type == 63)
-				{
-					Lighting.AddLight((int)(this.position.X + (float)(this.height / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.05f * single197, 0.15f * single197, 0.4f * single197);
-				}
-				else if (this.type == 103)
-				{
-					Lighting.AddLight((int)(this.position.X + (float)(this.height / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.05f * single197, 0.45f * single197, 0.1f * single197);
-				}
-				else if (this.type != 221 && this.type != 242)
-				{
-					Lighting.AddLight((int)(this.position.X + (float)(this.height / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.35f * single197, 0.05f * single197, 0.2f * single197);
-				}
 				if (this.direction == 0)
 				{
 					this.TargetClosest(true);
@@ -13200,8 +13141,6 @@ namespace Terraria
 					}
 					this.velocity.X = (float)(num381 * this.direction);
 					this.velocity.Y = (float)(num381 * this.directionY);
-					float single204 = (float)(270 - Main.mouseTextColor) / 400f;
-					Lighting.AddLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.9f, 0.3f + single204, 0.2f);
 					return;
 				}
 				if (this.aiStyle == 22)
@@ -13345,7 +13284,6 @@ namespace Terraria
 					}
 					else if (this.type == 169)
 					{
-						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0f, 0.6f, 0.75f);
 						this.alpha = 30;
 						if (this.justHit)
 						{
@@ -13710,28 +13648,11 @@ namespace Terraria
 							this.velocity.Y = single213;
 						}
 					}
-					if (this.type == 122)
-					{
-						Lighting.AddLight((int)this.position.X / 16, (int)this.position.Y / 16, 0.4f, 0f, 0.25f);
-						return;
-					}
 				}
 				else if (this.aiStyle == 23)
 				{
 					this.noGravity = true;
 					this.noTileCollide = true;
-					if (this.type == 83)
-					{
-						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.2f, 0.05f, 0.3f);
-					}
-					else if (this.type != 179)
-					{
-						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.05f, 0.2f, 0.3f);
-					}
-					else
-					{
-						Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.3f, 0.15f, 0.05f);
-					}
 					if (this.target < 0 || this.target == 255 || Main.player[this.target].dead)
 					{
 						this.TargetClosest(true);
@@ -14983,7 +14904,6 @@ namespace Terraria
 							this.spriteDirection = -1;
 							this.rotation = (float)Math.Atan2((double)y94, (double)x98) + 3.14f;
 						}
-						Lighting.AddLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.3f, 0.2f, 0.1f);
 						return;
 					}
 					if (this.aiStyle == 30)
@@ -17418,10 +17338,6 @@ namespace Terraria
 						}
 						else
 						{
-							if (this.type != 135 || this.ai[2] != 1f)
-							{
-								Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.3f, 0.1f, 0.05f);
-							}
 							this.localAI[1] = 1f;
 							if (this.type == 134)
 							{
@@ -22184,17 +22100,6 @@ namespace Terraria
 											{
 												int x194 = (int)base.Center.X / 16;
 												int y195 = (int)base.Center.Y / 16;
-												if (this.localAI[2] > 3f)
-												{
-													if (this.type != 358)
-													{
-														Lighting.AddLight(x194, y195, 0.109500006f * this.scale, 0.15f * this.scale, 0.0615f * this.scale);
-													}
-													else
-													{
-														Lighting.AddLight(x194, y195, 0.101249993f * this.scale, 0.21374999f * this.scale, 0.225f * this.scale);
-													}
-												}
 												this.localAI[2] = this.localAI[2] - 1f;
 											}
 											else if (this.localAI[1] <= 0f)
@@ -22425,12 +22330,6 @@ namespace Terraria
 										}
 										else if (this.aiStyle == 66)
 										{
-											if (this.type == 484)
-											{
-												float single434 = (float)Main.rand.Next(90, 111) * 0.01f;
-												single434 = single434 * ((Main.essScale + 0.5f) / 2f);
-												Lighting.AddLight((int)((this.position.X + (float)(this.width / 2)) / 16f), (int)((this.position.Y + (float)(this.height / 2)) / 16f), 0.3f * single434, 0.1f * single434, 0.25f * single434);
-											}
 											if (this.type == 357 || this.type == 448 || this.type >= 484 && this.type <= 487)
 											{
 												if (this.localAI[2] >= 90f)
@@ -22554,10 +22453,6 @@ namespace Terraria
 													this.ai[3] = (float)Main.rand.Next(80, 111) * 0.01f;
 													this.netUpdate = true;
 												}
-											}
-											if (this.type == 360)
-											{
-												Lighting.AddLight((int)base.Center.X / 16, (int)base.Center.Y / 16, 0.1f, 0.2f, 0.7f);
 											}
 											float single436 = 0.3f;
 											if (this.type == 360)
@@ -24301,7 +24196,6 @@ namespace Terraria
 												this.position.X = this.position.X - (float)(this.width / 2);
 												this.position.Y = this.position.Y - (float)(this.height / 2);
 												this.gfxOffY = Main.npc[num637].gfxOffY;
-												Lighting.AddLight((int)base.Center.X / 16, (int)base.Center.Y / 16, 0.1f, 0.5f, 0.7f);
 												return;
 											}
 										}
@@ -24333,15 +24227,8 @@ namespace Terraria
 													this.dontTakeDamage = true;
 													this.frameCounter = 0;
 													this.frame.Y = 0;
-													float single460 = this.ai[1] / single458;
-													Vector2 vector2216 = new Vector2(0f, -30f);
-													double num638 = (double)(single460 * 1.5f * 6.28318548f);
-													vector24 = new Vector2();
-													vector2216 = vector2216.RotatedBy(num638, vector24) * new Vector2(1f, 0.4f);
-													Lighting.AddLight((int)base.Center.X / 16, (int)(base.Center.Y - 10f) / 16, 0.1f * single460, 0.5f * single460, 0.7f * single460);
 													return;
 												}
-												Lighting.AddLight((int)base.Center.X / 16, (int)(base.Center.Y - 10f) / 16, 0.1f, 0.5f, 0.7f);
 												this.dontTakeDamage = false;
 											}
 											if (this.ai[0] < 60f)
@@ -24558,7 +24445,6 @@ namespace Terraria
 												this.velocity = Vector2.Zero;
 												this.damage = (int)(80f * Main.damageMultiplier);
 												this.alpha = 255;
-												Lighting.AddLight((int)base.Center.X / 16, (int)base.Center.Y / 16, 0.2f, 0.7f, 1.1f);
 												this.ai[1] = this.ai[1] + 1f;
 												if (this.ai[1] >= 3f)
 												{
@@ -26576,7 +26462,6 @@ namespace Terraria
 													vector34 = skyBlue.ToVector3();
 												}
 												vector34 = vector34 * 0.65f;
-												Lighting.AddLight(base.Center, vector34);
 												return;
 											}
 											if (this.aiStyle != 81)
@@ -30890,7 +30775,6 @@ namespace Terraria
 													}
 													if (this.type == 437)
 													{
-														Lighting.AddLight(base.Center, 0.8f, 0.75f, 0.55f);
 														return;
 													}
 												}
@@ -58634,51 +58518,8 @@ namespace Terraria
 				{
 					NPC.travelNPC = true;
 				}
-				if (this.type >= 442 && this.type <= 448 || this.type == 539)
-				{
-				}
-				if (this.type >= 254 && this.type <= 261 || this.type == 160)
-				{
-					float single = (float)Main.rand.Next(28, 42) * 0.005f;
-					single = single + (float)(270 - Main.mouseTextColor) / 500f;
-					float single1 = 0.1f;
-					float single2 = 0.3f + single / 2f;
-					float single3 = 0.6f + single;
-					float single4 = 0.35f;
-					single1 = single1 * single4;
-					single2 = single2 * single4;
-					single3 = single3 * single4;
-					Lighting.AddLight((int)base.Center.X / 16, (int)base.Center.Y / 16, single1, single2, single3);
-				}
-				if (this.type == 209)
-				{
-					float single5 = (float)Main.rand.Next(28, 42) * 0.005f;
-					single5 = single5 + (float)(270 - Main.mouseTextColor) / 500f;
-					float single6 = 0.1f;
-					float single7 = 0.3f + single5 / 2f;
-					float single8 = 0.4f + single5 / 2f;
-					float single9 = 0.35f;
-					single6 = single6 * single9;
-					single7 = single7 * single9;
-					single8 = single8 * single9;
-					Lighting.AddLight((int)base.Center.X / 16, (int)base.Center.Y / 16, single6, single7, single8);
-					if (this.ai[0] == 12f)
-					{
-						Lighting.AddLight(base.Top, 0.3f, 0.1f, 0.1f);
-					}
-				}
-				if (this.type == 44)
-				{
-					Lighting.AddLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + 4f) / 16, 0.9f, 0.75f, 0.5f);
-				}
 				if (this.teleportTime > 0f)
 				{
-					if (this.teleportStyle == 0)
-					{
-					}
-					else if (this.teleportStyle == 4)
-					{
-					}
 					NPC nPC1 = this;
 					nPC1.teleportTime = nPC1.teleportTime - 0.005f;
 				}
@@ -60081,7 +59922,6 @@ namespace Terraria
 					for (int d = (int)this.oldPos.Length - 1; d > 0; d--)
 					{
 						this.oldPos[d] = this.oldPos[d - 1];
-						Lighting.AddLight((int)this.position.X / 16, (int)this.position.Y / 16, 0.3f, 0f, 0.2f);
 					}
 					this.oldPos[0] = this.position;
 				}

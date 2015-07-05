@@ -887,10 +887,10 @@ namespace Terraria
 				return false;
 			}
 			int num = 0;
-			int num2 = WorldGen.roomX1 - Main.zoneX / 2 / 16 - 1 - Lighting.offScreenTiles;
-			int num3 = WorldGen.roomX2 + Main.zoneX / 2 / 16 + 1 + Lighting.offScreenTiles;
-			int num4 = WorldGen.roomY1 - Main.zoneY / 2 / 16 - 1 - Lighting.offScreenTiles;
-			int num5 = WorldGen.roomY2 + Main.zoneY / 2 / 16 + 1 + Lighting.offScreenTiles;
+			int num2 = WorldGen.roomX1 - Main.zoneX/2/16 - 1;
+			int num3 = WorldGen.roomX2 + Main.zoneX/2/16 + 1;
+			int num4 = WorldGen.roomY1 - Main.zoneY/2/16 - 1;
+			int num5 = WorldGen.roomY2 + Main.zoneY/2/16 + 1;
 			if (num2 < 0)
 			{
 				num2 = 0;
@@ -1461,10 +1461,10 @@ namespace Terraria
 			WorldGen.hiScore = 0;
 			int num = 50;
 			int num2 = 0;
-			int num3 = WorldGen.roomX1 - Main.zoneX / 2 / 16 - 1 - Lighting.offScreenTiles;
-			int num4 = WorldGen.roomX2 + Main.zoneX / 2 / 16 + 1 + Lighting.offScreenTiles;
-			int num5 = WorldGen.roomY1 - Main.zoneY / 2 / 16 - 1 - Lighting.offScreenTiles;
-			int num6 = WorldGen.roomY2 + Main.zoneY / 2 / 16 + 1 + Lighting.offScreenTiles;
+			int num3 = WorldGen.roomX1 - Main.zoneX/2/16 - 1;
+			int num4 = WorldGen.roomX2 + Main.zoneX/2/16 + 1;
+			int num5 = WorldGen.roomY1 - Main.zoneY/2/16 - 1;
+			int num6 = WorldGen.roomY2 + Main.zoneY/2/16 + 1;
 			if (num3 < 0)
 			{
 				num3 = 0;

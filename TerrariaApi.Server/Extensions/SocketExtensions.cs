@@ -11,8 +11,7 @@ namespace TerrariaApi.Server.Extensions
 	{
 		public static bool SocketConnected(this Socket s)
 		{
-			//bool isConnected = false;
-			//isConnected = !((s.Poll(1000, SelectMode.SelectRead) && (s.Available == 0)) || !s.Connected);
+			//bool isConnected = !((s.Poll(1000, SelectMode.SelectRead) && (s.Available == 0)) || !s.Connected);
 			//sw.Stop();
 
 

@@ -91,19 +91,29 @@ namespace Terraria.Net.Sockets
 
 			//if (((ISocket)this).IsConnected() == true)
 			//{
-			try
-			{
-				this._connection.GetStream().EndWrite(result);
-			}
-			catch (Exception ex)
-			{
-				//write failed
-			}
-			finally
-			{
+				try
+				{
+					this._connection.GetStream().EndWrite(result);
+				}
+				catch (Exception ex)
+				{
+<<<<<<< HEAD
+
+				}
 				asyncState.Item1(asyncState.Item2);
 			}
-
+			else
+			{
+				lock (_connection)
+=======
+						//write failed
+				}
+				finally
+>>>>>>> lighting-kill
+				{
+					asyncState.Item1(asyncState.Item2);
+				}
+				
 			//}
 			//else
 			//{
@@ -122,19 +132,45 @@ namespace Terraria.Net.Sockets
 
 		void Terraria.Net.Sockets.ISocket.AsyncSend(byte[] data, int offset, int size, SocketSendCallback callback, object state)
 		{
-			if (((ISocket)this).IsConnected() == false)
-			{
-				return;
-			}
+			//lock (_connection)
+			//{
+				if (((ISocket)this).IsConnected() == false)
+				{
+					return;
+				}
+				
+				try 
+				{
+					//this._connection.GetStream().Write(data, 0, size);
+					//callback(null);
+					this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));	
+				}
+				catch (Exception ex)
+				{
+					//Write failed
+				}
+				
+				//this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));	
+			//}
 
+			//this._connection.GetStream().Write(data, 0, size);
+			//callback(null);
+<<<<<<< HEAD
 			try
 			{
 				this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));
 			}
-			catch (Exception ex)
+			catch
 			{
-				//Write failed
+				lock (_connection)
+				{
+					this._connectionDisposed = true;
+					((ISocket)this).Close();
+				}
 			}
+=======
+			//this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));
+>>>>>>> lighting-kill
 		}
 
 		void Terraria.Net.Sockets.ISocket.Close()
@@ -180,7 +216,7 @@ namespace Terraria.Net.Sockets
 			{
 				if (this._connectionDisposed == false)
 				{
-
+				
 
 					return this._connection.Client.SocketConnected();
 				}
@@ -190,6 +226,11 @@ namespace Terraria.Net.Sockets
 
 
 			return false;
+			//if (this._connectionDisposed == true || this._connection == null || this._connection.Client == null || _connection.Client.SocketConnected() == false)
+			//{
+			//	return false;
+			//}
+			//return this._connection.Connected;
 		}
 
 		bool Terraria.Net.Sockets.ISocket.IsDataAvailable()
