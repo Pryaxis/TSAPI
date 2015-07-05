@@ -351,7 +351,7 @@ namespace Terraria
 							writer.Write((byte)number5);
 							break;
 						case 18:
-							writer.Write(Main.dayTime ? 1 : 0);
+							writer.Write((byte)(Main.dayTime ? 1 : 0));
 							writer.Write((int)Main.time);
 							writer.Write(Main.sunModY);
 							writer.Write(Main.moonModY);
