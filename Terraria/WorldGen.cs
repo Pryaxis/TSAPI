@@ -28957,6 +28957,10 @@ namespace Terraria
 				{
 					for (int l = -1; l < 1; l++)
 					{
+						if (Main.tile[x + k, y + l] == null)
+						{
+							Main.tile[x + k, y + l] = new Tile();
+						}
 						int num2 = k * 18 + num;
 						int num3 = (l + 1) * 18;
 						Main.tile[x + k, y + l].active(true);
