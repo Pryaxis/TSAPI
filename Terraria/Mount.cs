@@ -542,20 +542,6 @@ namespace Terraria
 					{
 						vector2.X = mountedPlayer.position.X + (float)(mountedPlayer.width / 2);
 						vector2.Y = mountedPlayer.position.Y + (float)mountedPlayer.height;
-						int num2 = (this._frameExtra - 6) * 2;
-						for (int i = 0; i < 2; i++)
-						{
-							y.Y = vector2.Y + Mount.scutlixEyePositions[num2 + i].Y;
-							if (mountedPlayer.direction != -1)
-							{
-								y.X = vector2.X + Mount.scutlixEyePositions[num2 + i].X + (float)this._data.xOffset;
-							}
-							else
-							{
-								y.X = vector2.X - Mount.scutlixEyePositions[num2 + i].X - (float)this._data.xOffset;
-							}
-							Lighting.AddLight((int)(y.X / 16f), (int)(y.Y / 16f), 1f * abilityCharge, 0f, 0f);
-						}
 					}
 					if (this._frameExtra != num)
 					{
@@ -904,8 +890,6 @@ namespace Terraria
 					x = -0.95f;
 				}
 				float single5 = 0.7853982f * x / 2f;
-				float single6 = Math.Abs(2f - (float)this._frame / 2f) / 2f;
-				Lighting.AddLight((int)(mountedPlayer.position.X + (float)(mountedPlayer.width / 2)) / 16, (int)(mountedPlayer.position.Y + (float)(mountedPlayer.height / 2)) / 16, 0.4f, 0.2f * single6, 0f);
 				mountedPlayer.fullRotation = single5;
 			}
 			else if (this._type == 8)
@@ -1910,12 +1894,6 @@ namespace Terraria
 					}
 					if (Main.netMode != 2)
 					{
-						vector3 = vector3 * single3;
-						Lighting.AddLight(mountedPlayer.Center, vector3.X, vector3.Y, vector3.Z);
-						Lighting.AddLight(mountedPlayer.Top, vector3.X, vector3.Y, vector3.Z);
-						Lighting.AddLight(mountedPlayer.Bottom, vector3.X, vector3.Y, vector3.Z);
-						Lighting.AddLight(mountedPlayer.Left, vector3.X, vector3.Y, vector3.Z);
-						Lighting.AddLight(mountedPlayer.Right, vector3.X, vector3.Y, vector3.Z);
 						float single4 = -24f;
 						if (mountedPlayer.direction != num)
 						{
@@ -1978,17 +1956,6 @@ namespace Terraria
 				{
 					if (mountedPlayer.MountFishronSpecial)
 					{
-						Vector3 vector31 = Colors.CurrentLiquidColor.ToVector3();
-						vector31 = vector31 * 0.4f;
-						Point tileCoordinates = ((mountedPlayer.Center + ((Vector2.UnitX * (float)mountedPlayer.direction) * 20f)) + (mountedPlayer.velocity * 10f)).ToTileCoordinates();
-						if (WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y))
-						{
-							Lighting.AddLight(mountedPlayer.Center + ((Vector2.UnitX * (float)mountedPlayer.direction) * 20f), vector31.X, vector31.Y, vector31.Z);
-						}
-						else
-						{
-							Lighting.AddLight(tileCoordinates.X, tileCoordinates.Y, vector31.X, vector31.Y, vector31.Z);
-						}
 						Player player1 = mountedPlayer;
 						player1.meleeDamage = player1.meleeDamage + 0.15f;
 						Player player2 = mountedPlayer;
@@ -2030,11 +1997,6 @@ namespace Terraria
 			if (state != 0)
 			{
 				this._idleTime = 0;
-			}
-			if (this._data.emitsLight)
-			{
-				Point tileCoordinates = mountedPlayer.Center.ToTileCoordinates();
-				Lighting.AddLight(tileCoordinates.X, tileCoordinates.Y, this._data.lightColor.X, this._data.lightColor.Y, this._data.lightColor.Z);
 			}
 			switch (this._type)
 			{

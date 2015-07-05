@@ -22,36 +22,6 @@ namespace Terraria
 			DelegateMethods.i_1 = 0;
 		}
 
-		public static bool CastLight(int x, int y)
-		{
-			if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY)
-			{
-				return false;
-			}
-			if (Main.tile[x, y] == null)
-			{
-				return false;
-			}
-			Lighting.AddLight(x, y, DelegateMethods.v3_1.X, DelegateMethods.v3_1.Y, DelegateMethods.v3_1.Z);
-			return true;
-		}
-
-		public static bool CastLightOpen(int x, int y)
-		{
-			if (x < 0 || x >= Main.maxTilesX || y < 0 || y >= Main.maxTilesY)
-			{
-				return false;
-			}
-			if (Main.tile[x, y] == null)
-			{
-				return false;
-			}
-			if (!Main.tile[x, y].active() || Main.tile[x, y].inActive() || Main.tileSolidTop[Main.tile[x, y].type] || !Main.tileSolid[Main.tile[x, y].type])
-			{
-				Lighting.AddLight(x, y, DelegateMethods.v3_1.X, DelegateMethods.v3_1.Y, DelegateMethods.v3_1.Z);
-			}
-			return true;
-		}
 
 		public static int CompareYReverse(Point a, Point b)
 		{

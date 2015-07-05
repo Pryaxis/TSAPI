@@ -82,30 +82,30 @@ namespace Terraria.Net.Sockets
 		{
 			Tuple<SocketSendCallback, object> asyncState = (Tuple<SocketSendCallback, object>)result.AsyncState;
 
-			if (((ISocket)this).IsConnected() == true)
-			{
+			//if (((ISocket)this).IsConnected() == true)
+			//{
 				try
 				{
 					this._connection.GetStream().EndWrite(result);
 				}
-				catch (SocketException ex)
+				catch (Exception ex)
 				{
-					//Write failed
+						//write failed
 				}
-                catch (System.IO.IOException ioe)
-                {
-                    //write failed
-                }
-				asyncState.Item1(asyncState.Item2);
-			}
-			else
-			{
-				lock (_connection)
+				finally
 				{
-					this._connectionDisposed = true;
-					((ISocket)this).Close();
+					asyncState.Item1(asyncState.Item2);
 				}
-			}
+				
+			//}
+			//else
+			//{
+			//	lock (_connection)
+			//	{
+			//		this._connectionDisposed = true;
+			//		((ISocket)this).Close();
+			//	}
+			//}
 		}
 
 		void Terraria.Net.Sockets.ISocket.AsyncReceive(byte[] data, int offset, int size, SocketReceiveCallback callback, object state)
@@ -115,14 +115,30 @@ namespace Terraria.Net.Sockets
 
 		void Terraria.Net.Sockets.ISocket.AsyncSend(byte[] data, int offset, int size, SocketSendCallback callback, object state)
 		{
-			if (((ISocket)this).IsConnected() == false)
-			{
-				return;
-			}
+			//lock (_connection)
+			//{
+				if (((ISocket)this).IsConnected() == false)
+				{
+					return;
+				}
+				
+				try 
+				{
+					//this._connection.GetStream().Write(data, 0, size);
+					//callback(null);
+					this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));	
+				}
+				catch (Exception ex)
+				{
+					//Write failed
+				}
+				
+				//this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));	
+			//}
 
 			//this._connection.GetStream().Write(data, 0, size);
 			//callback(null);
-			this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));
+			//this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));
 		}
 
 		void Terraria.Net.Sockets.ISocket.Close()

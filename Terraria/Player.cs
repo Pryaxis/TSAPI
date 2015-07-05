@@ -5073,11 +5073,6 @@ namespace Terraria
 			return playerFileDatum;
 		}
 
-		public Color GetHairColor(bool useLighting = true)
-		{
-			Color color = Lighting.GetColor((int)((double)this.position.X + (double)this.width * 0.5) / 16, (int)(((double)this.position.Y + (double)this.height * 0.25) / 16));
-			return color;
-		}
 
 		public Color GetImmuneAlpha(Color newColor, float alphaReduction)
 		{
@@ -9821,49 +9816,6 @@ namespace Terraria
 				}
 				if (!flag16)
 				{
-					if (item.type >= 198 && item.type <= 203)
-					{
-						float single99 = 0.5f;
-						float single100 = 0.5f;
-						float single101 = 0.5f;
-						if (item.type == 198)
-						{
-							single99 = single99 * 0.1f;
-							single100 = single100 * 0.5f;
-							single101 = single101 * 1.2f;
-						}
-						else if (item.type == 199)
-						{
-							single99 = single99 * 1f;
-							single100 = single100 * 0.2f;
-							single101 = single101 * 0.1f;
-						}
-						else if (item.type == 200)
-						{
-							single99 = single99 * 0.1f;
-							single100 = single100 * 1f;
-							single101 = single101 * 0.2f;
-						}
-						else if (item.type == 201)
-						{
-							single99 = single99 * 0.8f;
-							single100 = single100 * 0.1f;
-							single101 = single101 * 1f;
-						}
-						else if (item.type == 202)
-						{
-							single99 = single99 * 0.8f;
-							single100 = single100 * 0.9f;
-							single101 = single101 * 1f;
-						}
-						else if (item.type == 203)
-						{
-							single99 = single99 * 0.9f;
-							single100 = single100 * 0.9f;
-							single101 = single101 * 0.1f;
-						}
-						Lighting.AddLight((int)((this.itemLocation.X + 6f + this.velocity.X) / 16f), (int)((this.itemLocation.Y - 14f) / 16f), single99, single100, single101);
-					}
 					if (Main.myPlayer == i && (item.type == 1991 || item.type == 3183))
 					{
 						for (int n2 = 0; n2 < 200; n2++)
@@ -16307,11 +16259,6 @@ namespace Terraria
 			if ((this.body == 68 && this.legs == 57 && this.head == 106 || this.body == 74 && this.legs == 63 && this.head == 106) && Main.rand.Next(10) == 0)
 			{
 			}
-			if (this.wings == 27)
-			{
-				float single = 0.4f * this.stealth;
-				Lighting.AddLight((int)base.Center.X / 16, (int)base.Center.Y / 16, single, single * 0.9f, single * 0.2f);
-			}
 			if (this.head == 5 && this.body == 5 && this.legs == 5)
 			{
 				this.socialShadow = true;
@@ -21277,7 +21224,6 @@ namespace Terraria
 				if (this.whoAmI == Main.myPlayer)
 				{
 					Main.BlackFadeIn = 255;
-					Lighting.BlackOut();
 					Main.screenLastPosition = Main.screenPosition;
 					Main.screenPosition.X = this.position.X + (float)(this.width / 2) - (float)(Main.screenWidth / 2);
 					Main.screenPosition.Y = this.position.Y + (float)(this.height / 2) - (float)(Main.screenHeight / 2);
@@ -21776,14 +21722,6 @@ namespace Terraria
 					this.position.Y = this.position.Y + (float)this.height;
 					this.height = 42 + this.mount.HeightBoost;
 					this.position.Y = this.position.Y - (float)this.height;
-					if (this.mount.Type == 0)
-					{
-						int x = (int)(this.position.X + (float)(this.width / 2)) / 16;
-						int y = (int)(this.position.Y + (float)(this.height / 2) - 14f) / 16;
-						Lighting.AddLight(x, y, 0.5f, 0.2f, 0.05f);
-						Lighting.AddLight(x + this.direction, y, 0.5f, 0.2f, 0.05f);
-						Lighting.AddLight(x + this.direction * 2, y, 0.5f, 0.2f, 0.05f);
-					}
 				}
 				Main.numPlayers = Main.numPlayers + 1;
 				this.outOfRange = false;
@@ -22513,66 +22451,6 @@ namespace Terraria
 							break;
 						}
 					}
-				}
-				if (single4 != 0f || single5 != 0f || single6 != 0f)
-				{
-					float single13 = 1f;
-					if (single4 == single7 && single5 == single8 && single6 == single9)
-					{
-						single13 = single13 + 0.5f;
-					}
-					if (single4 == single10 && single5 == single11 && single6 == single12)
-					{
-						single13 = single13 + 0.5f;
-					}
-					Vector2 vector22 = new Vector2((float)(this.width / 2 + 8 * this.direction), 2f);
-					if (this.fullRotation != 0f)
-					{
-						vector22 = vector22.RotatedBy((double)this.fullRotation, this.fullRotationOrigin);
-					}
-					int x4 = (int)(this.position.X + vector22.X) / 16;
-					int y6 = (int)(this.position.Y + vector22.Y) / 16;
-					Lighting.AddLight(x4, y6, single4 * single13, single5 * single13, single6 * single13);
-				}
-				if (single7 != 0f || single8 != 0f || single9 != 0f)
-				{
-					float single14 = 1f;
-					if (single7 == single4 && single8 == single5 && single9 == single6)
-					{
-						single14 = single14 + 0.5f;
-					}
-					if (single7 == single10 && single8 == single11 && single9 == single12)
-					{
-						single14 = single14 + 0.5f;
-					}
-					Vector2 vector23 = new Vector2((float)(this.width / 2 + 8), (float)(this.height / 2));
-					if (this.fullRotation != 0f)
-					{
-						vector23 = vector23.RotatedBy((double)this.fullRotation, this.fullRotationOrigin);
-					}
-					int x5 = (int)(this.position.X + vector23.X) / 16;
-					int y7 = (int)(this.position.Y + vector23.Y) / 16;
-					Lighting.AddLight(x5, y7, single7 * single14, single8 * single14, single9 * single14);
-				}
-				if (single10 != 0f || single11 != 0f || single12 != 0f)
-				{
-					float single15 = 1f;
-					if (single10 == single7 && single11 == single8 && single12 == single9)
-					{
-						single15 = single15 + 0.5f;
-					}
-					if (single10 == single4 && single11 == single5 && single12 == single6)
-					{
-						single15 = single15 + 0.5f;
-					}
-					Vector2 vector24 = new Vector2((float)(this.width / 2 + 8 * this.direction), (float)this.height * 0.75f);
-					if (this.fullRotation != 0f)
-					{
-						vector24 = vector24.RotatedBy((double)this.fullRotation, this.fullRotationOrigin);
-					}
-					int x6 = (int)(this.position.X + vector24.X) / 16;
-					int y8 = (int)(this.position.Y + vector24.Y) / 16;
-					Lighting.AddLight(x6, y8, single10 * single15, single11 * single15, single12 * single15);
 				}
 			}
 			this.UpdateArmorSets(i);
@@ -23770,13 +23648,6 @@ namespace Terraria
 						else if (!this.controlJump || this.velocity.Y == 0f)
 						{
 							this.wingFrame = 3;
-						}
-					}
-					else if (this.wings == 28)
-					{
-						if (this.velocity.Y != 0f)
-						{
-							Lighting.AddLight(base.Bottom, 0.3f, 0.1f, 0.4f);
 						}
 					}
 					else if (this.wings == 22)
@@ -27851,10 +27722,6 @@ namespace Terraria
 					{
 						this.invis = true;
 					}
-					else if (this.buffType[j] == 11)
-					{
-						Lighting.AddLight((int)(this.position.X + (float)(this.width / 2)) / 16, (int)(this.position.Y + (float)(this.height / 2)) / 16, 0.8f, 0.95f, 1f);
-					}
 					else if (this.buffType[j] == 12)
 					{
 						this.nightVision = true;
@@ -28040,7 +27907,6 @@ namespace Terraria
 					else if (this.buffType[j] == 116)
 					{
 						this.inferno = true;
-						Lighting.AddLight((int)(base.Center.X / 16f), (int)(base.Center.Y / 16f), 0.65f, 0.4f, 0.1f);
 						int num1 = 24;
 						float single = 200f;
 						bool flag = this.infernoCounter % 60 == 0;
@@ -28131,7 +27997,6 @@ namespace Terraria
 					else if (this.buffType[j] == 144)
 					{
 						this.electrified = true;
-						Lighting.AddLight((int)base.Center.X / 16, (int)base.Center.Y / 16, 0.3f, 0.8f, 1.1f);
 					}
 					else if (this.buffType[j] == 94)
 					{
@@ -28360,7 +28225,6 @@ namespace Terraria
 						}
 						else
 						{
-							Lighting.AddLight((int)(base.Center.X / 16f), (int)(base.Center.Y / 16f), 0.1f, 0.2f, 0.45f);
 							this.iceBarrier = true;
 							Player player40 = this;
 							player40.endurance = player40.endurance + 0.25f;
@@ -31117,10 +30981,6 @@ namespace Terraria
 						Player player302 = this;
 						player302.rangedDamage = player302.rangedDamage + 0.1f;
 					}
-					if (this.armor[k].type == 1303 && this.wet)
-					{
-						Lighting.AddLight((int)base.Center.X / 16, (int)base.Center.Y / 16, 0.9f, 0.2f, 0.6f);
-					}
 					if (this.armor[k].type == 1301)
 					{
 						Player player303 = this;
@@ -31437,10 +31297,6 @@ namespace Terraria
 					{
 						this.accFlipper = true;
 						this.accDivingHelm = true;
-						if (this.wet)
-						{
-							Lighting.AddLight((int)base.Center.X / 16, (int)base.Center.Y / 16, 0.9f, 0.2f, 0.6f);
-						}
 					}
 					if (this.armor[k].type == 1861)
 					{
@@ -31448,10 +31304,6 @@ namespace Terraria
 						this.accFlipper = true;
 						this.accDivingHelm = true;
 						this.iceSkate = true;
-						if (this.wet)
-						{
-							Lighting.AddLight((int)base.Center.X / 16, (int)base.Center.Y / 16, 0.2f, 0.8f, 0.9f);
-						}
 					}
 					if (this.armor[k].type == 2214)
 					{
@@ -33245,14 +33097,6 @@ namespace Terraria
 			{
 				Color rgb = Main.HslToRgb(Main.RgbToHsl(this.eyeColor).X, 1f, 0.5f);
 				DelegateMethods.v3_1 = (rgb.ToVector3() * 0.5f) * single;
-				if (this.velocity == Vector2.Zero)
-				{
-					Terraria.Utils.PlotTileLine(base.Left, base.Right, 4f, new Terraria.Utils.PerLinePoint(DelegateMethods.CastLightOpen));
-				}
-				else
-				{
-					Terraria.Utils.PlotTileLine(base.Center, base.Center + (this.velocity * 2f), 4f, new Terraria.Utils.PerLinePoint(DelegateMethods.CastLightOpen));
-				}
 			}
 			int num1 = (int)Vector2.Distance(vector22, vector23) / 3 + 1;
 			if (Vector2.Distance(vector22, vector23) % 3f != 0f)

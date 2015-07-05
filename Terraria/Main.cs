@@ -8685,7 +8685,6 @@ namespace Terraria
 				Main.liquidBuffer[j1] = new LiquidBuffer();
 			}
 			this.waterfallManager = new WaterfallManager();
-			Lighting.LightingThreads = Environment.ProcessorCount - 1;
 			this.shop[0] = new Chest(false);
 			Chest.SetupTravelShop();
 			for (int k1 = 1; k1 < Main.numShops; k1++)
@@ -9859,7 +9858,7 @@ namespace Terraria
 								if (num >= 30)
 								{
 									Main.cTorch = binaryReader.ReadString();
-									Lighting.lightMode = binaryReader.ReadByte();
+									binaryReader.ReadByte();
 									Main.qaStyle = binaryReader.ReadByte();
 								}
 								if (num >= 37)
@@ -9882,11 +9881,7 @@ namespace Terraria
 								}
 								if (num >= 89)
 								{
-									Lighting.LightingThreads = binaryReader.ReadInt32();
-									if (Lighting.LightingThreads >= Environment.ProcessorCount)
-									{
-										Lighting.LightingThreads = Environment.ProcessorCount - 1;
-									}
+									binaryReader.ReadInt32();
 								}
 								if (num >= 100)
 								{
@@ -10019,8 +10014,6 @@ namespace Terraria
 			Main.Configuration.Get<int>("GraphicsQuality", ref Main.qaStyle);
 			Main.Configuration.Get<bool>("BackgroundEnabled", ref Main.owBack);
 			Main.Configuration.Get<bool>("FrameSkip", ref Main.fixedTiming);
-			Main.Configuration.Get<int>("LightingMode", ref Lighting.lightMode);
-			Main.Configuration.Get<int>("LightingThreads", ref Lighting.LightingThreads);
 			Main.Configuration.Get<float>("Parallax", ref Main.caveParallax);
 			Main.Configuration.Get<bool>("ShowItemText", ref Main.showItemText);
 			Main.Configuration.Get<bool>("UseSmartCursorForCommonBlocks", ref Player.SmartCursorSettings.SmartBlocksEnabled);
@@ -10312,8 +10305,6 @@ namespace Terraria
 			Main.Configuration.Put("GraphicsQuality", Main.qaStyle);
 			Main.Configuration.Put("BackgroundEnabled", Main.owBack);
 			Main.Configuration.Put("FrameSkip", Main.fixedTiming);
-			Main.Configuration.Put("LightingMode", Lighting.lightMode);
-			Main.Configuration.Put("LightingThreads", Lighting.LightingThreads);
 			Main.Configuration.Put("MouseColorR", Main.mouseColor.R);
 			Main.Configuration.Put("MouseColorG", Main.mouseColor.G);
 			Main.Configuration.Put("MouseColorB", Main.mouseColor.B);
@@ -11598,26 +11589,6 @@ namespace Terraria
 				}
 				Liquid.maxLiquid = (int)(2500f + 2500f * Main.gfxQuality);
 				Liquid.cycles = (int)(17f - 10f * Main.gfxQuality);
-				if ((double)Main.gfxQuality < 0.2)
-				{
-					Lighting.maxRenderCount = 8;
-				}
-				else if ((double)Main.gfxQuality < 0.4)
-				{
-					Lighting.maxRenderCount = 7;
-				}
-				else if ((double)Main.gfxQuality < 0.6)
-				{
-					Lighting.maxRenderCount = 6;
-				}
-				else if ((double)Main.gfxQuality >= 0.8)
-				{
-					Lighting.maxRenderCount = 4;
-				}
-				else
-				{
-					Lighting.maxRenderCount = 5;
-				}
 				if (Liquid.quickSettle)
 				{
 					Liquid.maxLiquid = Liquid.resLiquid;
