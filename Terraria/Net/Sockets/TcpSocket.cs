@@ -70,8 +70,14 @@ namespace Terraria.Net.Sockets
 					{
 						if (this._connection.Client.SocketConnected())
 						{
-							Tuple<SocketReceiveCallback, object> asyncState = (Tuple<SocketReceiveCallback, object>)result.AsyncState;
-							asyncState.Item1(asyncState.Item2, this._connection.GetStream().EndRead(result));
+							try 
+							{
+								Tuple<SocketReceiveCallback, object> asyncState = (Tuple<SocketReceiveCallback, object>)result.AsyncState;
+								asyncState.Item1(asyncState.Item2, this._connection.GetStream().EndRead(result));
+							} catch (Exception ex)
+							{
+								
+							}
 						}
 					}
 				}
@@ -88,14 +94,10 @@ namespace Terraria.Net.Sockets
 				{
 					this._connection.GetStream().EndWrite(result);
 				}
-				catch (SocketException ex)
+				catch (Exception ex)
 				{
-					//Write failed
+					
 				}
-                catch (System.IO.IOException ioe)
-                {
-                    //write failed
-                }
 				asyncState.Item1(asyncState.Item2);
 			}
 			else
