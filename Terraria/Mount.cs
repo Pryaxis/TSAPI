@@ -1779,27 +1779,28 @@ namespace Terraria
 
 		public void UpdateDrill(Player mountedPlayer, bool controlUp, bool controlDown)
 		{
-			Mount.DrillMountData drillMountDatum = (Mount.DrillMountData)this._mountSpecificData;
-			for (int i = 0; i < (int)drillMountDatum.beams.Length; i++)
-			{
-				Mount.DrillBeam negativeOne = drillMountDatum.beams[i];
-				if (negativeOne.cooldown > 1)
-				{
-					Mount.DrillBeam drillBeam = negativeOne;
-					drillBeam.cooldown = drillBeam.cooldown - 1;
-				}
-				else if (negativeOne.cooldown == 1)
-				{
-					negativeOne.cooldown = 0;
-					negativeOne.curTileTarget = Point16.NegativeOne;
-				}
-			}
-			drillMountDatum.diodeRotation = drillMountDatum.diodeRotation * 0.85f + 0.15f * drillMountDatum.diodeRotationTarget;
-			if (drillMountDatum.beamCooldown > 0)
-			{
-				Mount.DrillMountData drillMountDatum1 = drillMountDatum;
-				drillMountDatum1.beamCooldown = drillMountDatum1.beamCooldown - 1;
-			}
+			// Serverside drill code causes the world to be permanently changed whilst on the DCU
+//			Mount.DrillMountData drillMountDatum = (Mount.DrillMountData)this._mountSpecificData;
+//			for (int i = 0; i < (int)drillMountDatum.beams.Length; i++)
+//			{
+//				Mount.DrillBeam negativeOne = drillMountDatum.beams[i];
+//				if (negativeOne.cooldown > 1)
+//				{
+//					Mount.DrillBeam drillBeam = negativeOne;
+//					drillBeam.cooldown = drillBeam.cooldown - 1;
+//				}
+//				else if (negativeOne.cooldown == 1)
+//				{
+//					negativeOne.cooldown = 0;
+//					negativeOne.curTileTarget = Point16.NegativeOne;
+//				}
+//			}
+//			drillMountDatum.diodeRotation = drillMountDatum.diodeRotation * 0.85f + 0.15f * drillMountDatum.diodeRotationTarget;
+//			if (drillMountDatum.beamCooldown > 0)
+//			{
+//				Mount.DrillMountData drillMountDatum1 = drillMountDatum;
+//				drillMountDatum1.beamCooldown = drillMountDatum1.beamCooldown - 1;
+//			}
 		}
 
 		public void UpdateEffects(Player mountedPlayer)
