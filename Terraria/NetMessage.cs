@@ -2184,11 +2184,6 @@ namespace Terraria
 					if (!Netplay.Clients[i].IsAnnouncementCompleted)
 					{
 						Netplay.Clients[i].IsAnnouncementCompleted = true;
-						NetMessage.SendData(25, -1, i, Main.player[i].name + " " + Lang.mp[19], 255, 255f, 240f, 20f, 0, 0, 0);
-						if (Main.dedServ)
-						{
-							Console.WriteLine(Main.player[i].name + " " + Lang.mp[19]);
-						}
 					}
 				}
 				else
@@ -2198,11 +2193,6 @@ namespace Terraria
 					if (Netplay.Clients[i].IsAnnouncementCompleted)
 					{
 						Netplay.Clients[i].IsAnnouncementCompleted = false;
-						NetMessage.SendData(25, -1, i, Netplay.Clients[i].Name + " " + Lang.mp[20], 255, 255f, 240f, 20f, 0, 0, 0);
-						if (Main.dedServ)
-						{
-							Console.WriteLine(Netplay.Clients[i].Name + " " + Lang.mp[20]);
-						}
 						Netplay.Clients[i].Name = "Anonymous";
 					}
 				}
