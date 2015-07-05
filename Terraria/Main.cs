@@ -5578,49 +5578,6 @@ namespace Terraria
 #endif
 									}
 								}
-#if !MONO
-								flag2 = true;
-								while (flag2)
-								{
-									Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
-									Console.WriteLine("");
-									Console.Write("Automatically forward port? (y/n): ");
-									string str5 = Console.ReadLine();
-									try
-									{
-										if (str5 == "" || str5.ToLower() == "y" || str5.ToLower() == "yes")
-										{
-											Netplay.UseUPNP = true;
-											flag2 = false;
-										}
-										else if (str5.ToLower() == "n" || str5.ToLower() == "no")
-										{
-											Netplay.UseUPNP = false;
-											flag2 = false;
-										}
-									}
-									catch (Exception ex)
-									{
-#if DEBUG
-										Console.WriteLine(ex);
-										System.Diagnostics.Debugger.Break();
-
-#endif
-									}
-									try
-									{
-										Console.Clear();
-									}
-									catch (Exception ex)
-									{
-#if DEBUG
-										Console.WriteLine(ex);
-										System.Diagnostics.Debugger.Break();
-
-#endif
-									}
-								}
-#endif
 								Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
 								Console.WriteLine("");
 								Console.Write("Server password (press enter for none): ");
@@ -9219,10 +9176,6 @@ namespace Terraria
 							if (str1.Length > 7 && str1.Substring(0, 7).ToLower() == "secure=" && str1.Substring(7) == "1")
 							{
 								Netplay.spamCheck = true;
-							}
-							if (str1.Length > 5 && str1.Substring(0, 5).ToLower() == "upnp=" && str1.Substring(5) != "1")
-							{
-								Netplay.UseUPNP = false;
 							}
 							if (str1.Length > 5 && str1.Substring(0, 10).ToLower() == "npcstream=")
 							{

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <ProjectGuid>{6877506E-ADC6-4142-98A6-79E4FA02855A}</ProjectGuid>
@@ -37,7 +37,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\Release\</OutputPath>
-    <DebugSymbols>false</DebugSymbols>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <WarningLevel>4</WarningLevel>
@@ -55,6 +54,8 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -64,6 +65,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mono|x86'">
     <OutputPath>bin\x86\Mono\</OutputPath>
@@ -74,6 +76,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mono|x64'">
     <OutputPath>bin\x64\Mono\</OutputPath>
@@ -83,14 +86,15 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Terraria.Libraries.Steamworks.NET.Steamworks.NET">
-      <HintPath>.\TerrariaServerReferences\Terraria.Libraries.Steamworks.NET.Steamworks.NET.dll</HintPath>
+    <Reference Include="Steamworks.NET">
+      <HintPath>TerrariaServerReferences\Terraria.Libraries.Steamworks.NET.Steamworks.NET.dll</HintPath>
     </Reference>
-    <Reference Include="Terraria.Libraries.JSON.NET.Net40.Newtonsoft.Json">
-      <HintPath>.\TerrariaServerReferences\Terraria.Libraries.JSON.NET.Net40.Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>TerrariaServerReferences\Terraria.Libraries.JSON.NET.Net40.Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -147,10 +151,8 @@
     <Compile Include="TerrariaApi.Server\TerrariaPlugin.cs" />
     <Compile Include="Terraria\IStaticPortMapping.cs" />
     <Compile Include="Terraria\IStaticPortMappingCollection.cs" />
-    <Compile Include="Terraria\IUPnPNAT.cs" />
     <Compile Include="Terraria\StreamExt.cs" />
     <Compile Include="Terraria\StreamGenericExt.cs" />
-    <Compile Include="Terraria\UPnPNAT.cs" />
     <Compile Include="Terraria\World.Generation\GenerationProgress.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>

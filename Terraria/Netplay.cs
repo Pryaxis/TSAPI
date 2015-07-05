@@ -26,69 +26,12 @@ namespace Terraria
 		public static int ListenPort = 7777;
 		public static bool IsServerRunning = false;
 		public static bool IsListening = true;
-		public static bool UseUPNP = true;
 		public static bool disconnect = false;
 		public static bool spamCheck = false;
 		public static bool anyClients = false;
-#if !MONO
-		public static UPnPNAT upnpnat = (UPnPNAT)Activator.CreateInstance(Type.GetTypeFromCLSID(new Guid("AE1E00AA-3FD5-403C-8A27-2BBDC30CD0E1")));
-
-		public static IStaticPortMappingCollection mappings =
-			Netplay.upnpnat.StaticPortMappingCollection;
-#endif
-
-		public static string portForwardIP;
-		public static int portForwardPort;
-		public static bool portForwardOpen;
 		public static event Action OnDisconnect;
-		private static void OpenPort()
-		{
-			Netplay.portForwardIP = Netplay.GetLocalIPAddress();
-			Netplay.portForwardPort = Netplay.ListenPort;
-#if !MONO
-			if (Netplay.mappings != null)
-			{
-				foreach (IStaticPortMapping staticPortMapping in Netplay.mappings)
-				{
-					if (staticPortMapping.InternalPort == Netplay.portForwardPort && staticPortMapping.InternalClient == Netplay.portForwardIP && staticPortMapping.Protocol == "TCP")
-					{
-						Netplay.portForwardOpen = true;
-					}
-				}
-				if (!Netplay.portForwardOpen)
-				{
-					Netplay.mappings.Add(Netplay.portForwardPort, "TCP", Netplay.portForwardPort, Netplay.portForwardIP, true, "Terraria Server");
-					Netplay.portForwardOpen = true;
-				}
-			}
-#endif
-		}
-		public static void closePort()
-		{
-#if !MONO
-			if (Netplay.portForwardOpen)
-			{
-				Netplay.mappings.Remove(Netplay.portForwardPort, "TCP");
-			}
-#endif
-		}
-		public static string GetLocalIPAddress()
-		{
-			string result = "";
-			IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
-			IPAddress[] addressList = hostEntry.AddressList;
-			for (int i = 0; i < addressList.Length; i++)
-			{
-				IPAddress iPAddress = addressList[i];
-				if (iPAddress.AddressFamily == AddressFamily.InterNetwork)
-				{
-					result = iPAddress.ToString();
-					break;
-				}
-			}
-			return result;
-		}
-		public static void ResetNetDiag()
+
+        public static void ResetNetDiag()
 		{
 			Main.rxMsg = 0;
 			Main.rxData = 0;
@@ -460,21 +403,6 @@ namespace Terraria
 				}
 				Main.statusText = "Server started";
 			}
-			if (Netplay.UseUPNP)
-			{
-				try
-				{
-					Netplay.OpenPort();
-				}
-				catch (Exception ex)
-				{
-#if DEBUG
-					Console.WriteLine(ex);
-					System.Diagnostics.Debugger.Break();
-
-#endif
-				}
-			}
 			int num = 0;
 			while (!Netplay.disconnect)
 			{
@@ -687,17 +615,6 @@ namespace Terraria
 				Netplay.IsServerRunning = true;
 			}
 			Netplay.StopListening();
-			try
-			{
-				Netplay.closePort();
-			}
-			catch
-			{
-				if (!Main.ignoreErrors)
-				{
-					throw;
-				}
-			}
 			for (int l = 0; l < 256; l++)
 			{
 				Netplay.Clients[l].Reset();

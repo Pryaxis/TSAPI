@@ -194,10 +194,6 @@ namespace Terraria
 						string str2 = args[num];
 						ProgramServer.Game.loadLib(str2);
 					}
-					if (args[num].ToLower() == "-noupnp")
-					{
-						Netplay.UseUPNP = false;
-					}
 					num++;
 				}
 				SocialAPI.Initialize(new SocialMode?(socialMode));
