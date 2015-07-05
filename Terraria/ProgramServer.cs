@@ -98,23 +98,6 @@ namespace Terraria
 				SocialMode socialMode = SocialMode.None;
 				while (num < (int)args.Length)
 				{
-					if (args[num].ToLower() == "-config")
-					{
-						num++;
-						ProgramServer.Game.LoadDedConfig(args[num]);
-					}
-					if (args[num].ToLower() == "-port")
-					{
-						num++;
-						
-						int port;
-						if (!Int32.TryParse(args[num], out port))
-						{
-							Console.WriteLine("Invalid port. Using 7777");
-							port = 7777;
-						}
-						Netplay.ListenPort = port;
-					}
 					if (args[num].ToLower() == "-players" || args[num].ToLower() == "-maxplayers")
 					{
 						num++;
@@ -142,12 +125,6 @@ namespace Terraria
 							lang = 1;
 						}
 						Lang.lang = lang;
-					}
-					if (args[num].ToLower() == "-world")
-					{
-						num++;
-						str = args[num];
-						flag = false;
 					}
 					if (args[num].ToLower() == "-steam")
 					{

@@ -5514,6 +5514,11 @@ namespace Terraria
 								flag2 = true;
 								while (flag2)
 								{
+									if (Netplay.ListenPort != 7777) //If the port has been changed by the API do not allow it to be changed.
+									{
+										flag2 = false;
+										break;
+									}
 									Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
 									Console.WriteLine("");
 									Console.Write("Server port (press enter for 7777): ");
