@@ -1233,8 +1233,6 @@ namespace Terraria
 
 		public static NPC[] npc;
 
-		public static Rain[] rain;
-
 		public static Projectile[] projectile;
 
 		public static CombatText[] combatText;
@@ -2255,7 +2253,6 @@ namespace Terraria
 			Main.item = new Item[401];
 			Main.itemLockoutTime = new int[401];
 			Main.npc = new NPC[201];
-			Main.rain = new Rain[Main.maxRain + 1];
 			Main.projectile = new Projectile[1001];
 			Main.combatText = new CombatText[100];
 			Main.itemText = new ItemText[20];
@@ -8473,10 +8470,6 @@ namespace Terraria
 			{
 				Main.projectile[a] = new Projectile();
 			}
-			for (int c = 0; c < Main.maxRain + 1; c++)
-			{
-				Main.rain[c] = new Rain();
-			}
 			for (int d = 0; d < 200; d++)
 			{
 				Main.cloud[d] = new Cloud();
@@ -11284,10 +11277,6 @@ namespace Terraria
 			if (Main.netMode == 2)
 			{
 				Main.cloudAlpha = Main.maxRaining;
-			}
-			if (Main.cloudAlpha > 0f)
-			{
-				Rain.MakeRain();
 			}
 			if (Main.netMode != 1)
 			{
