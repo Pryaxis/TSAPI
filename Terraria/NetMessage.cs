@@ -1928,30 +1928,32 @@ namespace Terraria
 			}
 		}
 		public static void RecieveBytes(byte[] bytes, int streamLength, int i = 256)
-		{
-			lock (NetMessage.buffer[i])
-			{
-				try
-				{
-					Buffer.BlockCopy(bytes, 0, NetMessage.buffer[i].readBuffer, NetMessage.buffer[i].totalData, streamLength);
-					NetMessage.buffer[i].totalData += streamLength;
-					NetMessage.buffer[i].checkBytes = true;
-				}
-				catch
-				{
-					if (Main.netMode == 1)
-					{
-						Main.menuMode = 15;
-						Main.statusText = "Bad header lead to a read buffer overflow.";
-						Netplay.disconnect = true;
-					}
-					else
-					{
-						Netplay.Clients[i].PendingTermination = true;
-					}
-				}
-			}
-		}
+        {
+			
+            try
+            {
+                lock (NetMessage.buffer[i])
+                {
+                    Buffer.BlockCopy(bytes, 0, NetMessage.buffer[i].readBuffer, NetMessage.buffer[i].totalData, streamLength);
+                    NetMessage.buffer[i].totalData += streamLength;
+                    NetMessage.buffer[i].checkBytes = true;
+                }
+            }
+            catch
+            {
+                if (Main.netMode == 1)
+                {
+                    Main.menuMode = 15;
+                    Main.statusText = "Bad header lead to a read buffer overflow.";
+                    Netplay.disconnect = true;
+                }
+                else
+                {
+                    Netplay.Clients[i].PendingTermination = true;
+                }
+            }
+			
+        }
 		public static void CheckBytes(int bufferIndex = 256)
 		{
 			lock (NetMessage.buffer[bufferIndex])

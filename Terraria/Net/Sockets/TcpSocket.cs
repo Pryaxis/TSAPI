@@ -92,6 +92,10 @@ namespace Terraria.Net.Sockets
 				{
 					//Write failed
 				}
+                catch (System.IO.IOException ioe)
+                {
+                    //write failed
+                }
 				asyncState.Item1(asyncState.Item2);
 			}
 			else
@@ -151,18 +155,19 @@ namespace Terraria.Net.Sockets
 
 		bool Terraria.Net.Sockets.ISocket.IsConnected()
 		{
+			/*
+ 			 * Note:  Double comparison here is intentional,
+ 			 * please do not remove.  -TW
+ 			 */ 	
 			if (this._connectionDisposed == false)
 			{
-				lock (_connection)
+				if (this._connectionDisposed == false)
 				{
-					if (this._connectionDisposed == false)
-					{
-						return !(this._connection == null || this._connection.Client == null ||
-						         _connection.Client.SocketConnected() == false);
-					}
-
-					return false;
+					return !(this._connection == null || this._connection.Client == null ||
+							 _connection.Client.SocketConnected() == false);
 				}
+
+				return false;
 			}
 
 
