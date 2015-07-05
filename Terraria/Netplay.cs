@@ -20,7 +20,7 @@ namespace Terraria
 		public static string ServerPassword = "";
 		public static RemoteClient[] Clients = new RemoteClient[256];
 		public static RemoteServer Connection = new RemoteServer();
-		public static IPAddress ServerIP;
+		public static IPAddress ServerIP = IPAddress.Any;
 		public static string ServerIPText = "";
 		public static ISocket TcpListener;
 		public static int ListenPort = 7777;
@@ -381,7 +381,6 @@ namespace Terraria
 				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
 			}
 			Main.myPlayer = 255;
-			Netplay.ServerIP = IPAddress.Any;
 			Main.menuMode = 14;
 			Main.statusText = "Starting server...";
 			Main.netMode = 2;
