@@ -32,13 +32,11 @@ namespace Terraria
 			if (!ServerApi.Hooks.InvokeNetSendData(ref msgType, ref remoteClient, ref ignoreClient, ref text, ref number,
 					ref number2, ref number3, ref number4, ref number5))
 			{
-				Stopwatch sw = new Stopwatch();
-				sw.Start();
 
 				//lock (NetMessage.buffer[num])
 				//{
 					//BinaryWriter writer = NetMessage.buffer[num].writer;
-					MemoryStream ms = new MemoryStream();
+					MemoryStream ms = new MemoryStream(16384);
 					BinaryWriter writer = new BinaryWriter(ms);
 					//if (writer == null)
 					//{
@@ -1382,7 +1380,6 @@ namespace Terraria
 					}
 				//}
 
-				sw.Stop();
 			}
 		}
 		public static int CompressTileBlock(int xStart, int yStart, short width, short height, byte[] buffer, int bufferStart)

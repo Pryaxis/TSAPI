@@ -341,10 +341,11 @@ namespace Terraria
 			if (num != -1)
 			{
 				Netplay.Clients[num].Socket = client;
-				Console.WriteLine(client.GetRemoteAddress() + " is connecting...");
+				Console.WriteLine(client.GetRemoteAddress() + " is connecting to slot {0}...", num);
 			}
 			if (Netplay.FindNextOpenClientSlot() == -1)
 			{
+				Console.WriteLine("Netplay: No more clients can connect!");
 				Netplay.StopListening();
 			}
 		}

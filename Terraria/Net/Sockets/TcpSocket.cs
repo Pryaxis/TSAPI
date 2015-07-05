@@ -70,13 +70,14 @@ namespace Terraria.Net.Sockets
 					{
 						if (this._connection.Client.SocketConnected())
 						{
-							try 
+							try
 							{
 								Tuple<SocketReceiveCallback, object> asyncState = (Tuple<SocketReceiveCallback, object>)result.AsyncState;
 								asyncState.Item1(asyncState.Item2, this._connection.GetStream().EndRead(result));
-							} catch (Exception ex)
+							}
+							catch (Exception ex)
 							{
-								
+
 							}
 						}
 					}
@@ -96,7 +97,7 @@ namespace Terraria.Net.Sockets
 				}
 				catch (Exception ex)
 				{
-					
+
 				}
 				asyncState.Item1(asyncState.Item2);
 			}
@@ -127,10 +128,14 @@ namespace Terraria.Net.Sockets
 			try
 			{
 				this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));
-			} 
+			}
 			catch
 			{
-				
+				lock (_connection)
+				{
+					this._connectionDisposed = true;
+					((ISocket)this).Close();
+				}
 			}
 		}
 
@@ -146,15 +151,15 @@ namespace Terraria.Net.Sockets
 
 		void Terraria.Net.Sockets.ISocket.Connect(RemoteAddress address)
 		{
-			
-				TcpAddress tcpAddress = (TcpAddress) address;
-				this._connection.Connect(tcpAddress.Address, tcpAddress.Port);
-				this._remoteAddress = address;
 
-				lock (_connection)
-				{
-					this._connectionDisposed = false;
-				}
+			TcpAddress tcpAddress = (TcpAddress)address;
+			this._connection.Connect(tcpAddress.Address, tcpAddress.Port);
+			this._remoteAddress = address;
+
+			lock (_connection)
+			{
+				this._connectionDisposed = false;
+			}
 		}
 
 		RemoteAddress Terraria.Net.Sockets.ISocket.GetRemoteAddress()
@@ -164,16 +169,22 @@ namespace Terraria.Net.Sockets
 
 		bool Terraria.Net.Sockets.ISocket.IsConnected()
 		{
+			if (this._connection == null || this._connection.Client == null)
+			{
+				return false;
+			}
+
 			/*
  			 * Note:  Double comparison here is intentional,
  			 * please do not remove.  -TW
- 			 */ 	
+ 			 */
 			if (this._connectionDisposed == false)
 			{
 				if (this._connectionDisposed == false)
 				{
-					return !(this._connection == null || this._connection.Client == null ||
-							 _connection.Client.SocketConnected() == false);
+				
+
+					return this._connection.Client.SocketConnected();
 				}
 
 				return false;
