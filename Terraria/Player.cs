@@ -2641,10 +2641,6 @@ namespace Terraria
 						this.breathCD = 0;
 						Player player2 = this;
 						player2.breath = player2.breath - 1;
-						if (this.breath == 0)
-						{
-							Main.PlaySound(23, -1, -1, 1);
-						}
 						if (this.breath <= 0)
 						{
 							this.lifeRegenTime = 0;
@@ -4112,7 +4108,6 @@ namespace Terraria
 			{
 				if (this.inventory[i].type > 0 && this.inventory[i].stack < this.inventory[i].maxStack && item.IsTheSameAs(this.inventory[i]))
 				{
-					Main.PlaySound(7, (int)this.position.X, (int)this.position.Y, 1);
 					if (item.stack + this.inventory[i].stack <= this.inventory[i].maxStack)
 					{
 						Item item1 = this.inventory[i];
@@ -4154,7 +4149,6 @@ namespace Terraria
 							ItemText.NewText(newItem, newItem.stack, false, false);
 						}
 						this.DoCoins(j);
-						Main.PlaySound(7, (int)this.position.X, (int)this.position.Y, 1);
 						if (plr == Main.myPlayer)
 						{
 							Recipe.FindRecipes();
@@ -5134,14 +5128,6 @@ namespace Terraria
 				}
 				if (this.inventory[num2].type > 0 && this.inventory[num2].stack < this.inventory[num2].maxStack && item.IsTheSameAs(this.inventory[num2]))
 				{
-					if (!flag)
-					{
-						Main.PlaySound(7, (int)this.position.X, (int)this.position.Y, 1);
-					}
-					else
-					{
-						Main.PlaySound(38, (int)this.position.X, (int)this.position.Y, 1);
-					}
 					if (item.stack + this.inventory[num2].stack <= this.inventory[num2].maxStack)
 					{
 						Item item1 = this.inventory[num2];
@@ -5185,14 +5171,6 @@ namespace Terraria
 							ItemText.NewText(newItem, newItem.stack, false, longText);
 						}
 						this.DoCoins(j);
-						if (!flag)
-						{
-							Main.PlaySound(7, (int)this.position.X, (int)this.position.Y, 1);
-						}
-						else
-						{
-							Main.PlaySound(38, (int)this.position.X, (int)this.position.Y, 1);
-						}
 						if (plr == Main.myPlayer)
 						{
 							Recipe.FindRecipes();
@@ -5214,14 +5192,6 @@ namespace Terraria
 							ItemText.NewText(newItem, newItem.stack, false, longText);
 						}
 						this.DoCoins(k);
-						if (!flag)
-						{
-							Main.PlaySound(7, (int)this.position.X, (int)this.position.Y, 1);
-						}
-						else
-						{
-							Main.PlaySound(38, (int)this.position.X, (int)this.position.Y, 1);
-						}
 						if (plr == Main.myPlayer)
 						{
 							Recipe.FindRecipes();
@@ -5243,14 +5213,6 @@ namespace Terraria
 							ItemText.NewText(newItem, newItem.stack, false, longText);
 						}
 						this.DoCoins(l);
-						if (!flag)
-						{
-							Main.PlaySound(7, (int)this.position.X, (int)this.position.Y, 1);
-						}
-						else
-						{
-							Main.PlaySound(38, (int)this.position.X, (int)this.position.Y, 1);
-						}
 						if (plr == Main.myPlayer)
 						{
 							Recipe.FindRecipes();
@@ -5301,7 +5263,6 @@ namespace Terraria
 						{
 							if (ItemID.Sets.NebulaPickup[Main.item[num].type])
 							{
-								Main.PlaySound(7, (int)this.position.X, (int)this.position.Y, 1);
 								int num2 = Main.item[num].buffType;
 								Main.item[num] = new Item();
 								if (Main.netMode != 1)
@@ -5316,7 +5277,6 @@ namespace Terraria
 							}
 							if (Main.item[num].type == 58 || Main.item[num].type == 1734 || Main.item[num].type == 1867)
 							{
-								Main.PlaySound(7, (int)this.position.X, (int)this.position.Y, 1);
 								Player player = this;
 								player.statLife = player.statLife + 20;
 								if (Main.myPlayer == this.whoAmI)
@@ -5335,7 +5295,6 @@ namespace Terraria
 							}
 							else if (Main.item[num].type == 184 || Main.item[num].type == 1735 || Main.item[num].type == 1868)
 							{
-								Main.PlaySound(7, (int)this.position.X, (int)this.position.Y, 1);
 								Player player1 = this;
 								player1.statMana = player1.statMana + 100;
 								if (Main.myPlayer == this.whoAmI)
@@ -5876,28 +5835,6 @@ namespace Terraria
 						this.velocity.X = this.velocity.X + this.runSlowdown;
 					}
 				}
-				if (this.velocity.X < -(this.accRunSpeed + this.maxRunSpeed) / 2f && this.velocity.Y == 0f && !this.mount.Active)
-				{
-					int num2 = 0;
-					if (this.gravDir == -1f)
-					{
-						num2 = num2 - this.height;
-					}
-					if (this.runSoundDelay == 0 && this.velocity.Y == 0f)
-					{
-						Main.PlaySound(17, (int)this.position.X, (int)this.position.Y, 1);
-						this.runSoundDelay = 9;
-					}
-					if (this.wings == 3)
-					{
-					}
-					else if (this.sailDash)
-					{
-					}
-					else if (!this.coldDash)
-					{
-					}
-				}
 			}
 			else if (this.controlRight && this.velocity.X < this.accRunSpeed && this.dashDelay >= 0)
 			{
@@ -5933,31 +5870,6 @@ namespace Terraria
 					else
 					{
 						this.velocity.X = this.velocity.X - this.runSlowdown;
-					}
-				}
-				if (this.velocity.X > (this.accRunSpeed + this.maxRunSpeed) / 2f && this.velocity.Y == 0f && !this.mount.Active)
-				{
-					int num9 = 0;
-					if (this.gravDir == -1f)
-					{
-						num9 = num9 - this.height;
-					}
-					if (this.runSoundDelay == 0 && this.velocity.Y == 0f)
-					{
-						Main.PlaySound(17, (int)this.position.X, (int)this.position.Y, 1);
-						this.runSoundDelay = 9;
-					}
-					if (this.wings == 3)
-					{
-					}
-					else if (this.sailDash)
-					{
-					}
-					else if (!this.coldDash)
-					{
-					}
-					else
-					{
 					}
 				}
 			}
@@ -6298,30 +6210,6 @@ namespace Terraria
 					this.velocity.X = 4.5f * (float)hitDirection;
 					this.velocity.Y = -3.5f;
 				}
-				if (this.stoned)
-				{
-					Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
-				}
-				else if (this.frostArmor)
-				{
-					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 27);
-				}
-				else if (this.wereWolf)
-				{
-					Main.PlaySound(3, (int)this.position.X, (int)this.position.Y, 6);
-				}
-				else if (this.boneArmor)
-				{
-					Main.PlaySound(3, (int)this.position.X, (int)this.position.Y, 2);
-				}
-				else if (this.Male)
-				{
-					Main.PlaySound(1, (int)this.position.X, (int)this.position.Y, 1);
-				}
-				else
-				{
-					Main.PlaySound(20, (int)this.position.X, (int)this.position.Y, 1);
-				}
 				if (this.statLife <= 0)
 				{
 					this.statLife = 0;
@@ -6435,10 +6323,6 @@ namespace Terraria
 					else
 					{
 						this.ApplyAnimation(item);
-						if (item.useSound > 0)
-						{
-							Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, item.useSound);
-						}
 					}
 				}
 			}
@@ -7172,10 +7056,6 @@ namespace Terraria
 					this.channel = item.channel;
 					this.attackCD = 0;
 					this.ApplyAnimation(item);
-					if (item.useSound > 0)
-					{
-						Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, item.useSound);
-					}
 				}
 				if (flag1 && this.whoAmI == Main.myPlayer && item.shoot >= 0 && item.shoot < 651 && (ProjectileID.Sets.LightPet[item.shoot] || Main.projPet[item.shoot]))
 				{
@@ -7640,14 +7520,6 @@ namespace Terraria
 			{
 				Player player6 = this;
 				player6.itemTime = player6.itemTime - 1;
-				if (this.itemTime == 0 && this.whoAmI == Main.myPlayer)
-				{
-					int num41 = item.type;
-					if (num41 == 65 || num41 == 676 || num41 == 723 || num41 == 724 || num41 == 989 || num41 == 1226 || num41 == 1227)
-					{
-						Main.PlaySound(25, -1, -1, 1);
-					}
-				}
 			}
 			if (i == Main.myPlayer)
 			{
@@ -9042,7 +8914,6 @@ namespace Terraria
 					{
 						num97 = 35;
 					}
-					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, num97);
 					NetMessage.SendData(58, -1, -1, "", this.whoAmI, single92, 0f, 0f, 0, 0, 0);
 				}
 				if ((item.type >= 205 && item.type <= 207 || item.type == 1128 || item.type == 3031 || item.type == 3032) && this.position.X / 16f - (float)Player.tileRangeX - (float)item.tileBoost <= (float)Player.tileTargetX && (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)item.tileBoost - 1f >= (float)Player.tileTargetX && this.position.Y / 16f - (float)Player.tileRangeY - (float)item.tileBoost <= (float)Player.tileTargetY && (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)item.tileBoost - 2f >= (float)Player.tileTargetY)
@@ -9088,7 +8959,6 @@ namespace Terraria
 										this.PutItemInInventory(1128, this.selectedItem);
 									}
 								}
-								Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 								this.itemTime = item.useTime;
 								int num101 = Main.tile[Player.tileTargetX, Player.tileTargetY].liquid;
 								Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 0;
@@ -9143,7 +9013,6 @@ namespace Terraria
 							{
 								if (Main.tile[Player.tileTargetX, Player.tileTargetY].liquid == 0 || Main.tile[Player.tileTargetX, Player.tileTargetY].liquidType() == 1)
 								{
-									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 									Main.tile[Player.tileTargetX, Player.tileTargetY].liquidType(1);
 									Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 255;
 									WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
@@ -9161,7 +9030,6 @@ namespace Terraria
 							{
 								if (item.type == 1128 && (Main.tile[Player.tileTargetX, Player.tileTargetY].liquid == 0 || Main.tile[Player.tileTargetX, Player.tileTargetY].liquidType() == 2))
 								{
-									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 									Main.tile[Player.tileTargetX, Player.tileTargetY].liquidType(2);
 									Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 255;
 									WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
@@ -9177,7 +9045,6 @@ namespace Terraria
 							}
 							else if (Main.tile[Player.tileTargetX, Player.tileTargetY].liquid == 0 || Main.tile[Player.tileTargetX, Player.tileTargetY].liquidType() == 0)
 							{
-								Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
 								Main.tile[Player.tileTargetX, Player.tileTargetY].liquidType(0);
 								Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 255;
 								WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
@@ -9345,7 +9212,6 @@ namespace Terraria
 								if (this.hitTile.AddDamage(num103, num104, true) < 100)
 								{
 									WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, true, false);
-									Main.PlaySound(0, Player.tileTargetX * 16, Player.tileTargetY * 16, 1);
 								}
 								else
 								{
@@ -10246,7 +10112,6 @@ namespace Terraria
 				if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 361 && Main.CanStartInvasion(1, true))
 				{
 					this.itemTime = item.useTime;
-					Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 					if (Main.netMode == 1)
 					{
 						NetMessage.SendData(61, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
@@ -10260,7 +10125,6 @@ namespace Terraria
 				if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 602 && Main.CanStartInvasion(2, true))
 				{
 					this.itemTime = item.useTime;
-					Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 					if (Main.netMode == 1)
 					{
 						NetMessage.SendData(61, -1, -1, "", this.whoAmI, -2f, 0f, 0f, 0, 0, 0);
@@ -10274,7 +10138,6 @@ namespace Terraria
 				if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 1315 && Main.CanStartInvasion(3, true))
 				{
 					this.itemTime = item.useTime;
-					Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 					if (Main.netMode == 1)
 					{
 						NetMessage.SendData(61, -1, -1, "", this.whoAmI, -3f, 0f, 0f, 0, 0, 0);
@@ -10288,7 +10151,6 @@ namespace Terraria
 				if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 1844 && !Main.dayTime && !Main.pumpkinMoon && !Main.snowMoon)
 				{
 					this.itemTime = item.useTime;
-					Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 					if (Main.netMode == 1)
 					{
 						NetMessage.SendData(61, -1, -1, "", this.whoAmI, -4f, 0f, 0f, 0, 0, 0);
@@ -10301,7 +10163,6 @@ namespace Terraria
 				}
 				if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 2767 && Main.dayTime && !Main.eclipse)
 				{
-					Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 					if (Main.netMode != 0)
 					{
 						NetMessage.SendData(61, -1, -1, "", this.whoAmI, -6f, 0f, 0f, 0, 0, 0);
@@ -10316,7 +10177,6 @@ namespace Terraria
 				if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 1958 && !Main.dayTime && !Main.pumpkinMoon && !Main.snowMoon)
 				{
 					this.itemTime = item.useTime;
-					Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 					if (Main.netMode == 1)
 					{
 						NetMessage.SendData(61, -1, -1, "", this.whoAmI, -5f, 0f, 0f, 0, 0, 0);
@@ -10342,7 +10202,6 @@ namespace Terraria
 					if (item.type == 560)
 					{
 						this.itemTime = item.useTime;
-						Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 						if (Main.netMode == 1)
 						{
 							NetMessage.SendData(61, -1, -1, "", this.whoAmI, 50f, 0f, 0f, 0, 0, 0);
@@ -10357,7 +10216,6 @@ namespace Terraria
 						if (!Main.dayTime)
 						{
 							this.itemTime = item.useTime;
-							Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 							if (Main.netMode == 1)
 							{
 								NetMessage.SendData(61, -1, -1, "", this.whoAmI, 4f, 0f, 0f, 0, 0, 0);
@@ -10373,7 +10231,6 @@ namespace Terraria
 						if (this.ZoneCorrupt)
 						{
 							this.itemTime = item.useTime;
-							Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 							if (Main.netMode == 1)
 							{
 								NetMessage.SendData(61, -1, -1, "", this.whoAmI, 13f, 0f, 0f, 0, 0, 0);
@@ -10389,7 +10246,6 @@ namespace Terraria
 						if (!Main.dayTime)
 						{
 							this.itemTime = item.useTime;
-							Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 							if (Main.netMode == 1)
 							{
 								NetMessage.SendData(61, -1, -1, "", this.whoAmI, 125f, 0f, 0f, 0, 0, 0);
@@ -10407,7 +10263,6 @@ namespace Terraria
 						if (!Main.dayTime)
 						{
 							this.itemTime = item.useTime;
-							Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 							if (Main.netMode == 1)
 							{
 								NetMessage.SendData(61, -1, -1, "", this.whoAmI, 134f, 0f, 0f, 0, 0, 0);
@@ -10423,7 +10278,6 @@ namespace Terraria
 						if (!Main.dayTime)
 						{
 							this.itemTime = item.useTime;
-							Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 							if (Main.netMode == 1)
 							{
 								NetMessage.SendData(61, -1, -1, "", this.whoAmI, 127f, 0f, 0f, 0, 0, 0);
@@ -10437,7 +10291,6 @@ namespace Terraria
 					else if (item.type == 1133)
 					{
 						this.itemTime = item.useTime;
-						Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 						if (Main.netMode == 1)
 						{
 							NetMessage.SendData(61, -1, -1, "", this.whoAmI, 222f, 0f, 0f, 0, 0, 0);
@@ -10450,7 +10303,6 @@ namespace Terraria
 					else if (item.type == 1331 && this.ZoneCrimson)
 					{
 						this.itemTime = item.useTime;
-						Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 						if (Main.netMode == 1)
 						{
 							NetMessage.SendData(61, -1, -1, "", this.whoAmI, 266f, 0f, 0f, 0, 0, 0);
@@ -10901,7 +10753,6 @@ namespace Terraria
 					this.dJumpEffectSandstorm = true;
 					int num2 = this.height;
 					float single2 = this.gravDir;
-					Main.PlaySound(16, (int)this.position.X, (int)this.position.Y, 1);
 					this.velocity.Y = -Player.jumpSpeed * this.gravDir;
 					this.jump = Player.jumpHeight * 3;
 				}
@@ -10910,7 +10761,6 @@ namespace Terraria
 					this.dJumpEffectBlizzard = true;
 					int num3 = this.height;
 					float single3 = this.gravDir;
-					Main.PlaySound(16, (int)this.position.X, (int)this.position.Y, 1);
 					this.velocity.Y = -Player.jumpSpeed * this.gravDir;
 					this.jump = (int)((double)Player.jumpHeight * 1.5);
 				}
@@ -10922,7 +10772,6 @@ namespace Terraria
 					{
 						num4 = 0;
 					}
-					Main.PlaySound(16, (int)this.position.X, (int)this.position.Y, 1);
 					this.velocity.Y = -Player.jumpSpeed * this.gravDir;
 					this.jump = (int)((double)Player.jumpHeight * 1.25);
 				}
@@ -10934,7 +10783,6 @@ namespace Terraria
 					{
 						num7 = 0;
 					}
-					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 16);
 					this.velocity.Y = -Player.jumpSpeed * this.gravDir;
 					this.jump = Player.jumpHeight * 2;
 				}
@@ -10946,7 +10794,6 @@ namespace Terraria
 					{
 						num10 = 0;
 					}
-					Main.PlaySound(16, (int)this.position.X, (int)this.position.Y, 1);
 					this.velocity.Y = -Player.jumpSpeed * this.gravDir;
 					this.jump = (int)((double)Player.jumpHeight * 0.75);
 				}
@@ -10955,7 +10802,6 @@ namespace Terraria
 					this.dJumpEffectUnicorn = true;
 					int num13 = this.height;
 					float single4 = this.gravDir;
-					Main.PlaySound(16, (int)this.position.X, (int)this.position.Y, 1);
 					this.velocity.Y = -Player.jumpSpeed * this.gravDir;
 					this.jump = Player.jumpHeight * 2;
 					Vector2 center = base.Center;
@@ -11055,7 +10901,6 @@ namespace Terraria
 					}
 				}
 			}
-			Main.PlaySound(5, (int)this.position.X, (int)this.position.Y, 1);
 			this.headVelocity.Y = (float)Main.rand.Next(-40, -10) * 0.1f;
 			this.bodyVelocity.Y = (float)Main.rand.Next(-40, -10) * 0.1f;
 			this.legVelocity.Y = (float)Main.rand.Next(-40, -10) * 0.1f;
@@ -14989,7 +14834,6 @@ namespace Terraria
 				if (this.position.X / 16f - (float)Player.tileRangeX - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetX && (this.position.X + (float)this.width) / 16f + (float)Player.tileRangeX + (float)this.inventory[this.selectedItem].tileBoost - 1f + (float)this.blockRange >= (float)Player.tileTargetX && this.position.Y / 16f - (float)Player.tileRangeY - (float)this.inventory[this.selectedItem].tileBoost - (float)this.blockRange <= (float)Player.tileTargetY && (this.position.Y + (float)this.height) / 16f + (float)Player.tileRangeY + (float)this.inventory[this.selectedItem].tileBoost - 2f + (float)this.blockRange >= (float)Player.tileTargetY && this.itemTime == 0 && this.itemAnimation > 0 && this.controlUseItem)
 				{
 					this.itemTime = this.inventory[this.selectedItem].useTime;
-					Main.PlaySound(7, -1, -1, 1);
 					int extractinatorMode = ItemID.Sets.ExtractinatorMode[this.inventory[this.selectedItem].type];
 					Player.ExtractinatorUse(extractinatorMode);
 				}
@@ -15393,7 +15237,6 @@ namespace Terraria
 						{
 							flag = TileObject.Place(tileObject);
 							WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
-							Main.PlaySound(0, Player.tileTargetX * 16, Player.tileTargetY * 16, 1);
 						}
 						if (this.inventory[this.selectedItem].type == 213 && !flag && Main.tile[Player.tileTargetX, Player.tileTargetY].type == 1 && Main.tile[Player.tileTargetX, Player.tileTargetY].active())
 						{
@@ -16806,7 +16649,6 @@ namespace Terraria
 			}
 			if (num > 0)
 			{
-				Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, num);
 				Recipe.FindRecipes();
 			}
 		}
@@ -16928,7 +16770,6 @@ namespace Terraria
 			}
 			if (item != null)
 			{
-				Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, item.useSound);
 				if (Main.netMode == 1 && this.whoAmI == Main.myPlayer)
 				{
 					NetMessage.SendData(51, -1, -1, "", this.whoAmI, 2f, 0f, 0f, 0, 0, 0);
@@ -17104,7 +16945,6 @@ namespace Terraria
 			{
 				return;
 			}
-			Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, item.useSound);
 			if (item.potion)
 			{
 				if (item.type != 227)
@@ -17162,7 +17002,6 @@ namespace Terraria
 			{
 				if (this.inventory[i].stack > 0 && this.inventory[i].type > 0 && this.inventory[i].healMana > 0 && (this.potionDelay == 0 || !this.inventory[i].potion))
 				{
-					Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, this.inventory[i].useSound);
 					if (this.inventory[i].potion)
 					{
 						if (this.inventory[i].type != 227)
@@ -17252,10 +17091,6 @@ namespace Terraria
 			if (item != null && item.mountType != -1 && this.mount.CanMount(item.mountType, this))
 			{
 				this.mount.SetMount(item.mountType, this, false);
-				if (item.useSound > 0)
-				{
-					Main.PlaySound(2, (int)base.Center.X, (int)base.Center.Y, item.useSound);
-				}
 			}
 		}
 
@@ -17300,10 +17135,6 @@ namespace Terraria
 						flag = true;
 					}
 				}
-			}
-			if (flag)
-			{
-				Main.PlaySound(7, -1, -1, 1);
 			}
 		}
 
@@ -21377,7 +21208,6 @@ namespace Terraria
 				this.talkNPC = -1;
 				Main.npcChatCornerItem = 0;
 				Main.npcChatText = "";
-				Main.PlaySound(11, -1, -1, 1);
 				return;
 			}
 			if (this.sign >= 0)
@@ -21385,7 +21215,6 @@ namespace Terraria
 				this.sign = -1;
 				Main.editSign = false;
 				Main.npcChatText = "";
-				Main.PlaySound(11, -1, -1, 1);
 				return;
 			}
 			if (Main.clothesWindow)
@@ -21397,13 +21226,11 @@ namespace Terraria
 			{
 				Main.playerInventory = false;
 				Main.EquipPageSelected = 0;
-				Main.PlaySound(11, -1, -1, 1);
 				return;
 			}
 			Recipe.FindRecipes();
 			Main.playerInventory = true;
 			Main.EquipPageSelected = 0;
-			Main.PlaySound(10, -1, -1, 1);
 		}
 
 		public void ToggleLight()
@@ -21892,7 +21719,6 @@ namespace Terraria
 						int num8 = (int)(20 * (double)Main.damageMultiplier);
 						this.Hurt(num8, 0, false, false, Lang.deathMsg(-1, -1, -1, 4), false);
 					}
-					Main.PlaySound(0, (int)this.position.X, (int)this.position.Y, 1);
 				}
 				this.lastStoned = this.stoned;
 				if (this.frozen || this.webbed || this.stoned)
@@ -21971,23 +21797,17 @@ namespace Terraria
 						int y3 = (int)(((double)this.position.Y + (double)this.height * 0.5) / 16);
 						if (x2 < this.chestX - Player.tileRangeX || x2 > this.chestX + Player.tileRangeX + 1 || y3 < this.chestY - Player.tileRangeY || y3 > this.chestY + Player.tileRangeY + 1)
 						{
-							if (this.chest != -1)
-							{
-								Main.PlaySound(11, -1, -1, 1);
-							}
 							this.chest = -1;
 							Recipe.FindRecipes();
 						}
 						else if (!Main.tile[this.chestX, this.chestY].active())
 						{
-							Main.PlaySound(11, -1, -1, 1);
 							this.chest = -1;
 							Recipe.FindRecipes();
 						}
 					}
 					else if (!Main.projectile[this.flyingPigChest].active || Main.projectile[this.flyingPigChest].type != 525)
 					{
-						Main.PlaySound(2, -1, -1, 59);
 						this.chest = -1;
 						Recipe.FindRecipes();
 					}
@@ -21999,10 +21819,6 @@ namespace Terraria
 						this.chestY = (int)Main.projectile[this.flyingPigChest].Center.Y / 16;
 						if (x3 < this.chestX - Player.tileRangeX || x3 > this.chestX + Player.tileRangeX + 1 || y4 < this.chestY - Player.tileRangeY || y4 > this.chestY + Player.tileRangeY + 1)
 						{
-							if (this.chest != -1)
-							{
-								Main.PlaySound(2, -1, -1, 59);
-							}
 							this.chest = -1;
 							Recipe.FindRecipes();
 						}
@@ -23370,14 +23186,12 @@ namespace Terraria
 							this.gravDir = 1f;
 							this.fallStart = (int)(this.position.Y / 16f);
 							this.jump = 0;
-							Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 8);
 						}
 						else
 						{
 							this.gravDir = -1f;
 							this.fallStart = (int)(this.position.Y / 16f);
 							this.jump = 0;
-							Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 8);
 						}
 					}
 				}
@@ -23392,14 +23206,12 @@ namespace Terraria
 						this.gravDir = 1f;
 						this.fallStart = (int)(this.position.Y / 16f);
 						this.jump = 0;
-						Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 8);
 					}
 					else
 					{
 						this.gravDir = -1f;
 						this.fallStart = (int)(this.position.Y / 16f);
 						this.jump = 0;
-						Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 8);
 					}
 				}
 				if (this.velocity.Y == 0f && this.mount.Active && this.mount.CanHover && this.controlUp && this.releaseUp)
@@ -23595,7 +23407,6 @@ namespace Terraria
 							player87.rocketDelay2 = player87.rocketDelay2 - 1;
 							if (this.rocketDelay2 <= 0)
 							{
-								Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 13);
 								this.rocketDelay2 = 60;
 							}
 							int num42 = 2;
@@ -24019,21 +23830,6 @@ namespace Terraria
 						player105.wingTime = player105.wingTime + (float)(this.rocketTime * 6);
 						this.rocketTime = 0;
 					}
-					if (flag22 && this.wings != 4 && this.wings != 22 && this.wings != 0 && this.wings != 24 && this.wings != 28 && this.wings != 30 && this.wings != 33)
-					{
-						if (this.wingFrame != 3)
-						{
-							this.flapSound = false;
-						}
-						else
-						{
-							if (!this.flapSound)
-							{
-								Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 32);
-							}
-							this.flapSound = true;
-						}
-					}
 					if (this.velocity.Y == 0f || this.sliding || this.autoJump && this.justJumped)
 					{
 						this.rocketTime = this.rocketTimeMax;
@@ -24053,12 +23849,10 @@ namespace Terraria
 							{
 								if (this.rocketBoots == 1)
 								{
-									Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 13);
 									this.rocketDelay2 = 30;
 								}
 								else if (this.rocketBoots == 2 || this.rocketBoots == 3)
 								{
-									Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 24);
 									this.rocketDelay2 = 15;
 								}
 							}
@@ -24263,7 +24057,6 @@ namespace Terraria
 									player109.rocketDelay2 = player109.rocketDelay2 - 1;
 									if (this.rocketDelay2 <= 0)
 									{
-										Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 13);
 										this.rocketDelay2 = 60;
 									}
 									int num82 = 6;
@@ -25522,7 +25315,6 @@ namespace Terraria
 								if (flag25)
 								{
 									this.launcherWait = 10;
-									Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 11);
 									int num135 = Main.tile[num132, num133].frameX / 18;
 									int num136 = 0;
 									while (num135 >= 3)
@@ -25571,12 +25363,10 @@ namespace Terraria
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 139)
 								{
-									Main.PlaySound(28, Player.tileTargetX * 16, Player.tileTargetY * 16, 0);
 									WorldGen.SwitchMB(Player.tileTargetX, Player.tileTargetY);
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 215)
 								{
-									Main.PlaySound(28, Player.tileTargetX * 16, Player.tileTargetY * 16, 0);
 									int num140 = Main.tile[Player.tileTargetX, Player.tileTargetY].frameX % 54 / 18;
 									int num141 = Main.tile[Player.tileTargetX, Player.tileTargetY].frameY % 36 / 18;
 									int num142 = Player.tileTargetX - num140;
@@ -25597,12 +25387,10 @@ namespace Terraria
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 207)
 								{
-									Main.PlaySound(28, Player.tileTargetX * 16, Player.tileTargetY * 16, 0);
 									WorldGen.SwitchFountain(Player.tileTargetX, Player.tileTargetY);
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 410)
 								{
-									Main.PlaySound(28, Player.tileTargetX * 16, Player.tileTargetY * 16, 0);
 									WorldGen.SwitchMonolith(Player.tileTargetX, Player.tileTargetY);
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 216)
@@ -25755,29 +25543,24 @@ namespace Terraria
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 125)
 								{
 									this.AddBuff(29, 36000, true);
-									Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 4);
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 377)
 								{
 									this.AddBuff(159, 36000, true);
-									Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 37);
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 354)
 								{
 									this.AddBuff(150, 36000, true);
-									Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 4);
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 287)
 								{
 									this.AddBuff(93, 36000, true);
-									Main.PlaySound(7, (int)this.position.X, (int)this.position.Y, 1);
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 356)
 								{
 									if (!Main.fastForwardTime && (Main.netMode == 1 || Main.sundialCooldown == 0))
 									{
 										Main.Sundialing();
-										Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, 4);
 									}
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 79)
@@ -25823,7 +25606,6 @@ namespace Terraria
 										this.sign = -1;
 										Main.npcChatText = "";
 										Main.editSign = false;
-										Main.PlaySound(11, -1, -1, 1);
 										flag29 = false;
 									}
 									if (flag29)
@@ -25849,7 +25631,6 @@ namespace Terraria
 											Main.npcChatCornerItem = 0;
 											Main.playerInventory = false;
 											Main.editSign = false;
-											Main.PlaySound(10, -1, -1, 1);
 											int num165 = Sign.ReadSign(Player.tileTargetX, Player.tileTargetY, true);
 											this.sign = num165;
 											Main.npcChatText = Main.sign[num165].text;
@@ -25921,7 +25702,6 @@ namespace Terraria
 									}
 									if (flag30)
 									{
-										Main.PlaySound(15, (int)this.position.X, (int)this.position.Y, 0);
 										if (Main.netMode == 1)
 										{
 											NetMessage.SendData(61, -1, -1, "", this.whoAmI, 245f, 0f, 0f, 0, 0, 0);
@@ -25987,14 +25767,12 @@ namespace Terraria
 										int num174 = Player.tileTargetY - Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 18;
 										if (this.sign > -1)
 										{
-											Main.PlaySound(11, -1, -1, 1);
 											this.sign = -1;
 											Main.editSign = false;
 											Main.npcChatText = string.Empty;
 										}
 										if (Main.editChest)
 										{
-											Main.PlaySound(12, -1, -1, 1);
 											Main.editChest = false;
 											Main.npcChatText = string.Empty;
 										}
@@ -26013,14 +25791,12 @@ namespace Terraria
 												if (num175 == this.chest)
 												{
 													this.chest = -1;
-													Main.PlaySound(11, -1, -1, 1);
 												}
 												else if (num175 == this.chest || this.chest != -1)
 												{
 													this.chest = num175;
 													Main.playerInventory = true;
 													Main.recBigList = false;
-													Main.PlaySound(12, -1, -1, 1);
 													this.chestX = num173;
 													this.chestY = num174;
 												}
@@ -26029,7 +25805,6 @@ namespace Terraria
 													this.chest = num175;
 													Main.playerInventory = true;
 													Main.recBigList = false;
-													Main.PlaySound(10, -1, -1, 1);
 													this.chestX = num173;
 													this.chestY = num174;
 												}
@@ -26044,7 +25819,6 @@ namespace Terraria
 										else
 										{
 											this.chest = -1;
-											Main.PlaySound(11, -1, -1, 1);
 										}
 									}
 								}
@@ -26073,14 +25847,12 @@ namespace Terraria
 									}
 									if (this.sign > -1)
 									{
-										Main.PlaySound(11, -1, -1, 1);
 										this.sign = -1;
 										Main.editSign = false;
 										Main.npcChatText = string.Empty;
 									}
 									if (Main.editChest)
 									{
-										Main.PlaySound(12, -1, -1, 1);
 										Main.editChest = false;
 										Main.npcChatText = string.Empty;
 									}
@@ -26154,14 +25926,12 @@ namespace Terraria
 											if (num179 == this.chest)
 											{
 												this.chest = -1;
-												Main.PlaySound(11, -1, -1, 1);
 											}
 											else if (num179 == this.chest || this.chest != -1)
 											{
 												this.chest = num179;
 												Main.playerInventory = true;
 												Main.recBigList = false;
-												Main.PlaySound(12, -1, -1, 1);
 												this.chestX = num177;
 												this.chestY = num178;
 											}
@@ -26170,7 +25940,6 @@ namespace Terraria
 												this.chest = num179;
 												Main.playerInventory = true;
 												Main.recBigList = false;
-												Main.PlaySound(10, -1, -1, 1);
 												this.chestX = num177;
 												this.chestY = num178;
 												if (Main.tile[num177, num178].frameX >= 36 && Main.tile[num177, num178].frameX < 72)
@@ -26189,7 +25958,6 @@ namespace Terraria
 									else
 									{
 										this.chest = -1;
-										Main.PlaySound(11, -1, -1, 1);
 									}
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 314 && this.gravDir == 1f)
@@ -26299,10 +26067,6 @@ namespace Terraria
 					Rectangle rectangle2 = new Rectangle((int)Main.npc[this.talkNPC].position.X, (int)Main.npc[this.talkNPC].position.Y, Main.npc[this.talkNPC].width, Main.npc[this.talkNPC].height);
 					if (!rectangle1.Intersects(rectangle2) || this.chest != -1 || !Main.npc[this.talkNPC].active)
 					{
-						if (this.chest == -1)
-						{
-							Main.PlaySound(11, -1, -1, 1);
-						}
 						this.talkNPC = -1;
 						Main.npcChatCornerItem = 0;
 						Main.npcChatText = "";
@@ -26324,7 +26088,6 @@ namespace Terraria
 						}
 						if (flag34)
 						{
-							Main.PlaySound(11, -1, -1, 1);
 							this.sign = -1;
 							Main.editSign = false;
 							Main.npcChatText = "";
@@ -26332,7 +26095,6 @@ namespace Terraria
 					}
 					catch
 					{
-						Main.PlaySound(11, -1, -1, 1);
 						this.sign = -1;
 						Main.editSign = false;
 						Main.npcChatText = "";
@@ -26350,7 +26112,6 @@ namespace Terraria
 						}
 						else if (Main.inputTextEscape)
 						{
-							Main.PlaySound(12, -1, -1, 1);
 							Main.editSign = false;
 							Main.npcChatText = Main.sign[this.sign].text;
 						}
@@ -26365,7 +26126,6 @@ namespace Terraria
 					string inputText = Main.GetInputText(Main.npcChatText);
 					if (Main.inputTextEnter)
 					{
-						Main.PlaySound(12, -1, -1, 1);
 						Main.editChest = false;
 						int num183 = Main.player[Main.myPlayer].chest;
 						if (Main.npcChatText == Main.defaultChestName)
@@ -26383,7 +26143,6 @@ namespace Terraria
 					}
 					else if (Main.inputTextEscape)
 					{
-						Main.PlaySound(12, -1, -1, 1);
 						Main.editChest = false;
 						Main.npcChatText = string.Empty;
 					}
@@ -32597,7 +32356,6 @@ namespace Terraria
 				}
 				if (this.whoAmI == Main.myPlayer && flag)
 				{
-					Main.PlaySound(25, -1, -1, 1);
 				}
 				this.statMana = this.statManaMax2;
 			}
@@ -32641,7 +32399,6 @@ namespace Terraria
 			if (this.HasBuff(num) == -1)
 			{
 				this.AddBuff(num, 3600, true);
-				Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, this.miscEquips[0].useSound);
 			}
 		}
 
@@ -32686,7 +32443,6 @@ namespace Terraria
 					num = Terraria.Utils.SelectRandom<int>(random, numArray);
 				}
 				this.AddBuff(num, 3600, true);
-				Main.PlaySound(2, (int)this.position.X, (int)this.position.Y, this.miscEquips[1].useSound);
 			}
 		}
 
@@ -32977,7 +32733,6 @@ namespace Terraria
 				if (!this.gross && this.position.Y > (float)((Main.maxTilesY - 250) * 16) && this.position.X > x - 1920f && this.position.X < x + 1920f)
 				{
 					this.AddBuff(37, 10, true);
-					Main.PlaySound(4, (int)Main.npc[Main.wof].position.X, (int)Main.npc[Main.wof].position.Y, 10);
 				}
 				if (this.gross)
 				{

@@ -1991,7 +1991,6 @@ namespace Terraria
 		}
 		public static void worldGenCallBack(object threadContext)
 		{
-			Main.PlaySound(10, -1, -1, 1);
 			WorldGen.clearWorld();
 			WorldGen.generateWorld(-1, threadContext as GenerationProgress);
 			WorldFile.saveWorld(Main.ActiveWorldFileData.IsCloudSave, true);
@@ -1999,7 +1998,6 @@ namespace Terraria
 			{
 				Main.menuMode = 6;
 			}
-			Main.PlaySound(10, -1, -1, 1);
 		}
 		public static void CreateNewWorld(GenerationProgress progress = null)
 		{
@@ -2007,19 +2005,6 @@ namespace Terraria
 		}
 		public static void SaveAndQuitCallBack(object threadContext)
 		{
-			try
-			{
-				Main.PlaySound(34, -1, -1, 0);
-				Main.PlaySound(35, -1, -1, 0);
-			}
-			catch (Exception ex)
-			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
-			}
 			if (Main.netMode == 0)
 			{
 				WorldFile.CacheSaveTime();
@@ -2034,7 +2019,6 @@ namespace Terraria
 			if (Main.netMode == 0)
 			{
 				WorldFile.saveWorld();
-				Main.PlaySound(10, -1, -1, 1);
 			}
 			else
 			{
@@ -2051,7 +2035,6 @@ namespace Terraria
 		}
 		public static void SaveAndQuit(Action callback = null)
 		{
-			Main.PlaySound(11, -1, -1, 1);
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.SaveAndQuitCallBack), callback);
 		}
 		public static void playWorldCallBack(object threadContext)
@@ -2164,7 +2147,6 @@ namespace Terraria
 			Main.maxRaining = WorldFile.tempMaxRain;
 			Main.cloudAlpha = WorldFile.tempMaxRain;
 			CultistRitual.delay = WorldFile.tempCultistDelay;
-			Main.PlaySound(11, -1, -1, 1);
 			Main.resetClouds = true;
 			WorldGen.noMapUpdate = false;
 		}
@@ -2238,7 +2220,6 @@ namespace Terraria
 					}
 				}
 			}
-			Main.PlaySound(10, -1, -1, 1);
 			Netplay.StartServer();
 			Main.dayTime = WorldFile.tempDayTime;
 			Main.time = WorldFile.tempTime;
@@ -12802,7 +12783,6 @@ namespace Terraria
 					WorldGen.TileFrame(num6, num7, false, false);
 				}
 			}
-			Main.PlaySound(9, i * 16, j * 16, 1);
 			return true;
 		}
 		public static bool AddLifeCrystal(int i, int j)
@@ -19417,7 +19397,6 @@ namespace Terraria
 					return;
 				}
 			}
-			Main.PlaySound(22, i * 16, num * 16 + 16, 1);
 			for (int k = num; k <= num + 2; k++)
 			{
 				if (Main.tile[i, k] == null)
@@ -19512,7 +19491,6 @@ namespace Terraria
 				Wiring.SkipWire(num4 + 1, num2 + 2);
 			}
 			int num6 = num * 54;
-			Main.PlaySound(8, i * 16, j * 16, 1);
 			Main.tile[num4, num2].active(true);
 			Main.tile[num4, num2].type = 11;
 			Main.tile[num4, num2].frameY = (short)num6;
@@ -24037,7 +24015,6 @@ namespace Terraria
 				if (type == 29)
 				{
 					Item.NewItem(num3 * 16, y * 16, 32, 32, 87, 1, false, 0, false);
-					Main.PlaySound(13, i * 16, y * 16, 1);
 				}
 				if (type == 103)
 				{
@@ -24055,7 +24032,6 @@ namespace Terraria
 						type3 = 2243;
 					}
 					Item.NewItem(num3 * 16, y * 16, 32, 32, type3, 1, false, 0, false);
-					Main.PlaySound(13, i * 16, y * 16, 1);
 				}
 				else if (type == 134)
 				{
@@ -27040,7 +27016,6 @@ namespace Terraria
 			if (TileObject.Place(toBePlaced) && !mute)
 			{
 				WorldGen.SquareTileFrame(x, y, true);
-				Main.PlaySound(0, x * 16, y * 16, 1);
 			}
 			return false;
 		}
@@ -27063,7 +27038,6 @@ namespace Terraria
 					{
 						return false;
 					}
-					Main.PlaySound(8, x * 16 + 16, y * 16 + 16, 1);
 					for (int i = 0; i < 2; i++)
 					{
 						tileSafely = Framing.GetTileSafely(x + i, y);
@@ -27098,7 +27072,6 @@ namespace Terraria
 					{
 						return false;
 					}
-					Main.PlaySound(8, x * 16 + 16, y * 16, 1);
 					for (int m = 0; m < 2; m++)
 					{
 						tileSafely = Framing.GetTileSafely(x + m, y + 1);
@@ -27140,7 +27113,6 @@ namespace Terraria
 					Wiring.SkipWire(x + 1, y);
 					Wiring.SkipWire(x + 1, y + num3);
 				}
-				Main.PlaySound(8, x * 16 + 16, y * 16, 1);
 				for (int num5 = 0; num5 < 2; num5++)
 				{
 					tileSafely = Framing.GetTileSafely(x + num5, y + num3);
@@ -27172,7 +27144,6 @@ namespace Terraria
 				}
 				return true;
 			}
-			Main.PlaySound(9, x * 16, y * 16, 1);
 			return false;
 		}
 		public static void CheckTrapDoor(int x, int y, int type)
@@ -27331,7 +27302,6 @@ namespace Terraria
 					return false;
 				}
 			}
-			Main.PlaySound(8, x * 16 + 16, y * 16 + 16, 1);
 			for (int k = 0; k < height; k++)
 			{
 				tileSafely = Framing.GetTileSafely(x, y + k);
@@ -29212,14 +29182,6 @@ namespace Terraria
 						AchievementsHelper.NotifyProgressionEvent(7);
 					}
 				}
-				if (flag)
-				{
-					Main.PlaySound(4, i * 16, j * 16, 1);
-				}
-				else
-				{
-					Main.PlaySound(13, i * 16, j * 16, 1);
-				}
 				WorldGen.destroyObject = false;
 			}
 		}
@@ -30540,18 +30502,6 @@ namespace Terraria
 			if (flag)
 			{
 				WorldGen.destroyObject = true;
-				if (num >= 7 && num <= 9)
-				{
-					Main.PlaySound(6, i * 16, j * 16, 1);
-				}
-				else if (num >= 16 && num <= 24)
-				{
-					Main.PlaySound(4, i * 16, j * 16, 1);
-				}
-				else
-				{
-					Main.PlaySound(13, i * 16, j * 16, 1);
-				}
 				for (int num4 = k; num4 < k + 2; num4++)
 				{
 					for (int num5 = num2; num5 < num2 + 2; num5++)
@@ -31291,7 +31241,6 @@ namespace Terraria
 		{
 			if (!Main.tile[i, j].actuator())
 			{
-				Main.PlaySound(0, i * 16, j * 16, 1);
 				Main.tile[i, j].actuator(true);
 				return true;
 			}
@@ -31301,7 +31250,6 @@ namespace Terraria
 		{
 			if (Main.tile[i, j].actuator())
 			{
-				Main.PlaySound(0, i * 16, j * 16, 1);
 				Main.tile[i, j].actuator(false);
 				if (Main.netMode != 1)
 				{
@@ -31315,7 +31263,6 @@ namespace Terraria
 		{
 			if (!Main.tile[i, j].wire())
 			{
-				Main.PlaySound(0, i * 16, j * 16, 1);
 				Main.tile[i, j].wire(true);
 				return true;
 			}
@@ -31325,7 +31272,6 @@ namespace Terraria
 		{
 			if (Main.tile[i, j].wire())
 			{
-				Main.PlaySound(0, i * 16, j * 16, 1);
 				Main.tile[i, j].wire(false);
 				if (Main.netMode != 1)
 				{
@@ -31339,7 +31285,6 @@ namespace Terraria
 		{
 			if (!Main.tile[i, j].wire2())
 			{
-				Main.PlaySound(0, i * 16, j * 16, 1);
 				Main.tile[i, j].wire2(true);
 				return true;
 			}
@@ -31349,7 +31294,6 @@ namespace Terraria
 		{
 			if (Main.tile[i, j].wire2())
 			{
-				Main.PlaySound(0, i * 16, j * 16, 1);
 				Main.tile[i, j].wire2(false);
 				if (Main.netMode != 1)
 				{
@@ -31363,7 +31307,6 @@ namespace Terraria
 		{
 			if (!Main.tile[i, j].wire3())
 			{
-				Main.PlaySound(0, i * 16, j * 16, 1);
 				Main.tile[i, j].wire3(true);
 				return true;
 			}
@@ -31373,7 +31316,6 @@ namespace Terraria
 		{
 			if (Main.tile[i, j].wire3())
 			{
-				Main.PlaySound(0, i * 16, j * 16, 1);
 				Main.tile[i, j].wire3(false);
 				if (Main.netMode != 1)
 				{
@@ -31971,28 +31913,6 @@ namespace Terraria
 						}
 						WorldGen.SquareTileFrame(i, j, true);
 						result = true;
-						if (!mute)
-						{
-							if (type == 127)
-							{
-								Main.PlaySound(2, i * 16, j * 16, 30);
-							}
-							else if (type == 314)
-							{
-								Main.PlaySound(2, i * 16, j * 16, 52);
-							}
-							else if (type >= 330 && type <= 333)
-							{
-								Main.PlaySound(18, i * 16, j * 16, 1);
-							}
-							else
-							{
-								Main.PlaySound(0, i * 16, j * 16, 1);
-							}
-							if (type == 22 || type == 140)
-							{
-							}
-						}
 					}
 				}
 			}
@@ -32017,18 +31937,6 @@ namespace Terraria
 					if (tile.wall == 87 && !NPC.downedGolemBoss)
 					{
 						fail = true;
-					}
-					if (tile.wall == 21 || tile.wall == 186 || tile.wall == 136 || tile.wall == 137 || tile.wall == 168 || tile.wall == 169 || tile.wall == 172)
-					{
-						Main.PlaySound(13, i * 16, j * 16, 1);
-					}
-					else if (tile.wall >= 63 && tile.wall <= 70)
-					{
-						Main.PlaySound(6, i * 16, j * 16, 1);
-					}
-					else
-					{
-						Main.PlaySound(0, i * 16, j * 16, 1);
 					}
 					int num = 10;
 					if (fail)
@@ -33211,87 +33119,33 @@ namespace Terraria
 					}
 					if (!effectOnly && !WorldGen.stopDrops)
 					{
-						if (tile.type == 127)
+						if (tile.type == 3 || tile.type == 110)
 						{
-							Main.PlaySound(2, i * 16, j * 16, 27);
-						}
-						else if (tile.type == 147 || tile.type == 224)
-						{
-							Main.PlaySound(2, i * 16, j * 16, WorldGen.genRand.Next(48, 50));
-						}
-						else if (tile.type == 161 || tile.type == 163 || tile.type == 164 || tile.type == 200)
-						{
-							Main.PlaySound(2, i * 16, j * 16, 50);
-						}
-						else if (tile.type == 3 || tile.type == 110)
-						{
-							Main.PlaySound(6, i * 16, j * 16, 1);
 							if (tile.frameX == 144)
 							{
 								Item.NewItem(i * 16, j * 16, 16, 16, 5, 1, false, 0, false);
 							}
 						}
-						else if (tile.type == 254)
-						{
-							Main.PlaySound(6, i * 16, j * 16, 1);
-						}
 						else if (tile.type == 24)
 						{
-							Main.PlaySound(6, i * 16, j * 16, 1);
 							if (tile.frameX == 144)
 							{
 								Item.NewItem(i * 16, j * 16, 16, 16, 60, 1, false, 0, false);
 							}
 						}
-						else if (Main.tileAlch[(int)tile.type] || tile.type == 384 || tile.type == 227 || tile.type == 32 || tile.type == 51 || tile.type == 52 || tile.type == 61 || tile.type == 62 || tile.type == 69 || tile.type == 71 || tile.type == 73 || tile.type == 74 || tile.type == 113 || tile.type == 115 || tile.type == 184 || tile.type == 192 || tile.type == 205 || tile.type == 233 || tile.type == 352 || tile.type == 382)
-						{
-							Main.PlaySound(6, i * 16, j * 16, 1);
-						}
 						else if (tile.type == 201)
 						{
-							Main.PlaySound(6, i * 16, j * 16, 1);
 							if (tile.frameX == 270)
 							{
 								Item.NewItem(i * 16, j * 16, 16, 16, 2887, 1, false, 0, false);
 							}
-						}
-						else if (tile.type == 1 || tile.type == 6 || tile.type == 7 || tile.type == 8 || tile.type == 9 || tile.type == 22 || tile.type == 140 || tile.type == 25 || tile.type == 37 || tile.type == 38 || tile.type == 39 || tile.type == 41 || tile.type == 43 || tile.type == 44 || tile.type == 45 || tile.type == 46 || tile.type == 47 || tile.type == 48 || tile.type == 56 || tile.type == 58 || tile.type == 63 || tile.type == 64 || tile.type == 65 || tile.type == 66 || tile.type == 67 || tile.type == 68 || tile.type == 75 || tile.type == 76 || tile.type == 107 || tile.type == 108 || tile.type == 111 || tile.type == 117 || tile.type == 118 || tile.type == 119 || tile.type == 120 || tile.type == 121 || tile.type == 122 || tile.type == 150 || tile.type == 151 || tile.type == 152 || tile.type == 153 || tile.type == 154 || tile.type == 155 || tile.type == 156 || tile.type == 160 || tile.type == 161 || tile.type == 166 || tile.type == 167 || tile.type == 168 || tile.type == 169 || tile.type == 175 || tile.type == 176 || tile.type == 177 || tile.type == 203 || tile.type == 202 || tile.type == 204 || tile.type == 206 || tile.type == 211 || tile.type == 221 || tile.type == 222 || tile.type == 223 || tile.type == 226 || tile.type == 248 || tile.type == 249 || tile.type == 250 || tile.type == 272 || tile.type == 273 || tile.type == 274 || tile.type == 284 || tile.type == 325 || tile.type == 346 || tile.type == 347 || tile.type == 348 || tile.type == 350 || tile.type == 367 || tile.type == 357 || tile.type == 368 || tile.type == 369 || tile.type == 370 || tile.type == 407)
-						{
-							Main.PlaySound(21, i * 16, j * 16, 1);
-						}
-						else if (tile.type == 231 || tile.type == 195)
-						{
-							Main.PlaySound(4, i * 16, j * 16, 1);
-						}
-						else if (tile.type == 26 && tile.frameX >= 54)
-						{
-							Main.PlaySound(4, i * 16, j * 16, 1);
-						}
-						else if (tile.type == 314)
-						{
-							Main.PlaySound(2, i * 16, j * 16, 52);
-						}
-						else if (tile.type >= 330 && tile.type <= 333)
-						{
-							Main.PlaySound(18, i * 16, j * 16, 1);
-						}
-						else if (tile.type != 138)
-						{
-							Main.PlaySound(0, i * 16, j * 16, 1);
-						}
-						if ((tile.type == 162 || tile.type == 385 || tile.type == 129 || (tile.type == 165 && tile.frameX < 54)) && !fail)
-						{
-							Main.PlaySound(2, i * 16, j * 16, 27);
 						}
 					}
 					if (tile.type == 128 || tile.type == 269)
 					{
 						int num2 = i;
 						int l = (int)tile.frameX;
-						int m;
-						for (m = (int)tile.frameX; m >= 100; m -= 100)
-						{
-						}
+						int m = 0;
 						while (m >= 36)
 						{
 							m -= 36;
@@ -35925,27 +35779,22 @@ namespace Terraria
 						else if (tile.type == 326)
 						{
 							num49 = 2693;
-							Main.PlaySound(13, i * 16, j * 16, 1);
 						}
 						else if (tile.type == 327)
 						{
 							num49 = 2694;
-							Main.PlaySound(13, i * 16, j * 16, 1);
 						}
 						else if (tile.type == 345)
 						{
 							num49 = 2787;
-							Main.PlaySound(13, i * 16, j * 16, 1);
 						}
 						else if (tile.type == 328)
 						{
 							num49 = 2695;
-							Main.PlaySound(13, i * 16, j * 16, 1);
 						}
 						else if (tile.type == 329)
 						{
 							num49 = 2697;
-							Main.PlaySound(13, i * 16, j * 16, 1);
 						}
 						else if (tile.type == 346)
 						{
@@ -36320,7 +36169,6 @@ namespace Terraria
 						}
 						else if (tile.type == 13)
 						{
-							Main.PlaySound(13, i * 16, j * 16, 1);
 							int num64 = (int)(tile.frameX / 18);
 							if (num64 == 1)
 							{
@@ -36667,7 +36515,6 @@ namespace Terraria
 						else if (tile.type == 54)
 						{
 							num49 = 170;
-							Main.PlaySound(13, i * 16, j * 16, 1);
 						}
 						else if (tile.type == 56)
 						{
@@ -40590,10 +40437,6 @@ namespace Terraria
 			{
 				Main.tile[i, j].wall = (byte)type;
 				WorldGen.SquareWallFrame(i, j, true);
-				if (!mute)
-				{
-					Main.PlaySound(0, i * 16, j * 16, 1);
-				}
 			}
 		}
 		public static void AddPlants()
@@ -44443,7 +44286,6 @@ namespace Terraria
 			if (!WorldGen.gen)
 			{
 				WorldGen.KillTile(i, j, true, true, false);
-				Main.PlaySound(0, i * 16, j * 16, 1);
 				WorldGen.SquareTileFrame(i, j, true);
 				if (Main.tile[i, j].slope() == 0)
 				{
@@ -44477,7 +44319,6 @@ namespace Terraria
 			if (!WorldGen.gen)
 			{
 				WorldGen.KillTile(i, j, true, true, false);
-				Main.PlaySound(0, i * 16, j * 16, 1);
 				WorldGen.SquareTileFrame(i, j, true);
 				if (!Main.tile[i, j].halfBrick())
 				{

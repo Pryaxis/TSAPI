@@ -394,10 +394,6 @@ namespace Terraria
 							if (num8 == Main.myPlayer && Main.netMode == 1)
 							{
 								Main.player[num8].inventoryChestStack[num9] = false;
-								if (itemArray[num13].stack != num15 || itemArray[num13].type != num14)
-								{
-									Main.PlaySound(7, -1, -1, 1);
-								}
 							}
 						}
 						if (Main.netMode == 2 && num8 == this.whoAmI)
@@ -1297,10 +1293,6 @@ namespace Terraria
 					{
 						nPC.ai[o1] = singleArray[o1];
 					}
-					if (num52 > -1 && num52 != nPC.type)
-					{
-						nPC.TransformVisuals(num52, nPC.type);
-					}
 					if (num50 == 262)
 					{
 						NPC.plantBoss = num48;
@@ -1706,17 +1698,14 @@ namespace Terraria
 					if (player7.chest == -1)
 					{
 						Main.playerInventory = true;
-						Main.PlaySound(10, -1, -1, 1);
 					}
 					else if (player7.chest != num87 && num87 != -1)
 					{
 						Main.playerInventory = true;
-						Main.PlaySound(12, -1, -1, 1);
 						Main.recBigList = false;
 					}
 					else if (player7.chest != -1 && num87 == -1)
 					{
-						Main.PlaySound(11, -1, -1, 1);
 						Main.recBigList = false;
 					}
 					player7.chest = num87;
@@ -2068,7 +2057,6 @@ namespace Terraria
 					Main.player[Main.myPlayer].talkNPC = -1;
 					Main.npcChatCornerItem = 0;
 					Main.editSign = false;
-					Main.PlaySound(10, -1, -1, 1);
 					Main.player[Main.myPlayer].sign = num124;
 					Main.npcChatText = Main.sign[num124].text;
 					return;
@@ -2169,7 +2157,6 @@ namespace Terraria
 							NetMessage.SendData(51, -1, this.whoAmI, "", (int)num139, (float)num140, 0f, 0f, 0, 0, 0);
 							return;
 						}
-						Main.PlaySound(2, (int)Main.player[num139].position.X, (int)Main.player[num139].position.Y, 1);
 						return;
 					}
 					if (num140 != 3)
@@ -2317,7 +2304,6 @@ namespace Terraria
 					{
 						num154 = 35;
 					}
-					Main.PlaySound(2, (int)player12.position.X, (int)player12.position.Y, num154);
 					return;
 				}
 				case 59:
@@ -3005,7 +2991,6 @@ namespace Terraria
 					float single12 = this.reader.ReadSingle();
 					if (Main.netMode == 1)
 					{
-						Main.npc[num222].moneyPing(new Vector2(single11, single12));
 						Main.npc[num222].extraValue = single10;
 						return;
 					}

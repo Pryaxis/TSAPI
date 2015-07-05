@@ -1425,10 +1425,6 @@ namespace Terraria
 									{
 										break;
 									}
-									if (!flag8 && Velocity.Y > Player.defaultGravity && fallStart < (int)(Position.Y / 16f) - 1)
-									{
-										Main.PlaySound(2, (int)Position.X + Width / 2, (int)Position.Y + Height / 2, 53);
-									}
 									if (trackState1 == Minecart.TrackState.AboveFront && Minecart._trackType[num10] == 1)
 									{
 										flag2 = true;

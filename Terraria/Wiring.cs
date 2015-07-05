@@ -126,7 +126,6 @@ namespace Terraria
 			}
 			if (Main.tile[i, j].type == 135 || Main.tile[i, j].type == 314)
 			{
-				Main.PlaySound(28, i * 16, j * 16, 0);
 				Wiring.TripWire(i, j, 1, 1);
 				return;
 			}
@@ -140,7 +139,6 @@ namespace Terraria
 				{
 					Main.tile[i, j].frameY = 18;
 				}
-				Main.PlaySound(28, i * 16, j * 16, 0);
 				Wiring.TripWire(i, j, 1, 1);
 				return;
 			}
@@ -158,7 +156,6 @@ namespace Terraria
 						Wiring.CheckMech(i, j, 18000);
 					}
 				}
-				Main.PlaySound(28, i * 16, j * 16, 0);
 				return;
 			}
 			if (Main.tile[i, j].type == 132 || Main.tile[i, j].type == 411)
@@ -190,7 +187,6 @@ namespace Terraria
 					}
 				}
 				WorldGen.TileFrame(num1, num2, false, false);
-				Main.PlaySound(28, i * 16, j * 16, 0);
 				Wiring.TripWire(num1, num2, 2, 2);
 			}
 		}

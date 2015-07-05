@@ -63,7 +63,6 @@ namespace Terraria
 			}
 			Main.SaveSettings();
 			Main.ingameOptionsWindow = false;
-			Main.PlaySound(11, -1, -1, 1);
 			Recipe.FindRecipes();
 			Main.playerInventory = true;
 		}
@@ -109,7 +108,6 @@ namespace Terraria
 			Main.playerInventory = false;
 			Main.editChest = false;
 			Main.npcChatText = "";
-			Main.PlaySound(10, -1, -1, 1);
 			Main.ingameOptionsWindow = true;
 			IngameOptions.category = 0;
 			for (int i = 0; i < (int)IngameOptions.leftScale.Length; i++)

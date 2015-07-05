@@ -47348,10 +47348,6 @@ namespace Terraria
 										{
 											NetMessage.SendData(92, -1, -1, "", num4, single6, this.position.X, this.position.Y, 0, 0, 0);
 										}
-										else
-										{
-											Main.npc[num4].moneyPing(this.position);
-										}
 										if (this.stack <= 0)
 										{
 											this.SetDefaults(0, false);
@@ -47405,18 +47401,6 @@ namespace Terraria
 							if (this.wetCount == 0)
 							{
 								this.wetCount = 20;
-								if (flag1)
-								{
-									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
-								}
-								else if (!this.honeyWet)
-								{
-									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
-								}
-								else
-								{
-									Main.PlaySound(19, (int)this.position.X, (int)this.position.Y, 1);
-								}
 							}
 							this.wet = true;
 						}

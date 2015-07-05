@@ -2475,23 +2475,6 @@ namespace Terraria
 
 		public static void Ambience()
 		{
-			Main.ambientCounter = Main.ambientCounter + 1;
-			if (Main.ambientCounter >= 15)
-			{
-				Main.ambientCounter = 0;
-				Main.PlaySound(34, (int)Main.ambientWaterfallX, (int)Main.ambientWaterfallY, (int)Main.ambientWaterfallStrength);
-				float single = Math.Abs(Main.ambientLavaX - (Main.screenPosition.X + (float)(Main.screenWidth / 2))) + Math.Abs(Main.ambientLavaY - (Main.screenPosition.Y + (float)(Main.screenHeight / 2)));
-				float single1 = Math.Abs(Main.ambientLavafallX - (Main.screenPosition.X + (float)(Main.screenWidth / 2))) + Math.Abs(Main.ambientLavafallY - (Main.screenPosition.Y + (float)(Main.screenHeight / 2)));
-				float single2 = Main.ambientLavaX;
-				float single3 = Main.ambientLavaY;
-				if (single1 < single)
-				{
-					single2 = Main.ambientLavafallX;
-					single3 = Main.ambientLavafallY;
-				}
-				float single4 = Main.ambientLavafallStrength + Main.ambientLavaStrength;
-				Main.PlaySound(35, (int)single2, (int)single3, (int)single4);
-			}
 		}
 
 		public static void AnglerQuestSwap()
@@ -2630,7 +2613,6 @@ namespace Terraria
 
 		public static void BuyHairWindow()
 		{
-			Main.PlaySound(18, -1, -1, 1);
 			Main.hairWindow = false;
 			Main.player[Main.myPlayer].talkNPC = -1;
 			Main.npcChatCornerItem = 0;
@@ -2754,10 +2736,6 @@ namespace Terraria
 				return;
 			}
 			Main.clothesWindow = false;
-			if (!quiet)
-			{
-				Main.PlaySound(11, -1, -1, 1);
-			}
 			Main.player[Main.myPlayer].shirtColor = Main.oldClothesColor[0];
 			Main.player[Main.myPlayer].underShirtColor = Main.oldClothesColor[1];
 			Main.player[Main.myPlayer].pantsColor = Main.oldClothesColor[2];
@@ -2777,7 +2755,6 @@ namespace Terraria
 			{
 				Main.player[Main.myPlayer].talkNPC = -1;
 			}
-			Main.PlaySound(11, -1, -1, 1);
 		}
 
 		public static bool canDrawColorTile(int i, int j)
@@ -9457,7 +9434,6 @@ namespace Terraria
 			{
 				return;
 			}
-			Main.PlaySound(7, -1, -1, 1);
 			for (int j = 0; j < (int)pInv.Length; j++)
 			{
 				if (j != 58 && pInv[j] != null && pInv[j].stack > 0)
@@ -10039,15 +10015,6 @@ namespace Terraria
 			return data1.Name.CompareTo(data2.Name);
 		}
 
-		public static void PlaySound(int type, Vector2 position, int Style = 1)
-		{
-			Main.PlaySound(type, (int)position.X, (int)position.Y, Style);
-		}
-
-		public static void PlaySound(int type, int x = -1, int y = -1, int Style = 1)
-		{
-		}
-
 		protected Color QuickAlpha(Color oldColor, float Alpha)
 		{
 			Color r = oldColor;
@@ -10219,7 +10186,6 @@ namespace Terraria
 
 		public static void SaveClothesWindow()
 		{
-			Main.PlaySound(7, -1, -1, 1);
 			Main.clothesWindow = false;
 			NetMessage.SendData(4, -1, -1, Main.player[Main.myPlayer].name, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
 		}
@@ -10330,13 +10296,11 @@ namespace Terraria
 				data.SetAsActive();
 				Main.player[Main.myPlayer].position = Vector2.Zero;
 				Main.LoadWorlds();
-				Main.PlaySound(10, -1, -1, 1);
 				Main.menuMode = 6;
 				return;
 			}
 			Main.ServerSideCharacter = false;
 			data.SetAsActive();
-			Main.PlaySound(10, -1, -1, 1);
 			if (Main.autoJoin)
 			{
 				if (Netplay.SetRemoteIP(Main.getIP))
