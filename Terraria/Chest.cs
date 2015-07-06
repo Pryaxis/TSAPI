@@ -2185,52 +2185,6 @@ namespace Terraria
 
 		public static void UpdateChestFrames()
 		{
-			bool[] flagArray = new bool[1000];
-			for (int i = 0; i < 255; i++)
-			{
-				if (Main.player[i].active && Main.player[i].chest >= 0 && Main.player[i].chest < 1000)
-				{
-					flagArray[Main.player[i].chest] = true;
-				}
-			}
-			Chest chest = null;
-			for (int j = 0; j < 1000; j++)
-			{
-				chest = Main.chest[j];
-				if (chest != null)
-				{
-					if (!flagArray[j])
-					{
-						Chest chest1 = chest;
-						chest1.frameCounter = chest1.frameCounter - 1;
-					}
-					else
-					{
-						Chest chest2 = chest;
-						chest2.frameCounter = chest2.frameCounter + 1;
-					}
-					if (chest.frameCounter < 0)
-					{
-						chest.frameCounter = 0;
-					}
-					if (chest.frameCounter > 10)
-					{
-						chest.frameCounter = 10;
-					}
-					if (chest.frameCounter == 0)
-					{
-						chest.frame = 0;
-					}
-					else if (chest.frameCounter != 10)
-					{
-						chest.frame = 1;
-					}
-					else
-					{
-						chest.frame = 2;
-					}
-				}
-			}
 		}
 
 		public static int UsingChest(int i)

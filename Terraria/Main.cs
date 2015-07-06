@@ -5640,7 +5640,6 @@ namespace Terraria
 			double num6 = 16.6666666666667;
 			double num7 = 0;
 			int num8 = 0;
-			(new Stopwatch()).Start();
 			while (!Netplay.disconnect)
 			{
 				double elapsedMilliseconds = (double)stopwatch.ElapsedMilliseconds;
@@ -8710,9 +8709,10 @@ namespace Terraria
 			}*/
 			if (Main.dedServ)
 			{
+				Main.clientUUID = Guid.NewGuid().ToString();
 				return;
 			}
-			/*Main.clientUUID = Guid.NewGuid().ToString();
+			/*
 			if (Lang.lang > 1)
 			{
 				Lang.setLang(true);
