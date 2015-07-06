@@ -39689,6 +39689,8 @@ namespace Terraria
 				Main.buffTip[160] = "Movement is greatly slowed";
 				Main.buffName[161] = "Deadly Sphere";
 				Main.buffTip[161] = "The Deadly Sphere will fight for you";
+				Main.buffName[162] = "Unicorn Mount";
+				Main.buffTip[162] = "Riding a unicorn";
 				Main.buffName[163] = "Obstructed";
 				Main.buffTip[163] = "You can't see!";
 				Main.buffName[164] = "Distorted";
@@ -39699,6 +39701,8 @@ namespace Terraria
 				Main.buffTip[166] = "Riding in a minecart";
 				Main.buffName[167] = "Minecart";
 				Main.buffTip[167] = "Riding in a minecart";
+				Main.buffName[168] = "Cute Fishron Mount";
+				Main.buffTip[168] = "Riding a cute fishron";
 				Main.buffName[185] = "Minecart";
 				Main.buffTip[185] = "Riding in a minecart";
 				Main.buffName[184] = "Minecart";
