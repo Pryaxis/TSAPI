@@ -8710,9 +8710,10 @@ namespace Terraria
 			}*/
 			if (Main.dedServ)
 			{
+				Main.clientUUID = Guid.NewGuid().ToString();
 				return;
 			}
-			/*Main.clientUUID = Guid.NewGuid().ToString();
+			/*
 			if (Lang.lang > 1)
 			{
 				Lang.setLang(true);

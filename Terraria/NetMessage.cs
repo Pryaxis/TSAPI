@@ -29,6 +29,12 @@ namespace Terraria
 			{
 				num = remoteClient;
 			}
+
+			if (text == null)
+			{
+				text = "";
+			}
+
 			if (!ServerApi.Hooks.InvokeNetSendData(ref msgType, ref remoteClient, ref ignoreClient, ref text, ref number,
 					ref number2, ref number3, ref number4, ref number5))
 			{
@@ -195,7 +201,7 @@ namespace Terraria
 								writer.Write((short)Main.worldSurface);
 								writer.Write((short)Main.rockLayer);
 								writer.Write(Main.worldID);
-								writer.Write(Main.worldName);
+								writer.Write(Main.worldName); //possibly null?
 								writer.Write((byte)Main.moonType);
 								writer.Write((byte)WorldGen.treeBG);
 								writer.Write((byte)WorldGen.corruptBG);
@@ -270,6 +276,7 @@ namespace Terraria
 								bb7[5] = NPC.downedChristmasTree;
 								writer.Write(bb7);
 								writer.Write((sbyte)Main.invasionType);
+								writer.Write(Main.LobbyId);
 								break;
 							}
 						case 8:
@@ -726,7 +733,7 @@ namespace Terraria
 							writer.Write((short)number);
 							writer.Write((short)Main.sign[number].x);
 							writer.Write((short)Main.sign[number].y);
-							writer.Write(Main.sign[number].text);
+							writer.Write(Main.sign[number].text); //possibly null?
 							writer.Write((byte)number2);
 							break;
 						case 48:
@@ -778,10 +785,6 @@ namespace Terraria
 								if (Main.netMode == 2)
 								{
 									value4 = Main.npc[number].displayName;
-								}
-								else if (Main.netMode == 1)
-								{
-									value4 = text;
 								}
 								writer.Write((short)number);
 								writer.Write(value4);
