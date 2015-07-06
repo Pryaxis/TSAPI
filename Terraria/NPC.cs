@@ -33469,7 +33469,8 @@ namespace Terraria
 							case 214:
 							case 215:
 							case 216:
-								{
+							{
+								num = 3;
 									break;
 								}
 							case 381:
