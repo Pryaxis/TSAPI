@@ -5244,12 +5244,14 @@ namespace Terraria
 							'\t',
 							'\t', Main.WorldList[j].Name
 						};
-						Console.WriteLine("{0,-8}{1,-16}{2}, {3}, {4}",
+						Console.WriteLine("{0,-4}{1,-15}{2}, {3}, {4,-6}{5}",
 							j + 1,
 							Main.WorldList[j].Name,
-							Main.WorldList[j].IsHardMode ? "hardmode" : "normal",
-							Main.WorldList[j].HasCrimson ? "crimson" : "corruption",
-							Main.WorldList[j].IsExpertMode ? "expert" : "non-expert");
+							Main.WorldList[j].IsHardMode ? "hard" : "norm",
+							Main.WorldList[j].HasCrimson ? "crim" : "corr",
+							Main.WorldList[j].IsExpertMode ? "exp" : "norm",
+							String.Format("Last used: {0}",
+								File.GetLastWriteTime(Main.WorldList[j].Path).ToString("g")));
 					}
 					object[] objArray = new object[] { "n", '\t', '\t', "New World" };
 					Console.WriteLine(string.Concat(objArray));

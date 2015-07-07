@@ -53,7 +53,7 @@ namespace Terraria.IO
 		private void Read(BinaryReader reader)
 		{
 			ulong num = reader.ReadUInt64();
-			if ((num & 72057594037927935L) != 27981915666277746L)
+			if ((num & 72057594037927935L) != MAGIC_NUMBER)
 			{
 				throw new Exception("FileFormatException: Expected Re-Logic file format.");
 			}
@@ -85,7 +85,7 @@ namespace Terraria.IO
 
 		public void Write(BinaryWriter writer)
 		{
-			writer.Write(27981915666277746L | (ulong)this.Type << 56);
+			writer.Write(MAGIC_NUMBER | (ulong)this.Type << 56);
 			writer.Write(this.Revision);
 			writer.Write((ulong)((long)(this.IsFavorite.ToInt() & 1)));
 		}
