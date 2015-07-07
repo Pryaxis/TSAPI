@@ -5238,8 +5238,18 @@ namespace Terraria
 					Console.WriteLine("");
 					for (int j = 0; j < Main.WorldList.Count; j++)
 					{
-						object[] name = new object[] { j + 1, '\t', '\t', Main.WorldList[j].Name };
-						Console.WriteLine(string.Concat(name));
+						object[] name = new object[] 
+						{
+							j + 1, 
+							'\t',
+							'\t', Main.WorldList[j].Name
+						};
+						Console.WriteLine("{0,-8}{1,-16}{2}, {3}, {4}",
+							j + 1,
+							Main.WorldList[j].Name,
+							Main.WorldList[j].IsHardMode ? "hardmode" : "normal",
+							Main.WorldList[j].HasCrimson ? "crimson" : "corruption",
+							Main.WorldList[j].IsExpertMode ? "expert" : "non-expert");
 					}
 					object[] objArray = new object[] { "n", '\t', '\t', "New World" };
 					Console.WriteLine(string.Concat(objArray));
