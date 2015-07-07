@@ -5557,10 +5557,6 @@ namespace Terraria
 #endif
 									}
 								}
-								Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
-								Console.WriteLine("");
-								Console.Write("Server password (press enter for none): ");
-								Netplay.ServerPassword = Console.ReadLine();
 								Main.ActiveWorldFileData = Main.WorldList[num3];
 								flag = false;
 								try
