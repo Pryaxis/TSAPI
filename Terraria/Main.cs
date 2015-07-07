@@ -5244,7 +5244,7 @@ namespace Terraria
 							'\t',
 							'\t', Main.WorldList[j].Name
 						};
-						Console.WriteLine("{0,-4}{1,-15}{2}, {3}, {4,-6}{5}",
+						Console.WriteLine("{0,-4}{1,-22}{2}, {3}, {4,-6}{5}",
 							j + 1,
 							Main.WorldList[j].Name,
 							Main.WorldList[j].IsHardMode ? "hard" : "norm",
@@ -5253,9 +5253,9 @@ namespace Terraria
 							String.Format("Last used: {0}",
 								File.GetLastWriteTime(Main.WorldList[j].Path).ToString("g")));
 					}
-					object[] objArray = new object[] { "n", '\t', '\t', "New World" };
-					Console.WriteLine(string.Concat(objArray));
-					Console.WriteLine(string.Concat("d <number>", '\t', "Delete World"));
+					Console.WriteLine();
+					Console.WriteLine("n           \tNew World");
+					Console.WriteLine("d   <number>\tDelete World");
 					Console.WriteLine("");
 					Console.Write("Choose World: ");
 					string str2 = Console.ReadLine() ?? "";
@@ -5419,6 +5419,10 @@ namespace Terraria
 							Main.newWorldName = Console.ReadLine();
 							if (Main.newWorldName != "" && Main.newWorldName != " " && Main.newWorldName != null)
 							{
+								if (Main.newWorldName.Length > 20)
+								{
+									Main.newWorldName = Main.newWorldName.Substring(0, 20);
+								}
 								flag1 = false;
 							}
 							try
