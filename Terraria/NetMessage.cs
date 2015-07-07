@@ -958,12 +958,53 @@ namespace Terraria
 						case 88:
 							{
 								BitsByte bb16 = (byte)number2;
+								BitsByte bb17 = (byte)number3;
 								writer.Write((short)number);
 								writer.Write(bb16);
 								Item item4 = Main.item[number];
 								if (bb16[0])
 								{
 									writer.Write(item4.color.PackedValue);
+								}
+								if (bb16[1])
+								{
+									writer.Write((ushort)item4.damage);
+								}
+								if (bb16[2])
+								{
+									writer.Write(item4.knockBack);
+								}
+								if (bb16[3])
+								{
+									writer.Write((ushort)item4.useAnimation);
+								}
+								if (bb16[4])
+								{
+									writer.Write((ushort)item4.useTime);
+								}
+								if (bb16[5])
+								{
+									writer.Write((short)item4.shoot);
+								}
+								if (bb16[6])
+								{
+									writer.Write(item4.shootSpeed);
+								}
+								if (bb16[7])
+								{
+									writer.Write(bb17);
+									if (bb17[0])
+									{
+										writer.Write((ushort)item4.width);
+									}
+									if (bb17[1])
+									{
+										writer.Write((ushort)item4.height);
+									}
+									if (bb17[2])
+									{
+										writer.Write(item4.scale);
+									}
 								}
 								break;
 							}
