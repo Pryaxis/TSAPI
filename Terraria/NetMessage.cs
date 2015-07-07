@@ -1057,6 +1057,18 @@ namespace Terraria
 					writer.BaseStream.Position = (long)num19;
 
 				byte[] packetContents = ms.ToArray();
+
+				ArraySegment<byte>? segment = null;
+				if (remoteClient >= 0)
+				{
+					segment = Netplay.Clients[remoteClient].sendQueue.LockSegment((short)packetContents.Length);
+
+					using (BinaryWriter bw = Netplay.Clients[remoteClient].sendQueue.SegmentWriter(segment.Value))
+					{
+						bw.Write(packetContents);
+					}
+				}
+
 				ms.Dispose();
 				writer.Dispose();
 
@@ -1349,8 +1361,10 @@ namespace Terraria
 							NetMessage.buffer[remoteClient].spamCount++;
 							Main.txMsg++;
 							Main.txData += num19;
-							Netplay.Clients[remoteClient].Socket.AsyncSend(packetContents, 0, num19,
-								new SocketSendCallback(Netplay.Clients[remoteClient].ServerWriteCallBack), null);
+							//Netplay.Clients[remoteClient].Socket.AsyncSend(packetContents, 0, num19,
+							//	new SocketSendCallback(Netplay.Clients[remoteClient].ServerWriteCallBack), null);
+
+							Netplay.Clients[remoteClient].sendQueue.Enqueue(segment.Value);
 						}
 						catch (Exception ex)
 						{

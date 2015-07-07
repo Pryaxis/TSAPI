@@ -55,8 +55,13 @@ namespace Terraria
 
 		public float SpamWaterMax = 50f;
 
+		public SendQueue sendQueue;
+
 		public RemoteClient()
 		{
+			this.sendQueue = new SendQueue(this);
+
+
 		}
 
 		public static void CheckSection(int playerIndex, Vector2 position, int fluff = 1)
