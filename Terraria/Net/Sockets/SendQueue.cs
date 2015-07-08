@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using Terraria.Net.Sockets.EventArgs;
 
 namespace Terraria.Net.Sockets
@@ -32,11 +33,44 @@ namespace Terraria.Net.Sockets
 			bufferSegments = new List<ArraySegment<byte>>();
 			sendQueue = new BlockingCollection<ArraySegment<byte>>();
 			sendBuffer = new byte[kSendQueueInitialBufferSize];
-			sendThread = new Thread(WriteThread);
-			sendThread.Name = client.Id + " - Network I/O Thread - " + client.Name;
-			sendThread.Start();
+		}
 
-			Console.WriteLine("IO thread - slot {0}", client.Id);
+		public void StartThread()
+		{
+			threadCancelled = false;
+			sendThread = new Thread(WriteThread);
+			sendThread.Name = "Network I/O Thread - " + client.Id;
+			sendThread.Start();
+		}
+
+		public static IEnumerable<ArraySegment<byte>> LockMultiple(IEnumerable<int> ids, short size)
+		{
+			List<ArraySegment<byte>> segments = new List<ArraySegment<byte>>(256);
+			foreach (int id in ids)
+			{
+				segments.Add(Netplay.Clients[id].sendQueue.LockSegment(size));
+			}
+
+			return segments;
+		}
+
+		public static void WriteMultiple(IEnumerable<ArraySegment<byte>> segments, ref byte[] buffer)
+		{
+			foreach (ArraySegment<byte> arraySegment in segments)
+			{
+				Array.Copy(buffer, arraySegment.Array, arraySegment.Count);
+			}
+		}
+
+		public static void EnqueueMultiple(IEnumerable<SendQueue> queues, IEnumerable<ArraySegment<byte>> segments)
+		{
+			foreach (SendQueue queue in queues)
+			{
+				foreach (var arraySegment in segments)
+				{
+					queue.Enqueue(arraySegment);
+				}
+			}
 		}
 
 		protected void WriteThread()
@@ -76,6 +110,7 @@ namespace Terraria.Net.Sockets
 					if (WriteFailed != null && socketError.HasValue == true)
 					{
 						WriteFailed(this, new WriteFailedEventArgs() { ErrorCode = socketError.Value });
+						__segment_release_internal(segment);
 					}
 				}
 			}
@@ -91,7 +126,12 @@ namespace Terraria.Net.Sockets
 			}
 			catch (IOException ioe)
 			{
-				socketError = (ioe.InnerException as SocketException).SocketErrorCode;
+				SocketException socketEx = ioe.InnerException as SocketException;
+
+				if (socketEx != null)
+				{
+					socketError = (ioe.InnerException as SocketException).SocketErrorCode;
+				}
 			}
 			catch (SocketException se)
 			{
@@ -115,6 +155,11 @@ namespace Terraria.Net.Sockets
 		{
 			//Console.WriteLine("slot {0} Enqueued segment {1} @ {2}", client.Id, segment, sendQueue.Count);
 			sendQueue.TryAdd(segment);
+		}
+
+		public void CopyTo(ArraySegment<byte> segment, ref byte[] buffer)
+		{
+			Array.Copy(buffer, 0, segment.Array, segment.Offset, segment.Count);
 		}
 
 		protected void Grow(int sizeDelta)
@@ -142,6 +187,13 @@ namespace Terraria.Net.Sockets
 		{
 			lock (syncLock)
 			{
+				foreach (ArraySegment<byte> bufferSegment in bufferSegments)
+				{
+					if (segment.Offset >= bufferSegment.Offset && (segment.Offset + segment.Count) <= (bufferSegment.Offset + bufferSegment.Count))
+					{
+						throw new Exception("Segment " + segment.Offset + " overlaps with locked segment " + bufferSegment.Offset);
+					}
+				}
 				bufferSegments.Add(segment);
 			}
 				
@@ -156,10 +208,15 @@ namespace Terraria.Net.Sockets
 			}
 		}
 
+		protected int DistanceBetween(ArraySegment<byte> from, ArraySegment<byte> to)
+		{
+			return to.Offset - (from.Offset + from.Count);
+		}
+
 		public ArraySegment<byte> LockSegment(short size)
 		{
-			int previousSegmentEnd = 0;
-
+			ArraySegment<byte> thisSegment = default(ArraySegment<byte>);
+			int lastSegmentEnd = 0;
 			/*
 			 * If there are no segments in the buffer, it is completely
 			 * free.
@@ -171,35 +228,46 @@ namespace Terraria.Net.Sockets
 					return __segment_lock_internal(0, size);
 				}
 
-
-				foreach (var bufferSegment in bufferSegments)
+				for (int i = 0; i < bufferSegments.Count; i++)
 				{
+					ArraySegment<byte>? nextSegment = null;
+					thisSegment = bufferSegments.OrderBy(seg => seg.Offset).ElementAt(i);
+
 					/*
+					 *
 					 * If this is the first segment and the distance between
 					 * here and the start of the array is big enough to fit the
 					 * segment then fit it at position 0.
 					 */
-					if (bufferSegment == bufferSegments.First() && bufferSegment.Offset >= size)
+					if (bufferSegments.Count == 1 && i == 0 && thisSegment.Offset > size)
 					{
 						return __segment_lock_internal(0, size);
 					}
 
-					if (bufferSegment.Offset - previousSegmentEnd > size)
+					if (i < bufferSegments.Count - 1)
 					{
-						return __segment_lock_internal(previousSegmentEnd, size);
+						nextSegment = bufferSegments.OrderBy(seg => seg.Offset).ElementAt(i);
 					}
 
-					previousSegmentEnd += bufferSegment.Offset + bufferSegment.Count;
+					if (nextSegment.HasValue && DistanceBetween(thisSegment, nextSegment.Value) > size)
+					{
+						return __segment_lock_internal(thisSegment.Offset + thisSegment.Count, size);
+					}
+
+					lastSegmentEnd = thisSegment.Offset + thisSegment.Count;
 				}
 
-				if (sendBuffer.Length - previousSegmentEnd >= size)
+				/*
+				 * Can it fit at the end?
+				 */
+				if (sendBuffer.Length - lastSegmentEnd > size)
 				{
-					return __segment_lock_internal(previousSegmentEnd, size);
+					return __segment_lock_internal(lastSegmentEnd, size);
 				}
 
 				//The buffer must get bigger to accommodate
-				Grow(size - previousSegmentEnd);
-				return __segment_lock_internal(previousSegmentEnd, size);
+				Grow(sendBuffer.Length - (thisSegment.Offset + thisSegment.Count));
+				return __segment_lock_internal(thisSegment.Offset + thisSegment.Count, size);
 			}
 		}
 
@@ -214,18 +282,37 @@ namespace Terraria.Net.Sockets
 			return SegmentWriter(segment);
 		}
 
+		~SendQueue()
+		{
+			Dispose(false);
+		}
+
 		public void Dispose()
 		{
 			Dispose(true);
 			GC.SuppressFinalize(this);
 		}
 
-		protected virtual void Dispose(bool disposing)
+		public void Reset()
 		{
-			if (disposing)
+			if (sendThread != null)
 			{
 				threadCancelled = true;
 				sendThread.Join();
+			}
+			bufferSegments.Clear();
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (sendThread != null)
+			{
+				threadCancelled = true;
+				sendThread.Join();
+			}
+
+			if (disposing)
+			{
 				bufferSegments = null;
 				sendBuffer = null;
 			}

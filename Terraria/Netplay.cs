@@ -341,6 +341,8 @@ namespace Terraria
 			if (num != -1)
 			{
 				Netplay.Clients[num].Socket = client;
+				Netplay.Clients[num].sendQueue.StartThread();
+
 				Console.WriteLine(client.GetRemoteAddress() + " is connecting to slot {0}...", num);
 			}
 			if (Netplay.FindNextOpenClientSlot() == -1)
