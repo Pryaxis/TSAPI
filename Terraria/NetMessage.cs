@@ -1101,26 +1101,7 @@ namespace Terraria
 				ms.Dispose();
 				writer.Dispose();
 
-				if (Main.netMode == 1)
-					{
-						if (!Netplay.Connection.Socket.IsConnected())
-						{
-							goto IL_2A90;
-						}
-						try
-						{
-							NetMessage.buffer[num].spamCount++;
-							Main.txMsg++;
-							Main.txData += num19;
-							Netplay.Connection.Socket.AsyncSend(packetContents, 0, num19,
-								new SocketSendCallback(Netplay.Connection.ClientWriteCallBack), null);
-							goto IL_2A90;
-						}
-						catch
-						{
-							goto IL_2A90;
-						}
-					}
+			
 					if (remoteClient == -1)
 					{
 						if (msgType == 34 || msgType == 69)
@@ -1134,8 +1115,13 @@ namespace Terraria
 										NetMessage.buffer[num20].spamCount++;
 										Main.txMsg++;
 										Main.txData += num19;
-										Netplay.Clients[num20].Socket.AsyncSend(packetContents, 0, num19,
-											new SocketSendCallback(Netplay.Clients[num20].ServerWriteCallBack), null);
+
+										var seg = Netplay.Clients[num20].sendQueue.LockSegment((short)packetContents.Length);
+										Netplay.Clients[num20].sendQueue.CopyTo(seg, ref packetContents);
+										Netplay.Clients[num20].sendQueue.Enqueue(seg);
+
+										//Netplay.Clients[num20].Socket.AsyncSend(packetContents, 0, num19,
+										//	new SocketSendCallback(Netplay.Clients[num20].ServerWriteCallBack), null);
 									}
 									catch (Exception ex)
 									{
@@ -1160,8 +1146,13 @@ namespace Terraria
 										NetMessage.buffer[num21].spamCount++;
 										Main.txMsg++;
 										Main.txData += num19;
-										Netplay.Clients[num21].Socket.AsyncSend(packetContents, 0, num19,
-											new SocketSendCallback(Netplay.Clients[num21].ServerWriteCallBack), null);
+
+										var seg = Netplay.Clients[num21].sendQueue.LockSegment((short)packetContents.Length);
+										Netplay.Clients[num21].sendQueue.CopyTo(seg, ref packetContents);
+										Netplay.Clients[num21].sendQueue.Enqueue(seg);
+
+										//Netplay.Clients[num21].Socket.AsyncSend(packetContents, 0, num19,
+										//	new SocketSendCallback(Netplay.Clients[num21].ServerWriteCallBack), null);
 									}
 									catch (Exception ex)
 									{
@@ -1210,8 +1201,13 @@ namespace Terraria
 											NetMessage.buffer[num22].spamCount++;
 											Main.txMsg++;
 											Main.txData += num19;
-											Netplay.Clients[num22].Socket.AsyncSend(packetContents, 0, num19,
-												new SocketSendCallback(Netplay.Clients[num22].ServerWriteCallBack), null);
+
+											var seg = Netplay.Clients[num22].sendQueue.LockSegment((short)packetContents.Length);
+											Netplay.Clients[num22].sendQueue.CopyTo(seg, ref packetContents);
+											Netplay.Clients[num22].sendQueue.Enqueue(seg);
+
+											//Netplay.Clients[num22].Socket.AsyncSend(packetContents, 0, num19,
+											//	new SocketSendCallback(Netplay.Clients[num22].ServerWriteCallBack), null);
 										}
 										catch (Exception ex)
 										{
@@ -1262,8 +1258,11 @@ namespace Terraria
 											NetMessage.buffer[num23].spamCount++;
 											Main.txMsg++;
 											Main.txData += num19;
-											Netplay.Clients[num23].Socket.AsyncSend(packetContents, 0, num19,
-												new SocketSendCallback(Netplay.Clients[num23].ServerWriteCallBack), null);
+											var seg = Netplay.Clients[num23].sendQueue.LockSegment((short)packetContents.Length);
+											Netplay.Clients[num23].sendQueue.CopyTo(seg, ref packetContents);
+											Netplay.Clients[num23].sendQueue.Enqueue(seg);
+										//	Netplay.Clients[num23].Socket.AsyncSend(packetContents, 0, num19,
+										//		new SocketSendCallback(Netplay.Clients[num23].ServerWriteCallBack), null);
 										}
 										catch (Exception ex)
 										{
@@ -1288,8 +1287,13 @@ namespace Terraria
 										NetMessage.buffer[num24].spamCount++;
 										Main.txMsg++;
 										Main.txData += num19;
-										Netplay.Clients[num24].Socket.AsyncSend(packetContents, 0, num19,
-											new SocketSendCallback(Netplay.Clients[num24].ServerWriteCallBack), null);
+
+										var seg = Netplay.Clients[num24].sendQueue.LockSegment((short)packetContents.Length);
+										Netplay.Clients[num24].sendQueue.CopyTo(seg, ref packetContents);
+										Netplay.Clients[num24].sendQueue.Enqueue(seg);
+
+										//Netplay.Clients[num24].Socket.AsyncSend(packetContents, 0, num19,
+										//	new SocketSendCallback(Netplay.Clients[num24].ServerWriteCallBack), null);
 									}
 									catch (Exception ex)
 									{
@@ -1340,8 +1344,13 @@ namespace Terraria
 											NetMessage.buffer[num25].spamCount++;
 											Main.txMsg++;
 											Main.txData += num19;
-											Netplay.Clients[num25].Socket.AsyncSend(packetContents, 0, num19,
-												new SocketSendCallback(Netplay.Clients[num25].ServerWriteCallBack), null);
+
+											var seg = Netplay.Clients[num25].sendQueue.LockSegment((short)packetContents.Length);
+											Netplay.Clients[num25].sendQueue.CopyTo(seg, ref packetContents);
+											Netplay.Clients[num25].sendQueue.Enqueue(seg);
+
+											//Netplay.Clients[num25].Socket.AsyncSend(packetContents, 0, num19,
+											//	new SocketSendCallback(Netplay.Clients[num25].ServerWriteCallBack), null);
 										}
 										catch (Exception ex)
 										{
@@ -1368,8 +1377,13 @@ namespace Terraria
 										NetMessage.buffer[num26].spamCount++;
 										Main.txMsg++;
 										Main.txData += num19;
-										Netplay.Clients[num26].Socket.AsyncSend(packetContents, 0, num19,
-											new SocketSendCallback(Netplay.Clients[num26].ServerWriteCallBack), null);
+
+										var seg = Netplay.Clients[num26].sendQueue.LockSegment((short)packetContents.Length);
+										Netplay.Clients[num26].sendQueue.CopyTo(seg, ref packetContents);
+										Netplay.Clients[num26].sendQueue.Enqueue(seg);
+
+										//Netplay.Clients[num26].Socket.AsyncSend(packetContents, 0, num19,
+										//	new SocketSendCallback(Netplay.Clients[num26].ServerWriteCallBack), null);
 									}
 									catch (Exception ex)
 									{
@@ -1390,8 +1404,13 @@ namespace Terraria
 							NetMessage.buffer[remoteClient].spamCount++;
 							Main.txMsg++;
 							Main.txData += num19;
-							Netplay.Clients[remoteClient].Socket.AsyncSend(packetContents, 0, num19,
-								new SocketSendCallback(Netplay.Clients[remoteClient].ServerWriteCallBack), null);
+
+							var seg = Netplay.Clients[remoteClient].sendQueue.LockSegment((short)packetContents.Length);
+							Netplay.Clients[remoteClient].sendQueue.CopyTo(seg, ref packetContents);
+							Netplay.Clients[remoteClient].sendQueue.Enqueue(seg);
+
+							//Netplay.Clients[remoteClient].Socket.AsyncSend(packetContents, 0, num19,
+							//	new SocketSendCallback(Netplay.Clients[remoteClient].ServerWriteCallBack), null);
 						}
 						catch (Exception ex)
 						{
@@ -1402,28 +1421,10 @@ namespace Terraria
 #endif
 						}
 					}
-				IL_2A90:
-					//if (Main.verboseNetplay)
-					//{
-					//	for (int num27 = 0; num27 < num19; num27++)
-					//	{
-					//	}
-					//	for (int num28 = 0; num28 < num19; num28++)
-					//	{
-					//		byte arg_2ABC_0 = packetContents[num28];
-					//	}
-					//}
-					NetMessage.buffer[num].writeLocked = false;
-					if (msgType == 19 && Main.netMode == 1)
-					{
-						NetMessage.SendTileSquare(num, (int)number2, (int)number3, 5);
-					}
 					if (msgType == 2 && Main.netMode == 2)
 					{
 						Netplay.Clients[num].PendingTermination = true;
 					}
-				//}
-
 			}
 		}
 		public static int CompressTileBlock(int xStart, int yStart, short width, short height, byte[] buffer, int bufferStart)
