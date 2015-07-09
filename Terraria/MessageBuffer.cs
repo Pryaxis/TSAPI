@@ -780,6 +780,10 @@ namespace Terraria
 					{
 						item2.velocity = this.reader.ReadVector2();
 					}
+					else
+					{
+						item2.velocity = Vector2.Zero;
+					}
 					item2.vortexStealthActive = bitsByte8[3];
 					item2.gravDir = (float)((bitsByte8[4] ? 1 : -1));
 					if (Main.netMode != 2 || Netplay.Clients[this.whoAmI].State != 10)
@@ -2742,7 +2746,7 @@ namespace Terraria
 					{
 						return;
 					}
-					Main.ReportInvasionProgress(this.reader.ReadInt16(), this.reader.ReadInt16(), this.reader.ReadSByte(), this.reader.ReadSByte());
+					Main.ReportInvasionProgress(this.reader.ReadInt32(), this.reader.ReadInt32(), this.reader.ReadSByte(), this.reader.ReadSByte());
 					return;
 				}
 				case 79:
@@ -2750,7 +2754,7 @@ namespace Terraria
 					int num191 = this.reader.ReadInt16();
 					int num192 = this.reader.ReadInt16();
 					short num193 = this.reader.ReadInt16();
-					int num194 = this.reader.ReadByte();
+					int num194 = this.reader.ReadInt16();
 					int num195 = this.reader.ReadByte();
 					int num196 = this.reader.ReadSByte();
 					num = (!this.reader.ReadBoolean() ? -1 : 1);
