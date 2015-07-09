@@ -345,10 +345,6 @@ namespace Terraria
 							writer.Write((short)Main.player[number].statLifeMax);
 							break;
 						case 17:
-							if (Main.netMode == 1)
-							{
-								AchievementsHelper.NotifyTileDestroyed(Main.player[Main.myPlayer], (ushort)number4);
-							}
 							writer.Write((byte)number);
 							writer.Write((short)number2);
 							writer.Write((short)number3);
@@ -810,8 +806,8 @@ namespace Terraria
 							writer.Write((byte)number4);
 							break;
 						case 61:
-							writer.Write(number);
-							writer.Write((int)number2);
+							writer.Write((short)number);
+							writer.Write((short)number2);
 							break;
 						case 62:
 							writer.Write((byte)number);
@@ -885,8 +881,8 @@ namespace Terraria
 							writer.Write((short)number4);
 							break;
 						case 78:
-							writer.Write((short)number);
-							writer.Write((short)number2);
+							writer.Write(number);
+							writer.Write((int)number2);
 							writer.Write((sbyte)number3);
 							writer.Write((sbyte)number4);
 							break;
@@ -894,7 +890,7 @@ namespace Terraria
 							writer.Write((short)number);
 							writer.Write((short)number2);
 							writer.Write((short)number3);
-							writer.Write((byte)number4);
+							writer.Write((short)number4);
 							writer.Write((byte)number5);
 							writer.Write((sbyte)number6);
 							writer.Write(number7 == 1);
@@ -1004,6 +1000,18 @@ namespace Terraria
 									if (bb17[2])
 									{
 										writer.Write(item4.scale);
+									}
+									if (bb17[3])
+									{
+										writer.Write((short)item4.ammo);
+									}
+									if (bb17[4])
+									{
+										writer.Write((short)item4.useAmmo);
+									}
+									if (bb17[5])
+									{
+										writer.Write(item4.notAmmo);
 									}
 								}
 								break;

@@ -1794,9 +1794,9 @@ namespace Terraria
 
 		static Main()
 		{
-			Main.curRelease = 149;
-			Main.versionNumber = "v1.3.0.3";
-			Main.versionNumber2 = "v1.3.0.3";
+			Main.curRelease = 151;
+			Main.versionNumber = "v1.3.0.4";
+			Main.versionNumber2 = "v1.3.0.4";
 			Main.destroyerHB = new Vector2(0f, 0f);
 			object[] folderPath = new object[] { Environment.GetFolderPath(Environment.SpecialFolder.Personal), Path.DirectorySeparatorChar, "My Games", Path.DirectorySeparatorChar, "Terraria", Path.DirectorySeparatorChar, "favorites.json" };
 			Main.LocalFavoriteData = new FavoritesFile(string.Concat(folderPath), false);
