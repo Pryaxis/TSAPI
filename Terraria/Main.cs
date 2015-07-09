@@ -5919,8 +5919,8 @@ namespace Terraria
 			{
 				if (!Main.WorldList[i].IsCloudSave)
 				{
-					FileOperationAPIWrapper.MoveToRecycleBin(Main.WorldList[i].Path);
-					FileOperationAPIWrapper.MoveToRecycleBin(string.Concat(Main.WorldList[i].Path, ".bak"));
+					File.Delete(Main.WorldList[i].Path);
+					File.Delete(Main.WorldList[i].Path + ".bak");
 				}
 				else if (SocialAPI.Cloud != null)
 				{
