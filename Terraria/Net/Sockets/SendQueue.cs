@@ -224,12 +224,12 @@ namespace Terraria.Net.Sockets
 
 					if (i < bufferSegments.Count - 1)
 					{
-						nextSegment = bufferSegments.OrderBy(seg => seg.Offset).ElementAt(i);
+						nextSegment = bufferSegments.OrderBy(seg => seg.Offset).ElementAt(i + 1);
 					}
 
 					if (nextSegment.HasValue && DistanceBetween(thisSegment, nextSegment.Value) > size)
 					{
-						return __segment_lock_internal(thisSegment.Offset + thisSegment.Count, size);
+						return __segment_lock_internal(thisSegment.Offset + thisSegment.Count + 1, size);
 					}
 
 					lastSegmentEnd = thisSegment.Offset + thisSegment.Count;
@@ -240,7 +240,7 @@ namespace Terraria.Net.Sockets
 				 */
 				if (sendBuffer.Length - lastSegmentEnd > size)
 				{
-					return __segment_lock_internal(lastSegmentEnd, size);
+					return __segment_lock_internal(lastSegmentEnd + 1, size);
 				}
 
 				//The buffer must get bigger to accommodate

@@ -1057,42 +1057,9 @@ namespace Terraria
 
                 byte[] packetContents = ms.ToArray();
 
-                ArraySegment<byte>? segment = null;
-                if (remoteClient >= 0)
-                {
-                    using (SegmentWriter segWriter = Netplay.Clients[remoteClient].sendQueue.LockSegmentWriter((short)packetContents.Length))
-                    {
-                        segWriter.Write(packetContents);
-                        segWriter.Enqueue();
-                    }
-                }
-
                 ms.Dispose();
                 writer.Dispose();
 
-                /*if (Main.netMode == 1)
-                {
-                    if (!Netplay.Connection.Socket.IsConnected())
-                    {
-                        goto IL_2A90;
-                    }
-                    try
-                    {
-                        NetMessage.buffer[num].spamCount++;
-                        Main.txMsg++;
-                        Main.txData += num19;
-
-      
-
-                        Netplay.Connection.Socket.AsyncSend(packetContents, 0, num19,
-                            new SocketSendCallback(Netplay.Connection.ClientWriteCallBack), null);
-                        goto IL_2A90;
-                    }
-                    catch
-                    {
-                        goto IL_2A90;
-                    }
-                }*/
                 if (remoteClient == -1)
                 {
                     if (msgType == 34 || msgType == 69)
@@ -1398,7 +1365,7 @@ namespace Terraria
                         Main.txData += num19;
                         //Netplay.Clients[remoteClient].Socket.AsyncSend(packetContents, 0, num19,
                         //	new SocketSendCallback(Netplay.Clients[remoteClient].ServerWriteCallBack), null);
-                        ArraySegment<byte> seg = Netplay.Clients[remoteClient].sendQueue.LockSegment((short)num19);
+                        ArraySegment<byte> seg = Netplay.Clients[remoteClient].sendQueue.LockSegment((short)packetContents.Length);
                         Netplay.Clients[remoteClient].sendQueue.CopyTo(seg, ref packetContents);
                         Netplay.Clients[remoteClient].sendQueue.Enqueue(seg);
                     }
