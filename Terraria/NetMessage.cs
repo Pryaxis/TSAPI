@@ -526,6 +526,10 @@ namespace Terraria
 								writer.Write(value2);
 								if (!bb12[7])
 								{
+									if (Main.npcLifeBytes.ContainsKey(nPC.netID) == false)
+									{
+										break;
+									}
 									byte b3 = Main.npcLifeBytes[nPC.netID];
 									writer.Write(b3);
 									if (b3 == 2)

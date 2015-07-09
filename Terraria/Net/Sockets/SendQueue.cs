@@ -17,7 +17,7 @@ namespace Terraria.Net.Sockets
 		protected volatile bool threadCancelled;
 		protected byte[] sendBuffer;
 		protected readonly object syncLock = new object();
-		protected List<ArraySegment<byte>> bufferSegments;
+		protected LinkedList<ArraySegment<byte>> bufferSegments;
 		protected BlockingCollection<ArraySegment<byte>> sendQueue;
 		protected Thread sendThread;
 		protected RemoteClient client;
@@ -30,7 +30,7 @@ namespace Terraria.Net.Sockets
 		public SendQueue(RemoteClient client)
 		{
 			this.client = client;
-			bufferSegments = new List<ArraySegment<byte>>();
+			bufferSegments = new LinkedList<ArraySegment<byte>>();
 			sendQueue = new BlockingCollection<ArraySegment<byte>>();
 			sendBuffer = new byte[kSendQueueInitialBufferSize];
 		}
@@ -64,24 +64,24 @@ namespace Terraria.Net.Sockets
 					(client.Socket as TcpSocket)._connection.GetStream()
 						.BeginWrite(segment.Array, segment.Offset, segment.Count, WriteCallback, segment);
 				}
-				catch (IOException ioe)
+				catch (Exception ex)
 				{
-					socketError = (ioe.InnerException as SocketException).SocketErrorCode;
-				}
-				catch (SocketException se)
-				{
-					socketError = se.SocketErrorCode;
-				}
-				catch (Exception)
-				{
-				}
-				finally
-				{
-					if (WriteFailed != null && socketError.HasValue == true)
+					WriteFailedEventArgs args = null;
+
+					if (ex.InnerException != null && ex.InnerException is SocketException)
 					{
-						WriteFailed(this, new WriteFailedEventArgs() { ErrorCode = socketError.Value });
-						__segment_release_internal(segment);
+						args = new WriteFailedEventArgs() {ErrorCode = (ex.InnerException as SocketException).SocketErrorCode};
+					} else if (ex is SocketException)
+					{
+						args = new WriteFailedEventArgs() {ErrorCode = (ex as SocketException).SocketErrorCode};
 					}
+
+					if (args != null && WriteFailed != null)
+					{
+						Console.Write("SendQ: Slot {0} socket error {1}.", ex.Message);
+						WriteFailed(this, args);
+					}
+					__segment_release_internal(segment);
 				}
 			}
 		}
@@ -93,31 +93,27 @@ namespace Terraria.Net.Sockets
 			try
 			{
 				(client.Socket as TcpSocket)._connection.GetStream().EndWrite(ar);
+				__segment_release_internal((ArraySegment<byte>) ar.AsyncState);
 			}
-			catch (IOException ioe)
+			catch (Exception ex)
 			{
-				SocketException socketEx = ioe.InnerException as SocketException;
+				WriteFailedEventArgs args = null;
 
-				if (socketEx != null)
+				if (ex.InnerException != null && ex.InnerException is SocketException)
 				{
-					socketError = (ioe.InnerException as SocketException).SocketErrorCode;
+					args = new WriteFailedEventArgs() { ErrorCode = (ex.InnerException as SocketException).SocketErrorCode };
 				}
-			}
-			catch (SocketException se)
-			{
-				socketError = se.SocketErrorCode;
-			}
-			catch (Exception)
-			{
-			}
-			finally
-			{
-				if (WriteFailed != null && socketError.HasValue == true)
+				else if (ex is SocketException)
 				{
-					WriteFailed(this, new WriteFailedEventArgs() { ErrorCode = socketError.Value });
+					args = new WriteFailedEventArgs() { ErrorCode = (ex as SocketException).SocketErrorCode };
 				}
 
-				__segment_release_internal((ArraySegment<byte>)ar.AsyncState);
+				if (args != null && WriteFailed != null)
+				{
+					Console.Write("SendQ: Slot {0} socket error {1}.", ex.Message);
+					WriteFailed(this, args);
+					__segment_reset_internal();
+				}
 			}
 		}
 
@@ -146,6 +142,14 @@ namespace Terraria.Net.Sockets
 			}
 		}
 
+		internal void __segment_reset_internal()
+		{
+			lock (syncLock)
+			{
+				bufferSegments.Clear();
+			}
+		}
+
 		internal ArraySegment<byte> __segment_lock_internal(int offset, int size)
 		{
 			ArraySegment<byte> newSegment = new ArraySegment<byte>(sendBuffer, offset, size);
@@ -157,19 +161,7 @@ namespace Terraria.Net.Sockets
 
 		internal void __segment_lock_internal(ArraySegment<byte> segment)
 		{
-			lock (syncLock)
-			{
-				foreach (ArraySegment<byte> bufferSegment in bufferSegments)
-				{
-					if (segment.Offset >= bufferSegment.Offset && (segment.Offset + segment.Count) <= (bufferSegment.Offset + bufferSegment.Count))
-					{
-						throw new Exception("Segment " + segment.Offset + " overlaps with locked segment " + bufferSegment.Offset);
-					}
-				}
-				bufferSegments.Add(segment);
-			}
-
-			//Console.WriteLine("queue {0}: locked {1} bytes @ {2}/{3}", client.Id, segment.Count, segment.Offset, bufferSegments.Count);
+					//Console.WriteLine("queue {0}: locked {1} bytes @ {2}/{3}", client.Id, segment.Count, segment.Offset, bufferSegments.Count);
 		}
 
 		internal void __segment_release_internal(ArraySegment<byte> segment)
@@ -203,49 +195,29 @@ namespace Terraria.Net.Sockets
 			{
 				if (bufferSegments.Count == 0)
 				{
-					return __segment_lock_internal(0, size);
+					ArraySegment<byte> newSegment = new ArraySegment<byte>(sendBuffer, 0, size);
+					return bufferSegments.AddFirst(newSegment).Value;
 				}
+			}
 
-				for (int i = 0; i < bufferSegments.Count; i++)
+			lock (syncLock)
+			{
+				for (var segment = bufferSegments.First; segment != bufferSegments.Last; segment = segment.Next)
 				{
-					ArraySegment<byte>? nextSegment = null;
-					thisSegment = bufferSegments.OrderBy(seg => seg.Offset).ElementAt(i);
-
-					/*
-					 *
-					 * If this is the first segment and the distance between
-					 * here and the start of the array is big enough to fit the
-					 * segment then fit it at position 0.
-					 */
-					if (bufferSegments.Count == 1 && i == 0 && thisSegment.Offset > size)
+					if (DistanceBetween(segment.Value, segment.Next.Value) > size)
 					{
-						return __segment_lock_internal(0, size);
+						ArraySegment<byte> newSegment = new ArraySegment<byte>(sendBuffer, segment.Value.Offset + segment.Value.Count, size);
+						return bufferSegments.AddAfter(segment, newSegment).Value;
 					}
-
-					if (i < bufferSegments.Count - 1)
-					{
-						nextSegment = bufferSegments.OrderBy(seg => seg.Offset).ElementAt(i + 1);
-					}
-
-					if (nextSegment.HasValue && DistanceBetween(thisSegment, nextSegment.Value) > size)
-					{
-						return __segment_lock_internal(thisSegment.Offset + thisSegment.Count + 1, size);
-					}
-
-					lastSegmentEnd = thisSegment.Offset + thisSegment.Count;
 				}
 
-				/*
-				 * Can it fit at the end?
-				 */
-				if (sendBuffer.Length - lastSegmentEnd > size)
+				if (sendBuffer.Length - (bufferSegments.Last.Value.Offset + bufferSegments.Last.Value.Count) > size)
 				{
-					return __segment_lock_internal(lastSegmentEnd + 1, size);
+					ArraySegment<byte> newSegment = new ArraySegment<byte>(sendBuffer, bufferSegments.Last.Value.Offset + bufferSegments.Last.Value.Count, size);
+					return bufferSegments.AddAfter(bufferSegments.Last, newSegment).Value;
 				}
 
-				//The buffer must get bigger to accommodate
-				Grow(sendBuffer.Length - (thisSegment.Offset + thisSegment.Count));
-				return __segment_lock_internal(thisSegment.Offset + thisSegment.Count, size);
+				throw new Exception(string.Format("Buffer for slot {0} is full.", client.Id));
 			}
 		}
 

@@ -739,7 +739,7 @@ namespace Terraria
 					Netplay.Clients[this.whoAmI].State = 10;
 					NetMessage.greetPlayer(this.whoAmI);
 					NetMessage.buffer[this.whoAmI].broadcast = true;
-					NetMessage.syncPlayers();
+					//NetMessage.syncPlayers();
 					NetMessage.SendData(12, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 					NetMessage.SendData(74, this.whoAmI, -1, Main.player[this.whoAmI].name, Main.anglerQuest, 0f, 0f, 0f, 0, 0, 0);
 					return;
