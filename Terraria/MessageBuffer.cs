@@ -2360,8 +2360,8 @@ namespace Terraria
 				}
 				case 61:
 				{
-					int num161 = this.reader.ReadInt32();
-					int num162 = this.reader.ReadInt32();
+					int num161 = this.reader.ReadInt16();
+					int num162 = this.reader.ReadInt16();
 					if (Main.netMode != 2)
 					{
 						return;
