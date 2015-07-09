@@ -671,6 +671,10 @@ namespace Terraria
 							NetMessage.SendData(27, this.whoAmI, -1, "", k1, 0f, 0f, 0f, 0, 0, 0);
 						}
 					}
+					for (int l1 = 0; l1 < 251; l1++)
+					{
+						NetMessage.SendData(83, this.whoAmI, -1, "", l1, 0f, 0f, 0f, 0, 0, 0);
+					}
 					NetMessage.SendData(49, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 					NetMessage.SendData(57, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 					NetMessage.SendData(7, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
@@ -843,14 +847,13 @@ namespace Terraria
 					byte num25 = this.reader.ReadByte();
 					int num26 = this.reader.ReadInt16();
 					int num27 = this.reader.ReadInt16();
-
-					// Check for invalid coordinates
-					if (num26 < 0 || num26 >= Main.maxTilesX || num27 < 0 || num27 >= Main.maxTilesY)
-						return;
-
 					short num28 = this.reader.ReadInt16();
 					int num29 = this.reader.ReadByte();
 					bool flag3 = num28 == 1;
+					if (!WorldGen.InWorld(num26, num27, 3))
+					{
+						return;
+					}
 					if (Main.tile[num26, num27] == null)
 					{
 						Main.tile[num26, num27] = new Tile();
@@ -1015,6 +1018,10 @@ namespace Terraria
 					short num36 = this.reader.ReadInt16();
 					int num37 = this.reader.ReadInt16();
 					int num38 = this.reader.ReadInt16();
+					if (!WorldGen.InWorld(num37, num38, 3))
+					{
+						return;
+					}
 					BitsByte bitsByte9 = 0;
 					BitsByte bitsByte10 = 0;
 					Tile tile = null;

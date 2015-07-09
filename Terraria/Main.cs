@@ -5238,12 +5238,24 @@ namespace Terraria
 					Console.WriteLine("");
 					for (int j = 0; j < Main.WorldList.Count; j++)
 					{
-						object[] name = new object[] { j + 1, '\t', '\t', Main.WorldList[j].Name };
-						Console.WriteLine(string.Concat(name));
+						object[] name = new object[] 
+						{
+							j + 1, 
+							'\t',
+							'\t', Main.WorldList[j].Name
+						};
+						Console.WriteLine("{0,-4}{1,-22}{2}, {3}, {4,-6}{5}",
+							j + 1,
+							Main.WorldList[j].Name,
+							Main.WorldList[j].IsHardMode ? "hard" : "norm",
+							Main.WorldList[j].HasCrimson ? "crim" : "corr",
+							Main.WorldList[j].IsExpertMode ? "exp" : "norm",
+							String.Format("Last used: {0}",
+								File.GetLastWriteTime(Main.WorldList[j].Path).ToString("g")));
 					}
-					object[] objArray = new object[] { "n", '\t', '\t', "New World" };
-					Console.WriteLine(string.Concat(objArray));
-					Console.WriteLine(string.Concat("d <number>", '\t', "Delete World"));
+					Console.WriteLine();
+					Console.WriteLine("n           \tNew World");
+					Console.WriteLine("d   <number>\tDelete World");
 					Console.WriteLine("");
 					Console.Write("Choose World: ");
 					string str2 = Console.ReadLine() ?? "";
@@ -5407,6 +5419,10 @@ namespace Terraria
 							Main.newWorldName = Console.ReadLine();
 							if (Main.newWorldName != "" && Main.newWorldName != " " && Main.newWorldName != null)
 							{
+								if (Main.newWorldName.Length > 20)
+								{
+									Main.newWorldName = Main.newWorldName.Substring(0, 20);
+								}
 								flag1 = false;
 							}
 							try
@@ -5903,8 +5919,8 @@ namespace Terraria
 			{
 				if (!Main.WorldList[i].IsCloudSave)
 				{
-					FileOperationAPIWrapper.MoveToRecycleBin(Main.WorldList[i].Path);
-					FileOperationAPIWrapper.MoveToRecycleBin(string.Concat(Main.WorldList[i].Path, ".bak"));
+					File.Delete(Main.WorldList[i].Path);
+					File.Delete(Main.WorldList[i].Path + ".bak");
 				}
 				else if (SocialAPI.Cloud != null)
 				{

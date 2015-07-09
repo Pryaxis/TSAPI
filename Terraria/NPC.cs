@@ -681,10 +681,6 @@ namespace Terraria
 			bool flag3;
 			bool flag4;
 			bool flag5;
-			object obj;
-			object obj1;
-			object obj2;
-			object obj3;
 			if (this.aiStyle == 0)
 			{
 				for (int i = 0; i < 255; i++)
@@ -9061,15 +9057,12 @@ namespace Terraria
 					if (this.ai[1] <= 0f && !false)
 					{
 						float[] singleArray = this.ai;
+						float ai_0 = 8;
 						if (this.localAI[2] != 8f || !flag48)
 						{
-							obj3 = null;
+							ai_0 = 0;
 						}
-						else
-						{
-							obj3 = 8;
-						}
-						singleArray[0] = (float)obj3;
+						singleArray[0] = ai_0;
 						this.ai[1] = (float)(num171 + Main.rand.Next(num172));
 						this.ai[2] = 0f;
 						float[] singleArray1 = this.localAI;
@@ -9536,15 +9529,12 @@ namespace Terraria
 					if (this.ai[1] <= 0f && !false)
 					{
 						float[] singleArray6 = this.ai;
+						float ai_0 = 8;
 						if (this.localAI[2] != 8f || !flag48)
 						{
-							obj1 = null;
+							ai_0 = 0;
 						}
-						else
-						{
-							obj1 = 8;
-						}
-						singleArray6[0] = (float)obj1;
+						singleArray6[0] = ai_0;
 						this.ai[1] = (float)(num186 + Main.rand.Next(num187));
 						this.ai[2] = 0f;
 						float[] singleArray7 = this.localAI;
@@ -9676,15 +9666,12 @@ namespace Terraria
 						if (!flag57)
 						{
 							float[] singleArray9 = this.ai;
+							float ai_0 = 8;
 							if (this.localAI[2] != 8f || !flag48)
 							{
-								obj = null;
+								ai_0 = 0;
 							}
-							else
-							{
-								obj = 8;
-							}
-							singleArray9[0] = (float)obj;
+							singleArray9[0] = ai_0;
 							this.ai[1] = (float)(num195 + Main.rand.Next(num196));
 							this.ai[2] = 0f;
 							float[] singleArray10 = this.localAI;
