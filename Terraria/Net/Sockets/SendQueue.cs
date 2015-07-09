@@ -43,36 +43,6 @@ namespace Terraria.Net.Sockets
 			sendThread.Start();
 		}
 
-		public static IEnumerable<ArraySegment<byte>> LockMultiple(IEnumerable<int> ids, short size)
-		{
-			List<ArraySegment<byte>> segments = new List<ArraySegment<byte>>(256);
-			foreach (int id in ids)
-			{
-				segments.Add(Netplay.Clients[id].sendQueue.LockSegment(size));
-			}
-
-			return segments;
-		}
-
-		public static void WriteMultiple(IEnumerable<ArraySegment<byte>> segments, ref byte[] buffer)
-		{
-			foreach (ArraySegment<byte> arraySegment in segments)
-			{
-				Array.Copy(buffer, arraySegment.Array, arraySegment.Count);
-			}
-		}
-
-		public static void EnqueueMultiple(IEnumerable<SendQueue> queues, IEnumerable<ArraySegment<byte>> segments)
-		{
-			foreach (SendQueue queue in queues)
-			{
-				foreach (var arraySegment in segments)
-				{
-					queue.Enqueue(arraySegment);
-				}
-			}
-		}
-
 		protected void WriteThread()
 		{
 			ArraySegment<byte> segment;
@@ -151,6 +121,8 @@ namespace Terraria.Net.Sockets
 			}
 		}
 
+
+
 		public void Enqueue(ArraySegment<byte> segment)
 		{
 			//Console.WriteLine("slot {0} Enqueued segment {1} @ {2}", client.Id, segment, sendQueue.Count);
@@ -179,7 +151,7 @@ namespace Terraria.Net.Sockets
 			ArraySegment<byte> newSegment = new ArraySegment<byte>(sendBuffer, offset, size);
 
 			__segment_lock_internal(newSegment);
-	
+
 			return newSegment;
 		}
 
@@ -196,7 +168,7 @@ namespace Terraria.Net.Sockets
 				}
 				bufferSegments.Add(segment);
 			}
-				
+
 			//Console.WriteLine("queue {0}: locked {1} bytes @ {2}/{3}", client.Id, segment.Count, segment.Offset, bufferSegments.Count);
 		}
 
@@ -212,6 +184,12 @@ namespace Terraria.Net.Sockets
 		{
 			return to.Offset - (from.Offset + from.Count);
 		}
+
+		public SegmentWriter LockSegmentWriter(short size)
+		{
+            ArraySegment<byte> segment = LockSegment(size);
+            return new SegmentWriter(this, segment);
+        }
 
 		public ArraySegment<byte> LockSegment(short size)
 		{
@@ -269,17 +247,6 @@ namespace Terraria.Net.Sockets
 				Grow(sendBuffer.Length - (thisSegment.Offset + thisSegment.Count));
 				return __segment_lock_internal(thisSegment.Offset + thisSegment.Count, size);
 			}
-		}
-
-		public BinaryWriter SegmentWriter(ArraySegment<byte> segment)
-		{
-			return new BinaryWriter(new MemoryStream(segment.Array, segment.Offset, segment.Count, true));
-		}
-
-		public BinaryWriter SegmentWriter(short size)
-		{
-			ArraySegment<byte> segment = LockSegment(size);
-			return SegmentWriter(segment);
 		}
 
 		~SendQueue()
