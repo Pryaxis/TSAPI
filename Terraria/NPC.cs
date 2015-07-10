@@ -33631,10 +33631,11 @@ namespace Terraria
 					}
 				}
 			}
-			if (Main.netMode == 2)
-			{
-				NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
-			}
+			//if (Main.netMode == 2)
+			//{
+				//Sent in updateNPC
+				//NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+			//}
 		}
 
 		public void DropBossBags()
@@ -57926,8 +57927,8 @@ namespace Terraria
 				if (Main.netMode == 2)
 				{
 					this.netUpdate = true;
-					NetMessage.SendData(23, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+					//NetMessage.SendData(23, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+					//NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 				}
 				if (NPC.TypeToNum(this.type) != -1)
 				{
