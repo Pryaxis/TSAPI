@@ -10,6 +10,12 @@ namespace Terraria.Net.Sockets
 	{
 		private RemoteAddress _remoteAddress;
 
+
+		public int ClientID()
+		{
+			return 0;
+		}
+
 		public SocialSocket()
 		{
 		}

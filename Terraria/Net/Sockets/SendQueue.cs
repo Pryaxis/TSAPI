@@ -31,7 +31,7 @@ namespace Terraria.Net.Sockets
 		{
 			this.client = client;
 			bufferSegments = new LinkedList<ArraySegment<byte>>();
-			sendQueue = new BlockingCollection<ArraySegment<byte>>();
+			sendQueue = new BlockingCollection<ArraySegment<byte>>(new ConcurrentQueue<ArraySegment<byte>>());
 		}
 
 		public void StartThread()
@@ -80,6 +80,7 @@ namespace Terraria.Net.Sockets
 					{
 						Console.Write("SendQ: Slot {0} socket error {1}.", ex.Message);
 						WriteFailed(this, args);
+						Netplay.Clients[client.Id].PendingTermination = true;
 					}
 					__segment_release_internal(segment);
 				}
@@ -113,6 +114,7 @@ namespace Terraria.Net.Sockets
 					Console.Write("SendQ: Slot {0} socket error {1}.", ex.Message);
 					WriteFailed(this, args);
 					__segment_reset_internal();
+					Netplay.Clients[client.Id].PendingTermination = true;
 				}
 			}
 		}

@@ -5,7 +5,7 @@ namespace Terraria.DataStructures
 {
 	public class CachedBuffer
 	{
-		public readonly byte[] Data;
+		public byte[] Data;
 
 		public readonly BinaryWriter Writer;
 
