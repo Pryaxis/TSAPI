@@ -1734,6 +1734,12 @@ namespace Terraria
 					int num93 = this.reader.ReadInt16();
 					int num94 = this.reader.ReadInt16();
 					int num95 = this.reader.ReadInt16();
+
+					if (num93 > Main.maxTilesX || num94 > Main.maxTilesY)
+					{
+						return;
+					}
+
 					if (Main.netMode != 2)
 					{
 						int num96 = this.reader.ReadInt16();
