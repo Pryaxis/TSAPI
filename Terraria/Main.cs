@@ -5216,6 +5216,11 @@ namespace Terraria
 			Console.Title = string.Concat("Terraria Server ", Main.versionNumber2);
 			Main.dedServ = true;
 			Main.showSplash = false;
+			if (Main.autoGen)
+			{
+				Main.ActiveWorldFileData = new WorldFileData();
+				Main.ActiveWorldFileData.Path = Main.WorldPathClassic;
+			}
 			this.Initialize();
 			Lang.setLang(false);
 			for (int i = 0; i < 540; i++)
@@ -10391,6 +10396,7 @@ namespace Terraria
 		public void SetWorld(string world, bool cloud)
 		{
 			Main.ActiveWorldFileData = WorldFile.GetAllMetadata(world, cloud);
+			Main.WorldPathClassic = world;
 		}
 
 		public void SetWorldName(string world)
@@ -14905,5 +14911,7 @@ namespace Terraria
 		public static event Action OnEngineLoad;
 
 		public delegate void OnPlayerSelected(PlayerFileData player);
+
+		public static string WorldPathClassic { get; set; }
 	}
 }

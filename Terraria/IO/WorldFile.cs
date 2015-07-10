@@ -239,13 +239,15 @@ namespace Terraria.IO
 			}
 			catch (Exception ex)
 			{
+				Console.WriteLine("Exception during world metadata load.");
+				Console.WriteLine("If you are using -autocreate, it is safe to ignore this.");
 #if DEBUG
 				Console.WriteLine(ex);
 				System.Diagnostics.Debugger.Break();
 
 #endif
 			}
-			return null;
+			return new WorldFileData();
 		}
 
 		public static FileMetadata GetFileMetadata(string file, bool cloudSave)
