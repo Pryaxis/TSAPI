@@ -450,7 +450,7 @@ namespace Terraria
 					{
 						ServerApi.Hooks.InvokeServerLeave(Netplay.Clients[k].Id);
 						Netplay.Clients[k].Reset();
-						NetMessage.syncPlayers();
+						NetMessage.syncPlayers(sendInventory: false, sendPlayerInfo: false);
 					}
 					else
 					{

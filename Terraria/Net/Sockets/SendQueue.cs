@@ -13,7 +13,7 @@ namespace Terraria.Net.Sockets
 
 	public class SendQueue : IDisposable
 	{
-		protected const int kSendQueueInitialBufferSize = 262144;
+		protected const int kSendQueueInitialBufferSize = 1024 * 1024;
 		protected volatile bool threadCancelled;
 		protected byte[] sendBuffer;
 		protected readonly object syncLock = new object();
@@ -32,12 +32,12 @@ namespace Terraria.Net.Sockets
 			this.client = client;
 			bufferSegments = new LinkedList<ArraySegment<byte>>();
 			sendQueue = new BlockingCollection<ArraySegment<byte>>();
-			sendBuffer = new byte[kSendQueueInitialBufferSize];
 		}
 
 		public void StartThread()
 		{
 			threadCancelled = false;
+			sendBuffer = new byte[kSendQueueInitialBufferSize];
 			sendThread = new Thread(WriteThread);
 			sendThread.Name = "Network I/O Thread - " + client.Id;
 			sendThread.Start();
@@ -179,14 +179,20 @@ namespace Terraria.Net.Sockets
 
 		public SegmentWriter LockSegmentWriter(short size)
 		{
-            ArraySegment<byte> segment = LockSegment(size);
+            ArraySegment<byte> segment;
+
+			if (LockSegment(size, out segment) == false)
+			{
+				return null;
+			}
+
             return new SegmentWriter(this, segment);
         }
 
-		public ArraySegment<byte> LockSegment(short size)
+		public bool LockSegment(short size, out ArraySegment<byte> outSegment)
 		{
 			ArraySegment<byte> thisSegment = default(ArraySegment<byte>);
-			int lastSegmentEnd = 0;
+			int bufferSize = 0;
 			/*
 			 * If there are no segments in the buffer, it is completely
 			 * free.
@@ -196,28 +202,38 @@ namespace Terraria.Net.Sockets
 				if (bufferSegments.Count == 0)
 				{
 					ArraySegment<byte> newSegment = new ArraySegment<byte>(sendBuffer, 0, size);
-					return bufferSegments.AddFirst(newSegment).Value;
+					outSegment = bufferSegments.AddFirst(newSegment).Value;
+					return true;
 				}
-			}
-
-			lock (syncLock)
-			{
+			
 				for (var segment = bufferSegments.First; segment != bufferSegments.Last; segment = segment.Next)
 				{
 					if (DistanceBetween(segment.Value, segment.Next.Value) > size)
 					{
 						ArraySegment<byte> newSegment = new ArraySegment<byte>(sendBuffer, segment.Value.Offset + segment.Value.Count, size);
-						return bufferSegments.AddAfter(segment, newSegment).Value;
+						outSegment = bufferSegments.AddAfter(segment, newSegment).Value;
+						return true;
 					}
+
+					bufferSize += segment.Value.Count;
 				}
 
 				if (sendBuffer.Length - (bufferSegments.Last.Value.Offset + bufferSegments.Last.Value.Count) > size)
 				{
 					ArraySegment<byte> newSegment = new ArraySegment<byte>(sendBuffer, bufferSegments.Last.Value.Offset + bufferSegments.Last.Value.Count, size);
-					return bufferSegments.AddAfter(bufferSegments.Last, newSegment).Value;
+					outSegment = bufferSegments.AddAfter(bufferSegments.Last, newSegment).Value;
+					return true;
 				}
 
-				throw new Exception(string.Format("Buffer for slot {0} is full.", client.Id));
+				Console.WriteLine("sendq: Slot {0} buffer full! {0}/{1}  bytes", client.Id, bufferSize, sendBuffer.Length);
+
+				outSegment = default(ArraySegment<byte>);
+				return false;
+
+				//Grow(size);
+
+
+				//throw new Exception(string.Format("Buffer for slot {0} is full.", client.Id));
 			}
 		}
 

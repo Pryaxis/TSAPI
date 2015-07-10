@@ -5486,13 +5486,13 @@ namespace Terraria
 								{
 									Console.WriteLine(string.Concat("Terraria Server ", Main.versionNumber2));
 									Console.WriteLine("");
-									Console.Write("Max players (press enter for 8): ");
+									Console.Write("Max players (press enter for {0}): ", Main.maxNetPlayers);
 									string str3 = Console.ReadLine();
 									try
 									{
 										if (str3 == "")
 										{
-											str3 = "8";
+											str3 = Main.maxNetPlayers.ToString();
 										}
 										int num4 = Convert.ToInt32(str3);
 										if (num4 <= 255 && num4 >= 1)
