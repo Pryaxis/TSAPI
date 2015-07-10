@@ -1235,6 +1235,8 @@ namespace Terraria
 
 		public static Projectile[] projectile;
 
+		public static int[,] projectileIdentity;
+
 		public static CombatText[] combatText;
 
 		public static ItemText[] itemText;
@@ -1794,9 +1796,9 @@ namespace Terraria
 
 		static Main()
 		{
-			Main.curRelease = 149;
-			Main.versionNumber = "v1.3.0.3";
-			Main.versionNumber2 = "v1.3.0.3";
+			Main.curRelease = 151;
+			Main.versionNumber = "v1.3.0.4";
+			Main.versionNumber2 = "v1.3.0.4";
 			Main.destroyerHB = new Vector2(0f, 0f);
 			object[] folderPath = new object[] { Environment.GetFolderPath(Environment.SpecialFolder.Personal), Path.DirectorySeparatorChar, "My Games", Path.DirectorySeparatorChar, "Terraria", Path.DirectorySeparatorChar, "favorites.json" };
 			Main.LocalFavoriteData = new FavoritesFile(string.Concat(folderPath), false);
@@ -2254,6 +2256,7 @@ namespace Terraria
 			Main.itemLockoutTime = new int[401];
 			Main.npc = new NPC[201];
 			Main.projectile = new Projectile[1001];
+			Main.projectileIdentity = new int[256, 1001];
 			Main.combatText = new CombatText[100];
 			Main.itemText = new ItemText[20];
 			Main.chest = new Chest[1000];
@@ -5210,14 +5213,7 @@ namespace Terraria
 			ServerApi.Hooks.InvokeGameInitialize();
 			string str;
 			Main.rand = new Random();
-			if (!Main.autoShutdown)
-			{
-				Console.Title = string.Concat("Terraria Server ", Main.versionNumber2);
-			}
-			else
-			{
-				Console.Title = string.Concat("Terraria Server ", Main.versionNumber2);
-			}
+			Console.Title = string.Concat("Terraria Server ", Main.versionNumber2);
 			Main.dedServ = true;
 			Main.showSplash = false;
 			this.Initialize();
@@ -12586,20 +12582,42 @@ namespace Terraria
 				}
 				for (int v = 0; v < 1000; v++)
 				{
-					Main.ProjectileUpdateLoopIndex = v;
+					if (Main.projectile[v].active)
+					{
+						Main.projectileIdentity[Main.projectile[v].owner, Main.projectile[v].identity] = v;
+					}
+				}
+				for (int v = 0; v < 1000; v++)
+				{
+					if (Main.projectile[v].active)
+					{
+						Main.projectileIdentity[Main.projectile[v].owner, Main.projectile[v].identity] = v;
+					}
+				}
+				for (int w = 0; w < 1000; w++)
+				{
+					Main.ProjectileUpdateLoopIndex = w;
 					if (!Main.ignoreErrors)
 					{
-						Main.projectile[v].Update(v);
+						if (Main.projectile[w].active)
+						{
+							Main.projectileIdentity[Main.projectile[w].owner, Main.projectile[w].identity] = w;
+						}
+						Main.projectile[w].Update(w);
 					}
 					else
 					{
 						try
 						{
-							Main.projectile[v].Update(v);
+							if (Main.projectile[w].active)
+							{
+								Main.projectileIdentity[Main.projectile[w].owner, Main.projectile[w].identity] = w;
+							}
+							Main.projectile[w].Update(w);
 						}
 						catch
 						{
-							Main.projectile[v] = new Projectile();
+							Main.projectile[w] = new Projectile();
 						}
 					}
 				}

@@ -780,6 +780,10 @@ namespace Terraria
 					{
 						item2.velocity = this.reader.ReadVector2();
 					}
+					else
+					{
+						item2.velocity = Vector2.Zero;
+					}
 					item2.vortexStealthActive = bitsByte8[3];
 					item2.gravDir = (float)((bitsByte8[4] ? 1 : -1));
 					if (Main.netMode != 2 || Netplay.Clients[this.whoAmI].State != 10)
@@ -1443,96 +1447,99 @@ namespace Terraria
 				}
 				case 27:
 				{
-					int num64 = this.reader.ReadInt16();
+					int num67 = this.reader.ReadInt16();
 					Vector2 vector24 = this.reader.ReadVector2();
 					Vector2 vector25 = this.reader.ReadVector2();
 					float single4 = this.reader.ReadSingle();
-					int num65 = this.reader.ReadInt16();
-					int num66 = this.reader.ReadByte();
-					int num67 = this.reader.ReadInt16();
-
-					// If the projectile is of an invalid type, this is most likely a fake packet
-					if (num67 < 0 || num67 >= Main.maxProjectileTypes)
-						return;
-
+					int num68 = this.reader.ReadInt16();
+					int num69 = this.reader.ReadByte();
+					int num70 = this.reader.ReadInt16();
 					BitsByte bitsByte13 = this.reader.ReadByte();
 					float[] singleArray1 = new float[Projectile.maxAI];
-					for (int r1 = 0; r1 < Projectile.maxAI; r1++)
+
+					if (num70 < 0 || num70 >= Main.maxProjectileTypes)
+						return;
+
+					for (int s1 = 0; s1 < Projectile.maxAI; s1++)
 					{
-						if (!bitsByte13[r1])
+						if (!bitsByte13[s1])
 						{
-							singleArray1[r1] = 0f;
+							singleArray1[s1] = 0f;
 						}
 						else
 						{
-							singleArray1[r1] = this.reader.ReadSingle();
+							singleArray1[s1] = this.reader.ReadSingle();
 						}
 					}
 					if (Main.netMode == 2)
 					{
-						num66 = this.whoAmI;
-						if (Main.projHostile[num67])
+						num69 = this.whoAmI;
+						if (Main.projHostile[num70])
 						{
 							return;
 						}
 					}
-					int num68 = 1000;
-					int num69 = 0;
-					while (num69 < 1000)
+					int num71 = 1000;
+					int num72 = 0;
+					while (num72 < 1000)
 					{
-						if (Main.projectile[num69].owner != num66 || Main.projectile[num69].identity != num64 || !Main.projectile[num69].active)
+						if (Main.projectile[num72].owner != num69 || Main.projectile[num72].identity != num67 || !Main.projectile[num72].active)
 						{
-							num69++;
+							num72++;
 						}
 						else
 						{
-							num68 = num69;
+							num71 = num72;
 							break;
 						}
 					}
-					if (num68 == 1000)
+					if (num71 == 1000)
 					{
-						int num70 = 0;
-						while (num70 < 1000)
+						int num73 = 0;
+						while (num73 < 1000)
 						{
-							if (Main.projectile[num70].active)
+							if (Main.projectile[num73].active)
 							{
-								num70++;
+								num73++;
 							}
 							else
 							{
-								num68 = num70;
+								num71 = num73;
 								break;
 							}
 						}
 					}
-					Projectile projectile = Main.projectile[num68];
-					if (!projectile.active || projectile.type != num67)
+					Projectile projectile = Main.projectile[num71];
+					if (!projectile.active || projectile.type != num70)
 					{
-						projectile.SetDefaults(num67);
+						projectile.SetDefaults(num70);
 						if (Main.netMode == 2)
 						{
 							RemoteClient spamProjectile = Netplay.Clients[this.whoAmI];
 							spamProjectile.SpamProjectile = spamProjectile.SpamProjectile + 1f;
 						}
 					}
-					projectile.identity = num64;
+					projectile.identity = num67;
 					projectile.position = vector24;
 					projectile.velocity = vector25;
-					projectile.type = num67;
-					projectile.damage = num65;
+					projectile.type = num70;
+					projectile.damage = num68;
 					projectile.knockBack = single4;
-					projectile.owner = num66;
-					for (int s1 = 0; s1 < Projectile.maxAI; s1++)
+					projectile.owner = num69;
+					for (int t1 = 0; t1 < Projectile.maxAI; t1++)
 					{
-						projectile.ai[s1] = singleArray1[s1];
+						projectile.ai[t1] = singleArray1[t1];
 					}
-					projectile.ProjectileFixDesperation(num66);
+					Main.projectileIdentity[num69, num67] = num71;
+					if (Main.netMode != 2)
+					{
+						projectile.ProjectileFixDesperation(num69);
+					}
 					if (Main.netMode != 2)
 					{
 						return;
 					}
-					NetMessage.SendData(27, -1, this.whoAmI, "", num68, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData(27, -1, this.whoAmI, "", num71, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
 				case 28:
@@ -1727,6 +1734,12 @@ namespace Terraria
 					int num93 = this.reader.ReadInt16();
 					int num94 = this.reader.ReadInt16();
 					int num95 = this.reader.ReadInt16();
+
+					if (num93 > Main.maxTilesX || num94 > Main.maxTilesY)
+					{
+						return;
+					}
+
 					if (Main.netMode != 2)
 					{
 						int num96 = this.reader.ReadInt16();
@@ -2217,6 +2230,9 @@ namespace Terraria
 					int num145 = this.reader.ReadInt16();
 					int num146 = this.reader.ReadByte();
 					int num147 = this.reader.ReadInt16();
+
+
+
 					Main.npc[num145].AddBuff(num146, num147, true);
 					if (Main.netMode != 2)
 					{
@@ -2353,8 +2369,8 @@ namespace Terraria
 				}
 				case 61:
 				{
-					int num161 = this.reader.ReadInt32();
-					int num162 = this.reader.ReadInt32();
+					int num161 = this.reader.ReadInt16();
+					int num162 = this.reader.ReadInt16();
 					if (Main.netMode != 2)
 					{
 						return;
@@ -2742,7 +2758,7 @@ namespace Terraria
 					{
 						return;
 					}
-					Main.ReportInvasionProgress(this.reader.ReadInt16(), this.reader.ReadInt16(), this.reader.ReadSByte(), this.reader.ReadSByte());
+					Main.ReportInvasionProgress(this.reader.ReadInt32(), this.reader.ReadInt32(), this.reader.ReadSByte(), this.reader.ReadSByte());
 					return;
 				}
 				case 79:
@@ -2750,7 +2766,7 @@ namespace Terraria
 					int num191 = this.reader.ReadInt16();
 					int num192 = this.reader.ReadInt16();
 					short num193 = this.reader.ReadInt16();
-					int num194 = this.reader.ReadByte();
+					int num194 = this.reader.ReadInt16();
 					int num195 = this.reader.ReadByte();
 					int num196 = this.reader.ReadSByte();
 					num = (!this.reader.ReadBoolean() ? -1 : 1);
