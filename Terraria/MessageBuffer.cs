@@ -1457,7 +1457,7 @@ namespace Terraria
 					BitsByte bitsByte13 = this.reader.ReadByte();
 					float[] singleArray1 = new float[Projectile.maxAI];
 
-					if (num70 < 0 || num67 >= Main.maxProjectileTypes)
+					if (num70 < 0 || num70 >= Main.maxProjectileTypes)
 						return;
 
 					for (int s1 = 0; s1 < Projectile.maxAI; s1++)
@@ -2230,6 +2230,9 @@ namespace Terraria
 					int num145 = this.reader.ReadInt16();
 					int num146 = this.reader.ReadByte();
 					int num147 = this.reader.ReadInt16();
+
+
+
 					Main.npc[num145].AddBuff(num146, num147, true);
 					if (Main.netMode != 2)
 					{
