@@ -1457,7 +1457,7 @@ namespace Terraria
 					BitsByte bitsByte13 = this.reader.ReadByte();
 					float[] singleArray1 = new float[Projectile.maxAI];
 
-					if (num67 < 0 || num67 >= Main.maxProjectileTypes)
+					if (num70 < 0 || num67 >= Main.maxProjectileTypes)
 						return;
 
 					for (int s1 = 0; s1 < Projectile.maxAI; s1++)
