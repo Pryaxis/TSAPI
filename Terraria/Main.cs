@@ -5213,14 +5213,7 @@ namespace Terraria
 			ServerApi.Hooks.InvokeGameInitialize();
 			string str;
 			Main.rand = new Random();
-			if (!Main.autoShutdown)
-			{
-				Console.Title = string.Concat("Terraria Server ", Main.versionNumber2);
-			}
-			else
-			{
-				Console.Title = string.Concat("Terraria Server ", Main.versionNumber2);
-			}
+			Console.Title = string.Concat("Terraria Server ", Main.versionNumber2);
 			Main.dedServ = true;
 			Main.showSplash = false;
 			this.Initialize();
