@@ -36,8 +36,8 @@ namespace Terraria.Net.Sockets
 
 		public void StartThread()
 		{
-			threadCancelled = false;
 			sendBuffer = new byte[kSendQueueInitialBufferSize];
+			threadCancelled = false;
 			sendThread = new Thread(WriteThread);
 			sendThread.Name = "Network I/O Thread - " + client.Id;
 			sendThread.Start();
