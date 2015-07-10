@@ -10,7 +10,7 @@ namespace Terraria.Net.Sockets
 {
 	public class TcpSocket : ISocket
 	{
-		private TcpClient _connection;
+		internal TcpClient _connection;
 
 		private TcpListener _listener;
 

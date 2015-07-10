@@ -92,14 +92,14 @@ namespace Terraria.Net
 
 		public static void SendData(ISocket socket, NetPacket packet)
 		{
-			try
-			{
-				socket.AsyncSend(packet.Buffer.Data, 0, packet.Length, new SocketSendCallback(NetManager.SendCallback), packet);
-			}
-			catch
-			{
-				Console.WriteLine("    Exception normal: Tried to send data to a client after losing connection");
-			}
+//			try
+//			{
+//				socket.AsyncSend(packet.Buffer.Data, 0, packet.Length, new SocketSendCallback(NetManager.SendCallback), packet);
+//			}
+//			catch
+//			{
+//				Console.WriteLine("    Exception normal: Tried to send data to a client after losing connection");
+//			}
 		}
 
 		public void SendToServer(NetPacket packet)

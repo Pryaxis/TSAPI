@@ -345,6 +345,10 @@ namespace Terraria
 							writer.Write((short)Main.player[number].statLifeMax);
 							break;
 						case 17:
+							if (Main.netMode == 1)
+							{
+								AchievementsHelper.NotifyTileDestroyed(Main.player[Main.myPlayer], (ushort)number4);
+							}
 							writer.Write((byte)number);
 							writer.Write((short)number2);
 							writer.Write((short)number3);
@@ -522,6 +526,10 @@ namespace Terraria
 								writer.Write(value2);
 								if (!bb12[7])
 								{
+									if (Main.npcLifeBytes.ContainsKey(nPC.netID) == false)
+									{
+										break;
+									}
 									byte b3 = Main.npcLifeBytes[nPC.netID];
 									writer.Write(b3);
 									if (b3 == 2)
@@ -806,8 +814,8 @@ namespace Terraria
 							writer.Write((byte)number4);
 							break;
 						case 61:
-							writer.Write((short)number);
-							writer.Write((short)number2);
+							writer.Write(number);
+							writer.Write((int)number2);
 							break;
 						case 62:
 							writer.Write((byte)number);
@@ -881,8 +889,8 @@ namespace Terraria
 							writer.Write((short)number4);
 							break;
 						case 78:
-							writer.Write(number);
-							writer.Write((int)number2);
+							writer.Write((short)number);
+							writer.Write((short)number2);
 							writer.Write((sbyte)number3);
 							writer.Write((sbyte)number4);
 							break;
@@ -890,7 +898,7 @@ namespace Terraria
 							writer.Write((short)number);
 							writer.Write((short)number2);
 							writer.Write((short)number3);
-							writer.Write((short)number4);
+							writer.Write((byte)number4);
 							writer.Write((byte)number5);
 							writer.Write((sbyte)number6);
 							writer.Write(number7 == 1);
@@ -1001,18 +1009,6 @@ namespace Terraria
 									{
 										writer.Write(item4.scale);
 									}
-									if (bb17[3])
-									{
-										writer.Write((short)item4.ammo);
-									}
-									if (bb17[4])
-									{
-										writer.Write((short)item4.useAmmo);
-									}
-									if (bb17[5])
-									{
-										writer.Write(item4.notAmmo);
-									}
 								}
 								break;
 							}
@@ -1109,26 +1105,7 @@ namespace Terraria
 				ms.Dispose();
 				writer.Dispose();
 
-				if (Main.netMode == 1)
-					{
-						if (!Netplay.Connection.Socket.IsConnected())
-						{
-							goto IL_2A90;
-						}
-						try
-						{
-							NetMessage.buffer[num].spamCount++;
-							Main.txMsg++;
-							Main.txData += num19;
-							Netplay.Connection.Socket.AsyncSend(packetContents, 0, num19,
-								new SocketSendCallback(Netplay.Connection.ClientWriteCallBack), null);
-							goto IL_2A90;
-						}
-						catch
-						{
-							goto IL_2A90;
-						}
-					}
+			
 					if (remoteClient == -1)
 					{
 						if (msgType == 34 || msgType == 69)
@@ -1142,8 +1119,17 @@ namespace Terraria
 										NetMessage.buffer[num20].spamCount++;
 										Main.txMsg++;
 										Main.txData += num19;
-										Netplay.Clients[num20].Socket.AsyncSend(packetContents, 0, num19,
-											new SocketSendCallback(Netplay.Clients[num20].ServerWriteCallBack), null);
+
+										ArraySegment<byte> seg;
+
+										if (Netplay.Clients[num20].sendQueue.LockSegment((short) packetContents.Length, out seg) == true)
+										{
+											Netplay.Clients[num20].sendQueue.CopyTo(seg, ref packetContents);
+											Netplay.Clients[num20].sendQueue.Enqueue(seg);
+										}
+
+										//Netplay.Clients[num20].Socket.AsyncSend(packetContents, 0, num19,
+										//	new SocketSendCallback(Netplay.Clients[num20].ServerWriteCallBack), null);
 									}
 									catch (Exception ex)
 									{
@@ -1168,8 +1154,17 @@ namespace Terraria
 										NetMessage.buffer[num21].spamCount++;
 										Main.txMsg++;
 										Main.txData += num19;
-										Netplay.Clients[num21].Socket.AsyncSend(packetContents, 0, num19,
-											new SocketSendCallback(Netplay.Clients[num21].ServerWriteCallBack), null);
+
+										ArraySegment<byte> seg;
+
+										if (Netplay.Clients[num21].sendQueue.LockSegment((short)packetContents.Length, out seg) == true)
+										{
+											Netplay.Clients[num21].sendQueue.CopyTo(seg, ref packetContents);
+											Netplay.Clients[num21].sendQueue.Enqueue(seg);
+										};
+
+										//Netplay.Clients[num21].Socket.AsyncSend(packetContents, 0, num19,
+										//	new SocketSendCallback(Netplay.Clients[num21].ServerWriteCallBack), null);
 									}
 									catch (Exception ex)
 									{
@@ -1218,8 +1213,17 @@ namespace Terraria
 											NetMessage.buffer[num22].spamCount++;
 											Main.txMsg++;
 											Main.txData += num19;
-											Netplay.Clients[num22].Socket.AsyncSend(packetContents, 0, num19,
-												new SocketSendCallback(Netplay.Clients[num22].ServerWriteCallBack), null);
+
+											ArraySegment<byte> seg;
+
+											if (Netplay.Clients[num22].sendQueue.LockSegment((short)packetContents.Length, out seg) == true)
+											{
+												Netplay.Clients[num22].sendQueue.CopyTo(seg, ref packetContents);
+												Netplay.Clients[num22].sendQueue.Enqueue(seg);
+											}
+
+											//Netplay.Clients[num22].Socket.AsyncSend(packetContents, 0, num19,
+											//	new SocketSendCallback(Netplay.Clients[num22].ServerWriteCallBack), null);
 										}
 										catch (Exception ex)
 										{
@@ -1270,8 +1274,15 @@ namespace Terraria
 											NetMessage.buffer[num23].spamCount++;
 											Main.txMsg++;
 											Main.txData += num19;
-											Netplay.Clients[num23].Socket.AsyncSend(packetContents, 0, num19,
-												new SocketSendCallback(Netplay.Clients[num23].ServerWriteCallBack), null);
+											ArraySegment<byte> seg;
+
+											if (Netplay.Clients[num23].sendQueue.LockSegment((short)packetContents.Length, out seg) == true)
+											{
+												Netplay.Clients[num23].sendQueue.CopyTo(seg, ref packetContents);
+												Netplay.Clients[num23].sendQueue.Enqueue(seg);
+											}
+										//	Netplay.Clients[num23].Socket.AsyncSend(packetContents, 0, num19,
+										//		new SocketSendCallback(Netplay.Clients[num23].ServerWriteCallBack), null);
 										}
 										catch (Exception ex)
 										{
@@ -1296,8 +1307,17 @@ namespace Terraria
 										NetMessage.buffer[num24].spamCount++;
 										Main.txMsg++;
 										Main.txData += num19;
-										Netplay.Clients[num24].Socket.AsyncSend(packetContents, 0, num19,
-											new SocketSendCallback(Netplay.Clients[num24].ServerWriteCallBack), null);
+
+										ArraySegment<byte> seg;
+
+										if (Netplay.Clients[num24].sendQueue.LockSegment((short)packetContents.Length, out seg) == true)
+										{
+											Netplay.Clients[num24].sendQueue.CopyTo(seg, ref packetContents);
+											Netplay.Clients[num24].sendQueue.Enqueue(seg);
+										}
+
+										//Netplay.Clients[num24].Socket.AsyncSend(packetContents, 0, num19,
+										//	new SocketSendCallback(Netplay.Clients[num24].ServerWriteCallBack), null);
 									}
 									catch (Exception ex)
 									{
@@ -1348,8 +1368,17 @@ namespace Terraria
 											NetMessage.buffer[num25].spamCount++;
 											Main.txMsg++;
 											Main.txData += num19;
-											Netplay.Clients[num25].Socket.AsyncSend(packetContents, 0, num19,
-												new SocketSendCallback(Netplay.Clients[num25].ServerWriteCallBack), null);
+
+											ArraySegment<byte> seg;
+
+											if (Netplay.Clients[num25].sendQueue.LockSegment((short)packetContents.Length, out seg) == true)
+											{
+												Netplay.Clients[num25].sendQueue.CopyTo(seg, ref packetContents);
+												Netplay.Clients[num25].sendQueue.Enqueue(seg);
+											}
+
+											//Netplay.Clients[num25].Socket.AsyncSend(packetContents, 0, num19,
+											//	new SocketSendCallback(Netplay.Clients[num25].ServerWriteCallBack), null);
 										}
 										catch (Exception ex)
 										{
@@ -1376,8 +1405,17 @@ namespace Terraria
 										NetMessage.buffer[num26].spamCount++;
 										Main.txMsg++;
 										Main.txData += num19;
-										Netplay.Clients[num26].Socket.AsyncSend(packetContents, 0, num19,
-											new SocketSendCallback(Netplay.Clients[num26].ServerWriteCallBack), null);
+
+										ArraySegment<byte> seg;
+
+										if (Netplay.Clients[num26].sendQueue.LockSegment((short)packetContents.Length, out seg) == true)
+										{
+											Netplay.Clients[num26].sendQueue.CopyTo(seg, ref packetContents);
+											Netplay.Clients[num26].sendQueue.Enqueue(seg);
+										}
+
+										//Netplay.Clients[num26].Socket.AsyncSend(packetContents, 0, num19,
+										//	new SocketSendCallback(Netplay.Clients[num26].ServerWriteCallBack), null);
 									}
 									catch (Exception ex)
 									{
@@ -1398,8 +1436,17 @@ namespace Terraria
 							NetMessage.buffer[remoteClient].spamCount++;
 							Main.txMsg++;
 							Main.txData += num19;
-							Netplay.Clients[remoteClient].Socket.AsyncSend(packetContents, 0, num19,
-								new SocketSendCallback(Netplay.Clients[remoteClient].ServerWriteCallBack), null);
+
+							ArraySegment<byte> seg;
+
+							if (Netplay.Clients[remoteClient].sendQueue.LockSegment((short)packetContents.Length, out seg) == true)
+							{
+								Netplay.Clients[remoteClient].sendQueue.CopyTo(seg, ref packetContents);
+								Netplay.Clients[remoteClient].sendQueue.Enqueue(seg);
+							}
+
+							//Netplay.Clients[remoteClient].Socket.AsyncSend(packetContents, 0, num19,
+							//	new SocketSendCallback(Netplay.Clients[remoteClient].ServerWriteCallBack), null);
 						}
 						catch (Exception ex)
 						{
@@ -1410,28 +1457,10 @@ namespace Terraria
 #endif
 						}
 					}
-				IL_2A90:
-					//if (Main.verboseNetplay)
-					//{
-					//	for (int num27 = 0; num27 < num19; num27++)
-					//	{
-					//	}
-					//	for (int num28 = 0; num28 < num19; num28++)
-					//	{
-					//		byte arg_2ABC_0 = packetContents[num28];
-					//	}
-					//}
-					NetMessage.buffer[num].writeLocked = false;
-					if (msgType == 19 && Main.netMode == 1)
-					{
-						NetMessage.SendTileSquare(num, (int)number2, (int)number3, 5);
-					}
 					if (msgType == 2 && Main.netMode == 2)
 					{
 						Netplay.Clients[num].PendingTermination = true;
 					}
-				//}
-
 			}
 		}
 		public static int CompressTileBlock(int xStart, int yStart, short width, short height, byte[] buffer, int bufferStart)
@@ -2188,7 +2217,7 @@ namespace Terraria
 				}
 			}
 		}
-		public static void syncPlayers()
+		public static void syncPlayers(bool sendInventory = true, bool sendPlayerActive = true, bool sendPlayerInfo = true)
 		{
 			bool flag = false;
 			for (int i = 0; i < 255; i++)
@@ -2204,33 +2233,53 @@ namespace Terraria
 					{
 						flag = true;
 					}
-					NetMessage.SendData(14, -1, i, "", i, (float)num, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(4, -1, i, Main.player[i].name, i, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(13, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(16, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(30, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(45, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(42, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(50, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-					for (int j = 0; j < 59; j++)
+
+					if (sendPlayerActive)
 					{
-						NetMessage.SendData(5, -1, i, Main.player[i].inventory[j].name, i, (float)j, (float)Main.player[i].inventory[j].prefix, 0f, 0, 0, 0);
+						NetMessage.SendData(14, -1, i, "", i, (float) num, 0f, 0f, 0, 0, 0);
 					}
-					for (int k = 0; k < Main.player[i].armor.Length; k++)
+
+					if (sendPlayerInfo)
 					{
-						NetMessage.SendData(5, -1, i, Main.player[i].armor[k].name, i, (float)(59 + k), (float)Main.player[i].armor[k].prefix, 0f, 0, 0, 0);
+						NetMessage.SendData(4, -1, i, Main.player[i].name, i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData(13, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData(16, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData(30, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData(45, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData(42, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData(50, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
 					}
-					for (int l = 0; l < Main.player[i].dye.Length; l++)
+
+					if (sendInventory)
 					{
-						NetMessage.SendData(5, -1, i, Main.player[i].dye[l].name, i, (float)(58 + Main.player[i].armor.Length + 1 + l), (float)Main.player[i].dye[l].prefix, 0f, 0, 0, 0);
-					}
-					for (int m = 0; m < Main.player[i].miscEquips.Length; m++)
-					{
-						NetMessage.SendData(5, -1, i, "", i, (float)(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + 1 + m), (float)Main.player[i].miscEquips[m].prefix, 0f, 0, 0, 0);
-					}
-					for (int n = 0; n < Main.player[i].miscDyes.Length; n++)
-					{
-						NetMessage.SendData(5, -1, i, "", i, (float)(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + Main.player[i].miscEquips.Length + 1 + n), (float)Main.player[i].miscDyes[n].prefix, 0f, 0, 0, 0);
+						for (int j = 0; j < 1 /*59*/; j++)
+						{
+							NetMessage.SendData(5, -1, i, Main.player[i].inventory[j].name, i, (float) j,
+								(float) Main.player[i].inventory[j].prefix, 0f, 0, 0, 0);
+						}
+						for (int k = 0; k < Main.player[i].armor.Length; k++)
+						{
+							NetMessage.SendData(5, -1, i, Main.player[i].armor[k].name, i, (float) (59 + k),
+								(float) Main.player[i].armor[k].prefix, 0f, 0, 0, 0);
+						}
+						for (int l = 0; l < Main.player[i].dye.Length; l++)
+						{
+							NetMessage.SendData(5, -1, i, Main.player[i].dye[l].name, i, (float) (58 + Main.player[i].armor.Length + 1 + l),
+								(float) Main.player[i].dye[l].prefix, 0f, 0, 0, 0);
+						}
+						for (int m = 0; m < Main.player[i].miscEquips.Length; m++)
+						{
+							NetMessage.SendData(5, -1, i, "", i,
+								(float) (58 + Main.player[i].armor.Length + Main.player[i].dye.Length + 1 + m),
+								(float) Main.player[i].miscEquips[m].prefix, 0f, 0, 0, 0);
+						}
+						for (int n = 0; n < Main.player[i].miscDyes.Length; n++)
+						{
+							NetMessage.SendData(5, -1, i, "", i,
+								(float)
+									(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + Main.player[i].miscEquips.Length + 1 + n),
+								(float) Main.player[i].miscDyes[n].prefix, 0f, 0, 0, 0);
+						}
 					}
 					if (!Netplay.Clients[i].IsAnnouncementCompleted)
 					{
