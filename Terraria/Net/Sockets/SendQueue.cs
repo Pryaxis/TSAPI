@@ -38,6 +38,8 @@ namespace Terraria.Net.Sockets
 		{
 			sendBuffer = new byte[kSendQueueInitialBufferSize];
 			threadCancelled = false;
+			(client.Socket as TcpSocket)._connection.SendTimeout = 1000;
+
 			sendThread = new Thread(WriteThread);
 			sendThread.Name = "Network I/O Thread - " + client.Id;
 			sendThread.Start();
@@ -54,15 +56,18 @@ namespace Terraria.Net.Sockets
 					break;
 				}
 
-				if (sendQueue.TryTake(out segment, TimeSpan.FromMilliseconds(100)) == false)
+				if (sendQueue.TryTake(out segment, TimeSpan.FromMilliseconds(100)) == false
+					|| client.PendingTermination == true)
 				{
 					continue;
 				}
 
 				try
 				{
-					(client.Socket as TcpSocket)._connection.GetStream()
-						.BeginWrite(segment.Array, segment.Offset, segment.Count, WriteCallback, segment);
+					(client.Socket as TcpSocket)._connection.GetStream().Write(segment.Array, segment.Offset, segment.Count);
+					__segment_release_internal(segment);
+					//(client.Socket as TcpSocket)._connection.GetStream()
+					//	.BeginWrite(segment.Array, segment.Offset, segment.Count, WriteCallback, segment);
 				}
 				catch (Exception ex)
 				{
@@ -80,9 +85,10 @@ namespace Terraria.Net.Sockets
 					{
 						Console.Write("SendQ: Slot {0} socket error {1}.", ex.Message);
 						WriteFailed(this, args);
-						Netplay.Clients[client.Id].PendingTermination = true;
 					}
 					__segment_release_internal(segment);
+
+					Netplay.Clients[client.Id].PendingTermination = true;
 				}
 			}
 		}
