@@ -94,11 +94,11 @@ namespace Terraria.Net
 		{
 			ArraySegment<byte> seg;
 
-			if (Netplay.Clients[player].sendQueue.LockSegment((short)packet.Length, out seg) == true)
+			Netplay.Clients[player].sendQueue.AllocAndSet(packet.Length, (BinaryWriter bw) =>
 			{
-				Netplay.Clients[player].sendQueue.CopyTo(seg, ref packet.Buffer.Data);	
-				Netplay.Clients[player].sendQueue.Enqueue(seg);
-			}
+				bw.Write(packet.Buffer.Data, 0, packet.Length);
+				return true;
+			});
 		}
 
 		private static void UpdateStats(int length)

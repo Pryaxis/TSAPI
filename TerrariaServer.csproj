@@ -153,7 +153,6 @@
     <Compile Include="Terraria\IStaticPortMappingCollection.cs" />
     <Compile Include="Terraria\Net\Sockets\EventArgs\WriteFailedEventArgs.cs" />
     <Compile Include="Terraria\Net\Sockets\SendQueue.cs" />
-    <Compile Include="Terraria\Net\Sockets\SegmentWriter.cs" />
     <Compile Include="Terraria\StreamExt.cs" />
     <Compile Include="Terraria\StreamGenericExt.cs" />
     <Compile Include="Terraria\World.Generation\GenerationProgress.cs">
