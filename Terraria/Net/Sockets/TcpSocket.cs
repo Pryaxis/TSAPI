@@ -126,10 +126,10 @@ namespace Terraria.Net.Sockets
 			{
 				return;
 			}
-
+			
 			try
 			{
-				this._connection.GetStream().BeginWrite(data, 0, size, new AsyncCallback(this.SendCallback), new Tuple<SocketSendCallback, object>(callback, state));
+				this._connection.GetStream().Write(data, offset, size);
 			}
 			catch (Exception ex)
 			{

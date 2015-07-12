@@ -279,12 +279,35 @@ namespace Terraria
 					break;
 				case 10:
 				{
-					byte[] array = new byte[MessageBuffer.writeBufferMax];
-					int num3 = NetMessage.CompressTileBlock(number, (int) number2, (short) number3, (short) number4,
-						array, 0);
-					writer.Write(array, 0, num3);
-					//writer.BaseStream.Position += (long)num3;
-					break;
+					/*
+					 * TileSection packets must be sent and arrive in the same order
+					 * on the client or else we will end up with graphical tile glitches.
+					 * 
+					 * TileSection packets must be directly sent as the send queue makes
+					 * no guarantee of send order.
+					 */
+
+					Netplay.Clients[remoteClient].sendQueue.AllocAndSet(SendQueue.kSendQueueLargeBlockSize, (ArraySegment<byte> seg) =>
+					{
+						seg.Array[seg.Offset + 2] = 10;
+						seg.Array[seg.Offset + 3] = 1; //compressed flag
+
+						int len = NetMessage.CompressTileBlock(number, (int)number2, (short)number3, (short)number4, seg.Array, seg.Offset + 4);
+						Array.Copy(BitConverter.GetBytes(len + 4), 0, seg.Array, seg.Offset, 2);
+
+						try
+						{
+							(Netplay.Clients[remoteClient].Socket as TcpSocket)._connection.GetStream().Write(seg.Array, seg.Offset, len + 4);
+						}
+						catch
+						{
+							Netplay.Clients[remoteClient].PendingTermination = true;
+						}
+
+						return false;
+					});
+
+					return;
 				}
 				case 11:
 					writer.Write((short) number);
@@ -1434,52 +1457,27 @@ namespace Terraria
 		public static int CompressTileBlock(int xStart, int yStart, short width, short height, byte[] buffer, int bufferStart)
 		{
 			int result;
-			using (MemoryStream memoryStream = new MemoryStream())
+			using (MemoryStream memoryStream = new MemoryStream(buffer, bufferStart, SendQueue.kSendQueueLargeBlockSize))
 			{
-				using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream))
+				using (DeflateStream ds = new DeflateStream(memoryStream, CompressionMode.Compress, leaveOpen: true))
+				using (BinaryWriter binaryWriter = new BinaryWriter(ds))
 				{
 					binaryWriter.Write(xStart);
 					binaryWriter.Write(yStart);
 					binaryWriter.Write(width);
 					binaryWriter.Write(height);
-					NetMessage.CompressTileBlock_Inner(binaryWriter, xStart, yStart, (int)width, (int)height);
-					int num = buffer.Length;
-					if ((long)bufferStart + memoryStream.Length > (long)num)
-					{
-						result = (int)((long)(num - bufferStart) + memoryStream.Length);
-					}
-					else
-					{
-						memoryStream.Position = 0L;
-						MemoryStream memoryStream2 = new MemoryStream();
-						using (DeflateStream deflateStream = new DeflateStream(memoryStream2, CompressionMode.Compress, true))
-						{
-							memoryStream.CopyTo(deflateStream);
-							deflateStream.Flush();
-							deflateStream.Close();
-							deflateStream.Dispose();
-						}
-						if (memoryStream.Length <= memoryStream2.Length)
-						{
-							memoryStream.Position = 0L;
-							buffer[bufferStart] = 0;
-							bufferStart++;
-							memoryStream.Read(buffer, bufferStart, (int)memoryStream.Length);
-							result = (int)memoryStream.Length + 1;
-						}
-						else
-						{
-							memoryStream2.Position = 0L;
-							buffer[bufferStart] = 1;
-							bufferStart++;
-							memoryStream2.Read(buffer, bufferStart, (int)memoryStream2.Length);
-							result = (int)memoryStream2.Length + 1;
-						}
-					}
+
+					NetMessage.CompressTileBlock_Inner(binaryWriter, xStart, yStart, width, height);
+
+					ds.Flush();
 				}
+
+				result = (int) memoryStream.Position;
 			}
+			
 			return result;
 		}
+
 		public static void CompressTileBlock_Inner(BinaryWriter writer, int xStart, int yStart, int width, int height)
 		{
 			short[] array = new short[1000];
@@ -2109,7 +2107,7 @@ namespace Terraria
 						int num2 = 150;
 						for (int i = num; i < num + 150; i += num2)
 						{
-							NetMessage.SendData(10, whoAmi, -1, "", number, (float)i, 200f, (float)num2, 0, 0, 0);
+							NetMessage.SendData(10, whoAmi, -1, "", number, i, 200, num2, 0, 0, 0);
 						}
 						for (int j = 0; j < 200; j++)
 						{

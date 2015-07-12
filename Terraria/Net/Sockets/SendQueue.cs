@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -22,7 +23,7 @@ namespace Terraria.Net.Sockets
 		protected byte[] smallObjectHeap;
 		protected byte[] largeObjectHeap;
 
-		protected int maxLargeBlocks = 32;
+		protected int maxLargeBlocks = 192;
 		protected int maxSmallBlocks = 4096;
 		
 		protected int[] freeLargeBlocks;
@@ -57,12 +58,12 @@ namespace Terraria.Net.Sockets
 			queuedLargeBlocks = new bool[maxLargeBlocks];
 			queuedSmallBlocks = new bool[maxSmallBlocks];
 
-			largeObjectHeap = new byte[maxLargeBlocks * kSendQueueLargeBlockSize];
 			smallObjectHeap = new byte[maxSmallBlocks * kSendQueueSmallBlockSize];
 		}
 
 		public void StartThread()
 		{
+			largeObjectHeap = new byte[maxLargeBlocks * kSendQueueLargeBlockSize];
 			threadCancelled = false;
 			(client.Socket as TcpSocket)._connection.SendTimeout = 5000;
 
@@ -78,10 +79,10 @@ namespace Terraria.Net.Sockets
 			{
 				int blockIndex = 0;
 
-				if (waitHandle.WaitOne(100) == false)
-				{
-					continue;
-				}
+				//if (waitHandle.WaitOne(100) == false)
+				//{
+				//	continue;
+				//}
 
 				if (threadCancelled == true || client.PendingTermination == true)
 				{
@@ -140,6 +141,7 @@ namespace Terraria.Net.Sockets
 				for (blockIndex = 0; blockIndex < maxLargeBlocks; blockIndex++)
 				{
 					short length;
+					byte type;
 					int offset;
 
 					if (threadCancelled == true)
@@ -153,8 +155,11 @@ namespace Terraria.Net.Sockets
 					}
 
 					offset = blockIndex * kSendQueueLargeBlockSize;
+					type = largeObjectHeap[offset + 2];
 					length = BitConverter.ToInt16(largeObjectHeap, offset);
 
+					Trace.WriteLineIf(type == 10, string.Format("wrote tile section block {0} len {1}", blockIndex, length));
+					
 					try
 					{
 						(client.Socket as TcpSocket)._connection.GetStream().Write(largeObjectHeap, offset, length);
@@ -185,6 +190,8 @@ namespace Terraria.Net.Sockets
 						FreeLarge(blockIndex);
 					}
 				}
+
+				Thread.Sleep(1);
 			}
 		}
 
