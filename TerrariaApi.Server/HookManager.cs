@@ -363,14 +363,6 @@ namespace TerrariaApi.Server
 
 		internal bool InvokeNetGetData(ref byte msgId, MessageBuffer buffer, ref int index, ref int length)
 		{
-			if (Main.netMode != 2 && msgId == (byte)PacketTypes.ChatText && length > 3)
-			{
-				byte playerID = buffer.readBuffer[index];
-				Color color = new Color(buffer.readBuffer[index + 1] << 16, buffer.readBuffer[index + 2] << 8, buffer.readBuffer[index + 3]);
-				string @string = Encoding.UTF8.GetString(buffer.readBuffer, index + 4, length - 5);
-				this.InvokeClientChatReceived(playerID, color, @string);
-			}
-
 			if (Main.netMode == 2)
 			{
 				switch ((PacketTypes) msgId)
