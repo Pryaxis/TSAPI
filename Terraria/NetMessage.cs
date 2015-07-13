@@ -283,30 +283,19 @@ namespace Terraria
 				{
 					/*
 					 * TileSection packets must be sent and arrive in the same order
-					 * on the client or else we will end up with graphical tile glitches.
-					 * 
-					 * TileSection packets must be directly sent as the send queue makes
-					 * no guarantee of send order.
+					 * on the client and before the TileFrameSection packet or else 
+					 * we will end up with graphical tile glitches.
 					 */
 
 					Netplay.Clients[remoteClient].sendQueue.AllocAndSet(SendQueue.kSendQueueLargeBlockSize, (ArraySegment<byte> seg) =>
 					{
-						seg.Array[seg.Offset + 2] = 10;
+						seg.Array[seg.Offset + 2] = (byte)PacketTypes.TileSendSection;
 						seg.Array[seg.Offset + 3] = 1; //compressed flag
 
 						int len = NetMessage.CompressTileBlock(number, (int)number2, (short)number3, (short)number4, seg.Array, seg.Offset + 4);
 						Array.Copy(BitConverter.GetBytes(len + 4), 0, seg.Array, seg.Offset, 2);
 
-						try
-						{
-							(Netplay.Clients[remoteClient].Socket as TcpSocket)._connection.GetStream().Write(seg.Array, seg.Offset, len + 4);
-						}
-						catch
-						{
-							Netplay.Clients[remoteClient].PendingTermination = true;
-						}
-
-						return false;
+						return true;
 					});
 
 					return;
