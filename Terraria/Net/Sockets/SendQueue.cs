@@ -79,63 +79,14 @@ namespace Terraria.Net.Sockets
 			{
 				int blockIndex = 0;
 
-				//if (waitHandle.WaitOne(100) == false)
-				//{
-				//	continue;
-				//}
+				if (waitHandle.WaitOne(100) == false)
+				{
+					continue;
+				}
 
 				if (threadCancelled == true || client.PendingTermination == true)
 				{
 					break;
-				}
-
-				for (blockIndex = 0; blockIndex < maxSmallBlocks; blockIndex++)
-				{
-					short length;
-					int offset;
-
-					if (threadCancelled == true)
-					{
-						break;
-					}
-
-					if (queuedSmallBlocks[blockIndex] == false)
-					{
-						continue;
-					}
-
-					offset = blockIndex * kSendQueueSmallBlockSize;
-					length = BitConverter.ToInt16(smallObjectHeap, offset);
-
-					try
-					{
-						(client.Socket as TcpSocket)._connection.GetStream().Write(smallObjectHeap, offset, length);
-					}
-					catch (Exception ex)
-					{
-						WriteFailedEventArgs args = null;
-
-						if (ex.InnerException != null && ex.InnerException is SocketException)
-						{
-							args = new WriteFailedEventArgs() { ErrorCode = (ex.InnerException as SocketException).SocketErrorCode };
-						}
-						else if (ex is SocketException)
-						{
-							args = new WriteFailedEventArgs() { ErrorCode = (ex as SocketException).SocketErrorCode };
-						}
-
-						if (args != null && WriteFailed != null)
-						{
-							Console.Write("SendQ: Slot {0} socket error {1}.", ex.Message);
-							WriteFailed(this, args);
-						}
-						Netplay.Clients[client.Id].PendingTermination = true;
-						break;
-					}
-					finally
-					{
-						Free(blockIndex);
-					}
 				}
 
 				for (blockIndex = 0; blockIndex < maxLargeBlocks; blockIndex++)
@@ -190,8 +141,57 @@ namespace Terraria.Net.Sockets
 						FreeLarge(blockIndex);
 					}
 				}
+				for (blockIndex = 0; blockIndex < maxSmallBlocks; blockIndex++)
+				{
+					short length;
+					int offset;
 
-				Thread.Sleep(1);
+					if (threadCancelled == true)
+					{
+						break;
+					}
+
+					if (queuedSmallBlocks[blockIndex] == false)
+					{
+						continue;
+					}
+
+					offset = blockIndex * kSendQueueSmallBlockSize;
+					length = BitConverter.ToInt16(smallObjectHeap, offset);
+
+					try
+					{
+						(client.Socket as TcpSocket)._connection.GetStream().Write(smallObjectHeap, offset, length);
+					}
+					catch (Exception ex)
+					{
+						WriteFailedEventArgs args = null;
+
+						if (ex.InnerException != null && ex.InnerException is SocketException)
+						{
+							args = new WriteFailedEventArgs() { ErrorCode = (ex.InnerException as SocketException).SocketErrorCode };
+						}
+						else if (ex is SocketException)
+						{
+							args = new WriteFailedEventArgs() { ErrorCode = (ex as SocketException).SocketErrorCode };
+						}
+
+						if (args != null && WriteFailed != null)
+						{
+							Console.Write("SendQ: Slot {0} socket error {1}.", ex.Message);
+							WriteFailed(this, args);
+						}
+						Netplay.Clients[client.Id].PendingTermination = true;
+						break;
+					}
+					finally
+					{
+						Free(blockIndex);
+					}
+				}
+
+
+				//Thread.Sleep(1);
 			}
 		}
 
