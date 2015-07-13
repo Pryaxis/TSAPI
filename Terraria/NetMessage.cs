@@ -6,6 +6,7 @@ using System.IO.Compression;
 using Terraria.DataStructures;
 using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Tile_Entities;
+using Terraria.ID;
 using Terraria.IO;
 using Terraria.Net.Sockets;
 using TerrariaApi.Server;
@@ -264,6 +265,7 @@ namespace Terraria
 					bb7[3] = NPC.downedChristmasIceQueen;
 					bb7[4] = NPC.downedChristmasSantank;
 					bb7[5] = NPC.downedChristmasTree;
+					bb7[6] = NPC.downedGolemBoss; 
 					writer.Write(bb7);
 					writer.Write((sbyte) Main.invasionType);
 					writer.Write(Main.LobbyId);
@@ -281,19 +283,30 @@ namespace Terraria
 				{
 					/*
 					 * TileSection packets must be sent and arrive in the same order
-					 * on the client and before the TileFrameSection packet or else 
-					 * we will end up with graphical tile glitches.
+					 * on the client or else we will end up with graphical tile glitches.
+					 * 
+					 * TileSection packets must be directly sent as the send queue makes
+					 * no guarantee of send order.
 					 */
 
 					Netplay.Clients[remoteClient].sendQueue.AllocAndSet(SendQueue.kSendQueueLargeBlockSize, (ArraySegment<byte> seg) =>
 					{
-						seg.Array[seg.Offset + 2] = (byte)PacketTypes.TileSendSection;
+						seg.Array[seg.Offset + 2] = 10;
 						seg.Array[seg.Offset + 3] = 1; //compressed flag
 
 						int len = NetMessage.CompressTileBlock(number, (int)number2, (short)number3, (short)number4, seg.Array, seg.Offset + 4);
 						Array.Copy(BitConverter.GetBytes(len + 4), 0, seg.Array, seg.Offset, 2);
 
-						return true;
+						try
+						{
+							(Netplay.Clients[remoteClient].Socket as TcpSocket)._connection.GetStream().Write(seg.Array, seg.Offset, len + 4);
+						}
+						catch
+						{
+							Netplay.Clients[remoteClient].PendingTermination = true;
+						}
+
+						return false;
 					});
 
 					return;
@@ -573,6 +586,7 @@ namespace Terraria
 					BitsByte bb13 = 0;
 					bb13[0] = (number4 == 1f); //pvp
 					bb13[1] = (number5 == 1); //critical hit
+					bb13[2] = (number6 == 0); //idk newstuff 0.5
 					writer.Write(bb13);
 					break;
 				}
@@ -594,6 +608,10 @@ namespace Terraria
 							bb14[num10] = true;
 						}
 					}
+					if (projectile.type > 0 && projectile.type < 651 && ProjectileID.Sets.NeedsUUID[projectile.type])
+					{
+						bb14[Projectile.maxAI] = true;
+					}
 					writer.Write(bb14);
 					for (int num11 = 0; num11 < Projectile.maxAI; num11++)
 					{
@@ -601,6 +619,10 @@ namespace Terraria
 						{
 							writer.Write(projectile.ai[num11]);
 						}
+					}
+					if (bb14[Projectile.maxAI])
+					{
+						writer.Write((short)projectile.projUUID);
 					}
 					break;
 				}

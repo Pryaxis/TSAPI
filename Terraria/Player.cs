@@ -1375,6 +1375,10 @@ namespace Terraria
 
 		private bool makeStrongBee;
 
+		public int _funkytownCheckCD;
+
+		public int[] hurtCooldowns;
+
 		public static bool lastPound;
 
 		public Vector2 Directions
@@ -1681,6 +1685,8 @@ namespace Terraria
 
 		public Player()
 		{
+			int[] array = new int[1];
+			this.hurtCooldowns = array;
 			this.width = 20;
 			this.height = 42;
 			this.name = string.Empty;
@@ -5974,9 +5980,14 @@ namespace Terraria
 			}
 		}
 
-		public double Hurt(int Damage, int hitDirection, bool pvp = false, bool quiet = false, string deathText = " was slain...", bool Crit = false)
+		public double Hurt(int Damage, int hitDirection, bool pvp = false, bool quiet = false, string deathText = " was slain...", bool Crit = false, int cooldownCounter = -1)
 		{
-			if (this.immune)
+			bool flag = !this.immune;
+			if (cooldownCounter == 0)
+			{
+				flag = (this.hurtCooldowns[0] <= 0);
+			}
+			if (!flag)
 			{
 				return 0;
 			}
@@ -6136,31 +6147,36 @@ namespace Terraria
 				Color color = (Crit ? CombatText.DamagedFriendlyCrit : CombatText.DamagedFriendly);
 				CombatText.NewText(new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height), color, string.Concat((int)num), Crit, false);
 				Player player2 = this;
-				player2.statLife = player2.statLife - (int)num;
-				this.immune = true;
-				if (num != 1)
+				this.statLife -= (int)num;
+				if (cooldownCounter == -1)
 				{
-					this.immuneTime = 40;
-					if (this.longInvince)
+					this.immune = true;
+					if (num == 1.0)
 					{
-						Player player3 = this;
-						player3.immuneTime = player3.immuneTime + 40;
+						this.immuneTime = 20;
+						if (this.longInvince)
+						{
+							this.immuneTime += 20;
+						}
+					}
+					else
+					{
+						this.immuneTime = 40;
+						if (this.longInvince)
+						{
+							this.immuneTime += 40;
+						}
+					}
+					if (pvp)
+					{
+						this.immuneTime = 8;
 					}
 				}
-				else
+				else if (cooldownCounter == 0)
 				{
-					this.immuneTime = 20;
-					if (this.longInvince)
-					{
-						Player player4 = this;
-						player4.immuneTime = player4.immuneTime + 20;
-					}
+					this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 80 : 40);
 				}
 				this.lifeRegenTime = 0;
-				if (pvp)
-				{
-					this.immuneTime = 8;
-				}
 				if (this.whoAmI == Main.myPlayer)
 				{
 					if (this.starCloak)
@@ -27394,15 +27410,21 @@ namespace Terraria
 					AchievementsHelper.HandleSpecialEvent(this, 12);
 				}
 			}
+			if (this._funkytownCheckCD > 0)
+			{
+				this._funkytownCheckCD--;
+			}
 			if (this.position.Y / 16f > (float)(Main.maxTilesY - 200))
 			{
 				AchievementsHelper.HandleSpecialEvent(this, 14);
 				return;
 			}
-			if ((double)(this.position.Y / 16f) < Main.worldSurface && Main.shroomTiles >= 200)
+			if (this._funkytownCheckCD == 0 && (double)(this.position.Y / 16f) < Main.worldSurface && Main.shroomTiles >= 200)
 			{
 				AchievementsHelper.HandleSpecialEvent(this, 15);
+				return;
 			}
+			this._funkytownCheckCD = 100;
 		}
 
 		public void UpdateBuffs(int i)
@@ -31861,29 +31883,32 @@ namespace Terraria
 
 		public void UpdateImmunity()
 		{
-			if (!this.immune)
+			if (this.immune)
 			{
-				this.immuneAlpha = 0;
-			}
-			else
-			{
-				Player player = this;
-				player.immuneTime = player.immuneTime - 1;
+				this.immuneTime--;
 				if (this.immuneTime <= 0)
 				{
 					this.immune = false;
 				}
-				Player player1 = this;
-				player1.immuneAlpha = player1.immuneAlpha + this.immuneAlphaDirection * 50;
+				this.immuneAlpha += this.immuneAlphaDirection * 50;
 				if (this.immuneAlpha <= 50)
 				{
 					this.immuneAlphaDirection = 1;
-					return;
 				}
-				if (this.immuneAlpha >= 205)
+				else if (this.immuneAlpha >= 205)
 				{
 					this.immuneAlphaDirection = -1;
-					return;
+				}
+			}
+			else
+			{
+				this.immuneAlpha = 0;
+			}
+			for (int i = 0; i < this.hurtCooldowns.Length; i++)
+			{
+				if (this.hurtCooldowns[i] > 0)
+				{
+					this.hurtCooldowns[i]--;
 				}
 			}
 		}

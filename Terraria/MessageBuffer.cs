@@ -510,6 +510,7 @@ namespace Terraria
 					NPC.downedChristmasIceQueen = bitsByte6[3];
 					NPC.downedChristmasSantank = bitsByte6[4];
 					NPC.downedChristmasTree = bitsByte6[5];
+					NPC.downedGolemBoss = bitsByte6[6];
 					if (!flag1)
 					{
 						Main.StopSlimeRain(true);
@@ -1426,23 +1427,13 @@ namespace Terraria
 					BitsByte bitsByte12 = this.reader.ReadByte();
 					bool flag6 = bitsByte12[0];
 					bool item7 = bitsByte12[1];
-					Main.player[num59].Hurt(num61, num60, flag6, true, str3, item7);
-					if (Main.netMode != 2)
+					int cooldownCounter = bitsByte12[2] ? 0 : -1;
+					Main.player[num59].Hurt(num61, num60, flag6, true, str3, item7, cooldownCounter);
+					if (Main.netMode == 2)
 					{
+						NetMessage.SendData(26, -1, this.whoAmI, str3, num59, (float)num60, (float)num61, (float)(flag6 ? 1 : 0), item7 ? 1 : 0, 0, 0);
 						return;
 					}
-					int num62 = this.whoAmI;
-					string str4 = str3;
-					int num63 = num59;
-					float single2 = (float)num60;
-					float single3 = (float)num61;
-					float crit = 0;
-					if (flag6)
-					{
-						crit = 1;
-					}
-					NetMessage.SendData(26, -1, num62, str4, num63, single2, single3, crit, (item7 ? 1 : 0), 0, 0);
-
 					return;
 				}
 				case 27:
@@ -1470,6 +1461,11 @@ namespace Terraria
 						{
 							singleArray1[s1] = this.reader.ReadSingle();
 						}
+					}
+					int num83 = (int)(bitsByte13[Projectile.maxAI] ? this.reader.ReadInt16() : -1);
+					if (num83 >= 1000)
+					{
+						num83 = -1;
 					}
 					if (Main.netMode == 2)
 					{
@@ -1530,11 +1526,12 @@ namespace Terraria
 					{
 						projectile.ai[t1] = singleArray1[t1];
 					}
-					Main.projectileIdentity[num69, num67] = num71;
-					if (Main.netMode != 2)
+					if (num83 >= 0)
 					{
-						projectile.ProjectileFixDesperation(num69);
+						projectile.projUUID = num83;
+						Main.projectileIdentity[num69, num83] = num71;
 					}
+					projectile.ProjectileFixDesperation(num69);
 					if (Main.netMode != 2)
 					{
 						return;
@@ -2416,7 +2413,18 @@ namespace Terraria
 						NetMessage.SendData(78, -1, -1, "", 0, 1f, 1f, 1f, 0, 0, 0);
 						return;
 					}
-					else if (num162 != -6)
+					else if (num162 == -6)
+					{
+						if (Main.dayTime && !Main.eclipse)
+						{
+							NetMessage.SendData(25, -1, -1, Lang.misc[20], 255, 50f, 255f, 130f, 0, 0, 0);
+							Main.eclipse = true;
+							NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+							return;
+						}
+						return;
+					}
+					else
 					{
 						if (num162 == -7)
 						{
@@ -2427,34 +2435,37 @@ namespace Terraria
 							NetMessage.SendData(78, -1, -1, "", 0, 1f, (float)(Main.invasionType + 2), 0f, 0, 0, 0);
 							return;
 						}
-						if (num162 >= 0)
+						if (num162 == -8)
 						{
+							if (NPC.downedGolemBoss && Main.hardMode && !NPC.AnyDanger() && !NPC.AnyoneNearCultists())
+							{
+								WorldGen.StartImpendingDoom();
+								NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+								return;
+							}
 							return;
 						}
-						int num163 = 1;
-						if (num162 > -5)
+						else
 						{
-							num163 = -num162;
-						}
-						if (num163 > 0 && Main.invasionType == 0)
-						{
-							Main.invasionDelay = 0;
-							Main.StartInvasion(num163);
-						}
-						NetMessage.SendData(78, -1, -1, "", 0, 1f, (float)(Main.invasionType + 2), 0f, 0, 0, 0);
-						return;
-					}
-					else
-					{
-						if (!Main.dayTime)
-						{
+							if (num162 < 0)
+							{
+								int num158 = 1;
+								if (num162 > -5)
+								{
+									num158 = -num162;
+								}
+								if (num158 > 0 && Main.invasionType == 0)
+								{
+									Main.invasionDelay = 0;
+									Main.StartInvasion(num158);
+								}
+								NetMessage.SendData(78, -1, -1, "", 0, 1f, (float)(Main.invasionType + 2), 0f, 0, 0, 0);
+								return;
+							}
 							return;
 						}
-						NetMessage.SendData(25, -1, -1, Lang.misc[20], 255, 50f, 255f, 130f, 0, 0, 0);
-						Main.eclipse = true;
-						NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-						return;
 					}
+					break;
 				}
 				case 62:
 				{

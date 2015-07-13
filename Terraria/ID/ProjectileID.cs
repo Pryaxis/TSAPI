@@ -1328,6 +1328,10 @@ namespace Terraria.ID
 
 			public static bool[] DontAttachHideToAlpha;
 
+			public static bool[] NeedsUUID;
+
+			public static bool[] StardustDragon;
+
 			static Sets()
 			{
 				ProjectileID.Sets.Factory = new SetFactory(651);
@@ -1383,6 +1387,8 @@ namespace Terraria.ID
 				SetFactory setFactory2 = ProjectileID.Sets.Factory;
 				int[] numArray5 = new int[] { 598, 641, 617, 636, 579, 578, 625, 626, 627, 628 };
 				ProjectileID.Sets.DontAttachHideToAlpha = setFactory2.CreateBoolSet(numArray5);
+				ProjectileID.Sets.NeedsUUID = ProjectileID.Sets.Factory.CreateBoolSet(new int[] { 625, 626, 627, 628 });
+				ProjectileID.Sets.StardustDragon = ProjectileID.Sets.Factory.CreateBoolSet(new int[] { 625, 626, 627, 628 });
 			}
 		}
 	}

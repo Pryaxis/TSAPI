@@ -56985,6 +56985,55 @@ namespace Terraria
 			}
 		}
 
+		public static bool AnyDanger()
+		{
+			bool flag = false;
+			if (NPC.MoonLordCountdown > 0)
+			{
+				flag = true;
+			}
+			if (Main.invasionType > 0)
+			{
+				flag = true;
+			}
+			if (!flag)
+			{
+				for (int i = 0; i < 200; i++)
+				{
+					if (Main.npc[i].active && (Main.npc[i].boss || NPCID.Sets.TechnicallyABoss[Main.npc[i].type]))
+					{
+						flag = true;
+					}
+				}
+			}
+			return flag;
+		}
+
+		public static bool AnyoneNearCultists()
+		{
+			int num = NPC.FindFirstNPC(437);
+			if (num == -1)
+			{
+				return false;
+			}
+			Rectangle rectangle = Utils.CenteredRectangle(Main.npc[num].Center, new Vector2(2500f, 1500f));
+			Rectangle r = new Rectangle(0, 0, 2500, 1500);
+			Vector2 vector = r.Size() / 2f;
+			for (int i = 0; i < 255; i++)
+			{
+				if (Main.player[i].active)
+				{
+					r.X = (int)Main.player[i].Center.X - (int)vector.X;
+					r.Y = (int)Main.player[i].Center.Y - (int)vector.Y;
+					if (rectangle.Intersects(r))
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
 		public static void SpawnOnPlayer(int plr, int Type)
 		{
 			if (Main.netMode == 1)

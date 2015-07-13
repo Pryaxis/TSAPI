@@ -69,6 +69,7 @@ namespace Terraria
 		public int frameCounter;
 		public int frame;
 		public bool manualDirectionChange;
+		public int projUUID = -1;
 		public float Opacity
 		{
 			get

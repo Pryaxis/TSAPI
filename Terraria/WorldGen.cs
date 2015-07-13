@@ -49292,6 +49292,38 @@ namespace Terraria
 				}
 			}
 		}
+		public static void StartImpendingDoom()
+		{
+			NPC.LunarApocalypseIsUp = false;
+			NPC.MoonLordCountdown = 3600;
+			NetMessage.SendData(103, -1, -1, "", NPC.MoonLordCountdown, 0f, 0f, 0f, 0, 0, 0);
+			if (Main.netMode == 0)
+			{
+				Main.NewText(Lang.misc[52], 50, 255, 130, false);
+			}
+			else if (Main.netMode == 2)
+			{
+				NetMessage.SendData(25, -1, -1, Lang.misc[52], 255, 50f, 255f, 130f, 0, 0, 0);
+			}
+			if (Main.netMode != 1)
+			{
+				WorldGen.GetRidOfCultists();
+			}
+		}
+		public static void GetRidOfCultists()
+		{
+			for (int i = 0; i < 200; i++)
+			{
+				if (Main.npc[i].active && (Main.npc[i].type == 437 || Main.npc[i].type == 438 || Main.npc[i].type == 379))
+				{
+					Main.npc[i].active = false;
+					if (Main.netMode != 1)
+					{
+						NetMessage.SendData(23, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+					}
+				}
+			}
+		}
 		public static void MessageLunarApocalypse()
 		{
 			if (!NPC.LunarApocalypseIsUp)
