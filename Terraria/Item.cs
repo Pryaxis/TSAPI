@@ -33097,7 +33097,7 @@ namespace Terraria
 				this.name = "Team Dye";
 				this.width = 20;
 				this.height = 20;
-				this.maxStack = 1;
+				this.maxStack = 99;
 				this.@value = 10000;
 				this.rare = 1;
 				return;
