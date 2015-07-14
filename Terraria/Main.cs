@@ -9053,7 +9053,7 @@ namespace Terraria
 								}
 							}
 #if !MONO
-							if (str1.Length > 11 && str1.Substring(0, 9).ToLower() == "priority=")
+							if (str1.Length > 9 && str1.Substring(0, 9).ToLower() == "priority=")
 							{
 								string str5 = str1.Substring(9);
 								try
@@ -9164,7 +9164,7 @@ namespace Terraria
 							{
 								Netplay.spamCheck = true;
 							}
-							if (str1.Length > 5 && str1.Substring(0, 10).ToLower() == "npcstream=")
+							if (str1.Length > 10 && str1.Substring(0, 10).ToLower() == "npcstream=")
 							{
 								string str8 = str1.Substring(10);
 								try
