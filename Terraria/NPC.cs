@@ -40216,7 +40216,7 @@ namespace Terraria
 			if (this.type == 1 && this.ai[1] > 0f)
 			{
 				int num7 = (int)this.ai[1];
-				if (num7 > 0 && num7 < 3601)
+				if (num7 > 0 && num7 < Main.maxItemTypes)
 				{
 					int num8 = 1;
 					if (num7 == 8)

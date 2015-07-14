@@ -7216,7 +7216,9 @@ namespace Terraria.ID
 
 		public const short ShadowflameHadesDye = 3600;
 
-		public const short Count = 3601;
+		public const short CelestialSigil = 3601;
+
+		public const short Count = 3602;
 
 		public ItemID()
 		{
@@ -7248,7 +7250,7 @@ namespace Terraria.ID
 
 			static Sets()
 			{
-				ItemID.Sets.Factory = new SetFactory(3601);
+				ItemID.Sets.Factory = new SetFactory(Main.maxItemTypes);
 				SetFactory factory = ItemID.Sets.Factory;
 				int[] numArray = new int[] { 2784, 2783, 2785, 2782, 2774, 2773, 2775, 2772, 2779, 2778, 2780, 2777, 3464, 3463, 3465, 3462, 3341, 3342, 3343, 3340, 3344, 3345, 3346, 3273, 2881 };
 				ItemID.Sets.Deprecated = factory.CreateBoolSet(numArray);
