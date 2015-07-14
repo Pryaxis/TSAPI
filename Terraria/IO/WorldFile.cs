@@ -123,7 +123,7 @@ namespace Terraria.IO
 		public static WorldFileData GetAllMetadata(string file, bool cloudSave)
 		{
 			Stream memoryStream;
-			if (file == null || cloudSave && SocialAPI.Cloud == null)
+			if (file == null || cloudSave && SocialAPI.Cloud == null || !File.Exists(file))
 			{
 				return null;
 			}
