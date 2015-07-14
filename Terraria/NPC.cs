@@ -31,7 +31,7 @@ namespace Terraria
 
 		public static int immuneTime;
 
-		public static int maxAI;
+		public static int maxAI = 4;
 
 		public int netSpam;
 
@@ -289,8 +289,22 @@ namespace Terraria
 
 		public int type;
 
+		/// <summary>
+		/// NPC ai
+		/// 0 = while talking, = 0. While not talking, = 1
+		/// 1 = while talking, = 300. While not talking, = 200
+		/// 2 = ?
+		/// 3 = flag for death. 1 = kill, 0 = don't
+		/// </summary>
 		public float[] ai = new float[NPC.maxAI];
 
+		/// <summary>
+		/// Local for... no idea
+		/// 0 = ?
+		/// 1 = ?
+		/// 2 = ?
+		/// 3 = while talking, = 100
+		/// </summary>
 		public float[] localAI = new float[NPC.maxAI];
 
 		public int aiAction;
@@ -491,7 +505,6 @@ namespace Terraria
 			NPC.MoonLordAttacksArray2 = NPC.InitializeMoonLordAttacks2();
 			NPC.MoonLordCountdown = 0;
 			NPC.immuneTime = 20;
-			NPC.maxAI = 4;
 			NPC.goldCritterChance = 150;
 			NPC.killCount = new int[540];
 			NPC.waveKills = 0f;
@@ -673,14 +686,11 @@ namespace Terraria
 			int[] numArray;
 			float single1;
 			Vector2 vector24;
-			int num7;
-			int num8;
-			int num9;
-			int num10;
 			bool flag2;
 			bool flag3;
 			bool flag4;
 			bool flag5;
+
 			if (this.aiStyle == 0)
 			{
 				for (int i = 0; i < 255; i++)
@@ -7897,18 +7907,18 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 7)
 			{
-				bool flag43 = Main.raining;
+				bool nightOrEvent = Main.raining;
 				if (!Main.dayTime)
 				{
-					flag43 = true;
+					nightOrEvent = true;
 				}
 				if (Main.eclipse)
 				{
-					flag43 = true;
+					nightOrEvent = true;
 				}
 				if (Main.slimeRain)
 				{
-					flag43 = true;
+					nightOrEvent = true;
 				}
 				if (!Main.expertMode)
 				{
@@ -7923,102 +7933,97 @@ namespace Terraria
 				{
 					if (NPC.downedBoss1)
 					{
-						single127 = single127 + 0.1f;
-						NPC nPC51 = this;
-						nPC51.defense = nPC51.defense + 3;
+						single127 += 0.1f;
+						this.defense += 3;
 					}
 					if (NPC.downedBoss2)
 					{
-						single127 = single127 + 0.1f;
-						NPC nPC52 = this;
-						nPC52.defense = nPC52.defense + 3;
+						single127 += 0.1f;
+						this.defense += 3;
 					}
 					if (NPC.downedBoss3)
 					{
-						single127 = single127 + 0.1f;
-						NPC nPC53 = this;
-						nPC53.defense = nPC53.defense + 3;
+						single127 += 0.1f;
+						this.defense += 3;
 					}
 					if (NPC.downedQueenBee)
 					{
-						single127 = single127 + 0.1f;
-						NPC nPC54 = this;
-						nPC54.defense = nPC54.defense + 3;
+						single127 += 0.1f;
+						this.defense += 3;
 					}
 					if (Main.hardMode)
 					{
-						single127 = single127 + 0.4f;
-						NPC nPC55 = this;
-						nPC55.defense = nPC55.defense + 12;
+						single127 += 0.4f;
+						this.defense += 12;
 					}
 					if (NPC.downedMechBoss1)
 					{
-						single127 = single127 + 0.15f;
-						NPC nPC56 = this;
-						nPC56.defense = nPC56.defense + 6;
+						single127 += 0.15f;
+						this.defense += 6;
 					}
 					if (NPC.downedMechBoss2)
 					{
-						single127 = single127 + 0.15f;
-						NPC nPC57 = this;
-						nPC57.defense = nPC57.defense + 6;
+						single127 += 0.15f;
+						this.defense += 6;
 					}
 					if (NPC.downedMechBoss3)
 					{
-						single127 = single127 + 0.15f;
-						NPC nPC58 = this;
-						nPC58.defense = nPC58.defense + 6;
+						single127 += 0.15f;
+						this.defense += 6;
 					}
 					if (NPC.downedPlantBoss)
 					{
-						single127 = single127 + 0.15f;
-						NPC nPC59 = this;
-						nPC59.defense = nPC59.defense + 8;
+						single127 += 0.15f;
+						this.defense += 8;
 					}
 					if (NPC.downedGolemBoss)
 					{
-						single127 = single127 + 0.15f;
-						NPC nPC60 = this;
-						nPC60.defense = nPC60.defense + 8;
+						single127 += 0.15f;
+						this.defense += 8;
 					}
 					if (NPC.downedAncientCultist)
 					{
-						single127 = single127 + 0.15f;
-						NPC nPC61 = this;
-						nPC61.defense = nPC61.defense + 8;
+						single127 += 0.15f;
+						this.defense += 8;
 					}
 				}
 				if (this.type == 142 && Main.netMode != 1 && !Main.xMas)
 				{
+					//Santa
 					this.StrikeNPCNoInteraction(9999, 0f, 0, false, false, false);
 					if (Main.netMode == 2)
 					{
 						NetMessage.SendData(28, -1, -1, "", this.whoAmI, 9999f, 0f, 0f, 0, 0, 0);
 					}
 				}
-				if ((this.type == 148 || this.type == 149) && this.localAI[0] == 0f)
+				if ((this.type == NPCID.Penguin || this.type == NPCID.PenguinBlack) && this.localAI[0] == 0f)
 				{
+					//Penguins
 					this.localAI[0] = (float)Main.rand.Next(1, 5);
 				}
 				if (this.type == 124)
 				{
-					bool flag44 = false;
-					int num157 = 0;
-					while (num157 < 1000)
+					//Mechanic
+					float localAi_0 = 0;
+					int projId = 0;
+					while (projId < 1000)
 					{
-						if (!Main.projectile[num157].active || Main.projectile[num157].type != 582 || Main.projectile[num157].ai[1] != (float)this.whoAmI)
+						if (!Main.projectile[projId].active
+							|| Main.projectile[projId].type != ProjectileID.MechanicWrench
+							|| Main.projectile[projId].ai[1] != (float)this.whoAmI)
 						{
-							num157++;
+							projId++;
 						}
 						else
 						{
-							flag44 = true;
+							localAi_0 = 1;
 							break;
 						}
 					}
-					this.localAI[0] = (float)flag44.ToInt();
+					this.localAI[0] = localAi_0;
 				}
-				if ((this.type == 362 || this.type == 364) && Main.netMode != 1 && (this.velocity.Y > 4f || this.velocity.Y < -4f || this.wet))
+				if ((this.type == NPCID.Duck || this.type == NPCID.DuckWhite) && Main.netMode != 1 
+					&& (this.velocity.Y > 4f || this.velocity.Y < -4f || this.wet))
 				{
 					int num158 = this.direction;
 					this.Transform(this.type + 1);
@@ -8027,48 +8032,45 @@ namespace Terraria
 					this.netUpdate = true;
 					return;
 				}
-				num6 = this.type;
-				if (num6 <= 124)
+				if (this.type <= NPCID.Mechanic)
 				{
-					switch (num6)
+					switch (this.type)
 					{
-						case 107:
+						case NPCID.GoblinTinkerer:
 						{
 							NPC.savedGoblin = true;
 							break;
 						}
-						case 108:
+						case NPCID.Wizard:
 						{
 							NPC.savedWizard = true;
 							break;
 						}
+						case NPCID.Mechanic:
+						{
+							NPC.savedMech = true;
+							break;
+						}
 						default:
 						{
-							if (num6 == 124)
-							{
-								NPC.savedMech = true;
-								break;
-							}
-							else
-							{
-								break;
-							}
+							break;
 						}
 					}
 				}
-				else if (num6 == 353)
+				else if (this.type == NPCID.Stylist)
 				{
 					NPC.savedStylist = true;
 				}
-				else if (num6 == 369)
+				else if (this.type == NPCID.Angler)
 				{
 					NPC.savedAngler = true;
 				}
-				else if (num6 == 441)
+				else if (this.type == NPCID.TaxCollector)
 				{
 					NPC.savedTaxCollector = true;
 				}
-				if (this.type >= 0 && this.type < 540 && NPCID.Sets.TownCritter[this.type] && this.target == 255)
+				if (this.type >= NPCID.None && this.type < NPCID.Count 
+					&& NPCID.Sets.TownCritter[this.type] && this.target == 255)
 				{
 					this.TargetClosest(true);
 					if (this.position.X < Main.player[this.target].position.X)
@@ -8091,9 +8093,9 @@ namespace Terraria
 					this.homeTileX = (int)base.Center.X / 16;
 					this.homeTileY = (int)(this.position.Y + (float)this.height + 4f) / 16;
 				}
-				bool flag45 = false;
-				int num159 = this.homeTileY;
-				if (this.type == 441)
+				bool isTalking = false;
+				int homeTileYTemp = this.homeTileY;
+				if (this.type == NPCID.TaxCollector)
 				{
 					NPC.taxCollector = true;
 				}
@@ -8102,19 +8104,24 @@ namespace Terraria
 				{
 					this.direction = 1;
 				}
-				for (int m2 = 0; m2 < 255; m2++)
+				for (int plyId = 0; plyId < 255; plyId++)
 				{
-					if (Main.player[m2].active && Main.player[m2].talkNPC == this.whoAmI)
+					if (Main.player[plyId].active && Main.player[plyId].talkNPC == this.whoAmI)
 					{
-						flag45 = true;
+						//player is talking to npc
+						isTalking = true;
 						if (this.ai[0] != 0f)
 						{
 							this.netUpdate = true;
 						}
+						//??
 						this.ai[0] = 0f;
 						this.ai[1] = 300f;
 						this.localAI[3] = 100f;
-						if (Main.player[m2].position.X + (float)(Main.player[m2].width / 2) >= this.position.X + (float)(this.width / 2))
+
+						//turn npc to face player who is talking with it
+						if (Main.player[plyId].position.X + (Main.player[plyId].width / 2f) >= 
+							this.position.X + (this.width / 2f))
 						{
 							this.direction = 1;
 						}
@@ -8126,46 +8133,51 @@ namespace Terraria
 				}
 				if (this.ai[3] == 1f)
 				{
+					//kill this NPC
 					this.life = -1;
 					this.HitEffect(0, 10);
 					this.active = false;
 					this.netUpdate = true;
 					return;
 				}
-				if (this.type == 37 && Main.netMode != 1)
+				if (this.type == NPCID.OldMan && Main.netMode != 1)
 				{
+					//Make sure the Old man has a home, poor fellow.
 					this.homeless = false;
 					this.homeTileX = Main.dungeonX;
 					this.homeTileY = Main.dungeonY;
 					if (NPC.downedBoss3)
 					{
+						//flag Old man to die.
 						this.ai[3] = 1f;
 						this.netUpdate = true;
 					}
 				}
 				if (Main.netMode != 1 && this.homeTileY > 0)
 				{
-					while (!WorldGen.SolidTile(this.homeTileX, num159) && num159 < Main.maxTilesY - 20)
+					while (!WorldGen.SolidTile(this.homeTileX, homeTileYTemp) && homeTileYTemp < Main.maxTilesY - 20)
 					{
-						num159++;
+						homeTileYTemp++;
 					}
 				}
-				if (this.type == 368)
+				if (this.type == NPCID.TravellingMerchant)
 				{
+					//Merchant has no home.
 					this.homeless = true;
+
 					if (!Main.dayTime)
 					{
 						this.homeTileX = (int)(base.Center.X / 16f);
 						this.homeTileY = (int)(this.position.Y + (float)this.height + 2f) / 16;
-						if (!flag45)
+						if (!isTalking)
 						{
 							this.ai[0] = 1f;
 							this.ai[1] = 200f;
 						}
-						flag43 = false;
+						nightOrEvent = false;
 					}
 				}
-				if (this.type == 369 && this.homeless && this.wet)
+				if (this.type == NPCID.Angler && this.homeless && this.wet)
 				{
 					if (base.Center.X / 16f < 380f || base.Center.X / 16f > (float)(Main.maxTilesX - 380))
 					{
@@ -8183,47 +8195,75 @@ namespace Terraria
 						this.direction = -1;
 					}
 				}
+
 				int x56 = (int)(this.position.X + (float)(this.width / 2)) / 16;
 				int y53 = (int)(this.position.Y + (float)this.height + 1f) / 16;
 				if (!WorldGen.InWorld(x56, y53, 0) || Main.tile[x56, y53] == null)
 				{
+					//Don't do stuff if the tile they're on is null, or they're not in the world?
 					return;
 				}
-				if (!this.homeless && Main.netMode != 1 && this.townNPC && (flag43 || Main.tileDungeon[Main.tile[x56, y53].type]) && (x56 != this.homeTileX || y53 != num159))
+
+				//npc is not homeless, we're in server mode, npc is a town npc,
+				//it's slime rain, rain, eclipse, etc, or npc is in the dungeon,
+				//and current position is NOT npc's home position
+				if (!this.homeless && Main.netMode != 1 && this.townNPC 
+					&& (nightOrEvent || Main.tileDungeon[Main.tile[x56, y53].type]) 
+					&& (x56 != this.homeTileX || y53 != homeTileYTemp))
 				{
-					bool flag46 = true;
+					bool npcNotIntersect = true;
+
 					for (int n2 = 0; n2 < 2; n2++)
 					{
-						Rectangle rectangle2 = new Rectangle((int)(this.position.X + (float)(this.width / 2) - (float)(NPC.sWidth / 2) - (float)NPC.safeRangeX), (int)(this.position.Y + (float)(this.height / 2) - (float)(NPC.sHeight / 2) - (float)NPC.safeRangeY), NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+						Rectangle rectangle2 = new Rectangle(
+							(int)(this.position.X + (float)(this.width / 2) - (float)(NPC.sWidth / 2) - (float)NPC.safeRangeX), 
+							(int)(this.position.Y + (float)(this.height / 2) - (float)(NPC.sHeight / 2) - (float)NPC.safeRangeY),
+							NPC.sWidth + NPC.safeRangeX * 2,
+							NPC.sHeight + NPC.safeRangeY * 2);
+
 						if (n2 == 1)
 						{
-							rectangle2 = new Rectangle(this.homeTileX * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num159 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+							rectangle2 = new Rectangle(this.homeTileX * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX,
+								homeTileYTemp * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY,
+								NPC.sWidth + NPC.safeRangeX * 2,
+								NPC.sHeight + NPC.safeRangeY * 2);
 						}
 						for (int o2 = 0; o2 < 255; o2++)
 						{
 							if (Main.player[o2].active)
 							{
-								Rectangle rectangle3 = new Rectangle((int)Main.player[o2].position.X, (int)Main.player[o2].position.Y, Main.player[o2].width, Main.player[o2].height);
+								Rectangle rectangle3 = new Rectangle(
+									(int)Main.player[o2].position.X, 
+									(int)Main.player[o2].position.Y,
+									Main.player[o2].width,
+									Main.player[o2].height);
+
 								if (rectangle3.Intersects(rectangle2))
 								{
-									flag46 = false;
+									npcNotIntersect = false;
 									break;
 								}
 							}
-							if (!flag46)
+							if (!npcNotIntersect)
 							{
 								break;
 							}
 						}
 					}
-					if (flag46)
+					if (npcNotIntersect)
 					{
-						if (this.type == 37 || !Collision.SolidTiles(this.homeTileX - 1, this.homeTileX + 1, num159 - 3, num159 - 1))
+						if (this.type == NPCID.OldMan || 
+							!Collision.SolidTiles(
+							this.homeTileX - 1, 
+							this.homeTileX + 1, 
+							homeTileYTemp - 3, 
+							homeTileYTemp - 1))
 						{
+							//moved too far so reset position (as long as player is in old man range)
 							this.velocity.X = 0f;
 							this.velocity.Y = 0f;
 							this.position.X = (float)(this.homeTileX * 16 + 8 - this.width / 2);
-							this.position.Y = (float)(num159 * 16 - this.height) - 0.1f;
+							this.position.Y = (float)(homeTileYTemp * 16 - this.height) - 0.1f;
 							this.netUpdate = true;
 						}
 						else
@@ -8246,11 +8286,14 @@ namespace Terraria
 				int num160 = 0;
 				int num161 = -1;
 				int num162 = -1;
-				if (Main.netMode != 1 && !flag45)
+				if (Main.netMode != 1 && !isTalking)
 				{
 					for (int p2 = 0; p2 < 200; p2++)
 					{
-						if (Main.npc[p2].active && !Main.npc[p2].friendly && Main.npc[p2].damage > 0 && Main.npc[p2].Distance(base.Center) < dangerDetectRange && (this.type != 453 || !NPCID.Sets.Skeletons.Contains(Main.npc[p2].netID)))
+						if (Main.npc[p2].active && !Main.npc[p2].friendly && Main.npc[p2].damage > 0 
+							&& Main.npc[p2].Distance(base.Center) < dangerDetectRange
+							&& (this.type != NPCID.SkeletonMerchant
+							|| !NPCID.Sets.Skeletons.Contains(Main.npc[p2].netID)))
 						{
 							flag48 = true;
 							float x57 = Main.npc[p2].Center.X - base.Center.X;
@@ -8339,7 +8382,7 @@ namespace Terraria
 					{
 						this.localAI[3] = this.localAI[3] - 1f;
 					}
-					if (!flag43 || flag45 || NPCID.Sets.TownCritter[this.type])
+					if (!nightOrEvent || isTalking || NPCID.Sets.TownCritter[this.type])
 					{
 						if (flag47)
 						{
@@ -8379,7 +8422,7 @@ namespace Terraria
 					}
 					else if (Main.netMode != 1)
 					{
-						if (x56 != this.homeTileX || y53 != num159)
+						if (x56 != this.homeTileX || y53 != homeTileYTemp)
 						{
 							if (x56 <= this.homeTileX)
 							{
@@ -8415,15 +8458,14 @@ namespace Terraria
 							}
 						}
 					}
-					if (Main.netMode != 1 && (!flag43 || x56 == this.homeTileX && y53 == num159))
+					if (Main.netMode != 1 && (!nightOrEvent || x56 == this.homeTileX && y53 == homeTileYTemp))
 					{
 						if (x56 >= this.homeTileX - 25 && x56 <= this.homeTileX + 25)
 						{
 							if (Main.rand.Next(80) == 0 && this.localAI[3] == 0f)
 							{
 								this.localAI[3] = 200f;
-								NPC nPC63 = this;
-								nPC63.direction = nPC63.direction * -1;
+								this.direction *= -1;
 								this.netUpdate = true;
 							}
 						}
@@ -8444,7 +8486,7 @@ namespace Terraria
 				}
 				else if (this.ai[0] == 1f)
 				{
-					if (Main.netMode == 1 || !flag43 || x56 != this.homeTileX || y53 != this.homeTileY || NPCID.Sets.TownCritter[this.type])
+					if (Main.netMode == 1 || !nightOrEvent || x56 != this.homeTileX || y53 != this.homeTileY || NPCID.Sets.TownCritter[this.type])
 					{
 						bool flag50 = Collision.DrownCollision(this.position, this.width, this.height, 1f);
 						if (!flag50)
@@ -8661,7 +8703,7 @@ namespace Terraria
 							Tile tileSafely1 = Framing.GetTileSafely(x58, y54);
 							Tile tile1 = Framing.GetTileSafely(x58, y54 - 1);
 							Tile tileSafely2 = Framing.GetTileSafely(x58, y54 - 2);
-							if (!this.townNPC || !tileSafely2.nactive() || tileSafely2.type != 10 && tileSafely2.type != 388 || Main.rand.Next(10) != 0 && !flag43)
+							if (!this.townNPC || !tileSafely2.nactive() || tileSafely2.type != 10 && tileSafely2.type != 388 || Main.rand.Next(10) != 0 && !nightOrEvent)
 							{
 								if (this.velocity.X < 0f && this.spriteDirection == -1 || this.velocity.X > 0f && this.spriteDirection == 1)
 								{
@@ -8747,16 +8789,13 @@ namespace Terraria
 									}
 									else if (!flag48)
 									{
-										NPC nPC72 = this;
-										nPC72.direction = nPC72.direction * -1;
+										this.direction *= -1;
 										this.netUpdate = true;
 									}
 									else
 									{
 										flag52 = false;
-										this.velocity.X = 0f;
-										NPC nPC73 = this;
-										nPC73.direction = nPC73.direction * -1;
+										this.direction *= -1;
 										this.netUpdate = true;
 										this.ai[0] = 8f;
 										this.ai[1] = 240f;
@@ -8802,8 +8841,7 @@ namespace Terraria
 								}
 								else if (!WorldGen.ShiftTallGate(x58, y54 - 2, false))
 								{
-									NPC nPC74 = this;
-									nPC74.direction = nPC74.direction * -1;
+									this.direction *= -1;
 									this.netUpdate = true;
 								}
 								else
@@ -8834,8 +8872,7 @@ namespace Terraria
 						if (Main.rand.Next(60) == 0 && this.localAI[3] == 0f)
 						{
 							this.localAI[3] = 60f;
-							NPC nPC75 = this;
-							nPC75.direction = nPC75.direction * -1;
+							this.direction *= -1;
 							this.netUpdate = true;
 						}
 					}
@@ -9030,11 +9067,14 @@ namespace Terraria
 						Vector2 unitY = -Vector2.UnitY;
 						if (num160 == 1 && this.spriteDirection == 1 && num162 != -1)
 						{
-							unitY = base.DirectionTo(Main.npc[num162].Center + new Vector2(0f, -single136 * MathHelper.Clamp(base.Distance(Main.npc[num162].Center) / dangerDetectRange1, 0f, 1f)));
+							unitY = base.DirectionTo(
+								Main.npc[num162].Center + 
+								new Vector2(0f, -single136 * MathHelper.Clamp(base.Distance(Main.npc[num162].Center) / dangerDetectRange1, 0f, 1f)));
 						}
 						if (num160 == -1 && this.spriteDirection == -1 && num161 != -1)
 						{
-							unitY = base.DirectionTo(Main.npc[num161].Center + new Vector2(0f, -single136 * MathHelper.Clamp(base.Distance(Main.npc[num161].Center) / dangerDetectRange1, 0f, 1f)));
+							unitY = base.DirectionTo(
+								Main.npc[num161].Center + new Vector2(0f, -single136 * MathHelper.Clamp(base.Distance(Main.npc[num161].Center) / dangerDetectRange1, 0f, 1f)));
 						}
 						if (unitY.HasNaNs() || Math.Sign(unitY.X) != this.spriteDirection)
 						{
@@ -9045,7 +9085,26 @@ namespace Terraria
 						int num173 = 1000;
 						if (this.type != 124)
 						{
-							num173 = (this.type != 142 ? Projectile.NewProjectile(base.Center.X + (float)(this.spriteDirection * 16), base.Center.Y - 2f, unitY.X, unitY.Y, num168, num169, single134, Main.myPlayer, 0f, 0f) : Projectile.NewProjectile(base.Center.X + (float)(this.spriteDirection * 16), base.Center.Y - 2f, unitY.X, unitY.Y, num168, num169, single134, Main.myPlayer, 0f, (float)Main.rand.Next(5)));
+							num173 = (this.type != 142
+								? Projectile.NewProjectile(
+								base.Center.X + (float)(this.spriteDirection * 16),
+								base.Center.Y - 2f,
+								unitY.X,
+								unitY.Y,
+								num168,
+								num169,
+								single134,
+								Main.myPlayer)
+								: Projectile.NewProjectile(base.Center.X + (float)(this.spriteDirection * 16),
+								base.Center.Y - 2f,
+								unitY.X,
+								unitY.Y,
+								num168,
+								num169,
+								single134,
+								Main.myPlayer,
+								0f,
+								(float)Main.rand.Next(5)));
 						}
 						else
 						{
@@ -9326,12 +9385,14 @@ namespace Terraria
 						}
 						if (zero1.HasNaNs() || Math.Sign(zero1.X) != this.spriteDirection)
 						{
-							zero1 = new Vector2((float)this.spriteDirection, 0f);
+							zero1 = new Vector2(-(float)this.spriteDirection, 0f);
 						}
 						zero1 = zero1 * single139;
 						zero1 = zero1 + Utils.RandomVector2(Main.rand, -single141, single141);
 						int num181 = 1000;
-						num181 = (this.type != 227 ? Projectile.NewProjectile(base.Center.X + (float)(this.spriteDirection * 16), base.Center.Y - 2f, zero1.X, zero1.Y, num174, num175, single140, Main.myPlayer, 0f, 0f) : Projectile.NewProjectile(base.Center.X + (float)(this.spriteDirection * 16), base.Center.Y - 2f, zero1.X, zero1.Y, num174, num175, single140, Main.myPlayer, 0f, (float)Main.rand.Next(12) / 6f));
+						num181 = (this.type != 227 
+							? Projectile.NewProjectile(base.Center.X + (float)(this.spriteDirection * 16), base.Center.Y - 2f, zero1.X, zero1.Y, num174, num175, single140, Main.myPlayer, 0f, 0f) 
+							: Projectile.NewProjectile(base.Center.X + (float)(this.spriteDirection * 16), base.Center.Y - 2f, zero1.X, zero1.Y, num174, num175, single140, Main.myPlayer, 0f, (float)Main.rand.Next(12) / 6f));
 						Main.projectile[num181].npcProj = true;
 						Main.projectile[num181].noDropItem = true;
 					}
@@ -9684,7 +9745,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (Main.netMode != 1 && (this.townNPC || this.type == 453) && !flag45)
+				if (Main.netMode != 1 && (this.townNPC || this.type == 453) && !isTalking)
 				{
 					bool flag58 = (this.ai[0] >= 2f ? false : !flag48);
 					if (this.ai[0] < 2f || this.ai[0] == 8f)

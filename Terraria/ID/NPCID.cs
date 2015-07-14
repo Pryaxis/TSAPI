@@ -1016,6 +1016,8 @@ namespace Terraria.ID
 
 		public const short CultistBossClone = 440;
 
+		public const short TaxCollector = 441;
+
 		public const short GoldBird = 442;
 
 		public const short GoldBunny = 443;
@@ -1149,8 +1151,6 @@ namespace Terraria.ID
 		public const short LunarTowerNebula = 507;
 
 		public const short LunarTowerVortex = 422;
-
-		public const short TaxCollector = 441;
 
 		public const short WalkingAntlion = 508;
 
