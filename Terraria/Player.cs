@@ -7016,6 +7016,14 @@ namespace Terraria
 				{
 					flag1 = false;
 				}
+				if (item.type == 2767 && (!Main.dayTime || Main.eclipse || !Main.hardMode))
+				{
+					flag1 = false;
+				}
+				if (item.type == 3601 && (!NPC.downedGolemBoss || !Main.hardMode || NPC.AnyDanger() || NPC.AnyoneNearCultists()))
+				{
+					flag1 = false;
+				}
 				if (!this.SummonItemCheck())
 				{
 					flag1 = false;
@@ -10190,6 +10198,18 @@ namespace Terraria
 						Main.NewText(Lang.misc[20], 50, 255, 130, false);
 					}
 				}
+				if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 3601 && NPC.downedGolemBoss && Main.hardMode && !NPC.AnyDanger() && !NPC.AnyoneNearCultists())
+				{
+					this.itemTime = item.useTime;
+					if (Main.netMode == 0)
+					{
+						WorldGen.StartImpendingDoom();
+					}
+					else
+					{
+						NetMessage.SendData(61, -1, -1, "", this.whoAmI, -8f, 0f, 0f, 0, 0, 0);
+					}
+				}
 				if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 1958 && !Main.dayTime && !Main.pumpkinMoon && !Main.snowMoon)
 				{
 					this.itemTime = item.useTime;
@@ -11278,7 +11298,7 @@ namespace Terraria
 										for (int u = 0; u < 48; u++)
 										{
 											int num6 = binaryReader.ReadInt32();
-											if (num6 < 3601)
+											if (num6 < Main.maxItemTypes)
 											{
 												player.inventory[u].netDefaults(num6);
 												player.inventory[u].stack = binaryReader.ReadInt32();
@@ -11295,7 +11315,7 @@ namespace Terraria
 										for (int v = 0; v < 58; v++)
 										{
 											int num7 = binaryReader.ReadInt32();
-											if (num7 < 3601)
+											if (num7 < Main.maxItemTypes)
 											{
 												player.inventory[v].netDefaults(num7);
 												player.inventory[v].stack = binaryReader.ReadInt32();
@@ -11318,7 +11338,7 @@ namespace Terraria
 											for (int w = 0; w < 5; w++)
 											{
 												int num8 = binaryReader.ReadInt32();
-												if (num8 < 3601)
+												if (num8 < Main.maxItemTypes)
 												{
 													player.miscEquips[w].netDefaults(num8);
 													player.miscEquips[w].Prefix((int)binaryReader.ReadByte());
@@ -11328,7 +11348,7 @@ namespace Terraria
 													player.miscEquips[w].netDefaults(0);
 												}
 												num8 = binaryReader.ReadInt32();
-												if (num8 < 3601)
+												if (num8 < Main.maxItemTypes)
 												{
 													player.miscDyes[w].netDefaults(num8);
 													player.miscDyes[w].Prefix((int)binaryReader.ReadByte());
@@ -11346,7 +11366,7 @@ namespace Terraria
 												if (x != 1)
 												{
 													int num9 = binaryReader.ReadInt32();
-													if (num9 < 3601)
+													if (num9 < Main.maxItemTypes)
 													{
 														player.miscEquips[x].netDefaults(num9);
 														player.miscEquips[x].Prefix((int)binaryReader.ReadByte());
@@ -11356,7 +11376,7 @@ namespace Terraria
 														player.miscEquips[x].netDefaults(0);
 													}
 													num9 = binaryReader.ReadInt32();
-													if (num9 < 3601)
+													if (num9 < Main.maxItemTypes)
 													{
 														player.miscDyes[x].netDefaults(num9);
 														player.miscDyes[x].Prefix((int)binaryReader.ReadByte());

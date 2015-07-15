@@ -252,8 +252,8 @@ namespace Terraria
 			Item.headType = new int[194];
 			Item.bodyType = new int[195];
 			Item.legType = new int[135];
-			Item.staff = new bool[3601];
-			Item.claw = new bool[3601];
+			Item.staff = new bool[Main.maxItemTypes];
+			Item.claw = new bool[Main.maxItemTypes];
 			Item.coinGrabRange = 350;
 			Item.manaGrabRange = 300;
 			Item.lifeGrabRange = 250;
@@ -6548,7 +6548,7 @@ namespace Terraria
 			}
 			else if (ItemName != "")
 			{
-				for (int i = 0; i < 3601; i++)
+				for (int i = 0; i < Main.maxItemTypes; i++)
 				{
 					if (Main.itemName[i] == ItemName)
 					{
@@ -6588,7 +6588,7 @@ namespace Terraria
 				this.owner = Main.myPlayer;
 			}
 			this.ResetStats(Type);
-			if (this.type >= 3601)
+			if (this.type >= Main.maxItemTypes)
 			{
 				this.type = 0;
 			}
@@ -6802,7 +6802,7 @@ namespace Terraria
 			}
 			this.name = Lang.itemName(this.netID, false);
 			this.CheckTip();
-			if (this.type > 0 && this.type < 3601 && ItemID.Sets.Deprecated[this.type])
+			if (this.type > 0 && this.type < Main.maxItemTypes && ItemID.Sets.Deprecated[this.type])
 			{
 				this.netID = 0;
 				this.type = 0;
@@ -47097,6 +47097,19 @@ namespace Terraria
 						this.height = 30;
 						this.@value = Item.buyPrice(0, 3, 0, 0);
 						this.placeStyle = 36;
+					}
+					if (type == 3601)
+					{
+						this.useStyle = 4;
+						this.name = "Celestial Sigil";
+						this.width = 22;
+						this.height = 14;
+						this.consumable = true;
+						this.useAnimation = 45;
+						this.useTime = 45;
+						this.maxStack = 20;
+						this.toolTip = "Summons the impending doom";
+						this.rare = 10;
 					}
 				}
 				else

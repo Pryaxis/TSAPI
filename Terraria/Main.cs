@@ -32,7 +32,7 @@ namespace Terraria
 	{
 		public const int offLimitBorderTiles = 40;
 
-		public const int maxItemTypes = 3601;
+		public const int maxItemTypes = 3602;
 
 		public const int maxProjectileTypes = 651;
 
@@ -1829,7 +1829,7 @@ namespace Terraria
 			Main.wingsLoaded = new bool[37];
 			Main.goreLoaded = new bool[907];
 			Main.projectileLoaded = new bool[651];
-			Main.itemFlameLoaded = new bool[3601];
+			Main.itemFlameLoaded = new bool[Main.maxItemTypes];
 			Main.backgroundLoaded = new bool[207];
 			Main.tileSetsLoaded = new bool[419];
 			Main.wallLoaded = new bool[225];
@@ -2263,7 +2263,7 @@ namespace Terraria
 			Main.sign = new Sign[1000];
 			Main.itemFrame = new int[401];
 			Main.itemFrameCounter = new int[401];
-			Main.itemAnimations = new DrawAnimation[3601];
+			Main.itemAnimations = new DrawAnimation[Main.maxItemTypes];
 			Main.itemAnimationsRegistered = new List<int>();
 			Main.screenWidth = 1152;
 			Main.screenHeight = 864;
@@ -2340,7 +2340,7 @@ namespace Terraria
 			Main.PlayerPath = string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "Players");
 			Main.CloudPlayerPath = "players";
 			Main.Configuration = new Preferences(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "config.json"), false, false);
-			Main.itemName = new string[3601];
+			Main.itemName = new string[Main.maxItemTypes];
 			Main.npcName = new string[540];
 			Main.PendingResolutionWidth = 800;
 			Main.PendingResolutionHeight = 600;
@@ -8501,7 +8501,7 @@ namespace Terraria
 			}
 			int num = 0;
 		Label3:
-			while (num < 3601)
+			while (num < Main.maxItemTypes)
 			{
 				item = new Item();
 				item.SetDefaults(num, false);
