@@ -101,7 +101,6 @@ namespace Terraria.IO
 				CreationTime = DateTime.Now,
 				Metadata = FileMetadata.FromCurrentSettings(FileType.World)
 			};
-			worldFileDatum.SetFavorite(false, true);
 			return worldFileDatum;
 		}
 

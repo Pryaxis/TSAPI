@@ -53,7 +53,6 @@ namespace Terraria.IO
 				_isCloudSave = (SocialAPI.Cloud == null ? false : SocialAPI.Cloud.EnabledByDefault),
 			};
 			playerFileDatum._path = Main.GetPlayerPathFromName(player.name, playerFileDatum.IsCloudSave);
-			((playerFileDatum.IsCloudSave ? Main.CloudFavoritesData : Main.LocalFavoriteData)).ClearEntry(playerFileDatum);
 			Terraria.Player.SavePlayer(playerFileDatum, true);
 			return playerFileDatum;
 		}
@@ -89,10 +88,8 @@ namespace Terraria.IO
 						FileUtilities.MoveToCloud(files[i], str1);
 					}
 				}
-				Main.LocalFavoriteData.ClearEntry(this);
 				this._isCloudSave = true;
 				this._path = playerPathFromName;
-				Main.CloudFavoritesData.SaveFavorite(this);
 			}
 		}
 
@@ -115,10 +112,8 @@ namespace Terraria.IO
 					string str1 = string.Concat(playerPath);
 					FileUtilities.MoveToLocal(files[i], str1);
 				}
-				Main.CloudFavoritesData.ClearEntry(this);
 				this._isCloudSave = false;
 				this._path = playerPathFromName;
-				Main.LocalFavoriteData.SaveFavorite(this);
 			}
 		}
 
