@@ -8,21 +8,12 @@ namespace Terraria.IO
 	{
 		protected string _path;
 
-		protected bool _isCloudSave;
-
 		public FileMetadata Metadata;
 
 		public string Name;
 
 		public readonly string Type;
 
-		public bool IsCloudSave
-		{
-			get
-			{
-				return this._isCloudSave;
-			}
-		}
 
 		public string Path
 		{
@@ -45,17 +36,12 @@ namespace Terraria.IO
 		{
 			this.Type = type;
 			this._path = path;
-			this._isCloudSave = isCloud;
 		}
 
 		public string GetFileName(bool includeExtension = true)
 		{
 			return FileUtilities.GetFileName(this.Path, includeExtension);
 		}
-
-		public abstract void MoveToCloud();
-
-		public abstract void MoveToLocal();
 
 		public abstract void SetAsActive();
 	}

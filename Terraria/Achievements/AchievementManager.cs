@@ -19,8 +19,6 @@ namespace Terraria.Achievements
 	{
 		private string _savePath;
 
-		private bool _isCloudSave;
-
 		private Dictionary<string, Achievement> _achievements = new Dictionary<string, Achievement>();
 
 		private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings();
@@ -44,13 +42,11 @@ namespace Terraria.Achievements
 			if (SocialAPI.Achievements == null)
 			{
 				this._savePath = string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "achievements.dat");
-				this._isCloudSave = false;
 				bytes = Encoding.ASCII.GetBytes("RELOGIC-TERRARIA");
 			}
 			else
 			{
 				this._savePath = SocialAPI.Achievements.GetSavePath();
-				this._isCloudSave = true;
 				bytes = SocialAPI.Achievements.GetEncryptionKey();
 			}
 			RijndaelManaged rijndaelManaged = new RijndaelManaged();
@@ -111,7 +107,7 @@ namespace Terraria.Achievements
 
 		public void Load()
 		{
-			this.Load(this._savePath, this._isCloudSave);
+			this.Load(this._savePath, false);
 		}
 
 		private void Load(string path, bool cloud)
@@ -198,7 +194,7 @@ namespace Terraria.Achievements
 
 		public void Save()
 		{
-			this.Save(this._savePath, this._isCloudSave);
+			this.Save(this._savePath, false);
 		}
 
 		private void Save(string path, bool cloud)
