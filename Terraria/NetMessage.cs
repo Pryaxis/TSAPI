@@ -636,7 +636,7 @@ namespace Terraria
 					break;
 				case 32:
 				{
-					Item item3 = Main.chest[number].item[(int) ((byte) number2)];
+					Item item3 = Main.chest[number].item[(int)number2];
 					writer.Write((short) number);
 					writer.Write((byte) number2);
 					short value3 = (short) item3.netID;
@@ -651,21 +651,21 @@ namespace Terraria
 				}
 				case 33:
 				{
-					int num12 = 0;
-					int num13 = 0;
-					int num14 = 0;
+					int chestX = 0;
+					int chestY = 0;
+					int nameLen = 0;
 					string text2 = null;
 					if (number > -1)
 					{
-						num12 = Main.chest[number].x;
-						num13 = Main.chest[number].y;
+						chestX = Main.chest[number].x;
+						chestY = Main.chest[number].y;
 					}
 					if (number2 == 1f)
 					{
-						num14 = (int) ((byte) text.Length);
-						if (num14 == 0 || num14 > 20)
+						nameLen = text.Length;
+						if (nameLen == 0 || nameLen > 20)
 						{
-							num14 = 255;
+							nameLen = 255;
 						}
 						else
 						{
@@ -673,9 +673,9 @@ namespace Terraria
 						}
 					}
 					writer.Write((short) number);
-					writer.Write((short) num12);
-					writer.Write((short) num13);
-					writer.Write((byte) num14);
+					writer.Write((short)chestX);
+					writer.Write((short)chestY);
+					writer.Write((byte)nameLen);
 					if (text2 != null)
 					{
 						writer.Write(text2);

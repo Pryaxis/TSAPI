@@ -1675,54 +1675,37 @@ namespace Terraria
 				}
 				case 33:
 				{
-					int num87 = this.reader.ReadInt16();
-					int num88 = this.reader.ReadInt16();
-					int num89 = this.reader.ReadInt16();
-					int num90 = this.reader.ReadByte();
-					string empty = string.Empty;
-					if (num90 != 0)
+					int chestID = this.reader.ReadInt16();
+					int chestX = this.reader.ReadInt16();
+					int chestY = this.reader.ReadInt16();
+					int nameLen = this.reader.ReadByte();
+					string chestName = string.Empty;
+					if (nameLen != 0)
 					{
-						if (num90 <= 20)
+						if (nameLen <= 20)
 						{
-							empty = this.reader.ReadString();
+							chestName = this.reader.ReadString();
 						}
-						else if (num90 != 255)
+						else if (nameLen != 255)
 						{
-							num90 = 0;
+							nameLen = 0;
 						}
 					}
 					if (Main.netMode != 1)
 					{
-						if (num90 != 0)
+						if (nameLen != 0)
 						{
 							int num91 = Main.player[this.whoAmI].chest;
 							Chest chest = Main.chest[num91];
-							chest.name = empty;
-							NetMessage.SendData(69, -1, this.whoAmI, empty, num91, (float)chest.x, (float)chest.y, 0f, 0, 0, 0);
+							chest.name = chestName;
+							//get chest name
+							NetMessage.SendData(69, -1, this.whoAmI, chestName, num91, (float)chest.x, (float)chest.y, 0f, 0, 0, 0);
 						}
-						Main.player[this.whoAmI].chest = num87;
+						Main.player[this.whoAmI].chest = chestID;
 						Recipe.FindRecipes();
-						NetMessage.SendData(80, -1, this.whoAmI, "", this.whoAmI, (float)num87, 0f, 0f, 0, 0, 0);
-						return;
+						//sync player chest	index
+						NetMessage.SendData(80, -1, this.whoAmI, "", this.whoAmI, (float)chestID, 0f, 0f, 0, 0, 0);
 					}
-					Player player7 = Main.player[Main.myPlayer];
-					if (player7.chest == -1)
-					{
-						Main.playerInventory = true;
-					}
-					else if (player7.chest != num87 && num87 != -1)
-					{
-						Main.playerInventory = true;
-						Main.recBigList = false;
-					}
-					else if (player7.chest != -1 && num87 == -1)
-					{
-						Main.recBigList = false;
-					}
-					player7.chest = num87;
-					player7.chestX = num88;
-					player7.chestY = num89;
-					Recipe.FindRecipes();
 					return;
 				}
 				case 34:
