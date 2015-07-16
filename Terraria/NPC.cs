@@ -7922,11 +7922,11 @@ namespace Terraria
 				}
 				if (!Main.expertMode)
 				{
-					this.defense = (this.dryadWard ? this.defDefense : this.defDefense + 6);
+					this.defense = (this.dryadWard ? this.defDefense + 6 : this.defDefense);
 				}
 				else
 				{
-					this.defense = (this.dryadWard ? this.defDefense : this.defDefense + 10);
+					this.defense = (this.dryadWard ? this.defDefense + 10 : this.defDefense);
 				}
 				float single127 = 1f;
 				if (this.townNPC || this.type == 453)
