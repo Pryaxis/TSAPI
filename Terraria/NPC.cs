@@ -9385,7 +9385,7 @@ namespace Terraria
 						}
 						if (zero1.HasNaNs() || Math.Sign(zero1.X) != this.spriteDirection)
 						{
-							zero1 = new Vector2(-(float)this.spriteDirection, 0f);
+							zero1 = new Vector2((float)this.spriteDirection, 0f);
 						}
 						zero1 = zero1 * single139;
 						zero1 = zero1 + Utils.RandomVector2(Main.rand, -single141, single141);
@@ -33844,6 +33844,1453 @@ namespace Terraria
 
 		public void FindFrame()
 		{
+			int num = 1;
+			if (this.type == 338 || this.type == 339 || this.type == 340 || this.type == 17 || this.type == 18 || this.type == 19 || this.type == 20 || this.type == 22 || this.type == 142 || this.type == 353 || this.type == 178 || this.type == 38 || this.type == 26 || this.type == 27 || this.type == 28 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 21 || this.type == 44 || this.type == 54 || this.type == 37 || this.type == 73 || this.type == 77 || this.type == 78 || this.type == 79 || this.type == 80 || this.type == 104 || this.type == 107 || this.type == 108 || this.type == 120 || this.type == 124 || this.type == 140 || this.type == 159 || this.type == 160 || this.type == 167 || this.type == 181 || this.type == 185 || this.type == 196 || this.type == 197 || this.type == 198 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 207 || this.type == 208 || this.type == 209 || this.type == 212 || this.type == 213 || this.type == 227 || this.type == 228 || this.type == 229 || this.type == 287 || (this.type >= 310 && this.type <= 314) || (this.type >= 322 && this.type <= 324) || this.type == 326 || this.type == 368 || this.type == 369 || this.type == 453 || this.type == 460 || this.type == 462 || this.type == 463 || this.type == 489 || this.type == 441 || this.type == 534)
+			{
+				int num3 = (this.townNPC || this.type == 453) ? NPCID.Sets.ExtraFramesCount[this.type] : 0;
+				if (this.velocity.Y == 0f)
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+					int num4 = Main.npcFrameCount[this.type] - NPCID.Sets.AttackFrameCount[this.type];
+					if (this.ai[0] == 2f)
+					{
+						this.frameCounter += 1.0;
+						if (this.frame.Y / num == num4 - 1 && this.frameCounter >= 5.0)
+						{
+							this.frameCounter = 0.0;
+						}
+						else if (this.frame.Y / num == 0 && this.frameCounter >= 40.0)
+						{
+							this.frameCounter = 0.0;
+						}
+						else if (this.frame.Y != 0 && this.frame.Y != num * (num4 - 1))
+						{
+							this.frameCounter = 0.0;
+						}
+					}
+					else if (this.ai[0] == 11f)
+					{
+						this.frameCounter += 1.0;
+						if (this.frame.Y / num == num4 - 1 && this.frameCounter >= 20.0)
+						{
+							if (this.frameCounter >= 40.0 && Main.rand.Next(20) == 0)
+							{
+								this.frameCounter = 0.0;
+							}
+						}
+						else if (this.frame.Y / num == 0 && this.frameCounter >= 20.0)
+						{
+							this.frameCounter = 0.0;
+							// TODO: Re-add EmoteBubble, or part thereof.
+							//EmoteBubble.NewBubble(89, new WorldUIAnchor(this), 30);
+						}
+						else if (this.frame.Y != 0 && this.frame.Y != num * (num4 - 1))
+						{
+							this.frameCounter = 0.0;
+						}
+					}
+					else if (this.ai[0] == 5f)
+					{
+						this.frameCounter = 0.0;
+					}
+					else if (this.ai[0] == 6f)
+					{
+						this.frameCounter += 1.0;
+						int num8 = this.frame.Y / num;
+						switch (num4 - num8)
+						{
+						case 1:
+						case 2:
+						case 4:
+						case 5:
+							break;
+						default:
+							if (num8 != 0)
+							{
+								this.frameCounter = 0.0;
+							}
+							break;
+						}
+						int num9;
+						if (this.frameCounter < 10.0)
+						{
+							num9 = 0;
+						}
+						else if (this.frameCounter < 16.0)
+						{
+							num9 = num4 - 5;
+						}
+						else if (this.frameCounter < 46.0)
+						{
+							num9 = num4 - 4;
+						}
+						else if (this.frameCounter < 60.0)
+						{
+							num9 = num4 - 5;
+						}
+						else if (this.frameCounter < 66.0)
+						{
+							num9 = 0;
+						}
+						else if (this.frameCounter < 72.0)
+						{
+							num9 = num4 - 5;
+						}
+						else if (this.frameCounter < 102.0)
+						{
+							num9 = num4 - 4;
+						}
+						else if (this.frameCounter < 108.0)
+						{
+							num9 = num4 - 5;
+						}
+						else if (this.frameCounter < 114.0)
+						{
+							num9 = 0;
+						}
+						else if (this.frameCounter < 120.0)
+						{
+							num9 = num4 - 5;
+						}
+						else if (this.frameCounter < 150.0)
+						{
+							num9 = num4 - 4;
+						}
+						else if (this.frameCounter < 156.0)
+						{
+							num9 = num4 - 5;
+						}
+						else if (this.frameCounter < 162.0)
+						{
+							num9 = 0;
+						}
+						else if (this.frameCounter < 168.0)
+						{
+							num9 = num4 - 5;
+						}
+						else if (this.frameCounter < 198.0)
+						{
+							num9 = num4 - 4;
+						}
+						else if (this.frameCounter < 204.0)
+						{
+							num9 = num4 - 5;
+						}
+						else if (this.frameCounter < 210.0)
+						{
+							num9 = 0;
+						}
+						else if (this.frameCounter < 216.0)
+						{
+							num9 = num4 - 5;
+						}
+						else if (this.frameCounter < 246.0)
+						{
+							num9 = num4 - 4;
+						}
+						else if (this.frameCounter < 252.0)
+						{
+							num9 = num4 - 5;
+						}
+						else if (this.frameCounter < 258.0)
+						{
+							num9 = 0;
+						}
+						else if (this.frameCounter < 264.0)
+						{
+							num9 = num4 - 5;
+						}
+						else if (this.frameCounter < 294.0)
+						{
+							num9 = num4 - 4;
+						}
+						else if (this.frameCounter < 300.0)
+						{
+							num9 = num4 - 5;
+						}
+						else
+						{
+							num9 = 0;
+						}
+						if (this.frameCounter >= 300.0)
+						{
+							this.frameCounter = 0.0;
+						}
+					}
+					else if (this.ai[0] == 7f)
+					{
+						this.frameCounter += 1.0;
+						int num12 = this.frame.Y / num;
+						switch (num4 - num12)
+						{
+						case 1:
+						case 2:
+						case 4:
+						case 5:
+							break;
+						default:
+							if (num12 != 0)
+							{
+								this.frameCounter = 0.0;
+							}
+							break;
+						}
+						int num13 = 0;
+						if (this.frameCounter < 16.0)
+						{
+							num13 = 0;
+						}
+						else if (this.frameCounter == 16.0)
+						{
+                            //EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), 112, null);
+						}
+						else if (this.frameCounter < 128.0)
+						{
+							num13 = ((this.frameCounter % 16.0 < 8.0) ? (num4 - 2) : 0);
+						}
+						else if (this.frameCounter < 160.0)
+						{
+							num13 = 0;
+						}
+						else if (this.frameCounter == 160.0)
+						{
+                            //EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), 60, null);
+						}
+						else if (this.frameCounter < 220.0)
+						{
+							num13 = ((this.frameCounter % 12.0 < 6.0) ? (num4 - 2) : 0);
+						}
+						else
+						{
+							num13 = 0;
+						}
+						if (this.frameCounter >= 220.0)
+						{
+							this.frameCounter = 0.0;
+						}
+					}
+					else if (this.ai[0] == 9f)
+					{
+						this.frameCounter += 1.0;
+						int num14 = this.frame.Y / num;
+						switch (num4 - num14)
+						{
+						case 1:
+						case 2:
+						case 4:
+						case 5:
+							break;
+						default:
+							if (num14 != 0)
+							{
+								this.frameCounter = 0.0;
+							}
+							break;
+						}
+						int num15;
+						if (this.frameCounter < 10.0)
+						{
+							num15 = 0;
+						}
+						else if (this.frameCounter < 16.0)
+						{
+							num15 = num4 - 5;
+						}
+						else
+						{
+							num15 = num4 - 4;
+						}
+						if (this.ai[1] < 16f)
+						{
+							num15 = num4 - 5;
+						}
+						if (this.ai[1] < 10f)
+						{
+							num15 = 0;
+						}
+					}
+					else if (this.ai[0] == 10f || this.ai[0] == 13f)
+					{
+						this.frameCounter += 1.0;
+						int num16 = this.frame.Y / num;
+						switch (num16 - num4)
+						{
+						case 0:
+						case 1:
+						case 2:
+						case 3:
+							break;
+						default:
+							if (num16 != 0)
+							{
+								this.frameCounter = 0.0;
+							}
+							break;
+						}
+					}
+					else if (this.ai[0] == 15f)
+					{
+						this.frameCounter += 1.0;
+						int num20 = this.frame.Y / num;
+						switch (num20 - num4)
+						{
+						case 0:
+						case 1:
+						case 2:
+						case 3:
+							break;
+						default:
+							if (num20 != 0)
+							{
+								this.frameCounter = 0.0;
+							}
+							break;
+						}
+					}
+					else if (this.ai[0] == 12f)
+					{
+						this.frameCounter += 1.0;
+						int num23 = this.frame.Y / num;
+						switch (num23 - num4)
+						{
+						case 0:
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+							break;
+						default:
+							if (num23 != 0)
+							{
+								this.frameCounter = 0.0;
+							}
+							break;
+						}
+						int num24 = num4 + this.GetShootingFrame(this.ai[2]);
+					}
+					else if (this.ai[0] == 14f)
+					{
+						this.frameCounter += 1.0;
+						int num25 = this.frame.Y / num;
+						switch (num25 - num4)
+						{
+						case 0:
+						case 1:
+							break;
+						default:
+							if (num25 != 0)
+							{
+								this.frameCounter = 0.0;
+							}
+							break;
+						}
+					}
+					else if (this.ai[0] == 3f || this.ai[0] == 4f)
+					{
+						this.frameCounter += 1.0;
+						int num28 = this.frame.Y / num;
+						switch (num4 - num28)
+						{
+						case 1:
+						case 2:
+						case 4:
+						case 5:
+							break;
+						default:
+							if (num28 != 0)
+							{
+								this.frameCounter = 0.0;
+							}
+							break;
+						}
+						bool flag = this.ai[0] == 3f;
+						int num29 = 0;
+						int num31 = -1;
+						int num32 = -1;
+						if (this.frameCounter < 10.0)
+						{
+							num29 = 0;
+						}
+						else if (this.frameCounter < 16.0)
+						{
+							num29 = num4 - 5;
+						}
+						else if (this.frameCounter < 46.0)
+						{
+							num29 = num4 - 4;
+						}
+						else if (this.frameCounter < 60.0)
+						{
+							num29 = num4 - 5;
+						}
+						else if (this.frameCounter < 216.0)
+						{
+							num29 = 0;
+						}
+						else if (this.frameCounter == 216.0)
+						{
+							num31 = 70;
+						}
+						else if (this.frameCounter < 286.0)
+						{
+							num29 = ((this.frameCounter % 12.0 < 6.0) ? (num4 - 2) : 0);
+						}
+						else if (this.frameCounter < 320.0)
+						{
+							num29 = 0;
+						}
+						else if (this.frameCounter == 320.0)
+						{
+							num31 = 100;
+						}
+						else if (this.frameCounter < 420.0)
+						{
+							num29 = ((this.frameCounter % 16.0 < 8.0) ? (num4 - 2) : 0);
+						}
+						else
+						{
+							num29 = 0;
+						}
+						if (this.frameCounter == 70.0)
+						{
+							num32 = 90;
+						}
+						if (flag)
+						{
+							if (num31 != -1)
+							{
+                                //EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), num31, new WorldUIAnchor(Main.npc[(int)this.ai[2]]));
+							}
+							if (num32 != -1)
+							{
+                                //EmoteBubble.NewBubbleNPC(new WorldUIAnchor(Main.npc[(int)this.ai[2]]), num32, new WorldUIAnchor(this));
+							}
+						}
+						if (this.frameCounter >= 420.0)
+						{
+							this.frameCounter = 0.0;
+						}
+					}
+					else if (this.ai[0] == 16f || this.ai[0] == 17f)
+					{
+						this.frameCounter += 1.0;
+						int num33 = this.frame.Y / num;
+						switch (num4 - num33)
+						{
+						case 1:
+						case 2:
+						case 4:
+						case 5:
+							break;
+						default:
+							if (num33 != 0)
+							{
+								this.frameCounter = 0.0;
+							}
+							break;
+						}
+						bool flag2 = this.ai[0] == 16f;
+						int num34 = 0;
+						int num35 = -1;
+						if (this.frameCounter < 10.0)
+						{
+							num34 = 0;
+						}
+						else if (this.frameCounter < 16.0)
+						{
+							num34 = num4 - 5;
+						}
+						else if (this.frameCounter < 22.0)
+						{
+							num34 = num4 - 4;
+						}
+						else if (this.frameCounter < 28.0)
+						{
+							num34 = num4 - 5;
+						}
+						else if (this.frameCounter < 34.0)
+						{
+							num34 = num4 - 4;
+						}
+						else if (this.frameCounter < 40.0)
+						{
+							num34 = num4 - 5;
+						}
+						else if (this.frameCounter == 40.0)
+						{
+							num35 = 45;
+						}
+						else if (this.frameCounter < 70.0)
+						{
+							num34 = num4 - 4;
+						}
+						else if (this.frameCounter < 76.0)
+						{
+							num34 = num4 - 5;
+						}
+						else if (this.frameCounter < 82.0)
+						{
+							num34 = num4 - 4;
+						}
+						else if (this.frameCounter < 88.0)
+						{
+							num34 = num4 - 5;
+						}
+						else if (this.frameCounter < 94.0)
+						{
+							num34 = num4 - 4;
+						}
+						else if (this.frameCounter < 100.0)
+						{
+							num34 = num4 - 5;
+						}
+						else if (this.frameCounter == 100.0)
+						{
+							num35 = 45;
+						}
+						else if (this.frameCounter < 130.0)
+						{
+							num34 = num4 - 4;
+						}
+						else if (this.frameCounter < 136.0)
+						{
+							num34 = num4 - 5;
+						}
+						else if (this.frameCounter < 142.0)
+						{
+							num34 = num4 - 4;
+						}
+						else if (this.frameCounter < 148.0)
+						{
+							num34 = num4 - 5;
+						}
+						else if (this.frameCounter < 154.0)
+						{
+							num34 = num4 - 4;
+						}
+						else if (this.frameCounter < 160.0)
+						{
+							num34 = num4 - 5;
+						}
+						else if (this.frameCounter == 160.0)
+						{
+							num35 = 75;
+						}
+						else if (this.frameCounter < 220.0)
+						{
+							num34 = num4 - 4;
+						}
+						else if (this.frameCounter < 226.0)
+						{
+							num34 = num4 - 5;
+						}
+						else
+						{
+							num34 = 0;
+						}
+						if (flag2 && num35 != -1)
+						{
+							int num36 = (int)this.localAI[2];
+							int num37 = (int)this.localAI[3];
+							int num38 = (int)Main.npc[(int)this.ai[2]].localAI[3];
+							int num39 = (int)Main.npc[(int)this.ai[2]].localAI[2];
+							int num40 = 3 - num36 - num37;
+							int num41 = 0;
+							if (this.frameCounter == 40.0)
+							{
+								num41 = 1;
+							}
+							if (this.frameCounter == 100.0)
+							{
+								num41 = 2;
+							}
+							if (this.frameCounter == 160.0)
+							{
+								num41 = 3;
+							}
+							int num42 = 3 - num41;
+							int num43 = -1;
+							int num44 = 0;
+							while (num43 < 0 && ++num44 < 100)
+							{
+								num43 = Main.rand.Next(2);
+								if (num43 == 0 && num39 >= num37)
+								{
+									num43 = -1;
+								}
+								if (num43 == 1 && num38 >= num36)
+								{
+									num43 = -1;
+								}
+								if (num43 == -1 && num42 <= num40)
+								{
+									num43 = 2;
+								}
+							}
+							if (num43 == 0)
+							{
+								Main.npc[(int)this.ai[2]].localAI[3] += 1f;
+								num38++;
+							}
+							if (num43 == 1)
+							{
+								Main.npc[(int)this.ai[2]].localAI[2] += 1f;
+								num39++;
+							}
+							int num45 = Utils.SelectRandom<int>(Main.rand, new int[]
+							{
+								38,
+								37,
+								36
+							});
+							int num46 = num45;
+							if (num43 == 0)
+							{
+								switch (num45)
+								{
+								case 36:
+									num46 = 38;
+									break;
+								case 37:
+									num46 = 36;
+									break;
+								case 38:
+									num46 = 37;
+									break;
+								}
+							}
+							else if (num43 == 1)
+							{
+								switch (num45)
+								{
+								case 36:
+									num46 = 37;
+									break;
+								case 37:
+									num46 = 38;
+									break;
+								case 38:
+									num46 = 36;
+									break;
+								}
+							}
+							if (num42 == 0)
+							{
+								if (num38 >= 2)
+								{
+									num45 -= 3;
+								}
+								if (num39 >= 2)
+								{
+									num46 -= 3;
+								}
+							}
+                            //EmoteBubble.NewBubble(num45, new WorldUIAnchor(this), num35);
+                            //EmoteBubble.NewBubble(num46, new WorldUIAnchor(Main.npc[(int)this.ai[2]]), num35);
+						}
+						if (this.frameCounter >= 420.0)
+						{
+							this.frameCounter = 0.0;
+						}
+					}
+					else if (this.velocity.X == 0f)
+					{
+						if (this.type == 140 || this.type == 287 || this.type == 489)
+						{
+							this.frameCounter = 0.0;
+						}
+						else
+						{
+							this.frameCounter = 0.0;
+						}
+					}
+					else
+					{
+						int num47 = 6;
+						if (this.type == 534)
+						{
+							num47 = 12;
+						}
+						if (this.type == 489)
+						{
+							num47 = 8;
+							this.frameCounter += (double)(Math.Abs(this.velocity.X) * 1f);
+							this.frameCounter += 0.5;
+						}
+						else
+						{
+							this.frameCounter += (double)(Math.Abs(this.velocity.X) * 2f);
+							this.frameCounter += 1.0;
+						}
+						if (this.type == 462)
+						{
+							num47 = 9;
+						}
+						if (this.frameCounter > (double)num47)
+						{
+							this.frameCounter = 0.0;
+						}
+					}
+				}
+				else if (this.type == 462)
+				{
+					this.frameCounter = 0.0;
+				}
+				else
+				{
+					this.frameCounter = 0.0;
+				}
+			}
+			else if (this.type == 3 || this.type == 29 || this.type == 32 || (this.type >= 45 && this.type <= 47) || this.type == 52 || this.type == 53 || this.type == 67 || this.type == 110 || this.type == 111 || this.type == 129 || this.type == 130 || this.type == 132 || this.type == 148 || this.type == 149 || this.type == 155 || (this.type >= 161 && this.type <= 164) || this.type == 166 || this.type == 168 || this.type == 172 || (this.type >= 186 && this.type <= 189) || this.type == 199 || this.type == 200 || this.type == 206 || (this.type >= 214 && this.type <= 220) || this.type == 223 || this.type == 236 || this.type == 239 || this.type == 251 || this.type == 254 || this.type == 255 || this.type == 257 || this.type == 258 || (this.type >= 269 && this.type <= 286) || (this.type >= 290 && this.type <= 293) || this.type == 299 || this.type == 300 || this.type == 303 || (this.type >= 319 && this.type <= 321) || this.type == 329 || this.type == 331 || this.type == 332 || this.type == 337 || this.type == 342 || this.type == 343 || this.type == 348 || this.type == 350 || this.type == 351 || this.type == 361 || this.type == 366 || this.type == 367 || this.type == 379 || (this.type >= 380 && this.type <= 383) || this.type == 385 || this.type == 389 || this.type == 428 || this.type == 429 || this.type == 443 || this.type == 445 || this.type == 447 || (this.type >= 449 && this.type <= 452) || this.type == 464 || this.type == 468 || this.type == 470 || (this.type >= 480 && this.type <= 482) || (this.type >= 498 && this.type <= 506) || this.type == 518 || this.type == 520 || (this.type >= 524 && this.type <= 530) || this.type == 533 || this.type == 536 || this.type == 538 || this.type == 539)
+			{
+				if (this.velocity.Y == 0f)
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+			}
+			else if (this.type == 55 || this.type == 57 || this.type == 58 || this.type == 65 || this.type == 102 || this.type == 141 || this.type == 157 || this.type == 170 || this.type == 171 || this.type == 180 || this.type == 241 || this.type == 302 || this.type == 304 || this.type == 355 || this.type == 358 || this.type == 362 || this.type == 364 || this.type == 377 || this.type == 426 || this.type == 427 || this.type == 446 || this.type == 465)
+			{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+			}
+
+			else if (this.type == 386 || (this.type >= 430 && this.type <= 436) || (this.type >= 494 && this.type <= 495))
+			{
+				if (this.ai[2] <= 0f)
+				{
+					if (this.velocity.Y == 0f)
+					{
+						if (this.direction > 0) this.spriteDirection = 1;
+						else if (this.direction < 0) this.spriteDirection = -1;
+					}
+				}
+			}
+			else if ((this.type >= 496 && this.type <= 497) || this.aiStyle == 39)
+			{
+				if (this.ai[0] == 0f)
+				{
+					this.rotation = 0f;
+					if (this.velocity.Y == 0f)
+					{
+						if (this.direction > 0) this.spriteDirection = 1;
+						else if (this.direction < 0) this.spriteDirection = -1;
+					}
+				}
+			}
+			else if (this.type == 508 || this.type == 532)
+			{
+				if (this.velocity.Y == 0f)
+				{
+					if (this.direction < 0 && this.velocity.X < 0f)
+					{
+						this.spriteDirection = -1;
+					}
+					if (this.direction > 0 && this.velocity.X > 0f)
+					{
+						this.spriteDirection = 1;
+					}
+				}
+			}
+			else if (this.type == 509)
+			{
+				if ((this.velocity.X > 0f && this.direction > 0) || (this.velocity.X < 0f && this.direction < 0))
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+			}
+			else if (this.type == 415)
+			{
+				if (this.ai[2] >= 0f && this.velocity.Y == 0f)
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+			}
+			else if (this.type == 419)
+			{
+				if (this.ai[2] < 0f)
+				{
+					if (this.direction != 0)
+					{
+						if (this.direction > 0) this.spriteDirection = 1;
+						else if (this.direction < 0) this.spriteDirection = -1;
+					}
+				}
+				else if (this.velocity.Y == 0f)
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+			}
+			else if (this.type == 425)
+			{
+				if (this.direction != 0)
+				{
+					if (this.direction > 0) this.spriteDirection = -1;
+					else if (this.direction < 0) this.spriteDirection = 1;
+				}
+			}
+			else if (this.type == 423)
+			{
+				if (this.ai[2] != 1f && this.velocity.Y == 0f && this.velocity.X != 0f)
+				{
+					this.spriteDirection = Math.Sign(-this.velocity.X);
+				}
+			}
+			else if (this.type == 424)
+			{
+				if (this.velocity.Y == 0f)
+				{
+					if (this.direction != 0)
+					{
+						if (this.direction > 0) this.spriteDirection = -1;
+						else if (this.direction < 0) this.spriteDirection = 1;
+					}
+				}
+			}
+			else if (this.type == 411)
+			{
+				if (this.ai[1] >= 90f && this.ai[1] < 180f)
+				{
+					if (this.direction > 0) this.spriteDirection = -1;
+					else if (this.direction < 0) this.spriteDirection = 1;
+				}
+				else if (this.velocity.Y == 0f)
+				{
+					if (this.direction != 0)
+					{
+						if (this.direction > 0) this.spriteDirection = -1;
+						else if (this.direction < 0) this.spriteDirection = 1;
+					}
+				}
+			}
+			else if (this.type == 409)
+			{
+				if (this.velocity.Y == 0f && (this.ai[1] > 30f || this.ai[1] <= 0f))
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+			}
+			else if (this.type == 516)
+			{
+				if (this.localAI[1] == 0f)
+				{
+					this.localAI[1] = 1f;
+				}
+			}
+			else if (this.type == 488)
+			{
+				if (this.localAI[0] > 24f)
+				{
+					this.localAI[0] = 24f;
+				}
+				if (this.localAI[0] > 0f)
+				{
+					this.localAI[0] -= 1f;
+				}
+				if (this.localAI[0] < 0f)
+				{
+					this.localAI[0] = 0f;
+				}
+			}
+			else if (this.type == 374)
+			{
+				this.localAI[0] = -2f;
+				if (this.velocity.Y == 0f)
+				{
+					this.rotation = 0f;
+				}
+				else
+				{
+					this.rotation += (float)this.direction * 0.1f;
+				}
+			}
+			else if (this.type == 473 || this.type == 474 || this.type == 475 || this.type == 476)
+			{
+				if (this.velocity.Y == 0f)
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+				if (this.ai[0] == 0f || this.ai[0] == 7f)
+				{
+					this.rotation = 0f;
+				}
+				else if (this.ai[0] == 1f)
+				{
+					this.rotation = 0f;
+				}
+				else if (this.ai[0] == 2f || this.ai[0] == 6f)
+				{
+					this.rotation = 0f;
+				}
+				else if (this.ai[0] == 3f)
+				{
+					this.rotation = 0f;
+				}
+				else if (this.ai[0] == 4f && this.ai[2] == 1f)
+				{
+					this.rotation = 0f;
+				}
+				else if (this.ai[0] == 4.1f)
+				{
+					this.rotation = 0f;
+				}
+			}
+			else if (this.type == 472)
+			{
+				if (this.velocity.X < 0f)
+				{
+					this.direction = -1;
+				}
+				else
+				{
+					this.direction = 1;
+				}
+				if (this.direction > 0) this.spriteDirection = 1;
+				else if (this.direction < 0) this.spriteDirection = -1;
+				this.rotation = (float)Math.Atan2((double)(this.velocity.Y * (float)this.direction), (double)(this.velocity.X * (float)this.direction));
+			}
+			else if (this.type == 391)
+			{
+				if (this.velocity.Y == 0f)
+				{
+					if (this.direction > 0) this.spriteDirection = -1;
+					else if (this.direction < 0) this.spriteDirection = 1;
+				}
+			}
+			else if (this.type == 390)
+			{
+				if (this.direction > 0) this.spriteDirection = -1;
+				else if (this.direction < 0) this.spriteDirection = 1;
+			}
+			else if (this.type == 521)
+			{
+				if (this.velocity.X < 0f)
+				{
+					this.direction = -1;
+				}
+				else
+				{
+					this.direction = 1;
+				}
+				if (this.direction > 0) this.spriteDirection = 1;
+				else if (this.direction < 0) this.spriteDirection = -1;
+				this.rotation = (float)Math.Atan2((double)(this.velocity.Y * (float)this.spriteDirection), (double)(this.velocity.X * (float)this.spriteDirection)) + this.velocity.X * 0.1f;
+			}
+			else if (this.type == 346)
+			{
+				if (this.ai[0] == 1f || this.velocity.X != 0f)
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+			}
+			else if (this.type == 490)
+			{
+				this.rotation = this.velocity.X * 0.15f;
+			}
+			else if (this.type >= 305 && this.type <= 309)
+			{
+				if (this.velocity.Y == 0f)
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+				this.rotation = this.velocity.X * 0.1f;
+			}
+			else if (this.type == 356 || this.type == 444)
+			{
+				this.rotation = this.velocity.X * 0.3f;
+				if (this.direction > 0) this.spriteDirection = 1;
+				else if (this.direction < 0) this.spriteDirection = -1;
+			}
+			else if (this.type == 357 || this.type == 448 || this.type == 484)
+			{
+				this.localAI[0] = -2f;
+				if (this.velocity.Y == 0f)
+				{
+					this.rotation = 0f;
+				}
+				int num90 = (int)base.Center.X / 16;
+				int num91 = (int)this.position.Y / 16;
+				if (WorldGen.InWorld(num90, num91, 0) && Main.tile[num90, num91] != null)
+				{
+					if (Main.tile[num90, num91].slope() == 0)
+					{
+						num91++;
+					}
+					if (Main.tile[num90, num91].slope() == 1)
+					{
+						this.rotation = 0.785f;
+						this.localAI[0] = 0f;
+					}
+					else if (Main.tile[num90, num91].slope() == 2)
+					{
+						this.rotation = -0.785f;
+						this.localAI[0] = 0f;
+					}
+				}
+			}
+			else if (this.type >= 485 && this.type <= 487)
+			{
+				if (this.direction > 0) this.spriteDirection = 1;
+				else if (this.direction < 0) this.spriteDirection = -1;
+				this.localAI[0] = -2f;
+				if (this.velocity.Y == 0f)
+				{
+					this.rotation = 0f;
+				}
+				else
+				{
+					this.rotation += (float)this.direction * 0.1f;
+				}
+				int num92 = (int)base.Center.X / 16;
+				int num93 = (int)this.position.Y / 16;
+				if (Main.tile[num92, num93] != null)
+				{
+					if (Main.tile[num92, num93].slope() == 0)
+					{
+						num93++;
+					}
+					if (Main.tile[num92, num93].slope() == 1)
+					{
+						this.rotation = 0.785f;
+						this.localAI[0] = 0f;
+					}
+					else if (Main.tile[num92, num93].slope() == 2)
+					{
+						this.rotation = -0.785f;
+						this.localAI[0] = 0f;
+					}
+				}
+			}
+			else if (this.type == 243)
+			{
+				if (this.frameCounter < 0.0)
+				{
+					if (this.velocity.Y == 0f)
+					{
+						this.frameCounter += 1.0;
+						if (this.frameCounter >= 0.0)
+						{
+							this.frameCounter = 0.0;
+						}
+					}
+				}
+				else
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+					this.frameCounter += (double)Math.Abs(this.velocity.X * 1.1f);
+					if (this.frameCounter >= 6.0)
+					{
+						this.frameCounter = 0.0;
+					}
+					if (this.velocity.Y < -2f || this.velocity.Y > 5f)
+					{
+						this.frameCounter = -18.0;
+					}
+				}
+			}
+			else if (this.type == 144)
+			{
+				if (this.velocity.X == 0f && this.velocity.Y == 0f)
+				{
+					this.localAI[3] += 1f;
+					if (this.localAI[3] >= 11f)
+					{
+						this.localAI[3] = 0f;
+					}
+				}
+			}
+			else if (this.type == 61)
+			{
+				if (this.direction > 0) this.spriteDirection = 1;
+				else if (this.direction < 0) this.spriteDirection = -1;
+				this.rotation = this.velocity.X * 0.1f;
+			}
+			else if (this.type == 252 || this.type == 301)
+			{
+				if (this.type == 301)
+				{
+					if (this.velocity.Y == 0f)
+					{
+						if (this.direction > 0) this.spriteDirection = -1;
+						else if (this.direction < 0) this.spriteDirection = 1;
+					}
+					else
+					{
+						if ((double)this.velocity.X > 0.5)
+						{
+							this.spriteDirection = -1;
+						}
+						if ((double)this.velocity.X < -0.5)
+						{
+							this.spriteDirection = 1;
+						}
+					}
+				}
+				else
+				{
+					if ((double)this.velocity.X > 0.5)
+					{
+						this.spriteDirection = 1;
+					}
+					if ((double)this.velocity.X < -0.5)
+					{
+						this.spriteDirection = -1;
+					}
+				}
+				this.rotation = this.velocity.X * 0.1f;
+			}
+			else if (this.type == 122)
+			{
+				if (this.direction > 0) this.spriteDirection = 1;
+				else if (this.direction < 0) this.spriteDirection = -1;
+				this.rotation = this.velocity.X * 0.05f;
+			}
+			else if (this.type == 74 || this.type == 297 || this.type == 298 || this.type == 442)
+			{
+				if (this.direction > 0) this.spriteDirection = 1;
+				else if (this.direction < 0) this.spriteDirection = -1;
+				this.rotation = this.velocity.X * 0.1f;
+			}
+			else if (this.type == 363 || this.type == 365)
+			{
+				if (this.direction > 0) this.spriteDirection = 1;
+				else if (this.direction < 0) this.spriteDirection = -1;
+				if (this.wet)
+				{
+					this.rotation = 0f;
+				}
+				else if (this.velocity.X == 0f && this.velocity.Y == 0f)
+				{
+					this.rotation = 0f;
+				}
+				else
+				{
+					this.rotation = this.velocity.X * 0.1f;
+				}
+			}
+			else if (this.type == 62 || this.type == 66)
+			{
+				if (this.direction > 0) this.spriteDirection = 1;
+				else if (this.direction < 0) this.spriteDirection = -1;
+				this.rotation = this.velocity.X * 0.1f;
+			}
+			else if (this.type == 156)
+			{
+				if (this.direction > 0) this.spriteDirection = 1;
+				else if (this.direction < 0) this.spriteDirection = -1;
+				this.rotation = this.velocity.X * 0.1f;
+			}
+			else if (this.type == 221)
+			{
+				if (this.localAI[2] == 1f)
+				{
+					if (this.localAI[0] == 1f)
+					{
+						this.localAI[0] = 0f;
+					}
+				}
+			}
+			else if (this.type == 2 || this.type == 23 || this.type == 121 || this.type == 169 || this.type == 190 || this.type == 191 || this.type == 192 || this.type == 193 || this.type == 194 || this.type == 317 || this.type == 318)
+			{
+				if (this.type == 2 || this.type == 190 || this.type == 191 || this.type == 192 || this.type == 193 || this.type == 194 || this.type == 317 || this.type == 318)
+				{
+					if (this.velocity.X > 0f)
+					{
+						this.spriteDirection = 1;
+						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X);
+					}
+					if (this.velocity.X < 0f)
+					{
+						this.spriteDirection = -1;
+						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 3.14f;
+					}
+				}
+				else if (this.type == 2 || this.type == 121)
+				{
+					if (this.velocity.X > 0f)
+					{
+						this.spriteDirection = 1;
+					}
+					if (this.velocity.X < 0f)
+					{
+						this.spriteDirection = -1;
+					}
+					this.rotation = this.velocity.X * 0.1f;
+				}
+			}
+			else if (this.type == 133)
+			{
+				if (this.velocity.X > 0f)
+				{
+					this.spriteDirection = 1;
+					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X);
+				}
+				if (this.velocity.X < 0f)
+				{
+					this.spriteDirection = -1;
+					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 3.14f;
+				}
+			}
+			else if (this.type == 116)
+			{
+				if (this.velocity.X > 0f)
+				{
+					this.spriteDirection = 1;
+					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X);
+				}
+				if (this.velocity.X < 0f)
+				{
+					this.spriteDirection = -1;
+					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 3.14f;
+				}
+			}
+			else if (this.type == 75)
+			{
+				if (this.direction > 0) this.spriteDirection = 1;
+				else if (this.direction < 0) this.spriteDirection = -1;
+				this.rotation = this.velocity.X * 0.1f;
+			}
+			else if (this.type == 86)
+			{
+				if (this.velocity.Y == 0f || this.wet)
+				{
+					if (this.velocity.X < -2f)
+					{
+						this.spriteDirection = -1;
+					}
+					else if (this.velocity.X > 2f)
+					{
+						this.spriteDirection = 1;
+					}
+					else
+					{
+						if (this.direction > 0) this.spriteDirection = 1;
+						else if (this.direction < 0) this.spriteDirection = -1;
+					}
+				}
+			}
+			else if (this.type == 315)
+			{
+				if (this.velocity.Y == 0f || this.wet)
+				{
+					if (this.velocity.X < -1f)
+					{
+						this.spriteDirection = -1;
+					}
+					else if (this.velocity.X > 1f)
+					{
+						this.spriteDirection = 1;
+					}
+					else
+					{
+						if (this.direction > 0) this.spriteDirection = 1;
+						else if (this.direction < 0) this.spriteDirection = -1;
+					}
+				}
+			}
+			else if (this.type == 109)
+			{
+				if (this.velocity.Y == 0f && ((this.velocity.X <= 0f && this.direction < 0) || (this.velocity.X >= 0f && this.direction > 0)))
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+			}
+			else if (this.type == 224)
+			{
+				if (this.velocity.X > 0f)
+				{
+					this.spriteDirection = 1;
+					this.rotation = this.velocity.Y * 0.2f;
+				}
+				if (this.velocity.X < 0f)
+				{
+					this.spriteDirection = -1;
+					this.rotation = -this.velocity.Y * 0.2f;
+				}
+			}
+			else if (this.type == 150 || this.type == 151 || this.type == 152 || this.type == 158 || this.type == 226)
+			{
+				if (this.velocity.X > 0f)
+				{
+					this.spriteDirection = 1;
+				}
+				if (this.velocity.X < 0f)
+				{
+					this.spriteDirection = -1;
+				}
+				this.rotation = this.velocity.X * 0.1f;
+			}
+			else if (this.type == 48 || this.type == 49 || this.type == 51 || this.type == 60 || this.type == 82 || this.type == 93 || this.type == 137 || this.type == 182 || this.type == 210 || this.type == 211 || this.type == 253 || this.type == 316)
+			{
+				if (this.velocity.X > 0f)
+				{
+					this.spriteDirection = 1;
+				}
+				if (this.velocity.X < 0f)
+				{
+					this.spriteDirection = -1;
+				}
+				this.rotation = this.velocity.X * 0.1f;
+				if (this.type == 210 || this.type == 211)
+				{
+					this.rotation = this.velocity.X * 0.2f;
+				}
+			}
+			else if (this.type == 330)
+			{
+				if (this.velocity.X > 0f)
+				{
+					this.spriteDirection = 1;
+				}
+				if (this.velocity.X < 0f)
+				{
+					this.spriteDirection = -1;
+				}
+				this.rotation = this.velocity.X * 0.15f;
+			}
+			else if (this.type == 483)
+			{
+				if (this.ai[0] == -1f)
+				{
+					this.rotation += this.velocity.X * 0.2f;
+					return;
+				}
+				this.rotation = this.velocity.X * 0.1f;
+			}
+			else if (this.type == 461)
+			{
+				if (this.wet)
+				{
+					if (this.velocity.X < 0f)
+					{
+						this.direction = -1;
+					}
+					if (this.velocity.X > 0f)
+					{
+						this.direction = 1;
+					}
+					if (this.spriteDirection != this.direction)
+					{
+						this.rotation *= -1f;
+						if (this.direction > 0) this.spriteDirection = 1;
+						else if (this.direction < 0) this.spriteDirection = -1;
+					}
+					float num99 = (float)Math.Atan2((double)(this.velocity.Y * (float)this.direction), (double)(this.velocity.X * (float)this.direction));
+					if ((double)Math.Abs(this.rotation - num99) >= 3.14)
+					{
+						if (num99 < this.rotation)
+						{
+							this.rotation -= 6.28f;
+						}
+						else
+						{
+							this.rotation += 6.28f;
+						}
+					}
+					this.rotation = (this.rotation * 4f + num99) / 5f;
+				}
+				else
+				{
+					if ((double)this.rotation > 3.14)
+					{
+						this.rotation -= 6.28f;
+					}
+					if ((double)this.rotation > -0.01 && (double)this.rotation < 0.01)
+					{
+						this.rotation = 0f;
+					}
+					else
+					{
+						this.rotation *= 0.9f;
+					}
+					if (this.velocity.Y == 0f)
+					{
+						if (this.direction == 1)
+						{
+							this.spriteDirection = 1;
+						}
+						if (this.direction == -1)
+						{
+							this.spriteDirection = -1;
+						}
+					}
+				}
+			}
+			else if (this.type == 466)
+			{
+				if (this.ai[2] <= 0f || this.velocity.Y == 0f)
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+			}
+			else if (this.type == 471)
+			{
+				if (this.ai[3] < 0f)
+				{
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+				else if (this.ai[3] != 1f)
+				{
+					if (this.velocity.Y == 0f)
+					{
+						if (this.direction > 0) this.spriteDirection = 1;
+						else if (this.direction < 0) this.spriteDirection = -1;
+					}
+				}
+			}
+			else if (this.type == 469)
+			{
+				if (this.ai[2] == 1f)
+				{
+					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
+					if (this.velocity.X < 0f)
+					{
+						this.direction = -1;
+					}
+					if (this.velocity.X > 0f)
+					{
+						this.direction = 1;
+					}
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+				else
+				{
+					this.rotation = 0f;
+					if (this.velocity.Y == 0f)
+					{
+						if (this.direction == 1)
+						{
+							this.spriteDirection = 1;
+						}
+						if (this.direction == -1)
+						{
+							this.spriteDirection = -1;
+						}
+					}
+				}
+			}
+			else if (this.type == 230)
+			{
+				if (this.velocity.Y == 0f)
+				{
+					this.rotation = 0f;
+					if (this.direction > 0) this.spriteDirection = 1;
+					else if (this.direction < 0) this.spriteDirection = -1;
+				}
+			}
 		}
 
 		public static string firstNPCName(int npcType)
