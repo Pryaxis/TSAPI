@@ -201,7 +201,7 @@ namespace Terraria
 			{
 				Point16 point16 = next.PopFront();
 				Wiring.SkipWire(point16);
-				Wiring._toProcess.Add(point16, 4);
+				Wiring._toProcess[point16] = 4;
 				next.PushBack(point16);
 			}
 			while (next.Count > 0)
@@ -282,7 +282,7 @@ namespace Terraria
 								if (!Wiring._toProcess.TryGetValue(point162, out num2))
 								{
 									next.PushBack(point162);
-									Wiring._toProcess.Add(point162, 3);
+									Wiring._toProcess[point162] = 3;
 								}
 								else
 								{
