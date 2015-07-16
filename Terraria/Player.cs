@@ -11031,14 +11031,13 @@ namespace Terraria
 
 		public void KillMeForGood()
 		{
-			bool isCloudSave = Main.ActivePlayerFileData.IsCloudSave;
-			if (FileUtilities.Exists(Main.playerPathName, isCloudSave))
+			if (FileUtilities.Exists(Main.playerPathName, false))
 			{
-				FileUtilities.Delete(Main.playerPathName, isCloudSave);
+				FileUtilities.Delete(Main.playerPathName, false);
 			}
-			if (FileUtilities.Exists(string.Concat(Main.playerPathName, ".bak"), isCloudSave))
+			if (FileUtilities.Exists(string.Concat(Main.playerPathName, ".bak"), false))
 			{
-				FileUtilities.Delete(string.Concat(Main.playerPathName, ".bak"), isCloudSave);
+				FileUtilities.Delete(string.Concat(Main.playerPathName, ".bak"), false);
 			}
 			Main.ActivePlayerFileData = new PlayerFileData();
 		}
@@ -17515,7 +17514,6 @@ namespace Terraria
 			Main.Achievements.Save();
 			string path = playerFile.Path;
 			Player player = playerFile.Player;
-			bool isCloudSave = playerFile.IsCloudSave;
 			if (!skipMapSave)
 			{
 				try
@@ -17535,10 +17533,7 @@ namespace Terraria
 				}
 				try
 				{
-					if (!isCloudSave)
-					{
-						Directory.CreateDirectory(Main.PlayerPath);
-					}
+					Directory.CreateDirectory(Main.PlayerPath);
 				}
 				catch (Exception ex)
 				{
@@ -17557,19 +17552,12 @@ namespace Terraria
 			{
 				return;
 			}
-			if (FileUtilities.Exists(path, isCloudSave))
+			if (FileUtilities.Exists(path, false))
 			{
-				FileUtilities.Copy(path, string.Concat(path, ".bak"), isCloudSave, true);
+				FileUtilities.Copy(path, string.Concat(path, ".bak"), false, true);
 			}
 			RijndaelManaged rijndaelManaged = new RijndaelManaged();
-			if (isCloudSave)
-			{
-				memoryStream = new MemoryStream(2000);
-			}
-			else
-			{
-				memoryStream = new FileStream(path, FileMode.Create);
-			}
+			memoryStream = new FileStream(path, FileMode.Create);
 			using (Stream stream = memoryStream)
 			{
 				using (CryptoStream cryptoStream = new CryptoStream(stream, rijndaelManaged.CreateEncryptor(Player.ENCRYPTION_KEY, Player.ENCRYPTION_KEY), CryptoStreamMode.Write))
@@ -17715,10 +17703,6 @@ namespace Terraria
 						binaryWriter.Flush();
 						cryptoStream.FlushFinalBlock();
 						stream.Flush();
-						if (isCloudSave && SocialAPI.Cloud != null)
-						{
-							SocialAPI.Cloud.Write(playerFile.Path, ((MemoryStream)stream).GetBuffer(), (int)((MemoryStream)stream).Length);
-						}
 					}
 				}
 			}

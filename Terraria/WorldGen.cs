@@ -1993,7 +1993,7 @@ namespace Terraria
 		{
 			WorldGen.clearWorld();
 			WorldGen.generateWorld(-1, threadContext as GenerationProgress);
-			WorldFile.saveWorld(Main.ActiveWorldFileData.IsCloudSave, true);
+			WorldFile.saveWorld(false, true);
 			if (Main.menuMode == 10 || Main.menuMode == 888)
 			{
 				Main.menuMode = 6;
@@ -2051,14 +2051,13 @@ namespace Terraria
 				}
 			}
 			WorldGen.noMapUpdate = true;
-			WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+			WorldFile.loadWorld(false);
 			if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 			{
-				WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+				WorldFile.loadWorld(false);
 				if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 				{
-					bool isCloudSave = Main.ActiveWorldFileData.IsCloudSave;
-					if (FileUtilities.Exists(Main.worldPathName + ".bak", isCloudSave))
+					if (FileUtilities.Exists(Main.worldPathName + ".bak", false))
 					{
 						WorldGen.worldBackup = true;
 					}
@@ -2083,18 +2082,18 @@ namespace Terraria
 							Console.WriteLine("Load failed!  No backup found.");
 							return;
 						}
-						FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bad", isCloudSave, true);
-						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, isCloudSave, true);
-						FileUtilities.Delete(Main.worldPathName + ".bak", isCloudSave);
-						WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+						FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bad", false, true);
+						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, false, true);
+						FileUtilities.Delete(Main.worldPathName + ".bak", false);
+						WorldFile.loadWorld(false);
 						if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 						{
-							WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+							WorldFile.loadWorld(false);
 							if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 							{
-								FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bak", isCloudSave, true);
-								FileUtilities.Copy(Main.worldPathName + ".bad", Main.worldPathName, isCloudSave, true);
-								FileUtilities.Delete(Main.worldPathName + ".bad", isCloudSave);
+								FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bak", false, true);
+								FileUtilities.Copy(Main.worldPathName + ".bad", Main.worldPathName, false, true);
+								FileUtilities.Delete(Main.worldPathName + ".bad", false);
 								Console.WriteLine("Load failed!");
 								return;
 							}
@@ -2173,14 +2172,13 @@ namespace Terraria
 		public static void serverLoadWorldCallBack(object threadContext)
 		{
 			Main.rand = new Random((int)DateTime.Now.Ticks);
-			WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+			WorldFile.loadWorld(false);
 			if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 			{
-				WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+				WorldFile.loadWorld(false);
 				if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 				{
-					bool isCloudSave = Main.ActiveWorldFileData.IsCloudSave;
-					if (FileUtilities.Exists(Main.worldPathName + ".bak", isCloudSave))
+					if (FileUtilities.Exists(Main.worldPathName + ".bak", false))
 					{
 						WorldGen.worldBackup = true;
 					}
@@ -2205,12 +2203,12 @@ namespace Terraria
 							Console.WriteLine("Load failed!  No backup found.");
 							return;
 						}
-						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, isCloudSave, true);
-						FileUtilities.Delete(Main.worldPathName + ".bak", isCloudSave);
-						WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, false, true);
+						FileUtilities.Delete(Main.worldPathName + ".bak", false);
+						WorldFile.loadWorld(false);
 						if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 						{
-							WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+							WorldFile.loadWorld(false);
 							if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 							{
 								Console.WriteLine("Load failed!");

@@ -2397,11 +2397,6 @@ namespace Terraria.Map
 			int num1;
 			ushort type;
 			int num2;
-			bool isCloudSave = Main.ActivePlayerFileData.IsCloudSave;
-			if (isCloudSave && SocialAPI.Cloud == null)
-			{
-				return;
-			}
 			if (!Main.mapEnabled || MapHelper.saveLock)
 			{
 				return;
@@ -2414,10 +2409,7 @@ namespace Terraria.Map
 					MapHelper.saveLock = true;
 					try
 					{
-						if (!isCloudSave)
-						{
-							Directory.CreateDirectory(str);
-						}
+						Directory.CreateDirectory(str);
 					}
 					catch (Exception ex)
 					{
@@ -2709,7 +2701,7 @@ namespace Terraria.Map
 									deflateStream.Write(light, 0, num3);
 								}
 								deflateStream.Dispose();
-								FileUtilities.WriteAllBytes(str, memoryStream.ToArray(), isCloudSave);
+								FileUtilities.WriteAllBytes(str, memoryStream.ToArray(), false);
 							}
 						}
 					}

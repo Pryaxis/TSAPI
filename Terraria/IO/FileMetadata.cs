@@ -14,8 +14,6 @@ namespace Terraria.IO
 
 		public uint Revision;
 
-		public bool IsFavorite;
-
 		private FileMetadata()
 		{
 		}
@@ -26,7 +24,6 @@ namespace Terraria.IO
 			{
 				Type = type,
 				Revision = 0,
-				IsFavorite = false
 			};
 			return fileMetadatum;
 		}
@@ -80,14 +77,12 @@ namespace Terraria.IO
 			this.Type = fileType;
 			this.Revision = reader.ReadUInt32();
 			ulong num3 = reader.ReadUInt64();
-			this.IsFavorite = (num3 & (long)1) == (long)1;
 		}
 
 		public void Write(BinaryWriter writer)
 		{
 			writer.Write(MAGIC_NUMBER | (ulong)this.Type << 56);
 			writer.Write(this.Revision);
-			writer.Write((ulong)((long)(this.IsFavorite.ToInt() & 1)));
 		}
 	}
 }

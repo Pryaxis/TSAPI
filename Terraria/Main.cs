@@ -162,10 +162,6 @@ namespace Terraria
 
 		public static Vector2 destroyerHB;
 
-		public static FavoritesFile LocalFavoriteData;
-
-		public static FavoritesFile CloudFavoritesData;
-
 		public static FileMetadata WorldFileMetadata;
 
 		public static FileMetadata MapFileMetadata;
@@ -1800,9 +1796,6 @@ namespace Terraria
 			Main.versionNumber = "v1.3.0.5";
 			Main.versionNumber2 = "v1.3.0.5";
 			Main.destroyerHB = new Vector2(0f, 0f);
-			object[] folderPath = new object[] { Environment.GetFolderPath(Environment.SpecialFolder.Personal), Path.DirectorySeparatorChar, "My Games", Path.DirectorySeparatorChar, "Terraria", Path.DirectorySeparatorChar, "favorites.json" };
-			Main.LocalFavoriteData = new FavoritesFile(string.Concat(folderPath), false);
-			Main.CloudFavoritesData = new FavoritesFile("/favorites.json", true);
 			Main.drawBackGore = false;
 			Main.expertLife = 2f;
 			Main.expertDamage = 2f;
@@ -5918,15 +5911,8 @@ namespace Terraria
 		{
 			try
 			{
-				if (!Main.WorldList[i].IsCloudSave)
-				{
-					File.Delete(Main.WorldList[i].Path);
-					File.Delete(Main.WorldList[i].Path + ".bak");
-				}
-				else if (SocialAPI.Cloud != null)
-				{
-					SocialAPI.Cloud.Delete(Main.WorldList[i].Path);
-				}
+				File.Delete(Main.WorldList[i].Path);
+				File.Delete(Main.WorldList[i].Path + ".bak");
 				Main.LoadWorlds();
 			}
 			catch (Exception ex)
@@ -6377,8 +6363,6 @@ namespace Terraria
 		{
 			Item item;
 			Main.netMode = 2;
-			Main.LocalFavoriteData.Load();
-			Main.CloudFavoritesData.Load();
 			TileObjectData.Initialize();
 			Animation.Initialize();
 			Chest.Initialize();
@@ -11079,7 +11063,6 @@ namespace Terraria
 			{
 				Main.slimeRainTime = 54000;
 				Main.slimeRain = true;
-				Vector2 vector2 = new Vector2();
 				return;
 			}
 			if (Main.raining)
@@ -11091,7 +11074,6 @@ namespace Terraria
 			Main.slimeRainKillCount = 0;
 			if (Main.netMode == 0)
 			{
-				Vector2 vector21 = new Vector2();
 				if (announce)
 				{
 					Main.slimeWarningTime = Main.slimeWarningDelay;
