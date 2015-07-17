@@ -92,9 +92,9 @@ namespace Terraria.IO
 			WorldFile.CachedCultistDelay = new int?(CultistRitual.delay);
 		}
 
-		public static WorldFileData CreateMetadata(string name, bool cloudSave, bool isExpertMode)
+		public static WorldFileData CreateMetadata(string name, bool isExpertMode)
 		{
-			WorldFileData worldFileDatum = new WorldFileData(Main.GetWorldPathFromName(name, cloudSave), cloudSave)
+			WorldFileData worldFileDatum = new WorldFileData(Main.GetWorldPathFromName(name))
 			{
 				Name = name,
 				IsExpertMode = isExpertMode,
@@ -119,24 +119,19 @@ namespace Terraria.IO
 			}
 		}
 
-		public static WorldFileData GetAllMetadata(string file, bool cloudSave)
+		public static WorldFileData GetAllMetadata(string file)
 		{
 			Stream memoryStream;
-			if (file == null || cloudSave && SocialAPI.Cloud == null || !File.Exists(file))
+			if (file == null || !File.Exists(file))
 			{
 				return null;
 			}
 			try
 			{
-				WorldFileData worldFileDatum = new WorldFileData(file, cloudSave);
-				if (cloudSave)
-				{
-					memoryStream = new MemoryStream(SocialAPI.Cloud.Read(file));
-				}
-				else
-				{
-					memoryStream = new FileStream(file, FileMode.Open);
-				}
+				WorldFileData worldFileDatum = new WorldFileData(file);
+
+				memoryStream = new FileStream(file, FileMode.Open);
+
 				using (Stream stream = memoryStream)
 				{
 					using (BinaryReader binaryReader = new BinaryReader(stream))
@@ -166,10 +161,6 @@ namespace Terraria.IO
 							if (num >= 141)
 							{
 								worldFileDatum.CreationTime = DateTime.FromBinary(binaryReader.ReadInt64());
-							}
-							else if (cloudSave)
-							{
-								worldFileDatum.CreationTime = DateTime.Now;
 							}
 							else
 							{
@@ -858,30 +849,25 @@ namespace Terraria.IO
 			TileEntity.TileEntitiesNextID = num;
 		}
 
-		public static void loadWorld(bool loadFromCloud)
+		public static void loadWorld()
 		{
 			int num;
-			WorldFile.IsWorldOnCloud = loadFromCloud;
 			Main.CheckXMas();
 			Main.checkHalloween();
-			bool flag = (!loadFromCloud ? false : SocialAPI.Cloud != null);
-			if (!FileUtilities.Exists(Main.worldPathName, flag) && Main.autoGen)
+			if (!FileUtilities.Exists(Main.worldPathName) && Main.autoGen)
 			{
-				if (!flag)
+				int length = Main.worldPathName.Length - 1;
+				while (length >= 0)
 				{
-					int length = Main.worldPathName.Length - 1;
-					while (length >= 0)
+					if (Main.worldPathName.Substring(length, 1) != string.Concat(Path.DirectorySeparatorChar))
 					{
-						if (Main.worldPathName.Substring(length, 1) != string.Concat(Path.DirectorySeparatorChar))
-						{
-							length--;
-						}
-						else
-						{
-							string str = Main.worldPathName.Substring(0, length);
-							Directory.CreateDirectory(str);
-							break;
-						}
+						length--;
+					}
+					else
+					{
+						string str = Main.worldPathName.Substring(0, length);
+						Directory.CreateDirectory(str);
+						break;
 					}
 				}
 				WorldGen.clearWorld();
@@ -892,7 +878,7 @@ namespace Terraria.IO
 			{
 				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
 			}
-			byte[] numArray = FileUtilities.ReadAllBytes(Main.worldPathName, flag);
+			byte[] numArray = FileUtilities.ReadAllBytes(Main.worldPathName);
 			using (MemoryStream memoryStream = new MemoryStream(numArray))
 			{
 				using (BinaryReader binaryReader = new BinaryReader(memoryStream))
@@ -906,14 +892,7 @@ namespace Terraria.IO
 						num = (num1 > 87 ? WorldFile.LoadWorld_Version2(binaryReader) : WorldFile.LoadWorld_Version1(binaryReader));
 						if (num1 < 141)
 						{
-							if (loadFromCloud)
-							{
-								Main.ActiveWorldFileData.CreationTime = DateTime.Now;
-							}
-							else
-							{
-								Main.ActiveWorldFileData.CreationTime = File.GetCreationTime(Main.worldPathName);
-							}
+							Main.ActiveWorldFileData.CreationTime = File.GetCreationTime(Main.worldPathName);
 						}
 						binaryReader.Close();
 						memoryStream.Close();
@@ -1999,16 +1978,12 @@ namespace Terraria.IO
 
 		public static void saveWorld()
 		{
-			WorldFile.saveWorld(WorldFile.IsWorldOnCloud, false);
+			WorldFile.saveWorld(false);
 		}
 
-		public static void saveWorld(bool useCloudSaving, bool resetTime = false)
+		public static void saveWorld(bool resetTime = false)
 		{
 			if (ServerApi.Hooks.InvokeWorldSave(resetTime))
-			{
-				return;
-			}
-			if (useCloudSaving && SocialAPI.Cloud == null)
 			{
 				return;
 			}
@@ -2087,12 +2062,12 @@ namespace Terraria.IO
 						if (buffer != null)
 						{
 							byte[] numArray = null;
-							if (FileUtilities.Exists(Main.worldPathName, useCloudSaving))
+							if (FileUtilities.Exists(Main.worldPathName))
 							{
-								numArray = FileUtilities.ReadAllBytes(Main.worldPathName, useCloudSaving);
+								numArray = FileUtilities.ReadAllBytes(Main.worldPathName);
 							}
-							FileUtilities.Write(Main.worldPathName, buffer, length, useCloudSaving);
-							buffer = FileUtilities.ReadAllBytes(Main.worldPathName, useCloudSaving);
+							FileUtilities.Write(Main.worldPathName, buffer, length);
+							buffer = FileUtilities.ReadAllBytes(Main.worldPathName);
 							string str = null;
 							using (MemoryStream memoryStream1 = new MemoryStream(buffer, 0, length, false))
 							{
@@ -2111,7 +2086,7 @@ namespace Terraria.IO
 							}
 							if (str != null)
 							{
-								FileUtilities.WriteAllBytes(str, numArray, useCloudSaving);
+								FileUtilities.WriteAllBytes(str, numArray);
 							}
 							WorldGen.saveLock = false;
 							Main.serverGenLock = false;

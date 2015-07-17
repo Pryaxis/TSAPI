@@ -5047,24 +5047,24 @@ namespace Terraria
 			}
 		}
 
-		public static PlayerFileData GetFileData(string file, bool cloudSave)
+		public static PlayerFileData GetFileData(string file)
 		{
-			if (file == null || cloudSave && SocialAPI.Cloud == null)
+			if (file == null || !File.Exists(file))
 			{
 				return null;
 			}
-			PlayerFileData playerFileDatum = Player.LoadPlayer(file, cloudSave);
+			PlayerFileData playerFileDatum = Player.LoadPlayer(file);
 			if (playerFileDatum.Player == null)
 			{
 				return null;
 			}
 			if (playerFileDatum.Player.loadStatus != 0 && playerFileDatum.Player.loadStatus != 1)
 			{
-				if (FileUtilities.Exists(string.Concat(file, ".bak"), cloudSave))
+				if (FileUtilities.Exists(string.Concat(file, ".bak")))
 				{
-					FileUtilities.Move(string.Concat(file, ".bak"), file, cloudSave, true);
+					FileUtilities.Move(string.Concat(file, ".bak"), file, true);
 				}
-				playerFileDatum = Player.LoadPlayer(file, cloudSave);
+				playerFileDatum = Player.LoadPlayer(file);
 				if (playerFileDatum.Player == null)
 				{
 					return null;
@@ -11031,25 +11031,21 @@ namespace Terraria
 
 		public void KillMeForGood()
 		{
-			if (FileUtilities.Exists(Main.playerPathName, false))
+			if (FileUtilities.Exists(Main.playerPathName))
 			{
-				FileUtilities.Delete(Main.playerPathName, false);
+				FileUtilities.Delete(Main.playerPathName);
 			}
-			if (FileUtilities.Exists(string.Concat(Main.playerPathName, ".bak"), false))
+			if (FileUtilities.Exists(string.Concat(Main.playerPathName, ".bak")))
 			{
-				FileUtilities.Delete(string.Concat(Main.playerPathName, ".bak"), false);
+				FileUtilities.Delete(string.Concat(Main.playerPathName, ".bak"));
 			}
 			Main.ActivePlayerFileData = new PlayerFileData();
 		}
 
-		public static PlayerFileData LoadPlayer(string playerPath, bool cloudSave)
+		public static PlayerFileData LoadPlayer(string playerPath)
 		{
 			PlayerFileData playerFileDatum;
-			PlayerFileData playerFileDatum1 = new PlayerFileData(playerPath, cloudSave);
-			if (cloudSave && SocialAPI.Cloud == null)
-			{
-				return playerFileDatum1;
-			}
+			PlayerFileData playerFileDatum1 = new PlayerFileData(playerPath);
 			if (Main.rand == null)
 			{
 				Main.rand = new Random((int)DateTime.Now.Ticks);
@@ -11061,7 +11057,7 @@ namespace Terraria
 				{
 					Padding = PaddingMode.None
 				};
-				using (MemoryStream memoryStream = new MemoryStream(FileUtilities.ReadAllBytes(playerPath, cloudSave)))
+				using (MemoryStream memoryStream = new MemoryStream(FileUtilities.ReadAllBytes(playerPath)))
 				{
 					using (CryptoStream cryptoStream = new CryptoStream(memoryStream, rijndaelManaged.CreateDecryptor(Player.ENCRYPTION_KEY, Player.ENCRYPTION_KEY), CryptoStreamMode.Read))
 					{
@@ -17552,7 +17548,7 @@ namespace Terraria
 			{
 				return;
 			}
-			if (FileUtilities.Exists(path, false))
+			if (FileUtilities.Exists(path))
 			{
 				FileUtilities.Copy(path, string.Concat(path, ".bak"), false, true);
 			}

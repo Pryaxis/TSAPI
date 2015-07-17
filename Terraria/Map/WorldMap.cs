@@ -56,12 +56,12 @@ namespace Terraria.Map
 			string str = Main.playerPathName.Substring(0, Main.playerPathName.Length - 4);
 			object[] directorySeparatorChar = new object[] { str, Path.DirectorySeparatorChar, Main.worldID, ".map" };
 			string str1 = string.Concat(directorySeparatorChar);
-			if (!FileUtilities.Exists(str1, false))
+			if (!FileUtilities.Exists(str1))
 			{
 				Main.MapFileMetadata = FileMetadata.FromCurrentSettings(FileType.Map);
 				return;
 			}
-			using (MemoryStream memoryStream = new MemoryStream(FileUtilities.ReadAllBytes(str1, false)))
+			using (MemoryStream memoryStream = new MemoryStream(FileUtilities.ReadAllBytes(str1)))
 			{
 				using (BinaryReader binaryReader = new BinaryReader(memoryStream))
 				{

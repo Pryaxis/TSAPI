@@ -2701,7 +2701,7 @@ namespace Terraria.Map
 									deflateStream.Write(light, 0, num3);
 								}
 								deflateStream.Dispose();
-								FileUtilities.WriteAllBytes(str, memoryStream.ToArray(), false);
+								FileUtilities.WriteAllBytes(str, memoryStream.ToArray());
 							}
 						}
 					}

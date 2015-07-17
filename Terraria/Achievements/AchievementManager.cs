@@ -107,17 +107,17 @@ namespace Terraria.Achievements
 
 		public void Load()
 		{
-			this.Load(this._savePath, false);
+			this.Load(this._savePath);
 		}
 
-		private void Load(string path, bool cloud)
+		private void Load(string path)
 		{
 			bool flag = false;
 			lock (AchievementManager._ioLock)
 			{
-				if (FileUtilities.Exists(path, cloud))
+				if (FileUtilities.Exists(path))
 				{
-					byte[] numArray = FileUtilities.ReadAllBytes(path, cloud);
+					byte[] numArray = FileUtilities.ReadAllBytes(path);
 					Dictionary<string, AchievementManager.StoredAchievement> strs = null;
 					try
 					{
@@ -134,7 +134,7 @@ namespace Terraria.Achievements
 					}
 					catch (Exception)
 					{
-						FileUtilities.Delete(path, cloud);
+						FileUtilities.Delete(path);
 						return;
 					}
 					if (strs != null)
@@ -194,10 +194,10 @@ namespace Terraria.Achievements
 
 		public void Save()
 		{
-			this.Save(this._savePath, false);
+			this.Save(this._savePath);
 		}
 
-		private void Save(string path, bool cloud)
+		private void Save(string path)
 		{
 			lock (AchievementManager._ioLock)
 			{
@@ -216,7 +216,7 @@ namespace Terraria.Achievements
 								JsonSerializer.Create(this._serializerSettings).Serialize(bsonWriter, this._achievements);
 								bsonWriter.Flush();
 								cryptoStream.FlushFinalBlock();
-								FileUtilities.Write(path, memoryStream.GetBuffer(), (int)memoryStream.Length, cloud);
+								FileUtilities.Write(path, memoryStream.GetBuffer(), (int)memoryStream.Length);
 							}
 						}
 					}

@@ -153,7 +153,7 @@ namespace TerrariaApi.Server
 					case "-world":
 						{
 							string worldPath = commandLineArgs[++i];
-							game.SetWorld(worldPath, false);
+							game.SetWorld(worldPath);
 							LogWriter.ServerWriteLine(string.Format("World set for auto loading: {0}", worldPath), TraceLevel.Verbose);
 
 							break;

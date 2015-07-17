@@ -44,7 +44,7 @@ namespace Terraria.IO
 		{
 		}
 
-		public WorldFileData(string path, bool cloudSave) : base("World", path, cloudSave)
+		public WorldFileData(string path) : base("World", path)
 		{
 		}
 

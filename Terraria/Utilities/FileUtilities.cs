@@ -29,23 +29,14 @@ namespace Terraria.Utilities
 			SocialAPI.Cloud.Write(destination, SocialAPI.Cloud.Read(source));
 		}
 
-		public static void Delete(string path, bool cloud)
+		public static void Delete(string path)
 		{
-			if (!cloud || SocialAPI.Cloud == null)
-			{
-				FileOperationAPIWrapper.MoveToRecycleBin(path);
-				return;
-			}
-			SocialAPI.Cloud.Delete(path);
+			FileOperationAPIWrapper.MoveToRecycleBin(path);
 		}
 
-		public static bool Exists(string path, bool cloud)
+		public static bool Exists(string path)
 		{
-			if (!cloud || SocialAPI.Cloud == null)
-			{
-				return File.Exists(path);
-			}
-			return SocialAPI.Cloud.HasFile(path);
+			return File.Exists(path);
 		}
 
 		public static string GetFileName(string path, bool includeExtension = true)
@@ -59,68 +50,33 @@ namespace Terraria.Utilities
 			return string.Concat(match.Groups["fileName"].Value, (includeExtension ? string.Concat(".", match.Groups["extension"].Value) : ""));
 		}
 
-		public static string GetFullPath(string path, bool cloud)
+		public static string GetFullPath(string path)
 		{
-			if (cloud)
-			{
-				return path;
-			}
 			return Path.GetFullPath(path);
 		}
 
-		public static void Move(string source, string destination, bool cloud, bool overwrite = true)
+		public static void Move(string source, string destination, bool overwrite = true)
 		{
-			FileUtilities.Copy(source, destination, cloud, overwrite);
-			FileUtilities.Delete(source, cloud);
+			FileUtilities.Copy(source, destination, overwrite);
+			FileUtilities.Delete(source);
 		}
 
-		public static bool MoveToCloud(string localPath, string cloudPath)
+		public static byte[] ReadAllBytes(string path)
 		{
-			if (SocialAPI.Cloud == null)
-			{
-				return false;
-			}
-			FileUtilities.WriteAllBytes(cloudPath, FileUtilities.ReadAllBytes(localPath, false), true);
-			FileUtilities.Delete(localPath, false);
-			return true;
+			return File.ReadAllBytes(path);
 		}
 
-		public static bool MoveToLocal(string cloudPath, string localPath)
+		public static void Write(string path, byte[] data, int length)
 		{
-			if (SocialAPI.Cloud == null)
-			{
-				return false;
-			}
-			FileUtilities.WriteAllBytes(localPath, FileUtilities.ReadAllBytes(cloudPath, true), false);
-			FileUtilities.Delete(cloudPath, true);
-			return true;
-		}
-
-		public static byte[] ReadAllBytes(string path, bool cloud)
-		{
-			if (!cloud || SocialAPI.Cloud == null)
-			{
-				return File.ReadAllBytes(path);
-			}
-			return SocialAPI.Cloud.Read(path);
-		}
-
-		public static void Write(string path, byte[] data, int length, bool cloud)
-		{
-			if (cloud && SocialAPI.Cloud != null)
-			{
-				SocialAPI.Cloud.Write(path, data, length);
-				return;
-			}
 			using (FileStream fileStream = File.Open(path, FileMode.Create))
 			{
 				fileStream.Write(data, 0, length);
 			}
 		}
 
-		public static void WriteAllBytes(string path, byte[] data, bool cloud)
+		public static void WriteAllBytes(string path, byte[] data)
 		{
-			FileUtilities.Write(path, data, (int)data.Length, cloud);
+			FileUtilities.Write(path, data, (int)data.Length);
 		}
 	}
 }

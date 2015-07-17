@@ -32,7 +32,7 @@ namespace Terraria.IO
 			this.Type = type;
 		}
 
-		protected FileData(string type, string path, bool isCloud)
+		protected FileData(string type, string path)
 		{
 			this.Type = type;
 			this._path = path;

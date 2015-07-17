@@ -40,7 +40,7 @@ namespace Terraria.IO
 		{
 		}
 
-		public PlayerFileData(string path, bool cloudSave) : base("Player", path, cloudSave)
+		public PlayerFileData(string path) : base("Player", path)
 		{
 		}
 
@@ -51,7 +51,7 @@ namespace Terraria.IO
 				Metadata = FileMetadata.FromCurrentSettings(FileType.Player),
 				Player = player,
 			};
-			playerFileDatum._path = Main.GetPlayerPathFromName(player.name, false);
+			playerFileDatum._path = Main.GetPlayerPathFromName(player.name);
 			Terraria.Player.SavePlayer(playerFileDatum, true);
 			return playerFileDatum;
 		}

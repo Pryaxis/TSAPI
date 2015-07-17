@@ -1993,7 +1993,7 @@ namespace Terraria
 		{
 			WorldGen.clearWorld();
 			WorldGen.generateWorld(-1, threadContext as GenerationProgress);
-			WorldFile.saveWorld(false, true);
+			WorldFile.saveWorld(false);
 			if (Main.menuMode == 10 || Main.menuMode == 888)
 			{
 				Main.menuMode = 6;
@@ -2051,13 +2051,13 @@ namespace Terraria
 				}
 			}
 			WorldGen.noMapUpdate = true;
-			WorldFile.loadWorld(false);
+			WorldFile.loadWorld();
 			if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 			{
-				WorldFile.loadWorld(false);
+				WorldFile.loadWorld();
 				if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 				{
-					if (FileUtilities.Exists(Main.worldPathName + ".bak", false))
+					if (FileUtilities.Exists(Main.worldPathName + ".bak"))
 					{
 						WorldGen.worldBackup = true;
 					}
@@ -2084,16 +2084,16 @@ namespace Terraria
 						}
 						FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bad", false, true);
 						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, false, true);
-						FileUtilities.Delete(Main.worldPathName + ".bak", false);
-						WorldFile.loadWorld(false);
+						FileUtilities.Delete(Main.worldPathName + ".bak");
+						WorldFile.loadWorld();
 						if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 						{
-							WorldFile.loadWorld(false);
+							WorldFile.loadWorld();
 							if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 							{
 								FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bak", false, true);
 								FileUtilities.Copy(Main.worldPathName + ".bad", Main.worldPathName, false, true);
-								FileUtilities.Delete(Main.worldPathName + ".bad", false);
+								FileUtilities.Delete(Main.worldPathName + ".bad");
 								Console.WriteLine("Load failed!");
 								return;
 							}
@@ -2172,13 +2172,13 @@ namespace Terraria
 		public static void serverLoadWorldCallBack(object threadContext)
 		{
 			Main.rand = new Random((int)DateTime.Now.Ticks);
-			WorldFile.loadWorld(false);
+			WorldFile.loadWorld();
 			if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 			{
-				WorldFile.loadWorld(false);
+				WorldFile.loadWorld();
 				if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 				{
-					if (FileUtilities.Exists(Main.worldPathName + ".bak", false))
+					if (FileUtilities.Exists(Main.worldPathName + ".bak"))
 					{
 						WorldGen.worldBackup = true;
 					}
@@ -2204,11 +2204,11 @@ namespace Terraria
 							return;
 						}
 						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, false, true);
-						FileUtilities.Delete(Main.worldPathName + ".bak", false);
-						WorldFile.loadWorld(false);
+						FileUtilities.Delete(Main.worldPathName + ".bak");
+						WorldFile.loadWorld();
 						if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 						{
-							WorldFile.loadWorld(false);
+							WorldFile.loadWorld();
 							if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 							{
 								Console.WriteLine("Load failed!");
