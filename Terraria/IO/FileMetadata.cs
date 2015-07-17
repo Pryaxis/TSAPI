@@ -83,6 +83,7 @@ namespace Terraria.IO
 		{
 			writer.Write(MAGIC_NUMBER | (ulong)this.Type << 56);
 			writer.Write(this.Revision);
+			writer.Write((ulong)(0 & 1));
 		}
 	}
 }
