@@ -21,7 +21,7 @@ namespace Terraria
 			int number = 0, float number2 = 0f, float number3 = 0f, float number4 = 0f, int number5 = 0, int number6 = 0,
 			int number7 = 0)
 		{
-			if (Main.netMode == 0)
+			if (Main.netMode == 0 || !Netplay.anyClients)
 			{
 				return;
 			}
@@ -42,11 +42,9 @@ namespace Terraria
 				return;
 			}
 
-			MemoryStream ms = new MemoryStream(16384);
-			BinaryWriter writer = new BinaryWriter(ms);
-			writer.BaseStream.Position = 2L;
-			long position = 0L;
-			writer.Write((byte) msgType);
+			HeapItem packet = default(HeapItem);
+			BinaryWriter writer;
+
 
 			if (text == null)
 			{
@@ -56,9 +54,11 @@ namespace Terraria
 			switch (msgType)
 			{
 				case 1:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write("Terraria" + Main.curRelease);
 					break;
 				case 2:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write(text);
 					if (Main.dedServ)
 					{
@@ -66,10 +66,12 @@ namespace Terraria
 					}
 					break;
 				case 3:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) remoteClient);
 					break;
 				case 4:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					Player player = Main.player[number];
 					writer.Write((byte) number);
 					writer.Write((byte) player.skinVariant);
@@ -108,6 +110,7 @@ namespace Terraria
 				}
 				case 5:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((byte) number2);
 					Player player2 = Main.player[number];
@@ -178,6 +181,7 @@ namespace Terraria
 				}
 				case 7:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.LargeHeap)).CreateWriter();
 					writer.Write((int) Main.time);
 					BitsByte bb3 = 0;
 					bb3[0] = Main.dayTime;
@@ -272,47 +276,52 @@ namespace Terraria
 					break;
 				}
 				case 8:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write(number);
 					writer.Write((int) number2);
 					break;
 				case 9:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write(number);
 					writer.Write(text);
 					break;
 				case 10:
 				{
+					packet = PacketHeap.Allocate(HeapType.LargeHeap);
+
 					/*
 					 * TileSection packets must be sent and arrive in the same order
 					 * on the client and before the TileFrameSection packet or else 
 					 * we will end up with graphical tile glitches.
 					 */
 
-					Netplay.Clients[remoteClient].sendQueue.AllocAndSet(SendQueue.kSendQueueLargeBlockSize, (ArraySegment<byte> seg) =>
-					{
-						seg.Array[seg.Offset + 2] = (byte)PacketTypes.TileSendSection;
-						seg.Array[seg.Offset + 3] = 1; //compressed flag
+					packet.Array[packet.Offset + 2] = (byte)PacketTypes.TileSendSection;
+					packet.Array[packet.Offset + 3] = 1; //compressed flag
 
-						int len = NetMessage.CompressTileBlock(number, (int)number2, (short)number3, (short)number4, seg.Array, seg.Offset + 4);
-						Array.Copy(BitConverter.GetBytes(len + 4), 0, seg.Array, seg.Offset, 2);
+					int len = NetMessage.CompressTileBlock(number, (int)number2, (short)number3, (short)number4, packet.Array, packet.Offset + 4);
+					Array.Copy(BitConverter.GetBytes(len + 4), 0, packet.Array, packet.Offset, 2);
 
-						return true;
-					});
+					packet.SetRecipient(remoteClient);
+					QueueDispatcher.Dispatch(packet);
 
 					return;
 				}
 				case 11:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((short) number2);
 					writer.Write((short) number3);
 					writer.Write((short) number4);
 					break;
 				case 12:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((short) Main.player[number].SpawnX);
 					writer.Write((short) Main.player[number].SpawnY);
 					break;
 				case 13:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					Player player3 = Main.player[number];
 					writer.Write((byte) number);
 					BitsByte bb8 = 0;
@@ -344,15 +353,18 @@ namespace Terraria
 					break;
 				}
 				case 14:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((byte) number2);
 					break;
 				case 16:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((short) Main.player[number].statLife);
 					writer.Write((short) Main.player[number].statLifeMax);
 					break;
 				case 17:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((short) number2);
 					writer.Write((short) number3);
@@ -360,12 +372,14 @@ namespace Terraria
 					writer.Write((byte) number5);
 					break;
 				case 18:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) (Main.dayTime ? 1 : 0));
 					writer.Write((int) Main.time);
 					writer.Write(Main.sunModY);
 					writer.Write(Main.moonModY);
 					break;
 				case 19:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((short) number2);
 					writer.Write((short) number3);
@@ -373,6 +387,7 @@ namespace Terraria
 					break;
 				case 20:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.LargeHeap)).CreateWriter();
 					int num4 = (int) number2;
 					int num5 = (int) number3;
 					if (num4 < number)
@@ -458,6 +473,7 @@ namespace Terraria
 				case 21:
 				case 90:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					Item item2 = Main.item[number];
 					writer.Write((short) number);
 					writer.WriteVector2(item2.position);
@@ -474,11 +490,13 @@ namespace Terraria
 					break;
 				}
 				case 22:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((byte) Main.item[number].owner);
 					break;
 				case 23:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					if (number > Main.npc.Length || number < 0)
 					{
 						return;
@@ -556,10 +574,12 @@ namespace Terraria
 					break;
 				}
 				case 24:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((byte) number2);
 					break;
 				case 25:
+					writer = (packet = PacketHeap.Allocate(HeapType.LargeHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((byte) number2);
 					writer.Write((byte) number3);
@@ -568,6 +588,7 @@ namespace Terraria
 					break;
 				case 26:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number); //player id
 					writer.Write((byte) (number2 + 1f)); //hit direction
 					writer.Write((short) number3); //damage
@@ -581,6 +602,7 @@ namespace Terraria
 				}
 				case 27:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					Projectile projectile = Main.projectile[number];
 					writer.Write((short) projectile.identity);
 					writer.WriteVector2(projectile.position);
@@ -616,6 +638,7 @@ namespace Terraria
 					break;
 				}
 				case 28:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((short) number2);
 					writer.Write(number3);
@@ -623,19 +646,23 @@ namespace Terraria
 					writer.Write((byte) number5);
 					break;
 				case 29:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((byte) number2);
 					break;
 				case 30:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write(Main.player[number].hostile);
 					break;
 				case 31:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((short) number2);
 					break;
 				case 32:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					Item item3 = Main.chest[number].item[(int) ((byte) number2)];
 					writer.Write((short) number);
 					writer.Write((byte) number2);
@@ -651,6 +678,7 @@ namespace Terraria
 				}
 				case 33:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					int num12 = 0;
 					int num13 = 0;
 					int num14 = 0;
@@ -683,6 +711,7 @@ namespace Terraria
 					break;
 				}
 				case 34:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((short) number2);
 					writer.Write((short) number3);
@@ -696,11 +725,13 @@ namespace Terraria
 					break;
 				case 35:
 				case 66:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((short) number2);
 					break;
 				case 36:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					Player player4 = Main.player[number];
 					writer.Write((byte) number);
 					writer.Write(player4.zone1);
@@ -708,30 +739,37 @@ namespace Terraria
 					break;
 				}
 				case 38:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write(text);
 					break;
 				case 39:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					break;
 				case 40:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((short) Main.player[number].talkNPC);
 					break;
 				case 41:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write(Main.player[number].itemRotation);
 					writer.Write((short) Main.player[number].itemAnimation);
 					break;
 				case 42:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((short) Main.player[number].statMana);
 					writer.Write((short) Main.player[number].statManaMax);
 					break;
 				case 43:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((short) number2);
 					break;
 				case 44:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((byte) (number2 + 1f));
 					writer.Write((short) number3);
@@ -739,14 +777,17 @@ namespace Terraria
 					writer.Write(text);
 					break;
 				case 45:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((byte) Main.player[number].team);
 					break;
 				case 46:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((short) number2);
 					break;
 				case 47:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((short) Main.sign[number].x);
 					writer.Write((short) Main.sign[number].y);
@@ -755,6 +796,7 @@ namespace Terraria
 					break;
 				case 48:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					Tile tile2 = Main.tile[number, (int) number2];
 					writer.Write((short) number);
 					writer.Write((short) number2);
@@ -762,7 +804,11 @@ namespace Terraria
 					writer.Write(tile2.liquidType());
 					break;
 				}
+				case 49:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
+					break;
 				case 50:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					for (int num15 = 0; num15 < 22; num15++)
 					{
@@ -770,20 +816,24 @@ namespace Terraria
 					}
 					break;
 				case 51:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((byte) number2);
 					break;
 				case 52:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number2);
 					writer.Write((short) number3);
 					writer.Write((short) number4);
 					break;
 				case 53:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((byte) number2);
 					writer.Write((short) number3);
 					break;
 				case 54:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					for (int num16 = 0; num16 < 5; num16++)
 					{
@@ -792,12 +842,14 @@ namespace Terraria
 					}
 					break;
 				case 55:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((byte) number2);
 					writer.Write((short) number3);
 					break;
 				case 56:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					string value4 = "";
 					if (Main.netMode == 2)
 					{
@@ -808,40 +860,48 @@ namespace Terraria
 					break;
 				}
 				case 57:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write(WorldGen.tGood);
 					writer.Write(WorldGen.tEvil);
 					writer.Write(WorldGen.tBlood);
 					break;
 				case 58:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write(number2);
 					break;
 				case 59:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((short) number2);
 					break;
 				case 60:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((short) number2);
 					writer.Write((short) number3);
 					writer.Write((byte) number4);
 					break;
 				case 61:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((short) number2);
 					break;
 				case 62:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((byte) number2);
 					break;
 				case 63:
 				case 64:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((short) number2);
 					writer.Write((byte) number3);
 					break;
 				case 65:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					BitsByte bb15 = 0;
 					bb15[0] = ((number & 1) == 1);
 					bb15[1] = ((number & 2) == 2);
@@ -854,9 +914,11 @@ namespace Terraria
 					break;
 				}
 				case 68:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write(Main.clientUUID);
 					break;
 				case 69:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					Netplay.GetSectionX((int) number2);
 					Netplay.GetSectionY((int) number3);
 					writer.Write((short) number);
@@ -865,16 +927,19 @@ namespace Terraria
 					writer.Write(text);
 					break;
 				case 70:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((byte) number2);
 					break;
 				case 71:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write(number);
 					writer.Write((int) number2);
 					writer.Write((short) number3);
 					writer.Write((byte) number4);
 					break;
 				case 72:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					for (int num17 = 0; num17 < 40; num17++)
 					{
 						writer.Write((short) Main.travelShop[num17]);
@@ -882,16 +947,19 @@ namespace Terraria
 					break;
 				case 74:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) Main.anglerQuest);
 					bool value5 = Main.anglerWhoFinishedToday.Contains(text);
 					writer.Write(value5);
 					break;
 				}
 				case 76:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write(Main.player[number].anglerQuestsFinished);
 					break;
 				case 77:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					if (Main.netMode != 2)
 					{
 						return;
@@ -902,12 +970,14 @@ namespace Terraria
 					writer.Write((short) number4);
 					break;
 				case 78:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write(number);
 					writer.Write((int) number2);
 					writer.Write((sbyte) number3);
 					writer.Write((sbyte) number4);
 					break;
 				case 79:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((short) number2);
 					writer.Write((short) number3);
@@ -917,11 +987,13 @@ namespace Terraria
 					writer.Write(number7 == 1);
 					break;
 				case 80:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((short) number2);
 					break;
 				case 81:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write(number2);
 					writer.Write(number3);
 					Color c = default(Color);
@@ -932,6 +1004,7 @@ namespace Terraria
 				}
 				case 83:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					int num18 = number;
 					if (num18 < 0 && num18 >= 251)
 					{
@@ -944,6 +1017,7 @@ namespace Terraria
 				}
 				case 84:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					byte b3 = (byte) number;
 					float stealth = Main.player[(int) b3].stealth;
 					writer.Write(b3);
@@ -952,12 +1026,14 @@ namespace Terraria
 				}
 				case 85:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					byte value7 = (byte) number;
 					writer.Write(value7);
 					break;
 				}
 				case 86:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write(number);
 					bool flag2 = TileEntity.ByID.ContainsKey(number);
 					writer.Write(flag2);
@@ -968,12 +1044,14 @@ namespace Terraria
 					break;
 				}
 				case 87:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((short) number2);
 					writer.Write((byte) number3);
 					break;
 				case 88:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					BitsByte bb16 = (byte) number2;
 					BitsByte bb17 = (byte) number3;
 					writer.Write((short) number);
@@ -1039,6 +1117,7 @@ namespace Terraria
 				}
 				case 89:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write((short) number2);
 					Item item5 = Main.player[(int) number4].inventory[(int) number3];
@@ -1048,6 +1127,7 @@ namespace Terraria
 					break;
 				}
 				case 91:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write(number);
 					writer.Write((byte) number2);
 					if (number2 != 255f)
@@ -1062,16 +1142,19 @@ namespace Terraria
 					}
 					break;
 				case 92:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					writer.Write(number2);
 					writer.Write(number3);
 					writer.Write(number4);
 					break;
 				case 95:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((ushort) number);
 					break;
 				case 96:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					Player player5 = Main.player[number];
 					writer.Write((short) number4);
@@ -1081,17 +1164,21 @@ namespace Terraria
 					break;
 				}
 				case 97:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					break;
 				case 98:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((short) number);
 					break;
 				case 99:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.WriteVector2(Main.player[number].MinionTargetPoint);
 					break;
 				case 100:
 				{
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((ushort) number);
 					NPC nPC2 = Main.npc[number];
 					writer.Write((short) number4);
@@ -1101,21 +1188,25 @@ namespace Terraria
 					break;
 				}
 				case 101:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((ushort) NPC.ShieldStrengthTowerSolar);
 					writer.Write((ushort) NPC.ShieldStrengthTowerVortex);
 					writer.Write((ushort) NPC.ShieldStrengthTowerNebula);
 					writer.Write((ushort) NPC.ShieldStrengthTowerStardust);
 					break;
 				case 102:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((byte) number2);
 					writer.Write(number3);
 					writer.Write(number4);
 					break;
 				case 103:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write(NPC.MoonLordCountdown);
 					break;
 				case 104:
+					writer = (packet = PacketHeap.Allocate(HeapType.SmallHeap)).CreateWriter();
 					writer.Write((byte) number);
 					writer.Write((short) number2);
 					writer.Write(((short) number3 < 0) ? 0f : number3);
@@ -1123,14 +1214,19 @@ namespace Terraria
 					writer.Write(number5);
 					writer.Write((byte) number6);
 					break;
+				default:
+					writer = null;
+					break;
 			}
-			int num19 = (int) writer.BaseStream.Position;
-			writer.BaseStream.Position = position;
-			writer.Write((short) num19);
-			writer.BaseStream.Position = (long) num19;
 
-			byte[] packetContents = ms.ToArray();
-			ms.Dispose();
+			if (packet == null)
+			{
+				return;
+			}
+
+			packet.Array[packet.Offset + 2] = (byte) msgType;
+			Array.Copy(BitConverter.GetBytes(writer.BaseStream.Position), 0, packet.Array, packet.Offset, 2);
+
 			writer.Dispose();
 
 
@@ -1138,80 +1234,30 @@ namespace Terraria
 			{
 				if (msgType == 34 || msgType == 69)
 				{
-					for (int num20 = 0; num20 < 256; num20++)
-					{
-						if (num20 != ignoreClient && NetMessage.buffer[num20].broadcast && Netplay.Clients[num20].Socket.IsConnected())
-						{
-							try
-							{
-								NetMessage.buffer[num20].spamCount++;
-								Main.txMsg++;
-								Main.txData += num19;
-
-								var seg = Netplay.Clients[num20].sendQueue.AllocAndCopy(ref packetContents, 0, packetContents.Length);
-								Netplay.Clients[num20].sendQueue.Enqueue(seg);
-
-
-								//Netplay.Clients[num20].Socket.AsyncSend(packetContents, 0, num19,
-								//	new SocketSendCallback(Netplay.Clients[num20].ServerWriteCallBack), null);
-							}
-							catch (Exception ex)
-							{
-#if DEBUG
-										Console.WriteLine(ex);
-										System.Diagnostics.Debugger.Break();
-
-#endif
-							}
-						}
-					}
+					SendQueue.Broadcast(packet, ply => ply != ignoreClient && NetMessage.buffer[ply].broadcast && Netplay.Clients[ply].Socket.IsConnected());
 				}
 				else if (msgType == 20)
 				{
-					for (int num21 = 0; num21 < 256; num21++)
-					{
-						if (num21 != ignoreClient && NetMessage.buffer[num21].broadcast && Netplay.Clients[num21].Socket.IsConnected() &&
-						    Netplay.Clients[num21].SectionRange(number, (int) number2, (int) number3))
-						{
-							try
-							{
-								NetMessage.buffer[num21].spamCount++;
-								Main.txMsg++;
-								Main.txData += num19;
-
-								var seg = Netplay.Clients[num21].sendQueue.AllocAndCopy(ref packetContents, 0, packetContents.Length);
-								Netplay.Clients[num21].sendQueue.Enqueue(seg);
-								;
-
-								//Netplay.Clients[num21].Socket.AsyncSend(packetContents, 0, num19,
-								//	new SocketSendCallback(Netplay.Clients[num21].ServerWriteCallBack), null);
-							}
-							catch (Exception ex)
-							{
-#if DEBUG
-										Console.WriteLine(ex);
-										System.Diagnostics.Debugger.Break();
-
-#endif
-							}
-						}
-					}
+					SendQueue.Broadcast(packet,
+						ply => ply != ignoreClient && NetMessage.buffer[ply].broadcast && Netplay.Clients[ply].Socket.IsConnected() &&
+						       Netplay.Clients[ply].SectionRange(number, (int) number2, (int) number3));
 				}
 				else if (msgType == 23)
 				{
-					NPC nPC3 = Main.npc[number];
-					for (int num22 = 0; num22 < 256; num22++)
+					SendQueue.Broadcast(packet, ply =>
 					{
-						if (num22 != ignoreClient && NetMessage.buffer[num22].broadcast && Netplay.Clients[num22].Socket.IsConnected())
+						NPC nPC3 = Main.npc[number];
+						bool flag3 = false;
+
+						if (ply != ignoreClient && NetMessage.buffer[ply].broadcast && Netplay.Clients[ply].Socket.IsConnected())
 						{
-							bool flag3 = false;
 							if (nPC3.boss || nPC3.netAlways || nPC3.townNPC || !nPC3.active)
 							{
 								flag3 = true;
 							}
 							else if (nPC3.netSkip <= 0)
 							{
-								Rectangle rect = Main.player[num22].getRect();
+								Rectangle rect = Main.player[ply].getRect();
 								Rectangle rect2 = nPC3.getRect();
 								rect2.X -= 2500;
 								rect2.Y -= 2500;
@@ -1226,52 +1272,33 @@ namespace Terraria
 							{
 								flag3 = true;
 							}
-							if (flag3)
+
+							nPC3.netSkip++;
+							if (nPC3.netSkip > 4)
 							{
-								try
-								{
-									NetMessage.buffer[num22].spamCount++;
-									Main.txMsg++;
-									Main.txData += num19;
-
-									var seg = Netplay.Clients[num22].sendQueue.AllocAndCopy(ref packetContents, 0, packetContents.Length);
-									Netplay.Clients[num22].sendQueue.Enqueue(seg);
-
-									//Netplay.Clients[num22].Socket.AsyncSend(packetContents, 0, num19,
-									//	new SocketSendCallback(Netplay.Clients[num22].ServerWriteCallBack), null);
-								}
-								catch (Exception ex)
-								{
-#if DEBUG
-											Console.WriteLine(ex);
-											System.Diagnostics.Debugger.Break();
-
-#endif
-								}
+								nPC3.netSkip = 0;
 							}
 						}
-					}
-					nPC3.netSkip++;
-					if (nPC3.netSkip > 4)
-					{
-						nPC3.netSkip = 0;
-					}
+
+						return flag3;
+					});
 				}
 				else if (msgType == 28)
 				{
-					NPC nPC4 = Main.npc[number];
-					for (int num23 = 0; num23 < 256; num23++)
+					SendQueue.Broadcast(packet, ply =>
 					{
-						if (num23 != ignoreClient && NetMessage.buffer[num23].broadcast && Netplay.Clients[num23].Socket.IsConnected())
+						NPC nPC4 = Main.npc[number];
+						bool flag4 = false;
+
+						if (ply != ignoreClient && NetMessage.buffer[ply].broadcast && Netplay.Clients[ply].Socket.IsConnected())
 						{
-							bool flag4 = false;
 							if (nPC4.life <= 0)
 							{
 								flag4 = true;
 							}
 							else
 							{
-								Rectangle rect3 = Main.player[num23].getRect();
+								Rectangle rect3 = Main.player[ply].getRect();
 								Rectangle rect4 = nPC4.getRect();
 								rect4.X -= 3000;
 								rect4.Y -= 3000;
@@ -1282,81 +1309,45 @@ namespace Terraria
 									flag4 = true;
 								}
 							}
-							if (flag4)
-							{
-								try
-								{
-									NetMessage.buffer[num23].spamCount++;
-									Main.txMsg++;
-									Main.txData += num19;
-
-									var seg = Netplay.Clients[num23].sendQueue.AllocAndCopy(ref packetContents, 0, packetContents.Length);
-									Netplay.Clients[num23].sendQueue.Enqueue(seg);
-									//	Netplay.Clients[num23].Socket.AsyncSend(packetContents, 0, num19,
-									//		new SocketSendCallback(Netplay.Clients[num23].ServerWriteCallBack), null);
-								}
-								catch (Exception ex)
-								{
-#if DEBUG
-											Console.WriteLine(ex);
-											System.Diagnostics.Debugger.Break();
-
-#endif
-								}
-							}
 						}
-					}
+
+						return flag4;
+					});
 				}
 				else if (msgType == 13)
 				{
-					for (int num24 = 0; num24 < 256; num24++)
+					SendQueue.Broadcast(packet, ply =>
 					{
-						if (num24 != ignoreClient && NetMessage.buffer[num24].broadcast && Netplay.Clients[num24].Socket.IsConnected())
+						Main.player[number].netSkip++;
+						if (Main.player[number].netSkip > 2)
 						{
-							try
-							{
-								NetMessage.buffer[num24].spamCount++;
-								Main.txMsg++;
-								Main.txData += num19;
-
-								var seg = Netplay.Clients[num24].sendQueue.AllocAndCopy(ref packetContents, 0, packetContents.Length);
-								Netplay.Clients[num24].sendQueue.Enqueue(seg);
-
-								//Netplay.Clients[num24].Socket.AsyncSend(packetContents, 0, num19,
-								//	new SocketSendCallback(Netplay.Clients[num24].ServerWriteCallBack), null);
-							}
-							catch (Exception ex)
-							{
-#if DEBUG
-										Console.WriteLine(ex);
-										System.Diagnostics.Debugger.Break();
-
-#endif
-							}
+							Main.player[number].netSkip = 0;
 						}
-					}
-					Main.player[number].netSkip++;
-					if (Main.player[number].netSkip > 2)
-					{
-						Main.player[number].netSkip = 0;
-					}
+
+						/*
+						 * TODO: May cause regressions with netskip code running regardless of
+						 * condition.  May have to move the netskip below the returner.
+						 */
+
+						return ply != ignoreClient && NetMessage.buffer[ply].broadcast && Netplay.Clients[ply].Socket.IsConnected();
+					});
 				}
 				else if (msgType == 27)
 				{
-					Projectile projectile2 = Main.projectile[number];
-					for (int num25 = 0; num25 < 256; num25++)
+					SendQueue.Broadcast(packet, ply =>
 					{
-						if (num25 != ignoreClient && NetMessage.buffer[num25].broadcast && Netplay.Clients[num25].Socket.IsConnected())
+						Projectile projectile2 = Main.projectile[number];
+						if (ply != ignoreClient && NetMessage.buffer[ply].broadcast && Netplay.Clients[ply].Socket.IsConnected())
 						{
 							bool flag5 = false;
 							if (projectile2.type == 12 || Main.projPet[projectile2.type] || projectile2.aiStyle == 11 ||
-							    projectile2.netImportant)
+								projectile2.netImportant)
 							{
 								flag5 = true;
 							}
 							else
 							{
-								Rectangle rect5 = Main.player[num25].getRect();
+								Rectangle rect5 = Main.player[ply].getRect();
 								Rectangle rect6 = projectile2.getRect();
 								rect6.X -= 5000;
 								rect6.Y -= 5000;
@@ -1369,84 +1360,26 @@ namespace Terraria
 							}
 							if (flag5)
 							{
-								try
-								{
-									NetMessage.buffer[num25].spamCount++;
-									Main.txMsg++;
-									Main.txData += num19;
-
-									var seg = Netplay.Clients[num25].sendQueue.AllocAndCopy(ref packetContents, 0, packetContents.Length);
-									Netplay.Clients[num25].sendQueue.Enqueue(seg);
-
-									//Netplay.Clients[num25].Socket.AsyncSend(packetContents, 0, num19,
-									//	new SocketSendCallback(Netplay.Clients[num25].ServerWriteCallBack), null);
-								}
-								catch (Exception ex)
-								{
-#if DEBUG
-											Console.WriteLine(ex);
-											System.Diagnostics.Debugger.Break();
-
-#endif
-								}
+								return true;
 							}
 						}
-					}
+
+						return false;
+					});
 				}
 				else
 				{
-					for (int num26 = 0; num26 < 256; num26++)
-					{
-						if (num26 != ignoreClient &&
-						    (NetMessage.buffer[num26].broadcast || (Netplay.Clients[num26].State >= 3 && msgType == 10)) &&
-						    Netplay.Clients[num26].Socket.IsConnected())
-						{
-							try
-							{
-								NetMessage.buffer[num26].spamCount++;
-								Main.txMsg++;
-								Main.txData += num19;
-
-								var seg = Netplay.Clients[num26].sendQueue.AllocAndCopy(ref packetContents, 0, packetContents.Length);
-								Netplay.Clients[num26].sendQueue.Enqueue(seg);
-
-								//Netplay.Clients[num26].Socket.AsyncSend(packetContents, 0, num19,
-								//	new SocketSendCallback(Netplay.Clients[num26].ServerWriteCallBack), null);
-							}
-							catch (Exception ex)
-							{
-#if DEBUG
-										Console.WriteLine(ex);
-										System.Diagnostics.Debugger.Break();
-
-#endif
-							}
-						}
-					}
+					SendQueue.Broadcast(packet, ply => ply != ignoreClient &&
+					                                   (NetMessage.buffer[ply].broadcast ||
+					                                    (Netplay.Clients[ply].State >= 3 && msgType == 10)) &&
+					                                   Netplay.Clients[ply].Socket.IsConnected());
 				}
 			}
 			else if (Netplay.Clients[remoteClient].Socket.IsConnected())
 			{
-				try
-				{
-					NetMessage.buffer[remoteClient].spamCount++;
-					Main.txMsg++;
-					Main.txData += num19;
-
-					var seg = Netplay.Clients[remoteClient].sendQueue.AllocAndCopy(ref packetContents, 0, packetContents.Length);
-					Netplay.Clients[remoteClient].sendQueue.Enqueue(seg);
-
-					//Netplay.Clients[remoteClient].Socket.AsyncSend(packetContents, 0, num19,
-					//	new SocketSendCallback(Netplay.Clients[remoteClient].ServerWriteCallBack), null);
-				}
-				catch (Exception ex)
-				{
-#if DEBUG
-							Console.WriteLine(ex);
-							System.Diagnostics.Debugger.Break();
-
-#endif
-				}
+				packet.SetRecipient(remoteClient);
+				QueueDispatcher.Dispatch(packet);
+				//Netplay.Clients[remoteClient].sendQueue.Enqueue(packet);
 			}
 			if (msgType == 2 && Main.netMode == 2)
 			{
@@ -1457,10 +1390,10 @@ namespace Terraria
 		public static int CompressTileBlock(int xStart, int yStart, short width, short height, byte[] buffer, int bufferStart)
 		{
 			int result;
-			using (MemoryStream memoryStream = new MemoryStream(buffer, bufferStart, SendQueue.kSendQueueLargeBlockSize))
+			using (MemoryStream memoryStream = new MemoryStream(buffer, bufferStart, PacketHeap.kPacketHeapLargeBlockSize))
 			{
 				using (DeflateStream ds = new DeflateStream(memoryStream, CompressionMode.Compress, leaveOpen: true))
-				using (BinaryWriter binaryWriter = new BinaryWriter(ds))
+				using (BinaryWriter binaryWriter = new BinaryWriter(ds, System.Text.Encoding.UTF8))
 				{
 					binaryWriter.Write(xStart);
 					binaryWriter.Write(yStart);
@@ -1468,8 +1401,6 @@ namespace Terraria
 					binaryWriter.Write(height);
 
 					NetMessage.CompressTileBlock_Inner(binaryWriter, xStart, yStart, width, height);
-
-					ds.Flush();
 				}
 
 				result = (int) memoryStream.Position;

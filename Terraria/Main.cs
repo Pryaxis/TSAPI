@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -10634,6 +10635,13 @@ namespace Terraria
 					break;
 				}
 				string lower = str.ToLower();
+
+				if (str == "!free")
+				{
+					Console.WriteLine("sendq: {0}/{1} small blocks used", PacketHeap.usedSmallBlocks.Count(i => i == 1), PacketHeap.kPacketHeapSmallCount);
+					Console.WriteLine("sendq: {0}/{1} large blocks used", PacketHeap.usedLargeBlocks.Count(i => i == 1), PacketHeap.kPacketHeapLargeCount);
+				}
+
 				if (!ServerApi.Hooks.InvokeServerCommand(str))
 				{
 					try

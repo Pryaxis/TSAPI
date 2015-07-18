@@ -6,66 +6,103 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
-using System.Security.Cryptography;
-using Steamworks;
+using System.Runtime.InteropServices;
 using Terraria.Net.Sockets.EventArgs;
 
 namespace Terraria.Net.Sockets
 {
+	public static class QueueDispatcher
+	{
+		private static readonly int kQueueDispatcherThreadCount = Environment.ProcessorCount / 2;
+		private static readonly BlockingCollection<HeapItem> packetQueue = new BlockingCollection<HeapItem>();
+		private static readonly object[] writeSyncRoots = new object[256];
+
+		private static long packetCounter = 0L;
+
+		static QueueDispatcher()
+		{
+			for (int i = 0; i < 256; i++)
+			{
+				writeSyncRoots[i] = new object();
+			}
+
+			for (int i = 0; i < kQueueDispatcherThreadCount; i++)
+			{
+				Thread writeThread = new Thread(DispatchThread);
+				writeThread.IsBackground = true;
+				writeThread.Start();
+			}
+		}
+
+		public static void Dispatch(HeapItem item, params int[] ply)
+		{
+			item.SetRecipients(ply);
+			packetQueue.Add(item);
+		}
+
+		private static void DispatchThread()
+		{
+			HeapItem item;
+			while (true)
+			{
+				if (packetQueue.TryTake(out item, 100) == false)
+				{
+					continue;
+				}
+
+				for (int i = 0; i < 256; i++)
+				{
+					int length;
+
+					if (item.recipients[i] == false)
+					{
+						continue;
+					}
+
+					if (Netplay.Clients[i].Socket.IsConnected() == false)
+					{
+						continue;
+					}
+
+					length = BitConverter.ToInt16(item.Array, item.Offset);
+
+					try
+					{
+						lock (writeSyncRoots[i])
+						{
+							(Netplay.Clients[i].Socket as TcpSocket)._connection.GetStream().Write(item.Array, item.Offset, length);
+							//Netplay.Clients[i].Socket.AsyncSend(item.Array, item.Offset, length, Netplay.Clients[i].ServerWriteCallBack);
+						}
+					}
+					catch
+					{
+						Netplay.Clients[i].PendingTermination = true;
+					}
+				}
+			}
+		}
+
+
+	}
 
 	public class SendQueue : IDisposable
 	{
-		public const int kSendQueueLargeBlockSize = 16384;
-		public const int kSendQueueSmallBlockSize = 128;
-
 		protected volatile bool threadCancelled;
-
-		protected byte[] smallObjectHeap;
-		protected byte[] largeObjectHeap;
-
-		protected int maxLargeBlocks = 192;
-		protected int maxSmallBlocks = 4096;
-		
-		protected int[] freeLargeBlocks;
-		protected int[] freeSmallBlocks;
-
-		protected bool[] queuedLargeBlocks;
-		protected bool[] queuedSmallBlocks;
-
 		protected Thread sendThread;
 		protected RemoteClient client;
-
-		protected AutoResetEvent waitHandle = new AutoResetEvent(false);
-
+		protected BlockingCollection<HeapItem> queue;
+ 
 		public event EventHandler<WriteFailedEventArgs> WriteFailed;
 
 		public SendQueue(RemoteClient client)
 		{
 			this.client = client;
-			freeLargeBlocks = new int[maxLargeBlocks];
-			freeSmallBlocks = new int[maxSmallBlocks];
-
-			for (int i = 0; i < maxLargeBlocks; i++)
-			{
-				freeLargeBlocks[i] = 1;
-			}
-
-			for (int i = 0; i < maxSmallBlocks; i++)
-			{
-				freeSmallBlocks[i] = 1;
-			}
-
-			queuedLargeBlocks = new bool[maxLargeBlocks];
-			queuedSmallBlocks = new bool[maxSmallBlocks];
-
-			smallObjectHeap = new byte[maxSmallBlocks * kSendQueueSmallBlockSize];
 		}
 
 		public void StartThread()
 		{
-			largeObjectHeap = new byte[maxLargeBlocks * kSendQueueLargeBlockSize];
 			threadCancelled = false;
-			(client.Socket as TcpSocket)._connection.SendTimeout = 5000;
+			queue = new BlockingCollection<HeapItem>(new ConcurrentQueue<HeapItem>());
 
 			sendThread = new Thread(WriteThread);
 			sendThread.Name = "Network I/O Thread - " + client.Id;
@@ -74,235 +111,88 @@ namespace Terraria.Net.Sockets
 
 		protected void WriteThread()
 		{
-			SocketError? socketError = null;
+			HeapItem item;
+			int offset;
+			int length;
+
 			while (true)
 			{
-				int blockIndex = 0;
-
-				if (waitHandle.WaitOne(100) == false)
-				{
-					continue;
-				}
-
-				if (threadCancelled == true || client.PendingTermination == true)
+				if (threadCancelled == true)
 				{
 					break;
 				}
 
-				for (blockIndex = 0; blockIndex < maxLargeBlocks; blockIndex++)
+				try
 				{
-					short length;
-					byte type;
-					int offset;
-
-					if (threadCancelled == true)
-					{
-						break;
-					}
-
-					if (queuedLargeBlocks[blockIndex] == false)
+					if (queue.TryTake(out item, 100) == false)
 					{
 						continue;
 					}
-
-					offset = blockIndex * kSendQueueLargeBlockSize;
-					type = largeObjectHeap[offset + 2];
-					length = BitConverter.ToInt16(largeObjectHeap, offset);
-
-					Trace.WriteLineIf(type == 10, string.Format("wrote tile section block {0} len {1}", blockIndex, length));
-					
-					try
-					{
-						(client.Socket as TcpSocket)._connection.GetStream().Write(largeObjectHeap, offset, length);
-					}
-					catch(Exception ex)
-					{
-						WriteFailedEventArgs args = null;
-
-						if (ex.InnerException != null && ex.InnerException is SocketException)
-						{
-							args = new WriteFailedEventArgs() { ErrorCode = (ex.InnerException as SocketException).SocketErrorCode };
-						}
-						else if (ex is SocketException)
-						{
-							args = new WriteFailedEventArgs() { ErrorCode = (ex as SocketException).SocketErrorCode };
-						}
-
-						if (args != null && WriteFailed != null)
-						{
-							Console.Write("SendQ: Slot {0} socket error {1}.", ex.Message);
-							WriteFailed(this, args);
-						}
-						Netplay.Clients[client.Id].PendingTermination = true;
-						break;
-					}
-					finally
-					{
-						FreeLarge(blockIndex);
-					}
 				}
-				for (blockIndex = 0; blockIndex < maxSmallBlocks; blockIndex++)
+				catch (ObjectDisposedException)
 				{
-					short length;
-					int offset;
-
-					if (threadCancelled == true)
-					{
-						break;
-					}
-
-					if (queuedSmallBlocks[blockIndex] == false)
-					{
-						continue;
-					}
-
-					offset = blockIndex * kSendQueueSmallBlockSize;
-					length = BitConverter.ToInt16(smallObjectHeap, offset);
-
-					try
-					{
-						(client.Socket as TcpSocket)._connection.GetStream().Write(smallObjectHeap, offset, length);
-					}
-					catch (Exception ex)
-					{
-						WriteFailedEventArgs args = null;
-
-						if (ex.InnerException != null && ex.InnerException is SocketException)
-						{
-							args = new WriteFailedEventArgs() { ErrorCode = (ex.InnerException as SocketException).SocketErrorCode };
-						}
-						else if (ex is SocketException)
-						{
-							args = new WriteFailedEventArgs() { ErrorCode = (ex as SocketException).SocketErrorCode };
-						}
-
-						if (args != null && WriteFailed != null)
-						{
-							Console.Write("SendQ: Slot {0} socket error {1}.", ex.Message);
-							WriteFailed(this, args);
-						}
-						Netplay.Clients[client.Id].PendingTermination = true;
-						break;
-					}
-					finally
-					{
-						Free(blockIndex);
-					}
+					break;
 				}
-
-
-				//Thread.Sleep(1);
-			}
-		}
-
-
-		public ArraySegment<byte> Alloc(int size)
-		{
-			lock (this)
-			{
-
-				if (size <= kSendQueueSmallBlockSize)
+				catch (ArgumentNullException)
 				{
-					for (int i = 0; i < maxSmallBlocks; i++)
-					{
-						if (1 == Interlocked.CompareExchange(ref freeSmallBlocks[i], 0, 1))
-						{
-							return new ArraySegment<byte>(smallObjectHeap, i*kSendQueueSmallBlockSize, kSendQueueSmallBlockSize);
-						}
-					}
+					break;
 				}
 
-				for (int i = 0; i < maxLargeBlocks; i++)
+				offset = item.Offset;
+				length = BitConverter.ToInt16(item.Array, offset);
+
+				try
 				{
-					if (1 == Interlocked.CompareExchange(ref freeLargeBlocks[i], 0, 1))
-					{
-						return new ArraySegment<byte>(largeObjectHeap, i*kSendQueueLargeBlockSize, kSendQueueLargeBlockSize);
-					}
+					(client.Socket as TcpSocket)._connection.GetStream().Write(item.Array, offset, length);
 				}
-			}
-
-			//Console.WriteLine("send: slot {0} alloc failed!", client.Id);
-			return default(ArraySegment<byte>);
-		}
-
-		public void AllocAndSet(int size, Func<ArraySegment<byte>, bool> setFunc)
-		{
-			ArraySegment<byte> block = Alloc(size);
-			if (block == default(ArraySegment<byte>))
-			{
-				return;
-			}
-
-			if (setFunc(block))
-			{
-				Enqueue(block);
-			}
-		}
-
-		public void AllocAndSet(int size, Func<BinaryWriter, bool> setFunc)
-		{
-			ArraySegment<byte> block = Alloc(size);
-			if (block == default(ArraySegment<byte>))
-			{
-				return;
-			}
-
-			using (MemoryStream ms = new MemoryStream(block.Array, block.Offset, block.Count, true))
-			using (BinaryWriter bw = new BinaryWriter(ms))
-			{
-				if (setFunc(bw))
+				catch 
 				{
-					Enqueue(block);
+					Netplay.Clients[client.Id].PendingTermination = true;
+				}
+				finally
+				{
 				}
 			}
 		}
 
-		public ArraySegment<byte> AllocAndCopy(ref byte[] buffer, int offset, int count)
+		public void Enqueue(HeapItem item)
 		{
-			ArraySegment<byte> block = Alloc(count);
-			if (block == default(ArraySegment<byte>))
+			int offset = item.Offset;
+			int type = item.Array[item.Offset + 2];
+			int length = BitConverter.ToInt16(item.Array, offset);
+
+			if (length < 0 || length > PacketHeap.kPacketHeapLargeBlockSize || Enum.IsDefined(typeof(PacketTypes), type) == false)
 			{
-				return default(ArraySegment<byte>);
+				//System.Diagnostics.Debugger.Break();
 			}
+			//try
+			//{
+			//	(client.Socket as TcpSocket)._connection.GetStream().Write(item.Array, offset, length);
+			//}
+			//catch
+			//{
 
-			if (count > block.Count)
+			//}
+			//finally
+			//{
+			//}
+			if (queue != null)
 			{
-				throw new Exception("Attempt to overwrite boundary");
+				queue.Add(item);
 			}
-
-			Array.Copy(buffer, offset, block.Array, block.Offset + offset, count);
-
-			return block;
 		}
 
-
-		public void Enqueue(ArraySegment<byte> block)
+		public static void Broadcast(HeapItem item, Func<int, bool> selector = null)
 		{
-			if (block == default(ArraySegment<byte>))
+			for (int i = 0; i < 256; i++)
 			{
-				return;
+				if (selector == null || selector(i))
+				{
+					item.SetRecipient(i);
+				}
 			}
-			if (block.Count == kSendQueueLargeBlockSize)
-			{
-				queuedLargeBlocks[block.Offset/kSendQueueLargeBlockSize] = true; //atomic
-			}
-			else
-			{
-				queuedSmallBlocks[block.Offset/kSendQueueSmallBlockSize] = true;
-			}
-			waitHandle.Set();
-		}
 
-		public void FreeLarge(int block)
-		{
-			Interlocked.Exchange(ref freeLargeBlocks[block], 1);
-			queuedLargeBlocks[block] = false;
-		}
-
-		public void Free(int block)
-		{
-			Interlocked.Exchange(ref freeSmallBlocks[block], 1);
-			queuedSmallBlocks[block] = false;
+			QueueDispatcher.Dispatch(item);
 		}
 
 		~SendQueue()
@@ -318,20 +208,13 @@ namespace Terraria.Net.Sockets
 
 		public void Reset()
 		{
-			//for (int i = 0; i < maxSmallBlocks; i++)
-			//{
-			//	freeSmallBlocks[i] = 1;
-			//	queuedSmallBlocks[i] = false;
-			//}
-
-			//for (int i = 0; i < maxLargeBlocks; i++)
-			//{
-			//	freeLargeBlocks[i] = 1;
-			//	queuedLargeBlocks[i] = false;
-			//}
-		
 			threadCancelled = true;
-			waitHandle.Set();
+
+			if (queue != null)
+			{
+				queue.Dispose();
+				queue = null;
+			}
 		}
 
 		protected virtual void Dispose(bool disposing)
@@ -339,13 +222,12 @@ namespace Terraria.Net.Sockets
 			if (sendThread != null)
 			{
 				threadCancelled = true;
-				waitHandle.Set();
 				sendThread.Join();
 			}
 
 			if (disposing)
 			{
-				waitHandle.Dispose();
+				queue.Dispose();
 			}
 		}
 	}

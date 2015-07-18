@@ -45,6 +45,7 @@ namespace Terraria.Net.Sockets
 				try
 				{
 					ISocket tcpSocket = new TcpSocket(this._listener.AcceptTcpClient());
+					(tcpSocket as TcpSocket)._connection.SendTimeout = 1000;
 					this._listenerCallback(tcpSocket);
 				}
 				catch (Exception ex)
@@ -95,7 +96,7 @@ namespace Terraria.Net.Sockets
 			{
 				this._connection.GetStream().EndWrite(result);
 			}
-			catch (Exception ex)
+			catch
 			{
 				//write failed
 			}
@@ -129,9 +130,9 @@ namespace Terraria.Net.Sockets
 			
 			try
 			{
-				this._connection.GetStream().Write(data, offset, size);
+				this._connection.GetStream().BeginWrite(data, offset, size, SendCallback, new Tuple<SocketSendCallback, object>(callback, null));
 			}
-			catch (Exception ex)
+			catch
 			{
 				//Write failed
 			}
@@ -167,7 +168,7 @@ namespace Terraria.Net.Sockets
 
 		bool Terraria.Net.Sockets.ISocket.IsConnected()
 		{
-			if (this._connection == null || this._connection.Client == null)
+			if (this._connection == null || this._connection.Client == null || this._connectionDisposed == true)
 			{
 				return false;
 			}
@@ -187,7 +188,6 @@ namespace Terraria.Net.Sockets
 
 				return false;
 			}
-
 
 			return false;
 		}

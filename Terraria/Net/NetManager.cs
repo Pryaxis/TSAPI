@@ -37,7 +37,7 @@ namespace Terraria.Net
 			{
 				if (i != ignoreClient && Netplay.Clients[i].Socket.IsConnected())
 				{
-					NetManager.SendData(i, Netplay.Clients[i].Socket, packet);
+				///	NetManager.SendData(i, Netplay.Clients[i].Socket, packet);
 				}
 			}
 		}
@@ -92,13 +92,9 @@ namespace Terraria.Net
 
 		public static void SendData(int player, ISocket socket, NetPacket packet)
 		{
-			ArraySegment<byte> seg;
-
-			Netplay.Clients[player].sendQueue.AllocAndSet(packet.Length, (BinaryWriter bw) =>
-			{
-				bw.Write(packet.Buffer.Data, 0, packet.Length);
-				return true;
-			});
+			HeapItem item = PacketHeap.Allocate(HeapType.LargeHeap);
+			Array.Copy(packet.Buffer.Data, 0, item.Array, item.Offset, packet.Length);
+			SendQueue.Broadcast(item);
 		}
 
 		private static void UpdateStats(int length)
