@@ -56,9 +56,9 @@ namespace TerrariaApi.Server
 			get;
 			internal set;
 		}
-		public static bool RunningMono { get; set; }
-		public static bool ForceUpdate { get; set; }
-		public static bool UseAsyncSocketsInMono { get; set; }
+		public static bool RunningMono { get; private set; }
+		public static bool ForceUpdate { get; private set; }
+		public static bool UseAsyncSocketsInMono { get; private set; }
 
 		static ServerApi()
 		{
@@ -117,6 +117,42 @@ namespace TerrariaApi.Server
 			UnloadPlugins();
 			Profiler.Deatch();
 			LogWriter.Deatch();
+		}
+
+		internal static void HandleCommandLine(string[] parms)
+		{
+			for (int i = 0; i < parms.Length; i++)
+			{
+				switch (parms[i].ToLower())
+				{
+					case "-ignoreversion":
+						{
+							ServerApi.IgnoreVersion = true;
+							ServerApi.LogWriter.ServerWriteLine(
+								"Plugin versions are no longer being regarded, you are on your own! If problems arise, TShock developers will not help you with issues regarding this.",
+								TraceLevel.Warning);
+
+							break;
+						}
+					case "-forceupdate":
+						{
+							ServerApi.ForceUpdate = true;
+							ServerApi.LogWriter.ServerWriteLine(
+								"Forcing game updates regardless of players! This is experimental, and will cause constant CPU usage, you are on your own.",
+								TraceLevel.Warning);
+
+							break;
+						}
+					case "-asyncmono":
+						{
+							ServerApi.UseAsyncSocketsInMono = true;
+							ServerApi.LogWriter.ServerWriteLine(
+								"Forcing Mono to use asynchronous sockets.  This is highly experimental and may not work on all versions of Mono.",
+								TraceLevel.Warning);
+							break;
+						}
+				}
+			}
 		}
 
 		internal static void LoadPlugins()
