@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using Terraria;
 using Terraria.Achievements;
@@ -8,7 +6,6 @@ namespace Terraria.GameContent.Achievements
 {
 	internal class CustomFloatCondition : AchievementCondition
 	{
-		[JsonProperty("Value")]
 		private float _value;
 
 		private float _maxValue;
@@ -54,16 +51,6 @@ namespace Terraria.GameContent.Achievements
 		protected override IAchievementTracker CreateAchievementTracker()
 		{
 			return new ConditionFloatTracker(this._maxValue);
-		}
-
-		public override void Load(JObject state)
-		{
-			base.Load(state);
-			this._value = (float)((float)state["Value"]);
-			if (this._tracker != null)
-			{
-				((ConditionFloatTracker)this._tracker).SetValue(this._value, false);
-			}
 		}
 	}
 }

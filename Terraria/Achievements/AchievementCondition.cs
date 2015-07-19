@@ -1,18 +1,14 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Threading;
 
 namespace Terraria.Achievements
 {
-	[JsonObject(MemberSerialization.OptIn)]
 	public abstract class AchievementCondition
 	{
 		public readonly string Name;
 
 		protected IAchievementTracker _tracker;
 
-		[JsonProperty("Completed")]
 		private bool _isCompleted;
 
 		public bool IsCompleted
@@ -58,11 +54,6 @@ namespace Terraria.Achievements
 				this._tracker = this.CreateAchievementTracker();
 			}
 			return this._tracker;
-		}
-
-		public virtual void Load(JObject state)
-		{
-			this._isCompleted = (bool)state["Completed"];
 		}
 
 		public event AchievementCondition.AchievementUpdate OnComplete;
