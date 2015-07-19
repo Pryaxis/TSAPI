@@ -86,7 +86,7 @@ namespace TerrariaApi.Server
 				"\tMono: " + RunningMono, TraceLevel.Verbose);
 
 			ServerApi.game = game;
-
+			HandleCommandLine(commandLineArgs);
 			ServerPluginsDirectoryPath = Path.Combine(Environment.CurrentDirectory, PluginsPath);
 
 			if (!Directory.Exists(ServerPluginsDirectoryPath))
