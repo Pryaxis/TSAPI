@@ -7220,70 +7220,133 @@ namespace Terraria.ID
 
 		public const short Count = 3602;
 
-		public ItemID()
-		{
-		}
-
 		public class Sets
 		{
-			public static SetFactory Factory;
-
-			public static bool[] Deprecated;
-
-			public static bool[] Explosives;
-
-			public static bool[] ItemIconPulse;
-
-			public static bool[] ItemNoGravity;
-
-			public static int[] ExtractinatorMode;
-
-			public static int[] StaffMinionSlotsRequired;
-
-			public static bool[] ExoticPlantsForDyeTrade;
-
-			public static bool[] NebulaPickup;
-
-			public static bool[] AnimatesAsSoul;
-
-			public static bool[] gunProj;
-
-			static Sets()
+			public static SetFactory Factory = new SetFactory(Count);
+			public static bool[] Deprecated = ItemID.Sets.Factory.CreateBoolSet(new int[]
 			{
-				ItemID.Sets.Factory = new SetFactory(Main.maxItemTypes);
-				SetFactory factory = ItemID.Sets.Factory;
-				int[] numArray = new int[] { 2784, 2783, 2785, 2782, 2774, 2773, 2775, 2772, 2779, 2778, 2780, 2777, 3464, 3463, 3465, 3462, 3341, 3342, 3343, 3340, 3344, 3345, 3346, 3273, 2881 };
-				ItemID.Sets.Deprecated = factory.CreateBoolSet(numArray);
-				SetFactory explosiveFactory = ItemID.Sets.Factory;
-				int[] explosives = new int[] { 166, 167, 235, 580, 758, 759, 772, 774, 1946, 2896, 3115, 3196 };
-				ItemID.Sets.Explosives = explosiveFactory.CreateBoolSet(explosives);
-				SetFactory setFactory = ItemID.Sets.Factory;
-				int[] numArray1 = new int[] { 520, 521, 575, 549, 548, 547, 3456, 3457, 3458, 3459, 3580, 3581 };
-				ItemID.Sets.ItemIconPulse = setFactory.CreateBoolSet(numArray1);
-				SetFactory factory1 = ItemID.Sets.Factory;
-				int[] numArray2 = new int[] { 520, 521, 575, 549, 548, 547, 3453, 3454, 3455, 3456, 3457, 3458, 3459, 3580, 3581 };
-				ItemID.Sets.ItemNoGravity = factory1.CreateBoolSet(numArray2);
-				SetFactory setFactory1 = ItemID.Sets.Factory;
-				int[] numArray3 = new int[] { 424, 0, 1103, 0, 3347, 1 };
-				ItemID.Sets.ExtractinatorMode = setFactory1.CreateIntSet(-1, numArray3);
-				ItemID.Sets.StaffMinionSlotsRequired = ItemID.Sets.Factory.CreateIntSet(1, new int[0]);
-				SetFactory factory2 = ItemID.Sets.Factory;
-				int[] numArray4 = new int[] { 3385, 3386, 3387, 3388 };
-				ItemID.Sets.ExoticPlantsForDyeTrade = factory2.CreateBoolSet(numArray4);
-				SetFactory setFactory2 = ItemID.Sets.Factory;
-				int[] numArray5 = new int[] { 3453, 3454, 3455 };
-				ItemID.Sets.NebulaPickup = setFactory2.CreateBoolSet(numArray5);
-				SetFactory factory3 = ItemID.Sets.Factory;
-				int[] numArray6 = new int[] { 575, 547, 520, 548, 521, 549, 3580, 3581 };
-				ItemID.Sets.AnimatesAsSoul = factory3.CreateBoolSet(numArray6);
-				SetFactory setFactory3 = ItemID.Sets.Factory;
-				int[] numArray7 = new int[] { 3475, 3540 };
-				ItemID.Sets.gunProj = setFactory3.CreateBoolSet(numArray7);
-			}
-
-			public Sets()
+				/* None of these items were actually deprecated and this was causing SetDefaults
+					to fail on these items. */
+				//SolarFlareDrill,
+				//SolarFlareChainsaw,
+				//SolarFlareHammer,
+				//SolarFlareAxe,
+				//VortexDrill,
+				//VortexChainsaw,
+				//VortexHammer,
+				//VortexAxe,
+				//NebulaDrill,
+				//NebulaChainsaw,
+				//NebulaHammer,
+				//NebulaAxe,
+				//StardustDrill,
+				//StardustChainsaw,
+				//StardustHammer,
+				//StardustAxe,
+				//CorruptHardenedSandWall,
+				//CrimsonHardenedSandWall,
+				//HallowHardenedSandWall,
+				//HardenedSandWall,
+				//CorruptSandstoneWall,
+				//CrimsonSandstoneWall,
+				//HallowSandstoneWall,
+				//SandstoneWall,
+				//PhasicWarpEjector
+			});
+			public static bool[] Explosives = ItemID.Sets.Factory.CreateBoolSet(new int[]
 			{
-			}
+				Bomb,
+				Dynamite,
+				StickyBomb,
+				ItemID.Explosives,
+				GrenadeLauncher,
+				RocketLauncher,
+				RocketII,
+				RocketIV,
+				SnowmanCannon,
+				StickyDynamite,
+				BouncyBomb,
+				BombFish
+			});
+			public static bool[] NeverShiny = ItemID.Sets.Factory.CreateBoolSet(new int[]
+			{
+				CopperCoin,
+				SilverCoin,
+				GoldCoin,
+				PlatinumCoin
+			});
+			public static bool[] ItemIconPulse = ItemID.Sets.Factory.CreateBoolSet(new int[]
+			{
+				SoulofLight,
+				SoulofNight,
+				SoulofFlight,
+				SoulofSight,
+				SoulofMight,
+				SoulofFright,
+				FragmentVortex,
+				FragmentNebula,
+				FragmentSolar,
+				FragmentStardust,
+				Yoraiz0rWings,
+				Yoraiz0rDarkness
+			});
+			public static bool[] ItemNoGravity = ItemID.Sets.Factory.CreateBoolSet(new int[]
+			{
+				SoulofLight,
+				SoulofNight,
+				SoulofFlight,
+				SoulofSight,
+				SoulofMight,
+				SoulofFright,
+				NebulaPickup1,
+				NebulaPickup2,
+				NebulaPickup3,
+				FragmentVortex,
+				FragmentNebula,
+				FragmentSolar,
+				FragmentStardust,
+				Yoraiz0rWings,
+				Yoraiz0rDarkness
+			});
+			public static int[] ExtractinatorMode = ItemID.Sets.Factory.CreateIntSet(-1, new int[]
+			{
+				SiltBlock,
+				0,
+				SlushBlock,
+				0,
+				DesertFossil,
+				1
+			});
+			public static int[] StaffMinionSlotsRequired = ItemID.Sets.Factory.CreateIntSet(1);
+			public static bool[] ExoticPlantsForDyeTrade = ItemID.Sets.Factory.CreateBoolSet(new int[]
+			{
+				StrangePlant1,
+				StrangePlant2,
+				StrangePlant3,
+				StrangePlant4
+			});
+			public static bool[] NebulaPickup = ItemID.Sets.Factory.CreateBoolSet(new int[]
+			{
+				NebulaPickup1,
+				NebulaPickup2,
+				NebulaPickup3
+			});
+			public static bool[] AnimatesAsSoul = ItemID.Sets.Factory.CreateBoolSet(new int[]
+			{
+				SoulofFlight,
+				SoulofFright,
+				SoulofLight,
+				SoulofMight,
+				SoulofNight,
+				SoulofSight,
+				Yoraiz0rWings,
+				Yoraiz0rDarkness
+			});
+			public static bool[] gunProj = ItemID.Sets.Factory.CreateBoolSet(new int[]
+			{
+				VortexBeater,
+				Phantasm
+			});
 		}
 	}
 }

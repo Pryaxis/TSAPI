@@ -39704,7 +39704,7 @@ namespace Terraria
 									if (type == 2777)
 									{
 										this.SetDefaults3(2772);
-										type = 2777;
+										this.type = 2777;
 										this.name = "Nebula Axe";
 										this.glowMask = 6;
 										return;
@@ -39712,7 +39712,7 @@ namespace Terraria
 									if (type == 2778)
 									{
 										this.SetDefaults3(2773);
-										type = 2778;
+										this.type = 2778;
 										this.name = "Nebula Chainsaw";
 										this.shoot = 429;
 										this.glowMask = 22;
@@ -39721,7 +39721,7 @@ namespace Terraria
 									if (type == 2779)
 									{
 										this.SetDefaults3(2774);
-										type = 2779;
+										this.type = 2779;
 										this.name = "Nebula Drill";
 										this.shoot = 430;
 										this.glowMask = 23;
@@ -39730,7 +39730,7 @@ namespace Terraria
 									if (type == 2780)
 									{
 										this.SetDefaults3(2775);
-										type = 2780;
+										this.type = 2780;
 										this.name = "Nebula Hammer";
 										this.glowMask = 9;
 										return;
@@ -39738,7 +39738,7 @@ namespace Terraria
 									if (type == 2781)
 									{
 										this.SetDefaults3(2776);
-										type = 2781;
+										this.type = 2781;
 										this.name = "Nebula Pickaxe";
 										this.glowMask = 10;
 										return;
@@ -39746,7 +39746,7 @@ namespace Terraria
 									if (type == 2782)
 									{
 										this.SetDefaults3(2772);
-										type = 2782;
+										this.type = 2782;
 										this.name = "Solar Flare Axe";
 										this.glowMask = 0;
 										return;
@@ -39754,7 +39754,7 @@ namespace Terraria
 									if (type == 2783)
 									{
 										this.SetDefaults3(2773);
-										type = 2783;
+										this.type = 2783;
 										this.name = "Solar Flare Chainsaw";
 										this.shoot = 431;
 										this.glowMask = 0;
@@ -39763,7 +39763,7 @@ namespace Terraria
 									if (type == 2784)
 									{
 										this.SetDefaults3(2774);
-										type = 2784;
+										this.type = 2784;
 										this.name = "Solar Flare Drill";
 										this.shoot = 432;
 										this.glowMask = 0;
@@ -39772,7 +39772,7 @@ namespace Terraria
 									if (type == 2785)
 									{
 										this.SetDefaults3(2775);
-										type = 2785;
+										this.type = 2785;
 										this.name = "Solar Flare Hammer";
 										this.glowMask = 0;
 										return;
@@ -39780,7 +39780,7 @@ namespace Terraria
 									if (type == 2786)
 									{
 										this.SetDefaults3(2776);
-										type = 2786;
+										this.type = 2786;
 										this.name = "Solar Flare Pickaxe";
 										this.glowMask = 0;
 										return;
@@ -45398,7 +45398,7 @@ namespace Terraria
 				if (type == 3462)
 				{
 					this.SetDefaults3(2772);
-					type = 3462;
+					this.type = 3462;
 					this.name = "Stardust Axe";
 					this.glowMask = 174;
 					return;
@@ -45406,7 +45406,7 @@ namespace Terraria
 				if (type == 3463)
 				{
 					this.SetDefaults3(2773);
-					type = 3463;
+					this.type = 3463;
 					this.name = "Stardust Chainsaw";
 					this.shoot = 610;
 					this.glowMask = 175;
@@ -45415,7 +45415,7 @@ namespace Terraria
 				if (type == 3464)
 				{
 					this.SetDefaults3(2774);
-					type = 3464;
+					this.type = 3464;
 					this.name = "Stardust Drill";
 					this.shoot = 609;
 					this.glowMask = 176;
@@ -45424,7 +45424,7 @@ namespace Terraria
 				if (type == 3465)
 				{
 					this.SetDefaults3(2775);
-					type = 3465;
+					this.type = 3465;
 					this.name = "Stardust Hammer";
 					this.glowMask = 177;
 					return;
@@ -45432,7 +45432,7 @@ namespace Terraria
 				if (type == 3466)
 				{
 					this.SetDefaults3(2776);
-					type = 3466;
+					this.type = 3466;
 					this.name = "Stardust Pickaxe";
 					this.glowMask = 178;
 					return;
