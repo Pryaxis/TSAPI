@@ -6,6 +6,8 @@ using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Events;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
+using Terraria.GameContent.UI;
+
 namespace Terraria
 {
 	public class NPC : Entity
@@ -43468,11 +43470,10 @@ namespace Terraria
 						{
 							this.frame.Y = num * (num4 - 1);
 							this.frameCounter = 0.0;
-							//Preserve on the off chance we can actually re-add bubbles
-							/*if (Main.netMode != 1)
+							if (Main.netMode != 1)
 							{
 								EmoteBubble.NewBubble(89, new WorldUIAnchor(this), 30);
-							}*/
+							}
 						}
 						else if (this.frame.Y != 0 && this.frame.Y != num * (num4 - 1))
 						{
@@ -43645,8 +43646,7 @@ namespace Terraria
 						}
 						else if (this.frameCounter == 16.0 && Main.netMode != 1)
 						{
-							//Preserve on the off chance we can actually re-add bubbles
-							//EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), 112, null);
+							EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), 112, null);
 						}
 						else if (this.frameCounter < 128.0)
 						{
@@ -43658,8 +43658,7 @@ namespace Terraria
 						}
 						else if (this.frameCounter == 160.0 && Main.netMode != 1)
 						{
-							//Preserve on the off chance we can actually re-add bubbles
-							//EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), 60, null);
+							EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), 60, null);
 						}
 						else if (this.frameCounter < 220.0)
 						{
@@ -43968,13 +43967,11 @@ namespace Terraria
 						{
 							if (num31 != -1)
 							{
-								//Preserve on the off chance we can actually re-add bubbles
-								//EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), num31, new WorldUIAnchor(Main.npc[(int)this.ai[2]]));
+								EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), num31, new WorldUIAnchor(Main.npc[(int)this.ai[2]]));
 							}
 							if (num32 != -1)
 							{
-								//Preserve on the off chance we can actually re-add bubbles
-								//EmoteBubble.NewBubbleNPC(new WorldUIAnchor(Main.npc[(int)this.ai[2]]), num32, new WorldUIAnchor(this));
+								EmoteBubble.NewBubbleNPC(new WorldUIAnchor(Main.npc[(int)this.ai[2]]), num32, new WorldUIAnchor(this));
 							}
 						}
 						this.frame.Y = num * (flag ? num29 : num30);
@@ -44202,9 +44199,8 @@ namespace Terraria
 									num46 -= 3;
 								}
 							}
-							//Preserve on the off chance we can actually re-add bubbles
-							//EmoteBubble.NewBubble(num45, new WorldUIAnchor(this), num35);
-							//EmoteBubble.NewBubble(num46, new WorldUIAnchor(Main.npc[(int)this.ai[2]]), num35);
+							EmoteBubble.NewBubble(num45, new WorldUIAnchor(this), num35);
+							EmoteBubble.NewBubble(num46, new WorldUIAnchor(Main.npc[(int)this.ai[2]]), num35);
 						}
 						this.frame.Y = num * (flag2 ? num34 : num34);
 						if (this.frameCounter >= 420.0)
@@ -61934,19 +61930,6 @@ namespace Terraria
 						this.teleportTime -= 0.02f;
 					}
 					this.teleportTime -= 0.005f;
-				}
-				//Shouldn't be necessary because dedServ should ALWAYS be netMode = 2
-				if (Main.netMode != 2)
-				{
-					if (this.type >= 362 && this.type <= 365)
-					{
-					}
-					else if (this.type == 361 || this.type == 445)
-					{
-					}
-					else if (this.type == 74 || this.type == 297 || this.type == 298 || this.type == 442)
-					{
-					}
 				}
 				if (Main.netMode == 1 && (this.townNPC || this.type == 453) && this.type != 37 && this.npcNameLookup == 0)
 				{
