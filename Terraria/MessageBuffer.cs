@@ -1428,10 +1428,14 @@ namespace Terraria
 					bool flag6 = bitsByte12[0];
 					bool item7 = bitsByte12[1];
 					int cooldownCounter = bitsByte12[2] ? 0 : -1;
+					if (bitsByte12[3])
+					{
+						cooldownCounter = 1;
+					}
 					Main.player[num59].Hurt(num61, num60, flag6, true, str3, item7, cooldownCounter);
 					if (Main.netMode == 2)
 					{
-						NetMessage.SendData(26, -1, this.whoAmI, str3, num59, (float)num60, (float)num61, (float)(flag6 ? 1 : 0), item7 ? 1 : 0, 0, 0);
+						NetMessage.SendData(26, -1, this.whoAmI, str3, num59, (float)num60, (float)num61, (float)(flag6 ? 1 : 0), item7 ? 1 : 0, cooldownCounter, 0);
 						return;
 					}
 					return;
