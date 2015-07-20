@@ -1,5 +1,4 @@
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Terraria.ID
@@ -1256,49 +1255,40 @@ namespace Terraria.ID
 
 			public static bool[] TechnicallyABoss;
 
+			public static bool[] NeedsExpertScaling;
+
+			public static bool[] ProjectileNPC;
+
 			static Sets()
 			{
 				NPCID.Sets.Factory = new SetFactory(540);
-				SetFactory factory = NPCID.Sets.Factory;
 				int[] numArray = new int[] { 422, 507, 517, 493 };
-				NPCID.Sets.SavesAndLoads = factory.CreateBoolSet(numArray);
-				SetFactory setFactory = NPCID.Sets.Factory;
+				NPCID.Sets.SavesAndLoads = NPCID.Sets.Factory.CreateBoolSet(numArray);
 				int[] numArray1 = new int[] { 402, 36, 519, 20, 522, 20 };
-				NPCID.Sets.TrailCacheLength = setFactory.CreateIntSet(10, numArray1);
-				SetFactory factory1 = NPCID.Sets.Factory;
+				NPCID.Sets.TrailCacheLength = NPCID.Sets.Factory.CreateIntSet(10, numArray1);
 				int[] numArray2 = new int[] { 4, 13, 50, 126, 125, 134, 127, 128, 131, 129, 130, 222, 245, 266, 370, 75, 398, 439, 493, 507, 422, 517 };
-				NPCID.Sets.MPAllowedEnemies = factory1.CreateBoolSet(numArray2);
-				SetFactory setFactory1 = NPCID.Sets.Factory;
+				NPCID.Sets.MPAllowedEnemies = NPCID.Sets.Factory.CreateBoolSet(numArray2);
 				int[] numArray3 = new int[] { 46, 148, 149, 230, 299, 300, 303, 337, 361, 362, 364, 366, 367, 443, 445, 447, 538, 539 };
-				NPCID.Sets.TownCritter = setFactory1.CreateBoolSet(numArray3);
-				SetFactory factory2 = NPCID.Sets.Factory;
+				NPCID.Sets.TownCritter = NPCID.Sets.Factory.CreateBoolSet(numArray3);
 				int[] numArray4 = new int[] { 17, 101, 18, 102, 19, 103, 20, 104, 22, 105, 37, 106, 38, 107, 54, 108, 107, 109, 108, 110, 124, 111, 142, 112, 160, 113, 178, 114, 207, 115, 208, 116, 209, 117, 227, 118, 228, 119, 229, 120, 353, 121, 368, 122, 369, 123, 453, 124, 441, 125 };
-				NPCID.Sets.FaceEmote = factory2.CreateIntSet(0, numArray4);
-				SetFactory setFactory2 = NPCID.Sets.Factory;
+				NPCID.Sets.FaceEmote = NPCID.Sets.Factory.CreateIntSet(0, numArray4);
 				int[] numArray5 = new int[] { 17, 9, 18, 9, 19, 9, 20, 7, 22, 10, 37, 5, 38, 9, 54, 7, 107, 9, 108, 7, 124, 9, 142, 9, 160, 7, 178, 9, 207, 9, 208, 9, 209, 10, 227, 9, 228, 10, 229, 10, 353, 9, 368, 10, 369, 9, 453, 9, 441, 9 };
-				NPCID.Sets.ExtraFramesCount = setFactory2.CreateIntSet(0, numArray5);
-				SetFactory factory3 = NPCID.Sets.Factory;
+				NPCID.Sets.ExtraFramesCount = NPCID.Sets.Factory.CreateIntSet(0, numArray5);
 				int[] numArray6 = new int[] { 17, 4, 18, 4, 19, 4, 20, 2, 22, 5, 37, 0, 38, 4, 54, 2, 107, 4, 108, 2, 124, 4, 142, 4, 160, 2, 178, 4, 207, 4, 208, 4, 209, 5, 227, 4, 228, 5, 229, 5, 353, 4, 368, 5, 369, 4, 453, 4, 441, 4 };
-				NPCID.Sets.AttackFrameCount = factory3.CreateIntSet(0, numArray6);
-				SetFactory setFactory3 = NPCID.Sets.Factory;
+				NPCID.Sets.AttackFrameCount = NPCID.Sets.Factory.CreateIntSet(0, numArray6);
 				int[] numArray7 = new int[] { 38, 300, 17, 320, 107, 300, 19, 900, 22, 700, 124, 800, 228, 800, 178, 900, 18, 300, 229, 1000, 209, 1000, 54, 700, 108, 700, 160, 700, 20, 1200, 369, 300, 453, 300, 368, 900, 207, 60, 227, 800, 208, 400, 142, 500, 441, 50, 353, 60 };
-				NPCID.Sets.DangerDetectRange = setFactory3.CreateIntSet(-1, numArray7);
-				SetFactory factory4 = NPCID.Sets.Factory;
+				NPCID.Sets.DangerDetectRange = NPCID.Sets.Factory.CreateIntSet(-1, numArray7);
 				int[] numArray8 = new int[] { 38, 34, 17, 34, 107, 60, 19, 40, 22, 30, 124, 34, 228, 40, 178, 24, 18, 34, 229, 60, 209, 60, 54, 60, 108, 30, 160, 60, 20, 600, 369, 34, 453, 34, 368, 60, 207, 15, 227, 60, 208, 34, 142, 34, 441, 15, 353, 12 };
-				NPCID.Sets.AttackTime = factory4.CreateIntSet(-1, numArray8);
-				SetFactory setFactory4 = NPCID.Sets.Factory;
+				NPCID.Sets.AttackTime = NPCID.Sets.Factory.CreateIntSet(-1, numArray8);
 				int[] numArray9 = new int[] { 38, 40, 17, 30, 107, 60, 19, 30, 22, 30, 124, 30, 228, 50, 178, 50, 18, 60, 229, 40, 209, 30, 54, 30, 108, 30, 160, 60, 20, 60, 369, 50, 453, 30, 368, 40, 207, 1, 227, 30, 208, 50, 142, 50, 441, 1, 353, 1 };
-				NPCID.Sets.AttackAverageChance = setFactory4.CreateIntSet(1, numArray9);
-				SetFactory factory5 = NPCID.Sets.Factory;
+				NPCID.Sets.AttackAverageChance = NPCID.Sets.Factory.CreateIntSet(1, numArray9);
 				int[] numArray10 = new int[] { 38, 0, 17, 0, 107, 0, 19, 1, 22, 1, 124, 0, 228, 1, 178, 1, 18, 0, 229, 1, 209, 1, 54, 2, 108, 2, 160, 2, 20, 2, 369, 0, 453, 0, 368, 1, 207, 3, 227, 1, 208, 0, 142, 0, 441, 3, 353, 3 };
-				NPCID.Sets.AttackType = factory5.CreateIntSet(-1, numArray10);
-				SetFactory setFactory5 = NPCID.Sets.Factory;
+				NPCID.Sets.AttackType = NPCID.Sets.Factory.CreateIntSet(-1, numArray10);
 				int[] numArray11 = new int[] { 19, 300, 22, 200, 124, 200, 228, 300, 178, 300, 229, 300, 209, 300, 54, 100, 108, 100, 160, 100, 20, 200, 368, 200, 227, 200 };
-				NPCID.Sets.PrettySafe = setFactory5.CreateIntSet(-1, numArray11);
-				SetFactory factory6 = NPCID.Sets.Factory;
+				NPCID.Sets.PrettySafe = NPCID.Sets.Factory.CreateIntSet(-1, numArray11);
 				Color white = Color.White;
 				object[] color = new object[] { (short)54, new Color(100, 4, 227, 127), (short)108, new Color(255, 80, 60, 127), (short)160, new Color(40, 80, 255, 127), (short)20, new Color(40, 255, 80, 127) };
-				NPCID.Sets.MagicAuraColor = factory6.CreateCustomSet<Color>(white, color);
+				NPCID.Sets.MagicAuraColor = NPCID.Sets.Factory.CreateCustomSet<Color>(white, color);
 				List<int> nums = new List<int>()
 				{
 					77,
@@ -1332,15 +1322,17 @@ namespace Terraria.ID
 					44
 				};
 				NPCID.Sets.Skeletons = nums;
-				SetFactory setFactory6 = NPCID.Sets.Factory;
 				int[] numArray12 = new int[] { 4, 0, 13, 2, 344, 3, 370, 4, 246, 5, 249, 5, 345, 6, 50, 7, 396, 8, 395, 9, 325, 10, 262, 11, 327, 13, 222, 14, 125, 15, 126, 16, 346, 17, 127, 18, 35, 19, 68, 19, 113, 22, 266, 23, 439, 24, 440, 24, 134, 25, 491, 26, 517, 27, 422, 28, 507, 29, 493, 30 };
-				NPCID.Sets.BossHeadTextures = setFactory6.CreateIntSet(-1, numArray12);
+				NPCID.Sets.BossHeadTextures = NPCID.Sets.Factory.CreateIntSet(-1, numArray12);
 				SetFactory factory7 = NPCID.Sets.Factory;
 				int[] numArray13 = new int[] { 121, 384, 406 };
 				NPCID.Sets.ExcludedFromDeathTally = factory7.CreateBoolSet(false, numArray13);
-				SetFactory setFactory7 = NPCID.Sets.Factory;
 				int[] numArray14 = new int[] { 517, 422, 507, 493 };
-				NPCID.Sets.TechnicallyABoss = setFactory7.CreateBoolSet(numArray14);
+				NPCID.Sets.TechnicallyABoss = NPCID.Sets.Factory.CreateBoolSet(numArray14);
+				int[] numArray15 = new int[] { 25, 30, 33, 112, 261, 265, 371, 516, 519, 522, 397, 396, 398 };
+				NPCID.Sets.NeedsExpertScaling = NPCID.Sets.Factory.CreateBoolSet(numArray15);
+				int[] numArray16 = new int[] { 25, 30, 33, 112, 261, 265, 371, 516, 519, 522 };
+				NPCID.Sets.ProjectileNPC = NPCID.Sets.Factory.CreateBoolSet(numArray16);
 			}
 		}
 	}
