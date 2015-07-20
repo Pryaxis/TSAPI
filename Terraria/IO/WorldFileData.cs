@@ -44,40 +44,8 @@ namespace Terraria.IO
 		{
 		}
 
-		public WorldFileData(string path, bool cloudSave) : base("World", path, cloudSave)
+		public WorldFileData(string path) : base("World", path)
 		{
-		}
-
-		public override void MoveToCloud()
-		{
-			if (base.IsCloudSave)
-			{
-				return;
-			}
-			string worldPathFromName = Main.GetWorldPathFromName(this.Name, true);
-			if (FileUtilities.MoveToCloud(base.Path, worldPathFromName))
-			{
-				Main.LocalFavoriteData.ClearEntry(this);
-				this._isCloudSave = true;
-				this._path = worldPathFromName;
-				Main.CloudFavoritesData.SaveFavorite(this);
-			}
-		}
-
-		public override void MoveToLocal()
-		{
-			if (!base.IsCloudSave)
-			{
-				return;
-			}
-			string worldPathFromName = Main.GetWorldPathFromName(this.Name, false);
-			if (FileUtilities.MoveToLocal(base.Path, worldPathFromName))
-			{
-				Main.CloudFavoritesData.ClearEntry(this);
-				this._isCloudSave = false;
-				this._path = worldPathFromName;
-				Main.LocalFavoriteData.SaveFavorite(this);
-			}
 		}
 
 		public override void SetAsActive()

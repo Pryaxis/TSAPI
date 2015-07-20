@@ -17948,6 +17948,7 @@ namespace Terraria
 															}
 														}
 													}
+												}
 													else if (this.aiStyle == 67)
 													{
 														Player player2 = Main.player[this.owner];
@@ -21904,6 +21905,7 @@ namespace Terraria
 																												}
 																											}
 																										}
+																									}
 																										else if (this.aiStyle == 118)
 																										{
 																											this.ai[0] += 1f;
@@ -22947,7 +22949,6 @@ namespace Terraria
 																											this.localAI[0] = num1132 + (float)num1124 * 6.28318548f + 3.14159274f;
 																											this.localAI[1] = num1122 + num1121;
 																										}
-																									}
 																								}
 																							}
 																						}
@@ -22960,7 +22961,6 @@ namespace Terraria
 															}
 														}
 													}
-												}
 											}
 										}
 									}

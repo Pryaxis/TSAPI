@@ -93,7 +93,6 @@ namespace Terraria
 				Program.LaunchParameters = Utils.ParseArguements(args);
 				ProgramServer.Game = new Main();
 				string str = null;
-				bool flag = false;
 				int num = 0;
 				SocialMode socialMode = SocialMode.None;
 				while (num < (int)args.Length)
@@ -129,12 +128,6 @@ namespace Terraria
 					if (args[num].ToLower() == "-steam")
 					{
 						socialMode = SocialMode.Steam;
-					}
-					if (args[num].ToLower() == "-cloudworld")
-					{
-						num++;
-						str = args[num];
-						flag = true;
 					}
 					if (args[num].ToLower() == "-worldname")
 					{
@@ -176,7 +169,7 @@ namespace Terraria
 				SocialAPI.Initialize(new SocialMode?(socialMode));
 				if (str != null)
 				{
-					ProgramServer.Game.SetWorld(str, flag);
+					ProgramServer.Game.SetWorld(str);
 				}
 				try
 				{

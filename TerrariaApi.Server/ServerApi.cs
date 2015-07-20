@@ -87,7 +87,6 @@ namespace TerrariaApi.Server
 
 			ServerApi.game = game;
 			HandleCommandLine(commandLineArgs);
-
 			ServerPluginsDirectoryPath = Path.Combine(Environment.CurrentDirectory, PluginsPath);
 
 			if (!Directory.Exists(ServerPluginsDirectoryPath))
@@ -120,116 +119,16 @@ namespace TerrariaApi.Server
 			LogWriter.Deatch();
 		}
 
-		internal static void HandleCommandLine(string[] commandLineArgs)
+		internal static void HandleCommandLine(string[] parms)
 		{
-			for (int i = 0; i < commandLineArgs.Length; i++)
+			for (int i = 0; i < parms.Length; i++)
 			{
-				switch (commandLineArgs[i].ToLower())
+				switch (parms[i].ToLower())
 				{
-					case "-config":
-						{
-							string filePath = commandLineArgs[++i];
-							LogWriter.ServerWriteLine(string.Format("Loading dedicated config file: {0}", filePath), TraceLevel.Verbose);
-							game.LoadDedConfig(filePath);
-
-							break;
-						}
-					case "-port":
-						{
-							int serverPort;
-							if (int.TryParse(commandLineArgs[++i], out serverPort))
-							{
-								Netplay.ListenPort = serverPort;
-								LogWriter.ServerWriteLine(string.Format("Listening on port {0}.", serverPort), TraceLevel.Verbose);
-							}
-							else
-							{
-								// The server should not start up if this argument is invalid.
-								throw new InvalidOperationException("Invalid value given for command line argument \"-ip\".");
-							}
-
-							break;
-						}
-					case "-world":
-						{
-							string worldPath = commandLineArgs[++i];
-							game.SetWorld(worldPath, false);
-							LogWriter.ServerWriteLine(string.Format("World set for auto loading: {0}", worldPath), TraceLevel.Verbose);
-
-							break;
-						}
-					case "-worldname":
-						{
-							string worldName = commandLineArgs[++i];
-							game.SetWorldName(worldName);
-							LogWriter.ServerWriteLine(string.Format("World name will be overridden by: {0}", worldName), TraceLevel.Verbose);
-
-							break;
-						}
-					case "-autoshutdown":
-						{
-							game.autoShut();
-							break;
-						}
-					case "-autocreate":
-						{
-							string newOpt = commandLineArgs[++i];
-							game.autoCreate(newOpt);
-							break;
-						}
-					case "-ip":
-						{
-							IPAddress ip;
-							if (IPAddress.TryParse(commandLineArgs[++i], out ip))
-							{
-								Netplay.ServerIP = ip;
-								LogWriter.ServerWriteLine(string.Format("Listening on IP {0}.", ip), TraceLevel.Verbose);
-							}
-							else
-							{
-								// The server should not start up if this argument is invalid.
-								throw new InvalidOperationException("Invalid value given for command line argument \"-ip\".");
-							}
-
-							break;
-						}
-					case "-connperip":
-						{
-							int limit;
-							if (int.TryParse(commandLineArgs[++i], out limit))
-							{
-								Netplay.MaxConnections = limit;
-								LogWriter.ServerWriteLine(string.Format(
-									"Connections per IP have been limited to {0} connections.", limit), TraceLevel.Verbose);
-							}
-							else
-								LogWriter.ServerWriteLine("Invalid value given for command line argument \"-connperip\".", TraceLevel.Warning);
-
-							break;
-						}
-					case "-killinactivesocket":
-						{
-//							Netplay.killInactive = true;
-							LogWriter.ServerWriteLine("The argument -killinactivesocket is no longer present in Terraria.", TraceLevel.Warning);
-							break;
-						}
-					case "-lang":
-						{
-							int langIndex;
-							if (int.TryParse(commandLineArgs[++i], out langIndex))
-							{
-								Lang.lang = langIndex;
-								LogWriter.ServerWriteLine(string.Format("Language index set to {0}.", langIndex), TraceLevel.Verbose);
-							}
-							else
-								LogWriter.ServerWriteLine("Invalid value given for command line argument \"-lang\".", TraceLevel.Warning);
-
-							break;
-						}
 					case "-ignoreversion":
 						{
-							IgnoreVersion = true;
-							LogWriter.ServerWriteLine(
+							ServerApi.IgnoreVersion = true;
+							ServerApi.LogWriter.ServerWriteLine(
 								"Plugin versions are no longer being regarded, you are on your own! If problems arise, TShock developers will not help you with issues regarding this.",
 								TraceLevel.Warning);
 
@@ -237,8 +136,8 @@ namespace TerrariaApi.Server
 						}
 					case "-forceupdate":
 						{
-							ForceUpdate = true;
-							LogWriter.ServerWriteLine(
+							ServerApi.ForceUpdate = true;
+							ServerApi.LogWriter.ServerWriteLine(
 								"Forcing game updates regardless of players! This is experimental, and will cause constant CPU usage, you are on your own.",
 								TraceLevel.Warning);
 
@@ -246,8 +145,8 @@ namespace TerrariaApi.Server
 						}
 					case "-asyncmono":
 						{
-							UseAsyncSocketsInMono = true;
-							LogWriter.ServerWriteLine(
+							ServerApi.UseAsyncSocketsInMono = true;
+							ServerApi.LogWriter.ServerWriteLine(
 								"Forcing Mono to use asynchronous sockets.  This is highly experimental and may not work on all versions of Mono.",
 								TraceLevel.Warning);
 							break;

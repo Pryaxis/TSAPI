@@ -89,13 +89,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
     <Reference Include="Steamworks.NET">
-      <HintPath>TerrariaServerReferences\Terraria.Libraries.Steamworks.NET.Steamworks.NET.dll</HintPath>
+      <HintPath>.\Steamworks.NET.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>TerrariaServerReferences\Terraria.Libraries.JSON.NET.Net40.Newtonsoft.Json.dll</HintPath>
-    </Reference>
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -149,6 +146,7 @@
     <Compile Include="TerrariaApi.Server\ServerLogWriter.cs" />
     <Compile Include="TerrariaApi.Server\TaskExt.cs" />
     <Compile Include="TerrariaApi.Server\TerrariaPlugin.cs" />
+    <Compile Include="Terraria\ID\NPCID.cs" />
     <Compile Include="Terraria\IStaticPortMapping.cs" />
     <Compile Include="Terraria\IStaticPortMappingCollection.cs" />
     <Compile Include="Terraria\Net\Sockets\EventArgs\WriteFailedEventArgs.cs" />
@@ -643,10 +641,6 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Terraria\IO\FavoritesFile.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="Terraria\Initializers\ScreenEffectInitializer.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
@@ -816,10 +810,6 @@
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Terraria\Map\MapHelper.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Terraria\ID\NPCID.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -1065,8 +1055,6 @@
     <Compile Include="XNA\Vector2.cs" />
     <Compile Include="XNA\Vector3.cs" />
     <Compile Include="XNA\Vector4.cs" />
-    <EmbeddedResource Include="Terraria.Libraries.Steamworks.NET.Steamworks.NET.dll" />
-    <EmbeddedResource Include="Terraria.Libraries.JSON.NET.Net40.Newtonsoft.Json.dll" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

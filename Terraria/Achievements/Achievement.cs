@@ -1,5 +1,3 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -8,7 +6,6 @@ using Terraria.Social.Base;
 
 namespace Terraria.Achievements
 {
-	[JsonObject(MemberSerialization.OptIn)]
 	public class Achievement
 	{
 		private static int _totalAchievements;
@@ -25,7 +22,6 @@ namespace Terraria.Achievements
 
 		private IAchievementTracker _tracker;
 
-		[JsonProperty("Conditions")]
 		private Dictionary<string, AchievementCondition> _conditions;
 
 		private int _completedCount;
@@ -119,29 +115,6 @@ namespace Terraria.Achievements
 		public IAchievementTracker GetTracker()
 		{
 			return this._tracker;
-		}
-
-		public void Load(Dictionary<string, JObject> conditions)
-		{
-			AchievementCondition achievementCondition;
-			foreach (KeyValuePair<string, JObject> condition in conditions)
-			{
-				if (!this._conditions.TryGetValue(condition.Key, out achievementCondition))
-				{
-					continue;
-				}
-				achievementCondition.Load(condition.Value);
-				if (!achievementCondition.IsCompleted)
-				{
-					continue;
-				}
-				Achievement achievement = this;
-				achievement._completedCount = achievement._completedCount + 1;
-			}
-			if (this._tracker != null)
-			{
-				this._tracker.Load();
-			}
 		}
 
 		private void OnConditionComplete(AchievementCondition condition)

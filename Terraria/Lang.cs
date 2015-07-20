@@ -22591,6 +22591,10 @@ namespace Terraria
 					{
 						return "Shadowflame Hades Dye";
 					}
+					case 3601:
+					{
+						return "Celestial Sigil";
+					}
 				}
 			}
 			else if (Lang.lang == 2)
@@ -62358,7 +62362,7 @@ namespace Terraria
 
 		public static void tTip()
 		{
-			for (int i = 1; i < 3601; i++)
+			for (int i = 1; i < Main.maxItemTypes; i++)
 			{
 				Item item = new Item();
 				item.SetDefaults(i, false);

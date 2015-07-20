@@ -5047,24 +5047,24 @@ namespace Terraria
 			}
 		}
 
-		public static PlayerFileData GetFileData(string file, bool cloudSave)
+		public static PlayerFileData GetFileData(string file)
 		{
-			if (file == null || cloudSave && SocialAPI.Cloud == null)
+			if (file == null || !File.Exists(file))
 			{
 				return null;
 			}
-			PlayerFileData playerFileDatum = Player.LoadPlayer(file, cloudSave);
+			PlayerFileData playerFileDatum = Player.LoadPlayer(file);
 			if (playerFileDatum.Player == null)
 			{
 				return null;
 			}
 			if (playerFileDatum.Player.loadStatus != 0 && playerFileDatum.Player.loadStatus != 1)
 			{
-				if (FileUtilities.Exists(string.Concat(file, ".bak"), cloudSave))
+				if (FileUtilities.Exists(string.Concat(file, ".bak")))
 				{
-					FileUtilities.Move(string.Concat(file, ".bak"), file, cloudSave, true);
+					FileUtilities.Move(string.Concat(file, ".bak"), file, true);
 				}
-				playerFileDatum = Player.LoadPlayer(file, cloudSave);
+				playerFileDatum = Player.LoadPlayer(file);
 				if (playerFileDatum.Player == null)
 				{
 					return null;
@@ -7013,6 +7013,14 @@ namespace Terraria
 					flag1 = false;
 				}
 				if (item.type == 1958 && (Main.dayTime || Main.pumpkinMoon || Main.snowMoon))
+				{
+					flag1 = false;
+				}
+				if (item.type == 2767 && (!Main.dayTime || Main.eclipse || !Main.hardMode))
+				{
+					flag1 = false;
+				}
+				if (item.type == 3601 && (!NPC.downedGolemBoss || !Main.hardMode || NPC.AnyDanger() || NPC.AnyoneNearCultists()))
 				{
 					flag1 = false;
 				}
@@ -10190,6 +10198,18 @@ namespace Terraria
 						Main.NewText(Lang.misc[20], 50, 255, 130, false);
 					}
 				}
+				if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 3601 && NPC.downedGolemBoss && Main.hardMode && !NPC.AnyDanger() && !NPC.AnyoneNearCultists())
+				{
+					this.itemTime = item.useTime;
+					if (Main.netMode == 0)
+					{
+						WorldGen.StartImpendingDoom();
+					}
+					else
+					{
+						NetMessage.SendData(61, -1, -1, "", this.whoAmI, -8f, 0f, 0f, 0, 0, 0);
+					}
+				}
 				if (this.itemTime == 0 && this.itemAnimation > 0 && item.type == 1958 && !Main.dayTime && !Main.pumpkinMoon && !Main.snowMoon)
 				{
 					this.itemTime = item.useTime;
@@ -11011,26 +11031,21 @@ namespace Terraria
 
 		public void KillMeForGood()
 		{
-			bool isCloudSave = Main.ActivePlayerFileData.IsCloudSave;
-			if (FileUtilities.Exists(Main.playerPathName, isCloudSave))
+			if (FileUtilities.Exists(Main.playerPathName))
 			{
-				FileUtilities.Delete(Main.playerPathName, isCloudSave);
+				FileUtilities.Delete(Main.playerPathName);
 			}
-			if (FileUtilities.Exists(string.Concat(Main.playerPathName, ".bak"), isCloudSave))
+			if (FileUtilities.Exists(string.Concat(Main.playerPathName, ".bak")))
 			{
-				FileUtilities.Delete(string.Concat(Main.playerPathName, ".bak"), isCloudSave);
+				FileUtilities.Delete(string.Concat(Main.playerPathName, ".bak"));
 			}
 			Main.ActivePlayerFileData = new PlayerFileData();
 		}
 
-		public static PlayerFileData LoadPlayer(string playerPath, bool cloudSave)
+		public static PlayerFileData LoadPlayer(string playerPath)
 		{
 			PlayerFileData playerFileDatum;
-			PlayerFileData playerFileDatum1 = new PlayerFileData(playerPath, cloudSave);
-			if (cloudSave && SocialAPI.Cloud == null)
-			{
-				return playerFileDatum1;
-			}
+			PlayerFileData playerFileDatum1 = new PlayerFileData(playerPath);
 			if (Main.rand == null)
 			{
 				Main.rand = new Random((int)DateTime.Now.Ticks);
@@ -11042,7 +11057,7 @@ namespace Terraria
 				{
 					Padding = PaddingMode.None
 				};
-				using (MemoryStream memoryStream = new MemoryStream(FileUtilities.ReadAllBytes(playerPath, cloudSave)))
+				using (MemoryStream memoryStream = new MemoryStream(FileUtilities.ReadAllBytes(playerPath)))
 				{
 					using (CryptoStream cryptoStream = new CryptoStream(memoryStream, rijndaelManaged.CreateDecryptor(Player.ENCRYPTION_KEY, Player.ENCRYPTION_KEY), CryptoStreamMode.Read))
 					{
@@ -11278,7 +11293,7 @@ namespace Terraria
 										for (int u = 0; u < 48; u++)
 										{
 											int num6 = binaryReader.ReadInt32();
-											if (num6 < 3601)
+											if (num6 < Main.maxItemTypes)
 											{
 												player.inventory[u].netDefaults(num6);
 												player.inventory[u].stack = binaryReader.ReadInt32();
@@ -11295,7 +11310,7 @@ namespace Terraria
 										for (int v = 0; v < 58; v++)
 										{
 											int num7 = binaryReader.ReadInt32();
-											if (num7 < 3601)
+											if (num7 < Main.maxItemTypes)
 											{
 												player.inventory[v].netDefaults(num7);
 												player.inventory[v].stack = binaryReader.ReadInt32();
@@ -11318,7 +11333,7 @@ namespace Terraria
 											for (int w = 0; w < 5; w++)
 											{
 												int num8 = binaryReader.ReadInt32();
-												if (num8 < 3601)
+												if (num8 < Main.maxItemTypes)
 												{
 													player.miscEquips[w].netDefaults(num8);
 													player.miscEquips[w].Prefix((int)binaryReader.ReadByte());
@@ -11328,7 +11343,7 @@ namespace Terraria
 													player.miscEquips[w].netDefaults(0);
 												}
 												num8 = binaryReader.ReadInt32();
-												if (num8 < 3601)
+												if (num8 < Main.maxItemTypes)
 												{
 													player.miscDyes[w].netDefaults(num8);
 													player.miscDyes[w].Prefix((int)binaryReader.ReadByte());
@@ -11346,7 +11361,7 @@ namespace Terraria
 												if (x != 1)
 												{
 													int num9 = binaryReader.ReadInt32();
-													if (num9 < 3601)
+													if (num9 < Main.maxItemTypes)
 													{
 														player.miscEquips[x].netDefaults(num9);
 														player.miscEquips[x].Prefix((int)binaryReader.ReadByte());
@@ -11356,7 +11371,7 @@ namespace Terraria
 														player.miscEquips[x].netDefaults(0);
 													}
 													num9 = binaryReader.ReadInt32();
-													if (num9 < 3601)
+													if (num9 < Main.maxItemTypes)
 													{
 														player.miscDyes[x].netDefaults(num9);
 														player.miscDyes[x].Prefix((int)binaryReader.ReadByte());
@@ -17495,7 +17510,6 @@ namespace Terraria
 			Main.Achievements.Save();
 			string path = playerFile.Path;
 			Player player = playerFile.Player;
-			bool isCloudSave = playerFile.IsCloudSave;
 			if (!skipMapSave)
 			{
 				try
@@ -17515,10 +17529,7 @@ namespace Terraria
 				}
 				try
 				{
-					if (!isCloudSave)
-					{
-						Directory.CreateDirectory(Main.PlayerPath);
-					}
+					Directory.CreateDirectory(Main.PlayerPath);
 				}
 				catch (Exception ex)
 				{
@@ -17537,19 +17548,12 @@ namespace Terraria
 			{
 				return;
 			}
-			if (FileUtilities.Exists(path, isCloudSave))
+			if (FileUtilities.Exists(path))
 			{
-				FileUtilities.Copy(path, string.Concat(path, ".bak"), isCloudSave, true);
+				FileUtilities.Copy(path, string.Concat(path, ".bak"), false, true);
 			}
 			RijndaelManaged rijndaelManaged = new RijndaelManaged();
-			if (isCloudSave)
-			{
-				memoryStream = new MemoryStream(2000);
-			}
-			else
-			{
-				memoryStream = new FileStream(path, FileMode.Create);
-			}
+			memoryStream = new FileStream(path, FileMode.Create);
 			using (Stream stream = memoryStream)
 			{
 				using (CryptoStream cryptoStream = new CryptoStream(stream, rijndaelManaged.CreateEncryptor(Player.ENCRYPTION_KEY, Player.ENCRYPTION_KEY), CryptoStreamMode.Write))
@@ -17695,10 +17699,6 @@ namespace Terraria
 						binaryWriter.Flush();
 						cryptoStream.FlushFinalBlock();
 						stream.Flush();
-						if (isCloudSave && SocialAPI.Cloud != null)
-						{
-							SocialAPI.Cloud.Write(playerFile.Path, ((MemoryStream)stream).GetBuffer(), (int)((MemoryStream)stream).Length);
-						}
 					}
 				}
 			}

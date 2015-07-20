@@ -32,7 +32,7 @@ namespace Terraria
 	{
 		public const int offLimitBorderTiles = 40;
 
-		public const int maxItemTypes = 3601;
+		public const int maxItemTypes = 3602;
 
 		public const int maxProjectileTypes = 651;
 
@@ -161,10 +161,6 @@ namespace Terraria
 		public static string versionNumber2;
 
 		public static Vector2 destroyerHB;
-
-		public static FavoritesFile LocalFavoriteData;
-
-		public static FavoritesFile CloudFavoritesData;
 
 		public static FileMetadata WorldFileMetadata;
 
@@ -1800,9 +1796,6 @@ namespace Terraria
 			Main.versionNumber = "v1.3.0.5";
 			Main.versionNumber2 = "v1.3.0.5";
 			Main.destroyerHB = new Vector2(0f, 0f);
-			object[] folderPath = new object[] { Environment.GetFolderPath(Environment.SpecialFolder.Personal), Path.DirectorySeparatorChar, "My Games", Path.DirectorySeparatorChar, "Terraria", Path.DirectorySeparatorChar, "favorites.json" };
-			Main.LocalFavoriteData = new FavoritesFile(string.Concat(folderPath), false);
-			Main.CloudFavoritesData = new FavoritesFile("/favorites.json", true);
 			Main.drawBackGore = false;
 			Main.expertLife = 2f;
 			Main.expertDamage = 2f;
@@ -1829,7 +1822,7 @@ namespace Terraria
 			Main.wingsLoaded = new bool[37];
 			Main.goreLoaded = new bool[907];
 			Main.projectileLoaded = new bool[651];
-			Main.itemFlameLoaded = new bool[3601];
+			Main.itemFlameLoaded = new bool[Main.maxItemTypes];
 			Main.backgroundLoaded = new bool[207];
 			Main.tileSetsLoaded = new bool[419];
 			Main.wallLoaded = new bool[225];
@@ -2263,7 +2256,7 @@ namespace Terraria
 			Main.sign = new Sign[1000];
 			Main.itemFrame = new int[401];
 			Main.itemFrameCounter = new int[401];
-			Main.itemAnimations = new DrawAnimation[3601];
+			Main.itemAnimations = new DrawAnimation[Main.maxItemTypes];
 			Main.itemAnimationsRegistered = new List<int>();
 			Main.screenWidth = 1152;
 			Main.screenHeight = 864;
@@ -2340,7 +2333,7 @@ namespace Terraria
 			Main.PlayerPath = string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "Players");
 			Main.CloudPlayerPath = "players";
 			Main.Configuration = new Preferences(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "config.json"), false, false);
-			Main.itemName = new string[3601];
+			Main.itemName = new string[Main.maxItemTypes];
 			Main.npcName = new string[540];
 			Main.PendingResolutionWidth = 800;
 			Main.PendingResolutionHeight = 600;
@@ -5440,7 +5433,7 @@ namespace Terraria
 							}
 						}
 						Main.worldName = Main.newWorldName;
-						Main.ActiveWorldFileData = WorldFile.CreateMetadata(Main.worldName, (SocialAPI.Cloud == null ? false : SocialAPI.Cloud.EnabledByDefault), Main.expertMode);
+						Main.ActiveWorldFileData = WorldFile.CreateMetadata(Main.worldName, Main.expertMode);
 						Main.menuMode = 10;
 						Main.serverGenLock = true;
 						GenerationProgress generationProgress = new GenerationProgress();
@@ -5918,15 +5911,8 @@ namespace Terraria
 		{
 			try
 			{
-				if (!Main.WorldList[i].IsCloudSave)
-				{
-					File.Delete(Main.WorldList[i].Path);
-					File.Delete(Main.WorldList[i].Path + ".bak");
-				}
-				else if (SocialAPI.Cloud != null)
-				{
-					SocialAPI.Cloud.Delete(Main.WorldList[i].Path);
-				}
+				File.Delete(Main.WorldList[i].Path);
+				File.Delete(Main.WorldList[i].Path + ".bak");
 				Main.LoadWorlds();
 			}
 			catch (Exception ex)
@@ -6112,7 +6098,7 @@ namespace Terraria
 			return "";
 		}
 
-		public static string GetPlayerPathFromName(string playerName, bool cloudSave)
+		public static string GetPlayerPathFromName(string playerName)
 		{
 			string str = "";
 			for (int i = 0; i < playerName.Length; i++)
@@ -6129,20 +6115,20 @@ namespace Terraria
 				}
 				str = string.Concat(str, str2);
 			}
-			string str3 = (cloudSave ? Main.CloudPlayerPath : Main.PlayerPath);
+			string str3 = Main.PlayerPath;
 			object[] directorySeparatorChar = new object[] { str3, Path.DirectorySeparatorChar, str, ".plr" };
-			if (FileUtilities.GetFullPath(string.Concat(directorySeparatorChar), cloudSave).StartsWith("\\\\.\\", StringComparison.Ordinal))
+			if (FileUtilities.GetFullPath(string.Concat(directorySeparatorChar)).StartsWith("\\\\.\\", StringComparison.Ordinal))
 			{
 				str = string.Concat(str, "_");
 			}
 			object[] objArray = new object[] { str3, Path.DirectorySeparatorChar, str, ".plr" };
-			if (FileUtilities.Exists(string.Concat(objArray), cloudSave))
+			if (FileUtilities.Exists(string.Concat(objArray)))
 			{
 				int num = 2;
 				while (true)
 				{
 					object[] directorySeparatorChar1 = new object[] { str3, Path.DirectorySeparatorChar, str, num, ".plr" };
-					if (!FileUtilities.Exists(string.Concat(directorySeparatorChar1), cloudSave))
+					if (!FileUtilities.Exists(string.Concat(directorySeparatorChar1)))
 					{
 						break;
 					}
@@ -6224,7 +6210,7 @@ namespace Terraria
 			return -1;
 		}
 
-		public static string GetWorldPathFromName(string worldName, bool cloudSave)
+		public static string GetWorldPathFromName(string worldName)
 		{
 			string str = worldName;
 			string str1 = "";
@@ -6242,20 +6228,20 @@ namespace Terraria
 				}
 				str1 = string.Concat(str1, str3);
 			}
-			string str4 = (cloudSave ? Main.CloudWorldPath : Main.WorldPath);
+			string str4 = Main.WorldPath;
 			object[] directorySeparatorChar = new object[] { str4, Path.DirectorySeparatorChar, str1, ".wld" };
-			if (FileUtilities.GetFullPath(string.Concat(directorySeparatorChar), cloudSave).StartsWith("\\\\.\\", StringComparison.Ordinal))
+			if (FileUtilities.GetFullPath(string.Concat(directorySeparatorChar)).StartsWith("\\\\.\\", StringComparison.Ordinal))
 			{
 				str1 = string.Concat(str1, "_");
 			}
 			object[] objArray = new object[] { str4, Path.DirectorySeparatorChar, str1, ".wld" };
-			if (FileUtilities.Exists(string.Concat(objArray), cloudSave))
+			if (FileUtilities.Exists(string.Concat(objArray)))
 			{
 				int num = 2;
 				while (true)
 				{
 					object[] directorySeparatorChar1 = new object[] { str4, Path.DirectorySeparatorChar, str1, num, ".wld" };
-					if (!FileUtilities.Exists(string.Concat(directorySeparatorChar1), cloudSave))
+					if (!FileUtilities.Exists(string.Concat(directorySeparatorChar1)))
 					{
 						break;
 					}
@@ -6377,8 +6363,6 @@ namespace Terraria
 		{
 			Item item;
 			Main.netMode = 2;
-			Main.LocalFavoriteData.Load();
-			Main.CloudFavoritesData.Load();
 			TileObjectData.Initialize();
 			Animation.Initialize();
 			Chest.Initialize();
@@ -8501,7 +8485,7 @@ namespace Terraria
 			}
 			int num = 0;
 		Label3:
-			while (num < 3601)
+			while (num < Main.maxItemTypes)
 			{
 				item = new Item();
 				item.SetDefaults(num, false);
@@ -9018,7 +9002,7 @@ namespace Terraria
 							if (str1.Length > 6 && str1.Substring(0, 6).ToLower() == "world=")
 							{
 								string str2 = str1.Substring(6);
-								Main.ActiveWorldFileData = WorldFile.GetAllMetadata(str2, false);
+								Main.ActiveWorldFileData = WorldFile.GetAllMetadata(str2);
 							}
 							if (str1.Length > 5 && str1.Substring(0, 5).ToLower() == "port=")
 							{
@@ -9053,7 +9037,7 @@ namespace Terraria
 								}
 							}
 #if !MONO
-							if (str1.Length > 11 && str1.Substring(0, 9).ToLower() == "priority=")
+							if (str1.Length > 9 && str1.Substring(0, 9).ToLower() == "priority=")
 							{
 								string str5 = str1.Substring(9);
 								try
@@ -9164,7 +9148,7 @@ namespace Terraria
 							{
 								Netplay.spamCheck = true;
 							}
-							if (str1.Length > 5 && str1.Substring(0, 10).ToLower() == "npcstream=")
+							if (str1.Length > 10 && str1.Substring(0, 10).ToLower() == "npcstream=")
 							{
 								string str8 = str1.Substring(10);
 								try
@@ -9257,7 +9241,7 @@ namespace Terraria
 			int num = Math.Min(Main.maxLoadPlayer, (int)files.Length);
 			for (int i = 0; i < num; i++)
 			{
-				PlayerFileData fileData = Player.GetFileData(files[i], false);
+				PlayerFileData fileData = Player.GetFileData(files[i]);
 				if (fileData != null)
 				{
 					Main.PlayerList.Add(fileData);
@@ -9268,7 +9252,7 @@ namespace Terraria
 				List<string> strs = SocialAPI.Cloud.GetFiles(string.Concat(Main.CloudPlayerPath, "/.+\\.plr"));
 				foreach (string file in strs)
 				{
-					PlayerFileData playerFileDatum = Player.GetFileData(file, true);
+					PlayerFileData playerFileDatum = Player.GetFileData(file);
 					if (playerFileDatum == null)
 					{
 						continue;
@@ -9319,7 +9303,7 @@ namespace Terraria
 			int num = Math.Min((int)files.Length, Main.maxLoadWorld);
 			for (int i = 0; i < num; i++)
 			{
-				WorldFileData allMetadata = WorldFile.GetAllMetadata(files[i], false);
+				WorldFileData allMetadata = WorldFile.GetAllMetadata(files[i]);
 				if (allMetadata != null)
 				{
 					Main.WorldList.Add(allMetadata);
@@ -9330,7 +9314,7 @@ namespace Terraria
 				List<string> strs = SocialAPI.Cloud.GetFiles(string.Concat(Main.CloudWorldPath, "/.+\\.wld"));
 				foreach (string file in strs)
 				{
-					WorldFileData worldFileDatum = WorldFile.GetAllMetadata(file, true);
+					WorldFileData worldFileDatum = WorldFile.GetAllMetadata(file);
 					if (worldFileDatum == null)
 					{
 						continue;
@@ -10393,9 +10377,9 @@ namespace Terraria
 			}
 		}
 
-		public void SetWorld(string world, bool cloud)
+		public void SetWorld(string world)
 		{
-			Main.ActiveWorldFileData = WorldFile.GetAllMetadata(world, cloud);
+			Main.ActiveWorldFileData = WorldFile.GetAllMetadata(world);
 			Main.WorldPathClassic = world;
 		}
 
@@ -11079,7 +11063,6 @@ namespace Terraria
 			{
 				Main.slimeRainTime = 54000;
 				Main.slimeRain = true;
-				Vector2 vector2 = new Vector2();
 				return;
 			}
 			if (Main.raining)
@@ -11091,7 +11074,6 @@ namespace Terraria
 			Main.slimeRainKillCount = 0;
 			if (Main.netMode == 0)
 			{
-				Vector2 vector21 = new Vector2();
 				if (announce)
 				{
 					Main.slimeWarningTime = Main.slimeWarningDelay;

@@ -49,11 +49,6 @@ namespace Terraria.Map
 
 		public void Load()
 		{
-			bool isCloudSave = Main.ActivePlayerFileData.IsCloudSave;
-			if (isCloudSave && SocialAPI.Cloud == null)
-			{
-				return;
-			}
 			if (!Main.mapEnabled)
 			{
 				return;
@@ -61,12 +56,12 @@ namespace Terraria.Map
 			string str = Main.playerPathName.Substring(0, Main.playerPathName.Length - 4);
 			object[] directorySeparatorChar = new object[] { str, Path.DirectorySeparatorChar, Main.worldID, ".map" };
 			string str1 = string.Concat(directorySeparatorChar);
-			if (!FileUtilities.Exists(str1, isCloudSave))
+			if (!FileUtilities.Exists(str1))
 			{
 				Main.MapFileMetadata = FileMetadata.FromCurrentSettings(FileType.Map);
 				return;
 			}
-			using (MemoryStream memoryStream = new MemoryStream(FileUtilities.ReadAllBytes(str1, isCloudSave)))
+			using (MemoryStream memoryStream = new MemoryStream(FileUtilities.ReadAllBytes(str1)))
 			{
 				using (BinaryReader binaryReader = new BinaryReader(memoryStream))
 				{
@@ -102,10 +97,7 @@ namespace Terraria.Map
 							streamWriter.WriteLine(exception);
 							streamWriter.WriteLine("");
 						}
-						if (!isCloudSave)
-						{
-							File.Copy(str1, string.Concat(str1, ".bad"), true);
-						}
+						File.Copy(str1, string.Concat(str1, ".bad"), true);
 						this.Clear();
 					}
 				}

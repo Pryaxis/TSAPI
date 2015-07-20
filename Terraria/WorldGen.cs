@@ -1993,7 +1993,7 @@ namespace Terraria
 		{
 			WorldGen.clearWorld();
 			WorldGen.generateWorld(-1, threadContext as GenerationProgress);
-			WorldFile.saveWorld(Main.ActiveWorldFileData.IsCloudSave, true);
+			WorldFile.saveWorld(false);
 			if (Main.menuMode == 10 || Main.menuMode == 888)
 			{
 				Main.menuMode = 6;
@@ -2051,14 +2051,13 @@ namespace Terraria
 				}
 			}
 			WorldGen.noMapUpdate = true;
-			WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+			WorldFile.loadWorld();
 			if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 			{
-				WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+				WorldFile.loadWorld();
 				if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 				{
-					bool isCloudSave = Main.ActiveWorldFileData.IsCloudSave;
-					if (FileUtilities.Exists(Main.worldPathName + ".bak", isCloudSave))
+					if (FileUtilities.Exists(Main.worldPathName + ".bak"))
 					{
 						WorldGen.worldBackup = true;
 					}
@@ -2083,18 +2082,18 @@ namespace Terraria
 							Console.WriteLine("Load failed!  No backup found.");
 							return;
 						}
-						FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bad", isCloudSave, true);
-						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, isCloudSave, true);
-						FileUtilities.Delete(Main.worldPathName + ".bak", isCloudSave);
-						WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+						FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bad", false, true);
+						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, false, true);
+						FileUtilities.Delete(Main.worldPathName + ".bak");
+						WorldFile.loadWorld();
 						if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 						{
-							WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+							WorldFile.loadWorld();
 							if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 							{
-								FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bak", isCloudSave, true);
-								FileUtilities.Copy(Main.worldPathName + ".bad", Main.worldPathName, isCloudSave, true);
-								FileUtilities.Delete(Main.worldPathName + ".bad", isCloudSave);
+								FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bak", false, true);
+								FileUtilities.Copy(Main.worldPathName + ".bad", Main.worldPathName, false, true);
+								FileUtilities.Delete(Main.worldPathName + ".bad");
 								Console.WriteLine("Load failed!");
 								return;
 							}
@@ -2173,14 +2172,13 @@ namespace Terraria
 		public static void serverLoadWorldCallBack(object threadContext)
 		{
 			Main.rand = new Random((int)DateTime.Now.Ticks);
-			WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+			WorldFile.loadWorld();
 			if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 			{
-				WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+				WorldFile.loadWorld();
 				if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 				{
-					bool isCloudSave = Main.ActiveWorldFileData.IsCloudSave;
-					if (FileUtilities.Exists(Main.worldPathName + ".bak", isCloudSave))
+					if (FileUtilities.Exists(Main.worldPathName + ".bak"))
 					{
 						WorldGen.worldBackup = true;
 					}
@@ -2205,12 +2203,12 @@ namespace Terraria
 							Console.WriteLine("Load failed!  No backup found.");
 							return;
 						}
-						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, isCloudSave, true);
-						FileUtilities.Delete(Main.worldPathName + ".bak", isCloudSave);
-						WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, false, true);
+						FileUtilities.Delete(Main.worldPathName + ".bak");
+						WorldFile.loadWorld();
 						if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 						{
-							WorldFile.loadWorld(Main.ActiveWorldFileData.IsCloudSave);
+							WorldFile.loadWorld();
 							if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 							{
 								Console.WriteLine("Load failed!");
@@ -30458,6 +30456,19 @@ namespace Terraria
 			{
 				return;
 			}
+			if (WorldGen.genRand == null)
+			{
+				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
+			}
+			if (Main.rand == null)
+			{
+				Main.rand = new Random((int)DateTime.Now.Ticks);
+			}
+			if (Main.tile[i, j] == null)
+			{
+				Main.tile[i, j] = new Tile();
+			}
+
 			bool flag = false;
 			int k = 0;
 			for (k += (int)(Main.tile[i, j].frameX / 18); k > 1; k -= 2)
@@ -30513,19 +30524,7 @@ namespace Terraria
 					}
 				}
 				float num6 = 1f;
-				if (num == 0)
-				{
-				}
-				else if (num == 1)
-				{
-				}
-				else if (num == 2)
-				{
-				}
-				else if (num == 3)
-				{
-				}
-				else if (num >= 4 && num <= 6)
+				if (num >= 4 && num <= 6)
 				{
 					num6 = 1.25f;
 				}
@@ -30578,12 +30577,22 @@ namespace Terraria
 				{
 					if (Main.netMode != 1)
 					{
-						Projectile.NewProjectile((float)(i * 16 + 16), (float)(j * 16 + 16), 0f, -12f, 518, 0, 0f, Main.myPlayer, 0f, 0f);
+						Projectile.NewProjectile(
+							(float)(i * 16 + 16), 
+							(float)(j * 16 + 16),
+							0f, 
+							-12f,
+							ProjectileID.CoinPortal,
+							0,
+							0f,
+							Main.myPlayer,
+							0f, 
+							0f);
 					}
 				}
 				else if (WorldGen.genRand.Next(40) == 0 && Main.wallDungeon[(int)Main.tile[i, j].wall] && (double)j > Main.worldSurface)
 				{
-					Item.NewItem(i * 16, j * 16, 16, 16, 327, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 16, 16, ItemID.GoldenKey, 1, false, 0, false);
 				}
 				else if (WorldGen.genRand.Next(45) == 0 || (Main.rand.Next(45) == 0 && Main.expertMode))
 				{
@@ -30592,35 +30601,35 @@ namespace Terraria
 						int num9 = WorldGen.genRand.Next(10);
 						if (num9 == 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 292, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.IronskinPotion, 1, false, 0, false);
 						}
 						if (num9 == 1)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 298, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ShinePotion, 1, false, 0, false);
 						}
 						if (num9 == 2)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 299, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.NightOwlPotion, 1, false, 0, false);
 						}
 						if (num9 == 3)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 290, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.SwiftnessPotion, 1, false, 0, false);
 						}
 						if (num9 == 4)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2322, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.MiningPotion, 1, false, 0, false);
 						}
 						if (num9 == 5)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2324, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.CalmingPotion, 1, false, 0, false);
 						}
 						if (num9 == 6)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2325, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.BuilderPotion, 1, false, 0, false);
 						}
 						if (num9 >= 7)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2350, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.RecallPotion, 1, false, 0, false);
 						}
 					}
 					else if ((double)j < Main.rockLayer)
@@ -30628,43 +30637,43 @@ namespace Terraria
 						int num10 = WorldGen.genRand.Next(11);
 						if (num10 == 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 289, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.RegenerationPotion, 1, false, 0, false);
 						}
 						if (num10 == 1)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 298, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ShinePotion, 1, false, 0, false);
 						}
 						if (num10 == 2)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 299, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.NightOwlPotion, 1, false, 0, false);
 						}
 						if (num10 == 3)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 290, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.SwiftnessPotion, 1, false, 0, false);
 						}
 						if (num10 == 4)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 303, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ArcheryPotion, 1, false, 0, false);
 						}
 						if (num10 == 5)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 291, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.GillsPotion, 1, false, 0, false);
 						}
 						if (num10 == 6)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 304, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.HunterPotion, 1, false, 0, false);
 						}
 						if (num10 == 7)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2322, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.MiningPotion, 1, false, 0, false);
 						}
 						if (num10 == 8)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2329, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.TrapsightPotion, 1, false, 0, false);
 						}
 						if (num10 >= 9)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2350, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.RecallPotion, 1, false, 0, false);
 						}
 					}
 					else if (j < Main.maxTilesY - 200)
@@ -30672,63 +30681,63 @@ namespace Terraria
 						int num11 = WorldGen.genRand.Next(15);
 						if (num11 == 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 296, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.SpelunkerPotion, 1, false, 0, false);
 						}
 						if (num11 == 1)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 295, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.FeatherfallPotion, 1, false, 0, false);
 						}
 						if (num11 == 2)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 299, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.NightOwlPotion, 1, false, 0, false);
 						}
 						if (num11 == 3)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 302, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.WaterWalkingPotion, 1, false, 0, false);
 						}
 						if (num11 == 4)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 303, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ArcheryPotion, 1, false, 0, false);
 						}
 						if (num11 == 5)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 305, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.GravitationPotion, 1, false, 0, false);
 						}
 						if (num11 == 6)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 301, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ThornsPotion, 1, false, 0, false);
 						}
 						if (num11 == 7)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 302, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.WaterWalkingPotion, 1, false, 0, false);
 						}
 						if (num11 == 8)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 297, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.InvisibilityPotion, 1, false, 0, false);
 						}
 						if (num11 == 9)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 304, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.HunterPotion, 1, false, 0, false);
 						}
 						if (num11 == 10)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2322, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.MiningPotion, 1, false, 0, false);
 						}
 						if (num11 == 11)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2323, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.HeartreachPotion, 1, false, 0, false);
 						}
 						if (num11 == 12)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2327, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.FlipperPotion, 1, false, 0, false);
 						}
 						if (num11 == 13)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2329, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.TrapsightPotion, 1, false, 0, false);
 						}
 						if (num11 == 14)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2350, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.RecallPotion, 1, false, 0, false);
 						}
 					}
 					else
@@ -30736,65 +30745,61 @@ namespace Terraria
 						int num12 = WorldGen.genRand.Next(14);
 						if (num12 == 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 296, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.SpelunkerPotion, 1, false, 0, false);
 						}
 						if (num12 == 1)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 295, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.FeatherfallPotion, 1, false, 0, false);
 						}
 						if (num12 == 2)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 293, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ManaRegenerationPotion, 1, false, 0, false);
 						}
-						if (num12 == 3)
+						if (num12 == 3 || num12 == 10)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 288, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ObsidianSkinPotion, 1, false, 0, false);
 						}
 						if (num12 == 4)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 294, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.MagicPowerPotion, 1, false, 0, false);
 						}
 						if (num12 == 5)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 297, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.InvisibilityPotion, 1, false, 0, false);
 						}
 						if (num12 == 6)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 304, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.HunterPotion, 1, false, 0, false);
 						}
 						if (num12 == 7)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 305, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.GravitationPotion, 1, false, 0, false);
 						}
 						if (num12 == 8)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 301, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ThornsPotion, 1, false, 0, false);
 						}
 						if (num12 == 9)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 302, 1, false, 0, false);
-						}
-						if (num12 == 10)
-						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 288, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.WaterWalkingPotion, 1, false, 0, false);
 						}
 						if (num12 == 11)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 300, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.BattlePotion, 1, false, 0, false);
 						}
 						if (num12 == 12)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2323, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.HeartreachPotion, 1, false, 0, false);
 						}
 						if (num12 == 13)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 2326, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.TitanPotion, 1, false, 0, false);
 						}
 					}
 				}
 				else if (Main.netMode == 2 && Main.rand.Next(30) == 0)
 				{
-					Item.NewItem(i * 16, j * 16, 16, 16, 2997, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 16, 16, ItemID.UnityPotion, 1, false, 0, false);
 				}
 				else
 				{
@@ -30805,26 +30810,26 @@ namespace Terraria
 					}
 					if (num13 == 0 && Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statLife < Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statLifeMax2)
 					{
-						Item.NewItem(i * 16, j * 16, 16, 16, 58, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Heart, 1, false, 0, false);
 						if (Main.rand.Next(2) == 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 58, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Heart, 1, false, 0, false);
 						}
 						if (Main.expertMode)
 						{
 							if (Main.rand.Next(2) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 16, 16, 58, 1, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Heart, 1, false, 0, false);
 							}
 							if (Main.rand.Next(2) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 16, 16, 58, 1, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Heart, 1, false, 0, false);
 							}
 						}
 					}
 					else if (num13 == 1 && Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statMana < Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statManaMax2)
 					{
-						Item.NewItem(i * 16, j * 16, 16, 16, 184, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Star, 1, false, 0, false);
 					}
 					else if (num13 == 2)
 					{
@@ -30835,51 +30840,51 @@ namespace Terraria
 						}
 						if (Main.tile[i, j].liquid > 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 282, num14, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Glowstick, num14, false, 0, false);
 						}
 						else
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, 8, num14, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Torch, num14, false, 0, false);
 						}
 					}
 					else if (num13 == 3)
 					{
 						int stack = Main.rand.Next(10, 21);
-						int type2 = 40;
+						int type2 = ItemID.WoodenArrow;
 						if ((double)j < Main.rockLayer && WorldGen.genRand.Next(2) == 0)
 						{
 							if (Main.hardMode)
 							{
-								type2 = 168;
+								type2 = ItemID.Grenade;
 							}
 							else
 							{
-								type2 = 42;
+								type2 = ItemID.Shuriken;
 							}
 						}
 						if (j > Main.maxTilesY - 200)
 						{
-							type2 = 265;
+							type2 = ItemID.HellfireArrow;
 						}
 						else if (Main.hardMode)
 						{
 							if (Main.rand.Next(2) == 0)
 							{
-								type2 = 278;
+								type2 = ItemID.SilverBullet;
 							}
 							else
 							{
-								type2 = 47;
+								type2 = ItemID.UnholyArrow;
 							}
 						}
 						Item.NewItem(i * 16, j * 16, 16, 16, type2, stack, false, 0, false);
 					}
 					else if (num13 == 4)
 					{
-						int type3 = 28;
+						int type3 = ItemID.LesserHealingPotion;
 						if (j > Main.maxTilesY - 200 || Main.hardMode)
 						{
-							type3 = 188;
+							type3 = ItemID.HealingPotion;
 						}
 						int num15 = 1;
 						if (Main.expertMode && Main.rand.Next(3) != 0)
@@ -30895,12 +30900,12 @@ namespace Terraria
 						{
 							num16 += Main.rand.Next(4);
 						}
-						Item.NewItem(i * 16, j * 16, 16, 16, 166, num16, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Bomb, num16, false, 0, false);
 					}
 					else if ((num13 == 5 || num13 == 6) && j < Main.maxTilesY - 200 && !Main.hardMode)
 					{
 						int stack2 = Main.rand.Next(20, 41);
-						Item.NewItem(i * 16, j * 16, 16, 16, 965, stack2, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Rope, stack2, false, 0, false);
 					}
 					else
 					{
@@ -31017,7 +31022,7 @@ namespace Terraria
 									num18 /= Main.rand.Next(3) + 1;
 								}
 								num17 -= (float)(1000000 * num18);
-								Item.NewItem(i * 16, j * 16, 16, 16, 74, num18, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, ItemID.PlatinumCoin, num18, false, 0, false);
 							}
 							else if (num17 > 10000f)
 							{
@@ -31031,7 +31036,7 @@ namespace Terraria
 									num19 /= Main.rand.Next(3) + 1;
 								}
 								num17 -= (float)(10000 * num19);
-								Item.NewItem(i * 16, j * 16, 16, 16, 73, num19, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, ItemID.GoldCoin, num19, false, 0, false);
 							}
 							else if (num17 > 100f)
 							{
@@ -31045,7 +31050,7 @@ namespace Terraria
 									num20 /= Main.rand.Next(3) + 1;
 								}
 								num17 -= (float)(100 * num20);
-								Item.NewItem(i * 16, j * 16, 16, 16, 72, num20, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, ItemID.SilverCoin, num20, false, 0, false);
 							}
 							else
 							{
@@ -31063,7 +31068,7 @@ namespace Terraria
 									num21 = 1;
 								}
 								num17 -= (float)num21;
-								Item.NewItem(i * 16, j * 16, 16, 16, 71, num21, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, ItemID.CopperCoin, num21, false, 0, false);
 							}
 						}
 					}

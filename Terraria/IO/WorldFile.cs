@@ -92,16 +92,15 @@ namespace Terraria.IO
 			WorldFile.CachedCultistDelay = new int?(CultistRitual.delay);
 		}
 
-		public static WorldFileData CreateMetadata(string name, bool cloudSave, bool isExpertMode)
+		public static WorldFileData CreateMetadata(string name, bool isExpertMode)
 		{
-			WorldFileData worldFileDatum = new WorldFileData(Main.GetWorldPathFromName(name, cloudSave), cloudSave)
+			WorldFileData worldFileDatum = new WorldFileData(Main.GetWorldPathFromName(name))
 			{
 				Name = name,
 				IsExpertMode = isExpertMode,
 				CreationTime = DateTime.Now,
 				Metadata = FileMetadata.FromCurrentSettings(FileType.World)
 			};
-			worldFileDatum.SetFavorite(false, true);
 			return worldFileDatum;
 		}
 
@@ -120,24 +119,19 @@ namespace Terraria.IO
 			}
 		}
 
-		public static WorldFileData GetAllMetadata(string file, bool cloudSave)
+		public static WorldFileData GetAllMetadata(string file)
 		{
 			Stream memoryStream;
-			if (file == null || cloudSave && SocialAPI.Cloud == null)
+			if (file == null || !File.Exists(file))
 			{
 				return null;
 			}
 			try
 			{
-				WorldFileData worldFileDatum = new WorldFileData(file, cloudSave);
-				if (cloudSave)
-				{
-					memoryStream = new MemoryStream(SocialAPI.Cloud.Read(file));
-				}
-				else
-				{
-					memoryStream = new FileStream(file, FileMode.Open);
-				}
+				WorldFileData worldFileDatum = new WorldFileData(file);
+
+				memoryStream = new FileStream(file, FileMode.Open);
+
 				using (Stream stream = memoryStream)
 				{
 					using (BinaryReader binaryReader = new BinaryReader(stream))
@@ -167,10 +161,6 @@ namespace Terraria.IO
 							if (num >= 141)
 							{
 								worldFileDatum.CreationTime = DateTime.FromBinary(binaryReader.ReadInt64());
-							}
-							else if (cloudSave)
-							{
-								worldFileDatum.CreationTime = DateTime.Now;
 							}
 							else
 							{
@@ -250,33 +240,16 @@ namespace Terraria.IO
 			return new WorldFileData();
 		}
 
-		public static FileMetadata GetFileMetadata(string file, bool cloudSave)
+		public static FileMetadata GetFileMetadata(string file)
 		{
 			FileMetadata fileMetadatum;
-			Stream memoryStream;
 			if (file == null)
 			{
 				return null;
 			}
 			try
 			{
-				byte[] numArray = null;
-				bool flag = (!cloudSave ? false : SocialAPI.Cloud != null);
-				if (flag)
-				{
-					int num = 24;
-					numArray = new byte[num];
-					SocialAPI.Cloud.Read(file, numArray, num);
-				}
-				if (flag)
-				{
-					memoryStream = new MemoryStream(numArray);
-				}
-				else
-				{
-					memoryStream = new FileStream(file, FileMode.Open);
-				}
-				using (Stream stream = memoryStream)
+				using (Stream stream = new FileStream(file, FileMode.Open))
 				{
 					using (BinaryReader binaryReader = new BinaryReader(stream))
 					{
@@ -286,9 +259,8 @@ namespace Terraria.IO
 			}
 			catch
 			{
-				return null;
 			}
-			return fileMetadatum;
+			return null;
 		}
 
 		public static bool GetWorldDifficulty(string WorldFileName)
@@ -306,8 +278,7 @@ namespace Terraria.IO
 						int num = binaryReader.ReadInt32();
 						if (num >= 135)
 						{
-							Stream baseStream = binaryReader.BaseStream;
-							baseStream.Position = baseStream.Position + (long)20;
+							binaryReader.BaseStream.Position += 20L;
 						}
 						if (num >= 112 && num <= Main.curRelease)
 						{
@@ -339,11 +310,6 @@ namespace Terraria.IO
 
 		public static string GetWorldName(string WorldFileName)
 		{
-			string str;
-			string[] strArrays;
-			string str1;
-			string str2;
-			char[] directorySeparatorChar;
 			if (WorldFileName == null)
 			{
 				return string.Empty;
@@ -357,47 +323,43 @@ namespace Terraria.IO
 						int num = binaryReader.ReadInt32();
 						if (num > 0 && num <= Main.curRelease)
 						{
-							if (num > 87)
+							string text;
+							string result;
+							if (num <= 87)
 							{
-								if (num >= 135)
-								{
-									Stream baseStream = binaryReader.BaseStream;
-									baseStream.Position = baseStream.Position + (long)20;
-								}
-								binaryReader.ReadInt16();
-								fileStream.Position = (long)binaryReader.ReadInt32();
-								str = binaryReader.ReadString();
+								text = binaryReader.ReadString();
 								binaryReader.Close();
-								str2 = str;
-								return str2;
+								result = text;
+								return result;
 							}
-							else
+							if (num >= 135)
 							{
-								str = binaryReader.ReadString();
-								binaryReader.Close();
-								str2 = str;
-								return str2;
+								binaryReader.BaseStream.Position += 20L;
 							}
+							binaryReader.ReadInt16();
+							fileStream.Position = (long)binaryReader.ReadInt32();
+							text = binaryReader.ReadString();
+							binaryReader.Close();
+							result = text;
+							return result;
 						}
 					}
 				}
-				directorySeparatorChar = new char[] { Path.DirectorySeparatorChar };
-				strArrays = WorldFileName.Split(directorySeparatorChar);
-				str1 = strArrays[(int)strArrays.Length - 1];
-				return str1.Substring(0, str1.Length - 4);
 			}
 			catch
 			{
-				directorySeparatorChar = new char[] { Path.DirectorySeparatorChar };
-				strArrays = WorldFileName.Split(directorySeparatorChar);
-				str1 = strArrays[(int)strArrays.Length - 1];
-				return str1.Substring(0, str1.Length - 4);
 			}
+			string[] array = WorldFileName.Split(new char[]
+			{
+				Path.DirectorySeparatorChar
+			});
+			string text2 = array[array.Length - 1];
+			return text2.Substring(0, text2.Length - 4);
 		}
 
 		public static bool IsValidWorld(string file, bool cloudSave)
 		{
-			return WorldFile.GetFileMetadata(file, cloudSave) != null;
+			return WorldFile.GetFileMetadata(file) != null;
 		}
 
 		private static void LoadChests(BinaryReader reader)
@@ -484,7 +446,6 @@ namespace Terraria.IO
 		private static bool LoadFileFormatHeader(BinaryReader reader, out bool[] importance, out int[] positions)
 		{
 			int i;
-			bool flag;
 			importance = null;
 			positions = null;
 			int num = reader.ReadInt32();
@@ -498,17 +459,14 @@ namespace Terraria.IO
 				try
 				{
 					Main.WorldFileMetadata = FileMetadata.Read(reader, FileType.World);
-					goto Label0;
 				}
 				catch (Exception fileFormatException1)
 				{
 					Console.WriteLine("Unable to load world:");
 					Console.WriteLine(fileFormatException1);
-					flag = false;
+					return false;
 				}
-				return flag;
 			}
-		Label0:
 			short num1 = reader.ReadInt16();
 			positions = new int[num1];
 			for (i = 0; i < num1; i++)
@@ -859,30 +817,25 @@ namespace Terraria.IO
 			TileEntity.TileEntitiesNextID = num;
 		}
 
-		public static void loadWorld(bool loadFromCloud)
+		public static void loadWorld()
 		{
 			int num;
-			WorldFile.IsWorldOnCloud = loadFromCloud;
 			Main.CheckXMas();
 			Main.checkHalloween();
-			bool flag = (!loadFromCloud ? false : SocialAPI.Cloud != null);
-			if (!FileUtilities.Exists(Main.worldPathName, flag) && Main.autoGen)
+			if (!FileUtilities.Exists(Main.worldPathName) && Main.autoGen)
 			{
-				if (!flag)
+				int length = Main.worldPathName.Length - 1;
+				while (length >= 0)
 				{
-					int length = Main.worldPathName.Length - 1;
-					while (length >= 0)
+					if (Main.worldPathName.Substring(length, 1) != string.Concat(Path.DirectorySeparatorChar))
 					{
-						if (Main.worldPathName.Substring(length, 1) != string.Concat(Path.DirectorySeparatorChar))
-						{
-							length--;
-						}
-						else
-						{
-							string str = Main.worldPathName.Substring(0, length);
-							Directory.CreateDirectory(str);
-							break;
-						}
+						length--;
+					}
+					else
+					{
+						string str = Main.worldPathName.Substring(0, length);
+						Directory.CreateDirectory(str);
+						break;
 					}
 				}
 				WorldGen.clearWorld();
@@ -893,7 +846,7 @@ namespace Terraria.IO
 			{
 				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
 			}
-			byte[] numArray = FileUtilities.ReadAllBytes(Main.worldPathName, flag);
+			byte[] numArray = FileUtilities.ReadAllBytes(Main.worldPathName);
 			using (MemoryStream memoryStream = new MemoryStream(numArray))
 			{
 				using (BinaryReader binaryReader = new BinaryReader(memoryStream))
@@ -907,14 +860,7 @@ namespace Terraria.IO
 						num = (num1 > 87 ? WorldFile.LoadWorld_Version2(binaryReader) : WorldFile.LoadWorld_Version1(binaryReader));
 						if (num1 < 141)
 						{
-							if (loadFromCloud)
-							{
-								Main.ActiveWorldFileData.CreationTime = DateTime.Now;
-							}
-							else
-							{
-								Main.ActiveWorldFileData.CreationTime = File.GetCreationTime(Main.worldPathName);
-							}
+							Main.ActiveWorldFileData.CreationTime = File.GetCreationTime(Main.worldPathName);
 						}
 						binaryReader.Close();
 						memoryStream.Close();
@@ -2000,16 +1946,12 @@ namespace Terraria.IO
 
 		public static void saveWorld()
 		{
-			WorldFile.saveWorld(WorldFile.IsWorldOnCloud, false);
+			WorldFile.saveWorld(false);
 		}
 
-		public static void saveWorld(bool useCloudSaving, bool resetTime = false)
+		public static void saveWorld(bool resetTime = false)
 		{
 			if (ServerApi.Hooks.InvokeWorldSave(resetTime))
-			{
-				return;
-			}
-			if (useCloudSaving && SocialAPI.Cloud == null)
 			{
 				return;
 			}
@@ -2019,6 +1961,9 @@ namespace Terraria.IO
 			}
 			if (WorldGen.saveLock)
 			{
+#if DEBUG
+				Console.WriteLine("WorldGen.saveLock was true, and save was aborted");
+#endif
 				return;
 			}
 			WorldGen.saveLock = true;
@@ -2037,7 +1982,6 @@ namespace Terraria.IO
 #if DEBUG
 					Console.WriteLine(ex);
 					System.Diagnostics.Debugger.Break();
-
 #endif
 				}
 				if (!Main.skipMenu)
@@ -2070,9 +2014,9 @@ namespace Terraria.IO
 						WorldFile.tempEclipse = false;
 						WorldFile.tempCultistDelay = 86400;
 					}
-					if (Main.worldPathName != null)
+					string worldPath = Main.worldPathName ?? Main.WorldPathClassic;
+					if (worldPath != null)
 					{
-						(new Stopwatch()).Start();
 						byte[] buffer = null;
 						int length = 0;
 						using (MemoryStream memoryStream = new MemoryStream(7000000))
@@ -2088,12 +2032,12 @@ namespace Terraria.IO
 						if (buffer != null)
 						{
 							byte[] numArray = null;
-							if (FileUtilities.Exists(Main.worldPathName, useCloudSaving))
+							if (FileUtilities.Exists(Main.worldPathName))
 							{
-								numArray = FileUtilities.ReadAllBytes(Main.worldPathName, useCloudSaving);
+								numArray = FileUtilities.ReadAllBytes(Main.worldPathName);
 							}
-							FileUtilities.Write(Main.worldPathName, buffer, length, useCloudSaving);
-							buffer = FileUtilities.ReadAllBytes(Main.worldPathName, useCloudSaving);
+							FileUtilities.Write(Main.worldPathName, buffer, length);
+							buffer = FileUtilities.ReadAllBytes(Main.worldPathName);
 							string str = null;
 							using (MemoryStream memoryStream1 = new MemoryStream(buffer, 0, length, false))
 							{
@@ -2112,7 +2056,7 @@ namespace Terraria.IO
 							}
 							if (str != null)
 							{
-								FileUtilities.WriteAllBytes(str, numArray, useCloudSaving);
+								FileUtilities.WriteAllBytes(str, numArray);
 							}
 							WorldGen.saveLock = false;
 							Main.serverGenLock = false;
@@ -2125,7 +2069,19 @@ namespace Terraria.IO
 
 		public static void SaveWorld_Version2(BinaryWriter writer)
 		{
-			int[] numArray = new int[] { WorldFile.SaveFileFormatHeader(writer), WorldFile.SaveWorldHeader(writer), WorldFile.SaveWorldTiles(writer), WorldFile.SaveChests(writer), WorldFile.SaveSigns(writer), WorldFile.SaveNPCs(writer), WorldFile.SaveTileEntities(writer), 0, 0, 0 };
+			int[] numArray = new int[] 
+			{ 
+				WorldFile.SaveFileFormatHeader(writer),
+				WorldFile.SaveWorldHeader(writer), 
+				WorldFile.SaveWorldTiles(writer), 
+				WorldFile.SaveChests(writer), 
+				WorldFile.SaveSigns(writer), 
+				WorldFile.SaveNPCs(writer),
+				WorldFile.SaveTileEntities(writer),
+				0,
+				0, 
+				0 
+			};
 			WorldFile.SaveFooter(writer);
 			WorldFile.SaveHeaderPointers(writer, numArray);
 		}
@@ -2435,7 +2391,6 @@ namespace Terraria.IO
 			int num2;
 			bool n;
 			bool flag;
-			(new Stopwatch()).Start();
 			if (WorldGen.genRand == null)
 			{
 				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
