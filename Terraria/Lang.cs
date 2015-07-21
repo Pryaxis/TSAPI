@@ -14682,7 +14682,7 @@ namespace Terraria
 					}
 					case 1621:
 					{
-						return "Bat Banner";
+						return "Cave Bat Banner";
 					}
 					case 1622:
 					{
@@ -14858,7 +14858,7 @@ namespace Terraria
 					}
 					case 1665:
 					{
-						return "Jellyfish Banner";
+						return "Blue Jellyfish Banner";
 					}
 					case 1666:
 					{
@@ -14902,7 +14902,7 @@ namespace Terraria
 					}
 					case 1676:
 					{
-						return "Pirate Banner";
+						return "Pirate Deckhand Banner";
 					}
 					case 1677:
 					{
@@ -14926,7 +14926,7 @@ namespace Terraria
 					}
 					case 1682:
 					{
-						return "Skeleton Mage Banner";
+						return "Dark Caster Mage Banner";
 					}
 					case 1683:
 					{
@@ -14938,7 +14938,7 @@ namespace Terraria
 					}
 					case 1685:
 					{
-						return "Spider Banner";
+						return "Wall Creeper Banner";
 					}
 					case 1686:
 					{
@@ -14950,7 +14950,7 @@ namespace Terraria
 					}
 					case 1688:
 					{
-						return "Tortoise Banner";
+						return "Giant Tortoise Banner";
 					}
 					case 1689:
 					{
@@ -20002,7 +20002,7 @@ namespace Terraria
 					}
 					case 2951:
 					{
-						return "Martian Raygunner Banner";
+						return "Martian Ray Gunner Banner";
 					}
 					case 2952:
 					{
@@ -21869,7 +21869,7 @@ namespace Terraria
 					}
 					case 3420:
 					{
-						return "Stardust Soldier Banner";
+						return "Stargazer Banner";
 					}
 					case 3421:
 					{
@@ -21913,15 +21913,15 @@ namespace Terraria
 					}
 					case 3431:
 					{
-						return "Solar Solenian Banner";
+						return "Selenian Banner";
 					}
 					case 3432:
 					{
-						return "Nebula Soldier Banner";
+						return "Predictor Banner";
 					}
 					case 3433:
 					{
-						return "Nebula Headcrab Banner";
+						return "Brain Suckler Banner";
 					}
 					case 3434:
 					{
@@ -21929,7 +21929,7 @@ namespace Terraria
 					}
 					case 3435:
 					{
-						return "Nebula Beast Banner";
+						return "Evolution Beast Banner";
 					}
 					case 3436:
 					{
@@ -21945,11 +21945,11 @@ namespace Terraria
 					}
 					case 3439:
 					{
-						return "Vortex Soldier Banner";
+						return "Vortexian Banner";
 					}
 					case 3440:
 					{
-						return "Vortex Rifleman Banner";
+						return "Storm Diver Banner";
 					}
 					case 3441:
 					{
@@ -35218,6 +35218,18 @@ namespace Terraria
 					{
 						return "Martian Saucer";
 					}
+					case 396:
+					{
+						return "Moon Lord";
+					}
+					case 397:
+					{
+						return "Moon Lord's Hand";
+					}
+					case 398:
+					{
+						return "Moon Lord's Core";
+					}
 					case 399:
 					{
 						return "Martian Probe";
@@ -39694,7 +39706,7 @@ namespace Terraria
 				Main.buffName[161] = "Deadly Sphere";
 				Main.buffTip[161] = "The Deadly Sphere will fight for you";
 				Main.buffName[162] = "Unicorn Mount";
-				Main.buffTip[162] = "Riding a unicorn";
+				Main.buffTip[162] = "Charge ahead... fabulously!";
 				Main.buffName[163] = "Obstructed";
 				Main.buffTip[163] = "You can't see!";
 				Main.buffName[164] = "Distorted";
@@ -39706,7 +39718,7 @@ namespace Terraria
 				Main.buffName[167] = "Minecart";
 				Main.buffTip[167] = "Riding in a minecart";
 				Main.buffName[168] = "Cute Fishron Mount";
-				Main.buffTip[168] = "Riding a cute fishron";
+				Main.buffTip[168] = "Just don't make it crawl.";
 				Main.buffName[185] = "Minecart";
 				Main.buffTip[185] = "Riding in a minecart";
 				Main.buffName[184] = "Minecart";

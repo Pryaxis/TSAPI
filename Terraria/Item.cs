@@ -16,8 +16,8 @@ namespace Terraria
 		public static int[] headType = new int[194];
 		public static int[] bodyType = new int[195];
 		public static int[] legType = new int[135];
-		public static bool[] staff = new bool[3602];
-		public static bool[] claw = new bool[3602];
+		public static bool[] staff = new bool[Main.maxItemTypes];
+		public static bool[] claw = new bool[Main.maxItemTypes];
 		public bool flame;
 		public bool mech;
 		public int noGrabDelay;
@@ -2996,7 +2996,7 @@ namespace Terraria
 			}
 			else if (ItemName != "")
 			{
-				for (int i = 0; i < 3602; i++)
+				for (int i = 0; i < Main.maxItemTypes; i++)
 				{
 					if (Main.itemName[i] == ItemName)
 					{
@@ -44742,7 +44742,7 @@ namespace Terraria
 				this.owner = Main.myPlayer;
 			}
 			this.ResetStats(Type);
-			if (this.type >= 3602)
+			if (this.type >= Main.maxItemTypes)
 			{
 				this.type = 0;
 			}
@@ -44959,7 +44959,7 @@ namespace Terraria
 			}
 			this.name = Lang.itemName(this.netID, false);
 			this.CheckTip();
-			if (this.type > 0 && this.type < 3602 && ItemID.Sets.Deprecated[this.type])
+			if (this.type > 0 && this.type < Main.maxItemTypes && ItemID.Sets.Deprecated[this.type])
 			{
 				this.netID = 0;
 				this.type = 0;

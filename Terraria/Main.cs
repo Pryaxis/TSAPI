@@ -6636,6 +6636,7 @@ namespace Terraria
 			Main.debuff[157] = true;
 			Main.debuff[163] = true;
 			Main.debuff[164] = true;
+			Main.debuff[144] = true;
 			Main.pvpBuff[20] = true;
 			Main.pvpBuff[24] = true;
 			Main.pvpBuff[31] = true;
@@ -6930,6 +6931,7 @@ namespace Terraria
 			Main.tileSpelunker[236] = true;
 			Main.tileSpelunker[37] = true;
 			Main.tileSpelunker[407] = true;
+			Main.tileSpelunker[227] = true;
 			Main.SetupTileMerge();
 			Main.tileSolid[379] = true;
 			Main.tileSolid[371] = true;

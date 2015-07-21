@@ -38,7 +38,7 @@ namespace Terraria
 		{
 		}
 
-		public static Vector2 AnyCollision(Vector2 Position, Vector2 Velocity, int Width, int Height)
+		public static Vector2 AnyCollision(Vector2 Position, Vector2 Velocity, int Width, int Height, bool evenActuated = false)
 		{
 			Vector2 vector2 = new Vector2();
 			Vector2 velocity = Velocity;
@@ -73,7 +73,7 @@ namespace Terraria
 			{
 				for (int j = y; j < y1; j++)
 				{
-					if (Main.tile[i, j] != null && Main.tile[i, j].active() && !Main.tile[i, j].inActive())
+					if (Main.tile[i, j] != null && Main.tile[i, j].active() && (evenActuated || !Main.tile[i, j].inActive()))
 					{
 						vector2.X = (float)(i * 16);
 						vector2.Y = (float)(j * 16);
