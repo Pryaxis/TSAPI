@@ -5204,6 +5204,71 @@ namespace Terraria
 			return new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
 		}
 
+		public float GetWeaponKnockback(Item sItem, float KnockBack)
+		{
+			if (sItem.summon)
+			{
+				KnockBack += this.minionKB;
+			}
+			if (sItem.melee && this.kbGlove)
+			{
+				KnockBack *= 2f;
+			}
+			if (this.kbBuff)
+			{
+				KnockBack *= 1.5f;
+			}
+			if (sItem.ranged && this.shroomiteStealth)
+			{
+				KnockBack *= 1f + (1f - this.stealth) * 0.5f;
+			}
+			if (sItem.ranged && this.setVortex)
+			{
+				KnockBack *= 1f + (1f - this.stealth) * 0.5f;
+			}
+			return KnockBack;
+		}
+		public int GetWeaponDamage(Item sItem)
+		{
+			int num = sItem.damage;
+			if (num > 0)
+			{
+				if (sItem.melee)
+				{
+					num = (int)((float)num * this.meleeDamage + 5E-06f);
+				}
+				else if (sItem.ranged)
+				{
+					num = (int)((float)num * this.rangedDamage + 5E-06f);
+					if (sItem.useAmmo == 1 || sItem.useAmmo == 323)
+					{
+						num = (int)((float)num * this.arrowDamage + 5E-06f);
+					}
+					if (sItem.useAmmo == 14 || sItem.useAmmo == 311)
+					{
+						num = (int)((float)num * this.bulletDamage + 5E-06f);
+					}
+					if (sItem.useAmmo == 771 || sItem.useAmmo == 246 || sItem.useAmmo == 312 || sItem.useAmmo == 514)
+					{
+						num = (int)((float)num * this.rocketDamage + 5E-06f);
+					}
+				}
+				else if (sItem.thrown)
+				{
+					num = (int)((float)num * this.thrownDamage + 5E-06f);
+				}
+				else if (sItem.magic)
+				{
+					num = (int)((float)num * this.magicDamage + 5E-06f);
+				}
+				else if (sItem.summon)
+				{
+					num = (int)((float)num * this.minionDamage);
+				}
+			}
+			return num;
+		}
+
 		public void Ghost()
 		{
 		}
@@ -6110,7 +6175,7 @@ namespace Terraria
 					}
 					NetMessage.SendData(13, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 					NetMessage.SendData(16, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(26, -1, -1, "", this.whoAmI, (float)hitDirection, (float)Damage, (float)num6, num5, 0, 0);
+					NetMessage.SendData(26, -1, -1, "", this.whoAmI, (float)hitDirection, (float)Damage, (float)num6, num5, cooldownCounter, 0);
 				}
 				Color color = (Crit ? CombatText.DamagedFriendlyCrit : CombatText.DamagedFriendly);
 				CombatText.NewText(new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height), color, string.Concat((int)num), Crit, false);
@@ -6281,38 +6346,7 @@ namespace Terraria
 					this.mount.Dismount(this);
 				}
 			}
-			int num1 = item.damage;
-			if (num1 > 0)
-			{
-				if (item.melee)
-				{
-					num1 = (int)((float)num1 * this.meleeDamage + single);
-				}
-				else if (item.ranged)
-				{
-					num1 = (int)((float)num1 * this.rangedDamage + single);
-					if (item.useAmmo == 1 || item.useAmmo == 323)
-					{
-						num1 = (int)((float)num1 * this.arrowDamage + single);
-					}
-					if (item.useAmmo == 14 || item.useAmmo == 311)
-					{
-						num1 = (int)((float)num1 * this.bulletDamage + single);
-					}
-					if (item.useAmmo == 771 || item.useAmmo == 246 || item.useAmmo == 312 || item.useAmmo == 514)
-					{
-						num1 = (int)((float)num1 * this.rocketDamage + single);
-					}
-				}
-				else if (item.thrown)
-				{
-					num1 = (int)((float)num1 * this.thrownDamage + single);
-				}
-				else if (item.magic)
-				{
-					num1 = (int)((float)num1 * this.magicDamage + single);
-				}
-			}
+			int weaponDamage = this.GetWeaponDamage(item);
 			if (item.autoReuse && !this.noItems)
 			{
 				this.releaseUseItem = true;
@@ -7161,15 +7195,19 @@ namespace Terraria
 								single3 = single3 + Main.projectile[nums[u]].minionSlots;
 								if (num20 == 626 || num20 == 627)
 								{
-									Projectile projectile = Main.projectile[(int)Main.projectile[nums[u]].ai[0]];
-									if (projectile.type != 625)
+									int byUUID = Projectile.GetByUUID(Main.projectile[nums[u]].owner, Main.projectile[nums[u]].ai[0]);
+									if (byUUID >= 0)
 									{
-										projectile.localAI[1] = Main.projectile[nums[u]].localAI[1];
+										Projectile projectile = Main.projectile[byUUID];
+										if (projectile.type != 625)
+										{
+											projectile.localAI[1] = Main.projectile[nums[u]].localAI[1];
+										}
+										projectile = Main.projectile[(int)Main.projectile[nums[u]].localAI[1]];
+										projectile.ai[0] = Main.projectile[nums[u]].ai[0];
+										projectile.ai[1] = 1f;
+										projectile.netUpdate = true;
 									}
-									projectile = Main.projectile[(int)Main.projectile[nums[u]].localAI[1]];
-									projectile.ai[0] = Main.projectile[nums[u]].ai[0];
-									projectile.ai[1] = 1f;
-									projectile.netUpdate = true;
 								}
 								Main.projectile[nums[u]].Kill();
 							}
@@ -7556,7 +7594,7 @@ namespace Terraria
 						single14 = single14 / this.meleeSpeed;
 					}
 					bool flag9 = false;
-					int num47 = num1;
+					int num47 = weaponDamage;
 					float single15 = item.knockBack;
 					if (num46 == 13 || num46 == 32 || num46 == 315 || num46 >= 230 && num46 <= 235 || num46 == 331)
 					{
@@ -7596,7 +7634,7 @@ namespace Terraria
 					if (item.type == 3475 || item.type == 3540)
 					{
 						single15 = item.knockBack;
-						num47 = num1;
+						num47 = weaponDamage;
 						single14 = item.shootSpeed;
 					}
 					if (item.type == 71)
@@ -7658,30 +7696,10 @@ namespace Terraria
 					}
 					if (flag9)
 					{
-						if (item.summon)
-						{
-							single15 = single15 + this.minionKB;
-							num47 = (int)((float)num47 * this.minionDamage);
-						}
+						single15 = this.GetWeaponKnockback(item, single15);
 						if (num46 == 228)
 						{
 							single15 = 0f;
-						}
-						if (item.melee && this.kbGlove)
-						{
-							single15 = single15 * 2f;
-						}
-						if (this.kbBuff)
-						{
-							single15 = single15 * 1.5f;
-						}
-						if (item.ranged && this.shroomiteStealth)
-						{
-							single15 = single15 * (1f + (1f - this.stealth) * 0.5f);
-						}
-						if (item.ranged && this.setVortex)
-						{
-							single15 = single15 * (1f + (1f - this.stealth) * 0.5f);
 						}
 						if (num46 == 1 && item.type == 120)
 						{
@@ -8568,8 +8586,12 @@ namespace Terraria
 								int num81 = num80;
 								num80 = Projectile.NewProjectile(center.X, center.Y, x6, y6, num46 + 2, num47, single15, i, (float)num80, 0f);
 								Main.projectile[num81].localAI[1] = (float)num80;
+								Main.projectile[num81].netUpdate = true;
+								Main.projectile[num81].ai[1] = 1f;
 								Main.projectile[num80].localAI[1] = (float)num77;
-								Main.projectile[num77].ai[0] = (float)num80;
+								Main.projectile[num80].netUpdate = true;
+								Main.projectile[num80].ai[1] = 1f;
+								Main.projectile[num77].ai[0] = (float)Main.projectile[num80].projUUID;
 								Main.projectile[num77].netUpdate = true;
 								Main.projectile[num77].ai[1] = 1f;
 							}

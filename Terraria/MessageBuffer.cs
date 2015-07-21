@@ -1535,7 +1535,7 @@ namespace Terraria
 						projectile.projUUID = num83;
 						Main.projectileIdentity[num69, num83] = num71;
 					}
-					projectile.ProjectileFixDesperation(num69);
+					projectile.ProjectileFixDesperation();
 					if (Main.netMode != 2)
 					{
 						return;

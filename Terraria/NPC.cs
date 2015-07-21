@@ -52332,7 +52332,7 @@ namespace Terraria
 			if (this.type == 1 && this.ai[1] > 0f)
 			{
 				int num8 = (int)this.ai[1];
-				if (num8 > 0 && num8 < 3602)
+				if (num8 > 0 && num8 < Main.maxItemTypes)
 				{
 					int num9 = 1;
 					if (num8 == 8)

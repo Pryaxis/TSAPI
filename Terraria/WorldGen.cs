@@ -31602,7 +31602,10 @@ namespace Terraria
 						{
 							Main.tile[i, j + 1] = new Tile();
 						}
-						if (tile.wall > 0 || (Main.tile[i - 1, j].active() && (Main.tile[i - 1, j].slope() == 0 || Main.tile[i - 1, j].slope() % 2 != 1) && (Main.tileSolid[(int)Main.tile[i - 1, j].type] || Main.tile[i - 1, j].type == 124 || (Main.tile[i - 1, j].type == 5 && Main.tile[i - 1, j - 1].type == 5 && Main.tile[i - 1, j + 1].type == 5))) || (Main.tile[i + 1, j].active() && (Main.tile[i + 1, j].slope() == 0 || Main.tile[i + 1, j].slope() % 2 != 0) && (Main.tileSolid[(int)Main.tile[i + 1, j].type] || Main.tile[i + 1, j].type == 124 || (Main.tile[i + 1, j].type == 5 && Main.tile[i + 1, j - 1].type == 5 && Main.tile[i + 1, j + 1].type == 5))) || (Main.tile[i, j + 1].active() && Main.tileSolid[(int)Main.tile[i, j + 1].type] && (!Main.tileSolidTop[(int)Main.tile[i, j + 1].type] || Main.tile[i, j + 1].type == 19) && !Main.tile[i, j + 1].halfBrick() && Main.tile[i, j + 1].slope() == 0))
+						Tile tile2 = Main.tile[i - 1, j];
+						Tile tile3 = Main.tile[i + 1, j];
+						Tile tile4 = Main.tile[i, j + 1];
+						if (tile.wall > 0 || (tile2.active() && (tile2.slope() == 0 || tile2.slope() % 2 != 1) && ((Main.tileSolid[(int)tile2.type] && !Main.tileSolidTop[(int)tile2.type] && !TileID.Sets.NotReallySolid[(int)tile2.type]) || tile2.type == 124 || (tile2.type == 5 && Main.tile[i - 1, j - 1].type == 5 && Main.tile[i - 1, j + 1].type == 5))) || (tile3.active() && (tile3.slope() == 0 || tile3.slope() % 2 != 0) && ((Main.tileSolid[(int)tile3.type] && !Main.tileSolidTop[(int)tile3.type] && !TileID.Sets.NotReallySolid[(int)tile3.type]) || tile3.type == 124 || (tile3.type == 5 && Main.tile[i + 1, j - 1].type == 5 && Main.tile[i + 1, j + 1].type == 5))) || (tile4.active() && Main.tileSolid[(int)tile4.type] && (!Main.tileSolidTop[(int)tile4.type] || (tile4.type == 19 && tile4.slope() == 0)) && !TileID.Sets.NotReallySolid[(int)tile4.type] && !tile4.halfBrick() && tile4.slope() == 0))
 						{
 							tile.active(true);
 							tile.type = (ushort)type;

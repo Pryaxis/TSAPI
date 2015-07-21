@@ -6431,7 +6431,7 @@ namespace Terraria
 				this.aiStyle = 1;
 				this.alpha = 255;
 				this.friendly = true;
-				this.extraUpdates = 7;
+				this.extraUpdates = 30;
 			}
 			else if (this.type == 602)
 			{
@@ -6442,6 +6442,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.friendly = true;
 				this.tileCollide = false;
+				this.netImportant = true;
 			}
 			else if (this.type == 605)
 			{
@@ -6584,6 +6585,7 @@ namespace Terraria
 				this.hide = true;
 				this.magic = true;
 				this.penetrate = 3;
+				this.updatedNPCImmunity = true;
 			}
 			else if (this.type == 618)
 			{
@@ -6596,6 +6598,7 @@ namespace Terraria
 				this.timeLeft = 420;
 				this.magic = true;
 				this.friendly = true;
+				this.updatedNPCImmunity = true;
 			}
 			else if (this.type == 619)
 			{
@@ -6642,6 +6645,7 @@ namespace Terraria
 				this.minionSlots = 0f;
 				this.ignoreWater = true;
 				this.tileCollide = false;
+				this.netImportant = true;
 			}
 			else if (this.type == 624)
 			{
@@ -7015,6 +7019,21 @@ namespace Terraria
 			{
 				projectile.ai[0] = projectile.position.X;
 				projectile.ai[1] = projectile.position.Y;
+			}
+			if (Type > 0 && Type < 651)
+			{
+				if (ProjectileID.Sets.NeedsUUID[Type])
+				{
+					projectile.projUUID = projectile.identity;
+				}
+				if (ProjectileID.Sets.StardustDragon[Type])
+				{
+					int num2 = Main.projectile[(int)projectile.ai[0]].projUUID;
+					if (num2 >= 0)
+					{
+						projectile.ai[0] = (float)num2;
+					}
+				}
 			}
 			if (Main.netMode != 0 && Owner == Main.myPlayer)
 			{
@@ -8599,10 +8618,6 @@ namespace Terraria
 									{
 										Main.npc[k].immune[this.owner] = 1;
 									}
-									else if (this.type == 617)
-									{
-										Main.npc[k].immune[this.owner] = 4;
-									}
 									else if (this.type == 611)
 									{
 										if (this.localAI[1] <= 0f)
@@ -8732,6 +8747,16 @@ namespace Terraria
 										this.npcImmune[k] = -1;
 										Main.npc[k].immune[this.owner] = 0;
 										this.damage = (int)((double)this.damage * 0.96);
+									}
+									else if (this.type == 617)
+									{
+										this.npcImmune[k] = 8;
+										Main.npc[k].immune[this.owner] = 0;
+									}
+									else if (this.type == 618)
+									{
+										this.npcImmune[k] = 20;
+										Main.npc[k].immune[this.owner] = 0;
 									}
 									else if (this.type == 642)
 									{
@@ -11161,34 +11186,17 @@ namespace Terraria
 			}
 			return -1;
 		}
-		public void ProjectileFixDesperation(int own)
+		public void ProjectileFixDesperation()
 		{
+			if (this.owner < 0 || this.owner >= 1000)
+			{
+				return;
+			}
 			int num = this.type;
-			if (num != 461)
+			if (num != 461 && num != 632)
 			{
 				switch (num)
 				{
-				case 626:
-				case 627:
-				case 628:
-					for (int i = 0; i < 1000; i++)
-					{
-						if (Main.projectile[i].owner == this.owner && (float)Main.projectile[i].identity == this.ai[0] && Main.projectile[i].active)
-						{
-							this.ai[0] = (float)i;
-							return;
-						}
-					}
-					return;
-				case 629:
-				case 630:
-				case 631:
-					return;
-				case 632:
-					break;
-				default:
-					switch (num)
-					{
 					case 642:
 					case 644:
 						break;
@@ -11196,15 +11204,13 @@ namespace Terraria
 						return;
 					default:
 						return;
-					}
-					break;
 				}
 			}
-			for (int j = 0; j < 1000; j++)
+			for (int i = 0; i < 1000; i++)
 			{
-				if (Main.projectile[j].owner == this.owner && (float)Main.projectile[j].identity == this.ai[1] && Main.projectile[j].active)
+				if (Main.projectile[i].owner == this.owner && (float)Main.projectile[i].identity == this.ai[1] && Main.projectile[i].active)
 				{
-					this.ai[1] = (float)j;
+					this.ai[1] = (float)i;
 					return;
 				}
 			}
@@ -16966,7 +16972,7 @@ namespace Terraria
 														Rectangle rectangle11 = new Rectangle((int)Main.player[this.owner].position.X, (int)Main.player[this.owner].position.Y, Main.player[this.owner].width, Main.player[this.owner].height);
 														if (rectangle10.Intersects(rectangle11))
 														{
-															if (this.ai[1] > 0f && this.ai[1] < 3601f)
+															if (this.ai[1] > 0f && this.ai[1] < 3602f)
 															{
 																int num595 = (int)this.ai[1];
 																Item item = new Item();
@@ -21955,6 +21961,10 @@ namespace Terraria
 																												{
 																													this.velocity *= 0.98f;
 																													this.scale += 0.00744680827f;
+																													if (this.scale > 1.3f)
+																													{
+																														this.scale = 1.3f;
+																													}
 																													this.rotation -= 0.0174532924f;
 																												}
 																												if (this.velocity.Length() < 4.1f)
@@ -21970,7 +21980,7 @@ namespace Terraria
 																												if (this.ai[0] % 30f == 0f && this.ai[0] < 241f && Main.myPlayer == this.owner)
 																												{
 																													Vector2 vector189 = Vector2.UnitY.RotatedByRandom(6.2831854820251465) * 12f;
-																													Projectile.NewProjectile(base.Center.X, base.Center.Y, vector189.X, vector189.Y, 618, this.damage, 0f, this.owner, 0f, (float)this.whoAmI);
+																													Projectile.NewProjectile(base.Center.X, base.Center.Y, vector189.X, vector189.Y, 618, this.damage / 2, 0f, this.owner, 0f, (float)this.whoAmI);
 																												}
 																												Vector2 vector190 = base.Center;
 																												float num1037 = 800f;
@@ -30021,11 +30031,11 @@ namespace Terraria
 					bool flag14 = player.channel && player.HasAmmo(player.inventory[player.selectedItem], true) && !player.noItems;
 					int num46 = 14;
 					float num47 = 14f;
-					int num48 = player.inventory[player.selectedItem].damage;
-					float num49 = player.inventory[player.selectedItem].knockBack;
+					int weaponDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
+					float weaponKnockback = player.inventory[player.selectedItem].knockBack;
 					if (flag14)
 					{
-						player.PickAmmo(player.inventory[player.selectedItem], ref num46, ref num47, ref flag14, ref num48, ref num49, false);
+						player.PickAmmo(player.inventory[player.selectedItem], ref num46, ref num47, ref flag14, ref weaponDamage, ref weaponKnockback, false);
 						float num50 = player.inventory[player.selectedItem].shootSpeed * this.scale;
 						Vector2 vector33 = vector;
 						Vector2 vector34 = Main.screenPosition + new Vector2((float)Main.mouseX, (float)Main.mouseY) - vector33;
@@ -30053,7 +30063,7 @@ namespace Terraria
 							{
 								spinningpoint2 = -Vector2.UnitY;
 							}
-							Projectile.NewProjectile(vector33.X, vector33.Y, spinningpoint2.X, spinningpoint2.Y, num46, num48, num49, this.owner, 0f, 0f);
+							Projectile.NewProjectile(vector33.X, vector33.Y, spinningpoint2.X, spinningpoint2.Y, num46, weaponDamage, weaponKnockback, this.owner, 0f, 0f);
 						}
 						if (num44 == 0)
 						{
@@ -30067,7 +30077,7 @@ namespace Terraria
 								{
 									spinningpoint3 = -Vector2.UnitY;
 								}
-								Projectile.NewProjectile(vector33.X, vector33.Y, spinningpoint3.X, spinningpoint3.Y, num46, num48 + 20, num49 * 1.25f, this.owner, 0f, 0f);
+								Projectile.NewProjectile(vector33.X, vector33.Y, spinningpoint3.X, spinningpoint3.Y, num46, weaponDamage + 20, weaponKnockback * 1.25f, this.owner, 0f, 0f);
 							}
 						}
 					}
@@ -33086,12 +33096,20 @@ namespace Terraria
 		{
 			return string.Concat(new object[]
 			{
+				"type:",
+				this.type,
 				"name:",
 				this.name,
 				", active:",
 				this.active,
 				", whoAmI:",
-				this.whoAmI
+				this.whoAmI,
+				", identity:",
+				this.identity,
+				", ai0:",
+				this.ai[0],
+				" , uuid:",
+				this.projUUID
 			});
 		}
 	}
