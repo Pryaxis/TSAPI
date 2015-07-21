@@ -6142,7 +6142,25 @@ namespace Terraria
 				}
 				else if (cooldownCounter == 0)
 				{
-					this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 80 : 40);
+					if (num == 1.0)
+					{
+						this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 40 : 20);
+					}
+					else
+					{
+						this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 80 : 40);
+					}
+				}
+				else if (cooldownCounter == 1)
+				{
+					if (num == 1.0)
+					{
+						this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 40 : 20);
+					}
+					else
+					{
+						this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 80 : 40);
+					}
 				}
 				this.lifeRegenTime = 0;
 				if (this.whoAmI == Main.myPlayer)

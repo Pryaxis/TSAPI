@@ -8105,7 +8105,14 @@ namespace Terraria
 										Main.npc[k].ReflectProjectile(this.whoAmI);
 										return;
 									}
+									if (this.type > 0 && this.type < 651 && ProjectileID.Sets.StardustDragon[this.type])
+									{
+										float num11 = (this.scale - 1f) * 100f;
+										num11 = Utils.Clamp<float>(num11, 0f, 50f);
+										this.damage = (int)((float)this.damage * (1f + num11 * 0.23f));
+									}
 									int num10 = Main.DamageVar((float)this.damage);
+									bool flag4 = !this.npcProj && !this.trap;
 									if (this.type == 604)
 									{
 										this.friendly = false;
@@ -8252,24 +8259,24 @@ namespace Terraria
 									{
 										this.timeLeft = 1;
 									}
-									bool flag4 = false;
-									if (!this.npcProj)
+									bool flag5 = false;
+									if (flag4)
 									{
 										if (this.melee && Main.rand.Next(1, 101) <= Main.player[this.owner].meleeCrit)
 										{
-											flag4 = true;
+											flag5 = true;
 										}
 										if (this.ranged && Main.rand.Next(1, 101) <= Main.player[this.owner].rangedCrit)
 										{
-											flag4 = true;
+											flag5 = true;
 										}
 										if (this.magic && Main.rand.Next(1, 101) <= Main.player[this.owner].magicCrit)
 										{
-											flag4 = true;
+											flag5 = true;
 										}
 										if (this.thrown && Main.rand.Next(1, 101) <= Main.player[this.owner].thrownCrit)
 										{
-											flag4 = true;
+											flag5 = true;
 										}
 									}
 									if (this.aiStyle == 99)
@@ -8317,7 +8324,7 @@ namespace Terraria
 											num10 = (int)((double)num10 * 0.15);
 										}
 									}
-									if (!this.npcProj)
+									if (flag4)
 									{
 										int num17 = Item.NPCtoBanner(Main.npc[k].BannerID());
 										if (num17 >= 0)
@@ -8325,7 +8332,7 @@ namespace Terraria
 											Main.player[Main.myPlayer].lastCreatureHit = num17;
 										}
 									}
-									if (Main.netMode != 2)
+									if (Main.netMode != 2 && flag4)
 									{
 										int num18 = Item.NPCtoBanner(Main.npc[k].BannerID());
 										if (num18 > 0 && Main.player[this.owner].NPCBannerBuff[num18])
@@ -8415,7 +8422,7 @@ namespace Terraria
 										num10 = (int)((float)num10 * num25 / 8f);
 									}
 									this.StatusNPC(k);
-									if (this.type != 221 && this.type != 227 && this.type != 614)
+									if (flag4 && this.type != 221 && this.type != 227 && this.type != 614)
 									{
 										Main.player[this.owner].OnHit(Main.npc[k].Center.X, Main.npc[k].Center.Y, Main.npc[k]);
 									}
@@ -8424,24 +8431,24 @@ namespace Terraria
 										this.ai[1] = -1f;
 										this.netUpdate = true;
 									}
-									if (!this.npcProj && !this.hostile && Main.player[this.owner].armorPenetration > 0)
+									if (flag4 && !this.hostile && Main.player[this.owner].armorPenetration > 0)
 									{
 										num10 += Main.npc[k].checkArmorPenetration(Main.player[this.owner].armorPenetration);
 									}
 									int num26;
-									if (!this.npcProj)
+									if (flag4)
 									{
-										num26 = (int)Main.npc[k].StrikeNPC(num10, this.knockBack, this.direction, flag4, false, false);
+										num26 = (int)Main.npc[k].StrikeNPC(num10, this.knockBack, this.direction, flag5, false, false);
 									}
 									else
 									{
-										num26 = (int)Main.npc[k].StrikeNPCNoInteraction(num10, this.knockBack, this.direction, flag4, false, false);
+										num26 = (int)Main.npc[k].StrikeNPCNoInteraction(num10, this.knockBack, this.direction, flag5, false, false);
 									}
-									if (!this.npcProj && Main.player[this.owner].accDreamCatcher)
+									if (flag4 && Main.player[this.owner].accDreamCatcher)
 									{
 										Main.player[this.owner].addDPS(num26);
 									}
-									if (!this.npcProj && !Main.npc[k].immortal)
+									if (flag4 && !Main.npc[k].immortal)
 									{
 										if (this.type == 304 && num26 > 0 && Main.npc[k].lifeMax > 5)
 										{
@@ -8523,13 +8530,13 @@ namespace Terraria
 											}
 										}
 									}
-									if (!this.npcProj && this.melee && Main.player[this.owner].meleeEnchant == 7)
+									if (flag4 && this.melee && Main.player[this.owner].meleeEnchant == 7)
 									{
 										Projectile.NewProjectile(Main.npc[k].Center.X, Main.npc[k].Center.Y, Main.npc[k].velocity.X, Main.npc[k].velocity.Y, 289, 0, 0f, this.owner, 0f, 0f);
 									}
 									if (Main.netMode != 0)
 									{
-										if (flag4)
+										if (flag5)
 										{
 											NetMessage.SendData(28, -1, -1, "", k, (float)num10, this.knockBack, (float)this.direction, 1, 0, 0);
 										}
@@ -8984,7 +8991,12 @@ namespace Terraria
 						{
 							num41 = (int)((float)num41 * Main.expertDamage);
 						}
-						Main.player[myPlayer2].Hurt(num41 * 2, hitDirection, false, false, Lang.deathMsg(-1, -1, this.whoAmI, -1), false);
+						int cooldownCounter = -1;
+						if (this.type == 455 || this.type == 452 || this.type == 454 || this.type == 462)
+						{
+							cooldownCounter = 1;
+						}
+						Main.player[myPlayer2].Hurt(num41 * 2, hitDirection, false, false, Lang.deathMsg(-1, -1, this.whoAmI, -1), false, cooldownCounter);
 						if (this.trap)
 						{
 							Main.player[myPlayer2].trapDebuffSource = true;
@@ -11131,6 +11143,23 @@ namespace Terraria
 		public float GetPrismHue(float indexing)
 		{
 			return (float)((int)indexing) / 6f;
+		}
+		public static int GetByUUID(int owner, float uuid)
+		{
+			return Projectile.GetByUUID(owner, (int)uuid);
+		}
+		public static int GetByUUID(int owner, int uuid)
+		{
+			if (uuid < 0 || uuid >= 1000 || owner < 0 || owner >= 255)
+			{
+				return -1;
+			}
+			int num = Main.projectileIdentity[owner, uuid];
+			if (num >= 0 && Main.projectile[num].active)
+			{
+				return num;
+			}
+			return -1;
 		}
 		public void ProjectileFixDesperation(int own)
 		{
@@ -22316,9 +22345,7 @@ namespace Terraria
 																											}
 																											bool flag63 = this.type == 625;
 																											bool flag64 = this.type == 625 || this.type == 626 || this.type == 627 || this.type == 628;
-																											int num1073 = 10;
-																											int num1074 = 10;
-																											float num1075 = 0.01f;
+																											int num1051 = 10;
 																											if (flag64)
 																											{
 																												if (player9.dead)
@@ -22329,9 +22356,7 @@ namespace Terraria
 																												{
 																													this.timeLeft = 2;
 																												}
-																												num1073 = 30;
-																												num1074 = 50;
-																												num1075 = 0.2f;
+																												num1051 = 30;
 																											}
 																											if (flag63)
 																											{
@@ -22436,7 +22461,7 @@ namespace Terraria
 																												}
 																												this.position = base.Center;
 																												this.scale = 1f + this.localAI[0] * 0.01f;
-																												this.width = (this.height = (int)((float)num1073 * this.scale));
+																												this.width = (this.height = (int)((float)num1051 * this.scale));
 																												base.Center = this.position;
 																												if (this.alpha > 0)
 																												{
@@ -22446,82 +22471,71 @@ namespace Terraria
 																														this.alpha = 0;
 																													}
 																												}
-																												this.damage = (int)((float)num1074 * (1f + this.localAI[0] * num1075) * player9.minionDamage);
-																												return;
 																											}
-																											bool flag66 = false;
-																											Vector2 vector195 = Vector2.Zero;
-																											Vector2 arg_2DBC1_0 = Vector2.Zero;
-																											float num1088 = 0f;
-																											float num1089 = 0f;
-																											float num1090 = 1f;
-																											if (this.ai[1] == 1f)
+																											else
 																											{
-																												this.ai[1] = 0f;
-																												this.netUpdate = true;
-																											}
-																											if (flag64 && this.owner != Main.myPlayer && Main.projectile[(int)this.ai[0]].identity != (int)this.ai[0])
-																											{
-																												int num1091 = (int)this.ai[0];
-																												for (int num1092 = 0; num1092 < 1000; num1092++)
+																												bool flag66 = false;
+																												Vector2 vector195 = Vector2.Zero;
+																												Vector2 arg_2DBC1_0 = Vector2.Zero;
+																												float num1088 = 0f;
+																												float num1089 = 0f;
+																												float num1090 = 1f;
+																												if (this.ai[1] == 1f)
 																												{
-																													Projectile projectile2 = Main.projectile[num1092];
-																													if (projectile2 != this && projectile2.owner == this.owner && projectile2.identity == num1091)
+																													this.ai[1] = 0f;
+																													this.netUpdate = true;
+																												}
+																												int byUUID = Projectile.GetByUUID(this.owner, (int)this.ai[0]);
+																												if (flag64 && byUUID >= 0 && Main.projectile[byUUID].active && (Main.projectile[byUUID].type == 625 || Main.projectile[byUUID].type == 626 || Main.projectile[byUUID].type == 627))
+																												{
+																													flag66 = true;
+																													vector195 = Main.projectile[byUUID].Center;
+																													Vector2 arg_2DE6A_0 = Main.projectile[byUUID].velocity;
+																													num1088 = Main.projectile[byUUID].rotation;
+																													float num1065 = MathHelper.Clamp(Main.projectile[byUUID].scale, 0f, 50f);
+																													num1089 = num1065;
+																													num1090 = 16f;
+																													int arg_2DEC0_0 = Main.projectile[byUUID].alpha;
+																													Main.projectile[byUUID].localAI[0] = this.localAI[0] + 1f;
+																													if (Main.projectile[byUUID].type != 625)
 																													{
-																														this.ai[0] = (float)num1091;
-																														break;
+																														Main.projectile[byUUID].localAI[1] = (float)this.whoAmI;
+																													}
+																													if (this.owner == Main.myPlayer && Main.projectile[byUUID].type == 625 && this.type == 628)
+																													{
+																														Main.projectile[byUUID].Kill();
+																														this.Kill();
+																														return;
 																													}
 																												}
-																											}
-																											if (flag64 && Main.projectile[(int)this.ai[0]].active && (Main.projectile[(int)this.ai[0]].type == 625 || Main.projectile[(int)this.ai[0]].type == 626 || Main.projectile[(int)this.ai[0]].type == 627))
-																											{
-																												flag66 = true;
-																												vector195 = Main.projectile[(int)this.ai[0]].Center;
-																												Vector2 arg_2DD4C_0 = Main.projectile[(int)this.ai[0]].velocity;
-																												num1088 = Main.projectile[(int)this.ai[0]].rotation;
-																												num1090 = Main.projectile[(int)this.ai[0]].scale;
-																												num1089 = 16f;
-																												int arg_2DD9A_0 = Main.projectile[(int)this.ai[0]].alpha;
-																												Main.projectile[(int)this.ai[0]].localAI[0] = this.localAI[0] + 1f;
-																												if (Main.projectile[(int)this.ai[0]].type != 625)
+																												if (!flag66)
 																												{
-																													Main.projectile[(int)this.ai[0]].localAI[1] = (float)this.whoAmI;
-																												}
-																												if (this.owner == Main.myPlayer && Main.projectile[(int)this.ai[0]].type == 625 && this.type == 628)
-																												{
-																													Main.projectile[(int)this.ai[0]].Kill();
-																													this.Kill();
 																													return;
 																												}
-																											}
-																											if (!flag66)
-																											{
+																												this.alpha -= 42;
+																												if (this.alpha < 0)
+																												{
+																													this.alpha = 0;
+																												}
+																												this.velocity = Vector2.Zero;
+																												Vector2 vector134 = vector195 - base.Center;
+																												if (num1088 != this.rotation)
+																												{
+																													float num1068 = MathHelper.WrapAngle(num1088 - this.rotation);
+																													vector134 = vector134.RotatedBy((double)(num1068 * 0.1f), default(Vector2));
+																												}
+																												this.rotation = vector134.ToRotation() + 1.57079637f;
+																												this.position = base.Center;
+																												this.scale = num1090;
+																												this.width = (this.height = (int)((float)num1051 * this.scale));
+																												base.Center = this.position;
+																												if (vector134 != Vector2.Zero)
+																												{
+																													base.Center = vector195 - Vector2.Normalize(vector134) * num1090 * num1090;
+																												}
+																												this.spriteDirection = ((vector134.X > 0f) ? 1 : -1);
 																												return;
 																											}
-																											this.alpha -= 42;
-																											if (this.alpha < 0)
-																											{
-																												this.alpha = 0;
-																											}
-																											this.velocity = Vector2.Zero;
-																											Vector2 vector196 = vector195 - base.Center;
-																											if (num1088 != this.rotation)
-																											{
-																												float num1095 = MathHelper.WrapAngle(num1088 - this.rotation);
-																												vector196 = vector196.RotatedBy((double)(num1095 * 0.1f), default(Vector2));
-																											}
-																											this.rotation = vector196.ToRotation() + 1.57079637f;
-																											this.position = base.Center;
-																											this.scale = num1090;
-																											this.width = (this.height = (int)((float)num1073 * this.scale));
-																											base.Center = this.position;
-																											if (vector196 != Vector2.Zero)
-																											{
-																												base.Center = vector195 - Vector2.Normalize(vector196) * num1089 * num1090;
-																											}
-																											this.spriteDirection = ((vector196.X > 0f) ? 1 : -1);
-																											this.damage = (int)((float)num1074 * (1f + this.localAI[0] * num1075) * player9.minionDamage);
-																											return;
 																										}
 																										else if (this.aiStyle == 122)
 																										{

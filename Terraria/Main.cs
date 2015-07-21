@@ -1573,9 +1573,11 @@ namespace Terraria
 
 		public List<int> DrawCacheNPCsOverPlayers = new List<int>(200);
 
-		public List<int> DrawCacheProjsBackground = new List<int>(1000);
+		public List<int> DrawCacheProjsBehindNPCsAndTiles = new List<int>(1000);
 
-		public List<int> DrawCacheProjsWorms = new List<int>(1000);
+		public List<int> DrawCacheProjsBehindNPCs = new List<int>(1000);
+
+		public List<int> DrawCacheProjsBehindProjectiles = new List<int>(1000);
 
 		public List<int> DrawCacheNPCProjectiles = new List<int>(200);
 
@@ -2680,19 +2682,44 @@ namespace Terraria
 
 		protected void CacheProjDraws()
 		{
-			this.DrawCacheProjsBackground.Clear();
-			this.DrawCacheProjsWorms.Clear();
+			this.DrawCacheProjsBehindNPCsAndTiles.Clear();
+			this.DrawCacheProjsBehindNPCs.Clear();
+			this.DrawCacheProjsBehindProjectiles.Clear();
 			for (int i = 0; i < 1000; i++)
 			{
 				if (Main.projectile[i].active)
 				{
 					if (Main.projectile[i].type == 578 || Main.projectile[i].type == 579 || Main.projectile[i].type == 641 || Main.projectile[i].type == 598 || Main.projectile[i].type == 617 || Main.projectile[i].type == 636)
 					{
-						this.DrawCacheProjsBackground.Add(i);
+						this.DrawCacheProjsBehindNPCsAndTiles.Add(i);
 					}
 					if (Main.projectile[i].type == 625 || Main.projectile[i].type == 626 || Main.projectile[i].type == 627 || Main.projectile[i].type == 628)
 					{
-						this.DrawCacheProjsWorms.Add(i);
+						this.DrawCacheProjsBehindProjectiles.Add(i);
+					}
+					if (Main.projectile[i].type == 636 || Main.projectile[i].type == 598)
+					{
+						bool flag = true;
+						if (Main.projectile[i].ai[0] == 1f)
+						{
+							int num = (int)Main.projectile[i].ai[1];
+							if (num >= 0 && num < 200 && Main.npc[num].active)
+							{
+								if (Main.npc[num].behindTiles)
+								{
+									this.DrawCacheProjsBehindNPCsAndTiles.Add(i);
+								}
+								else
+								{
+									this.DrawCacheProjsBehindNPCs.Add(i);
+								}
+								flag = false;
+							}
+						}
+						if (flag)
+						{
+							this.DrawCacheProjsBehindProjectiles.Add(i);
+						}
 					}
 				}
 			}
@@ -10546,52 +10573,56 @@ namespace Terraria
 
 		protected void SortDrawCacheWorms()
 		{
-			List<int> drawCacheProjsWorms = this.DrawCacheProjsWorms;
-			if (drawCacheProjsWorms.Count == 0)
+			List<int> drawCacheProjsBehindProjectiles = this.DrawCacheProjsBehindProjectiles;
+			if (drawCacheProjsBehindProjectiles.Count == 0)
 			{
 				return;
 			}
-			List<List<int>> lists = new List<List<int>>();
-			for (int i = 0; i < drawCacheProjsWorms.Count; i++)
+			List<List<int>> list = new List<List<int>>();
+			for (int i = 0; i < drawCacheProjsBehindProjectiles.Count; i++)
 			{
-				int item = drawCacheProjsWorms[i];
-				if (Main.projectile[item].type == 628)
+				int num = drawCacheProjsBehindProjectiles[i];
+				if (Main.projectile[num].type == 628)
 				{
-					drawCacheProjsWorms.Remove(item);
-					List<int> nums = new List<int>();
-					nums.Insert(0, item);
-					for (int j = (int)Main.projectile[item].ai[0]; !nums.Contains(j) && Main.projectile[j].active && Main.projectile[j].type >= 625 && Main.projectile[j].type <= 627; j = (int)Main.projectile[j].ai[0])
+					drawCacheProjsBehindProjectiles.Remove(num);
+					List<int> list2 = new List<int>();
+					list2.Insert(0, num);
+					int byUUID = Projectile.GetByUUID(Main.projectile[num].owner, Main.projectile[num].ai[0]);
+					while (byUUID >= 0 && !list2.Contains(byUUID) && Main.projectile[byUUID].active && Main.projectile[byUUID].type >= 625 && Main.projectile[byUUID].type <= 627)
 					{
-						nums.Insert(0, j);
-						drawCacheProjsWorms.Remove(j);
+						list2.Insert(0, byUUID);
+						drawCacheProjsBehindProjectiles.Remove(byUUID);
+						byUUID = Projectile.GetByUUID(Main.projectile[byUUID].owner, Main.projectile[byUUID].ai[0]);
 					}
-					lists.Add(nums);
+					list.Add(list2);
 					i = -1;
 				}
 			}
-			lists.Add(new List<int>(this.DrawCacheProjsWorms));
-			this.DrawCacheProjsWorms.Clear();
-			for (int k = 0; k < lists.Count; k++)
+			List<int> list3 = new List<int>(this.DrawCacheProjsBehindProjectiles);
+			list.Add(list3);
+			this.DrawCacheProjsBehindProjectiles.Clear();
+			for (int j = 0; j < list.Count; j++)
 			{
-				for (int l = 0; l < lists[k].Count; l++)
+				for (int k = 0; k < list[j].Count; k++)
 				{
-					this.DrawCacheProjsWorms.Add(lists[k][l]);
+					this.DrawCacheProjsBehindProjectiles.Add(list[j][k]);
 				}
 			}
-			for (int m = 0; m < this.DrawCacheProjsWorms.Count; m++)
+			for (int l = 0; l < this.DrawCacheProjsBehindProjectiles.Count; l++)
 			{
-				Projectile projectile = Main.projectile[this.DrawCacheProjsWorms[m]];
-				if (projectile.type != 625)
+				Projectile projectile = Main.projectile[this.DrawCacheProjsBehindProjectiles[l]];
+				int byUUID2 = Projectile.GetByUUID(projectile.owner, projectile.ai[0]);
+				if (projectile.type >= 626 && projectile.type <= 628 && byUUID2 >= 0 && ProjectileID.Sets.StardustDragon[Main.projectile[byUUID2].type])
 				{
-					Vector2 center = Main.projectile[(int)projectile.ai[0]].Center - projectile.Center;
-					if (center != Vector2.Zero)
+					Vector2 vector = Main.projectile[byUUID2].Center - projectile.Center;
+					if (vector != Vector2.Zero)
 					{
-						float single = Main.projectile[(int)projectile.ai[0]].scale * 16f;
-						float single1 = single - center.Length();
-						if (single1 != 0f)
+						float num2 = Main.projectile[byUUID2].scale * 16f;
+						float num3 = vector.Length();
+						float num4 = num2 - num3;
+						if (num4 != 0f)
 						{
-							Projectile center1 = projectile;
-							center1.Center = center1.Center + (Vector2.Normalize(center) * -single1);
+							projectile.Center += Vector2.Normalize(vector) * -num4;
 						}
 					}
 				}
@@ -10936,7 +10967,7 @@ namespace Terraria
 
 		public static void StartInvasion(int type = 1)
 		{
-			if (Main.invasionType == 0 && Main.invasionDelay == 0)
+			if (Main.invasionType == 0)
 			{
 				int num = 0;
 				for (int i = 0; i < 255; i++)
@@ -14380,7 +14411,7 @@ namespace Terraria
 								Main.npc[num38].homeTileY = Main.dungeonY;
 							}
 							bool flag8 = false;
-							if (Main.rand.Next(50) == 0)
+							if (Main.rand.Next(40) == 0)
 							{
 								flag8 = true;
 							}
