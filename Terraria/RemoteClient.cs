@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using Terraria.Net.Sockets;
 using TerrariaApi.Server;
 
@@ -81,21 +82,25 @@ namespace Terraria
 			if (num1 > 0)
 			{
 				int num2 = num1;
-				NetMessage.SendData(9, num, -1, Lang.inter[44], num2, 0f, 0f, 0f, 0, 0, 0);
 				Netplay.Clients[num].StatusText2 = "is receiving tile data";
 				RemoteClient clients = Netplay.Clients[num];
 				clients.StatusMax = clients.StatusMax + num2;
+
+				LinkedList<SequenceItem> sequence = new LinkedList<SequenceItem>();
+				NetMessage.SendData(9, num, -1, Lang.inter[44], num2, 0f, 0f, 0f, 0, 0, 0, sequence);
+
 				for (int k = sectionX - fluff; k < sectionX + fluff + 1; k++)
 				{
 					for (int l = sectionY - fluff; l < sectionY + fluff + 1; l++)
 					{
 						if (k >= 0 && k < Main.maxSectionsX && l >= 0 && l < Main.maxSectionsY && !Netplay.Clients[num].TileSections[k, l])
 						{
-							NetMessage.SendSection(num, k, l, false);
-							NetMessage.SendData(11, num, -1, "", k, (float)l, (float)k, (float)l, 0, 0, 0);
+							NetMessage.SendSection(num, k, l, false, sequence);
+							NetMessage.SendData(11, num, -1, "", k, (float)l, (float)k, (float)l, 0, 0, 0, sequence);
 						}
 					}
 				}
+				Netplay.Clients[num].sendQueue.Enqueue(sequence);
 			}
 		}
 

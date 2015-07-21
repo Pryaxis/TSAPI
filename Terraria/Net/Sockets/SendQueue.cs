@@ -12,9 +12,31 @@ using Terraria.Net.Sockets.EventArgs;
 
 namespace Terraria.Net.Sockets
 {
+	public enum HeapType
+	{
+		None,
+		SmallHeap,
+		LargeHeap
+	}
+	public struct SequenceItem
+	{
+		private SendQueue queue;
+
+		public readonly int Block;
+		public readonly HeapType HeapType;
+
+		public SequenceItem(SendQueue queue, HeapType type, int block)
+		{
+			this.queue = queue;
+			this.HeapType = type;
+			this.Block = block;
+		}
+
+	}
 
 	public class SendQueue : IDisposable
 	{
+		public const int kSendQueueMaxSequences = 8192;
 		public const int kSendQueueLargeBlockSize = 16384;
 		public const int kSendQueueSmallBlockSize = 128;
 
@@ -31,6 +53,8 @@ namespace Terraria.Net.Sockets
 
 		protected bool[] queuedLargeBlocks;
 		protected bool[] queuedSmallBlocks;
+
+		protected LinkedList<SequenceItem>[] sequences = new LinkedList<SequenceItem>[kSendQueueMaxSequences];
 
 		protected Thread sendThread;
 		protected RemoteClient client;
@@ -87,6 +111,36 @@ namespace Terraria.Net.Sockets
 				if (threadCancelled == true || client.PendingTermination == true)
 				{
 					break;
+				}
+
+				for (int i = 0; i < kSendQueueMaxSequences; i++)
+				{
+					LinkedList<SequenceItem> sequence;
+
+					if ((sequence = Interlocked.Exchange(ref sequences[i], null)) == null)
+					{
+						continue;
+					}
+
+					foreach (SequenceItem sequenceItem in sequence)
+					{
+						byte[] heap = sequenceItem.HeapType == HeapType.LargeHeap ? largeObjectHeap : smallObjectHeap;
+						int offset = sequenceItem.Block*
+						             (sequenceItem.HeapType == HeapType.LargeHeap ? kSendQueueLargeBlockSize : kSendQueueSmallBlockSize);
+						int length = BitConverter.ToInt16(heap, offset);
+						
+						try
+						{
+							(client.Socket as TcpSocket)._connection.GetStream().Write(heap, offset, length);
+						}
+						catch
+						{
+						}
+						finally
+						{
+							Free(sequenceItem.Block, sequenceItem.HeapType);
+						}
+					}
 				}
 
 				for (blockIndex = 0; blockIndex < maxLargeBlocks; blockIndex++)
@@ -195,45 +249,62 @@ namespace Terraria.Net.Sockets
 			}
 		}
 
-
-		public ArraySegment<byte> Alloc(int size)
+		public ArraySegment<byte> Alloc(int size, out HeapType type, out int block)
 		{
-			lock (this)
+			if (size <= kSendQueueSmallBlockSize)
 			{
-
-				if (size <= kSendQueueSmallBlockSize)
+				for (int i = 0; i < maxSmallBlocks; i++)
 				{
-					for (int i = 0; i < maxSmallBlocks; i++)
+					if (1 == Interlocked.CompareExchange(ref freeSmallBlocks[i], 0, 1))
 					{
-						if (1 == Interlocked.CompareExchange(ref freeSmallBlocks[i], 0, 1))
-						{
-							return new ArraySegment<byte>(smallObjectHeap, i*kSendQueueSmallBlockSize, kSendQueueSmallBlockSize);
-						}
-					}
-				}
-
-				for (int i = 0; i < maxLargeBlocks; i++)
-				{
-					if (1 == Interlocked.CompareExchange(ref freeLargeBlocks[i], 0, 1))
-					{
-						return new ArraySegment<byte>(largeObjectHeap, i*kSendQueueLargeBlockSize, kSendQueueLargeBlockSize);
+						type = HeapType.SmallHeap;
+						block = i;
+						return new ArraySegment<byte>(smallObjectHeap, i*kSendQueueSmallBlockSize, kSendQueueSmallBlockSize);
 					}
 				}
 			}
 
+			for (int i = 0; i < maxLargeBlocks; i++)
+			{
+				if (1 == Interlocked.CompareExchange(ref freeLargeBlocks[i], 0, 1))
+				{
+					type = HeapType.LargeHeap;
+					block = i;
+					return new ArraySegment<byte>(largeObjectHeap, i*kSendQueueLargeBlockSize, kSendQueueLargeBlockSize);
+				}
+			}
+
+			type = HeapType.None;
+			block = -1;
 			//Console.WriteLine("send: slot {0} alloc failed!", client.Id);
 			return default(ArraySegment<byte>);
 		}
 
-		public void AllocAndSet(int size, Func<ArraySegment<byte>, bool> setFunc)
+		public void AllocAndSet(int size, Func<ArraySegment<byte>, bool> setFunc, LinkedList<SequenceItem> sequence = null)
 		{
-			ArraySegment<byte> block = Alloc(size);
+			HeapType type;
+			int blockId;
+			bool enqueue;
+
+			ArraySegment<byte> block = Alloc(size, out type, out blockId);
 			if (block == default(ArraySegment<byte>))
 			{
 				return;
 			}
 
-			if (setFunc(block))
+			enqueue = setFunc(block);
+			if (sequence != null && enqueue)
+			{
+				sequence.AddLast(new SequenceItem(this, type, blockId));
+				return;
+			}
+
+			/*
+			 * If the sequence is not null, then the sequence must be appended
+			 * and not enqueued.
+			 */
+
+			if (enqueue)
 			{
 				Enqueue(block);
 			}
@@ -241,7 +312,10 @@ namespace Terraria.Net.Sockets
 
 		public void AllocAndSet(int size, Func<BinaryWriter, bool> setFunc)
 		{
-			ArraySegment<byte> block = Alloc(size);
+			HeapType type;
+			int blockId;
+
+			ArraySegment<byte> block = Alloc(size, out type, out blockId);
 			if (block == default(ArraySegment<byte>))
 			{
 				return;
@@ -257,9 +331,12 @@ namespace Terraria.Net.Sockets
 			}
 		}
 
-		public ArraySegment<byte> AllocAndCopy(ref byte[] buffer, int offset, int count)
+		public ArraySegment<byte> AllocAndCopy(ref byte[] buffer, int offset, int count, LinkedList<SequenceItem> sequence = null)
 		{
-			ArraySegment<byte> block = Alloc(count);
+			HeapType type;
+			int blockId;
+
+			ArraySegment<byte> block = Alloc(count, out type, out blockId);
 			if (block == default(ArraySegment<byte>))
 			{
 				return default(ArraySegment<byte>);
@@ -272,13 +349,18 @@ namespace Terraria.Net.Sockets
 
 			Array.Copy(buffer, offset, block.Array, block.Offset + offset, count);
 
+			if (sequence != null)
+			{
+				sequence.AddLast(new SequenceItem(this, type, blockId));
+			}
+
 			return block;
 		}
 
 
-		public void Enqueue(ArraySegment<byte> block)
+		public void Enqueue(ArraySegment<byte> block, LinkedList<SequenceItem> sequence = null) 
 		{
-			if (block == default(ArraySegment<byte>))
+			if (block == default(ArraySegment<byte>) || sequence != null)
 			{
 				return;
 			}
@@ -293,6 +375,16 @@ namespace Terraria.Net.Sockets
 			waitHandle.Set();
 		}
 
+		public void Enqueue(LinkedList<SequenceItem> sequence)
+		{
+			for (int i = 0; i < kSendQueueMaxSequences; i++)
+			{
+				Interlocked.CompareExchange(ref sequences[i], sequence, null);
+				waitHandle.Set();
+				return;
+			}
+		}
+
 		public void FreeLarge(int block)
 		{
 			Interlocked.Exchange(ref freeLargeBlocks[block], 1);
@@ -303,6 +395,17 @@ namespace Terraria.Net.Sockets
 		{
 			Interlocked.Exchange(ref freeSmallBlocks[block], 1);
 			queuedSmallBlocks[block] = false;
+		}
+
+		public void Free(int block, HeapType type)
+		{
+			if (type == HeapType.LargeHeap)
+			{
+				FreeLarge(block);
+				return;
+			}
+
+			Free(block);
 		}
 
 		~SendQueue()
