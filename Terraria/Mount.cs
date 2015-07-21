@@ -556,7 +556,7 @@ namespace Terraria
 		public bool CanMount(int m, Player mountingPlayer)
 		{
 			int num = 42 + Mount.mounts[m].heightBoost;
-			Vector2 vector2 = mountingPlayer.position + new Vector2(0f, (float)(mountingPlayer.height - num));
+			Vector2 vector2 = mountingPlayer.position + new Vector2(0f, (float)(mountingPlayer.height - num)) + mountingPlayer.velocity;
 			return Collision.IsClearSpotHack(vector2, 2f, mountingPlayer.width, num, false, false, 1, true, false);
 		}
 
@@ -2483,35 +2483,40 @@ namespace Terraria
 			{
 				return;
 			}
-			Mount.DrillMountData drillMountDatum = (Mount.DrillMountData)this._mountSpecificData;
-			if (drillMountDatum.beamCooldown == 0)
+			Mount.DrillMountData drillMountData = (Mount.DrillMountData)this._mountSpecificData;
+			if (drillMountData.beamCooldown == 0)
 			{
-				int num = 0;
-				while (num < (int)drillMountDatum.beams.Length)
+				int i = 0;
+				while (i < (int)drillMountData.beams.Length)
 				{
-					Mount.DrillBeam drillBeam = drillMountDatum.beams[num];
-					if (drillBeam.cooldown != 0)
+					Mount.DrillBeam drillBeam = drillMountData.beams[i];
+					if (drillBeam.cooldown == 0)
 					{
-						num++;
+						Point16 point = this.DrillSmartCursor(mountedPlayer, drillMountData);
+						if (point != Point16.NegativeOne)
+						{
+							drillBeam.curTileTarget = point;
+							int pickPower = Mount.drillPickPower;
+							bool flag = mountedPlayer.whoAmI == Main.myPlayer;
+							if (flag)
+							{
+								mountedPlayer.PickTile((int)point.X, (int)point.Y, pickPower);
+							}
+							if (flag)
+							{
+								Tile.SmoothSlope((int)point.X, (int)point.Y, true);
+							}
+							drillBeam.cooldown = Mount.drillPickTime;
+							break;
+						}
+						break;
 					}
 					else
 					{
-						Point16 point16 = this.DrillSmartCursor(mountedPlayer, drillMountDatum);
-						if (point16 == Point16.NegativeOne)
-						{
-							break;
-						}
-						drillBeam.curTileTarget = point16;
-						int num1 = Mount.drillPickPower;
-						mountedPlayer.PickTile(point16.X, point16.Y, num1);
-						Vector2 vector2 = new Vector2((float)(point16.X << 4) + 8f, (float)(point16.Y << 4) + 8f);
-						float rotation = (vector2 - mountedPlayer.Center).ToRotation();
-						Tile.SmoothSlope(point16.X, point16.Y, true);
-						drillBeam.cooldown = Mount.drillPickTime;
-						break;
+						i++;
 					}
 				}
-				drillMountDatum.beamCooldown = Mount.drillBeamCooldownMax;
+				drillMountData.beamCooldown = Mount.drillBeamCooldownMax;
 			}
 		}
 

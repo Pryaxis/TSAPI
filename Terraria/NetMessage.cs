@@ -577,7 +577,8 @@ namespace Terraria
 					BitsByte bb13 = 0;
 					bb13[0] = (number4 == 1f); //pvp
 					bb13[1] = (number5 == 1); //critical hit
-					bb13[2] = (number6 == 0); //idk newstuff 0.5
+					bb13[2] = (number6 == 0); //cooldownCounter
+					bb13[3] = (number6 == 1); //something with cooldownCounter = 1, 1.3.0.6 -P
 					writer.Write(bb13);
 					break;
 				}

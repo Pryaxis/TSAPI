@@ -153,6 +153,10 @@
     <Compile Include="Terraria\Net\Sockets\SendQueue.cs" />
     <Compile Include="Terraria\StreamExt.cs" />
     <Compile Include="Terraria\StreamGenericExt.cs" />
+    <Compile Include="Terraria\Terraria.GameContent.UI\EmoteBubble.cs" />
+    <Compile Include="Terraria\Terraria.GameContent.UI\EmoteID.cs" />
+    <Compile Include="Terraria\Terraria.GameContent.UI\ItemRarity.cs" />
+    <Compile Include="Terraria\Terraria.GameContent.UI\WorldUIAnchor.cs" />
     <Compile Include="Terraria\World.Generation\GenerationProgress.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>

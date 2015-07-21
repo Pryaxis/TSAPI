@@ -6,6 +6,8 @@ using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Events;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
+using Terraria.GameContent.UI;
+
 namespace Terraria
 {
 	public class NPC : Entity
@@ -38612,7 +38614,10 @@ namespace Terraria
 												this.velocity.X = Math.Min(this.velocity.X + this.ai[3] * 0.05f, 4f);
 												if (this.position.Y < (float)(-(float)this.height) || this.ai[1] >= 180f)
 												{
-													Main.StartInvasion(4);
+													if (Main.netMode != 1)
+													{
+														Main.StartInvasion(4);
+													}
 													this.active = false;
 													this.ai[0] = 3f;
 													this.netUpdate = true;
@@ -39755,25 +39760,25 @@ namespace Terraria
 													}
 													if (this.ai[1] >= 4f && flag168 && (int)(this.ai[1] - 4f) % num1767 == 0)
 													{
-														List<int> list4 = new List<int>();
-														for (int num1788 = 0; num1788 < 200; num1788++)
+														if (Main.netMode != 1)
 														{
-															if (Main.npc[num1788].active && Main.npc[num1788].type == 440 && Main.npc[num1788].ai[3] == (float)this.whoAmI)
+															List<int> list4 = new List<int>();
+															for (int num1788 = 0; num1788 < 200; num1788++)
 															{
-																list4.Add(num1788);
+																if (Main.npc[num1788].active && Main.npc[num1788].type == 440 && Main.npc[num1788].ai[3] == (float)this.whoAmI)
+																{
+																	list4.Add(num1788);
+																}
 															}
-														}
-														foreach (int current3 in list4)
-														{
-															NPC nPC15 = Main.npc[current3];
-															Vector2 center32 = nPC15.Center;
-															int num1789 = Math.Sign(player11.Center.X - center32.X);
-															if (num1789 != 0)
+															foreach (int current3 in list4)
 															{
-																nPC15.direction = (nPC15.spriteDirection = num1789);
-															}
-															if (Main.netMode != 1)
-															{
+																NPC nPC15 = Main.npc[current3];
+																Vector2 center32 = nPC15.Center;
+																int num1789 = Math.Sign(player11.Center.X - center32.X);
+																if (num1789 != 0)
+																{
+																	nPC15.direction = (nPC15.spriteDirection = num1789);
+																}
 																vec8 = Vector2.Normalize(player11.Center - center32 + player11.velocity * 20f);
 																if (vec8.HasNaNs())
 																{
@@ -39834,17 +39839,17 @@ namespace Terraria
 																	list5.Add(num1793);
 																}
 															}
-															foreach (int current4 in list5)
+															if (Main.netMode != 1)
 															{
-																NPC nPC16 = Main.npc[current4];
-																Vector2 center33 = nPC16.Center;
-																int num1794 = Math.Sign(player11.Center.X - center33.X);
-																if (num1794 != 0)
+																foreach (int current4 in list5)
 																{
-																	nPC16.direction = (nPC16.spriteDirection = num1794);
-																}
-																if (Main.netMode != 1)
-																{
+																	NPC nPC16 = Main.npc[current4];
+																	Vector2 center33 = nPC16.Center;
+																	int num1794 = Math.Sign(player11.Center.X - center33.X);
+																	if (num1794 != 0)
+																	{
+																		nPC16.direction = (nPC16.spriteDirection = num1794);
+																	}
 																	vec9 = Vector2.Normalize(player11.Center - center33 + player11.velocity * 20f);
 																	if (vec9.HasNaNs())
 																	{
@@ -39901,7 +39906,7 @@ namespace Terraria
 													{
 														this.localAI[2] = 11f;
 													}
-													if (this.ai[1] == 20f && flag168)
+													if (this.ai[1] == 20f && flag168 && Main.netMode != 1)
 													{
 														List<int> list6 = new List<int>();
 														for (int num1798 = 0; num1798 < 200; num1798++)
@@ -43468,11 +43473,10 @@ namespace Terraria
 						{
 							this.frame.Y = num * (num4 - 1);
 							this.frameCounter = 0.0;
-							//Preserve on the off chance we can actually re-add bubbles
-							/*if (Main.netMode != 1)
+							if (Main.netMode != 1)
 							{
 								EmoteBubble.NewBubble(89, new WorldUIAnchor(this), 30);
-							}*/
+							}
 						}
 						else if (this.frame.Y != 0 && this.frame.Y != num * (num4 - 1))
 						{
@@ -43645,8 +43649,7 @@ namespace Terraria
 						}
 						else if (this.frameCounter == 16.0 && Main.netMode != 1)
 						{
-							//Preserve on the off chance we can actually re-add bubbles
-							//EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), 112, null);
+							EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), 112, null);
 						}
 						else if (this.frameCounter < 128.0)
 						{
@@ -43658,8 +43661,7 @@ namespace Terraria
 						}
 						else if (this.frameCounter == 160.0 && Main.netMode != 1)
 						{
-							//Preserve on the off chance we can actually re-add bubbles
-							//EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), 60, null);
+							EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), 60, null);
 						}
 						else if (this.frameCounter < 220.0)
 						{
@@ -43968,13 +43970,11 @@ namespace Terraria
 						{
 							if (num31 != -1)
 							{
-								//Preserve on the off chance we can actually re-add bubbles
-								//EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), num31, new WorldUIAnchor(Main.npc[(int)this.ai[2]]));
+								EmoteBubble.NewBubbleNPC(new WorldUIAnchor(this), num31, new WorldUIAnchor(Main.npc[(int)this.ai[2]]));
 							}
 							if (num32 != -1)
 							{
-								//Preserve on the off chance we can actually re-add bubbles
-								//EmoteBubble.NewBubbleNPC(new WorldUIAnchor(Main.npc[(int)this.ai[2]]), num32, new WorldUIAnchor(this));
+								EmoteBubble.NewBubbleNPC(new WorldUIAnchor(Main.npc[(int)this.ai[2]]), num32, new WorldUIAnchor(this));
 							}
 						}
 						this.frame.Y = num * (flag ? num29 : num30);
@@ -44202,9 +44202,8 @@ namespace Terraria
 									num46 -= 3;
 								}
 							}
-							//Preserve on the off chance we can actually re-add bubbles
-							//EmoteBubble.NewBubble(num45, new WorldUIAnchor(this), num35);
-							//EmoteBubble.NewBubble(num46, new WorldUIAnchor(Main.npc[(int)this.ai[2]]), num35);
+							EmoteBubble.NewBubble(num45, new WorldUIAnchor(this), num35);
+							EmoteBubble.NewBubble(num46, new WorldUIAnchor(Main.npc[(int)this.ai[2]]), num35);
 						}
 						this.frame.Y = num * (flag2 ? num34 : num34);
 						if (this.frameCounter >= 420.0)
@@ -61934,19 +61933,6 @@ namespace Terraria
 						this.teleportTime -= 0.02f;
 					}
 					this.teleportTime -= 0.005f;
-				}
-				//Shouldn't be necessary because dedServ should ALWAYS be netMode = 2
-				if (Main.netMode != 2)
-				{
-					if (this.type >= 362 && this.type <= 365)
-					{
-					}
-					else if (this.type == 361 || this.type == 445)
-					{
-					}
-					else if (this.type == 74 || this.type == 297 || this.type == 298 || this.type == 442)
-					{
-					}
 				}
 				if (Main.netMode == 1 && (this.townNPC || this.type == 453) && this.type != 37 && this.npcNameLookup == 0)
 				{

@@ -131,6 +131,8 @@ namespace Terraria
 
 		public bool solarDashing;
 
+		public bool solarDashConsumedFlare;
+
 		public int nebulaLevelLife;
 
 		public int nebulaLevelMana;
@@ -943,6 +945,14 @@ namespace Terraria
 
 		public bool wolfAcc;
 
+		public bool hideMerman;
+
+		public bool hideWolf;
+
+		public bool forceMerman;
+
+		public bool forceWerewolf;
+
 		public bool rulerGrid;
 
 		public bool rulerLine;
@@ -1685,7 +1695,7 @@ namespace Terraria
 
 		public Player()
 		{
-			int[] array = new int[1];
+			int[] array = new int[2];
 			this.hurtCooldowns = array;
 			this.width = 20;
 			this.height = 42;
@@ -3043,6 +3053,11 @@ namespace Terraria
 						NPC nPC1 = Main.npc[j];
 						if (rectangle1.Intersects(nPC1.getRect()) && (nPC1.noTileCollide || Collision.CanHit(this.position, this.width, this.height, nPC1.position, nPC1.width, nPC1.height)))
 						{
+							if (!this.solarDashConsumedFlare)
+							{
+								this.solarDashConsumedFlare = true;
+								this.ConsumeSolarFlare();
+							}
 							float single2 = 150f * this.meleeDamage;
 							float single3 = 9f;
 							bool flag1 = false;
@@ -3067,7 +3082,16 @@ namespace Terraria
 							{
 								num3 = 1;
 							}
-							nPC1.StrikeNPC((int)single2, single3, num3, flag1, false, false);
+							if (this.whoAmI == Main.myPlayer)
+							{
+								nPC1.StrikeNPC((int)single2, single3, num3, flag1, false, false);
+								if (Main.netMode != 0)
+								{
+									NetMessage.SendData(28, -1, -1, "", j, single2, single3, (float)num3, 0, 0, 0);
+								}
+								int num7 = Projectile.NewProjectile(base.Center.X, base.Center.Y, 0f, 0f, 608, 150, 15f, Main.myPlayer, 0f, 0f);
+								Main.projectile[num7].Kill();
+							}
 							nPC1.immune[this.whoAmI] = 6;
 							this.immune = true;
 							this.immuneTime = 4;
@@ -3192,7 +3216,7 @@ namespace Terraria
 						this.velocity.X = 16.9f * (float)num13;
 						Point tileCoordinates = (base.Center + new Vector2((float)(num13 * this.width / 2 + 2), this.gravDir * (float)(-this.height) / 2f + this.gravDir * 2f)).ToTileCoordinates();
 						Point point = (base.Center + new Vector2((float)(num13 * this.width / 2 + 2), 0f)).ToTileCoordinates();
-						if (WorldGen.SolidTile(tileCoordinates.X, tileCoordinates.Y) || WorldGen.SolidTile(point.X, point.Y))
+						if (WorldGen.SolidOrSlopedTile(tileCoordinates.X, tileCoordinates.Y) || WorldGen.SolidOrSlopedTile(point.X, point.Y))
 						{
 							this.velocity.X = this.velocity.X / 2f;
 						}
@@ -3279,8 +3303,8 @@ namespace Terraria
 							num22 = 1;
 							flag4 = true;
 							this.dashTime = 0;
-							this.ConsumeSolarFlare();
 							this.solarDashing = true;
+							this.solarDashConsumedFlare = false;
 						}
 					}
 					else if (this.controlLeft && this.releaseLeft)
@@ -3294,8 +3318,8 @@ namespace Terraria
 							num22 = -1;
 							flag4 = true;
 							this.dashTime = 0;
-							this.ConsumeSolarFlare();
 							this.solarDashing = true;
+							this.solarDashConsumedFlare = false;
 						}
 					}
 					if (flag4)
@@ -3309,62 +3333,6 @@ namespace Terraria
 						}
 						this.dashDelay = -1;
 						return;
-					}
-				}
-				else if (this.dash == 4)
-				{
-					int num26 = 0;
-					bool flag5 = false;
-					if (this.dashTime > 0)
-					{
-						Player player8 = this;
-						player8.dashTime = player8.dashTime - 1;
-					}
-					if (this.dashTime < 0)
-					{
-						Player player9 = this;
-						player9.dashTime = player9.dashTime + 1;
-					}
-					if (this.controlRight && this.releaseRight)
-					{
-						if (this.dashTime <= 0)
-						{
-							this.dashTime = 15;
-						}
-						else
-						{
-							num26 = 1;
-							flag5 = true;
-							this.dashTime = 0;
-							this.ConsumeSolarFlare();
-							this.solarDashing = true;
-						}
-					}
-					else if (this.controlLeft && this.releaseLeft)
-					{
-						if (this.dashTime >= 0)
-						{
-							this.dashTime = -15;
-						}
-						else
-						{
-							num26 = -1;
-							flag5 = true;
-							this.dashTime = 0;
-							this.ConsumeSolarFlare();
-							this.solarDashing = true;
-						}
-					}
-					if (flag5)
-					{
-						this.velocity.X = 21.9f * (float)num26;
-						this.dashDelay = -1;
-						Point tileCoordinates3 = (base.Center + new Vector2((float)(num26 * this.width / 2 + 2 * num26), this.gravDir * (float)(-this.height) / 2f + this.gravDir * 2f)).ToTileCoordinates();
-						Point point3 = (base.Center + new Vector2((float)(num26 * this.width / 2 + 2), 0f)).ToTileCoordinates();
-						if (WorldGen.SolidTile(tileCoordinates3.X, tileCoordinates3.Y) || WorldGen.SolidTile(point3.X, point3.Y))
-						{
-							this.velocity.X = this.velocity.X / 2f;
-						}
 					}
 				}
 			}
@@ -6174,7 +6142,25 @@ namespace Terraria
 				}
 				else if (cooldownCounter == 0)
 				{
-					this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 80 : 40);
+					if (num == 1.0)
+					{
+						this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 40 : 20);
+					}
+					else
+					{
+						this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 80 : 40);
+					}
+				}
+				else if (cooldownCounter == 1)
+				{
+					if (num == 1.0)
+					{
+						this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 40 : 20);
+					}
+					else
+					{
+						this.hurtCooldowns[cooldownCounter] = (this.longInvince ? 80 : 40);
+					}
 				}
 				this.lifeRegenTime = 0;
 				if (this.whoAmI == Main.myPlayer)
@@ -16078,18 +16064,25 @@ namespace Terraria
 			{
 				this.shoe = 0;
 			}
-			if (this.wereWolf)
+			if ((this.wereWolf || this.forceWerewolf) && !this.hideWolf)
 			{
 				this.legs = 20;
 				this.body = 21;
 				this.head = 38;
 			}
-			if (this.merman)
+			bool flag2 = this.wet && !this.lavaWet && (!this.mount.Active || this.mount.Type != 3);
+			if (this.merman || this.forceMerman)
 			{
-				this.head = 39;
-				this.legs = 21;
-				this.body = 22;
-				this.wings = 0;
+				if (!this.hideMerman)
+				{
+					this.head = 39;
+					this.legs = 21;
+					this.body = 22;
+				}
+				if (flag2)
+				{
+					this.wings = 0;
+				}
 			}
 			this.socialShadow = false;
 			this.socialGhost = false;
@@ -22061,11 +22054,8 @@ namespace Terraria
 				this.UpdatePet(i);
 				this.UpdatePetLight(i);
 			}
-			if (!this.accMerman || !this.wet || this.lavaWet || this.mount.Active && this.mount.Type == 3)
-			{
-				this.merman = false;
-			}
-			else
+			bool flag18 = this.wet && !this.lavaWet && (!this.mount.Active || this.mount.Type != 3);
+			if (this.accMerman && flag18)
 			{
 				this.releaseJump = true;
 				this.wings = 0;
@@ -22073,12 +22063,28 @@ namespace Terraria
 				this.accFlipper = true;
 				this.AddBuff(34, 2, true);
 			}
+			else
+			{
+				this.merman = false;
+			}
+			if (!flag18 && this.forceWerewolf)
+			{
+				this.forceMerman = false;
+			}
+			if (this.forceMerman && flag18)
+			{
+				this.wings = 0;
+			}
 			this.accMerman = false;
+			this.hideMerman = false;
+			this.forceMerman = false;
 			if (this.wolfAcc && !this.merman && !Main.dayTime && !this.wereWolf)
 			{
 				this.AddBuff(28, 60, true);
 			}
 			this.wolfAcc = false;
+			this.hideWolf = false;
+			this.forceWerewolf = false;
 			if (this.whoAmI == Main.myPlayer)
 			{
 				for (int q = 0; q < 22; q++)
@@ -22286,7 +22292,7 @@ namespace Terraria
 				}
 			}
 			this.UpdateArmorSets(i);
-			if (this.merman)
+			if ((this.merman || this.forceMerman) && flag18)
 			{
 				this.wings = 0;
 			}
@@ -22312,7 +22318,7 @@ namespace Terraria
 						player23.stealth = player23.stealth + 0.1f;
 					}
 				}
-				else if ((double)this.velocity.X > -0.1 && (double)this.velocity.X < 0.1 && (double)this.velocity.Y > -0.1 && (double)this.velocity.Y < 0.1)
+				else if ((double)this.velocity.X > -0.1 && (double)this.velocity.X < 0.1 && (double)this.velocity.Y > -0.1 && (double)this.velocity.Y < 0.1 && !this.mount.Active)
 				{
 					if (this.stealthTimer == 0 && this.stealth > 0f)
 					{
@@ -22328,29 +22334,31 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.stealth > 0f)
+				else
 				{
-					Player player25 = this;
-					player25.stealth = player25.stealth + 0.1f;
+					if (this.stealth > 0f)
+					{
+						this.stealth += 0.1f;
+					}
+					if (this.mount.Active)
+					{
+						this.stealth = 1f;
+					}
 				}
 				if (this.stealth > 1f)
 				{
 					this.stealth = 1f;
 				}
-				Player player26 = this;
-				player26.meleeDamage = player26.meleeDamage + (1f - this.stealth) * 3f;
-				Player player27 = this;
-				player27.meleeCrit = player27.meleeCrit + (int)((1f - this.stealth) * 30f);
+				this.meleeDamage += (1f - this.stealth) * 3f;
+				this.meleeCrit += (int)((1f - this.stealth) * 30f);
 				if (this.meleeCrit > 100)
 				{
 					this.meleeCrit = 100;
 				}
-				Player player28 = this;
-				player28.aggro = player28.aggro - (int)((1f - this.stealth) * 750f);
+				this.aggro -= (int)((1f - this.stealth) * 750f);
 				if (this.stealthTimer > 0)
 				{
-					Player player29 = this;
-					player29.stealthTimer = player29.stealthTimer - 1;
+					this.stealthTimer--;
 				}
 			}
 			else if (this.shroomiteStealth)
@@ -22359,101 +22367,95 @@ namespace Terraria
 				{
 					this.stealthTimer = 5;
 				}
-				if ((double)this.velocity.X <= -0.1 || (double)this.velocity.X >= 0.1 || (double)this.velocity.Y <= -0.1 || (double)this.velocity.Y >= 0.1)
+				if ((double)this.velocity.X > -0.1 && (double)this.velocity.X < 0.1 && (double)this.velocity.Y > -0.1 && (double)this.velocity.Y < 0.1 && !this.mount.Active)
 				{
-					float single16 = Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y);
-					Player player30 = this;
-					player30.stealth = player30.stealth + single16 * 0.0075f;
-					if (this.stealth > 1f)
+					if (this.stealthTimer == 0 && this.stealth > 0f)
 					{
-						this.stealth = 1f;
-					}
-				}
-				else if (this.stealthTimer == 0 && this.stealth > 0f)
-				{
-					Player player31 = this;
-					player31.stealth = player31.stealth - 0.015f;
-					if ((double)this.stealth <= 0)
-					{
-						this.stealth = 0f;
-						if (Main.netMode == 1)
+						this.stealth -= 0.015f;
+						if ((double)this.stealth <= 0.0)
 						{
-							NetMessage.SendData(84, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+							this.stealth = 0f;
+							if (Main.netMode == 1)
+							{
+								NetMessage.SendData(84, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+							}
 						}
-					}
-				}
-				Player player32 = this;
-				player32.rangedDamage = player32.rangedDamage + (1f - this.stealth) * 0.6f;
-				Player player33 = this;
-				player33.rangedCrit = player33.rangedCrit + (int)((1f - this.stealth) * 10f);
-				Player player34 = this;
-				player34.aggro = player34.aggro - (int)((1f - this.stealth) * 750f);
-				if (this.stealthTimer > 0)
-				{
-					Player player35 = this;
-					player35.stealthTimer = player35.stealthTimer - 1;
-				}
-			}
-			else if (!this.setVortex)
-			{
-				this.stealth = 1f;
-			}
-			else
-			{
-				bool flag17 = false;
-				if (!this.vortexStealthActive)
-				{
-					float single17 = this.stealth;
-					Player player36 = this;
-					player36.stealth = player36.stealth + 0.04f;
-					if (this.stealth <= 1f)
-					{
-						flag17 = true;
-					}
-					else
-					{
-						this.stealth = 1f;
-					}
-					if (this.stealth == 1f && single17 != this.stealth && Main.netMode == 1)
-					{
-						NetMessage.SendData(84, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 					}
 				}
 				else
 				{
-					float single18 = this.stealth;
-					Player player37 = this;
-					player37.stealth = player37.stealth - 0.04f;
-					if (this.stealth >= 0f)
+					float num45 = Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y);
+					this.stealth += num45 * 0.0075f;
+					if (this.stealth > 1f)
 					{
-						flag17 = true;
+						this.stealth = 1f;
 					}
-					else
+					if (this.mount.Active)
+					{
+						this.stealth = 1f;
+					}
+				}
+				this.rangedDamage += (1f - this.stealth) * 0.6f;
+				this.rangedCrit += (int)((1f - this.stealth) * 10f);
+				this.aggro -= (int)((1f - this.stealth) * 750f);
+				if (this.stealthTimer > 0)
+				{
+					this.stealthTimer--;
+				}
+			}
+			else if (this.setVortex)
+			{
+				bool flag19 = false;
+				if (this.vortexStealthActive)
+				{
+					float num46 = this.stealth;
+					this.stealth -= 0.04f;
+					if (this.stealth < 0f)
 					{
 						this.stealth = 0f;
 					}
-					if (this.stealth == 0f && single18 != this.stealth && Main.netMode == 1)
+					else
+					{
+						flag19 = true;
+					}
+					if (this.stealth == 0f && num46 != this.stealth && Main.netMode == 1)
 					{
 						NetMessage.SendData(84, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 					}
-					Player player38 = this;
-					player38.rangedDamage = player38.rangedDamage + (1f - this.stealth) * 0.8f;
-					Player player39 = this;
-					player39.rangedCrit = player39.rangedCrit + (int)((1f - this.stealth) * 20f);
-					Player player40 = this;
-					player40.aggro = player40.aggro - (int)((1f - this.stealth) * 1200f);
-					Player player41 = this;
-					player41.moveSpeed = player41.moveSpeed * 0.3f;
+					this.rangedDamage += (1f - this.stealth) * 0.8f;
+					this.rangedCrit += (int)((1f - this.stealth) * 20f);
+					this.aggro -= (int)((1f - this.stealth) * 1200f);
+					this.moveSpeed *= 0.3f;
 					if (this.mount.Active)
 					{
 						this.vortexStealthActive = false;
 					}
 				}
+				else
+				{
+					float num47 = this.stealth;
+					this.stealth += 0.04f;
+					if (this.stealth > 1f)
+					{
+						this.stealth = 1f;
+					}
+					else
+					{
+						flag19 = true;
+					}
+					if (this.stealth == 1f && num47 != this.stealth && Main.netMode == 1)
+					{
+						NetMessage.SendData(84, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+					}
+				}
+			}
+			else
+			{
+				this.stealth = 1f;
 			}
 			if (this.manaSick)
 			{
-				Player player42 = this;
-				player42.magicDamage = player42.magicDamage * (1f - this.manaSickReduction);
+				this.magicDamage *= 1f - this.manaSickReduction;
 			}
 			if (this.inventory[this.selectedItem].type == 1947)
 			{
@@ -22491,18 +22493,15 @@ namespace Terraria
 			}
 			if (this.dazed)
 			{
-				Player player43 = this;
-				player43.moveSpeed = player43.moveSpeed / 3f;
+				this.moveSpeed /= 3f;
 			}
 			else if (this.slow)
 			{
-				Player player44 = this;
-				player44.moveSpeed = player44.moveSpeed / 2f;
+				this.moveSpeed /= 2f;
 			}
 			else if (this.chilled)
 			{
-				Player player45 = this;
-				player45.moveSpeed = player45.moveSpeed * 0.75f;
+				this.moveSpeed *= 0.75f;
 			}
 			this.meleeSpeed = 1f / this.meleeSpeed;
 			this.UpdateLifeRegen();
@@ -22516,10 +22515,8 @@ namespace Terraria
 			{
 				this.statMana = this.statManaMax2;
 			}
-			Player player46 = this;
-			player46.runAcceleration = player46.runAcceleration * this.moveSpeed;
-			Player player47 = this;
-			player47.maxRunSpeed = player47.maxRunSpeed * this.moveSpeed;
+			this.runAcceleration *= this.moveSpeed;
+			this.maxRunSpeed *= this.moveSpeed;
 			this.UpdateJumpHeight();
 			for (int s = 0; s < 22; s++)
 			{
@@ -22634,7 +22631,7 @@ namespace Terraria
 				this.dJumpEffectUnicorn = false;
 				int x7 = (int)(this.position.X + (float)(this.width / 2)) / 16;
 				int y9 = (int)(this.position.Y - 8f) / 16;
-				bool flag18 = false;
+				bool flag19 = false;
 				if (this.pulleyDir == 0)
 				{
 					this.pulleyDir = 1;
@@ -22645,22 +22642,22 @@ namespace Terraria
 					{
 						if (this.direction == 1 && this.controlLeft)
 						{
-							flag18 = true;
+							flag19 = true;
 							if (!Collision.SolidCollision(new Vector2((float)(x7 * 16 + 8 - this.width / 2), this.position.Y), this.width, this.height))
 							{
 								this.pulleyDir = 1;
 								this.direction = -1;
-								flag18 = true;
+								flag19 = true;
 							}
 						}
 						if (this.direction == -1 && this.controlRight)
 						{
-							flag18 = true;
+							flag19 = true;
 							if (!Collision.SolidCollision(new Vector2((float)(x7 * 16 + 8 - this.width / 2), this.position.Y), this.width, this.height))
 							{
 								this.pulleyDir = 1;
 								this.direction = 1;
-								flag18 = true;
+								flag19 = true;
 							}
 						}
 					}
@@ -22668,28 +22665,28 @@ namespace Terraria
 				else if (this.direction == -1 && this.controlLeft && (this.releaseLeft || this.leftTimer == 0))
 				{
 					this.pulleyDir = 2;
-					flag18 = true;
+					flag19 = true;
 				}
 				else if ((this.direction != 1 || !this.controlRight || !this.releaseRight) && this.rightTimer != 0)
 				{
 					if (this.direction == 1 && this.controlLeft)
 					{
 						this.direction = -1;
-						flag18 = true;
+						flag19 = true;
 					}
 					if (this.direction == -1 && this.controlRight)
 					{
 						this.direction = 1;
-						flag18 = true;
+						flag19 = true;
 					}
 				}
 				else
 				{
 					this.pulleyDir = 2;
-					flag18 = true;
+					flag19 = true;
 				}
-				bool flag19 = false;
-				if (!flag18 && (this.controlLeft && (this.releaseLeft || this.leftTimer == 0) || this.controlRight && (this.releaseRight || this.rightTimer == 0)))
+				bool flag20 = false;
+				if (!flag19 && (this.controlLeft && (this.releaseLeft || this.leftTimer == 0) || this.controlRight && (this.releaseRight || this.rightTimer == 0)))
 				{
 					int num18 = 1;
 					if (this.controlLeft)
@@ -22721,10 +22718,10 @@ namespace Terraria
 						this.position.X = (float)num20;
 						this.gfxOffY = this.position.Y - y10;
 						this.position.Y = y10;
-						flag19 = true;
+						flag20 = true;
 					}
 				}
-				if (!flag19 && !flag18 && !this.controlUp && (this.controlLeft && this.releaseLeft || this.controlRight && this.releaseRight))
+				if (!flag20 && !flag19 && !this.controlUp && (this.controlLeft && this.releaseLeft || this.controlRight && this.releaseRight))
 				{
 					this.pulley = false;
 					if (this.controlLeft && this.velocity.X == 0f)
@@ -26308,7 +26305,20 @@ namespace Terraria
 								int num190 = Item.NPCtoBanner(Main.npc[i11].BannerID());
 								if (num190 > 0 && this.NPCBannerBuff[num190])
 								{
-									num189 = (!Main.expertMode ? (int)((double)num189 * 0.75) : (int)((double)num189 * 0.5));
+									if (Main.expertMode)
+									{
+										num189 = (int)((double)num189 * 0.5);
+									}
+									else
+									{
+										num189 = (int)((double)num189 * 0.75);
+									}
+								}
+								int cooldownCounter = -1;
+								int type5 = Main.npc[i11].type;
+								if (type5 == 398 || type5 == 400 || type5 == 397 || type5 == 396 || type5 == 401)
+								{
+									cooldownCounter = 1;
 								}
 								if (this.whoAmI == Main.myPlayer && this.thorns > 0f && !this.immune && !Main.npc[i11].dontTakeDamage)
 								{
@@ -27255,6 +27265,7 @@ namespace Terraria
 				if (this.dashDelay >= 0)
 				{
 					this.solarDashing = false;
+					this.solarDashConsumedFlare = false;
 				}
 				if (this.solarShields > 0 || (!this.solarDashing ? false : this.dashDelay < 0))
 				{
@@ -31006,6 +31017,11 @@ namespace Terraria
 					{
 						this.accMerman = true;
 						this.wolfAcc = true;
+						if (this.hideVisual[k])
+						{
+							this.hideMerman = true;
+							this.hideWolf = true;
+						}
 					}
 					if (this.armor[k].type == 862)
 					{
@@ -31040,7 +31056,12 @@ namespace Terraria
 					if (this.armor[k].type == 485)
 					{
 						this.wolfAcc = true;
+						if (this.hideVisual[k])
+						{
+							this.hideWolf = true;
+						}
 					}
+
 					if (this.armor[k].type == 486 && !this.hideVisual[k])
 					{
 						this.rulerLine = true;
@@ -31216,6 +31237,11 @@ namespace Terraria
 					{
 						this.accMerman = true;
 						this.wolfAcc = true;
+						if (this.hideVisual[k])
+						{
+							this.hideMerman = true;
+							this.hideWolf = true;
+						}
 					}
 					if (this.armor[k].type == 1865 || this.armor[k].type == 3110)
 					{
@@ -31583,6 +31609,10 @@ namespace Terraria
 					if (this.armor[k].type == 497)
 					{
 						this.accMerman = true;
+						if (this.hideVisual[k])
+						{
+							this.hideMerman = true;
+						}
 					}
 					if (this.armor[k].type == 535)
 					{
@@ -31788,10 +31818,22 @@ namespace Terraria
 			}
 			for (int m = 13; m < 18 + this.extraAccessorySlots; m++)
 			{
+				int type3 = this.armor[m].type;
 				if (this.armor[m].wingSlot > 0)
 				{
 					this.wings = this.armor[m].wingSlot;
 				}
+				if (type3 == 861 || type3 == 3110 || type3 == 485)
+				{
+					this.hideWolf = false;
+					this.forceWerewolf = true;
+				}
+				if (((this.wet && !this.lavaWet && (!this.mount.Active || this.mount.Type != 3)) || !this.forceWerewolf) && (type3 == 861 || type3 == 3110 || type3 == 497))
+				{
+					this.hideMerman = false;
+					this.forceMerman = true;
+				}
+
 			}
 			if (this.whoAmI == Main.myPlayer && Main.clock && this.accWatch < 3)
 			{

@@ -43750,7 +43750,7 @@ namespace Terraria
 									if (type == 3531)
 									{
 										this.mana = 10;
-										this.damage = 60;
+										this.damage = 40;
 										this.useStyle = 1;
 										this.name = "Stardust Dragon Staff";
 										this.shootSpeed = 10f;
