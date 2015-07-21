@@ -1,13 +1,8 @@
 using System;
-using System.Collections.Concurrent;
 using System.Threading;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
-using System.Security.Cryptography;
-using Steamworks;
 using Terraria.Net.Sockets.EventArgs;
 
 namespace Terraria.Net.Sockets
