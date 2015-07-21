@@ -1253,6 +1253,8 @@ namespace Terraria
 				}
 				if (WorldGen.crimson)
 				{
+					this.item[num].SetDefaults(2886, false);
+					num++;
 					this.item[num].SetDefaults(2193, false);
 					num++;
 				}
