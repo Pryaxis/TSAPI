@@ -163,8 +163,6 @@ namespace Terraria.Net.Sockets
 					type = largeObjectHeap[offset + 2];
 					length = BitConverter.ToInt16(largeObjectHeap, offset);
 
-					Trace.WriteLineIf(type == 10, string.Format("wrote tile section block {0} len {1}", blockIndex, length));
-					
 					try
 					{
 						(client.Socket as TcpSocket)._connection.GetStream().Write(largeObjectHeap, offset, length);
