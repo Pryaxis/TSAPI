@@ -1450,10 +1450,10 @@ namespace Terraria
 #endif
 				}
 			}
-			if (msgType == 2 && Main.netMode == 2)
-			{
-				Netplay.Clients[num].PendingTermination = true;
-			}
+			//if (msgType == 2 && Main.netMode == 2)
+			//{
+			//	Netplay.Clients[num].PendingTermination = true;
+			//}
 		}
 
 		public static int CompressTileBlock(int xStart, int yStart, short width, short height, byte[] buffer, int bufferStart)

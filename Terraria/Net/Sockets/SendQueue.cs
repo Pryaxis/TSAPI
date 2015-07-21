@@ -193,12 +193,15 @@ namespace Terraria.Net.Sockets
 					finally
 					{
 						FreeLarge(blockIndex);
+
+
 					}
 				}
 				for (blockIndex = 0; blockIndex < maxSmallBlocks; blockIndex++)
 				{
 					short length;
 					int offset;
+					byte type;
 
 					if (threadCancelled == true)
 					{
@@ -212,6 +215,7 @@ namespace Terraria.Net.Sockets
 
 					offset = blockIndex * kSendQueueSmallBlockSize;
 					length = BitConverter.ToInt16(smallObjectHeap, offset);
+					type = smallObjectHeap[offset + 2];
 
 					try
 					{
@@ -240,7 +244,11 @@ namespace Terraria.Net.Sockets
 					}
 					finally
 					{
-						Free(blockIndex);
+						Free(blockIndex); 
+						if (type == (byte)PacketTypes.Disconnect)
+						{
+							Netplay.Clients[client.Id].PendingTermination = true;
+						}
 					}
 				}
 
