@@ -14926,7 +14926,7 @@ namespace Terraria
 					}
 					case 1682:
 					{
-						return "Skeleton Mage Banner";
+						return "Dark Caster Mage Banner";
 					}
 					case 1683:
 					{
@@ -14938,7 +14938,7 @@ namespace Terraria
 					}
 					case 1685:
 					{
-						return "Spider Banner";
+						return "Wall Creeper Banner";
 					}
 					case 1686:
 					{
@@ -35217,6 +35217,18 @@ namespace Terraria
 					case 395:
 					{
 						return "Martian Saucer";
+					}
+					case 396:
+					{
+						return "Moon Lord";
+					}
+					case 397:
+					{
+						return "Moon Lord's Hand";
+					}
+					case 398:
+					{
+						return "Moon Lord's Core";
 					}
 					case 399:
 					{

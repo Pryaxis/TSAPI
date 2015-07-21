@@ -9453,7 +9453,7 @@ namespace Terraria
 								}
 								else
 								{
-									this.velocity = Collision.AnyCollision(this.position, this.velocity, this.width, this.height);
+									this.velocity = Collision.AnyCollision(this.position, this.velocity, this.width, this.height, true);
 								}
 							}
 							else
@@ -16920,7 +16920,7 @@ namespace Terraria
 											else if (this.aiStyle == 61)
 											{
 												this.timeLeft = 60;
-												if (Main.player[this.owner].inventory[Main.player[this.owner].selectedItem].fishingPole == 0)
+												if (Main.player[this.owner].inventory[Main.player[this.owner].selectedItem].fishingPole == 0 || Main.player[this.owner].CCed || Main.player[this.owner].noItems)
 												{
 													this.Kill();
 												}
@@ -29494,7 +29494,7 @@ namespace Terraria
 				}
 				if (flag && Main.myPlayer == this.owner)
 				{
-					bool flag2 = player.channel && player.CheckMana(player.inventory[player.selectedItem].mana, true, false) && !player.noItems;
+					bool flag2 = player.channel && player.CheckMana(player.inventory[player.selectedItem].mana, true, false) && !player.noItems && !player.CCed;
 					if (flag2)
 					{
 						float num6 = player.inventory[player.selectedItem].shootSpeed * this.scale;
@@ -29567,7 +29567,7 @@ namespace Terraria
 					{
 						this.localAI[1] -= 1f;
 					}
-					if (!player.channel || player.noItems)
+					if (!player.channel || player.noItems || player.CCed)
 					{
 						this.Kill();
 					}
@@ -29721,7 +29721,7 @@ namespace Terraria
 				if (flag6 && Main.myPlayer == this.owner)
 				{
 					bool flag7 = !flag4 || player.CheckMana(player.inventory[player.selectedItem].mana, true, false);
-					bool flag8 = player.channel && flag7 && !player.noItems;
+					bool flag8 = player.channel && flag7 && !player.noItems && !player.CCed;
 					if (flag8)
 					{
 						if (this.ai[0] == 180f)
@@ -29837,7 +29837,7 @@ namespace Terraria
 				if (flag10 && Main.myPlayer == this.owner)
 				{
 					bool flag11 = !flag9 || player.CheckMana(player.inventory[player.selectedItem].mana, true, false);
-					bool flag12 = player.channel && flag11 && !player.noItems;
+					bool flag12 = player.channel && flag11 && !player.noItems && !player.CCed;
 					if (flag12)
 					{
 						if (this.ai[0] == 1f)
@@ -29875,7 +29875,7 @@ namespace Terraria
 				}
 				if (Main.myPlayer == this.owner)
 				{
-					if (player.channel && !player.noItems)
+					if (player.channel && !player.noItems && !player.CCed)
 					{
 						float num35 = 1f;
 						if (player.inventory[player.selectedItem].shoot == this.type)
@@ -30028,7 +30028,7 @@ namespace Terraria
 				}
 				if (flag13 && Main.myPlayer == this.owner)
 				{
-					bool flag14 = player.channel && player.HasAmmo(player.inventory[player.selectedItem], true) && !player.noItems;
+					bool flag14 = player.channel && player.HasAmmo(player.inventory[player.selectedItem], true) && !player.noItems && !player.CCed;
 					int num46 = 14;
 					float num47 = 14f;
 					int weaponDamage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
@@ -30118,7 +30118,7 @@ namespace Terraria
 					flag15 = true;
 					int arg_1F11_0 = (int)this.ai[0] / (num52 - num53 * num51);
 				}
-				bool flag16 = player.channel && player.HasAmmo(player.inventory[player.selectedItem], true) && !player.noItems;
+				bool flag16 = player.channel && player.HasAmmo(player.inventory[player.selectedItem], true) && !player.noItems && !player.CCed;
 				if (this.localAI[0] > 0f)
 				{
 					this.localAI[0] -= 1f;

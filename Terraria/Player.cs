@@ -1391,6 +1391,13 @@ namespace Terraria
 
 		public static bool lastPound;
 
+		public bool CCed
+		{
+			get
+			{
+				return this.frozen || this.webbed || this.stoned;
+			}
+		}
 		public Vector2 Directions
 		{
 			get
