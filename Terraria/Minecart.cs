@@ -163,6 +163,7 @@ namespace Terraria
 				case 2:
 				{
 					Minecart.FrameTrack(i, j, true, true);
+					NetMessage.SendTileSquare(-1, i, j, 1);
 					return;
 				}
 				default:
