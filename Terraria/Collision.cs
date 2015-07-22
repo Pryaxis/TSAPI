@@ -2464,7 +2464,7 @@ namespace Terraria
 			return new Vector2(-1f, -1f);
 		}
 
-		public static bool SwitchTiles(object forObject, Vector2 Position, int Width, int Height, Vector2 oldPosition, int objType)
+		public static bool SwitchTiles(object TriggeringObject, Vector2 Position, int Width, int Height, Vector2 oldPosition, int objType)
 		{
 			Vector2 vector2 = new Vector2();
 			int x = (int)(Position.X / 16f) - 1;
@@ -2516,15 +2516,18 @@ namespace Terraria
 								if (flag)
 								{
 									bool handled = false;
-									if (forObject is NPC)
+									if (TriggeringObject is NPC)
 									{
-										handled = ServerApi.Hooks.InvokeNpcTriggerPressurePlate((NPC)forObject, i, j);
+										handled = ServerApi.Hooks.InvokeNpcTriggerPressurePlate((NPC)TriggeringObject, i, j);
 									}
-									else if (forObject is Projectile)
+									else if (TriggeringObject is Projectile)
 									{
-										handled = ServerApi.Hooks.InvokeProjectileTriggerPressurePlate((Projectile)forObject, i, j);
+										handled = ServerApi.Hooks.InvokeProjectileTriggerPressurePlate((Projectile)TriggeringObject, i, j);
 									}
-
+									else if (TriggeringObject is Player)
+									{
+										handled = ServerApi.Hooks.InvokePlayerTriggerPressurePlate((Player)TriggeringObject, i, j);
+									}
 									if (!handled)
 									{
 										Wiring.HitSwitch(i, j);

@@ -713,6 +713,29 @@ namespace TerrariaApi.Server
 			this.PlayerUpdatePhysics.Invoke(args);
 		}
 		#endregion
+		#region PlayerTriggerPressurePlate
+		private readonly HandlerCollection<TriggerPressurePlateEventArgs<Player>> playerTriggerPressurePlate =
+			new HandlerCollection<TriggerPressurePlateEventArgs<Player>>("PlayerTriggerPressurePlate");
+
+		public HandlerCollection<TriggerPressurePlateEventArgs<Player>> PlayerTriggerPressurePlate
+		{
+			get { return this.playerTriggerPressurePlate; }
+		}
+		
+		internal bool InvokePlayerTriggerPressurePlate(Player player, int tileX, int tileY)
+		{
+			TriggerPressurePlateEventArgs<Player> args = new TriggerPressurePlateEventArgs<Player>
+			{
+				Object = player,
+				TileX = tileX,
+				TileY = tileY
+			};
+
+			this.PlayerTriggerPressurePlate.Invoke(args);
+
+			return args.Handled;
+		}
+		#endregion
 		#endregion
 
 		#region Projectile Hooks
