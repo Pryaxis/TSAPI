@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -2463,7 +2464,7 @@ namespace Terraria
 			return new Vector2(-1f, -1f);
 		}
 
-		public static bool SwitchTiles(Vector2 Position, int Width, int Height, Vector2 oldPosition, int objType)
+		public static bool SwitchTiles(object forObject, Vector2 Position, int Width, int Height, Vector2 oldPosition, int objType)
 		{
 			Vector2 vector2 = new Vector2();
 			int x = (int)(Position.X / 16f) - 1;
@@ -2514,9 +2515,22 @@ namespace Terraria
 								}
 								if (flag)
 								{
-									Wiring.HitSwitch(i, j);
-									NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0, 0, 0);
-									return true;
+									bool handled = false;
+									if (forObject is NPC)
+									{
+										handled = ServerApi.Hooks.InvokeNpcTriggerPressurePlate((NPC)forObject, i, j);
+									}
+									else if (forObject is Projectile)
+									{
+										handled = ServerApi.Hooks.InvokeProjectileTriggerPressurePlate((Projectile)forObject, i, j);
+									}
+
+									if (!handled)
+									{
+										Wiring.HitSwitch(i, j);
+										NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0, 0, 0);
+										return true;
+									}
 								}
 							}
 						}

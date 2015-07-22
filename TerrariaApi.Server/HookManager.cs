@@ -14,53 +14,6 @@ namespace TerrariaApi.Server
 
 	public class HookManager
 	{
-		#region Client Hooks
-		#region ClientChatReceived
-		private readonly HandlerCollection<ChatReceivedEventArgs> clientChatReceived = 
-			new HandlerCollection<ChatReceivedEventArgs>("ClientChatReceived");
-
-		public HandlerCollection<ChatReceivedEventArgs> ClientChatReceived
-		{
-			get { return this.clientChatReceived; }
-		}
-
-		internal void InvokeClientChatReceived(byte playerID, Color color, string message)
-		{
-			ChatReceivedEventArgs args = new ChatReceivedEventArgs
-			{
-				PlayerID = playerID,
-				Color = color,
-				Message = message
-			};
-
-			this.ClientChatReceived.Invoke(args);
-		}
-		#endregion
-
-		#region ClientChat
-		private readonly HandlerCollection<ChatEventArgs> clientChat = 
-			new HandlerCollection<ChatEventArgs>("ClientChat");
-
-		public HandlerCollection<ChatEventArgs> ClientChat
-		{
-			get { return this.clientChat; }
-		}
-
-		internal bool InvokeClientChat(ref string message)
-		{
-			ChatEventArgs args = new ChatEventArgs
-			{
-				Message = message
-			};
-
-			this.ClientChat.Invoke(args);
-
-			message = args.Message;
-			return args.Handled;
-		}
-		#endregion
-		#endregion
-
 		#region Game Hooks
 		#region GameUpdate
 		private readonly HandlerCollection<EventArgs> gameUpdate = 
@@ -188,23 +141,6 @@ namespace TerrariaApi.Server
 		}
 		#endregion
 
-		#region GameGetKeyState
-		private readonly HandlerCollection<HandledEventArgs> gameGetKeyState = 
-			new HandlerCollection<HandledEventArgs>("GameGetKeyState");
-
-		public HandlerCollection<HandledEventArgs> GameGetKeyState
-		{
-			get { return this.gameGetKeyState; }
-		}
-
-		internal bool InvokeGameGetKeyState()
-		{
-			HandledEventArgs args = new HandledEventArgs();
-			this.GameGetKeyState.Invoke(args);
-			return args.Handled;
-		}
-		#endregion
-
 		#region GameStatueSpawn
 		private readonly HandlerCollection<StatueSpawnEventArgs> gameStatueSpawn = 
 			new HandlerCollection<StatueSpawnEventArgs>("GameStatueSpawn");
@@ -321,8 +257,6 @@ namespace TerrariaApi.Server
 			ref int msgType, ref int remoteClient, ref int ignoreClient, ref string text, 
 			ref int number, ref float number2, ref float number3, ref float number4, ref int number5)
 		{
-			if (Main.netMode != 2 && msgType == (int)PacketTypes.ChatText && this.InvokeClientChat(ref text))
-				return true;
 
 			SendDataEventArgs args = new SendDataEventArgs
 			{
@@ -581,7 +515,7 @@ namespace TerrariaApi.Server
 
 		internal bool InvokeNpcStrike(
 			NPC npc, ref int damage, ref float knockback, ref int hitDirection, ref bool crit, ref bool noEffect, 
-			ref double returnDamage)
+			ref bool fromNet, Player player)
 		{
 			NpcStrikeEventArgs args = new NpcStrikeEventArgs
 			{
@@ -591,7 +525,8 @@ namespace TerrariaApi.Server
 				HitDirection = hitDirection, 
 				Critical = crit,
 				NoEffect = noEffect,
-				ReturnDamage = returnDamage
+				FromNet = fromNet,
+				Player = player
 			};
 
 			this.NpcStrike.Invoke(args);
@@ -601,7 +536,7 @@ namespace TerrariaApi.Server
 			hitDirection = args.HitDirection;
 			crit = args.Critical;
 			noEffect = args.NoEffect;
-			returnDamage = args.ReturnDamage;
+			fromNet = args.FromNet;
 			return args.Handled;
 		}
 		#endregion

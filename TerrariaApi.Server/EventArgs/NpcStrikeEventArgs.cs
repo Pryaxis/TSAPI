@@ -6,6 +6,11 @@ namespace TerrariaApi.Server
 {
 	public class NpcStrikeEventArgs : HandledEventArgs
 	{
+		public Player Player
+		{
+			get;
+			internal set;
+		}
 		public NPC Npc
 		{
 			get;
@@ -36,7 +41,7 @@ namespace TerrariaApi.Server
 			get; 
 			set; 
 		}
-		public double ReturnDamage
+		public bool FromNet
 		{
 			get; 
 			set; 

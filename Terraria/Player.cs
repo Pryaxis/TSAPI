@@ -3033,7 +3033,7 @@ namespace Terraria
 								{
 									num2 = 1;
 								}
-								nPC.StrikeNPC((int)single, single1, num2, flag, false, false);
+								nPC.StrikeNPC((int)single, single1, num2, flag, false, false, this);
 								this.eocDash = 10;
 								this.dashDelay = 30;
 								this.velocity.X = (float)(-num2 * 9);
@@ -3091,7 +3091,7 @@ namespace Terraria
 							}
 							if (this.whoAmI == Main.myPlayer)
 							{
-								nPC1.StrikeNPC((int)single2, single3, num3, flag1, false, false);
+								nPC1.StrikeNPC((int)single2, single3, num3, flag1, false, false, this);
 								if (Main.netMode != 0)
 								{
 									NetMessage.SendData(28, -1, -1, "", j, single2, single3, (float)num3, 0, 0, 0);
@@ -6010,7 +6010,7 @@ namespace Terraria
 						{
 							num16 = 1;
 						}
-						nPC.StrikeNPC((int)single, single1, num16, false, false, false);
+						nPC.StrikeNPC((int)single, single1, num16, false, false, false, this);
 						nPC.immune[this.whoAmI] = 30;
 						this.immune = true;
 						this.immuneTime = 6;
@@ -9838,7 +9838,7 @@ namespace Terraria
 												{
 													num159 = num159 + Main.npc[q2].checkArmorPenetration(this.armorPenetration);
 												}
-												int num161 = (int)Main.npc[q2].StrikeNPC(num159, single102, this.direction, flag17, false, false);
+												int num161 = (int)Main.npc[q2].StrikeNPC(num159, single102, this.direction, flag17, false, false, this);
 												if (this.inventory[this.selectedItem].type == 3211)
 												{
 													Vector2 vector286 = new Vector2((float)(this.direction * 100 + Main.rand.Next(-25, 26)), (float)Main.rand.Next(-75, 76));
@@ -10671,7 +10671,7 @@ namespace Terraria
 						{
 							num1 = 1;
 						}
-						nPC.StrikeNPC((int)single, single1, num1, false, false, false);
+						nPC.StrikeNPC((int)single, single1, num1, false, false, false, this);
 						nPC.immune[this.whoAmI] = 30;
 						this.velocity.Y = -10f;
 						this.immune = true;
@@ -26230,7 +26230,7 @@ namespace Terraria
 							{
 								num185 = -1;
 							}
-							Main.npc[h].StrikeNPC(num184, single36, num185, flag35, false, false);
+							Main.npc[h].StrikeNPC(num184, single36, num185, flag35, false, false, this);
 							if (Main.netMode != 0)
 							{
 								NetMessage.SendData(28, -1, -1, "", h, (float)num184, single36, (float)(-num185), 0, 0, 0);
@@ -26357,7 +26357,7 @@ namespace Terraria
 									{
 										num191 = num189;
 									}
-									Main.npc[i11].StrikeNPC(num191, (float)num192, -num188, false, false, false);
+									Main.npc[i11].StrikeNPC(num191, (float)num192, -num188, false, false, false, this);
 									if (Main.netMode != 0)
 									{
 										NetMessage.SendData(28, -1, -1, "", i11, (float)num191, (float)num192, (float)(-num188), 0, 0, 0);
@@ -26781,7 +26781,7 @@ namespace Terraria
 			}
 			if (this.whoAmI == Main.myPlayer)
 			{
-				Collision.SwitchTiles(this.position, this.width, this.height, this.oldPosition, 1);
+				Collision.SwitchTiles(this, this.position, this.width, this.height, this.oldPosition, 1);
 			}
 			this.BordersMovement();
 			this.numMinions = 0;
@@ -27745,7 +27745,7 @@ namespace Terraria
 									}
 									if (flag)
 									{
-										nPC.StrikeNPC(num2, 0f, 0, false, false, false);
+										nPC.StrikeNPC(num2, 0f, 0, false, false, false, this);
 										if (Main.netMode != 0)
 										{
 											NetMessage.SendData(28, -1, -1, "", k, (float)num2, 0f, 0f, 0, 0, 0);
