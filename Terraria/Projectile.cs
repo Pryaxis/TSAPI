@@ -8457,7 +8457,7 @@ namespace Terraria
 									int num26;
 									if (flag4)
 									{
-										num26 = (int)Main.npc[k].StrikeNPC(num10, this.knockBack, this.direction, flag5, false, false);
+										num26 = (int)Main.npc[k].StrikeNPC(num10, this.knockBack, this.direction, flag5, false, false, Main.player[this.owner]);
 									}
 									else
 									{
@@ -10420,7 +10420,7 @@ namespace Terraria
 						}
 						if (Main.netMode != 1 && this.type == 99)
 						{
-							Collision.SwitchTiles(this.position, this.width, this.height, this.oldPosition, 3);
+							Collision.SwitchTiles(this, this.position, this.width, this.height, this.oldPosition, 3);
 						}
 						if (ProjectileID.Sets.TrailingMode[this.type] == 0)
 						{

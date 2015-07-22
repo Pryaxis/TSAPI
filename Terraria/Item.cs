@@ -1,5 +1,6 @@
 using System;
 using Terraria.ID;
+using TerrariaApi.Server;
 namespace Terraria
 {
 	public class Item : Entity
@@ -2926,6 +2927,9 @@ namespace Terraria
 		}
 		public void SetDefaults(string ItemName)
 		{
+			if (ServerApi.Hooks.InvokeItemSetDefaultsString(ref ItemName, this))
+				return;
+
 			this.name = "";
 			bool flag = false;
 			if (ItemName == "Blue Phasesaber")
@@ -3087,6 +3091,9 @@ namespace Terraria
 		}
 		public void netDefaults(int type)
 		{
+			if (ServerApi.Hooks.InvokeItemNetDefaults(ref type, this))
+				return;
+
 			if (type < 0)
 			{
 				if (type == -1)
@@ -44733,6 +44740,9 @@ namespace Terraria
 		}
 		public void SetDefaults(int Type = 0, bool noMatCheck = false)
 		{
+			if (ServerApi.Hooks.InvokeItemSetDefaultsInt(ref type, this))
+				return;
+
 			if (Main.netMode == 1 || Main.netMode == 2)
 			{
 				this.owner = 255;
@@ -45471,7 +45481,7 @@ namespace Terraria
 					}
 				}
 			}
-			return num2 < 3 && num3 < 6 && num < 10;
+			return ServerApi.Hooks.InvokeGameStatueSpawn(num2, num3, num, (int)(x / 16), (int)(y / 16), type, false);
 		}
 		public static int buyPrice(int platinum = 0, int gold = 0, int silver = 0, int copper = 0)
 		{

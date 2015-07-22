@@ -1559,7 +1559,7 @@ namespace Terraria
 					}
 				}
 			}
-			return num2 < 3 && num3 < 6 && num < 10;
+			return ServerApi.Hooks.InvokeGameStatueSpawn(num2, num3, num, (int)(x / 16), (int)(y / 16), type, true);
 		}
 		public static int TypeToNum(int type)
 		{
@@ -1877,6 +1877,7 @@ namespace Terraria
 		}
 		public void netDefaults(int type)
 		{
+
 			if (type < 0)
 			{
 				if (type == -1)
@@ -2208,6 +2209,10 @@ namespace Terraria
 			else
 			{
 				this.SetDefaults(type, -1f);
+			}
+			if (type > -66)
+			{
+				ServerApi.Hooks.InvokeNpcNetDefaults(ref type, this);
 			}
 		}
 		public void SetDefaults(string Name)
@@ -3080,6 +3085,7 @@ namespace Terraria
 			{
 				this.scaleStats();
 			}
+			ServerApi.Hooks.InvokeNpcSetDefaultsString(ref Name, this);
 		}
 		public void SetDefaultsKeepPlayerInteraction(int Type)
 		{
@@ -11559,6 +11565,8 @@ namespace Terraria
 			{
 				this.scaleStats();
 			}
+			ServerApi.Hooks.InvokeNpcSetDefaultsInt(ref Type, this);
+
 		}
 		public static void setWorldMonsters()
 		{
@@ -60082,6 +60090,12 @@ namespace Terraria
 				Main.npc[num].ai[2] = ai2;
 				Main.npc[num].ai[3] = ai3;
 				Main.npc[num].target = Target;
+
+				if (ServerApi.Hooks.InvokeNpcSpawn(ref num))
+				{
+					return num;
+				}
+
 				if (Type == 50)
 				{
 					if (Main.netMode == 0)
@@ -60169,6 +60183,9 @@ namespace Terraria
 					this.buffType[j] = array[j];
 					this.buffTime[j] = array2[j];
 				}
+
+				ServerApi.Hooks.InvokeNpcTransformation(this.whoAmI);
+
 				if (Main.netMode == 2)
 				{
 					this.netUpdate = true;
@@ -60207,8 +60224,13 @@ namespace Terraria
 			}
 			return this.StrikeNPC(Damage, knockBack, hitDirection, crit, noEffect, fromNet);
 		}
-		public double StrikeNPC(int Damage, float knockBack, int hitDirection, bool crit = false, bool noEffect = false, bool fromNet = false)
+		public double StrikeNPC(int Damage, float knockBack, int hitDirection, bool crit = false, bool noEffect = false, bool fromNet = false, Player player = null)
 		{
+
+			bool handled = ServerApi.Hooks.InvokeNpcStrike(this, ref Damage, ref knockBack, ref hitDirection, ref crit, ref noEffect, ref fromNet, player);
+			if (handled)
+				return 0.0;
+
 			bool flag = Main.netMode == 0;
 			if (flag && NPC.ignorePlayerInteractions > 0)
 			{
@@ -63122,7 +63144,7 @@ namespace Terraria
 					this.oldDirection = this.direction;
 					this.position += this.velocity;
 				}
-				if (Main.netMode != 1 && !this.noTileCollide && this.lifeMax > 1 && Collision.SwitchTiles(this.position, this.width, this.height, this.oldPosition, 2) && (this.type == 46 || this.type == 148 || this.type == 149 || this.type == 303 || this.type == 361 || this.type == 362 || this.type == 364 || this.type == 366 || this.type == 367 || (this.type >= 442 && this.type <= 448)))
+				if (Main.netMode != 1 && !this.noTileCollide && this.lifeMax > 1 && Collision.SwitchTiles(this, this.position, this.width, this.height, this.oldPosition, 2) && (this.type == 46 || this.type == 148 || this.type == 149 || this.type == 303 || this.type == 361 || this.type == 362 || this.type == 364 || this.type == 366 || this.type == 367 || (this.type >= 442 && this.type <= 448)))
 				{
 					this.ai[0] = 1f;
 					this.ai[1] = 400f;
