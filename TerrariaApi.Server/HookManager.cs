@@ -659,13 +659,12 @@ namespace TerrariaApi.Server
 		}
 
 		internal bool InvokeNpcLootDrop(
-			ref int x, ref int y, ref int w, ref int h, ref int itemId, ref int stack, ref bool broadcast, ref int prefix, 
-			int npcId, int npcArrayIndex, ref bool nodelay)
+			ref Vector2 position, ref int w, ref int h, ref int itemId, ref int stack, ref bool broadcast, ref int prefix, 
+			int npcId, int npcArrayIndex, ref bool nodelay, ref bool reverseLookup)
 		{
 			NpcLootDropEventArgs args = new NpcLootDropEventArgs
 			{
-				X = x,
-				Y = y,
+				Position = position,
 				Width = w,
 				Height = h,
 				ItemId = itemId,
@@ -674,13 +673,13 @@ namespace TerrariaApi.Server
 				Prefix = prefix,
 				NpcId = npcId,
 				NpcArrayIndex = npcArrayIndex,
-				NoGrabDelay = nodelay
+				NoGrabDelay = nodelay,
+				ReverseLookup = reverseLookup
 			};
 
 			this.NpcLootDrop.Invoke(args);
 
-			x = args.X;
-			y = args.Y;
+			position = args.Position;
 			w = args.Width;
 			h = args.Height;
 			itemId = args.ItemId;
@@ -714,6 +713,48 @@ namespace TerrariaApi.Server
 
 			return args.Handled;
 		}
+		#endregion
+
+		#region DropBossBag
+		private readonly HandlerCollection<DropBossBagEventArgs> dropBossBag =
+			new HandlerCollection<DropBossBagEventArgs>("DropBossBag");
+
+		public HandlerCollection<DropBossBagEventArgs> DropBossBag
+		{
+			get { return this.dropBossBag; }
+		}
+
+		internal bool InvokeDropBossBag(ref Vector2 position, ref int w, ref int h, ref int itemId, ref int stack, ref bool broadcast, ref int prefix, 
+			int npcId, int npcArrayIndex, ref bool nodelay, ref bool reverseLookup)
+		{
+			DropBossBagEventArgs args = new DropBossBagEventArgs
+			{
+				Position = position,
+				Width = w,
+				Height = h,
+				ItemId = itemId,
+				Stack = stack,
+				Broadcast = broadcast,
+				Prefix = prefix,
+				NpcId = npcId,
+				NpcArrayIndex = npcArrayIndex,
+				NoGrabDelay = nodelay,
+				ReverseLookup = reverseLookup
+			};
+
+			this.DropBossBag.Invoke(args);
+
+			position = args.Position;
+			w = args.Width;
+			h = args.Height;
+			itemId = args.ItemId;
+			stack = args.Stack;
+			broadcast = args.Broadcast;
+			prefix = args.Prefix;
+			nodelay = args.NoGrabDelay;
+			return args.Handled;
+		}
+
 		#endregion
 		#endregion
 

@@ -3,51 +3,51 @@ using System.ComponentModel;
 
 namespace TerrariaApi.Server
 {
-	public class NpcLootDropEventArgs : HandledEventArgs
+	public class DropBossBagEventArgs : HandledEventArgs
 	{
 		public Vector2 Position
 		{
-			get; 
+			get;
 			set;
 		}
 		public int Width
 		{
-			get; 
+			get;
 			set;
 		}
 		public int Height
 		{
-			get; 
+			get;
 			set;
 		}
 		public int Stack
 		{
-			get; 
+			get;
 			set;
 		}
 		public int ItemId
 		{
-			get; 
+			get;
 			set;
 		}
 		public bool Broadcast
 		{
-			get; 
+			get;
 			set;
 		}
 		public int Prefix
 		{
-			get; 
+			get;
 			set;
 		}
 		public int NpcId
 		{
-			get; 
+			get;
 			internal set;
 		}
 		public int NpcArrayIndex
 		{
-			get; 
+			get;
 			internal set;
 		}
 
