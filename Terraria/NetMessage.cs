@@ -19,7 +19,15 @@ namespace Terraria
 
 		public static void SendData(int msgType, int remoteClient = -1, int ignoreClient = -1, string text = "",
 			int number = 0, float number2 = 0f, float number3 = 0f, float number4 = 0f, int number5 = 0, int number6 = 0,
-			int number7 = 0, LinkedList<SequenceItem> sequence = null) 
+			int number7 = 0)
+		{
+			SendData(null, msgType, remoteClient, ignoreClient, text, number, number2, number3, number4, number5, number6,
+				number7);
+		}
+
+		public static void SendData(LinkedList<SequenceItem> sequence, int msgType, int remoteClient = -1, int ignoreClient = -1, string text = "",
+			int number = 0, float number2 = 0f, float number3 = 0f, float number4 = 0f, int number5 = 0, int number6 = 0,
+			int number7 = 0) 
 		{
 			if (Main.netMode == 0)
 			{
@@ -2109,7 +2117,7 @@ namespace Terraria
 						int num2 = 150;
 						for (int i = num; i < num + 150; i += num2)
 						{
-							NetMessage.SendData(10, whoAmi, -1, "", number, i, 200, num2, 0, 0, 0, sequence);
+							NetMessage.SendData(sequence, 10, whoAmi, -1, "", number, i, 200, num2, 0, 0, 0);
 						}
 						for (int j = 0; j < 200; j++)
 						{

@@ -85,9 +85,11 @@ namespace Terraria.Net.Sockets
 			largeObjectHeap = new byte[maxLargeBlocks * kSendQueueLargeBlockSize];
 			threadCancelled = false;
 			(client.Socket as TcpSocket)._connection.SendTimeout = 5000;
-
+			
+			//waitHandle = new AutoResetEvent(false);
 			sendThread = new Thread(WriteThread);
 			sendThread.Name = "Network I/O Thread - " + client.Id;
+			sendThread.IsBackground = true;
 			sendThread.Start();
 		}
 
@@ -98,9 +100,16 @@ namespace Terraria.Net.Sockets
 			{
 				int blockIndex = 0;
 
-				if (waitHandle.WaitOne(100) == false)
+				try
 				{
-					continue;
+					if (waitHandle.WaitOne(100) == false)
+					{
+						continue;
+					}
+				}
+				catch(ObjectDisposedException)
+				{
+					break;
 				}
 
 				if (threadCancelled == true || client.PendingTermination == true)
@@ -111,6 +120,11 @@ namespace Terraria.Net.Sockets
 				for (int i = 0; i < kSendQueueMaxSequences; i++)
 				{
 					LinkedList<SequenceItem> sequence;
+					
+					if (threadCancelled == true)
+					{
+						break;
+					}
 
 					if ((sequence = Interlocked.Exchange(ref sequences[i], null)) == null)
 					{
@@ -380,9 +394,11 @@ namespace Terraria.Net.Sockets
 		{
 			for (int i = 0; i < kSendQueueMaxSequences; i++)
 			{
-				Interlocked.CompareExchange(ref sequences[i], sequence, null);
-				waitHandle.Set();
-				return;
+				if (null == Interlocked.CompareExchange(ref sequences[i], sequence, null))
+				{
+					waitHandle.Set();
+					return;
+				}
 			}
 		}
 
@@ -422,20 +438,26 @@ namespace Terraria.Net.Sockets
 
 		public void Reset()
 		{
-			//for (int i = 0; i < maxSmallBlocks; i++)
-			//{
-			//	freeSmallBlocks[i] = 1;
-			//	queuedSmallBlocks[i] = false;
-			//}
-
-			//for (int i = 0; i < maxLargeBlocks; i++)
-			//{
-			//	freeLargeBlocks[i] = 1;
-			//	queuedLargeBlocks[i] = false;
-			//}
-		
 			threadCancelled = true;
-			waitHandle.Set();
+			if (sendThread != null)
+			{
+				sendThread.Abort();
+				sendThread.Join();
+			}
+
+			for (int i = 0; i < maxSmallBlocks; i++)
+			{
+				freeSmallBlocks[i] = 1;
+				queuedSmallBlocks[i] = false;
+			}
+
+			for (int i = 0; i < maxLargeBlocks; i++)
+			{
+				freeLargeBlocks[i] = 1;
+				queuedLargeBlocks[i] = false;
+			}
+
+			Interlocked.Exchange(ref sequences, new LinkedList<SequenceItem>[kSendQueueMaxSequences]);
 		}
 
 		protected virtual void Dispose(bool disposing)

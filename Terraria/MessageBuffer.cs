@@ -1640,16 +1640,16 @@ namespace Terraria
 					}
 					for (int t1 = 0; t1 < 40; t1++)
 					{
-						NetMessage.SendData(32, this.whoAmI, -1, "", num81, (float)t1, 0f, 0f, 0, 0, 0, sequence);
+						NetMessage.SendData(sequence, 32, this.whoAmI, -1, "", num81, (float)t1, 0f, 0f, 0, 0, 0);
 					}
-					NetMessage.SendData(33, this.whoAmI, -1, "", num81, 0f, 0f, 0f, 0, 0, 0, sequence);
+					NetMessage.SendData(sequence, 33, this.whoAmI, -1, "", num81, 0f, 0f, 0f, 0, 0, 0);
 					Main.player[this.whoAmI].chest = num81;
 					if (Main.myPlayer == this.whoAmI)
 					{
 						Main.recBigList = false;
 					}
 					Recipe.FindRecipes();
-					NetMessage.SendData(80, -1, this.whoAmI, "", this.whoAmI, (float)num81, 0f, 0f, 0, 0, 0, sequence);
+					NetMessage.SendData(sequence, 80, -1, this.whoAmI, "", this.whoAmI, (float)num81, 0f, 0f, 0, 0, 0);
 
 					Netplay.Clients[this.whoAmI].sendQueue.Enqueue(sequence);
 
