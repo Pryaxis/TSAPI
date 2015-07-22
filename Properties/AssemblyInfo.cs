@@ -5,14 +5,14 @@ using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Security.Permissions;
 
-[assembly: AssemblyCompany("Re-Logic")]
+[assembly: AssemblyCompany("Re-Logic & The TShock Team")]
 [assembly: AssemblyCopyright("Copyright © Re-Logic 2015")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyFileVersion("1.3.0.4")]
+[assembly: AssemblyFileVersion("1.3.0.6")]
 [assembly: AssemblyProduct("Terraria")]
 [assembly: AssemblyTitle("Terraria")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyVersion("1.3.0.4")]
+[assembly: AssemblyVersion("1.3.0.6")]
 [assembly: CompilationRelaxations(8)]
 [assembly: ComVisible(false)]
 [assembly: Debuggable(DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints)]
