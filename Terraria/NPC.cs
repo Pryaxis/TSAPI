@@ -7,6 +7,7 @@ using Terraria.GameContent.Events;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
 using Terraria.GameContent.UI;
+using TerrariaApi.Server;
 
 namespace Terraria
 {
@@ -52209,7 +52210,7 @@ namespace Terraria
 					{
 						position = Main.player[num5].position;
 					}
-					Item.NewItem((int)position.X, (int)position.Y, this.width, this.height, num6, 1, false, 0, false, false);
+					DropLoot(position, this.width, this.height, num6, 1, false, 0, false, false);
 				}
 			}
 			if (this.type == 23 && Main.hardMode)
@@ -52218,7 +52219,7 @@ namespace Terraria
 			}
 			if ((this.type == 170 || this.type == 180 || this.type == 171) && Main.rand.Next(3) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3532, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3532, 1, false, 0, false, false);
 			}
 			num = this.type;
 			if (num <= 122)
@@ -52276,7 +52277,7 @@ namespace Terraria
 			int maxValue = Main.expertMode ? 150 : 200;
 			if (Main.rand.Next(maxValue) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3260, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3260, 1, false, 0, false, false);
 			}
 			IL_482:
 			if (Main.slimeRain && Main.slimeRainNPC[this.type] && !NPC.AnyNPCs(50))
@@ -52321,11 +52322,11 @@ namespace Terraria
 				{
 					if (Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].ZoneCorrupt || Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].ZoneCrimson)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 521, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 521, 1, false, 0, false, false);
 					}
 					if (Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].ZoneHoly)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 520, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 520, 1, false, 0, false, false);
 					}
 				}
 			}
@@ -52367,85 +52368,85 @@ namespace Terraria
 					{
 						num9 = Main.rand.Next(1, 3);
 					}
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num8, num9, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, num8, num9, false, 0, false, false);
 				}
 			}
 			if (this.type == 22 && this.displayName == "Andrew")
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 867, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 867, 1, false, 0, false, false);
 			}
 			if (this.type == 353 && Main.rand.Next(8) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3352, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3352, 1, false, 0, false, false);
 			}
 			if (this.type == 441 && Main.rand.Next(8) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3351, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3351, 1, false, 0, false, false);
 			}
 			if (this.type == 227 && Main.rand.Next(10) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3350, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3350, 1, false, 0, false, false);
 			}
 			if (this.type == 208 && Main.rand.Next(4) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3548, Main.rand.Next(30, 61), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3548, Main.rand.Next(30, 61), false, 0, false, false);
 			}
 			if (this.type == 207 && Main.rand.Next(8) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3349, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3349, 1, false, 0, false, false);
 			}
 			if (Main.hardMode && this.value > 0f)
 			{
 				if (!NPC.downedMechBoss1 && Main.rand.Next(2500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 556, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 556, 1, false, 0, false, false);
 				}
 				else if (!NPC.downedMechBoss2 && Main.rand.Next(2500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 544, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 544, 1, false, 0, false, false);
 				}
 				else if (!NPC.downedMechBoss3 && Main.rand.Next(2500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 557, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 557, 1, false, 0, false, false);
 				}
 			}
 			if (Main.halloween && this.value > 0f && this.value < 500f && this.damage < 40 && this.defense < 20)
 			{
 				if (Main.rand.Next(2000) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1825, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1825, 1, false, 0, false, false);
 				}
 				else if (Main.rand.Next(2000) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1827, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1827, 1, false, 0, false, false);
 				}
 			}
 			if (Main.hardMode && this.value > 0f)
 			{
 				if (Main.rand.Next(2500) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].ZoneJungle)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1533, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1533, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(2500) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].ZoneCorrupt)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1534, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1534, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(2500) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].ZoneCrimson)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1535, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1535, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(2500) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].ZoneHoly)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1536, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1536, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(2500) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].ZoneSnow)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1537, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1537, 1, false, 0, false, false);
 				}
 			}
 			if (this.type == 68)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1169, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1169, 1, false, 0, false, false);
 			}
 			if (Main.snowMoon)
 			{
@@ -52506,15 +52507,15 @@ namespace Terraria
 					{
 						if (this.type == 344)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1962, 1, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1962, 1, false, 0, false, false);
 						}
 						if (this.type == 345)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1960, 1, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1960, 1, false, 0, false, false);
 						}
 						if (this.type == 346)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1961, 1, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1961, 1, false, 0, false, false);
 						}
 					}
 				}
@@ -52525,21 +52526,21 @@ namespace Terraria
 						int num13 = Main.rand.Next(3);
 						if (Main.rand.Next(15) == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1871, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1871, 1, false, -1, false, false);
 						}
 						else
 						{
 							if (num13 == 0)
 							{
-								Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1916, 1, false, 0, false, false);
+								DropLoot(this.position, this.width, this.height, 1916, 1, false, 0, false, false);
 							}
 							if (num13 == 1)
 							{
-								Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1928, 1, false, -1, false, false);
+								DropLoot(this.position, this.width, this.height, 1928, 1, false, -1, false, false);
 							}
 							if (num13 == 2)
 							{
-								Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1930, 1, false, -1, false, false);
+								DropLoot(this.position, this.width, this.height, 1930, 1, false, -1, false, false);
 							}
 						}
 					}
@@ -52548,37 +52549,37 @@ namespace Terraria
 						int num14 = Main.rand.Next(2);
 						if (num14 == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1910, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1910, 1, false, -1, false, false);
 						}
 						if (num14 == 1)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1929, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1929, 1, false, -1, false, false);
 						}
 					}
 					if (this.type == 345)
 					{
 						if (NPC.waveCount >= 15 && Main.rand.Next(30) == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1914, 1, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1914, 1, false, 0, false, false);
 						}
 						else if (Main.rand.Next(15) == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1959, 1, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1959, 1, false, 0, false, false);
 						}
 						else
 						{
 							int num15 = Main.rand.Next(3);
 							if (num15 == 0)
 							{
-								Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1931, 1, false, -1, false, false);
+								DropLoot(this.position, this.width, this.height, 1931, 1, false, -1, false, false);
 							}
 							if (num15 == 1)
 							{
-								Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1946, 1, false, -1, false, false);
+								DropLoot(this.position, this.width, this.height, 1946, 1, false, -1, false, false);
 							}
 							if (num15 == 2)
 							{
-								Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1947, 1, false, -1, false, false);
+								DropLoot(this.position, this.width, this.height, 1947, 1, false, -1, false, false);
 							}
 						}
 					}
@@ -52589,24 +52590,24 @@ namespace Terraria
 				int num16 = Main.rand.Next(5, 11);
 				for (int i = 0; i < num16; i++)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 				}
 				if (Main.xMas)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1869, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1869, 1, false, 0, false, false);
 				}
 			}
 			if (this.type >= 338 && this.type <= 340 && Main.rand.Next(5) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
 			if (this.type >= 338 && this.type <= 340 && Main.rand.Next(200) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1943 + Main.rand.Next(3), 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1943 + Main.rand.Next(3), 1, false, 0, false, false);
 			}
 			if (this.type == 342 && Main.rand.Next(3) != 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
 			if (Main.pumpkinMoon)
 			{
@@ -52636,49 +52637,49 @@ namespace Terraria
 				{
 					if (this.type == 325)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1855, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 1855, 1, false, 0, false, false);
 					}
 					if (this.type == 327)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1856, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 1856, 1, false, 0, false, false);
 					}
 				}
 				if (Main.rand.Next(num18) == 0)
 				{
 					if (this.type == 315 && Main.rand.Next(20) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1857, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 1857, 1, false, 0, false, false);
 					}
 					if (this.type >= 305 && this.type <= 314 && Main.rand.Next(10) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(1788, 1791), 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, Main.rand.Next(1788, 1791), 1, false, 0, false, false);
 					}
 					if (this.type == 325)
 					{
 						int num19 = Main.rand.Next(5);
 						if (num19 == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1829, 1, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1829, 1, false, 0, false, false);
 						}
 						if (num19 == 1)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1831, 1, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1831, 1, false, 0, false, false);
 						}
 						if (num19 == 2)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1835, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1835, 1, false, -1, false, false);
 						}
 						if (num19 == 2)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1836, Main.rand.Next(30, 61), false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1836, Main.rand.Next(30, 61), false, 0, false, false);
 						}
 						if (num19 == 3)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1837, 1, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1837, 1, false, 0, false, false);
 						}
 						if (num19 == 4)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1845, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1845, 1, false, -1, false, false);
 						}
 					}
 					if (this.type == 327)
@@ -52686,144 +52687,144 @@ namespace Terraria
 						int num20 = Main.rand.Next(7);
 						if (num20 == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1782, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1782, 1, false, -1, false, false);
 						}
 						if (num20 == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1783, Main.rand.Next(50, 101), false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1783, Main.rand.Next(50, 101), false, 0, false, false);
 						}
 						if (num20 == 1)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1784, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1784, 1, false, -1, false, false);
 						}
 						if (num20 == 1)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1785, Main.rand.Next(25, 51), false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1785, Main.rand.Next(25, 51), false, 0, false, false);
 						}
 						if (num20 == 2)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1811, 1, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1811, 1, false, 0, false, false);
 						}
 						if (num20 == 3)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1826, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1826, 1, false, -1, false, false);
 						}
 						if (num20 == 4)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1801, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1801, 1, false, -1, false, false);
 						}
 						if (num20 == 5)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1802, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1802, 1, false, -1, false, false);
 						}
 						if (num20 == 6)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1798, 1, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1798, 1, false, 0, false, false);
 						}
 					}
 				}
 			}
 			if (this.type == 325)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1729, Main.rand.Next(30, 51), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1729, Main.rand.Next(30, 51), false, 0, false, false);
 			}
 			if (this.type == 326)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1729, Main.rand.Next(1, 5), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1729, Main.rand.Next(1, 5), false, 0, false, false);
 			}
 			if (this.type >= 305 && this.type <= 314 && Main.rand.Next(4) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
 			if (this.type == 326 && Main.rand.Next(6) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
 			if (this.type == 329 && Main.rand.Next(4) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
 			if (this.type == 330 && Main.rand.Next(4) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
 			if (this.type == 315)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
 			if (Main.halloween && this.lifeMax > 1 && this.damage > 0 && !this.friendly && this.type != 121 && this.type != 23 && this.value > 0f && Main.rand.Next(80) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1774, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1774, 1, false, 0, false, false);
 			}
 			if (Main.xMas && this.lifeMax > 1 && this.damage > 0 && !this.friendly && this.type != 121 && this.value > 0f && Main.rand.Next(13) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1869, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1869, 1, false, 0, false, false);
 			}
 			if (this.lifeMax > 5 && this.value > 0f && !this.friendly && Main.hardMode && this.position.Y / 16f > (float)(Main.maxTilesY - 200) && Main.rand.Next(50) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2701, Main.rand.Next(20, 51), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 2701, Main.rand.Next(20, 51), false, 0, false, false);
 			}
 			if (this.type == 325 || this.type == 327 || this.type == 344 || this.type == 345 || this.type == 346)
 			{
 				int num21 = Main.rand.Next(6) + 6;
 				for (int j = 0; j < num21; j++)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 				}
 			}
 			if (this.type == 156 && Main.rand.Next(75) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1518, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1518, 1, false, 0, false, false);
 			}
 			if (this.type == 243 && Main.rand.Next(3) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1519, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1519, 1, false, 0, false, false);
 			}
 			if (this.type >= 269 && this.type <= 280 && Main.rand.Next(450) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1517, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1517, 1, false, 0, false, false);
 			}
 			if ((this.type == 158 || this.type == 159) && Main.rand.Next(40) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1520, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1520, 1, false, 0, false, false);
 			}
 			if (this.type == 176 && Main.rand.Next(150) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1521, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1521, 1, false, 0, false, false);
 			}
 			if (this.type == 48 && Main.rand.Next(200) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1516, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1516, 1, false, 0, false, false);
 			}
 			if (this.type == 205 && Main.rand.Next(2) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1611, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1611, 1, false, 0, false, false);
 			}
 			if (this.type == 483 || this.type == 482)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3086, Main.rand.Next(5, 11), false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 3086, Main.rand.Next(5, 11), false, -1, false, false);
 			}
 			if (!Main.hardMode && Main.rand.Next(100) == 0 && this.target >= 0 && this.lifeMax > 5 && !this.friendly && Main.rand.Next(4) == 0 && this.position.Y / 16f > (float)(Main.maxTilesY - 350) && NPC.downedBoss3)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3282, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 3282, 1, false, -1, false, false);
 			}
 			if (Main.hardMode && Main.player[this.target].ZoneSnow && Main.rand.Next(80) == 0 && this.target >= 0 && this.lifeMax > 5 && !this.friendly && this.value > 0f)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3289, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 3289, 1, false, -1, false, false);
 			}
 			else if (Main.hardMode && Main.rand.Next(200) == 0 && this.target >= 0 && this.lifeMax > 5 && !this.friendly && this.value > 0f)
 			{
 				if (Main.player[this.target].ZoneJungle && NPC.downedMechBossAny)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3286, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3286, 1, false, -1, false, false);
 				}
 				else if (Main.player[this.target].ZoneDungeon && NPC.downedPlantBoss)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3291, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3291, 1, false, -1, false, false);
 				}
 				else if ((double)(this.position.Y / 16f) > (Main.rockLayer + (double)Main.maxTilesY) / 2.0 && !Main.player[this.target].ZoneDungeon && Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3290, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3290, 1, false, -1, false, false);
 				}
 			}
 			int num22 = 1;
@@ -52835,15 +52836,15 @@ namespace Terraria
 			{
 				if (this.type == 461 && Main.rand.Next(50) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 497, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 497, 1, false, -1, false, false);
 				}
 				if ((this.type == 159 || this.type == 158) && Main.rand.Next(35) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 900, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 900, 1, false, -1, false, false);
 				}
 				if (this.type == 251 && Main.rand.Next(15) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1311, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1311, 1, false, -1, false, false);
 				}
 				if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
 				{
@@ -52851,57 +52852,57 @@ namespace Terraria
 					{
 						if (Main.rand.Next(20) == 0 && NPC.downedPlantBoss)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2770, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 2770, 1, false, -1, false, false);
 							k++;
 						}
 						if (Main.rand.Next(4) == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1570, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1570, 1, false, -1, false, false);
 							k++;
 						}
 						else if (Main.rand.Next(3) == 0 && NPC.downedPlantBoss)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3292, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 3292, 1, false, -1, false, false);
 							k++;
 						}
 					}
 					if (this.type == 253 && Main.rand.Next(40) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1327, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1327, 1, false, -1, false, false);
 					}
 				}
 				if (NPC.downedPlantBoss)
 				{
 					if (this.type == 460 && Main.rand.Next(40) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3098, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 3098, 1, false, -1, false, false);
 					}
 					if (this.type == 468 && Main.rand.Next(40) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3105, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 3105, 1, false, -1, false, false);
 					}
 					if (this.type == 466 && Main.rand.Next(40) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3106, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 3106, 1, false, -1, false, false);
 					}
 					if (this.type == 467 && Main.rand.Next(40) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3249, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 3249, 1, false, -1, false, false);
 					}
 					if (this.type == 463 && Main.rand.Next(25) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3107, 1, false, -1, false, false);
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3108, Main.rand.Next(100, 201), false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 3107, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 3108, Main.rand.Next(100, 201), false, -1, false, false);
 					}
 				}
 			}
 			if (Main.bloodMoon && Main.hardMode && Main.rand.Next(1000) == 0 && this.value > 0f)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1314, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1314, 1, false, -1, false, false);
 			}
 			if (this.type == 77 && Main.rand.Next(150) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 723, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 723, 1, false, -1, false, false);
 			}
 			if (Main.rand.Next(100) == 0 || (Main.expertMode && Main.rand.Next(100) == 0))
 			{
@@ -53074,11 +53075,11 @@ namespace Terraria
 				IL_2B09:
 				if (num23 != -1)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num23, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, num23, 1, false, -1, false, false);
 				}
 				if (num24 != -1)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num24, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, num24, 1, false, -1, false, false);
 				}
 			}
 			int num25 = 1;
@@ -53092,75 +53093,75 @@ namespace Terraria
 				{
 					if (Main.rand.Next(15) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1513, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1513, 1, false, -1, false, false);
 					}
 					else if (Main.rand.Next(10) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 938, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 938, 1, false, -1, false, false);
 					}
 				}
 				if (this.type == 287 && Main.rand.Next(6) == 0)
 				{
 					if (Main.rand.Next(2) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 963, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 963, 1, false, -1, false, false);
 					}
 					else
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 977, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 977, 1, false, -1, false, false);
 					}
 				}
 				if (this.type == 291)
 				{
 					if (Main.rand.Next(12) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1300, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1300, 1, false, -1, false, false);
 					}
 					else if (Main.rand.Next(12) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1254, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1254, 1, false, -1, false, false);
 					}
 				}
 				if (this.type == 292)
 				{
 					if (Main.rand.Next(12) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1514, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1514, 1, false, -1, false, false);
 					}
 					else if (Main.rand.Next(12) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 679, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 679, 1, false, -1, false, false);
 					}
 				}
 				if (this.type == 293 && Main.rand.Next(18) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 759, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 759, 1, false, -1, false, false);
 				}
 				if ((this.type == 281 || this.type == 282) && Main.rand.Next(20) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1446, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1446, 1, false, -1, false, false);
 				}
 				if ((this.type == 283 || this.type == 284) && Main.rand.Next(20) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1444, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1444, 1, false, -1, false, false);
 				}
 				if ((this.type == 285 || this.type == 286) && Main.rand.Next(20) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1445, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1445, 1, false, -1, false, false);
 				}
 				if (this.type >= 269 && this.type <= 280)
 				{
 					if (Main.rand.Next(400) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1183, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1183, 1, false, -1, false, false);
 					}
 					else if (Main.rand.Next(300) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1266, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1266, 1, false, -1, false, false);
 					}
 					else if (Main.rand.Next(200) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 671, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 671, 1, false, -1, false, false);
 					}
 				}
 			}
@@ -53178,15 +53179,15 @@ namespace Terraria
 			}
 			if (this.type == 288)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1508, Main.rand.Next(1, 3), false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1508, Main.rand.Next(1, 3), false, -1, false, false);
 			}
 			if (this.type == 156 && Main.rand.Next(30) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 683, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 683, 1, false, -1, false, false);
 			}
 			if ((this.type == 195 || this.type == 196) && (Main.expertMode || Main.rand.Next(2) == 0))
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3102, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 3102, 1, false, -1, false, false);
 			}
 			if (this.type == 245)
 			{
@@ -53198,43 +53199,43 @@ namespace Terraria
 				{
 					if (Main.rand.Next(7) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2110, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2110, 1, false, -1, false, false);
 					}
 					int num26 = Main.rand.Next(8);
 					if (num26 == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1258, 1, false, -1, false, false);
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1261, Main.rand.Next(60, 100), false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 1258, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1261, Main.rand.Next(60, 100), false, 0, false, false);
 					}
 					else if (num26 == 1)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1122, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1122, 1, false, -1, false, false);
 					}
 					else if (num26 == 2)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 899, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 899, 1, false, -1, false, false);
 					}
 					else if (num26 == 3)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1248, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1248, 1, false, -1, false, false);
 					}
 					else if (num26 == 4)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1294, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1294, 1, false, -1, false, false);
 					}
 					else if (num26 == 5)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1295, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1295, 1, false, -1, false, false);
 					}
 					else if (num26 == 6)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1296, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1296, 1, false, -1, false, false);
 					}
 					else if (num26 == 7)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1297, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1297, 1, false, -1, false, false);
 					}
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2218, Main.rand.Next(4, 9), false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 2218, Main.rand.Next(4, 9), false, -1, false, false);
 				}
 				NPC.downedGolemBoss = true;
 			}
@@ -53242,20 +53243,20 @@ namespace Terraria
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3052, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3052, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3053, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3053, 1, false, -1, false, false);
 				}
 				else
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3054, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3054, 1, false, -1, false, false);
 				}
 			}
 			if (this.type == 268)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1332, Main.rand.Next(2, 6), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1332, Main.rand.Next(2, 6), false, 0, false, false);
 			}
 			if (this.type == 370)
 			{
@@ -53268,32 +53269,32 @@ namespace Terraria
 				{
 					if (Main.rand.Next(7) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2588, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2588, 1, false, -1, false, false);
 					}
 					if (Main.rand.Next(15) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2609, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2609, 1, false, -1, false, false);
 					}
 					int num27 = Main.rand.Next(5);
 					if (num27 == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2611, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2611, 1, false, -1, false, false);
 					}
 					else if (num27 == 1)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2624, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2624, 1, false, -1, false, false);
 					}
 					else if (num27 == 2)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2622, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2622, 1, false, -1, false, false);
 					}
 					else if (num27 == 3)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2621, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2621, 1, false, -1, false, false);
 					}
 					else if (num27 == 4)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2623, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2623, 1, false, -1, false, false);
 					}
 				}
 			}
@@ -53307,163 +53308,163 @@ namespace Terraria
 			}
 			if (this.type == 153 && Main.rand.Next(17) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1328, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1328, 1, false, -1, false, false);
 			}
 			if (this.type == 120 && Main.rand.Next(500) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1326, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1326, 1, false, -1, false, false);
 			}
 			if (this.type == 49 && Main.rand.Next(250) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1325, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1325, 1, false, -1, false, false);
 			}
 			if (this.type == 185 && Main.rand.Next(150) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 951, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 951, 1, false, -1, false, false);
 			}
 			if (this.type == 44 && Main.rand.Next(50) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1320, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1320, 1, false, -1, false, false);
 			}
 			if (this.type == 44 && Main.rand.Next(20) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 88, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 88, 1, false, -1, false, false);
 			}
 			if (this.type == 110 && Main.rand.Next(80) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1321, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1321, 1, false, -1, false, false);
 			}
 			if (this.type == 60 && Main.rand.Next(150) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1322, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1322, 1, false, -1, false, false);
 			}
 			if (this.type == 151 && Main.rand.Next(50) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1322, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1322, 1, false, -1, false, false);
 			}
 			if (this.type == 24 && Main.rand.Next(50) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1323, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1323, 1, false, -1, false, false);
 			}
 			if (this.type == 109 && Main.rand.Next(30) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1324, Main.rand.Next(1, 5), false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1324, Main.rand.Next(1, 5), false, -1, false, false);
 			}
 			if (this.type == 163 || this.type == 238)
 			{
 				if (Main.rand.Next(40) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1308, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1308, 1, false, -1, false, false);
 				}
 				if (Main.expertMode)
 				{
 					if (Main.rand.Next(3) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2607, Main.rand.Next(2, 4), false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 2607, Main.rand.Next(2, 4), false, 0, false, false);
 					}
 					else if (Main.rand.Next(2) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2607, Main.rand.Next(1, 4), false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 2607, Main.rand.Next(1, 4), false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2607, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 2607, 1, false, 0, false, false);
 					}
 				}
 				else if (Main.rand.Next(4) != 0)
 				{
 					if (Main.rand.Next(3) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2607, Main.rand.Next(1, 4), false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 2607, Main.rand.Next(1, 4), false, 0, false, false);
 					}
 					else if (Main.rand.Next(2) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2607, Main.rand.Next(1, 3), false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 2607, Main.rand.Next(1, 3), false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2607, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 2607, 1, false, 0, false, false);
 					}
 				}
 			}
 			if (Main.hardMode && (this.type == 197 || this.type == 206 || this.type == 169 || this.type == 154) && Main.rand.Next(180) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1306, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1306, 1, false, -1, false, false);
 			}
 			if (this.type == 244)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(1, 6), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 23, Main.rand.Next(1, 6), false, 0, false, false);
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(1, 6), false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 23, Main.rand.Next(1, 6), false, 0, false, false);
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(1, 6), false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 23, Main.rand.Next(1, 6), false, 0, false, false);
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(1, 6), false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 23, Main.rand.Next(1, 6), false, 0, false, false);
 				}
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 662, Main.rand.Next(30, 60), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 662, Main.rand.Next(30, 60), false, 0, false, false);
 			}
 			if (this.type == 250 && Main.rand.Next(15) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1244, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1244, 1, false, -1, false, false);
 			}
 			if (this.type == 172)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 754, 1, false, -1, false, false);
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 755, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 754, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 755, 1, false, -1, false, false);
 			}
 			if (this.type == 110 && Main.rand.Next(200) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 682, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 682, 1, false, -1, false, false);
 			}
 			if (this.type == 154 && Main.rand.Next(100) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1253, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1253, 1, false, -1, false, false);
 			}
 			if ((this.type == 169 || this.type == 206) && Main.rand.Next(50) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 726, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 726, 1, false, -1, false, false);
 			}
 			if (this.type == 243)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2161, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 2161, 1, false, -1, false, false);
 			}
 			if (this.type == 480 && Main.rand.Next(50) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3269, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 3269, 1, false, -1, false, false);
 			}
 			if (this.type == 198 || this.type == 199 || this.type == 226)
 			{
 				if (Main.rand.Next(1000) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1172, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1172, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(50) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1293, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1293, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(7) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2766, Main.rand.Next(1, 3), false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 2766, Main.rand.Next(1, 3), false, -1, false, false);
 				}
 			}
 			if (this.type == 78 || this.type == 79 || this.type == 80)
 			{
 				if (Main.rand.Next(75) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 870, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 870, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(75) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 871, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 871, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(75) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 872, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 872, 1, false, -1, false, false);
 				}
 			}
 			if (this.type == 473)
@@ -53471,23 +53472,23 @@ namespace Terraria
 				int num28 = Main.rand.Next(5);
 				if (num28 == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3008, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3008, 1, false, -1, false, false);
 				}
 				else if (num28 == 1)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3014, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3014, 1, false, -1, false, false);
 				}
 				else if (num28 == 2)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3012, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3012, 1, false, -1, false, false);
 				}
 				else if (num28 == 3)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3015, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3015, 1, false, -1, false, false);
 				}
 				else if (num28 == 4)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3023, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3023, 1, false, -1, false, false);
 				}
 			}
 			else if (this.type == 474)
@@ -53495,23 +53496,23 @@ namespace Terraria
 				int num29 = Main.rand.Next(5);
 				if (num29 == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3006, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3006, 1, false, -1, false, false);
 				}
 				else if (num29 == 1)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3007, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3007, 1, false, -1, false, false);
 				}
 				else if (num29 == 2)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3013, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3013, 1, false, -1, false, false);
 				}
 				else if (num29 == 3)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3016, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3016, 1, false, -1, false, false);
 				}
 				else if (num29 == 4)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3020, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3020, 1, false, -1, false, false);
 				}
 			}
 			else if (this.type == 475)
@@ -53519,19 +53520,19 @@ namespace Terraria
 				int num30 = Main.rand.Next(4);
 				if (num30 == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3029, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3029, 1, false, -1, false, false);
 				}
 				else if (num30 == 1)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3030, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3030, 1, false, -1, false, false);
 				}
 				else if (num30 == 2)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3051, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3051, 1, false, -1, false, false);
 				}
 				else if (num30 == 3)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3022, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3022, 1, false, -1, false, false);
 				}
 			}
 			else
@@ -53540,8 +53541,8 @@ namespace Terraria
 			}
 			if (this.type == 473 || this.type == 474 || this.type == 475 || this.type == 476)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 499, Main.rand.Next(5, 11), false, -1, false, false);
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 500, Main.rand.Next(5, 16), false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 499, Main.rand.Next(5, 11), false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 500, Main.rand.Next(5, 16), false, -1, false, false);
 			}
 			if (this.type == 85 && this.value > 0f)
 			{
@@ -53549,22 +53550,22 @@ namespace Terraria
 				{
 					if (Main.rand.Next(20) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1312, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1312, 1, false, -1, false, false);
 					}
 					else
 					{
 						int num31 = Main.rand.Next(3);
 						if (num31 == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 676, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 676, 1, false, -1, false, false);
 						}
 						else if (num31 == 1)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 725, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 725, 1, false, -1, false, false);
 						}
 						else if (num31 == 2)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1264, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1264, 1, false, -1, false, false);
 						}
 					}
 				}
@@ -53573,27 +53574,27 @@ namespace Terraria
 					int num32 = Main.rand.Next(6);
 					if (num32 == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 437, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 437, 1, false, -1, false, false);
 					}
 					else if (num32 == 1)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 517, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 517, 1, false, -1, false, false);
 					}
 					else if (num32 == 2)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 535, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 535, 1, false, -1, false, false);
 					}
 					else if (num32 == 3)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 536, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 536, 1, false, -1, false, false);
 					}
 					else if (num32 == 4)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 532, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 532, 1, false, -1, false, false);
 					}
 					else
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 554, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 554, 1, false, -1, false, false);
 					}
 				}
 			}
@@ -53601,319 +53602,319 @@ namespace Terraria
 			{
 				if (Main.expertMode)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 575, Main.rand.Next(5, 11) * 2, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 575, Main.rand.Next(5, 11) * 2, false, 0, false, false);
 				}
 				else
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 575, Main.rand.Next(5, 11), false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 575, Main.rand.Next(5, 11), false, 0, false, false);
 				}
 			}
 			if (this.type >= 212 && this.type <= 215)
 			{
 				if (Main.rand.Next(8000) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 905, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 905, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(4000) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 855, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 855, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(2000) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 854, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 854, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(2000) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2584, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 2584, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(1000) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3033, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3033, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(200) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 672, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 672, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1277, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1277, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1278, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1278, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1279, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1279, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1280, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1280, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1704, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1704, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1705, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1705, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1710, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1710, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1716, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1716, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1720, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1720, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2379, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2379, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2389, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2389, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2405, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2405, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2843, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2843, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2663, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2663, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2238, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2238, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2133, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2133, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2137, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2137, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2143, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2143, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2147, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2147, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2151, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2151, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2155, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2155, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3263, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 3263, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3264, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 3264, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3265, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 3265, 1, false, 0, false, false);
 				}
 			}
 			else if (this.type == 216)
 			{
 				if (Main.rand.Next(2000) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 905, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 905, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(1000) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 855, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 855, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 854, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 854, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2584, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 2584, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(250) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3033, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3033, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(50) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 672, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 672, 1, false, -1, false, false);
 				}
 			}
 			else if (this.type == 491)
 			{
 				if (Main.rand.Next(400) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 905, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 905, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(200) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 855, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 855, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(100) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 854, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 854, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(100) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2584, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 2584, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(50) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3033, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3033, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(10) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 672, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 672, 1, false, -1, false, false);
 				}
 			}
 			if ((this.type == 161 || this.type == 431) && Main.rand.Next(50) == 0)
 			{
 				int num33 = Main.rand.Next(3);
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 803 + num33, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 803 + num33, 1, false, 0, false, false);
 			}
 			if (this.type == 217)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1115, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1115, 1, false, -1, false, false);
 			}
 			if (this.type == 218)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1116, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1116, 1, false, -1, false, false);
 			}
 			if (this.type == 219)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1117, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1117, 1, false, -1, false, false);
 			}
 			if (this.type == 220)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1118, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1118, 1, false, -1, false, false);
 			}
 			if (this.type == 221)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1119, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1119, 1, false, -1, false, false);
 			}
 			if (this.type == 167 && Main.rand.Next(50) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 879, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 879, 1, false, -1, false, false);
 			}
 			if (this.type == 143 || this.type == 144 || this.type == 145)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 593, Main.rand.Next(5, 11), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 593, Main.rand.Next(5, 11), false, 0, false, false);
 			}
 			if (this.type == 79)
 			{
 				if (Main.rand.Next(10) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 527, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 527, 1, false, 0, false, false);
 				}
 			}
 			else if (this.type == 80 && Main.rand.Next(10) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 528, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 528, 1, false, 0, false, false);
 			}
 			if (this.type == 525)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 522, Main.rand.Next(1, 4), false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 522, Main.rand.Next(1, 4), false, 0, false, false);
 				}
 				if (Main.rand.Next(15) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 527, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 527, 1, false, 0, false, false);
 				}
 			}
 			if (this.type == 526)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1332, Main.rand.Next(1, 4), false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1332, Main.rand.Next(1, 4), false, 0, false, false);
 				}
 				if (Main.rand.Next(15) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 527, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 527, 1, false, 0, false, false);
 				}
 			}
 			if (this.type == 527 && Main.rand.Next(15) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 528, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 528, 1, false, 0, false, false);
 			}
 			if (this.type == 532 && Main.rand.Next(3) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3380, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3380, 1, false, 0, false, false);
 			}
 			if (this.type == 528)
 			{
 				if (Main.rand.Next(25) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2802, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2802, 1, false, 0, false, false);
 				}
 			}
 			else if (this.type == 529 && Main.rand.Next(25) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2801, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 2801, 1, false, 0, false, false);
 			}
 			if ((this.type == 49 || this.type == 51 || this.type == 150 || this.type == 93) && Main.rand.Next(100) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 18, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 18, 1, false, -1, false, false);
 			}
 			if ((this.type == 16 || this.type == 185 || this.type == 167 || this.type == 197) && Main.rand.Next(50) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 393, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 393, 1, false, -1, false, false);
 			}
 			if (this.type == 58 && Main.rand.Next(75) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 393, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 393, 1, false, -1, false, false);
 			}
 			if (this.type >= 494 && this.type <= 506)
 			{
 				if (Main.rand.Next(80) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 18, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 18, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(80) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 393, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 393, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(25) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3285, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3285, 1, false, -1, false, false);
 				}
 			}
 			if (this.type == 21 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 322 || this.type == 323 || this.type == 324 || (this.type >= 449 && this.type <= 452))
 			{
 				if (Main.rand.Next(100) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 954, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 954, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(200) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 955, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 955, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(200) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1166, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1166, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(500) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1274, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1274, 1, false, -1, false, false);
 				}
 			}
 			else if (this.type == 6)
@@ -53923,15 +53924,15 @@ namespace Terraria
 					int num34 = Main.rand.Next(3);
 					if (num34 == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 956, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 956, 1, false, -1, false, false);
 					}
 					else if (num34 == 1)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 957, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 957, 1, false, -1, false, false);
 					}
 					else
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 958, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 958, 1, false, -1, false, false);
 					}
 				}
 			}
@@ -53942,15 +53943,15 @@ namespace Terraria
 					int num35 = Main.rand.Next(3);
 					if (num35 == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 960, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 960, 1, false, -1, false, false);
 					}
 					else if (num35 == 1)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 961, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 961, 1, false, -1, false, false);
 					}
 					else
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 962, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 962, 1, false, -1, false, false);
 					}
 				}
 			}
@@ -53958,42 +53959,42 @@ namespace Terraria
 			{
 				if (Main.rand.Next(450) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 959, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 959, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(300) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1307, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1307, 1, false, -1, false, false);
 				}
 			}
 			if ((this.type == 174 || this.type == 179 || this.type == 182 || this.type == 183) && Main.rand.Next(200) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 996, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 996, 1, false, 0, false, false);
 			}
 			if (this.type == 101 || this.type == 98)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 522, Main.rand.Next(2, 6), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 522, Main.rand.Next(2, 6), false, 0, false, false);
 			}
 			if (this.type == 86)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 526, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 526, 1, false, 0, false, false);
 				if (Main.rand.Next(100) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 856, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 856, 1, false, 0, false, false);
 				}
 			}
 			if (this.type == 186 || this.type == 432)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 40, Main.rand.Next(1, 10), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 40, Main.rand.Next(1, 10), false, 0, false, false);
 			}
 			if (this.type == 225)
 			{
 				if (Main.rand.Next(45) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1243, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1243, 1, false, 0, false, false);
 				}
 				else
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(2, 7), false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 23, Main.rand.Next(2, 7), false, 0, false, false);
 				}
 			}
 			if (this.type == 537)
@@ -54010,7 +54011,7 @@ namespace Terraria
 						num36 += Main.rand.Next(2);
 					}
 				}
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, num36, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 23, num36, false, 0, false, false);
 				int num37 = 8000;
 				if (Main.expertMode)
 				{
@@ -54018,16 +54019,16 @@ namespace Terraria
 				}
 				if (Main.rand.Next(num37) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1309, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1309, 1, false, -1, false, false);
 				}
 			}
 			if (this.type >= 333 && this.type <= 336 && Main.rand.Next(20) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1906, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1906, 1, false, 0, false, false);
 			}
 			if (this.netID == -4)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3111, Main.rand.Next(25, 51), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3111, Main.rand.Next(25, 51), false, 0, false, false);
 				int num38 = 100;
 				if (Main.expertMode)
 				{
@@ -54035,7 +54036,7 @@ namespace Terraria
 				}
 				if (Main.rand.Next(num38) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1309, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1309, 1, false, -1, false, false);
 				}
 			}
 			else if (this.type == 1 || this.type == 16 || this.type == 138 || this.type == 141 || this.type == 147 || this.type == 184 || this.type == 187 || this.type == 204 || this.type == 302 || (this.type >= 333 && this.type <= 336) || this.type == 535)
@@ -54052,11 +54053,23 @@ namespace Terraria
 						num39 += Main.rand.Next(2);
 					}
 				}
-				int num40 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, num39, false, 0, false, false);
-				if (this.netID <= 1 && this.netID != -1 && this.netID != -2 && this.netID != -5 && this.netID != -6)
+
+				Vector2 position = this.position;
+				int width = this.width;
+				int height = this.height;
+				int ID = 23;
+				bool broadcast = false;
+				int prefix = 0;
+				bool nodelay = false;
+				bool reverseLookup = false;
+				if (!ServerApi.Hooks.InvokeNpcLootDrop(ref position, ref width, ref height, ref ID, ref num39, ref broadcast, ref prefix, type, whoAmI, ref nodelay, ref reverseLookup))
 				{
-					Main.item[num40].color = this.color;
-					NetMessage.SendData(88, -1, -1, "", num40, 1f, 0f, 0f, 0, 0, 0);
+					int num40 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, num39, false, 0, false, false);
+					if (this.netID <= 1 && this.netID != -1 && this.netID != -2 && this.netID != -5 && this.netID != -6)
+					{
+						Main.item[num40].color = this.color;
+						NetMessage.SendData(88, -1, -1, "", num40, 1f, 0f, 0f, 0, 0, 0);
+					}
 				}
 				int num41 = 10000;
 				if (Main.expertMode)
@@ -54065,156 +54078,156 @@ namespace Terraria
 				}
 				if (Main.rand.Next(num41) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1309, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1309, 1, false, -1, false, false);
 				}
 			}
 			if (this.type == 75)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 501, Main.rand.Next(1, 4), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 501, Main.rand.Next(1, 4), false, 0, false, false);
 			}
 			if (this.type == 81 || this.type == 183)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(2, 5), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 23, Main.rand.Next(2, 5), false, 0, false, false);
 			}
 			if (this.type == 122)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 23, Main.rand.Next(5, 11), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 23, Main.rand.Next(5, 11), false, 0, false, false);
 			}
 			if (this.type == 71)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 327, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 327, 1, false, 0, false, false);
 			}
 			if (this.type == 2 || this.type == 317 || this.type == 318 || this.type == 190 || this.type == 191 || this.type == 192 || this.type == 193 || this.type == 194 || this.type == 133)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 38, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 38, 1, false, 0, false, false);
 				}
 				else if (Main.rand.Next(100) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 236, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 236, 1, false, 0, false, false);
 				}
 			}
 			if (this.type == 104 && Main.rand.Next(60) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 485, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 485, 1, false, -1, false, false);
 			}
 			if (this.type == 58)
 			{
 				if (Main.rand.Next(250) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 263, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 263, 1, false, 0, false, false);
 				}
 				else if (Main.rand.Next(30) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 118, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 118, 1, false, 0, false, false);
 				}
 			}
 			if (this.type == 102 && Main.rand.Next(250) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 263, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 263, 1, false, 0, false, false);
 			}
 			if (this.type == 3 || this.type == 331 || this.type == 332 || this.type == 132 || this.type == 161 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 319 || this.type == 320 || this.type == 321 || (this.type >= 430 && this.type <= 436))
 			{
 				if (Main.rand.Next(50) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 216, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 216, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(250) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1304, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1304, 1, false, -1, false, false);
 				}
 			}
 			if ((this.type == 489 || this.type == 490) && (Main.expertMode || Main.rand.Next(2) == 0))
 			{
 				if (Main.rand.Next(75) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3212, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3212, 1, false, -1, false, false);
 				}
 				if (Main.rand.Next(100) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3213, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3213, 1, false, -1, false, false);
 				}
 			}
 			if (this.type == 223 && Main.rand.Next(20) == 0)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1135, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1135, 1, false, -1, false, false);
 				}
 				else
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1136, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1136, 1, false, -1, false, false);
 				}
 			}
 			if (this.type == 66)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 267, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 267, 1, false, 0, false, false);
 			}
 			if ((this.type == 62 || this.type == 66) && Main.rand.Next(35) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 272, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 272, 1, false, -1, false, false);
 			}
 			if (this.value > 0f && Main.hardMode && (double)(this.position.Y / 16f) < Main.worldSurface + 10.0 && (base.Center.X / 16f < 380f || base.Center.X / 16f > (float)(Main.maxTilesX - 380)) && Main.rand.Next(100) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1315, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1315, 1, false, 0, false, false);
 			}
 			if (this.type == 52)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 251, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 251, 1, false, 0, false, false);
 			}
 			if (this.type == 53)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 239, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 239, 1, false, 0, false, false);
 			}
 			if (this.type == 536)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3478, 1, false, 0, false, false);
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3479, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3478, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3479, 1, false, 0, false, false);
 			}
 			if (this.type == 54)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 260, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 260, 1, false, 0, false, false);
 			}
 			if (this.type == 368)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2222, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 2222, 1, false, 0, false, false);
 			}
 			if ((this.type == 69 || this.type == 509 || this.type == 508) && Main.rand.Next(3) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 323, Main.rand.Next(1, 3), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 323, Main.rand.Next(1, 3), false, 0, false, false);
 			}
 			if (this.type == 73)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 362, Main.rand.Next(1, 3), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 362, Main.rand.Next(1, 3), false, 0, false, false);
 			}
 			if ((this.type == 483 || this.type == 482) && Main.rand.Next(30) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3109, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3109, 1, false, 0, false, false);
 			}
 			if ((this.type == 6 || this.type == 94) && Main.rand.Next(3) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 68, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 68, 1, false, 0, false, false);
 			}
 			if ((this.type == 181 || this.type == 173 || this.type == 239 || this.type == 182 || this.type == 240) && Main.rand.Next(3) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1330, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1330, 1, false, 0, false, false);
 			}
 			if (this.type == 7 || this.type == 8 || this.type == 9)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 68, Main.rand.Next(1, 3), false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 68, Main.rand.Next(1, 3), false, 0, false, false);
 				}
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 69, Main.rand.Next(3, 9), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 69, Main.rand.Next(3, 9), false, 0, false, false);
 			}
 			if ((this.type == 10 || this.type == 11 || this.type == 12 || this.type == 95 || this.type == 96 || this.type == 97) && (Main.rand.Next(50) == 0 || (Main.expertMode && Main.rand.Next(50) == 0)))
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 215, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 215, 1, false, 0, false, false);
 			}
 			if (this.type == 47 && Main.rand.Next(75) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 243, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 243, 1, false, 0, false, false);
 			}
 			if (this.type == 4)
 			{
@@ -54226,15 +54239,15 @@ namespace Terraria
 				{
 					if (Main.rand.Next(7) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2112, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2112, 1, false, -1, false, false);
 					}
 					if (Main.rand.Next(40) == 0 || (Main.expertMode && Main.rand.Next(20) == 0))
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1299, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 1299, 1, false, 0, false, false);
 					}
 					if (Main.expertMode)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3097, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 3097, 1, false, -1, false, false);
 					}
 					int num42 = 1;
 					if (Main.expertMode)
@@ -54246,26 +54259,26 @@ namespace Terraria
 						if (WorldGen.crimson)
 						{
 							int stack = Main.rand.Next(20) + 10;
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 880, stack, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 880, stack, false, 0, false, false);
 							stack = Main.rand.Next(20) + 10;
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 880, stack, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 880, stack, false, 0, false, false);
 							stack = Main.rand.Next(20) + 10;
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 880, stack, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 880, stack, false, 0, false, false);
 							stack = Main.rand.Next(3) + 1;
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2171, stack, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 2171, stack, false, 0, false, false);
 						}
 						else
 						{
 							int stack2 = Main.rand.Next(30) + 20;
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 47, stack2, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 47, stack2, false, 0, false, false);
 							stack2 = Main.rand.Next(20) + 10;
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, stack2, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 56, stack2, false, 0, false, false);
 							stack2 = Main.rand.Next(20) + 10;
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, stack2, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 56, stack2, false, 0, false, false);
 							stack2 = Main.rand.Next(20) + 10;
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, stack2, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 56, stack2, false, 0, false, false);
 							stack2 = Main.rand.Next(3) + 1;
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 59, stack2, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 59, stack2, false, 0, false, false);
 						}
 					}
 				}
@@ -54279,27 +54292,27 @@ namespace Terraria
 				else
 				{
 					int stack3 = Main.rand.Next(20, 46);
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 880, stack3, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 880, stack3, false, 0, false, false);
 					stack3 = Main.rand.Next(20, 46);
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 880, stack3, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 880, stack3, false, 0, false, false);
 					if (Main.expertMode)
 					{
 						stack3 = Main.rand.Next(30, 51);
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 880, stack3, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 880, stack3, false, 0, false, false);
 						stack3 = Main.rand.Next(30, 51);
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 880, stack3, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 880, stack3, false, 0, false, false);
 					}
 					if (Main.rand.Next(7) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2104, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2104, 1, false, -1, false, false);
 					}
 					if (Main.rand.Next(20) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3060, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 3060, 1, false, 0, false, false);
 					}
 					if (Main.expertMode)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3223, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 3223, 1, false, 0, false, false);
 					}
 				}
 			}
@@ -54312,7 +54325,7 @@ namespace Terraria
 					{
 						num43 += Main.rand.Next(2, 6);
 					}
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1329, num43, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1329, num43, false, 0, false, false);
 				}
 				if (Main.rand.Next(3) != 0)
 				{
@@ -54321,11 +54334,11 @@ namespace Terraria
 					{
 						num43 += Main.rand.Next(6, 14);
 					}
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 880, num43, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 880, num43, false, 0, false, false);
 				}
 				if (Main.rand.Next(2) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLife < Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLifeMax2)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 				}
 			}
 			if (this.type == 13 || this.type == 14 || this.type == 15)
@@ -54337,12 +54350,12 @@ namespace Terraria
 					{
 						num44++;
 					}
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 86, num44, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 86, num44, false, 0, false, false);
 				}
 				if (Main.rand.Next(2) == 0)
 				{
 					num44 = Main.rand.Next(2, 6);
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, num44, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 56, num44, false, 0, false, false);
 				}
 				if (this.boss)
 				{
@@ -54353,33 +54366,33 @@ namespace Terraria
 					else
 					{
 						num44 = Main.rand.Next(10, 30);
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, num44, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 56, num44, false, 0, false, false);
 						num44 = Main.rand.Next(10, 31);
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, num44, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 56, num44, false, 0, false, false);
 						if (Main.expertMode)
 						{
 							num44 = Main.rand.Next(10, 30);
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, num44, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 56, num44, false, 0, false, false);
 							num44 = Main.rand.Next(10, 31);
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 56, num44, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 56, num44, false, 0, false, false);
 						}
 						if (Main.expertMode)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3224, 1, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 3224, 1, false, 0, false, false);
 						}
 						if (Main.rand.Next(20) == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 994, 1, false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 994, 1, false, 0, false, false);
 						}
 						if (Main.rand.Next(7) == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2111, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 2111, 1, false, -1, false, false);
 						}
 					}
 				}
 				if (Main.rand.Next(4) == 0 && Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLife < Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].statLifeMax2)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 				}
 			}
 			if (this.type == 222)
@@ -54392,7 +54405,7 @@ namespace Terraria
 				{
 					if (Main.rand.Next(7) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2108, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2108, 1, false, -1, false, false);
 					}
 					int num45 = Main.rand.Next(3);
 					if (num45 == 0)
@@ -54407,7 +54420,7 @@ namespace Terraria
 					{
 						num45 = 2888;
 					}
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num45, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, num45, 1, false, -1, false, false);
 					if (Main.expertMode)
 					{
 						int num46 = Main.rand.Next(3);
@@ -54439,49 +54452,49 @@ namespace Terraria
 								num46 = 2888;
 							}
 						}
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num46, 1, false, -1, false, false);
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1132, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, num46, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1132, 1, false, -1, false, false);
 					}
 					else if (Main.rand.Next(3) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1132, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1132, 1, false, -1, false, false);
 					}
 					if ((Main.expertMode && Main.rand.Next(15) == 0) || Main.rand.Next(15) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1170, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 1170, 1, false, 0, false, false);
 					}
 					if ((Main.expertMode && Main.rand.Next(20) == 0) || Main.rand.Next(20) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2502, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 2502, 1, false, 0, false, false);
 					}
 					if (Main.expertMode)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1129, 1, false, 0, false, false);
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(842, 845), 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 1129, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, Main.rand.Next(842, 845), 1, false, 0, false, false);
 					}
 					else if (Main.rand.Next(3) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1129, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 1129, 1, false, 0, false, false);
 					}
 					else if (Main.rand.Next(2) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(842, 845), 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, Main.rand.Next(842, 845), 1, false, 0, false, false);
 					}
 					if (Main.rand.Next(4) != 0 || Main.expertMode)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1130, Main.rand.Next(10, 30), false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 1130, Main.rand.Next(10, 30), false, 0, false, false);
 						if (Main.expertMode)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1130, Main.rand.Next(10, 30), false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 1130, Main.rand.Next(10, 30), false, 0, false, false);
 						}
 					}
 					if (Main.expertMode)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2431, Main.rand.Next(44, 67), false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 2431, Main.rand.Next(44, 67), false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2431, Main.rand.Next(16, 27), false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 2431, Main.rand.Next(16, 27), false, 0, false, false);
 					}
 				}
 				NPC.downedQueenBee = true;
@@ -54498,15 +54511,15 @@ namespace Terraria
 				}
 				else if (Main.rand.Next(7) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1281, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1281, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(7) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1273, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1273, 1, false, -1, false, false);
 				}
 				else if (Main.rand.Next(7) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1313, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1313, 1, false, -1, false, false);
 				}
 			}
 			if (this.type == 113)
@@ -54519,9 +54532,9 @@ namespace Terraria
 				{
 					if (Main.rand.Next(7) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2105, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2105, 1, false, -1, false, false);
 					}
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 367, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 367, 1, false, -1, false, false);
 					if (Main.expertMode)
 					{
 						int num47 = Main.rand.Next(4);
@@ -54533,19 +54546,19 @@ namespace Terraria
 						{
 							num47 = 489 + num47;
 						}
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num47, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, num47, 1, false, -1, false, false);
 						int num48 = Main.rand.Next(3);
 						if (num48 == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 514, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 514, 1, false, -1, false, false);
 						}
 						else if (num48 == 1)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 426, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 426, 1, false, -1, false, false);
 						}
 						else if (num48 == 2)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 434, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 434, 1, false, -1, false, false);
 						}
 					}
 					else if (Main.rand.Next(2) == 0)
@@ -54559,22 +54572,22 @@ namespace Terraria
 						{
 							num49 = 489 + num49;
 						}
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num49, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, num49, 1, false, -1, false, false);
 					}
 					else
 					{
 						int num50 = Main.rand.Next(3);
 						if (num50 == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 514, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 514, 1, false, -1, false, false);
 						}
 						else if (num50 == 1)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 426, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 426, 1, false, -1, false, false);
 						}
 						else if (num50 == 2)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 434, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 434, 1, false, -1, false, false);
 						}
 					}
 				}
@@ -54611,9 +54624,9 @@ namespace Terraria
 				NPC.downedAncientCultist = true;
 				if (Main.rand.Next(7) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3372, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3372, 1, false, -1, false, false);
 				}
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3549, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 3549, 1, false, -1, false, false);
 				WorldGen.TriggerLunarApocalypse();
 			}
 			if (this.type == 398)
@@ -54628,10 +54641,10 @@ namespace Terraria
 				{
 					if (Main.rand.Next(7) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3373, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 3373, 1, false, -1, false, false);
 					}
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3384, 1, false, -1, false, false);
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3460, Main.rand.Next(70, 91), false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3384, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 3460, Main.rand.Next(70, 91), false, -1, false, false);
 					int num56 = Utils.SelectRandom<int>(Main.rand, new int[]
 					{
 						3063,
@@ -54644,7 +54657,7 @@ namespace Terraria
 						3571,
 						3569
 					});
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num56, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, num56, 1, false, -1, false, false);
 				}
 			}
 			num = this.type;
@@ -54698,7 +54711,7 @@ namespace Terraria
 					}
 					for (int num58 = 0; num58 < num57; num58++)
 					{
-						Item.NewItem((int)this.position.X + Main.rand.Next(this.width), (int)this.position.Y + Main.rand.Next(this.height), 2, 2, 3456, Main.rand.Next(1, 4), false, 0, false, false);
+						DropLoot(new Vector2((int)this.position.X + Main.rand.Next(this.width), (int)this.position.Y + Main.rand.Next(this.height)), 2, 2, 3456, Main.rand.Next(1, 4), false, 0, false, false);
 					}
 					NPC.downedTowerVortex = true;
 					NPC.TowerActiveVortex = false;
@@ -54729,7 +54742,7 @@ namespace Terraria
 					}
 					for (int num60 = 0; num60 < num59; num60++)
 					{
-						Item.NewItem((int)this.position.X + Main.rand.Next(this.width), (int)this.position.Y + Main.rand.Next(this.height), 2, 2, 3459, Main.rand.Next(1, 4), false, 0, false, false);
+						DropLoot(new Vector2((int)this.position.X + Main.rand.Next(this.width), (int)this.position.Y + Main.rand.Next(this.height)), 2, 2, 3459, Main.rand.Next(1, 4), false, 0, false, false);
 					}
 					NPC.downedTowerStardust = true;
 					NPC.TowerActiveStardust = false;
@@ -54750,7 +54763,7 @@ namespace Terraria
 					}
 					for (int num62 = 0; num62 < num61; num62++)
 					{
-						Item.NewItem((int)this.position.X + Main.rand.Next(this.width), (int)this.position.Y + Main.rand.Next(this.height), 2, 2, 3457, Main.rand.Next(1, 4), false, 0, false, false);
+						DropLoot(new Vector2((int)this.position.X + Main.rand.Next(this.width), (int)this.position.Y + Main.rand.Next(this.height)), 2, 2, 3457, Main.rand.Next(1, 4), false, 0, false, false);
 					}
 					NPC.downedTowerNebula = true;
 					NPC.TowerActiveNebula = false;
@@ -54769,7 +54782,7 @@ namespace Terraria
 					}
 					for (int num64 = 0; num64 < num63; num64++)
 					{
-						Item.NewItem((int)this.position.X + Main.rand.Next(this.width), (int)this.position.Y + Main.rand.Next(this.height), 2, 2, 3458, Main.rand.Next(1, 4), false, 0, false, false);
+						DropLoot(new Vector2((int)this.position.X + Main.rand.Next(this.width), (int)this.position.Y + Main.rand.Next(this.height)), 2, 2, 3458, Main.rand.Next(1, 4), false, 0, false, false);
 					}
 					NPC.downedTowerSolar = true;
 					NPC.TowerActiveSolar = false;
@@ -54812,7 +54825,7 @@ namespace Terraria
 			}
 			if (Main.rand.Next(8) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2860, Main.rand.Next(8, 21), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 2860, Main.rand.Next(8, 21), false, 0, false, false);
 			}
 			IL_914D:
 			num = this.type;
@@ -54820,15 +54833,15 @@ namespace Terraria
 			{
 				if (Main.rand.Next(200) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2806, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2806, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(200) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2807, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2807, 1, false, 0, false, false);
 				}
 				if (Main.rand.Next(200) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2808, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2808, 1, false, 0, false, false);
 				}
 			}
 			num = this.type;
@@ -54850,20 +54863,20 @@ namespace Terraria
 			}
 			if (Main.rand.Next(200) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2803, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 2803, 1, false, 0, false, false);
 			}
 			if (Main.rand.Next(200) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2804, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 2804, 1, false, 0, false, false);
 			}
 			if (Main.rand.Next(200) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2805, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 2805, 1, false, 0, false, false);
 			}
 			IL_9346:
 			if (this.type == 395)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Utils.SelectRandom<int>(Main.rand, new int[]
+				DropLoot(this.position, this.width, this.height, Utils.SelectRandom<int>(Main.rand, new int[]
 				{
 					2797,
 					2749,
@@ -54878,53 +54891,53 @@ namespace Terraria
 			}
 			if (this.type == 390 && Main.rand.Next(100) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2771, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 2771, 1, false, 0, false, false);
 			}
 			if ((this.type == 116 || this.type == 117 || this.type == 118 || this.type == 119) && (!Main.expertMode || Main.rand.Next(5) == 0))
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
 			if (this.type == 139 && Main.rand.Next(2) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
 			if (this.type == 63 || this.type == 64 || this.type == 103)
 			{
 				if (Main.rand.Next(100) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1303, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 1303, 1, false, -1, false, false);
 				}
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 282, Main.rand.Next(1, 5), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 282, Main.rand.Next(1, 5), false, 0, false, false);
 			}
 			if (this.type == 481 && Main.rand.Next(2) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3094, Main.rand.Next(40, 81), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3094, Main.rand.Next(40, 81), false, 0, false, false);
 			}
 			if (this.type == 481 && Main.rand.Next(20) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3187 + Main.rand.Next(3), 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 3187 + Main.rand.Next(3), 1, false, 0, false, false);
 			}
 			if (this.type == 21 || this.type == 44 || this.type == 167 || this.type == 201 || this.type == 202 || this.type == 481 || this.type == 203 || this.type == 322 || this.type == 323 || this.type == 324 || (this.type >= 449 && this.type <= 452))
 			{
 				if (Main.rand.Next(25) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 118, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 118, 1, false, 0, false, false);
 				}
 				else if (this.type == 44)
 				{
 					if (Main.rand.Next(20) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(410, 412), 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, Main.rand.Next(410, 412), 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 166, Main.rand.Next(1, 4), false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 166, Main.rand.Next(1, 4), false, 0, false, false);
 					}
 				}
 			}
 			if (this.type == 45)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 238, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 238, 1, false, 0, false, false);
 			}
 			if (this.type == 50)
 			{
@@ -54941,23 +54954,23 @@ namespace Terraria
 				{
 					if (Main.rand.Next(4) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2430, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 2430, 1, false, 0, false, false);
 					}
 					if (Main.rand.Next(7) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2493, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2493, 1, false, -1, false, false);
 					}
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, Main.rand.Next(256, 259), 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, Main.rand.Next(256, 259), 1, false, 0, false, false);
 					Main.rand.Next(2);
 					if (Main.rand.Next(3) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2585, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 2585, 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2610, 1, false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 2610, 1, false, 0, false, false);
 					}
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 998, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 998, 1, false, 0, false, false);
 				}
 				NPC.downedSlimeKing = true;
 				if (Main.netMode == 2)
@@ -54967,77 +54980,77 @@ namespace Terraria
 			}
 			if (this.type == 23 && Main.rand.Next(50) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 116, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 116, 1, false, 0, false, false);
 			}
 			if (this.type == 24 && Main.rand.Next(250) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 244, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 244, 1, false, 0, false, false);
 			}
 			if (this.type == 31 || this.type == 32 || this.type == 34)
 			{
 				if (Main.rand.Next(250) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 932, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 932, 1, false, 0, false, false);
 				}
 				else if (Main.rand.Next(100) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3095, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 3095, 1, false, 0, false, false);
 				}
 				else if (Main.rand.Next(65) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 327, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 327, 1, false, 0, false, false);
 				}
 				else if (!Main.expertMode)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 154, Main.rand.Next(1, 4), false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 154, Main.rand.Next(1, 4), false, 0, false, false);
 				}
 				if (Main.expertMode)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 154, Main.rand.Next(2, 7), false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 154, Main.rand.Next(2, 7), false, 0, false, false);
 				}
 			}
 			if (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 29 || this.type == 111)
 			{
 				if (Main.rand.Next(200) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 160, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 160, 1, false, 0, false, false);
 				}
 				else if (Main.rand.Next(2) == 0)
 				{
 					int stack4 = Main.rand.Next(1, 6);
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 161, stack4, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 161, stack4, false, 0, false, false);
 				}
 			}
 			if (this.type == 175 && Main.rand.Next(100) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1265, 1, false, -1, false, false);
+				DropLoot(this.position, this.width, this.height, 1265, 1, false, -1, false, false);
 			}
 			if ((this.type == 42 || (this.type >= 231 && this.type <= 235)) && (Main.expertMode || Main.rand.Next(3) != 0))
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 209, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 209, 1, false, 0, false, false);
 			}
 			if (this.type == 204 && (Main.expertMode || Main.rand.Next(2) == 0))
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 209, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 209, 1, false, 0, false, false);
 			}
 			if (this.type == 43 && (Main.expertMode || Main.rand.Next(2) == 0))
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 210, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 210, 1, false, 0, false, false);
 			}
 			if (this.type == 65)
 			{
 				if (Main.rand.Next(50) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 268, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 268, 1, false, 0, false, false);
 				}
 				else
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 319, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 319, 1, false, 0, false, false);
 				}
 			}
 			if (this.type == 48 && Main.rand.Next(2) == 0)
 			{
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 320, 1, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 320, 1, false, 0, false, false);
 			}
 			if (this.type == 125 || this.type == 126)
 			{
@@ -55056,10 +55069,10 @@ namespace Terraria
 					{
 						if (Main.rand.Next(7) == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2106, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 2106, 1, false, -1, false, false);
 						}
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 549, Main.rand.Next(25, 41), false, 0, false, false);
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1225, Main.rand.Next(15, 31), false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 549, Main.rand.Next(25, 41), false, 0, false, false);
+						DropLoot(this.position, this.width, this.height, 1225, Main.rand.Next(15, 31), false, 0, false, false);
 					}
 				}
 				else
@@ -55079,19 +55092,19 @@ namespace Terraria
 			{
 				if (Main.rand.Next(7) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2107, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 2107, 1, false, -1, false, false);
 				}
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 547, Main.rand.Next(25, 41), false, 0, false, false);
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1225, Main.rand.Next(15, 31), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 547, Main.rand.Next(25, 41), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1225, Main.rand.Next(15, 31), false, 0, false, false);
 			}
 			else if (this.type == 134)
 			{
 				if (Main.rand.Next(7) == 0)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2113, 1, false, -1, false, false);
+					DropLoot(this.position, this.width, this.height, 2113, 1, false, -1, false, false);
 				}
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 548, Main.rand.Next(25, 41), false, 0, false, false);
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1225, Main.rand.Next(15, 31), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 548, Main.rand.Next(25, 41), false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, 1225, Main.rand.Next(15, 31), false, 0, false, false);
 			}
 			if (this.type == 262)
 			{
@@ -55103,31 +55116,31 @@ namespace Terraria
 				{
 					if (Main.rand.Next(7) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2109, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 2109, 1, false, -1, false, false);
 					}
 					if (Main.expertMode)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1141, Main.rand.Next(2, 4), false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1141, Main.rand.Next(2, 4), false, -1, false, false);
 					}
 					else
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1141, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1141, 1, false, -1, false, false);
 					}
 					if (Main.rand.Next(20) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1182, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1182, 1, false, -1, false, false);
 					}
 					if (Main.rand.Next(50) == 0 || (Main.expertMode && Main.rand.Next(50) == 0))
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1305, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1305, 1, false, -1, false, false);
 					}
 					if (Main.rand.Next(4) == 0 || Main.expertMode)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1157, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 1157, 1, false, -1, false, false);
 					}
 					if (Main.rand.Next(10) == 0)
 					{
-						Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3021, 1, false, -1, false, false);
+						DropLoot(this.position, this.width, this.height, 3021, 1, false, -1, false, false);
 					}
 					int num66 = 1;
 					if (Main.expertMode)
@@ -55155,32 +55168,32 @@ namespace Terraria
 						}
 						if (num69 == 0)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 758, 1, false, -1, false, false);
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 771, Main.rand.Next(50, 150), false, 0, false, false);
+							DropLoot(this.position, this.width, this.height, 758, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 771, Main.rand.Next(50, 150), false, 0, false, false);
 						}
 						else if (num69 == 1)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1255, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1255, 1, false, -1, false, false);
 						}
 						else if (num69 == 2)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 788, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 788, 1, false, -1, false, false);
 						}
 						else if (num69 == 3)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1178, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1178, 1, false, -1, false, false);
 						}
 						else if (num69 == 4)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1259, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1259, 1, false, -1, false, false);
 						}
 						else if (num69 == 5)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1155, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 1155, 1, false, -1, false, false);
 						}
 						else if (num69 == 6)
 						{
-							Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3018, 1, false, -1, false, false);
+							DropLoot(this.position, this.width, this.height, 3018, 1, false, -1, false, false);
 						}
 					}
 				}
@@ -55202,75 +55215,75 @@ namespace Terraria
 			{
 				if (this.type == 4)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1360, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1360, 1, false, 0, false, false);
 				}
 				if (this.type == 13 || this.type == 14 || this.type == 15)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1361, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1361, 1, false, 0, false, false);
 				}
 				if (this.type == 266)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1362, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1362, 1, false, 0, false, false);
 				}
 				if (this.type == 35)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1363, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1363, 1, false, 0, false, false);
 				}
 				if (this.type == 222)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1364, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1364, 1, false, 0, false, false);
 				}
 				if (this.type == 113)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1365, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1365, 1, false, 0, false, false);
 				}
 				if (this.type == 134)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1366, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1366, 1, false, 0, false, false);
 				}
 				if (this.type == 127)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1367, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1367, 1, false, 0, false, false);
 				}
 				if (this.type == 125)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1368, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1368, 1, false, 0, false, false);
 				}
 				if (this.type == 126)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1369, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1369, 1, false, 0, false, false);
 				}
 				if (this.type == 262)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1370, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1370, 1, false, 0, false, false);
 				}
 				if (this.type == 245)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 1371, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 1371, 1, false, 0, false, false);
 				}
 				if (this.type == 50)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2489, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2489, 1, false, 0, false, false);
 				}
 				if (this.type == 370)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 2589, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 2589, 1, false, 0, false, false);
 				}
 				if (this.type == 439)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3357, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 3357, 1, false, 0, false, false);
 				}
 				if (this.type == 491)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3359, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 3359, 1, false, 0, false, false);
 				}
 				if (this.type == 395)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3358, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 3358, 1, false, 0, false, false);
 				}
 				if (this.type == 398)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3595, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 3595, 1, false, 0, false, false);
 				}
 			}
 			if (this.boss)
@@ -55347,11 +55360,11 @@ namespace Terraria
 				{
 					num70 = 499;
 				}
-				Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num70, stack5, false, 0, false, false);
+				DropLoot(this.position, this.width, this.height, num70, stack5, false, 0, false, false);
 				int num71 = Main.rand.Next(5) + 5;
 				for (int num72 = 0; num72 < num71; num72++)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 				}
 				if (this.type == 125 || this.type == 126)
 				{
@@ -55422,11 +55435,11 @@ namespace Terraria
 				int num73 = (int)Player.FindClosest(this.position, this.width, this.height);
 				if (Main.rand.Next(2) == 0 && Main.player[num73].statMana < Main.player[num73].statManaMax2)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 184, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 184, 1, false, 0, false, false);
 				}
 				else if (Main.rand.Next(2) == 0 && Main.player[num73].statLife < Main.player[num73].statLifeMax2)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 58, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 				}
 			}
 			if (this.type != 16 && this.type != 81 && this.type != 121 && Main.rand.Next(2) == 0 && this.lifeMax > 1 && this.damage > 0)
@@ -55434,7 +55447,7 @@ namespace Terraria
 				int num74 = (int)Player.FindClosest(this.position, this.width, this.height);
 				if (Main.player[num74].statMana < Main.player[num74].statManaMax2)
 				{
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 184, 1, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 184, 1, false, 0, false, false);
 				}
 			}
 			float num75 = this.value;
@@ -55474,7 +55487,7 @@ namespace Terraria
 						num76 /= Main.rand.Next(3) + 1;
 					}
 					num75 -= (float)(1000000 * num76);
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 74, num76, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 74, num76, false, 0, false, false);
 				}
 				else if (num75 > 10000f)
 				{
@@ -55488,7 +55501,7 @@ namespace Terraria
 						num77 /= Main.rand.Next(3) + 1;
 					}
 					num75 -= (float)(10000 * num77);
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 73, num77, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 73, num77, false, 0, false, false);
 				}
 				else if (num75 > 100f)
 				{
@@ -55502,7 +55515,7 @@ namespace Terraria
 						num78 /= Main.rand.Next(3) + 1;
 					}
 					num75 -= (float)(100 * num78);
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 72, num78, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 72, num78, false, 0, false, false);
 				}
 				else
 				{
@@ -55520,7 +55533,7 @@ namespace Terraria
 						num79 = 1;
 					}
 					num75 -= (float)num79;
-					Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 71, num79, false, 0, false, false);
+					DropLoot(this.position, this.width, this.height, 71, num79, false, 0, false, false);
 				}
 			}
 		}
@@ -55613,16 +55626,29 @@ namespace Terraria
 			{
 				if (Main.netMode == 2)
 				{
-					int num2 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num, 1, true, 0, false, false);
-					Main.itemLockoutTime[num2] = 54000;
-					for (int i = 0; i < 255; i++)
+					Vector2 position = this.position;
+					int width = this.width;
+					int height = this.height;
+					int ID = num;
+					int stack = 1;
+					bool broadcast = false;
+					int prefix = 0;
+					bool nodelay = false;
+					bool reverseLookup = false;
+
+					if (!ServerApi.Hooks.InvokeDropBossBag(ref position, ref width, ref height, ref ID, ref stack, ref broadcast, ref prefix, type, whoAmI, ref nodelay, ref reverseLookup))
 					{
-						if (this.playerInteraction[i] && Main.player[i].active)
+						int num2 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num, 1, true, 0, false, false);
+						Main.itemLockoutTime[num2] = 54000;
+						for (int i = 0; i < 255; i++)
 						{
-							NetMessage.SendData(90, i, -1, "", num2, 0f, 0f, 0f, 0, 0, 0);
+							if (this.playerInteraction[i] && Main.player[i].active)
+							{
+								NetMessage.SendData(90, i, -1, "", num2, 0f, 0f, 0f, 0, 0, 0);
+							}
 						}
+						Main.item[num2].active = false;
 					}
-					Main.item[num2].active = false;
 				}
 				else if (Main.netMode == 0)
 				{
@@ -65052,6 +65078,14 @@ namespace Terraria
 				", whoAmI:",
 				this.whoAmI
 			});
+		}
+
+		private void DropLoot(Vector2 position, int w, int h, int itemId, int stack = 1, bool broadcast = false, int prefix = 0, bool nodelay = false, bool reverseLookup = false)
+		{
+			if (!ServerApi.Hooks.InvokeNpcLootDrop(ref position, ref w, ref h, ref itemId, ref stack, ref broadcast, ref prefix, type, whoAmI, ref nodelay, ref reverseLookup))
+			{
+				Item.NewItem((int)position.X, (int)position.Y, w, h, itemId, stack, broadcast, prefix, nodelay, reverseLookup);
+			}
 		}
 	}
 }

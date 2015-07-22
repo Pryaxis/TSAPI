@@ -21470,63 +21470,63 @@ namespace Terraria
 					}
 					case 3318:
 					{
-						return "Treasure Bag";
+						return "King Slime Treasure Bag";
 					}
 					case 3319:
 					{
-						return "Treasure Bag";
+						return "Eye of Cthulhu Treasure Bag";
 					}
 					case 3320:
 					{
-						return "Treasure Bag";
+						return "Eater of Worlds Treasure Bag";
 					}
 					case 3321:
 					{
-						return "Treasure Bag";
+						return "Queen Bee Treasure Bag";
 					}
 					case 3322:
 					{
-						return "Treasure Bag";
+						return "Brain of Cthulhu Treasure Bag";
 					}
 					case 3323:
 					{
-						return "Treasure Bag";
+						return "Skeletron Treasure Bag";
 					}
 					case 3324:
 					{
-						return "Treasure Bag";
+						return "Wall of Flesh Treasure Bag";
 					}
 					case 3325:
 					{
-						return "Treasure Bag";
+						return "The Destroyer Treasure Bag";
 					}
 					case 3326:
 					{
-						return "Treasure Bag";
+						return "The Twins Treasure Bag";
 					}
 					case 3327:
 					{
-						return "Treasure Bag";
+						return "Skeletron Prime Treasure Bag";
 					}
 					case 3328:
 					{
-						return "Treasure Bag";
+						return "Plantera Treasure Bag";
 					}
 					case 3329:
 					{
-						return "Treasure Bag";
+						return "Golem Treasure Bag";
 					}
 					case 3330:
 					{
-						return "Treasure Bag";
+						return "Duke Fishron Treasure Bag";
 					}
 					case 3331:
 					{
-						return "Treasure Bag";
+						return "Lunatic Cultist Treasure Bag";
 					}
 					case 3332:
 					{
-						return "Treasure Bag";
+						return "Moon Lord Treasure Bag";
 					}
 					case 3333:
 					{

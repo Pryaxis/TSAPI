@@ -105,6 +105,7 @@
     <Compile Include="TerrariaApi.Server\EventArgs\ChristmasCheckEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\CommandEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\ConnectEventArgs.cs" />
+    <Compile Include="TerrariaApi.Server\EventArgs\DropBossBagEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\GetDataEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\GreetPlayerEventArgs.cs" />
     <Compile Include="TerrariaApi.Server\EventArgs\HalloweenCheckEventArgs.cs" />
