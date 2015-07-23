@@ -169,6 +169,14 @@ namespace TerrariaApi.Server
 						}
 					case "-maxplayers":
 						goto case "-players";
+					case "-pass":
+						{
+							Netplay.ServerPassword = arg.Value;
+
+							break;
+						}
+					case "-password":
+						goto case "-pass";
 				}
 			}
 		}

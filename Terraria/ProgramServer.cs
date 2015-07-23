@@ -97,11 +97,6 @@ namespace Terraria
 				SocialMode socialMode = SocialMode.None;
 				while (num < (int)args.Length)
 				{
-					if (args[num].ToLower() == "-pass" || args[num].ToLower() == "-password")
-					{
-						num++;
-						Netplay.ServerPassword = args[num];
-					}
 					if (args[num].ToLower() == "-lang")
 					{
 						num++;
