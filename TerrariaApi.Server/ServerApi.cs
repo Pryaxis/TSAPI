@@ -193,6 +193,12 @@ namespace TerrariaApi.Server
 
 							break;
 						}
+					case "-world":
+						{
+							game.SetWorld(arg.Value);
+
+							break;
+						}
 				}
 			}
 		}
