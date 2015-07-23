@@ -5255,7 +5255,7 @@ namespace Terraria
 				throw new Exception("When running in the background, the world must be specified with -world <path>");
 			}
 
-			while (Main.worldPathName == null || Main.worldPathName == "" || string.IsNullOrEmpty(Main.WorldPathClassic) == true)
+			while (Main.worldPathName == null || Main.worldPathName == "")
 			{
 				bool flag = true;
 				while (flag)
