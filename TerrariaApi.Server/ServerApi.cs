@@ -223,6 +223,12 @@ namespace TerrariaApi.Server
 
 							break;
 						}
+					case "-autocreate":
+						{
+							game.autoCreate(arg.Value);
+
+							break;
+						}
 				}
 			}
 		}

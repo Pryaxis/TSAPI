@@ -101,12 +101,6 @@ namespace Terraria
 					{
 						socialMode = SocialMode.Steam;
 					}
-					if (args[num].ToLower() == "-autocreate")
-					{
-						num++;
-						string str1 = args[num];
-						ProgramServer.Game.autoCreate(str1);
-					}
 					if (args[num].ToLower() == "-loadlib")
 					{
 						num++;
