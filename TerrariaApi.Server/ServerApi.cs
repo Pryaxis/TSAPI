@@ -199,6 +199,12 @@ namespace TerrariaApi.Server
 
 							break;
 						}
+					case "-motd":
+						{
+							game.NewMOTD(arg.Value);
+
+							break;
+						}
 				}
 			}
 		}

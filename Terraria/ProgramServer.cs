@@ -101,11 +101,6 @@ namespace Terraria
 					{
 						socialMode = SocialMode.Steam;
 					}
-					if (args[num].ToLower() == "-motd")
-					{
-						num++;
-						ProgramServer.Game.NewMOTD(args[num]);
-					}
 					if (args[num].ToLower() == "-banlist")
 					{
 						num++;
