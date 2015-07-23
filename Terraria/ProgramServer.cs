@@ -101,11 +101,6 @@ namespace Terraria
 					{
 						socialMode = SocialMode.Steam;
 					}
-					if (args[num].ToLower() == "-worldname")
-					{
-						num++;
-						ProgramServer.Game.SetWorldName(args[num]);
-					}
 					if (args[num].ToLower() == "-world")
 					{
 						num++;
