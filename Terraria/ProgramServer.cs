@@ -134,6 +134,17 @@ namespace Terraria
 						num++;
 						ProgramServer.Game.SetWorldName(args[num]);
 					}
+					if (args[num].ToLower() == "-world")
+					{
+						num++;
+
+						if (File.Exists(args[num]) == false)
+						{
+							throw new Exception("Terraria world at path \"" + args[num] + "\" doesn't exist.");
+						}
+
+						ProgramServer.Game.SetWorld(args[num]);
+					}
 					if (args[num].ToLower() == "-motd")
 					{
 						num++;
