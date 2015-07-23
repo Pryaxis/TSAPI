@@ -135,7 +135,17 @@ namespace Terraria
 							ProgramServer.Game.SetWorldName(arg.Value);
 							break;
 						case "-world":
-							if (!Program.LaunchParameters.ContainsKey("-autocreate") && File.Exists(args[num]) == false)
+							int autocreate = 0;
+
+							if(Program.LaunchParameters.ContainsKey("-autocreate"))
+							{
+								if(!Int32.TryParse(Program.LaunchParameters["-autocreate"], out autocreate))
+								{
+									autocreate = 0;
+								}
+							}
+							
+							if(autocreate == 0 && !File.Exists(args[num]) == false)
 								throw new Exception("Terraria world at path \"" + arg.Value + "\" doesn't exist.");
 
 							ProgramServer.Game.SetWorld(args[num]);
