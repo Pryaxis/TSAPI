@@ -151,6 +151,14 @@ namespace TerrariaApi.Server
 								TraceLevel.Warning);
 							break;
 						}
+						case "-world":
+						{
+							string worldPath = parms[++i];
+							game.SetWorld(worldPath);
+							LogWriter.ServerWriteLine(string.Format("World set for auto loading: {0}", worldPath), TraceLevel.Verbose);
+							
+							break;
+						}
 				}
 			}
 		}
