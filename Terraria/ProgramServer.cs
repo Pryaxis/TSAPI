@@ -101,12 +101,6 @@ namespace Terraria
 					{
 						socialMode = SocialMode.Steam;
 					}
-					if (args[num].ToLower() == "-loadlib")
-					{
-						num++;
-						string str2 = args[num];
-						ProgramServer.Game.loadLib(str2);
-					}
 					num++;
 				}
 				SocialAPI.Initialize(new SocialMode?(socialMode));

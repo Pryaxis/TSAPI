@@ -229,6 +229,12 @@ namespace TerrariaApi.Server
 
 							break;
 						}
+					case "-loadlib":
+						{
+							game.loadLib(arg.Value);
+
+							break;
+						}
 				}
 			}
 		}
