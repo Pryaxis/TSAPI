@@ -5238,7 +5238,6 @@ namespace Terraria
 			Main.showSplash = false;
 			if (Main.autoGen)
 			{
-				Console.WriteLine("Stand by for new world data.");
 				Main.ActiveWorldFileData = new WorldFileData();
 				Main.ActiveWorldFileData.Path = Main.WorldPathClassic;
 			}
