@@ -97,18 +97,6 @@ namespace Terraria
 				SocialMode socialMode = SocialMode.None;
 				while (num < (int)args.Length)
 				{
-					if (args[num].ToLower() == "-players" || args[num].ToLower() == "-maxplayers")
-					{
-						num++;
-
-						int playerCount;
-						if (!Int32.TryParse(args[num], out playerCount))
-						{
-							Console.WriteLine("Invalid player count. Using 8");
-							playerCount = 8;
-						}
-						ProgramServer.Game.SetNetPlayers(playerCount);
-					}
 					if (args[num].ToLower() == "-pass" || args[num].ToLower() == "-password")
 					{
 						num++;

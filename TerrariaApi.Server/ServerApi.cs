@@ -153,6 +153,22 @@ namespace TerrariaApi.Server
 								TraceLevel.Warning);
 							break;
 						}
+					case "-players":
+						{
+							int playerCount;
+							if (!Int32.TryParse(arg.Value, out playerCount))
+							{
+								ServerApi.LogWriter.ServerWriteLine("Invalid player count. Using 8", TraceLevel.Warning);
+
+								playerCount = 8;
+							}
+
+							game.SetNetPlayers(playerCount);
+
+							break;
+						}
+					case "-maxplayers":
+						goto case "-players";
 				}
 			}
 		}
