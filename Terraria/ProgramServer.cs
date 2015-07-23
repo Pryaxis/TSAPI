@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -95,88 +96,71 @@ namespace Terraria
 				string str = null;
 				int num = 0;
 				SocialMode socialMode = SocialMode.None;
-				while (num < (int)args.Length)
+
+				foreach(KeyValuePair<string, string> arg in Program.LaunchParameters)
 				{
-					if (args[num].ToLower() == "-players" || args[num].ToLower() == "-maxplayers")
+					switch(arg.Key.ToLower())
 					{
-						num++;
+						case "-players":
+							int playerCount;
+							if (!Int32.TryParse(arg.Value, out playerCount))
+							{
+								Console.WriteLine("Invalid player count. Using 8");
+								playerCount = 8;
+							}
 
-						int playerCount;
-						if (!Int32.TryParse(args[num], out playerCount))
-						{
-							Console.WriteLine("Invalid player count. Using 8");
-							playerCount = 8;
-						}
-						ProgramServer.Game.SetNetPlayers(playerCount);
-					}
-					if (args[num].ToLower() == "-pass" || args[num].ToLower() == "-password")
-					{
-						num++;
-						Netplay.ServerPassword = args[num];
-					}
-					if (args[num].ToLower() == "-lang")
-					{
-						num++;
-						int lang;
-						if (!Int32.TryParse(args[num], out lang))
-						{
-							Console.WriteLine("Invalid language. Using English");
-							lang = 1;
-						}
-						Lang.lang = lang;
-					}
-					if (args[num].ToLower() == "-steam")
-					{
-						socialMode = SocialMode.Steam;
-					}
-					if (args[num].ToLower() == "-worldname")
-					{
-						num++;
-						ProgramServer.Game.SetWorldName(args[num]);
-					}
-					if (args[num].ToLower() == "-world")
-					{
-						num++;
+							ProgramServer.Game.SetNetPlayers(playerCount);
+							break;
+						case "-maxplayers":
+							goto case "-players";
+						case "-pass":
+							Netplay.ServerPassword = arg.Value;
+							break;
+						case "-password":
+							goto case "-pass";
+						case "-lang":
+							int lang;
+							if (!Int32.TryParse(arg.Value, out lang))
+							{
+								Console.WriteLine("Invalid language. Using English");
+								lang = 1;
+							}
 
-						if (File.Exists(args[num]) == false)
-						{
-							throw new Exception("Terraria world at path \"" + args[num] + "\" doesn't exist.");
-						}
+							Lang.lang = lang;
+							break;
+						case "-steam":
+							socialMode = SocialMode.Steam;
+							break;
+						case "-worldname":
+							ProgramServer.Game.SetWorldName(arg.Value);
+							break;
+						case "-world":
+							if (File.Exists(args[num]) == false)
+								throw new Exception("Terraria world at path \"" + arg.Value + "\" doesn't exist.");
 
-						ProgramServer.Game.SetWorld(args[num]);
+							ProgramServer.Game.SetWorld(args[num]);
+							break;
+						case "-motd":
+							ProgramServer.Game.NewMOTD(args[num]);
+							break;
+						case "-banlist":
+							Netplay.BanFilePath = arg.Value;
+							break;
+						case "-autoshutdown":
+							ProgramServer.Game.autoShut();
+							break;
+						case "-secure":
+							Netplay.spamCheck = true;
+							break;
+						case "-autocreate":
+							ProgramServer.Game.autoCreate(arg.Value);
+							break;
+						case "-loadlib":
+							ProgramServer.Game.loadLib(arg.Value);
+							break;
 					}
-					if (args[num].ToLower() == "-motd")
-					{
-						num++;
-						ProgramServer.Game.NewMOTD(args[num]);
-					}
-					if (args[num].ToLower() == "-banlist")
-					{
-						num++;
-						Netplay.BanFilePath = args[num];
-					}
-					if (args[num].ToLower() == "-autoshutdown")
-					{
-						ProgramServer.Game.autoShut();
-					}
-					if (args[num].ToLower() == "-secure")
-					{
-						Netplay.spamCheck = true;
-					}
-					if (args[num].ToLower() == "-autocreate")
-					{
-						num++;
-						string str1 = args[num];
-						ProgramServer.Game.autoCreate(str1);
-					}
-					if (args[num].ToLower() == "-loadlib")
-					{
-						num++;
-						string str2 = args[num];
-						ProgramServer.Game.loadLib(str2);
-					}
-					num++;
 				}
+
 				SocialAPI.Initialize(new SocialMode?(socialMode));
 				if (str != null)
 				{
