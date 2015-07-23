@@ -97,17 +97,6 @@ namespace Terraria
 				SocialMode socialMode = SocialMode.None;
 				while (num < (int)args.Length)
 				{
-					if (args[num].ToLower() == "-lang")
-					{
-						num++;
-						int lang;
-						if (!Int32.TryParse(args[num], out lang))
-						{
-							Console.WriteLine("Invalid language. Using English");
-							lang = 1;
-						}
-						Lang.lang = lang;
-					}
 					if (args[num].ToLower() == "-steam")
 					{
 						socialMode = SocialMode.Steam;
