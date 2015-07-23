@@ -101,11 +101,6 @@ namespace Terraria
 					{
 						socialMode = SocialMode.Steam;
 					}
-					if (args[num].ToLower() == "-banlist")
-					{
-						num++;
-						Netplay.BanFilePath = args[num];
-					}
 					if (args[num].ToLower() == "-autoshutdown")
 					{
 						ProgramServer.Game.autoShut();

@@ -205,6 +205,12 @@ namespace TerrariaApi.Server
 
 							break;
 						}
+					case "-banlist":
+						{
+							Netplay.BanFilePath = arg.Value;
+
+							break;
+						}
 				}
 			}
 		}
