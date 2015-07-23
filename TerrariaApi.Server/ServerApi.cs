@@ -217,6 +217,12 @@ namespace TerrariaApi.Server
 
 							break;
 						}
+					case "-secure":
+						{
+							Netplay.spamCheck = true;
+
+							break;
+						}
 				}
 			}
 		}
