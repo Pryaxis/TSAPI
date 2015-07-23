@@ -121,9 +121,11 @@ namespace TerrariaApi.Server
 
 		internal static void HandleCommandLine(string[] parms)
 		{
-			for (int i = 0; i < parms.Length; i++)
+			Dictionary<string, string> args = Utils.ParseArguements(parms);
+
+			foreach (KeyValuePair<string, string> arg in args)
 			{
-				switch (parms[i].ToLower())
+				switch (arg.Key.ToLower())
 				{
 					case "-ignoreversion":
 						{
