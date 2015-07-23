@@ -20,7 +20,7 @@ namespace Terraria
 
 		private static Dictionary<Point16, byte> _toProcess;
 
-		private static Vector2[] _teleport;
+		public static Vector2[] _teleport;
 
 		private static int[] _inPumpX;
 
@@ -42,7 +42,7 @@ namespace Terraria
 
 		private static int[] _mechTime;
 
-		private static bool CheckMech(int i, int j, int time)
+		public static bool CheckMech(int i, int j, int time)
 		{
 			for (int num = 0; num < Wiring._numMechs; num++)
 			{
@@ -62,7 +62,7 @@ namespace Terraria
 			return true;
 		}
 
-		private static void DeActive(int i, int j)
+		public static void DeActive(int i, int j)
 		{
 			if (!Main.tile[i, j].active())
 			{
@@ -1318,7 +1318,7 @@ namespace Terraria
 			Wiring._mechTime = new int[1000];
 		}
 
-		private static void ReActive(int i, int j)
+		public static void ReActive(int i, int j)
 		{
 			Main.tile[i, j].inActive(false);
 			WorldGen.SquareTileFrame(i, j, false);
@@ -1338,7 +1338,7 @@ namespace Terraria
 			Wiring._wireSkip[point] = true;
 		}
 
-		private static void Teleport()
+		public static void Teleport()
 		{
 			if (Wiring._teleport[0].X < Wiring._teleport[1].X + 3f && Wiring._teleport[0].X > Wiring._teleport[1].X - 3f && Wiring._teleport[0].Y > Wiring._teleport[1].Y - 3f && Wiring._teleport[0].Y < Wiring._teleport[1].Y)
 			{
