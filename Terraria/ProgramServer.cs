@@ -101,10 +101,6 @@ namespace Terraria
 					{
 						socialMode = SocialMode.Steam;
 					}
-					if (args[num].ToLower() == "-autoshutdown")
-					{
-						ProgramServer.Game.autoShut();
-					}
 					if (args[num].ToLower() == "-secure")
 					{
 						Netplay.spamCheck = true;

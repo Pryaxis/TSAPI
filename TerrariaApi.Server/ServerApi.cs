@@ -211,6 +211,12 @@ namespace TerrariaApi.Server
 
 							break;
 						}
+					case "-autoshutdown":
+						{
+							game.autoShut();
+
+							break;
+						}
 				}
 			}
 		}
