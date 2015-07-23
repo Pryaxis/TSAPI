@@ -1794,9 +1794,9 @@ namespace Terraria
 
 		static Main()
 		{
-			Main.curRelease = 154;
-			Main.versionNumber = "v1.3.0.6";
-			Main.versionNumber2 = "v1.3.0.6";
+			Main.curRelease = 155;
+			Main.versionNumber = "v1.3.0.7";
+			Main.versionNumber2 = "v1.3.0.7";
 			Main.destroyerHB = new Vector2(0f, 0f);
 			Main.drawBackGore = false;
 			Main.expertLife = 2f;
