@@ -2921,26 +2921,26 @@ namespace Terraria
 								case 390:
 								case 391:
 								case 395:
-								{
-									num1 = 6;
-									goto Label0;
-								}
+									{
+										num1 = 6;
+										goto Label0;
+									}
 								case 384:
 								case 387:
 								case 392:
 								case 393:
 								case 394:
-								{
-									goto Label0;
-								}
-								default:
-								{
-									if (num2 == 491)
 									{
-										break;
+										goto Label0;
 									}
-									goto Label0;
-								}
+								default:
+									{
+										if (num2 == 491)
+										{
+											break;
+										}
+										goto Label0;
+									}
 							}
 						}
 						else
@@ -2952,56 +2952,56 @@ namespace Terraria
 								case 214:
 								case 215:
 								case 216:
-								{
-									break;
-								}
-								default:
-								{
-									switch (num2)
 									{
-										case 305:
-										case 306:
-										case 307:
-										case 308:
-										case 309:
-										case 310:
-										case 311:
-										case 312:
-										case 313:
-										case 314:
-										case 315:
-										case 325:
-										case 326:
-										case 327:
-										case 329:
-										case 330:
+										break;
+									}
+								default:
+									{
+										switch (num2)
 										{
-											num1 = 2;
-											goto Label0;
-										}
-										case 338:
-										case 339:
-										case 340:
-										case 341:
-										case 342:
-										case 343:
-										case 344:
-										case 345:
-										case 346:
-										case 347:
-										case 348:
-										case 349:
-										case 350:
-										{
-											num1 = 1;
-											goto Label0;
-										}
-										default:
-										{
-											goto Label0;
+											case 305:
+											case 306:
+											case 307:
+											case 308:
+											case 309:
+											case 310:
+											case 311:
+											case 312:
+											case 313:
+											case 314:
+											case 315:
+											case 325:
+											case 326:
+											case 327:
+											case 329:
+											case 330:
+												{
+													num1 = 2;
+													goto Label0;
+												}
+											case 338:
+											case 339:
+											case 340:
+											case 341:
+											case 342:
+											case 343:
+											case 344:
+											case 345:
+											case 346:
+											case 347:
+											case 348:
+											case 349:
+											case 350:
+												{
+													num1 = 1;
+													goto Label0;
+												}
+											default:
+												{
+													goto Label0;
+												}
 										}
 									}
-								}
 							}
 						}
 						num1 = 5;
@@ -3014,31 +3014,31 @@ namespace Terraria
 							case 27:
 							case 28:
 							case 29:
-							{
-								num1 = 3;
-								break;
-							}
+								{
+									num1 = 3;
+									break;
+								}
 							default:
-							{
-								if (num2 == 111)
 								{
-									goto case 29;
-								}
-								switch (num2)
-								{
-									case 143:
-									case 144:
-									case 145:
+									if (num2 == 111)
 									{
-										num1 = 4;
-										break;
+										goto case 29;
 									}
+									switch (num2)
+									{
+										case 143:
+										case 144:
+										case 145:
+											{
+												num1 = 4;
+												break;
+											}
+									}
+									break;
 								}
-								break;
-							}
 						}
 					}
-				Label0:
+					Label0:
 					if (num1 != 0 && (num1 != 1 || (double)player.position.Y <= Main.worldSurface * 16 && !Main.dayTime && Main.snowMoon) && (num1 != 2 || (double)player.position.Y <= Main.worldSurface * 16 && !Main.dayTime && Main.pumpkinMoon) && (num1 <= 2 || (double)player.position.Y <= Main.worldSurface * 16 && Main.invasionType == num1 - 2))
 					{
 						Rectangle rectangle1 = new Rectangle((int)(Main.npc[i].position.X + (float)(Main.npc[i].width / 2)) - num, (int)(Main.npc[i].position.Y + (float)(Main.npc[i].height / 2)) - num, num * 2, num * 2);
@@ -4775,20 +4775,20 @@ namespace Terraria
 					switch (y)
 					{
 						case 0:
-						{
-							num1 = 24;
-							break;
-						}
+							{
+								num1 = 24;
+								break;
+							}
 						case 1:
-						{
-							num1 = 31;
-							break;
-						}
+							{
+								num1 = 31;
+								break;
+							}
 						case 2:
-						{
-							num1 = 34;
-							break;
-						}
+							{
+								num1 = 34;
+								break;
+							}
 					}
 					for (int a = 0; a < Main.cageFrames; a++)
 					{
@@ -5249,7 +5249,13 @@ namespace Terraria
 				nPC.SetDefaults(i, -1f);
 				Main.npcName[i] = nPC.name;
 			}
-			while (Main.worldPathName == null || Main.worldPathName == "")
+
+			if (Console.IsInputRedirected == true && string.IsNullOrEmpty(Main.WorldPathClassic) == true)
+			{
+				throw new Exception("When running in the background, the world must be specified with -world <path>");
+			}
+
+			while (Main.worldPathName == null || Main.worldPathName == "" || string.IsNullOrEmpty(Main.WorldPathClassic) == true)
 			{
 				bool flag = true;
 				while (flag)
@@ -5259,7 +5265,7 @@ namespace Terraria
 					Console.WriteLine("");
 					for (int j = 0; j < Main.WorldList.Count; j++)
 					{
-						object[] name = new object[] 
+						object[] name = new object[]
 						{
 							j + 1, 
 							'\t',
@@ -5663,6 +5669,7 @@ namespace Terraria
 			Console.WriteLine("Type 'help' for a list of commands.");
 			Console.WriteLine("");
 			Console.Title = string.Concat("Terraria Server: ", Main.worldName);
+
 			Stopwatch stopwatch = new Stopwatch();
 			if (!Main.autoShutdown)
 			{
@@ -5960,23 +5967,23 @@ namespace Terraria
 			{
 				case 1:
 				case 2:
-				{
-					num = 80;
-					num1 = 40;
-					break;
-				}
+					{
+						num = 80;
+						num1 = 40;
+						break;
+					}
 				case 3:
-				{
-					num = 120;
-					num1 = 60;
-					break;
-				}
+					{
+						num = 120;
+						num1 = 60;
+						break;
+					}
 				case 4:
-				{
-					num = 160;
-					num1 = 40;
-					break;
-				}
+					{
+						num = 160;
+						num1 = 40;
+						break;
+					}
 			}
 			int num2 = (int)Math.Ceiling((double)((float)(Main.invasionSize - num) / (float)num1));
 			Main.invasionSizeStart = num;
@@ -6016,13 +6023,13 @@ namespace Terraria
 						{
 							case 137:
 							case 138:
-							{
-								break;
-							}
+								{
+									break;
+								}
 							default:
-							{
-								goto Label0;
-							}
+								{
+									goto Label0;
+								}
 						}
 					}
 				}
@@ -6040,19 +6047,19 @@ namespace Terraria
 					{
 						case 387:
 						case 388:
-						{
-							break;
-						}
+							{
+								break;
+							}
 						default:
-						{
-							goto Label0;
-						}
+							{
+								goto Label0;
+							}
 					}
 				}
 				return false;
 			}
 			return false;
-		Label0:
+			Label0:
 			if (Main.tileSolid[tile.type] && !Main.tileSolidTop[tile.type])
 			{
 				int num1 = tile.frameX;
@@ -8511,7 +8518,7 @@ namespace Terraria
 				Main.itemText[f] = new ItemText();
 			}
 			int num = 0;
-		Label3:
+			Label3:
 			while (num < Main.maxItemTypes)
 			{
 				item = new Item();
@@ -8541,21 +8548,21 @@ namespace Terraria
 								case 1444:
 								case 1445:
 								case 1446:
-								{
-									break;
-								}
-								default:
-								{
-									if (num1 == 1801)
 									{
 										break;
 									}
-									if (num1 == 1827)
+								default:
 									{
-										goto Label1;
+										if (num1 == 1801)
+										{
+											break;
+										}
+										if (num1 == 1827)
+										{
+											goto Label1;
+										}
+										goto Label0;
 									}
-									goto Label0;
-								}
 							}
 						}
 						else
@@ -8585,17 +8592,17 @@ namespace Terraria
 							case 742:
 							case 743:
 							case 744:
-							{
-								break;
-							}
-							default:
-							{
-								if (num1 == 788)
 								{
 									break;
 								}
-								goto Label0;
-							}
+							default:
+								{
+									if (num1 == 788)
+									{
+										break;
+									}
+									goto Label0;
+								}
 						}
 					}
 				}
@@ -8615,17 +8622,17 @@ namespace Terraria
 						{
 							case 1930:
 							case 1931:
-							{
-								break;
-							}
-							default:
-							{
-								if (num1 == 2188)
 								{
 									break;
 								}
-								goto Label0;
-							}
+							default:
+								{
+									if (num1 == 2188)
+									{
+										break;
+									}
+									goto Label0;
+								}
 						}
 					}
 				}
@@ -8635,17 +8642,17 @@ namespace Terraria
 					{
 						case 3209:
 						case 3210:
-						{
-							break;
-						}
-						default:
-						{
-							if (num1 == 3245)
 							{
-								goto Label1;
+								break;
 							}
-							goto Label0;
-						}
+						default:
+							{
+								if (num1 == 3245)
+								{
+									goto Label1;
+								}
+								goto Label0;
+							}
 					}
 				}
 				else if (num1 != 3377 && num1 != 3476)
@@ -8654,16 +8661,16 @@ namespace Terraria
 					{
 						case 3569:
 						case 3571:
-						{
-							break;
-						}
+							{
+								break;
+							}
 						default:
-						{
-							goto Label0;
-						}
+							{
+								goto Label0;
+							}
 					}
 				}
-			Label2:
+				Label2:
 				Item.staff[item.type] = true;
 				goto Label0;
 			}
@@ -8750,10 +8757,10 @@ namespace Terraria
 			Star.SpawnStars();
 			WorldGen.RandomizeWeather();
 			return;*/
-		Label0:
+			Label0:
 			num++;
 			goto Label3;
-		Label1:
+			Label1:
 			Item.claw[item.type] = true;
 			goto Label0;
 		}
@@ -9928,10 +9935,11 @@ namespace Terraria
 				Main.menuMode = 1;
 				return;
 			}
-			WorldGen.SaveAndQuit(() => {
-				Main.LoadPlayers();
-				Main.menuMode = 1;
-			});
+			WorldGen.SaveAndQuit(() =>
+				{
+					Main.LoadPlayers();
+					Main.menuMode = 1;
+				});
 		}
 
 		protected void OpenRecent()
@@ -10631,6 +10639,11 @@ namespace Terraria
 
 		public static void startDedInput()
 		{
+			if (Console.IsInputRedirected == true)
+			{
+				Console.WriteLine("TerrariaServer is running in the background and input is disabled.");
+				return;
+			}
 			ThreadPool.QueueUserWorkItem(new WaitCallback(Main.startDedInputCallBack), 1);
 		}
 
@@ -10657,39 +10670,39 @@ namespace Terraria
 						{
 							Console.WriteLine("Available commands:");
 							Console.WriteLine("");
-							object[] objArray = new object[] {"help ", '\t', '\t', " Displays a list of commands."};
+							object[] objArray = new object[] { "help ", '\t', '\t', " Displays a list of commands." };
 							Console.WriteLine(string.Concat(objArray));
 							Console.WriteLine(string.Concat("playing ", '\t', " Shows the list of players"));
-							object[] objArray1 = new object[] {"clear ", '\t', '\t', " Clear the console window."};
+							object[] objArray1 = new object[] { "clear ", '\t', '\t', " Clear the console window." };
 							Console.WriteLine(string.Concat(objArray1));
-							object[] objArray2 = new object[] {"exit ", '\t', '\t', " Shutdown the server and save."};
+							object[] objArray2 = new object[] { "exit ", '\t', '\t', " Shutdown the server and save." };
 							Console.WriteLine(string.Concat(objArray2));
 							Console.WriteLine(string.Concat("exit-nosave ", '\t', " Shutdown the server without saving."));
-							object[] objArray3 = new object[] {"save ", '\t', '\t', " Save the game world."};
+							object[] objArray3 = new object[] { "save ", '\t', '\t', " Save the game world." };
 							Console.WriteLine(string.Concat(objArray3));
 							Console.WriteLine(string.Concat("kick <player> ", '\t', " Kicks a player from the server."));
 							Console.WriteLine(string.Concat("ban <player> ", '\t', " Bans a player from the server."));
 							Console.WriteLine(string.Concat("password", '\t', " Show password."));
 							Console.WriteLine(string.Concat("password <pass>", '\t', " Change password."));
-							object[] objArray4 = new object[] {"version", '\t', '\t', " Print version number."};
+							object[] objArray4 = new object[] { "version", '\t', '\t', " Print version number." };
 							Console.WriteLine(string.Concat(objArray4));
-							object[] objArray5 = new object[] {"time", '\t', '\t', " Display game time."};
+							object[] objArray5 = new object[] { "time", '\t', '\t', " Display game time." };
 							Console.WriteLine(string.Concat(objArray5));
-							object[] objArray6 = new object[] {"port", '\t', '\t', " Print the listening port."};
+							object[] objArray6 = new object[] { "port", '\t', '\t', " Print the listening port." };
 							Console.WriteLine(string.Concat(objArray6));
 							Console.WriteLine(string.Concat("maxplayers", '\t', " Print the max number of players."));
 							Console.WriteLine(string.Concat("say <words>", '\t', " Send a message."));
-							object[] objArray7 = new object[] {"motd", '\t', '\t', " Print MOTD."};
+							object[] objArray7 = new object[] { "motd", '\t', '\t', " Print MOTD." };
 							Console.WriteLine(string.Concat(objArray7));
 							Console.WriteLine(string.Concat("motd <words>", '\t', " Change MOTD."));
-							object[] objArray8 = new object[] {"dawn", '\t', '\t', " Change time to dawn."};
+							object[] objArray8 = new object[] { "dawn", '\t', '\t', " Change time to dawn." };
 							Console.WriteLine(string.Concat(objArray8));
-							object[] objArray9 = new object[] {"noon", '\t', '\t', " Change time to noon."};
+							object[] objArray9 = new object[] { "noon", '\t', '\t', " Change time to noon." };
 							Console.WriteLine(string.Concat(objArray9));
-							object[] objArray10 = new object[] {"dusk", '\t', '\t', " Change time to dusk."};
+							object[] objArray10 = new object[] { "dusk", '\t', '\t', " Change time to dusk." };
 							Console.WriteLine(string.Concat(objArray10));
 							Console.WriteLine(string.Concat("midnight", '\t', " Change time to midnight."));
-							object[] objArray11 = new object[] {"settle", '\t', '\t', " Settle all water."};
+							object[] objArray11 = new object[] { "settle", '\t', '\t', " Settle all water." };
 							Console.WriteLine(string.Concat(objArray11));
 						}
 						else if (lower == "settle")
@@ -10763,7 +10776,7 @@ namespace Terraria
 							{
 								num = num + 54000;
 							}
-							num = num/86400*24;
+							num = num / 86400 * 24;
 							num = num - 7.5 - 12;
 							if (num < 0)
 							{
@@ -10773,9 +10786,9 @@ namespace Terraria
 							{
 								str1 = "PM";
 							}
-							int num1 = (int) num;
-							double num2 = num - (double) num1;
-							num2 = (double) ((int) (num2*60));
+							int num1 = (int)num;
+							double num2 = num - (double)num1;
+							num2 = (double)((int)(num2 * 60));
 							string str2 = string.Concat(num2);
 							if (num2 < 10)
 							{
@@ -10789,7 +10802,7 @@ namespace Terraria
 							{
 								num1 = 12;
 							}
-							object[] objArray12 = new object[] {"Time: ", num1, ":", str2, " ", str1};
+							object[] objArray12 = new object[] { "Time: ", num1, ":", str2, " ", str1 };
 							Console.WriteLine(string.Concat(objArray12));
 						}
 						else if (lower == "maxplayers")
@@ -10813,8 +10826,8 @@ namespace Terraria
 							catch (Exception ex)
 							{
 #if DEBUG
-							Console.WriteLine(ex);
-							System.Diagnostics.Debugger.Break();
+								Console.WriteLine(ex);
+								System.Diagnostics.Debugger.Break();
 
 #endif
 							}
@@ -10828,7 +10841,7 @@ namespace Terraria
 								{
 									num3++;
 									object[] remoteAddress = new object[]
-									{Main.player[i].name, " (", Netplay.Clients[i].Socket.GetRemoteAddress(), ")"};
+									{ Main.player[i].name, " (", Netplay.Clients[i].Socket.GetRemoteAddress(), ")" };
 									Console.WriteLine(string.Concat(remoteAddress));
 								}
 							}
@@ -13133,7 +13146,7 @@ namespace Terraria
 											}
 									}
 								}
-							Label4:
+								Label4:
 								num = 10;
 							}
 							else if (num2 <= 126)
@@ -13249,7 +13262,7 @@ namespace Terraria
 								num = 3;
 								goto Label3;
 							}
-						Label3:
+							Label3:
 							if (num == 0 && Main.npc[k].boss)
 							{
 								num = 1;
