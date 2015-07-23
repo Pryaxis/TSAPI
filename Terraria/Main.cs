@@ -5238,6 +5238,7 @@ namespace Terraria
 			Main.showSplash = false;
 			if (Main.autoGen)
 			{
+				Console.WriteLine("Stand by for new world data.");
 				Main.ActiveWorldFileData = new WorldFileData();
 				Main.ActiveWorldFileData.Path = Main.WorldPathClassic;
 			}
@@ -5255,7 +5256,7 @@ namespace Terraria
 				throw new Exception("When running in the background, the world must be specified with -world <path>");
 			}
 
-			while (Main.worldPathName == null || Main.worldPathName == "")
+			while (Main.worldPathName == null || Main.worldPathName == "" || string.IsNullOrEmpty(Main.WorldPathClassic) == true)
 			{
 				bool flag = true;
 				while (flag)
