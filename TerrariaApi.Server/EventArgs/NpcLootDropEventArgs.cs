@@ -51,8 +51,14 @@ namespace TerrariaApi.Server
 			internal set;
 		}
 
-		public bool NoGrabDelay { get; set; }
+		public bool NoGrabDelay 
+		{ 
+			get; set; 
+		}
 
-		public bool ReverseLookup { get; set; }
+		public bool ReverseLookup 
+		{ 
+			get; set; 
+		}
 	}
 }

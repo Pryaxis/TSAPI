@@ -26779,10 +26779,7 @@ namespace Terraria
 			{
 				this.FloorVisuals(flag40);
 			}
-			if (this.whoAmI == Main.myPlayer)
-			{
-				Collision.SwitchTiles(this, this.position, this.width, this.height, this.oldPosition, 1);
-			}
+			Collision.SwitchTiles(this, this.position, this.width, this.height, this.oldPosition, 1);
 			this.BordersMovement();
 			this.numMinions = 0;
 			this.slotsMinions = 0f;
