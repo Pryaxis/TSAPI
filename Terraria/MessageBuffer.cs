@@ -532,7 +532,6 @@ namespace Terraria
 					{
 						return;
 					}
-					LinkedList<SequenceItem> sequence = new LinkedList<SequenceItem>();
 					int sectionX = this.reader.ReadInt32();
 					int sectionY = this.reader.ReadInt32();
 					bool flag2 = true;
@@ -620,76 +619,68 @@ namespace Terraria
 					{
 						Netplay.Clients[this.whoAmI].State = 3;
 					}
-
-					NetMessage.SendData(sequence, 9, this.whoAmI, -1, Lang.inter[44], count, 0f, 0f, 0f, 0, 0, 0);
-
+					NetMessage.SendData(9, this.whoAmI, -1, Lang.inter[44], count, 0f, 0f, 0f, 0, 0, 0);
+					Netplay.Clients[this.whoAmI].StatusText2 = "is receiving tile data";
 					RemoteClient clients = Netplay.Clients[this.whoAmI];
 					clients.StatusMax = clients.StatusMax + count;
 					for (int c = sectionX1; c < num16; c++)
 					{
 						for (int d = sectionY1; d < num17; d++)
 						{
-							NetMessage.SendSection(this.whoAmI, c, d, false, sequence);
+							NetMessage.SendSection(this.whoAmI, c, d, false);
 						}
 					}
-					NetMessage.SendData(sequence, 11, this.whoAmI, -1, "", sectionX1, (float)sectionY1, (float)(num16 - 1), (float)(num17 - 1), 0, 0, 0);
+					NetMessage.SendData(11, this.whoAmI, -1, "", sectionX1, (float)sectionY1, (float)(num16 - 1), (float)(num17 - 1), 0, 0, 0);
 					if (flag2)
 					{
 						for (int e = sectionX; e < num18; e++)
 						{
 							for (int f = sectionY; f < num19; f++)
 							{
-								NetMessage.SendSection(this.whoAmI, e, f, true, sequence);
+								NetMessage.SendSection(this.whoAmI, e, f, true);
 							}
 						}
-						NetMessage.SendData(sequence, 11, this.whoAmI, -1, "", sectionX, (float)sectionY, (float)(num18 - 1), (float)(num19 - 1), 0, 0, 0);
+						NetMessage.SendData(11, this.whoAmI, -1, "", sectionX, (float)sectionY, (float)(num18 - 1), (float)(num19 - 1), 0, 0, 0);
 					}
-
-				
 					for (int g = 0; g < points.Count; g++)
 					{
-						NetMessage.SendSection(this.whoAmI, points[g].X, points[g].Y, true, sequence);
+						NetMessage.SendSection(this.whoAmI, points[g].X, points[g].Y, true);
 					}
 					for (int h = 0; h < points1.Count; h++)
 					{
-						NetMessage.SendData(sequence, 11, this.whoAmI, -1, "", points1[h].X - num20, (float)(points1[h].Y - num20), (float)(points1[h].X + num20 + 1), (float)(points1[h].Y + num20 + 1), 0, 0, 0);
+						NetMessage.SendData(11, this.whoAmI, -1, "", points1[h].X - num20, (float)(points1[h].Y - num20), (float)(points1[h].X + num20 + 1), (float)(points1[h].Y + num20 + 1), 0, 0, 0);
 					}
-
 					for (int i1 = 0; i1 < 400; i1++)
 					{
 						if (Main.item[i1].active)
 						{
-							NetMessage.SendData(sequence, 21, this.whoAmI, -1, "", i1, 0f, 0f, 0f, 0, 0, 0);
-							NetMessage.SendData(sequence, 22, this.whoAmI, -1, "", i1, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData(21, this.whoAmI, -1, "", i1, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData(22, this.whoAmI, -1, "", i1, 0f, 0f, 0f, 0, 0, 0);
 						}
 					}
 					for (int j1 = 0; j1 < 200; j1++)
 					{
 						if (Main.npc[j1].active)
 						{
-							NetMessage.SendData(sequence, 23, this.whoAmI, -1, "", j1, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData(23, this.whoAmI, -1, "", j1, 0f, 0f, 0f, 0, 0, 0);
 						}
 					}
 					for (int k1 = 0; k1 < 1000; k1++)
 					{
 						if (Main.projectile[k1].active && (Main.projPet[Main.projectile[k1].type] || Main.projectile[k1].netImportant))
 						{
-							NetMessage.SendData(sequence, 27, this.whoAmI, -1, "", k1, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData(27, this.whoAmI, -1, "", k1, 0f, 0f, 0f, 0, 0, 0);
 						}
 					}
 					for (int l1 = 0; l1 < 251; l1++)
 					{
-						NetMessage.SendData(sequence, 83, this.whoAmI, -1, "", l1, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData(83, this.whoAmI, -1, "", l1, 0f, 0f, 0f, 0, 0, 0);
 					}
-					NetMessage.SendData(sequence, 49, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(sequence, 57, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(sequence, 7, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(sequence, 103, -1, -1, "", NPC.MoonLordCountdown, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(sequence, 101, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-
-
-					clients.sendQueue.Enqueue(sequence);
-
+					NetMessage.SendData(49, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData(57, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData(7, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData(103, -1, -1, "", NPC.MoonLordCountdown, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData(101, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
 				case 9:

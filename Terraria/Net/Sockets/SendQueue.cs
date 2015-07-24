@@ -131,20 +131,15 @@ namespace Terraria.Net.Sockets
 						continue;
 					}
 
-					for(LinkedListNode<SequenceItem> iter = sequence.First; iter != sequence.Last; iter = iter.Next)
+					foreach (SequenceItem sequenceItem in sequence)
 					{
-						if (threadCancelled == true)
-						{
-							break;
-						}
+						byte[] heap = sequenceItem.HeapType == HeapType.LargeHeap ? largeObjectHeap : smallObjectHeap;
+						int offset = sequenceItem.Block*
+						             (sequenceItem.HeapType == HeapType.LargeHeap ? kSendQueueLargeBlockSize : kSendQueueSmallBlockSize);
+						int length = BitConverter.ToInt16(heap, offset);
 						
 						try
 						{
-							byte[] heap = iter.Value.HeapType == HeapType.LargeHeap ? largeObjectHeap : smallObjectHeap;
-							int offset = iter.Value.Block *
-										 (iter.Value.HeapType == HeapType.LargeHeap ? kSendQueueLargeBlockSize : kSendQueueSmallBlockSize);
-							int length = BitConverter.ToInt16(heap, offset);
-
 							(client.Socket as TcpSocket)._connection.GetStream().Write(heap, offset, length);
 						}
 						catch
@@ -152,7 +147,7 @@ namespace Terraria.Net.Sockets
 						}
 						finally
 						{
-							Free(iter.Value.Block, iter.Value.HeapType);
+							Free(sequenceItem.Block, sequenceItem.HeapType);
 						}
 					}
 				}
@@ -205,6 +200,8 @@ namespace Terraria.Net.Sockets
 					finally
 					{
 						FreeLarge(blockIndex);
+
+
 					}
 				}
 				for (blockIndex = 0; blockIndex < maxSmallBlocks; blockIndex++)
@@ -263,31 +260,12 @@ namespace Terraria.Net.Sockets
 				}
 
 
-				for (int i = 0; i < maxSmallBlocks; i++)
-				{
-					freeSmallBlocks[i] = 1;
-					queuedSmallBlocks[i] = false;
-				}
-
-				for (int i = 0; i < maxLargeBlocks; i++)
-				{
-					freeLargeBlocks[i] = 1;
-					queuedLargeBlocks[i] = false;
-				}
-
 				//Thread.Sleep(1);
 			}
 		}
 
 		public ArraySegment<byte> Alloc(int size, out HeapType type, out int block)
 		{
-			//if (threadCancelled == true)
-			//{
-			//	type = HeapType.None;
-			//	block = -1;
-			//	return default(ArraySegment<byte>);
-			//}
-
 			if (size <= kSendQueueSmallBlockSize)
 			{
 				for (int i = 0; i < maxSmallBlocks; i++)
