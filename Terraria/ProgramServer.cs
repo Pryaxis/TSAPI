@@ -97,78 +97,9 @@ namespace Terraria
 				SocialMode socialMode = SocialMode.None;
 				while (num < (int)args.Length)
 				{
-					if (args[num].ToLower() == "-players" || args[num].ToLower() == "-maxplayers")
-					{
-						num++;
-
-						int playerCount;
-						if (!Int32.TryParse(args[num], out playerCount))
-						{
-							Console.WriteLine("Invalid player count. Using 8");
-							playerCount = 8;
-						}
-						ProgramServer.Game.SetNetPlayers(playerCount);
-					}
-					if (args[num].ToLower() == "-pass" || args[num].ToLower() == "-password")
-					{
-						num++;
-						Netplay.ServerPassword = args[num];
-					}
-					if (args[num].ToLower() == "-lang")
-					{
-						num++;
-						int lang;
-						if (!Int32.TryParse(args[num], out lang))
-						{
-							Console.WriteLine("Invalid language. Using English");
-							lang = 1;
-						}
-						Lang.lang = lang;
-					}
 					if (args[num].ToLower() == "-steam")
 					{
 						socialMode = SocialMode.Steam;
-					}
-					if (args[num].ToLower() == "-worldname")
-					{
-						num++;
-						ProgramServer.Game.SetWorldName(args[num]);
-					}
-					if (args[num].ToLower() == "-world")
-					{
-						num++;
-
-						ProgramServer.Game.SetWorld(args[num]);
-					}
-					if (args[num].ToLower() == "-motd")
-					{
-						num++;
-						ProgramServer.Game.NewMOTD(args[num]);
-					}
-					if (args[num].ToLower() == "-banlist")
-					{
-						num++;
-						Netplay.BanFilePath = args[num];
-					}
-					if (args[num].ToLower() == "-autoshutdown")
-					{
-						ProgramServer.Game.autoShut();
-					}
-					if (args[num].ToLower() == "-secure")
-					{
-						Netplay.spamCheck = true;
-					}
-					if (args[num].ToLower() == "-autocreate")
-					{
-						num++;
-						string str1 = args[num];
-						ProgramServer.Game.autoCreate(str1);
-					}
-					if (args[num].ToLower() == "-loadlib")
-					{
-						num++;
-						string str2 = args[num];
-						ProgramServer.Game.loadLib(str2);
 					}
 					num++;
 				}
