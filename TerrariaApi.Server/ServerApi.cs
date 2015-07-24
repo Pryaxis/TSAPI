@@ -121,9 +121,11 @@ namespace TerrariaApi.Server
 
 		internal static void HandleCommandLine(string[] parms)
 		{
-			for (int i = 0; i < parms.Length; i++)
+			Dictionary<string, string> args = Utils.ParseArguements(parms);
+
+			foreach (KeyValuePair<string, string> arg in args)
 			{
-				switch (parms[i].ToLower())
+				switch (arg.Key.ToLower())
 				{
 					case "-ignoreversion":
 						{
@@ -149,6 +151,88 @@ namespace TerrariaApi.Server
 							ServerApi.LogWriter.ServerWriteLine(
 								"Forcing Mono to use asynchronous sockets.  This is highly experimental and may not work on all versions of Mono.",
 								TraceLevel.Warning);
+							break;
+						}
+					case "-players":
+						{
+							int playerCount;
+							if (!Int32.TryParse(arg.Value, out playerCount))
+							{
+								ServerApi.LogWriter.ServerWriteLine("Invalid player count. Using 8", TraceLevel.Warning);
+
+								playerCount = 8;
+							}
+
+							game.SetNetPlayers(playerCount);
+
+							break;
+						}
+					case "-maxplayers":
+						goto case "-players";
+					case "-pass":
+						{
+							Netplay.ServerPassword = arg.Value;
+
+							break;
+						}
+					case "-password":
+						goto case "-pass";
+					case "-lang":
+						{
+							if (!Int32.TryParse(arg.Value, out Lang.lang)) {
+								ServerApi.LogWriter.ServerWriteLine("Invalid language. Using English", TraceLevel.Warning);
+
+								Lang.lang = 1;
+							}
+
+							break;
+						}
+					case "-worldname":
+						{
+							game.SetWorldName(arg.Value);
+
+							break;
+						}
+					case "-world":
+						{
+							game.SetWorld(arg.Value);
+
+							break;
+						}
+					case "-motd":
+						{
+							game.NewMOTD(arg.Value);
+
+							break;
+						}
+					case "-banlist":
+						{
+							Netplay.BanFilePath = arg.Value;
+
+							break;
+						}
+					case "-autoshutdown":
+						{
+							game.autoShut();
+
+							break;
+						}
+					case "-secure":
+						{
+							Netplay.spamCheck = true;
+
+							break;
+						}
+					case "-autocreate":
+						{
+							game.autoCreate(arg.Value);
+
+							break;
+						}
+					case "-loadlib":
+						{
+							game.loadLib(arg.Value);
+
 							break;
 						}
 				}
