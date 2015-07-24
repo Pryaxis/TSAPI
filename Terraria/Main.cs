@@ -5250,12 +5250,12 @@ namespace Terraria
 				Main.npcName[i] = nPC.name;
 			}
 
-			if (Console.IsInputRedirected == true && string.IsNullOrEmpty(Main.WorldPathClassic) == true)
+			if (Console.IsInputRedirected == true && string.IsNullOrEmpty(Main.WorldPathClassic) == true && !Main.autoGen)
 			{
 				throw new Exception("When running in the background, the world must be specified with -world <path>");
 			}
 
-			while (Main.worldPathName == null || Main.worldPathName == "")
+			while (string.IsNullOrEmpty(Main.worldPathName))
 			{
 				bool flag = true;
 				while (flag)
