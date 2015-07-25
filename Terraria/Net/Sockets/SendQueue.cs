@@ -55,6 +55,7 @@ namespace Terraria.Net.Sockets
 		protected RemoteClient client;
 
 		protected AutoResetEvent waitHandle = new AutoResetEvent(false);
+		protected ManualResetEvent threadReadyHandle = new ManualResetEvent(true);
 
 		public event EventHandler<WriteFailedEventArgs> WriteFailed;
 
@@ -91,6 +92,8 @@ namespace Terraria.Net.Sockets
 			sendThread.Name = "Network I/O Thread - " + client.Id;
 			sendThread.IsBackground = true;
 			sendThread.Start();
+
+			threadReadyHandle.Set();
 		}
 
 		protected void WriteThread()
@@ -142,7 +145,7 @@ namespace Terraria.Net.Sockets
 						try
 						{
 							(client.Socket as TcpSocket)._connection.GetStream().Write(heap, offset, length);
-							//System.Diagnostics.Trace.WriteLineIf(type == PacketTypes.TileSendSection || type == PacketTypes.TileFrameSection, "sent " + type);
+							System.Diagnostics.Trace.WriteLineIf(type == PacketTypes.TileSendSection || type == PacketTypes.TileFrameSection, "sent " + type);
 						}
 						catch
 						{
@@ -202,8 +205,6 @@ namespace Terraria.Net.Sockets
 					finally
 					{
 						FreeLarge(blockIndex);
-
-
 					}
 				}
 				for (blockIndex = 0; blockIndex < maxSmallBlocks; blockIndex++)
@@ -260,14 +261,23 @@ namespace Terraria.Net.Sockets
 						}
 					}
 				}
-
-
-				//Thread.Sleep(1);
 			}
+
+			threadReadyHandle.Reset();
+			Interlocked.Exchange(ref smallObjectHeap, null);
+			Interlocked.Exchange(ref largeObjectHeap, null);
+			Interlocked.Exchange(ref sequences, null);
 		}
 
 		public ArraySegment<byte> Alloc(int size, out HeapType type, out int block)
 		{
+			if (threadReadyHandle.WaitOne(100) == false)
+			{
+				type = HeapType.None;
+				block = -1;
+				TerrariaApi.Server.ServerApi.LogWriter.ServerWriteLine("sendq: Allocate of message to player " + client.Name + "timed out.", System.Diagnostics.TraceLevel.Error);
+				return default(ArraySegment<byte>);
+			}
 			if (size <= kSendQueueSmallBlockSize)
 			{
 				for (int i = 0; i < maxSmallBlocks; i++)
@@ -294,6 +304,7 @@ namespace Terraria.Net.Sockets
 			type = HeapType.None;
 			block = -1;
 			//Console.WriteLine("send: slot {0} alloc failed!", client.Id);
+			TerrariaApi.Server.ServerApi.LogWriter.ServerWriteLine("sendq: Allocate of message to player " + client.Name + " on the " + type.ToString() + " failed: out of buffer room.", System.Diagnostics.TraceLevel.Error);
 			return default(ArraySegment<byte>);
 		}
 
@@ -440,6 +451,7 @@ namespace Terraria.Net.Sockets
 
 		public void Reset()
 		{
+			threadReadyHandle.Reset();
 			threadCancelled = true;
 			if (sendThread != null)
 			{
@@ -458,8 +470,6 @@ namespace Terraria.Net.Sockets
 				freeLargeBlocks[i] = 1;
 				queuedLargeBlocks[i] = false;
 			}
-
-			Interlocked.Exchange(ref sequences, new LinkedList<SequenceItem>[kSendQueueMaxSequences]);
 		}
 
 		protected virtual void Dispose(bool disposing)
