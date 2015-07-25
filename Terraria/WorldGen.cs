@@ -1,5 +1,4 @@
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -15,7 +14,9 @@ using Terraria.IO;
 using Terraria.ObjectData;
 using Terraria.Utilities;
 using Terraria.World.Generation;
+
 using TerrariaApi.Server;
+
 namespace Terraria
 {
 	public class WorldGen
@@ -85,6 +86,7 @@ namespace Terraria
 					}
 				}
 			}
+
 			public static void Wall2(int x, int y, int wallType)
 			{
 				if (!WorldGen.InWorld(x, y, 0))
@@ -195,6 +197,7 @@ namespace Terraria
 					}
 				}
 			}
+
 			public static void Moss(int x, int y)
 			{
 				if (!WorldGen.InWorld(x, y, 0))
@@ -266,6 +269,7 @@ namespace Terraria
 					}
 				}
 			}
+
 			public static void Gem(int x, int y)
 			{
 				if (!WorldGen.InWorld(x, y, 0))
@@ -355,6 +359,7 @@ namespace Terraria
 					}
 				}
 			}
+
 			public static void Spider(int x, int y)
 			{
 				if (!WorldGen.InWorld(x, y, 0))
@@ -457,6 +462,7 @@ namespace Terraria
 					}
 				}
 			}
+
 			public static void WallDungeon(int x, int y, int wallType)
 			{
 				if (!WorldGen.InWorld(x, y, 0))
@@ -517,177 +523,344 @@ namespace Terraria
 					}
 				}
 			}
+
 			private static bool Gemmable(int type)
 			{
 				return type == 0 || type == 1 || type == 40 || type == 59 || type == 60 || type == 70 || type == 147 || type == 161;
 			}
 		}
+
 		private static int lAltarX;
+
 		private static int lAltarY;
+
 		public static int tileReframeCount = 0;
+
 		public static bool noMapUpdate = false;
+
 		public static double worldSurfaceLow;
+
 		public static int tLeft;
+
 		public static int tRight;
+
 		public static int tTop;
+
 		public static int tBottom;
+
 		public static int tRooms;
+
 		public static int[] mossType = new int[3];
+
 		public static int c = 0;
+
 		public static int m = 0;
+
 		public static int a = 0;
+
 		public static int co = 0;
+
 		public static int ir = 0;
+
 		public static int si = 0;
+
 		public static int go = 0;
+
 		public static int copperBar = 20;
+
 		public static int ironBar = 22;
+
 		public static int silverBar = 21;
+
 		public static int goldBar = 19;
+
 		public static ushort CopperTierOre = 7;
+
 		public static ushort IronTierOre = 6;
+
 		public static ushort SilverTierOre = 9;
+
 		public static ushort GoldTierOre = 8;
+
 		public static int treeBG = 0;
+
 		public static int corruptBG = 0;
+
 		public static int jungleBG = 0;
+
 		public static int snowBG = 0;
+
 		public static int hallowBG = 0;
+
 		public static int crimsonBG = 0;
+
 		public static int desertBG = 0;
+
 		public static int oceanBG = 0;
+
 		public static int oreTier1 = -1;
+
 		public static int oreTier2 = -1;
+
 		public static int oreTier3 = -1;
+
 		public static bool crimson = false;
+
 		public static byte mossTile = 179;
+
 		public static byte mossWall = 54;
+
 		public static bool[] gem = new bool[6];
+
 		public static int[] tileCounts = new int[419];
+
 		public static int totalEvil = 0;
+
 		public static int totalBlood = 0;
+
 		public static int totalGood = 0;
+
 		public static int totalSolid = 0;
+
 		public static int totalEvil2 = 0;
+
 		public static int totalBlood2 = 0;
+
 		public static int totalGood2 = 0;
+
 		public static int totalSolid2 = 0;
+
 		public static byte tEvil = 0;
+
 		public static byte tBlood = 0;
+
 		public static byte tGood = 0;
+
 		public static int totalX = 0;
+
 		public static int totalD = 0;
+
 		public static bool IsGeneratingHardMode = false;
+
 		private static Vector2[] heartPos = new Vector2[100];
+
 		private static int heartCount = 0;
+
 		public static int lavaLine;
+
 		public static int waterLine;
+
 		public static bool noTileActions = false;
+
 		public static bool spawnEye = false;
+
 		public static int spawnHardBoss = 0;
+
 		public static int numLarva = 0;
+
 		public static int[] larvaX = new int[100];
+
 		public static int[] larvaY = new int[100];
+
 		public static bool gen = false;
+
 		public static bool shadowOrbSmashed = false;
+
 		public static int shadowOrbCount = 0;
+
 		public static int altarCount = 0;
+
 		public static bool spawnMeteor = false;
+
 		public static bool loadFailed = false;
+
 		public static bool loadSuccess = false;
+
 		public static bool worldCleared = false;
+
 		public static bool worldBackup = false;
+
 		public static bool loadBackup = false;
+
 		private static int lastMaxTilesX = 0;
+
 		private static int lastMaxTilesY = 0;
+
 		public static bool saveLock = false;
+
 		private static bool mergeUp = false;
+
 		private static bool mergeDown = false;
+
 		private static bool mergeLeft = false;
+
 		private static bool mergeRight = false;
+
 		private static bool stopDrops = false;
+
 		private static bool mudWall = false;
+
 		private static int grassSpread = 0;
+
 		public static bool noLiquidCheck = false;
+
 		[ThreadStatic]
 		public static Random genRand = new Random();
+
 		public static string statusText = "";
+
 		public static bool destroyObject = false;
+
 		public static int spawnDelay = 0;
+
 		public static int spawnNPC = 0;
+
 		public static int numTileCount = 0;
+
 		public static int maxTileCount = 3500;
+
 		public static int maxWallOut2 = 5000;
+
 		public static int[] countX = new int[WorldGen.maxTileCount];
+
 		public static int[] countY = new int[WorldGen.maxTileCount];
+
 		public static int lavaCount = 0;
+
 		public static int iceCount = 0;
+
 		public static int rockCount = 0;
+
 		public static int maxRoomTiles = 750;
+
 		public static int numRoomTiles;
+
 		public static int[] roomX = new int[WorldGen.maxRoomTiles];
+
 		public static int[] roomY = new int[WorldGen.maxRoomTiles];
+
 		public static int roomX1;
+
 		public static int roomX2;
+
 		public static int roomY1;
+
 		public static int roomY2;
+
 		public static bool canSpawn;
+
 		public static bool[] houseTile = new bool[419];
+
 		public static int bestX = 0;
+
 		public static int bestY = 0;
+
 		public static int hiScore = 0;
+
 		public static int dungeonX;
+
 		public static int dungeonY;
+
 		public static Vector2 lastDungeonHall = Vector2.Zero;
+
 		public static int maxDRooms = 100;
+
 		public static int numDRooms = 0;
+
 		public static int[] dRoomX = new int[WorldGen.maxDRooms];
+
 		public static int[] dRoomY = new int[WorldGen.maxDRooms];
+
 		public static int[] dRoomSize = new int[WorldGen.maxDRooms];
+
 		private static bool[] dRoomTreasure = new bool[WorldGen.maxDRooms];
+
 		private static int[] dRoomL = new int[WorldGen.maxDRooms];
+
 		private static int[] dRoomR = new int[WorldGen.maxDRooms];
+
 		private static int[] dRoomT = new int[WorldGen.maxDRooms];
+
 		private static int[] dRoomB = new int[WorldGen.maxDRooms];
+
 		private static int numDDoors;
+
 		private static int[] DDoorX = new int[300];
+
 		private static int[] DDoorY = new int[300];
+
 		private static int[] DDoorPos = new int[300];
+
 		private static int numDPlats;
+
 		private static int[] DPlatX = new int[300];
+
 		private static int[] DPlatY = new int[300];
+
 		private static int JungleItemCount = 0;
+
 		private static int[] JChestX = new int[100];
+
 		private static int[] JChestY = new int[100];
+
 		private static int numJChests = 0;
+
 		public static int dEnteranceX = 0;
+
 		public static bool dSurface = false;
+
 		private static double dxStrength1;
+
 		private static double dyStrength1;
+
 		private static double dxStrength2;
+
 		private static double dyStrength2;
+
 		private static int dMinX;
+
 		private static int dMaxX;
+
 		private static int dMinY;
+
 		private static int dMaxY;
+
 		private static int numIslandHouses = 0;
+
 		private static int houseCount = 0;
+
 		private static bool[] skyLake = new bool[30];
+
 		private static int[] fihX = new int[30];
+
 		private static int[] fihY = new int[30];
+
 		private static int numMCaves = 0;
+
 		private static int[] mCaveX = new int[30];
+
 		private static int[] mCaveY = new int[30];
+
 		private static int JungleX = 0;
+
 		private static int hellChest = 0;
+
 		private static int[] hellChestItem = new int[5];
+
 		private static bool roomTorch;
+
 		private static bool roomDoor;
+
 		private static bool roomChair;
+
 		private static bool roomTable;
+
 		private static bool roomOccupied;
+
 		private static bool roomEvil;
+
 		public static Point16[] statueList;
+
 		public static List<int> StatuesWithTraps = new List<int>(new int[]
 		{
 			4,
@@ -695,12 +868,19 @@ namespace Terraria
 			10,
 			18
 		});
+
 		public static Rectangle UndergroundDesertLocation = Rectangle.Empty;
+
 		private static int tileCounterNum = 0;
+
 		private static int tileCounterMax = 20;
+
 		private static int[] tileCounterX = new int[WorldGen.tileCounterMax];
+
 		private static int[] tileCounterY = new int[WorldGen.tileCounterMax];
+
 		private static WorldGenerator _generator;
+
 		public static void SetupStatueList()
 		{
 			if (WorldGen.statueList != null)
@@ -715,6 +895,7 @@ namespace Terraria
 			WorldGen.statueList[34] = new Point16(349, 0);
 			WorldGen.statueList[43] = new Point16(105, 50);
 		}
+
 		public static void PlaceStatueTrap(int x, int y)
 		{
 			for (int i = -10; i <= 10; i++)
@@ -735,6 +916,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static bool MoveNPC(int x, int y, int n)
 		{
 			if (!WorldGen.StartRoomCheck(x, y))
@@ -817,6 +999,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static void moveRoom(int x, int y, int n)
 		{
 			if (Main.netMode == 1)
@@ -828,6 +1011,7 @@ namespace Terraria
 			Main.npc[n].homeless = true;
 			WorldGen.SpawnNPC(x, y);
 		}
+
 		public static void kickOut(int n)
 		{
 			if (Main.netMode == 1)
@@ -837,6 +1021,7 @@ namespace Terraria
 			}
 			Main.npc[n].homeless = true;
 		}
+
 		public static bool NextNPC()
 		{
 			if (WorldGen.CheckConditions(WorldGen.spawnNPC))
@@ -876,6 +1061,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static bool CheckConditions(int type)
 		{
 			if (type != 160)
@@ -887,10 +1073,10 @@ namespace Terraria
 				return false;
 			}
 			int num = 0;
-			int num2 = WorldGen.roomX1 - Main.zoneX/2/16 - 1;
-			int num3 = WorldGen.roomX2 + Main.zoneX/2/16 + 1;
-			int num4 = WorldGen.roomY1 - Main.zoneY/2/16 - 1;
-			int num5 = WorldGen.roomY2 + Main.zoneY/2/16 + 1;
+			int num2 = WorldGen.roomX1 - Main.zoneX / 2 / 16 - 1 - 45; //45 = default value for Lighting.offScreenTiles
+			int num3 = WorldGen.roomX2 + Main.zoneX / 2 / 16 + 1 + 45;
+			int num4 = WorldGen.roomY1 - Main.zoneY / 2 / 16 - 1 - 45;
+			int num5 = WorldGen.roomY2 + Main.zoneY / 2 / 16 + 1 + 45;
 			if (num2 < 0)
 			{
 				num2 = 0;
@@ -919,6 +1105,7 @@ namespace Terraria
 			}
 			return num >= 100;
 		}
+
 		public static void UnspawnTravelNPC()
 		{
 			int num = -1;
@@ -937,13 +1124,13 @@ namespace Terraria
 			int num2 = (int)(Main.npc[num].Center.X / 16f);
 			int num3 = (int)(Main.npc[num].Center.Y / 16f);
 			bool flag = true;
-			Rectangle rectangle = new Rectangle(num2 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num3 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+			Rectangle value = new Rectangle(num2 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num3 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
 			for (int j = 0; j < 255; j++)
 			{
 				if (Main.player[j].active)
 				{
-					Rectangle rectangle2 = new Rectangle((int)Main.player[j].position.X, (int)Main.player[j].position.Y, Main.player[j].width, Main.player[j].height);
-					if (rectangle2.Intersects(rectangle))
+					Rectangle rectangle = new Rectangle((int)Main.player[j].position.X, (int)Main.player[j].position.Y, Main.player[j].width, Main.player[j].height);
+					if (rectangle.Intersects(value))
 					{
 						flag = false;
 						break;
@@ -978,6 +1165,7 @@ namespace Terraria
 				NetMessage.SendData(23, -1, -1, "", num, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
+
 		public static void SpawnTravelNPC()
 		{
 			if (Main.eclipse || !Main.dayTime)
@@ -1084,13 +1272,13 @@ namespace Terraria
 									if (Main.tile[num8, num9 - 3].liquid == 0 && Main.tile[num8, num9 - 2].liquid == 0 && Main.tile[num8, num9 - 1].liquid == 0 && !Collision.SolidTiles(num8 - 1, num8 + 1, num9 - 3, num9 - 1))
 									{
 										flag = true;
-										Rectangle rectangle = new Rectangle(num8 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num9 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+										Rectangle value = new Rectangle(num8 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num9 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
 										for (int n = 0; n < 255; n++)
 										{
 											if (Main.player[n].active)
 											{
-												Rectangle rectangle2 = new Rectangle((int)Main.player[n].position.X, (int)Main.player[n].position.Y, Main.player[n].width, Main.player[n].height);
-												if (rectangle2.Intersects(rectangle))
+												Rectangle rectangle = new Rectangle((int)Main.player[n].position.X, (int)Main.player[n].position.Y, Main.player[n].width, Main.player[n].height);
+												if (rectangle.Intersects(value))
 												{
 													flag = false;
 													break;
@@ -1153,6 +1341,7 @@ namespace Terraria
 				NetMessage.SendData(25, -1, -1, str + " " + Lang.misc[18], 255, 50f, 125f, 255f, 0, 0, 0);
 			}
 		}
+
 		public static void SpawnNPC(int x, int y)
 		{
 			if (Main.wallHouse[(int)Main.tile[x, y].wall])
@@ -1195,13 +1384,13 @@ namespace Terraria
 					if (!flag)
 					{
 						flag = true;
-						Rectangle rectangle = new Rectangle(num2 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num3 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+						Rectangle value = new Rectangle(num2 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num3 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
 						for (int j = 0; j < 255; j++)
 						{
 							if (Main.player[j].active)
 							{
-								Rectangle rectangle2 = new Rectangle((int)Main.player[j].position.X, (int)Main.player[j].position.Y, Main.player[j].width, Main.player[j].height);
-								if (rectangle2.Intersects(rectangle))
+								Rectangle rectangle = new Rectangle((int)Main.player[j].position.X, (int)Main.player[j].position.Y, Main.player[j].width, Main.player[j].height);
+								if (rectangle.Intersects(value))
 								{
 									flag = false;
 									break;
@@ -1244,13 +1433,13 @@ namespace Terraria
 											if (!Collision.SolidTiles(num2 - 1, num2 + 1, num3 - 3, num3 - 1))
 											{
 												flag = true;
-												Rectangle rectangle3 = new Rectangle(num2 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num3 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+												Rectangle value2 = new Rectangle(num2 * 16 + 8 - NPC.sWidth / 2 - NPC.safeRangeX, num3 * 16 + 8 - NPC.sHeight / 2 - NPC.safeRangeY, NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
 												for (int m = 0; m < 255; m++)
 												{
 													if (Main.player[m].active)
 													{
-														Rectangle rectangle4 = new Rectangle((int)Main.player[m].position.X, (int)Main.player[m].position.Y, Main.player[m].width, Main.player[m].height);
-														if (rectangle4.Intersects(rectangle3))
+														Rectangle rectangle2 = new Rectangle((int)Main.player[m].position.X, (int)Main.player[m].position.Y, Main.player[m].width, Main.player[m].height);
+														if (rectangle2.Intersects(value2))
 														{
 															flag = false;
 															break;
@@ -1341,27 +1530,44 @@ namespace Terraria
 				WorldGen.spawnNPC = 0;
 			}
 		}
+
 		public static bool RoomNeeds(int npcType)
 		{
 			WorldGen.roomChair = false;
 			WorldGen.roomDoor = false;
 			WorldGen.roomTable = false;
 			WorldGen.roomTorch = false;
-			if (WorldGen.houseTile[15] || WorldGen.houseTile[79] || WorldGen.houseTile[89] || WorldGen.houseTile[102])
+			for (int i = 0; i < TileID.Sets.RoomNeeds.CountsAsChair.Length; i++)
 			{
-				WorldGen.roomChair = true;
+				if (WorldGen.houseTile[TileID.Sets.RoomNeeds.CountsAsChair[i]])
+				{
+					WorldGen.roomChair = true;
+					break;
+				}
 			}
-			if (WorldGen.houseTile[14] || WorldGen.houseTile[18] || WorldGen.houseTile[87] || WorldGen.houseTile[88] || WorldGen.houseTile[90] || WorldGen.houseTile[101] || WorldGen.houseTile[354] || WorldGen.houseTile[355])
+			for (int j = 0; j < TileID.Sets.RoomNeeds.CountsAsTable.Length; j++)
 			{
-				WorldGen.roomTable = true;
+				if (WorldGen.houseTile[TileID.Sets.RoomNeeds.CountsAsTable[j]])
+				{
+					WorldGen.roomTable = true;
+					break;
+				}
 			}
-			if (WorldGen.houseTile[4] || WorldGen.houseTile[33] || WorldGen.houseTile[34] || WorldGen.houseTile[35] || WorldGen.houseTile[42] || WorldGen.houseTile[49] || WorldGen.houseTile[93] || WorldGen.houseTile[95] || WorldGen.houseTile[98] || WorldGen.houseTile[100] || WorldGen.houseTile[149] || WorldGen.houseTile[173] || WorldGen.houseTile[174] || WorldGen.houseTile[270] || WorldGen.houseTile[271] || WorldGen.houseTile[316] || WorldGen.houseTile[317] || WorldGen.houseTile[318] || WorldGen.houseTile[372])
+			for (int k = 0; k < TileID.Sets.RoomNeeds.CountsAsTorch.Length; k++)
 			{
-				WorldGen.roomTorch = true;
+				if (WorldGen.houseTile[TileID.Sets.RoomNeeds.CountsAsTorch[k]])
+				{
+					WorldGen.roomTorch = true;
+					break;
+				}
 			}
-			if (WorldGen.houseTile[10] || WorldGen.houseTile[11] || WorldGen.houseTile[19] || WorldGen.houseTile[387] || WorldGen.houseTile[386] || WorldGen.houseTile[388] || WorldGen.houseTile[389])
+			for (int l = 0; l < TileID.Sets.RoomNeeds.CountsAsDoor.Length; l++)
 			{
-				WorldGen.roomDoor = true;
+				if (WorldGen.houseTile[TileID.Sets.RoomNeeds.CountsAsDoor[l]])
+				{
+					WorldGen.roomDoor = true;
+					break;
+				}
 			}
 			if (WorldGen.roomChair && WorldGen.roomTable && WorldGen.roomDoor && WorldGen.roomTorch)
 			{
@@ -1373,6 +1579,7 @@ namespace Terraria
 			}
 			return WorldGen.canSpawn;
 		}
+
 		public static void QuickFindHome(int npc)
 		{
 			if (Main.npc[npc].homeTileX > 10 && Main.npc[npc].homeTileY > 10 && Main.npc[npc].homeTileX < Main.maxTilesX - 10 && Main.npc[npc].homeTileY < Main.maxTilesY)
@@ -1427,6 +1634,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void ScoreRoom(int ignoreNPC = -1)
 		{
 			WorldGen.roomOccupied = false;
@@ -1461,10 +1669,10 @@ namespace Terraria
 			WorldGen.hiScore = 0;
 			int num = 50;
 			int num2 = 0;
-			int num3 = WorldGen.roomX1 - Main.zoneX/2/16 - 1;
-			int num4 = WorldGen.roomX2 + Main.zoneX/2/16 + 1;
-			int num5 = WorldGen.roomY1 - Main.zoneY/2/16 - 1;
-			int num6 = WorldGen.roomY2 + Main.zoneY/2/16 + 1;
+			int num3 = WorldGen.roomX1 - Main.zoneX / 2 / 16 - 1 - 45;
+			int num4 = WorldGen.roomX2 + Main.zoneX / 2 / 16 + 1 + 45;
+			int num5 = WorldGen.roomY1 - Main.zoneY / 2 / 16 - 1 - 45;
+			int num6 = WorldGen.roomY2 + Main.zoneY / 2 / 16 + 1 + 45;
 			if (num3 < 0)
 			{
 				num3 = 0;
@@ -1596,6 +1804,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static bool StartRoomCheck(int x, int y)
 		{
 			WorldGen.roomX1 = x;
@@ -1619,6 +1828,7 @@ namespace Terraria
 			}
 			return WorldGen.canSpawn;
 		}
+
 		public static void CheckRoom(int x, int y)
 		{
 			if (!WorldGen.canSpawn)
@@ -1718,6 +1928,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void dropMeteor()
 		{
 			bool flag = true;
@@ -1809,6 +2020,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static bool meteor(int i, int j)
 		{
 			if (i < 50 || i > Main.maxTilesX - 50)
@@ -1825,8 +2037,8 @@ namespace Terraria
 			{
 				if (Main.player[k].active)
 				{
-					Rectangle rectangle2 = new Rectangle((int)(Main.player[k].position.X + (float)(Main.player[k].width / 2) - (float)(NPC.sWidth / 2) - (float)NPC.safeRangeX), (int)(Main.player[k].position.Y + (float)(Main.player[k].height / 2) - (float)(NPC.sHeight / 2) - (float)NPC.safeRangeY), NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
-					if (rectangle.Intersects(rectangle2))
+					Rectangle value = new Rectangle((int)(Main.player[k].position.X + (float)(Main.player[k].width / 2) - (float)(NPC.sWidth / 2) - (float)NPC.safeRangeX), (int)(Main.player[k].position.Y + (float)(Main.player[k].height / 2) - (float)(NPC.sHeight / 2) - (float)NPC.safeRangeY), NPC.sWidth + NPC.safeRangeX * 2, NPC.sHeight + NPC.safeRangeY * 2);
+					if (rectangle.Intersects(value))
 					{
 						return false;
 					}
@@ -1836,8 +2048,8 @@ namespace Terraria
 			{
 				if (Main.npc[l].active)
 				{
-					Rectangle rectangle3 = new Rectangle((int)Main.npc[l].position.X, (int)Main.npc[l].position.Y, Main.npc[l].width, Main.npc[l].height);
-					if (rectangle.Intersects(rectangle3))
+					Rectangle value2 = new Rectangle((int)Main.npc[l].position.X, (int)Main.npc[l].position.Y, Main.npc[l].width, Main.npc[l].height);
+					if (rectangle.Intersects(value2))
 					{
 						return false;
 					}
@@ -1982,6 +2194,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static void setWorldSize()
 		{
 			Main.bottomWorld = (float)(Main.maxTilesY * 16);
@@ -1989,20 +2202,23 @@ namespace Terraria
 			Main.maxSectionsX = Main.maxTilesX / 200;
 			Main.maxSectionsY = Main.maxTilesY / 150;
 		}
+
 		public static void worldGenCallBack(object threadContext)
 		{
 			WorldGen.clearWorld();
 			WorldGen.generateWorld(-1, threadContext as GenerationProgress);
-			WorldFile.saveWorld(false);
+			WorldFile.saveWorld(true);
 			if (Main.menuMode == 10 || Main.menuMode == 888)
 			{
 				Main.menuMode = 6;
 			}
 		}
+
 		public static void CreateNewWorld(GenerationProgress progress = null)
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.worldGenCallBack), progress);
 		}
+
 		public static void SaveAndQuitCallBack(object threadContext)
 		{
 			if (Main.netMode == 0)
@@ -2033,10 +2249,12 @@ namespace Terraria
 				((Action)threadContext)();
 			}
 		}
+
 		public static void SaveAndQuit(Action callback = null)
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.SaveAndQuitCallBack), callback);
 		}
+
 		public static void playWorldCallBack(object threadContext)
 		{
 			if (Main.rand == null)
@@ -2082,8 +2300,8 @@ namespace Terraria
 							Console.WriteLine("Load failed!  No backup found.");
 							return;
 						}
-						FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bad", false, true);
-						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, false, true);
+						FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bad", true);
+						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, true);
 						FileUtilities.Delete(Main.worldPathName + ".bak");
 						WorldFile.loadWorld();
 						if (WorldGen.loadFailed || !WorldGen.loadSuccess)
@@ -2091,8 +2309,8 @@ namespace Terraria
 							WorldFile.loadWorld();
 							if (WorldGen.loadFailed || !WorldGen.loadSuccess)
 							{
-								FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bak", false, true);
-								FileUtilities.Copy(Main.worldPathName + ".bad", Main.worldPathName, false, true);
+								FileUtilities.Copy(Main.worldPathName, Main.worldPathName + ".bak", true);
+								FileUtilities.Copy(Main.worldPathName + ".bad", Main.worldPathName, true);
 								FileUtilities.Delete(Main.worldPathName + ".bad");
 								Console.WriteLine("Load failed!");
 								return;
@@ -2111,7 +2329,7 @@ namespace Terraria
 			}
 			while (Main.loadMapLock)
 			{
-				float num = (float)Main.loadMapLastX / (float)Main.maxTilesX;
+				float num = Main.loadMapLastX / Main.maxTilesX;
 				Main.statusText = string.Concat(new object[]
 				{
 					Lang.gen[68],
@@ -2149,26 +2367,32 @@ namespace Terraria
 			Main.resetClouds = true;
 			WorldGen.noMapUpdate = false;
 		}
+
 		public static void playWorld()
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.playWorldCallBack), 1);
 		}
+
 		public static void saveAndPlayCallBack(object threadContext)
 		{
 			WorldFile.saveWorld();
 		}
+
 		public static void saveAndPlay()
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.saveAndPlayCallBack), 1);
 		}
+
 		public static void saveToonWhilePlayingCallBack(object threadContext)
 		{
 			Player.SavePlayer(Main.ActivePlayerFileData, false);
 		}
+
 		public static void saveToonWhilePlaying()
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.saveToonWhilePlayingCallBack), 1);
 		}
+
 		public static void serverLoadWorldCallBack(object threadContext)
 		{
 			Main.rand = new Random((int)DateTime.Now.Ticks);
@@ -2203,7 +2427,7 @@ namespace Terraria
 							Console.WriteLine("Load failed!  No backup found.");
 							return;
 						}
-						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, false, true);
+						FileUtilities.Copy(Main.worldPathName + ".bak", Main.worldPathName, true);
 						FileUtilities.Delete(Main.worldPathName + ".bak");
 						WorldFile.loadWorld();
 						if (WorldGen.loadFailed || !WorldGen.loadSuccess)
@@ -2230,10 +2454,12 @@ namespace Terraria
 			Main.eclipse = WorldFile.tempEclipse;
 			CultistRitual.delay = WorldFile.tempCultistDelay;
 		}
+
 		public static void serverLoadWorld()
 		{
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.serverLoadWorldCallBack), 1);
 		}
+
 		public static void clearWorld()
 		{
 			CombatText.clearAll();
@@ -2244,7 +2470,7 @@ namespace Terraria
 			{
 				for (int i = 0; i < WorldGen.lastMaxTilesX; i++)
 				{
-					float arg_28_0 = (float)i / (float)WorldGen.lastMaxTilesX;
+					float arg_28_0 = i / WorldGen.lastMaxTilesX;
 					Main.statusText = Lang.gen[65];
 				}
 				Main.Map.Clear();
@@ -2279,7 +2505,6 @@ namespace Terraria
 			WorldGen.tEvil = 0;
 			WorldGen.tBlood = 0;
 			WorldGen.tGood = 0;
-			Main.trashItem = new Item();
 			WorldGen.spawnEye = false;
 			WorldGen.spawnNPC = 0;
 			WorldGen.shadowOrbCount = 0;
@@ -2426,6 +2651,7 @@ namespace Terraria
 			WorldGen.setWorldSize();
 			WorldGen.worldCleared = true;
 		}
+
 		public static void setBG(int bg, int style)
 		{
 			if (bg == 0)
@@ -2746,6 +2972,7 @@ namespace Terraria
 				return;
 			}
 		}
+
 		public static void RandomizeWeather()
 		{
 			if (Main.cloudLimit < 10)
@@ -2761,10 +2988,12 @@ namespace Terraria
 			}
 			Cloud.resetClouds();
 		}
+
 		public static void RandomizeMoonState()
 		{
 			Main.moonType = WorldGen.genRand.Next(Main.maxMoons);
 		}
+
 		public static void RandomizeBackgrounds()
 		{
 			WorldGen.treeBG = WorldGen.genRand.Next(9);
@@ -2831,6 +3060,7 @@ namespace Terraria
 			WorldGen.setBG(6, WorldGen.genRand.Next(2));
 			WorldGen.setBG(7, WorldGen.genRand.Next(3));
 		}
+
 		public static void RandomizeTreeStyle()
 		{
 			if (Main.maxTilesX == 4200)
@@ -2884,6 +3114,7 @@ namespace Terraria
 				Main.treeStyle[3] = WorldGen.genRand.Next(6);
 			}
 		}
+
 		public static void RandomizeCaveBackgrounds()
 		{
 			int maxValue = 8;
@@ -2942,6 +3173,7 @@ namespace Terraria
 			Main.hellBackStyle = WorldGen.genRand.Next(3);
 			Main.jungleBackStyle = WorldGen.genRand.Next(2);
 		}
+
 		private static void ResetGenerator()
 		{
 			WorldGen.mudWall = false;
@@ -2957,6 +3189,7 @@ namespace Terraria
 			WorldGen.numJChests = 0;
 			WorldGen.JungleItemCount = 0;
 		}
+
 		public static bool mayanTrap(int x2, int y2)
 		{
 			int num = 1;
@@ -3354,6 +3587,7 @@ namespace Terraria
 				return true;
 			}
 		}
+
 		public static bool placeTrap(int x2, int y2, int type = -1)
 		{
 			int num = y2;
@@ -3679,6 +3913,7 @@ namespace Terraria
 				return true;
 			}
 		}
+
 		public static int countTiles(int x, int y, bool jungle = false, bool lavaOk = false)
 		{
 			WorldGen.numTileCount = 0;
@@ -3688,6 +3923,7 @@ namespace Terraria
 			WorldGen.nextCount(x, y, jungle, lavaOk);
 			return WorldGen.numTileCount;
 		}
+
 		public static void nextCount(int x, int y, bool jungle = false, bool lavaOk = false)
 		{
 			if (WorldGen.numTileCount >= WorldGen.maxTileCount)
@@ -3749,12 +3985,14 @@ namespace Terraria
 				WorldGen.nextCount(x, y + 1, jungle, lavaOk);
 			}
 		}
+
 		public static int countDirtTiles(int x, int y)
 		{
 			WorldGen.numTileCount = 0;
 			WorldGen.nextDirtCount(x, y);
 			return WorldGen.numTileCount;
 		}
+
 		public static void nextDirtCount(int x, int y)
 		{
 			if (WorldGen.numTileCount >= WorldGen.maxTileCount)
@@ -3800,10 +4038,12 @@ namespace Terraria
 				WorldGen.nextDirtCount(x + 2, y);
 			}
 		}
+
 		public static bool InWorld(int x, int y, int fluff = 0)
 		{
 			return x >= fluff && x < Main.maxTilesX - fluff && y >= fluff && y < Main.maxTilesY - fluff;
 		}
+
 		public static void gemCave(int x, int y)
 		{
 			WorldGen.countTiles(x, y, false, false);
@@ -3821,6 +4061,7 @@ namespace Terraria
 			}
 			WorldGen.Spread.Gem(x, y);
 		}
+
 		public static int randGem()
 		{
 			int num = WorldGen.genRand.Next(6);
@@ -3830,6 +4071,7 @@ namespace Terraria
 			}
 			return num;
 		}
+
 		public static ushort randGemTile()
 		{
 			if (WorldGen.genRand.Next(20) != 0)
@@ -3859,6 +4101,7 @@ namespace Terraria
 			}
 			return 68;
 		}
+
 		public static void randMoss()
 		{
 			WorldGen.mossType[0] = WorldGen.genRand.Next(5);
@@ -3873,6 +4116,7 @@ namespace Terraria
 				WorldGen.mossType[2] = WorldGen.genRand.Next(5);
 			}
 		}
+
 		public static void setMoss(int x, int y)
 		{
 			int num;
@@ -3891,6 +4135,7 @@ namespace Terraria
 			WorldGen.mossWall = (byte)(54 + WorldGen.mossType[num]);
 			WorldGen.mossTile = (byte)(179 + WorldGen.mossType[num]);
 		}
+
 		public static void tileCountAndDestroy()
 		{
 			for (int i = 10; i < Main.maxTilesX - 10; i++)
@@ -3908,12 +4153,14 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static int tileCounter(int x, int y)
 		{
 			WorldGen.tileCounterNum = 0;
 			WorldGen.tileCounterNext(x, y);
 			return WorldGen.tileCounterNum;
 		}
+
 		public static void tileCounterNext(int x, int y)
 		{
 			if (WorldGen.tileCounterNum >= WorldGen.tileCounterMax)
@@ -3942,6 +4189,7 @@ namespace Terraria
 				WorldGen.tileCounterNext(x, y + 1);
 			}
 		}
+
 		public static void tileCounterKill()
 		{
 			for (int i = 0; i < WorldGen.tileCounterNum; i++)
@@ -3951,14 +4199,17 @@ namespace Terraria
 				Main.tile[num, num2].active(false);
 			}
 		}
+
 		private static void AddGenerationPass(string name, WorldGenLegacyMethod method)
 		{
 			WorldGen._generator.Append(new PassLegacy(name, method));
 		}
+
 		private static void AddGenerationPass(string name, float weight, WorldGenLegacyMethod method)
 		{
 			WorldGen._generator.Append(new PassLegacy(name, method, weight));
 		}
+
 		public static bool checkUnderground(int x, int y)
 		{
 			try
@@ -4003,16 +4254,12 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
 			}
 			return false;
 		}
+
 		public static int GetNextJungleChestItem()
 		{
 			int result = 211;
@@ -4046,6 +4293,7 @@ namespace Terraria
 			WorldGen.JungleItemCount++;
 			return result;
 		}
+
 		public static void generateWorld(int seed = -1, GenerationProgress customProgressObject = null)
 		{
 			WorldGen._generator = new WorldGenerator();
@@ -4105,7 +4353,7 @@ namespace Terraria
 					}
 				}
 			}
-			WorldGen.AddGenerationPass("Reset", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Reset", delegate (GenerationProgress progress)
 			{
 				WorldGen.noTileActions = true;
 				progress.Message = "";
@@ -4184,7 +4432,7 @@ namespace Terraria
 				WorldGen.RandomizeMoonState();
 				dungeonSide = ((WorldGen.genRand.Next(2) == 0) ? -1 : 1);
 			});
-			WorldGen.AddGenerationPass("Terrain", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Terrain", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[0];
 				int num = 0;
@@ -4347,7 +4595,7 @@ namespace Terraria
 				WorldGen.waterLine += WorldGen.genRand.Next(-100, 20);
 				WorldGen.lavaLine = WorldGen.waterLine + WorldGen.genRand.Next(50, 80);
 			});
-			WorldGen.AddGenerationPass("Tunnels", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Tunnels", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < (int)((double)Main.maxTilesX * 0.0015); k++)
 				{
@@ -4372,7 +4620,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Sand", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Sand", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[1];
 				int num = WorldGen.genRand.Next((int)((double)Main.maxTilesX * 0.0008), (int)((double)Main.maxTilesX * 0.0025));
@@ -4491,7 +4739,7 @@ namespace Terraria
 					WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)Main.worldSurface, (int)Main.rockLayer), (double)WorldGen.genRand.Next(15, 70), WorldGen.genRand.Next(20, 130), 53, false, 0f, 0f, false, true);
 				}
 			});
-			WorldGen.AddGenerationPass("Mount Caves", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Mount Caves", delegate (GenerationProgress progress)
 			{
 				WorldGen.numMCaves = 0;
 				progress.Message = Lang.gen[2];
@@ -4554,7 +4802,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Dirt Wall Backgrounds", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Dirt Wall Backgrounds", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[3];
 				for (int k = 1; k < Main.maxTilesX - 1; k++)
@@ -4598,7 +4846,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Rocks In Dirt", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Rocks In Dirt", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[4];
 				for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.00015); k++)
@@ -4620,7 +4868,7 @@ namespace Terraria
 					WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)worldSurfaceHigh, (int)rockLayerHigh + 1), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(2, 23), 1, false, 0f, 0f, false, true);
 				}
 			});
-			WorldGen.AddGenerationPass("Dirt In Rocks", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Dirt In Rocks", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[5];
 				for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.005); k++)
@@ -4628,7 +4876,7 @@ namespace Terraria
 					WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)rockLayerLow, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 6), WorldGen.genRand.Next(2, 40), 0, false, 0f, 0f, false, true);
 				}
 			});
-			WorldGen.AddGenerationPass("Clay", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Clay", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[6];
 				for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 2E-05); k++)
@@ -4664,7 +4912,7 @@ namespace Terraria
 				}
 			});
 			int i2;
-			WorldGen.AddGenerationPass("Small Holes", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Small Holes", delegate (GenerationProgress progress)
 			{
 				i2 = 0;
 				progress.Message = Lang.gen[7];
@@ -4681,7 +4929,7 @@ namespace Terraria
 					WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)worldSurfaceHigh, Main.maxTilesY), (double)WorldGen.genRand.Next(8, 15), WorldGen.genRand.Next(7, 30), type, false, 0f, 0f, false, true);
 				}
 			});
-			WorldGen.AddGenerationPass("Dirt Layer Caves", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Dirt Layer Caves", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[8];
 				for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 3E-05); k++)
@@ -4699,7 +4947,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Rock Layer Caves", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Rock Layer Caves", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[9];
 				for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.00013); k++)
@@ -4717,7 +4965,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Surface Caves", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Surface Caves", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[10];
 				for (int k = 0; k < (int)((double)Main.maxTilesX * 0.002); k++)
@@ -4802,18 +5050,13 @@ namespace Terraria
 					{
 						WorldGen.Caverer(WorldGen.genRand.Next(100, Main.maxTilesX - 100), WorldGen.genRand.Next((int)Main.rockLayer, Main.maxTilesY - 400));
 					}
-					catch (Exception ex)
+					catch
 					{
-#if DEBUG
-						Console.WriteLine(ex);
-						System.Diagnostics.Debugger.Break();
-
-#endif
 					}
 					num6++;
 				}
 			});
-			WorldGen.AddGenerationPass("Slush Check", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Slush Check", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[56];
 				snowTop = (int)Main.worldSurface;
@@ -4917,7 +5160,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Grass", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Grass", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.002); k++)
 				{
@@ -4945,7 +5188,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Jungle", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Jungle", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[11];
 				float num = (float)(Main.maxTilesX / 4200);
@@ -5078,7 +5321,7 @@ namespace Terraria
 					num19++;
 				}
 			});
-			WorldGen.AddGenerationPass("Marble", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Marble", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[80];
 				float num = (float)(Main.maxTilesX * Main.maxTilesY) / 5040000f;
@@ -5096,7 +5339,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Granite", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Granite", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[81];
 				float num = (float)Main.maxTilesX / 4200f;
@@ -5114,7 +5357,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Mud Caves To Grass", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Mud Caves To Grass", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[77];
 				for (int k = 0; k < Main.maxTilesX; k++)
@@ -5146,28 +5389,28 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Full Desert", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Full Desert", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[78];
 				int num = dungeonSide;
 				int num2 = Main.maxTilesX / 2;
 				int num3 = WorldGen.genRand.Next(num2) / 8;
 				num3 += num2 / 8;
-				int num4 = num2 + num3 * -num;
-				int num5 = 0;
-				while (!Biomes<DesertBiome>.Place(new Point(num4, (int)worldSurface), structures))
+				int x = num2 + num3 * -num;
+				int num4 = 0;
+				while (!Biomes<DesertBiome>.Place(new Point(x, (int)worldSurface), structures))
 				{
 					num3 = WorldGen.genRand.Next(num2) / 2;
 					num3 += num2 / 8;
-					num4 = num2 + num3 * -num;
-					if (++num5 > 1000)
+					x = num2 + num3 * -num;
+					if (++num4 > 1000)
 					{
 						num *= -1;
-						num5 = 0;
+						num4 = 0;
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Floating Islands", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Floating Islands", delegate (GenerationProgress progress)
 			{
 				WorldGen.numIslandHouses = 0;
 				WorldGen.houseCount = 0;
@@ -5227,7 +5470,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Mushroom Patches", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Mushroom Patches", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[13];
 				for (int k = 0; k < Main.maxTilesX / 500; k++)
@@ -5343,7 +5586,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Mud To Dirt", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Mud To Dirt", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[14];
 				for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.001); k++)
@@ -5351,7 +5594,7 @@ namespace Terraria
 					WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)rockLayerLow, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 6), WorldGen.genRand.Next(2, 40), 59, false, 0f, 0f, false, true);
 				}
 			});
-			WorldGen.AddGenerationPass("Silt", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Silt", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[15];
 				for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0001); k++)
@@ -5363,7 +5606,7 @@ namespace Terraria
 					WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)rockLayerHigh, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 5), WorldGen.genRand.Next(2, 5), 123, false, 0f, 0f, false, true);
 				}
 			});
-			WorldGen.AddGenerationPass("Shinies", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Shinies", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[16];
 				for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 6E-05); k++)
@@ -5423,7 +5666,7 @@ namespace Terraria
 					WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)rockLayerLow, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 4), WorldGen.genRand.Next(3, 6), 22, false, 0f, 0f, false, true);
 				}
 			});
-			WorldGen.AddGenerationPass("Webs", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Webs", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[17];
 				for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0006); k++)
@@ -5464,10 +5707,10 @@ namespace Terraria
 							WorldGen.TileRunner(num, num2, (double)WorldGen.genRand.Next(4, 11), WorldGen.genRand.Next(2, 4), 51, true, (float)num3, -1f, false, false);
 						}
 					}
-				IL_140: ;
+					IL_140:;
 				}
 			});
-			WorldGen.AddGenerationPass("Underworld", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Underworld", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[18];
 				progress.Set(0f);
@@ -5591,7 +5834,7 @@ namespace Terraria
 				}
 				WorldGen.AddHellHouses();
 			});
-			WorldGen.AddGenerationPass("Lakes", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Lakes", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[19];
 				int num = WorldGen.genRand.Next(2, (int)((double)Main.maxTilesX * 0.005));
@@ -5612,7 +5855,7 @@ namespace Terraria
 					WorldGen.Lakinater(num2, num3);
 				}
 			});
-			WorldGen.AddGenerationPass("Dungeon", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Dungeon", delegate (GenerationProgress progress)
 			{
 				int x;
 				if (dungeonSide == -1)
@@ -5628,7 +5871,7 @@ namespace Terraria
 				int y = (int)((Main.worldSurface + Main.rockLayer) / 2.0) + WorldGen.genRand.Next(-200, 200);
 				WorldGen.MakeDungeon(x, y);
 			});
-			WorldGen.AddGenerationPass("Corruption", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Corruption", delegate (GenerationProgress progress)
 			{
 				if (WorldGen.crimson)
 				{
@@ -6077,7 +6320,7 @@ namespace Terraria
 					num19++;
 				}
 			});
-			WorldGen.AddGenerationPass("Slush", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Slush", delegate (GenerationProgress progress)
 			{
 				for (int k = snowTop; k < snowBottom; k++)
 				{
@@ -6115,7 +6358,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Mud Caves To Grass", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Mud Caves To Grass", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[21];
 				for (int k = 0; k < WorldGen.numMCaves; k++)
@@ -6126,7 +6369,7 @@ namespace Terraria
 					WorldGen.Cavinator(i3, j2, WorldGen.genRand.Next(40, 50));
 				}
 			});
-			WorldGen.AddGenerationPass("Beaches", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Beaches", delegate (GenerationProgress progress)
 			{
 				int num = 0;
 				int num2 = 0;
@@ -6379,7 +6622,7 @@ namespace Terraria
 				}
 				num2++;
 			});
-			WorldGen.AddGenerationPass("Gems", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Gems", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[23];
 				for (int k = 63; k <= 68; k++)
@@ -6460,7 +6703,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Gravitating Sand", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Gravitating Sand", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[24];
 				for (int k = 0; k < Main.maxTilesX; k++)
@@ -6488,7 +6731,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Clean Up Dirt", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Clean Up Dirt", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[25];
 				for (int k = 3; k < Main.maxTilesX - 3; k++)
@@ -6598,7 +6841,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Pyramids", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Pyramids", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < numPyr; k++)
 				{
@@ -6633,7 +6876,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Dirt Rock Wall Runner", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Dirt Rock Wall Runner", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < Main.maxTilesX; k++)
 				{
@@ -6645,7 +6888,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Living Trees", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Living Trees", delegate (GenerationProgress progress)
 			{
 				float num = (float)(Main.maxTilesX / 4200);
 				int num2 = WorldGen.genRand.Next(0, (int)(3f * num));
@@ -6699,7 +6942,7 @@ namespace Terraria
 				}
 				Main.tileSolid[192] = false;
 			});
-			WorldGen.AddGenerationPass("Wood Tree Walls", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Wood Tree Walls", delegate (GenerationProgress progress)
 			{
 				for (int k = 25; k < Main.maxTilesX - 25; k++)
 				{
@@ -6728,7 +6971,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Alters", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Alters", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[26];
 				for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 2E-05); k++)
@@ -6762,7 +7005,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Wet Jungle", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Wet Jungle", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < Main.maxTilesX; k++)
 				{
@@ -6787,7 +7030,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Remove Water From Sand", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Remove Water From Sand", delegate (GenerationProgress progress)
 			{
 				for (int k = 400; k < Main.maxTilesX - 400; k++)
 				{
@@ -6818,7 +7061,7 @@ namespace Terraria
 				}
 				Main.tileSolid[192] = true;
 			});
-			WorldGen.AddGenerationPass("Jungle Temple", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Jungle Temple", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[70];
 				bool flag2 = true;
@@ -6841,7 +7084,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Hives", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Hives", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[71];
 				float num = (float)(Main.maxTilesX / 4200);
@@ -6872,7 +7115,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Jungle Chests", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Jungle Chests", delegate (GenerationProgress progress)
 			{
 				int num = WorldGen.genRand.Next(40, Main.maxTilesX - 40);
 				int num2 = WorldGen.genRand.Next((int)(Main.worldSurface + Main.rockLayer) / 2, Main.maxTilesY - 400);
@@ -7012,7 +7255,7 @@ namespace Terraria
 				}
 				Main.tileSolid[137] = false;
 			});
-			WorldGen.AddGenerationPass("Smooth World", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Smooth World", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[60];
 				for (int k = 20; k < Main.maxTilesX - 20; k++)
@@ -7178,7 +7421,7 @@ namespace Terraria
 				Main.tileSolid[190] = false;
 				Main.tileSolid[192] = false;
 			});
-			WorldGen.AddGenerationPass("Settle Liquids", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Settle Liquids", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[27];
 				Liquid.QuickWater(3, -1, -1);
@@ -7221,7 +7464,7 @@ namespace Terraria
 				Liquid.quickSettle = false;
 				Main.tileSolid[190] = true;
 			});
-			WorldGen.AddGenerationPass("Waterfalls", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Waterfalls", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[69];
 				for (int k = 20; k < Main.maxTilesX - 20; k++)
@@ -7275,7 +7518,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Ice", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Ice", delegate (GenerationProgress progress)
 			{
 				for (int k = 10; k < Main.maxTilesX - 10; k++)
 				{
@@ -7290,7 +7533,7 @@ namespace Terraria
 				Main.tileSolid[226] = false;
 				Main.tileSolid[162] = false;
 			});
-			WorldGen.AddGenerationPass("Wall Variety", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Wall Variety", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[79];
 				float num = (float)(Main.maxTilesX * Main.maxTilesY) / 5040000f;
@@ -7356,7 +7599,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Traps", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Traps", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[34];
 				for (int k = 0; k < (int)((double)Main.maxTilesX * 0.05); k++)
@@ -7374,7 +7617,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Life Crystals", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Life Crystals", delegate (GenerationProgress progress)
 			{
 				dub2 = (float)(Main.maxTilesX / 4200);
 				progress.Message = Lang.gen[28];
@@ -7402,7 +7645,7 @@ namespace Terraria
 				}
 				Main.tileSolid[225] = false;
 			});
-			WorldGen.AddGenerationPass("Statues", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Statues", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[29];
 				int num = 0;
@@ -7449,7 +7692,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Buried Chests", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Buried Chests", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[30];
 				Main.tileSolid[226] = true;
@@ -7519,7 +7762,7 @@ namespace Terraria
 				Main.tileSolid[162] = false;
 				Main.tileSolid[225] = false;
 			});
-			WorldGen.AddGenerationPass("Surface Chests", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Surface Chests", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[31];
 				for (int k = 0; k < (int)((double)Main.maxTilesX * 0.005); k++)
@@ -7552,7 +7795,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Jungle Chests Placement", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Jungle Chests Placement", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[32];
 				for (int k = 0; k < WorldGen.numJChests; k++)
@@ -7584,7 +7827,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Water Chests", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Water Chests", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[33];
 				int num = 0;
@@ -7639,7 +7882,7 @@ namespace Terraria
 					num2++;
 				}
 			});
-			WorldGen.AddGenerationPass("Spider Caves", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Spider Caves", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[64];
 				WorldGen.maxTileCount = 3500;
@@ -7665,7 +7908,7 @@ namespace Terraria
 				}
 				Main.tileSolid[162] = true;
 			});
-			WorldGen.AddGenerationPass("Gem Caves", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Gem Caves", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[64];
 				WorldGen.maxTileCount = 300;
@@ -7690,7 +7933,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Moss", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Moss", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[61];
 				WorldGen.randMoss();
@@ -7809,14 +8052,14 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Temple", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Temple", delegate (GenerationProgress progress)
 			{
 				Main.tileSolid[162] = false;
 				Main.tileSolid[226] = true;
 				WorldGen.templePart2();
 				Main.tileSolid[232] = false;
 			});
-			WorldGen.AddGenerationPass("Ice Walls", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Ice Walls", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[63];
 				WorldGen.maxTileCount = 1500;
@@ -7912,7 +8155,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Jungle Trees", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Jungle Trees", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < Main.maxTilesX; k++)
 				{
@@ -7925,7 +8168,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Floating Island Houses", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Floating Island Houses", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < WorldGen.numIslandHouses; k++)
 				{
@@ -7935,7 +8178,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Quick Cleanup", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Quick Cleanup", delegate (GenerationProgress progress)
 			{
 				Main.tileSolid[137] = false;
 				Main.tileSolid[130] = false;
@@ -7971,7 +8214,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Pots", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Pots", delegate (GenerationProgress progress)
 			{
 				Main.tileSolid[137] = true;
 				Main.tileSolid[130] = true;
@@ -8064,7 +8307,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Hellforge", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Hellforge", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[36];
 				for (int k = 0; k < Main.maxTilesX / 200; k++)
@@ -8105,18 +8348,13 @@ namespace Terraria
 								}
 							}
 						}
-						catch (Exception ex)
+						catch
 						{
-#if DEBUG
-							Console.WriteLine(ex);
-							System.Diagnostics.Debugger.Break();
-
-#endif
 						}
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Spreading Grass", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Spreading Grass", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[37];
 				for (int k = 0; k < Main.maxTilesX; k++)
@@ -8155,7 +8393,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Piles", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Piles", delegate (GenerationProgress progress)
 			{
 				Main.tileSolid[190] = false;
 				Main.tileSolid[196] = false;
@@ -8667,19 +8905,19 @@ namespace Terraria
 				Main.tileSolid[202] = true;
 				Main.tileSolid[225] = true;
 			});
-			WorldGen.AddGenerationPass("Moss", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Moss", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[38];
 				int num = 8;
 				int num2 = 400;
 				int num3 = 4;
 				int num4 = 275;
-				int maxValue;
 				bool flag2;
+				int maxValue;
+				int num5;
+				int num6;
 				for (int k = 0; k < 3; k++)
 				{
-					int num5;
-					int num6;
 					switch (k)
 					{
 						case 0:
@@ -8688,7 +8926,7 @@ namespace Terraria
 								num6 = num4;
 								flag2 = false;
 								maxValue = num3;
-								goto IL_77;
+								break;
 							}
 						case 1:
 							{
@@ -8696,7 +8934,7 @@ namespace Terraria
 								num6 = Main.maxTilesX - num2;
 								flag2 = true;
 								maxValue = num;
-								goto IL_77;
+								break;
 							}
 						case 2:
 							{
@@ -8704,12 +8942,11 @@ namespace Terraria
 								num6 = Main.maxTilesX - 5;
 								flag2 = false;
 								maxValue = num3;
-								goto IL_77;
+								break;
 							}
 						default:
 							goto case 0;
 					}
-				IL_77:
 					for (int l = num5; l < num6; l++)
 					{
 						if (WorldGen.genRand.Next(maxValue) == 0)
@@ -8751,7 +8988,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Spawn Point", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Spawn Point", delegate (GenerationProgress progress)
 			{
 				int num = 5;
 				bool flag2 = true;
@@ -8794,7 +9031,7 @@ namespace Terraria
 					num3++;
 				}
 			});
-			WorldGen.AddGenerationPass("Grass Wall", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Grass Wall", delegate (GenerationProgress progress)
 			{
 				WorldGen.maxTileCount = 3500;
 				for (int k = 50; k < Main.maxTilesX - 50; k++)
@@ -8843,13 +9080,8 @@ namespace Terraria
 									{
 										WorldGen.Spread.Wall2(num2, num3, 63);
 									}
-									catch (Exception ex)
+									catch
 									{
-#if DEBUG
-										Console.WriteLine(ex);
-										System.Diagnostics.Debugger.Break();
-
-#endif
 									}
 								}
 							}
@@ -8889,7 +9121,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Guide", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Guide", delegate (GenerationProgress progress)
 			{
 				int num = NPC.NewNPC(Main.spawnTileX * 16, Main.spawnTileY * 16, 22, 0, 0f, 0f, 0f, 0f, 255);
 				Main.npc[num].homeTileX = Main.spawnTileX;
@@ -8897,7 +9129,7 @@ namespace Terraria
 				Main.npc[num].direction = 1;
 				Main.npc[num].homeless = true;
 			});
-			WorldGen.AddGenerationPass("Sunflowers", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Sunflowers", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[39];
 				int num = 0;
@@ -8934,7 +9166,7 @@ namespace Terraria
 					num++;
 				}
 			});
-			WorldGen.AddGenerationPass("Planting Trees", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Planting Trees", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[40];
 				int num = 0;
@@ -8955,7 +9187,7 @@ namespace Terraria
 				}
 				WorldGen.AddTrees();
 			});
-			WorldGen.AddGenerationPass("Herbs", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Herbs", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[41];
 				int num = 0;
@@ -8965,7 +9197,7 @@ namespace Terraria
 					num++;
 				}
 			});
-			WorldGen.AddGenerationPass("Dye Plants", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Dye Plants", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < Main.maxTilesX; k++)
 				{
@@ -8976,7 +9208,7 @@ namespace Terraria
 					WorldGen.plantDye(WorldGen.genRand.Next(100, Main.maxTilesX - 100), WorldGen.genRand.Next(100, Main.maxTilesY - 200), true);
 				}
 			});
-			WorldGen.AddGenerationPass("Webs And Honey", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Webs And Honey", delegate (GenerationProgress progress)
 			{
 				for (int k = 100; k < Main.maxTilesX - 100; k++)
 				{
@@ -9026,7 +9258,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Weeds", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Weeds", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[42];
 				if (Main.halloween)
@@ -9051,7 +9283,7 @@ namespace Terraria
 				}
 				WorldGen.AddPlants();
 			});
-			WorldGen.AddGenerationPass("Mud Caves To Grass", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Mud Caves To Grass", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < Main.maxTilesX; k++)
 				{
@@ -9075,7 +9307,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Jungle Plants", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Jungle Plants", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < Main.maxTilesX * 100; k++)
 				{
@@ -9100,7 +9332,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Vines", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Vines", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[43];
 				for (int k = 0; k < Main.maxTilesX; k++)
@@ -9163,7 +9395,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Flowers", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Flowers", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[44];
 				int num = 0;
@@ -9198,7 +9430,7 @@ namespace Terraria
 					num++;
 				}
 			});
-			WorldGen.AddGenerationPass("Mushrooms", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Mushrooms", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[45];
 				int num = 0;
@@ -9233,7 +9465,7 @@ namespace Terraria
 					num++;
 				}
 			});
-			WorldGen.AddGenerationPass("Stalac", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Stalac", delegate (GenerationProgress progress)
 			{
 				for (int k = 20; k < Main.maxTilesX - 20; k++)
 				{
@@ -9281,7 +9513,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Gems In Ice Biome", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Gems In Ice Biome", delegate (GenerationProgress progress)
 			{
 				int num = 0;
 				while ((double)num < (double)Main.maxTilesX * 0.25)
@@ -9334,7 +9566,7 @@ namespace Terraria
 					num++;
 				}
 			});
-			WorldGen.AddGenerationPass("Random Gems", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Random Gems", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < Main.maxTilesX; k++)
 				{
@@ -9372,7 +9604,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Moss Grass", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Moss Grass", delegate (GenerationProgress progress)
 			{
 				for (int k = 5; k < Main.maxTilesX - 5; k++)
 				{
@@ -9409,7 +9641,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Muds Walls In Jungle", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Muds Walls In Jungle", delegate (GenerationProgress progress)
 			{
 				int num = 0;
 				int num2 = 0;
@@ -9464,7 +9696,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Larva", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Larva", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < WorldGen.numLarva; k++)
 				{
@@ -9492,7 +9724,7 @@ namespace Terraria
 				Main.tileSolid[232] = true;
 				Main.tileSolid[162] = true;
 			});
-			WorldGen.AddGenerationPass("Tile Cleanup", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Tile Cleanup", delegate (GenerationProgress progress)
 			{
 				for (int k = 40; k < Main.maxTilesX - 40; k++)
 				{
@@ -9583,6 +9815,7 @@ namespace Terraria
 							int num7 = 0;
 							int num8 = k;
 							num7 += num6 / 2;
+							num7 = (WorldGen.crimson ? 1 : 0);
 							num6 %= 2;
 							num8 -= num6;
 							int num9 = (int)(Main.tile[k, l].frameY / 18);
@@ -9752,12 +9985,17 @@ namespace Terraria
 									Main.tile[num50, num51].frameX = (short)(num48 * 18 + 54 * num45);
 									Main.tile[num50, num51].frameY = (short)(num49 * 18);
 								}
-								if (!Main.tile[num46 + num48, num47 + 2].active())
+								if (!Main.tile[num46 + num48, num47 + 2].active() || !Main.tileSolid[(int)Main.tile[num46 + num48, num47 + 2].type] || Main.tileSolidTop[(int)Main.tile[num46 + num48, num47 + 2].type])
 								{
 									Main.tile[num46 + num48, num47 + 2].active(true);
 									if (!Main.tileSolid[(int)Main.tile[num46 + num48, num47 + 2].type] || Main.tileSolidTop[(int)Main.tile[num46 + num48, num47 + 2].type])
 									{
 										Main.tile[num46 + num48, num47 + 2].type = 0;
+									}
+									if (Main.tile[num46 + num48, num47 + 2].slope() > 0 || Main.tile[num46 + num48, num47 + 2].halfBrick())
+									{
+										Main.tile[num46 + num48, num47 + 2].halfBrick(false);
+										Main.tile[num46 + num48, num47 + 2].slope(0);
 									}
 								}
 								Main.tile[num46 + num48, num47 + 2].slope(0);
@@ -9767,7 +10005,7 @@ namespace Terraria
 					}
 				}
 			});
-			WorldGen.AddGenerationPass("Lihzahrd Altars", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Lihzahrd Altars", delegate (GenerationProgress progress)
 			{
 				int num = WorldGen.lAltarX;
 				int num2 = WorldGen.lAltarY;
@@ -9788,7 +10026,7 @@ namespace Terraria
 					Main.tile[k, num2 + 2].type = 226;
 				}
 			});
-			WorldGen.AddGenerationPass("Micro Biomes", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Micro Biomes", delegate (GenerationProgress progress)
 			{
 				progress.Message = Lang.gen[76];
 				float num = (float)(Main.maxTilesX * Main.maxTilesY) / 5040000f;
@@ -9869,7 +10107,7 @@ namespace Terraria
 				TrackGenerator.Run((int)(10f * num), (int)(num * 25f) + 250);
 				progress.Set(1f);
 			});
-			WorldGen.AddGenerationPass("Final Cleanup", delegate(GenerationProgress progress)
+			WorldGen.AddGenerationPass("Final Cleanup", delegate (GenerationProgress progress)
 			{
 				for (int k = 0; k < Main.maxTilesX; k++)
 				{
@@ -9920,22 +10158,27 @@ namespace Terraria
 			WorldGen._generator.GenerateWorld(customProgressObject);
 			Main.WorldFileMetadata = FileMetadata.FromCurrentSettings(FileType.World);
 		}
+
 		public static Point RandomRectanglePoint(Rectangle rectangle)
 		{
 			return new Point(WorldGen.genRand.Next(rectangle.X, rectangle.X + rectangle.Width), WorldGen.genRand.Next(rectangle.Y, rectangle.Y + rectangle.Height));
 		}
+
 		public static Point RandomRectanglePoint(int x, int y, int width, int height)
 		{
 			return new Point(WorldGen.genRand.Next(x, x + width), WorldGen.genRand.Next(y, y + height));
 		}
+
 		public static Point RandomWorldPoint(int padding)
 		{
 			return WorldGen.RandomWorldPoint(padding, padding, padding, padding);
 		}
+
 		public static Point RandomWorldPoint(int top = 0, int right = 0, int bottom = 0, int left = 0)
 		{
 			return new Point(WorldGen.genRand.Next(left, Main.maxTilesX - right), WorldGen.genRand.Next(top, Main.maxTilesY - bottom));
 		}
+
 		public static bool GrowPalmTree(int i, int y)
 		{
 			int num = y;
@@ -10007,6 +10250,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static bool GrowEpicTree(int i, int y)
 		{
 			int num = y;
@@ -10463,6 +10707,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static bool Pyramid(int i, int j)
 		{
 			ushort num = 151;
@@ -10714,6 +10959,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static bool GrowLivingTree(int i, int j)
 		{
 			int num = 0;
@@ -11399,6 +11645,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static void GrowTree(int i, int y)
 		{
 			int num = y;
@@ -11862,6 +12109,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void GrowUndergroundTree(int i, int y)
 		{
 			if (Main.tile[i, y].type != 60)
@@ -12320,6 +12568,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void GrowShroom(int i, int y)
 		{
 			if (Main.tile[i - 1, y - 1].lava() || Main.tile[i - 1, y - 1].lava() || Main.tile[i + 1, y - 1].lava())
@@ -12375,6 +12624,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void AddTrees()
 		{
 			for (int i = 1; i < Main.maxTilesX - 1; i++)
@@ -12399,6 +12649,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void ExplodeMine(int i, int j)
 		{
 			ushort arg_11_0 = Main.tile[i, j].type;
@@ -12406,6 +12657,7 @@ namespace Terraria
 			NetMessage.SendTileSquare(-1, i, j, 1);
 			Projectile.NewProjectile((float)(i * 16 + 8), (float)(j * 16 + 8), 0f, 0f, 164, 250, 10f, Main.myPlayer, 0f, 0f);
 		}
+
 		public static bool EmptyTileCheck(int startX, int endX, int startY, int endY, int ignoreID = -1)
 		{
 			if (startX < 0)
@@ -12509,11 +12761,12 @@ namespace Terraria
 							return false;
 						}
 					}
-				IL_159: ;
+					IL_159:;
 				}
 			}
 			return true;
 		}
+
 		public static void StartHardmode()
 		{
 			if (Main.netMode == 1 || Main.hardMode)
@@ -12528,12 +12781,17 @@ namespace Terraria
 			Main.InitLifeBytes();
 			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.smCallBack), 1);
 		}
+
 		public static void smCallBack(object threadContext)
 		{
 			WorldGen.IsGeneratingHardMode = true;
 			if (WorldGen.genRand == null)
 			{
 				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
+			}
+			if (Main.rand == null)
+			{
+				Main.rand = new Random((int)DateTime.Now.Ticks);
 			}
 			float num = (float)WorldGen.genRand.Next(300, 400) * 0.001f;
 			float num2 = (float)WorldGen.genRand.Next(200, 300) * 0.001f;
@@ -12656,6 +12914,7 @@ namespace Terraria
 			}
 			WorldGen.IsGeneratingHardMode = false;
 		}
+
 		public static bool PlaceDoor(int i, int j, int type, int style = 0)
 		{
 			int num = 54 * style;
@@ -12689,6 +12948,7 @@ namespace Terraria
 			}
 			return result;
 		}
+
 		public static bool CloseDoor(int i, int j, bool forced = false)
 		{
 			int num = 0;
@@ -12783,6 +13043,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static bool AddLifeCrystal(int i, int j)
 		{
 			int k = j;
@@ -12848,6 +13109,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static void AddShadowOrb(int x, int y)
 		{
 			if (x < 10 || x > Main.maxTilesX - 10)
@@ -12890,6 +13152,7 @@ namespace Terraria
 			Main.tile[x, y].frameX = (short)(18 + num);
 			Main.tile[x, y].frameY = 18;
 		}
+
 		public static void AddHellHouses()
 		{
 			int num = (int)((double)Main.maxTilesX * 0.25);
@@ -13367,26 +13630,23 @@ namespace Terraria
 							{
 								num37 = 1;
 								num38 = 3;
-								goto IL_FAB;
+								break;
 							}
 						case 1:
 							{
 								num37 = 3;
 								num38 = 3;
-								goto IL_FAB;
+								break;
 							}
 						case 2:
 							{
 								num37 = 1;
 								num38 = 2;
-								goto IL_FAB;
+								break;
 							}
 						default:
-							num37 = 1;
-							num38 = 3;
-							goto IL_FAB;
+							goto case 0;
 					}
-				IL_FAB:
 					for (int num39 = num34 - 1; num39 <= num34 + num37; num39++)
 					{
 						for (int num40 = num35; num40 <= num35 + num38; num40++)
@@ -13423,7 +13683,7 @@ namespace Terraria
 							{
 								num36 = -1;
 							}
-						IL_102A: ;
+							IL_102A:;
 						}
 					}
 					switch (num36)
@@ -13442,6 +13702,7 @@ namespace Terraria
 				num33++;
 			}
 		}
+
 		public static void HellFort(int i, int j, ushort tileType = 75, byte wallType = 14)
 		{
 			int[] array = new int[5];
@@ -13841,6 +14102,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void HellHouse(int i, int j, byte type = 76, byte wall = 13)
 		{
 			int num = WorldGen.genRand.Next(8, 20);
@@ -13955,13 +14217,8 @@ namespace Terraria
 								}
 								Main.tile[num19, num20].wall = 0;
 							}
-							catch (Exception ex)
+							catch
 							{
-#if DEBUG
-								Console.WriteLine(ex);
-								System.Diagnostics.Debugger.Break();
-
-#endif
 							}
 						}
 					}
@@ -13969,6 +14226,7 @@ namespace Terraria
 				num15++;
 			}
 		}
+
 		public static void HellRoom(int i, int j, int width, int height, byte type = 76, byte wall = 13)
 		{
 			if (j > Main.maxTilesY - 40)
@@ -13986,13 +14244,8 @@ namespace Terraria
 						Main.tile[k, l].liquid = 0;
 						Main.tile[k, l].lava(false);
 					}
-					catch (Exception ex)
+					catch
 					{
-#if DEBUG
-						Console.WriteLine(ex);
-						System.Diagnostics.Debugger.Break();
-
-#endif
 					}
 				}
 			}
@@ -14007,17 +14260,13 @@ namespace Terraria
 						Main.tile[m, n].liquid = 0;
 						Main.tile[m, n].lava(false);
 					}
-					catch (Exception ex)
+					catch
 					{
-#if DEBUG
-						Console.WriteLine(ex);
-						System.Diagnostics.Debugger.Break();
-
-#endif
 					}
 				}
 			}
 		}
+
 		public static void templeCleaner(int x, int y)
 		{
 			int num = 0;
@@ -14055,6 +14304,7 @@ namespace Terraria
 				Main.tile[x, y].halfBrick(false);
 			}
 		}
+
 		public static Vector2 templePather(Vector2 templePath, int destX, int destY)
 		{
 			int num = (int)templePath.X;
@@ -14091,6 +14341,7 @@ namespace Terraria
 			}
 			return new Vector2((float)num, (float)num2);
 		}
+
 		public static void outerTempled(int x, int y)
 		{
 			if (Main.tile[x, y].active() & Main.tile[x, y].type == 226)
@@ -14118,6 +14369,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void makeTemple(int x, int y)
 		{
 			Rectangle[] array = new Rectangle[40];
@@ -14687,7 +14939,7 @@ namespace Terraria
 			WorldGen.lAltarX = num90 - (int)(Main.tile[num90, num91].frameX / 18);
 			WorldGen.lAltarY = num91 - (int)(Main.tile[num90, num91].frameY / 18);
 			goto IL_1578;
-		Block_117:
+			Block_117:
 			num90 = rectangle3.X + rectangle3.Width / 2;
 			num91 = rectangle3.Y + rectangle3.Height / 2;
 			num90 += WorldGen.genRand.Next(-10, 11);
@@ -14733,7 +14985,7 @@ namespace Terraria
 					Main.tile[x, y].frameY = (short)(num95 * 18);
 				}
 			}
-		IL_1578:
+			IL_1578:
 			float num96 = (float)num2 * 1.1f;
 			num96 *= 1f + (float)WorldGen.genRand.Next(-25, 26) * 0.01f;
 			int num97 = 0;
@@ -14881,6 +15133,7 @@ namespace Terraria
 			WorldGen.tBottom = num55;
 			WorldGen.tRooms = num2;
 		}
+
 		public static void templePart2()
 		{
 			int minValue = WorldGen.tLeft;
@@ -15025,6 +15278,7 @@ namespace Terraria
 			}
 			Main.tileSolid[232] = true;
 		}
+
 		public static bool nearPicture(int x, int y)
 		{
 			for (int i = x - 4; i <= x + 3; i++)
@@ -15039,6 +15293,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static bool nearPicture2(int x, int y)
 		{
 			if (Main.tile[x, y].wall != 7 && Main.tile[x, y].wall != 8 && Main.tile[x, y].wall != 9)
@@ -15069,6 +15324,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static void MakeDungeon(int x, int y)
 		{
 			int num = WorldGen.genRand.Next(3);
@@ -15088,7 +15344,7 @@ namespace Terraria
 			}
 			num2 = 44;
 			num3 = 9;
-		IL_44:
+			IL_44:
 			WorldGen.numDDoors = 0;
 			WorldGen.numDPlats = 0;
 			WorldGen.numDRooms = 0;
@@ -16769,6 +17025,7 @@ namespace Terraria
 				num155++;
 			}
 		}
+
 		public static Vector2 randBoneTile()
 		{
 			int num = WorldGen.genRand.Next(2);
@@ -16793,6 +17050,7 @@ namespace Terraria
 			}
 			return new Vector2((float)num, (float)num2);
 		}
+
 		public static Vector2 randHellPicture()
 		{
 			int num = WorldGen.genRand.Next(4);
@@ -16867,6 +17125,7 @@ namespace Terraria
 			}
 			return new Vector2((float)num, (float)num2);
 		}
+
 		public static Vector2 randHousePicture()
 		{
 			int num = WorldGen.genRand.Next(4);
@@ -16974,6 +17233,7 @@ namespace Terraria
 			}
 			return new Vector2((float)num, (float)num2);
 		}
+
 		public static Vector2 randPictureTile()
 		{
 			int num = WorldGen.genRand.Next(3);
@@ -17058,13 +17318,14 @@ namespace Terraria
 			}
 			return new Vector2((float)num, (float)num2);
 		}
+
 		public static void DungeonStairs(int i, int j, ushort tileType, int wallType)
 		{
 			Vector2 zero = Vector2.Zero;
 			double num = (double)WorldGen.genRand.Next(5, 9);
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
 			int k = WorldGen.genRand.Next(10, 30);
 			int num2;
 			if (i > WorldGen.dEnteranceX)
@@ -17108,10 +17369,10 @@ namespace Terraria
 			while (k > 0)
 			{
 				k--;
-				int num3 = (int)((double)vector.X - num - 4.0 - (double)WorldGen.genRand.Next(6));
-				int num4 = (int)((double)vector.X + num + 4.0 + (double)WorldGen.genRand.Next(6));
-				int num5 = (int)((double)vector.Y - num - 4.0);
-				int num6 = (int)((double)vector.Y + num + 4.0 + (double)WorldGen.genRand.Next(6));
+				int num3 = (int)((double)value.X - num - 4.0 - (double)WorldGen.genRand.Next(6));
+				int num4 = (int)((double)value.X + num + 4.0 + (double)WorldGen.genRand.Next(6));
+				int num5 = (int)((double)value.Y - num - 4.0);
+				int num6 = (int)((double)value.Y + num + 4.0 + (double)WorldGen.genRand.Next(6));
 				if (num3 < 0)
 				{
 					num3 = 0;
@@ -17129,16 +17390,16 @@ namespace Terraria
 					num6 = Main.maxTilesY;
 				}
 				int num7 = 1;
-				if (vector.X > (float)(Main.maxTilesX / 2))
+				if (value.X > (float)(Main.maxTilesX / 2))
 				{
 					num7 = -1;
 				}
-				int num8 = (int)(vector.X + (float)WorldGen.dxStrength1 * 0.6f * (float)num7 + (float)WorldGen.dxStrength2 * (float)num7);
+				int num8 = (int)(value.X + (float)WorldGen.dxStrength1 * 0.6f * (float)num7 + (float)WorldGen.dxStrength2 * (float)num7);
 				int num9 = (int)(WorldGen.dyStrength2 * 0.5);
-				if ((double)vector.Y < Main.worldSurface - 5.0 && Main.tile[num8, (int)((double)vector.Y - num - 6.0 + (double)num9)].wall == 0 && Main.tile[num8, (int)((double)vector.Y - num - 7.0 + (double)num9)].wall == 0 && Main.tile[num8, (int)((double)vector.Y - num - 8.0 + (double)num9)].wall == 0)
+				if ((double)value.Y < Main.worldSurface - 5.0 && Main.tile[num8, (int)((double)value.Y - num - 6.0 + (double)num9)].wall == 0 && Main.tile[num8, (int)((double)value.Y - num - 7.0 + (double)num9)].wall == 0 && Main.tile[num8, (int)((double)value.Y - num - 8.0 + (double)num9)].wall == 0)
 				{
 					WorldGen.dSurface = true;
-					WorldGen.TileRunner(num8, (int)((double)vector.Y - num - 6.0 + (double)num9), (double)WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(10, 20), -1, false, 0f, -1f, false, true);
+					WorldGen.TileRunner(num8, (int)((double)value.Y - num - 6.0 + (double)num9), (double)WorldGen.genRand.Next(25, 35), WorldGen.genRand.Next(10, 20), -1, false, 0f, -1f, false, true);
 				}
 				for (int l = num3; l < num4; l++)
 				{
@@ -17165,10 +17426,10 @@ namespace Terraria
 				{
 					num11 = WorldGen.genRand.Next(1, 3);
 				}
-				num3 = (int)((double)vector.X - num * 0.5 - (double)num11);
-				num4 = (int)((double)vector.X + num * 0.5 + (double)num11);
-				num5 = (int)((double)vector.Y - num * 0.5 - (double)num11);
-				num6 = (int)((double)vector.Y + num * 0.5 + (double)num11);
+				num3 = (int)((double)value.X - num * 0.5 - (double)num11);
+				num4 = (int)((double)value.X + num * 0.5 + (double)num11);
+				num5 = (int)((double)value.Y - num * 0.5 - (double)num11);
+				num6 = (int)((double)value.Y + num * 0.5 + (double)num11);
 				if (num3 < 0)
 				{
 					num3 = 0;
@@ -17197,15 +17458,16 @@ namespace Terraria
 				{
 					k = 0;
 				}
-				vector += zero;
-				if ((double)vector.Y < Main.worldSurface)
+				value += zero;
+				if ((double)value.Y < Main.worldSurface)
 				{
 					zero.Y *= 0.98f;
 				}
 			}
-			WorldGen.dungeonX = (int)vector.X;
-			WorldGen.dungeonY = (int)vector.Y;
+			WorldGen.dungeonX = (int)value.X;
+			WorldGen.dungeonY = (int)value.Y;
 		}
+
 		public static void DungeonHalls(int i, int j, ushort tileType, int wallType, bool forceX = false)
 		{
 			Vector2 zero = Vector2.Zero;
@@ -17213,9 +17475,9 @@ namespace Terraria
 			double num2 = num;
 			Vector2 zero2 = Vector2.Zero;
 			Vector2 zero3 = Vector2.Zero;
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
 			int k = WorldGen.genRand.Next(35, 80);
 			if (forceX)
 			{
@@ -17435,7 +17697,7 @@ namespace Terraria
 			int num7 = 0;
 			if (!forceX)
 			{
-				if (vector.X > (float)(WorldGen.lastMaxTilesX - 200))
+				if (value.X > (float)(WorldGen.lastMaxTilesX - 200))
 				{
 					int num5 = -1;
 					zero2.Y = 0f;
@@ -17454,7 +17716,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (vector.X < 200f)
+				else if (value.X < 200f)
 				{
 					int num5 = 1;
 					zero2.Y = 0f;
@@ -17473,7 +17735,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (vector.Y > (float)(WorldGen.lastMaxTilesY - 300))
+				else if (value.Y > (float)(WorldGen.lastMaxTilesY - 300))
 				{
 					int num5 = -1;
 					num += 1.0;
@@ -17493,7 +17755,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if ((double)vector.Y < Main.rockLayer + 100.0)
+				else if ((double)value.Y < Main.rockLayer + 100.0)
 				{
 					int num5 = 1;
 					num += 1.0;
@@ -17525,7 +17787,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (vector.X < (float)(Main.maxTilesX / 2) && (double)vector.X > (double)Main.maxTilesX * 0.25)
+				else if (value.X < (float)(Main.maxTilesX / 2) && (double)value.X > (double)Main.maxTilesX * 0.25)
 				{
 					int num5 = -1;
 					zero2.Y = 0f;
@@ -17544,7 +17806,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (vector.X > (float)(Main.maxTilesX / 2) && (double)vector.X < (double)Main.maxTilesX * 0.75)
+				else if (value.X > (float)(Main.maxTilesX / 2) && (double)value.X < (double)Main.maxTilesX * 0.75)
 				{
 					int num5 = 1;
 					zero2.Y = 0f;
@@ -17566,15 +17828,15 @@ namespace Terraria
 			}
 			if (zero2.Y == 0f)
 			{
-				WorldGen.DDoorX[WorldGen.numDDoors] = (int)vector.X;
-				WorldGen.DDoorY[WorldGen.numDDoors] = (int)vector.Y;
+				WorldGen.DDoorX[WorldGen.numDDoors] = (int)value.X;
+				WorldGen.DDoorY[WorldGen.numDDoors] = (int)value.Y;
 				WorldGen.DDoorPos[WorldGen.numDDoors] = 0;
 				WorldGen.numDDoors++;
 			}
 			else
 			{
-				WorldGen.DPlatX[WorldGen.numDPlats] = (int)vector.X;
-				WorldGen.DPlatY[WorldGen.numDPlats] = (int)vector.Y;
+				WorldGen.DPlatX[WorldGen.numDPlats] = (int)value.X;
+				WorldGen.DPlatY[WorldGen.numDPlats] = (int)value.Y;
 				WorldGen.numDPlats++;
 			}
 			WorldGen.lastDungeonHall = zero2;
@@ -17585,27 +17847,27 @@ namespace Terraria
 			while (k > 0)
 			{
 				num7++;
-				if (zero2.X > 0f && vector.X > (float)(Main.maxTilesX - 100))
+				if (zero2.X > 0f && value.X > (float)(Main.maxTilesX - 100))
 				{
 					k = 0;
 				}
-				else if (zero2.X < 0f && vector.X < 100f)
+				else if (zero2.X < 0f && value.X < 100f)
 				{
 					k = 0;
 				}
-				else if (zero2.Y > 0f && vector.Y > (float)(Main.maxTilesY - 100))
+				else if (zero2.Y > 0f && value.Y > (float)(Main.maxTilesY - 100))
 				{
 					k = 0;
 				}
-				else if (zero2.Y < 0f && (double)vector.Y < Main.rockLayer + 50.0)
+				else if (zero2.Y < 0f && (double)value.Y < Main.rockLayer + 50.0)
 				{
 					k = 0;
 				}
 				k--;
-				int num8 = (int)((double)vector.X - num - 4.0 - (double)WorldGen.genRand.Next(6));
-				int num9 = (int)((double)vector.X + num + 4.0 + (double)WorldGen.genRand.Next(6));
-				int num10 = (int)((double)vector.Y - num - 4.0 - (double)WorldGen.genRand.Next(6));
-				int num11 = (int)((double)vector.Y + num + 4.0 + (double)WorldGen.genRand.Next(6));
+				int num8 = (int)((double)value.X - num - 4.0 - (double)WorldGen.genRand.Next(6));
+				int num9 = (int)((double)value.X + num + 4.0 + (double)WorldGen.genRand.Next(6));
+				int num10 = (int)((double)value.Y - num - 4.0 - (double)WorldGen.genRand.Next(6));
+				int num11 = (int)((double)value.Y + num + 4.0 + (double)WorldGen.genRand.Next(6));
 				if (num8 < 0)
 				{
 					num8 = 0;
@@ -17666,10 +17928,10 @@ namespace Terraria
 				{
 					num16 = WorldGen.genRand.Next(1, 3);
 				}
-				num8 = (int)((double)vector.X - num * 0.5 - (double)num16);
-				num9 = (int)((double)vector.X + num * 0.5 + (double)num16);
-				num10 = (int)((double)vector.Y - num * 0.5 - (double)num16);
-				num11 = (int)((double)vector.Y + num * 0.5 + (double)num16);
+				num8 = (int)((double)value.X - num * 0.5 - (double)num16);
+				num9 = (int)((double)value.X + num * 0.5 + (double)num16);
+				num10 = (int)((double)value.Y - num * 0.5 - (double)num16);
+				num11 = (int)((double)value.Y + num * 0.5 + (double)num16);
 				if (num8 < 0)
 				{
 					num8 = 0;
@@ -17694,48 +17956,49 @@ namespace Terraria
 						Main.tile[num17, num18].wall = (byte)wallType;
 					}
 				}
-				vector += zero;
+				value += zero;
 				if (flag2 && num7 > WorldGen.genRand.Next(10, 20))
 				{
 					num7 = 0;
 					zero.X *= -1f;
 				}
 			}
-			WorldGen.dungeonX = (int)vector.X;
-			WorldGen.dungeonY = (int)vector.Y;
+			WorldGen.dungeonX = (int)value.X;
+			WorldGen.dungeonY = (int)value.Y;
 			if (zero2.Y == 0f)
 			{
-				WorldGen.DDoorX[WorldGen.numDDoors] = (int)vector.X;
-				WorldGen.DDoorY[WorldGen.numDDoors] = (int)vector.Y;
+				WorldGen.DDoorX[WorldGen.numDDoors] = (int)value.X;
+				WorldGen.DDoorY[WorldGen.numDDoors] = (int)value.Y;
 				WorldGen.DDoorPos[WorldGen.numDDoors] = 0;
 				WorldGen.numDDoors++;
 				return;
 			}
-			WorldGen.DPlatX[WorldGen.numDPlats] = (int)vector.X;
-			WorldGen.DPlatY[WorldGen.numDPlats] = (int)vector.Y;
+			WorldGen.DPlatX[WorldGen.numDPlats] = (int)value.X;
+			WorldGen.DPlatY[WorldGen.numDPlats] = (int)value.Y;
 			WorldGen.numDPlats++;
 		}
+
 		public static void DungeonRoom(int i, int j, ushort tileType, int wallType)
 		{
 			double num = (double)WorldGen.genRand.Next(15, 30);
-			Vector2 vector;
-			vector.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			vector.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			Vector2 vector2;
-			vector2.X = (float)i;
-			vector2.Y = (float)j - (float)num / 2f;
+			Vector2 value;
+			value.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			value.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			Vector2 value2;
+			value2.X = (float)i;
+			value2.Y = (float)j - (float)num / 2f;
 			int k = WorldGen.genRand.Next(10, 20);
-			double num2 = (double)vector2.X;
-			double num3 = (double)vector2.X;
-			double num4 = (double)vector2.Y;
-			double num5 = (double)vector2.Y;
+			double num2 = (double)value2.X;
+			double num3 = (double)value2.X;
+			double num4 = (double)value2.Y;
+			double num5 = (double)value2.Y;
 			while (k > 0)
 			{
 				k--;
-				int num6 = (int)((double)vector2.X - num * 0.800000011920929 - 5.0);
-				int num7 = (int)((double)vector2.X + num * 0.800000011920929 + 5.0);
-				int num8 = (int)((double)vector2.Y - num * 0.800000011920929 - 5.0);
-				int num9 = (int)((double)vector2.Y + num * 0.800000011920929 + 5.0);
+				int num6 = (int)((double)value2.X - num * 0.800000011920929 - 5.0);
+				int num7 = (int)((double)value2.X + num * 0.800000011920929 + 5.0);
+				int num8 = (int)((double)value2.Y - num * 0.800000011920929 - 5.0);
+				int num9 = (int)((double)value2.Y + num * 0.800000011920929 + 5.0);
 				if (num6 < 0)
 				{
 					num6 = 0;
@@ -17783,10 +18046,10 @@ namespace Terraria
 						Main.tile[n, num10].wall = (byte)wallType;
 					}
 				}
-				num6 = (int)((double)vector2.X - num * 0.5);
-				num7 = (int)((double)vector2.X + num * 0.5);
-				num8 = (int)((double)vector2.Y - num * 0.5);
-				num9 = (int)((double)vector2.Y + num * 0.5);
+				num6 = (int)((double)value2.X - num * 0.5);
+				num7 = (int)((double)value2.X + num * 0.5);
+				num8 = (int)((double)value2.Y - num * 0.5);
+				num9 = (int)((double)value2.Y + num * 0.5);
 				if (num6 < 0)
 				{
 					num6 = 0;
@@ -17827,28 +18090,28 @@ namespace Terraria
 						Main.tile[num11, num12].wall = (byte)wallType;
 					}
 				}
-				vector2 += vector;
-				vector.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				vector.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if (vector.X > 1f)
+				value2 += value;
+				value.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				value.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if (value.X > 1f)
 				{
-					vector.X = 1f;
+					value.X = 1f;
 				}
-				if (vector.X < -1f)
+				if (value.X < -1f)
 				{
-					vector.X = -1f;
+					value.X = -1f;
 				}
-				if (vector.Y > 1f)
+				if (value.Y > 1f)
 				{
-					vector.Y = 1f;
+					value.Y = 1f;
 				}
-				if (vector.Y < -1f)
+				if (value.Y < -1f)
 				{
-					vector.Y = -1f;
+					value.Y = -1f;
 				}
 			}
-			WorldGen.dRoomX[WorldGen.numDRooms] = (int)vector2.X;
-			WorldGen.dRoomY[WorldGen.numDRooms] = (int)vector2.Y;
+			WorldGen.dRoomX[WorldGen.numDRooms] = (int)value2.X;
+			WorldGen.dRoomY[WorldGen.numDRooms] = (int)value2.Y;
 			WorldGen.dRoomSize[WorldGen.numDRooms] = (int)num;
 			WorldGen.dRoomL[WorldGen.numDRooms] = (int)num2;
 			WorldGen.dRoomR[WorldGen.numDRooms] = (int)num3;
@@ -17857,6 +18120,7 @@ namespace Terraria
 			WorldGen.dRoomTreasure[WorldGen.numDRooms] = false;
 			WorldGen.numDRooms++;
 		}
+
 		public static void DungeonEnt(int i, int j, ushort tileType, int wallType)
 		{
 			int num = 60;
@@ -18381,10 +18645,12 @@ namespace Terraria
 			}
 			WorldGen.PlaceTile((int)vector.X, (int)vector.Y + 1, 10, true, false, -1, 13);
 		}
+
 		public static bool AddBuriedChest(Point point, int contain = 0, bool notNearOtherChests = false, int Style = -1)
 		{
 			return WorldGen.AddBuriedChest(point.X, point.Y, contain, notNearOtherChests, Style);
 		}
+
 		public static bool AddBuriedChest(int i, int j, int contain = 0, bool notNearOtherChests = false, int Style = -1)
 		{
 			bool flag = false;
@@ -19380,6 +19646,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static void UnlockDoor(int i, int j)
 		{
 			int num = j;
@@ -19401,10 +19668,10 @@ namespace Terraria
 				{
 					Main.tile[i, k] = new Tile();
 				}
-				Tile expr_8E = Main.tile[i, k];
-				expr_8E.frameY += 54;
+				Main.tile[i, k].frameY += 54;
 			}
 		}
+
 		public static bool OpenDoor(int i, int j, int direction)
 		{
 			if (Main.tile[i, j - 1] == null)
@@ -19548,6 +19815,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static void Check1xX(int x, int j, byte type)
 		{
 			if (WorldGen.destroyObject)
@@ -19612,7 +19880,7 @@ namespace Terraria
 				}
 				if (type == 92)
 				{
-					Item.NewItem(x * 16, j * 16, 32, 32, 341, 1, false, 0, false);
+					Item.NewItem(x * 16, j * 16, 32, 32, 341, 1, false, 0, false, false);
 				}
 				if (type == 93)
 				{
@@ -19685,11 +19953,12 @@ namespace Terraria
 					{
 						type2 = 3136;
 					}
-					Item.NewItem(x * 16, j * 16, 32, 32, type2, 1, false, 0, false);
+					Item.NewItem(x * 16, j * 16, 32, 32, type2, 1, false, 0, false, false);
 				}
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void Check2xX(int i, int j, ushort type)
 		{
 			if (WorldGen.destroyObject)
@@ -19841,7 +20110,7 @@ namespace Terraria
 					{
 						type2 = 359;
 					}
-					Item.NewItem(num * 16, j * 16, 32, 32, type2, 1, false, 0, false);
+					Item.NewItem(num * 16, j * 16, 32, 32, type2, 1, false, 0, false, false);
 				}
 				if (type == 105)
 				{
@@ -19890,16 +20159,16 @@ namespace Terraria
 					{
 						num6 = 438 + num6 - 2;
 					}
-					Item.NewItem(num * 16, j * 16, 32, 32, num6, 1, false, 0, false);
+					Item.NewItem(num * 16, j * 16, 32, 32, num6, 1, false, 0, false, false);
 				}
 				if (type == 356)
 				{
-					Item.NewItem(num * 16, j * 16, 32, 32, 3064, 1, false, 0, false);
+					Item.NewItem(num * 16, j * 16, 32, 32, 3064, 1, false, 0, false, false);
 				}
 				if (type == 337)
 				{
 					int num7 = frameX / 36;
-					Item.NewItem(num * 16, j * 16, 32, 32, 2702 + num7, 1, false, 0, false);
+					Item.NewItem(num * 16, j * 16, 32, 32, 2702 + num7, 1, false, 0, false, false);
 				}
 				if (type == 207)
 				{
@@ -19916,29 +20185,30 @@ namespace Terraria
 					{
 						num8 = 938 + num8;
 					}
-					Item.NewItem(num * 16, j * 16, 32, 32, num8, 1, false, 0, false);
+					Item.NewItem(num * 16, j * 16, 32, 32, num8, 1, false, 0, false, false);
 				}
 				if (type == 410)
 				{
 					int num9 = frameX / 36;
-					Item.NewItem(num * 16, j * 16, 32, 32, num9 + 3536, 1, false, 0, false);
+					Item.NewItem(num * 16, j * 16, 32, 32, num9 + 3536, 1, false, 0, false, false);
 				}
 				if (type == 320)
 				{
-					Item.NewItem(num * 16, j * 16, 32, 32, 2496, 1, false, 0, false);
+					Item.NewItem(num * 16, j * 16, 32, 32, 2496, 1, false, 0, false, false);
 				}
 				if (type == 349)
 				{
-					Item.NewItem(num * 16, j * 16, 32, 32, 470, 1, false, 0, false);
+					Item.NewItem(num * 16, j * 16, 32, 32, 470, 1, false, 0, false, false);
 				}
 				if (type == 378)
 				{
-					Item.NewItem(num * 16, j * 16, 32, 48, 3202, 1, false, 0, false);
+					Item.NewItem(num * 16, j * 16, 32, 48, 3202, 1, false, 0, false, false);
 					TETrainingDummy.Kill(num, num4);
 				}
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void PlaceTight(int x, int y, ushort type = 165, bool spiders = false)
 		{
 			if (Main.tile[x, y - 1] == null)
@@ -20209,6 +20479,7 @@ namespace Terraria
 				WorldGen.CheckTight(x, y);
 			}
 		}
+
 		public static void TightBiome(int x, int j)
 		{
 			if (Main.netMode == 1)
@@ -20352,10 +20623,6 @@ namespace Terraria
 				{
 					num5 += 486;
 				}
-				else if (num4 == 7)
-				{
-					//num5 = num5;
-				}
 				for (int i = num; i < num + num2; i++)
 				{
 					Main.tile[x, i].frameX = (short)num5;
@@ -20366,6 +20633,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void CheckTight(int x, int j)
 		{
 			if (Main.tile[x, j] == null)
@@ -20528,6 +20796,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Place1xX(int x, int y, ushort type, int style = 0)
 		{
 			int num = style * 18;
@@ -20563,6 +20832,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static int checkXmasTreeDrop(int x, int y, int obj)
 		{
 			int num = x;
@@ -20650,6 +20920,7 @@ namespace Terraria
 			}
 			return -1;
 		}
+
 		public static void dropXmasTree(int x, int y, int obj)
 		{
 			int num = x;
@@ -20721,7 +20992,7 @@ namespace Terraria
 			}
 			if (obj == 0 && num3 > 0)
 			{
-				int number = Item.NewItem(x * 16, y * 16, 16, 16, 1874 + num3 - 1, 1, false, 0, false);
+				int number = Item.NewItem(x * 16, y * 16, 16, 16, 1874 + num3 - 1, 1, false, 0, false, false);
 				if (Main.netMode == 1)
 				{
 					NetMessage.SendData(21, -1, -1, "", number, 1f, 0f, 0f, 0, 0, 0);
@@ -20730,7 +21001,7 @@ namespace Terraria
 			}
 			else if (obj == 1 && num4 > 0)
 			{
-				int number2 = Item.NewItem(x * 16, y * 16, 16, 16, 1878 + num4 - 1, 1, false, 0, false);
+				int number2 = Item.NewItem(x * 16, y * 16, 16, 16, 1878 + num4 - 1, 1, false, 0, false, false);
 				if (Main.netMode == 1)
 				{
 					NetMessage.SendData(21, -1, -1, "", number2, 1f, 0f, 0f, 0, 0, 0);
@@ -20739,7 +21010,7 @@ namespace Terraria
 			}
 			else if (obj == 2 && num5 > 0)
 			{
-				int number3 = Item.NewItem(x * 16, y * 16, 16, 16, 1884 + num5 - 1, 1, false, 0, false);
+				int number3 = Item.NewItem(x * 16, y * 16, 16, 16, 1884 + num5 - 1, 1, false, 0, false, false);
 				if (Main.netMode == 1)
 				{
 					NetMessage.SendData(21, -1, -1, "", number3, 1f, 0f, 0f, 0, 0, 0);
@@ -20748,13 +21019,14 @@ namespace Terraria
 			}
 			else if (obj == 3 && num6 > 0)
 			{
-				int number4 = Item.NewItem(x * 16, y * 16, 16, 16, 1895 + num6 - 1, 1, false, 0, false);
+				int number4 = Item.NewItem(x * 16, y * 16, 16, 16, 1895 + num6 - 1, 1, false, 0, false, false);
 				if (Main.netMode == 1)
 				{
 					NetMessage.SendData(21, -1, -1, "", number4, 1f, 0f, 0f, 0, 0, 0);
 				}
 			}
 		}
+
 		public static void setXmasTree(int x, int y, int obj, int style)
 		{
 			int num = x;
@@ -20773,7 +21045,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -2);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -2));
 				}
 				if ((style & 2) == 2)
 				{
@@ -20782,7 +21054,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -3);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -3));
 				}
 				if ((style & 4) == 4)
 				{
@@ -20791,7 +21063,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -5);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -5));
 				}
 			}
 			if (obj == 1)
@@ -20803,7 +21075,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -9);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -9));
 				}
 				if ((style & 2) == 2)
 				{
@@ -20812,7 +21084,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -17);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -17));
 				}
 				if ((style & 4) == 4)
 				{
@@ -20821,7 +21093,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -33);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -33));
 				}
 			}
 			if (obj == 2)
@@ -20833,7 +21105,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -65);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -65));
 				}
 				if ((style & 2) == 2)
 				{
@@ -20842,7 +21114,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -129);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -129));
 				}
 				if ((style & 4) == 4)
 				{
@@ -20851,7 +21123,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -257);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -257));
 				}
 				if ((style & 8) == 8)
 				{
@@ -20860,7 +21132,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -513);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -513));
 				}
 			}
 			if (obj == 3)
@@ -20872,7 +21144,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -1025);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -1025));
 				}
 				if ((style & 2) == 2)
 				{
@@ -20881,7 +21153,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -2049);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -2049));
 				}
 				if ((style & 4) == 4)
 				{
@@ -20890,7 +21162,7 @@ namespace Terraria
 				}
 				else
 				{
-					Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -4097);
+					Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -4097));
 				}
 				if ((style & 8) == 8)
 				{
@@ -20898,9 +21170,10 @@ namespace Terraria
 					expr_443.frameY |= 8192;
 					return;
 				}
-				Main.tile[num, num2].frameY = (short)(Main.tile[num, num2].frameY & -8193);
+				Main.tile[num, num2].frameY = (short)((Main.tile[num, num2].frameY & -8193));
 			}
 		}
+
 		public static int PlaceXmasTree_Direct(int x, int y, int type, int style, int dir)
 		{
 			for (short num = 0; num < 4; num += 1)
@@ -20924,6 +21197,7 @@ namespace Terraria
 			}
 			return 0;
 		}
+
 		public static void PlaceXmasTree(int x, int y, ushort type = 171)
 		{
 			bool flag = true;
@@ -20970,6 +21244,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void CheckXmasTree(int x, int y)
 		{
 			if (WorldGen.destroyObject)
@@ -21022,10 +21297,11 @@ namespace Terraria
 						}
 					}
 				}
-				Item.NewItem(x * 16, y * 16, 32, 32, 1873, 1, false, 0, false);
+				Item.NewItem(x * 16, y * 16, 32, 32, 1873, 1, false, 0, false, false);
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void Place2xX(int x, int y, ushort type, int style = 0)
 		{
 			int num = style * 36;
@@ -21079,6 +21355,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Check1x2(int x, int j, ushort type)
 		{
 			if (WorldGen.destroyObject)
@@ -21192,15 +21469,15 @@ namespace Terraria
 				}
 				if (type == 216)
 				{
-					Item.NewItem(x * 16, num * 16, 32, 32, 970 + num2, 1, false, 0, false);
+					Item.NewItem(x * 16, num * 16, 32, 32, 970 + num2, 1, false, 0, false, false);
 				}
 				if (type == 338)
 				{
-					Item.NewItem(x * 16, num * 16, 32, 32, 2738, 1, false, 0, false);
+					Item.NewItem(x * 16, num * 16, 32, 32, 2738, 1, false, 0, false, false);
 				}
 				if (type == 390)
 				{
-					Item.NewItem(x * 16, num * 16, 16, 32, 3253, 1, false, 0, false);
+					Item.NewItem(x * 16, num * 16, 16, 32, 3253, 1, false, 0, false, false);
 				}
 				if (type == 15)
 				{
@@ -21329,22 +21606,23 @@ namespace Terraria
 					{
 						type3 = 34;
 					}
-					Item.NewItem(x * 16, num * 16, 32, 32, type3, 1, false, 0, false);
+					Item.NewItem(x * 16, num * 16, 32, 32, type3, 1, false, 0, false, false);
 				}
 				else if (type == 134)
 				{
 					if (num2 == 1)
 					{
-						Item.NewItem(x * 16, num * 16, 32, 32, 1220, 1, false, 0, false);
+						Item.NewItem(x * 16, num * 16, 32, 32, 1220, 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem(x * 16, num * 16, 32, 32, 525, 1, false, 0, false);
+						Item.NewItem(x * 16, num * 16, 32, 32, 525, 1, false, 0, false, false);
 					}
 				}
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void CheckOnTable1x1(int x, int y, int type)
 		{
 			if (Main.tile[x, y + 1] != null && (!Main.tile[x, y + 1].active() || !Main.tileTable[(int)Main.tile[x, y + 1].type] || Main.tile[x, y + 1].topSlope() || Main.tile[x, y + 1].halfBrick()))
@@ -21363,6 +21641,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void CheckSign(int x, int y, ushort type)
 		{
 			if (WorldGen.destroyObject)
@@ -21516,16 +21795,16 @@ namespace Terraria
 					{
 						type2 = 1173 + num10 - 1;
 					}
-					Item.NewItem(x * 16, y * 16, 32, 32, type2, 1, false, 0, false);
+					Item.NewItem(x * 16, y * 16, 32, 32, type2, 1, false, 0, false, false);
 				}
 				else if (type == 395)
 				{
-					Item.NewItem(num7 * 16, num8 * 16, 32, 32, 3270, 1, false, 0, false);
+					Item.NewItem(num7 * 16, num8 * 16, 32, 32, 3270, 1, false, 0, false, false);
 					TEItemFrame.Kill(num7, num8);
 				}
 				else
 				{
-					Item.NewItem(x * 16, y * 16, 32, 32, 171, 1, false, 0, false);
+					Item.NewItem(x * 16, y * 16, 32, 32, 171, 1, false, 0, false, false);
 				}
 				WorldGen.destroyObject = false;
 				return;
@@ -21542,6 +21821,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static bool PlaceSign(int x, int y, ushort type, int Style = 0)
 		{
 			int num = x - 2;
@@ -21623,6 +21903,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static bool Place2x2Horizontal(int x, int y, ushort type, int Style = 0)
 		{
 			int num = x - 2;
@@ -21677,6 +21958,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static Color paintColor(int color)
 		{
 			Color white = Color.White;
@@ -21791,9 +22073,11 @@ namespace Terraria
 			}
 			return white;
 		}
-		public static void paintEffect(int x, int y, byte? color, byte? oldColor)
+
+		public static void paintEffect(int x, int y, byte color, byte oldColor)
 		{
 		}
+
 		public static bool paintTile(int x, int y, byte color, bool broadCast = false)
 		{
 			if (Main.tile[x, y] == null || !Main.tile[x, y].active())
@@ -21809,6 +22093,7 @@ namespace Terraria
 			WorldGen.paintEffect(x, y, color, oldColor);
 			return true;
 		}
+
 		public static bool paintWall(int x, int y, byte color, bool broadCast = false)
 		{
 			if (Main.tile[x, y] == null || Main.tile[x, y].wall == 0)
@@ -21824,6 +22109,7 @@ namespace Terraria
 			WorldGen.paintEffect(x, y, color, oldColor);
 			return true;
 		}
+
 		public static void Place3x3Wall(int x, int y, ushort type, int style)
 		{
 			int num = x - 1;
@@ -21862,6 +22148,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Check3x3Wall(int x, int y)
 		{
 			if (WorldGen.destroyObject)
@@ -21917,104 +22204,105 @@ namespace Terraria
 				{
 					if (num == 37)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1856, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1856, 1, false, 0, false, false);
 					}
 					else if (num == 36)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1855, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1855, 1, false, 0, false, false);
 					}
 					else if (num == 38)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1960, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1960, 1, false, 0, false, false);
 					}
 					else if (num == 39)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1961, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1961, 1, false, 0, false, false);
 					}
 					else if (num == 40)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1962, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1962, 1, false, 0, false, false);
 					}
 					else if (num == 33)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1574, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1574, 1, false, 0, false, false);
 					}
 					else if (num == 34)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1575, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1575, 1, false, 0, false, false);
 					}
 					else if (num == 35)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1576, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1576, 1, false, 0, false, false);
 					}
 					else if (num == 18)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1419, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1419, 1, false, 0, false, false);
 					}
 					else if (num == 19)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1420, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1420, 1, false, 0, false, false);
 					}
 					else if (num == 20)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1427, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1427, 1, false, 0, false, false);
 					}
 					else if (num == 21)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1428, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1428, 1, false, 0, false, false);
 					}
 					else if (num == 54)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 2489, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 2489, 1, false, 0, false, false);
 					}
 					else if (num == 55)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 2589, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 2589, 1, false, 0, false, false);
 					}
 					else if (num == 56)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 3357, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 3357, 1, false, 0, false, false);
 					}
 					else if (num == 57)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 3358, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 3358, 1, false, 0, false, false);
 					}
 					else if (num == 58)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 3359, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 3359, 1, false, 0, false, false);
 					}
 					else if (num == 59)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 3595, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 3595, 1, false, 0, false, false);
 					}
 					else if (num >= 41 && num <= 45)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 2114 + num - 41, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 2114 + num - 41, 1, false, 0, false, false);
 					}
 					else if (num >= 46 && num <= 53)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 2442 + num - 46, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 2442 + num - 46, 1, false, 0, false, false);
 					}
 					else if (num >= 22 && num <= 25)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1440 + num - 22, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1440 + num - 22, 1, false, 0, false, false);
 					}
 					else if (num >= 26 && num <= 29)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1496 + num - 26, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1496 + num - 26, 1, false, 0, false, false);
 					}
 					else if (num >= 30 && num <= 32)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1538 + num - 30, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1538 + num - 30, 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1360 + num, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1360 + num, 1, false, 0, false, false);
 					}
 				}
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void Place2x3Wall(int x, int y, ushort type, int style)
 		{
 			int num = y - 1;
@@ -22046,6 +22334,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Check2x3Wall(int x, int y)
 		{
 			if (WorldGen.destroyObject)
@@ -22092,20 +22381,21 @@ namespace Terraria
 				{
 					if (num == 6)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1577, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1577, 1, false, 0, false, false);
 					}
 					else if (num == 5)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1495, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1495, 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1474 + num, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1474 + num, 1, false, 0, false, false);
 					}
 				}
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void Place3x2Wall(int x, int y, ushort type, int style)
 		{
 			int num = x - 1;
@@ -22137,6 +22427,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Check3x2Wall(int x, int y)
 		{
 			if (WorldGen.destroyObject)
@@ -22183,24 +22474,25 @@ namespace Terraria
 				{
 					if (num == 16)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1541, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1541, 1, false, 0, false, false);
 					}
 					else if (num == 17)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1542, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1542, 1, false, 0, false, false);
 					}
 					else if (num == 18)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1908, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1908, 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1479 + num, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1479 + num, 1, false, 0, false, false);
 					}
 				}
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void Place4x3Wall(int x, int y, ushort type, int style)
 		{
 			int num = x - 1;
@@ -22233,6 +22525,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Check4x3Wall(int x, int y)
 		{
 			if (WorldGen.destroyObject)
@@ -22277,11 +22570,12 @@ namespace Terraria
 				}
 				if (type == 241)
 				{
-					Item.NewItem(x * 16, y * 16, 32, 32, 1417, 1, false, 0, false);
+					Item.NewItem(x * 16, y * 16, 32, 32, 1417, 1, false, 0, false, false);
 				}
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void Place6x4Wall(int x, int y, ushort type, int style)
 		{
 			int num = x - 2;
@@ -22314,6 +22608,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Check6x4Wall(int x, int y)
 		{
 			if (WorldGen.destroyObject)
@@ -22359,56 +22654,57 @@ namespace Terraria
 				{
 					if (num3 == 30)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 2995, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 2995, 1, false, 0, false, false);
 					}
 					else if (num3 >= 31 && num3 <= 35)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 3055 + num3 - 31, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 3055 + num3 - 31, 1, false, 0, false, false);
 					}
 					else if (num3 >= 27 && num3 <= 29)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 2865 + num3 - 27, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 2865 + num3 - 27, 1, false, 0, false, false);
 					}
 					else if (num3 == 36)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 3596, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 3596, 1, false, 0, false, false);
 					}
 					else if (num3 == 26)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 2497, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 2497, 1, false, 0, false, false);
 					}
 					else if (num3 == 25)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 2495, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 2495, 1, false, 0, false, false);
 					}
 					else if (num3 >= 22)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 2281 + num3 - 22, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 2281 + num3 - 22, 1, false, 0, false, false);
 					}
 					else if (num3 >= 17)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1846 + num3 - 17, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1846 + num3 - 17, 1, false, 0, false, false);
 					}
 					else if (num3 == 16)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1573, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1573, 1, false, 0, false, false);
 					}
 					else if (num3 >= 13)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1500 + num3 - 13, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1500 + num3 - 13, 1, false, 0, false, false);
 					}
 					else if (num3 >= 6)
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1433 + num3 - 6, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1433 + num3 - 6, 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem(x * 16, y * 16, 32, 32, 1421 + num3, 1, false, 0, false);
+						Item.NewItem(x * 16, y * 16, 32, 32, 1421 + num3, 1, false, 0, false, false);
 					}
 				}
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void Place1x1(int x, int y, int type, int style = 0)
 		{
 			Tile tile = Main.tile[x, y];
@@ -22451,6 +22747,7 @@ namespace Terraria
 				tile.frameY = (short)(style * 18);
 			}
 		}
+
 		public static void Check1x1(int x, int y, int type)
 		{
 			if (Main.tile[x, y + 1] != null && !WorldGen.SolidTileAllowBottomSlope(x, y + 1))
@@ -22458,6 +22755,7 @@ namespace Terraria
 				WorldGen.KillTile(x, y, false, false, false);
 			}
 		}
+
 		public static void PlaceOnTable1x1(int x, int y, int type, int style = 0)
 		{
 			bool flag = false;
@@ -22497,6 +22795,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static bool PlaceAlch(int x, int y, int style)
 		{
 			if (Main.tile[x, y] == null)
@@ -22598,6 +22897,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static void GrowSpike(int i, int j, ushort spikeType, ushort landType)
 		{
 			int num = i;
@@ -22690,6 +22990,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void GrowAlch(int x, int y)
 		{
 			if (Main.tile[x, y].active())
@@ -22777,6 +23078,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void PlantAlch()
 		{
 			int num = WorldGen.genRand.Next(20, Main.maxTilesX - 20);
@@ -22854,6 +23156,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void CheckAlch(int x, int y)
 		{
 			if (Main.tile[x, y] == null)
@@ -22982,6 +23285,7 @@ namespace Terraria
 				WorldGen.KillTile(x, y, false, false, false);
 			}
 		}
+
 		public static void CheckBanner(int x, int j, byte type)
 		{
 			if (WorldGen.destroyObject)
@@ -23029,7 +23333,7 @@ namespace Terraria
 			{
 				flag = true;
 			}
-			if ((!Main.tile[x, i - 1].topSlope() && !Main.tile[x, i - 1].halfBrick() && !Main.tileSolid[(int)Main.tile[x, i - 1].type]) || (Main.tileSolidTop[(int)Main.tile[x, i - 1].type] && (Main.tile[x, i - 1].type != 19 || (!Main.tile[x, i - 1].halfBrick() && !Main.tile[x, i - 1].topSlope()))) || Main.tile[x, i - 1].bottomSlope())
+			if ((!Main.tile[x, i - 1].topSlope() && !Main.tile[x, i - 1].halfBrick() && !Main.tileSolid[(int)Main.tile[x, i - 1].type]) || (Main.tileSolidTop[(int)Main.tile[x, i - 1].type] && (Main.tile[x, i - 1].type != 19 || (!Main.tile[x, i - 1].halfBrick() && !Main.tile[x, i - 1].topSlope()))) || TileID.Sets.NotReallySolid[(int)Main.tile[x, i - 1].type] || Main.tile[x, i - 1].bottomSlope())
 			{
 				flag = true;
 			}
@@ -23049,44 +23353,45 @@ namespace Terraria
 					num2 += num * 111;
 					if (num2 >= 270)
 					{
-						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 3323 + num2, 1, false, 0, false);
+						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 3323 + num2, 1, false, 0, false, false);
 					}
 					else if (num2 >= 207)
 					{
-						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 3183 + num2, 1, false, 0, false);
+						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 3183 + num2, 1, false, 0, false, false);
 					}
 					else if (num2 >= 109)
 					{
-						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 2788 + num2, 1, false, 0, false);
+						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 2788 + num2, 1, false, 0, false, false);
 					}
 					else if (num2 >= 22)
 					{
-						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 1593 + num2, 1, false, 0, false);
+						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 1593 + num2, 1, false, 0, false, false);
 					}
 					else if (num2 >= 10 && num2 <= 15)
 					{
-						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 1441 + num2, 1, false, 0, false);
+						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 1441 + num2, 1, false, 0, false, false);
 					}
 					else if (num2 >= 16 && num2 <= 21)
 					{
-						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 1448 + num2, 1, false, 0, false);
+						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 1448 + num2, 1, false, 0, false, false);
 					}
 					else if (num2 >= 7 && num2 <= 9)
 					{
-						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 838 + num2, 1, false, 0, false);
+						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 838 + num2, 1, false, 0, false, false);
 					}
 					else if (num2 >= 4 && num2 <= 6)
 					{
-						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 785 + num2, 1, false, 0, false);
+						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 785 + num2, 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 337 + num2, 1, false, 0, false);
+						Item.NewItem(x * 16, (i + 1) * 16, 32, 32, 337 + num2, 1, false, 0, false, false);
 					}
 				}
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void PlaceBanner(int x, int y, ushort type, int style = 0)
 		{
 			int num = style * 18;
@@ -23128,6 +23433,7 @@ namespace Terraria
 				Main.tile[x, y + 2].type = type;
 			}
 		}
+
 		public static void PlaceMan(int i, int j, int dir)
 		{
 			for (int k = i; k <= i + 1; k++)
@@ -23174,6 +23480,7 @@ namespace Terraria
 			Main.tile[i + 1, j].frameX = (short)(18 + b);
 			Main.tile[i + 1, j].type = 128;
 		}
+
 		public static void PlaceWoman(int i, int j, int dir)
 		{
 			for (int k = i; k <= i + 1; k++)
@@ -23220,6 +23527,7 @@ namespace Terraria
 			Main.tile[i + 1, j].frameX = (short)(18 + b);
 			Main.tile[i + 1, j].type = 269;
 		}
+
 		public static void CheckWeaponsRack(int i, int j)
 		{
 			if (WorldGen.destroyObject)
@@ -23268,7 +23576,7 @@ namespace Terraria
 			if (flag)
 			{
 				WorldGen.destroyObject = true;
-				Item.NewItem(i * 16, j * 16, 48, 48, 2699, 1, false, 0, false);
+				Item.NewItem(i * 16, j * 16, 48, 48, 2699, 1, false, 0, false, false);
 				for (int num7 = 0; num7 < 3; num7++)
 				{
 					for (int num8 = 0; num8 < 3; num8++)
@@ -23284,6 +23592,7 @@ namespace Terraria
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void CheckMan(int i, int j)
 		{
 			if (WorldGen.destroyObject)
@@ -23328,7 +23637,7 @@ namespace Terraria
 			if (flag)
 			{
 				WorldGen.destroyObject = true;
-				Item.NewItem(i * 16, j * 16, 32, 32, 498, 1, false, 0, false);
+				Item.NewItem(i * 16, j * 16, 32, 32, 498, 1, false, 0, false, false);
 				for (int num5 = 0; num5 <= 1; num5++)
 				{
 					for (int num6 = 0; num6 <= 2; num6++)
@@ -23344,6 +23653,7 @@ namespace Terraria
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void CheckWoman(int i, int j)
 		{
 			if (WorldGen.destroyObject)
@@ -23388,7 +23698,7 @@ namespace Terraria
 			if (flag)
 			{
 				WorldGen.destroyObject = true;
-				Item.NewItem(i * 16, j * 16, 32, 32, 1989, 1, false, 0, false);
+				Item.NewItem(i * 16, j * 16, 32, 32, 1989, 1, false, 0, false, false);
 				for (int num5 = 0; num5 <= 1; num5++)
 				{
 					for (int num6 = 0; num6 <= 2; num6++)
@@ -23404,6 +23714,7 @@ namespace Terraria
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void Place1x2(int x, int y, ushort type, int style)
 		{
 			short frameX = 0;
@@ -23432,6 +23743,7 @@ namespace Terraria
 				Main.tile[x, y].type = type;
 			}
 		}
+
 		public static void Place1x2Top(int x, int y, ushort type, int style)
 		{
 			short frameX = 0;
@@ -23456,6 +23768,7 @@ namespace Terraria
 				Main.tile[x, y + 1].type = type;
 			}
 		}
+
 		public static void Check1x2Top(int x, int j, ushort type)
 		{
 			if (WorldGen.destroyObject)
@@ -23626,19 +23939,20 @@ namespace Terraria
 					{
 						type2 = 3139;
 					}
-					Item.NewItem(x * 16, num2 * 16, 32, 32, type2, 1, false, 0, false);
+					Item.NewItem(x * 16, num2 * 16, 32, 32, type2, 1, false, 0, false, false);
 				}
 				else if (type == 270)
 				{
-					Item.NewItem(x * 16, num2 * 16, 32, 32, 1993, 1, false, 0, false);
+					Item.NewItem(x * 16, num2 * 16, 32, 32, 1993, 1, false, 0, false, false);
 				}
 				else if (type == 271)
 				{
-					Item.NewItem(x * 16, num2 * 16, 32, 32, 2005, 1, false, 0, false);
+					Item.NewItem(x * 16, num2 * 16, 32, 32, 2005, 1, false, 0, false, false);
 				}
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static bool PlaceSmallPile(int i, int j, int X, int Y, ushort type = 185)
 		{
 			short frameY = (short)(Y * 18);
@@ -23694,6 +24008,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static void CheckPile(int i, int y)
 		{
 			if (Main.tile[i, y] == null)
@@ -23722,6 +24037,7 @@ namespace Terraria
 				WorldGen.KillTile(i, y, false, false, false);
 			}
 		}
+
 		public static void Check2x1(int i, int y, ushort type)
 		{
 			if (WorldGen.destroyObject)
@@ -23806,11 +24122,11 @@ namespace Terraria
 				{
 					if (num2 == 1)
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 716, 1, false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 716, 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 35, 1, false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 35, 1, false, 0, false, false);
 					}
 				}
 				if (type == 18)
@@ -23912,107 +24228,107 @@ namespace Terraria
 					{
 						type2 = 3157;
 					}
-					Item.NewItem(num3 * 16, y * 16, 32, 32, type2, 1, false, 0, false);
+					Item.NewItem(num3 * 16, y * 16, 32, 32, type2, 1, false, 0, false, false);
 				}
 				if (type == 185)
 				{
 					if (frameX >= 576 && frameX <= 610)
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(10, 100), false, 0, false);
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(10, 100), false, 0, false, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 						if (WorldGen.genRand.Next(3) != 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(10, 100), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(10, 100), false, 0, false, false);
 						}
 						if (WorldGen.genRand.Next(3) != 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 						}
 						if (WorldGen.genRand.Next(2) == 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(10, 100), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(10, 100), false, 0, false, false);
 						}
 						if (WorldGen.genRand.Next(2) == 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 						}
 						if (WorldGen.genRand.Next(3) == 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(10, 100), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(10, 100), false, 0, false, false);
 						}
 						if (WorldGen.genRand.Next(3) == 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 						}
 						if (WorldGen.genRand.Next(4) == 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(10, 100), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(10, 100), false, 0, false, false);
 						}
 						if (WorldGen.genRand.Next(4) == 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 						}
 						if (WorldGen.genRand.Next(5) == 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(10, 100), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(10, 100), false, 0, false, false);
 						}
 						if (WorldGen.genRand.Next(5) == 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 						}
 					}
 					if (frameX >= 612 && frameX <= 646)
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 72, WorldGen.genRand.Next(10, 100), false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 72, WorldGen.genRand.Next(10, 100), false, 0, false, false);
 						if (WorldGen.genRand.Next(2) == 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 72, WorldGen.genRand.Next(20, 100), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 72, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 						}
 						if (WorldGen.genRand.Next(3) == 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 72, WorldGen.genRand.Next(30, 100), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 72, WorldGen.genRand.Next(30, 100), false, 0, false, false);
 						}
 					}
 					if (frameX >= 648 && frameX <= 682)
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 73, WorldGen.genRand.Next(1, 6), false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 73, WorldGen.genRand.Next(1, 6), false, 0, false, false);
 						if (WorldGen.genRand.Next(2) == 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 73, WorldGen.genRand.Next(2, 6), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 73, WorldGen.genRand.Next(2, 6), false, 0, false, false);
 						}
 						if (WorldGen.genRand.Next(3) == 0)
 						{
-							Item.NewItem(num3 * 16, y * 16, 32, 32, 73, WorldGen.genRand.Next(3, 6), false, 0, false);
+							Item.NewItem(num3 * 16, y * 16, 32, 32, 73, WorldGen.genRand.Next(3, 6), false, 0, false, false);
 						}
 					}
 					if (frameX >= 684 && frameX <= 718)
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 181, WorldGen.genRand.Next(1, 4), false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 181, WorldGen.genRand.Next(1, 4), false, 0, false, false);
 					}
 					if (frameX >= 720 && frameX <= 754)
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 180, WorldGen.genRand.Next(1, 4), false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 180, WorldGen.genRand.Next(1, 4), false, 0, false, false);
 					}
 					if (frameX >= 756 && frameX <= 790)
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 177, WorldGen.genRand.Next(1, 4), false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 177, WorldGen.genRand.Next(1, 4), false, 0, false, false);
 					}
 					if (frameX >= 792 && frameX <= 826)
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 179, WorldGen.genRand.Next(1, 4), false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 179, WorldGen.genRand.Next(1, 4), false, 0, false, false);
 					}
 					if (frameX >= 828 && frameX <= 862)
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 178, WorldGen.genRand.Next(1, 4), false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 178, WorldGen.genRand.Next(1, 4), false, 0, false, false);
 					}
 					if (frameX >= 864 && frameX <= 898)
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 182, WorldGen.genRand.Next(1, 4), false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 182, WorldGen.genRand.Next(1, 4), false, 0, false, false);
 					}
 				}
 				if (type == 29)
 				{
-					Item.NewItem(num3 * 16, y * 16, 32, 32, 87, 1, false, 0, false);
+					Item.NewItem(num3 * 16, y * 16, 32, 32, 87, 1, false, 0, false, false);
 				}
 				if (type == 103)
 				{
@@ -24029,17 +24345,17 @@ namespace Terraria
 					{
 						type3 = 2243;
 					}
-					Item.NewItem(num3 * 16, y * 16, 32, 32, type3, 1, false, 0, false);
+					Item.NewItem(num3 * 16, y * 16, 32, 32, type3, 1, false, 0, false, false);
 				}
 				else if (type == 134)
 				{
 					if (num2 == 1)
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 1220, 1, false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 1220, 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem(num3 * 16, y * 16, 32, 32, 525, 1, false, 0, false);
+						Item.NewItem(num3 * 16, y * 16, 32, 32, 525, 1, false, 0, false, false);
 					}
 				}
 				WorldGen.destroyObject = false;
@@ -24047,6 +24363,7 @@ namespace Terraria
 				WorldGen.SquareTileFrame(num3 + 1, y, true);
 			}
 		}
+
 		public static void Place2x1(int x, int y, ushort type, int style = 0)
 		{
 			if (Main.tile[x, y] == null)
@@ -24086,6 +24403,7 @@ namespace Terraria
 				Main.tile[x + 1, y].type = type;
 			}
 		}
+
 		public static void Check4x2(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -24221,7 +24539,7 @@ namespace Terraria
 					{
 						type2 = num2 + 643;
 					}
-					Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false, false);
 				}
 				if (type == 90)
 				{
@@ -24298,7 +24616,7 @@ namespace Terraria
 					{
 						type3 = 3160;
 					}
-					Item.NewItem(i * 16, j * 16, 32, 32, type3, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, type3, 1, false, 0, false, false);
 				}
 				WorldGen.destroyObject = false;
 				for (int num5 = num - 1; num5 < num + 4; num5++)
@@ -24310,6 +24628,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void PlaceJunglePlant(int X2, int Y2, ushort type, int styleX, int styleY)
 		{
 			if (styleY > 0 || type == 236 || type == 238)
@@ -24436,6 +24755,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void CheckJunglePlant(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -24510,9 +24830,9 @@ namespace Terraria
 					}
 					if (type == 236)
 					{
-						Item.NewItem(i * 16, j * 16, 32, 32, 1291, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 32, 32, 1291, 1, false, 0, false, false);
 					}
-					short arg_2A8_0 = Main.tile[i, j].frameX;
+					short arg_2A9_0 = Main.tile[i, j].frameX;
 					WorldGen.destroyObject = true;
 					for (int num9 = k; num9 < k + 2; num9++)
 					{
@@ -24568,7 +24888,7 @@ namespace Terraria
 				}
 				if (flag2)
 				{
-					short arg_4B4_0 = Main.tile[i, j].frameX;
+					short arg_4B5_0 = Main.tile[i, j].frameX;
 					WorldGen.destroyObject = true;
 					for (int num17 = num12; num17 < num12 + 3; num17++)
 					{
@@ -24587,6 +24907,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void CheckSuper(int x, int y, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -24673,7 +24994,7 @@ namespace Terraria
 			}
 			if (num6 != 0)
 			{
-				Item.NewItem(num2 * 16, num3 * 16, tileData.CoordinateFullWidth, tileData.CoordinateFullHeight, num6, 1, false, 0, false);
+				Item.NewItem(num2 * 16, num3 * 16, tileData.CoordinateFullWidth, tileData.CoordinateFullHeight, num6, 1, false, 0, false, false);
 			}
 			WorldGen.destroyObject = false;
 			for (int m = -1; m < width + 1; m++)
@@ -24684,6 +25005,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Check2x2(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -25013,7 +25335,7 @@ namespace Terraria
 			}
 			if (num13 != 0)
 			{
-				Item.NewItem(i * 16, j * 16, 32, 32, num13, 1, false, 0, false);
+				Item.NewItem(i * 16, j * 16, 32, 32, num13, 1, false, 0, false, false);
 			}
 			if (type == 138 && !WorldGen.gen && Main.netMode != 1)
 			{
@@ -25028,6 +25350,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static bool CheckBoulderChest(int i, int j)
 		{
 			int num = (int)(Main.tile[i, j].frameX / 18 * -1);
@@ -25043,28 +25366,29 @@ namespace Terraria
 			k = j - k / 18;
 			return Main.tile[num, k - 1].type == 21 || Main.tile[num + 1, k - 1].type == 21 || Main.tile[num, k - 1].type == 88 || Main.tile[num + 1, k - 1].type == 88;
 		}
+
 		public static void OreRunner(int i, int j, double strength, int steps, ushort type)
 		{
 			double num = strength;
 			float num2 = (float)steps;
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			vector2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			value2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			while (num > 0.0 && num2 > 0f)
 			{
-				if (vector.Y < 0f && num2 > 0f && type == 59)
+				if (value.Y < 0f && num2 > 0f && type == 59)
 				{
 					num2 = 0f;
 				}
 				num = strength * (double)(num2 / (float)steps);
 				num2 -= 1f;
-				int num3 = (int)((double)vector.X - num * 0.5);
-				int num4 = (int)((double)vector.X + num * 0.5);
-				int num5 = (int)((double)vector.Y - num * 0.5);
-				int num6 = (int)((double)vector.Y + num * 0.5);
+				int num3 = (int)((double)value.X - num * 0.5);
+				int num4 = (int)((double)value.X + num * 0.5);
+				int num5 = (int)((double)value.Y - num * 0.5);
+				int num6 = (int)((double)value.Y + num * 0.5);
 				if (num3 < 0)
 				{
 					num3 = 0;
@@ -25085,7 +25409,7 @@ namespace Terraria
 				{
 					for (int l = num5; l < num6; l++)
 					{
-						if ((double)(Math.Abs((float)k - vector.X) + Math.Abs((float)l - vector.Y)) < strength * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[k, l].active() && (Main.tile[k, l].type == 0 || Main.tile[k, l].type == 1 || Main.tile[k, l].type == 23 || Main.tile[k, l].type == 25 || Main.tile[k, l].type == 40 || Main.tile[k, l].type == 53 || Main.tile[k, l].type == 57 || Main.tile[k, l].type == 59 || Main.tile[k, l].type == 60 || Main.tile[k, l].type == 70 || Main.tile[k, l].type == 109 || Main.tile[k, l].type == 112 || Main.tile[k, l].type == 116 || Main.tile[k, l].type == 117 || Main.tile[k, l].type == 147 || Main.tile[k, l].type == 161 || Main.tile[k, l].type == 163 || Main.tile[k, l].type == 164 || Main.tileMoss[(int)Main.tile[k, l].type] || Main.tile[k, l].type == 199 || Main.tile[k, l].type == 200 || Main.tile[k, l].type == 203 || Main.tile[k, l].type == 234))
+						if ((double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < strength * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[k, l].active() && (Main.tile[k, l].type == 0 || Main.tile[k, l].type == 1 || Main.tile[k, l].type == 23 || Main.tile[k, l].type == 25 || Main.tile[k, l].type == 40 || Main.tile[k, l].type == 53 || Main.tile[k, l].type == 57 || Main.tile[k, l].type == 59 || Main.tile[k, l].type == 60 || Main.tile[k, l].type == 70 || Main.tile[k, l].type == 109 || Main.tile[k, l].type == 112 || Main.tile[k, l].type == 116 || Main.tile[k, l].type == 117 || Main.tile[k, l].type == 147 || Main.tile[k, l].type == 161 || Main.tile[k, l].type == 163 || Main.tile[k, l].type == 164 || Main.tileMoss[(int)Main.tile[k, l].type] || Main.tile[k, l].type == 199 || Main.tile[k, l].type == 200 || Main.tile[k, l].type == 203 || Main.tile[k, l].type == 234))
 						{
 							Main.tile[k, l].type = type;
 							WorldGen.SquareTileFrame(k, l, true);
@@ -25096,18 +25420,19 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if (vector2.X > 1f)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if (value2.X > 1f)
 				{
-					vector2.X = 1f;
+					value2.X = 1f;
 				}
-				if (vector2.X < -1f)
+				if (value2.X < -1f)
 				{
-					vector2.X = -1f;
+					value2.X = -1f;
 				}
 			}
 		}
+
 		public static void SmashAltar(int i, int j)
 		{
 			if (Main.netMode == 1)
@@ -25271,6 +25596,7 @@ namespace Terraria
 			WorldGen.altarCount++;
 			AchievementsHelper.NotifyProgressionEvent(6);
 		}
+
 		public static void Check3x1(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -25312,7 +25638,7 @@ namespace Terraria
 				WorldGen.destroyObject = true;
 				if (type == 235)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 1263, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 1263, 1, false, 0, false, false);
 				}
 				for (int m = k; m < k + 3; m++)
 				{
@@ -25332,6 +25658,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Check3x2(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -25534,11 +25861,11 @@ namespace Terraria
 					{
 						type2 = 32;
 					}
-					Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false, false);
 				}
 				else if (type == 114)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 398, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 398, 1, false, 0, false, false);
 				}
 				else if (type == 26)
 				{
@@ -25549,94 +25876,94 @@ namespace Terraria
 				}
 				else if (type == 298)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2190, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2190, 1, false, 0, false, false);
 				}
 				else if (type == 299)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2191, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2191, 1, false, 0, false, false);
 				}
 				else if (type >= 361 && type <= 364)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3073 + type - 361, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3073 + type - 361, 1, false, 0, false, false);
 				}
 				else if (type >= 391 && type <= 394)
 				{
-					Item.NewItem(i * 16, j * 16, 48, 32, 3254 + type - 391, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 48, 32, 3254 + type - 391, 1, false, 0, false, false);
 				}
 				else if (type == 285)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2174, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2174, 1, false, 0, false, false);
 				}
 				else if (type == 286)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2175, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2175, 1, false, 0, false, false);
 				}
 				else if (type == 310)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2207, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2207, 1, false, 0, false, false);
 				}
 				else if (type == 339)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2741, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2741, 1, false, 0, false, false);
 				}
 				else if (type == 217)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 995, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 995, 1, false, 0, false, false);
 				}
 				else if (type == 218)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 996, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 996, 1, false, 0, false, false);
 				}
 				else if (type == 219)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 997, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 997, 1, false, 0, false, false);
 				}
 				else if (type == 220)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 998, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 998, 1, false, 0, false, false);
 				}
 				else if (type == 377)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3198, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3198, 1, false, 0, false, false);
 				}
 				else if (type == 228)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 1120, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 1120, 1, false, 0, false, false);
 				}
 				else if (type == 405)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3364, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3364, 1, false, 0, false, false);
 				}
 				else if (type == 215)
 				{
 					if (num5 == 0)
 					{
-						Item.NewItem(i * 16, j * 16, 32, 32, 966, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 32, 32, 966, 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem(i * 16, j * 16, 32, 32, 3046 + num5 - 1, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 32, 32, 3046 + num5 - 1, 1, false, 0, false, false);
 					}
 				}
 				else if (type == 244)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 1449, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 1449, 1, false, 0, false, false);
 				}
 				else if (type == 17)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 33, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 33, 1, false, 0, false, false);
 				}
 				else if (type == 77)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 221, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 221, 1, false, 0, false, false);
 				}
 				else if (type == 86)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 332, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 332, 1, false, 0, false, false);
 				}
 				else if (type == 237)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 1292, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 1292, 1, false, 0, false, false);
 				}
 				else if (type == 87)
 				{
@@ -25701,7 +26028,7 @@ namespace Terraria
 					{
 						type3 = 333;
 					}
-					Item.NewItem(i * 16, j * 16, 32, 32, type3, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, type3, 1, false, 0, false, false);
 				}
 				else if (type == 88)
 				{
@@ -25770,7 +26097,7 @@ namespace Terraria
 					{
 						type4 = 334;
 					}
-					Item.NewItem(i * 16, j * 16, 32, 32, type4, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, type4, 1, false, 0, false, false);
 				}
 				else if (type == 89)
 				{
@@ -25831,17 +26158,17 @@ namespace Terraria
 					{
 						type5 = 335;
 					}
-					Item.NewItem(i * 16, j * 16, 32, 32, type5, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, type5, 1, false, 0, false, false);
 				}
 				else if (type == 133)
 				{
 					if (frameX >= 54)
 					{
-						Item.NewItem(i * 16, j * 16, 32, 32, 1221, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 32, 32, 1221, 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem(i * 16, j * 16, 32, 32, 524, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 32, 32, 524, 1, false, 0, false, false);
 					}
 				}
 				else if (type == 186)
@@ -25850,108 +26177,108 @@ namespace Terraria
 					{
 						if (frameX <= 954)
 						{
-							Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false);
-							Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(30, 100), false, 0, false);
-							Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(40, 100), false, 0, false);
+							Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false, false);
+							Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(30, 100), false, 0, false, false);
+							Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(40, 100), false, 0, false, false);
 							if (WorldGen.genRand.Next(3) != 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false);
-							}
-							if (WorldGen.genRand.Next(3) != 0)
-							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(30, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(3) != 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(40, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(30, 100), false, 0, false, false);
+							}
+							if (WorldGen.genRand.Next(3) != 0)
+							{
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(40, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(2) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(2) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(30, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(30, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(2) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(40, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(40, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(3) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(3) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(30, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(30, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(3) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(40, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(40, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(4) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(4) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(30, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(30, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(4) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(40, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(40, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(5) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(5) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(30, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(30, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(5) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(40, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 71, WorldGen.genRand.Next(40, 100), false, 0, false, false);
 							}
 						}
 						else if (frameX <= 1062)
 						{
-							Item.NewItem(i * 16, j * 16, 32, 32, 72, WorldGen.genRand.Next(10, 100), false, 0, false);
+							Item.NewItem(i * 16, j * 16, 32, 32, 72, WorldGen.genRand.Next(10, 100), false, 0, false, false);
 							if (WorldGen.genRand.Next(2) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 72, WorldGen.genRand.Next(20, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 72, WorldGen.genRand.Next(20, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(3) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 72, WorldGen.genRand.Next(30, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 72, WorldGen.genRand.Next(30, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(4) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 72, WorldGen.genRand.Next(40, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 72, WorldGen.genRand.Next(40, 100), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(5) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 72, WorldGen.genRand.Next(50, 100), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 72, WorldGen.genRand.Next(50, 100), false, 0, false, false);
 							}
 						}
 						else if (frameX <= 1170)
 						{
-							Item.NewItem(i * 16, j * 16, 32, 32, 73, WorldGen.genRand.Next(1, 7), false, 0, false);
+							Item.NewItem(i * 16, j * 16, 32, 32, 73, WorldGen.genRand.Next(1, 7), false, 0, false, false);
 							if (WorldGen.genRand.Next(2) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 73, WorldGen.genRand.Next(2, 7), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 73, WorldGen.genRand.Next(2, 7), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(3) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 73, WorldGen.genRand.Next(3, 7), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 73, WorldGen.genRand.Next(3, 7), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(4) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 73, WorldGen.genRand.Next(4, 7), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 73, WorldGen.genRand.Next(4, 7), false, 0, false, false);
 							}
 							if (WorldGen.genRand.Next(5) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 73, WorldGen.genRand.Next(5, 7), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 73, WorldGen.genRand.Next(5, 7), false, 0, false, false);
 							}
 						}
 					}
@@ -25960,11 +26287,11 @@ namespace Terraria
 				{
 					if (Main.rand.Next(10) == 0)
 					{
-						Item.NewItem(i * 16, j * 16, 32, 32, 3368, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 32, 32, 3368, 1, false, 0, false, false);
 					}
 					else
 					{
-						Item.NewItem(i * 16, j * 16, 32, 32, 989, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 32, 32, 989, 1, false, 0, false, false);
 					}
 				}
 				WorldGen.destroyObject = false;
@@ -25977,6 +26304,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Check3x4(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -26146,11 +26474,11 @@ namespace Terraria
 					{
 						type2 = 354;
 					}
-					Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false, false);
 				}
 				else if (type == 102)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 355, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 355, 1, false, 0, false, false);
 				}
 				WorldGen.destroyObject = false;
 				for (int num5 = num2 - 1; num5 < num2 + 4; num5++)
@@ -26162,6 +26490,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Check6x3(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -26209,59 +26538,59 @@ namespace Terraria
 				}
 				if (type == 275)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2162, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2162, 1, false, 0, false, false);
 				}
 				if (type == 413)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3565, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3565, 1, false, 0, false, false);
 				}
 				if (type == 414)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3566, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3566, 1, false, 0, false, false);
 				}
 				if (type == 276)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2163, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2163, 1, false, 0, false, false);
 				}
 				if (type == 277)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2164, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2164, 1, false, 0, false, false);
 				}
 				if (type == 278)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2165, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2165, 1, false, 0, false, false);
 				}
 				if (type == 279)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2166, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2166, 1, false, 0, false, false);
 				}
 				if (type == 280)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2167, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2167, 1, false, 0, false, false);
 				}
 				if (type == 281)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2168, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2168, 1, false, 0, false, false);
 				}
 				if (type == 296)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2186, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2186, 1, false, 0, false, false);
 				}
 				if (type == 297)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2187, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2187, 1, false, 0, false, false);
 				}
 				if (type == 309)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2206, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2206, 1, false, 0, false, false);
 				}
 				if (type == 358)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3070, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3070, 1, false, 0, false, false);
 				}
 				if (type == 359)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3071, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3071, 1, false, 0, false, false);
 				}
 				WorldGen.destroyObject = false;
 				for (int num4 = num - 1; num4 < num + 7; num4++)
@@ -26273,6 +26602,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Place6x3(int x, int y, ushort type, int direction = -1, int style = 0)
 		{
 			if (x < 5 || x > Main.maxTilesX - 5 || y < 5 || y > Main.maxTilesY - 5)
@@ -26320,6 +26650,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Place4x2(int x, int y, ushort type, int direction = -1, int style = 0)
 		{
 			if (x < 5 || x > Main.maxTilesX - 5 || y < 5 || y > Main.maxTilesY - 5)
@@ -26391,6 +26722,7 @@ namespace Terraria
 				Main.tile[x + 2, y].type = type;
 			}
 		}
+
 		public static void SwitchCannon(int i, int j)
 		{
 			int k;
@@ -26433,6 +26765,7 @@ namespace Terraria
 			}
 			NetMessage.SendTileSquare(-1, k + 1, l + 1, 4);
 		}
+
 		public static void CheckCannon(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -26505,7 +26838,7 @@ namespace Terraria
 						type2 = 3369;
 						break;
 				}
-				Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false);
+				Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false, false);
 				WorldGen.destroyObject = false;
 				for (int num7 = k; num7 < k + 4; num7++)
 				{
@@ -26516,6 +26849,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void PlaceCannon(int x, int y, ushort type, int style = 0)
 		{
 			if (x < 5 || x > Main.maxTilesX - 5 || y < 5 || y > Main.maxTilesY - 5)
@@ -26599,6 +26933,7 @@ namespace Terraria
 				Main.tile[x + 2, y].type = type;
 			}
 		}
+
 		public static void SwitchMB(int i, int j)
 		{
 			int k;
@@ -26644,6 +26979,7 @@ namespace Terraria
 			}
 			NetMessage.SendTileSquare(-1, num2, num3, 3);
 		}
+
 		public static void SwitchMonolith(int i, int j)
 		{
 			int k;
@@ -26691,6 +27027,7 @@ namespace Terraria
 			}
 			NetMessage.SendTileSquare(-1, num2, num3 + 1, 3);
 		}
+
 		public static void SwitchFountain(int i, int j)
 		{
 			int k;
@@ -26740,6 +27077,7 @@ namespace Terraria
 			}
 			NetMessage.SendTileSquare(-1, num2, num3 + 1, 4);
 		}
+
 		public static void CheckMB(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -26799,55 +27137,55 @@ namespace Terraria
 				}
 				if (type == 35)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 1813, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 1813, 1, false, 0, false, false);
 				}
 				else if (num == 28)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 1963, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 1963, 1, false, 0, false, false);
 				}
 				else if (num == 29)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 1964, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 1964, 1, false, 0, false, false);
 				}
 				else if (num == 30)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 1965, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 1965, 1, false, 0, false, false);
 				}
 				else if (num == 31)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2742, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2742, 1, false, 0, false, false);
 				}
 				else if (num == 32)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3044, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3044, 1, false, 0, false, false);
 				}
 				else if (num == 33)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3235, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3235, 1, false, 0, false, false);
 				}
 				else if (num == 34)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3236, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3236, 1, false, 0, false, false);
 				}
 				else if (num == 35)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3237, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3237, 1, false, 0, false, false);
 				}
 				else if (num == 36)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3370, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3370, 1, false, 0, false, false);
 				}
 				else if (num == 37)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3371, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3371, 1, false, 0, false, false);
 				}
 				else if (num >= 13)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 1596 + num - 13, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 1596 + num - 13, 1, false, 0, false, false);
 				}
 				else
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 562 + num, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 562 + num, 1, false, 0, false, false);
 				}
 				for (int num7 = num4 - 1; num7 < num4 + 3; num7++)
 				{
@@ -26859,6 +27197,7 @@ namespace Terraria
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void PlaceMB(int X, int y, ushort type, int style)
 		{
 			int num = X + 1;
@@ -26909,6 +27248,7 @@ namespace Terraria
 				Main.tile[num, y].type = type;
 			}
 		}
+
 		public static void Place2x2(int x, int y, ushort type, int style)
 		{
 			if (type == 95 || type == 126)
@@ -26999,6 +27339,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static bool PlaceObject(int x, int y, int type, bool mute = false, int style = 0, int alternate = 0, int random = -1, int direction = -1)
 		{
 			if (type >= 419)
@@ -27017,6 +27358,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static bool ShiftTrapdoor(int x, int y, bool playerAbove, int onlyCloseOrOpen = -1)
 		{
 			Tile tileSafely = Framing.GetTileSafely(x, y);
@@ -27144,6 +27486,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static void CheckTrapDoor(int x, int y, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -27193,7 +27536,7 @@ namespace Terraria
 			{
 				type2 = 3239;
 			}
-			Item.NewItem(x * 16, y * 16, num * 16, num2 * 16, type2, 1, false, 0, false);
+			Item.NewItem(x * 16, y * 16, num * 16, num2 * 16, type2, 1, false, 0, false, false);
 			for (int k = x - 1; k < x + num + 1; k++)
 			{
 				for (int l = y - 1; l < y + num2 + 1; l++)
@@ -27203,6 +27546,7 @@ namespace Terraria
 			}
 			WorldGen.destroyObject = false;
 		}
+
 		public static void CheckTallGate(int x, int y, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -27253,7 +27597,7 @@ namespace Terraria
 			{
 				type2 = 3240;
 			}
-			Item.NewItem(x * 16, y * 16, width * 16, height * 16, type2, 1, false, 0, false);
+			Item.NewItem(x * 16, y * 16, width * 16, height * 16, type2, 1, false, 0, false, false);
 			for (int l = x - 1; l < x + width + 1; l++)
 			{
 				for (int m = y - 1; m < y + height + 1; m++)
@@ -27263,6 +27607,7 @@ namespace Terraria
 			}
 			WorldGen.destroyObject = false;
 		}
+
 		public static bool ShiftTallGate(int x, int y, bool closing)
 		{
 			ushort type = (ushort)(closing ? 388 : 389);
@@ -27314,6 +27659,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static Point GetTopLeftAndStyles(ref int x, ref int y, int w, int h, int frameXinc, int frameYinc)
 		{
 			Tile tileSafely = Framing.GetTileSafely(x, y);
@@ -27328,6 +27674,7 @@ namespace Terraria
 			}
 			return result;
 		}
+
 		public static bool CheckTileFrames(int type, int sx, int sy, int w, int h, int styleX, int frameXinc, int styleY, int frameYinc)
 		{
 			for (int i = 0; i < w; i++)
@@ -27343,6 +27690,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static bool CheckTileAnchors(int sx, int sy, int w, int h, int mode, AnchorType anchor)
 		{
 			if ((mode & 1) == 1)
@@ -27375,6 +27723,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static bool AnchorValid(Tile tileCache, AnchorType anchor)
 		{
 			bool flag = false;
@@ -27384,7 +27733,7 @@ namespace Terraria
 				{
 					flag = true;
 				}
-				if ((anchor & AnchorType.SolidBottom) == AnchorType.SolidBottom && !Main.tileNoAttach[(int)tileCache.type] && ((Main.tileSolid[(int)tileCache.type] && (!Main.tileSolidTop[(int)tileCache.type] || (tileCache.type == 19 && (tileCache.halfBrick() || tileCache.topSlope())))) || tileCache.topSlope() || tileCache.halfBrick()) && !tileCache.bottomSlope())
+				if ((anchor & AnchorType.SolidBottom) == AnchorType.SolidBottom && !Main.tileNoAttach[(int)tileCache.type] && ((Main.tileSolid[(int)tileCache.type] && (!Main.tileSolidTop[(int)tileCache.type] || (tileCache.type == 19 && (tileCache.halfBrick() || tileCache.topSlope())))) || tileCache.topSlope() || tileCache.halfBrick()) && !TileID.Sets.NotReallySolid[(int)tileCache.type] && !tileCache.bottomSlope())
 				{
 					flag = true;
 				}
@@ -27424,6 +27773,7 @@ namespace Terraria
 			}
 			return flag;
 		}
+
 		public static bool CanPlaceSink(int x, int y, ushort type, int style)
 		{
 			if (x < 5 || x > Main.maxTilesX - 5 || y < 5 || y > Main.maxTilesY - 5)
@@ -27452,6 +27802,7 @@ namespace Terraria
 			}
 			return result;
 		}
+
 		public static void Place3x4(int x, int y, ushort type, int style)
 		{
 			if (x < 5 || x > Main.maxTilesX - 5 || y < 5 || y > Main.maxTilesY - 5)
@@ -27502,6 +27853,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Place3x1(int x, int y, ushort type, int style = 0)
 		{
 			if (x < 5 || x > Main.maxTilesX - 5 || y < 5 || y > Main.maxTilesY - 5)
@@ -27545,6 +27897,7 @@ namespace Terraria
 				Main.tile[x + 1, y].type = type;
 			}
 		}
+
 		public static void Place3x2(int x, int y, ushort type, int style = 0)
 		{
 			if (x < 5 || x > Main.maxTilesX - 5 || y < 5 || y > Main.maxTilesY - 5)
@@ -27652,6 +28005,7 @@ namespace Terraria
 				Main.tile[x + 1, y].type = type;
 			}
 		}
+
 		public static void Place2x2Style(int x, int y, ushort type, int style = 0)
 		{
 			if (x < 5 || x > Main.maxTilesX - 5 || y < 5 || y > Main.maxTilesY - 5)
@@ -27712,6 +28066,7 @@ namespace Terraria
 				Main.tile[x, y].type = type;
 			}
 		}
+
 		public static bool NearFriendlyWall(int x, int y)
 		{
 			try
@@ -27747,16 +28102,12 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
 			}
 			return false;
 		}
+
 		public static void Check2x2Style(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -27822,19 +28173,19 @@ namespace Terraria
 						{
 							if (WorldGen.genRand.Next(2) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 1725, WorldGen.genRand.Next(1, 3), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 1725, WorldGen.genRand.Next(1, 3), false, 0, false, false);
 							}
 						}
 						else if (frameX < 144)
 						{
-							Item.NewItem(i * 16, j * 16, 32, 32, 1725, WorldGen.genRand.Next(2, 6), false, 0, false);
+							Item.NewItem(i * 16, j * 16, 32, 32, 1725, WorldGen.genRand.Next(2, 6), false, 0, false, false);
 						}
 						else
 						{
-							Item.NewItem(i * 16, j * 16, 32, 32, 1725, WorldGen.genRand.Next(5, 11), false, 0, false);
+							Item.NewItem(i * 16, j * 16, 32, 32, 1725, WorldGen.genRand.Next(5, 11), false, 0, false, false);
 							if (Main.halloween && WorldGen.genRand.Next(200) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 32, 32, 1799, 1, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 32, 32, 1799, 1, false, 0, false, false);
 							}
 						}
 					}
@@ -27843,11 +28194,11 @@ namespace Terraria
 				{
 					if (num2 == 0)
 					{
-						Item.NewItem(i * 16, j * 16, 32, 32, 345, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 32, 32, 345, 1, false, 0, false, false);
 					}
 					if (num2 == 1)
 					{
-						Item.NewItem(i * 16, j * 16, 32, 32, 1791, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 32, 32, 1791, 1, false, 0, false, false);
 					}
 				}
 				WorldGen.destroyObject = false;
@@ -27860,6 +28211,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void PlacePumpkin(int x, int superY)
 		{
 			ushort type = 254;
@@ -27911,6 +28263,7 @@ namespace Terraria
 				Main.tile[x, superY].type = type;
 			}
 		}
+
 		public static void GrowPumpkin(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -27977,6 +28330,7 @@ namespace Terraria
 				NetMessage.SendTileSquare(-1, l, num, 4);
 			}
 		}
+
 		public static void FixHearts()
 		{
 			for (int i = 0; i < Main.maxTilesX; i++)
@@ -27991,6 +28345,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void DestroyHeart(int i, int j)
 		{
 			WorldGen.destroyObject = true;
@@ -28010,6 +28365,7 @@ namespace Terraria
 			}
 			WorldGen.destroyObject = false;
 		}
+
 		public static void FixHeart(int i, int j)
 		{
 			if (i < 40 || i >= Main.maxTilesX - 40 || j < 40 || j >= Main.maxTilesY - 40)
@@ -28061,6 +28417,7 @@ namespace Terraria
 				tile2.halfBrick(false);
 			}
 		}
+
 		public static void FixChands()
 		{
 			for (int i = 5; i < Main.maxTilesX - 5; i++)
@@ -28078,6 +28435,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void FixChand(int i, int j)
 		{
 			int num = 0;
@@ -28134,6 +28492,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void PlaceChand(int x, int y, ushort type, int style = 0)
 		{
 			bool flag = true;
@@ -28202,6 +28561,7 @@ namespace Terraria
 				Main.tile[x + 1, y + 2 + num].type = type;
 			}
 		}
+
 		public static void CheckChand(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -28370,7 +28730,7 @@ namespace Terraria
 					{
 						type2 = 106;
 					}
-					Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false, false);
 				}
 				WorldGen.destroyObject = false;
 				for (int num8 = k - 1; num8 < k + 4; num8++)
@@ -28382,6 +28742,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Check3x3(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -28461,63 +28822,63 @@ namespace Terraria
 				}
 				if (type == 106)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 363, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 363, 1, false, 0, false, false);
 				}
 				else if (type == 243)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 1430, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 1430, 1, false, 0, false, false);
 				}
 				else if (type == 212)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 951, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 951, 1, false, 0, false, false);
 				}
 				else if (type == 219)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 997, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 997, 1, false, 0, false, false);
 				}
 				else if (type == 220)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 998, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 998, 1, false, 0, false, false);
 				}
 				else if (type == 228)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 1120, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 1120, 1, false, 0, false, false);
 				}
 				else if (type == 247)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 1551, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 1551, 1, false, 0, false, false);
 				}
 				else if (type == 283)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2172, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2172, 1, false, 0, false, false);
 				}
 				else if (type >= 300 && type <= 306)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2192 + type - 300, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2192 + type - 300, 1, false, 0, false, false);
 				}
 				else if (type == 307)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2203, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2203, 1, false, 0, false, false);
 				}
 				else if (type == 308)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2204, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2204, 1, false, 0, false, false);
 				}
 				else if (type == 406)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3365, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3365, 1, false, 0, false, false);
 				}
 				else if (type == 354)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 2999, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 2999, 1, false, 0, false, false);
 				}
 				else if (type == 355)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3000, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3000, 1, false, 0, false, false);
 				}
 				else if (type == 412)
 				{
-					Item.NewItem(i * 16, j * 16, 32, 32, 3549, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 32, 32, 3549, 1, false, 0, false, false);
 				}
 				else if (type == 231)
 				{
@@ -28549,6 +28910,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Place3x3(int x, int y, ushort type, int style = 0)
 		{
 			bool flag = true;
@@ -28649,6 +29011,7 @@ namespace Terraria
 				Main.tile[x + 1, y + 2 + num].type = type;
 			}
 		}
+
 		public static void PlaceSunflower(int x, int y, ushort type = 27)
 		{
 			if ((double)y > Main.worldSurface - 1.0)
@@ -28699,6 +29062,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void FixSunflowers()
 		{
 			for (int i = 5; i < Main.maxTilesX - 5; i++)
@@ -28714,6 +29078,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void FixSunflower(int i, int j)
 		{
 			if (Main.tile[i, j].type != 27)
@@ -28740,6 +29105,7 @@ namespace Terraria
 				num3 += 18;
 			}
 		}
+
 		public static void CheckSunflower(int i, int j, int type = 27)
 		{
 			if (WorldGen.destroyObject)
@@ -28799,10 +29165,11 @@ namespace Terraria
 						}
 					}
 				}
-				Item.NewItem(i * 16, j * 16, 32, 32, 63, 1, false, 0, false);
+				Item.NewItem(i * 16, j * 16, 32, 32, 63, 1, false, 0, false, false);
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void CheckDye(int x, int y)
 		{
 			int num = (int)(Main.tile[x, y].frameX / 34);
@@ -28827,6 +29194,7 @@ namespace Terraria
 				WorldGen.KillTile(x, y, false, false, false);
 			}
 		}
+
 		public static void PlaceDye(int x, int y, int style)
 		{
 			bool flag = false;
@@ -28893,6 +29261,7 @@ namespace Terraria
 				Main.tile[x, y].frameX = (short)(34 * style);
 			}
 		}
+
 		public static bool PlacePot(int x, int y, ushort type = 28, int style = 0)
 		{
 			bool flag = true;
@@ -28925,10 +29294,6 @@ namespace Terraria
 				{
 					for (int l = -1; l < 1; l++)
 					{
-						if (Main.tile[x + k, y + l] == null)
-						{
-							Main.tile[x + k, y + l] = new Tile();
-						}
 						int num2 = k * 18 + num;
 						int num3 = (l + 1) * 18;
 						Main.tile[x + k, y + l].active(true);
@@ -28942,6 +29307,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static bool CheckCactus(int i, int j)
 		{
 			int num = j;
@@ -28985,6 +29351,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static void PlantCactus(int i, int j)
 		{
 			WorldGen.GrowCactus(i, j);
@@ -28995,6 +29362,7 @@ namespace Terraria
 				WorldGen.GrowCactus(i2, j2);
 			}
 		}
+
 		public static void CheckOrb(int i, int j, int type)
 		{
 			int frameX = (int)Main.tile[i, j].frameX;
@@ -29066,7 +29434,7 @@ namespace Terraria
 				{
 					if (type == 12)
 					{
-						Item.NewItem(num * 16, num2 * 16, 32, 32, 29, 1, false, 0, false);
+						Item.NewItem(num * 16, num2 * 16, 32, 32, 29, 1, false, 0, false, false);
 					}
 					else if (type == 31)
 					{
@@ -29083,25 +29451,25 @@ namespace Terraria
 							}
 							if (num3 == 0)
 							{
-								Item.NewItem(num * 16, num2 * 16, 32, 32, 800, 1, false, -1, false);
+								Item.NewItem(num * 16, num2 * 16, 32, 32, 800, 1, false, -1, false, false);
 								int stack = WorldGen.genRand.Next(100, 101);
-								Item.NewItem(num * 16, num2 * 16, 32, 32, 97, stack, false, 0, false);
+								Item.NewItem(num * 16, num2 * 16, 32, 32, 97, stack, false, 0, false, false);
 							}
 							else if (num3 == 1)
 							{
-								Item.NewItem(num * 16, num2 * 16, 32, 32, 1256, 1, false, -1, false);
+								Item.NewItem(num * 16, num2 * 16, 32, 32, 1256, 1, false, -1, false, false);
 							}
 							else if (num3 == 2)
 							{
-								Item.NewItem(num * 16, num2 * 16, 32, 32, 802, 1, false, -1, false);
+								Item.NewItem(num * 16, num2 * 16, 32, 32, 802, 1, false, -1, false, false);
 							}
 							else if (num3 == 3)
 							{
-								Item.NewItem(num * 16, num2 * 16, 32, 32, 3062, 1, false, -1, false);
+								Item.NewItem(num * 16, num2 * 16, 32, 32, 3062, 1, false, -1, false, false);
 							}
 							else if (num3 == 4)
 							{
-								Item.NewItem(num * 16, num2 * 16, 32, 32, 1290, 1, false, -1, false);
+								Item.NewItem(num * 16, num2 * 16, 32, 32, 1290, 1, false, -1, false, false);
 							}
 						}
 						else
@@ -29113,25 +29481,25 @@ namespace Terraria
 							}
 							if (num4 == 0)
 							{
-								Item.NewItem(num * 16, num2 * 16, 32, 32, 96, 1, false, -1, false);
+								Item.NewItem(num * 16, num2 * 16, 32, 32, 96, 1, false, -1, false, false);
 								int stack2 = WorldGen.genRand.Next(100, 101);
-								Item.NewItem(num * 16, num2 * 16, 32, 32, 97, stack2, false, 0, false);
+								Item.NewItem(num * 16, num2 * 16, 32, 32, 97, stack2, false, 0, false, false);
 							}
 							else if (num4 == 1)
 							{
-								Item.NewItem(num * 16, num2 * 16, 32, 32, 64, 1, false, -1, false);
+								Item.NewItem(num * 16, num2 * 16, 32, 32, 64, 1, false, -1, false, false);
 							}
 							else if (num4 == 2)
 							{
-								Item.NewItem(num * 16, num2 * 16, 32, 32, 162, 1, false, -1, false);
+								Item.NewItem(num * 16, num2 * 16, 32, 32, 162, 1, false, -1, false, false);
 							}
 							else if (num4 == 3)
 							{
-								Item.NewItem(num * 16, num2 * 16, 32, 32, 115, 1, false, -1, false);
+								Item.NewItem(num * 16, num2 * 16, 32, 32, 115, 1, false, -1, false, false);
 							}
 							else if (num4 == 4)
 							{
-								Item.NewItem(num * 16, num2 * 16, 32, 32, 111, 1, false, -1, false);
+								Item.NewItem(num * 16, num2 * 16, 32, 32, 111, 1, false, -1, false, false);
 							}
 						}
 						WorldGen.shadowOrbSmashed = true;
@@ -29183,6 +29551,7 @@ namespace Terraria
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static void CheckPalmTree(int i, int j)
 		{
 			int num = -1;
@@ -29238,6 +29607,7 @@ namespace Terraria
 				WorldGen.TileFrame(i, j + 1, false, false);
 			}
 		}
+
 		public static void CheckTree(int i, int j)
 		{
 			int num = -1;
@@ -29633,6 +30003,7 @@ namespace Terraria
 				WorldGen.TileFrame(i, j + 1, false, false);
 			}
 		}
+
 		public static void Convert(int i, int j, int conversionType, int size = 4)
 		{
 			for (int k = i - size; k <= i + size; k++)
@@ -30012,6 +30383,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void CactusFrame(int i, int j)
 		{
 			try
@@ -30029,11 +30401,11 @@ namespace Terraria
 						}
 						if (!Main.tile[num2, num].active() || Main.tile[num2, num].type != 80)
 						{
-							if (Main.tile[num2 - 1, num].active() && Main.tile[num2 - 1, num].type == 80 && Main.tile[num2 - 1, num - 1].active() && Main.tile[num2 - 1, num - 1].type == 80 && num2 >= i)
+							if (Main.tile[num2 - 1, num] != null && Main.tile[num2 - 1, num].active() && Main.tile[num2 - 1, num].type == 80 && Main.tile[num2 - 1, num - 1].active() && Main.tile[num2 - 1, num - 1].type == 80 && num2 >= i)
 							{
 								num2--;
 							}
-							if (Main.tile[num2 + 1, num].active() && Main.tile[num2 + 1, num].type == 80 && Main.tile[num2 + 1, num - 1].active() && Main.tile[num2 + 1, num - 1].type == 80 && num2 <= i)
+							if (Main.tile[num2 + 1, num] != null && Main.tile[num2 + 1, num].active() && Main.tile[num2 + 1, num].type == 80 && Main.tile[num2 + 1, num - 1].active() && Main.tile[num2 + 1, num - 1].type == 80 && num2 <= i)
 							{
 								num2++;
 							}
@@ -30224,6 +30596,7 @@ namespace Terraria
 				Main.tile[i, j].frameY = 0;
 			}
 		}
+
 		public static void GrowCactus(int i, int j)
 		{
 			int num = j;
@@ -30278,13 +30651,8 @@ namespace Terraria
 								}
 							}
 						}
-						catch (Exception ex)
+						catch
 						{
-#if DEBUG
-							Console.WriteLine(ex);
-							System.Diagnostics.Debugger.Break();
-
-#endif
 						}
 					}
 				}
@@ -30450,25 +30818,13 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void CheckPot(int i, int j, int type = 28)
 		{
 			if (WorldGen.destroyObject)
 			{
 				return;
 			}
-			if (WorldGen.genRand == null)
-			{
-				WorldGen.genRand = new Random((int)DateTime.Now.Ticks);
-			}
-			if (Main.rand == null)
-			{
-				Main.rand = new Random((int)DateTime.Now.Ticks);
-			}
-			if (Main.tile[i, j] == null)
-			{
-				Main.tile[i, j] = new Tile();
-			}
-
 			bool flag = false;
 			int k = 0;
 			for (k += (int)(Main.tile[i, j].frameX / 18); k > 1; k -= 2)
@@ -30565,10 +30921,6 @@ namespace Terraria
 				}
 				else if (num >= 31 && num <= 33)
 				{
-					int num7 = WorldGen.genRand.Next(2, 5);
-					for (int num8 = 0; num8 < num7; num8++)
-					{
-					}
 					num6 = 2f;
 				}
 				num6 = (num6 * 2f + 1f) / 3f;
@@ -30577,22 +30929,12 @@ namespace Terraria
 				{
 					if (Main.netMode != 1)
 					{
-						Projectile.NewProjectile(
-							(float)(i * 16 + 16), 
-							(float)(j * 16 + 16),
-							0f, 
-							-12f,
-							ProjectileID.CoinPortal,
-							0,
-							0f,
-							Main.myPlayer,
-							0f, 
-							0f);
+						Projectile.NewProjectile((float)(i * 16 + 16), (float)(j * 16 + 16), 0f, -12f, 518, 0, 0f, Main.myPlayer, 0f, 0f);
 					}
 				}
 				else if (WorldGen.genRand.Next(40) == 0 && Main.wallDungeon[(int)Main.tile[i, j].wall] && (double)j > Main.worldSurface)
 				{
-					Item.NewItem(i * 16, j * 16, 16, 16, ItemID.GoldenKey, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 16, 16, 327, 1, false, 0, false, false);
 				}
 				else if (WorldGen.genRand.Next(45) == 0 || (Main.rand.Next(45) == 0 && Main.expertMode))
 				{
@@ -30601,35 +30943,35 @@ namespace Terraria
 						int num9 = WorldGen.genRand.Next(10);
 						if (num9 == 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.IronskinPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 292, 1, false, 0, false, false);
 						}
 						if (num9 == 1)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ShinePotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 298, 1, false, 0, false, false);
 						}
 						if (num9 == 2)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.NightOwlPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 299, 1, false, 0, false, false);
 						}
 						if (num9 == 3)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.SwiftnessPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 290, 1, false, 0, false, false);
 						}
 						if (num9 == 4)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.MiningPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2322, 1, false, 0, false, false);
 						}
 						if (num9 == 5)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.CalmingPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2324, 1, false, 0, false, false);
 						}
 						if (num9 == 6)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.BuilderPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2325, 1, false, 0, false, false);
 						}
 						if (num9 >= 7)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.RecallPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2350, 1, false, 0, false, false);
 						}
 					}
 					else if ((double)j < Main.rockLayer)
@@ -30637,43 +30979,43 @@ namespace Terraria
 						int num10 = WorldGen.genRand.Next(11);
 						if (num10 == 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.RegenerationPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 289, 1, false, 0, false, false);
 						}
 						if (num10 == 1)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ShinePotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 298, 1, false, 0, false, false);
 						}
 						if (num10 == 2)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.NightOwlPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 299, 1, false, 0, false, false);
 						}
 						if (num10 == 3)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.SwiftnessPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 290, 1, false, 0, false, false);
 						}
 						if (num10 == 4)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ArcheryPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 303, 1, false, 0, false, false);
 						}
 						if (num10 == 5)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.GillsPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 291, 1, false, 0, false, false);
 						}
 						if (num10 == 6)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.HunterPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 304, 1, false, 0, false, false);
 						}
 						if (num10 == 7)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.MiningPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2322, 1, false, 0, false, false);
 						}
 						if (num10 == 8)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.TrapsightPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2329, 1, false, 0, false, false);
 						}
 						if (num10 >= 9)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.RecallPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2350, 1, false, 0, false, false);
 						}
 					}
 					else if (j < Main.maxTilesY - 200)
@@ -30681,63 +31023,63 @@ namespace Terraria
 						int num11 = WorldGen.genRand.Next(15);
 						if (num11 == 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.SpelunkerPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 296, 1, false, 0, false, false);
 						}
 						if (num11 == 1)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.FeatherfallPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 295, 1, false, 0, false, false);
 						}
 						if (num11 == 2)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.NightOwlPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 299, 1, false, 0, false, false);
 						}
 						if (num11 == 3)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.WaterWalkingPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 302, 1, false, 0, false, false);
 						}
 						if (num11 == 4)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ArcheryPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 303, 1, false, 0, false, false);
 						}
 						if (num11 == 5)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.GravitationPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 305, 1, false, 0, false, false);
 						}
 						if (num11 == 6)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ThornsPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 301, 1, false, 0, false, false);
 						}
 						if (num11 == 7)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.WaterWalkingPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 302, 1, false, 0, false, false);
 						}
 						if (num11 == 8)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.InvisibilityPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 297, 1, false, 0, false, false);
 						}
 						if (num11 == 9)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.HunterPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 304, 1, false, 0, false, false);
 						}
 						if (num11 == 10)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.MiningPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2322, 1, false, 0, false, false);
 						}
 						if (num11 == 11)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.HeartreachPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2323, 1, false, 0, false, false);
 						}
 						if (num11 == 12)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.FlipperPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2327, 1, false, 0, false, false);
 						}
 						if (num11 == 13)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.TrapsightPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2329, 1, false, 0, false, false);
 						}
 						if (num11 == 14)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.RecallPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2350, 1, false, 0, false, false);
 						}
 					}
 					else
@@ -30745,61 +31087,65 @@ namespace Terraria
 						int num12 = WorldGen.genRand.Next(14);
 						if (num12 == 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.SpelunkerPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 296, 1, false, 0, false, false);
 						}
 						if (num12 == 1)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.FeatherfallPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 295, 1, false, 0, false, false);
 						}
 						if (num12 == 2)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ManaRegenerationPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 293, 1, false, 0, false, false);
 						}
-						if (num12 == 3 || num12 == 10)
+						if (num12 == 3)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ObsidianSkinPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 288, 1, false, 0, false, false);
 						}
 						if (num12 == 4)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.MagicPowerPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 294, 1, false, 0, false, false);
 						}
 						if (num12 == 5)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.InvisibilityPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 297, 1, false, 0, false, false);
 						}
 						if (num12 == 6)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.HunterPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 304, 1, false, 0, false, false);
 						}
 						if (num12 == 7)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.GravitationPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 305, 1, false, 0, false, false);
 						}
 						if (num12 == 8)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.ThornsPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 301, 1, false, 0, false, false);
 						}
 						if (num12 == 9)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.WaterWalkingPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 302, 1, false, 0, false, false);
+						}
+						if (num12 == 10)
+						{
+							Item.NewItem(i * 16, j * 16, 16, 16, 288, 1, false, 0, false, false);
 						}
 						if (num12 == 11)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.BattlePotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 300, 1, false, 0, false, false);
 						}
 						if (num12 == 12)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.HeartreachPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2323, 1, false, 0, false, false);
 						}
 						if (num12 == 13)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.TitanPotion, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 2326, 1, false, 0, false, false);
 						}
 					}
 				}
 				else if (Main.netMode == 2 && Main.rand.Next(30) == 0)
 				{
-					Item.NewItem(i * 16, j * 16, 16, 16, ItemID.UnityPotion, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 16, 16, 2997, 1, false, 0, false, false);
 				}
 				else
 				{
@@ -30810,26 +31156,26 @@ namespace Terraria
 					}
 					if (num13 == 0 && Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statLife < Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statLifeMax2)
 					{
-						Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Heart, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 16, 16, 58, 1, false, 0, false, false);
 						if (Main.rand.Next(2) == 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Heart, 1, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 58, 1, false, 0, false, false);
 						}
 						if (Main.expertMode)
 						{
 							if (Main.rand.Next(2) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Heart, 1, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, 58, 1, false, 0, false, false);
 							}
 							if (Main.rand.Next(2) == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Heart, 1, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, 58, 1, false, 0, false, false);
 							}
 						}
 					}
 					else if (num13 == 1 && Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statMana < Main.player[(int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16)].statManaMax2)
 					{
-						Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Star, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 16, 16, 184, 1, false, 0, false, false);
 					}
 					else if (num13 == 2)
 					{
@@ -30840,58 +31186,58 @@ namespace Terraria
 						}
 						if (Main.tile[i, j].liquid > 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Glowstick, num14, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 282, num14, false, 0, false, false);
 						}
 						else
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Torch, num14, false, 0, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, 8, num14, false, 0, false, false);
 						}
 					}
 					else if (num13 == 3)
 					{
 						int stack = Main.rand.Next(10, 21);
-						int type2 = ItemID.WoodenArrow;
+						int type2 = 40;
 						if ((double)j < Main.rockLayer && WorldGen.genRand.Next(2) == 0)
 						{
 							if (Main.hardMode)
 							{
-								type2 = ItemID.Grenade;
+								type2 = 168;
 							}
 							else
 							{
-								type2 = ItemID.Shuriken;
+								type2 = 42;
 							}
 						}
 						if (j > Main.maxTilesY - 200)
 						{
-							type2 = ItemID.HellfireArrow;
+							type2 = 265;
 						}
 						else if (Main.hardMode)
 						{
 							if (Main.rand.Next(2) == 0)
 							{
-								type2 = ItemID.SilverBullet;
+								type2 = 278;
 							}
 							else
 							{
-								type2 = ItemID.UnholyArrow;
+								type2 = 47;
 							}
 						}
-						Item.NewItem(i * 16, j * 16, 16, 16, type2, stack, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 16, 16, type2, stack, false, 0, false, false);
 					}
 					else if (num13 == 4)
 					{
-						int type3 = ItemID.LesserHealingPotion;
+						int type3 = 28;
 						if (j > Main.maxTilesY - 200 || Main.hardMode)
 						{
-							type3 = ItemID.HealingPotion;
+							type3 = 188;
 						}
 						int num15 = 1;
 						if (Main.expertMode && Main.rand.Next(3) != 0)
 						{
 							num15++;
 						}
-						Item.NewItem(i * 16, j * 16, 16, 16, type3, num15, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 16, 16, type3, num15, false, 0, false, false);
 					}
 					else if (num13 == 5 && (double)j > Main.rockLayer)
 					{
@@ -30900,12 +31246,12 @@ namespace Terraria
 						{
 							num16 += Main.rand.Next(4);
 						}
-						Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Bomb, num16, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 16, 16, 166, num16, false, 0, false, false);
 					}
 					else if ((num13 == 5 || num13 == 6) && j < Main.maxTilesY - 200 && !Main.hardMode)
 					{
 						int stack2 = Main.rand.Next(20, 41);
-						Item.NewItem(i * 16, j * 16, 16, 16, ItemID.Rope, stack2, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 16, 16, 965, stack2, false, 0, false, false);
 					}
 					else
 					{
@@ -31022,7 +31368,7 @@ namespace Terraria
 									num18 /= Main.rand.Next(3) + 1;
 								}
 								num17 -= (float)(1000000 * num18);
-								Item.NewItem(i * 16, j * 16, 16, 16, ItemID.PlatinumCoin, num18, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, 74, num18, false, 0, false, false);
 							}
 							else if (num17 > 10000f)
 							{
@@ -31036,7 +31382,7 @@ namespace Terraria
 									num19 /= Main.rand.Next(3) + 1;
 								}
 								num17 -= (float)(10000 * num19);
-								Item.NewItem(i * 16, j * 16, 16, 16, ItemID.GoldCoin, num19, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, 73, num19, false, 0, false, false);
 							}
 							else if (num17 > 100f)
 							{
@@ -31050,7 +31396,7 @@ namespace Terraria
 									num20 /= Main.rand.Next(3) + 1;
 								}
 								num17 -= (float)(100 * num20);
-								Item.NewItem(i * 16, j * 16, 16, 16, ItemID.SilverCoin, num20, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, 72, num20, false, 0, false, false);
 							}
 							else
 							{
@@ -31068,7 +31414,7 @@ namespace Terraria
 									num21 = 1;
 								}
 								num17 -= (float)num21;
-								Item.NewItem(i * 16, j * 16, 16, 16, ItemID.CopperCoin, num21, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, 71, num21, false, 0, false, false);
 							}
 						}
 					}
@@ -31076,6 +31422,7 @@ namespace Terraria
 				WorldGen.destroyObject = false;
 			}
 		}
+
 		public static int PlaceChest(int x, int y, ushort type = 21, bool notNearOtherChests = false, int style = 0)
 		{
 			int num = -1;
@@ -31103,6 +31450,7 @@ namespace Terraria
 			}
 			return num;
 		}
+
 		public static void PlaceChestDirect(int x, int y, ushort type, int style, int id)
 		{
 			Chest.CreateChest(x, y - 1, id);
@@ -31137,6 +31485,7 @@ namespace Terraria
 			Main.tile[x + 1, y].type = type;
 			Main.tile[x + 1, y].halfBrick(false);
 		}
+
 		public static void PlaceDresserDirect(int x, int y, ushort type, int style, int id)
 		{
 			Chest.CreateChest(x - 1, y - 1, id);
@@ -31176,6 +31525,7 @@ namespace Terraria
 			Main.tile[x + 1, y].frameX = (short)(num + 36);
 			Main.tile[x + 1, y].type = type;
 		}
+
 		public static void CheckChest(int i, int j, int type)
 		{
 			if (WorldGen.destroyObject)
@@ -31234,7 +31584,7 @@ namespace Terraria
 						}
 					}
 				}
-				Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false);
+				Item.NewItem(i * 16, j * 16, 32, 32, type2, 1, false, 0, false, false);
 				WorldGen.destroyObject = false;
 				if (Main.tile[k, num + 2].type == 138 || Main.tile[k + 1, num + 2].type == 138)
 				{
@@ -31242,6 +31592,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static bool PlaceActuator(int i, int j)
 		{
 			if (!Main.tile[i, j].actuator())
@@ -31251,6 +31602,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static bool KillActuator(int i, int j)
 		{
 			if (Main.tile[i, j].actuator())
@@ -31258,12 +31610,13 @@ namespace Terraria
 				Main.tile[i, j].actuator(false);
 				if (Main.netMode != 1)
 				{
-					Item.NewItem(i * 16, j * 16, 16, 16, 849, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 16, 16, 849, 1, false, 0, false, false);
 				}
 				return true;
 			}
 			return false;
 		}
+
 		public static bool PlaceWire(int i, int j)
 		{
 			if (!Main.tile[i, j].wire())
@@ -31273,6 +31626,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static bool KillWire(int i, int j)
 		{
 			if (Main.tile[i, j].wire())
@@ -31280,12 +31634,13 @@ namespace Terraria
 				Main.tile[i, j].wire(false);
 				if (Main.netMode != 1)
 				{
-					Item.NewItem(i * 16, j * 16, 16, 16, 530, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 16, 16, 530, 1, false, 0, false, false);
 				}
 				return true;
 			}
 			return false;
 		}
+
 		public static bool PlaceWire2(int i, int j)
 		{
 			if (!Main.tile[i, j].wire2())
@@ -31295,6 +31650,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static bool KillWire2(int i, int j)
 		{
 			if (Main.tile[i, j].wire2())
@@ -31302,12 +31658,13 @@ namespace Terraria
 				Main.tile[i, j].wire2(false);
 				if (Main.netMode != 1)
 				{
-					Item.NewItem(i * 16, j * 16, 16, 16, 530, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 16, 16, 530, 1, false, 0, false, false);
 				}
 				return true;
 			}
 			return false;
 		}
+
 		public static bool PlaceWire3(int i, int j)
 		{
 			if (!Main.tile[i, j].wire3())
@@ -31317,6 +31674,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static bool KillWire3(int i, int j)
 		{
 			if (Main.tile[i, j].wire3())
@@ -31324,12 +31682,13 @@ namespace Terraria
 				Main.tile[i, j].wire3(false);
 				if (Main.netMode != 1)
 				{
-					Item.NewItem(i * 16, j * 16, 16, 16, 530, 1, false, 0, false);
+					Item.NewItem(i * 16, j * 16, 16, 16, 530, 1, false, 0, false, false);
 				}
 				return true;
 			}
 			return false;
 		}
+
 		public static bool PlaceTile(int i, int j, int type, bool mute = false, bool forced = false, int plr = -1, int style = 0)
 		{
 			if (type >= 419)
@@ -31926,6 +32285,7 @@ namespace Terraria
 			}
 			return result;
 		}
+
 		public static void KillWall(int i, int j, bool fail = false)
 		{
 			if (i >= 0 && j >= 0 && i < Main.maxTilesX && j < Main.maxTilesY)
@@ -32419,12 +32779,6 @@ namespace Terraria
 						{
 							num2 = 215;
 						}
-						if (tile.wall == 44)
-						{
-						}
-						else if ((tile.wall < 133 || tile.wall > 135) && (tile.wall < 116 || tile.wall > 125) && (tile.wall < 126 || tile.wall > 132))
-						{
-						}
 					}
 					if (fail)
 					{
@@ -32910,7 +33264,7 @@ namespace Terraria
 					}
 					if (num4 > 0)
 					{
-						Item.NewItem(i * 16, j * 16, 16, 16, num4, 1, false, 0, false);
+						Item.NewItem(i * 16, j * 16, 16, 16, num4, 1, false, 0, false, false);
 					}
 					tile.wall = 0;
 					tile.wallColor(0);
@@ -32922,6 +33276,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void LaunchRocket(int x, int y)
 		{
 			int i = (int)Main.tile[x, y].frameY;
@@ -32944,6 +33299,7 @@ namespace Terraria
 			Main.tile[x, y + 1].active(false);
 			NetMessage.SendTileSquare(-1, x - 1, y, 3);
 		}
+
 		public static void LaunchRocketSmall(int x, int y)
 		{
 			if (Main.tile[x, y].frameX == 18)
@@ -32960,11 +33316,13 @@ namespace Terraria
 			int num = 0;
 			Projectile.NewProjectile(vector.X, vector.Y + 2f, 0f, -8f, type, damage, (float)num, Main.myPlayer, 0f, 0f);
 		}
+
 		public static bool CanKillTile(int i, int j)
 		{
 			bool flag;
 			return WorldGen.CanKillTile(i, j, out flag);
 		}
+
 		public static bool CanKillTile(int i, int j, out bool blockDamaged)
 		{
 			blockDamaged = false;
@@ -33025,7 +33383,7 @@ namespace Terraria
 					return false;
 				}
 			}
-		IL_12B:
+			IL_12B:
 			ushort type2 = tile.type;
 			if (type2 <= 21)
 			{
@@ -33074,6 +33432,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static void KillTile(int i, int j, bool fail = false, bool effectOnly = false, bool noItem = false)
 		{
 			if (i >= 0 && j >= 0 && i < Main.maxTilesX && j < Main.maxTilesY)
@@ -33131,21 +33490,21 @@ namespace Terraria
 						{
 							if (tile.frameX == 144)
 							{
-								Item.NewItem(i * 16, j * 16, 16, 16, 5, 1, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, 5, 1, false, 0, false, false);
 							}
 						}
 						else if (tile.type == 24)
 						{
 							if (tile.frameX == 144)
 							{
-								Item.NewItem(i * 16, j * 16, 16, 16, 60, 1, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, 60, 1, false, 0, false, false);
 							}
 						}
 						else if (tile.type == 201)
 						{
 							if (tile.frameX == 270)
 							{
-								Item.NewItem(i * 16, j * 16, 16, 16, 2887, 1, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, 2887, 1, false, 0, false, false);
 							}
 						}
 					}
@@ -33153,7 +33512,10 @@ namespace Terraria
 					{
 						int num2 = i;
 						int l = (int)tile.frameX;
-						int m = 0;
+						int m;
+						for (m = (int)tile.frameX; m >= 100; m -= 100)
+						{
+						}
 						while (m >= 36)
 						{
 							m -= 36;
@@ -33174,15 +33536,15 @@ namespace Terraria
 							int num4 = (int)(Main.tile[num2, j].frameY / 18);
 							if (num4 == 0)
 							{
-								Item.NewItem(i * 16, j * 16, 16, 16, Item.headType[num3], 1, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, Item.headType[num3], 1, false, 0, false, false);
 							}
 							if (num4 == 1)
 							{
-								Item.NewItem(i * 16, j * 16, 16, 16, Item.bodyType[num3], 1, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, Item.bodyType[num3], 1, false, 0, false, false);
 							}
 							if (num4 == 2)
 							{
-								Item.NewItem(i * 16, j * 16, 16, 16, Item.legType[num3], 1, false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, Item.legType[num3], 1, false, 0, false, false);
 							}
 							for (l = (int)Main.tile[num2, j].frameX; l >= 100; l -= 100)
 							{
@@ -33234,7 +33596,7 @@ namespace Terraria
 								Item item = new Item();
 								item.netDefaults(num8);
 								item.Prefix(num9);
-								int num10 = Item.NewItem(i * 16, j * 16, 16, 16, num8, 1, true, 0, false);
+								int num10 = Item.NewItem(i * 16, j * 16, 16, 16, num8, 1, true, 0, false, false);
 								item.position = Main.item[num10].position;
 								Main.item[num10] = item;
 								NetMessage.SendData(21, -1, -1, "", num10, 0f, 0f, 0f, 0, 0, 0);
@@ -33425,33 +33787,33 @@ namespace Terraria
 								{
 									case 10:
 									case 11:
-										goto IL_1499;
+										goto IL_14A0;
 									default:
 										switch (type)
 										{
 											case 87:
 											case 89:
-												goto IL_1499;
+												goto IL_14A0;
 										}
 										break;
 								}
 							}
 							else if (type == 93 || type == 139)
 							{
-								goto IL_1499;
+								goto IL_14A0;
 							}
 						}
 						else if (type <= 320)
 						{
 							if (type == 209)
 							{
-								goto IL_1499;
+								goto IL_14A0;
 							}
 							switch (type)
 							{
 								case 319:
 								case 320:
-									goto IL_1499;
+									goto IL_14A0;
 							}
 						}
 						else
@@ -33461,7 +33823,7 @@ namespace Terraria
 								case 386:
 								case 387:
 								case 390:
-									goto IL_1499;
+									goto IL_14A0;
 								case 388:
 								case 389:
 									break;
@@ -33472,7 +33834,7 @@ namespace Terraria
 										case 406:
 										case 411:
 										case 412:
-											goto IL_1499;
+											goto IL_14A0;
 										case 407:
 											num15 = 10;
 											break;
@@ -33480,7 +33842,7 @@ namespace Terraria
 									break;
 							}
 						}
-					IL_14A2:
+						IL_14A9:
 						if (tile.type == 240)
 						{
 							int num16 = (int)(tile.frameX / 54);
@@ -35149,14 +35511,11 @@ namespace Terraria
 						{
 							num15 = 215;
 						}
-						if (num15 >= 0)
-						{
-						}
 						num14++;
 						continue;
-					IL_1499:
+						IL_14A0:
 						num15 = -1;
-						goto IL_14A2;
+						goto IL_14A9;
 					}
 					if (effectOnly)
 					{
@@ -36779,7 +37138,7 @@ namespace Terraria
 						{
 							if (tile.frameX == 144 && tile.type == 61)
 							{
-								Item.NewItem(i * 16, j * 16, 16, 16, 331, WorldGen.genRand.Next(2, 4), false, 0, false);
+								Item.NewItem(i * 16, j * 16, 16, 16, 331, WorldGen.genRand.Next(2, 4), false, 0, false, false);
 							}
 							else if (tile.frameX == 162 && tile.type == 61)
 							{
@@ -36868,14 +37227,14 @@ namespace Terraria
 								int num70 = (int)Player.FindClosest(new Vector2((float)(i * 16), (float)(j * 16)), 16, 16);
 								if (Main.player[num70].inventory[Main.player[num70].selectedItem].type == 213)
 								{
-									Item.NewItem(i * 16, j * 16, 16, 16, type6, WorldGen.genRand.Next(1, 6), false, 0, false);
-									Item.NewItem(i * 16, j * 16, 16, 16, num49, WorldGen.genRand.Next(1, 3), false, 0, false);
+									Item.NewItem(i * 16, j * 16, 16, 16, type6, WorldGen.genRand.Next(1, 6), false, 0, false, false);
+									Item.NewItem(i * 16, j * 16, 16, 16, num49, WorldGen.genRand.Next(1, 3), false, 0, false, false);
 									num49 = -1;
 								}
 								else if (flag2)
 								{
 									int stack = WorldGen.genRand.Next(1, 4);
-									Item.NewItem(i * 16, j * 16, 16, 16, type6, stack, false, 0, false);
+									Item.NewItem(i * 16, j * 16, 16, 16, type6, stack, false, 0, false, false);
 								}
 							}
 						}
@@ -36894,14 +37253,14 @@ namespace Terraria
 							{
 								num71++;
 							}
-							Item.NewItem(i * 16, j * 16, 16, 16, num49, num71, false, -1, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, num49, num71, false, -1, false, false);
 						}
 						if (num50 > 0)
 						{
-							Item.NewItem(i * 16, j * 16, 16, 16, num50, 1, false, -1, false);
+							Item.NewItem(i * 16, j * 16, 16, 16, num50, 1, false, -1, false, false);
 						}
 					}
-					if (Main.netMode == 0)
+					if (Main.netMode != 2)
 					{
 						AchievementsHelper.NotifyTileDestroyed(Main.player[Main.myPlayer], tile.type);
 					}
@@ -36926,6 +37285,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void DropDoorItem(int x, int y, int doorStyle)
 		{
 			int num = 0;
@@ -37035,9 +37395,10 @@ namespace Terraria
 			}
 			if (num != 0)
 			{
-				Item.NewItem(x * 16, y * 16, 16, 16, num, 1, false, 0, false);
+				Item.NewItem(x * 16, y * 16, 16, 16, num, 1, false, 0, false, false);
 			}
 		}
+
 		public static bool PlayerLOS(int x, int y)
 		{
 			Rectangle rectangle = new Rectangle(x * 16, y * 16, 16, 16);
@@ -37045,8 +37406,8 @@ namespace Terraria
 			{
 				if (Main.player[i].active)
 				{
-					Rectangle rectangle2 = new Rectangle((int)((double)Main.player[i].position.X + (double)Main.player[i].width * 0.5 - (double)NPC.sWidth * 0.6), (int)((double)Main.player[i].position.Y + (double)Main.player[i].height * 0.5 - (double)NPC.sHeight * 0.6), (int)((double)NPC.sWidth * 1.2), (int)((double)NPC.sHeight * 1.2));
-					if (rectangle.Intersects(rectangle2))
+					Rectangle value = new Rectangle((int)((double)Main.player[i].position.X + (double)Main.player[i].width * 0.5 - (double)NPC.sWidth * 0.6), (int)((double)Main.player[i].position.Y + (double)Main.player[i].height * 0.5 - (double)NPC.sHeight * 0.6), (int)((double)NPC.sWidth * 1.2), (int)((double)NPC.sHeight * 1.2));
+					if (rectangle.Intersects(value))
 					{
 						return true;
 					}
@@ -37054,6 +37415,7 @@ namespace Terraria
 			}
 			return false;
 		}
+
 		public static bool Chlorophyte(int i, int j)
 		{
 			int num = 40;
@@ -37095,6 +37457,7 @@ namespace Terraria
 			}
 			return num5 <= num2;
 		}
+
 		private static bool nearbyChlorophyte(int i, int j)
 		{
 			float num = 0f;
@@ -37119,6 +37482,7 @@ namespace Terraria
 			}
 			return num > 0f && (float)WorldGen.genRand.Next(20) <= num && false;
 		}
+
 		public static void hardUpdateWorld(int i, int j)
 		{
 			if (Main.hardMode)
@@ -37128,7 +37492,8 @@ namespace Terraria
 					return;
 				}
 				int type = (int)Main.tile[i, j].type;
-				if ((type == 117 || type == 164) && (double)j > Main.rockLayer && WorldGen.genRand.Next(110) == 0)
+				if ((type == TileID.Pearlstone || type == TileID.HallowedIce) && (double)j > Main.rockLayer 
+					&& WorldGen.genRand.Next(110) == 0)
 				{
 					int num = WorldGen.genRand.Next(4);
 					int num2 = 0;
@@ -37157,34 +37522,40 @@ namespace Terraria
 						{
 							for (int l = j - num5; l <= j + num5; l++)
 							{
-								if (Main.tile[k, l].active() && Main.tile[k, l].type == 129)
+								if (Main.tile[k, l].active() && Main.tile[k, l].type == TileID.Crystals)
 								{
 									num4++;
 								}
 							}
 						}
 
-						if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(i + num2, j + num3, 129))
+						if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(i + num2, j + num3, TileID.Crystals))
 						{
 							return;
 						}
 
 						if (num4 < 2)
 						{
-							WorldGen.PlaceTile(i + num2, j + num3, 129, true, false, -1, 0);
+							WorldGen.PlaceTile(i + num2, j + num3, TileID.Crystals, true, false, -1, 0);
 							NetMessage.SendTileSquare(-1, i + num2, j + num3, 1);
 						}
 					}
 				}
 				if ((double)j > (Main.worldSurface + Main.rockLayer) / 2.0)
 				{
-					if (type == 60 && WorldGen.genRand.Next(300) == 0)
+					if (type == TileID.JungleGrass && WorldGen.genRand.Next(300) == 0)
 					{
 						int num6 = i + WorldGen.genRand.Next(-10, 11);
 						int num7 = j + WorldGen.genRand.Next(-10, 11);
+
+						if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num6, num7, TileID.Chlorophyte))
+						{
+							return;
+						}
+
 						if (WorldGen.InWorld(num6, num7, 2) && Main.tile[num6, num7].active() && Main.tile[num6, num7].type == 59 && (!Main.tile[num6, num7 - 1].active() || (Main.tile[num6, num7 - 1].type != 5 && Main.tile[num6, num7 - 1].type != 236 && Main.tile[num6, num7 - 1].type != 238)) && WorldGen.Chlorophyte(num6, num7))
 						{
-							Main.tile[num6, num7].type = 211;
+							Main.tile[num6, num7].type = TileID.Chlorophyte;
 							WorldGen.SquareTileFrame(num6, num7, true);
 							if (Main.netMode == 2)
 							{
@@ -37192,7 +37563,7 @@ namespace Terraria
 							}
 						}
 					}
-					if (type == 211 && WorldGen.genRand.Next(3) != 0)
+					if (type == TileID.Chlorophyte && WorldGen.genRand.Next(3) != 0)
 					{
 						int num8 = i;
 						int num9 = j;
@@ -37213,9 +37584,17 @@ namespace Terraria
 						{
 							num9--;
 						}
-						if (WorldGen.InWorld(num8, num9, 2) && Main.tile[num8, num9].active() && (Main.tile[num8, num9].type == 59 || Main.tile[num8, num9].type == 60) && WorldGen.Chlorophyte(num8, num9))
+						
+						if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num8, num9, TileID.Chlorophyte))
 						{
-							Main.tile[num8, num9].type = 211;
+							return;
+						}
+
+						if (WorldGen.InWorld(num8, num9, 2) && Main.tile[num8, num9].active() &&
+							(Main.tile[num8, num9].type == TileID.Mud || Main.tile[num8, num9].type == TileID.JungleGrass)
+							&& WorldGen.Chlorophyte(num8, num9))
+						{
+							Main.tile[num8, num9].type = TileID.Chlorophyte;
 							WorldGen.SquareTileFrame(num8, num9, true);
 							if (Main.netMode == 2)
 							{
@@ -37230,9 +37609,15 @@ namespace Terraria
 							num9 = j + Main.rand.Next(-5, 6);
 							if (WorldGen.InWorld(num8, num9, 2) && Main.tile[num8, num9].active())
 							{
-								if (Main.tile[num8, num9].type == 23 || Main.tile[num8, num9].type == 199 || Main.tile[num8, num9].type == 2 || Main.tile[num8, num9].type == 109)
+								if (Main.tile[num8, num9].type == TileID.CorruptGrass || Main.tile[num8, num9].type == TileID.FleshGrass
+									|| Main.tile[num8, num9].type == TileID.Grass || Main.tile[num8, num9].type == TileID.HallowedGrass)
 								{
-									Main.tile[num8, num9].type = 60;
+									if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num8, num9, TileID.JungleGrass))
+									{
+										continue;
+									}
+
+									Main.tile[num8, num9].type = TileID.JungleGrass;
 									WorldGen.SquareTileFrame(num8, num9, true);
 									if (Main.netMode == 2)
 									{
@@ -37240,9 +37625,14 @@ namespace Terraria
 									}
 									flag = true;
 								}
-								else if (Main.tile[num8, num9].type == 0)
+								else if (Main.tile[num8, num9].type == TileID.Dirt)
 								{
-									Main.tile[num8, num9].type = 59;
+									if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num8, num9, TileID.Mud))
+									{
+										continue;
+									}
+
+									Main.tile[num8, num9].type = TileID.Mud;
 									WorldGen.SquareTileFrame(num8, num9, true);
 									if (Main.netMode == 2)
 									{
@@ -37258,7 +37648,10 @@ namespace Terraria
 				{
 					return;
 				}
-				if (type == 23 || type == 25 || type == 32 || type == 112 || type == 163 || type == 400 || type == 398)
+				//Corrupts
+				if (type == TileID.CorruptGrass || type == TileID.Ebonstone || type == TileID.CorruptThorns
+					|| type == TileID.Ebonsand || type == TileID.CorruptIce || type == TileID.CorruptHardenedSand
+					|| type == TileID.CorruptSandstone)
 				{
 					bool flag2 = true;
 					while (flag2)
@@ -37266,132 +37659,177 @@ namespace Terraria
 						flag2 = false;
 						int num11 = i + WorldGen.genRand.Next(-3, 4);
 						int num12 = j + WorldGen.genRand.Next(-3, 4);
-						if (Main.tile[num11, num12 - 1].type != 27)
+						if (Main.tile[num11, num12 - 1].type != TileID.Sunflower)
 						{
-							if (Main.tile[num11, num12].type == 2)
+							if (Main.tile[num11, num12].type == TileID.Grass)
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
 								}
-
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 23))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, TileID.CorruptGrass))
 								{
-									return;
+									if (flag2)
+									{
+										break;
+									}
+									continue;
 								}
-
-								Main.tile[num11, num12].type = 23;
+								Main.tile[num11, num12].type = TileID.CorruptGrass;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
 							}
-							else if (Main.tile[num11, num12].type == 1 || Main.tileMoss[(int)Main.tile[num11, num12].type])
+							else if (Main.tile[num11, num12].type == TileID.Stone || Main.tileMoss[(int)Main.tile[num11, num12].type])
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 25))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, TileID.Ebonstone))
 								{
-									return;
+									if (flag2)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num11, num12].type = 25;
+								Main.tile[num11, num12].type = TileID.Ebonstone;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
 							}
-							else if (Main.tile[num11, num12].type == 53)
+							else if (Main.tile[num11, num12].type == TileID.Sand)
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 112))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, TileID.Ebonsand))
 								{
-									return;
+									if (flag2)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num11, num12].type = 112;
+								Main.tile[num11, num12].type = TileID.Ebonsand;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
 							}
-							else if (Main.tile[num11, num12].type == 396)
+							else if (Main.tile[num11, num12].type == TileID.Sandstone)
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
 								}
-								Main.tile[num11, num12].type = 400;
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, TileID.CorruptSandstone))
+								{
+									if (flag2)
+									{
+										break;
+									}
+									continue;
+								}
+								Main.tile[num11, num12].type = TileID.CorruptSandstone;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
 							}
-							else if (Main.tile[num11, num12].type == 397)
+							else if (Main.tile[num11, num12].type == TileID.HardenedSand)
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
 								}
-								Main.tile[num11, num12].type = 398;
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, TileID.CorruptHardenedSand))
+								{
+									if (flag2)
+									{
+										break;
+									}
+									continue;
+								}
+								Main.tile[num11, num12].type = TileID.CorruptHardenedSand;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
 							}
-							else if (Main.tile[num11, num12].type == 59 && !WorldGen.nearbyChlorophyte(num11, num12))
+							else if (Main.tile[num11, num12].type == TileID.Mud && !WorldGen.nearbyChlorophyte(num11, num12))
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 0))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, TileID.Dirt))
 								{
-									return;
+									if (flag2)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num11, num12].type = 0;
+								Main.tile[num11, num12].type = TileID.Dirt;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
 							}
-							else if (Main.tile[num11, num12].type == 60 && !WorldGen.nearbyChlorophyte(num11, num12))
+							else if (Main.tile[num11, num12].type == TileID.JungleGrass && !WorldGen.nearbyChlorophyte(num11, num12))
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 23))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, TileID.CorruptGrass))
 								{
-									return;
+									if (flag2)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num11, num12].type = 23;
+								Main.tile[num11, num12].type = TileID.CorruptGrass;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
 							}
-							else if (Main.tile[num11, num12].type == 69)
+							else if (Main.tile[num11, num12].type == TileID.JungleThorns)
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 32))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, TileID.CorruptThorns))
 								{
-									return;
+									if (flag2)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num11, num12].type = 32;
+								Main.tile[num11, num12].type = TileID.CorruptThorns;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
 							}
-							else if (Main.tile[num11, num12].type == 161)
+							else if (Main.tile[num11, num12].type == TileID.IceBlock)
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag2 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, 163))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num11, num12, TileID.CorruptIce))
 								{
-									return;
+									if (flag2)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num11, num12].type = 163;
+								Main.tile[num11, num12].type = TileID.CorruptIce;
 								WorldGen.SquareTileFrame(num11, num12, true);
 								NetMessage.SendTileSquare(-1, num11, num12, 1);
 							}
 						}
 					}
 				}
-				if (type == 199 || type == 200 || type == 201 || type == 203 || type == 205 || type == 234 || type == 352 || type == 401 || type == 399)
+				//Crimsons
+				if (type == TileID.FleshGrass || type == TileID.FleshIce || type == TileID.FleshWeeds 
+					|| type == TileID.Crimstone || type == TileID.CrimsonVines || type == TileID.Crimsand
+					|| type == TileID.CrimtaneThorns || type == TileID.CrimsonHardenedSand || type == TileID.CrimsonSandstone)
 				{
 					bool flag3 = true;
 					while (flag3)
@@ -37399,130 +37837,178 @@ namespace Terraria
 						flag3 = false;
 						int num13 = i + WorldGen.genRand.Next(-3, 4);
 						int num14 = j + WorldGen.genRand.Next(-3, 4);
-						if (Main.tile[num13, num14 - 1].type != 27)
+						if (Main.tile[num13, num14 - 1].type != TileID.Sunflower)
 						{
-							if (Main.tile[num13, num14].type == 2)
+							if (Main.tile[num13, num14].type == TileID.Grass)
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag3 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, 199))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, TileID.FleshGrass))
 								{
-									return;
+									if (flag3)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num13, num14].type = 199;
+								Main.tile[num13, num14].type = TileID.FleshGrass;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
 							}
-							else if (Main.tile[num13, num14].type == 1 || Main.tileMoss[(int)Main.tile[num13, num14].type])
+							else if (Main.tile[num13, num14].type == TileID.Stone || Main.tileMoss[(int)Main.tile[num13, num14].type])
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag3 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, 203))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, TileID.Crimstone))
 								{
-									return;
+									if (flag3)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num13, num14].type = 203;
+								Main.tile[num13, num14].type = TileID.Crimstone;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
 							}
-							else if (Main.tile[num13, num14].type == 53)
+							else if (Main.tile[num13, num14].type == TileID.Sand)
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag3 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, 234))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, TileID.Crimsand))
 								{
-									return;
+									if (flag3)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num13, num14].type = 234;
+								Main.tile[num13, num14].type = TileID.Crimsand;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
 							}
-							else if (Main.tile[num13, num14].type == 396)
+							else if (Main.tile[num13, num14].type == TileID.Sandstone)
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag3 = true;
 								}
-								Main.tile[num13, num14].type = 401;
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, TileID.CrimsonSandstone))
+								{
+									if (flag3)
+									{
+										break;
+									}
+									continue;
+								}
+								Main.tile[num13, num14].type = TileID.CrimsonSandstone;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
 							}
-							else if (Main.tile[num13, num14].type == 397)
+							else if (Main.tile[num13, num14].type == TileID.HardenedSand)
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag3 = true;
 								}
-								Main.tile[num13, num14].type = 399;
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, TileID.CrimsonHardenedSand))
+								{
+									if (flag3)
+									{
+										break;
+									}
+									continue;
+								}
+								Main.tile[num13, num14].type = TileID.CrimsonHardenedSand;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
 							}
-							else if (Main.tile[num13, num14].type == 59 && !WorldGen.nearbyChlorophyte(num13, num14))
+							else if (Main.tile[num13, num14].type == TileID.Mud && !WorldGen.nearbyChlorophyte(num13, num14))
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag3 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, 0))
+
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, TileID.Dirt))
 								{
-									return;
+									if (flag3)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num13, num14].type = 0;
+								Main.tile[num13, num14].type = TileID.Dirt;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
 							}
-							else if (Main.tile[num13, num14].type == 60 && !WorldGen.nearbyChlorophyte(num13, num14))
+							else if (Main.tile[num13, num14].type == TileID.JungleGrass && !WorldGen.nearbyChlorophyte(num13, num14))
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag3 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, 199))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, TileID.FleshGrass))
 								{
-									return;
+									if (flag3)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num13, num14].type = 199;
+								Main.tile[num13, num14].type = TileID.FleshGrass;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
 							}
-							else if (Main.tile[num13, num14].type == 69)
+							else if (Main.tile[num13, num14].type == TileID.JungleThorns)
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag3 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, -1))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, TileID.CrimtaneThorns))
 								{
-									return;
+									if (flag3)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num13, num14].type = 352;
+								Main.tile[num13, num14].type = TileID.CrimtaneThorns;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
 							}
-							else if (Main.tile[num13, num14].type == 161)
+							else if (Main.tile[num13, num14].type == TileID.IceBlock)
 							{
 								if (WorldGen.genRand.Next(2) == 0)
 								{
 									flag3 = true;
 								}
-								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, 200))
+								if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num13, num14, TileID.FleshIce))
 								{
-									return;
+									if (flag3)
+									{
+										break;
+									}
+									continue;
 								}
-								Main.tile[num13, num14].type = 200;
+								Main.tile[num13, num14].type = TileID.FleshIce;
 								WorldGen.SquareTileFrame(num13, num14, true);
 								NetMessage.SendTileSquare(-1, num13, num14, 1);
 							}
 						}
 					}
 				}
-				if (type == 109 || type == 110 || type == 113 || type == 115 || type == 116 || type == 117 || type == 164 || type == 402 || type == 403)
+				//Hallows
+				if (type == TileID.HallowedGrass || type == TileID.HallowedPlants || type == TileID.HallowedPlants2
+					|| type == TileID.HallowedVines || type == TileID.Pearlsand || type == TileID.Pearlstone
+					|| type == TileID.HallowedIce || type == TileID.HallowHardenedSand || type == TileID.HallowSandstone)
 				{
 					bool flag4 = true;
 					while (flag4)
@@ -37530,71 +38016,111 @@ namespace Terraria
 						flag4 = false;
 						int num15 = i + WorldGen.genRand.Next(-3, 4);
 						int num16 = j + WorldGen.genRand.Next(-3, 4);
-						if (Main.tile[num15, num16].type == 2)
+						if (Main.tile[num15, num16].type == TileID.Grass)
 						{
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag4 = true;
 							}
-							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 109))
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, TileID.HallowedGrass))
 							{
-								return;
+								if (flag4)
+								{
+									break;
+								}
+								continue;
 							}
-							Main.tile[num15, num16].type = 109;
+							Main.tile[num15, num16].type = TileID.HallowedGrass;
 							WorldGen.SquareTileFrame(num15, num16, true);
 							NetMessage.SendTileSquare(-1, num15, num16, 1);
 						}
-						else if (Main.tile[num15, num16].type == 1 || Main.tileMoss[(int)Main.tile[num15, num16].type])
+						else if (Main.tile[num15, num16].type == TileID.Stone || Main.tileMoss[(int)Main.tile[num15, num16].type])
 						{
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag4 = true;
 							}
-							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, 117))
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, TileID.Pearlstone))
 							{
-								return;
+								if (flag4)
+								{
+									break;
+								}
+								continue;
 							}
-							Main.tile[num15, num16].type = 117;
+							Main.tile[num15, num16].type = TileID.Pearlstone;
 							WorldGen.SquareTileFrame(num15, num16, true);
 							NetMessage.SendTileSquare(-1, num15, num16, 1);
 						}
-						else if (Main.tile[num15, num16].type == 53)
+						else if (Main.tile[num15, num16].type == TileID.Sand)
 						{
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag4 = true;
 							}
-							Main.tile[num15, num16].type = 116;
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, TileID.Pearlsand))
+							{
+								if (flag4)
+								{
+									break;
+								}
+								continue;
+							}
+							Main.tile[num15, num16].type = TileID.Pearlsand;
 							WorldGen.SquareTileFrame(num15, num16, true);
 							NetMessage.SendTileSquare(-1, num15, num16, 1);
 						}
-						else if (Main.tile[num15, num16].type == 396)
+						else if (Main.tile[num15, num16].type == TileID.Sandstone)
 						{
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag4 = true;
 							}
-							Main.tile[num15, num16].type = 403;
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, TileID.HallowSandstone))
+							{
+								if (flag4)
+								{
+									break;
+								}
+								continue;
+							}
+							Main.tile[num15, num16].type = TileID.HallowSandstone;
 							WorldGen.SquareTileFrame(num15, num16, true);
 							NetMessage.SendTileSquare(-1, num15, num16, 1);
 						}
-						else if (Main.tile[num15, num16].type == 397)
+						else if (Main.tile[num15, num16].type == TileID.HardenedSand)
 						{
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag4 = true;
 							}
-							Main.tile[num15, num16].type = 402;
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, TileID.HallowHardenedSand))
+							{
+								if (flag4)
+								{
+									break;
+								}
+								continue;
+							}
+							Main.tile[num15, num16].type = TileID.HallowHardenedSand;
 							WorldGen.SquareTileFrame(num15, num16, true);
 							NetMessage.SendTileSquare(-1, num15, num16, 1);
 						}
-						else if (Main.tile[num15, num16].type == 161)
+						else if (Main.tile[num15, num16].type == TileID.IceBlock)
 						{
 							if (WorldGen.genRand.Next(2) == 0)
 							{
 								flag4 = true;
 							}
-							Main.tile[num15, num16].type = 164;
+							if (ServerApi.Hooks.InvokeGameHardmodeTileUpdate(num15, num16, TileID.HallowedIce))
+							{
+								if (flag4)
+								{
+									break;
+								}
+								continue;
+							}
+							Main.tile[num15, num16].type = TileID.HallowedIce;
 							WorldGen.SquareTileFrame(num15, num16, true);
 							NetMessage.SendTileSquare(-1, num15, num16, 1);
 						}
@@ -37602,6 +38128,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static bool SolidTile(Tile testTile)
 		{
 			try
@@ -37617,28 +38144,27 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
 			}
 			return false;
 		}
+
 		public static bool TileEmpty(int i, int j)
 		{
 			return Main.tile[i, j] == null || !Main.tile[i, j].active() || Main.tile[i, j].inActive();
 		}
+
 		public static bool SolidOrSlopedTile(Tile tile)
 		{
 			return tile != null && tile.active() && Main.tileSolid[(int)tile.type] && !Main.tileSolidTop[(int)tile.type] && !tile.inActive();
 		}
+
 		public static bool SolidOrSlopedTile(int x, int y)
 		{
 			return WorldGen.SolidOrSlopedTile(Main.tile[x, y]);
 		}
+
 		public static bool SolidTile(int i, int j)
 		{
 			try
@@ -37654,16 +38180,12 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
 			}
 			return false;
 		}
+
 		public static bool SolidTile2(Tile testTile)
 		{
 			try
@@ -37679,16 +38201,12 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
 			}
 			return false;
 		}
+
 		public static bool SolidTileAllowBottomSlope(int i, int j)
 		{
 			try
@@ -37704,16 +38222,12 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
 			}
 			return false;
 		}
+
 		public static bool SolidTile2(int i, int j)
 		{
 			try
@@ -37729,16 +38243,12 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
 			}
 			return false;
 		}
+
 		public static bool SolidTileNoAttach(int i, int j)
 		{
 			try
@@ -37754,35 +38264,31 @@ namespace Terraria
 					return result;
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
 			}
 			return false;
 		}
+
 		public static Vector2 Hive(int i, int j)
 		{
 			double num = (double)WorldGen.genRand.Next(12, 21);
 			double num2 = num;
 			float num3 = (float)WorldGen.genRand.Next(10, 21);
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.2f;
-			vector2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.2f;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.2f;
+			value2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.2f;
 			while (num > 0.0 && num3 > 0f)
 			{
 				num = num2 * (double)(1f + (float)WorldGen.genRand.Next(-20, 20) * 0.01f);
 				num3 -= 1f;
-				int num4 = (int)((double)vector.X - num);
-				int num5 = (int)((double)vector.X + num);
-				int num6 = (int)((double)vector.Y - num);
-				int num7 = (int)((double)vector.Y + num);
+				int num4 = (int)((double)value.X - num);
+				int num5 = (int)((double)value.X + num);
+				int num6 = (int)((double)value.Y - num);
+				int num7 = (int)((double)value.Y + num);
 				if (num4 < 1)
 				{
 					num4 = 1;
@@ -37803,8 +38309,8 @@ namespace Terraria
 				{
 					for (int l = num6; l < num7; l++)
 					{
-						float num8 = Math.Abs((float)k - vector.X);
-						float num9 = Math.Abs((float)l - vector.Y);
+						float num8 = Math.Abs((float)k - value.X);
+						float num9 = Math.Abs((float)l - value.Y);
 						double num10 = Math.Sqrt((double)(num8 * num8 + num9 * num9));
 						if (num10 < num2 * 0.4 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.005))
 						{
@@ -37838,13 +38344,14 @@ namespace Terraria
 						WorldGen.SquareTileFrame(k, l, true);
 					}
 				}
-				vector += vector2;
+				value += value2;
 				num3 -= 1f;
-				vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 			}
-			return new Vector2(vector.X, vector.Y);
+			return new Vector2(value.X, value.Y);
 		}
+
 		public static void MineHouse(int i, int j)
 		{
 			if (i < 50 || i > Main.maxTilesX - 50 || j < 50 || j > Main.maxTilesY - 50)
@@ -38480,6 +38987,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void CountTiles(int X)
 		{
 			if (X == 0)
@@ -38561,6 +39069,7 @@ namespace Terraria
 			while (num3 < 2);
 			WorldGen.AddUpAlignmentCounts(false);
 		}
+
 		public static void AddUpAlignmentCounts(bool clearCounts = false)
 		{
 			if (clearCounts)
@@ -38579,6 +39088,7 @@ namespace Terraria
 			WorldGen.totalSolid2 += WorldGen.tileCounts[199] + WorldGen.tileCounts[234] + WorldGen.tileCounts[203] + WorldGen.tileCounts[200];
 			Array.Clear(WorldGen.tileCounts, 0, WorldGen.tileCounts.Length);
 		}
+
 		public static void plantDye(int i, int j, bool exoticPlant = false)
 		{
 			if (Main.tile[i, j].active())
@@ -38590,7 +39100,7 @@ namespace Terraria
 				int num = 90;
 				if (exoticPlant)
 				{
-					num = 350;
+					num = 240;
 				}
 				if ((double)j < Main.worldSurface)
 				{
@@ -38606,7 +39116,7 @@ namespace Terraria
 					{
 						for (int l = num4; l < num5; l++)
 						{
-							if (Main.tile[k, l].active() && Main.tile[k, l].type == 227)
+							if (Main.tile[k, l].active() && Main.tile[k, l].type == 227 && (!exoticPlant || Main.tile[k, l].frameX >= 272) && (exoticPlant || Main.tile[k, l].frameX < 272))
 							{
 								return;
 							}
@@ -38695,7 +39205,7 @@ namespace Terraria
 						{
 							for (int num11 = num8; num11 < num9; num11++)
 							{
-								if (Main.tile[num10, num11].active() && Main.tile[num10, num11].type == 227)
+								if (Main.tile[num10, num11].active() && Main.tile[num10, num11].type == 227 && (!exoticPlant || Main.tile[num10, num11].frameX >= 272) && (exoticPlant || Main.tile[num10, num11].frameX < 272))
 								{
 									return;
 								}
@@ -38761,6 +39271,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void UpdateWorld()
 		{
 			int num = 20;
@@ -40305,6 +40816,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void SpreadDesertWalls(int wallDist, int i, int j)
 		{
 			if (WallID.Sets.Conversion.Sandstone[(int)Main.tile[i, j].wall] || (Main.tile[i, j].active() && TileID.Sets.Conversion.Sandstone[(int)Main.tile[i, j].type]) || WallID.Sets.Conversion.HardenedSand[(int)Main.tile[i, j].wall])
@@ -40431,6 +40943,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void PlaceWall(int i, int j, int type, bool mute = false)
 		{
 			if (i <= 1 || j <= 1 || i >= Main.maxTilesX - 2 || j >= Main.maxTilesY - 2)
@@ -40447,6 +40960,7 @@ namespace Terraria
 				WorldGen.SquareWallFrame(i, j, true);
 			}
 		}
+
 		public static void AddPlants()
 		{
 			for (int i = 0; i < Main.maxTilesX; i++)
@@ -40474,6 +40988,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void SpreadGrass(int i, int j, int dirt = 0, int grass = 2, bool repeat = true, byte color = 0)
 		{
 			try
@@ -40539,13 +41054,8 @@ namespace Terraria
 													WorldGen.grassSpread--;
 												}
 											}
-											catch (Exception ex)
+											catch
 											{
-#if DEBUG
-												Console.WriteLine(ex);
-												System.Diagnostics.Debugger.Break();
-
-#endif
 											}
 										}
 									}
@@ -40555,24 +41065,20 @@ namespace Terraria
 					}
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
 			}
 		}
+
 		public static void ChasmRunnerSideways(int i, int j, int direction, int steps)
 		{
 			float num = (float)steps;
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(10, 21) * 0.1f * (float)direction;
-			vector2.Y = (float)WorldGen.genRand.Next(-10, 10) * 0.01f;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(10, 21) * 0.1f * (float)direction;
+			value2.Y = (float)WorldGen.genRand.Next(-10, 10) * 0.01f;
 			double num2 = (double)(WorldGen.genRand.Next(5) + 7);
 			while (num2 > 0.0)
 			{
@@ -40597,15 +41103,15 @@ namespace Terraria
 				{
 					num2 -= (double)WorldGen.genRand.Next(4);
 				}
-				if ((double)vector.Y > Main.rockLayer && num > 0f)
+				if ((double)value.Y > Main.rockLayer && num > 0f)
 				{
 					num = 0f;
 				}
 				num -= 1f;
-				int num3 = (int)((double)vector.X - num2 * 0.5);
-				int num4 = (int)((double)vector.X + num2 * 0.5);
-				int num5 = (int)((double)vector.Y - num2 * 0.5);
-				int num6 = (int)((double)vector.Y + num2 * 0.5);
+				int num3 = (int)((double)value.X - num2 * 0.5);
+				int num4 = (int)((double)value.X + num2 * 0.5);
+				int num5 = (int)((double)value.Y - num2 * 0.5);
+				int num6 = (int)((double)value.Y + num2 * 0.5);
 				if (num3 < 0)
 				{
 					num3 = 0;
@@ -40626,57 +41132,57 @@ namespace Terraria
 				{
 					for (int l = num5; l < num6; l++)
 					{
-						if ((double)(Math.Abs((float)k - vector.X) + Math.Abs((float)l - vector.Y)) < num2 * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[k, l].type != 31 && Main.tile[k, l].type != 22)
+						if ((double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < num2 * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[k, l].type != 31 && Main.tile[k, l].type != 22)
 						{
 							Main.tile[k, l].active(false);
 						}
 					}
 				}
-				vector += vector2;
-				vector2.Y += (float)WorldGen.genRand.Next(-10, 10) * 0.1f;
-				if (vector.Y < (float)(j - 20))
+				value += value2;
+				value2.Y += (float)WorldGen.genRand.Next(-10, 10) * 0.1f;
+				if (value.Y < (float)(j - 20))
 				{
-					vector2.Y += (float)WorldGen.genRand.Next(20) * 0.01f;
+					value2.Y += (float)WorldGen.genRand.Next(20) * 0.01f;
 				}
-				if (vector.Y > (float)(j + 20))
+				if (value.Y > (float)(j + 20))
 				{
-					vector2.Y -= (float)WorldGen.genRand.Next(20) * 0.01f;
+					value2.Y -= (float)WorldGen.genRand.Next(20) * 0.01f;
 				}
-				if ((double)vector2.Y < -0.5)
+				if ((double)value2.Y < -0.5)
 				{
-					vector2.Y = -0.5f;
+					value2.Y = -0.5f;
 				}
-				if ((double)vector2.Y > 0.5)
+				if ((double)value2.Y > 0.5)
 				{
-					vector2.Y = 0.5f;
+					value2.Y = 0.5f;
 				}
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.01f;
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.01f;
 				if (direction == -1)
 				{
-					if ((double)vector2.X > -0.5)
+					if ((double)value2.X > -0.5)
 					{
-						vector2.X = -0.5f;
+						value2.X = -0.5f;
 					}
-					if (vector2.X < -2f)
+					if (value2.X < -2f)
 					{
-						vector2.X = -2f;
+						value2.X = -2f;
 					}
 				}
 				else if (direction == 1)
 				{
-					if ((double)vector2.X < 0.5)
+					if ((double)value2.X < 0.5)
 					{
-						vector2.X = 0.5f;
+						value2.X = 0.5f;
 					}
-					if (vector2.X > 2f)
+					if (value2.X > 2f)
 					{
-						vector2.X = 2f;
+						value2.X = 2f;
 					}
 				}
-				num3 = (int)((double)vector.X - num2 * 1.1);
-				num4 = (int)((double)vector.X + num2 * 1.1);
-				num5 = (int)((double)vector.Y - num2 * 1.1);
-				num6 = (int)((double)vector.Y + num2 * 1.1);
+				num3 = (int)((double)value.X - num2 * 1.1);
+				num4 = (int)((double)value.X + num2 * 1.1);
+				num5 = (int)((double)value.Y - num2 * 1.1);
+				num6 = (int)((double)value.Y + num2 * 1.1);
 				if (num3 < 1)
 				{
 					num3 = 1;
@@ -40697,7 +41203,7 @@ namespace Terraria
 				{
 					for (int n = num5; n < num6; n++)
 					{
-						if ((double)(Math.Abs((float)m - vector.X) + Math.Abs((float)n - vector.Y)) < num2 * 1.1 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[m, n].wall != 3)
+						if ((double)(Math.Abs((float)m - value.X) + Math.Abs((float)n - value.Y)) < num2 * 1.1 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[m, n].wall != 3)
 						{
 							if (Main.tile[m, n].type != 25 && n > j + WorldGen.genRand.Next(3, 20))
 							{
@@ -40719,7 +41225,7 @@ namespace Terraria
 				{
 					for (int num8 = num5; num8 < num6; num8++)
 					{
-						if ((double)(Math.Abs((float)num7 - vector.X) + Math.Abs((float)num8 - vector.Y)) < num2 * 1.1 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[num7, num8].wall != 3)
+						if ((double)(Math.Abs((float)num7 - value.X) + Math.Abs((float)num8 - value.Y)) < num2 * 1.1 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[num7, num8].wall != 3)
 						{
 							if (Main.tile[num7, num8].type != 31 && Main.tile[num7, num8].type != 22)
 							{
@@ -40733,8 +41239,8 @@ namespace Terraria
 			}
 			if (WorldGen.genRand.Next(3) == 0)
 			{
-				int num9 = (int)vector.X;
-				int num10 = (int)vector.Y;
+				int num9 = (int)value.X;
+				int num10 = (int)value.Y;
 				while (!Main.tile[num9, num10].active())
 				{
 					num10++;
@@ -40742,6 +41248,7 @@ namespace Terraria
 				WorldGen.TileRunner(num9, num10, (double)WorldGen.genRand.Next(2, 6), WorldGen.genRand.Next(3, 7), 22, false, 0f, 0f, false, true);
 			}
 		}
+
 		public static void CrimStart(int i, int j)
 		{
 			int crimDir = 1;
@@ -40758,8 +41265,8 @@ namespace Terraria
 			}
 			int num2 = num;
 			Vector2 vector = new Vector2((float)i, (float)num);
-			Vector2 vector2 = new Vector2((float)WorldGen.genRand.Next(-20, 21) * 0.1f, (float)WorldGen.genRand.Next(20, 201) * 0.01f);
-			if (vector2.X < 0f)
+			Vector2 value = new Vector2((float)WorldGen.genRand.Next(-20, 21) * 0.1f, (float)WorldGen.genRand.Next(20, 201) * 0.01f);
+			if (value.X < 0f)
 			{
 				crimDir = -1;
 			}
@@ -40819,34 +41326,34 @@ namespace Terraria
 				}
 				if (num4 < 0)
 				{
-					vector2.X -= (float)WorldGen.genRand.Next(20, 51) * 0.01f;
+					value.X -= (float)WorldGen.genRand.Next(20, 51) * 0.01f;
 				}
 				else if (num4 > 0)
 				{
-					vector2.X += (float)WorldGen.genRand.Next(20, 51) * 0.01f;
+					value.X += (float)WorldGen.genRand.Next(20, 51) * 0.01f;
 				}
 				else
 				{
-					vector2.X += (float)WorldGen.genRand.Next(-50, 51) * 0.01f;
+					value.X += (float)WorldGen.genRand.Next(-50, 51) * 0.01f;
 				}
-				vector2.Y += (float)WorldGen.genRand.Next(-50, 51) * 0.01f;
-				if ((double)vector2.Y < 0.25)
+				value.Y += (float)WorldGen.genRand.Next(-50, 51) * 0.01f;
+				if ((double)value.Y < 0.25)
 				{
-					vector2.Y = 0.25f;
+					value.Y = 0.25f;
 				}
-				if (vector2.Y > 2f)
+				if (value.Y > 2f)
 				{
-					vector2.Y = 2f;
+					value.Y = 2f;
 				}
-				if (vector2.X < -2f)
+				if (value.X < -2f)
 				{
-					vector2.X = -2f;
+					value.X = -2f;
 				}
-				if (vector2.X > 2f)
+				if (value.X > 2f)
 				{
-					vector2.X = 2f;
+					value.X = 2f;
 				}
-				vector += vector2;
+				vector += value;
 				if ((double)vector.Y > Main.worldSurface + 100.0)
 				{
 					flag = false;
@@ -40897,18 +41404,18 @@ namespace Terraria
 				int num18 = (int)vector.Y;
 				int num19 = 0;
 				bool flag2 = true;
-				Vector2 vector3 = new Vector2((float)WorldGen.genRand.Next(-20, 21) * 0.15f, (float)WorldGen.genRand.Next(0, 21) * 0.15f);
+				Vector2 vector2 = new Vector2((float)WorldGen.genRand.Next(-20, 21) * 0.15f, (float)WorldGen.genRand.Next(0, 21) * 0.15f);
 				while (flag2)
 				{
-					vector3 = new Vector2((float)WorldGen.genRand.Next(-20, 21) * 0.15f, (float)WorldGen.genRand.Next(0, 21) * 0.15f);
-					while ((double)(Math.Abs(vector3.X) + Math.Abs(vector3.Y)) < 1.5)
+					vector2 = new Vector2((float)WorldGen.genRand.Next(-20, 21) * 0.15f, (float)WorldGen.genRand.Next(0, 21) * 0.15f);
+					while ((double)(Math.Abs(vector2.X) + Math.Abs(vector2.Y)) < 1.5)
 					{
-						vector3 = new Vector2((float)WorldGen.genRand.Next(-20, 21) * 0.15f, (float)WorldGen.genRand.Next(0, 21) * 0.15f);
+						vector2 = new Vector2((float)WorldGen.genRand.Next(-20, 21) * 0.15f, (float)WorldGen.genRand.Next(0, 21) * 0.15f);
 					}
 					flag2 = false;
 					for (int m = 0; m < l; m++)
 					{
-						if ((double)vector2.X > (double)array[m].X - 0.75 && (double)vector2.X < (double)array[m].X + 0.75 && (double)vector2.Y > (double)array[m].Y - 0.75 && (double)vector2.Y < (double)array[m].Y + 0.75)
+						if ((double)value.X > (double)array[m].X - 0.75 && (double)value.X < (double)array[m].X + 0.75 && (double)value.Y > (double)array[m].Y - 0.75 && (double)value.Y < (double)array[m].Y + 0.75)
 						{
 							flag2 = true;
 							num19++;
@@ -40920,8 +41427,8 @@ namespace Terraria
 						break;
 					}
 				}
-				array[l] = vector3;
-				WorldGen.CrimVein(new Vector2((float)num17, (float)num18), vector3);
+				array[l] = vector2;
+				WorldGen.CrimVein(new Vector2((float)num17, (float)num18), vector2);
 			}
 			for (int n = 0; n < WorldGen.heartCount; n++)
 			{
@@ -41053,13 +41560,14 @@ namespace Terraria
 			}
 			WorldGen.CrimEnt(vector, crimDir);
 		}
+
 		public static void CrimEnt(Vector2 position, int crimDir)
 		{
 			float num = 0f;
 			float num2 = (float)WorldGen.genRand.Next(6, 11);
 			bool flag = true;
-			Vector2 vector = new Vector2(2f, (float)WorldGen.genRand.Next(-20, 0) * 0.01f);
-			vector.X *= (float)(-(float)crimDir);
+			Vector2 value = new Vector2(2f, (float)WorldGen.genRand.Next(-20, 0) * 0.01f);
+			value.X *= (float)(-(float)crimDir);
 			while (flag)
 			{
 				num += 1f;
@@ -41095,9 +41603,10 @@ namespace Terraria
 					}
 					num3++;
 				}
-				position += vector;
+				position += value;
 			}
 		}
+
 		public static void CrimVein(Vector2 position, Vector2 velocity)
 		{
 			float num = (float)WorldGen.genRand.Next(15, 26);
@@ -41174,6 +41683,7 @@ namespace Terraria
 			WorldGen.heartPos[WorldGen.heartCount] = position;
 			WorldGen.heartCount++;
 		}
+
 		public static void ChasmRunner(int i, int j, int steps, bool makeOrb = false)
 		{
 			bool flag = false;
@@ -41184,12 +41694,12 @@ namespace Terraria
 				flag2 = true;
 			}
 			float num = (float)steps;
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			vector2.Y = (float)WorldGen.genRand.Next(11) * 0.2f + 0.5f;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			value2.Y = (float)WorldGen.genRand.Next(11) * 0.2f + 0.5f;
 			int num2 = 5;
 			double num3 = (double)(WorldGen.genRand.Next(5) + 7);
 			while (num3 > 0.0)
@@ -41211,20 +41721,20 @@ namespace Terraria
 						num3 = 10.0;
 					}
 				}
-				else if ((double)vector.Y > Main.worldSurface + 45.0)
+				else if ((double)value.Y > Main.worldSurface + 45.0)
 				{
 					num3 -= (double)WorldGen.genRand.Next(4);
 				}
-				if ((double)vector.Y > Main.rockLayer && num > 0f)
+				if ((double)value.Y > Main.rockLayer && num > 0f)
 				{
 					num = 0f;
 				}
 				num -= 1f;
-				if (!flag && (double)vector.Y > Main.worldSurface + 20.0)
+				if (!flag && (double)value.Y > Main.worldSurface + 20.0)
 				{
 					flag = true;
-					WorldGen.ChasmRunnerSideways((int)vector.X, (int)vector.Y, -1, WorldGen.genRand.Next(20, 40));
-					WorldGen.ChasmRunnerSideways((int)vector.X, (int)vector.Y, 1, WorldGen.genRand.Next(20, 40));
+					WorldGen.ChasmRunnerSideways((int)value.X, (int)value.Y, -1, WorldGen.genRand.Next(20, 40));
+					WorldGen.ChasmRunnerSideways((int)value.X, (int)value.Y, 1, WorldGen.genRand.Next(20, 40));
 				}
 				int num4;
 				int num5;
@@ -41232,10 +41742,10 @@ namespace Terraria
 				int num7;
 				if (num > (float)num2)
 				{
-					num4 = (int)((double)vector.X - num3 * 0.5);
-					num5 = (int)((double)vector.X + num3 * 0.5);
-					num6 = (int)((double)vector.Y - num3 * 0.5);
-					num7 = (int)((double)vector.Y + num3 * 0.5);
+					num4 = (int)((double)value.X - num3 * 0.5);
+					num5 = (int)((double)value.X + num3 * 0.5);
+					num6 = (int)((double)value.Y - num3 * 0.5);
+					num7 = (int)((double)value.Y + num3 * 0.5);
 					if (num4 < 0)
 					{
 						num4 = 0;
@@ -41256,14 +41766,14 @@ namespace Terraria
 					{
 						for (int l = num6; l < num7; l++)
 						{
-							if ((double)(Math.Abs((float)k - vector.X) + Math.Abs((float)l - vector.Y)) < num3 * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[k, l].type != 31 && Main.tile[k, l].type != 22)
+							if ((double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < num3 * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[k, l].type != 31 && Main.tile[k, l].type != 22)
 							{
 								Main.tile[k, l].active(false);
 							}
 						}
 					}
 				}
-				if (num <= 2f && (double)vector.Y < Main.worldSurface + 45.0)
+				if (num <= 2f && (double)value.Y < Main.worldSurface + 45.0)
 				{
 					num = 2f;
 				}
@@ -41272,7 +41782,7 @@ namespace Terraria
 					if (!flag2)
 					{
 						flag2 = true;
-						WorldGen.AddShadowOrb((int)vector.X, (int)vector.Y);
+						WorldGen.AddShadowOrb((int)value.X, (int)value.Y);
 					}
 					else if (!flag3)
 					{
@@ -41281,8 +41791,8 @@ namespace Terraria
 						int num8 = 0;
 						while (!flag4)
 						{
-							int num9 = WorldGen.genRand.Next((int)vector.X - 25, (int)vector.X + 25);
-							int num10 = WorldGen.genRand.Next((int)vector.Y - 50, (int)vector.Y);
+							int num9 = WorldGen.genRand.Next((int)value.X - 25, (int)value.X + 25);
+							int num10 = WorldGen.genRand.Next((int)value.Y - 50, (int)value.Y);
 							if (num9 < 5)
 							{
 								num9 = 5;
@@ -41322,20 +41832,20 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.01f;
-				if ((double)vector2.X > 0.3)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.01f;
+				if ((double)value2.X > 0.3)
 				{
-					vector2.X = 0.3f;
+					value2.X = 0.3f;
 				}
-				if ((double)vector2.X < -0.3)
+				if ((double)value2.X < -0.3)
 				{
-					vector2.X = -0.3f;
+					value2.X = -0.3f;
 				}
-				num4 = (int)((double)vector.X - num3 * 1.1);
-				num5 = (int)((double)vector.X + num3 * 1.1);
-				num6 = (int)((double)vector.Y - num3 * 1.1);
-				num7 = (int)((double)vector.Y + num3 * 1.1);
+				num4 = (int)((double)value.X - num3 * 1.1);
+				num5 = (int)((double)value.X + num3 * 1.1);
+				num6 = (int)((double)value.Y - num3 * 1.1);
+				num7 = (int)((double)value.Y + num3 * 1.1);
 				if (num4 < 1)
 				{
 					num4 = 1;
@@ -41356,7 +41866,7 @@ namespace Terraria
 				{
 					for (int n = num6; n < num7; n++)
 					{
-						if ((double)(Math.Abs((float)m - vector.X) + Math.Abs((float)n - vector.Y)) < num3 * 1.1 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
+						if ((double)(Math.Abs((float)m - value.X) + Math.Abs((float)n - value.Y)) < num3 * 1.1 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
 						{
 							if (Main.tile[m, n].type != 25 && n > j + WorldGen.genRand.Next(3, 20))
 							{
@@ -41377,7 +41887,7 @@ namespace Terraria
 				{
 					for (int num12 = num6; num12 < num7; num12++)
 					{
-						if ((double)(Math.Abs((float)num11 - vector.X) + Math.Abs((float)num12 - vector.Y)) < num3 * 1.1 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
+						if ((double)(Math.Abs((float)num11 - value.X) + Math.Abs((float)num12 - value.Y)) < num3 * 1.1 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
 						{
 							if (Main.tile[num11, num12].type != 31)
 							{
@@ -41396,23 +41906,24 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void JungleRunner(int i, int j)
 		{
 			double num = (double)WorldGen.genRand.Next(5, 11);
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			vector2.Y = (float)WorldGen.genRand.Next(10, 20) * 0.1f;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			value2.Y = (float)WorldGen.genRand.Next(10, 20) * 0.1f;
 			int num2 = 0;
 			bool flag = true;
 			while (flag)
 			{
-				if ((double)vector.Y < Main.worldSurface)
+				if ((double)value.Y < Main.worldSurface)
 				{
-					int num3 = (int)vector.X;
-					int num4 = (int)vector.Y;
+					int num3 = (int)value.X;
+					int num4 = (int)value.Y;
 					if (num4 < 5)
 					{
 						num4 = 5;
@@ -41422,7 +41933,7 @@ namespace Terraria
 						flag = false;
 					}
 				}
-				WorldGen.JungleX = (int)vector.X;
+				WorldGen.JungleX = (int)value.X;
 				num += (double)((float)WorldGen.genRand.Next(-20, 21) * 0.1f);
 				if (num < 5.0)
 				{
@@ -41432,10 +41943,10 @@ namespace Terraria
 				{
 					num = 10.0;
 				}
-				int num5 = (int)((double)vector.X - num * 0.5);
-				int num6 = (int)((double)vector.X + num * 0.5);
-				int num7 = (int)((double)vector.Y - num * 0.5);
-				int num8 = (int)((double)vector.Y + num * 0.5);
+				int num5 = (int)((double)value.X - num * 0.5);
+				int num6 = (int)((double)value.X + num * 0.5);
+				int num7 = (int)((double)value.Y - num * 0.5);
+				int num8 = (int)((double)value.Y + num * 0.5);
 				if (num5 < 0)
 				{
 					num5 = 0;
@@ -41456,7 +41967,7 @@ namespace Terraria
 				{
 					for (int l = num7; l < num8; l++)
 					{
-						if ((double)(Math.Abs((float)k - vector.X) + Math.Abs((float)l - vector.Y)) < num * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
+						if ((double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < num * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
 						{
 							WorldGen.KillTile(k, l, false, false, false);
 						}
@@ -41471,61 +41982,62 @@ namespace Terraria
 					{
 						num9 = 2;
 					}
-					WorldGen.TileRunner((int)vector.X, (int)vector.Y, (double)WorldGen.genRand.Next(3, 20), WorldGen.genRand.Next(10, 100), -1, false, (float)num9, 0f, false, true);
+					WorldGen.TileRunner((int)value.X, (int)value.Y, (double)WorldGen.genRand.Next(3, 20), WorldGen.genRand.Next(10, 100), -1, false, (float)num9, 0f, false, true);
 				}
-				vector += vector2;
-				vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.01f;
-				if (vector2.Y > 0f)
+				value += value2;
+				value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.01f;
+				if (value2.Y > 0f)
 				{
-					vector2.Y = 0f;
+					value2.Y = 0f;
 				}
-				if (vector2.Y < -2f)
+				if (value2.Y < -2f)
 				{
-					vector2.Y = -2f;
+					value2.Y = -2f;
 				}
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-				if (vector.X < (float)(i - 200))
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+				if (value.X < (float)(i - 200))
 				{
-					vector2.X += (float)WorldGen.genRand.Next(5, 21) * 0.1f;
+					value2.X += (float)WorldGen.genRand.Next(5, 21) * 0.1f;
 				}
-				if (vector.X > (float)(i + 200))
+				if (value.X > (float)(i + 200))
 				{
-					vector2.X -= (float)WorldGen.genRand.Next(5, 21) * 0.1f;
+					value2.X -= (float)WorldGen.genRand.Next(5, 21) * 0.1f;
 				}
-				if ((double)vector2.X > 1.5)
+				if ((double)value2.X > 1.5)
 				{
-					vector2.X = 1.5f;
+					value2.X = 1.5f;
 				}
-				if ((double)vector2.X < -1.5)
+				if ((double)value2.X < -1.5)
 				{
-					vector2.X = -1.5f;
+					value2.X = -1.5f;
 				}
 			}
 		}
+
 		public static void GERunner(int i, int j, float speedX = 0f, float speedY = 0f, bool good = true)
 		{
 			int num = WorldGen.genRand.Next(200, 250);
 			float num2 = (float)(Main.maxTilesX / 4200);
 			num = (int)((float)num * num2);
 			double num3 = (double)num;
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			vector2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			value2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			if (speedX != 0f || speedY != 0f)
 			{
-				vector2.X = speedX;
-				vector2.Y = speedY;
+				value2.X = speedX;
+				value2.Y = speedY;
 			}
 			bool flag = true;
 			while (flag)
 			{
-				int num4 = (int)((double)vector.X - num3 * 0.5);
-				int num5 = (int)((double)vector.X + num3 * 0.5);
-				int num6 = (int)((double)vector.Y - num3 * 0.5);
-				int num7 = (int)((double)vector.Y + num3 * 0.5);
+				int num4 = (int)((double)value.X - num3 * 0.5);
+				int num5 = (int)((double)value.X + num3 * 0.5);
+				int num6 = (int)((double)value.Y - num3 * 0.5);
+				int num7 = (int)((double)value.Y + num3 * 0.5);
 				if (num4 < 0)
 				{
 					num4 = 0;
@@ -41546,7 +42058,7 @@ namespace Terraria
 				{
 					for (int l = num6; l < num7; l++)
 					{
-						if ((double)(Math.Abs((float)k - vector.X) + Math.Abs((float)l - vector.Y)) < (double)num * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
+						if ((double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < (double)num * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
 						{
 							if (good)
 							{
@@ -41735,51 +42247,52 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if (vector2.X > speedX + 1f)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if (value2.X > speedX + 1f)
 				{
-					vector2.X = speedX + 1f;
+					value2.X = speedX + 1f;
 				}
-				if (vector2.X < speedX - 1f)
+				if (value2.X < speedX - 1f)
 				{
-					vector2.X = speedX - 1f;
+					value2.X = speedX - 1f;
 				}
-				if (vector.X < (float)(-(float)num) || vector.Y < (float)(-(float)num) || vector.X > (float)(Main.maxTilesX + num) || vector.Y > (float)(Main.maxTilesX + num))
+				if (value.X < (float)(-(float)num) || value.Y < (float)(-(float)num) || value.X > (float)(Main.maxTilesX + num) || value.Y > (float)(Main.maxTilesX + num))
 				{
 					flag = false;
 				}
 			}
 		}
+
 		public static void TileRunner(int i, int j, double strength, int steps, int type, bool addTile = false, float speedX = 0f, float speedY = 0f, bool noYChange = false, bool overRide = true)
 		{
 			double num = strength;
 			float num2 = (float)steps;
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			vector2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			value2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			if (speedX != 0f || speedY != 0f)
 			{
-				vector2.X = speedX;
-				vector2.Y = speedY;
+				value2.X = speedX;
+				value2.Y = speedY;
 			}
 			bool flag = type == 368;
 			bool flag2 = type == 367;
 			while (num > 0.0 && num2 > 0f)
 			{
-				if (vector.Y < 0f && num2 > 0f && type == 59)
+				if (value.Y < 0f && num2 > 0f && type == 59)
 				{
 					num2 = 0f;
 				}
 				num = strength * (double)(num2 / (float)steps);
 				num2 -= 1f;
-				int num3 = (int)((double)vector.X - num * 0.5);
-				int num4 = (int)((double)vector.X + num * 0.5);
-				int num5 = (int)((double)vector.Y - num * 0.5);
-				int num6 = (int)((double)vector.Y + num * 0.5);
+				int num3 = (int)((double)value.X - num * 0.5);
+				int num4 = (int)((double)value.X + num * 0.5);
+				int num5 = (int)((double)value.Y - num * 0.5);
+				int num6 = (int)((double)value.Y + num * 0.5);
 				if (num3 < 1)
 				{
 					num3 = 1;
@@ -41800,7 +42313,7 @@ namespace Terraria
 				{
 					for (int l = num5; l < num6; l++)
 					{
-						if ((double)(Math.Abs((float)k - vector.X) + Math.Abs((float)l - vector.Y)) < strength * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
+						if ((double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < strength * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
 						{
 							if (WorldGen.mudWall && (double)l > Main.worldSurface && Main.tile[k, l - 1].wall != 2 && l < Main.maxTilesY - 210 - WorldGen.genRand.Next(3))
 							{
@@ -41830,11 +42343,11 @@ namespace Terraria
 							}
 							else
 							{
-								if (flag && (double)(Math.Abs((float)k - vector.X) + Math.Abs((float)l - vector.Y)) < strength * 0.3 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.01))
+								if (flag && (double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < strength * 0.3 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.01))
 								{
 									WorldGen.PlaceWall(k, l, 180, true);
 								}
-								if (flag2 && (double)(Math.Abs((float)k - vector.X) + Math.Abs((float)l - vector.Y)) < strength * 0.3 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.01))
+								if (flag2 && (double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < strength * 0.3 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.01))
 								{
 									WorldGen.PlaceWall(k, l, 178, true);
 								}
@@ -41919,18 +42432,18 @@ namespace Terraria
 												break;
 										}
 									}
-								IL_5B7:
+									IL_5B7:
 									if (!flag3)
 									{
 										tile.type = (ushort)type;
 										goto IL_5C5;
 									}
 									goto IL_5C5;
-								IL_575:
+									IL_575:
 									flag3 = true;
 									goto IL_5B7;
 								}
-							IL_5C5:
+								IL_5C5:
 								if (addTile)
 								{
 									Main.tile[k, l].active(true);
@@ -41950,79 +42463,79 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
+				value += value2;
 				if (num > 50.0)
 				{
-					vector += vector2;
+					value += value2;
 					num2 -= 1f;
-					vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-					vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+					value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+					value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 					if (num > 100.0)
 					{
-						vector += vector2;
+						value += value2;
 						num2 -= 1f;
-						vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-						vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+						value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+						value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 						if (num > 150.0)
 						{
-							vector += vector2;
+							value += value2;
 							num2 -= 1f;
-							vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-							vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+							value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+							value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 							if (num > 200.0)
 							{
-								vector += vector2;
+								value += value2;
 								num2 -= 1f;
-								vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-								vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+								value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+								value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 								if (num > 250.0)
 								{
-									vector += vector2;
+									value += value2;
 									num2 -= 1f;
-									vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-									vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+									value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+									value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 									if (num > 300.0)
 									{
-										vector += vector2;
+										value += value2;
 										num2 -= 1f;
-										vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-										vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+										value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+										value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 										if (num > 400.0)
 										{
-											vector += vector2;
+											value += value2;
 											num2 -= 1f;
-											vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-											vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+											value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+											value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 											if (num > 500.0)
 											{
-												vector += vector2;
+												value += value2;
 												num2 -= 1f;
-												vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-												vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+												value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+												value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 												if (num > 600.0)
 												{
-													vector += vector2;
+													value += value2;
 													num2 -= 1f;
-													vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-													vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+													value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+													value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 													if (num > 700.0)
 													{
-														vector += vector2;
+														value += value2;
 														num2 -= 1f;
-														vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-														vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+														value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+														value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 														if (num > 800.0)
 														{
-															vector += vector2;
+															value += value2;
 															num2 -= 1f;
-															vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-															vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+															value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+															value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 															if (num > 900.0)
 															{
-																vector += vector2;
+																value += value2;
 																num2 -= 1f;
-																vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-																vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+																value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+																value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
 															}
 														}
 													}
@@ -42035,78 +42548,79 @@ namespace Terraria
 						}
 					}
 				}
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if (vector2.X > 1f)
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if (value2.X > 1f)
 				{
-					vector2.X = 1f;
+					value2.X = 1f;
 				}
-				if (vector2.X < -1f)
+				if (value2.X < -1f)
 				{
-					vector2.X = -1f;
+					value2.X = -1f;
 				}
 				if (!noYChange)
 				{
-					vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-					if (vector2.Y > 1f)
+					value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+					if (value2.Y > 1f)
 					{
-						vector2.Y = 1f;
+						value2.Y = 1f;
 					}
-					if (vector2.Y < -1f)
+					if (value2.Y < -1f)
 					{
-						vector2.Y = -1f;
+						value2.Y = -1f;
 					}
 				}
 				else if (type != 59 && num < 3.0)
 				{
-					if (vector2.Y > 1f)
+					if (value2.Y > 1f)
 					{
-						vector2.Y = 1f;
+						value2.Y = 1f;
 					}
-					if (vector2.Y < -1f)
+					if (value2.Y < -1f)
 					{
-						vector2.Y = -1f;
+						value2.Y = -1f;
 					}
 				}
 				if (type == 59 && !noYChange)
 				{
-					if ((double)vector2.Y > 0.5)
+					if ((double)value2.Y > 0.5)
 					{
-						vector2.Y = 0.5f;
+						value2.Y = 0.5f;
 					}
-					if ((double)vector2.Y < -0.5)
+					if ((double)value2.Y < -0.5)
 					{
-						vector2.Y = -0.5f;
+						value2.Y = -0.5f;
 					}
-					if ((double)vector.Y < Main.rockLayer + 100.0)
+					if ((double)value.Y < Main.rockLayer + 100.0)
 					{
-						vector2.Y = 1f;
+						value2.Y = 1f;
 					}
-					if (vector.Y > (float)(Main.maxTilesY - 300))
+					if (value.Y > (float)(Main.maxTilesY - 300))
 					{
-						vector2.Y = -1f;
+						value2.Y = -1f;
 					}
 				}
 			}
 		}
+
 		public static void DirtyRockRunner(int i, int j)
 		{
 			double num = (double)WorldGen.genRand.Next(2, 6);
 			float num2 = (float)WorldGen.genRand.Next(5, 50);
 			float num3 = num2;
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			vector2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			value2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			while (num > 0.0 && num3 > 0f)
 			{
 				double num4 = num * (double)(num3 / num2);
 				num3 -= 1f;
-				int num5 = (int)((double)vector.X - num4 * 0.5);
-				int num6 = (int)((double)vector.X + num4 * 0.5);
-				int num7 = (int)((double)vector.Y - num4 * 0.5);
-				int num8 = (int)((double)vector.Y + num4 * 0.5);
+				int num5 = (int)((double)value.X - num4 * 0.5);
+				int num6 = (int)((double)value.X + num4 * 0.5);
+				int num7 = (int)((double)value.Y - num4 * 0.5);
+				int num8 = (int)((double)value.Y + num4 * 0.5);
 				if (num5 < 0)
 				{
 					num5 = 0;
@@ -42127,52 +42641,53 @@ namespace Terraria
 				{
 					for (int l = num7; l < num8; l++)
 					{
-						if ((double)(Math.Abs((float)k - vector.X) + Math.Abs((float)l - vector.Y)) < num * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[k, l].wall == 2)
+						if ((double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < num * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[k, l].wall == 2)
 						{
 							Main.tile[k, l].wall = 59;
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if (vector2.X > 1f)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if (value2.X > 1f)
 				{
-					vector2.X = 1f;
+					value2.X = 1f;
 				}
-				if (vector2.X < -1f)
+				if (value2.X < -1f)
 				{
-					vector2.X = -1f;
+					value2.X = -1f;
 				}
-				vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if (vector2.Y > 1f)
+				value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if (value2.Y > 1f)
 				{
-					vector2.Y = 1f;
+					value2.Y = 1f;
 				}
-				if (vector2.Y < -1f)
+				if (value2.Y < -1f)
 				{
-					vector2.Y = -1f;
+					value2.Y = -1f;
 				}
 			}
 		}
+
 		public static void MudWallRunner(int i, int j)
 		{
 			double num = (double)WorldGen.genRand.Next(8, 21);
 			float num2 = (float)WorldGen.genRand.Next(8, 33);
 			float num3 = num2;
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			vector2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			value2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
 			while (num > 0.0 && num3 > 0f)
 			{
 				double num4 = num * (double)(num3 / num2);
 				num3 -= 1f;
-				int num5 = (int)((double)vector.X - num4 * 0.5);
-				int num6 = (int)((double)vector.X + num4 * 0.5);
-				int num7 = (int)((double)vector.Y - num4 * 0.5);
-				int num8 = (int)((double)vector.Y + num4 * 0.5);
+				int num5 = (int)((double)value.X - num4 * 0.5);
+				int num6 = (int)((double)value.X + num4 * 0.5);
+				int num7 = (int)((double)value.Y - num4 * 0.5);
+				int num8 = (int)((double)value.Y + num4 * 0.5);
 				if (num5 < 0)
 				{
 					num5 = 0;
@@ -42193,33 +42708,34 @@ namespace Terraria
 				{
 					for (int l = num7; l < num8; l++)
 					{
-						if ((double)(Math.Abs((float)k - vector.X) + Math.Abs((float)l - vector.Y)) < num * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && (double)l > Main.worldSurface)
+						if ((double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < num * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && (double)l > Main.worldSurface)
 						{
 							Main.tile[k, l].wall = 0;
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if (vector2.X > 1f)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if (value2.X > 1f)
 				{
-					vector2.X = 1f;
+					value2.X = 1f;
 				}
-				if (vector2.X < -1f)
+				if (value2.X < -1f)
 				{
-					vector2.X = -1f;
+					value2.X = -1f;
 				}
-				vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if (vector2.Y > 1f)
+				value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if (value2.Y > 1f)
 				{
-					vector2.Y = 1f;
+					value2.Y = 1f;
 				}
-				if (vector2.Y < -1f)
+				if (value2.Y < -1f)
 				{
-					vector2.Y = -1f;
+					value2.Y = -1f;
 				}
 			}
 		}
+
 		public static void CloudIsland(int i, int j)
 		{
 			double num = (double)WorldGen.genRand.Next(100, 150);
@@ -42228,24 +42744,24 @@ namespace Terraria
 			int num4 = i;
 			int num5 = i;
 			int num6 = j;
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
-			while (vector2.X > -2f && vector2.X < 2f)
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
+			while (value2.X > -2f && value2.X < 2f)
 			{
-				vector2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
+				value2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
 			}
-			vector2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.02f;
+			value2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.02f;
 			while (num > 0.0 && num2 > 0f)
 			{
 				num -= (double)WorldGen.genRand.Next(4);
 				num2 -= 1f;
-				int num7 = (int)((double)vector.X - num * 0.5);
-				int num8 = (int)((double)vector.X + num * 0.5);
-				int num9 = (int)((double)vector.Y - num * 0.5);
-				int num10 = (int)((double)vector.Y + num * 0.5);
+				int num7 = (int)((double)value.X - num * 0.5);
+				int num8 = (int)((double)value.X + num * 0.5);
+				int num9 = (int)((double)value.Y - num * 0.5);
+				int num10 = (int)((double)value.Y + num * 0.5);
 				if (num7 < 0)
 				{
 					num7 = 0;
@@ -42263,27 +42779,27 @@ namespace Terraria
 					num10 = Main.maxTilesY;
 				}
 				double num11 = num * (double)WorldGen.genRand.Next(80, 120) * 0.01;
-				float num12 = vector.Y + 1f;
+				float num12 = value.Y + 1f;
 				for (int k = num7; k < num8; k++)
 				{
 					if (WorldGen.genRand.Next(2) == 0)
 					{
 						num12 += (float)WorldGen.genRand.Next(-1, 2);
 					}
-					if (num12 < vector.Y)
+					if (num12 < value.Y)
 					{
-						num12 = vector.Y;
+						num12 = value.Y;
 					}
-					if (num12 > vector.Y + 2f)
+					if (num12 > value.Y + 2f)
 					{
-						num12 = vector.Y + 2f;
+						num12 = value.Y + 2f;
 					}
 					for (int l = num9; l < num10; l++)
 					{
 						if ((float)l > num12)
 						{
-							float num13 = Math.Abs((float)k - vector.X);
-							float num14 = Math.Abs((float)l - vector.Y) * 3f;
+							float num13 = Math.Abs((float)k - value.X);
+							float num14 = Math.Abs((float)l - value.Y) * 3f;
 							double num15 = Math.Sqrt((double)(num13 * num13 + num14 * num14));
 							if (num15 < num11 * 0.4)
 							{
@@ -42310,23 +42826,23 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-20, 21) * 0.05f;
-				if (vector2.X > 1f)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-20, 21) * 0.05f;
+				if (value2.X > 1f)
 				{
-					vector2.X = 1f;
+					value2.X = 1f;
 				}
-				if (vector2.X < -1f)
+				if (value2.X < -1f)
 				{
-					vector2.X = -1f;
+					value2.X = -1f;
 				}
-				if ((double)vector2.Y > 0.2)
+				if ((double)value2.Y > 0.2)
 				{
-					vector2.Y = -0.2f;
+					value2.Y = -0.2f;
 				}
-				if ((double)vector2.Y < -0.2)
+				if ((double)value2.Y < -0.2)
 				{
-					vector2.Y = -0.2f;
+					value2.Y = -0.2f;
 				}
 			}
 			int m = num3;
@@ -42366,22 +42882,22 @@ namespace Terraria
 			}
 			num = (double)WorldGen.genRand.Next(80, 95);
 			num2 = (float)WorldGen.genRand.Next(10, 15);
-			vector.X = (float)i;
-			vector.Y = (float)num5;
-			vector2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
-			while (vector2.X > -2f && vector2.X < 2f)
+			value.X = (float)i;
+			value.Y = (float)num5;
+			value2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
+			while (value2.X > -2f && value2.X < 2f)
 			{
-				vector2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
+				value2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
 			}
-			vector2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.02f;
+			value2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.02f;
 			while (num > 0.0 && num2 > 0f)
 			{
 				num -= (double)WorldGen.genRand.Next(4);
 				num2 -= 1f;
-				int num7 = (int)((double)vector.X - num * 0.5);
-				int num8 = (int)((double)vector.X + num * 0.5);
+				int num7 = (int)((double)value.X - num * 0.5);
+				int num8 = (int)((double)value.X + num * 0.5);
 				int num9 = num5 - 1;
-				int num10 = (int)((double)vector.Y + num * 0.5);
+				int num10 = (int)((double)value.Y + num * 0.5);
 				if (num7 < 0)
 				{
 					num7 = 0;
@@ -42399,27 +42915,27 @@ namespace Terraria
 					num10 = Main.maxTilesY;
 				}
 				double num11 = num * (double)WorldGen.genRand.Next(80, 120) * 0.01;
-				float num23 = vector.Y + 1f;
+				float num23 = value.Y + 1f;
 				for (int num24 = num7; num24 < num8; num24++)
 				{
 					if (WorldGen.genRand.Next(2) == 0)
 					{
 						num23 += (float)WorldGen.genRand.Next(-1, 2);
 					}
-					if (num23 < vector.Y)
+					if (num23 < value.Y)
 					{
-						num23 = vector.Y;
+						num23 = value.Y;
 					}
-					if (num23 > vector.Y + 2f)
+					if (num23 > value.Y + 2f)
 					{
-						num23 = vector.Y + 2f;
+						num23 = value.Y + 2f;
 					}
 					for (int num25 = num9; num25 < num10; num25++)
 					{
 						if ((float)num25 > num23)
 						{
-							float num26 = Math.Abs((float)num24 - vector.X);
-							float num27 = Math.Abs((float)num25 - vector.Y) * 3f;
+							float num26 = Math.Abs((float)num24 - value.X);
+							float num27 = Math.Abs((float)num25 - value.Y) * 3f;
 							double num28 = Math.Sqrt((double)(num26 * num26 + num27 * num27));
 							if (num28 < num11 * 0.4 && Main.tile[num24, num25].type == 189)
 							{
@@ -42429,23 +42945,23 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-20, 21) * 0.05f;
-				if (vector2.X > 1f)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-20, 21) * 0.05f;
+				if (value2.X > 1f)
 				{
-					vector2.X = 1f;
+					value2.X = 1f;
 				}
-				if (vector2.X < -1f)
+				if (value2.X < -1f)
 				{
-					vector2.X = -1f;
+					value2.X = -1f;
 				}
-				if ((double)vector2.Y > 0.2)
+				if ((double)value2.Y > 0.2)
 				{
-					vector2.Y = -0.2f;
+					value2.Y = -0.2f;
 				}
-				if ((double)vector2.Y < -0.2)
+				if ((double)value2.Y < -0.2)
 				{
-					vector2.Y = -0.2f;
+					value2.Y = -0.2f;
 				}
 			}
 			int num29 = num3;
@@ -42593,6 +43109,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void CloudLake(int i, int j)
 		{
 			double num = (double)WorldGen.genRand.Next(100, 150);
@@ -42601,24 +43118,24 @@ namespace Terraria
 			int num4 = i;
 			int num5 = i;
 			int num6 = j;
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
-			while (vector2.X > -2f && vector2.X < 2f)
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
+			while (value2.X > -2f && value2.X < 2f)
 			{
-				vector2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
+				value2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
 			}
-			vector2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.02f;
+			value2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.02f;
 			while (num > 0.0 && num2 > 0f)
 			{
 				num -= (double)WorldGen.genRand.Next(4);
 				num2 -= 1f;
-				int num7 = (int)((double)vector.X - num * 0.5);
-				int num8 = (int)((double)vector.X + num * 0.5);
-				int num9 = (int)((double)vector.Y - num * 0.5);
-				int num10 = (int)((double)vector.Y + num * 0.5);
+				int num7 = (int)((double)value.X - num * 0.5);
+				int num8 = (int)((double)value.X + num * 0.5);
+				int num9 = (int)((double)value.Y - num * 0.5);
+				int num10 = (int)((double)value.Y + num * 0.5);
 				if (num7 < 0)
 				{
 					num7 = 0;
@@ -42636,27 +43153,27 @@ namespace Terraria
 					num10 = Main.maxTilesY;
 				}
 				double num11 = num * (double)WorldGen.genRand.Next(80, 120) * 0.01;
-				float num12 = vector.Y + 1f;
+				float num12 = value.Y + 1f;
 				for (int k = num7; k < num8; k++)
 				{
 					if (WorldGen.genRand.Next(2) == 0)
 					{
 						num12 += (float)WorldGen.genRand.Next(-1, 2);
 					}
-					if (num12 < vector.Y)
+					if (num12 < value.Y)
 					{
-						num12 = vector.Y;
+						num12 = value.Y;
 					}
-					if (num12 > vector.Y + 2f)
+					if (num12 > value.Y + 2f)
 					{
-						num12 = vector.Y + 2f;
+						num12 = value.Y + 2f;
 					}
 					for (int l = num9; l < num10; l++)
 					{
 						if ((float)l > num12)
 						{
-							float num13 = Math.Abs((float)k - vector.X);
-							float num14 = Math.Abs((float)l - vector.Y) * 3f;
+							float num13 = Math.Abs((float)k - value.X);
+							float num14 = Math.Abs((float)l - value.Y) * 3f;
 							double num15 = Math.Sqrt((double)(num13 * num13 + num14 * num14));
 							if (num15 < num11 * 0.4)
 							{
@@ -42683,23 +43200,23 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-20, 21) * 0.05f;
-				if (vector2.X > 1f)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-20, 21) * 0.05f;
+				if (value2.X > 1f)
 				{
-					vector2.X = 1f;
+					value2.X = 1f;
 				}
-				if (vector2.X < -1f)
+				if (value2.X < -1f)
 				{
-					vector2.X = -1f;
+					value2.X = -1f;
 				}
-				if ((double)vector2.Y > 0.2)
+				if ((double)value2.Y > 0.2)
 				{
-					vector2.Y = -0.2f;
+					value2.Y = -0.2f;
 				}
-				if ((double)vector2.Y < -0.2)
+				if ((double)value2.Y < -0.2)
 				{
-					vector2.Y = -0.2f;
+					value2.Y = -0.2f;
 				}
 			}
 			int m = num3;
@@ -42739,22 +43256,22 @@ namespace Terraria
 			}
 			num = (double)WorldGen.genRand.Next(80, 95);
 			num2 = (float)WorldGen.genRand.Next(10, 15);
-			vector.X = (float)i;
-			vector.Y = (float)num5;
-			vector2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
-			while (vector2.X > -2f && vector2.X < 2f)
+			value.X = (float)i;
+			value.Y = (float)num5;
+			value2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
+			while (value2.X > -2f && value2.X < 2f)
 			{
-				vector2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
+				value2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
 			}
-			vector2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.02f;
+			value2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.02f;
 			while (num > 0.0 && num2 > 0f)
 			{
 				num -= (double)WorldGen.genRand.Next(4);
 				num2 -= 1f;
-				int num7 = (int)((double)vector.X - num * 0.5);
-				int num8 = (int)((double)vector.X + num * 0.5);
+				int num7 = (int)((double)value.X - num * 0.5);
+				int num8 = (int)((double)value.X + num * 0.5);
 				int num9 = num5 - 1;
-				int num10 = (int)((double)vector.Y + num * 0.5);
+				int num10 = (int)((double)value.Y + num * 0.5);
 				if (num7 < 0)
 				{
 					num7 = 0;
@@ -42772,27 +43289,27 @@ namespace Terraria
 					num10 = Main.maxTilesY;
 				}
 				double num11 = num * (double)WorldGen.genRand.Next(80, 120) * 0.01;
-				float num23 = vector.Y + 1f;
+				float num23 = value.Y + 1f;
 				for (int num24 = num7; num24 < num8; num24++)
 				{
 					if (WorldGen.genRand.Next(2) == 0)
 					{
 						num23 += (float)WorldGen.genRand.Next(-1, 2);
 					}
-					if (num23 < vector.Y)
+					if (num23 < value.Y)
 					{
-						num23 = vector.Y;
+						num23 = value.Y;
 					}
-					if (num23 > vector.Y + 2f)
+					if (num23 > value.Y + 2f)
 					{
-						num23 = vector.Y + 2f;
+						num23 = value.Y + 2f;
 					}
 					for (int num25 = num9; num25 < num10; num25++)
 					{
 						if ((float)num25 > num23)
 						{
-							float num26 = Math.Abs((float)num24 - vector.X);
-							float num27 = Math.Abs((float)num25 - vector.Y) * 3f;
+							float num26 = Math.Abs((float)num24 - value.X);
+							float num27 = Math.Abs((float)num25 - value.Y) * 3f;
 							double num28 = Math.Sqrt((double)(num26 * num26 + num27 * num27));
 							if (num28 < num11 * 0.4 && Main.tile[num24, num25].type == 189)
 							{
@@ -42804,23 +43321,23 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-20, 21) * 0.05f;
-				if (vector2.X > 1f)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-20, 21) * 0.05f;
+				if (value2.X > 1f)
 				{
-					vector2.X = 1f;
+					value2.X = 1f;
 				}
-				if (vector2.X < -1f)
+				if (value2.X < -1f)
 				{
-					vector2.X = -1f;
+					value2.X = -1f;
 				}
-				if ((double)vector2.Y > 0.2)
+				if ((double)value2.Y > 0.2)
 				{
-					vector2.Y = -0.2f;
+					value2.Y = -0.2f;
 				}
-				if ((double)vector2.Y < -0.2)
+				if ((double)value2.Y < -0.2)
 				{
-					vector2.Y = -0.2f;
+					value2.Y = -0.2f;
 				}
 			}
 			for (int num29 = num3 - 20; num29 <= num4 + 20; num29++)
@@ -42928,28 +43445,29 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void FloatingIsland(int i, int j)
 		{
 			double num = (double)WorldGen.genRand.Next(80, 120);
 			float num2 = (float)WorldGen.genRand.Next(20, 25);
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
-			while (vector2.X > -2f && vector2.X < 2f)
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
+			while (value2.X > -2f && value2.X < 2f)
 			{
-				vector2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
+				value2.X = (float)WorldGen.genRand.Next(-20, 21) * 0.2f;
 			}
-			vector2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.02f;
+			value2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.02f;
 			while (num > 0.0 && num2 > 0f)
 			{
 				num -= (double)WorldGen.genRand.Next(4);
 				num2 -= 1f;
-				int num3 = (int)((double)vector.X - num * 0.5);
-				int num4 = (int)((double)vector.X + num * 0.5);
-				int num5 = (int)((double)vector.Y - num * 0.5);
-				int num6 = (int)((double)vector.Y + num * 0.5);
+				int num3 = (int)((double)value.X - num * 0.5);
+				int num4 = (int)((double)value.X + num * 0.5);
+				int num5 = (int)((double)value.Y - num * 0.5);
+				int num6 = (int)((double)value.Y + num * 0.5);
 				if (num3 < 0)
 				{
 					num3 = 0;
@@ -42967,27 +43485,27 @@ namespace Terraria
 					num6 = Main.maxTilesY;
 				}
 				double num7 = num * (double)WorldGen.genRand.Next(80, 120) * 0.01;
-				float num8 = vector.Y + 1f;
+				float num8 = value.Y + 1f;
 				for (int k = num3; k < num4; k++)
 				{
 					if (WorldGen.genRand.Next(2) == 0)
 					{
 						num8 += (float)WorldGen.genRand.Next(-1, 2);
 					}
-					if (num8 < vector.Y)
+					if (num8 < value.Y)
 					{
-						num8 = vector.Y;
+						num8 = value.Y;
 					}
-					if (num8 > vector.Y + 2f)
+					if (num8 > value.Y + 2f)
 					{
-						num8 = vector.Y + 2f;
+						num8 = value.Y + 2f;
 					}
 					for (int l = num5; l < num6; l++)
 					{
 						if ((float)l > num8)
 						{
-							float num9 = Math.Abs((float)k - vector.X);
-							float num10 = Math.Abs((float)l - vector.Y) * 2f;
+							float num9 = Math.Abs((float)k - value.X);
+							float num10 = Math.Abs((float)l - value.Y) * 2f;
 							double num11 = Math.Sqrt((double)(num9 * num9 + num10 * num10));
 							if (num11 < num7 * 0.4)
 							{
@@ -43000,10 +43518,10 @@ namespace Terraria
 						}
 					}
 				}
-				num3 = (int)((double)vector.X - num * 0.4);
-				num4 = (int)((double)vector.X + num * 0.4);
-				num5 = (int)((double)vector.Y - num * 0.4);
-				num6 = (int)((double)vector.Y + num * 0.4);
+				num3 = (int)((double)value.X - num * 0.4);
+				num4 = (int)((double)value.X + num * 0.4);
+				num5 = (int)((double)value.Y - num * 0.4);
+				num6 = (int)((double)value.Y + num * 0.4);
 				if (num3 < 0)
 				{
 					num3 = 0;
@@ -43025,10 +43543,10 @@ namespace Terraria
 				{
 					for (int n = num5; n < num6; n++)
 					{
-						if ((float)n > vector.Y + 2f)
+						if ((float)n > value.Y + 2f)
 						{
-							float num12 = Math.Abs((float)m - vector.X);
-							float num13 = Math.Abs((float)n - vector.Y) * 2f;
+							float num12 = Math.Abs((float)m - value.X);
+							float num13 = Math.Abs((float)n - value.Y) * 2f;
 							double num14 = Math.Sqrt((double)(num12 * num12 + num13 * num13));
 							if (num14 < num7 * 0.4)
 							{
@@ -43037,26 +43555,27 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if (vector2.X > 1f)
+				value += value2;
+				value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if (value2.X > 1f)
 				{
-					vector2.X = 1f;
+					value2.X = 1f;
 				}
-				if (vector2.X < -1f)
+				if (value2.X < -1f)
 				{
-					vector2.X = -1f;
+					value2.X = -1f;
 				}
-				if ((double)vector2.Y > 0.2)
+				if ((double)value2.Y > 0.2)
 				{
-					vector2.Y = -0.2f;
+					value2.Y = -0.2f;
 				}
-				if ((double)vector2.Y < -0.2)
+				if ((double)value2.Y < -0.2)
 				{
-					vector2.Y = -0.2f;
+					value2.Y = -0.2f;
 				}
 			}
 		}
+
 		public static void Caverer(int X, int Y)
 		{
 			int num = WorldGen.genRand.Next(2);
@@ -43148,6 +43667,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static Vector2 digTunnel(float X, float Y, float xDir, float yDir, int Steps, int Size, bool Wet = false)
 		{
 			float num = X;
@@ -43210,16 +43730,12 @@ namespace Terraria
 					num2 += (yDir + num4) * 0.6f;
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
 			}
 			return new Vector2(num, num2);
 		}
+
 		public static void IslandHouse(int i, int j)
 		{
 			byte type = 202;
@@ -43395,24 +43911,25 @@ namespace Terraria
 			}
 			WorldGen.PlaceTile(i2, j2, 91, true, false, -1, WorldGen.genRand.Next(7, 10));
 		}
+
 		public static void Mountinater(int i, int j)
 		{
 			double num = (double)WorldGen.genRand.Next(80, 120);
 			float num2 = (float)WorldGen.genRand.Next(40, 55);
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j + num2 / 2f;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			vector2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.1f;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j + num2 / 2f;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			value2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.1f;
 			while (num > 0.0 && num2 > 0f)
 			{
 				num -= (double)WorldGen.genRand.Next(4);
 				num2 -= 1f;
-				int num3 = (int)((double)vector.X - num * 0.5);
-				int num4 = (int)((double)vector.X + num * 0.5);
-				int num5 = (int)((double)vector.Y - num * 0.5);
-				int num6 = (int)((double)vector.Y + num * 0.5);
+				int num3 = (int)((double)value.X - num * 0.5);
+				int num4 = (int)((double)value.X + num * 0.5);
+				int num5 = (int)((double)value.Y - num * 0.5);
+				int num6 = (int)((double)value.Y + num * 0.5);
 				if (num3 < 0)
 				{
 					num3 = 0;
@@ -43434,8 +43951,8 @@ namespace Terraria
 				{
 					for (int l = num5; l < num6; l++)
 					{
-						float num8 = Math.Abs((float)k - vector.X);
-						float num9 = Math.Abs((float)l - vector.Y);
+						float num8 = Math.Abs((float)k - value.X);
+						float num9 = Math.Abs((float)l - value.Y);
 						double num10 = Math.Sqrt((double)(num8 * num8 + num9 * num9));
 						if (num10 < num7 * 0.4 && !Main.tile[k, l].active())
 						{
@@ -43444,27 +43961,28 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if ((double)vector2.X > 0.5)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if ((double)value2.X > 0.5)
 				{
-					vector2.X = 0.5f;
+					value2.X = 0.5f;
 				}
-				if ((double)vector2.X < -0.5)
+				if ((double)value2.X < -0.5)
 				{
-					vector2.X = -0.5f;
+					value2.X = -0.5f;
 				}
-				if ((double)vector2.Y > -0.5)
+				if ((double)value2.Y > -0.5)
 				{
-					vector2.Y = -0.5f;
+					value2.Y = -0.5f;
 				}
-				if ((double)vector2.Y < -1.5)
+				if ((double)value2.Y < -1.5)
 				{
-					vector2.Y = -1.5f;
+					value2.Y = -1.5f;
 				}
 			}
 		}
+
 		public static void MakeWateryIceThing(int i, int j)
 		{
 			if (Main.tile[i, j].liquid > 0 && !Main.tile[i, j].active() && !Main.tile[i, j].lava())
@@ -43513,6 +44031,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Lakinater(int i, int j)
 		{
 			double num = (double)WorldGen.genRand.Next(25, 50);
@@ -43524,24 +44043,24 @@ namespace Terraria
 				num2 *= 1.5;
 				num3 *= 1.2f;
 			}
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j - num3 * 0.3f;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			vector2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.1f;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j - num3 * 0.3f;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			value2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.1f;
 			while (num > 0.0 && num3 > 0f)
 			{
-				if ((double)vector.Y + num2 * 0.5 > Main.worldSurface)
+				if ((double)value.Y + num2 * 0.5 > Main.worldSurface)
 				{
 					num3 = 0f;
 				}
 				num -= (double)WorldGen.genRand.Next(3);
 				num3 -= 1f;
-				int num4 = (int)((double)vector.X - num * 0.5);
-				int num5 = (int)((double)vector.X + num * 0.5);
-				int num6 = (int)((double)vector.Y - num * 0.5);
-				int num7 = (int)((double)vector.Y + num * 0.5);
+				int num4 = (int)((double)value.X - num * 0.5);
+				int num5 = (int)((double)value.X + num * 0.5);
+				int num6 = (int)((double)value.Y - num * 0.5);
+				int num7 = (int)((double)value.Y + num * 0.5);
 				if (num4 < 0)
 				{
 					num4 = 0;
@@ -43563,8 +44082,8 @@ namespace Terraria
 				{
 					for (int l = num6; l < num7; l++)
 					{
-						float num8 = Math.Abs((float)k - vector.X);
-						float num9 = Math.Abs((float)l - vector.Y);
+						float num8 = Math.Abs((float)k - value.X);
+						float num9 = Math.Abs((float)l - value.Y);
 						double num10 = Math.Sqrt((double)(num8 * num8 + num9 * num9));
 						if (num10 < num2 * 0.4)
 						{
@@ -43576,27 +44095,28 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if ((double)vector2.X > 0.5)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if ((double)value2.X > 0.5)
 				{
-					vector2.X = 0.5f;
+					value2.X = 0.5f;
 				}
-				if ((double)vector2.X < -0.5)
+				if ((double)value2.X < -0.5)
 				{
-					vector2.X = -0.5f;
+					value2.X = -0.5f;
 				}
-				if ((double)vector2.Y > 1.5)
+				if ((double)value2.Y > 1.5)
 				{
-					vector2.Y = 1.5f;
+					value2.Y = 1.5f;
 				}
-				if ((double)vector2.Y < 0.5)
+				if ((double)value2.Y < 0.5)
 				{
-					vector2.Y = 0.5f;
+					value2.Y = 0.5f;
 				}
 			}
 		}
+
 		public static void ShroomPatch(int i, int j)
 		{
 			double num = (double)WorldGen.genRand.Next(40, 70);
@@ -43608,20 +44128,20 @@ namespace Terraria
 				num2 *= 1.5;
 				num3 *= 1.2f;
 			}
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j - num3 * 0.3f;
-			Vector2 vector2;
-			vector2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-			vector2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.1f;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j - num3 * 0.3f;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			value2.Y = (float)WorldGen.genRand.Next(-20, -10) * 0.1f;
 			while (num > 0.0 && num3 > 0f)
 			{
 				num -= (double)WorldGen.genRand.Next(3);
 				num3 -= 1f;
-				int num4 = (int)((double)vector.X - num * 0.5);
-				int num5 = (int)((double)vector.X + num * 0.5);
-				int num6 = (int)((double)vector.Y - num * 0.5);
-				int num7 = (int)((double)vector.Y + num * 0.5);
+				int num4 = (int)((double)value.X - num * 0.5);
+				int num5 = (int)((double)value.X + num * 0.5);
+				int num6 = (int)((double)value.Y - num * 0.5);
+				int num7 = (int)((double)value.Y + num * 0.5);
 				if (num4 < 0)
 				{
 					num4 = 0;
@@ -43643,12 +44163,12 @@ namespace Terraria
 				{
 					for (int l = num6; l < num7; l++)
 					{
-						float num8 = Math.Abs((float)k - vector.X);
-						float num9 = Math.Abs(((float)l - vector.Y) * 2.3f);
+						float num8 = Math.Abs((float)k - value.X);
+						float num9 = Math.Abs(((float)l - value.Y) * 2.3f);
 						double num10 = Math.Sqrt((double)(num8 * num8 + num9 * num9));
 						if (num10 < num2 * 0.4)
 						{
-							if ((double)l < (double)vector.Y + num2 * 0.02)
+							if ((double)l < (double)value.Y + num2 * 0.02)
 							{
 								if (Main.tile[k, l].type != 59)
 								{
@@ -43664,45 +44184,45 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector.X += vector2.X;
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				vector2.Y -= (float)WorldGen.genRand.Next(11) * 0.05f;
-				if ((double)vector2.X > -0.5 && (double)vector2.X < 0.5)
+				value += value2;
+				value.X += value2.X;
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				value2.Y -= (float)WorldGen.genRand.Next(11) * 0.05f;
+				if ((double)value2.X > -0.5 && (double)value2.X < 0.5)
 				{
-					if (vector2.X < 0f)
+					if (value2.X < 0f)
 					{
-						vector2.X = -0.5f;
+						value2.X = -0.5f;
 					}
 					else
 					{
-						vector2.X = 0.5f;
+						value2.X = 0.5f;
 					}
 				}
-				if (vector2.X > 2f)
+				if (value2.X > 2f)
 				{
-					vector2.X = 1f;
+					value2.X = 1f;
 				}
-				if (vector2.X < -2f)
+				if (value2.X < -2f)
 				{
-					vector2.X = -1f;
+					value2.X = -1f;
 				}
-				if (vector2.Y > 1f)
+				if (value2.Y > 1f)
 				{
-					vector2.Y = 1f;
+					value2.Y = 1f;
 				}
-				if (vector2.Y < -1f)
+				if (value2.Y < -1f)
 				{
-					vector2.Y = -1f;
+					value2.Y = -1f;
 				}
 				for (int m = 0; m < 2; m++)
 				{
-					int num11 = (int)vector.X + WorldGen.genRand.Next(-20, 20);
-					int num12 = (int)vector.Y + WorldGen.genRand.Next(0, 20);
+					int num11 = (int)value.X + WorldGen.genRand.Next(-20, 20);
+					int num12 = (int)value.Y + WorldGen.genRand.Next(0, 20);
 					while (!Main.tile[num11, num12].active() && Main.tile[num11, num12].type != 59)
 					{
-						num11 = (int)vector.X + WorldGen.genRand.Next(-20, 20);
-						num12 = (int)vector.Y + WorldGen.genRand.Next(0, 20);
+						num11 = (int)value.X + WorldGen.genRand.Next(-20, 20);
+						num12 = (int)value.Y + WorldGen.genRand.Next(0, 20);
 					}
 					int num13 = WorldGen.genRand.Next(7, 10);
 					int num14 = WorldGen.genRand.Next(7, 10);
@@ -43714,6 +44234,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void Cavinator(int i, int j, int steps)
 		{
 			double num = (double)WorldGen.genRand.Next(7, 15);
@@ -43722,20 +44243,20 @@ namespace Terraria
 			{
 				num2 = -1;
 			}
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
 			int k = WorldGen.genRand.Next(20, 40);
-			Vector2 vector2;
-			vector2.Y = (float)WorldGen.genRand.Next(10, 20) * 0.01f;
-			vector2.X = (float)num2;
+			Vector2 value2;
+			value2.Y = (float)WorldGen.genRand.Next(10, 20) * 0.01f;
+			value2.X = (float)num2;
 			while (k > 0)
 			{
 				k--;
-				int num3 = (int)((double)vector.X - num * 0.5);
-				int num4 = (int)((double)vector.X + num * 0.5);
-				int num5 = (int)((double)vector.Y - num * 0.5);
-				int num6 = (int)((double)vector.Y + num * 0.5);
+				int num3 = (int)((double)value.X - num * 0.5);
+				int num4 = (int)((double)value.X + num * 0.5);
+				int num5 = (int)((double)value.Y - num * 0.5);
+				int num6 = (int)((double)value.Y + num * 0.5);
 				if (num3 < 0)
 				{
 					num3 = 0;
@@ -43757,8 +44278,8 @@ namespace Terraria
 				{
 					for (int m = num5; m < num6; m++)
 					{
-						float num8 = Math.Abs((float)l - vector.X);
-						float num9 = Math.Abs((float)m - vector.Y);
+						float num8 = Math.Abs((float)l - value.X);
+						float num9 = Math.Abs((float)m - value.Y);
 						double num10 = Math.Sqrt((double)(num8 * num8 + num9 * num9));
 						if (num10 < num7 * 0.4 && TileID.Sets.CanBeClearedDuringGeneration[(int)Main.tile[l, m].type])
 						{
@@ -43766,31 +44287,32 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if (vector2.X > (float)num2 + 0.5f)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if (value2.X > (float)num2 + 0.5f)
 				{
-					vector2.X = (float)num2 + 0.5f;
+					value2.X = (float)num2 + 0.5f;
 				}
-				if (vector2.X < (float)num2 - 0.5f)
+				if (value2.X < (float)num2 - 0.5f)
 				{
-					vector2.X = (float)num2 - 0.5f;
+					value2.X = (float)num2 - 0.5f;
 				}
-				if (vector2.Y > 2f)
+				if (value2.Y > 2f)
 				{
-					vector2.Y = 2f;
+					value2.Y = 2f;
 				}
-				if (vector2.Y < 0f)
+				if (value2.Y < 0f)
 				{
-					vector2.Y = 0f;
+					value2.Y = 0f;
 				}
 			}
-			if (steps > 0 && (double)((int)vector.Y) < Main.rockLayer + 50.0)
+			if (steps > 0 && (double)((int)value.Y) < Main.rockLayer + 50.0)
 			{
-				WorldGen.Cavinator((int)vector.X, (int)vector.Y, steps - 1);
+				WorldGen.Cavinator((int)value.X, (int)value.Y, steps - 1);
 			}
 		}
+
 		public static void CaveOpenater(int i, int j)
 		{
 			double num = (double)WorldGen.genRand.Next(7, 12);
@@ -43799,24 +44321,24 @@ namespace Terraria
 			{
 				num2 = -1;
 			}
-			Vector2 vector;
-			vector.X = (float)i;
-			vector.Y = (float)j;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
 			int k = 100;
-			Vector2 vector2;
-			vector2.Y = 0f;
-			vector2.X = (float)num2;
+			Vector2 value2;
+			value2.Y = 0f;
+			value2.X = (float)num2;
 			while (k > 0)
 			{
-				if (Main.tile[(int)vector.X, (int)vector.Y].wall == 0)
+				if (Main.tile[(int)value.X, (int)value.Y].wall == 0)
 				{
 					k = 0;
 				}
 				k--;
-				int num3 = (int)((double)vector.X - num * 0.5);
-				int num4 = (int)((double)vector.X + num * 0.5);
-				int num5 = (int)((double)vector.Y - num * 0.5);
-				int num6 = (int)((double)vector.Y + num * 0.5);
+				int num3 = (int)((double)value.X - num * 0.5);
+				int num4 = (int)((double)value.X + num * 0.5);
+				int num5 = (int)((double)value.Y - num * 0.5);
+				int num6 = (int)((double)value.Y + num * 0.5);
 				if (num3 < 0)
 				{
 					num3 = 0;
@@ -43838,8 +44360,8 @@ namespace Terraria
 				{
 					for (int m = num5; m < num6; m++)
 					{
-						float num8 = Math.Abs((float)l - vector.X);
-						float num9 = Math.Abs((float)m - vector.Y);
+						float num8 = Math.Abs((float)l - value.X);
+						float num9 = Math.Abs((float)m - value.Y);
 						double num10 = Math.Sqrt((double)(num8 * num8 + num9 * num9));
 						if (num10 < num7 * 0.4)
 						{
@@ -43847,27 +44369,28 @@ namespace Terraria
 						}
 					}
 				}
-				vector += vector2;
-				vector2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				vector2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-				if (vector2.X > (float)num2 + 0.5f)
+				value += value2;
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if (value2.X > (float)num2 + 0.5f)
 				{
-					vector2.X = (float)num2 + 0.5f;
+					value2.X = (float)num2 + 0.5f;
 				}
-				if (vector2.X < (float)num2 - 0.5f)
+				if (value2.X < (float)num2 - 0.5f)
 				{
-					vector2.X = (float)num2 - 0.5f;
+					value2.X = (float)num2 - 0.5f;
 				}
-				if (vector2.Y > 0f)
+				if (value2.Y > 0f)
 				{
-					vector2.Y = 0f;
+					value2.Y = 0f;
 				}
-				if ((double)vector2.Y < -0.5)
+				if ((double)value2.Y < -0.5)
 				{
-					vector2.Y = -0.5f;
+					value2.Y = -0.5f;
 				}
 			}
 		}
+
 		public static void DiamondTileFrame(int i, int j)
 		{
 			WorldGen.TileFrame(i - 1, j, false, false);
@@ -43875,6 +44398,7 @@ namespace Terraria
 			WorldGen.TileFrame(i, j + 1, false, false);
 			WorldGen.TileFrame(i + 1, j, false, false);
 		}
+
 		public static void SquareTileFrame(int i, int j, bool resetFrame = true)
 		{
 			WorldGen.TileFrame(i - 1, j - 1, false, false);
@@ -43887,6 +44411,7 @@ namespace Terraria
 			WorldGen.TileFrame(i + 1, j, false, false);
 			WorldGen.TileFrame(i + 1, j + 1, false, false);
 		}
+
 		public static void SquareWallFrame(int i, int j, bool resetFrame = true)
 		{
 			Framing.WallFrame(i - 1, j - 1, false);
@@ -43899,6 +44424,7 @@ namespace Terraria
 			Framing.WallFrame(i + 1, j, false);
 			Framing.WallFrame(i + 1, j + 1, false);
 		}
+
 		public static void SectionTileFrameWithCheck(int startX, int startY, int endX, int endY)
 		{
 			int sectionX = Netplay.GetSectionX(startX);
@@ -43920,6 +44446,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void SectionTileFrame(int startX, int startY, int endX, int endY)
 		{
 			Main.mapTime = Main.mapTimeMax + 10;
@@ -43973,6 +44500,7 @@ namespace Terraria
 			}
 			WorldGen.noMapUpdate = false;
 		}
+
 		public static void RangeFrame(int startX, int startY, int endX, int endY)
 		{
 			int num = endX + 1;
@@ -43986,6 +44514,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void WaterCheck()
 		{
 			Liquid.numLiquid = 0;
@@ -44061,6 +44590,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void EveryTileFrame()
 		{
 			Stopwatch stopwatch = new Stopwatch();
@@ -44093,6 +44623,7 @@ namespace Terraria
 			WorldGen.noTileActions = false;
 			long arg_DB_0 = stopwatch.ElapsedMilliseconds;
 		}
+
 		public static void PlantCheck(int i, int j)
 		{
 			int num = -1;
@@ -44198,6 +44729,7 @@ namespace Terraria
 				WorldGen.KillTile(i, j, false, false, false);
 			}
 		}
+
 		public static bool CheckPound(int i, int j)
 		{
 			if (Main.tile[i, j] == null)
@@ -44239,7 +44771,7 @@ namespace Terraria
 				}
 			}
 			return false;
-		IL_C7:
+			IL_C7:
 			if (WorldGen.gen)
 			{
 				if (Main.tile[i, j].type == 190)
@@ -44283,6 +44815,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static bool SlopeTile(int i, int j, int slope = 0)
 		{
 			if (!WorldGen.CheckPound(i, j))
@@ -44310,6 +44843,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static bool PoundTile(int i, int j)
 		{
 			if (!WorldGen.CheckPound(i, j))
@@ -44343,6 +44877,7 @@ namespace Terraria
 			}
 			return true;
 		}
+
 		public static void PoundPlatform(int x, int y)
 		{
 			if (Main.tile[x, y].halfBrick())
@@ -44399,6 +44934,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static int PlatformProperSides(int x, int y, bool acceptNonOpposing = false)
 		{
 			Tile tile = Main.tile[x, y];
@@ -44453,10 +44989,12 @@ namespace Terraria
 			}
 			return num3;
 		}
+
 		public static bool UpdateMapTile(int i, int j, bool addToList = true)
 		{
 			return false;
 		}
+
 		public static void TileMergeAttemptFrametest(int i, int j, int myType, int lookfor, ref int up, ref int down, ref int left, ref int right, ref int upLeft, ref int upRight, ref int downLeft, ref int downRight)
 		{
 			if (up == lookfor)
@@ -44508,6 +45046,7 @@ namespace Terraria
 				downRight = myType;
 			}
 		}
+
 		public static void TileMergeAttemptFrametest(int i, int j, int myType, bool[] lookfor, ref int up, ref int down, ref int left, ref int right, ref int upLeft, ref int upRight, ref int downLeft, ref int downRight)
 		{
 			if (up > -1 && lookfor[up])
@@ -44559,6 +45098,7 @@ namespace Terraria
 				downRight = myType;
 			}
 		}
+
 		public static void TileMergeAttempt(int myType, int lookfor, ref int up, ref int down, ref int left, ref int right)
 		{
 			if (lookfor == up)
@@ -44578,6 +45118,7 @@ namespace Terraria
 				right = myType;
 			}
 		}
+
 		public static void TileMergeAttempt(int myType, int lookfor, ref int up, ref int down, ref int left, ref int right, ref int upLeft, ref int upRight, ref int downLeft, ref int downRight)
 		{
 			if (lookfor == up)
@@ -44613,6 +45154,7 @@ namespace Terraria
 				downRight = myType;
 			}
 		}
+
 		public static void TileMergeAttempt(int myType, bool[] lookfor, ref int up, ref int down, ref int left, ref int right, ref int upLeft, ref int upRight, ref int downLeft, ref int downRight)
 		{
 			if (up > -1 && lookfor[up])
@@ -44648,6 +45190,7 @@ namespace Terraria
 				downRight = myType;
 			}
 		}
+
 		public static void TileMergeAttempt(int myType, bool[] lookfor, bool[] exclude, ref int up, ref int down, ref int left, ref int right, ref int upLeft, ref int upRight, ref int downLeft, ref int downRight)
 		{
 			if (up > -1 && !exclude[up] && lookfor[up])
@@ -44683,6 +45226,7 @@ namespace Terraria
 				downRight = myType;
 			}
 		}
+
 		public static void TileMergeAttemptWeird(int myType, int changeTo, bool[] exclude, ref int up, ref int down, ref int left, ref int right, ref int upLeft, ref int upRight, ref int downLeft, ref int downRight)
 		{
 			if (up > -1 && !exclude[up] && up != myType)
@@ -44718,6 +45262,7 @@ namespace Terraria
 				downRight = changeTo;
 			}
 		}
+
 		public static void TileFrame(int i, int j, bool resetFrame = false, bool noBreak = false)
 		{
 			bool addToList = false;
@@ -45000,7 +45545,7 @@ namespace Terraria
 								{
 									if (tile.frameY < 162 || tile.frameY > 198)
 									{
-										tile.frameY = (short)(162 + num25);
+										tile.frameY = (short)(62 + num25);
 									}
 								}
 								else if (num22 >= 0 && Main.tileSolid[num22] && !Main.tileSolidTop[num22])
@@ -46115,25 +46660,21 @@ namespace Terraria
 								int num54 = i % 3;
 								int[,] array = new int[,]
 								{
-
 									{
 										2,
 										4,
 										2
 									},
-
 									{
 										1,
 										3,
 										1
 									},
-
 									{
 										2,
 										2,
 										4
 									},
-
 									{
 										1,
 										1,
@@ -48988,7 +49529,7 @@ namespace Terraria
 									}
 								}
 							}
-							if (!WorldGen.noTileActions && (num == 53 || num == 112 || num == 116 || num == 123 || num == 234 || num == 224 || num == 330 || num == 331 || num == 332 || num == 333))
+							if (!WorldGen.noTileActions && tile.active() && (num == 53 || num == 112 || num == 116 || num == 123 || num == 234 || num == 224 || num == 330 || num == 331 || num == 332 || num == 333))
 							{
 								if (Main.netMode == 0)
 								{
@@ -49068,61 +49609,73 @@ namespace Terraria
 									if (flag6)
 									{
 										int damage2 = 10;
-										int type2;
+										int num57;
 										if (num == 112)
 										{
-											type2 = 56;
+											num57 = 56;
 										}
 										else if (num == 116)
 										{
-											type2 = 67;
+											num57 = 67;
 										}
 										else if (num == 59)
 										{
-											type2 = 39;
+											num57 = 39;
 										}
 										else if (num == 123)
 										{
-											type2 = 71;
+											num57 = 71;
 										}
 										else if (num == 224)
 										{
-											type2 = 179;
+											num57 = 179;
 										}
 										else if (num == 234)
 										{
-											type2 = 241;
+											num57 = 241;
 										}
 										else if (num == 330)
 										{
-											type2 = 411;
+											num57 = 411;
 											damage2 = 0;
 										}
 										else if (num == 331)
 										{
-											type2 = 412;
+											num57 = 412;
 											damage2 = 0;
 										}
 										else if (num == 332)
 										{
-											type2 = 413;
+											num57 = 413;
 											damage2 = 0;
 										}
 										else if (num == 333)
 										{
-											type2 = 414;
+											num57 = 414;
 											damage2 = 0;
 										}
 										else
 										{
-											type2 = 31;
+											num57 = 31;
 										}
 										tile.active(false);
-										int num57 = Projectile.NewProjectile((float)(i * 16 + 8), (float)(j * 16 + 8), 0f, 2.5f, type2, damage2, 0f, Main.myPlayer, 0f, 0f);
-										Main.projectile[num57].velocity.Y = 0.5f;
-										Projectile expr_710B_cp_0 = Main.projectile[num57];
-										expr_710B_cp_0.position.Y = expr_710B_cp_0.position.Y + 2f;
-										Main.projectile[num57].netUpdate = true;
+										bool flag7 = false;
+										for (int m = 0; m < 1000; m++)
+										{
+											if (Main.projectile[m].active && Main.projectile[m].owner == Main.myPlayer && Main.projectile[m].type == num57 && Math.Abs(Main.projectile[m].timeLeft - 3600) < 60 && Main.projectile[m].Distance(new Vector2((float)(i * 16 + 8), (float)(j * 16 + 10))) < 4f)
+											{
+												flag7 = true;
+												break;
+											}
+										}
+										if (!flag7)
+										{
+											int num58 = Projectile.NewProjectile((float)(i * 16 + 8), (float)(j * 16 + 8), 0f, 2.5f, num57, damage2, 0f, Main.myPlayer, 0f, 0f);
+											Main.projectile[num58].velocity.Y = 0.5f;
+											Projectile expr_71B4_cp_0 = Main.projectile[num58];
+											expr_71B4_cp_0.position.Y = expr_71B4_cp_0.position.Y + 2f;
+											Main.projectile[num58].netUpdate = true;
+										}
 										NetMessage.SendTileSquare(-1, i, j, 1);
 										WorldGen.SquareTileFrame(i, j, true);
 									}
@@ -49133,18 +49686,18 @@ namespace Terraria
 								WorldGen.tileReframeCount++;
 								if (WorldGen.tileReframeCount < 100)
 								{
-									bool flag7 = WorldGen.mergeUp;
-									bool flag8 = WorldGen.mergeDown;
-									bool flag9 = WorldGen.mergeLeft;
-									bool flag10 = WorldGen.mergeRight;
+									bool flag8 = WorldGen.mergeUp;
+									bool flag9 = WorldGen.mergeDown;
+									bool flag10 = WorldGen.mergeLeft;
+									bool flag11 = WorldGen.mergeRight;
 									WorldGen.TileFrame(i - 1, j, false, false);
 									WorldGen.TileFrame(i + 1, j, false, false);
 									WorldGen.TileFrame(i, j - 1, false, false);
 									WorldGen.TileFrame(i, j + 1, false, false);
-									WorldGen.mergeUp = flag7;
-									WorldGen.mergeDown = flag8;
-									WorldGen.mergeLeft = flag9;
-									WorldGen.mergeRight = flag10;
+									WorldGen.mergeUp = flag8;
+									WorldGen.mergeDown = flag9;
+									WorldGen.mergeLeft = flag10;
+									WorldGen.mergeRight = flag11;
 								}
 								WorldGen.tileReframeCount--;
 							}
@@ -49152,19 +49705,15 @@ namespace Terraria
 					}
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-#endif
 			}
 			if (i > 0 && j > 0)
 			{
 				WorldGen.UpdateMapTile(i, j, addToList);
 			}
 		}
+
 		public static void TriggerLunarApocalypse()
 		{
 			List<int> list = new List<int>
@@ -49218,6 +49767,7 @@ namespace Terraria
 			NetMessage.SendData(101, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 			WorldGen.MessageLunarApocalypse();
 		}
+
 		public static void UpdateLunarApocalypse()
 		{
 			if (!NPC.LunarApocalypseIsUp)
@@ -49286,20 +49836,10 @@ namespace Terraria
 			}
 			if (!NPC.TowerActiveSolar && !NPC.TowerActiveVortex && !NPC.TowerActiveNebula && !NPC.TowerActiveStardust && !flag)
 			{
-				NPC.LunarApocalypseIsUp = false;
-				NPC.MoonLordCountdown = 3600;
-				NetMessage.SendData(103, -1, -1, "", NPC.MoonLordCountdown, 0f, 0f, 0f, 0, 0, 0);
-				if (Main.netMode == 0)
-				{
-					Main.NewText(Lang.misc[52], 50, 255, 130, false);
-					return;
-				}
-				if (Main.netMode == 2)
-				{
-					NetMessage.SendData(25, -1, -1, Lang.misc[52], 255, 50f, 255f, 130f, 0, 0, 0);
-				}
+				WorldGen.StartImpendingDoom();
 			}
 		}
+
 		public static void StartImpendingDoom()
 		{
 			NPC.LunarApocalypseIsUp = false;
@@ -49318,6 +49858,7 @@ namespace Terraria
 				WorldGen.GetRidOfCultists();
 			}
 		}
+
 		public static void GetRidOfCultists()
 		{
 			for (int i = 0; i < 200; i++)
@@ -49332,6 +49873,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static void MessageLunarApocalypse()
 		{
 			if (!NPC.LunarApocalypseIsUp)
@@ -49357,22 +49899,27 @@ namespace Terraria
 			}
 			WorldGen.BroadcastText(Lang.misc[43 + num], 175, 75, 255);
 		}
+
 		public static void BroadcastText(string text, Vector4 color)
 		{
 			WorldGen.BroadcastText(text, new Color(color));
 		}
+
 		public static void BroadcastText(string text, Vector3 color)
 		{
 			WorldGen.BroadcastText(text, new Color(color));
 		}
+
 		public static void BroadcastText(string text, int r, int g, int b)
 		{
 			WorldGen.BroadcastText(text, (byte)r, (byte)g, (byte)b);
 		}
+
 		public static void BroadcastText(string text, Color color)
 		{
 			WorldGen.BroadcastText(text, color.R, color.G, color.B);
 		}
+
 		public static void BroadcastText(string text, byte r, byte g, byte b)
 		{
 			if (Main.netMode == 0)
