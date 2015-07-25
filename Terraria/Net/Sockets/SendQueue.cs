@@ -42,14 +42,14 @@ namespace Terraria.Net.Sockets
 
 		protected int maxLargeBlocks = 192;
 		protected int maxSmallBlocks = 4096;
-		
+
 		protected int[] freeLargeBlocks;
 		protected int[] freeSmallBlocks;
 
 		protected bool[] queuedLargeBlocks;
 		protected bool[] queuedSmallBlocks;
 
-		protected LinkedList<SequenceItem>[] sequences = new LinkedList<SequenceItem>[kSendQueueMaxSequences];
+		protected LinkedList<SequenceItem>[] sequences;
 
 		protected Thread sendThread;
 		protected RemoteClient client;
@@ -77,16 +77,16 @@ namespace Terraria.Net.Sockets
 			queuedLargeBlocks = new bool[maxLargeBlocks];
 			queuedSmallBlocks = new bool[maxSmallBlocks];
 
-			smallObjectHeap = new byte[maxSmallBlocks * kSendQueueSmallBlockSize];
 		}
 
 		public void StartThread()
 		{
+			sequences = new LinkedList<SequenceItem>[kSendQueueMaxSequences];
+			smallObjectHeap = new byte[maxSmallBlocks * kSendQueueSmallBlockSize];
 			largeObjectHeap = new byte[maxLargeBlocks * kSendQueueLargeBlockSize];
 			threadCancelled = false;
 			(client.Socket as TcpSocket)._connection.SendTimeout = 5000;
-			
-			//waitHandle = new AutoResetEvent(false);
+
 			sendThread = new Thread(WriteThread);
 			sendThread.Name = "Network I/O Thread - " + client.Id;
 			sendThread.IsBackground = true;
@@ -107,7 +107,7 @@ namespace Terraria.Net.Sockets
 						continue;
 					}
 				}
-				catch(ObjectDisposedException)
+				catch (ObjectDisposedException)
 				{
 					break;
 				}
@@ -120,7 +120,7 @@ namespace Terraria.Net.Sockets
 				for (int i = 0; i < kSendQueueMaxSequences; i++)
 				{
 					LinkedList<SequenceItem> sequence;
-					
+
 					if (threadCancelled == true)
 					{
 						break;
@@ -134,13 +134,15 @@ namespace Terraria.Net.Sockets
 					foreach (SequenceItem sequenceItem in sequence)
 					{
 						byte[] heap = sequenceItem.HeapType == HeapType.LargeHeap ? largeObjectHeap : smallObjectHeap;
-						int offset = sequenceItem.Block*
-						             (sequenceItem.HeapType == HeapType.LargeHeap ? kSendQueueLargeBlockSize : kSendQueueSmallBlockSize);
+						int offset = sequenceItem.Block *
+									 (sequenceItem.HeapType == HeapType.LargeHeap ? kSendQueueLargeBlockSize : kSendQueueSmallBlockSize);
 						int length = BitConverter.ToInt16(heap, offset);
-						
+						PacketTypes type = (PacketTypes)heap[offset + 2];
+
 						try
 						{
 							(client.Socket as TcpSocket)._connection.GetStream().Write(heap, offset, length);
+							//System.Diagnostics.Trace.WriteLineIf(type == PacketTypes.TileSendSection || type == PacketTypes.TileFrameSection, "sent " + type);
 						}
 						catch
 						{
@@ -176,7 +178,7 @@ namespace Terraria.Net.Sockets
 					{
 						(client.Socket as TcpSocket)._connection.GetStream().Write(largeObjectHeap, offset, length);
 					}
-					catch(Exception ex)
+					catch (Exception ex)
 					{
 						WriteFailedEventArgs args = null;
 
@@ -251,7 +253,7 @@ namespace Terraria.Net.Sockets
 					}
 					finally
 					{
-						Free(blockIndex); 
+						Free(blockIndex);
 						if (type == (byte)PacketTypes.Disconnect)
 						{
 							Netplay.Clients[client.Id].PendingTermination = true;
@@ -274,7 +276,7 @@ namespace Terraria.Net.Sockets
 					{
 						type = HeapType.SmallHeap;
 						block = i;
-						return new ArraySegment<byte>(smallObjectHeap, i*kSendQueueSmallBlockSize, kSendQueueSmallBlockSize);
+						return new ArraySegment<byte>(smallObjectHeap, i * kSendQueueSmallBlockSize, kSendQueueSmallBlockSize);
 					}
 				}
 			}
@@ -285,7 +287,7 @@ namespace Terraria.Net.Sockets
 				{
 					type = HeapType.LargeHeap;
 					block = i;
-					return new ArraySegment<byte>(largeObjectHeap, i*kSendQueueLargeBlockSize, kSendQueueLargeBlockSize);
+					return new ArraySegment<byte>(largeObjectHeap, i * kSendQueueLargeBlockSize, kSendQueueLargeBlockSize);
 				}
 			}
 
@@ -373,7 +375,7 @@ namespace Terraria.Net.Sockets
 		}
 
 
-		public void Enqueue(ArraySegment<byte> block, LinkedList<SequenceItem> sequence = null) 
+		public void Enqueue(ArraySegment<byte> block, LinkedList<SequenceItem> sequence = null)
 		{
 			if (block == default(ArraySegment<byte>) || sequence != null)
 			{
@@ -381,11 +383,11 @@ namespace Terraria.Net.Sockets
 			}
 			if (block.Count == kSendQueueLargeBlockSize)
 			{
-				queuedLargeBlocks[block.Offset/kSendQueueLargeBlockSize] = true; //atomic
+				queuedLargeBlocks[block.Offset / kSendQueueLargeBlockSize] = true; //atomic
 			}
 			else
 			{
-				queuedSmallBlocks[block.Offset/kSendQueueSmallBlockSize] = true;
+				queuedSmallBlocks[block.Offset / kSendQueueSmallBlockSize] = true;
 			}
 			waitHandle.Set();
 		}
