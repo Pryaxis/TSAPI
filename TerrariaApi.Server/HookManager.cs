@@ -922,6 +922,34 @@ namespace TerrariaApi.Server
 		}
 		#endregion
 
+		#region ServerBroadcast
+		private readonly HandlerCollection<ServerBroadcastEventArgs> serverBroadcast =
+			new HandlerCollection<ServerBroadcastEventArgs>("ServerBroadcast");
+
+		public HandlerCollection<ServerBroadcastEventArgs> ServerBroadcast
+		{
+			get { return serverBroadcast; }
+		}
+
+		internal bool InvokeServerBroadcast(ref string message, ref float r, ref float g, ref float b)
+		{
+			ServerBroadcastEventArgs args = new ServerBroadcastEventArgs
+			{
+				Message = message,
+				Color = new Color((int)r, (int)g, (int)b)
+			};
+
+			ServerBroadcast.Invoke(args);
+
+			message = args.Message;
+			r = args.Color.R;
+			g = args.Color.G;
+			b = args.Color.B;
+
+			return args.Handled;
+		}
+		#endregion
+
 		#region ServerSocketReset
 		private readonly HandlerCollection<SocketResetEventArgs> serverSocketReset = 
 			new HandlerCollection<SocketResetEventArgs>("ServerSocketReset");

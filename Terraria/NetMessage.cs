@@ -568,6 +568,11 @@ namespace Terraria
 					writer.Write((byte) number2);
 					break;
 				case 25:
+					if (number == 255 
+						&& ServerApi.Hooks.InvokeServerBroadcast(ref text, ref number2, ref number3, ref number4))
+					{
+						return;
+					}
 					writer.Write((byte) number);
 					writer.Write((byte) number2);
 					writer.Write((byte) number3);
