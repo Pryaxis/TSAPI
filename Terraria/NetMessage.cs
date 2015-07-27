@@ -45,7 +45,7 @@ namespace Terraria
 			}
 
 			if (ServerApi.Hooks.InvokeNetSendData(ref msgType, ref remoteClient, ref ignoreClient, ref text, ref number,
-				ref number2, ref number3, ref number4, ref number5))
+				ref number2, ref number3, ref number4, ref number5, ref number6, ref number7))
 			{
 				return;
 			}

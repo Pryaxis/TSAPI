@@ -254,21 +254,24 @@ namespace TerrariaApi.Server
 		}
 
 		internal bool InvokeNetSendData(
-			ref int msgType, ref int remoteClient, ref int ignoreClient, ref string text, 
-			ref int number, ref float number2, ref float number3, ref float number4, ref int number5)
+			ref int msgType, ref int remoteClient, ref int ignoreClient, ref string text,
+			ref int number, ref float number2, ref float number3, ref float number4, ref int number5,
+			ref int number6, ref int number7)
 		{
 
 			SendDataEventArgs args = new SendDataEventArgs
 			{
-				MsgId = (PacketTypes)msgType, 
-				remoteClient = remoteClient, 
-				ignoreClient = ignoreClient, 
-				text = text, 
-				number = number, 
-				number2 = number2, 
-				number3 = number3, 
+				MsgId = (PacketTypes)msgType,
+				remoteClient = remoteClient,
+				ignoreClient = ignoreClient,
+				text = text,
+				number = number,
+				number2 = number2,
+				number3 = number3,
 				number4 = number4,
-				number5 = number5
+				number5 = number5,
+				number6 = number6,
+				number7 = number7
 			};
 
 			this.NetSendData.Invoke(args);
@@ -282,6 +285,8 @@ namespace TerrariaApi.Server
 			number3 = args.number3;
 			number4 = args.number4;
 			number5 = args.number5;
+			number6 = args.number6;
+			number7 = args.number7;
 			return args.Handled;
 		}
 		#endregion
