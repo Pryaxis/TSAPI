@@ -42360,7 +42360,7 @@ namespace Terraria
 							}
 							if (type >= 3318 && type <= 3332)
 							{
-								this.name = "Treasure Bag";
+								this.name = Lang.itemName(type);
 								this.maxStack = 999;
 								this.consumable = true;
 								this.width = 24;
