@@ -2319,7 +2319,14 @@ namespace Terraria
 				{
 					int num155 = this.reader.ReadInt16();
 					int num156 = this.reader.ReadInt16();
-					Wiring.HitSwitch(num155, num156);
+					if (num155 < 0 || num155 >= Main.maxTilesX)
+						return;
+					if (num156 < 0 || num156 >= Main.maxTilesY)
+						return;
+					if (Main.tile[num155, num156].type != 135)
+					{
+						Wiring.HitSwitch(num155, num156);
+					}
 					if (Main.netMode != 2)
 					{
 						return;
