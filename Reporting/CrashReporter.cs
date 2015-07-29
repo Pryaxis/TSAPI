@@ -68,7 +68,7 @@ namespace Reporting
 				{
 					using (FileStream fs = new FileStream(dumpTempName, FileMode.Open))
 					{
-						fs.CopyTo(zipArchive.CreateEntry("heap.dump", CompressionLevel.Optimal).Open());
+						fs.CopyTo(zipArchive.CreateEntry("core_" + process.Id + ".dmp", CompressionLevel.Optimal).Open());
 					}
 				}
 				finally
