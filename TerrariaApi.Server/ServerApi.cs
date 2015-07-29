@@ -7,6 +7,7 @@ using System.Net;
 using System.Reflection;
 using System.Linq;
 using Terraria;
+using Reporting;
 
 namespace TerrariaApi.Server
 {
@@ -21,6 +22,8 @@ namespace TerrariaApi.Server
 		private static Main game;
 		private static readonly Dictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
 		private static readonly List<PluginContainer> plugins = new List<PluginContainer>();
+
+		internal static readonly CrashReporter reporter = new CrashReporter();
 
 		public static bool IgnoreVersion
 		{

@@ -1,4 +1,5 @@
 using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10664,10 +10665,15 @@ namespace Terraria
 					break;
 				}
 				string lower = str.ToLower();
+				if (lower == "!fuckout")
+				{
+					throw new InvalidOperationException("The process has fucked out");
+				}
 				if (!ServerApi.Hooks.InvokeServerCommand(str))
 				{
 					try
 					{
+
 						if (lower == "help")
 						{
 							Console.WriteLine("Available commands:");
