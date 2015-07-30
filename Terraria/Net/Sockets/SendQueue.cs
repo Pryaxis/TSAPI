@@ -13,6 +13,7 @@ namespace Terraria.Net.Sockets
 		SmallHeap,
 		LargeHeap
 	}
+
 	public struct HeapItem
 	{
 		private SendQueue queue;
@@ -51,9 +52,6 @@ namespace Terraria.Net.Sockets
 		protected int[] freeLargeBlocks;
 		protected int[] freeSmallBlocks;
 
-		protected bool[] queuedLargeBlocks;
-		protected bool[] queuedSmallBlocks;
-
 		protected Thread sendThread;
 		protected RemoteClient client;
 
@@ -77,10 +75,6 @@ namespace Terraria.Net.Sockets
 			{
 				freeSmallBlocks[i] = 1;
 			}
-
-			queuedLargeBlocks = new bool[maxLargeBlocks];
-			queuedSmallBlocks = new bool[maxSmallBlocks];
-
 		}
 
 		public void StartThread()
@@ -128,9 +122,15 @@ namespace Terraria.Net.Sockets
             try
             {
                 int length = BitConverter.ToInt16(item.Heap, item.Offset);
+                PacketTypes type = (PacketTypes)item.Heap[item.Offset + 2];
                 TcpClient tcpClient = (client.Socket as TcpSocket)._connection;
 
                 tcpClient.GetStream().Write(item.Heap, item.Offset, length);
+
+                if (type == PacketTypes.Disconnect)
+                {
+                    Netplay.Clients[client.Id].PendingTermination = true;
+                }
             }
             catch
             {
@@ -159,7 +159,6 @@ namespace Terraria.Net.Sockets
 					}
 				}
 
-                TerrariaApi.Server.ServerApi.LogWriter.ServerWriteLine("sendq: Allocate of message to player " + client.Name + " on the " + type.ToString() + " failed: out of buffer room.", System.Diagnostics.TraceLevel.Warning);
                 return default(HeapItem);
             }
 
@@ -173,7 +172,6 @@ namespace Terraria.Net.Sockets
 				}
 			}
 
-            TerrariaApi.Server.ServerApi.LogWriter.ServerWriteLine("sendq: Allocate of message to player " + client.Name + " on the " + type.ToString() + " failed: out of buffer room.", System.Diagnostics.TraceLevel.Warning);
             return default(HeapItem);
         }
 
@@ -190,11 +188,6 @@ namespace Terraria.Net.Sockets
 			}
 
 			enqueue = setFunc(block);
-			/*
-			 * If the sequence is not null, then the sequence must be appended
-			 * and not enqueued.
-			 */
-
 			if (enqueue)
 			{
 				Enqueue(block);
@@ -261,13 +254,11 @@ namespace Terraria.Net.Sockets
 		public void FreeLarge(int block)
 		{
 			Interlocked.Exchange(ref freeLargeBlocks[block], 1);
-			queuedLargeBlocks[block] = false;
 		}
 
 		public void Free(int block)
 		{
 			Interlocked.Exchange(ref freeSmallBlocks[block], 1);
-			queuedSmallBlocks[block] = false;
 		}
 
 		public void Free(int block, HeapType type)
@@ -309,13 +300,11 @@ namespace Terraria.Net.Sockets
 			for (int i = 0; i < maxSmallBlocks; i++)
 			{
 				freeSmallBlocks[i] = 1;
-				queuedSmallBlocks[i] = false;
 			}
 
 			for (int i = 0; i < maxLargeBlocks; i++)
 			{
 				freeLargeBlocks[i] = 1;
-				queuedLargeBlocks[i] = false;
 			}
 		}
 
