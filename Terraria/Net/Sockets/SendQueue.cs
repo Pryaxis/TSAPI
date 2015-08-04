@@ -318,6 +318,8 @@ namespace Terraria.Net.Sockets
 			{
 				freeLargeBlocks[i] = 1;
 			}
+
+		    client.State = 0;
 		}
 
 		protected virtual void Dispose(bool disposing)

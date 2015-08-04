@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -100,6 +101,7 @@ namespace Terraria
 			}
 			if (Main.netMode == 2 && Netplay.Clients[this.whoAmI].State < 10 && num1 > 12 && num1 != 93 && num1 != 16 && num1 != 42 && num1 != 50 && num1 != 38 && num1 != 68)
 			{
+                ServerApi.LogWriter.ServerWriteLine(string.Format("getdata: slot {0}: msg id {1} on client state {2}", whoAmI, num1,  Netplay.Clients[this.whoAmI].State), TraceLevel.Warning);
 				NetMessage.BootPlayer(this.whoAmI, Lang.mp[2]);
 			}
 			if (this.reader == null)
