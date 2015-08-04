@@ -1,9 +1,12 @@
 using System;
 using System.Threading;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Sockets;
+using Steamworks;
 using Terraria.Net.Sockets.EventArgs;
+using ThreadState = System.Threading.ThreadState;
 
 namespace Terraria.Net.Sockets
 {
@@ -93,6 +96,7 @@ namespace Terraria.Net.Sockets
 		protected void WriteThread()
 		{
             HeapItem item;
+			Trace.WriteLine($"sendq: Write thread for slot {client.Id} started.");
 
             while (true)
             {
@@ -103,9 +107,14 @@ namespace Terraria.Net.Sockets
 
                 lock (_syncRoot)
                 {
-                    while (sendQueue.Count == 0)
+                    while (sendQueue.Count == 0 && threadCancelled == false)
                     {
                         Monitor.Wait(_syncRoot);
+                    }
+
+                    if (threadCancelled == true)
+                    {
+                        break;
                     }
                     item = sendQueue.Dequeue();
                 }
@@ -115,6 +124,7 @@ namespace Terraria.Net.Sockets
 
 			Interlocked.Exchange(ref smallObjectHeap, null);
 			Interlocked.Exchange(ref largeObjectHeap, null);
+			Trace.WriteLine($"sendq: Write thread for slot {client.Id} exited");
 		}
 
         protected void SendHeapItem(HeapItem item)
