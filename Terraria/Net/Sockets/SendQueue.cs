@@ -1,9 +1,12 @@
 using System;
 using System.Threading;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Sockets;
+using Steamworks;
 using Terraria.Net.Sockets.EventArgs;
+using ThreadState = System.Threading.ThreadState;
 
 namespace Terraria.Net.Sockets
 {
@@ -103,9 +106,14 @@ namespace Terraria.Net.Sockets
 
                 lock (_syncRoot)
                 {
-                    while (sendQueue.Count == 0)
+                    while (sendQueue.Count == 0 && threadCancelled == false)
                     {
                         Monitor.Wait(_syncRoot);
+                    }
+
+                    if (threadCancelled == true)
+                    {
+                        break;
                     }
                     item = sendQueue.Dequeue();
                 }
@@ -115,6 +123,10 @@ namespace Terraria.Net.Sockets
 
 			Interlocked.Exchange(ref smallObjectHeap, null);
 			Interlocked.Exchange(ref largeObjectHeap, null);
+		    lock (_syncRoot)
+		    {
+                sendQueue.Clear();
+            }
 		}
 
         protected void SendHeapItem(HeapItem item)
@@ -289,7 +301,7 @@ namespace Terraria.Net.Sockets
             lock (_syncRoot)
             {
                 Monitor.Pulse(_syncRoot);
-            };
+            }
 
 			if (sendThread != null && sendThread.ThreadState == ThreadState.Running)
 			{
