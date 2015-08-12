@@ -120,6 +120,10 @@ namespace Terraria
 
 		public static void HitSwitch(int i, int j)
 		{
+			if (!WorldGen.InWorld(i, j, 0))
+			{
+				return;
+			}
 			if (Main.tile[i, j] == null)
 			{
 				return;
