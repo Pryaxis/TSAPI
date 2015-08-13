@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -100,6 +101,7 @@ namespace Terraria
 			}
 			if (Main.netMode == 2 && Netplay.Clients[this.whoAmI].State < 10 && num1 > 12 && num1 != 93 && num1 != 16 && num1 != 42 && num1 != 50 && num1 != 38 && num1 != 68)
 			{
+                ServerApi.LogWriter.ServerWriteLine(string.Format("getdata: slot {0}: msg id {1} on client state {2}", whoAmI, num1,  Netplay.Clients[this.whoAmI].State), TraceLevel.Warning);
 				NetMessage.BootPlayer(this.whoAmI, Lang.mp[2]);
 			}
 			if (this.reader == null)
@@ -1626,7 +1628,6 @@ namespace Terraria
 				}
 				case 31:
 				{
-					LinkedList<SequenceItem> sequence = new LinkedList<SequenceItem>();
 					if (Main.netMode != 2)
 					{
 						return;
@@ -1640,18 +1641,16 @@ namespace Terraria
 					}
 					for (int t1 = 0; t1 < 40; t1++)
 					{
-						NetMessage.SendData(sequence, 32, this.whoAmI, -1, "", num81, (float)t1, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData(32, this.whoAmI, -1, "", num81, (float)t1, 0f, 0f, 0, 0, 0);
 					}
-					NetMessage.SendData(sequence, 33, this.whoAmI, -1, "", num81, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData(33, this.whoAmI, -1, "", num81, 0f, 0f, 0f, 0, 0, 0);
 					Main.player[this.whoAmI].chest = num81;
 					if (Main.myPlayer == this.whoAmI)
 					{
 						Main.recBigList = false;
 					}
 					Recipe.FindRecipes();
-					NetMessage.SendData(sequence, 80, -1, this.whoAmI, "", this.whoAmI, (float)num81, 0f, 0f, 0, 0, 0);
-
-					Netplay.Clients[this.whoAmI].sendQueue.Enqueue(sequence);
+					NetMessage.SendData(80, -1, this.whoAmI, "", this.whoAmI, (float)num81, 0f, 0f, 0, 0, 0);
 
 					if (Main.tile[num79, num80].frameX < 36 || Main.tile[num79, num80].frameX >= 72)
 					{

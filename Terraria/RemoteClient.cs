@@ -86,8 +86,7 @@ namespace Terraria
 				RemoteClient clients = Netplay.Clients[num];
 				clients.StatusMax = clients.StatusMax + num2;
 
-				LinkedList<SequenceItem> sequence = new LinkedList<SequenceItem>();
-				NetMessage.SendData(sequence, 9, num, -1, Lang.inter[44], num2, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData(9, num, -1, Lang.inter[44], num2, 0f, 0f, 0f, 0, 0, 0);
 
 				for (int k = sectionX - fluff; k < sectionX + fluff + 1; k++)
 				{
@@ -95,12 +94,11 @@ namespace Terraria
 					{
 						if (k >= 0 && k < Main.maxSectionsX && l >= 0 && l < Main.maxSectionsY && !Netplay.Clients[num].TileSections[k, l])
 						{
-							NetMessage.SendSection(num, k, l, false, sequence);
-							NetMessage.SendData(sequence, 11, num, -1, "", k, (float)l, (float)k, (float)l, 0, 0, 0);
+							NetMessage.SendSection(num, k, l, false);
+							NetMessage.SendData(11, num, -1, "", k, (float)l, (float)k, (float)l, 0, 0, 0);
 						}
 					}
 				}
-				Netplay.Clients[num].sendQueue.Enqueue(sequence);
 			}
 		}
 
