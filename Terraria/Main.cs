@@ -286,7 +286,7 @@ namespace Terraria
 		public static bool noWindowBorder;
 
 		private Matrix Transform = Matrix.CreateScale(1f, 1f, 1f) * Matrix.CreateRotationZ(0f) * Matrix.CreateTranslation(new Vector3(0f, 0f, 0f));
-		
+
 		public static int ugBack;
 
 		public static int oldUgBack;
@@ -1795,7 +1795,7 @@ namespace Terraria
 
 		static Main()
 		{
-			Main.curRelease = 155;
+			Main.curRelease = 156;
 			Main.versionNumber = "v1.3.0.7";
 			Main.versionNumber2 = "v1.3.0.7";
 			Main.destroyerHB = new Vector2(0f, 0f);
@@ -5268,7 +5268,7 @@ namespace Terraria
 					{
 						object[] name = new object[]
 						{
-							j + 1, 
+							j + 1,
 							'\t',
 							'\t', Main.WorldList[j].Name
 						};
@@ -5863,7 +5863,7 @@ namespace Terraria
 		}
 
 		protected void DrawPlayerStoned(Player drawPlayer, Vector2 Position)
-		{ 
+		{
 		}
 
 		public void DrawProj(int i)
@@ -10665,10 +10665,6 @@ namespace Terraria
 					break;
 				}
 				string lower = str.ToLower();
-				if (lower == "!fuckout")
-				{
-					throw new InvalidOperationException("The process has fucked out");
-				}
 				if (!ServerApi.Hooks.InvokeServerCommand(str))
 				{
 					try
@@ -11275,7 +11271,7 @@ namespace Terraria
 
 		public static void TeleportEffect(Rectangle effectRect, int Style, int extraInfo = 0)
 		{
-			
+
 		}
 
 		protected void tileColorCheck(int t, int c)
@@ -11402,7 +11398,7 @@ namespace Terraria
 			}
 			if (!Main.dedServ)
 			{
-			
+
 				if (Main.treeMntBG[1] == 94 || Main.treeMntBG[1] >= 114 && Main.treeMntBG[1] <= 116)
 				{
 					Main.bgFrameCounter[0] = Main.bgFrameCounter[0] + 1;
@@ -12381,10 +12377,10 @@ namespace Terraria
 				}
 				Main.CritterCages();
 				Main.UpdateDrawAnimations();
-				
+
 				if (!Main.gamePad || Main.gameMenu)
 				{
-					
+
 				}
 				Main.CheckInvasionProgressDisplay();
 			}
@@ -13474,7 +13470,7 @@ namespace Terraria
 								{
 									Main.ugMusic = 4;
 								}
-								
+
 								this.newMusic = Main.ugMusic;
 							}
 							else
@@ -13509,7 +13505,7 @@ namespace Terraria
 								{
 									Main.dayMusic = 1;
 								}
-								
+
 								this.newMusic = Main.dayMusic;
 							}
 							else
@@ -13739,7 +13735,7 @@ namespace Terraria
 						{
 							if (l == Main.curMusic)
 							{
-								
+
 							}
 							else
 							{
@@ -13751,12 +13747,12 @@ namespace Terraria
 								{
 									Main.musicFade[l] = 0f;
 								}
-								
+
 							}
 						}
 						else if (Main.cloudAlpha <= 0f || (double)Main.player[Main.myPlayer].position.Y >= Main.worldSurface * 16 + (double)(Main.screenHeight / 2) || Main.player[Main.myPlayer].ZoneSnow)
 						{
-							
+
 						}
 						else if (Main.ambientVolume == 0f)
 						{

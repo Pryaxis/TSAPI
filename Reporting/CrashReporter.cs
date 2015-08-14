@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using Terraria;
 using TerrariaApi.Server;
 
-namespace Reporting
+namespace TerrariaApi.Reporting
 {
 	public class CrashReporter : IDisposable
 	{
@@ -70,7 +70,7 @@ namespace Reporting
 			 * Unfortunately MiniDump is a WIN32 API and crash dumps aren't really generatable by mono at
 			 * this time.  There are no readily available heap analysis tools and even loading cores via
 			 * GDB has no managed support.
-			 * 
+			 *
 			 * Crash dumps are a windows-only thing atm.
 			 */
 			if (ServerApi.RunningMono == false)
@@ -110,7 +110,7 @@ namespace Reporting
 					finally
 					{
 						/*
-						 * The memory dmp files are large, and should be axed regardless of if the 
+						 * The memory dmp files are large, and should be axed regardless of if the
 						 * process could copy it to the zip file or not.
 						 */
 						File.Delete(dumpTempName);
@@ -125,7 +125,7 @@ namespace Reporting
 			}
 
 			File.Move(zipTempName, reportPath);
-			
+
 			return reportFileName;
 		}
 
