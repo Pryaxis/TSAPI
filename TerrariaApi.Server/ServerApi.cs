@@ -238,6 +238,9 @@ namespace TerrariaApi.Server
 
 							break;
 						}
+					case "-crashdir":
+						CrashReporter.crashReportPath = arg.Value;
+						break;
 				}
 			}
 		}

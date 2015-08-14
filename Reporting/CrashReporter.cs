@@ -16,8 +16,16 @@ using TerrariaApi.Server;
 
 namespace Reporting
 {
-	internal class CrashReporter : IDisposable
+	public class CrashReporter : IDisposable
 	{
+		/// <summary>
+		/// Occurs when the crash reporter is going to take a heap snapshot.  Attach
+		/// this handler to clean up memory you don't want included in the heap.
+		/// </summary>
+		public static event EventHandler HeapshotRequesting;
+
+		internal static string crashReportPath = "crashes";
+
 		internal CrashReporter()
 		{
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -25,16 +33,27 @@ namespace Reporting
 
 		internal void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
 		{
-			ServerApi.LogWriter.ServerWriteLine("An unhandled exception has occured in TSAPI, and a crash report will be generated.", TraceLevel.Error);
+			ServerApi.LogWriter.ServerWriteLine("===================================================================================", TraceLevel.Error);
+			ServerApi.LogWriter.ServerWriteLine("An unhandled exception has occured in TSAPI, and a crash report will be generated", TraceLevel.Error);
 			ServerApi.LogWriter.ServerWriteLine("Generating a crash report, please wait...", TraceLevel.Error);
 
-			string path = CollectCrashReport(e.ExceptionObject as Exception);
-
-			ServerApi.LogWriter.ServerWriteLine("Crash report saved at " + path, TraceLevel.Error);
-
-			if (e.IsTerminating)
+			try
 			{
-				ServerApi.LogWriter.ServerWriteLine("The process will terminate.", TraceLevel.Error);
+				string path = CollectCrashReport(e.ExceptionObject as Exception);
+				ServerApi.LogWriter.ServerWriteLine("Crash report saved at " + path, TraceLevel.Error);
+			}
+			catch
+			{
+				ServerApi.LogWriter.ServerWriteLine("Could not generate a crash report.", TraceLevel.Error);
+			}
+			finally
+			{
+				ServerApi.LogWriter.ServerWriteLine("Please upload the crash file and report it at http://tshock.co/", TraceLevel.Error);
+				if (e.IsTerminating)
+				{
+					ServerApi.LogWriter.ServerWriteLine("The process will terminate.", TraceLevel.Error);
+				}
+				ServerApi.LogWriter.ServerWriteLine("===================================================================================", TraceLevel.Error);
 			}
 		}
 
@@ -45,14 +64,29 @@ namespace Reporting
 			string zipTempName = Path.GetTempFileName();
 			string dumpTempName = Path.GetTempFileName();
 			string reportFileName = string.Format("crash_{0}.zip", DateTime.Now.ToFileTimeUtc());
-			string reportPath = Path.Combine("crashes", reportFileName);
+			string reportPath = Path.Combine(crashReportPath, reportFileName);
 
-			using (FileStream fs = new FileStream(dumpTempName, FileMode.OpenOrCreate))
+			/*
+			 * Unfortunately MiniDump is a WIN32 API and crash dumps aren't really generatable by mono at
+			 * this time.  There are no readily available heap analysis tools and even loading cores via
+			 * GDB has no managed support.
+			 * 
+			 * Crash dumps are a windows-only thing atm.
+			 */
+			if (ServerApi.RunningMono == false)
 			{
-				if (Native.MiniDumpWriteDump(process.Handle, (uint)process.Id, fs.SafeFileHandle, Native.MINIDUMP_TYPE.WithFullMemory,
-					IntPtr.Zero, IntPtr.Zero, IntPtr.Zero) == false)
+				if (HeapshotRequesting != null)
 				{
-					throw new Win32Exception(Marshal.GetLastWin32Error());
+					HeapshotRequesting(this, new EventArgs());
+				}
+
+				using (FileStream fs = new FileStream(dumpTempName, FileMode.OpenOrCreate))
+				{
+					if (Native.MiniDumpWriteDump(process.Handle, (uint)process.Id, fs.SafeFileHandle, Native.MINIDUMP_TYPE.WithFullMemory,
+						IntPtr.Zero, IntPtr.Zero, IntPtr.Zero) == false)
+					{
+						throw new Win32Exception(Marshal.GetLastWin32Error());
+					}
 				}
 			}
 
@@ -64,27 +98,30 @@ namespace Reporting
 					sw.Write(JObject.FromObject(systemInfo).ToString());
 				}
 
-				try
+				if (ServerApi.RunningMono == false)
 				{
-					using (FileStream fs = new FileStream(dumpTempName, FileMode.Open))
+					try
 					{
-						fs.CopyTo(zipArchive.CreateEntry("core_" + process.Id + ".dmp", CompressionLevel.Optimal).Open());
+						using (FileStream fs = new FileStream(dumpTempName, FileMode.Open))
+						{
+							fs.CopyTo(zipArchive.CreateEntry("core_" + process.Id + ".dmp", CompressionLevel.Optimal).Open());
+						}
 					}
-				}
-				finally
-				{
-					/*
-					 * The memory dmp files are large, and should be axed regardless of if the 
-					 * process could copy it to the zip file or not.
-					 */
-					File.Delete(dumpTempName);
+					finally
+					{
+						/*
+						 * The memory dmp files are large, and should be axed regardless of if the 
+						 * process could copy it to the zip file or not.
+						 */
+						File.Delete(dumpTempName);
+					}
 				}
 
 			}
 
-			if (Directory.Exists("crashes") == false)
+			if (Directory.Exists(crashReportPath) == false)
 			{
-				Directory.CreateDirectory("crashes");
+				Directory.CreateDirectory(crashReportPath);
 			}
 
 			File.Move(zipTempName, reportPath);
@@ -133,12 +170,6 @@ namespace Reporting
 
 		internal dynamic GetMemoryInfo()
 		{
-			//if (Type.GetType("Mono.Runtime") != null)
-			//{
-			//	return GetMemoryInfoMono();
-			//}
-
-
 			return from i in new PerformanceCounterCategory(".NET CLR Memory").GetInstanceNames().Where(i => i.Contains("TerrariaServer"))
 				   select new
 				   {
@@ -200,15 +231,6 @@ namespace Reporting
 				},
 
 				memory = GetMemoryInfo(),
-
-				/*
-				frame = from i in new System.Diagnostics.StackTrace(ex, fNeedFileInfo: true).GetFrames()
-						select new
-						{
-							Method = i.GetMethod().Name,
-							File = i.GetFileName(),
-							Offset = i.GetFileLineNumber()
-						},*/
 
 				plugins = from i in TerrariaApi.Server.ServerApi.Plugins
 						  orderby i.Plugin.Order
