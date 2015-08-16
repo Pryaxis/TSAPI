@@ -7,11 +7,12 @@ using System.Net;
 using System.Reflection;
 using System.Linq;
 using Terraria;
+using TerrariaApi.Reporting;
 
 namespace TerrariaApi.Server
 {
 	// TODO: Maybe re-implement a reload functionality for plugins, but you'll have to load all assemblies into their own
-	// AppDomain in order to unload them again later. Beware that having them in their own AppDomain might cause threading 
+	// AppDomain in order to unload them again later. Beware that having them in their own AppDomain might cause threading
 	// problems as usual locks will only work in their own AppDomains.
 	public static class ServerApi
 	{
@@ -21,6 +22,8 @@ namespace TerrariaApi.Server
 		private static Main game;
 		private static readonly Dictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
 		private static readonly List<PluginContainer> plugins = new List<PluginContainer>();
+
+		internal static readonly CrashReporter reporter = new CrashReporter();
 
 		public static bool IgnoreVersion
 		{
@@ -235,6 +238,9 @@ namespace TerrariaApi.Server
 
 							break;
 						}
+					case "-crashdir":
+						CrashReporter.crashReportPath = arg.Value;
+						break;
 				}
 			}
 		}
@@ -427,7 +433,7 @@ namespace TerrariaApi.Server
 					if (!loadedAssemblies.TryGetValue(fileName, out assembly))
 					{
 						assembly = Assembly.Load(File.ReadAllBytes(path));
-						// We just do this to return a proper error message incase this is a resolved plugin assembly 
+						// We just do this to return a proper error message incase this is a resolved plugin assembly
 						// referencing an old TerrariaServer version.
 						if (!InvalidateAssembly(assembly, fileName))
 							throw new InvalidOperationException(
@@ -447,9 +453,9 @@ namespace TerrariaApi.Server
 			return null;
 		}
 
-		// Many types have changed with 1.14 and thus we won't even be able to check the ApiVersionAttribute of 
+		// Many types have changed with 1.14 and thus we won't even be able to check the ApiVersionAttribute of
 		// plugin classes of assemblies targeting a TerrariaServer prior 1.14 as they can not be loaded at all.
-		// We work around this by checking the referenced assemblies, if we notice a reference to the old 
+		// We work around this by checking the referenced assemblies, if we notice a reference to the old
 		// TerrariaServer assembly, we expect the plugin assembly to be outdated.
 		private static bool InvalidateAssembly(Assembly assembly, string fileName)
 		{
