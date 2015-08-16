@@ -72,7 +72,7 @@ namespace Terraria
 			num2 = start + 1;
 			num1 = this.readBuffer[start];
 
-			if (Enum.IsDefined(typeof(PacketTypes), num1) == false)
+			if (Enum.IsDefined(typeof(PacketTypes), (int)num1) == false)
 			{
 				return;
 			}
