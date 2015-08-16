@@ -40,7 +40,8 @@ namespace Terraria.Net.Sockets
 
 	public class SendQueue : IDisposable
 	{
-		public const int kSendQueueMaxSequences = 8192;
+		public static System.Timers.Timer sendQWatcher = new System.Timers.Timer(10000);
+
 		public const int kSendQueueLargeBlockSize = 16384;
 		public const int kSendQueueSmallBlockSize = 128;
 
@@ -49,6 +50,11 @@ namespace Terraria.Net.Sockets
 		protected byte[] smallObjectHeap;
 		protected byte[] largeObjectHeap;
 
+		//protected int maxLargeBlocks = 8;
+		//protected int maxSmallBlocks = 16;
+
+		public volatile int overflowSmallBlocks;
+		public volatile int overflowLargeBlocks;
 		protected int maxLargeBlocks = 192;
 		protected int maxSmallBlocks = 4096;
 
@@ -60,11 +66,36 @@ namespace Terraria.Net.Sockets
 
         protected Queue<HeapItem> sendQueue = new Queue<HeapItem>();
         protected readonly object _syncRoot = new object();
+        protected readonly object _allocRoot = new object();
 
 		public event EventHandler<WriteFailedEventArgs> WriteFailed;
 
+		static SendQueue()
+		{
+			sendQWatcher.Elapsed += (s, args) =>
+			{
+				List<string> laggingPlayers = new List<string>();
+				foreach (RemoteClient client in Netplay.Clients)
+				{
+					int clientOverflow = 0;
+
+					if ((clientOverflow = (Interlocked.Exchange(ref client.sendQueue.overflowLargeBlocks, 0) + Interlocked.Exchange(ref client.sendQueue.overflowSmallBlocks, 0))) > 0) 
+					{
+						laggingPlayers.Add(client.Name);
+					}
+				}
+
+				if (laggingPlayers.Count > 0)
+				{
+					TerrariaApi.Server.ServerApi.LogWriter.ServerWriteLine(string.Format("sendq: WARNING: players {0} are lagging behind the server!", string.Join(", ", laggingPlayers)), TraceLevel.Warning);
+				}
+			};
+		}
+
 		public SendQueue(RemoteClient client)
 		{
+			sendQWatcher.Start();
+
 			this.client = client;
 			freeLargeBlocks = new int[maxLargeBlocks];
 			freeSmallBlocks = new int[maxSmallBlocks];
@@ -121,8 +152,11 @@ namespace Terraria.Net.Sockets
                 SendHeapItem(item);
             }
 
-			Interlocked.Exchange(ref smallObjectHeap, null);
-			Interlocked.Exchange(ref largeObjectHeap, null);
+			lock (_allocRoot)
+			{
+				Interlocked.Exchange(ref smallObjectHeap, null);
+				Interlocked.Exchange(ref largeObjectHeap, null);
+			}
 		    lock (_syncRoot)
 		    {
                 sendQueue.Clear();
@@ -131,6 +165,11 @@ namespace Terraria.Net.Sockets
 
         protected void SendHeapItem(HeapItem item)
         {
+			if (item.Heap == null)
+			{
+				return;
+			}
+
             try
             {
                 int length = BitConverter.ToInt16(item.Heap, item.Offset);
@@ -171,6 +210,8 @@ namespace Terraria.Net.Sockets
 					}
 				}
 
+				overflowSmallBlocks += 1;
+
                 return default(HeapItem);
             }
 
@@ -183,6 +224,8 @@ namespace Terraria.Net.Sockets
                     return new HeapItem(this, largeObjectHeap, HeapType.LargeHeap, i);
 				}
 			}
+
+			overflowLargeBlocks += 1;
 
             return default(HeapItem);
         }
@@ -199,8 +242,11 @@ namespace Terraria.Net.Sockets
 				return;
 			}
 
-			enqueue = setFunc(block);
-			if (enqueue)
+			lock (_allocRoot)
+			{
+				enqueue = setFunc(block);
+			}
+			if (enqueue && !threadCancelled)
 			{
 				Enqueue(block);
 			}
@@ -217,12 +263,15 @@ namespace Terraria.Net.Sockets
 				return;
 			}
 
-			using (MemoryStream ms = new MemoryStream(block.Heap, block.Offset, block.Count, true))
-			using (BinaryWriter bw = new BinaryWriter(ms))
+			lock (_allocRoot)
 			{
-				if (setFunc(bw))
+				using (MemoryStream ms = new MemoryStream(block.Heap, block.Offset, block.Count, true))
+				using (BinaryWriter bw = new BinaryWriter(ms))
 				{
-					Enqueue(block);
+					if (setFunc(bw))
+					{
+						Enqueue(block);
+					}
 				}
 			}
 		}
@@ -233,7 +282,7 @@ namespace Terraria.Net.Sockets
 			int blockId;
 
 			var block = Alloc(count, out type, out blockId);
-			if (blockId == -1)
+			if (blockId == -1 || threadCancelled)
 			{
                 return default(HeapItem);
 			}
@@ -251,7 +300,7 @@ namespace Terraria.Net.Sockets
 
 		public void Enqueue(HeapItem item)
 		{
-            if (item.Block == -1)
+            if (item.Block == -1 || threadCancelled)
             {
                 return;
             }
