@@ -1744,10 +1744,14 @@ namespace Terraria
 		{
 			get
 			{
-				return Main.ActiveWorldFileData.IsExpertMode;
+				return Main.ActiveWorldFileData != null && Main.ActiveWorldFileData.IsExpertMode;
 			}
 			set
 			{
+				if (Main.ActiveWorldFileData == null)
+				{
+					return;
+				}
 				Main.ActiveWorldFileData.IsExpertMode = value;
 			}
 		}
@@ -1796,8 +1800,8 @@ namespace Terraria
 		static Main()
 		{
 			Main.curRelease = 156;
-			Main.versionNumber = "v1.3.0.7";
-			Main.versionNumber2 = "v1.3.0.7";
+			Main.versionNumber = "v1.3.0.8";
+			Main.versionNumber2 = "v1.3.0.8";
 			Main.destroyerHB = new Vector2(0f, 0f);
 			Main.drawBackGore = false;
 			Main.expertLife = 2f;
@@ -2422,7 +2426,6 @@ namespace Terraria
 			Main.ambientLavaStrength = 0f;
 			Main.ambientCounter = 0;
 			Main.ProjectileUpdateLoopIndex = -1;
-			Main._largeMethodFix = true;
 			Main.maxMenuItems = 16;
 			Main.selectedPlayer = 0;
 			Main.selectedWorld = 0;
@@ -11292,12 +11295,6 @@ namespace Terraria
 
 		protected void Update()
 		{
-			if (Main._largeMethodFix)
-			{
-				Main._largeMethodFix = false;
-				(new Projectile()).AI();
-				(new NPC()).AI();
-			}
 			if (Main._hasPendingNetmodeChange)
 			{
 				Main.netMode = Main._targetNetMode;
