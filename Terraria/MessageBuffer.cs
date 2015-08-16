@@ -71,12 +71,20 @@ namespace Terraria
 			int num2 = 0;
 			num2 = start + 1;
 			num1 = this.readBuffer[start];
+
+			if (Enum.IsDefined(typeof(PacketTypes), num1) == false)
+			{
+				return;
+			}
+
 			if (ServerApi.Hooks.InvokeNetGetData(ref num1, this, ref num2, ref length))
 			{
 				return;
 			}
-			Main.rxMsg = Main.rxMsg + 1;
-			Main.rxData = Main.rxData + length;
+			
+			//Main.rxMsg = Main.rxMsg + 1;
+			//Main.rxData = Main.rxData + length;
+			
 			if (Main.netMode == 1 && Netplay.Connection.StatusMax > 0)
 			{
 				RemoteServer connection = Netplay.Connection;
