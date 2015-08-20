@@ -234,7 +234,7 @@ namespace Terraria.Net.Sockets
 		{
 			HeapType type;
 			int blockId;
-			bool enqueue;
+			bool enqueue = false;
 
 			var block = Alloc(size, out type, out blockId);
 			if (blockId == -1)
@@ -242,14 +242,17 @@ namespace Terraria.Net.Sockets
 				return;
 			}
 
-			lock (_allocRoot)
+			if (block.Heap != null)
 			{
-				if (block.Heap == null)
+				lock (_allocRoot)
 				{
-					return;
+					if (block.Heap != null)
+					{
+						enqueue = setFunc(block);
+					}
 				}
-				enqueue = setFunc(block);
 			}
+
 			if (enqueue)
 			{
 				Enqueue(block);
@@ -267,14 +270,20 @@ namespace Terraria.Net.Sockets
 				return;
 			}
 
-			lock (_allocRoot)
+			if (block.Heap != null)
 			{
-				using (MemoryStream ms = new MemoryStream(block.Heap, block.Offset, block.Count, true))
-				using (BinaryWriter bw = new BinaryWriter(ms))
+				lock (_allocRoot)
 				{
-					if (setFunc(bw))
+					if (block.Heap != null)
 					{
-						Enqueue(block);
+						using (MemoryStream ms = new MemoryStream(block.Heap, block.Offset, block.Count, true))
+						using (BinaryWriter bw = new BinaryWriter(ms))
+						{
+							if (setFunc(bw))
+							{
+								Enqueue(block);
+							}
+						}
 					}
 				}
 			}
@@ -296,7 +305,16 @@ namespace Terraria.Net.Sockets
 				throw new Exception("Attempt to overwrite boundary");
 			}
 
-			Array.Copy(buffer, offset, block.Heap, block.Offset + offset, count);
+			if (buffer != null)
+			{
+				lock (_allocRoot)
+				{
+					if (buffer != null)
+					{
+						Array.Copy(buffer, offset, block.Heap, block.Offset + offset, count);
+					}
+				}
+			}
 
 			return block;
 		}
