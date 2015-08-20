@@ -244,9 +244,13 @@ namespace Terraria.Net.Sockets
 
 			lock (_allocRoot)
 			{
+				if (block.Heap == null)
+				{
+					return;
+				}
 				enqueue = setFunc(block);
 			}
-			if (enqueue && !threadCancelled)
+			if (enqueue)
 			{
 				Enqueue(block);
 			}
@@ -300,7 +304,7 @@ namespace Terraria.Net.Sockets
 
 		public void Enqueue(HeapItem item)
 		{
-            if (item.Block == -1 || threadCancelled)
+            if (item.Block == -1 || item.Heap == null)
             {
                 return;
             }
