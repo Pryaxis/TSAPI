@@ -17,6 +17,10 @@ namespace Terraria.Net.Sockets
 		LargeHeap
 	}
 
+	/// <summary>
+	/// Represents a stack-allocated heap item, which points to a block on a player's
+	/// queue.
+	/// </summary>
 	public struct HeapItem
 	{
 		private SendQueue queue;
@@ -38,13 +42,33 @@ namespace Terraria.Net.Sockets
 
 	}
 
-	public class SendQueue : IDisposable
+	/// <summary>
+	/// SendQ: A lock-and-pulse queue for the management of sending data to terraria clients
+	/// </summary>
+	public class SendQueue
 	{
+		/// <summary>
+		/// The send queue watcher is a 10 second timer that watches for failed packet allocations
+		/// called overflows.  Overflows happen when the client is not able to receive the amount
+		/// of data that the system is sending it, thus the packet heaps get full and no more information
+		/// can be sent to the client.
+		/// </summary>
 		public static System.Timers.Timer sendQWatcher = new System.Timers.Timer(10000);
 
+		/// <summary>
+		/// Key relating to the size in bytes of a large block
+		/// </summary>
 		public const int kSendQueueLargeBlockSize = 16384;
+
+		/// <summary>
+		/// Key relating to the size in bytes of a small block
+		/// </summary>
 		public const int kSendQueueSmallBlockSize = 128;
 
+		/// <summary>
+		/// Volatile flag indicating whether the write thread is currently
+		/// running or not
+		/// </summary>
 		protected volatile bool threadCancelled;
 
 		protected byte[] smallObjectHeap;
@@ -55,20 +79,48 @@ namespace Terraria.Net.Sockets
 
 		public volatile int overflowSmallBlocks;
 		public volatile int overflowLargeBlocks;
+		
+		/// <summary>
+		/// The maximum number of large heap blocks to make up the large heap.
+		/// This together with the block size, indicates the size of the large heap.
+		/// </summary>
 		protected int maxLargeBlocks = 192;
+
+		/// <summary>
+		/// The maximum number of small heap blocks to make up the small heap.
+		/// 
+		/// This, together with the small block size inficated the size of the
+		/// small heap.
+		/// </summary>
 		protected int maxSmallBlocks = 4096;
 
 		protected int[] freeLargeBlocks;
 		protected int[] freeSmallBlocks;
 
+		/// <summary>
+		/// Represents a write thread.  Each client has one to acheive async
+		/// writes without having to worry about windows/mono socket semantics
+		/// </summary>
 		protected Thread sendThread;
 		protected RemoteClient client;
 
+		/// <summary>
+		/// A queue of heap items enforces packet sending order
+		/// </summary>
         protected Queue<HeapItem> sendQueue = new Queue<HeapItem>();
-        protected readonly object _syncRoot = new object();
-        protected readonly object _allocRoot = new object();
 
-		public event EventHandler<WriteFailedEventArgs> WriteFailed;
+		/// <summary>
+		/// Synch-root that protects the lock and pulse queue.  Manipulating
+		/// the private sendQueue variable requires an acquisition of this lock.
+		/// </summary>
+        protected readonly object _syncRoot = new object();
+
+		/// <summary>
+		/// Synch-root for protecting the allocators.  A write thread could exit
+		/// at any time and exchange the packet heaps to null, even whilst a thread
+		/// is still writing to it.
+		/// </summary>
+        protected readonly object _allocRoot = new object();
 
 		static SendQueue()
 		{
@@ -92,6 +144,10 @@ namespace Terraria.Net.Sockets
 			};
 		}
 
+		/// <summary>
+		/// Initializes a new send queue for the supplied remote client.
+		/// </summary>
+		/// <param name="client"></param>
 		public SendQueue(RemoteClient client)
 		{
 			sendQWatcher.Start();
@@ -111,6 +167,10 @@ namespace Terraria.Net.Sockets
 			}
 		}
 
+		/// <summary>
+		/// Called to initalize the write thread with new heaps. It's most commonly used 
+		/// after TSAPI calls <see cref="Reset"/>.
+		/// </summary>
 		public void StartThread()
 		{
 			smallObjectHeap = new byte[maxSmallBlocks * kSendQueueSmallBlockSize];
@@ -124,6 +184,11 @@ namespace Terraria.Net.Sockets
 			sendThread.Start();
 		}
 
+		/// <summary>
+		/// Main body of the write thread.  Blocks until the lock on _syncRoot
+		/// has been pulsed and then pops the top heap item off the queue and
+		/// sends it to the connected client.
+		/// </summary>
 		protected void WriteThread()
 		{
             HeapItem item;
@@ -139,6 +204,9 @@ namespace Terraria.Net.Sockets
                 {
                     while (sendQueue.Count == 0 && threadCancelled == false)
                     {
+						/*
+						 * Will wait without timeout until it is pulsed
+						 */
                         Monitor.Wait(_syncRoot);
                     }
 
@@ -154,6 +222,11 @@ namespace Terraria.Net.Sockets
 
 			lock (_allocRoot)
 			{
+				/*
+				 * Exchange of the heaps must happen inside the allocRoot lock to 
+				 * prevent the heaps being exchanged to null whilst another thread
+				 * is writing to that heap.
+				 */
 				Interlocked.Exchange(ref smallObjectHeap, null);
 				Interlocked.Exchange(ref largeObjectHeap, null);
 			}
@@ -163,6 +236,13 @@ namespace Terraria.Net.Sockets
             }
 		}
 
+		/// <summary>
+		/// Sends a HeapItem to the connected client.  The HeapItem must be a valid
+		/// Terraria packet.
+		/// </summary>
+		/// <remarks>
+		/// Heap item must point to a valid packet.
+		/// </remarks>
         protected void SendHeapItem(HeapItem item)
         {
 			if (item.Heap == null)
@@ -193,6 +273,17 @@ namespace Terraria.Net.Sockets
             }
         }
 
+		/// <summary>
+		/// Allocates a new HeapItem based on the first free block on the small
+		/// or large heaps.
+		/// </summary>
+		/// <param name="size">The size of packet requested</param>
+		/// <param name="type">(out) Small or large heap</param>
+		/// <param name="block">(out) the block ID</param>
+		/// <returns>
+		/// A HeapItem pointing to a segment of the packet heap in which the
+		/// packet may be written to
+		/// </returns>
 		public HeapItem Alloc(int size, out HeapType type, out int block)
         {
             type = HeapType.None;
@@ -230,6 +321,17 @@ namespace Terraria.Net.Sockets
             return default(HeapItem);
         }
 
+		/// <summary>
+		/// Allocates a new packet on the heap and executes the in-line set method which
+		/// allows the packet to be written in an anonymous method.
+		/// </summary>
+		/// <param name="size">The size of heap requested</param>
+		/// <param name="setFunc">
+		/// A delegate pointing to the method in which to run that will write the packet
+		/// to the HeapItem.  It has one parameter (the heap item) and expects a bool
+		/// return value indicating whether to proceed adding the heap item to the queue
+		/// once the function has completed executing.
+		/// </param>
 		public void AllocAndSet(int size, Func<HeapItem, bool> setFunc)
 		{
 			HeapType type;
@@ -246,6 +348,12 @@ namespace Terraria.Net.Sockets
 			{
 				lock (_allocRoot)
 				{
+					/*
+					 * The double null-check here is intentional, it is there so the heap is
+					 * re checked once the lock on the allocator sync root has been acquired.
+					 * 
+					 * Please do not attempt to "fix" this.
+					 */
 					if (block.Heap != null)
 					{
 						enqueue = setFunc(block);
@@ -259,6 +367,21 @@ namespace Terraria.Net.Sockets
 			}
 		}
 
+		/// <summary>
+		/// Allocates a packet on the heap, and executes the set method with a new
+		/// BinaryWriter, allowing for the function to not have to worry about
+		/// setting up the memory scaffolding to write binary data.
+		/// </summary>
+		/// <param name="size">The size of packet requested</param>
+		/// <param name="setFunc">
+		/// A delegate pointing to the method in which to write the packet to the
+		/// HeapItem.  The method has one parameter (a BinaryWriter) in which callers
+		/// may use the BinaryWriter's methods to write packet data, as long as it
+		/// does not overwrite the bounds of the heap in which it's allocated in.
+		/// 
+		/// The method expects one bool return value indicating whether to proceed
+		/// adding the packet to the queue after the set method has been called.
+		/// </param>
 		public void AllocAndSet(int size, Func<BinaryWriter, bool> setFunc)
 		{
 			HeapType type;
@@ -274,6 +397,12 @@ namespace Terraria.Net.Sockets
 			{
 				lock (_allocRoot)
 				{
+					/*
+					 * The double null-check here is intentional, it is there so the heap is
+					 * re checked once the lock on the allocator sync root has been acquired.
+					 * 
+					 * Please do not attempt to "fix" this.
+					 */
 					if (block.Heap != null)
 					{
 						using (MemoryStream ms = new MemoryStream(block.Heap, block.Offset, block.Count, true))
@@ -289,6 +418,14 @@ namespace Terraria.Net.Sockets
 			}
 		}
 
+		/// <summary>
+		/// Allocates a packet on the heap, and copies the supplied byte buffer to the
+		/// heap block.
+		/// </summary>
+		/// <param name="buffer">A reference to the byte buffer in which to copy</param>
+		/// <param name="offset">The offset in the source buffer in which to copy</param>
+		/// <param name="count">Amount of bytes from the source buffer in which to copy</param>
+		/// <returns>A HeapItem with the contents of the source byte array copied</returns>
 		public HeapItem AllocAndCopy(ref byte[] buffer, int offset, int count)
 		{
 			HeapType type;
@@ -309,6 +446,12 @@ namespace Terraria.Net.Sockets
 			{
 				lock (_allocRoot)
 				{
+					/*
+					 * The double null-check here is intentional, it is there so the heap is
+					 * re checked once the lock on the allocator sync root has been acquired.
+					 * 
+					 * Please do not attempt to "fix" this.
+					 */
 					if (buffer != null)
 					{
 						Array.Copy(buffer, offset, block.Heap, block.Offset + offset, count);
@@ -319,7 +462,9 @@ namespace Terraria.Net.Sockets
 			return block;
 		}
 
-
+		/// <summary>
+		/// Enqueues a heap item into the send queue.  Packets enqued will be sent to the client.
+		/// </summary>
 		public void Enqueue(HeapItem item)
 		{
             if (item.Block == -1 || item.Heap == null)
@@ -334,16 +479,25 @@ namespace Terraria.Net.Sockets
             }
 		}
 
+		/// <summary>
+		/// Frees a large block from the heap for re-use.
+		/// </summary>
 		public void FreeLarge(int block)
 		{
 			Interlocked.Exchange(ref freeLargeBlocks[block], 1);
 		}
 
+		/// <summary>
+		/// Frees a small block from the heap for re-use.
+		/// </summary>
 		public void Free(int block)
 		{
 			Interlocked.Exchange(ref freeSmallBlocks[block], 1);
 		}
 
+		/// <summary>
+		/// Frees a block for re-use.
+		/// </summary>
 		public void Free(int block, HeapType type)
 		{
 			if (type == HeapType.LargeHeap)
@@ -355,30 +509,38 @@ namespace Terraria.Net.Sockets
 			Free(block);
 		}
 
-		~SendQueue()
-		{
-			Dispose(false);
-		}
-
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-
+		/// <summary>
+		/// Called when a client disconnects, resets the send queue to a state
+		/// where it may be re used for another client that lands in the slot.
+		/// </summary>
 		public void Reset()
 		{
 			threadCancelled = true;
             lock (_syncRoot)
             {
+				/*
+				 * As there is no timeout on the wait on _syncRoot (and there is no
+				 * point in adding one, they are expensive), the lock on _syncRoot
+				 * must be pulsed AFTER threadCancelled is set to true, which will
+				 * cause the write thread to exit.
+				 */
                 Monitor.Pulse(_syncRoot);
             }
 
 			if (sendThread != null && sendThread.ThreadState == ThreadState.Running)
 			{
+				/*
+				 * Join should never deadlock if _syncRoot has been pulsed.  The heaps
+				 * get exchanged to null and queue gets cleared when the write thread
+				 * is exting so there is no point doing it here.
+				 */
 				sendThread.Abort();
 				sendThread.Join();
 			}
+
+			/*
+			 * All blocks will be reset.
+			 */
 
 			for (int i = 0; i < maxSmallBlocks; i++)
 			{
@@ -390,20 +552,18 @@ namespace Terraria.Net.Sockets
 				freeLargeBlocks[i] = 1;
 			}
 
+			/*
+			 * WORKAROUND
+			 * 
+			 * Fixes an issue where the client state will be non-zero in some cases when
+			 * the client has been disconnected and a packet got past the queue, causing
+			 * clients to be kicked with an "Invalid operation at this state" error which
+			 * is baked into terraria.
+			 * 
+			 * When the send queue gets reset, this ensures all RemoteClients are reset to
+			 * state 0.
+			 */
 		    client.State = 0;
-		}
-
-		protected virtual void Dispose(bool disposing)
-		{
-			if (sendThread != null)
-			{
-				threadCancelled = true;
-				sendThread.Join();
-			}
-
-			if (disposing)
-			{
-			}
 		}
 	}
 }
