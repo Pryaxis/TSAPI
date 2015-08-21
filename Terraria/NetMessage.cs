@@ -10,6 +10,7 @@ using Terraria.ID;
 using Terraria.IO;
 using Terraria.Net.Sockets;
 using TerrariaApi.Server;
+using System.Text;
 
 namespace Terraria
 {
@@ -2002,12 +2003,34 @@ namespace Terraria
             }
 			
         }
+
+        internal static string DumpPacket(byte[] buffer, int start, int len)
+        {
+            StringBuilder sb = new StringBuilder("[");
+
+            for(int i = start; i < start + len; i++)
+            {
+                sb.Append(buffer[i].ToString("X2"));
+
+                if (i < start + len - 1)
+                {
+                    sb.Append(" ");
+                }
+            }
+
+            sb.Append("]");
+
+            return sb.ToString();
+        }
+
 		public static void CheckBytes(int bufferIndex = 256)
 		{
 			lock (NetMessage.buffer[bufferIndex])
 			{
 				int num = 0;
 				int i = NetMessage.buffer[bufferIndex].totalData;
+                string packetDump = null;
+
 				while (i >= 2)
 				{
 					int num2 = (int)BitConverter.ToUInt16(NetMessage.buffer[bufferIndex].readBuffer, num);
@@ -2015,10 +2038,32 @@ namespace Terraria
 					{
 						break;
 					}
-					NetMessage.buffer[bufferIndex].GetData(num + 2, num2 - 2);
-					i -= num2;
-					num += num2;
+
+                    try
+                    {
+                        NetMessage.buffer[bufferIndex].GetData(num + 2, num2 - 2);
+                    }
+                    catch (Exception ex)
+                    {
+                        ServerApi.LogWriter.ServerWriteLine("Server could not process a packet because it was corrupt.", System.Diagnostics.TraceLevel.Warning);
+                        ServerApi.LogWriter.ServerWriteLine(ex.ToString(), System.Diagnostics.TraceLevel.Warning);
+
+                        try
+                        {
+                            packetDump = DumpPacket(NetMessage.buffer[bufferIndex].readBuffer, num + 2, num2 - 2);
+                            ServerApi.LogWriter.ServerWriteLine("Packet contents: " + packetDump, System.Diagnostics.TraceLevel.Warning);
+                        } 
+                        catch
+                        {
+                        }
+                    }
+                    finally
+                    {
+                        i -= num2;
+                        num += num2;
+                    }
 				}
+
 				if (i != NetMessage.buffer[bufferIndex].totalData)
 				{
 					for (int j = 0; j < i; j++)
