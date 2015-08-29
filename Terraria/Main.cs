@@ -10985,7 +10985,7 @@ namespace Terraria
 			}
 		}
 
-		public static void StartInvasion(int type = 1)
+		public static void StartInvasion(int type = 1, int? invasionSize = null)
 		{
 			if (Main.invasionType == 0)
 			{
@@ -11000,7 +11000,16 @@ namespace Terraria
 				if (num > 0)
 				{
 					Main.invasionType = type;
-					Main.invasionSize = 80 + 40 * num;
+
+					if (invasionSize.HasValue == true) 
+					{
+						Main.invasionSize = invasionSize.Value;
+					} 
+					else
+					{
+						Main.invasionSize = 80 + 40 * num;
+					}
+
 					if (type == 3)
 					{
 						Main.invasionSize = Main.invasionSize + 40 + 20 * num;
