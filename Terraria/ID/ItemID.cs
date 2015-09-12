@@ -7220,7 +7220,7 @@ namespace Terraria.ID
 
 		public const short Count = 3602;
 
-		public bool Any(int match)
+		public static bool Any(int match)
 		{
 			if (match == 0)
 			{
