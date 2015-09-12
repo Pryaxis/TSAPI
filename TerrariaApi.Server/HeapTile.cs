@@ -187,9 +187,5 @@ namespace TerrariaApi.Server
 
         #endregion
 
-        public override string ToString()
-        {
-            return $"[HeapTile type={type} wall={wall} liquid={liquid} sTileHeader={sTileHeader} bHeaders={bTileHeader},{bTileHeader2},{bTileHeader3}]";
-        }
     }
 }
