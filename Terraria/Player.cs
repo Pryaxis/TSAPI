@@ -12,7 +12,7 @@ using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
 using Terraria.IO;
-using Terraria.Map;
+//using Terraria.Map;
 using Terraria.ObjectData;
 using Terraria.Social;
 using Terraria.Social.Base;
@@ -17534,21 +17534,6 @@ namespace Terraria
 			Player player = playerFile.Player;
 			if (!skipMapSave)
 			{
-				try
-				{
-					if (Main.mapEnabled)
-					{
-						Main.Map.Save();
-					}
-				}
-				catch (Exception ex)
-				{
-#if DEBUG
-					Console.WriteLine(ex);
-					System.Diagnostics.Debugger.Break();
-
-#endif
-				}
 				try
 				{
 					Directory.CreateDirectory(Main.PlayerPath);

@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.World.Generation;
+using TerrariaApi.Server;
 
 namespace Terraria.GameContent.Generation
 {
@@ -59,7 +60,7 @@ namespace Terraria.GameContent.Generation
 		{
 			TrackGenerator.TrackHistory[] trackHistory = this._historyCache;
 			int num = 0;
-			Tile[,] tileArray = Main.tile;
+			TileProvider tileArray = Main.tile;
 			bool flag = true;
 			int num1 = ((new Random()).Next(2) == 0 ? 1 : -1);
 			if (debugMode)

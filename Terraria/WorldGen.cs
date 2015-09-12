@@ -2319,10 +2319,6 @@ namespace Terraria
 					}
 				}
 			}
-			if (Main.mapEnabled)
-			{
-				Main.Map.Load();
-			}
 			if (Main.netMode != 2)
 			{
 				Main.sectionManager.SetAllFramesLoaded();
@@ -2473,7 +2469,6 @@ namespace Terraria
 					float arg_28_0 = i / WorldGen.lastMaxTilesX;
 					Main.statusText = Lang.gen[65];
 				}
-				Main.Map.Clear();
 			}
 			NPC.MoonLordCountdown = 0;
 			Main.pumpkinMoon = false;

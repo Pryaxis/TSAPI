@@ -17,7 +17,7 @@ using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
 using Terraria.Initializers;
 using Terraria.IO;
-using Terraria.Map;
+//using Terraria.Map;
 using Terraria.Net;
 using Terraria.Net.Sockets;
 using Terraria.ObjectData;
@@ -1218,9 +1218,9 @@ namespace Terraria
 
 		public static bool tilesLoaded;
 
-		public static WorldMap Map;
+		//public static WorldMap Map;
 
-		public static Tile[,] tile;
+		public static TileProvider tile;
 
 		public static Star[] star;
 
@@ -2249,8 +2249,9 @@ namespace Terraria
 			Main.backgroundWidth = new int[207];
 			Main.backgroundHeight = new int[207];
 			Main.tilesLoaded = false;
-			Main.Map = new WorldMap(Main.maxTilesX, Main.maxTilesY);
-			Main.tile = new Tile[Main.maxTilesX, Main.maxTilesY];
+			//Main.Map = new WorldMap(Main.maxTilesX, Main.maxTilesY);
+            //Main.tile = new Tile[Main.maxTilesX, Main.maxTilesY];
+            Main.tile = new TileProvider();
 			Main.star = new Star[130];
 			Main.item = new Item[401];
 			Main.itemLockoutTime = new int[401];
@@ -5497,15 +5498,21 @@ namespace Terraria
 
 #endif
 						}
+
+                        int oldProgress = 0;
+                        int oldValue = 0;
+
 						while (Main.serverGenLock)
 						{
-							Main.statusText = string.Format(string.Concat("{0:0%} - ", generationProgress.Message, " - {1:0%}"), generationProgress.TotalProgress, generationProgress.Value);
-							if (Main.oldStatusText == Main.statusText)
-							{
-								continue;
-							}
-							Main.oldStatusText = Main.statusText;
-							Console.WriteLine(Main.statusText);
+
+                            if ((int)(generationProgress.TotalProgress * 100) != oldProgress || (int)(generationProgress.Value * 100) != oldValue)
+                            {
+                                Main.statusText = string.Format(string.Concat("{0:0%} - ", generationProgress.Message, " - {1:0%}"), generationProgress.TotalProgress, generationProgress.Value);
+                                Main.oldStatusText = Main.statusText;
+                                oldProgress = (int)(generationProgress.TotalProgress * 100);
+                                oldValue = (int)(generationProgress.Value * 100);
+                                Console.WriteLine(Main.statusText);
+                            }
 						}
 					}
 					else

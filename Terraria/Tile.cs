@@ -23,25 +23,25 @@ namespace Terraria
 
 		public const int Liquid_Honey = 2;
 
-		public ushort type;
+		public virtual ushort type { get; set; }
 
-		public byte wall;
+		public virtual byte wall { get; set; }
 
-		public byte liquid;
+		public virtual byte liquid { get; set; }
 
-		public short sTileHeader;
+		public virtual short sTileHeader { get; set; }
 
-		public byte bTileHeader;
+		public virtual byte bTileHeader { get; set; }
 
-		public byte bTileHeader2;
+		public virtual byte bTileHeader2 { get; set; }
 
-		public byte bTileHeader3;
+		public virtual byte bTileHeader3 { get; set; }
 
-		public short frameX;
+		public virtual short frameX { get; set; }
 
-		public short frameY;
+		public virtual short frameY { get; set; }
 
-		public int collisionType
+		public virtual int collisionType
 		{
 			get
 			{
@@ -67,18 +67,18 @@ namespace Terraria
 
 		public Tile()
 		{
-			this.type = 0;
-			this.wall = 0;
-			this.liquid = 0;
-			this.sTileHeader = 0;
-			this.bTileHeader = 0;
-			this.bTileHeader2 = 0;
-			this.bTileHeader3 = 0;
-			this.frameX = 0;
-			this.frameY = 0;
-		}
+            //this.type = 0;
+            //this.wall = 0;
+            //this.liquid = 0;
+            //this.sTileHeader = 0;
+            //this.bTileHeader = 0;
+            //this.bTileHeader2 = 0;
+            //this.bTileHeader3 = 0;
+            //this.frameX = 0;
+            //this.frameY = 0;
+        }
 
-		public Tile(Tile copy)
+        public Tile(Tile copy)
 		{
 			if (copy == null)
 			{

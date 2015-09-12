@@ -124,7 +124,6 @@ namespace Terraria
 			ISocket socket = (ISocket)threadContext;
 			Netplay.ClientLoopSetup(socket.GetRemoteAddress());
 			Netplay.Connection.Socket = socket;
-			Netplay.InnerClientLoop();
 		}
 		public static void TcpClientLoop(object threadContext)
 		{
@@ -148,7 +147,6 @@ namespace Terraria
 					}
 				}
 			}
-			Netplay.InnerClientLoop();
 		}
 		private static void ClientLoopSetup(RemoteAddress address)
 		{
@@ -180,149 +178,6 @@ namespace Terraria
 			Netplay.disconnect = false;
 			Netplay.Connection = new RemoteServer();
 			Netplay.Connection.ReadBuffer = new byte[1024];
-		}
-		private static void InnerClientLoop()
-		{
-			NetMessage.buffer[256].Reset();
-			int num = -1;
-			while (!Netplay.disconnect)
-			{
-				if (Netplay.Connection.Socket.IsConnected())
-				{
-					if (NetMessage.buffer[256].checkBytes)
-					{
-						NetMessage.CheckBytes(256);
-					}
-					Netplay.Connection.IsActive = true;
-					if (Netplay.Connection.State == 0)
-					{
-						Main.statusText = "Found server";
-						Netplay.Connection.State = 1;
-						NetMessage.SendData(1, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-					}
-					if (Netplay.Connection.State == 2 && num != Netplay.Connection.State)
-					{
-						Main.statusText = "Sending player data...";
-					}
-					if (Netplay.Connection.State == 3 && num != Netplay.Connection.State)
-					{
-						Main.statusText = "Requesting world information";
-					}
-					if (Netplay.Connection.State == 4)
-					{
-						WorldGen.worldCleared = false;
-						Netplay.Connection.State = 5;
-						if (Main.cloudBGActive >= 1f)
-						{
-							Main.cloudBGAlpha = 1f;
-						}
-						else
-						{
-							Main.cloudBGAlpha = 0f;
-						}
-						Main.windSpeed = Main.windSpeedSet;
-						Cloud.resetClouds();
-						Main.cloudAlpha = Main.maxRaining;
-						WorldGen.clearWorld();
-						if (Main.mapEnabled)
-						{
-							Main.Map.Load();
-						}
-					}
-					if (Netplay.Connection.State == 5 && Main.loadMapLock)
-					{
-						float num2 = (float)Main.loadMapLastX / (float)Main.maxTilesX;
-						Main.statusText = string.Concat(new object[]
-						{
-							Lang.gen[68],
-							" ",
-							(int)(num2 * 100f + 1f),
-							"%"
-						});
-					}
-					else if (Netplay.Connection.State == 5 && WorldGen.worldCleared)
-					{
-						Netplay.Connection.State = 6;
-						Main.player[Main.myPlayer].FindSpawn();
-						NetMessage.SendData(8, -1, -1, "", Main.player[Main.myPlayer].SpawnX, (float)Main.player[Main.myPlayer].SpawnY, 0f, 0f, 0, 0, 0);
-					}
-					if (Netplay.Connection.State == 6 && num != Netplay.Connection.State)
-					{
-						Main.statusText = "Requesting tile data";
-					}
-					if (!Netplay.Connection.IsReading && !Netplay.disconnect && Netplay.Connection.Socket.IsDataAvailable())
-					{
-						Netplay.Connection.IsReading = true;
-						Netplay.Connection.Socket.AsyncReceive(Netplay.Connection.ReadBuffer, 0, Netplay.Connection.ReadBuffer.Length, new SocketReceiveCallback(Netplay.Connection.ClientReadCallBack), null);
-					}
-					if (Netplay.Connection.StatusMax > 0 && Netplay.Connection.StatusText != "")
-					{
-						if (Netplay.Connection.StatusCount >= Netplay.Connection.StatusMax)
-						{
-							Main.statusText = Netplay.Connection.StatusText + ": Complete!";
-							Netplay.Connection.StatusText = "";
-							Netplay.Connection.StatusMax = 0;
-							Netplay.Connection.StatusCount = 0;
-						}
-						else
-						{
-							Main.statusText = string.Concat(new object[]
-							{
-								Netplay.Connection.StatusText,
-								": ",
-								(int)((float)Netplay.Connection.StatusCount / (float)Netplay.Connection.StatusMax * 100f),
-								"%"
-							});
-						}
-					}
-					Thread.Sleep(1);
-				}
-				else if (Netplay.Connection.IsActive)
-				{
-					Main.statusText = "Lost connection";
-					Netplay.disconnect = true;
-				}
-				num = Netplay.Connection.State;
-			}
-			try
-			{
-				Netplay.Connection.Socket.Close();
-			}
-			catch (Exception ex)
-			{
-#if DEBUG
-				Console.WriteLine(ex);
-				System.Diagnostics.Debugger.Break();
-
-				System.Diagnostics.Debugger.Break();
-
-#endif
-			}
-			if (!Main.gameMenu)
-			{
-				Main.SwitchNetMode(0);
-				Player.SavePlayer(Main.ActivePlayerFileData, false);
-				Main.ActivePlayerFileData.StopPlayTimer();
-				Main.gameMenu = true;
-				Main.menuMode = 14;
-			}
-			NetMessage.buffer[256].Reset();
-			if (Main.menuMode == 15 && Main.statusText == "Lost connection")
-			{
-				Main.menuMode = 14;
-			}
-			if (Netplay.Connection.StatusText != "" && Netplay.Connection.StatusText != null)
-			{
-				Main.statusText = "Lost connection";
-			}
-			Netplay.Connection.StatusCount = 0;
-			Netplay.Connection.StatusMax = 0;
-			Netplay.Connection.StatusText = "";
-			Main.SwitchNetMode(0);
-			if (Netplay.OnDisconnect != null)
-			{
-				Netplay.OnDisconnect();
-			}
 		}
 		private static int FindNextOpenClientSlot()
 		{

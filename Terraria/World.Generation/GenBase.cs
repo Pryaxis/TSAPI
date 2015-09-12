@@ -1,5 +1,6 @@
 using System;
 using Terraria;
+using TerrariaApi.Server;
 
 namespace Terraria.World.Generation
 {
@@ -13,7 +14,7 @@ namespace Terraria.World.Generation
 			}
 		}
 
-		protected static Tile[,] _tiles
+		protected static TileProvider _tiles
 		{
 			get
 			{
