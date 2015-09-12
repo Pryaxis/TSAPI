@@ -7220,6 +7220,23 @@ namespace Terraria.ID
 
 		public const short Count = 3602;
 
+		public bool Any(int match)
+		{
+			if (match == 0)
+			{
+				return false;
+			}
+
+			for (int i = -24; i < Count; i++)
+			{
+				if (match == i)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public class Sets
 		{
 			public static SetFactory Factory = new SetFactory(Count);
