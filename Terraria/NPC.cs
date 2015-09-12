@@ -61850,121 +61850,6 @@ namespace Terraria
 				num = 245;
 			}
 		}
-		public void IdleSounds()
-		{
-			if ((this.type == 239 || this.type == 240) && Main.rand.Next(900) == 0)
-			{
-				return;
-			}
-			if ((this.type == 62 || this.type == 156) && Main.rand.Next(700) == 0)
-			{
-				return;
-			}
-			if (this.type == 177 && Main.rand.Next(600) == 0)
-			{
-				return;
-			}
-			if (this.type == 226 && Main.rand.Next(800) == 0)
-			{
-				return;
-			}
-			if (this.type == 153 && Main.rand.Next(1000) == 0)
-			{
-				return;
-			}
-			if (this.wet && (this.type == 63 || this.type == 64 || this.type == 103) && Main.rand.Next(1000) == 0)
-			{
-				return;
-			}
-			if ((this.type == 198 || this.type == 199) && Main.rand.Next(1000) == 0)
-			{
-				return;
-			}
-			if ((this.type == 170 || this.type == 180 || this.type == 171) && Main.rand.Next(600) == 0)
-			{
-				return;
-			}
-			if (this.type == 250 && Main.rand.Next(700) == 0)
-			{
-				return;
-			}
-			if (this.type == 508 && Main.rand.Next(800) == 0)
-			{
-				return;
-			}
-			if (this.type == 509 && Main.rand.Next(800) == 0)
-			{
-				return;
-			}
-			if (this.type == 494 && Main.rand.Next(600) == 0)
-			{
-				return;
-			}
-			if (this.type == 467 && Main.rand.Next(700) == 0)
-			{
-				return;
-			}
-			if (this.type == 468 && Main.rand.Next(700) == 0)
-			{
-				return;
-			}
-			if (this.type == 288 && Main.rand.Next(400) == 0)
-			{
-				return;
-			}
-			if ((this.type == 524 || this.type == 525 || this.type == 526 || this.type == 527) && Main.rand.Next(700) == 0)
-			{
-				return;
-			}
-			if ((this.type == 496 || this.type == 497) && Main.rand.Next(600) == 0)
-			{
-				return;
-			}
-			if (this.type == 389 && Main.rand.Next(800) == 0)
-			{
-				return;
-			}
-			if (this.type == 471 && Main.rand.Next(600) == 0)
-			{
-				return;
-			}
-			if (this.type == 482 && Main.rand.Next(600) == 0)
-			{
-				return;
-			}
-			if (this.type == 388 && Main.rand.Next(700) == 0)
-			{
-				return;
-			}
-			if (this.type == 520 && Main.rand.Next(800) == 0)
-			{
-				return;
-			}
-			if (this.type == 477 && Main.rand.Next(600) == 0)
-			{
-				return;
-			}
-			if (this.type == 258 && Main.rand.Next(700) == 0)
-			{
-				return;
-			}
-			if (this.type == 252 && Main.rand.Next(700) == 0)
-			{
-				return;
-			}
-			if (this.type == 469 && Main.rand.Next(700) == 0)
-			{
-				return;
-			}
-			if ((this.type == 253 || this.type == 82) && Main.rand.Next(700) == 0)
-			{
-				return;
-			}
-			if (this.type >= 498 && this.type <= 506 && Main.rand.Next(600) == 0)
-			{
-				return;
-			}
-		}
 		public void UpdateNPC(int i)
 		{
 			this.whoAmI = i;
@@ -62595,7 +62480,6 @@ namespace Terraria
 					this.gfxOffY = -16f;
 				}
 				this.TryPortalJumping();
-				this.IdleSounds();
 				this.AI();
 				if (Main.netMode != 2 && this.extraValue > 0f)
 				{
