@@ -433,13 +433,13 @@ namespace Terraria
 
 		public static bool netDiag;
 
-		public static int txData;
+		public static long txData;
 
-		public static int rxData;
+		public static long rxData;
 
-		public static int txMsg;
+		public static long txMsg;
 
-		public static int rxMsg;
+		public static long rxMsg;
 
 		public static float uCarry;
 

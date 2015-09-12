@@ -35,7 +35,7 @@ namespace Terraria.Net
 		{
 			for (int i = 0; i < 256; i++)
 			{
-				if (i != ignoreClient && Netplay.Clients[i].Socket.IsConnected())
+				if (i != ignoreClient && Netplay.Clients[i].Socket.IsConnected() && Netplay.Clients[i] != null && Netplay.Clients[i].State == 0)
 				{
 					NetManager.SendData(i, Netplay.Clients[i].Socket, packet);
 				}

@@ -453,6 +453,7 @@ namespace Terraria.Net.Sockets
 
             if (count > block.Count)
             {
+                Free(block.Block, block.HeapType);
                 throw new Exception("Attempt to overwrite boundary");
             }
 
@@ -468,7 +469,14 @@ namespace Terraria.Net.Sockets
 					 */
                     if (buffer != null)
                     {
-                        Array.Copy(buffer, offset, block.Heap, block.Offset + offset, count);
+                        try
+                        {
+                            Array.Copy(buffer, offset, block.Heap, block.Offset + offset, count);
+                        }
+                        catch
+                        {
+                            Free(block.Block, block.HeapType);
+                        }
                     }
                 }
             }
@@ -529,7 +537,8 @@ namespace Terraria.Net.Sockets
         /// </summary>
         public void Reset()
         {
-            lock (_syncRoot) {
+            lock (_syncRoot)
+            {
                 threadCancelled = true;
                 Monitor.PulseAll(_syncRoot);
             }
