@@ -207,7 +207,7 @@ namespace Terraria.Net.Sockets
                         /*
 						 * Will wait without timeout until it is pulsed
 						 */
-                        Monitor.Wait(_syncRoot, 100);
+                        Monitor.Wait(_syncRoot);
                     }
 
                     if (threadCancelled == true)
