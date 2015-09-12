@@ -8,7 +8,7 @@ namespace TerrariaApi.Server
 {
     public class HeapTile : Terraria.Tile
     {
-        protected int offset;
+        protected readonly int offset;
         protected byte[] heap;
 
         public const int kHeapTileSize = 13;
@@ -38,12 +38,13 @@ namespace TerrariaApi.Server
         {
             get
             {
-                return ToUInt16_fast(heap, offset + kHeapTileTypeOffset);
+                return (ushort)((heap[offset + kHeapTileTypeOffset + 1] << 8) | heap[offset + kHeapTileTypeOffset]);
             }
 
             set
             {
-                ToBytes_fast(value, heap, offset + kHeapTileTypeOffset);
+                heap[offset + kHeapTileTypeOffset + 1] = (byte)(value >> 8);
+                heap[offset + kHeapTileTypeOffset] = (byte)(value & 0xFF);
             }
         }
 
@@ -77,12 +78,13 @@ namespace TerrariaApi.Server
         {
             get
             {
-                return ToInt16_fast(heap, offset + kHeapTileSTileHeaderOffset);
+                return (short)((heap[offset + kHeapTileSTileHeaderOffset + 1] << 8) | heap[offset + kHeapTileSTileHeaderOffset]);
             }
 
             set
             {
-                ToBytes_fast(value, heap, offset + kHeapTileSTileHeaderOffset);
+                heap[offset + kHeapTileSTileHeaderOffset + 1] = (byte)(value >> 8);
+                heap[offset + kHeapTileSTileHeaderOffset] = (byte)(value & 0xFF);
             }
         }
 
@@ -129,12 +131,13 @@ namespace TerrariaApi.Server
         {
             get
             {
-                return ToInt16_fast(heap, offset + kHeapTileFrameXOffset);
+                return (short)((heap[offset + kHeapTileFrameXOffset + 1] << 8) | heap[offset + kHeapTileFrameXOffset]);
             }
 
             set
             {
-                ToBytes_fast(value, heap, offset + kHeapTileFrameXOffset);
+                heap[offset + kHeapTileFrameXOffset + 1] = (byte)(value >> 8);
+                heap[offset + kHeapTileFrameXOffset] = (byte)(value & 0xFF);
             }
         }
 
@@ -142,50 +145,14 @@ namespace TerrariaApi.Server
         {
             get
             {
-                return ToInt16_fast(heap, offset + kHeapTileFrameYOffset);
+                return (short)((heap[offset + kHeapTileFrameYOffset + 1] << 8) | heap[offset + kHeapTileFrameYOffset]);
             }
 
             set
             {
-                ToBytes_fast(value, heap, offset + kHeapTileFrameYOffset);
+                heap[offset + kHeapTileFrameYOffset + 1] = (byte)(value >> 8);
+                heap[offset + kHeapTileFrameYOffset] = (byte)(value & 0xFF);
             }
         }
-
-        #region Unsafe heap accessor methods
-
-        protected unsafe ushort ToUInt16_fast(byte[] array, int offset)
-        {
-            fixed (byte *arrayPtr = &array[offset])
-            {
-                return *(ushort*)arrayPtr;
-            }
-        }
-
-        protected unsafe void ToBytes_fast(ushort value, byte[] array, int offset)
-        {
-            fixed (byte* ptr = &array[offset])
-            {
-                *(ushort*)ptr = value;
-            }
-        }
-
-        protected unsafe short ToInt16_fast(byte[] array, int offset)
-        {
-            fixed (byte *arrayPtr = &array[offset])
-            {
-                return *(short*)arrayPtr;
-            }
-        }
-
-        protected unsafe void ToBytes_fast(short value, byte[] array, int offset)
-        {
-            fixed (byte* ptr = &array[offset])
-            {
-                *(short*)ptr = value;
-            }
-        }
-
-        #endregion
-
     }
 }

@@ -12,10 +12,13 @@ namespace TerrariaApi.Server
     /// </summary>
     public class TileProvider
     {
+        /// <summary>
+        /// Holds the tile heap.
+        /// </summary>
+        /// <remarks>
+        /// The tile heap is a flat list of tiles, 13-bytes each full of tile header data.
+        /// </remarks>
         protected byte[] tileHeap;
-        //protected bool[] nullTiles;
-
-        //public static Terraria.Tile[,] tiles = new Terraria.Tile[Terraria.Main.maxTilesX, Terraria.Main.maxTilesY];
         /// <summary>
         /// Retrieves the Terraria.Tile instance at X and Y position.  Used for ABI compatibility with all of
         /// TSAPI's tile accessor mechansims.
@@ -36,30 +39,14 @@ namespace TerrariaApi.Server
                      * initialized to the large world size, wasting RAM for smaller
                      * and medium maps.
                      */
-                    tileHeap = new byte[HeapTile.kHeapTileSize * (Terraria.Main.maxTilesX * Terraria.Main.maxTilesY + 1)];
-                    //nullTiles = new bool[Terraria.Main.maxTilesX * Terraria.Main.maxTilesY];
-                    //for (int i = 0; i < nullTiles.Length; i++)
-                    //{
-                    //    nullTiles[i] = true;
-                    //}
+                    tileHeap = new byte[HeapTile.kHeapTileSize * ((Terraria.Main.maxTilesX + 1) * (Terraria.Main.maxTilesY + 1))];
                 }
 
-                //if (nullTiles[Terraria.Main.maxTilesY * x + y] == true)
-                //{
-                //    return null;
-                //}
-
-                // return tiles[x, y];
                 return GetTile(x, y);
             }
             set
             {
-                //nullTiles[Terraria.Main.maxTilesY * x + y] = value == null;
-
-                //if (value != null)
-                //{
-                    SetTile(value, x, y);
-                //}
+                SetTile(value, x, y);
             }
         }
 
@@ -96,7 +83,5 @@ namespace TerrariaApi.Server
             HeapTile heapTile = new HeapTile(tileHeap, x, y);
             heapTile.CopyFrom(tile);
         }
-
-
     }
 }
