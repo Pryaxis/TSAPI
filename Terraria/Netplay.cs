@@ -316,11 +316,9 @@ namespace Terraria
 					}
 					if (Netplay.Clients[k].PendingTermination)
 					{
-						Netplay.Clients[k].Reset();
-                        Netplay.Clients[k].PendingTermination = true;
 						ServerApi.Hooks.InvokeServerLeave(Netplay.Clients[k].Id);
+						Netplay.Clients[k].Reset();
 						NetMessage.syncPlayers(sendInventory: false, sendPlayerInfo: false);
-                        Netplay.Clients[k].PendingTermination = false;
 					}
 					else
 					{
