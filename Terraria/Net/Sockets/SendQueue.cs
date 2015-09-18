@@ -71,8 +71,10 @@ namespace Terraria.Net.Sockets
         /// </summary>
         protected volatile bool threadCancelled;
 
-        protected byte[] smallObjectHeap;
-        protected byte[] largeObjectHeap;
+        protected volatile bool hasWriteThread = false;
+
+        static byte[] smallObjectHeap;
+        static protected byte[] largeObjectHeap;
 
         //protected int maxLargeBlocks = 8;
         //protected int maxSmallBlocks = 16;
@@ -84,7 +86,7 @@ namespace Terraria.Net.Sockets
         /// The maximum number of large heap blocks to make up the large heap.
         /// This together with the block size, indicates the size of the large heap.
         /// </summary>
-        protected int maxLargeBlocks = 192;
+        protected static int maxLargeBlocks = 2048;
 
         /// <summary>
         /// The maximum number of small heap blocks to make up the small heap.
@@ -92,10 +94,10 @@ namespace Terraria.Net.Sockets
         /// This, together with the small block size inficated the size of the
         /// small heap.
         /// </summary>
-        protected int maxSmallBlocks = 4096;
+        protected static int maxSmallBlocks = 32768;
 
-        protected int[] freeLargeBlocks;
-        protected int[] freeSmallBlocks;
+        protected static int[] freeLargeBlocks;
+        protected static int[] freeSmallBlocks;
 
         /// <summary>
         /// Represents a write thread.  Each client has one to acheive async
@@ -120,10 +122,26 @@ namespace Terraria.Net.Sockets
         /// at any time and exchange the packet heaps to null, even whilst a thread
         /// is still writing to it.
         /// </summary>
-        protected readonly object _allocRoot = new object();
+        //protected readonly object _allocRoot = new object();
 
         static SendQueue()
         {
+            freeLargeBlocks = new int[maxLargeBlocks];
+            freeSmallBlocks = new int[maxSmallBlocks];
+            smallObjectHeap = new byte[maxSmallBlocks * kSendQueueSmallBlockSize];
+            largeObjectHeap = new byte[maxLargeBlocks * kSendQueueLargeBlockSize];
+
+
+            for (int i = 0; i < maxLargeBlocks; i++)
+            {
+                freeLargeBlocks[i] = 1;
+            }
+
+            for (int i = 0; i < maxSmallBlocks; i++)
+            {
+                freeSmallBlocks[i] = 1;
+            }
+
             sendQWatcher.Elapsed += (s, args) =>
             {
                 List<string> laggingPlayers = new List<string>();
@@ -151,20 +169,7 @@ namespace Terraria.Net.Sockets
         public SendQueue(RemoteClient client)
         {
             sendQWatcher.Start();
-
             this.client = client;
-            freeLargeBlocks = new int[maxLargeBlocks];
-            freeSmallBlocks = new int[maxSmallBlocks];
-
-            for (int i = 0; i < maxLargeBlocks; i++)
-            {
-                freeLargeBlocks[i] = 1;
-            }
-
-            for (int i = 0; i < maxSmallBlocks; i++)
-            {
-                freeSmallBlocks[i] = 1;
-            }
         }
 
         /// <summary>
@@ -173,15 +178,13 @@ namespace Terraria.Net.Sockets
         /// </summary>
         public void StartThread()
         {
-            smallObjectHeap = new byte[maxSmallBlocks * kSendQueueSmallBlockSize];
-            largeObjectHeap = new byte[maxLargeBlocks * kSendQueueLargeBlockSize];
-            threadCancelled = false;
             (client.Socket as TcpSocket)._connection.SendTimeout = 5000;
 
             sendThread = new Thread(WriteThread);
             sendThread.Name = "Network I/O Thread - " + client.Id;
             sendThread.IsBackground = true;
             sendThread.Start();
+            hasWriteThread = true;
         }
 
         /// <summary>
@@ -192,6 +195,8 @@ namespace Terraria.Net.Sockets
         protected void WriteThread()
         {
             HeapItem item;
+            threadCancelled = false;
+            bool exit = false;
 
             while (true)
             {
@@ -207,33 +212,41 @@ namespace Terraria.Net.Sockets
                         /*
 						 * Will wait without timeout until it is pulsed
 						 */
-                        Monitor.Wait(_syncRoot, 100);
+                        if (Monitor.Wait(_syncRoot, 100) == false)
+                        {
+                            TcpSocket sock = client.Socket as TcpSocket;
+
+                            try
+                            {
+                                if (sock._connection.Client.Poll(1000, SelectMode.SelectRead) && sock._connection.Available == 0)
+                                {
+                                    //Trace.WriteLine($"{client.Id} has a dead socket!");
+                                    exit = true;
+                                    break;
+                                }
+                            }
+                            catch
+                            {
+                                //Trace.WriteLine($"{client.Id} has a dead socket!");
+                                exit = true;
+                                break;
+                            }
+                        }
                     }
 
-                    if (threadCancelled == true)
+                    if (threadCancelled || exit)
                     {
+                        Netplay.Clients[client.Id].PendingTermination = true;
                         break;
                     }
+
                     item = sendQueue.Dequeue();
                 }
 
                 SendHeapItem(item);
             }
 
-            lock (_allocRoot)
-            {
-                /*
-				 * Exchange of the heaps must happen inside the allocRoot lock to 
-				 * prevent the heaps being exchanged to null whilst another thread
-				 * is writing to that heap.
-				 */
-                Interlocked.Exchange(ref smallObjectHeap, null);
-                Interlocked.Exchange(ref largeObjectHeap, null);
-            }
-            lock (_syncRoot)
-            {
-                sendQueue.Clear();
-            }
+            hasWriteThread = false;
         }
 
         /// <summary>
@@ -346,25 +359,13 @@ namespace Terraria.Net.Sockets
 
             if (block.Heap != null)
             {
-                lock (_allocRoot)
+                try
                 {
-                    /*
-					 * The double null-check here is intentional, it is there so the heap is
-					 * re checked once the lock on the allocator sync root has been acquired.
-					 * 
-					 * Please do not attempt to "fix" this.
-					 */
-                    try
-                    {
-                        if (block.Heap != null)
-                        {
-                            enqueue = setFunc(block);
-                        }
-                    }
-                    catch
-                    {
-                        Free(block.Block, block.HeapType);
-                    }
+                    enqueue = setFunc(block);
+                }
+                catch
+                {
+                    Free(block.Block, block.HeapType);
                 }
             }
 
@@ -400,34 +401,19 @@ namespace Terraria.Net.Sockets
                 return;
             }
 
-            if (block.Heap != null)
+            using (MemoryStream ms = new MemoryStream(block.Heap, block.Offset, block.Count, true))
+            using (BinaryWriter bw = new BinaryWriter(ms))
             {
-                lock (_allocRoot)
+                try
                 {
-                    /*
-					 * The double null-check here is intentional, it is there so the heap is
-					 * re checked once the lock on the allocator sync root has been acquired.
-					 * 
-					 * Please do not attempt to "fix" this.
-					 */
-                    if (block.Heap != null)
+                    if (setFunc(bw))
                     {
-                        using (MemoryStream ms = new MemoryStream(block.Heap, block.Offset, block.Count, true))
-                        using (BinaryWriter bw = new BinaryWriter(ms))
-                        {
-                            try
-                            {
-                                if (setFunc(bw))
-                                {
-                                    Enqueue(block);
-                                }
-                            }
-                            catch
-                            {
-                                Free(block.Block, block.HeapType);
-                            }
-                        }
+                        Enqueue(block);
                     }
+                }
+                catch
+                {
+                    Free(block.Block, block.HeapType);
                 }
             }
         }
@@ -457,28 +443,13 @@ namespace Terraria.Net.Sockets
                 throw new Exception("Attempt to overwrite boundary");
             }
 
-            if (buffer != null)
+            try
             {
-                lock (_allocRoot)
-                {
-                    /*
-					 * The double null-check here is intentional, it is there so the heap is
-					 * re checked once the lock on the allocator sync root has been acquired.
-					 * 
-					 * Please do not attempt to "fix" this.
-					 */
-                    if (buffer != null)
-                    {
-                        try
-                        {
-                            Array.Copy(buffer, offset, block.Heap, block.Offset + offset, count);
-                        }
-                        catch
-                        {
-                            Free(block.Block, block.HeapType);
-                        }
-                    }
-                }
+                Array.Copy(buffer, offset, block.Heap, block.Offset + offset, count);
+            }
+            catch
+            {
+                Free(block.Block, block.HeapType);
             }
 
             return block;
@@ -499,6 +470,7 @@ namespace Terraria.Net.Sockets
                 sendQueue.Enqueue(item);
                 Monitor.Pulse(_syncRoot);
             }
+            //Trace.WriteLine($"Enqueue on {client.Id}");
         }
 
         /// <summary>
@@ -537,48 +509,29 @@ namespace Terraria.Net.Sockets
         /// </summary>
         public void Reset()
         {
+            //Trace.WriteLine($"Reset called on {client.Id}");
+
             lock (_syncRoot)
             {
-                threadCancelled = true;
+                foreach (var item in sendQueue)
+                {
+                    Free(item.Block, item.HeapType);
+                }
+
                 Monitor.PulseAll(_syncRoot);
             }
 
-            if (sendThread != null && sendThread.ThreadState == ThreadState.Running)
-            {
-                /*
-				 * Join should never deadlock if _syncRoot has been pulsed.  The heaps
-				 * get exchanged to null and queue gets cleared when the write thread
-				 * is exting so there is no point doing it here.
-				 */
-                sendThread.Abort();
-                sendThread.Join();
-            }
-
             /*
-			 * All blocks will be reset.
-			 */
-
-            for (int i = 0; i < maxSmallBlocks; i++)
-            {
-                freeSmallBlocks[i] = 1;
-            }
-
-            for (int i = 0; i < maxLargeBlocks; i++)
-            {
-                freeLargeBlocks[i] = 1;
-            }
-
-            /*
-			 * WORKAROUND
-			 * 
-			 * Fixes an issue where the client state will be non-zero in some cases when
-			 * the client has been disconnected and a packet got past the queue, causing
-			 * clients to be kicked with an "Invalid operation at this state" error which
-			 * is baked into terraria.
-			 * 
-			 * When the send queue gets reset, this ensures all RemoteClients are reset to
-			 * state 0.
-			 */
+             * WORKAROUND
+             * 
+             * Fixes an issue where the client state will be non-zero in some cases when
+             * the client has been disconnected and a packet got past the queue, causing
+             * clients to be kicked with an "Invalid operation at this state" error which
+             * is baked into terraria.
+             * 
+             * When the send queue gets reset, this ensures all RemoteClients are reset to
+             * state 0.
+             */
             client.State = 0;
         }
     }
