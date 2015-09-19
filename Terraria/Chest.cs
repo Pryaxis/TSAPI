@@ -1,7 +1,6 @@
 
 using System;
 using Terraria.DataStructures;
-using Terraria.GameContent.Achievements;
 using Terraria.ObjectData;
 
 namespace Terraria
@@ -2102,7 +2101,6 @@ namespace Terraria
 		public static bool Unlock(int X, int Y)
 		{
 			short num;
-			int num1;
 			if (Main.tile[X, Y] == null)
 			{
 				return false;
@@ -2113,8 +2111,6 @@ namespace Terraria
 				case 2:
 				{
 					num = 36;
-					num1 = 11;
-					AchievementsHelper.NotifyProgressionEvent(19);
 					break;
 				}
 				case 3:
@@ -2124,7 +2120,6 @@ namespace Terraria
 				case 4:
 				{
 					num = 36;
-					num1 = 11;
 					break;
 				}
 				default:
@@ -2142,8 +2137,6 @@ namespace Terraria
 								return false;
 							}
 							num = 180;
-							num1 = 11;
-							AchievementsHelper.NotifyProgressionEvent(20);
 							break;
 						}
 						default:
@@ -2155,7 +2148,6 @@ namespace Terraria
 								case 40:
 								{
 									num = 36;
-									num1 = 11;
 									break;
 								}
 								case 37:

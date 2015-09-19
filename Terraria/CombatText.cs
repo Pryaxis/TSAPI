@@ -85,11 +85,6 @@ namespace Terraria
 			{
 				if (!Main.combatText[i].active)
 				{
-					int num = 0;
-					if (dramatic)
-					{
-						num = 1;
-					}
 					Vector2 vector2 = Vector2.Zero;
 					Main.combatText[i].alpha = 1f;
 					Main.combatText[i].alphaDir = -1;

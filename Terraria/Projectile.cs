@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using Terraria.GameContent;
-using Terraria.GameContent.Achievements;
 using Terraria.ID;
 using TerrariaApi.Server;
 namespace Terraria
@@ -8010,10 +8009,6 @@ namespace Terraria
 							if (this.trap)
 							{
 								Main.player[myPlayer].trapDebuffSource = true;
-								if (Main.player[myPlayer].dead)
-								{
-									AchievementsHelper.HandleSpecialEvent(Main.player[myPlayer], 4);
-								}
 							}
 							if (Main.netMode != 0)
 							{
@@ -8044,7 +8039,6 @@ namespace Terraria
 					{
 						num8 = Main.maxTilesY;
 					}
-					AchievementsHelper.CurrentlyMining = true;
 					for (int i = num5; i < num6; i++)
 					{
 						for (int j = num7; j < num8; j++)
@@ -8067,7 +8061,6 @@ namespace Terraria
 					{
 						Utils.PlotTileLine(base.Center, base.Center + this.velocity, (float)this.width * this.scale, new Utils.PerLinePoint(DelegateMethods.CutTiles));
 					}
-					AchievementsHelper.CurrentlyMining = false;
 				}
 			}
 			if (this.owner == Main.myPlayer)
@@ -9025,10 +9018,6 @@ namespace Terraria
 						if (this.trap)
 						{
 							Main.player[myPlayer2].trapDebuffSource = true;
-							if (Main.player[myPlayer2].dead)
-							{
-								AchievementsHelper.HandleSpecialEvent(Main.player[myPlayer2], 4);
-							}
 						}
 						if (this.type == 435)
 						{
@@ -12650,18 +12639,6 @@ namespace Terraria
 					if (this.frame >= 4)
 					{
 						this.frame = 0;
-					}
-					if (Main.rand.Next(6) == 0)
-					{
-						int num144 = 56;
-						if (this.type == 86)
-						{
-							num144 = 73;
-						}
-						else if (this.type == 87)
-						{
-							num144 = 74;
-						}
 					}
 				}
 				else
@@ -32018,7 +31995,6 @@ namespace Terraria
 							}
 						}
 					}
-					AchievementsHelper.CurrentlyMining = true;
 					for (int num720 = num711; num720 <= num712; num720++)
 					{
 						for (int num721 = num713; num721 <= num714; num721++)
@@ -32069,7 +32045,6 @@ namespace Terraria
 							}
 						}
 					}
-					AchievementsHelper.CurrentlyMining = false;
 				}
 				if (Main.netMode != 0)
 				{

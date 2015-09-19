@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Terraria;
-using Terraria.Social;
-using Terraria.Social.Base;
 using Terraria.Utilities;
 
 namespace Terraria.IO
@@ -17,8 +15,6 @@ namespace Terraria.IO
 		private TimeSpan _playTime = TimeSpan.Zero;
 
 		private Stopwatch _timer = new Stopwatch();
-
-		private bool _isTimerActive;
 
 		public Terraria.Player Player
 		{

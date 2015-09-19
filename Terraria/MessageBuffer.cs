@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
 using Terraria.IO;
@@ -1664,7 +1663,6 @@ namespace Terraria
 					{
 						return;
 					}
-					AchievementsHelper.HandleSpecialEvent(Main.player[this.whoAmI], 16);
 					return;
 				}
 				case 32:
@@ -3074,11 +3072,6 @@ namespace Terraria
 				}
 				case 97:
 				{
-					if (Main.netMode != 1)
-					{
-						return;
-					}
-					AchievementsHelper.NotifyNPCKilledDirect(Main.player[Main.myPlayer], this.reader.ReadInt16());
 					return;
 				}
 				case 99:

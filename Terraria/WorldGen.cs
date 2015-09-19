@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Threading;
 using Terraria.DataStructures;
 using Terraria.Enums;
-using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Biomes;
 using Terraria.GameContent.Events;
 using Terraria.GameContent.Generation;
@@ -1500,11 +1499,6 @@ namespace Terraria
 					{
 						NetMessage.SendData(25, -1, -1, str + " " + Lang.misc[18], 255, 50f, 125f, 255f, 0, 0, 0);
 					}
-					AchievementsHelper.NotifyProgressionEvent(8);
-					if (Main.npc[num7].type == 160)
-					{
-						AchievementsHelper.NotifyProgressionEvent(18);
-					}
 					bool[] array = new bool[540];
 					for (int n = 0; n < 200; n++)
 					{
@@ -1512,10 +1506,6 @@ namespace Terraria
 						{
 							array[Main.npc[n].type] = true;
 						}
-					}
-					if (array[38] && array[17] && array[107] && array[19] && array[22] && array[124] && array[228] && array[178] && array[18] && array[229] && array[209] && array[54] && array[108] && array[160] && array[20] && array[369] && array[207] && array[227] && array[208] && array[441] && array[353])
-					{
-						AchievementsHelper.NotifyProgressionEvent(17);
 					}
 				}
 				else
@@ -1525,7 +1515,6 @@ namespace Terraria
 					Main.npc[num].homeTileX = WorldGen.bestX;
 					Main.npc[num].homeTileY = WorldGen.bestY;
 					Main.npc[num].homeless = false;
-					AchievementsHelper.NotifyProgressionEvent(8);
 				}
 				WorldGen.spawnNPC = 0;
 			}
@@ -1621,7 +1610,6 @@ namespace Terraria
 						Main.npc[npc].homeTileX = WorldGen.bestX;
 						Main.npc[npc].homeTileY = WorldGen.bestY;
 						Main.npc[npc].homeless = false;
-						AchievementsHelper.NotifyProgressionEvent(8);
 						WorldGen.canSpawn = false;
 						return;
 					}
@@ -12902,7 +12890,6 @@ namespace Terraria
 			{
 				NetMessage.SendData(25, -1, -1, Lang.misc[15], 255, 50f, 255f, 130f, 0, 0, 0);
 			}
-			AchievementsHelper.NotifyProgressionEvent(9);
 			if (Main.netMode == 2)
 			{
 				Netplay.ResetSections();
@@ -25589,7 +25576,6 @@ namespace Terraria
 				}
 			}
 			WorldGen.altarCount++;
-			AchievementsHelper.NotifyProgressionEvent(6);
 		}
 
 		public static void Check3x1(int i, int j, int type)
@@ -29540,7 +29526,6 @@ namespace Terraria
 								NetMessage.SendData(25, -1, -1, text, 255, 50f, 255f, 130f, 0, 0, 0);
 							}
 						}
-						AchievementsHelper.NotifyProgressionEvent(7);
 					}
 				}
 				WorldGen.destroyObject = false;
@@ -37254,10 +37239,6 @@ namespace Terraria
 						{
 							Item.NewItem(i * 16, j * 16, 16, 16, num50, 1, false, -1, false, false);
 						}
-					}
-					if (Main.netMode != 2)
-					{
-						AchievementsHelper.NotifyTileDestroyed(Main.player[Main.myPlayer], tile.type);
 					}
 					tile.active(false);
 					tile.halfBrick(false);

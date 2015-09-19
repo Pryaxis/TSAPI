@@ -4,7 +4,6 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using Terraria.Social;
 using TerrariaApi.Server;
 
 namespace Terraria
@@ -33,54 +32,30 @@ namespace Terraria
 				case ProgramServer.CtrlTypes.CTRL_C_EVENT:
 				{
 					ProgramServer.isClosing = true;
-					if (ProgramServer.isClosing)
-					{
-						SocialAPI.Shutdown();
-					}
 					return true;
 				}
 				case ProgramServer.CtrlTypes.CTRL_BREAK_EVENT:
 				{
 					ProgramServer.isClosing = true;
-					if (ProgramServer.isClosing)
-					{
-						SocialAPI.Shutdown();
-					}
 					return true;
 				}
 				case ProgramServer.CtrlTypes.CTRL_CLOSE_EVENT:
 				{
 					ProgramServer.isClosing = true;
-					if (ProgramServer.isClosing)
-					{
-						SocialAPI.Shutdown();
-					}
 					return true;
 				}
 				case ProgramServer.CtrlTypes.CTRL_BREAK_EVENT | ProgramServer.CtrlTypes.CTRL_CLOSE_EVENT:
 				{
-					if (ProgramServer.isClosing)
-					{
-						SocialAPI.Shutdown();
-					}
 					return true;
 				}
 				case ProgramServer.CtrlTypes.CTRL_LOGOFF_EVENT:
 				case ProgramServer.CtrlTypes.CTRL_SHUTDOWN_EVENT:
 				{
 					ProgramServer.isClosing = true;
-					if (ProgramServer.isClosing)
-					{
-						SocialAPI.Shutdown();
-					}
 					return true;
 				}
 				default:
 				{
-					if (ProgramServer.isClosing)
-					{
-						SocialAPI.Shutdown();
-					}
 					return true;
 				}
 			}
@@ -93,17 +68,6 @@ namespace Terraria
 				Program.LaunchParameters = Utils.ParseArguements(args);
 				ProgramServer.Game = new Main();
 				string str = null;
-				int num = 0;
-				SocialMode socialMode = SocialMode.None;
-				while (num < (int)args.Length)
-				{
-					if (args[num].ToLower() == "-steam")
-					{
-						socialMode = SocialMode.Steam;
-					}
-					num++;
-				}
-				SocialAPI.Initialize(new SocialMode?(socialMode));
 				if (str != null)
 				{
 					ProgramServer.Game.SetWorld(str);
