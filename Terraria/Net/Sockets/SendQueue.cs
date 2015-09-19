@@ -218,16 +218,16 @@ namespace Terraria.Net.Sockets
 
                             try
                             {
-                                if (sock._connection.Client.Poll(1000, SelectMode.SelectRead) && sock._connection.Available == 0)
+                                if (sock._connection.Client.Poll(10000, SelectMode.SelectRead) && sock._connection.Available == 0)
                                 {
-                                    //Trace.WriteLine($"{client.Id} has a dead socket!");
+                                    Trace.WriteLine($"{client.Id} has a dead socket!");
                                     exit = true;
                                     break;
                                 }
                             }
                             catch
                             {
-                                //Trace.WriteLine($"{client.Id} has a dead socket!");
+                                Trace.WriteLine($"{client.Id} has a dead socket!");
                                 exit = true;
                                 break;
                             }
@@ -509,7 +509,7 @@ namespace Terraria.Net.Sockets
         /// </summary>
         public void Reset()
         {
-            //Trace.WriteLine($"Reset called on {client.Id}");
+            Trace.WriteLine($"Reset called on {client.Id}");
 
             lock (_syncRoot)
             {
