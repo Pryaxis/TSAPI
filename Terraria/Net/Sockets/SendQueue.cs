@@ -212,22 +212,22 @@ namespace Terraria.Net.Sockets
                         /*
 						 * Will wait without timeout until it is pulsed
 						 */
-                        if (Monitor.Wait(_syncRoot, 100) == false)
+                        if (Monitor.Wait(_syncRoot, 1000) == false)
                         {
                             TcpSocket sock = client.Socket as TcpSocket;
 
                             try
                             {
-                                if (sock._connection.Client.Poll(10000, SelectMode.SelectRead) && sock._connection.Available == 0)
+                                if (sock._connection.Client.Poll(1000, SelectMode.SelectRead) && sock._connection.Available == 0)
                                 {
-                                    Trace.WriteLine($"{client.Id} has a dead socket!");
+                                    //Trace.WriteLine($"{client.Id} has a dead socket!");
                                     exit = true;
                                     break;
                                 }
                             }
                             catch
                             {
-                                Trace.WriteLine($"{client.Id} has a dead socket!");
+                                //Trace.WriteLine($"{client.Id} has a dead socket!");
                                 exit = true;
                                 break;
                             }
@@ -509,7 +509,7 @@ namespace Terraria.Net.Sockets
         /// </summary>
         public void Reset()
         {
-            Trace.WriteLine($"Reset called on {client.Id}");
+            //Trace.WriteLine($"Reset called on {client.Id}");
 
             lock (_syncRoot)
             {
@@ -517,6 +517,8 @@ namespace Terraria.Net.Sockets
                 {
                     Free(item.Block, item.HeapType);
                 }
+
+                sendQueue.Clear();
 
                 Monitor.PulseAll(_syncRoot);
             }
