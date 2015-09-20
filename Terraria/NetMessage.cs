@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using Terraria.DataStructures;
+using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
 using Terraria.IO;

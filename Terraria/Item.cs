@@ -45219,6 +45219,7 @@ namespace Terraria
 							default:
 								goto IL_493;
 							}
+							break;
 						}
 					}
 					else

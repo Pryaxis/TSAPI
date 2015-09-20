@@ -14,13 +14,45 @@ namespace Terraria
 
 		private const int maxTypes = 22;
 
+		private int qualityMax;
+
+		private int currentMax;
+
+		private WaterfallManager.WaterfallData[] waterfalls;
+
+		private int wFallFrCounter;
+
+		private int regularFrame;
+
+		private int wFallFrCounter2;
+
+		private int slowFrame;
+
+		private int rainFrameCounter;
+
+		private int rainFrameForeground;
+
+		private int rainFrameBackground;
+
+		private int findWaterfallCount;
+
+		private int waterfallDist = 100;
+
 		public WaterfallManager()
 		{
+			this.waterfalls = new WaterfallManager.WaterfallData[200];
 		}
 
 		public bool CheckForWaterfall(int i, int j)
 		{
-            return false;
+			for (int num = 0; num < this.currentMax; num++)
+			{
+				if (this.waterfalls[num].x == i && this.waterfalls[num].y == j)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		public void Draw()

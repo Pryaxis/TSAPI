@@ -6,6 +6,8 @@ namespace Terraria.GameContent.Events
 {
 	internal class ScreenDarkness
 	{
+		public static float screenObstruction;
+
 		static ScreenDarkness()
 		{
 		}

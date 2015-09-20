@@ -5,12 +5,17 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
+using Terraria.Achievements;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
 using Terraria.IO;
+//using Terraria.Map;
 using Terraria.ObjectData;
+using Terraria.Social;
+using Terraria.Social.Base;
 using Terraria.Utilities;
 using Terraria.World.Generation;
 
@@ -1953,11 +1958,13 @@ namespace Terraria
 					this.velocity.Y = 0.11f;
 				}
 				this.gravDir = 1f;
+				AchievementsHelper.HandleSpecialEvent(this, 11);
 			}
 			if (this.position.Y > Main.bottomWorld - 640f - 32f - (float)this.height)
 			{
 				this.position.Y = Main.bottomWorld - 640f - 32f - (float)this.height;
 				this.velocity.Y = 0f;
+				AchievementsHelper.HandleSpecialEvent(this, 10);
 			}
 		}
 
@@ -5115,8 +5122,10 @@ namespace Terraria
 						{
 							Recipe.FindRecipes();
 						}
+						AchievementsHelper.NotifyItemPickup(this, item);
 						return new Item();
 					}
+					AchievementsHelper.NotifyItemPickup(this, item, this.inventory[num2].maxStack - this.inventory[num2].stack);
 					Item item2 = item;
 					item2.stack = item2.stack - (this.inventory[num2].maxStack - this.inventory[num2].stack);
 					if (!noText)
@@ -5147,6 +5156,7 @@ namespace Terraria
 						{
 							Recipe.FindRecipes();
 						}
+						AchievementsHelper.NotifyItemPickup(this, item);
 						return new Item();
 					}
 				}
@@ -5167,6 +5177,7 @@ namespace Terraria
 						{
 							Recipe.FindRecipes();
 						}
+						AchievementsHelper.NotifyItemPickup(this, item);
 						return new Item();
 					}
 				}
@@ -5187,6 +5198,7 @@ namespace Terraria
 						{
 							Recipe.FindRecipes();
 						}
+						AchievementsHelper.NotifyItemPickup(this, item);
 						return new Item();
 					}
 				}
@@ -7208,6 +7220,10 @@ namespace Terraria
 							}
 						}
 						nums.Clear();
+						if (single2 + staffMinionSlotsRequired >= 9f)
+						{
+							AchievementsHelper.HandleSpecialEvent(this, 6);
+						}
 					}
 				}
 			}
@@ -8759,6 +8775,10 @@ namespace Terraria
 							{
 								Main.projectile[num88].noDropItem = true;
 							}
+							if (Main.projectile[num88].aiStyle == 99)
+							{
+								AchievementsHelper.HandleSpecialEvent(this, 7);
+							}
 						}
 						else
 						{
@@ -9140,6 +9160,7 @@ namespace Terraria
 										num104 = 0;
 										this.Hurt(this.statLife / 2, -this.direction, false, false, Lang.deathMsg(-1, -1, -1, 4), false);
 									}
+									AchievementsHelper.CurrentlyMining = true;
 									if (this.hitTile.AddDamage(num103, num104, true) < 100)
 									{
 										WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, true, false, false);
@@ -9162,6 +9183,7 @@ namespace Terraria
 										this.hitTile.Prune();
 									}
 									this.itemTime = item.useTime;
+									AchievementsHelper.CurrentlyMining = false;
 								}
 							}
 							else if (Main.tileAxe[Main.tile[Player.tileTargetX, Player.tileTargetY].type])
@@ -9169,6 +9191,7 @@ namespace Terraria
 								num104 = (Main.tile[Player.tileTargetX, Player.tileTargetY].type != 80 ? num104 + item.axe : num104 + item.axe * 3);
 								if (item.axe > 0)
 								{
+									AchievementsHelper.CurrentlyMining = true;
 									if (!WorldGen.CanKillTile(Player.tileTargetX, Player.tileTargetY))
 									{
 										num104 = 0;
@@ -9195,6 +9218,7 @@ namespace Terraria
 										this.hitTile.Prune();
 									}
 									this.itemTime = item.useTime;
+									AchievementsHelper.CurrentlyMining = false;
 								}
 							}
 							else if (item.pick > 0)
@@ -9583,6 +9607,7 @@ namespace Terraria
 					{
 						this.HealEffect(20, true);
 					}
+					AchievementsHelper.HandleSpecialEvent(this, 0);
 				}
 				if (item.type == 1291 && this.itemAnimation > 0 && this.statLifeMax >= 400 && this.statLifeMax < 500 && this.itemTime == 0)
 				{
@@ -9597,6 +9622,7 @@ namespace Terraria
 					{
 						this.HealEffect(5, true);
 					}
+					AchievementsHelper.HandleSpecialEvent(this, 2);
 				}
 				if (item.type == 109 && this.itemAnimation > 0 && this.statManaMax < 200 && this.itemTime == 0)
 				{
@@ -9611,6 +9637,7 @@ namespace Terraria
 					{
 						this.ManaEffect(20);
 					}
+					AchievementsHelper.HandleSpecialEvent(this, 1);
 				}
 				if (item.type == 3335 && this.itemAnimation > 0 && !this.extraAccessory && Main.expertMode && this.itemTime == 0)
 				{
@@ -10869,6 +10896,10 @@ namespace Terraria
 			if (pvp)
 			{
 				this.pvpDeath = true;
+			}
+			if (this.trapDebuffSource)
+			{
+				AchievementsHelper.HandleSpecialEvent(this, 4);
 			}
 			this.lastDeathPostion = base.Center;
 			this.lastDeathTime = DateTime.Now;
@@ -14471,6 +14502,7 @@ namespace Terraria
 			}
 			else
 			{
+				AchievementsHelper.CurrentlyMining = true;
 				this.hitTile.Clear(num1);
 				if (Main.netMode != 1 || !Main.tileContainer[Main.tile[x, y].type])
 				{
@@ -14495,6 +14527,7 @@ namespace Terraria
 						NetMessage.SendData(34, -1, -1, "", 3, (float)x, (float)y, 0f, 0, 0, 0);
 					}
 				}
+				AchievementsHelper.CurrentlyMining = false;
 			}
 			if (num != 0)
 			{
@@ -17496,6 +17529,7 @@ namespace Terraria
 		public static void SavePlayer(PlayerFileData playerFile, bool skipMapSave = false)
 		{
 			Stream memoryStream;
+			Main.Achievements.Save();
 			string path = playerFile.Path;
 			Player player = playerFile.Player;
 			if (!skipMapSave)
@@ -21861,6 +21895,10 @@ namespace Terraria
 							fallDamage = (int)((float)fallDamage * this.mount.FallDamage);
 						}
 						this.Hurt(fallDamage, 0, false, false, Lang.deathMsg(-1, -1, -1, 0), false);
+						if (!this.dead && this.statLife <= this.statLifeMax2 / 10)
+						{
+							AchievementsHelper.HandleSpecialEvent(this, 8);
+						}
 					}
 					this.fallStart = (int)(this.position.Y / 16f);
 				}
@@ -25931,6 +25969,10 @@ namespace Terraria
 												Main.recBigList = false;
 												this.chestX = num177;
 												this.chestY = num178;
+												if (Main.tile[num177, num178].frameX >= 36 && Main.tile[num177, num178].frameX < 72)
+												{
+													AchievementsHelper.HandleSpecialEvent(this, 16);
+												}
 											}
 											Recipe.FindRecipes();
 										}
@@ -26179,6 +26221,10 @@ namespace Terraria
 								NetMessage.SendData(28, -1, -1, "", h, (float)num184, single36, (float)(-num185), 0, 0, 0);
 							}
 							Main.npc[h].immune[i] = 30;
+							if (!Main.npc[h].active)
+							{
+								AchievementsHelper.HandleSpecialEvent(this, 9);
+							}
 						}
 					}
 				}
@@ -26678,6 +26724,10 @@ namespace Terraria
 			{
 				this.SlopingCollision(flag42);
 			}
+			if (flag44 && this.velocity.Y == 0f)
+			{
+				AchievementsHelper.HandleRunning(Math.Abs(this.position.X - vector241.X));
+			}
 			if (flag43)
 			{
 				NetMessage.SendData(13, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
@@ -27168,6 +27218,10 @@ namespace Terraria
 				this.setBonus = Lang.setBonus(39, false);
 				Player player33 = this;
 				player33.minionDamage = player33.minionDamage + 0.1f;
+				if (this.itemAnimation > 0 && this.inventory[this.selectedItem].type == 1121)
+				{
+					AchievementsHelper.HandleSpecialEvent(this, 3);
+				}
 			}
 			if (this.head == 162 && this.body == 170 && this.legs == 105)
 			{
@@ -27368,10 +27422,29 @@ namespace Terraria
 				{
 					num1 = Main.tile[point.X, point.Y].wall;
 				}
+				int num2 = num1;
+				if (num2 == 62)
+				{
+					AchievementsHelper.HandleSpecialEvent(this, 13);
+				}
+				else if (num2 == 86)
+				{
+					AchievementsHelper.HandleSpecialEvent(this, 12);
+				}
 			}
 			if (this._funkytownCheckCD > 0)
 			{
 				this._funkytownCheckCD--;
+			}
+			if (this.position.Y / 16f > (float)(Main.maxTilesY - 200))
+			{
+				AchievementsHelper.HandleSpecialEvent(this, 14);
+				return;
+			}
+			if (this._funkytownCheckCD == 0 && (double)(this.position.Y / 16f) < Main.worldSurface && Main.shroomTiles >= 200)
+			{
+				AchievementsHelper.HandleSpecialEvent(this, 15);
+				return;
 			}
 			this._funkytownCheckCD = 100;
 		}

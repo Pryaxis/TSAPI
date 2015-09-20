@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Events;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
@@ -51658,6 +51659,10 @@ namespace Terraria
 							{
 								NetMessage.SendData(25, -1, -1, text, 255, 175f, 75f, 255f, 0, 0, 0);
 							}
+							if (NPC.waveCount == 15)
+							{
+								AchievementsHelper.NotifyProgressionEvent(14);
+							}
 						}
 					}
 					if (NPC.waveKills != num6 && num5 != 0f)
@@ -51929,6 +51934,10 @@ namespace Terraria
 							{
 								NetMessage.SendData(25, -1, -1, text2, 255, 175f, 75f, 255f, 0, 0, 0);
 							}
+							if (NPC.waveCount == 15)
+							{
+								AchievementsHelper.NotifyProgressionEvent(15);
+							}
 						}
 					}
 					if (NPC.waveKills != num9 && num8 != 0f)
@@ -52104,6 +52113,46 @@ namespace Terraria
 			}
 			bool flag = NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3;
 			int num = this.type;
+			switch (num)
+			{
+			case 13:
+			case 14:
+			case 15:
+				if (this.boss)
+				{
+					AchievementsHelper.NotifyNPCKilled(this);
+				}
+				break;
+			default:
+				switch (num)
+				{
+				case 125:
+				case 126:
+				{
+					int num2 = (this.type == 126) ? 125 : 126;
+					if (!NPC.AnyNPCs(num2))
+					{
+						AchievementsHelper.NotifyNPCKilled(this);
+						AchievementsHelper.CheckMechaMayhem(this.type);
+						goto IL_C1;
+					}
+					goto IL_C1;
+				}
+				case 127:
+					break;
+				default:
+					if (num != 134)
+					{
+						AchievementsHelper.NotifyNPCKilled(this);
+						goto IL_C1;
+					}
+					break;
+				}
+				AchievementsHelper.CheckMechaMayhem(this.type);
+				AchievementsHelper.NotifyNPCKilled(this);
+				break;
+			}
+			IL_C1:
 			int num3 = Item.NPCtoBanner(this.BannerID());
 			if (num3 > 0 && !NPCID.Sets.ExcludedFromDeathTally[this.type] && this.AnyInteractions())
 			{
@@ -54903,6 +54952,7 @@ namespace Terraria
 				if (Main.slimeRain)
 				{
 					Main.StopSlimeRain(true);
+					AchievementsHelper.NotifyProgressionEvent(16);
 				}
 				if (Main.expertMode)
 				{
@@ -59946,6 +59996,10 @@ namespace Terraria
 						if (Main.netMode == 2 && num31 < 200)
 						{
 							NetMessage.SendData(23, -1, -1, "", num31, 0f, 0f, 0f, 0, 0, 0);
+						}
+						if (Type == 134 || Type == 127 || Type == 126 || Type == 125)
+						{
+							AchievementsHelper.CheckMechaMayhem(-1);
 						}
 						if (Type == 125)
 						{

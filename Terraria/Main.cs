@@ -8,8 +8,10 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using Terraria.Achievements;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Events;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.ID;
@@ -19,6 +21,8 @@ using Terraria.IO;
 using Terraria.Net;
 using Terraria.Net.Sockets;
 using Terraria.ObjectData;
+using Terraria.Social;
+using Terraria.Social.Base;
 using Terraria.Utilities;
 using Terraria.World.Generation;
 using TerrariaApi.Server;
@@ -163,6 +167,8 @@ namespace Terraria
 
 		public static FileMetadata MapFileMetadata;
 
+		private AchievementManager _achievements;
+
 		private static Main.OnPlayerSelected _pendingCharacterSelect;
 
 		public static bool drawBackGore;
@@ -195,11 +201,15 @@ namespace Terraria
 
 		public static int maxMsg;
 
+		private static int toolTipDistance;
+
 		public static float GlobalTime;
 
 		public static bool GlobalTimerPaused;
 
 		private static ulong _tileFrameSeed;
+
+		private static ulong _drawCycleCounter;
 
 		public static int npcStreamSpeed;
 
@@ -340,6 +350,8 @@ namespace Terraria
 		public static bool mouseLeft;
 
 		public static bool mouseRight;
+
+		private static bool _isMouseLeftConsumedByUI;
 
 		public static float essScale;
 
@@ -614,6 +626,28 @@ namespace Terraria
 		public static float mapFullscreenScale;
 
 		public static Vector2 mapFullscreenPos;
+
+		private static bool IsEngineLoaded;
+
+		private int firstTileX;
+
+		private int lastTileX;
+
+		private int firstTileY;
+
+		private int lastTileY;
+
+		private double bgParallax;
+
+		private int bgStart;
+
+		private int bgLoops;
+
+		private int bgStartY;
+
+		private int bgLoopsY;
+
+		private int bgTop;
 
 		public static int renderCount;
 
@@ -961,6 +995,8 @@ namespace Terraria
 
 		[ThreadStatic]
 		public static Random rand;
+
+		private static bool allChestStackHover;
 
 		public static int maxMoons;
 
@@ -1342,6 +1378,8 @@ namespace Terraria
 
 		public static Item toolTip;
 
+		private static int backSpaceCount;
+
 		public static string motd;
 
 		public static bool toggleFullscreen;
@@ -1419,6 +1457,14 @@ namespace Terraria
 		public static int[] npcFrameCount;
 
 		public static Dictionary<int, byte> npcLifeBytes;
+
+		private static bool mouseExit;
+
+		private static float exitScale;
+
+		private static bool mouseReforge;
+
+		private static float reforgeScale;
 
 		public static Player clientPlayer;
 
@@ -1522,6 +1568,8 @@ namespace Terraria
 
 		public static bool fixedTiming;
 
+		private int splashCounter;
+
 		public List<int> DrawCacheNPCsMoonMoon = new List<int>(200);
 
 		public List<int> DrawCacheNPCsOverPlayers = new List<int>(200);
@@ -1566,9 +1614,29 @@ namespace Terraria
 
 		public static int ProjectileUpdateLoopIndex;
 
+		private static bool _largeMethodFix;
+
+		private float logoRotation;
+
+		private float logoRotationDirection = 1f;
+
+		private float logoRotationSpeed = 1f;
+
+		private float logoScale = 1f;
+
+		private float logoScaleDirection = 1f;
+
+		private float logoScaleSpeed = 1f;
+
 		private static int maxMenuItems;
 
 		private float[] menuItemScale = new float[Main.maxMenuItems];
+
+		private int focusMenu = -1;
+
+		private int selectedMenu = -1;
+
+		private int selectedMenu2 = -1;
 
 		public static int selectedPlayer;
 
@@ -1592,7 +1660,23 @@ namespace Terraria
 
 		public static bool mouseText;
 
+		private static int mH;
+
 		private static int sX;
+
+		private static int starMana;
+
+		private static float heartLife;
+
+		private static int rare;
+
+		private static int hairStart;
+
+		private static int oldHairStyle;
+
+		private static Color oldHairColor;
+
+		private static int selClothes;
 
 		private static Color[] oldClothesColor;
 
@@ -1614,6 +1698,14 @@ namespace Terraria
 
 		public static int menuFocus;
 
+		private static float hBar;
+
+		private static float sBar;
+
+		private static float lBar;
+
+		private int grabColorSlider;
+
 		public static bool blockMouse;
 
 		private bool[] menuWide = new bool[100];
@@ -1622,6 +1714,10 @@ namespace Terraria
 
 		private static string[] MonolithSkyNames;
 
+		private static float tranSpeed;
+
+		private static float atmo;
+
 		private static float bgScale;
 
 		private static int bgW;
@@ -1629,6 +1725,20 @@ namespace Terraria
 		private static Color backColor;
 
 		private static Color trueBackColor;
+
+		private float screenOff;
+
+		private float scAdj;
+
+		private float cTop;
+
+		public static AchievementManager Achievements
+		{
+			get
+			{
+				return Main.instance._achievements;
+			}
+		}
 
 		public static bool expertMode
 		{
@@ -1704,9 +1814,11 @@ namespace Terraria
 			Main.ServerSideCharacter = false;
 			Main.ContentLoaded = false;
 			Main.maxMsg = 106;
+			Main.toolTipDistance = 6;
 			Main.GlobalTime = 0f;
 			Main.GlobalTimerPaused = false;
 			Main._tileFrameSeed = (ulong)Guid.NewGuid().GetHashCode();
+			Main._drawCycleCounter = (ulong)0;
 			Main.npcStreamSpeed = 60;
 			Main.musicError = 0;
 			Main.dedServFPS = false;
@@ -1768,6 +1880,7 @@ namespace Terraria
 			Main.renderNow = false;
 			Main.drawToScreen = false;
 			Main.targetSet = false;
+			Main._isMouseLeftConsumedByUI = false;
 			Main.essScale = 1f;
 			Main.essDir = -1;
 			Main.cloudBGX = new float[2];
@@ -1893,6 +2006,7 @@ namespace Terraria
 			Main.resetMapFull = false;
 			Main.mapFullscreenScale = 4f;
 			Main.mapFullscreenPos = new Vector2(-1f, -1f);
+			Main.IsEngineLoaded = false;
 			Main.renderCount = 99;
 			Main.saveTime = new Stopwatch();
 			Main.mcColor = new Color(125, 125, 255);
@@ -2135,6 +2249,8 @@ namespace Terraria
 			Main.backgroundWidth = new int[207];
 			Main.backgroundHeight = new int[207];
 			Main.tilesLoaded = false;
+			//Main.Map = new WorldMap(Main.maxTilesX, Main.maxTilesY);
+            //Main.tile = new Tile[Main.maxTilesX, Main.maxTilesY];
             Main.tile = new TileProvider();
 			Main.star = new Star[130];
 			Main.item = new Item[401];
@@ -2205,6 +2321,7 @@ namespace Terraria
 			Main.craftGuide = false;
 			Main.reforge = false;
 			Main.toolTip = new Item();
+			Main.backSpaceCount = 0;
 			Main.motd = "";
 			Main.numDisplayModes = 0;
 			Main.displayWidth = new int[99];
@@ -2244,6 +2361,10 @@ namespace Terraria
 			Main.invasionProgressAlpha = 0f;
 			Main.npcFrameCount = new int[] { 1, 2, 2, 3, 6, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 25, 23, 25, 21, 15, 26, 2, 10, 1, 16, 16, 16, 3, 1, 15, 3, 1, 3, 1, 1, 21, 25, 1, 1, 1, 3, 3, 15, 3, 7, 7, 4, 5, 6, 5, 3, 3, 23, 6, 3, 6, 6, 2, 5, 3, 2, 7, 7, 4, 2, 8, 1, 5, 1, 2, 4, 16, 5, 4, 4, 15, 15, 15, 15, 2, 4, 6, 6, 24, 16, 1, 1, 1, 1, 1, 1, 4, 3, 1, 1, 1, 1, 1, 1, 5, 6, 7, 16, 1, 1, 25, 23, 12, 20, 21, 1, 2, 2, 3, 6, 1, 1, 1, 15, 4, 11, 1, 23, 6, 6, 3, 1, 2, 2, 1, 3, 4, 1, 2, 1, 4, 2, 1, 15, 3, 25, 4, 5, 7, 3, 2, 12, 12, 4, 4, 4, 8, 8, 9, 5, 6, 4, 15, 23, 3, 3, 8, 5, 4, 13, 15, 12, 4, 14, 14, 3, 2, 5, 3, 2, 3, 23, 5, 14, 16, 5, 2, 2, 12, 3, 3, 3, 3, 2, 2, 2, 2, 2, 7, 14, 15, 16, 8, 3, 15, 15, 15, 2, 3, 20, 25, 23, 26, 4, 4, 16, 16, 20, 20, 20, 2, 2, 2, 2, 8, 12, 3, 4, 2, 4, 25, 26, 26, 6, 3, 3, 3, 3, 3, 3, 4, 4, 5, 4, 6, 7, 15, 4, 7, 6, 1, 1, 2, 4, 3, 5, 3, 3, 3, 4, 5, 6, 4, 2, 1, 8, 4, 4, 1, 8, 1, 4, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 3, 3, 3, 3, 3, 3, 15, 3, 6, 12, 20, 20, 20, 15, 15, 15, 5, 5, 6, 6, 5, 2, 7, 2, 6, 6, 6, 6, 6, 15, 15, 15, 15, 15, 11, 4, 2, 2, 3, 3, 3, 15, 15, 15, 10, 14, 12, 1, 10, 8, 3, 3, 2, 2, 2, 2, 7, 15, 15, 15, 6, 3, 10, 10, 6, 9, 8, 9, 8, 20, 10, 6, 23, 1, 4, 24, 2, 4, 6, 6, 10, 15, 15, 15, 15, 4, 4, 26, 23, 8, 2, 4, 4, 4, 4, 2, 2, 4, 12, 12, 9, 9, 9, 1, 9, 11, 2, 2, 9, 5, 6, 4, 18, 8, 11, 1, 4, 5, 8, 4, 1, 1, 1, 1, 4, 2, 5, 4, 11, 5, 11, 1, 1, 1, 10, 10, 15, 8, 17, 6, 6, 1, 12, 12, 13, 15, 9, 5, 10, 7, 7, 7, 7, 7, 7, 7, 4, 4, 16, 16, 25, 5, 7, 3, 10, 2, 6, 2, 19, 19, 19, 19, 26, 3, 1, 1, 1, 1, 1, 16, 21, 9, 16, 7, 6, 18, 13, 20, 12, 12, 20, 6, 14, 14, 14, 14, 6, 1, 3, 25, 19, 20, 22, 2, 4, 4, 4, 11, 9, 8, 1, 9, 1, 8, 8, 12, 12, 11, 11, 11, 11, 11, 11, 11, 11, 11, 1, 6, 9, 1, 1, 1, 1, 1, 1, 4, 1, 10, 1, 8, 4, 1, 5, 8, 8, 8, 8, 9, 9, 5, 4, 8, 16, 8, 2, 3, 3, 6, 6 };
 			Main.npcLifeBytes = new Dictionary<int, byte>();
+			Main.mouseExit = false;
+			Main.exitScale = 0.8f;
+			Main.mouseReforge = false;
+			Main.reforgeScale = 0.8f;
 			Main.clientPlayer = new Player();
 			Main.getIP = Main.defaultIP;
 			Main.getPort = Convert.ToString(Netplay.ListenPort);
@@ -2316,7 +2437,13 @@ namespace Terraria
 			Main.hoverItemName = "";
 			Main.inventoryBack = new Color(220, 220, 220, 220);
 			Main.mouseText = false;
+			Main.mH = 0;
 			Main.sX = Main.screenWidth - 800;
+			Main.starMana = 20;
+			Main.heartLife = 20f;
+			Main.rare = 0;
+			Main.hairStart = 0;
+			Main.selClothes = 0;
 			Main.oldClothesColor = new Color[4];
 			Main.selColor = Color.White;
 			Main.focusColor = 0;
@@ -2325,11 +2452,16 @@ namespace Terraria
 			Main.bgScroll = 0;
 			Main.autoPass = false;
 			Main.menuFocus = 0;
+			Main.hBar = -1f;
+			Main.sBar = -1f;
+			Main.lBar = 1f;
 			Main.blockMouse = false;
 			string[] strArrays = new string[] { "MonolithVortex", "MonolithNebula", "MonolithStardust", "MonolithSolar" };
 			Main.MonolithFilterNames = strArrays;
 			string[] strArrays1 = new string[] { "MonolithVortex", "MonolithNebula", "MonolithStardust", "MonolithSolar" };
 			Main.MonolithSkyNames = strArrays1;
+			Main.tranSpeed = 0.05f;
+			Main.atmo = 0f;
 			Main.bgScale = 1f;
 			Main.bgW = (int)(1024f * Main.bgScale);
 			Main.backColor = Color.White;
@@ -2641,6 +2773,8 @@ namespace Terraria
 			{
 				return;
 			}
+			Main.player[Main.myPlayer].hair = Main.oldHairStyle;
+			Main.player[Main.myPlayer].hairColor = Main.oldHairColor;
 			Main.hairWindow = false;
 			if (Main.player[Main.myPlayer].talkNPC > -1 && Main.npc[Main.player[Main.myPlayer].talkNPC].type == 353)
 			{
@@ -9160,6 +9294,19 @@ namespace Terraria
 					Main.PlayerList.Add(fileData);
 				}
 			}
+			if (SocialAPI.Cloud != null)
+			{
+				List<string> strs = SocialAPI.Cloud.GetFiles(string.Concat(Main.CloudPlayerPath, "/.+\\.plr"));
+				foreach (string file in strs)
+				{
+					PlayerFileData playerFileDatum = Player.GetFileData(file);
+					if (playerFileDatum == null)
+					{
+						continue;
+					}
+					Main.PlayerList.Add(playerFileDatum);
+				}
+			}
 			Main.PlayerList.Sort(new Comparison<PlayerFileData>(Main.PlayerListSortMethod));
 		}
 
@@ -9207,6 +9354,19 @@ namespace Terraria
 				if (allMetadata != null)
 				{
 					Main.WorldList.Add(allMetadata);
+				}
+			}
+			if (SocialAPI.Cloud != null)
+			{
+				List<string> strs = SocialAPI.Cloud.GetFiles(string.Concat(Main.CloudWorldPath, "/.+\\.wld"));
+				foreach (string file in strs)
+				{
+					WorldFileData worldFileDatum = WorldFile.GetAllMetadata(file);
+					if (worldFileDatum == null)
+					{
+						continue;
+					}
+					Main.WorldList.Add(worldFileDatum);
 				}
 			}
 			Main.WorldList.Sort(new Comparison<WorldFileData>(Main.WorldListSortMethod));
@@ -10511,6 +10671,7 @@ namespace Terraria
 					Console.WriteLine("Quit");
 					WorldFile.saveWorld();
 					Netplay.disconnect = true;
+					SocialAPI.Shutdown();
 					break;
 				}
 				string lower = str.ToLower();
@@ -10601,6 +10762,7 @@ namespace Terraria
 						{
 							WorldFile.saveWorld();
 							Netplay.disconnect = true;
+							SocialAPI.Shutdown();
 						}
 						else if (lower == "fps")
 						{
@@ -12751,18 +12913,22 @@ namespace Terraria
 						{
 							NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 						}
+						AchievementsHelper.NotifyProgressionEvent(10);
 					}
 					else if (Main.invasionType == 2)
 					{
 						NPC.downedFrost = true;
+						AchievementsHelper.NotifyProgressionEvent(12);
 					}
 					else if (Main.invasionType == 3)
 					{
 						NPC.downedPirates = true;
+						AchievementsHelper.NotifyProgressionEvent(11);
 					}
 					else if (Main.invasionType == 4)
 					{
 						NPC.downedMartians = true;
+						AchievementsHelper.NotifyProgressionEvent(13);
 					}
 					Main.InvasionWarning();
 					Main.invasionType = 0;
@@ -12810,6 +12976,7 @@ namespace Terraria
 		private static void UpdateMenu()
 		{
 			Main.playerInventory = false;
+			Main.exitScale = 0.8f;
 			if (Main.netMode == 0)
 			{
 				Main.maxRaining = 0f;
@@ -13884,7 +14051,15 @@ namespace Terraria
 					{
 						WorldGen.spawnMeteor = true;
 					}
+					if (Main.eclipse && Main.netMode != 1)
+					{
+						AchievementsHelper.NotifyProgressionEvent(3);
+					}
 					Main.eclipse = false;
+					if (Main.netMode != 1)
+					{
+						AchievementsHelper.NotifyProgressionEvent(0);
+					}
 					if (!Main.fastForwardTime)
 					{
 						if (!NPC.downedBoss1 && Main.netMode != 1)
@@ -14021,6 +14196,7 @@ namespace Terraria
 							}
 							if (Main.bloodMoon)
 							{
+								AchievementsHelper.NotifyProgressionEvent(4);
 								if (Main.netMode == 0)
 								{
 									Main.NewText(Lang.misc[8], 50, 255, 130, false);
@@ -14532,6 +14708,10 @@ namespace Terraria
 					WorldGen.spawnNPC = 0;
 					Main.checkForSpawns = 0;
 					Main.time = 0;
+					if (Main.bloodMoon && Main.netMode != 1)
+					{
+						AchievementsHelper.NotifyProgressionEvent(5);
+					}
 					Main.bloodMoon = false;
 					Main.stopMoonEvent();
 					Main.dayTime = true;
@@ -14551,9 +14731,11 @@ namespace Terraria
 					}
 					if (Main.netMode != 1)
 					{
+						AchievementsHelper.NotifyProgressionEvent(1);
 						if (Main.hardMode && NPC.downedMechBossAny && Main.rand.Next(14) == 0)
 						{
 							Main.eclipse = true;
+							AchievementsHelper.NotifyProgressionEvent(2);
 							if (Main.eclipse)
 							{
 								if (Main.netMode == 0)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Terraria.GameContent.Achievements;
 
 namespace Terraria
 {
@@ -169,6 +170,8 @@ namespace Terraria
 					}
 				}
 			}
+			AchievementsHelper.NotifyItemCraft(this);
+			AchievementsHelper.NotifyItemPickup(Main.player[Main.myPlayer], this.createItem);
 			Recipe.FindRecipes();
 		}
 

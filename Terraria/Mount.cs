@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Terraria.DataStructures;
+using Terraria.GameContent.Achievements;
 using Terraria.ID;
 
 namespace Terraria
@@ -309,7 +310,7 @@ namespace Terraria
 		{
 			get
 			{
-				return new Vector2();
+				return new Vector2((float)this._data.textureWidth / 2f, (float)this._data.textureHeight / (2f * (float)this._data.totalFrames));
 			}
 		}
 
@@ -445,6 +446,7 @@ namespace Terraria
 		{
 			Vector2 deadZone;
 			Vector2 vector2 = new Vector2();
+			Vector2 y = new Vector2();
 			this._aiming = true;
 			switch (this._type)
 			{
@@ -1877,6 +1879,7 @@ namespace Terraria
 					{
 						break;
 					}
+					AchievementsHelper.HandleSpecialEvent(mountedPlayer, 5);
 					return;
 				}
 				case 11:
@@ -2556,6 +2559,10 @@ namespace Terraria
 
 		private class MountData
 		{
+			public int textureWidth;
+
+			public int textureHeight;
+
 			public int xOffset;
 
 			public int yOffset;

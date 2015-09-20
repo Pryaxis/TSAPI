@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using Terraria.Social;
+using Terraria.Social.Base;
 
 namespace Terraria.Utilities
 {
@@ -20,6 +22,11 @@ namespace Terraria.Utilities
 				File.Copy(source, destination, overwrite);
 				return;
 			}
+			if (SocialAPI.Cloud == null || !overwrite && SocialAPI.Cloud.HasFile(destination))
+			{
+				return;
+			}
+			SocialAPI.Cloud.Write(destination, SocialAPI.Cloud.Read(source));
 		}
 
 		public static void Delete(string path)
