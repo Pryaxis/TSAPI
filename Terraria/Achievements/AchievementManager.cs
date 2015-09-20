@@ -12,13 +12,8 @@ namespace Terraria.Achievements
 {
 	public class AchievementManager
 	{
-		private string _savePath;
 
 		private Dictionary<string, Achievement> _achievements = new Dictionary<string, Achievement>();
-
-		private ICryptoTransform _encryptor;
-
-		private ICryptoTransform _decryptor;
 
 		private Dictionary<string, int> _achievementIconIndexes = new Dictionary<string, int>();
 

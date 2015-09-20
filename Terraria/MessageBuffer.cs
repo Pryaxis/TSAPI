@@ -2315,11 +2315,6 @@ namespace Terraria
 					}
 					Player player12 = Main.player[num153];
 					Main.harpNote = single7;
-					int num154 = 26;
-					if (player12.inventory[player12.selectedItem].type == 507)
-					{
-						num154 = 35;
-					}
 					return;
 				}
 				case 59:
@@ -2470,7 +2465,6 @@ namespace Terraria
 							return;
 						}
 					}
-					break;
 				}
 				case 62:
 				{
@@ -3142,26 +3136,7 @@ namespace Terraria
 							Vector2 vector213 = Vector2.Normalize(center);
 							if (!vector213.HasNaNs())
 							{
-								int num231 = 90;
-								float single13 = 0f;
-								float single14 = 0.209439516f;
-								Vector2 vector214 = new Vector2(0f, -8f);
-								Vector2 vector215 = new Vector2(-3f);
-								float single15 = 0f;
-								float single16 = 0.005f;
 								num5 = num230;
-								if (num5 == 173)
-								{
-									num231 = 90;
-								}
-								else if (num5 == 176)
-								{
-									num231 = 88;
-								}
-								else if (num5 == 179)
-								{
-									num231 = 86;
-								}
 							}
 							player18.NebulaLevelup((int)num230);
 						}

@@ -16,8 +16,6 @@ namespace Terraria.IO
 
 		private Stopwatch _timer = new Stopwatch();
 
-		private bool _isTimerActive;
-
 		public Terraria.Player Player
 		{
 			get

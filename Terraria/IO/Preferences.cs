@@ -74,9 +74,5 @@ namespace Terraria.IO
 		{
 			return true;
 		}
-
-		public event Action<Preferences> OnLoad;
-
-		public event Action<Preferences> OnSave;
 	}
 }

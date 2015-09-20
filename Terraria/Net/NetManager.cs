@@ -92,8 +92,6 @@ namespace Terraria.Net
 
 		public static void SendData(int player, ISocket socket, NetPacket packet)
 		{
-			ArraySegment<byte> seg;
-
 			Netplay.Clients[player].sendQueue.AllocAndSet(packet.Length, (BinaryWriter bw) =>
 			{
 				bw.Write(packet.Buffer.Data, 0, packet.Length);

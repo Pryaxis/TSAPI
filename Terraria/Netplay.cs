@@ -28,7 +28,6 @@ namespace Terraria
 		public static bool disconnect = false;
 		public static bool spamCheck = false;
 		public static bool anyClients = false;
-		public static event Action OnDisconnect;
 
         public static void ResetNetDiag()
 		{

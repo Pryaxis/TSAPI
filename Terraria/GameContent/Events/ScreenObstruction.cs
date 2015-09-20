@@ -6,8 +6,6 @@ namespace Terraria.GameContent.Events
 {
 	internal class ScreenObstruction
 	{
-		public static float screenObstruction;
-
 		static ScreenObstruction()
 		{
 		}

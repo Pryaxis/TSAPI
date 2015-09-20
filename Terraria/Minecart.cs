@@ -1347,7 +1347,6 @@ namespace Terraria
 				{
 					if (trackState1 != trackState2)
 					{
-						bool flag8 = false;
 						if (flag6 || velocity.Y > 0f)
 						{
 							switch (trackState1)
@@ -1394,7 +1393,6 @@ namespace Terraria
 									{
 										trackState2 = (num8 >= num9 ? Minecart.TrackState.OnBack : Minecart.TrackState.OnFront);
 									}
-									flag8 = true;
 									goto case Minecart.TrackState.BelowTrack;
 								}
 								case Minecart.TrackState.BelowTrack:
@@ -1455,13 +1453,11 @@ namespace Terraria
 								case Minecart.TrackState.OnFront:
 								{
 									trackState2 = Minecart.TrackState.OnFront;
-									flag8 = true;
 									goto case Minecart.TrackState.BelowTrack;
 								}
 								case Minecart.TrackState.OnBack:
 								{
 									trackState2 = Minecart.TrackState.OnBack;
-									flag8 = true;
 									goto case Minecart.TrackState.BelowTrack;
 								}
 								default:

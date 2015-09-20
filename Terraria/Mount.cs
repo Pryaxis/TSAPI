@@ -310,7 +310,7 @@ namespace Terraria
 		{
 			get
 			{
-				return new Vector2((float)this._data.textureWidth / 2f, (float)this._data.textureHeight / (2f * (float)this._data.totalFrames));
+				return new Vector2();
 			}
 		}
 
@@ -446,7 +446,6 @@ namespace Terraria
 		{
 			Vector2 deadZone;
 			Vector2 vector2 = new Vector2();
-			Vector2 y = new Vector2();
 			this._aiming = true;
 			switch (this._type)
 			{
@@ -2559,10 +2558,6 @@ namespace Terraria
 
 		private class MountData
 		{
-			public int textureWidth;
-
-			public int textureHeight;
-
 			public int xOffset;
 
 			public int yOffset;

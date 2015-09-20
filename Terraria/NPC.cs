@@ -13657,31 +13657,6 @@ namespace Terraria
 							return;
 						}
 					}
-					int maxValue;
-					if (this.localAI[0] < 60f)
-					{
-						maxValue = 16;
-					}
-					else if (this.localAI[0] < 120f)
-					{
-						maxValue = 8;
-					}
-					else if (this.localAI[0] < 180f)
-					{
-						maxValue = 4;
-					}
-					else if (this.localAI[0] < 240f)
-					{
-						maxValue = 2;
-					}
-					else if (this.localAI[0] < 300f)
-					{
-						maxValue = 1;
-					}
-					else
-					{
-						maxValue = 1;
-					}
 				}
 				if (this.type == 427)
 				{
@@ -13698,31 +13673,6 @@ namespace Terraria
 							this.localAI[0] = 0f;
 							return;
 						}
-					}
-					int maxValue2;
-					if (this.localAI[0] < 360f)
-					{
-						maxValue2 = 32;
-					}
-					else if (this.localAI[0] < 720f)
-					{
-						maxValue2 = 16;
-					}
-					else if (this.localAI[0] < 1080f)
-					{
-						maxValue2 = 6;
-					}
-					else if (this.localAI[0] < 1440f)
-					{
-						maxValue2 = 2;
-					}
-					else if (this.localAI[0] < 1800f)
-					{
-						maxValue2 = 1;
-					}
-					else
-					{
-						maxValue2 = 1;
 					}
 				}
 				bool flag5 = false;
@@ -21512,11 +21462,6 @@ namespace Terraria
 				{
 					if (this.type == 172)
 					{
-						int num531 = 1;
-						if (this.alpha == 255)
-						{
-							num531 = 2;
-						}
 						return;
 					}
 					if (this.type == 283 || this.type == 284)
@@ -35520,7 +35465,6 @@ namespace Terraria
 										}
 										else if (this.ai[0] == 6f)
 										{
-											int num1479 = 7;
 											this.ai[2] += 1f;
 											if (this.ai[2] >= (float)num1452)
 											{
@@ -38322,15 +38266,6 @@ namespace Terraria
 												{
 													this.localAI[1] = 0f;
 												}
-												if (num1665 >= 60f)
-												{
-													Vector2 center24 = base.Center;
-													int num1678 = 0;
-													if (num1665 >= 120f)
-													{
-														num1678 = 1;
-													}
-												}
 											}
 											else if (num1665 < num1666 - 15f)
 											{
@@ -39000,22 +38935,6 @@ namespace Terraria
 													}
 													if (num1703 >= 60f)
 													{
-														Vector2 center29 = base.Center;
-														int num1714 = 0;
-														if (num1703 >= 120f)
-														{
-															num1714 = 1;
-														}
-														for (int num1715 = 0; num1715 < 1 + num1714; num1715++)
-														{
-															int num1716 = 229;
-															float num1717 = 0.8f;
-															if (num1715 % 2 == 1)
-															{
-																num1716 = 229;
-																num1717 = 1.65f;
-															}
-														}
 														return;
 													}
 												}
@@ -42271,33 +42190,7 @@ namespace Terraria
 													{
 														this.Opacity = 1f - (this.ai[1] - 120f) / 60f;
 													}
-													int num1933 = 6;
 													num75 = this.type;
-													if (num75 <= 493)
-													{
-														if (num75 != 422)
-														{
-															if (num75 == 493)
-															{
-																num1933 = 135;
-															}
-														}
-														else
-														{
-															num1933 = 229;
-														}
-													}
-													else if (num75 != 507)
-													{
-														if (num75 == 517)
-														{
-															num1933 = 127;
-														}
-													}
-													else
-													{
-														num1933 = 242;
-													}
 													if (this.ai[1] >= 180f)
 													{
 														this.life = 0;
@@ -46827,7 +46720,6 @@ namespace Terraria
 				}
 				else if (this.velocity.X == 0f)
 				{
-					this.frame.Y = this.frame.Y;
 					this.frameCounter = 0.0;
 				}
 				else
@@ -61836,19 +61728,6 @@ namespace Terraria
 		}
 		public void moneyPing(Vector2 pos)
 		{
-			int num = 244;
-			if (this.extraValue >= 1000000f)
-			{
-				num = 247;
-			}
-			else if (this.extraValue >= 10000f)
-			{
-				num = 246;
-			}
-			else if (this.extraValue >= 100f)
-			{
-				num = 245;
-			}
 		}
 		public void UpdateNPC(int i)
 		{
@@ -62481,26 +62360,6 @@ namespace Terraria
 				}
 				this.TryPortalJumping();
 				this.AI();
-				if (Main.netMode != 2 && this.extraValue > 0f)
-				{
-					int num33 = 244;
-					float num34 = 30f;
-					if (this.extraValue >= 1000000f)
-					{
-						num33 = 247;
-						num34 *= 0.25f;
-					}
-					else if (this.extraValue >= 10000f)
-					{
-						num33 = 246;
-						num34 *= 0.5f;
-					}
-					else if (this.extraValue >= 100f)
-					{
-						num33 = 245;
-						num34 *= 0.75f;
-					}
-				}
 				for (int num36 = 0; num36 < 256; num36++)
 				{
 					if (this.immune[num36] > 0)

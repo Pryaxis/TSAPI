@@ -12651,18 +12651,6 @@ namespace Terraria
 					{
 						this.frame = 0;
 					}
-					if (Main.rand.Next(6) == 0)
-					{
-						int num144 = 56;
-						if (this.type == 86)
-						{
-							num144 = 73;
-						}
-						else if (this.type == 87)
-						{
-							num144 = 74;
-						}
-					}
 				}
 				else
 				{
@@ -12950,37 +12938,6 @@ namespace Terraria
 					if (this.localAI[0] >= 10f)
 					{
 						this.localAI[0] = 0f;
-						int num170 = 30;
-						if ((base.Center - Main.player[Main.myPlayer].Center).Length() < (float)(Main.screenWidth + num170 * 16))
-						{
-							int num171 = (int)base.Center.X / 16;
-							int num172 = (int)base.Center.Y / 16;
-							for (int num173 = num171 - num170; num173 <= num171 + num170; num173++)
-							{
-								for (int num174 = num172 - num170; num174 <= num172 + num170; num174++)
-								{
-									if (Main.rand.Next(4) == 0)
-									{
-										Vector2 vector20 = new Vector2((float)(num171 - num173), (float)(num172 - num174));
-										if (vector20.Length() < (float)num170 && num173 > 0 && num173 < Main.maxTilesX - 1 && num174 > 0 && num174 < Main.maxTilesY - 1 && Main.tile[num173, num174] != null && Main.tile[num173, num174].active())
-										{
-											bool flag3 = false;
-											if (Main.tile[num173, num174].type == 185 && Main.tile[num173, num174].frameY == 18)
-											{
-												if (Main.tile[num173, num174].frameX >= 576 && Main.tile[num173, num174].frameX <= 882)
-												{
-													flag3 = true;
-												}
-											}
-											else if (Main.tile[num173, num174].type == 186 && Main.tile[num173, num174].frameX >= 864 && Main.tile[num173, num174].frameX <= 1170)
-											{
-												flag3 = true;
-											}
-										}
-									}
-								}
-							}
-						}
 					}
 				}
 				if (this.type == 352)
@@ -14490,25 +14447,7 @@ namespace Terraria
 					}
 					if (this.ai[0] > 7f)
 					{
-						float num297 = 1f;
-						if (this.ai[0] == 8f)
-						{
-							num297 = 0.25f;
-						}
-						else if (this.ai[0] == 9f)
-						{
-							num297 = 0.5f;
-						}
-						else if (this.ai[0] == 10f)
-						{
-							num297 = 0.75f;
-						}
 						this.ai[0] += 1f;
-						int num298 = 6;
-						if (this.type == 101)
-						{
-							num298 = 75;
-						}
 					}
 					else
 					{
@@ -14784,26 +14723,21 @@ namespace Terraria
 					{
 						if (this.aiStyle == 31)
 						{
-							int num342 = 110;
 							int conversionType = 0;
 							if (this.type == 146)
 							{
-								num342 = 111;
 								conversionType = 2;
 							}
 							if (this.type == 147)
 							{
-								num342 = 112;
 								conversionType = 1;
 							}
 							if (this.type == 148)
 							{
-								num342 = 113;
 								conversionType = 3;
 							}
 							if (this.type == 149)
 							{
-								num342 = 114;
 								conversionType = 4;
 							}
 							if (this.owner == Main.myPlayer)
@@ -14816,23 +14750,6 @@ namespace Terraria
 							}
 							if (this.ai[0] > 7f)
 							{
-								float num343 = 1f;
-								if (this.ai[0] == 8f)
-								{
-									num343 = 0.2f;
-								}
-								else if (this.ai[0] == 9f)
-								{
-									num343 = 0.4f;
-								}
-								else if (this.ai[0] == 10f)
-								{
-									num343 = 0.6f;
-								}
-								else if (this.ai[0] == 11f)
-								{
-									num343 = 0.8f;
-								}
 								this.ai[0] += 1f;
 							}
 							else
@@ -14957,11 +14874,6 @@ namespace Terraria
 								num349 *= num350;
 								if (this.alpha < 70)
 								{
-									int num351 = 127;
-									if (this.type == 310)
-									{
-										num351 = 187;
-									}
 								}
 								if (this.localAI[0] == 0f)
 								{
@@ -20132,37 +20044,6 @@ namespace Terraria
 																			if (this.localAI[0] >= 10f)
 																			{
 																				this.localAI[0] = 0f;
-																				int num899 = 17;
-																				if ((base.Center - Main.player[Main.myPlayer].Center).Length() < (float)(Main.screenWidth + num899 * 16))
-																				{
-																					int num900 = (int)base.Center.X / 16;
-																					int num901 = (int)base.Center.Y / 16;
-																					for (int num902 = num900 - num899; num902 <= num900 + num899; num902++)
-																					{
-																						for (int num903 = num901 - num899; num903 <= num901 + num899; num903++)
-																						{
-																							if (Main.rand.Next(4) == 0)
-																							{
-																								Vector2 vector137 = new Vector2((float)(num900 - num902), (float)(num901 - num903));
-																								if (vector137.Length() < (float)num899 && num902 > 0 && num902 < Main.maxTilesX - 1 && num903 > 0 && num903 < Main.maxTilesY - 1 && Main.tile[num902, num903] != null && Main.tile[num902, num903].active())
-																								{
-																									bool flag39 = false;
-																									if (Main.tile[num902, num903].type == 185 && Main.tile[num902, num903].frameY == 18)
-																									{
-																										if (Main.tile[num902, num903].frameX >= 576 && Main.tile[num902, num903].frameX <= 882)
-																										{
-																											flag39 = true;
-																										}
-																									}
-																									else if (Main.tile[num902, num903].type == 186 && Main.tile[num902, num903].frameX >= 864 && Main.tile[num902, num903].frameX <= 1170)
-																									{
-																										flag39 = true;
-																									}
-																								}
-																							}
-																						}
-																					}
-																				}
 																			}
 																			Vector2 vector138 = Main.player[this.owner].Center - base.Center;
 																			vector138.X += (float)(40 * this.direction);
@@ -20468,9 +20349,6 @@ namespace Terraria
 																							this.Kill();
 																						}
 																					}
-																					float num915 = 0.8f;
-																					float num916 = 0.709803939f;
-																					float num917 = 0.282352954f;
 																					return;
 																				}
 																				if (this.aiStyle == 95)
@@ -21348,15 +21226,6 @@ namespace Terraria
 																										{
 																											this.frame = 0;
 																										}
-																									}
-																									float num972 = 0.5f;
-																									if (this.timeLeft < 120)
-																									{
-																										num972 = 1.1f;
-																									}
-																									if (this.timeLeft < 60)
-																									{
-																										num972 = 1.6f;
 																									}
 																									this.ai[1] += 1f;
 																									float arg_282A8_0 = this.ai[1] / 180f;
@@ -23253,7 +23122,6 @@ namespace Terraria
 				float num29 = 250f;
 				float num30 = 6f;
 				Vector2 vector12 = new Vector2(8f, 10f);
-				float num31 = 1.2f;
 				Vector3 rgb = new Vector3(0.7f, 0.1f, 0.5f);
 				int num32 = 4 * this.MaxUpdates;
 				int num33 = Utils.SelectRandom<int>(Main.rand, new int[]
@@ -23264,13 +23132,10 @@ namespace Terraria
 					71,
 					255
 				});
-				int num34 = 255;
 				if (this.type == 635)
 				{
 					vector12 = new Vector2(10f, 20f);
-					num31 = 1f;
 					num29 = 500f;
-					num34 = 88;
 					num32 = 3 * this.MaxUpdates;
 					rgb = new Vector3(0.4f, 0.6f, 0.9f);
 					num33 = Utils.SelectRandom<int>(Main.rand, new int[]
@@ -23599,10 +23464,6 @@ namespace Terraria
 				{
 					this.alpha = 0;
 				}
-				if (this.alpha == 0)
-				{
-					int num70 = 2;
-				}
 				if (this.ai[1] == 0f)
 				{
 					this.ai[1] = 1f;
@@ -23614,10 +23475,6 @@ namespace Terraria
 				if (this.alpha < 0)
 				{
 					this.alpha = 0;
-				}
-				if (this.alpha == 0)
-				{
-					int num73 = 2;
 				}
 				if (this.ai[1] == 0f)
 				{
@@ -23773,11 +23630,6 @@ namespace Terraria
 				this.localAI[0] += 1f;
 				if (this.localAI[0] > 3f)
 				{
-					int num91 = 1;
-					if (this.localAI[0] > 5f)
-					{
-						num91 = 2;
-					}
 					if (this.wet && !this.lavaWet)
 					{
 						this.Kill();
@@ -28813,7 +28665,6 @@ namespace Terraria
 					this.extraUpdates = 0;
 					this.numUpdates = 0;
 					this.netUpdate = true;
-					float num5 = 15f;
 					this.extraUpdates = 0;
 					this.numUpdates = 0;
 				}
@@ -29700,22 +29551,6 @@ namespace Terraria
 							this.netUpdate = true;
 						}
 						this.velocity = vector16;
-					}
-				}
-				if (this.ai[0] > 10f && !flag5)
-				{
-					Vector2 vector17 = Vector2.UnitX * 18f;
-					vector17 = vector17.RotatedBy((double)(this.rotation - 1.57079637f), default(Vector2));
-					Vector2 vector18 = base.Center + vector17;
-					for (int k = 0; k < num18 + 1; k++)
-					{
-						int num21 = 226;
-						float num22 = 0.4f;
-						if (k % 2 == 1)
-						{
-							num21 = 226;
-							num22 = 0.65f;
-						}
 					}
 				}
 				if (flag6 && Main.myPlayer == this.owner)
@@ -30898,27 +30733,17 @@ namespace Terraria
 					71,
 					255
 				});
-				int num3 = 255;
-				int num4 = 255;
 				int height = 50;
-				float num5 = 1.7f;
-				float num6 = 0.8f;
-				float num7 = 2f;
 				Vector2 vector = (this.rotation - 1.57079637f).ToRotationVector2();
 				Vector2 vector2 = vector * this.velocity.Length() * (float)this.MaxUpdates;
 				if (this.type == 635)
 				{
-					num3 = 88;
-					num4 = 88;
 					num2 = Utils.SelectRandom<int>(Main.rand, new int[]
 					{
 						242,
 						59,
 						88
 					});
-					num5 = 3.7f;
-					num6 = 1.5f;
-					num7 = 2.2f;
 					vector2 *= 0.5f;
 				}
 				this.position = base.Center;

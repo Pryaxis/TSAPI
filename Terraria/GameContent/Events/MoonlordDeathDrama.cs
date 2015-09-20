@@ -122,10 +122,6 @@ namespace Terraria.GameContent.Events
 		{
 			private Vector2 _position;
 
-			private Vector2 _origin;
-
-			private Rectangle _frame;
-
 			private int _frameCounter;
 
 			private int _frameSpeed;

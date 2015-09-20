@@ -10,58 +10,14 @@ namespace Terraria
 {
 	internal class ProgramServer
 	{
-		private static bool isClosing;
-
-		private static ProgramServer.HandlerRoutine _handleRoutine;
-
 		private static Main Game;
 
 		static ProgramServer()
 		{
-			ProgramServer.isClosing = false;
 		}
 
 		public ProgramServer()
 		{
-		}
-
-		private static bool ConsoleCtrlCheck(ProgramServer.CtrlTypes ctrlType)
-		{
-			switch (ctrlType)
-			{
-				case ProgramServer.CtrlTypes.CTRL_C_EVENT:
-				{
-					ProgramServer.isClosing = true;
-					return true;
-				}
-				case ProgramServer.CtrlTypes.CTRL_BREAK_EVENT:
-				{
-					ProgramServer.isClosing = true;
-			
-					return true;
-				}
-				case ProgramServer.CtrlTypes.CTRL_CLOSE_EVENT:
-				{
-					ProgramServer.isClosing = true;
-				
-					return true;
-				}
-				case ProgramServer.CtrlTypes.CTRL_BREAK_EVENT | ProgramServer.CtrlTypes.CTRL_CLOSE_EVENT:
-				{
-			
-					return true;
-				}
-				case ProgramServer.CtrlTypes.CTRL_LOGOFF_EVENT:
-				case ProgramServer.CtrlTypes.CTRL_SHUTDOWN_EVENT:
-				{
-					ProgramServer.isClosing = true;
-					return true;
-				}
-				default:
-				{
-					return true;
-				}
-			}
 		}
 
 		private static void InnerStart(string[] args)
@@ -71,7 +27,6 @@ namespace Terraria
 				Program.LaunchParameters = Utils.ParseArguements(args);
 				ProgramServer.Game = new Main();
 				string str = null;
-				int num = 0;
 				if (str != null)
 				{
 					ProgramServer.Game.SetWorld(str);
@@ -101,8 +56,6 @@ namespace Terraria
 
 		private static void Main(string[] args)
 		{
-			ProgramServer._handleRoutine = new ProgramServer.HandlerRoutine(ProgramServer.ConsoleCtrlCheck);
-			//ProgramServer.SetConsoleCtrlHandler(ProgramServer._handleRoutine, true);
 			ProgramServer.InnerStart(args);
 		}
 
@@ -114,7 +67,5 @@ namespace Terraria
 			CTRL_LOGOFF_EVENT = 5,
 			CTRL_SHUTDOWN_EVENT = 6
 		}
-
-		public delegate bool HandlerRoutine(ProgramServer.CtrlTypes CtrlType);
 	}
 }
