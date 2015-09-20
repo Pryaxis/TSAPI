@@ -14,8 +14,6 @@ using Terraria.ID;
 using Terraria.IO;
 //using Terraria.Map;
 using Terraria.ObjectData;
-using Terraria.Social;
-using Terraria.Social.Base;
 using Terraria.Utilities;
 using Terraria.World.Generation;
 

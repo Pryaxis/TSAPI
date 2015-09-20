@@ -1,8 +1,6 @@
 
 using System;
 using Terraria.GameContent;
-using Terraria.Social;
-using Terraria.Social.Base;
 
 namespace Terraria
 {

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Terraria.Social;
-using Terraria.Social.Base;
 
 namespace Terraria.Achievements
 {
@@ -123,10 +121,6 @@ namespace Terraria.Achievements
 			achievement._completedCount = achievement._completedCount + 1;
 			if (this._completedCount == this._conditions.Count)
 			{
-				if (this._tracker == null && SocialAPI.Achievements != null)
-				{
-					SocialAPI.Achievements.CompleteAchievement(this.Name);
-				}
 				if (this.OnCompleted != null)
 				{
 					this.OnCompleted(this);

@@ -7,7 +7,6 @@ using System.Threading;
 using Terraria.IO;
 using Terraria.Net;
 using Terraria.Net.Sockets;
-using Terraria.Social;
 using TerrariaApi.Server;
 
 namespace Terraria
@@ -225,18 +224,11 @@ namespace Terraria
 		}
 		private static bool StartListening()
 		{
-			if (SocialAPI.Network != null)
-			{
-				SocialAPI.Network.StartListening(new SocketConnectionAccepted(Netplay.OnConnectionAccepted));
-			}
 			return Netplay.TcpListener.StartListening(new SocketConnectionAccepted(Netplay.OnConnectionAccepted));
 		}
 		private static void StopListening()
 		{
-			if (SocialAPI.Network != null)
-			{
-				SocialAPI.Network.StopListening();
-			}
+
 			Netplay.TcpListener.StopListening();
 		}
 		public static void ServerLoop(object threadContext)

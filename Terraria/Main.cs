@@ -21,8 +21,6 @@ using Terraria.IO;
 using Terraria.Net;
 using Terraria.Net.Sockets;
 using Terraria.ObjectData;
-using Terraria.Social;
-using Terraria.Social.Base;
 using Terraria.Utilities;
 using Terraria.World.Generation;
 using TerrariaApi.Server;
@@ -9294,19 +9292,7 @@ namespace Terraria
 					Main.PlayerList.Add(fileData);
 				}
 			}
-			if (SocialAPI.Cloud != null)
-			{
-				List<string> strs = SocialAPI.Cloud.GetFiles(string.Concat(Main.CloudPlayerPath, "/.+\\.plr"));
-				foreach (string file in strs)
-				{
-					PlayerFileData playerFileDatum = Player.GetFileData(file);
-					if (playerFileDatum == null)
-					{
-						continue;
-					}
-					Main.PlayerList.Add(playerFileDatum);
-				}
-			}
+
 			Main.PlayerList.Sort(new Comparison<PlayerFileData>(Main.PlayerListSortMethod));
 		}
 
@@ -9354,19 +9340,6 @@ namespace Terraria
 				if (allMetadata != null)
 				{
 					Main.WorldList.Add(allMetadata);
-				}
-			}
-			if (SocialAPI.Cloud != null)
-			{
-				List<string> strs = SocialAPI.Cloud.GetFiles(string.Concat(Main.CloudWorldPath, "/.+\\.wld"));
-				foreach (string file in strs)
-				{
-					WorldFileData worldFileDatum = WorldFile.GetAllMetadata(file);
-					if (worldFileDatum == null)
-					{
-						continue;
-					}
-					Main.WorldList.Add(worldFileDatum);
 				}
 			}
 			Main.WorldList.Sort(new Comparison<WorldFileData>(Main.WorldListSortMethod));
@@ -10671,7 +10644,6 @@ namespace Terraria
 					Console.WriteLine("Quit");
 					WorldFile.saveWorld();
 					Netplay.disconnect = true;
-					SocialAPI.Shutdown();
 					break;
 				}
 				string lower = str.ToLower();
@@ -10762,7 +10734,6 @@ namespace Terraria
 						{
 							WorldFile.saveWorld();
 							Netplay.disconnect = true;
-							SocialAPI.Shutdown();
 						}
 						else if (lower == "fps")
 						{

@@ -6,8 +6,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using Terraria;
-using Terraria.Social;
-using Terraria.Social.Base;
 using Terraria.Utilities;
 
 namespace Terraria.Achievements
@@ -33,21 +31,6 @@ namespace Terraria.Achievements
 
 		public AchievementManager()
 		{
-			byte[] bytes;
-			if (SocialAPI.Achievements == null)
-			{
-				this._savePath = string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "achievements.dat");
-				bytes = Encoding.ASCII.GetBytes("RELOGIC-TERRARIA");
-			}
-			else
-			{
-				this._savePath = SocialAPI.Achievements.GetSavePath();
-				bytes = SocialAPI.Achievements.GetEncryptionKey();
-			}
-			RijndaelManaged rijndaelManaged = new RijndaelManaged();
-			this._encryptor = rijndaelManaged.CreateEncryptor(bytes, bytes);
-			rijndaelManaged.Padding = PaddingMode.None;
-			this._decryptor = rijndaelManaged.CreateDecryptor(bytes, bytes);
 		}
 
 		private void AchievementCompleted(Achievement achievement)

@@ -8,8 +8,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent.Events;
 using Terraria.ID;
-using Terraria.Social;
-using Terraria.Social.Base;
 using Terraria.Utilities;
 using TerrariaApi.Server;
 

@@ -1,6 +1,4 @@
 using System;
-using Terraria.Social;
-using Terraria.Social.Base;
 
 namespace Terraria.Achievements
 {
@@ -39,10 +37,6 @@ namespace Terraria.Achievements
 
 		protected void OnComplete()
 		{
-			if (SocialAPI.Achievements != null)
-			{
-				SocialAPI.Achievements.StoreStats();
-			}
 		}
 
 		public abstract void ReportUpdate();

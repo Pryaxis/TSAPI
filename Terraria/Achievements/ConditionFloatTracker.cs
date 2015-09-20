@@ -1,6 +1,4 @@
 using System;
-using Terraria.Social;
-using Terraria.Social.Base;
 
 namespace Terraria.Achievements
 {
@@ -21,10 +19,6 @@ namespace Terraria.Achievements
 
 		public override void ReportUpdate()
 		{
-			if (SocialAPI.Achievements != null && this._name != null)
-			{
-				SocialAPI.Achievements.UpdateFloatStat(this._name, this._value);
-			}
 		}
 	}
 }

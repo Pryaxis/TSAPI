@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Terraria;
-using Terraria.Social;
-using Terraria.Social.Base;
 using Terraria.Utilities;
 
 namespace Terraria.IO
