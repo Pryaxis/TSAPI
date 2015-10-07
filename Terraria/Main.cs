@@ -7282,6 +7282,7 @@ namespace Terraria
 			Main.wallHouse[45] = true;
 			Main.wallHouse[46] = true;
 			Main.wallHouse[47] = true;
+			Main.wallHouse[60] = true;
 			Main.wallHouse[66] = true;
 			Main.wallHouse[67] = true;
 			Main.wallHouse[68] = true;
