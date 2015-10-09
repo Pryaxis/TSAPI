@@ -23220,6 +23220,8 @@ namespace Terraria
 								}
 								if (flag70 && !Collision.CanHitLine(base.Center, 0, 0, Main.player[this.target].Center, 0, 0))
 								{
+									var nearPlayer = new Vector2(num649 * 16, num650 * 16);
+									this.Teleport(nearPlayer, 4, 0);
 									flag70 = false;
 								}
 								if (flag70)
