@@ -234,48 +234,46 @@ namespace Terraria
 					{
 						return;
 					}
-					Player item1 = Main.player[num7];
-					item1.whoAmI = num7;
-					item1.skinVariant = this.reader.ReadByte();
-					item1.skinVariant = (int)MathHelper.Clamp((float)item1.skinVariant, 0f, 7f);
-					item1.hair = this.reader.ReadByte();
-					if (item1.hair >= 134)
+					Player player = Main.player[num7];
+					player.whoAmI = num7;
+					player.skinVariant = this.reader.ReadByte();
+					player.skinVariant = (int)MathHelper.Clamp((float)player.skinVariant, 0f, 7f);
+					player.hair = this.reader.ReadByte();
+					if (player.hair >= 134)
 					{
-						item1.hair = 0;
+						player.hair = 0;
 					}
-					item1.name = this.reader.ReadString().Trim().Trim();
-					item1.hairDye = this.reader.ReadByte();
+					player.name = this.reader.ReadString().Trim().Trim();
+					player.hairDye = this.reader.ReadByte();
 					BitsByte bitsByte = this.reader.ReadByte();
 					for (int q = 0; q < 8; q++)
 					{
-						item1.hideVisual[q] = bitsByte[q];
+						player.hideVisual[q] = bitsByte[q];
 					}
 					bitsByte = this.reader.ReadByte();
 					for (int r = 0; r < 2; r++)
 					{
-						item1.hideVisual[r + 8] = bitsByte[r];
+						player.hideVisual[r + 8] = bitsByte[r];
 					}
-					item1.hideMisc = this.reader.ReadByte();
-					item1.hairColor = this.reader.ReadRGB();
-					item1.skinColor = this.reader.ReadRGB();
-					item1.eyeColor = this.reader.ReadRGB();
-					item1.shirtColor = this.reader.ReadRGB();
-					item1.underShirtColor = this.reader.ReadRGB();
-					item1.pantsColor = this.reader.ReadRGB();
-					item1.shoeColor = this.reader.ReadRGB();
+					player.hideMisc = this.reader.ReadByte();
+					player.hairColor = this.reader.ReadRGB();
+					player.skinColor = this.reader.ReadRGB();
+					player.eyeColor = this.reader.ReadRGB();
+					player.shirtColor = this.reader.ReadRGB();
+					player.underShirtColor = this.reader.ReadRGB();
+					player.pantsColor = this.reader.ReadRGB();
+					player.shoeColor = this.reader.ReadRGB();
 					BitsByte bitsByte1 = this.reader.ReadByte();
-					item1.difficulty = 0;
+					player.difficulty = 0;
 					if (bitsByte1[0])
 					{
-						Player player1 = item1;
-						player1.difficulty = (byte)(player1.difficulty + 1);
+						player.difficulty += 1;
 					}
 					if (bitsByte1[1])
 					{
-						Player player2 = item1;
-						player2.difficulty = (byte)(player2.difficulty + 2);
+						player.difficulty += 1;
 					}
-					item1.extraAccessory = bitsByte1[2];
+					player.extraAccessory = bitsByte1[2];
 					if (Main.netMode != 2)
 					{
 						return;
@@ -285,7 +283,7 @@ namespace Terraria
 					{
 						for (int s = 0; s < 255; s++)
 						{
-							if (s != num7 && item1.name == Main.player[s].name && Netplay.Clients[s].IsActive)
+							if (s != num7 && player.name == Main.player[s].name && Netplay.Clients[s].IsActive)
 							{
 								flag = true;
 							}
@@ -293,26 +291,25 @@ namespace Terraria
 					}
 					if (flag)
 					{
-						if (!ServerApi.Hooks.InvokeNetNameCollision(num7, item1.name))
+						if (!ServerApi.Hooks.InvokeNetNameCollision(num7, player.name))
 						{
-							NetMessage.SendData(2, this.whoAmI, -1, string.Concat(item1.name, " ", Lang.mp[5]), 0, 0f, 0f, 0f, 0, 0, 0);
-							return;
+							NetMessage.SendData(2, this.whoAmI, -1, string.Concat(player.name, " ", Lang.mp[5]), 0, 0f, 0f, 0f, 0, 0, 0);
 						}
 						return;
 					}
-					if (item1.name.Length > Player.nameLen)
+					if (player.name.Length > Player.nameLen)
 					{
 						NetMessage.SendData(2, this.whoAmI, -1, "Name is too long.", 0, 0f, 0f, 0f, 0, 0, 0);
 						return;
 					}
-					if (item1.name == "")
+					if (player.name == "")
 					{
 						NetMessage.SendData(2, this.whoAmI, -1, "Empty name.", 0, 0f, 0f, 0f, 0, 0, 0);
 						return;
 					}
-					Netplay.Clients[this.whoAmI].Name = item1.name;
-					Netplay.Clients[this.whoAmI].Name = item1.name;
-					NetMessage.SendData(4, -1, this.whoAmI, item1.name, num7, 0f, 0f, 0f, 0, 0, 0);
+					Netplay.Clients[this.whoAmI].Name = player.name;
+					Netplay.Clients[this.whoAmI].Name = player.name;
+					NetMessage.SendData(4, -1, this.whoAmI, player.name, num7, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
 				case 5:
