@@ -271,7 +271,7 @@ namespace Terraria
 					}
 					if (bitsByte1[1])
 					{
-						player.difficulty += 1;
+						player.difficulty += 2;
 					}
 					player.extraAccessory = bitsByte1[2];
 					if (Main.netMode != 2)
