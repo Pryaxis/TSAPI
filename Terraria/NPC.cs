@@ -19159,7 +19159,7 @@ namespace Terraria
 					bool flag39 = false;
 					for (int num379 = 0; num379 < 1000; num379++)
 					{
-						if (Main.projectile[num379].active && Main.projectile[num379].type == 582 && Main.projectile[num379].ai[1] == (float)this.whoAmI)
+						if (Main.projectile[num379].active && Main.projectile[num379].type == ProjectileID.MechanicWrench && Main.projectile[num379].ai[1] == (float)this.whoAmI)
 						{
 							flag39 = true;
 							break;
@@ -37362,7 +37362,7 @@ namespace Terraria
 												for (int num1623 = 0; num1623 < 1000; num1623++)
 												{
 													Projectile projectile = Main.projectile[num1623];
-													if (projectile.active && (projectile.type == 456 || projectile.type == 462 || projectile.type == 455 || projectile.type == 452 || projectile.type == 454))
+													if (projectile.active && (projectile.type == ProjectileID.MoonLeech || projectile.type == ProjectileID.PhantasmalBolt || projectile.type == ProjectileID.PhantasmalDeathray || projectile.type == ProjectileID.PhantasmalEye || projectile.type == ProjectileID.PhantasmalSphere))
 													{
 														projectile.Kill();
 													}
@@ -62008,7 +62008,7 @@ namespace Terraria
 						int num21 = 1;
 						for (int n = 0; n < 1000; n++)
 						{
-							if (Main.projectile[n].active && Main.projectile[n].type == 598 && Main.projectile[n].ai[0] == 1f && Main.projectile[n].ai[1] == (float)this.whoAmI)
+							if (Main.projectile[n].active && Main.projectile[n].type == ProjectileID.BoneJavelin && Main.projectile[n].ai[0] == 1f && Main.projectile[n].ai[1] == (float)this.whoAmI)
 							{
 								num20++;
 							}
@@ -62029,7 +62029,7 @@ namespace Terraria
 						int num23 = 4;
 						for (int num24 = 0; num24 < 1000; num24++)
 						{
-							if (Main.projectile[num24].active && Main.projectile[num24].type == 636 && Main.projectile[num24].ai[0] == 1f && Main.projectile[num24].ai[1] == (float)this.whoAmI)
+							if (Main.projectile[num24].active && Main.projectile[num24].type == ProjectileID.Daybreak && Main.projectile[num24].ai[0] == 1f && Main.projectile[num24].ai[1] == (float)this.whoAmI)
 							{
 								num22++;
 							}
@@ -62053,7 +62053,7 @@ namespace Terraria
 						int num25 = 0;
 						for (int num26 = 0; num26 < 1000; num26++)
 						{
-							if (Main.projectile[num26].active && Main.projectile[num26].type == 614 && Main.projectile[num26].ai[0] == 1f && Main.projectile[num26].ai[1] == (float)this.whoAmI)
+							if (Main.projectile[num26].active && Main.projectile[num26].type == ProjectileID.StardustCellMinionShot && Main.projectile[num26].ai[0] == 1f && Main.projectile[num26].ai[1] == (float)this.whoAmI)
 							{
 								num25++;
 							}

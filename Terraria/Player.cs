@@ -5402,7 +5402,7 @@ namespace Terraria
 					{
 						num = i;
 					}
-					else if (projectile.type == 446)
+					else if (projectile.type == ProjectileID.AntiGravityHook)
 					{
 						Vector2 vector21 = new Vector2((float)(this.controlRight.ToInt() - this.controlLeft.ToInt()), (float)(this.controlDown.ToInt() - this.controlUp.ToInt()));
 						if (vector21 != Vector2.Zero)
@@ -6135,7 +6135,7 @@ namespace Terraria
 							single4 = (float)num7 / single4;
 							x2 = x2 * single4;
 							y2 = y2 * single4;
-							int num8 = Projectile.NewProjectile(x1, y1, x2, y2, 92, 30, 5f, this.whoAmI, 0f, 0f);
+							int num8 = Projectile.NewProjectile(x1, y1, x2, y2, ProjectileID.HallowStar, 30, 5f, this.whoAmI, 0f, 0f);
 							Main.projectile[num8].ai[1] = this.position.Y;
 						}
 					}
@@ -7001,11 +7001,11 @@ namespace Terraria
 							}
 							if (item.shoot == 72)
 							{
-								if (Main.projectile[r].active && Main.projectile[r].owner == i && Main.projectile[r].type == 86)
+								if (Main.projectile[r].active && Main.projectile[r].owner == i && Main.projectile[r].type == ProjectileID.PinkFairy)
 								{
 									Main.projectile[r].Kill();
 								}
-								if (Main.projectile[r].active && Main.projectile[r].owner == i && Main.projectile[r].type == 87)
+								if (Main.projectile[r].active && Main.projectile[r].owner == i && Main.projectile[r].type == ProjectileID.GreenFairy)
 								{
 									Main.projectile[r].Kill();
 								}
@@ -7087,7 +7087,7 @@ namespace Terraria
 									if (byUUID >= 0)
 									{
 										Projectile projectile = Main.projectile[byUUID];
-										if (projectile.type != 625)
+										if (projectile.type != ProjectileID.StardustDragon1)
 										{
 											projectile.localAI[1] = Main.projectile[nums[u]].localAI[1];
 										}
@@ -7432,19 +7432,19 @@ namespace Terraria
 						{
 							if (Main.projectile[a].active && Main.projectile[a].owner == i)
 							{
-								if (Main.projectile[a].type == 13)
+								if (Main.projectile[a].type == ProjectileID.Hook)
 								{
 									Main.projectile[a].Kill();
 								}
-								if (Main.projectile[a].type == 331)
+								if (Main.projectile[a].type == ProjectileID.CandyCaneHook)
 								{
 									Main.projectile[a].Kill();
 								}
-								if (Main.projectile[a].type == 315)
+								if (Main.projectile[a].type == ProjectileID.BatHook)
 								{
 									Main.projectile[a].Kill();
 								}
-								if (Main.projectile[a].type >= 230 && Main.projectile[a].type <= 235)
+								if (Main.projectile[a].type >= ProjectileID.GemHookAmethyst && Main.projectile[a].type <= ProjectileID.GemHookDiamond)
 								{
 									Main.projectile[a].Kill();
 								}
@@ -7511,11 +7511,11 @@ namespace Terraria
 						{
 							if (Main.projectile[b].active && Main.projectile[b].owner == i)
 							{
-								if (Main.projectile[b].type == 73)
+								if (Main.projectile[b].type == ProjectileID.DualHookBlue)
 								{
 									num46 = 74;
 								}
-								if (num46 == 74 && Main.projectile[b].type == 74)
+								if (num46 == 74 && Main.projectile[b].type == ProjectileID.DualHookRed)
 								{
 									flag9 = false;
 								}
@@ -7621,7 +7621,7 @@ namespace Terraria
 						{
 							for (int c = 0; c < 1000; c++)
 							{
-								if (Main.projectile[c].active && Main.projectile[c].owner == this.whoAmI && (Main.projectile[c].type == 250 || Main.projectile[c].type == 251))
+								if (Main.projectile[c].active && Main.projectile[c].owner == this.whoAmI && (Main.projectile[c].type == ProjectileID.RainbowFront || Main.projectile[c].type == ProjectileID.RainbowBack))
 								{
 									Main.projectile[c].Kill();
 								}
@@ -8379,11 +8379,11 @@ namespace Terraria
 							{
 								if (Main.projectile[x15].active && Main.projectile[x15].owner == Main.myPlayer)
 								{
-									if (num76 == -1 && Main.projectile[x15].type == 625)
+									if (num76 == -1 && Main.projectile[x15].type == ProjectileID.StardustDragon1)
 									{
 										num76 = x15;
 									}
-									if (num77 == -1 && Main.projectile[x15].type == 628)
+									if (num77 == -1 && Main.projectile[x15].type == ProjectileID.StardustDragon4)
 									{
 										num77 = x15;
 									}
@@ -8440,7 +8440,7 @@ namespace Terraria
 								{
 									if (item.shoot == 72)
 									{
-										if (Main.projectile[y16].type == 72 || Main.projectile[y16].type == 86 || Main.projectile[y16].type == 87)
+										if (Main.projectile[y16].type == ProjectileID.BlueFairy || Main.projectile[y16].type == ProjectileID.PinkFairy || Main.projectile[y16].type == ProjectileID.GreenFairy)
 										{
 											Main.projectile[y16].Kill();
 										}
@@ -11449,7 +11449,7 @@ namespace Terraria
 			int num1 = 0;
 			while (num1 < 1000)
 			{
-				if (!Main.projectile[num1].active || Main.projectile[num1].type != 456 || Main.projectile[num1].ai[1] != (float)this.whoAmI)
+				if (!Main.projectile[num1].active || Main.projectile[num1].type != ProjectileID.MoonLeech || Main.projectile[num1].ai[1] != (float)this.whoAmI)
 				{
 					num1++;
 				}
@@ -11550,7 +11550,7 @@ namespace Terraria
 				for (int i = 0; i < 1000; i++)
 				{
 					Projectile projectile = Main.projectile[i];
-					if (projectile.active && projectile.owner == this.whoAmI && projectile.type == 613 && projectile.localAI[1] <= 0f && Main.rand.Next(2) == 0)
+					if (projectile.active && projectile.owner == this.whoAmI && projectile.type == ProjectileID.StardustCellMinion && projectile.localAI[1] <= 0f && Main.rand.Next(2) == 0)
 					{
 						Vector2 vector2 = new Vector2(x, y) - projectile.Center;
 						if (vector2.Length() > 0f)
@@ -11589,14 +11589,14 @@ namespace Terraria
 				single4 = (float)num1 / single4;
 				single2 = single2 * single4;
 				single3 = single3 * single4;
-				Projectile.NewProjectile(single, single1, single2, single3, 221, 36, 0f, this.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(single, single1, single2, single3, ProjectileID.FlowerPetal, 36, 0f, this.whoAmI, 0f, 0f);
 			}
 			if (this.crystalLeaf && this.petalTimer == 0)
 			{
 				int num2 = this.inventory[this.selectedItem].type;
 				for (int j = 0; j < 1000; j++)
 				{
-					if (Main.projectile[j].owner == this.whoAmI && Main.projectile[j].type == 226)
+					if (Main.projectile[j].owner == this.whoAmI && Main.projectile[j].type == ProjectileID.CrystalLeaf)
 					{
 						this.petalTimer = 50;
 						float single5 = 12f;
@@ -16530,7 +16530,7 @@ namespace Terraria
 				int num1 = 0;
 				for (int i = 0; i < 1000; i++)
 				{
-					if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && (Main.projectile[i].type == 73 || Main.projectile[i].type == 74))
+					if (Main.projectile[i].active && Main.projectile[i].owner == Main.myPlayer && (Main.projectile[i].type == ProjectileID.DualHookBlue || Main.projectile[i].type == ProjectileID.DualHookRed))
 					{
 						num1++;
 					}
@@ -16545,7 +16545,7 @@ namespace Terraria
 				int num2 = 0;
 				for (int j = 0; j < 1000; j++)
 				{
-					if (Main.projectile[j].active && Main.projectile[j].owner == Main.myPlayer && Main.projectile[j].type == 165)
+					if (Main.projectile[j].active && Main.projectile[j].owner == Main.myPlayer && Main.projectile[j].type == ProjectileID.Web)
 					{
 						num2++;
 					}
@@ -16560,7 +16560,7 @@ namespace Terraria
 				int num3 = 0;
 				for (int k = 0; k < 1000; k++)
 				{
-					if (Main.projectile[k].active && Main.projectile[k].owner == Main.myPlayer && Main.projectile[k].type == 372)
+					if (Main.projectile[k].active && Main.projectile[k].owner == Main.myPlayer && Main.projectile[k].type == ProjectileID.FishHook)
 					{
 						num3++;
 					}
@@ -16591,7 +16591,7 @@ namespace Terraria
 				int num5 = 0;
 				for (int l = 0; l < 1000; l++)
 				{
-					if (Main.projectile[l].active && Main.projectile[l].owner == Main.myPlayer && Main.projectile[l].type >= 646 && Main.projectile[l].type <= 649)
+					if (Main.projectile[l].active && Main.projectile[l].owner == Main.myPlayer && Main.projectile[l].type >= ProjectileID.LunarHookSolar && Main.projectile[l].type <= ProjectileID.LunarHookStardust)
 					{
 						num5++;
 					}
@@ -16619,19 +16619,19 @@ namespace Terraria
 					{
 						if (Main.projectile[m].active && Main.projectile[m].owner == this.whoAmI)
 						{
-							if (Main.projectile[m].type == 13)
+							if (Main.projectile[m].type == ProjectileID.Hook)
 							{
 								Main.projectile[m].Kill();
 							}
-							if (Main.projectile[m].type == 331)
+							if (Main.projectile[m].type == ProjectileID.CandyCaneHook)
 							{
 								Main.projectile[m].Kill();
 							}
-							if (Main.projectile[m].type == 315)
+							if (Main.projectile[m].type == ProjectileID.BatHook)
 							{
 								Main.projectile[m].Kill();
 							}
-							if (Main.projectile[m].type >= 230 && Main.projectile[m].type <= 235)
+							if (Main.projectile[m].type >= ProjectileID.GemHookAmethyst && Main.projectile[m].type <= ProjectileID.GemHookDiamond)
 							{
 								Main.projectile[m].Kill();
 							}
@@ -16645,7 +16645,7 @@ namespace Terraria
 					int num10 = 100000;
 					for (int n = 0; n < 1000; n++)
 					{
-						if (Main.projectile[n].active && Main.projectile[n].owner == this.whoAmI && Main.projectile[n].type == 256)
+						if (Main.projectile[n].active && Main.projectile[n].owner == this.whoAmI && Main.projectile[n].type == ProjectileID.SkeletronHand)
 						{
 							num8++;
 							if (Main.projectile[n].timeLeft < num10)
@@ -16664,7 +16664,7 @@ namespace Terraria
 				{
 					for (int o = 0; o < 1000; o++)
 					{
-						if (Main.projectile[o].active && Main.projectile[o].owner == this.whoAmI && Main.projectile[o].type == 73)
+						if (Main.projectile[o].active && Main.projectile[o].owner == this.whoAmI && Main.projectile[o].type == ProjectileID.DualHookBlue)
 						{
 							num6 = 74;
 						}
@@ -16677,7 +16677,7 @@ namespace Terraria
 					for (int p = 0; p < 1000; p++)
 					{
 						Projectile projectile = Main.projectile[p];
-						if (projectile.active && projectile.owner == this.whoAmI && projectile.type >= 646 && projectile.type <= 649 && (num12 == -1 || num12 < projectile.timeLeft))
+						if (projectile.active && projectile.owner == this.whoAmI && projectile.type >= ProjectileID.LunarHookSolar && projectile.type <= ProjectileID.LunarHookStardust && (num12 == -1 || num12 < projectile.timeLeft))
 						{
 							num11 = projectile.type;
 							num12 = projectile.timeLeft;
@@ -20248,7 +20248,7 @@ namespace Terraria
 				int num1 = 0;
 				for (int i = 0; i < 1000; i++)
 				{
-					if (Main.projectile[i].active && Main.projectile[i].owner == this.whoAmI && (Main.projectile[i].type == 567 || Main.projectile[i].type == 568))
+					if (Main.projectile[i].active && Main.projectile[i].owner == this.whoAmI && (Main.projectile[i].type == ProjectileID.SporeTrap || Main.projectile[i].type == ProjectileID.SporeTrap2))
 					{
 						num1++;
 					}
@@ -26730,7 +26730,7 @@ namespace Terraria
 					{
 						this.AddBuff(187, 3600, true);
 					}
-					if (this.ownedProjectileCounts[623] < 1)
+					if (this.ownedProjectileCounts[ProjectileID.StardustGuardian] < 1)
 					{
 						Projectile.NewProjectile(base.Center.X, base.Center.Y, 0f, -1f, 623, 0, 0f, Main.myPlayer, 0f, 0f);
 						return;
@@ -27484,7 +27484,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 83)
 					{
-						if (this.ownedProjectileCounts[317] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Raven] > 0)
 						{
 							this.raven = true;
 						}
@@ -27500,7 +27500,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 64)
 					{
-						if (this.ownedProjectileCounts[266] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.BabySlime] > 0)
 						{
 							this.slime = true;
 						}
@@ -27516,7 +27516,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 125)
 					{
-						if (this.ownedProjectileCounts[373] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Hornet] > 0)
 						{
 							this.hornetMinion = true;
 						}
@@ -27532,7 +27532,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 126)
 					{
-						if (this.ownedProjectileCounts[375] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.FlyingImp] > 0)
 						{
 							this.impMinion = true;
 						}
@@ -27548,7 +27548,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 133)
 					{
-						if (this.ownedProjectileCounts[390] > 0 || this.ownedProjectileCounts[391] > 0 || this.ownedProjectileCounts[392] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.VenomSpider] > 0 || this.ownedProjectileCounts[ProjectileID.JumperSpider] > 0 || this.ownedProjectileCounts[ProjectileID.DangerousSpider] > 0)
 						{
 							this.spiderMinion = true;
 						}
@@ -27564,7 +27564,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 134)
 					{
-						if (this.ownedProjectileCounts[387] > 0 || this.ownedProjectileCounts[388] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Retanimini] > 0 || this.ownedProjectileCounts[ProjectileID.Spazmamini] > 0)
 						{
 							this.twinsMinion = true;
 						}
@@ -27580,7 +27580,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 135)
 					{
-						if (this.ownedProjectileCounts[393] > 0 || this.ownedProjectileCounts[394] > 0 || this.ownedProjectileCounts[395] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.OneEyedPirate] > 0 || this.ownedProjectileCounts[ProjectileID.SoulscourgePirate] > 0 || this.ownedProjectileCounts[ProjectileID.PirateCaptain] > 0)
 						{
 							this.pirateMinion = true;
 						}
@@ -27596,7 +27596,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 139)
 					{
-						if (this.ownedProjectileCounts[407] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Tempest] > 0)
 						{
 							this.sharknadoMinion = true;
 						}
@@ -27612,7 +27612,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 140)
 					{
-						if (this.ownedProjectileCounts[423] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.UFOMinion] > 0)
 						{
 							this.UFOMinion = true;
 						}
@@ -27628,7 +27628,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 182)
 					{
-						if (this.ownedProjectileCounts[613] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.StardustCellMinion] > 0)
 						{
 							this.stardustMinion = true;
 						}
@@ -27644,7 +27644,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 187)
 					{
-						if (this.ownedProjectileCounts[623] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.StardustGuardian] > 0)
 						{
 							this.stardustGuardian = true;
 						}
@@ -27660,7 +27660,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 188)
 					{
-						if (this.ownedProjectileCounts[625] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.StardustDragon1] > 0)
 						{
 							this.stardustDragon = true;
 						}
@@ -27676,7 +27676,7 @@ namespace Terraria
 					}
 					else if (this.buffType[j] == 161)
 					{
-						if (this.ownedProjectileCounts[533] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.DeadlySphere] > 0)
 						{
 							this.DeadlySphereMinion = true;
 						}
@@ -27810,7 +27810,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.lightOrb = true;
 						bool flag1 = true;
-						if (this.ownedProjectileCounts[18] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.ShadowOrb] > 0)
 						{
 							flag1 = false;
 						}
@@ -27824,7 +27824,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.crimsonHeart = true;
 						bool flag2 = true;
-						if (this.ownedProjectileCounts[500] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.CrimsonHeart] > 0)
 						{
 							flag2 = false;
 						}
@@ -27838,7 +27838,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.suspiciouslookingTentacle = true;
 						bool flag3 = true;
-						if (this.ownedProjectileCounts[650] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.SuspiciousTentacle] > 0)
 						{
 							flag3 = false;
 						}
@@ -27884,7 +27884,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.bunny = true;
 						bool flag5 = true;
-						if (this.ownedProjectileCounts[111] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Bunny] > 0)
 						{
 							flag5 = false;
 						}
@@ -27941,7 +27941,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.penguin = true;
 						bool flag6 = true;
-						if (this.ownedProjectileCounts[112] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Penguin] > 0)
 						{
 							flag6 = false;
 						}
@@ -27954,7 +27954,7 @@ namespace Terraria
 					{
 						this.buffTime[j] = 18000;
 						this.magicLantern = true;
-						if (this.ownedProjectileCounts[492] == 0)
+						if (this.ownedProjectileCounts[ProjectileID.MagicLantern] == 0)
 						{
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 492, 0, 0f, this.whoAmI, 0f, 0f);
 						}
@@ -27964,7 +27964,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.puppy = true;
 						bool flag7 = true;
-						if (this.ownedProjectileCounts[334] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Puppy] > 0)
 						{
 							flag7 = false;
 						}
@@ -27978,7 +27978,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.grinch = true;
 						bool flag8 = true;
-						if (this.ownedProjectileCounts[353] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.BabyGrinch] > 0)
 						{
 							flag8 = false;
 						}
@@ -27992,7 +27992,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.blackCat = true;
 						bool flag9 = true;
-						if (this.ownedProjectileCounts[319] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.BlackCat] > 0)
 						{
 							flag9 = false;
 						}
@@ -28006,7 +28006,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.dino = true;
 						bool flag10 = true;
-						if (this.ownedProjectileCounts[236] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.BabyDino] > 0)
 						{
 							flag10 = false;
 						}
@@ -28020,7 +28020,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.babyFaceMonster = true;
 						bool flag11 = true;
-						if (this.ownedProjectileCounts[499] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.BabyFaceMonster] > 0)
 						{
 							flag11 = false;
 						}
@@ -28034,7 +28034,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.eyeSpring = true;
 						bool flag12 = true;
-						if (this.ownedProjectileCounts[268] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.EyeSpring] > 0)
 						{
 							flag12 = false;
 						}
@@ -28048,7 +28048,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.snowman = true;
 						bool flag13 = true;
-						if (this.ownedProjectileCounts[269] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.BabySnowman] > 0)
 						{
 							flag13 = false;
 						}
@@ -28062,7 +28062,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.turtle = true;
 						bool flag14 = true;
-						if (this.ownedProjectileCounts[127] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Turtle] > 0)
 						{
 							flag14 = false;
 						}
@@ -28076,7 +28076,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.eater = true;
 						bool flag15 = true;
-						if (this.ownedProjectileCounts[175] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.BabyEater] > 0)
 						{
 							flag15 = false;
 						}
@@ -28090,7 +28090,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.skeletron = true;
 						bool flag16 = true;
-						if (this.ownedProjectileCounts[197] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.BabySkeletronHead] > 0)
 						{
 							flag16 = false;
 						}
@@ -28104,7 +28104,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.hornet = true;
 						bool flag17 = true;
-						if (this.ownedProjectileCounts[198] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.BabyHornet] > 0)
 						{
 							flag17 = false;
 						}
@@ -28118,7 +28118,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.tiki = true;
 						bool flag18 = true;
-						if (this.ownedProjectileCounts[199] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.TikiSpirit] > 0)
 						{
 							flag18 = false;
 						}
@@ -28132,7 +28132,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.lizard = true;
 						bool flag19 = true;
-						if (this.ownedProjectileCounts[200] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.PetLizard] > 0)
 						{
 							flag19 = false;
 						}
@@ -28146,7 +28146,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.parrot = true;
 						bool flag20 = true;
-						if (this.ownedProjectileCounts[208] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Parrot] > 0)
 						{
 							flag20 = false;
 						}
@@ -28160,7 +28160,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.truffle = true;
 						bool flag21 = true;
-						if (this.ownedProjectileCounts[209] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Truffle] > 0)
 						{
 							flag21 = false;
 						}
@@ -28174,7 +28174,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.sapling = true;
 						bool flag22 = true;
-						if (this.ownedProjectileCounts[210] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Sapling] > 0)
 						{
 							flag22 = false;
 						}
@@ -28188,7 +28188,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.cSapling = true;
 						bool flag23 = true;
-						if (this.ownedProjectileCounts[324] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.CursedSapling] > 0)
 						{
 							flag23 = false;
 						}
@@ -28202,7 +28202,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.spider = true;
 						bool flag24 = true;
-						if (this.ownedProjectileCounts[313] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Spider] > 0)
 						{
 							flag24 = false;
 						}
@@ -28216,7 +28216,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.squashling = true;
 						bool flag25 = true;
-						if (this.ownedProjectileCounts[314] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Squashling] > 0)
 						{
 							flag25 = false;
 						}
@@ -28230,7 +28230,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.wisp = true;
 						bool flag26 = true;
-						if (this.ownedProjectileCounts[211] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.Wisp] > 0)
 						{
 							flag26 = false;
 						}
@@ -28246,7 +28246,7 @@ namespace Terraria
 						bool flag27 = true;
 						for (int t = 0; t < 1000; t++)
 						{
-							if (Main.projectile[t].active && Main.projectile[t].owner == this.whoAmI && Main.projectile[t].type == 226)
+							if (Main.projectile[t].active && Main.projectile[t].owner == this.whoAmI && Main.projectile[t].type == ProjectileID.CrystalLeaf)
 							{
 								if (!flag27)
 								{
@@ -28265,7 +28265,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.zephyrfish = true;
 						bool flag28 = true;
-						if (this.ownedProjectileCounts[380] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.ZephyrFish] > 0)
 						{
 							flag28 = false;
 						}
@@ -28279,7 +28279,7 @@ namespace Terraria
 						this.buffTime[j] = 18000;
 						this.miniMinotaur = true;
 						bool flag29 = true;
-						if (this.ownedProjectileCounts[398] > 0)
+						if (this.ownedProjectileCounts[ProjectileID.MiniMinotaur] > 0)
 						{
 							flag29 = false;
 						}
@@ -28356,7 +28356,7 @@ namespace Terraria
 						while (num14 < 1000)
 						{
 							Projectile projectile = Main.projectile[num14];
-							if (!projectile.active || projectile.type != 456 || projectile.ai[1] != (float)this.whoAmI)
+							if (!projectile.active || projectile.type != ProjectileID.MoonLeech || projectile.ai[1] != (float)this.whoAmI)
 							{
 								num14++;
 							}

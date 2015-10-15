@@ -33,7 +33,7 @@ namespace Terraria
 
 		public const int maxItemTypes = ItemID.Count;
 
-		public const int maxProjectileTypes = 651;
+		public const int maxProjectileTypes = ProjectileID.Count;
 
 		public const int maxNPCTypes = NPCID.Count;
 
@@ -1726,7 +1726,7 @@ namespace Terraria
 			Main.hairLoaded = new bool[134];
 			Main.wingsLoaded = new bool[37];
 			Main.goreLoaded = new bool[907];
-			Main.projectileLoaded = new bool[651];
+			Main.projectileLoaded = new bool[Main.maxProjectileTypes];
 			Main.itemFlameLoaded = new bool[Main.maxItemTypes];
 			Main.backgroundLoaded = new bool[207];
 			Main.tileSetsLoaded = new bool[Main.maxTileSets];
@@ -1837,8 +1837,8 @@ namespace Terraria
 			Main.zoneX = 99;
 			Main.zoneY = 87;
 			Main.harpNote = 0f;
-			Main.projHostile = new bool[651];
-			Main.projHook = new bool[651];
+			Main.projHostile = new bool[Main.maxProjectileTypes];
+			Main.projHook = new bool[Main.maxProjectileTypes];
 			Main.pvpBuff = new bool[191];
 			Main.persistentBuff = new bool[191];
 			Main.vanityPet = new bool[191];
@@ -2015,8 +2015,8 @@ namespace Terraria
 			Main.helpText = 0;
 			Main.autoGen = false;
 			Main.autoPause = false;
-			Main.projFrames = new int[651];
-			Main.projPet = new bool[651];
+			Main.projFrames = new int[Main.maxProjectileTypes];
+			Main.projPet = new bool[Main.maxProjectileTypes];
 			Main.demonTorch = 1f;
 			Main.demonTorchDir = 1;
 			Main.martianLight = 1f;
@@ -2574,15 +2574,15 @@ namespace Terraria
 			{
 				if (Main.projectile[i].active)
 				{
-					if (Main.projectile[i].type == 578 || Main.projectile[i].type == 579 || Main.projectile[i].type == 641 || Main.projectile[i].type == 598 || Main.projectile[i].type == 617 || Main.projectile[i].type == 636)
+					if (Main.projectile[i].type == ProjectileID.VortexVortexLightning || Main.projectile[i].type == ProjectileID.VortexVortexPortal || Main.projectile[i].type == ProjectileID.MoonlordTurret || Main.projectile[i].type == ProjectileID.BoneJavelin || Main.projectile[i].type == ProjectileID.NebulaArcanum || Main.projectile[i].type == ProjectileID.Daybreak)
 					{
 						this.DrawCacheProjsBehindNPCsAndTiles.Add(i);
 					}
-					if (Main.projectile[i].type == 625 || Main.projectile[i].type == 626 || Main.projectile[i].type == 627 || Main.projectile[i].type == 628)
+					if (Main.projectile[i].type == ProjectileID.StardustDragon1 || Main.projectile[i].type == ProjectileID.StardustDragon2 || Main.projectile[i].type == ProjectileID.StardustDragon3 || Main.projectile[i].type == ProjectileID.StardustDragon4)
 					{
 						this.DrawCacheProjsBehindProjectiles.Add(i);
 					}
-					if (Main.projectile[i].type == 636 || Main.projectile[i].type == 598)
+					if (Main.projectile[i].type == ProjectileID.Daybreak || Main.projectile[i].type == ProjectileID.BoneJavelin)
 					{
 						bool flag = true;
 						if (Main.projectile[i].ai[0] == 1f)
@@ -10457,13 +10457,13 @@ namespace Terraria
 			for (int i = 0; i < drawCacheProjsBehindProjectiles.Count; i++)
 			{
 				int num = drawCacheProjsBehindProjectiles[i];
-				if (Main.projectile[num].type == 628)
+				if (Main.projectile[num].type == ProjectileID.StardustDragon4)
 				{
 					drawCacheProjsBehindProjectiles.Remove(num);
 					List<int> list2 = new List<int>();
 					list2.Insert(0, num);
 					int byUUID = Projectile.GetByUUID(Main.projectile[num].owner, Main.projectile[num].ai[0]);
-					while (byUUID >= 0 && !list2.Contains(byUUID) && Main.projectile[byUUID].active && Main.projectile[byUUID].type >= 625 && Main.projectile[byUUID].type <= 627)
+					while (byUUID >= 0 && !list2.Contains(byUUID) && Main.projectile[byUUID].active && Main.projectile[byUUID].type >= ProjectileID.StardustDragon1 && Main.projectile[byUUID].type <= ProjectileID.StardustDragon3)
 					{
 						list2.Insert(0, byUUID);
 						drawCacheProjsBehindProjectiles.Remove(byUUID);
@@ -10487,7 +10487,7 @@ namespace Terraria
 			{
 				Projectile projectile = Main.projectile[this.DrawCacheProjsBehindProjectiles[l]];
 				int byUUID2 = Projectile.GetByUUID(projectile.owner, projectile.ai[0]);
-				if (projectile.type >= 626 && projectile.type <= 628 && byUUID2 >= 0 && ProjectileID.Sets.StardustDragon[Main.projectile[byUUID2].type])
+				if (projectile.type >= ProjectileID.StardustDragon2 && projectile.type <= ProjectileID.StardustDragon4 && byUUID2 >= 0 && ProjectileID.Sets.StardustDragon[Main.projectile[byUUID2].type])
 				{
 					Vector2 vector = Main.projectile[byUUID2].Center - projectile.Center;
 					if (vector != Vector2.Zero)

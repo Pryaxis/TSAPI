@@ -194,7 +194,7 @@ namespace Terraria.GameContent
 			for (int i = 0; i < 1000; i++)
 			{
 				Projectile projectile = Main.projectile[i];
-				if (projectile.active && projectile.type == 602)
+				if (projectile.active && projectile.type == ProjectileID.PortalGunGate)
 				{
 					PortalHelper.GetPortalEdges(projectile.Center, projectile.ai[0], out vector22, out vector23);
 					if ((int)Collision.CheckLinevLine(vector2, vector21, vector22, vector23).Length > 0)
@@ -214,7 +214,7 @@ namespace Terraria.GameContent
 			for (int i = 0; i < 1000; i++)
 			{
 				Projectile projectile = Main.projectile[i];
-				if (projectile.active && projectile.type == 602 && projectile.owner == Main.myPlayer && projectile.ai[1] == (float)form)
+				if (projectile.active && projectile.type == ProjectileID.PortalGunGate && projectile.owner == Main.myPlayer && projectile.ai[1] == (float)form)
 				{
 					projectile.Kill();
 					return;
@@ -355,7 +355,7 @@ namespace Terraria.GameContent
 			for (int i = 0; i < 1000; i++)
 			{
 				Projectile projectile = Main.projectile[i];
-				if (projectile.active && (projectile.type == 602 || projectile.type == 601))
+				if (projectile.active && (projectile.type == ProjectileID.PortalGunGate || projectile.type == ProjectileID.PortalGunBolt))
 				{
 					Vector2 center = projectile.Center;
 					int sectionX = Netplay.GetSectionX((int)(center.X / 16f));
@@ -548,7 +548,7 @@ namespace Terraria.GameContent
 				Projectile projectile = Main.projectile[l];
 				if (projectile.owner < 0 || projectile.owner >= PortalHelper.FoundPortals.GetLength(0))
 					continue;
-				if (projectile.active && projectile.type == 602 && projectile.ai[1] >= 0f && projectile.ai[1] <= 1f)
+				if (projectile.active && projectile.type == ProjectileID.PortalGunGate && projectile.ai[1] >= 0f && projectile.ai[1] <= 1f)
 				{
 					PortalHelper.FoundPortals[projectile.owner, (int)projectile.ai[1]] = l;
 				}

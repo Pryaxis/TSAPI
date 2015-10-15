@@ -1761,7 +1761,7 @@ namespace Terraria
 			float y = Main.screenPosition.Y + (float)Main.mouseY;
 			float single = x - mountedPlayer.position.X;
 			float y1 = y - mountedPlayer.position.Y;
-			Projectile.NewProjectile(x, y, 0f, 0f, 441, 0, 0f, mountedPlayer.whoAmI, single, y1);
+			Projectile.NewProjectile(x, y, 0f, 0f, ProjectileID.ScutlixLaserCrosshair, 0, 0f, mountedPlayer.whoAmI, single, y1);
 			this._abilityCharging = true;
 		}
 
@@ -1809,7 +1809,7 @@ namespace Terraria
 			{
 				case 8:
 				{
-					if (mountedPlayer.ownedProjectileCounts[453] >= 1)
+					if (mountedPlayer.ownedProjectileCounts[ProjectileID.DrillMountCrosshair] >= 1)
 					{
 						break;
 					}
@@ -2433,7 +2433,7 @@ namespace Terraria
 							float y = Main.screenPosition.Y + (float)Main.mouseY;
 							float x1 = single - mountedPlayer.position.X;
 							float y1 = y - mountedPlayer.position.Y;
-							Projectile.NewProjectile(single, y, 0f, 0f, 453, 0, 0f, mountedPlayer.whoAmI, x1, y1);
+							Projectile.NewProjectile(single, y, 0f, 0f, ProjectileID.DrillMountCrosshair, 0, 0f, mountedPlayer.whoAmI, x1, y1);
 						}
 						this._abilityActive = true;
 						return;
