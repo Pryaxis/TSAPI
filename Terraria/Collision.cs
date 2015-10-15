@@ -1241,7 +1241,7 @@ namespace Terraria
 									WorldGen.KillTile(i, j, false, false, false);
 									if (Main.netMode == 1 && !Main.tile[i, j].active() && Main.netMode == 1)
 									{
-										NetMessage.SendData(17, -1, -1, "", 4, (float)i, (float)j, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 4, (float)i, (float)j, 0f, 0, 0, 0);
 									}
 								}
 								return new Vector2((float)num4, (float)num1);
@@ -2531,7 +2531,7 @@ namespace Terraria
 									if (!handled)
 									{
 										Wiring.HitSwitch(i, j);
-										NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.HitSwitch, -1, -1, "", i, (float)j, 0f, 0f, 0, 0, 0);
 										return true;
 									}
 								}

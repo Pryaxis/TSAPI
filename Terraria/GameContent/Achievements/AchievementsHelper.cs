@@ -293,7 +293,7 @@ namespace Terraria.GameContent.Achievements
 				{
 					if (npc.playerInteraction[i])
 					{
-						NetMessage.SendData(97, i, -1, "", npc.netID, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.NotifyPlayerNpcKilled, i, -1, "", npc.netID, 0f, 0f, 0f, 0, 0, 0);
 					}
 				}
 			}
@@ -322,7 +322,7 @@ namespace Terraria.GameContent.Achievements
 			{
 				if (Main.netMode == 2)
 				{
-					NetMessage.SendData(98, -1, -1, "", eventID, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.NotifyPlayerOfEvent, -1, -1, "", eventID, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
 				AchievementsHelper.OnProgressionEvent(eventID);

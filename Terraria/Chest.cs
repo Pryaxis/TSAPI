@@ -107,11 +107,11 @@ namespace Terraria
 			}
 			else if (type != 21)
 			{
-				NetMessage.SendData(34, -1, -1, "", 2, (float)x, (float)y, (float)style, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", 2, (float)x, (float)y, (float)style, 0, 0, 0);
 			}
 			else
 			{
-				NetMessage.SendData(34, -1, -1, "", 0, (float)x, (float)y, (float)style, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", 0, (float)x, (float)y, (float)style, 0, 0, 0);
 			}
 			return num;
 		}
@@ -664,7 +664,7 @@ namespace Terraria
 		public static void ServerPlaceItem(int plr, int slot)
 		{
 			Main.player[plr].inventory[slot] = Chest.PutItemInNearbyChest(Main.player[plr].inventory[slot], Main.player[plr].Center);
-			NetMessage.SendData(5, -1, -1, "", plr, (float)slot, (float)Main.player[plr].inventory[slot].prefix, 0f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, -1, "", plr, (float)slot, (float)Main.player[plr].inventory[slot].prefix, 0f, 0, 0, 0);
 		}
 
 		public void SetupShop(int type)

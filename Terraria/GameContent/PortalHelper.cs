@@ -201,7 +201,7 @@ namespace Terraria.GameContent
 					{
 						if (projectile.owner != Main.myPlayer)
 						{
-							NetMessage.SendData(95, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.KillPortal, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 						}
 						projectile.Kill();
 					}
@@ -452,8 +452,8 @@ namespace Terraria.GameContent
 												player.Teleport(portalOutingPoint, 4, num5);
 												if (Main.netMode == 1)
 												{
-													NetMessage.SendData(96, -1, -1, "", player.whoAmI, portalOutingPoint.X, portalOutingPoint.Y, (float)num5, 0, 0, 0);
-													NetMessage.SendData(13, -1, -1, "", player.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.PlayerTeleportPortal, -1, -1, "", player.whoAmI, portalOutingPoint.X, portalOutingPoint.Y, (float)num5, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.PlayerUpdate, -1, -1, "", player.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 												}
 												PortalHelper.PortalCooldownForPlayers[i] = 10;
 												return;
@@ -465,8 +465,8 @@ namespace Terraria.GameContent
 												nPC.Teleport(portalOutingPoint, 4, num5);
 												if (Main.netMode == 1)
 												{
-													NetMessage.SendData(100, -1, -1, "", nPC.whoAmI, portalOutingPoint.X, portalOutingPoint.Y, (float)num5, 0, 0, 0);
-													NetMessage.SendData(23, -1, -1, "", nPC.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.NpcTeleportPortal, -1, -1, "", nPC.whoAmI, portalOutingPoint.X, portalOutingPoint.Y, (float)num5, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", nPC.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 												}
 												PortalHelper.PortalCooldownForPlayers[i] = 10;
 											}

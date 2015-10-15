@@ -662,7 +662,7 @@ namespace Terraria
 			mountedPlayer.position.Y = mountedPlayer.position.Y - (float)mountedPlayer.height;
 			if (mountedPlayer.whoAmI == Main.myPlayer)
 			{
-				NetMessage.SendData(13, -1, -1, "", mountedPlayer.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.PlayerUpdate, -1, -1, "", mountedPlayer.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
 
@@ -1738,7 +1738,7 @@ namespace Terraria
 			}
 			if (mountedPlayer.whoAmI == Main.myPlayer)
 			{
-				NetMessage.SendData(13, -1, -1, "", mountedPlayer.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.PlayerUpdate, -1, -1, "", mountedPlayer.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
 

@@ -128,7 +128,7 @@ namespace Terraria
 					WorldGen.KillTile(x, y, false, false, false);
 					if (Main.netMode == 2)
 					{
-						NetMessage.SendData(17, -1, -1, "", 0, (float)x, (float)y, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)x, (float)y, 0f, 0, 0, 0);
 					}
 				}
 			}
@@ -274,7 +274,7 @@ namespace Terraria
 						WorldGen.KillTile(x, y, false, false, false);
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(17, -1, -1, "", 0, (float)x, (float)y, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)x, (float)y, 0f, 0, 0, 0);
 						}
 					}
 					if (!tile4.active())
@@ -298,7 +298,7 @@ namespace Terraria
 					WorldGen.KillTile(x, y + 1, false, false, false);
 					if (Main.netMode == 2)
 					{
-						NetMessage.SendData(17, -1, -1, "", 0, (float)x, (float)(y + 1), 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)x, (float)(y + 1), 0f, 0, 0, 0);
 					}
 				}
 				else if (tile3.active() && Main.tileObsidianKill[tile3.type])
@@ -306,7 +306,7 @@ namespace Terraria
 					WorldGen.KillTile(x, y + 1, false, false, false);
 					if (Main.netMode == 2)
 					{
-						NetMessage.SendData(17, -1, -1, "", 0, (float)x, (float)(y + 1), 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)x, (float)(y + 1), 0f, 0, 0, 0);
 					}
 				}
 				if (!tile3.active())
@@ -375,7 +375,7 @@ namespace Terraria
 						WorldGen.KillTile(x, y, false, false, false);
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(17, -1, -1, "", 0, (float)x, (float)y, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)x, (float)y, 0f, 0, 0, 0);
 						}
 					}
 					if (!tile4.active())
@@ -399,7 +399,7 @@ namespace Terraria
 					WorldGen.KillTile(x, y + 1, false, false, false);
 					if (Main.netMode == 2)
 					{
-						NetMessage.SendData(17, -1, -1, "", 0, (float)x, (float)(y + 1), 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)x, (float)(y + 1), 0f, 0, 0, 0);
 					}
 				}
 				else if (tile3.active() && Main.tileObsidianKill[tile3.type])
@@ -407,7 +407,7 @@ namespace Terraria
 					WorldGen.KillTile(x, y + 1, false, false, false);
 					if (Main.netMode == 2)
 					{
-						NetMessage.SendData(17, -1, -1, "", 0, (float)x, (float)(y + 1), 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)x, (float)(y + 1), 0f, 0, 0, 0);
 					}
 				}
 				if (!tile3.active())

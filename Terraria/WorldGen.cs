@@ -1004,7 +1004,7 @@ namespace Terraria
 		{
 			if (Main.netMode == 1)
 			{
-				NetMessage.SendData(60, -1, -1, "", n, (float)x, (float)y, 1f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.UpdateNPCHome, -1, -1, "", n, (float)x, (float)y, 1f, 0, 0, 0);
 				return;
 			}
 			WorldGen.spawnNPC = Main.npc[n].type;
@@ -1016,7 +1016,7 @@ namespace Terraria
 		{
 			if (Main.netMode == 1)
 			{
-				NetMessage.SendData(60, -1, -1, "", n, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.UpdateNPCHome, -1, -1, "", n, 0f, 0f, 0f, 0, 0, 0);
 				return;
 			}
 			Main.npc[n].homeless = true;
@@ -1157,12 +1157,12 @@ namespace Terraria
 				}
 				else if (Main.netMode == 2)
 				{
-					NetMessage.SendData(25, -1, -1, str + " " + Lang.misc[35], 255, 50f, 125f, 255f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, str + " " + Lang.misc[35], 255, 50f, 125f, 255f, 0, 0, 0);
 				}
 				Main.npc[num].active = false;
 				Main.npc[num].netSkip = -1;
 				Main.npc[num].life = 0;
-				NetMessage.SendData(23, -1, -1, "", num, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
 
@@ -1338,7 +1338,7 @@ namespace Terraria
 			}
 			if (Main.netMode == 2)
 			{
-				NetMessage.SendData(25, -1, -1, str + " " + Lang.misc[18], 255, 50f, 125f, 255f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, str + " " + Lang.misc[18], 255, 50f, 125f, 255f, 0, 0, 0);
 			}
 		}
 
@@ -1498,7 +1498,7 @@ namespace Terraria
 					}
 					else if (Main.netMode == 2)
 					{
-						NetMessage.SendData(25, -1, -1, str + " " + Lang.misc[18], 255, 50f, 125f, 255f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, str + " " + Lang.misc[18], 255, 50f, 125f, 255f, 0, 0, 0);
 					}
 					AchievementsHelper.NotifyProgressionEvent(8);
 					if (Main.npc[num7].type == NPCID.Truffle)
@@ -2186,7 +2186,7 @@ namespace Terraria
 			}
 			else if (Main.netMode == 2)
 			{
-				NetMessage.SendData(25, -1, -1, Lang.gen[59], 255, 50f, 255f, 130f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.gen[59], 255, 50f, 255f, 130f, 0, 0, 0);
 			}
 			if (Main.netMode != 1)
 			{
@@ -12900,7 +12900,7 @@ namespace Terraria
 			}
 			else if (Main.netMode == 2)
 			{
-				NetMessage.SendData(25, -1, -1, Lang.misc[15], 255, 50f, 255f, 130f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.misc[15], 255, 50f, 255f, 130f, 0, 0, 0);
 			}
 			AchievementsHelper.NotifyProgressionEvent(9);
 			if (Main.netMode == 2)
@@ -20990,7 +20990,7 @@ namespace Terraria
 				int number = Item.NewItem(x * 16, y * 16, 16, 16, 1874 + num3 - 1, 1, false, 0, false, false);
 				if (Main.netMode == 1)
 				{
-					NetMessage.SendData(21, -1, -1, "", number, 1f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", number, 1f, 0f, 0f, 0, 0, 0);
 					return;
 				}
 			}
@@ -20999,7 +20999,7 @@ namespace Terraria
 				int number2 = Item.NewItem(x * 16, y * 16, 16, 16, 1878 + num4 - 1, 1, false, 0, false, false);
 				if (Main.netMode == 1)
 				{
-					NetMessage.SendData(21, -1, -1, "", number2, 1f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", number2, 1f, 0f, 0f, 0, 0, 0);
 					return;
 				}
 			}
@@ -21008,7 +21008,7 @@ namespace Terraria
 				int number3 = Item.NewItem(x * 16, y * 16, 16, 16, 1884 + num5 - 1, 1, false, 0, false, false);
 				if (Main.netMode == 1)
 				{
-					NetMessage.SendData(21, -1, -1, "", number3, 1f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", number3, 1f, 0f, 0f, 0, 0, 0);
 					return;
 				}
 			}
@@ -21017,7 +21017,7 @@ namespace Terraria
 				int number4 = Item.NewItem(x * 16, y * 16, 16, 16, 1895 + num6 - 1, 1, false, 0, false, false);
 				if (Main.netMode == 1)
 				{
-					NetMessage.SendData(21, -1, -1, "", number4, 1f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", number4, 1f, 0f, 0f, 0, 0, 0);
 				}
 			}
 		}
@@ -22083,7 +22083,7 @@ namespace Terraria
 			Main.tile[x, y].color(color);
 			if (broadCast)
 			{
-				NetMessage.SendData(63, -1, -1, "", x, (float)y, (float)color, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.PaintTile, -1, -1, "", x, (float)y, (float)color, 0f, 0, 0, 0);
 			}
 			WorldGen.paintEffect(x, y, color, oldColor);
 			return true;
@@ -22099,7 +22099,7 @@ namespace Terraria
 			Main.tile[x, y].wallColor(color);
 			if (broadCast)
 			{
-				NetMessage.SendData(64, -1, -1, "", x, (float)y, (float)color, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.PaintWall, -1, -1, "", x, (float)y, (float)color, 0f, 0, 0, 0);
 			}
 			WorldGen.paintEffect(x, y, color, oldColor);
 			return true;
@@ -25475,7 +25475,7 @@ namespace Terraria
 				}
 				else if (Main.netMode == 2)
 				{
-					NetMessage.SendData(25, -1, -1, Lang.misc[num5], 255, 50f, 255f, 130f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.misc[num5], 255, 50f, 255f, 130f, 0, 0, 0);
 				}
 				num = WorldGen.oreTier1;
 				num3 *= 1.05f;
@@ -25502,7 +25502,7 @@ namespace Terraria
 				}
 				else if (Main.netMode == 2)
 				{
-					NetMessage.SendData(25, -1, -1, Lang.misc[num6], 255, 50f, 255f, 130f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.misc[num6], 255, 50f, 255f, 130f, 0, 0, 0);
 				}
 				num = WorldGen.oreTier2;
 			}
@@ -25528,7 +25528,7 @@ namespace Terraria
 				}
 				else if (Main.netMode == 2)
 				{
-					NetMessage.SendData(25, -1, -1, Lang.misc[num7], 255, 50f, 255f, 130f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.misc[num7], 255, 50f, 255f, 130f, 0, 0, 0);
 				}
 				num = WorldGen.oreTier3;
 			}
@@ -27952,7 +27952,7 @@ namespace Terraria
 				}
 				else if (Main.netMode == 1)
 				{
-					NetMessage.SendData(34, -1, -1, "", 2, (float)x, (float)y, (float)style, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", 2, (float)x, (float)y, (float)style, 0, 0, 0);
 				}
 			}
 			if (flag2)
@@ -29537,7 +29537,7 @@ namespace Terraria
 							}
 							else if (Main.netMode == 2)
 							{
-								NetMessage.SendData(25, -1, -1, text, 255, 50f, 255f, 130f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, text, 255, 50f, 255f, 130f, 0, 0, 0);
 							}
 						}
 						AchievementsHelper.NotifyProgressionEvent(7);
@@ -30156,7 +30156,7 @@ namespace Terraria
 									WorldGen.KillTile(k, l, false, false, false);
 									if (Main.netMode == 1)
 									{
-										NetMessage.SendData(17, -1, -1, "", 0, (float)k, (float)l, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)k, (float)l, 0f, 0, 0, 0);
 									}
 								}
 								if (type == 59 && (Main.tile[k - 1, l].type == 109 || Main.tile[k + 1, l].type == 109 || Main.tile[k, l - 1].type == 109 || Main.tile[k, l + 1].type == 109))
@@ -30264,7 +30264,7 @@ namespace Terraria
 								WorldGen.KillTile(k, l, false, false, false);
 								if (Main.netMode == 1)
 								{
-									NetMessage.SendData(17, -1, -1, "", 0, (float)k, (float)l, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)k, (float)l, 0f, 0, 0, 0);
 								}
 							}
 						}
@@ -30370,7 +30370,7 @@ namespace Terraria
 								WorldGen.KillTile(k, l, false, false, false);
 								if (Main.netMode == 1)
 								{
-									NetMessage.SendData(17, -1, -1, "", 0, (float)k, (float)l, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)k, (float)l, 0f, 0, 0, 0);
 								}
 							}
 						}
@@ -31441,7 +31441,7 @@ namespace Terraria
 			}
 			if (num != -1 && Main.netMode == 1)
 			{
-				NetMessage.SendData(34, -1, -1, "", 0, (float)x, (float)y, (float)style, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", 0, (float)x, (float)y, (float)style, 0, 0, 0);
 			}
 			return num;
 		}
@@ -33594,7 +33594,7 @@ namespace Terraria
 								int num10 = Item.NewItem(i * 16, j * 16, 16, 16, num8, 1, true, 0, false, false);
 								item.position = Main.item[num10].position;
 								Main.item[num10] = item;
-								NetMessage.SendData(21, -1, -1, "", num10, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", num10, 0f, 0f, 0f, 0, 0, 0);
 							}
 							n = (int)Main.tile[num5, j].frameX;
 							int num11 = 0;
@@ -39008,7 +39008,7 @@ namespace Terraria
 				}
 				if (Main.netMode == 2)
 				{
-					NetMessage.SendData(57, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.UpdateGoodEvil, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 				}
 				WorldGen.totalEvil2 = 0;
 				WorldGen.totalSolid2 = 0;
@@ -39376,7 +39376,7 @@ namespace Terraria
 							WorldGen.KillTile(num7, num8, false, false, false);
 							if (Main.netMode == 2)
 							{
-								NetMessage.SendData(17, -1, -1, "", 0, (float)num7, (float)num8, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)num7, (float)num8, 0f, 0, 0, 0);
 							}
 						}
 					}
@@ -44880,7 +44880,7 @@ namespace Terraria
 				WorldGen.PoundTile(x, y);
 				if (Main.netMode == 1)
 				{
-					NetMessage.SendData(17, -1, -1, "", 7, (float)x, (float)y, 1f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 7, (float)x, (float)y, 1f, 0, 0, 0);
 					return;
 				}
 			}
@@ -44899,7 +44899,7 @@ namespace Terraria
 					int num2 = (int)Main.tile[x, y].slope();
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(17, -1, -1, "", 14, (float)x, (float)y, (float)num2, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 14, (float)x, (float)y, (float)num2, 0, 0, 0);
 						return;
 					}
 				}
@@ -44909,7 +44909,7 @@ namespace Terraria
 					int num3 = (int)Main.tile[x, y].slope();
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(17, -1, -1, "", 14, (float)x, (float)y, (float)num3, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 14, (float)x, (float)y, (float)num3, 0, 0, 0);
 						return;
 					}
 				}
@@ -44919,12 +44919,12 @@ namespace Terraria
 					int num4 = (int)Main.tile[x, y].slope();
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(17, -1, -1, "", 14, (float)x, (float)y, (float)num4, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 14, (float)x, (float)y, (float)num4, 0, 0, 0);
 					}
 					WorldGen.PoundTile(x, y);
 					if (Main.netMode == 1)
 					{
-						NetMessage.SendData(17, -1, -1, "", 7, (float)x, (float)y, 1f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 7, (float)x, (float)y, 1f, 0, 0, 0);
 					}
 				}
 			}
@@ -49740,7 +49740,7 @@ namespace Terraria
 							int num5 = NPC.NewNPC((num3 + num4) * 16, l * 16, array[j], 0, 0f, 0f, 0f, 0f, 255);
 							if (Main.netMode == 2 && num5 < 200)
 							{
-								NetMessage.SendData(23, -1, -1, "", num5, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num5, 0f, 0f, 0f, 0, 0, 0);
 							}
 							flag = true;
 							break;
@@ -49759,7 +49759,7 @@ namespace Terraria
 			NPC.TowerActiveVortex = (NPC.TowerActiveNebula = (NPC.TowerActiveSolar = (NPC.TowerActiveStardust = true)));
 			NPC.LunarApocalypseIsUp = true;
 			NPC.ShieldStrengthTowerSolar = (NPC.ShieldStrengthTowerVortex = (NPC.ShieldStrengthTowerNebula = (NPC.ShieldStrengthTowerStardust = NPC.ShieldStrengthTowerMax)));
-			NetMessage.SendData(101, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.UpdateShieldStrengths, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 			WorldGen.MessageLunarApocalypse();
 		}
 
@@ -49839,14 +49839,14 @@ namespace Terraria
 		{
 			NPC.LunarApocalypseIsUp = false;
 			NPC.MoonLordCountdown = 3600;
-			NetMessage.SendData(103, -1, -1, "", NPC.MoonLordCountdown, 0f, 0f, 0f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.MoonLordCountdown, -1, -1, "", NPC.MoonLordCountdown, 0f, 0f, 0f, 0, 0, 0);
 			if (Main.netMode == 0)
 			{
 				Main.NewText(Lang.misc[52], 50, 255, 130, false);
 			}
 			else if (Main.netMode == 2)
 			{
-				NetMessage.SendData(25, -1, -1, Lang.misc[52], 255, 50f, 255f, 130f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.misc[52], 255, 50f, 255f, 130f, 0, 0, 0);
 			}
 			if (Main.netMode != 1)
 			{
@@ -49863,7 +49863,7 @@ namespace Terraria
 					Main.npc[i].active = false;
 					if (Main.netMode != 1)
 					{
-						NetMessage.SendData(23, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 					}
 				}
 			}
@@ -49924,7 +49924,7 @@ namespace Terraria
 			}
 			if (Main.netMode == 2)
 			{
-				NetMessage.SendData(25, -1, -1, text, 255, (float)r, (float)g, (float)b, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, text, 255, (float)r, (float)g, (float)b, 0, 0, 0);
 			}
 		}
 	}

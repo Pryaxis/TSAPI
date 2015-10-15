@@ -7037,7 +7037,7 @@ namespace Terraria
 			}
 			if (Main.netMode != 0 && Owner == Main.myPlayer)
 			{
-				NetMessage.SendData(27, -1, -1, "", num, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", num, 0f, 0f, 0f, 0, 0, 0);
 			}
 			if (Owner == Main.myPlayer)
 			{
@@ -8017,7 +8017,7 @@ namespace Terraria
 							}
 							if (Main.netMode != 0)
 							{
-								NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), myPlayer, (float)this.direction, (float)num4, 1f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.PlayerDamage, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), myPlayer, (float)this.direction, (float)num4, 1f, 0, 0, 0);
 							}
 						}
 					}
@@ -8054,7 +8054,7 @@ namespace Terraria
 								WorldGen.KillTile(i, j, false, false, false);
 								if (Main.netMode != 0)
 								{
-									NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
 								}
 							}
 						}
@@ -8490,7 +8490,7 @@ namespace Terraria
 											Main.item[num28].velocity.X = (float)Main.rand.Next(10, 31) * 0.2f * (float)this.direction;
 											if (Main.netMode == 1)
 											{
-												NetMessage.SendData(21, -1, -1, "", num28, 0f, 0f, 0f, 0, 0, 0);
+												NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", num28, 0f, 0f, 0f, 0, 0, 0);
 											}
 										}
 										if (num26 > 0 && Main.npc[k].lifeMax > 5 && this.friendly && !this.hostile && this.aiStyle != 59)
@@ -8519,7 +8519,7 @@ namespace Terraria
 													Main.item[num30].velocity.X = (float)Main.rand.Next(10, 31) * 0.2f * (float)this.direction;
 													if (Main.netMode == 1)
 													{
-														NetMessage.SendData(21, -1, -1, "", num30, 0f, 0f, 0f, 0, 0, 0);
+														NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", num30, 0f, 0f, 0f, 0, 0, 0);
 													}
 												}
 											}
@@ -8557,11 +8557,11 @@ namespace Terraria
 									{
 										if (flag5)
 										{
-											NetMessage.SendData(28, -1, -1, "", k, (float)num10, this.knockBack, (float)this.direction, 1, 0, 0);
+											NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", k, (float)num10, this.knockBack, (float)this.direction, 1, 0, 0);
 										}
 										else
 										{
-											NetMessage.SendData(28, -1, -1, "", k, (float)num10, this.knockBack, (float)this.direction, 0, 0, 0);
+											NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", k, (float)num10, this.knockBack, (float)this.direction, 0, 0, 0);
 										}
 									}
 									if (this.type >= 390 && this.type <= 392)
@@ -8869,11 +8869,11 @@ namespace Terraria
 								{
 									if (flag6)
 									{
-										NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), num35, (float)this.direction, (float)num36, 1f, 1, 0, 0);
+										NetMessage.SendData((int)PacketTypes.PlayerDamage, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), num35, (float)this.direction, (float)num36, 1f, 1, 0, 0);
 									}
 									else
 									{
-										NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), num35, (float)this.direction, (float)num36, 1f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.PlayerDamage, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), num35, (float)this.direction, (float)num36, 1f, 0, 0, 0);
 									}
 								}
 								this.playerImmune[num35] = 40;
@@ -9853,7 +9853,7 @@ namespace Terraria
 										}
 										else if (Main.netMode == 2)
 										{
-											NetMessage.SendData(25, -1, -1, text, 255, 255f, 240f, 20f, 0, 0, 0);
+											NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, text, 255, 255f, 240f, 20f, 0, 0, 0);
 										}
 									}
 									this.ai[1] = 0f;
@@ -10479,7 +10479,7 @@ namespace Terraria
 							if (this.netSpam < 60)
 							{
 								this.netSpam += 5;
-								NetMessage.SendData(27, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 								this.netUpdate2 = false;
 							}
 							else
@@ -11757,7 +11757,7 @@ namespace Terraria
 							int num47 = Projectile.NewProjectile(this.position.X + this.velocity.X + (float)(this.width / 2), this.position.Y + this.velocity.Y + (float)(this.height / 2), this.velocity.X, this.velocity.Y, num46, this.damage, this.knockBack, this.owner, 0f, 0f);
 							Main.projectile[num47].damage = this.damage;
 							Main.projectile[num47].ai[1] = this.ai[1] + 1f;
-							NetMessage.SendData(27, -1, -1, "", num47, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", num47, 0f, 0f, 0f, 0, 0, 0);
 							return;
 						}
 						if (this.type == 494 && Main.myPlayer == this.owner)
@@ -11775,7 +11775,7 @@ namespace Terraria
 								num50 = this.knockBack * 1.25f;
 							}
 							int number = Projectile.NewProjectile(this.position.X + this.velocity.X + (float)(this.width / 2), this.position.Y + this.velocity.Y + (float)(this.height / 2), this.velocity.X, this.velocity.Y, num48, num49, num50, this.owner, 0f, this.ai[1] + 1f);
-							NetMessage.SendData(27, -1, -1, "", number, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", number, 0f, 0f, 0f, 0, 0, 0);
 							return;
 						}
 						if ((this.type == 150 || this.type == 151) && Main.myPlayer == this.owner)
@@ -11796,7 +11796,7 @@ namespace Terraria
 							int num52 = Projectile.NewProjectile(this.position.X + this.velocity.X + (float)(this.width / 2), this.position.Y + this.velocity.Y + (float)(this.height / 2), this.velocity.X, this.velocity.Y, num51, this.damage, this.knockBack, this.owner, 0f, 0f);
 							Main.projectile[num52].damage = this.damage;
 							Main.projectile[num52].ai[1] = this.ai[1] + 1f;
-							NetMessage.SendData(27, -1, -1, "", num52, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", num52, 0f, 0f, 0f, 0, 0, 0);
 							return;
 						}
 					}
@@ -12227,7 +12227,7 @@ namespace Terraria
 								this.netUpdate = true;
 								if (Main.myPlayer == this.owner)
 								{
-									NetMessage.SendData(13, -1, -1, "", this.owner, 0f, 0f, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.PlayerUpdate, -1, -1, "", this.owner, 0f, 0f, 0f, 0, 0, 0);
 									break;
 								}
 								break;
@@ -13801,7 +13801,7 @@ namespace Terraria
 						{
 							if (Main.netMode != 0)
 							{
-								NetMessage.SendData(17, -1, -1, "", 1, (float)num254, (float)num255, 85f, num256, 0, 0);
+								NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 1, (float)num254, (float)num255, 85f, num256, 0, 0);
 							}
 							int num257 = Sign.ReadSign(num254, num255, true);
 							if (num257 >= 0)
@@ -14280,7 +14280,7 @@ namespace Terraria
 						WorldGen.KillTile(num282, num283, false, false, false);
 						if (Main.netMode == 1)
 						{
-							NetMessage.SendData(17, -1, -1, "", 0, (float)num282, (float)num283, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)num282, (float)num283, 0f, 0, 0, 0);
 						}
 						this.Kill();
 						return;
@@ -14415,7 +14415,7 @@ namespace Terraria
 								{
 									if (Main.netMode == 1)
 									{
-										NetMessage.SendData(17, -1, -1, "", 1, (float)((int)this.ai[0]), (float)((int)this.ai[1]), 127f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 1, (float)((int)this.ai[0]), (float)((int)this.ai[1]), 127f, 0, 0, 0);
 									}
 									this.damage = 0;
 									this.ai[0] = -1f;
@@ -14997,12 +14997,12 @@ namespace Terraria
 												if (Main.tile[num361, num362].active() && (Main.tileCut[(int)Main.tile[num361, num362].type] || Main.tile[num361, num362].type == 165))
 												{
 													WorldGen.KillTile(num361, num362, false, false, false);
-													NetMessage.SendData(17, -1, -1, "", 0, (float)num361, (float)num362, 0f, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)num361, (float)num362, 0f, 0, 0, 0);
 												}
 												if (!Main.tile[num361, num362].active())
 												{
 													WorldGen.PlaceTile(num361, num362, num360, false, false, -1, 0);
-													NetMessage.SendData(17, -1, -1, "", 1, (float)num361, (float)num362, (float)num360, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 1, (float)num361, (float)num362, (float)num360, 0, 0, 0);
 													this.ai[1] += 1f;
 												}
 												else
@@ -16160,7 +16160,7 @@ namespace Terraria
 												{
 													Main.player[num488].statLife = Main.player[num488].statLifeMax2;
 												}
-												NetMessage.SendData(66, -1, -1, "", num488, (float)num493, 0f, 0f, 0, 0, 0);
+												NetMessage.SendData((int)PacketTypes.PlayerHealOther, -1, -1, "", num488, (float)num493, 0f, 0f, 0, 0, 0);
 											}
 											this.Kill();
 										}
@@ -16943,7 +16943,7 @@ namespace Terraria
 																	int number2 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num595, 1, false, 0, true);
 																	if (Main.netMode == 1)
 																	{
-																		NetMessage.SendData(21, -1, -1, "", number2, 1f, 0f, 0f, 0, 0, 0);
+																		NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", number2, 1f, 0f, 0f, 0, 0, 0);
 																	}
 																}
 																else
@@ -30991,7 +30991,7 @@ namespace Terraria
 					NPC.ShieldStrengthTowerNebula = (int)MathHelper.Clamp((float)(NPC.ShieldStrengthTowerNebula - 1), 0f, (float)NPC.ShieldStrengthTowerMax);
 				}
 				Main.npc[(int)this.ai[0]].netUpdate = true;
-				NetMessage.SendData(101, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.UpdateShieldStrengths, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 			}
 			if (this.aiStyle == 105 && this.owner == Main.myPlayer && this.ai[1] == 0f)
 			{
@@ -31870,7 +31870,7 @@ namespace Terraria
 										WorldGen.KillTile(num720, num721, false, false, false);
 										if (!Main.tile[num720, num721].active() && Main.netMode != 0)
 										{
-											NetMessage.SendData(17, -1, -1, "", 0, (float)num720, (float)num721, 0f, 0, 0, 0);
+											NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)num720, (float)num721, 0f, 0, 0, 0);
 										}
 									}
 								}
@@ -31885,7 +31885,7 @@ namespace Terraria
 												WorldGen.KillWall(num725, num726, false);
 												if (Main.tile[num725, num726].wall == 0 && Main.netMode != 0)
 												{
-													NetMessage.SendData(17, -1, -1, "", 2, (float)num725, (float)num726, 0f, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 2, (float)num725, (float)num726, 0f, 0, 0, 0);
 												}
 											}
 										}
@@ -31898,7 +31898,7 @@ namespace Terraria
 				}
 				if (Main.netMode != 0)
 				{
-					NetMessage.SendData(29, -1, -1, "", this.identity, (float)this.owner, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ProjectileDestroy, -1, -1, "", this.identity, (float)this.owner, 0f, 0f, 0, 0, 0);
 				}
 				if (!this.noDropItem)
 				{
@@ -32025,12 +32025,12 @@ namespace Terraria
 									WorldGen.SlopeTile(num728, num729 + 1, 0);
 									if (Main.netMode == 2)
 									{
-										NetMessage.SendData(17, -1, -1, "", 14, (float)num728, (float)(num729 + 1), 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 14, (float)num728, (float)(num729 + 1), 0f, 0, 0, 0);
 									}
 								}
 								if (Main.netMode != 0)
 								{
-									NetMessage.SendData(17, -1, -1, "", 1, (float)num728, (float)num729, (float)num730, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 1, (float)num728, (float)num729, (float)num730, 0, 0, 0);
 								}
 							}
 							else if (num731 > 0)
@@ -32190,7 +32190,7 @@ namespace Terraria
 					}
 					if (Main.netMode == 1 && num727 >= 0)
 					{
-						NetMessage.SendData(21, -1, -1, "", num727, 1f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", num727, 1f, 0f, 0f, 0, 0, 0);
 					}
 				}
 				if (this.type == 69 || this.type == 70 || this.type == 621)

@@ -41,7 +41,7 @@ namespace Terraria.GameContent.Tile_Entities
 				return TEItemFrame.Place(x, y);
 			}
 			NetMessage.SendTileSquare(Main.myPlayer, x, y, 2);
-			NetMessage.SendData(87, -1, -1, "", x, (float)y, 1f, 0f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.PlaceTileEntity, -1, -1, "", x, (float)y, 1f, 0f, 0, 0, 0);
 			return -1;
 		}
 
@@ -91,7 +91,7 @@ namespace Terraria.GameContent.Tile_Entities
 				Main.item[num1].netDefaults(netid);
 				Main.item[num1].Prefix(prefix);
 				Main.item[num1].stack = stack;
-				NetMessage.SendData(21, -1, -1, "", num1, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", num1, 0f, 0f, 0f, 0, 0, 0);
 				return;
 			}
 			TEItemFrame item = (TEItemFrame)TileEntity.ByID[num];
@@ -101,13 +101,13 @@ namespace Terraria.GameContent.Tile_Entities
 				Main.item[num2].netDefaults(item.item.netID);
 				Main.item[num2].Prefix((int)item.item.prefix);
 				Main.item[num2].stack = item.item.stack;
-				NetMessage.SendData(21, -1, -1, "", num2, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", num2, 0f, 0f, 0f, 0, 0, 0);
 			}
 			item.item = new Item();
 			item.item.netDefaults(netid);
 			item.item.Prefix(prefix);
 			item.item.stack = stack;
-			NetMessage.SendData(86, -1, -1, "", item.ID, (float)x, (float)y, 0f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.UpdateTileEntity, -1, -1, "", item.ID, (float)x, (float)y, 0f, 0, 0, 0);
 		}
 
 		public static bool ValidTile(int x, int y)

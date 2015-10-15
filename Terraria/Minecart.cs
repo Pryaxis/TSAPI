@@ -547,7 +547,7 @@ namespace Terraria
 			int x = (int)(vector21.X / 16f);
 			int y = (int)(vector21.Y / 16f);
 			Wiring.HitSwitch(x, y);
-			NetMessage.SendData(59, -1, -1, "", x, (float)y, 0f, 0f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.HitSwitch, -1, -1, "", x, (float)y, 0f, 0f, 0, 0, 0);
 		}
 
 		public static void Initialize()

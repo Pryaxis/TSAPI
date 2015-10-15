@@ -152,7 +152,7 @@ namespace Terraria
 									item[l] = new Item();
 									if (Main.netMode == 1 && Main.player[Main.myPlayer].chest >= 0)
 									{
-										NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)l, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.ChestItem, -1, -1, "", Main.player[Main.myPlayer].chest, (float)l, 0f, 0f, 0, 0, 0);
 									}
 								}
 								else
@@ -161,7 +161,7 @@ namespace Terraria
 									item4.stack = item4.stack - num;
 									if (Main.netMode == 1 && Main.player[Main.myPlayer].chest >= 0)
 									{
-										NetMessage.SendData(32, -1, -1, "", Main.player[Main.myPlayer].chest, (float)l, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.ChestItem, -1, -1, "", Main.player[Main.myPlayer].chest, (float)l, 0f, 0f, 0, 0, 0);
 									}
 									num = 0;
 								}

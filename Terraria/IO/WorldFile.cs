@@ -2239,7 +2239,7 @@ namespace Terraria.IO
 								flag = false;
 								if (Main.netMode != 0)
 								{
-									NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
 								}
 							}
 						}
@@ -2252,7 +2252,7 @@ namespace Terraria.IO
 							WorldGen.KillTile(i, j, false, false, false);
 							if (!tile.active() && Main.netMode != 0)
 							{
-								NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
 							}
 						}
 						numArray[num1] = (byte)tile.type;

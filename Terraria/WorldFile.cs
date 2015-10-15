@@ -893,7 +893,7 @@ namespace Terraria
 							WorldGen.KillTile(i, j, false, false, false);
 							if (!tile.active() && Main.netMode != 0)
 							{
-								NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0);
+								NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)i, (float)j, 0f, 0);
 							}
 						}
 						array[num2] = (byte)tile.type;
