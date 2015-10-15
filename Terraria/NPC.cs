@@ -80,7 +80,7 @@ namespace Terraria
 		public bool dontCountMe;
 		public int[] buffType = new int[5];
 		public int[] buffTime = new int[5];
-		public bool[] buffImmune = new bool[191];
+		public bool[] buffImmune = new bool[BuffID.Count];
 		public bool midas;
 		public bool ichor;
 		public bool onFire;
@@ -3144,7 +3144,7 @@ namespace Terraria
 				this.buffImmune[l] = false;
 			}
 			this.setFrameSize = false;
-			this.buffImmune[31] = true;
+			this.buffImmune[BuffID.Confused] = true;
 			this.netSkip = -2;
 			this.realLife = -1;
 			this.lifeRegen = 0;
@@ -3237,8 +3237,8 @@ namespace Terraria
 				this.alpha = 175;
 				this.color = new Color(0, 80, 255, 100);
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.DemonEye)
 			{
@@ -3253,7 +3253,7 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 75f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Zombie)
 			{
@@ -3268,7 +3268,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 60f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ArmedZombie)
 			{
@@ -3283,7 +3283,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 60f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ArmedZombieEskimo)
 			{
@@ -3298,7 +3298,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 80f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ArmedZombiePincussion)
 			{
@@ -3314,7 +3314,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 65f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ArmedZombieSlimed)
 			{
@@ -3330,7 +3330,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 55f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ArmedZombieSwamp)
 			{
@@ -3346,7 +3346,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 80f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ArmedZombieTwiggy)
 			{
@@ -3362,7 +3362,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 70f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ArmedZombieCenx)
 			{
@@ -3378,7 +3378,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 65f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.EyeofCthulhu)
 			{
@@ -3568,9 +3568,9 @@ namespace Terraria
 				this.behindTiles = true;
 				this.value = 300f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.EaterofWorldsBody)
 			{
@@ -3591,9 +3591,9 @@ namespace Terraria
 				this.behindTiles = true;
 				this.value = 300f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
 			else if (this.type == NPCID.EaterofWorldsTail)
@@ -3615,9 +3615,9 @@ namespace Terraria
 				this.behindTiles = true;
 				this.value = 300f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
 			else if (this.type == NPCID.MotherSlime)
@@ -3637,8 +3637,8 @@ namespace Terraria
 				this.value = 75f;
 				this.scale = 1.25f;
 				this.knockBackResist = 0.6f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Merchant)
 			{
@@ -3713,8 +3713,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 100f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Guide)
 			{
@@ -3746,9 +3746,9 @@ namespace Terraria
 				this.noTileCollide = true;
 				this.value = 80f;
 				this.knockBackResist = 0.4f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.FireImp)
 			{
@@ -3765,8 +3765,8 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.lavaImmune = true;
 				this.value = 350f;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.BurningSphere)
 			{
@@ -3797,8 +3797,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.8f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.DarkCaster)
 			{
@@ -3814,7 +3814,7 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.value = 140f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.WaterSphere)
 			{
@@ -3848,9 +3848,9 @@ namespace Terraria
 				this.value = 150f;
 				this.knockBackResist = 0.2f;
 				this.npcSlots = 0.75f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.SkeletronHead)
 			{
@@ -3870,10 +3870,10 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.boss = true;
 				this.npcSlots = 6f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[189] = (this.buffImmune[169] = (this.buffImmune[183] = true));
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Daybreak] = (this.buffImmune[BuffID.BoneJavelin] = (this.buffImmune[BuffID.StardustMinionBleed] = true));
 			}
 			else if (this.type == NPCID.SkeletronHand)
 			{
@@ -3890,9 +3890,9 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.OldMan)
 			{
@@ -3943,9 +3943,9 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.behindTiles = true;
 				this.value = 1200f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.BoneSerpentBody)
 			{
@@ -3965,9 +3965,9 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.behindTiles = true;
 				this.value = 1200f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
 			else if (this.type == NPCID.BoneSerpentTail)
@@ -3988,9 +3988,9 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.behindTiles = true;
 				this.value = 1200f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
 			else if (this.type == NPCID.Hornet)
@@ -4007,7 +4007,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.ManEater)
 			{
@@ -4024,7 +4024,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.soundKilled = 1;
 				this.value = 350f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.UndeadMiner)
 			{
@@ -4039,8 +4039,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 250f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Tim)
 			{
@@ -4055,7 +4055,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 5000f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.rarity = 4;
 			}
 			else if (this.type == NPCID.Bunny || this.type == NPCID.BunnySlimed || this.type == NPCID.BunnyXmas)
@@ -4083,7 +4083,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Harpy)
 			{
@@ -4113,7 +4113,7 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 4;
 				this.value = 90f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.KingSlime)
 			{
@@ -4131,7 +4131,7 @@ namespace Terraria
 				this.alpha = 30;
 				this.value = 10000f;
 				this.scale = 1.25f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.timeLeft = NPC.activeTime * 30;
 			}
 			else if (this.type == NPCID.JungleBat)
@@ -4148,7 +4148,7 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 4;
 				this.value = 80f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.DoctorBones)
 			{
@@ -4163,7 +4163,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 2;
 			}
 			else if (this.type == NPCID.TheGroom)
@@ -4179,7 +4179,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 2;
 			}
 			else if (this.type == NPCID.Clothier)
@@ -4227,7 +4227,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.soundKilled = 1;
 				this.value = 90f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.CorruptGoldfish)
 			{
@@ -4273,10 +4273,10 @@ namespace Terraria
 				this.alpha = 50;
 				this.lavaImmune = true;
 				this.value = 120f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Hellbat)
 			{
@@ -4294,9 +4294,9 @@ namespace Terraria
 				this.value = 120f;
 				this.scale = 1.1f;
 				this.lavaImmune = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Vulture)
 			{
@@ -4327,8 +4327,8 @@ namespace Terraria
 				this.soundKilled = 24;
 				this.value = 300f;
 				this.lavaImmune = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.BlueJellyfish)
 			{
@@ -4390,8 +4390,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 1000f;
 				this.lavaImmune = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.Crab)
 			{
@@ -4420,10 +4420,10 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[189] = (this.buffImmune[169] = (this.buffImmune[183] = true));
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Daybreak] = (this.buffImmune[BuffID.BoneJavelin] = (this.buffImmune[BuffID.StardustMinionBleed] = true));
 			}
 			else if (this.type == NPCID.Antlion)
 			{
@@ -4474,8 +4474,8 @@ namespace Terraria
 				this.value = 150f;
 				this.scale = 1.25f;
 				this.knockBackResist = 0.6f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 1;
 			}
 			else if (this.type == NPCID.BlazingWheel)
@@ -4496,9 +4496,9 @@ namespace Terraria
 				this.noGravity = true;
 				this.dontTakeDamage = true;
 				this.scale = 1.2f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.GoblinScout)
 			{
@@ -4514,7 +4514,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.7f;
 				this.value = 200f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 1;
 			}
 			else if (this.type == NPCID.Bird || this.type == NPCID.BirdBlue || this.type == NPCID.BirdRed)
@@ -4557,10 +4557,10 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.soundKilled = 7;
 				this.value = 350f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ArmoredSkeleton)
 			{
@@ -4575,8 +4575,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Mummy)
 			{
@@ -4591,7 +4591,7 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.6f;
 				this.value = 600f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.DarkMummy)
 			{
@@ -4606,7 +4606,7 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.5f;
 				this.value = 700f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.LightMummy)
 			{
@@ -4621,7 +4621,7 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.55f;
 				this.value = 700f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.CorruptSlime)
 			{
@@ -4637,8 +4637,8 @@ namespace Terraria
 				this.alpha = 55;
 				this.value = 400f;
 				this.scale = 1.1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Wraith)
 			{
@@ -4655,9 +4655,9 @@ namespace Terraria
 				this.soundKilled = 52;
 				this.alpha = 100;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.7f;
 			}
 			else if (this.type == NPCID.CursedHammer)
@@ -4672,9 +4672,9 @@ namespace Terraria
 				this.soundHit = 4;
 				this.soundKilled = 6;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.4f;
 			}
 			else if (this.type == NPCID.EnchantedSword)
@@ -4689,9 +4689,9 @@ namespace Terraria
 				this.soundHit = 4;
 				this.soundKilled = 6;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.4f;
 			}
 			else if (this.type == NPCID.Mimic)
@@ -4707,9 +4707,9 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.value = 100000f;
 				this.knockBackResist = 0.3f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.rarity = 4;
 			}
 			else if (this.type == NPCID.Unicorn)
@@ -4725,7 +4725,7 @@ namespace Terraria
 				this.soundKilled = 18;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.WyvernHead)
 			{
@@ -4746,9 +4746,9 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.WyvernLegs)
 			{
@@ -4768,9 +4768,9 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
 			else if (this.type == NPCID.WyvernBody)
@@ -4791,9 +4791,9 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 2000f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
 			else if (this.type == NPCID.WyvernBody2)
@@ -4814,9 +4814,9 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
 			else if (this.type == NPCID.WyvernBody3)
@@ -4837,9 +4837,9 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
 			else if (this.type == NPCID.WyvernTail)
@@ -4860,9 +4860,9 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
 			else if (this.type == NPCID.GiantBat)
@@ -4879,7 +4879,7 @@ namespace Terraria
 				this.knockBackResist = 0.75f;
 				this.soundKilled = 4;
 				this.value = 400f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Corruptor)
 			{
@@ -5079,7 +5079,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.BoundGoblin)
 			{
@@ -5170,8 +5170,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.VileSpit)
 			{
@@ -5208,9 +5208,9 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.scale = 1.2f;
 				this.boss = true;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.value = 80000f;
 			}
 			else if (this.type == NPCID.WallofFleshEye)
@@ -5230,9 +5230,9 @@ namespace Terraria
 				this.behindTiles = true;
 				this.knockBackResist = 0f;
 				this.scale = 1.2f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.value = 80000f;
 			}
 			else if (this.type == NPCID.TheHungry)
@@ -5332,10 +5332,10 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.value = 600f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Slimer)
 			{
@@ -5350,8 +5350,8 @@ namespace Terraria
 				this.alpha = 55;
 				this.knockBackResist = 0.8f;
 				this.scale = 1.1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Gastropod)
 			{
@@ -5367,7 +5367,7 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 600f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.BoundMechanic)
 			{
@@ -5455,10 +5455,10 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.boss = true;
 				this.npcSlots = 6f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[189] = (this.buffImmune[169] = (this.buffImmune[183] = true));
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Daybreak] = (this.buffImmune[BuffID.BoneJavelin] = (this.buffImmune[BuffID.StardustMinionBleed] = true));
 				this.boss = true;
 			}
 			else if (this.type == NPCID.PrimeCannon)
@@ -5475,8 +5475,8 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 				this.netAlways = true;
 			}
 			else if (this.type == NPCID.PrimeSaw)
@@ -5493,8 +5493,8 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 				this.netAlways = true;
 			}
 			else if (this.type == NPCID.PrimeVice)
@@ -5511,8 +5511,8 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 				this.netAlways = true;
 			}
 			else if (this.type == NPCID.PrimeLaser)
@@ -5529,8 +5529,8 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 				this.netAlways = true;
 			}
 			else if (this.type == NPCID.BaldZombie)
@@ -5547,7 +5547,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 65f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.WanderingEye)
 			{
@@ -5562,7 +5562,7 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.TheDestroyer)
 			{
@@ -5585,9 +5585,9 @@ namespace Terraria
 				this.scale = 1.25f;
 				this.boss = true;
 				this.netAlways = true;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				flag = true;
 				this.alpha = 255;
 			}
@@ -5610,9 +5610,9 @@ namespace Terraria
 				this.behindTiles = true;
 				this.netAlways = true;
 				this.scale = 1.25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				flag = true;
 				this.dontCountMe = true;
 				this.alpha = 255;
@@ -5636,9 +5636,9 @@ namespace Terraria
 				this.behindTiles = true;
 				this.scale = 1.25f;
 				this.netAlways = true;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				flag = true;
 				this.dontCountMe = true;
 				this.alpha = 255;
@@ -5673,10 +5673,10 @@ namespace Terraria
 				this.knockBackResist = 0.75f;
 				this.soundKilled = 6;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.IlluminantSlime)
 			{
@@ -5691,12 +5691,12 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.alpha = 100;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.85f;
 				this.scale = 1.05f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.PossessedArmor)
 			{
@@ -5711,9 +5711,9 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
 			else if (this.type == NPCID.ToxicSludge)
 			{
@@ -5729,8 +5729,8 @@ namespace Terraria
 				this.alpha = 55;
 				this.value = 400f;
 				this.scale = 1.1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.knockBackResist = 0.8f;
 			}
 			else if (this.type == NPCID.SantaClaus)
@@ -5761,10 +5761,10 @@ namespace Terraria
 				this.soundKilled = 15;
 				this.knockBackResist = 0.6f;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.MisterStabby)
 			{
@@ -5779,10 +5779,10 @@ namespace Terraria
 				this.soundKilled = 15;
 				this.knockBackResist = 0.6f;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.coldDamage = true;
 			}
 			else if (this.type == NPCID.SnowBalla)
@@ -5798,10 +5798,10 @@ namespace Terraria
 				this.soundKilled = 15;
 				this.knockBackResist = 0.6f;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.coldDamage = true;
 			}
 			else if (this.type == NPCID.IceSlime)
@@ -5817,8 +5817,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.alpha = 50;
 				this.value = 50f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.coldDamage = true;
 			}
 			else if (this.type == NPCID.Penguin)
@@ -5861,7 +5861,7 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 4;
 				this.value = 250f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Lavabat)
 			{
@@ -5879,9 +5879,9 @@ namespace Terraria
 				this.value = 400f;
 				this.scale = 1.15f;
 				this.lavaImmune = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.GiantFlyingFox)
 			{
@@ -5897,7 +5897,7 @@ namespace Terraria
 				this.knockBackResist = 0.65f;
 				this.soundKilled = 4;
 				this.value = 400f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.GiantTortoise)
 			{
@@ -5914,7 +5914,7 @@ namespace Terraria
 				this.soundKilled = 27;
 				this.value = 500f;
 				this.noGravity = false;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.IceTortoise)
 			{
@@ -5931,7 +5931,7 @@ namespace Terraria
 				this.soundKilled = 27;
 				this.value = 450f;
 				this.noGravity = false;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Wolf)
 			{
@@ -5946,7 +5946,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.RedDevil)
 			{
@@ -5963,8 +5963,8 @@ namespace Terraria
 				this.soundKilled = 24;
 				this.value = 1200f;
 				this.lavaImmune = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.Arapaima)
 			{
@@ -6009,7 +6009,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 80f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.BlackRecluse)
 			{
@@ -6024,8 +6024,8 @@ namespace Terraria
 				this.soundKilled = 31;
 				this.knockBackResist = 0.25f;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
 				this.timeLeft = NPC.activeTime * 2;
 			}
@@ -6045,8 +6045,8 @@ namespace Terraria
 				this.value = 500f;
 				this.timeLeft = NPC.activeTime * 2;
 				this.npcSlots = 0.5f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.WallCreeper)
 			{
@@ -6063,7 +6063,7 @@ namespace Terraria
 				this.value = 100f;
 				this.timeLeft = NPC.activeTime * 2;
 				this.npcSlots = 0.5f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.WallCreeperWall)
 			{
@@ -6081,7 +6081,7 @@ namespace Terraria
 				this.value = 100f;
 				this.timeLeft = NPC.activeTime * 2;
 				this.npcSlots = 0.5f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.UndeadViking)
 			{
@@ -6096,8 +6096,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 200f;
-				this.buffImmune[31] = false;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.CorruptPenguin)
 			{
@@ -6111,7 +6111,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.IceElemental)
 			{
@@ -6127,11 +6127,11 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.soundKilled = 7;
 				this.value = 1500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
-				this.buffImmune[44] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.Frostburn] = true;
 				this.coldDamage = true;
 			}
 			else if (this.type == NPCID.PigronCorruption)
@@ -6147,7 +6147,7 @@ namespace Terraria
 				this.soundKilled = 30;
 				this.knockBackResist = 0.5f;
 				this.value = 2000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.PigronHallow)
 			{
@@ -6162,7 +6162,7 @@ namespace Terraria
 				this.soundKilled = 30;
 				this.knockBackResist = 0.5f;
 				this.value = 2000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.RuneWizard)
 			{
@@ -6177,7 +6177,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 5000f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.rarity = 2;
 			}
 			else if (this.type == NPCID.Crimera)
@@ -6226,7 +6226,7 @@ namespace Terraria
 				this.knockBackResist = 0.25f;
 				this.soundKilled = 1;
 				this.value = 650f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.MossHornet)
 			{
@@ -6242,7 +6242,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 600f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.npcSlots = 1.5f;
 			}
 			else if (this.type == NPCID.Derpling)
@@ -6287,9 +6287,9 @@ namespace Terraria
 				this.soundHit = 4;
 				this.soundKilled = 6;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.4f;
 			}
 			else if (this.type == NPCID.PigronCrimson)
@@ -6305,7 +6305,7 @@ namespace Terraria
 				this.soundKilled = 30;
 				this.knockBackResist = 0.5f;
 				this.value = 4000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.FaceMonster)
 			{
@@ -6320,8 +6320,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 200f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.FloatyGross)
 			{
@@ -6338,9 +6338,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.alpha = 100;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.7f;
 			}
 			else if (this.type == NPCID.Crimslime)
@@ -6357,8 +6357,8 @@ namespace Terraria
 				this.alpha = 55;
 				this.value = 400f;
 				this.scale = 1.1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.SpikedIceSlime)
 			{
@@ -6374,8 +6374,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.alpha = 50;
 				this.value = 200f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.coldDamage = true;
 			}
 			else if (this.type == NPCID.SnowFlinx)
@@ -6391,8 +6391,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 1.1f;
 				this.value = 200f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.coldDamage = true;
 			}
 			else if (this.type == NPCID.PincushionZombie)
@@ -6409,7 +6409,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 65f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.SlimedZombie)
 			{
@@ -6425,7 +6425,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 55f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.SwampZombie)
 			{
@@ -6441,7 +6441,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 80f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.TwiggyZombie)
 			{
@@ -6457,7 +6457,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 70f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.CataractEye)
 			{
@@ -6473,7 +6473,7 @@ namespace Terraria
 				this.knockBackResist = 0.7f;
 				this.soundKilled = 1;
 				this.value = 75f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.SleepyEye)
 			{
@@ -6489,7 +6489,7 @@ namespace Terraria
 				this.knockBackResist = 0.85f;
 				this.soundKilled = 1;
 				this.value = 75f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.DialatedEye)
 			{
@@ -6505,7 +6505,7 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 75f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.GreenEye)
 			{
@@ -6521,7 +6521,7 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 75f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.PurpleEye)
 			{
@@ -6537,7 +6537,7 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 75f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.LostGirl)
 			{
@@ -6566,7 +6566,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 10000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 1;
 			}
 			else if (this.type == NPCID.ArmoredViking)
@@ -6582,8 +6582,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Lihzahrd)
 			{
@@ -6598,8 +6598,8 @@ namespace Terraria
 				this.soundKilled = 29;
 				this.knockBackResist = 0.4f;
 				this.value = 650f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.LihzahrdCrawler)
 			{
@@ -6614,8 +6614,8 @@ namespace Terraria
 				this.soundKilled = 29;
 				this.knockBackResist = 0f;
 				this.value = 650f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.FemaleZombie)
 			{
@@ -6631,7 +6631,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 65f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.HeadacheSkeleton)
 			{
@@ -6647,8 +6647,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.MisassembledSkeleton)
 			{
@@ -6664,8 +6664,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 120f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.PantlessSkeleton)
 			{
@@ -6681,8 +6681,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 110f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.SpikedJungleSlime)
 			{
@@ -6698,8 +6698,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.alpha = 50;
 				this.value = 300f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Moth)
 			{
@@ -6715,7 +6715,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 600f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.rarity = 2;
 			}
 			else if (this.type == NPCID.IcyMerman)
@@ -6731,7 +6731,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.coldDamage = true;
 			}
 			else if (this.type == NPCID.DyeTrader)
@@ -6792,7 +6792,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.soundKilled = 1;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.BeeSmall)
 			{
@@ -6807,7 +6807,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.soundKilled = 1;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.PirateDeckhand)
 			{
@@ -6822,8 +6822,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.value = 700f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.PirateCorsair)
 			{
@@ -6838,8 +6838,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.PirateDeadeye)
 			{
@@ -6854,8 +6854,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.PirateCrossbower)
 			{
@@ -6870,8 +6870,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.35f;
 				this.value = 1500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.PirateCaptain)
 			{
@@ -6886,8 +6886,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.value = 50000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = true;
 			}
 			else if (this.type == NPCID.CochinealBeetle)
 			{
@@ -6988,7 +6988,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 70f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.FlyingFish)
 			{
@@ -7003,7 +7003,7 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 90f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			if (this.type == NPCID.UmbrellaSlime)
 			{
@@ -7018,8 +7018,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.75f;
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.FlyingSnake)
 			{
@@ -7035,7 +7035,7 @@ namespace Terraria
 				this.knockBackResist = 0.65f;
 				this.soundKilled = 26;
 				this.value = 400f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Painter)
 			{
@@ -7109,7 +7109,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.HornetHoney)
 			{
@@ -7125,7 +7125,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.HornetLeafy)
 			{
@@ -7141,7 +7141,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.HornetSpikey)
 			{
@@ -7157,7 +7157,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.HornetStingy)
 			{
@@ -7173,7 +7173,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.JungleCreeper)
 			{
@@ -7190,7 +7190,7 @@ namespace Terraria
 				this.value = 1000f;
 				this.timeLeft = NPC.activeTime * 2;
 				this.npcSlots = 0.75f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.JungleCreeperWall)
 			{
@@ -7208,7 +7208,7 @@ namespace Terraria
 				this.value = 1000f;
 				this.timeLeft = NPC.activeTime * 2;
 				this.npcSlots = 0.75f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.BloodCrawler)
 			{
@@ -7224,7 +7224,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 130f;
 				this.timeLeft = NPC.activeTime * 2;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.BloodCrawlerWall)
 			{
@@ -7241,7 +7241,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 130f;
 				this.timeLeft = NPC.activeTime * 2;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.BloodFeeder)
 			{
@@ -7286,8 +7286,8 @@ namespace Terraria
 				this.soundKilled = 7;
 				this.knockBackResist = 0.05f;
 				this.value = (float)Item.buyPrice(0, 1, 50, 0);
-				this.buffImmune[20] = true;
-				this.buffImmune[44] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Frostburn] = true;
 				this.coldDamage = true;
 				this.rarity = 2;
 			}
@@ -7305,8 +7305,8 @@ namespace Terraria
 				this.alpha = 175;
 				this.value = (float)Item.buyPrice(0, 0, 20, 0);
 				this.knockBackResist = 0.3f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 1;
 			}
 			else if (this.type == NPCID.Golem)
@@ -7324,8 +7324,8 @@ namespace Terraria
 				this.value = (float)Item.buyPrice(0, 15, 0, 0);
 				this.alpha = 255;
 				this.boss = true;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
 			else if (this.type == NPCID.GolemHead)
 			{
@@ -7341,8 +7341,8 @@ namespace Terraria
 				this.soundKilled = 0;
 				this.knockBackResist = 0f;
 				this.alpha = 255;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
 			else if (this.type == NPCID.GolemFistLeft || this.type == NPCID.GolemFistRight)
 			{
@@ -7357,8 +7357,8 @@ namespace Terraria
 				this.soundHit = 4;
 				this.soundKilled = 14;
 				this.alpha = 255;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
 			else if (this.type == NPCID.GolemHeadFree)
 			{
@@ -7374,8 +7374,8 @@ namespace Terraria
 				this.soundKilled = 14;
 				this.knockBackResist = 0f;
 				this.dontTakeDamage = true;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
 			else if (this.type == NPCID.AngryNimbus)
 			{
@@ -7390,7 +7390,7 @@ namespace Terraria
 				this.soundKilled = 33;
 				this.knockBackResist = 0.3f;
 				this.value = 300f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.Eyezor)
 			{
@@ -7405,7 +7405,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = (float)Item.buyPrice(0, 0, 50, 0);
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Parrot)
 			{
@@ -7422,7 +7422,7 @@ namespace Terraria
 				this.knockBackResist = 0.7f;
 				this.soundKilled = 48;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ZombieMushroom)
 			{
@@ -7437,7 +7437,7 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ZombieMushroomHat)
 			{
@@ -7452,7 +7452,7 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.3f;
 				this.value = 1200f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.FungoFish)
 			{
@@ -7483,7 +7483,7 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.3f;
 				this.value = 1300f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.3f;
 			}
 			else if (this.type == NPCID.MushiLadybug)
@@ -7499,7 +7499,7 @@ namespace Terraria
 				this.soundKilled = 47;
 				this.knockBackResist = 0.3f;
 				this.value = 1500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.3f;
 			}
 			else if (this.type == NPCID.FungiBulb)
@@ -7517,7 +7517,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.soundKilled = 1;
 				this.value = 350f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.npcSlots = 0.3f;
 			}
 			else if (this.type == NPCID.GiantFungiBulb)
@@ -7535,7 +7535,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.soundKilled = 1;
 				this.value = 1250f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.npcSlots = 0.3f;
 			}
 			else if (this.type == NPCID.FungiSpore)
@@ -7571,7 +7571,7 @@ namespace Terraria
 				this.noGravity = true;
 				this.boss = true;
 				this.npcSlots = 16f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.PlanterasHook)
 			{
@@ -7587,7 +7587,7 @@ namespace Terraria
 				this.dontTakeDamage = true;
 				this.soundHit = 1;
 				this.soundKilled = 1;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.PlanterasTentacle)
 			{
@@ -7602,7 +7602,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.Spore)
 			{
@@ -7669,8 +7669,8 @@ namespace Terraria
 				this.soundKilled = 19;
 				this.knockBackResist = 0.6f;
 				this.value = 450f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.RustyArmoredBonesAxe)
 			{
@@ -7685,8 +7685,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.RustyArmoredBonesFlail)
 			{
@@ -7701,8 +7701,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.RustyArmoredBonesSword)
 			{
@@ -7717,8 +7717,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.25f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.RustyArmoredBonesSwordNoArmor)
 			{
@@ -7733,8 +7733,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.35f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.BlueArmoredBones)
 			{
@@ -7749,8 +7749,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.15f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.BlueArmoredBonesMace)
 			{
@@ -7765,8 +7765,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.BlueArmoredBonesNoPants)
 			{
@@ -7781,8 +7781,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.15f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.BlueArmoredBonesSword)
 			{
@@ -7797,8 +7797,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.HellArmoredBones)
 			{
@@ -7813,9 +7813,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.HellArmoredBonesSpikeShield)
 			{
@@ -7830,9 +7830,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.HellArmoredBonesMace)
 			{
@@ -7847,9 +7847,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.HellArmoredBonesSword)
 			{
@@ -7864,9 +7864,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.RaggedCaster)
 			{
@@ -7882,7 +7882,7 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.RaggedCasterOpenCoat)
 			{
@@ -7898,7 +7898,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.Necromancer)
 			{
@@ -7914,7 +7914,7 @@ namespace Terraria
 				this.knockBackResist = 0.55f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.NecromancerArmored)
 			{
@@ -7930,7 +7930,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.DiabolistRed)
 			{
@@ -7946,7 +7946,7 @@ namespace Terraria
 				this.knockBackResist = 0.7f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.DiabolistWhite)
 			{
@@ -7962,7 +7962,7 @@ namespace Terraria
 				this.knockBackResist = 0.65f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.BoneLee)
 			{
@@ -7977,8 +7977,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 2000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 1;
 			}
 			else if (this.type == NPCID.DungeonSpirit)
@@ -8014,9 +8014,9 @@ namespace Terraria
 				this.value = 150f;
 				this.knockBackResist = 0.2f;
 				this.npcSlots = 0.75f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.Paladin)
 			{
@@ -8031,8 +8031,8 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0f;
 				this.value = 50000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = true;
 				this.rarity = 1;
 			}
 			else if (this.type == NPCID.SkeletonSniper)
@@ -8048,8 +8048,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 2;
 			}
 			else if (this.type == NPCID.TacticalSkeleton)
@@ -8065,8 +8065,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 2;
 			}
 			else if (this.type == NPCID.SkeletonCommando)
@@ -8082,8 +8082,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 2;
 			}
 			else if (this.type == NPCID.AngryBonesBig)
@@ -8099,8 +8099,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.9f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.AngryBonesBigMuscle)
 			{
@@ -8115,8 +8115,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.7f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.AngryBonesBigHelmet)
 			{
@@ -8131,8 +8131,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Squirrel)
 			{
@@ -8187,8 +8187,8 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.HoppinJack)
 			{
@@ -8203,8 +8203,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 500f;
 				this.scale = 1.1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.knockBackResist = 0.5f;
 				this.npcSlots = 0.3f;
 			}
@@ -8217,7 +8217,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 6;
 				this.value = 1200f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
 				if (this.type == NPCID.Scarecrow1 || this.type == NPCID.Scarecrow6)
 				{
@@ -8305,7 +8305,7 @@ namespace Terraria
 				this.knockBackResist = 0.7f;
 				this.soundKilled = 1;
 				this.value = 100f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.DemonEyeSpaceship)
 			{
@@ -8320,7 +8320,7 @@ namespace Terraria
 				this.knockBackResist = 0.65f;
 				this.soundKilled = 1;
 				this.value = 100f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ZombieDoctor)
 			{
@@ -8335,7 +8335,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 85f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.scale = 0.9f;
 			}
 			else if (this.type == NPCID.ZombieSuperman)
@@ -8351,7 +8351,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 105f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.scale = 1.05f;
 			}
 			else if (this.type == NPCID.ZombiePixie)
@@ -8367,7 +8367,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 120f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.scale = 1.1f;
 			}
 			else if (this.type == NPCID.SkeletonTopHat)
@@ -8383,8 +8383,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.65f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.SkeletonAstonaut)
 			{
@@ -8399,8 +8399,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 120f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.SkeletonAlien)
 			{
@@ -8415,8 +8415,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.scale = 1.05f;
 			}
 			else if (this.type == NPCID.MourningWood)
@@ -8447,8 +8447,8 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.2f;
 				this.value = 2000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Pumpking)
 			{
@@ -8531,7 +8531,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 60f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ZombieSweater)
 			{
@@ -8546,7 +8546,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 60f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			if (this.type == NPCID.SlimeRibbonWhite)
 			{
@@ -8560,8 +8560,8 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			if (this.type == NPCID.SlimeRibbonYellow)
 			{
@@ -8576,8 +8576,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.scale = 0.9f;
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			if (this.type == NPCID.SlimeRibbonGreen)
 			{
@@ -8592,8 +8592,8 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			if (this.type == NPCID.SlimeRibbonRed)
 			{
@@ -8608,8 +8608,8 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type >= NPCID.ZombieElf && this.type <= NPCID.ZombieElfGirl)
 			{
@@ -8620,7 +8620,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 1200f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
 				if (this.type == NPCID.ZombieElf)
 				{
@@ -8659,9 +8659,9 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.value = (float)Item.buyPrice(0, 0, 20, 0);
 				this.knockBackResist = 0.25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.GingerbreadMan)
 			{
@@ -8676,8 +8676,8 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.2f;
 				this.value = 1800f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Yeti)
 			{
@@ -8692,7 +8692,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.value = 3000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 2f;
 			}
 			else if (this.type == NPCID.Everscream)
@@ -8708,7 +8708,7 @@ namespace Terraria
 				this.soundKilled = 5;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.npcSlots = 3f;
 			}
 			else if (this.type == NPCID.IceQueen)
@@ -8724,7 +8724,7 @@ namespace Terraria
 				this.soundKilled = 5;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.noTileCollide = true;
 				this.noGravity = true;
 				this.npcSlots = 5f;
@@ -8743,7 +8743,7 @@ namespace Terraria
 				this.soundKilled = 14;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.npcSlots = 4f;
 			}
 			else if (this.type == NPCID.ElfCopter)
@@ -8776,7 +8776,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.value = 1500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 1.5f;
 			}
 			else if (this.type == NPCID.NutcrackerSpinning)
@@ -8792,7 +8792,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.1f;
 				this.value = 1500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 1.5f;
 			}
 			else if (this.type == NPCID.ElfArcher)
@@ -8808,8 +8808,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.45f;
 				this.value = 900f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Krampus)
 			{
@@ -8824,8 +8824,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.1f;
 				this.value = 3000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 1.75f;
 			}
 			else if (this.type == NPCID.Flocko)
@@ -8840,9 +8840,9 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 6;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.4f;
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -9097,10 +9097,10 @@ namespace Terraria
 				this.boss = true;
 				this.netAlways = true;
 				this.timeLeft = NPC.activeTime * 30;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[31] = true;
-				this.buffImmune[44] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.Confused] = true;
+				this.buffImmune[BuffID.Frostburn] = true;
 			}
 			else if (this.type == NPCID.DetonatingBubble)
 			{
@@ -9273,7 +9273,7 @@ namespace Terraria
 				this.soundKilled = 45;
 				this.value = 1200f;
 				this.knockBackResist = 0.25f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.ForceBubble)
 			{
@@ -9331,7 +9331,7 @@ namespace Terraria
 				this.soundHit = 53;
 				this.soundKilled = 56;
 				this.knockBackResist = 0f;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Confused] = true;
 				this.canGhostHeal = false;
 			}
 			else if (this.type == NPCID.MartianDrone)
@@ -9792,8 +9792,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 100f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.BoneThrowingSkeleton2)
 			{
@@ -9809,8 +9809,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.BoneThrowingSkeleton3)
 			{
@@ -9826,8 +9826,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 120f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.BoneThrowingSkeleton4)
 			{
@@ -9843,8 +9843,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 110f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.SkeletonMerchant)
 			{
@@ -9939,7 +9939,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.CrimsonGoldfish)
 			{
@@ -9967,7 +9967,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.BigMimicCorruption || this.type == NPCID.BigMimicCrimson || this.type == NPCID.BigMimicHallow || this.type == NPCID.BigMimicJungle)
 			{
@@ -9982,9 +9982,9 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.value = 30000f;
 				this.knockBackResist = 0.1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.rarity = 2;
 			}
 			else if (this.type == NPCID.Medusa)
@@ -10014,8 +10014,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 300f;
-				this.buffImmune[31] = false;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.GraniteGolem)
 			{
@@ -10030,8 +10030,8 @@ namespace Terraria
 				this.soundKilled = 44;
 				this.knockBackResist = 0.35f;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
 			else if (this.type == NPCID.GraniteFlyer)
 			{
@@ -10047,8 +10047,8 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.soundKilled = 6;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
 			else if (this.type >= NPCID.EnchantedNightcrawler && this.type <= NPCID.Buggy)
 			{
@@ -10094,7 +10094,7 @@ namespace Terraria
 				this.soundKilled = 21;
 				this.knockBackResist = 0.4f;
 				this.value = 150f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Drippler)
 			{
@@ -10110,7 +10110,7 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.soundKilled = 22;
 				this.value = 150f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.PirateShip)
 			{
@@ -10190,7 +10190,7 @@ namespace Terraria
 				this.soundKilled = 53;
 				this.knockBackResist = 0.45f;
 				this.value = 120f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.TaxCollector)
 			{
@@ -10342,7 +10342,7 @@ namespace Terraria
 				this.soundKilled = 34;
 				this.knockBackResist = 0.2f;
 				this.value = 80f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.8f;
 			}
 			else if (this.type == NPCID.FlyingAntlion)
@@ -10358,7 +10358,7 @@ namespace Terraria
 				this.soundHit = 32;
 				this.soundKilled = 35;
 				this.value = 90f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.8f;
 			}
 			else if (this.type >= NPCID.DesertGhoul && this.type <= NPCID.DesertGhoulHallow)
@@ -10374,7 +10374,7 @@ namespace Terraria
 				this.soundKilled = 40;
 				this.knockBackResist = 0.6f;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
 				switch (this.type - 524)
 				{
@@ -10414,7 +10414,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.35f;
 				this.value = 600f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.DesertScorpionWalk)
 			{
@@ -10430,8 +10430,8 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 600f;
 				this.timeLeft = NPC.activeTime * 2;
-				this.buffImmune[20] = true;
-				this.buffImmune[70] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Venom] = true;
 			}
 			else if (this.type == NPCID.DesertScorpionWall)
 			{
@@ -10448,8 +10448,8 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 600f;
 				this.timeLeft = NPC.activeTime * 2;
-				this.buffImmune[20] = true;
-				this.buffImmune[70] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Venom] = true;
 			}
 			else if (this.type == NPCID.DesertBeast)
 			{
@@ -10464,7 +10464,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 800f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.75f;
 			}
 			else if (this.type == NPCID.DesertDjinn)
@@ -10535,7 +10535,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.noGravity = true;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Confused] = true;
 				this.npcSlots = 2f;
 			}
 			else if (this.type == NPCID.StardustCellSmall)
@@ -10551,7 +10551,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.noGravity = true;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Confused] = true;
 			}
 			else if (this.type == NPCID.StardustSoldier)
 			{
@@ -10565,7 +10565,7 @@ namespace Terraria
 				this.soundHit = 6;
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.StardustSpiderBig)
 			{
@@ -10579,7 +10579,7 @@ namespace Terraria
 				this.soundHit = 6;
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 3f;
 			}
 			else if (this.type == NPCID.StardustSpiderSmall)
@@ -10594,7 +10594,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 5;
 				this.knockBackResist = 0.3f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
 			}
 			else if (this.type == NPCID.StardustJellyfishBig)
@@ -10610,7 +10610,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.noGravity = true;
 				this.knockBackResist = 0.03f;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Confused] = true;
 				this.npcSlots = 3f;
 			}
 			else if (this.type == NPCID.LunarTowerNebula)
@@ -10659,7 +10659,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.noGravity = true;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Confused] = true;
 				this.npcSlots = 1f;
 			}
 			else if (this.type == NPCID.NebulaSoldier)
@@ -10674,7 +10674,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 5;
 				this.knockBackResist = 0.6f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 2f;
 			}
 			else if (this.type == NPCID.NebulaBrain)
@@ -10723,7 +10723,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.VortexSoldier)
 			{
@@ -10737,7 +10737,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 5;
 				this.knockBackResist = 0.6f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 2f;
 			}
 			else if (this.type == NPCID.VortexLarva)
@@ -10764,7 +10764,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 6;
 				this.knockBackResist = 0.5f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
 			}
 			else if (this.type == NPCID.VortexHornetQueen)
@@ -10779,7 +10779,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 6;
 				this.knockBackResist = 0.3f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.LunarTowerSolar)
 			{
@@ -10922,9 +10922,9 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0.2f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
 			else if (this.type == NPCID.SolarSolenian)
 			{
@@ -10984,7 +10984,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 600f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.SwampThing)
 			{
@@ -10999,8 +10999,8 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.Reaper)
 			{
@@ -11017,9 +11017,9 @@ namespace Terraria
 				this.soundKilled = 51;
 				this.alpha = 100;
 				this.value = 1500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.6f;
 			}
 			else if (this.type == NPCID.VampireBat)
@@ -11036,7 +11036,7 @@ namespace Terraria
 				this.knockBackResist = 0.75f;
 				this.soundKilled = 6;
 				this.value = 5000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Vampire)
 			{
@@ -11052,7 +11052,7 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.value = 5000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.Butcher)
 			{
@@ -11067,7 +11067,7 @@ namespace Terraria
 				this.soundKilled = 17;
 				this.knockBackResist = 0.25f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.CreatureFromTheDeep)
 			{
@@ -11096,7 +11096,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.7f;
 				this.value = 600f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
 			}
 			else if (this.type == NPCID.Nailhead)
@@ -11139,9 +11139,9 @@ namespace Terraria
 				this.soundHit = 34;
 				this.soundKilled = 37;
 				this.value = 900f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.7f;
 				this.noGravity = true;
 			}
@@ -11187,7 +11187,7 @@ namespace Terraria
 				this.soundKilled = 46;
 				this.value = 50000f;
 				this.knockBackResist = 0.2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
 			else if (this.type == NPCID.MothronEgg)
 			{
@@ -11234,7 +11234,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.8f;
 				this.value = 100f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.GoblinThief)
 			{
@@ -11250,7 +11250,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.7f;
 				this.value = 200f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.GoblinWarrior)
 			{
@@ -11266,7 +11266,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.value = 150f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.GoblinSorcerer)
 			{
@@ -11312,7 +11312,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.7f;
 				this.value = 200f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.GoblinSummoner)
 			{
@@ -11357,8 +11357,8 @@ namespace Terraria
 				this.soundHit = 4;
 				this.soundKilled = 14;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
 			else if (this.type == NPCID.AncientCultistSquidhead)
 			{
@@ -11423,7 +11423,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 0f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.lavaImmune = true;
 				this.netAlways = true;
 				this.rarity = 1;
@@ -11442,8 +11442,8 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.alpha = 0;
 				this.value = 40f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.TheBride)
 			{
@@ -11458,7 +11458,7 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 2;
 			}
 			else if (this.type == NPCID.SandSlime)
@@ -11477,8 +11477,8 @@ namespace Terraria
 				this.color = new Color(255, 250, 0, 0) * 0.2f;
 				this.value = 75f;
 				this.knockBackResist = 0.6f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
 			else if (this.type == NPCID.SquirrelRed)
 			{
@@ -11548,13 +11548,13 @@ namespace Terraria
 				this.width = (int)((float)this.width * this.scale);
 				this.height = (int)((float)this.height * this.scale);
 			}
-			if (this.buffImmune[20])
+			if (this.buffImmune[BuffID.Poisoned])
 			{
-				this.buffImmune[70] = true;
+				this.buffImmune[BuffID.Venom] = true;
 			}
-			if (this.buffImmune[39])
+			if (this.buffImmune[BuffID.CursedInferno])
 			{
-				this.buffImmune[153] = true;
+				this.buffImmune[BuffID.ShadowFlame] = true;
 			}
 			this.life = this.lifeMax;
 			this.defDamage = this.damage;
@@ -13292,12 +13292,12 @@ namespace Terraria
 							{
 								Player player = Main.player[Main.myPlayer];
 								int arg_44C1_0 = Main.myPlayer;
-								if (!player.dead && player.active && player.HasBuff(156) == -1 && (player.Center - base.Center).Length() < 700f && ((player.Center.X < base.Center.X && this.direction < 0 && player.direction > 0) || (player.Center.X > base.Center.X && this.direction > 0 && player.direction < 0)))
+								if (!player.dead && player.active && player.HasBuff(BuffID.Stoned) == -1 && (player.Center - base.Center).Length() < 700f && ((player.Center.X < base.Center.X && this.direction < 0 && player.direction > 0) || (player.Center.X > base.Center.X && this.direction > 0 && player.direction < 0)))
 								{
 									bool flag3 = Collision.CanHitLine(base.Center, 1, 1, player.Center, 1, 1) || Collision.CanHitLine(base.Center - Vector2.UnitY * 16f, 1, 1, player.Center, 1, 1) || Collision.CanHitLine(base.Center + Vector2.UnitY * 8f, 1, 1, player.Center, 1, 1);
 									if (flag3)
 									{
-										player.AddBuff(156, num40 + (int)this.ai[2] * -1, true);
+										player.AddBuff(BuffID.Stoned, num40 + (int)this.ai[2] * -1, true);
 									}
 								}
 							}
@@ -20829,7 +20829,7 @@ namespace Terraria
 						for (int num449 = 0; num449 < 200; num449++)
 						{
 							NPC nPC3 = Main.npc[num449];
-							if (nPC3.active && nPC3.townNPC && base.Distance(nPC3.Center) <= 1200f && nPC3.HasBuff(165) == -1)
+							if (nPC3.active && nPC3.townNPC && base.Distance(nPC3.Center) <= 1200f && nPC3.HasBuff(BuffID.DryadsWard) == -1)
 							{
 								flag56 = true;
 								break;
@@ -38225,7 +38225,7 @@ namespace Terraria
 													for (int num1675 = 0; num1675 < 1000; num1675++)
 													{
 														Projectile projectile5 = Main.projectile[num1675];
-														if (projectile5.active && projectile5.type == 456 && Main.player[(int)projectile5.ai[1]].HasBuff(145) != -1)
+														if (projectile5.active && projectile5.type == 456 && Main.player[(int)projectile5.ai[1]].HasBuff(BuffID.MoonLeech) != -1)
 														{
 															Vector2 center23 = Main.player[this.target].Center;
 															int num1676 = NPC.NewNPC((int)center23.X, (int)center23.Y, 401, 0, 0f, 0f, 0f, 0f, 255);
@@ -38337,7 +38337,7 @@ namespace Terraria
 												for (int num1687 = 0; num1687 < 1000; num1687++)
 												{
 													Projectile projectile6 = Main.projectile[num1687];
-													if (projectile6.active && projectile6.type == 456 && Main.player[(int)projectile6.ai[1]].HasBuff(145) != -1)
+													if (projectile6.active && projectile6.type == 456 && Main.player[(int)projectile6.ai[1]].HasBuff(BuffID.MoonLeech) != -1)
 													{
 														Vector2 center25 = Main.player[this.target].Center;
 														int num1688 = NPC.NewNPC((int)center25.X, (int)center25.Y, 401, 0, 0f, 0f, 0f, 0f, 255);
@@ -40494,7 +40494,7 @@ namespace Terraria
 														base.Center = ((player12.gravDir == 1f) ? player12.Top : player12.Bottom) + new Vector2((float)(player12.direction * 4), 0f);
 														this.gfxOffY = player12.gfxOffY;
 														this.velocity = Vector2.Zero;
-														player12.AddBuff(163, 59, true);
+														player12.AddBuff(BuffID.Obstructed, 59, true);
 													}
 												}
 												if (this.type == NPCID.StardustCellBig)
@@ -60405,7 +60405,7 @@ namespace Terraria
 						NPC nPC = Main.npc[j];
 						if (nPC.active && !nPC.buffImmune[189] && base.Distance(nPC.Center) < 100f && !nPC.dontTakeDamage && nPC.lifeMax > 5 && !nPC.friendly && !nPC.townNPC)
 						{
-							nPC.AddBuff(189, 300, false);
+							nPC.AddBuff(BuffID.Daybreak, 300, false);
 						}
 					}
 				}
@@ -61829,79 +61829,79 @@ namespace Terraria
 					if (this.buffType[k] > 0 && this.buffTime[k] > 0)
 					{
 						this.buffTime[k]--;
-						if (this.buffType[k] == 20)
+						if (this.buffType[k] == BuffID.Poisoned)
 						{
 							this.poisoned = true;
 						}
-						if (this.buffType[k] == 70)
+						if (this.buffType[k] == BuffID.Venom)
 						{
 							this.venom = true;
 						}
-						if (this.buffType[k] == 24)
+						if (this.buffType[k] == BuffID.OnFire)
 						{
 							this.onFire = true;
 						}
-						if (this.buffType[k] == 72)
+						if (this.buffType[k] == BuffID.Midas)
 						{
 							this.midas = true;
 						}
-						if (this.buffType[k] == 69)
+						if (this.buffType[k] == BuffID.Ichor)
 						{
 							this.ichor = true;
 						}
-						if (this.buffType[k] == 31)
+						if (this.buffType[k] == BuffID.Confused)
 						{
 							this.confused = true;
 						}
-						if (this.buffType[k] == 39)
+						if (this.buffType[k] == BuffID.CursedInferno)
 						{
 							this.onFire2 = true;
 						}
-						if (this.buffType[k] == 44)
+						if (this.buffType[k] == BuffID.Frostburn)
 						{
 							this.onFrostBurn = true;
 						}
-						if (this.buffType[k] == 103)
+						if (this.buffType[k] == BuffID.Wet)
 						{
 							this.dripping = true;
 						}
-						if (this.buffType[k] == 137)
+						if (this.buffType[k] == BuffID.Slimed)
 						{
 							this.drippingSlime = true;
 						}
-						if (this.buffType[k] == 119)
+						if (this.buffType[k] == BuffID.Lovestruck)
 						{
 							this.loveStruck = true;
 						}
-						if (this.buffType[k] == 120)
+						if (this.buffType[k] == BuffID.Stinky)
 						{
 							this.stinky = true;
 						}
-						if (this.buffType[k] == 151)
+						if (this.buffType[k] == BuffID.SoulDrain)
 						{
 							this.soulDrain = true;
 						}
-						if (this.buffType[k] == 153)
+						if (this.buffType[k] == BuffID.ShadowFlame)
 						{
 							this.shadowFlame = true;
 						}
-						if (this.buffType[k] == 165)
+						if (this.buffType[k] == BuffID.DryadsWard)
 						{
 							this.dryadWard = true;
 						}
-						if (this.buffType[k] == 169)
+						if (this.buffType[k] == BuffID.BoneJavelin)
 						{
 							this.javelined = true;
 						}
-						if (this.buffType[k] == 183)
+						if (this.buffType[k] == BuffID.StardustMinionBleed)
 						{
 							this.celled = true;
 						}
-						if (this.buffType[k] == 186)
+						if (this.buffType[k] == BuffID.DryadsWardDebuff)
 						{
 							this.dryadBane = true;
 						}
-						if (this.buffType[k] == 189)
+						if (this.buffType[k] == BuffID.Daybreak)
 						{
 							this.daybreak = true;
 						}
@@ -62466,7 +62466,7 @@ namespace Terraria
 						this.lavaWet = true;
 						if (!this.lavaImmune && !this.dontTakeDamage && Main.netMode != 1 && this.immune[255] == 0)
 						{
-							this.AddBuff(24, 420, false);
+							this.AddBuff(BuffID.OnFire, 420, false);
 							this.immune[255] = 30;
 							this.StrikeNPCNoInteraction(50, 0f, 0, false, false, false);
 							if (Main.netMode == 2 && Main.netMode != 0)
@@ -62496,7 +62496,7 @@ namespace Terraria
 						{
 							for (int num44 = 0; num44 < 5; num44++)
 							{
-								if (this.buffType[num44] == 24)
+								if (this.buffType[num44] == BuffID.OnFire)
 								{
 									this.DelBuff(num44);
 								}

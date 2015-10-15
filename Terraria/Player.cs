@@ -511,7 +511,7 @@ namespace Terraria
 
 		public int[] buffTime = new int[22];
 
-		public bool[] buffImmune = new bool[191];
+		public bool[] buffImmune = new bool[BuffID.Count];
 
 		public int heldProj = -1;
 
@@ -2914,14 +2914,14 @@ namespace Terraria
 			player.solarShields = player.solarShields - 1;
 			for (int i = 0; i < 22; i++)
 			{
-				if (this.buffType[i] >= 170 && this.buffType[i] <= 172)
+				if (this.buffType[i] >= BuffID.SolarShield1 && this.buffType[i] <= BuffID.SolarShield3)
 				{
 					this.DelBuff(i);
 				}
 			}
 			if (this.solarShields > 0)
 			{
-				this.AddBuff(170 + this.solarShields - 1, 5, false);
+				this.AddBuff(BuffID.SolarShield1 + this.solarShields - 1, 5, false);
 			}
 			this.solarCounter = 0;
 			return true;
@@ -5926,7 +5926,7 @@ namespace Terraria
 			}
 			if (this.whoAmI == Main.myPlayer && this.panic)
 			{
-				this.AddBuff(63, 300, true);
+				this.AddBuff(BuffID.Panic, 300, true);
 			}
 			this.stealth = 1f;
 			if (Main.netMode == 1)
@@ -5945,7 +5945,7 @@ namespace Terraria
 				{
 					for (int i = 0; i < 22; i++)
 					{
-						if (this.buffType[i] == 10)
+						if (this.buffType[i] == BuffID.Invisibility)
 						{
 							this.DelBuff(i);
 						}
@@ -5977,14 +5977,14 @@ namespace Terraria
 					player.beetleOrbs = player.beetleOrbs - 1;
 					for (int j = 0; j < 22; j++)
 					{
-						if (this.buffType[j] >= 95 && this.buffType[j] <= 97)
+						if (this.buffType[j] >= BuffID.BeetleEndurance1 && this.buffType[j] <= BuffID.BeetleEndurance3)
 						{
 							this.DelBuff(j);
 						}
 					}
 					if (this.beetleOrbs > 0)
 					{
-						this.AddBuff(95 + this.beetleOrbs - 1, 5, false);
+						this.AddBuff(BuffID.BeetleEndurance1 + this.beetleOrbs - 1, 5, false);
 					}
 					this.beetleCounter = 0f;
 					if (num < 1)
@@ -6045,7 +6045,7 @@ namespace Terraria
 							if (single1 < single2)
 							{
 								float single3 = (float)Main.rand.Next(90 + (int)num / 3, 300 + (int)num / 2);
-								Main.npc[k].AddBuff(31, (int)single3, false);
+								Main.npc[k].AddBuff(BuffID.Confused, (int)single3, false);
 							}
 						}
 					}
@@ -6647,12 +6647,12 @@ namespace Terraria
 					else if (item.type != ItemID.RestorationPotion)
 					{
 						this.potionDelay = this.potionDelayTime;
-						this.AddBuff(21, this.potionDelay, true);
+						this.AddBuff(BuffID.PotionSickness, this.potionDelay, true);
 					}
 					else
 					{
 						this.potionDelay = this.restorationDelayTime;
-						this.AddBuff(21, this.potionDelay, true);
+						this.AddBuff(BuffID.PotionSickness, this.potionDelay, true);
 					}
 				}
 				if (item.mana > 0 && this.silence)
@@ -6740,7 +6740,7 @@ namespace Terraria
 					}
 					for (int q = 0; q < 22; q++)
 					{
-						if (this.buffType[q] == 27 || this.buffType[q] == 101 || this.buffType[q] == 102)
+						if (this.buffType[q] == BuffID.FairyBlue || this.buffType[q] == BuffID.FairyRed || this.buffType[q] == BuffID.FairyGreen)
 						{
 							this.DelBuff(q);
 							q--;
@@ -9406,7 +9406,7 @@ namespace Terraria
 								this.lifeRegenCount = 0;
 								this.lifeRegenTime = 0;
 							}
-							this.AddBuff(88, 360, true);
+							this.AddBuff(BuffID.ChaosState, 360, true);
 						}
 					}
 				}
@@ -9931,7 +9931,7 @@ namespace Terraria
 					this.itemTime = item.useTime;
 					if (Main.myPlayer == this.whoAmI)
 					{
-						this.AddBuff(94, Player.manaSickTime, true);
+						this.AddBuff(BuffID.ManaSickness, Player.manaSickTime, true);
 						this.ManaEffect(item.healMana);
 					}
 				}
@@ -9948,17 +9948,17 @@ namespace Terraria
 					this.itemTime = item.useTime;
 					if (this.whoAmI == Main.myPlayer)
 					{
-						this.AddBuff(20, 216000, true);
-						this.AddBuff(22, 216000, true);
-						this.AddBuff(23, 216000, true);
-						this.AddBuff(24, 216000, true);
-						this.AddBuff(30, 216000, true);
-						this.AddBuff(31, 216000, true);
-						this.AddBuff(32, 216000, true);
-						this.AddBuff(33, 216000, true);
-						this.AddBuff(35, 216000, true);
-						this.AddBuff(36, 216000, true);
-						this.AddBuff(68, 216000, true);
+						this.AddBuff(BuffID.Poisoned, 216000, true);
+						this.AddBuff(BuffID.Darkness, 216000, true);
+						this.AddBuff(BuffID.Cursed, 216000, true);
+						this.AddBuff(BuffID.OnFire, 216000, true);
+						this.AddBuff(BuffID.Bleeding, 216000, true);
+						this.AddBuff(BuffID.Confused, 216000, true);
+						this.AddBuff(BuffID.Slow, 216000, true);
+						this.AddBuff(BuffID.Weak, 216000, true);
+						this.AddBuff(BuffID.Silenced, 216000, true);
+						this.AddBuff(BuffID.BrokenArmor, 216000, true);
+						this.AddBuff(BuffID.Suffocation, 216000, true);
 					}
 				}
 			}
@@ -11539,11 +11539,11 @@ namespace Terraria
 				{
 					this.shadowDodgeTimer = 1800;
 				}
-				this.AddBuff(59, 1800, true);
+				this.AddBuff(BuffID.ShadowDodge, 1800, true);
 			}
 			if (this.onHitRegen)
 			{
-				this.AddBuff(58, 300, true);
+				this.AddBuff(BuffID.RapidHealing, 300, true);
 			}
 			if (this.stardustMinion && victim is NPC)
 			{
@@ -16391,7 +16391,7 @@ namespace Terraria
 					int num2 = 0;
 					while (num2 < 22)
 					{
-						if (num1 == 27 && (this.buffType[num2] == num1 || this.buffType[num2] == 101 || this.buffType[num2] == 102))
+						if (num1 == 27 && (this.buffType[num2] == num1 || this.buffType[num2] == BuffID.FairyRed || this.buffType[num2] == BuffID.FairyGreen))
 						{
 							flag = false;
 							break;
@@ -16783,12 +16783,12 @@ namespace Terraria
 				if (item.type != ItemID.RestorationPotion)
 				{
 					this.potionDelay = this.potionDelayTime;
-					this.AddBuff(21, this.potionDelay, true);
+					this.AddBuff(BuffID.PotionSickness, this.potionDelay, true);
 				}
 				else
 				{
 					this.potionDelay = this.restorationDelayTime;
-					this.AddBuff(21, this.potionDelay, true);
+					this.AddBuff(BuffID.PotionSickness, this.potionDelay, true);
 				}
 			}
 			Player player = this;
@@ -16840,12 +16840,12 @@ namespace Terraria
 						if (this.inventory[i].type != 227)
 						{
 							this.potionDelay = this.potionDelayTime;
-							this.AddBuff(21, this.potionDelay, true);
+							this.AddBuff(BuffID.PotionSickness, this.potionDelay, true);
 						}
 						else
 						{
 							this.potionDelay = this.restorationDelayTime;
-							this.AddBuff(21, this.potionDelay, true);
+							this.AddBuff(BuffID.PotionSickness, this.potionDelay, true);
 						}
 					}
 					Player player = this;
@@ -16866,7 +16866,7 @@ namespace Terraria
 					}
 					if (this.inventory[i].healMana > 0)
 					{
-						this.AddBuff(94, Player.manaSickTime, true);
+						this.AddBuff(BuffID.ManaSickness, Player.manaSickTime, true);
 						if (Main.myPlayer == this.whoAmI)
 						{
 							this.ManaEffect(this.inventory[i].healMana);
@@ -17880,7 +17880,7 @@ namespace Terraria
 			{
 				for (int i = 0; i < 22; i++)
 				{
-					if (this.buffTime[i] > 0 && this.buffType[i] == 59)
+					if (this.buffTime[i] > 0 && this.buffType[i] == BuffID.ShadowDodge)
 					{
 						this.DelBuff(i);
 					}
@@ -20322,61 +20322,61 @@ namespace Terraria
 			{
 				if (this.meleeEnchant == 1)
 				{
-					Main.npc[i].AddBuff(70, 60 * Main.rand.Next(5, 10), false);
+					Main.npc[i].AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10), false);
 				}
 				if (this.meleeEnchant == 2)
 				{
-					Main.npc[i].AddBuff(39, 60 * Main.rand.Next(3, 7), false);
+					Main.npc[i].AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7), false);
 				}
 				if (this.meleeEnchant == 3)
 				{
-					Main.npc[i].AddBuff(24, 60 * Main.rand.Next(3, 7), false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), false);
 				}
 				if (this.meleeEnchant == 5)
 				{
-					Main.npc[i].AddBuff(69, 60 * Main.rand.Next(10, 20), false);
+					Main.npc[i].AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20), false);
 				}
 				if (this.meleeEnchant == 6)
 				{
-					Main.npc[i].AddBuff(31, 60 * Main.rand.Next(1, 4), false);
+					Main.npc[i].AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4), false);
 				}
 				if (this.meleeEnchant == 8)
 				{
-					Main.npc[i].AddBuff(20, 60 * Main.rand.Next(5, 10), false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10), false);
 				}
 				if (this.meleeEnchant == 4)
 				{
-					Main.npc[i].AddBuff(72, 120, false);
+					Main.npc[i].AddBuff(BuffID.Midas, 120, false);
 				}
 			}
 			if (this.frostBurn)
 			{
-				Main.npc[i].AddBuff(44, 60 * Main.rand.Next(5, 15), false);
+				Main.npc[i].AddBuff(BuffID.Frostburn, 60 * Main.rand.Next(5, 15), false);
 			}
 			if (this.magmaStone)
 			{
 				if (Main.rand.Next(4) == 0)
 				{
-					Main.npc[i].AddBuff(24, 360, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 360, false);
 				}
 				else if (Main.rand.Next(2) != 0)
 				{
-					Main.npc[i].AddBuff(24, 120, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 120, false);
 				}
 				else
 				{
-					Main.npc[i].AddBuff(24, 240, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 240, false);
 				}
 			}
 			if (type == 3211)
 			{
-				Main.npc[i].AddBuff(69, 60 * Main.rand.Next(5, 10), false);
+				Main.npc[i].AddBuff(BuffID.Ichor, 60 * Main.rand.Next(5, 10), false);
 			}
 			if (type == 121)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.npc[i].AddBuff(24, 180, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 180, false);
 					return;
 				}
 			}
@@ -20384,7 +20384,7 @@ namespace Terraria
 			{
 				if (Main.rand.Next(10) == 0)
 				{
-					Main.npc[i].AddBuff(24, 180, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 180, false);
 					return;
 				}
 			}
@@ -20392,7 +20392,7 @@ namespace Terraria
 			{
 				if (Main.rand.Next(4) == 0)
 				{
-					Main.npc[i].AddBuff(20, 420, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 420, false);
 					return;
 				}
 			}
@@ -20400,13 +20400,13 @@ namespace Terraria
 			{
 				if (Main.rand.Next(5) == 0)
 				{
-					Main.npc[i].AddBuff(24, 180, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 180, false);
 					return;
 				}
 			}
 			else if (type == 1123 && Main.rand.Next(10) != 0)
 			{
-				Main.npc[i].AddBuff(31, 120, false);
+				Main.npc[i].AddBuff(BuffID.Confused, 120, false);
 			}
 		}
 
@@ -20422,99 +20422,99 @@ namespace Terraria
 				float single = (float)Main.rand.Next(75, 150) * 0.01f;
 				if (num == 0)
 				{
-					this.AddBuff(20, (int)(60f * single * 3.5f), true);
+					this.AddBuff(BuffID.Poisoned, (int)(60f * single * 3.5f), true);
 				}
 				else if (num == 1)
 				{
-					this.AddBuff(22, (int)(60f * single * 2f), true);
+					this.AddBuff(BuffID.Darkness, (int)(60f * single * 2f), true);
 				}
 				else if (num == 2)
 				{
-					this.AddBuff(23, (int)(60f * single * 0.5f), true);
+					this.AddBuff(BuffID.Cursed, (int)(60f * single * 0.5f), true);
 				}
 				else if (num == 3)
 				{
-					this.AddBuff(30, (int)(60f * single * 5f), true);
+					this.AddBuff(BuffID.Bleeding, (int)(60f * single * 5f), true);
 				}
 				else if (num == 4)
 				{
-					this.AddBuff(31, (int)(60f * single * 1f), true);
+					this.AddBuff(BuffID.Confused, (int)(60f * single * 1f), true);
 				}
 				else if (num == 5)
 				{
-					this.AddBuff(32, (int)(60f * single * 3.5f), true);
+					this.AddBuff(BuffID.Slow, (int)(60f * single * 3.5f), true);
 				}
 				else if (num == 6)
 				{
-					this.AddBuff(33, (int)(60f * single * 7.5f), true);
+					this.AddBuff(BuffID.Weak, (int)(60f * single * 7.5f), true);
 				}
 				else if (num == 7)
 				{
-					this.AddBuff(35, (int)(60f * single * 1f), true);
+					this.AddBuff(BuffID.Silenced, (int)(60f * single * 1f), true);
 				}
 				else if (num == 8)
 				{
-					this.AddBuff(36, (int)((double)(60f * single) * 6.5), true);
+					this.AddBuff(BuffID.BrokenArmor, (int)((double)(60f * single) * 6.5), true);
 				}
 			}
 			if (npc.type == 159 || npc.type == 158)
 			{
-				this.AddBuff(30, Main.rand.Next(300, 600), true);
+				this.AddBuff(BuffID.Bleeding, Main.rand.Next(300, 600), true);
 			}
 			if (npc.type == 525)
 			{
-				this.AddBuff(39, 420, true);
+				this.AddBuff(BuffID.CursedInferno, 420, true);
 			}
 			if (npc.type == 526)
 			{
-				this.AddBuff(69, 420, true);
+				this.AddBuff(BuffID.Ichor, 420, true);
 			}
 			if (npc.type == 527)
 			{
-				this.AddBuff(31, 840, true);
+				this.AddBuff(BuffID.Confused, 840, true);
 			}
 			if (Main.expertMode && (npc.type == 49 || npc.type == 93 || npc.type == 51 || npc.type == 152) && Main.rand.Next(10) == 0)
 			{
-				this.AddBuff(148, Main.rand.Next(1800, 5400), true);
+				this.AddBuff(BuffID.Rabies, Main.rand.Next(1800, 5400), true);
 			}
 			if (Main.expertMode && npc.type == 222)
 			{
-				this.AddBuff(20, Main.rand.Next(60, 240), true);
+				this.AddBuff(BuffID.Poisoned, Main.rand.Next(60, 240), true);
 			}
 			if (Main.expertMode && (npc.type == 210 || npc.type == 211))
 			{
-				this.AddBuff(20, Main.rand.Next(60, 180), true);
+				this.AddBuff(BuffID.Poisoned, Main.rand.Next(60, 180), true);
 			}
 			if (Main.expertMode && npc.type == 35)
 			{
-				this.AddBuff(30, Main.rand.Next(180, 300), true);
+				this.AddBuff(BuffID.Bleeding, Main.rand.Next(180, 300), true);
 			}
 			if (Main.expertMode && npc.type == 36 && Main.rand.Next(2) == 0)
 			{
-				this.AddBuff(32, Main.rand.Next(30, 60), true);
+				this.AddBuff(BuffID.Slow, Main.rand.Next(30, 60), true);
 			}
 			if (npc.type >= 269 && npc.type <= 272)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					this.AddBuff(30, 600, true);
+					this.AddBuff(BuffID.Bleeding, 600, true);
 				}
 				else if (Main.rand.Next(3) == 0)
 				{
-					this.AddBuff(32, 300, true);
+					this.AddBuff(BuffID.Slow, 300, true);
 				}
 			}
 			if (npc.type >= 273 && npc.type <= 276 && Main.rand.Next(2) == 0)
 			{
-				this.AddBuff(36, 600, true);
+				this.AddBuff(BuffID.BrokenArmor, 600, true);
 			}
 			if (npc.type >= 277 && npc.type <= 280)
 			{
-				this.AddBuff(24, 600, true);
+				this.AddBuff(BuffID.OnFire, 600, true);
 			}
 			if (npc.type == 371)
 			{
-				this.AddBuff(103, 60 * Main.rand.Next(3, 8), true);
+				this.AddBuff(BuffID.Wet, 60 * Main.rand.Next(3, 8), true);
 			}
 			if (npc.type == 370 && Main.expertMode)
 			{
@@ -20528,90 +20528,90 @@ namespace Terraria
 			}
 			if ((npc.type == 1 && npc.name == "Black Slime" || npc.type == 81 || npc.type == 79) && Main.rand.Next(4) == 0)
 			{
-				this.AddBuff(22, 900, true);
+				this.AddBuff(BuffID.Darkness, 900, true);
 			}
 			if ((npc.type == 23 || npc.type == 25) && Main.rand.Next(3) == 0)
 			{
-				this.AddBuff(24, 420, true);
+				this.AddBuff(BuffID.OnFire, 420, true);
 			}
 			if ((npc.type == 34 || npc.type == 83 || npc.type == 84) && Main.rand.Next(3) == 0)
 			{
-				this.AddBuff(23, 240, true);
+				this.AddBuff(BuffID.Cursed, 240, true);
 			}
 			if ((npc.type == 104 || npc.type == 102) && Main.rand.Next(8) == 0)
 			{
-				this.AddBuff(30, 2700, true);
+				this.AddBuff(BuffID.Bleeding, 2700, true);
 			}
 			if (npc.type == 75 && Main.rand.Next(10) == 0)
 			{
-				this.AddBuff(35, 420, true);
+				this.AddBuff(BuffID.Silenced, 420, true);
 			}
 			if ((npc.type == 163 || npc.type == 238) && Main.rand.Next(10) == 0)
 			{
-				this.AddBuff(70, 480, true);
+				this.AddBuff(BuffID.Venom, 480, true);
 			}
 			if ((npc.type == 79 || npc.type == 103) && Main.rand.Next(5) == 0)
 			{
-				this.AddBuff(35, 420, true);
+				this.AddBuff(BuffID.Silenced, 420, true);
 			}
 			if ((npc.type == 75 || npc.type == 78 || npc.type == 82) && Main.rand.Next(8) == 0)
 			{
-				this.AddBuff(32, 900, true);
+				this.AddBuff(BuffID.Slow, 900, true);
 			}
 			if ((npc.type == 93 || npc.type == 109 || npc.type == 80) && Main.rand.Next(14) == 0)
 			{
-				this.AddBuff(31, 300, true);
+				this.AddBuff(BuffID.Confused, 300, true);
 			}
 			if (npc.type >= 305 && npc.type <= 314 && Main.rand.Next(10) == 0)
 			{
-				this.AddBuff(33, 3600, true);
+				this.AddBuff(BuffID.Weak, 3600, true);
 			}
 			if (npc.type == 77 && Main.rand.Next(6) == 0)
 			{
-				this.AddBuff(36, 7200, true);
+				this.AddBuff(BuffID.BrokenArmor, 7200, true);
 			}
 			if (npc.type == 112 && Main.rand.Next(20) == 0)
 			{
-				this.AddBuff(33, 18000, true);
+				this.AddBuff(BuffID.Weak, 18000, true);
 			}
 			if (npc.type == 182 && Main.rand.Next(25) == 0)
 			{
-				this.AddBuff(33, 7200, true);
+				this.AddBuff(BuffID.Weak, 7200, true);
 			}
 			if (npc.type == 141 && Main.rand.Next(2) == 0)
 			{
-				this.AddBuff(20, 600, true);
+				this.AddBuff(BuffID.Poisoned, 600, true);
 			}
 			if (npc.type == 147 && !this.frozen && Main.rand.Next(12) == 0)
 			{
-				this.AddBuff(46, 600, true);
+				this.AddBuff(BuffID.Chilled, 600, true);
 			}
 			if (npc.type == 150)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					this.AddBuff(46, 900, true);
+					this.AddBuff(BuffID.Chilled, 900, true);
 				}
 				if (!this.frozen && Main.rand.Next(35) == 0)
 				{
-					this.AddBuff(47, 60, true);
+					this.AddBuff(BuffID.Frozen, 60, true);
 				}
 				else if (!this.frozen && Main.expertMode && Main.rand.Next(35) == 0)
 				{
-					this.AddBuff(47, 60, true);
+					this.AddBuff(BuffID.Frozen, 60, true);
 				}
 			}
 			if (npc.type == 184)
 			{
-				this.AddBuff(46, 1200, true);
+				this.AddBuff(BuffID.Chilled, 1200, true);
 				if (!this.frozen && Main.rand.Next(15) == 0)
 				{
-					this.AddBuff(47, 60, true);
+					this.AddBuff(BuffID.Frozen, 60, true);
 					return;
 				}
 				if (!this.frozen && Main.expertMode && Main.rand.Next(25) == 0)
 				{
-					this.AddBuff(47, 60, true);
+					this.AddBuff(BuffID.Frozen, 60, true);
 				}
 			}
 		}
@@ -20622,53 +20622,53 @@ namespace Terraria
 			{
 				if (this.meleeEnchant == 1)
 				{
-					Main.player[i].AddBuff(70, 60 * Main.rand.Next(5, 10), true);
+					Main.player[i].AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10), true);
 				}
 				if (this.meleeEnchant == 2)
 				{
-					Main.player[i].AddBuff(39, 60 * Main.rand.Next(3, 7), true);
+					Main.player[i].AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7), true);
 				}
 				if (this.meleeEnchant == 3)
 				{
-					Main.player[i].AddBuff(24, 60 * Main.rand.Next(3, 7), true);
+					Main.player[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), true);
 				}
 				if (this.meleeEnchant == 5)
 				{
-					Main.player[i].AddBuff(69, 60 * Main.rand.Next(10, 20), true);
+					Main.player[i].AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20), true);
 				}
 				if (this.meleeEnchant == 6)
 				{
-					Main.player[i].AddBuff(31, 60 * Main.rand.Next(1, 4), true);
+					Main.player[i].AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4), true);
 				}
 				if (this.meleeEnchant == 8)
 				{
-					Main.player[i].AddBuff(20, 60 * Main.rand.Next(5, 10), true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10), true);
 				}
 			}
 			if (this.frostBurn)
 			{
-				Main.player[i].AddBuff(44, 60 * Main.rand.Next(1, 8), true);
+				Main.player[i].AddBuff(BuffID.Frostburn, 60 * Main.rand.Next(1, 8), true);
 			}
 			if (this.magmaStone)
 			{
 				if (Main.rand.Next(7) == 0)
 				{
-					Main.player[i].AddBuff(24, 360, true);
+					Main.player[i].AddBuff(BuffID.OnFire, 360, true);
 				}
 				else if (Main.rand.Next(3) != 0)
 				{
-					Main.player[i].AddBuff(24, 60, true);
+					Main.player[i].AddBuff(BuffID.OnFire, 60, true);
 				}
 				else
 				{
-					Main.player[i].AddBuff(24, 120, true);
+					Main.player[i].AddBuff(BuffID.OnFire, 120, true);
 				}
 			}
 			if (type == 121)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(24, 180, false);
+					Main.player[i].AddBuff(BuffID.OnFire, 180, false);
 					return;
 				}
 			}
@@ -20676,7 +20676,7 @@ namespace Terraria
 			{
 				if (Main.rand.Next(10) == 0)
 				{
-					Main.player[i].AddBuff(24, 180, false);
+					Main.player[i].AddBuff(BuffID.OnFire, 180, false);
 					return;
 				}
 			}
@@ -20684,7 +20684,7 @@ namespace Terraria
 			{
 				if (Main.rand.Next(4) == 0)
 				{
-					Main.player[i].AddBuff(20, 420, false);
+					Main.player[i].AddBuff(BuffID.Poisoned, 420, false);
 					return;
 				}
 			}
@@ -20692,13 +20692,13 @@ namespace Terraria
 			{
 				if (Main.rand.Next(5) == 0)
 				{
-					Main.player[i].AddBuff(24, 180, false);
+					Main.player[i].AddBuff(BuffID.OnFire, 180, false);
 					return;
 				}
 			}
 			else if (type == 1123 && Main.rand.Next(9) != 0)
 			{
-				Main.player[i].AddBuff(31, 120, false);
+				Main.player[i].AddBuff(BuffID.Confused, 120, false);
 			}
 		}
 
@@ -21795,31 +21795,31 @@ namespace Terraria
 				Main.musicBox2 = -1;
 				if (Main.waterCandles > 0)
 				{
-					this.AddBuff(86, 2, false);
+					this.AddBuff(BuffID.WaterCandle, 2, false);
 				}
 				if (Main.peaceCandles > 0)
 				{
-					this.AddBuff(157, 2, false);
+					this.AddBuff(BuffID.PeaceCandle, 2, false);
 				}
 				if (Main.campfire)
 				{
-					this.AddBuff(87, 2, false);
+					this.AddBuff(BuffID.Campfire, 2, false);
 				}
 				if (Main.starInBottle)
 				{
-					this.AddBuff(158, 2, false);
+					this.AddBuff(BuffID.StarInBottle, 2, false);
 				}
 				if (Main.heartLantern)
 				{
-					this.AddBuff(89, 2, false);
+					this.AddBuff(BuffID.HeartLamp, 2, false);
 				}
 				if (Main.sunflower)
 				{
-					this.AddBuff(146, 2, false);
+					this.AddBuff(BuffID.Sunflower, 2, false);
 				}
 				if (this.hasBanner)
 				{
-					this.AddBuff(147, 2, false);
+					this.AddBuff(BuffID.MonsterBanner, 2, false);
 				}
 			}
 			for (int p = 0; p < 191; p++)
@@ -21843,7 +21843,7 @@ namespace Terraria
 				this.wings = 0;
 				this.merman = true;
 				this.accFlipper = true;
-				this.AddBuff(34, 2, true);
+				this.AddBuff(BuffID.Merfolk, 2, true);
 			}
 			else
 			{
@@ -21862,7 +21862,7 @@ namespace Terraria
 			this.forceMerman = false;
 			if (this.wolfAcc && !this.merman && !Main.dayTime && !this.wereWolf)
 			{
-				this.AddBuff(28, 60, true);
+				this.AddBuff(BuffID.Werewolf, 60, true);
 			}
 			this.wolfAcc = false;
 			this.hideWolf = false;
@@ -24992,19 +24992,19 @@ namespace Terraria
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 125)
 								{
-									this.AddBuff(29, 36000, true);
+									this.AddBuff(BuffID.Clairvoyance, 36000, true);
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 377)
 								{
-									this.AddBuff(159, 36000, true);
+									this.AddBuff(BuffID.Sharpened, 36000, true);
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 354)
 								{
-									this.AddBuff(150, 36000, true);
+									this.AddBuff(BuffID.Bewitched, 36000, true);
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 287)
 								{
-									this.AddBuff(93, 36000, true);
+									this.AddBuff(BuffID.AmmoBox, 36000, true);
 								}
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 356)
 								{
@@ -25489,7 +25489,7 @@ namespace Terraria
 				{
 					for (int g = 0; g < 22; g++)
 					{
-						if (this.buffType[g] == 38)
+						if (this.buffType[g] == BuffID.TheTongue)
 						{
 							this.DelBuff(g);
 						}
@@ -25796,13 +25796,13 @@ namespace Terraria
 				}
 				if (touchDamageHot.Y == 20f)
 				{
-					this.AddBuff(67, 20, true);
+					this.AddBuff(BuffID.Burning, 20, true);
 				}
 				else if (touchDamageHot.Y == 15f)
 				{
 					if (this.suffocateDelay >= 5)
 					{
-						this.AddBuff(68, 1, true);
+						this.AddBuff(BuffID.Suffocation, 1, true);
 					}
 					else
 					{
@@ -25892,12 +25892,12 @@ namespace Terraria
 					else if (!this.lavaRose)
 					{
 						this.Hurt(80, 0, false, false, Lang.deathMsg(-1, -1, -1, 2), false);
-						this.AddBuff(24, 420, true);
+						this.AddBuff(BuffID.OnFire, 420, true);
 					}
 					else
 					{
 						this.Hurt(50, 0, false, false, Lang.deathMsg(-1, -1, -1, 2), false);
-						this.AddBuff(24, 210, true);
+						this.AddBuff(BuffID.OnFire, 210, true);
 					}
 				}
 				this.lavaWet = true;
@@ -25914,7 +25914,7 @@ namespace Terraria
 			bool flag38 = Collision.honey;
 			if (flag38)
 			{
-				this.AddBuff(48, 1800, true);
+				this.AddBuff(BuffID.Honey, 1800, true);
 				this.honeyWet = true;
 			}
 			if (flag37)
@@ -25923,7 +25923,7 @@ namespace Terraria
 				{
 					for (int j1 = 0; j1 < 22; j1++)
 					{
-						if (this.buffType[j1] == 24)
+						if (this.buffType[j1] == BuffID.OnFire)
 						{
 							this.DelBuff(j1);
 						}
@@ -26003,7 +26003,7 @@ namespace Terraria
 			}
 			if (Main.expertMode && this.ZoneSnow && this.wet && !this.lavaWet && !this.honeyWet && !this.arcticDivingGear)
 			{
-				this.AddBuff(46, 150, true);
+				this.AddBuff(BuffID.Chilled, 150, true);
 			}
 			float single38 = 1f + Math.Abs(this.velocity.X) / 3f;
 			if (this.gfxOffY > 0f)
@@ -26309,17 +26309,17 @@ namespace Terraria
 				}
 				if (this.beetleCounter > (float)(num1 + num2 + num3))
 				{
-					this.AddBuff(100, 5, false);
+					this.AddBuff(BuffID.BeetleMight3, 5, false);
 					num = 3;
 				}
 				else if (this.beetleCounter > (float)(num1 + num2))
 				{
-					this.AddBuff(99, 5, false);
+					this.AddBuff(BuffID.BeetleMight2, 5, false);
 					num = 2;
 				}
 				else if (this.beetleCounter > (float)num1)
 				{
-					this.AddBuff(98, 5, false);
+					this.AddBuff(BuffID.BeetleMight1, 5, false);
 					num = 1;
 				}
 				if (num < this.beetleOrbs)
@@ -26335,7 +26335,7 @@ namespace Terraria
 				{
 					for (int i1 = 0; i1 < 22; i1++)
 					{
-						if (this.buffType[i1] >= 98 && this.buffType[i1] <= 100 && this.buffType[i1] != 97 + num)
+						if (this.buffType[i1] >= BuffID.BeetleMight1 && this.buffType[i1] <= BuffID.BeetleMight3 && this.buffType[i1] != BuffID.BeetleEndurance3 + num)
 						{
 							this.DelBuff(i1);
 						}
@@ -26355,7 +26355,7 @@ namespace Terraria
 					{
 						for (int j = 0; j < 22; j++)
 						{
-							if (this.buffType[j] >= 95 && this.buffType[j] <= 96)
+							if (this.buffType[j] >= BuffID.BeetleEndurance1 && this.buffType[j] <= BuffID.BeetleEndurance2)
 							{
 								this.DelBuff(j);
 							}
@@ -26367,7 +26367,7 @@ namespace Terraria
 					}
 					else
 					{
-						this.AddBuff(95 + this.beetleOrbs, 5, false);
+						this.AddBuff(BuffID.BeetleEndurance1 + this.beetleOrbs, 5, false);
 						this.beetleCounter = 0f;
 					}
 				}
@@ -26502,13 +26502,13 @@ namespace Terraria
 			if ((this.head == 78 || this.head == 79 || this.head == 80) && this.body == 51 && this.legs == 47)
 			{
 				this.setBonus = Lang.setBonus(27, false);
-				this.AddBuff(60, 18000, true);
+				this.AddBuff(BuffID.LeafCrystal, 18000, true);
 			}
 			else if (this.crystalLeaf)
 			{
 				for (int m = 0; m < 22; m++)
 				{
-					if (this.buffType[m] == 60)
+					if (this.buffType[m] == BuffID.LeafCrystal)
 					{
 						this.DelBuff(m);
 					}
@@ -26664,7 +26664,7 @@ namespace Terraria
 					{
 						for (int n = 0; n < 22; n++)
 						{
-							if (this.buffType[n] >= 170 && this.buffType[n] <= 171)
+							if (this.buffType[n] >= BuffID.SolarShield1 && this.buffType[n] <= BuffID.SolarShield2)
 							{
 								this.DelBuff(n);
 							}
@@ -26676,7 +26676,7 @@ namespace Terraria
 					}
 					else
 					{
-						this.AddBuff(170 + this.solarShields, 5, false);
+						this.AddBuff(BuffID.SolarShield1 + this.solarShields, 5, false);
 						this.solarCounter = 0;
 					}
 				}
@@ -26726,9 +26726,9 @@ namespace Terraria
 				this.setStardust = true;
 				if (this.whoAmI == Main.myPlayer)
 				{
-					if (this.HasBuff(187) == -1)
+					if (this.HasBuff(BuffID.StardustGuardianMinion) == -1)
 					{
-						this.AddBuff(187, 3600, true);
+						this.AddBuff(BuffID.StardustGuardianMinion, 3600, true);
 					}
 					if (this.ownedProjectileCounts[ProjectileID.StardustGuardian] < 1)
 					{
@@ -26737,9 +26737,9 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.HasBuff(187) != -1)
+			else if (this.HasBuff(BuffID.StardustGuardianMinion) != -1)
 			{
-				this.DelBuff(this.HasBuff(187));
+				this.DelBuff(this.HasBuff(BuffID.StardustGuardianMinion));
 			}
 		}
 
@@ -26871,7 +26871,7 @@ namespace Terraria
 		{
 			if (this.soulDrain > 0 && this.whoAmI == Main.myPlayer)
 			{
-				this.AddBuff(151, 2, true);
+				this.AddBuff(BuffID.SoulDrain, 2, true);
 			}
 			for (int num = 0; num < 1000; num++)
 			{
@@ -26884,190 +26884,190 @@ namespace Terraria
 			{
 				if (this.buffType[j] > 0 && this.buffTime[j] > 0)
 				{
-					if (this.whoAmI == Main.myPlayer && this.buffType[j] != 28)
+					if (this.whoAmI == Main.myPlayer && this.buffType[j] != BuffID.Werewolf)
 					{
 						this.buffTime[j] = this.buffTime[j] - 1;
 					}
-					if (this.buffType[j] == 1)
+					if (this.buffType[j] == BuffID.ObsidianSkin)
 					{
 						this.lavaImmune = true;
 						this.fireWalk = true;
-						this.buffImmune[24] = true;
+						this.buffImmune[BuffID.OnFire] = true;
 					}
-					else if (this.buffType[j] == 158)
+					else if (this.buffType[j] == BuffID.StarInBottle)
 					{
 						Player player = this;
 						player.manaRegen = player.manaRegen + 2;
 					}
-					else if (this.buffType[j] == 159 && this.inventory[this.selectedItem].melee)
+					else if (this.buffType[j] == BuffID.Sharpened && this.inventory[this.selectedItem].melee)
 					{
 						this.armorPenetration = 4;
 					}
-					else if (this.buffType[j] == 2)
+					else if (this.buffType[j] == BuffID.Regeneration)
 					{
 						Player player1 = this;
 						player1.lifeRegen = player1.lifeRegen + 4;
 					}
-					else if (this.buffType[j] == 3)
+					else if (this.buffType[j] == BuffID.Swiftness)
 					{
 						Player player2 = this;
 						player2.moveSpeed = player2.moveSpeed + 0.25f;
 					}
-					else if (this.buffType[j] == 4)
+					else if (this.buffType[j] == BuffID.Gills)
 					{
 						this.gills = true;
 					}
-					else if (this.buffType[j] == 5)
+					else if (this.buffType[j] == BuffID.Ironskin)
 					{
 						Player player3 = this;
 						player3.statDefense = player3.statDefense + 8;
 					}
-					else if (this.buffType[j] == 6)
+					else if (this.buffType[j] == BuffID.ManaRegeneration)
 					{
 						this.manaRegenBuff = true;
 					}
-					else if (this.buffType[j] == 7)
+					else if (this.buffType[j] == BuffID.MagicPower)
 					{
 						Player player4 = this;
 						player4.magicDamage = player4.magicDamage + 0.2f;
 					}
-					else if (this.buffType[j] == 8)
+					else if (this.buffType[j] == BuffID.Featherfall)
 					{
 						this.slowFall = true;
 					}
-					else if (this.buffType[j] == 9)
+					else if (this.buffType[j] == BuffID.Spelunker)
 					{
 						this.findTreasure = true;
 					}
-					else if (this.buffType[j] == 10)
+					else if (this.buffType[j] == BuffID.Invisibility)
 					{
 						this.invis = true;
 					}
-					else if (this.buffType[j] == 12)
+					else if (this.buffType[j] == BuffID.NightOwl)
 					{
 						this.nightVision = true;
 					}
-					else if (this.buffType[j] == 13)
+					else if (this.buffType[j] == BuffID.Battle)
 					{
 						this.enemySpawns = true;
 					}
-					else if (this.buffType[j] == 14)
+					else if (this.buffType[j] == BuffID.Thorns)
 					{
 						if (this.thorns < 1f)
 						{
 							this.thorns = 0.333333343f;
 						}
 					}
-					else if (this.buffType[j] == 15)
+					else if (this.buffType[j] == BuffID.WaterWalking)
 					{
 						this.waterWalk = true;
 					}
-					else if (this.buffType[j] == 16)
+					else if (this.buffType[j] == BuffID.Archery)
 					{
 						this.archery = true;
 					}
-					else if (this.buffType[j] == 17)
+					else if (this.buffType[j] == BuffID.Hunter)
 					{
 						this.detectCreature = true;
 					}
-					else if (this.buffType[j] == 18)
+					else if (this.buffType[j] == BuffID.Gravitation)
 					{
 						this.gravControl = true;
 					}
-					else if (this.buffType[j] == 30)
+					else if (this.buffType[j] == BuffID.Bleeding)
 					{
 						this.bleed = true;
 					}
-					else if (this.buffType[j] == 31)
+					else if (this.buffType[j] == BuffID.Confused)
 					{
 						this.confused = true;
 					}
-					else if (this.buffType[j] == 32)
+					else if (this.buffType[j] == BuffID.Slow)
 					{
 						this.slow = true;
 					}
-					else if (this.buffType[j] == 35)
+					else if (this.buffType[j] == BuffID.Silenced)
 					{
 						this.silence = true;
 					}
-					else if (this.buffType[j] == 160)
+					else if (this.buffType[j] == BuffID.Dazed)
 					{
 						this.dazed = true;
 					}
-					else if (this.buffType[j] == 46)
+					else if (this.buffType[j] == BuffID.Chilled)
 					{
 						this.chilled = true;
 					}
-					else if (this.buffType[j] == 47)
+					else if (this.buffType[j] == BuffID.Frozen)
 					{
 						this.frozen = true;
 					}
-					else if (this.buffType[j] == 156)
+					else if (this.buffType[j] == BuffID.Stoned)
 					{
 						this.stoned = true;
 					}
-					else if (this.buffType[j] == 69)
+					else if (this.buffType[j] == BuffID.Ichor)
 					{
 						this.ichor = true;
 						Player player5 = this;
 						player5.statDefense = player5.statDefense - 20;
 					}
-					else if (this.buffType[j] == 36)
+					else if (this.buffType[j] == BuffID.BrokenArmor)
 					{
 						this.brokenArmor = true;
 					}
-					else if (this.buffType[j] == 48)
+					else if (this.buffType[j] == BuffID.Honey)
 					{
 						this.honey = true;
 					}
-					else if (this.buffType[j] == 59)
+					else if (this.buffType[j] == BuffID.ShadowDodge)
 					{
 						this.shadowDodge = true;
 					}
-					else if (this.buffType[j] == 93)
+					else if (this.buffType[j] == BuffID.AmmoBox)
 					{
 						this.ammoBox = true;
 					}
-					else if (this.buffType[j] == 58)
+					else if (this.buffType[j] == BuffID.RapidHealing)
 					{
 						this.palladiumRegen = true;
 					}
-					else if (this.buffType[j] == 88)
+					else if (this.buffType[j] == BuffID.ChaosState)
 					{
 						this.chaosState = true;
 					}
-					else if (this.buffType[j] == 63)
+					else if (this.buffType[j] == BuffID.Panic)
 					{
 						Player player6 = this;
 						player6.moveSpeed = player6.moveSpeed + 1f;
 					}
-					else if (this.buffType[j] == 104)
+					else if (this.buffType[j] == BuffID.Mining)
 					{
 						Player player7 = this;
 						player7.pickSpeed = player7.pickSpeed - 0.25f;
 					}
-					else if (this.buffType[j] == 105)
+					else if (this.buffType[j] == BuffID.Heartreach)
 					{
 						this.lifeMagnet = true;
 					}
-					else if (this.buffType[j] == 106)
+					else if (this.buffType[j] == BuffID.Calm)
 					{
 						this.calmed = true;
 					}
-					else if (this.buffType[j] == 121)
+					else if (this.buffType[j] == BuffID.Fishing)
 					{
 						Player player8 = this;
 						player8.fishingSkill = player8.fishingSkill + 15;
 					}
-					else if (this.buffType[j] == 122)
+					else if (this.buffType[j] == BuffID.Sonar)
 					{
 						this.sonarPotion = true;
 					}
-					else if (this.buffType[j] == 123)
+					else if (this.buffType[j] == BuffID.Crate)
 					{
 						this.cratePotion = true;
 					}
-					else if (this.buffType[j] == 107)
+					else if (this.buffType[j] == BuffID.Builder)
 					{
 						Player player9 = this;
 						player9.tileSpeed = player9.tileSpeed + 0.25f;
@@ -27076,45 +27076,45 @@ namespace Terraria
 						Player player11 = this;
 						player11.blockRange = player11.blockRange + 1;
 					}
-					else if (this.buffType[j] == 108)
+					else if (this.buffType[j] == BuffID.Titan)
 					{
 						this.kbBuff = true;
 					}
-					else if (this.buffType[j] == 109)
+					else if (this.buffType[j] == BuffID.Flipper)
 					{
 						this.ignoreWater = true;
 						this.accFlipper = true;
 					}
-					else if (this.buffType[j] == 110)
+					else if (this.buffType[j] == BuffID.Summoning)
 					{
 						Player player12 = this;
 						player12.maxMinions = player12.maxMinions + 1;
 					}
-					else if (this.buffType[j] == 150)
+					else if (this.buffType[j] == BuffID.Bewitched)
 					{
 						Player player13 = this;
 						player13.maxMinions = player13.maxMinions + 1;
 					}
-					else if (this.buffType[j] == 111)
+					else if (this.buffType[j] == BuffID.Dangersense)
 					{
 						this.dangerSense = true;
 					}
-					else if (this.buffType[j] == 112)
+					else if (this.buffType[j] == BuffID.AmmoReservation)
 					{
 						this.ammoPotion = true;
 					}
-					else if (this.buffType[j] == 113)
+					else if (this.buffType[j] == BuffID.Lifeforce)
 					{
 						this.lifeForce = true;
 						Player player14 = this;
 						player14.statLifeMax2 = player14.statLifeMax2 + this.statLifeMax / 5 / 20 * 20;
 					}
-					else if (this.buffType[j] == 114)
+					else if (this.buffType[j] == BuffID.Endurance)
 					{
 						Player player15 = this;
 						player15.endurance = player15.endurance + 0.1f;
 					}
-					else if (this.buffType[j] == 115)
+					else if (this.buffType[j] == BuffID.Rage)
 					{
 						Player player16 = this;
 						player16.meleeCrit = player16.meleeCrit + 10;
@@ -27125,7 +27125,7 @@ namespace Terraria
 						Player player19 = this;
 						player19.thrownCrit = player19.thrownCrit + 10;
 					}
-					else if (this.buffType[j] == 116)
+					else if (this.buffType[j] == BuffID.Inferno)
 					{
 						this.inferno = true;
 						int num1 = 24;
@@ -27177,7 +27177,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (this.buffType[j] == 117)
+					else if (this.buffType[j] == BuffID.Wrath)
 					{
 						Player player21 = this;
 						player21.thrownDamage = player21.thrownDamage + 0.1f;
@@ -27190,19 +27190,19 @@ namespace Terraria
 						Player player25 = this;
 						player25.minionDamage = player25.minionDamage + 0.1f;
 					}
-					else if (this.buffType[j] == 119)
+					else if (this.buffType[j] == BuffID.Lovestruck)
 					{
 						this.loveStruck = true;
 					}
-					else if (this.buffType[j] == 120)
+					else if (this.buffType[j] == BuffID.Stinky)
 					{
 						this.stinky = true;
 					}
-					else if (this.buffType[j] == 124)
+					else if (this.buffType[j] == BuffID.Warmth)
 					{
 						this.resistCold = true;
 					}
-					else if (this.buffType[j] == 165)
+					else if (this.buffType[j] == BuffID.DryadsWard)
 					{
 						Player player26 = this;
 						player26.lifeRegen = player26.lifeRegen + 6;
@@ -27215,16 +27215,16 @@ namespace Terraria
 							player28.thorns = player28.thorns + 0.2f;
 						}
 					}
-					else if (this.buffType[j] == 144)
+					else if (this.buffType[j] == BuffID.Electrified)
 					{
 						this.electrified = true;
 					}
-					else if (this.buffType[j] == 94)
+					else if (this.buffType[j] == BuffID.ManaSickness)
 					{
 						this.manaSick = true;
 						this.manaSickReduction = Player.manaSickLessDmg * ((float)this.buffTime[j] / (float)Player.manaSickTime);
 					}
-					else if (this.buffType[j] >= 95 && this.buffType[j] <= 97)
+					else if (this.buffType[j] >= BuffID.BeetleEndurance1 && this.buffType[j] <= BuffID.BeetleEndurance3)
 					{
 						this.buffTime[j] = 5;
 						int num3 = (byte)(1 + this.buffType[j] - 95);
@@ -27234,7 +27234,7 @@ namespace Terraria
 							{
 								for (int m = 0; m < 22; m++)
 								{
-									if (this.buffType[m] >= 95 && this.buffType[m] <= 95 + num3 - 1)
+									if (this.buffType[m] >= BuffID.BeetleEndurance1 && this.buffType[m] <= BuffID.BeetleEndurance1 + num3 - 1)
 									{
 										this.DelBuff(m);
 										m--;
@@ -27259,7 +27259,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] >= 170 && this.buffType[j] <= 172)
+					else if (this.buffType[j] >= BuffID.SolarShield1 && this.buffType[j] <= BuffID.SolarShield3)
 					{
 						this.buffTime[j] = 5;
 						int num4 = (byte)(1 + this.buffType[j] - 170);
@@ -27269,7 +27269,7 @@ namespace Terraria
 							{
 								for (int n = 0; n < 22; n++)
 								{
-									if (this.buffType[n] >= 170 && this.buffType[n] <= 170 + num4 - 1)
+									if (this.buffType[n] >= BuffID.SolarShield1 && this.buffType[n] <= BuffID.SolarShield1 + num4 - 1)
 									{
 										this.DelBuff(n);
 										n--;
@@ -27290,7 +27290,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] >= 98 && this.buffType[j] <= 100)
+					else if (this.buffType[j] >= BuffID.BeetleMight1 && this.buffType[j] <= BuffID.BeetleMight3)
 					{
 						int num5 = (byte)(1 + this.buffType[j] - 98);
 						if (this.beetleOrbs > 0 && this.beetleOrbs != num5)
@@ -27299,7 +27299,7 @@ namespace Terraria
 							{
 								for (int o = 0; o < 22; o++)
 								{
-									if (this.buffType[o] >= 98 && this.buffType[o] <= 98 + num5 - 1)
+									if (this.buffType[o] >= BuffID.BeetleMight1 && this.buffType[o] <= BuffID.BeetleMight1 + num5 - 1)
 									{
 										this.DelBuff(o);
 										o--;
@@ -27328,7 +27328,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] >= 176 && this.buffType[j] <= 178)
+					else if (this.buffType[j] >= BuffID.NebulaUpMana1 && this.buffType[j] <= BuffID.NebulaUpMana3)
 					{
 						int num6 = this.nebulaLevelMana;
 						int num7 = (byte)(1 + this.buffType[j] - 176);
@@ -27338,7 +27338,7 @@ namespace Terraria
 							{
 								for (int p = 0; p < 22; p++)
 								{
-									if (this.buffType[p] >= 176 && this.buffType[p] <= 178 + num7 - 1)
+									if (this.buffType[p] >= BuffID.NebulaUpMana1 && this.buffType[p] <= BuffID.NebulaUpMana3 + num7 - 1)
 									{
 										this.DelBuff(p);
 										p--;
@@ -27360,7 +27360,7 @@ namespace Terraria
 							this.buffTime[j] = 480;
 						}
 					}
-					else if (this.buffType[j] >= 173 && this.buffType[j] <= 175)
+					else if (this.buffType[j] >= BuffID.NebulaUpLife1 && this.buffType[j] <= BuffID.NebulaUpLife3)
 					{
 						int num8 = this.nebulaLevelLife;
 						int num9 = (byte)(1 + this.buffType[j] - 173);
@@ -27370,7 +27370,7 @@ namespace Terraria
 							{
 								for (int q = 0; q < 22; q++)
 								{
-									if (this.buffType[q] >= 173 && this.buffType[q] <= 175 + num9 - 1)
+									if (this.buffType[q] >= BuffID.NebulaUpLife1 && this.buffType[q] <= BuffID.NebulaUpLife3 + num9 - 1)
 									{
 										this.DelBuff(q);
 										q--;
@@ -27394,7 +27394,7 @@ namespace Terraria
 						Player player33 = this;
 						player33.lifeRegen = player33.lifeRegen + 10 * this.nebulaLevelLife;
 					}
-					else if (this.buffType[j] >= 179 && this.buffType[j] <= 181)
+					else if (this.buffType[j] >= BuffID.NebulaUpDmg1 && this.buffType[j] <= BuffID.NebulaUpDmg3)
 					{
 						int num10 = this.nebulaLevelDamage;
 						int num11 = (byte)(1 + this.buffType[j] - 179);
@@ -27404,7 +27404,7 @@ namespace Terraria
 							{
 								for (int r = 0; r < 22; r++)
 								{
-									if (this.buffType[r] >= 179 && this.buffType[r] <= 181 + num11 - 1)
+									if (this.buffType[r] >= BuffID.NebulaUpDmg1 && this.buffType[r] <= BuffID.NebulaUpDmg3 + num11 - 1)
 									{
 										this.DelBuff(r);
 										r--;
@@ -27437,7 +27437,7 @@ namespace Terraria
 						Player player39 = this;
 						player39.thrownDamage = player39.thrownDamage + single1;
 					}
-					else if (this.buffType[j] == 62)
+					else if (this.buffType[j] == BuffID.IceBarrier)
 					{
 						if ((double)this.statLife > (double)this.statLifeMax2 * 0.5)
 						{
@@ -27463,7 +27463,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (this.buffType[j] == 49)
+					else if (this.buffType[j] == BuffID.Pygmies)
 					{
 						for (int s = 191; s <= 194; s++)
 						{
@@ -27482,7 +27482,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 83)
+					else if (this.buffType[j] == BuffID.Ravens)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.Raven] > 0)
 						{
@@ -27498,7 +27498,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 64)
+					else if (this.buffType[j] == BuffID.BabySlime)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.BabySlime] > 0)
 						{
@@ -27514,7 +27514,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 125)
+					else if (this.buffType[j] == BuffID.HornetMinion)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.Hornet] > 0)
 						{
@@ -27530,7 +27530,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 126)
+					else if (this.buffType[j] == BuffID.ImpMinion)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.FlyingImp] > 0)
 						{
@@ -27546,7 +27546,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 133)
+					else if (this.buffType[j] == BuffID.SpiderMinion)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.VenomSpider] > 0 || this.ownedProjectileCounts[ProjectileID.JumperSpider] > 0 || this.ownedProjectileCounts[ProjectileID.DangerousSpider] > 0)
 						{
@@ -27562,7 +27562,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 134)
+					else if (this.buffType[j] == BuffID.TwinEyesMinion)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.Retanimini] > 0 || this.ownedProjectileCounts[ProjectileID.Spazmamini] > 0)
 						{
@@ -27578,7 +27578,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 135)
+					else if (this.buffType[j] == BuffID.PirateMinion)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.OneEyedPirate] > 0 || this.ownedProjectileCounts[ProjectileID.SoulscourgePirate] > 0 || this.ownedProjectileCounts[ProjectileID.PirateCaptain] > 0)
 						{
@@ -27594,7 +27594,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 139)
+					else if (this.buffType[j] == BuffID.SharknadoMinion)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.Tempest] > 0)
 						{
@@ -27610,7 +27610,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 140)
+					else if (this.buffType[j] == BuffID.UFOMinion)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.UFOMinion] > 0)
 						{
@@ -27626,7 +27626,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 182)
+					else if (this.buffType[j] == BuffID.StardustMinion)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.StardustCellMinion] > 0)
 						{
@@ -27642,7 +27642,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 187)
+					else if (this.buffType[j] == BuffID.StardustGuardianMinion)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.StardustGuardian] > 0)
 						{
@@ -27658,7 +27658,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 188)
+					else if (this.buffType[j] == BuffID.StardustDragonMinion)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.StardustDragon1] > 0)
 						{
@@ -27674,7 +27674,7 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 161)
+					else if (this.buffType[j] == BuffID.DeadlySphere)
 					{
 						if (this.ownedProjectileCounts[ProjectileID.DeadlySphere] > 0)
 						{
@@ -27690,96 +27690,96 @@ namespace Terraria
 							j--;
 						}
 					}
-					else if (this.buffType[j] == 90)
+					else if (this.buffType[j] == BuffID.Rudolph)
 					{
 						this.mount.SetMount(0, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 128)
+					else if (this.buffType[j] == BuffID.BunnyMount)
 					{
 						this.mount.SetMount(1, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 129)
+					else if (this.buffType[j] == BuffID.PigronMount)
 					{
 						this.mount.SetMount(2, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 130)
+					else if (this.buffType[j] == BuffID.SlimeMount)
 					{
 						this.mount.SetMount(3, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 118)
+					else if (this.buffType[j] == BuffID.MinecartLeft)
 					{
 						this.mount.SetMount(6, this, true);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 138)
+					else if (this.buffType[j] == BuffID.MinecartRight)
 					{
 						this.mount.SetMount(6, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 167)
+					else if (this.buffType[j] == BuffID.MinecartLeftMech)
 					{
 						this.mount.SetMount(11, this, true);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 166)
+					else if (this.buffType[j] == BuffID.MinecartRightMech)
 					{
 						this.mount.SetMount(11, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 184)
+					else if (this.buffType[j] == BuffID.MinecartLeftWood)
 					{
 						this.mount.SetMount(13, this, true);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 185)
+					else if (this.buffType[j] == BuffID.MinecartRightWood)
 					{
 						this.mount.SetMount(13, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 131)
+					else if (this.buffType[j] == BuffID.TurtleMount)
 					{
 						this.ignoreWater = true;
 						this.accFlipper = true;
 						this.mount.SetMount(4, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 132)
+					else if (this.buffType[j] == BuffID.BeeMount)
 					{
 						this.mount.SetMount(5, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 168)
+					else if (this.buffType[j] == BuffID.CuteFishronMount)
 					{
 						this.ignoreWater = true;
 						this.accFlipper = true;
 						this.mount.SetMount(12, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 141)
+					else if (this.buffType[j] == BuffID.UFOMount)
 					{
 						this.mount.SetMount(7, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 142)
+					else if (this.buffType[j] == BuffID.DrillMount)
 					{
 						this.mount.SetMount(8, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 143)
+					else if (this.buffType[j] == BuffID.ScutlixMount)
 					{
 						this.mount.SetMount(9, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 162)
+					else if (this.buffType[j] == BuffID.UnicornMount)
 					{
 						this.mount.SetMount(10, this, false);
 						this.buffTime[j] = 10;
 					}
-					else if (this.buffType[j] == 37)
+					else if (this.buffType[j] == BuffID.Horrified)
 					{
 						if (Main.wof < 0 || Main.npc[Main.wof].type != 113)
 						{
@@ -27792,12 +27792,12 @@ namespace Terraria
 							this.buffTime[j] = 10;
 						}
 					}
-					else if (this.buffType[j] == 38)
+					else if (this.buffType[j] == BuffID.TheTongue)
 					{
 						this.buffTime[j] = 10;
 						this.tongued = true;
 					}
-					else if (this.buffType[j] == 146)
+					else if (this.buffType[j] == BuffID.Sunflower)
 					{
 						Player player43 = this;
 						player43.moveSpeed = player43.moveSpeed + 0.1f;
@@ -27805,7 +27805,7 @@ namespace Terraria
 						player44.moveSpeed = player44.moveSpeed * 1.1f;
 						this.sunflower = true;
 					}
-					else if (this.buffType[j] == 19)
+					else if (this.buffType[j] == BuffID.ShadowOrb)
 					{
 						this.buffTime[j] = 18000;
 						this.lightOrb = true;
@@ -27819,7 +27819,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 18, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 155)
+					else if (this.buffType[j] == BuffID.CrimsonHeart)
 					{
 						this.buffTime[j] = 18000;
 						this.crimsonHeart = true;
@@ -27833,7 +27833,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 500, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 190)
+					else if (this.buffType[j] == BuffID.SuspiciousTentacle)
 					{
 						this.buffTime[j] = 18000;
 						this.suspiciouslookingTentacle = true;
@@ -27847,21 +27847,21 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 650, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 27 || this.buffType[j] == 101 || this.buffType[j] == 102)
+					else if (this.buffType[j] == BuffID.FairyBlue || this.buffType[j] == BuffID.FairyRed || this.buffType[j] == BuffID.FairyGreen)
 					{
 						this.buffTime[j] = 18000;
 						bool flag4 = true;
 						int num12 = 72;
-						if (this.buffType[j] == 27)
+						if (this.buffType[j] == BuffID.FairyBlue)
 						{
 							this.blueFairy = true;
 						}
-						if (this.buffType[j] == 101)
+						if (this.buffType[j] == BuffID.FairyRed)
 						{
 							num12 = 86;
 							this.redFairy = true;
 						}
-						if (this.buffType[j] == 102)
+						if (this.buffType[j] == BuffID.FairyGreen)
 						{
 							num12 = 87;
 							this.greenFairy = true;
@@ -27879,7 +27879,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, num12, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 40)
+					else if (this.buffType[j] == BuffID.PetBunny)
 					{
 						this.buffTime[j] = 18000;
 						this.bunny = true;
@@ -27893,7 +27893,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 111, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 148)
+					else if (this.buffType[j] == BuffID.Rabies)
 					{
 						this.rabid = true;
 						if (Main.rand.Next(1200) == 0)
@@ -27902,27 +27902,27 @@ namespace Terraria
 							float single2 = (float)Main.rand.Next(60, 100) * 0.01f;
 							if (num13 == 0)
 							{
-								this.AddBuff(22, (int)(60f * single2 * 3f), true);
+								this.AddBuff(BuffID.Darkness, (int)(60f * single2 * 3f), true);
 							}
 							else if (num13 == 1)
 							{
-								this.AddBuff(23, (int)(60f * single2 * 0.75f), true);
+								this.AddBuff(BuffID.Cursed, (int)(60f * single2 * 0.75f), true);
 							}
 							else if (num13 == 2)
 							{
-								this.AddBuff(31, (int)(60f * single2 * 1.5f), true);
+								this.AddBuff(BuffID.Confused, (int)(60f * single2 * 1.5f), true);
 							}
 							else if (num13 == 3)
 							{
-								this.AddBuff(32, (int)(60f * single2 * 3.5f), true);
+								this.AddBuff(BuffID.Slow, (int)(60f * single2 * 3.5f), true);
 							}
 							else if (num13 == 4)
 							{
-								this.AddBuff(33, (int)(60f * single2 * 5f), true);
+								this.AddBuff(BuffID.Weak, (int)(60f * single2 * 5f), true);
 							}
 							else if (num13 == 5)
 							{
-								this.AddBuff(35, (int)(60f * single2 * 1f), true);
+								this.AddBuff(BuffID.Silenced, (int)(60f * single2 * 1f), true);
 							}
 						}
 						Player player45 = this;
@@ -27936,7 +27936,7 @@ namespace Terraria
 						Player player49 = this;
 						player49.minionDamage = player49.minionDamage + 0.2f;
 					}
-					else if (this.buffType[j] == 41)
+					else if (this.buffType[j] == BuffID.BabyPenguin)
 					{
 						this.buffTime[j] = 18000;
 						this.penguin = true;
@@ -27950,7 +27950,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 112, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 152)
+					else if (this.buffType[j] == BuffID.MagicLantern)
 					{
 						this.buffTime[j] = 18000;
 						this.magicLantern = true;
@@ -27959,7 +27959,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 492, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 91)
+					else if (this.buffType[j] == BuffID.Puppy)
 					{
 						this.buffTime[j] = 18000;
 						this.puppy = true;
@@ -27973,7 +27973,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 334, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 92)
+					else if (this.buffType[j] == BuffID.BabyGrinch)
 					{
 						this.buffTime[j] = 18000;
 						this.grinch = true;
@@ -27987,7 +27987,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 353, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 84)
+					else if (this.buffType[j] == BuffID.BlackCat)
 					{
 						this.buffTime[j] = 18000;
 						this.blackCat = true;
@@ -28001,7 +28001,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 319, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 61)
+					else if (this.buffType[j] == BuffID.BabyDinosaur)
 					{
 						this.buffTime[j] = 18000;
 						this.dino = true;
@@ -28015,7 +28015,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 236, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 154)
+					else if (this.buffType[j] == BuffID.BabyFaceMonster)
 					{
 						this.buffTime[j] = 18000;
 						this.babyFaceMonster = true;
@@ -28029,7 +28029,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 499, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 65)
+					else if (this.buffType[j] == BuffID.EyeballSpring)
 					{
 						this.buffTime[j] = 18000;
 						this.eyeSpring = true;
@@ -28043,7 +28043,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 268, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 66)
+					else if (this.buffType[j] == BuffID.BabySnowman)
 					{
 						this.buffTime[j] = 18000;
 						this.snowman = true;
@@ -28057,7 +28057,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 269, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 42)
+					else if (this.buffType[j] == BuffID.PetTurtle)
 					{
 						this.buffTime[j] = 18000;
 						this.turtle = true;
@@ -28071,7 +28071,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 127, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 45)
+					else if (this.buffType[j] == BuffID.BabyEater)
 					{
 						this.buffTime[j] = 18000;
 						this.eater = true;
@@ -28085,7 +28085,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 175, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 50)
+					else if (this.buffType[j] == BuffID.BabySkeletronHead)
 					{
 						this.buffTime[j] = 18000;
 						this.skeletron = true;
@@ -28099,7 +28099,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 197, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 51)
+					else if (this.buffType[j] == BuffID.BabyHornet)
 					{
 						this.buffTime[j] = 18000;
 						this.hornet = true;
@@ -28113,7 +28113,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 198, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 52)
+					else if (this.buffType[j] == BuffID.TikiSpirit)
 					{
 						this.buffTime[j] = 18000;
 						this.tiki = true;
@@ -28127,7 +28127,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 199, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 53)
+					else if (this.buffType[j] == BuffID.PetLizard)
 					{
 						this.buffTime[j] = 18000;
 						this.lizard = true;
@@ -28141,7 +28141,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 200, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 54)
+					else if (this.buffType[j] == BuffID.PetParrot)
 					{
 						this.buffTime[j] = 18000;
 						this.parrot = true;
@@ -28155,7 +28155,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 208, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 55)
+					else if (this.buffType[j] == BuffID.BabyTruffle)
 					{
 						this.buffTime[j] = 18000;
 						this.truffle = true;
@@ -28169,7 +28169,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 209, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 56)
+					else if (this.buffType[j] == BuffID.PetSapling)
 					{
 						this.buffTime[j] = 18000;
 						this.sapling = true;
@@ -28183,7 +28183,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 210, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 85)
+					else if (this.buffType[j] == BuffID.CursedSapling)
 					{
 						this.buffTime[j] = 18000;
 						this.cSapling = true;
@@ -28197,7 +28197,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 324, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 81)
+					else if (this.buffType[j] == BuffID.PetSpider)
 					{
 						this.buffTime[j] = 18000;
 						this.spider = true;
@@ -28211,7 +28211,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 313, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 82)
+					else if (this.buffType[j] == BuffID.Squashling)
 					{
 						this.buffTime[j] = 18000;
 						this.squashling = true;
@@ -28225,7 +28225,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 314, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 57)
+					else if (this.buffType[j] == BuffID.Wisp)
 					{
 						this.buffTime[j] = 18000;
 						this.wisp = true;
@@ -28239,7 +28239,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 211, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 60)
+					else if (this.buffType[j] == BuffID.LeafCrystal)
 					{
 						this.buffTime[j] = 18000;
 						this.crystalLeaf = true;
@@ -28274,7 +28274,7 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 380, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 136)
+					else if (this.buffType[j] == BuffID.MiniMinotaur)
 					{
 						this.buffTime[j] = 18000;
 						this.miniMinotaur = true;
@@ -28288,68 +28288,68 @@ namespace Terraria
 							Projectile.NewProjectile(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2), 0f, 0f, 398, 0, 0f, this.whoAmI, 0f, 0f);
 						}
 					}
-					else if (this.buffType[j] == 70)
+					else if (this.buffType[j] == BuffID.Venom)
 					{
 						this.venom = true;
 					}
-					else if (this.buffType[j] == 20)
+					else if (this.buffType[j] == BuffID.Poisoned)
 					{
 						this.poisoned = true;
 					}
-					else if (this.buffType[j] == 21)
+					else if (this.buffType[j] == BuffID.PotionSickness)
 					{
 						this.potionDelay = this.buffTime[j];
 					}
-					else if (this.buffType[j] == 22)
+					else if (this.buffType[j] == BuffID.Darkness)
 					{
 						this.blind = true;
 					}
-					else if (this.buffType[j] == 80)
+					else if (this.buffType[j] == BuffID.Blackout)
 					{
 						this.blackout = true;
 					}
-					else if (this.buffType[j] == 23)
+					else if (this.buffType[j] == BuffID.Cursed)
 					{
 						this.noItems = true;
 					}
-					else if (this.buffType[j] == 24)
+					else if (this.buffType[j] == BuffID.OnFire)
 					{
 						this.onFire = true;
 					}
-					else if (this.buffType[j] == 103)
+					else if (this.buffType[j] == BuffID.Wet)
 					{
 						this.dripping = true;
 					}
-					else if (this.buffType[j] == 137)
+					else if (this.buffType[j] == BuffID.Slimed)
 					{
 						this.drippingSlime = true;
 					}
-					else if (this.buffType[j] == 67)
+					else if (this.buffType[j] == BuffID.Burning)
 					{
 						this.burned = true;
 					}
-					else if (this.buffType[j] == 68)
+					else if (this.buffType[j] == BuffID.Suffocation)
 					{
 						this.suffocating = true;
 					}
-					else if (this.buffType[j] == 39)
+					else if (this.buffType[j] == BuffID.CursedInferno)
 					{
 						this.onFire2 = true;
 					}
-					else if (this.buffType[j] == 44)
+					else if (this.buffType[j] == BuffID.Frostburn)
 					{
 						this.onFrostBurn = true;
 					}
-					else if (this.buffType[j] == 163)
+					else if (this.buffType[j] == BuffID.Obstructed)
 					{
 						this.headcovered = true;
 						this.bleed = true;
 					}
-					else if (this.buffType[j] == 164)
+					else if (this.buffType[j] == BuffID.VortexDebuff)
 					{
 						this.vortexDebuff = true;
 					}
-					else if (this.buffType[j] == 145)
+					else if (this.buffType[j] == BuffID.MoonLeech)
 					{
 						bool flag30 = false;
 						int num14 = 0;
@@ -28375,7 +28375,7 @@ namespace Terraria
 							this.moonLeech = true;
 						}
 					}
-					else if (this.buffType[j] == 149)
+					else if (this.buffType[j] == BuffID.Webbed)
 					{
 						this.webbed = true;
 						if (this.velocity.Y == 0f)
@@ -28401,11 +28401,11 @@ namespace Terraria
 							}
 						}
 					}
-					else if (this.buffType[j] == 43)
+					else if (this.buffType[j] == BuffID.PaladinsShield)
 					{
 						this.paladinBuff = true;
 					}
-					else if (this.buffType[j] == 29)
+					else if (this.buffType[j] == BuffID.Clairvoyance)
 					{
 						Player player50 = this;
 						player50.magicCrit = player50.magicCrit + 2;
@@ -28416,7 +28416,7 @@ namespace Terraria
 						Player player53 = this;
 						player53.manaCost = player53.manaCost - 0.02f;
 					}
-					else if (this.buffType[j] == 28)
+					else if (this.buffType[j] == BuffID.Werewolf)
 					{
 						if (Main.dayTime || !this.wolfAcc || this.merman)
 						{
@@ -28440,7 +28440,7 @@ namespace Terraria
 							player59.moveSpeed = player59.moveSpeed + 0.05f;
 						}
 					}
-					else if (this.buffType[j] == 33)
+					else if (this.buffType[j] == BuffID.Weak)
 					{
 						Player player60 = this;
 						player60.meleeDamage = player60.meleeDamage - 0.051f;
@@ -28451,7 +28451,7 @@ namespace Terraria
 						Player player63 = this;
 						player63.moveSpeed = player63.moveSpeed - 0.1f;
 					}
-					else if (this.buffType[j] == 25)
+					else if (this.buffType[j] == BuffID.Tipsy)
 					{
 						Player player64 = this;
 						player64.statDefense = player64.statDefense - 4;
@@ -28462,7 +28462,7 @@ namespace Terraria
 						Player player67 = this;
 						player67.meleeSpeed = player67.meleeSpeed + 0.1f;
 					}
-					else if (this.buffType[j] == 26)
+					else if (this.buffType[j] == BuffID.WellFed)
 					{
 						this.wellFed = true;
 						Player player68 = this;
@@ -28492,35 +28492,35 @@ namespace Terraria
 						Player player80 = this;
 						player80.moveSpeed = player80.moveSpeed + 0.2f;
 					}
-					else if (this.buffType[j] == 71)
+					else if (this.buffType[j] == BuffID.WeaponImbueVenom)
 					{
 						this.meleeEnchant = 1;
 					}
-					else if (this.buffType[j] == 73)
+					else if (this.buffType[j] == BuffID.WeaponImbueCursedFlames)
 					{
 						this.meleeEnchant = 2;
 					}
-					else if (this.buffType[j] == 74)
+					else if (this.buffType[j] == BuffID.WeaponImbueFire)
 					{
 						this.meleeEnchant = 3;
 					}
-					else if (this.buffType[j] == 75)
+					else if (this.buffType[j] == BuffID.WeaponImbueGold)
 					{
 						this.meleeEnchant = 4;
 					}
-					else if (this.buffType[j] == 76)
+					else if (this.buffType[j] == BuffID.WeaponImbueIchor)
 					{
 						this.meleeEnchant = 5;
 					}
-					else if (this.buffType[j] == 77)
+					else if (this.buffType[j] == BuffID.WeaponImbueNanites)
 					{
 						this.meleeEnchant = 6;
 					}
-					else if (this.buffType[j] == 78)
+					else if (this.buffType[j] == BuffID.WeaponImbueConfetti)
 					{
 						this.meleeEnchant = 7;
 					}
-					else if (this.buffType[j] == 79)
+					else if (this.buffType[j] == BuffID.WeaponImbuePoison)
 					{
 						this.meleeEnchant = 8;
 					}
@@ -30185,7 +30185,7 @@ namespace Terraria
 					}
 					if (this.armor[k].type == 1253 && (double)this.statLife <= (double)this.statLifeMax2 * 0.5)
 					{
-						this.AddBuff(62, 5, true);
+						this.AddBuff(BuffID.IceBarrier, 5, true);
 					}
 					if (this.armor[k].type == 1290)
 					{
@@ -30633,7 +30633,7 @@ namespace Terraria
 									float y1 = this.position.Y - Main.player[num3].position.Y;
 									if ((float)Math.Sqrt((double)(single * single + y1 * y1)) < 800f)
 									{
-										Main.player[num3].AddBuff(43, 10, true);
+										Main.player[num3].AddBuff(BuffID.PaladinsShield, 10, true);
 									}
 								}
 							}
@@ -30949,91 +30949,91 @@ namespace Terraria
 					}
 					if (this.armor[k].type == 885)
 					{
-						this.buffImmune[30] = true;
+						this.buffImmune[BuffID.Bleeding] = true;
 					}
 					if (this.armor[k].type == 886)
 					{
-						this.buffImmune[36] = true;
+						this.buffImmune[BuffID.BrokenArmor] = true;
 					}
 					if (this.armor[k].type == 887)
 					{
-						this.buffImmune[20] = true;
+						this.buffImmune[BuffID.Poisoned] = true;
 					}
 					if (this.armor[k].type == 888)
 					{
-						this.buffImmune[22] = true;
+						this.buffImmune[BuffID.Darkness] = true;
 					}
 					if (this.armor[k].type == 889)
 					{
-						this.buffImmune[32] = true;
+						this.buffImmune[BuffID.Slow] = true;
 					}
 					if (this.armor[k].type == 890)
 					{
-						this.buffImmune[35] = true;
+						this.buffImmune[BuffID.Silenced] = true;
 					}
 					if (this.armor[k].type == 891)
 					{
-						this.buffImmune[23] = true;
+						this.buffImmune[BuffID.Cursed] = true;
 					}
 					if (this.armor[k].type == 892)
 					{
-						this.buffImmune[33] = true;
+						this.buffImmune[BuffID.Weak] = true;
 					}
 					if (this.armor[k].type == 893)
 					{
-						this.buffImmune[31] = true;
+						this.buffImmune[BuffID.Confused] = true;
 					}
 					if (this.armor[k].type == 901)
 					{
-						this.buffImmune[33] = true;
-						this.buffImmune[36] = true;
+						this.buffImmune[BuffID.Weak] = true;
+						this.buffImmune[BuffID.BrokenArmor] = true;
 					}
 					if (this.armor[k].type == 902)
 					{
-						this.buffImmune[30] = true;
-						this.buffImmune[20] = true;
+						this.buffImmune[BuffID.Bleeding] = true;
+						this.buffImmune[BuffID.Poisoned] = true;
 					}
 					if (this.armor[k].type == 903)
 					{
-						this.buffImmune[32] = true;
-						this.buffImmune[31] = true;
+						this.buffImmune[BuffID.Slow] = true;
+						this.buffImmune[BuffID.Confused] = true;
 					}
 					if (this.armor[k].type == 904)
 					{
-						this.buffImmune[35] = true;
-						this.buffImmune[23] = true;
+						this.buffImmune[BuffID.Silenced] = true;
+						this.buffImmune[BuffID.Cursed] = true;
 					}
 					if (this.armor[k].type == 1921)
 					{
-						this.buffImmune[46] = true;
-						this.buffImmune[47] = true;
+						this.buffImmune[BuffID.Chilled] = true;
+						this.buffImmune[BuffID.Frozen] = true;
 					}
 					if (this.armor[k].type == 1612)
 					{
-						this.buffImmune[33] = true;
-						this.buffImmune[36] = true;
-						this.buffImmune[30] = true;
-						this.buffImmune[20] = true;
-						this.buffImmune[32] = true;
-						this.buffImmune[31] = true;
-						this.buffImmune[35] = true;
-						this.buffImmune[23] = true;
-						this.buffImmune[22] = true;
+						this.buffImmune[BuffID.Weak] = true;
+						this.buffImmune[BuffID.BrokenArmor] = true;
+						this.buffImmune[BuffID.Bleeding] = true;
+						this.buffImmune[BuffID.Poisoned] = true;
+						this.buffImmune[BuffID.Slow] = true;
+						this.buffImmune[BuffID.Confused] = true;
+						this.buffImmune[BuffID.Silenced] = true;
+						this.buffImmune[BuffID.Cursed] = true;
+						this.buffImmune[BuffID.Darkness] = true;
 					}
 					if (this.armor[k].type == 1613)
 					{
-						this.buffImmune[46] = true;
+						this.buffImmune[BuffID.Chilled] = true;
 						this.noKnockback = true;
 						this.fireWalk = true;
-						this.buffImmune[33] = true;
-						this.buffImmune[36] = true;
-						this.buffImmune[30] = true;
-						this.buffImmune[20] = true;
-						this.buffImmune[32] = true;
-						this.buffImmune[31] = true;
-						this.buffImmune[35] = true;
-						this.buffImmune[23] = true;
-						this.buffImmune[22] = true;
+						this.buffImmune[BuffID.Weak] = true;
+						this.buffImmune[BuffID.BrokenArmor] = true;
+						this.buffImmune[BuffID.Bleeding] = true;
+						this.buffImmune[BuffID.Poisoned] = true;
+						this.buffImmune[BuffID.Slow] = true;
+						this.buffImmune[BuffID.Confused] = true;
+						this.buffImmune[BuffID.Silenced] = true;
+						this.buffImmune[BuffID.Cursed] = true;
+						this.buffImmune[BuffID.Darkness] = true;
 					}
 					if (this.armor[k].type == 497)
 					{
@@ -31924,11 +31924,11 @@ namespace Terraria
 			int num1 = this.HasBuff(num);
 			if (num == 27 && num1 == -1)
 			{
-				num1 = this.HasBuff(102);
+				num1 = this.HasBuff(BuffID.FairyGreen);
 			}
 			if (num == 27 && num1 == -1)
 			{
-				num1 = this.HasBuff(101);
+				num1 = this.HasBuff(BuffID.FairyRed);
 			}
 			if (num1 == -1)
 			{
@@ -32228,24 +32228,24 @@ namespace Terraria
 				}
 				if (!this.gross && this.position.Y > (float)((Main.maxTilesY - 250) * 16) && this.position.X > x - 1920f && this.position.X < x + 1920f)
 				{
-					this.AddBuff(37, 10, true);
+					this.AddBuff(BuffID.Horrified, 10, true);
 				}
 				if (this.gross)
 				{
 					if (this.position.Y < (float)((Main.maxTilesY - 200) * 16))
 					{
-						this.AddBuff(38, 10, true);
+						this.AddBuff(BuffID.TheTongue, 10, true);
 					}
 					if (Main.npc[Main.wof].direction < 0)
 					{
 						if (this.position.X + (float)(this.width / 2) > Main.npc[Main.wof].position.X + (float)(Main.npc[Main.wof].width / 2) + 40f)
 						{
-							this.AddBuff(38, 10, true);
+							this.AddBuff(BuffID.TheTongue, 10, true);
 						}
 					}
 					else if (this.position.X + (float)(this.width / 2) < Main.npc[Main.wof].position.X + (float)(Main.npc[Main.wof].width / 2) - 40f)
 					{
-						this.AddBuff(38, 10, true);
+						this.AddBuff(BuffID.TheTongue, 10, true);
 					}
 				}
 				if (this.tongued)

@@ -7139,313 +7139,313 @@ namespace Terraria
 				int meleeEnchant = (int)Main.player[this.owner].meleeEnchant;
 				if (meleeEnchant == 1)
 				{
-					Main.npc[i].AddBuff(70, 60 * Main.rand.Next(5, 10), false);
+					Main.npc[i].AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10), false);
 				}
 				if (meleeEnchant == 2)
 				{
-					Main.npc[i].AddBuff(39, 60 * Main.rand.Next(3, 7), false);
+					Main.npc[i].AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7), false);
 				}
 				if (meleeEnchant == 3)
 				{
-					Main.npc[i].AddBuff(24, 60 * Main.rand.Next(3, 7), false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), false);
 				}
 				if (meleeEnchant == 5)
 				{
-					Main.npc[i].AddBuff(69, 60 * Main.rand.Next(10, 20), false);
+					Main.npc[i].AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20), false);
 				}
 				if (meleeEnchant == 6)
 				{
-					Main.npc[i].AddBuff(31, 60 * Main.rand.Next(1, 4), false);
+					Main.npc[i].AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4), false);
 				}
 				if (meleeEnchant == 8)
 				{
-					Main.npc[i].AddBuff(20, 60 * Main.rand.Next(5, 10), false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10), false);
 				}
 				if (meleeEnchant == 4)
 				{
-					Main.npc[i].AddBuff(72, 120, false);
+					Main.npc[i].AddBuff(BuffID.Midas, 120, false);
 				}
 			}
 			if (this.type == ProjectileID.PygmySpear)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(70, 60 * Main.rand.Next(10, 21), false);
+					Main.npc[i].AddBuff(BuffID.Venom, 60 * Main.rand.Next(10, 21), false);
 				}
 				else
 				{
-					Main.npc[i].AddBuff(20, 60 * Main.rand.Next(10, 21), false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(10, 21), false);
 				}
 			}
 			if (this.type == ProjectileID.SporeTrap || this.type == ProjectileID.SporeTrap2)
 			{
-				Main.npc[i].AddBuff(20, 60 * Main.rand.Next(5, 11), false);
+				Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 11), false);
 			}
 			if (this.type == ProjectileID.BoneJavelin)
 			{
-				Main.npc[i].AddBuff(169, 900, false);
+				Main.npc[i].AddBuff(BuffID.BoneJavelin, 900, false);
 			}
 			if (this.type == ProjectileID.Daybreak)
 			{
-				Main.npc[i].AddBuff(189, 300, false);
+				Main.npc[i].AddBuff(BuffID.Daybreak, 300, false);
 			}
 			if (this.type == ProjectileID.SolarWhipSword)
 			{
-				Main.npc[i].AddBuff(189, 300, false);
+				Main.npc[i].AddBuff(BuffID.Daybreak, 300, false);
 			}
 			if (this.type == ProjectileID.SolarWhipSwordExplosion)
 			{
-				Main.npc[i].AddBuff(189, 300, false);
+				Main.npc[i].AddBuff(BuffID.Daybreak, 300, false);
 			}
 			if (this.type == ProjectileID.StardustCellMinionShot)
 			{
-				Main.npc[i].AddBuff(183, 900, false);
+				Main.npc[i].AddBuff(BuffID.StardustMinionBleed, 900, false);
 			}
 			if (this.type == ProjectileID.ClothiersCurse)
 			{
-				Main.npc[i].AddBuff(153, 60 * Main.rand.Next(5, 11), false);
+				Main.npc[i].AddBuff(BuffID.ShadowFlame, 60 * Main.rand.Next(5, 11), false);
 			}
 			if (this.type == ProjectileID.NurseSyringeHurt)
 			{
-				Main.npc[i].AddBuff(20, 60 * Main.rand.Next(3, 6), false);
+				Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(3, 6), false);
 			}
 			if (this.type == ProjectileID.IchorSplash)
 			{
-				Main.npc[i].AddBuff(69, 60 * Main.rand.Next(3, 8), false);
+				Main.npc[i].AddBuff(BuffID.Ichor, 60 * Main.rand.Next(3, 8), false);
 			}
 			if (this.type == ProjectileID.Spark && Main.rand.Next(3) == 0)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(24, Main.rand.Next(60, 180), false);
+					Main.npc[i].AddBuff(BuffID.OnFire, Main.rand.Next(60, 180), false);
 				}
 				else
 				{
-					Main.npc[i].AddBuff(24, Main.rand.Next(30, 120), false);
+					Main.npc[i].AddBuff(BuffID.OnFire, Main.rand.Next(30, 120), false);
 				}
 			}
 			if (this.type == ProjectileID.Cascade && Main.rand.Next(3) == 0)
 			{
-				Main.npc[i].AddBuff(24, Main.rand.Next(60, 240), false);
+				Main.npc[i].AddBuff(BuffID.OnFire, Main.rand.Next(60, 240), false);
 			}
 			if (this.type == ProjectileID.HelFire)
 			{
-				Main.npc[i].AddBuff(24, Main.rand.Next(180, 480), false);
+				Main.npc[i].AddBuff(BuffID.OnFire, Main.rand.Next(180, 480), false);
 			}
 			if (this.type == ProjectileID.Amarok && Main.rand.Next(3) != 0)
 			{
-				Main.npc[i].AddBuff(44, Main.rand.Next(120, 320), false);
+				Main.npc[i].AddBuff(BuffID.Frostburn, Main.rand.Next(120, 320), false);
 			}
 			if (this.type == ProjectileID.ShadowFlameArrow)
 			{
-				Main.npc[i].AddBuff(153, Main.rand.Next(120, 300), false);
+				Main.npc[i].AddBuff(BuffID.ShadowFlame, Main.rand.Next(120, 300), false);
 			}
 			if (this.type == ProjectileID.ShadowFlameKnife)
 			{
-				Main.npc[i].AddBuff(153, Main.rand.Next(60, 180), false);
+				Main.npc[i].AddBuff(BuffID.ShadowFlame, Main.rand.Next(60, 180), false);
 			}
 			if (this.type == ProjectileID.ShadowFlame)
 			{
-				Main.npc[i].AddBuff(153, Main.rand.Next(240, 480), false);
+				Main.npc[i].AddBuff(BuffID.ShadowFlame, Main.rand.Next(240, 480), false);
 			}
 			if (this.type == ProjectileID.SoulDrain)
 			{
-				Main.npc[i].AddBuff(151, 30, false);
+				Main.npc[i].AddBuff(BuffID.SoulDrain, 30, false);
 			}
 			if (this.type == ProjectileID.ToxicBubble)
 			{
-				Main.npc[i].AddBuff(20, 60 * Main.rand.Next(10, 30), false);
+				Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(10, 30), false);
 			}
 			if (this.type == ProjectileID.CursedDart || this.type == ProjectileID.CursedDartFlame)
 			{
-				Main.npc[i].AddBuff(39, 60 * Main.rand.Next(3, 7), false);
+				Main.npc[i].AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7), false);
 			}
 			if (this.type == ProjectileID.IchorDart)
 			{
-				Main.npc[i].AddBuff(69, 60 * Main.rand.Next(7, 15), false);
+				Main.npc[i].AddBuff(BuffID.Ichor, 60 * Main.rand.Next(7, 15), false);
 			}
 			if (this.type == ProjectileID.BabySpider)
 			{
-				Main.npc[i].AddBuff(70, 60 * Main.rand.Next(4, 7), false);
+				Main.npc[i].AddBuff(BuffID.Venom, 60 * Main.rand.Next(4, 7), false);
 			}
 			if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider)
 			{
-				Main.npc[i].AddBuff(70, 60 * Main.rand.Next(2, 5), false);
+				Main.npc[i].AddBuff(BuffID.Venom, 60 * Main.rand.Next(2, 5), false);
 			}
 			if (this.type == ProjectileID.HornetStinger)
 			{
-				Main.npc[i].AddBuff(20, 60 * Main.rand.Next(4, 7), false);
+				Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(4, 7), false);
 			}
 			if (this.type == ProjectileID.ImpFireball)
 			{
-				Main.npc[i].AddBuff(24, 60 * Main.rand.Next(3, 7), false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), false);
 			}
 			if (this.type >= ProjectileID.MolotovCocktail && this.type <= ProjectileID.MolotovFire3)
 			{
-				Main.npc[i].AddBuff(24, 60 * Main.rand.Next(3, 7), false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), false);
 			}
 			if (this.type == ProjectileID.InfernoFriendlyBolt || this.type == ProjectileID.InfernoFriendlyBlast)
 			{
-				Main.npc[i].AddBuff(24, 60 * Main.rand.Next(8, 16), false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(8, 16), false);
 			}
 			if ((this.melee || this.ranged) && Main.player[this.owner].frostBurn && !this.noEnchantments)
 			{
-				Main.npc[i].AddBuff(44, 60 * Main.rand.Next(5, 15), false);
+				Main.npc[i].AddBuff(BuffID.Frostburn, 60 * Main.rand.Next(5, 15), false);
 			}
 			if (this.melee && Main.player[this.owner].magmaStone && !this.noEnchantments)
 			{
 				if (Main.rand.Next(7) == 0)
 				{
-					Main.npc[i].AddBuff(24, 360, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 360, false);
 				}
 				else if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(24, 120, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 120, false);
 				}
 				else
 				{
-					Main.npc[i].AddBuff(24, 60, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 60, false);
 				}
 			}
 			if (this.type == ProjectileID.GoldenBullet)
 			{
-				Main.npc[i].AddBuff(72, 120, false);
+				Main.npc[i].AddBuff(BuffID.Midas, 120, false);
 			}
 			if (this.type == ProjectileID.NanoBullet)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(31, 180, false);
+					Main.npc[i].AddBuff(BuffID.Confused, 180, false);
 				}
 				else
 				{
-					Main.npc[i].AddBuff(31, 60, false);
+					Main.npc[i].AddBuff(BuffID.Confused, 60, false);
 				}
 			}
 			if (this.type == ProjectileID.FireArrow && Main.rand.Next(3) == 0)
 			{
-				Main.npc[i].AddBuff(24, 180, false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 180, false);
 			}
 			if (this.type == ProjectileID.FrostburnArrow)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(44, 180, false);
+					Main.npc[i].AddBuff(BuffID.Frostburn, 180, false);
 				}
 			}
 			else if (this.type == ProjectileID.BallofFire)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.npc[i].AddBuff(24, 300, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 300, false);
 				}
 			}
 			else if (this.type == ProjectileID.BallofFrost)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.npc[i].AddBuff(44, 480, false);
+					Main.npc[i].AddBuff(BuffID.Frostburn, 480, false);
 				}
 			}
 			else if (this.type == ProjectileID.Flamarang)
 			{
 				if (Main.rand.Next(5) == 0)
 				{
-					Main.npc[i].AddBuff(24, 180, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 180, false);
 				}
 			}
 			else if (this.type == ProjectileID.ThornChakram)
 			{
 				if (Main.rand.Next(5) == 0)
 				{
-					Main.npc[i].AddBuff(20, 420, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 420, false);
 				}
 			}
 			else if (this.type == ProjectileID.Flamelash)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.npc[i].AddBuff(24, Main.rand.Next(240, 480), false);
+					Main.npc[i].AddBuff(BuffID.OnFire, Main.rand.Next(240, 480), false);
 				}
 			}
 			else if (this.type == ProjectileID.Sunfury)
 			{
 				if (Main.rand.Next(4) == 0)
 				{
-					Main.npc[i].AddBuff(24, 180, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 180, false);
 				}
 			}
 			else if (this.type == ProjectileID.PoisonedKnife)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.npc[i].AddBuff(20, 600, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 600, false);
 				}
 			}
 			else if (this.type == ProjectileID.PoisonDartBlowgun)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(20, 3600, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 3600, false);
 				}
 				else
 				{
-					Main.npc[i].AddBuff(20, 1800, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 1800, false);
 				}
 			}
 			else if (this.type == ProjectileID.TheDaoofPow)
 			{
 				if (Main.rand.Next(5) != 0)
 				{
-					Main.npc[i].AddBuff(31, 60 * Main.rand.Next(2, 5), false);
+					Main.npc[i].AddBuff(BuffID.Confused, 60 * Main.rand.Next(2, 5), false);
 				}
 			}
 			else if (this.type == ProjectileID.Flames || this.type == ProjectileID.FlamesTrap)
 			{
-				Main.npc[i].AddBuff(24, 1200, false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 1200, false);
 			}
 			else if (this.type == ProjectileID.CursedFlameFriendly || this.type == ProjectileID.CursedArrow || this.type == ProjectileID.CursedBullet)
 			{
-				Main.npc[i].AddBuff(39, 420, false);
+				Main.npc[i].AddBuff(BuffID.CursedInferno, 420, false);
 			}
 			else if (this.type == ProjectileID.IchorArrow || this.type == ProjectileID.IchorBullet || this.type == ProjectileID.GoldenShowerFriendly)
 			{
-				Main.npc[i].AddBuff(69, 600, false);
+				Main.npc[i].AddBuff(BuffID.Ichor, 600, false);
 			}
 			else if (this.type == ProjectileID.VenomArrow || this.type == ProjectileID.VenomBullet)
 			{
-				Main.npc[i].AddBuff(70, 600, false);
+				Main.npc[i].AddBuff(BuffID.Venom, 600, false);
 			}
 			if (this.type == ProjectileID.Flare || this.type == ProjectileID.BlueFlare)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(24, 600, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 600, false);
 					return;
 				}
-				Main.npc[i].AddBuff(24, 300, false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 300, false);
 				return;
 			}
 			else
 			{
 				if (this.type == ProjectileID.PoisonDart)
 				{
-					Main.npc[i].AddBuff(20, 600, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 600, false);
 					return;
 				}
 				if (this.type == ProjectileID.PoisonDartTrap)
 				{
-					Main.npc[i].AddBuff(20, 900, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 900, false);
 					return;
 				}
 				if (this.type == ProjectileID.PoisonFang)
 				{
-					Main.npc[i].AddBuff(20, 1800, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 1800, false);
 					return;
 				}
 				if (this.type == ProjectileID.VenomFang)
 				{
-					Main.npc[i].AddBuff(70, 1800, false);
+					Main.npc[i].AddBuff(BuffID.Venom, 1800, false);
 				}
 				return;
 			}
@@ -7457,170 +7457,170 @@ namespace Terraria
 				int meleeEnchant = (int)Main.player[this.owner].meleeEnchant;
 				if (meleeEnchant == 1)
 				{
-					Main.player[i].AddBuff(70, 60 * Main.rand.Next(5, 10), true);
+					Main.player[i].AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10), true);
 				}
 				if (meleeEnchant == 2)
 				{
-					Main.player[i].AddBuff(39, 60 * Main.rand.Next(3, 7), true);
+					Main.player[i].AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7), true);
 				}
 				if (meleeEnchant == 3)
 				{
-					Main.player[i].AddBuff(24, 60 * Main.rand.Next(3, 7), true);
+					Main.player[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), true);
 				}
 				if (meleeEnchant == 5)
 				{
-					Main.player[i].AddBuff(69, 60 * Main.rand.Next(10, 20), true);
+					Main.player[i].AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20), true);
 				}
 				if (meleeEnchant == 6)
 				{
-					Main.player[i].AddBuff(31, 60 * Main.rand.Next(1, 4), true);
+					Main.player[i].AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4), true);
 				}
 				if (meleeEnchant == 8)
 				{
-					Main.player[i].AddBuff(20, 60 * Main.rand.Next(5, 10), true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10), true);
 				}
 			}
 			if (this.type == ProjectileID.InfernoFriendlyBolt || this.type == ProjectileID.InfernoFriendlyBlast)
 			{
-				Main.player[i].AddBuff(24, 60 * Main.rand.Next(8, 16), true);
+				Main.player[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(8, 16), true);
 			}
 			if (this.type == ProjectileID.CursedDart || this.type == ProjectileID.CursedDartFlame)
 			{
-				Main.player[i].AddBuff(39, 60 * Main.rand.Next(3, 7), true);
+				Main.player[i].AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7), true);
 			}
 			if ((this.melee || this.ranged) && Main.player[this.owner].frostBurn && !this.noEnchantments)
 			{
-				Main.player[i].AddBuff(44, 60 * Main.rand.Next(1, 8), false);
+				Main.player[i].AddBuff(BuffID.Frostburn, 60 * Main.rand.Next(1, 8), false);
 			}
 			if (this.melee && Main.player[this.owner].magmaStone && !this.noEnchantments)
 			{
 				if (Main.rand.Next(4) == 0)
 				{
-					Main.player[i].AddBuff(24, 360, true);
+					Main.player[i].AddBuff(BuffID.OnFire, 360, true);
 				}
 				else if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(24, 240, true);
+					Main.player[i].AddBuff(BuffID.OnFire, 240, true);
 				}
 				else
 				{
-					Main.player[i].AddBuff(24, 120, true);
+					Main.player[i].AddBuff(BuffID.OnFire, 120, true);
 				}
 			}
 			if (this.type == ProjectileID.FireArrow && Main.rand.Next(3) == 0)
 			{
-				Main.player[i].AddBuff(24, 180, false);
+				Main.player[i].AddBuff(BuffID.OnFire, 180, false);
 			}
 			if (this.type == ProjectileID.FrostburnArrow)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.player[i].AddBuff(44, 240, false);
+					Main.player[i].AddBuff(BuffID.Frostburn, 240, false);
 				}
 			}
 			else if (this.type == ProjectileID.BallofFire)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(24, 300, false);
+					Main.player[i].AddBuff(BuffID.OnFire, 300, false);
 				}
 			}
 			else if (this.type == ProjectileID.BallofFrost)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(44, 480, false);
+					Main.player[i].AddBuff(BuffID.Frostburn, 480, false);
 				}
 			}
 			else if (this.type == ProjectileID.Flamarang)
 			{
 				if (Main.rand.Next(5) == 0)
 				{
-					Main.player[i].AddBuff(24, 180, false);
+					Main.player[i].AddBuff(BuffID.OnFire, 180, false);
 				}
 			}
 			else if (this.type == ProjectileID.ThornChakram)
 			{
 				if (Main.rand.Next(5) == 0)
 				{
-					Main.player[i].AddBuff(20, 420, false);
+					Main.player[i].AddBuff(BuffID.Poisoned, 420, false);
 				}
 			}
 			else if (this.type == ProjectileID.Flamelash)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(24, 240, false);
+					Main.player[i].AddBuff(BuffID.OnFire, 240, false);
 				}
 			}
 			else if (this.type == ProjectileID.Sunfury)
 			{
 				if (Main.rand.Next(4) == 0)
 				{
-					Main.player[i].AddBuff(24, 180, false);
+					Main.player[i].AddBuff(BuffID.OnFire, 180, false);
 				}
 			}
 			else if (this.type == ProjectileID.PoisonedKnife)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(20, 600, false);
+					Main.player[i].AddBuff(BuffID.Poisoned, 600, false);
 				}
 			}
 			else if (this.type == ProjectileID.PoisonDartBlowgun)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.player[i].AddBuff(20, 3600, true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 3600, true);
 				}
 				else
 				{
-					Main.player[i].AddBuff(20, 1800, true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 1800, true);
 				}
 			}
 			else if (this.type == ProjectileID.TheDaoofPow)
 			{
 				if (Main.rand.Next(3) != 0)
 				{
-					Main.player[i].AddBuff(31, 120, true);
+					Main.player[i].AddBuff(BuffID.Confused, 120, true);
 				}
 			}
 			else if (this.type == ProjectileID.Flames || this.type == ProjectileID.FlamesTrap)
 			{
-				Main.player[i].AddBuff(24, 1200, false);
+				Main.player[i].AddBuff(BuffID.OnFire, 1200, false);
 			}
 			else if (this.type == ProjectileID.CursedFlameFriendly || this.type == ProjectileID.CursedArrow || this.type == ProjectileID.CursedBullet)
 			{
-				Main.player[i].AddBuff(39, 420, true);
+				Main.player[i].AddBuff(BuffID.CursedInferno, 420, true);
 			}
 			else if (this.type == ProjectileID.IchorArrow || this.type == ProjectileID.IchorBullet || this.type == ProjectileID.GoldenShowerFriendly)
 			{
-				Main.player[i].AddBuff(69, 900, true);
+				Main.player[i].AddBuff(BuffID.Ichor, 900, true);
 			}
 			else if (this.type == ProjectileID.VenomArrow || this.type == ProjectileID.VenomBullet)
 			{
-				Main.player[i].AddBuff(70, 600, true);
+				Main.player[i].AddBuff(BuffID.Venom, 600, true);
 			}
 			if (this.type == ProjectileID.Flare || this.type == ProjectileID.BlueFlare)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.player[i].AddBuff(24, 600, true);
+					Main.player[i].AddBuff(BuffID.OnFire, 600, true);
 					return;
 				}
-				Main.player[i].AddBuff(24, 300, true);
+				Main.player[i].AddBuff(BuffID.OnFire, 300, true);
 				return;
 			}
 			else
 			{
 				if (this.type == ProjectileID.PoisonFang)
 				{
-					Main.player[i].AddBuff(20, 1200, true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 1200, true);
 					return;
 				}
 				if (this.type == ProjectileID.VenomFang)
 				{
-					Main.player[i].AddBuff(70, 1800, true);
+					Main.player[i].AddBuff(BuffID.Venom, 1800, true);
 				}
 				return;
 			}
@@ -7744,73 +7744,73 @@ namespace Terraria
 		{
 			if (this.type == ProjectileID.WebSpit)
 			{
-				Main.player[i].AddBuff(149, Main.rand.Next(30, 150), true);
+				Main.player[i].AddBuff(BuffID.Webbed, Main.rand.Next(30, 150), true);
 			}
 			if (this.type == ProjectileID.CultistBossFireBall)
 			{
-				Main.player[i].AddBuff(24, Main.rand.Next(30, 150), true);
+				Main.player[i].AddBuff(BuffID.OnFire, Main.rand.Next(30, 150), true);
 			}
 			if (this.type == ProjectileID.VortexAcid)
 			{
 				if (Main.expertMode)
 				{
-					Main.player[i].AddBuff(164, Main.rand.Next(300, 540), true);
+					Main.player[i].AddBuff(BuffID.VortexDebuff, Main.rand.Next(300, 540), true);
 				}
 				else if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(164, Main.rand.Next(360, 720), true);
+					Main.player[i].AddBuff(BuffID.VortexDebuff, Main.rand.Next(360, 720), true);
 				}
 			}
 			if (this.type == ProjectileID.SalamanderSpit && Main.rand.Next(3) != 0)
 			{
-				Main.player[i].AddBuff(20, Main.rand.Next(120, 240), true);
+				Main.player[i].AddBuff(BuffID.Poisoned, Main.rand.Next(120, 240), true);
 			}
 			if (this.type == ProjectileID.PoisonSeedPlantera)
 			{
 				if (Main.expertMode)
 				{
-					Main.player[i].AddBuff(20, Main.rand.Next(120, 540), true);
+					Main.player[i].AddBuff(BuffID.Poisoned, Main.rand.Next(120, 540), true);
 				}
 				else if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(20, Main.rand.Next(180, 420), true);
+					Main.player[i].AddBuff(BuffID.Poisoned, Main.rand.Next(180, 420), true);
 				}
 			}
 			if (this.type == ProjectileID.BrainScramblerBolt && Main.rand.Next(5) >= 2)
 			{
-				Main.player[i].AddBuff(31, 300, true);
+				Main.player[i].AddBuff(BuffID.Confused, 300, true);
 			}
 			if (this.type == ProjectileID.MartianTurretBolt && Main.rand.Next(3) != 0)
 			{
-				Main.player[i].AddBuff(144, 300, true);
+				Main.player[i].AddBuff(BuffID.Electrified, 300, true);
 			}
 			if (this.type == ProjectileID.GigaZapperSpear)
 			{
-				Main.player[i].AddBuff(144, 60 * Main.rand.Next(4, 9), true);
+				Main.player[i].AddBuff(BuffID.Electrified, 60 * Main.rand.Next(4, 9), true);
 			}
 			if (this.type == ProjectileID.FrostWave)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(46, 600, true);
+					Main.player[i].AddBuff(BuffID.Chilled, 600, true);
 				}
 				else
 				{
-					Main.player[i].AddBuff(46, 300, true);
+					Main.player[i].AddBuff(BuffID.Chilled, 300, true);
 				}
 				if (Main.rand.Next(3) != 0)
 				{
 					if (Main.rand.Next(16) == 0)
 					{
-						Main.player[i].AddBuff(47, 60, true);
+						Main.player[i].AddBuff(BuffID.Frozen, 60, true);
 					}
 					else if (Main.rand.Next(12) == 0)
 					{
-						Main.player[i].AddBuff(47, 40, true);
+						Main.player[i].AddBuff(BuffID.Frozen, 40, true);
 					}
 					else if (Main.rand.Next(8) == 0)
 					{
-						Main.player[i].AddBuff(47, 20, true);
+						Main.player[i].AddBuff(BuffID.Frozen, 20, true);
 					}
 				}
 			}
@@ -7818,128 +7818,128 @@ namespace Terraria
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.player[i].AddBuff(46, 600, true);
+					Main.player[i].AddBuff(BuffID.Chilled, 600, true);
 				}
 				else if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(46, 300, true);
+					Main.player[i].AddBuff(BuffID.Chilled, 300, true);
 				}
 			}
 			if (this.type >= ProjectileID.MolotovCocktail && this.type <= ProjectileID.MolotovFire3)
 			{
-				Main.npc[i].AddBuff(24, 60 * Main.rand.Next(3, 7), false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), false);
 			}
 			if (this.type == ProjectileID.Stinger)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.player[i].AddBuff(20, 600, true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 600, true);
 				}
 				else if (Main.expertMode)
 				{
-					Main.player[i].AddBuff(20, Main.rand.Next(60, 300), true);
+					Main.player[i].AddBuff(BuffID.Poisoned, Main.rand.Next(60, 300), true);
 				}
 			}
 			if (this.type == ProjectileID.DemonSickle && Main.rand.Next(3) == 0)
 			{
-				Main.player[i].AddBuff(22, 900, true);
+				Main.player[i].AddBuff(BuffID.Darkness, 900, true);
 			}
 			if (this.type == ProjectileID.LostSoulHostile)
 			{
-				Main.player[i].AddBuff(80, 60 * Main.rand.Next(2, 7), true);
+				Main.player[i].AddBuff(BuffID.Blackout, 60 * Main.rand.Next(2, 7), true);
 			}
 			if (this.type == ProjectileID.FlamingArrow && Main.rand.Next(3) == 0)
 			{
-				Main.player[i].AddBuff(24, 420, true);
+				Main.player[i].AddBuff(BuffID.OnFire, 420, true);
 			}
 			if (this.type == ProjectileID.NanoBullet)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.player[i].AddBuff(31, 180, true);
+					Main.player[i].AddBuff(BuffID.Confused, 180, true);
 				}
 				else
 				{
-					Main.player[i].AddBuff(31, 60, true);
+					Main.player[i].AddBuff(BuffID.Confused, 60, true);
 				}
 			}
 			if (this.type == ProjectileID.CursedFlameHostile || this.type == ProjectileID.EyeFire)
 			{
 				if (Main.rand.Next(6) == 0)
 				{
-					Main.player[i].AddBuff(39, 480, true);
+					Main.player[i].AddBuff(BuffID.CursedInferno, 480, true);
 				}
 				else if (Main.rand.Next(4) == 0)
 				{
-					Main.player[i].AddBuff(39, 300, true);
+					Main.player[i].AddBuff(BuffID.CursedInferno, 300, true);
 				}
 				else if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(39, 180, true);
+					Main.player[i].AddBuff(BuffID.CursedInferno, 180, true);
 				}
 			}
 			else if (this.type == ProjectileID.GoldenShowerHostile)
 			{
-				Main.player[i].AddBuff(69, 900, true);
+				Main.player[i].AddBuff(BuffID.Ichor, 900, true);
 			}
 			else if (this.type == ProjectileID.BallofFrost && Main.rand.Next(2) == 0)
 			{
-				Main.player[i].AddBuff(44, 600, true);
+				Main.player[i].AddBuff(BuffID.Frostburn, 600, true);
 			}
 			if (this.type == ProjectileID.InfernoHostileBolt || this.type == ProjectileID.InfernoHostileBlast)
 			{
-				Main.player[i].AddBuff(24, 60 * Main.rand.Next(8, 16), true);
+				Main.player[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(8, 16), true);
 			}
 			if (this.type == ProjectileID.PoisonDart)
 			{
-				Main.player[i].AddBuff(20, 600, true);
+				Main.player[i].AddBuff(BuffID.Poisoned, 600, true);
 			}
 			if (this.type == ProjectileID.PoisonDartTrap)
 			{
-				Main.player[i].AddBuff(20, 900, true);
+				Main.player[i].AddBuff(BuffID.Poisoned, 900, true);
 			}
 			if (this.type == ProjectileID.ShadowBeamHostile)
 			{
-				Main.player[i].AddBuff(32, 60 * Main.rand.Next(5, 16), true);
+				Main.player[i].AddBuff(BuffID.Slow, 60 * Main.rand.Next(5, 16), true);
 			}
 			if (this.type == ProjectileID.IceSpike)
 			{
-				Main.player[i].AddBuff(46, 1200, true);
+				Main.player[i].AddBuff(BuffID.Chilled, 1200, true);
 				if (!Main.player[i].frozen && Main.rand.Next(20) == 0)
 				{
-					Main.player[i].AddBuff(47, 90, true);
+					Main.player[i].AddBuff(BuffID.Frozen, 90, true);
 				}
 				else if (!Main.player[i].frozen && Main.expertMode && Main.rand.Next(20) == 0)
 				{
-					Main.player[i].AddBuff(47, 60, true);
+					Main.player[i].AddBuff(BuffID.Frozen, 60, true);
 				}
 			}
 			if (this.type == ProjectileID.FrostBeam)
 			{
-				Main.player[i].AddBuff(46, 2700, true);
+				Main.player[i].AddBuff(BuffID.Chilled, 2700, true);
 				if (!Main.player[i].frozen && Main.rand.Next(5) == 0)
 				{
-					Main.player[i].AddBuff(47, 60, true);
+					Main.player[i].AddBuff(BuffID.Frozen, 60, true);
 				}
 			}
 			if (this.type == ProjectileID.IcewaterSpit)
 			{
-				Main.player[i].AddBuff(46, 1500, true);
+				Main.player[i].AddBuff(BuffID.Chilled, 1500, true);
 				if (!Main.player[i].frozen && Main.rand.Next(10) == 0)
 				{
-					Main.player[i].AddBuff(47, Main.rand.Next(30, 120), true);
+					Main.player[i].AddBuff(BuffID.Frozen, Main.rand.Next(30, 120), true);
 				}
 			}
 			if (this.type == ProjectileID.JungleSpike)
 			{
 				if (Main.rand.Next(4) == 0)
 				{
-					Main.player[i].AddBuff(20, 1200, true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 1200, true);
 					return;
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(20, 300, true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 300, true);
 				}
 			}
 		}
@@ -19540,7 +19540,7 @@ namespace Terraria
 																			if (vector119.Length() < 20f && this.localAI[1] == 0f)
 																			{
 																				this.localAI[1] = 1f;
-																				Main.player[num852].AddBuff(145, 600, true);
+																				Main.player[num852].AddBuff(BuffID.MoonLeech, 600, true);
 																				return;
 																			}
 																		}
@@ -19548,7 +19548,7 @@ namespace Terraria
 																		{
 																			if (this.localAI[1] == 1f)
 																			{
-																				int num853 = Main.player[num852].HasBuff(145);
+																				int num853 = Main.player[num852].HasBuff(BuffID.MoonLeech);
 																				if (num853 != -1)
 																				{
 																					Main.player[num852].DelBuff(num853);
@@ -21463,9 +21463,9 @@ namespace Terraria
 																									if (this.ai[0] >= 30f && Main.netMode != 2)
 																									{
 																										Player player6 = Main.player[Main.myPlayer];
-																										if (player6.active && !player6.dead && base.Distance(player6.Center) <= num987 && player6.HasBuff(165) == -1)
+																										if (player6.active && !player6.dead && base.Distance(player6.Center) <= num987 && player6.HasBuff(BuffID.DryadsWard) == -1)
 																										{
-																											player6.AddBuff(165, 120, true);
+																											player6.AddBuff(BuffID.DryadsWard, 120, true);
 																										}
 																									}
 																									if (this.ai[0] >= 30f && this.ai[0] % 10f == 0f && Main.netMode != 1)
@@ -21475,13 +21475,13 @@ namespace Terraria
 																											NPC nPC10 = Main.npc[num993];
 																											if (nPC10.type != 488 && nPC10.active && base.Distance(nPC10.Center) <= num987)
 																											{
-																												if (nPC10.townNPC && (nPC10.HasBuff(165) == -1 || nPC10.buffTime[nPC10.HasBuff(165)] <= 20))
+																												if (nPC10.townNPC && (nPC10.HasBuff(BuffID.DryadsWard) == -1 || nPC10.buffTime[nPC10.HasBuff(BuffID.DryadsWard)] <= 20))
 																												{
-																													nPC10.AddBuff(165, 120, false);
+																													nPC10.AddBuff(BuffID.DryadsWard, 120, false);
 																												}
-																												else if (!nPC10.friendly && nPC10.lifeMax > 5 && !nPC10.dontTakeDamage && (nPC10.HasBuff(186) == -1 || nPC10.buffTime[nPC10.HasBuff(186)] <= 20) && (nPC10.dryadBane || Collision.CanHit(base.Center, 1, 1, nPC10.position, nPC10.width, nPC10.height)))
+																												else if (!nPC10.friendly && nPC10.lifeMax > 5 && !nPC10.dontTakeDamage && (nPC10.HasBuff(BuffID.DryadsWardDebuff) == -1 || nPC10.buffTime[nPC10.HasBuff(BuffID.DryadsWardDebuff)] <= 20) && (nPC10.dryadBane || Collision.CanHit(base.Center, 1, 1, nPC10.position, nPC10.width, nPC10.height)))
 																												{
-																													nPC10.AddBuff(186, 120, false);
+																													nPC10.AddBuff(BuffID.DryadsWardDebuff, 120, false);
 																												}
 																											}
 																										}
