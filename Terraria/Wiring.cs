@@ -128,12 +128,12 @@ namespace Terraria
 			{
 				return;
 			}
-			if (Main.tile[i, j].type == 135 || Main.tile[i, j].type == 314)
+			if (Main.tile[i, j].type == TileID.PressurePlates || Main.tile[i, j].type == TileID.MinecartTrack)
 			{
 				Wiring.TripWire(i, j, 1, 1);
 				return;
 			}
-			if (Main.tile[i, j].type == 136)
+			if (Main.tile[i, j].type == TileID.Switches)
 			{
 				if (Main.tile[i, j].frameY != 0)
 				{
@@ -146,7 +146,7 @@ namespace Terraria
 				Wiring.TripWire(i, j, 1, 1);
 				return;
 			}
-			if (Main.tile[i, j].type == 144)
+			if (Main.tile[i, j].type == TileID.Timers)
 			{
 				if (Main.tile[i, j].frameY != 0)
 				{
@@ -162,7 +162,7 @@ namespace Terraria
 				}
 				return;
 			}
-			if (Main.tile[i, j].type == 132 || Main.tile[i, j].type == 411)
+			if (Main.tile[i, j].type == TileID.Lever || Main.tile[i, j].type == TileID.Detonator)
 			{
 				short num = 36;
 				int num1 = Main.tile[i, j].frameX / 18 * -1;
@@ -175,7 +175,7 @@ namespace Terraria
 				}
 				num1 = num1 + i;
 				num2 = num2 + j;
-				if (Main.netMode != 1 && Main.tile[num1, num2].type == 411)
+				if (Main.netMode != 1 && Main.tile[num1, num2].type == TileID.Detonator)
 				{
 					Wiring.CheckMech(num1, num2, 60);
 				}
@@ -183,7 +183,7 @@ namespace Terraria
 				{
 					for (int j1 = num2; j1 < num2 + 2; j1++)
 					{
-						if (Main.tile[i1, j1].type == 132 || Main.tile[i1, j1].type == 411)
+						if (Main.tile[i1, j1].type == TileID.Lever || Main.tile[i1, j1].type == TileID.Detonator)
 						{
 							Tile tile = Main.tile[i1, j1];
 							tile.frameX = (short)(tile.frameX + num);

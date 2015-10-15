@@ -63,7 +63,7 @@ namespace Terraria
 
 		public static bool NotDoorStand(int x, int y)
 		{
-			if (Main.tile[x, y] == null || !Main.tile[x, y].active() || Main.tile[x, y].type != 11)
+			if (Main.tile[x, y] == null || !Main.tile[x, y].active() || Main.tile[x, y].type != TileID.OpenDoor)
 			{
 				return true;
 			}

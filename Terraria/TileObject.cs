@@ -2,6 +2,7 @@
 using System;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.ID;
 using Terraria.ObjectData;
 
 namespace Terraria
@@ -392,7 +393,7 @@ namespace Terraria
 								{
 									single4 = single4 + 1f;
 									Tile tile = Framing.GetTileSafely(num5 + width1, num6 + num17 - 1);
-									if (tile.nactive() && tile.type == 5)
+									if (tile.nactive() && tile.type == TileID.Trees)
 									{
 										single3 = single3 + 1f;
 										if (onlyCheck)

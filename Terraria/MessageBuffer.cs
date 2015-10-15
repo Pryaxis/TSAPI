@@ -2322,7 +2322,7 @@ namespace Terraria
 						return;
 					if (num156 < 0 || num156 >= Main.maxTilesY)
 						return;
-					if (Main.tile[num155, num156].type != 135)
+					if (Main.tile[num155, num156].type != TileID.PressurePlates)
 					{
 						Wiring.HitSwitch(num155, num156);
 					}

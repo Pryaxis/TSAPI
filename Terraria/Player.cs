@@ -1785,28 +1785,28 @@ namespace Terraria
 					if (Main.tile[j, k].active())
 					{
 						this.adjTile[Main.tile[j, k].type] = true;
-						if (Main.tile[j, k].type == 302)
+						if (Main.tile[j, k].type == TileID.GlassKiln)
 						{
 							this.adjTile[17] = true;
 						}
-						if (Main.tile[j, k].type == 77)
+						if (Main.tile[j, k].type == TileID.Hellforge)
 						{
 							this.adjTile[17] = true;
 						}
-						if (Main.tile[j, k].type == 133)
+						if (Main.tile[j, k].type == TileID.AdamantiteForge)
 						{
 							this.adjTile[17] = true;
 							this.adjTile[77] = true;
 						}
-						if (Main.tile[j, k].type == 134)
+						if (Main.tile[j, k].type == TileID.MythrilAnvil)
 						{
 							this.adjTile[16] = true;
 						}
-						if (Main.tile[j, k].type == 354)
+						if (Main.tile[j, k].type == TileID.BewitchingTable)
 						{
 							this.adjTile[14] = true;
 						}
-						if (Main.tile[j, k].type == 355)
+						if (Main.tile[j, k].type == TileID.AlchemyTable)
 						{
 							this.adjTile[13] = true;
 							this.adjTile[14] = true;
@@ -2698,7 +2698,7 @@ namespace Terraria
 				{
 					for (int j = y; j <= y + 1; j++)
 					{
-						if (Main.tile[i, j].nactive() && Main.tile[i, j].type == 162 && !WorldGen.SolidTile(i, j - 1))
+						if (Main.tile[i, j].nactive() && Main.tile[i, j].type == TileID.BreakableIce && !WorldGen.SolidTile(i, j - 1))
 						{
 							WorldGen.KillTile(i, j, false, false, false);
 							if (Main.netMode == 1)
@@ -5398,7 +5398,7 @@ namespace Terraria
 					Projectile projectile = Main.projectile[this.grappling[i]];
 					x = x + (projectile.position.X + (float)(projectile.width / 2));
 					y = y + (projectile.position.Y + (float)(projectile.height / 2));
-					if (projectile.type == 403)
+					if (projectile.type == TileID.HallowSandstone)
 					{
 						num = i;
 					}
@@ -5453,7 +5453,7 @@ namespace Terraria
 						int num1 = (int)(projectile1.position.X + (float)(projectile1.width / 2)) / 16;
 						int y2 = (int)(projectile1.position.Y + (float)(projectile1.height / 2)) / 16;
 						this.velocity = Vector2.Zero;
-						if (Main.tile[num1, y2].type == 314)
+						if (Main.tile[num1, y2].type == TileID.MinecartTrack)
 						{
 							vector2.X = projectile1.position.X + (float)(projectile1.width / 2) - (float)(this.width / 2);
 							vector2.Y = projectile1.position.Y + (float)(projectile1.height / 2) - (float)(this.height / 2);
@@ -6284,7 +6284,7 @@ namespace Terraria
 				{
 					int num2 = Player.tileTargetX;
 					int num3 = Player.tileTargetY;
-					if (Main.tile[num2, num3].active() && (Main.tile[num2, num3].type == 128 || Main.tile[num2, num3].type == 269))
+					if (Main.tile[num2, num3].active() && (Main.tile[num2, num3].type == TileID.Mannequin || Main.tile[num2, num3].type == TileID.Womannequin))
 					{
 						int j = Main.tile[num2, num3].frameY;
 						int num4 = 0;
@@ -6945,7 +6945,7 @@ namespace Terraria
 						y1 = (int)(Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY) / 16;
 					}
 					Tile tile = Main.tile[x1, y1];
-					if (!tile.active() || tile.type != 0 && tile.type != 2 && tile.type != 23 && tile.type != 109 && tile.type != 199)
+					if (!tile.active() || tile.type != TileID.Dirt && tile.type != TileID.Grass && tile.type != TileID.CorruptGrass && tile.type != TileID.HallowedGrass && tile.type != TileID.FleshGrass)
 					{
 						flag1 = false;
 					}
@@ -9075,7 +9075,7 @@ namespace Terraria
 									{
 										int num105 = Player.tileTargetX;
 										int num106 = Player.tileTargetY;
-										if (Main.tile[num105, num106].type == 19)
+										if (Main.tile[num105, num106].type == TileID.Platforms)
 										{
 											if (!Main.tile[num105, num106].halfBrick())
 											{
@@ -9128,14 +9128,14 @@ namespace Terraria
 												}
 											}
 										}
-										else if (Main.tile[num105, num106].type == 314)
+										else if (Main.tile[num105, num106].type == TileID.MinecartTrack)
 										{
 											if (Minecart.FrameTrack(num105, num106, true, false) && Main.netMode == 1)
 											{
 												NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 15, (float)Player.tileTargetX, (float)Player.tileTargetY, 1f, 0, 0, 0);
 											}
 										}
-										else if (Main.tile[num105, num106].type == 137)
+										else if (Main.tile[num105, num106].type == TileID.Traps)
 										{
 											if (Main.tile[num105, num106].frameX != 18)
 											{
@@ -14137,67 +14137,67 @@ namespace Terraria
 			{
 				num = 100;
 			}
-			if (Main.tileDungeon[tile.type] || tile.type == 25 || tile.type == 58 || tile.type == 117 || tile.type == 203)
+			if (Main.tileDungeon[tile.type] || tile.type == TileID.Ebonstone || tile.type == TileID.Hellstone || tile.type == TileID.Pearlstone || tile.type == TileID.Crimstone)
 			{
 				num = num + pickPower / 2;
 			}
-			else if (tile.type == 48 || tile.type == 232)
+			else if (tile.type == TileID.Spikes || tile.type == TileID.WoodenSpikes)
 			{
 				num = num + pickPower / 4;
 			}
-			else if (tile.type == 226)
+			else if (tile.type == TileID.LihzahrdBrick)
 			{
 				num = num + pickPower / 4;
 			}
-			else if (tile.type == 107 || tile.type == 221)
+			else if (tile.type == TileID.Cobalt || tile.type == TileID.Palladium)
 			{
 				num = num + pickPower / 2;
 			}
-			else if (tile.type == 108 || tile.type == 222)
+			else if (tile.type == TileID.Mythril || tile.type == TileID.Orichalcum)
 			{
 				num = num + pickPower / 3;
 			}
-			else if (tile.type == 111 || tile.type == 223)
+			else if (tile.type == TileID.Adamantite || tile.type == TileID.Titanium)
 			{
 				num = num + pickPower / 4;
 			}
 			else
 			{
-				num = (tile.type != 211 ? num + pickPower : num + pickPower / 5);
+				num = (tile.type != TileID.Chlorophyte ? num + pickPower : num + pickPower / 5);
 			}
-			if (tile.type == 211 && pickPower < 200)
+			if (tile.type == TileID.Chlorophyte && pickPower < 200)
 			{
 				num = 0;
 			}
-			if ((tile.type == 25 || tile.type == 203) && pickPower < 65)
+			if ((tile.type == TileID.Ebonstone || tile.type == TileID.Crimstone) && pickPower < 65)
 			{
 				num = 0;
 			}
-			else if (tile.type == 117 && pickPower < 65)
+			else if (tile.type == TileID.Pearlstone && pickPower < 65)
 			{
 				num = 0;
 			}
-			else if (tile.type == 37 && pickPower < 50)
+			else if (tile.type == TileID.Meteorite && pickPower < 50)
 			{
 				num = 0;
 			}
-			else if (tile.type == 404 && pickPower < 65)
+			else if (tile.type == TileID.DesertFossil && pickPower < 65)
 			{
 				num = 0;
 			}
-			else if ((tile.type == 22 || tile.type == 204) && (double)y > Main.worldSurface && pickPower < 55)
+			else if ((tile.type == TileID.Demonite || tile.type == TileID.Crimtane) && (double)y > Main.worldSurface && pickPower < 55)
 			{
 				num = 0;
 			}
-			else if (tile.type == 56 && pickPower < 65)
+			else if (tile.type == TileID.Obsidian && pickPower < 65)
 			{
 				num = 0;
 			}
-			else if (tile.type == 58 && pickPower < 65)
+			else if (tile.type == TileID.Hellstone && pickPower < 65)
 			{
 				num = 0;
 			}
-			else if ((tile.type == 226 || tile.type == 237) && pickPower < 210)
+			else if ((tile.type == TileID.LihzahrdBrick || tile.type == TileID.LihzahrdAltar) && pickPower < 210)
 			{
 				num = 0;
 			}
@@ -14208,43 +14208,43 @@ namespace Terraria
 					num = 0;
 				}
 			}
-			else if (tile.type == 107 && pickPower < 100)
+			else if (tile.type == TileID.Cobalt && pickPower < 100)
 			{
 				num = 0;
 			}
-			else if (tile.type == 108 && pickPower < 110)
+			else if (tile.type == TileID.Mythril && pickPower < 110)
 			{
 				num = 0;
 			}
-			else if (tile.type == 111 && pickPower < 150)
+			else if (tile.type == TileID.Adamantite && pickPower < 150)
 			{
 				num = 0;
 			}
-			else if (tile.type == 221 && pickPower < 100)
+			else if (tile.type == TileID.Palladium && pickPower < 100)
 			{
 				num = 0;
 			}
-			else if (tile.type == 222 && pickPower < 110)
+			else if (tile.type == TileID.Orichalcum && pickPower < 110)
 			{
 				num = 0;
 			}
-			else if (tile.type == 223 && pickPower < 150)
+			else if (tile.type == TileID.Titanium && pickPower < 150)
 			{
 				num = 0;
 			}
-			if (tile.type == 147 || tile.type == 0 || tile.type == 40 || tile.type == 53 || tile.type == 57 || tile.type == 59 || tile.type == 123 || tile.type == 224 || tile.type == 397)
+			if (tile.type == TileID.SnowBlock || tile.type == TileID.Dirt || tile.type == TileID.ClayBlock || tile.type == TileID.Sand || tile.type == TileID.Ash || tile.type == TileID.Mud || tile.type == TileID.Silt || tile.type == TileID.Slush || tile.type == TileID.HardenedSand)
 			{
 				num = num + pickPower;
 			}
-			if (tile.type == 165 || Main.tileRope[tile.type] || tile.type == 199 || Main.tileMoss[tile.type])
+			if (tile.type == TileID.Stalactite || Main.tileRope[tile.type] || tile.type == TileID.FleshGrass || Main.tileMoss[tile.type])
 			{
 				num = 100;
 			}
-			if (this.hitTile.AddDamage(num1, num, false) >= 100 && (tile.type == 2 || tile.type == 23 || tile.type == 60 || tile.type == 70 || tile.type == 109 || tile.type == 199 || Main.tileMoss[tile.type]))
+			if (this.hitTile.AddDamage(num1, num, false) >= 100 && (tile.type == TileID.Grass || tile.type == TileID.CorruptGrass || tile.type == TileID.JungleGrass || tile.type == TileID.MushroomGrass || tile.type == TileID.HallowedGrass || tile.type == TileID.FleshGrass || Main.tileMoss[tile.type]))
 			{
 				num = 0;
 			}
-			if (tile.type == 128 || tile.type == 269)
+			if (tile.type == TileID.Mannequin || tile.type == TileID.Womannequin)
 			{
 				if (tile.frameX == 18 || tile.frameX == 54)
 				{
@@ -14258,7 +14258,7 @@ namespace Terraria
 					Main.blockMouse = true;
 				}
 			}
-			if (tile.type == 334)
+			if (tile.type == TileID.WeaponsRack)
 			{
 				if (tile.frameY == 0)
 				{
@@ -14334,11 +14334,11 @@ namespace Terraria
 				{
 					WorldGen.KillTile(x, y, true, false, false);
 					NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)x, (float)y, 1f, 0, 0, 0);
-					if (Main.tile[x, y].type == 21)
+					if (Main.tile[x, y].type == TileID.Containers)
 					{
 						NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", 1, (float)x, (float)y, 0f, 0, 0, 0);
 					}
-					if (Main.tile[x, y].type == 88)
+					if (Main.tile[x, y].type == TileID.Dressers)
 					{
 						NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", 3, (float)x, (float)y, 0f, 0, 0, 0);
 					}
@@ -14503,7 +14503,7 @@ namespace Terraria
 			{
 				int num14 = Player.tileTargetX;
 				int num15 = Player.tileTargetY;
-				if (Main.tile[num14, num15].active() && Main.tile[num14, num15].type == 209)
+				if (Main.tile[num14, num15].active() && Main.tile[num14, num15].type == TileID.Cannon)
 				{
 					int num16 = 0;
 					if (Main.tile[num14, num15].frameX < 72)
@@ -14915,7 +14915,7 @@ namespace Terraria
 								Tile tile1 = Main.tile[Player.tileTargetX + 1, Player.tileTargetY];
 								Tile tile2 = Main.tile[Player.tileTargetX, Player.tileTargetY - 1];
 								Tile tile3 = Main.tile[Player.tileTargetX, Player.tileTargetY + 1];
-								if (tile1.active() && (Main.tileSolid[tile1.type] || Main.tileRope[tile1.type] || tile1.type == 314) || tile1.wall > 0 || tile.active() && (Main.tileSolid[tile.type] || Main.tileRope[tile.type] || tile.type == 314) || tile.wall > 0 || tile3.active() && (Main.tileSolid[tile3.type] || tile3.type == 124 || Main.tileRope[tile3.type] || tile3.type == 314) || tile3.wall > 0 || tile2.active() && (Main.tileSolid[tile2.type] || tile2.type == 124 || Main.tileRope[tile2.type] || tile2.type == 314) || tile2.wall > 0)
+								if (tile1.active() && (Main.tileSolid[tile1.type] || Main.tileRope[tile1.type] || tile1.type == 314) || tile1.wall > 0 || tile.active() && (Main.tileSolid[tile.type] || Main.tileRope[tile.type] || tile.type == TileID.MinecartTrack) || tile.wall > 0 || tile3.active() && (Main.tileSolid[tile3.type] || tile3.type == 124 || Main.tileRope[tile3.type] || tile3.type == 314) || tile3.wall > 0 || tile2.active() && (Main.tileSolid[tile2.type] || tile2.type == 124 || Main.tileRope[tile2.type] || tile2.type == 314) || tile2.wall > 0)
 								{
 									flag3 = true;
 								}
@@ -14949,7 +14949,7 @@ namespace Terraria
 						{
 							int num47 = Player.tileTargetX;
 							int num48 = Player.tileTargetY;
-							if (Main.tile[num47, num48].type == 3 || Main.tile[num47, num48].type == 73 || Main.tile[num47, num48].type == 84)
+							if (Main.tile[num47, num48].type == TileID.Plants || Main.tile[num47, num48].type == TileID.Plants2 || Main.tile[num47, num48].type == TileID.BloomingHerbs)
 							{
 								WorldGen.KillTile(Player.tileTargetX, Player.tileTargetY, false, false, false);
 								if (!Main.tile[Player.tileTargetX, Player.tileTargetY].active() && Main.netMode == 1)
@@ -14957,7 +14957,7 @@ namespace Terraria
 									NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)Player.tileTargetX, (float)Player.tileTargetY, 0f, 0, 0, 0);
 								}
 							}
-							else if (Main.tile[num47, num48].type == 83)
+							else if (Main.tile[num47, num48].type == TileID.MatureHerbs)
 							{
 								bool flag5 = false;
 								int num49 = Main.tile[num47, num48].frameX / 18;
@@ -15380,7 +15380,7 @@ namespace Terraria
 							{
 								int num63 = Player.tileTargetX;
 								int num64 = Player.tileTargetY + 1;
-								if (Main.tile[num63, num64] != null && Main.tile[num63, num64].type != 19 && (Main.tile[num63, num64].topSlope() || Main.tile[num63, num64].halfBrick()))
+								if (Main.tile[num63, num64] != null && Main.tile[num63, num64].type != TileID.Platforms && (Main.tile[num63, num64].topSlope() || Main.tile[num63, num64].halfBrick()))
 								{
 									WorldGen.SlopeTile(num63, num64, 0);
 									if (Main.netMode == 1)
@@ -15390,7 +15390,7 @@ namespace Terraria
 								}
 								num63 = Player.tileTargetX;
 								num64 = Player.tileTargetY - 1;
-								if (Main.tile[num63, num64] != null && Main.tile[num63, num64].type != 19 && Main.tile[num63, num64].bottomSlope())
+								if (Main.tile[num63, num64] != null && Main.tile[num63, num64].type != TileID.Platforms && Main.tile[num63, num64].bottomSlope())
 								{
 									WorldGen.SlopeTile(num63, num64, 0);
 									if (Main.netMode == 1)
@@ -15405,7 +15405,7 @@ namespace Terraria
 								{
 									for (int q = Player.tileTargetY - 1; q <= Player.tileTargetY + 1; q++)
 									{
-										if (Main.tile[p, q].active() && this.inventory[this.selectedItem].createTile != Main.tile[p, q].type && (Main.tile[p, q].type == 2 || Main.tile[p, q].type == 23 || Main.tile[p, q].type == 60 || Main.tile[p, q].type == 70 || Main.tile[p, q].type == 109 || Main.tile[p, q].type == 199))
+										if (Main.tile[p, q].active() && this.inventory[this.selectedItem].createTile != Main.tile[p, q].type && (Main.tile[p, q].type == TileID.Grass || Main.tile[p, q].type == TileID.CorruptGrass || Main.tile[p, q].type == TileID.JungleGrass || Main.tile[p, q].type == TileID.MushroomGrass || Main.tile[p, q].type == TileID.HallowedGrass || Main.tile[p, q].type == TileID.FleshGrass))
 										{
 											bool flag10 = true;
 											for (int r = p - 1; r <= p + 1; r++)
@@ -15645,7 +15645,7 @@ namespace Terraria
 
 		public void PlaceWeapon(int x, int y)
 		{
-			if (!Main.tile[x, y].active() || Main.tile[x, y].type != 334)
+			if (!Main.tile[x, y].active() || Main.tile[x, y].type != TileID.WeaponsRack)
 			{
 				return;
 			}
@@ -18247,7 +18247,7 @@ namespace Terraria
 							{
 								int num6 = j;
 								int num7 = k;
-								if (tile.type == 5)
+								if (tile.type == TileID.Trees)
 								{
 									if (Collision.InTileBounds(num6 + 1, num7, x, y, x1, y1))
 									{
@@ -18279,12 +18279,12 @@ namespace Terraria
 											num6--;
 										}
 									}
-									while (Main.tile[num6, num7].active() && Main.tile[num6, num7].type == 5 && Main.tile[num6, num7 + 1].type == 5 && Collision.InTileBounds(num6, num7 + 1, x, y, x1, y1))
+									while (Main.tile[num6, num7].active() && Main.tile[num6, num7].type == TileID.Trees && Main.tile[num6, num7 + 1].type == 5 && Collision.InTileBounds(num6, num7 + 1, x, y, x1, y1))
 									{
 										num7++;
 									}
 								}
-								if (tile.type == 80)
+								if (tile.type == TileID.Cactus)
 								{
 									if (Collision.InTileBounds(num6 + 1, num7, x, y, x1, y1))
 									{
@@ -18308,19 +18308,19 @@ namespace Terraria
 											num6--;
 										}
 									}
-									while (Main.tile[num6, num7].active() && Main.tile[num6, num7].type == 80 && Main.tile[num6, num7 + 1].type == 80 && Collision.InTileBounds(num6, num7 + 1, x, y, x1, y1))
+									while (Main.tile[num6, num7].active() && Main.tile[num6, num7].type == TileID.Cactus && Main.tile[num6, num7 + 1].type == 80 && Collision.InTileBounds(num6, num7 + 1, x, y, x1, y1))
 									{
 										num7++;
 									}
 								}
-								if (tile.type != 323)
+								if (tile.type != TileID.PalmTree)
 								{
-									if (tile.type != 72)
+									if (tile.type != TileID.MushroomTrees)
 									{
 										goto Label2;
 									}
 								}
-								while (Main.tile[num6, num7].active() && (Main.tile[num6, num7].type == 323 && Main.tile[num6, num7 + 1].type == 323 || Main.tile[num6, num7].type == 72 && Main.tile[num6, num7 + 1].type == 72) && Collision.InTileBounds(num6, num7 + 1, x, y, x1, y1))
+								while (Main.tile[num6, num7].active() && (Main.tile[num6, num7].type == TileID.PalmTree && Main.tile[num6, num7 + 1].type == 323 || Main.tile[num6, num7].type == TileID.MushroomTrees && Main.tile[num6, num7 + 1].type == 72) && Collision.InTileBounds(num6, num7 + 1, x, y, x1, y1))
 								{
 									num7++;
 								}
@@ -18834,7 +18834,7 @@ namespace Terraria
 			{
 				List<Tuple<int, int>> tuples11 = new List<Tuple<int, int>>();
 				bool flag2 = false;
-				if (Main.tile[num1, num2].active() && Main.tile[num1, num2].type == 19)
+				if (Main.tile[num1, num2].active() && Main.tile[num1, num2].type == TileID.Platforms)
 				{
 					flag2 = true;
 				}
@@ -18927,7 +18927,7 @@ namespace Terraria
 			{
 				List<Tuple<int, int>> tuples12 = new List<Tuple<int, int>>();
 				bool flag3 = false;
-				if (Main.tile[num1, num2].active() && Main.tile[num1, num2].type == 314)
+				if (Main.tile[num1, num2].active() && Main.tile[num1, num2].type == TileID.MinecartTrack)
 				{
 					flag3 = true;
 				}
@@ -19000,7 +19000,7 @@ namespace Terraria
 			{
 				List<Tuple<int, int>> tuples13 = new List<Tuple<int, int>>();
 				bool flag8 = false;
-				if (Main.tile[num1, num2].active() && Main.tile[num1, num2].type == 314)
+				if (Main.tile[num1, num2].active() && Main.tile[num1, num2].type == TileID.MinecartTrack)
 				{
 					flag8 = true;
 				}
@@ -19076,7 +19076,7 @@ namespace Terraria
 							{
 								flag9 = true;
 							}
-							if (Main.tile[q1, r1].active() && Main.tile[q1, r1].type == 11 && (Main.tile[q1, r1].frameX < 18 || Main.tile[q1, r1].frameX >= 54))
+							if (Main.tile[q1, r1].active() && Main.tile[q1, r1].type == TileID.OpenDoor && (Main.tile[q1, r1].frameX < 18 || Main.tile[q1, r1].frameX >= 54))
 							{
 								flag9 = false;
 							}
@@ -19650,7 +19650,7 @@ namespace Terraria
 			{
 				List<Tuple<int, int>> tuples24 = new List<Tuple<int, int>>();
 				bool flag13 = false;
-				if (Main.tile[num1, num2].active() && Main.tile[num1, num2].type == 380)
+				if (Main.tile[num1, num2].active() && Main.tile[num1, num2].type == TileID.PlanterBox)
 				{
 					flag13 = true;
 				}

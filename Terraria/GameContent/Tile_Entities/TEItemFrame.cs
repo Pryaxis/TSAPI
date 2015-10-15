@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace Terraria.GameContent.Tile_Entities
 {
@@ -112,7 +113,7 @@ namespace Terraria.GameContent.Tile_Entities
 
 		public static bool ValidTile(int x, int y)
 		{
-			if (Main.tile[x, y].active() && Main.tile[x, y].type == 395 && Main.tile[x, y].frameY == 0 && Main.tile[x, y].frameX % 36 == 0)
+			if (Main.tile[x, y].active() && Main.tile[x, y].type == TileID.ItemFrame && Main.tile[x, y].frameY == 0 && Main.tile[x, y].frameX % 36 == 0)
 			{
 				return true;
 			}

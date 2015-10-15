@@ -20000,7 +20000,7 @@ namespace Terraria
 					{
 						Point point = base.Center.ToTileCoordinates();
 						Tile tile = Main.tile[point.X, point.Y];
-						if (tile.type != 15)
+						if (tile.type != TileID.Chairs)
 						{
 							this.ai[1] = 0f;
 						}
@@ -28992,7 +28992,7 @@ namespace Terraria
 						position6.X += this.velocity.X;
 						int num981 = (int)((position6.X + (float)(this.width / 2) + (float)((this.width / 2 + 1) * num980)) / 16f);
 						int num982 = (int)((position6.Y + (float)this.height - 1f) / 16f);
-						if ((float)(num981 * 16) < position6.X + (float)this.width && (float)(num981 * 16 + 16) > position6.X && ((Main.tile[num981, num982].nactive() && !Main.tile[num981, num982].topSlope() && !Main.tile[num981, num982 - 1].topSlope() && ((Main.tileSolid[(int)Main.tile[num981, num982].type] && !Main.tileSolidTop[(int)Main.tile[num981, num982].type]) || (flag96 && Main.tileSolidTop[(int)Main.tile[num981, num982].type] && (!Main.tileSolid[(int)Main.tile[num981, num982 - 1].type] || !Main.tile[num981, num982 - 1].nactive()) && Main.tile[num981, num982].type != 16 && Main.tile[num981, num982].type != 18 && Main.tile[num981, num982].type != 134))) || (Main.tile[num981, num982 - 1].halfBrick() && Main.tile[num981, num982 - 1].nactive())) && (!Main.tile[num981, num982 - 1].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 1].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 1].type] || (Main.tile[num981, num982 - 1].halfBrick() && (!Main.tile[num981, num982 - 4].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 4].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 4].type]))) && (!Main.tile[num981, num982 - 2].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 2].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 2].type]) && (!Main.tile[num981, num982 - 3].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 3].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 3].type]) && (!Main.tile[num981 - num980, num982 - 3].nactive() || !Main.tileSolid[(int)Main.tile[num981 - num980, num982 - 3].type] || Main.tileSolidTop[(int)Main.tile[num981 - num980, num982 - 3].type]))
+						if ((float)(num981 * 16) < position6.X + (float)this.width && (float)(num981 * 16 + 16) > position6.X && ((Main.tile[num981, num982].nactive() && !Main.tile[num981, num982].topSlope() && !Main.tile[num981, num982 - 1].topSlope() && ((Main.tileSolid[(int)Main.tile[num981, num982].type] && !Main.tileSolidTop[(int)Main.tile[num981, num982].type]) || (flag96 && Main.tileSolidTop[(int)Main.tile[num981, num982].type] && (!Main.tileSolid[(int)Main.tile[num981, num982 - 1].type] || !Main.tile[num981, num982 - 1].nactive()) && Main.tile[num981, num982].type != TileID.Anvils && Main.tile[num981, num982].type != TileID.WorkBenches && Main.tile[num981, num982].type != TileID.MythrilAnvil))) || (Main.tile[num981, num982 - 1].halfBrick() && Main.tile[num981, num982 - 1].nactive())) && (!Main.tile[num981, num982 - 1].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 1].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 1].type] || (Main.tile[num981, num982 - 1].halfBrick() && (!Main.tile[num981, num982 - 4].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 4].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 4].type]))) && (!Main.tile[num981, num982 - 2].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 2].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 2].type]) && (!Main.tile[num981, num982 - 3].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 3].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 3].type]) && (!Main.tile[num981 - num980, num982 - 3].nactive() || !Main.tileSolid[(int)Main.tile[num981 - num980, num982 - 3].type] || Main.tileSolidTop[(int)Main.tile[num981 - num980, num982 - 3].type]))
 						{
 							float num983 = (float)(num982 * 16);
 							if (Main.tile[num981, num982].halfBrick())
@@ -42033,7 +42033,7 @@ namespace Terraria
 													bool flag176 = false;
 													int num1917 = (int)this.ai[0];
 													int num1918 = (int)this.ai[1];
-													if (!flag176 && (!Main.tile[num1917, num1918].active() || Main.tile[num1917, num1918].type != 378))
+													if (!flag176 && (!Main.tile[num1917, num1918].active() || Main.tile[num1917, num1918].type != TileID.TargetDummy))
 													{
 														flag176 = true;
 													}
@@ -50809,7 +50809,7 @@ namespace Terraria
 				if (num2 != 1)
 				{
 				}
-				if (Main.tile[x, y].type == 21)
+				if (Main.tile[x, y].type == TileID.Containers)
 				{
 					if (Main.tile[x, y].frameX % 36 != 0)
 					{
@@ -50824,7 +50824,7 @@ namespace Terraria
 					{
 						for (int k = y; k <= y + 1; k++)
 						{
-							if (Main.tile[j, k].type == 21)
+							if (Main.tile[j, k].type == TileID.Containers)
 							{
 								Main.tile[j, k].active(false);
 							}
@@ -56318,19 +56318,19 @@ namespace Terraria
 						}
 						int num25 = (int)Main.player[j].Center.X / 16;
 						int num26 = (int)(Main.player[j].Bottom.Y + 8f) / 16;
-						if (Main.tile[num, num2].type == 367)
+						if (Main.tile[num, num2].type == TileID.Marble)
 						{
 							flag8 = true;
 						}
-						else if (Main.tile[num, num2].type == 368)
+						else if (Main.tile[num, num2].type == TileID.Granite)
 						{
 							flag7 = true;
 						}
-						else if (Main.tile[num25, num26].type == 367)
+						else if (Main.tile[num25, num26].type == TileID.Marble)
 						{
 							flag8 = true;
 						}
-						else if (Main.tile[num25, num26].type == 368)
+						else if (Main.tile[num25, num26].type == TileID.Granite)
 						{
 							flag7 = true;
 						}
@@ -56359,11 +56359,11 @@ namespace Terraria
 								int num30 = Main.rand.Next(1, 4);
 								for (int num31 = num2 - num27; num31 <= num2 + num27; num31 += num30)
 								{
-									if (Main.tile[num29, num31].type == 367)
+									if (Main.tile[num29, num31].type == TileID.Marble)
 									{
 										flag8 = true;
 									}
-									if (Main.tile[num29, num31].type == 368)
+									if (Main.tile[num29, num31].type == TileID.Granite)
 									{
 										flag7 = true;
 									}
@@ -56392,11 +56392,11 @@ namespace Terraria
 								int num33 = Main.rand.Next(3, 7);
 								for (int num34 = num26 - num27; num34 <= num26 + num27; num34 += num33)
 								{
-									if (Main.tile[num32, num34].type == 367)
+									if (Main.tile[num32, num34].type == TileID.Marble)
 									{
 										flag8 = true;
 									}
-									if (Main.tile[num32, num34].type == 368)
+									if (Main.tile[num32, num34].type == TileID.Granite)
 									{
 										flag7 = true;
 									}
@@ -59646,7 +59646,7 @@ namespace Terraria
 					{
 						for (int j = num2 - 20; j < num2 + 20; j++)
 						{
-							if (Main.tile[i, j].active() && Main.tile[i, j].type == 237 && Main.tile[i, j].frameX == 18 && Main.tile[i, j].frameY == 0)
+							if (Main.tile[i, j].active() && Main.tile[i, j].type == TileID.LihzahrdAltar && Main.tile[i, j].frameX == 18 && Main.tile[i, j].frameY == 0)
 							{
 								num3 = i;
 								num4 = j;
