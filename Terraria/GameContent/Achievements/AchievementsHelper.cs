@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Terraria;
 using Terraria.Achievements;
+using Terraria.ID;
 
 namespace Terraria.GameContent.Achievements
 {
@@ -46,7 +47,7 @@ namespace Terraria.GameContent.Achievements
 				{
 					AchievementsHelper.mayhem1down = true;
 				}
-				else if (!NPC.AnyNPCs(125) && !NPC.AnyNPCs(126) && !AchievementsHelper.mayhem1down)
+				else if (!NPC.AnyNPCs(NPCID.Retinazer) && !NPC.AnyNPCs(NPCID.Spazmatism) && !AchievementsHelper.mayhem1down)
 				{
 					AchievementsHelper.mayhemOK = false;
 					return;
@@ -55,7 +56,7 @@ namespace Terraria.GameContent.Achievements
 				{
 					AchievementsHelper.mayhem2down = true;
 				}
-				else if (!NPC.AnyNPCs(134) && !AchievementsHelper.mayhem2down)
+				else if (!NPC.AnyNPCs(NPCID.TheDestroyer) && !AchievementsHelper.mayhem2down)
 				{
 					AchievementsHelper.mayhemOK = false;
 					return;
@@ -64,7 +65,7 @@ namespace Terraria.GameContent.Achievements
 				{
 					AchievementsHelper.mayhem3down = true;
 				}
-				else if (!NPC.AnyNPCs(127) && !AchievementsHelper.mayhem3down)
+				else if (!NPC.AnyNPCs(NPCID.SkeletronPrime) && !AchievementsHelper.mayhem3down)
 				{
 					AchievementsHelper.mayhemOK = false;
 					return;
@@ -74,7 +75,7 @@ namespace Terraria.GameContent.Achievements
 					AchievementsHelper.NotifyProgressionEvent(21);
 				}
 			}
-			else if (NPC.AnyNPCs(127) && NPC.AnyNPCs(134) && NPC.AnyNPCs(126) && NPC.AnyNPCs(125))
+			else if (NPC.AnyNPCs(NPCID.SkeletronPrime) && NPC.AnyNPCs(NPCID.TheDestroyer) && NPC.AnyNPCs(NPCID.Spazmatism) && NPC.AnyNPCs(NPCID.Retinazer))
 			{
 				AchievementsHelper.mayhemOK = true;
 				AchievementsHelper.mayhem1down = false;

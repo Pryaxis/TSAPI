@@ -45793,7 +45793,7 @@ namespace Terraria
 								this.stack = 0;
 								for (int num17 = 0; num17 < 200; num17++)
 								{
-									if (Main.npc[num17].active && Main.npc[num17].type == 22)
+									if (Main.npc[num17].active && Main.npc[num17].type == NPCID.Guide)
 									{
 										if (Main.netMode == 2)
 										{

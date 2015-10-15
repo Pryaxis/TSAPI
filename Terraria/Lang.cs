@@ -1,4 +1,5 @@
 using System;
+using Terraria.ID;
 
 namespace Terraria
 {
@@ -51,27 +52,27 @@ namespace Terraria
 
 		public static string AnglerQuestChat(bool gotFish = false)
 		{
-			NPC.firstNPCName(18);
-			NPC.firstNPCName(17);
-			NPC.firstNPCName(19);
-			NPC.firstNPCName(20);
-			NPC.firstNPCName(38);
-			NPC.firstNPCName(54);
-			NPC.firstNPCName(22);
-			NPC.firstNPCName(108);
-			NPC.firstNPCName(107);
-			NPC.firstNPCName(124);
-			NPC.firstNPCName(160);
-			NPC.firstNPCName(178);
-			NPC.firstNPCName(207);
-			NPC.firstNPCName(208);
-			NPC.firstNPCName(209);
-			NPC.firstNPCName(227);
-			NPC.firstNPCName(228);
-			NPC.firstNPCName(229);
-			NPC.firstNPCName(353);
-			NPC.firstNPCName(368);
-			string str = NPC.firstNPCName(369);
+			NPC.firstNPCName(NPCID.Nurse);
+			NPC.firstNPCName(NPCID.Merchant);
+			NPC.firstNPCName(NPCID.ArmsDealer);
+			NPC.firstNPCName(NPCID.Dryad);
+			NPC.firstNPCName(NPCID.Demolitionist);
+			NPC.firstNPCName(NPCID.Clothier);
+			NPC.firstNPCName(NPCID.Guide);
+			NPC.firstNPCName(NPCID.Wizard);
+			NPC.firstNPCName(NPCID.GoblinTinkerer);
+			NPC.firstNPCName(NPCID.Mechanic);
+			NPC.firstNPCName(NPCID.Truffle);
+			NPC.firstNPCName(NPCID.Steampunker);
+			NPC.firstNPCName(NPCID.DyeTrader);
+			NPC.firstNPCName(NPCID.PartyGirl);
+			NPC.firstNPCName(NPCID.Cyborg);
+			NPC.firstNPCName(NPCID.Painter);
+			NPC.firstNPCName(NPCID.WitchDoctor);
+			NPC.firstNPCName(NPCID.Pirate);
+			NPC.firstNPCName(NPCID.Stylist);
+			NPC.firstNPCName(NPCID.TravellingMerchant);
+			string str = NPC.firstNPCName(NPCID.Angler);
 			int num = 8;
 			string[] strArrays = new string[num];
 			string[] strArrays1 = new string[num];
@@ -1579,27 +1580,27 @@ namespace Terraria
 
 		public static string dialog(int l, bool english = false)
 		{
-			string str = NPC.firstNPCName(18);
-			string str1 = NPC.firstNPCName(17);
-			string str2 = NPC.firstNPCName(19);
-			string str3 = NPC.firstNPCName(20);
-			string str4 = NPC.firstNPCName(38);
-			string str5 = NPC.firstNPCName(54);
-			string str6 = NPC.firstNPCName(22);
-			NPC.firstNPCName(108);
-			string str7 = NPC.firstNPCName(107);
-			string str8 = NPC.firstNPCName(124);
-			string str9 = NPC.firstNPCName(160);
-			NPC.firstNPCName(178);
-			NPC.firstNPCName(207);
-			string str10 = NPC.firstNPCName(208);
-			string str11 = NPC.firstNPCName(209);
-			NPC.firstNPCName(227);
-			NPC.firstNPCName(228);
-			string str12 = NPC.firstNPCName(229);
-			string str13 = NPC.firstNPCName(353);
-			NPC.firstNPCName(368);
-			string str14 = NPC.firstNPCName(369);
+			string str = NPC.firstNPCName(NPCID.Nurse);
+			string str1 = NPC.firstNPCName(NPCID.Merchant);
+			string str2 = NPC.firstNPCName(NPCID.ArmsDealer);
+			string str3 = NPC.firstNPCName(NPCID.Dryad);
+			string str4 = NPC.firstNPCName(NPCID.Demolitionist);
+			string str5 = NPC.firstNPCName(NPCID.Clothier);
+			string str6 = NPC.firstNPCName(NPCID.Guide);
+			NPC.firstNPCName(NPCID.Wizard);
+			string str7 = NPC.firstNPCName(NPCID.GoblinTinkerer);
+			string str8 = NPC.firstNPCName(NPCID.Mechanic);
+			string str9 = NPC.firstNPCName(NPCID.Truffle);
+			NPC.firstNPCName(NPCID.Steampunker);
+			NPC.firstNPCName(NPCID.DyeTrader);
+			string str10 = NPC.firstNPCName(NPCID.PartyGirl);
+			string str11 = NPC.firstNPCName(NPCID.Cyborg);
+			NPC.firstNPCName(NPCID.Painter);
+			NPC.firstNPCName(NPCID.WitchDoctor);
+			string str12 = NPC.firstNPCName(NPCID.Pirate);
+			string str13 = NPC.firstNPCName(NPCID.Stylist);
+			NPC.firstNPCName(NPCID.TravellingMerchant);
+			string str14 = NPC.firstNPCName(NPCID.Angler);
 			if (Lang.lang <= 1 || english)
 			{
 				switch (l)
@@ -7774,7 +7775,7 @@ namespace Terraria
 
 		public static string DyeTraderQuestChat(bool gotDye = false)
 		{
-			string str = NPC.firstNPCName(207);
+			string str = NPC.firstNPCName(NPCID.DyeTrader);
 			string str1 = "";
 			if (!gotDye)
 			{

@@ -32,7 +32,7 @@ namespace Terraria.GameContent.Shaders
 			int num1 = 0;
 			while (num1 < (int)Main.npc.Length)
 			{
-				if (!Main.npc[num1].active || Main.npc[num1].type != 398)
+				if (!Main.npc[num1].active || Main.npc[num1].type != NPCID.MoonLordCore)
 				{
 					num1++;
 				}

@@ -2318,7 +2318,7 @@ namespace Terraria
 			{
 				if (Main.npc[num5].active && Main.npc[num5].townNPC && NPC.TypeToNum(Main.npc[num5].type) != -1)
 				{
-					if (!flag2 && Main.npc[num5].type == 368)
+					if (!flag2 && Main.npc[num5].type == NPCID.TravellingMerchant)
 					{
 						flag2 = true;
 					}

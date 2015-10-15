@@ -35,7 +35,7 @@ namespace Terraria
 
 		public const int maxProjectileTypes = 651;
 
-		public const int maxNPCTypes = 540;
+		public const int maxNPCTypes = NPCID.Count;
 
 		public const int maxTileSets = 419;
 
@@ -1731,7 +1731,7 @@ namespace Terraria
 			Main.backgroundLoaded = new bool[207];
 			Main.tileSetsLoaded = new bool[419];
 			Main.wallLoaded = new bool[225];
-			Main.NPCLoaded = new bool[540];
+			Main.NPCLoaded = new bool[Main.maxNPCTypes];
 			Main.armorHeadLoaded = new bool[194];
 			Main.armorBodyLoaded = new bool[195];
 			Main.armorLegsLoaded = new bool[135];
@@ -1764,7 +1764,7 @@ namespace Terraria
 			Main.stopTimeOuts = false;
 			Main.showSpam = false;
 			Main.showItemOwner = false;
-			Main.nextNPC = new bool[540];
+			Main.nextNPC = new bool[Main.maxNPCTypes];
 			Main.musicBox = -1;
 			Main.musicBox2 = -1;
 			Main.hbPosition = 1;
@@ -1962,7 +1962,7 @@ namespace Terraria
 			Main.slimeWarningTime = 0;
 			Main.slimeWarningDelay = 420;
 			Main.slimeRainNPCSlots = 0.65f;
-			Main.slimeRainNPC = new bool[540];
+			Main.slimeRainNPC = new bool[Main.maxNPCTypes];
 			Main.slimeRainTime = 0;
 			Main.slimeRain = false;
 			Main.slimeRainKillCount = 0;
@@ -2137,7 +2137,7 @@ namespace Terraria
 			Main.grasshopperCageFrameCounter = new int[Main.cageFrames];
 			Main.tileSand = new bool[419];
 			Main.tileFlame = new bool[419];
-			Main.npcCatchable = new bool[540];
+			Main.npcCatchable = new bool[Main.maxNPCTypes];
 			Main.tileFrame = new int[419];
 			Main.tileFrameCounter = new int[419];
 			Main.wallFrame = new byte[225];
@@ -2237,7 +2237,7 @@ namespace Terraria
 			Main.CloudPlayerPath = "players";
 			Main.Configuration = new Preferences(string.Concat(Main.SavePath, Path.DirectorySeparatorChar, "config.json"), false, false);
 			Main.itemName = new string[Main.maxItemTypes];
-			Main.npcName = new string[540];
+			Main.npcName = new string[Main.maxNPCTypes];
 			Main.PendingResolutionWidth = 800;
 			Main.PendingResolutionHeight = 600;
 			Main.invasionType = 0;
@@ -2508,7 +2508,7 @@ namespace Terraria
 			{
 				if (Main.npc[i].active)
 				{
-					if (Main.npc[i].type == 398 && Main.npc[i].ai[0] >= 0f)
+					if (Main.npc[i].type == NPCID.MoonLordCore && Main.npc[i].ai[0] >= 0f)
 					{
 						int num = i;
 						int num1 = -1;
@@ -2518,15 +2518,15 @@ namespace Terraria
 						{
 							if (Main.npc[j].active && Main.npc[j].ai[3] == (float)num)
 							{
-								if (num1 == -1 && Main.npc[j].type == 397 && Main.npc[j].ai[2] == 0f)
+								if (num1 == -1 && Main.npc[j].type == NPCID.MoonLordHand && Main.npc[j].ai[2] == 0f)
 								{
 									num1 = j;
 								}
-								if (num2 == -1 && Main.npc[j].type == 397 && Main.npc[j].ai[2] == 1f)
+								if (num2 == -1 && Main.npc[j].type == NPCID.MoonLordHand && Main.npc[j].ai[2] == 1f)
 								{
 									num2 = j;
 								}
-								if (num3 == -1 && Main.npc[j].type == 396)
+								if (num3 == -1 && Main.npc[j].type == NPCID.MoonLordHead)
 								{
 									num3 = j;
 								}
@@ -2553,11 +2553,11 @@ namespace Terraria
 							}
 						}
 					}
-					else if (Main.npc[i].type == 421 && Main.npc[i].ai[0] == 5f)
+					else if (Main.npc[i].type == NPCID.NebulaHeadcrab && Main.npc[i].ai[0] == 5f)
 					{
 						this.DrawCacheNPCsOverPlayers.Add(i);
 					}
-					else if (Main.npc[i].type == 516 || Main.npc[i].type == 519)
+					else if (Main.npc[i].type == NPCID.SolarFlare || Main.npc[i].type == NPCID.SolarGoop)
 					{
 						this.DrawCacheNPCProjectiles.Add(i);
 					}
@@ -9483,151 +9483,151 @@ namespace Terraria
 		public static float NPCAddHeight(int i)
 		{
 			float single = 0f;
-			if (Main.npc[i].type == 125)
+			if (Main.npc[i].type == NPCID.Retinazer)
 			{
 				single = 30f;
 			}
-			else if (Main.npc[i].type == 54)
+			else if (Main.npc[i].type == NPCID.Clothier)
 			{
 				single = 2f;
 			}
-			else if (Main.npc[i].type == 205)
+			else if (Main.npc[i].type == NPCID.Moth)
 			{
 				single = 8f;
 			}
-			else if (Main.npc[i].type == 182)
+			else if (Main.npc[i].type == NPCID.FloatyGross)
 			{
 				single = 24f;
 			}
-			else if (Main.npc[i].type == 178)
+			else if (Main.npc[i].type == NPCID.Steampunker)
 			{
 				single = 2f;
 			}
-			else if (Main.npc[i].type == 126)
+			else if (Main.npc[i].type == NPCID.Spazmatism)
 			{
 				single = 30f;
 			}
-			else if (Main.npc[i].type == 6 || Main.npc[i].type == 173)
+			else if (Main.npc[i].type == NPCID.EaterofSouls || Main.npc[i].type == NPCID.Crimera)
 			{
 				single = 26f;
 			}
-			else if (Main.npc[i].type == 94)
+			else if (Main.npc[i].type == NPCID.Corruptor)
 			{
 				single = 14f;
 			}
-			else if (Main.npc[i].type == 7 || Main.npc[i].type == 8 || Main.npc[i].type == 9)
+			else if (Main.npc[i].type == NPCID.DevourerHead || Main.npc[i].type == NPCID.DevourerBody || Main.npc[i].type == NPCID.DevourerTail)
 			{
 				single = 13f;
 			}
-			else if (Main.npc[i].type == 98 || Main.npc[i].type == 99 || Main.npc[i].type == 100)
+			else if (Main.npc[i].type == NPCID.SeekerHead || Main.npc[i].type == NPCID.SeekerBody || Main.npc[i].type == NPCID.SeekerTail)
 			{
 				single = 13f;
 			}
-			else if (Main.npc[i].type == 95 || Main.npc[i].type == 96 || Main.npc[i].type == 97)
+			else if (Main.npc[i].type == NPCID.DiggerHead || Main.npc[i].type == NPCID.DiggerBody || Main.npc[i].type == NPCID.DiggerTail)
 			{
 				single = 13f;
 			}
-			else if (Main.npc[i].type == 10 || Main.npc[i].type == 11 || Main.npc[i].type == 12)
+			else if (Main.npc[i].type == NPCID.GiantWormHead || Main.npc[i].type == NPCID.GiantWormBody || Main.npc[i].type == NPCID.GiantWormTail)
 			{
 				single = 8f;
 			}
-			else if (Main.npc[i].type == 13 || Main.npc[i].type == 14 || Main.npc[i].type == 15)
+			else if (Main.npc[i].type == NPCID.EaterofWorldsHead || Main.npc[i].type == NPCID.EaterofWorldsBody || Main.npc[i].type == NPCID.EaterofWorldsTail)
 			{
 				single = 26f;
 			}
-			else if (Main.npc[i].type == 175)
+			else if (Main.npc[i].type == NPCID.AngryTrapper)
 			{
 				single = 4f;
 			}
-			else if (Main.npc[i].type == 520)
+			else if (Main.npc[i].type == NPCID.MartianWalker)
 			{
 				single = 2f;
 			}
-			else if (Main.npc[i].type >= 412 && Main.npc[i].type <= 414)
+			else if (Main.npc[i].type >= NPCID.SolarCrawltipedeHead && Main.npc[i].type <= NPCID.SolarCrawltipedeTail)
 			{
 				single = 18f;
 			}
-			else if (Main.npc[i].type == 48)
+			else if (Main.npc[i].type == NPCID.Harpy)
 			{
 				single = 32f;
 			}
-			else if (Main.npc[i].type == 49 || Main.npc[i].type == 51)
+			else if (Main.npc[i].type == NPCID.CaveBat || Main.npc[i].type == NPCID.JungleBat)
 			{
 				single = 4f;
 			}
-			else if (Main.npc[i].type == 60)
+			else if (Main.npc[i].type == NPCID.Hellbat)
 			{
 				single = 10f;
 			}
-			else if (Main.npc[i].type == 62 || Main.npc[i].type == 66 || Main.npc[i].type == 156)
+			else if (Main.npc[i].type == NPCID.Demon || Main.npc[i].type == NPCID.VoodooDemon || Main.npc[i].type == NPCID.RedDevil)
 			{
 				single = 14f;
 			}
-			else if (Main.npc[i].type == 63 || Main.npc[i].type == 64 || Main.npc[i].type == 103)
+			else if (Main.npc[i].type == NPCID.BlueJellyfish || Main.npc[i].type == NPCID.PinkJellyfish || Main.npc[i].type == NPCID.GreenJellyfish)
 			{
 				single = 4f;
 			}
-			else if (Main.npc[i].type == 65)
+			else if (Main.npc[i].type == NPCID.Shark)
 			{
 				single = 14f;
 			}
-			else if (Main.npc[i].type == 69)
+			else if (Main.npc[i].type == NPCID.Antlion)
 			{
 				single = 4f;
 			}
-			else if (Main.npc[i].type == 70)
+			else if (Main.npc[i].type == NPCID.SpikeBall)
 			{
 				single = -4f;
 			}
-			else if (Main.npc[i].type == 72)
+			else if (Main.npc[i].type == NPCID.BlazingWheel)
 			{
 				single = -2f;
 			}
-			else if (Main.npc[i].type == 83 || Main.npc[i].type == 84)
+			else if (Main.npc[i].type == NPCID.CursedHammer || Main.npc[i].type == NPCID.EnchantedSword)
 			{
 				single = 20f;
 			}
-			else if (Main.npc[i].type == 150 || Main.npc[i].type == 151 || Main.npc[i].type == 158)
+			else if (Main.npc[i].type == NPCID.IceBat || Main.npc[i].type == NPCID.Lavabat || Main.npc[i].type == NPCID.VampireBat)
 			{
 				single = 10f;
 			}
-			else if (Main.npc[i].type == 152)
+			else if (Main.npc[i].type == NPCID.GiantFlyingFox)
 			{
 				single = 6f;
 			}
-			else if (Main.npc[i].type == 153 || Main.npc[i].type == 154)
+			else if (Main.npc[i].type == NPCID.GiantTortoise || Main.npc[i].type == NPCID.IceTortoise)
 			{
 				single = 4f;
 			}
-			else if (Main.npc[i].type == 165 || Main.npc[i].type == 237 || Main.npc[i].type == 238 || Main.npc[i].type == 240)
+			else if (Main.npc[i].type == NPCID.WallCreeperWall || Main.npc[i].type == NPCID.JungleCreeperWall || Main.npc[i].type == NPCID.BlackRecluseWall || Main.npc[i].type == NPCID.BloodCrawlerWall)
 			{
 				single = 10f;
 			}
-			else if (Main.npc[i].type == 39 || Main.npc[i].type == 40 || Main.npc[i].type == 41)
+			else if (Main.npc[i].type == NPCID.BoneSerpentHead || Main.npc[i].type == NPCID.BoneSerpentBody || Main.npc[i].type == NPCID.BoneSerpentTail)
 			{
 				single = 26f;
 			}
-			else if (Main.npc[i].type >= 87 && Main.npc[i].type <= 92)
+			else if (Main.npc[i].type >= NPCID.WyvernHead && Main.npc[i].type <= NPCID.WyvernTail)
 			{
 				single = 56f;
 			}
-			else if (Main.npc[i].type >= 134 && Main.npc[i].type <= 136)
+			else if (Main.npc[i].type >= NPCID.TheDestroyer && Main.npc[i].type <= NPCID.TheDestroyerTail)
 			{
 				single = 30f;
 			}
-			else if (Main.npc[i].type == 169)
+			else if (Main.npc[i].type == NPCID.IceElemental)
 			{
 				single = 8f;
 			}
-			else if (Main.npc[i].type == 174)
+			else if (Main.npc[i].type == NPCID.Herpling)
 			{
 				single = 6f;
 			}
-			else if (Main.npc[i].type == 369)
+			else if (Main.npc[i].type == NPCID.Angler)
 			{
 				single = 2f;
 			}
-			else if (Main.npc[i].type == 376)
+			else if (Main.npc[i].type == NPCID.SleepingAngler)
 			{
 				single = 6f;
 			}
@@ -13876,7 +13876,7 @@ namespace Terraria
 						int num4 = 0;
 						for (int j = 0; j < 200; j++)
 						{
-							if (Main.npc[j].active && Main.npc[j].townNPC && Main.npc[j].type != 37 && Main.npc[j].type != 453)
+							if (Main.npc[j].active && Main.npc[j].townNPC && Main.npc[j].type != NPCID.OldMan && Main.npc[j].type != NPCID.SkeletonMerchant)
 							{
 								num4++;
 							}
@@ -14113,99 +14113,99 @@ namespace Terraria
 						{
 							if (Main.npc[o].active && Main.npc[o].townNPC)
 							{
-								if (Main.npc[o].type != 368 && Main.npc[o].type != 37 && Main.npc[o].type != 453 && !Main.npc[o].homeless)
+								if (Main.npc[o].type != NPCID.TravellingMerchant && Main.npc[o].type != NPCID.OldMan && Main.npc[o].type != NPCID.SkeletonMerchant && !Main.npc[o].homeless)
 								{
 									WorldGen.QuickFindHome(o);
 								}
-								if (Main.npc[o].type == 37)
+								if (Main.npc[o].type == NPCID.OldMan)
 								{
 									num16++;
 								}
-								if (Main.npc[o].type == 17)
+								if (Main.npc[o].type == NPCID.Merchant)
 								{
 									num11++;
 								}
-								if (Main.npc[o].type == 18)
+								if (Main.npc[o].type == NPCID.Nurse)
 								{
 									num12++;
 								}
-								if (Main.npc[o].type == 19)
+								if (Main.npc[o].type == NPCID.ArmsDealer)
 								{
 									num14++;
 								}
-								if (Main.npc[o].type == 20)
+								if (Main.npc[o].type == NPCID.Dryad)
 								{
 									num13++;
 								}
-								if (Main.npc[o].type == 22)
+								if (Main.npc[o].type == NPCID.Guide)
 								{
 									num15++;
 								}
-								if (Main.npc[o].type == 38)
+								if (Main.npc[o].type == NPCID.Demolitionist)
 								{
 									num17++;
 								}
-								if (Main.npc[o].type == 54)
+								if (Main.npc[o].type == NPCID.Clothier)
 								{
 									num18++;
 								}
-								if (Main.npc[o].type == 107)
+								if (Main.npc[o].type == NPCID.GoblinTinkerer)
 								{
 									num20++;
 								}
-								if (Main.npc[o].type == 108)
+								if (Main.npc[o].type == NPCID.Wizard)
 								{
 									num19++;
 								}
-								if (Main.npc[o].type == 124)
+								if (Main.npc[o].type == NPCID.Mechanic)
 								{
 									num21++;
 								}
-								if (Main.npc[o].type == 142)
+								if (Main.npc[o].type == NPCID.SantaClaus)
 								{
 									num22++;
 								}
-								if (Main.npc[o].type == 160)
+								if (Main.npc[o].type == NPCID.Truffle)
 								{
 									num23++;
 								}
-								if (Main.npc[o].type == 178)
+								if (Main.npc[o].type == NPCID.Steampunker)
 								{
 									num24++;
 								}
-								if (Main.npc[o].type == 207)
+								if (Main.npc[o].type == NPCID.DyeTrader)
 								{
 									num25++;
 								}
-								if (Main.npc[o].type == 208)
+								if (Main.npc[o].type == NPCID.PartyGirl)
 								{
 									num26++;
 								}
-								if (Main.npc[o].type == 209)
+								if (Main.npc[o].type == NPCID.Cyborg)
 								{
 									num27++;
 								}
-								if (Main.npc[o].type == 227)
+								if (Main.npc[o].type == NPCID.Painter)
 								{
 									num28++;
 								}
-								if (Main.npc[o].type == 228)
+								if (Main.npc[o].type == NPCID.WitchDoctor)
 								{
 									num29++;
 								}
-								if (Main.npc[o].type == 229)
+								if (Main.npc[o].type == NPCID.Pirate)
 								{
 									num30++;
 								}
-								if (Main.npc[o].type == 353)
+								if (Main.npc[o].type == NPCID.Stylist)
 								{
 									num31++;
 								}
-								if (Main.npc[o].type == 369)
+								if (Main.npc[o].type == NPCID.Angler)
 								{
 									num32++;
 								}
-								if (Main.npc[o].type == 441)
+								if (Main.npc[o].type == NPCID.TaxCollector)
 								{
 									num33++;
 								}

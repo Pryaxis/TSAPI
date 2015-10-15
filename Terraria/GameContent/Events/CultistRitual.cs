@@ -74,7 +74,7 @@ namespace Terraria.GameContent.Events
 			{
 				return false;
 			}
-			if (NPC.AnyNPCs(437))
+			if (NPC.AnyNPCs(NPCID.CultistTablet))
 			{
 				return false;
 			}

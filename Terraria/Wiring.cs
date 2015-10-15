@@ -987,7 +987,7 @@ namespace Terraria
 													int num58 = 0;
 													for (int a = 0; a < 200; a++)
 													{
-														if (Main.npc[a].active && (Main.npc[a].type == 17 || Main.npc[a].type == 19 || Main.npc[a].type == 22 || Main.npc[a].type == 38 || Main.npc[a].type == 54 || Main.npc[a].type == 107 || Main.npc[a].type == 108 || Main.npc[a].type == 142 || Main.npc[a].type == 160 || Main.npc[a].type == 207 || Main.npc[a].type == 209 || Main.npc[a].type == 227 || Main.npc[a].type == 228 || Main.npc[a].type == 229 || Main.npc[a].type == 358 || Main.npc[a].type == 369))
+														if (Main.npc[a].active && (Main.npc[a].type == NPCID.Merchant || Main.npc[a].type == NPCID.ArmsDealer || Main.npc[a].type == NPCID.Guide || Main.npc[a].type == NPCID.Demolitionist || Main.npc[a].type == NPCID.Clothier || Main.npc[a].type == NPCID.GoblinTinkerer || Main.npc[a].type == NPCID.Wizard || Main.npc[a].type == NPCID.SantaClaus || Main.npc[a].type == NPCID.Truffle || Main.npc[a].type == NPCID.DyeTrader || Main.npc[a].type == NPCID.Cyborg || Main.npc[a].type == NPCID.Painter || Main.npc[a].type == NPCID.WitchDoctor || Main.npc[a].type == NPCID.Pirate || Main.npc[a].type == NPCID.LightningBug || Main.npc[a].type == NPCID.Angler))
 														{
 															numArray[num58] = a;
 															num58++;
@@ -1012,7 +1012,7 @@ namespace Terraria
 												int num60 = 0;
 												for (int b = 0; b < 200; b++)
 												{
-													if (Main.npc[b].active && (Main.npc[b].type == 18 || Main.npc[b].type == 20 || Main.npc[b].type == 124 || Main.npc[b].type == 178 || Main.npc[b].type == 208 || Main.npc[b].type == 353))
+													if (Main.npc[b].active && (Main.npc[b].type == NPCID.Nurse || Main.npc[b].type == NPCID.Dryad || Main.npc[b].type == NPCID.Mechanic || Main.npc[b].type == NPCID.Steampunker || Main.npc[b].type == NPCID.PartyGirl || Main.npc[b].type == NPCID.Stylist))
 													{
 														numArray1[num60] = b;
 														num60++;

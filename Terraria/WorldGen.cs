@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -1111,7 +1111,7 @@ namespace Terraria
 			int num = -1;
 			for (int i = 0; i < 200; i++)
 			{
-				if (Main.npc[i].active && Main.npc[i].type == 368)
+				if (Main.npc[i].active && Main.npc[i].type == NPCID.TravellingMerchant)
 				{
 					num = i;
 					break;
@@ -1178,7 +1178,7 @@ namespace Terraria
 			}
 			for (int i = 0; i < 200; i++)
 			{
-				if (Main.npc[i].active && Main.npc[i].type == 368)
+				if (Main.npc[i].active && Main.npc[i].type == NPCID.TravellingMerchant)
 				{
 					return;
 				}
@@ -1189,7 +1189,7 @@ namespace Terraria
 			int num = 0;
 			for (int j = 0; j < 200; j++)
 			{
-				if (Main.npc[j].active && Main.npc[j].townNPC && Main.npc[j].type != 37 && !Main.npc[j].homeless)
+				if (Main.npc[j].active && Main.npc[j].townNPC && Main.npc[j].type != NPCID.OldMan && !Main.npc[j].homeless)
 				{
 					array[num] = j;
 					num++;
@@ -1501,14 +1501,14 @@ namespace Terraria
 						NetMessage.SendData(25, -1, -1, str + " " + Lang.misc[18], 255, 50f, 125f, 255f, 0, 0, 0);
 					}
 					AchievementsHelper.NotifyProgressionEvent(8);
-					if (Main.npc[num7].type == 160)
+					if (Main.npc[num7].type == NPCID.Truffle)
 					{
 						AchievementsHelper.NotifyProgressionEvent(18);
 					}
 					bool[] array = new bool[540];
 					for (int n = 0; n < 200; n++)
 					{
-						if (Main.npc[n].active && Main.npc[n].type >= 0 && Main.npc[n].type < 540)
+						if (Main.npc[n].active && Main.npc[n].type >= NPCID.None && Main.npc[n].type < 540)
 						{
 							array[Main.npc[n].type] = true;
 						}
@@ -39323,7 +39323,7 @@ namespace Terraria
 				{
 					for (int i = 0; i < 200; i++)
 					{
-						if (Main.npc[i].active && Main.npc[i].homeless && Main.npc[i].townNPC && Main.npc[i].type != 368)
+						if (Main.npc[i].active && Main.npc[i].homeless && Main.npc[i].townNPC && Main.npc[i].type != NPCID.TravellingMerchant)
 						{
 							WorldGen.spawnNPC = Main.npc[i].type;
 							break;
@@ -49858,7 +49858,7 @@ namespace Terraria
 		{
 			for (int i = 0; i < 200; i++)
 			{
-				if (Main.npc[i].active && (Main.npc[i].type == 437 || Main.npc[i].type == 438 || Main.npc[i].type == 379))
+				if (Main.npc[i].active && (Main.npc[i].type == NPCID.CultistTablet || Main.npc[i].type == NPCID.CultistDevote || Main.npc[i].type == NPCID.CultistArcherBlue))
 				{
 					Main.npc[i].active = false;
 					if (Main.netMode != 1)

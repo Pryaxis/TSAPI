@@ -9632,7 +9632,7 @@ namespace Terraria
 								{
 									if (!Main.npc[q2].dontTakeDamage)
 									{
-										if (!Main.npc[q2].friendly || Main.npc[q2].type == 22 && this.killGuide || Main.npc[q2].type == 54 && this.killClothier)
+										if (!Main.npc[q2].friendly || Main.npc[q2].type == NPCID.Guide && this.killGuide || Main.npc[q2].type == NPCID.Clothier && this.killClothier)
 										{
 											Rectangle rectangle2 = new Rectangle((int)Main.npc[q2].position.X, (int)Main.npc[q2].position.Y, Main.npc[q2].width, Main.npc[q2].height);
 											if (rectangle.Intersects(rectangle2) && (Main.npc[q2].noTileCollide || Collision.CanHit(this.position, this.width, this.height, Main.npc[q2].position, Main.npc[q2].width, Main.npc[q2].height)))
@@ -9747,7 +9747,7 @@ namespace Terraria
 											}
 										}
 									}
-									else if (Main.npc[q2].type == 63 || Main.npc[q2].type == 64 || Main.npc[q2].type == 103 || Main.npc[q2].type == 242)
+									else if (Main.npc[q2].type == NPCID.BlueJellyfish || Main.npc[q2].type == NPCID.PinkJellyfish || Main.npc[q2].type == NPCID.GreenJellyfish || Main.npc[q2].type == NPCID.BloodJelly)
 									{
 										Rectangle rectangle3 = new Rectangle((int)Main.npc[q2].position.X, (int)Main.npc[q2].position.Y, Main.npc[q2].width, Main.npc[q2].height);
 										if (rectangle.Intersects(rectangle3))
@@ -10789,7 +10789,7 @@ namespace Terraria
 				int num12 = 0;
 				while (num12 < 200)
 				{
-					if (!Main.npc[num12].active || !Main.npc[num12].boss && Main.npc[num12].type != 13 && Main.npc[num12].type != 14 && Main.npc[num12].type != 15 || Math.Abs(base.Center.X - Main.npc[num12].Center.X) + Math.Abs(base.Center.Y - Main.npc[num12].Center.Y) >= 4000f)
+					if (!Main.npc[num12].active || !Main.npc[num12].boss && Main.npc[num12].type != NPCID.EaterofWorldsHead && Main.npc[num12].type != NPCID.EaterofWorldsBody && Main.npc[num12].type != NPCID.EaterofWorldsTail || Math.Abs(base.Center.X - Main.npc[num12].Center.X) + Math.Abs(base.Center.Y - Main.npc[num12].Center.Y) >= 4000f)
 					{
 						num12++;
 					}
@@ -20802,7 +20802,7 @@ namespace Terraria
 		{
 			for (int i = 0; i < 200; i++)
 			{
-				if (Main.npc[i].active && (this.inventory[this.selectedItem].type == 43 && Main.npc[i].type == 4 || this.inventory[this.selectedItem].type == 70 && Main.npc[i].type == 13 || this.inventory[this.selectedItem].type == 560 & Main.npc[i].type == 50 || this.inventory[this.selectedItem].type == 544 && Main.npc[i].type == 125 || this.inventory[this.selectedItem].type == 544 && Main.npc[i].type == 126 || this.inventory[this.selectedItem].type == 556 && Main.npc[i].type == 134 || this.inventory[this.selectedItem].type == 557 && Main.npc[i].type == 127 || this.inventory[this.selectedItem].type == 1133 && Main.npc[i].type == 222 || this.inventory[this.selectedItem].type == 1331 && Main.npc[i].type == 266))
+				if (Main.npc[i].active && (this.inventory[this.selectedItem].type == 43 && Main.npc[i].type == NPCID.EyeofCthulhu || this.inventory[this.selectedItem].type == 70 && Main.npc[i].type == NPCID.EaterofWorldsHead || this.inventory[this.selectedItem].type == 560 & Main.npc[i].type == NPCID.KingSlime || this.inventory[this.selectedItem].type == 544 && Main.npc[i].type == NPCID.Retinazer || this.inventory[this.selectedItem].type == 544 && Main.npc[i].type == NPCID.Spazmatism || this.inventory[this.selectedItem].type == 556 && Main.npc[i].type == NPCID.TheDestroyer || this.inventory[this.selectedItem].type == 557 && Main.npc[i].type == NPCID.SkeletronPrime || this.inventory[this.selectedItem].type == 1133 && Main.npc[i].type == NPCID.QueenBee || this.inventory[this.selectedItem].type == 1331 && Main.npc[i].type == NPCID.BrainofCthulhu))
 				{
 					return false;
 				}
@@ -25128,7 +25128,7 @@ namespace Terraria
 								else if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == 237)
 								{
 									bool flag30 = false;
-									if (!NPC.AnyNPCs(245) && Main.hardMode && NPC.downedPlantBoss)
+									if (!NPC.AnyNPCs(NPCID.Golem) && Main.hardMode && NPC.downedPlantBoss)
 									{
 										int num169 = 0;
 										while (num169 < 58)
@@ -25660,7 +25660,7 @@ namespace Terraria
 						{
 							float single37 = 1f;
 							Rectangle width1 = new Rectangle((int)Main.npc[i11].position.X, (int)Main.npc[i11].position.Y, Main.npc[i11].width, Main.npc[i11].height);
-							if (Main.npc[i11].type >= 430 && Main.npc[i11].type <= 436 && Main.npc[i11].ai[2] > 5f)
+							if (Main.npc[i11].type >= NPCID.ArmedZombie && Main.npc[i11].type <= NPCID.ArmedZombieCenx && Main.npc[i11].ai[2] > 5f)
 							{
 								int num186 = 34;
 								if (Main.npc[i11].spriteDirection >= 0)
@@ -25674,7 +25674,7 @@ namespace Terraria
 								}
 								single37 = single37 * 1.25f;
 							}
-							else if (Main.npc[i11].type >= 494 && Main.npc[i11].type <= 495 && Main.npc[i11].ai[2] > 5f)
+							else if (Main.npc[i11].type >= NPCID.Crawdad && Main.npc[i11].type <= NPCID.Crawdad2 && Main.npc[i11].ai[2] > 5f)
 							{
 								int num187 = 18;
 								if (Main.npc[i11].spriteDirection >= 0)
@@ -25688,7 +25688,7 @@ namespace Terraria
 								}
 								single37 = single37 * 1.25f;
 							}
-							else if (Main.npc[i11].type == 460)
+							else if (Main.npc[i11].type == NPCID.Butcher)
 							{
 								Rectangle rectangle6 = new Rectangle(0, 0, 30, 14)
 								{
@@ -25705,7 +25705,7 @@ namespace Terraria
 									single37 = single37 * 1.35f;
 								}
 							}
-							else if (Main.npc[i11].type == 417 && Main.npc[i11].ai[0] == 6f && Main.npc[i11].ai[3] > 0f && Main.npc[i11].ai[3] < 4f)
+							else if (Main.npc[i11].type == NPCID.SolarSroller && Main.npc[i11].ai[0] == 6f && Main.npc[i11].ai[3] > 0f && Main.npc[i11].ai[3] < 4f)
 							{
 								Rectangle rectangle7 = Terraria.Utils.CenteredRectangle(Main.npc[i11].Center, new Vector2(100f));
 								if (rectangle5.Intersects(rectangle7))
@@ -25714,7 +25714,7 @@ namespace Terraria
 									single37 = single37 * 1.35f;
 								}
 							}
-							else if (Main.npc[i11].type == 466)
+							else if (Main.npc[i11].type == NPCID.Psycho)
 							{
 								Rectangle rectangle8 = new Rectangle(0, 0, 30, 8)
 								{
@@ -26795,7 +26795,7 @@ namespace Terraria
 			{
 				if (Main.npc[i].active)
 				{
-					if (Main.npc[i].type == 493)
+					if (Main.npc[i].type == NPCID.LunarTowerStardust)
 					{
 						if (base.Distance(Main.npc[i].Center) <= 4000f)
 						{
@@ -26803,7 +26803,7 @@ namespace Terraria
 							zero1 = Main.npc[i].Center;
 						}
 					}
-					else if (Main.npc[i].type == 507)
+					else if (Main.npc[i].type == NPCID.LunarTowerNebula)
 					{
 						if (base.Distance(Main.npc[i].Center) <= 4000f)
 						{
@@ -26811,7 +26811,7 @@ namespace Terraria
 							vector2 = Main.npc[i].Center;
 						}
 					}
-					else if (Main.npc[i].type == 422)
+					else if (Main.npc[i].type == NPCID.LunarTowerVortex)
 					{
 						if (base.Distance(Main.npc[i].Center) <= 4000f)
 						{
@@ -26819,7 +26819,7 @@ namespace Terraria
 							center = Main.npc[i].Center;
 						}
 					}
-					else if (Main.npc[i].type == 517 && base.Distance(Main.npc[i].Center) <= 4000f)
+					else if (Main.npc[i].type == NPCID.LunarTowerSolar && base.Distance(Main.npc[i].Center) <= 4000f)
 					{
 						this.ZoneTowerSolar = true;
 						zero = Main.npc[i].Center;
@@ -26830,7 +26830,7 @@ namespace Terraria
 			this.ManageSpecialBiomeVisuals("Nebula", this.ZoneTowerNebula, vector2 - new Vector2(0f, 10f));
 			this.ManageSpecialBiomeVisuals("Vortex", this.ZoneTowerVortex, center - new Vector2(0f, 10f));
 			this.ManageSpecialBiomeVisuals("Solar", this.ZoneTowerSolar, zero - new Vector2(0f, 10f));
-			this.ManageSpecialBiomeVisuals("MoonLord", NPC.AnyNPCs(398), new Vector2());
+			this.ManageSpecialBiomeVisuals("MoonLord", NPC.AnyNPCs(NPCID.MoonLordCore), new Vector2());
 			this.ManageSpecialBiomeVisuals("BloodMoon", Main.bloodMoon, new Vector2());
 			Point point = base.Center.ToTileCoordinates();
 			if (WorldGen.InWorld(point.X, point.Y, 1))
