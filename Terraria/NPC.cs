@@ -56114,7 +56114,7 @@ namespace Terraria
 					{
 						flag3 = true;
 					}
-					if (Main.tile[num6, num7].wall == 87)
+					if (Main.tile[num6, num7].wall == WallID.LihzahrdBrickUnsafe)
 					{
 						flag2 = true;
 					}
@@ -56421,7 +56421,7 @@ namespace Terraria
 									{
 										for (int num37 = num2 - num35; num37 < num2 + num35; num37++)
 										{
-											if (Main.tile[num36, num37].wall == 62)
+											if (Main.tile[num36, num37].wall == WallID.SpiderUnsafe)
 											{
 												flag9 = true;
 											}
@@ -56433,7 +56433,7 @@ namespace Terraria
 							{
 								int num38 = (int)Main.player[j].position.X / 16;
 								int num39 = (int)Main.player[j].position.Y / 16;
-								if (Main.tile[num38, num39].wall == 62)
+								if (Main.tile[num38, num39].wall == WallID.SpiderUnsafe)
 								{
 									flag9 = true;
 								}
@@ -56798,9 +56798,9 @@ namespace Terraria
 								}
 							}
 						}
-						else if (Main.tile[num, num2].wall == 62 || flag9)
+						else if (Main.tile[num, num2].wall == WallID.SpiderUnsafe || flag9)
 						{
-							if (Main.tile[num, num2].wall == 62 && Main.rand.Next(8) == 0 && !flag5 && (double)num2 >= Main.rockLayer && num2 < Main.maxTilesY - 210 && !NPC.savedStylist && !NPC.AnyNPCs(NPCID.WebbedStylist))
+							if (Main.tile[num, num2].wall == WallID.SpiderUnsafe && Main.rand.Next(8) == 0 && !flag5 && (double)num2 >= Main.rockLayer && num2 < Main.maxTilesY - 210 && !NPC.savedStylist && !NPC.AnyNPCs(NPCID.WebbedStylist))
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 354, 0, 0f, 0f, 0f, 0f, 255);
 							}
@@ -57214,11 +57214,11 @@ namespace Terraria
 						else if (Main.player[j].ZoneDungeon)
 						{
 							int num67 = 0;
-							if (Main.tile[num, num2].wall == 94 || Main.tile[num, num2].wall == 96 || Main.tile[num, num2].wall == 98)
+							if (Main.tile[num, num2].wall == WallID.BlueDungeonSlabUnsafe || Main.tile[num, num2].wall == WallID.PinkDungeonSlabUnsafe || Main.tile[num, num2].wall == WallID.GreenDungeonSlabUnsafe)
 							{
 								num67 = 1;
 							}
-							if (Main.tile[num, num2].wall == 95 || Main.tile[num, num2].wall == 97 || Main.tile[num, num2].wall == 99)
+							if (Main.tile[num, num2].wall == WallID.BlueDungeonTileUnsafe || Main.tile[num, num2].wall == WallID.PinkDungeonTileUnsafe || Main.tile[num, num2].wall == WallID.GreenDungeonTileUnsafe)
 							{
 								num67 = 2;
 							}
@@ -59768,7 +59768,7 @@ namespace Terraria
 							{
 								goto IL_7E8;
 							}
-							if ((!Main.wallHouse[(int)Main.tile[num20, num21].wall] || n >= 999) && (Type != 50 || n >= 500 || Main.tile[num21, num21].wall <= 0))
+							if ((!Main.wallHouse[(int)Main.tile[num20, num21].wall] || n >= 999) && (Type != 50 || n >= 500 || Main.tile[num21, num21].wall <= WallID.None))
 							{
 								int num22 = num21;
 								while (num22 < Main.maxTilesY)

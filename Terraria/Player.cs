@@ -9321,7 +9321,7 @@ namespace Terraria
 								int num122 = num117 - 1;
 								while (num122 < num117 + 2)
 								{
-									if (Main.tile[k2, num122].wall == 0 || Main.wallHouse[Main.tile[k2, num122].wall])
+									if (Main.tile[k2, num122].wall == WallID.None || Main.wallHouse[Main.tile[k2, num122].wall])
 									{
 										flag15 = true;
 										break;
@@ -9379,7 +9379,7 @@ namespace Terraria
 					{
 						int x18 = (int)(y.X / 16f);
 						int y19 = (int)(y.Y / 16f);
-						if ((Main.tile[x18, y19].wall != 87 || (double)y19 <= Main.worldSurface || NPC.downedPlantBoss) && !Collision.SolidCollision(y, this.width, this.height))
+						if ((Main.tile[x18, y19].wall != WallID.LihzahrdBrickUnsafe || (double)y19 <= Main.worldSurface || NPC.downedPlantBoss) && !Collision.SolidCollision(y, this.width, this.height))
 						{
 							this.Teleport(y, 1, 0);
 							NetMessage.SendData((int)PacketTypes.Teleport, -1, -1, "", 0, (float)this.whoAmI, y.X, y.Y, 1, 0, 0);
@@ -15526,7 +15526,7 @@ namespace Terraria
 								{
 									num73++;
 								}
-								if (Main.tile[num72, num73].wall == 0)
+								if (Main.tile[num72, num73].wall == WallID.None)
 								{
 									int num74 = 0;
 									for (int w = 0; w < 4; w++)
@@ -20273,7 +20273,7 @@ namespace Terraria
 								int x = (int)center.X / 16;
 								int y = (int)center.Y / 16;
 								bool flag = false;
-								if (Main.rand.Next(3) != 0 || Main.tile[x, y] == null || Main.tile[x, y].wall <= 0)
+								if (Main.rand.Next(3) != 0 || Main.tile[x, y] == null || Main.tile[x, y].wall <= WallID.None)
 								{
 									center.X = center.X - (float)(num4 / 2);
 									center.Y = center.Y - (float)(num4 / 2);
@@ -20910,7 +20910,7 @@ namespace Terraria
 				{
 					Main.tile[num1, num2] = new Tile();
 				}
-				if (Main.tile[num1, num2].wall == 87 && (double)num2 > Main.worldSurface && !NPC.downedPlantBoss || Main.wallDungeon[Main.tile[num1, num2].wall] && (double)num2 > Main.worldSurface && !NPC.downedBoss3)
+				if (Main.tile[num1, num2].wall == WallID.LihzahrdBrickUnsafe && (double)num2 > Main.worldSurface && !NPC.downedPlantBoss || Main.wallDungeon[Main.tile[num1, num2].wall] && (double)num2 > Main.worldSurface && !NPC.downedBoss3)
 				{
 					continue;
 				}

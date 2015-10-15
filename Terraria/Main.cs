@@ -39,7 +39,7 @@ namespace Terraria
 
 		public const int maxTileSets = TileID.Count;
 
-		public const int maxWallTypes = 225;
+		public const int maxWallTypes = WallID.Count;
 
 		public const int maxBuffTypes = 191;
 
@@ -1730,7 +1730,7 @@ namespace Terraria
 			Main.itemFlameLoaded = new bool[Main.maxItemTypes];
 			Main.backgroundLoaded = new bool[207];
 			Main.tileSetsLoaded = new bool[Main.maxTileSets];
-			Main.wallLoaded = new bool[225];
+			Main.wallLoaded = new bool[Main.maxWallTypes];
 			Main.NPCLoaded = new bool[Main.maxNPCTypes];
 			Main.armorHeadLoaded = new bool[194];
 			Main.armorBodyLoaded = new bool[195];
@@ -2044,8 +2044,8 @@ namespace Terraria
 			Main.treeAltTextureInit = new bool[Main.numTreeStyles, Main.numTileColors];
 			Main.treeAltTextureDrawn = new bool[Main.numTreeStyles, Main.numTileColors];
 			Main.checkTreeAlt = new bool[Main.numTreeStyles, Main.numTileColors];
-			Main.wallAltTextureInit = new bool[225, Main.numTileColors];
-			Main.wallAltTextureDrawn = new bool[225, Main.numTileColors];
+			Main.wallAltTextureInit = new bool[Main.maxWallTypes, Main.numTileColors];
+			Main.wallAltTextureDrawn = new bool[Main.maxWallTypes, Main.numTileColors];
 			Main.musicFade = new float[40];
 			Main.musicVolume = 0.75f;
 			Main.ambientVolume = 0.75f;
@@ -2057,10 +2057,10 @@ namespace Terraria
 			Main.tileAlch = new bool[Main.maxTileSets];
 			Main.tileShine = new int[Main.maxTileSets];
 			Main.tileShine2 = new bool[Main.maxTileSets];
-			Main.wallHouse = new bool[225];
-			Main.wallDungeon = new bool[225];
-			Main.wallLight = new bool[225];
-			Main.wallBlend = new int[225];
+			Main.wallHouse = new bool[Main.maxWallTypes];
+			Main.wallDungeon = new bool[Main.maxWallTypes];
+			Main.wallLight = new bool[Main.maxWallTypes];
+			Main.wallBlend = new int[Main.maxWallTypes];
 			Main.tileStone = new bool[Main.maxTileSets];
 			Main.tileAxe = new bool[Main.maxTileSets];
 			Main.tileHammer = new bool[Main.maxTileSets];
@@ -2076,7 +2076,7 @@ namespace Terraria
 			Main.tileBouncy = new bool[Main.maxTileSets];
 			Main.tileValue = new short[Main.maxTileSets];
 			Main.tileLargeFrames = new byte[Main.maxTileSets];
-			Main.wallLargeFrames = new byte[225];
+			Main.wallLargeFrames = new byte[Main.maxWallTypes];
 			Main.tileRope = new bool[Main.maxTileSets];
 			Main.tileBrick = new bool[Main.maxTileSets];
 			Main.tileMoss = new bool[Main.maxTileSets];
@@ -2140,8 +2140,8 @@ namespace Terraria
 			Main.npcCatchable = new bool[Main.maxNPCTypes];
 			Main.tileFrame = new int[Main.maxTileSets];
 			Main.tileFrameCounter = new int[Main.maxTileSets];
-			Main.wallFrame = new byte[225];
-			Main.wallFrameCounter = new byte[225];
+			Main.wallFrame = new byte[Main.maxWallTypes];
+			Main.wallFrameCounter = new byte[Main.maxWallTypes];
 			Main.backgroundWidth = new int[207];
 			Main.backgroundHeight = new int[207];
 			Main.tilesLoaded = false;
@@ -6928,14 +6928,14 @@ namespace Terraria
 			Main.tileFrameImportant[TileID.GreenJellyfishBowl] = true;
 			Main.tileFrameImportant[TileID.PinkJellyfishBowl] = true;
 			Main.tileLargeFrames[TileID.CopperPlating] = 1;
-			Main.wallHouse[224] = true;
-			Main.wallLargeFrames[224] = 2;
+			Main.wallHouse[WallID.LunarBrickWall] = true;
+			Main.wallLargeFrames[WallID.LunarBrickWall] = 2;
 			Main.tileLargeFrames[TileID.LunarBrick] = 1;
 			Main.tileFrameImportant[TileID.LunarMonolith] = true;
-			Main.wallHouse[173] = true;
-			Main.wallHouse[183] = true;
-			Main.wallHouse[179] = true;
-			Main.wallLargeFrames[179] = 1;
+			Main.wallHouse[WallID.ChlorophyteBrick] = true;
+			Main.wallHouse[WallID.Marble] = true;
+			Main.wallHouse[WallID.MarbleBlock] = true;
+			Main.wallLargeFrames[WallID.MarbleBlock] = 1;
 			Main.tileSolid[TileID.Marble] = true;
 			Main.tileBlockLight[TileID.Marble] = true;
 			Main.tileMergeDirt[TileID.Marble] = true;
@@ -6943,8 +6943,8 @@ namespace Terraria
 			Main.tileBlockLight[TileID.MarbleBlock] = true;
 			Main.tileLargeFrames[TileID.MarbleBlock] = 1;
 			Main.tileBlendAll[TileID.MarbleBlock] = true;
-			Main.wallHouse[184] = true;
-			Main.wallHouse[181] = true;
+			Main.wallHouse[WallID.Granite] = true;
+			Main.wallHouse[WallID.GraniteBlock] = true;
 			Main.tileSolid[TileID.Granite] = true;
 			Main.tileBlockLight[TileID.Granite] = true;
 			Main.tileMergeDirt[TileID.Granite] = true;
@@ -6952,14 +6952,14 @@ namespace Terraria
 			Main.tileBlockLight[TileID.GraniteBlock] = true;
 			Main.tileBrick[TileID.GraniteBlock] = true;
 			Main.tileMergeDirt[TileID.GraniteBlock] = true;
-			Main.wallHouse[186] = true;
+			Main.wallHouse[WallID.Crystal] = true;
 			Main.tileLargeFrames[TileID.TinPlating] = 1;
 			Main.tileSolid[TileID.TinPlating] = true;
 			Main.tileBlockLight[TileID.TinPlating] = true;
-			Main.wallLargeFrames[146] = 1;
-			Main.wallLargeFrames[147] = 1;
-			Main.wallLargeFrames[167] = 1;
-			Main.wallLargeFrames[185] = 2;
+			Main.wallLargeFrames[WallID.CopperPlating] = 1;
+			Main.wallLargeFrames[WallID.StoneSlab] = 1;
+			Main.wallLargeFrames[WallID.TinPlating] = 1;
+			Main.wallLargeFrames[WallID.Cave8Unsafe] = 2;
 			Main.tileSolid[TileID.Waterfall] = true;
 			Main.tileBlockLight[TileID.Waterfall] = true;
 			Main.tileSolid[TileID.Lavafall] = true;
@@ -7214,155 +7214,155 @@ namespace Terraria
 			Main.tileNoAttach[TileID.LavaLamp] = true;
 			Main.tileLavaDeath[TileID.LavaLamp] = true;
 			Main.tileLighted[TileID.LavaLamp] = true;
-			Main.wallHouse[168] = true;
-			Main.wallHouse[169] = true;
-			Main.wallHouse[142] = true;
-			Main.wallHouse[143] = true;
-			Main.wallHouse[144] = true;
-			Main.wallHouse[149] = true;
-			Main.wallHouse[151] = true;
-			Main.wallHouse[150] = true;
-			Main.wallHouse[152] = true;
-			Main.wallHouse[175] = true;
-			Main.wallHouse[176] = true;
-			Main.wallHouse[182] = true;
+			Main.wallHouse[WallID.Confetti] = true;
+			Main.wallHouse[WallID.ConfettiBlack] = true;
+			Main.wallHouse[WallID.WhiteDynasty] = true;
+			Main.wallHouse[WallID.BlueDynasty] = true;
+			Main.wallHouse[WallID.ArcaneRunes] = true;
+			Main.wallHouse[WallID.BorealWood] = true;
+			Main.wallHouse[WallID.PalmWood] = true;
+			Main.wallHouse[WallID.BorealWoodFence] = true;
+			Main.wallHouse[WallID.PalmWoodFence] = true;
+			Main.wallHouse[WallID.ShroomitePlating] = true;
+			Main.wallHouse[WallID.MartianConduit] = true;
+			Main.wallHouse[WallID.MeteoriteBrick] = true;
 			for (int n = 153; n < 167; n++)
 			{
 				Main.wallHouse[n] = true;
 			}
-			Main.wallHouse[146] = true;
-			Main.wallHouse[147] = true;
-			Main.wallHouse[149] = true;
-			Main.wallHouse[167] = true;
-			Main.wallHouse[168] = true;
-			Main.wallHouse[133] = true;
-			Main.wallHouse[134] = true;
-			Main.wallHouse[135] = true;
-			Main.wallHouse[136] = true;
-			Main.wallHouse[137] = true;
-			Main.wallHouse[75] = true;
-			Main.wallHouse[76] = true;
-			Main.wallHouse[78] = true;
-			Main.wallHouse[82] = true;
-			Main.wallHouse[77] = true;
-			Main.wallHouse[1] = true;
-			Main.wallHouse[4] = true;
-			Main.wallHouse[5] = true;
-			Main.wallHouse[6] = true;
-			Main.wallHouse[10] = true;
-			Main.wallHouse[11] = true;
-			Main.wallHouse[12] = true;
-			Main.wallHouse[16] = true;
-			Main.wallHouse[17] = true;
-			Main.wallHouse[18] = true;
-			Main.wallHouse[19] = true;
-			Main.wallHouse[20] = true;
-			Main.wallHouse[21] = true;
-			Main.wallHouse[22] = true;
-			Main.wallHouse[23] = true;
-			Main.wallHouse[24] = true;
-			Main.wallHouse[25] = true;
-			Main.wallHouse[26] = true;
-			Main.wallHouse[27] = true;
-			Main.wallHouse[29] = true;
-			Main.wallHouse[30] = true;
-			Main.wallHouse[31] = true;
-			Main.wallHouse[32] = true;
-			Main.wallHouse[33] = true;
-			Main.wallHouse[34] = true;
-			Main.wallHouse[35] = true;
-			Main.wallHouse[36] = true;
-			Main.wallHouse[37] = true;
-			Main.wallHouse[38] = true;
-			Main.wallHouse[39] = true;
-			Main.wallHouse[41] = true;
-			Main.wallHouse[42] = true;
-			Main.wallHouse[43] = true;
-			Main.wallHouse[44] = true;
-			Main.wallHouse[45] = true;
-			Main.wallHouse[46] = true;
-			Main.wallHouse[47] = true;
-			Main.wallHouse[60] = true;
-			Main.wallHouse[66] = true;
-			Main.wallHouse[67] = true;
-			Main.wallHouse[68] = true;
-			Main.wallHouse[72] = true;
-			Main.wallHouse[73] = true;
-			Main.wallHouse[107] = true;
-			Main.wallHouse[106] = true;
-			Main.wallHouse[109] = true;
-			Main.wallHouse[110] = true;
-			Main.wallHouse[111] = true;
-			Main.wallHouse[112] = true;
-			Main.wallHouse[113] = true;
-			Main.wallHouse[114] = true;
-			Main.wallHouse[115] = true;
-			Main.wallHouse[116] = true;
-			Main.wallHouse[117] = true;
-			Main.wallHouse[118] = true;
-			Main.wallHouse[119] = true;
-			Main.wallHouse[120] = true;
-			Main.wallHouse[121] = true;
-			Main.wallHouse[122] = true;
-			Main.wallHouse[123] = true;
-			Main.wallHouse[124] = true;
-			Main.wallHouse[125] = true;
-			Main.wallHouse[108] = true;
-			Main.wallHouse[100] = true;
-			Main.wallHouse[101] = true;
-			Main.wallHouse[102] = true;
-			Main.wallHouse[103] = true;
-			Main.wallHouse[104] = true;
-			Main.wallHouse[105] = true;
-			Main.wallHouse[84] = true;
-			Main.wallHouse[74] = true;
-			Main.wallHouse[85] = true;
-			Main.wallHouse[88] = true;
-			Main.wallHouse[89] = true;
-			Main.wallHouse[90] = true;
-			Main.wallHouse[91] = true;
-			Main.wallHouse[92] = true;
-			Main.wallHouse[93] = true;
-			Main.wallHouse[126] = true;
-			Main.wallHouse[127] = true;
-			Main.wallHouse[128] = true;
-			Main.wallHouse[129] = true;
-			Main.wallHouse[130] = true;
-			Main.wallHouse[131] = true;
-			Main.wallHouse[132] = true;
-			Main.wallHouse[138] = true;
-			Main.wallHouse[139] = true;
-			Main.wallHouse[140] = true;
-			Main.wallHouse[141] = true;
-			Main.wallHouse[177] = true;
-			Main.wallHouse[172] = true;
-			Main.wallHouse[174] = true;
-			Main.wallHouse[223] = true;
-			Main.wallLight[0] = true;
-			Main.wallLight[21] = true;
-			Main.wallLight[106] = true;
-			Main.wallLight[107] = true;
-			Main.wallLight[138] = true;
-			Main.wallLight[140] = true;
-			Main.wallLight[141] = true;
-			Main.wallLight[139] = true;
-			Main.wallLight[145] = true;
-			Main.wallLight[150] = true;
-			Main.wallLight[152] = true;
-			Main.wallLight[168] = true;
+			Main.wallHouse[WallID.CopperPlating] = true;
+			Main.wallHouse[WallID.StoneSlab] = true;
+			Main.wallHouse[WallID.BorealWood] = true;
+			Main.wallHouse[WallID.TinPlating] = true;
+			Main.wallHouse[WallID.Confetti] = true;
+			Main.wallHouse[WallID.BubbleWallpaper] = true;
+			Main.wallHouse[WallID.CopperPipeWallpaper] = true;
+			Main.wallHouse[WallID.DuckyWallpaper] = true;
+			Main.wallHouse[WallID.Waterfall] = true;
+			Main.wallHouse[WallID.Lavafall] = true;
+			Main.wallHouse[WallID.Bone] = true;
+			Main.wallHouse[WallID.Slime] = true;
+			Main.wallHouse[WallID.LivingWood] = true;
+			Main.wallHouse[WallID.DiscWall] = true;
+			Main.wallHouse[WallID.Flesh] = true;
+			Main.wallHouse[WallID.Stone] = true;
+			Main.wallHouse[WallID.Wood] = true;
+			Main.wallHouse[WallID.GrayBrick] = true;
+			Main.wallHouse[WallID.RedBrick] = true;
+			Main.wallHouse[WallID.GoldBrick] = true;
+			Main.wallHouse[WallID.SilverBrick] = true;
+			Main.wallHouse[WallID.CopperBrick] = true;
+			Main.wallHouse[WallID.Dirt] = true;
+			Main.wallHouse[WallID.BlueDungeon] = true;
+			Main.wallHouse[WallID.GreenDungeon] = true;
+			Main.wallHouse[WallID.PinkDungeon] = true;
+			Main.wallHouse[WallID.ObsidianBrick] = true;
+			Main.wallHouse[WallID.Glass] = true;
+			Main.wallHouse[WallID.PearlstoneBrick] = true;
+			Main.wallHouse[WallID.IridescentBrick] = true;
+			Main.wallHouse[WallID.MudstoneBrick] = true;
+			Main.wallHouse[WallID.CobaltBrick] = true;
+			Main.wallHouse[WallID.MythrilBrick] = true;
+			Main.wallHouse[WallID.Planked] = true;
+			Main.wallHouse[WallID.CandyCane] = true;
+			Main.wallHouse[WallID.GreenCandyCane] = true;
+			Main.wallHouse[WallID.SnowBrick] = true;
+			Main.wallHouse[WallID.AdamantiteBeam] = true;
+			Main.wallHouse[WallID.DemoniteBrick] = true;
+			Main.wallHouse[WallID.SandstoneBrick] = true;
+			Main.wallHouse[WallID.EbonstoneBrick] = true;
+			Main.wallHouse[WallID.RedStucco] = true;
+			Main.wallHouse[WallID.YellowStucco] = true;
+			Main.wallHouse[WallID.GreenStucco] = true;
+			Main.wallHouse[WallID.Gray] = true;
+			Main.wallHouse[WallID.Ebonwood] = true;
+			Main.wallHouse[WallID.RichMaogany] = true;
+			Main.wallHouse[WallID.Pearlwood] = true;
+			Main.wallHouse[WallID.RainbowBrick] = true;
+			Main.wallHouse[WallID.TinBrick] = true;
+			Main.wallHouse[WallID.TungstenBrick] = true;
+			Main.wallHouse[WallID.PlatinumBrick] = true;
+			Main.wallHouse[WallID.LivingLeaf] = true;
+			Main.wallHouse[WallID.Grass] = true;
+			Main.wallHouse[WallID.Jungle] = true;
+			Main.wallHouse[WallID.Flower] = true;
+			Main.wallHouse[WallID.Cactus] = true;
+			Main.wallHouse[WallID.Cloud] = true;
+			Main.wallHouse[WallID.MetalFence] = true;
+			Main.wallHouse[WallID.WoodenFence] = true;
+			Main.wallHouse[WallID.PalladiumColumn] = true;
+			Main.wallHouse[WallID.BubblegumBlock] = true;
+			Main.wallHouse[WallID.TitanstoneBlock] = true;
+			Main.wallHouse[WallID.LihzahrdBrick] = true;
+			Main.wallHouse[WallID.Pumpkin] = true;
+			Main.wallHouse[WallID.Hay] = true;
+			Main.wallHouse[WallID.SpookyWood] = true;
+			Main.wallHouse[WallID.ChristmasTreeWallpaper] = true;
+			Main.wallHouse[WallID.OrnamentWallpaper] = true;
+			Main.wallHouse[WallID.CandyCaneWallpaper] = true;
+			Main.wallHouse[WallID.FestiveWallpaper] = true;
+			Main.wallHouse[WallID.StarsWallpaper] = true;
+			Main.wallHouse[WallID.SquigglesWallpaper] = true;
+			Main.wallHouse[WallID.SnowflakeWallpaper] = true;
+			Main.wallHouse[WallID.KrampusHornWallpaper] = true;
+			Main.wallHouse[WallID.BluegreenWallpaper] = true;
+			Main.wallHouse[WallID.GrinchFingerWallpaper] = true;
+			Main.wallHouse[WallID.Hive] = true;
+			Main.wallHouse[WallID.BlueDungeonSlab] = true;
+			Main.wallHouse[WallID.BlueDungeonTile] = true;
+			Main.wallHouse[WallID.PinkDungeonSlab] = true;
+			Main.wallHouse[WallID.PinkDungeonTile] = true;
+			Main.wallHouse[WallID.GreenDungeonSlab] = true;
+			Main.wallHouse[WallID.GreenDungeonTile] = true;
+			Main.wallHouse[WallID.IceBrick] = true;
+			Main.wallHouse[WallID.Mushroom] = true;
+			Main.wallHouse[WallID.Shadewood] = true;
+			Main.wallHouse[WallID.PurpleStainedGlass] = true;
+			Main.wallHouse[WallID.YellowStainedGlass] = true;
+			Main.wallHouse[WallID.BlueStainedGlass] = true;
+			Main.wallHouse[WallID.GreenStainedGlass] = true;
+			Main.wallHouse[WallID.RedStainedGlass] = true;
+			Main.wallHouse[WallID.RainbowStainedGlass] = true;
+			Main.wallHouse[WallID.FancyGrayWallpaper] = true;
+			Main.wallHouse[WallID.IceFloeWallpaper] = true;
+			Main.wallHouse[WallID.MusicWallpaper] = true;
+			Main.wallHouse[WallID.PurpleRainWallpaper] = true;
+			Main.wallHouse[WallID.RainbowWallpaper] = true;
+			Main.wallHouse[WallID.SparkleStoneWallpaper] = true;
+			Main.wallHouse[WallID.StarlitHeavenWallpaper] = true;
+			Main.wallHouse[WallID.EbonwoodFence] = true;
+			Main.wallHouse[WallID.RichMahoganyFence] = true;
+			Main.wallHouse[WallID.PearlwoodFence] = true;
+			Main.wallHouse[WallID.ShadewoodFence] = true;
+			Main.wallHouse[WallID.HellstoneBrick] = true;
+			Main.wallHouse[WallID.Honeyfall] = true;
+			Main.wallHouse[WallID.CrimtaneBrick] = true;
+			Main.wallHouse[WallID.DesertFossil] = true;
+			Main.wallLight[WallID.None] = true;
+			Main.wallLight[WallID.Glass] = true;
+			Main.wallLight[WallID.WoodenFence] = true;
+			Main.wallLight[WallID.MetalFence] = true;
+			Main.wallLight[WallID.EbonwoodFence] = true;
+			Main.wallLight[WallID.PearlwoodFence] = true;
+			Main.wallLight[WallID.ShadewoodFence] = true;
+			Main.wallLight[WallID.RichMahoganyFence] = true;
+			Main.wallLight[WallID.IronFence] = true;
+			Main.wallLight[WallID.BorealWoodFence] = true;
+			Main.wallLight[WallID.PalmWoodFence] = true;
+			Main.wallLight[WallID.Confetti] = true;
 			for (int o = 0; o < 225; o++)
 			{
 				Main.wallDungeon[o] = false;
 			}
-			Main.wallDungeon[7] = true;
-			Main.wallDungeon[8] = true;
-			Main.wallDungeon[9] = true;
-			Main.wallDungeon[94] = true;
-			Main.wallDungeon[95] = true;
-			Main.wallDungeon[96] = true;
-			Main.wallDungeon[97] = true;
-			Main.wallDungeon[98] = true;
-			Main.wallDungeon[99] = true;
+			Main.wallDungeon[WallID.BlueDungeonUnsafe] = true;
+			Main.wallDungeon[WallID.GreenDungeonUnsafe] = true;
+			Main.wallDungeon[WallID.PinkDungeonUnsafe] = true;
+			Main.wallDungeon[WallID.BlueDungeonSlabUnsafe] = true;
+			Main.wallDungeon[WallID.BlueDungeonTileUnsafe] = true;
+			Main.wallDungeon[WallID.PinkDungeonSlabUnsafe] = true;
+			Main.wallDungeon[WallID.PinkDungeonTileUnsafe] = true;
+			Main.wallDungeon[WallID.GreenDungeonSlabUnsafe] = true;
+			Main.wallDungeon[WallID.GreenDungeonTileUnsafe] = true;
 			for (int p = 0; p < 10; p++)
 			{
 				Main.recentWorld[p] = "";
@@ -8303,24 +8303,24 @@ namespace Terraria
 					Main.wallBlend[s] = s;
 				}
 			}
-			Main.wallBlend[65] = 63;
-			Main.wallBlend[66] = 63;
-			Main.wallBlend[68] = 63;
-			Main.wallBlend[67] = 64;
-			Main.wallBlend[80] = 74;
-			Main.wallBlend[81] = 77;
-			Main.wallBlend[94] = 7;
-			Main.wallBlend[95] = 7;
-			Main.wallBlend[100] = 7;
-			Main.wallBlend[101] = 7;
-			Main.wallBlend[96] = 8;
-			Main.wallBlend[97] = 8;
-			Main.wallBlend[102] = 8;
-			Main.wallBlend[103] = 8;
-			Main.wallBlend[98] = 9;
-			Main.wallBlend[99] = 9;
-			Main.wallBlend[104] = 9;
-			Main.wallBlend[105] = 9;
+			Main.wallBlend[WallID.FlowerUnsafe] = 63;
+			Main.wallBlend[WallID.Grass] = 63;
+			Main.wallBlend[WallID.Flower] = 63;
+			Main.wallBlend[WallID.Jungle] = 64;
+			Main.wallBlend[WallID.MushroomUnsafe] = 74;
+			Main.wallBlend[WallID.CrimsonGrassUnsafe] = 77;
+			Main.wallBlend[WallID.BlueDungeonSlabUnsafe] = 7;
+			Main.wallBlend[WallID.BlueDungeonTileUnsafe] = 7;
+			Main.wallBlend[WallID.BlueDungeonSlab] = 7;
+			Main.wallBlend[WallID.BlueDungeonTile] = 7;
+			Main.wallBlend[WallID.PinkDungeonSlabUnsafe] = 8;
+			Main.wallBlend[WallID.PinkDungeonTileUnsafe] = 8;
+			Main.wallBlend[WallID.PinkDungeonSlab] = 8;
+			Main.wallBlend[WallID.PinkDungeonTile] = 8;
+			Main.wallBlend[WallID.GreenDungeonSlabUnsafe] = 9;
+			Main.wallBlend[WallID.GreenDungeonTileUnsafe] = 9;
+			Main.wallBlend[WallID.GreenDungeonSlab] = 9;
+			Main.wallBlend[WallID.GreenDungeonTile] = 9;
 			Main.tileNoFail[TileID.CorruptPlants] = true;
 			Main.tileNoFail[TileID.Plants] = true;
 			Main.tileNoFail[TileID.Vines] = true;
@@ -11601,130 +11601,130 @@ namespace Terraria
 					Main.wFrame = 16f;
 				}
 				this.waterfallManager.UpdateFrame();
-				Main.wallFrameCounter[136] = (byte)(Main.wallFrameCounter[136] + 1);
-				if (Main.wallFrameCounter[136] >= 5)
+				Main.wallFrameCounter[WallID.Waterfall] = (byte)(Main.wallFrameCounter[WallID.Waterfall] + 1);
+				if (Main.wallFrameCounter[WallID.Waterfall] >= 5)
 				{
-					Main.wallFrameCounter[136] = 0;
-					Main.wallFrame[136] = (byte)(Main.wallFrame[136] + 1);
-					if (Main.wallFrame[136] > 7)
+					Main.wallFrameCounter[WallID.Waterfall] = 0;
+					Main.wallFrame[WallID.Waterfall] = (byte)(Main.wallFrame[WallID.Waterfall] + 1);
+					if (Main.wallFrame[WallID.Waterfall] > 7)
 					{
-						Main.wallFrame[136] = 0;
+						Main.wallFrame[WallID.Waterfall] = 0;
 					}
 				}
-				Main.wallFrameCounter[137] = (byte)(Main.wallFrameCounter[137] + 1);
-				if (Main.wallFrameCounter[137] >= 10)
+				Main.wallFrameCounter[WallID.Lavafall] = (byte)(Main.wallFrameCounter[WallID.Lavafall] + 1);
+				if (Main.wallFrameCounter[WallID.Lavafall] >= 10)
 				{
-					Main.wallFrameCounter[137] = 0;
-					Main.wallFrame[137] = (byte)(Main.wallFrame[137] + 1);
-					if (Main.wallFrame[137] > 7)
+					Main.wallFrameCounter[WallID.Lavafall] = 0;
+					Main.wallFrame[WallID.Lavafall] = (byte)(Main.wallFrame[WallID.Lavafall] + 1);
+					if (Main.wallFrame[WallID.Lavafall] > 7)
 					{
-						Main.wallFrame[137] = 0;
+						Main.wallFrame[WallID.Lavafall] = 0;
 					}
 				}
-				Main.wallFrameCounter[172] = (byte)(Main.wallFrameCounter[172] + 1);
-				if (Main.wallFrameCounter[172] >= 10)
+				Main.wallFrameCounter[WallID.Honeyfall] = (byte)(Main.wallFrameCounter[WallID.Honeyfall] + 1);
+				if (Main.wallFrameCounter[WallID.Honeyfall] >= 10)
 				{
-					Main.wallFrameCounter[172] = 0;
-					Main.wallFrame[172] = (byte)(Main.wallFrame[172] + 1);
-					if (Main.wallFrame[172] > 7)
+					Main.wallFrameCounter[WallID.Honeyfall] = 0;
+					Main.wallFrame[WallID.Honeyfall] = (byte)(Main.wallFrame[WallID.Honeyfall] + 1);
+					if (Main.wallFrame[WallID.Honeyfall] > 7)
 					{
-						Main.wallFrame[172] = 0;
+						Main.wallFrame[WallID.Honeyfall] = 0;
 					}
 				}
-				Main.wallFrameCounter[168] = (byte)(Main.wallFrameCounter[168] + 1);
-				if (Main.wallFrameCounter[168] >= 5)
+				Main.wallFrameCounter[WallID.Confetti] = (byte)(Main.wallFrameCounter[WallID.Confetti] + 1);
+				if (Main.wallFrameCounter[WallID.Confetti] >= 5)
 				{
-					Main.wallFrameCounter[168] = 0;
-					Main.wallFrame[168] = (byte)(Main.wallFrame[168] + 1);
-					if (Main.wallFrame[168] > 7)
+					Main.wallFrameCounter[WallID.Confetti] = 0;
+					Main.wallFrame[WallID.Confetti] = (byte)(Main.wallFrame[WallID.Confetti] + 1);
+					if (Main.wallFrame[WallID.Confetti] > 7)
 					{
-						Main.wallFrame[168] = 0;
+						Main.wallFrame[WallID.Confetti] = 0;
 					}
 				}
-				Main.wallFrameCounter[169] = (byte)(Main.wallFrameCounter[169] + 1);
-				if (Main.wallFrameCounter[169] >= 5)
+				Main.wallFrameCounter[WallID.ConfettiBlack] = (byte)(Main.wallFrameCounter[WallID.ConfettiBlack] + 1);
+				if (Main.wallFrameCounter[WallID.ConfettiBlack] >= 5)
 				{
-					Main.wallFrameCounter[169] = 0;
-					Main.wallFrame[169] = (byte)(Main.wallFrame[169] + 1);
-					if (Main.wallFrame[169] > 7)
+					Main.wallFrameCounter[WallID.ConfettiBlack] = 0;
+					Main.wallFrame[WallID.ConfettiBlack] = (byte)(Main.wallFrame[WallID.ConfettiBlack] + 1);
+					if (Main.wallFrame[WallID.ConfettiBlack] > 7)
 					{
-						Main.wallFrame[169] = 0;
+						Main.wallFrame[WallID.ConfettiBlack] = 0;
 					}
 				}
-				Main.wallFrameCounter[144] = (byte)(Main.wallFrameCounter[144] + 1);
+				Main.wallFrameCounter[WallID.ArcaneRunes] = (byte)(Main.wallFrameCounter[WallID.ArcaneRunes] + 1);
 				int num2 = 5;
 				int num3 = 10;
-				if (Main.wallFrameCounter[144] < num2)
+				if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2)
 				{
-					Main.wallFrame[144] = 0;
+					Main.wallFrame[WallID.ArcaneRunes] = 0;
 				}
-				else if (Main.wallFrameCounter[144] < num2)
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2)
 				{
-					Main.wallFrame[144] = 1;
+					Main.wallFrame[WallID.ArcaneRunes] = 1;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * 2)
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * 2)
 				{
-					Main.wallFrame[144] = 2;
+					Main.wallFrame[WallID.ArcaneRunes] = 2;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * 3)
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * 3)
 				{
-					Main.wallFrame[144] = 3;
+					Main.wallFrame[WallID.ArcaneRunes] = 3;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * 4)
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * 4)
 				{
-					Main.wallFrame[144] = 4;
+					Main.wallFrame[WallID.ArcaneRunes] = 4;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * 5)
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * 5)
 				{
-					Main.wallFrame[144] = 5;
+					Main.wallFrame[WallID.ArcaneRunes] = 5;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * 6)
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * 6)
 				{
-					Main.wallFrame[144] = 6;
+					Main.wallFrame[WallID.ArcaneRunes] = 6;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * 7)
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * 7)
 				{
-					Main.wallFrame[144] = 7;
+					Main.wallFrame[WallID.ArcaneRunes] = 7;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * (8 + num3))
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * (8 + num3))
 				{
-					Main.wallFrame[144] = 8;
+					Main.wallFrame[WallID.ArcaneRunes] = 8;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * (9 + num3))
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * (9 + num3))
 				{
-					Main.wallFrame[144] = 7;
+					Main.wallFrame[WallID.ArcaneRunes] = 7;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * (10 + num3))
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * (10 + num3))
 				{
-					Main.wallFrame[144] = 6;
+					Main.wallFrame[WallID.ArcaneRunes] = 6;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * (11 + num3))
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * (11 + num3))
 				{
-					Main.wallFrame[144] = 5;
+					Main.wallFrame[WallID.ArcaneRunes] = 5;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * (12 + num3))
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * (12 + num3))
 				{
-					Main.wallFrame[144] = 4;
+					Main.wallFrame[WallID.ArcaneRunes] = 4;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * (13 + num3))
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * (13 + num3))
 				{
-					Main.wallFrame[144] = 3;
+					Main.wallFrame[WallID.ArcaneRunes] = 3;
 				}
-				else if (Main.wallFrameCounter[144] < num2 * (14 + num3))
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] < num2 * (14 + num3))
 				{
-					Main.wallFrame[144] = 2;
+					Main.wallFrame[WallID.ArcaneRunes] = 2;
 				}
-				else if (Main.wallFrameCounter[144] >= num2 * (15 + num3))
+				else if (Main.wallFrameCounter[WallID.ArcaneRunes] >= num2 * (15 + num3))
 				{
-					Main.wallFrame[144] = 0;
-					if (Main.wallFrameCounter[144] > num2 * (16 + num3 * 2))
+					Main.wallFrame[WallID.ArcaneRunes] = 0;
+					if (Main.wallFrameCounter[WallID.ArcaneRunes] > num2 * (16 + num3 * 2))
 					{
-						Main.wallFrameCounter[144] = 0;
+						Main.wallFrameCounter[WallID.ArcaneRunes] = 0;
 					}
 				}
 				else
 				{
-					Main.wallFrame[144] = 1;
+					Main.wallFrame[WallID.ArcaneRunes] = 1;
 				}
 				Main.tileFrameCounter[TileID.Heart] = Main.tileFrameCounter[TileID.Heart] + 1;
 				if (Main.tileFrameCounter[TileID.Heart] > 5)

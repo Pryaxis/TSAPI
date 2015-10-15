@@ -50,7 +50,7 @@ namespace Terraria.GameContent.Biomes
 							{
 								return false;
 							}
-							if (Main.tile[i, j].wall == 87 || Main.tile[i, j].wall == 3 || Main.tile[i, j].wall == 83)
+							if (Main.tile[i, j].wall == WallID.LihzahrdBrickUnsafe || Main.tile[i, j].wall == WallID.EbonstoneUnsafe || Main.tile[i, j].wall == WallID.CrimstoneUnsafe)
 							{
 								return false;
 							}

@@ -31836,7 +31836,7 @@ namespace Terraria
 							float num717 = Math.Abs((float)num715 - this.position.X / 16f);
 							float num718 = Math.Abs((float)num716 - this.position.Y / 16f);
 							double num719 = Math.Sqrt((double)(num717 * num717 + num718 * num718));
-							if (num719 < (double)num710 && Main.tile[num715, num716] != null && Main.tile[num715, num716].wall == 0)
+							if (num719 < (double)num710 && Main.tile[num715, num716] != null && Main.tile[num715, num716].wall == WallID.None)
 							{
 								flag3 = true;
 								break;
@@ -31883,7 +31883,7 @@ namespace Terraria
 											if (Main.tile[num725, num726] != null && Main.tile[num725, num726].wall > 0 && flag3)
 											{
 												WorldGen.KillWall(num725, num726, false);
-												if (Main.tile[num725, num726].wall == 0 && Main.netMode != 0)
+												if (Main.tile[num725, num726].wall == WallID.None && Main.netMode != 0)
 												{
 													NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 2, (float)num725, (float)num726, 0f, 0, 0, 0);
 												}

@@ -2281,7 +2281,7 @@ namespace Terraria.IO
 							num1++;
 						}
 					}
-					if (tile.wall != 0)
+					if (tile.wall != WallID.None)
 					{
 						num5 = (byte)(num5 | 4);
 						numArray[num1] = tile.wall;

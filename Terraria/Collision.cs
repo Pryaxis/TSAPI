@@ -1132,7 +1132,7 @@ namespace Terraria
 
 		public static bool HitWallSubstep(int x, int y)
 		{
-			if (Main.tile[x, y].wall == 0)
+			if (Main.tile[x, y].wall == WallID.None)
 			{
 				return false;
 			}

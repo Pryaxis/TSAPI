@@ -51,9 +51,9 @@ namespace Terraria
 							hashSet.Add(item);
 							list.Remove(item);
 							Tile tile = Main.tile[item.X, item.Y];
-							if (WorldGen.SolidTile(item.X, item.Y) || tile.wall != 0)
+							if (WorldGen.SolidTile(item.X, item.Y) || tile.wall != WallID.None)
 							{
-								if (tile.active() && tile.wall == 0)
+								if (tile.active() && tile.wall == WallID.None)
 								{
 									tile.wall = wall;
 								}
@@ -117,9 +117,9 @@ namespace Terraria
 							hashSet.Add(item);
 							list.Remove(item);
 							Tile tile = Main.tile[item.X, item.Y];
-							if (!WorldGen.SolidTile(item.X, item.Y) && tile.wall != b && tile.wall != 4 && tile.wall != 40 && tile.wall != 3)
+							if (!WorldGen.SolidTile(item.X, item.Y) && tile.wall != b && tile.wall != WallID.Wood && tile.wall != WallID.SnowWallUnsafe && tile.wall != WallID.EbonstoneUnsafe)
 							{
-								if (b == 63 && tile.wall == 0)
+								if (b == 63 && tile.wall == WallID.None)
 								{
 									list.Remove(item);
 								}
@@ -189,7 +189,7 @@ namespace Terraria
 									}
 								}
 							}
-							else if (tile.active() && tile.wall != b && tile.wall != 4 && tile.wall != 40 && tile.wall != 3)
+							else if (tile.active() && tile.wall != b && tile.wall != WallID.Wood && tile.wall != WallID.SnowWallUnsafe && tile.wall != WallID.EbonstoneUnsafe)
 							{
 								tile.wall = b;
 							}
@@ -227,11 +227,11 @@ namespace Terraria
 							hashSet.Add(item);
 							list.Remove(item);
 							Tile tile = Main.tile[item.X, item.Y];
-							if (WorldGen.SolidTile(item.X, item.Y) || tile.wall != 0)
+							if (WorldGen.SolidTile(item.X, item.Y) || tile.wall != WallID.None)
 							{
 								if (tile.active())
 								{
-									if (tile.wall == 0)
+									if (tile.wall == WallID.None)
 									{
 										tile.wall = mossWall;
 									}
@@ -297,7 +297,7 @@ namespace Terraria
 							hashSet.Add(item);
 							list.Remove(item);
 							Tile tile = Main.tile[item.X, item.Y];
-							if (WorldGen.SolidTile(item.X, item.Y) || tile.wall != 0)
+							if (WorldGen.SolidTile(item.X, item.Y) || tile.wall != WallID.None)
 							{
 								if (tile.active())
 								{
@@ -366,7 +366,7 @@ namespace Terraria
 				{
 					return;
 				}
-				byte wall = 62;
+				byte wall = WallID.SpiderUnsafe;
 				List<Point> list = new List<Point>();
 				List<Point> list2 = new List<Point>();
 				HashSet<Point> hashSet = new HashSet<Point>();
@@ -388,9 +388,9 @@ namespace Terraria
 							hashSet.Add(item);
 							list.Remove(item);
 							Tile tile = Main.tile[item.X, item.Y];
-							if (WorldGen.SolidTile(item.X, item.Y) || tile.wall != 0)
+							if (WorldGen.SolidTile(item.X, item.Y) || tile.wall != WallID.None)
 							{
-								if (tile.active() && tile.wall == 0)
+								if (tile.active() && tile.wall == WallID.None)
 								{
 									tile.wall = wall;
 								}
@@ -3299,7 +3299,7 @@ namespace Terraria
 					num3 = num5;
 					num9 = 1;
 				}
-				if (Main.tile[num3, num4].wall != 87)
+				if (Main.tile[num3, num4].wall != WallID.LihzahrdBrickUnsafe)
 				{
 					return false;
 				}
@@ -3484,7 +3484,7 @@ namespace Terraria
 				{
 					return false;
 				}
-				if (Main.tile[x2, num15].wall != 87)
+				if (Main.tile[x2, num15].wall != WallID.LihzahrdBrickUnsafe)
 				{
 					return false;
 				}
@@ -3595,7 +3595,7 @@ namespace Terraria
 				}
 			}
 			num--;
-			if (Main.tile[x2, num].wall == 87)
+			if (Main.tile[x2, num].wall == WallID.LihzahrdBrickUnsafe)
 			{
 				return false;
 			}
@@ -3939,7 +3939,7 @@ namespace Terraria
 			}
 			if (!jungle)
 			{
-				if (Main.tile[x, y].wall != 0)
+				if (Main.tile[x, y].wall != WallID.None)
 				{
 					WorldGen.numTileCount = WorldGen.maxTileCount;
 					return;
@@ -4011,12 +4011,12 @@ namespace Terraria
 				WorldGen.numTileCount = WorldGen.maxTileCount;
 				return;
 			}
-			if (Main.tile[x, y].wall == 78 || Main.tile[x, y].wall == 83 || Main.tile[x, y].wall == 3)
+			if (Main.tile[x, y].wall == WallID.LivingWood || Main.tile[x, y].wall == WallID.CrimstoneUnsafe || Main.tile[x, y].wall == WallID.EbonstoneUnsafe)
 			{
 				WorldGen.numTileCount = WorldGen.maxTileCount;
 				return;
 			}
-			if (!WorldGen.SolidTile(x, y) && (Main.tile[x, y].wall == 2 || Main.tile[x, y].wall == 59))
+			if (!WorldGen.SolidTile(x, y) && (Main.tile[x, y].wall == WallID.DirtUnsafe || Main.tile[x, y].wall == WallID.Cave6Unsafe))
 			{
 				WorldGen.countX[WorldGen.numTileCount] = x;
 				WorldGen.countY[WorldGen.numTileCount] = y;
@@ -4802,7 +4802,7 @@ namespace Terraria
 				progress.Message = Lang.gen[3];
 				for (int k = 1; k < Main.maxTilesX - 1; k++)
 				{
-					byte wall = 2;
+					byte wall = WallID.DirtUnsafe;
 					float value = (float)k / (float)Main.maxTilesX;
 					progress.Set(value);
 					bool flag2 = false;
@@ -4822,14 +4822,14 @@ namespace Terraria
 						{
 							if (Main.tile[k, num].type == TileID.SnowBlock)
 							{
-								wall = 40;
+								wall = WallID.SnowWallUnsafe;
 							}
 							else
 							{
-								wall = 2;
+								wall = WallID.DirtUnsafe;
 							}
 						}
-						if (flag2 && Main.tile[k, num].wall != 64)
+						if (flag2 && Main.tile[k, num].wall != WallID.JungleUnsafe)
 						{
 							Main.tile[k, num].wall = wall;
 						}
@@ -5098,7 +5098,7 @@ namespace Terraria
 					{
 						if (k < WorldGen.lavaLine - 140)
 						{
-							if (Main.tile[l, k].wall == 2)
+							if (Main.tile[l, k].wall == WallID.DirtUnsafe)
 							{
 								Main.tile[l, k].wall = 40;
 							}
@@ -5133,7 +5133,7 @@ namespace Terraria
 							}
 							for (int m = k; m < k + num6; m++)
 							{
-								if (Main.tile[l, m].wall == 2)
+								if (Main.tile[l, m].wall == WallID.DirtUnsafe)
 								{
 									Main.tile[l, m].wall = 40;
 								}
@@ -5253,7 +5253,7 @@ namespace Terraria
 				{
 					num3 = WorldGen.genRand.Next(20, Main.maxTilesX - 20);
 					num4 = WorldGen.genRand.Next((int)worldSurface + 10, Main.maxTilesY - 200);
-					while (Main.tile[num3, num4].wall != 64 && Main.tile[num3, num4].wall != 15)
+					while (Main.tile[num3, num4].wall != WallID.JungleUnsafe && Main.tile[num3, num4].wall != WallID.MudUnsafe)
 					{
 						num3 = WorldGen.genRand.Next(20, Main.maxTilesX - 20);
 						num4 = WorldGen.genRand.Next((int)worldSurface + 10, Main.maxTilesY - 200);
@@ -5677,7 +5677,7 @@ namespace Terraria
 					{
 						if ((double)num2 <= Main.worldSurface)
 						{
-							if (Main.tile[num, num2].wall <= 0)
+							if (Main.tile[num, num2].wall <= WallID.None)
 							{
 								goto IL_140;
 							}
@@ -6007,11 +6007,11 @@ namespace Terraria
 										WorldGen.SpreadGrass(i2, num12, 0, 199, true, 0);
 									}
 									flag3 = true;
-									if (Main.tile[i2, num12].wall == 216)
+									if (Main.tile[i2, num12].wall == WallID.HardenedSand)
 									{
 										Main.tile[i2, num12].wall = 218;
 									}
-									else if (Main.tile[i2, num12].wall == 187)
+									else if (Main.tile[i2, num12].wall == WallID.Sandstone)
 									{
 										Main.tile[i2, num12].wall = 221;
 									}
@@ -6249,11 +6249,11 @@ namespace Terraria
 								{
 									Main.tile[i2, num36].type = 25;
 								}
-								if (Main.tile[i2, num36].wall == 216)
+								if (Main.tile[i2, num36].wall == WallID.HardenedSand)
 								{
 									Main.tile[i2, num36].wall = 217;
 								}
-								else if (Main.tile[i2, num36].wall == 187)
+								else if (Main.tile[i2, num36].wall == WallID.Sandstone)
 								{
 									Main.tile[i2, num36].wall = 220;
 								}
@@ -6739,7 +6739,7 @@ namespace Terraria
 					{
 						if (flag2)
 						{
-							if (Main.tile[k, num2].wall == 2 || Main.tile[k, num2].wall == 40 || Main.tile[k, num2].wall == 64)
+							if (Main.tile[k, num2].wall == WallID.DirtUnsafe || Main.tile[k, num2].wall == WallID.SnowWallUnsafe || Main.tile[k, num2].wall == WallID.JungleUnsafe)
 							{
 								Main.tile[k, num2].wall = 0;
 							}
@@ -6775,7 +6775,7 @@ namespace Terraria
 								}
 							}
 						}
-						else if (Main.tile[k, num2].wall == 0 && Main.tile[k, num2 + 1].wall == 0 && Main.tile[k, num2 + 2].wall == 0 && Main.tile[k, num2 + 3].wall == 0 && Main.tile[k, num2 + 4].wall == 0 && Main.tile[k - 1, num2].wall == 0 && Main.tile[k + 1, num2].wall == 0 && Main.tile[k - 2, num2].wall == 0 && Main.tile[k + 2, num2].wall == 0 && !Main.tile[k, num2].active() && !Main.tile[k, num2 + 1].active() && !Main.tile[k, num2 + 2].active() && !Main.tile[k, num2 + 3].active())
+						else if (Main.tile[k, num2].wall == WallID.None && Main.tile[k, num2 + 1].wall == 0 && Main.tile[k, num2 + 2].wall == 0 && Main.tile[k, num2 + 3].wall == 0 && Main.tile[k, num2 + 4].wall == 0 && Main.tile[k - 1, num2].wall == 0 && Main.tile[k + 1, num2].wall == 0 && Main.tile[k - 2, num2].wall == 0 && Main.tile[k + 2, num2].wall == 0 && !Main.tile[k, num2].active() && !Main.tile[k, num2 + 1].active() && !Main.tile[k, num2 + 2].active() && !Main.tile[k, num2 + 3].active())
 						{
 							flag2 = true;
 						}
@@ -6792,7 +6792,7 @@ namespace Terraria
 					{
 						if (flag3)
 						{
-							if (Main.tile[l, num4].wall == 2 || Main.tile[l, num4].wall == 40 || Main.tile[l, num4].wall == 64)
+							if (Main.tile[l, num4].wall == WallID.DirtUnsafe || Main.tile[l, num4].wall == WallID.SnowWallUnsafe || Main.tile[l, num4].wall == WallID.JungleUnsafe)
 							{
 								Main.tile[l, num4].wall = 0;
 							}
@@ -6828,7 +6828,7 @@ namespace Terraria
 								}
 							}
 						}
-						else if (Main.tile[l, num4].wall == 0 && Main.tile[l, num4 + 1].wall == 0 && Main.tile[l, num4 + 2].wall == 0 && Main.tile[l, num4 + 3].wall == 0 && Main.tile[l, num4 + 4].wall == 0 && Main.tile[l - 1, num4].wall == 0 && Main.tile[l + 1, num4].wall == 0 && Main.tile[l - 2, num4].wall == 0 && Main.tile[l + 2, num4].wall == 0 && !Main.tile[l, num4].active() && !Main.tile[l, num4 + 1].active() && !Main.tile[l, num4 + 2].active() && !Main.tile[l, num4 + 3].active())
+						else if (Main.tile[l, num4].wall == WallID.None && Main.tile[l, num4 + 1].wall == 0 && Main.tile[l, num4 + 2].wall == 0 && Main.tile[l, num4 + 3].wall == 0 && Main.tile[l, num4 + 4].wall == 0 && Main.tile[l - 1, num4].wall == 0 && Main.tile[l + 1, num4].wall == 0 && Main.tile[l - 2, num4].wall == 0 && Main.tile[l + 2, num4].wall == 0 && !Main.tile[l, num4].active() && !Main.tile[l, num4 + 1].active() && !Main.tile[l, num4 + 2].active() && !Main.tile[l, num4 + 3].active())
 						{
 							flag3 = true;
 						}
@@ -6877,7 +6877,7 @@ namespace Terraria
 				{
 					int num = WorldGen.genRand.Next(10, Main.maxTilesX - 10);
 					int num2 = WorldGen.genRand.Next(10, (int)Main.worldSurface);
-					if (Main.tile[num, num2].wall == 2)
+					if (Main.tile[num, num2].wall == WallID.DirtUnsafe)
 					{
 						WorldGen.DirtyRockRunner(num, num2);
 					}
@@ -6951,7 +6951,7 @@ namespace Terraria
 							{
 								for (int m = num - 1; m <= num + 1; m++)
 								{
-									if (l != k && m != num && Main.tile[l, m].type != TileID.LivingWood && Main.tile[l, m].wall != 78)
+									if (l != k && m != num && Main.tile[l, m].type != TileID.LivingWood && Main.tile[l, m].wall != WallID.LivingWood)
 									{
 										flag2 = false;
 									}
@@ -7140,7 +7140,7 @@ namespace Terraria
 									{
 										flag2 = false;
 									}
-									if (Main.tile[k, l].wall == 86 || Main.tile[k, l].wall == 87)
+									if (Main.tile[k, l].wall == WallID.HiveUnsafe || Main.tile[k, l].wall == WallID.LihzahrdBrickUnsafe)
 									{
 										flag2 = false;
 									}
@@ -7605,7 +7605,7 @@ namespace Terraria
 					{
 						int num = WorldGen.genRand.Next(200, Main.maxTilesX - 200);
 						int num2 = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY - 300);
-						if (Main.tile[num, num2].wall == 0 && WorldGen.placeTrap(num, num2, -1))
+						if (Main.tile[num, num2].wall == WallID.None && WorldGen.placeTrap(num, num2, -1))
 						{
 							break;
 						}
@@ -7771,7 +7771,7 @@ namespace Terraria
 						int num2 = WorldGen.genRand.Next(300, Main.maxTilesX - 300);
 						int num3 = WorldGen.genRand.Next((int)WorldGen.worldSurfaceLow, (int)Main.worldSurface);
 						bool flag3 = false;
-						if (Main.tile[num2, num3].wall == 2 && !Main.tile[num2, num3].active())
+						if (Main.tile[num2, num3].wall == WallID.DirtUnsafe && !Main.tile[num2, num3].active())
 						{
 							flag3 = true;
 						}
@@ -8123,7 +8123,7 @@ namespace Terraria
 					int num7 = WorldGen.genRand.Next(200, Main.maxTilesX - 200);
 					int num8 = WorldGen.genRand.Next((int)Main.worldSurface, WorldGen.lavaLine);
 					int num9 = 0;
-					if (Main.tile[num7, num8].wall == 64)
+					if (Main.tile[num7, num8].wall == WallID.JungleUnsafe)
 					{
 						num9 = WorldGen.countTiles(num7, num8, true, false);
 					}
@@ -8134,7 +8134,7 @@ namespace Terraria
 						num8 = WorldGen.genRand.Next((int)Main.worldSurface, WorldGen.lavaLine);
 						if (!Main.wallHouse[(int)Main.tile[num7, num8].wall])
 						{
-							if (Main.tile[num7, num8].wall == 64)
+							if (Main.tile[num7, num8].wall == WallID.JungleUnsafe)
 							{
 								num9 = WorldGen.countTiles(num7, num8, true, false);
 							}
@@ -8317,9 +8317,9 @@ namespace Terraria
 						int num3 = WorldGen.genRand.Next(Main.maxTilesY - 250, Main.maxTilesY - 5);
 						try
 						{
-							if (Main.tile[num2, num3].wall != 13)
+							if (Main.tile[num2, num3].wall != WallID.HellstoneBrickUnsafe)
 							{
-								if (Main.tile[num2, num3].wall != 14)
+								if (Main.tile[num2, num3].wall != WallID.ObsidianBrickUnsafe)
 								{
 									continue;
 								}
@@ -8380,7 +8380,7 @@ namespace Terraria
 							}
 							flag2 = false;
 						}
-						else if (Main.tile[i2, num].wall == 0)
+						else if (Main.tile[i2, num].wall == WallID.None)
 						{
 							flag2 = true;
 						}
@@ -8670,7 +8670,7 @@ namespace Terraria
 					{
 						int num31 = WorldGen.genRand.Next(25, Main.maxTilesX - 25);
 						int num32 = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY - 20);
-						if (Main.tile[num31, num32].wall == 87 && WorldGen.genRand.Next(2) == 0)
+						if (Main.tile[num31, num32].wall == WallID.LihzahrdBrickUnsafe && WorldGen.genRand.Next(2) == 0)
 						{
 							num31 = WorldGen.genRand.Next(25, Main.maxTilesX - 25);
 							num32 = WorldGen.genRand.Next((int)Main.worldSurface, Main.maxTilesY - 20);
@@ -8706,7 +8706,7 @@ namespace Terraria
 									num34 = WorldGen.genRand.Next(6, 16);
 								}
 							}
-							if (Main.wallDungeon[(int)Main.tile[num31, num32].wall] || Main.tile[num31, num32 + 1].type == 30 || Main.tile[num31, num32 + 1].type == 19 || Main.tile[num31, num32 + 1].type == 25 || Main.tile[num31, num32 + 1].type == 203 || Main.tile[num31, num32].wall == 87)
+							if (Main.wallDungeon[(int)Main.tile[num31, num32].wall] || Main.tile[num31, num32 + 1].type == 30 || Main.tile[num31, num32 + 1].type == 19 || Main.tile[num31, num32 + 1].type == 25 || Main.tile[num31, num32 + 1].type == 203 || Main.tile[num31, num32].wall == WallID.LihzahrdBrickUnsafe)
 							{
 								if (num33 == 0 && num34 < 12)
 								{
@@ -8838,9 +8838,9 @@ namespace Terraria
 						int num45 = WorldGen.genRand.Next(15, (int)Main.worldSurface);
 						if (!Main.tile[num44, num45].active())
 						{
-							if (Main.tile[num44, num45].wall != 2)
+							if (Main.tile[num44, num45].wall != WallID.DirtUnsafe)
 							{
-								if (Main.tile[num44, num45].wall != 40)
+								if (Main.tile[num44, num45].wall != WallID.SnowWallUnsafe)
 								{
 									continue;
 								}
@@ -9039,13 +9039,13 @@ namespace Terraria
 							bool flag2 = false;
 							int num2 = -1;
 							int num3 = -1;
-							if (Main.tile[k, num].active() && Main.tile[k, num].type == TileID.Grass && (Main.tile[k, num].wall == 2 || Main.tile[k, num].wall == 63))
+							if (Main.tile[k, num].active() && Main.tile[k, num].type == TileID.Grass && (Main.tile[k, num].wall == WallID.DirtUnsafe || Main.tile[k, num].wall == WallID.GrassUnsafe))
 							{
 								for (int l = k - 1; l <= k + 1; l++)
 								{
 									for (int m = num - 1; m <= num + 1; m++)
 									{
-										if (Main.tile[l, m].wall == 0 && !WorldGen.SolidTile(l, m))
+										if (Main.tile[l, m].wall == WallID.None && !WorldGen.SolidTile(l, m))
 										{
 											flag2 = true;
 										}
@@ -9057,7 +9057,7 @@ namespace Terraria
 									{
 										for (int num4 = num - 1; num4 <= num + 1; num4++)
 										{
-											if ((Main.tile[n, num4].wall == 2 || Main.tile[n, num4].wall == 15) && !WorldGen.SolidTile(n, num4))
+											if ((Main.tile[n, num4].wall == WallID.DirtUnsafe || Main.tile[n, num4].wall == WallID.MudUnsafe) && !WorldGen.SolidTile(n, num4))
 											{
 												num2 = n;
 												num3 = num4;
@@ -9089,7 +9089,7 @@ namespace Terraria
 					int num7 = 10;
 					while ((double)num7 < Main.worldSurface - 1.0)
 					{
-						if (Main.tile[num6, num7].wall == 63 && WorldGen.genRand.Next(10) == 0)
+						if (Main.tile[num6, num7].wall == WallID.GrassUnsafe && WorldGen.genRand.Next(10) == 0)
 						{
 							Main.tile[num6, num7].wall = 65;
 						}
@@ -9100,7 +9100,7 @@ namespace Terraria
 							{
 								for (int num9 = num7 - 1; num9 <= num7 + 1; num9++)
 								{
-									if (Main.tile[num6, num7].wall == 63 || Main.tile[num6, num7].wall == 65)
+									if (Main.tile[num6, num7].wall == WallID.GrassUnsafe || Main.tile[num6, num7].wall == WallID.FlowerUnsafe)
 									{
 										flag3 = true;
 										break;
@@ -9209,7 +9209,7 @@ namespace Terraria
 				{
 					for (int l = (int)Main.worldSurface; l < Main.maxTilesY - 100; l++)
 					{
-						if (Main.tile[k, l].wall == 86)
+						if (Main.tile[k, l].wall == WallID.HiveUnsafe)
 						{
 							if (Main.tile[k, l].liquid > 0)
 							{
@@ -9220,12 +9220,12 @@ namespace Terraria
 								WorldGen.PlaceTight(k, l, 165, false);
 							}
 						}
-						if (Main.tile[k, l].wall == 62)
+						if (Main.tile[k, l].wall == WallID.SpiderUnsafe)
 						{
 							Main.tile[k, l].liquid = 0;
 							Main.tile[k, l].lava(false);
 						}
-						if (Main.tile[k, l].wall == 62 && !Main.tile[k, l].active() && WorldGen.genRand.Next(10) != 0)
+						if (Main.tile[k, l].wall == WallID.SpiderUnsafe && !Main.tile[k, l].active() && WorldGen.genRand.Next(10) != 0)
 						{
 							int num = WorldGen.genRand.Next(2, 5);
 							int num2 = k - num;
@@ -9567,7 +9567,7 @@ namespace Terraria
 				{
 					int num = WorldGen.genRand.Next(20, Main.maxTilesX - 20);
 					int num2 = WorldGen.genRand.Next((int)Main.rockLayer, Main.maxTilesY - 300);
-					if (!Main.tile[num, num2].active() && !Main.tile[num, num2].lava() && !Main.wallDungeon[(int)Main.tile[num, num2].wall] && Main.tile[num, num2].wall != 27)
+					if (!Main.tile[num, num2].active() && !Main.tile[num, num2].lava() && !Main.wallDungeon[(int)Main.tile[num, num2].wall] && Main.tile[num, num2].wall != WallID.Planked)
 					{
 						int num3 = WorldGen.genRand.Next(12);
 						int style;
@@ -9683,7 +9683,7 @@ namespace Terraria
 					int num5 = 0;
 					while ((double)num5 < Main.worldSurface + 20.0)
 					{
-						if (((m >= num + 2 && m <= num2 - 2) || WorldGen.genRand.Next(2) != 0) && ((m >= num + 3 && m <= num2 - 3) || WorldGen.genRand.Next(3) != 0) && (Main.tile[m, num5].wall == 2 || Main.tile[m, num5].wall == 59))
+						if (((m >= num + 2 && m <= num2 - 2) || WorldGen.genRand.Next(2) != 0) && ((m >= num + 3 && m <= num2 - 3) || WorldGen.genRand.Next(3) != 0) && (Main.tile[m, num5].wall == WallID.DirtUnsafe || Main.tile[m, num5].wall == WallID.Cave6Unsafe))
 						{
 							Main.tile[m, num5].wall = 15;
 						}
@@ -9800,7 +9800,7 @@ namespace Terraria
 						{
 							Main.tile[k, l].active(false);
 						}
-						if (Main.tile[k, l].wall == 13 || Main.tile[k, l].wall == 14)
+						if (Main.tile[k, l].wall == WallID.HellstoneBrickUnsafe || Main.tile[k, l].wall == WallID.ObsidianBrickUnsafe)
 						{
 							Main.tile[k, l].liquid = 0;
 						}
@@ -11476,7 +11476,7 @@ namespace Terraria
 							{
 								for (int num68 = num52 - 20; num68 < num52 + 10; num68++)
 								{
-									if (Main.tile[num67, num68].wall == 0 && !Main.tile[num67, num68].active() && (double)num68 < Main.worldSurface)
+									if (Main.tile[num67, num68].wall == WallID.None && !Main.tile[num67, num68].active() && (double)num68 < Main.worldSurface)
 									{
 										flag4 = true;
 									}
@@ -11488,7 +11488,7 @@ namespace Terraria
 								{
 									for (int num70 = num62 - 2; num70 <= num63 + 2; num70++)
 									{
-										if (Main.tile[num69, num70].wall != 78 && Main.tile[num69, num70].type != TileID.Platforms)
+										if (Main.tile[num69, num70].wall != WallID.LivingWood && Main.tile[num69, num70].type != TileID.Platforms)
 										{
 											Main.tile[num69, num70].active(true);
 											Main.tile[num69, num70].type = 191;
@@ -11522,7 +11522,7 @@ namespace Terraria
 								{
 									for (int num74 = num62 - 2; num74 <= num63 + 2; num74++)
 									{
-										if (Main.tile[num73, num74].wall != 78 && Main.tile[num73, num74].type != TileID.Platforms)
+										if (Main.tile[num73, num74].wall != WallID.LivingWood && Main.tile[num73, num74].type != TileID.Platforms)
 										{
 											Main.tile[num73, num74].active(true);
 											Main.tile[num73, num74].type = 191;
@@ -11625,7 +11625,7 @@ namespace Terraria
 						{
 							for (int num82 = num80 - 1; num82 <= num80 + 1; num82++)
 							{
-								if (!Main.tile[num81, num82].active() && Main.tile[num81, num82].wall == 0)
+								if (!Main.tile[num81, num82].active() && Main.tile[num81, num82].wall == WallID.None)
 								{
 									flag6 = false;
 								}
@@ -13161,14 +13161,14 @@ namespace Terraria
 				if (Main.tile[i, num2 + 1].active())
 				{
 					ushort num3 = (ushort)WorldGen.genRand.Next(75, 77);
-					byte wallType = 13;
+					byte wallType = WallID.HellstoneBrickUnsafe;
 					if (WorldGen.genRand.Next(5) > 0)
 					{
 						num3 = 75;
 					}
 					if (num3 == 75)
 					{
-						wallType = 14;
+						wallType = WallID.ObsidianBrickUnsafe;
 					}
 					WorldGen.HellFort(i, num2, num3, wallType);
 					i += WorldGen.genRand.Next(30, 130);
@@ -13234,12 +13234,12 @@ namespace Terraria
 			{
 				int num12 = WorldGen.genRand.Next(num, Main.maxTilesX - num);
 				int num13 = WorldGen.genRand.Next(Main.maxTilesY - 250, Main.maxTilesY - 20);
-				while ((Main.tile[num12, num13].wall != 13 && Main.tile[num12, num13].wall != 14) || Main.tile[num12, num13].active())
+				while ((Main.tile[num12, num13].wall != WallID.HellstoneBrickUnsafe && Main.tile[num12, num13].wall != WallID.ObsidianBrickUnsafe) || Main.tile[num12, num13].active())
 				{
 					num12 = WorldGen.genRand.Next(num, Main.maxTilesX - num);
 					num13 = WorldGen.genRand.Next(Main.maxTilesY - 250, Main.maxTilesY - 20);
 				}
-				if ((Main.tile[num12, num13].wall == 13 || Main.tile[num12, num13].wall == 14) && !Main.tile[num12, num13].active())
+				if ((Main.tile[num12, num13].wall == WallID.HellstoneBrickUnsafe || Main.tile[num12, num13].wall == WallID.ObsidianBrickUnsafe) && !Main.tile[num12, num13].active())
 				{
 					while (!WorldGen.SolidTile(num12, num13) && num13 < Main.maxTilesY - 20)
 					{
@@ -13260,7 +13260,7 @@ namespace Terraria
 					num15--;
 					int num16 = num15 - num14;
 					int num17 = (num15 + num14) / 2;
-					if (!Main.tile[num17, num13].active() && (Main.tile[num17, num13].wall == 13 || Main.tile[num17, num13].wall == 14) && WorldGen.SolidTile(num17, num13 + 1))
+					if (!Main.tile[num17, num13].active() && (Main.tile[num17, num13].wall == WallID.HellstoneBrickUnsafe || Main.tile[num17, num13].wall == WallID.ObsidianBrickUnsafe) && WorldGen.SolidTile(num17, num13 + 1))
 					{
 						int style = 16;
 						int style2 = 13;
@@ -13495,7 +13495,7 @@ namespace Terraria
 			{
 				int num24 = WorldGen.genRand.Next(num, Main.maxTilesX - num);
 				int num25 = WorldGen.genRand.Next(Main.maxTilesY - 250, Main.maxTilesY - 20);
-				while ((Main.tile[num24, num25].wall != 13 && Main.tile[num24, num25].wall != 14) || Main.tile[num24, num25].active())
+				while ((Main.tile[num24, num25].wall != WallID.HellstoneBrickUnsafe && Main.tile[num24, num25].wall != WallID.ObsidianBrickUnsafe) || Main.tile[num24, num25].active())
 				{
 					num24 = WorldGen.genRand.Next(num, Main.maxTilesX - num);
 					num25 = WorldGen.genRand.Next(Main.maxTilesY - 250, Main.maxTilesY - 20);
@@ -13508,12 +13508,12 @@ namespace Terraria
 				{
 					num26 = num24;
 					num27 = num24;
-					while (!Main.tile[num26, num25].active() && (Main.tile[num26, num25].wall == 13 || Main.tile[num26, num25].wall == 14))
+					while (!Main.tile[num26, num25].active() && (Main.tile[num26, num25].wall == WallID.HellstoneBrickUnsafe || Main.tile[num26, num25].wall == WallID.ObsidianBrickUnsafe))
 					{
 						num26--;
 					}
 					num26++;
-					while (!Main.tile[num27, num25].active() && (Main.tile[num27, num25].wall == 13 || Main.tile[num27, num25].wall == 14))
+					while (!Main.tile[num27, num25].active() && (Main.tile[num27, num25].wall == WallID.HellstoneBrickUnsafe || Main.tile[num27, num25].wall == WallID.ObsidianBrickUnsafe))
 					{
 						num27++;
 					}
@@ -13521,12 +13521,12 @@ namespace Terraria
 					num24 = (num26 + num27) / 2;
 					num28 = num25;
 					num29 = num25;
-					while (!Main.tile[num24, num28].active() && (Main.tile[num24, num28].wall == 13 || Main.tile[num24, num28].wall == 14))
+					while (!Main.tile[num24, num28].active() && (Main.tile[num24, num28].wall == WallID.HellstoneBrickUnsafe || Main.tile[num24, num28].wall == WallID.ObsidianBrickUnsafe))
 					{
 						num28--;
 					}
 					num28++;
-					while (!Main.tile[num24, num29].active() && (Main.tile[num24, num29].wall == 13 || Main.tile[num24, num29].wall == 14))
+					while (!Main.tile[num24, num29].active() && (Main.tile[num24, num29].wall == WallID.HellstoneBrickUnsafe || Main.tile[num24, num29].wall == WallID.ObsidianBrickUnsafe))
 					{
 						num29++;
 					}
@@ -13606,13 +13606,13 @@ namespace Terraria
 					num34 = WorldGen.genRand.Next(num, Main.maxTilesX - num);
 					num35 = WorldGen.genRand.Next(Main.maxTilesY - 250, Main.maxTilesY - 20);
 				}
-				while ((Main.tile[num34, num35].wall != 13 && Main.tile[num34, num35].wall != 14) || Main.tile[num34, num35].active());
+				while ((Main.tile[num34, num35].wall != WallID.HellstoneBrickUnsafe && Main.tile[num34, num35].wall != WallID.ObsidianBrickUnsafe) || Main.tile[num34, num35].active());
 				while (!WorldGen.SolidTile(num34, num35) && num35 > 10)
 				{
 					num35--;
 				}
 				num35++;
-				if (Main.tile[num34, num35].wall == 13 || Main.tile[num34, num35].wall == 14)
+				if (Main.tile[num34, num35].wall == WallID.HellstoneBrickUnsafe || Main.tile[num34, num35].wall == WallID.ObsidianBrickUnsafe)
 				{
 					int num36 = WorldGen.genRand.Next(3);
 					int style16 = 32;
@@ -13698,7 +13698,7 @@ namespace Terraria
 			}
 		}
 
-		public static void HellFort(int i, int j, ushort tileType = 75, byte wallType = 14)
+		public static void HellFort(int i, int j, ushort tileType = 75, byte wallType = WallID.ObsidianBrickUnsafe)
 		{
 			int[] array = new int[5];
 			int[] array2 = new int[5];
@@ -14098,7 +14098,7 @@ namespace Terraria
 			}
 		}
 
-		public static void HellHouse(int i, int j, byte type = 76, byte wall = 13)
+		public static void HellHouse(int i, int j, byte type = 76, byte wall = WallID.HellstoneBrickUnsafe)
 		{
 			int num = WorldGen.genRand.Next(8, 20);
 			int num2 = WorldGen.genRand.Next(1, 3);
@@ -14120,7 +14120,7 @@ namespace Terraria
 			for (int m = i - num / 2; m <= i + num / 2; m++)
 			{
 				num4 = j;
-				while (num4 < Main.maxTilesY && ((Main.tile[m, num4].active() && (Main.tile[m, num4].type == TileID.HellstoneBrick || Main.tile[m, num4].type == TileID.ObsidianBrick)) || Main.tile[i, num4].wall == 13 || Main.tile[i, num4].wall == 14))
+				while (num4 < Main.maxTilesY && ((Main.tile[m, num4].active() && (Main.tile[m, num4].type == TileID.HellstoneBrick || Main.tile[m, num4].type == TileID.ObsidianBrick)) || Main.tile[i, num4].wall == WallID.HellstoneBrickUnsafe || Main.tile[i, num4].wall == WallID.ObsidianBrickUnsafe))
 				{
 					num4++;
 				}
@@ -14140,13 +14140,13 @@ namespace Terraria
 			int num8 = 0;
 			int num9 = 0;
 			num4 = j;
-			while (num4 < Main.maxTilesY && ((Main.tile[i, num4].active() && (Main.tile[i, num4].type == TileID.HellstoneBrick || Main.tile[i, num4].type == TileID.ObsidianBrick)) || Main.tile[i, num4].wall == 13 || Main.tile[i, num4].wall == 14))
+			while (num4 < Main.maxTilesY && ((Main.tile[i, num4].active() && (Main.tile[i, num4].type == TileID.HellstoneBrick || Main.tile[i, num4].type == TileID.ObsidianBrick)) || Main.tile[i, num4].wall == WallID.HellstoneBrickUnsafe || Main.tile[i, num4].wall == WallID.ObsidianBrickUnsafe))
 			{
 				num4++;
 			}
 			num4--;
 			num9 = num4;
-			while ((Main.tile[i, num4].active() && (Main.tile[i, num4].type == TileID.HellstoneBrick || Main.tile[i, num4].type == TileID.ObsidianBrick)) || Main.tile[i, num4].wall == 13 || Main.tile[i, num4].wall == 14)
+			while ((Main.tile[i, num4].active() && (Main.tile[i, num4].type == TileID.HellstoneBrick || Main.tile[i, num4].type == TileID.ObsidianBrick)) || Main.tile[i, num4].wall == WallID.HellstoneBrickUnsafe || Main.tile[i, num4].wall == WallID.ObsidianBrickUnsafe)
 			{
 				num4--;
 				if (Main.tile[i, num4].active() && (Main.tile[i, num4].type == TileID.HellstoneBrick || Main.tile[i, num4].type == TileID.ObsidianBrick))
@@ -14222,7 +14222,7 @@ namespace Terraria
 			}
 		}
 
-		public static void HellRoom(int i, int j, int width, int height, byte type = 76, byte wall = 13)
+		public static void HellRoom(int i, int j, int width, int height, byte type = 76, byte wall = WallID.HellstoneBrickUnsafe)
 		{
 			if (j > Main.maxTilesY - 40)
 			{
@@ -14343,7 +14343,7 @@ namespace Terraria
 			{
 				return;
 			}
-			if (Main.tile[x, y].wall == 87)
+			if (Main.tile[x, y].wall == WallID.LihzahrdBrickUnsafe)
 			{
 				return;
 			}
@@ -14352,7 +14352,7 @@ namespace Terraria
 			{
 				for (int j = y - num; j <= y + num; j++)
 				{
-					if (!Main.tile[i, j].active() && Main.tile[i, j].wall == 87)
+					if (!Main.tile[i, j].active() && Main.tile[i, j].wall == WallID.LihzahrdBrickUnsafe)
 					{
 						Main.tile[x, y].active(true);
 						Main.tile[x, y].type = 226;
@@ -14811,7 +14811,7 @@ namespace Terraria
 				int num69 = (int)vector.Y - num65;
 				while ((float)num69 < vector.Y + (float)num65)
 				{
-					if (Main.tile[num68, num69].wall == 87 || (Main.tile[num68, num69].active() && Main.tile[num68, num69].type == TileID.LihzahrdBrick))
+					if (Main.tile[num68, num69].wall == WallID.LihzahrdBrickUnsafe || (Main.tile[num68, num69].active() && Main.tile[num68, num69].type == TileID.LihzahrdBrick))
 					{
 						flag3 = true;
 					}
@@ -14831,7 +14831,7 @@ namespace Terraria
 			}
 			num71 -= 4;
 			int num72 = num71;
-			while ((Main.tile[num70, num72].active() && Main.tile[num70, num72].type == TileID.LihzahrdBrick) || Main.tile[num70, num72].wall == 87)
+			while ((Main.tile[num70, num72].active() && Main.tile[num70, num72].type == TileID.LihzahrdBrick) || Main.tile[num70, num72].wall == WallID.LihzahrdBrickUnsafe)
 			{
 				num72--;
 			}
@@ -14898,7 +14898,7 @@ namespace Terraria
 					{
 						for (int num88 = num86 - 1; num88 <= num86 + 1; num88++)
 						{
-							if ((!Main.tile[num87, num88].active() || Main.tile[num87, num88].type != TileID.LihzahrdBrick) && Main.tile[num87, num88].wall != 87)
+							if ((!Main.tile[num87, num88].active() || Main.tile[num87, num88].type != TileID.LihzahrdBrick) && Main.tile[num87, num88].wall != WallID.LihzahrdBrickUnsafe)
 							{
 								flag4 = false;
 								break;
@@ -14990,7 +14990,7 @@ namespace Terraria
 				int num98 = WorldGen.genRand.Next(num2);
 				int num99 = WorldGen.genRand.Next(array[num98].X, array[num98].X + array[num98].Width);
 				int num100 = WorldGen.genRand.Next(array[num98].Y, array[num98].Y + array[num98].Height);
-				if (Main.tile[num99, num100].wall == 87 && !Main.tile[num99, num100].active())
+				if (Main.tile[num99, num100].wall == WallID.LihzahrdBrickUnsafe && !Main.tile[num99, num100].active())
 				{
 					bool flag5 = false;
 					if (WorldGen.genRand.Next(2) == 0)
@@ -15143,7 +15143,7 @@ namespace Terraria
 			{
 				int num5 = WorldGen.genRand.Next(minValue, maxValue);
 				int num6 = WorldGen.genRand.Next(minValue2, num);
-				if (Main.tile[num5, num6].wall == 87 && !Main.tile[num5, num6].active())
+				if (Main.tile[num5, num6].wall == WallID.LihzahrdBrickUnsafe && !Main.tile[num5, num6].active())
 				{
 					if (WorldGen.mayanTrap(num5, num6))
 					{
@@ -15174,7 +15174,7 @@ namespace Terraria
 			{
 				int num8 = WorldGen.genRand.Next(minValue, maxValue);
 				int num9 = WorldGen.genRand.Next(minValue2, num);
-				if (Main.tile[num8, num9].wall == 87 && !Main.tile[num8, num9].active() && WorldGen.AddBuriedChest(num8, num9, contain, true, 16))
+				if (Main.tile[num8, num9].wall == WallID.LihzahrdBrickUnsafe && !Main.tile[num8, num9].active() && WorldGen.AddBuriedChest(num8, num9, contain, true, 16))
 				{
 					num7 -= 1f;
 					num4 = 0;
@@ -15193,7 +15193,7 @@ namespace Terraria
 				num4++;
 				int num11 = WorldGen.genRand.Next(minValue, maxValue);
 				int num12 = WorldGen.genRand.Next(minValue2, num);
-				if (Main.tile[num11, num12].wall == 87 && !Main.tile[num11, num12].active())
+				if (Main.tile[num11, num12].wall == WallID.LihzahrdBrickUnsafe && !Main.tile[num11, num12].active())
 				{
 					int num13 = num11;
 					int num14 = num12;
@@ -15224,7 +15224,7 @@ namespace Terraria
 				num4++;
 				int num16 = WorldGen.genRand.Next(minValue, maxValue);
 				int num17 = WorldGen.genRand.Next(minValue2, num);
-				if (Main.tile[num16, num17].wall == 87 && !Main.tile[num16, num17].active())
+				if (Main.tile[num16, num17].wall == WallID.LihzahrdBrickUnsafe && !Main.tile[num16, num17].active())
 				{
 					int num18 = num16;
 					int num19 = num17;
@@ -15291,7 +15291,7 @@ namespace Terraria
 
 		public static bool nearPicture2(int x, int y)
 		{
-			if (Main.tile[x, y].wall != 7 && Main.tile[x, y].wall != 8 && Main.tile[x, y].wall != 9)
+			if (Main.tile[x, y].wall != WallID.BlueDungeonUnsafe && Main.tile[x, y].wall != WallID.GreenDungeonUnsafe && Main.tile[x, y].wall != WallID.PinkDungeonUnsafe)
 			{
 				for (int i = x - 8; i <= x + 8; i++)
 				{
@@ -16422,7 +16422,7 @@ namespace Terraria
 							num123 = 24;
 							num124 = 26;
 						}
-						if (Main.tile[num115, num111].wall >= 94 && Main.tile[num115, num111].wall <= 105)
+						if (Main.tile[num115, num111].wall >= WallID.BlueDungeonSlabUnsafe && Main.tile[num115, num111].wall <= WallID.GreenDungeonTile)
 						{
 							style5 = 17;
 							style6 = 14;
@@ -21874,7 +21874,7 @@ namespace Terraria
 				}
 				else
 				{
-					if (Main.tile[num5, num6].wall <= 0 || Main.tile[num5 + 1, num6].wall <= 0 || Main.tile[num5, num6 + 1].wall <= 0 || Main.tile[num5 + 1, num6 + 1].wall <= 0)
+					if (Main.tile[num5, num6].wall <= WallID.None || Main.tile[num5 + 1, num6].wall <= 0 || Main.tile[num5, num6 + 1].wall <= 0 || Main.tile[num5 + 1, num6 + 1].wall <= 0)
 					{
 						return false;
 					}
@@ -22091,7 +22091,7 @@ namespace Terraria
 
 		public static bool paintWall(int x, int y, byte color, bool broadCast = false)
 		{
-			if (Main.tile[x, y] == null || Main.tile[x, y].wall == 0)
+			if (Main.tile[x, y] == null || Main.tile[x, y].wall == WallID.None)
 			{
 				return false;
 			}
@@ -22114,7 +22114,7 @@ namespace Terraria
 			{
 				for (int j = num2; j < num2 + 3; j++)
 				{
-					if (Main.tile[i, j].active() || Main.tile[i, j].wall == 0)
+					if (Main.tile[i, j].active() || Main.tile[i, j].wall == WallID.None)
 					{
 						flag = false;
 						break;
@@ -22174,7 +22174,7 @@ namespace Terraria
 			{
 				for (int l = num4; l < num4 + 3; l++)
 				{
-					if ((int)Main.tile[k, l].type != type || !Main.tile[k, l].active() || Main.tile[k, l].wall <= 0 || (int)Main.tile[k, l].frameX != i + (k - num3) * 18 || (int)Main.tile[k, l].frameY != j + (l - num4) * 18)
+					if ((int)Main.tile[k, l].type != type || !Main.tile[k, l].active() || Main.tile[k, l].wall <= WallID.None || (int)Main.tile[k, l].frameX != i + (k - num3) * 18 || (int)Main.tile[k, l].frameY != j + (l - num4) * 18)
 					{
 						flag = true;
 						break;
@@ -22306,7 +22306,7 @@ namespace Terraria
 			{
 				for (int j = num; j < num + 3; j++)
 				{
-					if (Main.tile[i, j].active() || Main.tile[i, j].wall == 0)
+					if (Main.tile[i, j].active() || Main.tile[i, j].wall == WallID.None)
 					{
 						flag = false;
 						break;
@@ -22352,7 +22352,7 @@ namespace Terraria
 			{
 				for (int k = num3; k < num3 + 3; k++)
 				{
-					if ((int)Main.tile[j, k].type != type || !Main.tile[j, k].active() || Main.tile[j, k].wall <= 0 || (int)Main.tile[j, k].frameX != i + (j - num2) * 18 || (int)Main.tile[j, k].frameY != (k - num3) * 18)
+					if ((int)Main.tile[j, k].type != type || !Main.tile[j, k].active() || Main.tile[j, k].wall <= WallID.None || (int)Main.tile[j, k].frameX != i + (j - num2) * 18 || (int)Main.tile[j, k].frameY != (k - num3) * 18)
 					{
 						flag = true;
 						break;
@@ -22399,7 +22399,7 @@ namespace Terraria
 			{
 				for (int j = y; j < y + 2; j++)
 				{
-					if (Main.tile[i, j].active() || Main.tile[i, j].wall == 0)
+					if (Main.tile[i, j].active() || Main.tile[i, j].wall == WallID.None)
 					{
 						flag = false;
 						break;
@@ -22445,7 +22445,7 @@ namespace Terraria
 			{
 				for (int k = num2; k < num2 + 2; k++)
 				{
-					if ((int)Main.tile[j, k].type != type || !Main.tile[j, k].active() || Main.tile[j, k].wall <= 0 || (int)Main.tile[j, k].frameY != i + (k - num2) * 18 || (int)Main.tile[j, k].frameX != (j - num3) * 18)
+					if ((int)Main.tile[j, k].type != type || !Main.tile[j, k].active() || Main.tile[j, k].wall <= WallID.None || (int)Main.tile[j, k].frameY != i + (k - num2) * 18 || (int)Main.tile[j, k].frameX != (j - num3) * 18)
 					{
 						flag = true;
 						break;
@@ -22497,7 +22497,7 @@ namespace Terraria
 			{
 				for (int j = num2; j < num2 + 3; j++)
 				{
-					if (Main.tile[i, j].active() || Main.tile[i, j].wall == 0)
+					if (Main.tile[i, j].active() || Main.tile[i, j].wall == WallID.None)
 					{
 						flag = false;
 						break;
@@ -22543,7 +22543,7 @@ namespace Terraria
 			{
 				for (int k = num2; k < num2 + 3; k++)
 				{
-					if ((int)Main.tile[j, k].type != type || !Main.tile[j, k].active() || Main.tile[j, k].wall <= 0 || (int)Main.tile[j, k].frameY != i + (k - num2) * 18 || (int)Main.tile[j, k].frameX != (j - num3) * 18)
+					if ((int)Main.tile[j, k].type != type || !Main.tile[j, k].active() || Main.tile[j, k].wall <= WallID.None || (int)Main.tile[j, k].frameY != i + (k - num2) * 18 || (int)Main.tile[j, k].frameX != (j - num3) * 18)
 					{
 						flag = true;
 						break;
@@ -22580,7 +22580,7 @@ namespace Terraria
 			{
 				for (int j = num2; j < num2 + 4; j++)
 				{
-					if (Main.tile[i, j].active() || Main.tile[i, j].wall == 0)
+					if (Main.tile[i, j].active() || Main.tile[i, j].wall == WallID.None)
 					{
 						flag = false;
 						break;
@@ -22625,7 +22625,7 @@ namespace Terraria
 			{
 				for (int j = num4; j < num4 + 4; j++)
 				{
-					if ((int)Main.tile[i, j].type != type || !Main.tile[i, j].active() || Main.tile[i, j].wall <= 0 || (int)Main.tile[i, j].frameY != num + (j - num4) * 18 || (int)Main.tile[i, j].frameX != num2 + (i - num5) * 18)
+					if ((int)Main.tile[i, j].type != type || !Main.tile[i, j].active() || Main.tile[i, j].wall <= WallID.None || (int)Main.tile[i, j].frameY != num + (j - num4) * 18 || (int)Main.tile[i, j].frameX != num2 + (i - num5) * 18)
 					{
 						flag = true;
 						break;
@@ -23562,7 +23562,7 @@ namespace Terraria
 						n = (num6 - 1) * 18;
 					}
 					n %= 54;
-					if (!Main.tile[num4, num5].active() || Main.tile[num4, num5].type != TileID.WeaponsRack || Main.tile[num4, num5].wall <= 0 || (int)Main.tile[num4, num5].frameY != m * 18 || n != l * 18)
+					if (!Main.tile[num4, num5].active() || Main.tile[num4, num5].type != TileID.WeaponsRack || Main.tile[num4, num5].wall <= WallID.None || (int)Main.tile[num4, num5].frameY != m * 18 || n != l * 18)
 					{
 						flag = true;
 					}
@@ -28071,7 +28071,7 @@ namespace Terraria
 					bool result = true;
 					return result;
 				}
-				if (Main.tile[x, y].wall == 0 || Main.wallHouse[(int)Main.tile[x, y].wall])
+				if (Main.tile[x, y].wall == WallID.None || Main.wallHouse[(int)Main.tile[x, y].wall])
 				{
 					bool result = true;
 					return result;
@@ -29234,7 +29234,7 @@ namespace Terraria
 					{
 						if (style == 3 || style == 4)
 						{
-							if (Main.tile[x, y].wall == 0)
+							if (Main.tile[x, y].wall == WallID.None)
 							{
 								flag = true;
 							}
@@ -30247,7 +30247,7 @@ namespace Terraria
 						}
 						else if (conversionType == 3)
 						{
-							if (Main.tile[k, l].wall == 64 || Main.tile[k, l].wall == 15)
+							if (Main.tile[k, l].wall == WallID.JungleUnsafe || Main.tile[k, l].wall == WallID.MudUnsafe)
 							{
 								Main.tile[k, l].wall = 80;
 								WorldGen.SquareWallFrame(k, l, true);
@@ -30270,7 +30270,7 @@ namespace Terraria
 						}
 						else
 						{
-							if (Main.tile[k, l].wall == 69 || Main.tile[k, l].wall == 70 || Main.tile[k, l].wall == 81)
+							if (Main.tile[k, l].wall == WallID.CorruptGrassUnsafe || Main.tile[k, l].wall == WallID.HallowedGrassUnsafe || Main.tile[k, l].wall == WallID.CrimsonGrassUnsafe)
 							{
 								if ((double)l < Main.worldSurface)
 								{
@@ -30290,13 +30290,13 @@ namespace Terraria
 								WorldGen.SquareWallFrame(k, l, true);
 								NetMessage.SendTileSquare(-1, k, l, 1);
 							}
-							else if (Main.tile[k, l].wall == 3 || Main.tile[k, l].wall == 28 || Main.tile[k, l].wall == 83)
+							else if (Main.tile[k, l].wall == WallID.EbonstoneUnsafe || Main.tile[k, l].wall == WallID.PearlstoneBrickUnsafe || Main.tile[k, l].wall == WallID.CrimstoneUnsafe)
 							{
 								Main.tile[k, l].wall = 1;
 								WorldGen.SquareWallFrame(k, l, true);
 								NetMessage.SendTileSquare(-1, k, l, 1);
 							}
-							else if (Main.tile[k, l].wall == 80)
+							else if (Main.tile[k, l].wall == WallID.MushroomUnsafe)
 							{
 								if ((double)l < Main.worldSurface + 4.0 + (double)WorldGen.genRand.Next(3) || (double)l > ((double)Main.maxTilesY + Main.rockLayer) / 2.0 - 3.0 + (double)WorldGen.genRand.Next(3))
 								{
@@ -31782,7 +31782,7 @@ namespace Terraria
 								tile.type = (ushort)type;
 								tile.frameX = (short)(WorldGen.genRand.Next(2) * 18 + 108);
 							}
-							else if ((tile.wall == 0 || tile.wall == 106 || tile.wall == 107 || (tile.wall >= 63 && tile.wall <= 70)) && (Main.tile[i, j + 1].wall == 0 || Main.tile[i, j + 1].wall == 106 || Main.tile[i, j + 1].wall == 107 || (Main.tile[i, j + 1].wall >= 63 && Main.tile[i, j + 1].wall <= 70)))
+							else if ((tile.wall == WallID.None || tile.wall == WallID.WoodenFence || tile.wall == WallID.MetalFence || (tile.wall >= WallID.GrassUnsafe && tile.wall <= WallID.HallowedGrassUnsafe)) && (Main.tile[i, j + 1].wall == 0 || Main.tile[i, j + 1].wall == 106 || Main.tile[i, j + 1].wall == 107 || (Main.tile[i, j + 1].wall >= 63 && Main.tile[i, j + 1].wall <= 70)))
 							{
 								if (type == 3 && WorldGen.genRand.Next(35) == 0)
 								{
@@ -32297,7 +32297,7 @@ namespace Terraria
 					{
 						fail = true;
 					}
-					if (tile.wall == 87 && !NPC.downedGolemBoss)
+					if (tile.wall == WallID.LihzahrdBrickUnsafe && !NPC.downedGolemBoss)
 					{
 						fail = true;
 					}
@@ -32309,19 +32309,19 @@ namespace Terraria
 					for (int k = 0; k < num; k++)
 					{
 						int num2 = 0;
-						if (tile.wall == 148)
+						if (tile.wall == WallID.Sail)
 						{
 							num2 = -1;
 						}
-						if (tile.wall == 1 || tile.wall == 5 || tile.wall == 6 || tile.wall == 7 || tile.wall == 107 || tile.wall == 8 || tile.wall == 9 || (tile.wall >= 48 && tile.wall <= 53) || (tile.wall >= 54 && tile.wall <= 58) || tile.wall == 185)
+						if (tile.wall == WallID.Stone || tile.wall == WallID.GrayBrick || tile.wall == WallID.RedBrick || tile.wall == WallID.BlueDungeonUnsafe || tile.wall == WallID.MetalFence || tile.wall == WallID.GreenDungeonUnsafe || tile.wall == WallID.PinkDungeonUnsafe || (tile.wall >= WallID.AmethystUnsafe && tile.wall <= WallID.DiamondUnsafe) || (tile.wall >= WallID.CaveUnsafe && tile.wall <= WallID.Cave5Unsafe) || tile.wall == WallID.Cave8Unsafe)
 						{
 							num2 = 1;
 						}
-						if (tile.wall >= 94 && tile.wall <= 105)
+						if (tile.wall >= WallID.BlueDungeonSlabUnsafe && tile.wall <= WallID.GreenDungeonTile)
 						{
 							num2 = 1;
 						}
-						if (tile.wall == 3)
+						if (tile.wall == WallID.EbonstoneUnsafe)
 						{
 							if (WorldGen.genRand.Next(2) == 0)
 							{
@@ -32332,111 +32332,111 @@ namespace Terraria
 								num2 = 1;
 							}
 						}
-						if (tile.wall == 35)
+						if (tile.wall == WallID.EbonstoneBrick)
 						{
 							num2 = 37;
 						}
-						if (tile.wall == 4 || tile.wall == 106)
+						if (tile.wall == WallID.Wood || tile.wall == WallID.WoodenFence)
 						{
 							num2 = 7;
 						}
-						if (tile.wall == 12)
+						if (tile.wall == WallID.CopperBrick)
 						{
 							num2 = 9;
 						}
-						if (tile.wall == 10)
+						if (tile.wall == WallID.GoldBrick)
 						{
 							num2 = 10;
 						}
-						if (tile.wall == 11)
+						if (tile.wall == WallID.SilverBrick)
 						{
 							num2 = 11;
 						}
-						if (tile.wall == 21)
+						if (tile.wall == WallID.Glass)
 						{
 							num2 = 13;
 						}
-						if (tile.wall == 34)
+						if (tile.wall == WallID.SandstoneBrick)
 						{
 							num2 = 32;
 						}
-						if (tile.wall == 145)
+						if (tile.wall == WallID.IronFence)
 						{
 							num2 = 8;
 						}
-						if (tile.wall == 22 || tile.wall == 28)
+						if (tile.wall == WallID.PearlstoneBrick || tile.wall == WallID.PearlstoneBrickUnsafe)
 						{
 							num2 = 51;
 						}
-						if (tile.wall == 23)
+						if (tile.wall == WallID.IridescentBrick)
 						{
 							num2 = 38;
 						}
-						if (tile.wall == 24)
+						if (tile.wall == WallID.MudstoneBrick)
 						{
 							num2 = 36;
 						}
-						if (tile.wall == 25)
+						if (tile.wall == WallID.CobaltBrick)
 						{
 							num2 = 48;
 						}
-						if (tile.wall == 179 || tile.wall == 178 || tile.wall == 183)
+						if (tile.wall == WallID.MarbleBlock || tile.wall == WallID.MarbleUnsafe || tile.wall == WallID.Marble)
 						{
 							num2 = 236;
 						}
-						if (tile.wall == 181 || tile.wall == 180 || tile.wall == 184)
+						if (tile.wall == WallID.GraniteBlock || tile.wall == WallID.GraniteUnsafe || tile.wall == WallID.Granite)
 						{
 							num2 = 240;
 						}
-						if (tile.wall == 113)
+						if (tile.wall == WallID.Pumpkin)
 						{
 							num2 = 189;
 						}
-						if (tile.wall == 114)
+						if (tile.wall == WallID.Hay)
 						{
 							num2 = 190;
 						}
-						if (tile.wall == 115)
+						if (tile.wall == WallID.SpookyWood)
 						{
 							num2 = 191;
 						}
-						if (tile.wall == 177 || tile.wall == 13)
+						if (tile.wall == WallID.HellstoneBrick || tile.wall == WallID.HellstoneBrickUnsafe)
 						{
 							num2 = 25;
 						}
-						if (tile.wall == 186)
+						if (tile.wall == WallID.Crystal)
 						{
 							num2 = WorldGen.genRand.Next(68, 71);
 						}
-						if (tile.wall == 142)
+						if (tile.wall == WallID.WhiteDynasty)
 						{
 							num2 = 210;
 						}
-						if (tile.wall == 143)
+						if (tile.wall == WallID.BlueDynasty)
 						{
 							num2 = 210;
 						}
-						if (tile.wall == 224)
+						if (tile.wall == WallID.LunarBrickWall)
 						{
 							num2 = 265;
 						}
-						if (tile.wall == 173)
+						if (tile.wall == WallID.ChlorophyteBrick)
 						{
 							num2 = 128;
 						}
-						if (tile.wall == 174)
+						if (tile.wall == WallID.CrimtaneBrick)
 						{
 							num2 = 117;
 						}
-						if (tile.wall == 175)
+						if (tile.wall == WallID.ShroomitePlating)
 						{
 							num2 = 42;
 						}
-						if (tile.wall == 176)
+						if (tile.wall == WallID.MartianConduit)
 						{
 							num2 = 226;
 						}
-						if (tile.wall == 182)
+						if (tile.wall == WallID.MeteoriteBrick)
 						{
 							if (WorldGen.genRand.Next(2) == 0)
 							{
@@ -32447,7 +32447,7 @@ namespace Terraria
 								num2 = 23;
 							}
 						}
-						if (tile.wall >= 153 && tile.wall <= 166)
+						if (tile.wall >= WallID.AmberGemspark && tile.wall <= WallID.TopazGemspark)
 						{
 							switch (tile.wall)
 							{
@@ -32481,171 +32481,171 @@ namespace Terraria
 									break;
 							}
 						}
-						if (tile.wall == 26 || tile.wall == 30)
+						if (tile.wall == WallID.MythrilBrick || tile.wall == WallID.GreenCandyCane)
 						{
 							num2 = 49;
 						}
-						if (tile.wall == 29 || tile.wall == 32)
+						if (tile.wall == WallID.CandyCane || tile.wall == WallID.AdamantiteBeam)
 						{
 							num2 = 50;
 						}
-						if (tile.wall == 31)
+						if (tile.wall == WallID.SnowBrick)
 						{
 							num2 = 51;
 						}
-						if (tile.wall == 14 || tile.wall == 20)
+						if (tile.wall == WallID.ObsidianBrickUnsafe || tile.wall == WallID.ObsidianBrick)
 						{
 							num2 = 109;
 						}
-						if (tile.wall >= 88 && tile.wall <= 93)
+						if (tile.wall >= WallID.PurpleStainedGlass && tile.wall <= WallID.RainbowStainedGlass)
 						{
 							num2 = (int)(86 + tile.wall - 88);
-							if (tile.wall == 93)
+							if (tile.wall == WallID.RainbowStainedGlass)
 							{
 								num2 = WorldGen.genRand.Next(88, 94);
 							}
 						}
-						if (tile.wall == 33)
+						if (tile.wall == WallID.DemoniteBrick)
 						{
 							num2 = 14;
 						}
-						if (tile.wall == 41)
+						if (tile.wall == WallID.Ebonwood)
 						{
 							num2 = 77;
 						}
-						if (tile.wall == 42)
+						if (tile.wall == WallID.RichMaogany)
 						{
 							num2 = 78;
 						}
-						if (tile.wall == 43)
+						if (tile.wall == WallID.Pearlwood)
 						{
 							num2 = 78;
 						}
-						if (tile.wall == 43)
+						if (tile.wall == WallID.Pearlwood)
 						{
 							num2 = 78;
 						}
-						if (tile.wall == 36)
+						if (tile.wall == WallID.RedStucco)
 						{
 							num2 = 26;
 						}
-						if (tile.wall == 37)
+						if (tile.wall == WallID.YellowStucco)
 						{
 							num2 = 32;
 						}
-						if (tile.wall == 38)
+						if (tile.wall == WallID.GreenStucco)
 						{
 							num2 = 2;
 						}
-						if (tile.wall == 39)
+						if (tile.wall == WallID.Gray)
 						{
 							num2 = 1;
 						}
-						if (tile.wall == 40)
+						if (tile.wall == WallID.SnowWallUnsafe)
 						{
 							num2 = 51;
 						}
-						if (tile.wall == 45)
+						if (tile.wall == WallID.TinBrick)
 						{
 							num2 = 81;
 						}
-						if (tile.wall == 46)
+						if (tile.wall == WallID.TungstenBrick)
 						{
 							num2 = 83;
 						}
-						if (tile.wall == 47)
+						if (tile.wall == WallID.PlatinumBrick)
 						{
 							num2 = 84;
 						}
-						if (tile.wall == 85)
+						if (tile.wall == WallID.Shadewood)
 						{
 							num2 = 126;
 						}
-						if (tile.wall == 59)
+						if (tile.wall == WallID.Cave6Unsafe)
 						{
 							num2 = 0;
 						}
-						if (tile.wall == 61)
+						if (tile.wall == WallID.Cave7Unsafe)
 						{
 							num2 = 0;
 						}
-						if (tile.wall == 62)
+						if (tile.wall == WallID.SpiderUnsafe)
 						{
 							num2 = 0;
 						}
-						if (tile.wall == 63)
+						if (tile.wall == WallID.GrassUnsafe)
 						{
 							num2 = 3;
 						}
-						if (tile.wall == 65)
+						if (tile.wall == WallID.FlowerUnsafe)
 						{
 							num2 = 3;
 						}
-						if (tile.wall == 66)
+						if (tile.wall == WallID.Grass)
 						{
 							num2 = 3;
 						}
-						if (tile.wall == 68)
+						if (tile.wall == WallID.Flower)
 						{
 							num2 = 3;
 						}
-						if (tile.wall == 64)
+						if (tile.wall == WallID.JungleUnsafe)
 						{
 							num2 = 40;
 						}
-						if (tile.wall == 67)
+						if (tile.wall == WallID.Jungle)
 						{
 							num2 = 40;
 						}
-						if (tile.wall == 84)
+						if (tile.wall == WallID.IceBrick)
 						{
 							num2 = 80;
 						}
-						if (tile.wall == 71)
+						if (tile.wall == WallID.IceUnsafe)
 						{
 							num2 = 80;
 						}
-						if (tile.wall == 60)
+						if (tile.wall == WallID.LivingLeaf)
 						{
 							num2 = 3;
 						}
-						if (tile.wall == 71)
+						if (tile.wall == WallID.IceUnsafe)
 						{
 							num2 = 80;
 						}
-						if (tile.wall == 167)
+						if (tile.wall == WallID.TinPlating)
 						{
 							num2 = 81;
 						}
-						if (tile.wall == 147)
+						if (tile.wall == WallID.StoneSlab)
 						{
 							num2 = 51;
 						}
-						if (tile.wall == 146)
+						if (tile.wall == WallID.CopperPlating)
 						{
 							num2 = 9;
 						}
-						if (tile.wall == 109)
+						if (tile.wall == WallID.PalladiumColumn)
 						{
 							num2 = 144;
 						}
-						if (tile.wall == 110)
+						if (tile.wall == WallID.BubblegumBlock)
 						{
 							num2 = 145;
 						}
-						if (tile.wall == 111)
+						if (tile.wall == WallID.TitanstoneBlock)
 						{
 							num2 = 146;
 						}
-						if (tile.wall == 86 || tile.wall == 108)
+						if (tile.wall == WallID.HiveUnsafe || tile.wall == WallID.Hive)
 						{
 							num2 = 147;
 						}
-						if (tile.wall == 87)
+						if (tile.wall == WallID.LihzahrdBrickUnsafe)
 						{
 							num2 = 148;
 						}
-						if (tile.wall == 83)
+						if (tile.wall == WallID.CrimstoneUnsafe)
 						{
 							num2 = 117;
 							if (WorldGen.genRand.Next(2) == 0)
@@ -32653,43 +32653,43 @@ namespace Terraria
 								num2 = 1;
 							}
 						}
-						if (tile.wall == 81)
+						if (tile.wall == WallID.CrimsonGrassUnsafe)
 						{
 							num2 = 123;
 						}
-						if (tile.wall == 136)
+						if (tile.wall == WallID.Waterfall)
 						{
 							num2 = 13;
 						}
-						if (tile.wall == 137)
+						if (tile.wall == WallID.Lavafall)
 						{
 							num2 = 13;
 						}
-						if (tile.wall == 168)
+						if (tile.wall == WallID.Confetti)
 						{
 							num2 = 13;
 						}
-						if (tile.wall == 169)
+						if (tile.wall == WallID.ConfettiBlack)
 						{
 							num2 = 13;
 						}
-						if (tile.wall == 172)
+						if (tile.wall == WallID.Honeyfall)
 						{
 							num2 = 13;
 						}
-						if (tile.wall == 72)
+						if (tile.wall == WallID.Cactus)
 						{
 							num2 = 40;
 						}
-						if (tile.wall == 73)
+						if (tile.wall == WallID.Cloud)
 						{
 							num2 = 16;
 						}
-						if (tile.wall == 74 || tile.wall == 80)
+						if (tile.wall == WallID.Mushroom || tile.wall == WallID.MushroomUnsafe)
 						{
 							num2 = 26;
 						}
-						if (tile.wall == 144)
+						if (tile.wall == WallID.ArcaneRunes)
 						{
 							if (WorldGen.genRand.Next(2) == 0)
 							{
@@ -32700,31 +32700,31 @@ namespace Terraria
 								num2 = 118;
 							}
 						}
-						if (tile.wall == 75)
+						if (tile.wall == WallID.Bone)
 						{
 							num2 = 26;
 						}
-						if (tile.wall == 76)
+						if (tile.wall == WallID.Slime)
 						{
 							num2 = 4;
 						}
-						if (tile.wall == 77 || tile.wall == 81)
+						if (tile.wall == WallID.Flesh || tile.wall == WallID.CrimsonGrassUnsafe)
 						{
 							num2 = 5;
 						}
-						if (tile.wall == 78)
+						if (tile.wall == WallID.LivingWood)
 						{
 							num2 = 7;
 						}
-						if (tile.wall == 79)
+						if (tile.wall == WallID.ObsidianBackUnsafe)
 						{
 							num2 = 37;
 						}
-						if (tile.wall == 82)
+						if (tile.wall == WallID.DiscWall)
 						{
 							num2 = 36;
 						}
-						if (tile.wall == 69)
+						if (tile.wall == WallID.CorruptGrassUnsafe)
 						{
 							if (WorldGen.genRand.Next(2) == 0)
 							{
@@ -32735,11 +32735,11 @@ namespace Terraria
 								num2 = 17;
 							}
 						}
-						if (tile.wall == 70)
+						if (tile.wall == WallID.HallowedGrassUnsafe)
 						{
 							num2 = 47;
 						}
-						if (tile.wall == 27)
+						if (tile.wall == WallID.Planked)
 						{
 							if (WorldGen.genRand.Next(2) == 0)
 							{
@@ -32750,27 +32750,27 @@ namespace Terraria
 								num2 = 1;
 							}
 						}
-						if (tile.wall == 138)
+						if (tile.wall == WallID.EbonwoodFence)
 						{
 							num2 = 77;
 						}
-						if (tile.wall == 139)
+						if (tile.wall == WallID.RichMahoganyFence)
 						{
 							num2 = 78;
 						}
-						if (tile.wall == 140)
+						if (tile.wall == WallID.PearlwoodFence)
 						{
 							num2 = 79;
 						}
-						if (tile.wall == 141)
+						if (tile.wall == WallID.ShadewoodFence)
 						{
 							num2 = 126;
 						}
-						if (tile.wall == 149 || tile.wall == 150)
+						if (tile.wall == WallID.BorealWood || tile.wall == WallID.BorealWoodFence)
 						{
 							num2 = 214;
 						}
-						if (tile.wall == 151 || tile.wall == 152)
+						if (tile.wall == WallID.PalmWood || tile.wall == WallID.PalmWoodFence)
 						{
 							num2 = 215;
 						}
@@ -32781,123 +32781,123 @@ namespace Terraria
 						return;
 					}
 					int num4 = 0;
-					if (tile.wall == 168)
+					if (tile.wall == WallID.Confetti)
 					{
 						num4 = 2696;
 					}
-					if (tile.wall == 169)
+					if (tile.wall == WallID.ConfettiBlack)
 					{
 						num4 = 2698;
 					}
-					if (tile.wall == 142)
+					if (tile.wall == WallID.WhiteDynasty)
 					{
 						num4 = 2263;
 					}
-					if (tile.wall == 143)
+					if (tile.wall == WallID.BlueDynasty)
 					{
 						num4 = 2264;
 					}
-					if (tile.wall == 144)
+					if (tile.wall == WallID.ArcaneRunes)
 					{
 						num4 = 2271;
 					}
-					if (tile.wall == 149)
+					if (tile.wall == WallID.BorealWood)
 					{
 						num4 = 2505;
 					}
-					if (tile.wall == 150)
+					if (tile.wall == WallID.BorealWoodFence)
 					{
 						num4 = 2507;
 					}
-					if (tile.wall == 151)
+					if (tile.wall == WallID.PalmWood)
 					{
 						num4 = 2506;
 					}
-					if (tile.wall == 152)
+					if (tile.wall == WallID.PalmWoodFence)
 					{
 						num4 = 2508;
 					}
-					if (tile.wall == 1)
+					if (tile.wall == WallID.Stone)
 					{
 						num4 = 26;
 					}
-					if (tile.wall == 4)
+					if (tile.wall == WallID.Wood)
 					{
 						num4 = 93;
 					}
-					if (tile.wall == 5)
+					if (tile.wall == WallID.GrayBrick)
 					{
 						num4 = 130;
 					}
-					if (tile.wall == 6)
+					if (tile.wall == WallID.RedBrick)
 					{
 						num4 = 132;
 					}
-					if (tile.wall == 7)
+					if (tile.wall == WallID.BlueDungeonUnsafe)
 					{
 						num4 = 135;
 					}
-					if (tile.wall == 8)
+					if (tile.wall == WallID.GreenDungeonUnsafe)
 					{
 						num4 = 138;
 					}
-					if (tile.wall == 9)
+					if (tile.wall == WallID.PinkDungeonUnsafe)
 					{
 						num4 = 140;
 					}
-					if (tile.wall == 10)
+					if (tile.wall == WallID.GoldBrick)
 					{
 						num4 = 142;
 					}
-					if (tile.wall == 11)
+					if (tile.wall == WallID.SilverBrick)
 					{
 						num4 = 144;
 					}
-					if (tile.wall == 12)
+					if (tile.wall == WallID.CopperBrick)
 					{
 						num4 = 146;
 					}
-					if (tile.wall == 14)
+					if (tile.wall == WallID.ObsidianBrickUnsafe)
 					{
 						num4 = 330;
 					}
-					if (tile.wall == 224)
+					if (tile.wall == WallID.LunarBrickWall)
 					{
 						num4 = 3472;
 					}
-					if (tile.wall == 177)
+					if (tile.wall == WallID.HellstoneBrick)
 					{
 						num4 = 3067;
 					}
-					if (tile.wall == 167)
+					if (tile.wall == WallID.TinPlating)
 					{
 						num4 = 2691;
 					}
-					if (tile.wall == 60)
+					if (tile.wall == WallID.LivingLeaf)
 					{
 						num4 = 3584;
 					}
-					if (tile.wall == 179)
+					if (tile.wall == WallID.MarbleBlock)
 					{
 						num4 = 3083;
 					}
-					if (tile.wall == 183)
+					if (tile.wall == WallID.Marble)
 					{
 						num4 = 3082;
 					}
-					if (tile.wall == 181)
+					if (tile.wall == WallID.GraniteBlock)
 					{
 						num4 = 3089;
 					}
-					if (tile.wall == 184)
+					if (tile.wall == WallID.Granite)
 					{
 						num4 = 3088;
 					}
-					if (tile.wall == 186)
+					if (tile.wall == WallID.Crystal)
 					{
 						num4 = 3238;
 					}
-					if (tile.wall >= 153 && tile.wall <= 166)
+					if (tile.wall >= WallID.AmberGemspark && tile.wall <= WallID.TopazGemspark)
 					{
 						switch (tile.wall)
 						{
@@ -32945,315 +32945,315 @@ namespace Terraria
 								break;
 						}
 					}
-					if (tile.wall == 136)
+					if (tile.wall == WallID.Waterfall)
 					{
 						num4 = 2169;
 					}
-					if (tile.wall == 137)
+					if (tile.wall == WallID.Lavafall)
 					{
 						num4 = 2170;
 					}
-					if (tile.wall == 172)
+					if (tile.wall == WallID.Honeyfall)
 					{
 						num4 = 2788;
 					}
-					if (tile.wall == 145)
+					if (tile.wall == WallID.IronFence)
 					{
 						num4 = 2333;
 					}
-					if (tile.wall == 16)
+					if (tile.wall == WallID.Dirt)
 					{
 						num4 = 30;
 					}
-					if (tile.wall == 17)
+					if (tile.wall == WallID.BlueDungeon)
 					{
 						num4 = 135;
 					}
-					if (tile.wall == 18)
+					if (tile.wall == WallID.GreenDungeon)
 					{
 						num4 = 138;
 					}
-					if (tile.wall == 19)
+					if (tile.wall == WallID.PinkDungeon)
 					{
 						num4 = 140;
 					}
-					if (tile.wall == 20)
+					if (tile.wall == WallID.ObsidianBrick)
 					{
 						num4 = 330;
 					}
-					if (tile.wall == 21)
+					if (tile.wall == WallID.Glass)
 					{
 						num4 = 392;
 					}
-					if (tile.wall == 86 || tile.wall == 108)
+					if (tile.wall == WallID.HiveUnsafe || tile.wall == WallID.Hive)
 					{
 						num4 = 1126;
 					}
-					if (tile.wall == 173)
+					if (tile.wall == WallID.ChlorophyteBrick)
 					{
 						num4 = 2789;
 					}
-					if (tile.wall == 174)
+					if (tile.wall == WallID.CrimtaneBrick)
 					{
 						num4 = 2790;
 					}
-					if (tile.wall == 175)
+					if (tile.wall == WallID.ShroomitePlating)
 					{
 						num4 = 2791;
 					}
-					if (tile.wall == 176)
+					if (tile.wall == WallID.MartianConduit)
 					{
 						num4 = 2861;
 					}
-					if (tile.wall == 182)
+					if (tile.wall == WallID.MeteoriteBrick)
 					{
 						num4 = 3101;
 					}
-					if (tile.wall == 133)
+					if (tile.wall == WallID.BubbleWallpaper)
 					{
 						num4 = 2158;
 					}
-					if (tile.wall == 134)
+					if (tile.wall == WallID.CopperPipeWallpaper)
 					{
 						num4 = 2159;
 					}
-					if (tile.wall == 135)
+					if (tile.wall == WallID.DuckyWallpaper)
 					{
 						num4 = 2160;
 					}
-					else if (tile.wall == 113)
+					else if (tile.wall == WallID.Pumpkin)
 					{
 						num4 = 1726;
 					}
-					else if (tile.wall == 114)
+					else if (tile.wall == WallID.Hay)
 					{
 						num4 = 1728;
 					}
-					else if (tile.wall == 115)
+					else if (tile.wall == WallID.SpookyWood)
 					{
 						num4 = 1730;
 					}
-					else if (tile.wall == 146)
+					else if (tile.wall == WallID.CopperPlating)
 					{
 						num4 = 2432;
 					}
-					else if (tile.wall == 147)
+					else if (tile.wall == WallID.StoneSlab)
 					{
 						num4 = 2433;
 					}
-					else if (tile.wall == 148)
+					else if (tile.wall == WallID.Sail)
 					{
 						num4 = 2434;
 					}
-					if (tile.wall >= 116 && tile.wall <= 125)
+					if (tile.wall >= WallID.ChristmasTreeWallpaper && tile.wall <= WallID.GrinchFingerWallpaper)
 					{
 						num4 = 1948 + (int)tile.wall - 116;
 					}
-					if (tile.wall >= 126 && tile.wall <= 132)
+					if (tile.wall >= WallID.FancyGrayWallpaper && tile.wall <= WallID.StarlitHeavenWallpaper)
 					{
 						num4 = 2008 + (int)tile.wall - 126;
 					}
-					if (tile.wall == 22)
+					if (tile.wall == WallID.PearlstoneBrick)
 					{
 						num4 = 417;
 					}
-					if (tile.wall == 23)
+					if (tile.wall == WallID.IridescentBrick)
 					{
 						num4 = 418;
 					}
-					if (tile.wall == 24)
+					if (tile.wall == WallID.MudstoneBrick)
 					{
 						num4 = 419;
 					}
-					if (tile.wall == 25)
+					if (tile.wall == WallID.CobaltBrick)
 					{
 						num4 = 420;
 					}
-					if (tile.wall == 26)
+					if (tile.wall == WallID.MythrilBrick)
 					{
 						num4 = 421;
 					}
-					if (tile.wall == 29)
+					if (tile.wall == WallID.CandyCane)
 					{
 						num4 = 587;
 					}
-					if (tile.wall == 30)
+					if (tile.wall == WallID.GreenCandyCane)
 					{
 						num4 = 592;
 					}
-					if (tile.wall == 31)
+					if (tile.wall == WallID.SnowBrick)
 					{
 						num4 = 595;
 					}
-					if (tile.wall == 32)
+					if (tile.wall == WallID.AdamantiteBeam)
 					{
 						num4 = 605;
 					}
-					if (tile.wall == 33)
+					if (tile.wall == WallID.DemoniteBrick)
 					{
 						num4 = 606;
 					}
-					if (tile.wall == 34)
+					if (tile.wall == WallID.SandstoneBrick)
 					{
 						num4 = 608;
 					}
-					if (tile.wall == 35)
+					if (tile.wall == WallID.EbonstoneBrick)
 					{
 						num4 = 610;
 					}
-					if (tile.wall == 36)
+					if (tile.wall == WallID.RedStucco)
 					{
 						num4 = 615;
 					}
-					if (tile.wall == 37)
+					if (tile.wall == WallID.YellowStucco)
 					{
 						num4 = 616;
 					}
-					if (tile.wall == 38)
+					if (tile.wall == WallID.GreenStucco)
 					{
 						num4 = 617;
 					}
-					if (tile.wall == 39)
+					if (tile.wall == WallID.Gray)
 					{
 						num4 = 618;
 					}
-					if (tile.wall == 41)
+					if (tile.wall == WallID.Ebonwood)
 					{
 						num4 = 622;
 					}
-					if (tile.wall == 42)
+					if (tile.wall == WallID.RichMaogany)
 					{
 						num4 = 623;
 					}
-					if (tile.wall == 43)
+					if (tile.wall == WallID.Pearlwood)
 					{
 						num4 = 624;
 					}
-					if (tile.wall == 44)
+					if (tile.wall == WallID.RainbowBrick)
 					{
 						num4 = 663;
 					}
-					if (tile.wall == 45)
+					if (tile.wall == WallID.TinBrick)
 					{
 						num4 = 720;
 					}
-					if (tile.wall == 46)
+					if (tile.wall == WallID.TungstenBrick)
 					{
 						num4 = 721;
 					}
-					if (tile.wall == 47)
+					if (tile.wall == WallID.PlatinumBrick)
 					{
 						num4 = 722;
 					}
-					if (tile.wall == 66)
+					if (tile.wall == WallID.Grass)
 					{
 						num4 = 745;
 					}
-					if (tile.wall == 67)
+					if (tile.wall == WallID.Jungle)
 					{
 						num4 = 746;
 					}
-					if (tile.wall == 68)
+					if (tile.wall == WallID.Flower)
 					{
 						num4 = 747;
 					}
-					if (tile.wall == 84)
+					if (tile.wall == WallID.IceBrick)
 					{
 						num4 = 884;
 					}
-					if (tile.wall == 72)
+					if (tile.wall == WallID.Cactus)
 					{
 						num4 = 750;
 					}
-					if (tile.wall == 73)
+					if (tile.wall == WallID.Cloud)
 					{
 						num4 = 752;
 					}
-					if (tile.wall == 74)
+					if (tile.wall == WallID.Mushroom)
 					{
 						num4 = 764;
 					}
-					if (tile.wall == 85)
+					if (tile.wall == WallID.Shadewood)
 					{
 						num4 = 927;
 					}
-					if (tile.wall == 75)
+					if (tile.wall == WallID.Bone)
 					{
 						num4 = 768;
 					}
-					if (tile.wall == 76)
+					if (tile.wall == WallID.Slime)
 					{
 						num4 = 769;
 					}
-					if (tile.wall == 77)
+					if (tile.wall == WallID.Flesh)
 					{
 						num4 = 770;
 					}
-					if (tile.wall == 82)
+					if (tile.wall == WallID.DiscWall)
 					{
 						num4 = 825;
 					}
-					if (tile.wall == 27)
+					if (tile.wall == WallID.Planked)
 					{
 						num4 = 479;
 					}
-					if (tile.wall == 106)
+					if (tile.wall == WallID.WoodenFence)
 					{
 						num4 = 1447;
 					}
-					if (tile.wall == 107)
+					if (tile.wall == WallID.MetalFence)
 					{
 						num4 = 1448;
 					}
-					if (tile.wall == 109)
+					if (tile.wall == WallID.PalladiumColumn)
 					{
 						num4 = 1590;
 					}
-					if (tile.wall == 110)
+					if (tile.wall == WallID.BubblegumBlock)
 					{
 						num4 = 1592;
 					}
-					if (tile.wall == 111)
+					if (tile.wall == WallID.TitanstoneBlock)
 					{
 						num4 = 1594;
 					}
-					if (tile.wall == 78)
+					if (tile.wall == WallID.LivingWood)
 					{
 						num4 = 1723;
 					}
-					if (tile.wall == 87 || tile.wall == 112)
+					if (tile.wall == WallID.LihzahrdBrickUnsafe || tile.wall == WallID.LihzahrdBrick)
 					{
 						num4 = 1102;
 					}
-					if (tile.wall == 94 || tile.wall == 100)
+					if (tile.wall == WallID.BlueDungeonSlabUnsafe || tile.wall == WallID.BlueDungeonSlab)
 					{
 						num4 = 1378;
 					}
-					if (tile.wall == 95 || tile.wall == 101)
+					if (tile.wall == WallID.BlueDungeonTileUnsafe || tile.wall == WallID.BlueDungeonTile)
 					{
 						num4 = 1379;
 					}
-					if (tile.wall == 96 || tile.wall == 102)
+					if (tile.wall == WallID.PinkDungeonSlabUnsafe || tile.wall == WallID.PinkDungeonSlab)
 					{
 						num4 = 1380;
 					}
-					if (tile.wall == 97 || tile.wall == 103)
+					if (tile.wall == WallID.PinkDungeonTileUnsafe || tile.wall == WallID.PinkDungeonTile)
 					{
 						num4 = 1381;
 					}
-					if (tile.wall == 98 || tile.wall == 104)
+					if (tile.wall == WallID.GreenDungeonSlabUnsafe || tile.wall == WallID.GreenDungeonSlab)
 					{
 						num4 = 1382;
 					}
-					if (tile.wall == 99 || tile.wall == 105)
+					if (tile.wall == WallID.GreenDungeonTileUnsafe || tile.wall == WallID.GreenDungeonTile)
 					{
 						num4 = 1383;
 					}
-					if (tile.wall >= 88 && tile.wall <= 93)
+					if (tile.wall >= WallID.PurpleStainedGlass && tile.wall <= WallID.RainbowStainedGlass)
 					{
 						num4 = 1267 + (int)tile.wall - 88;
 					}
-					if (tile.wall >= 138 && tile.wall <= 141)
+					if (tile.wall >= WallID.EbonwoodFence && tile.wall <= WallID.ShadewoodFence)
 					{
 						num4 = 2210 + (int)tile.wall - 138;
 					}
@@ -35558,7 +35558,7 @@ namespace Terraria
 							return;
 						}
 					}
-					if (tile.type == TileID.Cobweb && tile.wall == 62 && WorldGen.genRand.Next(4) != 0)
+					if (tile.type == TileID.Cobweb && tile.wall == WallID.SpiderUnsafe && WorldGen.genRand.Next(4) != 0)
 					{
 						noItem = true;
 					}
@@ -38323,7 +38323,7 @@ namespace Terraria
 						else if (num10 < num2 * 0.75 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.005))
 						{
 							Main.tile[k, l].liquid = 0;
-							if (Main.tile[k, l].wall != 86)
+							if (Main.tile[k, l].wall != WallID.HiveUnsafe)
 							{
 								Main.tile[k, l].active(true);
 								Main.tile[k, l].halfBrick(false);
@@ -38537,7 +38537,7 @@ namespace Terraria
 			{
 				for (int n = num20; n < num21; n++)
 				{
-					if (Main.tile[m, n].wall == 27 && !Main.tile[m, n].active())
+					if (Main.tile[m, n].wall == WallID.Planked && !Main.tile[m, n].active())
 					{
 						if (Main.tile[m - 1, n].wall != 27 && m < i && !WorldGen.SolidTile(m - 1, n))
 						{
@@ -38787,7 +38787,7 @@ namespace Terraria
 				{
 					for (int num53 = num20; num53 < num21; num53++)
 					{
-						if (Main.tile[num50, num53].wall == 27 && !Main.tile[num50, num53].active())
+						if (Main.tile[num50, num53].wall == WallID.Planked && !Main.tile[num50, num53].active())
 						{
 							WorldGen.PlaceTile(num50, num53, 124, true, false, -1, 0);
 						}
@@ -38799,7 +38799,7 @@ namespace Terraria
 			{
 				int num55 = WorldGen.genRand.Next(num18 + 2, num19 - 1);
 				int num56 = WorldGen.genRand.Next(num20 + 2, num21 - 1);
-				while (Main.tile[num55, num56].wall != 27)
+				while (Main.tile[num55, num56].wall != WallID.Planked)
 				{
 					num55 = WorldGen.genRand.Next(num18 + 2, num19 - 1);
 					num56 = WorldGen.genRand.Next(num20 + 2, num21 - 1);
@@ -38813,7 +38813,7 @@ namespace Terraria
 					num56++;
 				}
 				num56--;
-				if (Main.tile[num55, num56].wall == 27)
+				if (Main.tile[num55, num56].wall == WallID.Planked)
 				{
 					if (WorldGen.genRand.Next(3) == 0)
 					{
@@ -38867,7 +38867,7 @@ namespace Terraria
 			{
 				int num60 = WorldGen.genRand.Next(num18 + 2, num19 - 1);
 				int num61 = WorldGen.genRand.Next(num20 + 2, num21 - 1);
-				while (Main.tile[num60, num61].wall != 27)
+				while (Main.tile[num60, num61].wall != WallID.Planked)
 				{
 					num60 = WorldGen.genRand.Next(num18 + 2, num19 - 1);
 					num61 = WorldGen.genRand.Next(num20 + 2, num21 - 1);
@@ -38881,7 +38881,7 @@ namespace Terraria
 					num61++;
 				}
 				num61--;
-				if (Main.tile[num60, num61].wall == 27 && WorldGen.genRand.Next(2) == 0)
+				if (Main.tile[num60, num61].wall == WallID.Planked && WorldGen.genRand.Next(2) == 0)
 				{
 					int style2 = WorldGen.genRand.Next(22, 26);
 					WorldGen.PlaceTile(num60, num61, 186, true, false, -1, style2);
@@ -38891,7 +38891,7 @@ namespace Terraria
 			{
 				int num63 = WorldGen.genRand.Next(num18 + 2, num19 - 1);
 				int num64 = WorldGen.genRand.Next(num20 + 2, num21 - 1);
-				while (Main.tile[num63, num64].wall != 27)
+				while (Main.tile[num63, num64].wall != WallID.Planked)
 				{
 					num63 = WorldGen.genRand.Next(num18 + 2, num19 - 1);
 					num64 = WorldGen.genRand.Next(num20 + 2, num21 - 1);
@@ -38905,7 +38905,7 @@ namespace Terraria
 					num64++;
 				}
 				num64--;
-				if (Main.tile[num63, num64].wall == 27 && WorldGen.genRand.Next(2) == 0)
+				if (Main.tile[num63, num64].wall == WallID.Planked && WorldGen.genRand.Next(2) == 0)
 				{
 					int x = WorldGen.genRand.Next(31, 34);
 					WorldGen.PlaceSmallPile(num63, num64, x, 1, 185);
@@ -38915,7 +38915,7 @@ namespace Terraria
 			{
 				int num66 = WorldGen.genRand.Next(num18 + 2, num19 - 1);
 				int num67 = WorldGen.genRand.Next(num20 + 2, num21 - 1);
-				while (Main.tile[num66, num67].wall != 27)
+				while (Main.tile[num66, num67].wall != WallID.Planked)
 				{
 					num66 = WorldGen.genRand.Next(num18 + 2, num19 - 1);
 					num67 = WorldGen.genRand.Next(num20 + 2, num21 - 1);
@@ -38928,7 +38928,7 @@ namespace Terraria
 				{
 					num67--;
 				}
-				if (Main.tile[num66, num67].wall == 27)
+				if (Main.tile[num66, num67].wall == WallID.Planked)
 				{
 					int style3 = 0;
 					int num68 = WorldGen.genRand.Next(10);
@@ -39754,7 +39754,7 @@ namespace Terraria
 					}
 					else if (flag && WorldGen.spawnNPC > 0)
 					{
-						if (Main.tile[num7, num8].wall == 34)
+						if (Main.tile[num7, num8].wall == WallID.SandstoneBrick)
 						{
 							if (Main.rand.Next(4) == 0)
 							{
@@ -39766,11 +39766,11 @@ namespace Terraria
 							WorldGen.SpawnNPC(num7, num8);
 						}
 					}
-					if (Main.tile[num7, num8].wall == 81 || Main.tile[num7, num8].wall == 83 || (Main.tile[num7, num8].type == TileID.FleshGrass && Main.tile[num7, num8].active()))
+					if (Main.tile[num7, num8].wall == WallID.CrimsonGrassUnsafe || Main.tile[num7, num8].wall == WallID.CrimstoneUnsafe || (Main.tile[num7, num8].type == TileID.FleshGrass && Main.tile[num7, num8].active()))
 					{
 						int num35 = num7 + WorldGen.genRand.Next(-2, 3);
 						int num36 = num8 + WorldGen.genRand.Next(-2, 3);
-						if (Main.tile[num35, num36].wall >= 63 && Main.tile[num35, num36].wall <= 68)
+						if (Main.tile[num35, num36].wall >= WallID.GrassUnsafe && Main.tile[num35, num36].wall <= WallID.Flower)
 						{
 							bool flag4 = false;
 							for (int num37 = num7 - num; num37 < num7 + num; num37++)
@@ -39798,11 +39798,11 @@ namespace Terraria
 							}
 						}
 					}
-					if (Main.tile[num7, num8].wall == 69 || Main.tile[num7, num8].wall == 3 || (Main.tile[num7, num8].type == TileID.CorruptGrass && Main.tile[num7, num8].active()))
+					if (Main.tile[num7, num8].wall == WallID.CorruptGrassUnsafe || Main.tile[num7, num8].wall == WallID.EbonstoneUnsafe || (Main.tile[num7, num8].type == TileID.CorruptGrass && Main.tile[num7, num8].active()))
 					{
 						int num39 = num7 + WorldGen.genRand.Next(-2, 3);
 						int num40 = num8 + WorldGen.genRand.Next(-2, 3);
-						if (Main.tile[num39, num40].wall >= 63 && Main.tile[num39, num40].wall <= 68)
+						if (Main.tile[num39, num40].wall >= WallID.GrassUnsafe && Main.tile[num39, num40].wall <= WallID.Flower)
 						{
 							bool flag5 = false;
 							for (int num41 = num7 - num; num41 < num7 + num; num41++)
@@ -39830,11 +39830,11 @@ namespace Terraria
 							}
 						}
 					}
-					if (Main.tile[num7, num8].wall == 70 || (Main.tile[num7, num8].type == TileID.HallowedGrass && Main.tile[num7, num8].active()))
+					if (Main.tile[num7, num8].wall == WallID.HallowedGrassUnsafe || (Main.tile[num7, num8].type == TileID.HallowedGrass && Main.tile[num7, num8].active()))
 					{
 						int num43 = num7 + WorldGen.genRand.Next(-2, 3);
 						int num44 = num8 + WorldGen.genRand.Next(-2, 3);
-						if (Main.tile[num43, num44].wall == 63 || Main.tile[num43, num44].wall == 65 || Main.tile[num43, num44].wall == 66 || Main.tile[num43, num44].wall == 68)
+						if (Main.tile[num43, num44].wall == WallID.GrassUnsafe || Main.tile[num43, num44].wall == WallID.FlowerUnsafe || Main.tile[num43, num44].wall == WallID.Grass || Main.tile[num43, num44].wall == WallID.Flower)
 						{
 							bool flag6 = false;
 							for (int num45 = num7 - num; num45 < num7 + num; num45++)
@@ -40645,7 +40645,7 @@ namespace Terraria
 						}
 						else
 						{
-							if (Main.tile[num64, num65].wall == 62 && Main.tile[num64, num65].liquid == 0 && WorldGen.genRand.Next(10) == 0)
+							if (Main.tile[num64, num65].wall == WallID.SpiderUnsafe && Main.tile[num64, num65].liquid == 0 && WorldGen.genRand.Next(10) == 0)
 							{
 								int num116 = WorldGen.genRand.Next(2, 4);
 								int num117 = num64 - num116;
@@ -40676,7 +40676,7 @@ namespace Terraria
 							}
 							if (flag && WorldGen.spawnNPC > 0)
 							{
-								if (Main.tile[num64, num65].wall == 34)
+								if (Main.tile[num64, num65].wall == WallID.SandstoneBrick)
 								{
 									if (Main.rand.Next(4) == 0)
 									{
@@ -40690,11 +40690,11 @@ namespace Terraria
 							}
 						}
 					}
-					if (Main.tile[num64, num65].wall == 81 || Main.tile[num64, num65].wall == 83 || (Main.tile[num64, num65].type == TileID.FleshGrass && Main.tile[num64, num65].active()))
+					if (Main.tile[num64, num65].wall == WallID.CrimsonGrassUnsafe || Main.tile[num64, num65].wall == WallID.CrimstoneUnsafe || (Main.tile[num64, num65].type == TileID.FleshGrass && Main.tile[num64, num65].active()))
 					{
 						int num123 = num64 + WorldGen.genRand.Next(-2, 3);
 						int num124 = num65 + WorldGen.genRand.Next(-2, 3);
-						if (Main.tile[num123, num124].wall >= 63 && Main.tile[num123, num124].wall <= 68)
+						if (Main.tile[num123, num124].wall >= WallID.GrassUnsafe && Main.tile[num123, num124].wall <= WallID.Flower)
 						{
 							bool flag23 = false;
 							for (int num125 = num64 - num; num125 < num64 + num; num125++)
@@ -40722,11 +40722,11 @@ namespace Terraria
 							}
 						}
 					}
-					if (Main.tile[num64, num65].wall == 69 || Main.tile[num64, num65].wall == 3 || (Main.tile[num64, num65].type == TileID.CorruptGrass && Main.tile[num64, num65].active()))
+					if (Main.tile[num64, num65].wall == WallID.CorruptGrassUnsafe || Main.tile[num64, num65].wall == WallID.EbonstoneUnsafe || (Main.tile[num64, num65].type == TileID.CorruptGrass && Main.tile[num64, num65].active()))
 					{
 						int num127 = num64 + WorldGen.genRand.Next(-2, 3);
 						int num128 = num65 + WorldGen.genRand.Next(-2, 3);
-						if (Main.tile[num127, num128].wall >= 63 && Main.tile[num127, num128].wall <= 68)
+						if (Main.tile[num127, num128].wall >= WallID.GrassUnsafe && Main.tile[num127, num128].wall <= WallID.Flower)
 						{
 							bool flag24 = false;
 							for (int num129 = num64 - num; num129 < num64 + num; num129++)
@@ -40754,11 +40754,11 @@ namespace Terraria
 							}
 						}
 					}
-					if (Main.tile[num64, num65].wall == 70 || (Main.tile[num64, num65].type == TileID.HallowedGrass && Main.tile[num64, num65].active()))
+					if (Main.tile[num64, num65].wall == WallID.HallowedGrassUnsafe || (Main.tile[num64, num65].type == TileID.HallowedGrass && Main.tile[num64, num65].active()))
 					{
 						int num131 = num64 + WorldGen.genRand.Next(-2, 3);
 						int num132 = num65 + WorldGen.genRand.Next(-2, 3);
-						if (Main.tile[num131, num132].wall == 63 || Main.tile[num131, num132].wall == 65 || Main.tile[num131, num132].wall == 66 || Main.tile[num131, num132].wall == 68)
+						if (Main.tile[num131, num132].wall == WallID.GrassUnsafe || Main.tile[num131, num132].wall == WallID.FlowerUnsafe || Main.tile[num131, num132].wall == WallID.Grass || Main.tile[num131, num132].wall == WallID.Flower)
 						{
 							bool flag25 = false;
 							for (int num133 = num64 - num; num133 < num64 + num; num133++)
@@ -40949,7 +40949,7 @@ namespace Terraria
 			{
 				Main.tile[i, j] = new Tile();
 			}
-			if (Main.tile[i, j].wall == 0)
+			if (Main.tile[i, j].wall == WallID.None)
 			{
 				Main.tile[i, j].wall = (byte)type;
 				WorldGen.SquareWallFrame(i, j, true);
@@ -41198,7 +41198,7 @@ namespace Terraria
 				{
 					for (int n = num5; n < num6; n++)
 					{
-						if ((double)(Math.Abs((float)m - value.X) + Math.Abs((float)n - value.Y)) < num2 * 1.1 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[m, n].wall != 3)
+						if ((double)(Math.Abs((float)m - value.X) + Math.Abs((float)n - value.Y)) < num2 * 1.1 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[m, n].wall != WallID.EbonstoneUnsafe)
 						{
 							if (Main.tile[m, n].type != TileID.Ebonstone && n > j + WorldGen.genRand.Next(3, 20))
 							{
@@ -41209,7 +41209,7 @@ namespace Terraria
 							{
 								Main.tile[m, n].type = 25;
 							}
-							if (Main.tile[m, n].wall == 2)
+							if (Main.tile[m, n].wall == WallID.DirtUnsafe)
 							{
 								Main.tile[m, n].wall = 0;
 							}
@@ -41220,7 +41220,7 @@ namespace Terraria
 				{
 					for (int num8 = num5; num8 < num6; num8++)
 					{
-						if ((double)(Math.Abs((float)num7 - value.X) + Math.Abs((float)num8 - value.Y)) < num2 * 1.1 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[num7, num8].wall != 3)
+						if ((double)(Math.Abs((float)num7 - value.X) + Math.Abs((float)num8 - value.Y)) < num2 * 1.1 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[num7, num8].wall != WallID.EbonstoneUnsafe)
 						{
 							if (Main.tile[num7, num8].type != TileID.ShadowOrbs && Main.tile[num7, num8].type != TileID.Demonite)
 							{
@@ -41292,7 +41292,7 @@ namespace Terraria
 								Main.tile[num5, num6].active(false);
 								Main.tile[num5, num6].wall = 83;
 							}
-							else if ((double)(Math.Abs((float)num5 - vector.X) + Math.Abs((float)num6 - vector.Y)) < (double)num3 * 0.8 && Main.tile[num5, num6].wall != 83)
+							else if ((double)(Math.Abs((float)num5 - vector.X) + Math.Abs((float)num6 - vector.Y)) < (double)num3 * 0.8 && Main.tile[num5, num6].wall != WallID.CrimstoneUnsafe)
 							{
 								Main.tile[num5, num6].active(true);
 								Main.tile[num5, num6].type = 203;
@@ -41377,7 +41377,7 @@ namespace Terraria
 							Main.tile[num9, num10].active(false);
 							Main.tile[num9, num10].wall = 83;
 						}
-						else if (num15 < (double)num3 * 0.4 && Main.tile[num9, num10].wall != 83)
+						else if (num15 < (double)num3 * 0.4 && Main.tile[num9, num10].wall != WallID.CrimstoneUnsafe)
 						{
 							Main.tile[num9, num10].active(true);
 							Main.tile[num9, num10].type = 203;
@@ -41522,7 +41522,7 @@ namespace Terraria
 							{
 								num37 = num43;
 							}
-							if (Main.tile[num43, num44].wall != 83)
+							if (Main.tile[num43, num44].wall != WallID.CrimstoneUnsafe)
 							{
 								Main.tile[num43, num44].active(true);
 								Main.tile[num43, num44].type = 203;
@@ -41540,12 +41540,12 @@ namespace Terraria
 			for (int num50 = num36; num50 <= num37; num50++)
 			{
 				int num51 = num2;
-				while ((Main.tile[num50, num51].type == TileID.Crimstone && Main.tile[num50, num51].active()) || Main.tile[num50, num51].wall == 83)
+				while ((Main.tile[num50, num51].type == TileID.Crimstone && Main.tile[num50, num51].active()) || Main.tile[num50, num51].wall == WallID.CrimstoneUnsafe)
 				{
 					num51++;
 				}
 				int num52 = WorldGen.genRand.Next(15, 20);
-				while (!Main.tile[num50, num51].active() && num52 > 0 && Main.tile[num50, num51].wall != 83)
+				while (!Main.tile[num50, num51].active() && num52 > 0 && Main.tile[num50, num51].wall != WallID.CrimstoneUnsafe)
 				{
 					num52--;
 					Main.tile[num50, num51].type = 203;
@@ -41638,7 +41638,7 @@ namespace Terraria
 							Main.tile[num3, num4].active(false);
 							Main.tile[num3, num4].wall = 83;
 						}
-						else if (num7 < (double)num * 0.5 && Main.tile[num3, num4].wall != 83)
+						else if (num7 < (double)num * 0.5 && Main.tile[num3, num4].wall != WallID.CrimstoneUnsafe)
 						{
 							Main.tile[num3, num4].active(true);
 							Main.tile[num3, num4].type = 203;
@@ -41923,7 +41923,7 @@ namespace Terraria
 					{
 						num4 = 5;
 					}
-					if (Main.tile[num3, num4].wall == 0 && !Main.tile[num3, num4].active() && Main.tile[num3, num4 - 3].wall == 0 && !Main.tile[num3, num4 - 3].active() && Main.tile[num3, num4 - 1].wall == 0 && !Main.tile[num3, num4 - 1].active() && Main.tile[num3, num4 - 4].wall == 0 && !Main.tile[num3, num4 - 4].active() && Main.tile[num3, num4 - 2].wall == 0 && !Main.tile[num3, num4 - 2].active() && Main.tile[num3, num4 - 5].wall == 0 && !Main.tile[num3, num4 - 5].active())
+					if (Main.tile[num3, num4].wall == WallID.None && !Main.tile[num3, num4].active() && Main.tile[num3, num4 - 3].wall == 0 && !Main.tile[num3, num4 - 3].active() && Main.tile[num3, num4 - 1].wall == 0 && !Main.tile[num3, num4 - 1].active() && Main.tile[num3, num4 - 4].wall == 0 && !Main.tile[num3, num4 - 4].active() && Main.tile[num3, num4 - 2].wall == 0 && !Main.tile[num3, num4 - 2].active() && Main.tile[num3, num4 - 5].wall == 0 && !Main.tile[num3, num4 - 5].active())
 					{
 						flag = false;
 					}
@@ -42057,19 +42057,19 @@ namespace Terraria
 						{
 							if (good)
 							{
-								if (Main.tile[k, l].wall == 63 || Main.tile[k, l].wall == 65 || Main.tile[k, l].wall == 66 || Main.tile[k, l].wall == 68 || Main.tile[k, l].wall == 69 || Main.tile[k, l].wall == 81)
+								if (Main.tile[k, l].wall == WallID.GrassUnsafe || Main.tile[k, l].wall == WallID.FlowerUnsafe || Main.tile[k, l].wall == WallID.Grass || Main.tile[k, l].wall == WallID.Flower || Main.tile[k, l].wall == WallID.CorruptGrassUnsafe || Main.tile[k, l].wall == WallID.CrimsonGrassUnsafe)
 								{
 									Main.tile[k, l].wall = 70;
 								}
-								else if (Main.tile[k, l].wall == 216)
+								else if (Main.tile[k, l].wall == WallID.HardenedSand)
 								{
 									Main.tile[k, l].wall = 219;
 								}
-								else if (Main.tile[k, l].wall == 187)
+								else if (Main.tile[k, l].wall == WallID.Sandstone)
 								{
 									Main.tile[k, l].wall = 222;
 								}
-								if (Main.tile[k, l].wall == 3 || Main.tile[k, l].wall == 83)
+								if (Main.tile[k, l].wall == WallID.EbonstoneUnsafe || Main.tile[k, l].wall == WallID.CrimstoneUnsafe)
 								{
 									Main.tile[k, l].wall = 28;
 								}
@@ -42121,15 +42121,15 @@ namespace Terraria
 							}
 							else if (WorldGen.crimson)
 							{
-								if (Main.tile[k, l].wall == 63 || Main.tile[k, l].wall == 65 || Main.tile[k, l].wall == 66 || Main.tile[k, l].wall == 68)
+								if (Main.tile[k, l].wall == WallID.GrassUnsafe || Main.tile[k, l].wall == WallID.FlowerUnsafe || Main.tile[k, l].wall == WallID.Grass || Main.tile[k, l].wall == WallID.Flower)
 								{
 									Main.tile[k, l].wall = 81;
 								}
-								else if (Main.tile[k, l].wall == 216)
+								else if (Main.tile[k, l].wall == WallID.HardenedSand)
 								{
 									Main.tile[k, l].wall = 218;
 								}
-								else if (Main.tile[k, l].wall == 187)
+								else if (Main.tile[k, l].wall == WallID.Sandstone)
 								{
 									Main.tile[k, l].wall = 221;
 								}
@@ -42181,15 +42181,15 @@ namespace Terraria
 							}
 							else
 							{
-								if (Main.tile[k, l].wall == 63 || Main.tile[k, l].wall == 65 || Main.tile[k, l].wall == 66 || Main.tile[k, l].wall == 68)
+								if (Main.tile[k, l].wall == WallID.GrassUnsafe || Main.tile[k, l].wall == WallID.FlowerUnsafe || Main.tile[k, l].wall == WallID.Grass || Main.tile[k, l].wall == WallID.Flower)
 								{
 									Main.tile[k, l].wall = 69;
 								}
-								else if (Main.tile[k, l].wall == 216)
+								else if (Main.tile[k, l].wall == WallID.HardenedSand)
 								{
 									Main.tile[k, l].wall = 217;
 								}
-								else if (Main.tile[k, l].wall == 187)
+								else if (Main.tile[k, l].wall == WallID.Sandstone)
 								{
 									Main.tile[k, l].wall = 220;
 								}
@@ -42636,7 +42636,7 @@ namespace Terraria
 				{
 					for (int l = num7; l < num8; l++)
 					{
-						if ((double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < num * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[k, l].wall == 2)
+						if ((double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < num * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015) && Main.tile[k, l].wall == WallID.DirtUnsafe)
 						{
 							Main.tile[k, l].wall = 59;
 						}
@@ -43734,7 +43734,7 @@ namespace Terraria
 		public static void IslandHouse(int i, int j)
 		{
 			byte type = 202;
-			byte wall = 82;
+			byte wall = WallID.DiscWall;
 			Vector2 vector = new Vector2((float)i, (float)j);
 			int num = 1;
 			if (WorldGen.genRand.Next(2) == 0)
@@ -43812,7 +43812,7 @@ namespace Terraria
 			{
 				for (int num8 = num6; num8 < num7; num8++)
 				{
-					if ((num8 != num6 || (n != num4 && n != num5)) && Main.tile[n, num8].wall == 0)
+					if ((num8 != num6 || (n != num4 && n != num5)) && Main.tile[n, num8].wall == WallID.None)
 					{
 						Main.tile[n, num8].active(false);
 						Main.tile[n, num8].wall = wall;

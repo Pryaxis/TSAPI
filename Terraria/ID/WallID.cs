@@ -476,16 +476,16 @@ namespace Terraria.ID
 			{
 				WallID.Sets.Factory = new SetFactory(225);
 				SetFactory factory = WallID.Sets.Factory;
-				int[] numArray = new int[] { 88, 89, 90, 91, 92 };
+				int[] numArray = new int[] { WallID.PurpleStainedGlass, WallID.YellowStainedGlass, WallID.BlueStainedGlass, WallID.GreenStainedGlass, WallID.RedStainedGlass };
 				WallID.Sets.Transparent = factory.CreateBoolSet(numArray);
 				SetFactory setFactory = WallID.Sets.Factory;
-				int[] numArray1 = new int[] { 69, 217, 220, 3 };
+				int[] numArray1 = new int[] { WallID.CorruptGrassUnsafe, WallID.CorruptHardenedSand, WallID.CorruptSandstone, WallID.EbonstoneUnsafe };
 				WallID.Sets.Corrupt = setFactory.CreateBoolSet(numArray1);
 				SetFactory factory1 = WallID.Sets.Factory;
-				int[] numArray2 = new int[] { 83, 81, 218, 221 };
+				int[] numArray2 = new int[] { WallID.CrimstoneUnsafe, WallID.CrimsonGrassUnsafe, WallID.CrimsonHardenedSand, WallID.CrimsonSandstone };
 				WallID.Sets.Crimson = factory1.CreateBoolSet(numArray2);
 				SetFactory setFactory1 = WallID.Sets.Factory;
-				int[] numArray3 = new int[] { 70, 219, 222, 28 };
+				int[] numArray3 = new int[] { WallID.HallowedGrassUnsafe, WallID.HallowHardenedSand, WallID.HallowSandstone, WallID.PearlstoneBrickUnsafe };
 				WallID.Sets.Hallow = setFactory1.CreateBoolSet(numArray3);
 			}
 
@@ -502,16 +502,16 @@ namespace Terraria.ID
 				static Conversion()
 				{
 					SetFactory factory = WallID.Sets.Factory;
-					int[] numArray = new int[] { 63, 64, 65, 66, 67, 68, 69, 70, 81 };
+					int[] numArray = new int[] { WallID.GrassUnsafe, WallID.JungleUnsafe, WallID.FlowerUnsafe, WallID.Grass, WallID.Jungle, WallID.Flower, WallID.CorruptGrassUnsafe, WallID.HallowedGrassUnsafe, WallID.CrimsonGrassUnsafe };
 					WallID.Sets.Conversion.Grass = factory.CreateBoolSet(numArray);
 					SetFactory setFactory = WallID.Sets.Factory;
-					int[] numArray1 = new int[] { 1, 3, 28, 83 };
+					int[] numArray1 = new int[] { WallID.Stone, WallID.EbonstoneUnsafe, WallID.PearlstoneBrickUnsafe, WallID.CrimstoneUnsafe };
 					WallID.Sets.Conversion.Stone = setFactory.CreateBoolSet(numArray1);
 					SetFactory factory1 = WallID.Sets.Factory;
-					int[] numArray2 = new int[] { 187, 220, 222, 221 };
+					int[] numArray2 = new int[] { WallID.Sandstone, WallID.CorruptSandstone, WallID.HallowSandstone, WallID.CrimsonSandstone };
 					WallID.Sets.Conversion.Sandstone = factory1.CreateBoolSet(numArray2);
 					SetFactory setFactory1 = WallID.Sets.Factory;
-					int[] numArray3 = new int[] { 216, 217, 219, 218 };
+					int[] numArray3 = new int[] { WallID.HardenedSand, WallID.CorruptHardenedSand, WallID.HallowHardenedSand, WallID.CrimsonHardenedSand };
 					WallID.Sets.Conversion.HardenedSand = setFactory1.CreateBoolSet(numArray3);
 				}
 			}

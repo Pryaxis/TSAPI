@@ -1240,7 +1240,7 @@ namespace Terraria
 							else
 							{
 								int num71 = i - tile.frameX / 18;
-								if (tile.wall == 87 && (double)j > Main.worldSurface && !NPC.downedPlantBoss)
+								if (tile.wall == WallID.LihzahrdBrickUnsafe && (double)j > Main.worldSurface && !NPC.downedPlantBoss)
 								{
 									return;
 								}

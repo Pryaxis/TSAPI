@@ -1,4 +1,5 @@
 using System;
+using Terraria.ID;
 
 namespace Terraria
 {
@@ -204,7 +205,7 @@ namespace Terraria
 								flag = true;
 							}
 						}
-						else if (tile.wall == 0)
+						else if (tile.wall == WallID.None)
 						{
 							hitTileObject.Clear();
 							flag = true;

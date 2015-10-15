@@ -922,7 +922,7 @@ namespace Terraria
 							num2++;
 						}
 					}
-					if (tile.wall != 0)
+					if (tile.wall != WallID.None)
 					{
 						b2 |= 4;
 						array[num2] = tile.wall;

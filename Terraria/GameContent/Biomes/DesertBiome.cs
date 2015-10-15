@@ -318,7 +318,7 @@ namespace Terraria.GameContent.Biomes
 						tile.wall = 187;
 					}
 					tile.active(true);
-					if (tile.wall != 187)
+					if (tile.wall != WallID.Sandstone)
 					{
 						tile.wall = 0;
 					}

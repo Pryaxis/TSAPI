@@ -1,5 +1,6 @@
 using System;
 using Terraria.DataStructures;
+using Terraria.ID;
 
 namespace Terraria
 {
@@ -293,7 +294,7 @@ namespace Terraria
 			}
 			WorldGen.UpdateMapTile(i, j, true);
 			Tile tile = Main.tile[i, j];
-			if (tile.wall == 0)
+			if (tile.wall == WallID.None)
 			{
 				tile.wallColor(0);
 				return;
