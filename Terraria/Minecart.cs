@@ -1,6 +1,7 @@
 
 using System;
 using System.Runtime.CompilerServices;
+using Terraria.ID;
 
 namespace Terraria
 {
@@ -184,7 +185,7 @@ namespace Terraria
 				tile = new Tile();
 				Main.tile[i, j] = tile;
 			}
-			if (mute && tile.type != 314)
+			if (mute && tile.type != TileID.MinecartTrack)
 			{
 				return false;
 			}
@@ -452,7 +453,7 @@ namespace Terraria
 		public static bool GetOnTrack(int tileX, int tileY, ref Vector2 Position, int Width, int Height)
 		{
 			Tile tile = Main.tile[tileX, tileY];
-			if (tile.type != 314)
+			if (tile.type != TileID.MinecartTrack)
 			{
 				return false;
 			}
@@ -547,7 +548,7 @@ namespace Terraria
 			int x = (int)(vector21.X / 16f);
 			int y = (int)(vector21.Y / 16f);
 			Wiring.HitSwitch(x, y);
-			NetMessage.SendData(59, -1, -1, "", x, (float)y, 0f, 0f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.HitSwitch, -1, -1, "", x, (float)y, 0f, 0f, 0, 0, 0);
 		}
 
 		public static void Initialize()
@@ -1040,7 +1041,7 @@ namespace Terraria
 			Vector2 vector2 = position + Minecart._trackMagnetOffset;
 			int x = (int)(vector2.X / 16f);
 			int y = (int)(vector2.Y / 16f);
-			return Main.tile[x, y].type == 314;
+			return Main.tile[x, y].type == TileID.MinecartTrack;
 		}
 
 		public static void PlaceTrack(Tile trackCache, int style)
@@ -1157,7 +1158,7 @@ namespace Terraria
 						tile = new Tile();
 						Main.tile[x1, y1] = tile;
 					}
-					flag = (!tile.nactive() || tile.type != 314 ? false : true);
+					flag = (!tile.nactive() || tile.type != TileID.MinecartTrack ? false : true);
 				}
 				if (flag)
 				{
@@ -1679,7 +1680,7 @@ namespace Terraria
 						}
 					}
 					tile = (i1 % 2 != 0 ? Main.tile[i + 1, j + num1] : Main.tile[i - 1, j + num1]);
-					if (tile == null || !tile.active() || tile.type != 314)
+					if (tile == null || !tile.active() || tile.type != TileID.MinecartTrack)
 					{
 						num2 = 0;
 					}

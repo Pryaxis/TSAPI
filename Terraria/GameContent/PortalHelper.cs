@@ -194,14 +194,14 @@ namespace Terraria.GameContent
 			for (int i = 0; i < 1000; i++)
 			{
 				Projectile projectile = Main.projectile[i];
-				if (projectile.active && projectile.type == 602)
+				if (projectile.active && projectile.type == ProjectileID.PortalGunGate)
 				{
 					PortalHelper.GetPortalEdges(projectile.Center, projectile.ai[0], out vector22, out vector23);
 					if ((int)Collision.CheckLinevLine(vector2, vector21, vector22, vector23).Length > 0)
 					{
 						if (projectile.owner != Main.myPlayer)
 						{
-							NetMessage.SendData(95, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.KillPortal, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 						}
 						projectile.Kill();
 					}
@@ -214,7 +214,7 @@ namespace Terraria.GameContent
 			for (int i = 0; i < 1000; i++)
 			{
 				Projectile projectile = Main.projectile[i];
-				if (projectile.active && projectile.type == 602 && projectile.owner == Main.myPlayer && projectile.ai[1] == (float)form)
+				if (projectile.active && projectile.type == ProjectileID.PortalGunGate && projectile.owner == Main.myPlayer && projectile.ai[1] == (float)form)
 				{
 					projectile.Kill();
 					return;
@@ -355,7 +355,7 @@ namespace Terraria.GameContent
 			for (int i = 0; i < 1000; i++)
 			{
 				Projectile projectile = Main.projectile[i];
-				if (projectile.active && (projectile.type == 602 || projectile.type == 601))
+				if (projectile.active && (projectile.type == ProjectileID.PortalGunGate || projectile.type == ProjectileID.PortalGunBolt))
 				{
 					Vector2 center = projectile.Center;
 					int sectionX = Netplay.GetSectionX((int)(center.X / 16f));
@@ -452,8 +452,8 @@ namespace Terraria.GameContent
 												player.Teleport(portalOutingPoint, 4, num5);
 												if (Main.netMode == 1)
 												{
-													NetMessage.SendData(96, -1, -1, "", player.whoAmI, portalOutingPoint.X, portalOutingPoint.Y, (float)num5, 0, 0, 0);
-													NetMessage.SendData(13, -1, -1, "", player.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.PlayerTeleportPortal, -1, -1, "", player.whoAmI, portalOutingPoint.X, portalOutingPoint.Y, (float)num5, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.PlayerUpdate, -1, -1, "", player.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 												}
 												PortalHelper.PortalCooldownForPlayers[i] = 10;
 												return;
@@ -465,8 +465,8 @@ namespace Terraria.GameContent
 												nPC.Teleport(portalOutingPoint, 4, num5);
 												if (Main.netMode == 1)
 												{
-													NetMessage.SendData(100, -1, -1, "", nPC.whoAmI, portalOutingPoint.X, portalOutingPoint.Y, (float)num5, 0, 0, 0);
-													NetMessage.SendData(23, -1, -1, "", nPC.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.NpcTeleportPortal, -1, -1, "", nPC.whoAmI, portalOutingPoint.X, portalOutingPoint.Y, (float)num5, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", nPC.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 												}
 												PortalHelper.PortalCooldownForPlayers[i] = 10;
 											}
@@ -548,7 +548,7 @@ namespace Terraria.GameContent
 				Projectile projectile = Main.projectile[l];
 				if (projectile.owner < 0 || projectile.owner >= PortalHelper.FoundPortals.GetLength(0))
 					continue;
-				if (projectile.active && projectile.type == 602 && projectile.ai[1] >= 0f && projectile.ai[1] <= 1f)
+				if (projectile.active && projectile.type == ProjectileID.PortalGunGate && projectile.ai[1] >= 0f && projectile.ai[1] <= 1f)
 				{
 					PortalHelper.FoundPortals[projectile.owner, (int)projectile.ai[1]] = l;
 				}

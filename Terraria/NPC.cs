@@ -80,7 +80,7 @@ namespace Terraria
 		public bool dontCountMe;
 		public int[] buffType = new int[5];
 		public int[] buffTime = new int[5];
-		public bool[] buffImmune = new bool[191];
+		public bool[] buffImmune = new bool[BuffID.Count];
 		public bool midas;
 		public bool ichor;
 		public bool onFire;
@@ -257,7 +257,7 @@ namespace Terraria
 		{
 			get
 			{
-				return (this.townNPC || this.type == 453) && this.aiStyle == 7 && this.velocity.Y == 0f;
+				return (this.townNPC || this.type == NPCID.SkeletonMerchant) && this.aiStyle == 7 && this.velocity.Y == 0f;
 			}
 		}
 		public bool HasValidTarget
@@ -1860,7 +1860,7 @@ namespace Terraria
 		public int GetBossHeadSpriteEffects()
 		{
 			//SpriteEffect result = SpriteEffects.None;
-			if (this.type == 491 && this.spriteDirection == 1)
+			if (this.type == NPCID.PirateShip && this.spriteDirection == 1)
 			{
 				//result = SpriteEffects.FlipHorizontally;
 				return -1;
@@ -3144,7 +3144,7 @@ namespace Terraria
 				this.buffImmune[l] = false;
 			}
 			this.setFrameSize = false;
-			this.buffImmune[31] = true;
+			this.buffImmune[BuffID.Confused] = true;
 			this.netSkip = -2;
 			this.realLife = -1;
 			this.lifeRegen = 0;
@@ -3223,7 +3223,7 @@ namespace Terraria
 			{
 				this.localAI[n] = 0f;
 			}
-			if (this.type == 1)
+			if (this.type == NPCID.BlueSlime)
 			{
 				this.name = "Blue Slime";
 				this.width = 24;
@@ -3237,10 +3237,10 @@ namespace Terraria
 				this.alpha = 175;
 				this.color = new Color(0, 80, 255, 100);
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 2)
+			else if (this.type == NPCID.DemonEye)
 			{
 				this.name = "Demon Eye";
 				this.width = 30;
@@ -3253,9 +3253,9 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 75f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 3)
+			else if (this.type == NPCID.Zombie)
 			{
 				this.name = "Zombie";
 				this.width = 18;
@@ -3268,9 +3268,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 60f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 430)
+			else if (this.type == NPCID.ArmedZombie)
 			{
 				this.name = "Zombie";
 				this.width = 18;
@@ -3283,9 +3283,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 60f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 431)
+			else if (this.type == NPCID.ArmedZombieEskimo)
 			{
 				this.name = "Zombie Eskimo";
 				this.width = 18;
@@ -3298,9 +3298,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 80f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 432)
+			else if (this.type == NPCID.ArmedZombiePincussion)
 			{
 				this.name = "Pincushion Zombie";
 				this.displayName = "Zombie";
@@ -3314,9 +3314,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 65f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 433)
+			else if (this.type == NPCID.ArmedZombieSlimed)
 			{
 				this.name = "Slimed Zombie";
 				this.displayName = "Zombie";
@@ -3330,9 +3330,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 55f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 434)
+			else if (this.type == NPCID.ArmedZombieSwamp)
 			{
 				this.name = "Swamp Zombie";
 				this.displayName = "Zombie";
@@ -3346,9 +3346,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 80f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 435)
+			else if (this.type == NPCID.ArmedZombieTwiggy)
 			{
 				this.name = "Twiggy Zombie";
 				this.displayName = "Zombie";
@@ -3362,9 +3362,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 70f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 436)
+			else if (this.type == NPCID.ArmedZombieCenx)
 			{
 				this.name = "Female Zombie";
 				this.displayName = "Zombie";
@@ -3378,9 +3378,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 65f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 4)
+			else if (this.type == NPCID.EyeofCthulhu)
 			{
 				this.name = "Eye of Cthulhu";
 				this.width = 100;
@@ -3399,7 +3399,7 @@ namespace Terraria
 				this.value = 30000f;
 				this.npcSlots = 5f;
 			}
-			else if (this.type == 5)
+			else if (this.type == NPCID.ServantofCthulhu)
 			{
 				this.name = "Servant of Cthulhu";
 				this.width = 20;
@@ -3413,7 +3413,7 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 			}
-			else if (this.type == 6)
+			else if (this.type == NPCID.EaterofSouls)
 			{
 				this.npcSlots = 1f;
 				this.name = "Eater of Souls";
@@ -3429,7 +3429,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 90f;
 			}
-			else if (this.type == 7)
+			else if (this.type == NPCID.DevourerHead)
 			{
 				this.displayName = "Devourer";
 				this.npcSlots = 3.5f;
@@ -3449,7 +3449,7 @@ namespace Terraria
 				this.value = 140f;
 				this.netAlways = true;
 			}
-			else if (this.type == 8)
+			else if (this.type == NPCID.DevourerBody)
 			{
 				this.displayName = "Devourer";
 				this.name = "Devourer Body";
@@ -3469,7 +3469,7 @@ namespace Terraria
 				this.value = 140f;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 9)
+			else if (this.type == NPCID.DevourerTail)
 			{
 				this.displayName = "Devourer";
 				this.name = "Devourer Tail";
@@ -3489,7 +3489,7 @@ namespace Terraria
 				this.value = 140f;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 10)
+			else if (this.type == NPCID.GiantWormHead)
 			{
 				this.displayName = "Giant Worm";
 				this.name = "Giant Worm Head";
@@ -3508,7 +3508,7 @@ namespace Terraria
 				this.behindTiles = true;
 				this.value = 40f;
 			}
-			else if (this.type == 11)
+			else if (this.type == NPCID.GiantWormBody)
 			{
 				this.displayName = "Giant Worm";
 				this.name = "Giant Worm Body";
@@ -3528,7 +3528,7 @@ namespace Terraria
 				this.value = 40f;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 12)
+			else if (this.type == NPCID.GiantWormTail)
 			{
 				this.displayName = "Giant Worm";
 				this.name = "Giant Worm Tail";
@@ -3548,7 +3548,7 @@ namespace Terraria
 				this.value = 40f;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 13)
+			else if (this.type == NPCID.EaterofWorldsHead)
 			{
 				this.displayName = "Eater of Worlds";
 				this.npcSlots = 5f;
@@ -3568,11 +3568,11 @@ namespace Terraria
 				this.behindTiles = true;
 				this.value = 300f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 14)
+			else if (this.type == NPCID.EaterofWorldsBody)
 			{
 				this.displayName = "Eater of Worlds";
 				this.name = "Eater of Worlds Body";
@@ -3591,12 +3591,12 @@ namespace Terraria
 				this.behindTiles = true;
 				this.value = 300f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 15)
+			else if (this.type == NPCID.EaterofWorldsTail)
 			{
 				this.displayName = "Eater of Worlds";
 				this.name = "Eater of Worlds Tail";
@@ -3615,12 +3615,12 @@ namespace Terraria
 				this.behindTiles = true;
 				this.value = 300f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 16)
+			else if (this.type == NPCID.MotherSlime)
 			{
 				this.npcSlots = 2f;
 				this.name = "Mother Slime";
@@ -3637,10 +3637,10 @@ namespace Terraria
 				this.value = 75f;
 				this.scale = 1.25f;
 				this.knockBackResist = 0.6f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 17)
+			else if (this.type == NPCID.Merchant)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -3655,7 +3655,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 18)
+			else if (this.type == NPCID.Nurse)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -3670,7 +3670,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 19)
+			else if (this.type == NPCID.ArmsDealer)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -3685,7 +3685,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 20)
+			else if (this.type == NPCID.Dryad)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -3700,7 +3700,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 21)
+			else if (this.type == NPCID.Skeleton)
 			{
 				this.name = "Skeleton";
 				this.width = 18;
@@ -3713,10 +3713,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 100f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 22)
+			else if (this.type == NPCID.Guide)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -3731,7 +3731,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 23)
+			else if (this.type == NPCID.MeteorHead)
 			{
 				this.name = "Meteor Head";
 				this.width = 22;
@@ -3746,11 +3746,11 @@ namespace Terraria
 				this.noTileCollide = true;
 				this.value = 80f;
 				this.knockBackResist = 0.4f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 24)
+			else if (this.type == NPCID.FireImp)
 			{
 				this.npcSlots = 3f;
 				this.name = "Fire Imp";
@@ -3765,10 +3765,10 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.lavaImmune = true;
 				this.value = 350f;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 25)
+			else if (this.type == NPCID.BurningSphere)
 			{
 				this.name = "Burning Sphere";
 				this.width = 16;
@@ -3784,7 +3784,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.alpha = 100;
 			}
-			else if (this.type == 31)
+			else if (this.type == NPCID.AngryBones)
 			{
 				this.name = "Angry Bones";
 				this.width = 18;
@@ -3797,10 +3797,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.8f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 32)
+			else if (this.type == NPCID.DarkCaster)
 			{
 				this.name = "Dark Caster";
 				this.width = 18;
@@ -3814,9 +3814,9 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.value = 140f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 33)
+			else if (this.type == NPCID.WaterSphere)
 			{
 				this.name = "Water Sphere";
 				this.width = 16;
@@ -3832,7 +3832,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.knockBackResist = 0f;
 			}
-			else if (this.type == 34)
+			else if (this.type == NPCID.CursedSkull)
 			{
 				this.name = "Cursed Skull";
 				this.width = 26;
@@ -3848,11 +3848,11 @@ namespace Terraria
 				this.value = 150f;
 				this.knockBackResist = 0.2f;
 				this.npcSlots = 0.75f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 35)
+			else if (this.type == NPCID.SkeletronHead)
 			{
 				this.displayName = "Skeletron";
 				this.name = "Skeletron Head";
@@ -3870,12 +3870,12 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.boss = true;
 				this.npcSlots = 6f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[189] = (this.buffImmune[169] = (this.buffImmune[183] = true));
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Daybreak] = (this.buffImmune[BuffID.BoneJavelin] = (this.buffImmune[BuffID.StardustMinionBleed] = true));
 			}
-			else if (this.type == 36)
+			else if (this.type == NPCID.SkeletronHand)
 			{
 				this.displayName = "Skeletron";
 				this.name = "Skeletron Hand";
@@ -3890,11 +3890,11 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 37)
+			else if (this.type == NPCID.OldMan)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -3909,7 +3909,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 38)
+			else if (this.type == NPCID.Demolitionist)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -3924,7 +3924,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 39)
+			else if (this.type == NPCID.BoneSerpentHead)
 			{
 				this.npcSlots = 6f;
 				this.name = "Bone Serpent Head";
@@ -3943,11 +3943,11 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.behindTiles = true;
 				this.value = 1200f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 40)
+			else if (this.type == NPCID.BoneSerpentBody)
 			{
 				this.name = "Bone Serpent Body";
 				this.displayName = "Bone Serpent";
@@ -3965,12 +3965,12 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.behindTiles = true;
 				this.value = 1200f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 41)
+			else if (this.type == NPCID.BoneSerpentTail)
 			{
 				this.name = "Bone Serpent Tail";
 				this.displayName = "Bone Serpent";
@@ -3988,12 +3988,12 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.behindTiles = true;
 				this.value = 1200f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 42)
+			else if (this.type == NPCID.Hornet)
 			{
 				this.name = "Hornet";
 				this.width = 34;
@@ -4007,9 +4007,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 43)
+			else if (this.type == NPCID.ManEater)
 			{
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -4024,9 +4024,9 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.soundKilled = 1;
 				this.value = 350f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 44)
+			else if (this.type == NPCID.UndeadMiner)
 			{
 				this.name = "Undead Miner";
 				this.width = 18;
@@ -4039,10 +4039,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 250f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 45)
+			else if (this.type == NPCID.Tim)
 			{
 				this.name = "Tim";
 				this.width = 18;
@@ -4055,10 +4055,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 5000f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.rarity = 4;
 			}
-			else if (this.type == 46 || this.type == 303 || this.type == 337)
+			else if (this.type == NPCID.Bunny || this.type == NPCID.BunnySlimed || this.type == NPCID.BunnyXmas)
 			{
 				this.name = "Bunny";
 				this.width = 18;
@@ -4071,7 +4071,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.catchItem = 2019;
 			}
-			else if (this.type == 47)
+			else if (this.type == NPCID.CorruptBunny)
 			{
 				this.name = "Corrupt Bunny";
 				this.width = 18;
@@ -4083,9 +4083,9 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 48)
+			else if (this.type == NPCID.Harpy)
 			{
 				this.name = "Harpy";
 				this.width = 24;
@@ -4099,7 +4099,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 300f;
 			}
-			else if (this.type == 49)
+			else if (this.type == NPCID.CaveBat)
 			{
 				this.npcSlots = 0.5f;
 				this.name = "Cave Bat";
@@ -4113,9 +4113,9 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 4;
 				this.value = 90f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 50)
+			else if (this.type == NPCID.KingSlime)
 			{
 				this.boss = true;
 				this.name = "King Slime";
@@ -4131,10 +4131,10 @@ namespace Terraria
 				this.alpha = 30;
 				this.value = 10000f;
 				this.scale = 1.25f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.timeLeft = NPC.activeTime * 30;
 			}
-			else if (this.type == 51)
+			else if (this.type == NPCID.JungleBat)
 			{
 				this.npcSlots = 0.5f;
 				this.name = "Jungle Bat";
@@ -4148,9 +4148,9 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 4;
 				this.value = 80f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 52)
+			else if (this.type == NPCID.DoctorBones)
 			{
 				this.name = "Doctor Bones";
 				this.width = 18;
@@ -4163,10 +4163,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 2;
 			}
-			else if (this.type == 53)
+			else if (this.type == NPCID.TheGroom)
 			{
 				this.name = "The Groom";
 				this.width = 18;
@@ -4179,10 +4179,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 2;
 			}
-			else if (this.type == 54)
+			else if (this.type == NPCID.Clothier)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -4197,7 +4197,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 55)
+			else if (this.type == NPCID.Goldfish)
 			{
 				this.noGravity = true;
 				this.name = "Goldfish";
@@ -4212,7 +4212,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.catchItem = 261;
 			}
-			else if (this.type == 56)
+			else if (this.type == NPCID.Snatcher)
 			{
 				this.noTileCollide = true;
 				this.noGravity = true;
@@ -4227,9 +4227,9 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.soundKilled = 1;
 				this.value = 90f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 57)
+			else if (this.type == NPCID.CorruptGoldfish)
 			{
 				this.noGravity = true;
 				this.name = "Corrupt Goldfish";
@@ -4243,7 +4243,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 500f;
 			}
-			else if (this.type == 58)
+			else if (this.type == NPCID.Piranha)
 			{
 				this.npcSlots = 0.5f;
 				this.noGravity = true;
@@ -4258,7 +4258,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 50f;
 			}
-			else if (this.type == 59)
+			else if (this.type == NPCID.LavaSlime)
 			{
 				this.name = "Lava Slime";
 				this.width = 24;
@@ -4273,12 +4273,12 @@ namespace Terraria
 				this.alpha = 50;
 				this.lavaImmune = true;
 				this.value = 120f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 60)
+			else if (this.type == NPCID.Hellbat)
 			{
 				this.npcSlots = 0.5f;
 				this.name = "Hellbat";
@@ -4294,11 +4294,11 @@ namespace Terraria
 				this.value = 120f;
 				this.scale = 1.1f;
 				this.lavaImmune = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 61)
+			else if (this.type == NPCID.Vulture)
 			{
 				this.name = "Vulture";
 				this.width = 36;
@@ -4312,7 +4312,7 @@ namespace Terraria
 				this.soundKilled = 31;
 				this.value = 60f;
 			}
-			else if (this.type == 62)
+			else if (this.type == NPCID.Demon)
 			{
 				this.npcSlots = 2f;
 				this.name = "Demon";
@@ -4327,10 +4327,10 @@ namespace Terraria
 				this.soundKilled = 24;
 				this.value = 300f;
 				this.lavaImmune = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 63)
+			else if (this.type == NPCID.BlueJellyfish)
 			{
 				this.noGravity = true;
 				this.name = "Blue Jellyfish";
@@ -4345,7 +4345,7 @@ namespace Terraria
 				this.value = 100f;
 				this.alpha = 20;
 			}
-			else if (this.type == 64)
+			else if (this.type == NPCID.PinkJellyfish)
 			{
 				this.noGravity = true;
 				this.name = "Pink Jellyfish";
@@ -4360,7 +4360,7 @@ namespace Terraria
 				this.value = 100f;
 				this.alpha = 20;
 			}
-			else if (this.type == 65)
+			else if (this.type == NPCID.Shark)
 			{
 				this.noGravity = true;
 				this.name = "Shark";
@@ -4375,7 +4375,7 @@ namespace Terraria
 				this.value = 400f;
 				this.knockBackResist = 0.7f;
 			}
-			else if (this.type == 66)
+			else if (this.type == NPCID.VoodooDemon)
 			{
 				this.npcSlots = 2f;
 				this.name = "Voodoo Demon";
@@ -4390,10 +4390,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 1000f;
 				this.lavaImmune = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 67)
+			else if (this.type == NPCID.Crab)
 			{
 				this.name = "Crab";
 				this.width = 28;
@@ -4406,7 +4406,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 60f;
 			}
-			else if (this.type == 68)
+			else if (this.type == NPCID.DungeonGuardian)
 			{
 				this.name = "Dungeon Guardian";
 				this.width = 80;
@@ -4420,12 +4420,12 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[189] = (this.buffImmune[169] = (this.buffImmune[183] = true));
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Daybreak] = (this.buffImmune[BuffID.BoneJavelin] = (this.buffImmune[BuffID.StardustMinionBleed] = true));
 			}
-			else if (this.type == 69)
+			else if (this.type == NPCID.Antlion)
 			{
 				this.name = "Antlion";
 				this.width = 24;
@@ -4440,7 +4440,7 @@ namespace Terraria
 				this.value = 60f;
 				this.behindTiles = true;
 			}
-			else if (this.type == 70)
+			else if (this.type == NPCID.SpikeBall)
 			{
 				this.npcSlots = 0.3f;
 				this.name = "Spike Ball";
@@ -4458,7 +4458,7 @@ namespace Terraria
 				this.dontTakeDamage = true;
 				this.scale = 1.5f;
 			}
-			else if (this.type == 71)
+			else if (this.type == NPCID.DungeonSlime)
 			{
 				this.npcSlots = 2f;
 				this.name = "Dungeon Slime";
@@ -4474,11 +4474,11 @@ namespace Terraria
 				this.value = 150f;
 				this.scale = 1.25f;
 				this.knockBackResist = 0.6f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 1;
 			}
-			else if (this.type == 72)
+			else if (this.type == NPCID.BlazingWheel)
 			{
 				this.npcSlots = 0.3f;
 				this.name = "Blazing Wheel";
@@ -4496,11 +4496,11 @@ namespace Terraria
 				this.noGravity = true;
 				this.dontTakeDamage = true;
 				this.scale = 1.2f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 73)
+			else if (this.type == NPCID.GoblinScout)
 			{
 				this.name = "Goblin Scout";
 				this.scale = 0.95f;
@@ -4514,10 +4514,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.7f;
 				this.value = 200f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 1;
 			}
-			else if (this.type == 74 || this.type == 297 || this.type == 298)
+			else if (this.type == NPCID.Bird || this.type == NPCID.BirdBlue || this.type == NPCID.BirdRed)
 			{
 				this.name = "Bird";
 				this.width = 14;
@@ -4529,21 +4529,21 @@ namespace Terraria
 				this.soundHit = 1;
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
-				if (this.type == 74)
+				if (this.type == NPCID.Bird)
 				{
 					this.catchItem = 2015;
 				}
-				if (this.type == 297)
+				if (this.type == NPCID.BirdBlue)
 				{
 					this.catchItem = 2016;
 				}
-				if (this.type == 298)
+				if (this.type == NPCID.BirdRed)
 				{
 					this.catchItem = 2017;
 				}
 				this.npcSlots = 0.4f;
 			}
-			else if (this.type == 75)
+			else if (this.type == NPCID.Pixie)
 			{
 				this.noGravity = true;
 				this.name = "Pixie";
@@ -4557,12 +4557,12 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.soundKilled = 7;
 				this.value = 350f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 77)
+			else if (this.type == NPCID.ArmoredSkeleton)
 			{
 				this.name = "Armored Skeleton";
 				this.width = 18;
@@ -4575,10 +4575,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 78)
+			else if (this.type == NPCID.Mummy)
 			{
 				this.name = "Mummy";
 				this.width = 18;
@@ -4591,9 +4591,9 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.6f;
 				this.value = 600f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 79)
+			else if (this.type == NPCID.DarkMummy)
 			{
 				this.name = "Dark Mummy";
 				this.width = 18;
@@ -4606,9 +4606,9 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.5f;
 				this.value = 700f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 80)
+			else if (this.type == NPCID.LightMummy)
 			{
 				this.name = "Light Mummy";
 				this.width = 18;
@@ -4621,9 +4621,9 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.55f;
 				this.value = 700f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 81)
+			else if (this.type == NPCID.CorruptSlime)
 			{
 				this.name = "Corrupt Slime";
 				this.width = 40;
@@ -4637,10 +4637,10 @@ namespace Terraria
 				this.alpha = 55;
 				this.value = 400f;
 				this.scale = 1.1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 82)
+			else if (this.type == NPCID.Wraith)
 			{
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -4655,12 +4655,12 @@ namespace Terraria
 				this.soundKilled = 52;
 				this.alpha = 100;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.7f;
 			}
-			else if (this.type == 83)
+			else if (this.type == NPCID.CursedHammer)
 			{
 				this.name = "Cursed Hammer";
 				this.width = 40;
@@ -4672,12 +4672,12 @@ namespace Terraria
 				this.soundHit = 4;
 				this.soundKilled = 6;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.4f;
 			}
-			else if (this.type == 84)
+			else if (this.type == NPCID.EnchantedSword)
 			{
 				this.name = "Enchanted Sword";
 				this.width = 40;
@@ -4689,12 +4689,12 @@ namespace Terraria
 				this.soundHit = 4;
 				this.soundKilled = 6;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.4f;
 			}
-			else if (this.type == 85)
+			else if (this.type == NPCID.Mimic)
 			{
 				this.name = "Mimic";
 				this.width = 24;
@@ -4707,12 +4707,12 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.value = 100000f;
 				this.knockBackResist = 0.3f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.rarity = 4;
 			}
-			else if (this.type == 86)
+			else if (this.type == NPCID.Unicorn)
 			{
 				this.name = "Unicorn";
 				this.width = 46;
@@ -4725,9 +4725,9 @@ namespace Terraria
 				this.soundKilled = 18;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 87)
+			else if (this.type == NPCID.WyvernHead)
 			{
 				this.displayName = "Wyvern";
 				this.noTileCollide = true;
@@ -4746,11 +4746,11 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 88)
+			else if (this.type == NPCID.WyvernLegs)
 			{
 				this.displayName = "Wyvern";
 				this.noTileCollide = true;
@@ -4768,12 +4768,12 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 89)
+			else if (this.type == NPCID.WyvernBody)
 			{
 				this.displayName = "Wyvern";
 				this.noTileCollide = true;
@@ -4791,12 +4791,12 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 2000f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 90)
+			else if (this.type == NPCID.WyvernBody2)
 			{
 				this.displayName = "Wyvern";
 				this.noTileCollide = true;
@@ -4814,12 +4814,12 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 91)
+			else if (this.type == NPCID.WyvernBody3)
 			{
 				this.displayName = "Wyvern";
 				this.noTileCollide = true;
@@ -4837,12 +4837,12 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 92)
+			else if (this.type == NPCID.WyvernTail)
 			{
 				this.displayName = "Wyvern";
 				this.noTileCollide = true;
@@ -4860,12 +4860,12 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.value = 10000f;
 				this.scale = 1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 93)
+			else if (this.type == NPCID.GiantBat)
 			{
 				this.npcSlots = 0.5f;
 				this.name = "Giant Bat";
@@ -4879,9 +4879,9 @@ namespace Terraria
 				this.knockBackResist = 0.75f;
 				this.soundKilled = 4;
 				this.value = 400f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 94)
+			else if (this.type == NPCID.Corruptor)
 			{
 				this.npcSlots = 1f;
 				this.name = "Corruptor";
@@ -4897,7 +4897,7 @@ namespace Terraria
 				this.knockBackResist = 0.55f;
 				this.value = 500f;
 			}
-			else if (this.type == 95)
+			else if (this.type == NPCID.DiggerHead)
 			{
 				this.displayName = "Digger";
 				this.name = "Digger Head";
@@ -4917,7 +4917,7 @@ namespace Terraria
 				this.scale = 0.9f;
 				this.value = 300f;
 			}
-			else if (this.type == 96)
+			else if (this.type == NPCID.DiggerBody)
 			{
 				this.displayName = "Digger";
 				this.name = "Digger Body";
@@ -4938,7 +4938,7 @@ namespace Terraria
 				this.value = 300f;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 97)
+			else if (this.type == NPCID.DiggerTail)
 			{
 				this.displayName = "Digger";
 				this.name = "Digger Tail";
@@ -4959,7 +4959,7 @@ namespace Terraria
 				this.value = 300f;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 98)
+			else if (this.type == NPCID.SeekerHead)
 			{
 				this.displayName = "World Feeder";
 				this.npcSlots = 3.5f;
@@ -4979,7 +4979,7 @@ namespace Terraria
 				this.behindTiles = true;
 				this.value = 700f;
 			}
-			else if (this.type == 99)
+			else if (this.type == NPCID.SeekerBody)
 			{
 				this.displayName = "World Feeder";
 				this.name = "Seeker Body";
@@ -4999,7 +4999,7 @@ namespace Terraria
 				this.value = 700f;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 100)
+			else if (this.type == NPCID.SeekerTail)
 			{
 				this.displayName = "World Feeder";
 				this.name = "Seeker Tail";
@@ -5019,7 +5019,7 @@ namespace Terraria
 				this.value = 700f;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 101)
+			else if (this.type == NPCID.Clinger)
 			{
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -5036,7 +5036,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 600f;
 			}
-			else if (this.type == 102)
+			else if (this.type == NPCID.AnglerFish)
 			{
 				this.npcSlots = 0.5f;
 				this.noGravity = true;
@@ -5051,7 +5051,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 500f;
 			}
-			else if (this.type == 103)
+			else if (this.type == NPCID.GreenJellyfish)
 			{
 				this.noGravity = true;
 				this.name = "Green Jellyfish";
@@ -5066,7 +5066,7 @@ namespace Terraria
 				this.value = 800f;
 				this.alpha = 20;
 			}
-			else if (this.type == 104)
+			else if (this.type == NPCID.Werewolf)
 			{
 				this.name = "Werewolf";
 				this.width = 18;
@@ -5079,9 +5079,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 105)
+			else if (this.type == NPCID.BoundGoblin)
 			{
 				this.friendly = true;
 				this.name = "Bound Goblin";
@@ -5097,7 +5097,7 @@ namespace Terraria
 				this.scale = 0.9f;
 				this.rarity = 1;
 			}
-			else if (this.type == 106)
+			else if (this.type == NPCID.BoundWizard)
 			{
 				this.friendly = true;
 				this.name = "Bound Wizard";
@@ -5112,7 +5112,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.rarity = 1;
 			}
-			else if (this.type == 107)
+			else if (this.type == NPCID.GoblinTinkerer)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -5128,7 +5128,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.scale = 0.9f;
 			}
-			else if (this.type == 108)
+			else if (this.type == NPCID.Wizard)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -5143,7 +5143,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 109)
+			else if (this.type == NPCID.Clown)
 			{
 				this.name = "Clown";
 				this.width = 34;
@@ -5157,7 +5157,7 @@ namespace Terraria
 				this.knockBackResist = 0.4f;
 				this.value = 8000f;
 			}
-			else if (this.type == 110)
+			else if (this.type == NPCID.SkeletonArcher)
 			{
 				this.name = "Skeleton Archer";
 				this.width = 18;
@@ -5170,10 +5170,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 112)
+			else if (this.type == NPCID.VileSpit)
 			{
 				this.name = "Vile Spit";
 				this.width = 16;
@@ -5190,7 +5190,7 @@ namespace Terraria
 				this.scale = 0.9f;
 				this.alpha = 80;
 			}
-			else if (this.type == 113)
+			else if (this.type == NPCID.WallofFlesh)
 			{
 				this.npcSlots = 10f;
 				this.name = "Wall of Flesh";
@@ -5208,12 +5208,12 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.scale = 1.2f;
 				this.boss = true;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.value = 80000f;
 			}
-			else if (this.type == 114)
+			else if (this.type == NPCID.WallofFleshEye)
 			{
 				this.name = "Wall of Flesh Eye";
 				this.displayName = "Wall of Flesh";
@@ -5230,12 +5230,12 @@ namespace Terraria
 				this.behindTiles = true;
 				this.knockBackResist = 0f;
 				this.scale = 1.2f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.value = 80000f;
 			}
-			else if (this.type == 115)
+			else if (this.type == NPCID.TheHungry)
 			{
 				this.name = "The Hungry";
 				this.width = 30;
@@ -5251,7 +5251,7 @@ namespace Terraria
 				this.noTileCollide = true;
 				this.knockBackResist = 1.1f;
 			}
-			else if (this.type == 116)
+			else if (this.type == NPCID.TheHungryII)
 			{
 				this.name = "The Hungry II";
 				this.displayName = "The Hungry";
@@ -5265,7 +5265,7 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 12;
 			}
-			else if (this.type == 117)
+			else if (this.type == NPCID.LeechHead)
 			{
 				this.displayName = "Leech";
 				this.name = "Leech Head";
@@ -5283,7 +5283,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.behindTiles = true;
 			}
-			else if (this.type == 118)
+			else if (this.type == NPCID.LeechBody)
 			{
 				this.displayName = "Leech";
 				this.name = "Leech Body";
@@ -5301,7 +5301,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.behindTiles = true;
 			}
-			else if (this.type == 119)
+			else if (this.type == NPCID.LeechTail)
 			{
 				this.displayName = "Leech";
 				this.name = "Leech Tail";
@@ -5319,7 +5319,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.behindTiles = true;
 			}
-			else if (this.type == 120)
+			else if (this.type == NPCID.ChaosElemental)
 			{
 				this.name = "Chaos Elemental";
 				this.width = 18;
@@ -5332,12 +5332,12 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.value = 600f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 121)
+			else if (this.type == NPCID.Slimer)
 			{
 				this.name = "Slimer";
 				this.width = 40;
@@ -5350,10 +5350,10 @@ namespace Terraria
 				this.alpha = 55;
 				this.knockBackResist = 0.8f;
 				this.scale = 1.1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 122)
+			else if (this.type == NPCID.Gastropod)
 			{
 				this.noGravity = true;
 				this.name = "Gastropod";
@@ -5367,9 +5367,9 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 600f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 123)
+			else if (this.type == NPCID.BoundMechanic)
 			{
 				this.friendly = true;
 				this.name = "Bound Mechanic";
@@ -5385,7 +5385,7 @@ namespace Terraria
 				this.scale = 0.9f;
 				this.rarity = 1;
 			}
-			else if (this.type == 124)
+			else if (this.type == NPCID.Mechanic)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -5400,7 +5400,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 125)
+			else if (this.type == NPCID.Retinazer)
 			{
 				this.name = "Retinazer";
 				this.width = 100;
@@ -5419,7 +5419,7 @@ namespace Terraria
 				this.value = 120000f;
 				this.npcSlots = 5f;
 			}
-			else if (this.type == 126)
+			else if (this.type == NPCID.Spazmatism)
 			{
 				this.name = "Spazmatism";
 				this.width = 100;
@@ -5438,7 +5438,7 @@ namespace Terraria
 				this.value = 120000f;
 				this.npcSlots = 5f;
 			}
-			else if (this.type == 127)
+			else if (this.type == NPCID.SkeletronPrime)
 			{
 				this.name = "Skeletron Prime";
 				this.width = 80;
@@ -5455,13 +5455,13 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.boss = true;
 				this.npcSlots = 6f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[189] = (this.buffImmune[169] = (this.buffImmune[183] = true));
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Daybreak] = (this.buffImmune[BuffID.BoneJavelin] = (this.buffImmune[BuffID.StardustMinionBleed] = true));
 				this.boss = true;
 			}
-			else if (this.type == 128)
+			else if (this.type == NPCID.PrimeCannon)
 			{
 				this.name = "Prime Cannon";
 				this.width = 52;
@@ -5475,11 +5475,11 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 129)
+			else if (this.type == NPCID.PrimeSaw)
 			{
 				this.name = "Prime Saw";
 				this.width = 52;
@@ -5493,11 +5493,11 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 130)
+			else if (this.type == NPCID.PrimeVice)
 			{
 				this.name = "Prime Vice";
 				this.width = 52;
@@ -5511,11 +5511,11 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 131)
+			else if (this.type == NPCID.PrimeLaser)
 			{
 				this.name = "Prime Laser";
 				this.width = 52;
@@ -5529,11 +5529,11 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 132)
+			else if (this.type == NPCID.BaldZombie)
 			{
 				this.displayName = "Zombie";
 				this.name = "Bald Zombie";
@@ -5547,9 +5547,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 65f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 133)
+			else if (this.type == NPCID.WanderingEye)
 			{
 				this.name = "Wandering Eye";
 				this.width = 30;
@@ -5562,9 +5562,9 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 134)
+			else if (this.type == NPCID.TheDestroyer)
 			{
 				this.displayName = "The Destroyer";
 				this.npcSlots = 5f;
@@ -5585,13 +5585,13 @@ namespace Terraria
 				this.scale = 1.25f;
 				this.boss = true;
 				this.netAlways = true;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				flag = true;
 				this.alpha = 255;
 			}
-			else if (this.type == 135)
+			else if (this.type == NPCID.TheDestroyerBody)
 			{
 				this.displayName = "The Destroyer";
 				this.npcSlots = 5f;
@@ -5610,14 +5610,14 @@ namespace Terraria
 				this.behindTiles = true;
 				this.netAlways = true;
 				this.scale = 1.25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				flag = true;
 				this.dontCountMe = true;
 				this.alpha = 255;
 			}
-			else if (this.type == 136)
+			else if (this.type == NPCID.TheDestroyerTail)
 			{
 				this.displayName = "The Destroyer";
 				this.npcSlots = 5f;
@@ -5636,14 +5636,14 @@ namespace Terraria
 				this.behindTiles = true;
 				this.scale = 1.25f;
 				this.netAlways = true;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				flag = true;
 				this.dontCountMe = true;
 				this.alpha = 255;
 			}
-			else if (this.type == 139)
+			else if (this.type == NPCID.Probe)
 			{
 				this.npcSlots = 1f;
 				this.name = "Probe";
@@ -5660,7 +5660,7 @@ namespace Terraria
 				this.noTileCollide = true;
 				flag = true;
 			}
-			else if (this.type == 137)
+			else if (this.type == NPCID.IlluminantBat)
 			{
 				this.name = "Illuminant Bat";
 				this.width = 26;
@@ -5673,12 +5673,12 @@ namespace Terraria
 				this.knockBackResist = 0.75f;
 				this.soundKilled = 6;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 138)
+			else if (this.type == NPCID.IlluminantSlime)
 			{
 				this.name = "Illuminant Slime";
 				this.width = 24;
@@ -5691,14 +5691,14 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.alpha = 100;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.85f;
 				this.scale = 1.05f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 140)
+			else if (this.type == NPCID.PossessedArmor)
 			{
 				this.name = "Possessed Armor";
 				this.width = 18;
@@ -5711,11 +5711,11 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
-			else if (this.type == 141)
+			else if (this.type == NPCID.ToxicSludge)
 			{
 				this.name = "Toxic Sludge";
 				this.width = 34;
@@ -5729,11 +5729,11 @@ namespace Terraria
 				this.alpha = 55;
 				this.value = 400f;
 				this.scale = 1.1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.knockBackResist = 0.8f;
 			}
-			else if (this.type == 142)
+			else if (this.type == NPCID.SantaClaus)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -5748,7 +5748,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 143)
+			else if (this.type == NPCID.SnowmanGangsta)
 			{
 				this.name = "Snowman Gangsta";
 				this.width = 26;
@@ -5761,12 +5761,12 @@ namespace Terraria
 				this.soundKilled = 15;
 				this.knockBackResist = 0.6f;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 144)
+			else if (this.type == NPCID.MisterStabby)
 			{
 				this.name = "Mister Stabby";
 				this.width = 26;
@@ -5779,13 +5779,13 @@ namespace Terraria
 				this.soundKilled = 15;
 				this.knockBackResist = 0.6f;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.coldDamage = true;
 			}
-			else if (this.type == 145)
+			else if (this.type == NPCID.SnowBalla)
 			{
 				this.name = "Snow Balla";
 				this.width = 26;
@@ -5798,13 +5798,13 @@ namespace Terraria
 				this.soundKilled = 15;
 				this.knockBackResist = 0.6f;
 				this.value = 400f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.coldDamage = true;
 			}
-			else if (this.type == 147)
+			else if (this.type == NPCID.IceSlime)
 			{
 				this.name = "Ice Slime";
 				this.width = 24;
@@ -5817,11 +5817,11 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.alpha = 50;
 				this.value = 50f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.coldDamage = true;
 			}
-			else if (this.type == 148)
+			else if (this.type == NPCID.Penguin)
 			{
 				this.name = "Penguin";
 				this.width = 16;
@@ -5834,7 +5834,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.catchItem = 2205;
 			}
-			else if (this.type == 149)
+			else if (this.type == NPCID.PenguinBlack)
 			{
 				this.name = "Penguin";
 				this.width = 16;
@@ -5847,7 +5847,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.catchItem = 2205;
 			}
-			else if (this.type == 150)
+			else if (this.type == NPCID.IceBat)
 			{
 				this.npcSlots = 0.5f;
 				this.name = "Ice Bat";
@@ -5861,9 +5861,9 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 4;
 				this.value = 250f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 151)
+			else if (this.type == NPCID.Lavabat)
 			{
 				this.npcSlots = 0.5f;
 				this.name = "Lava bat";
@@ -5879,11 +5879,11 @@ namespace Terraria
 				this.value = 400f;
 				this.scale = 1.15f;
 				this.lavaImmune = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 152)
+			else if (this.type == NPCID.GiantFlyingFox)
 			{
 				this.npcSlots = 0.5f;
 				this.name = "Giant Flying Fox";
@@ -5897,9 +5897,9 @@ namespace Terraria
 				this.knockBackResist = 0.65f;
 				this.soundKilled = 4;
 				this.value = 400f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 153)
+			else if (this.type == NPCID.GiantTortoise)
 			{
 				this.npcSlots = 2f;
 				this.name = "Giant Tortoise";
@@ -5914,9 +5914,9 @@ namespace Terraria
 				this.soundKilled = 27;
 				this.value = 500f;
 				this.noGravity = false;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 154)
+			else if (this.type == NPCID.IceTortoise)
 			{
 				this.npcSlots = 1.5f;
 				this.name = "Ice Tortoise";
@@ -5931,9 +5931,9 @@ namespace Terraria
 				this.soundKilled = 27;
 				this.value = 450f;
 				this.noGravity = false;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 155)
+			else if (this.type == NPCID.Wolf)
 			{
 				this.name = "Wolf";
 				this.width = 46;
@@ -5946,9 +5946,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 156)
+			else if (this.type == NPCID.RedDevil)
 			{
 				this.npcSlots = 2f;
 				this.name = "Red Devil";
@@ -5963,10 +5963,10 @@ namespace Terraria
 				this.soundKilled = 24;
 				this.value = 1200f;
 				this.lavaImmune = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 157)
+			else if (this.type == NPCID.Arapaima)
 			{
 				this.npcSlots = 0.5f;
 				this.noGravity = true;
@@ -5981,7 +5981,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 500f;
 			}
-			else if (this.type == 160)
+			else if (this.type == NPCID.Truffle)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -5996,7 +5996,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 161)
+			else if (this.type == NPCID.ZombieEskimo)
 			{
 				this.name = "Zombie Eskimo";
 				this.width = 18;
@@ -6009,9 +6009,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 80f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 163)
+			else if (this.type == NPCID.BlackRecluse)
 			{
 				this.name = "Black Recluse";
 				this.width = 50;
@@ -6024,12 +6024,12 @@ namespace Terraria
 				this.soundKilled = 31;
 				this.knockBackResist = 0.25f;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
 				this.timeLeft = NPC.activeTime * 2;
 			}
-			else if (this.type == 238)
+			else if (this.type == NPCID.BlackRecluseWall)
 			{
 				this.noGravity = true;
 				this.name = "Black Recluse";
@@ -6045,10 +6045,10 @@ namespace Terraria
 				this.value = 500f;
 				this.timeLeft = NPC.activeTime * 2;
 				this.npcSlots = 0.5f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 164)
+			else if (this.type == NPCID.WallCreeper)
 			{
 				this.name = "Wall Creeper";
 				this.width = 50;
@@ -6063,9 +6063,9 @@ namespace Terraria
 				this.value = 100f;
 				this.timeLeft = NPC.activeTime * 2;
 				this.npcSlots = 0.5f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 165)
+			else if (this.type == NPCID.WallCreeperWall)
 			{
 				this.noGravity = true;
 				this.name = "Wall Creeper";
@@ -6081,9 +6081,9 @@ namespace Terraria
 				this.value = 100f;
 				this.timeLeft = NPC.activeTime * 2;
 				this.npcSlots = 0.5f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 167)
+			else if (this.type == NPCID.UndeadViking)
 			{
 				this.name = "Undead Viking";
 				this.width = 18;
@@ -6096,10 +6096,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 200f;
-				this.buffImmune[31] = false;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 168)
+			else if (this.type == NPCID.CorruptPenguin)
 			{
 				this.name = "Corrupt Penguin";
 				this.width = 16;
@@ -6111,9 +6111,9 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 169)
+			else if (this.type == NPCID.IceElemental)
 			{
 				this.noGravity = true;
 				this.name = "Ice Elemental";
@@ -6127,14 +6127,14 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.soundKilled = 7;
 				this.value = 1500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
-				this.buffImmune[31] = false;
-				this.buffImmune[44] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.Frostburn] = true;
 				this.coldDamage = true;
 			}
-			else if (this.type == 170)
+			else if (this.type == NPCID.PigronCorruption)
 			{
 				this.name = "Pigron";
 				this.width = 44;
@@ -6147,9 +6147,9 @@ namespace Terraria
 				this.soundKilled = 30;
 				this.knockBackResist = 0.5f;
 				this.value = 2000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 171)
+			else if (this.type == NPCID.PigronHallow)
 			{
 				this.name = "Pigron";
 				this.width = 44;
@@ -6162,9 +6162,9 @@ namespace Terraria
 				this.soundKilled = 30;
 				this.knockBackResist = 0.5f;
 				this.value = 2000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 172)
+			else if (this.type == NPCID.RuneWizard)
 			{
 				this.name = "Rune Wizard";
 				this.width = 18;
@@ -6177,10 +6177,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 5000f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.rarity = 2;
 			}
-			else if (this.type == 173)
+			else if (this.type == NPCID.Crimera)
 			{
 				this.npcSlots = 1f;
 				this.name = "Crimera";
@@ -6196,7 +6196,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 90f;
 			}
-			else if (this.type == 174)
+			else if (this.type == NPCID.Herpling)
 			{
 				this.npcSlots = 1f;
 				this.name = "Herpling";
@@ -6211,7 +6211,7 @@ namespace Terraria
 				this.knockBackResist = 0.3f;
 				this.value = 450f;
 			}
-			else if (this.type == 175)
+			else if (this.type == NPCID.AngryTrapper)
 			{
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -6226,9 +6226,9 @@ namespace Terraria
 				this.knockBackResist = 0.25f;
 				this.soundKilled = 1;
 				this.value = 650f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 176)
+			else if (this.type == NPCID.MossHornet)
 			{
 				this.name = "Moss Hornet";
 				this.width = 34;
@@ -6242,10 +6242,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 600f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.npcSlots = 1.5f;
 			}
-			else if (this.type == 177)
+			else if (this.type == NPCID.Derpling)
 			{
 				this.npcSlots = 1f;
 				this.name = "Derpling";
@@ -6260,7 +6260,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 500f;
 			}
-			else if (this.type == 178)
+			else if (this.type == NPCID.Steampunker)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -6275,7 +6275,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 179)
+			else if (this.type == NPCID.CrimsonAxe)
 			{
 				this.name = "Crimson Axe";
 				this.width = 40;
@@ -6287,12 +6287,12 @@ namespace Terraria
 				this.soundHit = 4;
 				this.soundKilled = 6;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.4f;
 			}
-			else if (this.type == 180)
+			else if (this.type == NPCID.PigronCrimson)
 			{
 				this.name = "Pigron";
 				this.width = 44;
@@ -6305,9 +6305,9 @@ namespace Terraria
 				this.soundKilled = 30;
 				this.knockBackResist = 0.5f;
 				this.value = 4000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 181)
+			else if (this.type == NPCID.FaceMonster)
 			{
 				this.name = "Face Monster";
 				this.width = 18;
@@ -6320,10 +6320,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 200f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 182)
+			else if (this.type == NPCID.FloatyGross)
 			{
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -6338,12 +6338,12 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.alpha = 100;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.7f;
 			}
-			else if (this.type == 183)
+			else if (this.type == NPCID.Crimslime)
 			{
 				this.name = "Crimslime";
 				this.width = 40;
@@ -6357,10 +6357,10 @@ namespace Terraria
 				this.alpha = 55;
 				this.value = 400f;
 				this.scale = 1.1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 184)
+			else if (this.type == NPCID.SpikedIceSlime)
 			{
 				this.name = "Spiked Ice Slime";
 				this.width = 24;
@@ -6374,11 +6374,11 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.alpha = 50;
 				this.value = 200f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.coldDamage = true;
 			}
-			else if (this.type == 185)
+			else if (this.type == NPCID.SnowFlinx)
 			{
 				this.name = "Snow Flinx";
 				this.width = 28;
@@ -6391,11 +6391,11 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 1.1f;
 				this.value = 200f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.coldDamage = true;
 			}
-			else if (this.type == 186)
+			else if (this.type == NPCID.PincushionZombie)
 			{
 				this.name = "Pincushion Zombie";
 				this.displayName = "Zombie";
@@ -6409,9 +6409,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 65f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 187)
+			else if (this.type == NPCID.SlimedZombie)
 			{
 				this.name = "Slimed Zombie";
 				this.displayName = "Zombie";
@@ -6425,9 +6425,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 55f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 188)
+			else if (this.type == NPCID.SwampZombie)
 			{
 				this.name = "Swamp Zombie";
 				this.displayName = "Zombie";
@@ -6441,9 +6441,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 80f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 189)
+			else if (this.type == NPCID.TwiggyZombie)
 			{
 				this.name = "Twiggy Zombie";
 				this.displayName = "Zombie";
@@ -6457,9 +6457,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.55f;
 				this.value = 70f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 190)
+			else if (this.type == NPCID.CataractEye)
 			{
 				this.name = "Cataract Eye";
 				this.displayName = "Demon Eye";
@@ -6473,9 +6473,9 @@ namespace Terraria
 				this.knockBackResist = 0.7f;
 				this.soundKilled = 1;
 				this.value = 75f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 191)
+			else if (this.type == NPCID.SleepyEye)
 			{
 				this.name = "Sleepy Eye";
 				this.displayName = "Demon Eye";
@@ -6489,9 +6489,9 @@ namespace Terraria
 				this.knockBackResist = 0.85f;
 				this.soundKilled = 1;
 				this.value = 75f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 192)
+			else if (this.type == NPCID.DialatedEye)
 			{
 				this.name = "Dialated Eye";
 				this.displayName = "Demon Eye";
@@ -6505,9 +6505,9 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 75f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 193)
+			else if (this.type == NPCID.GreenEye)
 			{
 				this.name = "Green Eye";
 				this.displayName = "Demon Eye";
@@ -6521,9 +6521,9 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 75f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 194)
+			else if (this.type == NPCID.PurpleEye)
 			{
 				this.name = "Purple Eye";
 				this.displayName = "Demon Eye";
@@ -6537,9 +6537,9 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 75f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 195)
+			else if (this.type == NPCID.LostGirl)
 			{
 				this.name = "Lost Girl";
 				this.width = 18;
@@ -6553,7 +6553,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.rarity = 1;
 			}
-			else if (this.type == 196)
+			else if (this.type == NPCID.Nymph)
 			{
 				this.name = "Nymph";
 				this.width = 18;
@@ -6566,10 +6566,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 10000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 1;
 			}
-			else if (this.type == 197)
+			else if (this.type == NPCID.ArmoredViking)
 			{
 				this.name = "Armored Viking";
 				this.width = 18;
@@ -6582,10 +6582,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 198)
+			else if (this.type == NPCID.Lihzahrd)
 			{
 				this.name = "Lihzahrd";
 				this.width = 18;
@@ -6598,10 +6598,10 @@ namespace Terraria
 				this.soundKilled = 29;
 				this.knockBackResist = 0.4f;
 				this.value = 650f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 199)
+			else if (this.type == NPCID.LihzahrdCrawler)
 			{
 				this.name = "Lihzahrd";
 				this.width = 42;
@@ -6614,10 +6614,10 @@ namespace Terraria
 				this.soundKilled = 29;
 				this.knockBackResist = 0f;
 				this.value = 650f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 200)
+			else if (this.type == NPCID.FemaleZombie)
 			{
 				this.name = "Female Zombie";
 				this.displayName = "Zombie";
@@ -6631,9 +6631,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 65f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 201)
+			else if (this.type == NPCID.HeadacheSkeleton)
 			{
 				this.name = "Headache Skeleton";
 				this.displayName = "Skeleton";
@@ -6647,10 +6647,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 202)
+			else if (this.type == NPCID.MisassembledSkeleton)
 			{
 				this.name = "Misassembled Skeleton";
 				this.displayName = "Skeleton";
@@ -6664,10 +6664,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 120f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 203)
+			else if (this.type == NPCID.PantlessSkeleton)
 			{
 				this.name = "Pantless Skeleton";
 				this.displayName = "Skeleton";
@@ -6681,10 +6681,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 110f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 204)
+			else if (this.type == NPCID.SpikedJungleSlime)
 			{
 				this.name = "Spiked Jungle Slime";
 				this.width = 24;
@@ -6698,10 +6698,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.alpha = 50;
 				this.value = 300f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 205)
+			else if (this.type == NPCID.Moth)
 			{
 				this.name = "Moth";
 				this.width = 40;
@@ -6715,10 +6715,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 600f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.rarity = 2;
 			}
-			else if (this.type == 206)
+			else if (this.type == NPCID.IcyMerman)
 			{
 				this.name = "Icy Merman";
 				this.width = 18;
@@ -6731,10 +6731,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.coldDamage = true;
 			}
-			else if (this.type == 207)
+			else if (this.type == NPCID.DyeTrader)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -6749,7 +6749,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 208)
+			else if (this.type == NPCID.PartyGirl)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -6764,7 +6764,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 209)
+			else if (this.type == NPCID.Cyborg)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -6779,7 +6779,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 210)
+			else if (this.type == NPCID.Bee)
 			{
 				this.name = "Bee";
 				this.width = 12;
@@ -6792,9 +6792,9 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.soundKilled = 1;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 211)
+			else if (this.type == NPCID.BeeSmall)
 			{
 				this.name = "Bee";
 				this.width = 8;
@@ -6807,9 +6807,9 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.soundKilled = 1;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 212)
+			else if (this.type == NPCID.PirateDeckhand)
 			{
 				this.name = "Pirate Deckhand";
 				this.width = 18;
@@ -6822,10 +6822,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.value = 700f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 213)
+			else if (this.type == NPCID.PirateCorsair)
 			{
 				this.name = "Pirate Corsair";
 				this.width = 18;
@@ -6838,10 +6838,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 214)
+			else if (this.type == NPCID.PirateDeadeye)
 			{
 				this.name = "Pirate Deadeye";
 				this.width = 18;
@@ -6854,10 +6854,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 215)
+			else if (this.type == NPCID.PirateCrossbower)
 			{
 				this.name = "Pirate Crossbower";
 				this.width = 18;
@@ -6870,10 +6870,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.35f;
 				this.value = 1500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 216)
+			else if (this.type == NPCID.PirateCaptain)
 			{
 				this.name = "Pirate Captain";
 				this.width = 18;
@@ -6886,10 +6886,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.value = 50000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = true;
 			}
-			else if (this.type == 217)
+			else if (this.type == NPCID.CochinealBeetle)
 			{
 				this.name = "Cochineal Beetle";
 				this.width = 28;
@@ -6902,7 +6902,7 @@ namespace Terraria
 				this.soundKilled = 16;
 				this.value = 60f;
 			}
-			else if (this.type == 218)
+			else if (this.type == NPCID.CyanBeetle)
 			{
 				this.name = "Cyan Beetle";
 				this.width = 28;
@@ -6915,7 +6915,7 @@ namespace Terraria
 				this.soundKilled = 16;
 				this.value = 60f;
 			}
-			else if (this.type == 219)
+			else if (this.type == NPCID.LacBeetle)
 			{
 				this.name = "Lac Beetle";
 				this.width = 28;
@@ -6928,7 +6928,7 @@ namespace Terraria
 				this.soundKilled = 16;
 				this.value = 60f;
 			}
-			else if (this.type == 220)
+			else if (this.type == NPCID.SeaSnail)
 			{
 				this.name = "Sea Snail";
 				this.width = 28;
@@ -6941,7 +6941,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 60f;
 			}
-			else if (this.type == 221)
+			else if (this.type == NPCID.Squid)
 			{
 				this.noGravity = true;
 				this.name = "Squid";
@@ -6956,7 +6956,7 @@ namespace Terraria
 				this.value = 100f;
 				this.alpha = 20;
 			}
-			else if (this.type == 222)
+			else if (this.type == NPCID.QueenBee)
 			{
 				this.name = "Queen Bee";
 				this.width = 66;
@@ -6975,7 +6975,7 @@ namespace Terraria
 				this.value = 100000f;
 				this.npcSlots = 7f;
 			}
-			else if (this.type == 223)
+			else if (this.type == NPCID.ZombieRaincoat)
 			{
 				this.name = "Zombie";
 				this.width = 18;
@@ -6988,9 +6988,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.45f;
 				this.value = 70f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 224)
+			else if (this.type == NPCID.FlyingFish)
 			{
 				this.name = "Flying Fish";
 				this.width = 32;
@@ -7003,9 +7003,9 @@ namespace Terraria
 				this.knockBackResist = 0.8f;
 				this.soundKilled = 1;
 				this.value = 90f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			if (this.type == 225)
+			if (this.type == NPCID.UmbrellaSlime)
 			{
 				this.name = "Umbrella Slime";
 				this.width = 38;
@@ -7018,10 +7018,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.75f;
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 226)
+			else if (this.type == NPCID.FlyingSnake)
 			{
 				this.npcSlots = 0.5f;
 				this.name = "Flying Snake";
@@ -7035,9 +7035,9 @@ namespace Terraria
 				this.knockBackResist = 0.65f;
 				this.soundKilled = 26;
 				this.value = 400f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 227)
+			else if (this.type == NPCID.Painter)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -7052,7 +7052,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 228)
+			else if (this.type == NPCID.WitchDoctor)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -7067,7 +7067,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 229)
+			else if (this.type == NPCID.Pirate)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -7082,7 +7082,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 230)
+			else if (this.type == NPCID.GoldfishWalker)
 			{
 				this.name = "Goldfish";
 				this.width = 18;
@@ -7095,7 +7095,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.catchItem = 261;
 			}
-			else if (this.type == 231)
+			else if (this.type == NPCID.HornetFatty)
 			{
 				this.name = "Hornet Fatty";
 				this.width = 34;
@@ -7109,9 +7109,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 232)
+			else if (this.type == NPCID.HornetHoney)
 			{
 				this.name = "Hornet Honey";
 				this.width = 34;
@@ -7125,9 +7125,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 233)
+			else if (this.type == NPCID.HornetLeafy)
 			{
 				this.name = "Hornet Leafy";
 				this.width = 34;
@@ -7141,9 +7141,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 234)
+			else if (this.type == NPCID.HornetSpikey)
 			{
 				this.name = "Hornet Spikey";
 				this.width = 34;
@@ -7157,9 +7157,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 235)
+			else if (this.type == NPCID.HornetStingy)
 			{
 				this.name = "Hornet Stingy";
 				this.width = 34;
@@ -7173,9 +7173,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 200f;
 				this.noGravity = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 236)
+			else if (this.type == NPCID.JungleCreeper)
 			{
 				this.name = "Jungle Creeper";
 				this.width = 50;
@@ -7190,9 +7190,9 @@ namespace Terraria
 				this.value = 1000f;
 				this.timeLeft = NPC.activeTime * 2;
 				this.npcSlots = 0.75f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 237)
+			else if (this.type == NPCID.JungleCreeperWall)
 			{
 				this.noGravity = true;
 				this.name = "Jungle Creeper";
@@ -7208,9 +7208,9 @@ namespace Terraria
 				this.value = 1000f;
 				this.timeLeft = NPC.activeTime * 2;
 				this.npcSlots = 0.75f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 239)
+			else if (this.type == NPCID.BloodCrawler)
 			{
 				this.name = "Blood Crawler";
 				this.width = 50;
@@ -7224,9 +7224,9 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 130f;
 				this.timeLeft = NPC.activeTime * 2;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 240)
+			else if (this.type == NPCID.BloodCrawlerWall)
 			{
 				this.noGravity = true;
 				this.name = "Blood Crawler";
@@ -7241,9 +7241,9 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 130f;
 				this.timeLeft = NPC.activeTime * 2;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 241)
+			else if (this.type == NPCID.BloodFeeder)
 			{
 				this.npcSlots = 0.5f;
 				this.noGravity = true;
@@ -7258,7 +7258,7 @@ namespace Terraria
 				this.soundKilled = 19;
 				this.value = 350f;
 			}
-			else if (this.type == 242)
+			else if (this.type == NPCID.BloodJelly)
 			{
 				this.noGravity = true;
 				this.name = "Blood Jelly";
@@ -7273,7 +7273,7 @@ namespace Terraria
 				this.value = 800f;
 				this.alpha = 20;
 			}
-			else if (this.type == 243)
+			else if (this.type == NPCID.IceGolem)
 			{
 				this.name = "Ice Golem";
 				this.width = 30;
@@ -7286,12 +7286,12 @@ namespace Terraria
 				this.soundKilled = 7;
 				this.knockBackResist = 0.05f;
 				this.value = (float)Item.buyPrice(0, 1, 50, 0);
-				this.buffImmune[20] = true;
-				this.buffImmune[44] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Frostburn] = true;
 				this.coldDamage = true;
 				this.rarity = 2;
 			}
-			else if (this.type == 244)
+			else if (this.type == NPCID.RainbowSlime)
 			{
 				this.name = "Rainbow Slime";
 				this.width = 60;
@@ -7305,11 +7305,11 @@ namespace Terraria
 				this.alpha = 175;
 				this.value = (float)Item.buyPrice(0, 0, 20, 0);
 				this.knockBackResist = 0.3f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 1;
 			}
-			else if (this.type == 245)
+			else if (this.type == NPCID.Golem)
 			{
 				this.name = "Golem";
 				this.width = 140;
@@ -7324,10 +7324,10 @@ namespace Terraria
 				this.value = (float)Item.buyPrice(0, 15, 0, 0);
 				this.alpha = 255;
 				this.boss = true;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
-			else if (this.type == 246)
+			else if (this.type == NPCID.GolemHead)
 			{
 				this.noGravity = true;
 				this.name = "Golem Head";
@@ -7341,10 +7341,10 @@ namespace Terraria
 				this.soundKilled = 0;
 				this.knockBackResist = 0f;
 				this.alpha = 255;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
-			else if (this.type == 247 || this.type == 248)
+			else if (this.type == NPCID.GolemFistLeft || this.type == NPCID.GolemFistRight)
 			{
 				this.noGravity = true;
 				this.name = "Golem Fist";
@@ -7357,10 +7357,10 @@ namespace Terraria
 				this.soundHit = 4;
 				this.soundKilled = 14;
 				this.alpha = 255;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
-			else if (this.type == 249)
+			else if (this.type == NPCID.GolemHeadFree)
 			{
 				this.noGravity = true;
 				this.name = "Golem Head";
@@ -7374,10 +7374,10 @@ namespace Terraria
 				this.soundKilled = 14;
 				this.knockBackResist = 0f;
 				this.dontTakeDamage = true;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
-			else if (this.type == 250)
+			else if (this.type == NPCID.AngryNimbus)
 			{
 				this.name = "Angry Nimbus";
 				this.width = 34;
@@ -7390,9 +7390,9 @@ namespace Terraria
 				this.soundKilled = 33;
 				this.knockBackResist = 0.3f;
 				this.value = 300f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 251)
+			else if (this.type == NPCID.Eyezor)
 			{
 				this.name = "Eyezor";
 				this.width = 18;
@@ -7405,9 +7405,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = (float)Item.buyPrice(0, 0, 50, 0);
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 252)
+			else if (this.type == NPCID.Parrot)
 			{
 				this.noGravity = true;
 				this.npcSlots = 0.5f;
@@ -7422,9 +7422,9 @@ namespace Terraria
 				this.knockBackResist = 0.7f;
 				this.soundKilled = 48;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 254)
+			else if (this.type == NPCID.ZombieMushroom)
 			{
 				this.name = "Spore Zombie";
 				this.width = 18;
@@ -7437,9 +7437,9 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 255)
+			else if (this.type == NPCID.ZombieMushroomHat)
 			{
 				this.name = "Spore Zombie";
 				this.width = 18;
@@ -7452,9 +7452,9 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.3f;
 				this.value = 1200f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 256)
+			else if (this.type == NPCID.FungoFish)
 			{
 				this.noGravity = true;
 				this.name = "Fungo Fish";
@@ -7470,7 +7470,7 @@ namespace Terraria
 				this.alpha = 20;
 				this.npcSlots = 0.3f;
 			}
-			else if (this.type == 257)
+			else if (this.type == NPCID.AnomuraFungus)
 			{
 				this.name = "Anomura Fungus";
 				this.width = 44;
@@ -7483,10 +7483,10 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.3f;
 				this.value = 1300f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.3f;
 			}
-			else if (this.type == 258)
+			else if (this.type == NPCID.MushiLadybug)
 			{
 				this.name = "Mushi Ladybug";
 				this.width = 30;
@@ -7499,10 +7499,10 @@ namespace Terraria
 				this.soundKilled = 47;
 				this.knockBackResist = 0.3f;
 				this.value = 1500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.3f;
 			}
-			else if (this.type == 259)
+			else if (this.type == NPCID.FungiBulb)
 			{
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -7517,10 +7517,10 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.soundKilled = 1;
 				this.value = 350f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.npcSlots = 0.3f;
 			}
-			else if (this.type == 260)
+			else if (this.type == NPCID.GiantFungiBulb)
 			{
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -7535,10 +7535,10 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.soundKilled = 1;
 				this.value = 1250f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.npcSlots = 0.3f;
 			}
-			else if (this.type == 261)
+			else if (this.type == NPCID.FungiSpore)
 			{
 				this.name = "Fungi Spore";
 				this.width = 12;
@@ -7554,7 +7554,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 262)
+			else if (this.type == NPCID.Plantera)
 			{
 				this.noTileCollide = true;
 				this.name = "Plantera";
@@ -7571,9 +7571,9 @@ namespace Terraria
 				this.noGravity = true;
 				this.boss = true;
 				this.npcSlots = 16f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 263)
+			else if (this.type == NPCID.PlanterasHook)
 			{
 				this.noTileCollide = true;
 				this.noGravity = true;
@@ -7587,9 +7587,9 @@ namespace Terraria
 				this.dontTakeDamage = true;
 				this.soundHit = 1;
 				this.soundKilled = 1;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 264)
+			else if (this.type == NPCID.PlanterasTentacle)
 			{
 				this.name = "Plantera's Tentacle";
 				this.width = 24;
@@ -7602,9 +7602,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.noGravity = true;
 				this.noTileCollide = true;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 265)
+			else if (this.type == NPCID.Spore)
 			{
 				this.name = "Spore";
 				this.width = 18;
@@ -7620,7 +7620,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 266)
+			else if (this.type == NPCID.BrainofCthulhu)
 			{
 				this.name = "Brain of Cthulhu";
 				this.dontTakeDamage = true;
@@ -7640,7 +7640,7 @@ namespace Terraria
 				this.value = 50000f;
 				this.npcSlots = 6f;
 			}
-			else if (this.type == 267)
+			else if (this.type == NPCID.Creeper)
 			{
 				this.name = "Creeper";
 				this.width = 30;
@@ -7655,7 +7655,7 @@ namespace Terraria
 				this.noTileCollide = true;
 				this.knockBackResist = 0.8f;
 			}
-			else if (this.type == 268)
+			else if (this.type == NPCID.IchorSticker)
 			{
 				this.noGravity = true;
 				this.name = "Ichor Sticker";
@@ -7669,10 +7669,10 @@ namespace Terraria
 				this.soundKilled = 19;
 				this.knockBackResist = 0.6f;
 				this.value = 450f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 269)
+			else if (this.type == NPCID.RustyArmoredBonesAxe)
 			{
 				this.name = "Rusty Armored Bones";
 				this.width = 18;
@@ -7685,10 +7685,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 270)
+			else if (this.type == NPCID.RustyArmoredBonesFlail)
 			{
 				this.name = "Rusty Armored Bones";
 				this.width = 18;
@@ -7701,10 +7701,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 271)
+			else if (this.type == NPCID.RustyArmoredBonesSword)
 			{
 				this.name = "Rusty Armored Bones";
 				this.width = 18;
@@ -7717,10 +7717,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.25f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 272)
+			else if (this.type == NPCID.RustyArmoredBonesSwordNoArmor)
 			{
 				this.name = "Rusty Armored Bones";
 				this.width = 18;
@@ -7733,10 +7733,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.35f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 273)
+			else if (this.type == NPCID.BlueArmoredBones)
 			{
 				this.name = "Blue Armored Bones";
 				this.width = 18;
@@ -7749,10 +7749,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.15f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 274)
+			else if (this.type == NPCID.BlueArmoredBonesMace)
 			{
 				this.name = "Blue Armored Bones";
 				this.width = 18;
@@ -7765,10 +7765,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 275)
+			else if (this.type == NPCID.BlueArmoredBonesNoPants)
 			{
 				this.name = "Blue Armored Bones";
 				this.width = 18;
@@ -7781,10 +7781,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.15f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 276)
+			else if (this.type == NPCID.BlueArmoredBonesSword)
 			{
 				this.name = "Blue Armored Bones";
 				this.width = 18;
@@ -7797,10 +7797,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 277)
+			else if (this.type == NPCID.HellArmoredBones)
 			{
 				this.name = "Hell Armored Bones";
 				this.width = 18;
@@ -7813,11 +7813,11 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 278)
+			else if (this.type == NPCID.HellArmoredBonesSpikeShield)
 			{
 				this.name = "Hell Armored Bones";
 				this.width = 18;
@@ -7830,11 +7830,11 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 279)
+			else if (this.type == NPCID.HellArmoredBonesMace)
 			{
 				this.name = "Hell Armored Bones";
 				this.width = 18;
@@ -7847,11 +7847,11 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 280)
+			else if (this.type == NPCID.HellArmoredBonesSword)
 			{
 				this.name = "Hell Armored Bones";
 				this.width = 18;
@@ -7864,11 +7864,11 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 281)
+			else if (this.type == NPCID.RaggedCaster)
 			{
 				this.name = "Ragged Caster";
 				this.width = 18;
@@ -7882,9 +7882,9 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 282)
+			else if (this.type == NPCID.RaggedCasterOpenCoat)
 			{
 				this.name = "Ragged Caster";
 				this.width = 18;
@@ -7898,9 +7898,9 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 283)
+			else if (this.type == NPCID.Necromancer)
 			{
 				this.name = "Necromancer";
 				this.width = 18;
@@ -7914,9 +7914,9 @@ namespace Terraria
 				this.knockBackResist = 0.55f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 284)
+			else if (this.type == NPCID.NecromancerArmored)
 			{
 				this.name = "Necromancer";
 				this.width = 18;
@@ -7930,9 +7930,9 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 285)
+			else if (this.type == NPCID.DiabolistRed)
 			{
 				this.name = "Diabolist";
 				this.width = 18;
@@ -7946,9 +7946,9 @@ namespace Terraria
 				this.knockBackResist = 0.7f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 286)
+			else if (this.type == NPCID.DiabolistWhite)
 			{
 				this.name = "Diabolist";
 				this.width = 18;
@@ -7962,9 +7962,9 @@ namespace Terraria
 				this.knockBackResist = 0.65f;
 				this.value = 1500f;
 				this.npcSlots = 2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 287)
+			else if (this.type == NPCID.BoneLee)
 			{
 				this.name = "Bone Lee";
 				this.width = 18;
@@ -7977,11 +7977,11 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 2000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 1;
 			}
-			else if (this.type == 288)
+			else if (this.type == NPCID.DungeonSpirit)
 			{
 				this.name = "Dungeon Spirit";
 				this.width = 20;
@@ -7998,7 +7998,7 @@ namespace Terraria
 				this.noGravity = true;
 				flag = true;
 			}
-			else if (this.type == 289)
+			else if (this.type == NPCID.GiantCursedSkull)
 			{
 				this.name = "Giant Cursed Skull";
 				this.width = 44;
@@ -8014,11 +8014,11 @@ namespace Terraria
 				this.value = 150f;
 				this.knockBackResist = 0.2f;
 				this.npcSlots = 0.75f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 290)
+			else if (this.type == NPCID.Paladin)
 			{
 				this.name = "Paladin";
 				this.width = 34;
@@ -8031,11 +8031,11 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0f;
 				this.value = 50000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = true;
 				this.rarity = 1;
 			}
-			else if (this.type == 291)
+			else if (this.type == NPCID.SkeletonSniper)
 			{
 				this.name = "Skeleton Sniper";
 				this.width = 18;
@@ -8048,11 +8048,11 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 2;
 			}
-			else if (this.type == 292)
+			else if (this.type == NPCID.TacticalSkeleton)
 			{
 				this.name = "Tactical Skeleton";
 				this.width = 18;
@@ -8065,11 +8065,11 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 2;
 			}
-			else if (this.type == 293)
+			else if (this.type == NPCID.SkeletonCommando)
 			{
 				this.name = "Skeleton Commando";
 				this.width = 18;
@@ -8082,11 +8082,11 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 2;
 			}
-			else if (this.type == 294)
+			else if (this.type == NPCID.AngryBonesBig)
 			{
 				this.name = "Angry Bones";
 				this.width = 18;
@@ -8099,10 +8099,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.9f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 295)
+			else if (this.type == NPCID.AngryBonesBigMuscle)
 			{
 				this.name = "Angry Bones";
 				this.width = 18;
@@ -8115,10 +8115,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.7f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 296)
+			else if (this.type == NPCID.AngryBonesBigHelmet)
 			{
 				this.name = "Angry Bones";
 				this.width = 18;
@@ -8131,10 +8131,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 299)
+			else if (this.type == NPCID.Squirrel)
 			{
 				this.name = "Squirrel";
 				this.width = 18;
@@ -8147,7 +8147,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.catchItem = 2018;
 			}
-			else if (this.type == 300)
+			else if (this.type == NPCID.Mouse)
 			{
 				this.name = "Mouse";
 				this.width = 14;
@@ -8161,7 +8161,7 @@ namespace Terraria
 				this.npcSlots = 0.25f;
 				this.catchItem = 2003;
 			}
-			else if (this.type == 301)
+			else if (this.type == NPCID.Raven)
 			{
 				this.name = "Raven";
 				this.width = 36;
@@ -8175,7 +8175,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 50f;
 			}
-			if (this.type == 302)
+			if (this.type == NPCID.SlimeMasked)
 			{
 				this.name = "Slime";
 				this.width = 24;
@@ -8187,10 +8187,10 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 304)
+			else if (this.type == NPCID.HoppinJack)
 			{
 				this.name = "Hoppin' Jack";
 				this.width = 34;
@@ -8203,12 +8203,12 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 500f;
 				this.scale = 1.1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.knockBackResist = 0.5f;
 				this.npcSlots = 0.3f;
 			}
-			else if (this.type >= 305 && this.type <= 314)
+			else if (this.type >= NPCID.Scarecrow1 && this.type <= NPCID.Scarecrow10)
 			{
 				this.name = "Scarecrow";
 				this.width = 18;
@@ -8217,16 +8217,16 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 6;
 				this.value = 1200f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
-				if (this.type == 305 || this.type == 310)
+				if (this.type == NPCID.Scarecrow1 || this.type == NPCID.Scarecrow6)
 				{
 					this.damage = 60;
 					this.defense = 18;
 					this.lifeMax = 500;
 					this.knockBackResist = 0.4f;
 				}
-				else if (this.type == 306 || this.type == 311)
+				else if (this.type == NPCID.Scarecrow2 || this.type == NPCID.Scarecrow7)
 				{
 					this.damage = 52;
 					this.defense = 14;
@@ -8234,7 +8234,7 @@ namespace Terraria
 					this.knockBackResist = 0.2f;
 					this.scale = 1.05f;
 				}
-				else if (this.type == 307 || this.type == 312)
+				else if (this.type == NPCID.Scarecrow3 || this.type == NPCID.Scarecrow8)
 				{
 					this.damage = 78;
 					this.defense = 16;
@@ -8242,7 +8242,7 @@ namespace Terraria
 					this.knockBackResist = 0.25f;
 					this.scale = 0.9f;
 				}
-				else if (this.type == 308 || this.type == 313)
+				else if (this.type == NPCID.Scarecrow4 || this.type == NPCID.Scarecrow9)
 				{
 					this.damage = 66;
 					this.defense = 14;
@@ -8250,7 +8250,7 @@ namespace Terraria
 					this.knockBackResist = 0.35f;
 					this.scale = 0.95f;
 				}
-				else if (this.type == 309 || this.type == 314)
+				else if (this.type == NPCID.Scarecrow5 || this.type == NPCID.Scarecrow10)
 				{
 					this.damage = 52;
 					this.defense = 26;
@@ -8259,7 +8259,7 @@ namespace Terraria
 					this.scale = 1.1f;
 				}
 			}
-			else if (this.type == 315)
+			else if (this.type == NPCID.HeadlessHorseman)
 			{
 				this.name = "Headless Horseman";
 				this.width = 74;
@@ -8274,7 +8274,7 @@ namespace Terraria
 				this.value = 10000f;
 				flag = true;
 			}
-			else if (this.type == 316)
+			else if (this.type == NPCID.Ghost)
 			{
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -8292,7 +8292,7 @@ namespace Terraria
 				flag = true;
 				this.knockBackResist = 0.7f;
 			}
-			else if (this.type == 317)
+			else if (this.type == NPCID.DemonEyeOwl)
 			{
 				this.name = "Demon Eye";
 				this.width = 30;
@@ -8305,9 +8305,9 @@ namespace Terraria
 				this.knockBackResist = 0.7f;
 				this.soundKilled = 1;
 				this.value = 100f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 318)
+			else if (this.type == NPCID.DemonEyeSpaceship)
 			{
 				this.name = "Demon Eye";
 				this.width = 30;
@@ -8320,9 +8320,9 @@ namespace Terraria
 				this.knockBackResist = 0.65f;
 				this.soundKilled = 1;
 				this.value = 100f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 319)
+			else if (this.type == NPCID.ZombieDoctor)
 			{
 				this.name = "Zombie";
 				this.width = 18;
@@ -8335,10 +8335,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.6f;
 				this.value = 85f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.scale = 0.9f;
 			}
-			else if (this.type == 320)
+			else if (this.type == NPCID.ZombieSuperman)
 			{
 				this.name = "Zombie";
 				this.width = 18;
@@ -8351,10 +8351,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 105f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.scale = 1.05f;
 			}
-			else if (this.type == 321)
+			else if (this.type == NPCID.ZombiePixie)
 			{
 				this.name = "Zombie";
 				this.width = 18;
@@ -8367,10 +8367,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 120f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.scale = 1.1f;
 			}
-			else if (this.type == 322)
+			else if (this.type == NPCID.SkeletonTopHat)
 			{
 				this.name = "Skeleton";
 				this.width = 18;
@@ -8383,10 +8383,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.65f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 323)
+			else if (this.type == NPCID.SkeletonAstonaut)
 			{
 				this.name = "Skeleton";
 				this.width = 18;
@@ -8399,10 +8399,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 120f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 324)
+			else if (this.type == NPCID.SkeletonAlien)
 			{
 				this.name = "Skeleton";
 				this.width = 18;
@@ -8415,11 +8415,11 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.scale = 1.05f;
 			}
-			else if (this.type == 325)
+			else if (this.type == NPCID.MourningWood)
 			{
 				this.name = "Mourning Wood";
 				this.width = 164;
@@ -8434,7 +8434,7 @@ namespace Terraria
 				this.value = 10000f;
 				flag = true;
 			}
-			else if (this.type == 326)
+			else if (this.type == NPCID.Splinterling)
 			{
 				this.name = "Splinterling";
 				this.width = 18;
@@ -8447,10 +8447,10 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.2f;
 				this.value = 2000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 327)
+			else if (this.type == NPCID.Pumpking)
 			{
 				this.name = "Pumpking";
 				this.width = 100;
@@ -8467,7 +8467,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				flag = true;
 			}
-			else if (this.type == 328)
+			else if (this.type == NPCID.PumpkingBlade)
 			{
 				this.name = "Pumpking";
 				this.width = 80;
@@ -8485,7 +8485,7 @@ namespace Terraria
 				this.dontTakeDamage = true;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 329)
+			else if (this.type == NPCID.Hellhound)
 			{
 				this.name = "Hellhound";
 				this.width = 46;
@@ -8500,7 +8500,7 @@ namespace Terraria
 				this.value = 3000f;
 				flag = true;
 			}
-			else if (this.type == 330)
+			else if (this.type == NPCID.Poltergeist)
 			{
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -8518,7 +8518,7 @@ namespace Terraria
 				flag = true;
 				this.knockBackResist = 0.4f;
 			}
-			else if (this.type == 331)
+			else if (this.type == NPCID.ZombieXmas)
 			{
 				this.name = "Zombie";
 				this.width = 18;
@@ -8531,9 +8531,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 60f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 332)
+			else if (this.type == NPCID.ZombieSweater)
 			{
 				this.name = "Zombie";
 				this.width = 18;
@@ -8546,9 +8546,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 60f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			if (this.type == 333)
+			if (this.type == NPCID.SlimeRibbonWhite)
 			{
 				this.name = "Slime";
 				this.width = 24;
@@ -8560,10 +8560,10 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			if (this.type == 334)
+			if (this.type == NPCID.SlimeRibbonYellow)
 			{
 				this.name = "Slime";
 				this.width = 24;
@@ -8576,10 +8576,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.scale = 0.9f;
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			if (this.type == 335)
+			if (this.type == NPCID.SlimeRibbonGreen)
 			{
 				this.name = "Slime";
 				this.width = 24;
@@ -8592,10 +8592,10 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			if (this.type == 336)
+			if (this.type == NPCID.SlimeRibbonRed)
 			{
 				this.name = "Slime";
 				this.width = 24;
@@ -8608,10 +8608,10 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type >= 338 && this.type <= 340)
+			else if (this.type >= NPCID.ZombieElf && this.type <= NPCID.ZombieElfGirl)
 			{
 				this.name = "Zombie Elf";
 				this.width = 18;
@@ -8620,16 +8620,16 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 1200f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
-				if (this.type == 338)
+				if (this.type == NPCID.ZombieElf)
 				{
 					this.damage = 65;
 					this.defense = 18;
 					this.lifeMax = 600;
 					this.knockBackResist = 0.4f;
 				}
-				else if (this.type == 339)
+				else if (this.type == NPCID.ZombieElfBeard)
 				{
 					this.damage = 52;
 					this.defense = 24;
@@ -8637,7 +8637,7 @@ namespace Terraria
 					this.knockBackResist = 0.2f;
 					this.scale = 1.05f;
 				}
-				else if (this.type == 340)
+				else if (this.type == NPCID.ZombieElfGirl)
 				{
 					this.damage = 78;
 					this.defense = 14;
@@ -8646,7 +8646,7 @@ namespace Terraria
 					this.scale = 0.9f;
 				}
 			}
-			else if (this.type == 341)
+			else if (this.type == NPCID.PresentMimic)
 			{
 				this.name = "Present Mimic";
 				this.width = 24;
@@ -8659,11 +8659,11 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.value = (float)Item.buyPrice(0, 0, 20, 0);
 				this.knockBackResist = 0.25f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 342)
+			else if (this.type == NPCID.GingerbreadMan)
 			{
 				this.name = "Gingerbread Man";
 				this.width = 18;
@@ -8676,10 +8676,10 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.2f;
 				this.value = 1800f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 343)
+			else if (this.type == NPCID.Yeti)
 			{
 				this.name = "Yeti";
 				this.width = 38;
@@ -8692,10 +8692,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0f;
 				this.value = 3000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 2f;
 			}
-			else if (this.type == 344)
+			else if (this.type == NPCID.Everscream)
 			{
 				this.name = "Everscream";
 				this.width = 172;
@@ -8708,10 +8708,10 @@ namespace Terraria
 				this.soundKilled = 5;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.npcSlots = 3f;
 			}
-			else if (this.type == 345)
+			else if (this.type == NPCID.IceQueen)
 			{
 				this.name = "Ice Queen";
 				this.width = 130;
@@ -8724,13 +8724,13 @@ namespace Terraria
 				this.soundKilled = 5;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.noTileCollide = true;
 				this.noGravity = true;
 				this.npcSlots = 5f;
 				this.coldDamage = true;
 			}
-			else if (this.type == 346)
+			else if (this.type == NPCID.SantaNK1)
 			{
 				this.name = "Santa-NK1";
 				this.width = 112;
@@ -8743,10 +8743,10 @@ namespace Terraria
 				this.soundKilled = 14;
 				this.knockBackResist = 0f;
 				this.value = 10000f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 				this.npcSlots = 4f;
 			}
-			else if (this.type == 347)
+			else if (this.type == NPCID.ElfCopter)
 			{
 				this.name = "Elf Copter";
 				this.width = 50;
@@ -8763,7 +8763,7 @@ namespace Terraria
 				this.noGravity = true;
 				this.npcSlots = 1.5f;
 			}
-			else if (this.type == 348)
+			else if (this.type == NPCID.Nutcracker)
 			{
 				this.name = "Nutcracker";
 				this.width = 28;
@@ -8776,10 +8776,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.value = 1500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 1.5f;
 			}
-			else if (this.type == 349)
+			else if (this.type == NPCID.NutcrackerSpinning)
 			{
 				this.name = "Nutcracker";
 				this.width = 28;
@@ -8792,10 +8792,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.1f;
 				this.value = 1500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 1.5f;
 			}
-			else if (this.type == 350)
+			else if (this.type == NPCID.ElfArcher)
 			{
 				this.name = "Elf Archer";
 				this.width = 18;
@@ -8808,10 +8808,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.45f;
 				this.value = 900f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 351)
+			else if (this.type == NPCID.Krampus)
 			{
 				this.name = "Krampus";
 				this.width = 18;
@@ -8824,11 +8824,11 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.1f;
 				this.value = 3000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 1.75f;
 			}
-			else if (this.type == 352)
+			else if (this.type == NPCID.Flocko)
 			{
 				this.name = "Flocko";
 				this.width = 54;
@@ -8840,16 +8840,16 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 6;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.4f;
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.npcSlots = 2f;
 				this.coldDamage = true;
 			}
-			else if (this.type == 353)
+			else if (this.type == NPCID.Stylist)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -8864,7 +8864,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 354)
+			else if (this.type == NPCID.WebbedStylist)
 			{
 				this.friendly = true;
 				this.name = "Webbed Stylist";
@@ -8880,7 +8880,7 @@ namespace Terraria
 				this.scale = 0.9f;
 				this.rarity = 1;
 			}
-			else if (this.type == 355)
+			else if (this.type == NPCID.Firefly)
 			{
 				this.name = "Firefly";
 				this.width = 10;
@@ -8895,7 +8895,7 @@ namespace Terraria
 				this.noGravity = true;
 				this.catchItem = 1992;
 			}
-			else if (this.type == 356)
+			else if (this.type == NPCID.Butterfly)
 			{
 				this.name = "Butterfly";
 				this.width = 10;
@@ -8910,7 +8910,7 @@ namespace Terraria
 				this.noGravity = true;
 				this.catchItem = 1994;
 			}
-			else if (this.type == 357)
+			else if (this.type == NPCID.Worm)
 			{
 				this.name = "Worm";
 				this.width = 10;
@@ -8925,7 +8925,7 @@ namespace Terraria
 				this.catchItem = 2002;
 				this.friendly = true;
 			}
-			else if (this.type == 358)
+			else if (this.type == NPCID.LightningBug)
 			{
 				this.name = "Lightning Bug";
 				this.width = 12;
@@ -8940,7 +8940,7 @@ namespace Terraria
 				this.noGravity = true;
 				this.catchItem = 2004;
 			}
-			else if (this.type == 359)
+			else if (this.type == NPCID.Snail)
 			{
 				this.name = "Snail";
 				this.width = 12;
@@ -8955,7 +8955,7 @@ namespace Terraria
 				this.noGravity = true;
 				this.catchItem = 2006;
 			}
-			else if (this.type == 360)
+			else if (this.type == NPCID.GlowingSnail)
 			{
 				this.name = "Glowing Snail";
 				this.width = 14;
@@ -8970,7 +8970,7 @@ namespace Terraria
 				this.noGravity = true;
 				this.catchItem = 2007;
 			}
-			else if (this.type == 361)
+			else if (this.type == NPCID.Frog)
 			{
 				this.name = "Frog";
 				this.width = 18;
@@ -8983,7 +8983,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.catchItem = 2121;
 			}
-			else if (this.type == 362)
+			else if (this.type == NPCID.Duck)
 			{
 				this.name = "Duck";
 				this.width = 22;
@@ -8996,7 +8996,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.catchItem = 2122;
 			}
-			else if (this.type == 363)
+			else if (this.type == NPCID.Duck2)
 			{
 				this.name = "Duck";
 				this.width = 28;
@@ -9009,7 +9009,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.catchItem = 2122;
 			}
-			else if (this.type == 364)
+			else if (this.type == NPCID.DuckWhite)
 			{
 				this.name = "Duck";
 				this.width = 22;
@@ -9022,7 +9022,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.catchItem = 2123;
 			}
-			else if (this.type == 365)
+			else if (this.type == NPCID.DuckWhite2)
 			{
 				this.name = "Duck";
 				this.width = 28;
@@ -9035,7 +9035,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.catchItem = 2123;
 			}
-			else if (this.type == 366 || this.type == 367)
+			else if (this.type == NPCID.ScorpionBlack || this.type == NPCID.Scorpion)
 			{
 				this.name = "Scorpion";
 				this.width = 26;
@@ -9048,7 +9048,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.catchItem = (short)(2156 + this.type - 366);
 			}
-			else if (this.type == 368)
+			else if (this.type == NPCID.TravellingMerchant)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -9063,7 +9063,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 369)
+			else if (this.type == NPCID.Angler)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -9078,7 +9078,7 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 370)
+			else if (this.type == NPCID.DukeFishron)
 			{
 				this.name = "Duke Fishron";
 				this.width = 150;
@@ -9097,12 +9097,12 @@ namespace Terraria
 				this.boss = true;
 				this.netAlways = true;
 				this.timeLeft = NPC.activeTime * 30;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[31] = true;
-				this.buffImmune[44] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.Confused] = true;
+				this.buffImmune[BuffID.Frostburn] = true;
 			}
-			else if (this.type == 371)
+			else if (this.type == NPCID.DetonatingBubble)
 			{
 				this.name = "Detonating Bubble";
 				this.width = 36;
@@ -9118,7 +9118,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.alpha = 255;
 			}
-			else if (this.type == 372)
+			else if (this.type == NPCID.Sharkron)
 			{
 				this.noGravity = true;
 				this.name = "Sharkron";
@@ -9133,7 +9133,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.alpha = 255;
 			}
-			else if (this.type == 373)
+			else if (this.type == NPCID.Sharkron2)
 			{
 				this.noGravity = true;
 				this.name = "Sharkron2";
@@ -9149,7 +9149,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.alpha = 255;
 			}
-			else if (this.type == 374)
+			else if (this.type == NPCID.TruffleWorm)
 			{
 				this.name = "Truffle Worm";
 				this.width = 20;
@@ -9164,7 +9164,7 @@ namespace Terraria
 				this.catchItem = 2673;
 				this.rarity = 4;
 			}
-			else if (this.type == 375)
+			else if (this.type == NPCID.TruffleWormDigger)
 			{
 				this.displayName = "Truffle Worm";
 				this.name = "Truffle Worm Digger";
@@ -9183,7 +9183,7 @@ namespace Terraria
 				this.npcSlots = 0.15f;
 				this.catchItem = 2673;
 			}
-			else if (this.type == 376)
+			else if (this.type == NPCID.SleepingAngler)
 			{
 				this.friendly = true;
 				this.name = "Sleeping Angler";
@@ -9198,7 +9198,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.scale = 0.9f;
 			}
-			else if (this.type == 377)
+			else if (this.type == NPCID.Grasshopper)
 			{
 				this.name = "Grasshopper";
 				this.width = 14;
@@ -9213,7 +9213,7 @@ namespace Terraria
 				this.catchItem = 2740;
 				this.npcSlots = 0.1f;
 			}
-			else if (this.type == 378)
+			else if (this.type == NPCID.ChatteringTeethBomb)
 			{
 				this.npcSlots = 1f;
 				this.name = "Chattering Teeth Bomb";
@@ -9228,7 +9228,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 450f;
 			}
-			else if (this.type >= 379 && this.type <= 380)
+			else if (this.type >= NPCID.CultistArcherBlue && this.type <= NPCID.CultistArcherWhite)
 			{
 				this.name = "Lunatic Cultist Archer";
 				this.width = 18;
@@ -9246,7 +9246,7 @@ namespace Terraria
 				this.netAlways = true;
 				this.chaseable = false;
 			}
-			else if (this.type >= 381 && this.type <= 382)
+			else if (this.type >= NPCID.BrainScrambler && this.type <= NPCID.RayGunner)
 			{
 				this.name = "Martian Ranger";
 				this.width = 18;
@@ -9260,7 +9260,7 @@ namespace Terraria
 				this.knockBackResist = 0.35f;
 				this.value = 1000f;
 			}
-			else if (this.type == 383)
+			else if (this.type == NPCID.MartianOfficer)
 			{
 				this.name = "Martian Officer";
 				this.lifeMax = 300;
@@ -9273,9 +9273,9 @@ namespace Terraria
 				this.soundKilled = 45;
 				this.value = 1200f;
 				this.knockBackResist = 0.25f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 384)
+			else if (this.type == NPCID.ForceBubble)
 			{
 				this.name = "Bubble Shield";
 				this.lifeMax = 1000;
@@ -9290,7 +9290,7 @@ namespace Terraria
 				this.noTileCollide = true;
 				this.canGhostHeal = false;
 			}
-			else if (this.type == 385)
+			else if (this.type == NPCID.GrayGrunt)
 			{
 				this.name = "Martian Grunty";
 				this.lifeMax = 750;
@@ -9305,7 +9305,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.npcSlots = 0.75f;
 			}
-			else if (this.type == 386)
+			else if (this.type == NPCID.MartianEngineer)
 			{
 				this.name = "Martian Engineer";
 				this.lifeMax = 400;
@@ -9319,7 +9319,7 @@ namespace Terraria
 				this.value = 1200f;
 				this.knockBackResist = 0.4f;
 			}
-			else if (this.type == 387)
+			else if (this.type == NPCID.MartianTurret)
 			{
 				this.name = "Tesla Turret";
 				this.width = 20;
@@ -9331,10 +9331,10 @@ namespace Terraria
 				this.soundHit = 53;
 				this.soundKilled = 56;
 				this.knockBackResist = 0f;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Confused] = true;
 				this.canGhostHeal = false;
 			}
-			else if (this.type == 388)
+			else if (this.type == NPCID.MartianDrone)
 			{
 				this.name = "Martian Drone";
 				this.width = 40;
@@ -9352,7 +9352,7 @@ namespace Terraria
 				this.npcSlots = 1.5f;
 				this.canGhostHeal = false;
 			}
-			else if (this.type == 389)
+			else if (this.type == NPCID.GigaZapper)
 			{
 				this.name = "Gigazapper";
 				this.lifeMax = 600;
@@ -9367,7 +9367,7 @@ namespace Terraria
 				this.npcSlots = 0.5f;
 				this.knockBackResist = 0.3f;
 			}
-			else if (this.type == 390)
+			else if (this.type == NPCID.ScutlixRider)
 			{
 				this.name = "Scutlix Gunner";
 				this.damage = 65;
@@ -9381,7 +9381,7 @@ namespace Terraria
 				this.value = 1200f;
 				this.npcSlots = 0.5f;
 			}
-			else if (this.type == 391)
+			else if (this.type == NPCID.Scutlix)
 			{
 				this.name = "Scutlix";
 				this.lifeMax = 600;
@@ -9396,7 +9396,7 @@ namespace Terraria
 				this.npcSlots = 0.5f;
 				this.knockBackResist = 0.1f;
 			}
-			else if (this.type == 392)
+			else if (this.type == NPCID.MartianSaucer)
 			{
 				this.name = "Martian Saucer";
 				this.lifeMax = 100;
@@ -9416,7 +9416,7 @@ namespace Terraria
 				flag = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 393)
+			else if (this.type == NPCID.MartianSaucerTurret)
 			{
 				this.name = "Saucer Turret";
 				this.lifeMax = 5000;
@@ -9435,7 +9435,7 @@ namespace Terraria
 				flag = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 394)
+			else if (this.type == NPCID.MartianSaucerCannon)
 			{
 				this.name = "Saucer Cannon";
 				this.lifeMax = 3500;
@@ -9454,7 +9454,7 @@ namespace Terraria
 				flag = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 395)
+			else if (this.type == NPCID.MartianSaucerCore)
 			{
 				this.name = "Saucer Core";
 				this.lifeMax = 10000;
@@ -9475,7 +9475,7 @@ namespace Terraria
 				flag = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 399)
+			else if (this.type == NPCID.MartianProbe)
 			{
 				this.name = "Martian Probe";
 				this.defense = 5;
@@ -9495,7 +9495,7 @@ namespace Terraria
 				this.netAlways = true;
 				this.rarity = 1;
 			}
-			else if (this.type == 396)
+			else if (this.type == NPCID.MoonLordHead)
 			{
 				this.name = "Moon Lord Head";
 				this.lifeMax = 45000;
@@ -9515,7 +9515,7 @@ namespace Terraria
 				this.hide = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 397)
+			else if (this.type == NPCID.MoonLordHand)
 			{
 				this.name = "Moon Lord Hand";
 				this.lifeMax = 25000;
@@ -9535,7 +9535,7 @@ namespace Terraria
 				this.hide = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 398)
+			else if (this.type == NPCID.MoonLordCore)
 			{
 				this.name = "Moon Lord Core";
 				this.lifeMax = 50000;
@@ -9557,7 +9557,7 @@ namespace Terraria
 				this.hide = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 400)
+			else if (this.type == NPCID.MoonLordFreeEye)
 			{
 				this.name = "True Eye of Cthulhu";
 				this.defense = 0;
@@ -9576,7 +9576,7 @@ namespace Terraria
 				this.noTileCollide = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 401)
+			else if (this.type == NPCID.MoonLordLeechBlob)
 			{
 				this.name = "Moon Leech Clot";
 				this.lifeMax = 400;
@@ -9594,7 +9594,7 @@ namespace Terraria
 				this.noTileCollide = true;
 				this.hide = true;
 			}
-			else if (this.type == 437)
+			else if (this.type == NPCID.CultistTablet)
 			{
 				this.name = "Lunar Tablet";
 				this.lifeMax = 400;
@@ -9613,7 +9613,7 @@ namespace Terraria
 				this.dontTakeDamage = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 438)
+			else if (this.type == NPCID.CultistDevote)
 			{
 				this.name = "Lunar Devote";
 				this.lifeMax = 400;
@@ -9631,7 +9631,7 @@ namespace Terraria
 				this.netAlways = true;
 				this.chaseable = false;
 			}
-			else if (this.type == 439)
+			else if (this.type == NPCID.CultistBoss)
 			{
 				this.name = "Ancient Cultist";
 				this.width = 24;
@@ -9652,7 +9652,7 @@ namespace Terraria
 				this.timeLeft = NPC.activeTime * 30;
 				flag = true;
 			}
-			else if (this.type == 440)
+			else if (this.type == NPCID.CultistBossClone)
 			{
 				this.name = "Ancient Cultist";
 				this.width = 24;
@@ -9672,7 +9672,7 @@ namespace Terraria
 				flag = true;
 				this.chaseable = false;
 			}
-			else if (this.type == 442)
+			else if (this.type == NPCID.GoldBird)
 			{
 				this.name = "Gold Bird";
 				this.width = 14;
@@ -9688,7 +9688,7 @@ namespace Terraria
 				this.npcSlots = 0.4f;
 				this.rarity = 3;
 			}
-			else if (this.type == 443)
+			else if (this.type == NPCID.GoldBunny)
 			{
 				this.name = "Gold Bunny";
 				this.width = 18;
@@ -9702,7 +9702,7 @@ namespace Terraria
 				this.catchItem = 2890;
 				this.rarity = 3;
 			}
-			else if (this.type == 444)
+			else if (this.type == NPCID.GoldButterfly)
 			{
 				this.name = "Gold Butterfly";
 				this.width = 10;
@@ -9718,7 +9718,7 @@ namespace Terraria
 				this.catchItem = 2891;
 				this.rarity = 3;
 			}
-			else if (this.type == 445)
+			else if (this.type == NPCID.GoldFrog)
 			{
 				this.name = "Gold Frog";
 				this.width = 18;
@@ -9732,7 +9732,7 @@ namespace Terraria
 				this.catchItem = 2892;
 				this.rarity = 3;
 			}
-			else if (this.type == 446)
+			else if (this.type == NPCID.GoldGrasshopper)
 			{
 				this.name = "Gold Grasshopper";
 				this.width = 14;
@@ -9748,7 +9748,7 @@ namespace Terraria
 				this.npcSlots = 0.1f;
 				this.rarity = 3;
 			}
-			else if (this.type == 447)
+			else if (this.type == NPCID.GoldMouse)
 			{
 				this.name = "Gold Mouse";
 				this.width = 14;
@@ -9763,7 +9763,7 @@ namespace Terraria
 				this.catchItem = 2894;
 				this.rarity = 3;
 			}
-			else if (this.type == 448)
+			else if (this.type == NPCID.GoldWorm)
 			{
 				this.name = "Gold Worm";
 				this.width = 10;
@@ -9779,7 +9779,7 @@ namespace Terraria
 				this.friendly = true;
 				this.rarity = 3;
 			}
-			else if (this.type == 449)
+			else if (this.type == NPCID.BoneThrowingSkeleton)
 			{
 				this.name = "Skeleton";
 				this.width = 18;
@@ -9792,10 +9792,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 100f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 450)
+			else if (this.type == NPCID.BoneThrowingSkeleton2)
 			{
 				this.name = "Headache Skeleton";
 				this.displayName = "Skeleton";
@@ -9809,10 +9809,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 130f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 451)
+			else if (this.type == NPCID.BoneThrowingSkeleton3)
 			{
 				this.name = "Misassembled Skeleton";
 				this.displayName = "Skeleton";
@@ -9826,10 +9826,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 120f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 452)
+			else if (this.type == NPCID.BoneThrowingSkeleton4)
 			{
 				this.name = "Pantless Skeleton";
 				this.displayName = "Skeleton";
@@ -9843,10 +9843,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 110f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 453)
+			else if (this.type == NPCID.SkeletonMerchant)
 			{
 				this.friendly = true;
 				this.name = "Skeleton Merchant";
@@ -9861,7 +9861,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.npcSlots = 7f;
 			}
-			else if (this.type == 454)
+			else if (this.type == NPCID.CultistDragonHead)
 			{
 				this.displayName = "Phantasm Dragon";
 				this.noTileCollide = true;
@@ -9883,7 +9883,7 @@ namespace Terraria
 				flag = true;
 				this.alpha = 255;
 			}
-			else if (this.type == 459)
+			else if (this.type == NPCID.CultistDragonTail)
 			{
 				this.displayName = "Phantasm Dragon";
 				this.noTileCollide = true;
@@ -9905,7 +9905,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 455 || this.type == 456 || this.type == 457 || this.type == 458)
+			else if (this.type == NPCID.CultistDragonBody1 || this.type == NPCID.CultistDragonBody2 || this.type == NPCID.CultistDragonBody3 || this.type == NPCID.CultistDragonBody4)
 			{
 				this.displayName = "Phantasm Dragon";
 				this.noTileCollide = true;
@@ -9927,7 +9927,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.dontCountMe = true;
 			}
-			else if (this.type == 464)
+			else if (this.type == NPCID.CrimsonBunny)
 			{
 				this.name = "Crimson Bunny";
 				this.width = 18;
@@ -9939,9 +9939,9 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 465)
+			else if (this.type == NPCID.CrimsonGoldfish)
 			{
 				this.noGravity = true;
 				this.name = "Crimson Goldfish";
@@ -9955,7 +9955,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.value = 500f;
 			}
-			else if (this.type == 470)
+			else if (this.type == NPCID.CrimsonPenguin)
 			{
 				this.name = "Crimtane Penguin";
 				this.width = 16;
@@ -9967,9 +9967,9 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 473 || this.type == 474 || this.type == 475 || this.type == 476)
+			else if (this.type == NPCID.BigMimicCorruption || this.type == NPCID.BigMimicCrimson || this.type == NPCID.BigMimicHallow || this.type == NPCID.BigMimicJungle)
 			{
 				this.name = "Big Mimic";
 				this.width = 28;
@@ -9982,12 +9982,12 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.value = 30000f;
 				this.knockBackResist = 0.1f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.rarity = 2;
 			}
-			else if (this.type == 480)
+			else if (this.type == NPCID.Medusa)
 			{
 				this.name = "Medusa";
 				this.width = 18;
@@ -10001,7 +10001,7 @@ namespace Terraria
 				this.knockBackResist = 0.15f;
 				this.value = 1000f;
 			}
-			else if (this.type == 481)
+			else if (this.type == NPCID.GreekSkeleton)
 			{
 				this.name = "Hoplite";
 				this.width = 18;
@@ -10014,10 +10014,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.4f;
 				this.value = 300f;
-				this.buffImmune[31] = false;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 482)
+			else if (this.type == NPCID.GraniteGolem)
 			{
 				this.name = "Grolem";
 				this.width = 28;
@@ -10030,10 +10030,10 @@ namespace Terraria
 				this.soundKilled = 44;
 				this.knockBackResist = 0.35f;
 				this.value = 500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
-			else if (this.type == 483)
+			else if (this.type == NPCID.GraniteFlyer)
 			{
 				this.npcSlots = 0.5f;
 				this.name = "Grelimental";
@@ -10047,10 +10047,10 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.soundKilled = 6;
 				this.value = 1000f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
-			else if (this.type >= 484 && this.type <= 487)
+			else if (this.type >= NPCID.EnchantedNightcrawler && this.type <= NPCID.Buggy)
 			{
 				this.name = "Grub";
 				this.width = 10;
@@ -10065,7 +10065,7 @@ namespace Terraria
 				this.catchItem = (short)(3191 + this.type - 484);
 				this.friendly = true;
 			}
-			else if (this.type == 488)
+			else if (this.type == NPCID.TargetDummy)
 			{
 				this.name = "Target Dummy";
 				this.width = 18;
@@ -10081,7 +10081,7 @@ namespace Terraria
 				this.immortal = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 489)
+			else if (this.type == NPCID.BloodZombie)
 			{
 				this.name = "Blood Zombie";
 				this.width = 18;
@@ -10094,9 +10094,9 @@ namespace Terraria
 				this.soundKilled = 21;
 				this.knockBackResist = 0.4f;
 				this.value = 150f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 490)
+			else if (this.type == NPCID.Drippler)
 			{
 				this.noGravity = true;
 				this.name = "Drippler";
@@ -10110,9 +10110,9 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.soundKilled = 22;
 				this.value = 150f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 491)
+			else if (this.type == NPCID.PirateShip)
 			{
 				this.noGravity = true;
 				this.name = "Flying Dutchman";
@@ -10130,7 +10130,7 @@ namespace Terraria
 				this.dontTakeDamage = true;
 				this.netAlways = true;
 			}
-			else if (this.type == 492)
+			else if (this.type == NPCID.PirateShipCannon)
 			{
 				this.name = "Dutchman Cannon";
 				this.lifeMax = 2000;
@@ -10150,7 +10150,7 @@ namespace Terraria
 				this.hide = true;
 				this.netAlways = true;
 			}
-			else if (this.type >= 494 && this.type <= 495)
+			else if (this.type >= NPCID.Crawdad && this.type <= NPCID.Crawdad2)
 			{
 				this.name = "Crawdad";
 				this.width = 28;
@@ -10163,7 +10163,7 @@ namespace Terraria
 				this.soundKilled = 36;
 				this.value = 120f;
 			}
-			else if (this.type >= 496 && this.type <= 497)
+			else if (this.type >= NPCID.GiantShelly && this.type <= NPCID.GiantShelly2)
 			{
 				this.name = "Giant Shelly";
 				this.width = 28;
@@ -10177,7 +10177,7 @@ namespace Terraria
 				this.knockBackResist = 0.75f;
 				this.value = 120f;
 			}
-			else if (this.type >= 498 && this.type <= 506)
+			else if (this.type >= NPCID.Salamander && this.type <= NPCID.Salamander9)
 			{
 				this.name = "Salamander";
 				this.width = 24;
@@ -10190,9 +10190,9 @@ namespace Terraria
 				this.soundKilled = 53;
 				this.knockBackResist = 0.45f;
 				this.value = 120f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 441)
+			else if (this.type == NPCID.TaxCollector)
 			{
 				this.townNPC = true;
 				this.friendly = true;
@@ -10207,7 +10207,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 			}
-			else if (this.type == 513)
+			else if (this.type == NPCID.TombCrawlerHead)
 			{
 				this.displayName = "Tomb Crawler";
 				this.npcSlots = 4f;
@@ -10226,7 +10226,7 @@ namespace Terraria
 				this.behindTiles = true;
 				this.value = 140f;
 			}
-			else if (this.type == 514)
+			else if (this.type == NPCID.TombCrawlerBody)
 			{
 				this.displayName = "Tomb Crawler";
 				this.name = "Tomb Crawler Body";
@@ -10247,7 +10247,7 @@ namespace Terraria
 				this.dontCountMe = true;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 515)
+			else if (this.type == NPCID.TombCrawlerTail)
 			{
 				this.displayName = "Tomb Crawler";
 				this.name = "Tomb Crawler Tail";
@@ -10268,7 +10268,7 @@ namespace Terraria
 				this.dontCountMe = true;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 510)
+			else if (this.type == NPCID.DuneSplicerHead)
 			{
 				this.displayName = "Dune Splicer";
 				this.npcSlots = 5f;
@@ -10287,7 +10287,7 @@ namespace Terraria
 				this.behindTiles = true;
 				this.value = 700f;
 			}
-			else if (this.type == 511)
+			else if (this.type == NPCID.DuneSplicerBody)
 			{
 				this.displayName = "Dune Splicer";
 				this.name = "Dune Splicer Body";
@@ -10308,7 +10308,7 @@ namespace Terraria
 				this.dontCountMe = true;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 512)
+			else if (this.type == NPCID.DuneSplicerTail)
 			{
 				this.displayName = "Dune Splicer";
 				this.name = "Dune Splicer Tail";
@@ -10329,7 +10329,7 @@ namespace Terraria
 				this.dontCountMe = true;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 508)
+			else if (this.type == NPCID.WalkingAntlion)
 			{
 				this.name = "Antlion Charger";
 				this.width = 33;
@@ -10342,10 +10342,10 @@ namespace Terraria
 				this.soundKilled = 34;
 				this.knockBackResist = 0.2f;
 				this.value = 80f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.8f;
 			}
-			else if (this.type == 509)
+			else if (this.type == NPCID.FlyingAntlion)
 			{
 				this.name = "Antlion Swarmer";
 				this.width = 40;
@@ -10358,10 +10358,10 @@ namespace Terraria
 				this.soundHit = 32;
 				this.soundKilled = 35;
 				this.value = 90f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.8f;
 			}
-			else if (this.type >= 524 && this.type <= 527)
+			else if (this.type >= NPCID.DesertGhoul && this.type <= NPCID.DesertGhoulHallow)
 			{
 				this.name = "Ghoul";
 				this.width = 24;
@@ -10374,7 +10374,7 @@ namespace Terraria
 				this.soundKilled = 40;
 				this.knockBackResist = 0.6f;
 				this.value = 500f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
 				switch (this.type - 524)
 				{
@@ -10401,7 +10401,7 @@ namespace Terraria
 					break;
 				}
 			}
-			else if (this.type >= 528 && this.type <= 529)
+			else if (this.type >= NPCID.DesertLamiaLight && this.type <= NPCID.DesertLamiaDark)
 			{
 				this.name = "Lamia";
 				this.width = 24;
@@ -10414,9 +10414,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.35f;
 				this.value = 600f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 530)
+			else if (this.type == NPCID.DesertScorpionWalk)
 			{
 				this.name = "Ravager Scorpion";
 				this.width = 50;
@@ -10430,10 +10430,10 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 600f;
 				this.timeLeft = NPC.activeTime * 2;
-				this.buffImmune[20] = true;
-				this.buffImmune[70] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Venom] = true;
 			}
-			else if (this.type == 531)
+			else if (this.type == NPCID.DesertScorpionWall)
 			{
 				this.noGravity = true;
 				this.name = "Ravager Scorpion";
@@ -10448,10 +10448,10 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 600f;
 				this.timeLeft = NPC.activeTime * 2;
-				this.buffImmune[20] = true;
-				this.buffImmune[70] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Venom] = true;
 			}
-			else if (this.type == 532)
+			else if (this.type == NPCID.DesertBeast)
 			{
 				this.name = "Basilisk";
 				this.width = 32;
@@ -10464,10 +10464,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 800f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.75f;
 			}
-			else if (this.type == 533)
+			else if (this.type == NPCID.DesertDjinn)
 			{
 				this.name = "Desert Spirit";
 				this.width = 18;
@@ -10483,7 +10483,7 @@ namespace Terraria
 				this.npcSlots = 2f;
 				flag = true;
 			}
-			else if (this.type == 493)
+			else if (this.type == NPCID.LunarTowerStardust)
 			{
 				this.name = "Stardust Tower";
 				this.lifeMax = 20000;
@@ -10501,7 +10501,7 @@ namespace Terraria
 				flag = true;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 402)
+			else if (this.type == NPCID.StardustWormHead)
 			{
 				this.displayName = "Milkyway Weaver";
 				this.noTileCollide = true;
@@ -10522,7 +10522,7 @@ namespace Terraria
 				this.scale = 1f;
 				flag = true;
 			}
-			else if (this.type == 405)
+			else if (this.type == NPCID.StardustCellBig)
 			{
 				this.name = "Star Cell";
 				this.width = 44;
@@ -10535,10 +10535,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.noGravity = true;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Confused] = true;
 				this.npcSlots = 2f;
 			}
-			else if (this.type == 406)
+			else if (this.type == NPCID.StardustCellSmall)
 			{
 				this.name = "Star Cell";
 				this.width = 22;
@@ -10551,9 +10551,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 				this.noGravity = true;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Confused] = true;
 			}
-			else if (this.type == 411)
+			else if (this.type == NPCID.StardustSoldier)
 			{
 				this.name = "Stardust Soldier";
 				this.width = 22;
@@ -10565,9 +10565,9 @@ namespace Terraria
 				this.soundHit = 6;
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 409)
+			else if (this.type == NPCID.StardustSpiderBig)
 			{
 				this.name = "Twinkle Popper";
 				this.width = 34;
@@ -10579,10 +10579,10 @@ namespace Terraria
 				this.soundHit = 6;
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 3f;
 			}
-			else if (this.type == 410)
+			else if (this.type == NPCID.StardustSpiderSmall)
 			{
 				this.name = "Twinkle";
 				this.width = 22;
@@ -10594,10 +10594,10 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 5;
 				this.knockBackResist = 0.3f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
 			}
-			else if (this.type == 407)
+			else if (this.type == NPCID.StardustJellyfishBig)
 			{
 				this.name = "Flow Invader";
 				this.width = 40;
@@ -10610,10 +10610,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.noGravity = true;
 				this.knockBackResist = 0.03f;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Confused] = true;
 				this.npcSlots = 3f;
 			}
-			else if (this.type == 507)
+			else if (this.type == NPCID.LunarTowerNebula)
 			{
 				this.name = "Nebula Tower";
 				this.lifeMax = 20000;
@@ -10631,7 +10631,7 @@ namespace Terraria
 				flag = true;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 423)
+			else if (this.type == NPCID.NebulaBeast)
 			{
 				this.name = "Nebula Beast";
 				this.width = 50;
@@ -10646,7 +10646,7 @@ namespace Terraria
 				flag = true;
 				this.npcSlots = 1f;
 			}
-			else if (this.type == 421)
+			else if (this.type == NPCID.NebulaHeadcrab)
 			{
 				this.name = "Nebula Headcrab";
 				this.width = 44;
@@ -10659,10 +10659,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.noGravity = true;
-				this.buffImmune[31] = true;
+				this.buffImmune[BuffID.Confused] = true;
 				this.npcSlots = 1f;
 			}
-			else if (this.type == 424)
+			else if (this.type == NPCID.NebulaSoldier)
 			{
 				this.name = "Nebula Soldier";
 				this.width = 22;
@@ -10674,10 +10674,10 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 5;
 				this.knockBackResist = 0.6f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 2f;
 			}
-			else if (this.type == 420)
+			else if (this.type == NPCID.NebulaBrain)
 			{
 				this.name = "Nebula Floater";
 				this.width = 40;
@@ -10693,7 +10693,7 @@ namespace Terraria
 				this.noGravity = true;
 				this.npcSlots = 3f;
 			}
-			else if (this.type == 422)
+			else if (this.type == NPCID.LunarTowerVortex)
 			{
 				this.name = "Vortex Tower";
 				this.lifeMax = 20000;
@@ -10711,7 +10711,7 @@ namespace Terraria
 				flag = true;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 425)
+			else if (this.type == NPCID.VortexRifleman)
 			{
 				this.name = "Vortex Rifleman";
 				this.width = 30;
@@ -10723,9 +10723,9 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 429)
+			else if (this.type == NPCID.VortexSoldier)
 			{
 				this.name = "Vortex Soldier";
 				this.width = 22;
@@ -10737,10 +10737,10 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 5;
 				this.knockBackResist = 0.6f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 2f;
 			}
-			else if (this.type == 428)
+			else if (this.type == NPCID.VortexLarva)
 			{
 				this.name = "Alien Larva";
 				this.width = 24;
@@ -10752,7 +10752,7 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 1;
 			}
-			else if (this.type == 427)
+			else if (this.type == NPCID.VortexHornet)
 			{
 				this.name = "Alien Hornet";
 				this.width = 40;
@@ -10764,10 +10764,10 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 6;
 				this.knockBackResist = 0.5f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
 			}
-			else if (this.type == 426)
+			else if (this.type == NPCID.VortexHornetQueen)
 			{
 				this.name = "Alien Queen";
 				this.width = 50;
@@ -10779,9 +10779,9 @@ namespace Terraria
 				this.soundHit = 1;
 				this.soundKilled = 6;
 				this.knockBackResist = 0.3f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 517)
+			else if (this.type == NPCID.LunarTowerSolar)
 			{
 				this.name = "Solar Tower";
 				this.lifeMax = 20000;
@@ -10799,7 +10799,7 @@ namespace Terraria
 				flag = true;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 412)
+			else if (this.type == NPCID.SolarCrawltipedeHead)
 			{
 				this.name = "Crawltipede";
 				this.width = 20;
@@ -10817,7 +10817,7 @@ namespace Terraria
 				this.dontTakeDamage = true;
 				this.npcSlots = 2f;
 			}
-			else if (this.type == 413)
+			else if (this.type == NPCID.SolarCrawltipedeBody)
 			{
 				this.name = "Crawltipede";
 				this.width = 20;
@@ -10836,7 +10836,7 @@ namespace Terraria
 				this.dontTakeDamage = true;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 414)
+			else if (this.type == NPCID.SolarCrawltipedeTail)
 			{
 				this.name = "Crawltipede";
 				this.width = 20;
@@ -10855,7 +10855,7 @@ namespace Terraria
 				this.takenDamageMultiplier = 10f;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 415)
+			else if (this.type == NPCID.SolarDrakomire)
 			{
 				this.name = "Drakomire";
 				this.lifeMax = 800;
@@ -10868,7 +10868,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.2f;
 			}
-			else if (this.type == 416)
+			else if (this.type == NPCID.SolarDrakomireRider)
 			{
 				this.name = "Drakomire Rider";
 				this.damage = 80;
@@ -10881,7 +10881,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.2f;
 			}
-			else if (this.type == 518)
+			else if (this.type == NPCID.SolarSpearman)
 			{
 				this.name = "Solar Spearman";
 				this.lifeMax = 1000;
@@ -10894,7 +10894,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 			}
-			else if (this.type == 417)
+			else if (this.type == NPCID.SolarSroller)
 			{
 				this.npcSlots = 2f;
 				this.name = "Sroller";
@@ -10908,7 +10908,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.soundKilled = 5;
 			}
-			else if (this.type == 418)
+			else if (this.type == NPCID.SolarCorite)
 			{
 				this.name = "Corite";
 				this.width = 38;
@@ -10922,11 +10922,11 @@ namespace Terraria
 				this.noGravity = true;
 				this.noTileCollide = true;
 				this.knockBackResist = 0.2f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 			}
-			else if (this.type == 419)
+			else if (this.type == NPCID.SolarSolenian)
 			{
 				this.name = "Solar Solenian";
 				this.lifeMax = 800;
@@ -10939,7 +10939,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.4f;
 			}
-			else if (this.type == 516)
+			else if (this.type == NPCID.SolarFlare)
 			{
 				this.name = "Solar Flare";
 				this.width = 26;
@@ -10955,7 +10955,7 @@ namespace Terraria
 				this.alpha = 0;
 				this.knockBackResist = 0f;
 			}
-			else if (this.type == 519)
+			else if (this.type == NPCID.SolarGoop)
 			{
 				this.name = "Solar Goop";
 				this.width = 26;
@@ -10971,7 +10971,7 @@ namespace Terraria
 				this.alpha = 0;
 				this.knockBackResist = 0f;
 			}
-			else if (this.type == 162)
+			else if (this.type == NPCID.Frankenstein)
 			{
 				this.name = "Frankenstein";
 				this.width = 18;
@@ -10984,9 +10984,9 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.3f;
 				this.value = 600f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 166)
+			else if (this.type == NPCID.SwampThing)
 			{
 				this.name = "Swamp Thing";
 				this.width = 18;
@@ -10999,10 +10999,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.2f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Confused] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 253)
+			else if (this.type == NPCID.Reaper)
 			{
 				this.noGravity = true;
 				this.noTileCollide = true;
@@ -11017,12 +11017,12 @@ namespace Terraria
 				this.soundKilled = 51;
 				this.alpha = 100;
 				this.value = 1500f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.6f;
 			}
-			else if (this.type == 158)
+			else if (this.type == NPCID.VampireBat)
 			{
 				this.npcSlots = 2f;
 				this.name = "Vampire";
@@ -11036,9 +11036,9 @@ namespace Terraria
 				this.knockBackResist = 0.75f;
 				this.soundKilled = 6;
 				this.value = 5000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 159)
+			else if (this.type == NPCID.Vampire)
 			{
 				this.npcSlots = 2f;
 				this.name = "Vampire";
@@ -11052,9 +11052,9 @@ namespace Terraria
 				this.soundKilled = 6;
 				this.knockBackResist = 0.4f;
 				this.value = 5000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 460)
+			else if (this.type == NPCID.Butcher)
 			{
 				this.name = "Butcher";
 				this.width = 18;
@@ -11067,9 +11067,9 @@ namespace Terraria
 				this.soundKilled = 17;
 				this.knockBackResist = 0.25f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 461)
+			else if (this.type == NPCID.CreatureFromTheDeep)
 			{
 				this.name = "Creature from the Deep";
 				this.width = 18;
@@ -11083,7 +11083,7 @@ namespace Terraria
 				this.knockBackResist = 0.3f;
 				this.value = 1000f;
 			}
-			else if (this.type == 462)
+			else if (this.type == NPCID.Fritz)
 			{
 				this.name = "Fritz";
 				this.width = 20;
@@ -11096,10 +11096,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.7f;
 				this.value = 600f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.npcSlots = 0.5f;
 			}
-			else if (this.type == 463)
+			else if (this.type == NPCID.Nailhead)
 			{
 				this.name = "Nailhead";
 				this.width = 18;
@@ -11113,7 +11113,7 @@ namespace Terraria
 				this.knockBackResist = 0.1f;
 				this.value = 3000f;
 			}
-			else if (this.type == 466)
+			else if (this.type == NPCID.Psycho)
 			{
 				this.name = "Psycho";
 				this.width = 18;
@@ -11127,7 +11127,7 @@ namespace Terraria
 				this.knockBackResist = 0.5f;
 				this.value = 1500f;
 			}
-			else if (this.type == 467)
+			else if (this.type == NPCID.DeadlySphere)
 			{
 				this.name = "Deadly Sphere";
 				this.width = 22;
@@ -11139,13 +11139,13 @@ namespace Terraria
 				this.soundHit = 34;
 				this.soundKilled = 37;
 				this.value = 900f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
-				this.buffImmune[39] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
+				this.buffImmune[BuffID.CursedInferno] = true;
 				this.knockBackResist = 0.7f;
 				this.noGravity = true;
 			}
-			else if (this.type == 469)
+			else if (this.type == NPCID.ThePossessed)
 			{
 				this.name = "The Possessed";
 				this.width = 38;
@@ -11159,7 +11159,7 @@ namespace Terraria
 				this.knockBackResist = 0.35f;
 				this.value = 1300f;
 			}
-			else if (this.type == 468)
+			else if (this.type == NPCID.DrManFly)
 			{
 				this.name = "Dr. Man Fly";
 				this.width = 18;
@@ -11173,7 +11173,7 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.value = 1300f;
 			}
-			else if (this.type == 477)
+			else if (this.type == NPCID.Mothron)
 			{
 				this.noGravity = true;
 				this.name = "Mothron";
@@ -11187,9 +11187,9 @@ namespace Terraria
 				this.soundKilled = 46;
 				this.value = 50000f;
 				this.knockBackResist = 0.2f;
-				this.buffImmune[20] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
 			}
-			else if (this.type == 478)
+			else if (this.type == NPCID.MothronEgg)
 			{
 				this.name = "Mothron Egg";
 				this.width = 34;
@@ -11205,7 +11205,7 @@ namespace Terraria
 				flag = true;
 				this.npcSlots = 0f;
 			}
-			else if (this.type == 479)
+			else if (this.type == NPCID.MothronSpawn)
 			{
 				this.name = "Mothron Spawn";
 				this.width = 46;
@@ -11220,7 +11220,7 @@ namespace Terraria
 				this.value = 0f;
 				this.npcSlots = 0.1f;
 			}
-			else if (this.type == 26)
+			else if (this.type == NPCID.GoblinPeon)
 			{
 				this.name = "Goblin Peon";
 				this.scale = 0.9f;
@@ -11234,9 +11234,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.8f;
 				this.value = 100f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 27)
+			else if (this.type == NPCID.GoblinThief)
 			{
 				this.name = "Goblin Thief";
 				this.scale = 0.95f;
@@ -11250,9 +11250,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.7f;
 				this.value = 200f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 28)
+			else if (this.type == NPCID.GoblinWarrior)
 			{
 				this.name = "Goblin Warrior";
 				this.scale = 1.1f;
@@ -11266,9 +11266,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.5f;
 				this.value = 150f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 29)
+			else if (this.type == NPCID.GoblinSorcerer)
 			{
 				this.name = "Goblin Sorcerer";
 				this.width = 18;
@@ -11282,7 +11282,7 @@ namespace Terraria
 				this.knockBackResist = 0.6f;
 				this.value = 200f;
 			}
-			else if (this.type == 30)
+			else if (this.type == NPCID.ChaosBall)
 			{
 				this.name = "Chaos Ball";
 				this.width = 16;
@@ -11298,7 +11298,7 @@ namespace Terraria
 				this.alpha = 100;
 				this.knockBackResist = 0f;
 			}
-			else if (this.type == 111)
+			else if (this.type == NPCID.GoblinArcher)
 			{
 				this.name = "Goblin Archer";
 				this.scale = 0.95f;
@@ -11312,9 +11312,9 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.7f;
 				this.value = 200f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 471)
+			else if (this.type == NPCID.GoblinSummoner)
 			{
 				this.name = "Goblin Summoner";
 				this.width = 18;
@@ -11329,7 +11329,7 @@ namespace Terraria
 				this.value = 5000f;
 				flag = true;
 			}
-			else if (this.type == 472)
+			else if (this.type == NPCID.ShadowFlameApparition)
 			{
 				this.name = "Shadowflame Apparition";
 				this.width = 40;
@@ -11345,7 +11345,7 @@ namespace Terraria
 				flag = true;
 				this.npcSlots = 0.1f;
 			}
-			else if (this.type == 520)
+			else if (this.type == NPCID.MartianWalker)
 			{
 				this.name = "Martian Walker";
 				this.width = 34;
@@ -11357,10 +11357,10 @@ namespace Terraria
 				this.soundHit = 4;
 				this.soundKilled = 14;
 				this.knockBackResist = 0f;
-				this.buffImmune[20] = true;
-				this.buffImmune[24] = true;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.OnFire] = true;
 			}
-			else if (this.type == 521)
+			else if (this.type == NPCID.AncientCultistSquidhead)
 			{
 				this.name = "Ancient Vision";
 				this.width = 60;
@@ -11374,7 +11374,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				flag = true;
 			}
-			else if (this.type == 522)
+			else if (this.type == NPCID.AncientLight)
 			{
 				this.name = "Ancient Light";
 				this.width = 26;
@@ -11391,7 +11391,7 @@ namespace Terraria
 				this.knockBackResist = 0f;
 				this.chaseable = false;
 			}
-			else if (this.type == 523)
+			else if (this.type == NPCID.AncientDoom)
 			{
 				this.name = "Ending's Prophecy";
 				this.width = 42;
@@ -11410,7 +11410,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.canGhostHeal = false;
 			}
-			else if (this.type == 534)
+			else if (this.type == NPCID.DemonTaxCollector)
 			{
 				this.name = "Tortured Soul";
 				this.width = 18;
@@ -11423,12 +11423,12 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.knockBackResist = 0.3f;
 				this.value = 0f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.lavaImmune = true;
 				this.netAlways = true;
 				this.rarity = 1;
 			}
-			else if (this.type == 535)
+			else if (this.type == NPCID.SlimeSpiked)
 			{
 				this.name = "Spiked Slime";
 				this.width = 24;
@@ -11442,10 +11442,10 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.alpha = 0;
 				this.value = 40f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 536)
+			else if (this.type == NPCID.TheBride)
 			{
 				this.name = "The Bride";
 				this.width = 18;
@@ -11458,10 +11458,10 @@ namespace Terraria
 				this.soundKilled = 2;
 				this.knockBackResist = 0.5f;
 				this.value = 1000f;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Confused] = false;
 				this.rarity = 2;
 			}
-			else if (this.type == 537)
+			else if (this.type == NPCID.SandSlime)
 			{
 				this.npcSlots = 2f;
 				this.name = "Sand Slime";
@@ -11477,10 +11477,10 @@ namespace Terraria
 				this.color = new Color(255, 250, 0, 0) * 0.2f;
 				this.value = 75f;
 				this.knockBackResist = 0.6f;
-				this.buffImmune[20] = true;
-				this.buffImmune[31] = false;
+				this.buffImmune[BuffID.Poisoned] = true;
+				this.buffImmune[BuffID.Confused] = false;
 			}
-			else if (this.type == 538)
+			else if (this.type == NPCID.SquirrelRed)
 			{
 				this.name = "Squirrel";
 				this.width = 18;
@@ -11493,7 +11493,7 @@ namespace Terraria
 				this.soundKilled = 1;
 				this.catchItem = 3563;
 			}
-			else if (this.type == 539)
+			else if (this.type == NPCID.SquirrelGold)
 			{
 				this.name = "Squirrel";
 				this.width = 18;
@@ -11548,13 +11548,13 @@ namespace Terraria
 				this.width = (int)((float)this.width * this.scale);
 				this.height = (int)((float)this.height * this.scale);
 			}
-			if (this.buffImmune[20])
+			if (this.buffImmune[BuffID.Poisoned])
 			{
-				this.buffImmune[70] = true;
+				this.buffImmune[BuffID.Venom] = true;
 			}
-			if (this.buffImmune[39])
+			if (this.buffImmune[BuffID.CursedInferno])
 			{
-				this.buffImmune[153] = true;
+				this.buffImmune[BuffID.ShadowFlame] = true;
 			}
 			this.life = this.lifeMax;
 			this.defDamage = this.damage;
@@ -11615,8 +11615,8 @@ namespace Terraria
 			{
 				return;
 			}
-			bool flag = this.type >= 0 && NPCID.Sets.ProjectileNPC[this.type];
-			if (this.type != 5 && (this.type < 13 || this.type > 15) && this.type != 267 && (this.type < 113 || this.type > 119) && Main.hardMode && !this.boss && this.lifeMax < 1000)
+			bool flag = this.type >= NPCID.None && NPCID.Sets.ProjectileNPC[this.type];
+			if (this.type != NPCID.ServantofCthulhu && (this.type < 13 || this.type > 15) && this.type != NPCID.Creeper && (this.type < 113 || this.type > 119) && Main.hardMode && !this.boss && this.lifeMax < 1000)
 			{
 				int num = this.damage + this.defense + this.lifeMax / 4;
 				int num2 = 80;
@@ -11669,78 +11669,78 @@ namespace Terraria
 			{
 				num5 = 1000f;
 			}
-			if (this.type == 5)
+			if (this.type == NPCID.ServantofCthulhu)
 			{
 				this.lifeMax = (int)((float)this.lifeMax * 0.75f);
 			}
-			if (this.type == 4)
+			if (this.type == NPCID.EyeofCthulhu)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.65 * (double)num5);
 			}
-			if (this.type >= 13 && this.type <= 15)
+			if (this.type >= NPCID.EaterofWorldsHead && this.type <= NPCID.EaterofWorldsTail)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.7 * (double)num5);
-				if (this.type == 13)
+				if (this.type == NPCID.EaterofWorldsHead)
 				{
 					this.damage = (int)((double)this.damage * 1.1);
 				}
-				if (this.type == 14)
+				if (this.type == NPCID.EaterofWorldsBody)
 				{
 					this.damage = (int)((double)this.damage * 0.8);
 				}
-				if (this.type == 15)
+				if (this.type == NPCID.EaterofWorldsTail)
 				{
 					this.damage = (int)((double)this.damage * 0.8);
 				}
 				this.scale *= 1.2f;
 				this.defense += 2;
 			}
-			if (this.type == 266)
+			if (this.type == NPCID.BrainofCthulhu)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.85 * (double)num5);
 				this.damage = (int)((double)this.damage * 0.9);
 				this.scale *= 1.05f;
 			}
-			if (this.type == 50)
+			if (this.type == NPCID.KingSlime)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.7 * (double)num5);
 				this.damage = (int)((double)this.damage * 0.8);
 			}
-			if (this.type == 471)
+			if (this.type == NPCID.GoblinSummoner)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.85 * (double)(num5 * 2f + 1f) / 3.0);
 			}
-			if (this.type == 472)
+			if (this.type == NPCID.ShadowFlameApparition)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.85 * (double)(num5 + 1f) / 2.0);
 				this.damage = (int)((double)this.damage * 0.8);
 			}
-			if (this.type == 222)
+			if (this.type == NPCID.QueenBee)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.7 * (double)num5);
 				this.damage = (int)((double)this.damage * 0.9);
 			}
-			if (this.type == 210 || this.type == 211)
+			if (this.type == NPCID.Bee || this.type == NPCID.BeeSmall)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.75);
 			}
-			if (this.type == 35)
+			if (this.type == NPCID.SkeletronHead)
 			{
 				this.lifeMax = (int)((float)this.lifeMax * num5);
 				this.damage = (int)((double)this.damage * 1.1);
 			}
-			else if (this.type == 36)
+			else if (this.type == NPCID.SkeletronHand)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 1.3 * (double)num5);
 				this.damage = (int)((double)this.damage * 1.1);
 			}
-			if (this.type == 113 || this.type == 114)
+			if (this.type == NPCID.WallofFlesh || this.type == NPCID.WallofFleshEye)
 			{
 				this.defense += 6;
 				this.lifeMax = (int)((double)this.lifeMax * 0.7 * (double)num5);
 				this.damage = (int)((double)this.damage * 1.5);
 			}
-			else if (this.type == 115)
+			else if (this.type == NPCID.TheHungry)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.7 * (double)num5);
 				if (num4 > 1)
@@ -11749,7 +11749,7 @@ namespace Terraria
 				}
 				this.defense += 6;
 			}
-			else if (this.type == 116)
+			else if (this.type == NPCID.TheHungryII)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.7 * (double)num5);
 				if (num4 > 1)
@@ -11757,69 +11757,69 @@ namespace Terraria
 					this.knockBackResist *= 1f - num6;
 				}
 			}
-			else if (this.type == 117 || this.type == 118 || this.type == 119)
+			else if (this.type == NPCID.LeechHead || this.type == NPCID.LeechBody || this.type == NPCID.LeechTail)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.8);
 			}
-			if (this.type >= 134 && this.type <= 136)
+			if (this.type >= NPCID.TheDestroyer && this.type <= NPCID.TheDestroyerTail)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.75 * (double)num5);
-				if (this.type == 134)
+				if (this.type == NPCID.TheDestroyer)
 				{
 					this.damage *= 2;
 				}
-				if (this.type == 135)
+				if (this.type == NPCID.TheDestroyerBody)
 				{
 					this.damage = (int)((double)this.damage * 0.85);
 				}
-				if (this.type == 136)
+				if (this.type == NPCID.TheDestroyerTail)
 				{
 					this.damage = (int)((double)this.damage * 0.85);
 				}
 				this.scale *= 1.05f;
 			}
-			else if (this.type == 139)
+			else if (this.type == NPCID.Probe)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.75 * (double)(num5 * 2f + 1f) / 3.0);
 				this.damage = (int)((double)this.damage * 0.8);
 				this.scale *= 1.05f;
 			}
-			if (this.type >= 127 && this.type <= 131)
+			if (this.type >= NPCID.SkeletronPrime && this.type <= NPCID.PrimeLaser)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.75 * (double)num5);
 				this.damage = (int)((double)this.damage * 0.85);
 			}
-			if (this.type >= 125 && this.type <= 126)
+			if (this.type >= NPCID.Retinazer && this.type <= NPCID.Spazmatism)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.75 * (double)num5);
 				this.damage = (int)((double)this.damage * 0.85);
 			}
-			if (this.type >= 262 && this.type <= 262)
+			if (this.type >= NPCID.Plantera && this.type <= NPCID.Plantera)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.7 * (double)num5);
 				this.damage = (int)((double)this.damage * 1.15);
 			}
-			if (this.type >= 245 && this.type <= 249)
+			if (this.type >= NPCID.Golem && this.type <= NPCID.GolemHeadFree)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.75 * (double)num5);
 				this.damage = (int)((double)this.damage * 0.8);
 			}
-			if (this.type == 370)
+			if (this.type == NPCID.DukeFishron)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.6 * (double)num5);
 				this.damage = (int)((double)this.damage * 0.7);
 			}
-			else if (this.type == 371 || this.type == 372 || this.type == 373)
+			else if (this.type == NPCID.DetonatingBubble || this.type == NPCID.Sharkron || this.type == NPCID.Sharkron2)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.75);
 				this.damage = (int)((double)this.damage * 0.75);
 			}
-			if (this.type == 439 || this.type == 440 || (this.type >= 454 && this.type <= 459) || this.type == 522 || this.type == 523)
+			if (this.type == NPCID.CultistBoss || this.type == NPCID.CultistBossClone || (this.type >= NPCID.CultistDragonHead && this.type <= NPCID.CultistDragonTail) || this.type == NPCID.AncientLight || this.type == NPCID.AncientDoom)
 			{
 				this.lifeMax = (int)((float)this.lifeMax * 0.625f * num5);
 				this.damage = (int)((double)this.damage * 0.75);
 			}
-			if (this.type == 397 || this.type == 396 || this.type == 398)
+			if (this.type == NPCID.MoonLordHand || this.type == NPCID.MoonLordHead || this.type == NPCID.MoonLordCore)
 			{
 				this.lifeMax = (int)((double)this.lifeMax * 0.75 * (double)num5);
 				this.damage = (int)((double)this.damage * 0.75);
@@ -11883,39 +11883,39 @@ namespace Terraria
 				{
 					if (Main.player[i].active && Main.player[i].talkNPC == this.whoAmI)
 					{
-						if (this.type == 105)
+						if (this.type == NPCID.BoundGoblin)
 						{
 							this.Transform(107);
 							return;
 						}
-						if (this.type == 106)
+						if (this.type == NPCID.BoundWizard)
 						{
 							this.Transform(108);
 							return;
 						}
-						if (this.type == 123)
+						if (this.type == NPCID.BoundMechanic)
 						{
 							this.Transform(124);
 							return;
 						}
-						if (this.type == 354)
+						if (this.type == NPCID.WebbedStylist)
 						{
 							this.Transform(353);
 							return;
 						}
-						if (this.type == 376)
+						if (this.type == NPCID.SleepingAngler)
 						{
 							this.Transform(369);
 							return;
 						}
 					}
 				}
-				if (this.type != 376)
+				if (this.type != NPCID.SleepingAngler)
 				{
 					this.TargetClosest(true);
 					this.spriteDirection = this.direction;
 				}
-				if (this.type == 376)
+				if (this.type == NPCID.SleepingAngler)
 				{
 					if (this.wet || Main.tile[(int)(base.Center.X / 16f), (int)(this.position.Y - 4f) / 16].liquid > 0)
 					{
@@ -11994,11 +11994,11 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 1)
 			{
-				if (this.type == 1 && (this.ai[1] == 1f || this.ai[1] == 2f || this.ai[1] == 3f))
+				if (this.type == NPCID.BlueSlime && (this.ai[1] == 1f || this.ai[1] == 2f || this.ai[1] == 3f))
 				{
 					this.ai[1] = -1f;
 				}
-				if (this.type == 1 && this.ai[1] == 0f && Main.netMode != 1 && this.value > 0f)
+				if (this.type == NPCID.BlueSlime && this.ai[1] == 0f && Main.netMode != 1 && this.value > 0f)
 				{
 					this.ai[1] = -1f;
 					if (Main.rand.Next(20) == 0)
@@ -12083,7 +12083,7 @@ namespace Terraria
 						this.netUpdate = true;
 					}
 				}
-				if (this.type == 244)
+				if (this.type == NPCID.RainbowSlime)
 				{
 					float num5 = (float)Main.DiscoR / 255f;
 					float num6 = (float)Main.DiscoG / 255f;
@@ -12102,31 +12102,31 @@ namespace Terraria
 				{
 					flag2 = true;
 				}
-				if (this.type == 81)
+				if (this.type == NPCID.CorruptSlime)
 				{
 					flag2 = true;
 				}
-				if ((this.type == 377 || this.type == 446) && this.target != 255 && !Main.player[this.target].dead && Vector2.Distance(base.Center, Main.player[this.target].Center) <= 200f)
+				if ((this.type == NPCID.Grasshopper || this.type == NPCID.GoldGrasshopper) && this.target != 255 && !Main.player[this.target].dead && Vector2.Distance(base.Center, Main.player[this.target].Center) <= 200f)
 				{
 					flag2 = true;
 				}
-				if (this.type == 183)
+				if (this.type == NPCID.Crimslime)
 				{
 					flag2 = true;
 				}
-				if (this.type == 304)
+				if (this.type == NPCID.HoppinJack)
 				{
 					flag2 = true;
 				}
-				if (this.type == 147 && Main.rand.Next(10) == 0)
+				if (this.type == NPCID.IceSlime && Main.rand.Next(10) == 0)
 				{
 				}
-				if (this.type == 244)
+				if (this.type == NPCID.RainbowSlime)
 				{
 					flag2 = true;
 					this.ai[0] += 2f;
 				}
-				if (this.type == 184)
+				if (this.type == NPCID.SpikedIceSlime)
 				{
 					flag2 = true;
 					if (this.localAI[0] > 0f)
@@ -12180,7 +12180,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 535)
+				if (this.type == NPCID.SlimeSpiked)
 				{
 					flag2 = true;
 					if (this.localAI[0] > 0f)
@@ -12234,7 +12234,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 204)
+				if (this.type == NPCID.SpikedJungleSlime)
 				{
 					flag2 = true;
 					if (this.localAI[0] > 0f)
@@ -12290,7 +12290,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 377 || this.type == 446)
+				if (this.type == NPCID.Grasshopper || this.type == NPCID.GoldGrasshopper)
 				{
 					if (this.localAI[2] < 90f)
 					{
@@ -12301,7 +12301,7 @@ namespace Terraria
 						this.friendly = false;
 					}
 				}
-				if (this.type == 59)
+				if (this.type == NPCID.LavaSlime)
 				{
 				}
 				if (this.ai[2] > 1f)
@@ -12323,7 +12323,7 @@ namespace Terraria
 					{
 						this.ai[3] = this.position.X;
 					}
-					if (this.type == 59)
+					if (this.type == NPCID.LavaSlime)
 					{
 						if (this.velocity.Y > 2f)
 						{
@@ -12381,32 +12381,32 @@ namespace Terraria
 						this.ai[0] += 1f;
 					}
 					this.ai[0] += 1f;
-					if (this.type == 59)
+					if (this.type == NPCID.LavaSlime)
 					{
 						this.ai[0] += 2f;
 					}
-					if (this.type == 71)
+					if (this.type == NPCID.DungeonSlime)
 					{
 						this.ai[0] += 3f;
 					}
-					if (this.type == 138)
+					if (this.type == NPCID.IlluminantSlime)
 					{
 						this.ai[0] += 2f;
 					}
-					if (this.type == 183)
+					if (this.type == NPCID.Crimslime)
 					{
 						this.ai[0] += 1f;
 					}
-					if (this.type == 304)
+					if (this.type == NPCID.HoppinJack)
 					{
 						float num22 = (float)((1 - this.life / this.lifeMax) * 10);
 						this.ai[0] += num22;
 					}
-					if (this.type == 377 || this.type == 446)
+					if (this.type == NPCID.Grasshopper || this.type == NPCID.GoldGrasshopper)
 					{
 						this.ai[0] += 3f;
 					}
-					if (this.type == 81)
+					if (this.type == NPCID.CorruptSlime)
 					{
 						if (this.scale >= 0f)
 						{
@@ -12440,12 +12440,12 @@ namespace Terraria
 						if (num23 == 3)
 						{
 							this.velocity.Y = -8f;
-							if (this.type == 59)
+							if (this.type == NPCID.LavaSlime)
 							{
 								this.velocity.Y = this.velocity.Y - 2f;
 							}
 							this.velocity.X = this.velocity.X + (float)(3 * this.direction);
-							if (this.type == 59)
+							if (this.type == NPCID.LavaSlime)
 							{
 								this.velocity.X = this.velocity.X + 0.5f * (float)this.direction;
 							}
@@ -12456,7 +12456,7 @@ namespace Terraria
 						{
 							this.velocity.Y = -6f;
 							this.velocity.X = this.velocity.X + (float)(2 * this.direction);
-							if (this.type == 59)
+							if (this.type == NPCID.LavaSlime)
 							{
 								this.velocity.X = this.velocity.X + (float)(2 * this.direction);
 							}
@@ -12470,12 +12470,12 @@ namespace Terraria
 								this.ai[0] -= 2000f;
 							}
 						}
-						if (this.type == 141)
+						if (this.type == NPCID.ToxicSludge)
 						{
 							this.velocity.Y = this.velocity.Y * 1.3f;
 							this.velocity.X = this.velocity.X * 1.2f;
 						}
-						if (this.type == 377 || this.type == 446)
+						if (this.type == NPCID.Grasshopper || this.type == NPCID.GoldGrasshopper)
 						{
 							this.velocity.Y = this.velocity.Y * 0.9f;
 							this.velocity.X = this.velocity.X * 0.6f;
@@ -12506,7 +12506,7 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 2)
 			{
-				if ((this.type == 170 || this.type == 171 || this.type == 180) && Main.rand.Next(1000) == 0)
+				if ((this.type == NPCID.PigronCorruption || this.type == NPCID.PigronHallow || this.type == NPCID.PigronCrimson) && Main.rand.Next(1000) == 0)
 				{
 				}
 				this.noGravity = true;
@@ -12537,7 +12537,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (Main.dayTime && (double)this.position.Y <= Main.worldSurface * 16.0 && (this.type == 2 || this.type == 133 || this.type == 190 || this.type == 191 || this.type == 192 || this.type == 193 || this.type == 194 || this.type == 317 || this.type == 318))
+				if (Main.dayTime && (double)this.position.Y <= Main.worldSurface * 16.0 && (this.type == NPCID.DemonEye || this.type == NPCID.WanderingEye || this.type == NPCID.CataractEye || this.type == NPCID.SleepyEye || this.type == NPCID.DialatedEye || this.type == NPCID.GreenEye || this.type == NPCID.PurpleEye || this.type == NPCID.DemonEyeOwl || this.type == NPCID.DemonEyeSpaceship))
 				{
 					if (this.timeLeft > 10)
 					{
@@ -12558,7 +12558,7 @@ namespace Terraria
 				{
 					this.TargetClosest(true);
 				}
-				if (this.type == 170 || this.type == 171 || this.type == 180)
+				if (this.type == NPCID.PigronCorruption || this.type == NPCID.PigronHallow || this.type == NPCID.PigronCrimson)
 				{
 					if (Collision.CanHit(this.position, this.width, this.height, Main.player[this.target].position, Main.player[this.target].width, Main.player[this.target].height))
 					{
@@ -12657,7 +12657,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 116)
+				else if (this.type == NPCID.TheHungryII)
 				{
 					this.TargetClosest(true);
 					if (this.direction == -1 && this.velocity.X > -6f)
@@ -12725,7 +12725,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 133)
+				else if (this.type == NPCID.WanderingEye)
 				{
 					if ((double)this.life < (double)this.lifeMax * 0.5)
 					{
@@ -12933,10 +12933,10 @@ namespace Terraria
 						}
 					}
 				}
-				if ((this.type == 2 || this.type == 133 || this.type == 190 || this.type == 191 || this.type == 192 || this.type == 193 || this.type == 194) && Main.rand.Next(40) == 0)
+				if ((this.type == NPCID.DemonEye || this.type == NPCID.WanderingEye || this.type == NPCID.CataractEye || this.type == NPCID.SleepyEye || this.type == NPCID.DialatedEye || this.type == NPCID.GreenEye || this.type == NPCID.PurpleEye) && Main.rand.Next(40) == 0)
 				{
 				}
-				if (this.wet && this.type != 170 && this.type != 171 && this.type != 172)
+				if (this.wet && this.type != NPCID.PigronCorruption && this.type != NPCID.PigronHallow && this.type != NPCID.RuneWizard)
 				{
 					if (this.velocity.Y > 0f)
 					{
@@ -12953,7 +12953,7 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 3)
 			{
-				if (this.type == 466)
+				if (this.type == NPCID.Psycho)
 				{
 					int num28 = 200;
 					if (this.ai[2] == 0f)
@@ -12990,7 +12990,7 @@ namespace Terraria
 					}
 					this.alpha = 0;
 				}
-				if (this.type == 166)
+				if (this.type == NPCID.SwampThing)
 				{
 					if (Main.netMode != 1 && Main.rand.Next(240) == 0)
 					{
@@ -13024,7 +13024,7 @@ namespace Terraria
 						return;
 					}
 				}
-				if (this.type == 461)
+				if (this.type == NPCID.CreatureFromTheDeep)
 				{
 					if (this.wet)
 					{
@@ -13109,7 +13109,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 379 || this.type == 380)
+				if (this.type == NPCID.CultistArcherBlue || this.type == NPCID.CultistArcherWhite)
 				{
 					if (this.ai[3] < 0f)
 					{
@@ -13148,7 +13148,7 @@ namespace Terraria
 					}
 					this.damage = this.defDamage;
 				}
-				if (this.type == 383 && this.ai[2] == 0f && this.localAI[0] == 0f && Main.netMode != 1)
+				if (this.type == NPCID.MartianOfficer && this.ai[2] == 0f && this.localAI[0] == 0f && Main.netMode != 1)
 				{
 					int num33 = NPC.NewNPC((int)base.Center.X, (int)base.Center.Y, 384, this.whoAmI, 0f, 0f, 0f, 0f, 255);
 					this.ai[2] = (float)(num33 + 1);
@@ -13157,10 +13157,10 @@ namespace Terraria
 					Main.npc[num33].ai[0] = (float)this.whoAmI;
 					Main.npc[num33].netUpdate = true;
 				}
-				if (this.type == 383)
+				if (this.type == NPCID.MartianOfficer)
 				{
 					int num34 = (int)this.ai[2] - 1;
-					if (num34 != -1 && Main.npc[num34].active && Main.npc[num34].type == 384)
+					if (num34 != -1 && Main.npc[num34].active && Main.npc[num34].type == NPCID.ForceBubble)
 					{
 						this.dontTakeDamage = true;
 					}
@@ -13178,7 +13178,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 482)
+				if (this.type == NPCID.GraniteGolem)
 				{
 					int num35 = 300;
 					int num36 = 120;
@@ -13217,7 +13217,7 @@ namespace Terraria
 						this.netUpdate = true;
 					}
 				}
-				if (this.type == 480)
+				if (this.type == NPCID.Medusa)
 				{
 					int num37 = 180;
 					int num38 = 300;
@@ -13292,12 +13292,12 @@ namespace Terraria
 							{
 								Player player = Main.player[Main.myPlayer];
 								int arg_44C1_0 = Main.myPlayer;
-								if (!player.dead && player.active && player.HasBuff(156) == -1 && (player.Center - base.Center).Length() < 700f && ((player.Center.X < base.Center.X && this.direction < 0 && player.direction > 0) || (player.Center.X > base.Center.X && this.direction > 0 && player.direction < 0)))
+								if (!player.dead && player.active && player.HasBuff(BuffID.Stoned) == -1 && (player.Center - base.Center).Length() < 700f && ((player.Center.X < base.Center.X && this.direction < 0 && player.direction > 0) || (player.Center.X > base.Center.X && this.direction > 0 && player.direction < 0)))
 								{
 									bool flag3 = Collision.CanHitLine(base.Center, 1, 1, player.Center, 1, 1) || Collision.CanHitLine(base.Center - Vector2.UnitY * 16f, 1, 1, player.Center, 1, 1) || Collision.CanHitLine(base.Center + Vector2.UnitY * 8f, 1, 1, player.Center, 1, 1);
 									if (flag3)
 									{
-										player.AddBuff(156, num40 + (int)this.ai[2] * -1, true);
+										player.AddBuff(BuffID.Stoned, num40 + (int)this.ai[2] * -1, true);
 									}
 								}
 							}
@@ -13305,7 +13305,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 471)
+				if (this.type == NPCID.GoblinSummoner)
 				{
 					if (this.ai[3] < 0f)
 					{
@@ -13519,7 +13519,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 419)
+				if (this.type == NPCID.SolarSolenian)
 				{
 					this.reflectingProjectiles = false;
 					this.takenDamageMultiplier = 1f;
@@ -13586,7 +13586,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 415)
+				if (this.type == NPCID.SolarDrakomire)
 				{
 					int num58 = 42;
 					int num59 = 18;
@@ -13604,7 +13604,7 @@ namespace Terraria
 						int num60 = 0;
 						for (int num61 = 0; num61 < 200; num61++)
 						{
-							if (Main.npc[num61].active && Main.npc[num61].type == 516)
+							if (Main.npc[num61].active && Main.npc[num61].type == NPCID.SolarFlare)
 							{
 								num60++;
 							}
@@ -13642,7 +13642,7 @@ namespace Terraria
 						return;
 					}
 				}
-				if (this.type == 428)
+				if (this.type == NPCID.VortexLarva)
 				{
 					this.localAI[0] += 1f;
 					if (this.localAI[0] >= 300f)
@@ -13658,7 +13658,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 427)
+				if (this.type == NPCID.VortexHornet)
 				{
 					this.localAI[0] += 1f;
 					this.localAI[0] += Math.Abs(this.velocity.X) / 2f;
@@ -13684,16 +13684,16 @@ namespace Terraria
 				{
 					flag5 = false;
 				}
-				if (Main.netMode != 1 && this.type == 198 && (double)this.life <= (double)this.lifeMax * 0.55)
+				if (Main.netMode != 1 && this.type == NPCID.Lihzahrd && (double)this.life <= (double)this.lifeMax * 0.55)
 				{
 					this.Transform(199);
 				}
-				if (Main.netMode != 1 && this.type == 348 && (double)this.life <= (double)this.lifeMax * 0.55)
+				if (Main.netMode != 1 && this.type == NPCID.Nutcracker && (double)this.life <= (double)this.lifeMax * 0.55)
 				{
 					this.Transform(349);
 				}
 				int num67 = 60;
-				if (this.type == 120)
+				if (this.type == NPCID.ChaosElemental)
 				{
 					num67 = 180;
 					if (this.ai[3] == -120f)
@@ -13711,7 +13711,7 @@ namespace Terraria
 				}
 				bool flag6 = false;
 				bool flag7 = true;
-				if (this.type == 343 || this.type == 47 || this.type == 67 || this.type == 109 || this.type == 110 || this.type == 111 || this.type == 120 || this.type == 163 || this.type == 164 || this.type == 239 || this.type == 168 || this.type == 199 || this.type == 206 || this.type == 214 || this.type == 215 || this.type == 216 || this.type == 217 || this.type == 218 || this.type == 219 || this.type == 220 || this.type == 226 || this.type == 243 || this.type == 251 || this.type == 257 || this.type == 258 || this.type == 290 || this.type == 291 || this.type == 292 || this.type == 293 || this.type == 305 || this.type == 306 || this.type == 307 || this.type == 308 || this.type == 309 || this.type == 348 || this.type == 349 || this.type == 350 || this.type == 351 || this.type == 379 || (this.type >= 430 && this.type <= 436) || (this.type == 380 || this.type == 381 || this.type == 382 || this.type == 383 || this.type == 386 || this.type == 391 || (this.type >= 449 && this.type <= 452)) || (this.type == 466 || this.type == 464 || this.type == 166 || this.type == 469 || this.type == 468 || this.type == 471 || this.type == 470 || this.type == 480 || this.type == 481 || this.type == 482 || this.type == 411 || this.type == 424 || this.type == 409 || (this.type >= 494 && this.type <= 506)) || (this.type == 425 || this.type == 427 || this.type == 426 || this.type == 428 || this.type == 508 || this.type == 415 || this.type == 419 || this.type == 520 || (this.type >= 524 && this.type <= 527)) || this.type == 528 || this.type == 529 || this.type == 530 || this.type == 532)
+				if (this.type == NPCID.Yeti || this.type == NPCID.CorruptBunny || this.type == NPCID.Crab || this.type == NPCID.Clown || this.type == NPCID.SkeletonArcher || this.type == NPCID.GoblinArcher || this.type == NPCID.ChaosElemental || this.type == NPCID.BlackRecluse || this.type == NPCID.WallCreeper || this.type == NPCID.BloodCrawler || this.type == NPCID.CorruptPenguin || this.type == NPCID.LihzahrdCrawler || this.type == NPCID.IcyMerman || this.type == NPCID.PirateDeadeye || this.type == NPCID.PirateCrossbower || this.type == NPCID.PirateCaptain || this.type == NPCID.CochinealBeetle || this.type == NPCID.CyanBeetle || this.type == NPCID.LacBeetle || this.type == NPCID.SeaSnail || this.type == NPCID.FlyingSnake || this.type == NPCID.IceGolem || this.type == NPCID.Eyezor || this.type == NPCID.AnomuraFungus || this.type == NPCID.MushiLadybug || this.type == NPCID.Paladin || this.type == NPCID.SkeletonSniper || this.type == NPCID.TacticalSkeleton || this.type == NPCID.SkeletonCommando || this.type == NPCID.Scarecrow1 || this.type == NPCID.Scarecrow2 || this.type == NPCID.Scarecrow3 || this.type == NPCID.Scarecrow4 || this.type == NPCID.Scarecrow5 || this.type == NPCID.Nutcracker || this.type == NPCID.NutcrackerSpinning || this.type == NPCID.ElfArcher || this.type == NPCID.Krampus || this.type == NPCID.CultistArcherBlue || (this.type >= NPCID.ArmedZombie && this.type <= NPCID.ArmedZombieCenx) || (this.type == NPCID.CultistArcherWhite || this.type == NPCID.BrainScrambler || this.type == NPCID.RayGunner || this.type == NPCID.MartianOfficer || this.type == NPCID.MartianEngineer || this.type == NPCID.Scutlix || (this.type >= NPCID.BoneThrowingSkeleton && this.type <= NPCID.BoneThrowingSkeleton4)) || (this.type == NPCID.Psycho || this.type == NPCID.CrimsonBunny || this.type == NPCID.SwampThing || this.type == NPCID.ThePossessed || this.type == NPCID.DrManFly || this.type == NPCID.GoblinSummoner || this.type == NPCID.CrimsonPenguin || this.type == NPCID.Medusa || this.type == NPCID.GreekSkeleton || this.type == NPCID.GraniteGolem || this.type == NPCID.StardustSoldier || this.type == NPCID.NebulaSoldier || this.type == NPCID.StardustSpiderBig || (this.type >= NPCID.Crawdad && this.type <= NPCID.Salamander9)) || (this.type == NPCID.VortexRifleman || this.type == NPCID.VortexHornet || this.type == NPCID.VortexHornetQueen || this.type == NPCID.VortexLarva || this.type == NPCID.WalkingAntlion || this.type == NPCID.SolarDrakomire || this.type == NPCID.SolarSolenian || this.type == NPCID.MartianWalker || (this.type >= NPCID.DesertGhoul && this.type <= NPCID.DesertGhoulHallow)) || this.type == NPCID.DesertLamiaLight || this.type == NPCID.DesertLamiaDark || this.type == NPCID.DesertScorpionWalk || this.type == NPCID.DesertBeast)
 				{
 					flag7 = false;
 				}
@@ -13853,7 +13853,7 @@ namespace Terraria
 						this.netUpdate = true;
 					}
 				}
-				if (this.type == 463 && Main.netMode != 1)
+				if (this.type == NPCID.Nailhead && Main.netMode != 1)
 				{
 					if (this.localAI[3] > 0f)
 					{
@@ -13921,7 +13921,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 460)
+				if (this.type == NPCID.Butcher)
 				{
 					if (this.velocity.Y < -NPC.gravity || this.velocity.Y > NPC.gravity)
 					{
@@ -13932,7 +13932,7 @@ namespace Terraria
 						this.knockBackResist = 0.25f * Main.knockBackMultiplier;
 					}
 				}
-				if (this.type == 469)
+				if (this.type == NPCID.ThePossessed)
 				{
 					this.knockBackResist = 0.45f * Main.knockBackMultiplier;
 					if (this.ai[2] == 1f)
@@ -13983,7 +13983,7 @@ namespace Terraria
 					this.noGravity = false;
 					this.ai[2] = 0f;
 				}
-				if (this.type == 462 && this.velocity.Y == 0f && (Main.player[this.target].Center - base.Center).Length() < 150f && Math.Abs(this.velocity.X) > 3f && ((this.velocity.X < 0f && base.Center.X > Main.player[this.target].Center.X) || (this.velocity.X > 0f && base.Center.X < Main.player[this.target].Center.X)))
+				if (this.type == NPCID.Fritz && this.velocity.Y == 0f && (Main.player[this.target].Center - base.Center).Length() < 150f && Math.Abs(this.velocity.X) > 3f && ((this.velocity.X < 0f && base.Center.X > Main.player[this.target].Center.X) || (this.velocity.X > 0f && base.Center.X < Main.player[this.target].Center.X)))
 				{
 					this.velocity.X = this.velocity.X * 1.75f;
 					this.velocity.Y = this.velocity.Y - 4.5f;
@@ -14015,32 +14015,32 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.ai[3] < (float)num67 && (Main.eclipse || !Main.dayTime || (double)this.position.Y > Main.worldSurface * 16.0 || (Main.invasionType == 1 && (this.type == 343 || this.type == 350)) || (Main.invasionType == 1 && (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 111 || this.type == 471)) || (this.type == 73 || (Main.invasionType == 3 && this.type >= 212 && this.type <= 216)) || (Main.invasionType == 4 && (this.type == 381 || this.type == 382 || this.type == 383 || this.type == 385 || this.type == 386 || this.type == 389 || this.type == 391 || this.type == 520)) || (this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 47 || this.type == 67 || this.type == 77 || this.type == 78 || this.type == 79 || this.type == 80 || this.type == 110 || this.type == 120 || this.type == 168 || this.type == 181 || this.type == 185 || this.type == 198 || this.type == 199 || this.type == 206 || this.type == 217 || this.type == 218 || this.type == 219 || this.type == 220 || this.type == 239 || this.type == 243 || this.type == 254 || this.type == 255 || this.type == 257 || this.type == 258 || this.type == 291 || this.type == 292 || this.type == 293 || this.type == 379 || this.type == 380 || this.type == 464 || this.type == 470 || this.type == 424 || (this.type == 411 && (this.ai[1] >= 180f || this.ai[1] < 90f))) || (this.type == 409 || this.type == 425 || this.type == 429 || this.type == 427 || this.type == 428 || this.type == 508 || this.type == 415 || this.type == 419 || (this.type >= 524 && this.type <= 527)) || this.type == 528 || this.type == 529 || this.type == 530 || this.type == 532))
+				if (this.ai[3] < (float)num67 && (Main.eclipse || !Main.dayTime || (double)this.position.Y > Main.worldSurface * 16.0 || (Main.invasionType == 1 && (this.type == NPCID.Yeti || this.type == NPCID.ElfArcher)) || (Main.invasionType == 1 && (this.type == NPCID.GoblinPeon || this.type == NPCID.GoblinThief || this.type == NPCID.GoblinWarrior || this.type == NPCID.GoblinArcher || this.type == NPCID.GoblinSummoner)) || (this.type == NPCID.GoblinScout || (Main.invasionType == 3 && this.type >= NPCID.PirateDeckhand && this.type <= NPCID.PirateCaptain)) || (Main.invasionType == 4 && (this.type == NPCID.BrainScrambler || this.type == NPCID.RayGunner || this.type == NPCID.MartianOfficer || this.type == NPCID.GrayGrunt || this.type == NPCID.MartianEngineer || this.type == NPCID.GigaZapper || this.type == NPCID.Scutlix || this.type == NPCID.MartianWalker)) || (this.type == NPCID.AngryBones || this.type == NPCID.AngryBonesBig || this.type == NPCID.AngryBonesBigMuscle || this.type == NPCID.AngryBonesBigHelmet || this.type == NPCID.CorruptBunny || this.type == NPCID.Crab || this.type == NPCID.ArmoredSkeleton || this.type == NPCID.Mummy || this.type == NPCID.DarkMummy || this.type == NPCID.LightMummy || this.type == NPCID.SkeletonArcher || this.type == NPCID.ChaosElemental || this.type == NPCID.CorruptPenguin || this.type == NPCID.FaceMonster || this.type == NPCID.SnowFlinx || this.type == NPCID.Lihzahrd || this.type == NPCID.LihzahrdCrawler || this.type == NPCID.IcyMerman || this.type == NPCID.CochinealBeetle || this.type == NPCID.CyanBeetle || this.type == NPCID.LacBeetle || this.type == NPCID.SeaSnail || this.type == NPCID.BloodCrawler || this.type == NPCID.IceGolem || this.type == NPCID.ZombieMushroom || this.type == NPCID.ZombieMushroomHat || this.type == NPCID.AnomuraFungus || this.type == NPCID.MushiLadybug || this.type == NPCID.SkeletonSniper || this.type == NPCID.TacticalSkeleton || this.type == NPCID.SkeletonCommando || this.type == NPCID.CultistArcherBlue || this.type == NPCID.CultistArcherWhite || this.type == NPCID.CrimsonBunny || this.type == NPCID.CrimsonPenguin || this.type == NPCID.NebulaSoldier || (this.type == NPCID.StardustSoldier && (this.ai[1] >= 180f || this.ai[1] < 90f))) || (this.type == NPCID.StardustSpiderBig || this.type == NPCID.VortexRifleman || this.type == NPCID.VortexSoldier || this.type == NPCID.VortexHornet || this.type == NPCID.VortexLarva || this.type == NPCID.WalkingAntlion || this.type == NPCID.SolarDrakomire || this.type == NPCID.SolarSolenian || (this.type >= NPCID.DesertGhoul && this.type <= NPCID.DesertGhoulHallow)) || this.type == NPCID.DesertLamiaLight || this.type == NPCID.DesertLamiaDark || this.type == NPCID.DesertScorpionWalk || this.type == NPCID.DesertBeast))
 				{
-					if ((this.type == 3 || this.type == 331 || this.type == 332 || this.type == 21 || (this.type >= 449 && this.type <= 452) || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 77 || this.type == 110 || this.type == 132 || this.type == 167 || this.type == 161 || this.type == 162 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 197 || this.type == 200 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 223 || this.type == 291 || this.type == 292 || this.type == 293 || this.type == 320 || this.type == 321 || this.type == 319 || this.type == 481) && Main.rand.Next(1000) == 0)
+					if ((this.type == NPCID.Zombie || this.type == NPCID.ZombieXmas || this.type == NPCID.ZombieSweater || this.type == NPCID.Skeleton || (this.type >= NPCID.BoneThrowingSkeleton && this.type <= NPCID.BoneThrowingSkeleton4) || this.type == NPCID.AngryBones || this.type == NPCID.AngryBonesBig || this.type == NPCID.AngryBonesBigMuscle || this.type == NPCID.AngryBonesBigHelmet || this.type == NPCID.ArmoredSkeleton || this.type == NPCID.SkeletonArcher || this.type == NPCID.BaldZombie || this.type == NPCID.UndeadViking || this.type == NPCID.ZombieEskimo || this.type == NPCID.Frankenstein || this.type == NPCID.PincushionZombie || this.type == NPCID.SlimedZombie || this.type == NPCID.SwampZombie || this.type == NPCID.TwiggyZombie || this.type == NPCID.ArmoredViking || this.type == NPCID.FemaleZombie || this.type == NPCID.HeadacheSkeleton || this.type == NPCID.MisassembledSkeleton || this.type == NPCID.PantlessSkeleton || this.type == NPCID.ZombieRaincoat || this.type == NPCID.SkeletonSniper || this.type == NPCID.TacticalSkeleton || this.type == NPCID.SkeletonCommando || this.type == NPCID.ZombieSuperman || this.type == NPCID.ZombiePixie || this.type == NPCID.ZombieDoctor || this.type == NPCID.GreekSkeleton) && Main.rand.Next(1000) == 0)
 					{
 					}
-					if (this.type == 489 && Main.rand.Next(800) == 0)
+					if (this.type == NPCID.BloodZombie && Main.rand.Next(800) == 0)
 					{
 					}
-					if ((this.type == 78 || this.type == 79 || this.type == 80) && Main.rand.Next(500) == 0)
+					if ((this.type == NPCID.Mummy || this.type == NPCID.DarkMummy || this.type == NPCID.LightMummy) && Main.rand.Next(500) == 0)
 					{
 					}
-					if (this.type == 159 && Main.rand.Next(500) == 0)
+					if (this.type == NPCID.Vampire && Main.rand.Next(500) == 0)
 					{
 					}
-					if (this.type == 162 && Main.rand.Next(500) == 0)
+					if (this.type == NPCID.Frankenstein && Main.rand.Next(500) == 0)
 					{
 					}
-					if (this.type == 181 && Main.rand.Next(500) == 0)
+					if (this.type == NPCID.FaceMonster && Main.rand.Next(500) == 0)
 					{
 					}
-					if (this.type >= 269 && this.type <= 280 && Main.rand.Next(1000) == 0)
+					if (this.type >= NPCID.RustyArmoredBonesAxe && this.type <= NPCID.HellArmoredBonesSword && Main.rand.Next(1000) == 0)
 					{
 					}
 					this.TargetClosest(true);
 				}
-				else if (this.ai[2] <= 0f || (this.type != 110 && this.type != 111 && this.type != 206 && this.type != 216 && this.type != 214 && this.type != 215 && this.type != 291 && this.type != 292 && this.type != 293 && this.type != 350 && this.type != 381 && this.type != 382 && this.type != 383 && this.type != 385 && this.type != 386 && this.type != 389 && this.type != 391 && this.type != 469 && this.type != 166 && this.type != 466 && this.type != 471 && this.type != 411 && this.type != 409 && this.type != 424 && this.type != 425 && this.type != 426 && this.type != 415 && this.type != 419 && this.type != 520))
+				else if (this.ai[2] <= 0f || (this.type != NPCID.SkeletonArcher && this.type != NPCID.GoblinArcher && this.type != NPCID.IcyMerman && this.type != NPCID.PirateCaptain && this.type != NPCID.PirateDeadeye && this.type != NPCID.PirateCrossbower && this.type != NPCID.SkeletonSniper && this.type != NPCID.TacticalSkeleton && this.type != NPCID.SkeletonCommando && this.type != NPCID.ElfArcher && this.type != NPCID.BrainScrambler && this.type != NPCID.RayGunner && this.type != NPCID.MartianOfficer && this.type != NPCID.GrayGrunt && this.type != NPCID.MartianEngineer && this.type != NPCID.GigaZapper && this.type != NPCID.Scutlix && this.type != NPCID.ThePossessed && this.type != NPCID.SwampThing && this.type != NPCID.Psycho && this.type != NPCID.GoblinSummoner && this.type != NPCID.StardustSoldier && this.type != NPCID.StardustSpiderBig && this.type != NPCID.NebulaSoldier && this.type != NPCID.VortexRifleman && this.type != NPCID.VortexHornetQueen && this.type != NPCID.SolarDrakomire && this.type != NPCID.SolarSolenian && this.type != NPCID.MartianWalker))
 				{
 					if (Main.dayTime && (double)(this.position.Y / 16f) < Main.worldSurface && this.timeLeft > 10)
 					{
@@ -14068,9 +14068,9 @@ namespace Terraria
 						this.direction = 1;
 					}
 				}
-				if (this.type == 159 || this.type == 349)
+				if (this.type == NPCID.Vampire || this.type == NPCID.NutcrackerSpinning)
 				{
-					if (this.type == 159 && ((this.velocity.X > 0f && this.direction < 0) || (this.velocity.X < 0f && this.direction > 0)))
+					if (this.type == NPCID.Vampire && ((this.velocity.X > 0f && this.direction < 0) || (this.velocity.X < 0f && this.direction > 0)))
 					{
 						this.velocity.X = this.velocity.X * 0.95f;
 					}
@@ -14106,7 +14106,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 199)
+				else if (this.type == NPCID.LihzahrdCrawler)
 				{
 					if (this.velocity.X < -4f || this.velocity.X > 4f)
 					{
@@ -14140,7 +14140,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 120 || this.type == 166 || this.type == 213 || this.type == 258 || this.type == 528 || this.type == 529)
+				else if (this.type == NPCID.ChaosElemental || this.type == NPCID.SwampThing || this.type == NPCID.PirateCorsair || this.type == NPCID.MushiLadybug || this.type == NPCID.DesertLamiaLight || this.type == NPCID.DesertLamiaDark)
 				{
 					if (this.velocity.X < -3f || this.velocity.X > 3f)
 					{
@@ -14174,7 +14174,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 461 || this.type == 27 || this.type == 77 || this.type == 104 || this.type == 163 || this.type == 162 || this.type == 196 || this.type == 197 || this.type == 212 || this.type == 257 || this.type == 326 || this.type == 343 || this.type == 348 || this.type == 351 || (this.type >= 524 && this.type <= 527) || this.type == 530)
+				else if (this.type == NPCID.CreatureFromTheDeep || this.type == NPCID.GoblinThief || this.type == NPCID.ArmoredSkeleton || this.type == NPCID.Werewolf || this.type == NPCID.BlackRecluse || this.type == NPCID.Frankenstein || this.type == NPCID.Nymph || this.type == NPCID.ArmoredViking || this.type == NPCID.PirateDeckhand || this.type == NPCID.AnomuraFungus || this.type == NPCID.Splinterling || this.type == NPCID.Yeti || this.type == NPCID.Nutcracker || this.type == NPCID.Krampus || (this.type >= NPCID.DesertGhoul && this.type <= NPCID.DesertGhoulHallow) || this.type == NPCID.DesertScorpionWalk)
 				{
 					if (this.velocity.X < -2f || this.velocity.X > 2f)
 					{
@@ -14200,7 +14200,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 109)
+				else if (this.type == NPCID.Clown)
 				{
 					if (this.velocity.X < -2f || this.velocity.X > 2f)
 					{
@@ -14226,82 +14226,82 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 21 || this.type == 26 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 47 || this.type == 73 || this.type == 140 || this.type == 164 || this.type == 239 || this.type == 167 || this.type == 168 || this.type == 185 || this.type == 198 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 217 || this.type == 218 || this.type == 219 || this.type == 226 || this.type == 181 || this.type == 254 || this.type == 338 || this.type == 339 || this.type == 340 || this.type == 342 || this.type == 385 || this.type == 389 || this.type == 462 || this.type == 463 || this.type == 466 || this.type == 464 || this.type == 469 || this.type == 470 || this.type == 480 || this.type == 482 || this.type == 425 || this.type == 429)
+				else if (this.type == NPCID.Skeleton || this.type == NPCID.GoblinPeon || this.type == NPCID.AngryBones || this.type == NPCID.AngryBonesBig || this.type == NPCID.AngryBonesBigMuscle || this.type == NPCID.AngryBonesBigHelmet || this.type == NPCID.CorruptBunny || this.type == NPCID.GoblinScout || this.type == NPCID.PossessedArmor || this.type == NPCID.WallCreeper || this.type == NPCID.BloodCrawler || this.type == NPCID.UndeadViking || this.type == NPCID.CorruptPenguin || this.type == NPCID.SnowFlinx || this.type == NPCID.Lihzahrd || this.type == NPCID.HeadacheSkeleton || this.type == NPCID.MisassembledSkeleton || this.type == NPCID.PantlessSkeleton || this.type == NPCID.CochinealBeetle || this.type == NPCID.CyanBeetle || this.type == NPCID.LacBeetle || this.type == NPCID.FlyingSnake || this.type == NPCID.FaceMonster || this.type == NPCID.ZombieMushroom || this.type == NPCID.ZombieElf || this.type == NPCID.ZombieElfBeard || this.type == NPCID.ZombieElfGirl || this.type == NPCID.GingerbreadMan || this.type == NPCID.GrayGrunt || this.type == NPCID.GigaZapper || this.type == NPCID.Fritz || this.type == NPCID.Nailhead || this.type == NPCID.Psycho || this.type == NPCID.CrimsonBunny || this.type == NPCID.ThePossessed || this.type == NPCID.CrimsonPenguin || this.type == NPCID.Medusa || this.type == NPCID.GraniteGolem || this.type == NPCID.VortexRifleman || this.type == NPCID.VortexSoldier)
 				{
 					float num90 = 1.5f;
-					if (this.type == 294)
+					if (this.type == NPCID.AngryBonesBig)
 					{
 						num90 = 2f;
 					}
-					else if (this.type == 295)
+					else if (this.type == NPCID.AngryBonesBigMuscle)
 					{
 						num90 = 1.75f;
 					}
-					else if (this.type == 296)
+					else if (this.type == NPCID.AngryBonesBigHelmet)
 					{
 						num90 = 1.25f;
 					}
-					else if (this.type == 201)
+					else if (this.type == NPCID.HeadacheSkeleton)
 					{
 						num90 = 1.1f;
 					}
-					else if (this.type == 202)
+					else if (this.type == NPCID.MisassembledSkeleton)
 					{
 						num90 = 0.9f;
 					}
-					else if (this.type == 203)
+					else if (this.type == NPCID.PantlessSkeleton)
 					{
 						num90 = 1.2f;
 					}
-					else if (this.type == 338)
+					else if (this.type == NPCID.ZombieElf)
 					{
 						num90 = 1.75f;
 					}
-					else if (this.type == 339)
+					else if (this.type == NPCID.ZombieElfBeard)
 					{
 						num90 = 1.25f;
 					}
-					else if (this.type == 340)
+					else if (this.type == NPCID.ZombieElfGirl)
 					{
 						num90 = 2f;
 					}
-					else if (this.type == 385)
+					else if (this.type == NPCID.GrayGrunt)
 					{
 						num90 = 1.8f;
 					}
-					else if (this.type == 389)
+					else if (this.type == NPCID.GigaZapper)
 					{
 						num90 = 2.25f;
 					}
-					else if (this.type == 462)
+					else if (this.type == NPCID.Fritz)
 					{
 						num90 = 4f;
 					}
-					else if (this.type == 463)
+					else if (this.type == NPCID.Nailhead)
 					{
 						num90 = 0.75f;
 					}
-					else if (this.type == 466)
+					else if (this.type == NPCID.Psycho)
 					{
 						num90 = 3.75f;
 					}
-					else if (this.type == 469)
+					else if (this.type == NPCID.ThePossessed)
 					{
 						num90 = 3.25f;
 					}
-					else if (this.type == 480)
+					else if (this.type == NPCID.Medusa)
 					{
 						num90 = 1.5f + (1f - (float)this.life / (float)this.lifeMax) * 2f;
 					}
-					else if (this.type == 425)
+					else if (this.type == NPCID.VortexRifleman)
 					{
 						num90 = 6f;
 					}
-					else if (this.type == 429)
+					else if (this.type == NPCID.VortexSoldier)
 					{
 						num90 = 4f;
 					}
-					if (this.type == 21 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 342)
+					if (this.type == NPCID.Skeleton || this.type == NPCID.HeadacheSkeleton || this.type == NPCID.MisassembledSkeleton || this.type == NPCID.PantlessSkeleton || this.type == NPCID.GingerbreadMan)
 					{
 						num90 *= 1f + (1f - this.scale);
 					}
@@ -14314,7 +14314,7 @@ namespace Terraria
 					}
 					else if (this.velocity.X < num90 && this.direction == 1)
 					{
-						if (this.type == 466 && this.velocity.X < -2f)
+						if (this.type == NPCID.Psycho && this.velocity.X < -2f)
 						{
 							this.velocity.X = this.velocity.X * 0.9f;
 						}
@@ -14326,7 +14326,7 @@ namespace Terraria
 					}
 					else if (this.velocity.X > -num90 && this.direction == -1)
 					{
-						if (this.type == 466 && this.velocity.X > 2f)
+						if (this.type == NPCID.Psycho && this.velocity.X > 2f)
 						{
 							this.velocity.X = this.velocity.X * 0.9f;
 						}
@@ -14336,59 +14336,59 @@ namespace Terraria
 							this.velocity.X = -num90;
 						}
 					}
-					if (this.velocity.Y == 0f && this.type == 462 && ((this.direction > 0 && this.velocity.X < 0f) || (this.direction < 0 && this.velocity.X > 0f)))
+					if (this.velocity.Y == 0f && this.type == NPCID.Fritz && ((this.direction > 0 && this.velocity.X < 0f) || (this.direction < 0 && this.velocity.X > 0f)))
 					{
 						this.velocity.X = this.velocity.X * 0.9f;
 					}
 				}
-				else if (this.type >= 269 && this.type <= 280)
+				else if (this.type >= NPCID.RustyArmoredBonesAxe && this.type <= NPCID.HellArmoredBonesSword)
 				{
 					float num91 = 1.5f;
-					if (this.type == 269)
+					if (this.type == NPCID.RustyArmoredBonesAxe)
 					{
 						num91 = 2f;
 					}
-					if (this.type == 270)
+					if (this.type == NPCID.RustyArmoredBonesFlail)
 					{
 						num91 = 1f;
 					}
-					if (this.type == 271)
+					if (this.type == NPCID.RustyArmoredBonesSword)
 					{
 						num91 = 1.5f;
 					}
-					if (this.type == 272)
+					if (this.type == NPCID.RustyArmoredBonesSwordNoArmor)
 					{
 						num91 = 3f;
 					}
-					if (this.type == 273)
+					if (this.type == NPCID.BlueArmoredBones)
 					{
 						num91 = 1.25f;
 					}
-					if (this.type == 274)
+					if (this.type == NPCID.BlueArmoredBonesMace)
 					{
 						num91 = 3f;
 					}
-					if (this.type == 275)
+					if (this.type == NPCID.BlueArmoredBonesNoPants)
 					{
 						num91 = 3.25f;
 					}
-					if (this.type == 276)
+					if (this.type == NPCID.BlueArmoredBonesSword)
 					{
 						num91 = 2f;
 					}
-					if (this.type == 277)
+					if (this.type == NPCID.HellArmoredBones)
 					{
 						num91 = 2.75f;
 					}
-					if (this.type == 278)
+					if (this.type == NPCID.HellArmoredBonesSpikeShield)
 					{
 						num91 = 1.8f;
 					}
-					if (this.type == 279)
+					if (this.type == NPCID.HellArmoredBonesMace)
 					{
 						num91 = 1.3f;
 					}
-					if (this.type == 280)
+					if (this.type == NPCID.HellArmoredBonesSword)
 					{
 						num91 = 2.5f;
 					}
@@ -14417,26 +14417,26 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type >= 305 && this.type <= 314)
+				else if (this.type >= NPCID.Scarecrow1 && this.type <= NPCID.Scarecrow10)
 				{
 					float num92 = 1.5f;
-					if (this.type == 305 || this.type == 310)
+					if (this.type == NPCID.Scarecrow1 || this.type == NPCID.Scarecrow6)
 					{
 						num92 = 2f;
 					}
-					if (this.type == 306 || this.type == 311)
+					if (this.type == NPCID.Scarecrow2 || this.type == NPCID.Scarecrow7)
 					{
 						num92 = 1.25f;
 					}
-					if (this.type == 307 || this.type == 312)
+					if (this.type == NPCID.Scarecrow3 || this.type == NPCID.Scarecrow8)
 					{
 						num92 = 2.25f;
 					}
-					if (this.type == 308 || this.type == 313)
+					if (this.type == NPCID.Scarecrow4 || this.type == NPCID.Scarecrow9)
 					{
 						num92 = 1.5f;
 					}
-					if (this.type == 309 || this.type == 314)
+					if (this.type == NPCID.Scarecrow5 || this.type == NPCID.Scarecrow10)
 					{
 						num92 = 1f;
 					}
@@ -14480,7 +14480,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 67 || this.type == 220 || this.type == 428)
+				else if (this.type == NPCID.Crab || this.type == NPCID.SeaSnail || this.type == NPCID.VortexLarva)
 				{
 					if (this.velocity.X < -0.5f || this.velocity.X > 0.5f)
 					{
@@ -14506,7 +14506,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 78 || this.type == 79 || this.type == 80)
+				else if (this.type == NPCID.Mummy || this.type == NPCID.DarkMummy || this.type == NPCID.LightMummy)
 				{
 					float num93 = 1f;
 					float num94 = 0.05f;
@@ -14515,7 +14515,7 @@ namespace Terraria
 						num93 = 2f;
 						num94 = 0.1f;
 					}
-					if (this.type == 79)
+					if (this.type == NPCID.DarkMummy)
 					{
 						num93 *= 1.5f;
 					}
@@ -14543,7 +14543,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 287)
+				else if (this.type == NPCID.BoneLee)
 				{
 					float num95 = 5f;
 					float num96 = 0.2f;
@@ -14571,7 +14571,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 243)
+				else if (this.type == NPCID.IceGolem)
 				{
 					float num97 = 1f;
 					float num98 = 0.07f;
@@ -14601,7 +14601,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 251)
+				else if (this.type == NPCID.Eyezor)
 				{
 					float num99 = 1f;
 					float num100 = 0.08f;
@@ -14631,7 +14631,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 386)
+				else if (this.type == NPCID.MartianEngineer)
 				{
 					if (this.ai[2] > 0f)
 					{
@@ -14669,7 +14669,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 460)
+				else if (this.type == NPCID.Butcher)
 				{
 					float num103 = 3f;
 					float num104 = 0.1f;
@@ -14738,7 +14738,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 508)
+				else if (this.type == NPCID.WalkingAntlion)
 				{
 					float num105 = 2.5f;
 					float num106 = 40f;
@@ -14782,36 +14782,36 @@ namespace Terraria
 						this.velocity.X = this.velocity.X + (float)this.direction * 0.025f;
 					}
 				}
-				else if (this.type == 391 || this.type == 427 || this.type == 415 || this.type == 419 || this.type == 518 || this.type == 532)
+				else if (this.type == NPCID.Scutlix || this.type == NPCID.VortexHornet || this.type == NPCID.SolarDrakomire || this.type == NPCID.SolarSolenian || this.type == NPCID.SolarSpearman || this.type == NPCID.DesertBeast)
 				{
 					float num108 = 5f;
 					float num109 = 0.25f;
 					float scaleFactor5 = 0.7f;
-					if (this.type == 427)
+					if (this.type == NPCID.VortexHornet)
 					{
 						num108 = 6f;
 						num109 = 0.2f;
 						scaleFactor5 = 0.8f;
 					}
-					else if (this.type == 415)
+					else if (this.type == NPCID.SolarDrakomire)
 					{
 						num108 = 4f;
 						num109 = 0.1f;
 						scaleFactor5 = 0.95f;
 					}
-					else if (this.type == 419)
+					else if (this.type == NPCID.SolarSolenian)
 					{
 						num108 = 6f;
 						num109 = 0.15f;
 						scaleFactor5 = 0.85f;
 					}
-					else if (this.type == 518)
+					else if (this.type == NPCID.SolarSpearman)
 					{
 						num108 = 5f;
 						num109 = 0.1f;
 						scaleFactor5 = 0.95f;
 					}
-					else if (this.type == 532)
+					else if (this.type == NPCID.DesertBeast)
 					{
 						num108 = 5f;
 						num109 = 0.15f;
@@ -14841,7 +14841,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if ((this.type >= 430 && this.type <= 436) || this.type == 494 || this.type == 495)
+				else if ((this.type >= NPCID.ArmedZombie && this.type <= NPCID.ArmedZombieCenx) || this.type == NPCID.Crawdad || this.type == NPCID.Crawdad2)
 				{
 					if (this.ai[2] == 0f)
 					{
@@ -14875,7 +14875,7 @@ namespace Terraria
 						{
 							Vector2 vector16 = base.Center - Main.player[this.target].Center;
 							int num111 = 50;
-							if (this.type >= 494 && this.type <= 495)
+							if (this.type >= NPCID.Crawdad && this.type <= NPCID.Crawdad2)
 							{
 								num111 = 42;
 							}
@@ -14902,38 +14902,38 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type != 110 && this.type != 111 && this.type != 206 && this.type != 214 && this.type != 215 && this.type != 216 && this.type != 290 && this.type != 291 && this.type != 292 && this.type != 293 && this.type != 350 && this.type != 379 && this.type != 380 && this.type != 381 && this.type != 382 && (this.type < 449 || this.type > 452) && this.type != 468 && this.type != 481 && this.type != 411 && this.type != 409 && (this.type < 498 || this.type > 506) && this.type != 424 && this.type != 426 && this.type != 520)
+				else if (this.type != NPCID.SkeletonArcher && this.type != NPCID.GoblinArcher && this.type != NPCID.IcyMerman && this.type != NPCID.PirateDeadeye && this.type != NPCID.PirateCrossbower && this.type != NPCID.PirateCaptain && this.type != NPCID.Paladin && this.type != NPCID.SkeletonSniper && this.type != NPCID.TacticalSkeleton && this.type != NPCID.SkeletonCommando && this.type != NPCID.ElfArcher && this.type != NPCID.CultistArcherBlue && this.type != NPCID.CultistArcherWhite && this.type != NPCID.BrainScrambler && this.type != NPCID.RayGunner && (this.type < 449 || this.type > 452) && this.type != NPCID.DrManFly && this.type != NPCID.GreekSkeleton && this.type != NPCID.StardustSoldier && this.type != NPCID.StardustSpiderBig && (this.type < 498 || this.type > 506) && this.type != NPCID.NebulaSoldier && this.type != NPCID.VortexHornetQueen && this.type != NPCID.MartianWalker)
 				{
 					float num112 = 1f;
-					if (this.type == 186)
+					if (this.type == NPCID.PincushionZombie)
 					{
 						num112 = 1.1f;
 					}
-					if (this.type == 187)
+					if (this.type == NPCID.SlimedZombie)
 					{
 						num112 = 0.9f;
 					}
-					if (this.type == 188)
+					if (this.type == NPCID.SwampZombie)
 					{
 						num112 = 1.2f;
 					}
-					if (this.type == 189)
+					if (this.type == NPCID.TwiggyZombie)
 					{
 						num112 = 0.8f;
 					}
-					if (this.type == 132)
+					if (this.type == NPCID.BaldZombie)
 					{
 						num112 = 0.95f;
 					}
-					if (this.type == 200)
+					if (this.type == NPCID.FemaleZombie)
 					{
 						num112 = 0.87f;
 					}
-					if (this.type == 223)
+					if (this.type == NPCID.ZombieRaincoat)
 					{
 						num112 = 1.05f;
 					}
-					if (this.type == 489)
+					if (this.type == NPCID.BloodZombie)
 					{
 						float num113 = (Main.player[this.target].Center - base.Center).Length();
 						num113 *= 0.0025f;
@@ -14951,7 +14951,7 @@ namespace Terraria
 						}
 						num112 *= 0.8f;
 					}
-					if (this.type == 489 || this.type == 3 || this.type == 132 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 331 || this.type == 332)
+					if (this.type == NPCID.BloodZombie || this.type == NPCID.Zombie || this.type == NPCID.BaldZombie || this.type == NPCID.PincushionZombie || this.type == NPCID.SlimedZombie || this.type == NPCID.SwampZombie || this.type == NPCID.TwiggyZombie || this.type == NPCID.FemaleZombie || this.type == NPCID.ZombieRaincoat || this.type == NPCID.ZombieXmas || this.type == NPCID.ZombieSweater)
 					{
 						num112 *= 1f + (1f - this.scale);
 					}
@@ -14979,34 +14979,34 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type >= 277 && this.type <= 280)
+				if (this.type >= NPCID.HellArmoredBones && this.type <= NPCID.HellArmoredBonesSword)
 				{
 				}
-				else if (this.type == 520)
+				else if (this.type == NPCID.MartianWalker)
 				{
 				}
-				else if (this.type == 525)
+				else if (this.type == NPCID.DesertGhoulCorruption)
 				{
 				}
-				else if (this.type == 526)
+				else if (this.type == NPCID.DesertGhoulCrimson)
 				{
 				}
-				else if (this.type == 527)
+				else if (this.type == NPCID.DesertGhoulHallow)
 				{
 				}
-				else if (this.type == 415)
+				else if (this.type == NPCID.SolarDrakomire)
 				{
 					this.hide = false;
 					for (int num114 = 0; num114 < 200; num114++)
 					{
-						if (Main.npc[num114].active && Main.npc[num114].type == 416 && Main.npc[num114].ai[0] == (float)this.whoAmI)
+						if (Main.npc[num114].active && Main.npc[num114].type == NPCID.SolarDrakomireRider && Main.npc[num114].ai[0] == (float)this.whoAmI)
 						{
 							this.hide = true;
 							break;
 						}
 					}
 				}
-				else if (this.type == 258)
+				else if (this.type == NPCID.MushiLadybug)
 				{
 					if (this.velocity.Y != 0f)
 					{
@@ -15034,7 +15034,7 @@ namespace Terraria
 						this.velocity.Y = -7f;
 					}
 				}
-				else if (this.type == 425)
+				else if (this.type == NPCID.VortexRifleman)
 				{
 					if (this.velocity.Y == 0f)
 					{
@@ -15138,7 +15138,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 427)
+				else if (this.type == NPCID.VortexHornet)
 				{
 					if (this.velocity.Y == 0f)
 					{
@@ -15227,7 +15227,7 @@ namespace Terraria
 						this.ai[2] = 1f;
 					}
 				}
-				else if (this.type == 426)
+				else if (this.type == NPCID.VortexHornetQueen)
 				{
 					if (this.ai[1] > 0f && this.velocity.Y > 0f)
 					{
@@ -15297,7 +15297,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 185)
+				else if (this.type == NPCID.SnowFlinx)
 				{
 					if (this.velocity.Y == 0f)
 					{
@@ -15309,7 +15309,7 @@ namespace Terraria
 						this.rotation += this.velocity.X * 0.05f;
 					}
 				}
-				else if (this.type == 428)
+				else if (this.type == NPCID.VortexLarva)
 				{
 					if (this.velocity.Y == 0f)
 					{
@@ -15320,7 +15320,7 @@ namespace Terraria
 						this.rotation += this.velocity.X * 0.08f;
 					}
 				}
-				if (this.type == 159 && Main.netMode != 1)
+				if (this.type == NPCID.Vampire && Main.netMode != 1)
 				{
 					Vector2 vector20 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 					float num126 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector20.X;
@@ -15331,7 +15331,7 @@ namespace Terraria
 						this.Transform(158);
 					}
 				}
-				if (this.type == 164 && Main.netMode != 1 && this.velocity.Y == 0f)
+				if (this.type == NPCID.WallCreeper && Main.netMode != 1 && this.velocity.Y == 0f)
 				{
 					int num129 = (int)base.Center.X / 16;
 					int num130 = (int)base.Center.Y / 16;
@@ -15351,7 +15351,7 @@ namespace Terraria
 						this.Transform(165);
 					}
 				}
-				if (this.type == 239 && Main.netMode != 1 && this.velocity.Y == 0f)
+				if (this.type == NPCID.BloodCrawler && Main.netMode != 1 && this.velocity.Y == 0f)
 				{
 					int num133 = (int)base.Center.X / 16;
 					int num134 = (int)base.Center.Y / 16;
@@ -15371,7 +15371,7 @@ namespace Terraria
 						this.Transform(240);
 					}
 				}
-				if (this.type == 530 && Main.netMode != 1 && this.velocity.Y == 0f)
+				if (this.type == NPCID.DesertScorpionWalk && Main.netMode != 1 && this.velocity.Y == 0f)
 				{
 					int num137 = (int)base.Center.X / 16;
 					int num138 = (int)base.Center.Y / 16;
@@ -15391,7 +15391,7 @@ namespace Terraria
 						this.Transform(531);
 					}
 				}
-				if (Main.netMode != 1 && Main.expertMode && this.target >= 0 && (this.type == 163 || this.type == 238) && Collision.CanHit(base.Center, 1, 1, Main.player[this.target].Center, 1, 1))
+				if (Main.netMode != 1 && Main.expertMode && this.target >= 0 && (this.type == NPCID.BlackRecluse || this.type == NPCID.BlackRecluseWall) && Collision.CanHit(base.Center, 1, 1, Main.player[this.target].Center, 1, 1))
 				{
 					this.localAI[0] += 1f;
 					if (this.justHit)
@@ -15411,7 +15411,7 @@ namespace Terraria
 						Projectile.NewProjectile(base.Center.X, base.Center.Y, vector21.X, vector21.Y, 472, 18, 0f, Main.myPlayer, 0f, 0f);
 					}
 				}
-				if (this.type == 163 && Main.netMode != 1 && this.velocity.Y == 0f)
+				if (this.type == NPCID.BlackRecluse && Main.netMode != 1 && this.velocity.Y == 0f)
 				{
 					int num141 = (int)base.Center.X / 16;
 					int num142 = (int)base.Center.Y / 16;
@@ -15431,7 +15431,7 @@ namespace Terraria
 						this.Transform(238);
 					}
 				}
-				if (this.type == 236 && Main.netMode != 1 && this.velocity.Y == 0f)
+				if (this.type == NPCID.JungleCreeper && Main.netMode != 1 && this.velocity.Y == 0f)
 				{
 					int num145 = (int)base.Center.X / 16;
 					int num146 = (int)base.Center.Y / 16;
@@ -15451,7 +15451,7 @@ namespace Terraria
 						this.Transform(237);
 					}
 				}
-				if (this.type == 243)
+				if (this.type == NPCID.IceGolem)
 				{
 					if (this.justHit && Main.rand.Next(3) == 0)
 					{
@@ -15491,7 +15491,7 @@ namespace Terraria
 						this.ai[2] = 0f;
 					}
 				}
-				if (this.type == 251)
+				if (this.type == NPCID.Eyezor)
 				{
 					if (this.justHit)
 					{
@@ -15531,7 +15531,7 @@ namespace Terraria
 						this.ai[2] = 0f;
 					}
 				}
-				if (this.type == 386)
+				if (this.type == NPCID.MartianEngineer)
 				{
 					if (this.confused)
 					{
@@ -15594,7 +15594,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 389)
+				if (this.type == NPCID.GigaZapper)
 				{
 					if (this.confused)
 					{
@@ -15617,14 +15617,14 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 110 || this.type == 111 || this.type == 206 || this.type == 214 || this.type == 215 || this.type == 216 || this.type == 290 || this.type == 291 || this.type == 292 || this.type == 293 || this.type == 350 || this.type == 379 || this.type == 380 || this.type == 381 || this.type == 382 || (this.type >= 449 && this.type <= 452) || (this.type == 468 || this.type == 481 || this.type == 411 || this.type == 409 || (this.type >= 498 && this.type <= 506)) || this.type == 424 || this.type == 426 || this.type == 520)
+				if (this.type == NPCID.SkeletonArcher || this.type == NPCID.GoblinArcher || this.type == NPCID.IcyMerman || this.type == NPCID.PirateDeadeye || this.type == NPCID.PirateCrossbower || this.type == NPCID.PirateCaptain || this.type == NPCID.Paladin || this.type == NPCID.SkeletonSniper || this.type == NPCID.TacticalSkeleton || this.type == NPCID.SkeletonCommando || this.type == NPCID.ElfArcher || this.type == NPCID.CultistArcherBlue || this.type == NPCID.CultistArcherWhite || this.type == NPCID.BrainScrambler || this.type == NPCID.RayGunner || (this.type >= NPCID.BoneThrowingSkeleton && this.type <= NPCID.BoneThrowingSkeleton4) || (this.type == NPCID.DrManFly || this.type == NPCID.GreekSkeleton || this.type == NPCID.StardustSoldier || this.type == NPCID.StardustSpiderBig || (this.type >= NPCID.Salamander && this.type <= NPCID.Salamander9)) || this.type == NPCID.NebulaSoldier || this.type == NPCID.VortexHornetQueen || this.type == NPCID.MartianWalker)
 				{
-					bool flag18 = this.type == 381 || this.type == 382 || this.type == 520;
-					bool flag19 = this.type == 426;
+					bool flag18 = this.type == NPCID.BrainScrambler || this.type == NPCID.RayGunner || this.type == NPCID.MartianWalker;
+					bool flag19 = this.type == NPCID.VortexHornetQueen;
 					bool flag20 = true;
 					int num175 = -1;
 					int num176 = -1;
-					if (this.type == 411)
+					if (this.type == NPCID.StardustSoldier)
 					{
 						flag18 = true;
 						num175 = 90;
@@ -15650,72 +15650,72 @@ namespace Terraria
 							this.ai[2] = 0f;
 						}
 						int num177 = 70;
-						if (this.type == 379 || this.type == 380)
+						if (this.type == NPCID.CultistArcherBlue || this.type == NPCID.CultistArcherWhite)
 						{
 							num177 = 80;
 						}
-						if (this.type == 381 || this.type == 382)
+						if (this.type == NPCID.BrainScrambler || this.type == NPCID.RayGunner)
 						{
 							num177 = 80;
 						}
-						if (this.type == 520)
+						if (this.type == NPCID.MartianWalker)
 						{
 							num177 = 15;
 						}
-						if (this.type == 350)
+						if (this.type == NPCID.ElfArcher)
 						{
 							num177 = 110;
 						}
-						if (this.type == 291)
+						if (this.type == NPCID.SkeletonSniper)
 						{
 							num177 = 200;
 						}
-						if (this.type == 292)
+						if (this.type == NPCID.TacticalSkeleton)
 						{
 							num177 = 120;
 						}
-						if (this.type == 293)
+						if (this.type == NPCID.SkeletonCommando)
 						{
 							num177 = 90;
 						}
-						if (this.type == 111)
+						if (this.type == NPCID.GoblinArcher)
 						{
 							num177 = 180;
 						}
-						if (this.type == 206)
+						if (this.type == NPCID.IcyMerman)
 						{
 							num177 = 50;
 						}
-						if (this.type == 214)
+						if (this.type == NPCID.PirateDeadeye)
 						{
 							num177 = 40;
 						}
-						if (this.type == 215)
+						if (this.type == NPCID.PirateCrossbower)
 						{
 							num177 = 80;
 						}
-						if (this.type == 290)
+						if (this.type == NPCID.Paladin)
 						{
 							num177 = 30;
 						}
-						if (this.type == 411)
+						if (this.type == NPCID.StardustSoldier)
 						{
 							num177 = 300;
 						}
-						if (this.type == 409)
+						if (this.type == NPCID.StardustSpiderBig)
 						{
 							num177 = 60;
 						}
-						if (this.type == 424)
+						if (this.type == NPCID.NebulaSoldier)
 						{
 							num177 = 180;
 						}
-						if (this.type == 426)
+						if (this.type == NPCID.VortexHornetQueen)
 						{
 							num177 = 60;
 						}
 						bool flag21 = false;
-						if (this.type == 216)
+						if (this.type == NPCID.PirateCaptain)
 						{
 							if (this.localAI[2] >= 20f)
 							{
@@ -15731,11 +15731,11 @@ namespace Terraria
 							}
 						}
 						int num178 = num177 / 2;
-						if (this.type == 424)
+						if (this.type == NPCID.NebulaSoldier)
 						{
 							num178 = num177 - 1;
 						}
-						if (this.type == 426)
+						if (this.type == NPCID.VortexHornetQueen)
 						{
 							num178 = num177 - 1;
 						}
@@ -15747,143 +15747,143 @@ namespace Terraria
 							}
 							if (this.ai[1] == (float)num178)
 							{
-								if (this.type == 216)
+								if (this.type == NPCID.PirateCaptain)
 								{
 									this.localAI[2] += 1f;
 								}
 								float num179 = 11f;
-								if (this.type == 111)
+								if (this.type == NPCID.GoblinArcher)
 								{
 									num179 = 9f;
 								}
-								if (this.type == 206)
+								if (this.type == NPCID.IcyMerman)
 								{
 									num179 = 7f;
 								}
-								if (this.type == 290)
+								if (this.type == NPCID.Paladin)
 								{
 									num179 = 9f;
 								}
-								if (this.type == 293)
+								if (this.type == NPCID.SkeletonCommando)
 								{
 									num179 = 4f;
 								}
-								if (this.type == 214)
+								if (this.type == NPCID.PirateDeadeye)
 								{
 									num179 = 14f;
 								}
-								if (this.type == 215)
+								if (this.type == NPCID.PirateCrossbower)
 								{
 									num179 = 16f;
 								}
-								if (this.type == 382)
+								if (this.type == NPCID.RayGunner)
 								{
 									num179 = 7f;
 								}
-								if (this.type == 520)
+								if (this.type == NPCID.MartianWalker)
 								{
 									num179 = 8f;
 								}
-								if (this.type == 409)
+								if (this.type == NPCID.StardustSpiderBig)
 								{
 									num179 = 4f;
 								}
-								if (this.type >= 449 && this.type <= 452)
+								if (this.type >= NPCID.BoneThrowingSkeleton && this.type <= NPCID.BoneThrowingSkeleton4)
 								{
 									num179 = 7f;
 								}
-								if (this.type == 481)
+								if (this.type == NPCID.GreekSkeleton)
 								{
 									num179 = 9f;
 								}
-								if (this.type == 468)
+								if (this.type == NPCID.DrManFly)
 								{
 									num179 = 7.5f;
 								}
-								if (this.type == 411)
+								if (this.type == NPCID.StardustSoldier)
 								{
 									num179 = 1f;
 								}
-								if (this.type >= 498 && this.type <= 506)
+								if (this.type >= NPCID.Salamander && this.type <= NPCID.Salamander9)
 								{
 									num179 = 7f;
 								}
 								Vector2 value9 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
-								if (this.type == 481)
+								if (this.type == NPCID.GreekSkeleton)
 								{
 									value9.Y -= 14f;
 								}
-								if (this.type == 206)
+								if (this.type == NPCID.IcyMerman)
 								{
 									value9.Y -= 10f;
 								}
-								if (this.type == 290)
+								if (this.type == NPCID.Paladin)
 								{
 									value9.Y -= 10f;
 								}
-								if (this.type == 381 || this.type == 382)
+								if (this.type == NPCID.BrainScrambler || this.type == NPCID.RayGunner)
 								{
 									value9.Y += 6f;
 								}
-								if (this.type == 520)
+								if (this.type == NPCID.MartianWalker)
 								{
 									value9.Y = this.position.Y + 20f;
 								}
-								if (this.type >= 498 && this.type <= 506)
+								if (this.type >= NPCID.Salamander && this.type <= NPCID.Salamander9)
 								{
 									value9.Y -= 8f;
 								}
-								if (this.type == 426)
+								if (this.type == NPCID.VortexHornetQueen)
 								{
 									value9 += new Vector2((float)(this.spriteDirection * 2), -12f);
 								}
 								float num180 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - value9.X;
 								float num181 = Math.Abs(num180) * 0.1f;
-								if (this.type == 291 || this.type == 292)
+								if (this.type == NPCID.SkeletonSniper || this.type == NPCID.TacticalSkeleton)
 								{
 									num181 = 0f;
 								}
-								if (this.type == 215)
+								if (this.type == NPCID.PirateCrossbower)
 								{
 									num181 = Math.Abs(num180) * 0.08f;
 								}
-								if (this.type == 214 || (this.type == 216 && !flag21))
+								if (this.type == NPCID.PirateDeadeye || (this.type == NPCID.PirateCaptain && !flag21))
 								{
 									num181 = 0f;
 								}
-								if (this.type == 381 || this.type == 382 || this.type == 520)
+								if (this.type == NPCID.BrainScrambler || this.type == NPCID.RayGunner || this.type == NPCID.MartianWalker)
 								{
 									num181 = 0f;
 								}
-								if (this.type >= 449 && this.type <= 452)
+								if (this.type >= NPCID.BoneThrowingSkeleton && this.type <= NPCID.BoneThrowingSkeleton4)
 								{
 									num181 = Math.Abs(num180) * (float)Main.rand.Next(10, 50) * 0.01f;
 								}
-								if (this.type == 468)
+								if (this.type == NPCID.DrManFly)
 								{
 									num181 = Math.Abs(num180) * (float)Main.rand.Next(10, 50) * 0.01f;
 								}
-								if (this.type == 481)
+								if (this.type == NPCID.GreekSkeleton)
 								{
 									num181 = Math.Abs(num180) * (float)Main.rand.Next(-10, 11) * 0.0025f;
 								}
-								if (this.type >= 498 && this.type <= 506)
+								if (this.type >= NPCID.Salamander && this.type <= NPCID.Salamander9)
 								{
 									num181 = Math.Abs(num180) * (float)Main.rand.Next(1, 11) * 0.0025f;
 								}
 								float num182 = Main.player[this.target].position.Y + (float)Main.player[this.target].height * 0.5f - value9.Y - num181;
-								if (this.type == 291)
+								if (this.type == NPCID.SkeletonSniper)
 								{
 									num180 += (float)Main.rand.Next(-40, 41) * 0.2f;
 									num182 += (float)Main.rand.Next(-40, 41) * 0.2f;
 								}
-								else if (this.type == 381 || this.type == 382 || this.type == 520)
+								else if (this.type == NPCID.BrainScrambler || this.type == NPCID.RayGunner || this.type == NPCID.MartianWalker)
 								{
 									num180 += (float)Main.rand.Next(-100, 101) * 0.4f;
 									num182 += (float)Main.rand.Next(-100, 101) * 0.4f;
 									num180 *= (float)Main.rand.Next(85, 116) * 0.01f;
 									num182 *= (float)Main.rand.Next(85, 116) * 0.01f;
-									if (this.type == 520)
+									if (this.type == NPCID.MartianWalker)
 									{
 										num180 += (float)Main.rand.Next(-100, 101) * 0.6f;
 										num182 += (float)Main.rand.Next(-100, 101) * 0.6f;
@@ -15891,17 +15891,17 @@ namespace Terraria
 										num182 *= (float)Main.rand.Next(85, 116) * 0.015f;
 									}
 								}
-								else if (this.type == 481)
+								else if (this.type == NPCID.GreekSkeleton)
 								{
 									num180 += (float)Main.rand.Next(-40, 41) * 0.4f;
 									num182 += (float)Main.rand.Next(-40, 41) * 0.4f;
 								}
-								else if (this.type >= 498 && this.type <= 506)
+								else if (this.type >= NPCID.Salamander && this.type <= NPCID.Salamander9)
 								{
 									num180 += (float)Main.rand.Next(-40, 41) * 0.3f;
 									num182 += (float)Main.rand.Next(-40, 41) * 0.3f;
 								}
-								else if (this.type != 292)
+								else if (this.type != NPCID.TacticalSkeleton)
 								{
 									num180 += (float)Main.rand.Next(-40, 41);
 									num182 += (float)Main.rand.Next(-40, 41);
@@ -15913,118 +15913,118 @@ namespace Terraria
 								num182 *= num183;
 								int num184 = 35;
 								int num185 = 82;
-								if (this.type == 111)
+								if (this.type == NPCID.GoblinArcher)
 								{
 									num184 = 11;
 								}
-								if (this.type == 206)
+								if (this.type == NPCID.IcyMerman)
 								{
 									num184 = 37;
 								}
-								if (this.type == 379 || this.type == 380)
+								if (this.type == NPCID.CultistArcherBlue || this.type == NPCID.CultistArcherWhite)
 								{
 									num184 = 40;
 								}
-								if (this.type == 350)
+								if (this.type == NPCID.ElfArcher)
 								{
 									num184 = 45;
 								}
-								if (this.type == 468)
+								if (this.type == NPCID.DrManFly)
 								{
 									num184 = 50;
 								}
-								if (this.type == 111)
+								if (this.type == NPCID.GoblinArcher)
 								{
 									num185 = 81;
 								}
-								if (this.type == 379 || this.type == 380)
+								if (this.type == NPCID.CultistArcherBlue || this.type == NPCID.CultistArcherWhite)
 								{
 									num185 = 81;
 								}
-								if (this.type == 381)
+								if (this.type == NPCID.BrainScrambler)
 								{
 									num185 = 436;
 									num184 = 24;
 								}
-								if (this.type == 382)
+								if (this.type == NPCID.RayGunner)
 								{
 									num185 = 438;
 									num184 = 30;
 								}
-								if (this.type == 520)
+								if (this.type == NPCID.MartianWalker)
 								{
 									num185 = 592;
 									num184 = 35;
 								}
-								if (this.type >= 449 && this.type <= 452)
+								if (this.type >= NPCID.BoneThrowingSkeleton && this.type <= NPCID.BoneThrowingSkeleton4)
 								{
 									num185 = 471;
 									num184 = 20;
 								}
-								if (this.type >= 498 && this.type <= 506)
+								if (this.type >= NPCID.Salamander && this.type <= NPCID.Salamander9)
 								{
 									num185 = 572;
 									num184 = 14;
 								}
-								if (this.type == 481)
+								if (this.type == NPCID.GreekSkeleton)
 								{
 									num185 = 508;
 									num184 = 24;
 								}
-								if (this.type == 206)
+								if (this.type == NPCID.IcyMerman)
 								{
 									num185 = 177;
 								}
-								if (this.type == 468)
+								if (this.type == NPCID.DrManFly)
 								{
 									num185 = 501;
 								}
-								if (this.type == 411)
+								if (this.type == NPCID.StardustSoldier)
 								{
 									num185 = 537;
 									num184 = (Main.expertMode ? 45 : 60);
 								}
-								if (this.type == 424)
+								if (this.type == NPCID.NebulaSoldier)
 								{
 									num185 = 573;
 									num184 = (Main.expertMode ? 45 : 60);
 								}
-								if (this.type == 426)
+								if (this.type == NPCID.VortexHornetQueen)
 								{
 									num185 = 581;
 									num184 = (Main.expertMode ? 45 : 60);
 								}
-								if (this.type == 291)
+								if (this.type == NPCID.SkeletonSniper)
 								{
 									num185 = 302;
 									num184 = 100;
 								}
-								if (this.type == 290)
+								if (this.type == NPCID.Paladin)
 								{
 									num185 = 300;
 									num184 = 60;
 								}
-								if (this.type == 293)
+								if (this.type == NPCID.SkeletonCommando)
 								{
 									num185 = 303;
 									num184 = 60;
 								}
-								if (this.type == 214)
+								if (this.type == NPCID.PirateDeadeye)
 								{
 									num185 = 180;
 									num184 = 25;
 								}
-								if (this.type == 215)
+								if (this.type == NPCID.PirateCrossbower)
 								{
 									num185 = 82;
 									num184 = 40;
 								}
-								if (this.type == 292)
+								if (this.type == NPCID.TacticalSkeleton)
 								{
 									num184 = 50;
 									num185 = 180;
 								}
-								if (this.type == 216)
+								if (this.type == NPCID.PirateCaptain)
 								{
 									num185 = 180;
 									num184 = 30;
@@ -16037,17 +16037,17 @@ namespace Terraria
 								}
 								value9.X += num180;
 								value9.Y += num182;
-								if (Main.expertMode && this.type == 290)
+								if (Main.expertMode && this.type == NPCID.Paladin)
 								{
 									num184 = (int)((double)num184 * 0.75);
 								}
-								if (Main.expertMode && this.type >= 381 && this.type <= 392)
+								if (Main.expertMode && this.type >= NPCID.BrainScrambler && this.type <= NPCID.MartianSaucer)
 								{
 									num184 = (int)((double)num184 * 0.8);
 								}
 								if (Main.netMode != 1)
 								{
-									if (this.type == 292)
+									if (this.type == NPCID.TacticalSkeleton)
 									{
 										for (int num186 = 0; num186 < 4; num186++)
 										{
@@ -16062,18 +16062,18 @@ namespace Terraria
 											Projectile.NewProjectile(value9.X, value9.Y, num180, num182, num185, num184, 0f, Main.myPlayer, 0f, 0f);
 										}
 									}
-									else if (this.type == 411)
+									else if (this.type == NPCID.StardustSoldier)
 									{
 										Projectile.NewProjectile(value9.X, value9.Y, num180, num182, num185, num184, 0f, Main.myPlayer, 0f, (float)this.whoAmI);
 									}
-									else if (this.type == 424)
+									else if (this.type == NPCID.NebulaSoldier)
 									{
 										for (int num187 = 0; num187 < 4; num187++)
 										{
 											Projectile.NewProjectile(base.Center.X - (float)(this.spriteDirection * 4), base.Center.Y + 6f, (float)(-3 + 2 * num187) * 0.15f, (float)(-(float)Main.rand.Next(0, 3)) * 0.2f - 0.1f, num185, num184, 0f, Main.myPlayer, 0f, (float)this.whoAmI);
 										}
 									}
-									else if (this.type == 409)
+									else if (this.type == NPCID.StardustSpiderBig)
 									{
 										int num188 = NPC.NewNPC((int)base.Center.X, (int)base.Center.Y, 410, this.whoAmI, 0f, 0f, 0f, 0f, 255);
 										Main.npc[num188].velocity = new Vector2(num180, -6f + num182);
@@ -16118,14 +16118,14 @@ namespace Terraria
 								this.spriteDirection = this.direction;
 							}
 						}
-						if (this.type == 468 && !Main.eclipse)
+						if (this.type == NPCID.DrManFly && !Main.eclipse)
 						{
 							flag18 = true;
 						}
 						else if ((this.ai[2] <= 0f || flag18) && (this.velocity.Y == 0f || flag19) && this.ai[1] <= 0f && !Main.player[this.target].dead)
 						{
 							bool flag22 = Collision.CanHit(this.position, this.width, this.height, Main.player[this.target].position, Main.player[this.target].width, Main.player[this.target].height);
-							if (this.type == 520)
+							if (this.type == NPCID.MartianWalker)
 							{
 								flag22 = Collision.CanHitLine(base.Top + new Vector2(0f, 20f), 0, 0, Main.player[this.target].position, Main.player[this.target].width, Main.player[this.target].height);
 							}
@@ -16144,27 +16144,27 @@ namespace Terraria
 								num192 += (float)Main.rand.Next(-40, 41);
 								float num193 = (float)Math.Sqrt((double)(num190 * num190 + num192 * num192));
 								float num194 = 700f;
-								if (this.type == 214)
+								if (this.type == NPCID.PirateDeadeye)
 								{
 									num194 = 550f;
 								}
-								if (this.type == 215)
+								if (this.type == NPCID.PirateCrossbower)
 								{
 									num194 = 800f;
 								}
-								if (this.type >= 498 && this.type <= 506)
+								if (this.type >= NPCID.Salamander && this.type <= NPCID.Salamander9)
 								{
 									num194 = 190f;
 								}
-								if (this.type >= 449 && this.type <= 452)
+								if (this.type >= NPCID.BoneThrowingSkeleton && this.type <= NPCID.BoneThrowingSkeleton4)
 								{
 									num194 = 200f;
 								}
-								if (this.type == 481)
+								if (this.type == NPCID.GreekSkeleton)
 								{
 									num194 = 400f;
 								}
-								if (this.type == 468)
+								if (this.type == NPCID.DrManFly)
 								{
 									num194 = 400f;
 								}
@@ -16208,44 +16208,44 @@ namespace Terraria
 							float num195 = 1f;
 							float num196 = 0.07f;
 							float scaleFactor6 = 0.8f;
-							if (this.type == 214)
+							if (this.type == NPCID.PirateDeadeye)
 							{
 								num195 = 2f;
 								num196 = 0.09f;
 							}
-							else if (this.type == 215)
+							else if (this.type == NPCID.PirateCrossbower)
 							{
 								num195 = 1.5f;
 								num196 = 0.08f;
 							}
-							else if (this.type == 381 || this.type == 382)
+							else if (this.type == NPCID.BrainScrambler || this.type == NPCID.RayGunner)
 							{
 								num195 = 2f;
 								num196 = 0.5f;
 							}
-							else if (this.type == 520)
+							else if (this.type == NPCID.MartianWalker)
 							{
 								num195 = 4f;
 								num196 = 1f;
 								scaleFactor6 = 0.7f;
 							}
-							else if (this.type == 411)
+							else if (this.type == NPCID.StardustSoldier)
 							{
 								num195 = 2f;
 								num196 = 0.5f;
 							}
-							else if (this.type == 409)
+							else if (this.type == NPCID.StardustSpiderBig)
 							{
 								num195 = 2f;
 								num196 = 0.5f;
 							}
 							bool flag23 = false;
-							if ((this.type == 381 || this.type == 382) && Vector2.Distance(base.Center, Main.player[this.target].Center) < 300f && Collision.CanHitLine(base.Center, 0, 0, Main.player[this.target].Center, 0, 0))
+							if ((this.type == NPCID.BrainScrambler || this.type == NPCID.RayGunner) && Vector2.Distance(base.Center, Main.player[this.target].Center) < 300f && Collision.CanHitLine(base.Center, 0, 0, Main.player[this.target].Center, 0, 0))
 							{
 								flag23 = true;
 								this.ai[3] = 0f;
 							}
-							if (this.type == 520 && Vector2.Distance(base.Center, Main.player[this.target].Center) < 400f && Collision.CanHitLine(base.Center, 0, 0, Main.player[this.target].Center, 0, 0))
+							if (this.type == NPCID.MartianWalker && Vector2.Distance(base.Center, Main.player[this.target].Center) < 400f && Collision.CanHitLine(base.Center, 0, 0, Main.player[this.target].Center, 0, 0))
 							{
 								flag23 = true;
 								this.ai[3] = 0f;
@@ -16274,7 +16274,7 @@ namespace Terraria
 								}
 							}
 						}
-						if (this.type == 520)
+						if (this.type == NPCID.MartianWalker)
 						{
 							this.localAI[2] += 1f;
 							if (this.localAI[2] >= 6f)
@@ -16285,7 +16285,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 109 && Main.netMode != 1 && !Main.player[this.target].dead)
+				if (this.type == NPCID.Clown && Main.netMode != 1 && !Main.player[this.target].dead)
 				{
 					if (this.justHit)
 					{
@@ -16321,7 +16321,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 428)
+				if (this.type == NPCID.VortexLarva)
 				{
 					flag24 = false;
 				}
@@ -16379,7 +16379,7 @@ namespace Terraria
 						{
 							float num208 = position2.Y + (float)this.height - num207;
 							float num209 = 16.1f;
-							if (this.type == 163 || this.type == 164 || this.type == 236 || this.type == 239 || this.type == 530)
+							if (this.type == NPCID.BlackRecluse || this.type == NPCID.WallCreeper || this.type == NPCID.JungleCreeper || this.type == NPCID.BloodCrawler || this.type == NPCID.DesertScorpionWalk)
 							{
 								num209 += 8f;
 							}
@@ -16403,7 +16403,7 @@ namespace Terraria
 				{
 					int num210 = (int)((this.position.X + (float)(this.width / 2) + (float)(15 * this.direction)) / 16f);
 					int num211 = (int)((this.position.Y + (float)this.height - 15f) / 16f);
-					if (this.type == 109 || this.type == 163 || this.type == 164 || this.type == 199 || this.type == 236 || this.type == 239 || this.type == 257 || this.type == 258 || this.type == 290 || this.type == 391 || this.type == 425 || this.type == 427 || this.type == 426 || this.type == 508 || this.type == 415 || this.type == 530 || this.type == 532)
+					if (this.type == NPCID.Clown || this.type == NPCID.BlackRecluse || this.type == NPCID.WallCreeper || this.type == NPCID.LihzahrdCrawler || this.type == NPCID.JungleCreeper || this.type == NPCID.BloodCrawler || this.type == NPCID.AnomuraFungus || this.type == NPCID.MushiLadybug || this.type == NPCID.Paladin || this.type == NPCID.Scutlix || this.type == NPCID.VortexRifleman || this.type == NPCID.VortexHornet || this.type == NPCID.VortexHornetQueen || this.type == NPCID.WalkingAntlion || this.type == NPCID.SolarDrakomire || this.type == NPCID.DesertScorpionWalk || this.type == NPCID.DesertBeast)
 					{
 						num210 = (int)((this.position.X + (float)(this.width / 2) + (float)((this.width / 2 + 16) * this.direction)) / 16f);
 					}
@@ -16446,7 +16446,7 @@ namespace Terraria
 						this.ai[3] = 0f;
 						if (this.ai[2] >= 60f)
 						{
-							if (!Main.bloodMoon && (this.type == 3 || this.type == 331 || this.type == 332 || this.type == 132 || this.type == 161 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 320 || this.type == 321 || this.type == 319))
+							if (!Main.bloodMoon && (this.type == NPCID.Zombie || this.type == NPCID.ZombieXmas || this.type == NPCID.ZombieSweater || this.type == NPCID.BaldZombie || this.type == NPCID.ZombieEskimo || this.type == NPCID.PincushionZombie || this.type == NPCID.SlimedZombie || this.type == NPCID.SwampZombie || this.type == NPCID.TwiggyZombie || this.type == NPCID.FemaleZombie || this.type == NPCID.ZombieRaincoat || this.type == NPCID.ZombieSuperman || this.type == NPCID.ZombiePixie || this.type == NPCID.ZombieDoctor))
 							{
 								this.ai[1] = 0f;
 							}
@@ -16457,11 +16457,11 @@ namespace Terraria
 								num212 = 2;
 							}
 							this.ai[1] += (float)num212;
-							if (this.type == 27)
+							if (this.type == NPCID.GoblinThief)
 							{
 								this.ai[1] += 1f;
 							}
-							if (this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296)
+							if (this.type == NPCID.AngryBones || this.type == NPCID.AngryBonesBig || this.type == NPCID.AngryBonesBigMuscle || this.type == NPCID.AngryBonesBigHelmet)
 							{
 								this.ai[1] += 6f;
 							}
@@ -16472,19 +16472,19 @@ namespace Terraria
 								flag25 = true;
 								this.ai[1] = 10f;
 							}
-							if (this.type == 460)
+							if (this.type == NPCID.Butcher)
 							{
 								flag25 = true;
 							}
 							WorldGen.KillTile(num210, num211 - 1, true, false, false);
 							if ((Main.netMode != 1 || !flag25) && flag25 && Main.netMode != 1)
 							{
-								if (this.type == 26)
+								if (this.type == NPCID.GoblinPeon)
 								{
 									WorldGen.KillTile(num210, num211 - 1, false, false, false);
 									if (Main.netMode == 2)
 									{
-										NetMessage.SendData(17, -1, -1, "", 0, (float)num210, (float)(num211 - 1), 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)num210, (float)(num211 - 1), 0f, 0, 0, 0);
 									}
 								}
 								else
@@ -16499,7 +16499,7 @@ namespace Terraria
 										}
 										if (Main.netMode == 2 && flag26)
 										{
-											NetMessage.SendData(19, -1, -1, "", 0, (float)num210, (float)(num211 - 1), (float)this.direction, 0, 0, 0);
+											NetMessage.SendData((int)PacketTypes.DoorUse, -1, -1, "", 0, (float)num210, (float)(num211 - 1), (float)this.direction, 0, 0, 0);
 										}
 									}
 									if (Main.tile[num210, num211 - 1].type == 388)
@@ -16512,7 +16512,7 @@ namespace Terraria
 										}
 										if (Main.netMode == 2 && flag27)
 										{
-											NetMessage.SendData(19, -1, -1, "", 4, (float)num210, (float)(num211 - 1), 0f, 0, 0, 0);
+											NetMessage.SendData((int)PacketTypes.DoorUse, -1, -1, "", 4, (float)num210, (float)(num211 - 1), 0f, 0, 0, 0);
 										}
 									}
 								}
@@ -16522,7 +16522,7 @@ namespace Terraria
 					else
 					{
 						int num213 = this.spriteDirection;
-						if (this.type == 425)
+						if (this.type == NPCID.VortexRifleman)
 						{
 							num213 *= -1;
 						}
@@ -16551,7 +16551,7 @@ namespace Terraria
 								this.velocity.Y = -5f;
 								this.netUpdate = true;
 							}
-							else if (this.directionY < 0 && this.type != 67 && (!Main.tile[num210, num211 + 1].nactive() || !Main.tileSolid[(int)Main.tile[num210, num211 + 1].type]) && (!Main.tile[num210 + this.direction, num211 + 1].nactive() || !Main.tileSolid[(int)Main.tile[num210 + this.direction, num211 + 1].type]))
+							else if (this.directionY < 0 && this.type != NPCID.Crab && (!Main.tile[num210, num211 + 1].nactive() || !Main.tileSolid[(int)Main.tile[num210, num211 + 1].type]) && (!Main.tile[num210 + this.direction, num211 + 1].nactive() || !Main.tileSolid[(int)Main.tile[num210 + this.direction, num211 + 1].type]))
 							{
 								this.velocity.Y = -8f;
 								this.velocity.X = this.velocity.X * 1.5f;
@@ -16567,7 +16567,7 @@ namespace Terraria
 								this.velocity.Y = -5f;
 							}
 						}
-						if ((this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 47 || this.type == 77 || this.type == 104 || this.type == 168 || this.type == 196 || this.type == 385 || this.type == 389 || this.type == 464 || this.type == 470 || (this.type >= 524 && this.type <= 527)) && this.velocity.Y == 0f && Math.Abs(this.position.X + (float)(this.width / 2) - (Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2))) < 100f && Math.Abs(this.position.Y + (float)(this.height / 2) - (Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2))) < 50f && ((this.direction > 0 && this.velocity.X >= 1f) || (this.direction < 0 && this.velocity.X <= -1f)))
+						if ((this.type == NPCID.AngryBones || this.type == NPCID.AngryBonesBig || this.type == NPCID.AngryBonesBigMuscle || this.type == NPCID.AngryBonesBigHelmet || this.type == NPCID.CorruptBunny || this.type == NPCID.ArmoredSkeleton || this.type == NPCID.Werewolf || this.type == NPCID.CorruptPenguin || this.type == NPCID.Nymph || this.type == NPCID.GrayGrunt || this.type == NPCID.GigaZapper || this.type == NPCID.CrimsonBunny || this.type == NPCID.CrimsonPenguin || (this.type >= NPCID.DesertGhoul && this.type <= NPCID.DesertGhoulHallow)) && this.velocity.Y == 0f && Math.Abs(this.position.X + (float)(this.width / 2) - (Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2))) < 100f && Math.Abs(this.position.Y + (float)(this.height / 2) - (Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2))) < 50f && ((this.direction > 0 && this.velocity.X >= 1f) || (this.direction < 0 && this.velocity.X <= -1f)))
 						{
 							this.velocity.X = this.velocity.X * 2f;
 							if (this.velocity.X > 3f)
@@ -16581,22 +16581,22 @@ namespace Terraria
 							this.velocity.Y = -4f;
 							this.netUpdate = true;
 						}
-						if (this.type == 120 && this.velocity.Y < 0f)
+						if (this.type == NPCID.ChaosElemental && this.velocity.Y < 0f)
 						{
 							this.velocity.Y = this.velocity.Y * 1.1f;
 						}
-						if (this.type == 287 && this.velocity.Y == 0f && Math.Abs(this.position.X + (float)(this.width / 2) - (Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2))) < 150f && Math.Abs(this.position.Y + (float)(this.height / 2) - (Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2))) < 50f && ((this.direction > 0 && this.velocity.X >= 1f) || (this.direction < 0 && this.velocity.X <= -1f)))
+						if (this.type == NPCID.BoneLee && this.velocity.Y == 0f && Math.Abs(this.position.X + (float)(this.width / 2) - (Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2))) < 150f && Math.Abs(this.position.Y + (float)(this.height / 2) - (Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2))) < 50f && ((this.direction > 0 && this.velocity.X >= 1f) || (this.direction < 0 && this.velocity.X <= -1f)))
 						{
 							this.velocity.X = (float)(8 * this.direction);
 							this.velocity.Y = -4f;
 							this.netUpdate = true;
 						}
-						if (this.type == 287 && this.velocity.Y < 0f)
+						if (this.type == NPCID.BoneLee && this.velocity.Y < 0f)
 						{
 							this.velocity.X = this.velocity.X * 1.2f;
 							this.velocity.Y = this.velocity.Y * 1.1f;
 						}
-						if (this.type == 460 && this.velocity.Y < 0f)
+						if (this.type == NPCID.Butcher && this.velocity.Y < 0f)
 						{
 							this.velocity.X = this.velocity.X * 1.3f;
 							this.velocity.Y = this.velocity.Y * 1.1f;
@@ -16608,7 +16608,7 @@ namespace Terraria
 					this.ai[1] = 0f;
 					this.ai[2] = 0f;
 				}
-				if (Main.netMode != 1 && this.type == 120 && this.ai[3] >= (float)num67)
+				if (Main.netMode != 1 && this.type == NPCID.ChaosElemental && this.ai[3] >= (float)num67)
 				{
 					int num214 = (int)Main.player[this.target].position.X / 16;
 					int num215 = (int)Main.player[this.target].position.Y / 16;
@@ -16636,7 +16636,7 @@ namespace Terraria
 							if ((num222 < num215 - 4 || num222 > num215 + 4 || num220 < num214 - 4 || num220 > num214 + 4) && (num222 < num217 - 1 || num222 > num217 + 1 || num220 < num216 - 1 || num220 > num216 + 1) && Main.tile[num220, num222].nactive())
 							{
 								bool flag29 = true;
-								if (this.type == 32 && Main.tile[num220, num222 - 1].wall == 0)
+								if (this.type == NPCID.DarkCaster && Main.tile[num220, num222 - 1].wall == 0)
 								{
 									flag29 = false;
 								}
@@ -16871,7 +16871,7 @@ namespace Terraria
 									Main.npc[num241].velocity.Y = vector27.Y;
 									if (Main.netMode == 2 && num241 < 200)
 									{
-										NetMessage.SendData(23, -1, -1, "", num241, 0f, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num241, 0f, 0f, 0f, 0, 0, 0);
 									}
 								}
 							}
@@ -17004,7 +17004,7 @@ namespace Terraria
 							Main.npc[num253].velocity.Y = vector30.Y;
 							if (Main.netMode == 2 && num253 < 200)
 							{
-								NetMessage.SendData(23, -1, -1, "", num253, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num253, 0f, 0f, 0f, 0, 0, 0);
 							}
 						}
 					}
@@ -17451,21 +17451,21 @@ namespace Terraria
 				}
 				float num288 = 6f;
 				float num289 = 0.05f;
-				if (this.type == 6 || this.type == 173)
+				if (this.type == NPCID.EaterofSouls || this.type == NPCID.Crimera)
 				{
 					num288 = 4f;
 					num289 = 0.02f;
-					if (this.type == 6 && Main.expertMode)
+					if (this.type == NPCID.EaterofSouls && Main.expertMode)
 					{
 						num289 = 0.035f;
 					}
 				}
-				else if (this.type == 94)
+				else if (this.type == NPCID.Corruptor)
 				{
 					num288 = 4.2f;
 					num289 = 0.022f;
 				}
-				else if (this.type == 252)
+				else if (this.type == NPCID.Parrot)
 				{
 					if (Collision.CanHit(this.position, this.width, this.height, Main.player[this.target].position, Main.player[this.target].width, Main.player[this.target].height))
 					{
@@ -17478,11 +17478,11 @@ namespace Terraria
 						num288 = 2f;
 					}
 				}
-				else if (this.type == 42 || (this.type >= 231 && this.type <= 235))
+				else if (this.type == NPCID.Hornet || (this.type >= NPCID.HornetFatty && this.type <= NPCID.HornetStingy))
 				{
 					num288 = 3.5f;
 					num289 = 0.021f;
-					if (this.type == 231)
+					if (this.type == NPCID.HornetFatty)
 					{
 						num288 = 3f;
 						num289 = 0.017f;
@@ -17490,27 +17490,27 @@ namespace Terraria
 					num288 *= 1f - this.scale;
 					num289 *= 1f - this.scale;
 				}
-				else if (this.type == 205)
+				else if (this.type == NPCID.Moth)
 				{
 					num288 = 3.25f;
 					num289 = 0.018f;
 				}
-				else if (this.type == 176)
+				else if (this.type == NPCID.MossHornet)
 				{
 					num288 = 4f;
 					num289 = 0.017f;
 				}
-				else if (this.type == 23)
+				else if (this.type == NPCID.MeteorHead)
 				{
 					num288 = 1f;
 					num289 = 0.03f;
 				}
-				else if (this.type == 5)
+				else if (this.type == NPCID.ServantofCthulhu)
 				{
 					num288 = 5f;
 					num289 = 0.03f;
 				}
-				else if (this.type == 210 || this.type == 211)
+				else if (this.type == NPCID.Bee || this.type == NPCID.BeeSmall)
 				{
 					this.localAI[0] += 1f;
 					float num290 = (this.localAI[0] - 60f) / 60f;
@@ -17568,9 +17568,9 @@ namespace Terraria
 					num291 *= num293;
 					num292 *= num293;
 				}
-				if (this.type == 6 || this.type == 42 || this.type == 94 || this.type == 139 || this.type == 173 || this.type == 176 || this.type == 205 || this.type == 210 || this.type == 211 || (this.type >= 231 && this.type <= 235))
+				if (this.type == NPCID.EaterofSouls || this.type == NPCID.Hornet || this.type == NPCID.Corruptor || this.type == NPCID.Probe || this.type == NPCID.Crimera || this.type == NPCID.MossHornet || this.type == NPCID.Moth || this.type == NPCID.Bee || this.type == NPCID.BeeSmall || (this.type >= NPCID.HornetFatty && this.type <= NPCID.HornetStingy))
 				{
-					if (num294 > 100f || this.type == 42 || this.type == 94 || this.type == 176 || this.type == 210 || this.type == 211 || (this.type >= 231 && this.type <= 235))
+					if (num294 > 100f || this.type == NPCID.Hornet || this.type == NPCID.Corruptor || this.type == NPCID.MossHornet || this.type == NPCID.Bee || this.type == NPCID.BeeSmall || (this.type >= NPCID.HornetFatty && this.type <= NPCID.HornetStingy))
 					{
 						this.ai[0] += 1f;
 						if (this.ai[0] > 0f)
@@ -17594,7 +17594,7 @@ namespace Terraria
 							this.ai[0] = -200f;
 						}
 					}
-					if (num294 < 150f && (this.type == 6 || this.type == 94 || this.type == 173))
+					if (num294 < 150f && (this.type == NPCID.EaterofSouls || this.type == NPCID.Corruptor || this.type == NPCID.Crimera))
 					{
 						this.velocity.X = this.velocity.X + num291 * 0.007f;
 						this.velocity.Y = this.velocity.Y + num292 * 0.007f;
@@ -17608,7 +17608,7 @@ namespace Terraria
 				if (this.velocity.X < num291)
 				{
 					this.velocity.X = this.velocity.X + num289;
-					if (this.type != 173 && this.type != 6 && this.type != 42 && (this.type < 231 || this.type > 235) && this.type != 94 && this.type != 139 && this.velocity.X < 0f && num291 > 0f)
+					if (this.type != NPCID.Crimera && this.type != NPCID.EaterofSouls && this.type != NPCID.Hornet && (this.type < 231 || this.type > 235) && this.type != NPCID.Corruptor && this.type != NPCID.Probe && this.velocity.X < 0f && num291 > 0f)
 					{
 						this.velocity.X = this.velocity.X + num289;
 					}
@@ -17616,7 +17616,7 @@ namespace Terraria
 				else if (this.velocity.X > num291)
 				{
 					this.velocity.X = this.velocity.X - num289;
-					if (this.type != 173 && this.type != 6 && this.type != 42 && (this.type < 231 || this.type > 235) && this.type != 94 && this.type != 139 && this.velocity.X > 0f && num291 < 0f)
+					if (this.type != NPCID.Crimera && this.type != NPCID.EaterofSouls && this.type != NPCID.Hornet && (this.type < 231 || this.type > 235) && this.type != NPCID.Corruptor && this.type != NPCID.Probe && this.velocity.X > 0f && num291 < 0f)
 					{
 						this.velocity.X = this.velocity.X - num289;
 					}
@@ -17624,7 +17624,7 @@ namespace Terraria
 				if (this.velocity.Y < num292)
 				{
 					this.velocity.Y = this.velocity.Y + num289;
-					if (this.type != 173 && this.type != 6 && this.type != 42 && (this.type < 231 || this.type > 235) && this.type != 94 && this.type != 139 && this.velocity.Y < 0f && num292 > 0f)
+					if (this.type != NPCID.Crimera && this.type != NPCID.EaterofSouls && this.type != NPCID.Hornet && (this.type < 231 || this.type > 235) && this.type != NPCID.Corruptor && this.type != NPCID.Probe && this.velocity.Y < 0f && num292 > 0f)
 					{
 						this.velocity.Y = this.velocity.Y + num289;
 					}
@@ -17632,12 +17632,12 @@ namespace Terraria
 				else if (this.velocity.Y > num292)
 				{
 					this.velocity.Y = this.velocity.Y - num289;
-					if (this.type != 173 && this.type != 6 && this.type != 42 && (this.type < 231 || this.type > 235) && this.type != 94 && this.type != 139 && this.velocity.Y > 0f && num292 < 0f)
+					if (this.type != NPCID.Crimera && this.type != NPCID.EaterofSouls && this.type != NPCID.Hornet && (this.type < 231 || this.type > 235) && this.type != NPCID.Corruptor && this.type != NPCID.Probe && this.velocity.Y > 0f && num292 < 0f)
 					{
 						this.velocity.Y = this.velocity.Y - num289;
 					}
 				}
-				if (this.type == 23)
+				if (this.type == NPCID.MeteorHead)
 				{
 					if (num291 > 0f)
 					{
@@ -17650,7 +17650,7 @@ namespace Terraria
 						this.rotation = (float)Math.Atan2((double)num292, (double)num291) + 3.14f;
 					}
 				}
-				else if (this.type == 139)
+				else if (this.type == NPCID.Probe)
 				{
 					this.localAI[0] += 1f;
 					if (this.justHit)
@@ -17686,11 +17686,11 @@ namespace Terraria
 						this.rotation = (float)Math.Atan2((double)num292, (double)num291) + 3.14f;
 					}
 				}
-				else if (this.type == 6 || this.type == 94 || this.type == 173)
+				else if (this.type == NPCID.EaterofSouls || this.type == NPCID.Corruptor || this.type == NPCID.Crimera)
 				{
 					this.rotation = (float)Math.Atan2((double)num292, (double)num291) - 1.57f;
 				}
-				else if (this.type == 42 || this.type == 176 || this.type == 205 || (this.type >= 231 && this.type <= 235))
+				else if (this.type == NPCID.Hornet || this.type == NPCID.MossHornet || this.type == NPCID.Moth || (this.type >= NPCID.HornetFatty && this.type <= NPCID.HornetStingy))
 				{
 					if (this.velocity.X > 0f)
 					{
@@ -17706,10 +17706,10 @@ namespace Terraria
 				{
 					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) - 1.57f;
 				}
-				if (this.type == 6 || this.type == 23 || this.type == 42 || this.type == 94 || this.type == 139 || this.type == 173 || this.type == 176 || this.type == 205 || this.type == 210 || this.type == 211 || (this.type >= 231 && this.type <= 235))
+				if (this.type == NPCID.EaterofSouls || this.type == NPCID.MeteorHead || this.type == NPCID.Hornet || this.type == NPCID.Corruptor || this.type == NPCID.Probe || this.type == NPCID.Crimera || this.type == NPCID.MossHornet || this.type == NPCID.Moth || this.type == NPCID.Bee || this.type == NPCID.BeeSmall || (this.type >= NPCID.HornetFatty && this.type <= NPCID.HornetStingy))
 				{
 					float num299 = 0.7f;
-					if (this.type == 6 || this.type == 173)
+					if (this.type == NPCID.EaterofSouls || this.type == NPCID.Crimera)
 					{
 						num299 = 0.4f;
 					}
@@ -17740,7 +17740,7 @@ namespace Terraria
 						}
 					}
 				}
-				if ((this.type == 6 || this.type == 94 || this.type == 173) && this.wet)
+				if ((this.type == NPCID.EaterofSouls || this.type == NPCID.Corruptor || this.type == NPCID.Crimera) && this.wet)
 				{
 					if (this.velocity.Y > 0f)
 					{
@@ -17752,7 +17752,7 @@ namespace Terraria
 						this.velocity.Y = -2f;
 					}
 				}
-				if (this.type == 205 && this.wet)
+				if (this.type == NPCID.Moth && this.wet)
 				{
 					if (this.velocity.Y > 0f)
 					{
@@ -17765,7 +17765,7 @@ namespace Terraria
 					}
 					this.TargetClosest(true);
 				}
-				if (this.type == 42 || this.type == 176 || (this.type >= 231 && this.type <= 235))
+				if (this.type == NPCID.Hornet || this.type == NPCID.MossHornet || (this.type >= NPCID.HornetFatty && this.type <= NPCID.HornetStingy))
 				{
 					if (this.wet)
 					{
@@ -17787,7 +17787,7 @@ namespace Terraria
 					if (Main.netMode != 1)
 					{
 						this.ai[1] += (float)Main.rand.Next(5, 20) * 0.1f * this.scale;
-						if (this.type == 176)
+						if (this.type == NPCID.MossHornet)
 						{
 							this.ai[1] += (float)Main.rand.Next(5, 20) * 0.1f * this.scale;
 						}
@@ -17810,7 +17810,7 @@ namespace Terraria
 									num305 *= num307;
 									num306 *= num307;
 									int num308 = (int)(10f * this.scale);
-									if (this.type == 176)
+									if (this.type == NPCID.MossHornet)
 									{
 										num308 = (int)(30f * this.scale);
 									}
@@ -17832,7 +17832,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 139 && flag32)
+				if (this.type == NPCID.Probe && flag32)
 				{
 					if ((this.velocity.X > 0f && num291 > 0f) || (this.velocity.X < 0f && num291 < 0f))
 					{
@@ -17846,7 +17846,7 @@ namespace Terraria
 						this.velocity.X = this.velocity.X * 0.9f;
 					}
 				}
-				if (Main.netMode != 1 && this.type == 94 && !Main.player[this.target].dead)
+				if (Main.netMode != 1 && this.type == NPCID.Corruptor && !Main.player[this.target].dead)
 				{
 					if (this.justHit)
 					{
@@ -17862,7 +17862,7 @@ namespace Terraria
 						this.localAI[0] = 0f;
 					}
 				}
-				if ((Main.dayTime && this.type != 173 && this.type != 6 && this.type != 23 && this.type != 42 && this.type != 94 && this.type != 176 && this.type != 205 && this.type != 210 && this.type != 211 && this.type != 252 && (this.type < 231 || this.type > 235)) || Main.player[this.target].dead)
+				if ((Main.dayTime && this.type != NPCID.Crimera && this.type != NPCID.EaterofSouls && this.type != NPCID.MeteorHead && this.type != NPCID.Hornet && this.type != NPCID.Corruptor && this.type != NPCID.MossHornet && this.type != NPCID.Moth && this.type != NPCID.Bee && this.type != NPCID.BeeSmall && this.type != NPCID.Parrot && (this.type < 231 || this.type > 235)) || Main.player[this.target].dead)
 				{
 					this.velocity.Y = this.velocity.Y - num289 * 2f;
 					if (this.timeLeft > 10)
@@ -17878,18 +17878,18 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 6)
 			{
-				if (this.type == 117 && this.localAI[1] == 0f)
+				if (this.type == NPCID.LeechHead && this.localAI[1] == 0f)
 				{
 					this.localAI[1] = 1f;
 				}
-				if (this.type == 454 && this.localAI[3] == 0f)
+				if (this.type == NPCID.CultistDragonHead && this.localAI[3] == 0f)
 				{
 					this.localAI[3] = 1f;
 				}
-				if (this.type >= 454 && this.type <= 459)
+				if (this.type >= NPCID.CultistDragonHead && this.type <= NPCID.CultistDragonTail)
 				{
 					this.dontTakeDamage = (this.alpha > 0);
-					if (this.type == 454 || (this.type != 454 && Main.npc[(int)this.ai[1]].alpha < 85))
+					if (this.type == NPCID.CultistDragonHead || (this.type != NPCID.CultistDragonHead && Main.npc[(int)this.ai[1]].alpha < 85))
 					{
 						this.alpha -= 42;
 						if (this.alpha < 0)
@@ -17898,14 +17898,14 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 402 && this.ai[1] == 0f)
+				else if (this.type == NPCID.StardustWormHead && this.ai[1] == 0f)
 				{
 					this.ai[1] = (float)Main.rand.Next(-2, 0);
 					this.netUpdate = true;
 				}
 				if (Main.netMode != 1 && Main.expertMode)
 				{
-					if (this.type == 14 && (double)(this.position.Y / 16f) < Main.worldSurface)
+					if (this.type == NPCID.EaterofWorldsBody && (double)(this.position.Y / 16f) < Main.worldSurface)
 					{
 						if (Main.rand.Next(900) == 0)
 						{
@@ -17916,7 +17916,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (this.type == 13)
+					else if (this.type == NPCID.EaterofWorldsHead)
 					{
 						int num315 = 90;
 						num315 += (int)((float)this.life / (float)this.lifeMax * 60f * 5f);
@@ -17930,7 +17930,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type >= 13 && this.type <= 15)
+				if (this.type >= NPCID.EaterofWorldsHead && this.type <= NPCID.EaterofWorldsTail)
 				{
 					this.realLife = -1;
 				}
@@ -17948,7 +17948,7 @@ namespace Terraria
 				}
 				if (Main.netMode != 1)
 				{
-					if (this.type == 87 && this.ai[0] == 0f)
+					if (this.type == NPCID.WyvernHead && this.ai[0] == 0f)
 					{
 						this.ai[3] = (float)this.whoAmI;
 						this.realLife = this.whoAmI;
@@ -17977,11 +17977,11 @@ namespace Terraria
 							Main.npc[num319].realLife = this.whoAmI;
 							Main.npc[num319].ai[1] = (float)num316;
 							Main.npc[num316].ai[0] = (float)num319;
-							NetMessage.SendData(23, -1, -1, "", num319, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num319, 0f, 0f, 0f, 0, 0, 0);
 							num316 = num319;
 						}
 					}
-					if (this.type == 454 && this.ai[0] == 0f)
+					if (this.type == NPCID.CultistDragonHead && this.ai[0] == 0f)
 					{
 						this.ai[3] = (float)this.whoAmI;
 						this.realLife = this.whoAmI;
@@ -18010,11 +18010,11 @@ namespace Terraria
 							Main.npc[num323].realLife = this.whoAmI;
 							Main.npc[num323].ai[1] = (float)num320;
 							Main.npc[num320].ai[0] = (float)num323;
-							NetMessage.SendData(23, -1, -1, "", num323, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num323, 0f, 0f, 0f, 0, 0, 0);
 							num320 = num323;
 						}
 					}
-					if (this.type == 513 && this.ai[0] == 0f)
+					if (this.type == NPCID.TombCrawlerHead && this.ai[0] == 0f)
 					{
 						this.ai[3] = (float)this.whoAmI;
 						this.realLife = this.whoAmI;
@@ -18032,11 +18032,11 @@ namespace Terraria
 							Main.npc[num328].realLife = this.whoAmI;
 							Main.npc[num328].ai[1] = (float)num324;
 							Main.npc[num324].ai[0] = (float)num328;
-							NetMessage.SendData(23, -1, -1, "", num328, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num328, 0f, 0f, 0f, 0, 0, 0);
 							num324 = num328;
 						}
 					}
-					if (this.type == 510 && this.ai[0] == 0f)
+					if (this.type == NPCID.DuneSplicerHead && this.ai[0] == 0f)
 					{
 						this.ai[3] = (float)this.whoAmI;
 						this.realLife = this.whoAmI;
@@ -18054,13 +18054,13 @@ namespace Terraria
 							Main.npc[num333].realLife = this.whoAmI;
 							Main.npc[num333].ai[1] = (float)num329;
 							Main.npc[num329].ai[0] = (float)num333;
-							NetMessage.SendData(23, -1, -1, "", num333, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num333, 0f, 0f, 0f, 0, 0, 0);
 							num329 = num333;
 						}
 					}
-					else if ((this.type == 7 || this.type == 8 || this.type == 10 || this.type == 11 || this.type == 13 || this.type == 14 || this.type == 39 || this.type == 40 || this.type == 95 || this.type == 96 || this.type == 98 || this.type == 99 || this.type == 117 || this.type == 118) && this.ai[0] == 0f)
+					else if ((this.type == NPCID.DevourerHead || this.type == NPCID.DevourerBody || this.type == NPCID.GiantWormHead || this.type == NPCID.GiantWormBody || this.type == NPCID.EaterofWorldsHead || this.type == NPCID.EaterofWorldsBody || this.type == NPCID.BoneSerpentHead || this.type == NPCID.BoneSerpentBody || this.type == NPCID.DiggerHead || this.type == NPCID.DiggerBody || this.type == NPCID.SeekerHead || this.type == NPCID.SeekerBody || this.type == NPCID.LeechHead || this.type == NPCID.LeechBody) && this.ai[0] == 0f)
 					{
-						if (this.type == 7 || this.type == 10 || this.type == 13 || this.type == 39 || this.type == 95 || this.type == 98 || this.type == 117)
+						if (this.type == NPCID.DevourerHead || this.type == NPCID.GiantWormHead || this.type == NPCID.EaterofWorldsHead || this.type == NPCID.BoneSerpentHead || this.type == NPCID.DiggerHead || this.type == NPCID.SeekerHead || this.type == NPCID.LeechHead)
 						{
 							if (this.type < 13 || this.type > 15)
 							{
@@ -18068,11 +18068,11 @@ namespace Terraria
 								this.realLife = this.whoAmI;
 							}
 							this.ai[2] = (float)Main.rand.Next(8, 13);
-							if (this.type == 10)
+							if (this.type == NPCID.GiantWormHead)
 							{
 								this.ai[2] = (float)Main.rand.Next(4, 7);
 							}
-							if (this.type == 13)
+							if (this.type == NPCID.EaterofWorldsHead)
 							{
 								this.ai[2] = (float)Main.rand.Next(45, 56);
 								if (Main.expertMode)
@@ -18080,25 +18080,25 @@ namespace Terraria
 									this.ai[2] = (float)((int)(this.ai[2] * 1.1f));
 								}
 							}
-							if (this.type == 39)
+							if (this.type == NPCID.BoneSerpentHead)
 							{
 								this.ai[2] = (float)Main.rand.Next(12, 19);
 							}
-							if (this.type == 95)
+							if (this.type == NPCID.DiggerHead)
 							{
 								this.ai[2] = (float)Main.rand.Next(6, 12);
 							}
-							if (this.type == 98)
+							if (this.type == NPCID.SeekerHead)
 							{
 								this.ai[2] = (float)Main.rand.Next(20, 26);
 							}
-							if (this.type == 117)
+							if (this.type == NPCID.LeechHead)
 							{
 								this.ai[2] = (float)Main.rand.Next(3, 6);
 							}
 							this.ai[0] = (float)NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), this.type + 1, this.whoAmI, 0f, 0f, 0f, 0f, 255);
 						}
-						else if ((this.type == 8 || this.type == 11 || this.type == 14 || this.type == 40 || this.type == 96 || this.type == 99 || this.type == 118) && this.ai[2] > 0f)
+						else if ((this.type == NPCID.DevourerBody || this.type == NPCID.GiantWormBody || this.type == NPCID.EaterofWorldsBody || this.type == NPCID.BoneSerpentBody || this.type == NPCID.DiggerBody || this.type == NPCID.SeekerBody || this.type == NPCID.LeechBody) && this.ai[2] > 0f)
 						{
 							this.ai[0] = (float)NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), this.type, this.whoAmI, 0f, 0f, 0f, 0f, 255);
 						}
@@ -18115,7 +18115,7 @@ namespace Terraria
 						Main.npc[(int)this.ai[0]].ai[2] = this.ai[2] - 1f;
 						this.netUpdate = true;
 					}
-					if (this.type == 412 && this.ai[0] == 0f)
+					if (this.type == NPCID.SolarCrawltipedeHead && this.ai[0] == 0f)
 					{
 						this.ai[3] = (float)this.whoAmI;
 						this.realLife = this.whoAmI;
@@ -18133,7 +18133,7 @@ namespace Terraria
 							Main.npc[num338].realLife = this.whoAmI;
 							Main.npc[num338].ai[1] = (float)num334;
 							Main.npc[num334].ai[0] = (float)num338;
-							NetMessage.SendData(23, -1, -1, "", num338, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num338, 0f, 0f, 0f, 0, 0, 0);
 							num334 = num338;
 						}
 					}
@@ -18231,7 +18231,7 @@ namespace Terraria
 						this.life = 0;
 						this.HitEffect(0, 10.0);
 						this.active = false;
-						NetMessage.SendData(28, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
 					}
 				IL_15374:
 					num75 = this.type;
@@ -18328,10 +18328,10 @@ namespace Terraria
 						this.life = 0;
 						this.HitEffect(0, 10.0);
 						this.active = false;
-						NetMessage.SendData(28, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
 					}
 				IL_154F7:
-					if (this.type == 13 || this.type == 14 || this.type == 15)
+					if (this.type == NPCID.EaterofWorldsHead || this.type == NPCID.EaterofWorldsBody || this.type == NPCID.EaterofWorldsTail)
 					{
 						if (!Main.npc[(int)this.ai[1]].active && !Main.npc[(int)this.ai[0]].active)
 						{
@@ -18339,25 +18339,25 @@ namespace Terraria
 							this.HitEffect(0, 10.0);
 							this.checkDead();
 							this.active = false;
-							NetMessage.SendData(28, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
 						}
-						if (this.type == 13 && !Main.npc[(int)this.ai[0]].active)
+						if (this.type == NPCID.EaterofWorldsHead && !Main.npc[(int)this.ai[0]].active)
 						{
 							this.life = 0;
 							this.HitEffect(0, 10.0);
 							this.checkDead();
 							this.active = false;
-							NetMessage.SendData(28, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
 						}
-						if (this.type == 15 && !Main.npc[(int)this.ai[1]].active)
+						if (this.type == NPCID.EaterofWorldsTail && !Main.npc[(int)this.ai[1]].active)
 						{
 							this.life = 0;
 							this.HitEffect(0, 10.0);
 							this.checkDead();
 							this.active = false;
-							NetMessage.SendData(28, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
 						}
-						if (this.type == 14 && (!Main.npc[(int)this.ai[1]].active || Main.npc[(int)this.ai[1]].aiStyle != this.aiStyle))
+						if (this.type == NPCID.EaterofWorldsBody && (!Main.npc[(int)this.ai[1]].active || Main.npc[(int)this.ai[1]].aiStyle != this.aiStyle))
 						{
 							this.type = 13;
 							int whoAmI = this.whoAmI;
@@ -18370,7 +18370,7 @@ namespace Terraria
 							this.netUpdate = true;
 							this.whoAmI = whoAmI;
 						}
-						if (this.type == 14 && (!Main.npc[(int)this.ai[0]].active || Main.npc[(int)this.ai[0]].aiStyle != this.aiStyle))
+						if (this.type == NPCID.EaterofWorldsBody && (!Main.npc[(int)this.ai[0]].active || Main.npc[(int)this.ai[0]].aiStyle != this.aiStyle))
 						{
 							int whoAmI2 = this.whoAmI;
 							float num341 = (float)this.life / (float)this.lifeMax;
@@ -18385,7 +18385,7 @@ namespace Terraria
 					}
 					if (!this.active && Main.netMode == 2)
 					{
-						NetMessage.SendData(28, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
 					}
 				}
 				int num343 = (int)(this.position.X / 16f) - 1;
@@ -18409,19 +18409,19 @@ namespace Terraria
 					num346 = Main.maxTilesY;
 				}
 				bool flag33 = false;
-				if (this.type >= 87 && this.type <= 92)
+				if (this.type >= NPCID.WyvernHead && this.type <= NPCID.WyvernTail)
 				{
 					flag33 = true;
 				}
-				if (this.type >= 454 && this.type <= 459)
+				if (this.type >= NPCID.CultistDragonHead && this.type <= NPCID.CultistDragonTail)
 				{
 					flag33 = true;
 				}
-				if (this.type == 402 && this.ai[1] == -1f)
+				if (this.type == NPCID.StardustWormHead && this.ai[1] == -1f)
 				{
 					flag33 = true;
 				}
-				if (this.type >= 412 && this.type <= 414)
+				if (this.type >= NPCID.SolarCrawltipedeHead && this.type <= NPCID.SolarCrawltipedeTail)
 				{
 					flag33 = true;
 				}
@@ -18439,7 +18439,7 @@ namespace Terraria
 								if (this.position.X + (float)this.width > vector37.X && this.position.X < vector37.X + 16f && this.position.Y + (float)this.height > vector37.Y && this.position.Y < vector37.Y + 16f)
 								{
 									flag33 = true;
-									if (Main.rand.Next(100) == 0 && this.type != 117 && Main.tile[num347, num348].nactive())
+									if (Main.rand.Next(100) == 0 && this.type != NPCID.LeechHead && Main.tile[num347, num348].nactive())
 									{
 										WorldGen.KillTile(num347, num348, true, true, false);
 									}
@@ -18448,7 +18448,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (!flag33 && (this.type == 7 || this.type == 10 || this.type == 13 || this.type == 39 || this.type == 95 || this.type == 98 || this.type == 117 || this.type == 375 || this.type == 454 || this.type == 510 || this.type == 513))
+				if (!flag33 && (this.type == NPCID.DevourerHead || this.type == NPCID.GiantWormHead || this.type == NPCID.EaterofWorldsHead || this.type == NPCID.BoneSerpentHead || this.type == NPCID.DiggerHead || this.type == NPCID.SeekerHead || this.type == NPCID.LeechHead || this.type == NPCID.TruffleWormDigger || this.type == NPCID.CultistDragonHead || this.type == NPCID.DuneSplicerHead || this.type == NPCID.TombCrawlerHead))
 				{
 					Rectangle rectangle = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
 					int num349 = 1000;
@@ -18470,7 +18470,7 @@ namespace Terraria
 						flag33 = true;
 					}
 				}
-				if ((this.type >= 87 && this.type <= 92) || (this.type >= 454 && this.type <= 459))
+				if ((this.type >= NPCID.WyvernHead && this.type <= NPCID.WyvernTail) || (this.type >= NPCID.CultistDragonHead && this.type <= NPCID.CultistDragonTail))
 				{
 					if (this.velocity.X < 0f)
 					{
@@ -18481,7 +18481,7 @@ namespace Terraria
 						this.spriteDirection = -1;
 					}
 				}
-				if (this.type == 414)
+				if (this.type == NPCID.SolarCrawltipedeTail)
 				{
 					if (this.justHit)
 					{
@@ -18507,22 +18507,22 @@ namespace Terraria
 				}
 				float num351 = 8f;
 				float num352 = 0.07f;
-				if (this.type == 95)
+				if (this.type == NPCID.DiggerHead)
 				{
 					num351 = 5.5f;
 					num352 = 0.045f;
 				}
-				if (this.type == 10)
+				if (this.type == NPCID.GiantWormHead)
 				{
 					num351 = 6f;
 					num352 = 0.05f;
 				}
-				if (this.type == 513)
+				if (this.type == NPCID.TombCrawlerHead)
 				{
 					num351 = 7f;
 					num352 = 0.03f;
 				}
-				if (this.type == 13)
+				if (this.type == NPCID.EaterofWorldsHead)
 				{
 					num351 = 10f;
 					num352 = 0.07f;
@@ -18532,32 +18532,32 @@ namespace Terraria
 						num352 = 0.15f;
 					}
 				}
-				if (this.type == 510)
+				if (this.type == NPCID.DuneSplicerHead)
 				{
 					num351 = 10f;
 					num352 = 0.25f;
 				}
-				if (this.type == 87)
+				if (this.type == NPCID.WyvernHead)
 				{
 					num351 = 11f;
 					num352 = 0.25f;
 				}
-				if (this.type == 375)
+				if (this.type == NPCID.TruffleWormDigger)
 				{
 					num351 = 6f;
 					num352 = 0.15f;
 				}
-				if (this.type == 454)
+				if (this.type == NPCID.CultistDragonHead)
 				{
 					num351 = 20f;
 					num352 = 0.55f;
 				}
-				if (this.type == 402)
+				if (this.type == NPCID.StardustWormHead)
 				{
 					num351 = 6f;
 					num352 = 0.2f;
 				}
-				if (this.type == 117 && Main.wof >= 0)
+				if (this.type == NPCID.LeechHead && Main.wof >= 0)
 				{
 					float num353 = (float)Main.npc[Main.wof].life / (float)Main.npc[Main.wof].lifeMax;
 					if ((double)num353 < 0.5)
@@ -18579,7 +18579,7 @@ namespace Terraria
 				Vector2 vector38 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 				float num354 = Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2);
 				float num355 = Main.player[this.target].position.Y + (float)(Main.player[this.target].height / 2);
-				if (this.type == 412)
+				if (this.type == NPCID.SolarCrawltipedeHead)
 				{
 					num351 = 10f;
 					num352 = 0.3f;
@@ -18683,7 +18683,7 @@ namespace Terraria
 				vector38.Y = (float)((int)(vector38.Y / 16f) * 16);
 				num354 -= vector38.X;
 				num355 -= vector38.Y;
-				if (this.type == 375)
+				if (this.type == NPCID.TruffleWormDigger)
 				{
 					num354 *= -1f;
 					num355 *= -1f;
@@ -18703,19 +18703,19 @@ namespace Terraria
 					this.rotation = (float)Math.Atan2((double)num355, (double)num354) + 1.57f;
 					num367 = (float)Math.Sqrt((double)(num354 * num354 + num355 * num355));
 					int num368 = this.width;
-					if (this.type >= 87 && this.type <= 92)
+					if (this.type >= NPCID.WyvernHead && this.type <= NPCID.WyvernTail)
 					{
 						num368 = 42;
 					}
-					if (this.type >= 454 && this.type <= 459)
+					if (this.type >= NPCID.CultistDragonHead && this.type <= NPCID.CultistDragonTail)
 					{
 						num368 = 36;
 					}
-					if (this.type >= 13 && this.type <= 15)
+					if (this.type >= NPCID.EaterofWorldsHead && this.type <= NPCID.EaterofWorldsTail)
 					{
 						num368 = (int)((float)num368 * this.scale);
 					}
-					if (this.type >= 412 && this.type <= 414)
+					if (this.type >= NPCID.SolarCrawltipedeHead && this.type <= NPCID.SolarCrawltipedeTail)
 					{
 						num368 += 6;
 					}
@@ -18725,7 +18725,7 @@ namespace Terraria
 					this.velocity = Vector2.Zero;
 					this.position.X = this.position.X + num354;
 					this.position.Y = this.position.Y + num355;
-					if (this.type >= 87 && this.type <= 92)
+					if (this.type >= NPCID.WyvernHead && this.type <= NPCID.WyvernTail)
 					{
 						if (num354 < 0f)
 						{
@@ -18736,7 +18736,7 @@ namespace Terraria
 							this.spriteDirection = -1;
 						}
 					}
-					if (this.type >= 454 && this.type <= 459)
+					if (this.type >= NPCID.CultistDragonHead && this.type <= NPCID.CultistDragonTail)
 					{
 						if (num354 < 0f)
 						{
@@ -18796,7 +18796,7 @@ namespace Terraria
 					}
 					else
 					{
-						if (this.type != 87 && this.type != 117 && this.type != 454 && this.type != 412 && this.soundDelay == 0)
+						if (this.type != NPCID.WyvernHead && this.type != NPCID.LeechHead && this.type != NPCID.CultistDragonHead && this.type != NPCID.SolarCrawltipedeHead && this.soundDelay == 0)
 						{
 							float num369 = num367 / 40f;
 							if (num369 < 10f)
@@ -18816,15 +18816,15 @@ namespace Terraria
 						num354 *= num372;
 						num355 *= num372;
 						bool flag35 = false;
-						if ((this.type == 7 || this.type == 13) && !Main.player[this.target].ZoneCorrupt && !Main.player[this.target].ZoneCrimson)
+						if ((this.type == NPCID.DevourerHead || this.type == NPCID.EaterofWorldsHead) && !Main.player[this.target].ZoneCorrupt && !Main.player[this.target].ZoneCrimson)
 						{
 							flag35 = true;
 						}
-						if (this.type == 513 && (double)Main.player[this.target].position.Y < Main.worldSurface * 16.0)
+						if (this.type == NPCID.TombCrawlerHead && (double)Main.player[this.target].position.Y < Main.worldSurface * 16.0)
 						{
 							flag35 = true;
 						}
-						if (this.type == 510 && (double)Main.player[this.target].position.Y < Main.worldSurface * 16.0)
+						if (this.type == NPCID.DuneSplicerHead && (double)Main.player[this.target].position.Y < Main.worldSurface * 16.0)
 						{
 							flag35 = true;
 						}
@@ -18851,13 +18851,13 @@ namespace Terraria
 										this.life = 0;
 										if (Main.netMode == 2)
 										{
-											NetMessage.SendData(23, -1, -1, "", num374, 0f, 0f, 0f, 0, 0, 0);
+											NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num374, 0f, 0f, 0f, 0, 0, 0);
 										}
 										num374 = num375;
 									}
 									if (Main.netMode == 2)
 									{
-										NetMessage.SendData(23, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 									}
 								}
 								num354 = 0f;
@@ -18865,7 +18865,7 @@ namespace Terraria
 							}
 						}
 						bool flag37 = false;
-						if (this.type == 87)
+						if (this.type == NPCID.WyvernHead)
 						{
 							if (((this.velocity.X > 0f && num354 < 0f) || (this.velocity.X < 0f && num354 > 0f) || (this.velocity.Y > 0f && num355 < 0f) || (this.velocity.Y < 0f && num355 > 0f)) && Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y) > num352 / 2f && num367 < 300f)
 							{
@@ -18892,7 +18892,7 @@ namespace Terraria
 								}
 							}
 						}
-						if (this.type == 454)
+						if (this.type == NPCID.CultistDragonHead)
 						{
 							if (((this.velocity.X > 0f && num354 < 0f) || (this.velocity.X < 0f && num354 > 0f) || (this.velocity.Y > 0f && num355 < 0f) || (this.velocity.Y < 0f && num355 > 0f)) && Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y) > num352 / 2f && num367 < 300f)
 							{
@@ -19009,7 +19009,7 @@ namespace Terraria
 						}
 					}
 					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
-					if (this.type == 7 || this.type == 10 || this.type == 13 || this.type == 39 || this.type == 95 || this.type == 98 || this.type == 117 || this.type == 510 || this.type == 513)
+					if (this.type == NPCID.DevourerHead || this.type == NPCID.GiantWormHead || this.type == NPCID.EaterofWorldsHead || this.type == NPCID.BoneSerpentHead || this.type == NPCID.DiggerHead || this.type == NPCID.SeekerHead || this.type == NPCID.LeechHead || this.type == NPCID.DuneSplicerHead || this.type == NPCID.TombCrawlerHead)
 					{
 						if (flag33)
 						{
@@ -19032,7 +19032,7 @@ namespace Terraria
 							this.netUpdate = true;
 						}
 					}
-					if (this.type == 454)
+					if (this.type == NPCID.CultistDragonHead)
 					{
 						float num376 = Vector2.Distance(Main.player[this.target].Center, base.Center);
 						int num377 = 0;
@@ -19084,7 +19084,7 @@ namespace Terraria
 				{
 					this.defense = (this.dryadWard ? (this.defDefense + 6) : this.defDefense);
 				}
-				if (this.townNPC || this.type == 453)
+				if (this.townNPC || this.type == NPCID.SkeletonMerchant)
 				{
 					if (NPC.downedBoss1)
 					{
@@ -19142,24 +19142,24 @@ namespace Terraria
 						this.defense += 8;
 					}
 				}
-				if (this.type == 142 && Main.netMode != 1 && !Main.xMas)
+				if (this.type == NPCID.SantaClaus && Main.netMode != 1 && !Main.xMas)
 				{
 					this.StrikeNPCNoInteraction(9999, 0f, 0, false, false, false);
 					if (Main.netMode == 2)
 					{
-						NetMessage.SendData(28, -1, -1, "", this.whoAmI, 9999f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", this.whoAmI, 9999f, 0f, 0f, 0, 0, 0);
 					}
 				}
-				if ((this.type == 148 || this.type == 149) && this.localAI[0] == 0f)
+				if ((this.type == NPCID.Penguin || this.type == NPCID.PenguinBlack) && this.localAI[0] == 0f)
 				{
 					this.localAI[0] = (float)Main.rand.Next(1, 5);
 				}
-				if (this.type == 124)
+				if (this.type == NPCID.Mechanic)
 				{
 					bool flag39 = false;
 					for (int num379 = 0; num379 < 1000; num379++)
 					{
-						if (Main.projectile[num379].active && Main.projectile[num379].type == 582 && Main.projectile[num379].ai[1] == (float)this.whoAmI)
+						if (Main.projectile[num379].active && Main.projectile[num379].type == ProjectileID.MechanicWrench && Main.projectile[num379].ai[1] == (float)this.whoAmI)
 						{
 							flag39 = true;
 							break;
@@ -19167,7 +19167,7 @@ namespace Terraria
 					}
 					this.localAI[0] = (float)flag39.ToInt();
 				}
-				if ((this.type == 362 || this.type == 364) && Main.netMode != 1 && (this.velocity.Y > 4f || this.velocity.Y < -4f || this.wet))
+				if ((this.type == NPCID.Duck || this.type == NPCID.DuckWhite) && Main.netMode != 1 && (this.velocity.Y > 4f || this.velocity.Y < -4f || this.wet))
 				{
 					int direction = this.direction;
 					this.Transform(this.type + 1);
@@ -19213,7 +19213,7 @@ namespace Terraria
 				{
 					NPC.savedStylist = true;
 				}
-				if (this.type >= 0 && this.type < 540 && NPCID.Sets.TownCritter[this.type] && this.target == 255)
+				if (this.type >= NPCID.None && this.type < 540 && NPCID.Sets.TownCritter[this.type] && this.target == 255)
 				{
 					this.TargetClosest(true);
 					if (this.position.X < Main.player[this.target].position.X)
@@ -19238,7 +19238,7 @@ namespace Terraria
 				}
 				bool flag40 = false;
 				int num380 = this.homeTileY;
-				if (this.type == 441)
+				if (this.type == NPCID.TaxCollector)
 				{
 					NPC.taxCollector = true;
 				}
@@ -19277,7 +19277,7 @@ namespace Terraria
 					this.netUpdate = true;
 					return;
 				}
-				if (this.type == 37 && Main.netMode != 1)
+				if (this.type == NPCID.OldMan && Main.netMode != 1)
 				{
 					this.homeless = false;
 					this.homeTileX = Main.dungeonX;
@@ -19295,7 +19295,7 @@ namespace Terraria
 						num380++;
 					}
 				}
-				if (this.type == 368)
+				if (this.type == NPCID.TravellingMerchant)
 				{
 					this.homeless = true;
 					if (!Main.dayTime)
@@ -19310,7 +19310,7 @@ namespace Terraria
 						flag38 = false;
 					}
 				}
-				if (this.type == 369 && this.homeless && this.wet)
+				if (this.type == NPCID.Angler && this.homeless && this.wet)
 				{
 					if (base.Center.X / 16f < 380f || base.Center.X / 16f > (float)(Main.maxTilesX - 380))
 					{
@@ -19363,7 +19363,7 @@ namespace Terraria
 					}
 					if (flag41)
 					{
-						if (this.type == 37 || !Collision.SolidTiles(this.homeTileX - 1, this.homeTileX + 1, num380 - 3, num380 - 1))
+						if (this.type == NPCID.OldMan || !Collision.SolidTiles(this.homeTileX - 1, this.homeTileX + 1, num380 - 3, num380 - 1))
 						{
 							this.velocity.X = 0f;
 							this.velocity.Y = 0f;
@@ -19378,7 +19378,7 @@ namespace Terraria
 						}
 					}
 				}
-				bool flag42 = this.type == 300 || this.type == 447;
+				bool flag42 = this.type == NPCID.Mouse || this.type == NPCID.GoldMouse;
 				float num386 = 200f;
 				if (NPCID.Sets.DangerDetectRange[this.type] != -1)
 				{
@@ -19395,7 +19395,7 @@ namespace Terraria
 				{
 					for (int num392 = 0; num392 < 200; num392++)
 					{
-						if (Main.npc[num392].active && !Main.npc[num392].friendly && Main.npc[num392].damage > 0 && Main.npc[num392].Distance(base.Center) < num386 && (this.type != 453 || !NPCID.Sets.Skeletons.Contains(Main.npc[num392].netID)))
+						if (Main.npc[num392].active && !Main.npc[num392].friendly && Main.npc[num392].damage > 0 && Main.npc[num392].Distance(base.Center) < num386 && (this.type != NPCID.SkeletonMerchant || !NPCID.Sets.Skeletons.Contains(Main.npc[num392].netID)))
 						{
 							flag43 = true;
 							float num393 = Main.npc[num392].Center.X - base.Center.X;
@@ -19646,7 +19646,7 @@ namespace Terraria
 								if (flag47)
 								{
 									this.closeDoor = false;
-									NetMessage.SendData(19, -1, -1, "", 1, (float)this.doorX, (float)this.doorY, (float)this.direction, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.DoorUse, -1, -1, "", 1, (float)this.doorX, (float)this.doorY, (float)this.direction, 0, 0, 0);
 								}
 								if ((this.position.X + (float)(this.width / 2)) / 16f > (float)(this.doorX + 4) || (this.position.X + (float)(this.width / 2)) / 16f < (float)(this.doorX - 4) || (this.position.Y + (float)(this.height / 2)) / 16f > (float)(this.doorY + 4) || (this.position.Y + (float)(this.height / 2)) / 16f < (float)(this.doorY - 4))
 								{
@@ -19659,7 +19659,7 @@ namespace Terraria
 								if (flag48)
 								{
 									this.closeDoor = false;
-									NetMessage.SendData(19, -1, -1, "", 5, (float)this.doorX, (float)this.doorY, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.DoorUse, -1, -1, "", 5, (float)this.doorX, (float)this.doorY, 0f, 0, 0, 0);
 								}
 								if ((this.position.X + (float)(this.width / 2)) / 16f > (float)(this.doorX + 4) || (this.position.X + (float)(this.width / 2)) / 16f < (float)(this.doorX - 4) || (this.position.Y + (float)(this.height / 2)) / 16f > (float)(this.doorY + 4) || (this.position.Y + (float)(this.height / 2)) / 16f < (float)(this.doorY - 4))
 								{
@@ -19673,7 +19673,7 @@ namespace Terraria
 						}
 						float num395 = 1f;
 						float num396 = 0.07f;
-						if (this.type == 299 || this.type == 539 || this.type == 538)
+						if (this.type == NPCID.Squirrel || this.type == NPCID.SquirrelGold || this.type == NPCID.SquirrelRed)
 						{
 							num395 = 1.5f;
 						}
@@ -19822,7 +19822,7 @@ namespace Terraria
 										this.closeDoor = true;
 										this.doorX = num398;
 										this.doorY = num399 - 2;
-										NetMessage.SendData(19, -1, -1, "", 0, (float)num398, (float)(num399 - 2), (float)this.direction, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.DoorUse, -1, -1, "", 0, (float)num398, (float)(num399 - 2), (float)this.direction, 0, 0, 0);
 										this.netUpdate = true;
 										this.ai[1] += 80f;
 									}
@@ -19831,7 +19831,7 @@ namespace Terraria
 										this.closeDoor = true;
 										this.doorX = num398;
 										this.doorY = num399 - 2;
-										NetMessage.SendData(19, -1, -1, "", 0, (float)num398, (float)(num399 - 2), (float)(-(float)this.direction), 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.DoorUse, -1, -1, "", 0, (float)num398, (float)(num399 - 2), (float)(-(float)this.direction), 0, 0, 0);
 										this.netUpdate = true;
 										this.ai[1] += 80f;
 									}
@@ -19840,7 +19840,7 @@ namespace Terraria
 										this.closeDoor = true;
 										this.doorX = num398;
 										this.doorY = num399 - 2;
-										NetMessage.SendData(19, -1, -1, "", 4, (float)num398, (float)(num399 - 2), 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.DoorUse, -1, -1, "", 4, (float)num398, (float)(num399 - 2), 0f, 0, 0, 0);
 										this.netUpdate = true;
 										this.ai[1] += 80f;
 									}
@@ -20000,7 +20000,7 @@ namespace Terraria
 					{
 						Point point = base.Center.ToTileCoordinates();
 						Tile tile = Main.tile[point.X, point.Y];
-						if (tile.type != 15)
+						if (tile.type != TileID.Chairs)
 						{
 							this.ai[1] = 0f;
 						}
@@ -20058,7 +20058,7 @@ namespace Terraria
 						this.frameCounter = 0.0;
 						this.localAI[3] = 0f;
 					}
-					if (this.type == 38)
+					if (this.type == NPCID.Demolitionist)
 					{
 						num405 = 30;
 						scaleFactor7 = 6f;
@@ -20069,7 +20069,7 @@ namespace Terraria
 						num409 = 16f;
 						knockBack = 7f;
 					}
-					else if (this.type == 208)
+					else if (this.type == NPCID.PartyGirl)
 					{
 						num405 = 588;
 						scaleFactor7 = 6f;
@@ -20080,7 +20080,7 @@ namespace Terraria
 						num409 = 16f;
 						knockBack = 6f;
 					}
-					else if (this.type == 17)
+					else if (this.type == NPCID.Merchant)
 					{
 						num405 = 48;
 						scaleFactor7 = 9f;
@@ -20091,7 +20091,7 @@ namespace Terraria
 						num409 = 16f;
 						knockBack = 1.5f;
 					}
-					else if (this.type == 369)
+					else if (this.type == NPCID.Angler)
 					{
 						num405 = 520;
 						scaleFactor7 = 12f;
@@ -20102,7 +20102,7 @@ namespace Terraria
 						num409 = 16f;
 						knockBack = 3f;
 					}
-					else if (this.type == 453)
+					else if (this.type == NPCID.SkeletonMerchant)
 					{
 						num405 = 21;
 						scaleFactor7 = 14f;
@@ -20113,7 +20113,7 @@ namespace Terraria
 						num409 = 16f;
 						knockBack = 3f;
 					}
-					else if (this.type == 107)
+					else if (this.type == NPCID.GoblinTinkerer)
 					{
 						num405 = 24;
 						scaleFactor7 = 5f;
@@ -20124,7 +20124,7 @@ namespace Terraria
 						num409 = 16f;
 						knockBack = 1f;
 					}
-					else if (this.type == 124)
+					else if (this.type == NPCID.Mechanic)
 					{
 						num405 = 582;
 						scaleFactor7 = 10f;
@@ -20134,7 +20134,7 @@ namespace Terraria
 						maxValue3 = 30;
 						knockBack = 3.5f;
 					}
-					else if (this.type == 18)
+					else if (this.type == NPCID.Nurse)
 					{
 						num405 = 583;
 						scaleFactor7 = 8f;
@@ -20145,7 +20145,7 @@ namespace Terraria
 						knockBack = 2f;
 						num409 = 10f;
 					}
-					else if (this.type == 142)
+					else if (this.type == NPCID.SantaClaus)
 					{
 						num405 = 589;
 						scaleFactor7 = 7f;
@@ -20182,11 +20182,11 @@ namespace Terraria
 						vector41 *= scaleFactor7;
 						vector41 += Utils.RandomVector2(Main.rand, -num411, num411);
 						int num412;
-						if (this.type == 124)
+						if (this.type == NPCID.Mechanic)
 						{
 							num412 = Projectile.NewProjectile(base.Center.X + (float)(this.spriteDirection * 16), base.Center.Y - 2f, vector41.X, vector41.Y, num405, num406, knockBack, Main.myPlayer, 0f, (float)this.whoAmI);
 						}
-						else if (this.type == 142)
+						else if (this.type == NPCID.SantaClaus)
 						{
 							num412 = Projectile.NewProjectile(base.Center.X + (float)(this.spriteDirection * 16), base.Center.Y - 2f, vector41.X, vector41.Y, num405, num406, knockBack, Main.myPlayer, 0f, (float)Main.rand.Next(5));
 						}
@@ -20232,7 +20232,7 @@ namespace Terraria
 					{
 						num419 = num390;
 					}
-					if (this.type == 19)
+					if (this.type == NPCID.ArmsDealer)
 					{
 						num413 = 14;
 						scaleFactor8 = 13f;
@@ -20267,7 +20267,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (this.type == 227)
+					else if (this.type == NPCID.Painter)
 					{
 						num413 = 587;
 						scaleFactor8 = 10f;
@@ -20292,7 +20292,7 @@ namespace Terraria
 							num414 += 2;
 						}
 					}
-					else if (this.type == 368)
+					else if (this.type == NPCID.TravellingMerchant)
 					{
 						num413 = 14;
 						scaleFactor8 = 13f;
@@ -20308,7 +20308,7 @@ namespace Terraria
 							num413 = 357;
 						}
 					}
-					else if (this.type == 22)
+					else if (this.type == NPCID.Guide)
 					{
 						scaleFactor8 = 10f;
 						num414 = 8;
@@ -20330,7 +20330,7 @@ namespace Terraria
 						num417 = 4;
 						num418 = 0.7f;
 					}
-					else if (this.type == 228)
+					else if (this.type == NPCID.WitchDoctor)
 					{
 						num413 = 267;
 						scaleFactor8 = 14f;
@@ -20342,7 +20342,7 @@ namespace Terraria
 						num417 = 6;
 						num418 = 0.4f;
 					}
-					else if (this.type == 178)
+					else if (this.type == NPCID.Steampunker)
 					{
 						num413 = 242;
 						scaleFactor8 = 13f;
@@ -20363,7 +20363,7 @@ namespace Terraria
 						}
 						num418 = 0.3f;
 					}
-					else if (this.type == 229)
+					else if (this.type == NPCID.Pirate)
 					{
 						num413 = 14;
 						scaleFactor8 = 14f;
@@ -20407,7 +20407,7 @@ namespace Terraria
 							scaleFactor8 = 24f;
 						}
 					}
-					else if (this.type == 209)
+					else if (this.type == NPCID.Cyborg)
 					{
 						int num420 = Utils.SelectRandom<int>(Main.rand, new int[]
 						{
@@ -20467,7 +20467,7 @@ namespace Terraria
 						vector42 *= scaleFactor8;
 						vector42 += Utils.RandomVector2(Main.rand, -num418, num418);
 						int num421;
-						if (this.type == 227)
+						if (this.type == NPCID.Painter)
 						{
 							num421 = Projectile.NewProjectile(base.Center.X + (float)(this.spriteDirection * 16), base.Center.Y - 2f, vector42.X, vector42.Y, num413, num414, knockBack2, Main.myPlayer, 0f, (float)Main.rand.Next(12) / 6f);
 						}
@@ -20552,7 +20552,7 @@ namespace Terraria
 					{
 						num431 = num390;
 					}
-					if (this.type == 54)
+					if (this.type == NPCID.Clothier)
 					{
 						num423 = 585;
 						scaleFactor9 = 10f;
@@ -20563,7 +20563,7 @@ namespace Terraria
 						knockBack3 = 2f;
 						num430 = 1f;
 					}
-					else if (this.type == 108)
+					else if (this.type == NPCID.Wizard)
 					{
 						num423 = 15;
 						scaleFactor9 = 6f;
@@ -20574,7 +20574,7 @@ namespace Terraria
 						knockBack3 = 3f;
 						num427 = 20f;
 					}
-					else if (this.type == 160)
+					else if (this.type == NPCID.Truffle)
 					{
 						num423 = 590;
 						num424 = 40;
@@ -20587,7 +20587,7 @@ namespace Terraria
 							num425 += 15;
 						}
 					}
-					else if (this.type == 20)
+					else if (this.type == NPCID.Dryad)
 					{
 						num423 = 586;
 						num425 = 24;
@@ -20616,7 +20616,7 @@ namespace Terraria
 						}
 						vector44 *= scaleFactor9;
 						vector44 += Utils.RandomVector2(Main.rand, -num430, num430);
-						if (this.type == 108)
+						if (this.type == NPCID.Wizard)
 						{
 							int num432 = Utils.SelectRandom<int>(Main.rand, new int[]
 							{
@@ -20636,7 +20636,7 @@ namespace Terraria
 								Main.projectile[num434].noDropItem = true;
 							}
 						}
-						else if (this.type == 160)
+						else if (this.type == NPCID.Truffle)
 						{
 							if (num431 != -1)
 							{
@@ -20652,7 +20652,7 @@ namespace Terraria
 								Main.projectile[num436].noDropItem = true;
 							}
 						}
-						else if (this.type == 20)
+						else if (this.type == NPCID.Dryad)
 						{
 							int num437 = Projectile.NewProjectile(base.Center.X + (float)(this.spriteDirection * 16), base.Center.Y - 2f, vector44.X, vector44.Y, num423, num424, knockBack3, Main.myPlayer, 0f, (float)this.whoAmI);
 							Main.projectile[num437].npcProj = true;
@@ -20699,7 +20699,7 @@ namespace Terraria
 					{
 						int arg_1BDA4_0 = this.spriteDirection;
 					}
-					if (this.type == 207)
+					if (this.type == NPCID.DyeTrader)
 					{
 						num440 = 11;
 						num443 = (num442 = 32);
@@ -20707,7 +20707,7 @@ namespace Terraria
 						maxValue6 = 6;
 						num441 = 4.25f;
 					}
-					else if (this.type == 441)
+					else if (this.type == NPCID.TaxCollector)
 					{
 						num440 = 9;
 						num443 = (num442 = 28);
@@ -20715,7 +20715,7 @@ namespace Terraria
 						maxValue6 = 3;
 						num441 = 3.5f;
 					}
-					else if (this.type == 353)
+					else if (this.type == NPCID.Stylist)
 					{
 						num440 = 10;
 						num443 = (num442 = 32);
@@ -20749,7 +20749,7 @@ namespace Terraria
 								nPC2.StrikeNPCNoInteraction(num440, num441, this.spriteDirection, false, false, false);
 								if (Main.netMode != 0)
 								{
-									NetMessage.SendData(28, -1, -1, "", num444, (float)num440, num441, (float)this.spriteDirection, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", num444, (float)num440, num441, (float)this.spriteDirection, 0, 0, 0);
 								}
 								nPC2.netUpdate = true;
 								nPC2.immune[myPlayer] = (int)this.ai[1] + 2;
@@ -20807,7 +20807,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (Main.netMode != 1 && (this.townNPC || this.type == 453) && !flag40)
+				if (Main.netMode != 1 && (this.townNPC || this.type == NPCID.SkeletonMerchant) && !flag40)
 				{
 					bool flag55 = this.ai[0] < 2f && !flag43;
 					bool flag56 = (this.ai[0] < 2f || this.ai[0] == 8f) && (flag43 || flag44);
@@ -20819,17 +20819,17 @@ namespace Terraria
 					{
 						flag56 = false;
 					}
-					if (flag56 && this.type == 124 && this.localAI[0] == 1f)
+					if (flag56 && this.type == NPCID.Mechanic && this.localAI[0] == 1f)
 					{
 						flag56 = false;
 					}
-					if (flag56 && this.type == 20)
+					if (flag56 && this.type == NPCID.Dryad)
 					{
 						flag56 = false;
 						for (int num449 = 0; num449 < 200; num449++)
 						{
 							NPC nPC3 = Main.npc[num449];
-							if (nPC3.active && nPC3.townNPC && base.Distance(nPC3.Center) <= 1200f && nPC3.HasBuff(165) == -1)
+							if (nPC3.active && nPC3.townNPC && base.Distance(nPC3.Center) <= 1200f && nPC3.HasBuff(BuffID.DryadsWard) == -1)
 							{
 								flag56 = true;
 								break;
@@ -20908,7 +20908,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (flag55 && this.ai[0] == 0f && this.velocity.Y == 0f && Main.rand.Next(1200) == 0 && this.type == 208)
+					else if (flag55 && this.ai[0] == 0f && this.velocity.Y == 0f && Main.rand.Next(1200) == 0 && this.type == NPCID.PartyGirl)
 					{
 						int num460 = 300;
 						int num461 = 150;
@@ -20933,7 +20933,7 @@ namespace Terraria
 						this.ai[1] = (float)(45 * Main.rand.Next(1, 2));
 						this.netUpdate = true;
 					}
-					else if (flag55 && this.ai[0] == 0f && this.velocity.Y == 0f && Main.rand.Next(600) == 0 && this.type == 229 && !flag44)
+					else if (flag55 && this.ai[0] == 0f && this.velocity.Y == 0f && Main.rand.Next(600) == 0 && this.type == NPCID.Pirate && !flag44)
 					{
 						this.ai[0] = 11f;
 						this.ai[1] = (float)(30 * Main.rand.Next(1, 4));
@@ -21018,7 +21018,7 @@ namespace Terraria
 							this.netUpdate = true;
 						}
 					}
-					if (this.ai[0] < 2f && this.velocity.Y == 0f && this.type == 18)
+					if (this.ai[0] < 2f && this.velocity.Y == 0f && this.type == NPCID.Nurse)
 					{
 						int num467 = -1;
 						for (int num468 = 0; num468 < 200; num468++)
@@ -21123,7 +21123,7 @@ namespace Terraria
 							this.direction = ((this.position.X < Main.npc[num476].position.X) ? 1 : -1);
 							this.netUpdate = true;
 						}
-						else if (this.type == 20)
+						else if (this.type == NPCID.Dryad)
 						{
 							this.localAI[2] = this.ai[0];
 							this.ai[0] = 14f;
@@ -21175,7 +21175,7 @@ namespace Terraria
 				{
 					this.ai[0] = 500f;
 				}
-				if (this.type == 172)
+				if (this.type == NPCID.RuneWizard)
 				{
 					if (this.alpha < 255)
 					{
@@ -21188,7 +21188,7 @@ namespace Terraria
 				}
 				if (this.ai[2] != 0f && this.ai[3] != 0f)
 				{
-					if (this.type == 172)
+					if (this.type == NPCID.RuneWizard)
 					{
 						this.alpha = 255;
 					}
@@ -21201,7 +21201,7 @@ namespace Terraria
 					this.ai[3] = 0f;
 				}
 				this.ai[0] += 1f;
-				if (this.type == 283 || this.type == 284)
+				if (this.type == NPCID.Necromancer || this.type == NPCID.NecromancerArmored)
 				{
 					if (this.ai[0] == 50f || this.ai[0] == 100f || this.ai[0] == 150f || this.ai[0] == 200f || this.ai[0] == 250f)
 					{
@@ -21213,7 +21213,7 @@ namespace Terraria
 						this.ai[0] = 700f;
 					}
 				}
-				else if (this.type == 172)
+				else if (this.type == NPCID.RuneWizard)
 				{
 					if (this.ai[0] == 75f || this.ai[0] == 150f || this.ai[0] == 225f || this.ai[0] == 300f || this.ai[0] == 375f || this.ai[0] == 450f)
 					{
@@ -21221,7 +21221,7 @@ namespace Terraria
 						this.netUpdate = true;
 					}
 				}
-				else if (this.type == 533)
+				else if (this.type == NPCID.DesertDjinn)
 				{
 					if (this.ai[0] == 180f)
 					{
@@ -21229,7 +21229,7 @@ namespace Terraria
 						this.netUpdate = true;
 					}
 				}
-				else if (this.type == 281 || this.type == 282)
+				else if (this.type == NPCID.RaggedCaster || this.type == NPCID.RaggedCasterOpenCoat)
 				{
 					if (this.ai[0] == 20f || this.ai[0] == 40f || this.ai[0] == 60f || this.ai[0] == 120f || this.ai[0] == 140f || this.ai[0] == 160f || this.ai[0] == 220f || this.ai[0] == 240f || this.ai[0] == 260f)
 					{
@@ -21246,11 +21246,11 @@ namespace Terraria
 					this.ai[1] = 30f;
 					this.netUpdate = true;
 				}
-				if ((this.type == 285 || this.type == 286) && this.ai[0] > 400f)
+				if ((this.type == NPCID.DiabolistRed || this.type == NPCID.DiabolistWhite) && this.ai[0] > 400f)
 				{
 					this.ai[0] = 650f;
 				}
-				if (this.type == 533 && this.ai[0] >= 360f)
+				if (this.type == NPCID.DesertDjinn && this.ai[0] >= 360f)
 				{
 					this.ai[0] = 650f;
 				}
@@ -21279,7 +21279,7 @@ namespace Terraria
 							if ((num507 < num500 - 4 || num507 > num500 + 4 || num505 < num499 - 4 || num505 > num499 + 4) && (num507 < num502 - 1 || num507 > num502 + 1 || num505 < num501 - 1 || num505 > num501 + 1) && Main.tile[num505, num507].nactive())
 							{
 								bool flag62 = true;
-								if ((this.type == 32 || (this.type >= 281 && this.type <= 286)) && !Main.wallDungeon[(int)Main.tile[num505, num507 - 1].wall])
+								if ((this.type == NPCID.DarkCaster || (this.type >= NPCID.RaggedCaster && this.type <= NPCID.DiabolistWhite)) && !Main.wallDungeon[(int)Main.tile[num505, num507 - 1].wall])
 								{
 									flag62 = false;
 								}
@@ -21303,7 +21303,7 @@ namespace Terraria
 				if (this.ai[1] > 0f)
 				{
 					this.ai[1] -= 1f;
-					if (this.type == 533)
+					if (this.type == NPCID.DesertDjinn)
 					{
 						if (this.ai[1] % 30f == 0f && this.ai[1] / 30f < 5f)
 						{
@@ -21354,23 +21354,23 @@ namespace Terraria
 					}
 					else if (this.ai[1] == 25f)
 					{
-						if (this.type >= 281 && this.type <= 286)
+						if (this.type >= NPCID.RaggedCaster && this.type <= NPCID.DiabolistWhite)
 						{
 							if (Main.netMode != 1)
 							{
 								float num515 = 6f;
-								if (this.type == 285 || this.type == 286)
+								if (this.type == NPCID.DiabolistRed || this.type == NPCID.DiabolistWhite)
 								{
 									num515 = 8f;
 								}
-								if (this.type == 281 || this.type == 282)
+								if (this.type == NPCID.RaggedCaster || this.type == NPCID.RaggedCasterOpenCoat)
 								{
 									num515 = 4f;
 								}
 								Vector2 vector50 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y);
 								float num516 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector50.X;
 								float num517 = Main.player[this.target].position.Y + (float)Main.player[this.target].height * 0.5f - vector50.Y;
-								if (this.type == 283 || this.type == 284)
+								if (this.type == NPCID.Necromancer || this.type == NPCID.NecromancerArmored)
 								{
 									num516 += (float)Main.rand.Next(-30, 31);
 									num517 += (float)Main.rand.Next(-30, 31);
@@ -21383,12 +21383,12 @@ namespace Terraria
 								num517 *= num518;
 								int num519 = 30;
 								int num520 = 290;
-								if (this.type == 285 || this.type == 286)
+								if (this.type == NPCID.DiabolistRed || this.type == NPCID.DiabolistWhite)
 								{
 									num520 = 291;
 									num519 = 40;
 								}
-								if (this.type == 281 || this.type == 282)
+								if (this.type == NPCID.RaggedCaster || this.type == NPCID.RaggedCasterOpenCoat)
 								{
 									num520 = 293;
 									num519 = 40;
@@ -21412,15 +21412,15 @@ namespace Terraria
 						{
 							if (Main.netMode != 1)
 							{
-								if (this.type == 29 || this.type == 45)
+								if (this.type == NPCID.GoblinSorcerer || this.type == NPCID.Tim)
 								{
 									NPC.NewNPC((int)this.position.X + this.width / 2, (int)this.position.Y - 8, 30, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (this.type == 32)
+								else if (this.type == NPCID.DarkCaster)
 								{
 									NPC.NewNPC((int)this.position.X + this.width / 2, (int)this.position.Y - 8, 33, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (this.type == 172)
+								else if (this.type == NPCID.RuneWizard)
 								{
 									float num522 = 10f;
 									Vector2 vector51 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
@@ -21444,14 +21444,14 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 29 || this.type == 45)
+				if (this.type == NPCID.GoblinSorcerer || this.type == NPCID.Tim)
 				{
 					if (Main.rand.Next(5) == 0)
 					{
 						return;
 					}
 				}
-				else if (this.type == 32)
+				else if (this.type == NPCID.DarkCaster)
 				{
 					if (Main.rand.Next(3) != 0)
 					{
@@ -21460,25 +21460,25 @@ namespace Terraria
 				}
 				else
 				{
-					if (this.type == 172)
+					if (this.type == NPCID.RuneWizard)
 					{
 						return;
 					}
-					if (this.type == 283 || this.type == 284)
+					if (this.type == NPCID.Necromancer || this.type == NPCID.NecromancerArmored)
 					{
 						if (Main.rand.Next(2) == 0)
 						{
 							return;
 						}
 					}
-					else if (this.type == 285 || this.type == 286)
+					else if (this.type == NPCID.DiabolistRed || this.type == NPCID.DiabolistWhite)
 					{
 						if (Main.rand.Next(2) == 0)
 						{
 							return;
 						}
 					}
-					else if (this.type == 281 || this.type == 282)
+					else if (this.type == NPCID.RaggedCaster || this.type == NPCID.RaggedCasterOpenCoat)
 					{
 						if (Main.rand.Next(2) == 0)
 						{
@@ -21487,7 +21487,7 @@ namespace Terraria
 					}
 					else
 					{
-						if (this.type == 533)
+						if (this.type == NPCID.DesertDjinn)
 						{
 							return;
 						}
@@ -21500,7 +21500,7 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 9)
 			{
-				if (this.type == 516)
+				if (this.type == NPCID.SolarFlare)
 				{
 					if (this.alpha < 220)
 					{
@@ -21531,11 +21531,11 @@ namespace Terraria
 				{
 					this.TargetClosest(true);
 					float num538 = 6f;
-					if (this.type == 25)
+					if (this.type == NPCID.BurningSphere)
 					{
 						num538 = 5f;
 					}
-					if (this.type == 112)
+					if (this.type == NPCID.VileSpit)
 					{
 						num538 = 7f;
 					}
@@ -21547,7 +21547,7 @@ namespace Terraria
 					this.velocity.X = num539 * num541;
 					this.velocity.Y = num540 * num541;
 				}
-				if (this.type == 112)
+				if (this.type == NPCID.VileSpit)
 				{
 					this.damage = ((this.ai[1] == 1f) ? 65 : this.defDamage);
 					this.ai[0] += 1f;
@@ -21560,7 +21560,7 @@ namespace Terraria
 						this.position += this.velocity;
 					}
 				}
-				if (this.type == 112 && Collision.SolidCollision(this.position, this.width, this.height))
+				if (this.type == NPCID.VileSpit && Collision.SolidCollision(this.position, this.width, this.height))
 				{
 					int arg_1FD8D_0 = Main.netMode;
 					this.StrikeNPCNoInteraction(999, 0f, 0, false, false, false);
@@ -21569,11 +21569,11 @@ namespace Terraria
 				{
 					this.timeLeft = 100;
 				}
-				if (this.type != 516)
+				if (this.type != NPCID.SolarFlare)
 				{
 					for (int num544 = 0; num544 < 2; num544++)
 					{
-						if (this.type == 30)
+						if (this.type == NPCID.ChaosBall)
 						{
 							this.alpha = 255;
 						}
@@ -21692,7 +21692,7 @@ namespace Terraria
 					this.spriteDirection = 1;
 					this.rotation = (float)Math.Atan2((double)num561, (double)num560) + 3.14f;
 				}
-				if (this.type == 289)
+				if (this.type == NPCID.GiantCursedSkull)
 				{
 					if (this.justHit)
 					{
@@ -21747,7 +21747,7 @@ namespace Terraria
 				{
 					this.TargetClosest(true);
 					this.ai[0] = 1f;
-					if (this.type != 68)
+					if (this.type != NPCID.DungeonGuardian)
 					{
 						int num567 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)this.position.Y + this.height / 2, 36, this.whoAmI, 0f, 0f, 0f, 0f, 255);
 						Main.npc[num567].ai[0] = -1f;
@@ -21762,7 +21762,7 @@ namespace Terraria
 						Main.npc[num567].netUpdate = true;
 					}
 				}
-				if (this.type == 68 && this.ai[1] != 3f && this.ai[1] != 2f)
+				if (this.type == NPCID.DungeonGuardian && this.ai[1] != 3f && this.ai[1] != 2f)
 				{
 					this.ai[1] = 2f;
 				}
@@ -22000,7 +22000,7 @@ namespace Terraria
 						this.timeLeft = 50;
 					}
 				}
-				if (this.ai[1] != 2f && this.ai[1] != 3f && this.type != 68)
+				if (this.ai[1] != 2f && this.ai[1] != 3f && this.type != NPCID.DungeonGuardian)
 				{
 					if (num568 == 0 && Main.expertMode)
 					{
@@ -22327,24 +22327,24 @@ namespace Terraria
 				this.TargetClosest(true);
 				float num601 = 0.035f;
 				float num602 = 150f;
-				if (this.type == 43)
+				if (this.type == NPCID.ManEater)
 				{
 					num602 = 250f;
 				}
-				if (this.type == 101)
+				if (this.type == NPCID.Clinger)
 				{
 					num602 = 175f;
 				}
-				if (this.type == 259)
+				if (this.type == NPCID.FungiBulb)
 				{
 					num602 = 100f;
 				}
-				if (this.type == 175)
+				if (this.type == NPCID.AngryTrapper)
 				{
 					num602 = 500f;
 					num601 = 0.05f;
 				}
-				if (this.type == 260)
+				if (this.type == NPCID.GiantFungiBulb)
 				{
 					num602 = 350f;
 					num601 = 0.15f;
@@ -22400,7 +22400,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y - num601 * 1.5f;
 					}
 				}
-				if (this.type == 43)
+				if (this.type == NPCID.ManEater)
 				{
 					if (this.velocity.X > 3f)
 					{
@@ -22419,7 +22419,7 @@ namespace Terraria
 						this.velocity.Y = -3f;
 					}
 				}
-				else if (this.type == 175)
+				else if (this.type == NPCID.AngryTrapper)
 				{
 					if (this.velocity.X > 4f)
 					{
@@ -22457,7 +22457,7 @@ namespace Terraria
 						this.velocity.Y = -2f;
 					}
 				}
-				if (this.type == 259 || this.type == 260)
+				if (this.type == NPCID.FungiBulb || this.type == NPCID.GiantFungiBulb)
 				{
 					this.rotation = (float)Math.Atan2((double)num604, (double)num603) + 1.57f;
 				}
@@ -22502,7 +22502,7 @@ namespace Terraria
 				}
 				if (Main.netMode != 1)
 				{
-					if (this.type == 101 && !Main.player[this.target].dead)
+					if (this.type == NPCID.Clinger && !Main.player[this.target].dead)
 					{
 						if (this.justHit)
 						{
@@ -22537,7 +22537,7 @@ namespace Terraria
 							}
 						}
 					}
-					if (this.type == 260 && !Main.player[this.target].dead)
+					if (this.type == NPCID.GiantFungiBulb && !Main.player[this.target].dead)
 					{
 						if (this.justHit)
 						{
@@ -22601,7 +22601,7 @@ namespace Terraria
 						this.velocity.Y = -1f;
 					}
 				}
-				if (this.type == 226)
+				if (this.type == NPCID.FlyingSnake)
 				{
 					int direction4 = 1;
 					int num615 = 1;
@@ -22624,7 +22624,7 @@ namespace Terraria
 				{
 					this.TargetClosest(true);
 				}
-				if (this.type == 158)
+				if (this.type == NPCID.VampireBat)
 				{
 					if ((double)this.position.Y < Main.worldSurface * 16.0 && Main.dayTime && !Main.eclipse)
 					{
@@ -22696,7 +22696,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 226)
+				else if (this.type == NPCID.FlyingSnake)
 				{
 					if (this.direction == -1 && this.velocity.X > -4f)
 					{
@@ -22830,7 +22830,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 49 || this.type == 51 || this.type == 60 || this.type == 62 || this.type == 66 || this.type == 93 || this.type == 137 || this.type == 150 || this.type == 151 || this.type == 152)
+				if (this.type == NPCID.CaveBat || this.type == NPCID.JungleBat || this.type == NPCID.Hellbat || this.type == NPCID.Demon || this.type == NPCID.VoodooDemon || this.type == NPCID.GiantBat || this.type == NPCID.IlluminantBat || this.type == NPCID.IceBat || this.type == NPCID.Lavabat || this.type == NPCID.GiantFlyingFox)
 				{
 					if (this.wet)
 					{
@@ -22845,7 +22845,7 @@ namespace Terraria
 						}
 						this.TargetClosest(true);
 					}
-					if (this.type == 60)
+					if (this.type == NPCID.Hellbat)
 					{
 						if (this.direction == -1 && this.velocity.X > -4f)
 						{
@@ -22980,7 +22980,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 158 && Main.netMode != 1)
+				if (this.type == NPCID.VampireBat && Main.netMode != 1)
 				{
 					Vector2 vector62 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 					float num616 = Main.player[this.target].position.X + (float)Main.player[this.target].width * 0.5f - vector62.X;
@@ -22992,7 +22992,7 @@ namespace Terraria
 					}
 				}
 				this.ai[1] += 1f;
-				if (this.type == 158)
+				if (this.type == NPCID.VampireBat)
 				{
 					this.ai[1] += 1f;
 				}
@@ -23006,7 +23006,7 @@ namespace Terraria
 					float num620 = 0.1f;
 					float num621 = 4f;
 					float num622 = 1.5f;
-					if (this.type == 48 || this.type == 62 || this.type == 66)
+					if (this.type == NPCID.Harpy || this.type == NPCID.Demon || this.type == NPCID.VoodooDemon)
 					{
 						num619 = 0.12f;
 						num620 = 0.07f;
@@ -23047,7 +23047,7 @@ namespace Terraria
 				}
 				if (Main.netMode != 1)
 				{
-					if (this.type == 48)
+					if (this.type == NPCID.Harpy)
 					{
 						this.ai[0] += 1f;
 						if (this.ai[0] == 30f || this.ai[0] == 60f || this.ai[0] == 90f)
@@ -23073,7 +23073,7 @@ namespace Terraria
 							this.ai[0] = 0f;
 						}
 					}
-					if (this.type == 62 || this.type == 66)
+					if (this.type == NPCID.Demon || this.type == NPCID.VoodooDemon)
 					{
 						this.ai[0] += 1f;
 						if (this.ai[0] == 20f || this.ai[0] == 40f || this.ai[0] == 60f || this.ai[0] == 80f)
@@ -23099,7 +23099,7 @@ namespace Terraria
 							this.ai[0] = 0f;
 						}
 					}
-					if (this.type == 156)
+					if (this.type == NPCID.RedDevil)
 					{
 						this.ai[0] += 1f;
 						if (this.ai[0] == 20f || this.ai[0] == 40f || this.ai[0] == 60f || this.ai[0] == 80f || this.ai[0] == 100f)
@@ -23399,7 +23399,7 @@ namespace Terraria
 								Main.npc[num664].ai[1] = 0f;
 								if (Main.netMode == 2 && num664 < 200)
 								{
-									NetMessage.SendData(23, -1, -1, "", num664, 0f, 0f, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num664, 0f, 0f, 0f, 0, 0, 0);
 								}
 							}
 							return;
@@ -23416,7 +23416,7 @@ namespace Terraria
 				if (this.wet)
 				{
 					bool flag71 = false;
-					if (this.type != 55)
+					if (this.type != NPCID.Goldfish)
 					{
 						this.TargetClosest(false);
 						if (Main.player[this.target].wet && !Main.player[this.target].dead)
@@ -23452,7 +23452,7 @@ namespace Terraria
 					if (flag71)
 					{
 						this.TargetClosest(true);
-						if (this.type == 157)
+						if (this.type == NPCID.Arapaima)
 						{
 							if (this.velocity.X > 0f && this.direction < 0)
 							{
@@ -23481,7 +23481,7 @@ namespace Terraria
 								this.velocity.Y = -4f;
 							}
 						}
-						else if (this.type == 65 || this.type == 102)
+						else if (this.type == NPCID.Shark || this.type == NPCID.AnglerFish)
 						{
 							this.velocity.X = this.velocity.X + (float)this.direction * 0.15f;
 							this.velocity.Y = this.velocity.Y + (float)this.directionY * 0.15f;
@@ -23526,7 +23526,7 @@ namespace Terraria
 					}
 					else
 					{
-						if (this.type == 157)
+						if (this.type == NPCID.Arapaima)
 						{
 							if (Main.player[this.target].position.Y > this.position.Y)
 							{
@@ -23625,7 +23625,7 @@ namespace Terraria
 								this.ai[0] = -1f;
 							}
 						}
-						if (this.type != 157 && ((double)this.velocity.Y > 0.4 || (double)this.velocity.Y < -0.4))
+						if (this.type != NPCID.Arapaima && ((double)this.velocity.Y > 0.4 || (double)this.velocity.Y < -0.4))
 						{
 							this.velocity.Y = this.velocity.Y * 0.95f;
 						}
@@ -23635,7 +23635,7 @@ namespace Terraria
 				{
 					if (this.velocity.Y == 0f)
 					{
-						if (this.type == 65)
+						if (this.type == NPCID.Shark)
 						{
 							this.velocity.X = this.velocity.X * 0.94f;
 							if ((double)this.velocity.X > -0.2 && (double)this.velocity.X < 0.2)
@@ -23811,7 +23811,7 @@ namespace Terraria
 				{
 					this.dontTakeDamage = false;
 				}
-				if (Main.expertMode && (this.type == 63 || this.type == 64 || this.type == 103 || this.type == 242))
+				if (Main.expertMode && (this.type == NPCID.BlueJellyfish || this.type == NPCID.PinkJellyfish || this.type == NPCID.GreenJellyfish || this.type == NPCID.BloodJelly))
 				{
 					if (this.wet)
 					{
@@ -23918,30 +23918,30 @@ namespace Terraria
 					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 					this.velocity *= 0.98f;
 					float num672 = 0.2f;
-					if (this.type == 103)
+					if (this.type == NPCID.GreenJellyfish)
 					{
 						this.velocity *= 0.98f;
 						num672 = 0.6f;
 					}
-					if (this.type == 221)
+					if (this.type == NPCID.Squid)
 					{
 						this.velocity *= 0.99f;
 						num672 = 1f;
 					}
-					if (this.type == 242)
+					if (this.type == NPCID.BloodJelly)
 					{
 						this.velocity *= 0.995f;
 						num672 = 3f;
 					}
 					if (this.velocity.X > -num672 && this.velocity.X < num672 && this.velocity.Y > -num672 && this.velocity.Y < num672)
 					{
-						if (this.type == 221)
+						if (this.type == NPCID.Squid)
 						{
 							this.localAI[0] = 1f;
 						}
 						this.TargetClosest(true);
 						float num673 = 7f;
-						if (this.type == 103)
+						if (this.type == NPCID.GreenJellyfish)
 						{
 							num673 = 9f;
 						}
@@ -24067,7 +24067,7 @@ namespace Terraria
 						Main.projectile[num685].ai[0] = 2f;
 						Main.projectile[num685].timeLeft = 300;
 						Main.projectile[num685].friendly = false;
-						NetMessage.SendData(27, -1, -1, "", num685, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", num685, 0f, 0f, 0f, 0, 0, 0);
 						this.netUpdate = true;
 					}
 					try
@@ -24248,12 +24248,12 @@ namespace Terraria
 					if (this.aiStyle == 22)
 					{
 						bool flag76 = false;
-						bool flag77 = this.type == 330 && !Main.pumpkinMoon;
-						if (this.type == 253 && !Main.eclipse)
+						bool flag77 = this.type == NPCID.Poltergeist && !Main.pumpkinMoon;
+						if (this.type == NPCID.Reaper && !Main.eclipse)
 						{
 							flag77 = true;
 						}
-						if (this.type == 490 && Main.dayTime)
+						if (this.type == NPCID.Drippler && Main.dayTime)
 						{
 							flag77 = true;
 						}
@@ -24304,14 +24304,14 @@ namespace Terraria
 								}
 								this.TargetClosest(true);
 							}
-							else if (this.type == 253)
+							else if (this.type == NPCID.Reaper)
 							{
 								this.TargetClosest(true);
 								this.ai[2] += 2f;
 							}
 							else
 							{
-								if (this.type == 330)
+								if (this.type == NPCID.Poltergeist)
 								{
 									this.ai[2] += 0.1f;
 								}
@@ -24334,7 +24334,7 @@ namespace Terraria
 						bool flag80 = true;
 						bool flag81 = false;
 						int num699 = 3;
-						if (this.type == 122)
+						if (this.type == NPCID.Gastropod)
 						{
 							if (this.justHit)
 							{
@@ -24375,11 +24375,11 @@ namespace Terraria
 								}
 							}
 						}
-						else if (this.type == 75)
+						else if (this.type == NPCID.Pixie)
 						{
 							num699 = 4;
 						}
-						else if (this.type == 169)
+						else if (this.type == NPCID.IceElemental)
 						{
 							this.alpha = 30;
 							if (this.justHit)
@@ -24438,7 +24438,7 @@ namespace Terraria
 								}
 							}
 						}
-						else if (this.type == 268)
+						else if (this.type == NPCID.IchorSticker)
 						{
 							this.rotation = this.velocity.X * 0.1f;
 							if (Main.player[this.target].Center.Y < base.Center.Y)
@@ -24480,7 +24480,7 @@ namespace Terraria
 								}
 							}
 						}
-						if (this.type == 490)
+						if (this.type == NPCID.Drippler)
 						{
 							num699 = 4;
 							if (this.target >= 0)
@@ -24527,7 +24527,7 @@ namespace Terraria
 							}
 							this.directionY = (!flag82).ToDirectionInt();
 						}
-						if (this.type == 169 || this.type == 268)
+						if (this.type == NPCID.IceElemental || this.type == NPCID.IchorSticker)
 						{
 							for (int num724 = num698 - 3; num724 < num698; num724++)
 							{
@@ -24547,14 +24547,14 @@ namespace Terraria
 						{
 							flag81 = false;
 							flag80 = true;
-							if (this.type == 268)
+							if (this.type == NPCID.IchorSticker)
 							{
 								this.velocity.Y = this.velocity.Y + 2f;
 							}
 						}
 						if (flag80)
 						{
-							if (this.type == 75 || this.type == 169)
+							if (this.type == NPCID.Pixie || this.type == NPCID.IceElemental)
 							{
 								this.velocity.Y = this.velocity.Y + 0.2f;
 								if (this.velocity.Y > 2f)
@@ -24562,7 +24562,7 @@ namespace Terraria
 									this.velocity.Y = 2f;
 								}
 							}
-							else if (this.type == 490)
+							else if (this.type == NPCID.Drippler)
 							{
 								this.velocity.Y = this.velocity.Y + 0.03f;
 								if ((double)this.velocity.Y > 0.75)
@@ -24581,14 +24581,14 @@ namespace Terraria
 						}
 						else
 						{
-							if (this.type == 75 || this.type == 169)
+							if (this.type == NPCID.Pixie || this.type == NPCID.IceElemental)
 							{
 								if ((this.directionY < 0 && this.velocity.Y > 0f) || flag81)
 								{
 									this.velocity.Y = this.velocity.Y - 0.2f;
 								}
 							}
-							else if (this.type == 490)
+							else if (this.type == NPCID.Drippler)
 							{
 								if ((this.directionY < 0 && this.velocity.Y > 0f) || flag81)
 								{
@@ -24608,7 +24608,7 @@ namespace Terraria
 								this.velocity.Y = -4f;
 							}
 						}
-						if (this.type == 75 && this.wet)
+						if (this.type == NPCID.Pixie && this.wet)
 						{
 							this.velocity.Y = this.velocity.Y - 0.2f;
 							if (this.velocity.Y < -2f)
@@ -24641,19 +24641,19 @@ namespace Terraria
 							}
 						}
 						float num725 = 2f;
-						if (this.type == 75)
+						if (this.type == NPCID.Pixie)
 						{
 							num725 = 3f;
 						}
-						if (this.type == 253)
+						if (this.type == NPCID.Reaper)
 						{
 							num725 = 4f;
 						}
-						if (this.type == 490)
+						if (this.type == NPCID.Drippler)
 						{
 							num725 = 1.5f;
 						}
-						if (this.type == 330)
+						if (this.type == NPCID.Poltergeist)
 						{
 							this.alpha = 0;
 							num725 = 4f;
@@ -24706,7 +24706,7 @@ namespace Terraria
 								this.velocity.X = num725;
 							}
 						}
-						if (this.type == 490)
+						if (this.type == NPCID.Drippler)
 						{
 							num725 = 1f;
 						}
@@ -24746,7 +24746,7 @@ namespace Terraria
 								this.velocity.Y = num725;
 							}
 						}
-						if (this.type == 122)
+						if (this.type == NPCID.Gastropod)
 						{
 							return;
 						}
@@ -24965,7 +24965,7 @@ namespace Terraria
 					}
 					else if (this.aiStyle == 25)
 					{
-						bool flag85 = this.type == 341 && !Main.snowMoon;
+						bool flag85 = this.type == NPCID.PresentMimic && !Main.snowMoon;
 						if (this.ai[3] == 0f)
 						{
 							this.position.X = this.position.X + 8f;
@@ -24990,7 +24990,7 @@ namespace Terraria
 								this.ai[3] = 1f;
 							}
 						}
-						if (this.type == 341)
+						if (this.type == NPCID.PresentMimic)
 						{
 							this.ai[3] = 1f;
 						}
@@ -25111,7 +25111,7 @@ namespace Terraria
 						{
 							this.ai[3] = 0f;
 						}
-						if (this.type == 410)
+						if (this.type == NPCID.StardustSpiderSmall)
 						{
 							this.ai[1] += 1f;
 							bool flag89 = this.ai[1] >= 240f;
@@ -25137,7 +25137,7 @@ namespace Terraria
 								return;
 							}
 						}
-						else if (this.type == 423)
+						else if (this.type == NPCID.NebulaBeast)
 						{
 							if (this.ai[2] == 1f)
 							{
@@ -25174,13 +25174,13 @@ namespace Terraria
 								}
 							}
 						}
-						else if ((this.type == 155 || this.type == 329) && this.velocity.Y == 0f && num740 < 100f && Math.Abs(this.velocity.X) > 3f && ((this.position.X + (float)(this.width / 2) < Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) && this.velocity.X > 0f) || (this.position.X + (float)(this.width / 2) > Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) && this.velocity.X < 0f)))
+						else if ((this.type == NPCID.Wolf || this.type == NPCID.Hellhound) && this.velocity.Y == 0f && num740 < 100f && Math.Abs(this.velocity.X) > 3f && ((this.position.X + (float)(this.width / 2) < Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) && this.velocity.X > 0f) || (this.position.X + (float)(this.width / 2) > Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2) && this.velocity.X < 0f)))
 						{
 							this.velocity.Y = this.velocity.Y - 4f;
 						}
 						if (this.ai[3] < (float)num736)
 						{
-							if ((this.type == 329 || this.type == 315) && !Main.pumpkinMoon)
+							if ((this.type == NPCID.Hellhound || this.type == NPCID.HeadlessHorseman) && !Main.pumpkinMoon)
 							{
 								if (this.timeLeft > 10)
 								{
@@ -25221,7 +25221,7 @@ namespace Terraria
 						float num746 = 0.07f;
 						if (!flag86 && (this.velocity.Y == 0f || this.wet || (this.velocity.X <= 0f && this.direction < 0) || (this.velocity.X >= 0f && this.direction > 0)))
 						{
-							if (this.type == 155)
+							if (this.type == NPCID.Wolf)
 							{
 								if (this.velocity.X > 0f && this.direction < 0)
 								{
@@ -25232,7 +25232,7 @@ namespace Terraria
 									this.velocity.X = this.velocity.X * 0.95f;
 								}
 							}
-							else if (this.type == 329)
+							else if (this.type == NPCID.Hellhound)
 							{
 								if (this.velocity.X > 0f && this.direction < 0)
 								{
@@ -25251,7 +25251,7 @@ namespace Terraria
 									this.velocity.X = this.velocity.X - 0.1f;
 								}
 							}
-							else if (this.type == 315)
+							else if (this.type == NPCID.HeadlessHorseman)
 							{
 								if (this.velocity.X > 0f && this.direction < 0)
 								{
@@ -25285,7 +25285,7 @@ namespace Terraria
 									}
 								}
 							}
-							else if (this.type == 410)
+							else if (this.type == NPCID.StardustSpiderSmall)
 							{
 								if (Math.Sign(this.velocity.X) != this.direction)
 								{
@@ -25294,7 +25294,7 @@ namespace Terraria
 								num745 = 6f;
 								num746 = 0.2f;
 							}
-							else if (this.type == 423)
+							else if (this.type == NPCID.NebulaBeast)
 							{
 								if (Math.Sign(this.velocity.X) != this.direction)
 								{
@@ -25429,13 +25429,13 @@ namespace Terraria
 								Main.tile[num752 - this.direction, num753 + 1] = new Tile();
 							}
 							int num754 = this.spriteDirection;
-							if (this.type == 423 || this.type == 410)
+							if (this.type == NPCID.NebulaBeast || this.type == NPCID.StardustSpiderSmall)
 							{
 								num754 *= -1;
 							}
 							if ((this.velocity.X < 0f && num754 == -1) || (this.velocity.X > 0f && num754 == 1))
 							{
-								bool flag90 = this.type == 410 || this.type == 423;
+								bool flag90 = this.type == NPCID.StardustSpiderSmall || this.type == NPCID.NebulaBeast;
 								float num755 = 3f;
 								if (Main.tile[num752, num753 - 2].nactive() && Main.tileSolid[(int)Main.tile[num752, num753 - 2].type])
 								{
@@ -25467,7 +25467,7 @@ namespace Terraria
 								}
 							}
 						}
-						if (this.type == 423 && Math.Abs(this.velocity.X) >= num745 * 0.95f)
+						if (this.type == NPCID.NebulaBeast && Math.Abs(this.velocity.X) >= num745 * 0.95f)
 						{
 							return;
 						}
@@ -25727,7 +25727,7 @@ namespace Terraria
 								float[] array2 = new float[10];
 								for (int num773 = 0; num773 < 200; num773++)
 								{
-									if (num772 < 10 && Main.npc[num773].active && Main.npc[num773].type == 115)
+									if (num772 < 10 && Main.npc[num773].active && Main.npc[num773].type == NPCID.TheHungry)
 									{
 										array2[num772] = Main.npc[num773].ai[0];
 										num772++;
@@ -26212,7 +26212,7 @@ namespace Terraria
 						{
 							for (int num806 = 0; num806 < 200; num806++)
 							{
-								if (num806 != this.whoAmI && Main.npc[num806].active && (Main.npc[num806].type == 125 || Main.npc[num806].type == 126) && Main.npc[num806].timeLeft - 1 > this.timeLeft)
+								if (num806 != this.whoAmI && Main.npc[num806].active && (Main.npc[num806].type == NPCID.Retinazer || Main.npc[num806].type == NPCID.Spazmatism) && Main.npc[num806].timeLeft - 1 > this.timeLeft)
 								{
 									this.timeLeft = Main.npc[num806].timeLeft - 1;
 								}
@@ -26728,7 +26728,7 @@ namespace Terraria
 						{
 							for (int num845 = 0; num845 < 200; num845++)
 							{
-								if (num845 != this.whoAmI && Main.npc[num845].active && (Main.npc[num845].type == 125 || Main.npc[num845].type == 126) && Main.npc[num845].timeLeft - 1 > this.timeLeft)
+								if (num845 != this.whoAmI && Main.npc[num845].active && (Main.npc[num845].type == NPCID.Retinazer || Main.npc[num845].type == NPCID.Spazmatism) && Main.npc[num845].timeLeft - 1 > this.timeLeft)
 								{
 									this.timeLeft = Main.npc[num845].timeLeft - 1;
 								}
@@ -28418,10 +28418,10 @@ namespace Terraria
 						{
 							this.TargetClosest(true);
 						}
-						if (this.type >= 134 && this.type <= 136)
+						if (this.type >= NPCID.TheDestroyer && this.type <= NPCID.TheDestroyerTail)
 						{
 							this.velocity.Length();
-							if (this.type == 134 || (this.type != 134 && Main.npc[(int)this.ai[1]].alpha < 128))
+							if (this.type == NPCID.TheDestroyer || (this.type != NPCID.TheDestroyer && Main.npc[(int)this.ai[1]].alpha < 128))
 							{
 								this.alpha -= 42;
 								if (this.alpha < 0)
@@ -28450,7 +28450,7 @@ namespace Terraria
 						}
 						if (Main.netMode != 1)
 						{
-							if (this.ai[0] == 0f && this.type == 134)
+							if (this.ai[0] == 0f && this.type == NPCID.TheDestroyer)
 							{
 								this.ai[3] = (float)this.whoAmI;
 								this.realLife = this.whoAmI;
@@ -28468,11 +28468,11 @@ namespace Terraria
 									Main.npc[num940].realLife = this.whoAmI;
 									Main.npc[num940].ai[1] = (float)num936;
 									Main.npc[num936].ai[0] = (float)num940;
-									NetMessage.SendData(23, -1, -1, "", num940, 0f, 0f, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num940, 0f, 0f, 0f, 0, 0, 0);
 									num936 = num940;
 								}
 							}
-							if (this.type == 135)
+							if (this.type == NPCID.TheDestroyerBody)
 							{
 								this.localAI[0] += (float)Main.rand.Next(4);
 								if (this.localAI[0] >= (float)Main.rand.Next(1400, 26000))
@@ -28550,7 +28550,7 @@ namespace Terraria
 						if (!flag94)
 						{
 							this.localAI[1] = 1f;
-							if (this.type == 134)
+							if (this.type == NPCID.TheDestroyer)
 							{
 								Rectangle rectangle12 = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
 								int num954 = 1000;
@@ -28804,7 +28804,7 @@ namespace Terraria
 							}
 						}
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
-						if (this.type == 134)
+						if (this.type == NPCID.TheDestroyer)
 						{
 							if (flag94)
 							{
@@ -28833,17 +28833,17 @@ namespace Terraria
 					{
 						float num968 = 4f;
 						float num969 = 1f;
-						if (this.type == 143)
+						if (this.type == NPCID.SnowmanGangsta)
 						{
 							num968 = 3f;
 							num969 = 0.7f;
 						}
-						if (this.type == 145)
+						if (this.type == NPCID.SnowBalla)
 						{
 							num968 = 3.5f;
 							num969 = 0.8f;
 						}
-						if (this.type == 143)
+						if (this.type == NPCID.SnowmanGangsta)
 						{
 							this.ai[2] += 1f;
 							if (this.ai[2] >= 120f)
@@ -28862,13 +28862,13 @@ namespace Terraria
 										Main.projectile[num972].ai[0] = 2f;
 										Main.projectile[num972].timeLeft = 300;
 										Main.projectile[num972].friendly = false;
-										NetMessage.SendData(27, -1, -1, "", num972, 0f, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", num972, 0f, 0f, 0f, 0, 0, 0);
 										this.netUpdate = true;
 									}
 								}
 							}
 						}
-						if (this.type == 144 && this.ai[1] >= 3f)
+						if (this.type == NPCID.MisterStabby && this.ai[1] >= 3f)
 						{
 							this.TargetClosest(true);
 							this.spriteDirection = this.direction;
@@ -28887,7 +28887,7 @@ namespace Terraria
 								}
 							}
 						}
-						else if (this.type == 145 && this.ai[1] >= 3f)
+						else if (this.type == NPCID.SnowBalla && this.ai[1] >= 3f)
 						{
 							this.TargetClosest(true);
 							if (this.velocity.Y == 0f)
@@ -28922,7 +28922,7 @@ namespace Terraria
 									Main.projectile[num979].ai[0] = 2f;
 									Main.projectile[num979].timeLeft = 300;
 									Main.projectile[num979].friendly = false;
-									NetMessage.SendData(27, -1, -1, "", num979, 0f, 0f, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", num979, 0f, 0f, 0f, 0, 0, 0);
 									this.netUpdate = true;
 								}
 							}
@@ -28992,7 +28992,7 @@ namespace Terraria
 						position6.X += this.velocity.X;
 						int num981 = (int)((position6.X + (float)(this.width / 2) + (float)((this.width / 2 + 1) * num980)) / 16f);
 						int num982 = (int)((position6.Y + (float)this.height - 1f) / 16f);
-						if ((float)(num981 * 16) < position6.X + (float)this.width && (float)(num981 * 16 + 16) > position6.X && ((Main.tile[num981, num982].nactive() && !Main.tile[num981, num982].topSlope() && !Main.tile[num981, num982 - 1].topSlope() && ((Main.tileSolid[(int)Main.tile[num981, num982].type] && !Main.tileSolidTop[(int)Main.tile[num981, num982].type]) || (flag96 && Main.tileSolidTop[(int)Main.tile[num981, num982].type] && (!Main.tileSolid[(int)Main.tile[num981, num982 - 1].type] || !Main.tile[num981, num982 - 1].nactive()) && Main.tile[num981, num982].type != 16 && Main.tile[num981, num982].type != 18 && Main.tile[num981, num982].type != 134))) || (Main.tile[num981, num982 - 1].halfBrick() && Main.tile[num981, num982 - 1].nactive())) && (!Main.tile[num981, num982 - 1].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 1].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 1].type] || (Main.tile[num981, num982 - 1].halfBrick() && (!Main.tile[num981, num982 - 4].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 4].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 4].type]))) && (!Main.tile[num981, num982 - 2].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 2].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 2].type]) && (!Main.tile[num981, num982 - 3].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 3].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 3].type]) && (!Main.tile[num981 - num980, num982 - 3].nactive() || !Main.tileSolid[(int)Main.tile[num981 - num980, num982 - 3].type] || Main.tileSolidTop[(int)Main.tile[num981 - num980, num982 - 3].type]))
+						if ((float)(num981 * 16) < position6.X + (float)this.width && (float)(num981 * 16 + 16) > position6.X && ((Main.tile[num981, num982].nactive() && !Main.tile[num981, num982].topSlope() && !Main.tile[num981, num982 - 1].topSlope() && ((Main.tileSolid[(int)Main.tile[num981, num982].type] && !Main.tileSolidTop[(int)Main.tile[num981, num982].type]) || (flag96 && Main.tileSolidTop[(int)Main.tile[num981, num982].type] && (!Main.tileSolid[(int)Main.tile[num981, num982 - 1].type] || !Main.tile[num981, num982 - 1].nactive()) && Main.tile[num981, num982].type != TileID.Anvils && Main.tile[num981, num982].type != TileID.WorkBenches && Main.tile[num981, num982].type != TileID.MythrilAnvil))) || (Main.tile[num981, num982 - 1].halfBrick() && Main.tile[num981, num982 - 1].nactive())) && (!Main.tile[num981, num982 - 1].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 1].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 1].type] || (Main.tile[num981, num982 - 1].halfBrick() && (!Main.tile[num981, num982 - 4].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 4].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 4].type]))) && (!Main.tile[num981, num982 - 2].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 2].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 2].type]) && (!Main.tile[num981, num982 - 3].nactive() || !Main.tileSolid[(int)Main.tile[num981, num982 - 3].type] || Main.tileSolidTop[(int)Main.tile[num981, num982 - 3].type]) && (!Main.tile[num981 - num980, num982 - 3].nactive() || !Main.tileSolid[(int)Main.tile[num981 - num980, num982 - 3].type] || Main.tileSolidTop[(int)Main.tile[num981 - num980, num982 - 3].type]))
 						{
 							float num983 = (float)(num982 * 16);
 							if (Main.tile[num981, num982].halfBrick())
@@ -29021,7 +29021,7 @@ namespace Terraria
 								}
 							}
 						}
-						if (this.justHit && this.type != 417)
+						if (this.justHit && this.type != NPCID.SolarSroller)
 						{
 							this.ai[0] = 0f;
 							this.ai[1] = 0f;
@@ -29043,7 +29043,7 @@ namespace Terraria
 							float num987 = Main.player[this.target].position.Y - vector109.Y;
 							float num988 = (float)Math.Sqrt((double)(num986 * num986 + num987 * num987));
 							bool flag97 = Collision.CanHit(this.position, this.width, this.height, Main.player[this.target].position, Main.player[this.target].width, Main.player[this.target].height);
-							if (this.type >= 496 && this.type <= 497)
+							if (this.type >= NPCID.GiantShelly && this.type <= NPCID.GiantShelly2)
 							{
 								if (num988 > 200f && flag97)
 								{
@@ -29071,7 +29071,7 @@ namespace Terraria
 							}
 							this.defense = this.defDefense;
 							this.damage = this.defDamage;
-							if (this.type >= 496 && this.type <= 497)
+							if (this.type >= NPCID.GiantShelly && this.type <= NPCID.GiantShelly2)
 							{
 								this.knockBackResist = 0.75f * Main.knockBackMultiplier;
 							}
@@ -29122,7 +29122,7 @@ namespace Terraria
 									this.velocity.X = 0.1f * (float)this.direction;
 								}
 							}
-							if (this.type >= 496 && this.type <= 497)
+							if (this.type >= NPCID.GiantShelly && this.type <= NPCID.GiantShelly2)
 							{
 								float num995 = 0.5f;
 								if (this.velocity.X < -num995 || this.velocity.X > num995)
@@ -29215,7 +29215,7 @@ namespace Terraria
 						else if (this.ai[0] == 1f)
 						{
 							this.velocity.X = this.velocity.X * 0.5f;
-							if (this.type >= 496 && this.type <= 497)
+							if (this.type >= NPCID.GiantShelly && this.type <= NPCID.GiantShelly2)
 							{
 								this.ai[1] += 0.5f;
 							}
@@ -29230,7 +29230,7 @@ namespace Terraria
 								this.ai[1] = 0f;
 								this.ai[2] = 0f;
 								this.ai[0] = 3f;
-								if (this.type == 417)
+								if (this.type == NPCID.SolarSroller)
 								{
 									this.ai[0] = 6f;
 									this.ai[2] = (float)Main.rand.Next(2, 5);
@@ -29244,7 +29244,7 @@ namespace Terraria
 							{
 								if (Main.expertMode)
 								{
-									if (this.type >= 496 && this.type <= 497)
+									if (this.type >= NPCID.GiantShelly && this.type <= NPCID.GiantShelly2)
 									{
 										this.damage = (int)((double)this.defDamage * 1.5 * 0.9);
 									}
@@ -29253,7 +29253,7 @@ namespace Terraria
 										this.damage = (int)((double)(this.defDamage * 2) * 0.9);
 									}
 								}
-								else if (this.type >= 496 && this.type <= 497)
+								else if (this.type >= NPCID.GiantShelly && this.type <= NPCID.GiantShelly2)
 								{
 									this.damage = (int)((double)this.defDamage * 1.5);
 								}
@@ -29276,7 +29276,7 @@ namespace Terraria
 									{
 										num998 = 6f;
 									}
-									if (this.type >= 496 && this.type <= 497)
+									if (this.type >= NPCID.GiantShelly && this.type <= NPCID.GiantShelly2)
 									{
 										num998 *= 0.75f;
 									}
@@ -29430,7 +29430,7 @@ namespace Terraria
 								{
 									this.rotation = 0f;
 									this.velocity.X = 0f;
-									if (this.type >= 496 && this.type <= 497)
+									if (this.type >= NPCID.GiantShelly && this.type <= NPCID.GiantShelly2)
 									{
 										this.ai[1] += 0.5f;
 									}
@@ -29463,7 +29463,7 @@ namespace Terraria
 						}
 						float num1015 = 2f;
 						float num1016 = 0.08f;
-						if (this.type == 531)
+						if (this.type == NPCID.DesertScorpionWall)
 						{
 							num1015 = 4f;
 							num1016 = 0.16f;
@@ -29590,7 +29590,7 @@ namespace Terraria
 							}
 							this.rotation = (float)Math.Atan2((double)num1018, (double)num1017);
 						}
-						if (this.type == 531)
+						if (this.type == NPCID.DesertScorpionWall)
 						{
 							this.rotation += 1.57079637f;
 						}
@@ -29627,7 +29627,7 @@ namespace Terraria
 						}
 						if (Main.netMode != 1)
 						{
-							if (Main.netMode != 1 && Main.expertMode && this.target >= 0 && (this.type == 163 || this.type == 238) && Collision.CanHit(base.Center, 1, 1, Main.player[this.target].Center, 1, 1))
+							if (Main.netMode != 1 && Main.expertMode && this.target >= 0 && (this.type == NPCID.BlackRecluse || this.type == NPCID.BlackRecluseWall) && Collision.CanHit(base.Center, 1, 1, Main.player[this.target].Center, 1, 1))
 							{
 								this.localAI[0] += 1f;
 								if (this.justHit)
@@ -29666,22 +29666,22 @@ namespace Terraria
 							}
 							if (!flag101)
 							{
-								if (this.type == 237)
+								if (this.type == NPCID.JungleCreeperWall)
 								{
 									this.Transform(236);
 									return;
 								}
-								if (this.type == 238)
+								if (this.type == NPCID.BlackRecluseWall)
 								{
 									this.Transform(163);
 									return;
 								}
-								if (this.type == 240)
+								if (this.type == NPCID.BloodCrawlerWall)
 								{
 									this.Transform(239);
 									return;
 								}
-								if (this.type == 531)
+								if (this.type == NPCID.DesertScorpionWall)
 								{
 									this.Transform(530);
 									return;
@@ -29704,7 +29704,7 @@ namespace Terraria
 							this.TargetClosest(true);
 							this.spriteDirection = this.direction;
 						}
-						if (this.type == 378)
+						if (this.type == NPCID.ChatteringTeethBomb)
 						{
 							Vector2 value14 = new Vector2(-6f, -10f);
 							value14.X *= (float)this.spriteDirection;
@@ -29728,7 +29728,7 @@ namespace Terraria
 								return;
 							}
 						}
-						if (this.type == 378 && this.ai[1] != 5f)
+						if (this.type == NPCID.ChatteringTeethBomb && this.ai[1] != 5f)
 						{
 							if (this.wet || Vector2.Distance(base.Center, Main.player[this.target].Center) < 64f)
 							{
@@ -29738,7 +29738,7 @@ namespace Terraria
 								return;
 							}
 						}
-						else if (this.wet && this.type != 177)
+						else if (this.wet && this.type != NPCID.Derpling)
 						{
 							if (this.collideX)
 							{
@@ -29781,7 +29781,7 @@ namespace Terraria
 							{
 								this.velocity.X = 0f;
 							}
-							if (this.type == 177)
+							if (this.type == NPCID.Derpling)
 							{
 								this.ai[0] += 2f;
 							}
@@ -29794,7 +29794,7 @@ namespace Terraria
 							float num1032 = Main.player[this.target].position.Y + (float)Main.player[this.target].height * 0.5f - vector115.Y;
 							float num1033 = (float)Math.Sqrt((double)(num1031 * num1031 + num1032 * num1032));
 							float num1034 = 400f / num1033;
-							if (this.type == 177)
+							if (this.type == NPCID.Derpling)
 							{
 								num1034 *= 5f;
 							}
@@ -29814,7 +29814,7 @@ namespace Terraria
 								{
 									this.TargetClosest(true);
 								}
-								if (this.type == 177)
+								if (this.type == NPCID.Derpling)
 								{
 									if (this.ai[1] == 2f)
 									{
@@ -29873,7 +29873,7 @@ namespace Terraria
 						}
 						if (this.target < 255)
 						{
-							if (this.type == 177)
+							if (this.type == NPCID.Derpling)
 							{
 								bool flag102 = false;
 								if (this.position.Y + (float)this.height < Main.player[this.target].position.Y && this.position.X + (float)this.width > Main.player[this.target].position.X && this.position.X < Main.player[this.target].position.X + (float)Main.player[this.target].width)
@@ -30587,7 +30587,7 @@ namespace Terraria
 						float num1083 = 100f;
 						float num1084 = Math.Abs(this.position.X + (float)(this.width / 2) - (Main.player[this.target].position.X + (float)(Main.player[this.target].width / 2)));
 						float num1085 = Main.player[this.target].position.Y - (float)(this.height / 2);
-						if (this.type == 509)
+						if (this.type == NPCID.FlyingAntlion)
 						{
 							num1078 = 0.09f;
 							num1079 = 0.03f;
@@ -30732,15 +30732,15 @@ namespace Terraria
 						this.dontTakeDamage = false;
 						for (int num1087 = 0; num1087 < 200; num1087++)
 						{
-							if (Main.npc[num1087].active && Main.npc[num1087].type == 246)
+							if (Main.npc[num1087].active && Main.npc[num1087].type == NPCID.GolemHead)
 							{
 								flag105 = true;
 							}
-							if (Main.npc[num1087].active && Main.npc[num1087].type == 247)
+							if (Main.npc[num1087].active && Main.npc[num1087].type == NPCID.GolemFistLeft)
 							{
 								flag106 = true;
 							}
-							if (Main.npc[num1087].active && Main.npc[num1087].type == 248)
+							if (Main.npc[num1087].active && Main.npc[num1087].type == NPCID.GolemFistRight)
 							{
 								flag107 = true;
 							}
@@ -31104,7 +31104,7 @@ namespace Terraria
 							float num1128 = Main.npc[NPC.golemBoss].Center.X - vector126.X;
 							float num1129 = Main.npc[NPC.golemBoss].Center.Y - vector126.Y;
 							num1129 -= 9f;
-							if (this.type == 247)
+							if (this.type == NPCID.GolemFistLeft)
 							{
 								num1128 -= 84f;
 							}
@@ -31134,7 +31134,7 @@ namespace Terraria
 								if (this.ai[1] >= 60f)
 								{
 									this.TargetClosest(true);
-									if ((this.type == 247 && base.Center.X + 100f > Main.player[this.target].Center.X) || (this.type == 248 && base.Center.X - 100f < Main.player[this.target].Center.X))
+									if ((this.type == NPCID.GolemFistLeft && base.Center.X + 100f > Main.player[this.target].Center.X) || (this.type == NPCID.GolemFistRight && base.Center.X - 100f < Main.player[this.target].Center.X))
 									{
 										this.ai[1] = 0f;
 										this.ai[0] = 1f;
@@ -31150,7 +31150,7 @@ namespace Terraria
 								this.velocity.X = num1128 * num1130;
 								this.velocity.Y = num1129 * num1130;
 								this.rotation = (float)Math.Atan2((double)(-(double)this.velocity.Y), (double)(-(double)this.velocity.X));
-								if (this.type == 247)
+								if (this.type == NPCID.GolemFistLeft)
 								{
 									this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X);
 									return;
@@ -31184,7 +31184,7 @@ namespace Terraria
 							this.velocity.Y = num1133 * num1134;
 							this.ai[0] = 2f;
 							this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X);
-							if (this.type == 247)
+							if (this.type == NPCID.GolemFistLeft)
 							{
 								this.rotation = (float)Math.Atan2((double)(-(double)this.velocity.Y), (double)(-(double)this.velocity.X));
 								return;
@@ -31220,7 +31220,7 @@ namespace Terraria
 							num1135 += Main.npc[NPC.golemBoss].velocity.X;
 							num1136 += Main.npc[NPC.golemBoss].velocity.Y;
 							num1136 -= 9f;
-							if (this.type == 247)
+							if (this.type == NPCID.GolemFistLeft)
 							{
 								num1135 -= 84f;
 							}
@@ -31247,7 +31247,7 @@ namespace Terraria
 									int num1138 = 0;
 									while (num1138 < 200)
 									{
-										if (Main.npc[num1138].active && Main.npc[num1138].type == 246)
+										if (Main.npc[num1138].active && Main.npc[num1138].type == NPCID.GolemHead)
 										{
 											if (Main.npc[num1138].life < Main.npc[num1138].lifeMax / 2)
 											{
@@ -31319,7 +31319,7 @@ namespace Terraria
 								}
 							}
 							this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X);
-							if (this.type == 247)
+							if (this.type == NPCID.GolemFistLeft)
 							{
 								this.rotation = (float)Math.Atan2((double)(-(double)this.velocity.Y), (double)(-(double)this.velocity.X));
 								return;
@@ -31669,7 +31669,7 @@ namespace Terraria
 									this.life = 0;
 									if (Main.netMode == 2)
 									{
-										NetMessage.SendData(23, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 									}
 								}
 							}
@@ -31945,7 +31945,7 @@ namespace Terraria
 										int num1195 = 0;
 										for (int num1196 = 0; num1196 < 200; num1196++)
 										{
-											if (Main.npc[num1196].active && Main.npc[num1196].type == 264 && Main.npc[num1196].ai[3] == 0f)
+											if (Main.npc[num1196].active && Main.npc[num1196].type == NPCID.PlanterasTentacle && Main.npc[num1196].ai[3] == 0f)
 											{
 												num1195++;
 											}
@@ -32305,7 +32305,7 @@ namespace Terraria
 									this.life = 0;
 									if (Main.netMode == 2)
 									{
-										NetMessage.SendData(23, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 									}
 								}
 							}
@@ -32466,7 +32466,7 @@ namespace Terraria
 										int num1247 = 0;
 										for (int num1248 = 0; num1248 < 200; num1248++)
 										{
-											if (Main.npc[num1248].active && Main.npc[num1248].type == 267)
+											if (Main.npc[num1248].active && Main.npc[num1248].type == NPCID.Creeper)
 											{
 												num1247++;
 											}
@@ -32655,7 +32655,7 @@ namespace Terraria
 									if (this.ai[1] >= 300f && Main.netMode != 1)
 									{
 										this.ai[1] = 0f;
-										if ((double)this.life < (double)this.lifeMax * 0.25 && this.type != 344)
+										if ((double)this.life < (double)this.lifeMax * 0.25 && this.type != NPCID.Everscream)
 										{
 											this.ai[0] = (float)Main.rand.Next(3, 5);
 										}
@@ -32668,7 +32668,7 @@ namespace Terraria
 								}
 								else if (this.ai[0] == 1f)
 								{
-									if (this.type == 344)
+									if (this.type == NPCID.Everscream)
 									{
 										flag116 = true;
 										this.ai[1] += 1f;
@@ -32722,7 +32722,7 @@ namespace Terraria
 								}
 								else if (this.ai[0] == 2f)
 								{
-									if (this.type == 344)
+									if (this.type == NPCID.Everscream)
 									{
 										flag116 = true;
 										this.ai[1] += 1f;
@@ -34215,7 +34215,7 @@ namespace Terraria
 										}
 										this.ai[0] = num1397;
 										this.ai[1] = num1398;
-										if (this.type == 356)
+										if (this.type == NPCID.Butterfly)
 										{
 											this.catchItem = (short)(1994f + this.ai[2] - 1f);
 											return;
@@ -34223,12 +34223,12 @@ namespace Terraria
 									}
 									else if (this.aiStyle == 66)
 									{
-										if (this.type == 484)
+										if (this.type == NPCID.EnchantedNightcrawler)
 										{
 											float num1426 = (float)Main.rand.Next(90, 111) * 0.01f;
 											num1426 *= (Main.essScale + 0.5f) / 2f;
 										}
-										if (this.type == 357 || this.type == 448 || (this.type >= 484 && this.type <= 487))
+										if (this.type == NPCID.Worm || this.type == NPCID.GoldWorm || (this.type >= NPCID.EnchantedNightcrawler && this.type <= NPCID.Buggy))
 										{
 											if (this.localAI[2] < 90f)
 											{
@@ -34252,20 +34252,20 @@ namespace Terraria
 													this.direction *= -1;
 												}
 												float num1427 = 0.2f;
-												if (this.type == 485)
+												if (this.type == NPCID.Grubby)
 												{
 													num1427 = 0.25f;
 												}
-												if (this.type == 486)
+												if (this.type == NPCID.Sluggy)
 												{
 													num1427 = 0.325f;
 												}
-												if (this.type == 487)
+												if (this.type == NPCID.Buggy)
 												{
 													num1427 = 0.4f;
 												}
 												this.velocity.X = num1427 * (float)this.direction;
-												if (this.type == 374)
+												if (this.type == NPCID.TruffleWorm)
 												{
 													this.velocity.X = this.velocity.X * 3f;
 												}
@@ -34293,7 +34293,7 @@ namespace Terraria
 												}
 											}
 										}
-										if (this.type == 374)
+										if (this.type == NPCID.TruffleWorm)
 										{
 											this.spriteDirection = this.direction;
 											bool flag123 = false;
@@ -34322,7 +34322,7 @@ namespace Terraria
 									}
 									else if (this.aiStyle == 67)
 									{
-										if (this.type == 359)
+										if (this.type == NPCID.Snail)
 										{
 											if (this.ai[3] != 0f)
 											{
@@ -34347,7 +34347,7 @@ namespace Terraria
 											}
 										}
 										float num1432 = 0.3f;
-										if (this.type == 360)
+										if (this.type == NPCID.GlowingSnail)
 										{
 											num1432 = 0.6f;
 										}
@@ -34702,7 +34702,7 @@ namespace Terraria
 													this.ai[1] = 0f;
 													if (Main.netMode != 1)
 													{
-														if ((this.type == 363 || this.type == 365) && !this.wet)
+														if ((this.type == NPCID.Duck2 || this.type == NPCID.DuckWhite2) && !this.wet)
 														{
 															int direction7 = this.direction;
 															this.Transform(this.type - 1);
@@ -35840,7 +35840,7 @@ namespace Terraria
 											this.noGravity = true;
 											this.dontTakeDamage = true;
 											this.velocity.Y = this.ai[3];
-											if (this.type == 373)
+											if (this.type == NPCID.Sharkron2)
 											{
 												float num1494 = 0.104719758f;
 												float num1495 = this.ai[2];
@@ -35939,10 +35939,10 @@ namespace Terraria
 									}
 									else if (this.aiStyle == 72)
 									{
-										if (this.type == 384)
+										if (this.type == NPCID.ForceBubble)
 										{
 											int num1497 = (int)this.ai[0];
-											if (Main.npc[num1497].active && Main.npc[num1497].type == 383)
+											if (Main.npc[num1497].active && Main.npc[num1497].type == NPCID.MartianOfficer)
 											{
 												this.velocity = Vector2.Zero;
 												this.position = Main.npc[num1497].Center;
@@ -35966,7 +35966,7 @@ namespace Terraria
 										{
 											this.velocity.X = 0f;
 										}
-										if (this.type == 387)
+										if (this.type == NPCID.MartianTurret)
 										{
 											float num1498 = 120f;
 											float num1499 = 60f;
@@ -36015,7 +36015,7 @@ namespace Terraria
 											}
 											vector181 *= 14f;
 											int num1504 = 35;
-											if (Main.expertMode && this.type >= 381 && this.type <= 392)
+											if (Main.expertMode && this.type >= NPCID.BrainScrambler && this.type <= NPCID.MartianSaucer)
 											{
 												num1504 = (int)((double)num1504 * 0.8);
 											}
@@ -36039,7 +36039,7 @@ namespace Terraria
 										{
 											this.rotation -= 3.14159274f;
 										}
-										if (this.type == 418)
+										if (this.type == NPCID.SolarCorite)
 										{
 											this.spriteDirection = Math.Sign(this.velocity.X);
 										}
@@ -36058,7 +36058,7 @@ namespace Terraria
 										float num1514 = 0f;
 										float num1515 = 7f;
 										bool flag137 = true;
-										if (this.type == 418)
+										if (this.type == NPCID.SolarCorite)
 										{
 											num1505 = 0.3f;
 											num1506 = 8f;
@@ -36154,7 +36154,7 @@ namespace Terraria
 												this.ai[3] = 0f;
 												this.velocity /= 2f;
 												this.netUpdate = true;
-												if (this.type == 418)
+												if (this.type == NPCID.SolarCorite)
 												{
 													this.ai[1] = 45f;
 													this.ai[0] = 4f;
@@ -36225,7 +36225,7 @@ namespace Terraria
 										int num1529 = -1;
 										Vector2 vector185 = Vector2.Zero;
 										int num1530 = 0;
-										if (this.type == 390)
+										if (this.type == NPCID.ScutlixRider)
 										{
 											if (this.localAI[0] == 0f && Main.netMode != 1)
 											{
@@ -36235,7 +36235,7 @@ namespace Terraria
 												this.netUpdate = true;
 											}
 											int num1532 = (int)this.ai[0];
-											if (Main.npc[num1532].active && Main.npc[num1532].type == 391)
+											if (Main.npc[num1532].active && Main.npc[num1532].type == NPCID.Scutlix)
 											{
 												if (this.timeLeft < 60)
 												{
@@ -36245,7 +36245,7 @@ namespace Terraria
 												vector185 = Vector2.UnitY * -14f;
 											}
 										}
-										if (this.type == 416)
+										if (this.type == NPCID.SolarDrakomireRider)
 										{
 											if (this.localAI[0] == 0f && Main.netMode != 1)
 											{
@@ -36255,7 +36255,7 @@ namespace Terraria
 												this.netUpdate = true;
 											}
 											int num1534 = (int)this.ai[0];
-											if (Main.npc[num1534].active && Main.npc[num1534].type == 415)
+											if (Main.npc[num1534].active && Main.npc[num1534].type == NPCID.SolarDrakomire)
 											{
 												if (this.timeLeft < 60)
 												{
@@ -36265,10 +36265,10 @@ namespace Terraria
 												vector185 = new Vector2((float)(-(float)Main.npc[num1534].spriteDirection * 10), -30f);
 											}
 										}
-										else if (this.type == 392)
+										else if (this.type == NPCID.MartianSaucer)
 										{
 											int num1535 = (int)this.ai[0];
-											if (Main.npc[num1535].active && Main.npc[num1535].type == 395)
+											if (Main.npc[num1535].active && Main.npc[num1535].type == NPCID.MartianSaucerCore)
 											{
 												if (this.timeLeft < 60)
 												{
@@ -36315,10 +36315,10 @@ namespace Terraria
 												}
 											}
 										}
-										else if (this.type == 393)
+										else if (this.type == NPCID.MartianSaucerTurret)
 										{
 											int num1539 = (int)this.ai[0];
-											if (Main.npc[num1539].active && Main.npc[num1539].type == 395)
+											if (Main.npc[num1539].active && Main.npc[num1539].type == NPCID.MartianSaucerCore)
 											{
 												if (this.timeLeft < 60)
 												{
@@ -36332,10 +36332,10 @@ namespace Terraria
 												this.rotation = num1540;
 											}
 										}
-										else if (this.type == 394)
+										else if (this.type == NPCID.MartianSaucerCannon)
 										{
 											int num1541 = (int)this.ai[0];
-											if (Main.npc[num1541].active && Main.npc[num1541].type == 395)
+											if (Main.npc[num1541].active && Main.npc[num1541].type == NPCID.MartianSaucerCore)
 											{
 												if (this.timeLeft < 60)
 												{
@@ -36350,10 +36350,10 @@ namespace Terraria
 												num1530 = ((this.ai[1] == 1f) ? 1 : -1);
 											}
 										}
-										else if (this.type == 492)
+										else if (this.type == NPCID.PirateShipCannon)
 										{
 											int num1543 = (int)this.ai[0];
-											if (Main.npc[num1543].active && Main.npc[num1543].type == 491)
+											if (Main.npc[num1543].active && Main.npc[num1543].type == NPCID.PirateShip)
 											{
 												if (this.timeLeft < 60)
 												{
@@ -36385,7 +36385,7 @@ namespace Terraria
 											{
 												this.spriteDirection = num1530;
 											}
-											if (this.type == 390)
+											if (this.type == NPCID.ScutlixRider)
 											{
 												this.timeLeft = nPC7.timeLeft;
 												this.velocity = nPC7.velocity;
@@ -36407,11 +36407,11 @@ namespace Terraria
 													Vector2 vector187 = Vector2.Normalize(vector186);
 													float num1547 = vector186.Length();
 													float num1548 = 700f;
-													if (this.type == 214)
+													if (this.type == NPCID.PirateDeadeye)
 													{
 														num1548 = 550f;
 													}
-													if (this.type == 215)
+													if (this.type == NPCID.PirateCrossbower)
 													{
 														num1548 = 800f;
 													}
@@ -36472,7 +36472,7 @@ namespace Terraria
 													}
 												}
 											}
-											if (this.type == 492)
+											if (this.type == NPCID.PirateShipCannon)
 											{
 												this.timeLeft = nPC7.timeLeft;
 												this.velocity = nPC7.velocity;
@@ -36542,7 +36542,7 @@ namespace Terraria
 													this.ai[2] = 0f;
 												}
 											}
-											if (this.type == 394)
+											if (this.type == NPCID.MartianSaucerCannon)
 											{
 												this.timeLeft = nPC7.timeLeft;
 												int num1554 = 50;
@@ -36569,7 +36569,7 @@ namespace Terraria
 													}
 												}
 											}
-											if (this.type == 393)
+											if (this.type == NPCID.MartianSaucerTurret)
 											{
 												this.timeLeft = nPC7.timeLeft;
 												int num1558 = 35;
@@ -36613,7 +36613,7 @@ namespace Terraria
 													}
 												}
 											}
-											if (this.type == 392)
+											if (this.type == NPCID.MartianSaucer)
 											{
 												this.timeLeft = nPC7.timeLeft;
 												int num1562 = 70;
@@ -36756,12 +36756,12 @@ namespace Terraria
 										}
 										else
 										{
-											if (this.type == 390)
+											if (this.type == NPCID.ScutlixRider)
 											{
 												this.Transform(382);
 												return;
 											}
-											if (this.type == 416)
+											if (this.type == NPCID.SolarDrakomireRider)
 											{
 												this.Transform(518);
 												return;
@@ -36774,7 +36774,7 @@ namespace Terraria
 									}
 									else if (this.aiStyle == 76)
 									{
-										if (this.localAI[3] == 0f && Main.netMode != 1 && this.type == 395)
+										if (this.localAI[3] == 0f && Main.netMode != 1 && this.type == NPCID.MartianSaucerCore)
 										{
 											this.localAI[3] = 1f;
 											int[] array5 = new int[4];
@@ -37228,7 +37228,7 @@ namespace Terraria
 											{
 												this.ai[1] = 0f;
 												this.ai[0] = 0f;
-												if (Main.netMode != 1 && this.type == 398)
+												if (Main.netMode != 1 && this.type == NPCID.MoonLordCore)
 												{
 													this.ai[2] = (float)Main.rand.Next(3);
 													this.ai[2] = 0f;
@@ -37248,7 +37248,7 @@ namespace Terraria
 											{
 												this.ai[1] = 0f;
 												this.ai[0] = 0f;
-												if (Main.netMode != 1 && this.type == 398)
+												if (Main.netMode != 1 && this.type == NPCID.MoonLordCore)
 												{
 													this.ai[2] = (float)Main.rand.Next(3);
 													this.ai[2] = 0f;
@@ -37362,7 +37362,7 @@ namespace Terraria
 												for (int num1623 = 0; num1623 < 1000; num1623++)
 												{
 													Projectile projectile = Main.projectile[num1623];
-													if (projectile.active && (projectile.type == 456 || projectile.type == 462 || projectile.type == 455 || projectile.type == 452 || projectile.type == 454))
+													if (projectile.active && (projectile.type == ProjectileID.MoonLeech || projectile.type == ProjectileID.PhantasmalBolt || projectile.type == ProjectileID.PhantasmalDeathray || projectile.type == ProjectileID.PhantasmalEye || projectile.type == ProjectileID.PhantasmalSphere))
 													{
 														projectile.Kill();
 													}
@@ -37485,7 +37485,7 @@ namespace Terraria
 														projectile2.active = false;
 														if (Main.netMode != 1)
 														{
-															NetMessage.SendData(27, -1, -1, "", num1632, 0f, 0f, 0f, 0, 0, 0);
+															NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", num1632, 0f, 0f, 0f, 0, 0, 0);
 														}
 													}
 												}
@@ -37497,7 +37497,7 @@ namespace Terraria
 														nPC9.active = false;
 														if (Main.netMode != 1)
 														{
-															NetMessage.SendData(23, -1, -1, "", nPC9.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+															NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", nPC9.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 														}
 													}
 												}
@@ -37512,19 +37512,19 @@ namespace Terraria
 														nPC10.active = false;
 														if (Main.netMode != 1)
 														{
-															NetMessage.SendData(23, -1, -1, "", nPC10.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+															NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", nPC10.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 														}
 													}
 												}
 												this.active = false;
 												if (Main.netMode != 1)
 												{
-													NetMessage.SendData(23, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 												}
 												NPC.LunarApocalypseIsUp = false;
 												if (Main.netMode == 2)
 												{
-													NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.WorldInfo, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 												}
 												return;
 											}
@@ -38225,7 +38225,7 @@ namespace Terraria
 													for (int num1675 = 0; num1675 < 1000; num1675++)
 													{
 														Projectile projectile5 = Main.projectile[num1675];
-														if (projectile5.active && projectile5.type == 456 && Main.player[(int)projectile5.ai[1]].HasBuff(145) != -1)
+														if (projectile5.active && projectile5.type == 456 && Main.player[(int)projectile5.ai[1]].HasBuff(BuffID.MoonLeech) != -1)
 														{
 															Vector2 center23 = Main.player[this.target].Center;
 															int num1676 = NPC.NewNPC((int)center23.X, (int)center23.Y, 401, 0, 0f, 0f, 0f, 0f, 255);
@@ -38337,7 +38337,7 @@ namespace Terraria
 												for (int num1687 = 0; num1687 < 1000; num1687++)
 												{
 													Projectile projectile6 = Main.projectile[num1687];
-													if (projectile6.active && projectile6.type == 456 && Main.player[(int)projectile6.ai[1]].HasBuff(145) != -1)
+													if (projectile6.active && projectile6.type == 456 && Main.player[(int)projectile6.ai[1]].HasBuff(BuffID.MoonLeech) != -1)
 													{
 														Vector2 center25 = Main.player[this.target].Center;
 														int num1688 = NPC.NewNPC((int)center25.X, (int)center25.Y, 401, 0, 0f, 0f, 0f, 0f, 255);
@@ -38667,7 +38667,7 @@ namespace Terraria
 												float num1705 = 0.25f;
 												for (int num1706 = 0; num1706 < 200; num1706++)
 												{
-													if (num1706 != this.whoAmI && Main.npc[num1706].active && Main.npc[num1706].type == 400 && Vector2.Distance(base.Center, Main.npc[num1706].Center) < 150f)
+													if (num1706 != this.whoAmI && Main.npc[num1706].active && Main.npc[num1706].type == NPCID.MoonLordFreeEye && Vector2.Distance(base.Center, Main.npc[num1706].Center) < 150f)
 													{
 														if (this.position.X < Main.npc[num1706].position.X)
 														{
@@ -38989,7 +38989,7 @@ namespace Terraria
 											Vector2 value56 = new Vector2(0f, 216f);
 											int num1723 = (int)Math.Abs(this.ai[0]) - 1;
 											int num1724 = (int)this.ai[1];
-											if (!Main.npc[num1723].active || Main.npc[num1723].type != 396)
+											if (!Main.npc[num1723].active || Main.npc[num1723].type != NPCID.MoonLordHead)
 											{
 												this.life = 0;
 												this.HitEffect(0, 10.0);
@@ -39009,11 +39009,11 @@ namespace Terraria
 													{
 														if (Main.npc[num1729].active && Main.npc[num1729].ai[3] == (float)num1725)
 														{
-															if (num1726 == -1 && Main.npc[num1729].type == 397 && Main.npc[num1729].ai[2] == 0f)
+															if (num1726 == -1 && Main.npc[num1729].type == NPCID.MoonLordHand && Main.npc[num1729].ai[2] == 0f)
 															{
 																num1726 = num1729;
 															}
-															if (num1727 == -1 && Main.npc[num1729].type == 397 && Main.npc[num1729].ai[2] == 1f)
+															if (num1727 == -1 && Main.npc[num1729].type == NPCID.MoonLordHand && Main.npc[num1729].ai[2] == 1f)
 															{
 																num1727 = num1729;
 															}
@@ -39088,7 +39088,7 @@ namespace Terraria
 										}
 										else if (this.aiStyle == 83)
 										{
-											if (this.type == 437)
+											if (this.type == NPCID.CultistTablet)
 											{
 												if (this.localAI[3] == 0f && Main.netMode != 1)
 												{
@@ -39226,7 +39226,7 @@ namespace Terraria
 													}
 												}
 											}
-											if (this.type == 438)
+											if (this.type == NPCID.CultistDevote)
 											{
 												this.velocity.X = this.velocity.X * 0.93f;
 												if ((double)this.velocity.X > -0.1 && (double)this.velocity.X < 0.1)
@@ -39258,7 +39258,7 @@ namespace Terraria
 													this.netUpdate = true;
 												}
 											}
-											if (this.type == 437)
+											if (this.type == NPCID.CultistTablet)
 											{
 												return;
 											}
@@ -39301,7 +39301,7 @@ namespace Terraria
 												}
 												int num1776 = 20;
 												int num1777 = 3;
-												bool flag168 = this.type == 439;
+												bool flag168 = this.type == NPCID.CultistBoss;
 												bool flag169 = false;
 												bool flag170 = false;
 												if (flag167)
@@ -39327,7 +39327,7 @@ namespace Terraria
 															this.life = 0;
 															this.HitEffect(0, 10.0);
 															this.active = false;
-															NetMessage.SendData(23, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+															NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 															NPC nPC12 = Main.npc[(int)this.ai[3]];
 															nPC12.ai[0] = 6f;
 															nPC12.ai[1] = 0f;
@@ -39350,7 +39350,7 @@ namespace Terraria
 													List<int> list = new List<int>();
 													for (int num1778 = 0; num1778 < 200; num1778++)
 													{
-														if (Main.npc[num1778].active && Main.npc[num1778].type == 440 && Main.npc[num1778].ai[3] == (float)this.whoAmI)
+														if (Main.npc[num1778].active && Main.npc[num1778].type == NPCID.CultistBossClone && Main.npc[num1778].ai[3] == (float)this.whoAmI)
 														{
 															list.Add(num1778);
 														}
@@ -39369,7 +39369,7 @@ namespace Terraria
 															nPC13.life = 0;
 															nPC13.HitEffect(0, 10.0);
 															nPC13.active = false;
-															NetMessage.SendData(23, -1, -1, "", current, 0f, 0f, 0f, 0, 0, 0);
+															NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", current, 0f, 0f, 0f, 0, 0, 0);
 														}
 														else if (num1779 > 0)
 														{
@@ -39395,17 +39395,17 @@ namespace Terraria
 													this.life = 0;
 													this.HitEffect(0, 10.0);
 													this.active = false;
-													NetMessage.SendData(28, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
 													List<int> list2 = new List<int>();
 													list2.Add(this.whoAmI);
 													for (int num1780 = 0; num1780 < 200; num1780++)
 													{
-														if (Main.npc[num1780].active && Main.npc[num1780].type == 440 && Main.npc[num1780].ai[3] == (float)this.whoAmI)
+														if (Main.npc[num1780].active && Main.npc[num1780].type == NPCID.CultistBossClone && Main.npc[num1780].ai[3] == (float)this.whoAmI)
 														{
 															Main.npc[num1780].life = 0;
 															Main.npc[num1780].HitEffect(0, 10.0);
 															Main.npc[num1780].active = false;
-															NetMessage.SendData(28, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
+															NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", this.whoAmI, -1f, 0f, 0f, 0, 0, 0);
 														}
 													}
 												}
@@ -39595,7 +39595,7 @@ namespace Terraria
 															list3.Add(this.whoAmI);
 															for (int num1786 = 0; num1786 < 200; num1786++)
 															{
-																if (Main.npc[num1786].active && Main.npc[num1786].type == 440 && Main.npc[num1786].ai[3] == (float)this.whoAmI)
+																if (Main.npc[num1786].active && Main.npc[num1786].type == NPCID.CultistBossClone && Main.npc[num1786].ai[3] == (float)this.whoAmI)
 																{
 																	list3.Add(num1786);
 																}
@@ -39693,7 +39693,7 @@ namespace Terraria
 															List<int> list4 = new List<int>();
 															for (int num1788 = 0; num1788 < 200; num1788++)
 															{
-																if (Main.npc[num1788].active && Main.npc[num1788].type == 440 && Main.npc[num1788].ai[3] == (float)this.whoAmI)
+																if (Main.npc[num1788].active && Main.npc[num1788].type == NPCID.CultistBossClone && Main.npc[num1788].ai[3] == (float)this.whoAmI)
 																{
 																	list4.Add(num1788);
 																}
@@ -39762,7 +39762,7 @@ namespace Terraria
 															List<int> list5 = new List<int>();
 															for (int num1793 = 0; num1793 < 200; num1793++)
 															{
-																if (Main.npc[num1793].active && Main.npc[num1793].type == 440 && Main.npc[num1793].ai[3] == (float)this.whoAmI)
+																if (Main.npc[num1793].active && Main.npc[num1793].type == NPCID.CultistBossClone && Main.npc[num1793].ai[3] == (float)this.whoAmI)
 																{
 																	list5.Add(num1793);
 																}
@@ -39839,7 +39839,7 @@ namespace Terraria
 														List<int> list6 = new List<int>();
 														for (int num1798 = 0; num1798 < 200; num1798++)
 														{
-															if (Main.npc[num1798].active && Main.npc[num1798].type == 440 && Main.npc[num1798].ai[3] == (float)this.whoAmI)
+															if (Main.npc[num1798].active && Main.npc[num1798].type == NPCID.CultistBossClone && Main.npc[num1798].ai[3] == (float)this.whoAmI)
 															{
 																list6.Add(num1798);
 															}
@@ -39908,7 +39908,7 @@ namespace Terraria
 															List<int> list7 = new List<int>();
 															for (int num1802 = 0; num1802 < 200; num1802++)
 															{
-																if (Main.npc[num1802].active && Main.npc[num1802].type == 440 && Main.npc[num1802].ai[3] == (float)this.whoAmI)
+																if (Main.npc[num1802].active && Main.npc[num1802].type == NPCID.CultistBossClone && Main.npc[num1802].ai[3] == (float)this.whoAmI)
 																{
 																	list7.Add(num1802);
 																}
@@ -39957,7 +39957,7 @@ namespace Terraria
 																	{
 																		int num1811 = list7[-num1808 - 1];
 																		Main.npc[num1811].Center = center35;
-																		NetMessage.SendData(23, -1, -1, "", num1811, 0f, 0f, 0f, 0, 0, 0);
+																		NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num1811, 0f, 0f, 0f, 0, 0, 0);
 																	}
 																}
 															}
@@ -40130,7 +40130,7 @@ namespace Terraria
 															List<int> list8 = new List<int>();
 															for (int num1818 = 0; num1818 < 200; num1818++)
 															{
-																if (Main.npc[num1818].active && Main.npc[num1818].type == 440 && Main.npc[num1818].ai[3] == (float)this.whoAmI)
+																if (Main.npc[num1818].active && Main.npc[num1818].type == NPCID.CultistBossClone && Main.npc[num1818].ai[3] == (float)this.whoAmI)
 																{
 																	list8.Add(num1818);
 																}
@@ -40208,7 +40208,7 @@ namespace Terraria
 														List<int> list9 = new List<int>();
 														for (int num1825 = 0; num1825 < 200; num1825++)
 														{
-															if (Main.npc[num1825].active && Main.npc[num1825].type == 440 && Main.npc[num1825].ai[3] == (float)this.whoAmI)
+															if (Main.npc[num1825].active && Main.npc[num1825].type == NPCID.CultistBossClone && Main.npc[num1825].ai[3] == (float)this.whoAmI)
 															{
 																list9.Add(num1825);
 															}
@@ -40345,7 +40345,7 @@ namespace Terraria
 												{
 													this.rotation += (float)this.direction * 0.3f;
 													Vector2 value67 = Main.player[this.target].Center - base.Center;
-													if (this.type == 421)
+													if (this.type == NPCID.NebulaHeadcrab)
 													{
 														value67 = Main.player[this.target].Top - base.Center;
 													}
@@ -40361,7 +40361,7 @@ namespace Terraria
 														this.ai[0] = 0f;
 														this.ai[1] = 0f;
 													}
-													if (this.type == 421 && num1837 < 40f && Main.player[this.target].active && !Main.player[this.target].dead)
+													if (this.type == NPCID.NebulaHeadcrab && num1837 < 40f && Main.player[this.target].active && !Main.player[this.target].dead)
 													{
 														bool flag175 = true;
 														for (int num1840 = 0; num1840 < 200; num1840++)
@@ -40494,10 +40494,10 @@ namespace Terraria
 														base.Center = ((player12.gravDir == 1f) ? player12.Top : player12.Bottom) + new Vector2((float)(player12.direction * 4), 0f);
 														this.gfxOffY = player12.gfxOffY;
 														this.velocity = Vector2.Zero;
-														player12.AddBuff(163, 59, true);
+														player12.AddBuff(BuffID.Obstructed, 59, true);
 													}
 												}
-												if (this.type == 405)
+												if (this.type == NPCID.StardustCellBig)
 												{
 													this.rotation = 0f;
 													for (int num1847 = 0; num1847 < 200; num1847++)
@@ -40524,7 +40524,7 @@ namespace Terraria
 													}
 													return;
 												}
-												if (this.type == 421)
+												if (this.type == NPCID.NebulaHeadcrab)
 												{
 													this.hide = (this.ai[0] == 5f);
 													this.rotation = this.velocity.X * 0.1f;
@@ -40591,7 +40591,7 @@ namespace Terraria
 														}
 													}
 												}
-												if (this.type == 472)
+												if (this.type == NPCID.ShadowFlameApparition)
 												{
 													float num1850 = 120f;
 													if (this.localAI[0] < num1850)
@@ -40611,7 +40611,7 @@ namespace Terraria
 														this.localAI[0] += 1f;
 													}
 												}
-												if (this.type == 521)
+												if (this.type == NPCID.AncientCultistSquidhead)
 												{
 													float num1857 = 120f;
 													if (this.localAI[0] < num1857)
@@ -40645,7 +40645,7 @@ namespace Terraria
 													float num1863 = 4f;
 													float num1864 = 660f;
 													float num1865 = 4f;
-													if (this.type == 521)
+													if (this.type == NPCID.AncientCultistSquidhead)
 													{
 														num1861 = 0.7f;
 														num1862 = 14f;
@@ -40695,7 +40695,7 @@ namespace Terraria
 													float num1867 = 0.4f;
 													float scaleFactor27 = 0.95f;
 													float num1868 = 5f;
-													if (this.type == 521)
+													if (this.type == NPCID.AncientCultistSquidhead)
 													{
 														num1867 = 0.3f;
 														num1868 = 7f;
@@ -40719,7 +40719,7 @@ namespace Terraria
 													float num1870 = 0.2f;
 													float num1871 = 5f;
 													float scaleFactor28 = 0.95f;
-													if (this.type == 521)
+													if (this.type == NPCID.AncientCultistSquidhead)
 													{
 														num1869 = 0.6f;
 														num1870 = 0.3f;
@@ -40746,7 +40746,7 @@ namespace Terraria
 														this.ai[1] = (float)this.direction;
 													}
 												}
-												if (this.type == 521)
+												if (this.type == NPCID.AncientCultistSquidhead)
 												{
 													return;
 												}
@@ -42033,7 +42033,7 @@ namespace Terraria
 													bool flag176 = false;
 													int num1917 = (int)this.ai[0];
 													int num1918 = (int)this.ai[1];
-													if (!flag176 && (!Main.tile[num1917, num1918].active() || Main.tile[num1917, num1918].type != 378))
+													if (!flag176 && (!Main.tile[num1917, num1918].active() || Main.tile[num1917, num1918].type != TileID.TargetDummy))
 													{
 														flag176 = true;
 													}
@@ -42282,7 +42282,7 @@ namespace Terraria
 													this.ai[0] = 0f;
 													this.netUpdate = true;
 												}
-												if (this.type == 493)
+												if (this.type == NPCID.LunarTowerStardust)
 												{
 													if (this.ai[1] > 0f)
 													{
@@ -42380,7 +42380,7 @@ namespace Terraria
 														}
 													}
 												}
-												if (this.type == 422)
+												if (this.type == NPCID.LunarTowerVortex)
 												{
 													if (this.ai[1] > 0f)
 													{
@@ -42455,7 +42455,7 @@ namespace Terraria
 														}
 													}
 												}
-												if (this.type == 517)
+												if (this.type == NPCID.LunarTowerSolar)
 												{
 													if (this.ai[1] > 0f)
 													{
@@ -42979,7 +42979,7 @@ namespace Terraria
 													this.velocity.Y = 12f;
 												}
 												this.rotation = this.velocity.ToRotation() - 1.57079637f;
-												if (this.type == 519)
+												if (this.type == NPCID.SolarGoop)
 												{
 													if (this.localAI[0] == 0f)
 													{
@@ -43010,7 +43010,7 @@ namespace Terraria
 													return;
 												}
 												this.rotation = this.velocity.ToRotation() - 1.57079637f;
-												if (this.type == 522)
+												if (this.type == NPCID.AncientLight)
 												{
 													if (this.localAI[0] == 0f)
 													{
@@ -43148,7 +43148,7 @@ namespace Terraria
 			{
 				num = 3;
 			}
-			if (this.type == 228 || this.type == 229 || this.type == 209 || this.type == 22 || this.type == 368)
+			if (this.type == NPCID.WitchDoctor || this.type == NPCID.Pirate || this.type == NPCID.Cyborg || this.type == NPCID.Guide || this.type == NPCID.TravellingMerchant)
 			{
 				if (num == -4)
 				{
@@ -43324,9 +43324,9 @@ namespace Terraria
 			{
 				num2 = 4;
 			}
-			if (this.type == 338 || this.type == 339 || this.type == 340 || this.type == 17 || this.type == 18 || this.type == 19 || this.type == 20 || this.type == 22 || this.type == 142 || this.type == 353 || this.type == 178 || this.type == 38 || this.type == 26 || this.type == 27 || this.type == 28 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 21 || this.type == 44 || this.type == 54 || this.type == 37 || this.type == 73 || this.type == 77 || this.type == 78 || this.type == 79 || this.type == 80 || this.type == 104 || this.type == 107 || this.type == 108 || this.type == 120 || this.type == 124 || this.type == 140 || this.type == 159 || this.type == 160 || this.type == 167 || this.type == 181 || this.type == 185 || this.type == 196 || this.type == 197 || this.type == 198 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 207 || this.type == 208 || this.type == 209 || this.type == 212 || this.type == 213 || this.type == 227 || this.type == 228 || this.type == 229 || this.type == 287 || (this.type >= 310 && this.type <= 314) || (this.type >= 322 && this.type <= 324) || this.type == 326 || this.type == 368 || this.type == 369 || this.type == 453 || this.type == 460 || this.type == 462 || this.type == 463 || this.type == 489 || this.type == 441 || this.type == 534)
+			if (this.type == NPCID.ZombieElf || this.type == NPCID.ZombieElfBeard || this.type == NPCID.ZombieElfGirl || this.type == NPCID.Merchant || this.type == NPCID.Nurse || this.type == NPCID.ArmsDealer || this.type == NPCID.Dryad || this.type == NPCID.Guide || this.type == NPCID.SantaClaus || this.type == NPCID.Stylist || this.type == NPCID.Steampunker || this.type == NPCID.Demolitionist || this.type == NPCID.GoblinPeon || this.type == NPCID.GoblinThief || this.type == NPCID.GoblinWarrior || this.type == NPCID.AngryBones || this.type == NPCID.AngryBonesBig || this.type == NPCID.AngryBonesBigMuscle || this.type == NPCID.AngryBonesBigHelmet || this.type == NPCID.Skeleton || this.type == NPCID.UndeadMiner || this.type == NPCID.Clothier || this.type == NPCID.OldMan || this.type == NPCID.GoblinScout || this.type == NPCID.ArmoredSkeleton || this.type == NPCID.Mummy || this.type == NPCID.DarkMummy || this.type == NPCID.LightMummy || this.type == NPCID.Werewolf || this.type == NPCID.GoblinTinkerer || this.type == NPCID.Wizard || this.type == NPCID.ChaosElemental || this.type == NPCID.Mechanic || this.type == NPCID.PossessedArmor || this.type == NPCID.Vampire || this.type == NPCID.Truffle || this.type == NPCID.UndeadViking || this.type == NPCID.FaceMonster || this.type == NPCID.SnowFlinx || this.type == NPCID.Nymph || this.type == NPCID.ArmoredViking || this.type == NPCID.Lihzahrd || this.type == NPCID.HeadacheSkeleton || this.type == NPCID.MisassembledSkeleton || this.type == NPCID.PantlessSkeleton || this.type == NPCID.DyeTrader || this.type == NPCID.PartyGirl || this.type == NPCID.Cyborg || this.type == NPCID.PirateDeckhand || this.type == NPCID.PirateCorsair || this.type == NPCID.Painter || this.type == NPCID.WitchDoctor || this.type == NPCID.Pirate || this.type == NPCID.BoneLee || (this.type >= NPCID.Scarecrow6 && this.type <= NPCID.Scarecrow10) || (this.type >= NPCID.SkeletonTopHat && this.type <= NPCID.SkeletonAlien) || this.type == NPCID.Splinterling || this.type == NPCID.TravellingMerchant || this.type == NPCID.Angler || this.type == NPCID.SkeletonMerchant || this.type == NPCID.Butcher || this.type == NPCID.Fritz || this.type == NPCID.Nailhead || this.type == NPCID.BloodZombie || this.type == NPCID.TaxCollector || this.type == NPCID.DemonTaxCollector)
 			{
-				int num3 = (this.townNPC || this.type == 453) ? NPCID.Sets.ExtraFramesCount[this.type] : 0;
+				int num3 = (this.townNPC || this.type == NPCID.SkeletonMerchant) ? NPCID.Sets.ExtraFramesCount[this.type] : 0;
 				if (this.velocity.Y == 0f)
 				{
 					if (this.direction == 1)
@@ -44115,7 +44115,7 @@ namespace Terraria
 					}
 					else if (this.velocity.X == 0f)
 					{
-						if (this.type == 140 || this.type == 287 || this.type == 489)
+						if (this.type == NPCID.PossessedArmor || this.type == NPCID.BoneLee || this.type == NPCID.BloodZombie)
 						{
 							this.frame.Y = num;
 							this.frameCounter = 0.0;
@@ -44129,11 +44129,11 @@ namespace Terraria
 					else
 					{
 						int num47 = 6;
-						if (this.type == 534)
+						if (this.type == NPCID.DemonTaxCollector)
 						{
 							num47 = 12;
 						}
-						if (this.type == 489)
+						if (this.type == NPCID.BloodZombie)
 						{
 							num47 = 8;
 							this.frameCounter += (double)(Math.Abs(this.velocity.X) * 1f);
@@ -44144,7 +44144,7 @@ namespace Terraria
 							this.frameCounter += (double)(Math.Abs(this.velocity.X) * 2f);
 							this.frameCounter += 1.0;
 						}
-						if (this.type == 462)
+						if (this.type == NPCID.Fritz)
 						{
 							num47 = 9;
 						}
@@ -44159,7 +44159,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 462)
+				else if (this.type == NPCID.Fritz)
 				{
 					this.frameCounter = 0.0;
 					if (this.velocity.Y < 0f)
@@ -44175,17 +44175,17 @@ namespace Terraria
 				{
 					this.frameCounter = 0.0;
 					this.frame.Y = num;
-					if (this.type == 489 || this.type == 21 || this.type == 31 || this.type == 294 || this.type == 326 || this.type == 295 || this.type == 296 || this.type == 44 || this.type == 77 || this.type == 78 || this.type == 79 || this.type == 80 || this.type == 120 || this.type == 140 || this.type == 159 || this.type == 167 || this.type == 197 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 287 || (this.type >= 322 && this.type <= 324))
+					if (this.type == NPCID.BloodZombie || this.type == NPCID.Skeleton || this.type == NPCID.AngryBones || this.type == NPCID.AngryBonesBig || this.type == NPCID.Splinterling || this.type == NPCID.AngryBonesBigMuscle || this.type == NPCID.AngryBonesBigHelmet || this.type == NPCID.UndeadMiner || this.type == NPCID.ArmoredSkeleton || this.type == NPCID.Mummy || this.type == NPCID.DarkMummy || this.type == NPCID.LightMummy || this.type == NPCID.ChaosElemental || this.type == NPCID.PossessedArmor || this.type == NPCID.Vampire || this.type == NPCID.UndeadViking || this.type == NPCID.ArmoredViking || this.type == NPCID.HeadacheSkeleton || this.type == NPCID.MisassembledSkeleton || this.type == NPCID.PantlessSkeleton || this.type == NPCID.BoneLee || (this.type >= NPCID.SkeletonTopHat && this.type <= NPCID.SkeletonAlien))
 					{
 						this.frame.Y = 0;
 					}
-					if (this.type == 181)
+					if (this.type == NPCID.FaceMonster)
 					{
 						this.frame.Y = num * 14;
 					}
 				}
 			}
-			if (this.type >= 494 && this.type <= 495)
+			if (this.type >= NPCID.Crawdad && this.type <= NPCID.Crawdad2)
 			{
 				if (this.ai[2] > 0f)
 				{
@@ -44263,7 +44263,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type >= 498 && this.type <= 506)
+			if (this.type >= NPCID.Salamander && this.type <= NPCID.Salamander9)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -44316,7 +44316,7 @@ namespace Terraria
 					this.frame.Y = num * 10;
 				}
 			}
-			else if (this.type >= 524 && this.type <= 527)
+			else if (this.type >= NPCID.DesertGhoul && this.type <= NPCID.DesertGhoulHallow)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -44350,7 +44350,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type >= 528 && this.type <= 529)
+			else if (this.type >= NPCID.DesertLamiaLight && this.type <= NPCID.DesertLamiaDark)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -44384,7 +44384,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type == 533)
+			else if (this.type == NPCID.DesertDjinn)
 			{
 				if (this.velocity.Y == 0f && this.direction != 0)
 				{
@@ -44401,7 +44401,7 @@ namespace Terraria
 					this.frame.Y = this.frame.Y + num * 8;
 				}
 			}
-			if (this.type >= 496 && this.type <= 497)
+			if (this.type >= NPCID.GiantShelly && this.type <= NPCID.GiantShelly2)
 			{
 				if (this.ai[0] == 0f)
 				{
@@ -44474,7 +44474,7 @@ namespace Terraria
 					this.frame.Y = num * 7;
 				}
 			}
-			else if (this.aiStyle == 39 && this.type != 417)
+			else if (this.aiStyle == 39 && this.type != NPCID.SolarSroller)
 			{
 				if (this.ai[0] == 0f)
 				{
@@ -44551,7 +44551,7 @@ namespace Terraria
 					this.frame.Y = num * 7;
 				}
 			}
-			else if (this.type == 508 || this.type == 532)
+			else if (this.type == NPCID.WalkingAntlion || this.type == NPCID.DesertBeast)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -44587,7 +44587,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 509)
+			else if (this.type == NPCID.FlyingAntlion)
 			{
 				if ((this.velocity.X > 0f && this.direction > 0) || (this.velocity.X < 0f && this.direction < 0))
 				{
@@ -44603,7 +44603,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 415)
+			if (this.type == NPCID.SolarDrakomire)
 			{
 				if (this.ai[2] < 0f)
 				{
@@ -44657,16 +44657,16 @@ namespace Terraria
 					this.frame.Y = num;
 				}
 			}
-			if (this.type == 416)
+			if (this.type == NPCID.SolarDrakomireRider)
 			{
 				int num51 = (int)this.ai[0];
 				//No textures because WE. ARE. DEDSERV.
-				/*if (Main.npc[num51].active && Main.npc[num51].type == 415 && Main.npcTexture[415] != null)
+				/*if (Main.npc[num51].active && Main.npc[num51].type == NPCID.SolarDrakomire && Main.npcTexture[415] != null)
 				{
 					this.frame.Y = Main.npc[num51].frame.Y / (Main.npcTexture[415].Height / Main.npcFrameCount[415]) * num;
 				}*/
 			}
-			else if (this.type == 417)
+			else if (this.type == NPCID.SolarSroller)
 			{
 				if (this.ai[0] == 0f)
 				{
@@ -44702,7 +44702,7 @@ namespace Terraria
 					this.frame.Y = num * 14;
 				}
 			}
-			else if (this.type == 518)
+			else if (this.type == NPCID.SolarSpearman)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -44736,7 +44736,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type == 419)
+			else if (this.type == NPCID.SolarSolenian)
 			{
 				if (this.ai[2] < 0f)
 				{
@@ -44805,7 +44805,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type == 425)
+			else if (this.type == NPCID.VortexRifleman)
 			{
 				if (this.direction != 0)
 				{
@@ -44848,7 +44848,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 427)
+			else if (this.type == NPCID.VortexHornet)
 			{
 				if (this.direction != 0)
 				{
@@ -44886,7 +44886,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 426)
+			else if (this.type == NPCID.VortexHornetQueen)
 			{
 				if (this.direction != 0)
 				{
@@ -44944,7 +44944,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 429)
+			else if (this.type == NPCID.VortexSoldier)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -44978,7 +44978,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type == 428)
+			else if (this.type == NPCID.VortexLarva)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -45018,7 +45018,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 423)
+			else if (this.type == NPCID.NebulaBeast)
 			{
 				if (this.ai[2] == 1f)
 				{
@@ -45059,7 +45059,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 421)
+			else if (this.type == NPCID.NebulaHeadcrab)
 			{
 				if (this.ai[0] == 5f)
 				{
@@ -45075,7 +45075,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 424)
+			if (this.type == NPCID.NebulaSoldier)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -45117,7 +45117,7 @@ namespace Terraria
 					this.frame.Y = num;
 				}
 			}
-			else if (this.type == 420 && (this.frameCounter += 1.0) >= 5.0)
+			else if (this.type == NPCID.NebulaBrain && (this.frameCounter += 1.0) >= 5.0)
 			{
 				this.frameCounter = 0.0;
 				this.frame.Y = this.frame.Y + num;
@@ -45126,7 +45126,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type == 411)
+			if (this.type == NPCID.StardustSoldier)
 			{
 				if (this.ai[1] >= 90f && this.ai[1] < 180f)
 				{
@@ -45166,7 +45166,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type == 409)
+			else if (this.type == NPCID.StardustSpiderBig)
 			{
 				if (this.velocity.Y == 0f && this.ai[1] <= 30f && this.ai[1] > 0f)
 				{
@@ -45190,7 +45190,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 410)
+			else if (this.type == NPCID.StardustSpiderSmall)
 			{
 				this.frameCounter += (double)Math.Abs(this.velocity.X);
 				if (this.frameCounter >= 10.0)
@@ -45203,7 +45203,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 407)
+			else if (this.type == NPCID.StardustJellyfishBig)
 			{
 				if ((this.frameCounter += 1.0) >= 6.0)
 				{
@@ -45215,7 +45215,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if ((this.type == 405 || this.type == 406) && (this.frameCounter += 1.0) >= 4.0)
+			else if ((this.type == NPCID.StardustCellBig || this.type == NPCID.StardustCellSmall) && (this.frameCounter += 1.0) >= 4.0)
 			{
 				this.frameCounter = 0.0;
 				this.frame.Y = this.frame.Y + num;
@@ -45224,7 +45224,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type == 516)
+			if (this.type == NPCID.SolarFlare)
 			{
 				if (this.localAI[1] == 0f)
 				{
@@ -45243,7 +45243,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 418)
+			if (this.type == NPCID.SolarCorite)
 			{
 				if (this.ai[0] == 0f || this.ai[0] == 1f || this.ai[0] == -1f)
 				{
@@ -45287,9 +45287,9 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 1 || this.type == 537 || this.type == 16 || this.type == 59 || this.type == 71 || this.type == 81 || this.type == 138 || this.type == 147 || this.type == 183 || this.type == 184 || this.type == 204 || this.type == 225 || this.type == 302 || this.type == 304 || (this.type >= 333 && this.type <= 336) || this.type == 535)
+			if (this.type == NPCID.BlueSlime || this.type == NPCID.SandSlime || this.type == NPCID.MotherSlime || this.type == NPCID.LavaSlime || this.type == NPCID.DungeonSlime || this.type == NPCID.CorruptSlime || this.type == NPCID.IlluminantSlime || this.type == NPCID.IceSlime || this.type == NPCID.Crimslime || this.type == NPCID.SpikedIceSlime || this.type == NPCID.SpikedJungleSlime || this.type == NPCID.UmbrellaSlime || this.type == NPCID.SlimeMasked || this.type == NPCID.HoppinJack || (this.type >= NPCID.SlimeRibbonWhite && this.type <= NPCID.SlimeRibbonRed) || this.type == NPCID.SlimeSpiked)
 			{
-				if (this.type == 302 || this.type == 304)
+				if (this.type == NPCID.SlimeMasked || this.type == NPCID.HoppinJack)
 				{
 					this.spriteDirection = this.direction;
 				}
@@ -45312,7 +45312,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type == 488)
+			if (this.type == NPCID.TargetDummy)
 			{
 				int num54 = (int)this.localAI[1];
 				if (Framing.GetTileSafely((int)this.ai[0], (int)this.ai[1]).frameX >= 36)
@@ -45343,7 +45343,7 @@ namespace Terraria
 				}
 				this.frame.Y = num56 * num;
 			}
-			if (this.type >= 430 && this.type <= 436)
+			if (this.type >= NPCID.ArmedZombie && this.type <= NPCID.ArmedZombieCenx)
 			{
 				if (this.ai[2] > 0f)
 				{
@@ -45413,12 +45413,12 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 454)
+			if (this.type == NPCID.CultistDragonHead)
 			{
 				int num57 = (int)(this.frameCounter / 2.0);
 				this.frame.Y = num * num57;
 			}
-			if (this.type == 377 || this.type == 446)
+			if (this.type == NPCID.Grasshopper || this.type == NPCID.GoldGrasshopper)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -45430,7 +45430,7 @@ namespace Terraria
 				}
 				this.spriteDirection = this.direction;
 			}
-			if (this.type == 378)
+			if (this.type == NPCID.ChatteringTeethBomb)
 			{
 				if (this.velocity.Y != 0f && this.frame.Y < num * 2)
 				{
@@ -45456,7 +45456,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 376)
+			if (this.type == NPCID.SleepingAngler)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter > 30.0)
@@ -45469,7 +45469,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 375)
+			if (this.type == NPCID.TruffleWormDigger)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter > 4.0)
@@ -45482,7 +45482,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 374)
+			if (this.type == NPCID.TruffleWorm)
 			{
 				this.localAI[0] = -2f;
 				if (this.velocity.Y == 0f)
@@ -45522,11 +45522,11 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 492)
+			if (this.type == NPCID.PirateShipCannon)
 			{
 				this.frame.Y = num * (int)this.ai[2];
 			}
-			if (this.type == 473 || this.type == 474 || this.type == 475 || this.type == 476)
+			if (this.type == NPCID.BigMimicCorruption || this.type == NPCID.BigMimicCrimson || this.type == NPCID.BigMimicHallow || this.type == NPCID.BigMimicJungle)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -45679,7 +45679,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 477)
+			if (this.type == NPCID.Mothron)
 			{
 				this.frameCounter += (double)(this.velocity.Length() / 4f);
 				this.frameCounter += 1.0;
@@ -45693,7 +45693,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type == 479)
+			if (this.type == NPCID.MothronSpawn)
 			{
 				this.frameCounter += 1.0;
 				int num62 = 4;
@@ -45718,7 +45718,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			if (this.type == 472)
+			if (this.type == NPCID.ShadowFlameApparition)
 			{
 				if (this.velocity.X < 0f)
 				{
@@ -45748,7 +45748,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type >= 449 && this.type <= 452)
+			if (this.type >= NPCID.BoneThrowingSkeleton && this.type <= NPCID.BoneThrowingSkeleton4)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -45811,7 +45811,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type == 481)
+			if (this.type == NPCID.GreekSkeleton)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -45874,7 +45874,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type == 468)
+			if (this.type == NPCID.DrManFly)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -45937,7 +45937,7 @@ namespace Terraria
 					this.frame.Y = num;
 				}
 			}
-			if (this.type == 379 || this.type == 380)
+			if (this.type == NPCID.CultistArcherBlue || this.type == NPCID.CultistArcherWhite)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -45983,7 +45983,7 @@ namespace Terraria
 					this.frame.Y = num;
 				}
 			}
-			if (this.type == 381 || this.type == 382 || this.type == 383 || this.type == 385 || this.type == 389)
+			if (this.type == NPCID.BrainScrambler || this.type == NPCID.RayGunner || this.type == NPCID.MartianOfficer || this.type == NPCID.GrayGrunt || this.type == NPCID.GigaZapper)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -45992,7 +45992,7 @@ namespace Terraria
 					{
 						this.frame.Y = num * 2;
 					}
-					if (this.type == 389 || this.type == 385)
+					if (this.type == NPCID.GigaZapper || this.type == NPCID.GrayGrunt)
 					{
 						this.frameCounter += (double)Math.Abs(this.velocity.X) * 1.2;
 					}
@@ -46020,7 +46020,7 @@ namespace Terraria
 					this.frame.Y = num;
 				}
 			}
-			if (this.type == 387)
+			if (this.type == NPCID.MartianTurret)
 			{
 				if (this.ai[0] > 0f)
 				{
@@ -46057,7 +46057,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 386)
+			if (this.type == NPCID.MartianEngineer)
 			{
 				if (this.ai[2] > 0f)
 				{
@@ -46092,7 +46092,7 @@ namespace Terraria
 					this.frame.Y = num;
 				}
 			}
-			if (this.type == 388)
+			if (this.type == NPCID.MartianDrone)
 			{
 				this.frameCounter += 1.0;
 				int num67 = 6;
@@ -46106,7 +46106,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 391)
+			if (this.type == NPCID.Scutlix)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -46143,7 +46143,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type == 390)
+			if (this.type == NPCID.ScutlixRider)
 			{
 				if (this.direction != 0)
 				{
@@ -46158,7 +46158,7 @@ namespace Terraria
 					this.frame.Y = num * 2;
 				}
 			}
-			if (this.type == 393)
+			if (this.type == NPCID.MartianSaucerTurret)
 			{
 				Vector2 vector = this.ai[2].ToRotationVector2();
 				int num68;
@@ -46191,7 +46191,7 @@ namespace Terraria
 					this.frame.Y = this.frame.Y + num * 9;
 				}
 			}
-			if (this.type == 394)
+			if (this.type == NPCID.MartianSaucerCannon)
 			{
 				int num71 = (int)this.ai[3] - 300;
 				if (num71 >= 120)
@@ -46215,7 +46215,7 @@ namespace Terraria
 					this.frame.Y = num * 4;
 				}
 			}
-			if (this.type == 395)
+			if (this.type == NPCID.MartianSaucerCore)
 			{
 				float num72 = 20f;
 				float num73 = 240f;
@@ -46237,7 +46237,7 @@ namespace Terraria
 				num74 /= 6;
 				this.frame.Y = num * num74;
 			}
-			if (this.type == 392)
+			if (this.type == NPCID.MartianSaucer)
 			{
 				float num75 = 20f;
 				float num76 = 240f;
@@ -46255,12 +46255,12 @@ namespace Terraria
 				num77 /= 3;
 				this.frame.Y = num * num77;
 			}
-			if (this.type == 399)
+			if (this.type == NPCID.MartianProbe)
 			{
 				this.frameCounter = (this.frameCounter + 0.25) % 4.0 + (double)((this.ai[0] == 0f) ? 0 : 4);
 				this.frame.Y = num * (int)this.frameCounter;
 			}
-			else if (this.type == 520)
+			else if (this.type == NPCID.MartianWalker)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -46294,7 +46294,7 @@ namespace Terraria
 					this.frame.Y = num;
 				}
 			}
-			if (this.type == 398)
+			if (this.type == NPCID.MoonLordCore)
 			{
 				if (this.ai[0] <= 0f)
 				{
@@ -46316,12 +46316,12 @@ namespace Terraria
 					this.frame.Y = num * num78;
 				}
 			}
-			if (this.type == 397)
+			if (this.type == NPCID.MoonLordHand)
 			{
 				int num79 = (int)this.frameCounter / 7;
 				this.frame.Y = num * num79;
 			}
-			if (this.type == 400)
+			if (this.type == NPCID.MoonLordFreeEye)
 			{
 				this.frameCounter += 1.0;
 				if (this.ai[0] == 0f || this.ai[0] == 3f)
@@ -46336,7 +46336,7 @@ namespace Terraria
 				num80 /= 4;
 				this.frame.Y = num * num80;
 			}
-			if (this.type == 437)
+			if (this.type == NPCID.CultistTablet)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter >= 20.0)
@@ -46347,7 +46347,7 @@ namespace Terraria
 				num81 /= 5;
 				this.frame.Y = num * num81;
 			}
-			if (this.type == 438)
+			if (this.type == NPCID.CultistDevote)
 			{
 				this.frameCounter += 1.0;
 				if (this.ai[1] == 1f)
@@ -46366,7 +46366,7 @@ namespace Terraria
 				}
 				this.frame.Y = num * num82;
 			}
-			if (this.type == 439 || this.type == 440)
+			if (this.type == NPCID.CultistBoss || this.type == NPCID.CultistBossClone)
 			{
 				int num83 = (int)this.localAI[2];
 				if (num83 == 0)
@@ -46439,7 +46439,7 @@ namespace Terraria
 				}
 				this.frameCounter += 1.0;
 			}
-			if (this.type == 521)
+			if (this.type == NPCID.AncientCultistSquidhead)
 			{
 				if (this.velocity.X < 0f)
 				{
@@ -46464,7 +46464,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 523 && (this.frameCounter += 1.0) >= 6.0)
+			if (this.type == NPCID.AncientDoom && (this.frameCounter += 1.0) >= 6.0)
 			{
 				this.frame.Y = this.frame.Y + num;
 				this.frameCounter = 0.0;
@@ -46473,11 +46473,11 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type == 371 || this.type == 372 || this.type == 373)
+			if (this.type == NPCID.DetonatingBubble || this.type == NPCID.Sharkron || this.type == NPCID.Sharkron2)
 			{
 				this.frame.Y = num;
 			}
-			if (this.type == 370)
+			if (this.type == NPCID.DukeFishron)
 			{
 				if (this.ai[0] == 0f || this.ai[0] == 5f)
 				{
@@ -46570,7 +46570,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 359 || this.type == 360)
+			if (this.type == NPCID.Snail || this.type == NPCID.GlowingSnail)
 			{
 				if (this.velocity.Y > 1f)
 				{
@@ -46623,7 +46623,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 327)
+			if (this.type == NPCID.Pumpking)
 			{
 				if (this.ai[3] == 0f)
 				{
@@ -46685,7 +46685,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 347)
+			if (this.type == NPCID.ElfCopter)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter > 1.0)
@@ -46698,7 +46698,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type == 346)
+			if (this.type == NPCID.SantaNK1)
 			{
 				if (this.ai[0] == 1f)
 				{
@@ -46742,7 +46742,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 352)
+			if (this.type == NPCID.Flocko)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter > 3.0)
@@ -46755,7 +46755,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type == 345)
+			if (this.type == NPCID.IceQueen)
 			{
 				if (this.ai[0] == 0f)
 				{
@@ -46794,7 +46794,7 @@ namespace Terraria
 					this.frame.Y = num * 5;
 				}
 			}
-			if (this.type == 344)
+			if (this.type == NPCID.Everscream)
 			{
 				if (this.velocity.X == 0f)
 				{
@@ -46823,7 +46823,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 325)
+			if (this.type == NPCID.MourningWood)
 			{
 				if (this.velocity.X == 0f)
 				{
@@ -46856,7 +46856,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 490)
+			if (this.type == NPCID.Drippler)
 			{
 				this.rotation = this.velocity.X * 0.15f;
 				this.frameCounter += 1.0;
@@ -46870,7 +46870,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 266)
+			else if (this.type == NPCID.BrainofCthulhu)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter > 6.0)
@@ -46897,7 +46897,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 262)
+			else if (this.type == NPCID.Plantera)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter > 6.0)
@@ -46924,7 +46924,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type >= 305 && this.type <= 309)
+			else if (this.type >= NPCID.Scarecrow1 && this.type <= NPCID.Scarecrow5)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -46948,7 +46948,7 @@ namespace Terraria
 				}
 				this.rotation = this.velocity.X * 0.1f;
 			}
-			else if (this.type == 263)
+			else if (this.type == NPCID.PlanterasHook)
 			{
 				if (this.velocity.X == 0f && this.velocity.Y == 0f)
 				{
@@ -46972,7 +46972,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 244)
+			else if (this.type == NPCID.RainbowSlime)
 			{
 				this.frameCounter += 1.0;
 				if (num2 > 0)
@@ -46993,7 +46993,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 289)
+			else if (this.type == NPCID.GiantCursedSkull)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter < 2.0)
@@ -47014,7 +47014,7 @@ namespace Terraria
 					this.frame.Y = this.frame.Y + num * 3;
 				}
 			}
-			else if (this.type == 288)
+			else if (this.type == NPCID.DungeonSpirit)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter >= 6.0)
@@ -47027,7 +47027,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 355 || this.type == 358)
+			else if (this.type == NPCID.Firefly || this.type == NPCID.LightningBug)
 			{
 				this.spriteDirection = this.direction;
 				this.frameCounter += 1.0;
@@ -47048,7 +47048,7 @@ namespace Terraria
 					this.frame.Y = this.frame.Y + num * 2;
 				}
 			}
-			else if (this.type == 356 || this.type == 444)
+			else if (this.type == NPCID.Butterfly || this.type == NPCID.GoldButterfly)
 			{
 				int num89 = 7;
 				this.rotation = this.velocity.X * 0.3f;
@@ -47074,12 +47074,12 @@ namespace Terraria
 						this.frameCounter = 0.0;
 					}
 				}
-				if (this.type != 444)
+				if (this.type != NPCID.GoldButterfly)
 				{
 					this.frame.Y = this.frame.Y + (int)((float)(num * 3) * (this.ai[2] - 1f));
 				}
 			}
-			else if (this.type == 357 || this.type == 448 || this.type == 484)
+			else if (this.type == NPCID.Worm || this.type == NPCID.GoldWorm || this.type == NPCID.EnchantedNightcrawler)
 			{
 				this.localAI[0] = -2f;
 				if (this.velocity.Y == 0f)
@@ -47129,7 +47129,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type >= 485 && this.type <= 487)
+			else if (this.type >= NPCID.Grubby && this.type <= NPCID.Buggy)
 			{
 				this.spriteDirection = this.direction;
 				this.localAI[0] = -2f;
@@ -47180,7 +47180,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 250 || this.type == 264 || this.type == 268)
+			else if (this.type == NPCID.AngryNimbus || this.type == NPCID.PlanterasTentacle || this.type == NPCID.IchorSticker)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter >= 6.0)
@@ -47193,7 +47193,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 245)
+			else if (this.type == NPCID.Golem)
 			{
 				if (this.ai[0] == 0f)
 				{
@@ -47227,7 +47227,7 @@ namespace Terraria
 					this.frame.Y = 1;
 				}
 			}
-			else if (this.type == 246)
+			else if (this.type == NPCID.GolemHead)
 			{
 				if (this.ai[0] == 0f)
 				{
@@ -47260,7 +47260,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 249)
+			else if (this.type == NPCID.GolemHeadFree)
 			{
 				if (this.localAI[0] == 1f)
 				{
@@ -47271,7 +47271,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 141)
+			else if (this.type == NPCID.ToxicSludge)
 			{
 				this.spriteDirection = this.direction;
 				if (this.velocity.Y != 0f)
@@ -47292,7 +47292,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 243)
+			else if (this.type == NPCID.IceGolem)
 			{
 				if (this.frameCounter < 0.0)
 				{
@@ -47354,7 +47354,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 222)
+			else if (this.type == NPCID.QueenBee)
 			{
 				this.frameCounter += 1.0;
 				if (this.localAI[0] == 1f)
@@ -47386,7 +47386,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 164 || this.type == 239 || this.type == 530)
+			else if (this.type == NPCID.WallCreeper || this.type == NPCID.BloodCrawler || this.type == NPCID.DesertScorpionWalk)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -47422,7 +47422,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 236)
+			else if (this.type == NPCID.JungleCreeper)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -47443,10 +47443,10 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 165 || this.type == 237 || this.type == 238 || this.type == 240 || this.type == 531)
+			else if (this.type == NPCID.WallCreeperWall || this.type == NPCID.JungleCreeperWall || this.type == NPCID.BlackRecluseWall || this.type == NPCID.BloodCrawlerWall || this.type == NPCID.DesertScorpionWall)
 			{
 				float num94 = 0.5f;
-				if (this.type == 531)
+				if (this.type == NPCID.DesertScorpionWall)
 				{
 					num94 = 0.4f;
 				}
@@ -47472,7 +47472,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type == 195)
+			else if (this.type == NPCID.LostGirl)
 			{
 				if (this.ai[0] < 3f)
 				{
@@ -47499,7 +47499,7 @@ namespace Terraria
 					this.frame.Y = num * 5;
 				}
 			}
-			else if (this.type == 174)
+			else if (this.type == NPCID.Herpling)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -47518,7 +47518,7 @@ namespace Terraria
 					this.frame.Y = num * 2;
 				}
 			}
-			else if (this.type == 177)
+			else if (this.type == NPCID.Derpling)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -47543,7 +47543,7 @@ namespace Terraria
 					this.frame.Y = num * 2;
 				}
 			}
-			else if (this.type == 163)
+			else if (this.type == NPCID.BlackRecluse)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -47587,7 +47587,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 143)
+			else if (this.type == NPCID.SnowmanGangsta)
 			{
 				if (this.velocity.Y > 0f)
 				{
@@ -47618,7 +47618,7 @@ namespace Terraria
 					this.frameCounter = 17.0;
 				}
 			}
-			else if (this.type == 144)
+			else if (this.type == NPCID.MisterStabby)
 			{
 				if (this.velocity.X == 0f && this.velocity.Y == 0f)
 				{
@@ -47668,7 +47668,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 145)
+			else if (this.type == NPCID.SnowBalla)
 			{
 				if (this.velocity.X == 0f && this.velocity.Y == 0f)
 				{
@@ -47721,7 +47721,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 50)
+			else if (this.type == NPCID.KingSlime)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -47762,7 +47762,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 170 || this.type == 171 || this.type == 180)
+			else if (this.type == NPCID.PigronCorruption || this.type == NPCID.PigronHallow || this.type == NPCID.PigronCrimson)
 			{
 				this.spriteDirection = this.direction;
 				this.frameCounter += 1.0;
@@ -47776,7 +47776,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 135)
+			else if (this.type == NPCID.TheDestroyerBody)
 			{
 				if (this.ai[2] == 0f)
 				{
@@ -47787,7 +47787,7 @@ namespace Terraria
 					this.frame.Y = num;
 				}
 			}
-			else if (this.type == 85 || this.type == 341)
+			else if (this.type == NPCID.Mimic || this.type == NPCID.PresentMimic)
 			{
 				if (this.ai[0] == 0f)
 				{
@@ -47863,7 +47863,7 @@ namespace Terraria
 					this.frame.Y = this.frame.Y + num * 18;
 				}
 			}
-			else if (this.type == 113 || this.type == 114)
+			else if (this.type == NPCID.WallofFlesh || this.type == NPCID.WallofFleshEye)
 			{
 				if (this.ai[2] == 0f)
 				{
@@ -47884,7 +47884,7 @@ namespace Terraria
 					this.frameCounter = -60.0;
 				}
 			}
-			else if (this.type == 61)
+			else if (this.type == NPCID.Vulture)
 			{
 				this.spriteDirection = this.direction;
 				this.rotation = this.velocity.X * 0.1f;
@@ -47910,9 +47910,9 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 252 || this.type == 301)
+			else if (this.type == NPCID.Parrot || this.type == NPCID.Raven)
 			{
-				if (this.type == 301)
+				if (this.type == NPCID.Raven)
 				{
 					if (this.velocity.Y == 0f)
 					{
@@ -47961,7 +47961,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 122)
+			else if (this.type == NPCID.Gastropod)
 			{
 				this.spriteDirection = this.direction;
 				this.rotation = this.velocity.X * 0.05f;
@@ -47985,7 +47985,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 74 || this.type == 297 || this.type == 298 || this.type == 442)
+			else if (this.type == NPCID.Bird || this.type == NPCID.BirdBlue || this.type == NPCID.BirdRed || this.type == NPCID.GoldBird)
 			{
 				this.spriteDirection = this.direction;
 				this.rotation = this.velocity.X * 0.1f;
@@ -48008,7 +48008,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 362 || this.type == 364)
+			else if (this.type == NPCID.Duck || this.type == NPCID.DuckWhite)
 			{
 				this.spriteDirection = this.direction;
 				if (this.velocity.X == 0f)
@@ -48034,7 +48034,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 363 || this.type == 365)
+			else if (this.type == NPCID.Duck2 || this.type == NPCID.DuckWhite2)
 			{
 				this.spriteDirection = this.direction;
 				if (this.wet)
@@ -48080,7 +48080,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 62 || this.type == 66)
+			else if (this.type == NPCID.Demon || this.type == NPCID.VoodooDemon)
 			{
 				this.spriteDirection = this.direction;
 				this.rotation = this.velocity.X * 0.1f;
@@ -48098,7 +48098,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 156)
+			else if (this.type == NPCID.RedDevil)
 			{
 				this.spriteDirection = this.direction;
 				this.rotation = this.velocity.X * 0.1f;
@@ -48110,9 +48110,9 @@ namespace Terraria
 				int num97 = (int)this.frameCounter / 4;
 				this.frame.Y = num97 * num;
 			}
-			else if (this.type == 63 || this.type == 64 || this.type == 103 || this.type == 242 || this.type == 256)
+			else if (this.type == NPCID.BlueJellyfish || this.type == NPCID.PinkJellyfish || this.type == NPCID.GreenJellyfish || this.type == NPCID.BloodJelly || this.type == NPCID.FungoFish)
 			{
-				if ((this.type == 63 || this.type == 64 || this.type == 103 || this.type == 242) && this.ai[1] == 1f)
+				if ((this.type == NPCID.BlueJellyfish || this.type == NPCID.PinkJellyfish || this.type == NPCID.GreenJellyfish || this.type == NPCID.BloodJelly) && this.ai[1] == 1f)
 				{
 					this.frameCounter += 1.0;
 					if (this.frameCounter > 4.0)
@@ -48152,7 +48152,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 221)
+			else if (this.type == NPCID.Squid)
 			{
 				if (this.localAI[2] == 1f)
 				{
@@ -48186,9 +48186,9 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 2 || this.type == 23 || this.type == 121 || this.type == 169 || this.type == 190 || this.type == 191 || this.type == 192 || this.type == 193 || this.type == 194 || this.type == 317 || this.type == 318)
+			else if (this.type == NPCID.DemonEye || this.type == NPCID.MeteorHead || this.type == NPCID.Slimer || this.type == NPCID.IceElemental || this.type == NPCID.CataractEye || this.type == NPCID.SleepyEye || this.type == NPCID.DialatedEye || this.type == NPCID.GreenEye || this.type == NPCID.PurpleEye || this.type == NPCID.DemonEyeOwl || this.type == NPCID.DemonEyeSpaceship)
 			{
-				if (this.type == 2 || this.type == 190 || this.type == 191 || this.type == 192 || this.type == 193 || this.type == 194 || this.type == 317 || this.type == 318)
+				if (this.type == NPCID.DemonEye || this.type == NPCID.CataractEye || this.type == NPCID.SleepyEye || this.type == NPCID.DialatedEye || this.type == NPCID.GreenEye || this.type == NPCID.PurpleEye || this.type == NPCID.DemonEyeOwl || this.type == NPCID.DemonEyeSpaceship)
 				{
 					if (this.velocity.X > 0f)
 					{
@@ -48201,7 +48201,7 @@ namespace Terraria
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 3.14f;
 					}
 				}
-				else if (this.type == 2 || this.type == 121)
+				else if (this.type == NPCID.DemonEye || this.type == NPCID.Slimer)
 				{
 					if (this.velocity.X > 0f)
 					{
@@ -48224,7 +48224,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 133)
+			else if (this.type == NPCID.WanderingEye)
 			{
 				if (this.velocity.X > 0f)
 				{
@@ -48255,7 +48255,7 @@ namespace Terraria
 					this.frame.Y = this.frame.Y + num * 2;
 				}
 			}
-			else if (this.type == 116)
+			else if (this.type == NPCID.TheHungryII)
 			{
 				if (this.velocity.X > 0f)
 				{
@@ -48278,7 +48278,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 75)
+			else if (this.type == NPCID.Pixie)
 			{
 				if (this.velocity.X > 0f)
 				{
@@ -48300,7 +48300,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 157)
+			else if (this.type == NPCID.Arapaima)
 			{
 				this.spriteDirection = this.direction;
 				this.frameCounter += 1.0;
@@ -48346,7 +48346,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type == 55 || this.type == 57 || this.type == 58 || this.type == 102 || this.type == 241 || this.type == 465)
+			else if (this.type == NPCID.Goldfish || this.type == NPCID.CorruptGoldfish || this.type == NPCID.Piranha || this.type == NPCID.AnglerFish || this.type == NPCID.BloodFeeder || this.type == NPCID.CrimsonGoldfish)
 			{
 				this.spriteDirection = this.direction;
 				this.frameCounter += 1.0;
@@ -48386,7 +48386,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type == 69)
+			else if (this.type == NPCID.Antlion)
 			{
 				if (this.ai[0] < 190f)
 				{
@@ -48407,7 +48407,7 @@ namespace Terraria
 					this.frame.Y = num * (Main.npcFrameCount[this.type] - 1);
 				}
 			}
-			else if (this.type == 155)
+			else if (this.type == NPCID.Wolf)
 			{
 				if (this.velocity.Y > 0f)
 				{
@@ -48450,7 +48450,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 329)
+			else if (this.type == NPCID.Hellhound)
 			{
 				if (this.velocity.Y > 0f)
 				{
@@ -48481,7 +48481,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 86)
+			else if (this.type == NPCID.Unicorn)
 			{
 				if (this.velocity.Y == 0f || this.wet)
 				{
@@ -48543,7 +48543,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 315)
+			else if (this.type == NPCID.HeadlessHorseman)
 			{
 				if (this.velocity.Y == 0f || this.wet)
 				{
@@ -48579,7 +48579,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 127)
+			else if (this.type == NPCID.SkeletronPrime)
 			{
 				if (this.ai[1] == 0f)
 				{
@@ -48600,7 +48600,7 @@ namespace Terraria
 					this.frame.Y = num * 2;
 				}
 			}
-			else if (this.type == 129)
+			else if (this.type == NPCID.PrimeSaw)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -48617,7 +48617,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 130)
+			else if (this.type == NPCID.PrimeVice)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -48634,7 +48634,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 67 || this.type == 217 || this.type == 218 || this.type == 219)
+			else if (this.type == NPCID.Crab || this.type == NPCID.CochinealBeetle || this.type == NPCID.CyanBeetle || this.type == NPCID.LacBeetle)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -48651,7 +48651,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 220)
+			else if (this.type == NPCID.SeaSnail)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -48668,7 +48668,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 109)
+			else if (this.type == NPCID.Clown)
 			{
 				if (this.velocity.Y == 0f && ((this.velocity.X <= 0f && this.direction < 0) || (this.velocity.X >= 0f && this.direction > 0)))
 				{
@@ -48685,7 +48685,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 83 || this.type == 84 || this.type == 179)
+			else if (this.type == NPCID.CursedHammer || this.type == NPCID.EnchantedSword || this.type == NPCID.CrimsonAxe)
 			{
 				if (this.ai[0] == 2f)
 				{
@@ -48706,7 +48706,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 72)
+			else if (this.type == NPCID.BlazingWheel)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter >= 3.0)
@@ -48719,7 +48719,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 65)
+			else if (this.type == NPCID.Shark)
 			{
 				this.spriteDirection = this.direction;
 				this.frameCounter += 1.0;
@@ -48747,7 +48747,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 224)
+			else if (this.type == NPCID.FlyingFish)
 			{
 				if (this.velocity.X > 0f)
 				{
@@ -48770,7 +48770,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 150 || this.type == 151 || this.type == 152 || this.type == 158 || this.type == 226)
+			else if (this.type == NPCID.IceBat || this.type == NPCID.Lavabat || this.type == NPCID.GiantFlyingFox || this.type == NPCID.VampireBat || this.type == NPCID.FlyingSnake)
 			{
 				if (this.velocity.X > 0f)
 				{
@@ -48792,7 +48792,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 48 || this.type == 49 || this.type == 51 || this.type == 60 || this.type == 82 || this.type == 93 || this.type == 137 || this.type == 182 || this.type == 210 || this.type == 211 || this.type == 253 || this.type == 316)
+			else if (this.type == NPCID.Harpy || this.type == NPCID.CaveBat || this.type == NPCID.JungleBat || this.type == NPCID.Hellbat || this.type == NPCID.Wraith || this.type == NPCID.GiantBat || this.type == NPCID.IlluminantBat || this.type == NPCID.FloatyGross || this.type == NPCID.Bee || this.type == NPCID.BeeSmall || this.type == NPCID.Reaper || this.type == NPCID.Ghost)
 			{
 				if (this.velocity.X > 0f)
 				{
@@ -48803,7 +48803,7 @@ namespace Terraria
 					this.spriteDirection = -1;
 				}
 				this.rotation = this.velocity.X * 0.1f;
-				if (this.type == 210 || this.type == 211)
+				if (this.type == NPCID.Bee || this.type == NPCID.BeeSmall)
 				{
 					this.frameCounter += 1.0;
 					this.rotation = this.velocity.X * 0.2f;
@@ -48819,7 +48819,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 330)
+			else if (this.type == NPCID.Poltergeist)
 			{
 				if (this.velocity.X > 0f)
 				{
@@ -48841,7 +48841,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 42 || (this.type >= 231 && this.type <= 235))
+			else if (this.type == NPCID.Hornet || (this.type >= NPCID.HornetFatty && this.type <= NPCID.HornetStingy))
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter < 2.0)
@@ -48865,7 +48865,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type == 205)
+			else if (this.type == NPCID.Moth)
 			{
 				this.frameCounter += 0.5;
 				if (this.frameCounter < 2.0)
@@ -48889,7 +48889,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type == 176)
+			else if (this.type == NPCID.MossHornet)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter > 4.0)
@@ -48902,7 +48902,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			else if (this.type == 43 || this.type == 56 || this.type == 175)
+			else if (this.type == NPCID.ManEater || this.type == NPCID.Snatcher || this.type == NPCID.AngryTrapper)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter < 6.0)
@@ -48926,7 +48926,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type == 115)
+			else if (this.type == NPCID.TheHungry)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter < 3.0)
@@ -48950,7 +48950,7 @@ namespace Terraria
 					this.frameCounter = 0.0;
 				}
 			}
-			else if (this.type == 101)
+			else if (this.type == NPCID.Clinger)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter > 6.0)
@@ -48963,7 +48963,7 @@ namespace Terraria
 					this.frame.Y = 0;
 				}
 			}
-			if (this.type == 199)
+			if (this.type == NPCID.LihzahrdCrawler)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -49001,7 +49001,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 467)
+			else if (this.type == NPCID.DeadlySphere)
 			{
 				if (this.ai[0] == 1f)
 				{
@@ -49036,7 +49036,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 480)
+			else if (this.type == NPCID.Medusa)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -49105,7 +49105,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 483)
+			else if (this.type == NPCID.GraniteFlyer)
 			{
 				if (this.ai[0] == -1f)
 				{
@@ -49139,7 +49139,7 @@ namespace Terraria
 				this.rotation = this.velocity.X * 0.1f;
 				return;
 			}
-			else if (this.type == 482)
+			else if (this.type == NPCID.GraniteGolem)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -49200,7 +49200,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 461)
+			else if (this.type == NPCID.CreatureFromTheDeep)
 			{
 				if (this.wet)
 				{
@@ -49296,7 +49296,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 466)
+			else if (this.type == NPCID.Psycho)
 			{
 				if (this.ai[2] <= 0f)
 				{
@@ -49361,7 +49361,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 471)
+			else if (this.type == NPCID.GoblinSummoner)
 			{
 				bool flag6 = false;
 				if (this.ai[3] < 0f)
@@ -49450,7 +49450,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 166)
+			else if (this.type == NPCID.SwampThing)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -49500,7 +49500,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 469)
+			else if (this.type == NPCID.ThePossessed)
 			{
 				if (this.ai[2] == 1f)
 				{
@@ -49571,7 +49571,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 351)
+			else if (this.type == NPCID.Krampus)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -49613,7 +49613,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 343)
+			else if (this.type == NPCID.Yeti)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -49655,7 +49655,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type >= 269 && this.type <= 280)
+			else if (this.type >= NPCID.RustyArmoredBonesAxe && this.type <= NPCID.HellArmoredBonesSword)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -49673,7 +49673,7 @@ namespace Terraria
 				}
 				if (this.velocity.X == 0f)
 				{
-					if (this.type == 140)
+					if (this.type == NPCID.PossessedArmor)
 					{
 						this.frame.Y = num;
 						this.frameCounter = 0.0;
@@ -49699,7 +49699,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 230)
+			else if (this.type == NPCID.GoldfishWalker)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -49742,7 +49742,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 290)
+			else if (this.type == NPCID.Paladin)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -49798,7 +49798,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 110 || this.type == 214 || this.type == 215 || this.type == 216 || this.type == 291 || this.type == 292 || this.type == 293)
+			else if (this.type == NPCID.SkeletonArcher || this.type == NPCID.PirateDeadeye || this.type == NPCID.PirateCrossbower || this.type == NPCID.PirateCaptain || this.type == NPCID.SkeletonSniper || this.type == NPCID.TacticalSkeleton || this.type == NPCID.SkeletonCommando)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -49838,7 +49838,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 206)
+			else if (this.type == NPCID.IcyMerman)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -49878,7 +49878,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 350)
+			else if (this.type == NPCID.ElfArcher)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -49918,7 +49918,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 111)
+			else if (this.type == NPCID.GoblinArcher)
 			{
 				if (this.velocity.Y != 0f)
 				{
@@ -49958,7 +49958,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 257)
+			else if (this.type == NPCID.AnomuraFungus)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -50007,7 +50007,7 @@ namespace Terraria
 				this.frameCounter = 0.0;
 				return;
 			}
-			else if (this.type == 258)
+			else if (this.type == NPCID.MushiLadybug)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -50062,7 +50062,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 348)
+			else if (this.type == NPCID.Nutcracker)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -50100,7 +50100,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 349)
+			else if (this.type == NPCID.NutcrackerSpinning)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter > 3.0)
@@ -50114,7 +50114,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 3 || this.type == 342 || this.type == 331 || this.type == 332 || this.type == 52 || this.type == 53 || this.type == 536 || this.type == 132 || this.type == 161 || this.type == 162 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 251 || this.type == 254 || this.type == 255 || (this.type >= 319 && this.type <= 321))
+			else if (this.type == NPCID.Zombie || this.type == NPCID.GingerbreadMan || this.type == NPCID.ZombieXmas || this.type == NPCID.ZombieSweater || this.type == NPCID.DoctorBones || this.type == NPCID.TheGroom || this.type == NPCID.TheBride || this.type == NPCID.BaldZombie || this.type == NPCID.ZombieEskimo || this.type == NPCID.Frankenstein || this.type == NPCID.PincushionZombie || this.type == NPCID.SlimedZombie || this.type == NPCID.SwampZombie || this.type == NPCID.TwiggyZombie || this.type == NPCID.FemaleZombie || this.type == NPCID.ZombieRaincoat || this.type == NPCID.Eyezor || this.type == NPCID.ZombieMushroom || this.type == NPCID.ZombieMushroomHat || (this.type >= NPCID.ZombieDoctor && this.type <= NPCID.ZombiePixie))
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -50163,7 +50163,7 @@ namespace Terraria
 				this.frameCounter = 0.0;
 				return;
 			}
-			else if (this.type == 148 || this.type == 149 || this.type == 168 || this.type == 470)
+			else if (this.type == NPCID.Penguin || this.type == NPCID.PenguinBlack || this.type == NPCID.CorruptPenguin || this.type == NPCID.CrimsonPenguin)
 			{
 				int num100 = 0;
 				if (this.localAI[0] == 2f)
@@ -50231,7 +50231,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 299 || this.type == 538 || this.type == 539)
+			else if (this.type == NPCID.Squirrel || this.type == NPCID.SquirrelRed || this.type == NPCID.SquirrelGold)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -50278,7 +50278,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 300 || this.type == 447)
+			else if (this.type == NPCID.Mouse || this.type == NPCID.GoldMouse)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -50336,7 +50336,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 361 || this.type == 445)
+			else if (this.type == NPCID.Frog || this.type == NPCID.GoldFrog)
 			{
 				this.spriteDirection = this.direction;
 				if (this.velocity.Y == 0f)
@@ -50393,7 +50393,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 366 || this.type == 367)
+			else if (this.type == NPCID.ScorpionBlack || this.type == NPCID.Scorpion)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -50425,7 +50425,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 46 || this.type == 47 || this.type == 303 || this.type == 337 || this.type == 443 || this.type == 464)
+			else if (this.type == NPCID.Bunny || this.type == NPCID.CorruptBunny || this.type == NPCID.BunnySlimed || this.type == NPCID.BunnyXmas || this.type == NPCID.GoldBunny || this.type == NPCID.CrimsonBunny)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -50472,7 +50472,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 4 || this.type == 125 || this.type == 126)
+			else if (this.type == NPCID.EyeofCthulhu || this.type == NPCID.Retinazer || this.type == NPCID.Spazmatism)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter < 7.0)
@@ -50498,7 +50498,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 5)
+			else if (this.type == NPCID.ServantofCthulhu)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter >= 8.0)
@@ -50512,7 +50512,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 94)
+			else if (this.type == NPCID.Corruptor)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter < 6.0)
@@ -50537,7 +50537,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 6 || this.type == 173)
+			else if (this.type == NPCID.EaterofSouls || this.type == NPCID.Crimera)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter >= 8.0)
@@ -50551,7 +50551,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 24)
+			else if (this.type == NPCID.FireImp)
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -50626,7 +50626,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 29 || this.type == 32 || this.type == 45 || this.type == 172 || (this.type >= 281 && this.type <= 286))
+			else if (this.type == NPCID.GoblinSorcerer || this.type == NPCID.DarkCaster || this.type == NPCID.Tim || this.type == NPCID.RuneWizard || (this.type >= NPCID.RaggedCaster && this.type <= NPCID.DiabolistWhite))
 			{
 				if (this.velocity.Y == 0f)
 				{
@@ -50651,7 +50651,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 34)
+			else if (this.type == NPCID.CursedSkull)
 			{
 				this.frameCounter += 1.0;
 				if (this.frameCounter >= 4.0)
@@ -50707,7 +50707,7 @@ namespace Terraria
 			if (broadcast && Main.netMode == 2 && num != 100)
 			{
 				CombatText combatText = Main.combatText[num];
-				NetMessage.SendData(81, -1, -1, combatText.text, (int)combatText.color.PackedValue, combatText.position.X, combatText.position.Y, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.CreateCombatText, -1, -1, combatText.text, (int)combatText.color.PackedValue, combatText.position.X, combatText.position.Y, 0f, 0, 0, 0);
 			}
 		}
 		public static void HealEffect(Rectangle r, int healAmount, bool broadcast = true)
@@ -50716,7 +50716,7 @@ namespace Terraria
 			if (broadcast && Main.netMode == 2 && num != 100)
 			{
 				CombatText combatText = Main.combatText[num];
-				NetMessage.SendData(81, -1, -1, combatText.text, (int)combatText.color.PackedValue, combatText.position.X, combatText.position.Y, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.CreateCombatText, -1, -1, combatText.text, (int)combatText.color.PackedValue, combatText.position.X, combatText.position.Y, 0f, 0, 0, 0);
 			}
 		}
 		public int FindClosestPlayer()
@@ -50766,7 +50766,7 @@ namespace Terraria
 			//Should always be true
 			if (Main.netMode == 2)
 			{
-				NetMessage.SendData(51, -1, -1, "", this.whoAmI, 4f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.NpcSpecial, -1, -1, "", this.whoAmI, 4f, 0f, 0f, 0, 0, 0);
 				return;
 			}
 		}
@@ -50809,7 +50809,7 @@ namespace Terraria
 				if (num2 != 1)
 				{
 				}
-				if (Main.tile[x, y].type == 21)
+				if (Main.tile[x, y].type == TileID.Containers)
 				{
 					if (Main.tile[x, y].frameX % 36 != 0)
 					{
@@ -50824,7 +50824,7 @@ namespace Terraria
 					{
 						for (int k = y; k <= y + 1; k++)
 						{
-							if (Main.tile[j, k].type == 21)
+							if (Main.tile[j, k].type == TileID.Containers)
 							{
 								Main.tile[j, k].active(false);
 							}
@@ -50835,7 +50835,7 @@ namespace Terraria
 						Main.chest[num].item[l] = new Item();
 					}
 					Chest.DestroyChest(x, y);
-					NetMessage.SendData(34, -1, -1, "", 1, (float)x, (float)y, 0f, number, 0, 0);
+					NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", 1, (float)x, (float)y, 0f, number, 0, 0);
 					NetMessage.SendTileSquare(-1, x, y, 3);
 				}
 				int num7 = 475;
@@ -50852,7 +50852,7 @@ namespace Terraria
 				}
 				int num8 = NPC.NewNPC(x * 16 + 16, y * 16 + 32, num7, 0, 0f, 0f, 0f, 0f, 255);
 				Main.npc[num8].whoAmI = num8;
-				NetMessage.SendData(23, -1, -1, "", num8, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num8, 0f, 0f, 0f, 0, 0, 0);
 				Main.npc[num8].BigMimicSpawnSmoke();
 			}
 			return false;
@@ -51110,7 +51110,7 @@ namespace Terraria
 				}
 				return;
 				IL_1E6:
-				if (this.townNPC || this.type == 453)
+				if (this.townNPC || this.type == NPCID.SkeletonMerchant)
 				{
 					Rectangle rectangle = new Rectangle((int)(this.position.X + (float)(this.width / 2) - (float)NPC.townRangeX), (int)(this.position.Y + (float)(this.height / 2) - (float)NPC.townRangeY), NPC.townRangeX * 2, NPC.townRangeY * 2);
 					for (int i = 0; i < 255; i++)
@@ -51120,7 +51120,7 @@ namespace Terraria
 							Main.player[i].townNPCs += this.npcSlots;
 						}
 					}
-					if (this.type != 453)
+					if (this.type != NPCID.SkeletonMerchant)
 					{
 						return;
 					}
@@ -51135,7 +51135,7 @@ namespace Terraria
 						if (rectangle2.Intersects(new Rectangle((int)Main.player[j].position.X, (int)Main.player[j].position.Y, Main.player[j].width, Main.player[j].height)))
 						{
 							flag = true;
-							if (this.type != 25 && this.type != 30 && this.type != 33 && this.releaseOwner == 255 && this.lifeMax > 0)
+							if (this.type != NPCID.BurningSphere && this.type != NPCID.ChaosBall && this.type != NPCID.WaterSphere && this.releaseOwner == 255 && this.lifeMax > 0)
 							{
 								if (Main.slimeRain && Main.slimeRainNPC[this.type])
 								{
@@ -51244,7 +51244,7 @@ namespace Terraria
 					{
 						this.netSkip = -1;
 						this.life = 0;
-						NetMessage.SendData(23, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 					}
 					if (this.aiStyle == 6)
 					{
@@ -51257,7 +51257,7 @@ namespace Terraria
 								{
 									Main.npc[k].life = 0;
 									Main.npc[k].netSkip = -1;
-									NetMessage.SendData(23, -1, -1, "", k, 0f, 0f, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", k, 0f, 0f, 0f, 0, 0, 0);
 								}
 							}
 						}
@@ -51277,7 +51277,7 @@ namespace Terraria
 			}
 			if (this.life <= 0)
 			{
-				if (this.type == 397 || this.type == 396)
+				if (this.type == NPCID.MoonLordHand || this.type == NPCID.MoonLordHead)
 				{
 					if (this.ai[0] != -2f)
 					{
@@ -51294,7 +51294,7 @@ namespace Terraria
 					}
 					return;
 				}
-				if (this.type == 398 && this.ai[0] != 2f)
+				if (this.type == NPCID.MoonLordCore && this.ai[0] != 2f)
 				{
 					this.ai[0] = 2f;
 					this.life = this.lifeMax;
@@ -51302,7 +51302,7 @@ namespace Terraria
 					this.dontTakeDamage = true;
 					return;
 				}
-				if ((this.type == 517 || this.type == 422 || this.type == 507 || this.type == 493) && this.ai[2] != 1f)
+				if ((this.type == NPCID.LunarTowerSolar || this.type == NPCID.LunarTowerVortex || this.type == NPCID.LunarTowerNebula || this.type == NPCID.LunarTowerStardust) && this.ai[2] != 1f)
 				{
 					this.ai[2] = 1f;
 					this.ai[1] = 0f;
@@ -51312,7 +51312,7 @@ namespace Terraria
 					return;
 				}
 				NPC.noSpawnCycle = true;
-				if (this.townNPC && this.type != 37 && this.type != 453)
+				if (this.townNPC && this.type != NPCID.OldMan && this.type != NPCID.SkeletonMerchant)
 				{
 					string name = this.name;
 					if (this.displayName != "")
@@ -51321,7 +51321,7 @@ namespace Terraria
 					}
 					if (Main.netMode == 0)
 					{
-						if (this.type == 369)
+						if (this.type == NPCID.Angler)
 						{
 							Main.NewText(name + Lang.misc[36], 255, 25, 25, false);
 						}
@@ -51332,17 +51332,17 @@ namespace Terraria
 					}
 					else if (Main.netMode == 2)
 					{
-						if (this.type == 369)
+						if (this.type == NPCID.Angler)
 						{
-							NetMessage.SendData(25, -1, -1, name + Lang.misc[36], 255, 255f, 25f, 25f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, name + Lang.misc[36], 255, 255f, 25f, 25f, 0, 0, 0);
 						}
 						else
 						{
-							NetMessage.SendData(25, -1, -1, name + Lang.misc[19], 255, 255f, 25f, 25f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, name + Lang.misc[19], 255, 255f, 25f, 25f, 0, 0, 0);
 						}
 					}
 				}
-				if (Main.netMode != 1 && !Main.dayTime && this.type == 54 && !NPC.AnyNPCs(35))
+				if (Main.netMode != 1 && !Main.dayTime && this.type == NPCID.Clothier && !NPC.AnyNPCs(NPCID.SkeletronHead))
 				{
 					for (int i = 0; i < 255; i++)
 					{
@@ -51357,12 +51357,12 @@ namespace Terraria
 				{
 					WorldGen.spawnNPC = 0;
 				}
-				if (this.type == 13 || this.type == 14 || this.type == 15)
+				if (this.type == NPCID.EaterofWorldsHead || this.type == NPCID.EaterofWorldsBody || this.type == NPCID.EaterofWorldsTail)
 				{
 					bool flag = true;
 					for (int j = 0; j < 200; j++)
 					{
-						if (j != this.whoAmI && Main.npc[j].active && (Main.npc[j].type == 13 || Main.npc[j].type == 14 || Main.npc[j].type == 15))
+						if (j != this.whoAmI && Main.npc[j].active && (Main.npc[j].type == NPCID.EaterofWorldsHead || Main.npc[j].type == NPCID.EaterofWorldsBody || Main.npc[j].type == NPCID.EaterofWorldsTail))
 						{
 							flag = false;
 							break;
@@ -51378,7 +51378,7 @@ namespace Terraria
 						this.NPCLoot();
 					}
 				}
-				else if (this.type == 134)
+				else if (this.type == NPCID.TheDestroyer)
 				{
 					Vector2 position = this.position;
 					Vector2 center = Main.player[this.target].Center;
@@ -51386,7 +51386,7 @@ namespace Terraria
 					Vector2 position2 = this.position;
 					for (int k = 0; k < 200; k++)
 					{
-						if (Main.npc[k].active && (Main.npc[k].type == 134 || Main.npc[k].type == 135 || Main.npc[k].type == 136))
+						if (Main.npc[k].active && (Main.npc[k].type == NPCID.TheDestroyer || Main.npc[k].type == NPCID.TheDestroyerBody || Main.npc[k].type == NPCID.TheDestroyerTail))
 						{
 							float num3 = Math.Abs(Main.npc[k].Center.X - center.X) + Math.Abs(Main.npc[k].Center.Y - center.Y);
 							if (num3 < num2)
@@ -51549,7 +51549,7 @@ namespace Terraria
 							}
 							else if (Main.netMode == 2)
 							{
-								NetMessage.SendData(25, -1, -1, text, 255, 175f, 75f, 255f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, text, 255, 175f, 75f, 255f, 0, 0, 0);
 							}
 							if (NPC.waveCount == 15)
 							{
@@ -51565,7 +51565,7 @@ namespace Terraria
 						}
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(78, -1, -1, "", Main.invasionProgress, (float)Main.invasionProgressMax, 1f, (float)NPC.waveCount, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ReportInvasionProgress, -1, -1, "", Main.invasionProgress, (float)Main.invasionProgressMax, 1f, (float)NPC.waveCount, 0, 0, 0);
 						}
 					}
 				}
@@ -51824,7 +51824,7 @@ namespace Terraria
 							}
 							else if (Main.netMode == 2)
 							{
-								NetMessage.SendData(25, -1, -1, text2, 255, 175f, 75f, 255f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, text2, 255, 175f, 75f, 255f, 0, 0, 0);
 							}
 							if (NPC.waveCount == 15)
 							{
@@ -51840,7 +51840,7 @@ namespace Terraria
 						}
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(78, -1, -1, "", Main.invasionProgress, (float)Main.invasionProgressMax, 2f, (float)NPC.waveCount, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ReportInvasionProgress, -1, -1, "", Main.invasionProgress, (float)Main.invasionProgressMax, 2f, (float)NPC.waveCount, 0, 0, 0);
 						}
 					}
 				}
@@ -51964,7 +51964,7 @@ namespace Terraria
 					}
 					if (Main.netMode == 2)
 					{
-						NetMessage.SendData(78, -1, -1, "", Main.invasionProgress, (float)Main.invasionProgressMax, (float)Main.invasionProgressIcon, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ReportInvasionProgress, -1, -1, "", Main.invasionProgress, (float)Main.invasionProgressMax, (float)Main.invasionProgressIcon, 0f, 0, 0, 0);
 					}
 				}
 			}
@@ -51999,7 +51999,7 @@ namespace Terraria
 		}
 		public void NPCLoot()
 		{
-			if (Main.netMode == 1 || this.type >= 540)
+			if (Main.netMode == 1 || this.type >= NPCID.Count)
 			{
 				return;
 			}
@@ -52021,7 +52021,7 @@ namespace Terraria
 				case 125:
 				case 126:
 				{
-					int num2 = (this.type == 126) ? 125 : 126;
+					int num2 = (this.type == NPCID.Spazmatism) ? 125 : 126;
 					if (!NPC.AnyNPCs(num2))
 					{
 						AchievementsHelper.NotifyNPCKilled(this);
@@ -52051,7 +52051,7 @@ namespace Terraria
 				NPC.killCount[num3]++;
 				if (Main.netMode == 2)
 				{
-					NetMessage.SendData(83, -1, -1, "", num3, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.NpcKillCount, -1, -1, "", num3, 0f, 0f, 0f, 0, 0, 0);
 				}
 				int num4 = 50;
 				if (NPC.killCount[num3] % num4 == 0 && num3 > 0)
@@ -52090,7 +52090,7 @@ namespace Terraria
 					}
 					else if (Main.netMode == 2)
 					{
-						NetMessage.SendData(25, -1, -1, text, 255, 250f, 250f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, text, 255, 250f, 250f, 0f, 0, 0, 0);
 					}
 					int num6 = 1615 + num3 - 1;
 					if (num3 >= 249)
@@ -52113,11 +52113,11 @@ namespace Terraria
 					DropLoot(position, this.width, this.height, num6, 1, false, 0, false, false);
 				}
 			}
-			if (this.type == 23 && Main.hardMode)
+			if (this.type == NPCID.MeteorHead && Main.hardMode)
 			{
 				return;
 			}
-			if ((this.type == 170 || this.type == 180 || this.type == 171) && Main.rand.Next(3) == 0)
+			if ((this.type == NPCID.PigronCorruption || this.type == NPCID.PigronCrimson || this.type == NPCID.PigronHallow) && Main.rand.Next(3) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 3532, 1, false, 0, false, false);
 			}
@@ -52180,7 +52180,7 @@ namespace Terraria
 				DropLoot(this.position, this.width, this.height, 3260, 1, false, 0, false, false);
 			}
 			IL_482:
-			if (Main.slimeRain && Main.slimeRainNPC[this.type] && !NPC.AnyNPCs(50))
+			if (Main.slimeRain && Main.slimeRainNPC[this.type] && !NPC.AnyNPCs(NPCID.KingSlime))
 			{
 				int num7 = 150;
 				if (NPC.downedSlimeKing)
@@ -52218,7 +52218,7 @@ namespace Terraria
 					flag2 = false;
 					break;
 				}
-				if (Main.hardMode && this.lifeMax > 1 && this.damage > 0 && !this.friendly && (double)this.position.Y > Main.rockLayer * 16.0 && flag2 && this.type != 121 && this.value > 0f)
+				if (Main.hardMode && this.lifeMax > 1 && this.damage > 0 && !this.friendly && (double)this.position.Y > Main.rockLayer * 16.0 && flag2 && this.type != NPCID.Slimer && this.value > 0f)
 				{
 					if (Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].ZoneCorrupt || Main.player[(int)Player.FindClosest(this.position, this.width, this.height)].ZoneCrimson)
 					{
@@ -52230,7 +52230,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 1 && this.ai[1] > 0f)
+			if (this.type == NPCID.BlueSlime && this.ai[1] > 0f)
 			{
 				int num8 = (int)this.ai[1];
 				if (num8 > 0 && num8 < Main.maxItemTypes)
@@ -52271,27 +52271,27 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, num8, num9, false, 0, false, false);
 				}
 			}
-			if (this.type == 22 && this.displayName == "Andrew")
+			if (this.type == NPCID.Guide && this.displayName == "Andrew")
 			{
 				DropLoot(this.position, this.width, this.height, 867, 1, false, 0, false, false);
 			}
-			if (this.type == 353 && Main.rand.Next(8) == 0)
+			if (this.type == NPCID.Stylist && Main.rand.Next(8) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 3352, 1, false, 0, false, false);
 			}
-			if (this.type == 441 && Main.rand.Next(8) == 0)
+			if (this.type == NPCID.TaxCollector && Main.rand.Next(8) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 3351, 1, false, 0, false, false);
 			}
-			if (this.type == 227 && Main.rand.Next(10) == 0)
+			if (this.type == NPCID.Painter && Main.rand.Next(10) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 3350, 1, false, 0, false, false);
 			}
-			if (this.type == 208 && Main.rand.Next(4) == 0)
+			if (this.type == NPCID.PartyGirl && Main.rand.Next(4) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 3548, Main.rand.Next(30, 61), false, 0, false, false);
 			}
-			if (this.type == 207 && Main.rand.Next(8) == 0)
+			if (this.type == NPCID.DyeTrader && Main.rand.Next(8) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 3349, 1, false, 0, false, false);
 			}
@@ -52344,7 +52344,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 1537, 1, false, 0, false, false);
 				}
 			}
-			if (this.type == 68)
+			if (this.type == NPCID.DungeonGuardian)
 			{
 				DropLoot(this.position, this.width, this.height, 1169, 1, false, 0, false, false);
 			}
@@ -52364,19 +52364,19 @@ namespace Terraria
 				{
 					num11 = 1;
 				}
-				if (this.type == 344)
+				if (this.type == NPCID.Everscream)
 				{
 					NPC.downedChristmasTree = true;
 				}
-				if (this.type == 345)
+				if (this.type == NPCID.IceQueen)
 				{
 					NPC.downedChristmasIceQueen = true;
 				}
-				if (this.type == 346)
+				if (this.type == NPCID.SantaNK1)
 				{
 					NPC.downedChristmasSantank = true;
 				}
-				if ((this.type == 344 || this.type == 345 || this.type == 346) && Main.rand.Next(num11) == 0 && num10 >= 15)
+				if ((this.type == NPCID.Everscream || this.type == NPCID.IceQueen || this.type == NPCID.SantaNK1) && Main.rand.Next(num11) == 0 && num10 >= 15)
 				{
 					int num12 = 4;
 					if (num10 == 16)
@@ -52405,15 +52405,15 @@ namespace Terraria
 					}
 					if (Main.rand.Next(num12) == 0)
 					{
-						if (this.type == 344)
+						if (this.type == NPCID.Everscream)
 						{
 							DropLoot(this.position, this.width, this.height, 1962, 1, false, 0, false, false);
 						}
-						if (this.type == 345)
+						if (this.type == NPCID.IceQueen)
 						{
 							DropLoot(this.position, this.width, this.height, 1960, 1, false, 0, false, false);
 						}
-						if (this.type == 346)
+						if (this.type == NPCID.SantaNK1)
 						{
 							DropLoot(this.position, this.width, this.height, 1961, 1, false, 0, false, false);
 						}
@@ -52421,7 +52421,7 @@ namespace Terraria
 				}
 				if (Main.rand.Next(num11) == 0)
 				{
-					if (this.type == 344)
+					if (this.type == NPCID.Everscream)
 					{
 						int num13 = Main.rand.Next(3);
 						if (Main.rand.Next(15) == 0)
@@ -52444,7 +52444,7 @@ namespace Terraria
 							}
 						}
 					}
-					if (this.type == 346)
+					if (this.type == NPCID.SantaNK1)
 					{
 						int num14 = Main.rand.Next(2);
 						if (num14 == 0)
@@ -52456,7 +52456,7 @@ namespace Terraria
 							DropLoot(this.position, this.width, this.height, 1929, 1, false, -1, false, false);
 						}
 					}
-					if (this.type == 345)
+					if (this.type == NPCID.IceQueen)
 					{
 						if (NPC.waveCount >= 15 && Main.rand.Next(30) == 0)
 						{
@@ -52485,7 +52485,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 341)
+			if (this.type == NPCID.PresentMimic)
 			{
 				int num16 = Main.rand.Next(5, 11);
 				for (int i = 0; i < num16; i++)
@@ -52497,25 +52497,25 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 1869, 1, false, 0, false, false);
 				}
 			}
-			if (this.type >= 338 && this.type <= 340 && Main.rand.Next(5) == 0)
+			if (this.type >= NPCID.ZombieElf && this.type <= NPCID.ZombieElfGirl && Main.rand.Next(5) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
-			if (this.type >= 338 && this.type <= 340 && Main.rand.Next(200) == 0)
+			if (this.type >= NPCID.ZombieElf && this.type <= NPCID.ZombieElfGirl && Main.rand.Next(200) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1943 + Main.rand.Next(3), 1, false, 0, false, false);
 			}
-			if (this.type == 342 && Main.rand.Next(3) != 0)
+			if (this.type == NPCID.GingerbreadMan && Main.rand.Next(3) != 0)
 			{
 				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
 			if (Main.pumpkinMoon)
 			{
-				if (this.type == 325)
+				if (this.type == NPCID.MourningWood)
 				{
 					NPC.downedHalloweenTree = true;
 				}
-				if (this.type == 327)
+				if (this.type == NPCID.Pumpking)
 				{
 					NPC.downedHalloweenKing = true;
 				}
@@ -52535,26 +52535,26 @@ namespace Terraria
 				}
 				if (num17 >= 15)
 				{
-					if (this.type == 325)
+					if (this.type == NPCID.MourningWood)
 					{
 						DropLoot(this.position, this.width, this.height, 1855, 1, false, 0, false, false);
 					}
-					if (this.type == 327)
+					if (this.type == NPCID.Pumpking)
 					{
 						DropLoot(this.position, this.width, this.height, 1856, 1, false, 0, false, false);
 					}
 				}
 				if (Main.rand.Next(num18) == 0)
 				{
-					if (this.type == 315 && Main.rand.Next(20) == 0)
+					if (this.type == NPCID.HeadlessHorseman && Main.rand.Next(20) == 0)
 					{
 						DropLoot(this.position, this.width, this.height, 1857, 1, false, 0, false, false);
 					}
-					if (this.type >= 305 && this.type <= 314 && Main.rand.Next(10) == 0)
+					if (this.type >= NPCID.Scarecrow1 && this.type <= NPCID.Scarecrow10 && Main.rand.Next(10) == 0)
 					{
 						DropLoot(this.position, this.width, this.height, Main.rand.Next(1788, 1791), 1, false, 0, false, false);
 					}
-					if (this.type == 325)
+					if (this.type == NPCID.MourningWood)
 					{
 						int num19 = Main.rand.Next(5);
 						if (num19 == 0)
@@ -52582,7 +52582,7 @@ namespace Terraria
 							DropLoot(this.position, this.width, this.height, 1845, 1, false, -1, false, false);
 						}
 					}
-					if (this.type == 327)
+					if (this.type == NPCID.Pumpking)
 					{
 						int num20 = Main.rand.Next(7);
 						if (num20 == 0)
@@ -52624,39 +52624,39 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 325)
+			if (this.type == NPCID.MourningWood)
 			{
 				DropLoot(this.position, this.width, this.height, 1729, Main.rand.Next(30, 51), false, 0, false, false);
 			}
-			if (this.type == 326)
+			if (this.type == NPCID.Splinterling)
 			{
 				DropLoot(this.position, this.width, this.height, 1729, Main.rand.Next(1, 5), false, 0, false, false);
 			}
-			if (this.type >= 305 && this.type <= 314 && Main.rand.Next(4) == 0)
+			if (this.type >= NPCID.Scarecrow1 && this.type <= NPCID.Scarecrow10 && Main.rand.Next(4) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
-			if (this.type == 326 && Main.rand.Next(6) == 0)
+			if (this.type == NPCID.Splinterling && Main.rand.Next(6) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
-			if (this.type == 329 && Main.rand.Next(4) == 0)
+			if (this.type == NPCID.Hellhound && Main.rand.Next(4) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
-			if (this.type == 330 && Main.rand.Next(4) == 0)
+			if (this.type == NPCID.Poltergeist && Main.rand.Next(4) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
-			if (this.type == 315)
+			if (this.type == NPCID.HeadlessHorseman)
 			{
 				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
-			if (Main.halloween && this.lifeMax > 1 && this.damage > 0 && !this.friendly && this.type != 121 && this.type != 23 && this.value > 0f && Main.rand.Next(80) == 0)
+			if (Main.halloween && this.lifeMax > 1 && this.damage > 0 && !this.friendly && this.type != NPCID.Slimer && this.type != NPCID.MeteorHead && this.value > 0f && Main.rand.Next(80) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1774, 1, false, 0, false, false);
 			}
-			if (Main.xMas && this.lifeMax > 1 && this.damage > 0 && !this.friendly && this.type != 121 && this.value > 0f && Main.rand.Next(13) == 0)
+			if (Main.xMas && this.lifeMax > 1 && this.damage > 0 && !this.friendly && this.type != NPCID.Slimer && this.value > 0f && Main.rand.Next(13) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1869, 1, false, 0, false, false);
 			}
@@ -52664,7 +52664,7 @@ namespace Terraria
 			{
 				DropLoot(this.position, this.width, this.height, 2701, Main.rand.Next(20, 51), false, 0, false, false);
 			}
-			if (this.type == 325 || this.type == 327 || this.type == 344 || this.type == 345 || this.type == 346)
+			if (this.type == NPCID.MourningWood || this.type == NPCID.Pumpking || this.type == NPCID.Everscream || this.type == NPCID.IceQueen || this.type == NPCID.SantaNK1)
 			{
 				int num21 = Main.rand.Next(6) + 6;
 				for (int j = 0; j < num21; j++)
@@ -52672,35 +52672,35 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 				}
 			}
-			if (this.type == 156 && Main.rand.Next(75) == 0)
+			if (this.type == NPCID.RedDevil && Main.rand.Next(75) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1518, 1, false, 0, false, false);
 			}
-			if (this.type == 243 && Main.rand.Next(3) == 0)
+			if (this.type == NPCID.IceGolem && Main.rand.Next(3) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1519, 1, false, 0, false, false);
 			}
-			if (this.type >= 269 && this.type <= 280 && Main.rand.Next(450) == 0)
+			if (this.type >= NPCID.RustyArmoredBonesAxe && this.type <= NPCID.HellArmoredBonesSword && Main.rand.Next(450) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1517, 1, false, 0, false, false);
 			}
-			if ((this.type == 158 || this.type == 159) && Main.rand.Next(40) == 0)
+			if ((this.type == NPCID.VampireBat || this.type == NPCID.Vampire) && Main.rand.Next(40) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1520, 1, false, 0, false, false);
 			}
-			if (this.type == 176 && Main.rand.Next(150) == 0)
+			if (this.type == NPCID.MossHornet && Main.rand.Next(150) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1521, 1, false, 0, false, false);
 			}
-			if (this.type == 48 && Main.rand.Next(200) == 0)
+			if (this.type == NPCID.Harpy && Main.rand.Next(200) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1516, 1, false, 0, false, false);
 			}
-			if (this.type == 205 && Main.rand.Next(2) == 0)
+			if (this.type == NPCID.Moth && Main.rand.Next(2) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1611, 1, false, 0, false, false);
 			}
-			if (this.type == 483 || this.type == 482)
+			if (this.type == NPCID.GraniteFlyer || this.type == NPCID.GraniteGolem)
 			{
 				DropLoot(this.position, this.width, this.height, 3086, Main.rand.Next(5, 11), false, -1, false, false);
 			}
@@ -52734,21 +52734,21 @@ namespace Terraria
 			}
 			for (int k = 0; k < num22; k++)
 			{
-				if (this.type == 461 && Main.rand.Next(50) == 0)
+				if (this.type == NPCID.CreatureFromTheDeep && Main.rand.Next(50) == 0)
 				{
 					DropLoot(this.position, this.width, this.height, 497, 1, false, -1, false, false);
 				}
-				if ((this.type == 159 || this.type == 158) && Main.rand.Next(35) == 0)
+				if ((this.type == NPCID.Vampire || this.type == NPCID.VampireBat) && Main.rand.Next(35) == 0)
 				{
 					DropLoot(this.position, this.width, this.height, 900, 1, false, -1, false, false);
 				}
-				if (this.type == 251 && Main.rand.Next(15) == 0)
+				if (this.type == NPCID.Eyezor && Main.rand.Next(15) == 0)
 				{
 					DropLoot(this.position, this.width, this.height, 1311, 1, false, -1, false, false);
 				}
 				if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
 				{
-					if (this.type == 477)
+					if (this.type == NPCID.Mothron)
 					{
 						if (Main.rand.Next(20) == 0 && NPC.downedPlantBoss)
 						{
@@ -52766,30 +52766,30 @@ namespace Terraria
 							k++;
 						}
 					}
-					if (this.type == 253 && Main.rand.Next(40) == 0)
+					if (this.type == NPCID.Reaper && Main.rand.Next(40) == 0)
 					{
 						DropLoot(this.position, this.width, this.height, 1327, 1, false, -1, false, false);
 					}
 				}
 				if (NPC.downedPlantBoss)
 				{
-					if (this.type == 460 && Main.rand.Next(40) == 0)
+					if (this.type == NPCID.Butcher && Main.rand.Next(40) == 0)
 					{
 						DropLoot(this.position, this.width, this.height, 3098, 1, false, -1, false, false);
 					}
-					if (this.type == 468 && Main.rand.Next(40) == 0)
+					if (this.type == NPCID.DrManFly && Main.rand.Next(40) == 0)
 					{
 						DropLoot(this.position, this.width, this.height, 3105, 1, false, -1, false, false);
 					}
-					if (this.type == 466 && Main.rand.Next(40) == 0)
+					if (this.type == NPCID.Psycho && Main.rand.Next(40) == 0)
 					{
 						DropLoot(this.position, this.width, this.height, 3106, 1, false, -1, false, false);
 					}
-					if (this.type == 467 && Main.rand.Next(40) == 0)
+					if (this.type == NPCID.DeadlySphere && Main.rand.Next(40) == 0)
 					{
 						DropLoot(this.position, this.width, this.height, 3249, 1, false, -1, false, false);
 					}
-					if (this.type == 463 && Main.rand.Next(25) == 0)
+					if (this.type == NPCID.Nailhead && Main.rand.Next(25) == 0)
 					{
 						DropLoot(this.position, this.width, this.height, 3107, 1, false, -1, false, false);
 						DropLoot(this.position, this.width, this.height, 3108, Main.rand.Next(100, 201), false, -1, false, false);
@@ -52800,7 +52800,7 @@ namespace Terraria
 			{
 				DropLoot(this.position, this.width, this.height, 1314, 1, false, -1, false, false);
 			}
-			if (this.type == 77 && Main.rand.Next(150) == 0)
+			if (this.type == NPCID.ArmoredSkeleton && Main.rand.Next(150) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 723, 1, false, -1, false, false);
 			}
@@ -52989,7 +52989,7 @@ namespace Terraria
 			}
 			for (int m = 0; m < num25; m++)
 			{
-				if (this.type == 290)
+				if (this.type == NPCID.Paladin)
 				{
 					if (Main.rand.Next(15) == 0)
 					{
@@ -53000,7 +53000,7 @@ namespace Terraria
 						DropLoot(this.position, this.width, this.height, 938, 1, false, -1, false, false);
 					}
 				}
-				if (this.type == 287 && Main.rand.Next(6) == 0)
+				if (this.type == NPCID.BoneLee && Main.rand.Next(6) == 0)
 				{
 					if (Main.rand.Next(2) == 0)
 					{
@@ -53011,7 +53011,7 @@ namespace Terraria
 						DropLoot(this.position, this.width, this.height, 977, 1, false, -1, false, false);
 					}
 				}
-				if (this.type == 291)
+				if (this.type == NPCID.SkeletonSniper)
 				{
 					if (Main.rand.Next(12) == 0)
 					{
@@ -53022,7 +53022,7 @@ namespace Terraria
 						DropLoot(this.position, this.width, this.height, 1254, 1, false, -1, false, false);
 					}
 				}
-				if (this.type == 292)
+				if (this.type == NPCID.TacticalSkeleton)
 				{
 					if (Main.rand.Next(12) == 0)
 					{
@@ -53033,23 +53033,23 @@ namespace Terraria
 						DropLoot(this.position, this.width, this.height, 679, 1, false, -1, false, false);
 					}
 				}
-				if (this.type == 293 && Main.rand.Next(18) == 0)
+				if (this.type == NPCID.SkeletonCommando && Main.rand.Next(18) == 0)
 				{
 					DropLoot(this.position, this.width, this.height, 759, 1, false, -1, false, false);
 				}
-				if ((this.type == 281 || this.type == 282) && Main.rand.Next(20) == 0)
+				if ((this.type == NPCID.RaggedCaster || this.type == NPCID.RaggedCasterOpenCoat) && Main.rand.Next(20) == 0)
 				{
 					DropLoot(this.position, this.width, this.height, 1446, 1, false, -1, false, false);
 				}
-				if ((this.type == 283 || this.type == 284) && Main.rand.Next(20) == 0)
+				if ((this.type == NPCID.Necromancer || this.type == NPCID.NecromancerArmored) && Main.rand.Next(20) == 0)
 				{
 					DropLoot(this.position, this.width, this.height, 1444, 1, false, -1, false, false);
 				}
-				if ((this.type == 285 || this.type == 286) && Main.rand.Next(20) == 0)
+				if ((this.type == NPCID.DiabolistRed || this.type == NPCID.DiabolistWhite) && Main.rand.Next(20) == 0)
 				{
 					DropLoot(this.position, this.width, this.height, 1445, 1, false, -1, false, false);
 				}
-				if (this.type >= 269 && this.type <= 280)
+				if (this.type >= NPCID.RustyArmoredBonesAxe && this.type <= NPCID.HellArmoredBonesSword)
 				{
 					if (Main.rand.Next(400) == 0)
 					{
@@ -53065,7 +53065,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.lifeMax > 100 && this.type != 288 && this.value > 0f && this.target >= 0 && Main.hardMode && NPC.downedPlantBoss && Main.player[this.target].ZoneDungeon)
+			if (this.lifeMax > 100 && this.type != NPCID.DungeonSpirit && this.value > 0f && this.target >= 0 && Main.hardMode && NPC.downedPlantBoss && Main.player[this.target].ZoneDungeon)
 			{
 				int maxValue2 = 13;
 				if (Main.expertMode)
@@ -53077,19 +53077,19 @@ namespace Terraria
 					NPC.NewNPC((int)base.Center.X, (int)base.Center.Y, 288, 0, 0f, 0f, 0f, 0f, 255);
 				}
 			}
-			if (this.type == 288)
+			if (this.type == NPCID.DungeonSpirit)
 			{
 				DropLoot(this.position, this.width, this.height, 1508, Main.rand.Next(1, 3), false, -1, false, false);
 			}
-			if (this.type == 156 && Main.rand.Next(30) == 0)
+			if (this.type == NPCID.RedDevil && Main.rand.Next(30) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 683, 1, false, -1, false, false);
 			}
-			if ((this.type == 195 || this.type == 196) && (Main.expertMode || Main.rand.Next(2) == 0))
+			if ((this.type == NPCID.LostGirl || this.type == NPCID.Nymph) && (Main.expertMode || Main.rand.Next(2) == 0))
 			{
 				DropLoot(this.position, this.width, this.height, 3102, 1, false, -1, false, false);
 			}
-			if (this.type == 245)
+			if (this.type == NPCID.Golem)
 			{
 				if (Main.expertMode)
 				{
@@ -53139,7 +53139,7 @@ namespace Terraria
 				}
 				NPC.downedGolemBoss = true;
 			}
-			if (this.type == 471 && (Main.expertMode || Main.rand.Next(2) == 0))
+			if (this.type == NPCID.GoblinSummoner && (Main.expertMode || Main.rand.Next(2) == 0))
 			{
 				if (Main.rand.Next(3) == 0)
 				{
@@ -53154,11 +53154,11 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 3054, 1, false, -1, false, false);
 				}
 			}
-			if (this.type == 268)
+			if (this.type == NPCID.IchorSticker)
 			{
 				DropLoot(this.position, this.width, this.height, 1332, Main.rand.Next(2, 6), false, 0, false, false);
 			}
-			if (this.type == 370)
+			if (this.type == NPCID.DukeFishron)
 			{
 				NPC.downedFishron = true;
 				if (Main.expertMode)
@@ -53198,59 +53198,59 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 109 && !NPC.downedClown)
+			if (this.type == NPCID.Clown && !NPC.downedClown)
 			{
 				NPC.downedClown = true;
 				if (Main.netMode == 2)
 				{
-					NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.WorldInfo, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 				}
 			}
-			if (this.type == 153 && Main.rand.Next(17) == 0)
+			if (this.type == NPCID.GiantTortoise && Main.rand.Next(17) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1328, 1, false, -1, false, false);
 			}
-			if (this.type == 120 && Main.rand.Next(500) == 0)
+			if (this.type == NPCID.ChaosElemental && Main.rand.Next(500) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1326, 1, false, -1, false, false);
 			}
-			if (this.type == 49 && Main.rand.Next(250) == 0)
+			if (this.type == NPCID.CaveBat && Main.rand.Next(250) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1325, 1, false, -1, false, false);
 			}
-			if (this.type == 185 && Main.rand.Next(150) == 0)
+			if (this.type == NPCID.SnowFlinx && Main.rand.Next(150) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 951, 1, false, -1, false, false);
 			}
-			if (this.type == 44 && Main.rand.Next(50) == 0)
+			if (this.type == NPCID.UndeadMiner && Main.rand.Next(50) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1320, 1, false, -1, false, false);
 			}
-			if (this.type == 44 && Main.rand.Next(20) == 0)
+			if (this.type == NPCID.UndeadMiner && Main.rand.Next(20) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 88, 1, false, -1, false, false);
 			}
-			if (this.type == 110 && Main.rand.Next(80) == 0)
+			if (this.type == NPCID.SkeletonArcher && Main.rand.Next(80) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1321, 1, false, -1, false, false);
 			}
-			if (this.type == 60 && Main.rand.Next(150) == 0)
+			if (this.type == NPCID.Hellbat && Main.rand.Next(150) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1322, 1, false, -1, false, false);
 			}
-			if (this.type == 151 && Main.rand.Next(50) == 0)
+			if (this.type == NPCID.Lavabat && Main.rand.Next(50) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1322, 1, false, -1, false, false);
 			}
-			if (this.type == 24 && Main.rand.Next(50) == 0)
+			if (this.type == NPCID.FireImp && Main.rand.Next(50) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1323, 1, false, -1, false, false);
 			}
-			if (this.type == 109 && Main.rand.Next(30) == 0)
+			if (this.type == NPCID.Clown && Main.rand.Next(30) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1324, Main.rand.Next(1, 5), false, -1, false, false);
 			}
-			if (this.type == 163 || this.type == 238)
+			if (this.type == NPCID.BlackRecluse || this.type == NPCID.BlackRecluseWall)
 			{
 				if (Main.rand.Next(40) == 0)
 				{
@@ -53287,11 +53287,11 @@ namespace Terraria
 					}
 				}
 			}
-			if (Main.hardMode && (this.type == 197 || this.type == 206 || this.type == 169 || this.type == 154) && Main.rand.Next(180) == 0)
+			if (Main.hardMode && (this.type == NPCID.ArmoredViking || this.type == NPCID.IcyMerman || this.type == NPCID.IceElemental || this.type == NPCID.IceTortoise) && Main.rand.Next(180) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1306, 1, false, -1, false, false);
 			}
-			if (this.type == 244)
+			if (this.type == NPCID.RainbowSlime)
 			{
 				DropLoot(this.position, this.width, this.height, 23, Main.rand.Next(1, 6), false, 0, false, false);
 				if (Main.rand.Next(2) == 0)
@@ -53308,36 +53308,36 @@ namespace Terraria
 				}
 				DropLoot(this.position, this.width, this.height, 662, Main.rand.Next(30, 60), false, 0, false, false);
 			}
-			if (this.type == 250 && Main.rand.Next(15) == 0)
+			if (this.type == NPCID.AngryNimbus && Main.rand.Next(15) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1244, 1, false, -1, false, false);
 			}
-			if (this.type == 172)
+			if (this.type == NPCID.RuneWizard)
 			{
 				DropLoot(this.position, this.width, this.height, 754, 1, false, -1, false, false);
 				DropLoot(this.position, this.width, this.height, 755, 1, false, -1, false, false);
 			}
-			if (this.type == 110 && Main.rand.Next(200) == 0)
+			if (this.type == NPCID.SkeletonArcher && Main.rand.Next(200) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 682, 1, false, -1, false, false);
 			}
-			if (this.type == 154 && Main.rand.Next(100) == 0)
+			if (this.type == NPCID.IceTortoise && Main.rand.Next(100) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1253, 1, false, -1, false, false);
 			}
-			if ((this.type == 169 || this.type == 206) && Main.rand.Next(50) == 0)
+			if ((this.type == NPCID.IceElemental || this.type == NPCID.IcyMerman) && Main.rand.Next(50) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 726, 1, false, -1, false, false);
 			}
-			if (this.type == 243)
+			if (this.type == NPCID.IceGolem)
 			{
 				DropLoot(this.position, this.width, this.height, 2161, 1, false, -1, false, false);
 			}
-			if (this.type == 480 && Main.rand.Next(50) == 0)
+			if (this.type == NPCID.Medusa && Main.rand.Next(50) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 3269, 1, false, -1, false, false);
 			}
-			if (this.type == 198 || this.type == 199 || this.type == 226)
+			if (this.type == NPCID.Lihzahrd || this.type == NPCID.LihzahrdCrawler || this.type == NPCID.FlyingSnake)
 			{
 				if (Main.rand.Next(1000) == 0)
 				{
@@ -53352,7 +53352,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 2766, Main.rand.Next(1, 3), false, -1, false, false);
 				}
 			}
-			if (this.type == 78 || this.type == 79 || this.type == 80)
+			if (this.type == NPCID.Mummy || this.type == NPCID.DarkMummy || this.type == NPCID.LightMummy)
 			{
 				if (Main.rand.Next(75) == 0)
 				{
@@ -53367,7 +53367,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 872, 1, false, -1, false, false);
 				}
 			}
-			if (this.type == 473)
+			if (this.type == NPCID.BigMimicCorruption)
 			{
 				int num28 = Main.rand.Next(5);
 				if (num28 == 0)
@@ -53391,7 +53391,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 3023, 1, false, -1, false, false);
 				}
 			}
-			else if (this.type == 474)
+			else if (this.type == NPCID.BigMimicCrimson)
 			{
 				int num29 = Main.rand.Next(5);
 				if (num29 == 0)
@@ -53415,7 +53415,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 3020, 1, false, -1, false, false);
 				}
 			}
-			else if (this.type == 475)
+			else if (this.type == NPCID.BigMimicHallow)
 			{
 				int num30 = Main.rand.Next(4);
 				if (num30 == 0)
@@ -53439,12 +53439,12 @@ namespace Terraria
 			{
 				int arg_47D3_0 = this.type;
 			}
-			if (this.type == 473 || this.type == 474 || this.type == 475 || this.type == 476)
+			if (this.type == NPCID.BigMimicCorruption || this.type == NPCID.BigMimicCrimson || this.type == NPCID.BigMimicHallow || this.type == NPCID.BigMimicJungle)
 			{
 				DropLoot(this.position, this.width, this.height, 499, Main.rand.Next(5, 11), false, -1, false, false);
 				DropLoot(this.position, this.width, this.height, 500, Main.rand.Next(5, 16), false, -1, false, false);
 			}
-			if (this.type == 85 && this.value > 0f)
+			if (this.type == NPCID.Mimic && this.value > 0f)
 			{
 				if (this.ai[3] == 4f)
 				{
@@ -53498,7 +53498,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 87)
+			if (this.type == NPCID.WyvernHead)
 			{
 				if (Main.expertMode)
 				{
@@ -53509,7 +53509,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 575, Main.rand.Next(5, 11), false, 0, false, false);
 				}
 			}
-			if (this.type >= 212 && this.type <= 215)
+			if (this.type >= NPCID.PirateDeckhand && this.type <= NPCID.PirateCrossbower)
 			{
 				if (Main.rand.Next(8000) == 0)
 				{
@@ -53632,7 +53632,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 3265, 1, false, 0, false, false);
 				}
 			}
-			else if (this.type == 216)
+			else if (this.type == NPCID.PirateCaptain)
 			{
 				if (Main.rand.Next(2000) == 0)
 				{
@@ -53659,7 +53659,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 672, 1, false, -1, false, false);
 				}
 			}
-			else if (this.type == 491)
+			else if (this.type == NPCID.PirateShip)
 			{
 				if (Main.rand.Next(400) == 0)
 				{
@@ -53686,51 +53686,51 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 672, 1, false, -1, false, false);
 				}
 			}
-			if ((this.type == 161 || this.type == 431) && Main.rand.Next(50) == 0)
+			if ((this.type == NPCID.ZombieEskimo || this.type == NPCID.ArmedZombieEskimo) && Main.rand.Next(50) == 0)
 			{
 				int num33 = Main.rand.Next(3);
 				DropLoot(this.position, this.width, this.height, 803 + num33, 1, false, 0, false, false);
 			}
-			if (this.type == 217)
+			if (this.type == NPCID.CochinealBeetle)
 			{
 				DropLoot(this.position, this.width, this.height, 1115, 1, false, -1, false, false);
 			}
-			if (this.type == 218)
+			if (this.type == NPCID.CyanBeetle)
 			{
 				DropLoot(this.position, this.width, this.height, 1116, 1, false, -1, false, false);
 			}
-			if (this.type == 219)
+			if (this.type == NPCID.LacBeetle)
 			{
 				DropLoot(this.position, this.width, this.height, 1117, 1, false, -1, false, false);
 			}
-			if (this.type == 220)
+			if (this.type == NPCID.SeaSnail)
 			{
 				DropLoot(this.position, this.width, this.height, 1118, 1, false, -1, false, false);
 			}
-			if (this.type == 221)
+			if (this.type == NPCID.Squid)
 			{
 				DropLoot(this.position, this.width, this.height, 1119, 1, false, -1, false, false);
 			}
-			if (this.type == 167 && Main.rand.Next(50) == 0)
+			if (this.type == NPCID.UndeadViking && Main.rand.Next(50) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 879, 1, false, -1, false, false);
 			}
-			if (this.type == 143 || this.type == 144 || this.type == 145)
+			if (this.type == NPCID.SnowmanGangsta || this.type == NPCID.MisterStabby || this.type == NPCID.SnowBalla)
 			{
 				DropLoot(this.position, this.width, this.height, 593, Main.rand.Next(5, 11), false, 0, false, false);
 			}
-			if (this.type == 79)
+			if (this.type == NPCID.DarkMummy)
 			{
 				if (Main.rand.Next(10) == 0)
 				{
 					DropLoot(this.position, this.width, this.height, 527, 1, false, 0, false, false);
 				}
 			}
-			else if (this.type == 80 && Main.rand.Next(10) == 0)
+			else if (this.type == NPCID.LightMummy && Main.rand.Next(10) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 528, 1, false, 0, false, false);
 			}
-			if (this.type == 525)
+			if (this.type == NPCID.DesertGhoulCorruption)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
@@ -53741,7 +53741,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 527, 1, false, 0, false, false);
 				}
 			}
-			if (this.type == 526)
+			if (this.type == NPCID.DesertGhoulCrimson)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
@@ -53752,38 +53752,38 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 527, 1, false, 0, false, false);
 				}
 			}
-			if (this.type == 527 && Main.rand.Next(15) == 0)
+			if (this.type == NPCID.DesertGhoulHallow && Main.rand.Next(15) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 528, 1, false, 0, false, false);
 			}
-			if (this.type == 532 && Main.rand.Next(3) == 0)
+			if (this.type == NPCID.DesertBeast && Main.rand.Next(3) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 3380, 1, false, 0, false, false);
 			}
-			if (this.type == 528)
+			if (this.type == NPCID.DesertLamiaLight)
 			{
 				if (Main.rand.Next(25) == 0)
 				{
 					DropLoot(this.position, this.width, this.height, 2802, 1, false, 0, false, false);
 				}
 			}
-			else if (this.type == 529 && Main.rand.Next(25) == 0)
+			else if (this.type == NPCID.DesertLamiaDark && Main.rand.Next(25) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 2801, 1, false, 0, false, false);
 			}
-			if ((this.type == 49 || this.type == 51 || this.type == 150 || this.type == 93) && Main.rand.Next(100) == 0)
+			if ((this.type == NPCID.CaveBat || this.type == NPCID.JungleBat || this.type == NPCID.IceBat || this.type == NPCID.GiantBat) && Main.rand.Next(100) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 18, 1, false, -1, false, false);
 			}
-			if ((this.type == 16 || this.type == 185 || this.type == 167 || this.type == 197) && Main.rand.Next(50) == 0)
+			if ((this.type == NPCID.MotherSlime || this.type == NPCID.SnowFlinx || this.type == NPCID.UndeadViking || this.type == NPCID.ArmoredViking) && Main.rand.Next(50) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 393, 1, false, -1, false, false);
 			}
-			if (this.type == 58 && Main.rand.Next(75) == 0)
+			if (this.type == NPCID.Piranha && Main.rand.Next(75) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 393, 1, false, -1, false, false);
 			}
-			if (this.type >= 494 && this.type <= 506)
+			if (this.type >= NPCID.Crawdad && this.type <= NPCID.Salamander9)
 			{
 				if (Main.rand.Next(80) == 0)
 				{
@@ -53798,7 +53798,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 3285, 1, false, -1, false, false);
 				}
 			}
-			if (this.type == 21 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 322 || this.type == 323 || this.type == 324 || (this.type >= 449 && this.type <= 452))
+			if (this.type == NPCID.Skeleton || this.type == NPCID.HeadacheSkeleton || this.type == NPCID.MisassembledSkeleton || this.type == NPCID.PantlessSkeleton || this.type == NPCID.SkeletonTopHat || this.type == NPCID.SkeletonAstonaut || this.type == NPCID.SkeletonAlien || (this.type >= NPCID.BoneThrowingSkeleton && this.type <= NPCID.BoneThrowingSkeleton4))
 			{
 				if (Main.rand.Next(100) == 0)
 				{
@@ -53817,7 +53817,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 1274, 1, false, -1, false, false);
 				}
 			}
-			else if (this.type == 6)
+			else if (this.type == NPCID.EaterofSouls)
 			{
 				if (Main.rand.Next(175) == 0)
 				{
@@ -53836,7 +53836,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 42 || this.type == 43 || (this.type >= 231 && this.type <= 235))
+			else if (this.type == NPCID.Hornet || this.type == NPCID.ManEater || (this.type >= NPCID.HornetFatty && this.type <= NPCID.HornetStingy))
 			{
 				if (Main.rand.Next(100) == 0)
 				{
@@ -53855,7 +53855,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 31 || this.type == 32 || this.type == 294 || this.type == 295 || this.type == 296)
+			else if (this.type == NPCID.AngryBones || this.type == NPCID.DarkCaster || this.type == NPCID.AngryBonesBig || this.type == NPCID.AngryBonesBigMuscle || this.type == NPCID.AngryBonesBigHelmet)
 			{
 				if (Main.rand.Next(450) == 0)
 				{
@@ -53866,15 +53866,15 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 1307, 1, false, -1, false, false);
 				}
 			}
-			if ((this.type == 174 || this.type == 179 || this.type == 182 || this.type == 183) && Main.rand.Next(200) == 0)
+			if ((this.type == NPCID.Herpling || this.type == NPCID.CrimsonAxe || this.type == NPCID.FloatyGross || this.type == NPCID.Crimslime) && Main.rand.Next(200) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 996, 1, false, 0, false, false);
 			}
-			if (this.type == 101 || this.type == 98)
+			if (this.type == NPCID.Clinger || this.type == NPCID.SeekerHead)
 			{
 				DropLoot(this.position, this.width, this.height, 522, Main.rand.Next(2, 6), false, 0, false, false);
 			}
-			if (this.type == 86)
+			if (this.type == NPCID.Unicorn)
 			{
 				DropLoot(this.position, this.width, this.height, 526, 1, false, 0, false, false);
 				if (Main.rand.Next(100) == 0)
@@ -53882,11 +53882,11 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 856, 1, false, 0, false, false);
 				}
 			}
-			if (this.type == 186 || this.type == 432)
+			if (this.type == NPCID.PincushionZombie || this.type == NPCID.ArmedZombiePincussion)
 			{
 				DropLoot(this.position, this.width, this.height, 40, Main.rand.Next(1, 10), false, 0, false, false);
 			}
-			if (this.type == 225)
+			if (this.type == NPCID.UmbrellaSlime)
 			{
 				if (Main.rand.Next(45) == 0)
 				{
@@ -53897,7 +53897,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 23, Main.rand.Next(2, 7), false, 0, false, false);
 				}
 			}
-			if (this.type == 537)
+			if (this.type == NPCID.SandSlime)
 			{
 				int num36 = Main.rand.Next(1, 3);
 				if (Main.expertMode)
@@ -53922,7 +53922,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 1309, 1, false, -1, false, false);
 				}
 			}
-			if (this.type >= 333 && this.type <= 336 && Main.rand.Next(20) == 0)
+			if (this.type >= NPCID.SlimeRibbonWhite && this.type <= NPCID.SlimeRibbonRed && Main.rand.Next(20) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1906, 1, false, 0, false, false);
 			}
@@ -53939,7 +53939,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 1309, 1, false, -1, false, false);
 				}
 			}
-			else if (this.type == 1 || this.type == 16 || this.type == 138 || this.type == 141 || this.type == 147 || this.type == 184 || this.type == 187 || this.type == 204 || this.type == 302 || (this.type >= 333 && this.type <= 336) || this.type == 535)
+			else if (this.type == NPCID.BlueSlime || this.type == NPCID.MotherSlime || this.type == NPCID.IlluminantSlime || this.type == NPCID.ToxicSludge || this.type == NPCID.IceSlime || this.type == NPCID.SpikedIceSlime || this.type == NPCID.SlimedZombie || this.type == NPCID.SpikedJungleSlime || this.type == NPCID.SlimeMasked || (this.type >= NPCID.SlimeRibbonWhite && this.type <= NPCID.SlimeRibbonRed) || this.type == NPCID.SlimeSpiked)
 			{
 				int num39 = Main.rand.Next(1, 3);
 				if (Main.expertMode)
@@ -53968,7 +53968,7 @@ namespace Terraria
 					if (this.netID <= 1 && this.netID != -1 && this.netID != -2 && this.netID != -5 && this.netID != -6)
 					{
 						Main.item[num40].color = this.color;
-						NetMessage.SendData(88, -1, -1, "", num40, 1f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.TweakItem, -1, -1, "", num40, 1f, 0f, 0f, 0, 0, 0);
 					}
 				}
 				int num41 = 10000;
@@ -53981,23 +53981,23 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 1309, 1, false, -1, false, false);
 				}
 			}
-			if (this.type == 75)
+			if (this.type == NPCID.Pixie)
 			{
 				DropLoot(this.position, this.width, this.height, 501, Main.rand.Next(1, 4), false, 0, false, false);
 			}
-			if (this.type == 81 || this.type == 183)
+			if (this.type == NPCID.CorruptSlime || this.type == NPCID.Crimslime)
 			{
 				DropLoot(this.position, this.width, this.height, 23, Main.rand.Next(2, 5), false, 0, false, false);
 			}
-			if (this.type == 122)
+			if (this.type == NPCID.Gastropod)
 			{
 				DropLoot(this.position, this.width, this.height, 23, Main.rand.Next(5, 11), false, 0, false, false);
 			}
-			if (this.type == 71)
+			if (this.type == NPCID.DungeonSlime)
 			{
 				DropLoot(this.position, this.width, this.height, 327, 1, false, 0, false, false);
 			}
-			if (this.type == 2 || this.type == 317 || this.type == 318 || this.type == 190 || this.type == 191 || this.type == 192 || this.type == 193 || this.type == 194 || this.type == 133)
+			if (this.type == NPCID.DemonEye || this.type == NPCID.DemonEyeOwl || this.type == NPCID.DemonEyeSpaceship || this.type == NPCID.CataractEye || this.type == NPCID.SleepyEye || this.type == NPCID.DialatedEye || this.type == NPCID.GreenEye || this.type == NPCID.PurpleEye || this.type == NPCID.WanderingEye)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
@@ -54008,11 +54008,11 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 236, 1, false, 0, false, false);
 				}
 			}
-			if (this.type == 104 && Main.rand.Next(60) == 0)
+			if (this.type == NPCID.Werewolf && Main.rand.Next(60) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 485, 1, false, -1, false, false);
 			}
-			if (this.type == 58)
+			if (this.type == NPCID.Piranha)
 			{
 				if (Main.rand.Next(250) == 0)
 				{
@@ -54023,11 +54023,11 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 118, 1, false, 0, false, false);
 				}
 			}
-			if (this.type == 102 && Main.rand.Next(250) == 0)
+			if (this.type == NPCID.AnglerFish && Main.rand.Next(250) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 263, 1, false, 0, false, false);
 			}
-			if (this.type == 3 || this.type == 331 || this.type == 332 || this.type == 132 || this.type == 161 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 319 || this.type == 320 || this.type == 321 || (this.type >= 430 && this.type <= 436))
+			if (this.type == NPCID.Zombie || this.type == NPCID.ZombieXmas || this.type == NPCID.ZombieSweater || this.type == NPCID.BaldZombie || this.type == NPCID.ZombieEskimo || this.type == NPCID.PincushionZombie || this.type == NPCID.SlimedZombie || this.type == NPCID.SwampZombie || this.type == NPCID.TwiggyZombie || this.type == NPCID.FemaleZombie || this.type == NPCID.ZombieRaincoat || this.type == NPCID.ZombieDoctor || this.type == NPCID.ZombieSuperman || this.type == NPCID.ZombiePixie || (this.type >= NPCID.ArmedZombie && this.type <= NPCID.ArmedZombieCenx))
 			{
 				if (Main.rand.Next(50) == 0)
 				{
@@ -54038,7 +54038,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 1304, 1, false, -1, false, false);
 				}
 			}
-			if ((this.type == 489 || this.type == 490) && (Main.expertMode || Main.rand.Next(2) == 0))
+			if ((this.type == NPCID.BloodZombie || this.type == NPCID.Drippler) && (Main.expertMode || Main.rand.Next(2) == 0))
 			{
 				if (Main.rand.Next(75) == 0)
 				{
@@ -54049,7 +54049,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 3213, 1, false, -1, false, false);
 				}
 			}
-			if (this.type == 223 && Main.rand.Next(20) == 0)
+			if (this.type == NPCID.ZombieRaincoat && Main.rand.Next(20) == 0)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
@@ -54060,11 +54060,11 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 1136, 1, false, -1, false, false);
 				}
 			}
-			if (this.type == 66)
+			if (this.type == NPCID.VoodooDemon)
 			{
 				DropLoot(this.position, this.width, this.height, 267, 1, false, 0, false, false);
 			}
-			if ((this.type == 62 || this.type == 66) && Main.rand.Next(35) == 0)
+			if ((this.type == NPCID.Demon || this.type == NPCID.VoodooDemon) && Main.rand.Next(35) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 272, 1, false, -1, false, false);
 			}
@@ -54072,48 +54072,48 @@ namespace Terraria
 			{
 				DropLoot(this.position, this.width, this.height, 1315, 1, false, 0, false, false);
 			}
-			if (this.type == 52)
+			if (this.type == NPCID.DoctorBones)
 			{
 				DropLoot(this.position, this.width, this.height, 251, 1, false, 0, false, false);
 			}
-			if (this.type == 53)
+			if (this.type == NPCID.TheGroom)
 			{
 				DropLoot(this.position, this.width, this.height, 239, 1, false, 0, false, false);
 			}
-			if (this.type == 536)
+			if (this.type == NPCID.TheBride)
 			{
 				DropLoot(this.position, this.width, this.height, 3478, 1, false, 0, false, false);
 				DropLoot(this.position, this.width, this.height, 3479, 1, false, 0, false, false);
 			}
-			if (this.type == 54)
+			if (this.type == NPCID.Clothier)
 			{
 				DropLoot(this.position, this.width, this.height, 260, 1, false, 0, false, false);
 			}
-			if (this.type == 368)
+			if (this.type == NPCID.TravellingMerchant)
 			{
 				DropLoot(this.position, this.width, this.height, 2222, 1, false, 0, false, false);
 			}
-			if ((this.type == 69 || this.type == 509 || this.type == 508) && Main.rand.Next(3) == 0)
+			if ((this.type == NPCID.Antlion || this.type == NPCID.FlyingAntlion || this.type == NPCID.WalkingAntlion) && Main.rand.Next(3) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 323, Main.rand.Next(1, 3), false, 0, false, false);
 			}
-			if (this.type == 73)
+			if (this.type == NPCID.GoblinScout)
 			{
 				DropLoot(this.position, this.width, this.height, 362, Main.rand.Next(1, 3), false, 0, false, false);
 			}
-			if ((this.type == 483 || this.type == 482) && Main.rand.Next(30) == 0)
+			if ((this.type == NPCID.GraniteFlyer || this.type == NPCID.GraniteGolem) && Main.rand.Next(30) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 3109, 1, false, 0, false, false);
 			}
-			if ((this.type == 6 || this.type == 94) && Main.rand.Next(3) == 0)
+			if ((this.type == NPCID.EaterofSouls || this.type == NPCID.Corruptor) && Main.rand.Next(3) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 68, 1, false, 0, false, false);
 			}
-			if ((this.type == 181 || this.type == 173 || this.type == 239 || this.type == 182 || this.type == 240) && Main.rand.Next(3) == 0)
+			if ((this.type == NPCID.FaceMonster || this.type == NPCID.Crimera || this.type == NPCID.BloodCrawler || this.type == NPCID.FloatyGross || this.type == NPCID.BloodCrawlerWall) && Main.rand.Next(3) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1330, 1, false, 0, false, false);
 			}
-			if (this.type == 7 || this.type == 8 || this.type == 9)
+			if (this.type == NPCID.DevourerHead || this.type == NPCID.DevourerBody || this.type == NPCID.DevourerTail)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
@@ -54121,15 +54121,15 @@ namespace Terraria
 				}
 				DropLoot(this.position, this.width, this.height, 69, Main.rand.Next(3, 9), false, 0, false, false);
 			}
-			if ((this.type == 10 || this.type == 11 || this.type == 12 || this.type == 95 || this.type == 96 || this.type == 97) && (Main.rand.Next(50) == 0 || (Main.expertMode && Main.rand.Next(50) == 0)))
+			if ((this.type == NPCID.GiantWormHead || this.type == NPCID.GiantWormBody || this.type == NPCID.GiantWormTail || this.type == NPCID.DiggerHead || this.type == NPCID.DiggerBody || this.type == NPCID.DiggerTail) && (Main.rand.Next(50) == 0 || (Main.expertMode && Main.rand.Next(50) == 0)))
 			{
 				DropLoot(this.position, this.width, this.height, 215, 1, false, 0, false, false);
 			}
-			if (this.type == 47 && Main.rand.Next(75) == 0)
+			if (this.type == NPCID.CorruptBunny && Main.rand.Next(75) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 243, 1, false, 0, false, false);
 			}
-			if (this.type == 4)
+			if (this.type == NPCID.EyeofCthulhu)
 			{
 				if (Main.expertMode)
 				{
@@ -54183,7 +54183,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 266)
+			if (this.type == NPCID.BrainofCthulhu)
 			{
 				if (Main.expertMode)
 				{
@@ -54216,7 +54216,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 267 && NPC.AnyNPCs(266))
+			if (this.type == NPCID.Creeper && NPC.AnyNPCs(NPCID.BrainofCthulhu))
 			{
 				int num43 = Main.rand.Next(2, 6);
 				if (Main.rand.Next(3) != 0)
@@ -54241,7 +54241,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 				}
 			}
-			if (this.type == 13 || this.type == 14 || this.type == 15)
+			if (this.type == NPCID.EaterofWorldsHead || this.type == NPCID.EaterofWorldsBody || this.type == NPCID.EaterofWorldsTail)
 			{
 				int num44 = Main.rand.Next(1, 3);
 				if (Main.rand.Next(2) == 0)
@@ -54295,7 +54295,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 				}
 			}
-			if (this.type == 222)
+			if (this.type == NPCID.QueenBee)
 			{
 				if (Main.expertMode)
 				{
@@ -54400,10 +54400,10 @@ namespace Terraria
 				NPC.downedQueenBee = true;
 				if (Main.netMode == 2)
 				{
-					NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.WorldInfo, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 				}
 			}
-			if (this.type == 35)
+			if (this.type == NPCID.SkeletronHead)
 			{
 				if (Main.expertMode)
 				{
@@ -54422,7 +54422,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 1313, 1, false, -1, false, false);
 				}
 			}
-			if (this.type == 113)
+			if (this.type == NPCID.WallofFlesh)
 			{
 				if (Main.expertMode)
 				{
@@ -54519,7 +54519,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 439)
+			if (this.type == NPCID.CultistBoss)
 			{
 				NPC.downedAncientCultist = true;
 				if (Main.rand.Next(7) == 0)
@@ -54529,7 +54529,7 @@ namespace Terraria
 				DropLoot(this.position, this.width, this.height, 3549, 1, false, -1, false, false);
 				WorldGen.TriggerLunarApocalypse();
 			}
-			if (this.type == 398)
+			if (this.type == NPCID.MoonLordCore)
 			{
 				NPC.downedMoonlord = true;
 				NPC.LunarApocalypseIsUp = false;
@@ -54570,7 +54570,7 @@ namespace Terraria
 				case 407:
 				case 409:
 				case 411:
-					if ((this.type != 406 || Main.rand.Next(3) == 0) && NPC.ShieldStrengthTowerStardust > 0)
+					if ((this.type != NPCID.StardustCellSmall || Main.rand.Next(3) == 0) && NPC.ShieldStrengthTowerStardust > 0)
 					{
 						Projectile.NewProjectile(base.Center.X, base.Center.Y, 0f, 0f, 629, 0, 0f, Main.myPlayer, (float)NPC.FindFirstNPC(493), 0f);
 						goto IL_90BA;
@@ -54774,7 +54774,7 @@ namespace Terraria
 				DropLoot(this.position, this.width, this.height, 2805, 1, false, 0, false, false);
 			}
 			IL_9346:
-			if (this.type == 395)
+			if (this.type == NPCID.MartianSaucerCore)
 			{
 				DropLoot(this.position, this.width, this.height, Utils.SelectRandom<int>(Main.rand, new int[]
 				{
@@ -54789,19 +54789,19 @@ namespace Terraria
 					2800
 				}), 1, false, 0, false, false);
 			}
-			if (this.type == 390 && Main.rand.Next(100) == 0)
+			if (this.type == NPCID.ScutlixRider && Main.rand.Next(100) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 2771, 1, false, 0, false, false);
 			}
-			if ((this.type == 116 || this.type == 117 || this.type == 118 || this.type == 119) && (!Main.expertMode || Main.rand.Next(5) == 0))
+			if ((this.type == NPCID.TheHungryII || this.type == NPCID.LeechHead || this.type == NPCID.LeechBody || this.type == NPCID.LeechTail) && (!Main.expertMode || Main.rand.Next(5) == 0))
 			{
 				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
-			if (this.type == 139 && Main.rand.Next(2) == 0)
+			if (this.type == NPCID.Probe && Main.rand.Next(2) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 			}
-			if (this.type == 63 || this.type == 64 || this.type == 103)
+			if (this.type == NPCID.BlueJellyfish || this.type == NPCID.PinkJellyfish || this.type == NPCID.GreenJellyfish)
 			{
 				if (Main.rand.Next(100) == 0)
 				{
@@ -54809,21 +54809,21 @@ namespace Terraria
 				}
 				DropLoot(this.position, this.width, this.height, 282, Main.rand.Next(1, 5), false, 0, false, false);
 			}
-			if (this.type == 481 && Main.rand.Next(2) == 0)
+			if (this.type == NPCID.GreekSkeleton && Main.rand.Next(2) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 3094, Main.rand.Next(40, 81), false, 0, false, false);
 			}
-			if (this.type == 481 && Main.rand.Next(20) == 0)
+			if (this.type == NPCID.GreekSkeleton && Main.rand.Next(20) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 3187 + Main.rand.Next(3), 1, false, 0, false, false);
 			}
-			if (this.type == 21 || this.type == 44 || this.type == 167 || this.type == 201 || this.type == 202 || this.type == 481 || this.type == 203 || this.type == 322 || this.type == 323 || this.type == 324 || (this.type >= 449 && this.type <= 452))
+			if (this.type == NPCID.Skeleton || this.type == NPCID.UndeadMiner || this.type == NPCID.UndeadViking || this.type == NPCID.HeadacheSkeleton || this.type == NPCID.MisassembledSkeleton || this.type == NPCID.GreekSkeleton || this.type == NPCID.PantlessSkeleton || this.type == NPCID.SkeletonTopHat || this.type == NPCID.SkeletonAstonaut || this.type == NPCID.SkeletonAlien || (this.type >= NPCID.BoneThrowingSkeleton && this.type <= NPCID.BoneThrowingSkeleton4))
 			{
 				if (Main.rand.Next(25) == 0)
 				{
 					DropLoot(this.position, this.width, this.height, 118, 1, false, 0, false, false);
 				}
-				else if (this.type == 44)
+				else if (this.type == NPCID.UndeadMiner)
 				{
 					if (Main.rand.Next(20) == 0)
 					{
@@ -54835,11 +54835,11 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 45)
+			if (this.type == NPCID.Tim)
 			{
 				DropLoot(this.position, this.width, this.height, 238, 1, false, 0, false, false);
 			}
-			if (this.type == 50)
+			if (this.type == NPCID.KingSlime)
 			{
 				if (Main.slimeRain)
 				{
@@ -54875,18 +54875,18 @@ namespace Terraria
 				NPC.downedSlimeKing = true;
 				if (Main.netMode == 2)
 				{
-					NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.WorldInfo, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 				}
 			}
-			if (this.type == 23 && Main.rand.Next(50) == 0)
+			if (this.type == NPCID.MeteorHead && Main.rand.Next(50) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 116, 1, false, 0, false, false);
 			}
-			if (this.type == 24 && Main.rand.Next(250) == 0)
+			if (this.type == NPCID.FireImp && Main.rand.Next(250) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 244, 1, false, 0, false, false);
 			}
-			if (this.type == 31 || this.type == 32 || this.type == 34)
+			if (this.type == NPCID.AngryBones || this.type == NPCID.DarkCaster || this.type == NPCID.CursedSkull)
 			{
 				if (Main.rand.Next(250) == 0)
 				{
@@ -54909,7 +54909,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 154, Main.rand.Next(2, 7), false, 0, false, false);
 				}
 			}
-			if (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 29 || this.type == 111)
+			if (this.type == NPCID.GoblinPeon || this.type == NPCID.GoblinThief || this.type == NPCID.GoblinWarrior || this.type == NPCID.GoblinSorcerer || this.type == NPCID.GoblinArcher)
 			{
 				if (Main.rand.Next(200) == 0)
 				{
@@ -54921,23 +54921,23 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 161, stack4, false, 0, false, false);
 				}
 			}
-			if (this.type == 175 && Main.rand.Next(100) == 0)
+			if (this.type == NPCID.AngryTrapper && Main.rand.Next(100) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 1265, 1, false, -1, false, false);
 			}
-			if ((this.type == 42 || (this.type >= 231 && this.type <= 235)) && (Main.expertMode || Main.rand.Next(3) != 0))
+			if ((this.type == NPCID.Hornet || (this.type >= NPCID.HornetFatty && this.type <= NPCID.HornetStingy)) && (Main.expertMode || Main.rand.Next(3) != 0))
 			{
 				DropLoot(this.position, this.width, this.height, 209, 1, false, 0, false, false);
 			}
-			if (this.type == 204 && (Main.expertMode || Main.rand.Next(2) == 0))
+			if (this.type == NPCID.SpikedJungleSlime && (Main.expertMode || Main.rand.Next(2) == 0))
 			{
 				DropLoot(this.position, this.width, this.height, 209, 1, false, 0, false, false);
 			}
-			if (this.type == 43 && (Main.expertMode || Main.rand.Next(2) == 0))
+			if (this.type == NPCID.ManEater && (Main.expertMode || Main.rand.Next(2) == 0))
 			{
 				DropLoot(this.position, this.width, this.height, 210, 1, false, 0, false, false);
 			}
-			if (this.type == 65)
+			if (this.type == NPCID.Shark)
 			{
 				if (Main.rand.Next(50) == 0)
 				{
@@ -54948,14 +54948,14 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 319, 1, false, 0, false, false);
 				}
 			}
-			if (this.type == 48 && Main.rand.Next(2) == 0)
+			if (this.type == NPCID.Harpy && Main.rand.Next(2) == 0)
 			{
 				DropLoot(this.position, this.width, this.height, 320, 1, false, 0, false, false);
 			}
-			if (this.type == 125 || this.type == 126)
+			if (this.type == NPCID.Retinazer || this.type == NPCID.Spazmatism)
 			{
 				int num65 = 125;
-				if (this.type == 125)
+				if (this.type == NPCID.Retinazer)
 				{
 					num65 = 126;
 				}
@@ -54983,12 +54983,12 @@ namespace Terraria
 			}
 			else if (Main.expertMode)
 			{
-				if (this.type == 127 || this.type == 134)
+				if (this.type == NPCID.SkeletronPrime || this.type == NPCID.TheDestroyer)
 				{
 					this.DropBossBags();
 				}
 			}
-			else if (this.type == 127)
+			else if (this.type == NPCID.SkeletronPrime)
 			{
 				if (Main.rand.Next(7) == 0)
 				{
@@ -54997,7 +54997,7 @@ namespace Terraria
 				DropLoot(this.position, this.width, this.height, 547, Main.rand.Next(25, 41), false, 0, false, false);
 				DropLoot(this.position, this.width, this.height, 1225, Main.rand.Next(15, 31), false, 0, false, false);
 			}
-			else if (this.type == 134)
+			else if (this.type == NPCID.TheDestroyer)
 			{
 				if (Main.rand.Next(7) == 0)
 				{
@@ -55006,7 +55006,7 @@ namespace Terraria
 				DropLoot(this.position, this.width, this.height, 548, Main.rand.Next(25, 41), false, 0, false, false);
 				DropLoot(this.position, this.width, this.height, 1225, Main.rand.Next(15, 31), false, 0, false, false);
 			}
-			if (this.type == 262)
+			if (this.type == NPCID.Plantera)
 			{
 				if (Main.expertMode)
 				{
@@ -55107,102 +55107,102 @@ namespace Terraria
 					}
 					else if (Main.netMode == 2)
 					{
-						NetMessage.SendData(25, -1, -1, Lang.misc[33], 255, 50f, 255f, 130f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.misc[33], 255, 50f, 255f, 130f, 0, 0, 0);
 					}
 				}
 			}
-			if ((this.boss || this.type == 125 || this.type == 126 || this.type == 491) && Main.rand.Next(10) == 0)
+			if ((this.boss || this.type == NPCID.Retinazer || this.type == NPCID.Spazmatism || this.type == NPCID.PirateShip) && Main.rand.Next(10) == 0)
 			{
-				if (this.type == 4)
+				if (this.type == NPCID.EyeofCthulhu)
 				{
 					DropLoot(this.position, this.width, this.height, 1360, 1, false, 0, false, false);
 				}
-				if (this.type == 13 || this.type == 14 || this.type == 15)
+				if (this.type == NPCID.EaterofWorldsHead || this.type == NPCID.EaterofWorldsBody || this.type == NPCID.EaterofWorldsTail)
 				{
 					DropLoot(this.position, this.width, this.height, 1361, 1, false, 0, false, false);
 				}
-				if (this.type == 266)
+				if (this.type == NPCID.BrainofCthulhu)
 				{
 					DropLoot(this.position, this.width, this.height, 1362, 1, false, 0, false, false);
 				}
-				if (this.type == 35)
+				if (this.type == NPCID.SkeletronHead)
 				{
 					DropLoot(this.position, this.width, this.height, 1363, 1, false, 0, false, false);
 				}
-				if (this.type == 222)
+				if (this.type == NPCID.QueenBee)
 				{
 					DropLoot(this.position, this.width, this.height, 1364, 1, false, 0, false, false);
 				}
-				if (this.type == 113)
+				if (this.type == NPCID.WallofFlesh)
 				{
 					DropLoot(this.position, this.width, this.height, 1365, 1, false, 0, false, false);
 				}
-				if (this.type == 134)
+				if (this.type == NPCID.TheDestroyer)
 				{
 					DropLoot(this.position, this.width, this.height, 1366, 1, false, 0, false, false);
 				}
-				if (this.type == 127)
+				if (this.type == NPCID.SkeletronPrime)
 				{
 					DropLoot(this.position, this.width, this.height, 1367, 1, false, 0, false, false);
 				}
-				if (this.type == 125)
+				if (this.type == NPCID.Retinazer)
 				{
 					DropLoot(this.position, this.width, this.height, 1368, 1, false, 0, false, false);
 				}
-				if (this.type == 126)
+				if (this.type == NPCID.Spazmatism)
 				{
 					DropLoot(this.position, this.width, this.height, 1369, 1, false, 0, false, false);
 				}
-				if (this.type == 262)
+				if (this.type == NPCID.Plantera)
 				{
 					DropLoot(this.position, this.width, this.height, 1370, 1, false, 0, false, false);
 				}
-				if (this.type == 245)
+				if (this.type == NPCID.Golem)
 				{
 					DropLoot(this.position, this.width, this.height, 1371, 1, false, 0, false, false);
 				}
-				if (this.type == 50)
+				if (this.type == NPCID.KingSlime)
 				{
 					DropLoot(this.position, this.width, this.height, 2489, 1, false, 0, false, false);
 				}
-				if (this.type == 370)
+				if (this.type == NPCID.DukeFishron)
 				{
 					DropLoot(this.position, this.width, this.height, 2589, 1, false, 0, false, false);
 				}
-				if (this.type == 439)
+				if (this.type == NPCID.CultistBoss)
 				{
 					DropLoot(this.position, this.width, this.height, 3357, 1, false, 0, false, false);
 				}
-				if (this.type == 491)
+				if (this.type == NPCID.PirateShip)
 				{
 					DropLoot(this.position, this.width, this.height, 3359, 1, false, 0, false, false);
 				}
-				if (this.type == 395)
+				if (this.type == NPCID.MartianSaucerCore)
 				{
 					DropLoot(this.position, this.width, this.height, 3358, 1, false, 0, false, false);
 				}
-				if (this.type == 398)
+				if (this.type == NPCID.MoonLordCore)
 				{
 					DropLoot(this.position, this.width, this.height, 3595, 1, false, 0, false, false);
 				}
 			}
 			if (this.boss)
 			{
-				if (this.type == 4)
+				if (this.type == NPCID.EyeofCthulhu)
 				{
 					NPC.downedBoss1 = true;
 				}
-				else if (this.type == 13 || this.type == 14 || this.type == 15)
+				else if (this.type == NPCID.EaterofWorldsHead || this.type == NPCID.EaterofWorldsBody || this.type == NPCID.EaterofWorldsTail)
 				{
 					NPC.downedBoss2 = true;
 					this.name = "Eater of Worlds";
 				}
-				else if (this.type == 266)
+				else if (this.type == NPCID.BrainofCthulhu)
 				{
 					NPC.downedBoss2 = true;
 					this.name = "Brain of Cthulu";
 				}
-				else if (this.type == 35)
+				else if (this.type == NPCID.SkeletronHead)
 				{
 					NPC.downedBoss3 = true;
 					this.name = "Skeletron";
@@ -55211,12 +55211,12 @@ namespace Terraria
 				{
 					this.name = this.displayName;
 				}
-				if (this.type == 127)
+				if (this.type == NPCID.SkeletronPrime)
 				{
 					NPC.downedMechBoss3 = true;
 					NPC.downedMechBossAny = true;
 				}
-				if (this.type == 134)
+				if (this.type == NPCID.TheDestroyer)
 				{
 					NPC.downedMechBoss1 = true;
 					NPC.downedMechBossAny = true;
@@ -55228,11 +55228,11 @@ namespace Terraria
 				}
 				int stack5 = Main.rand.Next(5, 16);
 				int num70 = 28;
-				if (this.type == 113)
+				if (this.type == NPCID.WallofFlesh)
 				{
 					num70 = 188;
 				}
-				else if (this.type == 222)
+				else if (this.type == NPCID.QueenBee)
 				{
 					num70 = 1134;
 				}
@@ -55240,23 +55240,23 @@ namespace Terraria
 				{
 					num70 = 499;
 				}
-				else if (this.type == 245 || this.type == 262)
+				else if (this.type == NPCID.Golem || this.type == NPCID.Plantera)
 				{
 					num70 = 499;
 				}
-				else if (this.type == 370)
+				else if (this.type == NPCID.DukeFishron)
 				{
 					num70 = 499;
 				}
-				else if (this.type == 395)
+				else if (this.type == NPCID.MartianSaucerCore)
 				{
 					num70 = 499;
 				}
-				else if (this.type == 439)
+				else if (this.type == NPCID.CultistBoss)
 				{
 					num70 = 499;
 				}
-				else if (this.type == 398)
+				else if (this.type == NPCID.MoonLordCore)
 				{
 					num70 = 499;
 				}
@@ -55266,7 +55266,7 @@ namespace Terraria
 				{
 					DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 				}
-				if (this.type == 125 || this.type == 126)
+				if (this.type == NPCID.Retinazer || this.type == NPCID.Spazmatism)
 				{
 					NPC.downedMechBoss2 = true;
 					NPC.downedMechBossAny = true;
@@ -55276,10 +55276,10 @@ namespace Terraria
 					}
 					else if (Main.netMode == 2)
 					{
-						NetMessage.SendData(25, -1, -1, "The Twins " + Lang.misc[50], 255, 175f, 75f, 255f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, "The Twins " + Lang.misc[50], 255, 175f, 75f, 255f, 0, 0, 0);
 					}
 				}
-				else if (this.type == 398)
+				else if (this.type == NPCID.MoonLordCore)
 				{
 					if (Main.netMode == 0)
 					{
@@ -55287,7 +55287,7 @@ namespace Terraria
 					}
 					else if (Main.netMode == 2)
 					{
-						NetMessage.SendData(25, -1, -1, "Moon Lord " + Lang.misc[17], 255, 175f, 75f, 255f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, "Moon Lord " + Lang.misc[17], 255, 175f, 75f, 255f, 0, 0, 0);
 					}
 				}
 				else if (Main.netMode == 0)
@@ -55296,9 +55296,9 @@ namespace Terraria
 				}
 				else if (Main.netMode == 2)
 				{
-					NetMessage.SendData(25, -1, -1, name + " " + Lang.misc[17], 255, 175f, 75f, 255f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, name + " " + Lang.misc[17], 255, 175f, 75f, 255f, 0, 0, 0);
 				}
-				if (this.type == 113 && Main.netMode != 1)
+				if (this.type == NPCID.WallofFlesh && Main.netMode != 1)
 				{
 					bool hardMode = Main.hardMode;
 					WorldGen.StartHardmode();
@@ -55310,13 +55310,13 @@ namespace Terraria
 						}
 						else if (Main.netMode == 2)
 						{
-							NetMessage.SendData(25, -1, -1, Lang.misc[32], 255, 50f, 255f, 130f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.misc[32], 255, 50f, 255f, 130f, 0, 0, 0);
 						}
 					}
 				}
 				if (Main.netMode == 2)
 				{
-					NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.WorldInfo, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 				}
 			}
 			if (!flag && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3 && Main.hardMode)
@@ -55327,10 +55327,10 @@ namespace Terraria
 				}
 				else if (Main.netMode == 2)
 				{
-					NetMessage.SendData(25, -1, -1, Lang.misc[32], 255, 50f, 255f, 130f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.misc[32], 255, 50f, 255f, 130f, 0, 0, 0);
 				}
 			}
-			if (this.type != 16 && this.type != 81 && this.type != 121 && Main.rand.Next(6) == 0 && this.lifeMax > 1 && this.damage > 0)
+			if (this.type != NPCID.MotherSlime && this.type != NPCID.CorruptSlime && this.type != NPCID.Slimer && Main.rand.Next(6) == 0 && this.lifeMax > 1 && this.damage > 0)
 			{
 				int num73 = (int)Player.FindClosest(this.position, this.width, this.height);
 				if (Main.rand.Next(2) == 0 && Main.player[num73].statMana < Main.player[num73].statManaMax2)
@@ -55342,7 +55342,7 @@ namespace Terraria
 					DropLoot(this.position, this.width, this.height, 58, 1, false, 0, false, false);
 				}
 			}
-			if (this.type != 16 && this.type != 81 && this.type != 121 && Main.rand.Next(2) == 0 && this.lifeMax > 1 && this.damage > 0)
+			if (this.type != NPCID.MotherSlime && this.type != NPCID.CorruptSlime && this.type != NPCID.Slimer && Main.rand.Next(2) == 0 && this.lifeMax > 1 && this.damage > 0)
 			{
 				int num74 = (int)Player.FindClosest(this.position, this.width, this.height);
 				if (Main.player[num74].statMana < Main.player[num74].statManaMax2)
@@ -55446,7 +55446,7 @@ namespace Terraria
 			if (Main.netMode == 1)
 			{
 				Main.npc[i].active = false;
-				NetMessage.SendData(70, -1, -1, "", i, (float)who, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.CatchNPC, -1, -1, "", i, (float)who, 0f, 0f, 0, 0, 0);
 				return;
 			}
 			if (Main.npc[i].catchItem > 0)
@@ -55456,69 +55456,69 @@ namespace Terraria
 				item.SetDefaults((int)Main.npc[i].catchItem, false);
 				Item.NewItem((int)Main.player[who].Center.X, (int)Main.player[who].Center.Y, 0, 0, (int)Main.npc[i].catchItem, 1, false, 0, true, false);
 				Main.npc[i].active = false;
-				NetMessage.SendData(23, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
 		public void DropBossBags()
 		{
 			int num = -1;
-			if (this.type == 50)
+			if (this.type == NPCID.KingSlime)
 			{
 				num = 3318;
 			}
-			if (this.type == 4)
+			if (this.type == NPCID.EyeofCthulhu)
 			{
 				num = 3319;
 			}
-			if (this.type >= 13 && this.type <= 15)
+			if (this.type >= NPCID.EaterofWorldsHead && this.type <= NPCID.EaterofWorldsTail)
 			{
 				num = 3320;
 			}
-			if (this.type == 266)
+			if (this.type == NPCID.BrainofCthulhu)
 			{
 				num = 3321;
 			}
-			if (this.type == 222)
+			if (this.type == NPCID.QueenBee)
 			{
 				num = 3322;
 			}
-			if (this.type == 35)
+			if (this.type == NPCID.SkeletronHead)
 			{
 				num = 3323;
 			}
-			if (this.type == 113)
+			if (this.type == NPCID.WallofFlesh)
 			{
 				num = 3324;
 			}
-			if (this.type == 134)
+			if (this.type == NPCID.TheDestroyer)
 			{
 				num = 3325;
 			}
-			if (this.type == 125 || this.type == 126)
+			if (this.type == NPCID.Retinazer || this.type == NPCID.Spazmatism)
 			{
 				num = 3326;
 			}
-			if (this.type == 127)
+			if (this.type == NPCID.SkeletronPrime)
 			{
 				num = 3327;
 			}
-			if (this.type == 262)
+			if (this.type == NPCID.Plantera)
 			{
 				num = 3328;
 			}
-			if (this.type == 245)
+			if (this.type == NPCID.Golem)
 			{
 				num = 3329;
 			}
-			if (this.type == 370)
+			if (this.type == NPCID.DukeFishron)
 			{
 				num = 3330;
 			}
-			if (this.type == 439)
+			if (this.type == NPCID.CultistBoss)
 			{
 				num = 3331;
 			}
-			if (this.type == 398)
+			if (this.type == NPCID.MoonLordCore)
 			{
 				num = 3332;
 			}
@@ -55544,7 +55544,7 @@ namespace Terraria
 						{
 							if (this.playerInteraction[i] && Main.player[i].active)
 							{
-								NetMessage.SendData(90, i, -1, "", num2, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.UpdateItemDrop, i, -1, "", num2, 0f, 0f, 0f, 0, 0, 0);
 							}
 						}
 						Main.item[num2].active = false;
@@ -55563,75 +55563,75 @@ namespace Terraria
 			{
 				return;
 			}
-			if (this.type == 13 || this.type == 14 || this.type == 15)
+			if (this.type == NPCID.EaterofWorldsHead || this.type == NPCID.EaterofWorldsBody || this.type == NPCID.EaterofWorldsTail)
 			{
 				for (int i = 0; i < 200; i++)
 				{
-					if (i != this.whoAmI && Main.npc[i].active && (Main.npc[i].type == 13 || Main.npc[i].type == 14 || Main.npc[i].type == 15))
+					if (i != this.whoAmI && Main.npc[i].active && (Main.npc[i].type == NPCID.EaterofWorldsHead || Main.npc[i].type == NPCID.EaterofWorldsBody || Main.npc[i].type == NPCID.EaterofWorldsTail))
 					{
 						Main.npc[i].ApplyInteraction(player);
 					}
 				}
 			}
-			if (this.type == 134 || this.type == 135 || this.type == 136)
+			if (this.type == NPCID.TheDestroyer || this.type == NPCID.TheDestroyerBody || this.type == NPCID.TheDestroyerTail)
 			{
 				for (int j = 0; j < 200; j++)
 				{
-					if (j != this.whoAmI && Main.npc[j].active && (Main.npc[j].type == 134 || Main.npc[j].type == 135 || Main.npc[j].type == 136))
+					if (j != this.whoAmI && Main.npc[j].active && (Main.npc[j].type == NPCID.TheDestroyer || Main.npc[j].type == NPCID.TheDestroyerBody || Main.npc[j].type == NPCID.TheDestroyerTail))
 					{
 						Main.npc[j].ApplyInteraction(player);
 					}
 				}
 			}
-			if (this.type == 35 || this.type == 36)
+			if (this.type == NPCID.SkeletronHead || this.type == NPCID.SkeletronHand)
 			{
 				for (int k = 0; k < 200; k++)
 				{
-					if (k != this.whoAmI && Main.npc[k].active && (Main.npc[k].type == 35 || Main.npc[k].type == 36))
+					if (k != this.whoAmI && Main.npc[k].active && (Main.npc[k].type == NPCID.SkeletronHead || Main.npc[k].type == NPCID.SkeletronHand))
 					{
 						Main.npc[k].ApplyInteraction(player);
 					}
 				}
 			}
-			if (this.type == 113 || this.type == 114)
+			if (this.type == NPCID.WallofFlesh || this.type == NPCID.WallofFleshEye)
 			{
 				for (int l = 0; l < 200; l++)
 				{
-					if (l != this.whoAmI && Main.npc[l].active && (Main.npc[l].type == 113 || Main.npc[l].type == 114))
+					if (l != this.whoAmI && Main.npc[l].active && (Main.npc[l].type == NPCID.WallofFlesh || Main.npc[l].type == NPCID.WallofFleshEye))
 					{
 						Main.npc[l].ApplyInteraction(player);
 					}
 				}
 			}
-			if (this.type >= 127 && this.type <= 131)
+			if (this.type >= NPCID.SkeletronPrime && this.type <= NPCID.PrimeLaser)
 			{
 				for (int m = 0; m < 200; m++)
 				{
-					if (m != this.whoAmI && Main.npc[m].active && Main.npc[m].type >= 127 && Main.npc[m].type <= 131)
+					if (m != this.whoAmI && Main.npc[m].active && Main.npc[m].type >= NPCID.SkeletronPrime && Main.npc[m].type <= NPCID.PrimeLaser)
 					{
 						Main.npc[m].ApplyInteraction(player);
 					}
 				}
 			}
-			if (this.type >= 245 && this.type <= 249)
+			if (this.type >= NPCID.Golem && this.type <= NPCID.GolemHeadFree)
 			{
 				for (int n = 0; n < 200; n++)
 				{
-					if (n != this.whoAmI && Main.npc[n].active && Main.npc[n].type >= 245 && Main.npc[n].type <= 249)
+					if (n != this.whoAmI && Main.npc[n].active && Main.npc[n].type >= NPCID.Golem && Main.npc[n].type <= NPCID.GolemHeadFree)
 					{
 						Main.npc[n].ApplyInteraction(player);
 					}
 				}
 			}
-			if ((this.type == 396 || this.type == 397) && Main.npc[(int)this.ai[3]].active && Main.npc[(int)this.ai[3]].type == 398)
+			if ((this.type == NPCID.MoonLordHead || this.type == NPCID.MoonLordHand) && Main.npc[(int)this.ai[3]].active && Main.npc[(int)this.ai[3]].type == 398)
 			{
 				Main.npc[(int)this.ai[3]].ApplyInteraction(player);
 			}
-			if ((this.type == 393 || this.type == 394) && Main.npc[(int)this.ai[0]].active && Main.npc[(int)this.ai[0]].type == 395)
+			if ((this.type == NPCID.MartianSaucerTurret || this.type == NPCID.MartianSaucerCannon) && Main.npc[(int)this.ai[0]].active && Main.npc[(int)this.ai[0]].type == 395)
 			{
 				Main.npc[(int)this.ai[0]].ApplyInteraction(player);
 			}
-			if (this.type == 492 && Main.npc[(int)this.ai[0]].active && Main.npc[(int)this.ai[0]].type == 491)
+			if (this.type == NPCID.PirateShipCannon && Main.npc[(int)this.ai[0]].active && Main.npc[(int)this.ai[0]].type == 491)
 			{
 				Main.npc[(int)this.ai[0]].ApplyInteraction(player);
 			}
@@ -55680,7 +55680,7 @@ namespace Terraria
 		{
 			if (Main.netMode == 1)
 			{
-				NetMessage.SendData(71, -1, -1, "", x, (float)y, (float)Type, (float)Style, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ReleaseNPC, -1, -1, "", x, (float)y, (float)Type, (float)Style, 0, 0, 0);
 				return;
 			}
 			if (Main.npcCatchable[Type] && NPC.CanReleaseNPCs(who))
@@ -56114,7 +56114,7 @@ namespace Terraria
 					{
 						flag3 = true;
 					}
-					if (Main.tile[num6, num7].wall == 87)
+					if (Main.tile[num6, num7].wall == WallID.LihzahrdBrickUnsafe)
 					{
 						flag2 = true;
 					}
@@ -56318,19 +56318,19 @@ namespace Terraria
 						}
 						int num25 = (int)Main.player[j].Center.X / 16;
 						int num26 = (int)(Main.player[j].Bottom.Y + 8f) / 16;
-						if (Main.tile[num, num2].type == 367)
+						if (Main.tile[num, num2].type == TileID.Marble)
 						{
 							flag8 = true;
 						}
-						else if (Main.tile[num, num2].type == 368)
+						else if (Main.tile[num, num2].type == TileID.Granite)
 						{
 							flag7 = true;
 						}
-						else if (Main.tile[num25, num26].type == 367)
+						else if (Main.tile[num25, num26].type == TileID.Marble)
 						{
 							flag8 = true;
 						}
-						else if (Main.tile[num25, num26].type == 368)
+						else if (Main.tile[num25, num26].type == TileID.Granite)
 						{
 							flag7 = true;
 						}
@@ -56359,11 +56359,11 @@ namespace Terraria
 								int num30 = Main.rand.Next(1, 4);
 								for (int num31 = num2 - num27; num31 <= num2 + num27; num31 += num30)
 								{
-									if (Main.tile[num29, num31].type == 367)
+									if (Main.tile[num29, num31].type == TileID.Marble)
 									{
 										flag8 = true;
 									}
-									if (Main.tile[num29, num31].type == 368)
+									if (Main.tile[num29, num31].type == TileID.Granite)
 									{
 										flag7 = true;
 									}
@@ -56392,11 +56392,11 @@ namespace Terraria
 								int num33 = Main.rand.Next(3, 7);
 								for (int num34 = num26 - num27; num34 <= num26 + num27; num34 += num33)
 								{
-									if (Main.tile[num32, num34].type == 367)
+									if (Main.tile[num32, num34].type == TileID.Marble)
 									{
 										flag8 = true;
 									}
-									if (Main.tile[num32, num34].type == 368)
+									if (Main.tile[num32, num34].type == TileID.Granite)
 									{
 										flag7 = true;
 									}
@@ -56421,7 +56421,7 @@ namespace Terraria
 									{
 										for (int num37 = num2 - num35; num37 < num2 + num35; num37++)
 										{
-											if (Main.tile[num36, num37].wall == 62)
+											if (Main.tile[num36, num37].wall == WallID.SpiderUnsafe)
 											{
 												flag9 = true;
 											}
@@ -56433,7 +56433,7 @@ namespace Terraria
 							{
 								int num38 = (int)Main.player[j].position.X / 16;
 								int num39 = (int)Main.player[j].position.Y / 16;
-								if (Main.tile[num38, num39].wall == 62)
+								if (Main.tile[num38, num39].wall == WallID.SpiderUnsafe)
 								{
 									flag9 = true;
 								}
@@ -56626,19 +56626,19 @@ namespace Terraria
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 388, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (flag18 && Main.hardMode && NPC.downedGolemBoss && ((!NPC.downedMartians && Main.rand.Next(maxValue) == 0) || Main.rand.Next(maxValue2) == 0) && !NPC.AnyNPCs(399))
+							else if (flag18 && Main.hardMode && NPC.downedGolemBoss && ((!NPC.downedMartians && Main.rand.Next(maxValue) == 0) || Main.rand.Next(maxValue2) == 0) && !NPC.AnyNPCs(NPCID.MartianProbe))
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 399, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (flag18 && Main.hardMode && NPC.downedGolemBoss && ((!NPC.downedMartians && Main.rand.Next(maxValue) == 0) || Main.rand.Next(maxValue2) == 0) && !NPC.AnyNPCs(399) && (Main.player[j].inventory[Main.player[j].selectedItem].type == 148 || Main.player[j].ZoneWaterCandle))
+							else if (flag18 && Main.hardMode && NPC.downedGolemBoss && ((!NPC.downedMartians && Main.rand.Next(maxValue) == 0) || Main.rand.Next(maxValue2) == 0) && !NPC.AnyNPCs(NPCID.MartianProbe) && (Main.player[j].inventory[Main.player[j].selectedItem].type == 148 || Main.player[j].ZoneWaterCandle))
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 399, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (Main.hardMode && !NPC.AnyNPCs(87) && !flag3 && Main.rand.Next(10) == 0)
+							else if (Main.hardMode && !NPC.AnyNPCs(NPCID.WyvernHead) && !flag3 && Main.rand.Next(10) == 0)
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 87, 1, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (Main.hardMode && !NPC.AnyNPCs(87) && !flag3 && Main.rand.Next(10) == 0 && (Main.player[j].inventory[Main.player[j].selectedItem].type == 148 || Main.player[j].ZoneWaterCandle))
+							else if (Main.hardMode && !NPC.AnyNPCs(NPCID.WyvernHead) && !flag3 && Main.rand.Next(10) == 0 && (Main.player[j].inventory[Main.player[j].selectedItem].type == 148 || Main.player[j].ZoneWaterCandle))
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 87, 1, 0f, 0f, 0f, 0f, 255);
 							}
@@ -56651,7 +56651,7 @@ namespace Terraria
 						{
 							if (Main.invasionType == 1)
 							{
-								if (Main.hardMode && !NPC.AnyNPCs(471) && Main.rand.Next(30) == 0)
+								if (Main.hardMode && !NPC.AnyNPCs(NPCID.GoblinSummoner) && Main.rand.Next(30) == 0)
 								{
 									NPC.NewNPC(num * 16 + 8, num2 * 16, 471, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -56693,11 +56693,11 @@ namespace Terraria
 							}
 							else if (Main.invasionType == 3)
 							{
-								if (Main.invasionSize < Main.invasionSizeStart / 2 && Main.rand.Next(20) == 0 && !NPC.AnyNPCs(491) && !Collision.SolidTiles(num - 20, num + 20, num2 - 40, num2 - 10))
+								if (Main.invasionSize < Main.invasionSizeStart / 2 && Main.rand.Next(20) == 0 && !NPC.AnyNPCs(NPCID.PirateShip) && !Collision.SolidTiles(num - 20, num + 20, num2 - 40, num2 - 10))
 								{
 									NPC.NewNPC(num * 16 + 8, (num2 - 10) * 16, 491, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (Main.rand.Next(30) == 0 && !NPC.AnyNPCs(216))
+								else if (Main.rand.Next(30) == 0 && !NPC.AnyNPCs(NPCID.PirateCaptain))
 								{
 									NPC.NewNPC(num * 16 + 8, num2 * 16, 216, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -56726,13 +56726,13 @@ namespace Terraria
 							{
 								int num51 = 0;
 								int num52 = Main.rand.Next(7);
-								if (Main.invasionSize <= 100 && Main.rand.Next(10) == 0 && !NPC.AnyNPCs(395))
+								if (Main.invasionSize <= 100 && Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.MartianSaucerCore))
 								{
 									num51 = 395;
 								}
 								else if (num52 >= 6)
 								{
-									if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(395))
+									if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.MartianSaucerCore))
 									{
 										num51 = 395;
 									}
@@ -56770,7 +56770,7 @@ namespace Terraria
 									int num55 = Main.rand.Next(4);
 									if (num55 == 3)
 									{
-										if (!NPC.AnyNPCs(520))
+										if (!NPC.AnyNPCs(NPCID.MartianWalker))
 										{
 											num51 = 520;
 										}
@@ -56798,9 +56798,9 @@ namespace Terraria
 								}
 							}
 						}
-						else if (Main.tile[num, num2].wall == 62 || flag9)
+						else if (Main.tile[num, num2].wall == WallID.SpiderUnsafe || flag9)
 						{
-							if (Main.tile[num, num2].wall == 62 && Main.rand.Next(8) == 0 && !flag5 && (double)num2 >= Main.rockLayer && num2 < Main.maxTilesY - 210 && !NPC.savedStylist && !NPC.AnyNPCs(354))
+							if (Main.tile[num, num2].wall == WallID.SpiderUnsafe && Main.rand.Next(8) == 0 && !flag5 && (double)num2 >= Main.rockLayer && num2 < Main.maxTilesY - 210 && !NPC.savedStylist && !NPC.AnyNPCs(NPCID.WebbedStylist))
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 354, 0, 0f, 0f, 0f, 0f, 255);
 							}
@@ -56889,7 +56889,7 @@ namespace Terraria
 						else if (flag5 && (num < 250 || num > Main.maxTilesX - 250) && Main.tileSand[num45] && (double)num2 < Main.rockLayer)
 						{
 							bool flag20 = false;
-							if (!NPC.savedAngler && !NPC.AnyNPCs(376))
+							if (!NPC.savedAngler && !NPC.AnyNPCs(NPCID.SleepingAngler))
 							{
 								int num58 = -1;
 								for (int num59 = num2 - 1; num59 > num2 - 50; num59--)
@@ -56934,7 +56934,7 @@ namespace Terraria
 								}
 							}
 						}
-						else if (!flag5 && !NPC.savedAngler && !NPC.AnyNPCs(376) && (num < 340 || num > Main.maxTilesX - 340) && Main.tileSand[num45] && (double)num2 < Main.worldSurface)
+						else if (!flag5 && !NPC.savedAngler && !NPC.AnyNPCs(NPCID.SleepingAngler) && (num < 340 || num > Main.maxTilesX - 340) && Main.tileSand[num45] && (double)num2 < Main.worldSurface)
 						{
 							NPC.NewNPC(num * 16 + 8, num2 * 16, 376, 0, 0f, 0f, 0f, 0f, 255);
 						}
@@ -57002,11 +57002,11 @@ namespace Terraria
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 55, 0, 0f, 0f, 0f, 0f, 255);
 							}
 						}
-						else if (NPC.downedGoblins && Main.rand.Next(20) == 0 && !flag5 && (double)num2 >= Main.rockLayer && num2 < Main.maxTilesY - 210 && !NPC.savedGoblin && !NPC.AnyNPCs(105))
+						else if (NPC.downedGoblins && Main.rand.Next(20) == 0 && !flag5 && (double)num2 >= Main.rockLayer && num2 < Main.maxTilesY - 210 && !NPC.savedGoblin && !NPC.AnyNPCs(NPCID.BoundGoblin))
 						{
 							NPC.NewNPC(num * 16 + 8, num2 * 16, 105, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						else if (Main.hardMode && Main.rand.Next(20) == 0 && !flag5 && (double)num2 >= Main.rockLayer && num2 < Main.maxTilesY - 210 && !NPC.savedWizard && !NPC.AnyNPCs(106))
+						else if (Main.hardMode && Main.rand.Next(20) == 0 && !flag5 && (double)num2 >= Main.rockLayer && num2 < Main.maxTilesY - 210 && !NPC.savedWizard && !NPC.AnyNPCs(NPCID.BoundWizard))
 						{
 							NPC.NewNPC(num * 16 + 8, num2 * 16, 106, 0, 0f, 0f, 0f, 0f, 255);
 						}
@@ -57214,11 +57214,11 @@ namespace Terraria
 						else if (Main.player[j].ZoneDungeon)
 						{
 							int num67 = 0;
-							if (Main.tile[num, num2].wall == 94 || Main.tile[num, num2].wall == 96 || Main.tile[num, num2].wall == 98)
+							if (Main.tile[num, num2].wall == WallID.BlueDungeonSlabUnsafe || Main.tile[num, num2].wall == WallID.PinkDungeonSlabUnsafe || Main.tile[num, num2].wall == WallID.GreenDungeonSlabUnsafe)
 							{
 								num67 = 1;
 							}
-							if (Main.tile[num, num2].wall == 95 || Main.tile[num, num2].wall == 97 || Main.tile[num, num2].wall == 99)
+							if (Main.tile[num, num2].wall == WallID.BlueDungeonTileUnsafe || Main.tile[num, num2].wall == WallID.PinkDungeonTileUnsafe || Main.tile[num, num2].wall == WallID.GreenDungeonTileUnsafe)
 							{
 								num67 = 2;
 							}
@@ -57230,7 +57230,7 @@ namespace Terraria
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 68, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (!NPC.savedMech && Main.rand.Next(5) == 0 && !flag5 && !NPC.AnyNPCs(123) && (double)num2 > Main.rockLayer)
+							else if (!NPC.savedMech && Main.rand.Next(5) == 0 && !flag5 && !NPC.AnyNPCs(NPCID.BoundMechanic) && (double)num2 > Main.rockLayer)
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 123, 0, 0f, 0f, 0f, 0f, 255);
 							}
@@ -57250,7 +57250,7 @@ namespace Terraria
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 292, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (flag12 && !NPC.AnyNPCs(290) && num67 == 0 && Main.rand.Next(35) == 0)
+							else if (flag12 && !NPC.AnyNPCs(NPCID.Paladin) && num67 == 0 && Main.rand.Next(35) == 0)
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 290, 0, 0f, 0f, 0f, 0f, 255);
 							}
@@ -57461,7 +57461,7 @@ namespace Terraria
 							}
 							else if (NPC.waveCount >= 15)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.IceQueen))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57484,15 +57484,15 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 14)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.IceQueen))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.SantaNK1))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(344))
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.Everscream))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57503,11 +57503,11 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 13)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.IceQueen))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.SantaNK1))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57530,11 +57530,11 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 12)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.IceQueen))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(344))
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.Everscream))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57553,7 +57553,7 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 11)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(345))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.IceQueen))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 345, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57572,7 +57572,7 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 10)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.SantaNK1))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57599,11 +57599,11 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 9)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.SantaNK1))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(344))
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.Everscream))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57622,7 +57622,7 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 8)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.SantaNK1))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57645,7 +57645,7 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 7)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(346))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.SantaNK1))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 346, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57683,7 +57683,7 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 5)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(344))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.Everscream))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57702,7 +57702,7 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 4)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(344))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.Everscream))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 344, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57838,7 +57838,7 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 11)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(327))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.Pumpking))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 327, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57846,7 +57846,7 @@ namespace Terraria
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 325, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(315))
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.HeadlessHorseman))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 315, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57869,15 +57869,15 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 10)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(327))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.Pumpking))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 327, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(325))
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.MourningWood))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 325, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(315))
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.HeadlessHorseman))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 315, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57896,15 +57896,15 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 9)
 							{
-								if (Main.rand.Next(8) == 0 && !NPC.AnyNPCs(327))
+								if (Main.rand.Next(8) == 0 && !NPC.AnyNPCs(NPCID.Pumpking))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 327, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (Main.rand.Next(8) == 0 && !NPC.AnyNPCs(325))
+								else if (Main.rand.Next(8) == 0 && !NPC.AnyNPCs(NPCID.MourningWood))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 325, 0, 0f, 0f, 0f, 0f, 255);
 								}
-								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(315))
+								else if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.HeadlessHorseman))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 315, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57915,7 +57915,7 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 8)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(327))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.Pumpking))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 327, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57934,7 +57934,7 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 7)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(327))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.Pumpking))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 327, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57972,7 +57972,7 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 5)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(325))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.MourningWood))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 325, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -57995,7 +57995,7 @@ namespace Terraria
 							}
 							else if (NPC.waveCount == 4)
 							{
-								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(325))
+								if (Main.rand.Next(10) == 0 && !NPC.AnyNPCs(NPCID.MourningWood))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 325, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -58050,19 +58050,19 @@ namespace Terraria
 							{
 								flag21 = true;
 							}
-							if (flag21 && Main.rand.Next(80) == 0 && !NPC.AnyNPCs(477))
+							if (flag21 && Main.rand.Next(80) == 0 && !NPC.AnyNPCs(NPCID.Mothron))
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 477, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (Main.rand.Next(50) == 0 && !NPC.AnyNPCs(251))
+							else if (Main.rand.Next(50) == 0 && !NPC.AnyNPCs(NPCID.Eyezor))
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 251, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (NPC.downedPlantBoss && Main.rand.Next(5) == 0 && !NPC.AnyNPCs(466))
+							else if (NPC.downedPlantBoss && Main.rand.Next(5) == 0 && !NPC.AnyNPCs(NPCID.Psycho))
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 466, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (NPC.downedPlantBoss && Main.rand.Next(20) == 0 && !NPC.AnyNPCs(463))
+							else if (NPC.downedPlantBoss && Main.rand.Next(20) == 0 && !NPC.AnyNPCs(NPCID.Nailhead))
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 463, 0, 0f, 0f, 0f, 0f, 255);
 							}
@@ -58203,15 +58203,15 @@ namespace Terraria
 						}
 						else if (Main.hardMode && (double)num2 > Main.worldSurface && Main.rand.Next(75) == 0)
 						{
-							if (Main.rand.Next(2) == 0 && Main.player[j].ZoneCorrupt && !NPC.AnyNPCs(473))
+							if (Main.rand.Next(2) == 0 && Main.player[j].ZoneCorrupt && !NPC.AnyNPCs(NPCID.BigMimicCorruption))
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 473, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (Main.rand.Next(2) == 0 && Main.player[j].ZoneCrimson && !NPC.AnyNPCs(474))
+							else if (Main.rand.Next(2) == 0 && Main.player[j].ZoneCrimson && !NPC.AnyNPCs(NPCID.BigMimicCrimson))
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 474, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (Main.rand.Next(2) == 0 && Main.player[j].ZoneHoly && !NPC.AnyNPCs(475))
+							else if (Main.rand.Next(2) == 0 && Main.player[j].ZoneHoly && !NPC.AnyNPCs(NPCID.BigMimicHallow))
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 475, 0, 0f, 0f, 0f, 0f, 255);
 							}
@@ -58573,11 +58573,11 @@ namespace Terraria
 									flag22 = false;
 								}
 							}
-							if (Main.player[j].ZoneSnow && Main.hardMode && Main.cloudAlpha > 0f && !NPC.AnyNPCs(243) && Main.rand.Next(20) == 0)
+							if (Main.player[j].ZoneSnow && Main.hardMode && Main.cloudAlpha > 0f && !NPC.AnyNPCs(NPCID.IceGolem) && Main.rand.Next(20) == 0)
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 243, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (Main.player[j].ZoneHoly && Main.hardMode && Main.cloudAlpha > 0f && !NPC.AnyNPCs(244) && Main.rand.Next(20) == 0)
+							else if (Main.player[j].ZoneHoly && Main.hardMode && Main.cloudAlpha > 0f && !NPC.AnyNPCs(NPCID.RainbowSlime) && Main.rand.Next(20) == 0)
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 244, 0, 0f, 0f, 0f, 0f, 255);
 							}
@@ -58585,7 +58585,7 @@ namespace Terraria
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 250, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (flag22 && Main.hardMode && NPC.downedGolemBoss && ((!NPC.downedMartians && Main.rand.Next(100) == 0) || Main.rand.Next(400) == 0) && !NPC.AnyNPCs(399))
+							else if (flag22 && Main.hardMode && NPC.downedGolemBoss && ((!NPC.downedMartians && Main.rand.Next(100) == 0) || Main.rand.Next(400) == 0) && !NPC.AnyNPCs(NPCID.MartianProbe))
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 399, 0, 0f, 0f, 0f, 0f, 255);
 							}
@@ -58697,7 +58697,7 @@ namespace Terraria
 										NPC.NewNPC(num * 16 + 8, num2 * 16, 74, 0, 0f, 0f, 0f, 0f, 255);
 									}
 								}
-								else if (num73 > Main.maxTilesX / 3 && num45 == 2 && Main.rand.Next(300) == 0 && !NPC.AnyNPCs(50))
+								else if (num73 > Main.maxTilesX / 3 && num45 == 2 && Main.rand.Next(300) == 0 && !NPC.AnyNPCs(NPCID.KingSlime))
 								{
 									NPC.SpawnOnPlayer(j, 50);
 								}
@@ -58850,7 +58850,7 @@ namespace Terraria
 									}
 								}
 							}
-							else if (Main.hardMode && Main.rand.Next(50) == 0 && Main.bloodMoon && !NPC.AnyNPCs(109))
+							else if (Main.hardMode && Main.rand.Next(50) == 0 && Main.bloodMoon && !NPC.AnyNPCs(NPCID.Clown))
 							{
 								NPC.NewNPC(num * 16 + 8, num2 * 16, 109, 0, 0f, 0f, 0f, 0f, 255);
 							}
@@ -59105,11 +59105,11 @@ namespace Terraria
 						}
 						else if (num2 > Main.maxTilesY - 190)
 						{
-							if (Main.hardMode && !NPC.savedTaxCollector && Main.rand.Next(20) == 0 && !NPC.AnyNPCs(534))
+							if (Main.hardMode && !NPC.savedTaxCollector && Main.rand.Next(20) == 0 && !NPC.AnyNPCs(NPCID.DemonTaxCollector))
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 534, 0, 0f, 0f, 0f, 0f, 255);
 							}
-							else if (Main.rand.Next(40) == 0 && !NPC.AnyNPCs(39))
+							else if (Main.rand.Next(40) == 0 && !NPC.AnyNPCs(NPCID.BoneSerpentHead))
 							{
 								num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 39, 1, 0f, 0f, 0f, 0f, 255);
 							}
@@ -59242,7 +59242,7 @@ namespace Terraria
 							}
 							else if (flag8 && Main.rand.Next(5) != 0)
 							{
-								if (Main.rand.Next(6) != 0 && !NPC.AnyNPCs(480))
+								if (Main.rand.Next(6) != 0 && !NPC.AnyNPCs(NPCID.Medusa))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 480, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -59253,7 +59253,7 @@ namespace Terraria
 							}
 							else if (flag7 && Main.rand.Next(5) != 0)
 							{
-								if (Main.rand.Next(6) != 0 && !NPC.AnyNPCs(483))
+								if (Main.rand.Next(6) != 0 && !NPC.AnyNPCs(NPCID.GraniteFlyer))
 								{
 									num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 483, 0, 0f, 0f, 0f, 0f, 255);
 								}
@@ -59428,13 +59428,13 @@ namespace Terraria
 						{
 							num46 = NPC.NewNPC(num * 16 + 8, num2 * 16, 49, 0, 0f, 0f, 0f, 0f, 255);
 						}
-						if (Main.npc[num46].type == 1 && Main.rand.Next(180) == 0)
+						if (Main.npc[num46].type == NPCID.BlueSlime && Main.rand.Next(180) == 0)
 						{
 							Main.npc[num46].SetDefaults("Pinky");
 						}
 						if (Main.netMode == 2 && num46 < 200)
 						{
-							NetMessage.SendData(23, -1, -1, "", num46, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num46, 0f, 0f, 0f, 0, 0, 0);
 							return;
 						}
 						break;
@@ -59561,7 +59561,7 @@ namespace Terraria
 			}
 			if (Main.netMode == 2)
 			{
-				NetMessage.SendData(25, -1, -1, Main.npc[num7].displayName + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Main.npc[num7].displayName + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
 			}
 		}
 		public static void SpawnSkeletron()
@@ -59573,7 +59573,7 @@ namespace Terraria
 			int num2 = 0;
 			for (int i = 0; i < 200; i++)
 			{
-				if (Main.npc[i].active && Main.npc[i].type == 35)
+				if (Main.npc[i].active && Main.npc[i].type == NPCID.SkeletronHead)
 				{
 					flag = false;
 					break;
@@ -59583,7 +59583,7 @@ namespace Terraria
 			{
 				if (Main.npc[j].active)
 				{
-					if (Main.npc[j].type == 37)
+					if (Main.npc[j].type == NPCID.OldMan)
 					{
 						flag2 = true;
 						Main.npc[j].ai[3] = 1f;
@@ -59592,10 +59592,10 @@ namespace Terraria
 						num2 = Main.npc[j].height;
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(23, -1, -1, "", j, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", j, 0f, 0f, 0f, 0, 0, 0);
 						}
 					}
-					else if (Main.npc[j].type == 54)
+					else if (Main.npc[j].type == NPCID.Clothier)
 					{
 						flag2 = true;
 						vector = Main.npc[j].position;
@@ -59616,7 +59616,7 @@ namespace Terraria
 				}
 				if (Main.netMode == 2)
 				{
-					NetMessage.SendData(25, -1, -1, str + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, str + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
 				}
 			}
 		}
@@ -59626,13 +59626,13 @@ namespace Terraria
 			{
 				return;
 			}
-			if (Type == 262 && NPC.AnyNPCs(262))
+			if (Type == 262 && NPC.AnyNPCs(NPCID.Plantera))
 			{
 				return;
 			}
 			if (Type == 245)
 			{
-				if (NPC.AnyNPCs(245))
+				if (NPC.AnyNPCs(NPCID.Golem))
 				{
 					return;
 				}
@@ -59646,7 +59646,7 @@ namespace Terraria
 					{
 						for (int j = num2 - 20; j < num2 + 20; j++)
 						{
-							if (Main.tile[i, j].active() && Main.tile[i, j].type == 237 && Main.tile[i, j].frameX == 18 && Main.tile[i, j].frameY == 0)
+							if (Main.tile[i, j].active() && Main.tile[i, j].type == TileID.LihzahrdAltar && Main.tile[i, j].frameX == 18 && Main.tile[i, j].frameY == 0)
 							{
 								num3 = i;
 								num4 = j;
@@ -59683,7 +59683,7 @@ namespace Terraria
 						}
 						else if (Main.netMode == 2)
 						{
-							NetMessage.SendData(25, -1, -1, name + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, name + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
 						}
 					}
 				}
@@ -59714,7 +59714,7 @@ namespace Terraria
 						}
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(25, -1, -1, name2 + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, name2 + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
 							return;
 						}
 						break;
@@ -59768,7 +59768,7 @@ namespace Terraria
 							{
 								goto IL_7E8;
 							}
-							if ((!Main.wallHouse[(int)Main.tile[num20, num21].wall] || n >= 999) && (Type != 50 || n >= 500 || Main.tile[num21, num21].wall <= 0))
+							if ((!Main.wallHouse[(int)Main.tile[num20, num21].wall] || n >= 999) && (Type != 50 || n >= 500 || Main.tile[num21, num21].wall <= WallID.None))
 							{
 								int num22 = num21;
 								while (num22 < Main.maxTilesY)
@@ -59887,7 +59887,7 @@ namespace Terraria
 						}
 						if (Main.netMode == 2 && num31 < 200)
 						{
-							NetMessage.SendData(23, -1, -1, "", num31, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num31, 0f, 0f, 0f, 0, 0, 0);
 						}
 						if (Type == 134 || Type == 127 || Type == 126 || Type == 125)
 						{
@@ -59902,7 +59902,7 @@ namespace Terraria
 							}
 							if (Main.netMode == 2)
 							{
-								NetMessage.SendData(25, -1, -1, Lang.misc[48], 255, 175f, 75f, 255f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.misc[48], 255, 175f, 75f, 255f, 0, 0, 0);
 								return;
 							}
 						}
@@ -59915,7 +59915,7 @@ namespace Terraria
 							}
 							if (Main.netMode == 2)
 							{
-								NetMessage.SendData(25, -1, -1, name3 + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, name3 + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
 							}
 						}
 					}
@@ -59934,7 +59934,7 @@ namespace Terraria
 				}
 				if (Main.netMode == 2)
 				{
-					NetMessage.SendData(25, -1, -1, "Moon Lord " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, "Moon Lord " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
 				}
 				return;
 			}
@@ -59996,7 +59996,7 @@ namespace Terraria
 					}
 					else if (Main.netMode == 2)
 					{
-						NetMessage.SendData(25, -1, -1, Main.npc[num].name + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Main.npc[num].name + " " + Lang.misc[16], 255, 175f, 75f, 255f, 0, 0, 0);
 					}
 				}
 				return num;
@@ -60025,7 +60025,7 @@ namespace Terraria
 			this.teleportStyle = Style;
 			if (Main.netMode == 2 && Style != 4)
 			{
-				NetMessage.SendData(65, -1, -1, "", 1, (float)this.whoAmI, newPos.X, newPos.Y, Style, 0, 0);
+				NetMessage.SendData((int)PacketTypes.Teleport, -1, -1, "", 1, (float)this.whoAmI, newPos.X, newPos.Y, Style, 0, 0);
 			}
 		}
 		public void Transform(int newType)
@@ -60081,8 +60081,8 @@ namespace Terraria
 				if (Main.netMode == 2)
 				{
 					this.netUpdate = true;
-					NetMessage.SendData(23, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.NpcUpdateBuff, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 				}
 				this.TransformVisuals(oldType, newType);
 				if (NPC.TypeToNum(this.type) != -1)
@@ -60201,11 +60201,11 @@ namespace Terraria
 				}
 				if (this.aiStyle == 8 && Main.netMode != 1)
 				{
-					if (this.type == 172)
+					if (this.type == NPCID.RuneWizard)
 					{
 						this.ai[0] = 450f;
 					}
-					else if (this.type == 283 || this.type == 284)
+					else if (this.type == NPCID.Necromancer || this.type == NPCID.NecromancerArmored)
 					{
 						if (Main.rand.Next(2) == 0)
 						{
@@ -60213,7 +60213,7 @@ namespace Terraria
 							this.netUpdate = true;
 						}
 					}
-					else if (this.type == 533)
+					else if (this.type == NPCID.DesertDjinn)
 					{
 						if (Main.rand.Next(3) != 0)
 						{
@@ -60232,22 +60232,22 @@ namespace Terraria
 					this.localAI[1] = 1f;
 					this.TargetClosest(true);
 				}
-				if (this.type == 371)
+				if (this.type == NPCID.DetonatingBubble)
 				{
 					num = 0.0;
 					this.ai[0] = 1f;
 					this.ai[1] = 4f;
 					this.dontTakeDamage = true;
 				}
-				if (this.type == 184)
+				if (this.type == NPCID.SpikedIceSlime)
 				{
 					this.localAI[0] = 60f;
 				}
-				if (this.type == 535)
+				if (this.type == NPCID.SlimeSpiked)
 				{
 					this.localAI[0] = 60f;
 				}
-				if (this.type == 185)
+				if (this.type == NPCID.SnowFlinx)
 				{
 					this.localAI[0] = 1f;
 				}
@@ -60330,7 +60330,7 @@ namespace Terraria
 								this.velocity.X = num3;
 							}
 						}
-						if (this.type == 185)
+						if (this.type == NPCID.SnowFlinx)
 						{
 							num3 *= 1.5f;
 						}
@@ -60364,11 +60364,11 @@ namespace Terraria
 						this.velocity.X = num3 * (float)hitDirection * this.knockBackResist;
 					}
 				}
-				if ((this.type == 113 || this.type == 114) && this.life <= 0)
+				if ((this.type == NPCID.WallofFlesh || this.type == NPCID.WallofFleshEye) && this.life <= 0)
 				{
 					for (int i = 0; i < 200; i++)
 					{
-						if (Main.npc[i].active && (Main.npc[i].type == 113 || Main.npc[i].type == 114))
+						if (Main.npc[i].active && (Main.npc[i].type == NPCID.WallofFlesh || Main.npc[i].type == NPCID.WallofFleshEye))
 						{
 							Main.npc[i].HitEffect(hitDirection, num);
 						}
@@ -60405,16 +60405,16 @@ namespace Terraria
 						NPC nPC = Main.npc[j];
 						if (nPC.active && !nPC.buffImmune[189] && base.Distance(nPC.Center) < 100f && !nPC.dontTakeDamage && nPC.lifeMax > 5 && !nPC.friendly && !nPC.townNPC)
 						{
-							nPC.AddBuff(189, 300, false);
+							nPC.AddBuff(BuffID.Daybreak, 300, false);
 						}
 					}
 				}
 			}
-			if (this.type == 398 && dmg == 1337.0)
+			if (this.type == NPCID.MoonLordCore && dmg == 1337.0)
 			{
 				MoonlordDeathDrama.ThrowPieces(base.Center, Main.rand.Next(100));
 			}
-			if (this.type == 488)
+			if (this.type == NPCID.TargetDummy)
 			{
 				this.localAI[0] = (float)((int)dmg);
 				if (this.localAI[0] < 20f)
@@ -60427,10 +60427,10 @@ namespace Terraria
 				}
 				this.localAI[1] = (float)hitDirection;
 			}
-			if (this.type == 522)
+			if (this.type == NPCID.AncientLight)
 			{
 			}
-			else if (this.type == 426)
+			else if (this.type == NPCID.VortexHornetQueen)
 			{
 				if (this.life > 0)
 				{
@@ -60448,7 +60448,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 429)
+			else if (this.type == NPCID.VortexSoldier)
 			{
 				if (this.life > 0)
 				{
@@ -60504,14 +60504,14 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 406 || this.type == 405)
+			else if (this.type == NPCID.StardustCellSmall || this.type == NPCID.StardustCellBig)
 			{
 				if (this.life > 0)
 				{
 				}
 				else
 				{
-					if (this.type == 405)
+					if (this.type == NPCID.StardustCellBig)
 					{
 						int num67 = NPC.CountNPCS(406) + NPC.CountNPCS(405);
 						int num68 = 4;
@@ -60536,7 +60536,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 491)
+			else if (this.type == NPCID.PirateShip)
 			{
 				if (this.life <= 0)
 				{
@@ -60551,14 +60551,14 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 1 || this.type == 16 || this.type == 71 || this.type == 244 || this.type == 535)
+			if (this.type == NPCID.BlueSlime || this.type == NPCID.MotherSlime || this.type == NPCID.DungeonSlime || this.type == NPCID.RainbowSlime || this.type == NPCID.SlimeSpiked)
 			{
 				if (this.life > 0)
 				{
 				}
 				else
 				{
-					if (Main.netMode != 1 && this.type == 16)
+					if (Main.netMode != 1 && this.type == NPCID.MotherSlime)
 					{
 						int num216 = Main.rand.Next(2) + 2;
 						for (int num217 = 0; num217 < num216; num217++)
@@ -60574,18 +60574,18 @@ namespace Terraria
 							Main.npc[num218].ai[0] = (float)(-1000 * Main.rand.Next(3));
 							if (Main.netMode == 2 && num218 < 200)
 							{
-								NetMessage.SendData(23, -1, -1, "", num218, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num218, 0f, 0f, 0f, 0, 0, 0);
 							}
 						}
 					}
 				}
 			}
-			if (this.type >= 245 && this.type <= 249)
+			if (this.type >= NPCID.Golem && this.type <= NPCID.GolemHeadFree)
 			{
 				if (this.life > 0)
 				{
 				}
-				else if (this.type == 246)
+				else if (this.type == NPCID.GolemHead)
 				{
 					if (Main.netMode != 1)
 					{
@@ -60593,7 +60593,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 81 || this.type == 121)
+			if (this.type == NPCID.CorruptSlime || this.type == NPCID.Slimer)
 			{
 				if (this.life > 0)
 				{
@@ -60602,7 +60602,7 @@ namespace Terraria
 				{
 					if (Main.netMode != 1)
 					{
-						if (this.type == 121)
+						if (this.type == NPCID.Slimer)
 						{
 							int num291 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 81, 0, 0f, 0f, 0f, 0f, 255);
 							Main.npc[num291].SetDefaults("Slimer2");
@@ -60610,7 +60610,7 @@ namespace Terraria
 							Main.npc[num291].velocity.Y = this.velocity.Y;
 							if (Main.netMode == 2 && num291 < 200)
 							{
-								NetMessage.SendData(23, -1, -1, "", num291, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num291, 0f, 0f, 0f, 0, 0, 0);
 							}
 						}
 						else if (this.scale >= 1f)
@@ -60629,22 +60629,22 @@ namespace Terraria
 								Main.npc[num294].ai[1] = (float)num293;
 								if (Main.netMode == 2 && num294 < 200)
 								{
-									NetMessage.SendData(23, -1, -1, "", num294, 0f, 0f, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num294, 0f, 0f, 0f, 0, 0, 0);
 								}
 							}
 						}
 					}
 				}
 			}
-			if (this.type != 63 && this.type != 64 && this.type != 103)
+			if (this.type != NPCID.BlueJellyfish && this.type != NPCID.PinkJellyfish && this.type != NPCID.GreenJellyfish)
 			{
-				if (this.type == 59 || this.type == 60 || this.type == 151)
+				if (this.type == NPCID.LavaSlime || this.type == NPCID.Hellbat || this.type == NPCID.Lavabat)
 				{
 					if (this.life > 0)
 					{
 						return;
 					}
-					if (!Main.expertMode || this.type != 59 || Main.netMode == 1)
+					if (!Main.expertMode || this.type != NPCID.LavaSlime || Main.netMode == 1)
 					{
 						return;
 					}
@@ -60666,7 +60666,7 @@ namespace Terraria
 						return;
 					}
 				}
-				if (this.type == 50)
+				if (this.type == NPCID.KingSlime)
 				{
 					if (this.life > 0)
 					{
@@ -60687,33 +60687,33 @@ namespace Terraria
 							Main.npc[num316].ai[1] = 0f;
 							if (Main.netMode == 2 && num316 < 200)
 							{
-								NetMessage.SendData(23, -1, -1, "", num316, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num316, 0f, 0f, 0f, 0, 0, 0);
 							}
 						}
 						return;
 					}
 				}
-				else if (this.type == 153)
+				else if (this.type == NPCID.GiantTortoise)
 				{
 					return;
 				}
-				else if (this.type == 177)
+				else if (this.type == NPCID.Derpling)
 				{
 					return;
 				}
-				else if (this.type >= 494 && this.type <= 495)
+				else if (this.type >= NPCID.Crawdad && this.type <= NPCID.Crawdad2)
 				{
 					return;
 				}
-				else if (this.type >= 496 && this.type <= 497)
+				else if (this.type >= NPCID.GiantShelly && this.type <= NPCID.GiantShelly2)
 				{
 					return;
 				}
-				else if (this.type >= 498 && this.type <= 506)
+				else if (this.type >= NPCID.Salamander && this.type <= NPCID.Salamander9)
 				{
 					return;
 				}
-				else if (this.type == 49 || this.type == 51 || this.type == 93 || this.type == 150 || this.type == 152 || this.type == 226)
+				else if (this.type == NPCID.CaveBat || this.type == NPCID.JungleBat || this.type == NPCID.GiantBat || this.type == NPCID.IceBat || this.type == NPCID.GiantFlyingFox || this.type == NPCID.FlyingSnake)
 				{
 					if (this.life > 0)
 					{
@@ -60721,96 +60721,88 @@ namespace Terraria
 					}
 					return;
 				}
-				else if (this.type == 46 || this.type == 55 || this.type == 67 || this.type == 74 || this.type == 102 || this.type == 224 || this.type == 230 || this.type == 297 || this.type == 298 || this.type == 299 || this.type == 300 || this.type == 303 || this.type == 337 || this.type == 538)
+				else if (this.type == NPCID.Bunny || this.type == NPCID.Goldfish || this.type == NPCID.Crab || this.type == NPCID.Bird || this.type == NPCID.AnglerFish || this.type == NPCID.FlyingFish || this.type == NPCID.GoldfishWalker || this.type == NPCID.BirdBlue || this.type == NPCID.BirdRed || this.type == NPCID.Squirrel || this.type == NPCID.Mouse || this.type == NPCID.BunnySlimed || this.type == NPCID.BunnyXmas || this.type == NPCID.SquirrelRed)
 				{
 					if (this.life > 0)
 					{
 						return;
 					}
-					if (this.type == 46 || this.type == 303 || this.type == 337)
+					if (this.type == NPCID.Bunny || this.type == NPCID.BunnySlimed || this.type == NPCID.BunnyXmas)
 					{
-						if (this.type == 303)
+						if (this.type == NPCID.BunnySlimed)
 						{
 							return;
 						}
 					}
 					else
 					{
-						if (this.type == 67)
+						if (this.type == NPCID.Crab)
 						{
 							return;
 						}
-						if (this.type == 55 || this.type == 230)
+						if (this.type == NPCID.Goldfish || this.type == NPCID.GoldfishWalker)
 						{
 							return;
 						}
-						if (this.type == 74)
+						if (this.type == NPCID.Bird)
 						{
 							return;
 						}
-						if (this.type == 297)
+						if (this.type == NPCID.BirdBlue)
 						{
 							return;
 						}
-						if (this.type == 298)
+						if (this.type == NPCID.BirdRed)
 						{
 							return;
 						}
-						if (this.type == 299)
+						if (this.type == NPCID.Squirrel)
 						{
 							return;
 						}
-						if (this.type == 538)
+						if (this.type == NPCID.SquirrelRed)
 						{
 							return;
 						}
-						if (this.type == 300)
+						if (this.type == NPCID.Mouse)
 						{
 							return;
 						}
-						if (this.type == 102)
+						if (this.type == NPCID.AnglerFish)
 						{
 							return;
 						}
-						if (this.type == 224)
+						if (this.type == NPCID.FlyingFish)
 						{
 							return;
 						}
 					}
 				}
-				else if (this.type == 148 || this.type == 149 || this.type == 168 || this.type == 470)
+				else if (this.type == NPCID.Penguin || this.type == NPCID.PenguinBlack || this.type == NPCID.CorruptPenguin || this.type == NPCID.CrimsonPenguin)
 				{
 					return;
 				}
-				else if (this.type == 361)
+				else if (this.type == NPCID.Frog)
 				{
 					return;
 				}
-				else if (this.type == 366 || this.type == 367)
+				else if (this.type == NPCID.ScorpionBlack || this.type == NPCID.Scorpion)
 				{
 					return;
 				}
-				else if (this.type >= 362 && this.type <= 365)
+				else if (this.type >= NPCID.Duck && this.type <= NPCID.DuckWhite2)
 				{
 					if (this.life > 0)
 					{
 						return;
 					}
-					if (this.type == 362 || this.type == 363)
+					if (this.type == NPCID.Duck || this.type == NPCID.Duck2)
 					{
 						return;
 					}
 					return;
 				}
-				else if (this.type == 348 || this.type == 349)
-				{
-					if (this.life > 0)
-					{
-						return;
-					}
-					return;
-				}
-				else if (this.type == 351)
+				else if (this.type == NPCID.Nutcracker || this.type == NPCID.NutcrackerSpinning)
 				{
 					if (this.life > 0)
 					{
@@ -60818,7 +60810,7 @@ namespace Terraria
 					}
 					return;
 				}
-				else if (this.type == 350)
+				else if (this.type == NPCID.Krampus)
 				{
 					if (this.life > 0)
 					{
@@ -60826,98 +60818,106 @@ namespace Terraria
 					}
 					return;
 				}
-				else if (this.type == 47 || this.type == 57 || this.type == 58 || this.type == 464 || this.type == 465)
+				else if (this.type == NPCID.ElfArcher)
 				{
 					if (this.life > 0)
 					{
 						return;
 					}
-					if (this.type == 57)
-					{
-						return;
-					}
-					if (this.type == 58)
-					{
-						return;
-					}
-					if (this.type == 464)
-					{
-						return;
-					}
-					if (this.type == 465)
-					{
-						return;
-					}
 					return;
 				}
-				else if (this.type == 173 || this.type == 174 || this.type == 181 || this.type == 182 || this.type == 268)
+				else if (this.type == NPCID.CorruptBunny || this.type == NPCID.CorruptGoldfish || this.type == NPCID.Piranha || this.type == NPCID.CrimsonBunny || this.type == NPCID.CrimsonGoldfish)
 				{
 					if (this.life > 0)
 					{
 						return;
 					}
-					if (this.type == 173)
+					if (this.type == NPCID.CorruptGoldfish)
 					{
 						return;
 					}
-					if (this.type == 174)
+					if (this.type == NPCID.Piranha)
 					{
 						return;
 					}
-					if (this.type == 181)
+					if (this.type == NPCID.CrimsonBunny)
 					{
 						return;
 					}
-					if (this.type == 182)
+					if (this.type == NPCID.CrimsonGoldfish)
 					{
 						return;
 					}
-					if (this.type == 268)
-					{
-						return;
-					}
+					return;
 				}
-				else if (this.type == 2 || this.type == 190 || this.type == 191 || this.type == 192 || this.type == 193 || this.type == 194 || this.type == 317 || this.type == 318)
+				else if (this.type == NPCID.Crimera || this.type == NPCID.Herpling || this.type == NPCID.FaceMonster || this.type == NPCID.FloatyGross || this.type == NPCID.IchorSticker)
 				{
 					if (this.life > 0)
 					{
 						return;
 					}
-					if (this.type == 190)
+					if (this.type == NPCID.Crimera)
 					{
 						return;
 					}
-					if (this.type == 191)
+					if (this.type == NPCID.Herpling)
 					{
 						return;
 					}
-					if (this.type == 192)
+					if (this.type == NPCID.FaceMonster)
 					{
 						return;
 					}
-					if (this.type == 193)
+					if (this.type == NPCID.FloatyGross)
 					{
 						return;
 					}
-					if (this.type == 194)
+					if (this.type == NPCID.IchorSticker)
 					{
 						return;
 					}
-					if (this.type == 317)
+				}
+				else if (this.type == NPCID.DemonEye || this.type == NPCID.CataractEye || this.type == NPCID.SleepyEye || this.type == NPCID.DialatedEye || this.type == NPCID.GreenEye || this.type == NPCID.PurpleEye || this.type == NPCID.DemonEyeOwl || this.type == NPCID.DemonEyeSpaceship)
+				{
+					if (this.life > 0)
 					{
 						return;
 					}
-					if (this.type == 318)
+					if (this.type == NPCID.CataractEye)
+					{
+						return;
+					}
+					if (this.type == NPCID.SleepyEye)
+					{
+						return;
+					}
+					if (this.type == NPCID.DialatedEye)
+					{
+						return;
+					}
+					if (this.type == NPCID.GreenEye)
+					{
+						return;
+					}
+					if (this.type == NPCID.PurpleEye)
+					{
+						return;
+					}
+					if (this.type == NPCID.DemonEyeOwl)
+					{
+						return;
+					}
+					if (this.type == NPCID.DemonEyeSpaceship)
 					{
 						return;
 					}
 					return;
 				}
-				else if (this.type == 157)
+				else if (this.type == NPCID.Arapaima)
 				{
 					return;
 				}
-				else if (this.type == 133)
+				else if (this.type == NPCID.WanderingEye)
 				{
 					if (this.life <= 0)
 					{
@@ -60929,47 +60929,47 @@ namespace Terraria
 						return;
 					}
 				}
-				else if (this.type == 69 || this.type == 509 || this.type == 508)
+				else if (this.type == NPCID.Antlion || this.type == NPCID.FlyingAntlion || this.type == NPCID.WalkingAntlion)
 				{
 					return;
 				}
-				else if (this.type == 61)
+				else if (this.type == NPCID.Vulture)
 				{
 					return;
 				}
-				else if (this.type == 301)
+				else if (this.type == NPCID.Raven)
 				{
 					return;
 				}
-				else if (this.type == 252)
+				else if (this.type == NPCID.Parrot)
 				{
 					return;
 				}
-				else if (this.type == 489)
+				else if (this.type == NPCID.BloodZombie)
 				{
 					return;
 				}
-				else if (this.type == 534)
+				else if (this.type == NPCID.DemonTaxCollector)
 				{
 					return;
 				}
-				else if (this.type == 490)
+				else if (this.type == NPCID.Drippler)
 				{
 					return;
 				}
-				else if (this.type == 65)
+				else if (this.type == NPCID.Shark)
 				{
 					return;
 				}
-				else if (this.type == 195 || this.type == 196)
+				else if (this.type == NPCID.LostGirl || this.type == NPCID.Nymph)
 				{
 					return;
 				}
-				else if (this.type == 198 || this.type == 199)
+				else if (this.type == NPCID.Lihzahrd || this.type == NPCID.LihzahrdCrawler)
 				{
 					return;
 				}
-				else if (this.type == 206)
+				else if (this.type == NPCID.IcyMerman)
 				{
 					if (this.life > 0)
 					{
@@ -60977,7 +60977,7 @@ namespace Terraria
 					}
 					return;
 				}
-				else if (this.type == 342)
+				else if (this.type == NPCID.GingerbreadMan)
 				{
 					if (this.life > 0)
 					{
@@ -60985,131 +60985,131 @@ namespace Terraria
 					}
 					return;
 				}
-				else if (this.type >= 338 && this.type <= 340)
+				else if (this.type >= NPCID.ZombieElf && this.type <= NPCID.ZombieElfGirl)
 				{
 					return;
 				}
-				else if (this.type == 343)
+				else if (this.type == NPCID.Yeti)
 				{
 					return;
 				}
-				else if ((this.type >= 430 && this.type <= 436) || this.type == 3 || this.type == 52 || this.type == 53 || this.type == 536 || this.type == 104 || this.type == 109 || this.type == 331 || this.type == 332 || this.type == 132 || this.type == 161 || this.type == 162 || this.type == 186 || this.type == 187 || this.type == 188 || this.type == 189 || this.type == 200 || this.type == 223 || this.type == 251 || this.type == 319 || this.type == 320 || this.type == 321)
+				else if ((this.type >= NPCID.ArmedZombie && this.type <= NPCID.ArmedZombieCenx) || this.type == NPCID.Zombie || this.type == NPCID.DoctorBones || this.type == NPCID.TheGroom || this.type == NPCID.TheBride || this.type == NPCID.Werewolf || this.type == NPCID.Clown || this.type == NPCID.ZombieXmas || this.type == NPCID.ZombieSweater || this.type == NPCID.BaldZombie || this.type == NPCID.ZombieEskimo || this.type == NPCID.Frankenstein || this.type == NPCID.PincushionZombie || this.type == NPCID.SlimedZombie || this.type == NPCID.SwampZombie || this.type == NPCID.TwiggyZombie || this.type == NPCID.FemaleZombie || this.type == NPCID.ZombieRaincoat || this.type == NPCID.Eyezor || this.type == NPCID.ZombieDoctor || this.type == NPCID.ZombieSuperman || this.type == NPCID.ZombiePixie)
 				{
 					if (this.life > 0)
 					{
-						if (this.type == 187)
+						if (this.type == NPCID.SlimedZombie)
 						{
 							return;
 						}
 					}
 					else
 					{
-						if (this.type == 104)
+						if (this.type == NPCID.Werewolf)
 						{
 							return;
 						}
-						if (this.type == 331)
+						if (this.type == NPCID.ZombieXmas)
 						{
 							return;
 						}
-						if (this.type == 332)
+						if (this.type == NPCID.ZombieSweater)
 						{
 							return;
 						}
-						if (this.type == 109)
+						if (this.type == NPCID.Clown)
 						{
 							return;
 						}
-						if (this.type == 161 || this.type == 431)
+						if (this.type == NPCID.ZombieEskimo || this.type == NPCID.ArmedZombieEskimo)
 						{
 							return;
 						}
-						if (this.type == 162)
+						if (this.type == NPCID.Frankenstein)
 						{
 							return;
 						}
-						if (this.type == 188 || this.type == 434)
+						if (this.type == NPCID.SwampZombie || this.type == NPCID.ArmedZombieSwamp)
 						{
 							return;
 						}
-						if (this.type == 200 || this.type == 436)
+						if (this.type == NPCID.FemaleZombie || this.type == NPCID.ArmedZombieCenx)
 						{
 							return;
 						}
-						if (this.type == 319)
+						if (this.type == NPCID.ZombieDoctor)
 						{
 							return;
 						}
-						if (this.type == 320)
+						if (this.type == NPCID.ZombieSuperman)
 						{
 							return;
 						}
-						if (this.type == 321)
+						if (this.type == NPCID.ZombiePixie)
 						{
 							return;
 						}
-						if (this.type == 223)
+						if (this.type == NPCID.ZombieRaincoat)
 						{
 							return;
 						}
-						if ((this.type == 186 || this.type == 432) && Main.rand.Next(2) == 0)
+						if ((this.type == NPCID.PincushionZombie || this.type == NPCID.ArmedZombiePincussion) && Main.rand.Next(2) == 0)
 						{
 							return;
 						}
 					}
 				}
-				else if (this.type == 83 || this.type == 84 || this.type == 179)
+				else if (this.type == NPCID.CursedHammer || this.type == NPCID.EnchantedSword || this.type == NPCID.CrimsonAxe)
 				{
 					return;
 				}
-				else if (this.type == 262 || this.type == 263 || this.type == 264)
+				else if (this.type == NPCID.Plantera || this.type == NPCID.PlanterasHook || this.type == NPCID.PlanterasTentacle)
 				{
 					if (this.life > 0)
 					{
 						return;
 					}
-					if (this.type == 264)
+					if (this.type == NPCID.PlanterasTentacle)
 					{
 						return;
 					}
 				}
-				else if (this.type == 265)
+				else if (this.type == NPCID.Spore)
 				{
 					if (this.life < 0)
 					{
 						return;
 					}
 				}
-				else if (this.type == 266)
+				else if (this.type == NPCID.BrainofCthulhu)
 				{
 					return;
 				}
-				else if (this.type == 267)
+				else if (this.type == NPCID.Creeper)
 				{
 					return;
 				}
-				else if (this.type == 4 || this.type == 126 || this.type == 125)
+				else if (this.type == NPCID.EyeofCthulhu || this.type == NPCID.Spazmatism || this.type == NPCID.Retinazer)
 				{
 					if (this.life > 0)
 					{
 						return;
 					}
-					if (this.type == 125 || this.type == 126)
+					if (this.type == NPCID.Retinazer || this.type == NPCID.Spazmatism)
 					{
 						return;
 					}
 				}
-				else if (this.type == 5)
+				else if (this.type == NPCID.ServantofCthulhu)
 				{
 					return;
 				}
-				else if (this.type == 113 || this.type == 114)
+				else if (this.type == NPCID.WallofFlesh || this.type == NPCID.WallofFleshEye)
 				{
 					if (this.life > 0)
 					{
 						return;
 					}
-					if (this.type == 114)
+					if (this.type == NPCID.WallofFleshEye)
 					{
 						return;
 					}
@@ -61118,13 +61118,13 @@ namespace Terraria
 						return;
 					}
 				}
-				else if (this.type == 115 || this.type == 116)
+				else if (this.type == NPCID.TheHungry || this.type == NPCID.TheHungryII)
 				{
 					if (this.life > 0)
 					{
 						return;
 					}
-					if (this.type == 115 && Main.netMode != 1)
+					if (this.type == NPCID.TheHungry && Main.netMode != 1)
 					{
 						NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 116, 0, 0f, 0f, 0f, 0f, 255);
 						
@@ -61132,313 +61132,313 @@ namespace Terraria
 					}
 					return;
 				}
-				else if (this.type >= 117 && this.type <= 119)
+				else if (this.type >= NPCID.LeechHead && this.type <= NPCID.LeechTail)
 				{
 					return;
 				}
-				else if (this.type == 217 || this.type == 218 || this.type == 219)
+				else if (this.type == NPCID.CochinealBeetle || this.type == NPCID.CyanBeetle || this.type == NPCID.LacBeetle)
 				{
 					if (this.life > 0)
 					{
 						return;
 					}
-					if (this.type == 219)
+					if (this.type == NPCID.LacBeetle)
 					{
 						return;
 					}
 				}
-				else if (this.type == 222)
+				else if (this.type == NPCID.QueenBee)
 				{
 					return;
 				}
-				else if (this.type == 6 || this.type == 94 || this.type == 166)
+				else if (this.type == NPCID.EaterofSouls || this.type == NPCID.Corruptor || this.type == NPCID.SwampThing)
 				{
 					return;
 				}
-				else if (this.type == 101)
+				else if (this.type == NPCID.Clinger)
 				{
 					return;
 				}
-				else if (this.type == 7 || this.type == 8 || this.type == 9)
+				else if (this.type == NPCID.DevourerHead || this.type == NPCID.DevourerBody || this.type == NPCID.DevourerTail)
 				{
 					return;
 				}
-				else if (this.type == 98 || this.type == 99 || this.type == 100)
+				else if (this.type == NPCID.SeekerHead || this.type == NPCID.SeekerBody || this.type == NPCID.SeekerTail)
 				{
 					return;
 				}
-				else if (this.type == 10 || this.type == 11 || this.type == 12)
+				else if (this.type == NPCID.GiantWormHead || this.type == NPCID.GiantWormBody || this.type == NPCID.GiantWormTail)
 				{
 					return;
 				}
-				else if (this.type == 95 || this.type == 96 || this.type == 97)
+				else if (this.type == NPCID.DiggerHead || this.type == NPCID.DiggerBody || this.type == NPCID.DiggerTail)
 				{
 					return;
 				}
-				else if (this.type == 13 || this.type == 14 || this.type == 15)
+				else if (this.type == NPCID.EaterofWorldsHead || this.type == NPCID.EaterofWorldsBody || this.type == NPCID.EaterofWorldsTail)
 				{
 					return;
 				}
-				else if (this.type == 17)
+				else if (this.type == NPCID.Merchant)
 				{
 					return;
 				}
-				else if (this.type == 441)
+				else if (this.type == NPCID.TaxCollector)
 				{
 					return;
 				}
-				else if (this.type == 86)
+				else if (this.type == NPCID.Unicorn)
 				{
 					return;
 				}
-				else if (this.type == 155)
+				else if (this.type == NPCID.Wolf)
 				{
 					return;
 				}
-				else if (this.type == 329)
+				else if (this.type == NPCID.Hellhound)
 				{
 					return;
 				}
-				else if (this.type == 163 || this.type == 238)
+				else if (this.type == NPCID.BlackRecluse || this.type == NPCID.BlackRecluseWall)
 				{
 					return;
 				}
-				else if (this.type == 164 || this.type == 165)
+				else if (this.type == NPCID.WallCreeper || this.type == NPCID.WallCreeperWall)
 				{
 					return;
 				}
-				else if (this.type == 239 || this.type == 240)
+				else if (this.type == NPCID.BloodCrawler || this.type == NPCID.BloodCrawlerWall)
 				{
 					return;
 				}
-				else if (this.type == 236 || this.type == 237)
+				else if (this.type == NPCID.JungleCreeper || this.type == NPCID.JungleCreeperWall)
 				{
 					return;
 				}
-				else if (this.type == 241)
+				else if (this.type == NPCID.BloodFeeder)
 				{
 					return;
 				}
-				else if (this.type == 242)
+				else if (this.type == NPCID.BloodJelly)
 				{
 					return;
 				}
-				else if (this.type >= 105 && this.type <= 108)
+				else if (this.type >= NPCID.BoundGoblin && this.type <= NPCID.Wizard)
 				{
 					return;
 				}
-				else if (this.type == 123 || this.type == 124)
+				else if (this.type == NPCID.BoundMechanic || this.type == NPCID.Mechanic)
 				{
 					return;
 				}
-				else if (this.type == 22)
+				else if (this.type == NPCID.Guide)
 				{
 					return;
 				}
-				else if (this.type == 368)
+				else if (this.type == NPCID.TravellingMerchant)
 				{
 					return;
 				}
-				else if (this.type == 369 || this.type == 376)
+				else if (this.type == NPCID.Angler || this.type == NPCID.SleepingAngler)
 				{
 					return;
 				}
-				else if (this.type == 227)
+				else if (this.type == NPCID.Painter)
 				{
 					return;
 				}
-				else if (this.type == 228)
+				else if (this.type == NPCID.WitchDoctor)
 				{
 					return;
 				}
-				else if (this.type == 229)
+				else if (this.type == NPCID.Pirate)
 				{
 					return;
 				}
-				else if (this.type == 142)
+				else if (this.type == NPCID.SantaClaus)
 				{
 					return;
 				}
-				else if (this.type == 178)
+				else if (this.type == NPCID.Steampunker)
 				{
 					return;
 				}
-				else if (this.type == 353 || this.type == 354)
+				else if (this.type == NPCID.Stylist || this.type == NPCID.WebbedStylist)
 				{
 					return;
 				}
-				else if (this.type == 37 || this.type == 54)
+				else if (this.type == NPCID.OldMan || this.type == NPCID.Clothier)
 				{
 					return;
 				}
-				else if (this.type == 441)
+				else if (this.type == NPCID.TaxCollector)
 				{
 					return;
 				}
-				else if (this.type == 160)
+				else if (this.type == NPCID.Truffle)
 				{
 					return;
 				}
-				else if (this.type == 18)
+				else if (this.type == NPCID.Nurse)
 				{
 					return;
 				}
-				else if (this.type == 19)
+				else if (this.type == NPCID.ArmsDealer)
 				{
 					return;
 				}
-				else if (this.type == 38)
+				else if (this.type == NPCID.Demolitionist)
 				{
 					return;
 				}
-				else if (this.type == 20)
+				else if (this.type == NPCID.Dryad)
 				{
 					return;
 				}
-				else if (this.type == 207)
+				else if (this.type == NPCID.DyeTrader)
 				{
 					return;
 				}
-				else if (this.type == 208)
+				else if (this.type == NPCID.PartyGirl)
 				{
 					return;
 				}
-				else if (this.type == 209)
+				else if (this.type == NPCID.Cyborg)
 				{
 					return;
 				}
-				else if (this.type >= 212 && this.type <= 216)
+				else if (this.type >= NPCID.PirateDeckhand && this.type <= NPCID.PirateCaptain)
 				{
 					return;
 				}
-				else if (this.type == 220 || this.type == 221)
+				else if (this.type == NPCID.SeaSnail || this.type == NPCID.Squid)
 				{
 					return;
 				}
-				else if (this.type == 21 || this.type == 31 || this.type == 294 || this.type == 295 || this.type == 296 || this.type == 32 || this.type == 44 || this.type == 45 || this.type == 77 || this.type == 110 || this.type == 167 || this.type == 197 || this.type == 201 || this.type == 202 || this.type == 203 || this.type == 287 || this.type == 291 || this.type == 292 || this.type == 293 || (this.type >= 322 && this.type <= 324) || this.type == 481 || (this.type >= 449 && this.type <= 452))
+				else if (this.type == NPCID.Skeleton || this.type == NPCID.AngryBones || this.type == NPCID.AngryBonesBig || this.type == NPCID.AngryBonesBigMuscle || this.type == NPCID.AngryBonesBigHelmet || this.type == NPCID.DarkCaster || this.type == NPCID.UndeadMiner || this.type == NPCID.Tim || this.type == NPCID.ArmoredSkeleton || this.type == NPCID.SkeletonArcher || this.type == NPCID.UndeadViking || this.type == NPCID.ArmoredViking || this.type == NPCID.HeadacheSkeleton || this.type == NPCID.MisassembledSkeleton || this.type == NPCID.PantlessSkeleton || this.type == NPCID.BoneLee || this.type == NPCID.SkeletonSniper || this.type == NPCID.TacticalSkeleton || this.type == NPCID.SkeletonCommando || (this.type >= NPCID.SkeletonTopHat && this.type <= NPCID.SkeletonAlien) || this.type == NPCID.GreekSkeleton || (this.type >= NPCID.BoneThrowingSkeleton && this.type <= NPCID.BoneThrowingSkeleton4))
 				{
 					return;
 				}
-				else if (this.type == 453)
+				else if (this.type == NPCID.SkeletonMerchant)
 				{
 					return;
 				}
-				else if ((this.type >= 269 && this.type <= 276) || (this.type >= 281 && this.type <= 286))
+				else if ((this.type >= NPCID.RustyArmoredBonesAxe && this.type <= NPCID.BlueArmoredBonesSword) || (this.type >= NPCID.RaggedCaster && this.type <= NPCID.DiabolistWhite))
 				{
 					return;
 				}
-				else if (this.type >= 277 && this.type <= 280)
+				else if (this.type >= NPCID.HellArmoredBones && this.type <= NPCID.HellArmoredBonesSword)
 				{
 					return;
 				}
-				else if (this.type == 341)
+				else if (this.type == NPCID.PresentMimic)
 				{
 					return;
 				}
-				else if (this.type == 85)
+				else if (this.type == NPCID.Mimic)
 				{
 					return;
 				}
-				else if (this.type == 473 || this.type == 474 || this.type == 475 || this.type == 476)
+				else if (this.type == NPCID.BigMimicCorruption || this.type == NPCID.BigMimicCrimson || this.type == NPCID.BigMimicHallow || this.type == NPCID.BigMimicJungle)
 				{
 					return;
 				}
-				else if (this.type == 169)
+				else if (this.type == NPCID.IceElemental)
 				{
 					return;
 				}
-				else if (this.type == 170 || this.type == 180)
+				else if (this.type == NPCID.PigronCorruption || this.type == NPCID.PigronCrimson)
 				{
 					return;
 				}
-				else if (this.type == 171)
+				else if (this.type == NPCID.PigronHallow)
 				{
 					return;
 				}
-				else if (this.type == 290)
+				else if (this.type == NPCID.Paladin)
 				{
 					if (this.life <= 0)
 					{
 						return;
 					}
 				}
-				else if (this.type >= 87 && this.type <= 92)
+				else if (this.type >= NPCID.WyvernHead && this.type <= NPCID.WyvernTail)
 				{
 					return;
 				}
-				else if (this.type == 78 || this.type == 79 || this.type == 80)
+				else if (this.type == NPCID.Mummy || this.type == NPCID.DarkMummy || this.type == NPCID.LightMummy)
 				{
 					return;
 				}
-				else if (this.type == 82 || this.type == 158 || this.type == 159 || this.type == 250 || this.type == 253)
+				else if (this.type == NPCID.Wraith || this.type == NPCID.VampireBat || this.type == NPCID.Vampire || this.type == NPCID.AngryNimbus || this.type == NPCID.Reaper)
 				{
 					return;
 				}
-				else if (this.type == 316 || this.type == 330)
+				else if (this.type == NPCID.Ghost || this.type == NPCID.Poltergeist)
 				{
 					return;
 				}
-				else if (this.type == 315)
+				else if (this.type == NPCID.HeadlessHorseman)
 				{
 					return;
 				}
-				else if (this.type == 254 || this.type == 255 || this.type == 256 || this.type == 257 || this.type == 258 || this.type == 259 || this.type == 260 || this.type == 261)
+				else if (this.type == NPCID.ZombieMushroom || this.type == NPCID.ZombieMushroomHat || this.type == NPCID.FungoFish || this.type == NPCID.AnomuraFungus || this.type == NPCID.MushiLadybug || this.type == NPCID.FungiBulb || this.type == NPCID.GiantFungiBulb || this.type == NPCID.FungiSpore)
 				{
 					if (this.life > 0)
 					{
 						return;
 					}
-					if (this.type != 261)
+					if (this.type != NPCID.FungiSpore)
 					{
 						return;
 					}
 				}
-				else if (this.type == 140)
+				else if (this.type == NPCID.PossessedArmor)
 				{
 					if (this.life <= 0)
 					{
 						return;
 					}
 				}
-				else if (this.type == 39 || this.type == 40 || this.type == 41)
+				else if (this.type == NPCID.BoneSerpentHead || this.type == NPCID.BoneSerpentBody || this.type == NPCID.BoneSerpentTail)
 				{
 					return;
 				}
-				else if (this.type == 34)
+				else if (this.type == NPCID.CursedSkull)
 				{
 					return;
 				}
-				else if (this.type == 289)
+				else if (this.type == NPCID.GiantCursedSkull)
 				{
 					return;
 				}
-				else if (this.type == 35 || this.type == 36)
+				else if (this.type == NPCID.SkeletronHead || this.type == NPCID.SkeletronHand)
 				{
 					return;
 				}
-				else if (this.type == 139)
+				else if (this.type == NPCID.Probe)
 				{
 					if (this.life <= 0)
 					{
 						return;
 					}
 				}
-				else if (this.type == 467)
+				else if (this.type == NPCID.DeadlySphere)
 				{
 					if (this.life <= 0)
 					{
 						return;
 					}
 				}
-				else if (this.type >= 134 && this.type <= 136)
+				else if (this.type >= NPCID.TheDestroyer && this.type <= NPCID.TheDestroyerTail)
 				{
-					if (this.type == 135 && this.life > 0 && Main.netMode != 1 && this.ai[2] == 0f && Main.rand.Next(25) == 0)
+					if (this.type == NPCID.TheDestroyerBody && this.life > 0 && Main.netMode != 1 && this.ai[2] == 0f && Main.rand.Next(25) == 0)
 					{
 						this.ai[2] = 1f;
 						int num614 = NPC.NewNPC((int)(this.position.X + (float)(this.width / 2)), (int)(this.position.Y + (float)this.height), 139, 0, 0f, 0f, 0f, 0f, 255);
 						if (Main.netMode == 2 && num614 < 200)
 						{
-							NetMessage.SendData(23, -1, -1, "", num614, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num614, 0f, 0f, 0f, 0, 0, 0);
 						}
 						this.netUpdate = true;
 					}
@@ -61450,53 +61450,53 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 347)
+				else if (this.type == NPCID.ElfCopter)
 				{
 					if (this.life <= 0)
 					{
 						return;
 					}
 				}
-				else if (this.type == 346)
+				else if (this.type == NPCID.SantaNK1)
 				{
 					if (this.life <= 0)
 					{
 						return;
 					}
 				}
-				else if (this.type == 127)
+				else if (this.type == NPCID.SkeletronPrime)
 				{
 					if (this.life <= 0)
 					{
 						return;
 					}
 				}
-				else if (this.type >= 128 && this.type <= 131)
+				else if (this.type >= NPCID.PrimeCannon && this.type <= NPCID.PrimeLaser)
 				{
 					if (this.life <= 0)
 					{
 						return;
 					}
 				}
-				else if (this.type == 23)
+				else if (this.type == NPCID.MeteorHead)
 				{
 					return;
 				}
-				else if (this.type == 24)
+				else if (this.type == NPCID.FireImp)
 				{
 					return;
 				}
 				else
 				{
-					if (this.type == 25)
+					if (this.type == NPCID.BurningSphere)
 					{
 						return;
 					}
-					if (this.type == 33)
+					if (this.type == NPCID.WaterSphere)
 					{
 						return;
 					}
-					if (this.type == 26 || this.type == 27 || this.type == 28 || this.type == 29 || this.type == 73 || this.type == 111)
+					if (this.type == NPCID.GoblinPeon || this.type == NPCID.GoblinThief || this.type == NPCID.GoblinWarrior || this.type == NPCID.GoblinSorcerer || this.type == NPCID.GoblinScout || this.type == NPCID.GoblinArcher)
 					{
 						if (this.life > 0)
 						{
@@ -61504,49 +61504,49 @@ namespace Terraria
 						}
 						return;
 					}
-					else if (this.type == 471)
+					else if (this.type == NPCID.GoblinSummoner)
 					{
 						return;
 					}
-					else if (this.type == 472)
+					else if (this.type == NPCID.ShadowFlameApparition)
 					{
 						return;
 					}
-					else if (this.type == 480)
+					else if (this.type == NPCID.Medusa)
 					{
 						return;
 					}
-					else if (this.type == 185)
+					else if (this.type == NPCID.SnowFlinx)
 					{
 						return;
 					}
 					else
 					{
-						if (this.type == 30)
+						if (this.type == NPCID.ChaosBall)
 						{
 							return;
 						}
-						if (this.type == 42 || this.type == 176 || this.type == 205 || (this.type >= 231 && this.type <= 235))
+						if (this.type == NPCID.Hornet || this.type == NPCID.MossHornet || this.type == NPCID.Moth || (this.type >= NPCID.HornetFatty && this.type <= NPCID.HornetStingy))
 						{
 							return;
 						}
-						else if (this.type == 43 || this.type == 56)
+						else if (this.type == NPCID.ManEater || this.type == NPCID.Snatcher)
 						{
 							return;
 						}
-						else if (this.type == 175)
+						else if (this.type == NPCID.AngryTrapper)
 						{
 							return;
 						}
-						else if (this.type == 48)
+						else if (this.type == NPCID.Harpy)
 						{
 							return;
 						}
-						else if (this.type == 62 || this.type == 66)
+						else if (this.type == NPCID.Demon || this.type == NPCID.VoodooDemon)
 						{
 							return;
 						}
-						else if (this.type == 156)
+						else if (this.type == NPCID.RedDevil)
 						{
 							if (this.life > 0)
 							{
@@ -61558,11 +61558,11 @@ namespace Terraria
 				return;
 			}
 			Color newColor = new Color(50, 120, 255, 100);
-			if (this.type == 64)
+			if (this.type == NPCID.PinkJellyfish)
 			{
 				newColor = new Color(225, 70, 140, 100);
 			}
-			if (this.type == 103)
+			if (this.type == NPCID.GreenJellyfish)
 			{
 				newColor = new Color(70, 225, 140, 100);
 			}
@@ -61646,11 +61646,11 @@ namespace Terraria
 			{
 				if (Main.netMode == 1)
 				{
-					NetMessage.SendData(53, -1, -1, "", this.whoAmI, (float)type, (float)time, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.NpcAddBuff, -1, -1, "", this.whoAmI, (float)type, (float)time, 0f, 0, 0, 0);
 				}
 				else if (Main.netMode == 2)
 				{
-					NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.NpcUpdateBuff, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 				}
 			}
 			int num = -1;
@@ -61715,7 +61715,7 @@ namespace Terraria
 			}
 			if (Main.netMode == 2)
 			{
-				NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.NpcUpdateBuff, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
 		public Rectangle getRect()
@@ -61734,7 +61734,7 @@ namespace Terraria
 			this.whoAmI = i;
 			if (this.active)
 			{
-				if (this.type == 368)
+				if (this.type == NPCID.TravellingMerchant)
 				{
 					NPC.travelNPC = true;
 				}
@@ -61746,7 +61746,7 @@ namespace Terraria
 					}
 					this.teleportTime -= 0.005f;
 				}
-				if (Main.netMode == 1 && (this.townNPC || this.type == 453) && this.type != 37 && this.npcNameLookup == 0)
+				if (Main.netMode == 1 && (this.townNPC || this.type == NPCID.SkeletonMerchant) && this.type != NPCID.OldMan && this.npcNameLookup == 0)
 				{
 					this.npcNameLookup = 1;
 					int number = -1;
@@ -61758,7 +61758,7 @@ namespace Terraria
 							break;
 						}
 					}
-					NetMessage.SendData(56, -1, -1, "", number, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.UpdateNPCName, -1, -1, "", number, 0f, 0f, 0f, 0, 0, 0);
 				}
 				if (this.displayName == "" && Main.netMode != 1)
 				{
@@ -61829,79 +61829,79 @@ namespace Terraria
 					if (this.buffType[k] > 0 && this.buffTime[k] > 0)
 					{
 						this.buffTime[k]--;
-						if (this.buffType[k] == 20)
+						if (this.buffType[k] == BuffID.Poisoned)
 						{
 							this.poisoned = true;
 						}
-						if (this.buffType[k] == 70)
+						if (this.buffType[k] == BuffID.Venom)
 						{
 							this.venom = true;
 						}
-						if (this.buffType[k] == 24)
+						if (this.buffType[k] == BuffID.OnFire)
 						{
 							this.onFire = true;
 						}
-						if (this.buffType[k] == 72)
+						if (this.buffType[k] == BuffID.Midas)
 						{
 							this.midas = true;
 						}
-						if (this.buffType[k] == 69)
+						if (this.buffType[k] == BuffID.Ichor)
 						{
 							this.ichor = true;
 						}
-						if (this.buffType[k] == 31)
+						if (this.buffType[k] == BuffID.Confused)
 						{
 							this.confused = true;
 						}
-						if (this.buffType[k] == 39)
+						if (this.buffType[k] == BuffID.CursedInferno)
 						{
 							this.onFire2 = true;
 						}
-						if (this.buffType[k] == 44)
+						if (this.buffType[k] == BuffID.Frostburn)
 						{
 							this.onFrostBurn = true;
 						}
-						if (this.buffType[k] == 103)
+						if (this.buffType[k] == BuffID.Wet)
 						{
 							this.dripping = true;
 						}
-						if (this.buffType[k] == 137)
+						if (this.buffType[k] == BuffID.Slimed)
 						{
 							this.drippingSlime = true;
 						}
-						if (this.buffType[k] == 119)
+						if (this.buffType[k] == BuffID.Lovestruck)
 						{
 							this.loveStruck = true;
 						}
-						if (this.buffType[k] == 120)
+						if (this.buffType[k] == BuffID.Stinky)
 						{
 							this.stinky = true;
 						}
-						if (this.buffType[k] == 151)
+						if (this.buffType[k] == BuffID.SoulDrain)
 						{
 							this.soulDrain = true;
 						}
-						if (this.buffType[k] == 153)
+						if (this.buffType[k] == BuffID.ShadowFlame)
 						{
 							this.shadowFlame = true;
 						}
-						if (this.buffType[k] == 165)
+						if (this.buffType[k] == BuffID.DryadsWard)
 						{
 							this.dryadWard = true;
 						}
-						if (this.buffType[k] == 169)
+						if (this.buffType[k] == BuffID.BoneJavelin)
 						{
 							this.javelined = true;
 						}
-						if (this.buffType[k] == 183)
+						if (this.buffType[k] == BuffID.StardustMinionBleed)
 						{
 							this.celled = true;
 						}
-						if (this.buffType[k] == 186)
+						if (this.buffType[k] == BuffID.DryadsWardDebuff)
 						{
 							this.dryadBane = true;
 						}
-						if (this.buffType[k] == 189)
+						if (this.buffType[k] == BuffID.Daybreak)
 						{
 							this.daybreak = true;
 						}
@@ -61930,7 +61930,7 @@ namespace Terraria
 							this.DelBuff(m);
 							if (Main.netMode == 2)
 							{
-								NetMessage.SendData(54, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.NpcUpdateBuff, -1, -1, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 							}
 						}
 					}
@@ -62008,7 +62008,7 @@ namespace Terraria
 						int num21 = 1;
 						for (int n = 0; n < 1000; n++)
 						{
-							if (Main.projectile[n].active && Main.projectile[n].type == 598 && Main.projectile[n].ai[0] == 1f && Main.projectile[n].ai[1] == (float)this.whoAmI)
+							if (Main.projectile[n].active && Main.projectile[n].type == ProjectileID.BoneJavelin && Main.projectile[n].ai[0] == 1f && Main.projectile[n].ai[1] == (float)this.whoAmI)
 							{
 								num20++;
 							}
@@ -62029,7 +62029,7 @@ namespace Terraria
 						int num23 = 4;
 						for (int num24 = 0; num24 < 1000; num24++)
 						{
-							if (Main.projectile[num24].active && Main.projectile[num24].type == 636 && Main.projectile[num24].ai[0] == 1f && Main.projectile[num24].ai[1] == (float)this.whoAmI)
+							if (Main.projectile[num24].active && Main.projectile[num24].type == ProjectileID.Daybreak && Main.projectile[num24].ai[0] == 1f && Main.projectile[num24].ai[1] == (float)this.whoAmI)
 							{
 								num22++;
 							}
@@ -62053,7 +62053,7 @@ namespace Terraria
 						int num25 = 0;
 						for (int num26 = 0; num26 < 1000; num26++)
 						{
-							if (Main.projectile[num26].active && Main.projectile[num26].type == 614 && Main.projectile[num26].ai[0] == 1f && Main.projectile[num26].ai[1] == (float)this.whoAmI)
+							if (Main.projectile[num26].active && Main.projectile[num26].type == ProjectileID.StardustCellMinionShot && Main.projectile[num26].ai[0] == 1f && Main.projectile[num26].ai[1] == (float)this.whoAmI)
 							{
 								num25++;
 							}
@@ -62182,7 +62182,7 @@ namespace Terraria
 									Main.npc[whoAmI].StrikeNPCNoInteraction(9999, 0f, 0, false, false, false);
 									if (Main.netMode == 2)
 									{
-										NetMessage.SendData(28, -1, -1, "", whoAmI, 9999f, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", whoAmI, 9999f, 0f, 0f, 0, 0, 0);
 									}
 								}
 							}
@@ -62211,7 +62211,7 @@ namespace Terraria
 									Main.npc[whoAmI2].StrikeNPCNoInteraction(9999, 0f, 0, false, false, false);
 									if (Main.netMode == 2)
 									{
-										NetMessage.SendData(28, -1, -1, "", whoAmI2, 9999f, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", whoAmI2, 9999f, 0f, 0f, 0, 0, 0);
 									}
 								}
 							}
@@ -62225,7 +62225,7 @@ namespace Terraria
 					{
 						flag2 = true;
 					}
-					if (this.type == 46 || this.type == 303 || this.type == 337 || this.type == 443)
+					if (this.type == NPCID.Bunny || this.type == NPCID.BunnySlimed || this.type == NPCID.BunnyXmas || this.type == NPCID.GoldBunny)
 					{
 						if (WorldGen.crimson)
 						{
@@ -62236,7 +62236,7 @@ namespace Terraria
 							this.Transform(47);
 						}
 					}
-					else if (this.type == 55 || this.type == 230)
+					else if (this.type == NPCID.Goldfish || this.type == NPCID.GoldfishWalker)
 					{
 						if (WorldGen.crimson)
 						{
@@ -62247,7 +62247,7 @@ namespace Terraria
 							this.Transform(57);
 						}
 					}
-					else if (this.type == 148 || this.type == 149)
+					else if (this.type == NPCID.Penguin || this.type == NPCID.PenguinBlack)
 					{
 						if (WorldGen.crimson)
 						{
@@ -62265,7 +62265,7 @@ namespace Terraria
 				}
 				float num29 = 10f;
 				NPC.gravity = 0.3f;
-				if (this.type == 258)
+				if (this.type == NPCID.MushiLadybug)
 				{
 					NPC.gravity = 0.1f;
 					if (this.velocity.Y > 3f)
@@ -62273,7 +62273,7 @@ namespace Terraria
 						this.velocity.Y = 3f;
 					}
 				}
-				else if (this.type == 425 && this.ai[2] == 1f)
+				else if (this.type == NPCID.VortexRifleman && this.ai[2] == 1f)
 				{
 					NPC.gravity = 0.1f;
 					if (this.velocity.Y > 2f)
@@ -62281,7 +62281,7 @@ namespace Terraria
 						this.velocity.Y = 2f;
 					}
 				}
-				else if (this.type == 427 && this.ai[2] == 1f)
+				else if (this.type == NPCID.VortexHornet && this.ai[2] == 1f)
 				{
 					NPC.gravity = 0.1f;
 					if (this.velocity.Y > 4f)
@@ -62289,7 +62289,7 @@ namespace Terraria
 						this.velocity.Y = 4f;
 					}
 				}
-				else if (this.type == 426)
+				else if (this.type == NPCID.VortexHornetQueen)
 				{
 					NPC.gravity = 0.1f;
 					if (this.velocity.Y > 3f)
@@ -62390,7 +62390,7 @@ namespace Terraria
 				{
 					this.velocity.X = 0f;
 				}
-				if ((Main.netMode != 1 && this.type != 37 && (this.friendly || this.type == 46 || this.type == 55 || this.type == 74 || this.type == 148 || this.type == 149 || this.type == 230 || this.type == 297 || this.type == 298 || this.type == 299 || this.type == 303 || this.type == 355 || this.type == 356 || this.type == 358 || this.type == 359 || this.type == 360 || this.type == 361 || this.type == 362 || this.type == 363 || this.type == 364 || this.type == 365 || this.type == 366 || this.type == 367 || this.type == 377 || this.type == 357 || this.type == 374 || (this.type >= 442 && this.type <= 448 && this.type != 447))) || this.type == 538 || this.type == 539 || this.type == 337 || (this.type >= 484 && this.type <= 487))
+				if ((Main.netMode != 1 && this.type != NPCID.OldMan && (this.friendly || this.type == NPCID.Bunny || this.type == NPCID.Goldfish || this.type == NPCID.Bird || this.type == NPCID.Penguin || this.type == NPCID.PenguinBlack || this.type == NPCID.GoldfishWalker || this.type == NPCID.BirdBlue || this.type == NPCID.BirdRed || this.type == NPCID.Squirrel || this.type == NPCID.BunnySlimed || this.type == NPCID.Firefly || this.type == NPCID.Butterfly || this.type == NPCID.LightningBug || this.type == NPCID.Snail || this.type == NPCID.GlowingSnail || this.type == NPCID.Frog || this.type == NPCID.Duck || this.type == NPCID.Duck2 || this.type == NPCID.DuckWhite || this.type == NPCID.DuckWhite2 || this.type == NPCID.ScorpionBlack || this.type == NPCID.Scorpion || this.type == NPCID.Grasshopper || this.type == NPCID.Worm || this.type == NPCID.TruffleWorm || (this.type >= NPCID.GoldBird && this.type <= NPCID.GoldWorm && this.type != NPCID.GoldMouse))) || this.type == NPCID.SquirrelRed || this.type == NPCID.SquirrelGold || this.type == NPCID.BunnyXmas || (this.type >= NPCID.EnchantedNightcrawler && this.type <= NPCID.Buggy))
 				{
 					if (this.townNPC)
 					{
@@ -62418,7 +62418,7 @@ namespace Terraria
 							if (Main.npc[num39].active && !Main.npc[num39].friendly && Main.npc[num39].damage > 0)
 							{
 								Rectangle rectangle2 = new Rectangle((int)Main.npc[num39].position.X, (int)Main.npc[num39].position.Y, Main.npc[num39].width, Main.npc[num39].height);
-								if (rectangle.Intersects(rectangle2) && (this.type != 453 || !NPCID.Sets.Skeletons.Contains(Main.npc[num39].netID)))
+								if (rectangle.Intersects(rectangle2) && (this.type != NPCID.SkeletonMerchant || !NPCID.Sets.Skeletons.Contains(Main.npc[num39].netID)))
 								{
 									int num40 = Main.npc[num39].damage;
 									int num41 = 6;
@@ -62430,7 +62430,7 @@ namespace Terraria
 									double num43 = Main.npc[i].StrikeNPCNoInteraction(num40, (float)num41, num42, false, false, false);
 									if (Main.netMode != 0)
 									{
-										NetMessage.SendData(28, -1, -1, "", i, (float)num40, (float)num41, (float)num42, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", i, (float)num40, (float)num41, (float)num42, 0, 0, 0);
 									}
 									this.netUpdate = true;
 									this.immune[255] = 30;
@@ -62442,7 +62442,7 @@ namespace Terraria
 										Main.npc[num39].StrikeNPCNoInteraction(num40, (float)num41, num42, false, false, false);
 										if (Main.netMode != 0)
 										{
-											NetMessage.SendData(28, -1, -1, "", num39, (float)num40, (float)num41, (float)num42, 0, 0, 0);
+											NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", num39, (float)num40, (float)num41, (float)num42, 0, 0, 0);
 										}
 										Main.npc[num39].netUpdate = true;
 										Main.npc[num39].immune[255] = 30;
@@ -62466,17 +62466,17 @@ namespace Terraria
 						this.lavaWet = true;
 						if (!this.lavaImmune && !this.dontTakeDamage && Main.netMode != 1 && this.immune[255] == 0)
 						{
-							this.AddBuff(24, 420, false);
+							this.AddBuff(BuffID.OnFire, 420, false);
 							this.immune[255] = 30;
 							this.StrikeNPCNoInteraction(50, 0f, 0, false, false, false);
 							if (Main.netMode == 2 && Main.netMode != 0)
 							{
-								NetMessage.SendData(28, -1, -1, "", this.whoAmI, 50f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", this.whoAmI, 50f, 0f, 0f, 0, 0, 0);
 							}
 						}
 					}
 					bool flag4;
-					if (this.type == 72 || this.aiStyle == 21 || this.aiStyle == 67 || this.type == 376)
+					if (this.type == NPCID.BlazingWheel || this.aiStyle == 21 || this.aiStyle == 67 || this.type == NPCID.SleepingAngler)
 					{
 						flag4 = false;
 						this.wetCount = 0;
@@ -62496,7 +62496,7 @@ namespace Terraria
 						{
 							for (int num44 = 0; num44 < 5; num44++)
 							{
-								if (this.buffType[num44] == 24)
+								if (this.buffType[num44] == BuffID.OnFire)
 								{
 									this.DelBuff(num44);
 								}
@@ -62527,7 +62527,7 @@ namespace Terraria
 						this.wetCount -= 1;
 					}
 					bool flag5 = false;
-					if (this.type == 2 || this.type == -43 || this.type == 317 || this.type == 318 || this.type == 133)
+					if (this.type == NPCID.DemonEye || this.type == -43 || this.type == NPCID.DemonEyeOwl || this.type == NPCID.DemonEyeSpaceship || this.type == NPCID.WanderingEye)
 					{
 						flag5 = true;
 					}
@@ -62539,11 +62539,11 @@ namespace Terraria
 					{
 						flag5 = true;
 					}
-					if (this.type == 467)
+					if (this.type == NPCID.DeadlySphere)
 					{
 						flag5 = true;
 					}
-					if (this.type == 477)
+					if (this.type == NPCID.Mothron)
 					{
 						flag5 = true;
 					}
@@ -62551,11 +62551,11 @@ namespace Terraria
 					{
 						flag5 = true;
 					}
-					if (this.type == 173)
+					if (this.type == NPCID.Crimera)
 					{
 						flag5 = true;
 					}
-					if (this.type == 469 && this.ai[2] == 1f)
+					if (this.type == NPCID.ThePossessed && this.ai[2] == 1f)
 					{
 						flag5 = true;
 					}
@@ -62563,23 +62563,23 @@ namespace Terraria
 					{
 						flag5 = true;
 					}
-					if (this.type == 210 || this.type == 211)
+					if (this.type == NPCID.Bee || this.type == NPCID.BeeSmall)
 					{
 						flag5 = true;
 					}
-					if (this.type == 50 && this.target >= 0 && Main.player[this.target].position.Y > this.position.Y + (float)this.height)
+					if (this.type == NPCID.KingSlime && this.target >= 0 && Main.player[this.target].position.Y > this.position.Y + (float)this.height)
 					{
 						flag5 = true;
 					}
-					if (this.type == 247 || this.type == 248)
+					if (this.type == NPCID.GolemFistLeft || this.type == NPCID.GolemFistRight)
 					{
 						flag5 = true;
 					}
-					if (this.type == 245 && this.target >= 0 && Main.player[this.target].position.Y > this.position.Y + (float)this.height)
+					if (this.type == NPCID.Golem && this.target >= 0 && Main.player[this.target].position.Y > this.position.Y + (float)this.height)
 					{
 						flag5 = true;
 					}
-					if (this.type == 418)
+					if (this.type == NPCID.SolarCorite)
 					{
 						flag5 = true;
 					}
@@ -62613,7 +62613,7 @@ namespace Terraria
 					}
 					if (Main.netMode != 1)
 					{
-						if (this.type == 230 && this.wet)
+						if (this.type == NPCID.GoldfishWalker && this.wet)
 						{
 							int direction = this.direction;
 							Vector2 velocity = this.velocity;
@@ -62626,7 +62626,7 @@ namespace Terraria
 								this.velocity.Y = 0f;
 							}
 						}
-						else if (this.type == 55 && !this.wet && Main.raining)
+						else if (this.type == NPCID.Goldfish && !this.wet && Main.raining)
 						{
 							int direction2 = this.direction;
 							Vector2 velocity2 = this.velocity;
@@ -62639,42 +62639,42 @@ namespace Terraria
 					Vector2 position = this.position;
 					int width = this.width;
 					int num59 = this.height;
-					if (this.type == 243)
+					if (this.type == NPCID.IceGolem)
 					{
 						num59 = 90;
 					}
-					if (this.type == 290)
+					if (this.type == NPCID.Paladin)
 					{
 						num59 = 40;
 					}
-					if (this.type == 351)
+					if (this.type == NPCID.Krampus)
 					{
 						num59 = 40;
 					}
-					if (this.type == 482)
+					if (this.type == NPCID.GraniteGolem)
 					{
 						num59 = 40;
 					}
-					if (this.type == 351 || this.type == 343 || this.type == 348 || this.type == 349)
+					if (this.type == NPCID.Krampus || this.type == NPCID.Yeti || this.type == NPCID.Nutcracker || this.type == NPCID.NutcrackerSpinning)
 					{
 						num59 = 40;
 					}
-					if (this.type == 391)
+					if (this.type == NPCID.Scutlix)
 					{
 						for (int num60 = 0; num60 < 200; num60++)
 						{
-							if (Main.npc[num60].active && Main.npc[num60].type == 390 && Main.npc[num60].ai[0] == (float)this.whoAmI)
+							if (Main.npc[num60].active && Main.npc[num60].type == NPCID.ScutlixRider && Main.npc[num60].ai[0] == (float)this.whoAmI)
 							{
 								num59 = 62;
 								break;
 							}
 						}
 					}
-					if (this.type == 415)
+					if (this.type == NPCID.SolarDrakomire)
 					{
 						for (int num61 = 0; num61 < 200; num61++)
 						{
-							if (Main.npc[num61].active && Main.npc[num61].type == 416 && Main.npc[num61].ai[0] == (float)this.whoAmI)
+							if (Main.npc[num61].active && Main.npc[num61].type == NPCID.SolarDrakomireRider && Main.npc[num61].ai[0] == (float)this.whoAmI)
 							{
 								num59 = 62;
 								break;
@@ -62736,7 +62736,7 @@ namespace Terraria
 					}
 					else
 					{
-						if (this.type == 72)
+						if (this.type == NPCID.BlazingWheel)
 						{
 							Vector2 position2 = new Vector2(this.position.X + (float)(this.width / 2), this.position.Y + (float)(this.height / 2));
 							int num62 = 12;
@@ -62745,7 +62745,7 @@ namespace Terraria
 							position2.Y -= (float)(num63 / 2);
 							this.velocity = Collision.noSlopeCollision(position2, this.velocity, num62, num63, true, true);
 						}
-						else if (this.type == 405 || this.type == 406)
+						else if (this.type == NPCID.StardustCellBig || this.type == NPCID.StardustCellSmall)
 						{
 							this.velocity = Collision.TileCollision(position, this.velocity, width, num59, flag5, flag5, 1);
 							if (this.velocity != this.oldVelocity)
@@ -62760,7 +62760,7 @@ namespace Terraria
 								}
 							}
 						}
-						else if (this.type == 417)
+						else if (this.type == NPCID.SolarSroller)
 						{
 							this.velocity = Collision.TileCollision(position, this.velocity, width, num59, flag5, flag5, 1);
 							if (this.ai[0] == 6f && this.velocity != this.oldVelocity)
@@ -62819,7 +62819,7 @@ namespace Terraria
 						this.velocity.X = vector3.Z;
 						this.velocity.Y = vector3.W;
 					}
-					else if (this.type != 72 && this.type != 247 && this.type != 248)
+					else if (this.type != NPCID.BlazingWheel && this.type != NPCID.GolemFistLeft && this.type != NPCID.GolemFistRight)
 					{
 						if (flag5)
 						{
@@ -62887,14 +62887,14 @@ namespace Terraria
 					this.oldDirection = this.direction;
 					this.position += this.velocity;
 				}
-				if (Main.netMode != 1 && !this.noTileCollide && this.lifeMax > 1 && Collision.SwitchTiles(this, this.position, this.width, this.height, this.oldPosition, 2) && (this.type == 46 || this.type == 148 || this.type == 149 || this.type == 303 || this.type == 361 || this.type == 362 || this.type == 364 || this.type == 366 || this.type == 367 || (this.type >= 442 && this.type <= 448)))
+				if (Main.netMode != 1 && !this.noTileCollide && this.lifeMax > 1 && Collision.SwitchTiles(this, this.position, this.width, this.height, this.oldPosition, 2) && (this.type == NPCID.Bunny || this.type == NPCID.Penguin || this.type == NPCID.PenguinBlack || this.type == NPCID.BunnySlimed || this.type == NPCID.Frog || this.type == NPCID.Duck || this.type == NPCID.DuckWhite || this.type == NPCID.ScorpionBlack || this.type == NPCID.Scorpion || (this.type >= NPCID.GoldBird && this.type <= NPCID.GoldWorm)))
 				{
 					this.ai[0] = 1f;
 					this.ai[1] = 400f;
 					this.ai[2] = 0f;
 				}
 				this.FindFrame();
-				if (this.type == 439 || this.type == 440)
+				if (this.type == NPCID.CultistBoss || this.type == NPCID.CultistBossClone)
 				{
 					if (this.localAI[3] <= 0f)
 					{
@@ -62907,7 +62907,7 @@ namespace Terraria
 					}
 					this.localAI[3] -= 1f;
 				}
-				if (this.type == 370 || this.type == 372 || this.type == 373 || this.type == 396 || this.type == 400 || this.type == 401)
+				if (this.type == NPCID.DukeFishron || this.type == NPCID.Sharkron || this.type == NPCID.Sharkron2 || this.type == NPCID.MoonLordHead || this.type == NPCID.MoonLordFreeEye || this.type == NPCID.MoonLordLeechBlob)
 				{
 					for (int num68 = this.oldPos.Length - 1; num68 > 0; num68--)
 					{
@@ -62936,7 +62936,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 4 || this.type == 471 || this.type == 477 || this.type == 479)
+				if (this.type == NPCID.EyeofCthulhu || this.type == NPCID.GoblinSummoner || this.type == NPCID.Mothron || this.type == NPCID.MothronSpawn)
 				{
 					for (int num71 = this.oldPos.Length - 1; num71 > 0; num71--)
 					{
@@ -62946,7 +62946,7 @@ namespace Terraria
 					this.oldPos[0] = this.position;
 					this.oldRot[0] = this.rotation;
 				}
-				if (this.type == 120 || this.type == 137 || this.type == 138)
+				if (this.type == NPCID.ChaosElemental || this.type == NPCID.IlluminantBat || this.type == NPCID.IlluminantSlime)
 				{
 					for (int num72 = this.oldPos.Length - 1; num72 > 0; num72--)
 					{
@@ -62954,7 +62954,7 @@ namespace Terraria
 					}
 					this.oldPos[0] = this.position;
 				}
-				else if (this.type == 94)
+				else if (this.type == NPCID.Corruptor)
 				{
 					for (int num73 = this.oldPos.Length - 1; num73 > 0; num73--)
 					{
@@ -62962,7 +62962,7 @@ namespace Terraria
 					}
 					this.oldPos[0] = this.position;
 				}
-				else if (this.type == 125 || this.type == 126 || this.type == 127 || this.type == 128 || this.type == 129 || this.type == 130 || this.type == 131 || this.type == 139 || this.type == 140 || this.type == 407 || this.type == 420 || this.type == 425 || this.type == 427 || this.type == 426 || this.type == 509 || this.type == 516)
+				else if (this.type == NPCID.Retinazer || this.type == NPCID.Spazmatism || this.type == NPCID.SkeletronPrime || this.type == NPCID.PrimeCannon || this.type == NPCID.PrimeSaw || this.type == NPCID.PrimeVice || this.type == NPCID.PrimeLaser || this.type == NPCID.Probe || this.type == NPCID.PossessedArmor || this.type == NPCID.StardustJellyfishBig || this.type == NPCID.NebulaBrain || this.type == NPCID.VortexRifleman || this.type == NPCID.VortexHornet || this.type == NPCID.VortexHornetQueen || this.type == NPCID.FlyingAntlion || this.type == NPCID.SolarFlare)
 				{
 					for (int num74 = this.oldPos.Length - 1; num74 > 0; num74--)
 					{
@@ -62970,7 +62970,7 @@ namespace Terraria
 					}
 					this.oldPos[0] = this.position;
 				}
-				else if (this.type == 402 || this.type == 417 || this.type == 419 || this.type == 418 || this.type == 519 || this.type == 521 || this.type == 522)
+				else if (this.type == NPCID.StardustWormHead || this.type == NPCID.SolarSroller || this.type == NPCID.SolarSolenian || this.type == NPCID.SolarCorite || this.type == NPCID.SolarGoop || this.type == NPCID.AncientCultistSquidhead || this.type == NPCID.AncientLight)
 				{
 					for (int num75 = this.oldPos.Length - 1; num75 > 0; num75--)
 					{
@@ -63023,7 +63023,7 @@ namespace Terraria
 									if (this.streamPlayer[num76] <= 0)
 									{
 										this.streamPlayer[num76] = 8;
-										NetMessage.SendData(23, num76, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.NpcUpdate, num76, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 									}
 								}
 							}
@@ -63049,7 +63049,7 @@ namespace Terraria
 							if (this.netSpam <= 15)
 							{
 								this.netSpam += 5;
-								NetMessage.SendData(23, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 								this.netUpdate2 = false;
 							}
 							else
@@ -63060,7 +63060,7 @@ namespace Terraria
 						else if (this.netSpam <= 90)
 						{
 							this.netSpam += 30;
-							NetMessage.SendData(23, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 							this.netUpdate2 = false;
 						}
 						else
@@ -63081,7 +63081,7 @@ namespace Terraria
 							{
 								num78 = 1;
 							}
-							NetMessage.SendData(60, -1, -1, "", i, (float)Main.npc[i].homeTileX, (float)Main.npc[i].homeTileY, (float)num78, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.UpdateNPCHome, -1, -1, "", i, (float)Main.npc[i].homeTileX, (float)Main.npc[i].homeTileY, (float)num78, 0, 0, 0);
 						}
 						this.oldHomeless = this.homeless;
 						this.oldHomeTileX = this.homeTileX;
@@ -63130,22 +63130,22 @@ namespace Terraria
 			int num3 = (int)((float)newColor.G * num);
 			int num4 = (int)((float)newColor.B * num);
 			int num5 = (int)newColor.A - this.alpha;
-			if (this.type == 402)
+			if (this.type == NPCID.StardustWormHead)
 			{
 				return new Color(255, 255, 255, 255);
 			}
-			if (this.type == 484)
+			if (this.type == NPCID.EnchantedNightcrawler)
 			{
 				return new Color(250, 250, 250, 200);
 			}
-			if ((this.type >= 454 && this.type <= 459) || this.type == 521)
+			if ((this.type >= NPCID.CultistDragonHead && this.type <= NPCID.CultistDragonTail) || this.type == NPCID.AncientCultistSquidhead)
 			{
 				newColor = Color.Lerp(newColor, Color.White, 0.4f);
 				newColor.A = 150;
 				newColor *= (float)num5 / 255f;
 				return newColor;
 			}
-			if (this.type == 440)
+			if (this.type == NPCID.CultistBossClone)
 			{
 				byte b = 180;
 				if (Main.expertMode)
@@ -63155,24 +63155,24 @@ namespace Terraria
 				b = (byte)((float)b * num);
 				return new Color((int)b, (int)b, (int)b, (int)b);
 			}
-			if (this.type == 516)
+			if (this.type == NPCID.SolarFlare)
 			{
 				return new Color(this.alpha, this.alpha, this.alpha, this.alpha);
 			}
-			if (this.type == 522)
+			if (this.type == NPCID.AncientLight)
 			{
 				return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 255 - this.alpha);
 			}
-			if (this.type == 523)
+			if (this.type == NPCID.AncientDoom)
 			{
 				return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 255 - this.alpha);
 			}
-			if (this.type == 395 || this.type == 519)
+			if (this.type == NPCID.MartianSaucerCore || this.type == NPCID.SolarGoop)
 			{
 				newColor = Color.Lerp(newColor, Color.White, 0.4f);
 				return newColor;
 			}
-			if (this.type == 370 && this.ai[0] != -1f && this.ai[0] < 9f)
+			if (this.type == NPCID.DukeFishron && this.ai[0] != -1f && this.ai[0] < 9f)
 			{
 				float num6 = MathHelper.Lerp(num, 1f, 0.25f);
 				if (num6 > 1f)
@@ -63181,15 +63181,15 @@ namespace Terraria
 				}
 				num4 = (int)((float)newColor.B * num6);
 			}
-			if (this.type == 30)
+			if (this.type == NPCID.ChaosBall)
 			{
 				return new Color(250, 250, 250, 100);
 			}
-			if (this.type == 25 || this.type == 30 || this.type == 59 || this.type == 60)
+			if (this.type == NPCID.BurningSphere || this.type == NPCID.ChaosBall || this.type == NPCID.LavaSlime || this.type == NPCID.Hellbat)
 			{
 				return new Color(200, 200, 200, 0);
 			}
-			if (this.type == 360)
+			if (this.type == NPCID.GlowingSnail)
 			{
 				num2 = (int)newColor.R;
 				num3 = (int)newColor.G;
@@ -63208,11 +63208,11 @@ namespace Terraria
 				}
 				return new Color(num2, num3, num4, 255);
 			}
-			if (this.type == 352)
+			if (this.type == NPCID.Flocko)
 			{
 				return new Color(255, 255, 255, 200);
 			}
-			if (this.type == 72)
+			if (this.type == NPCID.BlazingWheel)
 			{
 				num2 = (int)newColor.R;
 				num3 = (int)newColor.G;
@@ -63220,15 +63220,15 @@ namespace Terraria
 			}
 			else
 			{
-				if (this.type == 288)
+				if (this.type == NPCID.DungeonSpirit)
 				{
 					return new Color(200, 200, 200, 0);
 				}
-				if (this.type == 289)
+				if (this.type == NPCID.GiantCursedSkull)
 				{
 					return new Color(250, 250, 250, 50);
 				}
-				if (this.type >= 254 && this.type <= 261)
+				if (this.type >= NPCID.ZombieMushroom && this.type <= NPCID.FungiSpore)
 				{
 					num4 = 255;
 					if (num2 < 100)
@@ -63240,7 +63240,7 @@ namespace Terraria
 						num3 = 150;
 					}
 				}
-				else if (this.type == 374)
+				else if (this.type == NPCID.TruffleWorm)
 				{
 					num4 = 255;
 					if (num2 < 100)
@@ -63252,7 +63252,7 @@ namespace Terraria
 						num3 = 150;
 					}
 				}
-				else if (this.type == 64 || this.type == 63 || this.type == 75 || this.type == 103 || this.type == 400)
+				else if (this.type == NPCID.PinkJellyfish || this.type == NPCID.BlueJellyfish || this.type == NPCID.Pixie || this.type == NPCID.GreenJellyfish || this.type == NPCID.MoonLordFreeEye)
 				{
 					num2 = (int)((double)newColor.R * 1.5);
 					num3 = (int)((double)newColor.G * 1.5);
@@ -63345,78 +63345,78 @@ namespace Terraria
 			{
 				if (Main.npc[i].active)
 				{
-					if (Main.npc[i].type == 17)
+					if (Main.npc[i].type == NPCID.Merchant)
 					{
 						flag = true;
 					}
-					else if (Main.npc[i].type == 18)
+					else if (Main.npc[i].type == NPCID.Nurse)
 					{
 						flag2 = true;
 					}
-					else if (Main.npc[i].type == 19)
+					else if (Main.npc[i].type == NPCID.ArmsDealer)
 					{
 						flag3 = true;
 					}
-					else if (Main.npc[i].type == 20)
+					else if (Main.npc[i].type == NPCID.Dryad)
 					{
 						flag4 = true;
 					}
-					else if (Main.npc[i].type == 37)
+					else if (Main.npc[i].type == NPCID.OldMan)
 					{
 						flag5 = true;
 					}
-					else if (Main.npc[i].type == 38)
+					else if (Main.npc[i].type == NPCID.Demolitionist)
 					{
 						flag6 = true;
 					}
-					else if (Main.npc[i].type == 124)
+					else if (Main.npc[i].type == NPCID.Mechanic)
 					{
 						flag7 = true;
 					}
-					else if (Main.npc[i].type == 107)
+					else if (Main.npc[i].type == NPCID.GoblinTinkerer)
 					{
 						flag8 = true;
 					}
-					else if (Main.npc[i].type == 54)
+					else if (Main.npc[i].type == NPCID.Clothier)
 					{
 						flag9 = true;
 					}
-					else if (Main.npc[i].type == 160)
+					else if (Main.npc[i].type == NPCID.Truffle)
 					{
 						flag10 = true;
 					}
-					else if (Main.npc[i].type == 178)
+					else if (Main.npc[i].type == NPCID.Steampunker)
 					{
 						flag11 = true;
 					}
-					else if (Main.npc[i].type == 229)
+					else if (Main.npc[i].type == NPCID.Pirate)
 					{
 						flag12 = true;
 					}
-					else if (Main.npc[i].type == 209)
+					else if (Main.npc[i].type == NPCID.Cyborg)
 					{
 						flag13 = true;
 					}
-					else if (Main.npc[i].type == 208)
+					else if (Main.npc[i].type == NPCID.PartyGirl)
 					{
 						flag14 = true;
 					}
-					else if (Main.npc[i].type == 353)
+					else if (Main.npc[i].type == NPCID.Stylist)
 					{
 						flag15 = true;
 					}
-					else if (Main.npc[i].type == 22)
+					else if (Main.npc[i].type == NPCID.Guide)
 					{
 						flag16 = true;
 					}
-					else if (Main.npc[i].type == 2)
+					else if (Main.npc[i].type == NPCID.DemonEye)
 					{
 						flag17 = true;
 					}
 				}
 			}
 			string result = "";
-			if (this.type == 17)
+			if (this.type == NPCID.Merchant)
 			{
 				if (!NPC.downedBoss1 && Main.rand.Next(3) == 0)
 				{
@@ -63550,7 +63550,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 18)
+			else if (this.type == NPCID.Nurse)
 			{
 				if (Main.bloodMoon)
 				{
@@ -63684,7 +63684,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 19)
+			else if (this.type == NPCID.ArmsDealer)
 			{
 				if (NPC.downedBoss3 && !Main.hardMode)
 				{
@@ -63738,7 +63738,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 20)
+			else if (this.type == NPCID.Dryad)
 			{
 				if (!NPC.downedBoss2 && Main.rand.Next(3) == 0)
 				{
@@ -63819,7 +63819,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 37)
+			else if (this.type == NPCID.OldMan)
 			{
 				if (Main.dayTime)
 				{
@@ -63878,7 +63878,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 38)
+			else if (this.type == NPCID.Demolitionist)
 			{
 				if (!NPC.downedBoss2 && Main.rand.Next(3) == 0)
 				{
@@ -63961,7 +63961,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 54)
+			else if (this.type == NPCID.Clothier)
 			{
 				if (!flag7 && Main.rand.Next(2) == 0)
 				{
@@ -64012,11 +64012,11 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 105)
+			else if (this.type == NPCID.BoundGoblin)
 			{
 				result = Lang.dialog(120, false);
 			}
-			else if (this.type == 107)
+			else if (this.type == NPCID.GoblinTinkerer)
 			{
 				if (this.homeless)
 				{
@@ -64099,11 +64099,11 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 106)
+			else if (this.type == NPCID.BoundWizard)
 			{
 				result = Lang.dialog(137, false);
 			}
-			else if (this.type == 108)
+			else if (this.type == NPCID.Wizard)
 			{
 				if (this.homeless)
 				{
@@ -64190,11 +64190,11 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 123)
+			else if (this.type == NPCID.BoundMechanic)
 			{
 				result = Lang.dialog(156, false);
 			}
-			else if (this.type == 124)
+			else if (this.type == NPCID.Mechanic)
 			{
 				if (this.homeless)
 				{
@@ -64261,7 +64261,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 22)
+			else if (this.type == NPCID.Guide)
 			{
 				if (Main.bloodMoon)
 				{
@@ -64300,7 +64300,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 142)
+			else if (this.type == NPCID.SantaClaus)
 			{
 				int num32 = Main.rand.Next(3);
 				if (num32 == 0)
@@ -64316,7 +64316,7 @@ namespace Terraria
 					result = Lang.dialog(226, false);
 				}
 			}
-			else if (this.type == 160)
+			else if (this.type == NPCID.Truffle)
 			{
 				int num33 = Main.rand.Next(6);
 				if (flag4 && Main.rand.Next(6) == 0)
@@ -64352,7 +64352,7 @@ namespace Terraria
 					result = Lang.dialog(241, false);
 				}
 			}
-			else if (this.type == 178)
+			else if (this.type == NPCID.Steampunker)
 			{
 				int num34 = Main.rand.Next(5);
 				if (Main.bloodMoon && Main.rand.Next(3) == 0)
@@ -64388,7 +64388,7 @@ namespace Terraria
 					result = Lang.dialog(249, false);
 				}
 			}
-			else if (this.type == 207)
+			else if (this.type == NPCID.DyeTrader)
 			{
 				int num35 = Main.rand.Next(3);
 				if (flag12 && Main.rand.Next(6) == 0)
@@ -64408,7 +64408,7 @@ namespace Terraria
 					result = Lang.dialog(259, false);
 				}
 			}
-			else if (this.type == 208)
+			else if (this.type == NPCID.PartyGirl)
 			{
 				int num36 = Main.rand.Next(7);
 				if (Main.player[Main.myPlayer].Male && Main.rand.Next(5) == 0)
@@ -64448,7 +64448,7 @@ namespace Terraria
 					result = Lang.dialog(272, false);
 				}
 			}
-			else if (this.type == 209)
+			else if (this.type == NPCID.Cyborg)
 			{
 				int num37 = Main.rand.Next(5);
 				if (flag12 && Main.rand.Next(6) == 0)
@@ -64480,7 +64480,7 @@ namespace Terraria
 					result = Lang.dialog(286, false);
 				}
 			}
-			else if (this.type == 227)
+			else if (this.type == NPCID.Painter)
 			{
 				int num38 = Main.rand.Next(5);
 				if (Main.hardMode && Main.rand.Next(7) == 0)
@@ -64512,7 +64512,7 @@ namespace Terraria
 					result = Lang.dialog(256, false);
 				}
 			}
-			else if (this.type == 228)
+			else if (this.type == NPCID.WitchDoctor)
 			{
 				int num39 = Main.rand.Next(3);
 				if (flag2 && Main.rand.Next(6) == 0)
@@ -64532,7 +64532,7 @@ namespace Terraria
 					result = Lang.dialog(264, false);
 				}
 			}
-			else if (this.type == 229)
+			else if (this.type == NPCID.Pirate)
 			{
 				int num40 = Main.rand.Next(6);
 				if (!Main.player[Main.myPlayer].Male && Main.rand.Next(5) == 0)
@@ -64564,11 +64564,11 @@ namespace Terraria
 					result = Lang.dialog(279, false);
 				}
 			}
-			else if (this.type == 354)
+			else if (this.type == NPCID.WebbedStylist)
 			{
 				result = Lang.dialog(Main.rand.Next(315, 319), false);
 			}
-			else if (this.type == 353)
+			else if (this.type == NPCID.Stylist)
 			{
 				if (Main.bloodMoon)
 				{
@@ -64699,7 +64699,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 368)
+			else if (this.type == NPCID.TravellingMerchant)
 			{
 				if (flag16 && Main.rand.Next(5) == 0)
 				{
@@ -64718,11 +64718,11 @@ namespace Terraria
 					result = Lang.dialog(Main.rand.Next(322, 331), false);
 				}
 			}
-			else if (this.type == 376)
+			else if (this.type == NPCID.SleepingAngler)
 			{
 				result = Lang.dialog(Main.rand.Next(353, 356), false);
 			}
-			else if (this.type == 369)
+			else if (this.type == NPCID.Angler)
 			{
 				if (Main.bloodMoon)
 				{
@@ -64748,11 +64748,11 @@ namespace Terraria
 					result = Lang.dialog(Main.rand.Next(338, 347), false);
 				}
 			}
-			else if (this.type == 453)
+			else if (this.type == NPCID.SkeletonMerchant)
 			{
 				result = Lang.dialog(Main.rand.Next(356, 364), false);
 			}
-			else if (this.type == 441)
+			else if (this.type == NPCID.TaxCollector)
 			{
 				if (Main.rand.Next(6) == 0 && flag4)
 				{
@@ -64807,7 +64807,7 @@ namespace Terraria
 								this.StrikeNPCNoInteraction(2, 0f, 0, false, false, false);
 								if (Main.netMode != 0)
 								{
-									NetMessage.SendData(28, -1, -1, "", this.whoAmI, 2f, 0f, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", this.whoAmI, 2f, 0f, 0f, 0, 0, 0);
 								}
 							}
 						}

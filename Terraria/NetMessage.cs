@@ -162,7 +162,7 @@ namespace Terraria
 					{
 						item = player2.inventory[(int) number2];
 					}
-					if (item.name == "" || item.stack == 0 || item.type == 0)
+					if (item.name == "" || item.stack == 0 || item.type == ItemID.None)
 					{
 						item.SetDefaults(0, false);
 					}
@@ -2077,7 +2077,7 @@ namespace Terraria
 		}
 		public static void BootPlayer(int plr, string msg)
 		{
-			NetMessage.SendData(2, plr, -1, msg, 0, 0f, 0f, 0f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.Disconnect, plr, -1, msg, 0, 0f, 0f, 0f, 0, 0, 0);
 		}
 		public static void SendObjectPlacment(int whoAmi, int x, int y, int type, int style, int alternative, int random, int direction)
 		{
@@ -2093,11 +2093,11 @@ namespace Terraria
 				remoteClient = whoAmi;
 				ignoreClient = -1;
 			}
-			NetMessage.SendData(79, remoteClient, ignoreClient, "", x, (float)y, (float)type, (float)style, alternative, random, direction);
+			NetMessage.SendData((int)PacketTypes.PlaceObject, remoteClient, ignoreClient, "", x, (float)y, (float)type, (float)style, alternative, random, direction);
 		}
 		public static void SendTemporaryAnimation(int whoAmi, int animationType, int tileType, int xCoord, int yCoord)
 		{
-			NetMessage.SendData(77, whoAmi, -1, "", animationType, (float)tileType, (float)xCoord, (float)yCoord, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.CreateTemporaryAnimation, whoAmi, -1, "", animationType, (float)tileType, (float)xCoord, (float)yCoord, 0, 0, 0);
 		}
 		public static void SendTileRange(int whoAmi, int tileX, int tileY, int xSize, int ySize)
 		{
@@ -2110,18 +2110,18 @@ namespace Terraria
 			{
 				number = xSize;
 			}
-			NetMessage.SendData(20, whoAmi, -1, "", number, (float)tileX, (float)tileY, 0f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.TileSendSquare, whoAmi, -1, "", number, (float)tileX, (float)tileY, 0f, 0, 0, 0);
 		}
 		public static void SendTileSquare(int whoAmi, int tileX, int tileY, int size)
 		{
 			int num = (size - 1) / 2;
-			NetMessage.SendData(20, whoAmi, -1, "", size, (float)(tileX - num), (float)(tileY - num), 0f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.TileSendSquare, whoAmi, -1, "", size, (float)(tileX - num), (float)(tileY - num), 0f, 0, 0, 0);
 		}
 		public static void SendTravelShop()
 		{
 			if (Main.netMode == 2)
 			{
-				NetMessage.SendData(72, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.TravellingMerchantInventory, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
 		public static void SendAnglerQuest()
@@ -2134,7 +2134,7 @@ namespace Terraria
 			{
 				if (Netplay.Clients[i].State == 10)
 				{
-					NetMessage.SendData(74, i, -1, Main.player[i].name, Main.anglerQuest, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.AnglerQuest, i, -1, Main.player[i].name, Main.anglerQuest, 0f, 0f, 0f, 0, 0, 0);
 				}
 			}
 		}
@@ -2157,7 +2157,7 @@ namespace Terraria
 						int num2 = 150;
 						for (int i = num; i < num + 150; i += num2)
 						{
-							NetMessage.SendData(10, whoAmi, -1, "", number, i, 200, num2, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.TileSendSection, whoAmi, -1, "", number, i, 200, num2, 0, 0, 0);
 						}
 						for (int j = 0; j < 200; j++)
 						{
@@ -2167,7 +2167,7 @@ namespace Terraria
 								int sectionY2 = Netplay.GetSectionY((int)(Main.npc[j].position.Y / 16f));
 								if (sectionX2 == sectionX && sectionY2 == sectionY)
 								{
-									NetMessage.SendData(23, whoAmi, -1, "", j, 0f, 0f, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.NpcUpdate, whoAmi, -1, "", j, 0f, 0f, 0f, 0, 0, 0);
 								}
 							}
 						}
@@ -2190,11 +2190,11 @@ namespace Terraria
 
 			if (Main.motd == "")
 			{
-				NetMessage.SendData(25, plr, -1, Lang.mp[18] + " " + Main.worldName + "!", 255, 255f, 240f, 20f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ChatText, plr, -1, Lang.mp[18] + " " + Main.worldName + "!", 255, 255f, 240f, 20f, 0, 0, 0);
 			}
 			else
 			{
-				NetMessage.SendData(25, plr, -1, Main.motd, 255, 255f, 240f, 20f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ChatText, plr, -1, Main.motd, 255, 255f, 240f, 20f, 0, 0, 0);
 			}
 			string text = "";
 			for (int i = 0; i < 255; i++)
@@ -2211,13 +2211,13 @@ namespace Terraria
 					}
 				}
 			}
-			NetMessage.SendData(25, plr, -1, "Current players: " + text + ".", 255, 255f, 240f, 20f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.ChatText, plr, -1, "Current players: " + text + ".", 255, 255f, 240f, 20f, 0, 0, 0);
 		}
 		public static void sendWater(int x, int y)
 		{
 			if (Main.netMode == 1)
 			{
-				NetMessage.SendData(48, -1, -1, "", x, (float)y, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.LiquidSet, -1, -1, "", x, (float)y, 0f, 0f, 0, 0, 0);
 				return;
 			}
 			for (int i = 0; i < 256; i++)
@@ -2228,7 +2228,7 @@ namespace Terraria
 					int num2 = y / 150;
 					if (Netplay.Clients[i].TileSections[num, num2])
 					{
-						NetMessage.SendData(48, i, -1, "", x, (float)y, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.LiquidSet, i, -1, "", x, (float)y, 0f, 0f, 0, 0, 0);
 					}
 				}
 			}
@@ -2252,46 +2252,46 @@ namespace Terraria
 
 					if (sendPlayerActive)
 					{
-						NetMessage.SendData(14, -1, i, "", i, (float) num, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerActive, -1, i, "", i, (float) num, 0f, 0f, 0, 0, 0);
 					}
 
 					if (sendPlayerInfo)
 					{
-						NetMessage.SendData(4, -1, i, Main.player[i].name, i, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(13, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(16, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(30, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(45, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(42, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(50, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerInfo, -1, i, Main.player[i].name, i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerUpdate, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerHp, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.TogglePvp, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerTeam, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerMana, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerBuff, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
 					}
 
 					if (sendInventory)
 					{
 						for (int j = 0; j < 1 /*59*/; j++)
 						{
-							NetMessage.SendData(5, -1, i, Main.player[i].inventory[j].name, i, (float) j,
+							NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, i, Main.player[i].inventory[j].name, i, (float) j,
 								(float) Main.player[i].inventory[j].prefix, 0f, 0, 0, 0);
 						}
 						for (int k = 0; k < Main.player[i].armor.Length; k++)
 						{
-							NetMessage.SendData(5, -1, i, Main.player[i].armor[k].name, i, (float) (59 + k),
+							NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, i, Main.player[i].armor[k].name, i, (float) (59 + k),
 								(float) Main.player[i].armor[k].prefix, 0f, 0, 0, 0);
 						}
 						for (int l = 0; l < Main.player[i].dye.Length; l++)
 						{
-							NetMessage.SendData(5, -1, i, Main.player[i].dye[l].name, i, (float) (58 + Main.player[i].armor.Length + 1 + l),
+							NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, i, Main.player[i].dye[l].name, i, (float) (58 + Main.player[i].armor.Length + 1 + l),
 								(float) Main.player[i].dye[l].prefix, 0f, 0, 0, 0);
 						}
 						for (int m = 0; m < Main.player[i].miscEquips.Length; m++)
 						{
-							NetMessage.SendData(5, -1, i, "", i,
+							NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, i, "", i,
 								(float) (58 + Main.player[i].armor.Length + Main.player[i].dye.Length + 1 + m),
 								(float) Main.player[i].miscEquips[m].prefix, 0f, 0, 0, 0);
 						}
 						for (int n = 0; n < Main.player[i].miscDyes.Length; n++)
 						{
-							NetMessage.SendData(5, -1, i, "", i,
+							NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, i, "", i,
 								(float)
 									(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + Main.player[i].miscEquips.Length + 1 + n),
 								(float) Main.player[i].miscDyes[n].prefix, 0f, 0, 0, 0);
@@ -2305,7 +2305,7 @@ namespace Terraria
 				else
 				{
 					num = 0;
-					NetMessage.SendData(14, -1, i, "", i, (float)num, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerActive, -1, i, "", i, (float)num, 0f, 0f, 0, 0, 0);
 					if (Netplay.Clients[i].IsAnnouncementCompleted)
 					{
 						Netplay.Clients[i].IsAnnouncementCompleted = false;
@@ -2318,7 +2318,7 @@ namespace Terraria
 			{
 				if (Main.npc[num5].active && Main.npc[num5].townNPC && NPC.TypeToNum(Main.npc[num5].type) != -1)
 				{
-					if (!flag2 && Main.npc[num5].type == 368)
+					if (!flag2 && Main.npc[num5].type == NPCID.TravellingMerchant)
 					{
 						flag2 = true;
 					}
@@ -2327,7 +2327,7 @@ namespace Terraria
 					{
 						num6 = 1;
 					}
-					NetMessage.SendData(60, -1, -1, "", num5, (float)Main.npc[num5].homeTileX, (float)Main.npc[num5].homeTileY, (float)num6, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.UpdateNPCHome, -1, -1, "", num5, (float)Main.npc[num5].homeTileX, (float)Main.npc[num5].homeTileY, (float)num6, 0, 0, 0);
 				}
 			}
 			if (flag2)

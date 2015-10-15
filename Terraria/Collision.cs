@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using Terraria.ID;
 using TerrariaApi.Server;
 
 namespace Terraria
@@ -1014,7 +1015,7 @@ namespace Terraria
 					if (Main.tileSolid[tile.type])
 					{
 						int num1 = tile.blockType();
-						if (tile.type != 19)
+						if (tile.type != TileID.Platforms)
 						{
 							if (num1 == 1)
 							{
@@ -1131,7 +1132,7 @@ namespace Terraria
 
 		public static bool HitWallSubstep(int x, int y)
 		{
-			if (Main.tile[x, y].wall == 0)
+			if (Main.tile[x, y].wall == WallID.None)
 			{
 				return false;
 			}
@@ -1206,7 +1207,7 @@ namespace Terraria
 			{
 				for (int j = y; j < y1; j++)
 				{
-					if (Main.tile[i, j] != null && Main.tile[i, j].slope() == 0 && !Main.tile[i, j].inActive() && Main.tile[i, j].active() && (Main.tile[i, j].type == 32 || Main.tile[i, j].type == 37 || Main.tile[i, j].type == 48 || Main.tile[i, j].type == 232 || Main.tile[i, j].type == 53 || Main.tile[i, j].type == 57 || Main.tile[i, j].type == 58 || Main.tile[i, j].type == 69 || Main.tile[i, j].type == 76 || Main.tile[i, j].type == 112 || Main.tile[i, j].type == 116 || Main.tile[i, j].type == 123 || Main.tile[i, j].type == 224 || Main.tile[i, j].type == 234 || Main.tile[i, j].type == 352))
+					if (Main.tile[i, j] != null && Main.tile[i, j].slope() == 0 && !Main.tile[i, j].inActive() && Main.tile[i, j].active() && (Main.tile[i, j].type == TileID.CorruptThorns || Main.tile[i, j].type == TileID.Meteorite || Main.tile[i, j].type == TileID.Spikes || Main.tile[i, j].type == TileID.WoodenSpikes || Main.tile[i, j].type == TileID.Sand || Main.tile[i, j].type == TileID.Ash || Main.tile[i, j].type == TileID.Hellstone || Main.tile[i, j].type == TileID.JungleThorns || Main.tile[i, j].type == TileID.HellstoneBrick || Main.tile[i, j].type == TileID.Ebonsand || Main.tile[i, j].type == TileID.Pearlsand || Main.tile[i, j].type == TileID.Silt || Main.tile[i, j].type == TileID.Slush || Main.tile[i, j].type == TileID.Crimsand || Main.tile[i, j].type == TileID.CrimtaneThorns))
 					{
 						vector2.X = (float)(i * 16);
 						vector2.Y = (float)(j * 16);
@@ -1241,7 +1242,7 @@ namespace Terraria
 									WorldGen.KillTile(i, j, false, false, false);
 									if (Main.netMode == 1 && !Main.tile[i, j].active() && Main.netMode == 1)
 									{
-										NetMessage.SendData(17, -1, -1, "", 4, (float)i, (float)j, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 4, (float)i, (float)j, 0f, 0, 0, 0);
 									}
 								}
 								return new Vector2((float)num4, (float)num1);
@@ -1584,7 +1585,7 @@ namespace Terraria
 									}
 								}
 							}
-							if (Main.tile[i, j].type == 19)
+							if (Main.tile[i, j].type == TileID.Platforms)
 							{
 								if (Velocity.Y < 0f)
 								{
@@ -1598,7 +1599,7 @@ namespace Terraria
 							if (flag)
 							{
 								bool flag1 = false;
-								if (fall && Main.tile[i, j].type == 19)
+								if (fall && Main.tile[i, j].type == TileID.Platforms)
 								{
 									flag1 = true;
 								}
@@ -1667,7 +1668,7 @@ namespace Terraria
 												{
 													if (!flag1)
 													{
-														if (Main.tile[i, j].type != 19)
+														if (Main.tile[i, j].type != TileID.Platforms)
 														{
 															Collision.stair = false;
 														}
@@ -1690,14 +1691,14 @@ namespace Terraria
 												}
 											}
 										}
-										else if (Main.tile[i, j].type != 19 || Position.Y + (float)Height - 4f - Math.Abs(Velocity.X) <= vector2.Y)
+										else if (Main.tile[i, j].type != TileID.Platforms || Position.Y + (float)Height - 4f - Math.Abs(Velocity.X) <= vector2.Y)
 										{
 											float single3 = vector2.Y - (float)Height;
 											if (x.Y > single3)
 											{
 												if (!flag1)
 												{
-													if (Main.tile[i, j].type != 19)
+													if (Main.tile[i, j].type != TileID.Platforms)
 													{
 														Collision.stair = false;
 													}
@@ -1843,7 +1844,7 @@ namespace Terraria
 									}
 								}
 							}
-							if (Main.tile[i, j].type == 19)
+							if (Main.tile[i, j].type == TileID.Platforms)
 							{
 								if (Velocity.Y < 0f)
 								{
@@ -1857,7 +1858,7 @@ namespace Terraria
 							if (flag)
 							{
 								bool flag1 = false;
-								if (fall && Main.tile[i, j].type == 19)
+								if (fall && Main.tile[i, j].type == TileID.Platforms)
 								{
 									flag1 = true;
 								}
@@ -1926,7 +1927,7 @@ namespace Terraria
 												{
 													if (!flag1)
 													{
-														if (Main.tile[i, j].type != 19)
+														if (Main.tile[i, j].type != TileID.Platforms)
 														{
 															Collision.stair = false;
 														}
@@ -1949,14 +1950,14 @@ namespace Terraria
 												}
 											}
 										}
-										else if (Main.tile[i, j].type != 19 || Position.Y + (float)Height - 4f - Math.Abs(Velocity.X) <= vector2.Y)
+										else if (Main.tile[i, j].type != TileID.Platforms || Position.Y + (float)Height - 4f - Math.Abs(Velocity.X) <= vector2.Y)
 										{
 											float y4 = vector2.Y - (float)Height;
 											if (x.Y > y4)
 											{
 												if (!flag1)
 												{
-													if (Main.tile[i, j].type != 19)
+													if (Main.tile[i, j].type != TileID.Platforms)
 													{
 														Collision.stair = false;
 													}
@@ -2323,13 +2324,13 @@ namespace Terraria
 				tile1 = Main.tile[x1, y - 1];
 				if (specialChecksMode == 1)
 				{
-					flag10 = (tile.type == 16 || tile.type == 18 ? false : tile.type != 134);
+					flag10 = (tile.type == TileID.Anvils || tile.type == TileID.WorkBenches ? false : tile.type != TileID.MythrilAnvil);
 				}
 				if (!flag9)
 				{
 					flag5 = false;
 				}
-				else if (!tile.nactive() || tile.topSlope() && (tile.slope() != 1 || position.X + (float)(width / 2) >= (float)(x1 * 16)) && (tile.slope() != 2 || position.X + (float)(width / 2) <= (float)(x1 * 16 + 16)) || tile.topSlope() && position.Y + (float)height <= (float)(y * 16) || (!Main.tileSolid[tile.type] || Main.tileSolidTop[tile.type]) && (!holdsMatching || (!Main.tileSolidTop[tile.type] || tile.frameY != 0) && tile.type != 19 || Main.tileSolid[tile1.type] && tile1.nactive() || !flag10))
+				else if (!tile.nactive() || tile.topSlope() && (tile.slope() != 1 || position.X + (float)(width / 2) >= (float)(x1 * 16)) && (tile.slope() != 2 || position.X + (float)(width / 2) <= (float)(x1 * 16 + 16)) || tile.topSlope() && position.Y + (float)height <= (float)(y * 16) || (!Main.tileSolid[tile.type] || Main.tileSolidTop[tile.type]) && (!holdsMatching || (!Main.tileSolidTop[tile.type] || tile.frameY != 0) && tile.type != TileID.Platforms || Main.tileSolid[tile1.type] && tile1.nactive() || !flag10))
 				{
 					flag5 = (!tile1.halfBrick() ? false : tile1.nactive());
 				}
@@ -2426,20 +2427,20 @@ namespace Terraria
 				{
 					if (Main.tile[i, j] != null && Main.tile[i, j].active() && !Main.tile[i, j].inActive())
 					{
-						if (Main.tile[i, j].type == 51)
+						if (Main.tile[i, j].type == TileID.Cobweb)
 						{
 							int num1 = 0;
 							vector2.X = (float)(i * 16);
 							vector2.Y = (float)(j * 16);
 							if (position.X + (float)Width > vector2.X - (float)num1 && position.X < vector2.X + 16f + (float)num1 && position.Y + (float)Height > vector2.Y && (double)position.Y < (double)vector2.Y + 16.01)
 							{
-								if (Main.tile[i, j].type == 51 && (double)(Math.Abs(Velocity.X) + Math.Abs(Velocity.Y)) > 0.7 && Main.rand.Next(30) == 0)
+								if (Main.tile[i, j].type == TileID.Cobweb && (double)(Math.Abs(Velocity.X) + Math.Abs(Velocity.Y)) > 0.7 && Main.rand.Next(30) == 0)
 								{
 								}
 								return new Vector2((float)i, (float)j);
 							}
 						}
-						else if (Main.tile[i, j].type == 229 && Main.tile[i, j].slope() == 0)
+						else if (Main.tile[i, j].type == TileID.HoneyBlock && Main.tile[i, j].slope() == 0)
 						{
 							int num2 = 1;
 							vector2.X = (float)(i * 16);
@@ -2452,7 +2453,7 @@ namespace Terraria
 							}
 							if (position.X + (float)Width > vector2.X - (float)num2 && position.X < vector2.X + 16f + (float)num2 && position.Y + (float)Height > vector2.Y && position.Y < vector2.Y + single)
 							{
-								if (Main.tile[i, j].type == 51 && (double)(Math.Abs(Velocity.X) + Math.Abs(Velocity.Y)) > 0.7 && Main.rand.Next(30) == 0)
+								if (Main.tile[i, j].type == TileID.Cobweb && (double)(Math.Abs(Velocity.X) + Math.Abs(Velocity.Y)) > 0.7 && Main.rand.Next(30) == 0)
 								{
 								}
 								return new Vector2((float)i, (float)j);
@@ -2491,13 +2492,13 @@ namespace Terraria
 			{
 				for (int j = y; j < y1; j++)
 				{
-					if (Main.tile[i, j] != null && Main.tile[i, j].active() && (Main.tile[i, j].type == 135 || Main.tile[i, j].type == 210))
+					if (Main.tile[i, j] != null && Main.tile[i, j].active() && (Main.tile[i, j].type == TileID.PressurePlates || Main.tile[i, j].type == TileID.LandMine))
 					{
 						vector2.X = (float)(i * 16);
 						vector2.Y = (float)(j * 16 + 12);
 						if (Position.X + (float)Width > vector2.X && Position.X < vector2.X + 16f && Position.Y + (float)Height > vector2.Y && (double)Position.Y < (double)vector2.Y + 4.01)
 						{
-							if (Main.tile[i, j].type == 210)
+							if (Main.tile[i, j].type == TileID.LandMine)
 							{
 								WorldGen.ExplodeMine(i, j);
 							}
@@ -2531,7 +2532,7 @@ namespace Terraria
 									if (!handled)
 									{
 										Wiring.HitSwitch(i, j);
-										NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.HitSwitch, -1, -1, "", i, (float)j, 0f, 0f, 0, 0, 0);
 										return true;
 									}
 								}

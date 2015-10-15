@@ -917,37 +917,37 @@ namespace Terraria.ID
 				TileID.Sets.Factory = new SetFactory(419);
 				TileID.Sets.AllTiles = TileID.Sets.Factory.CreateBoolSet(true, new int[0]);
 
-				int[] numArray = new int[] { 59 };
+				int[] numArray = new int[] { TileID.Mud };
 				TileID.Sets.Mud = Factory.CreateBoolSet(numArray);
 
-				int[] numArray1 = new int[] { 147 };
+				int[] numArray1 = new int[] { TileID.SnowBlock };
 				TileID.Sets.Snow = Factory.CreateBoolSet(numArray1);
 				
-				int[] numArray2 = new int[] { 161, 200, 163, 164 };
+				int[] numArray2 = new int[] { TileID.IceBlock, TileID.FleshIce, TileID.CorruptIce, TileID.HallowedIce };
 				TileID.Sets.Ices = Factory.CreateBoolSet(numArray2);
 				
-				int[] numArray3 = new int[] { 161, 200, 163, 164, 224 };
+				int[] numArray3 = new int[] { TileID.IceBlock, TileID.FleshIce, TileID.CorruptIce, TileID.HallowedIce, TileID.Slush };
 				TileID.Sets.IcesSlush = Factory.CreateBoolSet(numArray3);
 				
-				int[] numArray4 = new int[] { 161, 200, 163, 164, 147 };
+				int[] numArray4 = new int[] { TileID.IceBlock, TileID.FleshIce, TileID.CorruptIce, TileID.HallowedIce, TileID.SnowBlock };
 				TileID.Sets.IcesSnow = Factory.CreateBoolSet(numArray4);
 				
-				int[] numArray5 = new int[] { 70, 60 };
+				int[] numArray5 = new int[] { TileID.MushroomGrass, TileID.JungleGrass };
 				TileID.Sets.GrassSpecial = Factory.CreateBoolSet(numArray5);
 
-				int[] numArray6 = new int[] { 226, 225, 211 };
+				int[] numArray6 = new int[] { TileID.LihzahrdBrick, TileID.Hive, TileID.Chlorophyte };
 				TileID.Sets.JungleSpecial = Factory.CreateBoolSet(numArray6);
 
-				int[] numArray7 = new int[] { 58, 76, 75 };
+				int[] numArray7 = new int[] { TileID.Hellstone, TileID.HellstoneBrick, TileID.ObsidianBrick };
 				TileID.Sets.HellSpecial = Factory.CreateBoolSet(numArray7);
 
-				int[] numArray8 = new int[] { 384, 192 };
+				int[] numArray8 = new int[] { TileID.LivingMahoganyLeaves, TileID.LeafBlock };
 				TileID.Sets.Leaves = Factory.CreateBoolSet(numArray8);
 
-				int[] numArray9 = new int[] { 225, 41, 43, 44, 226, 203, 112, 25, 70, 151, 21, 31 };
+				int[] numArray9 = new int[] { TileID.Hive, TileID.BlueDungeonBrick, TileID.GreenDungeonBrick, TileID.PinkDungeonBrick, TileID.LihzahrdBrick, TileID.Crimstone, TileID.Ebonsand, TileID.Ebonstone, TileID.MushroomGrass, TileID.SandstoneBrick, TileID.Containers, TileID.ShadowOrbs };
 				TileID.Sets.GeneralPlacementTiles = Factory.CreateBoolSet(true, numArray9);
 
-				int[] numArray10 = new int[] { 396, 400, 401, 397, 398, 399, 404, 368, 367 };
+				int[] numArray10 = new int[] { TileID.Sandstone, TileID.CorruptSandstone, TileID.CrimsonSandstone, TileID.HardenedSand, TileID.CorruptHardenedSand, TileID.CrimsonHardenedSand, TileID.DesertFossil, TileID.Granite, TileID.Marble };
 				TileID.Sets.CanBeClearedDuringGeneration = Factory.CreateBoolSet(true, numArray10);
 
 				int[] numArray11 = new int[] { CorruptGrass, Ebonstone, Ebonsand, CorruptIce, CorruptHardenedSand, CorruptSandstone };
@@ -959,66 +959,66 @@ namespace Terraria.ID
 				int[] numArray13 = new int[] { FleshGrass, FleshIce, Crimstone, CrimsonVines, Crimsand, CrimsonHardenedSand, CrimsonSandstone };
 				TileID.Sets.Crimson = Factory.CreateBoolSet(numArray13);
 
-				int[] numArray14 = new int[] { 386, 387, 54 };
+				int[] numArray14 = new int[] { TileID.TrapdoorOpen, TileID.TrapdoorClosed, TileID.Glass };
 				TileID.Sets.BlocksStairs = Factory.CreateBoolSet(numArray14);
 
-				int[] numArray15 = new int[] { 386, 387 };
+				int[] numArray15 = new int[] { TileID.TrapdoorOpen, TileID.TrapdoorClosed };
 				TileID.Sets.BlocksStairsAbove = Factory.CreateBoolSet(numArray15);
 
-				int[] numArray16 = new int[] { 387, 388, 10 };
+				int[] numArray16 = new int[] { TileID.TrapdoorClosed, TileID.TallGateClosed, TileID.ClosedDoor };
 				TileID.Sets.NotReallySolid = Factory.CreateBoolSet(numArray16);
 
-				int[] numArray17 = new int[] { 0, 2, 60, 70, 199, 109, 57, 58, 75, 76, 147, 161, 164, 163, 200, 162, 189, 196, 224, 191, 383, 211, 225, 59, 226, 396, 397, 398, 399, 402, 400, 401, 403, 404, 234, 112, 407 };
+				int[] numArray17 = new int[] { TileID.Dirt, TileID.Grass, TileID.JungleGrass, TileID.MushroomGrass, TileID.FleshGrass, TileID.HallowedGrass, TileID.Ash, TileID.Hellstone, TileID.ObsidianBrick, TileID.HellstoneBrick, TileID.SnowBlock, TileID.IceBlock, TileID.HallowedIce, TileID.CorruptIce, TileID.FleshIce, TileID.BreakableIce, TileID.Cloud, TileID.RainCloud, TileID.Slush, TileID.LivingWood, TileID.LivingMahogany, TileID.Chlorophyte, TileID.Hive, TileID.Mud, TileID.LihzahrdBrick, TileID.Sandstone, TileID.HardenedSand, TileID.CorruptHardenedSand, TileID.CrimsonHardenedSand, TileID.HallowHardenedSand, TileID.CorruptSandstone, TileID.CrimsonSandstone, TileID.HallowSandstone, TileID.DesertFossil, TileID.Crimsand, TileID.Ebonsand, TileID.FossilOre };
 				TileID.Sets.ChecksForMerge = Factory.CreateBoolSet(numArray17);
 
-				int[] numArray18 = new int[] { 240, 241, 242, 245, 246, 4, 136, 334, 132, 55, 395 };
+				int[] numArray18 = new int[] { TileID.Painting3X3, TileID.Painting4X3, TileID.Painting6X4, TileID.Painting2X3, TileID.Painting3X2, TileID.Torches, TileID.Switches, TileID.WeaponsRack, TileID.Lever, TileID.Signs, TileID.ItemFrame };
 				TileID.Sets.FramesOnKillWall = Factory.CreateBoolSet(numArray18);
 
-				int[] numArray19 = new int[] { 21, 55, 85, 395, 88, 334, 29, 97, 99, 356 };
+				int[] numArray19 = new int[] { TileID.Containers, TileID.Signs, TileID.Tombstones, TileID.ItemFrame, TileID.Dressers, TileID.WeaponsRack, TileID.PiggyBank, TileID.Safes, TileID.TrashCan, TileID.Sundial };
 				TileID.Sets.AvoidedByNPCs = Factory.CreateBoolSet(numArray19);
 
-				int[] numArray20 = new int[] { 17, 77, 133, 12, 26, 35, 36, 55, 395, 21, 29, 97, 88, 99, 33, 372, 174, 49, 100, 173, 78, 79, 94, 96, 101, 50, 103, 282, 106, 114, 125, 171, 172, 207, 215, 220, 219, 244, 228, 237, 247, 128, 269, 354, 355, 377, 287, 378, 390, 302, 405, 406, 411 };
+				int[] numArray20 = new int[] { TileID.Furnaces, TileID.Hellforge, TileID.AdamantiteForge, TileID.Heart, TileID.DemonAltar, TileID.Jackolanterns, TileID.Presents, TileID.Signs, TileID.ItemFrame, TileID.Containers, TileID.PiggyBank, TileID.Safes, TileID.Dressers, TileID.TrashCan, TileID.Candles, TileID.PeaceCandle, TileID.PlatinumCandle, TileID.WaterCandle, TileID.Candelabras, TileID.PlatinumCandelabra, TileID.ClayPot, TileID.Beds, TileID.Kegs, TileID.CookingPots, TileID.Bookcases, TileID.Books, TileID.Bowls, TileID.FishBowl, TileID.Sawmill, TileID.TinkerersWorkbench, TileID.CrystalBall, TileID.ChristmasTree, TileID.Sinks, TileID.WaterFountain, TileID.Campfire, TileID.Solidifier, TileID.Extractinator, TileID.BubbleMachine, TileID.DyeVat, TileID.LihzahrdAltar, TileID.Autohammer, TileID.Mannequin, TileID.Womannequin, TileID.BewitchingTable, TileID.AlchemyTable, TileID.SharpeningStation, TileID.AmmoBox, TileID.TargetDummy, TileID.LavaLamp, TileID.GlassKiln, TileID.Fireplace, TileID.Chimney, TileID.Detonator };
 				TileID.Sets.InteractibleByNPCs = Factory.CreateBoolSet(numArray20);
 
-				int[] numArray21 = new int[] { 11, 389, 386 };
+				int[] numArray21 = new int[] { TileID.OpenDoor, TileID.TallGateOpen, TileID.TrapdoorOpen };
 				TileID.Sets.HousingWalls = Factory.CreateBoolSet(numArray21);
 
-				int[] numArray22 = new int[] { 324, 186, 187, 185, 165 };
+				int[] numArray22 = new int[] { TileID.BeachPiles, TileID.LargePiles, TileID.LargePiles2, TileID.SmallPiles, TileID.Stalactite };
 				TileID.Sets.BreakableWhenPlacing = Factory.CreateBoolSet(numArray22);
 
-				int[] numArray23 = new int[] { 32, 10, 69, 17, 80, 6, 352, 10 };
+				int[] numArray23 = new int[] { TileID.CorruptThorns, TileID.ClosedDoor, TileID.JungleThorns, TileID.Furnaces, TileID.Cactus, TileID.Iron, TileID.CrimtaneThorns, TileID.ClosedDoor };
 				TileID.Sets.TouchDamageVines = Factory.CreateIntSet(0, numArray23);
 
-				int[] numArray24 = new int[] { 53, 15, 112, 15, 116, 15, 123, 15, 224, 15, 234, 15, 57, 15, 69, 15 };
+				int[] numArray24 = new int[] { TileID.Sand, TileID.Chairs, TileID.Ebonsand, TileID.Chairs, TileID.Pearlsand, TileID.Chairs, TileID.Silt, TileID.Chairs, TileID.Slush, TileID.Chairs, TileID.Crimsand, TileID.Chairs, TileID.Ash, TileID.Chairs, TileID.JungleThorns, TileID.Chairs };
 				TileID.Sets.TouchDamageSands = Factory.CreateIntSet(0, numArray24);
 
-				int[] numArray25 = new int[] { 37, 20, 58, 20, 76, 20 };
+				int[] numArray25 = new int[] { TileID.Meteorite, TileID.Saplings, TileID.Hellstone, TileID.Saplings, TileID.HellstoneBrick, TileID.Saplings };
 				TileID.Sets.TouchDamageHot = Factory.CreateIntSet(0, numArray25);
 
-				int[] numArray26 = new int[] { 48, 40, 232, 60 };
+				int[] numArray26 = new int[] { TileID.Spikes, TileID.ClayBlock, TileID.WoodenSpikes, TileID.JungleGrass };
 				TileID.Sets.TouchDamageOther = Factory.CreateIntSet(0, numArray26);
 
-				int[] numArray27 = new int[] { 53, 234, 112, 116, 224, 123 };
+				int[] numArray27 = new int[] { TileID.Sand, TileID.Crimsand, TileID.Ebonsand, TileID.Pearlsand, TileID.Slush, TileID.Silt };
 				TileID.Sets.Falling = Factory.CreateBoolSet(numArray27);
 
-				int[] numArray28 = new int[] { 7, 166, 6, 167, 9, 168, 8, 169, 22, 204, 37, 58, 107, 221, 108, 222, 111, 223, 211 };
+				int[] numArray28 = new int[] { TileID.Copper, TileID.Tin, TileID.Iron, TileID.Lead, TileID.Silver, TileID.Tungsten, TileID.Gold, TileID.Platinum, TileID.Demonite, TileID.Crimtane, TileID.Meteorite, TileID.Hellstone, TileID.Cobalt, TileID.Palladium, TileID.Mythril, TileID.Orichalcum, TileID.Adamantite, TileID.Titanium, TileID.Chlorophyte };
 				TileID.Sets.Ore = Factory.CreateBoolSet(numArray28);
 			}
 
 			public static class RoomNeeds
 			{
-				public static int[] CountsAsChair = new int[] { 15, 79, 89, 102 };
+				public static int[] CountsAsChair = new int[] { TileID.Chairs, TileID.Beds, TileID.Benches, TileID.Thrones };
 
-				public static int[] CountsAsTable = new int[] { 14, 18, 87, 88, 90, 101, 354, 355 };
+				public static int[] CountsAsTable = new int[] { TileID.Tables, TileID.WorkBenches, TileID.Pianos, TileID.Dressers, TileID.Bathtubs, TileID.Bookcases, TileID.BewitchingTable, TileID.AlchemyTable };
 
 				public static int[] CountsAsTorch = new int[]{  4,  33, 34, 35, 42, 49, 93, 95, 98, 100, 149,
-					173, 174, 270, 271, 316, 317, 318, 372, 405 };
+				 TileID.PlatinumCandelabra, TileID.PlatinumCandle, TileID.FireflyinaBottle, TileID.LightningBuginaBottle, TileID.BlueJellyfishBowl, TileID.GreenJellyfishBowl, TileID.PinkJellyfishBowl, TileID.PeaceCandle, TileID.Fireplace };
 
-				public static int[] CountsAsDoor = new int[] { 10, 11, 19, 387, 386, 388, 389 };
+				public static int[] CountsAsDoor = new int[] { TileID.ClosedDoor, TileID.OpenDoor, TileID.Platforms, TileID.TrapdoorClosed, TileID.TrapdoorOpen, TileID.TallGateClosed, TileID.TallGateOpen };
 
 				static RoomNeeds()
 				{
-					int[] chairs = new int[] { 15, 79, 89, 102 };
+					int[] chairs = new int[] { TileID.Chairs, TileID.Beds, TileID.Benches, TileID.Thrones };
 					Factory.CreateBoolSet(chairs);
 				}
 			}
@@ -1044,28 +1044,28 @@ namespace Terraria.ID
 				static Conversion()
 				{
 					SetFactory factory = TileID.Sets.Factory;
-					int[] numArray = new int[] { 2, 23, 60, 199, 109 };
+					int[] numArray = new int[] { TileID.Grass, TileID.CorruptGrass, TileID.JungleGrass, TileID.FleshGrass, TileID.HallowedGrass };
 					TileID.Sets.Conversion.Grass = factory.CreateBoolSet(numArray);
 					SetFactory setFactory = TileID.Sets.Factory;
-					int[] numArray1 = new int[] { 1, 25, 117, 203 };
+					int[] numArray1 = new int[] { TileID.Stone, TileID.Ebonstone, TileID.Pearlstone, TileID.Crimstone };
 					TileID.Sets.Conversion.Stone = setFactory.CreateBoolSet(numArray1);
 					SetFactory factory1 = TileID.Sets.Factory;
-					int[] numArray2 = new int[] { 161, 163, 164, 200 };
+					int[] numArray2 = new int[] { TileID.IceBlock, TileID.CorruptIce, TileID.HallowedIce, TileID.FleshIce };
 					TileID.Sets.Conversion.Ice = factory1.CreateBoolSet(numArray2);
 					SetFactory setFactory1 = TileID.Sets.Factory;
-					int[] numArray3 = new int[] { 53, 112, 116, 234 };
+					int[] numArray3 = new int[] { TileID.Sand, TileID.Ebonsand, TileID.Pearlsand, TileID.Crimsand };
 					TileID.Sets.Conversion.Sand = setFactory1.CreateBoolSet(numArray3);
 					SetFactory factory2 = TileID.Sets.Factory;
-					int[] numArray4 = new int[] { 397, 398, 402, 399 };
+					int[] numArray4 = new int[] { TileID.HardenedSand, TileID.CorruptHardenedSand, TileID.HallowHardenedSand, TileID.CrimsonHardenedSand };
 					TileID.Sets.Conversion.HardenedSand = factory2.CreateBoolSet(numArray4);
 					SetFactory setFactory2 = TileID.Sets.Factory;
-					int[] numArray5 = new int[] { 396, 400, 403, 401 };
+					int[] numArray5 = new int[] { TileID.Sandstone, TileID.CorruptSandstone, TileID.HallowSandstone, TileID.CrimsonSandstone };
 					TileID.Sets.Conversion.Sandstone = setFactory2.CreateBoolSet(numArray5);
 					SetFactory factory3 = TileID.Sets.Factory;
-					int[] numArray6 = new int[] { 32, 352, 69 };
+					int[] numArray6 = new int[] { TileID.CorruptThorns, TileID.CrimtaneThorns, TileID.JungleThorns };
 					TileID.Sets.Conversion.Thorn = factory3.CreateBoolSet(numArray6);
 					SetFactory setFactory3 = TileID.Sets.Factory;
-					int[] numArray7 = new int[] { 182, 180, 179, 381, 183, 181 };
+					int[] numArray7 = new int[] { TileID.BlueMoss, TileID.BrownMoss, TileID.GreenMoss, TileID.LavaMoss, TileID.PurpleMoss, TileID.RedMoss };
 					TileID.Sets.Conversion.Moss = setFactory3.CreateBoolSet(numArray7);
 				}
 			}

@@ -1,6 +1,7 @@
 
 using System;
 using Terraria;
+using Terraria.ID;
 using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
@@ -45,11 +46,11 @@ namespace Terraria.GameContent.Biomes
 					{
 						if (j > 0 && j <= Main.maxTilesY - 1)
 						{
-							if (Main.tile[i, j].active() && Main.tile[i, j].type == 226)
+							if (Main.tile[i, j].active() && Main.tile[i, j].type == TileID.LihzahrdBrick)
 							{
 								return false;
 							}
-							if (Main.tile[i, j].wall == 87 || Main.tile[i, j].wall == 3 || Main.tile[i, j].wall == 83)
+							if (Main.tile[i, j].wall == WallID.LihzahrdBrickUnsafe || Main.tile[i, j].wall == WallID.EbonstoneUnsafe || Main.tile[i, j].wall == WallID.CrimstoneUnsafe)
 							{
 								return false;
 							}
@@ -108,7 +109,7 @@ namespace Terraria.GameContent.Biomes
 							{
 								flag = true;
 							}
-							else if (Main.tile[n, o].active() && Main.tile[n, o].type != 225)
+							else if (Main.tile[n, o].active() && Main.tile[n, o].type != TileID.Hive)
 							{
 								flag = true;
 								break;

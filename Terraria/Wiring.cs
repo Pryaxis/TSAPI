@@ -128,12 +128,12 @@ namespace Terraria
 			{
 				return;
 			}
-			if (Main.tile[i, j].type == 135 || Main.tile[i, j].type == 314)
+			if (Main.tile[i, j].type == TileID.PressurePlates || Main.tile[i, j].type == TileID.MinecartTrack)
 			{
 				Wiring.TripWire(i, j, 1, 1);
 				return;
 			}
-			if (Main.tile[i, j].type == 136)
+			if (Main.tile[i, j].type == TileID.Switches)
 			{
 				if (Main.tile[i, j].frameY != 0)
 				{
@@ -146,7 +146,7 @@ namespace Terraria
 				Wiring.TripWire(i, j, 1, 1);
 				return;
 			}
-			if (Main.tile[i, j].type == 144)
+			if (Main.tile[i, j].type == TileID.Timers)
 			{
 				if (Main.tile[i, j].frameY != 0)
 				{
@@ -162,7 +162,7 @@ namespace Terraria
 				}
 				return;
 			}
-			if (Main.tile[i, j].type == 132 || Main.tile[i, j].type == 411)
+			if (Main.tile[i, j].type == TileID.Lever || Main.tile[i, j].type == TileID.Detonator)
 			{
 				short num = 36;
 				int num1 = Main.tile[i, j].frameX / 18 * -1;
@@ -175,7 +175,7 @@ namespace Terraria
 				}
 				num1 = num1 + i;
 				num2 = num2 + j;
-				if (Main.netMode != 1 && Main.tile[num1, num2].type == 411)
+				if (Main.netMode != 1 && Main.tile[num1, num2].type == TileID.Detonator)
 				{
 					Wiring.CheckMech(num1, num2, 60);
 				}
@@ -183,7 +183,7 @@ namespace Terraria
 				{
 					for (int j1 = num2; j1 < num2 + 2; j1++)
 					{
-						if (Main.tile[i1, j1].type == 132 || Main.tile[i1, j1].type == 411)
+						if (Main.tile[i1, j1].type == TileID.Lever || Main.tile[i1, j1].type == TileID.Detonator)
 						{
 							Tile tile = Main.tile[i1, j1];
 							tile.frameX = (short)(tile.frameX + num);
@@ -458,7 +458,7 @@ namespace Terraria
 						}
 						if (num24 != 0)
 						{
-							NetMessage.SendData(19, -1, -1, "", 2 + flag.ToInt(), (float)i, (float)j, (float)num24, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.DoorUse, -1, -1, "", 2 + flag.ToInt(), (float)i, (float)j, (float)num24, 0, 0, 0);
 							return;
 						}
 					}
@@ -468,14 +468,14 @@ namespace Terraria
 						{
 							bool flag1 = num3 == 389;
 							WorldGen.ShiftTallGate(i, j, flag1);
-							NetMessage.SendData(19, -1, -1, "", 4 + flag1.ToInt(), (float)i, (float)j, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.DoorUse, -1, -1, "", 4 + flag1.ToInt(), (float)i, (float)j, 0f, 0, 0, 0);
 							return;
 						}
 						if (num3 == 11)
 						{
 							if (WorldGen.CloseDoor(i, j, true))
 							{
-								NetMessage.SendData(19, -1, -1, "", 1, (float)i, (float)j, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.DoorUse, -1, -1, "", 1, (float)i, (float)j, 0f, 0, 0, 0);
 								return;
 							}
 						}
@@ -987,7 +987,7 @@ namespace Terraria
 													int num58 = 0;
 													for (int a = 0; a < 200; a++)
 													{
-														if (Main.npc[a].active && (Main.npc[a].type == 17 || Main.npc[a].type == 19 || Main.npc[a].type == 22 || Main.npc[a].type == 38 || Main.npc[a].type == 54 || Main.npc[a].type == 107 || Main.npc[a].type == 108 || Main.npc[a].type == 142 || Main.npc[a].type == 160 || Main.npc[a].type == 207 || Main.npc[a].type == 209 || Main.npc[a].type == 227 || Main.npc[a].type == 228 || Main.npc[a].type == 229 || Main.npc[a].type == 358 || Main.npc[a].type == 369))
+														if (Main.npc[a].active && (Main.npc[a].type == NPCID.Merchant || Main.npc[a].type == NPCID.ArmsDealer || Main.npc[a].type == NPCID.Guide || Main.npc[a].type == NPCID.Demolitionist || Main.npc[a].type == NPCID.Clothier || Main.npc[a].type == NPCID.GoblinTinkerer || Main.npc[a].type == NPCID.Wizard || Main.npc[a].type == NPCID.SantaClaus || Main.npc[a].type == NPCID.Truffle || Main.npc[a].type == NPCID.DyeTrader || Main.npc[a].type == NPCID.Cyborg || Main.npc[a].type == NPCID.Painter || Main.npc[a].type == NPCID.WitchDoctor || Main.npc[a].type == NPCID.Pirate || Main.npc[a].type == NPCID.LightningBug || Main.npc[a].type == NPCID.Angler))
 														{
 															numArray[num58] = a;
 															num58++;
@@ -1002,7 +1002,7 @@ namespace Terraria
 														int num59 = numArray[Main.rand.Next(num58)];
 														Main.npc[num59].position.X = (float)(num55 - Main.npc[num59].width / 2);
 														Main.npc[num59].position.Y = (float)(num56 - Main.npc[num59].height - 1);
-														NetMessage.SendData(23, -1, -1, "", num59, 0f, 0f, 0f, 0, 0, 0);
+														NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num59, 0f, 0f, 0f, 0, 0, 0);
 													}
 												}
 											}
@@ -1012,7 +1012,7 @@ namespace Terraria
 												int num60 = 0;
 												for (int b = 0; b < 200; b++)
 												{
-													if (Main.npc[b].active && (Main.npc[b].type == 18 || Main.npc[b].type == 20 || Main.npc[b].type == 124 || Main.npc[b].type == 178 || Main.npc[b].type == 208 || Main.npc[b].type == 353))
+													if (Main.npc[b].active && (Main.npc[b].type == NPCID.Nurse || Main.npc[b].type == NPCID.Dryad || Main.npc[b].type == NPCID.Mechanic || Main.npc[b].type == NPCID.Steampunker || Main.npc[b].type == NPCID.PartyGirl || Main.npc[b].type == NPCID.Stylist))
 													{
 														numArray1[num60] = b;
 														num60++;
@@ -1027,7 +1027,7 @@ namespace Terraria
 													int num61 = numArray1[Main.rand.Next(num60)];
 													Main.npc[num61].position.X = (float)(num55 - Main.npc[num61].width / 2);
 													Main.npc[num61].position.Y = (float)(num56 - Main.npc[num61].height - 1);
-													NetMessage.SendData(23, -1, -1, "", num61, 0f, 0f, 0f, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num61, 0f, 0f, 0f, 0, 0, 0);
 												}
 											}
 											if (num57 >= 0)
@@ -1240,7 +1240,7 @@ namespace Terraria
 							else
 							{
 								int num71 = i - tile.frameX / 18;
-								if (tile.wall == 87 && (double)j > Main.worldSurface && !NPC.downedPlantBoss)
+								if (tile.wall == WallID.LihzahrdBrickUnsafe && (double)j > Main.worldSurface && !NPC.downedPlantBoss)
 								{
 									return;
 								}
@@ -1275,12 +1275,12 @@ namespace Terraria
 							}
 							if (WorldGen.OpenDoor(i, j, num72))
 							{
-								NetMessage.SendData(19, -1, -1, "", 0, (float)i, (float)j, (float)num72, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.DoorUse, -1, -1, "", 0, (float)i, (float)j, (float)num72, 0, 0, 0);
 								return;
 							}
 							if (WorldGen.OpenDoor(i, j, -num72))
 							{
-								NetMessage.SendData(19, -1, -1, "", 0, (float)i, (float)j, (float)(-num72), 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.DoorUse, -1, -1, "", 0, (float)i, (float)j, (float)(-num72), 0, 0, 0);
 								return;
 							}
 						}
@@ -1377,7 +1377,7 @@ namespace Terraria
 						Main.player[j].Teleport(vector21, 0, 0);
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(65, -1, -1, "", 0, (float)j, vector21.X, vector21.Y, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.Teleport, -1, -1, "", 0, (float)j, vector21.X, vector21.Y, 0, 0, 0);
 						}
 					}
 				}

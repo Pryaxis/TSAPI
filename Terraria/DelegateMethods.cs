@@ -47,7 +47,7 @@ namespace Terraria
 				WorldGen.KillTile(x, y, false, false, false);
 				if (Main.netMode != 0)
 				{
-					NetMessage.SendData(17, -1, -1, "", 0, (float)x, (float)y, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)x, (float)y, 0f, 0, 0, 0);
 				}
 			}
 			return true;
@@ -63,7 +63,7 @@ namespace Terraria
 
 		public static bool NotDoorStand(int x, int y)
 		{
-			if (Main.tile[x, y] == null || !Main.tile[x, y].active() || Main.tile[x, y].type != 11)
+			if (Main.tile[x, y] == null || !Main.tile[x, y].active() || Main.tile[x, y].type != TileID.OpenDoor)
 			{
 				return true;
 			}

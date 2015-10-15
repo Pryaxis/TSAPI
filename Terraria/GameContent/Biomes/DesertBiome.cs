@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.World.Generation;
 
 namespace Terraria.GameContent.Biomes
@@ -25,7 +26,7 @@ namespace Terraria.GameContent.Biomes
 					Tile tile = GenBase._tiles[num, y1];
 					Tile tile1 = GenBase._tiles[num, y1 + 1];
 					Tile tile2 = GenBase._tiles[num, y1 + 2];
-					if (tile.type == 53 && (!WorldGen.SolidTile(tile1) || !WorldGen.SolidTile(tile2)))
+					if (tile.type == TileID.Sand && (!WorldGen.SolidTile(tile1) || !WorldGen.SolidTile(tile2)))
 					{
 						tile.type = 397;
 					}
@@ -317,7 +318,7 @@ namespace Terraria.GameContent.Biomes
 						tile.wall = 187;
 					}
 					tile.active(true);
-					if (tile.wall != 187)
+					if (tile.wall != WallID.Sandstone)
 					{
 						tile.wall = 0;
 					}

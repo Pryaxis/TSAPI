@@ -3260,7 +3260,7 @@ namespace Terraria.ObjectData
 
 		public static void SyncObjectPlacement(int tileX, int tileY, int type, int style, int dir)
 		{
-			NetMessage.SendData(17, -1, -1, "", 1, (float)tileX, (float)tileY, (float)type, style, 0, 0);
+			NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 1, (float)tileX, (float)tileY, (float)type, style, 0, 0);
 			TileObjectData.GetTileData(type, style, 0);
 		}
 

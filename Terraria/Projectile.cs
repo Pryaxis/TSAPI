@@ -179,7 +179,7 @@ namespace Terraria
 			this.npcProj = false;
 			this.frame = 0;
 			this.frameCounter = 0;
-			if (this.type == 1)
+			if (this.type == ProjectileID.WoodenArrowFriendly)
 			{
 				this.arrow = true;
 				this.name = "Wooden Arrow";
@@ -189,7 +189,7 @@ namespace Terraria
 				this.friendly = true;
 				this.ranged = true;
 			}
-			else if (this.type == 2)
+			else if (this.type == ProjectileID.FireArrow)
 			{
 				this.arrow = true;
 				this.name = "Fire Arrow";
@@ -200,7 +200,7 @@ namespace Terraria
 				this.light = 1f;
 				this.ranged = true;
 			}
-			else if (this.type == 3)
+			else if (this.type == ProjectileID.Shuriken)
 			{
 				this.name = "Shuriken";
 				this.width = 22;
@@ -210,7 +210,7 @@ namespace Terraria
 				this.penetrate = 4;
 				this.thrown = true;
 			}
-			else if (this.type == 4)
+			else if (this.type == ProjectileID.UnholyArrow)
 			{
 				this.arrow = true;
 				this.name = "Unholy Arrow";
@@ -222,7 +222,7 @@ namespace Terraria
 				this.penetrate = 5;
 				this.ranged = true;
 			}
-			else if (this.type == 5)
+			else if (this.type == ProjectileID.JestersArrow)
 			{
 				this.arrow = true;
 				this.name = "Jester's Arrow";
@@ -238,7 +238,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 6)
+			else if (this.type == ProjectileID.EnchantedBoomerang)
 			{
 				this.name = "Enchanted Boomerang";
 				this.width = 22;
@@ -249,7 +249,7 @@ namespace Terraria
 				this.melee = true;
 				this.light = 0.4f;
 			}
-			else if (this.type == 7 || this.type == 8)
+			else if (this.type == ProjectileID.VilethornBase || this.type == ProjectileID.VilethornTip)
 			{
 				this.name = "Vilethorn";
 				this.width = 28;
@@ -262,7 +262,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.magic = true;
 			}
-			else if (this.type == 9)
+			else if (this.type == ProjectileID.Starfury)
 			{
 				this.name = "Starfury";
 				this.width = 24;
@@ -275,7 +275,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.melee = true;
 			}
-			else if (this.type == 10)
+			else if (this.type == ProjectileID.PurificationPowder)
 			{
 				this.name = "Purification Powder";
 				this.width = 64;
@@ -287,7 +287,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 11)
+			else if (this.type == ProjectileID.VilePowder)
 			{
 				this.name = "Vile Powder";
 				this.width = 48;
@@ -299,7 +299,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 12)
+			else if (this.type == ProjectileID.FallingStar)
 			{
 				this.name = "Falling Star";
 				this.width = 16;
@@ -310,7 +310,7 @@ namespace Terraria
 				this.alpha = 50;
 				this.light = 1f;
 			}
-			else if (this.type == 13)
+			else if (this.type == ProjectileID.Hook)
 			{
 				this.netImportant = true;
 				this.name = "Hook";
@@ -322,7 +322,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft *= 10;
 			}
-			else if (this.type == 14)
+			else if (this.type == ProjectileID.Bullet)
 			{
 				this.name = "Bullet";
 				this.width = 4;
@@ -337,7 +337,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 15)
+			else if (this.type == ProjectileID.BallofFire)
 			{
 				this.name = "Ball of Fire";
 				this.width = 16;
@@ -348,7 +348,7 @@ namespace Terraria
 				this.alpha = 100;
 				this.magic = true;
 			}
-			else if (this.type == 16)
+			else if (this.type == ProjectileID.MagicMissile)
 			{
 				this.name = "Magic Missile";
 				this.width = 10;
@@ -359,7 +359,7 @@ namespace Terraria
 				this.alpha = 100;
 				this.magic = true;
 			}
-			else if (this.type == 17)
+			else if (this.type == ProjectileID.DirtBall)
 			{
 				this.name = "Dirt Ball";
 				this.width = 10;
@@ -368,7 +368,7 @@ namespace Terraria
 				this.friendly = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 18)
+			else if (this.type == ProjectileID.ShadowOrb)
 			{
 				this.netImportant = true;
 				this.name = "Shadow Orb";
@@ -384,7 +384,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 19)
+			else if (this.type == ProjectileID.Flamarang)
 			{
 				this.name = "Flamarang";
 				this.width = 22;
@@ -395,7 +395,7 @@ namespace Terraria
 				this.light = 1f;
 				this.melee = true;
 			}
-			else if (this.type == 20)
+			else if (this.type == ProjectileID.GreenLaser)
 			{
 				this.name = "Green Laser";
 				this.width = 4;
@@ -410,7 +410,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.magic = true;
 			}
-			else if (this.type == 21)
+			else if (this.type == ProjectileID.Bone)
 			{
 				this.name = "Bone";
 				this.width = 16;
@@ -420,7 +420,7 @@ namespace Terraria
 				this.friendly = true;
 				this.thrown = true;
 			}
-			else if (this.type == 22)
+			else if (this.type == ProjectileID.WaterStream)
 			{
 				this.name = "Water Stream";
 				this.width = 18;
@@ -433,7 +433,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.magic = true;
 			}
-			else if (this.type == 23)
+			else if (this.type == ProjectileID.Harpoon)
 			{
 				this.name = "Harpoon";
 				this.width = 4;
@@ -444,7 +444,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.ranged = true;
 			}
-			else if (this.type == 24)
+			else if (this.type == ProjectileID.SpikyBall)
 			{
 				this.name = "Spiky Ball";
 				this.width = 14;
@@ -454,7 +454,7 @@ namespace Terraria
 				this.penetrate = 6;
 				this.thrown = true;
 			}
-			else if (this.type == 25)
+			else if (this.type == ProjectileID.BallOHurt)
 			{
 				this.name = "Ball 'O Hurt";
 				this.width = 22;
@@ -465,7 +465,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 26)
+			else if (this.type == ProjectileID.BlueMoon)
 			{
 				this.name = "Blue Moon";
 				this.width = 22;
@@ -476,7 +476,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 27)
+			else if (this.type == ProjectileID.WaterBolt)
 			{
 				this.name = "Water Bolt";
 				this.width = 16;
@@ -488,7 +488,7 @@ namespace Terraria
 				this.penetrate = 10;
 				this.magic = true;
 			}
-			else if (this.type == 28)
+			else if (this.type == ProjectileID.Bomb)
 			{
 				this.name = "Bomb";
 				this.width = 22;
@@ -497,7 +497,7 @@ namespace Terraria
 				this.friendly = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 29)
+			else if (this.type == ProjectileID.Dynamite)
 			{
 				this.name = "Dynamite";
 				this.width = 10;
@@ -506,7 +506,7 @@ namespace Terraria
 				this.friendly = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 30)
+			else if (this.type == ProjectileID.Grenade)
 			{
 				this.name = "Grenade";
 				this.width = 14;
@@ -516,7 +516,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.thrown = true;
 			}
-			else if (this.type == 31)
+			else if (this.type == ProjectileID.SandBallFalling)
 			{
 				this.name = "Sand Ball";
 				this.knockBack = 6f;
@@ -527,7 +527,7 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 32)
+			else if (this.type == ProjectileID.IvyWhip)
 			{
 				this.name = "Ivy Whip";
 				this.width = 18;
@@ -538,7 +538,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft *= 10;
 			}
-			else if (this.type == 33)
+			else if (this.type == ProjectileID.ThornChakram)
 			{
 				this.name = "Thorn Chakram";
 				this.width = 38;
@@ -549,7 +549,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.melee = true;
 			}
-			else if (this.type == 34)
+			else if (this.type == ProjectileID.Flamelash)
 			{
 				this.name = "Flamelash";
 				this.width = 14;
@@ -561,7 +561,7 @@ namespace Terraria
 				this.penetrate = 1;
 				this.magic = true;
 			}
-			else if (this.type == 35)
+			else if (this.type == ProjectileID.Sunfury)
 			{
 				this.name = "Sunfury";
 				this.width = 22;
@@ -572,7 +572,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 36)
+			else if (this.type == ProjectileID.MeteorShot)
 			{
 				this.name = "Meteor Shot";
 				this.width = 4;
@@ -587,7 +587,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 37)
+			else if (this.type == ProjectileID.StickyBomb)
 			{
 				this.name = "Sticky Bomb";
 				this.width = 22;
@@ -597,7 +597,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.tileCollide = false;
 			}
-			else if (this.type == 38)
+			else if (this.type == ProjectileID.HarpyFeather)
 			{
 				this.name = "Harpy Feather";
 				this.width = 14;
@@ -608,7 +608,7 @@ namespace Terraria
 				this.aiStyle = 1;
 				this.tileCollide = true;
 			}
-			else if (this.type == 39)
+			else if (this.type == ProjectileID.MudBall)
 			{
 				this.name = "Mud Ball";
 				this.knockBack = 6f;
@@ -619,7 +619,7 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 40)
+			else if (this.type == ProjectileID.AshBallFalling)
 			{
 				this.name = "Ash Ball";
 				this.knockBack = 6f;
@@ -630,7 +630,7 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 41)
+			else if (this.type == ProjectileID.HellfireArrow)
 			{
 				this.arrow = true;
 				this.name = "Hellfire Arrow";
@@ -642,7 +642,7 @@ namespace Terraria
 				this.ranged = true;
 				this.light = 0.3f;
 			}
-			else if (this.type == 42)
+			else if (this.type == ProjectileID.SandBallGun)
 			{
 				this.name = "Sand Ball";
 				this.knockBack = 8f;
@@ -652,7 +652,7 @@ namespace Terraria
 				this.friendly = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 43)
+			else if (this.type == ProjectileID.Tombstone)
 			{
 				this.name = "Tombstone";
 				this.knockBack = 12f;
@@ -661,7 +661,7 @@ namespace Terraria
 				this.aiStyle = 17;
 				this.penetrate = -1;
 			}
-			else if (this.type == 44)
+			else if (this.type == ProjectileID.DemonSickle)
 			{
 				this.name = "Demon Sickle";
 				this.width = 48;
@@ -674,7 +674,7 @@ namespace Terraria
 				this.tileCollide = true;
 				this.scale = 0.9f;
 			}
-			else if (this.type == 45)
+			else if (this.type == ProjectileID.DemonScythe)
 			{
 				this.name = "Demon Scythe";
 				this.width = 48;
@@ -688,7 +688,7 @@ namespace Terraria
 				this.scale = 0.9f;
 				this.magic = true;
 			}
-			else if (this.type == 46)
+			else if (this.type == ProjectileID.DarkLance)
 			{
 				this.name = "Dark Lance";
 				this.width = 20;
@@ -702,7 +702,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 47)
+			else if (this.type == ProjectileID.Trident)
 			{
 				this.name = "Trident";
 				this.width = 18;
@@ -716,7 +716,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 48)
+			else if (this.type == ProjectileID.ThrowingKnife)
 			{
 				this.name = "Throwing Knife";
 				this.width = 12;
@@ -726,7 +726,7 @@ namespace Terraria
 				this.penetrate = 2;
 				this.thrown = true;
 			}
-			else if (this.type == 49)
+			else if (this.type == ProjectileID.Spear)
 			{
 				this.name = "Spear";
 				this.width = 18;
@@ -740,7 +740,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 50)
+			else if (this.type == ProjectileID.Glowstick)
 			{
 				this.netImportant = true;
 				this.name = "Glowstick";
@@ -752,7 +752,7 @@ namespace Terraria
 				this.light = 1f;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 51)
+			else if (this.type == ProjectileID.Seed)
 			{
 				this.name = "Seed";
 				this.width = 8;
@@ -760,7 +760,7 @@ namespace Terraria
 				this.aiStyle = 1;
 				this.friendly = true;
 			}
-			else if (this.type == 52)
+			else if (this.type == ProjectileID.WoodenBoomerang)
 			{
 				this.name = "Wooden Boomerang";
 				this.width = 22;
@@ -770,7 +770,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.melee = true;
 			}
-			else if (this.type == 53)
+			else if (this.type == ProjectileID.StickyGlowstick)
 			{
 				this.netImportant = true;
 				this.name = "Sticky Glowstick";
@@ -783,7 +783,7 @@ namespace Terraria
 				this.timeLeft *= 5;
 				this.tileCollide = false;
 			}
-			else if (this.type == 54)
+			else if (this.type == ProjectileID.PoisonedKnife)
 			{
 				this.name = "Poisoned Knife";
 				this.width = 12;
@@ -793,7 +793,7 @@ namespace Terraria
 				this.penetrate = 2;
 				this.thrown = true;
 			}
-			else if (this.type == 55)
+			else if (this.type == ProjectileID.Stinger)
 			{
 				this.name = "Stinger";
 				this.width = 10;
@@ -804,7 +804,7 @@ namespace Terraria
 				this.aiStyle = 1;
 				this.tileCollide = true;
 			}
-			else if (this.type == 56)
+			else if (this.type == ProjectileID.EbonsandBallFalling)
 			{
 				this.name = "Ebonsand Ball";
 				this.knockBack = 6f;
@@ -815,7 +815,7 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 57)
+			else if (this.type == ProjectileID.CobaltChainsaw)
 			{
 				this.name = "Cobalt Chainsaw";
 				this.width = 18;
@@ -828,7 +828,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 58)
+			else if (this.type == ProjectileID.MythrilChainsaw)
 			{
 				this.name = "Mythril Chainsaw";
 				this.width = 18;
@@ -842,7 +842,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1.08f;
 			}
-			else if (this.type == 59)
+			else if (this.type == ProjectileID.CobaltDrill)
 			{
 				this.name = "Cobalt Drill";
 				this.width = 22;
@@ -856,7 +856,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 0.9f;
 			}
-			else if (this.type == 60)
+			else if (this.type == ProjectileID.MythrilDrill)
 			{
 				this.name = "Mythril Drill";
 				this.width = 22;
@@ -870,7 +870,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 0.9f;
 			}
-			else if (this.type == 61)
+			else if (this.type == ProjectileID.AdamantiteChainsaw)
 			{
 				this.name = "Adamantite Chainsaw";
 				this.width = 18;
@@ -884,7 +884,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1.16f;
 			}
-			else if (this.type == 62)
+			else if (this.type == ProjectileID.AdamantiteDrill)
 			{
 				this.name = "Adamantite Drill";
 				this.width = 22;
@@ -898,7 +898,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 0.9f;
 			}
-			else if (this.type == 63)
+			else if (this.type == ProjectileID.TheDaoofPow)
 			{
 				this.name = "The Dao of Pow";
 				this.width = 22;
@@ -908,7 +908,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.melee = true;
 			}
-			else if (this.type == 64)
+			else if (this.type == ProjectileID.MythrilHalberd)
 			{
 				this.name = "Mythril Halberd";
 				this.width = 18;
@@ -922,7 +922,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 65)
+			else if (this.type == ProjectileID.EbonsandBallGun)
 			{
 				this.name = "Ebonsand Ball";
 				this.knockBack = 6f;
@@ -933,7 +933,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 66)
+			else if (this.type == ProjectileID.AdamantiteGlaive)
 			{
 				this.name = "Adamantite Glaive";
 				this.width = 18;
@@ -947,7 +947,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 67)
+			else if (this.type == ProjectileID.PearlSandBallFalling)
 			{
 				this.name = "Pearl Sand Ball";
 				this.knockBack = 6f;
@@ -958,7 +958,7 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 68)
+			else if (this.type == ProjectileID.PearlSandBallGun)
 			{
 				this.name = "Pearl Sand Ball";
 				this.knockBack = 6f;
@@ -969,7 +969,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 69)
+			else if (this.type == ProjectileID.HolyWater)
 			{
 				this.name = "Holy Water";
 				this.width = 14;
@@ -978,7 +978,7 @@ namespace Terraria
 				this.friendly = true;
 				this.penetrate = 1;
 			}
-			else if (this.type == 70)
+			else if (this.type == ProjectileID.UnholyWater)
 			{
 				this.name = "Unholy Water";
 				this.width = 14;
@@ -987,7 +987,7 @@ namespace Terraria
 				this.friendly = true;
 				this.penetrate = 1;
 			}
-			else if (this.type == 621)
+			else if (this.type == ProjectileID.BloodWater)
 			{
 				this.name = "Blood Water";
 				this.width = 14;
@@ -996,7 +996,7 @@ namespace Terraria
 				this.friendly = true;
 				this.penetrate = 1;
 			}
-			else if (this.type == 71)
+			else if (this.type == ProjectileID.SiltBall)
 			{
 				this.name = "Silt Ball";
 				this.knockBack = 6f;
@@ -1007,7 +1007,7 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 72)
+			else if (this.type == ProjectileID.BlueFairy)
 			{
 				this.netImportant = true;
 				this.name = "Blue Fairy";
@@ -1022,7 +1022,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 73 || this.type == 74)
+			else if (this.type == ProjectileID.DualHookBlue || this.type == ProjectileID.DualHookRed)
 			{
 				this.netImportant = true;
 				this.name = "Hook";
@@ -1035,7 +1035,7 @@ namespace Terraria
 				this.timeLeft *= 10;
 				this.light = 0.4f;
 			}
-			else if (this.type == 75)
+			else if (this.type == ProjectileID.HappyBomb)
 			{
 				this.name = "Happy Bomb";
 				this.width = 22;
@@ -1044,14 +1044,14 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 76 || this.type == 77 || this.type == 78)
+			else if (this.type == ProjectileID.QuarterNote || this.type == ProjectileID.EighthNote || this.type == ProjectileID.TiedEighthNote)
 			{
-				if (this.type == 76)
+				if (this.type == ProjectileID.QuarterNote)
 				{
 					this.width = 10;
 					this.height = 22;
 				}
-				else if (this.type == 77)
+				else if (this.type == ProjectileID.EighthNote)
 				{
 					this.width = 18;
 					this.height = 24;
@@ -1071,7 +1071,7 @@ namespace Terraria
 				this.timeLeft = 180;
 				this.magic = true;
 			}
-			else if (this.type == 79)
+			else if (this.type == ProjectileID.RainbowRodBullet)
 			{
 				this.name = "Rainbow";
 				this.width = 10;
@@ -1082,7 +1082,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.magic = true;
 			}
-			else if (this.type == 80)
+			else if (this.type == ProjectileID.IceBlock)
 			{
 				this.name = "Ice Block";
 				this.width = 16;
@@ -1094,7 +1094,7 @@ namespace Terraria
 				this.light = 0.5f;
 				this.coldDamage = true;
 			}
-			else if (this.type == 81)
+			else if (this.type == ProjectileID.WoodenArrowHostile)
 			{
 				this.name = "Wooden Arrow";
 				this.width = 10;
@@ -1103,7 +1103,7 @@ namespace Terraria
 				this.hostile = true;
 				this.ranged = true;
 			}
-			else if (this.type == 82)
+			else if (this.type == ProjectileID.FlamingArrow)
 			{
 				this.name = "Flaming Arrow";
 				this.width = 10;
@@ -1112,7 +1112,7 @@ namespace Terraria
 				this.hostile = true;
 				this.ranged = true;
 			}
-			else if (this.type == 83)
+			else if (this.type == ProjectileID.EyeLaser)
 			{
 				this.name = "Eye Laser";
 				this.width = 4;
@@ -1127,7 +1127,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.magic = true;
 			}
-			else if (this.type == 84)
+			else if (this.type == ProjectileID.PinkLaser)
 			{
 				this.name = "Pink Laser";
 				this.width = 4;
@@ -1142,7 +1142,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.magic = true;
 			}
-			else if (this.type == 85)
+			else if (this.type == ProjectileID.Flames)
 			{
 				this.name = "Flames";
 				this.width = 6;
@@ -1154,7 +1154,7 @@ namespace Terraria
 				this.extraUpdates = 2;
 				this.ranged = true;
 			}
-			else if (this.type == 86)
+			else if (this.type == ProjectileID.PinkFairy)
 			{
 				this.netImportant = true;
 				this.name = "Pink Fairy";
@@ -1169,7 +1169,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 87)
+			else if (this.type == ProjectileID.GreenFairy)
 			{
 				this.netImportant = true;
 				this.name = "Pink Fairy";
@@ -1184,7 +1184,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 88)
+			else if (this.type == ProjectileID.PurpleLaser)
 			{
 				this.name = "Purple Laser";
 				this.width = 6;
@@ -1199,7 +1199,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.magic = true;
 			}
-			else if (this.type == 89)
+			else if (this.type == ProjectileID.CrystalBullet)
 			{
 				this.name = "Crystal Bullet";
 				this.width = 4;
@@ -1214,7 +1214,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 90)
+			else if (this.type == ProjectileID.CrystalShard)
 			{
 				this.name = "Crystal Shard";
 				this.width = 6;
@@ -1229,7 +1229,7 @@ namespace Terraria
 				this.ranged = true;
 				this.tileCollide = false;
 			}
-			else if (this.type == 91)
+			else if (this.type == ProjectileID.HolyArrow)
 			{
 				this.arrow = true;
 				this.name = "Holy Arrow";
@@ -1239,7 +1239,7 @@ namespace Terraria
 				this.friendly = true;
 				this.ranged = true;
 			}
-			else if (this.type == 92)
+			else if (this.type == ProjectileID.HallowStar)
 			{
 				this.name = "Hallow Star";
 				this.width = 24;
@@ -1252,7 +1252,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.magic = true;
 			}
-			else if (this.type == 93)
+			else if (this.type == ProjectileID.MagicDagger)
 			{
 				this.light = 0.15f;
 				this.name = "Magic Dagger";
@@ -1263,7 +1263,7 @@ namespace Terraria
 				this.penetrate = 2;
 				this.magic = true;
 			}
-			else if (this.type == 94)
+			else if (this.type == ProjectileID.CrystalStorm)
 			{
 				this.ignoreWater = true;
 				this.name = "Crystal Storm";
@@ -1279,7 +1279,7 @@ namespace Terraria
 				this.tileCollide = true;
 				this.penetrate = 1;
 			}
-			else if (this.type == 95)
+			else if (this.type == ProjectileID.CursedFlameFriendly)
 			{
 				this.name = "Cursed Flame";
 				this.width = 16;
@@ -1291,7 +1291,7 @@ namespace Terraria
 				this.magic = true;
 				this.penetrate = 2;
 			}
-			else if (this.type == 96)
+			else if (this.type == ProjectileID.CursedFlameHostile)
 			{
 				this.name = "Cursed Flame";
 				this.width = 16;
@@ -1305,7 +1305,7 @@ namespace Terraria
 				this.scale = 0.9f;
 				this.scale = 1.3f;
 			}
-			else if (this.type == 97)
+			else if (this.type == ProjectileID.CobaltNaginata)
 			{
 				this.name = "Cobalt Naginata";
 				this.width = 18;
@@ -1319,7 +1319,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 98)
+			else if (this.type == ProjectileID.PoisonDart)
 			{
 				this.name = "Poison Dart";
 				this.width = 10;
@@ -1330,7 +1330,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.trap = true;
 			}
-			else if (this.type == 99)
+			else if (this.type == ProjectileID.Boulder)
 			{
 				this.name = "Boulder";
 				this.width = 31;
@@ -1342,7 +1342,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.trap = true;
 			}
-			else if (this.type == 100)
+			else if (this.type == ProjectileID.DeathLaser)
 			{
 				this.name = "Death Laser";
 				this.width = 4;
@@ -1357,7 +1357,7 @@ namespace Terraria
 				this.timeLeft = 2700;
 				this.magic = true;
 			}
-			else if (this.type == 101)
+			else if (this.type == ProjectileID.EyeFire)
 			{
 				this.name = "Eye Fire";
 				this.width = 6;
@@ -1369,7 +1369,7 @@ namespace Terraria
 				this.extraUpdates = 3;
 				this.magic = true;
 			}
-			else if (this.type == 102)
+			else if (this.type == ProjectileID.BombSkeletronPrime)
 			{
 				this.name = "Bomb";
 				this.width = 22;
@@ -1379,7 +1379,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 103)
+			else if (this.type == ProjectileID.CursedArrow)
 			{
 				this.arrow = true;
 				this.name = "Cursed Arrow";
@@ -1390,7 +1390,7 @@ namespace Terraria
 				this.light = 1f;
 				this.ranged = true;
 			}
-			else if (this.type == 104)
+			else if (this.type == ProjectileID.CursedBullet)
 			{
 				this.name = "Cursed Bullet";
 				this.width = 4;
@@ -1405,7 +1405,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 105)
+			else if (this.type == ProjectileID.Gungnir)
 			{
 				this.name = "Gungnir";
 				this.width = 18;
@@ -1419,7 +1419,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 106)
+			else if (this.type == ProjectileID.LightDisc)
 			{
 				this.name = "Light Disc";
 				this.width = 32;
@@ -1430,7 +1430,7 @@ namespace Terraria
 				this.melee = true;
 				this.light = 0.4f;
 			}
-			else if (this.type == 107)
+			else if (this.type == ProjectileID.Hamdrax)
 			{
 				this.name = "Hamdrax";
 				this.width = 22;
@@ -1444,7 +1444,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1.1f;
 			}
-			else if (this.type == 108)
+			else if (this.type == ProjectileID.Explosives)
 			{
 				this.name = "Explosives";
 				this.width = 260;
@@ -1458,7 +1458,7 @@ namespace Terraria
 				this.timeLeft = 2;
 				this.trap = true;
 			}
-			else if (this.type == 109)
+			else if (this.type == ProjectileID.SnowBallHostile)
 			{
 				this.name = "Snow Ball";
 				this.knockBack = 6f;
@@ -1471,7 +1471,7 @@ namespace Terraria
 				this.coldDamage = true;
 				this.thrown = true;
 			}
-			else if (this.type == 110)
+			else if (this.type == ProjectileID.BulletSnowman)
 			{
 				this.name = "Bullet";
 				this.width = 4;
@@ -1486,7 +1486,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 111)
+			else if (this.type == ProjectileID.Bunny)
 			{
 				this.netImportant = true;
 				this.name = "Bunny";
@@ -1497,7 +1497,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 112)
+			else if (this.type == ProjectileID.Penguin)
 			{
 				this.netImportant = true;
 				this.name = "Penguin";
@@ -1508,7 +1508,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 113)
+			else if (this.type == ProjectileID.IceBoomerang)
 			{
 				this.name = "Ice Boomerang";
 				this.width = 22;
@@ -1520,7 +1520,7 @@ namespace Terraria
 				this.light = 0.4f;
 				this.coldDamage = true;
 			}
-			else if (this.type == 114)
+			else if (this.type == ProjectileID.UnholyTridentFriendly)
 			{
 				this.name = "Unholy Trident";
 				this.width = 16;
@@ -1532,7 +1532,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.friendly = true;
 			}
-			else if (this.type == 115)
+			else if (this.type == ProjectileID.UnholyTridentHostile)
 			{
 				this.name = "Unholy Trident";
 				this.width = 16;
@@ -1544,7 +1544,7 @@ namespace Terraria
 				this.light = 0.5f;
 				this.alpha = 255;
 			}
-			else if (this.type == 116)
+			else if (this.type == ProjectileID.SwordBeam)
 			{
 				this.name = "Sword Beam";
 				this.width = 16;
@@ -1556,7 +1556,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.friendly = true;
 			}
-			else if (this.type == 117)
+			else if (this.type == ProjectileID.BoneArrow)
 			{
 				this.arrow = true;
 				this.name = "Bone Arrow";
@@ -1567,7 +1567,7 @@ namespace Terraria
 				this.friendly = true;
 				this.ranged = true;
 			}
-			else if (this.type == 118)
+			else if (this.type == ProjectileID.IceBolt)
 			{
 				this.name = "Ice Bolt";
 				this.width = 10;
@@ -1579,7 +1579,7 @@ namespace Terraria
 				this.friendly = true;
 				this.coldDamage = true;
 			}
-			else if (this.type == 119)
+			else if (this.type == ProjectileID.FrostBoltSword)
 			{
 				this.name = "Frost Bolt";
 				this.width = 14;
@@ -1590,7 +1590,7 @@ namespace Terraria
 				this.penetrate = 2;
 				this.friendly = true;
 			}
-			else if (this.type == 120)
+			else if (this.type == ProjectileID.FrostArrow)
 			{
 				this.arrow = true;
 				this.name = "Frost Arrow";
@@ -1602,7 +1602,7 @@ namespace Terraria
 				this.coldDamage = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 121)
+			else if (this.type == ProjectileID.AmethystBolt)
 			{
 				this.name = "Amethyst Bolt";
 				this.width = 10;
@@ -1613,7 +1613,7 @@ namespace Terraria
 				this.penetrate = 1;
 				this.friendly = true;
 			}
-			else if (this.type == 122)
+			else if (this.type == ProjectileID.TopazBolt)
 			{
 				this.name = "Topaz Bolt";
 				this.width = 10;
@@ -1624,7 +1624,7 @@ namespace Terraria
 				this.penetrate = 1;
 				this.friendly = true;
 			}
-			else if (this.type == 123)
+			else if (this.type == ProjectileID.SapphireBolt)
 			{
 				this.name = "Sapphire Bolt";
 				this.width = 10;
@@ -1635,7 +1635,7 @@ namespace Terraria
 				this.penetrate = 1;
 				this.friendly = true;
 			}
-			else if (this.type == 124)
+			else if (this.type == ProjectileID.EmeraldBolt)
 			{
 				this.name = "Emerald Bolt";
 				this.width = 10;
@@ -1646,7 +1646,7 @@ namespace Terraria
 				this.penetrate = 2;
 				this.friendly = true;
 			}
-			else if (this.type == 125)
+			else if (this.type == ProjectileID.RubyBolt)
 			{
 				this.name = "Ruby Bolt";
 				this.width = 10;
@@ -1657,7 +1657,7 @@ namespace Terraria
 				this.penetrate = 2;
 				this.friendly = true;
 			}
-			else if (this.type == 126)
+			else if (this.type == ProjectileID.DiamondBolt)
 			{
 				this.name = "Diamond Bolt";
 				this.width = 10;
@@ -1668,7 +1668,7 @@ namespace Terraria
 				this.penetrate = 2;
 				this.friendly = true;
 			}
-			else if (this.type == 127)
+			else if (this.type == ProjectileID.Turtle)
 			{
 				this.netImportant = true;
 				this.name = "Turtle";
@@ -1679,7 +1679,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 128)
+			else if (this.type == ProjectileID.FrostBlastHostile)
 			{
 				this.name = "Frost Blast";
 				this.width = 14;
@@ -1691,7 +1691,7 @@ namespace Terraria
 				this.hostile = true;
 				this.coldDamage = true;
 			}
-			else if (this.type == 129)
+			else if (this.type == ProjectileID.RuneBlast)
 			{
 				this.name = "Rune Blast";
 				this.width = 14;
@@ -1703,7 +1703,7 @@ namespace Terraria
 				this.hostile = true;
 				this.tileCollide = false;
 			}
-			else if (this.type == 130)
+			else if (this.type == ProjectileID.MushroomSpear)
 			{
 				this.name = "Mushroom Spear";
 				this.width = 22;
@@ -1717,7 +1717,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 131)
+			else if (this.type == ProjectileID.Mushroom)
 			{
 				this.name = "Mushroom";
 				this.width = 22;
@@ -1729,7 +1729,7 @@ namespace Terraria
 				this.melee = true;
 				this.light = 0.5f;
 			}
-			else if (this.type == 132)
+			else if (this.type == ProjectileID.TerraBeam)
 			{
 				this.name = "Terra Beam";
 				this.width = 16;
@@ -1741,7 +1741,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.friendly = true;
 			}
-			else if (this.type == 133)
+			else if (this.type == ProjectileID.GrenadeI)
 			{
 				this.name = "Grenade";
 				this.width = 14;
@@ -1751,7 +1751,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 134)
+			else if (this.type == ProjectileID.RocketI)
 			{
 				this.name = "Rocket";
 				this.width = 14;
@@ -1761,7 +1761,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 135)
+			else if (this.type == ProjectileID.ProximityMineI)
 			{
 				this.name = "Proximity Mine";
 				this.width = 14;
@@ -1771,7 +1771,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 136)
+			else if (this.type == ProjectileID.GrenadeII)
 			{
 				this.name = "Grenade";
 				this.width = 14;
@@ -1781,7 +1781,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 137)
+			else if (this.type == ProjectileID.RocketII)
 			{
 				this.name = "Rocket";
 				this.width = 14;
@@ -1791,7 +1791,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 138)
+			else if (this.type == ProjectileID.ProximityMineII)
 			{
 				this.name = "Proximity Mine";
 				this.width = 14;
@@ -1801,7 +1801,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 139)
+			else if (this.type == ProjectileID.GrenadeIII)
 			{
 				this.name = "Grenade";
 				this.width = 14;
@@ -1811,7 +1811,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 140)
+			else if (this.type == ProjectileID.RocketIII)
 			{
 				this.name = "Rocket";
 				this.width = 14;
@@ -1821,7 +1821,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 141)
+			else if (this.type == ProjectileID.ProximityMineIII)
 			{
 				this.name = "Proximity Mine";
 				this.width = 14;
@@ -1831,7 +1831,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 142)
+			else if (this.type == ProjectileID.GrenadeIV)
 			{
 				this.name = "Grenade";
 				this.width = 14;
@@ -1841,7 +1841,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 143)
+			else if (this.type == ProjectileID.RocketIV)
 			{
 				this.name = "Rocket";
 				this.width = 14;
@@ -1851,7 +1851,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 144)
+			else if (this.type == ProjectileID.ProximityMineIV)
 			{
 				this.name = "Proximity Mine";
 				this.width = 14;
@@ -1861,7 +1861,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 145)
+			else if (this.type == ProjectileID.PureSpray)
 			{
 				this.name = "Pure Spray";
 				this.width = 6;
@@ -1874,7 +1874,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 146)
+			else if (this.type == ProjectileID.HallowSpray)
 			{
 				this.name = "Hallow Spray";
 				this.width = 6;
@@ -1887,7 +1887,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 147)
+			else if (this.type == ProjectileID.CorruptSpray)
 			{
 				this.name = "Corrupt Spray";
 				this.width = 6;
@@ -1900,7 +1900,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 148)
+			else if (this.type == ProjectileID.MushroomSpray)
 			{
 				this.name = "Mushroom Spray";
 				this.width = 6;
@@ -1913,7 +1913,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 149)
+			else if (this.type == ProjectileID.CrimsonSpray)
 			{
 				this.name = "Crimson Spray";
 				this.width = 6;
@@ -1926,7 +1926,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 150 || this.type == 151 || this.type == 152)
+			else if (this.type == ProjectileID.NettleBurstRight || this.type == ProjectileID.NettleBurstLeft || this.type == ProjectileID.NettleBurstEnd)
 			{
 				this.name = "Nettle Burst";
 				this.width = 28;
@@ -1939,7 +1939,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.magic = true;
 			}
-			else if (this.type == 153)
+			else if (this.type == ProjectileID.TheRottedFork)
 			{
 				this.name = "The Rotted Fork";
 				this.width = 18;
@@ -1953,7 +1953,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 154)
+			else if (this.type == ProjectileID.TheMeatball)
 			{
 				this.name = "The Meatball";
 				this.width = 22;
@@ -1964,7 +1964,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 155)
+			else if (this.type == ProjectileID.BeachBall)
 			{
 				this.netImportant = true;
 				this.name = "Beach Ball";
@@ -1973,7 +1973,7 @@ namespace Terraria
 				this.aiStyle = 32;
 				this.friendly = true;
 			}
-			else if (this.type == 156)
+			else if (this.type == ProjectileID.LightBeam)
 			{
 				this.name = "Light Beam";
 				this.width = 16;
@@ -1984,7 +1984,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.friendly = true;
 			}
-			else if (this.type == 157)
+			else if (this.type == ProjectileID.NightBeam)
 			{
 				this.name = "Night Beam";
 				this.width = 32;
@@ -1996,7 +1996,7 @@ namespace Terraria
 				this.friendly = true;
 				this.scale = 1.2f;
 			}
-			else if (this.type == 158)
+			else if (this.type == ProjectileID.CopperCoin)
 			{
 				this.name = "Copper Coin";
 				this.width = 4;
@@ -2009,7 +2009,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 159)
+			else if (this.type == ProjectileID.SilverCoin)
 			{
 				this.name = "Silver Coin";
 				this.width = 4;
@@ -2022,7 +2022,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 160)
+			else if (this.type == ProjectileID.GoldCoin)
 			{
 				this.name = "Gold Coin";
 				this.width = 4;
@@ -2035,7 +2035,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 161)
+			else if (this.type == ProjectileID.PlatinumCoin)
 			{
 				this.name = "Platinum Coin";
 				this.width = 4;
@@ -2048,7 +2048,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 162)
+			else if (this.type == ProjectileID.CannonballFriendly)
 			{
 				this.name = "Cannonball";
 				this.width = 16;
@@ -2058,7 +2058,7 @@ namespace Terraria
 				this.penetrate = 4;
 				this.alpha = 255;
 			}
-			else if (this.type == 163)
+			else if (this.type == ProjectileID.Flare)
 			{
 				this.netImportant = true;
 				this.name = "Flare";
@@ -2070,7 +2070,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.timeLeft = 36000;
 			}
-			else if (this.type == 164)
+			else if (this.type == ProjectileID.Landmine)
 			{
 				this.name = "Landmine";
 				this.width = 128;
@@ -2083,7 +2083,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.timeLeft = 2;
 			}
-			else if (this.type == 165)
+			else if (this.type == ProjectileID.Web)
 			{
 				this.netImportant = true;
 				this.name = "Web";
@@ -2095,7 +2095,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft *= 10;
 			}
-			else if (this.type == 166)
+			else if (this.type == ProjectileID.SnowBallFriendly)
 			{
 				this.name = "Snow Ball";
 				this.width = 14;
@@ -2105,7 +2105,7 @@ namespace Terraria
 				this.ranged = true;
 				this.coldDamage = true;
 			}
-			else if (this.type == 167 || this.type == 168 || this.type == 169 || this.type == 170)
+			else if (this.type == ProjectileID.RocketFireworkRed || this.type == ProjectileID.RocketFireworkGreen || this.type == ProjectileID.RocketFireworkBlue || this.type == ProjectileID.RocketFireworkYellow)
 			{
 				this.name = "Rocket";
 				this.width = 14;
@@ -2115,7 +2115,7 @@ namespace Terraria
 				this.ranged = true;
 				this.timeLeft = 45;
 			}
-			else if (this.type == 171 || this.type == 505 || this.type == 506)
+			else if (this.type == ProjectileID.RopeCoil || this.type == ProjectileID.SilkRopeCoil || this.type == ProjectileID.WebRopeCoil)
 			{
 				this.name = "Rope Coil";
 				this.width = 14;
@@ -2125,7 +2125,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft = 400;
 			}
-			else if (this.type == 172)
+			else if (this.type == ProjectileID.FrostburnArrow)
 			{
 				this.arrow = true;
 				this.name = "Frostburn Arrow";
@@ -2137,7 +2137,7 @@ namespace Terraria
 				this.ranged = true;
 				this.coldDamage = true;
 			}
-			else if (this.type == 173)
+			else if (this.type == ProjectileID.EnchantedBeam)
 			{
 				this.name = "Enchanted Beam";
 				this.width = 16;
@@ -2149,7 +2149,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.friendly = true;
 			}
-			else if (this.type == 174)
+			else if (this.type == ProjectileID.IceSpike)
 			{
 				this.name = "Ice Spike";
 				this.alpha = 255;
@@ -2160,7 +2160,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.coldDamage = true;
 			}
-			else if (this.type == 175)
+			else if (this.type == ProjectileID.BabyEater)
 			{
 				this.name = "Baby Eater";
 				this.width = 34;
@@ -2170,7 +2170,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 176)
+			else if (this.type == ProjectileID.JungleSpike)
 			{
 				this.name = "Jungle Spike";
 				this.alpha = 255;
@@ -2180,7 +2180,7 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 177)
+			else if (this.type == ProjectileID.IcewaterSpit)
 			{
 				this.name = "Icewater Spit";
 				this.width = 10;
@@ -2192,7 +2192,7 @@ namespace Terraria
 				this.hostile = true;
 				this.coldDamage = true;
 			}
-			else if (this.type == 178)
+			else if (this.type == ProjectileID.ConfettiGun)
 			{
 				this.name = "Confetti";
 				this.width = 10;
@@ -2202,7 +2202,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft = 2;
 			}
-			else if (this.type == 179)
+			else if (this.type == ProjectileID.SlushBall)
 			{
 				this.name = "Slush Ball";
 				this.knockBack = 6f;
@@ -2213,7 +2213,7 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 180)
+			else if (this.type == ProjectileID.BulletDeadeye)
 			{
 				this.name = "Bullet";
 				this.width = 4;
@@ -2228,7 +2228,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 181)
+			else if (this.type == ProjectileID.Bee)
 			{
 				this.name = "Bee";
 				this.width = 8;
@@ -2240,7 +2240,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.extraUpdates = 3;
 			}
-			else if (this.type == 182)
+			else if (this.type == ProjectileID.PossessedHatchet)
 			{
 				this.light = 0.15f;
 				this.name = "Possessed Hatchet";
@@ -2252,7 +2252,7 @@ namespace Terraria
 				this.melee = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 183)
+			else if (this.type == ProjectileID.Beenade)
 			{
 				this.name = "Beenade";
 				this.width = 14;
@@ -2264,7 +2264,7 @@ namespace Terraria
 				this.thrown = true;
 				this.friendly = true;
 			}
-			else if (this.type == 184)
+			else if (this.type == ProjectileID.PoisonDartTrap)
 			{
 				this.name = "Poison Dart";
 				this.width = 6;
@@ -2275,7 +2275,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.trap = true;
 			}
-			else if (this.type == 185)
+			else if (this.type == ProjectileID.SpikyBallTrap)
 			{
 				this.name = "Spiky Ball";
 				this.width = 14;
@@ -2287,7 +2287,7 @@ namespace Terraria
 				this.timeLeft = 900;
 				this.trap = true;
 			}
-			else if (this.type == 186)
+			else if (this.type == ProjectileID.SpearTrap)
 			{
 				this.name = "Spear";
 				this.width = 10;
@@ -2301,7 +2301,7 @@ namespace Terraria
 				this.timeLeft = 300;
 				this.trap = true;
 			}
-			else if (this.type == 187)
+			else if (this.type == ProjectileID.FlamethrowerTrap)
 			{
 				this.name = "Flamethrower";
 				this.width = 6;
@@ -2313,7 +2313,7 @@ namespace Terraria
 				this.timeLeft = 60;
 				this.trap = true;
 			}
-			else if (this.type == 188)
+			else if (this.type == ProjectileID.FlamesTrap)
 			{
 				this.name = "Flames";
 				this.width = 6;
@@ -2326,7 +2326,7 @@ namespace Terraria
 				this.extraUpdates = 2;
 				this.trap = true;
 			}
-			else if (this.type == 189)
+			else if (this.type == ProjectileID.Wasp)
 			{
 				this.name = "Wasp";
 				this.width = 8;
@@ -2339,7 +2339,7 @@ namespace Terraria
 				this.magic = true;
 				this.extraUpdates = 3;
 			}
-			else if (this.type == 190)
+			else if (this.type == ProjectileID.MechanicalPiranha)
 			{
 				this.name = "Mechanical Piranha";
 				this.width = 22;
@@ -2350,7 +2350,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.ranged = true;
 			}
-			else if (this.type >= 191 && this.type <= 194)
+			else if (this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4)
 			{
 				this.netImportant = true;
 				this.name = "Pygmy";
@@ -2361,20 +2361,20 @@ namespace Terraria
 				this.timeLeft *= 5;
 				this.minion = true;
 				this.minionSlots = 1f;
-				if (this.type == 192)
+				if (this.type == ProjectileID.Pygmy2)
 				{
 					this.scale = 1.025f;
 				}
-				if (this.type == 193)
+				if (this.type == ProjectileID.Pygmy3)
 				{
 					this.scale = 1.05f;
 				}
-				if (this.type == 194)
+				if (this.type == ProjectileID.Pygmy4)
 				{
 					this.scale = 1.075f;
 				}
 			}
-			else if (this.type == 195)
+			else if (this.type == ProjectileID.PygmySpear)
 			{
 				this.tileCollide = false;
 				this.name = "Pygmy";
@@ -2383,7 +2383,7 @@ namespace Terraria
 				this.aiStyle = 1;
 				this.friendly = true;
 			}
-			else if (this.type == 196)
+			else if (this.type == ProjectileID.SmokeBomb)
 			{
 				this.name = "Smoke Bomb";
 				this.width = 16;
@@ -2392,7 +2392,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 197)
+			else if (this.type == ProjectileID.BabySkeletronHead)
 			{
 				this.netImportant = true;
 				this.name = "Baby Skeletron Head";
@@ -2403,7 +2403,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 198)
+			else if (this.type == ProjectileID.BabyHornet)
 			{
 				this.netImportant = true;
 				this.name = "Baby Hornet";
@@ -2414,7 +2414,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 199)
+			else if (this.type == ProjectileID.TikiSpirit)
 			{
 				this.netImportant = true;
 				this.name = "Tiki Spirit";
@@ -2425,7 +2425,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 200)
+			else if (this.type == ProjectileID.PetLizard)
 			{
 				this.netImportant = true;
 				this.name = "Pet Lizard";
@@ -2436,7 +2436,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 201)
+			else if (this.type == ProjectileID.GraveMarker)
 			{
 				this.name = "Tombstone";
 				this.knockBack = 12f;
@@ -2445,7 +2445,7 @@ namespace Terraria
 				this.aiStyle = 17;
 				this.penetrate = -1;
 			}
-			else if (this.type == 202)
+			else if (this.type == ProjectileID.CrossGraveMarker)
 			{
 				this.name = "Tombstone";
 				this.knockBack = 12f;
@@ -2454,7 +2454,7 @@ namespace Terraria
 				this.aiStyle = 17;
 				this.penetrate = -1;
 			}
-			else if (this.type == 203)
+			else if (this.type == ProjectileID.Headstone)
 			{
 				this.name = "Tombstone";
 				this.knockBack = 12f;
@@ -2463,7 +2463,7 @@ namespace Terraria
 				this.aiStyle = 17;
 				this.penetrate = -1;
 			}
-			else if (this.type == 204)
+			else if (this.type == ProjectileID.Gravestone)
 			{
 				this.name = "Tombstone";
 				this.knockBack = 12f;
@@ -2472,7 +2472,7 @@ namespace Terraria
 				this.aiStyle = 17;
 				this.penetrate = -1;
 			}
-			else if (this.type == 205)
+			else if (this.type == ProjectileID.Obelisk)
 			{
 				this.name = "Tombstone";
 				this.knockBack = 12f;
@@ -2481,7 +2481,7 @@ namespace Terraria
 				this.aiStyle = 17;
 				this.penetrate = -1;
 			}
-			else if (this.type == 206)
+			else if (this.type == ProjectileID.Leaf)
 			{
 				this.name = "Leaf";
 				this.width = 14;
@@ -2493,7 +2493,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.magic = true;
 			}
-			else if (this.type == 207)
+			else if (this.type == ProjectileID.ChlorophyteBullet)
 			{
 				this.name = "Bullet";
 				this.width = 4;
@@ -2508,7 +2508,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.ranged = true;
 			}
-			else if (this.type == 208)
+			else if (this.type == ProjectileID.Parrot)
 			{
 				this.netImportant = true;
 				this.name = "Parrot";
@@ -2519,7 +2519,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 209)
+			else if (this.type == ProjectileID.Truffle)
 			{
 				this.name = "Truffle";
 				this.width = 12;
@@ -2530,7 +2530,7 @@ namespace Terraria
 				this.timeLeft *= 5;
 				this.light = 0.5f;
 			}
-			else if (this.type == 210)
+			else if (this.type == ProjectileID.Sapling)
 			{
 				this.netImportant = true;
 				this.name = "Sapling";
@@ -2541,7 +2541,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 211)
+			else if (this.type == ProjectileID.Wisp)
 			{
 				this.netImportant = true;
 				this.name = "Wisp";
@@ -2554,7 +2554,7 @@ namespace Terraria
 				this.light = 1f;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 212)
+			else if (this.type == ProjectileID.PalladiumPike)
 			{
 				this.name = "Palladium Pike";
 				this.width = 18;
@@ -2568,7 +2568,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 213)
+			else if (this.type == ProjectileID.PalladiumDrill)
 			{
 				this.name = "Palladium Drill";
 				this.width = 22;
@@ -2582,7 +2582,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 0.92f;
 			}
-			else if (this.type == 214)
+			else if (this.type == ProjectileID.PalladiumChainsaw)
 			{
 				this.name = "Palladium Chainsaw";
 				this.width = 18;
@@ -2595,7 +2595,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 215)
+			else if (this.type == ProjectileID.OrichalcumHalberd)
 			{
 				this.name = "Orichalcum Halberd";
 				this.width = 18;
@@ -2609,7 +2609,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 216)
+			else if (this.type == ProjectileID.OrichalcumDrill)
 			{
 				this.name = "Orichalcum Drill";
 				this.width = 22;
@@ -2623,7 +2623,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 0.93f;
 			}
-			else if (this.type == 217)
+			else if (this.type == ProjectileID.OrichalcumChainsaw)
 			{
 				this.name = "Orichalcum Chainsaw";
 				this.width = 18;
@@ -2637,7 +2637,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1.12f;
 			}
-			else if (this.type == 218)
+			else if (this.type == ProjectileID.TitaniumTrident)
 			{
 				this.name = "Titanium Trident";
 				this.width = 18;
@@ -2651,7 +2651,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 219)
+			else if (this.type == ProjectileID.TitaniumDrill)
 			{
 				this.name = "Titanium Drill";
 				this.width = 22;
@@ -2665,7 +2665,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 0.95f;
 			}
-			else if (this.type == 220)
+			else if (this.type == ProjectileID.TitaniumChainsaw)
 			{
 				this.name = "Titanium Chainsaw";
 				this.width = 18;
@@ -2679,7 +2679,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1.2f;
 			}
-			else if (this.type == 221)
+			else if (this.type == ProjectileID.FlowerPetal)
 			{
 				this.name = "Flower Petal";
 				this.width = 20;
@@ -2693,7 +2693,7 @@ namespace Terraria
 				this.scale = 1f + (float)Main.rand.Next(30) * 0.01f;
 				this.extraUpdates = 2;
 			}
-			else if (this.type == 222)
+			else if (this.type == ProjectileID.ChlorophytePartisan)
 			{
 				this.name = "Chlorophyte Partisan";
 				this.width = 18;
@@ -2707,7 +2707,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 223)
+			else if (this.type == ProjectileID.ChlorophyteDrill)
 			{
 				this.name = "Chlorophyte Drill";
 				this.width = 22;
@@ -2721,7 +2721,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1f;
 			}
-			else if (this.type == 224)
+			else if (this.type == ProjectileID.ChlorophyteChainsaw)
 			{
 				this.name = "Chlorophyte Chainsaw";
 				this.width = 18;
@@ -2735,7 +2735,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1.1f;
 			}
-			else if (this.type == 225)
+			else if (this.type == ProjectileID.ChlorophyteArrow)
 			{
 				this.arrow = true;
 				this.penetrate = 2;
@@ -2746,7 +2746,7 @@ namespace Terraria
 				this.friendly = true;
 				this.ranged = true;
 			}
-			else if (this.type == 226)
+			else if (this.type == ProjectileID.CrystalLeaf)
 			{
 				this.netImportant = true;
 				this.name = "Crystal Leaf";
@@ -2760,7 +2760,7 @@ namespace Terraria
 				this.light = 0.4f;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 227)
+			else if (this.type == ProjectileID.CrystalLeafShot)
 			{
 				this.netImportant = true;
 				this.tileCollide = false;
@@ -2773,7 +2773,7 @@ namespace Terraria
 				this.penetrate = 1;
 				this.timeLeft = 180;
 			}
-			else if (this.type == 228)
+			else if (this.type == ProjectileID.SporeCloud)
 			{
 				this.tileCollide = false;
 				this.name = "Spore Cloud";
@@ -2784,7 +2784,7 @@ namespace Terraria
 				this.scale = 1.1f;
 				this.penetrate = -1;
 			}
-			else if (this.type == 229)
+			else if (this.type == ProjectileID.ChlorophyteOrb)
 			{
 				this.name = "Chlorophyte Orb";
 				this.width = 30;
@@ -2794,7 +2794,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.light = 0.2f;
 			}
-			else if (this.type >= 230 && this.type <= 235)
+			else if (this.type >= ProjectileID.GemHookAmethyst && this.type <= ProjectileID.GemHookDiamond)
 			{
 				this.netImportant = true;
 				this.name = "Gem Hook";
@@ -2806,7 +2806,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft *= 10;
 			}
-			else if (this.type == 236)
+			else if (this.type == ProjectileID.BabyDino)
 			{
 				this.netImportant = true;
 				this.name = "Baby Dino";
@@ -2817,7 +2817,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 237)
+			else if (this.type == ProjectileID.RainCloudMoving)
 			{
 				this.netImportant = true;
 				this.name = "Rain Cloud";
@@ -2826,7 +2826,7 @@ namespace Terraria
 				this.aiStyle = 45;
 				this.penetrate = -1;
 			}
-			else if (this.type == 238)
+			else if (this.type == ProjectileID.RainCloudRaining)
 			{
 				this.tileCollide = false;
 				this.ignoreWater = true;
@@ -2836,7 +2836,7 @@ namespace Terraria
 				this.aiStyle = 45;
 				this.penetrate = -1;
 			}
-			else if (this.type == 239)
+			else if (this.type == ProjectileID.RainFriendly)
 			{
 				this.ignoreWater = true;
 				this.name = "Rain";
@@ -2850,7 +2850,7 @@ namespace Terraria
 				this.magic = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 240)
+			else if (this.type == ProjectileID.CannonballHostile)
 			{
 				this.name = "Cannonball";
 				this.width = 16;
@@ -2860,7 +2860,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.alpha = 255;
 			}
-			else if (this.type == 241)
+			else if (this.type == ProjectileID.CrimsandBallFalling)
 			{
 				this.name = "Crimsand Ball";
 				this.knockBack = 6f;
@@ -2871,7 +2871,7 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 242)
+			else if (this.type == ProjectileID.BulletHighVelocity)
 			{
 				this.name = "Bullet";
 				this.width = 4;
@@ -2887,7 +2887,7 @@ namespace Terraria
 				this.ranged = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 243)
+			else if (this.type == ProjectileID.BloodCloudMoving)
 			{
 				this.name = "Blood Cloud";
 				this.width = 28;
@@ -2895,7 +2895,7 @@ namespace Terraria
 				this.aiStyle = 45;
 				this.penetrate = -1;
 			}
-			else if (this.type == 244)
+			else if (this.type == ProjectileID.BloodCloudRaining)
 			{
 				this.tileCollide = false;
 				this.ignoreWater = true;
@@ -2905,7 +2905,7 @@ namespace Terraria
 				this.aiStyle = 45;
 				this.penetrate = -1;
 			}
-			else if (this.type == 245)
+			else if (this.type == ProjectileID.BloodRain)
 			{
 				this.ignoreWater = true;
 				this.name = "Blood Rain";
@@ -2919,7 +2919,7 @@ namespace Terraria
 				this.magic = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 246)
+			else if (this.type == ProjectileID.Stynger)
 			{
 				this.name = "Stynger";
 				this.width = 10;
@@ -2930,7 +2930,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 247)
+			else if (this.type == ProjectileID.FlowerPow)
 			{
 				this.name = "Flower Pow";
 				this.width = 34;
@@ -2940,7 +2940,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.melee = true;
 			}
-			else if (this.type == 248)
+			else if (this.type == ProjectileID.FlowerPowPetal)
 			{
 				this.name = "Flower Pow";
 				this.width = 18;
@@ -2949,7 +2949,7 @@ namespace Terraria
 				this.friendly = true;
 				this.melee = true;
 			}
-			else if (this.type == 249)
+			else if (this.type == ProjectileID.StyngerShrapnel)
 			{
 				this.name = "Stynger";
 				this.width = 12;
@@ -2958,7 +2958,7 @@ namespace Terraria
 				this.friendly = true;
 				this.ranged = true;
 			}
-			else if (this.type == 250)
+			else if (this.type == ProjectileID.RainbowFront)
 			{
 				this.name = "Rainbow";
 				this.width = 12;
@@ -2970,7 +2970,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.scale = 1.25f;
 			}
-			else if (this.type == 251)
+			else if (this.type == ProjectileID.RainbowBack)
 			{
 				this.name = "Rainbow";
 				this.width = 14;
@@ -2985,7 +2985,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.scale = 1.25f;
 			}
-			else if (this.type == 252)
+			else if (this.type == ProjectileID.ChlorophyteJackhammer)
 			{
 				this.name = "Chlorophyte Jackhammer";
 				this.width = 18;
@@ -2999,7 +2999,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1.1f;
 			}
-			else if (this.type == 253)
+			else if (this.type == ProjectileID.BallofFrost)
 			{
 				this.name = "Ball of Frost";
 				this.width = 16;
@@ -3010,7 +3010,7 @@ namespace Terraria
 				this.alpha = 100;
 				this.magic = true;
 			}
-			else if (this.type == 254)
+			else if (this.type == ProjectileID.MagnetSphereBall)
 			{
 				this.name = "Magnet Sphere";
 				this.width = 38;
@@ -3020,7 +3020,7 @@ namespace Terraria
 				this.timeLeft = 660;
 				this.light = 0.5f;
 			}
-			else if (this.type == 255)
+			else if (this.type == ProjectileID.MagnetSphereBolt)
 			{
 				this.name = "Magnet Sphere";
 				this.width = 8;
@@ -3031,7 +3031,7 @@ namespace Terraria
 				this.extraUpdates = 100;
 				this.timeLeft = 100;
 			}
-			else if (this.type == 256)
+			else if (this.type == ProjectileID.SkeletronHand)
 			{
 				this.netImportant = true;
 				this.tileCollide = false;
@@ -3044,7 +3044,7 @@ namespace Terraria
 				this.scale = 1f;
 				this.timeLeft *= 10;
 			}
-			else if (this.type == 257)
+			else if (this.type == ProjectileID.FrostBeam)
 			{
 				this.name = "Frost Beam";
 				this.ignoreWater = true;
@@ -3061,7 +3061,7 @@ namespace Terraria
 				this.coldDamage = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 258)
+			else if (this.type == ProjectileID.Fireball)
 			{
 				this.name = "Fireball";
 				this.width = 16;
@@ -3072,7 +3072,7 @@ namespace Terraria
 				this.alpha = 100;
 				this.timeLeft = 300;
 			}
-			else if (this.type == 259)
+			else if (this.type == ProjectileID.EyeBeam)
 			{
 				this.name = "Eye Beam";
 				this.ignoreWater = true;
@@ -3087,7 +3087,7 @@ namespace Terraria
 				this.magic = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 260)
+			else if (this.type == ProjectileID.HeatRay)
 			{
 				this.name = "Heat Ray";
 				this.width = 8;
@@ -3099,7 +3099,7 @@ namespace Terraria
 				this.timeLeft = 200;
 				this.penetrate = -1;
 			}
-			else if (this.type == 261)
+			else if (this.type == ProjectileID.BoulderStaffOfEarth)
 			{
 				this.name = "Boulder";
 				this.width = 32;
@@ -3110,7 +3110,7 @@ namespace Terraria
 				this.magic = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 262)
+			else if (this.type == ProjectileID.GolemFist)
 			{
 				this.name = "Golem Fist";
 				this.width = 30;
@@ -3122,7 +3122,7 @@ namespace Terraria
 				this.melee = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 263)
+			else if (this.type == ProjectileID.IceSickle)
 			{
 				this.name = "Ice Sickle";
 				this.width = 34;
@@ -3138,7 +3138,7 @@ namespace Terraria
 				this.timeLeft = 180;
 				this.coldDamage = true;
 			}
-			else if (this.type == 264)
+			else if (this.type == ProjectileID.RainNimbus)
 			{
 				this.ignoreWater = true;
 				this.name = "Rain";
@@ -3151,7 +3151,7 @@ namespace Terraria
 				this.scale = 1.1f;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 265)
+			else if (this.type == ProjectileID.PoisonFang)
 			{
 				this.name = "Poison Fang";
 				this.width = 12;
@@ -3162,7 +3162,7 @@ namespace Terraria
 				this.magic = true;
 				this.penetrate = 4;
 			}
-			else if (this.type == 266)
+			else if (this.type == ProjectileID.BabySlime)
 			{
 				this.netImportant = true;
 				this.alpha = 75;
@@ -3175,7 +3175,7 @@ namespace Terraria
 				this.minion = true;
 				this.minionSlots = 1f;
 			}
-			else if (this.type == 267)
+			else if (this.type == ProjectileID.PoisonDartBlowgun)
 			{
 				this.alpha = 255;
 				this.name = "Poison Dart";
@@ -3185,7 +3185,7 @@ namespace Terraria
 				this.friendly = true;
 				this.ranged = true;
 			}
-			else if (this.type == 268)
+			else if (this.type == ProjectileID.EyeSpring)
 			{
 				this.netImportant = true;
 				this.name = "Eye Spring";
@@ -3196,7 +3196,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 269)
+			else if (this.type == ProjectileID.BabySnowman)
 			{
 				this.netImportant = true;
 				this.name = "Baby Snowman";
@@ -3207,7 +3207,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 270)
+			else if (this.type == ProjectileID.Skull)
 			{
 				this.name = "Skull";
 				this.width = 26;
@@ -3218,7 +3218,7 @@ namespace Terraria
 				this.magic = true;
 				this.penetrate = 3;
 			}
-			else if (this.type == 271)
+			else if (this.type == ProjectileID.BoxingGlove)
 			{
 				this.name = "Boxing Glove";
 				this.width = 20;
@@ -3230,7 +3230,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1.2f;
 			}
-			else if (this.type == 272)
+			else if (this.type == ProjectileID.Bananarang)
 			{
 				this.name = "Bananarang";
 				this.width = 32;
@@ -3241,7 +3241,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.melee = true;
 			}
-			else if (this.type == 273)
+			else if (this.type == ProjectileID.ChainKnife)
 			{
 				this.name = "Chain Knife";
 				this.width = 26;
@@ -3252,7 +3252,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.melee = true;
 			}
-			else if (this.type == 274)
+			else if (this.type == ProjectileID.DeathSickle)
 			{
 				this.name = "Death Sickle";
 				this.width = 42;
@@ -3267,7 +3267,7 @@ namespace Terraria
 				this.melee = true;
 				this.timeLeft = 180;
 			}
-			else if (this.type == 275)
+			else if (this.type == ProjectileID.SeedPlantera)
 			{
 				this.alpha = 255;
 				this.name = "Seed";
@@ -3276,7 +3276,7 @@ namespace Terraria
 				this.aiStyle = 1;
 				this.hostile = true;
 			}
-			else if (this.type == 276)
+			else if (this.type == ProjectileID.PoisonSeedPlantera)
 			{
 				this.alpha = 255;
 				this.name = "Poison Seed";
@@ -3285,7 +3285,7 @@ namespace Terraria
 				this.aiStyle = 1;
 				this.hostile = true;
 			}
-			else if (this.type == 277)
+			else if (this.type == ProjectileID.ThornBall)
 			{
 				this.alpha = 255;
 				this.name = "Thorn Ball";
@@ -3294,7 +3294,7 @@ namespace Terraria
 				this.aiStyle = 14;
 				this.hostile = true;
 			}
-			else if (this.type == 278)
+			else if (this.type == ProjectileID.IchorArrow)
 			{
 				this.arrow = true;
 				this.name = "Ichor Arrow";
@@ -3306,7 +3306,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 279)
+			else if (this.type == ProjectileID.IchorBullet)
 			{
 				this.name = "Ichor Bullet";
 				this.width = 4;
@@ -3321,7 +3321,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.ranged = true;
 			}
-			else if (this.type == 280)
+			else if (this.type == ProjectileID.GoldenShowerFriendly)
 			{
 				this.name = "Golden Shower";
 				this.width = 32;
@@ -3334,7 +3334,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.magic = true;
 			}
-			else if (this.type == 281)
+			else if (this.type == ProjectileID.ExplosiveBunny)
 			{
 				this.name = "Explosive Bunny";
 				this.width = 28;
@@ -3345,7 +3345,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.timeLeft = 600;
 			}
-			else if (this.type == 282)
+			else if (this.type == ProjectileID.VenomArrow)
 			{
 				this.arrow = true;
 				this.name = "Venom Arrow";
@@ -3356,7 +3356,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 283)
+			else if (this.type == ProjectileID.VenomBullet)
 			{
 				this.name = "Venom Bullet";
 				this.width = 4;
@@ -3371,7 +3371,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.ranged = true;
 			}
-			else if (this.type == 284)
+			else if (this.type == ProjectileID.PartyBullet)
 			{
 				this.name = "Party Bullet";
 				this.width = 4;
@@ -3386,7 +3386,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.ranged = true;
 			}
-			else if (this.type == 285)
+			else if (this.type == ProjectileID.NanoBullet)
 			{
 				this.name = "Nano Bullet";
 				this.width = 4;
@@ -3401,7 +3401,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.ranged = true;
 			}
-			else if (this.type == 286)
+			else if (this.type == ProjectileID.ExplosiveBullet)
 			{
 				this.name = "Explosive Bullet";
 				this.width = 4;
@@ -3416,7 +3416,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.ranged = true;
 			}
-			else if (this.type == 287)
+			else if (this.type == ProjectileID.GoldenBullet)
 			{
 				this.name = "Golden Bullet";
 				this.width = 4;
@@ -3431,7 +3431,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.ranged = true;
 			}
-			else if (this.type == 288)
+			else if (this.type == ProjectileID.GoldenShowerHostile)
 			{
 				this.name = "Golden Shower";
 				this.width = 32;
@@ -3444,7 +3444,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.magic = true;
 			}
-			else if (this.type == 289)
+			else if (this.type == ProjectileID.ConfettiMelee)
 			{
 				this.name = "Confetti";
 				this.width = 10;
@@ -3454,7 +3454,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft = 2;
 			}
-			else if (this.type == 290)
+			else if (this.type == ProjectileID.ShadowBeamHostile)
 			{
 				this.name = "Shadow Beam";
 				this.width = 4;
@@ -3466,7 +3466,7 @@ namespace Terraria
 				this.timeLeft = 100;
 				this.penetrate = -1;
 			}
-			else if (this.type == 291)
+			else if (this.type == ProjectileID.InfernoHostileBolt)
 			{
 				this.name = "Inferno";
 				this.width = 12;
@@ -3478,7 +3478,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.penetrate = -1;
 			}
-			else if (this.type == 292)
+			else if (this.type == ProjectileID.InfernoHostileBlast)
 			{
 				this.name = "Inferno";
 				this.width = 130;
@@ -3490,7 +3490,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.penetrate = -1;
 			}
-			else if (this.type == 293)
+			else if (this.type == ProjectileID.LostSoulHostile)
 			{
 				this.name = "Lost Soul";
 				this.width = 12;
@@ -3503,7 +3503,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 294)
+			else if (this.type == ProjectileID.ShadowBeamFriendly)
 			{
 				this.name = "Shadow Beam";
 				this.width = 4;
@@ -3515,7 +3515,7 @@ namespace Terraria
 				this.timeLeft = 300;
 				this.penetrate = -1;
 			}
-			else if (this.type == 295)
+			else if (this.type == ProjectileID.InfernoFriendlyBolt)
 			{
 				this.name = "Inferno";
 				this.width = 12;
@@ -3526,7 +3526,7 @@ namespace Terraria
 				this.magic = true;
 				this.tileCollide = true;
 			}
-			else if (this.type == 296)
+			else if (this.type == ProjectileID.InfernoFriendlyBlast)
 			{
 				this.name = "Inferno";
 				this.width = 150;
@@ -3538,7 +3538,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.penetrate = -1;
 			}
-			else if (this.type == 297)
+			else if (this.type == ProjectileID.LostSoulFriendly)
 			{
 				this.name = "Lost Soul";
 				this.width = 12;
@@ -3549,7 +3549,7 @@ namespace Terraria
 				this.magic = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 298)
+			else if (this.type == ProjectileID.SpiritHeal)
 			{
 				this.name = "Spirit Heal";
 				this.width = 6;
@@ -3560,7 +3560,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.extraUpdates = 3;
 			}
-			else if (this.type == 299)
+			else if (this.type == ProjectileID.Shadowflames)
 			{
 				this.name = "Shadowflames";
 				this.width = 6;
@@ -3574,7 +3574,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.tileCollide = false;
 			}
-			else if (this.type == 300)
+			else if (this.type == ProjectileID.PaladinsHammerHostile)
 			{
 				this.name = "Paladin's Hammer";
 				this.width = 38;
@@ -3585,7 +3585,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.tileCollide = false;
 			}
-			else if (this.type == 301)
+			else if (this.type == ProjectileID.PaladinsHammerFriendly)
 			{
 				this.name = "Paladin's Hammer";
 				this.width = 38;
@@ -3596,7 +3596,7 @@ namespace Terraria
 				this.melee = true;
 				this.extraUpdates = 2;
 			}
-			else if (this.type == 302)
+			else if (this.type == ProjectileID.SniperBullet)
 			{
 				this.name = "Sniper Bullet";
 				this.width = 4;
@@ -3612,7 +3612,7 @@ namespace Terraria
 				this.ranged = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 303)
+			else if (this.type == ProjectileID.RocketSkeleton)
 			{
 				this.name = "Rocket";
 				this.width = 14;
@@ -3622,7 +3622,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ranged = true;
 			}
-			else if (this.type == 304)
+			else if (this.type == ProjectileID.VampireKnife)
 			{
 				this.name = "Vampire Knife";
 				this.alpha = 255;
@@ -3636,7 +3636,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.extraUpdates = 0;
 			}
-			else if (this.type == 305)
+			else if (this.type == ProjectileID.VampireHeal)
 			{
 				this.name = "Vampire Heal";
 				this.width = 6;
@@ -3646,7 +3646,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.extraUpdates = 10;
 			}
-			else if (this.type == 306)
+			else if (this.type == ProjectileID.EatersBite)
 			{
 				this.name = "Eater's Bite";
 				this.alpha = 255;
@@ -3659,7 +3659,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 307)
+			else if (this.type == ProjectileID.TinyEater)
 			{
 				this.name = "Tiny Eater";
 				this.width = 16;
@@ -3671,7 +3671,7 @@ namespace Terraria
 				this.melee = true;
 				this.extraUpdates = 3;
 			}
-			else if (this.type == 308)
+			else if (this.type == ProjectileID.FrostHydra)
 			{
 				this.name = "Frost Hydra";
 				this.width = 80;
@@ -3682,7 +3682,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.coldDamage = true;
 			}
-			else if (this.type == 309)
+			else if (this.type == ProjectileID.FrostBlastFriendly)
 			{
 				this.name = "Frost Blast";
 				this.width = 14;
@@ -3694,7 +3694,7 @@ namespace Terraria
 				this.extraUpdates = 3;
 				this.coldDamage = true;
 			}
-			else if (this.type == 310)
+			else if (this.type == ProjectileID.BlueFlare)
 			{
 				this.netImportant = true;
 				this.name = "Blue Flare";
@@ -3706,7 +3706,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.timeLeft = 36000;
 			}
-			else if (this.type == 311)
+			else if (this.type == ProjectileID.CandyCorn)
 			{
 				this.name = "Candy Corn";
 				this.width = 10;
@@ -3718,7 +3718,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.ranged = true;
 			}
-			else if (this.type == 312)
+			else if (this.type == ProjectileID.JackOLantern)
 			{
 				this.name = "Jack 'O Lantern";
 				this.alpha = 255;
@@ -3729,7 +3729,7 @@ namespace Terraria
 				this.ranged = true;
 				this.timeLeft = 300;
 			}
-			else if (this.type == 313)
+			else if (this.type == ProjectileID.Spider)
 			{
 				this.netImportant = true;
 				this.name = "Spider";
@@ -3740,7 +3740,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 314)
+			else if (this.type == ProjectileID.Squashling)
 			{
 				this.netImportant = true;
 				this.name = "Squashling";
@@ -3751,7 +3751,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 315)
+			else if (this.type == ProjectileID.BatHook)
 			{
 				this.netImportant = true;
 				this.name = "Bat Hook";
@@ -3763,7 +3763,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft *= 10;
 			}
-			else if (this.type == 316)
+			else if (this.type == ProjectileID.Bat)
 			{
 				this.alpha = 255;
 				this.name = "Bat";
@@ -3775,7 +3775,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.magic = true;
 			}
-			else if (this.type == 317)
+			else if (this.type == ProjectileID.Raven)
 			{
 				this.netImportant = true;
 				this.name = "Raven";
@@ -3787,7 +3787,7 @@ namespace Terraria
 				this.minion = true;
 				this.minionSlots = 1f;
 			}
-			else if (this.type == 318)
+			else if (this.type == ProjectileID.RottenEgg)
 			{
 				this.name = "Rotten Egg";
 				this.width = 12;
@@ -3796,7 +3796,7 @@ namespace Terraria
 				this.friendly = true;
 				this.thrown = true;
 			}
-			else if (this.type == 319)
+			else if (this.type == ProjectileID.BlackCat)
 			{
 				this.netImportant = true;
 				this.name = "Black Cat";
@@ -3807,7 +3807,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 320)
+			else if (this.type == ProjectileID.BloodyMachete)
 			{
 				this.name = "Bloody Machete";
 				this.width = 34;
@@ -3817,7 +3817,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.melee = true;
 			}
-			else if (this.type == 321)
+			else if (this.type == ProjectileID.FlamingJack)
 			{
 				this.name = "Flaming Jack";
 				this.width = 30;
@@ -3828,7 +3828,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 322)
+			else if (this.type == ProjectileID.WoodHook)
 			{
 				this.netImportant = true;
 				this.name = "Wood Hook";
@@ -3840,7 +3840,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft *= 10;
 			}
-			else if (this.type == 323)
+			else if (this.type == ProjectileID.Stake)
 			{
 				this.penetrate = 10;
 				this.name = "Stake";
@@ -3853,7 +3853,7 @@ namespace Terraria
 				this.ranged = true;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 324)
+			else if (this.type == ProjectileID.CursedSapling)
 			{
 				this.netImportant = true;
 				this.name = "Cursed Sapling";
@@ -3864,7 +3864,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 325)
+			else if (this.type == ProjectileID.FlamingWood)
 			{
 				this.alpha = 255;
 				this.penetrate = -1;
@@ -3875,15 +3875,15 @@ namespace Terraria
 				this.hostile = true;
 				this.tileCollide = false;
 			}
-			else if (this.type >= 326 && this.type <= 328)
+			else if (this.type >= ProjectileID.GreekFire1 && this.type <= ProjectileID.GreekFire3)
 			{
 				this.name = "Greek Fire";
-				if (this.type == 326)
+				if (this.type == ProjectileID.GreekFire1)
 				{
 					this.width = 14;
 					this.height = 16;
 				}
-				else if (this.type == 327)
+				else if (this.type == ProjectileID.GreekFire2)
 				{
 					this.width = 12;
 					this.height = 14;
@@ -3898,7 +3898,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft = 360;
 			}
-			else if (this.type == 329)
+			else if (this.type == ProjectileID.FlamingScythe)
 			{
 				this.name = "Flaming Scythe";
 				this.width = 80;
@@ -3910,7 +3910,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft = 420;
 			}
-			else if (this.type == 330)
+			else if (this.type == ProjectileID.StarAnise)
 			{
 				this.name = "Star Anise";
 				this.width = 22;
@@ -3920,7 +3920,7 @@ namespace Terraria
 				this.penetrate = 6;
 				this.thrown = true;
 			}
-			else if (this.type == 331)
+			else if (this.type == ProjectileID.CandyCaneHook)
 			{
 				this.netImportant = true;
 				this.name = "Candy Cane Hook";
@@ -3932,7 +3932,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft *= 10;
 			}
-			else if (this.type == 332)
+			else if (this.type == ProjectileID.ChristmasHook)
 			{
 				this.netImportant = true;
 				this.name = "Christmas Hook";
@@ -3945,7 +3945,7 @@ namespace Terraria
 				this.timeLeft *= 10;
 				this.light = 0.5f;
 			}
-			else if (this.type == 333)
+			else if (this.type == ProjectileID.FruitcakeChakram)
 			{
 				this.name = "Fruitcake Chakram";
 				this.width = 38;
@@ -3956,7 +3956,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.melee = true;
 			}
-			else if (this.type == 334)
+			else if (this.type == ProjectileID.Puppy)
 			{
 				this.netImportant = true;
 				this.name = "Puppy";
@@ -3967,7 +3967,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 335)
+			else if (this.type == ProjectileID.OrnamentFriendly)
 			{
 				this.name = "Ornament";
 				this.width = 22;
@@ -3977,7 +3977,7 @@ namespace Terraria
 				this.penetrate = 1;
 				this.melee = true;
 			}
-			else if (this.type == 336)
+			else if (this.type == ProjectileID.PineNeedleFriendly)
 			{
 				this.name = "Pine Needle";
 				this.width = 4;
@@ -3988,7 +3988,7 @@ namespace Terraria
 				this.scale = 0.8f;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 337)
+			else if (this.type == ProjectileID.Blizzard)
 			{
 				this.name = "Blizzard";
 				this.width = 10;
@@ -4000,7 +4000,7 @@ namespace Terraria
 				this.coldDamage = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 338 || this.type == 339 || this.type == 340 || this.type == 341)
+			else if (this.type == ProjectileID.RocketSnowmanI || this.type == ProjectileID.RocketSnowmanII || this.type == ProjectileID.RocketSnowmanIII || this.type == ProjectileID.RocketSnowmanIV)
 			{
 				this.name = "Rocket";
 				this.width = 14;
@@ -4011,7 +4011,7 @@ namespace Terraria
 				this.ranged = true;
 				this.scale = 0.9f;
 			}
-			else if (this.type == 342)
+			else if (this.type == ProjectileID.NorthPoleWeapon)
 			{
 				this.name = "North Pole";
 				this.width = 22;
@@ -4026,7 +4026,7 @@ namespace Terraria
 				this.melee = true;
 				this.coldDamage = true;
 			}
-			else if (this.type == 343)
+			else if (this.type == ProjectileID.NorthPoleSpear)
 			{
 				this.alpha = 255;
 				this.name = "North Pole";
@@ -4039,7 +4039,7 @@ namespace Terraria
 				this.penetrate = 3;
 				this.coldDamage = true;
 			}
-			else if (this.type == 344)
+			else if (this.type == ProjectileID.NorthPoleSnowflake)
 			{
 				this.name = "North Pole";
 				this.width = 26;
@@ -4051,7 +4051,7 @@ namespace Terraria
 				this.melee = true;
 				this.coldDamage = true;
 			}
-			else if (this.type == 345)
+			else if (this.type == ProjectileID.PineNeedleHostile)
 			{
 				this.name = "Pine Needle";
 				this.width = 4;
@@ -4060,7 +4060,7 @@ namespace Terraria
 				this.hostile = true;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 346)
+			else if (this.type == ProjectileID.OrnamentHostile)
 			{
 				this.name = "Ornament";
 				this.width = 18;
@@ -4070,7 +4070,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft = 300;
 			}
-			else if (this.type == 347)
+			else if (this.type == ProjectileID.OrnamentHostileShrapnel)
 			{
 				this.name = "Ornament";
 				this.width = 6;
@@ -4079,7 +4079,7 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 348)
+			else if (this.type == ProjectileID.FrostWave)
 			{
 				this.name = "Frost Wave";
 				this.aiStyle = 1;
@@ -4091,7 +4091,7 @@ namespace Terraria
 				this.coldDamage = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 349)
+			else if (this.type == ProjectileID.FrostShard)
 			{
 				this.name = "Frost Shard";
 				this.aiStyle = 1;
@@ -4101,7 +4101,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.coldDamage = true;
 			}
-			else if (this.type == 350)
+			else if (this.type == ProjectileID.Missile)
 			{
 				this.alpha = 255;
 				this.penetrate = -1;
@@ -4113,7 +4113,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft /= 2;
 			}
-			else if (this.type == 351)
+			else if (this.type == ProjectileID.Present)
 			{
 				this.alpha = 255;
 				this.penetrate = -1;
@@ -4124,7 +4124,7 @@ namespace Terraria
 				this.hostile = true;
 				this.tileCollide = false;
 			}
-			else if (this.type == 352)
+			else if (this.type == ProjectileID.Spike)
 			{
 				this.name = "Spike";
 				this.width = 30;
@@ -4134,7 +4134,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft /= 3;
 			}
-			else if (this.type == 353)
+			else if (this.type == ProjectileID.BabyGrinch)
 			{
 				this.netImportant = true;
 				this.name = "Baby Grinch";
@@ -4145,7 +4145,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 354)
+			else if (this.type == ProjectileID.CrimsandBallGun)
 			{
 				this.name = "Crimsand Ball";
 				this.knockBack = 6f;
@@ -4156,7 +4156,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 355)
+			else if (this.type == ProjectileID.VenomFang)
 			{
 				this.name = "Venom Fang";
 				this.width = 12;
@@ -4167,7 +4167,7 @@ namespace Terraria
 				this.magic = true;
 				this.penetrate = 7;
 			}
-			else if (this.type == 356)
+			else if (this.type == ProjectileID.SpectreWrath)
 			{
 				this.name = "Spectre Wrath";
 				this.width = 6;
@@ -4178,7 +4178,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.extraUpdates = 3;
 			}
-			else if (this.type == 357)
+			else if (this.type == ProjectileID.PulseBolt)
 			{
 				this.name = "Pulse Bolt";
 				this.width = 4;
@@ -4192,7 +4192,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.ranged = true;
 			}
-			else if (this.type == 358)
+			else if (this.type == ProjectileID.WaterGun)
 			{
 				this.name = "Water Gun";
 				this.width = 18;
@@ -4203,7 +4203,7 @@ namespace Terraria
 				this.extraUpdates = 2;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 359)
+			else if (this.type == ProjectileID.FrostBoltStaff)
 			{
 				this.name = "Frost Bolt";
 				this.width = 14;
@@ -4215,7 +4215,7 @@ namespace Terraria
 				this.friendly = true;
 				this.coldDamage = true;
 			}
-			else if ((this.type >= 360 && this.type <= 366) || this.type == 381 || this.type == 382)
+			else if ((this.type >= ProjectileID.BobberWooden && this.type <= ProjectileID.BobbersittingDuck) || this.type == ProjectileID.BobberFleshcatcher || this.type == ProjectileID.BobberHotline)
 			{
 				this.name = "Bobber";
 				this.width = 14;
@@ -4224,7 +4224,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.bobber = true;
 			}
-			else if (this.type == 367)
+			else if (this.type == ProjectileID.ObsidianSwordfish)
 			{
 				this.name = "Obsidian Swordfish";
 				this.width = 18;
@@ -4238,7 +4238,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 368)
+			else if (this.type == ProjectileID.Swordfish)
 			{
 				this.name = "Swordfish";
 				this.width = 18;
@@ -4251,7 +4251,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 369)
+			else if (this.type == ProjectileID.SawtoothShark)
 			{
 				this.name = "Sawtooth Shark";
 				this.width = 22;
@@ -4264,7 +4264,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 370)
+			else if (this.type == ProjectileID.LovePotion)
 			{
 				this.name = "Love Potion";
 				this.width = 14;
@@ -4273,7 +4273,7 @@ namespace Terraria
 				this.friendly = true;
 				this.penetrate = 1;
 			}
-			else if (this.type == 371)
+			else if (this.type == ProjectileID.FoulPotion)
 			{
 				this.name = "Foul Potion";
 				this.width = 14;
@@ -4282,7 +4282,7 @@ namespace Terraria
 				this.friendly = true;
 				this.penetrate = 1;
 			}
-			else if (this.type == 372)
+			else if (this.type == ProjectileID.FishHook)
 			{
 				this.name = "Fish Hook";
 				this.width = 18;
@@ -4293,7 +4293,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft *= 10;
 			}
-			else if (this.type == 373)
+			else if (this.type == ProjectileID.Hornet)
 			{
 				this.netImportant = true;
 				this.name = "Hornet";
@@ -4307,7 +4307,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 374)
+			else if (this.type == ProjectileID.HornetStinger)
 			{
 				this.name = "Hornet Stinger";
 				this.width = 10;
@@ -4319,7 +4319,7 @@ namespace Terraria
 				this.tileCollide = true;
 				this.scale *= 0.9f;
 			}
-			else if (this.type == 375)
+			else if (this.type == ProjectileID.FlyingImp)
 			{
 				this.netImportant = true;
 				this.name = "Flying Imp";
@@ -4333,7 +4333,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 376)
+			else if (this.type == ProjectileID.ImpFireball)
 			{
 				this.name = "Imp Fireball";
 				this.width = 12;
@@ -4347,7 +4347,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 377)
+			else if (this.type == ProjectileID.SpiderHiver)
 			{
 				this.name = "Spider Turret";
 				this.width = 66;
@@ -4356,7 +4356,7 @@ namespace Terraria
 				this.timeLeft = 7200;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 378)
+			else if (this.type == ProjectileID.SpiderEgg)
 			{
 				this.name = "Spider Egg";
 				this.width = 16;
@@ -4367,7 +4367,7 @@ namespace Terraria
 				this.timeLeft = 60;
 				this.scale = 0.9f;
 			}
-			else if (this.type == 379)
+			else if (this.type == ProjectileID.BabySpider)
 			{
 				this.name = "Baby Spider";
 				this.width = 14;
@@ -4377,7 +4377,7 @@ namespace Terraria
 				this.timeLeft = 300;
 				this.penetrate = 1;
 			}
-			else if (this.type == 380)
+			else if (this.type == ProjectileID.ZephyrFish)
 			{
 				this.netImportant = true;
 				this.name = "Zephyr Fish";
@@ -4388,7 +4388,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 383)
+			else if (this.type == ProjectileID.Anchor)
 			{
 				this.name = "Anchor";
 				this.width = 34;
@@ -4398,7 +4398,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.melee = true;
 			}
-			else if (this.type == 384)
+			else if (this.type == ProjectileID.Sharknado)
 			{
 				this.name = "Sharknado";
 				this.width = 150;
@@ -4411,7 +4411,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.timeLeft = 540;
 			}
-			else if (this.type == 385)
+			else if (this.type == ProjectileID.SharknadoBolt)
 			{
 				this.name = "Sharknado Bolt";
 				this.width = 30;
@@ -4422,7 +4422,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.timeLeft = 300;
 			}
-			else if (this.type == 386)
+			else if (this.type == ProjectileID.Cthulunado)
 			{
 				this.name = "Cthulunado";
 				this.width = 150;
@@ -4435,7 +4435,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.timeLeft = 840;
 			}
-			else if (this.type == 387)
+			else if (this.type == ProjectileID.Retanimini)
 			{
 				this.netImportant = true;
 				this.name = "Retanimini";
@@ -4450,7 +4450,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.friendly = true;
 			}
-			else if (this.type == 388)
+			else if (this.type == ProjectileID.Spazmamini)
 			{
 				this.netImportant = true;
 				this.name = "Spazmamini";
@@ -4465,7 +4465,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.friendly = true;
 			}
-			else if (this.type == 389)
+			else if (this.type == ProjectileID.MiniRetinaLaser)
 			{
 				this.name = "Mini Retina Laser";
 				this.width = 4;
@@ -4479,7 +4479,7 @@ namespace Terraria
 				this.scale = 1.2f;
 				this.timeLeft = 600;
 			}
-			else if (this.type == 390 || this.type == 391 || this.type == 392)
+			else if (this.type == ProjectileID.VenomSpider || this.type == ProjectileID.JumperSpider || this.type == ProjectileID.DangerousSpider)
 			{
 				this.name = "Venom Spider";
 				this.width = 18;
@@ -4490,16 +4490,16 @@ namespace Terraria
 				this.timeLeft *= 5;
 				this.minion = true;
 				this.minionSlots = 0.75f;
-				if (this.type == 391)
+				if (this.type == ProjectileID.JumperSpider)
 				{
 					this.name = "Jumper Spider";
 				}
-				if (this.type == 392)
+				if (this.type == ProjectileID.DangerousSpider)
 				{
 					this.name = "Dangerous Spider";
 				}
 			}
-			else if (this.type == 393 || this.type == 394 || this.type == 395)
+			else if (this.type == ProjectileID.OneEyedPirate || this.type == ProjectileID.SoulscourgePirate || this.type == ProjectileID.PirateCaptain)
 			{
 				this.name = "One Eyed Pirate";
 				this.width = 20;
@@ -4510,16 +4510,16 @@ namespace Terraria
 				this.timeLeft *= 5;
 				this.minion = true;
 				this.minionSlots = 1f;
-				if (this.type == 394)
+				if (this.type == ProjectileID.SoulscourgePirate)
 				{
 					this.name = "Soulscourge Pirate";
 				}
-				if (this.type == 395)
+				if (this.type == ProjectileID.PirateCaptain)
 				{
 					this.name = "Pirate Captain";
 				}
 			}
-			else if (this.type == 396)
+			else if (this.type == ProjectileID.SlimeHook)
 			{
 				this.name = "Slime Hook";
 				this.width = 18;
@@ -4531,7 +4531,7 @@ namespace Terraria
 				this.timeLeft *= 10;
 				this.alpha = 100;
 			}
-			else if (this.type == 397)
+			else if (this.type == ProjectileID.StickyGrenade)
 			{
 				this.name = "Sticky Grenade";
 				this.width = 14;
@@ -4542,7 +4542,7 @@ namespace Terraria
 				this.thrown = true;
 				this.tileCollide = false;
 			}
-			else if (this.type == 398)
+			else if (this.type == ProjectileID.MiniMinotaur)
 			{
 				this.netImportant = true;
 				this.name = "Mini Minotaur";
@@ -4553,7 +4553,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 399)
+			else if (this.type == ProjectileID.MolotovCocktail)
 			{
 				this.name = "Molotov Cocktail";
 				this.width = 14;
@@ -4565,15 +4565,15 @@ namespace Terraria
 				this.thrown = true;
 				this.noEnchantments = true;
 			}
-			else if (this.type >= 400 && this.type <= 402)
+			else if (this.type >= ProjectileID.MolotovFire && this.type <= ProjectileID.MolotovFire3)
 			{
 				this.name = "Molotov Fire";
-				if (this.type == 400)
+				if (this.type == ProjectileID.MolotovFire)
 				{
 					this.width = 14;
 					this.height = 16;
 				}
-				else if (this.type == 401)
+				else if (this.type == ProjectileID.MolotovFire2)
 				{
 					this.width = 12;
 					this.height = 14;
@@ -4590,7 +4590,7 @@ namespace Terraria
 				this.ranged = true;
 				this.noEnchantments = true;
 			}
-			else if (this.type == 403)
+			else if (this.type == ProjectileID.TrackHook)
 			{
 				this.netImportant = true;
 				this.name = "Track Hook";
@@ -4602,7 +4602,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft *= 10;
 			}
-			else if (this.type == 404)
+			else if (this.type == ProjectileID.Flairon)
 			{
 				this.name = "Flairon";
 				this.width = 26;
@@ -4613,7 +4613,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.melee = true;
 			}
-			else if (this.type == 405)
+			else if (this.type == ProjectileID.FlaironBubble)
 			{
 				this.name = "Flairon Bubble";
 				this.width = 14;
@@ -4626,7 +4626,7 @@ namespace Terraria
 				this.melee = true;
 				this.noEnchantments = true;
 			}
-			else if (this.type == 406)
+			else if (this.type == ProjectileID.SlimeGun)
 			{
 				this.name = "Slime Gun";
 				this.width = 14;
@@ -4637,7 +4637,7 @@ namespace Terraria
 				this.extraUpdates = 2;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 407)
+			else if (this.type == ProjectileID.Tempest)
 			{
 				this.netImportant = true;
 				this.name = "Tempest";
@@ -4652,7 +4652,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 408)
+			else if (this.type == ProjectileID.MiniSharkron)
 			{
 				this.name = "Mini Sharkron";
 				this.width = 10;
@@ -4662,7 +4662,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 409)
+			else if (this.type == ProjectileID.Typhoon)
 			{
 				this.name = "Typhoon";
 				this.width = 30;
@@ -4677,7 +4677,7 @@ namespace Terraria
 				this.magic = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 410)
+			else if (this.type == ProjectileID.Bubble)
 			{
 				this.name = "Bubble";
 				this.width = 14;
@@ -4690,7 +4690,7 @@ namespace Terraria
 				this.magic = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type >= 411 && this.type <= 414)
+			else if (this.type >= ProjectileID.CopperCoinsFalling && this.type <= ProjectileID.PlatinumCoinsFalling)
 			{
 				switch (this.type)
 				{
@@ -4711,7 +4711,7 @@ namespace Terraria
 				this.height = 10;
 				this.aiStyle = 10;
 			}
-			else if (this.type == 415 || this.type == 416 || this.type == 417 || this.type == 418)
+			else if (this.type == ProjectileID.RocketFireworksBoxRed || this.type == ProjectileID.RocketFireworksBoxGreen || this.type == ProjectileID.RocketFireworksBoxBlue || this.type == ProjectileID.RocketFireworksBoxYellow)
 			{
 				this.name = "Rocket";
 				this.width = 14;
@@ -4721,7 +4721,7 @@ namespace Terraria
 				this.ranged = true;
 				this.timeLeft = 45;
 			}
-			else if (this.type >= 419 && this.type <= 422)
+			else if (this.type >= ProjectileID.FireworkFountainYellow && this.type <= ProjectileID.FireworkFountainRainbow)
 			{
 				this.name = "Firework Fountain";
 				this.width = 4;
@@ -4729,7 +4729,7 @@ namespace Terraria
 				this.aiStyle = 73;
 				this.friendly = true;
 			}
-			else if (this.type == 423)
+			else if (this.type == ProjectileID.UFOMinion)
 			{
 				this.netImportant = true;
 				this.name = "UFO";
@@ -4743,7 +4743,7 @@ namespace Terraria
 				this.minionSlots = 1f;
 				this.ignoreWater = true;
 			}
-			else if (this.type >= 424 && this.type <= 426)
+			else if (this.type >= ProjectileID.Meteor1 && this.type <= ProjectileID.Meteor3)
 			{
 				this.name = "Meteor";
 				this.width = 24;
@@ -4754,7 +4754,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.extraUpdates = 2;
 			}
-			else if (this.type == 427)
+			else if (this.type == ProjectileID.VortexChainsaw)
 			{
 				this.name = "Vortex Chainsaw";
 				this.width = 22;
@@ -4768,7 +4768,7 @@ namespace Terraria
 				this.melee = true;
 				this.glowMask = 2;
 			}
-			else if (this.type == 428)
+			else if (this.type == ProjectileID.VortexDrill)
 			{
 				this.name = "Vortex Drill";
 				this.width = 26;
@@ -4782,7 +4782,7 @@ namespace Terraria
 				this.melee = true;
 				this.glowMask = 3;
 			}
-			else if (this.type == 429)
+			else if (this.type == ProjectileID.NebulaChainsaw)
 			{
 				this.name = "Nebula Chainsaw";
 				this.width = 18;
@@ -4796,7 +4796,7 @@ namespace Terraria
 				this.melee = true;
 				this.glowMask = 7;
 			}
-			else if (this.type == 430)
+			else if (this.type == ProjectileID.NebulaDrill)
 			{
 				this.name = "Nebula Drill";
 				this.width = 30;
@@ -4810,7 +4810,7 @@ namespace Terraria
 				this.melee = true;
 				this.glowMask = 8;
 			}
-			else if (this.type == 431)
+			else if (this.type == ProjectileID.SolarFlareChainsaw)
 			{
 				this.name = "Solar Flare Chainsaw";
 				this.width = 28;
@@ -4823,7 +4823,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 432)
+			else if (this.type == ProjectileID.SolarFlareDrill)
 			{
 				this.name = "Solar Flare Drill";
 				this.width = 30;
@@ -4836,7 +4836,7 @@ namespace Terraria
 				this.ownerHitCheck = true;
 				this.melee = true;
 			}
-			else if (this.type == 610)
+			else if (this.type == ProjectileID.StardustChainsaw)
 			{
 				this.name = "Stardust Chainsaw";
 				this.width = 28;
@@ -4850,7 +4850,7 @@ namespace Terraria
 				this.melee = true;
 				this.glowMask = 179;
 			}
-			else if (this.type == 609)
+			else if (this.type == ProjectileID.StardustDrill)
 			{
 				this.name = "Stardust Drill";
 				this.width = 30;
@@ -4864,7 +4864,7 @@ namespace Terraria
 				this.melee = true;
 				this.glowMask = 180;
 			}
-			else if (this.type == 433)
+			else if (this.type == ProjectileID.UFOLaser)
 			{
 				this.name = "UFO Ray";
 				this.width = 8;
@@ -4875,7 +4875,7 @@ namespace Terraria
 				this.timeLeft = 100;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 434)
+			else if (this.type == ProjectileID.ScutlixLaserFriendly)
 			{
 				this.name = "Scutlix Laser";
 				this.width = 1;
@@ -4885,7 +4885,7 @@ namespace Terraria
 				this.extraUpdates = 100;
 				this.penetrate = -1;
 			}
-			else if (this.type == 435)
+			else if (this.type == ProjectileID.MartianTurretBolt)
 			{
 				this.name = "Electric Bolt";
 				this.width = 10;
@@ -4894,7 +4894,7 @@ namespace Terraria
 				this.hostile = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 436)
+			else if (this.type == ProjectileID.BrainScramblerBolt)
 			{
 				this.name = "Brain Scrambling Bolt";
 				this.width = 10;
@@ -4903,7 +4903,7 @@ namespace Terraria
 				this.hostile = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 437)
+			else if (this.type == ProjectileID.GigaZapperSpear)
 			{
 				this.name = "Gigazapper Spearhead";
 				this.width = 10;
@@ -4913,7 +4913,7 @@ namespace Terraria
 				this.extraUpdates = 2;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 438)
+			else if (this.type == ProjectileID.RayGunnerLaser)
 			{
 				this.name = "Laser Ray";
 				this.width = 8;
@@ -4924,7 +4924,7 @@ namespace Terraria
 				this.extraUpdates = 3;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 439)
+			else if (this.type == ProjectileID.LaserMachinegun)
 			{
 				this.name = "Laser Machinegun";
 				this.width = 22;
@@ -4937,7 +4937,7 @@ namespace Terraria
 				this.magic = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 440)
+			else if (this.type == ProjectileID.LaserMachinegunLaser)
 			{
 				this.name = "Laser";
 				this.width = 5;
@@ -4951,7 +4951,7 @@ namespace Terraria
 				this.magic = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 441)
+			else if (this.type == ProjectileID.ScutlixLaserCrosshair)
 			{
 				this.name = "Scutlix Crosshair";
 				this.width = 1;
@@ -4960,7 +4960,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.tileCollide = false;
 			}
-			else if (this.type == 442)
+			else if (this.type == ProjectileID.ElectrosphereMissile)
 			{
 				this.name = "Electrosphere Missile";
 				this.width = 14;
@@ -4972,7 +4972,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.ranged = true;
 			}
-			else if (this.type == 443)
+			else if (this.type == ProjectileID.Electrosphere)
 			{
 				this.name = "Electrosphere";
 				this.width = 80;
@@ -4986,7 +4986,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.penetrate = -1;
 			}
-			else if (this.type == 444)
+			else if (this.type == ProjectileID.Xenopopper)
 			{
 				this.name = "Xenopopper";
 				this.width = 10;
@@ -4999,7 +4999,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 445)
+			else if (this.type == ProjectileID.LaserDrill)
 			{
 				this.name = "Laser Drill";
 				this.width = 10;
@@ -5013,7 +5013,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.ownerHitCheck = true;
 			}
-			else if (this.type == 446)
+			else if (this.type == ProjectileID.AntiGravityHook)
 			{
 				this.netImportant = true;
 				this.name = "Anti-Gravity Hook";
@@ -5026,7 +5026,7 @@ namespace Terraria
 				this.timeLeft *= 10;
 				this.light = 0.7f;
 			}
-			else if (this.type == 447)
+			else if (this.type == ProjectileID.SaucerDeathray)
 			{
 				this.name = "Martian Deathray";
 				this.width = 30;
@@ -5038,7 +5038,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.timeLeft = 240;
 			}
-			else if (this.type == 448)
+			else if (this.type == ProjectileID.SaucerMissile)
 			{
 				this.name = "Martian Rocket";
 				this.width = 14;
@@ -5048,7 +5048,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.tileCollide = false;
 			}
-			else if (this.type == 449)
+			else if (this.type == ProjectileID.SaucerLaser)
 			{
 				this.name = "Saucer Laser";
 				this.width = 5;
@@ -5061,7 +5061,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 450)
+			else if (this.type == ProjectileID.SaucerScrap)
 			{
 				this.name = "Saucer Scrap";
 				this.width = 14;
@@ -5071,7 +5071,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft = 360;
 			}
-			else if (this.type == 451)
+			else if (this.type == ProjectileID.InfluxWaver)
 			{
 				this.name = "Influx Waver";
 				this.width = 16;
@@ -5083,7 +5083,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.friendly = true;
 			}
-			else if (this.type == 452)
+			else if (this.type == ProjectileID.PhantasmalEye)
 			{
 				this.name = "Phantasmal Eye";
 				this.width = 14;
@@ -5094,7 +5094,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.timeLeft = 600;
 			}
-			else if (this.type == 453)
+			else if (this.type == ProjectileID.DrillMountCrosshair)
 			{
 				this.name = "Drill Crosshair";
 				this.width = 1;
@@ -5103,7 +5103,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.tileCollide = false;
 			}
-			else if (this.type == 454)
+			else if (this.type == ProjectileID.PhantasmalSphere)
 			{
 				this.name = "Phantasmal Sphere";
 				this.width = 46;
@@ -5115,7 +5115,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.tileCollide = false;
 			}
-			else if (this.type == 455)
+			else if (this.type == ProjectileID.PhantasmalDeathray)
 			{
 				this.name = "Phantasmal Deathray";
 				this.width = 36;
@@ -5127,7 +5127,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.tileCollide = false;
 			}
-			else if (this.type == 456)
+			else if (this.type == ProjectileID.MoonLeech)
 			{
 				this.name = "Moon Leech";
 				this.width = 16;
@@ -5139,7 +5139,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.tileCollide = false;
 			}
-			else if (this.type == 459)
+			else if (this.type == ProjectileID.ChargedBlasterOrb)
 			{
 				this.name = "Charged Blaster Orb";
 				this.width = 22;
@@ -5152,7 +5152,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 460)
+			else if (this.type == ProjectileID.ChargedBlasterCannon)
 			{
 				this.name = "Charged Blaster Cannon";
 				this.width = 14;
@@ -5165,7 +5165,7 @@ namespace Terraria
 				this.magic = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 461)
+			else if (this.type == ProjectileID.ChargedBlasterLaser)
 			{
 				this.name = "Charged Blaster Laser";
 				this.width = 18;
@@ -5178,7 +5178,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.hide = true;
 			}
-			else if (this.type == 462)
+			else if (this.type == ProjectileID.PhantasmalBolt)
 			{
 				this.name = "Phantasmal Bolt";
 				this.width = 8;
@@ -5190,7 +5190,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.tileCollide = false;
 			}
-			else if (this.type == 463)
+			else if (this.type == ProjectileID.ViciousPowder)
 			{
 				this.name = "Vicious Powder";
 				this.width = 48;
@@ -5202,7 +5202,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 464)
+			else if (this.type == ProjectileID.CultistBossIceMist)
 			{
 				this.name = "Ice Mist";
 				this.width = 60;
@@ -5214,7 +5214,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 467)
+			else if (this.type == ProjectileID.CultistBossFireBall)
 			{
 				this.name = "Fireball";
 				this.width = 40;
@@ -5225,7 +5225,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 468)
+			else if (this.type == ProjectileID.CultistBossFireBallClone)
 			{
 				this.name = "Shadow Fireball";
 				this.width = 40;
@@ -5236,7 +5236,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 465)
+			else if (this.type == ProjectileID.CultistBossLightningOrb)
 			{
 				this.name = "Lightning Orb";
 				this.width = 80;
@@ -5247,7 +5247,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.tileCollide = false;
 			}
-			else if (this.type == 466)
+			else if (this.type == ProjectileID.CultistBossLightningOrbArc)
 			{
 				this.name = "Lightning Orb Arc";
 				this.width = 14;
@@ -5260,7 +5260,7 @@ namespace Terraria
 				this.extraUpdates = 4;
 				this.timeLeft = 120 * (this.extraUpdates + 1);
 			}
-			else if (this.type == 491)
+			else if (this.type == ProjectileID.FlyingKnife)
 			{
 				this.name = "Flying Knife";
 				this.width = 26;
@@ -5270,7 +5270,7 @@ namespace Terraria
 				this.magic = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 500)
+			else if (this.type == ProjectileID.CrimsonHeart)
 			{
 				this.name = "Crimson Heart";
 				this.width = 20;
@@ -5283,7 +5283,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 499)
+			else if (this.type == ProjectileID.BabyFaceMonster)
 			{
 				this.netImportant = true;
 				this.name = "Baby Face Monster";
@@ -5294,7 +5294,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 469)
+			else if (this.type == ProjectileID.BeeArrow)
 			{
 				this.alpha = 255;
 				this.arrow = true;
@@ -5305,7 +5305,7 @@ namespace Terraria
 				this.friendly = true;
 				this.ranged = true;
 			}
-			else if (this.type == 470)
+			else if (this.type == ProjectileID.StickyDynamite)
 			{
 				this.name = "Sticky Dynamite";
 				this.width = 10;
@@ -5315,7 +5315,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.tileCollide = false;
 			}
-			else if (this.type == 471)
+			else if (this.type == ProjectileID.SkeletonBone)
 			{
 				this.name = "Bone";
 				this.width = 16;
@@ -5325,7 +5325,7 @@ namespace Terraria
 				this.hostile = true;
 				this.ranged = true;
 			}
-			else if (this.type == 472)
+			else if (this.type == ProjectileID.WebSpit)
 			{
 				this.name = "Web spit";
 				this.width = 8;
@@ -5337,7 +5337,7 @@ namespace Terraria
 				this.tileCollide = true;
 				this.timeLeft = 50;
 			}
-			else if (this.type == 474)
+			else if (this.type == ProjectileID.BoneArrowFromMerchant)
 			{
 				this.arrow = true;
 				this.name = "Bone Arrow";
@@ -5347,7 +5347,7 @@ namespace Terraria
 				this.friendly = true;
 				this.ranged = true;
 			}
-			else if (this.type == 473)
+			else if (this.type == ProjectileID.SpelunkerGlowstick)
 			{
 				this.netImportant = true;
 				this.name = "Spelunker Glowstick";
@@ -5359,7 +5359,7 @@ namespace Terraria
 				this.light = 1f;
 				this.timeLeft *= 2;
 			}
-			else if (this.type == 475)
+			else if (this.type == ProjectileID.VineRopeCoil)
 			{
 				this.name = "Vine Rope Coil";
 				this.width = 14;
@@ -5369,7 +5369,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft = 400;
 			}
-			else if (this.type == 476)
+			else if (this.type == ProjectileID.SoulDrain)
 			{
 				this.name = "Soul Drain";
 				this.width = 200;
@@ -5382,7 +5382,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.timeLeft = 3;
 			}
-			else if (this.type == 477)
+			else if (this.type == ProjectileID.CrystalDart)
 			{
 				this.alpha = 255;
 				this.name = "Crystal Dart";
@@ -5394,7 +5394,7 @@ namespace Terraria
 				this.extraUpdates = 1;
 				this.ranged = true;
 			}
-			else if (this.type == 478)
+			else if (this.type == ProjectileID.CursedDart)
 			{
 				this.alpha = 255;
 				this.name = "Cursed Dart";
@@ -5405,7 +5405,7 @@ namespace Terraria
 				this.timeLeft = 300;
 				this.ranged = true;
 			}
-			else if (this.type == 479)
+			else if (this.type == ProjectileID.IchorDart)
 			{
 				this.alpha = 255;
 				this.name = "Ichor Dart";
@@ -5415,7 +5415,7 @@ namespace Terraria
 				this.friendly = true;
 				this.ranged = true;
 			}
-			else if (this.type == 480)
+			else if (this.type == ProjectileID.CursedDartFlame)
 			{
 				this.alpha = 255;
 				this.name = "Cursed Flame";
@@ -5428,7 +5428,7 @@ namespace Terraria
 				this.ranged = true;
 				this.noEnchantments = true;
 			}
-			else if (this.type == 481)
+			else if (this.type == ProjectileID.ChainGuillotine)
 			{
 				this.name = "Chain Guillotine";
 				this.width = 22;
@@ -5440,7 +5440,7 @@ namespace Terraria
 				this.melee = true;
 				this.extraUpdates = 0;
 			}
-			else if (this.type == 482)
+			else if (this.type == ProjectileID.ClingerStaff)
 			{
 				this.name = "Cursed Flames";
 				this.width = 16;
@@ -5453,7 +5453,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.timeLeft = 2700;
 			}
-			else if (this.type == 483)
+			else if (this.type == ProjectileID.SeedlerNut)
 			{
 				this.arrow = true;
 				this.name = "Seedler";
@@ -5463,7 +5463,7 @@ namespace Terraria
 				this.friendly = true;
 				this.ranged = true;
 			}
-			else if (this.type == 484)
+			else if (this.type == ProjectileID.SeedlerThorn)
 			{
 				this.arrow = true;
 				this.name = "Seedler";
@@ -5474,7 +5474,7 @@ namespace Terraria
 				this.ranged = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 485)
+			else if (this.type == ProjectileID.Hellwing)
 			{
 				this.arrow = true;
 				this.name = "Hellwing";
@@ -5485,26 +5485,26 @@ namespace Terraria
 				this.ranged = true;
 				this.penetrate = -1;
 			}
-			else if (this.type >= 486 && this.type <= 489)
+			else if (this.type >= ProjectileID.TendonHook && this.type <= ProjectileID.WormHook)
 			{
 				this.name = "Hook";
-				if (this.type == 486)
+				if (this.type == ProjectileID.TendonHook)
 				{
 					this.width = 12;
 					this.height = 12;
 				}
-				else if (this.type == 487)
+				else if (this.type == ProjectileID.ThornHook)
 				{
 					this.width = 22;
 					this.height = 22;
 				}
-				else if (this.type == 488)
+				else if (this.type == ProjectileID.IlluminantHook)
 				{
 					this.width = 12;
 					this.height = 12;
 					this.light = 0.3f;
 				}
-				else if (this.type == 489)
+				else if (this.type == ProjectileID.WormHook)
 				{
 					this.width = 20;
 					this.height = 16;
@@ -5515,7 +5515,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft *= 10;
 			}
-			else if (this.type == 492)
+			else if (this.type == ProjectileID.MagicLantern)
 			{
 				this.netImportant = true;
 				this.name = "Magic Lantern";
@@ -5526,7 +5526,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 490)
+			else if (this.type == ProjectileID.CultistRitual)
 			{
 				this.name = "Lightning Ritual";
 				this.width = 14;
@@ -5539,7 +5539,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.netImportant = true;
 			}
-			else if (this.type == 493 || this.type == 494)
+			else if (this.type == ProjectileID.CrystalVileShardHead || this.type == ProjectileID.CrystalVileShardShaft)
 			{
 				this.name = "Crystal Vile Shard";
 				this.width = 32;
@@ -5553,7 +5553,7 @@ namespace Terraria
 				this.magic = true;
 				this.light = 0.2f;
 			}
-			else if (this.type == 495)
+			else if (this.type == ProjectileID.ShadowFlameArrow)
 			{
 				this.arrow = true;
 				this.name = "Shadowflame Arrow";
@@ -5564,7 +5564,7 @@ namespace Terraria
 				this.ranged = true;
 				this.penetrate = 3;
 			}
-			else if (this.type == 496)
+			else if (this.type == ProjectileID.ShadowFlame)
 			{
 				this.alpha = 255;
 				this.name = "Shadowflame";
@@ -5576,7 +5576,7 @@ namespace Terraria
 				this.MaxUpdates = 3;
 				this.penetrate = 3;
 			}
-			else if (this.type == 497)
+			else if (this.type == ProjectileID.ShadowFlameKnife)
 			{
 				this.name = "Shadowflame Knife";
 				this.width = 30;
@@ -5586,7 +5586,7 @@ namespace Terraria
 				this.penetrate = 3;
 				this.melee = true;
 			}
-			else if (this.type == 498)
+			else if (this.type == ProjectileID.Nail)
 			{
 				this.name = "Nail";
 				this.width = 6;
@@ -5596,7 +5596,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft = 180;
 			}
-			else if (this.type == 501)
+			else if (this.type == ProjectileID.DrManFlyFlask)
 			{
 				this.name = "Flask";
 				this.width = 14;
@@ -5606,7 +5606,7 @@ namespace Terraria
 				this.hostile = true;
 				this.ranged = true;
 			}
-			else if (this.type == 502)
+			else if (this.type == ProjectileID.Meowmere)
 			{
 				this.name = "Meowmere";
 				this.width = 16;
@@ -5616,7 +5616,7 @@ namespace Terraria
 				this.melee = true;
 				this.penetrate = 5;
 			}
-			else if (this.type == 503)
+			else if (this.type == ProjectileID.StarWrath)
 			{
 				this.name = "Star Wrath";
 				this.width = 24;
@@ -5629,7 +5629,7 @@ namespace Terraria
 				this.melee = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 504)
+			else if (this.type == ProjectileID.Spark)
 			{
 				this.name = "Spark";
 				this.width = 10;
@@ -5640,7 +5640,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.penetrate = 2;
 			}
-			else if (this.type == 507)
+			else if (this.type == ProjectileID.JavelinFriendly)
 			{
 				this.name = "Javelin";
 				this.width = 16;
@@ -5650,7 +5650,7 @@ namespace Terraria
 				this.melee = true;
 				this.penetrate = 3;
 			}
-			else if (this.type == 508)
+			else if (this.type == ProjectileID.JavelinHostile)
 			{
 				this.name = "Javelin";
 				this.width = 16;
@@ -5660,7 +5660,7 @@ namespace Terraria
 				this.melee = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 509)
+			else if (this.type == ProjectileID.ButchersChainsaw)
 			{
 				this.name = "Butcher's Chainsaw";
 				this.width = 22;
@@ -5674,7 +5674,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1.2f;
 			}
-			else if (this.type == 510)
+			else if (this.type == ProjectileID.ToxicFlask)
 			{
 				this.name = "Toxic Flask";
 				this.width = 18;
@@ -5684,7 +5684,7 @@ namespace Terraria
 				this.penetrate = 1;
 				this.magic = true;
 			}
-			else if (this.type == 511)
+			else if (this.type == ProjectileID.ToxicCloud)
 			{
 				this.name = "Toxic Cloud";
 				this.width = 32;
@@ -5695,7 +5695,7 @@ namespace Terraria
 				this.scale = 1.1f;
 				this.magic = true;
 			}
-			else if (this.type == 512)
+			else if (this.type == ProjectileID.ToxicCloud2)
 			{
 				this.name = "Toxic Cloud";
 				this.width = 40;
@@ -5706,7 +5706,7 @@ namespace Terraria
 				this.scale = 1.1f;
 				this.magic = true;
 			}
-			else if (this.type == 513)
+			else if (this.type == ProjectileID.ToxicCloud3)
 			{
 				this.name = "Toxic Cloud";
 				this.width = 30;
@@ -5717,7 +5717,7 @@ namespace Terraria
 				this.scale = 1.1f;
 				this.magic = true;
 			}
-			else if (this.type == 514)
+			else if (this.type == ProjectileID.NailFriendly)
 			{
 				this.name = "Nail";
 				this.width = 10;
@@ -5728,7 +5728,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.ranged = true;
 			}
-			else if (this.type == 515)
+			else if (this.type == ProjectileID.BouncyGlowstick)
 			{
 				this.netImportant = true;
 				this.name = "Bouncy Glowstick";
@@ -5740,7 +5740,7 @@ namespace Terraria
 				this.light = 1f;
 				this.timeLeft *= 5;
 			}
-			else if (this.type == 516)
+			else if (this.type == ProjectileID.BouncyBomb)
 			{
 				this.name = "Bouncy Bomb";
 				this.width = 22;
@@ -5749,7 +5749,7 @@ namespace Terraria
 				this.friendly = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 517)
+			else if (this.type == ProjectileID.BouncyGrenade)
 			{
 				this.name = "Bouncy Grenade";
 				this.width = 14;
@@ -5759,7 +5759,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.thrown = true;
 			}
-			else if (this.type == 518)
+			else if (this.type == ProjectileID.CoinPortal)
 			{
 				this.name = "Coin Portal";
 				this.width = 32;
@@ -5770,7 +5770,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 519)
+			else if (this.type == ProjectileID.BombFish)
 			{
 				this.name = "Bomb Fish";
 				this.width = 24;
@@ -5780,7 +5780,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.tileCollide = false;
 			}
-			else if (this.type == 520)
+			else if (this.type == ProjectileID.FrostDaggerfish)
 			{
 				this.name = "Frost Daggerfish";
 				this.width = 22;
@@ -5790,7 +5790,7 @@ namespace Terraria
 				this.penetrate = 3;
 				this.thrown = true;
 			}
-			else if (this.type == 521)
+			else if (this.type == ProjectileID.CrystalPulse)
 			{
 				this.name = "Crystal Charge";
 				this.width = 14;
@@ -5801,7 +5801,7 @@ namespace Terraria
 				this.penetrate = 1;
 				this.friendly = true;
 			}
-			else if (this.type == 522)
+			else if (this.type == ProjectileID.CrystalPulse2)
 			{
 				this.name = "Crystal Charge";
 				this.width = 8;
@@ -5812,7 +5812,7 @@ namespace Terraria
 				this.penetrate = 1;
 				this.friendly = true;
 			}
-			else if (this.type == 523)
+			else if (this.type == ProjectileID.ToxicBubble)
 			{
 				this.name = "Toxic Bubble";
 				this.width = 32;
@@ -5823,7 +5823,7 @@ namespace Terraria
 				this.penetrate = 1;
 				this.friendly = true;
 			}
-			else if (this.type == 524)
+			else if (this.type == ProjectileID.IchorSplash)
 			{
 				this.name = "Ichor Splash";
 				this.width = 10;
@@ -5836,7 +5836,7 @@ namespace Terraria
 				this.melee = true;
 				this.extraUpdates = 5;
 			}
-			else if (this.type == 525)
+			else if (this.type == ProjectileID.FlyingPiggyBank)
 			{
 				this.name = "Flying Piggy Bank";
 				this.width = 30;
@@ -5845,7 +5845,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft = 10800;
 			}
-			else if (this.type == 526)
+			else if (this.type == ProjectileID.CultistBossParticle)
 			{
 				this.name = "Energy";
 				this.width = 8;
@@ -5855,7 +5855,7 @@ namespace Terraria
 				this.timeLeft = 120;
 				this.alpha = 255;
 			}
-			else if (this.type >= 527 && this.type <= 531)
+			else if (this.type >= ProjectileID.RichGravestone1 && this.type <= ProjectileID.RichGravestone5)
 			{
 				this.name = "Tombstone";
 				this.knockBack = 12f;
@@ -5864,7 +5864,7 @@ namespace Terraria
 				this.aiStyle = 17;
 				this.penetrate = -1;
 			}
-			else if (this.type == 532)
+			else if (this.type == ProjectileID.BoneGloveProj)
 			{
 				this.name = "XBone";
 				this.width = 16;
@@ -5876,7 +5876,7 @@ namespace Terraria
 				this.penetrate = 3;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 533)
+			else if (this.type == ProjectileID.DeadlySphere)
 			{
 				this.netImportant = true;
 				this.name = "Deadly Sphere";
@@ -5891,7 +5891,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.friendly = true;
 			}
-			else if (this.type == 534)
+			else if (this.type == ProjectileID.Code1)
 			{
 				this.extraUpdates = 0;
 				this.name = "Yoyo";
@@ -5903,7 +5903,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1f;
 			}
-			else if (this.type >= 541 && this.type <= 555)
+			else if (this.type >= ProjectileID.WoodYoyo && this.type <= ProjectileID.TheEyeOfCthulhu)
 			{
 				this.extraUpdates = 0;
 				this.name = "Yoyo";
@@ -5914,24 +5914,24 @@ namespace Terraria
 				this.penetrate = -1;
 				this.melee = true;
 				this.scale = 1f;
-				if (this.type == 547)
+				if (this.type == ProjectileID.Code2)
 				{
 					this.scale = 1.1f;
 				}
-				if (this.type == 554)
+				if (this.type == ProjectileID.Kraken)
 				{
 					this.scale = 1.2f;
 				}
-				if (this.type == 555)
+				if (this.type == ProjectileID.TheEyeOfCthulhu)
 				{
 					this.scale = 1.15f;
 				}
-				if (this.type == 551 || this.type == 550)
+				if (this.type == ProjectileID.ValkyrieYoyo || this.type == ProjectileID.RedsYoyo)
 				{
 					this.scale = 1.1f;
 				}
 			}
-			else if (this.type >= 562 && this.type <= 564)
+			else if (this.type >= ProjectileID.FormatC && this.type <= ProjectileID.Valor)
 			{
 				this.extraUpdates = 0;
 				this.name = "Yoyo";
@@ -5942,16 +5942,16 @@ namespace Terraria
 				this.penetrate = -1;
 				this.melee = true;
 				this.scale = 1f;
-				if (this.type == 563)
+				if (this.type == ProjectileID.Gradient)
 				{
 					this.scale = 1.05f;
 				}
-				if (this.type == 564)
+				if (this.type == ProjectileID.Valor)
 				{
 					this.scale = 1.075f;
 				}
 			}
-			else if (this.type == 603)
+			else if (this.type == ProjectileID.Terrarian)
 			{
 				this.extraUpdates = 0;
 				this.name = "Terrarian";
@@ -5963,7 +5963,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1.15f;
 			}
-			else if (this.type == 604)
+			else if (this.type == ProjectileID.TerrarianBeam)
 			{
 				this.extraUpdates = 0;
 				this.name = "Terrarian";
@@ -5975,7 +5975,7 @@ namespace Terraria
 				this.melee = true;
 				this.scale = 1.2f;
 			}
-			else if (this.type >= 556 && this.type <= 561)
+			else if (this.type >= ProjectileID.BlackCounterweight && this.type <= ProjectileID.YellowCounterweight)
 			{
 				this.extraUpdates = 0;
 				this.name = "Counterweight";
@@ -5988,7 +5988,7 @@ namespace Terraria
 				this.scale = 1f;
 				this.counterweight = true;
 			}
-			else if (this.type == 535)
+			else if (this.type == ProjectileID.MedusaHead)
 			{
 				this.name = "Medusa Ray";
 				this.width = 18;
@@ -6001,7 +6001,7 @@ namespace Terraria
 				this.magic = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 536)
+			else if (this.type == ProjectileID.MedusaHeadRay)
 			{
 				this.name = "Medusa Ray";
 				this.width = 10;
@@ -6014,7 +6014,7 @@ namespace Terraria
 				this.magic = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 537)
+			else if (this.type == ProjectileID.StardustSoldierLaser)
 			{
 				this.name = "Stardust Laser";
 				this.width = 22;
@@ -6026,7 +6026,7 @@ namespace Terraria
 				this.timeLeft = 240;
 				this.tileCollide = false;
 			}
-			else if (this.type == 538)
+			else if (this.type == ProjectileID.Twinkle)
 			{
 				this.name = "Twinkle";
 				this.width = 12;
@@ -6038,7 +6038,7 @@ namespace Terraria
 				this.extraUpdates = 1;
 				this.alpha = 255;
 			}
-			else if (this.type == 539)
+			else if (this.type == ProjectileID.StardustJellyfishSmall)
 			{
 				this.name = "Flow Invader";
 				this.width = 18;
@@ -6048,7 +6048,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft = 600;
 			}
-			else if (this.type == 540)
+			else if (this.type == ProjectileID.StardustTowerMark)
 			{
 				this.name = "Starmark";
 				this.width = 20;
@@ -6059,7 +6059,7 @@ namespace Terraria
 				this.timeLeft = 300;
 				this.alpha = 255;
 			}
-			else if (this.type == 565)
+			else if (this.type == ProjectileID.BrainOfConfusion)
 			{
 				this.name = "Brain of Confusion";
 				this.width = 28;
@@ -6071,7 +6071,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 566)
+			else if (this.type == ProjectileID.GiantBee)
 			{
 				this.name = "Bee";
 				this.width = 16;
@@ -6083,10 +6083,10 @@ namespace Terraria
 				this.timeLeft = 660;
 				this.extraUpdates = 3;
 			}
-			else if (this.type == 567 || this.type == 568)
+			else if (this.type == ProjectileID.SporeTrap || this.type == ProjectileID.SporeTrap2)
 			{
 				this.name = "Spore";
-				if (this.type == 567)
+				if (this.type == ProjectileID.SporeTrap)
 				{
 					this.width = 14;
 					this.height = 14;
@@ -6104,7 +6104,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type >= 569 && this.type <= 571)
+			else if (this.type >= ProjectileID.SporeGas && this.type <= ProjectileID.SporeGas3)
 			{
 				this.name = "Spore";
 				this.width = 32;
@@ -6117,7 +6117,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 575)
+			else if (this.type == ProjectileID.NebulaSphere)
 			{
 				this.name = "Nebula Sphere";
 				this.width = 24;
@@ -6129,7 +6129,7 @@ namespace Terraria
 				this.timeLeft = 420;
 				this.alpha = 255;
 			}
-			else if (this.type == 573)
+			else if (this.type == ProjectileID.NebulaBolt)
 			{
 				this.name = "Nebula Piercer";
 				this.width = 18;
@@ -6139,7 +6139,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.timeLeft = 600;
 			}
-			else if (this.type == 574)
+			else if (this.type == ProjectileID.NebulaEye)
 			{
 				this.name = "Nebula Eye";
 				this.width = 18;
@@ -6149,7 +6149,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.tileCollide = false;
 			}
-			else if (this.type == 572)
+			else if (this.type == ProjectileID.SalamanderSpit)
 			{
 				this.name = "Poison Spit";
 				this.width = 10;
@@ -6160,7 +6160,7 @@ namespace Terraria
 				this.friendly = false;
 				this.hostile = true;
 			}
-			else if (this.type == 576)
+			else if (this.type == ProjectileID.NebulaLaser)
 			{
 				this.name = "Nebula Laser";
 				this.width = 4;
@@ -6173,7 +6173,7 @@ namespace Terraria
 				this.scale = 1.2f;
 				this.timeLeft = 600;
 			}
-			else if (this.type == 577)
+			else if (this.type == ProjectileID.VortexLaser)
 			{
 				this.name = "Vortex Laser";
 				this.width = 4;
@@ -6186,7 +6186,7 @@ namespace Terraria
 				this.scale = 1.2f;
 				this.timeLeft = 600;
 			}
-			else if (this.type == 578 || this.type == 579)
+			else if (this.type == ProjectileID.VortexVortexLightning || this.type == ProjectileID.VortexVortexPortal)
 			{
 				this.name = "Vortex";
 				this.width = 32;
@@ -6199,7 +6199,7 @@ namespace Terraria
 				this.hostile = true;
 				this.hide = true;
 			}
-			else if (this.type == 580)
+			else if (this.type == ProjectileID.VortexLightning)
 			{
 				this.name = "Vortex Lightning";
 				this.width = 14;
@@ -6212,7 +6212,7 @@ namespace Terraria
 				this.extraUpdates = 4;
 				this.timeLeft = 600;
 			}
-			else if (this.type == 581)
+			else if (this.type == ProjectileID.VortexAcid)
 			{
 				this.name = "Alien Goop";
 				this.width = 10;
@@ -6223,7 +6223,7 @@ namespace Terraria
 				this.friendly = false;
 				this.hostile = true;
 			}
-			else if (this.type == 582)
+			else if (this.type == ProjectileID.MechanicWrench)
 			{
 				this.name = "Mechanic's Wrench";
 				this.width = 20;
@@ -6233,7 +6233,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.MaxUpdates = 2;
 			}
-			else if (this.type == 583)
+			else if (this.type == ProjectileID.NurseSyringeHurt)
 			{
 				this.name = "Syringe";
 				this.width = 10;
@@ -6242,7 +6242,7 @@ namespace Terraria
 				this.friendly = true;
 				this.scale = 0.8f;
 			}
-			else if (this.type == 589)
+			else if (this.type == ProjectileID.SantaBombs)
 			{
 				this.name = "Christmas Ornament";
 				this.width = 10;
@@ -6250,7 +6250,7 @@ namespace Terraria
 				this.aiStyle = 2;
 				this.friendly = true;
 			}
-			else if (this.type == 584)
+			else if (this.type == ProjectileID.NurseSyringeHeal)
 			{
 				this.name = "Syringe";
 				this.width = 10;
@@ -6260,7 +6260,7 @@ namespace Terraria
 				this.scale = 0.8f;
 				this.penetrate = 3;
 			}
-			else if (this.type == 585)
+			else if (this.type == ProjectileID.ClothiersCurse)
 			{
 				this.name = "Skull";
 				this.width = 26;
@@ -6270,7 +6270,7 @@ namespace Terraria
 				this.friendly = true;
 				this.penetrate = 3;
 			}
-			else if (this.type == 586)
+			else if (this.type == ProjectileID.DryadsWardCircle)
 			{
 				this.name = "Dryad's ward";
 				this.width = 26;
@@ -6280,7 +6280,7 @@ namespace Terraria
 				this.friendly = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 587)
+			else if (this.type == ProjectileID.PainterPaintball)
 			{
 				this.name = "Paintball";
 				this.width = 10;
@@ -6289,7 +6289,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.friendly = true;
 			}
-			else if (this.type == 588)
+			else if (this.type == ProjectileID.PartyGirlGrenade)
 			{
 				this.name = "Confetti Grenade";
 				this.width = 14;
@@ -6298,7 +6298,7 @@ namespace Terraria
 				this.friendly = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 590)
+			else if (this.type == ProjectileID.TruffleSpore)
 			{
 				this.name = "Truffle Spore";
 				this.width = 14;
@@ -6311,7 +6311,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 591)
+			else if (this.type == ProjectileID.MinecartMechLaser)
 			{
 				this.name = "Minecart Laser";
 				this.width = 8;
@@ -6323,7 +6323,7 @@ namespace Terraria
 				this.hide = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 592)
+			else if (this.type == ProjectileID.MartianWalkerLaser)
 			{
 				this.name = "Laser Ray";
 				this.width = 8;
@@ -6334,7 +6334,7 @@ namespace Terraria
 				this.extraUpdates = 3;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 593)
+			else if (this.type == ProjectileID.AncientDoomProjectile)
 			{
 				this.name = "Prophecy's End";
 				this.width = 16;
@@ -6345,7 +6345,7 @@ namespace Terraria
 				this.extraUpdates = 1;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 594)
+			else if (this.type == ProjectileID.BlowupSmoke)
 			{
 				this.name = "Blowup Smoke";
 				this.width = 40;
@@ -6354,7 +6354,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.extraUpdates = 2;
 			}
-			else if (this.type == 595)
+			else if (this.type == ProjectileID.Arkhalis)
 			{
 				this.name = "Arkhalis";
 				this.width = 68;
@@ -6366,7 +6366,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.ownerHitCheck = true;
 			}
-			else if (this.type == 596)
+			else if (this.type == ProjectileID.DesertDjinnCurse)
 			{
 				this.name = "Desert Spirit's Curse";
 				this.width = 8;
@@ -6378,7 +6378,7 @@ namespace Terraria
 				this.timeLeft = 180;
 				this.tileCollide = false;
 			}
-			else if (this.type == 597)
+			else if (this.type == ProjectileID.EmberBolt)
 			{
 				this.name = "Ember Bolt";
 				this.width = 10;
@@ -6389,7 +6389,7 @@ namespace Terraria
 				this.penetrate = 2;
 				this.friendly = true;
 			}
-			else if (this.type == 598)
+			else if (this.type == ProjectileID.BoneJavelin)
 			{
 				this.name = "Bone Javelin";
 				this.width = 16;
@@ -6401,7 +6401,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.hide = true;
 			}
-			else if (this.type == 599)
+			else if (this.type == ProjectileID.BoneDagger)
 			{
 				this.name = "Bone Dagger";
 				this.width = 22;
@@ -6411,7 +6411,7 @@ namespace Terraria
 				this.penetrate = 6;
 				this.thrown = true;
 			}
-			else if (this.type == 600)
+			else if (this.type == ProjectileID.PortalGun)
 			{
 				this.name = "Portal Gun";
 				this.width = 14;
@@ -6423,7 +6423,7 @@ namespace Terraria
 				this.hide = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 601)
+			else if (this.type == ProjectileID.PortalGunBolt)
 			{
 				this.name = "Portal Bolt";
 				this.width = 10;
@@ -6433,7 +6433,7 @@ namespace Terraria
 				this.friendly = true;
 				this.extraUpdates = 30;
 			}
-			else if (this.type == 602)
+			else if (this.type == ProjectileID.PortalGunGate)
 			{
 				this.name = "Portal Gate";
 				this.width = 10;
@@ -6444,7 +6444,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.netImportant = true;
 			}
-			else if (this.type == 605)
+			else if (this.type == ProjectileID.SpikedSlimeSpike)
 			{
 				this.name = "Slime Spike";
 				this.alpha = 255;
@@ -6454,7 +6454,7 @@ namespace Terraria
 				this.hostile = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 606)
+			else if (this.type == ProjectileID.ScutlixLaser)
 			{
 				this.name = "Laser";
 				this.width = 5;
@@ -6467,7 +6467,7 @@ namespace Terraria
 				this.timeLeft = 600;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 607)
+			else if (this.type == ProjectileID.SolarFlareRay)
 			{
 				this.name = "Solar Flare";
 				this.width = 10;
@@ -6480,7 +6480,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.penetrate = -1;
 			}
-			else if (this.type == 608)
+			else if (this.type == ProjectileID.SolarCounter)
 			{
 				this.name = "Solar Radiance";
 				this.width = 160;
@@ -6494,7 +6494,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.hide = true;
 			}
-			else if (this.type == 611)
+			else if (this.type == ProjectileID.SolarWhipSword)
 			{
 				this.name = "Solar Eruption";
 				this.width = 16;
@@ -6509,7 +6509,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.updatedNPCImmunity = true;
 			}
-			else if (this.type == 612)
+			else if (this.type == ProjectileID.SolarWhipSwordExplosion)
 			{
 				this.name = "Solar Eruption";
 				this.width = 8;
@@ -6523,7 +6523,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.updatedNPCImmunity = true;
 			}
-			else if (this.type == 613)
+			else if (this.type == ProjectileID.StardustCellMinion)
 			{
 				this.netImportant = true;
 				this.name = "Stardust Cell";
@@ -6537,7 +6537,7 @@ namespace Terraria
 				this.minionSlots = 1f;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 614)
+			else if (this.type == ProjectileID.StardustCellMinionShot)
 			{
 				this.name = "Stardust Cell";
 				this.width = 16;
@@ -6547,7 +6547,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.alpha = 255;
 			}
-			else if (this.type == 615)
+			else if (this.type == ProjectileID.VortexBeater)
 			{
 				this.name = "Vortex Beater";
 				this.width = 22;
@@ -6560,7 +6560,7 @@ namespace Terraria
 				this.ranged = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 616)
+			else if (this.type == ProjectileID.VortexBeaterRocket)
 			{
 				this.name = "Vortex Rocket";
 				this.width = 14;
@@ -6573,7 +6573,7 @@ namespace Terraria
 				this.extraUpdates = 2;
 				this.timeLeft = 90 * this.MaxUpdates;
 			}
-			else if (this.type == 617)
+			else if (this.type == ProjectileID.NebulaArcanum)
 			{
 				this.name = "Nebula Arcanum";
 				this.width = 32;
@@ -6587,7 +6587,7 @@ namespace Terraria
 				this.penetrate = 3;
 				this.updatedNPCImmunity = true;
 			}
-			else if (this.type == 618)
+			else if (this.type == ProjectileID.NebulaArcanumSubshot)
 			{
 				this.name = "Nebula Arcanum";
 				this.tileCollide = false;
@@ -6600,7 +6600,7 @@ namespace Terraria
 				this.friendly = true;
 				this.updatedNPCImmunity = true;
 			}
-			else if (this.type == 619)
+			else if (this.type == ProjectileID.NebulaArcanumExplosionShot)
 			{
 				this.name = "Nebula Arcanum";
 				this.width = 14;
@@ -6611,7 +6611,7 @@ namespace Terraria
 				this.penetrate = 1;
 				this.friendly = true;
 			}
-			else if (this.type == 620)
+			else if (this.type == ProjectileID.NebulaArcanumExplosionShotShard)
 			{
 				this.name = "Nebula Arcanum";
 				this.width = 8;
@@ -6622,7 +6622,7 @@ namespace Terraria
 				this.penetrate = 1;
 				this.friendly = true;
 			}
-			else if (this.type == 622)
+			else if (this.type == ProjectileID.BlowupSmokeMoonlord)
 			{
 				this.name = "Blowup Smoke";
 				this.width = 10;
@@ -6631,7 +6631,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.extraUpdates = 2;
 			}
-			else if (this.type == 623)
+			else if (this.type == ProjectileID.StardustGuardian)
 			{
 				this.netImportant = true;
 				this.name = "Stardust Guardian";
@@ -6647,7 +6647,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.netImportant = true;
 			}
-			else if (this.type == 624)
+			else if (this.type == ProjectileID.StardustGuardianExplosion)
 			{
 				this.name = "Starburst";
 				this.width = 8;
@@ -6660,13 +6660,13 @@ namespace Terraria
 				this.tileCollide = false;
 				this.penetrate = -1;
 			}
-			else if (this.type >= 625 && this.type <= 628)
+			else if (this.type >= ProjectileID.StardustDragon1 && this.type <= ProjectileID.StardustDragon4)
 			{
-				if (this.type == 625 || this.type == 628)
+				if (this.type == ProjectileID.StardustDragon1 || this.type == ProjectileID.StardustDragon4)
 				{
 					this.netImportant = true;
 				}
-				if (this.type == 626 || this.type == 627)
+				if (this.type == ProjectileID.StardustDragon2 || this.type == ProjectileID.StardustDragon3)
 				{
 					this.minionSlots = 0.5f;
 				}
@@ -6683,7 +6683,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.hide = true;
 			}
-			else if (this.type == 629)
+			else if (this.type == ProjectileID.TowerDamageBolt)
 			{
 				this.name = "Released Energy";
 				this.width = 8;
@@ -6697,7 +6697,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.extraUpdates = 2;
 			}
-			else if (this.type == 630)
+			else if (this.type == ProjectileID.Phantasm)
 			{
 				this.name = "Phantasm";
 				this.width = 22;
@@ -6710,7 +6710,7 @@ namespace Terraria
 				this.ranged = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 631)
+			else if (this.type == ProjectileID.PhantasmArrow)
 			{
 				this.arrow = true;
 				this.name = "Phantasm";
@@ -6724,7 +6724,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.extraUpdates = 1;
 			}
-			else if (this.type == 633)
+			else if (this.type == ProjectileID.LastPrism)
 			{
 				this.name = "Last Prism";
 				this.width = 14;
@@ -6736,7 +6736,7 @@ namespace Terraria
 				this.magic = true;
 				this.ignoreWater = true;
 			}
-			else if (this.type == 632)
+			else if (this.type == ProjectileID.LastPrismLaser)
 			{
 				this.name = "Last Prism";
 				this.width = 18;
@@ -6748,7 +6748,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.tileCollide = false;
 			}
-			else if (this.type == 634)
+			else if (this.type == ProjectileID.NebulaBlaze1)
 			{
 				this.name = "Nebula Blaze";
 				this.width = 40;
@@ -6760,7 +6760,7 @@ namespace Terraria
 				this.extraUpdates = 2;
 				this.magic = true;
 			}
-			else if (this.type == 635)
+			else if (this.type == ProjectileID.NebulaBlaze2)
 			{
 				this.name = "Nebula Blaze Ex";
 				this.width = 40;
@@ -6772,7 +6772,7 @@ namespace Terraria
 				this.extraUpdates = 3;
 				this.magic = true;
 			}
-			else if (this.type == 636)
+			else if (this.type == ProjectileID.Daybreak)
 			{
 				this.name = "Daybreak";
 				this.width = 16;
@@ -6785,7 +6785,7 @@ namespace Terraria
 				this.hide = true;
 				this.MaxUpdates = 2;
 			}
-			else if (this.type == 637)
+			else if (this.type == ProjectileID.BouncyDynamite)
 			{
 				this.name = "Bouncy Dynamite";
 				this.width = 10;
@@ -6794,7 +6794,7 @@ namespace Terraria
 				this.friendly = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 638)
+			else if (this.type == ProjectileID.MoonlordBullet)
 			{
 				this.name = "Luminite Bullet";
 				this.width = 4;
@@ -6809,7 +6809,7 @@ namespace Terraria
 				this.updatedNPCImmunity = true;
 				this.penetrate = -1;
 			}
-			else if (this.type == 639)
+			else if (this.type == ProjectileID.MoonlordArrow)
 			{
 				this.arrow = true;
 				this.name = "Luminite Arrow";
@@ -6825,7 +6825,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.penetrate = 4;
 			}
-			else if (this.type == 640)
+			else if (this.type == ProjectileID.MoonlordArrowTrail)
 			{
 				this.name = "Luminite Arrow";
 				this.width = 10;
@@ -6840,7 +6840,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.penetrate = 4;
 			}
-			else if (this.type == 642)
+			else if (this.type == ProjectileID.MoonlordTurretLaser)
 			{
 				this.name = "Lunar Portal Laser";
 				this.width = 18;
@@ -6852,7 +6852,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.updatedNPCImmunity = true;
 			}
-			else if (this.type == 641)
+			else if (this.type == ProjectileID.MoonlordTurret)
 			{
 				this.name = "Lunar Portal";
 				this.width = 32;
@@ -6864,7 +6864,7 @@ namespace Terraria
 				this.alpha = 255;
 				this.hide = true;
 			}
-			else if (this.type == 643)
+			else if (this.type == ProjectileID.RainbowCrystal)
 			{
 				this.name = "Rainbow Crystal";
 				this.width = 32;
@@ -6875,7 +6875,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.alpha = 255;
 			}
-			else if (this.type == 644)
+			else if (this.type == ProjectileID.RainbowCrystalExplosion)
 			{
 				this.name = "Rainbow Explosion";
 				this.width = 14;
@@ -6887,7 +6887,7 @@ namespace Terraria
 				this.ignoreWater = true;
 				this.alpha = 255;
 			}
-			else if (this.type == 645)
+			else if (this.type == ProjectileID.LunarFlare)
 			{
 				this.name = "Lunar Flare";
 				this.width = 10;
@@ -6900,7 +6900,7 @@ namespace Terraria
 				this.penetrate = -1;
 				this.updatedNPCImmunity = true;
 			}
-			else if (this.type >= 646 && this.type <= 649)
+			else if (this.type >= ProjectileID.LunarHookSolar && this.type <= ProjectileID.LunarHookStardust)
 			{
 				this.name = "Lunar Hook";
 				this.width = 18;
@@ -6911,7 +6911,7 @@ namespace Terraria
 				this.tileCollide = false;
 				this.timeLeft *= 10;
 			}
-			else if (this.type == 650)
+			else if (this.type == ProjectileID.SuspiciousTentacle)
 			{
 				this.name = "Suspicious Looking Tentacle";
 				this.width = 20;
@@ -7037,7 +7037,7 @@ namespace Terraria
 			}
 			if (Main.netMode != 0 && Owner == Main.myPlayer)
 			{
-				NetMessage.SendData(27, -1, -1, "", num, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", num, 0f, 0f, 0f, 0, 0, 0);
 			}
 			if (Owner == Main.myPlayer)
 			{
@@ -7139,313 +7139,313 @@ namespace Terraria
 				int meleeEnchant = (int)Main.player[this.owner].meleeEnchant;
 				if (meleeEnchant == 1)
 				{
-					Main.npc[i].AddBuff(70, 60 * Main.rand.Next(5, 10), false);
+					Main.npc[i].AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10), false);
 				}
 				if (meleeEnchant == 2)
 				{
-					Main.npc[i].AddBuff(39, 60 * Main.rand.Next(3, 7), false);
+					Main.npc[i].AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7), false);
 				}
 				if (meleeEnchant == 3)
 				{
-					Main.npc[i].AddBuff(24, 60 * Main.rand.Next(3, 7), false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), false);
 				}
 				if (meleeEnchant == 5)
 				{
-					Main.npc[i].AddBuff(69, 60 * Main.rand.Next(10, 20), false);
+					Main.npc[i].AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20), false);
 				}
 				if (meleeEnchant == 6)
 				{
-					Main.npc[i].AddBuff(31, 60 * Main.rand.Next(1, 4), false);
+					Main.npc[i].AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4), false);
 				}
 				if (meleeEnchant == 8)
 				{
-					Main.npc[i].AddBuff(20, 60 * Main.rand.Next(5, 10), false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10), false);
 				}
 				if (meleeEnchant == 4)
 				{
-					Main.npc[i].AddBuff(72, 120, false);
+					Main.npc[i].AddBuff(BuffID.Midas, 120, false);
 				}
 			}
-			if (this.type == 195)
+			if (this.type == ProjectileID.PygmySpear)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(70, 60 * Main.rand.Next(10, 21), false);
+					Main.npc[i].AddBuff(BuffID.Venom, 60 * Main.rand.Next(10, 21), false);
 				}
 				else
 				{
-					Main.npc[i].AddBuff(20, 60 * Main.rand.Next(10, 21), false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(10, 21), false);
 				}
 			}
-			if (this.type == 567 || this.type == 568)
+			if (this.type == ProjectileID.SporeTrap || this.type == ProjectileID.SporeTrap2)
 			{
-				Main.npc[i].AddBuff(20, 60 * Main.rand.Next(5, 11), false);
+				Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 11), false);
 			}
-			if (this.type == 598)
+			if (this.type == ProjectileID.BoneJavelin)
 			{
-				Main.npc[i].AddBuff(169, 900, false);
+				Main.npc[i].AddBuff(BuffID.BoneJavelin, 900, false);
 			}
-			if (this.type == 636)
+			if (this.type == ProjectileID.Daybreak)
 			{
-				Main.npc[i].AddBuff(189, 300, false);
+				Main.npc[i].AddBuff(BuffID.Daybreak, 300, false);
 			}
-			if (this.type == 611)
+			if (this.type == ProjectileID.SolarWhipSword)
 			{
-				Main.npc[i].AddBuff(189, 300, false);
+				Main.npc[i].AddBuff(BuffID.Daybreak, 300, false);
 			}
-			if (this.type == 612)
+			if (this.type == ProjectileID.SolarWhipSwordExplosion)
 			{
-				Main.npc[i].AddBuff(189, 300, false);
+				Main.npc[i].AddBuff(BuffID.Daybreak, 300, false);
 			}
-			if (this.type == 614)
+			if (this.type == ProjectileID.StardustCellMinionShot)
 			{
-				Main.npc[i].AddBuff(183, 900, false);
+				Main.npc[i].AddBuff(BuffID.StardustMinionBleed, 900, false);
 			}
-			if (this.type == 585)
+			if (this.type == ProjectileID.ClothiersCurse)
 			{
-				Main.npc[i].AddBuff(153, 60 * Main.rand.Next(5, 11), false);
+				Main.npc[i].AddBuff(BuffID.ShadowFlame, 60 * Main.rand.Next(5, 11), false);
 			}
-			if (this.type == 583)
+			if (this.type == ProjectileID.NurseSyringeHurt)
 			{
-				Main.npc[i].AddBuff(20, 60 * Main.rand.Next(3, 6), false);
+				Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(3, 6), false);
 			}
-			if (this.type == 524)
+			if (this.type == ProjectileID.IchorSplash)
 			{
-				Main.npc[i].AddBuff(69, 60 * Main.rand.Next(3, 8), false);
+				Main.npc[i].AddBuff(BuffID.Ichor, 60 * Main.rand.Next(3, 8), false);
 			}
-			if (this.type == 504 && Main.rand.Next(3) == 0)
+			if (this.type == ProjectileID.Spark && Main.rand.Next(3) == 0)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(24, Main.rand.Next(60, 180), false);
+					Main.npc[i].AddBuff(BuffID.OnFire, Main.rand.Next(60, 180), false);
 				}
 				else
 				{
-					Main.npc[i].AddBuff(24, Main.rand.Next(30, 120), false);
+					Main.npc[i].AddBuff(BuffID.OnFire, Main.rand.Next(30, 120), false);
 				}
 			}
-			if (this.type == 545 && Main.rand.Next(3) == 0)
+			if (this.type == ProjectileID.Cascade && Main.rand.Next(3) == 0)
 			{
-				Main.npc[i].AddBuff(24, Main.rand.Next(60, 240), false);
+				Main.npc[i].AddBuff(BuffID.OnFire, Main.rand.Next(60, 240), false);
 			}
-			if (this.type == 553)
+			if (this.type == ProjectileID.HelFire)
 			{
-				Main.npc[i].AddBuff(24, Main.rand.Next(180, 480), false);
+				Main.npc[i].AddBuff(BuffID.OnFire, Main.rand.Next(180, 480), false);
 			}
-			if (this.type == 552 && Main.rand.Next(3) != 0)
+			if (this.type == ProjectileID.Amarok && Main.rand.Next(3) != 0)
 			{
-				Main.npc[i].AddBuff(44, Main.rand.Next(120, 320), false);
+				Main.npc[i].AddBuff(BuffID.Frostburn, Main.rand.Next(120, 320), false);
 			}
-			if (this.type == 495)
+			if (this.type == ProjectileID.ShadowFlameArrow)
 			{
-				Main.npc[i].AddBuff(153, Main.rand.Next(120, 300), false);
+				Main.npc[i].AddBuff(BuffID.ShadowFlame, Main.rand.Next(120, 300), false);
 			}
-			if (this.type == 497)
+			if (this.type == ProjectileID.ShadowFlameKnife)
 			{
-				Main.npc[i].AddBuff(153, Main.rand.Next(60, 180), false);
+				Main.npc[i].AddBuff(BuffID.ShadowFlame, Main.rand.Next(60, 180), false);
 			}
-			if (this.type == 496)
+			if (this.type == ProjectileID.ShadowFlame)
 			{
-				Main.npc[i].AddBuff(153, Main.rand.Next(240, 480), false);
+				Main.npc[i].AddBuff(BuffID.ShadowFlame, Main.rand.Next(240, 480), false);
 			}
-			if (this.type == 476)
+			if (this.type == ProjectileID.SoulDrain)
 			{
-				Main.npc[i].AddBuff(151, 30, false);
+				Main.npc[i].AddBuff(BuffID.SoulDrain, 30, false);
 			}
-			if (this.type == 523)
+			if (this.type == ProjectileID.ToxicBubble)
 			{
-				Main.npc[i].AddBuff(20, 60 * Main.rand.Next(10, 30), false);
+				Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(10, 30), false);
 			}
-			if (this.type == 478 || this.type == 480)
+			if (this.type == ProjectileID.CursedDart || this.type == ProjectileID.CursedDartFlame)
 			{
-				Main.npc[i].AddBuff(39, 60 * Main.rand.Next(3, 7), false);
+				Main.npc[i].AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7), false);
 			}
-			if (this.type == 479)
+			if (this.type == ProjectileID.IchorDart)
 			{
-				Main.npc[i].AddBuff(69, 60 * Main.rand.Next(7, 15), false);
+				Main.npc[i].AddBuff(BuffID.Ichor, 60 * Main.rand.Next(7, 15), false);
 			}
-			if (this.type == 379)
+			if (this.type == ProjectileID.BabySpider)
 			{
-				Main.npc[i].AddBuff(70, 60 * Main.rand.Next(4, 7), false);
+				Main.npc[i].AddBuff(BuffID.Venom, 60 * Main.rand.Next(4, 7), false);
 			}
-			if (this.type >= 390 && this.type <= 392)
+			if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider)
 			{
-				Main.npc[i].AddBuff(70, 60 * Main.rand.Next(2, 5), false);
+				Main.npc[i].AddBuff(BuffID.Venom, 60 * Main.rand.Next(2, 5), false);
 			}
-			if (this.type == 374)
+			if (this.type == ProjectileID.HornetStinger)
 			{
-				Main.npc[i].AddBuff(20, 60 * Main.rand.Next(4, 7), false);
+				Main.npc[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(4, 7), false);
 			}
-			if (this.type == 376)
+			if (this.type == ProjectileID.ImpFireball)
 			{
-				Main.npc[i].AddBuff(24, 60 * Main.rand.Next(3, 7), false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), false);
 			}
-			if (this.type >= 399 && this.type <= 402)
+			if (this.type >= ProjectileID.MolotovCocktail && this.type <= ProjectileID.MolotovFire3)
 			{
-				Main.npc[i].AddBuff(24, 60 * Main.rand.Next(3, 7), false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), false);
 			}
-			if (this.type == 295 || this.type == 296)
+			if (this.type == ProjectileID.InfernoFriendlyBolt || this.type == ProjectileID.InfernoFriendlyBlast)
 			{
-				Main.npc[i].AddBuff(24, 60 * Main.rand.Next(8, 16), false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(8, 16), false);
 			}
 			if ((this.melee || this.ranged) && Main.player[this.owner].frostBurn && !this.noEnchantments)
 			{
-				Main.npc[i].AddBuff(44, 60 * Main.rand.Next(5, 15), false);
+				Main.npc[i].AddBuff(BuffID.Frostburn, 60 * Main.rand.Next(5, 15), false);
 			}
 			if (this.melee && Main.player[this.owner].magmaStone && !this.noEnchantments)
 			{
 				if (Main.rand.Next(7) == 0)
 				{
-					Main.npc[i].AddBuff(24, 360, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 360, false);
 				}
 				else if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(24, 120, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 120, false);
 				}
 				else
 				{
-					Main.npc[i].AddBuff(24, 60, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 60, false);
 				}
 			}
-			if (this.type == 287)
+			if (this.type == ProjectileID.GoldenBullet)
 			{
-				Main.npc[i].AddBuff(72, 120, false);
+				Main.npc[i].AddBuff(BuffID.Midas, 120, false);
 			}
-			if (this.type == 285)
+			if (this.type == ProjectileID.NanoBullet)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(31, 180, false);
+					Main.npc[i].AddBuff(BuffID.Confused, 180, false);
 				}
 				else
 				{
-					Main.npc[i].AddBuff(31, 60, false);
+					Main.npc[i].AddBuff(BuffID.Confused, 60, false);
 				}
 			}
-			if (this.type == 2 && Main.rand.Next(3) == 0)
+			if (this.type == ProjectileID.FireArrow && Main.rand.Next(3) == 0)
 			{
-				Main.npc[i].AddBuff(24, 180, false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 180, false);
 			}
-			if (this.type == 172)
+			if (this.type == ProjectileID.FrostburnArrow)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(44, 180, false);
+					Main.npc[i].AddBuff(BuffID.Frostburn, 180, false);
 				}
 			}
-			else if (this.type == 15)
+			else if (this.type == ProjectileID.BallofFire)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.npc[i].AddBuff(24, 300, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 300, false);
 				}
 			}
-			else if (this.type == 253)
+			else if (this.type == ProjectileID.BallofFrost)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.npc[i].AddBuff(44, 480, false);
+					Main.npc[i].AddBuff(BuffID.Frostburn, 480, false);
 				}
 			}
-			else if (this.type == 19)
+			else if (this.type == ProjectileID.Flamarang)
 			{
 				if (Main.rand.Next(5) == 0)
 				{
-					Main.npc[i].AddBuff(24, 180, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 180, false);
 				}
 			}
-			else if (this.type == 33)
+			else if (this.type == ProjectileID.ThornChakram)
 			{
 				if (Main.rand.Next(5) == 0)
 				{
-					Main.npc[i].AddBuff(20, 420, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 420, false);
 				}
 			}
-			else if (this.type == 34)
+			else if (this.type == ProjectileID.Flamelash)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.npc[i].AddBuff(24, Main.rand.Next(240, 480), false);
+					Main.npc[i].AddBuff(BuffID.OnFire, Main.rand.Next(240, 480), false);
 				}
 			}
-			else if (this.type == 35)
+			else if (this.type == ProjectileID.Sunfury)
 			{
 				if (Main.rand.Next(4) == 0)
 				{
-					Main.npc[i].AddBuff(24, 180, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 180, false);
 				}
 			}
-			else if (this.type == 54)
+			else if (this.type == ProjectileID.PoisonedKnife)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.npc[i].AddBuff(20, 600, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 600, false);
 				}
 			}
-			else if (this.type == 267)
+			else if (this.type == ProjectileID.PoisonDartBlowgun)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(20, 3600, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 3600, false);
 				}
 				else
 				{
-					Main.npc[i].AddBuff(20, 1800, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 1800, false);
 				}
 			}
-			else if (this.type == 63)
+			else if (this.type == ProjectileID.TheDaoofPow)
 			{
 				if (Main.rand.Next(5) != 0)
 				{
-					Main.npc[i].AddBuff(31, 60 * Main.rand.Next(2, 5), false);
+					Main.npc[i].AddBuff(BuffID.Confused, 60 * Main.rand.Next(2, 5), false);
 				}
 			}
-			else if (this.type == 85 || this.type == 188)
+			else if (this.type == ProjectileID.Flames || this.type == ProjectileID.FlamesTrap)
 			{
-				Main.npc[i].AddBuff(24, 1200, false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 1200, false);
 			}
-			else if (this.type == 95 || this.type == 103 || this.type == 104)
+			else if (this.type == ProjectileID.CursedFlameFriendly || this.type == ProjectileID.CursedArrow || this.type == ProjectileID.CursedBullet)
 			{
-				Main.npc[i].AddBuff(39, 420, false);
+				Main.npc[i].AddBuff(BuffID.CursedInferno, 420, false);
 			}
-			else if (this.type == 278 || this.type == 279 || this.type == 280)
+			else if (this.type == ProjectileID.IchorArrow || this.type == ProjectileID.IchorBullet || this.type == ProjectileID.GoldenShowerFriendly)
 			{
-				Main.npc[i].AddBuff(69, 600, false);
+				Main.npc[i].AddBuff(BuffID.Ichor, 600, false);
 			}
-			else if (this.type == 282 || this.type == 283)
+			else if (this.type == ProjectileID.VenomArrow || this.type == ProjectileID.VenomBullet)
 			{
-				Main.npc[i].AddBuff(70, 600, false);
+				Main.npc[i].AddBuff(BuffID.Venom, 600, false);
 			}
-			if (this.type == 163 || this.type == 310)
+			if (this.type == ProjectileID.Flare || this.type == ProjectileID.BlueFlare)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.npc[i].AddBuff(24, 600, false);
+					Main.npc[i].AddBuff(BuffID.OnFire, 600, false);
 					return;
 				}
-				Main.npc[i].AddBuff(24, 300, false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 300, false);
 				return;
 			}
 			else
 			{
-				if (this.type == 98)
+				if (this.type == ProjectileID.PoisonDart)
 				{
-					Main.npc[i].AddBuff(20, 600, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 600, false);
 					return;
 				}
-				if (this.type == 184)
+				if (this.type == ProjectileID.PoisonDartTrap)
 				{
-					Main.npc[i].AddBuff(20, 900, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 900, false);
 					return;
 				}
-				if (this.type == 265)
+				if (this.type == ProjectileID.PoisonFang)
 				{
-					Main.npc[i].AddBuff(20, 1800, false);
+					Main.npc[i].AddBuff(BuffID.Poisoned, 1800, false);
 					return;
 				}
-				if (this.type == 355)
+				if (this.type == ProjectileID.VenomFang)
 				{
-					Main.npc[i].AddBuff(70, 1800, false);
+					Main.npc[i].AddBuff(BuffID.Venom, 1800, false);
 				}
 				return;
 			}
@@ -7457,170 +7457,170 @@ namespace Terraria
 				int meleeEnchant = (int)Main.player[this.owner].meleeEnchant;
 				if (meleeEnchant == 1)
 				{
-					Main.player[i].AddBuff(70, 60 * Main.rand.Next(5, 10), true);
+					Main.player[i].AddBuff(BuffID.Venom, 60 * Main.rand.Next(5, 10), true);
 				}
 				if (meleeEnchant == 2)
 				{
-					Main.player[i].AddBuff(39, 60 * Main.rand.Next(3, 7), true);
+					Main.player[i].AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7), true);
 				}
 				if (meleeEnchant == 3)
 				{
-					Main.player[i].AddBuff(24, 60 * Main.rand.Next(3, 7), true);
+					Main.player[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), true);
 				}
 				if (meleeEnchant == 5)
 				{
-					Main.player[i].AddBuff(69, 60 * Main.rand.Next(10, 20), true);
+					Main.player[i].AddBuff(BuffID.Ichor, 60 * Main.rand.Next(10, 20), true);
 				}
 				if (meleeEnchant == 6)
 				{
-					Main.player[i].AddBuff(31, 60 * Main.rand.Next(1, 4), true);
+					Main.player[i].AddBuff(BuffID.Confused, 60 * Main.rand.Next(1, 4), true);
 				}
 				if (meleeEnchant == 8)
 				{
-					Main.player[i].AddBuff(20, 60 * Main.rand.Next(5, 10), true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 60 * Main.rand.Next(5, 10), true);
 				}
 			}
-			if (this.type == 295 || this.type == 296)
+			if (this.type == ProjectileID.InfernoFriendlyBolt || this.type == ProjectileID.InfernoFriendlyBlast)
 			{
-				Main.player[i].AddBuff(24, 60 * Main.rand.Next(8, 16), true);
+				Main.player[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(8, 16), true);
 			}
-			if (this.type == 478 || this.type == 480)
+			if (this.type == ProjectileID.CursedDart || this.type == ProjectileID.CursedDartFlame)
 			{
-				Main.player[i].AddBuff(39, 60 * Main.rand.Next(3, 7), true);
+				Main.player[i].AddBuff(BuffID.CursedInferno, 60 * Main.rand.Next(3, 7), true);
 			}
 			if ((this.melee || this.ranged) && Main.player[this.owner].frostBurn && !this.noEnchantments)
 			{
-				Main.player[i].AddBuff(44, 60 * Main.rand.Next(1, 8), false);
+				Main.player[i].AddBuff(BuffID.Frostburn, 60 * Main.rand.Next(1, 8), false);
 			}
 			if (this.melee && Main.player[this.owner].magmaStone && !this.noEnchantments)
 			{
 				if (Main.rand.Next(4) == 0)
 				{
-					Main.player[i].AddBuff(24, 360, true);
+					Main.player[i].AddBuff(BuffID.OnFire, 360, true);
 				}
 				else if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(24, 240, true);
+					Main.player[i].AddBuff(BuffID.OnFire, 240, true);
 				}
 				else
 				{
-					Main.player[i].AddBuff(24, 120, true);
+					Main.player[i].AddBuff(BuffID.OnFire, 120, true);
 				}
 			}
-			if (this.type == 2 && Main.rand.Next(3) == 0)
+			if (this.type == ProjectileID.FireArrow && Main.rand.Next(3) == 0)
 			{
-				Main.player[i].AddBuff(24, 180, false);
+				Main.player[i].AddBuff(BuffID.OnFire, 180, false);
 			}
-			if (this.type == 172)
+			if (this.type == ProjectileID.FrostburnArrow)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.player[i].AddBuff(44, 240, false);
+					Main.player[i].AddBuff(BuffID.Frostburn, 240, false);
 				}
 			}
-			else if (this.type == 15)
+			else if (this.type == ProjectileID.BallofFire)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(24, 300, false);
+					Main.player[i].AddBuff(BuffID.OnFire, 300, false);
 				}
 			}
-			else if (this.type == 253)
+			else if (this.type == ProjectileID.BallofFrost)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(44, 480, false);
+					Main.player[i].AddBuff(BuffID.Frostburn, 480, false);
 				}
 			}
-			else if (this.type == 19)
+			else if (this.type == ProjectileID.Flamarang)
 			{
 				if (Main.rand.Next(5) == 0)
 				{
-					Main.player[i].AddBuff(24, 180, false);
+					Main.player[i].AddBuff(BuffID.OnFire, 180, false);
 				}
 			}
-			else if (this.type == 33)
+			else if (this.type == ProjectileID.ThornChakram)
 			{
 				if (Main.rand.Next(5) == 0)
 				{
-					Main.player[i].AddBuff(20, 420, false);
+					Main.player[i].AddBuff(BuffID.Poisoned, 420, false);
 				}
 			}
-			else if (this.type == 34)
+			else if (this.type == ProjectileID.Flamelash)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(24, 240, false);
+					Main.player[i].AddBuff(BuffID.OnFire, 240, false);
 				}
 			}
-			else if (this.type == 35)
+			else if (this.type == ProjectileID.Sunfury)
 			{
 				if (Main.rand.Next(4) == 0)
 				{
-					Main.player[i].AddBuff(24, 180, false);
+					Main.player[i].AddBuff(BuffID.OnFire, 180, false);
 				}
 			}
-			else if (this.type == 54)
+			else if (this.type == ProjectileID.PoisonedKnife)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(20, 600, false);
+					Main.player[i].AddBuff(BuffID.Poisoned, 600, false);
 				}
 			}
-			else if (this.type == 267)
+			else if (this.type == ProjectileID.PoisonDartBlowgun)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.player[i].AddBuff(20, 3600, true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 3600, true);
 				}
 				else
 				{
-					Main.player[i].AddBuff(20, 1800, true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 1800, true);
 				}
 			}
-			else if (this.type == 63)
+			else if (this.type == ProjectileID.TheDaoofPow)
 			{
 				if (Main.rand.Next(3) != 0)
 				{
-					Main.player[i].AddBuff(31, 120, true);
+					Main.player[i].AddBuff(BuffID.Confused, 120, true);
 				}
 			}
-			else if (this.type == 85 || this.type == 188)
+			else if (this.type == ProjectileID.Flames || this.type == ProjectileID.FlamesTrap)
 			{
-				Main.player[i].AddBuff(24, 1200, false);
+				Main.player[i].AddBuff(BuffID.OnFire, 1200, false);
 			}
-			else if (this.type == 95 || this.type == 103 || this.type == 104)
+			else if (this.type == ProjectileID.CursedFlameFriendly || this.type == ProjectileID.CursedArrow || this.type == ProjectileID.CursedBullet)
 			{
-				Main.player[i].AddBuff(39, 420, true);
+				Main.player[i].AddBuff(BuffID.CursedInferno, 420, true);
 			}
-			else if (this.type == 278 || this.type == 279 || this.type == 280)
+			else if (this.type == ProjectileID.IchorArrow || this.type == ProjectileID.IchorBullet || this.type == ProjectileID.GoldenShowerFriendly)
 			{
-				Main.player[i].AddBuff(69, 900, true);
+				Main.player[i].AddBuff(BuffID.Ichor, 900, true);
 			}
-			else if (this.type == 282 || this.type == 283)
+			else if (this.type == ProjectileID.VenomArrow || this.type == ProjectileID.VenomBullet)
 			{
-				Main.player[i].AddBuff(70, 600, true);
+				Main.player[i].AddBuff(BuffID.Venom, 600, true);
 			}
-			if (this.type == 163 || this.type == 310)
+			if (this.type == ProjectileID.Flare || this.type == ProjectileID.BlueFlare)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.player[i].AddBuff(24, 600, true);
+					Main.player[i].AddBuff(BuffID.OnFire, 600, true);
 					return;
 				}
-				Main.player[i].AddBuff(24, 300, true);
+				Main.player[i].AddBuff(BuffID.OnFire, 300, true);
 				return;
 			}
 			else
 			{
-				if (this.type == 265)
+				if (this.type == ProjectileID.PoisonFang)
 				{
-					Main.player[i].AddBuff(20, 1200, true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 1200, true);
 					return;
 				}
-				if (this.type == 355)
+				if (this.type == ProjectileID.VenomFang)
 				{
-					Main.player[i].AddBuff(70, 1800, true);
+					Main.player[i].AddBuff(BuffID.Venom, 1800, true);
 				}
 				return;
 			}
@@ -7742,210 +7742,210 @@ namespace Terraria
 		}
 		public void StatusPlayer(int i)
 		{
-			if (this.type == 472)
+			if (this.type == ProjectileID.WebSpit)
 			{
-				Main.player[i].AddBuff(149, Main.rand.Next(30, 150), true);
+				Main.player[i].AddBuff(BuffID.Webbed, Main.rand.Next(30, 150), true);
 			}
-			if (this.type == 467)
+			if (this.type == ProjectileID.CultistBossFireBall)
 			{
-				Main.player[i].AddBuff(24, Main.rand.Next(30, 150), true);
+				Main.player[i].AddBuff(BuffID.OnFire, Main.rand.Next(30, 150), true);
 			}
-			if (this.type == 581)
-			{
-				if (Main.expertMode)
-				{
-					Main.player[i].AddBuff(164, Main.rand.Next(300, 540), true);
-				}
-				else if (Main.rand.Next(2) == 0)
-				{
-					Main.player[i].AddBuff(164, Main.rand.Next(360, 720), true);
-				}
-			}
-			if (this.type == 572 && Main.rand.Next(3) != 0)
-			{
-				Main.player[i].AddBuff(20, Main.rand.Next(120, 240), true);
-			}
-			if (this.type == 276)
+			if (this.type == ProjectileID.VortexAcid)
 			{
 				if (Main.expertMode)
 				{
-					Main.player[i].AddBuff(20, Main.rand.Next(120, 540), true);
+					Main.player[i].AddBuff(BuffID.VortexDebuff, Main.rand.Next(300, 540), true);
 				}
 				else if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(20, Main.rand.Next(180, 420), true);
+					Main.player[i].AddBuff(BuffID.VortexDebuff, Main.rand.Next(360, 720), true);
 				}
 			}
-			if (this.type == 436 && Main.rand.Next(5) >= 2)
+			if (this.type == ProjectileID.SalamanderSpit && Main.rand.Next(3) != 0)
 			{
-				Main.player[i].AddBuff(31, 300, true);
+				Main.player[i].AddBuff(BuffID.Poisoned, Main.rand.Next(120, 240), true);
 			}
-			if (this.type == 435 && Main.rand.Next(3) != 0)
+			if (this.type == ProjectileID.PoisonSeedPlantera)
 			{
-				Main.player[i].AddBuff(144, 300, true);
+				if (Main.expertMode)
+				{
+					Main.player[i].AddBuff(BuffID.Poisoned, Main.rand.Next(120, 540), true);
+				}
+				else if (Main.rand.Next(2) == 0)
+				{
+					Main.player[i].AddBuff(BuffID.Poisoned, Main.rand.Next(180, 420), true);
+				}
 			}
-			if (this.type == 437)
+			if (this.type == ProjectileID.BrainScramblerBolt && Main.rand.Next(5) >= 2)
 			{
-				Main.player[i].AddBuff(144, 60 * Main.rand.Next(4, 9), true);
+				Main.player[i].AddBuff(BuffID.Confused, 300, true);
 			}
-			if (this.type == 348)
+			if (this.type == ProjectileID.MartianTurretBolt && Main.rand.Next(3) != 0)
+			{
+				Main.player[i].AddBuff(BuffID.Electrified, 300, true);
+			}
+			if (this.type == ProjectileID.GigaZapperSpear)
+			{
+				Main.player[i].AddBuff(BuffID.Electrified, 60 * Main.rand.Next(4, 9), true);
+			}
+			if (this.type == ProjectileID.FrostWave)
 			{
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(46, 600, true);
+					Main.player[i].AddBuff(BuffID.Chilled, 600, true);
 				}
 				else
 				{
-					Main.player[i].AddBuff(46, 300, true);
+					Main.player[i].AddBuff(BuffID.Chilled, 300, true);
 				}
 				if (Main.rand.Next(3) != 0)
 				{
 					if (Main.rand.Next(16) == 0)
 					{
-						Main.player[i].AddBuff(47, 60, true);
+						Main.player[i].AddBuff(BuffID.Frozen, 60, true);
 					}
 					else if (Main.rand.Next(12) == 0)
 					{
-						Main.player[i].AddBuff(47, 40, true);
+						Main.player[i].AddBuff(BuffID.Frozen, 40, true);
 					}
 					else if (Main.rand.Next(8) == 0)
 					{
-						Main.player[i].AddBuff(47, 20, true);
+						Main.player[i].AddBuff(BuffID.Frozen, 20, true);
 					}
 				}
 			}
-			if (this.type == 349)
+			if (this.type == ProjectileID.FrostShard)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.player[i].AddBuff(46, 600, true);
+					Main.player[i].AddBuff(BuffID.Chilled, 600, true);
 				}
 				else if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(46, 300, true);
+					Main.player[i].AddBuff(BuffID.Chilled, 300, true);
 				}
 			}
-			if (this.type >= 399 && this.type <= 402)
+			if (this.type >= ProjectileID.MolotovCocktail && this.type <= ProjectileID.MolotovFire3)
 			{
-				Main.npc[i].AddBuff(24, 60 * Main.rand.Next(3, 7), false);
+				Main.npc[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(3, 7), false);
 			}
-			if (this.type == 55)
+			if (this.type == ProjectileID.Stinger)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.player[i].AddBuff(20, 600, true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 600, true);
 				}
 				else if (Main.expertMode)
 				{
-					Main.player[i].AddBuff(20, Main.rand.Next(60, 300), true);
+					Main.player[i].AddBuff(BuffID.Poisoned, Main.rand.Next(60, 300), true);
 				}
 			}
-			if (this.type == 44 && Main.rand.Next(3) == 0)
+			if (this.type == ProjectileID.DemonSickle && Main.rand.Next(3) == 0)
 			{
-				Main.player[i].AddBuff(22, 900, true);
+				Main.player[i].AddBuff(BuffID.Darkness, 900, true);
 			}
-			if (this.type == 293)
+			if (this.type == ProjectileID.LostSoulHostile)
 			{
-				Main.player[i].AddBuff(80, 60 * Main.rand.Next(2, 7), true);
+				Main.player[i].AddBuff(BuffID.Blackout, 60 * Main.rand.Next(2, 7), true);
 			}
-			if (this.type == 82 && Main.rand.Next(3) == 0)
+			if (this.type == ProjectileID.FlamingArrow && Main.rand.Next(3) == 0)
 			{
-				Main.player[i].AddBuff(24, 420, true);
+				Main.player[i].AddBuff(BuffID.OnFire, 420, true);
 			}
-			if (this.type == 285)
+			if (this.type == ProjectileID.NanoBullet)
 			{
 				if (Main.rand.Next(3) == 0)
 				{
-					Main.player[i].AddBuff(31, 180, true);
+					Main.player[i].AddBuff(BuffID.Confused, 180, true);
 				}
 				else
 				{
-					Main.player[i].AddBuff(31, 60, true);
+					Main.player[i].AddBuff(BuffID.Confused, 60, true);
 				}
 			}
-			if (this.type == 96 || this.type == 101)
+			if (this.type == ProjectileID.CursedFlameHostile || this.type == ProjectileID.EyeFire)
 			{
 				if (Main.rand.Next(6) == 0)
 				{
-					Main.player[i].AddBuff(39, 480, true);
+					Main.player[i].AddBuff(BuffID.CursedInferno, 480, true);
 				}
 				else if (Main.rand.Next(4) == 0)
 				{
-					Main.player[i].AddBuff(39, 300, true);
+					Main.player[i].AddBuff(BuffID.CursedInferno, 300, true);
 				}
 				else if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(39, 180, true);
+					Main.player[i].AddBuff(BuffID.CursedInferno, 180, true);
 				}
 			}
-			else if (this.type == 288)
+			else if (this.type == ProjectileID.GoldenShowerHostile)
 			{
-				Main.player[i].AddBuff(69, 900, true);
+				Main.player[i].AddBuff(BuffID.Ichor, 900, true);
 			}
-			else if (this.type == 253 && Main.rand.Next(2) == 0)
+			else if (this.type == ProjectileID.BallofFrost && Main.rand.Next(2) == 0)
 			{
-				Main.player[i].AddBuff(44, 600, true);
+				Main.player[i].AddBuff(BuffID.Frostburn, 600, true);
 			}
-			if (this.type == 291 || this.type == 292)
+			if (this.type == ProjectileID.InfernoHostileBolt || this.type == ProjectileID.InfernoHostileBlast)
 			{
-				Main.player[i].AddBuff(24, 60 * Main.rand.Next(8, 16), true);
+				Main.player[i].AddBuff(BuffID.OnFire, 60 * Main.rand.Next(8, 16), true);
 			}
-			if (this.type == 98)
+			if (this.type == ProjectileID.PoisonDart)
 			{
-				Main.player[i].AddBuff(20, 600, true);
+				Main.player[i].AddBuff(BuffID.Poisoned, 600, true);
 			}
-			if (this.type == 184)
+			if (this.type == ProjectileID.PoisonDartTrap)
 			{
-				Main.player[i].AddBuff(20, 900, true);
+				Main.player[i].AddBuff(BuffID.Poisoned, 900, true);
 			}
-			if (this.type == 290)
+			if (this.type == ProjectileID.ShadowBeamHostile)
 			{
-				Main.player[i].AddBuff(32, 60 * Main.rand.Next(5, 16), true);
+				Main.player[i].AddBuff(BuffID.Slow, 60 * Main.rand.Next(5, 16), true);
 			}
-			if (this.type == 174)
+			if (this.type == ProjectileID.IceSpike)
 			{
-				Main.player[i].AddBuff(46, 1200, true);
+				Main.player[i].AddBuff(BuffID.Chilled, 1200, true);
 				if (!Main.player[i].frozen && Main.rand.Next(20) == 0)
 				{
-					Main.player[i].AddBuff(47, 90, true);
+					Main.player[i].AddBuff(BuffID.Frozen, 90, true);
 				}
 				else if (!Main.player[i].frozen && Main.expertMode && Main.rand.Next(20) == 0)
 				{
-					Main.player[i].AddBuff(47, 60, true);
+					Main.player[i].AddBuff(BuffID.Frozen, 60, true);
 				}
 			}
-			if (this.type == 257)
+			if (this.type == ProjectileID.FrostBeam)
 			{
-				Main.player[i].AddBuff(46, 2700, true);
+				Main.player[i].AddBuff(BuffID.Chilled, 2700, true);
 				if (!Main.player[i].frozen && Main.rand.Next(5) == 0)
 				{
-					Main.player[i].AddBuff(47, 60, true);
+					Main.player[i].AddBuff(BuffID.Frozen, 60, true);
 				}
 			}
-			if (this.type == 177)
+			if (this.type == ProjectileID.IcewaterSpit)
 			{
-				Main.player[i].AddBuff(46, 1500, true);
+				Main.player[i].AddBuff(BuffID.Chilled, 1500, true);
 				if (!Main.player[i].frozen && Main.rand.Next(10) == 0)
 				{
-					Main.player[i].AddBuff(47, Main.rand.Next(30, 120), true);
+					Main.player[i].AddBuff(BuffID.Frozen, Main.rand.Next(30, 120), true);
 				}
 			}
-			if (this.type == 176)
+			if (this.type == ProjectileID.JungleSpike)
 			{
 				if (Main.rand.Next(4) == 0)
 				{
-					Main.player[i].AddBuff(20, 1200, true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 1200, true);
 					return;
 				}
 				if (Main.rand.Next(2) == 0)
 				{
-					Main.player[i].AddBuff(20, 300, true);
+					Main.player[i].AddBuff(BuffID.Poisoned, 300, true);
 				}
 			}
 		}
 		public void Damage()
 		{
-			if (this.type == 18 || this.type == 72 || this.type == 86 || this.type == 87 || this.aiStyle == 31 || this.aiStyle == 32 || this.type == 226 || this.type == 378 || this.type == 613 || this.type == 650 || (this.type == 434 && this.localAI[0] != 0f) || this.type == 439 || this.type == 444 || (this.type == 451 && ((int)(this.ai[0] - 1f) / this.penetrate == 0 || this.ai[1] < 5f) && this.ai[0] != 0f) || this.type == 500 || this.type == 460 || this.type == 633 || this.type == 600 || this.type == 601 || this.type == 602 || this.type == 535 || (this.type == 631 && this.localAI[1] == 0f))
+			if (this.type == ProjectileID.ShadowOrb || this.type == ProjectileID.BlueFairy || this.type == ProjectileID.PinkFairy || this.type == ProjectileID.GreenFairy || this.aiStyle == 31 || this.aiStyle == 32 || this.type == ProjectileID.CrystalLeaf || this.type == ProjectileID.SpiderEgg || this.type == ProjectileID.StardustCellMinion || this.type == ProjectileID.SuspiciousTentacle || (this.type == ProjectileID.ScutlixLaserFriendly && this.localAI[0] != 0f) || this.type == ProjectileID.LaserMachinegun || this.type == ProjectileID.Xenopopper || (this.type == ProjectileID.InfluxWaver && ((int)(this.ai[0] - 1f) / this.penetrate == 0 || this.ai[1] < 5f) && this.ai[0] != 0f) || this.type == ProjectileID.CrimsonHeart || this.type == ProjectileID.ChargedBlasterCannon || this.type == ProjectileID.LastPrism || this.type == ProjectileID.PortalGun || this.type == ProjectileID.PortalGunBolt || this.type == ProjectileID.PortalGunGate || this.type == ProjectileID.MedusaHead || (this.type == ProjectileID.PhantasmArrow && this.localAI[1] == 0f))
 			{
 				return;
 			}
@@ -7957,12 +7957,12 @@ namespace Terraria
 			{
 				return;
 			}
-			if (Main.projPet[this.type] && this.type != 266 && this.type != 407 && this.type != 317 && (this.type != 388 || this.ai[0] != 2f) && (this.type < 390 || this.type > 392) && (this.type < 393 || this.type > 395) && (this.type != 533 || this.ai[0] < 6f || this.ai[0] > 8f) && (this.type < 625 || this.type > 628))
+			if (Main.projPet[this.type] && this.type != ProjectileID.BabySlime && this.type != ProjectileID.Tempest && this.type != ProjectileID.Raven && (this.type != ProjectileID.Spazmamini || this.ai[0] != 2f) && (this.type < 390 || this.type > 392) && (this.type < 393 || this.type > 395) && (this.type != ProjectileID.DeadlySphere || this.ai[0] < 6f || this.ai[0] > 8f) && (this.type < 625 || this.type > 628))
 			{
 				return;
 			}
 			Rectangle myRect = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
-			if (this.type == 85 || this.type == 101)
+			if (this.type == ProjectileID.Flames || this.type == ProjectileID.EyeFire)
 			{
 				int num = 30;
 				myRect.X -= num;
@@ -7970,7 +7970,7 @@ namespace Terraria
 				myRect.Width += num * 2;
 				myRect.Height += num * 2;
 			}
-			if (this.type == 188)
+			if (this.type == ProjectileID.FlamesTrap)
 			{
 				int num2 = 20;
 				myRect.X -= num2;
@@ -7988,7 +7988,7 @@ namespace Terraria
 			}
 			if (this.friendly && this.owner == Main.myPlayer && !this.npcProj)
 			{
-				if ((this.aiStyle == 16 && this.type != 338 && this.type != 339 && this.type != 340 && this.type != 341 && (this.timeLeft <= 1 || this.type == 108 || this.type == 164)) || (this.type == 286 && this.localAI[1] == -1f))
+				if ((this.aiStyle == 16 && this.type != ProjectileID.RocketSnowmanI && this.type != ProjectileID.RocketSnowmanII && this.type != ProjectileID.RocketSnowmanIII && this.type != ProjectileID.RocketSnowmanIV && (this.timeLeft <= 1 || this.type == ProjectileID.Explosives || this.type == ProjectileID.Landmine)) || (this.type == ProjectileID.ExplosiveBullet && this.localAI[1] == -1f))
 				{
 					int myPlayer = Main.myPlayer;
 					if (Main.player[myPlayer].active && !Main.player[myPlayer].dead && !Main.player[myPlayer].immune && (!this.ownerHitCheck || Collision.CanHit(Main.player[this.owner].position, Main.player[this.owner].width, Main.player[this.owner].height, Main.player[myPlayer].position, Main.player[myPlayer].width, Main.player[myPlayer].height)))
@@ -8017,12 +8017,12 @@ namespace Terraria
 							}
 							if (Main.netMode != 0)
 							{
-								NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), myPlayer, (float)this.direction, (float)num4, 1f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.PlayerDamage, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), myPlayer, (float)this.direction, (float)num4, 1f, 0, 0, 0);
 							}
 						}
 					}
 				}
-				if (this.aiStyle != 45 && this.aiStyle != 92 && this.aiStyle != 105 && this.aiStyle != 106 && this.type != 463 && this.type != 69 && this.type != 70 && this.type != 621 && this.type != 10 && this.type != 11 && this.type != 379 && this.type != 407 && this.type != 476 && this.type != 623 && (this.type < 625 || this.type > 628))
+				if (this.aiStyle != 45 && this.aiStyle != 92 && this.aiStyle != 105 && this.aiStyle != 106 && this.type != ProjectileID.ViciousPowder && this.type != ProjectileID.HolyWater && this.type != ProjectileID.UnholyWater && this.type != ProjectileID.BloodWater && this.type != ProjectileID.PurificationPowder && this.type != ProjectileID.VilePowder && this.type != ProjectileID.BabySpider && this.type != ProjectileID.Tempest && this.type != ProjectileID.SoulDrain && this.type != ProjectileID.StardustGuardian && (this.type < 625 || this.type > 628))
 				{
 					int num5 = (int)(this.position.X / 16f);
 					int num6 = (int)((this.position.X + (float)this.width) / 16f) + 1;
@@ -8054,16 +8054,16 @@ namespace Terraria
 								WorldGen.KillTile(i, j, false, false, false);
 								if (Main.netMode != 0)
 								{
-									NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)i, (float)j, 0f, 0, 0, 0);
 								}
 							}
 						}
 					}
-					if (this.type == 461 || this.type == 632 || this.type == 642)
+					if (this.type == ProjectileID.ChargedBlasterLaser || this.type == ProjectileID.LastPrismLaser || this.type == ProjectileID.MoonlordTurretLaser)
 					{
 						Utils.PlotTileLine(base.Center, base.Center + this.velocity * this.localAI[1], (float)this.width * this.scale, new Utils.PerLinePoint(DelegateMethods.CutTiles));
 					}
-					else if (this.type == 611)
+					else if (this.type == ProjectileID.SolarWhipSword)
 					{
 						Utils.PlotTileLine(base.Center, base.Center + this.velocity, (float)this.width * this.scale, new Utils.PerLinePoint(DelegateMethods.CutTiles));
 					}
@@ -8077,14 +8077,14 @@ namespace Terraria
 					for (int k = 0; k < 200; k++)
 					{
 						bool flag = !this.updatedNPCImmunity || this.npcImmune[k] == 0;
-						if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && flag && ((this.friendly && (!Main.npc[k].friendly || this.type == 318 || (Main.npc[k].type == 22 && this.owner < 255 && Main.player[this.owner].killGuide) || (Main.npc[k].type == 54 && this.owner < 255 && Main.player[this.owner].killClothier))) || (this.hostile && Main.npc[k].friendly)) && (this.owner < 0 || Main.npc[k].immune[this.owner] == 0 || this.maxPenetrate == 1))
+						if (Main.npc[k].active && !Main.npc[k].dontTakeDamage && flag && ((this.friendly && (!Main.npc[k].friendly || this.type == ProjectileID.RottenEgg || (Main.npc[k].type == NPCID.Guide && this.owner < 255 && Main.player[this.owner].killGuide) || (Main.npc[k].type == NPCID.Clothier && this.owner < 255 && Main.player[this.owner].killClothier))) || (this.hostile && Main.npc[k].friendly)) && (this.owner < 0 || Main.npc[k].immune[this.owner] == 0 || this.maxPenetrate == 1))
 						{
 							bool flag2 = false;
-							if (this.type == 11 && (Main.npc[k].type == 47 || Main.npc[k].type == 57))
+							if (this.type == ProjectileID.VilePowder && (Main.npc[k].type == NPCID.CorruptBunny || Main.npc[k].type == NPCID.CorruptGoldfish))
 							{
 								flag2 = true;
 							}
-							else if (this.type == 31 && Main.npc[k].type == 69)
+							else if (this.type == ProjectileID.SandBallFalling && Main.npc[k].type == NPCID.Antlion)
 							{
 								flag2 = true;
 							}
@@ -8099,7 +8099,7 @@ namespace Terraria
 							if (!flag2 && (Main.npc[k].noTileCollide || !this.ownerHitCheck || Collision.CanHit(Main.player[this.owner].position, Main.player[this.owner].width, Main.player[this.owner].height, Main.npc[k].position, Main.npc[k].width, Main.npc[k].height)))
 							{
 								bool flag3;
-								if (Main.npc[k].type == 414)
+								if (Main.npc[k].type == NPCID.SolarCrawltipedeTail)
 								{
 									Rectangle rect = Main.npc[k].getRect();
 									int num9 = 8;
@@ -8115,7 +8115,7 @@ namespace Terraria
 								}
 								if (flag3)
 								{
-									if (this.type == 604)
+									if (this.type == ProjectileID.TerrarianBeam)
 									{
 										Main.player[this.owner].Counterweight(Main.npc[k].Center, this.damage, this.knockBack);
 									}
@@ -8132,12 +8132,12 @@ namespace Terraria
 									}
 									int num10 = Main.DamageVar((float)this.damage);
 									bool flag4 = !this.npcProj && !this.trap;
-									if (this.type == 604)
+									if (this.type == ProjectileID.TerrarianBeam)
 									{
 										this.friendly = false;
 										this.ai[1] = 1000f;
 									}
-									if ((this.type == 400 || this.type == 401 || this.type == 402) && Main.npc[k].type >= 13 && Main.npc[k].type <= 15)
+									if ((this.type == ProjectileID.MolotovFire || this.type == ProjectileID.MolotovFire2 || this.type == ProjectileID.MolotovFire3) && Main.npc[k].type >= NPCID.EaterofWorldsHead && Main.npc[k].type <= NPCID.EaterofWorldsTail)
 									{
 										num10 = (int)((double)num10 * 0.65);
 										if (this.penetrate > 1)
@@ -8145,12 +8145,12 @@ namespace Terraria
 											this.penetrate--;
 										}
 									}
-									if (this.type == 504)
+									if (this.type == ProjectileID.Spark)
 									{
 										float num11 = (60f - this.ai[0]) / 2f;
 										this.ai[0] += num11;
 									}
-									if (this.aiStyle == 3 && this.type != 301)
+									if (this.aiStyle == 3 && this.type != ProjectileID.PaladinsHammerFriendly)
 									{
 										if (this.ai[0] == 0f)
 										{
@@ -8160,18 +8160,18 @@ namespace Terraria
 										}
 										this.ai[0] = 1f;
 									}
-									else if (this.type == 582)
+									else if (this.type == ProjectileID.MechanicWrench)
 									{
 										if (this.ai[0] != 0f)
 										{
 											this.direction *= -1;
 										}
 									}
-									else if (this.type == 612)
+									else if (this.type == ProjectileID.SolarWhipSwordExplosion)
 									{
 										this.direction = Main.player[this.owner].direction;
 									}
-									else if (this.type == 624)
+									else if (this.type == ProjectileID.StardustGuardianExplosion)
 									{
 										float num12 = 1f;
 										if (Main.npc[k].knockBackResist > 0f)
@@ -8229,7 +8229,7 @@ namespace Terraria
 											this.direction = 1;
 										}
 									}
-									if (this.type == 509)
+									if (this.type == ProjectileID.ButchersChainsaw)
 									{
 										int num13 = Main.rand.Next(2, 6);
 										for (int l = 0; l < num13; l++)
@@ -8242,18 +8242,18 @@ namespace Terraria
 											Projectile.NewProjectile(base.Center.X, base.Center.Y, vector.X, vector.Y, 504, num14, this.knockBack * 0.2f, this.owner, 0f, 0f);
 										}
 									}
-									if (this.type == 598 || this.type == 636 || this.type == 614)
+									if (this.type == ProjectileID.BoneJavelin || this.type == ProjectileID.Daybreak || this.type == ProjectileID.StardustCellMinionShot)
 									{
 										this.ai[0] = 1f;
 										this.ai[1] = (float)k;
 										this.velocity = (Main.npc[k].Center - base.Center) * 0.75f;
 										this.netUpdate = true;
 									}
-									if (this.type >= 511 && this.type <= 513)
+									if (this.type >= ProjectileID.ToxicCloud && this.type <= ProjectileID.ToxicCloud3)
 									{
 										this.timeLeft = 0;
 									}
-									if (this.type == 524)
+									if (this.type == ProjectileID.IchorSplash)
 									{
 										this.netUpdate = true;
 										this.ai[0] += 50f;
@@ -8274,7 +8274,7 @@ namespace Terraria
 											this.direction = -1;
 										}
 									}
-									if (this.type == 41 && this.timeLeft > 1)
+									if (this.type == ProjectileID.HellfireArrow && this.timeLeft > 1)
 									{
 										this.timeLeft = 1;
 									}
@@ -8368,20 +8368,20 @@ namespace Terraria
 									}
 									if (Main.expertMode)
 									{
-										if ((this.type == 30 || this.type == 28 || this.type == 29 || this.type == 470 || this.type == 517 || this.type == 588 || this.type == 637) && Main.npc[k].type >= 13 && Main.npc[k].type <= 15)
+										if ((this.type == ProjectileID.Grenade || this.type == ProjectileID.Bomb || this.type == ProjectileID.Dynamite || this.type == ProjectileID.StickyDynamite || this.type == ProjectileID.BouncyGrenade || this.type == ProjectileID.PartyGirlGrenade || this.type == ProjectileID.BouncyDynamite) && Main.npc[k].type >= NPCID.EaterofWorldsHead && Main.npc[k].type <= NPCID.EaterofWorldsTail)
 										{
 											num10 /= 5;
 										}
-										if (this.type == 280 && ((Main.npc[k].type >= 134 && Main.npc[k].type <= 136) || Main.npc[k].type == 139))
+										if (this.type == ProjectileID.GoldenShowerFriendly && ((Main.npc[k].type >= NPCID.TheDestroyer && Main.npc[k].type <= NPCID.TheDestroyerTail) || Main.npc[k].type == NPCID.Probe))
 										{
 											num10 = (int)((double)num10 * 0.75);
 										}
 									}
-									if (Main.netMode != 2 && Main.npc[k].type == 439 && this.type >= 0 && this.type <= 651 && ProjectileID.Sets.Homing[this.type])
+									if (Main.netMode != 2 && Main.npc[k].type == NPCID.CultistBoss && this.type >= ProjectileID.None && this.type <= ProjectileID.Count && ProjectileID.Sets.Homing[this.type])
 									{
 										num10 = (int)((float)num10 * 0.75f);
 									}
-									if (this.type == 497 && this.penetrate != 1)
+									if (this.type == ProjectileID.ShadowFlameKnife && this.penetrate != 1)
 									{
 										this.ai[0] = 25f;
 										float num19 = this.velocity.Length();
@@ -8391,15 +8391,15 @@ namespace Terraria
 										this.velocity = -vector3 * 0.9f;
 										this.netUpdate = true;
 									}
-									if (this.type == 323 && (Main.npc[k].type == 158 || Main.npc[k].type == 159))
+									if (this.type == ProjectileID.Stake && (Main.npc[k].type == NPCID.VampireBat || Main.npc[k].type == NPCID.Vampire))
 									{
 										num10 *= 10;
 									}
-									if (this.type == 294)
+									if (this.type == ProjectileID.ShadowBeamFriendly)
 									{
 										this.damage = (int)((double)this.damage * 0.8);
 									}
-									if (this.type == 477 && this.penetrate > 1)
+									if (this.type == ProjectileID.CrystalDart && this.penetrate > 1)
 									{
 										int[] array = new int[10];
 										int num20 = 0;
@@ -8431,7 +8431,7 @@ namespace Terraria
 											this.netUpdate = true;
 										}
 									}
-									if (this.type == 261)
+									if (this.type == ProjectileID.BoulderStaffOfEarth)
 									{
 										float num25 = (float)Math.Sqrt((double)(this.velocity.X * this.velocity.X + this.velocity.Y * this.velocity.Y));
 										if (num25 < 1f)
@@ -8441,11 +8441,11 @@ namespace Terraria
 										num10 = (int)((float)num10 * num25 / 8f);
 									}
 									this.StatusNPC(k);
-									if (flag4 && this.type != 221 && this.type != 227 && this.type != 614)
+									if (flag4 && this.type != ProjectileID.FlowerPetal && this.type != ProjectileID.CrystalLeafShot && this.type != ProjectileID.StardustCellMinionShot)
 									{
 										Main.player[this.owner].OnHit(Main.npc[k].Center.X, Main.npc[k].Center.Y, Main.npc[k]);
 									}
-									if (this.type == 317)
+									if (this.type == ProjectileID.Raven)
 									{
 										this.ai[1] = -1f;
 										this.netUpdate = true;
@@ -8469,7 +8469,7 @@ namespace Terraria
 									}
 									if (flag4 && !Main.npc[k].immortal)
 									{
-										if (this.type == 304 && num26 > 0 && Main.npc[k].lifeMax > 5)
+										if (this.type == ProjectileID.VampireKnife && num26 > 0 && Main.npc[k].lifeMax > 5)
 										{
 											this.vampireHeal(num26, new Vector2(Main.npc[k].Center.X, Main.npc[k].Center.Y));
 										}
@@ -8490,7 +8490,7 @@ namespace Terraria
 											Main.item[num28].velocity.X = (float)Main.rand.Next(10, 31) * 0.2f * (float)this.direction;
 											if (Main.netMode == 1)
 											{
-												NetMessage.SendData(21, -1, -1, "", num28, 0f, 0f, 0f, 0, 0, 0);
+												NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", num28, 0f, 0f, 0f, 0, 0, 0);
 											}
 										}
 										if (num26 > 0 && Main.npc[k].lifeMax > 5 && this.friendly && !this.hostile && this.aiStyle != 59)
@@ -8519,7 +8519,7 @@ namespace Terraria
 													Main.item[num30].velocity.X = (float)Main.rand.Next(10, 31) * 0.2f * (float)this.direction;
 													if (Main.netMode == 1)
 													{
-														NetMessage.SendData(21, -1, -1, "", num30, 0f, 0f, 0f, 0, 0, 0);
+														NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", num30, 0f, 0f, 0f, 0, 0, 0);
 													}
 												}
 											}
@@ -8539,7 +8539,7 @@ namespace Terraria
 												}
 												Main.player[this.owner].beetleCountdown = 0;
 											}
-											if (this.arrow && this.type != 631 && Main.player[this.owner].phantasmTime > 0)
+											if (this.arrow && this.type != ProjectileID.PhantasmArrow && Main.player[this.owner].phantasmTime > 0)
 											{
 												Vector2 source = Main.player[this.owner].position + Main.player[this.owner].Size * Utils.RandomVector2(Main.rand, 0f, 1f);
 												Vector2 vector5 = Main.npc[k].DirectionFrom(source) * 6f;
@@ -8557,30 +8557,30 @@ namespace Terraria
 									{
 										if (flag5)
 										{
-											NetMessage.SendData(28, -1, -1, "", k, (float)num10, this.knockBack, (float)this.direction, 1, 0, 0);
+											NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", k, (float)num10, this.knockBack, (float)this.direction, 1, 0, 0);
 										}
 										else
 										{
-											NetMessage.SendData(28, -1, -1, "", k, (float)num10, this.knockBack, (float)this.direction, 0, 0, 0);
+											NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", k, (float)num10, this.knockBack, (float)this.direction, 0, 0, 0);
 										}
 									}
-									if (this.type >= 390 && this.type <= 392)
+									if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider)
 									{
 										this.localAI[1] = 20f;
 									}
-									if (this.type == 434)
+									if (this.type == ProjectileID.ScutlixLaserFriendly)
 									{
 										this.numUpdates = 0;
 									}
-									else if (this.type == 598 || this.type == 636 || this.type == 614)
+									else if (this.type == ProjectileID.BoneJavelin || this.type == ProjectileID.Daybreak || this.type == ProjectileID.StardustCellMinionShot)
 									{
 										this.damage = 0;
 										int num31 = 6;
-										if (this.type == 614)
+										if (this.type == ProjectileID.StardustCellMinionShot)
 										{
 											num31 = 10;
 										}
-										if (this.type == 636)
+										if (this.type == ProjectileID.Daybreak)
 										{
 											num31 = 8;
 										}
@@ -8610,15 +8610,15 @@ namespace Terraria
 											Main.projectile[array2[num33].X].Kill();
 										}
 									}
-									else if (this.type == 632)
+									else if (this.type == ProjectileID.LastPrismLaser)
 									{
 										Main.npc[k].immune[this.owner] = 5;
 									}
-									else if (this.type == 514)
+									else if (this.type == ProjectileID.NailFriendly)
 									{
 										Main.npc[k].immune[this.owner] = 1;
 									}
-									else if (this.type == 611)
+									else if (this.type == ProjectileID.SolarWhipSword)
 									{
 										if (this.localAI[1] <= 0f)
 										{
@@ -8626,59 +8626,59 @@ namespace Terraria
 										}
 										this.localAI[1] = 4f;
 									}
-									else if (this.type == 595)
+									else if (this.type == ProjectileID.Arkhalis)
 									{
 										Main.npc[k].immune[this.owner] = 5;
 									}
-									else if (this.type >= 625 && this.type <= 628)
+									else if (this.type >= ProjectileID.StardustDragon1 && this.type <= ProjectileID.StardustDragon4)
 									{
 										Main.npc[k].immune[this.owner] = 6;
 									}
-									else if (this.type == 286)
+									else if (this.type == ProjectileID.ExplosiveBullet)
 									{
 										Main.npc[k].immune[this.owner] = 5;
 									}
-									else if (this.type == 514)
+									else if (this.type == ProjectileID.NailFriendly)
 									{
 										Main.npc[k].immune[this.owner] = 3;
 									}
-									else if (this.type == 443)
+									else if (this.type == ProjectileID.Electrosphere)
 									{
 										Main.npc[k].immune[this.owner] = 8;
 									}
-									else if (this.type >= 424 && this.type <= 426)
+									else if (this.type >= ProjectileID.Meteor1 && this.type <= ProjectileID.Meteor3)
 									{
 										Main.npc[k].immune[this.owner] = 5;
 									}
-									else if (this.type == 634 || this.type == 635)
+									else if (this.type == ProjectileID.NebulaBlaze1 || this.type == ProjectileID.NebulaBlaze2)
 									{
 										Main.npc[k].immune[this.owner] = 5;
 									}
-									else if (this.type == 246)
+									else if (this.type == ProjectileID.Stynger)
 									{
 										Main.npc[k].immune[this.owner] = 7;
 									}
-									else if (this.type == 249)
+									else if (this.type == ProjectileID.StyngerShrapnel)
 									{
 										Main.npc[k].immune[this.owner] = 7;
 									}
-									else if (this.type == 190)
+									else if (this.type == ProjectileID.MechanicalPiranha)
 									{
 										Main.npc[k].immune[this.owner] = 8;
 									}
-									else if (this.type == 409)
+									else if (this.type == ProjectileID.Typhoon)
 									{
 										Main.npc[k].immune[this.owner] = 6;
 									}
-									else if (this.type == 407)
+									else if (this.type == ProjectileID.Tempest)
 									{
 										Main.npc[k].immune[this.owner] = 20;
 									}
-									else if (this.type == 311)
+									else if (this.type == ProjectileID.CandyCorn)
 									{
 										Main.npc[k].immune[this.owner] = 7;
 									}
-									else if (this.type == 582)
+									else if (this.type == ProjectileID.MechanicWrench)
 									{
 										Main.npc[k].immune[this.owner] = 7;
 										if (this.ai[0] != 1f)
@@ -8689,7 +8689,7 @@ namespace Terraria
 									}
 									else
 									{
-										if (this.type == 451)
+										if (this.type == ProjectileID.InfluxWaver)
 										{
 											if (this.ai[0] == 0f)
 											{
@@ -8708,9 +8708,9 @@ namespace Terraria
 											Main.npc[k].immune[this.owner] = 10;
 										}
 									}
-									if (this.penetrate > 0 && this.type != 317)
+									if (this.penetrate > 0 && this.type != ProjectileID.Raven)
 									{
-										if (this.type == 357)
+										if (this.type == ProjectileID.PulseBolt)
 										{
 											this.damage = (int)((double)this.damage * 0.9);
 										}
@@ -8736,39 +8736,39 @@ namespace Terraria
 										this.ai[0] = 1f;
 										this.netUpdate = true;
 									}
-									else if (this.type == 607)
+									else if (this.type == ProjectileID.SolarFlareRay)
 									{
 										this.ai[0] = 1f;
 										this.netUpdate = true;
 										this.friendly = false;
 									}
-									else if (this.type == 638 || this.type == 639 || this.type == 640)
+									else if (this.type == ProjectileID.MoonlordBullet || this.type == ProjectileID.MoonlordArrow || this.type == ProjectileID.MoonlordArrowTrail)
 									{
 										this.npcImmune[k] = -1;
 										Main.npc[k].immune[this.owner] = 0;
 										this.damage = (int)((double)this.damage * 0.96);
 									}
-									else if (this.type == 617)
+									else if (this.type == ProjectileID.NebulaArcanum)
 									{
 										this.npcImmune[k] = 8;
 										Main.npc[k].immune[this.owner] = 0;
 									}
-									else if (this.type == 618)
+									else if (this.type == ProjectileID.NebulaArcanumSubshot)
 									{
 										this.npcImmune[k] = 20;
 										Main.npc[k].immune[this.owner] = 0;
 									}
-									else if (this.type == 642)
+									else if (this.type == ProjectileID.MoonlordTurretLaser)
 									{
 										this.npcImmune[k] = 10;
 										Main.npc[k].immune[this.owner] = 0;
 									}
-									else if (this.type == 611 || this.type == 612)
+									else if (this.type == ProjectileID.SolarWhipSword || this.type == ProjectileID.SolarWhipSwordExplosion)
 									{
 										this.npcImmune[k] = 6;
 										Main.npc[k].immune[this.owner] = 4;
 									}
-									else if (this.type == 645)
+									else if (this.type == ProjectileID.LunarFlare)
 									{
 										this.npcImmune[k] = -1;
 										Main.npc[k].immune[this.owner] = 0;
@@ -8834,7 +8834,7 @@ namespace Terraria
 										this.direction = 1;
 									}
 								}
-								if (this.type == 41 && this.timeLeft > 1)
+								if (this.type == ProjectileID.HellfireArrow && this.timeLeft > 1)
 								{
 									this.timeLeft = 1;
 								}
@@ -8848,7 +8848,7 @@ namespace Terraria
 								{
 									this.StatusPvP(num35);
 								}
-								if (this.type != 221 && this.type != 227 && this.type != 614)
+								if (this.type != ProjectileID.FlowerPetal && this.type != ProjectileID.CrystalLeafShot && this.type != ProjectileID.StardustCellMinionShot)
 								{
 									Main.player[this.owner].OnHit(Main.player[num35].Center.X, Main.player[num35].Center.Y, Main.player[num35]);
 								}
@@ -8857,7 +8857,7 @@ namespace Terraria
 								{
 									this.ghostHeal(num37, new Vector2(Main.player[num35].Center.X, Main.player[num35].Center.Y));
 								}
-								if (this.type == 304 && num37 > 0)
+								if (this.type == ProjectileID.VampireKnife && num37 > 0)
 								{
 									this.vampireHeal(num37, new Vector2(Main.player[num35].Center.X, Main.player[num35].Center.Y));
 								}
@@ -8869,11 +8869,11 @@ namespace Terraria
 								{
 									if (flag6)
 									{
-										NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), num35, (float)this.direction, (float)num36, 1f, 1, 0, 0);
+										NetMessage.SendData((int)PacketTypes.PlayerDamage, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), num35, (float)this.direction, (float)num36, 1f, 1, 0, 0);
 									}
 									else
 									{
-										NetMessage.SendData(26, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), num35, (float)this.direction, (float)num36, 1f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.PlayerDamage, -1, -1, Lang.deathMsg(this.owner, -1, this.whoAmI, -1), num35, (float)this.direction, (float)num36, 1f, 0, 0, 0);
 									}
 								}
 								this.playerImmune[num35] = 40;
@@ -8906,11 +8906,11 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 10 && Main.netMode != 1)
+			if (this.type == ProjectileID.PurificationPowder && Main.netMode != 1)
 			{
 				for (int num38 = 0; num38 < 200; num38++)
 				{
-					if (Main.npc[num38].active && Main.npc[num38].type == 534)
+					if (Main.npc[num38].active && Main.npc[num38].type == NPCID.DemonTaxCollector)
 					{
 						Rectangle rectangle2 = new Rectangle((int)Main.npc[num38].position.X, (int)Main.npc[num38].position.Y, Main.npc[num38].width, Main.npc[num38].height);
 						if (myRect.Intersects(rectangle2))
@@ -8920,13 +8920,13 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 11 && Main.netMode != 1)
+			if (this.type == ProjectileID.VilePowder && Main.netMode != 1)
 			{
 				for (int num39 = 0; num39 < 200; num39++)
 				{
 					if (Main.npc[num39].active)
 					{
-						if (Main.npc[num39].type == 46 || Main.npc[num39].type == 303)
+						if (Main.npc[num39].type == NPCID.Bunny || Main.npc[num39].type == NPCID.BunnySlimed)
 						{
 							Rectangle rectangle3 = new Rectangle((int)Main.npc[num39].position.X, (int)Main.npc[num39].position.Y, Main.npc[num39].width, Main.npc[num39].height);
 							if (myRect.Intersects(rectangle3))
@@ -8934,7 +8934,7 @@ namespace Terraria
 								Main.npc[num39].Transform(47);
 							}
 						}
-						else if (Main.npc[num39].type == 55)
+						else if (Main.npc[num39].type == NPCID.Goldfish)
 						{
 							Rectangle rectangle4 = new Rectangle((int)Main.npc[num39].position.X, (int)Main.npc[num39].position.Y, Main.npc[num39].width, Main.npc[num39].height);
 							if (myRect.Intersects(rectangle4))
@@ -8942,7 +8942,7 @@ namespace Terraria
 								Main.npc[num39].Transform(57);
 							}
 						}
-						else if (Main.npc[num39].type == 148 || Main.npc[num39].type == 149)
+						else if (Main.npc[num39].type == NPCID.Penguin || Main.npc[num39].type == NPCID.PenguinBlack)
 						{
 							Rectangle rectangle5 = new Rectangle((int)Main.npc[num39].position.X, (int)Main.npc[num39].position.Y, Main.npc[num39].width, Main.npc[num39].height);
 							if (myRect.Intersects(rectangle5))
@@ -8953,13 +8953,13 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 463 && Main.netMode != 1)
+			if (this.type == ProjectileID.ViciousPowder && Main.netMode != 1)
 			{
 				for (int num40 = 0; num40 < 200; num40++)
 				{
 					if (Main.npc[num40].active)
 					{
-						if (Main.npc[num40].type == 46 || Main.npc[num40].type == 303)
+						if (Main.npc[num40].type == NPCID.Bunny || Main.npc[num40].type == NPCID.BunnySlimed)
 						{
 							Rectangle rectangle6 = new Rectangle((int)Main.npc[num40].position.X, (int)Main.npc[num40].position.Y, Main.npc[num40].width, Main.npc[num40].height);
 							if (myRect.Intersects(rectangle6))
@@ -8967,7 +8967,7 @@ namespace Terraria
 								Main.npc[num40].Transform(464);
 							}
 						}
-						else if (Main.npc[num40].type == 55)
+						else if (Main.npc[num40].type == NPCID.Goldfish)
 						{
 							Rectangle rectangle7 = new Rectangle((int)Main.npc[num40].position.X, (int)Main.npc[num40].position.Y, Main.npc[num40].width, Main.npc[num40].height);
 							if (myRect.Intersects(rectangle7))
@@ -8975,7 +8975,7 @@ namespace Terraria
 								Main.npc[num40].Transform(465);
 							}
 						}
-						else if (Main.npc[num40].type == 148 || Main.npc[num40].type == 149)
+						else if (Main.npc[num40].type == NPCID.Penguin || Main.npc[num40].type == NPCID.PenguinBlack)
 						{
 							Rectangle rectangle8 = new Rectangle((int)Main.npc[num40].position.X, (int)Main.npc[num40].position.Y, Main.npc[num40].width, Main.npc[num40].height);
 							if (myRect.Intersects(rectangle8))
@@ -9017,7 +9017,7 @@ namespace Terraria
 							num41 = (int)((float)num41 * Main.expertDamage);
 						}
 						int cooldownCounter = -1;
-						if (this.type == 455 || this.type == 452 || this.type == 454 || this.type == 462)
+						if (this.type == ProjectileID.PhantasmalDeathray || this.type == ProjectileID.PhantasmalEye || this.type == ProjectileID.PhantasmalSphere || this.type == ProjectileID.PhantasmalBolt)
 						{
 							cooldownCounter = 1;
 						}
@@ -9030,15 +9030,15 @@ namespace Terraria
 								AchievementsHelper.HandleSpecialEvent(Main.player[myPlayer2], 4);
 							}
 						}
-						if (this.type == 435)
+						if (this.type == ProjectileID.MartianTurretBolt)
 						{
 							this.penetrate--;
 						}
-						if (this.type == 436)
+						if (this.type == ProjectileID.BrainScramblerBolt)
 						{
 							this.penetrate--;
 						}
-						if (this.type == 437)
+						if (this.type == ProjectileID.GigaZapperSpear)
 						{
 							this.penetrate--;
 						}
@@ -9048,19 +9048,19 @@ namespace Terraria
 		}
 		public bool Colliding(Rectangle myRect, Rectangle targetRect)
 		{
-			if (this.type == 598 && targetRect.Width > 8 && targetRect.Height > 8)
+			if (this.type == ProjectileID.BoneJavelin && targetRect.Width > 8 && targetRect.Height > 8)
 			{
 				targetRect.Inflate(-targetRect.Width / 8, -targetRect.Height / 8);
 			}
-			else if (this.type == 614 && targetRect.Width > 8 && targetRect.Height > 8)
+			else if (this.type == ProjectileID.StardustCellMinionShot && targetRect.Width > 8 && targetRect.Height > 8)
 			{
 				targetRect.Inflate(-targetRect.Width / 8, -targetRect.Height / 8);
 			}
-			else if (this.type == 636 && targetRect.Width > 8 && targetRect.Height > 8)
+			else if (this.type == ProjectileID.Daybreak && targetRect.Width > 8 && targetRect.Height > 8)
 			{
 				targetRect.Inflate(-targetRect.Width / 8, -targetRect.Height / 8);
 			}
-			else if (this.type == 607)
+			else if (this.type == ProjectileID.SolarFlareRay)
 			{
 				myRect.X += (int)this.velocity.X;
 				myRect.Y += (int)this.velocity.Y;
@@ -9069,7 +9069,7 @@ namespace Terraria
 			{
 				return true;
 			}
-			if (this.type == 461)
+			if (this.type == ProjectileID.ChargedBlasterLaser)
 			{
 				float num = 0f;
 				if (Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(), base.Center, base.Center + this.velocity * this.localAI[1], 22f * this.scale, ref num))
@@ -9077,7 +9077,7 @@ namespace Terraria
 					return true;
 				}
 			}
-			else if (this.type == 642)
+			else if (this.type == ProjectileID.MoonlordTurretLaser)
 			{
 				float num2 = 0f;
 				if (Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(), base.Center, base.Center + this.velocity * this.localAI[1], 30f * this.scale, ref num2))
@@ -9085,7 +9085,7 @@ namespace Terraria
 					return true;
 				}
 			}
-			else if (this.type == 632)
+			else if (this.type == ProjectileID.LastPrismLaser)
 			{
 				float num3 = 0f;
 				if (Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(), base.Center, base.Center + this.velocity * this.localAI[1], 22f * this.scale, ref num3))
@@ -9093,7 +9093,7 @@ namespace Terraria
 					return true;
 				}
 			}
-			else if (this.type == 455)
+			else if (this.type == ProjectileID.PhantasmalDeathray)
 			{
 				float num4 = 0f;
 				if (Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(), base.Center, base.Center + this.velocity * this.localAI[1], 36f * this.scale, ref num4))
@@ -9101,7 +9101,7 @@ namespace Terraria
 					return true;
 				}
 			}
-			else if (this.type == 611)
+			else if (this.type == ProjectileID.SolarWhipSword)
 			{
 				float num5 = 0f;
 				if (Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(), base.Center, base.Center + this.velocity, 16f * this.scale, ref num5))
@@ -9109,7 +9109,7 @@ namespace Terraria
 					return true;
 				}
 			}
-			else if (this.type == 537)
+			else if (this.type == ProjectileID.StardustSoldierLaser)
 			{
 				float num6 = 0f;
 				if (Collision.CheckAABBvLineCollision(targetRect.TopLeft(), targetRect.Size(), base.Center, base.Center + this.velocity * this.localAI[1], 22f * this.scale, ref num6))
@@ -9117,7 +9117,7 @@ namespace Terraria
 					return true;
 				}
 			}
-			else if (this.type == 466 || this.type == 580)
+			else if (this.type == ProjectileID.CultistBossLightningOrbArc || this.type == ProjectileID.VortexLightning)
 			{
 				for (int i = 0; i < this.oldPos.Length; i++)
 				{
@@ -9129,7 +9129,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 464 && this.ai[1] != 1f)
+			else if (this.type == ProjectileID.CultistBossIceMist && this.ai[1] != 1f)
 			{
 				Vector2 vector = new Vector2(0f, -720f).RotatedBy((double)this.velocity.ToRotation(), default(Vector2));
 				float num7 = this.ai[0] % 45f / 45f;
@@ -9161,7 +9161,7 @@ namespace Terraria
 			while (this.numUpdates >= 0)
 			{
 				this.numUpdates--;
-				if (this.type == 640 && this.ai[1] > 0f)
+				if (this.type == ProjectileID.MoonlordArrowTrail && this.ai[1] > 0f)
 				{
 					this.ai[1] -= 1f;
 				}
@@ -9172,15 +9172,15 @@ namespace Terraria
 						this.active = false;
 						return;
 					}
-					if (this.minion && this.numUpdates == -1 && this.type != 625 && this.type != 628)
+					if (this.minion && this.numUpdates == -1 && this.type != ProjectileID.StardustDragon1 && this.type != ProjectileID.StardustDragon4)
 					{
 						this.minionPos = Main.player[this.owner].numMinions;
 						if (Main.player[this.owner].slotsMinions + this.minionSlots > (float)Main.player[this.owner].maxMinions && this.owner == Main.myPlayer)
 						{
-							if (this.type == 627 || this.type == 626)
+							if (this.type == ProjectileID.StardustDragon3 || this.type == ProjectileID.StardustDragon2)
 							{
 								Projectile projectile = Main.projectile[(int)this.ai[0]];
-								if (projectile.type != 625)
+								if (projectile.type != ProjectileID.StardustDragon1)
 								{
 									projectile.localAI[1] = this.localAI[1];
 								}
@@ -9252,7 +9252,7 @@ namespace Terraria
 					{
 						this.Kill();
 					}
-					if (this.type == 242 || this.type == 302 || this.type == 638)
+					if (this.type == ProjectileID.BulletHighVelocity || this.type == ProjectileID.SniperBullet || this.type == ProjectileID.MoonlordBullet)
 					{
 						this.wet = false;
 					}
@@ -9280,17 +9280,17 @@ namespace Terraria
 						}
 						if (this.wet && !this.lavaWet)
 						{
-							if (this.type == 85 || this.type == 15 || this.type == 34 || this.type == 188)
+							if (this.type == ProjectileID.Flames || this.type == ProjectileID.BallofFire || this.type == ProjectileID.Flamelash || this.type == ProjectileID.FlamesTrap)
 							{
 								this.Kill();
 							}
-							if (this.type == 2)
+							if (this.type == ProjectileID.FireArrow)
 							{
 								this.type = 1;
 								this.light = 0f;
 							}
 						}
-						if (this.type == 80)
+						if (this.type == ProjectileID.IceBlock)
 						{
 							flag2 = false;
 							this.wet = false;
@@ -9306,7 +9306,7 @@ namespace Terraria
 						else if (this.wet)
 						{
 							this.wet = false;
-							if (this.type == 155)
+							if (this.type == ProjectileID.BeachBall)
 							{
 								this.velocity.Y = this.velocity.Y * 0.5f;
 							}
@@ -9342,7 +9342,7 @@ namespace Terraria
 								flag4 = true;
 							}
 						}
-						if (this.type == 500)
+						if (this.type == ProjectileID.CrimsonHeart)
 						{
 							flag4 = false;
 							if (Main.player[this.owner].Bottom.Y > base.Bottom.Y + 4f)
@@ -9358,11 +9358,11 @@ namespace Terraria
 						{
 							flag4 = true;
 						}
-						if (this.type == 317)
+						if (this.type == ProjectileID.Raven)
 						{
 							flag4 = true;
 						}
-						if (this.type == 373)
+						if (this.type == ProjectileID.Hornet)
 						{
 							flag4 = true;
 						}
@@ -9370,55 +9370,55 @@ namespace Terraria
 						{
 							flag4 = false;
 						}
-						if (this.type == 9 || this.type == 12 || this.type == 15 || this.type == 13 || this.type == 31 || this.type == 39 || this.type == 40)
+						if (this.type == ProjectileID.Starfury || this.type == ProjectileID.FallingStar || this.type == ProjectileID.BallofFire || this.type == ProjectileID.Hook || this.type == ProjectileID.SandBallFalling || this.type == ProjectileID.MudBall || this.type == ProjectileID.AshBallFalling)
 						{
 							flag4 = false;
 						}
-						if (this.type == 24)
+						if (this.type == ProjectileID.SpikyBall)
 						{
 							flag4 = false;
 						}
-						if (this.aiStyle == 29 || this.type == 28 || this.aiStyle == 49)
+						if (this.aiStyle == 29 || this.type == ProjectileID.Bomb || this.aiStyle == 49)
 						{
 							num25 = this.width - 8;
 							num26 = this.height - 8;
 						}
-						else if (this.type == 250 || this.type == 267 || this.type == 297 || this.type == 323 || this.type == 3)
+						else if (this.type == ProjectileID.RainbowFront || this.type == ProjectileID.PoisonDartBlowgun || this.type == ProjectileID.LostSoulFriendly || this.type == ProjectileID.Stake || this.type == ProjectileID.Shuriken)
 						{
 							num25 = 6;
 							num26 = 6;
 						}
-						else if (this.type == 308)
+						else if (this.type == ProjectileID.FrostHydra)
 						{
 							num25 = 26;
 							num26 = this.height;
 						}
-						else if (this.type == 261 || this.type == 277)
+						else if (this.type == ProjectileID.BoulderStaffOfEarth || this.type == ProjectileID.ThornBall)
 						{
 							num25 = 26;
 							num26 = 26;
 						}
-						else if (this.type == 481 || this.type == 491 || this.type == 106 || this.type == 262 || this.type == 271 || this.type == 270 || this.type == 272 || this.type == 273 || this.type == 274 || this.type == 280 || this.type == 288 || this.type == 301 || this.type == 320 || this.type == 333 || this.type == 335 || this.type == 343 || this.type == 344 || this.type == 497 || this.type == 496 || this.type == 6 || this.type == 19 || this.type == 113 || this.type == 520 || this.type == 523 || this.type == 585 || this.type == 598 || this.type == 599 || this.type == 636)
+						else if (this.type == ProjectileID.ChainGuillotine || this.type == ProjectileID.FlyingKnife || this.type == ProjectileID.LightDisc || this.type == ProjectileID.GolemFist || this.type == ProjectileID.BoxingGlove || this.type == ProjectileID.Skull || this.type == ProjectileID.Bananarang || this.type == ProjectileID.ChainKnife || this.type == ProjectileID.DeathSickle || this.type == ProjectileID.GoldenShowerFriendly || this.type == ProjectileID.GoldenShowerHostile || this.type == ProjectileID.PaladinsHammerFriendly || this.type == ProjectileID.BloodyMachete || this.type == ProjectileID.FruitcakeChakram || this.type == ProjectileID.OrnamentFriendly || this.type == ProjectileID.NorthPoleSpear || this.type == ProjectileID.NorthPoleSnowflake || this.type == ProjectileID.ShadowFlameKnife || this.type == ProjectileID.ShadowFlame || this.type == ProjectileID.EnchantedBoomerang || this.type == ProjectileID.Flamarang || this.type == ProjectileID.IceBoomerang || this.type == ProjectileID.FrostDaggerfish || this.type == ProjectileID.ToxicBubble || this.type == ProjectileID.ClothiersCurse || this.type == ProjectileID.BoneJavelin || this.type == ProjectileID.BoneDagger || this.type == ProjectileID.Daybreak)
 						{
 							num25 = 10;
 							num26 = 10;
 						}
-						else if (this.type == 514)
+						else if (this.type == ProjectileID.NailFriendly)
 						{
 							num25 = 4;
 							num26 = 4;
 						}
-						else if (this.type == 248 || this.type == 247 || this.type == 507 || this.type == 508)
+						else if (this.type == ProjectileID.FlowerPowPetal || this.type == ProjectileID.FlowerPow || this.type == ProjectileID.JavelinFriendly || this.type == ProjectileID.JavelinHostile)
 						{
 							num25 = this.width - 12;
 							num26 = this.height - 12;
 						}
-						else if (this.aiStyle == 18 || this.type == 254)
+						else if (this.aiStyle == 18 || this.type == ProjectileID.MagnetSphereBall)
 						{
 							num25 = this.width - 36;
 							num26 = this.height - 36;
 						}
-						else if (this.type == 182 || this.type == 190 || this.type == 33 || this.type == 229 || this.type == 237 || this.type == 243)
+						else if (this.type == ProjectileID.PossessedHatchet || this.type == ProjectileID.MechanicalPiranha || this.type == ProjectileID.ThornChakram || this.type == ProjectileID.ChlorophyteOrb || this.type == ProjectileID.RainCloudMoving || this.type == ProjectileID.BloodCloudMoving)
 						{
 							num25 = this.width - 20;
 							num26 = this.height - 20;
@@ -9428,26 +9428,26 @@ namespace Terraria
 							num25 = this.width - 12;
 							num26 = this.height - 12;
 						}
-						else if (this.type == 533 && this.ai[0] >= 6f)
+						else if (this.type == ProjectileID.DeadlySphere && this.ai[0] >= 6f)
 						{
 							num25 = this.width + 6;
 							num26 = this.height + 6;
 						}
-						else if (this.type == 582 || this.type == 634 || this.type == 635)
+						else if (this.type == ProjectileID.MechanicWrench || this.type == ProjectileID.NebulaBlaze1 || this.type == ProjectileID.NebulaBlaze2)
 						{
 							num25 = 8;
 							num26 = 8;
 						}
-						else if (this.type == 617)
+						else if (this.type == ProjectileID.NebulaArcanum)
 						{
 							num25 = (int)(20f * this.scale);
 							num26 = (int)(20f * this.scale);
 						}
-						if (((this.type != 440 && this.type != 449 && this.type != 606) || this.ai[1] != 1f) && (this.type != 466 || this.localAI[1] != 1f) && (this.type != 580 || this.localAI[1] <= 0f) && (this.type != 640 || this.localAI[1] <= 0f))
+						if (((this.type != ProjectileID.LaserMachinegunLaser && this.type != ProjectileID.SaucerLaser && this.type != ProjectileID.ScutlixLaser) || this.ai[1] != 1f) && (this.type != ProjectileID.CultistBossLightningOrbArc || this.localAI[1] != 1f) && (this.type != ProjectileID.VortexLightning || this.localAI[1] <= 0f) && (this.type != ProjectileID.MoonlordArrowTrail || this.localAI[1] <= 0f))
 						{
 							if (this.aiStyle == 10)
 							{
-								if (this.type == 42 || this.type == 65 || this.type == 68 || this.type == 354 || (this.type == 31 && this.ai[0] == 2f))
+								if (this.type == ProjectileID.SandBallGun || this.type == ProjectileID.EbonsandBallGun || this.type == ProjectileID.PearlSandBallGun || this.type == ProjectileID.CrimsandBallGun || (this.type == ProjectileID.SandBallFalling && this.ai[0] == 2f))
 								{
 									this.velocity = Collision.TileCollision(this.position, this.velocity, this.width, this.height, flag4, flag4, 1);
 								}
@@ -9534,12 +9534,12 @@ namespace Terraria
 						}
 						if (flag3)
 						{
-							if (this.type == 434)
+							if (this.type == ProjectileID.ScutlixLaserFriendly)
 							{
 								this.position += this.velocity;
 								this.numUpdates = 0;
 							}
-							else if (this.type == 601)
+							else if (this.type == ProjectileID.PortalGunBolt)
 							{
 								if (this.owner == Main.myPlayer)
 								{
@@ -9548,20 +9548,20 @@ namespace Terraria
 								this.position += this.velocity;
 								this.Kill();
 							}
-							else if (this.type == 451)
+							else if (this.type == ProjectileID.InfluxWaver)
 							{
 								this.ai[0] = 1f;
 								this.ai[1] = 0f;
 								this.netUpdate = true;
 								this.velocity = velocity / 2f;
 							}
-							else if (this.type == 645)
+							else if (this.type == ProjectileID.LunarFlare)
 							{
 								this.ai[0] = 0f;
 								this.ai[1] = -1f;
 								this.netUpdate = true;
 							}
-							else if (this.type == 584)
+							else if (this.type == ProjectileID.NurseSyringeHeal)
 							{
 								bool flag5 = false;
 								if (this.velocity.X != velocity.X)
@@ -9585,7 +9585,7 @@ namespace Terraria
 									this.penetrate--;
 								}
 							}
-							else if (this.type == 532)
+							else if (this.type == ProjectileID.BoneGloveProj)
 							{
 								bool flag6 = false;
 								if (this.velocity.X != velocity.X)
@@ -9610,7 +9610,7 @@ namespace Terraria
 									Collision.HitTiles(this.position, velocity, this.width, this.height);
 								}
 							}
-							else if (this.type == 533)
+							else if (this.type == ProjectileID.DeadlySphere)
 							{
 								float num31 = 1f;
 								bool flag7 = false;
@@ -9642,7 +9642,7 @@ namespace Terraria
 									}
 								}
 							}
-							else if (this.type == 502)
+							else if (this.type == ProjectileID.Meowmere)
 							{
 								this.ai[0] += 1f;
 								if (this.ai[0] >= 5f)
@@ -9678,7 +9678,7 @@ namespace Terraria
 									base.Center = this.position;
 								}
 							}
-							else if (this.type == 444)
+							else if (this.type == ProjectileID.Xenopopper)
 							{
 								if (this.velocity.X != velocity.X)
 								{
@@ -9690,7 +9690,7 @@ namespace Terraria
 								}
 								this.ai[0] = this.velocity.ToRotation();
 							}
-							else if (this.type == 617)
+							else if (this.type == ProjectileID.NebulaArcanum)
 							{
 								if (this.velocity.X != velocity.X)
 								{
@@ -9701,7 +9701,7 @@ namespace Terraria
 									this.velocity.Y = -velocity.Y * 0.35f;
 								}
 							}
-							else if (this.type == 440 || this.type == 449 || this.type == 606)
+							else if (this.type == ProjectileID.LaserMachinegunLaser || this.type == ProjectileID.SaucerLaser || this.type == ProjectileID.ScutlixLaser)
 							{
 								if (this.ai[1] != 1f)
 								{
@@ -9710,7 +9710,7 @@ namespace Terraria
 									this.velocity = velocity;
 								}
 							}
-							else if (this.type == 466 || this.type == 580 || this.type == 640)
+							else if (this.type == ProjectileID.CultistBossLightningOrbArc || this.type == ProjectileID.VortexLightning || this.type == ProjectileID.MoonlordArrowTrail)
 							{
 								if (this.localAI[1] < 1f)
 								{
@@ -9730,11 +9730,11 @@ namespace Terraria
 									this.velocity.Y = velocity.Y * -0.6f;
 								}
 							}
-							else if (!Main.projPet[this.type] && this.type != 500 && this.type != 650)
+							else if (!Main.projPet[this.type] && this.type != ProjectileID.CrimsonHeart && this.type != ProjectileID.SuspiciousTentacle)
 							{
 								if (this.aiStyle == 99)
 								{
-									if (this.type >= 556 && this.type <= 561)
+									if (this.type >= ProjectileID.BlackCounterweight && this.type <= ProjectileID.YellowCounterweight)
 									{
 										bool flag8 = false;
 										if (this.velocity.X != this.oldVelocity.X)
@@ -9762,7 +9762,7 @@ namespace Terraria
 										}
 									}
 								}
-								else if (this.type == 604)
+								else if (this.type == ProjectileID.TerrarianBeam)
 								{
 									if (this.velocity.X != velocity.X)
 									{
@@ -9773,7 +9773,7 @@ namespace Terraria
 										this.velocity.Y = -velocity.Y;
 									}
 								}
-								else if (this.type == 379)
+								else if (this.type == ProjectileID.BabySpider)
 								{
 									if (this.velocity.X != velocity.X)
 									{
@@ -9784,7 +9784,7 @@ namespace Terraria
 										this.velocity.Y = velocity.Y * -0.6f;
 									}
 								}
-								else if (this.type == 491)
+								else if (this.type == ProjectileID.FlyingKnife)
 								{
 									if (this.ai[0] <= 0f)
 									{
@@ -9799,7 +9799,7 @@ namespace Terraria
 										this.velocity.Y = velocity.Y * -1f;
 									}
 								}
-								else if ((this.type >= 515 && this.type <= 517) || this.type == 637)
+								else if ((this.type >= ProjectileID.BouncyGlowstick && this.type <= ProjectileID.BouncyGrenade) || this.type == ProjectileID.BouncyDynamite)
 								{
 									if (this.velocity.X != velocity.X && Math.Abs(velocity.X) > 1f)
 									{
@@ -9810,7 +9810,7 @@ namespace Terraria
 										this.velocity.Y = velocity.Y * -0.9f;
 									}
 								}
-								else if (this.type == 409)
+								else if (this.type == ProjectileID.Typhoon)
 								{
 									if (this.velocity.X != velocity.X)
 									{
@@ -9821,7 +9821,7 @@ namespace Terraria
 										this.velocity.Y = velocity.Y * -1f;
 									}
 								}
-								else if (this.type == 254)
+								else if (this.type == ProjectileID.MagnetSphereBall)
 								{
 									this.tileCollide = false;
 									this.velocity = velocity;
@@ -9830,13 +9830,13 @@ namespace Terraria
 										this.timeLeft = 30;
 									}
 								}
-								else if (this.type == 225 && this.penetrate > 0)
+								else if (this.type == ProjectileID.ChlorophyteArrow && this.penetrate > 0)
 								{
 									this.velocity.X = -velocity.X;
 									this.velocity.Y = -velocity.Y;
 									this.penetrate--;
 								}
-								else if (this.type == 155)
+								else if (this.type == ProjectileID.BeachBall)
 								{
 									if (this.ai[1] > 10f)
 									{
@@ -9853,7 +9853,7 @@ namespace Terraria
 										}
 										else if (Main.netMode == 2)
 										{
-											NetMessage.SendData(25, -1, -1, text, 255, 255f, 240f, 20f, 0, 0, 0);
+											NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, text, 255, 255f, 240f, 20f, 0, 0, 0);
 										}
 									}
 									this.ai[1] = 0f;
@@ -9882,9 +9882,9 @@ namespace Terraria
 										this.localAI[0] = 1f;
 									}
 								}
-								else if (this.type != 308)
+								else if (this.type != ProjectileID.FrostHydra)
 								{
-									if (this.type == 477)
+									if (this.type == ProjectileID.CrystalDart)
 									{
 										if (this.velocity.Y != velocity.Y || this.velocity.X != velocity.X)
 										{
@@ -9935,7 +9935,7 @@ namespace Terraria
 											}
 										}
 									}
-									else if (this.type == 94 || this.type == 496)
+									else if (this.type == ProjectileID.CrystalStorm || this.type == ProjectileID.ShadowFlame)
 									{
 										if (this.velocity.X != velocity.X)
 										{
@@ -9960,7 +9960,7 @@ namespace Terraria
 											}
 										}
 									}
-									else if (this.type == 311)
+									else if (this.type == ProjectileID.CandyCorn)
 									{
 										if (this.velocity.X != velocity.X)
 										{
@@ -9977,7 +9977,7 @@ namespace Terraria
 											this.Kill();
 										}
 									}
-									else if (this.type == 312)
+									else if (this.type == ProjectileID.JackOLantern)
 									{
 										if (this.velocity.X != velocity.X)
 										{
@@ -9990,7 +9990,7 @@ namespace Terraria
 											this.ai[1] += 1f;
 										}
 									}
-									else if (this.type == 522 || this.type == 620)
+									else if (this.type == ProjectileID.CrystalPulse2 || this.type == ProjectileID.NebulaArcanumExplosionShotShard)
 									{
 										if (this.velocity.X != velocity.X)
 										{
@@ -10001,7 +10001,7 @@ namespace Terraria
 											this.velocity.Y = -velocity.Y;
 										}
 									}
-									else if (this.type == 524)
+									else if (this.type == ProjectileID.IchorSplash)
 									{
 										this.ai[0] += 100f;
 										if (this.velocity.X != velocity.X)
@@ -10027,7 +10027,7 @@ namespace Terraria
 											this.velocity *= 3f;
 										}
 									}
-									else if (this.type == 281)
+									else if (this.type == ProjectileID.ExplosiveBunny)
 									{
 										float num43 = Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y);
 										if (num43 < 2f || this.ai[1] == 2f)
@@ -10046,7 +10046,7 @@ namespace Terraria
 											}
 										}
 									}
-									else if (this.type == 290 || this.type == 294)
+									else if (this.type == ProjectileID.ShadowBeamHostile || this.type == ProjectileID.ShadowBeamFriendly)
 									{
 										if (this.velocity.X != velocity.X)
 										{
@@ -10059,9 +10059,9 @@ namespace Terraria
 											this.velocity.Y = -velocity.Y;
 										}
 									}
-									else if ((this.type == 181 || this.type == 189 || this.type == 357 || this.type == 566) && this.penetrate > 0)
+									else if ((this.type == ProjectileID.Bee || this.type == ProjectileID.Wasp || this.type == ProjectileID.PulseBolt || this.type == ProjectileID.GiantBee) && this.penetrate > 0)
 									{
-										if (this.type == 357)
+										if (this.type == ProjectileID.PulseBolt)
 										{
 											this.damage = (int)((double)this.damage * 0.9);
 										}
@@ -10075,7 +10075,7 @@ namespace Terraria
 											this.velocity.Y = -velocity.Y;
 										}
 									}
-									else if (this.type == 307 && this.ai[1] < 5f)
+									else if (this.type == ProjectileID.TinyEater && this.ai[1] < 5f)
 									{
 										this.ai[1] += 1f;
 										if (this.velocity.X != velocity.X)
@@ -10087,7 +10087,7 @@ namespace Terraria
 											this.velocity.Y = -velocity.Y;
 										}
 									}
-									else if (this.type == 99)
+									else if (this.type == ProjectileID.Boulder)
 									{
 										if (this.velocity.Y != velocity.Y && velocity.Y > 5f)
 										{
@@ -10099,7 +10099,7 @@ namespace Terraria
 											this.Kill();
 										}
 									}
-									else if (this.type == 36)
+									else if (this.type == ProjectileID.MeteorShot)
 									{
 										if (this.penetrate > 1)
 										{
@@ -10176,7 +10176,7 @@ namespace Terraria
 									else if (this.aiStyle == 39)
 									{
 										Collision.HitTiles(this.position, this.velocity, this.width, this.height);
-										if (this.type == 33 || this.type == 106)
+										if (this.type == ProjectileID.ThornChakram || this.type == ProjectileID.LightDisc)
 										{
 											if (this.velocity.X != velocity.X)
 											{
@@ -10201,7 +10201,7 @@ namespace Terraria
 									else if (this.aiStyle == 3 || this.aiStyle == 13 || this.aiStyle == 69 || this.aiStyle == 109)
 									{
 										Collision.HitTiles(this.position, this.velocity, this.width, this.height);
-										if (this.type == 33 || this.type == 106)
+										if (this.type == ProjectileID.ThornChakram || this.type == ProjectileID.LightDisc)
 										{
 											if (this.velocity.X != velocity.X)
 											{
@@ -10215,7 +10215,7 @@ namespace Terraria
 										else
 										{
 											this.ai[0] = 1f;
-											if ((this.aiStyle == 3 || this.aiStyle == 109) && this.type != 383)
+											if ((this.aiStyle == 3 || this.aiStyle == 109) && this.type != ProjectileID.Anchor)
 											{
 												this.velocity.X = -velocity.X;
 												this.velocity.Y = -velocity.Y;
@@ -10223,17 +10223,17 @@ namespace Terraria
 										}
 										this.netUpdate = true;
 									}
-									else if (this.aiStyle == 8 && this.type != 96)
+									else if (this.aiStyle == 8 && this.type != ProjectileID.CursedFlameHostile)
 									{
 										this.ai[0] += 1f;
-										if ((this.ai[0] >= 5f && this.type != 253) || (this.type == 253 && this.ai[0] >= 8f))
+										if ((this.ai[0] >= 5f && this.type != ProjectileID.BallofFrost) || (this.type == ProjectileID.BallofFrost && this.ai[0] >= 8f))
 										{
 											this.position += this.velocity;
 											this.Kill();
 										}
 										else
 										{
-											if (this.type == 15 && this.velocity.Y > 4f)
+											if (this.type == ProjectileID.BallofFire && this.velocity.Y > 4f)
 											{
 												if (this.velocity.Y != velocity.Y)
 												{
@@ -10263,22 +10263,22 @@ namespace Terraria
 									}
 									else if (this.aiStyle == 14)
 									{
-										if (this.type == 261 && ((this.velocity.X != velocity.X && (velocity.X < -3f || velocity.X > 3f)) || (this.velocity.Y != velocity.Y && (velocity.Y < -3f || velocity.Y > 3f))))
+										if (this.type == ProjectileID.BoulderStaffOfEarth && ((this.velocity.X != velocity.X && (velocity.X < -3f || velocity.X > 3f)) || (this.velocity.Y != velocity.Y && (velocity.Y < -3f || velocity.Y > 3f))))
 										{
 											Collision.HitTiles(this.position, this.velocity, this.width, this.height);
 										}
-										if (this.type >= 326 && this.type <= 328 && this.velocity.X != velocity.X)
+										if (this.type >= ProjectileID.GreekFire1 && this.type <= ProjectileID.GreekFire3 && this.velocity.X != velocity.X)
 										{
 											this.velocity.X = velocity.X * -0.1f;
 										}
-										if (this.type >= 400 && this.type <= 402)
+										if (this.type >= ProjectileID.MolotovFire && this.type <= ProjectileID.MolotovFire3)
 										{
 											if (this.velocity.X != velocity.X)
 											{
 												this.velocity.X = velocity.X * -0.1f;
 											}
 										}
-										else if (this.type == 50)
+										else if (this.type == ProjectileID.Glowstick)
 										{
 											if (this.velocity.X != velocity.X)
 											{
@@ -10289,7 +10289,7 @@ namespace Terraria
 												this.velocity.Y = velocity.Y * -0.2f;
 											}
 										}
-										else if (this.type == 185)
+										else if (this.type == ProjectileID.SpikyBallTrap)
 										{
 											if (this.velocity.X != velocity.X)
 											{
@@ -10300,7 +10300,7 @@ namespace Terraria
 												this.velocity.Y = velocity.Y * -0.9f;
 											}
 										}
-										else if (this.type == 277)
+										else if (this.type == ProjectileID.ThornBall)
 										{
 											if (this.velocity.X != velocity.X)
 											{
@@ -10311,9 +10311,9 @@ namespace Terraria
 												this.velocity.Y = velocity.Y * -0.9f;
 											}
 										}
-										else if (this.type != 480)
+										else if (this.type != ProjectileID.CursedDartFlame)
 										{
-											if (this.type == 450)
+											if (this.type == ProjectileID.SaucerScrap)
 											{
 												if (this.velocity.X != velocity.X)
 												{
@@ -10338,20 +10338,20 @@ namespace Terraria
 										if (this.velocity.X != velocity.X)
 										{
 											this.velocity.X = velocity.X * -0.4f;
-											if (this.type == 29)
+											if (this.type == ProjectileID.Dynamite)
 											{
 												this.velocity.X = this.velocity.X * 0.8f;
 											}
 										}
-										if (this.velocity.Y != velocity.Y && (double)velocity.Y > 0.7 && this.type != 102)
+										if (this.velocity.Y != velocity.Y && (double)velocity.Y > 0.7 && this.type != ProjectileID.BombSkeletronPrime)
 										{
 											this.velocity.Y = velocity.Y * -0.4f;
-											if (this.type == 29)
+											if (this.type == ProjectileID.Dynamite)
 											{
 												this.velocity.Y = this.velocity.Y * 0.8f;
 											}
 										}
-										if (this.type == 134 || this.type == 137 || this.type == 140 || this.type == 143 || this.type == 303 || (this.type >= 338 && this.type <= 341))
+										if (this.type == ProjectileID.RocketI || this.type == ProjectileID.RocketII || this.type == ProjectileID.RocketIII || this.type == ProjectileID.RocketIV || this.type == ProjectileID.RocketSkeleton || (this.type >= ProjectileID.RocketSnowmanI && this.type <= ProjectileID.RocketSnowmanIV))
 										{
 											this.velocity *= 0f;
 											this.alpha = 255;
@@ -10373,7 +10373,7 @@ namespace Terraria
 							}
 						}
 					}
-					if (this.aiStyle != 4 && this.aiStyle != 38 && this.aiStyle != 84 && (this.aiStyle != 7 || this.ai[0] != 2f) && ((this.type != 440 && this.type != 449 && this.type != 606) || this.ai[1] != 1f) && (this.aiStyle != 93 || this.ai[0] >= 0f) && this.type != 540)
+					if (this.aiStyle != 4 && this.aiStyle != 38 && this.aiStyle != 84 && (this.aiStyle != 7 || this.ai[0] != 2f) && ((this.type != ProjectileID.LaserMachinegunLaser && this.type != ProjectileID.SaucerLaser && this.type != ProjectileID.ScutlixLaser) || this.ai[1] != 1f) && (this.aiStyle != 93 || this.ai[0] >= 0f) && this.type != ProjectileID.StardustTowerMark)
 					{
 						if (this.wet)
 						{
@@ -10410,7 +10410,7 @@ namespace Terraria
 							this.extraUpdates = 1;
 						}
 						this.Damage();
-						if (this.type == 434 && this.localAI[0] == 0f && this.numUpdates == 0)
+						if (this.type == ProjectileID.ScutlixLaserFriendly && this.localAI[0] == 0f && this.numUpdates == 0)
 						{
 							this.extraUpdates = 1;
 							this.velocity = Vector2.Zero;
@@ -10418,7 +10418,7 @@ namespace Terraria
 							this.localAI[1] = 0.9999f;
 							this.netUpdate = true;
 						}
-						if (Main.netMode != 1 && this.type == 99)
+						if (Main.netMode != 1 && this.type == ProjectileID.Boulder)
 						{
 							Collision.SwitchTiles(this, this.position, this.width, this.height, this.oldPosition, 3);
 						}
@@ -10479,7 +10479,7 @@ namespace Terraria
 							if (this.netSpam < 60)
 							{
 								this.netSpam += 5;
-								NetMessage.SendData(27, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 								this.netUpdate2 = false;
 							}
 							else
@@ -10561,7 +10561,7 @@ namespace Terraria
 				if (num7 == -1)
 				{
 					Main.player[this.owner].displayedFishingInfo = "Warning!";
-					if ((num < 380 || num > Main.maxTilesX - 380) && num5 > 1000 && !NPC.AnyNPCs(370))
+					if ((num < 380 || num > Main.maxTilesX - 380) && num5 > 1000 && !NPC.AnyNPCs(NPCID.DukeFishron))
 					{
 						this.ai[1] = (float)(Main.rand.Next(-180, -60) - 100);
 						this.localAI[1] = (float)num7;
@@ -11228,16 +11228,16 @@ namespace Terraria
 			}
 			if (this.aiStyle == 2)
 			{
-				if (this.type == 304 && this.localAI[0] == 0f)
+				if (this.type == ProjectileID.VampireKnife && this.localAI[0] == 0f)
 				{
 					this.localAI[0] += 1f;
 					this.alpha = 0;
 				}
-				if (this.type == 335)
+				if (this.type == ProjectileID.OrnamentFriendly)
 				{
 					this.frame = (int)this.ai[1];
 				}
-				if (this.type == 510)
+				if (this.type == ProjectileID.ToxicFlask)
 				{
 					this.rotation += Math.Abs(this.velocity.X) * 0.04f * (float)this.direction;
 				}
@@ -11245,7 +11245,7 @@ namespace Terraria
 				{
 					this.rotation += (Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y)) * 0.03f * (float)this.direction;
 				}
-				if (this.type == 162)
+				if (this.type == ProjectileID.CannonballFriendly)
 				{
 					if (this.ai[1] == 0f)
 					{
@@ -11262,7 +11262,7 @@ namespace Terraria
 						this.alpha = 0;
 					}
 				}
-				else if (this.type == 281)
+				else if (this.type == ProjectileID.ExplosiveBunny)
 				{
 					if (this.ai[1] == 0f)
 					{
@@ -11279,7 +11279,7 @@ namespace Terraria
 						this.alpha = 0;
 					}
 				}
-				else if (this.type == 240)
+				else if (this.type == ProjectileID.CannonballHostile)
 				{
 					if (this.ai[1] == 0f)
 					{
@@ -11296,7 +11296,7 @@ namespace Terraria
 						this.alpha = 0;
 					}
 				}
-				if (this.type == 497)
+				if (this.type == ProjectileID.ShadowFlameKnife)
 				{
 					this.ai[0] += 1f;
 					if (this.ai[0] >= 30f)
@@ -11309,7 +11309,7 @@ namespace Terraria
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 					}
 				}
-				else if (this.type == 249)
+				else if (this.type == ProjectileID.StyngerShrapnel)
 				{
 					this.ai[0] += 1f;
 					if (this.ai[0] >= 0f)
@@ -11317,7 +11317,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.25f;
 					}
 				}
-				else if (this.type == 347)
+				else if (this.type == ProjectileID.OrnamentHostileShrapnel)
 				{
 					this.ai[0] += 1f;
 					if (this.ai[0] >= 5f)
@@ -11325,7 +11325,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.25f;
 					}
 				}
-				else if (this.type == 501)
+				else if (this.type == ProjectileID.DrManFlyFlask)
 				{
 					this.ai[0] += 1f;
 					if (this.ai[0] >= 18f)
@@ -11334,7 +11334,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.2f;
 					}
 				}
-				else if (this.type == 504)
+				else if (this.type == ProjectileID.Spark)
 				{
 					this.alpha = 255;
 					this.ai[0] += 1f;
@@ -11362,7 +11362,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.1f;
 					}
 				}
-				else if (this.type == 69 || this.type == 70 || this.type == 621)
+				else if (this.type == ProjectileID.HolyWater || this.type == ProjectileID.UnholyWater || this.type == ProjectileID.BloodWater)
 				{
 					this.ai[0] += 1f;
 					if (this.ai[0] >= 10f)
@@ -11371,7 +11371,7 @@ namespace Terraria
 						this.velocity.X = this.velocity.X * 0.99f;
 					}
 				}
-				else if (this.type == 166)
+				else if (this.type == ProjectileID.SnowBallFriendly)
 				{
 					this.ai[0] += 1f;
 					if (this.ai[0] >= 20f)
@@ -11380,7 +11380,7 @@ namespace Terraria
 						this.velocity.X = this.velocity.X * 0.98f;
 					}
 				}
-				else if (this.type == 300)
+				else if (this.type == ProjectileID.PaladinsHammerHostile)
 				{
 					if (this.ai[0] == 0f)
 					{
@@ -11392,7 +11392,7 @@ namespace Terraria
 						this.velocity.X = this.velocity.X * 0.99f;
 					}
 				}
-				else if (this.type == 306)
+				else if (this.type == ProjectileID.EatersBite)
 				{
 					this.alpha -= 50;
 					if (this.alpha < 0)
@@ -11401,7 +11401,7 @@ namespace Terraria
 					}
 					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 0.785f;
 				}
-				else if (this.type == 304)
+				else if (this.type == ProjectileID.VampireKnife)
 				{
 					this.ai[0] += 1f;
 					if (this.ai[0] >= 30f)
@@ -11419,7 +11419,7 @@ namespace Terraria
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 					}
 				}
-				else if (this.type == 370 || this.type == 371)
+				else if (this.type == ProjectileID.LovePotion || this.type == ProjectileID.FoulPotion)
 				{
 					this.ai[0] += 1f;
 					if (this.ai[0] >= 15f)
@@ -11436,7 +11436,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.4f;
 						this.velocity.X = this.velocity.X * 0.97f;
 					}
-					else if (this.type == 48 || this.type == 54 || this.type == 93 || this.type == 520 || this.type == 599)
+					else if (this.type == ProjectileID.ThrowingKnife || this.type == ProjectileID.PoisonedKnife || this.type == ProjectileID.MagicDagger || this.type == ProjectileID.FrostDaggerfish || this.type == ProjectileID.BoneDagger)
 					{
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 					}
@@ -11445,7 +11445,7 @@ namespace Terraria
 				{
 					this.velocity.Y = 16f;
 				}
-				if (this.type == 54 && Main.rand.Next(20) == 0)
+				if (this.type == ProjectileID.PoisonedKnife && Main.rand.Next(20) == 0)
 				{
 					return;
 				}
@@ -11455,18 +11455,18 @@ namespace Terraria
 				if (this.ai[0] == 0f)
 				{
 					this.ai[1] += 1f;
-					if (this.type == 106 && this.ai[1] >= 45f)
+					if (this.type == ProjectileID.LightDisc && this.ai[1] >= 45f)
 					{
 						this.ai[0] = 1f;
 						this.ai[1] = 0f;
 						this.netUpdate = true;
 					}
-					if (this.type == 320 || this.type == 383)
+					if (this.type == ProjectileID.BloodyMachete || this.type == ProjectileID.Anchor)
 					{
 						if (this.ai[1] >= 10f)
 						{
 							this.velocity.Y = this.velocity.Y + 0.5f;
-							if (this.type == 383 && this.velocity.Y < 0f)
+							if (this.type == ProjectileID.Anchor && this.velocity.Y < 0f)
 							{
 								this.velocity.Y = this.velocity.Y + 0.35f;
 							}
@@ -11475,13 +11475,13 @@ namespace Terraria
 							{
 								this.velocity.Y = 16f;
 							}
-							if (this.type == 383 && Vector2.Distance(base.Center, Main.player[this.owner].Center) > 800f)
+							if (this.type == ProjectileID.Anchor && Vector2.Distance(base.Center, Main.player[this.owner].Center) > 800f)
 							{
 								this.ai[0] = 1f;
 							}
 						}
 					}
-					else if (this.type == 182)
+					else if (this.type == ProjectileID.PossessedHatchet)
 					{
 						if (this.velocity.X > 0f)
 						{
@@ -11565,7 +11565,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (this.type == 301)
+					else if (this.type == ProjectileID.PaladinsHammerFriendly)
 					{
 						if (this.ai[1] >= 20f)
 						{
@@ -11586,47 +11586,47 @@ namespace Terraria
 					this.tileCollide = false;
 					float num41 = 9f;
 					float num42 = 0.4f;
-					if (this.type == 19)
+					if (this.type == ProjectileID.Flamarang)
 					{
 						num41 = 13f;
 						num42 = 0.6f;
 					}
-					else if (this.type == 33)
+					else if (this.type == ProjectileID.ThornChakram)
 					{
 						num41 = 15f;
 						num42 = 0.8f;
 					}
-					else if (this.type == 182)
+					else if (this.type == ProjectileID.PossessedHatchet)
 					{
 						num41 = 16f;
 						num42 = 1.2f;
 					}
-					else if (this.type == 106)
+					else if (this.type == ProjectileID.LightDisc)
 					{
 						num41 = 16f;
 						num42 = 1.2f;
 					}
-					else if (this.type == 272)
+					else if (this.type == ProjectileID.Bananarang)
 					{
 						num41 = 15f;
 						num42 = 1f;
 					}
-					else if (this.type == 333)
+					else if (this.type == ProjectileID.FruitcakeChakram)
 					{
 						num41 = 12f;
 						num42 = 0.6f;
 					}
-					else if (this.type == 301)
+					else if (this.type == ProjectileID.PaladinsHammerFriendly)
 					{
 						num41 = 15f;
 						num42 = 3f;
 					}
-					else if (this.type == 320)
+					else if (this.type == ProjectileID.BloodyMachete)
 					{
 						num41 = 15f;
 						num42 = 3f;
 					}
-					else if (this.type == 383)
+					else if (this.type == ProjectileID.Anchor)
 					{
 						num41 = 16f;
 						num42 = 4f;
@@ -11642,7 +11642,7 @@ namespace Terraria
 					num45 = num41 / num45;
 					num43 *= num45;
 					num44 *= num45;
-					if (this.type == 383)
+					if (this.type == ProjectileID.Anchor)
 					{
 						Vector2 vector3 = new Vector2(num43, num44) - this.velocity;
 						if (vector3 != Vector2.Zero)
@@ -11697,12 +11697,12 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 106)
+				if (this.type == ProjectileID.LightDisc)
 				{
 					this.rotation += 0.3f * (float)this.direction;
 					return;
 				}
-				if (this.type != 383)
+				if (this.type != ProjectileID.Anchor)
 				{
 					this.rotation += 0.4f * (float)this.direction;
 					return;
@@ -11724,17 +11724,17 @@ namespace Terraria
 				this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 				if (this.ai[0] == 0f)
 				{
-					if (this.type >= 150 && this.type <= 152 && this.ai[1] == 0f && this.alpha == 255 && Main.rand.Next(2) == 0)
+					if (this.type >= ProjectileID.NettleBurstRight && this.type <= ProjectileID.NettleBurstEnd && this.ai[1] == 0f && this.alpha == 255 && Main.rand.Next(2) == 0)
 					{
 						this.type++;
 						this.netUpdate = true;
 					}
 					this.alpha -= 50;
-					if (this.type >= 150 && this.type <= 152)
+					if (this.type >= ProjectileID.NettleBurstRight && this.type <= ProjectileID.NettleBurstEnd)
 					{
 						this.alpha -= 25;
 					}
-					else if (this.type == 493 || this.type == 494)
+					else if (this.type == ProjectileID.CrystalVileShardHead || this.type == ProjectileID.CrystalVileShardShaft)
 					{
 						this.alpha -= 50;
 					}
@@ -11747,7 +11747,7 @@ namespace Terraria
 							this.ai[1] += 1f;
 							this.position += this.velocity * 1f;
 						}
-						if (this.type == 7 && Main.myPlayer == this.owner)
+						if (this.type == ProjectileID.VilethornBase && Main.myPlayer == this.owner)
 						{
 							int num46 = this.type;
 							if (this.ai[1] >= 6f)
@@ -11757,10 +11757,10 @@ namespace Terraria
 							int num47 = Projectile.NewProjectile(this.position.X + this.velocity.X + (float)(this.width / 2), this.position.Y + this.velocity.Y + (float)(this.height / 2), this.velocity.X, this.velocity.Y, num46, this.damage, this.knockBack, this.owner, 0f, 0f);
 							Main.projectile[num47].damage = this.damage;
 							Main.projectile[num47].ai[1] = this.ai[1] + 1f;
-							NetMessage.SendData(27, -1, -1, "", num47, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", num47, 0f, 0f, 0f, 0, 0, 0);
 							return;
 						}
-						if (this.type == 494 && Main.myPlayer == this.owner)
+						if (this.type == ProjectileID.CrystalVileShardShaft && Main.myPlayer == this.owner)
 						{
 							int num48 = this.type;
 							if (this.ai[1] >= (float)(7 + Main.rand.Next(2)))
@@ -11775,39 +11775,39 @@ namespace Terraria
 								num50 = this.knockBack * 1.25f;
 							}
 							int number = Projectile.NewProjectile(this.position.X + this.velocity.X + (float)(this.width / 2), this.position.Y + this.velocity.Y + (float)(this.height / 2), this.velocity.X, this.velocity.Y, num48, num49, num50, this.owner, 0f, this.ai[1] + 1f);
-							NetMessage.SendData(27, -1, -1, "", number, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", number, 0f, 0f, 0f, 0, 0, 0);
 							return;
 						}
-						if ((this.type == 150 || this.type == 151) && Main.myPlayer == this.owner)
+						if ((this.type == ProjectileID.NettleBurstRight || this.type == ProjectileID.NettleBurstLeft) && Main.myPlayer == this.owner)
 						{
 							int num51 = this.type;
-							if (this.type == 150)
+							if (this.type == ProjectileID.NettleBurstRight)
 							{
 								num51 = 151;
 							}
-							else if (this.type == 151)
+							else if (this.type == ProjectileID.NettleBurstLeft)
 							{
 								num51 = 150;
 							}
-							if (this.ai[1] >= 10f && this.type == 151)
+							if (this.ai[1] >= 10f && this.type == ProjectileID.NettleBurstLeft)
 							{
 								num51 = 152;
 							}
 							int num52 = Projectile.NewProjectile(this.position.X + this.velocity.X + (float)(this.width / 2), this.position.Y + this.velocity.Y + (float)(this.height / 2), this.velocity.X, this.velocity.Y, num51, this.damage, this.knockBack, this.owner, 0f, 0f);
 							Main.projectile[num52].damage = this.damage;
 							Main.projectile[num52].ai[1] = this.ai[1] + 1f;
-							NetMessage.SendData(27, -1, -1, "", num52, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, -1, "", num52, 0f, 0f, 0f, 0, 0, 0);
 							return;
 						}
 					}
 				}
 				else
 				{
-					if (this.type >= 150 && this.type <= 152)
+					if (this.type >= ProjectileID.NettleBurstRight && this.type <= ProjectileID.NettleBurstEnd)
 					{
 						this.alpha += 3;
 					}
-					else if (this.type == 493 || this.type == 494)
+					else if (this.type == ProjectileID.CrystalVileShardHead || this.type == ProjectileID.CrystalVileShardShaft)
 					{
 						this.alpha += 7;
 					}
@@ -11824,14 +11824,14 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 5)
 			{
-				if (this.type == 503)
+				if (this.type == ProjectileID.StarWrath)
 				{
 					if (base.Center.Y > this.ai[1])
 					{
 						this.tileCollide = true;
 					}
 				}
-				else if (this.type == 92)
+				else if (this.type == ProjectileID.HallowStar)
 				{
 					if (this.position.Y > this.ai[1])
 					{
@@ -11850,7 +11850,7 @@ namespace Terraria
 						this.tileCollide = true;
 					}
 				}
-				if (this.type == 503)
+				if (this.type == ProjectileID.StarWrath)
 				{
 					this.alpha -= 15;
 					int num58 = 150;
@@ -11882,7 +11882,7 @@ namespace Terraria
 						this.localAI[0] = 1f;
 					}
 				}
-				if (this.type == 503)
+				if (this.type == ProjectileID.StarWrath)
 				{
 					this.rotation = this.velocity.ToRotation() - 1.57079637f;
 				}
@@ -11890,7 +11890,7 @@ namespace Terraria
 				{
 					this.rotation += (Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y)) * 0.01f * (float)this.direction;
 				}
-				if (this.ai[1] == 1f || this.type == 92)
+				if (this.ai[1] == 1f || this.type == ProjectileID.HallowStar)
 				{
 					this.light = 0.9f;
 					if (Main.rand.Next(20) == 0)
@@ -11911,7 +11911,7 @@ namespace Terraria
 				{
 					this.ai[1] = 1f;
 				}
-				if (this.type == 10 || this.type == 11 || this.type == 463)
+				if (this.type == ProjectileID.PurificationPowder || this.type == ProjectileID.VilePowder || this.type == ProjectileID.ViciousPowder)
 				{
 					int num63 = (int)(this.position.X / 16f) - 1;
 					int num64 = (int)((this.position.X + (float)this.width) / 16f) + 2;
@@ -11942,9 +11942,9 @@ namespace Terraria
 							vector7.Y = (float)(num68 * 16);
 							if (this.position.X + (float)this.width > vector7.X && this.position.X < vector7.X + 16f && this.position.Y + (float)this.height > vector7.Y && this.position.Y < vector7.Y + 16f && Main.myPlayer == this.owner && Main.tile[num67, num68].active())
 							{
-								if (this.type == 10)
+								if (this.type == ProjectileID.PurificationPowder)
 								{
-									if (Main.tile[num67, num68].type == 23 || Main.tile[num67, num68].type == 199)
+									if (Main.tile[num67, num68].type == TileID.CorruptGrass || Main.tile[num67, num68].type == TileID.FleshGrass)
 									{
 										Main.tile[num67, num68].type = 2;
 										WorldGen.SquareTileFrame(num67, num68, true);
@@ -11953,7 +11953,7 @@ namespace Terraria
 											NetMessage.SendTileSquare(-1, num67, num68, 1);
 										}
 									}
-									if (Main.tile[num67, num68].type == 25 || Main.tile[num67, num68].type == 203)
+									if (Main.tile[num67, num68].type == TileID.Ebonstone || Main.tile[num67, num68].type == TileID.Crimstone)
 									{
 										Main.tile[num67, num68].type = 1;
 										WorldGen.SquareTileFrame(num67, num68, true);
@@ -11962,7 +11962,7 @@ namespace Terraria
 											NetMessage.SendTileSquare(-1, num67, num68, 1);
 										}
 									}
-									if (Main.tile[num67, num68].type == 112 || Main.tile[num67, num68].type == 234)
+									if (Main.tile[num67, num68].type == TileID.Ebonsand || Main.tile[num67, num68].type == TileID.Crimsand)
 									{
 										Main.tile[num67, num68].type = 53;
 										WorldGen.SquareTileFrame(num67, num68, true);
@@ -11971,7 +11971,7 @@ namespace Terraria
 											NetMessage.SendTileSquare(-1, num67, num68, 1);
 										}
 									}
-									if (Main.tile[num67, num68].type == 163 || Main.tile[num67, num68].type == 200)
+									if (Main.tile[num67, num68].type == TileID.CorruptIce || Main.tile[num67, num68].type == TileID.FleshIce)
 									{
 										Main.tile[num67, num68].type = 161;
 										WorldGen.SquareTileFrame(num67, num68, true);
@@ -11980,7 +11980,7 @@ namespace Terraria
 											NetMessage.SendTileSquare(-1, num67, num68, 1);
 										}
 									}
-									if (Main.tile[num67, num68].type == 400 || Main.tile[num67, num68].type == 401)
+									if (Main.tile[num67, num68].type == TileID.CorruptSandstone || Main.tile[num67, num68].type == TileID.CrimsonSandstone)
 									{
 										Main.tile[num67, num68].type = 396;
 										WorldGen.SquareTileFrame(num67, num68, true);
@@ -11989,7 +11989,7 @@ namespace Terraria
 											NetMessage.SendTileSquare(-1, num67, num68, 1);
 										}
 									}
-									if (Main.tile[num67, num68].type == 398 || Main.tile[num67, num68].type == 399)
+									if (Main.tile[num67, num68].type == TileID.CorruptHardenedSand || Main.tile[num67, num68].type == TileID.CrimsonHardenedSand)
 									{
 										Main.tile[num67, num68].type = 397;
 										WorldGen.SquareTileFrame(num67, num68, true);
@@ -11999,9 +11999,9 @@ namespace Terraria
 										}
 									}
 								}
-								else if (this.type == 11 || this.type == 463)
+								else if (this.type == ProjectileID.VilePowder || this.type == ProjectileID.ViciousPowder)
 								{
-									if (Main.tile[num67, num68].type == 109)
+									if (Main.tile[num67, num68].type == TileID.HallowedGrass)
 									{
 										Main.tile[num67, num68].type = 2;
 										WorldGen.SquareTileFrame(num67, num68, true);
@@ -12010,7 +12010,7 @@ namespace Terraria
 											NetMessage.SendTileSquare(-1, num67, num68, 1);
 										}
 									}
-									if (Main.tile[num67, num68].type == 116)
+									if (Main.tile[num67, num68].type == TileID.Pearlsand)
 									{
 										Main.tile[num67, num68].type = 53;
 										WorldGen.SquareTileFrame(num67, num68, true);
@@ -12019,7 +12019,7 @@ namespace Terraria
 											NetMessage.SendTileSquare(-1, num67, num68, 1);
 										}
 									}
-									if (Main.tile[num67, num68].type == 117)
+									if (Main.tile[num67, num68].type == TileID.Pearlstone)
 									{
 										Main.tile[num67, num68].type = 1;
 										WorldGen.SquareTileFrame(num67, num68, true);
@@ -12028,7 +12028,7 @@ namespace Terraria
 											NetMessage.SendTileSquare(-1, num67, num68, 1);
 										}
 									}
-									if (Main.tile[num67, num68].type == 164)
+									if (Main.tile[num67, num68].type == TileID.HallowedIce)
 									{
 										Main.tile[num67, num68].type = 161;
 										WorldGen.SquareTileFrame(num67, num68, true);
@@ -12037,7 +12037,7 @@ namespace Terraria
 											NetMessage.SendTileSquare(-1, num67, num68, 1);
 										}
 									}
-									if (Main.tile[num67, num68].type == 403)
+									if (Main.tile[num67, num68].type == TileID.HallowSandstone)
 									{
 										Main.tile[num67, num68].type = 396;
 										WorldGen.SquareTileFrame(num67, num68, true);
@@ -12046,7 +12046,7 @@ namespace Terraria
 											NetMessage.SendTileSquare(-1, num67, num68, 1);
 										}
 									}
-									if (Main.tile[num67, num68].type == 402)
+									if (Main.tile[num67, num68].type == TileID.HallowHardenedSand)
 									{
 										Main.tile[num67, num68].type = 397;
 										WorldGen.SquareTileFrame(num67, num68, true);
@@ -12075,11 +12075,11 @@ namespace Terraria
 				float num70 = mountedCenter.Y - vector8.Y;
 				float num71 = (float)Math.Sqrt((double)(num69 * num69 + num70 * num70));
 				this.rotation = (float)Math.Atan2((double)num70, (double)num69) - 1.57f;
-				if (this.type == 256)
+				if (this.type == ProjectileID.SkeletronHand)
 				{
 					this.rotation = (float)Math.Atan2((double)num70, (double)num69) + 3.92500019f;
 				}
-				if (this.type == 446)
+				if (this.type == ProjectileID.AntiGravityHook)
 				{
 					this.localAI[0] += 1f;
 					if (this.localAI[0] >= 28f)
@@ -12088,7 +12088,7 @@ namespace Terraria
 					}
 					DelegateMethods.v3_1 = new Vector3(0f, 0.4f, 0.3f);
 				}
-				if (this.type >= 646 && this.type <= 649)
+				if (this.type >= ProjectileID.LunarHookSolar && this.type <= ProjectileID.LunarHookStardust)
 				{
 					Vector3 zero = Vector3.Zero;
 					switch (this.type)
@@ -12110,11 +12110,11 @@ namespace Terraria
 				}
 				if (this.ai[0] == 0f)
 				{
-					if ((num71 > 300f && this.type == 13) || (num71 > 400f && this.type == 32) || (num71 > 440f && this.type == 73) || (num71 > 440f && this.type == 74) || (num71 > 250f && this.type == 165) || (num71 > 350f && this.type == 256) || (num71 > 500f && this.type == 315) || (num71 > 550f && this.type == 322) || (num71 > 400f && this.type == 331) || (num71 > 550f && this.type == 332) || (num71 > 400f && this.type == 372) || (num71 > 300f && this.type == 396) || (num71 > 550f && this.type >= 646 && this.type <= 649) || (num71 > 480f && this.type >= 486 && this.type <= 489) || (num71 > 500f && this.type == 446))
+					if ((num71 > 300f && this.type == ProjectileID.Hook) || (num71 > 400f && this.type == ProjectileID.IvyWhip) || (num71 > 440f && this.type == ProjectileID.DualHookBlue) || (num71 > 440f && this.type == ProjectileID.DualHookRed) || (num71 > 250f && this.type == ProjectileID.Web) || (num71 > 350f && this.type == ProjectileID.SkeletronHand) || (num71 > 500f && this.type == ProjectileID.BatHook) || (num71 > 550f && this.type == ProjectileID.WoodHook) || (num71 > 400f && this.type == ProjectileID.CandyCaneHook) || (num71 > 550f && this.type == ProjectileID.ChristmasHook) || (num71 > 400f && this.type == ProjectileID.FishHook) || (num71 > 300f && this.type == ProjectileID.SlimeHook) || (num71 > 550f && this.type >= ProjectileID.LunarHookSolar && this.type <= ProjectileID.LunarHookStardust) || (num71 > 480f && this.type >= ProjectileID.TendonHook && this.type <= ProjectileID.WormHook) || (num71 > 500f && this.type == ProjectileID.AntiGravityHook))
 					{
 						this.ai[0] = 1f;
 					}
-					else if (this.type >= 230 && this.type <= 235)
+					else if (this.type >= ProjectileID.GemHookAmethyst && this.type <= ProjectileID.GemHookDiamond)
 					{
 						int num72 = 300 + (this.type - 230) * 30;
 						if (num71 > (float)num72)
@@ -12158,7 +12158,7 @@ namespace Terraria
 							Vector2 vector11;
 							vector11.X = (float)(num77 * 16);
 							vector11.Y = (float)(num78 * 16);
-							if (vector9.X + 10f > vector11.X && vector9.X < vector11.X + 16f && vector9.Y + 10f > vector11.Y && vector9.Y < vector11.Y + 16f && Main.tile[num77, num78].nactive() && (Main.tileSolid[(int)Main.tile[num77, num78].type] || Main.tile[num77, num78].type == 314) && (this.type != 403 || Main.tile[num77, num78].type == 314))
+							if (vector9.X + 10f > vector11.X && vector9.X < vector11.X + 16f && vector9.Y + 10f > vector11.Y && vector9.Y < vector11.Y + 16f && Main.tile[num77, num78].nactive() && (Main.tileSolid[(int)Main.tile[num77, num78].type] || Main.tile[num77, num78].type == TileID.MinecartTrack) && (this.type != ProjectileID.TrackHook || Main.tile[num77, num78].type == TileID.MinecartTrack))
 							{
 								if (Main.player[this.owner].grapCount < 10)
 								{
@@ -12170,7 +12170,7 @@ namespace Terraria
 									int num79 = 0;
 									int num80 = -1;
 									int num81 = 100000;
-									if (this.type == 73 || this.type == 74)
+									if (this.type == ProjectileID.DualHookBlue || this.type == ProjectileID.DualHookRed)
 									{
 										for (int num82 = 0; num82 < 1000; num82++)
 										{
@@ -12183,19 +12183,19 @@ namespace Terraria
 									else
 									{
 										int num83 = 3;
-										if (this.type == 165)
+										if (this.type == ProjectileID.Web)
 										{
 											num83 = 8;
 										}
-										if (this.type == 256)
+										if (this.type == ProjectileID.SkeletronHand)
 										{
 											num83 = 2;
 										}
-										if (this.type == 372)
+										if (this.type == ProjectileID.FishHook)
 										{
 											num83 = 2;
 										}
-										if (this.type >= 646 && this.type <= 649)
+										if (this.type >= ProjectileID.LunarHookSolar && this.type <= ProjectileID.LunarHookStardust)
 										{
 											num83 = 4;
 										}
@@ -12227,7 +12227,7 @@ namespace Terraria
 								this.netUpdate = true;
 								if (Main.myPlayer == this.owner)
 								{
-									NetMessage.SendData(13, -1, -1, "", this.owner, 0f, 0f, 0f, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.PlayerUpdate, -1, -1, "", this.owner, 0f, 0f, 0f, 0, 0, 0);
 									break;
 								}
 								break;
@@ -12247,39 +12247,39 @@ namespace Terraria
 				if (this.ai[0] == 1f)
 				{
 					float num85 = 11f;
-					if (this.type == 32)
+					if (this.type == ProjectileID.IvyWhip)
 					{
 						num85 = 15f;
 					}
-					if (this.type == 73 || this.type == 74)
+					if (this.type == ProjectileID.DualHookBlue || this.type == ProjectileID.DualHookRed)
 					{
 						num85 = 17f;
 					}
-					if (this.type == 315)
+					if (this.type == ProjectileID.BatHook)
 					{
 						num85 = 20f;
 					}
-					if (this.type == 322)
+					if (this.type == ProjectileID.WoodHook)
 					{
 						num85 = 22f;
 					}
-					if (this.type >= 230 && this.type <= 235)
+					if (this.type >= ProjectileID.GemHookAmethyst && this.type <= ProjectileID.GemHookDiamond)
 					{
 						num85 = 11f + (float)(this.type - 230) * 0.75f;
 					}
-					if (this.type == 446)
+					if (this.type == ProjectileID.AntiGravityHook)
 					{
 						num85 = 20f;
 					}
-					if (this.type >= 486 && this.type <= 489)
+					if (this.type >= ProjectileID.TendonHook && this.type <= ProjectileID.WormHook)
 					{
 						num85 = 18f;
 					}
-					if (this.type >= 646 && this.type <= 649)
+					if (this.type >= ProjectileID.LunarHookSolar && this.type <= ProjectileID.LunarHookStardust)
 					{
 						num85 = 24f;
 					}
-					if (this.type == 332)
+					if (this.type == ProjectileID.ChristmasHook)
 					{
 						num85 = 17f;
 					}
@@ -12328,7 +12328,7 @@ namespace Terraria
 							Vector2 vector12;
 							vector12.X = (float)(num90 * 16);
 							vector12.Y = (float)(num91 * 16);
-							if (this.position.X + (float)(this.width / 2) > vector12.X && this.position.X + (float)(this.width / 2) < vector12.X + 16f && this.position.Y + (float)(this.height / 2) > vector12.Y && this.position.Y + (float)(this.height / 2) < vector12.Y + 16f && Main.tile[num90, num91].nactive() && (Main.tileSolid[(int)Main.tile[num90, num91].type] || Main.tile[num90, num91].type == 314 || Main.tile[num90, num91].type == 5))
+							if (this.position.X + (float)(this.width / 2) > vector12.X && this.position.X + (float)(this.width / 2) < vector12.X + 16f && this.position.Y + (float)(this.height / 2) > vector12.Y && this.position.Y + (float)(this.height / 2) < vector12.Y + 16f && Main.tile[num90, num91].nactive() && (Main.tileSolid[(int)Main.tile[num90, num91].type] || Main.tile[num90, num91].type == TileID.MinecartTrack || Main.tile[num90, num91].type == TileID.Trees))
 							{
 								flag2 = false;
 							}
@@ -12349,15 +12349,15 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 8)
 			{
-				if (this.type == 258 && this.localAI[0] == 0f)
+				if (this.type == ProjectileID.Fireball && this.localAI[0] == 0f)
 				{
 					this.localAI[0] = 1f;
 				}
-				if (this.type == 96 && this.localAI[0] == 0f)
+				if (this.type == ProjectileID.CursedFlameHostile && this.localAI[0] == 0f)
 				{
 					this.localAI[0] = 1f;
 				}
-				if (this.type != 27 && this.type != 96 && this.type != 258)
+				if (this.type != ProjectileID.WaterBolt && this.type != ProjectileID.CursedFlameHostile && this.type != ProjectileID.Fireball)
 				{
 					this.ai[1] += 1f;
 				}
@@ -12365,7 +12365,7 @@ namespace Terraria
 				{
 					this.velocity.Y = this.velocity.Y + 0.2f;
 				}
-				if (this.type == 502)
+				if (this.type == ProjectileID.Meowmere)
 				{
 					this.rotation = this.velocity.ToRotation() + 1.57079637f;
 					if (this.velocity.X != 0f)
@@ -12390,11 +12390,11 @@ namespace Terraria
 					if (Main.player[this.owner].channel)
 					{
 						float num113 = 12f;
-						if (this.type == 16)
+						if (this.type == ProjectileID.MagicMissile)
 						{
 							num113 = 15f;
 						}
-						if (this.type == 491)
+						if (this.type == ProjectileID.FlyingKnife)
 						{
 							num113 = 20f;
 						}
@@ -12411,7 +12411,7 @@ namespace Terraria
 						{
 							this.ai[0] += 1f;
 						}
-						if (this.type == 491 && num116 < 100f)
+						if (this.type == ProjectileID.FlyingKnife && num116 < 100f)
 						{
 							if (this.velocity.Length() < num113)
 							{
@@ -12440,7 +12440,7 @@ namespace Terraria
 							{
 								this.netUpdate = true;
 							}
-							if (this.type == 491)
+							if (this.type == ProjectileID.FlyingKnife)
 							{
 								Vector2 vector14 = new Vector2(num114, num115);
 								this.velocity = (this.velocity * 4f + vector14) / 5f;
@@ -12468,7 +12468,7 @@ namespace Terraria
 					else if (this.ai[0] <= 0f)
 					{
 						this.netUpdate = true;
-						if (this.type != 491)
+						if (this.type != ProjectileID.FlyingKnife)
 						{
 							float num125 = 12f;
 							Vector2 vector15 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
@@ -12499,7 +12499,7 @@ namespace Terraria
 						this.ai[0] = 1f;
 					}
 				}
-				if (this.type == 491)
+				if (this.type == ProjectileID.FlyingKnife)
 				{
 					this.localAI[0] += 1f;
 					if (this.ai[0] > 0f && this.localAI[0] > 15f)
@@ -12527,7 +12527,7 @@ namespace Terraria
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 					}
 				}
-				else if (this.type == 34)
+				else if (this.type == ProjectileID.Flamelash)
 				{
 					this.rotation += 0.3f * (float)this.direction;
 				}
@@ -12589,9 +12589,9 @@ namespace Terraria
 						this.netUpdate = true;
 					}
 				}
-				if (this.ai[0] == 1f && this.type != 109)
+				if (this.ai[0] == 1f && this.type != ProjectileID.SnowBallHostile)
 				{
-					if (this.type == 42 || this.type == 65 || this.type == 68 || this.type == 354)
+					if (this.type == ProjectileID.SandBallGun || this.type == ProjectileID.EbonsandBallGun || this.type == ProjectileID.PearlSandBallGun || this.type == ProjectileID.CrimsandBallGun)
 					{
 						this.ai[1] += 1f;
 						if (this.ai[1] >= 60f)
@@ -12605,7 +12605,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.41f;
 					}
 				}
-				else if (this.ai[0] == 2f && this.type != 109)
+				else if (this.ai[0] == 2f && this.type != ProjectileID.SnowBallHostile)
 				{
 					this.velocity.Y = this.velocity.Y + 0.2f;
 					if ((double)this.velocity.X < -0.04)
@@ -12630,7 +12630,7 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 11)
 			{
-				if (this.type == 72 || this.type == 86 || this.type == 87)
+				if (this.type == ProjectileID.BlueFairy || this.type == ProjectileID.PinkFairy || this.type == ProjectileID.GreenFairy)
 				{
 					if (this.velocity.X > 0f)
 					{
@@ -12658,21 +12658,21 @@ namespace Terraria
 				}
 				if (Main.myPlayer == this.owner)
 				{
-					if (this.type == 72)
+					if (this.type == ProjectileID.BlueFairy)
 					{
 						if (Main.player[Main.myPlayer].blueFairy)
 						{
 							this.timeLeft = 2;
 						}
 					}
-					else if (this.type == 86)
+					else if (this.type == ProjectileID.PinkFairy)
 					{
 						if (Main.player[Main.myPlayer].redFairy)
 						{
 							this.timeLeft = 2;
 						}
 					}
-					else if (this.type == 87)
+					else if (this.type == ProjectileID.GreenFairy)
 					{
 						if (Main.player[Main.myPlayer].greenFairy)
 						{
@@ -12690,7 +12690,7 @@ namespace Terraria
 					return;
 				}
 				float num146 = 3f;
-				if (this.type == 72 || this.type == 86 || this.type == 87)
+				if (this.type == ProjectileID.BlueFairy || this.type == ProjectileID.PinkFairy || this.type == ProjectileID.GreenFairy)
 				{
 					num146 = 3.75f;
 				}
@@ -12698,7 +12698,7 @@ namespace Terraria
 				float num147 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector18.X;
 				float num148 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector18.Y;
 				int num149 = 70;
-				if (this.type == 18)
+				if (this.type == ProjectileID.ShadowOrb)
 				{
 					if (Main.player[this.owner].controlUp)
 					{
@@ -12715,7 +12715,7 @@ namespace Terraria
 				}
 				float num150 = (float)Math.Sqrt((double)(num147 * num147 + num148 * num148));
 				num150 = (float)Math.Sqrt((double)(num147 * num147 + num148 * num148));
-				if (this.type == 72 || this.type == 86 || this.type == 87)
+				if (this.type == ProjectileID.BlueFairy || this.type == ProjectileID.PinkFairy || this.type == ProjectileID.GreenFairy)
 				{
 					num149 = 40;
 				}
@@ -12740,18 +12740,18 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 12)
 			{
-				if (this.type == 288 && this.localAI[0] == 0f)
+				if (this.type == ProjectileID.GoldenShowerHostile && this.localAI[0] == 0f)
 				{
 					this.localAI[0] = 1f;
 				}
-				if (this.type == 280 || this.type == 288)
+				if (this.type == ProjectileID.GoldenShowerFriendly || this.type == ProjectileID.GoldenShowerHostile)
 				{
 					this.scale -= 0.002f;
 					if (this.scale <= 0f)
 					{
 						this.Kill();
 					}
-					if (this.type == 288)
+					if (this.type == ProjectileID.GoldenShowerHostile)
 					{
 						this.ai[0] = 4f;
 					}
@@ -12789,7 +12789,7 @@ namespace Terraria
 					this.Kill();
 					return;
 				}
-				if (this.type != 481)
+				if (this.type != ProjectileID.ChainGuillotine)
 				{
 					Main.player[this.owner].itemAnimation = 5;
 					Main.player[this.owner].itemTime = 5;
@@ -12805,7 +12805,7 @@ namespace Terraria
 						Main.player[this.owner].ChangeDir(-1);
 					}
 				}
-				if (this.type == 481)
+				if (this.type == ProjectileID.ChainGuillotine)
 				{
 					if (this.ai[0] == 0f)
 					{
@@ -12826,19 +12826,19 @@ namespace Terraria
 					{
 						this.ai[0] = 1f;
 					}
-					else if (this.type == 262 && num168 > 500f)
+					else if (this.type == ProjectileID.GolemFist && num168 > 500f)
 					{
 						this.ai[0] = 1f;
 					}
-					else if (this.type == 271 && num168 > 200f)
+					else if (this.type == ProjectileID.BoxingGlove && num168 > 200f)
 					{
 						this.ai[0] = 1f;
 					}
-					else if (this.type == 273 && num168 > 150f)
+					else if (this.type == ProjectileID.ChainKnife && num168 > 150f)
 					{
 						this.ai[0] = 1f;
 					}
-					else if (this.type == 481 && num168 > 350f)
+					else if (this.type == ProjectileID.ChainGuillotine && num168 > 350f)
 					{
 						this.ai[0] = 1f;
 					}
@@ -12848,23 +12848,23 @@ namespace Terraria
 					{
 						this.alpha = 0;
 					}
-					if (this.type == 262 && this.ai[1] > 8f)
+					if (this.type == ProjectileID.GolemFist && this.ai[1] > 8f)
 					{
 						this.ai[1] = 8f;
 					}
-					if (this.type == 271 && this.ai[1] > 8f)
+					if (this.type == ProjectileID.BoxingGlove && this.ai[1] > 8f)
 					{
 						this.ai[1] = 8f;
 					}
-					if (this.type == 273 && this.ai[1] > 8f)
+					if (this.type == ProjectileID.ChainKnife && this.ai[1] > 8f)
 					{
 						this.ai[1] = 8f;
 					}
-					if (this.type == 481 && this.ai[1] > 8f)
+					if (this.type == ProjectileID.ChainGuillotine && this.ai[1] > 8f)
 					{
 						this.ai[1] = 8f;
 					}
-					if (this.type == 404 && this.ai[1] > 8f)
+					if (this.type == ProjectileID.Flairon && this.ai[1] > 8f)
 					{
 						this.ai[1] = 0f;
 					}
@@ -12873,20 +12873,20 @@ namespace Terraria
 						this.ai[1] = 15f;
 						this.velocity.Y = this.velocity.Y + 0.3f;
 					}
-					if (this.type == 262 && this.velocity.X < 0f)
+					if (this.type == ProjectileID.GolemFist && this.velocity.X < 0f)
 					{
 						this.spriteDirection = -1;
 					}
-					else if (this.type == 262)
+					else if (this.type == ProjectileID.GolemFist)
 					{
 						this.spriteDirection = 1;
 					}
-					if (this.type == 271 && this.velocity.X < 0f)
+					if (this.type == ProjectileID.BoxingGlove && this.velocity.X < 0f)
 					{
 						this.spriteDirection = -1;
 						return;
 					}
-					if (this.type == 271)
+					if (this.type == ProjectileID.BoxingGlove)
 					{
 						this.spriteDirection = 1;
 						return;
@@ -12897,7 +12897,7 @@ namespace Terraria
 					this.tileCollide = false;
 					this.rotation = (float)Math.Atan2((double)num167, (double)num166) - 1.57f;
 					float num169 = 20f;
-					if (this.type == 262)
+					if (this.type == ProjectileID.GolemFist)
 					{
 						num169 = 30f;
 					}
@@ -12910,20 +12910,20 @@ namespace Terraria
 					num167 *= num168;
 					this.velocity.X = num166;
 					this.velocity.Y = num167;
-					if (this.type == 262 && this.velocity.X < 0f)
+					if (this.type == ProjectileID.GolemFist && this.velocity.X < 0f)
 					{
 						this.spriteDirection = 1;
 					}
-					else if (this.type == 262)
+					else if (this.type == ProjectileID.GolemFist)
 					{
 						this.spriteDirection = -1;
 					}
-					if (this.type == 271 && this.velocity.X < 0f)
+					if (this.type == ProjectileID.BoxingGlove && this.velocity.X < 0f)
 					{
 						this.spriteDirection = 1;
 						return;
 					}
-					if (this.type == 271)
+					if (this.type == ProjectileID.BoxingGlove)
 					{
 						this.spriteDirection = -1;
 						return;
@@ -12932,7 +12932,7 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 14)
 			{
-				if (this.type == 473 && Main.netMode != 2)
+				if (this.type == ProjectileID.SpelunkerGlowstick && Main.netMode != 2)
 				{
 					this.localAI[0] += 1f;
 					if (this.localAI[0] >= 10f)
@@ -12940,7 +12940,7 @@ namespace Terraria
 						this.localAI[0] = 0f;
 					}
 				}
-				if (this.type == 352)
+				if (this.type == ProjectileID.Spike)
 				{
 					if (this.localAI[1] == 0f)
 					{
@@ -12959,7 +12959,7 @@ namespace Terraria
 					}
 					this.scale += this.localAI[1] * 0.01f;
 				}
-				if (this.type == 346)
+				if (this.type == ProjectileID.OrnamentHostile)
 				{
 					if (this.localAI[0] == 0f)
 					{
@@ -12984,7 +12984,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 53)
+				if (this.type == ProjectileID.StickyGlowstick)
 				{
 					try
 					{
@@ -13036,7 +13036,7 @@ namespace Terraria
 #endif
 					}
 				}
-				if (this.type == 277)
+				if (this.type == ProjectileID.ThornBall)
 				{
 					if (this.alpha > 0)
 					{
@@ -13062,7 +13062,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 261 || this.type == 277)
+				if (this.type == ProjectileID.BoulderStaffOfEarth || this.type == ProjectileID.ThornBall)
 				{
 					this.ai[0] += 1f;
 					if (this.ai[0] > 15f)
@@ -13080,7 +13080,7 @@ namespace Terraria
 					}
 					this.rotation += this.velocity.X * 0.05f;
 				}
-				else if (this.type == 378)
+				else if (this.type == ProjectileID.SpiderEgg)
 				{
 					if (this.localAI[0] == 0f)
 					{
@@ -13115,7 +13115,7 @@ namespace Terraria
 					}
 					this.rotation += this.velocity.X * 0.1f;
 				}
-				else if (this.type == 483)
+				else if (this.type == ProjectileID.SeedlerNut)
 				{
 					this.ai[0] += 1f;
 					if (this.ai[0] > 5f)
@@ -13138,7 +13138,7 @@ namespace Terraria
 					}
 					this.rotation += this.velocity.X * 0.05f;
 				}
-				else if (this.type == 538)
+				else if (this.type == ProjectileID.Twinkle)
 				{
 					this.ai[0] += 1f;
 					if (this.ai[0] > 60f || this.velocity.Y >= 0f)
@@ -13182,14 +13182,14 @@ namespace Terraria
 					}
 					this.rotation += this.velocity.X * 0.1f;
 				}
-				if (this.type == 538)
+				if (this.type == ProjectileID.Twinkle)
 				{
 					if (this.localAI[1] == 0f)
 					{
 						this.localAI[1] = 1f;
 					}
 				}
-				if (this.type == 450)
+				if (this.type == ProjectileID.SaucerScrap)
 				{
 					if (this.ai[1] == 0f)
 					{
@@ -13209,17 +13209,17 @@ namespace Terraria
 					}
 					this.rotation = -this.velocity.X * 0.05f;
 				}
-				if (this.type == 480)
+				if (this.type == ProjectileID.CursedDartFlame)
 				{
 					this.alpha = 255;
 				}
-				if ((this.type >= 326 && this.type <= 328) || (this.type >= 400 && this.type <= 402))
+				if ((this.type >= ProjectileID.GreekFire1 && this.type <= ProjectileID.GreekFire3) || (this.type >= ProjectileID.MolotovFire && this.type <= ProjectileID.MolotovFire3))
 				{
 					if (this.wet)
 					{
 						this.Kill();
 					}
-					if (this.ai[1] == 0f && this.type >= 326 && this.type <= 328)
+					if (this.ai[1] == 0f && this.type >= ProjectileID.GreekFire1 && this.type <= ProjectileID.GreekFire3)
 					{
 						this.ai[1] = 1f;
 					}
@@ -13262,11 +13262,11 @@ namespace Terraria
 				if (this.ai[0] == 0f)
 				{
 					float num208 = 160f;
-					if (this.type == 63)
+					if (this.type == ProjectileID.TheDaoofPow)
 					{
 						num208 *= 1.5f;
 					}
-					if (this.type == 247)
+					if (this.type == ProjectileID.FlowerPow)
 					{
 						num208 *= 1.5f;
 					}
@@ -13291,13 +13291,13 @@ namespace Terraria
 					float num209 = 14f / Main.player[this.owner].meleeSpeed;
 					float num210 = 0.9f / Main.player[this.owner].meleeSpeed;
 					float num211 = 300f;
-					if (this.type == 63)
+					if (this.type == ProjectileID.TheDaoofPow)
 					{
 						num211 *= 1.5f;
 						num209 *= 1.5f;
 						num210 *= 1.5f;
 					}
-					if (this.type == 247)
+					if (this.type == ProjectileID.FlowerPow)
 					{
 						num211 *= 1.5f;
 						num209 = 15.9f;
@@ -13327,7 +13327,7 @@ namespace Terraria
 						num210 *= 2f;
 					}
 					int num212 = 60;
-					if (this.type == 247)
+					if (this.type == ProjectileID.FlowerPow)
 					{
 						num212 = 100;
 					}
@@ -13361,7 +13361,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type != 247)
+				if (this.type != ProjectileID.FlowerPow)
 				{
 					this.rotation = (float)Math.Atan2((double)num206, (double)num205) - this.velocity.X * 0.1f;
 					return;
@@ -13419,7 +13419,7 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 16)
 			{
-				if (this.type == 108 || this.type == 164)
+				if (this.type == ProjectileID.Explosives || this.type == ProjectileID.Landmine)
 				{
 					this.ai[0] += 1f;
 					if (this.ai[0] > 3f)
@@ -13427,9 +13427,9 @@ namespace Terraria
 						this.Kill();
 					}
 				}
-				if (this.type != 37 && this.type != 397 && this.type != 470)
+				if (this.type != ProjectileID.StickyBomb && this.type != ProjectileID.StickyGrenade && this.type != ProjectileID.StickyDynamite)
 				{
-					if (this.type != 519)
+					if (this.type != ProjectileID.BombFish)
 					{
 						goto IL_990C;
 					}
@@ -13483,7 +13483,7 @@ namespace Terraria
 #endif
 				}
 			IL_990C:
-				if (this.type == 519)
+				if (this.type == ProjectileID.BombFish)
 				{
 					this.localAI[1] += 1f;
 					float num230 = 180f - this.localAI[1];
@@ -13506,7 +13506,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 102)
+				if (this.type == ProjectileID.BombSkeletronPrime)
 				{
 					if (this.velocity.Y > 10f)
 					{
@@ -13540,7 +13540,7 @@ namespace Terraria
 						this.netUpdate = true;
 					}
 				}
-				if (this.type == 303 && this.timeLeft <= 3 && this.hostile)
+				if (this.type == ProjectileID.RocketSkeleton && this.timeLeft <= 3 && this.hostile)
 				{
 					this.position.X = this.position.X + (float)(this.width / 2);
 					this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -13554,7 +13554,7 @@ namespace Terraria
 					this.tileCollide = false;
 					this.ai[1] = 0f;
 					this.alpha = 255;
-					if (this.type == 28 || this.type == 37 || this.type == 75 || this.type == 516 || this.type == 519)
+					if (this.type == ProjectileID.Bomb || this.type == ProjectileID.StickyBomb || this.type == ProjectileID.HappyBomb || this.type == ProjectileID.BouncyBomb || this.type == ProjectileID.BombFish)
 					{
 						this.position.X = this.position.X + (float)(this.width / 2);
 						this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -13565,7 +13565,7 @@ namespace Terraria
 						this.damage = 100;
 						this.knockBack = 8f;
 					}
-					else if (this.type == 29 || this.type == 470 || this.type == 637)
+					else if (this.type == ProjectileID.Dynamite || this.type == ProjectileID.StickyDynamite || this.type == ProjectileID.BouncyDynamite)
 					{
 						this.position.X = this.position.X + (float)(this.width / 2);
 						this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -13576,7 +13576,7 @@ namespace Terraria
 						this.damage = 250;
 						this.knockBack = 10f;
 					}
-					else if (this.type == 30 || this.type == 397 || this.type == 517 || this.type == 588)
+					else if (this.type == ProjectileID.Grenade || this.type == ProjectileID.StickyGrenade || this.type == ProjectileID.BouncyGrenade || this.type == ProjectileID.PartyGirlGrenade)
 					{
 						this.position.X = this.position.X + (float)(this.width / 2);
 						this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -13586,7 +13586,7 @@ namespace Terraria
 						this.position.Y = this.position.Y - (float)(this.height / 2);
 						this.knockBack = 8f;
 					}
-					else if (this.type == 133 || this.type == 134 || this.type == 135 || this.type == 136 || this.type == 137 || this.type == 138 || this.type == 338 || this.type == 339)
+					else if (this.type == ProjectileID.GrenadeI || this.type == ProjectileID.RocketI || this.type == ProjectileID.ProximityMineI || this.type == ProjectileID.GrenadeII || this.type == ProjectileID.RocketII || this.type == ProjectileID.ProximityMineII || this.type == ProjectileID.RocketSnowmanI || this.type == ProjectileID.RocketSnowmanII)
 					{
 						this.position.X = this.position.X + (float)(this.width / 2);
 						this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -13596,7 +13596,7 @@ namespace Terraria
 						this.position.Y = this.position.Y - (float)(this.height / 2);
 						this.knockBack = 8f;
 					}
-					else if (this.type == 139 || this.type == 140 || this.type == 141 || this.type == 142 || this.type == 143 || this.type == 144 || this.type == 340 || this.type == 341)
+					else if (this.type == ProjectileID.GrenadeIII || this.type == ProjectileID.RocketIII || this.type == ProjectileID.ProximityMineIII || this.type == ProjectileID.GrenadeIV || this.type == ProjectileID.RocketIV || this.type == ProjectileID.ProximityMineIV || this.type == ProjectileID.RocketSnowmanIII || this.type == ProjectileID.RocketSnowmanIV)
 					{
 						this.position.X = this.position.X + (float)(this.width / 2);
 						this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -13609,11 +13609,11 @@ namespace Terraria
 				}
 				else
 				{
-					if (this.type != 30 && this.type != 517 && this.type != 588 && this.type != 397 && this.type != 108 && this.type != 133 && this.type != 134 && this.type != 135 && this.type != 136 && this.type != 137 && this.type != 138 && this.type != 139 && this.type != 140 && this.type != 141 && this.type != 142 && this.type != 143 && this.type != 144 && this.type != 164 && this.type != 303 && this.type < 338 && this.type < 341)
+					if (this.type != ProjectileID.Grenade && this.type != ProjectileID.BouncyGrenade && this.type != ProjectileID.PartyGirlGrenade && this.type != ProjectileID.StickyGrenade && this.type != ProjectileID.Explosives && this.type != ProjectileID.GrenadeI && this.type != ProjectileID.RocketI && this.type != ProjectileID.ProximityMineI && this.type != ProjectileID.GrenadeII && this.type != ProjectileID.RocketII && this.type != ProjectileID.ProximityMineII && this.type != ProjectileID.GrenadeIII && this.type != ProjectileID.RocketIII && this.type != ProjectileID.ProximityMineIII && this.type != ProjectileID.GrenadeIV && this.type != ProjectileID.RocketIV && this.type != ProjectileID.ProximityMineIV && this.type != ProjectileID.Landmine && this.type != ProjectileID.RocketSkeleton && this.type < 338 && this.type < 341)
 					{
 						this.damage = 0;
 					}
-					if (this.type == 338 || this.type == 339 || this.type == 340 || this.type == 341)
+					if (this.type == ProjectileID.RocketSnowmanI || this.type == ProjectileID.RocketSnowmanII || this.type == ProjectileID.RocketSnowmanIII || this.type == ProjectileID.RocketSnowmanIV)
 					{
 						this.localAI[1] += 1f;
 						if (this.localAI[1] > 6f)
@@ -13679,14 +13679,14 @@ namespace Terraria
 						this.velocity.X = (this.velocity.X * 11f + num244) / 12f;
 						this.velocity.Y = (this.velocity.Y * 11f + num245) / 12f;
 					}
-					else if (this.type == 134 || this.type == 137 || this.type == 140 || this.type == 143 || this.type == 303)
+					else if (this.type == ProjectileID.RocketI || this.type == ProjectileID.RocketII || this.type == ProjectileID.RocketIII || this.type == ProjectileID.RocketIV || this.type == ProjectileID.RocketSkeleton)
 					{
 						if (Math.Abs(this.velocity.X) < 15f && Math.Abs(this.velocity.Y) < 15f)
 						{
 							this.velocity *= 1.1f;
 						}
 					}
-					else if (this.type == 135 || this.type == 138 || this.type == 141 || this.type == 144)
+					else if (this.type == ProjectileID.ProximityMineI || this.type == ProjectileID.ProximityMineII || this.type == ProjectileID.ProximityMineIII || this.type == ProjectileID.ProximityMineIV)
 					{
 						if ((double)this.velocity.X > -0.2 && (double)this.velocity.X < 0.2 && (double)this.velocity.Y > -0.2 && (double)this.velocity.Y < 0.2)
 						{
@@ -13703,7 +13703,7 @@ namespace Terraria
 					}
 				}
 				this.ai[0] += 1f;
-				if (this.type == 338 || this.type == 339 || this.type == 340 || this.type == 341)
+				if (this.type == ProjectileID.RocketSnowmanI || this.type == ProjectileID.RocketSnowmanII || this.type == ProjectileID.RocketSnowmanIII || this.type == ProjectileID.RocketSnowmanIV)
 				{
 					if (this.velocity.X < 0f)
 					{
@@ -13716,11 +13716,11 @@ namespace Terraria
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 					}
 				}
-				else if (this.type == 134 || this.type == 137 || this.type == 140 || this.type == 143 || this.type == 303)
+				else if (this.type == ProjectileID.RocketI || this.type == ProjectileID.RocketII || this.type == ProjectileID.RocketIII || this.type == ProjectileID.RocketIV || this.type == ProjectileID.RocketSkeleton)
 				{
 					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 				}
-				else if (this.type == 135 || this.type == 138 || this.type == 141 || this.type == 144)
+				else if (this.type == ProjectileID.ProximityMineI || this.type == ProjectileID.ProximityMineII || this.type == ProjectileID.ProximityMineIII || this.type == ProjectileID.ProximityMineIV)
 				{
 					this.velocity.Y = this.velocity.Y + 0.2f;
 					this.velocity *= 0.97f;
@@ -13733,7 +13733,7 @@ namespace Terraria
 						this.velocity.Y = 0f;
 					}
 				}
-				else if (this.type == 133 || this.type == 136 || this.type == 139 || this.type == 142)
+				else if (this.type == ProjectileID.GrenadeI || this.type == ProjectileID.GrenadeII || this.type == ProjectileID.GrenadeIII || this.type == ProjectileID.GrenadeIV)
 				{
 					if (this.ai[0] > 15f)
 					{
@@ -13744,13 +13744,13 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.2f;
 					}
 				}
-				else if (((this.type == 30 || this.type == 397 || this.type == 517 || this.type == 588) && this.ai[0] > 10f) || (this.type != 30 && this.type != 397 && this.type != 517 && this.type != 588 && this.ai[0] > 5f))
+				else if (((this.type == ProjectileID.Grenade || this.type == ProjectileID.StickyGrenade || this.type == ProjectileID.BouncyGrenade || this.type == ProjectileID.PartyGirlGrenade) && this.ai[0] > 10f) || (this.type != ProjectileID.Grenade && this.type != ProjectileID.StickyGrenade && this.type != ProjectileID.BouncyGrenade && this.type != ProjectileID.PartyGirlGrenade && this.ai[0] > 5f))
 				{
 					this.ai[0] = 10f;
 					if (this.velocity.Y == 0f && this.velocity.X != 0f)
 					{
 						this.velocity.X = this.velocity.X * 0.97f;
-						if (this.type == 29 || this.type == 470 || this.type == 637)
+						if (this.type == ProjectileID.Dynamite || this.type == ProjectileID.StickyDynamite || this.type == ProjectileID.BouncyDynamite)
 						{
 							this.velocity.X = this.velocity.X * 0.99f;
 						}
@@ -13762,12 +13762,12 @@ namespace Terraria
 					}
 					this.velocity.Y = this.velocity.Y + 0.2f;
 				}
-				if (this.type == 519)
+				if (this.type == ProjectileID.BombFish)
 				{
 					this.rotation += this.velocity.X * 0.06f;
 					return;
 				}
-				if (this.type != 134 && this.type != 137 && this.type != 140 && this.type != 143 && this.type != 303 && (this.type < 338 || this.type > 341))
+				if (this.type != ProjectileID.RocketI && this.type != ProjectileID.RocketII && this.type != ProjectileID.RocketIII && this.type != ProjectileID.RocketIV && this.type != ProjectileID.RocketSkeleton && (this.type < 338 || this.type > 341))
 				{
 					this.rotation += this.velocity.X * 0.1f;
 					return;
@@ -13788,11 +13788,11 @@ namespace Terraria
 					if (Main.tile[num254, num255] != null && !Main.tile[num254, num255].active())
 					{
 						int num256 = 0;
-						if (this.type >= 201 && this.type <= 205)
+						if (this.type >= ProjectileID.GraveMarker && this.type <= ProjectileID.Obelisk)
 						{
 							num256 = this.type - 200;
 						}
-						if (this.type >= 527 && this.type <= 531)
+						if (this.type >= ProjectileID.RichGravestone1 && this.type <= ProjectileID.RichGravestone5)
 						{
 							num256 = this.type - 527 + 6;
 						}
@@ -13801,7 +13801,7 @@ namespace Terraria
 						{
 							if (Main.netMode != 0)
 							{
-								NetMessage.SendData(17, -1, -1, "", 1, (float)num254, (float)num255, 85f, num256, 0, 0);
+								NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 1, (float)num254, (float)num255, 85f, num256, 0, 0);
 							}
 							int num257 = Sign.ReadSign(num254, num255, true);
 							if (num257 >= 0)
@@ -13816,11 +13816,11 @@ namespace Terraria
 			}
 			else if (this.aiStyle == 18)
 			{
-				if (this.ai[1] == 0f && this.type == 44)
+				if (this.ai[1] == 0f && this.type == ProjectileID.DemonSickle)
 				{
 					this.ai[1] = 1f;
 				}
-				if (this.type != 263 && this.type != 274)
+				if (this.type != ProjectileID.IceSickle && this.type != ProjectileID.DeathSickle)
 				{
 					this.rotation += (float)this.direction * 0.8f;
 					this.ai[0] += 1f;
@@ -13837,13 +13837,13 @@ namespace Terraria
 					}
 					return;
 				}
-				if (this.type == 274 && this.velocity.X < 0f)
+				if (this.type == ProjectileID.DeathSickle && this.velocity.X < 0f)
 				{
 					this.spriteDirection = -1;
 				}
 				this.rotation += (float)this.direction * 0.05f;
 				this.rotation += (float)this.direction * 0.5f * ((float)this.timeLeft / 180f);
-				if (this.type == 274)
+				if (this.type == ProjectileID.DeathSickle)
 				{
 					this.velocity *= 0.96f;
 					return;
@@ -13861,7 +13861,7 @@ namespace Terraria
 				this.position.Y = vector28.Y - (float)(this.height / 2);
 				if (!Main.player[this.owner].frozen)
 				{
-					if (this.type == 46)
+					if (this.type == ProjectileID.DarkLance)
 					{
 						if (this.ai[0] == 0f)
 						{
@@ -13877,7 +13877,7 @@ namespace Terraria
 							this.ai[0] += 1.4f;
 						}
 					}
-					else if (this.type == 105)
+					else if (this.type == ProjectileID.Gungnir)
 					{
 						if (this.ai[0] == 0f)
 						{
@@ -13893,7 +13893,7 @@ namespace Terraria
 							this.ai[0] += 2.1f;
 						}
 					}
-					else if (this.type == 367)
+					else if (this.type == ProjectileID.ObsidianSwordfish)
 					{
 						this.spriteDirection = -this.direction;
 						if (this.ai[0] == 0f)
@@ -13910,7 +13910,7 @@ namespace Terraria
 							this.ai[0] += 1.5f;
 						}
 					}
-					else if (this.type == 368)
+					else if (this.type == ProjectileID.Swordfish)
 					{
 						this.spriteDirection = -this.direction;
 						if (this.ai[0] == 0f)
@@ -13927,7 +13927,7 @@ namespace Terraria
 							this.ai[0] += 1.4f;
 						}
 					}
-					else if (this.type == 222)
+					else if (this.type == ProjectileID.ChlorophytePartisan)
 					{
 						if (this.ai[0] == 0f)
 						{
@@ -13948,7 +13948,7 @@ namespace Terraria
 							this.ai[0] += 2.1f;
 						}
 					}
-					else if (this.type == 342)
+					else if (this.type == ProjectileID.NorthPoleWeapon)
 					{
 						if (this.ai[0] == 0f)
 						{
@@ -13972,7 +13972,7 @@ namespace Terraria
 							this.ai[0] += 2.1f;
 						}
 					}
-					else if (this.type == 47)
+					else if (this.type == ProjectileID.Trident)
 					{
 						if (this.ai[0] == 0f)
 						{
@@ -13988,7 +13988,7 @@ namespace Terraria
 							this.ai[0] += 0.9f;
 						}
 					}
-					else if (this.type == 153)
+					else if (this.type == ProjectileID.TheRottedFork)
 					{
 						this.spriteDirection = -this.direction;
 						if (this.ai[0] == 0f)
@@ -14005,7 +14005,7 @@ namespace Terraria
 							this.ai[0] += 1.3f;
 						}
 					}
-					else if (this.type == 49)
+					else if (this.type == ProjectileID.Spear)
 					{
 						if (this.ai[0] == 0f)
 						{
@@ -14021,7 +14021,7 @@ namespace Terraria
 							this.ai[0] += 0.85f;
 						}
 					}
-					else if (this.type == 64 || this.type == 215)
+					else if (this.type == ProjectileID.MythrilHalberd || this.type == ProjectileID.OrichalcumHalberd)
 					{
 						this.spriteDirection = -this.direction;
 						if (this.ai[0] == 0f)
@@ -14038,7 +14038,7 @@ namespace Terraria
 							this.ai[0] += 1.7f;
 						}
 					}
-					else if (this.type == 66 || this.type == 97 || this.type == 212 || this.type == 218)
+					else if (this.type == ProjectileID.AdamantiteGlaive || this.type == ProjectileID.CobaltNaginata || this.type == ProjectileID.PalladiumPike || this.type == ProjectileID.TitaniumTrident)
 					{
 						this.spriteDirection = -this.direction;
 						if (this.ai[0] == 0f)
@@ -14055,7 +14055,7 @@ namespace Terraria
 							this.ai[0] += 1.9f;
 						}
 					}
-					else if (this.type == 130)
+					else if (this.type == ProjectileID.MushroomSpear)
 					{
 						this.spriteDirection = -this.direction;
 						if (this.ai[0] == 0f)
@@ -14074,7 +14074,7 @@ namespace Terraria
 					}
 				}
 				this.position += this.velocity * this.ai[0];
-				if (this.type == 130)
+				if (this.type == ProjectileID.MushroomSpear)
 				{
 					if (this.ai[1] == 0f || this.ai[1] == 4f || this.ai[1] == 8f || this.ai[1] == 12f || this.ai[1] == 16f || this.ai[1] == 20f || this.ai[1] == 24f)
 					{
@@ -14091,25 +14091,25 @@ namespace Terraria
 				{
 					this.rotation -= 1.57f;
 				}
-				if (this.type == 46)
+				if (this.type == ProjectileID.DarkLance)
 				{
 					return;
 				}
-				if (this.type == 105)
+				if (this.type == ProjectileID.Gungnir)
 				{
 					if (Main.rand.Next(4) == 0)
 					{
 						return;
 					}
 				}
-				else if (this.type == 153)
+				else if (this.type == ProjectileID.TheRottedFork)
 				{
 					return;
 				}
 			}
 			else if (this.aiStyle == 20)
 			{
-				if (this.type == 252)
+				if (this.type == ProjectileID.ChlorophyteJackhammer)
 				{
 					this.frameCounter++;
 					if (this.frameCounter >= 4)
@@ -14122,7 +14122,7 @@ namespace Terraria
 						this.frame = 0;
 					}
 				}
-				if (this.type == 509)
+				if (this.type == ProjectileID.ButchersChainsaw)
 				{
 					this.frameCounter++;
 					if (this.frameCounter >= 2)
@@ -14252,7 +14252,7 @@ namespace Terraria
 					{
 						for (int num277 = num272; num277 < num273; num277++)
 						{
-							if (Main.tile[num276, num277] != null && Main.tile[num276, num277].active() && Main.tile[num276, num277].type != 127 && Main.tileSolid[(int)Main.tile[num276, num277].type] && !Main.tileSolidTop[(int)Main.tile[num276, num277].type])
+							if (Main.tile[num276, num277] != null && Main.tile[num276, num277].active() && Main.tile[num276, num277].type != TileID.MagicalIceBlock && Main.tileSolid[(int)Main.tile[num276, num277].type] && !Main.tileSolidTop[(int)Main.tile[num276, num277].type])
 							{
 								Vector2 vector31;
 								vector31.X = (float)(num276 * 16);
@@ -14275,12 +14275,12 @@ namespace Terraria
 						this.Kill();
 					}
 					this.ai[0] -= 1f;
-					if (this.ai[0] <= -900f && (Main.myPlayer == this.owner || Main.netMode == 2) && Main.tile[num282, num283].active() && Main.tile[num282, num283].type == 127)
+					if (this.ai[0] <= -900f && (Main.myPlayer == this.owner || Main.netMode == 2) && Main.tile[num282, num283].active() && Main.tile[num282, num283].type == TileID.MagicalIceBlock)
 					{
 						WorldGen.KillTile(num282, num283, false, false, false);
 						if (Main.netMode == 1)
 						{
-							NetMessage.SendData(17, -1, -1, "", 0, (float)num282, (float)num283, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)num282, (float)num283, 0f, 0, 0, 0);
 						}
 						this.Kill();
 						return;
@@ -14314,7 +14314,7 @@ namespace Terraria
 					{
 						for (int num291 = num286; num291 < num287; num291++)
 						{
-							if (Main.tile[num290, num291] != null && Main.tile[num290, num291].nactive() && Main.tile[num290, num291].type != 127 && Main.tileSolid[(int)Main.tile[num290, num291].type] && !Main.tileSolidTop[(int)Main.tile[num290, num291].type])
+							if (Main.tile[num290, num291] != null && Main.tile[num290, num291].nactive() && Main.tile[num290, num291].type != TileID.MagicalIceBlock && Main.tileSolid[(int)Main.tile[num290, num291].type] && !Main.tileSolidTop[(int)Main.tile[num290, num291].type])
 							{
 								Vector2 vector32;
 								vector32.X = (float)(num290 * 16);
@@ -14415,7 +14415,7 @@ namespace Terraria
 								{
 									if (Main.netMode == 1)
 									{
-										NetMessage.SendData(17, -1, -1, "", 1, (float)((int)this.ai[0]), (float)((int)this.ai[1]), 127f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 1, (float)((int)this.ai[0]), (float)((int)this.ai[1]), 127f, 0, 0, 0);
 									}
 									this.damage = 0;
 									this.ai[0] = -1f;
@@ -14437,7 +14437,7 @@ namespace Terraria
 			{
 				if (this.aiStyle == 23)
 				{
-					if (this.type == 188 && this.ai[0] < 8f)
+					if (this.type == ProjectileID.FlamesTrap && this.ai[0] < 8f)
 					{
 						this.ai[0] = 8f;
 					}
@@ -14461,7 +14461,7 @@ namespace Terraria
 					this.light = this.scale * 0.5f;
 					this.rotation += this.velocity.X * 0.2f;
 					this.ai[1] += 1f;
-					if (this.type == 94)
+					if (this.type == ProjectileID.CrystalStorm)
 					{
 						this.velocity *= 0.985f;
 						if (this.ai[1] > 130f)
@@ -14587,7 +14587,7 @@ namespace Terraria
 					}
 					if (this.aiStyle == 27)
 					{
-						if (this.type == 115)
+						if (this.type == ProjectileID.UnholyTridentHostile)
 						{
 							this.ai[0] += 1f;
 							if (this.ai[0] < 30f)
@@ -14595,7 +14595,7 @@ namespace Terraria
 								this.velocity *= 1.125f;
 							}
 						}
-						if (this.type == 115 && this.localAI[1] < 5f)
+						if (this.type == ProjectileID.UnholyTridentHostile && this.localAI[1] < 5f)
 						{
 							this.localAI[1] = 5f;
 						}
@@ -14630,7 +14630,7 @@ namespace Terraria
 						{
 							this.ai[1] = 1f;
 						}
-						if (this.type == 157)
+						if (this.type == ProjectileID.NightBeam)
 						{
 							this.rotation += (float)this.direction * 0.4f;
 							this.spriteDirection = this.direction;
@@ -14655,12 +14655,12 @@ namespace Terraria
 					}
 					else if (this.aiStyle == 29)
 					{
-						if (this.type == 619)
+						if (this.type == ProjectileID.NebulaArcanumExplosionShot)
 						{
 							int num323 = (int)this.ai[0];
 							return;
 						}
-						if (this.type == 620)
+						if (this.type == ProjectileID.NebulaArcanumExplosionShotShard)
 						{
 							int num327 = (int)this.ai[0];
 							this.ai[1] += 1f;
@@ -14677,11 +14677,11 @@ namespace Terraria
 							this.velocity.X = this.velocity.X * 0.98f;
 							return;
 						}
-						if (this.type == 521)
+						if (this.type == ProjectileID.CrystalPulse)
 						{
 							return;
 						}
-						if (this.type == 522)
+						if (this.type == ProjectileID.CrystalPulse2)
 						{
 							this.ai[1] += 1f;
 							float num335 = (60f - this.ai[1]) / 60f;
@@ -14698,7 +14698,7 @@ namespace Terraria
 							return;
 						}
 						int num339 = this.type - 121 + 86;
-						if (this.type == 597)
+						if (this.type == ProjectileID.EmberBolt)
 						{
 							num339 = 262;
 						}
@@ -14724,19 +14724,19 @@ namespace Terraria
 						if (this.aiStyle == 31)
 						{
 							int conversionType = 0;
-							if (this.type == 146)
+							if (this.type == ProjectileID.HallowSpray)
 							{
 								conversionType = 2;
 							}
-							if (this.type == 147)
+							if (this.type == ProjectileID.CorruptSpray)
 							{
 								conversionType = 1;
 							}
-							if (this.type == 148)
+							if (this.type == ProjectileID.MushroomSpray)
 							{
 								conversionType = 3;
 							}
-							if (this.type == 149)
+							if (this.type == ProjectileID.CrimsonSpray)
 							{
 								conversionType = 4;
 							}
@@ -14961,15 +14961,15 @@ namespace Terraria
 									if (flag9)
 									{
 										int num360 = 213;
-										if (this.type == 475)
+										if (this.type == ProjectileID.VineRopeCoil)
 										{
 											num360 = 353;
 										}
-										if (this.type == 506)
+										if (this.type == ProjectileID.WebRopeCoil)
 										{
 											num360 = 366;
 										}
-										if (this.type == 505)
+										if (this.type == ProjectileID.SilkRopeCoil)
 										{
 											num360 = 365;
 										}
@@ -14994,15 +14994,15 @@ namespace Terraria
 												{
 													break;
 												}
-												if (Main.tile[num361, num362].active() && (Main.tileCut[(int)Main.tile[num361, num362].type] || Main.tile[num361, num362].type == 165))
+												if (Main.tile[num361, num362].active() && (Main.tileCut[(int)Main.tile[num361, num362].type] || Main.tile[num361, num362].type == TileID.Stalactite))
 												{
 													WorldGen.KillTile(num361, num362, false, false, false);
-													NetMessage.SendData(17, -1, -1, "", 0, (float)num361, (float)num362, 0f, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)num361, (float)num362, 0f, 0, 0, 0);
 												}
 												if (!Main.tile[num361, num362].active())
 												{
 													WorldGen.PlaceTile(num361, num362, num360, false, false, -1, 0);
-													NetMessage.SendData(17, -1, -1, "", 1, (float)num361, (float)num362, (float)num360, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 1, (float)num361, (float)num362, (float)num360, 0, 0, 0);
 													this.ai[1] += 1f;
 												}
 												else
@@ -15019,7 +15019,7 @@ namespace Terraria
 							}
 							else if (this.aiStyle == 36)
 							{
-								if (this.type != 307 && this.wet && !this.honeyWet)
+								if (this.type != ProjectileID.TinyEater && this.wet && !this.honeyWet)
 								{
 									this.Kill();
 								}
@@ -15035,7 +15035,7 @@ namespace Terraria
 								{
 									this.alpha = 0;
 								}
-								if (this.type == 307)
+								if (this.type == ProjectileID.TinyEater)
 								{
 									this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) - 1.57f;
 									this.frameCounter++;
@@ -15051,7 +15051,7 @@ namespace Terraria
 								}
 								else
 								{
-									if (this.type == 316)
+									if (this.type == ProjectileID.Bat)
 									{
 										if (this.velocity.X > 0f)
 										{
@@ -15092,7 +15092,7 @@ namespace Terraria
 									this.ai[0] = 30f;
 									for (int num371 = 0; num371 < 200; num371++)
 									{
-										if (Main.npc[num371].CanBeChasedBy(this, false) && (!Main.npc[num371].wet || this.type == 307))
+										if (Main.npc[num371].CanBeChasedBy(this, false) && (!Main.npc[num371].wet || this.type == ProjectileID.TinyEater))
 										{
 											float num372 = Main.npc[num371].position.X + (float)(Main.npc[num371].width / 2);
 											float num373 = Main.npc[num371].position.Y + (float)(Main.npc[num371].height / 2);
@@ -15112,28 +15112,28 @@ namespace Terraria
 									num368 = this.position.X + (float)(this.width / 2) + this.velocity.X * 100f;
 									num369 = this.position.Y + (float)(this.height / 2) + this.velocity.Y * 100f;
 								}
-								else if (this.type == 307)
+								else if (this.type == ProjectileID.TinyEater)
 								{
 									this.friendly = true;
 								}
 								float num375 = 6f;
 								float num376 = 0.1f;
-								if (this.type == 189)
+								if (this.type == ProjectileID.Wasp)
 								{
 									num375 = 7f;
 									num376 = 0.15f;
 								}
-								if (this.type == 307)
+								if (this.type == ProjectileID.TinyEater)
 								{
 									num375 = 9f;
 									num376 = 0.2f;
 								}
-								if (this.type == 316)
+								if (this.type == ProjectileID.Bat)
 								{
 									num375 = 10f;
 									num376 = 0.25f;
 								}
-								if (this.type == 566)
+								if (this.type == ProjectileID.GiantBee)
 								{
 									num375 = 6.8f;
 									num376 = 0.14f;
@@ -15565,7 +15565,7 @@ namespace Terraria
 									}
 									if (this.aiStyle == 44)
 									{
-										if (this.type == 228)
+										if (this.type == ProjectileID.SporeCloud)
 										{
 											this.velocity *= 0.96f;
 											this.alpha += 4;
@@ -15574,7 +15574,7 @@ namespace Terraria
 												this.Kill();
 											}
 										}
-										else if (this.type == 229)
+										else if (this.type == ProjectileID.ChlorophyteOrb)
 										{
 											this.ai[0] += 1f;
 											if (this.ai[0] > 20f)
@@ -15597,7 +15597,7 @@ namespace Terraria
 									}
 									else if (this.aiStyle == 45)
 									{
-										if (this.type == 237 || this.type == 243)
+										if (this.type == ProjectileID.RainCloudMoving || this.type == ProjectileID.BloodCloudMoving)
 										{
 											float num411 = this.ai[0];
 											float num412 = this.ai[1];
@@ -15631,7 +15631,7 @@ namespace Terraria
 												}
 											}
 										}
-										else if (this.type == 238 || this.type == 244)
+										else if (this.type == ProjectileID.RainCloudRaining || this.type == ProjectileID.BloodCloudRaining)
 										{
 											this.frameCounter++;
 											if (this.frameCounter > 8)
@@ -15644,7 +15644,7 @@ namespace Terraria
 												}
 											}
 											this.ai[1] += 1f;
-											if (this.type == 244 && this.ai[1] >= 3600f)
+											if (this.type == ProjectileID.BloodCloudRaining && this.ai[1] >= 3600f)
 											{
 												this.alpha += 5;
 												if (this.alpha > 255)
@@ -15653,7 +15653,7 @@ namespace Terraria
 													this.Kill();
 												}
 											}
-											else if (this.type == 238 && this.ai[1] >= 7200f)
+											else if (this.type == ProjectileID.RainCloudRaining && this.ai[1] >= 7200f)
 											{
 												this.alpha += 5;
 												if (this.alpha > 255)
@@ -15665,7 +15665,7 @@ namespace Terraria
 											else
 											{
 												this.ai[0] += 1f;
-												if (this.type == 244)
+												if (this.type == ProjectileID.BloodCloudRaining)
 												{
 													if (this.ai[0] > 10f)
 													{
@@ -15709,7 +15709,7 @@ namespace Terraria
 														}
 													}
 												}
-												if (this.type == 244)
+												if (this.type == ProjectileID.BloodCloudRaining)
 												{
 													if (num417 > 1)
 													{
@@ -15728,17 +15728,17 @@ namespace Terraria
 										}
 										else
 										{
-											if (this.type == 239)
+											if (this.type == ProjectileID.RainFriendly)
 											{
 												this.alpha = 50;
 												return;
 											}
-											if (this.type == 245)
+											if (this.type == ProjectileID.BloodRain)
 											{
 												this.alpha = 100;
 												return;
 											}
-											if (this.type == 264)
+											if (this.type == ProjectileID.RainNimbus)
 											{
 												this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 												return;
@@ -15748,7 +15748,7 @@ namespace Terraria
 									else if (this.aiStyle == 46)
 									{
 										int num422 = 1200;
-										if (this.type == 250)
+										if (this.type == ProjectileID.RainbowFront)
 										{
 											if (this.owner == Main.myPlayer)
 											{
@@ -15916,17 +15916,17 @@ namespace Terraria
 									}
 									else if (this.aiStyle == 48)
 									{
-										if (this.type == 255)
+										if (this.type == ProjectileID.MagnetSphereBolt)
 										{
 											this.alpha = 255;
 											return;
 										}
-										if (this.type == 433)
+										if (this.type == ProjectileID.UFOLaser)
 										{
 											this.alpha = 255;
 											return;
 										}
-										if (this.type == 290)
+										if (this.type == ProjectileID.ShadowBeamHostile)
 										{
 											this.localAI[0] += 1f;
 											if (this.localAI[0] > 3f)
@@ -15935,7 +15935,7 @@ namespace Terraria
 												return;
 											}
 										}
-										else if (this.type == 294)
+										else if (this.type == ProjectileID.ShadowBeamFriendly)
 										{
 											this.localAI[0] += 1f;
 											if (this.localAI[0] > 9f)
@@ -16001,7 +16001,7 @@ namespace Terraria
 									}
 									else if (this.aiStyle == 50)
 									{
-										if (this.type == 291)
+										if (this.type == ProjectileID.InfernoHostileBolt)
 										{
 											if (this.localAI[0] == 0f)
 											{
@@ -16031,7 +16031,7 @@ namespace Terraria
 											}
 											return;
 										}
-										if (this.type == 295)
+										if (this.type == ProjectileID.InfernoFriendlyBolt)
 										{
 											return;
 										}
@@ -16040,7 +16040,7 @@ namespace Terraria
 											this.localAI[0] += 1f;
 										}
 										this.ai[0] += 1f;
-										if (this.type == 296)
+										if (this.type == ProjectileID.InfernoFriendlyBlast)
 										{
 											this.ai[0] += 3f;
 										}
@@ -16054,7 +16054,7 @@ namespace Terraria
 											num462 = 0f;
 											this.Kill();
 										}
-										if (this.type == 296)
+										if (this.type == ProjectileID.InfernoFriendlyBlast)
 										{
 											num462 *= 0.7f;
 										}
@@ -16062,7 +16062,7 @@ namespace Terraria
 									}
 									else if (this.aiStyle == 51)
 									{
-										if (this.type == 297)
+										if (this.type == ProjectileID.LostSoulFriendly)
 										{
 											this.localAI[0] += 1f;
 										}
@@ -16077,7 +16077,7 @@ namespace Terraria
 										float num474 = base.Center.Y;
 										float num475 = 400f;
 										bool flag17 = false;
-										if (this.type == 297)
+										if (this.type == ProjectileID.LostSoulFriendly)
 										{
 											for (int num476 = 0; num476 < 200; num476++)
 											{
@@ -16119,7 +16119,7 @@ namespace Terraria
 										if (flag17)
 										{
 											float num484 = 3f;
-											if (this.type == 297)
+											if (this.type == ProjectileID.LostSoulFriendly)
 											{
 												num484 = 6f;
 											}
@@ -16130,7 +16130,7 @@ namespace Terraria
 											num487 = num484 / num487;
 											num485 *= num487;
 											num486 *= num487;
-											if (this.type == 297)
+											if (this.type == ProjectileID.LostSoulFriendly)
 											{
 												this.velocity.X = (this.velocity.X * 20f + num485) / 21f;
 												this.velocity.Y = (this.velocity.Y * 20f + num486) / 21f;
@@ -16160,7 +16160,7 @@ namespace Terraria
 												{
 													Main.player[num488].statLife = Main.player[num488].statLifeMax2;
 												}
-												NetMessage.SendData(66, -1, -1, "", num488, (float)num493, 0f, 0f, 0, 0, 0);
+												NetMessage.SendData((int)PacketTypes.PlayerHealOther, -1, -1, "", num488, (float)num493, 0f, 0f, 0, 0, 0);
 											}
 											this.Kill();
 										}
@@ -16169,7 +16169,7 @@ namespace Terraria
 										num491 *= num492;
 										this.velocity.X = (this.velocity.X * 15f + num490) / 16f;
 										this.velocity.Y = (this.velocity.Y * 15f + num491) / 16f;
-										if (this.type == 305)
+										if (this.type == ProjectileID.VampireHeal)
 										{
 											return;
 										}
@@ -16182,7 +16182,7 @@ namespace Terraria
 											this.localAI[1] = 1f;
 											this.localAI[0] = 1f;
 											this.ai[0] = 120f;
-											if (this.type == 377)
+											if (this.type == ProjectileID.SpiderHiver)
 											{
 												this.frame = 4;
 											}
@@ -16252,15 +16252,15 @@ namespace Terraria
 											{
 												num516 = 2;
 											}
-											if (this.type == 308)
+											if (this.type == ProjectileID.FrostHydra)
 											{
 												this.frame = num516 * 2;
 											}
-											else if (this.type == 377)
+											else if (this.type == ProjectileID.SpiderHiver)
 											{
 												this.frame = num516;
 											}
-											if (this.ai[0] > 40f && this.localAI[1] == 0f && this.type == 308)
+											if (this.ai[0] > 40f && this.localAI[1] == 0f && this.type == ProjectileID.FrostHydra)
 											{
 												this.frame++;
 											}
@@ -16272,7 +16272,7 @@ namespace Terraria
 												{
 													float num517 = 6f;
 													int num518 = 309;
-													if (this.type == 377)
+													if (this.type == ProjectileID.SpiderHiver)
 													{
 														num518 = 378;
 														num517 = 9f;
@@ -16330,7 +16330,7 @@ namespace Terraria
 									}
 									else if (this.aiStyle == 54)
 									{
-										if (this.type == 317)
+										if (this.type == ProjectileID.Raven)
 										{
 											if (Main.player[Main.myPlayer].dead)
 											{
@@ -16628,7 +16628,7 @@ namespace Terraria
 													int num552 = 0;
 													for (int num553 = 0; num553 < 1000; num553++)
 													{
-														if (Main.projectile[num553].active && Main.projectile[num553].owner == this.owner && Main.projectile[num553].type == 344)
+														if (Main.projectile[num553].active && Main.projectile[num553].owner == this.owner && Main.projectile[num553].type == ProjectileID.NorthPoleSnowflake)
 														{
 															num552++;
 														}
@@ -16791,7 +16791,7 @@ namespace Terraria
 													return;
 												}
 												int num569 = 103;
-												if (this.type == 406)
+												if (this.type == ProjectileID.SlimeGun)
 												{
 													num569 = 137;
 												}
@@ -16943,7 +16943,7 @@ namespace Terraria
 																	int number2 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num595, 1, false, 0, true);
 																	if (Main.netMode == 1)
 																	{
-																		NetMessage.SendData(21, -1, -1, "", number2, 1f, 0f, 0f, 0, 0, 0);
+																		NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", number2, 1f, 0f, 0f, 0, 0, 0);
 																	}
 																}
 																else
@@ -17229,7 +17229,7 @@ namespace Terraria
 													float num616 = 1f;
 													int num617 = 150;
 													int num618 = 42;
-													if (this.type == 386)
+													if (this.type == ProjectileID.Cthulunado)
 													{
 														num614 = 16;
 														num615 = 16;
@@ -17274,7 +17274,7 @@ namespace Terraria
 														{
 															this.alpha = 60;
 														}
-														if (this.type == 386 && this.alpha < 100)
+														if (this.type == ProjectileID.Cthulunado && this.alpha < 100)
 														{
 															this.alpha = 100;
 														}
@@ -17301,21 +17301,21 @@ namespace Terraria
 														center.Y += 2f;
 														Projectile.NewProjectile(center.X, center.Y, this.velocity.X, this.velocity.Y, this.type, this.damage, this.knockBack, this.owner, 10f, this.ai[1] - 1f);
 														int num620 = 4;
-														if (this.type == 386)
+														if (this.type == ProjectileID.Cthulunado)
 														{
 															num620 = 2;
 														}
 														if ((int)this.ai[1] % num620 == 0 && this.ai[1] != 0f)
 														{
 															int num621 = 372;
-															if (this.type == 386)
+															if (this.type == ProjectileID.Cthulunado)
 															{
 																num621 = 373;
 															}
 															int num622 = NPC.NewNPC((int)center.X, (int)center.Y, num621, 0, 0f, 0f, 0f, 0f, 255);
 															Main.npc[num622].velocity = this.velocity;
 															Main.npc[num622].netUpdate = true;
-															if (this.type == 386)
+															if (this.type == ProjectileID.Cthulunado)
 															{
 																Main.npc[num622].ai[2] = (float)this.width;
 																Main.npc[num622].ai[3] = -1.5f;
@@ -17326,7 +17326,7 @@ namespace Terraria
 													{
 														float num623 = 0.104719758f;
 														float num624 = (float)this.width / 5f;
-														if (this.type == 386)
+														if (this.type == ProjectileID.Cthulunado)
 														{
 															num624 *= 2f;
 														}
@@ -17400,7 +17400,7 @@ namespace Terraria
 													float num635 = 0f;
 													float num636 = 0f;
 													float num637 = 0f;
-													if (this.type == 387 || this.type == 388)
+													if (this.type == ProjectileID.Retanimini || this.type == ProjectileID.Spazmamini)
 													{
 														num634 = 700f;
 														num635 = 800f;
@@ -17415,7 +17415,7 @@ namespace Terraria
 															this.timeLeft = 2;
 														}
 													}
-													if (this.type == 533)
+													if (this.type == ProjectileID.DeadlySphere)
 													{
 														num634 = 1500f;
 														num635 = 900f;
@@ -17433,10 +17433,10 @@ namespace Terraria
 													float num638 = 0.05f;
 													for (int num639 = 0; num639 < 1000; num639++)
 													{
-														bool flag23 = (Main.projectile[num639].type == 387 || Main.projectile[num639].type == 388) && (this.type == 387 || this.type == 388);
+														bool flag23 = (Main.projectile[num639].type == ProjectileID.Retanimini || Main.projectile[num639].type == ProjectileID.Spazmamini) && (this.type == ProjectileID.Retanimini || this.type == ProjectileID.Spazmamini);
 														if (!flag23)
 														{
-															flag23 = (this.type == 533 && Main.projectile[num639].type == 533);
+															flag23 = (this.type == ProjectileID.DeadlySphere && Main.projectile[num639].type == ProjectileID.DeadlySphere);
 														}
 														if (num639 != this.whoAmI && Main.projectile[num639].active && Main.projectile[num639].owner == this.owner && flag23 && Math.Abs(this.position.X - Main.projectile[num639].position.X) + Math.Abs(this.position.Y - Main.projectile[num639].position.Y) < (float)this.width)
 														{
@@ -17459,7 +17459,7 @@ namespace Terraria
 														}
 													}
 													bool flag24 = false;
-													if (this.ai[0] == 2f && this.type == 388)
+													if (this.ai[0] == 2f && this.type == ProjectileID.Spazmamini)
 													{
 														this.ai[1] += 1f;
 														this.extraUpdates = 1;
@@ -17487,7 +17487,7 @@ namespace Terraria
 															flag24 = true;
 														}
 													}
-													if (this.type == 533 && this.ai[0] >= 3f && this.ai[0] <= 5f)
+													if (this.type == ProjectileID.DeadlySphere && this.ai[0] >= 3f && this.ai[0] <= 5f)
 													{
 														int num640 = 2;
 														flag24 = true;
@@ -17536,7 +17536,7 @@ namespace Terraria
 															this.ai[1] = 0f;
 														}
 													}
-													if (this.type == 533 && this.ai[0] >= 6f && this.ai[0] <= 8f)
+													if (this.type == ProjectileID.DeadlySphere && this.ai[0] >= 6f && this.ai[0] <= 8f)
 													{
 														this.ai[1] += 1f;
 														this.MaxUpdates = 2;
@@ -17584,11 +17584,11 @@ namespace Terraria
 													}
 													Vector2 vector58 = this.position;
 													bool flag25 = false;
-													if (this.ai[0] != 1f && (this.type == 387 || this.type == 388))
+													if (this.ai[0] != 1f && (this.type == ProjectileID.Retanimini || this.type == ProjectileID.Spazmamini))
 													{
 														this.tileCollide = true;
 													}
-													if (this.type == 533 && this.ai[0] < 9f)
+													if (this.type == ProjectileID.DeadlySphere && this.ai[0] < 9f)
 													{
 														this.tileCollide = true;
 													}
@@ -17618,18 +17618,18 @@ namespace Terraria
 													Player player = Main.player[this.owner];
 													if (Vector2.Distance(player.Center, base.Center) > num648)
 													{
-														if (this.type == 387 || this.type == 388)
+														if (this.type == ProjectileID.Retanimini || this.type == ProjectileID.Spazmamini)
 														{
 															this.ai[0] = 1f;
 														}
-														if (this.type == 533 && this.ai[0] < 9f)
+														if (this.type == ProjectileID.DeadlySphere && this.ai[0] < 9f)
 														{
 															this.ai[0] += (float)(3 * (3 - (int)(this.ai[0] / 3f)));
 														}
 														this.tileCollide = false;
 														this.netUpdate = true;
 													}
-													if ((this.type == 388 || this.type == 387) && flag25 && this.ai[0] == 0f)
+													if ((this.type == ProjectileID.Spazmamini || this.type == ProjectileID.Retanimini) && flag25 && this.ai[0] == 0f)
 													{
 														Vector2 vector59 = vector58 - base.Center;
 														float num649 = vector59.Length();
@@ -17637,7 +17637,7 @@ namespace Terraria
 														if (num649 > 200f)
 														{
 															float num650 = 6f;
-															if (this.type == 388)
+															if (this.type == ProjectileID.Spazmamini)
 															{
 																num650 = 8f;
 															}
@@ -17656,14 +17656,14 @@ namespace Terraria
 														bool flag26 = false;
 														if (!flag26)
 														{
-															flag26 = (this.ai[0] == 1f && (this.type == 387 || this.type == 388));
+															flag26 = (this.ai[0] == 1f && (this.type == ProjectileID.Retanimini || this.type == ProjectileID.Spazmamini));
 														}
 														if (!flag26)
 														{
-															flag26 = (this.ai[0] >= 9f && this.type == 533);
+															flag26 = (this.ai[0] >= 9f && this.type == ProjectileID.DeadlySphere);
 														}
 														float num652 = 6f;
-														if (this.type == 533)
+														if (this.type == ProjectileID.DeadlySphere)
 														{
 															num652 = 12f;
 														}
@@ -17680,11 +17680,11 @@ namespace Terraria
 														}
 														if (num653 < num637 && flag26 && !Collision.SolidCollision(this.position, this.width, this.height))
 														{
-															if (this.type == 387 || this.type == 388)
+															if (this.type == ProjectileID.Retanimini || this.type == ProjectileID.Spazmamini)
 															{
 																this.ai[0] = 0f;
 															}
-															if (this.type == 533)
+															if (this.type == ProjectileID.DeadlySphere)
 															{
 																this.ai[0] -= 9f;
 															}
@@ -17708,11 +17708,11 @@ namespace Terraria
 															this.velocity.Y = -0.05f;
 														}
 													}
-													if (this.type == 388)
+													if (this.type == ProjectileID.Spazmamini)
 													{
 														this.rotation = this.velocity.ToRotation() + 3.14159274f;
 													}
-													if (this.type == 387)
+													if (this.type == ProjectileID.Retanimini)
 													{
 														if (flag25)
 														{
@@ -17723,11 +17723,11 @@ namespace Terraria
 															this.rotation = this.velocity.ToRotation() + 3.14159274f;
 														}
 													}
-													if (this.type == 533 && (this.ai[0] < 3f || this.ai[0] >= 9f))
+													if (this.type == ProjectileID.DeadlySphere && (this.ai[0] < 3f || this.ai[0] >= 9f))
 													{
 														this.rotation += this.velocity.X * 0.04f;
 													}
-													if (this.type == 388 || this.type == 387)
+													if (this.type == ProjectileID.Spazmamini || this.type == ProjectileID.Retanimini)
 													{
 														this.frameCounter++;
 														if (this.frameCounter > 3)
@@ -17740,7 +17740,7 @@ namespace Terraria
 															this.frame = 0;
 														}
 													}
-													else if (this.type == 533)
+													else if (this.type == ProjectileID.DeadlySphere)
 													{
 														if (this.ai[0] < 3f || this.ai[0] >= 9f)
 														{
@@ -17790,21 +17790,21 @@ namespace Terraria
 														}
 													IL_1ABC2:
 
-														if (this.ai[1] > 0f && (this.type == 387 || this.type == 388))
+														if (this.ai[1] > 0f && (this.type == ProjectileID.Retanimini || this.type == ProjectileID.Spazmamini))
 														{
 															this.ai[1] += (float)Main.rand.Next(1, 4);
 														}
-														if (this.ai[1] > 90f && this.type == 387)
+														if (this.ai[1] > 90f && this.type == ProjectileID.Retanimini)
 														{
 															this.ai[1] = 0f;
 															this.netUpdate = true;
 														}
-														if (this.ai[1] > 40f && this.type == 388)
+														if (this.ai[1] > 40f && this.type == ProjectileID.Spazmamini)
 														{
 															this.ai[1] = 0f;
 															this.netUpdate = true;
 														}
-														if (this.ai[1] > 0f && this.type == 533)
+														if (this.ai[1] > 0f && this.type == ProjectileID.DeadlySphere)
 														{
 															this.ai[1] += 1f;
 															int num659 = 10;
@@ -17814,9 +17814,9 @@ namespace Terraria
 																this.netUpdate = true;
 															}
 														}
-														if (this.ai[0] == 0f && (this.type == 387 || this.type == 388))
+														if (this.ai[0] == 0f && (this.type == ProjectileID.Retanimini || this.type == ProjectileID.Spazmamini))
 														{
-															if (this.type == 387)
+															if (this.type == ProjectileID.Retanimini)
 															{
 																float num660 = 8f;
 																int num661 = 389;
@@ -17834,7 +17834,7 @@ namespace Terraria
 																	}
 																}
 															}
-															if (this.type == 388 && this.ai[1] == 0f && flag25 && num634 < 500f)
+															if (this.type == ProjectileID.Spazmamini && this.ai[1] == 0f && flag25 && num634 < 500f)
 															{
 																this.ai[1] += 1f;
 																if (Main.myPlayer == this.owner)
@@ -17848,7 +17848,7 @@ namespace Terraria
 																}
 															}
 														}
-														else if (this.type == 533 && this.ai[0] < 3f)
+														else if (this.type == ProjectileID.DeadlySphere && this.ai[0] < 3f)
 														{
 															int num663 = 0;
 															switch ((int)this.ai[0])
@@ -17904,7 +17904,7 @@ namespace Terraria
 															this.active = false;
 															return;
 														}
-														bool flag27 = this.type == 393 || this.type == 394 || this.type == 395;
+														bool flag27 = this.type == ProjectileID.OneEyedPirate || this.type == ProjectileID.SoulscourgePirate || this.type == ProjectileID.PirateCaptain;
 														if (flag27)
 														{
 															if (player2.dead)
@@ -17916,7 +17916,7 @@ namespace Terraria
 																this.timeLeft = 2;
 															}
 														}
-														if (this.type == 500)
+														if (this.type == ProjectileID.CrimsonHeart)
 														{
 															if (player2.dead)
 															{
@@ -17933,12 +17933,12 @@ namespace Terraria
 															vector65.X -= (float)((15 + player2.width / 2) * player2.direction);
 															vector65.X -= (float)(this.minionPos * 40 * player2.direction);
 														}
-														if (this.type == 500)
+														if (this.type == ProjectileID.CrimsonHeart)
 														{
 															vector65.X -= (float)((15 + player2.width / 2) * player2.direction);
 															vector65.X -= (float)(40 * player2.direction);
 														}
-														if (this.type == 500)
+														if (this.type == ProjectileID.CrimsonHeart)
 														{
 															int num665 = 6;
 															if (this.frame == 0 || this.frame == 2)
@@ -17957,7 +17957,7 @@ namespace Terraria
 															Vector2 vector66 = (-Vector2.UnitY).RotatedBy((double)this.rotation, default(Vector2)).RotatedBy((double)((float)this.direction * 0.2f), default(Vector2));
 														}
 														bool flag28 = true;
-														if (this.type == 500)
+														if (this.type == ProjectileID.CrimsonHeart)
 														{
 															flag28 = false;
 														}
@@ -18144,7 +18144,7 @@ namespace Terraria
 														if (this.ai[0] == 0f && num667 < 0)
 														{
 															float num680 = 500f;
-															if (this.type == 500)
+															if (this.type == ProjectileID.CrimsonHeart)
 															{
 																num680 = 200f;
 															}
@@ -18237,7 +18237,7 @@ namespace Terraria
 																	}
 																}
 															}
-															if (this.type == 500 && this.velocity.X != 0f)
+															if (this.type == ProjectileID.CrimsonHeart && this.velocity.X != 0f)
 															{
 																flag29 = true;
 															}
@@ -18670,7 +18670,7 @@ namespace Terraria
 															int num723 = (int)this.ai[0];
 															int num724 = (int)this.ai[1];
 															Tile tile = Main.tile[num723, num724];
-															if (tile == null || !tile.active() || tile.type != 338)
+															if (tile == null || !tile.active() || tile.type != TileID.FireworkFountain)
 															{
 																this.Kill();
 																return;
@@ -18681,7 +18681,7 @@ namespace Terraria
 															{
 																num725 *= num726;
 															}
-															if (this.type == 422)
+															if (this.type == ProjectileID.FireworkFountainRainbow)
 															{
 																return;
 															}
@@ -18710,7 +18710,7 @@ namespace Terraria
 															{
 																Player player3 = Main.player[this.owner];
 																player3.heldProj = this.whoAmI;
-																if (this.type == 441)
+																if (this.type == ProjectileID.ScutlixLaserCrosshair)
 																{
 																	if (player3.mount.Type != 9)
 																	{
@@ -18718,7 +18718,7 @@ namespace Terraria
 																		return;
 																	}
 																}
-																else if (this.type == 453 && player3.mount.Type != 8)
+																else if (this.type == ProjectileID.DrillMountCrosshair && player3.mount.Type != 8)
 																{
 																	this.Kill();
 																	return;
@@ -18727,14 +18727,14 @@ namespace Terraria
 																{
 																	this.position.X = player3.position.X + this.ai[0];
 																	this.position.Y = player3.position.Y + this.ai[1];
-																	if (this.type == 441)
+																	if (this.type == ProjectileID.ScutlixLaserCrosshair)
 																	{
 																		if (!player3.mount.AbilityCharging)
 																		{
 																			player3.mount.StartAbilityCharge(player3);
 																		}
 																	}
-																	else if (this.type == 453 && !player3.mount.AbilityActive)
+																	else if (this.type == ProjectileID.DrillMountCrosshair && !player3.mount.AbilityActive)
 																	{
 																		player3.mount.UseAbility(player3, this.position, false);
 																	}
@@ -18847,7 +18847,7 @@ namespace Terraria
 																{
 																	bool flag31 = true;
 																	int num750 = (int)this.ai[0] - 1;
-																	if (this.type == 447 && (this.ai[0] == 0f || ((!Main.npc[num750].active || Main.npc[num750].type != 392) && (!Main.npc[num750].active || Main.npc[num750].type != 395 || Main.npc[num750].ai[3] % 120f < 60f || Main.npc[num750].ai[0] != 2f))))
+																	if (this.type == ProjectileID.SaucerDeathray && (this.ai[0] == 0f || ((!Main.npc[num750].active || Main.npc[num750].type != NPCID.MartianSaucer) && (!Main.npc[num750].active || Main.npc[num750].type != NPCID.MartianSaucerCore || Main.npc[num750].ai[3] % 120f < 60f || Main.npc[num750].ai[0] != 2f))))
 																	{
 																		flag31 = false;
 																	}
@@ -18889,7 +18889,7 @@ namespace Terraria
 																		int num757 = num756 % 16;
 																		this.height -= num757 - 2;
 																	}
-																	if (this.type == 447 && ++this.frameCounter >= 5)
+																	if (this.type == ProjectileID.SaucerDeathray && ++this.frameCounter >= 5)
 																	{
 																		this.frameCounter = 0;
 																		if (++this.frame >= 4)
@@ -19238,37 +19238,37 @@ namespace Terraria
 																		{
 																			this.velocity = -Vector2.UnitY;
 																		}
-																		if (this.type == 455 && Main.npc[(int)this.ai[1]].active && Main.npc[(int)this.ai[1]].type == 396)
+																		if (this.type == ProjectileID.PhantasmalDeathray && Main.npc[(int)this.ai[1]].active && Main.npc[(int)this.ai[1]].type == 396)
 																		{
 																			Vector2 vector92 = new Vector2(27f, 59f);
 																			Vector2 vector93 = Utils.Vector2FromElipse(Main.npc[(int)this.ai[1]].localAI[0].ToRotationVector2(), vector92 * Main.npc[(int)this.ai[1]].localAI[1]);
 																			this.position = Main.npc[(int)this.ai[1]].Center + vector93 - new Vector2((float)this.width, (float)this.height) / 2f;
 																		}
-																		else if (this.type == 455 && Main.npc[(int)this.ai[1]].active && Main.npc[(int)this.ai[1]].type == 400)
+																		else if (this.type == ProjectileID.PhantasmalDeathray && Main.npc[(int)this.ai[1]].active && Main.npc[(int)this.ai[1]].type == 400)
 																		{
 																			Vector2 vector94 = new Vector2(30f, 30f);
 																			Vector2 vector95 = Utils.Vector2FromElipse(Main.npc[(int)this.ai[1]].localAI[0].ToRotationVector2(), vector94 * Main.npc[(int)this.ai[1]].localAI[1]);
 																			this.position = Main.npc[(int)this.ai[1]].Center + vector95 - new Vector2((float)this.width, (float)this.height) / 2f;
 																		}
-																		else if (this.type == 537 && Main.npc[(int)this.ai[1]].active && Main.npc[(int)this.ai[1]].type == 411)
+																		else if (this.type == ProjectileID.StardustSoldierLaser && Main.npc[(int)this.ai[1]].active && Main.npc[(int)this.ai[1]].type == 411)
 																		{
 																			Vector2 vector96 = new Vector2((float)(Main.npc[(int)this.ai[1]].direction * 6), -4f);
 																			this.position = Main.npc[(int)this.ai[1]].Center + vector96 - base.Size / 2f + new Vector2(0f, -Main.npc[(int)this.ai[1]].gfxOffY);
 																		}
-																		else if (this.type == 461 && Main.projectile[(int)this.ai[1]].active && Main.projectile[(int)this.ai[1]].type == 460)
+																		else if (this.type == ProjectileID.ChargedBlasterLaser && Main.projectile[(int)this.ai[1]].active && Main.projectile[(int)this.ai[1]].type == 460)
 																		{
 																			Vector2 vector97 = Vector2.Normalize(Main.projectile[(int)this.ai[1]].velocity);
 																			this.position = Main.projectile[(int)this.ai[1]].Center + vector97 * 16f - new Vector2((float)this.width, (float)this.height) / 2f + new Vector2(0f, -Main.projectile[(int)this.ai[1]].gfxOffY);
 																			this.velocity = Vector2.Normalize(Main.projectile[(int)this.ai[1]].velocity);
 																		}
-																		else if (this.type == 642 && Main.projectile[(int)this.ai[1]].active && Main.projectile[(int)this.ai[1]].type == 641)
+																		else if (this.type == ProjectileID.MoonlordTurretLaser && Main.projectile[(int)this.ai[1]].active && Main.projectile[(int)this.ai[1]].type == 641)
 																		{
 																			base.Center = Main.projectile[(int)this.ai[1]].Center;
 																			this.velocity = Vector2.Normalize(Main.projectile[(int)this.ai[1]].ai[1].ToRotationVector2());
 																		}
 																		else
 																		{
-																			if (this.type != 632 || !Main.projectile[(int)this.ai[1]].active || Main.projectile[(int)this.ai[1]].type != 633)
+																			if (this.type != ProjectileID.LastPrismLaser || !Main.projectile[(int)this.ai[1]].active || Main.projectile[(int)this.ai[1]].type != 633)
 																			{
 																				this.Kill();
 																				return;
@@ -19330,7 +19330,7 @@ namespace Terraria
 																		{
 																			this.velocity = -Vector2.UnitY;
 																		}
-																		if (this.type == 461)
+																		if (this.type == ProjectileID.ChargedBlasterLaser)
 																		{
 																			this.ai[0] += 1f;
 																			if (this.ai[0] >= 300f)
@@ -19344,7 +19344,7 @@ namespace Terraria
 																				this.scale = 1f;
 																			}
 																		}
-																		if (this.type == 455)
+																		if (this.type == ProjectileID.PhantasmalDeathray)
 																		{
 																			float num810 = 1f;
 																			if (Main.npc[(int)this.ai[1]].type == 400)
@@ -19363,7 +19363,7 @@ namespace Terraria
 																				this.scale = num810;
 																			}
 																		}
-																		if (this.type == 642)
+																		if (this.type == ProjectileID.MoonlordTurretLaser)
 																		{
 																			float num811 = 1f;
 																			this.localAI[0] += 1f;
@@ -19378,7 +19378,7 @@ namespace Terraria
 																				this.scale = num811;
 																			}
 																		}
-																		if (this.type == 537)
+																		if (this.type == ProjectileID.StardustSoldierLaser)
 																		{
 																			float num812 = 0.8f;
 																			this.localAI[0] += 1f;
@@ -19394,7 +19394,7 @@ namespace Terraria
 																			}
 																		}
 																		float num813 = this.velocity.ToRotation();
-																		if (this.type == 455)
+																		if (this.type == ProjectileID.PhantasmalDeathray)
 																		{
 																			num813 += this.ai[0];
 																		}
@@ -19407,27 +19407,27 @@ namespace Terraria
 																		{
 																			vector100 = vector91.Value;
 																		}
-																		if (this.type == 455)
+																		if (this.type == ProjectileID.PhantasmalDeathray)
 																		{
 																			num814 = 3f;
 																			num815 = (float)this.width;
 																		}
-																		else if (this.type == 461)
+																		else if (this.type == ProjectileID.ChargedBlasterLaser)
 																		{
 																			num814 = 2f;
 																			num815 = 0f;
 																		}
-																		else if (this.type == 642)
+																		else if (this.type == ProjectileID.MoonlordTurretLaser)
 																		{
 																			num814 = 2f;
 																			num815 = 0f;
 																		}
-																		else if (this.type == 632)
+																		else if (this.type == ProjectileID.LastPrismLaser)
 																		{
 																			num814 = 2f;
 																			num815 = 0f;
 																		}
-																		else if (this.type == 537)
+																		else if (this.type == ProjectileID.StardustSoldierLaser)
 																		{
 																			num814 = 2f;
 																			num815 = 0f;
@@ -19467,28 +19467,28 @@ namespace Terraria
 																		}
 																		num823 /= num814;
 																		float num825 = 0.5f;
-																		if (this.type == 632)
+																		if (this.type == ProjectileID.LastPrismLaser)
 																		{
 																			num825 = 0.75f;
 																		}
 																		this.localAI[1] = MathHelper.Lerp(this.localAI[1], num823, num825);
-																		if (this.type == 455)
+																		if (this.type == ProjectileID.PhantasmalDeathray)
 																		{
 																			DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
 																		}
-																		else if (this.type == 642)
+																		else if (this.type == ProjectileID.MoonlordTurretLaser)
 																		{
 																			DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
 																		}
-																		if (this.type == 461)
+																		if (this.type == ProjectileID.ChargedBlasterLaser)
 																		{
 																			DelegateMethods.v3_1 = new Vector3(0.4f, 0.85f, 0.9f);
 																		}
-																		if (this.type == 537)
+																		if (this.type == ProjectileID.StardustSoldierLaser)
 																		{
 																			DelegateMethods.v3_1 = new Vector3(0.4f, 0.85f, 0.9f);
 																		}
-																		if (this.type == 632 && Math.Abs(this.localAI[1] - num823) < 100f && this.scale > 0.15f)
+																		if (this.type == ProjectileID.LastPrismLaser && Math.Abs(this.localAI[1] - num823) < 100f && this.scale > 0.15f)
 																		{
 																			float prismHue = this.GetPrismHue(this.ai[0]);
 																			Color color = Main.HslToRgb(prismHue, 1f, 0.5f);
@@ -19509,7 +19509,7 @@ namespace Terraria
 																		}
 																		int num851 = (int)Math.Abs(this.ai[0]) - 1;
 																		int num852 = (int)this.ai[1];
-																		if (!Main.npc[num851].active || Main.npc[num851].type != 396)
+																		if (!Main.npc[num851].active || Main.npc[num851].type != NPCID.MoonLordHead)
 																		{
 																			this.Kill();
 																			return;
@@ -19540,7 +19540,7 @@ namespace Terraria
 																			if (vector119.Length() < 20f && this.localAI[1] == 0f)
 																			{
 																				this.localAI[1] = 1f;
-																				Main.player[num852].AddBuff(145, 600, true);
+																				Main.player[num852].AddBuff(BuffID.MoonLeech, 600, true);
 																				return;
 																			}
 																		}
@@ -19548,7 +19548,7 @@ namespace Terraria
 																		{
 																			if (this.localAI[1] == 1f)
 																			{
-																				int num853 = Main.player[num852].HasBuff(145);
+																				int num853 = Main.player[num852].HasBuff(BuffID.MoonLeech);
 																				if (num853 != -1)
 																				{
 																					Main.player[num852].DelBuff(num853);
@@ -19668,7 +19668,7 @@ namespace Terraria
 																		}
 																		if (this.aiStyle == 88)
 																		{
-																			if (this.type == 465)
+																			if (this.type == ProjectileID.CultistBossLightningOrb)
 																			{
 																				if (this.localAI[1] == 0f)
 																				{
@@ -19761,7 +19761,7 @@ namespace Terraria
 																					return;
 																				}
 																			}
-																			else if (this.type == 466)
+																			else if (this.type == ProjectileID.CultistBossLightningOrbArc)
 																			{
 																				this.frameCounter++;
 																				if (this.velocity == Vector2.Zero)
@@ -19844,7 +19844,7 @@ namespace Terraria
 																					}
 																				}
 																			}
-																			else if (this.type == 580)
+																			else if (this.type == ProjectileID.VortexLightning)
 																			{
 																				if (this.localAI[1] == 0f && this.ai[0] >= 900f)
 																				{
@@ -19981,7 +19981,7 @@ namespace Terraria
 																			}
 																			if (this.ai[0] == 300f && this.ai[1] != -1f && Main.netMode != 1)
 																			{
-																				if (!NPC.AnyNPCs(454))
+																				if (!NPC.AnyNPCs(NPCID.CultistDragonHead))
 																				{
 																					this.ai[1] = (float)NPC.NewNPC((int)base.Center.X, (int)base.Center.Y, 454, 0, 0f, 0f, 0f, 0f, 255);
 																				}
@@ -20185,7 +20185,7 @@ namespace Terraria
 																				Rectangle rectangle12 = new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
 																				for (int num911 = 0; num911 < 1000; num911++)
 																				{
-																					if (num911 != this.whoAmI && Main.projectile[num911].active && Main.projectile[num911].type >= 511 && Main.projectile[num911].type <= 513)
+																					if (num911 != this.whoAmI && Main.projectile[num911].active && Main.projectile[num911].type >= ProjectileID.ToxicCloud && Main.projectile[num911].type <= ProjectileID.ToxicCloud3)
 																					{
 																						Rectangle rectangle13 = new Rectangle((int)Main.projectile[num911].position.X, (int)Main.projectile[num911].position.Y, Main.projectile[num911].width, Main.projectile[num911].height);
 																						if (rectangle12.Intersects(rectangle13))
@@ -20528,7 +20528,7 @@ namespace Terraria
 																					}
 																					else
 																					{
-																						if (this.aiStyle == 99 && this.type >= 556 && this.type <= 561)
+																						if (this.aiStyle == 99 && this.type >= ProjectileID.BlackCounterweight && this.type <= ProjectileID.YellowCounterweight)
 																						{
 																							this.AI_099_1();
 																							return;
@@ -20542,7 +20542,7 @@ namespace Terraria
 																						{
 																							Player player5 = Main.player[this.owner];
 																							Vector2 zero2 = Vector2.Zero;
-																							if (this.type == 535)
+																							if (this.type == ProjectileID.MedusaHead)
 																							{
 																								zero2.X = (float)player5.direction * 6f;
 																								zero2.Y = player5.gravDir * -14f;
@@ -20710,7 +20710,7 @@ namespace Terraria
 																									this.Kill();
 																									return;
 																								}
-																								if (this.type == 591)
+																								if (this.type == ProjectileID.MinecartMechLaser)
 																								{
 																									base.Center = Mount.GetMinecartMechPoint(Main.player[num939], 20, -19) - this.velocity;
 																									this.rotation = this.velocity.ToRotation() + 1.57079637f;
@@ -20821,7 +20821,7 @@ namespace Terraria
 																										this.velocity *= 6f / this.velocity.Length();
 																									}
 																								}
-																								if (this.type == 539)
+																								if (this.type == ProjectileID.StardustJellyfishSmall)
 																								{
 																									if (++this.frameCounter >= 4)
 																									{
@@ -20833,11 +20833,11 @@ namespace Terraria
 																									}
 																									this.rotation = this.velocity.X * 0.1f;
 																								}
-																								if (this.type == 573)
+																								if (this.type == ProjectileID.NebulaBolt)
 																								{
 																									this.alpha = 255;
 																								}
-																								if (this.type == 574)
+																								if (this.type == ProjectileID.NebulaEye)
 																								{
 																									if (flag47)
 																									{
@@ -20903,7 +20903,7 @@ namespace Terraria
 																							if (this.ai[0] >= num943)
 																							{
 																								this.rotation = this.rotation.AngleLerp(this.velocity.ToRotation() + 1.57079637f, 0.4f);
-																								if (this.type == 539)
+																								if (this.type == ProjectileID.StardustJellyfishSmall)
 																								{
 																									if (++this.frameCounter >= 2)
 																									{
@@ -20914,7 +20914,7 @@ namespace Terraria
 																										}
 																									}
 																								}
-																								if (this.type == 573)
+																								if (this.type == ProjectileID.NebulaBolt)
 																								{
 																									this.alpha = 0;
 																									return;
@@ -21180,7 +21180,7 @@ namespace Terraria
 																								float num969 = 10f;
 																								float num970 = 5f;
 																								float num971 = 40f;
-																								if (this.type == 575)
+																								if (this.type == ProjectileID.NebulaSphere)
 																								{
 																									if (this.timeLeft > 30 && this.alpha > 0)
 																									{
@@ -21203,7 +21203,7 @@ namespace Terraria
 																										}
 																									}
 																								}
-																								else if (this.type == 596)
+																								else if (this.type == ProjectileID.DesertDjinnCurse)
 																								{
 																									num969 = 10f;
 																									num970 = 7.5f;
@@ -21279,7 +21279,7 @@ namespace Terraria
 																							}
 																							else if (this.aiStyle == 108)
 																							{
-																								if (this.type == 578 && this.localAI[0] == 0f)
+																								if (this.type == ProjectileID.VortexVortexLightning && this.localAI[0] == 0f)
 																								{
 																									this.localAI[0] = 1f;
 																									int num977 = (int)Player.FindClosest(base.Center, 0, 0);
@@ -21294,10 +21294,10 @@ namespace Terraria
 																								this.ai[0] += 1f;
 																								if (this.ai[0] <= 90f)
 																								{
-																									if (this.type == 579)
+																									if (this.type == ProjectileID.VortexVortexPortal)
 																									{
 																									}
-																									if (this.type == 578 && Main.rand.Next(2) == 0)
+																									if (this.type == ProjectileID.VortexVortexLightning && Main.rand.Next(2) == 0)
 																									{
 																										return;
 																									}
@@ -21307,7 +21307,7 @@ namespace Terraria
 																									this.scale = (this.ai[0] - 50f) / 40f;
 																									this.alpha = 255 - (int)(255f * this.scale);
 																									this.rotation -= 0.157079637f;
-																									if (this.type == 578)
+																									if (this.type == ProjectileID.VortexVortexLightning)
 																									{
 																										if (this.ai[0] == 90f && Main.netMode != 1)
 																										{
@@ -21317,7 +21317,7 @@ namespace Terraria
 																											return;
 																										}
 																									}
-																									else if (this.type == 579 && this.ai[0] == 90f && Main.netMode != 1)
+																									else if (this.type == ProjectileID.VortexVortexPortal && this.ai[0] == 90f && Main.netMode != 1)
 																									{
 																										for (int num980 = 0; num980 < 2; num980++)
 																										{
@@ -21368,7 +21368,7 @@ namespace Terraria
 																									else if (this.ai[0] == 1f)
 																									{
 																										Vector2 vector173 = Vector2.Zero;
-																										if (this.type != 582 || !Main.npc[(int)this.ai[1]].active || Main.npc[(int)this.ai[1]].type != 124)
+																										if (this.type != ProjectileID.MechanicWrench || !Main.npc[(int)this.ai[1]].active || Main.npc[(int)this.ai[1]].type != 124)
 																										{
 																											this.Kill();
 																											return;
@@ -21463,9 +21463,9 @@ namespace Terraria
 																									if (this.ai[0] >= 30f && Main.netMode != 2)
 																									{
 																										Player player6 = Main.player[Main.myPlayer];
-																										if (player6.active && !player6.dead && base.Distance(player6.Center) <= num987 && player6.HasBuff(165) == -1)
+																										if (player6.active && !player6.dead && base.Distance(player6.Center) <= num987 && player6.HasBuff(BuffID.DryadsWard) == -1)
 																										{
-																											player6.AddBuff(165, 120, true);
+																											player6.AddBuff(BuffID.DryadsWard, 120, true);
 																										}
 																									}
 																									if (this.ai[0] >= 30f && this.ai[0] % 10f == 0f && Main.netMode != 1)
@@ -21475,13 +21475,13 @@ namespace Terraria
 																											NPC nPC10 = Main.npc[num993];
 																											if (nPC10.type != 488 && nPC10.active && base.Distance(nPC10.Center) <= num987)
 																											{
-																												if (nPC10.townNPC && (nPC10.HasBuff(165) == -1 || nPC10.buffTime[nPC10.HasBuff(165)] <= 20))
+																												if (nPC10.townNPC && (nPC10.HasBuff(BuffID.DryadsWard) == -1 || nPC10.buffTime[nPC10.HasBuff(BuffID.DryadsWard)] <= 20))
 																												{
-																													nPC10.AddBuff(165, 120, false);
+																													nPC10.AddBuff(BuffID.DryadsWard, 120, false);
 																												}
-																												else if (!nPC10.friendly && nPC10.lifeMax > 5 && !nPC10.dontTakeDamage && (nPC10.HasBuff(186) == -1 || nPC10.buffTime[nPC10.HasBuff(186)] <= 20) && (nPC10.dryadBane || Collision.CanHit(base.Center, 1, 1, nPC10.position, nPC10.width, nPC10.height)))
+																												else if (!nPC10.friendly && nPC10.lifeMax > 5 && !nPC10.dontTakeDamage && (nPC10.HasBuff(BuffID.DryadsWardDebuff) == -1 || nPC10.buffTime[nPC10.HasBuff(BuffID.DryadsWardDebuff)] <= 20) && (nPC10.dryadBane || Collision.CanHit(base.Center, 1, 1, nPC10.position, nPC10.width, nPC10.height)))
 																												{
-																													nPC10.AddBuff(186, 120, false);
+																													nPC10.AddBuff(BuffID.DryadsWardDebuff, 120, false);
 																												}
 																											}
 																										}
@@ -21494,7 +21494,7 @@ namespace Terraria
 																								}
 																								else if (this.aiStyle == 112)
 																								{
-																									if (this.type == 590)
+																									if (this.type == ProjectileID.TruffleSpore)
 																									{
 																										if (++this.frameCounter >= 4)
 																										{
@@ -21519,11 +21519,11 @@ namespace Terraria
 																											this.ai[0] = 0f;
 																										}
 																									}
-																									if (this.type == 644)
+																									if (this.type == ProjectileID.RainbowCrystalExplosion)
 																									{
 																										Color newColor2 = Main.HslToRgb(this.ai[0], 1f, 0.5f);
 																										int num999 = (int)this.ai[1];
-																										if (num999 < 0 || num999 >= 1000 || (!Main.projectile[num999].active && Main.projectile[num999].type != 643))
+																										if (num999 < 0 || num999 >= 1000 || (!Main.projectile[num999].active && Main.projectile[num999].type != ProjectileID.RainbowCrystal))
 																										{
 																											this.ai[1] = -1f;
 																										}
@@ -21581,7 +21581,7 @@ namespace Terraria
 																								else if (this.aiStyle == 113)
 																								{
 																									int num1004 = 25;
-																									if (this.type == 614)
+																									if (this.type == ProjectileID.StardustCellMinionShot)
 																									{
 																										num1004 = 63;
 																									}
@@ -21595,7 +21595,7 @@ namespace Terraria
 																									}
 																									if (this.ai[0] == 0f)
 																									{
-																										bool flag51 = this.type == 614;
+																										bool flag51 = this.type == ProjectileID.StardustCellMinionShot;
 																										if (flag51)
 																										{
 																											int num1005 = (int)this.ai[1];
@@ -21621,7 +21621,7 @@ namespace Terraria
 																											{
 																												float num1007 = 0.98f;
 																												float num1008 = 0.35f;
-																												if (this.type == 636)
+																												if (this.type == ProjectileID.Daybreak)
 																												{
 																													num1007 = 0.995f;
 																													num1008 = 0.15f;
@@ -21638,7 +21638,7 @@ namespace Terraria
 																										this.ignoreWater = true;
 																										this.tileCollide = false;
 																										int num1009 = 15;
-																										if (this.type == 636)
+																										if (this.type == ProjectileID.Daybreak)
 																										{
 																											num1009 = 5 * this.MaxUpdates;
 																										}
@@ -21793,8 +21793,8 @@ namespace Terraria
 																										{
 																											this.alpha = 0;
 																										}
-																										bool flag55 = this.type == 612;
-																										bool flag56 = this.type == 624;
+																										bool flag55 = this.type == ProjectileID.SolarWhipSwordExplosion;
+																										bool flag56 = this.type == ProjectileID.StardustGuardianExplosion;
 																										if (this.ai[0] == 1f)
 																										{
 																											this.position = base.Center;
@@ -21972,7 +21972,7 @@ namespace Terraria
 																														this.velocity *= 6f / this.velocity.Length();
 																													}
 																												}
-																												if (this.type == 618)
+																												if (this.type == ProjectileID.NebulaArcanumSubshot)
 																												{
 																													this.alpha = 255;
 																													return;
@@ -21989,7 +21989,7 @@ namespace Terraria
 																												this.active = false;
 																												return;
 																											}
-																											bool flag61 = this.type == 623;
+																											bool flag61 = this.type == ProjectileID.StardustGuardian;
 																											Vector2 vector192 = player8.Center;
 																											float num1053 = 100f;
 																											float num1054 = 300f;
@@ -22222,8 +22222,8 @@ namespace Terraria
 																												this.active = false;
 																												return;
 																											}
-																											bool flag63 = this.type == 625;
-																											bool flag64 = this.type == 625 || this.type == 626 || this.type == 627 || this.type == 628;
+																											bool flag63 = this.type == ProjectileID.StardustDragon1;
+																											bool flag64 = this.type == ProjectileID.StardustDragon1 || this.type == ProjectileID.StardustDragon2 || this.type == ProjectileID.StardustDragon3 || this.type == ProjectileID.StardustDragon4;
 																											int num1051 = 10;
 																											if (flag64)
 																											{
@@ -22365,7 +22365,7 @@ namespace Terraria
 																													this.netUpdate = true;
 																												}
 																												int byUUID = Projectile.GetByUUID(this.owner, (int)this.ai[0]);
-																												if (flag64 && byUUID >= 0 && Main.projectile[byUUID].active && (Main.projectile[byUUID].type == 625 || Main.projectile[byUUID].type == 626 || Main.projectile[byUUID].type == 627))
+																												if (flag64 && byUUID >= 0 && Main.projectile[byUUID].active && (Main.projectile[byUUID].type == ProjectileID.StardustDragon1 || Main.projectile[byUUID].type == ProjectileID.StardustDragon2 || Main.projectile[byUUID].type == ProjectileID.StardustDragon3))
 																												{
 																													flag66 = true;
 																													vector195 = Main.projectile[byUUID].Center;
@@ -22376,11 +22376,11 @@ namespace Terraria
 																													num1090 = 16f;
 																													int arg_2DEC0_0 = Main.projectile[byUUID].alpha;
 																													Main.projectile[byUUID].localAI[0] = this.localAI[0] + 1f;
-																													if (Main.projectile[byUUID].type != 625)
+																													if (Main.projectile[byUUID].type != ProjectileID.StardustDragon1)
 																													{
 																														Main.projectile[byUUID].localAI[1] = (float)this.whoAmI;
 																													}
-																													if (this.owner == Main.myPlayer && Main.projectile[byUUID].type == 625 && this.type == 628)
+																													if (this.owner == Main.myPlayer && Main.projectile[byUUID].type == ProjectileID.StardustDragon1 && this.type == ProjectileID.StardustDragon4)
 																													{
 																														Main.projectile[byUUID].Kill();
 																														this.Kill();
@@ -22426,12 +22426,12 @@ namespace Terraria
 																											}
 																											if (flag67)
 																											{
-																												if (this.type == 629)
+																												if (this.type == ProjectileID.TowerDamageBolt)
 																												{
 																													this.Kill();
 																													return;
 																												}
-																												if (this.type == 631 && this.ai[0] != -1f)
+																												if (this.type == ProjectileID.PhantasmArrow && this.ai[0] != -1f)
 																												{
 																													this.ai[0] = -1f;
 																													this.netUpdate = true;
@@ -22440,19 +22440,19 @@ namespace Terraria
 																											if (!flag67 && base.Hitbox.Intersects(Main.npc[num1096].Hitbox))
 																											{
 																												this.Kill();
-																												if (this.type == 631)
+																												if (this.type == ProjectileID.PhantasmArrow)
 																												{
 																													this.localAI[1] = 1f;
 																													this.Damage();
 																												}
 																												return;
 																											}
-																											if (this.type == 629)
+																											if (this.type == ProjectileID.TowerDamageBolt)
 																											{
 																												Vector2 vector197 = Main.npc[num1096].Center - base.Center;
 																												this.velocity = Vector2.Normalize(vector197) * 5f;
 																											}
-																											if (this.type == 631)
+																											if (this.type == ProjectileID.PhantasmArrow)
 																											{
 																												if (this.ai[1] > 0f)
 																												{
@@ -22489,8 +22489,8 @@ namespace Terraria
 																										}
 																										else if (this.aiStyle == 123)
 																										{
-																											bool flag68 = this.type == 641;
-																											bool flag69 = this.type == 643;
+																											bool flag68 = this.type == ProjectileID.MoonlordTurret;
+																											bool flag69 = this.type == ProjectileID.RainbowCrystal;
 																											float num1097 = 1000f;
 																											this.velocity = Vector2.Zero;
 																											if (flag68)
@@ -22738,18 +22738,18 @@ namespace Terraria
 																																if (vector207.Length() < (float)num1113 && Main.tile[num1116, num1117] != null && Main.tile[num1116, num1117].active())
 																																{
 																																	bool flag70 = false;
-																																	if (Main.tile[num1116, num1117].type == 185 && Main.tile[num1116, num1117].frameY == 18)
+																																	if (Main.tile[num1116, num1117].type == TileID.SmallPiles && Main.tile[num1116, num1117].frameY == 18)
 																																	{
 																																		if (Main.tile[num1116, num1117].frameX >= 576 && Main.tile[num1116, num1117].frameX <= 882)
 																																		{
 																																			flag70 = true;
 																																		}
 																																	}
-																																	else if (Main.tile[num1116, num1117].type == 186 && Main.tile[num1116, num1117].frameX >= 864 && Main.tile[num1116, num1117].frameX <= 1170)
+																																	else if (Main.tile[num1116, num1117].type == TileID.LargePiles && Main.tile[num1116, num1117].frameX >= 864 && Main.tile[num1116, num1117].frameX <= 1170)
 																																	{
 																																		flag70 = true;
 																																	}
-																																	if (flag70 || Main.tileSpelunker[(int)Main.tile[num1116, num1117].type] || (Main.tileAlch[(int)Main.tile[num1116, num1117].type] && Main.tile[num1116, num1117].type != 82))
+																																	if (flag70 || Main.tileSpelunker[(int)Main.tile[num1116, num1117].type] || (Main.tileAlch[(int)Main.tile[num1116, num1117].type] && Main.tile[num1116, num1117].type != TileID.ImmatureHerbs))
 																																	{
 																																		float num1119 = base.Distance(new Vector2((float)(num1116 * 16 + 8), (float)(num1117 * 16 + 8)));
 																																		if (num1119 < num1112 || num1112 == -1f)
@@ -22866,11 +22866,11 @@ namespace Terraria
 		}
 		private void AI_001()
 		{
-			if (this.type == 469 && this.wet && !this.honeyWet)
+			if (this.type == ProjectileID.BeeArrow && this.wet && !this.honeyWet)
 			{
 				this.Kill();
 			}
-			if (this.type == 601)
+			if (this.type == ProjectileID.PortalGunBolt)
 			{
 				Color portalColor = PortalHelper.GetPortalColor(this.owner, (int)this.ai[0]);
 				Vector3 vector = portalColor.ToVector3();
@@ -22892,14 +22892,14 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 472)
+			if (this.type == ProjectileID.WebSpit)
 			{
 				if (this.localAI[0] == 0f)
 				{
 					this.localAI[0] = 1f;
 				}
 			}
-			if (this.type == 323)
+			if (this.type == ProjectileID.Stake)
 			{
 				this.alpha -= 50;
 				if (this.alpha < 0)
@@ -22907,7 +22907,7 @@ namespace Terraria
 					this.alpha = 0;
 				}
 			}
-			if (this.type == 436)
+			if (this.type == ProjectileID.BrainScramblerBolt)
 			{
 				if (this.ai[1] == 0f)
 				{
@@ -22930,7 +22930,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 467)
+			if (this.type == ProjectileID.CultistBossFireBall)
 			{
 				if (this.ai[1] == 0f)
 				{
@@ -23023,7 +23023,7 @@ namespace Terraria
 					this.localAI[0] = 0f;
 				}
 			}
-			if (this.type == 468)
+			if (this.type == ProjectileID.CultistBossFireBallClone)
 			{
 				if (this.ai[1] == 0f)
 				{
@@ -23116,7 +23116,7 @@ namespace Terraria
 					this.localAI[0] = 0f;
 				}
 			}
-			if (this.type == 634 || this.type == 635)
+			if (this.type == ProjectileID.NebulaBlaze1 || this.type == ProjectileID.NebulaBlaze2)
 			{
 				float num28 = 5f;
 				float num29 = 250f;
@@ -23132,7 +23132,7 @@ namespace Terraria
 					71,
 					255
 				});
-				if (this.type == 635)
+				if (this.type == ProjectileID.NebulaBlaze2)
 				{
 					vector12 = new Vector2(10f, 20f);
 					num29 = 500f;
@@ -23238,7 +23238,7 @@ namespace Terraria
 					this.localAI[0] = 0f;
 				}
 			}
-			if (this.type == 459)
+			if (this.type == ProjectileID.ChargedBlasterOrb)
 			{
 				this.alpha -= 30;
 				if (this.alpha < 0)
@@ -23272,7 +23272,7 @@ namespace Terraria
 					this.maxPenetrate = -1;
 				}
 			}
-			if (this.type == 442)
+			if (this.type == ProjectileID.ElectrosphereMissile)
 			{
 				this.frame = 0;
 				if (this.alpha != 0)
@@ -23308,7 +23308,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 440 || this.type == 449 || this.type == 606)
+			if (this.type == ProjectileID.LaserMachinegunLaser || this.type == ProjectileID.SaucerLaser || this.type == ProjectileID.ScutlixLaser)
 			{
 				if (this.alpha > 0)
 				{
@@ -23320,7 +23320,7 @@ namespace Terraria
 				}
 				float num56 = 100f;
 				float num57 = 3f;
-				if (this.type == 606)
+				if (this.type == ProjectileID.ScutlixLaser)
 				{
 					num56 = 150f;
 					num57 = 5f;
@@ -23343,7 +23343,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 593)
+			if (this.type == ProjectileID.AncientDoomProjectile)
 			{
 				if (++this.frameCounter >= 12)
 				{
@@ -23354,7 +23354,7 @@ namespace Terraria
 					this.frameCounter = 0;
 				}
 			}
-			if (this.type == 462)
+			if (this.type == ProjectileID.PhantasmalBolt)
 			{
 				if (++this.frameCounter >= 9)
 				{
@@ -23365,7 +23365,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 437)
+			if (this.type == ProjectileID.GigaZapperSpear)
 			{
 				if (this.ai[1] == 0f)
 				{
@@ -23376,7 +23376,7 @@ namespace Terraria
 					this.localAI[0] = 1f;
 				}
 			}
-			if (this.type == 435)
+			if (this.type == ProjectileID.MartianTurretBolt)
 			{
 				if (this.ai[1] == 0f)
 				{
@@ -23399,7 +23399,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 408)
+			if (this.type == ProjectileID.MiniSharkron)
 			{
 				this.alpha -= 40;
 				if (this.alpha < 0)
@@ -23408,7 +23408,7 @@ namespace Terraria
 				}
 				this.spriteDirection = this.direction;
 			}
-			if (this.type == 275 || this.type == 276)
+			if (this.type == ProjectileID.SeedPlantera || this.type == ProjectileID.PoisonSeedPlantera)
 			{
 				this.frameCounter++;
 				if (this.frameCounter > 1)
@@ -23421,7 +23421,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 174)
+			if (this.type == ProjectileID.IceSpike)
 			{
 				this.alpha -= 50;
 				if (this.alpha < 0)
@@ -23433,7 +23433,7 @@ namespace Terraria
 					this.ai[1] = 1f;
 				}
 			}
-			else if (this.type == 605)
+			else if (this.type == ProjectileID.SpikedSlimeSpike)
 			{
 				this.alpha -= 50;
 				if (this.alpha < 0)
@@ -23445,7 +23445,7 @@ namespace Terraria
 					this.ai[1] = 1f;
 				}
 			}
-			else if (this.type == 176)
+			else if (this.type == ProjectileID.JungleSpike)
 			{
 				this.alpha -= 50;
 				if (this.alpha < 0)
@@ -23457,7 +23457,7 @@ namespace Terraria
 					this.ai[1] = 1f;
 				}
 			}
-			if (this.type == 350)
+			if (this.type == ProjectileID.Missile)
 			{
 				this.alpha -= 100;
 				if (this.alpha < 0)
@@ -23469,7 +23469,7 @@ namespace Terraria
 					this.ai[1] = 1f;
 				}
 			}
-			if (this.type == 325)
+			if (this.type == ProjectileID.FlamingWood)
 			{
 				this.alpha -= 100;
 				if (this.alpha < 0)
@@ -23481,7 +23481,7 @@ namespace Terraria
 					this.ai[1] = 1f;
 				}
 			}
-			if (this.type == 469)
+			if (this.type == ProjectileID.BeeArrow)
 			{
 				this.localAI[1] += 1f;
 				if (this.localAI[1] > 2f)
@@ -23493,99 +23493,99 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 83 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.EyeLaser && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 408 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.MiniSharkron && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 259 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.EyeBeam && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 110 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.BulletSnowman && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 302 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.SniperBullet && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 438 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.RayGunnerLaser && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 593 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.AncientDoomProjectile && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 592 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.MartianWalkerLaser && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 462 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.PhantasmalBolt && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 84 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.PinkLaser && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 389 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.MiniRetinaLaser && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 257 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.FrostBeam && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 100 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.DeathLaser && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 98 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.PoisonDart && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 184 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.PoisonDartTrap && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 195 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.PygmySpear && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 275 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.SeedPlantera && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 276 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.PoisonSeedPlantera && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if ((this.type == 81 || this.type == 82) && this.ai[1] == 0f)
+			else if ((this.type == ProjectileID.WoodenArrowHostile || this.type == ProjectileID.FlamingArrow) && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 180 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.BulletDeadeye && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 248 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.FlowerPowPetal && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 576 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.NebulaLaser && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 577 && this.ai[1] == 0f)
+			else if (this.type == ProjectileID.VortexLaser && this.ai[1] == 0f)
 			{
 				this.ai[1] = 1f;
 			}
-			else if (this.type == 639)
+			else if (this.type == ProjectileID.MoonlordArrow)
 			{
 				if (this.localAI[0] == 0f && this.localAI[1] == 0f)
 				{
@@ -23600,7 +23600,7 @@ namespace Terraria
 					this.alpha = 0;
 				}
 			}
-			else if (this.type == 640)
+			else if (this.type == ProjectileID.MoonlordArrowTrail)
 			{
 				this.alpha -= 25;
 				if (this.alpha < 0)
@@ -23625,7 +23625,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 376)
+			else if (this.type == ProjectileID.ImpFireball)
 			{
 				this.localAI[0] += 1f;
 				if (this.localAI[0] > 3f)
@@ -23637,7 +23637,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 163 || this.type == 310)
+			if (this.type == ProjectileID.Flare || this.type == ProjectileID.BlueFlare)
 			{
 				if (this.alpha > 0)
 				{
@@ -23746,7 +23746,7 @@ namespace Terraria
 				this.alpha = 0;
 			}
 			IL_49CE:
-			if (this.type == 242 || this.type == 302 || this.type == 438 || this.type == 462 || this.type == 592)
+			if (this.type == ProjectileID.BulletHighVelocity || this.type == ProjectileID.SniperBullet || this.type == ProjectileID.RayGunnerLaser || this.type == ProjectileID.PhantasmalBolt || this.type == ProjectileID.MartianWalkerLaser)
 			{
 				float num98 = (float)Math.Sqrt((double)(this.velocity.X * this.velocity.X + this.velocity.Y * this.velocity.Y));
 				if (this.alpha > 0)
@@ -23758,7 +23758,7 @@ namespace Terraria
 					this.alpha = 0;
 				}
 			}
-			if (this.type == 638)
+			if (this.type == ProjectileID.MoonlordBullet)
 			{
 				float num99 = this.velocity.Length();
 				if (this.alpha > 0)
@@ -23784,7 +23784,7 @@ namespace Terraria
 				{
 				}
 			}
-			if (this.type == 257 || this.type == 593)
+			if (this.type == ProjectileID.FrostBeam || this.type == ProjectileID.AncientDoomProjectile)
 			{
 				if (this.alpha > 0)
 				{
@@ -23795,7 +23795,7 @@ namespace Terraria
 					this.alpha = 0;
 				}
 			}
-			if (this.type == 88)
+			if (this.type == ProjectileID.PurpleLaser)
 			{
 				if (this.alpha > 0)
 				{
@@ -23806,7 +23806,7 @@ namespace Terraria
 					this.alpha = 0;
 				}
 			}
-			if (this.type == 532)
+			if (this.type == ProjectileID.BoneGloveProj)
 			{
 				this.ai[0] += 1f;
 			}
@@ -24094,7 +24094,7 @@ namespace Terraria
 			{
 				this.ai[0] += 1f;
 			}
-			if (this.type == 270)
+			if (this.type == ProjectileID.Skull)
 			{
 				int num104 = (int)Player.FindClosest(base.Center, 1, 1);
 				this.ai[1] += 1f;
@@ -24122,7 +24122,7 @@ namespace Terraria
 					this.hostile = true;
 				}
 			}
-			if (this.type == 585)
+			if (this.type == ProjectileID.ClothiersCurse)
 			{
 				if (this.localAI[0] == 0f)
 				{
@@ -24148,7 +24148,7 @@ namespace Terraria
 				}
 				Vector3 vector27 = NPCID.Sets.MagicAuraColor[54].ToVector3();
 			}
-			if (this.type == 594)
+			if (this.type == ProjectileID.BlowupSmoke)
 			{
 				int num111 = (int)(43f - this.ai[1]) / 13;
 				if (num111 < 1)
@@ -24162,7 +24162,7 @@ namespace Terraria
 					return;
 				}
 			}
-			if (this.type == 622)
+			if (this.type == ProjectileID.BlowupSmokeMoonlord)
 			{
 				this.ai[1] += 1f;
 				if (this.ai[1] > (float)(23 * this.MaxUpdates))
@@ -24171,7 +24171,7 @@ namespace Terraria
 					return;
 				}
 			}
-			if (this.type == 587)
+			if (this.type == ProjectileID.PainterPaintball)
 			{
 				Color newColor = Main.HslToRgb(this.ai[1], 1f, 0.5f);
 				newColor.A = 200;
@@ -24185,7 +24185,7 @@ namespace Terraria
 						}
 				}
 			}
-			if (this.type == 349)
+			if (this.type == ProjectileID.FrostShard)
 			{
 				this.frame = (int)this.ai[0];
 				this.velocity.Y = this.velocity.Y + 0.2f;
@@ -24210,7 +24210,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 348)
+			if (this.type == ProjectileID.FrostWave)
 			{
 				if (this.localAI[1] == 0f)
 				{
@@ -24237,25 +24237,25 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 572)
+			if (this.type == ProjectileID.SalamanderSpit)
 			{
 				if (this.localAI[0] == 0f)
 				{
 					this.localAI[0] = 1f;
 				}
 			}
-			else if (this.type == 581)
+			else if (this.type == ProjectileID.VortexAcid)
 			{
 				if (this.localAI[0] == 0f)
 				{
 					this.localAI[0] = 1f;
 				}
 			}
-			if (this.type == 299)
+			if (this.type == ProjectileID.Shadowflames)
 			{
 				this.localAI[0] += 1f;
 			}
-			else if (this.type == 270)
+			else if (this.type == ProjectileID.Skull)
 			{
 				if (this.ai[0] < 0f)
 				{
@@ -24275,7 +24275,7 @@ namespace Terraria
 					this.frame = 0;
 				}
 			}
-			if (this.type == 259)
+			if (this.type == ProjectileID.EyeBeam)
 			{
 				if (this.alpha > 0)
 				{
@@ -24286,7 +24286,7 @@ namespace Terraria
 					this.alpha = 0;
 				}
 			}
-			if (this.type == 265)
+			if (this.type == ProjectileID.PoisonFang)
 			{
 				if (this.alpha > 0)
 				{
@@ -24297,7 +24297,7 @@ namespace Terraria
 					this.alpha = 0;
 				}
 			}
-			if (this.type == 355)
+			if (this.type == ProjectileID.VenomFang)
 			{
 				if (this.alpha > 0)
 				{
@@ -24308,7 +24308,7 @@ namespace Terraria
 					this.alpha = 0;
 				}
 			}
-			if (this.type == 357)
+			if (this.type == ProjectileID.PulseBolt)
 			{
 				if (this.alpha > 0)
 				{
@@ -24319,7 +24319,7 @@ namespace Terraria
 					this.alpha = 0;
 				}
 			}
-			else if (this.type == 207)
+			else if (this.type == ProjectileID.ChlorophyteBullet)
 			{
 				float num144 = (float)Math.Sqrt((double)(this.velocity.X * this.velocity.X + this.velocity.Y * this.velocity.Y));
 				float num145 = this.localAI[0];
@@ -24405,7 +24405,7 @@ namespace Terraria
 					this.velocity.Y = (this.velocity.Y * (float)(num162 - 1) + num160) / (float)num162;
 				}
 			}
-			else if (this.type == 81 || this.type == 91)
+			else if (this.type == ProjectileID.WoodenArrowHostile || this.type == ProjectileID.HolyArrow)
 			{
 				if (this.ai[0] >= 20f)
 				{
@@ -24413,7 +24413,7 @@ namespace Terraria
 					this.velocity.Y = this.velocity.Y + 0.07f;
 				}
 			}
-			else if (this.type == 174 || this.type == 605)
+			else if (this.type == ProjectileID.IceSpike || this.type == ProjectileID.SpikedSlimeSpike)
 			{
 				if (this.ai[0] >= 5f)
 				{
@@ -24421,7 +24421,7 @@ namespace Terraria
 					this.velocity.Y = this.velocity.Y + 0.15f;
 				}
 			}
-			else if (this.type == 337)
+			else if (this.type == ProjectileID.Blizzard)
 			{
 				if (this.position.Y > Main.player[this.owner].position.Y - 300f)
 				{
@@ -24433,7 +24433,7 @@ namespace Terraria
 				}
 				this.frame = (int)this.ai[1];
 			}
-			else if (this.type == 645)
+			else if (this.type == ProjectileID.LunarFlare)
 			{
 				if (this.ai[1] != -1f && this.position.Y > this.ai[1])
 				{
@@ -24496,7 +24496,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type >= 424 && this.type <= 426)
+			else if (this.type >= ProjectileID.Meteor1 && this.type <= ProjectileID.Meteor3)
 			{
 				if (this.position.Y > Main.player[this.owner].position.Y - 300f)
 				{
@@ -24509,7 +24509,7 @@ namespace Terraria
 				this.scale = this.ai[1];
 				this.rotation += this.velocity.X * 2f;
 			}
-			else if (this.type == 344)
+			else if (this.type == ProjectileID.NorthPoleSnowflake)
 			{
 				this.localAI[1] += 1f;
 				if (this.localAI[1] > 5f)
@@ -24529,9 +24529,9 @@ namespace Terraria
 				this.rotation += Main.windSpeed * 0.2f;
 				this.velocity.X = this.velocity.X + Main.windSpeed * 0.1f;
 			}
-			else if (this.type == 336 || this.type == 345)
+			else if (this.type == ProjectileID.PineNeedleFriendly || this.type == ProjectileID.PineNeedleHostile)
 			{
-				if (this.type == 345 && this.localAI[0] == 0f)
+				if (this.type == ProjectileID.PineNeedleHostile && this.localAI[0] == 0f)
 				{
 					this.localAI[0] = 1f;
 				}
@@ -24541,7 +24541,7 @@ namespace Terraria
 					this.velocity.Y = this.velocity.Y + 0.5f;
 				}
 			}
-			else if (this.type == 246)
+			else if (this.type == ProjectileID.Stynger)
 			{
 				this.alpha -= 20;
 				if (this.alpha < 0)
@@ -24554,7 +24554,7 @@ namespace Terraria
 					this.velocity.Y = this.velocity.Y + 0.15f;
 				}
 			}
-			else if (this.type == 311)
+			else if (this.type == ProjectileID.CandyCorn)
 			{
 				if (this.alpha > 0)
 				{
@@ -24574,7 +24574,7 @@ namespace Terraria
 					this.velocity.Y = this.velocity.Y + 0.5f;
 				}
 			}
-			else if (this.type == 312)
+			else if (this.type == ProjectileID.JackOLantern)
 			{
 				if (this.ai[0] >= 5f)
 				{
@@ -24586,9 +24586,9 @@ namespace Terraria
 					this.velocity.Y = this.velocity.Y + 0.5f;
 				}
 			}
-			else if (this.type != 239 && this.type != 264)
+			else if (this.type != ProjectileID.RainFriendly && this.type != ProjectileID.RainNimbus)
 			{
-				if (this.type == 176)
+				if (this.type == ProjectileID.JungleSpike)
 				{
 					if (this.ai[0] >= 15f)
 					{
@@ -24596,7 +24596,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.05f;
 					}
 				}
-				else if (this.type == 275 || this.type == 276)
+				else if (this.type == ProjectileID.SeedPlantera || this.type == ProjectileID.PoisonSeedPlantera)
 				{
 					if (this.alpha > 0)
 					{
@@ -24632,7 +24632,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 172)
+				else if (this.type == ProjectileID.FrostburnArrow)
 				{
 					if (this.ai[0] >= 17f)
 					{
@@ -24640,7 +24640,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.085f;
 					}
 				}
-				else if (this.type == 117)
+				else if (this.type == ProjectileID.BoneArrow)
 				{
 					if (this.ai[0] >= 35f)
 					{
@@ -24648,7 +24648,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.06f;
 					}
 				}
-				else if (this.type == 120)
+				else if (this.type == ProjectileID.FrostArrow)
 				{
 					if (this.ai[0] >= 30f)
 					{
@@ -24656,7 +24656,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.05f;
 					}
 				}
-				else if (this.type == 195)
+				else if (this.type == ProjectileID.PygmySpear)
 				{
 					if (this.ai[0] >= 20f)
 					{
@@ -24669,7 +24669,7 @@ namespace Terraria
 						this.tileCollide = false;
 					}
 				}
-				else if (this.type == 267 || this.type == 477 || this.type == 478 || this.type == 479)
+				else if (this.type == ProjectileID.PoisonDartBlowgun || this.type == ProjectileID.CrystalDart || this.type == ProjectileID.CursedDart || this.type == ProjectileID.IchorDart)
 				{
 					this.localAI[0] += 1f;
 					if (this.localAI[0] > 3f)
@@ -24679,12 +24679,12 @@ namespace Terraria
 					if (this.ai[0] >= 20f)
 					{
 						this.ai[0] = 20f;
-						if (this.type != 477)
+						if (this.type != ProjectileID.CrystalDart)
 						{
 							this.velocity.Y = this.velocity.Y + 0.075f;
 						}
 					}
-					if (this.type == 479 && Main.myPlayer == this.owner)
+					if (this.type == ProjectileID.IchorDart && Main.myPlayer == this.owner)
 					{
 						if (this.ai[1] >= 0f)
 						{
@@ -24720,7 +24720,7 @@ namespace Terraria
 							}
 						}
 					}
-					if (this.type == 478 && Main.myPlayer == this.owner)
+					if (this.type == ProjectileID.CursedDart && Main.myPlayer == this.owner)
 					{
 						this.ai[1] += 1f;
 						if (this.ai[1] > (float)Main.rand.Next(5, 20))
@@ -24734,7 +24734,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 408)
+				else if (this.type == ProjectileID.MiniSharkron)
 				{
 					if (this.ai[0] >= 45f)
 					{
@@ -24742,7 +24742,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.05f;
 					}
 				}
-				else if (this.type == 616)
+				else if (this.type == ProjectileID.VortexBeaterRocket)
 				{
 					if (this.alpha < 170)
 					{
@@ -24832,7 +24832,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 507 || this.type == 508)
+				else if (this.type == ProjectileID.JavelinFriendly || this.type == ProjectileID.JavelinHostile)
 				{
 					if (this.ai[0] > 45f)
 					{
@@ -24840,7 +24840,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.3f;
 					}
 				}
-				else if (this.type == 495)
+				else if (this.type == ProjectileID.ShadowFlameArrow)
 				{
 					if (this.ai[0] >= 30f)
 					{
@@ -24848,7 +24848,7 @@ namespace Terraria
 						this.velocity.Y = this.velocity.Y + 0.04f;
 					}
 				}
-				else if (this.type == 498)
+				else if (this.type == ProjectileID.Nail)
 				{
 					if (this.localAI[0] == 0f)
 					{
@@ -24866,7 +24866,7 @@ namespace Terraria
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 					}
 				}
-				else if (this.type == 437)
+				else if (this.type == ProjectileID.GigaZapperSpear)
 				{
 					if (this.ai[0] >= 12f)
 					{
@@ -24877,9 +24877,9 @@ namespace Terraria
 						this.alpha += 30;
 					}
 				}
-				else if (this.type != 442 && this.type != 634 && this.type != 635)
+				else if (this.type != ProjectileID.ElectrosphereMissile && this.type != ProjectileID.NebulaBlaze1 && this.type != ProjectileID.NebulaBlaze2)
 				{
-					if (this.type == 639)
+					if (this.type == ProjectileID.MoonlordArrow)
 					{
 						if (this.timeLeft <= this.MaxUpdates * 45 - 14)
 						{
@@ -24893,7 +24893,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 248)
+			if (this.type == ProjectileID.FlowerPowPetal)
 			{
 				if (this.velocity.X < 0f)
 				{
@@ -24904,7 +24904,7 @@ namespace Terraria
 					this.rotation += (Math.Abs(this.velocity.X) + Math.Abs(this.velocity.Y)) * 0.05f;
 				}
 			}
-			else if (this.type == 270 || this.type == 585 || this.type == 601)
+			else if (this.type == ProjectileID.Skull || this.type == ProjectileID.ClothiersCurse || this.type == ProjectileID.PortalGunBolt)
 			{
 				this.spriteDirection = this.direction;
 				if (this.direction < 0)
@@ -24916,7 +24916,7 @@ namespace Terraria
 					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X);
 				}
 			}
-			else if (this.type == 311)
+			else if (this.type == ProjectileID.CandyCorn)
 			{
 				if (this.ai[1] != 0f)
 				{
@@ -24927,11 +24927,11 @@ namespace Terraria
 					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 				}
 			}
-			else if (this.type == 312)
+			else if (this.type == ProjectileID.JackOLantern)
 			{
 				this.rotation += this.velocity.X * 0.02f;
 			}
-			else if (this.type == 408)
+			else if (this.type == ProjectileID.MiniSharkron)
 			{
 				this.rotation = this.velocity.ToRotation();
 				if (this.direction == -1)
@@ -24939,7 +24939,7 @@ namespace Terraria
 					this.rotation += 3.14159274f;
 				}
 			}
-			else if (this.type == 435 || this.type == 459)
+			else if (this.type == ProjectileID.MartianTurretBolt || this.type == ProjectileID.ChargedBlasterOrb)
 			{
 				this.rotation = this.velocity.ToRotation();
 				if (this.direction == -1)
@@ -24947,7 +24947,7 @@ namespace Terraria
 					this.rotation += 3.14159274f;
 				}
 			}
-			else if (this.type == 436)
+			else if (this.type == ProjectileID.BrainScramblerBolt)
 			{
 				this.rotation = this.velocity.ToRotation();
 				this.rotation += 3.14159274f;
@@ -24956,7 +24956,7 @@ namespace Terraria
 					this.rotation += 3.14159274f;
 				}
 			}
-			else if (this.type == 469)
+			else if (this.type == ProjectileID.BeeArrow)
 			{
 				if (this.velocity.X > 0f)
 				{
@@ -24969,7 +24969,7 @@ namespace Terraria
 					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 				}
 			}
-			else if (this.type == 477)
+			else if (this.type == ProjectileID.CrystalDart)
 			{
 				if (this.localAI[1] < 5f)
 				{
@@ -24981,15 +24981,15 @@ namespace Terraria
 					this.rotation = (this.rotation * 2f + (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f) / 3f;
 				}
 			}
-			else if (this.type == 532)
+			else if (this.type == ProjectileID.BoneGloveProj)
 			{
 				this.rotation += 0.2f + Math.Abs(this.velocity.X) * 0.1f;
 			}
-			else if (this.type == 483)
+			else if (this.type == ProjectileID.SeedlerNut)
 			{
 				this.rotation += this.velocity.X * 0.05f;
 			}
-			else if (this.type == 485)
+			else if (this.type == ProjectileID.Hellwing)
 			{
 				Vector2 vector32 = new Vector2(this.ai[0], this.ai[1]);
 				this.velocity = (this.velocity * 39f + vector32) / 40f;
@@ -25014,14 +25014,14 @@ namespace Terraria
 					this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X);
 				}
 			}
-			else if (this.type == 640)
+			else if (this.type == ProjectileID.MoonlordArrowTrail)
 			{
 				if (this.velocity != Vector2.Zero)
 				{
 					this.rotation = this.velocity.ToRotation() + 1.57079637f;
 				}
 			}
-			else if (this.type != 344 && this.type != 498)
+			else if (this.type != ProjectileID.NorthPoleSnowflake && this.type != ProjectileID.Nail)
 			{
 				this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 			}
@@ -25042,19 +25042,19 @@ namespace Terraria
 			bool flag3 = false;
 			bool flag4 = false;
 			int num = 85;
-			if (this.type == 324)
+			if (this.type == ProjectileID.CursedSapling)
 			{
 				num = 120;
 			}
-			if (this.type == 112)
+			if (this.type == ProjectileID.Penguin)
 			{
 				num = 100;
 			}
-			if (this.type == 127)
+			if (this.type == ProjectileID.Turtle)
 			{
 				num = 50;
 			}
-			if (this.type >= 191 && this.type <= 194)
+			if (this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4)
 			{
 				if (this.lavaWet)
 				{
@@ -25063,11 +25063,11 @@ namespace Terraria
 				}
 				num = 60 + 30 * this.minionPos;
 			}
-			else if (this.type == 266)
+			else if (this.type == ProjectileID.BabySlime)
 			{
 				num = 60 + 30 * this.minionPos;
 			}
-			if (this.type == 111)
+			if (this.type == ProjectileID.Bunny)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25078,7 +25078,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 112)
+			if (this.type == ProjectileID.Penguin)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25089,7 +25089,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 334)
+			if (this.type == ProjectileID.Puppy)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25100,7 +25100,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 353)
+			if (this.type == ProjectileID.BabyGrinch)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25111,7 +25111,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 127)
+			if (this.type == ProjectileID.Turtle)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25122,7 +25122,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 175)
+			if (this.type == ProjectileID.BabyEater)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25133,7 +25133,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 197)
+			if (this.type == ProjectileID.BabySkeletronHead)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25144,7 +25144,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 198)
+			if (this.type == ProjectileID.BabyHornet)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25155,7 +25155,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 199)
+			if (this.type == ProjectileID.TikiSpirit)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25166,7 +25166,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 200)
+			if (this.type == ProjectileID.PetLizard)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25177,7 +25177,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 208)
+			if (this.type == ProjectileID.Parrot)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25188,7 +25188,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 209)
+			if (this.type == ProjectileID.Truffle)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25199,7 +25199,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 210)
+			if (this.type == ProjectileID.Sapling)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25210,7 +25210,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 324)
+			if (this.type == ProjectileID.CursedSapling)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25221,7 +25221,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 313)
+			if (this.type == ProjectileID.Spider)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25232,7 +25232,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 314)
+			if (this.type == ProjectileID.Squashling)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25243,7 +25243,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 211)
+			if (this.type == ProjectileID.Wisp)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25254,7 +25254,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 236)
+			if (this.type == ProjectileID.BabyDino)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25265,7 +25265,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 499)
+			if (this.type == ProjectileID.BabyFaceMonster)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25276,7 +25276,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 266)
+			if (this.type == ProjectileID.BabySlime)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25287,7 +25287,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 268)
+			if (this.type == ProjectileID.EyeSpring)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25298,7 +25298,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 269)
+			if (this.type == ProjectileID.BabySnowman)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25309,7 +25309,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 319)
+			if (this.type == ProjectileID.BlackCat)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25320,7 +25320,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 380)
+			if (this.type == ProjectileID.ZephyrFish)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25331,7 +25331,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type >= 191 && this.type <= 194)
+			if (this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25342,7 +25342,7 @@ namespace Terraria
 					this.timeLeft = Main.rand.Next(2, 10);
 				}
 			}
-			if (this.type >= 390 && this.type <= 392)
+			if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25353,7 +25353,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 398)
+			if (this.type == ProjectileID.MiniMinotaur)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -25364,7 +25364,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if ((this.type >= 191 && this.type <= 194) || this.type == 266 || (this.type >= 390 && this.type <= 392))
+			if ((this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4) || this.type == ProjectileID.BabySlime || (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider))
 			{
 				num = 10;
 				int num2 = 40 * (this.minionPos + 1) * Main.player[this.owner].direction;
@@ -25385,7 +25385,7 @@ namespace Terraria
 			{
 				flag2 = true;
 			}
-			if (this.type == 175)
+			if (this.type == ProjectileID.BabyEater)
 			{
 				float num3 = 0.1f;
 				this.tileCollide = false;
@@ -25393,7 +25393,7 @@ namespace Terraria
 				Vector2 vector = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 				float num5 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector.X;
 				float num6 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector.Y;
-				if (this.type == 127)
+				if (this.type == ProjectileID.Turtle)
 				{
 					num6 = Main.player[this.owner].position.Y - vector.Y;
 				}
@@ -25492,7 +25492,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 197)
+			else if (this.type == ProjectileID.BabySkeletronHead)
 			{
 				float num9 = 0.1f;
 				this.tileCollide = false;
@@ -25500,7 +25500,7 @@ namespace Terraria
 				Vector2 vector2 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 				float num11 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector2.X;
 				float num12 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector2.Y;
-				if (this.type == 127)
+				if (this.type == ProjectileID.Turtle)
 				{
 					num12 = Main.player[this.owner].position.Y - vector2.Y;
 				}
@@ -25639,10 +25639,10 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 198 || this.type == 380)
+			else if (this.type == ProjectileID.BabyHornet || this.type == ProjectileID.ZephyrFish)
 			{
 				float num16 = 0.4f;
-				if (this.type == 380)
+				if (this.type == ProjectileID.ZephyrFish)
 				{
 					num16 = 0.3f;
 				}
@@ -25655,13 +25655,13 @@ namespace Terraria
 				num18 += (float)Main.rand.Next(-10, 21);
 				num18 += (float)(60 * -(float)Main.player[this.owner].direction);
 				num19 -= 60f;
-				if (this.type == 127)
+				if (this.type == ProjectileID.Turtle)
 				{
 					num19 = Main.player[this.owner].position.Y - vector3.Y;
 				}
 				float num20 = (float)Math.Sqrt((double)(num18 * num18 + num19 * num19));
 				float num21 = 14f;
-				if (this.type == 380)
+				if (this.type == ProjectileID.ZephyrFish)
 				{
 					num21 = 6f;
 				}
@@ -25683,7 +25683,7 @@ namespace Terraria
 				}
 				else
 				{
-					if (this.type == 380)
+					if (this.type == ProjectileID.ZephyrFish)
 					{
 						if (num20 < 100f)
 						{
@@ -25694,7 +25694,7 @@ namespace Terraria
 							num16 = 0.4f;
 						}
 					}
-					else if (this.type == 198)
+					else if (this.type == ProjectileID.BabyHornet)
 					{
 						if (num20 < 100f)
 						{
@@ -25753,7 +25753,7 @@ namespace Terraria
 				this.rotation = this.velocity.X * 0.05f;
 				this.frameCounter++;
 				int num22 = 2;
-				if (this.type == 380)
+				if (this.type == ProjectileID.ZephyrFish)
 				{
 					num22 = 5;
 				}
@@ -25768,7 +25768,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 211)
+			else if (this.type == ProjectileID.Wisp)
 			{
 				float num23 = 0.2f;
 				float num24 = 5f;
@@ -25923,7 +25923,7 @@ namespace Terraria
 					return;
 				}
 			}
-			else if (this.type == 199)
+			else if (this.type == ProjectileID.TikiSpirit)
 			{
 				float num29 = 0.1f;
 				this.tileCollide = false;
@@ -25933,7 +25933,7 @@ namespace Terraria
 				float num32 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector5.Y;
 				num32 -= 60f;
 				num31 -= 2f;
-				if (this.type == 127)
+				if (this.type == ProjectileID.Turtle)
 				{
 					num32 = Main.player[this.owner].position.Y - vector5.Y;
 				}
@@ -26056,26 +26056,26 @@ namespace Terraria
 				if (this.ai[1] == 0f)
 				{
 					int num36 = 500;
-					if (this.type == 127)
+					if (this.type == ProjectileID.Turtle)
 					{
 						num36 = 200;
 					}
-					if (this.type == 208)
+					if (this.type == ProjectileID.Parrot)
 					{
 						num36 = 300;
 					}
-					if ((this.type >= 191 && this.type <= 194) || this.type == 266 || (this.type >= 390 && this.type <= 392))
+					if ((this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4) || this.type == ProjectileID.BabySlime || (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider))
 					{
 						num36 += 40 * this.minionPos;
 						if (this.localAI[0] > 0f)
 						{
 							num36 += 500;
 						}
-						if (this.type == 266 && this.localAI[0] > 0f)
+						if (this.type == ProjectileID.BabySlime && this.localAI[0] > 0f)
 						{
 							num36 += 100;
 						}
-						if (this.type >= 390 && this.type <= 392 && this.localAI[0] > 0f)
+						if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider && this.localAI[0] > 0f)
 						{
 							num36 += 400;
 						}
@@ -26086,7 +26086,7 @@ namespace Terraria
 					}
 					Vector2 vector6 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 					float num37 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector6.X;
-					if (this.type >= 191)
+					if (this.type >= ProjectileID.Pygmy)
 					{
 						int arg_2689_0 = this.type;
 					}
@@ -26097,9 +26097,9 @@ namespace Terraria
 						this.position.X = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - (float)(this.width / 2);
 						this.position.Y = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - (float)(this.height / 2);
 					}
-					else if (num39 > (float)num36 || (Math.Abs(num38) > 300f && (((this.type < 191 || this.type > 194) && this.type != 266 && (this.type < 390 || this.type > 392)) || this.localAI[0] <= 0f)))
+					else if (num39 > (float)num36 || (Math.Abs(num38) > 300f && (((this.type < 191 || this.type > 194) && this.type != ProjectileID.BabySlime && (this.type < 390 || this.type > 392)) || this.localAI[0] <= 0f)))
 					{
-						if (this.type != 324)
+						if (this.type != ProjectileID.CursedSapling)
 						{
 							if (num38 > 0f && this.velocity.Y < 0f)
 							{
@@ -26113,7 +26113,7 @@ namespace Terraria
 						this.ai[0] = 1f;
 					}
 				}
-				if (this.type == 209 && this.ai[0] != 0f)
+				if (this.type == ProjectileID.Truffle && this.ai[0] != 0f)
 				{
 					if (Main.player[this.owner].velocity.Y == 0f && this.alpha >= 100)
 					{
@@ -26135,11 +26135,11 @@ namespace Terraria
 				{
 					float num40 = 0.2f;
 					int num41 = 200;
-					if (this.type == 127)
+					if (this.type == ProjectileID.Turtle)
 					{
 						num41 = 100;
 					}
-					if (this.type >= 191 && this.type <= 194)
+					if (this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4)
 					{
 						num40 = 0.5f;
 						num41 = 100;
@@ -26147,11 +26147,11 @@ namespace Terraria
 					this.tileCollide = false;
 					Vector2 vector7 = new Vector2(this.position.X + (float)this.width * 0.5f, this.position.Y + (float)this.height * 0.5f);
 					float num42 = Main.player[this.owner].position.X + (float)(Main.player[this.owner].width / 2) - vector7.X;
-					if ((this.type >= 191 && this.type <= 194) || this.type == 266 || (this.type >= 390 && this.type <= 392))
+					if ((this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4) || this.type == ProjectileID.BabySlime || (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider))
 					{
 						num42 -= (float)(40 * Main.player[this.owner].direction);
 						float num43 = 700f;
-						if (this.type >= 191 && this.type <= 194)
+						if (this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4)
 						{
 							num43 += 100f;
 						}
@@ -26185,26 +26185,26 @@ namespace Terraria
 						}
 					}
 					float num48 = Main.player[this.owner].position.Y + (float)(Main.player[this.owner].height / 2) - vector7.Y;
-					if (this.type == 127)
+					if (this.type == ProjectileID.Turtle)
 					{
 						num48 = Main.player[this.owner].position.Y - vector7.Y;
 					}
 					float num49 = (float)Math.Sqrt((double)(num42 * num42 + num48 * num48));
 					float num50 = 10f;
 					float num51 = num49;
-					if (this.type == 111)
+					if (this.type == ProjectileID.Bunny)
 					{
 						num50 = 11f;
 					}
-					if (this.type == 127)
+					if (this.type == ProjectileID.Turtle)
 					{
 						num50 = 9f;
 					}
-					if (this.type == 324)
+					if (this.type == ProjectileID.CursedSapling)
 					{
 						num50 = 20f;
 					}
-					if (this.type >= 191 && this.type <= 194)
+					if (this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4)
 					{
 						num40 = 0.4f;
 						num50 = 12f;
@@ -26213,7 +26213,7 @@ namespace Terraria
 							num50 = Math.Abs(Main.player[this.owner].velocity.X) + Math.Abs(Main.player[this.owner].velocity.Y);
 						}
 					}
-					if (this.type == 208 && Math.Abs(Main.player[this.owner].velocity.X) + Math.Abs(Main.player[this.owner].velocity.Y) > 4f)
+					if (this.type == ProjectileID.Parrot && Math.Abs(Main.player[this.owner].velocity.X) + Math.Abs(Main.player[this.owner].velocity.Y) > 4f)
 					{
 						num41 = -1;
 					}
@@ -26236,7 +26236,7 @@ namespace Terraria
 						num42 *= num49;
 						num48 *= num49;
 					}
-					if (this.type == 324)
+					if (this.type == ProjectileID.CursedSapling)
 					{
 						if (num51 > 1000f)
 						{
@@ -26320,20 +26320,20 @@ namespace Terraria
 							}
 						}
 					}
-					if (this.type == 111)
+					if (this.type == ProjectileID.Bunny)
 					{
 						this.frame = 7;
 					}
-					if (this.type == 112)
+					if (this.type == ProjectileID.Penguin)
 					{
 						this.frame = 2;
 					}
-					if (this.type >= 191 && this.type <= 194 && this.frame < 12)
+					if (this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4 && this.frame < 12)
 					{
 						this.frame = Main.rand.Next(12, 18);
 						this.frameCounter = 0;
 					}
-					if (this.type != 313)
+					if (this.type != ProjectileID.Spider)
 					{
 						if ((double)this.velocity.X > 0.5)
 						{
@@ -26344,7 +26344,7 @@ namespace Terraria
 							this.spriteDirection = 1;
 						}
 					}
-					if (this.type == 398)
+					if (this.type == ProjectileID.MiniMinotaur)
 					{
 						if ((double)this.velocity.X > 0.5)
 						{
@@ -26355,7 +26355,7 @@ namespace Terraria
 							this.spriteDirection = -1;
 						}
 					}
-					if (this.type == 112)
+					if (this.type == ProjectileID.Penguin)
 					{
 						if (this.spriteDirection == -1)
 						{
@@ -26366,7 +26366,7 @@ namespace Terraria
 							this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.57f;
 						}
 					}
-					else if (this.type >= 390 && this.type <= 392)
+					else if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider)
 					{
 						int num52 = (int)(base.Center.X / 16f);
 						int num53 = (int)(base.Center.Y / 16f);
@@ -26403,7 +26403,7 @@ namespace Terraria
 							this.rotation = this.velocity.X * 0.1f;
 						}
 					}
-					else if (this.type == 334)
+					else if (this.type == ProjectileID.Puppy)
 					{
 						this.frameCounter++;
 						if (this.frameCounter > 1)
@@ -26417,7 +26417,7 @@ namespace Terraria
 						}
 						this.rotation = this.velocity.X * 0.1f;
 					}
-					else if (this.type == 353)
+					else if (this.type == ProjectileID.BabyGrinch)
 					{
 						this.frameCounter++;
 						if (this.frameCounter > 6)
@@ -26431,7 +26431,7 @@ namespace Terraria
 						}
 						this.rotation = this.velocity.X * 0.05f;
 					}
-					else if (this.type == 127)
+					else if (this.type == ProjectileID.Turtle)
 					{
 						this.frameCounter += 3;
 						if (this.frameCounter > 6)
@@ -26445,7 +26445,7 @@ namespace Terraria
 						}
 						this.rotation = this.velocity.X * 0.1f;
 					}
-					else if (this.type == 269)
+					else if (this.type == ProjectileID.BabySnowman)
 					{
 						if (this.frame == 6)
 						{
@@ -26467,7 +26467,7 @@ namespace Terraria
 						}
 						this.rotation = this.velocity.X * 0.05f;
 					}
-					else if (this.type == 266)
+					else if (this.type == ProjectileID.BabySlime)
 					{
 						this.frameCounter++;
 						if (this.frameCounter > 6)
@@ -26481,7 +26481,7 @@ namespace Terraria
 						}
 						this.rotation = this.velocity.X * 0.1f;
 					}
-					else if (this.type == 324)
+					else if (this.type == ProjectileID.CursedSapling)
 					{
 						this.frameCounter++;
 						if (this.frameCounter > 1)
@@ -26495,7 +26495,7 @@ namespace Terraria
 						}
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.58f;
 					}
-					else if (this.type == 268)
+					else if (this.type == ProjectileID.EyeSpring)
 					{
 						this.frameCounter++;
 						if (this.frameCounter > 4)
@@ -26509,7 +26509,7 @@ namespace Terraria
 						}
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.58f;
 					}
-					else if (this.type == 200)
+					else if (this.type == ProjectileID.PetLizard)
 					{
 						this.frameCounter += 3;
 						if (this.frameCounter > 6)
@@ -26523,7 +26523,7 @@ namespace Terraria
 						}
 						this.rotation = this.velocity.X * 0.1f;
 					}
-					else if (this.type == 208)
+					else if (this.type == ProjectileID.Parrot)
 					{
 						this.rotation = this.velocity.X * 0.075f;
 						this.frameCounter++;
@@ -26541,7 +26541,7 @@ namespace Terraria
 							this.frame = 1;
 						}
 					}
-					else if (this.type == 236)
+					else if (this.type == ProjectileID.BabyDino)
 					{
 						this.rotation = this.velocity.Y * 0.05f * (float)this.direction;
 						if (this.velocity.Y < 0f)
@@ -26566,7 +26566,7 @@ namespace Terraria
 							this.frame = 9;
 						}
 					}
-					else if (this.type == 499)
+					else if (this.type == ProjectileID.BabyFaceMonster)
 					{
 						this.rotation = this.velocity.Y * 0.05f * (float)this.direction;
 						if (this.velocity.Y < 0f)
@@ -26591,7 +26591,7 @@ namespace Terraria
 							this.frame = 8;
 						}
 					}
-					else if (this.type == 314)
+					else if (this.type == ProjectileID.Squashling)
 					{
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.58f;
 						this.frameCounter++;
@@ -26609,7 +26609,7 @@ namespace Terraria
 							this.frame = 7;
 						}
 					}
-					else if (this.type == 319)
+					else if (this.type == ProjectileID.BlackCat)
 					{
 						this.rotation = this.velocity.X * 0.05f;
 						this.frameCounter++;
@@ -26627,7 +26627,7 @@ namespace Terraria
 							this.frame = 6;
 						}
 					}
-					else if (this.type == 210)
+					else if (this.type == ProjectileID.Sapling)
 					{
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 1.58f;
 						this.frameCounter += 3;
@@ -26645,7 +26645,7 @@ namespace Terraria
 							this.frame = 7;
 						}
 					}
-					else if (this.type == 313)
+					else if (this.type == ProjectileID.Spider)
 					{
 						this.position.Y = this.position.Y + (float)this.height;
 						this.height = 54;
@@ -26657,7 +26657,7 @@ namespace Terraria
 						this.frameCounter = 0;
 						this.frame = 11;
 					}
-					else if (this.type == 398)
+					else if (this.type == ProjectileID.MiniMinotaur)
 					{
 						this.frameCounter++;
 						if (this.frameCounter > 1)
@@ -26679,22 +26679,22 @@ namespace Terraria
 					{
 						this.rotation = (float)Math.Atan2((double)this.velocity.Y, (double)this.velocity.X) + 3.14f;
 					}
-					if (this.type >= 191 && this.type <= 194)
+					if (this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4)
 					{
 						return;
 					}
-					if (this.type == 499)
+					if (this.type == ProjectileID.BabyFaceMonster)
 					{
 						return;
 					}
-					if (this.type != 398 && this.type != 390 && this.type != 391 && this.type != 392 && this.type != 127 && this.type != 200 && this.type != 208 && this.type != 210 && this.type != 236 && this.type != 266 && this.type != 268 && this.type != 269 && this.type != 313 && this.type != 314 && this.type != 319 && this.type != 324 && this.type != 334 && this.type != 353)
+					if (this.type != ProjectileID.MiniMinotaur && this.type != ProjectileID.VenomSpider && this.type != ProjectileID.JumperSpider && this.type != ProjectileID.DangerousSpider && this.type != ProjectileID.Turtle && this.type != ProjectileID.PetLizard && this.type != ProjectileID.Parrot && this.type != ProjectileID.Sapling && this.type != ProjectileID.BabyDino && this.type != ProjectileID.BabySlime && this.type != ProjectileID.EyeSpring && this.type != ProjectileID.BabySnowman && this.type != ProjectileID.Spider && this.type != ProjectileID.Squashling && this.type != ProjectileID.BlackCat && this.type != ProjectileID.CursedSapling && this.type != ProjectileID.Puppy && this.type != ProjectileID.BabyGrinch)
 					{
 						return;
 					}
 				}
 				else
 				{
-					if (this.type >= 191 && this.type <= 194)
+					if (this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4)
 					{
 						float num57 = (float)(40 * this.minionPos);
 						int num58 = 30;
@@ -26813,7 +26813,7 @@ namespace Terraria
 					bool flag6 = false;
 					Vector2 vector9 = Vector2.Zero;
 					bool flag7 = false;
-					if (this.type == 266 || (this.type >= 390 && this.type <= 392))
+					if (this.type == ProjectileID.BabySlime || (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider))
 					{
 						float num79 = (float)(40 * this.minionPos);
 						int num80 = 60;
@@ -26858,7 +26858,7 @@ namespace Terraria
 									}
 								}
 							}
-							if (this.type >= 390 && this.type <= 392 && !Collision.SolidCollision(this.position, this.width, this.height))
+							if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider && !Collision.SolidCollision(this.position, this.width, this.height))
 							{
 								this.tileCollide = true;
 							}
@@ -26870,13 +26870,13 @@ namespace Terraria
 							{
 								flag6 = true;
 								vector9 = new Vector2(num81, num82) - base.Center;
-								if (this.type >= 390 && this.type <= 392)
+								if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider)
 								{
 									if (Main.npc[num85].position.Y > this.position.Y + (float)this.height)
 									{
 										int num89 = (int)(base.Center.X / 16f);
 										int num90 = (int)((this.position.Y + (float)this.height + 1f) / 16f);
-										if (Main.tile[num89, num90] != null && Main.tile[num89, num90].active() && Main.tile[num89, num90].type == 19)
+										if (Main.tile[num89, num90] != null && Main.tile[num89, num90].active() && Main.tile[num89, num90].type == TileID.Platforms)
 										{
 											this.tileCollide = false;
 										}
@@ -26917,7 +26917,7 @@ namespace Terraria
 										this.velocity = (this.velocity * 9f + vector10) / 10f;
 										for (int n = 0; n < 1000; n++)
 										{
-											if (this.whoAmI != n && this.owner == Main.projectile[n].owner && Main.projectile[n].type >= 390 && Main.projectile[n].type <= 392 && (Main.projectile[n].Center - base.Center).Length() < 15f)
+											if (this.whoAmI != n && this.owner == Main.projectile[n].owner && Main.projectile[n].type >= ProjectileID.VenomSpider && Main.projectile[n].type <= ProjectileID.DangerousSpider && (Main.projectile[n].Center - base.Center).Length() < 15f)
 											{
 												float num92 = 0.5f;
 												if (base.Center.Y > Main.projectile[n].Center.Y)
@@ -26954,7 +26954,7 @@ namespace Terraria
 							{
 								num93 = 150f;
 							}
-							if (this.type >= 390 && this.type <= 392)
+							if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider)
 							{
 								num93 = 500f;
 								if ((double)this.position.Y > Main.worldSurface * 16.0)
@@ -26977,7 +26977,7 @@ namespace Terraria
 								}
 							}
 							bool flag8 = false;
-							if (this.type >= 390 && this.type <= 392 && this.localAI[1] > 0f)
+							if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider && this.localAI[1] > 0f)
 							{
 								flag8 = true;
 								this.localAI[1] -= 1f;
@@ -27045,11 +27045,11 @@ namespace Terraria
 						flag = false;
 						flag2 = false;
 					}
-					else if (this.type >= 191 && this.type <= 194 && this.localAI[0] == 0f)
+					else if (this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4 && this.localAI[0] == 0f)
 					{
 						this.direction = Main.player[this.owner].direction;
 					}
-					else if (this.type >= 390 && this.type <= 392)
+					else if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider)
 					{
 						int num97 = (int)(base.Center.X / 16f);
 						int num98 = (int)(base.Center.Y / 16f);
@@ -27058,7 +27058,7 @@ namespace Terraria
 							flag2 = (flag = false);
 						}
 					}
-					if (this.type == 127)
+					if (this.type == ProjectileID.Turtle)
 					{
 						if ((double)this.rotation > -0.1 && (double)this.rotation < 0.1)
 						{
@@ -27073,7 +27073,7 @@ namespace Terraria
 							this.rotation -= 0.1f;
 						}
 					}
-					else if (this.type != 313 && !flag7)
+					else if (this.type != ProjectileID.Spider && !flag7)
 					{
 						this.rotation = 0f;
 					}
@@ -27083,32 +27083,32 @@ namespace Terraria
 					}
 					float num99 = 0.08f;
 					float num100 = 6.5f;
-					if (this.type == 127)
+					if (this.type == ProjectileID.Turtle)
 					{
 						num100 = 2f;
 						num99 = 0.04f;
 					}
-					if (this.type == 112)
+					if (this.type == ProjectileID.Penguin)
 					{
 						num100 = 6f;
 						num99 = 0.06f;
 					}
-					if (this.type == 334)
+					if (this.type == ProjectileID.Puppy)
 					{
 						num100 = 8f;
 						num99 = 0.08f;
 					}
-					if (this.type == 268)
+					if (this.type == ProjectileID.EyeSpring)
 					{
 						num100 = 8f;
 						num99 = 0.4f;
 					}
-					if (this.type == 324)
+					if (this.type == ProjectileID.CursedSapling)
 					{
 						num99 = 0.1f;
 						num100 = 3f;
 					}
-					if ((this.type >= 191 && this.type <= 194) || this.type == 266 || (this.type >= 390 && this.type <= 392))
+					if ((this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4) || this.type == ProjectileID.BabySlime || (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider))
 					{
 						num100 = 6f;
 						num99 = 0.2f;
@@ -27118,7 +27118,7 @@ namespace Terraria
 							num99 = 0.3f;
 						}
 					}
-					if (this.type >= 390 && this.type <= 392)
+					if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider)
 					{
 						num99 *= 2f;
 					}
@@ -27152,7 +27152,7 @@ namespace Terraria
 							this.velocity.X = 0f;
 						}
 					}
-					if (this.type == 208)
+					if (this.type == ProjectileID.Parrot)
 					{
 						this.velocity.X = this.velocity.X * 0.95f;
 						if ((double)this.velocity.X > -0.1 && (double)this.velocity.X < 0.1)
@@ -27166,7 +27166,7 @@ namespace Terraria
 					{
 						int num101 = (int)(this.position.X + (float)(this.width / 2)) / 16;
 						int j2 = (int)(this.position.Y + (float)(this.height / 2)) / 16;
-						if (this.type == 236)
+						if (this.type == ProjectileID.BabyDino)
 						{
 							num101 += this.direction;
 						}
@@ -27188,12 +27188,12 @@ namespace Terraria
 					{
 						flag3 = true;
 					}
-					if (this.type == 268 && this.frameCounter < 10)
+					if (this.type == ProjectileID.EyeSpring && this.frameCounter < 10)
 					{
 						flag4 = false;
 					}
 					Collision.StepUp(ref this.position, ref this.velocity, this.width, this.height, ref this.stepSpeed, ref this.gfxOffY, 1, false, 0);
-					if (this.velocity.Y == 0f || this.type == 200)
+					if (this.velocity.Y == 0f || this.type == ProjectileID.PetLizard)
 					{
 						if (!flag3 && (this.velocity.X < 0f || this.velocity.X > 0f))
 						{
@@ -27213,9 +27213,9 @@ namespace Terraria
 						{
 							int num103 = (int)(this.position.X + (float)(this.width / 2)) / 16;
 							int num104 = (int)(this.position.Y + (float)this.height) / 16 + 1;
-							if (WorldGen.SolidTile(num103, num104) || Main.tile[num103, num104].halfBrick() || Main.tile[num103, num104].slope() > 0 || this.type == 200)
+							if (WorldGen.SolidTile(num103, num104) || Main.tile[num103, num104].halfBrick() || Main.tile[num103, num104].slope() > 0 || this.type == ProjectileID.PetLizard)
 							{
-								if (this.type == 200)
+								if (this.type == ProjectileID.PetLizard)
 								{
 									this.velocity.Y = -3.1f;
 								}
@@ -27260,13 +27260,13 @@ namespace Terraria
 										this.velocity.Y = -9.1f;
 									}
 								}
-								if (this.type == 127)
+								if (this.type == ProjectileID.Turtle)
 								{
 									this.ai[0] = 1f;
 								}
 							}
 						}
-						else if (this.type == 266 && (flag || flag2))
+						else if (this.type == ProjectileID.BabySlime && (flag || flag2))
 						{
 							this.velocity.Y = this.velocity.Y - 6f;
 						}
@@ -27295,7 +27295,7 @@ namespace Terraria
 					{
 						this.direction = -1;
 					}
-					if (this.type != 313)
+					if (this.type != ProjectileID.Spider)
 					{
 						if (this.direction == -1)
 						{
@@ -27306,11 +27306,11 @@ namespace Terraria
 							this.spriteDirection = -1;
 						}
 					}
-					if (this.type == 398)
+					if (this.type == ProjectileID.MiniMinotaur)
 					{
 						this.spriteDirection = this.direction;
 					}
-					if (this.type >= 191 && this.type <= 194)
+					if (this.type >= ProjectileID.Pygmy && this.type <= ProjectileID.Pygmy4)
 					{
 						if (this.ai[1] > 0f)
 						{
@@ -27383,7 +27383,7 @@ namespace Terraria
 						float arg_5ADC_0 = this.velocity.Y;
 						return;
 					}
-					if (this.type == 268)
+					if (this.type == ProjectileID.EyeSpring)
 					{
 						if (this.velocity.Y == 0f)
 						{
@@ -27467,7 +27467,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 269)
+					else if (this.type == ProjectileID.BabySnowman)
 					{
 						if (this.velocity.Y >= 0f && (double)this.velocity.Y <= 0.8)
 						{
@@ -27508,7 +27508,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 313)
+					else if (this.type == ProjectileID.Spider)
 					{
 						int num110 = (int)(base.Center.X / 16f);
 						int num111 = (int)(base.Center.Y / 16f);
@@ -27620,7 +27620,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (this.type >= 390 && this.type <= 392)
+					else if (this.type >= ProjectileID.VenomSpider && this.type <= ProjectileID.DangerousSpider)
 					{
 						int num117 = (int)(base.Center.X / 16f);
 						int num118 = (int)(base.Center.Y / 16f);
@@ -27794,7 +27794,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (this.type == 314)
+					else if (this.type == ProjectileID.Squashling)
 					{
 						if (this.velocity.Y >= 0f && (double)this.velocity.Y <= 0.8)
 						{
@@ -27835,7 +27835,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 319)
+					else if (this.type == ProjectileID.BlackCat)
 					{
 						if (this.velocity.Y >= 0f && (double)this.velocity.Y <= 0.8)
 						{
@@ -27876,7 +27876,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 236)
+					else if (this.type == ProjectileID.BabyDino)
 					{
 						if (this.velocity.Y >= 0f && (double)this.velocity.Y <= 0.8)
 						{
@@ -27921,7 +27921,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 499)
+					else if (this.type == ProjectileID.BabyFaceMonster)
 					{
 						if (this.velocity.Y >= 0f && (double)this.velocity.Y <= 0.8)
 						{
@@ -27966,7 +27966,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 266)
+					else if (this.type == ProjectileID.BabySlime)
 					{
 						if (this.velocity.Y >= 0f && (double)this.velocity.Y <= 0.8)
 						{
@@ -28013,7 +28013,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 334)
+					else if (this.type == ProjectileID.Puppy)
 					{
 						if (this.velocity.Y == 0f)
 						{
@@ -28088,7 +28088,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 353)
+					else if (this.type == ProjectileID.BabyGrinch)
 					{
 						if (this.velocity.Y == 0f)
 						{
@@ -28134,7 +28134,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 111)
+					else if (this.type == ProjectileID.Bunny)
 					{
 						if (this.velocity.Y == 0f)
 						{
@@ -28180,7 +28180,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 112)
+					else if (this.type == ProjectileID.Penguin)
 					{
 						if (this.velocity.Y == 0f)
 						{
@@ -28226,7 +28226,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 127)
+					else if (this.type == ProjectileID.Turtle)
 					{
 						if (this.velocity.Y == 0f)
 						{
@@ -28267,7 +28267,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 200)
+					else if (this.type == ProjectileID.PetLizard)
 					{
 						if (this.velocity.Y == 0f)
 						{
@@ -28325,7 +28325,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 208)
+					else if (this.type == ProjectileID.Parrot)
 					{
 						if (this.velocity.Y == 0f && this.velocity.X == 0f)
 						{
@@ -28365,7 +28365,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 209)
+					else if (this.type == ProjectileID.Truffle)
 					{
 						if (this.alpha > 0)
 						{
@@ -28419,7 +28419,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 324)
+					else if (this.type == ProjectileID.CursedSapling)
 					{
 						if (this.velocity.Y == 0f)
 						{
@@ -28459,7 +28459,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 210)
+					else if (this.type == ProjectileID.Sapling)
 					{
 						if (this.velocity.Y == 0f)
 						{
@@ -28508,7 +28508,7 @@ namespace Terraria
 							return;
 						}
 					}
-					else if (this.type == 398)
+					else if (this.type == ProjectileID.MiniMinotaur)
 					{
 						if (this.velocity.Y == 0f)
 						{
@@ -28553,7 +28553,7 @@ namespace Terraria
 		}
 		private void AI_062()
 		{
-			if (this.type == 373)
+			if (this.type == ProjectileID.Hornet)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -28564,7 +28564,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 375)
+			if (this.type == ProjectileID.FlyingImp)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -28575,7 +28575,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 407)
+			if (this.type == ProjectileID.Tempest)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -28586,7 +28586,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 423)
+			if (this.type == ProjectileID.UFOMinion)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -28597,7 +28597,7 @@ namespace Terraria
 					this.timeLeft = 2;
 				}
 			}
-			if (this.type == 613)
+			if (this.type == ProjectileID.StardustCellMinion)
 			{
 				if (Main.player[this.owner].dead)
 				{
@@ -28612,7 +28612,7 @@ namespace Terraria
 					this.localAI[1] -= 1f;
 				}
 			}
-			if (this.type == 423)
+			if (this.type == ProjectileID.UFOMinion)
 			{
 				if (this.ai[0] == 2f)
 				{
@@ -28641,7 +28641,7 @@ namespace Terraria
 					this.numUpdates = 0;
 				}
 			}
-			if (this.type == 613)
+			if (this.type == ProjectileID.StardustCellMinion)
 			{
 				if (this.ai[0] == 2f)
 				{
@@ -28677,17 +28677,17 @@ namespace Terraria
 					this.numUpdates = 0;
 				}
 			}
-			if (this.type == 423 && this.localAI[0] > 0f)
+			if (this.type == ProjectileID.UFOMinion && this.localAI[0] > 0f)
 			{
 				this.localAI[0] -= 1f;
 			}
-			if (this.type == 613 && this.localAI[0] > 0f)
+			if (this.type == ProjectileID.StardustCellMinion && this.localAI[0] > 0f)
 			{
 				this.localAI[0] -= 1f;
 			}
 			float num8 = 0.05f;
 			float num9 = (float)this.width;
-			if (this.type == 407)
+			if (this.type == ProjectileID.Tempest)
 			{
 				num8 = 0.1f;
 				num9 *= 2f;
@@ -28716,18 +28716,18 @@ namespace Terraria
 			}
 			Vector2 vector = this.position;
 			float num10 = 400f;
-			if (this.type == 423)
+			if (this.type == ProjectileID.UFOMinion)
 			{
 				num10 = 300f;
 			}
-			if (this.type == 613)
+			if (this.type == ProjectileID.StardustCellMinion)
 			{
 				num10 = 300f;
 			}
 			bool flag = false;
 			int num11 = -1;
 			this.tileCollide = true;
-			if (this.type == 407)
+			if (this.type == ProjectileID.Tempest)
 			{
 				this.tileCollide = false;
 				if (Collision.SolidCollision(this.position, this.width, this.height))
@@ -28747,11 +28747,11 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 407 || this.type == 613 || this.type == 423)
+			if (this.type == ProjectileID.Tempest || this.type == ProjectileID.StardustCellMinion || this.type == ProjectileID.UFOMinion)
 			{
 				Vector2 center = Main.player[this.owner].Center;
 				Vector2 vector2 = new Vector2(0.5f);
-				if (this.type == 423)
+				if (this.type == ProjectileID.UFOMinion)
 				{
 					vector2.Y = 0f;
 				}
@@ -28795,11 +28795,11 @@ namespace Terraria
 			{
 				num14 = 1000;
 			}
-			if (flag && this.type == 423)
+			if (flag && this.type == ProjectileID.UFOMinion)
 			{
 				num14 = 1200;
 			}
-			if (flag && this.type == 613)
+			if (flag && this.type == ProjectileID.StardustCellMinion)
 			{
 				num14 = 1350;
 			}
@@ -28819,7 +28819,7 @@ namespace Terraria
 				Vector2 vector4 = vector - base.Center;
 				float num16 = vector4.Length();
 				vector4.Normalize();
-				if (this.type == 423)
+				if (this.type == ProjectileID.UFOMinion)
 				{
 					vector4 = vector - Vector2.UnitY * 80f;
 					int num17 = (int)vector4.Y / 16;
@@ -28850,7 +28850,7 @@ namespace Terraria
 						return;
 					}
 				}
-				if (this.type == 613)
+				if (this.type == ProjectileID.StardustCellMinion)
 				{
 					vector4 = vector;
 					Vector2 vector5 = base.Center - vector4;
@@ -28888,7 +28888,7 @@ namespace Terraria
 						return;
 					}
 				}
-				if (this.type == 407)
+				if (this.type == ProjectileID.Tempest)
 				{
 					if (num16 > 400f)
 					{
@@ -28908,7 +28908,7 @@ namespace Terraria
 					this.velocity.X = (this.velocity.X * 40f + vector4.X) / 41f;
 					this.velocity.Y = (this.velocity.Y * 40f + vector4.Y) / 41f;
 				}
-				else if (this.type == 423 || this.type == 613)
+				else if (this.type == ProjectileID.UFOMinion || this.type == ProjectileID.StardustCellMinion)
 				{
 					if (num16 > 70f && num16 < 130f)
 					{
@@ -28929,7 +28929,7 @@ namespace Terraria
 						this.velocity *= 0.97f;
 					}
 				}
-				else if (this.type == 375)
+				else if (this.type == ProjectileID.FlyingImp)
 				{
 					if (num16 < 150f)
 					{
@@ -28959,17 +28959,17 @@ namespace Terraria
 				{
 					num23 = 15f;
 				}
-				if (this.type == 407)
+				if (this.type == ProjectileID.Tempest)
 				{
 					num23 = 9f;
 				}
 				Vector2 center2 = base.Center;
 				Vector2 vector6 = player.Center - center2 + new Vector2(0f, -60f);
-				if (this.type == 407)
+				if (this.type == ProjectileID.Tempest)
 				{
 					vector6 += new Vector2(0f, 40f);
 				}
-				if (this.type == 375)
+				if (this.type == ProjectileID.FlyingImp)
 				{
 					this.ai[1] = 3600f;
 					this.netUpdate = true;
@@ -28991,7 +28991,7 @@ namespace Terraria
 				{
 					num23 = 9f;
 				}
-				if (this.type == 375)
+				if (this.type == ProjectileID.FlyingImp)
 				{
 					num23 = (float)((int)((double)num23 * 0.75));
 				}
@@ -29005,7 +29005,7 @@ namespace Terraria
 					this.position.X = Main.player[this.owner].Center.X - (float)(this.width / 2);
 					this.position.Y = Main.player[this.owner].Center.Y - (float)(this.width / 2);
 				}
-				if (this.type == 375)
+				if (this.type == ProjectileID.FlyingImp)
 				{
 					if (num25 > 10f)
 					{
@@ -29023,7 +29023,7 @@ namespace Terraria
 						this.velocity *= 0.9f;
 					}
 				}
-				else if (this.type == 407)
+				else if (this.type == ProjectileID.Tempest)
 				{
 					if (Math.Abs(vector6.X) > 40f || Math.Abs(vector6.Y) > 10f)
 					{
@@ -29060,7 +29060,7 @@ namespace Terraria
 			}
 			this.rotation = this.velocity.X * 0.05f;
 			this.frameCounter++;
-			if (this.type == 373)
+			if (this.type == ProjectileID.Hornet)
 			{
 				if (this.frameCounter > 1)
 				{
@@ -29072,7 +29072,7 @@ namespace Terraria
 					this.frame = 0;
 				}
 			}
-			if (this.type == 375)
+			if (this.type == ProjectileID.FlyingImp)
 			{
 				if (this.frameCounter >= 16)
 				{
@@ -29084,7 +29084,7 @@ namespace Terraria
 					this.frame += 4;
 				}
 			}
-			if (this.type == 407)
+			if (this.type == ProjectileID.Tempest)
 			{
 				int num27 = 2;
 				if (this.frameCounter >= 6 * num27)
@@ -29093,7 +29093,7 @@ namespace Terraria
 				}
 				this.frame = this.frameCounter / num27;
 			}
-			if (this.type == 423 || this.type == 613)
+			if (this.type == ProjectileID.UFOMinion || this.type == ProjectileID.StardustCellMinion)
 			{
 				int num29 = 3;
 				if (this.frameCounter >= 4 * num29)
@@ -29110,7 +29110,7 @@ namespace Terraria
 			{
 				this.spriteDirection = (this.direction = 1);
 			}
-			if (this.type == 373)
+			if (this.type == ProjectileID.Hornet)
 			{
 				if (this.ai[1] > 0f)
 				{
@@ -29122,7 +29122,7 @@ namespace Terraria
 					this.netUpdate = true;
 				}
 			}
-			else if (this.type == 375)
+			else if (this.type == ProjectileID.FlyingImp)
 			{
 				if (this.ai[1] > 0f)
 				{
@@ -29138,7 +29138,7 @@ namespace Terraria
 					this.netUpdate = true;
 				}
 			}
-			else if (this.type == 407)
+			else if (this.type == ProjectileID.Tempest)
 			{
 				if (this.ai[1] > 0f)
 				{
@@ -29154,7 +29154,7 @@ namespace Terraria
 					this.netUpdate = true;
 				}
 			}
-			else if (this.type == 423)
+			else if (this.type == ProjectileID.UFOMinion)
 			{
 				if (this.ai[1] > 0f)
 				{
@@ -29170,7 +29170,7 @@ namespace Terraria
 					this.netUpdate = true;
 				}
 			}
-			else if (this.type == 613)
+			else if (this.type == ProjectileID.StardustCellMinion)
 			{
 				if (this.ai[1] > 0f)
 				{
@@ -29190,34 +29190,34 @@ namespace Terraria
 			{
 				float num30 = 0f;
 				int num31 = 0;
-				if (this.type == 373)
+				if (this.type == ProjectileID.Hornet)
 				{
 					num30 = 10f;
 					num31 = 374;
 				}
-				else if (this.type == 375)
+				else if (this.type == ProjectileID.FlyingImp)
 				{
 					num30 = 11f;
 					num31 = 376;
 				}
-				else if (this.type == 407)
+				else if (this.type == ProjectileID.Tempest)
 				{
 					num30 = 14f;
 					num31 = 408;
 				}
-				else if (this.type == 423)
+				else if (this.type == ProjectileID.UFOMinion)
 				{
 					num30 = 4f;
 					num31 = 433;
 				}
-				else if (this.type == 613)
+				else if (this.type == ProjectileID.StardustCellMinion)
 				{
 					num30 = 14f;
 					num31 = 614;
 				}
 				if (flag)
 				{
-					if (this.type == 375)
+					if (this.type == ProjectileID.FlyingImp)
 					{
 						if ((vector - base.Center).X > 0f)
 						{
@@ -29228,11 +29228,11 @@ namespace Terraria
 							this.spriteDirection = (this.direction = 1);
 						}
 					}
-					if (this.type == 407 && Collision.SolidCollision(this.position, this.width, this.height))
+					if (this.type == ProjectileID.Tempest && Collision.SolidCollision(this.position, this.width, this.height))
 					{
 						return;
 					}
-					if (this.type == 423)
+					if (this.type == ProjectileID.UFOMinion)
 					{
 						if (Math.Abs((vector - base.Center).ToRotation() - 1.57079637f) > 0.7853982f)
 						{
@@ -29257,7 +29257,7 @@ namespace Terraria
 							}
 						}
 					}
-					else if (this.ai[1] == 0f && this.type == 613)
+					else if (this.ai[1] == 0f && this.type == ProjectileID.StardustCellMinion)
 					{
 						if ((vector - base.Center).Length() > 500f)
 						{
@@ -29302,7 +29302,7 @@ namespace Terraria
 			Player player = Main.player[this.owner];
 			float num = 1.57079637f;
 			Vector2 vector = player.RotatedRelativePoint(player.MountedCenter, true);
-			if (this.type == 439)
+			if (this.type == ProjectileID.LaserMachinegun)
 			{
 				this.ai[0] += 1f;
 				int num2 = 0;
@@ -29387,7 +29387,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 445)
+			if (this.type == ProjectileID.LaserDrill)
 			{
 				this.localAI[0] += 1f;
 				if (this.localAI[0] >= 60f)
@@ -29499,7 +29499,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 460)
+			if (this.type == ProjectileID.ChargedBlasterCannon)
 			{
 				this.ai[0] += 1f;
 				int num18 = 0;
@@ -29575,7 +29575,7 @@ namespace Terraria
 						else if (flag5)
 						{
 							Projectile projectile = Main.projectile[(int)this.ai[1]];
-							if (!projectile.active || projectile.type != 461)
+							if (!projectile.active || projectile.type != ProjectileID.ChargedBlasterLaser)
 							{
 								this.Kill();
 								return;
@@ -29602,7 +29602,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 633)
+			if (this.type == ProjectileID.LastPrism)
 			{
 				float num30 = 30f;
 				if (this.ai[0] > 90f)
@@ -29697,7 +29697,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 595)
+			if (this.type == ProjectileID.Arkhalis)
 			{
 				num = 0f;
 				if (this.spriteDirection == -1)
@@ -29736,7 +29736,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 600)
+			if (this.type == ProjectileID.PortalGun)
 			{
 				this.ai[0] += 1f;
 				if (Main.myPlayer == this.owner && this.ai[0] == 1f)
@@ -29774,7 +29774,7 @@ namespace Terraria
 					this.Kill();
 				}
 			}
-			if (this.type == 611)
+			if (this.type == ProjectileID.SolarWhipSword)
 			{
 				if (this.localAI[1] > 0f)
 				{
@@ -29811,7 +29811,7 @@ namespace Terraria
 					this.Kill();
 				}
 			}
-			if (this.type == 615)
+			if (this.type == ProjectileID.VortexBeater)
 			{
 				num = 0f;
 				if (this.spriteDirection == -1)
@@ -29922,7 +29922,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 630)
+			if (this.type == ProjectileID.Phantasm)
 			{
 				num = 0f;
 				if (this.spriteDirection == -1)
@@ -30017,7 +30017,7 @@ namespace Terraria
 			player.itemTime = 2;
 			player.itemAnimation = 2;
 			player.itemRotation = (float)Math.Atan2((double)(this.velocity.Y * (float)this.direction), (double)(this.velocity.X * (float)this.direction));
-			if (this.type == 460 || this.type == 611)
+			if (this.type == ProjectileID.ChargedBlasterCannon || this.type == ProjectileID.SolarWhipSword)
 			{
 				Vector2 vector41 = Main.OffsetsPlayerOnhand[player.bodyFrame.Y / 56] * 2f;
 				if (player.direction != 1)
@@ -30031,7 +30031,7 @@ namespace Terraria
 				vector41 -= new Vector2((float)(player.bodyFrame.Width - player.width), (float)(player.bodyFrame.Height - 42)) / 2f;
 				base.Center = player.RotatedRelativePoint(player.position + vector41, true) - this.velocity;
 			}
-			if (this.type == 615)
+			if (this.type == ProjectileID.VortexBeater)
 			{
 				this.position.Y = this.position.Y + player.gravDir * 2f;
 			}
@@ -30213,24 +30213,24 @@ namespace Terraria
 						this.netUpdate = true;
 					}
 				}
-				if (flag || this.type == 562 || this.type == 547 || this.type == 555 || this.type == 564 || this.type == 552 || this.type == 563 || this.type == 549 || this.type == 550 || this.type == 554 || this.type == 553 || this.type == 603)
+				if (flag || this.type == ProjectileID.FormatC || this.type == ProjectileID.Code2 || this.type == ProjectileID.TheEyeOfCthulhu || this.type == ProjectileID.Valor || this.type == ProjectileID.Amarok || this.type == ProjectileID.Gradient || this.type == ProjectileID.Yelets || this.type == ProjectileID.RedsYoyo || this.type == ProjectileID.Kraken || this.type == ProjectileID.HelFire || this.type == ProjectileID.Terrarian)
 				{
 					float num7 = 800f;
 					Vector2 vector8 = default(Vector2);
 					bool flag4 = false;
-					if (this.type == 549)
+					if (this.type == ProjectileID.Yelets)
 					{
 						num7 = 200f;
 					}
-					if (this.type == 554)
+					if (this.type == ProjectileID.Kraken)
 					{
 						num7 = 400f;
 					}
-					if (this.type == 553)
+					if (this.type == ProjectileID.HelFire)
 					{
 						num7 = 250f;
 					}
-					if (this.type == 603)
+					if (this.type == ProjectileID.Terrarian)
 					{
 						num7 = 320f;
 					}
@@ -30241,7 +30241,7 @@ namespace Terraria
 							float num8 = Main.npc[j].position.X + (float)(Main.npc[j].width / 2);
 							float num9 = Main.npc[j].position.Y + (float)(Main.npc[j].height / 2);
 							float num10 = Math.Abs(this.position.X + (float)(this.width / 2) - num8) + Math.Abs(this.position.Y + (float)(this.height / 2) - num9);
-							if (num10 < num7 && (this.type != 563 || num10 >= 200f) && Collision.CanHit(this.position, this.width, this.height, Main.npc[j].position, Main.npc[j].width, Main.npc[j].height) && (double)(Main.npc[j].Center - Main.player[this.owner].Center).Length() < (double)num * 0.9)
+							if (num10 < num7 && (this.type != ProjectileID.Gradient || num10 >= 200f) && Collision.CanHit(this.position, this.width, this.height, Main.npc[j].position, Main.npc[j].width, Main.npc[j].height) && (double)(Main.npc[j].Center - Main.player[this.owner].Center).Length() < (double)num * 0.9)
 							{
 								num7 = num10;
 								vector8.X = num8;
@@ -30254,22 +30254,22 @@ namespace Terraria
 					{
 						vector8 -= base.Center;
 						vector8.Normalize();
-						if (this.type == 563)
+						if (this.type == ProjectileID.Gradient)
 						{
 							vector8 *= 4f;
 							this.velocity = (this.velocity * 14f + vector8) / 15f;
 						}
-						else if (this.type == 553)
+						else if (this.type == ProjectileID.HelFire)
 						{
 							vector8 *= 5f;
 							this.velocity = (this.velocity * 12f + vector8) / 13f;
 						}
-						else if (this.type == 603)
+						else if (this.type == ProjectileID.Terrarian)
 						{
 							vector8 *= 16f;
 							this.velocity = (this.velocity * 9f + vector8) / 10f;
 						}
-						else if (this.type == 554)
+						else if (this.type == ProjectileID.Kraken)
 						{
 							vector8 *= 8f;
 							this.velocity = (this.velocity * 6f + vector8) / 7f;
@@ -30303,19 +30303,19 @@ namespace Terraria
 					return;
 				}
 				float num11 = num3 * 1.5f;
-				if (this.type == 546)
+				if (this.type == ProjectileID.Chik)
 				{
 					num11 *= 1.5f;
 				}
-				if (this.type == 554)
+				if (this.type == ProjectileID.Kraken)
 				{
 					num11 *= 1.25f;
 				}
-				if (this.type == 555)
+				if (this.type == ProjectileID.TheEyeOfCthulhu)
 				{
 					num11 *= 1.35f;
 				}
-				if (this.type == 562)
+				if (this.type == ProjectileID.FormatC)
 				{
 					num11 *= 1.25f;
 				}
@@ -30344,64 +30344,64 @@ namespace Terraria
 				}
 				float num = this.localAI[0] / 60f;
 				num /= (1f + Main.player[this.owner].meleeSpeed) / 2f;
-				if (this.type == 541 && num > 3f)
+				if (this.type == ProjectileID.WoodYoyo && num > 3f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 548 && num > 5f)
+				if (this.type == ProjectileID.Rally && num > 5f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 542 && num > 7f)
+				if (this.type == ProjectileID.CorruptYoyo && num > 7f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 543 && num > 6f)
+				if (this.type == ProjectileID.CrimsonYoyo && num > 6f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 544 && num > 8f)
+				if (this.type == ProjectileID.JungleYoyo && num > 8f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 534 && num > 9f)
+				if (this.type == ProjectileID.Code1 && num > 9f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 564 && num > 11f)
+				if (this.type == ProjectileID.Valor && num > 11f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 545 && num > 13f)
+				if (this.type == ProjectileID.Cascade && num > 13f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 563 && num > 10f)
+				if (this.type == ProjectileID.Gradient && num > 10f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 562 && num > 8f)
+				if (this.type == ProjectileID.FormatC && num > 8f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 553 && num > 12f)
+				if (this.type == ProjectileID.HelFire && num > 12f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 546 && num > 16f)
+				if (this.type == ProjectileID.Chik && num > 16f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 552 && num > 15f)
+				if (this.type == ProjectileID.Amarok && num > 15f)
 				{
 					this.ai[0] = -1f;
 				}
-				if (this.type == 549 && num > 14f)
+				if (this.type == ProjectileID.Yelets && num > 14f)
 				{
 					this.ai[0] = -1f;
 				}
 			}
-			if (this.type == 603 && this.owner == Main.myPlayer)
+			if (this.type == ProjectileID.Terrarian && this.owner == Main.myPlayer)
 			{
 				this.localAI[1] += 1f;
 				if (this.localAI[1] >= 6f)
@@ -30441,7 +30441,7 @@ namespace Terraria
 				}
 			}
 			bool flag2 = false;
-			if (this.type >= 556 && this.type <= 561)
+			if (this.type >= ProjectileID.BlackCounterweight && this.type <= ProjectileID.YellowCounterweight)
 			{
 				flag2 = true;
 			}
@@ -30473,97 +30473,97 @@ namespace Terraria
 			this.timeLeft = 6;
 			float num6 = 10f;
 			float num7 = 200f;
-			if (this.type == 541)
+			if (this.type == ProjectileID.WoodYoyo)
 			{
 				num7 = 130f;
 				num6 = 9f;
 			}
-			else if (this.type == 548)
+			else if (this.type == ProjectileID.Rally)
 			{
 				num7 = 170f;
 				num6 = 11f;
 			}
-			else if (this.type == 542)
+			else if (this.type == ProjectileID.CorruptYoyo)
 			{
 				num7 = 195f;
 				num6 = 12.5f;
 			}
-			else if (this.type == 543)
+			else if (this.type == ProjectileID.CrimsonYoyo)
 			{
 				num7 = 207f;
 				num6 = 12f;
 			}
-			else if (this.type == 544)
+			else if (this.type == ProjectileID.JungleYoyo)
 			{
 				num7 = 215f;
 				num6 = 13f;
 			}
-			else if (this.type == 534)
+			else if (this.type == ProjectileID.Code1)
 			{
 				num7 = 220f;
 				num6 = 13f;
 			}
-			else if (this.type == 564)
+			else if (this.type == ProjectileID.Valor)
 			{
 				num7 = 225f;
 				num6 = 14f;
 			}
-			else if (this.type == 545)
+			else if (this.type == ProjectileID.Cascade)
 			{
 				num7 = 235f;
 				num6 = 14f;
 			}
-			else if (this.type == 562)
+			else if (this.type == ProjectileID.FormatC)
 			{
 				num7 = 235f;
 				num6 = 15f;
 			}
-			else if (this.type == 563)
+			else if (this.type == ProjectileID.Gradient)
 			{
 				num7 = 250f;
 				num6 = 12f;
 			}
-			else if (this.type == 546)
+			else if (this.type == ProjectileID.Chik)
 			{
 				num7 = 275f;
 				num6 = 17f;
 			}
-			else if (this.type == 552)
+			else if (this.type == ProjectileID.Amarok)
 			{
 				num7 = 270f;
 				num6 = 14f;
 			}
-			else if (this.type == 553)
+			else if (this.type == ProjectileID.HelFire)
 			{
 				num7 = 275f;
 				num6 = 15f;
 			}
-			else if (this.type == 547)
+			else if (this.type == ProjectileID.Code2)
 			{
 				num7 = 280f;
 				num6 = 17f;
 			}
-			else if (this.type == 549)
+			else if (this.type == ProjectileID.Yelets)
 			{
 				num7 = 290f;
 				num6 = 16f;
 			}
-			else if (this.type == 554)
+			else if (this.type == ProjectileID.Kraken)
 			{
 				num7 = 340f;
 				num6 = 16f;
 			}
-			else if (this.type == 550 || this.type == 551)
+			else if (this.type == ProjectileID.RedsYoyo || this.type == ProjectileID.ValkyrieYoyo)
 			{
 				num7 = 370f;
 				num6 = 16f;
 			}
-			else if (this.type == 555)
+			else if (this.type == ProjectileID.TheEyeOfCthulhu)
 			{
 				num7 = 360f;
 				num6 = 16.5f;
 			}
-			else if (this.type == 603)
+			else if (this.type == ProjectileID.Terrarian)
 			{
 				num7 = 400f;
 				num6 = 17.5f;
@@ -30723,7 +30723,7 @@ namespace Terraria
 			}
 			int num = this.timeLeft;
 			this.timeLeft = 0;
-			if (this.type == 634 || this.type == 635)
+			if (this.type == ProjectileID.NebulaBlaze1 || this.type == ProjectileID.NebulaBlaze2)
 			{
 				int num2 = Utils.SelectRandom<int>(Main.rand, new int[]
 				{
@@ -30736,7 +30736,7 @@ namespace Terraria
 				int height = 50;
 				Vector2 vector = (this.rotation - 1.57079637f).ToRotationVector2();
 				Vector2 vector2 = vector * this.velocity.Length() * (float)this.MaxUpdates;
-				if (this.type == 635)
+				if (this.type == ProjectileID.NebulaBlaze2)
 				{
 					num2 = Utils.SelectRandom<int>(Main.rand, new int[]
 					{
@@ -30753,37 +30753,37 @@ namespace Terraria
 				this.penetrate = -1;
 				this.Damage();
 			}
-			else if (this.type == 641)
+			else if (this.type == ProjectileID.MoonlordTurret)
 			{
 				if (this.owner == Main.myPlayer)
 				{
 					for (int k = 0; k < 1000; k++)
 					{
-						if (Main.projectile[k].active && Main.projectile[k].owner == this.owner && Main.projectile[k].type == 642)
+						if (Main.projectile[k].active && Main.projectile[k].owner == this.owner && Main.projectile[k].type == ProjectileID.MoonlordTurretLaser)
 						{
 							Main.projectile[k].Kill();
 						}
 					}
 				}
 			}
-			else if (this.type == 643)
+			else if (this.type == ProjectileID.RainbowCrystal)
 			{
 				if (this.owner == Main.myPlayer)
 				{
 					for (int l = 0; l < 1000; l++)
 					{
-						if (Main.projectile[l].active && Main.projectile[l].owner == this.owner && Main.projectile[l].type == 644)
+						if (Main.projectile[l].active && Main.projectile[l].owner == this.owner && Main.projectile[l].type == ProjectileID.RainbowCrystalExplosion)
 						{
 							Main.projectile[l].Kill();
 						}
 					}
 				}
 			}
-			else if (this.type == 645)
+			else if (this.type == ProjectileID.LunarFlare)
 			{
 				bool flag = WorldGen.SolidTile(Framing.GetTileSafely((int)this.position.X / 16, (int)this.position.Y / 16));
 			}
-			else if (this.type == 636)
+			else if (this.type == ProjectileID.Daybreak)
 			{
 				Rectangle hitbox = base.Hitbox;
 				for (int num13 = 0; num13 < 6; num13 += 3)
@@ -30792,7 +30792,7 @@ namespace Terraria
 					hitbox.Y = (int)this.oldPos[num13].Y;
 				}
 			}
-			if (this.type == 644)
+			if (this.type == ProjectileID.RainbowCrystalExplosion)
 			{
 				Vector2 spinningpoint = new Vector2(0f, -3f).RotatedByRandom(3.1415927410125732);
 				float num18 = (float)Main.rand.Next(7, 13);
@@ -30819,13 +30819,13 @@ namespace Terraria
 					base.Center = this.position;
 				}
 			}
-			if (this.type == 608)
+			if (this.type == ProjectileID.SolarCounter)
 			{
 				this.maxPenetrate = -1;
 				this.penetrate = -1;
 				this.Damage();
 			}
-			else if (this.type == 617)
+			else if (this.type == ProjectileID.NebulaArcanum)
 			{
 				this.position = base.Center;
 				this.width = (this.height = 176);
@@ -30837,7 +30837,7 @@ namespace Terraria
 				{
 					for (int num44 = 0; num44 < 1000; num44++)
 					{
-						if (Main.projectile[num44].active && Main.projectile[num44].type == 618 && Main.projectile[num44].ai[1] == (float)this.whoAmI)
+						if (Main.projectile[num44].active && Main.projectile[num44].type == ProjectileID.NebulaArcanumSubshot && Main.projectile[num44].ai[1] == (float)this.whoAmI)
 						{
 							Main.projectile[num44].Kill();
 						}
@@ -30884,14 +30884,14 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 620 || this.type == 618)
+			else if (this.type == ProjectileID.NebulaArcanumExplosionShotShard || this.type == ProjectileID.NebulaArcanumSubshot)
 			{
-				if (this.type == 618)
+				if (this.type == ProjectileID.NebulaArcanumSubshot)
 				{
 					this.ai[0] = 86f;
 				}
 			}
-			else if (this.type == 619)
+			else if (this.type == ProjectileID.NebulaArcanumExplosionShot)
 			{
 				if (Main.myPlayer == this.owner)
 				{
@@ -30909,10 +30909,10 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 601)
+			if (this.type == ProjectileID.PortalGunBolt)
 			{
 			}
-			if (this.type == 596)
+			if (this.type == ProjectileID.DesertDjinnCurse)
 			{
 				this.position = base.Center;
 				this.width = (this.height = 60);
@@ -30925,14 +30925,14 @@ namespace Terraria
 				this.damage = num58;
 				this.Damage();
 			}
-			if (this.type == 539)
+			if (this.type == ProjectileID.StardustJellyfishSmall)
 			{
 				this.position = base.Center;
 				this.width = (this.height = 80);
 				base.Center = this.position;
 				this.Damage();
 			}
-			if (this.type == 501)
+			if (this.type == ProjectileID.DrManFlyFlask)
 			{
 				int num93 = 20;
 				this.position.X = this.position.X - (float)num93;
@@ -30946,7 +30946,7 @@ namespace Terraria
 				this.height += num93 * 2;
 				this.Damage();
 			}
-			if (this.type == 629 && Main.netMode != 1)
+			if (this.type == ProjectileID.TowerDamageBolt && Main.netMode != 1)
 			{
 				int num101 = Main.npc[(int)this.ai[0]].type;
 				if (num101 <= 493)
@@ -30991,7 +30991,7 @@ namespace Terraria
 					NPC.ShieldStrengthTowerNebula = (int)MathHelper.Clamp((float)(NPC.ShieldStrengthTowerNebula - 1), 0f, (float)NPC.ShieldStrengthTowerMax);
 				}
 				Main.npc[(int)this.ai[0]].netUpdate = true;
-				NetMessage.SendData(101, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.UpdateShieldStrengths, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 			}
 			if (this.aiStyle == 105 && this.owner == Main.myPlayer && this.ai[1] == 0f)
 			{
@@ -31000,7 +31000,7 @@ namespace Terraria
 				vector12 *= 0.3f;
 				Projectile.NewProjectile(base.Center.X, base.Center.Y, vector12.X, vector12.Y, Main.rand.Next(569, 572), this.damage, 0f, this.owner, 0f, 0f);
 			}
-			if (this.type == 452)
+			if (this.type == ProjectileID.PhantasmalEye)
 			{
 				this.position = base.Center;
 				this.width = (this.height = 144);
@@ -31008,7 +31008,7 @@ namespace Terraria
 				this.position.Y = this.position.Y - (float)(this.height / 2);
 				this.Damage();
 			}
-			if (this.type == 454)
+			if (this.type == ProjectileID.PhantasmalSphere)
 			{
 				this.position = base.Center;
 				this.width = (this.height = 208);
@@ -31016,21 +31016,21 @@ namespace Terraria
 				this.position.Y = this.position.Y - (float)(this.height / 2);
 				this.Damage();
 			}
-			if (this.type == 467)
+			if (this.type == ProjectileID.CultistBossFireBall)
 			{
 				this.position = base.Center;
 				this.width = (this.height = 176);
 				base.Center = this.position;
 				this.Damage();
 			}
-			if (this.type == 468)
+			if (this.type == ProjectileID.CultistBossFireBallClone)
 			{
 				this.position = base.Center;
 				this.width = (this.height = 176);
 				base.Center = this.position;
 				this.Damage();
 			}
-			else if (this.type == 483)
+			else if (this.type == ProjectileID.SeedlerNut)
 			{
 				if (this.owner == Main.myPlayer)
 				{
@@ -31103,7 +31103,7 @@ namespace Terraria
 					this.Damage();
 				}
 			}
-			else if (this.type == 521)
+			else if (this.type == ProjectileID.CrystalPulse)
 			{
 				if (Main.myPlayer == this.owner)
 				{
@@ -31121,7 +31121,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 459)
+			if (this.type == ProjectileID.ChargedBlasterOrb)
 			{
 				if (this.scale >= 1f)
 				{
@@ -31131,15 +31131,15 @@ namespace Terraria
 					this.Damage();
 				}
 			}
-			if (this.owner != Main.myPlayer && this.type == 453 && Main.player[this.owner].mount.AbilityActive)
+			if (this.owner != Main.myPlayer && this.type == ProjectileID.DrillMountCrosshair && Main.player[this.owner].mount.AbilityActive)
 			{
 				Main.player[this.owner].mount.UseAbility(Main.player[this.owner], this.position, false);
 			}
-			if (this.type == 441)
+			if (this.type == ProjectileID.ScutlixLaserCrosshair)
 			{
 				Main.player[this.owner].mount.StopAbilityCharge();
 			}
-			if (this.type == 444)
+			if (this.type == ProjectileID.Xenopopper)
 			{
 				int num174 = Main.rand.Next(5, 9);
 				if (this.owner == Main.myPlayer)
@@ -31154,9 +31154,9 @@ namespace Terraria
 					Projectile.NewProjectile(base.Center.X, base.Center.Y, vector18.X, vector18.Y, (int)this.localAI[0], this.damage, this.knockBack, this.owner, 0f, 0f);
 				}
 			}
-			if (this.type == 639 || this.type == 640)
+			if (this.type == ProjectileID.MoonlordArrow || this.type == ProjectileID.MoonlordArrowTrail)
 			{
-				if (this.owner == Main.myPlayer && this.type == 639)
+				if (this.owner == Main.myPlayer && this.type == ProjectileID.MoonlordArrow)
 				{
 					int num182 = num + 1;
 					int nextSlot = Projectile.GetNextSlot();
@@ -31168,14 +31168,14 @@ namespace Terraria
 					Projectile.NewProjectile(this.localAI[0], this.localAI[1], vector19.X, vector19.Y, 640, this.damage, this.knockBack, this.owner, 0f, (float)num182);
 				}
 			}
-			if (this.type == 442)
+			if (this.type == ProjectileID.ElectrosphereMissile)
 			{
 				if (Main.myPlayer == this.owner)
 				{
 					Rectangle rectangle = new Rectangle((int)base.Center.X - 40, (int)base.Center.Y - 40, 80, 80);
 					for (int num195 = 0; num195 < 1000; num195++)
 					{
-						if (num195 != this.whoAmI && Main.projectile[num195].active && Main.projectile[num195].owner == this.owner && Main.projectile[num195].type == 443 && Main.projectile[num195].getRect().Intersects(rectangle))
+						if (num195 != this.whoAmI && Main.projectile[num195].active && Main.projectile[num195].owner == this.owner && Main.projectile[num195].type == ProjectileID.Electrosphere && Main.projectile[num195].getRect().Intersects(rectangle))
 						{
 							Main.projectile[num195].ai[1] = 1f;
 							Main.projectile[num195].velocity = (base.Center - Main.projectile[num195].Center) / 5f;
@@ -31185,7 +31185,7 @@ namespace Terraria
 					Projectile.NewProjectile(base.Center.X, base.Center.Y, 0f, 0f, 443, this.damage, 0f, this.owner, 0f, 0f);
 				}
 			}
-			if (this.type == 448)
+			if (this.type == ProjectileID.SaucerMissile)
 			{
 				this.position = base.Center;
 				this.width = (this.height = 112);
@@ -31193,7 +31193,7 @@ namespace Terraria
 				this.position.Y = this.position.Y - (float)(this.height / 2);
 				this.Damage();
 			}
-			if (this.type == 616)
+			if (this.type == ProjectileID.VortexBeaterRocket)
 			{
 				this.position = base.Center;
 				this.width = (this.height = 80);
@@ -31201,7 +31201,7 @@ namespace Terraria
 				this.position.Y = this.position.Y - (float)(this.height / 2);
 				this.Damage();
 			}
-			if (this.type == 510)
+			if (this.type == ProjectileID.ToxicFlask)
 			{
 				if (this.owner == Main.myPlayer)
 				{
@@ -31215,7 +31215,7 @@ namespace Terraria
 					}
 				}
 			}
-			if (this.type == 385)
+			if (this.type == ProjectileID.SharknadoBolt)
 			{
 				if (this.owner == Main.myPlayer)
 				{
@@ -31261,7 +31261,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type >= 424 && this.type <= 426)
+			else if (this.type >= ProjectileID.Meteor1 && this.type <= ProjectileID.Meteor3)
 			{
 				this.position.X = this.position.X + (float)(this.width / 2);
 				this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -31276,7 +31276,7 @@ namespace Terraria
 					this.Damage();
 				}
 			}
-			if (this.type == 399)
+			if (this.type == ProjectileID.MolotovCocktail)
 			{
 				
 				if (Main.myPlayer == this.owner)
@@ -31289,29 +31289,29 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 291)
+			else if (this.type == ProjectileID.InfernoHostileBolt)
 			{
 				if (this.owner == Main.myPlayer)
 				{
 					Projectile.NewProjectile(base.Center.X, base.Center.Y, 0f, 0f, 292, this.damage, this.knockBack, this.owner, 0f, 0f);
 				}
 			}
-			else if (this.type == 295)
+			else if (this.type == ProjectileID.InfernoFriendlyBolt)
 			{
 				if (this.owner == Main.myPlayer)
 				{
 					Projectile.NewProjectile(base.Center.X, base.Center.Y, 0f, 0f, 296, (int)((double)this.damage * 0.65), this.knockBack, this.owner, 0f, 0f);
 				}
 			}
-			else if (this.type == 237 && this.owner == Main.myPlayer)
+			else if (this.type == ProjectileID.RainCloudMoving && this.owner == Main.myPlayer)
 			{
 				Projectile.NewProjectile(base.Center.X, base.Center.Y, 0f, 0f, 238, this.damage, this.knockBack, this.owner, 0f, 0f);
 			}
-			else if (this.type == 243 && this.owner == Main.myPlayer)
+			else if (this.type == ProjectileID.BloodCloudMoving && this.owner == Main.myPlayer)
 			{
 				Projectile.NewProjectile(base.Center.X, base.Center.Y, 0f, 0f, 244, this.damage, this.knockBack, this.owner, 0f, 0f);
 			}
-			else if (this.type == 475 || this.type == 505 || this.type == 506)
+			else if (this.type == ProjectileID.VineRopeCoil || this.type == ProjectileID.SilkRopeCoil || this.type == ProjectileID.WebRopeCoil)
 			{
 				if (this.ai[1] < 10f)
 				{
@@ -31353,7 +31353,7 @@ namespace Terraria
 					}
 				}
 			}
-			else if (this.type == 171)
+			else if (this.type == ProjectileID.RopeCoil)
 			{
 				if (this.ai[1] < 10f)
 				{
@@ -31397,16 +31397,16 @@ namespace Terraria
 			}
 			else if (!Main.projPet[this.type])
 			{
-				if (this.type == 99)
+				if (this.type == ProjectileID.Boulder)
 				{
 					for (int num372 = 0; num372 < 30; num372++)
 					{
 						this.velocity *= 1.9f;
 					}
 				}
-				else if (this.type == 91 || this.type == 92)
+				else if (this.type == ProjectileID.HolyArrow || this.type == ProjectileID.HallowStar)
 				{
-					if ((this.type == 91 || (this.type == 92 && this.ai[0] > 0f)) && this.owner == Main.myPlayer)
+					if ((this.type == ProjectileID.HolyArrow || (this.type == ProjectileID.HallowStar && this.ai[0] > 0f)) && this.owner == Main.myPlayer)
 					{
 						float num378 = this.position.X + (float)Main.rand.Next(-400, 400);
 						float num379 = this.position.Y - (float)Main.rand.Next(600, 900);
@@ -31419,8 +31419,8 @@ namespace Terraria
 						num380 *= num383;
 						num381 *= num383;
 						int num384 = this.damage;
-						int num385 = Projectile.NewProjectile(num378, num379, num380, num381, 92, num384, this.knockBack, this.owner, 0f, 0f);
-						if (this.type == 91)
+						int num385 = Projectile.NewProjectile(num378, num379, num380, num381, ProjectileID.HallowStar, num384, this.knockBack, this.owner, 0f, 0f);
+						if (this.type == ProjectileID.HolyArrow)
 						{
 							Main.projectile[num385].ai[1] = this.position.Y;
 							Main.projectile[num385].ai[0] = 1f;
@@ -31431,9 +31431,9 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 89)
+				else if (this.type == ProjectileID.CrystalBullet)
 				{
-					if (this.type == 89 && this.owner == Main.myPlayer)
+					if (this.type == ProjectileID.CrystalBullet && this.owner == Main.myPlayer)
 					{
 						for (int num388 = 0; num388 < 3; num388++)
 						{
@@ -31443,7 +31443,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 80)
+				else if (this.type == ProjectileID.IceBlock)
 				{
 					int num412 = (int)this.position.X / 16;
 					int num413 = (int)this.position.Y / 16;
@@ -31451,30 +31451,30 @@ namespace Terraria
 					{
 						Main.tile[num412, num413] = new Tile();
 					}
-					if (Main.tile[num412, num413].type == 127 && Main.tile[num412, num413].active())
+					if (Main.tile[num412, num413].type == TileID.MagicalIceBlock && Main.tile[num412, num413].active())
 					{
 						WorldGen.KillTile(num412, num413, false, false, false);
 					}
 				}
-				else if (this.type == 478)
+				else if (this.type == ProjectileID.CursedDart)
 				{
 					if (this.owner == Main.myPlayer)
 					{
 						Projectile.NewProjectile(base.Center.X, base.Center.Y, 0f, 0f, 480, (int)((double)this.damage * 0.8), this.knockBack * 0.5f, this.owner, 0f, 0f);
 					}
 				}
-				else if (this.type == 477 || this.type == 479)
+				else if (this.type == ProjectileID.CrystalDart || this.type == ProjectileID.IchorDart)
 				{
 					Collision.HitTiles(this.position, this.velocity, this.width, this.height);
 				}
-				else if (this.type == 9 || this.type == 12 || this.type == 503)
+				else if (this.type == ProjectileID.Starfury || this.type == ProjectileID.FallingStar || this.type == ProjectileID.StarWrath)
 				{
-					if (this.type == 503)
+					if (this.type == ProjectileID.StarWrath)
 					{
 						this.velocity /= 2f;
 					}
 				}
-				else if (this.type == 281)
+				else if (this.type == ProjectileID.ExplosiveBunny)
 				{
 					this.position.X = this.position.X + (float)(this.width / 2);
 					this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -31484,7 +31484,7 @@ namespace Terraria
 					this.position.Y = this.position.Y - (float)(this.height / 2);
 					this.Damage();
 				}
-				else if (this.type == 162)
+				else if (this.type == ProjectileID.CannonballFriendly)
 				{
 					this.position.X = this.position.X + (float)(this.width / 2);
 					this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -31494,7 +31494,7 @@ namespace Terraria
 					this.position.Y = this.position.Y - (float)(this.height / 2);
 					this.Damage();
 				}
-				else if (this.type == 240)
+				else if (this.type == ProjectileID.CannonballHostile)
 				{
 					this.position.X = this.position.X + (float)(this.width / 2);
 					this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -31504,7 +31504,7 @@ namespace Terraria
 					this.position.Y = this.position.Y - (float)(this.height / 2);
 					this.Damage();
 				}
-				else if (this.type == 286)
+				else if (this.type == ProjectileID.ExplosiveBullet)
 				{
 					if (this.owner == Main.myPlayer)
 					{
@@ -31519,17 +31519,17 @@ namespace Terraria
 						this.Damage();
 					}
 				}
-				else if (this.type == 14 || this.type == 20 || this.type == 36 || this.type == 83 || this.type == 84 || this.type == 389 || this.type == 104 || this.type == 279 || this.type == 100 || this.type == 110 || this.type == 180 || this.type == 207 || this.type == 357 || this.type == 242 || this.type == 302 || this.type == 257 || this.type == 259 || this.type == 285 || this.type == 287 || this.type == 576 || this.type == 577)
+				else if (this.type == ProjectileID.Bullet || this.type == ProjectileID.GreenLaser || this.type == ProjectileID.MeteorShot || this.type == ProjectileID.EyeLaser || this.type == ProjectileID.PinkLaser || this.type == ProjectileID.MiniRetinaLaser || this.type == ProjectileID.CursedBullet || this.type == ProjectileID.IchorBullet || this.type == ProjectileID.DeathLaser || this.type == ProjectileID.BulletSnowman || this.type == ProjectileID.BulletDeadeye || this.type == ProjectileID.ChlorophyteBullet || this.type == ProjectileID.PulseBolt || this.type == ProjectileID.BulletHighVelocity || this.type == ProjectileID.SniperBullet || this.type == ProjectileID.FrostBeam || this.type == ProjectileID.EyeBeam || this.type == ProjectileID.NanoBullet || this.type == ProjectileID.GoldenBullet || this.type == ProjectileID.NebulaLaser || this.type == ProjectileID.VortexLaser)
 				{
 					Collision.HitTiles(this.position, this.velocity, this.width, this.height);
 				}
-				else if (this.type == 638)
+				else if (this.type == ProjectileID.MoonlordBullet)
 				{
 					Collision.HitTiles(this.position, this.velocity, this.width, this.height);
 				}
-				else if (this.type == 16)
+				else if (this.type == ProjectileID.MagicMissile)
 				{
-					if (this.type == 16 && this.penetrate == 1)
+					if (this.type == ProjectileID.MagicMissile && this.penetrate == 1)
 					{
 						this.maxPenetrate = -1;
 						this.penetrate = -1;
@@ -31550,7 +31550,7 @@ namespace Terraria
 					this.height = 10;
 					this.position.Y = this.position.Y - (float)(this.height / 2);
 				}
-				else if (this.type == 41)
+				else if (this.type == ProjectileID.HellfireArrow)
 				{
 					if (this.owner == Main.myPlayer)
 					{
@@ -31564,7 +31564,7 @@ namespace Terraria
 						this.Damage();
 					}
 				}
-				else if (this.type == 514)
+				else if (this.type == ProjectileID.NailFriendly)
 				{
 					if (this.owner == Main.myPlayer)
 					{
@@ -31579,7 +31579,7 @@ namespace Terraria
 						this.Damage();
 					}
 				}
-				else if (this.type == 306)
+				else if (this.type == ProjectileID.EatersBite)
 				{
 					if (this.owner == Main.myPlayer)
 					{
@@ -31606,7 +31606,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 469)
+				else if (this.type == ProjectileID.BeeArrow)
 				{
 					if (this.owner == Main.myPlayer)
 					{
@@ -31632,7 +31632,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 183)
+				else if (this.type == ProjectileID.Beenade)
 				{
 					if (this.owner == Main.myPlayer)
 					{
@@ -31660,7 +31660,7 @@ namespace Terraria
 					this.penetrate = -1;
 					this.Damage();
 				}
-				else if (this.type == 312)
+				else if (this.type == ProjectileID.JackOLantern)
 				{
 					this.position.X = this.position.X + (float)(this.width / 2);
 					this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -31677,7 +31677,7 @@ namespace Terraria
 					this.position.Y = this.position.Y - (float)(this.height / 2);
 					this.Damage();
 				}
-				else if (this.type == 133 || this.type == 134 || this.type == 135 || this.type == 136 || this.type == 137 || this.type == 138 || this.type == 303 || this.type == 338 || this.type == 339)
+				else if (this.type == ProjectileID.GrenadeI || this.type == ProjectileID.RocketI || this.type == ProjectileID.ProximityMineI || this.type == ProjectileID.GrenadeII || this.type == ProjectileID.RocketII || this.type == ProjectileID.ProximityMineII || this.type == ProjectileID.RocketSkeleton || this.type == ProjectileID.RocketSnowmanI || this.type == ProjectileID.RocketSnowmanII)
 				{
 					this.position.X = this.position.X + (float)(this.width / 2);
 					this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -31687,7 +31687,7 @@ namespace Terraria
 					this.position.Y = this.position.Y - (float)(this.height / 2);
 					
 				}
-				else if (this.type == 139 || this.type == 140 || this.type == 141 || this.type == 142 || this.type == 143 || this.type == 144 || this.type == 340 || this.type == 341)
+				else if (this.type == ProjectileID.GrenadeIII || this.type == ProjectileID.RocketIII || this.type == ProjectileID.ProximityMineIII || this.type == ProjectileID.GrenadeIV || this.type == ProjectileID.RocketIV || this.type == ProjectileID.ProximityMineIV || this.type == ProjectileID.RocketSnowmanIII || this.type == ProjectileID.RocketSnowmanIV)
 				{
 					this.position.X = this.position.X + (float)(this.width / 2);
 					this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -31702,7 +31702,7 @@ namespace Terraria
 					this.position.X = this.position.X - (float)(this.width / 2);
 					this.position.Y = this.position.Y - (float)(this.height / 2);
 				}
-				else if (this.type == 246)
+				else if (this.type == ProjectileID.Stynger)
 				{
 					this.position.X = this.position.X + (float)(this.width / 2);
 					this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -31731,7 +31731,7 @@ namespace Terraria
 						}
 					}
 				}
-				else if (this.type == 249)
+				else if (this.type == ProjectileID.StyngerShrapnel)
 				{
 					this.position.X = this.position.X + (float)(this.width / 2);
 					this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -31742,13 +31742,13 @@ namespace Terraria
 					this.penetrate = -1;
 					this.Damage();
 				}
-				else if (this.type == 588)
+				else if (this.type == ProjectileID.PartyGirlGrenade)
 				{
 					this.position = base.Center;
 					this.width = (this.height = 22);
 					base.Center = this.position;
 				}
-				else if (this.type == 28 || this.type == 30 || this.type == 37 || this.type == 75 || this.type == 102 || this.type == 164 || this.type == 397 || this.type == 517 || this.type == 516 || this.type == 519)
+				else if (this.type == ProjectileID.Bomb || this.type == ProjectileID.Grenade || this.type == ProjectileID.StickyBomb || this.type == ProjectileID.HappyBomb || this.type == ProjectileID.BombSkeletronPrime || this.type == ProjectileID.Landmine || this.type == ProjectileID.StickyGrenade || this.type == ProjectileID.BouncyGrenade || this.type == ProjectileID.BouncyBomb || this.type == ProjectileID.BombFish)
 				{
 					this.position.X = this.position.X + (float)(this.width / 2);
 					this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -31756,7 +31756,7 @@ namespace Terraria
 					this.height = 22;
 					this.position.X = this.position.X - (float)(this.width / 2);
 					this.position.Y = this.position.Y - (float)(this.height / 2);
-					if (this.type == 102)
+					if (this.type == ProjectileID.BombSkeletronPrime)
 					{
 						this.position.X = this.position.X + (float)(this.width / 2);
 						this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -31768,9 +31768,9 @@ namespace Terraria
 						this.Damage();
 					}
 				}
-				else if (this.type == 29 || this.type == 108 || this.type == 470 || this.type == 637)
+				else if (this.type == ProjectileID.Dynamite || this.type == ProjectileID.Explosives || this.type == ProjectileID.StickyDynamite || this.type == ProjectileID.BouncyDynamite)
 				{
-					if (this.type == 29)
+					if (this.type == ProjectileID.Dynamite)
 					{
 						this.position.X = this.position.X + (float)(this.width / 2);
 						this.position.Y = this.position.Y + (float)(this.height / 2);
@@ -31789,22 +31789,22 @@ namespace Terraria
 			}
 			if (this.owner == Main.myPlayer)
 			{
-				if (this.type == 28 || this.type == 29 || this.type == 37 || this.type == 108 || this.type == 136 || this.type == 137 || this.type == 138 || this.type == 142 || this.type == 143 || this.type == 144 || this.type == 339 || this.type == 341 || this.type == 470 || this.type == 516 || this.type == 519 || this.type == 637)
+				if (this.type == ProjectileID.Bomb || this.type == ProjectileID.Dynamite || this.type == ProjectileID.StickyBomb || this.type == ProjectileID.Explosives || this.type == ProjectileID.GrenadeII || this.type == ProjectileID.RocketII || this.type == ProjectileID.ProximityMineII || this.type == ProjectileID.GrenadeIV || this.type == ProjectileID.RocketIV || this.type == ProjectileID.ProximityMineIV || this.type == ProjectileID.RocketSnowmanII || this.type == ProjectileID.RocketSnowmanIV || this.type == ProjectileID.StickyDynamite || this.type == ProjectileID.BouncyBomb || this.type == ProjectileID.BombFish || this.type == ProjectileID.BouncyDynamite)
 				{
 					int num710 = 3;
-					if (this.type == 28 || this.type == 37 || this.type == 516 || this.type == 519)
+					if (this.type == ProjectileID.Bomb || this.type == ProjectileID.StickyBomb || this.type == ProjectileID.BouncyBomb || this.type == ProjectileID.BombFish)
 					{
 						num710 = 4;
 					}
-					if (this.type == 29 || this.type == 470 || this.type == 637)
+					if (this.type == ProjectileID.Dynamite || this.type == ProjectileID.StickyDynamite || this.type == ProjectileID.BouncyDynamite)
 					{
 						num710 = 7;
 					}
-					if (this.type == 142 || this.type == 143 || this.type == 144 || this.type == 341)
+					if (this.type == ProjectileID.GrenadeIV || this.type == ProjectileID.RocketIV || this.type == ProjectileID.ProximityMineIV || this.type == ProjectileID.RocketSnowmanIV)
 					{
 						num710 = 5;
 					}
-					if (this.type == 108)
+					if (this.type == ProjectileID.Explosives)
 					{
 						num710 = 10;
 					}
@@ -31836,7 +31836,7 @@ namespace Terraria
 							float num717 = Math.Abs((float)num715 - this.position.X / 16f);
 							float num718 = Math.Abs((float)num716 - this.position.Y / 16f);
 							double num719 = Math.Sqrt((double)(num717 * num717 + num718 * num718));
-							if (num719 < (double)num710 && Main.tile[num715, num716] != null && Main.tile[num715, num716].wall == 0)
+							if (num719 < (double)num710 && Main.tile[num715, num716] != null && Main.tile[num715, num716].wall == WallID.None)
 							{
 								flag3 = true;
 								break;
@@ -31857,11 +31857,11 @@ namespace Terraria
 								if (Main.tile[num720, num721] != null && Main.tile[num720, num721].active())
 								{
 									flag4 = true;
-									if (Main.tileDungeon[(int)Main.tile[num720, num721].type] || Main.tile[num720, num721].type == 21 || Main.tile[num720, num721].type == 26 || Main.tile[num720, num721].type == 107 || Main.tile[num720, num721].type == 108 || Main.tile[num720, num721].type == 111 || Main.tile[num720, num721].type == 226 || Main.tile[num720, num721].type == 237 || Main.tile[num720, num721].type == 221 || Main.tile[num720, num721].type == 222 || Main.tile[num720, num721].type == 223 || Main.tile[num720, num721].type == 211 || Main.tile[num720, num721].type == 404)
+									if (Main.tileDungeon[(int)Main.tile[num720, num721].type] || Main.tile[num720, num721].type == TileID.Containers || Main.tile[num720, num721].type == TileID.DemonAltar || Main.tile[num720, num721].type == TileID.Cobalt || Main.tile[num720, num721].type == TileID.Mythril || Main.tile[num720, num721].type == TileID.Adamantite || Main.tile[num720, num721].type == TileID.LihzahrdBrick || Main.tile[num720, num721].type == TileID.LihzahrdAltar || Main.tile[num720, num721].type == TileID.Palladium || Main.tile[num720, num721].type == TileID.Orichalcum || Main.tile[num720, num721].type == TileID.Titanium || Main.tile[num720, num721].type == TileID.Chlorophyte || Main.tile[num720, num721].type == TileID.DesertFossil)
 									{
 										flag4 = false;
 									}
-									if (!Main.hardMode && Main.tile[num720, num721].type == 58)
+									if (!Main.hardMode && Main.tile[num720, num721].type == TileID.Hellstone)
 									{
 										flag4 = false;
 									}
@@ -31870,7 +31870,7 @@ namespace Terraria
 										WorldGen.KillTile(num720, num721, false, false, false);
 										if (!Main.tile[num720, num721].active() && Main.netMode != 0)
 										{
-											NetMessage.SendData(17, -1, -1, "", 0, (float)num720, (float)num721, 0f, 0, 0, 0);
+											NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)num720, (float)num721, 0f, 0, 0, 0);
 										}
 									}
 								}
@@ -31883,9 +31883,9 @@ namespace Terraria
 											if (Main.tile[num725, num726] != null && Main.tile[num725, num726].wall > 0 && flag3)
 											{
 												WorldGen.KillWall(num725, num726, false);
-												if (Main.tile[num725, num726].wall == 0 && Main.netMode != 0)
+												if (Main.tile[num725, num726].wall == WallID.None && Main.netMode != 0)
 												{
-													NetMessage.SendData(17, -1, -1, "", 2, (float)num725, (float)num726, 0f, 0, 0, 0);
+													NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 2, (float)num725, (float)num726, 0f, 0, 0, 0);
 												}
 											}
 										}
@@ -31898,7 +31898,7 @@ namespace Terraria
 				}
 				if (Main.netMode != 0)
 				{
-					NetMessage.SendData(29, -1, -1, "", this.identity, (float)this.owner, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ProjectileDestroy, -1, -1, "", this.identity, (float)this.owner, 0f, 0f, 0, 0, 0);
 				}
 				if (!this.noDropItem)
 				{
@@ -31909,92 +31909,92 @@ namespace Terraria
 						int num729 = (int)(this.position.Y + (float)(this.width / 2)) / 16;
 						int num730 = 0;
 						int num731 = 2;
-						if (this.type == 109)
+						if (this.type == ProjectileID.SnowBallHostile)
 						{
 							num730 = 147;
 							num731 = 0;
 						}
-						if (this.type == 31)
+						if (this.type == ProjectileID.SandBallFalling)
 						{
 							num730 = 53;
 							num731 = 0;
 						}
-						if (this.type == 42)
+						if (this.type == ProjectileID.SandBallGun)
 						{
 							num730 = 53;
 							num731 = 0;
 						}
-						if (this.type == 56)
+						if (this.type == ProjectileID.EbonsandBallFalling)
 						{
 							num730 = 112;
 							num731 = 0;
 						}
-						if (this.type == 65)
+						if (this.type == ProjectileID.EbonsandBallGun)
 						{
 							num730 = 112;
 							num731 = 0;
 						}
-						if (this.type == 67)
+						if (this.type == ProjectileID.PearlSandBallFalling)
 						{
 							num730 = 116;
 							num731 = 0;
 						}
-						if (this.type == 68)
+						if (this.type == ProjectileID.PearlSandBallGun)
 						{
 							num730 = 116;
 							num731 = 0;
 						}
-						if (this.type == 71)
+						if (this.type == ProjectileID.SiltBall)
 						{
 							num730 = 123;
 							num731 = 0;
 						}
-						if (this.type == 39)
+						if (this.type == ProjectileID.MudBall)
 						{
 							num730 = 59;
 							num731 = 176;
 						}
-						if (this.type == 40)
+						if (this.type == ProjectileID.AshBallFalling)
 						{
 							num730 = 57;
 							num731 = 172;
 						}
-						if (this.type == 179)
+						if (this.type == ProjectileID.SlushBall)
 						{
 							num730 = 224;
 							num731 = 0;
 						}
-						if (this.type == 241)
+						if (this.type == ProjectileID.CrimsandBallFalling)
 						{
 							num730 = 234;
 							num731 = 0;
 						}
-						if (this.type == 354)
+						if (this.type == ProjectileID.CrimsandBallGun)
 						{
 							num730 = 234;
 							num731 = 0;
 						}
-						if (this.type == 411)
+						if (this.type == ProjectileID.CopperCoinsFalling)
 						{
 							num730 = 330;
 							num731 = 71;
 						}
-						if (this.type == 412)
+						if (this.type == ProjectileID.SilverCoinsFalling)
 						{
 							num730 = 331;
 							num731 = 72;
 						}
-						if (this.type == 413)
+						if (this.type == ProjectileID.GoldCoinsFalling)
 						{
 							num730 = 332;
 							num731 = 73;
 						}
-						if (this.type == 414)
+						if (this.type == ProjectileID.PlatinumCoinsFalling)
 						{
 							num730 = 333;
 							num731 = 74;
 						}
-						if (this.type == 109)
+						if (this.type == ProjectileID.SnowBallHostile)
 						{
 							int num732 = (int)Player.FindClosest(this.position, this.width, this.height);
 							if ((double)(base.Center - Main.player[num732].Center).Length() > (double)Main.maxScreenW * 0.75)
@@ -32025,12 +32025,12 @@ namespace Terraria
 									WorldGen.SlopeTile(num728, num729 + 1, 0);
 									if (Main.netMode == 2)
 									{
-										NetMessage.SendData(17, -1, -1, "", 14, (float)num728, (float)(num729 + 1), 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 14, (float)num728, (float)(num729 + 1), 0f, 0, 0, 0);
 									}
 								}
 								if (Main.netMode != 0)
 								{
-									NetMessage.SendData(17, -1, -1, "", 1, (float)num728, (float)num729, (float)num730, 0, 0, 0);
+									NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 1, (float)num728, (float)num729, (float)num730, 0, 0, 0);
 								}
 							}
 							else if (num731 > 0)
@@ -32043,15 +32043,15 @@ namespace Terraria
 							num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, num731, 1, false, 0, false);
 						}
 					}
-					if (this.type == 1 && Main.rand.Next(3) == 0)
+					if (this.type == ProjectileID.WoodenArrowFriendly && Main.rand.Next(3) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 40, 1, false, 0, false);
 					}
-					if (this.type == 474 && Main.rand.Next(3) == 0)
+					if (this.type == ProjectileID.BoneArrowFromMerchant && Main.rand.Next(3) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3003, 1, false, 0, false);
 					}
-					if (this.type == 103 && Main.rand.Next(6) == 0)
+					if (this.type == ProjectileID.CursedArrow && Main.rand.Next(6) == 0)
 					{
 						if (Main.rand.Next(3) == 0)
 						{
@@ -32062,7 +32062,7 @@ namespace Terraria
 							num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 40, 1, false, 0, false);
 						}
 					}
-					if (this.type == 2 && Main.rand.Next(3) == 0)
+					if (this.type == ProjectileID.FireArrow && Main.rand.Next(3) == 0)
 					{
 						if (Main.rand.Next(3) == 0)
 						{
@@ -32073,7 +32073,7 @@ namespace Terraria
 							num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 40, 1, false, 0, false);
 						}
 					}
-					if (this.type == 172 && Main.rand.Next(3) == 0)
+					if (this.type == ProjectileID.FrostburnArrow && Main.rand.Next(3) == 0)
 					{
 						if (Main.rand.Next(3) == 0)
 						{
@@ -32084,7 +32084,7 @@ namespace Terraria
 							num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 40, 1, false, 0, false);
 						}
 					}
-					if (this.type == 171)
+					if (this.type == ProjectileID.RopeCoil)
 					{
 						if (this.ai[1] == 0f)
 						{
@@ -32097,7 +32097,7 @@ namespace Terraria
 							Main.item[num727].noGrabDelay = 0;
 						}
 					}
-					if (this.type == 475)
+					if (this.type == ProjectileID.VineRopeCoil)
 					{
 						if (this.ai[1] == 0f)
 						{
@@ -32110,7 +32110,7 @@ namespace Terraria
 							Main.item[num727].noGrabDelay = 0;
 						}
 					}
-					if (this.type == 505)
+					if (this.type == ProjectileID.SilkRopeCoil)
 					{
 						if (this.ai[1] == 0f)
 						{
@@ -32123,7 +32123,7 @@ namespace Terraria
 							Main.item[num727].noGrabDelay = 0;
 						}
 					}
-					if (this.type == 506)
+					if (this.type == ProjectileID.WebRopeCoil)
 					{
 						if (this.ai[1] == 0f)
 						{
@@ -32136,85 +32136,85 @@ namespace Terraria
 							Main.item[num727].noGrabDelay = 0;
 						}
 					}
-					if (this.type == 91 && Main.rand.Next(6) == 0)
+					if (this.type == ProjectileID.HolyArrow && Main.rand.Next(6) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 516, 1, false, 0, false);
 					}
-					if (this.type == 50 && Main.rand.Next(3) == 0)
+					if (this.type == ProjectileID.Glowstick && Main.rand.Next(3) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 282, 1, false, 0, false);
 					}
-					if (this.type == 515 && Main.rand.Next(3) == 0)
+					if (this.type == ProjectileID.BouncyGlowstick && Main.rand.Next(3) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3112, 1, false, 0, false);
 					}
-					if (this.type == 53 && Main.rand.Next(3) == 0)
+					if (this.type == ProjectileID.StickyGlowstick && Main.rand.Next(3) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 286, 1, false, 0, false);
 					}
-					if (this.type == 48 && Main.rand.Next(2) == 0)
+					if (this.type == ProjectileID.ThrowingKnife && Main.rand.Next(2) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 279, 1, false, 0, false);
 					}
-					if (this.type == 54 && Main.rand.Next(2) == 0)
+					if (this.type == ProjectileID.PoisonedKnife && Main.rand.Next(2) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 287, 1, false, 0, false);
 					}
-					if (this.type == 3 && Main.rand.Next(2) == 0)
+					if (this.type == ProjectileID.Shuriken && Main.rand.Next(2) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 42, 1, false, 0, false);
 					}
-					if (this.type == 4 && Main.rand.Next(4) == 0)
+					if (this.type == ProjectileID.UnholyArrow && Main.rand.Next(4) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 47, 1, false, 0, false);
 					}
-					if (this.type == 12 && this.damage > 500)
+					if (this.type == ProjectileID.FallingStar && this.damage > 500)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 75, 1, false, 0, false);
 					}
-					if (this.type == 155)
+					if (this.type == ProjectileID.BeachBall)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 859, 1, false, 0, false);
 					}
-					if (this.type == 598 && Main.rand.Next(4) == 0)
+					if (this.type == ProjectileID.BoneJavelin && Main.rand.Next(4) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3378, 1, false, 0, false);
 					}
-					if (this.type == 599 && Main.rand.Next(4) == 0)
+					if (this.type == ProjectileID.BoneDagger && Main.rand.Next(4) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 3379, 1, false, 0, false);
 					}
-					if (this.type == 21 && Main.rand.Next(2) == 0)
+					if (this.type == ProjectileID.Bone && Main.rand.Next(2) == 0)
 					{
 						num727 = Item.NewItem((int)this.position.X, (int)this.position.Y, this.width, this.height, 154, 1, false, 0, false);
 					}
 					if (Main.netMode == 1 && num727 >= 0)
 					{
-						NetMessage.SendData(21, -1, -1, "", num727, 1f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", num727, 1f, 0f, 0f, 0, 0, 0);
 					}
 				}
-				if (this.type == 69 || this.type == 70 || this.type == 621)
+				if (this.type == ProjectileID.HolyWater || this.type == ProjectileID.UnholyWater || this.type == ProjectileID.BloodWater)
 				{
 					int i2 = (int)(this.position.X + (float)(this.width / 2)) / 16;
 					int j2 = (int)(this.position.Y + (float)(this.height / 2)) / 16;
-					if (this.type == 69)
+					if (this.type == ProjectileID.HolyWater)
 					{
 						WorldGen.Convert(i2, j2, 2, 4);
 					}
-					if (this.type == 70)
+					if (this.type == ProjectileID.UnholyWater)
 					{
 						WorldGen.Convert(i2, j2, 1, 4);
 					}
-					if (this.type == 621)
+					if (this.type == ProjectileID.BloodWater)
 					{
 						WorldGen.Convert(i2, j2, 4, 4);
 					}
 				}
-				if (this.type == 370 || this.type == 371)
+				if (this.type == ProjectileID.LovePotion || this.type == ProjectileID.FoulPotion)
 				{
 					float num733 = 80f;
 					int num734 = 119;
-					if (this.type == 371)
+					if (this.type == ProjectileID.FoulPotion)
 					{
 						num734 = 120;
 					}
@@ -32235,7 +32235,7 @@ namespace Terraria
 						}
 					}
 				}
-				if (this.type == 378)
+				if (this.type == ProjectileID.SpiderEgg)
 				{
 					int num737 = Main.rand.Next(2, 4);
 					if (Main.rand.Next(5) == 0)
@@ -32256,14 +32256,14 @@ namespace Terraria
 		}
 		public Color GetAlpha(Color newColor)
 		{
-			if (this.type == 270)
+			if (this.type == ProjectileID.Skull)
 			{
 				return new Color(255, 255, 255, Main.rand.Next(0, 255));
 			}
 			int num;
 			int num2;
 			int num3;
-			if (this.type == 650)
+			if (this.type == ProjectileID.SuspiciousTentacle)
 			{
 				num = (int)((double)newColor.R * 1.5);
 				num2 = (int)((double)newColor.G * 1.5);
@@ -32280,35 +32280,35 @@ namespace Terraria
 			}
 			else
 			{
-				if (this.type == 604 || this.type == 631)
+				if (this.type == ProjectileID.TerrarianBeam || this.type == ProjectileID.PhantasmArrow)
 				{
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 0);
 				}
-				if (this.type == 636)
+				if (this.type == ProjectileID.Daybreak)
 				{
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 64 - this.alpha / 4);
 				}
-				if (this.type == 603 || this.type == 633)
+				if (this.type == ProjectileID.Terrarian || this.type == ProjectileID.LastPrism)
 				{
 					return new Color(255, 255, 255, 200);
 				}
-				if (this.type == 623 || (this.type >= 625 && this.type <= 628))
+				if (this.type == ProjectileID.StardustGuardian || (this.type >= ProjectileID.StardustDragon1 && this.type <= ProjectileID.StardustDragon4))
 				{
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 255 - this.alpha);
 				}
-				if (this.type == 645 || this.type == 643)
+				if (this.type == ProjectileID.LunarFlare || this.type == ProjectileID.RainbowCrystal)
 				{
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 127 - this.alpha / 2);
 				}
-				if (this.type == 611)
+				if (this.type == ProjectileID.SolarWhipSword)
 				{
 					return new Color(255, 255, 255, 200);
 				}
-				if (this.type == 640 || this.type == 644)
+				if (this.type == ProjectileID.MoonlordArrowTrail || this.type == ProjectileID.RainbowCrystalExplosion)
 				{
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 0);
 				}
-				if (this.type == 612)
+				if (this.type == ProjectileID.SolarWhipSwordExplosion)
 				{
 					return new Color(255, 255, 255, 127);
 				}
@@ -32316,36 +32316,36 @@ namespace Terraria
 				{
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 255 - this.alpha);
 				}
-				if (this.type == 554)
+				if (this.type == ProjectileID.Kraken)
 				{
 					return new Color(200, 200, 200, 200);
 				}
-				if (this.type == 601)
+				if (this.type == ProjectileID.PortalGunBolt)
 				{
 					return PortalHelper.GetPortalColor(this.owner, (int)this.ai[0]);
 				}
-				if (this.type == 602)
+				if (this.type == ProjectileID.PortalGunGate)
 				{
 					Color portalColor = PortalHelper.GetPortalColor(this.owner, (int)this.ai[1]);
 					portalColor.A = 227;
 					return portalColor;
 				}
-				if (this.type == 585)
+				if (this.type == ProjectileID.ClothiersCurse)
 				{
 					byte a = newColor.A;
 					newColor = Color.Lerp(newColor, Color.White, 0.5f);
 					newColor.A = a;
 					return newColor;
 				}
-				if (this.type == 573 || this.type == 578 || this.type == 579 || this.type == 617 || this.type == 641)
+				if (this.type == ProjectileID.NebulaBolt || this.type == ProjectileID.VortexVortexLightning || this.type == ProjectileID.VortexVortexPortal || this.type == ProjectileID.NebulaArcanum || this.type == ProjectileID.MoonlordTurret)
 				{
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 255 - this.alpha);
 				}
-				if (this.type == 9 || this.type == 490)
+				if (this.type == ProjectileID.Starfury || this.type == ProjectileID.CultistRitual)
 				{
 					return Color.White;
 				}
-				if (this.type == 575 || this.type == 596)
+				if (this.type == ProjectileID.NebulaSphere || this.type == ProjectileID.DesertDjinnCurse)
 				{
 					if (this.timeLeft < 30)
 					{
@@ -32354,66 +32354,66 @@ namespace Terraria
 					}
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 128 - this.alpha / 2);
 				}
-				if (this.type == 546)
+				if (this.type == ProjectileID.Chik)
 				{
 					return new Color(255, 200, 255, 200);
 				}
-				if (this.type == 553)
+				if (this.type == ProjectileID.HelFire)
 				{
 					return new Color(255, 255, 200, 200);
 				}
-				if (this.type == 540)
+				if (this.type == ProjectileID.StardustTowerMark)
 				{
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 0);
 				}
-				if (this.type == 498)
+				if (this.type == ProjectileID.Nail)
 				{
 					return new Color(255, 100, 20, 200);
 				}
-				if (this.type == 538)
+				if (this.type == ProjectileID.Twinkle)
 				{
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 255 - this.alpha);
 				}
-				if (this.type == 518)
+				if (this.type == ProjectileID.CoinPortal)
 				{
 					float num5 = 1f - (float)this.alpha / 255f;
 					return new Color((int)(200f * num5), (int)(200f * num5), (int)(200f * num5), (int)(100f * num5));
 				}
-				if (this.type == 518 || this.type == 595)
+				if (this.type == ProjectileID.CoinPortal || this.type == ProjectileID.Arkhalis)
 				{
 					Color color = Color.Lerp(newColor, Color.White, 0.85f);
 					color.A = 128;
 					return color * (1f - (float)this.alpha / 255f);
 				}
-				if (this.type == 536 || this.type == 607)
+				if (this.type == ProjectileID.MedusaHeadRay || this.type == ProjectileID.SolarFlareRay)
 				{
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 63 - this.alpha / 4);
 				}
-				if (this.type == 591)
+				if (this.type == ProjectileID.MinecartMechLaser)
 				{
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 63 - this.alpha / 4);
 				}
-				if (this.type == 493 || this.type == 494)
+				if (this.type == ProjectileID.CrystalVileShardHead || this.type == ProjectileID.CrystalVileShardShaft)
 				{
 					return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 255 - this.alpha);
 				}
-				if (this.type == 492)
+				if (this.type == ProjectileID.MagicLantern)
 				{
 					return new Color(255, 255, 255, 255);
 				}
-				if (this.type == 491)
+				if (this.type == ProjectileID.FlyingKnife)
 				{
 					return new Color(255, 255, 255, 255);
 				}
-				if (this.type == 485 || this.type == 502)
+				if (this.type == ProjectileID.Hellwing || this.type == ProjectileID.Meowmere)
 				{
 					return new Color(255, 255, 255, 200);
 				}
-				if (this.type == 488)
+				if (this.type == ProjectileID.IlluminantHook)
 				{
 					return new Color(255, 255, 255, 255);
 				}
-				if (this.type == 477 || this.type == 478 || this.type == 479)
+				if (this.type == ProjectileID.CrystalDart || this.type == ProjectileID.CursedDart || this.type == ProjectileID.IchorDart)
 				{
 					if (this.alpha == 0)
 					{
@@ -32423,84 +32423,84 @@ namespace Terraria
 				}
 				else
 				{
-					if (this.type == 473)
+					if (this.type == ProjectileID.SpelunkerGlowstick)
 					{
 						return new Color(255, 255, 255, 255);
 					}
-					if (this.type == 50 || this.type == 53 || this.type == 515)
+					if (this.type == ProjectileID.Glowstick || this.type == ProjectileID.StickyGlowstick || this.type == ProjectileID.BouncyGlowstick)
 					{
 						return new Color(255, 255, 255, 0);
 					}
-					if (this.type == 92)
+					if (this.type == ProjectileID.HallowStar)
 					{
 						return new Color(255, 255, 255, 0);
 					}
-					if (this.type == 91)
+					if (this.type == ProjectileID.HolyArrow)
 					{
 						return new Color(200, 200, 200, 0);
 					}
-					if (this.type == 34 || this.type == 15 || this.type == 93 || this.type == 94 || this.type == 95 || this.type == 96 || this.type == 253 || this.type == 258 || (this.type == 102 && this.alpha < 255))
+					if (this.type == ProjectileID.Flamelash || this.type == ProjectileID.BallofFire || this.type == ProjectileID.MagicDagger || this.type == ProjectileID.CrystalStorm || this.type == ProjectileID.CursedFlameFriendly || this.type == ProjectileID.CursedFlameHostile || this.type == ProjectileID.BallofFrost || this.type == ProjectileID.Fireball || (this.type == ProjectileID.BombSkeletronPrime && this.alpha < 255))
 					{
 						return new Color(200, 200, 200, 25);
 					}
-					if (this.type == 465)
+					if (this.type == ProjectileID.CultistBossLightningOrb)
 					{
 						return new Color(255, 255, 255, 0) * (1f - (float)this.alpha / 255f);
 					}
-					if (this.type == 503)
+					if (this.type == ProjectileID.StarWrath)
 					{
 						Color color2 = Color.Lerp(newColor, Color.White, 0.5f) * (1f - (float)this.alpha / 255f);
 						Color color3 = Color.Lerp(Color.Purple, Color.White, 0.33f);
 						float num6 = 0.25f + (float)Math.Cos((double)this.localAI[0]) * 0.25f;
 						return Color.Lerp(color2, color3, num6);
 					}
-					if (this.type == 467)
+					if (this.type == ProjectileID.CultistBossFireBall)
 					{
 						return new Color(255, 255, 255, 255) * (1f - (float)this.alpha / 255f);
 					}
-					if (this.type == 634 || this.type == 635)
+					if (this.type == ProjectileID.NebulaBlaze1 || this.type == ProjectileID.NebulaBlaze2)
 					{
 						return new Color(255, 255, 255, 127) * this.Opacity;
 					}
-					if (this.type == 451)
+					if (this.type == ProjectileID.InfluxWaver)
 					{
 						return new Color(255, 255, 255, 200) * ((255f - (float)this.alpha) / 255f);
 					}
-					if (this.type == 454 || this.type == 452)
+					if (this.type == ProjectileID.PhantasmalSphere || this.type == ProjectileID.PhantasmalEye)
 					{
 						return new Color(255, 255, 255, 255) * (1f - (float)this.alpha / 255f);
 					}
-					if (this.type == 464)
+					if (this.type == ProjectileID.CultistBossIceMist)
 					{
 						return new Color(255, 255, 255, 255) * ((255f - (float)this.alpha) / 255f);
 					}
-					if (this.type == 450)
+					if (this.type == ProjectileID.SaucerScrap)
 					{
 						return new Color(200, 200, 200, 255 - this.alpha);
 					}
-					if (this.type == 459)
+					if (this.type == ProjectileID.ChargedBlasterOrb)
 					{
 						return new Color(255, 255, 255, 200);
 					}
-					if (this.type == 447)
+					if (this.type == ProjectileID.SaucerDeathray)
 					{
 						return new Color(255, 255, 255, 200);
 					}
-					if (this.type == 446)
+					if (this.type == ProjectileID.AntiGravityHook)
 					{
 						Color color4 = Color.Lerp(newColor, Color.White, 0.8f);
 						return color4 * (1f - (float)this.alpha / 255f);
 					}
-					if (this.type >= 646 && this.type <= 649)
+					if (this.type >= ProjectileID.LunarHookSolar && this.type <= ProjectileID.LunarHookStardust)
 					{
 						Color color5 = Color.Lerp(newColor, Color.White, 0.8f);
 						return color5 * (1f - (float)this.alpha / 255f);
 					}
-					if (this.type == 445)
+					if (this.type == ProjectileID.LaserDrill)
 					{
 						return new Color(255, 255, 255, 128) * (1f - (float)this.alpha / 255f);
 					}
-					if (this.type == 440 || this.type == 449 || this.type == 606)
+					if (this.type == ProjectileID.LaserMachinegunLaser || this.type == ProjectileID.SaucerLaser || this.type == ProjectileID.ScutlixLaser)
 					{
 						num = 255 - this.alpha;
 						num2 = 255 - this.alpha;
@@ -32508,57 +32508,57 @@ namespace Terraria
 					}
 					else
 					{
-						if (this.type == 444)
+						if (this.type == ProjectileID.Xenopopper)
 						{
 							return newColor * (1f - (float)this.alpha / 255f);
 						}
-						if (this.type == 443)
+						if (this.type == ProjectileID.Electrosphere)
 						{
 							return new Color(255, 255, 255, 128) * (1f - (float)this.alpha / 255f);
 						}
-						if (this.type == 438)
+						if (this.type == ProjectileID.RayGunnerLaser)
 						{
 							return new Color(255, 255, 255, 128) * (1f - (float)this.alpha / 255f);
 						}
-						if (this.type == 592)
+						if (this.type == ProjectileID.MartianWalkerLaser)
 						{
 							return new Color(255, 255, 255, 128) * (1f - (float)this.alpha / 255f);
 						}
-						if (this.type == 437)
+						if (this.type == ProjectileID.GigaZapperSpear)
 						{
 							return new Color(255, 255, 255, 0) * (1f - (float)this.alpha / 255f);
 						}
-						if (this.type == 462)
+						if (this.type == ProjectileID.PhantasmalBolt)
 						{
 							return new Color(255, 255, 255, 128) * (1f - (float)this.alpha / 255f);
 						}
-						if (this.type == 352)
+						if (this.type == ProjectileID.Spike)
 						{
 							return new Color(250, 250, 250, this.alpha);
 						}
-						if (this.type == 435)
+						if (this.type == ProjectileID.MartianTurretBolt)
 						{
 							newColor = Color.Lerp(newColor, Color.White, 0.8f);
 							return new Color((int)newColor.R, (int)newColor.G, (int)newColor.B, 25);
 						}
-						if (this.type == 436)
+						if (this.type == ProjectileID.BrainScramblerBolt)
 						{
 							newColor = Color.Lerp(newColor, Color.White, 0.8f);
 							return new Color((int)newColor.R, (int)newColor.G, (int)newColor.B, 25);
 						}
-						if (this.type == 409)
+						if (this.type == ProjectileID.Typhoon)
 						{
 							return new Color(250, 250, 250, 200);
 						}
-						if (this.type == 348 || this.type == 349)
+						if (this.type == ProjectileID.FrostWave || this.type == ProjectileID.FrostShard)
 						{
 							return new Color(200, 200, 200, this.alpha);
 						}
-						if (this.type == 337)
+						if (this.type == ProjectileID.Blizzard)
 						{
 							return new Color(250, 250, 250, 150);
 						}
-						if (this.type >= 424 && this.type <= 426)
+						if (this.type >= ProjectileID.Meteor1 && this.type <= ProjectileID.Meteor3)
 						{
 							byte b = 150;
 							if (newColor.R < b)
@@ -32575,52 +32575,52 @@ namespace Terraria
 							}
 							return new Color((int)newColor.R, (int)newColor.G, (int)newColor.B, 255);
 						}
-						if (this.type == 431 || this.type == 432)
+						if (this.type == ProjectileID.SolarFlareChainsaw || this.type == ProjectileID.SolarFlareDrill)
 						{
 							return new Color(250, 250, 250, 255 - this.alpha);
 						}
-						if (this.type == 343 || this.type == 344)
+						if (this.type == ProjectileID.NorthPoleSpear || this.type == ProjectileID.NorthPoleSnowflake)
 						{
 							float num7 = 1f - (float)this.alpha / 255f;
 							return new Color((int)(250f * num7), (int)(250f * num7), (int)(250f * num7), (int)(100f * num7));
 						}
-						if (this.type == 332)
+						if (this.type == ProjectileID.ChristmasHook)
 						{
 							return new Color(255, 255, 255, 255);
 						}
-						if (this.type == 329)
+						if (this.type == ProjectileID.FlamingScythe)
 						{
 							return new Color(200, 200, 200, 50);
 						}
-						if (this.type >= 326 && this.type <= 328)
+						if (this.type >= ProjectileID.GreekFire1 && this.type <= ProjectileID.GreekFire3)
 						{
 							return Color.Transparent;
 						}
-						if (this.type >= 400 && this.type <= 402)
+						if (this.type >= ProjectileID.MolotovFire && this.type <= ProjectileID.MolotovFire3)
 						{
 							return Color.Transparent;
 						}
-						if (this.type == 324 && this.frame >= 6 && this.frame <= 9)
+						if (this.type == ProjectileID.CursedSapling && this.frame >= 6 && this.frame <= 9)
 						{
 							return new Color(255, 255, 255, 255);
 						}
-						if (this.type == 16)
+						if (this.type == ProjectileID.MagicMissile)
 						{
 							return new Color(255, 255, 255, 0);
 						}
-						if (this.type == 321)
+						if (this.type == ProjectileID.FlamingJack)
 						{
 							return new Color(200, 200, 200, 0);
 						}
-						if (this.type == 76 || this.type == 77 || this.type == 78)
+						if (this.type == ProjectileID.QuarterNote || this.type == ProjectileID.EighthNote || this.type == ProjectileID.TiedEighthNote)
 						{
 							return new Color(255, 255, 255, 0);
 						}
-						if (this.type == 308)
+						if (this.type == ProjectileID.FrostHydra)
 						{
 							return new Color(200, 200, 255, 125);
 						}
-						if (this.type == 263)
+						if (this.type == ProjectileID.IceSickle)
 						{
 							if (this.timeLeft < 255)
 							{
@@ -32628,7 +32628,7 @@ namespace Terraria
 							}
 							return new Color(255, 255, 255, 255);
 						}
-						else if (this.type == 274)
+						else if (this.type == ProjectileID.DeathSickle)
 						{
 							if (this.timeLeft < 85)
 							{
@@ -32640,19 +32640,19 @@ namespace Terraria
 						}
 						else
 						{
-							if (this.type == 5)
+							if (this.type == ProjectileID.JestersArrow)
 							{
 								return new Color(255, 255, 255, 0);
 							}
-							if (this.type == 300 || this.type == 301)
+							if (this.type == ProjectileID.PaladinsHammerHostile || this.type == ProjectileID.PaladinsHammerFriendly)
 							{
 								return new Color(250, 250, 250, 50);
 							}
-							if (this.type == 304)
+							if (this.type == ProjectileID.VampireKnife)
 							{
 								return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, (int)((byte)((float)(255 - this.alpha) / 3f)));
 							}
-							if (this.type == 116 || this.type == 132 || this.type == 156 || this.type == 157 || this.type == 157 || this.type == 173)
+							if (this.type == ProjectileID.SwordBeam || this.type == ProjectileID.TerraBeam || this.type == ProjectileID.LightBeam || this.type == ProjectileID.NightBeam || this.type == ProjectileID.NightBeam || this.type == ProjectileID.EnchantedBeam)
 							{
 								if (this.localAI[1] >= 15f)
 								{
@@ -32667,7 +32667,7 @@ namespace Terraria
 							}
 							else
 							{
-								if (this.type == 254)
+								if (this.type == ProjectileID.MagnetSphereBall)
 								{
 									if (this.timeLeft < 30)
 									{
@@ -32676,7 +32676,7 @@ namespace Terraria
 									}
 									return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 0);
 								}
-								if (this.type == 265 || this.type == 355)
+								if (this.type == ProjectileID.PoisonFang || this.type == ProjectileID.VenomFang)
 								{
 									if (this.alpha > 0)
 									{
@@ -32684,7 +32684,7 @@ namespace Terraria
 									}
 									return new Color(255, 255, 255, 0);
 								}
-								else if (this.type == 270 && this.ai[0] >= 0f)
+								else if (this.type == ProjectileID.Skull && this.ai[0] >= 0f)
 								{
 									if (this.alpha > 0)
 									{
@@ -32692,7 +32692,7 @@ namespace Terraria
 									}
 									return new Color(255, 255, 255, 200);
 								}
-								else if (this.type == 257)
+								else if (this.type == ProjectileID.FrostBeam)
 								{
 									if (this.alpha > 200)
 									{
@@ -32700,7 +32700,7 @@ namespace Terraria
 									}
 									return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 0);
 								}
-								else if (this.type == 259)
+								else if (this.type == ProjectileID.EyeBeam)
 								{
 									if (this.alpha > 200)
 									{
@@ -32710,38 +32710,38 @@ namespace Terraria
 								}
 								else
 								{
-									if (this.type >= 150 && this.type <= 152)
+									if (this.type >= ProjectileID.NettleBurstRight && this.type <= ProjectileID.NettleBurstEnd)
 									{
 										return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 255 - this.alpha);
 									}
-									if (this.type == 250)
+									if (this.type == ProjectileID.RainbowFront)
 									{
 										return Color.Transparent;
 									}
-									if (this.type == 251)
+									if (this.type == ProjectileID.RainbowBack)
 									{
 										num = 255 - this.alpha;
 										num2 = 255 - this.alpha;
 										num3 = 255 - this.alpha;
 										return new Color(num, num2, num3, 0);
 									}
-									if (this.type == 131)
+									if (this.type == ProjectileID.Mushroom)
 									{
 										return new Color(255 - this.alpha, 255 - this.alpha, 255 - this.alpha, 0);
 									}
-									if (this.type == 211)
+									if (this.type == ProjectileID.Wisp)
 									{
 										return new Color(255, 255, 255, 0);
 									}
-									if (this.type == 229)
+									if (this.type == ProjectileID.ChlorophyteOrb)
 									{
 										return new Color(255, 255, 255, 50);
 									}
-									if (this.type == 221)
+									if (this.type == ProjectileID.FlowerPetal)
 									{
 										return new Color(255, 255, 255, 200);
 									}
-									if (this.type == 20)
+									if (this.type == ProjectileID.GreenLaser)
 									{
 										if (this.alpha <= 150)
 										{
@@ -32749,13 +32749,13 @@ namespace Terraria
 										}
 										return new Color(0, 0, 0, 0);
 									}
-									else if (this.type == 207)
+									else if (this.type == ProjectileID.ChlorophyteBullet)
 									{
 										num = 255 - this.alpha;
 										num2 = 255 - this.alpha;
 										num3 = 255 - this.alpha;
 									}
-									else if (this.type == 242)
+									else if (this.type == ProjectileID.BulletHighVelocity)
 									{
 										if (this.alpha < 140)
 										{
@@ -32765,11 +32765,11 @@ namespace Terraria
 									}
 									else
 									{
-										if (this.type == 638)
+										if (this.type == ProjectileID.MoonlordBullet)
 										{
 											return new Color(255, 255, 255, 100) * this.Opacity;
 										}
-										if (this.type == 209)
+										if (this.type == ProjectileID.Truffle)
 										{
 											num = (int)newColor.R - this.alpha;
 											num2 = (int)newColor.G - this.alpha;
@@ -32777,15 +32777,15 @@ namespace Terraria
 										}
 										else
 										{
-											if (this.type == 130)
+											if (this.type == ProjectileID.MushroomSpear)
 											{
 												return new Color(255, 255, 255, 175);
 											}
-											if (this.type == 182)
+											if (this.type == ProjectileID.PossessedHatchet)
 											{
 												return new Color(255, 255, 255, 200);
 											}
-											if (this.type == 226)
+											if (this.type == ProjectileID.CrystalLeaf)
 											{
 												num = 255;
 												num2 = 255;
@@ -32811,7 +32811,7 @@ namespace Terraria
 												}
 												return new Color(num, num2, num3, 200);
 											}
-											if (this.type == 227)
+											if (this.type == ProjectileID.CrystalLeafShot)
 											{
 												num2 = (num = (num3 = 255));
 												float num11 = (float)Main.mouseTextColor / 100f - 1.6f;
@@ -32836,7 +32836,7 @@ namespace Terraria
 												}
 												return new Color(num, num2, num3, num12);
 											}
-											if (this.type == 114 || this.type == 115)
+											if (this.type == ProjectileID.UnholyTridentFriendly || this.type == ProjectileID.UnholyTridentHostile)
 											{
 												if (this.localAI[1] >= 15f)
 												{
@@ -32849,7 +32849,7 @@ namespace Terraria
 												int num13 = (int)((this.localAI[1] - 5f) / 10f * 255f);
 												return new Color(num13, num13, num13, num13);
 											}
-											else if (this.type == 83 || this.type == 88 || this.type == 89 || this.type == 90 || this.type == 100 || this.type == 104 || this.type == 279 || (this.type >= 283 && this.type <= 287))
+											else if (this.type == ProjectileID.EyeLaser || this.type == ProjectileID.PurpleLaser || this.type == ProjectileID.CrystalBullet || this.type == ProjectileID.CrystalShard || this.type == ProjectileID.DeathLaser || this.type == ProjectileID.CursedBullet || this.type == ProjectileID.IchorBullet || (this.type >= ProjectileID.VenomBullet && this.type <= ProjectileID.GoldenBullet))
 											{
 												if (this.alpha < 200)
 												{
@@ -32859,18 +32859,18 @@ namespace Terraria
 											}
 											else
 											{
-												if (this.type == 34 || this.type == 35 || this.type == 15 || this.type == 19 || this.type == 44 || this.type == 45)
+												if (this.type == ProjectileID.Flamelash || this.type == ProjectileID.Sunfury || this.type == ProjectileID.BallofFire || this.type == ProjectileID.Flamarang || this.type == ProjectileID.DemonSickle || this.type == ProjectileID.DemonScythe)
 												{
 													return Color.White;
 												}
-												if (this.type == 79)
+												if (this.type == ProjectileID.RainbowRodBullet)
 												{
 													num = Main.DiscoR;
 													num2 = Main.DiscoG;
 													num3 = Main.DiscoB;
 													return default(Color);
 												}
-												if (this.type == 9 || this.type == 15 || this.type == 34 || this.type == 50 || this.type == 53 || this.type == 76 || this.type == 77 || this.type == 78 || this.type == 92 || this.type == 91)
+												if (this.type == ProjectileID.Starfury || this.type == ProjectileID.BallofFire || this.type == ProjectileID.Flamelash || this.type == ProjectileID.Glowstick || this.type == ProjectileID.StickyGlowstick || this.type == ProjectileID.QuarterNote || this.type == ProjectileID.EighthNote || this.type == ProjectileID.TiedEighthNote || this.type == ProjectileID.HallowStar || this.type == ProjectileID.HolyArrow)
 												{
 													num = (int)newColor.R - this.alpha / 3;
 													num2 = (int)newColor.G - this.alpha / 3;
@@ -32878,17 +32878,17 @@ namespace Terraria
 												}
 												else
 												{
-													if (this.type == 18)
+													if (this.type == ProjectileID.ShadowOrb)
 													{
 														return new Color(255, 255, 255, 50);
 													}
-													if (this.type == 16 || this.type == 44 || this.type == 45)
+													if (this.type == ProjectileID.MagicMissile || this.type == ProjectileID.DemonSickle || this.type == ProjectileID.DemonScythe)
 													{
 														num = (int)newColor.R;
 														num2 = (int)newColor.G;
 														num3 = (int)newColor.B;
 													}
-													else if (this.type == 12 || this.type == 72 || this.type == 86 || this.type == 87)
+													else if (this.type == ProjectileID.FallingStar || this.type == ProjectileID.BlueFairy || this.type == ProjectileID.PinkFairy || this.type == ProjectileID.GreenFairy)
 													{
 														return new Color(255, 255, 255, (int)newColor.A - this.alpha);
 													}

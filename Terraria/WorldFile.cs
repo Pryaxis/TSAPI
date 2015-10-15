@@ -441,11 +441,11 @@ namespace Terraria
 							num3 = (int)fileIO.ReadByte();
 						}
 						tile.type = (ushort)num3;
-						if (tile.type == 127)
+						if (tile.type == TileID.MagicalIceBlock)
 						{
 							tile.active(false);
 						}
-						if (num < 72 && (tile.type == 35 || tile.type == 36 || tile.type == 170 || tile.type == 171 || tile.type == 172))
+						if (num < 72 && (tile.type == TileID.Jackolanterns || tile.type == TileID.Presents || tile.type == TileID.PineTree || tile.type == TileID.ChristmasTree || tile.type == TileID.Sinks))
 						{
 							tile.frameX = fileIO.ReadInt16();
 							tile.frameY = fileIO.ReadInt16();
@@ -457,7 +457,7 @@ namespace Terraria
 								tile.frameX = 0;
 								tile.frameY = 0;
 							}
-							else if (num < 40 && tile.type == 19)
+							else if (num < 40 && tile.type == TileID.Platforms)
 							{
 								tile.frameX = 0;
 								tile.frameY = 0;
@@ -466,7 +466,7 @@ namespace Terraria
 							{
 								tile.frameX = fileIO.ReadInt16();
 								tile.frameY = fileIO.ReadInt16();
-								if (tile.type == 144)
+								if (tile.type == TileID.Timers)
 								{
 									tile.frameY = 0;
 								}
@@ -640,7 +640,7 @@ namespace Terraria
 					string text2 = fileIO.ReadString();
 					int num9 = fileIO.ReadInt32();
 					int num10 = fileIO.ReadInt32();
-					if (Main.tile[num9, num10].active() && (Main.tile[num9, num10].type == 55 || Main.tile[num9, num10].type == 85))
+					if (Main.tile[num9, num10].active() && (Main.tile[num9, num10].type == TileID.Signs || Main.tile[num9, num10].type == TileID.Tombstones))
 					{
 						Main.sign[n] = new Sign();
 						Main.sign[n].x = num9;
@@ -888,12 +888,12 @@ namespace Terraria
 					if (tile.active())
 					{
 						b2 |= 2;
-						if (tile.type == 127)
+						if (tile.type == TileID.MagicalIceBlock)
 						{
 							WorldGen.KillTile(i, j, false, false, false);
 							if (!tile.active() && Main.netMode != 0)
 							{
-								NetMessage.SendData(17, -1, -1, "", 0, (float)i, (float)j, 0f, 0);
+								NetMessage.SendData((int)PacketTypes.Tile, -1, -1, "", 0, (float)i, (float)j, 0f, 0);
 							}
 						}
 						array[num2] = (byte)tile.type;
@@ -922,7 +922,7 @@ namespace Terraria
 							num2++;
 						}
 					}
-					if (tile.wall != 0)
+					if (tile.wall != WallID.None)
 					{
 						b2 |= 4;
 						array[num2] = tile.wall;
@@ -1048,7 +1048,7 @@ namespace Terraria
 								break;
 							}
 							Tile tile = Main.tile[j, k];
-							if (!tile.active() || tile.type != 21)
+							if (!tile.active() || tile.type != TileID.Containers)
 							{
 								flag = true;
 								break;
@@ -1384,7 +1384,7 @@ namespace Terraria
 						{
 							tile.frameX = reader.ReadInt16();
 							tile.frameY = reader.ReadInt16();
-							if (tile.type == 144)
+							if (tile.type == TileID.Timers)
 							{
 								tile.frameY = 0;
 							}
@@ -1574,7 +1574,7 @@ namespace Terraria
 				int num3 = reader.ReadInt32();
 				Tile tile = Main.tile[num2, num3];
 				Sign sign;
-				if (tile.active() && (tile.type == 55 || tile.type == 85))
+				if (tile.active() && (tile.type == TileID.Signs || tile.type == TileID.Tombstones))
 				{
 					sign = new Sign();
 					sign.text = text;

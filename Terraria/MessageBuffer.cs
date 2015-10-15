@@ -104,7 +104,7 @@ namespace Terraria
 			}
 			if (Main.netMode == 2 && num1 != 38 && Netplay.Clients[this.whoAmI].State == -1)
 			{
-				NetMessage.SendData(2, this.whoAmI, -1, Lang.mp[1], 0, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.Disconnect, this.whoAmI, -1, Lang.mp[1], 0, 0f, 0f, 0f, 0, 0, 0);
 				return;
 			}
 			if (Main.netMode == 2 && Netplay.Clients[this.whoAmI].State < 10 && num1 > 12 && num1 != 93 && num1 != 16 && num1 != 42 && num1 != 50 && num1 != 38 && num1 != 68)
@@ -123,7 +123,7 @@ namespace Terraria
 
 			switch (num5)
 			{
-				case 1:
+				case MessageID.Unknown1:
 				{
 					if (Main.netMode != 2)
 					{
@@ -131,7 +131,7 @@ namespace Terraria
 					}
 					if (Main.dedServ && Netplay.IsBanned(Netplay.Clients[this.whoAmI].Socket.GetRemoteAddress()))
 					{
-						NetMessage.SendData(2, this.whoAmI, -1, Lang.mp[3], 0, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Disconnect, this.whoAmI, -1, Lang.mp[3], 0, 0f, 0f, 0f, 0, 0, 0);
 						return;
 					}
 					if (Netplay.Clients[this.whoAmI].State != 0)
@@ -140,20 +140,20 @@ namespace Terraria
 					}
 					if (this.reader.ReadString() != string.Concat("Terraria", Main.curRelease))
 					{
-						NetMessage.SendData(2, this.whoAmI, -1, Lang.mp[4], 0, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Disconnect, this.whoAmI, -1, Lang.mp[4], 0, 0f, 0f, 0f, 0, 0, 0);
 						return;
 					}
 					if (string.IsNullOrEmpty(Netplay.ServerPassword))
 					{
 						Netplay.Clients[this.whoAmI].State = 1;
-						NetMessage.SendData(3, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ContinueConnecting, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 						return;
 					}
 					Netplay.Clients[this.whoAmI].State = -1;
-					NetMessage.SendData(37, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PasswordRequired, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 2:
+				case MessageID.Unknown2:
 				{
 					if (Main.netMode != 1)
 					{
@@ -163,7 +163,7 @@ namespace Terraria
 					Main.statusText = this.reader.ReadString();
 					return;
 				}
-				case 3:
+				case MessageID.Unknown3:
 				{
 					if (Main.netMode != 1)
 					{
@@ -182,40 +182,40 @@ namespace Terraria
 					Main.player[num6].whoAmI = num6;
 					Main.myPlayer = num6;
 					Player player = Main.player[num6];
-					NetMessage.SendData(4, -1, -1, player.name, num6, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(68, -1, -1, "", num6, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(16, -1, -1, "", num6, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(42, -1, -1, "", num6, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(50, -1, -1, "", num6, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerInfo, -1, -1, player.name, num6, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ClientUUID, -1, -1, "", num6, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerHp, -1, -1, "", num6, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerMana, -1, -1, "", num6, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerBuff, -1, -1, "", num6, 0f, 0f, 0f, 0, 0, 0);
 					for (int j = 0; j < 59; j++)
 					{
-						NetMessage.SendData(5, -1, -1, player.inventory[j].name, num6, (float)j, (float)player.inventory[j].prefix, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, -1, player.inventory[j].name, num6, (float)j, (float)player.inventory[j].prefix, 0f, 0, 0, 0);
 					}
 					for (int k = 0; k < (int)player.armor.Length; k++)
 					{
-						NetMessage.SendData(5, -1, -1, player.armor[k].name, num6, (float)(59 + k), (float)player.armor[k].prefix, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, -1, player.armor[k].name, num6, (float)(59 + k), (float)player.armor[k].prefix, 0f, 0, 0, 0);
 					}
 					for (int l = 0; l < (int)player.dye.Length; l++)
 					{
-						NetMessage.SendData(5, -1, -1, player.dye[l].name, num6, (float)(58 + (int)player.armor.Length + 1 + l), (float)player.dye[l].prefix, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, -1, player.dye[l].name, num6, (float)(58 + (int)player.armor.Length + 1 + l), (float)player.dye[l].prefix, 0f, 0, 0, 0);
 					}
 					for (int m = 0; m < (int)player.miscEquips.Length; m++)
 					{
-						NetMessage.SendData(5, -1, -1, "", num6, (float)(58 + (int)player.armor.Length + (int)player.dye.Length + 1 + m), (float)player.miscEquips[m].prefix, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, -1, "", num6, (float)(58 + (int)player.armor.Length + (int)player.dye.Length + 1 + m), (float)player.miscEquips[m].prefix, 0f, 0, 0, 0);
 					}
 					for (int n = 0; n < (int)player.miscDyes.Length; n++)
 					{
-						NetMessage.SendData(5, -1, -1, "", num6, (float)(58 + (int)player.armor.Length + (int)player.dye.Length + (int)player.miscEquips.Length + 1 + n), (float)player.miscDyes[n].prefix, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, -1, "", num6, (float)(58 + (int)player.armor.Length + (int)player.dye.Length + (int)player.miscEquips.Length + 1 + n), (float)player.miscDyes[n].prefix, 0f, 0, 0, 0);
 					}
 					for (int o = 0; o < (int)player.bank.item.Length; o++)
 					{
-						NetMessage.SendData(5, -1, -1, "", num6, (float)(58 + (int)player.armor.Length + (int)player.dye.Length + (int)player.miscEquips.Length + (int)player.miscDyes.Length + 1 + o), (float)player.bank.item[o].prefix, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, -1, "", num6, (float)(58 + (int)player.armor.Length + (int)player.dye.Length + (int)player.miscEquips.Length + (int)player.miscDyes.Length + 1 + o), (float)player.bank.item[o].prefix, 0f, 0, 0, 0);
 					}
 					for (int p = 0; p < (int)player.bank2.item.Length; p++)
 					{
-						NetMessage.SendData(5, -1, -1, "", num6, (float)(58 + (int)player.armor.Length + (int)player.dye.Length + (int)player.miscEquips.Length + (int)player.miscDyes.Length + (int)player.bank.item.Length + 1 + p), (float)player.bank2.item[p].prefix, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, -1, "", num6, (float)(58 + (int)player.armor.Length + (int)player.dye.Length + (int)player.miscEquips.Length + (int)player.miscDyes.Length + (int)player.bank.item.Length + 1 + p), (float)player.bank2.item[p].prefix, 0f, 0, 0, 0);
 					}
-					NetMessage.SendData(6, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ContinueConnecting2, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 					if (Netplay.Connection.State != 2)
 					{
 						return;
@@ -223,7 +223,7 @@ namespace Terraria
 					Netplay.Connection.State = 3;
 					return;
 				}
-				case 4:
+				case MessageID.SyncPlayer:
 				{
 					int num7 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -293,26 +293,26 @@ namespace Terraria
 					{
 						if (!ServerApi.Hooks.InvokeNetNameCollision(num7, player.name))
 						{
-							NetMessage.SendData(2, this.whoAmI, -1, string.Concat(player.name, " ", Lang.mp[5]), 0, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.Disconnect, this.whoAmI, -1, string.Concat(player.name, " ", Lang.mp[5]), 0, 0f, 0f, 0f, 0, 0, 0);
 						}
 						return;
 					}
 					if (player.name.Length > Player.nameLen)
 					{
-						NetMessage.SendData(2, this.whoAmI, -1, "Name is too long.", 0, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Disconnect, this.whoAmI, -1, "Name is too long.", 0, 0f, 0f, 0f, 0, 0, 0);
 						return;
 					}
 					if (player.name == "")
 					{
-						NetMessage.SendData(2, this.whoAmI, -1, "Empty name.", 0, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Disconnect, this.whoAmI, -1, "Empty name.", 0, 0f, 0f, 0f, 0, 0, 0);
 						return;
 					}
 					Netplay.Clients[this.whoAmI].Name = player.name;
 					Netplay.Clients[this.whoAmI].Name = player.name;
-					NetMessage.SendData(4, -1, this.whoAmI, player.name, num7, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerInfo, -1, this.whoAmI, player.name, num7, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 5:
+				case MessageID.SyncEquipment:
 				{
 					int num8 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -405,12 +405,12 @@ namespace Terraria
 						}
 						if (Main.netMode == 2 && num8 == this.whoAmI)
 						{
-							NetMessage.SendData(5, -1, this.whoAmI, "", num8, (float)num9, (float)num11, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, this.whoAmI, "", num8, (float)num9, (float)num11, 0f, 0, 0, 0);
 						}
 						return;
 					}
 				}
-				case 6:
+				case MessageID.Unknown6:
 				{
 					if (Main.netMode != 2)
 					{
@@ -421,11 +421,11 @@ namespace Terraria
 						Netplay.Clients[this.whoAmI].State = 2;
 						Netplay.Clients[this.whoAmI].ResetSections();
 					}
-					NetMessage.SendData(7, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.WorldInfo, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 					Main.SyncAnInvasion(this.whoAmI);
 					return;
 				}
-				case 7:
+				case MessageID.Unknown7:
 				{
 					if (Main.netMode != 1)
 					{
@@ -533,7 +533,7 @@ namespace Terraria
 					Netplay.Connection.State = 4;
 					return;
 				}
-				case 8:
+				case MessageID.Unknown8:
 				{
 					if (Main.netMode != 2)
 					{
@@ -626,7 +626,7 @@ namespace Terraria
 					{
 						Netplay.Clients[this.whoAmI].State = 3;
 					}
-					NetMessage.SendData(9, this.whoAmI, -1, Lang.inter[44], count, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.Status, this.whoAmI, -1, Lang.inter[44], count, 0f, 0f, 0f, 0, 0, 0);
 					Netplay.Clients[this.whoAmI].StatusText2 = "is receiving tile data";
 					RemoteClient clients = Netplay.Clients[this.whoAmI];
 					clients.StatusMax = clients.StatusMax + count;
@@ -637,7 +637,7 @@ namespace Terraria
 							NetMessage.SendSection(this.whoAmI, c, d, false);
 						}
 					}
-					NetMessage.SendData(11, this.whoAmI, -1, "", sectionX1, (float)sectionY1, (float)(num16 - 1), (float)(num17 - 1), 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.TileFrameSection, this.whoAmI, -1, "", sectionX1, (float)sectionY1, (float)(num16 - 1), (float)(num17 - 1), 0, 0, 0);
 					if (flag2)
 					{
 						for (int e = sectionX; e < num18; e++)
@@ -647,7 +647,7 @@ namespace Terraria
 								NetMessage.SendSection(this.whoAmI, e, f, true);
 							}
 						}
-						NetMessage.SendData(11, this.whoAmI, -1, "", sectionX, (float)sectionY, (float)(num18 - 1), (float)(num19 - 1), 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.TileFrameSection, this.whoAmI, -1, "", sectionX, (float)sectionY, (float)(num18 - 1), (float)(num19 - 1), 0, 0, 0);
 					}
 					for (int g = 0; g < points.Count; g++)
 					{
@@ -655,42 +655,42 @@ namespace Terraria
 					}
 					for (int h = 0; h < points1.Count; h++)
 					{
-						NetMessage.SendData(11, this.whoAmI, -1, "", points1[h].X - num20, (float)(points1[h].Y - num20), (float)(points1[h].X + num20 + 1), (float)(points1[h].Y + num20 + 1), 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.TileFrameSection, this.whoAmI, -1, "", points1[h].X - num20, (float)(points1[h].Y - num20), (float)(points1[h].X + num20 + 1), (float)(points1[h].Y + num20 + 1), 0, 0, 0);
 					}
 					for (int i1 = 0; i1 < 400; i1++)
 					{
 						if (Main.item[i1].active)
 						{
-							NetMessage.SendData(21, this.whoAmI, -1, "", i1, 0f, 0f, 0f, 0, 0, 0);
-							NetMessage.SendData(22, this.whoAmI, -1, "", i1, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ItemDrop, this.whoAmI, -1, "", i1, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ItemOwner, this.whoAmI, -1, "", i1, 0f, 0f, 0f, 0, 0, 0);
 						}
 					}
 					for (int j1 = 0; j1 < 200; j1++)
 					{
 						if (Main.npc[j1].active)
 						{
-							NetMessage.SendData(23, this.whoAmI, -1, "", j1, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcUpdate, this.whoAmI, -1, "", j1, 0f, 0f, 0f, 0, 0, 0);
 						}
 					}
 					for (int k1 = 0; k1 < 1000; k1++)
 					{
 						if (Main.projectile[k1].active && (Main.projPet[Main.projectile[k1].type] || Main.projectile[k1].netImportant))
 						{
-							NetMessage.SendData(27, this.whoAmI, -1, "", k1, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ProjectileNew, this.whoAmI, -1, "", k1, 0f, 0f, 0f, 0, 0, 0);
 						}
 					}
 					for (int l1 = 0; l1 < 251; l1++)
 					{
-						NetMessage.SendData(83, this.whoAmI, -1, "", l1, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.NpcKillCount, this.whoAmI, -1, "", l1, 0f, 0f, 0f, 0, 0, 0);
 					}
-					NetMessage.SendData(49, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(57, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(7, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(103, -1, -1, "", NPC.MoonLordCountdown, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(101, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerSpawnSelf, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.UpdateGoodEvil, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.WorldInfo, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.MoonLordCountdown, -1, -1, "", NPC.MoonLordCountdown, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.UpdateShieldStrengths, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 9:
+				case MessageID.Unknown9:
 				{
 					if (Main.netMode != 1)
 					{
@@ -701,7 +701,7 @@ namespace Terraria
 					Netplay.Connection.StatusText = this.reader.ReadString();
 					return;
 				}
-				case 10:
+				case MessageID.TileSection:
 				{
 					if (Main.netMode != 1)
 					{
@@ -710,7 +710,7 @@ namespace Terraria
 					NetMessage.DecompressTileBlock(this.readBuffer, num2, length);
 					return;
 				}
-				case 11:
+				case MessageID.Unknown11:
 				{
 					if (Main.netMode != 1)
 					{
@@ -719,7 +719,7 @@ namespace Terraria
 					WorldGen.SectionTileFrame(this.reader.ReadInt16(), this.reader.ReadInt16(), this.reader.ReadInt16(), this.reader.ReadInt16());
 					return;
 				}
-				case 12:
+				case MessageID.Unknown12:
 				{
 					int num21 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -741,18 +741,18 @@ namespace Terraria
 					}
 					if (Netplay.Clients[this.whoAmI].State != 3)
 					{
-						NetMessage.SendData(12, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerSpawn, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 						return;
 					}
 					Netplay.Clients[this.whoAmI].State = 10;
 					NetMessage.greetPlayer(this.whoAmI);
 					NetMessage.buffer[this.whoAmI].broadcast = true;
 					NetMessage.syncPlayers();
-					NetMessage.SendData(12, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
-					NetMessage.SendData(74, this.whoAmI, -1, Main.player[this.whoAmI].name, Main.anglerQuest, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerSpawn, -1, this.whoAmI, "", this.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.AnglerQuest, this.whoAmI, -1, Main.player[this.whoAmI].name, Main.anglerQuest, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 13:
+				case MessageID.Unknown13:
 				{
 					int num22 = this.reader.ReadByte();
 					if (num22 == Main.myPlayer && !Main.ServerSideCharacter)
@@ -798,10 +798,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(13, -1, this.whoAmI, "", num22, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerUpdate, -1, this.whoAmI, "", num22, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 14:
+				case MessageID.Unknown14:
 				{
 					if (Main.netMode != 1)
 					{
@@ -820,15 +820,15 @@ namespace Terraria
 					Main.player[num23].active = true;
 					return;
 				}
-				case 15:
-				case 67:
-				case 93:
-				case 94:
-				case 98:
+				case MessageID.Unknown15:
+				case MessageID.Unknown67:
+				case MessageID.SocialHandshake:
+				case MessageID.Deprecated1:
+				case MessageID.AchievementMessageEventHappened:
 				{
 					return;
 				}
-				case 16:
+				case MessageID.Unknown16:
 				{
 					int num24 = this.reader.ReadByte();
 					if (num24 == Main.myPlayer && !Main.ServerSideCharacter)
@@ -851,10 +851,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(16, -1, this.whoAmI, "", num24, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerHp, -1, this.whoAmI, "", num24, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 17:
+				case MessageID.Unknown17:
 				{
 					byte num25 = this.reader.ReadByte();
 					int num26 = this.reader.ReadInt16();
@@ -958,7 +958,7 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(17, -1, this.whoAmI, "", (int)num25, (float)num26, (float)num27, (float)num28, num29, 0, 0);
+					NetMessage.SendData((int)PacketTypes.Tile, -1, this.whoAmI, "", (int)num25, (float)num26, (float)num27, (float)num28, num29, 0, 0);
 					if (num25 != 1 || num28 != 53)
 					{
 						return;
@@ -966,7 +966,7 @@ namespace Terraria
 					NetMessage.SendTileSquare(-1, num26, num27, 1);
 					return;
 				}
-				case 18:
+				case MessageID.Unknown18:
 				{
 					if (Main.netMode != 1)
 					{
@@ -978,7 +978,7 @@ namespace Terraria
 					Main.moonModY = this.reader.ReadInt16();
 					return;
 				}
-				case 19:
+				case MessageID.Unknown19:
 				{
 					byte num30 = this.reader.ReadByte();
 					int num31 = this.reader.ReadInt16();
@@ -1022,10 +1022,10 @@ namespace Terraria
 					{
 						variable = 1;
 					}
-					NetMessage.SendData(19, -1, num34, "", (int)num35, single, single1, (float)variable, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.DoorUse, -1, num34, "", (int)num35, single, single1, (float)variable, 0, 0, 0);
 					return;
 				}
-				case 20:
+				case MessageID.Unknown20:
 				{
 					short num36 = this.reader.ReadInt16();
 					int num37 = this.reader.ReadInt16();
@@ -1130,8 +1130,8 @@ namespace Terraria
 					NetMessage.SendData((int)num1, -1, this.whoAmI, "", num36, (float)num37, (float)num38, 0f, 0, 0, 0);
 					return;
 				}
-				case 21:
-				case 90:
+				case MessageID.SyncItem:
+				case MessageID.InstancedItem:
 				{
 					int num41 = this.reader.ReadInt16();
 					Vector2 vector2 = this.reader.ReadVector2();
@@ -1190,10 +1190,10 @@ namespace Terraria
 						item6.owner = Main.myPlayer;
 						if (!flag5)
 						{
-							NetMessage.SendData(21, -1, this.whoAmI, "", num41, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ItemDrop, -1, this.whoAmI, "", num41, 0f, 0f, 0f, 0, 0, 0);
 							return;
 						}
-						NetMessage.SendData(21, -1, -1, "", num41, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", num41, 0f, 0f, 0f, 0, 0, 0);
 						if (num44 == 0)
 						{
 							Main.item[num41].ownIgnore = this.whoAmI;
@@ -1207,10 +1207,10 @@ namespace Terraria
 						return;
 					}
 					Main.item[num41].active = false;
-					NetMessage.SendData(21, -1, -1, "", num41, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", num41, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 22:
+				case MessageID.Unknown22:
 				{
 					int num46 = this.reader.ReadInt16();
 					int num47 = this.reader.ReadByte();
@@ -1233,10 +1233,10 @@ namespace Terraria
 					}
 					Main.item[num46].owner = 255;
 					Main.item[num46].keepTime = 15;
-					NetMessage.SendData(22, -1, -1, "", num46, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ItemOwner, -1, -1, "", num46, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 23:
+				case MessageID.Unknown23:
 				{
 					if (Main.netMode != 1)
 					{
@@ -1327,7 +1327,7 @@ namespace Terraria
 					nPC.releaseOwner = this.reader.ReadByte();
 					return;
 				}
-				case 24:
+				case MessageID.Unknown24:
 				{
 					int num55 = this.reader.ReadInt16();
 					int num56 = this.reader.ReadByte();
@@ -1341,11 +1341,11 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(24, -1, this.whoAmI, "", num55, (float)num56, 0f, 0f, 0, 0, 0);
-					//NetMessage.SendData(23, -1, -1, "", num55, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.NpcItemStrike, -1, this.whoAmI, "", num55, (float)num56, 0f, 0f, 0, 0, 0);
+					//NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num55, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 25:
+				case MessageID.Unknown25:
 				{
 					int num57 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -1373,18 +1373,18 @@ namespace Terraria
 								str2 = (str2 != "" ? string.Concat(str2, ", ", Main.player[p1].name) : Main.player[p1].name);
 							}
 						}
-						NetMessage.SendData(25, this.whoAmI, -1, string.Concat(Lang.mp[7], " ", str2, "."), 255, 255f, 240f, 20f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChatText, this.whoAmI, -1, string.Concat(Lang.mp[7], " ", str2, "."), 255, 255f, 240f, 20f, 0, 0, 0);
 						return;
 					}
 					if (lower.StartsWith("/me "))
 					{
-						NetMessage.SendData(25, -1, -1, string.Concat("*", Main.player[this.whoAmI].name, " ", str.Substring(4)), 255, 200f, 100f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, string.Concat("*", Main.player[this.whoAmI].name, " ", str.Substring(4)), 255, 200f, 100f, 0f, 0, 0, 0);
 						return;
 					}
 					if (lower == Lang.mp[8])
 					{
 						object[] objArray = new object[] { "*", Main.player[this.whoAmI].name, " ", Lang.mp[9], " ", Main.rand.Next(1, 101) };
-						NetMessage.SendData(25, -1, -1, string.Concat(objArray), 255, 255f, 240f, 20f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, string.Concat(objArray), 255, 255f, 240f, 20f, 0, 0, 0);
 						return;
 					}
 					if (lower.StartsWith("/p "))
@@ -1393,14 +1393,14 @@ namespace Terraria
 						color = Main.teamColor[num58];
 						if (num58 == 0)
 						{
-							NetMessage.SendData(25, this.whoAmI, -1, Lang.mp[10], 255, 255f, 240f, 20f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ChatText, this.whoAmI, -1, Lang.mp[10], 255, 255f, 240f, 20f, 0, 0, 0);
 							return;
 						}
 						for (int q1 = 0; q1 < 255; q1++)
 						{
 							if (Main.player[q1].team == num58)
 							{
-								NetMessage.SendData(25, q1, -1, str.Substring(3), num57, (float)color.R, (float)color.G, (float)color.B, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ChatText, q1, -1, str.Substring(3), num57, (float)color.R, (float)color.G, (float)color.B, 0, 0, 0);
 							}
 						}
 						return;
@@ -1413,7 +1413,7 @@ namespace Terraria
 					{
 						color = Main.mcColor;
 					}
-					NetMessage.SendData(25, -1, -1, str, num57, (float)color.R, (float)color.G, (float)color.B, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, str, num57, (float)color.R, (float)color.G, (float)color.B, 0, 0, 0);
 					if (!Main.dedServ)
 					{
 						return;
@@ -1421,7 +1421,7 @@ namespace Terraria
 					Console.WriteLine(string.Concat("<", Main.player[this.whoAmI].name, "> ", str));
 					return;
 				}
-				case 26:
+				case MessageID.Unknown26:
 				{
 					int num59 = this.reader.ReadByte();
 					if (Main.netMode == 2 && this.whoAmI != num59 && (!Main.player[num59].hostile || !Main.player[this.whoAmI].hostile))
@@ -1442,12 +1442,12 @@ namespace Terraria
 					Main.player[num59].Hurt(num61, num60, flag6, true, str3, item7, cooldownCounter);
 					if (Main.netMode == 2)
 					{
-						NetMessage.SendData(26, -1, this.whoAmI, str3, num59, (float)num60, (float)num61, (float)(flag6 ? 1 : 0), item7 ? 1 : 0, cooldownCounter, 0);
+						NetMessage.SendData((int)PacketTypes.PlayerDamage, -1, this.whoAmI, str3, num59, (float)num60, (float)num61, (float)(flag6 ? 1 : 0), item7 ? 1 : 0, cooldownCounter, 0);
 						return;
 					}
 					return;
 				}
-				case 27:
+				case MessageID.Unknown27:
 				{
 					int num67 = this.reader.ReadInt16();
 					Vector2 vector24 = this.reader.ReadVector2();
@@ -1547,10 +1547,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(27, -1, this.whoAmI, "", num71, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ProjectileNew, -1, this.whoAmI, "", num71, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 28:
+				case MessageID.Unknown28:
 				{
 					int num71 = this.reader.ReadInt16();
 					int num72 = this.reader.ReadInt16();
@@ -1575,16 +1575,16 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(28, -1, this.whoAmI, "", num71, (float)num72, single5, (float)num73, (int)num74, 0, 0);
+					NetMessage.SendData((int)PacketTypes.NpcStrike, -1, this.whoAmI, "", num71, (float)num72, single5, (float)num73, (int)num74, 0, 0);
 					if (Main.npc[num71].life > 0)
 					{
 						Main.npc[num71].netUpdate = true;
 						return;
 					}
-					//NetMessage.SendData(23, -1, -1, "", num71, 0f, 0f, 0f, 0, 0, 0);
+					//NetMessage.SendData((int)PacketTypes.NpcUpdate, -1, -1, "", num71, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 29:
+				case MessageID.Unknown29:
 				{
 					int num75 = this.reader.ReadInt16();
 					int num76 = this.reader.ReadByte();
@@ -1609,10 +1609,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(29, -1, this.whoAmI, "", num75, (float)num76, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ProjectileDestroy, -1, this.whoAmI, "", num75, (float)num76, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 30:
+				case MessageID.Unknown30:
 				{
 					int num78 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -1625,13 +1625,13 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(30, -1, this.whoAmI, "", num78, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.TogglePvp, -1, this.whoAmI, "", num78, 0f, 0f, 0f, 0, 0, 0);
 					string str5 = string.Concat(" ", Lang.mp[(flag7 ? 11 : 12)]);
 					Color color1 = Main.teamColor[Main.player[num78].team];
-					NetMessage.SendData(25, -1, -1, string.Concat(Main.player[num78].name, str5), 255, (float)color1.R, (float)color1.G, (float)color1.B, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, string.Concat(Main.player[num78].name, str5), 255, (float)color1.R, (float)color1.G, (float)color1.B, 0, 0, 0);
 					return;
 				}
-				case 31:
+				case MessageID.RequestChestOpen:
 				{
 					if (Main.netMode != 2)
 					{
@@ -1646,16 +1646,16 @@ namespace Terraria
 					}
 					for (int t1 = 0; t1 < 40; t1++)
 					{
-						NetMessage.SendData(32, this.whoAmI, -1, "", num81, (float)t1, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChestItem, this.whoAmI, -1, "", num81, (float)t1, 0f, 0f, 0, 0, 0);
 					}
-					NetMessage.SendData(33, this.whoAmI, -1, "", num81, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ChestOpen, this.whoAmI, -1, "", num81, 0f, 0f, 0f, 0, 0, 0);
 					Main.player[this.whoAmI].chest = num81;
 					if (Main.myPlayer == this.whoAmI)
 					{
 						Main.recBigList = false;
 					}
 					Recipe.FindRecipes();
-					NetMessage.SendData(80, -1, this.whoAmI, "", this.whoAmI, (float)num81, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.SyncPlayerChestIndex, -1, this.whoAmI, "", this.whoAmI, (float)num81, 0f, 0f, 0, 0, 0);
 
 					if (Main.tile[num79, num80].frameX < 36 || Main.tile[num79, num80].frameX >= 72)
 					{
@@ -1664,7 +1664,7 @@ namespace Terraria
 					AchievementsHelper.HandleSpecialEvent(Main.player[this.whoAmI], 16);
 					return;
 				}
-				case 32:
+				case MessageID.SyncChestItem:
 				{
 					int num82 = this.reader.ReadInt16();
 					int num83 = this.reader.ReadByte();
@@ -1685,7 +1685,7 @@ namespace Terraria
 					Recipe.FindRecipes();
 					return;
 				}
-				case 33:
+				case MessageID.SyncPlayerChest:
 				{
 					int chestID = this.reader.ReadInt16();
 					int chestX = this.reader.ReadInt16();
@@ -1711,16 +1711,16 @@ namespace Terraria
 							Chest chest = Main.chest[num91];
 							chest.name = chestName;
 							//get chest name
-							NetMessage.SendData(69, -1, this.whoAmI, chestName, num91, (float)chest.x, (float)chest.y, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ChestName, -1, this.whoAmI, chestName, num91, (float)chest.x, (float)chest.y, 0f, 0, 0, 0);
 						}
 						Main.player[this.whoAmI].chest = chestID;
 						Recipe.FindRecipes();
 						//sync player chest	index
-						NetMessage.SendData(80, -1, this.whoAmI, "", this.whoAmI, (float)chestID, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.SyncPlayerChestIndex, -1, this.whoAmI, "", this.whoAmI, (float)chestID, 0f, 0f, 0, 0, 0);
 					}
 					return;
 				}
-				case 34:
+				case MessageID.ChestUpdates:
 				{
 					byte num92 = this.reader.ReadByte();
 					int num93 = this.reader.ReadInt16();
@@ -1764,10 +1764,10 @@ namespace Terraria
 						int num97 = WorldGen.PlaceChest(num93, num94, 21, false, num95);
 						if (num97 != -1)
 						{
-							NetMessage.SendData(34, -1, -1, "", (int)num92, (float)num93, (float)num94, (float)num95, num97, 0, 0);
+							NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", (int)num92, (float)num93, (float)num94, (float)num95, num97, 0, 0);
 							return;
 						}
-						NetMessage.SendData(34, this.whoAmI, -1, "", (int)num92, (float)num93, (float)num94, (float)num95, num97, 0, 0);
+						NetMessage.SendData((int)PacketTypes.TileKill, this.whoAmI, -1, "", (int)num92, (float)num93, (float)num94, (float)num95, num97, 0, 0);
 						Item.NewItem(num93 * 16, num94 * 16, 32, 32, Chest.chestItemSpawn[num95], 1, true, 0, false);
 						return;
 					}
@@ -1776,10 +1776,10 @@ namespace Terraria
 						int num98 = WorldGen.PlaceChest(num93, num94, 88, false, num95);
 						if (num98 != -1)
 						{
-							NetMessage.SendData(34, -1, -1, "", (int)num92, (float)num93, (float)num94, (float)num95, num98, 0, 0);
+							NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", (int)num92, (float)num93, (float)num94, (float)num95, num98, 0, 0);
 							return;
 						}
-						NetMessage.SendData(34, this.whoAmI, -1, "", (int)num92, (float)num93, (float)num94, (float)num95, num98, 0, 0);
+						NetMessage.SendData((int)PacketTypes.TileKill, this.whoAmI, -1, "", (int)num92, (float)num93, (float)num94, (float)num95, num98, 0, 0);
 						Item.NewItem(num93 * 16, num94 * 16, 32, 32, Chest.dresserItemSpawn[num95], 1, true, 0, false);
 						return;
 					}
@@ -1801,7 +1801,7 @@ namespace Terraria
 						{
 							return;
 						}
-						NetMessage.SendData(34, -1, -1, "", (int)num92, (float)num93, (float)num94, 0f, num99, 0, 0);
+						NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", (int)num92, (float)num93, (float)num94, 0f, num99, 0, 0);
 						return;
 					}
 					else
@@ -1820,11 +1820,11 @@ namespace Terraria
 						{
 							return;
 						}
-						NetMessage.SendData(34, -1, -1, "", (int)num92, (float)num93, (float)num94, 0f, num100, 0, 0);
+						NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", (int)num92, (float)num93, (float)num94, 0f, num100, 0, 0);
 						return;
 					}
 				}
-				case 35:
+				case MessageID.Unknown35:
 				{
 					int num101 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -1840,10 +1840,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(35, -1, this.whoAmI, "", num101, (float)num102, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.EffectHeal, -1, this.whoAmI, "", num101, (float)num102, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 36:
+				case MessageID.Unknown36:
 				{
 					int num103 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -1857,10 +1857,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(36, -1, this.whoAmI, "", num103, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.Zones, -1, this.whoAmI, "", num103, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 37:
+				case MessageID.Unknown37:
 				{
 					if (Main.netMode != 1)
 					{
@@ -1872,11 +1872,11 @@ namespace Terraria
 						Main.menuMode = 31;
 						return;
 					}
-					NetMessage.SendData(38, -1, -1, Netplay.ServerPassword, 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PasswordSend, -1, -1, Netplay.ServerPassword, 0, 0f, 0f, 0f, 0, 0, 0);
 					Main.autoPass = false;
 					return;
 				}
-				case 38:
+				case MessageID.Unknown38:
 				{
 					if (Main.netMode != 2)
 					{
@@ -1884,14 +1884,14 @@ namespace Terraria
 					}
 					if (this.reader.ReadString() != Netplay.ServerPassword)
 					{
-						NetMessage.SendData(2, this.whoAmI, -1, Lang.mp[1], 0, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.Disconnect, this.whoAmI, -1, Lang.mp[1], 0, 0f, 0f, 0f, 0, 0, 0);
 						return;
 					}
 					Netplay.Clients[this.whoAmI].State = 1;
-					NetMessage.SendData(3, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ContinueConnecting, this.whoAmI, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 39:
+				case MessageID.Unknown39:
 				{
 					if (Main.netMode != 1)
 					{
@@ -1899,10 +1899,10 @@ namespace Terraria
 					}
 					int num104 = this.reader.ReadInt16();
 					Main.item[num104].owner = 255;
-					NetMessage.SendData(22, -1, -1, "", num104, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ItemOwner, -1, -1, "", num104, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 40:
+				case MessageID.Unknown40:
 				{
 					int num105 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -1915,10 +1915,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(40, -1, this.whoAmI, "", num105, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.NpcTalk, -1, this.whoAmI, "", num105, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 41:
+				case MessageID.Unknown41:
 				{
 					int num107 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -1935,10 +1935,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(41, -1, this.whoAmI, "", num107, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerAnimation, -1, this.whoAmI, "", num107, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 42:
+				case MessageID.Unknown42:
 				{
 					int num109 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -1955,7 +1955,7 @@ namespace Terraria
 					Main.player[num109].statManaMax = num111;
 					return;
 				}
-				case 43:
+				case MessageID.Unknown43:
 				{
 					int num112 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -1971,10 +1971,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(43, -1, this.whoAmI, "", num112, (float)num113, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.EffectMana, -1, this.whoAmI, "", num112, (float)num113, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 44:
+				case MessageID.Unknown44:
 				{
 					int num114 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -1990,10 +1990,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(44, -1, this.whoAmI, str6, num114, (float)num115, (float)num116, (float)num117, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerKillMe, -1, this.whoAmI, str6, num114, (float)num115, (float)num116, (float)num117, 0, 0, 0);
 					return;
 				}
-				case 45:
+				case MessageID.Unknown45:
 				{
 					int num118 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -2009,7 +2009,7 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(45, -1, this.whoAmI, "", num118, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerTeam, -1, this.whoAmI, "", num118, 0f, 0f, 0f, 0, 0, 0);
 					string str7 = string.Concat(" ", Lang.mp[13 + num119]);
 					if (num119 == 5)
 					{
@@ -2019,12 +2019,12 @@ namespace Terraria
 					{
 						if (u1 == this.whoAmI || num120 > 0 && Main.player[u1].team == num120 || num119 > 0 && Main.player[u1].team == num119)
 						{
-							NetMessage.SendData(25, u1, -1, string.Concat(player10.name, str7), 255, (float)color2.R, (float)color2.G, (float)color2.B, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ChatText, u1, -1, string.Concat(player10.name, str7), 255, (float)color2.R, (float)color2.G, (float)color2.B, 0, 0, 0);
 						}
 					}
 					return;
 				}
-				case 46:
+				case MessageID.Unknown46:
 				{
 					if (Main.netMode != 2)
 					{
@@ -2037,10 +2037,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(47, this.whoAmI, -1, "", num123, (float)this.whoAmI, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.SignNew, this.whoAmI, -1, "", num123, (float)this.whoAmI, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 47:
+				case MessageID.Unknown47:
 				{
 					int num124 = this.reader.ReadInt16();
 					int num125 = this.reader.ReadInt16();
@@ -2059,7 +2059,7 @@ namespace Terraria
 					if (Main.netMode == 2 && str9 != str8)
 					{
 						num127 = this.whoAmI;
-						NetMessage.SendData(47, -1, this.whoAmI, "", num124, (float)num127, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.SignNew, -1, this.whoAmI, "", num124, (float)num127, 0f, 0f, 0, 0, 0);
 					}
 					if (Main.netMode != 1 || num127 != Main.myPlayer || Main.sign[num124] == null)
 					{
@@ -2073,7 +2073,7 @@ namespace Terraria
 					Main.npcChatText = Main.sign[num124].text;
 					return;
 				}
-				case 48:
+				case MessageID.Unknown48:
 				{
 					int num128 = this.reader.ReadInt16();
 					int num129 = this.reader.ReadInt16();
@@ -2110,7 +2110,7 @@ namespace Terraria
 						return;
 					}
 				}
-				case 49:
+				case MessageID.Unknown49:
 				{
 					if (Netplay.Connection.State != 6)
 					{
@@ -2122,7 +2122,7 @@ namespace Terraria
 					Main.player[Main.myPlayer].Spawn();
 					return;
 				}
-				case 50:
+				case MessageID.Unknown50:
 				{
 					int num138 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -2150,10 +2150,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(50, -1, this.whoAmI, "", num138, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerBuff, -1, this.whoAmI, "", num138, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 51:
+				case MessageID.Unknown51:
 				{
 					byte num139 = this.reader.ReadByte();
 					byte num140 = this.reader.ReadByte();
@@ -2166,7 +2166,7 @@ namespace Terraria
 					{
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(51, -1, this.whoAmI, "", (int)num139, (float)num140, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.NpcSpecial, -1, this.whoAmI, "", (int)num139, (float)num140, 0f, 0f, 0, 0, 0);
 							return;
 						}
 						return;
@@ -2190,7 +2190,7 @@ namespace Terraria
 						return;
 					}
 				}
-				case 52:
+				case MessageID.Unknown52:
 				{
 					int ldap = (int)this.reader.ReadByte();
 					int ad = (int)this.reader.ReadInt16();
@@ -2200,7 +2200,7 @@ namespace Terraria
 						Chest.Unlock(ad, winfs);
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(52, -1, this.whoAmI, "", 0, (float)ldap, (float)ad, (float)winfs, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ChestUnlock, -1, this.whoAmI, "", 0, (float)ldap, (float)ad, (float)winfs, 0, 0, 0);
 							NetMessage.SendTileSquare(-1, ad, winfs, 2);
 						}
 					}
@@ -2211,13 +2211,13 @@ namespace Terraria
 					WorldGen.UnlockDoor(ad, winfs);
 					if (Main.netMode == 2)
 					{
-						NetMessage.SendData(52, -1, this.whoAmI, "", 0, (float)ldap, (float)ad, (float)winfs, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChestUnlock, -1, this.whoAmI, "", 0, (float)ldap, (float)ad, (float)winfs, 0, 0, 0);
 						NetMessage.SendTileSquare(-1, ad, winfs, 2);
 						return;
 					}
 					return;
 				}
-				case 53:
+				case MessageID.Unknown53:
 				{
 					int num145 = this.reader.ReadInt16();
 					int num146 = this.reader.ReadByte();
@@ -2228,10 +2228,10 @@ namespace Terraria
 					{
 						return;
 					}
-					//NetMessage.SendData(54, -1, -1, "", num145, 0f, 0f, 0f, 0, 0, 0);
+					//NetMessage.SendData((int)PacketTypes.NpcUpdateBuff, -1, -1, "", num145, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 54:
+				case MessageID.Unknown54:
 				{
 					if (Main.netMode != 1)
 					{
@@ -2246,7 +2246,7 @@ namespace Terraria
 					}
 					return;
 				}
-				case 55:
+				case MessageID.Unknown55:
 				{
 					int num149 = this.reader.ReadByte();
 					int num150 = this.reader.ReadByte();
@@ -2264,10 +2264,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(55, num149, -1, "", num149, (float)num150, (float)num151, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerAddBuff, num149, -1, "", num149, (float)num150, (float)num151, 0f, 0, 0, 0);
 					return;
 				}
-				case 56:
+				case MessageID.Unknown56:
 				{
 					int num152 = this.reader.ReadInt16();
 					if (num152 < 0 || num152 >= 200)
@@ -2283,10 +2283,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(56, this.whoAmI, -1, Main.npc[num152].displayName, num152, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.UpdateNPCName, this.whoAmI, -1, Main.npc[num152].displayName, num152, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 57:
+				case MessageID.Unknown57:
 				{
 					if (Main.netMode != 1)
 					{
@@ -2297,7 +2297,7 @@ namespace Terraria
 					WorldGen.tBlood = this.reader.ReadByte();
 					return;
 				}
-				case 58:
+				case MessageID.Unknown58:
 				{
 					int num153 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -2307,14 +2307,14 @@ namespace Terraria
 					float single7 = this.reader.ReadSingle();
 					if (Main.netMode == 2)
 					{
-						NetMessage.SendData(58, -1, this.whoAmI, "", this.whoAmI, single7, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.PlayHarp, -1, this.whoAmI, "", this.whoAmI, single7, 0f, 0f, 0, 0, 0);
 						return;
 					}
 					Player player12 = Main.player[num153];
 					Main.harpNote = single7;
 					return;
 				}
-				case 59:
+				case MessageID.Unknown59:
 				{
 					int num155 = this.reader.ReadInt16();
 					int num156 = this.reader.ReadInt16();
@@ -2322,7 +2322,7 @@ namespace Terraria
 						return;
 					if (num156 < 0 || num156 >= Main.maxTilesY)
 						return;
-					if (Main.tile[num155, num156].type != 135)
+					if (Main.tile[num155, num156].type != TileID.PressurePlates)
 					{
 						Wiring.HitSwitch(num155, num156);
 					}
@@ -2330,10 +2330,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(59, -1, this.whoAmI, "", num155, (float)num156, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.HitSwitch, -1, this.whoAmI, "", num155, (float)num156, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 60:
+				case MessageID.Unknown60:
 				{
 					int num157 = this.reader.ReadInt16();
 					int num158 = this.reader.ReadInt16();
@@ -2359,7 +2359,7 @@ namespace Terraria
 					Main.npc[num157].homeTileY = num159;
 					return;
 				}
-				case 61:
+				case MessageID.Unknown61:
 				{
 					int num161 = this.reader.ReadInt16();
 					int num162 = this.reader.ReadInt16();
@@ -2392,10 +2392,10 @@ namespace Terraria
 						{
 							return;
 						}
-						NetMessage.SendData(25, -1, -1, Lang.misc[31], 255, 50f, 255f, 130f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.misc[31], 255, 50f, 255f, 130f, 0, 0, 0);
 						Main.startPumpkinMoon();
-						NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(78, -1, -1, "", 0, 1f, 2f, 1f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.WorldInfo, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ReportInvasionProgress, -1, -1, "", 0, 1f, 2f, 1f, 0, 0, 0);
 						return;
 					}
 					else if (num162 == -5)
@@ -2404,19 +2404,19 @@ namespace Terraria
 						{
 							return;
 						}
-						NetMessage.SendData(25, -1, -1, Lang.misc[34], 255, 50f, 255f, 130f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.misc[34], 255, 50f, 255f, 130f, 0, 0, 0);
 						Main.startSnowMoon();
-						NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(78, -1, -1, "", 0, 1f, 1f, 1f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.WorldInfo, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.ReportInvasionProgress, -1, -1, "", 0, 1f, 1f, 1f, 0, 0, 0);
 						return;
 					}
 					else if (num162 == -6)
 					{
 						if (Main.dayTime && !Main.eclipse)
 						{
-							NetMessage.SendData(25, -1, -1, Lang.misc[20], 255, 50f, 255f, 130f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, Lang.misc[20], 255, 50f, 255f, 130f, 0, 0, 0);
 							Main.eclipse = true;
-							NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.WorldInfo, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 							return;
 						}
 						return;
@@ -2425,11 +2425,11 @@ namespace Terraria
 					{
 						if (num162 == -7)
 						{
-							NetMessage.SendData(25, -1, -1, "martian moon toggled", 255, 50f, 255f, 130f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, "martian moon toggled", 255, 50f, 255f, 130f, 0, 0, 0);
 							Main.invasionDelay = 0;
 							Main.StartInvasion(4);
-							NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
-							NetMessage.SendData(78, -1, -1, "", 0, 1f, (float)(Main.invasionType + 2), 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.WorldInfo, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ReportInvasionProgress, -1, -1, "", 0, 1f, (float)(Main.invasionType + 2), 0f, 0, 0, 0);
 							return;
 						}
 						if (num162 == -8)
@@ -2437,7 +2437,7 @@ namespace Terraria
 							if (NPC.downedGolemBoss && Main.hardMode && !NPC.AnyDanger() && !NPC.AnyoneNearCultists())
 							{
 								WorldGen.StartImpendingDoom();
-								NetMessage.SendData(7, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.WorldInfo, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 								return;
 							}
 							return;
@@ -2456,14 +2456,14 @@ namespace Terraria
 									Main.invasionDelay = 0;
 									Main.StartInvasion(num158);
 								}
-								NetMessage.SendData(78, -1, -1, "", 0, 1f, (float)(Main.invasionType + 2), 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ReportInvasionProgress, -1, -1, "", 0, 1f, (float)(Main.invasionType + 2), 0f, 0, 0, 0);
 								return;
 							}
 							return;
 						}
 					}
 				}
-				case 62:
+				case MessageID.Unknown62:
 				{
 					int num164 = this.reader.ReadByte();
 					int num165 = this.reader.ReadByte();
@@ -2483,10 +2483,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(62, -1, this.whoAmI, "", num164, (float)num165, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerDodge, -1, this.whoAmI, "", num164, (float)num165, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 63:
+				case MessageID.Unknown63:
 				{
 					int num166 = this.reader.ReadInt16();
 					int num167 = this.reader.ReadInt16();
@@ -2496,10 +2496,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(63, -1, this.whoAmI, "", num166, (float)num167, (float)num168, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PaintTile, -1, this.whoAmI, "", num166, (float)num167, (float)num168, 0f, 0, 0, 0);
 					return;
 				}
-				case 64:
+				case MessageID.Unknown64:
 				{
 					int num169 = this.reader.ReadInt16();
 					int num170 = this.reader.ReadInt16();
@@ -2509,10 +2509,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(64, -1, this.whoAmI, "", num169, (float)num170, (float)num171, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PaintWall, -1, this.whoAmI, "", num169, (float)num170, (float)num171, 0f, 0, 0, 0);
 					return;
 				}
-				case 65:
+				case MessageID.Unknown65:
 				{
 					BitsByte bitsByte14 = this.reader.ReadByte();
 					int num172 = this.reader.ReadInt16();
@@ -2553,7 +2553,7 @@ namespace Terraria
 						if (Main.netMode == 2)
 						{
 							RemoteClient.CheckSection(this.whoAmI, vector26, 1);
-							NetMessage.SendData(65, -1, -1, "", 0, (float)num172, vector26.X, vector26.Y, num174, 0, 0);
+							NetMessage.SendData((int)PacketTypes.Teleport, -1, -1, "", 0, (float)num172, vector26.X, vector26.Y, num174, 0, 0);
 							int num175 = -1;
 							float single8 = 9999f;
 							for (int y11 = 0; y11 < 255; y11++)
@@ -2570,7 +2570,7 @@ namespace Terraria
 							}
 							if (num175 >= 0)
 							{
-								NetMessage.SendData(25, -1, -1, string.Concat(Main.player[this.whoAmI].name, " has teleported to ", Main.player[num175].name), 255, 250f, 250f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ChatText, -1, -1, string.Concat(Main.player[this.whoAmI].name, " has teleported to ", Main.player[num175].name), 255, 250f, 250f, 0f, 0, 0, 0);
 							}
 						}
 					}
@@ -2578,10 +2578,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(65, -1, this.whoAmI, "", 0, (float)num172, vector26.X, vector26.Y, num174, 0, 0);
+					NetMessage.SendData((int)PacketTypes.Teleport, -1, this.whoAmI, "", 0, (float)num172, vector26.X, vector26.Y, num174, 0, 0);
 					return;
 				}
-				case 66:
+				case MessageID.Unknown66:
 				{
 					int num176 = this.reader.ReadByte();
 					int num177 = this.reader.ReadInt16();
@@ -2601,15 +2601,15 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(66, -1, this.whoAmI, "", num176, (float)num177, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerHealOther, -1, this.whoAmI, "", num176, (float)num177, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 68:
+				case MessageID.Unknown68:
 				{
 					this.reader.ReadString();
 					return;
 				}
-				case 69:
+				case MessageID.ChestName:
 				{
 					int num178 = this.reader.ReadInt16();
 					int num179 = this.reader.ReadInt16();
@@ -2654,10 +2654,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(69, this.whoAmI, -1, chest2.name, num178, (float)num179, (float)num180, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ChestName, this.whoAmI, -1, chest2.name, num178, (float)num179, (float)num180, 0f, 0, 0, 0);
 					return;
 				}
-				case 70:
+				case MessageID.BugCatching:
 				{
 					if (Main.netMode != 2)
 					{
@@ -2676,7 +2676,7 @@ namespace Terraria
 					}
 					return;
 				}
-				case 71:
+				case MessageID.BugReleasing:
 				{
 					if (Main.netMode != 2)
 					{
@@ -2689,7 +2689,7 @@ namespace Terraria
 					NPC.ReleaseNPC(num183, num184, num185, (int)num186, this.whoAmI);
 					return;
 				}
-				case 72:
+				case MessageID.TravelMerchantItems:
 				{
 					if (Main.netMode != 1)
 					{
@@ -2701,12 +2701,12 @@ namespace Terraria
 					}
 					return;
 				}
-				case 73:
+				case MessageID.TeleportationPotion:
 				{
 					Main.player[this.whoAmI].TeleportationPotion();
 					return;
 				}
-				case 74:
+				case MessageID.AnglerQuest:
 				{
 					if (Main.netMode != 1)
 					{
@@ -2716,7 +2716,7 @@ namespace Terraria
 					Main.anglerQuestFinished = this.reader.ReadBoolean();
 					return;
 				}
-				case 75:
+				case MessageID.AnglerQuestFinished:
 				{
 					if (Main.netMode != 2)
 					{
@@ -2730,7 +2730,7 @@ namespace Terraria
 					Main.anglerWhoFinishedToday.Add(str10);
 					return;
 				}
-				case 76:
+				case MessageID.AnglerQuestCountSync:
 				{
 					int num187 = this.reader.ReadByte();
 					if (num187 == Main.myPlayer && !Main.ServerSideCharacter)
@@ -2746,10 +2746,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(76, -1, this.whoAmI, "", num187, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.NumberOfAnglerQuestsCompleted, -1, this.whoAmI, "", num187, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 77:
+				case MessageID.TemporaryAnimation:
 				{
 					short num188 = this.reader.ReadInt16();
 					ushort num189 = this.reader.ReadUInt16();
@@ -2757,7 +2757,7 @@ namespace Terraria
 					Animation.NewTemporaryAnimation(num188, num189, num190, this.reader.ReadInt16());
 					return;
 				}
-				case 78:
+				case MessageID.InvasionProgressReport:
 				{
 					if (Main.netMode != 1)
 					{
@@ -2766,7 +2766,7 @@ namespace Terraria
 					Main.ReportInvasionProgress(this.reader.ReadInt32(), this.reader.ReadInt32(), this.reader.ReadSByte(), this.reader.ReadSByte());
 					return;
 				}
-				case 79:
+				case MessageID.PlaceObject:
 				{
 					int num191 = this.reader.ReadInt16();
 					int num192 = this.reader.ReadInt16();
@@ -2792,7 +2792,7 @@ namespace Terraria
 					NetMessage.SendObjectPlacment(this.whoAmI, num191, num192, num193, num194, num195, num196, num);
 					return;
 				}
-				case 80:
+				case MessageID.SyncPLayerChestIndex:
 				{
 					if (Main.netMode != 1)
 					{
@@ -2804,7 +2804,7 @@ namespace Terraria
 					Recipe.FindRecipes();
 					return;
 				}
-				case 81:
+				case MessageID.ServerCombatText:
 				{
 					if (Main.netMode != 1)
 					{
@@ -2817,12 +2817,12 @@ namespace Terraria
 					CombatText.NewText(new Rectangle(num199, num200, 0, 0), color3, str11, false, false);
 					return;
 				}
-				case 82:
+				case MessageID.NetModules:
 				{
 					NetManager.Instance.Read(this.reader, this.whoAmI);
 					return;
 				}
-				case 83:
+				case MessageID.NPCKillCountDeathTally:
 				{
 					if (Main.netMode != 1)
 					{
@@ -2837,7 +2837,7 @@ namespace Terraria
 					NPC.killCount[num201] = num202;
 					return;
 				}
-				case 84:
+				case MessageID.PlayerStealth:
 				{
 					byte num203 = this.reader.ReadByte();
 					float single9 = this.reader.ReadSingle();
@@ -2846,10 +2846,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(84, -1, this.whoAmI, "", (int)num203, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.PlayerStealth, -1, this.whoAmI, "", (int)num203, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 85:
+				case MessageID.QuickStackChests:
 				{
 					int num204 = this.whoAmI;
 					byte num205 = this.reader.ReadByte();
@@ -2860,7 +2860,7 @@ namespace Terraria
 					Chest.ServerPlaceItem(this.whoAmI, (int)num205);
 					return;
 				}
-				case 86:
+				case MessageID.TileEntitySharing:
 				{
 					if (Main.netMode != 1)
 					{
@@ -2882,7 +2882,7 @@ namespace Terraria
 					TileEntity.ByPosition.Remove(tileEntity.Position);
 					return;
 				}
-				case 87:
+				case MessageID.TileEntityPlacement:
 				{
 					if (Main.netMode != 2)
 					{
@@ -2905,7 +2905,7 @@ namespace Terraria
 					}
 					switch (num209)
 					{
-						case 0:
+						case MessageID.NeverCalled:
 						{
 							if (!TETrainingDummy.ValidTile(num207, num208))
 							{
@@ -2914,14 +2914,14 @@ namespace Terraria
 							TETrainingDummy.Place(num207, num208);
 							return;
 						}
-						case 1:
+						case MessageID.Unknown1:
 						{
 							if (!TEItemFrame.ValidTile(num207, num208))
 							{
 								return;
 							}
 							int num210 = TEItemFrame.Place(num207, num208);
-							NetMessage.SendData(86, -1, -1, "", num210, (float)num207, (float)num208, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.UpdateTileEntity, -1, -1, "", num210, (float)num207, (float)num208, 0f, 0, 0, 0);
 							return;
 						}
 						default:
@@ -2930,7 +2930,7 @@ namespace Terraria
 						}
 					}
 				}
-				case 88:
+				case MessageID.ItemTweaker:
 				{
 					if (Main.netMode != 1)
 					{
@@ -2949,7 +2949,7 @@ namespace Terraria
 					item8.color.PackedValue = this.reader.ReadUInt32();
 					return;
 				}
-				case 89:
+				case MessageID.ItemFrameTryPlacing:
 				{
 					if (Main.netMode != 2)
 					{
@@ -2963,7 +2963,7 @@ namespace Terraria
 					TEItemFrame.TryPlacing(num212, num213, num214, num215, num216);
 					return;
 				}
-				case 91:
+				case MessageID.SyncEmoteBubble:
 				{
 					if (Main.netMode != 1)
 					{
@@ -3011,7 +3011,7 @@ namespace Terraria
 					}*/
 					return;
 				}
-				case 92:
+				case MessageID.SyncExtraValue:
 				{
 					int num222 = this.reader.ReadInt16();
 					float single10 = this.reader.ReadSingle();
@@ -3024,10 +3024,10 @@ namespace Terraria
 					}
 					NPC nPC2 = Main.npc[num222];
 					nPC2.extraValue = nPC2.extraValue + single10;
-					NetMessage.SendData(92, -1, -1, "", num222, Main.npc[num222].extraValue, single11, single12, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.SyncExtraValue, -1, -1, "", num222, Main.npc[num222].extraValue, single11, single12, 0, 0, 0);
 					return;
 				}
-				case 95:
+				case MessageID.MurderSomeoneElsesProjectile:
 				{
 					if (Main.netMode != 2)
 					{
@@ -3048,10 +3048,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(29, -1, -1, "", projectile1.whoAmI, (float)projectile1.owner, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ProjectileDestroy, -1, -1, "", projectile1.whoAmI, (float)projectile1.owner, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 96:
+				case MessageID.TeleportPlayerThroughPortal:
 				{
 					int num224 = this.reader.ReadByte();
 					Player player15 = Main.player[num224];
@@ -3063,7 +3063,7 @@ namespace Terraria
 					player15.velocity = vector29;
 					return;
 				}
-				case 97:
+				case MessageID.AchievementMessageNPCKilled:
 				{
 					if (Main.netMode != 1)
 					{
@@ -3072,7 +3072,7 @@ namespace Terraria
 					AchievementsHelper.NotifyNPCKilledDirect(Main.player[Main.myPlayer], this.reader.ReadInt16());
 					return;
 				}
-				case 99:
+				case MessageID.MinionTargetUpdate:
 				{
 					int num226 = this.reader.ReadByte();
 					if (Main.netMode == 2)
@@ -3085,10 +3085,10 @@ namespace Terraria
 					{
 						return;
 					}
-					NetMessage.SendData(99, -1, this.whoAmI, "", num226, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.UpdateMinionTarget, -1, this.whoAmI, "", num226, 0f, 0f, 0f, 0, 0, 0);
 					return;
 				}
-				case 100:
+				case MessageID.TeleportNPCThroughPortal:
 				{
 					int num227 = this.reader.ReadUInt16();
 					NPC nPC3 = Main.npc[num227];
@@ -3100,7 +3100,7 @@ namespace Terraria
 					nPC3.velocity = vector211;
 					return;
 				}
-				case 101:
+				case MessageID.UpdateTowerShieldStrengths:
 				{
 					if (Main.netMode == 2)
 					{
@@ -3112,7 +3112,7 @@ namespace Terraria
 					NPC.ShieldStrengthTowerStardust = this.reader.ReadUInt16();
 					return;
 				}
-				case 102:
+				case MessageID.NebulaLevelupRequest:
 				{
 					int num229 = this.reader.ReadByte();
 					byte num230 = this.reader.ReadByte();
@@ -3120,7 +3120,7 @@ namespace Terraria
 					if (Main.netMode == 2)
 					{
 						num229 = this.whoAmI;
-						NetMessage.SendData(102, -1, -1, "", num229, (float)num230, vector212.X, vector212.Y, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.NebulaLevelUp, -1, -1, "", num229, (float)num230, vector212.X, vector212.Y, 0, 0, 0);
 						return;
 					}
 					Player player17 = Main.player[num229];
@@ -3140,7 +3140,7 @@ namespace Terraria
 					}
 					return;
 				}
-				case 103:
+				case MessageID.MoonlordHorror:
 				{
 					if (Main.netMode != 1)
 					{
@@ -3149,7 +3149,7 @@ namespace Terraria
 					NPC.MoonLordCountdown = this.reader.ReadInt32();
 					return;
 				}
-				case 104:
+				case MessageID.ShopOverride:
 				{
 					if (Main.netMode != 1 || Main.npcShop <= 0)
 					{

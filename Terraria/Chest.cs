@@ -2,6 +2,7 @@
 using System;
 using Terraria.DataStructures;
 using Terraria.GameContent.Achievements;
+using Terraria.ID;
 using Terraria.ObjectData;
 
 namespace Terraria
@@ -106,11 +107,11 @@ namespace Terraria
 			}
 			else if (type != 21)
 			{
-				NetMessage.SendData(34, -1, -1, "", 2, (float)x, (float)y, (float)style, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", 2, (float)x, (float)y, (float)style, 0, 0, 0);
 			}
 			else
 			{
-				NetMessage.SendData(34, -1, -1, "", 0, (float)x, (float)y, (float)style, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.TileKill, -1, -1, "", 0, (float)x, (float)y, (float)style, 0, 0, 0);
 			}
 			return num;
 		}
@@ -663,7 +664,7 @@ namespace Terraria
 		public static void ServerPlaceItem(int plr, int slot)
 		{
 			Main.player[plr].inventory[slot] = Chest.PutItemInNearbyChest(Main.player[plr].inventory[slot], Main.player[plr].Center);
-			NetMessage.SendData(5, -1, -1, "", plr, (float)slot, (float)Main.player[plr].inventory[slot].prefix, 0f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.PlayerSlot, -1, -1, "", plr, (float)slot, (float)Main.player[plr].inventory[slot].prefix, 0f, 0, 0, 0);
 		}
 
 		public void SetupShop(int type)
@@ -1037,7 +1038,7 @@ namespace Terraria
 						this.item[num12].SetDefaults(2858, false);
 					}
 				}
-				if (NPC.AnyNPCs(441))
+				if (NPC.AnyNPCs(NPCID.TaxCollector))
 				{
 					int num13 = num;
 					num = num13 + 1;
@@ -1174,7 +1175,7 @@ namespace Terraria
 				int num18 = num;
 				num = num18 + 1;
 				this.item[num18].SetDefaults(2799, false);
-				if (NPC.AnyNPCs(369) && Main.hardMode && Main.moonPhase == 3)
+				if (NPC.AnyNPCs(NPCID.Angler) && Main.hardMode && Main.moonPhase == 3)
 				{
 					this.item[num].SetDefaults(2295, false);
 					num++;
@@ -1350,7 +1351,7 @@ namespace Terraria
 					this.item[num].SetDefaults(3548, false);
 					num++;
 				}
-				if (NPC.AnyNPCs(229))
+				if (NPC.AnyNPCs(NPCID.Pirate))
 				{
 					int num22 = num;
 					num = num22 + 1;
@@ -1546,7 +1547,7 @@ namespace Terraria
 				num++;
 				this.item[num].SetDefaults(986, false);
 				num++;
-				if (NPC.AnyNPCs(108))
+				if (NPC.AnyNPCs(NPCID.Wizard))
 				{
 					int num25 = num;
 					num = num25 + 1;
@@ -1638,7 +1639,7 @@ namespace Terraria
 					this.item[num].SetDefaults(1180, false);
 					num++;
 				}
-				if (Main.hardMode && NPC.downedMechBossAny && NPC.AnyNPCs(208))
+				if (Main.hardMode && NPC.downedMechBossAny && NPC.AnyNPCs(NPCID.PartyGirl))
 				{
 					this.item[num].SetDefaults(1337, false);
 					num++;
@@ -1700,7 +1701,7 @@ namespace Terraria
 					this.item[num].SetDefaults(1983, false);
 					num++;
 				}
-				if (NPC.AnyNPCs(208))
+				if (NPC.AnyNPCs(NPCID.PartyGirl))
 				{
 					this.item[num].SetDefaults(1984, false);
 					num++;

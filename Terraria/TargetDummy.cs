@@ -39,7 +39,7 @@ namespace Terraria
 			this.npc = num;
 			if (Main.netMode != 1)
 			{
-				NetMessage.SendData(86, -1, -1, "", this.whoAmI, (float)this.x, (float)this.y, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.UpdateTileEntity, -1, -1, "", this.whoAmI, (float)this.x, (float)this.y, 0f, 0, 0, 0);
 			}
 		}
 
@@ -52,7 +52,7 @@ namespace Terraria
 			this.npc = -1;
 			if (Main.netMode != 1)
 			{
-				NetMessage.SendData(86, -1, -1, "", this.whoAmI, (float)this.x, (float)this.y, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.UpdateTileEntity, -1, -1, "", this.whoAmI, (float)this.x, (float)this.y, 0f, 0, 0, 0);
 			}
 		}
 
@@ -75,7 +75,7 @@ namespace Terraria
 				return TargetDummy.Place(x - 1, y - 2);
 			}
 			NetMessage.SendTileSquare(Main.myPlayer, x - 1, y - 1, 3);
-			NetMessage.SendData(87, -1, -1, "", x - 1, (float)(y - 2), 0f, 0f, 0, 0, 0);
+			NetMessage.SendData((int)PacketTypes.PlaceTileEntity, -1, -1, "", x - 1, (float)(y - 2), 0f, 0f, 0, 0, 0);
 			return -1;
 		}
 

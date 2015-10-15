@@ -6142,7 +6142,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Creates a magical shadow orb";
 				this.value = 10000;
-				this.buffType = 19;
+				this.buffType = BuffID.ShadowOrb;
 			}
 			else if (type == 116)
 			{
@@ -8759,7 +8759,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 1;
+				this.buffType = BuffID.ObsidianSkin;
 				this.buffTime = 14400;
 				this.toolTip = "Provides immunity to lava";
 				this.value = 1000;
@@ -8778,7 +8778,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 2;
+				this.buffType = BuffID.Regeneration;
 				this.buffTime = 18000;
 				this.toolTip = "Provides life regeneration";
 				this.value = 1000;
@@ -8797,7 +8797,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 3;
+				this.buffType = BuffID.Swiftness;
 				this.buffTime = 14400;
 				this.toolTip = "25% increased movement speed";
 				this.value = 1000;
@@ -8816,7 +8816,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 4;
+				this.buffType = BuffID.Gills;
 				this.buffTime = 7200;
 				this.toolTip = "Breathe water instead of air";
 				this.value = 1000;
@@ -8835,7 +8835,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 5;
+				this.buffType = BuffID.Ironskin;
 				this.buffTime = 18000;
 				this.toolTip = "Increase defense by 8";
 				this.value = 1000;
@@ -8854,7 +8854,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 6;
+				this.buffType = BuffID.ManaRegeneration;
 				this.buffTime = 25200;
 				this.toolTip = "Increased mana regeneration";
 				this.value = 1000;
@@ -8873,7 +8873,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 7;
+				this.buffType = BuffID.MagicPower;
 				this.buffTime = 7200;
 				this.toolTip = "20% increased magic damage";
 				this.value = 1000;
@@ -8892,7 +8892,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 8;
+				this.buffType = BuffID.Featherfall;
 				this.buffTime = 18000;
 				this.toolTip = "Slows falling speed";
 				this.value = 1000;
@@ -8911,7 +8911,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 9;
+				this.buffType = BuffID.Spelunker;
 				this.buffTime = 18000;
 				this.toolTip = "Shows the location of treasure and ore";
 				this.value = 1000;
@@ -8930,7 +8930,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 10;
+				this.buffType = BuffID.Invisibility;
 				this.buffTime = 7200;
 				this.toolTip = "Grants invisibility";
 				this.value = 1000;
@@ -8949,7 +8949,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 11;
+				this.buffType = BuffID.Shine;
 				this.buffTime = 18000;
 				this.toolTip = "Emits an aura of light";
 				this.value = 1000;
@@ -8968,7 +8968,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 12;
+				this.buffType = BuffID.NightOwl;
 				this.buffTime = 14400;
 				this.toolTip = "Increases night vision";
 				this.value = 1000;
@@ -8987,7 +8987,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 13;
+				this.buffType = BuffID.Battle;
 				this.buffTime = 25200;
 				this.toolTip = "Increases enemy spawn rate";
 				this.value = 1000;
@@ -9006,7 +9006,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 14;
+				this.buffType = BuffID.Thorns;
 				this.buffTime = 7200;
 				this.toolTip = "Attackers also take damage";
 				this.value = 1000;
@@ -9025,7 +9025,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 15;
+				this.buffType = BuffID.WaterWalking;
 				this.buffTime = 18000;
 				this.toolTip = "Allows the ability to walk on water";
 				this.value = 1000;
@@ -9044,7 +9044,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 16;
+				this.buffType = BuffID.Archery;
 				this.buffTime = 14400;
 				this.toolTip = "20% increased arrow speed and damage";
 				this.value = 1000;
@@ -9063,7 +9063,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 17;
+				this.buffType = BuffID.Hunter;
 				this.buffTime = 18000;
 				this.toolTip = "Shows the location of enemies";
 				this.value = 1000;
@@ -9082,7 +9082,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 18;
+				this.buffType = BuffID.Gravitation;
 				this.buffTime = 10800;
 				this.toolTip = "Allows the control of gravity";
 				this.value = 1000;
@@ -9760,7 +9760,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 10;
 				this.height = 10;
-				this.buffType = 25;
+				this.buffType = BuffID.Tipsy;
 				this.buffTime = 7200;
 				this.value = 100;
 				return;
@@ -9825,7 +9825,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 10;
 				this.height = 10;
-				this.buffType = 26;
+				this.buffType = BuffID.WellFed;
 				this.buffTime = 108000;
 				this.rare = 1;
 				this.toolTip = "Minor improvements to all stats";
@@ -10896,7 +10896,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a magical fairy";
 				this.value = (this.value = 250000);
-				this.buffType = 27;
+				this.buffType = BuffID.FairyBlue;
 				return;
 			}
 			if (type == 426)
@@ -13794,7 +13794,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a pet bunny";
 				this.value = 0;
-				this.buffType = 40;
+				this.buffType = BuffID.PetBunny;
 				return;
 			}
 			if (type == 604)
@@ -14844,7 +14844,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a baby penguin";
-				this.buffType = 41;
+				this.buffType = BuffID.BabyPenguin;
 				this.value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
@@ -16085,7 +16085,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a turtle";
 				this.value = Item.sellPrice(0, 2, 0, 0);
-				this.buffType = 42;
+				this.buffType = BuffID.PetTurtle;
 				return;
 			}
 			if (type == 754)
@@ -19265,7 +19265,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 12;
 				this.height = 12;
-				this.buffType = 26;
+				this.buffType = BuffID.WellFed;
 				this.buffTime = 36000;
 				this.rare = 1;
 				this.toolTip = "Minor improvements to all stats";
@@ -19674,7 +19674,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a Baby Eater of Souls";
 				this.value = 0;
-				this.buffType = 45;
+				this.buffType = BuffID.BabyEater;
 				return;
 			}
 			if (type == 995)
@@ -21728,7 +21728,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.knockBack = 3f;
 				this.toolTip = "Summons a pygmy to fight for you";
-				this.buffType = 49;
+				this.buffType = BuffID.Pygmies;
 				this.value = 100000;
 				this.summon = true;
 				return;
@@ -21894,7 +21894,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a Baby Skeletron Head";
 				this.value = Item.sellPrice(0, 5, 0, 0);
-				this.buffType = 50;
+				this.buffType = BuffID.BabySkeletronHead;
 				return;
 			}
 			if (type == 1170)
@@ -21912,7 +21912,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a Baby Hornet";
 				this.value = Item.sellPrice(0, 3, 0, 0);
-				this.buffType = 51;
+				this.buffType = BuffID.BabyHornet;
 				return;
 			}
 			if (type == 1171)
@@ -21929,7 +21929,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a Tiki Spirit";
-				this.buffType = 52;
+				this.buffType = BuffID.TikiSpirit;
 				this.value = Item.buyPrice(2, 0, 0, 0);
 				return;
 			}
@@ -21948,7 +21948,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a Pet Lizard";
 				this.value = Item.sellPrice(0, 2, 0, 0);
-				this.buffType = 53;
+				this.buffType = BuffID.PetLizard;
 				return;
 			}
 			if (type == 1173)
@@ -22079,7 +22079,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a Pet Parrot";
-				this.buffType = 54;
+				this.buffType = BuffID.PetParrot;
 				this.value = Item.sellPrice(0, 75, 0, 0);
 				return;
 			}
@@ -22098,7 +22098,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a Baby Truffle";
 				this.value = Item.buyPrice(0, 45, 0, 0);
-				this.buffType = 55;
+				this.buffType = BuffID.BabyTruffle;
 				return;
 			}
 			if (type == 1182)
@@ -22116,7 +22116,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a Pet Sapling";
 				this.value = Item.sellPrice(0, 2, 0, 0);
-				this.buffType = 56;
+				this.buffType = BuffID.PetSapling;
 				return;
 			}
 			if (type == 1183)
@@ -22134,7 +22134,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a Wisp to provide light";
 				this.value = Item.sellPrice(0, 5, 50, 0);
-				this.buffType = 57;
+				this.buffType = BuffID.Wisp;
 				return;
 			}
 			if (type == 1184)
@@ -23208,7 +23208,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a Baby Dinosaur";
 				this.value = Item.sellPrice(0, 7, 50, 0);
-				this.buffType = 61;
+				this.buffType = BuffID.BabyDinosaur;
 				return;
 			}
 			if (type == 1243)
@@ -24249,7 +24249,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.knockBack = 2f;
 				this.toolTip = "Summons a baby slime to fight for you";
-				this.buffType = 64;
+				this.buffType = BuffID.BabySlime;
 				this.value = 100000;
 				this.summon = true;
 				return;
@@ -24287,7 +24287,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons an eye spring";
 				this.value = Item.sellPrice(0, 3, 0, 0);
-				this.buffType = 65;
+				this.buffType = BuffID.EyeballSpring;
 				return;
 			}
 			if (type == 1312)
@@ -24305,7 +24305,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a baby snowman";
 				this.value = Item.sellPrice(0, 2, 50, 0);
-				this.buffType = 66;
+				this.buffType = BuffID.BabySnowman;
 				return;
 			}
 			if (type == 1313)
@@ -24747,7 +24747,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 71;
+				this.buffType = BuffID.WeaponImbueVenom;
 				this.buffTime = 72000;
 				this.toolTip = "Melee attacks inflict venom on enemies";
 				this.value = Item.sellPrice(0, 0, 5, 0);
@@ -24945,7 +24945,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 73;
+				this.buffType = BuffID.WeaponImbueCursedFlames;
 				this.buffTime = 72000;
 				this.value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
@@ -24963,7 +24963,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 74;
+				this.buffType = BuffID.WeaponImbueFire;
 				this.buffTime = 72000;
 				this.value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
@@ -24981,7 +24981,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 75;
+				this.buffType = BuffID.WeaponImbueGold;
 				this.buffTime = 72000;
 				this.value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
@@ -24999,7 +24999,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 76;
+				this.buffType = BuffID.WeaponImbueIchor;
 				this.buffTime = 72000;
 				this.value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
@@ -25017,7 +25017,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 77;
+				this.buffType = BuffID.WeaponImbueNanites;
 				this.buffTime = 72000;
 				this.value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
@@ -25035,7 +25035,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 78;
+				this.buffType = BuffID.WeaponImbueConfetti;
 				this.buffTime = 72000;
 				this.value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
@@ -25053,7 +25053,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 14;
 				this.height = 24;
-				this.buffType = 79;
+				this.buffType = BuffID.WeaponImbuePoison;
 				this.buffTime = 72000;
 				this.value = Item.sellPrice(0, 0, 5, 0);
 				this.rare = 4;
@@ -28853,7 +28853,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 10;
 				this.height = 10;
-				this.buffType = 26;
+				this.buffType = BuffID.WellFed;
 				this.buffTime = 162000;
 				this.rare = 1;
 				this.toolTip = "Minor improvements to all stats";
@@ -29014,7 +29014,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a pet spider";
-				this.buffType = 81;
+				this.buffType = BuffID.PetSpider;
 				this.value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
@@ -29032,7 +29032,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.toolTip = "Summons a squashling";
-				this.buffType = 82;
+				this.buffType = BuffID.Squashling;
 				this.value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
@@ -29093,7 +29093,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.knockBack = 3f;
 				this.toolTip = "Summons a raven to fight for you";
-				this.buffType = 83;
+				this.buffType = BuffID.Ravens;
 				this.value = 100000;
 				this.summon = true;
 				return;
@@ -29151,7 +29151,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 3;
 				this.noMelee = true;
-				this.buffType = 84;
+				this.buffType = BuffID.BlackCat;
 				this.value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
@@ -29541,7 +29541,7 @@ namespace Terraria
 				this.useTime = 20;
 				this.rare = 3;
 				this.noMelee = true;
-				this.buffType = 85;
+				this.buffType = BuffID.CursedSapling;
 				this.value = Item.sellPrice(0, 2, 0, 0);
 				return;
 			}
@@ -30031,7 +30031,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 10;
 				this.height = 10;
-				this.buffType = 26;
+				this.buffType = BuffID.WellFed;
 				this.buffTime = 126000;
 				this.rare = 1;
 				this.toolTip = "Minor improvements to all stats";
@@ -30180,7 +30180,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 10;
 				this.height = 10;
-				this.buffType = 26;
+				this.buffType = BuffID.WellFed;
 				this.buffTime = 108000;
 				this.rare = 1;
 				this.toolTip = "Minor improvements to all stats";
@@ -30199,7 +30199,7 @@ namespace Terraria
 				this.consumable = true;
 				this.width = 10;
 				this.height = 10;
-				this.buffType = 26;
+				this.buffType = BuffID.WellFed;
 				this.buffTime = 108000;
 				this.rare = 1;
 				this.toolTip = "Minor improvements to all stats";
@@ -30298,7 +30298,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a Puppy";
 				this.value = 0;
-				this.buffType = 91;
+				this.buffType = BuffID.Puppy;
 				return;
 			}
 			if (type == 1928)
@@ -30610,7 +30610,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Summons a Baby Grinch";
 				this.value = 0;
-				this.buffType = 92;
+				this.buffType = BuffID.BabyGrinch;
 				return;
 			}
 			if (type == 1960 || type == 1961 || type == 1962)
@@ -32815,7 +32815,7 @@ namespace Terraria
 							this.consumable = true;
 							this.width = 10;
 							this.height = 10;
-							this.buffType = 25;
+							this.buffType = BuffID.Tipsy;
 							this.buffTime = 14400;
 							this.rare = 1;
 							this.value = Item.buyPrice(0, 0, 5, 0);
@@ -32833,7 +32833,7 @@ namespace Terraria
 							this.consumable = true;
 							this.width = 10;
 							this.height = 10;
-							this.buffType = 26;
+							this.buffType = BuffID.WellFed;
 							this.buffTime = 36000;
 							this.rare = 1;
 							this.toolTip = "Minor improvements to all stats";
@@ -32852,7 +32852,7 @@ namespace Terraria
 							this.consumable = true;
 							this.width = 10;
 							this.height = 10;
-							this.buffType = 26;
+							this.buffType = BuffID.WellFed;
 							this.buffTime = 54000;
 							this.rare = 1;
 							this.toolTip = "Minor improvements to all stats";
@@ -33345,7 +33345,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 104;
+									this.buffType = BuffID.Mining;
 									this.buffTime = 28800;
 									this.toolTip = "Increases mining speed";
 									this.value = 1000;
@@ -33364,7 +33364,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 105;
+									this.buffType = BuffID.Heartreach;
 									this.buffTime = 28800;
 									this.toolTip = "Increases pickup range for life hearts";
 									this.value = 1000;
@@ -33383,7 +33383,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 106;
+									this.buffType = BuffID.Calm;
 									this.buffTime = 18000;
 									this.toolTip = "Reduces enemy aggression and spawn rate";
 									this.value = 1000;
@@ -33402,7 +33402,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 107;
+									this.buffType = BuffID.Builder;
 									this.buffTime = 54000;
 									this.toolTip = "Increases placement speed and range";
 									this.value = 1000;
@@ -33421,7 +33421,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 108;
+									this.buffType = BuffID.Titan;
 									this.buffTime = 14400;
 									this.toolTip = "Increases knockback";
 									this.value = 1000;
@@ -33440,7 +33440,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 109;
+									this.buffType = BuffID.Flipper;
 									this.buffTime = 28800;
 									this.toolTip = "Lets you to move swiftly in liquids";
 									this.value = 1000;
@@ -33459,7 +33459,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 110;
+									this.buffType = BuffID.Summoning;
 									this.buffTime = 21600;
 									this.toolTip = "Increases your max number of minions";
 									this.value = 1000;
@@ -33478,7 +33478,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 111;
+									this.buffType = BuffID.Dangersense;
 									this.buffTime = 36000;
 									this.toolTip = "Allows you to see nearby traps";
 									this.value = 1000;
@@ -33703,7 +33703,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 112;
+									this.buffType = BuffID.AmmoReservation;
 									this.buffTime = 25200;
 									this.toolTip = "Gives 15% chance to not consume ammo";
 									this.value = 1000;
@@ -33722,7 +33722,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 113;
+									this.buffType = BuffID.Lifeforce;
 									this.buffTime = 18000;
 									this.toolTip = "Increases max life by 20%";
 									this.value = 1000;
@@ -33741,7 +33741,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 114;
+									this.buffType = BuffID.Endurance;
 									this.buffTime = 14400;
 									this.toolTip = "Reduces damage taken by 10%";
 									this.value = 1000;
@@ -33760,7 +33760,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 115;
+									this.buffType = BuffID.Rage;
 									this.buffTime = 14400;
 									this.toolTip = "Increases critical strike chance by 10%";
 									this.value = 1000;
@@ -33779,7 +33779,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 116;
+									this.buffType = BuffID.Inferno;
 									this.buffTime = 14400;
 									this.toolTip = "Ignites nearby enemies";
 									this.value = 1000;
@@ -33798,7 +33798,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 117;
+									this.buffType = BuffID.Wrath;
 									this.buffTime = 14400;
 									this.toolTip = "Increases damage by 10%";
 									this.value = 1000;
@@ -33889,7 +33889,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 121;
+									this.buffType = BuffID.Fishing;
 									this.buffTime = 28800;
 									this.toolTip = "Increases fishing skill";
 									this.rare = 1;
@@ -33908,7 +33908,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 122;
+									this.buffType = BuffID.Sonar;
 									this.buffTime = 14400;
 									this.value = 1000;
 									this.rare = 1;
@@ -33926,7 +33926,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 123;
+									this.buffType = BuffID.Crate;
 									this.buffTime = 10800;
 									this.value = 1000;
 									this.rare = 1;
@@ -33970,7 +33970,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 14;
 									this.height = 24;
-									this.buffType = 124;
+									this.buffType = BuffID.Warmth;
 									this.buffTime = 54000;
 									this.toolTip = "Reduces damage from cold sources";
 									this.value = 1000;
@@ -34048,7 +34048,7 @@ namespace Terraria
 									this.noMelee = true;
 									this.knockBack = 2f;
 									this.toolTip = "Summons a hornet to fight for you";
-									this.buffType = 125;
+									this.buffType = BuffID.HornetMinion;
 									this.value = 10000;
 									this.summon = true;
 									return;
@@ -34070,7 +34070,7 @@ namespace Terraria
 									this.noMelee = true;
 									this.knockBack = 2f;
 									this.toolTip = "Summons an imp to fight for you";
-									this.buffType = 126;
+									this.buffType = BuffID.ImpMinion;
 									this.value = 10000;
 									this.summon = true;
 									return;
@@ -34322,7 +34322,7 @@ namespace Terraria
 									this.consumable = true;
 									this.width = 10;
 									this.height = 10;
-									this.buffType = 26;
+									this.buffType = BuffID.WellFed;
 									this.buffTime = 72000;
 									this.rare = 1;
 									this.toolTip = "Minor improvements to all stats";
@@ -35129,7 +35129,7 @@ namespace Terraria
 										this.noMelee = true;
 										this.knockBack = 2f;
 										this.toolTip = "Summons twins to fight for you";
-										this.buffType = 134;
+										this.buffType = BuffID.TwinEyesMinion;
 										this.value = Item.buyPrice(0, 10, 0, 0);
 										this.summon = true;
 										return;
@@ -35473,7 +35473,7 @@ namespace Terraria
 										this.noMelee = true;
 										this.knockBack = 3f;
 										this.toolTip = "Summons spiders to fight for you";
-										this.buffType = 133;
+										this.buffType = BuffID.SpiderMinion;
 										this.value = Item.buyPrice(0, 5, 0, 0);
 										this.summon = true;
 										return;
@@ -36031,7 +36031,7 @@ namespace Terraria
 										this.noMelee = true;
 										this.knockBack = 6f;
 										this.toolTip = "Summons pirates to fight for you";
-										this.buffType = 135;
+										this.buffType = BuffID.PirateMinion;
 										this.value = Item.buyPrice(0, 5, 0, 0);
 										this.summon = true;
 										return;
@@ -36091,7 +36091,7 @@ namespace Terraria
 										this.rare = 3;
 										this.noMelee = true;
 										this.toolTip = "Summons a mini minotaur";
-										this.buffType = 136;
+										this.buffType = BuffID.MiniMinotaur;
 										this.value = Item.sellPrice(0, 2, 0, 0);
 										return;
 									}
@@ -36282,7 +36282,7 @@ namespace Terraria
 										this.noMelee = true;
 										this.knockBack = 2f;
 										this.toolTip = "Summons sharknados to fight for you";
-										this.buffType = 139;
+										this.buffType = BuffID.SharknadoMinion;
 										this.value = Item.sellPrice(0, 5, 0, 0);
 										this.summon = true;
 										return;
@@ -37114,7 +37114,7 @@ namespace Terraria
 												this.noMelee = true;
 												this.knockBack = 2f;
 												this.toolTip = "Summons a UFO to fight for you";
-												this.buffType = 140;
+												this.buffType = BuffID.UFOMinion;
 												this.value = 10000;
 												this.summon = true;
 												return;
@@ -39358,7 +39358,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.value = Item.buyPrice(0, 10, 0, 0);
-				this.buffType = 152;
+				this.buffType = BuffID.MagicLantern;
 				return;
 			}
 			if (type == 3044)
@@ -39533,7 +39533,7 @@ namespace Terraria
 				this.rare = 3;
 				this.noMelee = true;
 				this.value = Item.sellPrice(0, 7, 50, 0);
-				this.buffType = 154;
+				this.buffType = BuffID.BabyFaceMonster;
 				return;
 			}
 			if (type == 3062)
@@ -39552,7 +39552,7 @@ namespace Terraria
 				this.noMelee = true;
 				this.toolTip = "Creates a magical crimson heart";
 				this.value = 10000;
-				this.buffType = 155;
+				this.buffType = BuffID.CrimsonHeart;
 				return;
 			}
 			if (type == 3063)
@@ -41207,7 +41207,7 @@ namespace Terraria
 						this.consumable = true;
 						this.width = 10;
 						this.height = 10;
-						this.buffType = 26;
+						this.buffType = BuffID.WellFed;
 						this.buffTime = 108000;
 						this.rare = 1;
 						this.toolTip = "Minor improvements to all stats";
@@ -41625,7 +41625,7 @@ namespace Terraria
 						this.name = "Deadly Sphere Staff";
 						this.shootSpeed = 10f;
 						this.shoot = 533;
-						this.buffType = 161;
+						this.buffType = BuffID.DeadlySphere;
 						this.width = 26;
 						this.height = 28;
 						this.useSound = 113;
@@ -42930,13 +42930,13 @@ namespace Terraria
 								switch (type)
 								{
 								case 3453:
-									this.buffType = 179;
+									this.buffType = BuffID.NebulaUpDmg1;
 									return;
 								case 3454:
-									this.buffType = 173;
+									this.buffType = BuffID.NebulaUpLife1;
 									return;
 								case 3455:
-									this.buffType = 176;
+									this.buffType = BuffID.NebulaUpMana1;
 									return;
 								default:
 									return;
@@ -43111,7 +43111,7 @@ namespace Terraria
 									this.rare = 10;
 									this.noMelee = true;
 									this.knockBack = 2f;
-									this.buffType = 182;
+									this.buffType = BuffID.StardustMinion;
 									this.value = Item.sellPrice(0, 10, 0, 0);
 									this.summon = true;
 									return;
@@ -43770,7 +43770,7 @@ namespace Terraria
 										this.rare = 10;
 										this.noMelee = true;
 										this.knockBack = 2f;
-										this.buffType = 188;
+										this.buffType = BuffID.StardustDragonMinion;
 										this.value = Item.sellPrice(0, 10, 0, 0);
 										this.summon = true;
 										return;
@@ -43811,7 +43811,7 @@ namespace Terraria
 										this.consumable = true;
 										this.width = 10;
 										this.height = 10;
-										this.buffType = 26;
+										this.buffType = BuffID.WellFed;
 										this.buffTime = 108000;
 										this.rare = 1;
 										this.toolTip = "Minor improvements to all stats";
@@ -44503,7 +44503,7 @@ namespace Terraria
 										this.noMelee = true;
 										this.toolTip = "Summons a suspicious tentacle";
 										this.value = Item.sellPrice(0, 10, 0, 0);
-										this.buffType = 190;
+										this.buffType = BuffID.SuspiciousTentacle;
 										return;
 									}
 									if (type == 3578)
@@ -45602,8 +45602,8 @@ namespace Terraria
 									}
 									if (Main.netMode != 0 && this.owner == Main.myPlayer)
 									{
-										NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
-										NetMessage.SendData(21, -1, -1, "", j, 0f, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", j, 0f, 0f, 0f, 0, 0, 0);
 									}
 								}
 							}
@@ -45682,14 +45682,14 @@ namespace Terraria
 										}
 										else
 										{
-											NetMessage.SendData(92, -1, -1, "", num13, num12, this.position.X, this.position.Y, 0, 0, 0);
+											NetMessage.SendData((int)PacketTypes.SyncExtraValue, -1, -1, "", num13, num12, this.position.X, this.position.Y, 0, 0, 0);
 										}
 										if (this.stack <= 0)
 										{
 											this.SetDefaults(0, false);
 											this.active = false;
 										}
-										NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+										NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 									}
 								}
 							}
@@ -45793,17 +45793,17 @@ namespace Terraria
 								this.stack = 0;
 								for (int num17 = 0; num17 < 200; num17++)
 								{
-									if (Main.npc[num17].active && Main.npc[num17].type == 22)
+									if (Main.npc[num17].active && Main.npc[num17].type == NPCID.Guide)
 									{
 										if (Main.netMode == 2)
 										{
-											NetMessage.SendData(28, -1, -1, "", num17, 9999f, 10f, (float)(-(float)Main.npc[num17].direction), 0, 0, 0);
+											NetMessage.SendData((int)PacketTypes.NpcStrike, -1, -1, "", num17, 9999f, 10f, (float)(-(float)Main.npc[num17].direction), 0, 0, 0);
 										}
 										Main.npc[num17].StrikeNPCNoInteraction(9999, 10f, -Main.npc[num17].direction, false, false, false);
 										NPC.SpawnWOF(this.position);
 									}
 								}
-								NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 							}
 						}
 						else if (this.owner == Main.myPlayer && this.type != 312 && this.type != 318 && this.type != 173 && this.type != 174 && this.type != 175 && this.type != 2701 && this.rare == 0)
@@ -45814,7 +45814,7 @@ namespace Terraria
 							this.stack = 0;
 							if (Main.netMode != 0)
 							{
-								NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+								NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 							}
 						}
 					}
@@ -45870,7 +45870,7 @@ namespace Terraria
 						this.stack = 0;
 						if (Main.netMode == 2)
 						{
-							NetMessage.SendData(21, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+							NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 						}
 					}
 				}
@@ -46024,7 +46024,7 @@ namespace Terraria
 					if (this.release >= 300)
 					{
 						this.release = 0;
-						NetMessage.SendData(39, this.owner, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
+						NetMessage.SendData((int)PacketTypes.RemoveItemOwner, this.owner, -1, "", i, 0f, 0f, 0f, 0, 0, 0);
 					}
 				}
 				if (this.wet)
@@ -46144,7 +46144,7 @@ namespace Terraria
 				{
 					num3 = 1;
 				}
-				NetMessage.SendData(21, -1, -1, "", num, (float)num3, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", num, (float)num3, 0f, 0f, 0, 0, 0);
 				Main.item[num].FindOwner(num);
 			}
 			else if (Main.netMode == 0)
@@ -46184,10 +46184,10 @@ namespace Terraria
 			}
 			if (this.owner != num && ((num == Main.myPlayer && Main.netMode == 1) || (num == 255 && Main.netMode == 2) || (num != 255 && !Main.player[num].active)))
 			{
-				NetMessage.SendData(21, -1, -1, "", whoAmI, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.ItemDrop, -1, -1, "", whoAmI, 0f, 0f, 0f, 0, 0, 0);
 				if (this.active)
 				{
-					NetMessage.SendData(22, -1, -1, "", whoAmI, 0f, 0f, 0f, 0, 0, 0);
+					NetMessage.SendData((int)PacketTypes.ItemOwner, -1, -1, "", whoAmI, 0f, 0f, 0f, 0, 0, 0);
 				}
 			}
 		}

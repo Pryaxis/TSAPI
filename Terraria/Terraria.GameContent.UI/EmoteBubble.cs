@@ -88,7 +88,7 @@ namespace Terraria.GameContent.UI
 			if (Main.netMode == 2)
 			{
 				Tuple<int, int> tuple = EmoteBubble.SerializeNetAnchor(bubbleAnchor);
-				NetMessage.SendData(91, -1, -1, "", emoteBubble.ID, (float)tuple.Item1, (float)tuple.Item2, (float)time, emoticon, 0, 0);
+				NetMessage.SendData((int)PacketTypes.EmoteBubble, -1, -1, "", emoteBubble.ID, (float)tuple.Item1, (float)tuple.Item2, (float)time, emoticon, 0, 0);
 			}
 			return emoteBubble.ID;
 		}
@@ -101,7 +101,7 @@ namespace Terraria.GameContent.UI
 			if (Main.netMode == 2)
 			{
 				Tuple<int, int> tuple = EmoteBubble.SerializeNetAnchor(bubbleAnchor);
-				NetMessage.SendData(91, -1, -1, "", emoteBubble.ID, (float)tuple.Item1, (float)tuple.Item2, (float)time, emoteBubble.emote, emoteBubble.metadata, 0);
+				NetMessage.SendData((int)PacketTypes.EmoteBubble, -1, -1, "", emoteBubble.ID, (float)tuple.Item1, (float)tuple.Item2, (float)time, emoteBubble.emote, emoteBubble.metadata, 0);
 			}
 			return emoteBubble.ID;
 		}

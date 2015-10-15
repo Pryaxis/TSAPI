@@ -662,7 +662,7 @@ namespace Terraria
 			mountedPlayer.position.Y = mountedPlayer.position.Y - (float)mountedPlayer.height;
 			if (mountedPlayer.whoAmI == Main.myPlayer)
 			{
-				NetMessage.SendData(13, -1, -1, "", mountedPlayer.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.PlayerUpdate, -1, -1, "", mountedPlayer.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
 
@@ -926,7 +926,7 @@ namespace Terraria
 			Mount.mounts[0] = mountDatum;
 			mountDatum.spawnDust = 57;
 			mountDatum.spawnDustNoGravity = false;
-			mountDatum.buff = 90;
+			mountDatum.buff = BuffID.Rudolph;
 			mountDatum.heightBoost = 20;
 			mountDatum.flightTimeMax = 160;
 			mountDatum.runSpeed = 5.5f;
@@ -969,7 +969,7 @@ namespace Terraria
 			mountDatum = new Mount.MountData();
 			Mount.mounts[2] = mountDatum;
 			mountDatum.spawnDust = 58;
-			mountDatum.buff = 129;
+			mountDatum.buff = BuffID.PigronMount;
 			mountDatum.heightBoost = 20;
 			mountDatum.flightTimeMax = 160;
 			mountDatum.runSpeed = 5f;
@@ -1013,7 +1013,7 @@ namespace Terraria
 			mountDatum = new Mount.MountData();
 			Mount.mounts[1] = mountDatum;
 			mountDatum.spawnDust = 15;
-			mountDatum.buff = 128;
+			mountDatum.buff = BuffID.BunnyMount;
 			mountDatum.heightBoost = 20;
 			mountDatum.flightTimeMax = 0;
 			mountDatum.fallDamage = 0.8f;
@@ -1059,7 +1059,7 @@ namespace Terraria
 			mountDatum = new Mount.MountData();
 			Mount.mounts[3] = mountDatum;
 			mountDatum.spawnDust = 56;
-			mountDatum.buff = 130;
+			mountDatum.buff = BuffID.SlimeMount;
 			mountDatum.heightBoost = 20;
 			mountDatum.flightTimeMax = 0;
 			mountDatum.fallDamage = 0.5f;
@@ -1103,7 +1103,7 @@ namespace Terraria
 			mountDatum.Minecart = true;
 			mountDatum.MinecartDirectional = true;
 			mountDatum.spawnDust = 213;
-			mountDatum.buff = 118;
+			mountDatum.buff = BuffID.MinecartLeft;
 			mountDatum.extraBuff = 138;
 			mountDatum.heightBoost = 10;
 			mountDatum.flightTimeMax = 0;
@@ -1144,7 +1144,7 @@ namespace Terraria
 			mountDatum = new Mount.MountData();
 			Mount.mounts[4] = mountDatum;
 			mountDatum.spawnDust = 56;
-			mountDatum.buff = 131;
+			mountDatum.buff = BuffID.TurtleMount;
 			mountDatum.heightBoost = 26;
 			mountDatum.flightTimeMax = 0;
 			mountDatum.fallDamage = 1f;
@@ -1187,7 +1187,7 @@ namespace Terraria
 			mountDatum = new Mount.MountData();
 			Mount.mounts[5] = mountDatum;
 			mountDatum.spawnDust = 152;
-			mountDatum.buff = 132;
+			mountDatum.buff = BuffID.BeeMount;
 			mountDatum.heightBoost = 16;
 			mountDatum.flightTimeMax = 320;
 			mountDatum.fatigueMax = 320;
@@ -1234,7 +1234,7 @@ namespace Terraria
 			Mount.mounts[7] = mountDatum;
 			mountDatum.spawnDust = 226;
 			mountDatum.spawnDustNoGravity = true;
-			mountDatum.buff = 141;
+			mountDatum.buff = BuffID.UFOMount;
 			mountDatum.heightBoost = 16;
 			mountDatum.flightTimeMax = 320;
 			mountDatum.fatigueMax = 320;
@@ -1279,7 +1279,7 @@ namespace Terraria
 			mountDatum = new Mount.MountData();
 			Mount.mounts[8] = mountDatum;
 			mountDatum.spawnDust = 226;
-			mountDatum.buff = 142;
+			mountDatum.buff = BuffID.DrillMount;
 			mountDatum.heightBoost = 16;
 			mountDatum.flightTimeMax = 320;
 			mountDatum.fatigueMax = 320;
@@ -1327,7 +1327,7 @@ namespace Terraria
 			mountDatum = new Mount.MountData();
 			Mount.mounts[9] = mountDatum;
 			mountDatum.spawnDust = 152;
-			mountDatum.buff = 143;
+			mountDatum.buff = BuffID.ScutlixMount;
 			mountDatum.heightBoost = 16;
 			mountDatum.flightTimeMax = 0;
 			mountDatum.fatigueMax = 0;
@@ -1380,7 +1380,7 @@ namespace Terraria
 			mountDatum = new Mount.MountData();
 			Mount.mounts[10] = mountDatum;
 			mountDatum.spawnDust = 15;
-			mountDatum.buff = 162;
+			mountDatum.buff = BuffID.UnicornMount;
 			mountDatum.heightBoost = 34;
 			mountDatum.flightTimeMax = 0;
 			mountDatum.fallDamage = 0.2f;
@@ -1433,7 +1433,7 @@ namespace Terraria
 			Mount.mounts[11] = mountDatum;
 			mountDatum.Minecart = true;
 			mountDatum.spawnDust = 213;
-			mountDatum.buff = 167;
+			mountDatum.buff = BuffID.MinecartLeftMech;
 			mountDatum.extraBuff = 166;
 			mountDatum.heightBoost = 12;
 			mountDatum.flightTimeMax = 0;
@@ -1474,7 +1474,7 @@ namespace Terraria
 			mountDatum = new Mount.MountData();
 			Mount.mounts[12] = mountDatum;
 			mountDatum.spawnDust = 15;
-			mountDatum.buff = 168;
+			mountDatum.buff = BuffID.CuteFishronMount;
 			mountDatum.heightBoost = 20;
 			mountDatum.flightTimeMax = 320;
 			mountDatum.fatigueMax = 320;
@@ -1522,7 +1522,7 @@ namespace Terraria
 			mountDatum.Minecart = true;
 			mountDatum.MinecartDirectional = true;
 			mountDatum.spawnDust = 213;
-			mountDatum.buff = 184;
+			mountDatum.buff = BuffID.MinecartLeftWood;
 			mountDatum.extraBuff = 185;
 			mountDatum.heightBoost = 10;
 			mountDatum.flightTimeMax = 0;
@@ -1738,7 +1738,7 @@ namespace Terraria
 			}
 			if (mountedPlayer.whoAmI == Main.myPlayer)
 			{
-				NetMessage.SendData(13, -1, -1, "", mountedPlayer.whoAmI, 0f, 0f, 0f, 0, 0, 0);
+				NetMessage.SendData((int)PacketTypes.PlayerUpdate, -1, -1, "", mountedPlayer.whoAmI, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
 
@@ -1761,7 +1761,7 @@ namespace Terraria
 			float y = Main.screenPosition.Y + (float)Main.mouseY;
 			float single = x - mountedPlayer.position.X;
 			float y1 = y - mountedPlayer.position.Y;
-			Projectile.NewProjectile(x, y, 0f, 0f, 441, 0, 0f, mountedPlayer.whoAmI, single, y1);
+			Projectile.NewProjectile(x, y, 0f, 0f, ProjectileID.ScutlixLaserCrosshair, 0, 0f, mountedPlayer.whoAmI, single, y1);
 			this._abilityCharging = true;
 		}
 
@@ -1809,7 +1809,7 @@ namespace Terraria
 			{
 				case 8:
 				{
-					if (mountedPlayer.ownedProjectileCounts[453] >= 1)
+					if (mountedPlayer.ownedProjectileCounts[ProjectileID.DrillMountCrosshair] >= 1)
 					{
 						break;
 					}
@@ -2433,7 +2433,7 @@ namespace Terraria
 							float y = Main.screenPosition.Y + (float)Main.mouseY;
 							float x1 = single - mountedPlayer.position.X;
 							float y1 = y - mountedPlayer.position.Y;
-							Projectile.NewProjectile(single, y, 0f, 0f, 453, 0, 0f, mountedPlayer.whoAmI, x1, y1);
+							Projectile.NewProjectile(single, y, 0f, 0f, ProjectileID.DrillMountCrosshair, 0, 0f, mountedPlayer.whoAmI, x1, y1);
 						}
 						this._abilityActive = true;
 						return;
