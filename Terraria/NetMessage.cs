@@ -162,7 +162,7 @@ namespace Terraria
 					{
 						item = player2.inventory[(int) number2];
 					}
-					if (item.name == "" || item.stack == 0 || item.type == 0)
+					if (item.name == "" || item.stack == 0 || item.type == ItemID.None)
 					{
 						item.SetDefaults(0, false);
 					}

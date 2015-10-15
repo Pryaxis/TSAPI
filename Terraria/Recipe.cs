@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Terraria.GameContent.Achievements;
+using Terraria.ID;
 
 namespace Terraria
 {
@@ -269,7 +270,7 @@ namespace Terraria
 						while (num6 < Recipe.maxRequirements)
 						{
 							item = Main.recipe[l].requiredItem[num6];
-							if (item.type == 0)
+							if (item.type == ItemID.None)
 							{
 								break;
 							}

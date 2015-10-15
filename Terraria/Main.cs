@@ -31,7 +31,7 @@ namespace Terraria
 	{
 		public const int offLimitBorderTiles = 40;
 
-		public const int maxItemTypes = 3602;
+		public const int maxItemTypes = ItemID.Count;
 
 		public const int maxProjectileTypes = 651;
 
