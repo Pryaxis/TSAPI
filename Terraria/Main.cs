@@ -2971,7 +2971,6 @@ namespace Terraria
 			if (now.Day >= 15 && now.Month == 12)
 			{
 				xmas = true;
-				return;
 			}
 
 			ServerApi.Hooks.InvokeWorldChristmasCheck(ref xmas);
