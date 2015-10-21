@@ -2757,12 +2757,10 @@ namespace Terraria
 			if (day >= 20 && month == 10)
 			{
 				_halloween = true;
-				return;
 			}
 			if (day <= 10 && month == 11)
 			{
 				_halloween = true;
-				return;
 			}
 
 			ServerApi.Hooks.InvokeWorldHalloweenCheck(ref _halloween);
