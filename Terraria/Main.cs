@@ -2757,12 +2757,10 @@ namespace Terraria
 			if (day >= 20 && month == 10)
 			{
 				_halloween = true;
-				return;
 			}
 			if (day <= 10 && month == 11)
 			{
 				_halloween = true;
-				return;
 			}
 
 			ServerApi.Hooks.InvokeWorldHalloweenCheck(ref _halloween);
@@ -2973,7 +2971,6 @@ namespace Terraria
 			if (now.Day >= 15 && now.Month == 12)
 			{
 				xmas = true;
-				return;
 			}
 
 			ServerApi.Hooks.InvokeWorldChristmasCheck(ref xmas);
@@ -7282,6 +7279,7 @@ namespace Terraria
 			Main.wallHouse[45] = true;
 			Main.wallHouse[46] = true;
 			Main.wallHouse[47] = true;
+			Main.wallHouse[60] = true;
 			Main.wallHouse[66] = true;
 			Main.wallHouse[67] = true;
 			Main.wallHouse[68] = true;

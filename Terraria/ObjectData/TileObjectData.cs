@@ -1704,7 +1704,7 @@ namespace Terraria.ObjectData
 			num = (!item.StyleHorizontal ? num2 * styleWrapLimit + num3 : num3 * styleWrapLimit + num2);
 			int styleMultiplier = num / item.StyleMultiplier;
 			int styleMultiplier1 = num % item.StyleMultiplier;
-			if (item._subTiles != null && styleMultiplier >= 0 && styleMultiplier < item.SubTiles.Count)
+			if (item.SubTiles != null && styleMultiplier >= 0 && styleMultiplier < item.SubTiles.Count)
 			{
 				TileObjectData tileObjectDatum = item.SubTiles[styleMultiplier];
 				if (tileObjectDatum != null)
