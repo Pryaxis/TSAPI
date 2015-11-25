@@ -39,17 +39,18 @@ namespace Terraria.DataStructures
 
 		public override bool Equals(object obj)
 		{
-			Point16 point16 = (Point16)obj;
-			if (this.X == point16.X && this.Y == point16.Y)
+			if (obj is Point16)
 			{
-				return true;
+				Point16 point16 = (Point16)obj;
+				return this.X == point16.X && this.Y == point16.Y;
 			}
+
 			return false;
 		}
 
 		public override int GetHashCode()
 		{
-			return this.X << 16 | (ushort)this.Y;
+			return this.X.GetHashCode() ^ this.Y.GetHashCode();
 		}
 
 		public static Point16 Max(int firstX, int firstY, int secondX, int secondY)
@@ -69,20 +70,12 @@ namespace Terraria.DataStructures
 
 		public static bool operator ==(Point16 first, Point16 second)
 		{
-			if (first.X != second.X)
-			{
-				return false;
-			}
-			return first.Y == second.Y;
+			return first.Equals(second);
 		}
 
 		public static bool operator !=(Point16 first, Point16 second)
 		{
-			if (first.X != second.X)
-			{
-				return true;
-			}
-			return first.Y != second.Y;
+			return first.Equals(second) == false;
 		}
 
 		public override string ToString()
