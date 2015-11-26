@@ -25,7 +25,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <OutputPath>..\TShockAPI\bin\Debug</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DebugSymbols>true</DebugSymbols>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <Optimize>false</Optimize>
@@ -37,7 +37,7 @@
     <Externalconsole>true</Externalconsole>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <OutputPath>..\TShockAPI\bin\Debug</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <WarningLevel>4</WarningLevel>
@@ -70,7 +70,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mono|x86'">
-    <OutputPath>..\TShockAPI\bin\Debug</OutputPath>
+    <OutputPath>bin\x86\Mono\</OutputPath>
     <DefineConstants>TRACE;MONO</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
