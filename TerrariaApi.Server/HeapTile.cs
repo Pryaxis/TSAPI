@@ -23,8 +23,8 @@ namespace TerrariaApi.Server
         public const int kHeapTileFrameXOffset = 9;
         public const int kHeapTileFrameYOffset = 11;
 
-        protected int x;
-        protected int y;
+        internal int x;
+        internal int y;
 
         public HeapTile(byte[] array, int x, int y)
         {
