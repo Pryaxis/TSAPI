@@ -46184,7 +46184,7 @@ namespace Terraria
 			}
 			if (this.owner != num && ((num == Main.myPlayer && Main.netMode == 1) || (num == 255 && Main.netMode == 2) || (num != 255 && !Main.player[num].active)))
 			{
-				NetMessage.SendData(21, -1, -1, "", whoAmI, 0f, 0f, 0f, 0, 0, 0);
+				//NetMessage.SendData(21, -1, -1, "", whoAmI, 0f, 0f, 0f, 0, 0, 0);
 				if (this.active)
 				{
 					NetMessage.SendData(22, -1, -1, "", whoAmI, 0f, 0f, 0f, 0, 0, 0);

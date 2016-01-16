@@ -34,7 +34,6 @@ namespace Terraria
 				try
 				{
 					Console.WriteLine("TerrariaAPI Version: " + ServerApi.ApiVersion + " (Protocol {0} ({1}))", Terraria.Main.versionNumber2, Terraria.Main.curRelease);
-					Console.WriteLine("SendQ edition");
 					ServerApi.Initialize(args, Game);
 				}
 				catch (Exception ex)
