@@ -283,7 +283,7 @@ namespace Terraria
 					break;
 				case 10:
 				{
-                        byte[] tileData = new byte[32768];
+                        byte[] tileData = new byte[65535];
 
                         int num3 = NetMessage.CompressTileBlock(number, (int)number2, (short)number3, (short)number4,
                                                         tileData, 0);
