@@ -313,19 +313,12 @@ namespace Terraria.GameContent.Achievements
 
 		public static void NotifyProgressionEvent(int eventID)
 		{
-			if (Main.netMode == 1)
+			if (Main.netMode == 2)
 			{
+				NetMessage.SendData(98, -1, -1, "", eventID, 0f, 0f, 0f, 0, 0, 0);
 				return;
 			}
-			if (AchievementsHelper.OnProgressionEvent != null)
-			{
-				if (Main.netMode == 2)
-				{
-					NetMessage.SendData(98, -1, -1, "", eventID, 0f, 0f, 0f, 0, 0, 0);
-					return;
-				}
-				AchievementsHelper.OnProgressionEvent(eventID);
-			}
+			AchievementsHelper.OnProgressionEvent?.Invoke(eventID);
 		}
 
 		public static void NotifyTileDestroyed(Player player, ushort tile)
