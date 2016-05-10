@@ -208,7 +208,10 @@ namespace Terraria
 			{
 				Point16 point16 = next.PopFront();
 				Wiring.SkipWire(point16);
-				Wiring._toProcess[point16] = 4;
+                lock (Wiring._toProcess)
+                {
+				    Wiring._toProcess[point16] = 4;
+                }
 				next.PushBack(point16);
 			}
 			while (next.Count > 0)
@@ -286,30 +289,37 @@ namespace Terraria
 							if (flag)
 							{
 								Point16 point162 = new Point16(num, num1);
-								if (!Wiring._toProcess.TryGetValue(point162, out num2))
-								{
-									next.PushBack(point162);
-									Wiring._toProcess[point162] = 3;
-								}
-								else
-								{
-									num2 = (byte)(num2 - 1);
-									if (num2 != 0)
-									{
-										Wiring._toProcess[point162] = num2;
-									}
-									else
-									{
-										Wiring._toProcess.Remove(point162);
-									}
-								}
+
+                                lock (Wiring._toProcess)
+                                {
+                                    if (!Wiring._toProcess.TryGetValue(point162, out num2))
+                                    {
+                                        next.PushBack(point162);
+                                        Wiring._toProcess[point162] = 3;
+                                    }
+                                    else
+                                    {
+                                        num2 = (byte)(num2 - 1);
+                                        if (num2 != 0)
+                                        {
+                                            Wiring._toProcess[point162] = num2;
+                                        }
+                                        else
+                                        {
+                                            Wiring._toProcess.Remove(point162);
+                                        }
+                                    }
+                                }
 							}
 						}
 					}
 				}
 			}
 			Wiring._wireSkip.Clear();
-			Wiring._toProcess.Clear();
+
+            lock (Wiring._toProcess)
+			    Wiring._toProcess.Clear();
+
 			Wiring.running = false;
 		}
 
