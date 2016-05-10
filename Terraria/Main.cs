@@ -5386,7 +5386,7 @@ namespace Terraria
                                 Main.oldStatusText = Main.statusText;
                                 oldProgress = (int)(generationProgress.TotalProgress * 100);
                                 oldValue = (int)(generationProgress.Value * 100);
-                                Console.WriteLine(Main.statusText);
+                                Console.Write("\r" + Main.statusText);
                             }
 						}
 					}
@@ -5535,7 +5535,10 @@ namespace Terraria
 					continue;
 				}
 				Main.oldStatusText = Main.statusText;
-				Console.WriteLine(Main.statusText);
+				if (Console.IsOutputRedirected == false)
+					Console.Write("\r" + Main.statusText);
+				else
+					Console.WriteLine(Main.statusText);
 			}
 			try
 			{
@@ -10508,7 +10511,13 @@ namespace Terraria
 				Console.WriteLine("TerrariaServer is running in the background and input is disabled.");
 				return;
 			}
-			ThreadPool.QueueUserWorkItem(new WaitCallback(Main.startDedInputCallBack), 1);
+			
+			Thread t = new Thread(Main.startDedInputCallBack);
+			t.Name = "Console Input Thread";
+			t.IsBackground = true;
+			t.Start();
+			
+			//ThreadPool.QueueUserWorkItem(new WaitCallback(Main.startDedInputCallBack), 1);
 		}
 
 		public static void startDedInputCallBack(object threadContext)

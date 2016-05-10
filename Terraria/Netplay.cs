@@ -506,7 +506,11 @@ namespace Terraria
 		}
 		public static void StartServer()
 		{
-			ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.ServerLoop), 1);
+			Thread t = new Thread(Netplay.ServerLoop);
+			t.Name = "Server Loop";
+			t.Start();
+			
+			//ThreadPool.QueueUserWorkItem(new WaitCallback(Netplay.ServerLoop), 1);
 		}
 		public static bool SetRemoteIP(string remoteAddress)
 		{

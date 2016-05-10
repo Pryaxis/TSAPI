@@ -211,7 +211,11 @@ namespace Terraria.Net.Sockets
 			try
 			{
 				this._listener.Start();
-				ThreadPool.QueueUserWorkItem(new WaitCallback(this.ListenLoop));
+				Thread t = new Thread(ListenLoop);
+				t.IsBackground = true;
+				t.Name = "Listen Loop";
+				t.Start();
+				//ThreadPool.QueueUserWorkItem(new WaitCallback(this.ListenLoop));
 				return true;
 			}
 			catch

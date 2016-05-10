@@ -2216,7 +2216,11 @@ namespace Terraria
 
 		public static void CreateNewWorld(GenerationProgress progress = null)
 		{
-			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.worldGenCallBack), progress);
+			Thread t = new Thread(worldGenCallBack);
+			t.Name = "WorldGen Thread";
+			t.Start(progress);
+			
+			//ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.worldGenCallBack), progress);
 		}
 
 		public static void SaveAndQuitCallBack(object threadContext)
@@ -2453,7 +2457,12 @@ namespace Terraria
 
 		public static void serverLoadWorld()
 		{
-			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.serverLoadWorldCallBack), 1);
+			Thread t = new Thread (WorldGen.serverLoadWorldCallBack);
+			t.Name = "Server Load World Thread";
+			t.Start ();
+
+			//WorldGen.serverLoadWorldCallBack(null);
+			//ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.serverLoadWorldCallBack), 1);
 		}
 
 		public static void clearWorld()
@@ -12774,7 +12783,8 @@ namespace Terraria
 			}
 			Main.hardMode = true;
 			Main.InitLifeBytes();
-			ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.smCallBack), 1);
+			WorldGen.smCallBack(null);
+			//ThreadPool.QueueUserWorkItem(new WaitCallback(WorldGen.smCallBack), 1);
 		}
 
 		public static void smCallBack(object threadContext)
