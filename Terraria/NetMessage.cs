@@ -2119,8 +2119,7 @@ namespace Terraria
 
 					try
 					{
-						int num3;
-						buffer[bufferIndex].GetData(num + 2, num2 - 2, out num3);
+						buffer[bufferIndex].GetData(num + 2, num2 - 2);
 						i -= num2;
 						num += num2;
 					}

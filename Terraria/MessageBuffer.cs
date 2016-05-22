@@ -7,6 +7,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Achievements;
 using Terraria.GameContent.Tile_Entities;
+using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.IO;
 using Terraria.Net;
@@ -109,7 +110,7 @@ namespace Terraria
 			}
 			if (Main.netMode == 2 && Netplay.Clients[this.whoAmI].State < 10 && num1 > 12 && num1 != 93 && num1 != 16 && num1 != 42 && num1 != 50 && num1 != 38 && num1 != 68)
 			{
-                ServerApi.LogWriter.ServerWriteLine(string.Format("getdata: slot {0}: msg id {1} on client state {2}", whoAmI, num1,  Netplay.Clients[this.whoAmI].State), TraceLevel.Warning);
+				ServerApi.LogWriter.ServerWriteLine(string.Format("getdata: slot {0}: msg id {1} on client state {2}", whoAmI, num1,  Netplay.Clients[this.whoAmI].State), TraceLevel.Warning);
 				NetMessage.BootPlayer(this.whoAmI, Lang.mp[2]);
 			}
 			if (this.reader == null)
@@ -118,8 +119,6 @@ namespace Terraria
 			}
 			this.reader.BaseStream.Position = (long)num2;
 			byte num5 = num1;
-
-//			Console.WriteLine("Received: {0}", num5);
 
 			switch (num5)
 			{
@@ -237,7 +236,7 @@ namespace Terraria
 					Player player = Main.player[num7];
 					player.whoAmI = num7;
 					player.skinVariant = this.reader.ReadByte();
-					player.skinVariant = (int)MathHelper.Clamp((float)player.skinVariant, 0f, 7f);
+					player.skinVariant = (int)MathHelper.Clamp((float)player.skinVariant, 0f, 9f);
 					player.hair = this.reader.ReadByte();
 					if (player.hair >= 134)
 					{
@@ -733,7 +732,7 @@ namespace Terraria
 					if (num21 == Main.myPlayer && Main.netMode != 2)
 					{
 						Main.ActivePlayerFileData.StartPlayTimer();
-						Player.EnterWorld(Main.player[Main.myPlayer]);
+						Player.Hooks.EnterWorld(Main.myPlayer);
 					}
 					if (Main.netMode != 2 || Netplay.Clients[this.whoAmI].State < 3)
 					{
@@ -808,16 +807,29 @@ namespace Terraria
 						return;
 					}
 					int num23 = this.reader.ReadByte();
-					if (this.reader.ReadByte() != 1)
+					bool active = Main.player[num23].active;
+					if (reader.ReadByte() == 1)
+					{
+						if (!Main.player[num23].active)
+						{
+							Main.player[num23] = new Player();
+						}
+						Main.player[num23].active = true;
+					}
+					else
 					{
 						Main.player[num23].active = false;
+					}
+					if (active == Main.player[num23].active)
+					{
 						return;
 					}
-					if (!Main.player[num23].active)
+					if (Main.player[num23].active)
 					{
-						Main.player[num23] = new Player();
+						Player.Hooks.PlayerConnect(num23);
+						return;
 					}
-					Main.player[num23].active = true;
+					Player.Hooks.PlayerDisconnect(num23);
 					return;
 				}
 				case 15:
@@ -825,6 +837,10 @@ namespace Terraria
 				case 93:
 				case 94:
 				case 98:
+				case 106:
+				case 107:
+				case 108:
+				case 110:
 				{
 					return;
 				}
@@ -953,6 +969,28 @@ namespace Terraria
 					if (num25 == 15)
 					{
 						Minecart.FrameTrack(num26, num27, true, false);
+					}
+					if (num25 == 16)
+					{
+						WorldGen.PlaceWire4(num26, num27);
+					}
+					if (num25 == 17)
+					{
+						WorldGen.KillWire4(num26, num27);
+					}
+					if (num25 == 18)
+					{
+						Wiring.SetCurrentUser(this.whoAmI);
+						Wiring.PokeLogicGate(num26, num27);
+						Wiring.SetCurrentUser(-1);
+						return;
+					}
+					if (num25 == 19)
+					{
+						Wiring.SetCurrentUser(this.whoAmI);
+						Wiring.Actuate(num26, num27);
+						Wiring.SetCurrentUser(-1);
+						return;
 					}
 					if (Main.netMode != 2)
 					{
@@ -1111,6 +1149,7 @@ namespace Terraria
 								}
 								tile.slope(num40);
 							}
+							tile.wire4(bitsByte10[7]);
 							if (tile.wall > 0)
 							{
 								tile.wall = this.reader.ReadByte();
@@ -2324,8 +2363,10 @@ namespace Terraria
 						return;
 					if (Main.tile[num155, num156].type != 135)
 					{
-						Wiring.HitSwitch(num155, num156);
-					}
+							Wiring.SetCurrentUser(this.whoAmI);
+							Wiring.HitSwitch(num155, num156);
+							Wiring.SetCurrentUser(-1);
+						}
 					if (Main.netMode != 2)
 					{
 						return;
@@ -2869,12 +2910,13 @@ namespace Terraria
 					int num206 = this.reader.ReadInt32();
 					if (this.reader.ReadBoolean())
 					{
-						TileEntity tileEntity1 = TileEntity.Read(this.reader);
+						TileEntity tileEntity1 = TileEntity.Read(this.reader, true);
+						tileEntity1.ID = num206;
 						TileEntity.ByID[tileEntity1.ID] = tileEntity1;
 						TileEntity.ByPosition[tileEntity1.Position] = tileEntity1;
 						return;
 					}
-					if (!TileEntity.ByID.TryGetValue(num206, out tileEntity) || !(tileEntity is TETrainingDummy) && !(tileEntity is TEItemFrame))
+					if (!TileEntity.ByID.TryGetValue(num206, out tileEntity) || !(tileEntity is TETrainingDummy) && !(tileEntity is TEItemFrame) && !(tileEntity is TELogicSensor))
 					{
 						return;
 					}
@@ -2884,52 +2926,24 @@ namespace Terraria
 				}
 				case 87:
 				{
-					if (Main.netMode != 2)
-					{
-						return;
-					}
-					int num207 = this.reader.ReadInt16();
-					int num208 = this.reader.ReadInt16();
-					int num209 = this.reader.ReadByte();
-					if (num207 < 0 || num207 >= Main.maxTilesX)
-					{
-						return;
-					}
-					if (num208 < 0 || num208 >= Main.maxTilesY)
-					{
-						return;
-					}
-					if (TileEntity.ByPosition.ContainsKey(new Point16(num207, num208)))
-					{
-						return;
-					}
-					switch (num209)
-					{
-						case 0:
-						{
-							if (!TETrainingDummy.ValidTile(num207, num208))
-							{
-								return;
-							}
-							TETrainingDummy.Place(num207, num208);
-							return;
-						}
-						case 1:
-						{
-							if (!TEItemFrame.ValidTile(num207, num208))
-							{
-								return;
-							}
-							int num210 = TEItemFrame.Place(num207, num208);
-							NetMessage.SendData(86, -1, -1, "", num210, (float)num207, (float)num208, 0f, 0, 0, 0);
-							return;
-						}
-						default:
+						if (Main.netMode != 2)
 						{
 							return;
 						}
+						int x6 = (int)this.reader.ReadInt16();
+						int y6 = (int)this.reader.ReadInt16();
+						int type9 = (int)this.reader.ReadByte();
+						if (!WorldGen.InWorld(x6, y6, 0))
+						{
+							return;
+						}
+						if (TileEntity.ByPosition.ContainsKey(new Point16(x6, y6)))
+						{
+							return;
+						}
+						TileEntity.PlaceEntityNet(x6, y6, type9);
+						return;
 					}
-				}
 				case 88:
 				{
 					if (Main.netMode != 1)
@@ -3172,6 +3186,32 @@ namespace Terraria
 					itemArray[num234].Prefix(num237);
 					itemArray[num234].value = num238;
 					itemArray[num234].buyOnce = bitsByte15[0];
+					return;
+				}
+				case 105:
+				{
+					if (Main.netMode == 1)
+					{
+						return;
+					}
+					int i3 = (int)this.reader.ReadInt16();
+					int j3 = (int)this.reader.ReadInt16();
+					bool on = this.reader.ReadBoolean();
+					WorldGen.ToggleGemLock(i3, j3, on);
+					return;
+				}
+				case 109:
+				{
+					int num210 = (int)this.reader.ReadInt16();
+					int num211 = (int)this.reader.ReadInt16();
+					int num212 = (int)this.reader.ReadInt16();
+					int num213 = (int)this.reader.ReadInt16();
+					WiresUI.Settings.MultiToolMode toolMode = (WiresUI.Settings.MultiToolMode)this.reader.ReadByte();
+					int num214 = this.whoAmI;
+					WiresUI.Settings.MultiToolMode toolMode2 = WiresUI.Settings.ToolMode;
+					WiresUI.Settings.ToolMode = toolMode;
+					Wiring.MassWireOperation(new Point(num210, num211), new Point(num212, num213), Main.player[num214]);
+					WiresUI.Settings.ToolMode = toolMode2;
 					return;
 				}
 				default:
