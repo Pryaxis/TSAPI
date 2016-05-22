@@ -129,6 +129,7 @@ namespace Terraria
 		{
 			return string.Format("{{Name: \"{0}\" NetID: {1} Stack: {2}", this.name, this.netID, this.stack);
 		}
+
 		public bool Prefix(int pre)
 		{
 			if (pre == 0 || this.type == 0)
@@ -1180,6 +1181,7 @@ namespace Terraria
 			this.prefix = (byte)num;
 			return true;
 		}
+
 		public string AffixName()
 		{
 			if (Lang.lang <= 1)
@@ -3032,6 +3034,8 @@ namespace Terraria
 		{
 			return new Rectangle((int)this.position.X, (int)this.position.Y, this.width, this.height);
 		}
+
+
 		public bool checkMat()
 		{
 			if (this.type >= 71 && this.type <= 74)
@@ -3059,12 +3063,12 @@ namespace Terraria
 				{
 					switch (num2)
 					{
-					case 541:
-					case 542:
-					case 543:
-						break;
-					default:
-						goto IL_C5;
+						case 541:
+						case 542:
+						case 543:
+							break;
+						default:
+							goto IL_C5;
 					}
 				}
 			}
@@ -3072,23 +3076,24 @@ namespace Terraria
 			{
 				switch (num2)
 				{
-				case 852:
-				case 853:
-					break;
-				default:
-					if (num2 != 1151)
-					{
-						goto IL_C5;
-					}
-					break;
+					case 852:
+					case 853:
+						break;
+					default:
+						if (num2 != 1151)
+						{
+							goto IL_C5;
+						}
+						break;
 				}
 			}
 			this.material = true;
 			return true;
-			IL_C5:
+		IL_C5:
 			this.material = false;
 			return false;
 		}
+
 		public void netDefaults(int type)
 		{
 			if (ServerApi.Hooks.InvokeItemNetDefaults(ref type, this))
@@ -3346,619 +3351,619 @@ namespace Terraria
 		{
 			switch (i)
 			{
-			case -10:
-				return 131;
-			case -9:
-				return 183;
-			case -8:
-				return 159;
-			case -7:
-				return 155;
-			case -6:
-				return 90;
-			case -4:
-				return 151;
-			case -3:
-				return 119;
-			case -2:
-			case 121:
-				return 167;
-			case 1:
-			case 302:
-			case 333:
-			case 334:
-			case 335:
-			case 336:
-				return 69;
-			case 2:
-			case 133:
-			case 190:
-			case 191:
-			case 192:
-			case 193:
-			case 194:
-			case 317:
-			case 318:
-				return 25;
-			case 3:
-			case 132:
-			case 186:
-			case 187:
-			case 188:
-			case 189:
-			case 200:
-			case 319:
-			case 320:
-			case 321:
-			case 331:
-			case 332:
-			case 430:
-			case 432:
-			case 433:
-			case 434:
-			case 435:
-			case 436:
-				return 87;
-			case 6:
-				return 27;
-			case 7:
-				return 104;
-			case 10:
-			case 11:
-			case 12:
-			case 95:
-			case 96:
-			case 97:
-				return 84;
-			case 16:
-				return 146;
-			case 21:
-			case 201:
-			case 202:
-			case 203:
-			case 449:
-			case 450:
-			case 451:
-			case 452:
-				return 67;
-			case 23:
-				return 55;
-			case 24:
-				return 50;
-			case 26:
-				return 40;
-			case 27:
-				return 38;
-			case 28:
-				return 42;
-			case 29:
-				return 39;
-			case 31:
-			case 294:
-			case 295:
-			case 296:
-				return 247;
-			case 32:
-				return 68;
-			case 34:
-				return 102;
-			case 39:
-			case 40:
-			case 41:
-				return 13;
-			case 42:
-			case 176:
-			case 231:
-			case 232:
-			case 233:
-			case 234:
-			case 235:
-				return 47;
-			case 43:
-				return 54;
-			case 44:
-				return 178;
-			case 45:
-				return 177;
-			case 46:
-			case 303:
-			case 337:
-				return 14;
-			case 47:
-				return 18;
-			case 48:
-				return 44;
-			case 49:
-				return 7;
-			case 51:
-				return 130;
-			case 52:
-				return 106;
-			case 53:
-				return 176;
-			case 55:
-			case 230:
-				return 43;
-			case 56:
-				return 168;
-			case 57:
-				return 19;
-			case 58:
-				return 61;
-			case 59:
-				return 135;
-			case 60:
-				return 45;
-			case 61:
-				return 79;
-			case 62:
-			case 66:
-				return 24;
-			case 63:
-				return 51;
-			case 64:
-				return 243;
-			case 65:
-				return 66;
-			case 67:
-				return 20;
-			case 69:
-				return 4;
-			case 71:
-				return 107;
-			case 73:
-				return 41;
-			case 74:
-				return 8;
-			case 75:
-				return 63;
-			case 77:
-				return 6;
-			case 78:
-				return 57;
-			case 79:
-				return 245;
-			case 80:
-				return 246;
-			case 81:
-				return 99;
-			case 82:
-				return 85;
-			case 83:
-				return 23;
-			case 84:
-				return 28;
-			case 85:
-				return 16;
-			case 86:
-				return 77;
-			case 87:
-			case 88:
-			case 89:
-			case 90:
-			case 91:
-			case 92:
-				return 86;
-			case 93:
-				return 114;
-			case 94:
-				return 100;
-			case 98:
-			case 99:
-			case 100:
-				return 83;
-			case 101:
-				return 96;
-			case 102:
-				return 1;
-			case 103:
-				return 244;
-			case 104:
-				return 81;
-			case 109:
-				return 17;
-			case 110:
-				return 164;
-			case 111:
-				return 118;
-			case 120:
-				return 15;
-			case 122:
-				return 37;
-			case 137:
-				return 128;
-			case 138:
-				return 129;
-			case 140:
-				return 153;
-			case 141:
-				return 75;
-			case 143:
-				return 170;
-			case 144:
-				return 145;
-			case 145:
-				return 169;
-			case 147:
-				return 126;
-			case 148:
-				return 150;
-			case 150:
-				return 124;
-			case 151:
-				return 134;
-			case 152:
-				return 116;
-			case 153:
-				return 74;
-			case 154:
-				return 248;
-			case 155:
-				return 82;
-			case 156:
-				return 242;
-			case 157:
-				return 5;
-			case 158:
-			case 159:
-				return 78;
-			case 161:
-			case 431:
-				return 29;
-			case 162:
-				return 34;
-			case 163:
-			case 238:
-				return 9;
-			case 164:
-			case 165:
-				return 71;
-			case 166:
-				return 73;
-			case 167:
-				return 179;
-			case 168:
-				return 98;
-			case 169:
-				return 48;
-			case 170:
-			case 171:
-			case 180:
-				return 60;
-			case 172:
-				return 160;
-			case 173:
-				return 21;
-			case 174:
-				return 46;
-			case 175:
-				return 88;
-			case 177:
-				return 26;
-			case 179:
-				return 22;
-			case 181:
-				return 30;
-			case 182:
-				return 31;
-			case 183:
-				return 101;
-			case 184:
-				return 171;
-			case 185:
-				return 70;
-			case 195:
-			case 196:
-				return 80;
-			case 197:
-				return 89;
-			case 198:
-			case 199:
-				return 53;
-			case 204:
-				return 172;
-			case 205:
-				return 56;
-			case 206:
-				return 49;
-			case 212:
-				return 62;
-			case 213:
-				return 239;
-			case 214:
-				return 238;
-			case 215:
-				return 240;
-			case 216:
-				return 237;
-			case 217:
-				return 97;
-			case 218:
-				return 103;
-			case 219:
-				return 133;
-			case 220:
-				return 250;
-			case 221:
-				return 174;
-			case 223:
-				return 64;
-			case 224:
-				return 32;
-			case 225:
-				return 76;
-			case 226:
-				return 33;
-			case 236:
-			case 237:
-				return 52;
-			case 239:
-			case 240:
-				return 12;
-			case 241:
-				return 10;
-			case 242:
-				return 11;
-			case 243:
-				return 125;
-			case 244:
-				return 157;
-			case 250:
-				return 2;
-			case 251:
-				return 111;
-			case 252:
-				return 59;
-			case 253:
-				return 65;
-			case 254:
-			case 255:
-				return 72;
-			case 256:
-				return 36;
-			case 257:
-				return 3;
-			case 258:
-				return 58;
-			case 259:
-			case 260:
-				return 35;
-			case 268:
-				return 127;
-			case 269:
-			case 270:
-			case 271:
-			case 272:
-				return 161;
-			case 273:
-			case 274:
-			case 275:
-			case 276:
-				return 91;
-			case 277:
-			case 278:
-			case 279:
-			case 280:
-				return 121;
-			case 281:
-			case 282:
-				return 156;
-			case 283:
-			case 284:
-				return 147;
-			case 285:
-			case 286:
-				return 105;
-			case 287:
-				return 95;
-			case 288:
-				return 108;
-			case 289:
-				return 115;
-			case 290:
-				return 149;
-			case 291:
-				return 166;
-			case 292:
-				return 175;
-			case 293:
-				return 165;
-			case 301:
-				return 158;
-			case 304:
-				return 123;
-			case 305:
-			case 306:
-			case 307:
-			case 308:
-			case 309:
-			case 310:
-			case 311:
-			case 312:
-			case 313:
-			case 314:
-				return 162;
-			case 315:
-				return 120;
-			case 316:
-				return 113;
-			case 326:
-				return 173;
-			case 329:
-				return 122;
-			case 330:
-				return 152;
-			case 338:
-			case 339:
-			case 340:
-				return 185;
-			case 341:
-				return 154;
-			case 342:
-				return 117;
-			case 343:
-				return 184;
-			case 347:
-				return 110;
-			case 348:
-			case 349:
-				return 148;
-			case 350:
-				return 109;
-			case 351:
-				return 132;
-			case 352:
-				return 112;
-			case 379:
-				return 92;
-			case 380:
-				return 180;
-			case 381:
-				return 136;
-			case 382:
-				return 142;
-			case 383:
-			case 384:
-				return 141;
-			case 385:
-				return 140;
-			case 386:
-				return 138;
-			case 387:
-				return 144;
-			case 388:
-				return 137;
-			case 389:
-				return 139;
-			case 390:
-				return 143;
-			case 391:
-				return 163;
-			case 402:
-			case 403:
-			case 404:
-				return 217;
-			case 405:
-			case 406:
-				return 221;
-			case 407:
-			case 408:
-				return 218;
-			case 409:
-				return 219;
-			case 411:
-				return 216;
-			case 412:
-			case 413:
-			case 414:
-				return 224;
-			case 415:
-				return 226;
-			case 416:
-				return 225;
-			case 417:
-				return 223;
-			case 418:
-				return 222;
-			case 419:
-				return 227;
-			case 420:
-				return 230;
-			case 421:
-				return 229;
-			case 423:
-				return 231;
-			case 424:
-				return 228;
-			case 425:
-				return 236;
-			case 426:
-				return 233;
-			case 427:
-				return 234;
-			case 428:
-				return 232;
-			case 429:
-				return 235;
-			case 460:
-				return 196;
-			case 461:
-				return 191;
-			case 462:
-				return 190;
-			case 463:
-				return 199;
-			case 466:
-				return 197;
-			case 467:
-				return 198;
-			case 468:
-				return 192;
-			case 469:
-				return 195;
-			case 471:
-				return 186;
-			case 477:
-				return 193;
-			case 480:
-				return 201;
-			case 481:
-				return 202;
-			case 482:
-				return 204;
-			case 483:
-				return 203;
-			case 489:
-				return 205;
-			case 490:
-				return 206;
-			case 494:
-			case 495:
-				return 189;
-			case 496:
-			case 497:
-				return 188;
-			case 498:
-			case 499:
-			case 500:
-			case 501:
-			case 502:
-			case 503:
-			case 504:
-			case 505:
-			case 506:
-				return 187;
-			case 508:
-				return 210;
-			case 509:
-				return 209;
-			case 510:
-			case 511:
-			case 512:
-				return 208;
-			case 513:
-			case 514:
-			case 515:
-				return 207;
-			case 520:
-				return 241;
-			case 524:
-			case 525:
-			case 526:
-			case 527:
-				return 211;
-			case 528:
-			case 529:
-				return 212;
-			case 530:
-			case 531:
-				return 215;
-			case 532:
-				return 214;
-			case 533:
-				return 213;
-			case 537:
-				return 249;
+				case -10:
+					return 131;
+				case -9:
+					return 183;
+				case -8:
+					return 159;
+				case -7:
+					return 155;
+				case -6:
+					return 90;
+				case -4:
+					return 151;
+				case -3:
+					return 119;
+				case -2:
+				case 121:
+					return 167;
+				case 1:
+				case 302:
+				case 333:
+				case 334:
+				case 335:
+				case 336:
+					return 69;
+				case 2:
+				case 133:
+				case 190:
+				case 191:
+				case 192:
+				case 193:
+				case 194:
+				case 317:
+				case 318:
+					return 25;
+				case 3:
+				case 132:
+				case 186:
+				case 187:
+				case 188:
+				case 189:
+				case 200:
+				case 319:
+				case 320:
+				case 321:
+				case 331:
+				case 332:
+				case 430:
+				case 432:
+				case 433:
+				case 434:
+				case 435:
+				case 436:
+					return 87;
+				case 6:
+					return 27;
+				case 7:
+					return 104;
+				case 10:
+				case 11:
+				case 12:
+				case 95:
+				case 96:
+				case 97:
+					return 84;
+				case 16:
+					return 146;
+				case 21:
+				case 201:
+				case 202:
+				case 203:
+				case 449:
+				case 450:
+				case 451:
+				case 452:
+					return 67;
+				case 23:
+					return 55;
+				case 24:
+					return 50;
+				case 26:
+					return 40;
+				case 27:
+					return 38;
+				case 28:
+					return 42;
+				case 29:
+					return 39;
+				case 31:
+				case 294:
+				case 295:
+				case 296:
+					return 247;
+				case 32:
+					return 68;
+				case 34:
+					return 102;
+				case 39:
+				case 40:
+				case 41:
+					return 13;
+				case 42:
+				case 176:
+				case 231:
+				case 232:
+				case 233:
+				case 234:
+				case 235:
+					return 47;
+				case 43:
+					return 54;
+				case 44:
+					return 178;
+				case 45:
+					return 177;
+				case 46:
+				case 303:
+				case 337:
+					return 14;
+				case 47:
+					return 18;
+				case 48:
+					return 44;
+				case 49:
+					return 7;
+				case 51:
+					return 130;
+				case 52:
+					return 106;
+				case 53:
+					return 176;
+				case 55:
+				case 230:
+					return 43;
+				case 56:
+					return 168;
+				case 57:
+					return 19;
+				case 58:
+					return 61;
+				case 59:
+					return 135;
+				case 60:
+					return 45;
+				case 61:
+					return 79;
+				case 62:
+				case 66:
+					return 24;
+				case 63:
+					return 51;
+				case 64:
+					return 243;
+				case 65:
+					return 66;
+				case 67:
+					return 20;
+				case 69:
+					return 4;
+				case 71:
+					return 107;
+				case 73:
+					return 41;
+				case 74:
+					return 8;
+				case 75:
+					return 63;
+				case 77:
+					return 6;
+				case 78:
+					return 57;
+				case 79:
+					return 245;
+				case 80:
+					return 246;
+				case 81:
+					return 99;
+				case 82:
+					return 85;
+				case 83:
+					return 23;
+				case 84:
+					return 28;
+				case 85:
+					return 16;
+				case 86:
+					return 77;
+				case 87:
+				case 88:
+				case 89:
+				case 90:
+				case 91:
+				case 92:
+					return 86;
+				case 93:
+					return 114;
+				case 94:
+					return 100;
+				case 98:
+				case 99:
+				case 100:
+					return 83;
+				case 101:
+					return 96;
+				case 102:
+					return 1;
+				case 103:
+					return 244;
+				case 104:
+					return 81;
+				case 109:
+					return 17;
+				case 110:
+					return 164;
+				case 111:
+					return 118;
+				case 120:
+					return 15;
+				case 122:
+					return 37;
+				case 137:
+					return 128;
+				case 138:
+					return 129;
+				case 140:
+					return 153;
+				case 141:
+					return 75;
+				case 143:
+					return 170;
+				case 144:
+					return 145;
+				case 145:
+					return 169;
+				case 147:
+					return 126;
+				case 148:
+					return 150;
+				case 150:
+					return 124;
+				case 151:
+					return 134;
+				case 152:
+					return 116;
+				case 153:
+					return 74;
+				case 154:
+					return 248;
+				case 155:
+					return 82;
+				case 156:
+					return 242;
+				case 157:
+					return 5;
+				case 158:
+				case 159:
+					return 78;
+				case 161:
+				case 431:
+					return 29;
+				case 162:
+					return 34;
+				case 163:
+				case 238:
+					return 9;
+				case 164:
+				case 165:
+					return 71;
+				case 166:
+					return 73;
+				case 167:
+					return 179;
+				case 168:
+					return 98;
+				case 169:
+					return 48;
+				case 170:
+				case 171:
+				case 180:
+					return 60;
+				case 172:
+					return 160;
+				case 173:
+					return 21;
+				case 174:
+					return 46;
+				case 175:
+					return 88;
+				case 177:
+					return 26;
+				case 179:
+					return 22;
+				case 181:
+					return 30;
+				case 182:
+					return 31;
+				case 183:
+					return 101;
+				case 184:
+					return 171;
+				case 185:
+					return 70;
+				case 195:
+				case 196:
+					return 80;
+				case 197:
+					return 89;
+				case 198:
+				case 199:
+					return 53;
+				case 204:
+					return 172;
+				case 205:
+					return 56;
+				case 206:
+					return 49;
+				case 212:
+					return 62;
+				case 213:
+					return 239;
+				case 214:
+					return 238;
+				case 215:
+					return 240;
+				case 216:
+					return 237;
+				case 217:
+					return 97;
+				case 218:
+					return 103;
+				case 219:
+					return 133;
+				case 220:
+					return 250;
+				case 221:
+					return 174;
+				case 223:
+					return 64;
+				case 224:
+					return 32;
+				case 225:
+					return 76;
+				case 226:
+					return 33;
+				case 236:
+				case 237:
+					return 52;
+				case 239:
+				case 240:
+					return 12;
+				case 241:
+					return 10;
+				case 242:
+					return 11;
+				case 243:
+					return 125;
+				case 244:
+					return 157;
+				case 250:
+					return 2;
+				case 251:
+					return 111;
+				case 252:
+					return 59;
+				case 253:
+					return 65;
+				case 254:
+				case 255:
+					return 72;
+				case 256:
+					return 36;
+				case 257:
+					return 3;
+				case 258:
+					return 58;
+				case 259:
+				case 260:
+					return 35;
+				case 268:
+					return 127;
+				case 269:
+				case 270:
+				case 271:
+				case 272:
+					return 161;
+				case 273:
+				case 274:
+				case 275:
+				case 276:
+					return 91;
+				case 277:
+				case 278:
+				case 279:
+				case 280:
+					return 121;
+				case 281:
+				case 282:
+					return 156;
+				case 283:
+				case 284:
+					return 147;
+				case 285:
+				case 286:
+					return 105;
+				case 287:
+					return 95;
+				case 288:
+					return 108;
+				case 289:
+					return 115;
+				case 290:
+					return 149;
+				case 291:
+					return 166;
+				case 292:
+					return 175;
+				case 293:
+					return 165;
+				case 301:
+					return 158;
+				case 304:
+					return 123;
+				case 305:
+				case 306:
+				case 307:
+				case 308:
+				case 309:
+				case 310:
+				case 311:
+				case 312:
+				case 313:
+				case 314:
+					return 162;
+				case 315:
+					return 120;
+				case 316:
+					return 113;
+				case 326:
+					return 173;
+				case 329:
+					return 122;
+				case 330:
+					return 152;
+				case 338:
+				case 339:
+				case 340:
+					return 185;
+				case 341:
+					return 154;
+				case 342:
+					return 117;
+				case 343:
+					return 184;
+				case 347:
+					return 110;
+				case 348:
+				case 349:
+					return 148;
+				case 350:
+					return 109;
+				case 351:
+					return 132;
+				case 352:
+					return 112;
+				case 379:
+					return 92;
+				case 380:
+					return 180;
+				case 381:
+					return 136;
+				case 382:
+					return 142;
+				case 383:
+				case 384:
+					return 141;
+				case 385:
+					return 140;
+				case 386:
+					return 138;
+				case 387:
+					return 144;
+				case 388:
+					return 137;
+				case 389:
+					return 139;
+				case 390:
+					return 143;
+				case 391:
+					return 163;
+				case 402:
+				case 403:
+				case 404:
+					return 217;
+				case 405:
+				case 406:
+					return 221;
+				case 407:
+				case 408:
+					return 218;
+				case 409:
+					return 219;
+				case 411:
+					return 216;
+				case 412:
+				case 413:
+				case 414:
+					return 224;
+				case 415:
+					return 226;
+				case 416:
+					return 225;
+				case 417:
+					return 223;
+				case 418:
+					return 222;
+				case 419:
+					return 227;
+				case 420:
+					return 230;
+				case 421:
+					return 229;
+				case 423:
+					return 231;
+				case 424:
+					return 228;
+				case 425:
+					return 236;
+				case 426:
+					return 233;
+				case 427:
+					return 234;
+				case 428:
+					return 232;
+				case 429:
+					return 235;
+				case 460:
+					return 196;
+				case 461:
+					return 191;
+				case 462:
+					return 190;
+				case 463:
+					return 199;
+				case 466:
+					return 197;
+				case 467:
+					return 198;
+				case 468:
+					return 192;
+				case 469:
+					return 195;
+				case 471:
+					return 186;
+				case 477:
+					return 193;
+				case 480:
+					return 201;
+				case 481:
+					return 202;
+				case 482:
+					return 204;
+				case 483:
+					return 203;
+				case 489:
+					return 205;
+				case 490:
+					return 206;
+				case 494:
+				case 495:
+					return 189;
+				case 496:
+				case 497:
+					return 188;
+				case 498:
+				case 499:
+				case 500:
+				case 501:
+				case 502:
+				case 503:
+				case 504:
+				case 505:
+				case 506:
+					return 187;
+				case 508:
+					return 210;
+				case 509:
+					return 209;
+				case 510:
+				case 511:
+				case 512:
+					return 208;
+				case 513:
+				case 514:
+				case 515:
+					return 207;
+				case 520:
+					return 241;
+				case 524:
+				case 525:
+				case 526:
+				case 527:
+					return 211;
+				case 528:
+				case 529:
+					return 212;
+				case 530:
+				case 531:
+					return 215;
+				case 532:
+					return 214;
+				case 533:
+					return 213;
+				case 537:
+					return 249;
 			}
 			return 0;
 		}
@@ -3966,492 +3971,492 @@ namespace Terraria
 		{
 			switch (i)
 			{
-			case 1:
-				return 102;
-			case 2:
-				return 250;
-			case 3:
-				return 257;
-			case 4:
-				return 69;
-			case 5:
-				return 157;
-			case 6:
-				return 77;
-			case 7:
-				return 49;
-			case 8:
-				return 74;
-			case 9:
-				return 163;
-			case 10:
-				return 241;
-			case 11:
-				return 242;
-			case 12:
-				return 239;
-			case 13:
-				return 39;
-			case 14:
-				return 46;
-			case 15:
-				return 120;
-			case 16:
-				return 85;
-			case 17:
-				return 109;
-			case 18:
-				return 47;
-			case 19:
-				return 57;
-			case 20:
-				return 67;
-			case 21:
-				return 173;
-			case 22:
-				return 179;
-			case 23:
-				return 83;
-			case 24:
-				return 62;
-			case 25:
-				return 2;
-			case 26:
-				return 177;
-			case 27:
-				return 6;
-			case 28:
-				return 84;
-			case 29:
-				return 161;
-			case 30:
-				return 181;
-			case 31:
-				return 182;
-			case 32:
-				return 224;
-			case 33:
-				return 226;
-			case 34:
-				return 162;
-			case 35:
-				return 259;
-			case 36:
-				return 256;
-			case 37:
-				return 122;
-			case 38:
-				return 27;
-			case 39:
-				return 29;
-			case 40:
-				return 26;
-			case 41:
-				return 73;
-			case 42:
-				return 28;
-			case 43:
-				return 55;
-			case 44:
-				return 48;
-			case 45:
-				return 60;
-			case 46:
-				return 174;
-			case 47:
-				return 42;
-			case 48:
-				return 169;
-			case 49:
-				return 206;
-			case 50:
-				return 24;
-			case 51:
-				return 63;
-			case 52:
-				return 236;
-			case 53:
-				return 199;
-			case 54:
-				return 43;
-			case 55:
-				return 23;
-			case 56:
-				return 205;
-			case 57:
-				return 78;
-			case 58:
-				return 258;
-			case 59:
-				return 252;
-			case 60:
-				return 170;
-			case 61:
-				return 58;
-			case 62:
-				return 212;
-			case 63:
-				return 75;
-			case 64:
-				return 223;
-			case 65:
-				return 253;
-			case 66:
-				return 65;
-			case 67:
-				return 21;
-			case 68:
-				return 32;
-			case 69:
-				return 1;
-			case 70:
-				return 185;
-			case 71:
-				return 164;
-			case 72:
-				return 254;
-			case 73:
-				return 166;
-			case 74:
-				return 153;
-			case 75:
-				return 141;
-			case 76:
-				return 225;
-			case 77:
-				return 86;
-			case 78:
-				return 158;
-			case 79:
-				return 61;
-			case 80:
-				return 196;
-			case 81:
-				return 104;
-			case 82:
-				return 155;
-			case 83:
-				return 98;
-			case 84:
-				return 10;
-			case 85:
-				return 82;
-			case 86:
-				return 87;
-			case 87:
-				return 3;
-			case 88:
-				return 175;
-			case 89:
-				return 197;
-			case 90:
-				return -6;
-			case 91:
-				return 273;
-			case 92:
-				return 379;
-			case 95:
-				return 287;
-			case 96:
-				return 101;
-			case 97:
-				return 217;
-			case 98:
-				return 168;
-			case 99:
-				return 81;
-			case 100:
-				return 94;
-			case 101:
-				return 183;
-			case 102:
-				return 34;
-			case 103:
-				return 218;
-			case 104:
-				return 7;
-			case 105:
-				return 285;
-			case 106:
-				return 52;
-			case 107:
-				return 71;
-			case 108:
-				return 288;
-			case 109:
-				return 350;
-			case 110:
-				return 347;
-			case 111:
-				return 251;
-			case 112:
-				return 352;
-			case 113:
-				return 316;
-			case 114:
-				return 93;
-			case 115:
-				return 289;
-			case 116:
-				return 152;
-			case 117:
-				return 342;
-			case 118:
-				return 111;
-			case 119:
-				return -3;
-			case 120:
-				return 315;
-			case 121:
-				return 277;
-			case 122:
-				return 329;
-			case 123:
-				return 304;
-			case 124:
-				return 150;
-			case 125:
-				return 243;
-			case 126:
-				return 147;
-			case 127:
-				return 268;
-			case 128:
-				return 137;
-			case 129:
-				return 138;
-			case 130:
-				return 51;
-			case 131:
-				return -10;
-			case 132:
-				return 351;
-			case 133:
-				return 219;
-			case 134:
-				return 151;
-			case 135:
-				return 59;
-			case 136:
-				return 381;
-			case 137:
-				return 388;
-			case 138:
-				return 386;
-			case 139:
-				return 389;
-			case 140:
-				return 385;
-			case 141:
-				return 383;
-			case 142:
-				return 382;
-			case 143:
-				return 390;
-			case 144:
-				return 387;
-			case 145:
-				return 144;
-			case 146:
-				return 16;
-			case 147:
-				return 283;
-			case 148:
-				return 348;
-			case 149:
-				return 290;
-			case 150:
-				return 148;
-			case 151:
-				return -4;
-			case 152:
-				return 330;
-			case 153:
-				return 140;
-			case 154:
-				return 341;
-			case 155:
-				return -7;
-			case 156:
-				return 281;
-			case 157:
-				return 244;
-			case 158:
-				return 301;
-			case 159:
-				return -8;
-			case 160:
-				return 172;
-			case 161:
-				return 269;
-			case 162:
-				return 305;
-			case 163:
-				return 391;
-			case 164:
-				return 110;
-			case 165:
-				return 293;
-			case 166:
-				return 291;
-			case 167:
-				return 121;
-			case 168:
-				return 56;
-			case 169:
-				return 145;
-			case 170:
-				return 143;
-			case 171:
-				return 184;
-			case 172:
-				return 204;
-			case 173:
-				return 326;
-			case 174:
-				return 221;
-			case 175:
-				return 292;
-			case 176:
-				return 53;
-			case 177:
-				return 45;
-			case 178:
-				return 44;
-			case 179:
-				return 167;
-			case 180:
-				return 380;
-			case 183:
-				return -9;
-			case 184:
-				return 343;
-			case 185:
-				return 338;
-			case 186:
-				return 471;
-			case 187:
-				return 498;
-			case 188:
-				return 496;
-			case 189:
-				return 494;
-			case 190:
-				return 462;
-			case 191:
-				return 461;
-			case 192:
-				return 468;
-			case 193:
-				return 477;
-			case 195:
-				return 469;
-			case 196:
-				return 460;
-			case 197:
-				return 466;
-			case 198:
-				return 467;
-			case 199:
-				return 463;
-			case 201:
-				return 480;
-			case 202:
-				return 481;
-			case 203:
-				return 483;
-			case 204:
-				return 482;
-			case 205:
-				return 489;
-			case 206:
-				return 490;
-			case 207:
-				return 513;
-			case 208:
-				return 510;
-			case 209:
-				return 509;
-			case 210:
-				return 508;
-			case 211:
-				return 524;
-			case 212:
-				return 529;
-			case 213:
-				return 533;
-			case 214:
-				return 532;
-			case 215:
-				return 530;
-			case 216:
-				return 411;
-			case 217:
-				return 402;
-			case 218:
-				return 407;
-			case 219:
-				return 409;
-			case 221:
-				return 405;
-			case 222:
-				return 418;
-			case 223:
-				return 417;
-			case 224:
-				return 412;
-			case 225:
-				return 416;
-			case 226:
-				return 415;
-			case 227:
-				return 419;
-			case 228:
-				return 424;
-			case 229:
-				return 421;
-			case 230:
-				return 420;
-			case 231:
-				return 423;
-			case 232:
-				return 428;
-			case 233:
-				return 426;
-			case 234:
-				return 427;
-			case 235:
-				return 429;
-			case 236:
-				return 425;
-			case 237:
-				return 216;
-			case 238:
-				return 214;
-			case 239:
-				return 213;
-			case 240:
-				return 215;
-			case 241:
-				return 520;
-			case 242:
-				return 156;
-			case 243:
-				return 64;
-			case 244:
-				return 103;
-			case 245:
-				return 79;
-			case 246:
-				return 80;
-			case 247:
-				return 31;
-			case 248:
-				return 154;
-			case 249:
-				return 537;
-			case 250:
-				return 220;
+				case 1:
+					return 102;
+				case 2:
+					return 250;
+				case 3:
+					return 257;
+				case 4:
+					return 69;
+				case 5:
+					return 157;
+				case 6:
+					return 77;
+				case 7:
+					return 49;
+				case 8:
+					return 74;
+				case 9:
+					return 163;
+				case 10:
+					return 241;
+				case 11:
+					return 242;
+				case 12:
+					return 239;
+				case 13:
+					return 39;
+				case 14:
+					return 46;
+				case 15:
+					return 120;
+				case 16:
+					return 85;
+				case 17:
+					return 109;
+				case 18:
+					return 47;
+				case 19:
+					return 57;
+				case 20:
+					return 67;
+				case 21:
+					return 173;
+				case 22:
+					return 179;
+				case 23:
+					return 83;
+				case 24:
+					return 62;
+				case 25:
+					return 2;
+				case 26:
+					return 177;
+				case 27:
+					return 6;
+				case 28:
+					return 84;
+				case 29:
+					return 161;
+				case 30:
+					return 181;
+				case 31:
+					return 182;
+				case 32:
+					return 224;
+				case 33:
+					return 226;
+				case 34:
+					return 162;
+				case 35:
+					return 259;
+				case 36:
+					return 256;
+				case 37:
+					return 122;
+				case 38:
+					return 27;
+				case 39:
+					return 29;
+				case 40:
+					return 26;
+				case 41:
+					return 73;
+				case 42:
+					return 28;
+				case 43:
+					return 55;
+				case 44:
+					return 48;
+				case 45:
+					return 60;
+				case 46:
+					return 174;
+				case 47:
+					return 42;
+				case 48:
+					return 169;
+				case 49:
+					return 206;
+				case 50:
+					return 24;
+				case 51:
+					return 63;
+				case 52:
+					return 236;
+				case 53:
+					return 199;
+				case 54:
+					return 43;
+				case 55:
+					return 23;
+				case 56:
+					return 205;
+				case 57:
+					return 78;
+				case 58:
+					return 258;
+				case 59:
+					return 252;
+				case 60:
+					return 170;
+				case 61:
+					return 58;
+				case 62:
+					return 212;
+				case 63:
+					return 75;
+				case 64:
+					return 223;
+				case 65:
+					return 253;
+				case 66:
+					return 65;
+				case 67:
+					return 21;
+				case 68:
+					return 32;
+				case 69:
+					return 1;
+				case 70:
+					return 185;
+				case 71:
+					return 164;
+				case 72:
+					return 254;
+				case 73:
+					return 166;
+				case 74:
+					return 153;
+				case 75:
+					return 141;
+				case 76:
+					return 225;
+				case 77:
+					return 86;
+				case 78:
+					return 158;
+				case 79:
+					return 61;
+				case 80:
+					return 196;
+				case 81:
+					return 104;
+				case 82:
+					return 155;
+				case 83:
+					return 98;
+				case 84:
+					return 10;
+				case 85:
+					return 82;
+				case 86:
+					return 87;
+				case 87:
+					return 3;
+				case 88:
+					return 175;
+				case 89:
+					return 197;
+				case 90:
+					return -6;
+				case 91:
+					return 273;
+				case 92:
+					return 379;
+				case 95:
+					return 287;
+				case 96:
+					return 101;
+				case 97:
+					return 217;
+				case 98:
+					return 168;
+				case 99:
+					return 81;
+				case 100:
+					return 94;
+				case 101:
+					return 183;
+				case 102:
+					return 34;
+				case 103:
+					return 218;
+				case 104:
+					return 7;
+				case 105:
+					return 285;
+				case 106:
+					return 52;
+				case 107:
+					return 71;
+				case 108:
+					return 288;
+				case 109:
+					return 350;
+				case 110:
+					return 347;
+				case 111:
+					return 251;
+				case 112:
+					return 352;
+				case 113:
+					return 316;
+				case 114:
+					return 93;
+				case 115:
+					return 289;
+				case 116:
+					return 152;
+				case 117:
+					return 342;
+				case 118:
+					return 111;
+				case 119:
+					return -3;
+				case 120:
+					return 315;
+				case 121:
+					return 277;
+				case 122:
+					return 329;
+				case 123:
+					return 304;
+				case 124:
+					return 150;
+				case 125:
+					return 243;
+				case 126:
+					return 147;
+				case 127:
+					return 268;
+				case 128:
+					return 137;
+				case 129:
+					return 138;
+				case 130:
+					return 51;
+				case 131:
+					return -10;
+				case 132:
+					return 351;
+				case 133:
+					return 219;
+				case 134:
+					return 151;
+				case 135:
+					return 59;
+				case 136:
+					return 381;
+				case 137:
+					return 388;
+				case 138:
+					return 386;
+				case 139:
+					return 389;
+				case 140:
+					return 385;
+				case 141:
+					return 383;
+				case 142:
+					return 382;
+				case 143:
+					return 390;
+				case 144:
+					return 387;
+				case 145:
+					return 144;
+				case 146:
+					return 16;
+				case 147:
+					return 283;
+				case 148:
+					return 348;
+				case 149:
+					return 290;
+				case 150:
+					return 148;
+				case 151:
+					return -4;
+				case 152:
+					return 330;
+				case 153:
+					return 140;
+				case 154:
+					return 341;
+				case 155:
+					return -7;
+				case 156:
+					return 281;
+				case 157:
+					return 244;
+				case 158:
+					return 301;
+				case 159:
+					return -8;
+				case 160:
+					return 172;
+				case 161:
+					return 269;
+				case 162:
+					return 305;
+				case 163:
+					return 391;
+				case 164:
+					return 110;
+				case 165:
+					return 293;
+				case 166:
+					return 291;
+				case 167:
+					return 121;
+				case 168:
+					return 56;
+				case 169:
+					return 145;
+				case 170:
+					return 143;
+				case 171:
+					return 184;
+				case 172:
+					return 204;
+				case 173:
+					return 326;
+				case 174:
+					return 221;
+				case 175:
+					return 292;
+				case 176:
+					return 53;
+				case 177:
+					return 45;
+				case 178:
+					return 44;
+				case 179:
+					return 167;
+				case 180:
+					return 380;
+				case 183:
+					return -9;
+				case 184:
+					return 343;
+				case 185:
+					return 338;
+				case 186:
+					return 471;
+				case 187:
+					return 498;
+				case 188:
+					return 496;
+				case 189:
+					return 494;
+				case 190:
+					return 462;
+				case 191:
+					return 461;
+				case 192:
+					return 468;
+				case 193:
+					return 477;
+				case 195:
+					return 469;
+				case 196:
+					return 460;
+				case 197:
+					return 466;
+				case 198:
+					return 467;
+				case 199:
+					return 463;
+				case 201:
+					return 480;
+				case 202:
+					return 481;
+				case 203:
+					return 483;
+				case 204:
+					return 482;
+				case 205:
+					return 489;
+				case 206:
+					return 490;
+				case 207:
+					return 513;
+				case 208:
+					return 510;
+				case 209:
+					return 509;
+				case 210:
+					return 508;
+				case 211:
+					return 524;
+				case 212:
+					return 529;
+				case 213:
+					return 533;
+				case 214:
+					return 532;
+				case 215:
+					return 530;
+				case 216:
+					return 411;
+				case 217:
+					return 402;
+				case 218:
+					return 407;
+				case 219:
+					return 409;
+				case 221:
+					return 405;
+				case 222:
+					return 418;
+				case 223:
+					return 417;
+				case 224:
+					return 412;
+				case 225:
+					return 416;
+				case 226:
+					return 415;
+				case 227:
+					return 419;
+				case 228:
+					return 424;
+				case 229:
+					return 421;
+				case 230:
+					return 420;
+				case 231:
+					return 423;
+				case 232:
+					return 428;
+				case 233:
+					return 426;
+				case 234:
+					return 427;
+				case 235:
+					return 429;
+				case 236:
+					return 425;
+				case 237:
+					return 216;
+				case 238:
+					return 214;
+				case 239:
+					return 213;
+				case 240:
+					return 215;
+				case 241:
+					return 520;
+				case 242:
+					return 156;
+				case 243:
+					return 64;
+				case 244:
+					return 103;
+				case 245:
+					return 79;
+				case 246:
+					return 80;
+				case 247:
+					return 31;
+				case 248:
+					return 154;
+				case 249:
+					return 537;
+				case 250:
+					return 220;
 			}
 			return 0;
 		}
@@ -30919,6 +30924,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public void SetDefaults3(int type)
 		{
 			if (type == 2002)
@@ -36673,48 +36679,48 @@ namespace Terraria
 												this.consumable = true;
 												switch (type)
 												{
-												case 2677:
-													this.createWall = 153;
-													break;
-												case 2678:
-													this.createWall = 157;
-													break;
-												case 2679:
-													this.createWall = 154;
-													break;
-												case 2680:
-													this.createWall = 158;
-													break;
-												case 2681:
-													this.createWall = 155;
-													break;
-												case 2682:
-													this.createWall = 159;
-													break;
-												case 2683:
-													this.createWall = 156;
-													break;
-												case 2684:
-													this.createWall = 160;
-													break;
-												case 2685:
-													this.createWall = 164;
-													break;
-												case 2686:
-													this.createWall = 161;
-													break;
-												case 2687:
-													this.createWall = 165;
-													break;
-												case 2688:
-													this.createWall = 162;
-													break;
-												case 2689:
-													this.createWall = 166;
-													break;
-												case 2690:
-													this.createWall = 163;
-													break;
+													case 2677:
+														this.createWall = 153;
+														break;
+													case 2678:
+														this.createWall = 157;
+														break;
+													case 2679:
+														this.createWall = 154;
+														break;
+													case 2680:
+														this.createWall = 158;
+														break;
+													case 2681:
+														this.createWall = 155;
+														break;
+													case 2682:
+														this.createWall = 159;
+														break;
+													case 2683:
+														this.createWall = 156;
+														break;
+													case 2684:
+														this.createWall = 160;
+														break;
+													case 2685:
+														this.createWall = 164;
+														break;
+													case 2686:
+														this.createWall = 161;
+														break;
+													case 2687:
+														this.createWall = 165;
+														break;
+													case 2688:
+														this.createWall = 162;
+														break;
+													case 2689:
+														this.createWall = 166;
+														break;
+													case 2690:
+														this.createWall = 163;
+														break;
 												}
 												this.width = 12;
 												this.height = 12;
@@ -37507,7 +37513,7 @@ namespace Terraria
 												this.SetDefaults3(2772);
 												type = 2782;
 												this.name = "Solar Flare Axe";
-												this.glowMask = 0;
+												this.glowMask = -1;
 												return;
 											}
 											if (type == 2783)
@@ -37516,7 +37522,7 @@ namespace Terraria
 												type = 2783;
 												this.name = "Solar Flare Chainsaw";
 												this.shoot = 431;
-												this.glowMask = 0;
+												this.glowMask = -1;
 												return;
 											}
 											if (type == 2784)
@@ -37525,7 +37531,7 @@ namespace Terraria
 												type = 2784;
 												this.name = "Solar Flare Drill";
 												this.shoot = 432;
-												this.glowMask = 0;
+												this.glowMask = -1;
 												return;
 											}
 											if (type == 2785)
@@ -37533,7 +37539,7 @@ namespace Terraria
 												this.SetDefaults3(2775);
 												type = 2785;
 												this.name = "Solar Flare Hammer";
-												this.glowMask = 0;
+												this.glowMask = -1;
 												return;
 											}
 											if (type == 2786)
@@ -37541,7 +37547,7 @@ namespace Terraria
 												this.SetDefaults3(2776);
 												type = 2786;
 												this.name = "Solar Flare Pickaxe";
-												this.glowMask = 0;
+												this.glowMask = -1;
 												return;
 											}
 											if (type == 2787)
@@ -38707,6 +38713,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public void SetDefaults4(int type)
 		{
 			if (type == 3001)
@@ -42060,10 +42067,10 @@ namespace Terraria
 								this.knockBack = 2f;
 								this.width = 16;
 								this.height = 16;
-								this.damage = 28;
+								this.damage = 45;
 								this.useSound = 0;
 								this.shoot = 535;
-								this.mana = 4;
+								this.mana = 10;
 								this.rare = 4;
 								this.value = Item.sellPrice(0, 1, 0, 0);
 								this.noMelee = true;
@@ -42360,7 +42367,7 @@ namespace Terraria
 							}
 							if (type >= 3318 && type <= 3332)
 							{
-								this.name = Lang.itemName(type);
+								this.name = "Treasure Bag";
 								this.maxStack = 999;
 								this.consumable = true;
 								this.width = 24;
@@ -42755,7 +42762,7 @@ namespace Terraria
 							}
 							if (type == 3377)
 							{
-								this.name = "Ember Staff";
+								this.name = "Amber Staff";
 								this.mana = 7;
 								this.useSound = 43;
 								this.useStyle = 5;
@@ -42929,17 +42936,17 @@ namespace Terraria
 								this.height = 12;
 								switch (type)
 								{
-								case 3453:
-									this.buffType = 179;
-									return;
-								case 3454:
-									this.buffType = 173;
-									return;
-								case 3455:
-									this.buffType = 176;
-									return;
-								default:
-									return;
+									case 3453:
+										this.buffType = 179;
+										return;
+									case 3454:
+										this.buffType = 173;
+										return;
+									case 3455:
+										this.buffType = 176;
+										return;
+									default:
+										return;
 								}
 							}
 							else
@@ -43226,19 +43233,19 @@ namespace Terraria
 									this.tileBoost += 4;
 									switch (type)
 									{
-									case 3522:
-										break;
-									case 3523:
-										this.glowMask = 196;
-										return;
-									case 3524:
-										this.glowMask = 197;
-										return;
-									case 3525:
-										this.glowMask = 198;
-										return;
-									default:
-										return;
+										case 3522:
+											break;
+										case 3523:
+											this.glowMask = 196;
+											return;
+										case 3524:
+											this.glowMask = 197;
+											return;
+										case 3525:
+											this.glowMask = 198;
+											return;
+										default:
+											return;
 									}
 								}
 								else
@@ -44730,6 +44737,651 @@ namespace Terraria
 										this.maxStack = 20;
 										this.toolTip = "Summons the impending doom";
 										this.rare = 10;
+										return;
+									}
+									if (type == 3602)
+									{
+										this.name = "logic";
+										this.createTile = 419;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.mech = true;
+										this.value = Item.buyPrice(0, 0, 10, 0);
+										return;
+									}
+									if (type >= 3603 && type <= 3608)
+									{
+										this.name = "logic";
+										this.createTile = 420;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.placeStyle = type - 3603;
+										this.mech = true;
+										this.value = Item.buyPrice(0, 2, 0, 0);
+										return;
+									}
+									if (type == 3609)
+									{
+										this.name = "logic";
+										this.createTile = 421;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.value = Item.buyPrice(0, 0, 5, 0);
+										return;
+									}
+									if (type == 3610)
+									{
+										this.name = "logic";
+										this.createTile = 422;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.value = Item.buyPrice(0, 0, 5, 0);
+										return;
+									}
+									if (type == 3611)
+									{
+										this.name = "kite";
+										this.useStyle = 5;
+										this.useAnimation = 10;
+										this.useTime = 10;
+										this.width = 20;
+										this.height = 20;
+										this.shoot = 651;
+										this.channel = true;
+										this.shootSpeed = 10f;
+										this.value = Item.sellPrice(0, 15, 0, 0);
+										this.rare = 2;
+										this.useSound = 64;
+										this.mech = true;
+										return;
+									}
+									if (type == 3612)
+									{
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 5;
+										this.autoReuse = true;
+										this.name = "Wrench";
+										this.width = 24;
+										this.height = 28;
+										this.rare = 1;
+										this.value = 20000;
+										this.tileBoost = 20;
+										this.mech = true;
+										return;
+									}
+									if (type >= 3613 && type <= 3615)
+									{
+										this.name = "logic";
+										this.createTile = 423;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.placeStyle = type - 3613;
+										this.mech = true;
+										return;
+									}
+									if (type == 3616)
+									{
+										this.name = "logic";
+										this.createTile = 424;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.mech = true;
+										this.value = Item.buyPrice(0, 0, 2, 0);
+										return;
+									}
+									if (type == 3617)
+									{
+										this.name = "Sign";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 425;
+										this.width = 28;
+										this.height = 28;
+										this.mech = true;
+										return;
+									}
+									if (type == 3618)
+									{
+										this.name = "logic";
+										this.createTile = 419;
+										this.placeStyle = 1;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.mech = true;
+										this.value = Item.buyPrice(0, 0, 10, 0);
+										return;
+									}
+									if (type == 3619)
+									{
+										this.name = "info acc";
+										this.width = 24;
+										this.height = 28;
+										this.rare = 3;
+										this.value = Item.buyPrice(0, 1, 0, 0);
+										this.accessory = true;
+										return;
+									}
+									if (type == 3620)
+									{
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 5;
+										this.autoReuse = true;
+										this.name = "rod";
+										this.width = 24;
+										this.height = 28;
+										this.rare = 1;
+										this.value = 20000;
+										this.tileBoost = 20;
+										this.mech = true;
+										return;
+									}
+									if (type == 3621)
+									{
+										this.name = "logic";
+										this.createTile = 426;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.value = Item.buyPrice(0, 0, 1, 0);
+										return;
+									}
+									if (type == 3622)
+									{
+										this.name = "logic";
+										this.createTile = 427;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.value = Item.buyPrice(0, 0, 1, 0);
+										return;
+									}
+									if (type == 3623)
+									{
+										this.noUseGraphic = true;
+										this.damage = 0;
+										this.useStyle = 5;
+										this.name = "Static Hook";
+										this.shootSpeed = 16f;
+										this.shoot = 652;
+										this.width = 18;
+										this.height = 28;
+										this.useSound = 1;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.rare = 10;
+										this.noMelee = true;
+										this.value = Item.sellPrice(0, 10, 0, 0);
+										return;
+									}
+									if (type == 3624)
+									{
+										this.name = "Builder's Accessories";
+										this.width = 30;
+										this.height = 30;
+										this.accessory = true;
+										this.rare = 3;
+										this.value = Item.buyPrice(0, 10, 0, 0);
+										return;
+									}
+									if (type == 3625)
+									{
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 5;
+										this.autoReuse = true;
+										this.name = "Wrench";
+										this.width = 24;
+										this.height = 28;
+										this.rare = 1;
+										this.value = 100000;
+										this.tileBoost = 20;
+										this.mech = true;
+										return;
+									}
+									if (type == 3626)
+									{
+										this.name = "logic";
+										this.createTile = 428;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.placeStyle = 3;
+										this.mech = true;
+										return;
+									}
+									if (type == 3627)
+									{
+										this.name = "Engineering Helmet";
+										this.width = 18;
+										this.height = 18;
+										this.headSlot = 194;
+										this.value = Item.buyPrice(0, 1, 0, 0);
+										this.vanity = true;
+										return;
+									}
+									if (type == 3628)
+									{
+										this.channel = true;
+										this.damage = 0;
+										this.useStyle = 4;
+										this.name = "Companion Cube";
+										this.shoot = 653;
+										this.width = 24;
+										this.height = 24;
+										this.useSound = 8;
+										this.useAnimation = 20;
+										this.useTime = 20;
+										this.rare = 1;
+										this.noMelee = true;
+										this.value = Item.buyPrice(5, 0, 0, 0);
+										this.buffType = 191;
+										return;
+									}
+									if (type == 3629)
+									{
+										this.name = "logic";
+										this.createTile = 429;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 2;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.mech = true;
+										this.value = Item.buyPrice(0, 5, 0, 0);
+										return;
+									}
+									if (type == 3630)
+									{
+										this.name = "logic";
+										this.createTile = 428;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.placeStyle = 0;
+										this.mech = true;
+										return;
+									}
+									if (type == 3631)
+									{
+										this.name = "logic";
+										this.createTile = 428;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.placeStyle = 2;
+										this.mech = true;
+										return;
+									}
+									if (type == 3632)
+									{
+										this.name = "logic";
+										this.createTile = 428;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.placeStyle = 1;
+										this.mech = true;
+										return;
+									}
+									if (type >= 3633 && type <= 3637)
+									{
+										this.name = "logic";
+										this.createTile = 430 + (type - 3633);
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.value = Item.buyPrice(0, 0, 1, 0);
+										return;
+									}
+									if (type >= 3638 && type <= 3642)
+									{
+										this.name = "logic";
+										this.createTile = 435 + (type - 3638);
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.value = Item.buyPrice(0, 0, 1, 0);
+										return;
+									}
+									if (type == 3643)
+									{
+										this.name = "Large Gem";
+										this.width = 20;
+										this.height = 20;
+										this.rare = 1;
+										return;
+									}
+									if (type >= 3644 && type <= 3650)
+									{
+										this.name = "Gem Lock";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 440;
+										this.placeStyle = type - 3644;
+										this.width = 22;
+										this.height = 22;
+										this.value = Item.sellPrice(0, 0, 1, 0);
+										return;
+									}
+									if (type >= 3651 && type <= 3662)
+									{
+										this.name = "Statue";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 105;
+										this.width = 20;
+										this.height = 20;
+										this.value = 300;
+										this.placeStyle = 51 + type - 3651;
+										return;
+									}
+									if (type == 3663)
+									{
+										this.name = "logic";
+										this.createTile = 419;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.mech = true;
+										this.placeStyle = 2;
+										this.value = Item.buyPrice(0, 2, 0, 0);
+										return;
+									}
+									if (type == 3664)
+									{
+										this.name = "Portal Gun Station";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 209;
+										this.placeStyle = 3;
+										this.width = 12;
+										this.height = 12;
+										this.rare = 3;
+										this.value = Item.buyPrice(0, 10, 0, 0);
+										return;
+									}
+									if (type >= 3665 && type <= 3706)
+									{
+										this.name = "Chest";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 441;
+										this.placeStyle = type - 3665 + (type > 3666).ToInt() + (type > 3667).ToInt() * 3 + (type > 3683).ToInt() * 5 + (type > 3691).ToInt() + (type > 3692).ToInt() + (type > 3693).ToInt();
+										this.width = 26;
+										this.height = 22;
+										this.value = 500;
+										return;
+									}
+									if (type == 3707)
+									{
+										this.name = "logic";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 442;
+										this.width = 12;
+										this.height = 12;
+										this.placeStyle = 0;
+										this.mech = true;
+										this.value = Item.buyPrice(0, 2, 0, 0);
+										this.mech = true;
+										return;
+									}
+									if (type >= 3708 && type <= 3720)
+									{
+										this.name = "Statue";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 99;
+										this.consumable = true;
+										this.createTile = 105;
+										this.width = 20;
+										this.height = 20;
+										this.value = 300;
+										this.placeStyle = 63 + type - 3708;
+										return;
+									}
+									if (type == 3721)
+									{
+										this.name = "Fishing Accessories";
+										this.width = 26;
+										this.height = 30;
+										this.maxStack = 1;
+										this.value = Item.sellPrice(0, 3, 0, 0);
+										this.rare = 3;
+										this.accessory = true;
+										this.backSlot = 10;
+										return;
+									}
+									if (type == 3722)
+									{
+										this.name = "logic";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 443;
+										this.width = 20;
+										this.height = 12;
+										this.value = 10000;
+										this.mech = true;
+										return;
+									}
+									if (type >= 3723 && type <= 3724)
+									{
+										this.name = "Campfire";
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.createTile = 215;
+										this.placeStyle = 6 + type - 3723;
+										this.width = 12;
+										this.height = 12;
+										this.toolTip = "Life regen is increased when near a campfire";
+										return;
+									}
+									if (type == 3725)
+									{
+										this.name = "logic";
+										this.createTile = 445;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.mech = true;
+										this.value = Item.buyPrice(0, 0, 2, 0);
+										return;
+									}
+									if (type >= 3726 && type <= 3729)
+									{
+										this.name = "logic";
+										this.createTile = 423;
+										this.width = 16;
+										this.height = 16;
+										this.rare = 1;
+										this.useStyle = 1;
+										this.useTurn = true;
+										this.useAnimation = 15;
+										this.useTime = 10;
+										this.autoReuse = true;
+										this.maxStack = 999;
+										this.consumable = true;
+										this.placeStyle = type - 3726 + 3;
+										this.mech = true;
 									}
 								}
 							}
@@ -44738,6 +45390,8 @@ namespace Terraria
 				}
 			}
 		}
+
+
 		public void SetDefaults(int Type = 0, bool noMatCheck = false)
 		{
 			if (ServerApi.Hooks.InvokeItemSetDefaultsInt(ref type, this))
@@ -44752,7 +45406,7 @@ namespace Terraria
 				this.owner = Main.myPlayer;
 			}
 			this.ResetStats(Type);
-			if (this.type >= Main.maxItemTypes)
+			if (this.type >= 3730)
 			{
 				this.type = 0;
 			}
@@ -44969,7 +45623,7 @@ namespace Terraria
 			}
 			this.name = Lang.itemName(this.netID, false);
 			this.CheckTip();
-			if (this.type > 0 && this.type < Main.maxItemTypes && ItemID.Sets.Deprecated[this.type])
+			if (this.type > 0 && this.type < 3730 && ItemID.Sets.Deprecated[this.type])
 			{
 				this.netID = 0;
 				this.type = 0;
@@ -45146,42 +45800,42 @@ namespace Terraria
 						{
 							switch (num)
 							{
-							case 119:
-							case 120:
-							case 121:
-							case 122:
-								break;
-							default:
-								if (num != 184)
-								{
-									goto IL_493;
-								}
-								goto IL_36D;
+								case 119:
+								case 120:
+								case 121:
+								case 122:
+									break;
+								default:
+									if (num != 184)
+									{
+										goto IL_493;
+									}
+									goto IL_36D;
 							}
 						}
 						else
 						{
 							switch (num)
 							{
-							case 198:
-							case 199:
-							case 200:
-							case 201:
-							case 202:
-							case 203:
-								return Color.White;
-							default:
-								switch (num)
-								{
-								case 217:
-								case 218:
-								case 219:
-								case 220:
-									break;
+								case 198:
+								case 199:
+								case 200:
+								case 201:
+								case 202:
+								case 203:
+									return Color.White;
 								default:
-									goto IL_493;
-								}
-								break;
+									switch (num)
+									{
+										case 217:
+										case 218:
+										case 219:
+										case 220:
+											break;
+										default:
+											goto IL_493;
+									}
+									break;
 							}
 						}
 						return new Color(255, 255, 255, 255);
@@ -45205,36 +45859,36 @@ namespace Terraria
 					{
 						switch (num)
 						{
-						case 501:
-							return new Color(200, 200, 200, 50);
-						case 502:
-							return new Color(255, 255, 255, 150);
-						default:
-							switch (num)
-							{
-							case 520:
-							case 521:
-							case 522:
-								goto IL_356;
+							case 501:
+								return new Color(200, 200, 200, 50);
+							case 502:
+								return new Color(255, 255, 255, 150);
 							default:
-								goto IL_493;
-							}
+								switch (num)
+								{
+									case 520:
+									case 521:
+									case 522:
+										goto IL_356;
+									default:
+										goto IL_493;
+								}
 						}
 					}
 					else
 					{
 						switch (num)
 						{
-						case 547:
-						case 548:
-						case 549:
-							goto IL_356;
-						default:
-							if (num != 575)
-							{
-								goto IL_493;
-							}
-							goto IL_356;
+							case 547:
+							case 548:
+							case 549:
+								goto IL_356;
+							default:
+								if (num != 575)
+								{
+									goto IL_493;
+								}
+								goto IL_356;
 						}
 					}
 				}
@@ -45277,13 +45931,13 @@ namespace Terraria
 						{
 							switch (num)
 							{
-							case 1506:
-							case 1507:
-								break;
-							case 1508:
-								return new Color(200, 200, 200, 0);
-							default:
-								goto IL_493;
+								case 1506:
+								case 1507:
+									break;
+								case 1508:
+									return new Color(200, 200, 200, 0);
+								default:
+									goto IL_493;
 							}
 						}
 					}
@@ -45291,31 +45945,31 @@ namespace Terraria
 					{
 						switch (num)
 						{
-						case 1543:
-						case 1544:
-						case 1545:
-							break;
-						default:
-							if (num != 1572)
-							{
-								goto IL_493;
-							}
-							return new Color(200, 200, 255, 125);
+							case 1543:
+							case 1544:
+							case 1545:
+								break;
+							default:
+								if (num != 1572)
+								{
+									goto IL_493;
+								}
+								return new Color(200, 200, 255, 125);
 						}
 					}
 					else
 					{
 						switch (num)
 						{
-						case 1734:
-						case 1735:
-							goto IL_36D;
-						default:
-							if (num != 1826)
-							{
-								goto IL_493;
-							}
-							return new Color(255, 255, 255, 200);
+							case 1734:
+							case 1735:
+								goto IL_36D;
+							default:
+								if (num != 1826)
+								{
+									goto IL_493;
+								}
+								return new Color(255, 255, 255, 200);
 						}
 					}
 					return new Color((int)newColor.R, (int)newColor.G, (int)newColor.B, (int)Main.gFade);
@@ -45326,38 +45980,38 @@ namespace Terraria
 					{
 						switch (num)
 						{
-						case 1867:
-						case 1868:
-							goto IL_36D;
-						default:
-							switch (num)
-							{
-							case 2763:
-							case 2764:
-							case 2765:
-								break;
+							case 1867:
+							case 1868:
+								goto IL_36D;
 							default:
-								goto IL_493;
-							}
-							break;
+								switch (num)
+								{
+									case 2763:
+									case 2764:
+									case 2765:
+										break;
+									default:
+										goto IL_493;
+								}
+								break;
 						}
 					}
 					else
 					{
 						switch (num)
 						{
-						case 2782:
-						case 2783:
-						case 2784:
-						case 2785:
-						case 2786:
-							break;
-						default:
-							if (num != 3065)
-							{
-								goto IL_493;
-							}
-							goto IL_2E8;
+							case 2782:
+							case 2783:
+							case 2784:
+							case 2785:
+							case 2786:
+								break;
+							default:
+								if (num != 3065)
+								{
+									goto IL_493;
+								}
+								goto IL_2E8;
 						}
 					}
 				}
@@ -45369,17 +46023,17 @@ namespace Terraria
 					}
 					switch (num)
 					{
-					case 3453:
-					case 3454:
-					case 3455:
-						goto IL_356;
-					case 3456:
-					case 3457:
-					case 3458:
-					case 3459:
-						goto IL_33C;
-					default:
-						goto IL_493;
+						case 3453:
+						case 3454:
+						case 3455:
+							goto IL_356;
+						case 3456:
+						case 3457:
+						case 3458:
+						case 3459:
+							goto IL_33C;
+						default:
+							goto IL_493;
 					}
 				}
 				else if (num != 3522)
@@ -45392,15 +46046,15 @@ namespace Terraria
 				}
 				return new Color(250, 250, 250, 255 - this.alpha);
 			}
-			IL_2E8:
+		IL_2E8:
 			return new Color(255, 255, 255, (int)newColor.A - this.alpha);
-			IL_33C:
+		IL_33C:
 			return new Color(255, 255, 255, 200);
-			IL_356:
+		IL_356:
 			return new Color(255, 255, 255, 50);
-			IL_36D:
+		IL_36D:
 			return new Color(200, 200, 200, 200);
-			IL_493:
+		IL_493:
 			float num2 = (float)(255 - this.alpha) / 255f;
 			int r = (int)((float)newColor.R * num2);
 			int g = (int)((float)newColor.G * num2);
@@ -45495,6 +46149,7 @@ namespace Terraria
 			num += platinum * 100 * 100 * 100;
 			return num * 5;
 		}
+
 		public void UpdateItem(int i)
 		{
 			if (Main.itemLockoutTime[i] > 0)
@@ -45566,12 +46221,12 @@ namespace Terraria
 					bool flag = true;
 					switch (this.type)
 					{
-					case 71:
-					case 72:
-					case 73:
-					case 74:
-						flag = false;
-						break;
+						case 71:
+						case 72:
+						case 73:
+						case 74:
+							flag = false;
+							break;
 					}
 					if (ItemID.Sets.NebulaPickup[this.type])
 					{
@@ -45781,6 +46436,7 @@ namespace Terraria
 					this.position.Y = vector.Y;
 					this.velocity.X = vector.Z;
 					this.velocity.Y = vector.W;
+					Collision.StepConveyorBelt(this, 1f);
 					if (this.lavaWet)
 					{
 						if (this.type == 267)
@@ -46041,6 +46697,7 @@ namespace Terraria
 				}
 			}
 		}
+
 		public static int NewItem(int X, int Y, int Width, int Height, int Type, int Stack = 1, bool noBroadcast = false, int pfix = 0, bool noGrabDelay = false, bool reverseLookup = false)
 		{
 			if (Main.rand == null)
@@ -46074,6 +46731,11 @@ namespace Terraria
 				{
 					Type = 1868;
 				}
+			}
+			if (Item.itemCaches[Type] != -1)
+			{
+				Item.itemCaches[Type] += Stack;
+				return 400;
 			}
 			if (Main.netMode != 1)
 			{
@@ -46153,6 +46815,8 @@ namespace Terraria
 			}
 			return num;
 		}
+
+
 		public void FindOwner(int whoAmI)
 		{
 			if (this.keepTime > 0)
@@ -46203,5 +46867,40 @@ namespace Terraria
 		{
 			return this.netID != compareItem.netID || this.stack != compareItem.stack || this.prefix != compareItem.prefix;
 		}
+
+
+		#region 1.3.1
+		public static int[] itemCaches = ItemID.Sets.Factory.CreateIntSet(-1, new int[0]);
+
+		public static void StartCachingType(int t)
+		{
+			if (Item.itemCaches[t] == -1)
+			{
+				Item.itemCaches[t] = 0;
+			}
+		}	
+		public static void DropCache(Vector2 pos, Vector2 spread, int t, bool stopCaching = true)
+		{
+			if (Item.itemCaches[t] == -1)
+			{
+				return;
+			}
+			int i = Item.itemCaches[t];
+			Item.itemCaches[t] = (stopCaching ? -1 : 0);
+			Item item = new Item();
+			item.SetDefaults(t, false);
+			while (i > 0)
+			{
+				int num = item.maxStack;
+				if (i < num)
+				{
+					num = i;
+				}
+				Item.NewItem((int)pos.X, (int)pos.Y, (int)spread.X, (int)spread.Y, t, num, false, 0, false, false);
+				i -= num;
+			}
+		}
+
+		#endregion
 	}
 }

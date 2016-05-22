@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using Terraria.ID;
 using TerrariaApi.Server;
 
 namespace Terraria
@@ -3281,6 +3282,168 @@ namespace Terraria
 		}
 
 		#region 1.3.1
+		public static List<Point> GetEntityEdgeTiles(Entity entity, bool left = true, bool right = true, bool up = true, bool down = true)
+		{
+			int num = (int)entity.position.X;
+			int num2 = (int)entity.position.Y;
+			int arg_1E_0 = num % 16;
+			int arg_23_0 = num2 % 16;
+			int num3 = (int)entity.Right.X;
+			int num4 = (int)entity.Bottom.Y;
+			if (num % 16 == 0)
+			{
+				num--;
+			}
+			if (num2 % 16 == 0)
+			{
+				num2--;
+			}
+			if (num3 % 16 == 0)
+			{
+				num3++;
+			}
+			if (num4 % 16 == 0)
+			{
+				num4++;
+			}
+			int num5 = num3 / 16 - num / 16 + 1;
+			int num6 = num4 / 16 - num2 / 16;
+			List<Point> list = new List<Point>();
+			num /= 16;
+			num2 /= 16;
+			for (int i = num; i < num + num5; i++)
+			{
+				if (up)
+				{
+					list.Add(new Point(i, num2));
+				}
+				if (down)
+				{
+					list.Add(new Point(i, num2 + num6));
+				}
+			}
+			for (int j = num2; j < num2 + num6; j++)
+			{
+				if (left)
+				{
+					list.Add(new Point(num, j));
+				}
+				if (right)
+				{
+					list.Add(new Point(num + num5, j));
+				}
+			}
+			return list;
+		}
+
+		public static void StepConveyorBelt(Entity entity, float gravDir)
+		{
+			if (entity is Player)
+			{
+				Player player = (Player)entity;
+				if (Math.Abs(player.gfxOffY) > 2f || player.grapCount > 0 || player.pulley)
+				{
+					return;
+				}
+			}
+			int num = 0;
+			int num2 = 0;
+			bool flag = false;
+			int num3 = (int)entity.position.Y;
+			int arg_4D_0 = entity.height;
+			entity.Hitbox.Inflate(2, 2);
+			Vector2 arg_65_0 = entity.TopLeft;
+			Vector2 arg_6C_0 = entity.TopRight;
+			Vector2 arg_73_0 = entity.BottomLeft;
+			Vector2 arg_7A_0 = entity.BottomRight;
+			List<Point> entityEdgeTiles = Collision.GetEntityEdgeTiles(entity, false, false, true, true);
+			Vector2 vector = new Vector2(0.0001f);
+			foreach (Point current in entityEdgeTiles)
+			{
+				Tile tile = Main.tile[current.X, current.Y];
+				if (tile != null && tile.active() && tile.nactive())
+				{
+					int num4 = TileID.Sets.ConveyorDirection[(int)tile.type];
+					if (num4 != 0)
+					{
+						Vector2 lineStart;
+						Vector2 lineStart2;
+						lineStart.X = (lineStart2.X = (float)(current.X * 16));
+						Vector2 lineEnd;
+						Vector2 lineEnd2;
+						lineEnd.X = (lineEnd2.X = (float)(current.X * 16 + 16));
+						switch (tile.slope())
+						{
+						case 1:
+							lineStart2.Y = (float)(current.Y * 16);
+							lineEnd2.Y = (lineEnd.Y = (lineStart.Y = (float)(current.Y * 16 + 16)));
+							break;
+						case 2:
+							lineEnd2.Y = (float)(current.Y * 16);
+							lineStart2.Y = (lineEnd.Y = (lineStart.Y = (float)(current.Y * 16 + 16)));
+							break;
+						case 3:
+							lineEnd.Y = (lineStart2.Y = (lineEnd2.Y = (float)(current.Y * 16)));
+							lineStart.Y = (float)(current.Y * 16 + 16);
+							break;
+						case 4:
+							lineStart.Y = (lineStart2.Y = (lineEnd2.Y = (float)(current.Y * 16)));
+							lineEnd.Y = (float)(current.Y * 16 + 16);
+							break;
+						default:
+							if (tile.halfBrick())
+							{
+								lineStart2.Y = (lineEnd2.Y = (float)(current.Y * 16 + 8));
+							}
+							else
+							{
+								lineStart2.Y = (lineEnd2.Y = (float)(current.Y * 16));
+							}
+							lineStart.Y = (lineEnd.Y = (float)(current.Y * 16 + 16));
+							break;
+						}
+						int num5 = 0;
+						if (!TileID.Sets.Platforms[(int)tile.type] && Collision.CheckAABBvLineCollision2(entity.position - vector, entity.Size + vector * 2f, lineStart, lineEnd))
+						{
+							num5--;
+						}
+						if (Collision.CheckAABBvLineCollision2(entity.position - vector, entity.Size + vector * 2f, lineStart2, lineEnd2))
+						{
+							num5++;
+						}
+						if (num5 != 0)
+						{
+							flag = true;
+							num += num4 * num5 * (int)gravDir;
+							if (tile.leftSlope())
+							{
+								num2 += (int)gravDir * -num4;
+							}
+							if (tile.rightSlope())
+							{
+								num2 -= (int)gravDir * -num4;
+							}
+						}
+					}
+				}
+			}
+			if (!flag)
+			{
+				return;
+			}
+			if (num != 0)
+			{
+				num = Math.Sign(num);
+				num2 = Math.Sign(num2);
+				Vector2 vector2 = Vector2.Normalize(new Vector2((float)num * gravDir, (float)num2)) * 2.5f;
+				Vector2 velocity = vector2;
+				Vector2 value = Collision.TileCollision(entity.position, velocity, entity.width, entity.height, false, false, (int)gravDir);
+				entity.position += value;
+				velocity = new Vector2(0f, 2.5f * gravDir);
+				value = Collision.TileCollision(entity.position, velocity, entity.width, entity.height, false, false, (int)gravDir);
+				entity.position += value;
+			}
+		}
 
 		public static List<Point> GetTilesIn(Vector2 TopLeft, Vector2 BottomRight)
 		{
@@ -3302,6 +3465,12 @@ namespace Terraria
 				}
 			}
 			return list;
+		}
+
+		public static bool CheckAABBvLineCollision2(Vector2 aabbPosition, Vector2 aabbDimensions, Vector2 lineStart, Vector2 lineEnd)
+		{
+			float num = 0f;
+			return Utils.RectangleLineCollision(aabbPosition, aabbPosition + aabbDimensions, lineStart, lineEnd) || Collision.CheckAABBvLineCollision(aabbPosition, aabbDimensions, lineStart, lineEnd, 0.0001f, ref num);
 		}
 
 
