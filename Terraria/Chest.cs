@@ -1147,6 +1147,8 @@ namespace Terraria
 				num++;
 				this.item[num].SetDefaults(851, false);
 				num++;
+				this.item[num].SetDefaults(3612, false);
+				num++;
 				this.item[num].SetDefaults(510, false);
 				num++;
 				this.item[num].SetDefaults(530, false);
@@ -1167,13 +1169,17 @@ namespace Terraria
 				num++;
 				this.item[num].SetDefaults(853, false);
 				num++;
+				this.item[num++].SetDefaults(3707, false);
+
 				this.item[num].SetDefaults(2739, false);
 				num++;
 				this.item[num].SetDefaults(849, false);
 				num++;
-				int num18 = num;
-				num = num18 + 1;
-				this.item[num18].SetDefaults(2799, false);
+				this.item[num++].SetDefaults(3616, false);
+				this.item[num++].SetDefaults(2799, false);
+				this.item[num++].SetDefaults(3619, false);
+				this.item[num++].SetDefaults(3627, false);
+				this.item[num++].SetDefaults(3629, false);
 				if (NPC.AnyNPCs(369) && Main.hardMode && Main.moonPhase == 3)
 				{
 					this.item[num].SetDefaults(2295, false);
@@ -1244,6 +1250,18 @@ namespace Terraria
 					this.item[num].SetDefaults(948, false);
 					num++;
 				}
+				this.item[num++].SetDefaults(3623, false);
+				this.item[num++].SetDefaults(3603, false);
+				this.item[num++].SetDefaults(3604, false);
+				this.item[num++].SetDefaults(3607, false);
+				this.item[num++].SetDefaults(3605, false);
+				this.item[num++].SetDefaults(3606, false);
+				this.item[num++].SetDefaults(3608, false);
+				this.item[num++].SetDefaults(3618, false);
+				this.item[num++].SetDefaults(3602, false);
+				this.item[num++].SetDefaults(3663, false);
+				this.item[num++].SetDefaults(3609, false);
+				this.item[num++].SetDefaults(3610, false);
 				this.item[num].SetDefaults(995, false);
 				num++;
 				if (NPC.downedBoss1 && NPC.downedBoss2 && NPC.downedBoss3)
@@ -1412,12 +1430,13 @@ namespace Terraria
 				}
 				if (NPC.downedMartians)
 				{
-					int num23 = num;
-					num = num23 + 1;
-					this.item[num23].SetDefaults(2862, false);
-					int num24 = num;
-					num = num24 + 1;
-					this.item[num24].SetDefaults(3109, false);
+					this.item[num++].SetDefaults(2862, false);
+					this.item[num++].SetDefaults(3109, false);
+				}
+				if (Main.player[Main.myPlayer].HasItem(3384) || Main.player[Main.myPlayer].HasItem(3664))
+				{
+					this.item[num].SetDefaults(3664, false);
+					num++;
 				}
 			}
 			else if (type == 15)
@@ -1920,6 +1939,10 @@ namespace Terraria
 				{
 					num3 = 2296;
 				}
+				if (Main.rand.Next(numArray[3]) == 0)
+				{
+					num3 = 3628;
+				}
 				if (Main.rand.Next(numArray[2]) == 0 && WorldGen.shadowOrbSmashed)
 				{
 					num3 = 2269;
@@ -2006,6 +2029,10 @@ namespace Terraria
 				}
 				if (Main.rand.Next(numArray[1]) == 0)
 				{
+					num3 = 3624;
+				}
+				if (Main.rand.Next(numArray[1]) == 0)
+				{
 					num3 = 2273;
 				}
 				if (Main.rand.Next(numArray[1]) == 0)
@@ -2042,6 +2069,10 @@ namespace Terraria
 				}
 				if (Main.rand.Next(numArray[0]) == 0)
 				{
+					num3 = 3637;
+				}
+				if (Main.rand.Next(numArray[0]) == 0)
+				{
 					num3 = 3119;
 				}
 				if (Main.rand.Next(numArray[0]) == 0)
@@ -2066,6 +2097,30 @@ namespace Terraria
 							num3 = 0;
 							break;
 						}
+						if (num3 == 3637)
+						{
+							switch (Main.travelShop[num4])
+							{
+								case 3621:
+								case 3622:
+								case 3633:
+								case 3634:
+								case 3635:
+								case 3636:
+								case 3637:
+								case 3638:
+								case 3639:
+								case 3640:
+								case 3641:
+								case 3642:
+									num3 = 0;
+									break;
+							}
+							if (num3 == 0)
+							{
+								break;
+							}
+						}
 					}
 				}
 				if (num3 == 0)
@@ -2077,12 +2132,42 @@ namespace Terraria
 				num1++;
 				if (num3 != 2260)
 				{
-					continue;
+					Main.travelShop[num1] = 2261;
+					num1++;
+					Main.travelShop[num1] = 2262;
+					num1++;
 				}
-				Main.travelShop[num1] = 2261;
-				num1++;
-				Main.travelShop[num1] = 2262;
-				num1++;
+				if (num3 == 3637)
+				{
+					num2--;
+					switch (Main.rand.Next(6))
+					{
+						case 0:
+							Main.travelShop[num2++] = 3637;
+							Main.travelShop[num2++] = 3642;
+							break;
+						case 1:
+							Main.travelShop[num2++] = 3621;
+							Main.travelShop[num2++] = 3622;
+							break;
+						case 2:
+							Main.travelShop[num2++] = 3634;
+							Main.travelShop[num2++] = 3639;
+							break;
+						case 3:
+							Main.travelShop[num2++] = 3633;
+							Main.travelShop[num2++] = 3638;
+							break;
+						case 4:
+							Main.travelShop[num2++] = 3635;
+							Main.travelShop[num2++] = 3640;
+							break;
+						case 5:
+							Main.travelShop[num2++] = 3636;
+							Main.travelShop[num2++] = 3641;
+							break;
+					}
+				}
 			}
 		}
 
