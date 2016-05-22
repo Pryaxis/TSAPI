@@ -2465,71 +2465,104 @@ namespace Terraria
 			return new Vector2(-1f, -1f);
 		}
 
-		public static bool SwitchTiles(object TriggeringObject, Vector2 Position, int Width, int Height, Vector2 oldPosition, int objType)
+		public static bool SwitchTiles(Vector2 Position, int Width, int Height, Vector2 oldPosition, int objType)
 		{
-			Vector2 vector2 = new Vector2();
-			int x = (int)(Position.X / 16f) - 1;
-			int num = (int)((Position.X + (float)Width) / 16f) + 2;
-			int y = (int)(Position.Y / 16f) - 1;
-			int y1 = (int)((Position.Y + (float)Height) / 16f) + 2;
-			if (x < 0)
+			int num = (int)(Position.X / 16f) - 1;
+			int num2 = (int)((Position.X + (float)Width) / 16f) + 2;
+			int num3 = (int)(Position.Y / 16f) - 1;
+			int num4 = (int)((Position.Y + (float)Height) / 16f) + 2;
+			if (num < 0)
 			{
-				x = 0;
+				num = 0;
 			}
-			if (num > Main.maxTilesX)
+			if (num2 > Main.maxTilesX)
 			{
-				num = Main.maxTilesX;
+				num2 = Main.maxTilesX;
 			}
-			if (y < 0)
+			if (num3 < 0)
 			{
-				y = 0;
+				num3 = 0;
 			}
-			if (y1 > Main.maxTilesY)
+			if (num4 > Main.maxTilesY)
 			{
-				y1 = Main.maxTilesY;
+				num4 = Main.maxTilesY;
 			}
-			for (int i = x; i < num; i++)
+			for (int i = num; i < num2; i++)
 			{
-				for (int j = y; j < y1; j++)
+				for (int j = num3; j < num4; j++)
 				{
-					if (Main.tile[i, j] != null && Main.tile[i, j].active() && (Main.tile[i, j].type == 135 || Main.tile[i, j].type == 210))
+					if (Main.tile[i, j] != null)
 					{
-						vector2.X = (float)(i * 16);
-						vector2.Y = (float)(j * 16 + 12);
-						if (Position.X + (float)Width > vector2.X && Position.X < vector2.X + 16f && Position.Y + (float)Height > vector2.Y && (double)Position.Y < (double)vector2.Y + 4.01)
+						int type = (int)Main.tile[i, j].type;
+						if (Main.tile[i, j].active() && (type == 135 || type == 210 || type == 442))
 						{
-							if (Main.tile[i, j].type == 210)
+							Vector2 vector;
+							vector.X = (float)(i * 16);
+							vector.Y = (float)(j * 16 + 12);
+							bool flag = false;
+							if (objType == 4)
 							{
-								WorldGen.ExplodeMine(i, j);
+								if (type == 442)
+								{
+									float r1StartX = 0f;
+									float r1StartY = 0f;
+									float r1Width = 0f;
+									float r1Height = 0f;
+									switch (Main.tile[i, j].frameX / 22)
+									{
+									case 0:
+										r1StartX = (float)(i * 16);
+										r1StartY = (float)(j * 16 + 16 - 10);
+										r1Width = 16f;
+										r1Height = 10f;
+										break;
+									case 1:
+										r1StartX = (float)(i * 16);
+										r1StartY = (float)(j * 16);
+										r1Width = 16f;
+										r1Height = 10f;
+										break;
+									case 2:
+										r1StartX = (float)(i * 16);
+										r1StartY = (float)(j * 16);
+										r1Width = 10f;
+										r1Height = 16f;
+										break;
+									case 3:
+										r1StartX = (float)(i * 16 + 16 - 10);
+										r1StartY = (float)(j * 16);
+										r1Width = 10f;
+										r1Height = 16f;
+										break;
+									}
+									if (Utils.FloatIntersect(r1StartX, r1StartY, r1Width, r1Height, Position.X, Position.Y, (float)Width, (float)Height) && !Utils.FloatIntersect(r1StartX, r1StartY, r1Width, r1Height, oldPosition.X, oldPosition.Y, (float)Width, (float)Height))
+									{
+										Wiring.HitSwitch(i, j);
+										NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0, 0, 0);
+										return true;
+									}
+								}
+								flag = true;
 							}
-							else if (oldPosition.X + (float)Width <= vector2.X || oldPosition.X >= vector2.X + 16f || oldPosition.Y + (float)Height <= vector2.Y || (double)oldPosition.Y >= (double)vector2.Y + 16.01)
+							if (!flag && Position.X + (float)Width > vector.X && Position.X < vector.X + 16f && Position.Y + (float)Height > vector.Y && (double)Position.Y < (double)vector.Y + 4.01)
 							{
-								int num1 = Main.tile[i, j].frameY / 18;
-								bool flag = true;
-								if ((num1 == 4 || num1 == 2 || num1 == 3 || num1 == 6) && objType != 1)
+								if (type == 210)
 								{
-									flag = false;
+									WorldGen.ExplodeMine(i, j);
 								}
-								if (num1 == 5 && objType == 1)
+								else if (type != 442 && (oldPosition.X + (float)Width <= vector.X || oldPosition.X >= vector.X + 16f || oldPosition.Y + (float)Height <= vector.Y || (double)oldPosition.Y >= (double)vector.Y + 16.01))
 								{
-									flag = false;
-								}
-								if (flag)
-								{
-									bool handled = false;
-									if (TriggeringObject is NPC)
+									int num5 = (int)(Main.tile[i, j].frameY / 18);
+									bool flag2 = true;
+									if ((num5 == 4 || num5 == 2 || num5 == 3 || num5 == 6) && objType != 1)
 									{
-										handled = ServerApi.Hooks.InvokeNpcTriggerPressurePlate((NPC)TriggeringObject, i, j);
+										flag2 = false;
 									}
-									else if (TriggeringObject is Projectile)
+									if (num5 == 5 && (objType == 1 || objType == 4))
 									{
-										handled = ServerApi.Hooks.InvokeProjectileTriggerPressurePlate((Projectile)TriggeringObject, i, j);
+										flag2 = false;
 									}
-									else if (TriggeringObject is Player)
-									{
-										handled = ServerApi.Hooks.InvokePlayerTriggerPressurePlate((Player)TriggeringObject, i, j);
-									}
-									if (!handled)
+									if (flag2)
 									{
 										Wiring.HitSwitch(i, j);
 										NetMessage.SendData(59, -1, -1, "", i, (float)j, 0f, 0f, 0, 0, 0);

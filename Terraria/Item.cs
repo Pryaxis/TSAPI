@@ -46333,7 +46333,6 @@ namespace Terraria
 										Main.npc[num13].extraValue += num12;
 										if (Main.netMode == 0)
 										{
-											Main.npc[num13].moneyPing(this.position);
 										}
 										else
 										{
