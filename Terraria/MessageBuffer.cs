@@ -1336,7 +1336,7 @@ namespace Terraria
 						num56 = this.whoAmI;
 					}
 					Player player6 = Main.player[num56];
-					Main.npc[num55].StrikeNPC(player6.inventory[player6.selectedItem].damage, player6.inventory[player6.selectedItem].knockBack, player6.direction, false, false, false, player6);
+					Main.npc[num55].StrikeNPC(player6.inventory[player6.selectedItem].damage, player6.inventory[player6.selectedItem].knockBack, player6.direction, false, false, false);
 					if (Main.netMode != 2)
 					{
 						return;
@@ -1569,7 +1569,7 @@ namespace Terraria
 					}
 					else
 					{
-						Main.npc[num71].StrikeNPC(num72, single5, num73, num74 == 1, false, true, Main.player[this.whoAmI]);
+						Main.npc[num71].StrikeNPC(num72, single5, num73, num74 == 1, false, true);
 					}
 					if (Main.netMode != 2)
 					{
