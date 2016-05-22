@@ -3279,5 +3279,32 @@ namespace Terraria
 			}
 			return false;
 		}
+
+		#region 1.3.1
+
+		public static List<Point> GetTilesIn(Vector2 TopLeft, Vector2 BottomRight)
+		{
+			List<Point> list = new List<Point>();
+			Point point = TopLeft.ToTileCoordinates();
+			Point point2 = BottomRight.ToTileCoordinates();
+			int num = Utils.Clamp<int>(point.X, 0, Main.maxTilesX - 1);
+			int num2 = Utils.Clamp<int>(point.Y, 0, Main.maxTilesY - 1);
+			int num3 = Utils.Clamp<int>(point2.X, 0, Main.maxTilesX - 1);
+			int num4 = Utils.Clamp<int>(point2.Y, 0, Main.maxTilesY - 1);
+			for (int i = num; i <= num3; i++)
+			{
+				for (int j = num2; j <= num4; j++)
+				{
+					if (Main.tile[i, j] != null)
+					{
+						list.Add(new Point(i, j));
+					}
+				}
+			}
+			return list;
+		}
+
+
+		#endregion
 	}
 }
