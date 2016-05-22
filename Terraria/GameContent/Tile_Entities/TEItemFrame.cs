@@ -68,7 +68,7 @@ namespace Terraria.GameContent.Tile_Entities
 			return tEItemFrame.ID;
 		}
 
-		public override void ReadExtraData(BinaryReader reader)
+		public override void ReadExtraData(BinaryReader reader, bool networkSend)
 		{
 			this.item = new Item();
 			this.item.netDefaults(reader.ReadInt16());
@@ -119,7 +119,7 @@ namespace Terraria.GameContent.Tile_Entities
 			return false;
 		}
 
-		public override void WriteExtraData(BinaryWriter writer)
+		public override void WriteExtraData(BinaryWriter writer, bool networkSend)
 		{
 			writer.Write((short)this.item.netID);
 			writer.Write(this.item.prefix);

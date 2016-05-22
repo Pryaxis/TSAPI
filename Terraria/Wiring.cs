@@ -1741,7 +1741,6 @@ namespace Terraria
 														else
 														{
 															Vector2 position = new Vector2((float)(num126 - 4), (float)(num127 - 22)) - new Vector2(10f);
-															Utils.PoofOfSmoke(position);
 															NetMessage.SendData(106, -1, -1, "", (int)position.X, position.Y, 0f, 0f, 0, 0, 0);
 														}
 													}
@@ -1858,7 +1857,6 @@ namespace Terraria
 																else
 																{
 																	Vector2 position2 = new Vector2((float)(num126 - 4), (float)(num127 - 22)) - new Vector2(10f);
-																	Utils.PoofOfSmoke(position2);
 																	NetMessage.SendData(106, -1, -1, "", (int)position2.X, position2.Y, 0f, 0f, 0, 0, 0);
 																}
 															}
@@ -2741,7 +2739,6 @@ namespace Terraria
 								return;
 							}
 							Vector2 position = new Vector2((float)lampX, (float)i) * 16f - new Vector2(10f);
-							Utils.PoofOfSmoke(position);
 							NetMessage.SendData(106, -1, -1, "", (int)position.X, position.Y, 0f, 0f, 0, 0, 0);
 						}
 					}

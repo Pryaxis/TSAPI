@@ -175,7 +175,7 @@ namespace Terraria.GameContent.Tile_Entities
 			return false;
 		}
 
-		public override void WriteExtraData(BinaryWriter writer)
+		public override void WriteExtraData(BinaryWriter writer, bool networkSend)
 		{
 			writer.Write((short)this.npc);
 		}

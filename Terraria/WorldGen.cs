@@ -22,7 +22,43 @@ namespace Terraria
 {
 	public class WorldGen
 	{
-		public class Hooks
+        #region 1.3.1
+
+		public static void PlaceLogicTiles(int x, int y, int type, int style = 0)
+		{
+			Tile tile = Main.tile[x, y];
+			if (Main.tile[x, y] == null)
+			{
+				tile = new Tile();
+				Main.tile[x, y] = tile;
+			}
+			if (Main.tile[x, y + 1] == null)
+			{
+				Main.tile[x, y + 1] = new Tile();
+			}
+			if (type == 419)
+			{
+				if (Main.tile[x, y + 1].active() && (Main.tile[x, y + 1].type == 419 || Main.tile[x, y + 1].type == 420))
+				{
+					tile.active(true);
+					tile.type = (ushort)type;
+					tile.frameX = (short)(style * 18);
+					tile.frameY = 0;
+				}
+				return;
+			}
+			if (!tile.active())
+			{
+				tile.active(true);
+				tile.type = (ushort)type;
+				tile.frameX = 0;
+				tile.frameY = (short)(18 * style);
+			}
+		}
+
+
+        #endregion
+        public class Hooks
 		{
 			public static void ClearWorld()
 			{
@@ -32505,6 +32541,17 @@ namespace Terraria
 			}
 			return false;
 		}
+        
+		public static bool PlaceWire4(int i, int j)
+		{
+			if (!Main.tile[i, j].wire4())
+			{
+				Main.tile[i, j].wire4(true);
+				return true;
+			}
+			return false;
+		}
+
 
 		public static bool KillWire3(int i, int j)
 		{

@@ -11,6 +11,8 @@ namespace Terraria.ID
 
 		private Queue<bool[]> _boolBufferCache = new Queue<bool[]>();
 
+		private Queue<ushort[]> _ushortBufferCache = new Queue<ushort[]>();
+
 		private object _queueLock = new object();
 
 		public SetFactory(int size)
@@ -18,7 +20,46 @@ namespace Terraria.ID
 			this._size = size;
 		}
 
-		public bool[] CreateBoolSet(params int[] types)
+        #region 1.3.1
+		protected ushort[] GetUshortBuffer()
+		{
+			ushort[] result;
+			lock (this._queueLock)
+			{
+				if (this._ushortBufferCache.Count == 0)
+				{
+					result = new ushort[this._size];
+				}
+				else
+				{
+					result = this._ushortBufferCache.Dequeue();
+				}
+			}
+			return result;
+		}
+
+		public ushort[] CreateUshortSet(ushort defaultState, params ushort[] inputs)
+		{
+			if (inputs.Length % 2 != 0)
+			{
+				throw new Exception("You have a bad length for inputs on CreateArraySet");
+			}
+			ushort[] ushortBuffer = this.GetUshortBuffer();
+			for (int i = 0; i < ushortBuffer.Length; i++)
+			{
+				ushortBuffer[i] = defaultState;
+			}
+			for (int j = 0; j < inputs.Length; j += 2)
+			{
+				ushortBuffer[(int)inputs[j]] = inputs[j + 1];
+			}
+			return ushortBuffer;
+		}
+
+        #endregion
+
+
+        public bool[] CreateBoolSet(params int[] types)
 		{
 			return this.CreateBoolSet(false, types);
 		}

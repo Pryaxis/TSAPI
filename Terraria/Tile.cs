@@ -342,6 +342,10 @@ namespace Terraria
 				{
 					return false;
 				}
+				if (this.wire4() != compTile.wire4())
+				{
+					return false;
+				}
 			}
 			else if (this.bTileHeader != compTile.bTileHeader)
 			{
@@ -629,5 +633,25 @@ namespace Terraria
 			}
 			this.sTileHeader = (short)(this.sTileHeader & 65023);
 		}
-	}
+
+        #region 1.3.1
+
+		public bool wire4()
+		{
+			return (this.bTileHeader & 128) == 128;
+		}
+
+		// Token: 0x060005FE RID: 1534 RVA: 0x0004F9CF File Offset: 0x0004DBCF
+		public void wire4(bool wire4)
+		{
+			if (wire4)
+			{
+				this.bTileHeader |= 128;
+				return;
+			}
+			this.bTileHeader &= 127;
+		}
+        #endregion
+
+    }
 }
