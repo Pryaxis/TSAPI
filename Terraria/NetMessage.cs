@@ -413,6 +413,7 @@ namespace Terraria
 								b2 = tile.wallColor();
 							}
 							bb11 += (byte) (tile.slope() << 4);
+							bb11[7] = tile.wire4();
 							writer.Write(bb10);
 							writer.Write(bb11);
 							if (b > 0)
@@ -550,15 +551,16 @@ namespace Terraria
 					writer.Write((byte) number2);
 					break;
 				case 25:
+				case 107:
 					if (remoteClient == -1
 						&& ServerApi.Hooks.InvokeServerBroadcast(ref text, ref number2, ref number3, ref number4))
 					{
 						return;
 					}
-					writer.Write((byte) number);
-					writer.Write((byte) number2);
-					writer.Write((byte) number3);
-					writer.Write((byte) number4);
+					writer.Write((byte)number);
+					writer.Write((byte)number2);
+					writer.Write((byte)number3);
+					writer.Write((byte)number4);
 					writer.Write(text);
 					break;
 				case 26:
@@ -959,7 +961,7 @@ namespace Terraria
 					writer.Write(flag2);
 					if (flag2)
 					{
-						TileEntity.Write(writer, TileEntity.ByID[number]);
+						TileEntity.Write(writer, TileEntity.ByID[number], true);
 					}
 					break;
 				}
@@ -1040,7 +1042,7 @@ namespace Terraria
 					Item item5 = Main.player[(int) number4].inventory[(int) number3];
 					writer.Write((short) item5.netID);
 					writer.Write(item5.prefix);
-					writer.Write(item5.stack);
+					writer.Write((short) item5.stack);
 					break;
 				}
 				case 91:
@@ -1119,6 +1121,39 @@ namespace Terraria
 					writer.Write(number5);
 					writer.Write((byte) number6);
 					break;
+				case 105:
+					writer.Write((short) number);
+					writer.Write((short) number2);
+					writer.Write(number3 == 1f);
+					break;
+				case 106:
+					{
+						// Needs xna export
+						HalfVector2 halfVector = new HalfVector2((float) number, number2);
+						writer.Write(halfVector.PackedValue);
+						break;
+					}
+				case 108:
+					writer.Write((short) number);
+					writer.Write(number2);
+					writer.Write((short) number3);
+					writer.Write((short) number4);
+					writer.Write((short) number5);
+					writer.Write((short) number6);
+					writer.Write((byte) number7);
+					break;
+				case 109:
+					writer.Write((short) number);
+					writer.Write((short) number2);
+					writer.Write((short) number3);
+					writer.Write((short) number4);
+					writer.Write((byte) number5);
+					break;
+				case 110:
+					writer.Write((short) number);
+					writer.Write((short) number2);
+					writer.Write((byte) number3);
+					break;
 			}
 			int num19 = (int) writer.BaseStream.Position;
 			writer.BaseStream.Position = position;
@@ -1142,6 +1177,8 @@ namespace Terraria
 								NetMessage.buffer[num20].spamCount++;
 								Main.txMsg++;
 								Main.txData += num19;
+								Main.txMsgType[msgType]++;
+								Main.txDataType[msgType] += num19;
 
 								Netplay.Clients[num20].Socket.AsyncSend(packetContents, 0, num19,
 									new SocketSendCallback(Netplay.Clients[num20].ServerWriteCallBack), null);
@@ -1169,6 +1206,8 @@ namespace Terraria
 								NetMessage.buffer[num21].spamCount++;
 								Main.txMsg++;
 								Main.txData += num19;
+								Main.txMsgType[msgType]++;
+								Main.txDataType[msgType] += num19;
 
 								Netplay.Clients[num21].Socket.AsyncSend(packetContents, 0, num19,
 									new SocketSendCallback(Netplay.Clients[num21].ServerWriteCallBack), null);
@@ -1220,6 +1259,8 @@ namespace Terraria
 									NetMessage.buffer[num22].spamCount++;
 									Main.txMsg++;
 									Main.txData += num19;
+									Main.txMsgType[msgType]++;
+									Main.txDataType[msgType] += num19;
 
 									Netplay.Clients[num22].Socket.AsyncSend(packetContents, 0, num19,
 										new SocketSendCallback(Netplay.Clients[num22].ServerWriteCallBack), null);
@@ -1273,8 +1314,10 @@ namespace Terraria
 									NetMessage.buffer[num23].spamCount++;
 									Main.txMsg++;
 									Main.txData += num19;
+									Main.txMsgType[msgType]++;
+									Main.txDataType[msgType] += num19;
 
-										Netplay.Clients[num23].Socket.AsyncSend(packetContents, 0, num19,
+									Netplay.Clients[num23].Socket.AsyncSend(packetContents, 0, num19,
 											new SocketSendCallback(Netplay.Clients[num23].ServerWriteCallBack), null);
 								}
 								catch (Exception ex)
@@ -1300,6 +1343,8 @@ namespace Terraria
 								NetMessage.buffer[num24].spamCount++;
 								Main.txMsg++;
 								Main.txData += num19;
+								Main.txMsgType[msgType]++;
+								Main.txDataType[msgType] += num19;
 
 								Netplay.Clients[num24].Socket.AsyncSend(packetContents, 0, num19,
 									new SocketSendCallback(Netplay.Clients[num24].ServerWriteCallBack), null);
@@ -1353,7 +1398,8 @@ namespace Terraria
 									NetMessage.buffer[num25].spamCount++;
 									Main.txMsg++;
 									Main.txData += num19;
-
+									Main.txMsgType[msgType]++;
+									Main.txDataType[msgType] += num19;
 
 									Netplay.Clients[num25].Socket.AsyncSend(packetContents, 0, num19,
 										new SocketSendCallback(Netplay.Clients[num25].ServerWriteCallBack), null);
@@ -1383,6 +1429,8 @@ namespace Terraria
 								NetMessage.buffer[num26].spamCount++;
 								Main.txMsg++;
 								Main.txData += num19;
+								Main.txMsgType[msgType]++;
+								Main.txDataType[msgType] += num19;
 
 								Netplay.Clients[num26].Socket.AsyncSend(packetContents, 0, num19,
 									new SocketSendCallback(Netplay.Clients[num26].ServerWriteCallBack), null);
@@ -1406,6 +1454,8 @@ namespace Terraria
 					NetMessage.buffer[remoteClient].spamCount++;
 					Main.txMsg++;
 					Main.txData += num19;
+					Main.txMsgType[msgType]++;
+					Main.txDataType[msgType] += num19;
 
 					Netplay.Clients[remoteClient].Socket.AsyncSend(packetContents, 0, num19,
 						new SocketSendCallback(Netplay.Clients[remoteClient].ServerWriteCallBack), null);
@@ -1419,79 +1469,97 @@ namespace Terraria
 #endif
 				}
 			}
+			// IL_2D9B:
+			if (Main.verboseNetplay)
+			{
+				for (int num27 = 0; num27 < num19; num27++)
+				{
+				}
+				for (int num28 = 0; num28 < num19; num28++)
+				{
+					byte arg_2DC7_0 = buffer[num].writeBuffer[num28];
+				}
+			}
+
+			buffer[num].writeLocked = false;
+
+			if (msgType == 2 && Main.netMode == 2)
+			{
+				Netplay.Clients[num].PendingTermination = true;
+			}
 		}
 
 		public static int CompressTileBlock(int xStart, int yStart, short width, short height, byte[] buffer, int bufferStart)
 		{
-            //int result;
+			//int result;
 
-            //using (MemoryStream ms = new MemoryStream(buffer))
-            //{
-            //    using (DeflateStream ds = new DeflateStream(ms, CompressionMode.Compress, leaveOpen: true))
-            //    using (BinaryWriter binaryWriter = new BinaryWriter(ds))
-            //    {
-            //        binaryWriter.Write(xStart);
-            //        binaryWriter.Write(yStart);
-            //        binaryWriter.Write(width);
-            //        binaryWriter.Write(height);
+			//using (MemoryStream ms = new MemoryStream(buffer))
+			//{
+			//    using (DeflateStream ds = new DeflateStream(ms, CompressionMode.Compress, leaveOpen: true))
+			//    using (BinaryWriter binaryWriter = new BinaryWriter(ds))
+			//    {
+			//        binaryWriter.Write(xStart);
+			//        binaryWriter.Write(yStart);
+			//        binaryWriter.Write(width);
+			//        binaryWriter.Write(height);
 
-            //        NetMessage.CompressTileBlock_Inner(binaryWriter, xStart, yStart, width, height);
+			//        NetMessage.CompressTileBlock_Inner(binaryWriter, xStart, yStart, width, height);
 
-            //        ds.Flush();
-            //    }
+			//        ds.Flush();
+			//    }
 
-            //    result = (int)ms.Position;
-            //}
+			//    result = (int)ms.Position;
+			//}
 
-            //return result;
+			//return result;
 
-            int result;
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream))
-                {
-                    binaryWriter.Write(xStart);
-                    binaryWriter.Write(yStart);
-                    binaryWriter.Write(width);
-                    binaryWriter.Write(height);
-                    NetMessage.CompressTileBlock_Inner(binaryWriter, xStart, yStart, (int)width, (int)height);
-                    int num = buffer.Length;
-                    if ((long)bufferStart + memoryStream.Length > (long)num)
-                    {
-                        result = (int)((long)(num - bufferStart) + memoryStream.Length);
-                    }
-                    else
-                    {
-                        memoryStream.Position = 0L;
-                        MemoryStream memoryStream2 = new MemoryStream();
-                        using (DeflateStream deflateStream = new DeflateStream(memoryStream2, CompressionMode.Compress, true))
-                        {
-                            memoryStream.CopyTo(deflateStream);
-                            deflateStream.Flush();
-                            deflateStream.Close();
-                            deflateStream.Dispose();
-                        }
-                        if (memoryStream.Length <= memoryStream2.Length)
-                        {
-                            memoryStream.Position = 0L;
-                            buffer[bufferStart] = 0;
-                            bufferStart++;
-                            memoryStream.Read(buffer, bufferStart, (int)memoryStream.Length);
-                            result = (int)memoryStream.Length + 1;
-                        }
-                        else
-                        {
-                            memoryStream2.Position = 0L;
-                            buffer[bufferStart] = 1;
-                            bufferStart++;
-                            memoryStream2.Read(buffer, bufferStart, (int)memoryStream2.Length);
-                            result = (int)memoryStream2.Length + 1;
-                        }
-                    }
-                }
-            }
-            return result;
-        }
+			int result;
+			using (MemoryStream memoryStream = new MemoryStream())
+			{
+				using (BinaryWriter binaryWriter = new BinaryWriter(memoryStream))
+				{
+					binaryWriter.Write(xStart);
+					binaryWriter.Write(yStart);
+					binaryWriter.Write(width);
+					binaryWriter.Write(height);
+					CompressTileBlock_Inner(binaryWriter, xStart, yStart, (int)width, (int)height);
+					int num = buffer.Length;
+					if ((long)bufferStart + memoryStream.Length > (long)num)
+					{
+						result = (int)((long)(num - bufferStart) + memoryStream.Length);
+					}
+					else
+					{
+						memoryStream.Position = 0L;
+						MemoryStream memoryStream2 = new MemoryStream();
+						using (DeflateStream deflateStream = new DeflateStream(memoryStream2, CompressionMode.Compress, true))
+						{
+							memoryStream.CopyTo(deflateStream);
+							deflateStream.Flush();
+							deflateStream.Close();
+							deflateStream.Dispose();
+						}
+						if (memoryStream.Length <= memoryStream2.Length)
+						{
+							memoryStream.Position = 0L;
+							buffer[bufferStart] = 0;
+							bufferStart++;
+							memoryStream.Read(buffer, bufferStart, (int)memoryStream.Length);
+							result = (int)memoryStream.Length + 1;
+						}
+						else
+						{
+							memoryStream2.Position = 0L;
+							buffer[bufferStart] = 1;
+							bufferStart++;
+							memoryStream2.Read(buffer, bufferStart, (int)memoryStream2.Length);
+							result = (int)memoryStream2.Length + 1;
+						}
+					}
+				}
+			}
+			return result;
+		}
 
 		public static void CompressTileBlock_Inner(BinaryWriter writer, int xStart, int yStart, int width, int height)
 		{
@@ -1784,7 +1852,7 @@ namespace Terraria
 					int yStart = binaryReader.ReadInt32();
 					short width = binaryReader.ReadInt16();
 					short height = binaryReader.ReadInt16();
-					NetMessage.DecompressTileBlock_Inner(binaryReader, xStart, yStart, (int)width, (int)height);
+					DecompressTileBlock_Inner(binaryReader, xStart, yStart, (int)width, (int)height);
 				}
 			}
 		}
@@ -1987,91 +2055,92 @@ namespace Terraria
 			}
 		}
 		public static void RecieveBytes(byte[] bytes, int streamLength, int i = 256)
-        {
-			
-            try
-            {
-                lock (NetMessage.buffer[i])
-                {
-                    Buffer.BlockCopy(bytes, 0, NetMessage.buffer[i].readBuffer, NetMessage.buffer[i].totalData, streamLength);
-                    NetMessage.buffer[i].totalData += streamLength;
-                    NetMessage.buffer[i].checkBytes = true;
-                }
-            }
-            catch
-            {
-                if (Main.netMode == 1)
-                {
-                    Main.menuMode = 15;
-                    Main.statusText = "Bad header lead to a read buffer overflow.";
-                    Netplay.disconnect = true;
-                }
-                else
-                {
-                    Netplay.Clients[i].PendingTermination = true;
-                }
-            }
-			
-        }
+		{
 
-        internal static string DumpPacket(byte[] buffer, int start, int len)
-        {
-            StringBuilder sb = new StringBuilder("[");
+			try
+			{
+				lock (buffer[i])
+				{
+					Buffer.BlockCopy(bytes, 0, buffer[i].readBuffer, buffer[i].totalData, streamLength);
+					buffer[i].totalData += streamLength;
+					buffer[i].checkBytes = true;
+				}
+			}
+			catch
+			{
+				if (Main.netMode == 1)
+				{
+					Main.menuMode = 15;
+					Main.statusText = "Bad header lead to a read buffer overflow.";
+					Netplay.disconnect = true;
+				}
+				else
+				{
+					Netplay.Clients[i].PendingTermination = true;
+				}
+			}
 
-            for(int i = start; i < start + len; i++)
-            {
-                sb.Append(buffer[i].ToString("X2"));
+		}
 
-                if (i < start + len - 1)
-                {
-                    sb.Append(" ");
-                }
-            }
+		internal static string DumpPacket(byte[] buffer, int start, int len)
+		{
+			StringBuilder sb = new StringBuilder("[");
 
-            sb.Append("]");
+			for (int i = start; i < start + len; i++)
+			{
+				sb.Append(buffer[i].ToString("X2"));
 
-            return sb.ToString();
-        }
+				if (i < start + len - 1)
+				{
+					sb.Append(" ");
+				}
+			}
+
+			sb.Append("]");
+
+			return sb.ToString();
+		}
 
 		public static void CheckBytes(int bufferIndex = 256)
 		{
-			lock (NetMessage.buffer[bufferIndex])
+			lock (buffer[bufferIndex])
 			{
 				int num = 0;
 				int i = NetMessage.buffer[bufferIndex].totalData;
-                string packetDump = null;
+				string packetDump = null;
 
 				while (i >= 2)
 				{
-					int num2 = (int)BitConverter.ToUInt16(NetMessage.buffer[bufferIndex].readBuffer, num);
+					int num2 = (int)BitConverter.ToUInt16(buffer[bufferIndex].readBuffer, num);
 					if (i < num2)
 					{
 						break;
 					}
 
-                    try
-                    {
-                        NetMessage.buffer[bufferIndex].GetData(num + 2, num2 - 2);
-                    }
-                    catch (Exception ex)
-                    {
-                        ServerApi.LogWriter.ServerWriteLine("Server could not process a packet because it was corrupt.", System.Diagnostics.TraceLevel.Warning);
-                        ServerApi.LogWriter.ServerWriteLine(ex.ToString(), System.Diagnostics.TraceLevel.Warning);
+					try
+					{
+						int num3;
+						buffer[bufferIndex].GetData(num + 2, num2 - 2, out num3);
+						i -= num2;
+						num += num2;
+					}
+					catch (Exception ex)
+					{
+						ServerApi.LogWriter.ServerWriteLine("Server could not process a packet because it was corrupt.", System.Diagnostics.TraceLevel.Warning);
+						ServerApi.LogWriter.ServerWriteLine(ex.ToString(), System.Diagnostics.TraceLevel.Warning);
 
-                        try
-                        {
-                            packetDump = DumpPacket(NetMessage.buffer[bufferIndex].readBuffer, num + 2, num2 - 2);
-                            ServerApi.LogWriter.ServerWriteLine("Packet contents: " + packetDump, System.Diagnostics.TraceLevel.Warning);
-                        } 
-                        catch
-                        {
-                        }
-                    }
-                    finally
-                    {
-                        i -= num2;
-                        num += num2;
-                    }
+						try
+						{
+							packetDump = DumpPacket(buffer[bufferIndex].readBuffer, num + 2, num2 - 2);
+							ServerApi.LogWriter.ServerWriteLine("Packet contents: " + packetDump, System.Diagnostics.TraceLevel.Warning);
+						}
+						catch
+						{
+						}
+
+						i = 0;
+						num = 0;
+					}
 				}
 
 				if (i != NetMessage.buffer[bufferIndex].totalData)
@@ -2087,7 +2156,7 @@ namespace Terraria
 		}
 		public static void BootPlayer(int plr, string msg)
 		{
-			NetMessage.SendData(2, plr, -1, msg, 0, 0f, 0f, 0f, 0, 0, 0);
+			SendData(2, plr, -1, msg, 0, 0f, 0f, 0f, 0, 0, 0);
 		}
 		public static void SendObjectPlacment(int whoAmi, int x, int y, int type, int style, int alternative, int random, int direction)
 		{
@@ -2103,11 +2172,11 @@ namespace Terraria
 				remoteClient = whoAmi;
 				ignoreClient = -1;
 			}
-			NetMessage.SendData(79, remoteClient, ignoreClient, "", x, (float)y, (float)type, (float)style, alternative, random, direction);
+			SendData(79, remoteClient, ignoreClient, "", x, (float)y, (float)type, (float)style, alternative, random, direction);
 		}
 		public static void SendTemporaryAnimation(int whoAmi, int animationType, int tileType, int xCoord, int yCoord)
 		{
-			NetMessage.SendData(77, whoAmi, -1, "", animationType, (float)tileType, (float)xCoord, (float)yCoord, 0, 0, 0);
+			SendData(77, whoAmi, -1, "", animationType, (float)tileType, (float)xCoord, (float)yCoord, 0, 0, 0);
 		}
 		public static void SendTileRange(int whoAmi, int tileX, int tileY, int xSize, int ySize)
 		{
@@ -2120,18 +2189,18 @@ namespace Terraria
 			{
 				number = xSize;
 			}
-			NetMessage.SendData(20, whoAmi, -1, "", number, (float)tileX, (float)tileY, 0f, 0, 0, 0);
+			SendData(20, whoAmi, -1, "", number, (float)tileX, (float)tileY, 0f, 0, 0, 0);
 		}
 		public static void SendTileSquare(int whoAmi, int tileX, int tileY, int size)
 		{
 			int num = (size - 1) / 2;
-			NetMessage.SendData(20, whoAmi, -1, "", size, (float)(tileX - num), (float)(tileY - num), 0f, 0, 0, 0);
+			SendData(20, whoAmi, -1, "", size, (float)(tileX - num), (float)(tileY - num), 0f, 0, 0, 0);
 		}
 		public static void SendTravelShop()
 		{
 			if (Main.netMode == 2)
 			{
-				NetMessage.SendData(72, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
+				SendData(72, -1, -1, "", 0, 0f, 0f, 0f, 0, 0, 0);
 			}
 		}
 		public static void SendAnglerQuest()
@@ -2144,7 +2213,7 @@ namespace Terraria
 			{
 				if (Netplay.Clients[i].State == 10)
 				{
-					NetMessage.SendData(74, i, -1, Main.player[i].name, Main.anglerQuest, 0f, 0f, 0f, 0, 0, 0);
+					SendData(74, i, -1, Main.player[i].name, Main.anglerQuest, 0f, 0f, 0f, 0, 0, 0);
 				}
 			}
 		}
@@ -2167,7 +2236,7 @@ namespace Terraria
 						int num2 = 150;
 						for (int i = num; i < num + 150; i += num2)
 						{
-							NetMessage.SendData(10, whoAmi, -1, "", number, i, 200, num2, 0, 0, 0);
+							SendData(10, whoAmi, -1, "", number, (float)i, 200, (float)num2, 0, 0, 0);
 						}
 						for (int j = 0; j < 200; j++)
 						{
@@ -2177,7 +2246,7 @@ namespace Terraria
 								int sectionY2 = Netplay.GetSectionY((int)(Main.npc[j].position.Y / 16f));
 								if (sectionX2 == sectionX && sectionY2 == sectionY)
 								{
-									NetMessage.SendData(23, whoAmi, -1, "", j, 0f, 0f, 0f, 0, 0, 0);
+									SendData(23, whoAmi, -1, "", j, 0f, 0f, 0f, 0, 0, 0);
 								}
 							}
 						}
@@ -2200,11 +2269,11 @@ namespace Terraria
 
 			if (Main.motd == "")
 			{
-				NetMessage.SendData(25, plr, -1, Lang.mp[18] + " " + Main.worldName + "!", 255, 255f, 240f, 20f, 0, 0, 0);
+				SendData(25, plr, -1, Lang.mp[18] + " " + Main.worldName + "!", 255, 255f, 240f, 20f, 0, 0, 0);
 			}
 			else
 			{
-				NetMessage.SendData(25, plr, -1, Main.motd, 255, 255f, 240f, 20f, 0, 0, 0);
+				SendData(25, plr, -1, Main.motd, 255, 255f, 240f, 20f, 0, 0, 0);
 			}
 			string text = "";
 			for (int i = 0; i < 255; i++)
@@ -2221,24 +2290,24 @@ namespace Terraria
 					}
 				}
 			}
-			NetMessage.SendData(25, plr, -1, "Current players: " + text + ".", 255, 255f, 240f, 20f, 0, 0, 0);
+			SendData(25, plr, -1, "Current players: " + text + ".", 255, 255f, 240f, 20f, 0, 0, 0);
 		}
 		public static void sendWater(int x, int y)
 		{
 			if (Main.netMode == 1)
 			{
-				NetMessage.SendData(48, -1, -1, "", x, (float)y, 0f, 0f, 0, 0, 0);
+				SendData(48, -1, -1, "", x, (float)y, 0f, 0f, 0, 0, 0);
 				return;
 			}
 			for (int i = 0; i < 256; i++)
 			{
-				if ((NetMessage.buffer[i].broadcast || Netplay.Clients[i].State >= 3) && Netplay.Clients[i].Socket.IsConnected())
+				if ((buffer[i].broadcast || Netplay.Clients[i].State >= 3) && Netplay.Clients[i].Socket.IsConnected())
 				{
 					int num = x / 200;
 					int num2 = y / 150;
 					if (Netplay.Clients[i].TileSections[num, num2])
 					{
-						NetMessage.SendData(48, i, -1, "", x, (float)y, 0f, 0f, 0, 0, 0);
+						SendData(48, i, -1, "", x, (float)y, 0f, 0f, 0, 0, 0);
 					}
 				}
 			}
@@ -2262,46 +2331,46 @@ namespace Terraria
 
 					if (sendPlayerActive)
 					{
-						NetMessage.SendData(14, -1, i, "", i, (float) num, 0f, 0f, 0, 0, 0);
+						SendData(14, -1, i, "", i, (float) num, 0f, 0f, 0, 0, 0);
 					}
 
 					if (sendPlayerInfo)
 					{
-						NetMessage.SendData(4, -1, i, Main.player[i].name, i, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(13, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(16, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(30, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(45, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(42, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
-						NetMessage.SendData(50, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						SendData(4, -1, i, Main.player[i].name, i, 0f, 0f, 0f, 0, 0, 0);
+						SendData(13, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						SendData(16, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						SendData(30, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						SendData(45, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						SendData(42, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
+						SendData(50, -1, i, "", i, 0f, 0f, 0f, 0, 0, 0);
 					}
 
 					if (sendInventory)
 					{
 						for (int j = 0; j < 1 /*59*/; j++)
 						{
-							NetMessage.SendData(5, -1, i, Main.player[i].inventory[j].name, i, (float) j,
+							SendData(5, -1, i, Main.player[i].inventory[j].name, i, (float) j,
 								(float) Main.player[i].inventory[j].prefix, 0f, 0, 0, 0);
 						}
 						for (int k = 0; k < Main.player[i].armor.Length; k++)
 						{
-							NetMessage.SendData(5, -1, i, Main.player[i].armor[k].name, i, (float) (59 + k),
+							SendData(5, -1, i, Main.player[i].armor[k].name, i, (float) (59 + k),
 								(float) Main.player[i].armor[k].prefix, 0f, 0, 0, 0);
 						}
 						for (int l = 0; l < Main.player[i].dye.Length; l++)
 						{
-							NetMessage.SendData(5, -1, i, Main.player[i].dye[l].name, i, (float) (58 + Main.player[i].armor.Length + 1 + l),
+							SendData(5, -1, i, Main.player[i].dye[l].name, i, (float) (58 + Main.player[i].armor.Length + 1 + l),
 								(float) Main.player[i].dye[l].prefix, 0f, 0, 0, 0);
 						}
 						for (int m = 0; m < Main.player[i].miscEquips.Length; m++)
 						{
-							NetMessage.SendData(5, -1, i, "", i,
+							SendData(5, -1, i, "", i,
 								(float) (58 + Main.player[i].armor.Length + Main.player[i].dye.Length + 1 + m),
 								(float) Main.player[i].miscEquips[m].prefix, 0f, 0, 0, 0);
 						}
 						for (int n = 0; n < Main.player[i].miscDyes.Length; n++)
 						{
-							NetMessage.SendData(5, -1, i, "", i,
+							SendData(5, -1, i, "", i,
 								(float)
 									(58 + Main.player[i].armor.Length + Main.player[i].dye.Length + Main.player[i].miscEquips.Length + 1 + n),
 								(float) Main.player[i].miscDyes[n].prefix, 0f, 0, 0, 0);
@@ -2315,7 +2384,7 @@ namespace Terraria
 				else
 				{
 					num = 0;
-					NetMessage.SendData(14, -1, i, "", i, (float)num, 0f, 0f, 0, 0, 0);
+					SendData(14, -1, i, "", i, (float)num, 0f, 0f, 0, 0, 0);
 					if (Netplay.Clients[i].IsAnnouncementCompleted)
 					{
 						Netplay.Clients[i].IsAnnouncementCompleted = false;
@@ -2337,14 +2406,14 @@ namespace Terraria
 					{
 						num6 = 1;
 					}
-					NetMessage.SendData(60, -1, -1, "", num5, (float)Main.npc[num5].homeTileX, (float)Main.npc[num5].homeTileY, (float)num6, 0, 0, 0);
+					SendData(60, -1, -1, "", num5, (float)Main.npc[num5].homeTileX, (float)Main.npc[num5].homeTileY, (float)num6, 0, 0, 0);
 				}
 			}
 			if (flag2)
 			{
-				NetMessage.SendTravelShop();
+				SendTravelShop();
 			}
-			NetMessage.SendAnglerQuest();
+			SendAnglerQuest();
 			if (Main.autoShutdown && !flag)
 			{
 				WorldFile.saveWorld();
